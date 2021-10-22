@@ -1,0 +1,21 @@
+{
+  "name": "node-emgucv-autoit-generator",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build.js",
+    "version": "node scripts/version.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^3.2.0",
+    "eol": "^0.9.1",
+    "fs-explorer": "^1.4.2",
+    "mkdirp": "^1.0.4",
+    "node-autoit-binding-utils": "git+ssh://git@github.com:smbape/node-autoit-binding-utils.git",
+    "uuid": "^8.3.2"
+  },
+  "description": ""
+}

@@ -1,0 +1,7 @@
+/autoit-opencv-*-com-v*.7z
+/node_modules
+/opencv-*-vc*
+/*.sublime-workspace
+BackUp
+generated
+*build_x64
