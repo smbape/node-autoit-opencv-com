@@ -39,8 +39,8 @@ _OpenCV_Unregister_And_Close()
 
 ```sh
 # get the source files
-git clone https://github.com/smbape/node-emgucv-autoit-generator
-cd node-emgucv-autoit-generator
+git clone https://github.com/smbape/node-autoit-opencv-com
+cd node-autoit-opencv-com
 
 # download opencv-4.5.4
 curl -L 'https://github.com/opencv/opencv/releases/download/4.5.4/opencv-4.5.4-vc14_vc15.exe' -o opencv-4.5.4-vc14_vc15.exe
@@ -260,8 +260,8 @@ In Git BASH, excute the following commands
 
 ```sh
 # get the source files
-git clone https://github.com/smbape/node-emgucv-autoit-generator
-cd node-emgucv-autoit-generator
+git clone https://github.com/smbape/node-autoit-opencv-com
+cd node-autoit-opencv-com
 
 # Install nodejs dependencies
 npm ci
