@@ -1,7 +1,6 @@
 LIBRARY
 
 EXPORTS
-    DllAtlSetPerUserRegistration        PRIVATE
     DllCanUnloadNow                     PRIVATE
     DllGetClassObject                   PRIVATE
     DllRegisterServer                   PRIVATE

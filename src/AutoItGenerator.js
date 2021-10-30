@@ -76,6 +76,10 @@ class AutoItGenerator {
         const files = new Map();
         const libs = [];
         const resources = [];
+        const manifest = {
+            files: [],
+            proxies: [],
+        };
 
         for (const fqn of this.classes.keys()) {
             const is_test = options.test && !options.notest.has(fqn);
@@ -84,7 +88,6 @@ class AutoItGenerator {
             const cotype = coclass.getClassName();
             const is_idl_class = !coclass.noidl && (coclass.is_class || coclass.is_struct);
 
-            // TODO : add base properties and methods
             const signatures = this.getSignatures(coclass);
 
             for (const pfqn of coclass.parents) {
@@ -233,7 +236,11 @@ class AutoItGenerator {
                             }`.replace(/^ {28}/mg, "")
                         );
                     } else {
-                        const cvt = this.convertToIdl(type, `${ is_static ? `${ fqn }::${ propname }` : "this->__self->get()->" }${ propname }`, propidltype, "pVal");
+                        const cvt = this.convertToIdl(
+                            type, `${ is_static ? `${ fqn }::${ propname }` : "this->__self->get()->" }${ propname }`,
+                            propidltype, "pVal",
+                            modifiers
+                        );
 
                         impl.push(`
                             STDMETHODIMP C${ cotype }::get_${ idlname }(${ propidltype }* pVal) {
@@ -460,7 +467,9 @@ class AutoItGenerator {
                             }
 
                             cvt_body += `
-                                if (V_VT(${ in_val }) == VT_DISPATCH) {
+                                if (V_VT(${ in_val }) == VT_NULL) {
+                                    // Nothing to do
+                                } else if (V_VT(${ in_val }) == VT_DISPATCH) {
                                     auto obj = dynamic_cast<IVariantArray${ is_vector ? "s" : "" }*>(getRealIDispatch(${ in_val }));
                                     if (!obj) {
                                         printf("unable to read argument ${ j } of type %hu into ${ cpptype }\\n", V_VT(${ in_val }));
@@ -668,7 +677,15 @@ class AutoItGenerator {
                         callee = `${ callee }->${ path[path.length - 1] }`;
                     }
 
-                    callee = `${ callee }(${ callargs.join(", ") })`;
+                    let expr = `(${ callargs.join(", ") })`;
+
+                    for (const modifier of func_modifiers) {
+                        if (modifier.startsWith("/Expr=")) {
+                            expr = modifier.slice("/Expr=".length);
+                        }
+                    }
+
+                    callee = `${ callee }${ expr }`;
 
                     if (is_constructor) {
                         callee = `cv::Ptr<${ fqn }>(new ${ callee })`;
@@ -841,7 +858,7 @@ class AutoItGenerator {
                     impl.push(`
                         STDMETHODIMP C${ cotype }::${ fname }(${ implargs.join(", ") }) {
                             ${ body.join("\n").replace(/argument (\d+)/g, (match, j) => `argument ${ j }`).trim().split("\n").join(`\n${ " ".repeat(28) }`) }
-                            ${ has_override ? "printf(\"Overload resolution failed\\n\");" : "" }
+                            ${ maxargc !== 0 ? "printf(\"Overload resolution failed\\n\");" : "" }
                             return hr;
                         }`.replace(/^ {24}/mg, "")
                     );
@@ -875,6 +892,25 @@ class AutoItGenerator {
 
             // converter
             conversion.convert(coclass, iglobal, impl);
+
+            manifest.files.push(`
+                <comClass
+                    clsid="{${ coclass.clsid }}"
+                    threadingModel="Apartment"
+                    tlbid="{${ LIB_UID }}"
+                    progid="${ APP_NAME }.${ coclass.progid }"
+                    description="${ APP_NAME }.${ coclass.progid }" >
+                    <progid>${ APP_NAME }.${ coclass.progid }.${ VERSION_MAJOR }</progid>
+                </comClass>
+            `.replace(/^ {16}/mg, "").trim());
+
+            manifest.proxies.push(`
+                <comInterfaceExternalProxyStub
+                    name="I${ cotype }"
+                    iid="{${ coclass.iid }}"
+                    tlbid="{${ LIB_UID }}"
+                    proxyStubClsid32="{00020424-0000-0000-C000-000000000046}" />
+            `.replace(/^ {16}/mg, "").trim());
 
             const hdr_id = `_${ coclass.getFilename().toUpperCase() }_OBJECT_`;
 
@@ -1324,7 +1360,7 @@ class AutoItGenerator {
             const expansionRe = new RegExp(`\\b(?:${ Array.from(values).map(([name, value]) => name.split(".").pop()).join("|") })\\b`, "g");
 
             const getVariableName = (prefix, vname) => {
-                return values.has(prefix + "." + vname) ? `$${ getPrefixVariableName(prefix) }_${ vname }` : vname;
+                return values.has(`${ prefix }.${ vname }`) ? `$${ getPrefixVariableName(prefix) }_${ vname }` : vname;
             };
 
             ename = path[path.length - 1];
@@ -1352,6 +1388,17 @@ class AutoItGenerator {
             #include "cv_interface.au3"
 
             ${ etext.split("\n").join(`\n${ " ".repeat(12) }`) }
+        `.replace(/^ {12}/mg, "").trim() }\n`);
+
+        files.set(sysPath.resolve(options.output, "..", "udf", "sxs.manifest"), `${ `
+            <?xml version="1.0" encoding="UTF-8"?>
+            <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+                <file name="E:\\development\\git\\node-autoit-opencv-com\\autoit-opencv-com\\build_x64\\Release\\autoit_opencv_com454.dll" hashalg="SHA1">
+                    ${ manifest.files.map(text => text.split("\n").join(`\n${ " ".repeat(20) }`)).join(`\n\n${ " ".repeat(20) }`) }
+                    <typelib tlbid="{${ LIB_UID }}" version="${ VERSION_MAJOR }.${ VERSION_MINOR }" helpdir="" flags="HASDISKIMAGE" />
+                </file>
+                ${ manifest.proxies.map(text => text.split("\n").join(`\n${ " ".repeat(16) }`)).join(`\n\n${ " ".repeat(16) }`) }
+            </assembly>
         `.replace(/^ {12}/mg, "").trim() }\n`);
 
         let vs_generate = false;
@@ -1750,7 +1797,13 @@ class AutoItGenerator {
         }
     }
 
-    convertToIdl(in_type, in_val, out_type, out_val, set_hr = false) {
+    convertToIdl(in_type, in_val, out_type, out_val, modifiers, set_hr = false) {
+        for (const modifier of modifiers) {
+            if (modifier.startsWith("/Cast=")) {
+                in_val = `${ modifier.slice("/Cast=".length) }(${ in_val })`;
+            }
+        }
+
         if (in_type === out_type) {
             const cvt = `*${ out_val } = ${ in_val };`;
             return set_hr ? cvt : `${ cvt }\nreturn S_OK;`;
@@ -1822,19 +1875,15 @@ class AutoItGenerator {
             return "VARIANT";
         }
 
-        if (IDL_TYPES.has(type)) {
-            return IDL_TYPES.get(type);
-        }
-
-        if (type.endsWith("*")) {
-            return this.getIDLType(type.slice(0, -1), coclass);
-        }
-
         for (const fqn of this.getTypes(type, coclass)) {
             if (this.enums.has(fqn)) {
                 const pos = fqn.lastIndexOf("::");
                 this.addDepency(coclass.fqn, fqn.slice(0, pos));
                 return "LONG";
+            }
+
+            if (/^cv::(?:Point|Rect|Scalar|Size|Vec)(?:\d[bifd])?$/.test(fqn)) {
+                return "VARIANT";
             }
 
             if (IDL_TYPES.has(fqn)) {
@@ -1845,6 +1894,10 @@ class AutoItGenerator {
                 this.addDepency(coclass.fqn, fqn);
                 return this.classes.get(fqn).getIDLType();
             }
+        }
+
+        if (type.endsWith("*")) {
+            return this.getIDLType(type.slice(0, -1), coclass);
         }
 
         return type.toUpperCase();
@@ -1861,7 +1914,7 @@ class AutoItGenerator {
 
         if (type.startsWith("tuple_")) {
             const types = type.slice("tuple_".length).split("_and_");
-            return `std::tuple<${ types.map(itype => this.getCppType(type, coclass)).join(", ") }>`;
+            return `std::tuple<${ types.map(itype => this.getCppType(itype, coclass)).join(", ") }>`;
         }
 
         if (type.startsWith("GArray_") || type.startsWith("GOpaque_")) {

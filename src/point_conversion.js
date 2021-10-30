@@ -14,6 +14,16 @@ module.exports = (header = [], impl = []) => {
                 return false;
             }
 
+            CComSafeArray<VARIANT> vArray;
+            vArray.Attach(V_ARRAY(in_val));
+            LONG lLower = vArray.GetLowerBound();
+            LONG lUpper = vArray.GetUpperBound();
+            vArray.Detach();
+
+            if (lUpper - lLower >= 2) {
+                return false;
+            }
+
             cv::Point_<_Tp> dummy;
             return SUCCEEDED(autoit_opencv_to(in_val, dummy));
         }`.replace(/^ {8}/mg, "")
@@ -37,6 +47,11 @@ module.exports = (header = [], impl = []) => {
 
             LONG lLower = vArray.GetLowerBound();
             LONG lUpper = vArray.GetUpperBound();
+
+            if (lUpper - lLower + 1 > 2) {
+                vArray.Detach();
+                return E_INVALIDARG;
+            }
 
             _Tp value;
 

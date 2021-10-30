@@ -52,36 +52,19 @@ Func _OpenCV_Close()
 	EndIf
 EndFunc   ;==>_OpenCV_Close
 
-Func _OpenCV_SetPerUserRegistration($user = True)
-	Local $hresult = _OpenCV_DllCall($h_autoit_opencv_com_dll, "long:cdecl", "DllAtlSetPerUserRegistration", "bool", $user)
-	If $hresult < 0 Then
-		ConsoleWriteError('!>Error: failed to SetPerUserRegistration(' & $user & ') ' & $hresult & @CRLF)
-		Return False
-	EndIf
-	Return True
-EndFunc   ;==>_OpenCV_SetPerUserRegistration
-
 Func _Opencv_Register($user = True)
-	If Not _OpenCV_SetPerUserRegistration($user) Then
-		Return False
-	EndIf
-
-	Local $hresult = _OpenCV_DllCall($h_autoit_opencv_com_dll, "long:cdecl", "DllRegisterServer")
+	Local $hresult = _OpenCV_DllCall($h_autoit_opencv_com_dll, "long:cdecl", "DllInstall", "bool", True, "wstr", $user ? "user" : "")
 	If $hresult < 0 Then
-		ConsoleWriteError('!>Error: DllRegisterServer ' & $hresult & @CRLF)
+		ConsoleWriteError('!>Error: DllInstall ' & $hresult & @CRLF)
 		Return False
 	EndIf
 	Return True
 EndFunc   ;==>_Opencv_Register
 
 Func _Opencv_Unregister($user = True)
-	If Not _OpenCV_SetPerUserRegistration($user) Then
-		Return False
-	EndIf
-
-	Local $hresult = _OpenCV_DllCall($h_autoit_opencv_com_dll, "long:cdecl", "DllUnregisterServer")
+	Local $hresult = _OpenCV_DllCall($h_autoit_opencv_com_dll, "long:cdecl", "DllInstall", "bool", False, "wstr", $user ? "user" : "")
 	If $hresult < 0 Then
-		ConsoleWriteError('!>Error: DllUnregisterServer ' & $hresult & @CRLF)
+		ConsoleWriteError('!>Error: DllInstall ' & $hresult & @CRLF)
 		Return False
 	EndIf
 	Return True
@@ -126,11 +109,17 @@ Func _OpenCV_PrintDLLError($error, $sFunction = "function")
 	ConsoleWriteError('!>Error: ' & $sMsg & @CRLF)
 EndFunc   ;==>_OpenCV_PrintDLLError
 
+
+; Array.from(Array(30).keys()).map(i => `$type${ i + 1 } = Default, $param${ i + 1 } = Default`).join(", ")
 Func _OpenCV_DllCall($dll, $return_type, $function, $type1 = Default, $param1 = Default, $type2 = Default, $param2 = Default, $type3 = Default, $param3 = Default, $type4 = Default, $param4 = Default, $type5 = Default, $param5 = Default, $type6 = Default, $param6 = Default, $type7 = Default, $param7 = Default, $type8 = Default, $param8 = Default, $type9 = Default, $param9 = Default, $type10 = Default, $param10 = Default, $type11 = Default, $param11 = Default, $type12 = Default, $param12 = Default, $type13 = Default, $param13 = Default, $type14 = Default, $param14 = Default, $type15 = Default, $param15 = Default, $type16 = Default, $param16 = Default, $type17 = Default, $param17 = Default, $type18 = Default, $param18 = Default, $type19 = Default, $param19 = Default, $type20 = Default, $param20 = Default, $type21 = Default, $param21 = Default, $type22 = Default, $param22 = Default, $type23 = Default, $param23 = Default, $type24 = Default, $param24 = Default, $type25 = Default, $param25 = Default, $type26 = Default, $param26 = Default, $type27 = Default, $param27 = Default, $type28 = Default, $param28 = Default, $type29 = Default, $param29 = Default, $type30 = Default, $param30 = Default)
 	Local $_aResult
 
 	_OpenCV_DebugMsg('Calling ' & $function)
 
+	; console.log(Array.from(Array(30).keys()).map(j => `
+	; Case ${ 5 + 2 * j }
+	;     $_aResult = Call("DllCall", $dll, $return_type, $function, ${ Array.from(Array(j + 1).keys()).map(i => `$type${ i + 1 }, $param${ i + 1 }`).join(", ") })
+	; `).join("\n"))
 	Switch @NumParams
 		Case 3
 			$_aResult = Call("DllCall", $dll, $return_type, $function)

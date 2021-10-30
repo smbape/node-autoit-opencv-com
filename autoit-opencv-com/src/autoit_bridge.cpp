@@ -245,15 +245,15 @@ const HRESULT autoit_opencv_out(VARIANT const* const& in_val, BSTR*& out_val) {
 
 const bool is_variant_number(VARIANT const* const& in_val) {
 	switch (V_VT(in_val)) {
+		case VT_I1:
 		case VT_I2:
 		case VT_I4:
-		case VT_I1:
+		case VT_I8:
+		case VT_INT:
 		case VT_UI1:
 		case VT_UI2:
 		case VT_UI4:
-		case VT_I8:
 		case VT_UI8:
-		case VT_INT:
 		case VT_UINT:
 			return true;
 		default:
@@ -271,6 +271,10 @@ const bool is_variant_scalar(VARIANT const* const& in_val) {
 }
 
 const bool is_array_from(VARIANT const* const& in_val, bool is_optional) {
+	if (V_VT(in_val) == VT_NULL) {
+		return true;
+	}
+
 	if (is_parameter_missing(in_val)) {
 		return is_optional;
 	}
@@ -283,6 +287,10 @@ const bool is_array_from(VARIANT const* const& in_val, bool is_optional) {
 }
 
 const bool is_arrays_from(VARIANT const* const& in_val, bool is_optional) {
+	if (V_VT(in_val) == VT_NULL) {
+		return true;
+	}
+
 	if (is_parameter_missing(in_val)) {
 		return is_optional;
 	}
@@ -532,6 +540,10 @@ const HRESULT autoit_opencv_to(VARIANT const* const& in_val, cv::flann::IndexPar
 				intVal = static_cast<int>(V_I8(&vvalue));
 				isInt = true;
 				break;
+			case VT_INT:
+				intVal = static_cast<int>(V_INT(&vvalue));
+				isInt = true;
+				break;
 			case VT_UI1:
 				intVal = static_cast<int>(V_UI1(&vvalue));
 				isInt = true;
@@ -546,10 +558,6 @@ const HRESULT autoit_opencv_to(VARIANT const* const& in_val, cv::flann::IndexPar
 				break;
 			case VT_UI8:
 				intVal = static_cast<int>(V_UI8(&vvalue));
-				isInt = true;
-				break;
-			case VT_INT:
-				intVal = static_cast<int>(V_INT(&vvalue));
 				isInt = true;
 				break;
 			case VT_UINT:

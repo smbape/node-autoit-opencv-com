@@ -6,9 +6,9 @@
 
 #include <File.au3>
 #include <Math.au3>
+#include <StaticConstants.au3>
 #include <WindowsConstants.au3>
 #include <WinAPI.au3>
-#include <StaticConstants.au3>
 
 Local Const $aDefaultFormBackground[4] = [0xF0, 0xF0, 0xF0, 0xFF]
 Local Const $aDefaultSearchPaths[2] = [1, "."]
@@ -123,81 +123,81 @@ Func _OpenCV_FindFiles($aParts, $sDir = Default, $iFlag = Default, $bReturnPath 
 EndFunc   ;==>_OpenCV_FindFiles
 
 Func _OpenCV_FindFile($sFile, $sFilter = Default, $sDir = Default, $iFlag = Default, $bReturnPath = Default, $aSearchPaths = Default)
-    If $sFilter == Default Then
-        $sFilter = ""
-    EndIf
+	If $sFilter == Default Then
+		$sFilter = ""
+	EndIf
 
-    If $sDir == Default Then
-        $sDir = @ScriptDir
-    EndIf
+	If $sDir == Default Then
+		$sDir = @ScriptDir
+	EndIf
 
-    If $aSearchPaths == Default Then
-        $aSearchPaths = $aDefaultSearchPaths
-    EndIf
+	If $aSearchPaths == Default Then
+		$aSearchPaths = $aDefaultSearchPaths
+	EndIf
 
-    _OpenCV_DebugMsg("_OpenCV_FindFile('" & $sFile & "', '" & $sDir & "')")
+	_OpenCV_DebugMsg("_OpenCV_FindFile('" & $sFile & "', '" & $sDir & "')")
 
-    Local $sFound = "", $sPath, $aFileList
-    Local $sDrive = "", $sFileName = "", $sExtension = ""
+	Local $sFound = "", $sPath, $aFileList
+	Local $sDrive = "", $sFileName = "", $sExtension = ""
 
-    While 1
-        For $i = 1 To $aSearchPaths[0]
-            $sPath = ""
+	While 1
+		For $i = 1 To $aSearchPaths[0]
+			$sPath = ""
 
-            If $sFilter <> "" Then
-                $sPath = $sFilter
-            EndIf
+			If $sFilter <> "" Then
+				$sPath = $sFilter
+			EndIf
 
-            If StringCompare($aSearchPaths[$i], ".") <> 0 Then
-                If $sPath == "" Then
-                    $sPath = $aSearchPaths[$i]
-                Else
-                    $sPath &= "\" & $aSearchPaths[$i]
-                EndIf
-            EndIf
+			If StringCompare($aSearchPaths[$i], ".") <> 0 Then
+				If $sPath == "" Then
+					$sPath = $aSearchPaths[$i]
+				Else
+					$sPath &= "\" & $aSearchPaths[$i]
+				EndIf
+			EndIf
 
-            If $sPath == "" Then
-                $sPath = $sFile
-            Else
-                $sPath &= "\" & $sFile
-            EndIf
+			If $sPath == "" Then
+				$sPath = $sFile
+			Else
+				$sPath &= "\" & $sFile
+			EndIf
 
-            $aFileList = _OpenCV_FindFiles($sPath, $sDir, $iFlag, True)
-            $sFound = UBound($aFileList) == 0 ? "" : $aFileList[0]
+			$aFileList = _OpenCV_FindFiles($sPath, $sDir, $iFlag, True)
+			$sFound = UBound($aFileList) == 0 ? "" : $aFileList[0]
 
-            If $sFound <> "" Then
-                _OpenCV_DebugMsg("Found " & $sFound & @CRLF)
-                ExitLoop 2
-            EndIf
-        Next
+			If $sFound <> "" Then
+				_OpenCV_DebugMsg("Found " & $sFound & @CRLF)
+				ExitLoop 2
+			EndIf
+		Next
 
-        _PathSplit($sDir, $sDrive, $sDir, $sFileName, $sExtension)
-        If $sDir == "" Then
-            ExitLoop
-        EndIf
-        $sDir = $sDrive & StringLeft($sDir, StringLen($sDir) - 1)
-    WEnd
+		_PathSplit($sDir, $sDrive, $sDir, $sFileName, $sExtension)
+		If $sDir == "" Then
+			ExitLoop
+		EndIf
+		$sDir = $sDrive & StringLeft($sDir, StringLen($sDir) - 1)
+	WEnd
 
-    Return $sFound
+	Return $sFound
 EndFunc   ;==>_OpenCV_FindFile
 
 Func _OpenCV_FindDLL($sFile, $sFilter = Default, $sDir = Default)
-    Local $sBuildType = $_cv_build_type == "Debug" ? "Debug" : "Release"
-    Local $sPostfix = $_cv_build_type == "Debug" ? "d" : ""
+	Local $sBuildType = $_cv_build_type == "Debug" ? "Debug" : "Release"
+	Local $sPostfix = $_cv_build_type == "Debug" ? "d" : ""
 
-    Local $aSearchPaths[10] = [ _
-        9, _
-        ".", _
-        "build_x64", _
-        "build_x64\" & $sBuildType, _
-        "build", _
-        "build\x64", _
-        "build\x64\vc15\bin", _
-        "autoit-opencv-com", _
-        "autoit-opencv-com\build_x64", _
-        "autoit-opencv-com\build_x64\" & $sBuildType _
-    ]
-    Return _OpenCV_FindFile($sFile & $sPostfix & ".dll", $sFilter, $sDir, $FLTA_FILES, True, $aSearchPaths)
+	Local $aSearchPaths[10] = [ _
+		9, _
+		".", _
+		"build_x64", _
+		"build_x64\" & $sBuildType, _
+		"build", _
+		"build\x64", _
+		"build\x64\vc15\bin", _
+		"autoit-opencv-com", _
+		"autoit-opencv-com\build_x64", _
+		"autoit-opencv-com\build_x64\" & $sBuildType _
+	]
+	Return _OpenCV_FindFile($sFile & $sPostfix & ".dll", $sFilter, $sDir, $FLTA_FILES, True, $aSearchPaths)
 EndFunc   ;==>_OpenCV_FindDLL
 
 Func _OpenCV_imread_and_check($fileName, $flags = Default)
@@ -209,9 +209,32 @@ Func _OpenCV_imread_and_check($fileName, $flags = Default)
 	Return $img
 EndFunc   ;==>_OpenCV_imread_and_check
 
-Func _OpenCV_resizeAndCenter($matImg, $iDstWidth, $iDstHeight, $aBackgroundColor, $iCode = -1, $bFit = True)
+Func _OpenCV_resizeAndCenter($matImg, $iDstWidth = Default, $iDstHeight = Default, $aBackgroundColor = Default, $iCode = Default, $bFit = True)
+	If $aBackgroundColor == Default Then
+		$aBackgroundColor = $aDefaultFormBackground
+	EndIf
+
+	If $iCode == Default Then
+		$iCode = -1
+	EndIf
+
+	If $bFit == Default Then
+		$bFit = True
+	EndIf
+
 	Local $iWidth = $matImg.width
 	Local $iHeight = $matImg.height
+
+	If $iDstWidth == Default Then
+		If $iDstHeight == Default Then
+			$iDstWidth = $iWidth
+			$iDstHeight = $iHeight
+		Else
+			$iDstWidth = $iDstHeight * $iWidth / $iHeight
+		EndIf
+	ElseIf $iDstHeight == Default Then
+		$iDstHeight = $iDstWidth * $iHeight / $iWidth
+	EndIf
 
 	Local $fRatio = $iWidth / $iHeight
 	Local $iPadHeight = 0
@@ -269,7 +292,11 @@ Func _OpenCV_SetControlPic($controlID, $matImg)
 	_WinAPI_DeleteObject($aDIB[0])
 EndFunc   ;==>_OpenCV_SetControlPic
 
-Func _OpenCV_imshow_ControlPic($mat, $hWnd, $controlID, $aBackgroundColor = $aDefaultFormBackground, $iCode = -1, $bFit = True)
+Func _OpenCV_imshow_ControlPic($mat, $hWnd, $controlID, $aBackgroundColor = Default, $iCode = Default, $bFit = True)
+	If $iCode == Default Then
+		$iCode = -1
+	EndIf
+
 	Local $depth = $mat.depth()
 	Local $channels = $mat.channels()
 
@@ -294,8 +321,8 @@ Func _OpenCV_imshow_ControlPic($mat, $hWnd, $controlID, $aBackgroundColor = $aDe
 	EndIf
 
 	Local $aPicPos = ControlGetPos($hWnd, "", $controlID)
-	Local $matResized = _OpenCV_resizeAndCenter($mat, $aPicPos[2], $aPicPos[3], $aBackgroundColor, $iCode, $bFit)
-	_OpenCV_SetControlPic($controlID, $matResized)
+	$mat = _OpenCV_resizeAndCenter($mat, $aPicPos[2], $aPicPos[3], $aBackgroundColor, $iCode, $bFit)
+	_OpenCV_SetControlPic($controlID, $mat)
 
 EndFunc   ;==>_OpenCV_imshow_ControlPic
 
@@ -625,8 +652,8 @@ Func _OpenCV_Scalar($v0 = 0, $v1 = 0, $v2 = 0, $v3 = 0)
 EndFunc   ;==>_OpenCV_Scalar
 
 Func _OpenCV_ScalarAll($v0 = 0)
-    Local $cvScalar[4] = [$v0, $v0, $v0, $v0]
-    Return $cvScalar
+	Local $cvScalar[4] = [$v0, $v0, $v0, $v0]
+	Return $cvScalar
 EndFunc   ;==>_OpenCV_Scalar
 
 Func _OpenCV_Point($x = 0, $y = 0)
@@ -635,11 +662,117 @@ Func _OpenCV_Point($x = 0, $y = 0)
 EndFunc   ;==>_OpenCV_Size
 
 Func _OpenCV_Size($width = 0, $height = 0)
-    Local $cvSize[2] = [$width, $height]
-    Return $cvSize
+	Local $cvSize[2] = [$width, $height]
+	Return $cvSize
 EndFunc   ;==>_OpenCV_Size
 
 Func _OpenCV_Rect($x = 0, $y = 0, $width = 0, $height = 0)
-    Local $cvSize[4] = [$x, $y, $width, $height]
-    Return $cvSize
+	Local $cvSize[4] = [$x, $y, $width, $height]
+	Return $cvSize
 EndFunc   ;==>_OpenCV_Size
+
+; Array.from(Array(30).keys()).map(i => `$val${ i } = 0`).join(", ")
+Func _OpenCV_Tuple($val0 = 0, $val1 = 0, $val2 = 0, $val3 = 0, $val4 = 0, $val5 = 0, $val6 = 0, $val7 = 0, $val8 = 0, $val9 = 0, $val10 = 0, $val11 = 0, $val12 = 0, $val13 = 0, $val14 = 0, $val15 = 0, $val16 = 0, $val17 = 0, $val18 = 0, $val19 = 0, $val20 = 0, $val21 = 0, $val22 = 0, $val23 = 0, $val24 = 0, $val25 = 0, $val26 = 0, $val27 = 0, $val28 = 0, $val29 = 0)
+	; console.log(Array.from(Array(30).keys()).map(j => `
+	; Case ${ j + 1 }
+	;     Local $_aResult[@NumParams] = [${ Array.from(Array(j + 1).keys()).map(i => `$val${ i }`).join(", ") }]
+	;     Return $_aResult
+	; `.trim()).join("\n"))
+	Switch @NumParams
+		Case 1
+			Local $_aResult[@NumParams] = [$val0]
+			Return $_aResult
+		Case 2
+			Local $_aResult[@NumParams] = [$val0, $val1]
+			Return $_aResult
+		Case 3
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2]
+			Return $_aResult
+		Case 4
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3]
+			Return $_aResult
+		Case 5
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4]
+			Return $_aResult
+		Case 6
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5]
+			Return $_aResult
+		Case 7
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6]
+			Return $_aResult
+		Case 8
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7]
+			Return $_aResult
+		Case 9
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8]
+			Return $_aResult
+		Case 10
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9]
+			Return $_aResult
+		Case 11
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10]
+			Return $_aResult
+		Case 12
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11]
+			Return $_aResult
+		Case 13
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12]
+			Return $_aResult
+		Case 14
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13]
+			Return $_aResult
+		Case 15
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14]
+			Return $_aResult
+		Case 16
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15]
+			Return $_aResult
+		Case 17
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15, $val16]
+			Return $_aResult
+		Case 18
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15, $val16, $val17]
+			Return $_aResult
+		Case 19
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15, $val16, $val17, $val18]
+			Return $_aResult
+		Case 20
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15, $val16, $val17, $val18, $val19]
+			Return $_aResult
+		Case 21
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15, $val16, $val17, $val18, $val19, $val20]
+			Return $_aResult
+		Case 22
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15, $val16, $val17, $val18, $val19, $val20, $val21]
+			Return $_aResult
+		Case 23
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15, $val16, $val17, $val18, $val19, $val20, $val21, $val22]
+			Return $_aResult
+		Case 24
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15, $val16, $val17, $val18, $val19, $val20, $val21, $val22, $val23]
+			Return $_aResult
+		Case 25
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15, $val16, $val17, $val18, $val19, $val20, $val21, $val22, $val23, $val24]
+			Return $_aResult
+		Case 26
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15, $val16, $val17, $val18, $val19, $val20, $val21, $val22, $val23, $val24, $val25]
+			Return $_aResult
+		Case 27
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15, $val16, $val17, $val18, $val19, $val20, $val21, $val22, $val23, $val24, $val25, $val26]
+			Return $_aResult
+		Case 28
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15, $val16, $val17, $val18, $val19, $val20, $val21, $val22, $val23, $val24, $val25, $val26, $val27]
+			Return $_aResult
+		Case 29
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15, $val16, $val17, $val18, $val19, $val20, $val21, $val22, $val23, $val24, $val25, $val26, $val27, $val28]
+			Return $_aResult
+		Case 30
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15, $val16, $val17, $val18, $val19, $val20, $val21, $val22, $val23, $val24, $val25, $val26, $val27, $val28, $val29]
+			Return $_aResult
+		Case Else
+			ConsoleWriteError('!>Error: Invalid number of arguments')
+			Return SetError(1, 0, -1)
+	EndSwitch
+
+	Return $_aResult
+EndFunc

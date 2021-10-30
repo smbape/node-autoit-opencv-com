@@ -4,18 +4,10 @@
 
 Opt("MustDeclareVars", 1)
 
-#include <ButtonConstants.au3>
-#include <ComboConstants.au3>
-#include <EditConstants.au3>
-#include <File.au3>
-#include <FileConstants.au3>
 #include <GDIPlus.au3>
 #include <GuiComboBox.au3>
 #include <GUIConstantsEx.au3>
 #include <GuiSlider.au3>
-#include <Math.au3>
-#include <StaticConstants.au3>
-#include <WindowsConstants.au3>
 #include "..\..\..\autoit-opencv-com\udf\opencv_udf_utils.au3"
 
 ;~ Sources:
@@ -220,7 +212,7 @@ Func MultiMatchTemplate()
 
 	;;! [copy_source]
 	;;/ Source image to display
-	Local $img_display = $img.copyTo()
+	Local $img_display = $img.clone()
 	;;! [copy_source]
 
 	;;! [match_template]

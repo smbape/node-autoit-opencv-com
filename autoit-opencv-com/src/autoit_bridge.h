@@ -319,40 +319,40 @@ HRESULT get_variant_number(VARIANT const* const& in_val, _Tp& out_val) {
 	}
 
 	switch (V_VT(in_val)) {
-	case VT_EMPTY:
-		return S_OK;
-	case VT_I1:
-		out_val = static_cast<_Tp>(V_I1(in_val));
-		return S_OK;
-	case VT_I2:
-		out_val = static_cast<_Tp>(V_I2(in_val));
-		return S_OK;
-	case VT_I4:
-		out_val = static_cast<_Tp>(V_I4(in_val));
-		return S_OK;
-	case VT_I8:
-		out_val = static_cast<_Tp>(V_I8(in_val));
-		return S_OK;
-	case VT_UI1:
-		out_val = static_cast<_Tp>(V_UI1(in_val));
-		return S_OK;
-	case VT_UI2:
-		out_val = static_cast<_Tp>(V_UI2(in_val));
-		return S_OK;
-	case VT_UI4:
-		out_val = static_cast<_Tp>(V_UI4(in_val));
-		return S_OK;
-	case VT_UI8:
-		out_val = static_cast<_Tp>(V_UI8(in_val));
-		return S_OK;
-	case VT_INT:
-		out_val = static_cast<_Tp>(V_INT(in_val));
-		return S_OK;
-	case VT_UINT:
-		out_val = static_cast<_Tp>(V_UINT(in_val));
-		return S_OK;
-	default:
-		return E_INVALIDARG;
+		case VT_EMPTY:
+			return S_OK;
+		case VT_I1:
+			out_val = static_cast<_Tp>(V_I1(in_val));
+			return S_OK;
+		case VT_I2:
+			out_val = static_cast<_Tp>(V_I2(in_val));
+			return S_OK;
+		case VT_I4:
+			out_val = static_cast<_Tp>(V_I4(in_val));
+			return S_OK;
+		case VT_I8:
+			out_val = static_cast<_Tp>(V_I8(in_val));
+			return S_OK;
+		case VT_INT:
+			out_val = static_cast<_Tp>(V_INT(in_val));
+			return S_OK;
+		case VT_UI1:
+			out_val = static_cast<_Tp>(V_UI1(in_val));
+			return S_OK;
+		case VT_UI2:
+			out_val = static_cast<_Tp>(V_UI2(in_val));
+			return S_OK;
+		case VT_UI4:
+			out_val = static_cast<_Tp>(V_UI4(in_val));
+			return S_OK;
+		case VT_UI8:
+			out_val = static_cast<_Tp>(V_UI8(in_val));
+			return S_OK;
+		case VT_UINT:
+			out_val = static_cast<_Tp>(V_UINT(in_val));
+			return S_OK;
+		default:
+			return E_INVALIDARG;
 	}
 }
 

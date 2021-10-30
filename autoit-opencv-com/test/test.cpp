@@ -265,6 +265,21 @@ static void testAdd(cvLib::ICv_ObjectPtr cv, cvLib::ICv_Mat_ObjectPtr mat) {
 	VariantClear(&variant);
 }
 
+static void testResize(cvLib::ICv_ObjectPtr cv, cvLib::ICv_Mat_ObjectPtr mat) {
+	CComSafeArray<VARIANT> dsize(2UL);
+	for (int i = 0; i < 2; i++) {
+		dsize.SetAt(i, _variant_t(512));
+	}
+
+	auto safeArray = dsize.Detach();
+	VARIANT variant = { VT_ARRAY | VT_VARIANT };
+	V_ARRAY(&variant) = safeArray;
+
+	cv->resize(&_variant_t(mat->clone().GetInterfacePtr()), &variant);
+
+	VariantClear(&variant);
+}
+
 static void testSetTo(cvLib::ICv_ObjectPtr cv, cvLib::ICv_Mat_ObjectPtr mat) {
 	CComSafeArray<VARIANT> scalar(4UL);
 	for (int i = 0; i < 4; i++) {
@@ -399,6 +414,7 @@ static int perform() {
 	testSpit(cv, mat);
 	testAKAZE(cv);
 	testAdd(cv, mat);
+	testResize(cv, mat);
 	testSetTo(cv, mat);
 	testContours(cv);
 

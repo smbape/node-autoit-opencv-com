@@ -1,3 +1,5 @@
+/* eslint-disable no-magic-numbers */
+
 const fs = require("fs");
 const sysPath = require("path");
 const {spawn} = require("child_process");

@@ -70,7 +70,7 @@ class CoClass {
     }
 
     addMethod(decl) {
-        const [name, return_value_type, list_of_modifiers, list_of_arguments, original_return_type, docstring] = decl;
+        const [name, return_value_type, list_of_modifiers, list_of_arguments] = decl;
         const path = name.split(".");
 
         let fname = path[path.length - 1];

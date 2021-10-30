@@ -11,11 +11,6 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpRes
     return _AtlModule.DllMain(dwReason, lpReserved);
 }
 
-STDAPI DllAtlSetPerUserRegistration(bool bEnable)
-{
-    return ATL::AtlSetPerUserRegistration(bEnable);
-}
-
 // Utilisé pour déterminer si la DLL peut être déchargée par OLE.
 _Use_decl_annotations_
 STDAPI DllCanUnloadNow(void)

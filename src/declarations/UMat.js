@@ -3,7 +3,7 @@ module.exports = [
         ["int", "rows", "", ["/R"]],
         ["int", "cols", "", ["/R"]],
         ["int", "dims", "", ["/R"]],
-        ["size_t", "step", "", ["/R", "/External"]],
+        ["size_t", "step", "", ["/R"]],
         ["int", "width", "", ["/R", "=cols"]],
         ["int", "height", "", ["/R", "=rows"]]
     ], "", ""],

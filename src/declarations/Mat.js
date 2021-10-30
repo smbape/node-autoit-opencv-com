@@ -5,7 +5,7 @@ const declarations = [
         ["int", "rows", "", ["/R"]],
         ["int", "cols", "", ["/R"]],
         ["uchar*", "data", "", ["/R"]],
-        ["size_t", "step", "", ["/R", "/External"]],
+        ["size_t", "step", "", ["/R"]],
         ["int", "width", "", ["/R", "=cols"]],
         ["int", "height", "", ["/R", "=rows"]]
     ], "", ""],
@@ -125,40 +125,50 @@ const declarations = [
         ["int", "type", "", []],
     ], "", ""],
 
+    ["cv.Mat.zeros", "cv::Mat", ["/S"], [
+        ["Size", "size", "", []],
+        ["int", "type", "", []],
+    ], "", ""],
+
     ["cv.Mat.ones", "cv::Mat", ["/S"], [
         ["int", "rows", "", []],
         ["int", "cols", "", []],
         ["int", "type", "", []],
     ], "", ""],
+
+    ["cv.Mat.ones", "cv::Mat", ["/S"], [
+        ["Size", "size", "", []],
+        ["int", "type", "", []],
+    ], "", ""],
 ];
 
-for (const type of ["int", "float", "double"]) {
+for (const type of ["int", "float", "double", "Vec3b", "Vec4b"]) {
     declarations.push(...[
-        [`cv.Mat.${ type }_at`, type, ["/External"], [
+        [`cv.Mat.at<${ type }>`, type, [`=${ type }_at`], [
             ["int", "x", "", []],
         ], "", ""],
 
-        [`cv.Mat.${ type }_set_at`, "void", ["/External"], [
+        [`cv.Mat.at<${ type }>`, "void", [`=${ type }_set_at`, "/Expr=(x) = value"], [
             ["int", "x", "", []],
             [type, "value", "", []],
         ], "", ""],
 
-        [`cv.Mat.${ type }_at`, type, ["/External"], [
+        [`cv.Mat.at<${ type }>`, type, [`=${ type }_at`], [
             ["int", "x", "", []],
             ["int", "y", "", []]
         ], "", ""],
 
-        [`cv.Mat.${ type }_set_at`, "void", ["/External"], [
+        [`cv.Mat.at<${ type }>`, "void", [`=${ type }_set_at`, "/Expr=(x, y) = value"], [
             ["int", "x", "", []],
             ["int", "y", "", []],
             [type, "value", "", []],
         ], "", ""],
 
-        [`cv.Mat.${ type }_at`, type, ["/External"], [
+        [`cv.Mat.at<${ type }>`, type, [`=${ type }_at`], [
             ["Point", "pt", "", []],
         ], "", ""],
 
-        [`cv.Mat.${ type }_set_at`, "void", ["/External"], [
+        [`cv.Mat.at<${ type }>`, "void", [`=${ type }_set_at`, "/Expr=(pt) = value"], [
             ["Point", "pt", "", []],
             [type, "value", "", []],
         ], "", ""],
