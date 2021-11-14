@@ -15,18 +15,18 @@ If yes, then this udf might be for you.
 ```autoit
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_UseX64=y
+#AutoIt3Wrapper_Au3Check_Parameters=-d -w 1 -w 2 -w 3 -w 4 -w 5 -w 6
+#AutoIt3Wrapper_AU3Check_Stop_OnWarning=y
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
-
-Opt("MustDeclareVars", 1)
 
 #include "autoit-opencv-com\udf\opencv_udf_utils.au3"
 
 _OpenCV_Open_And_Register("opencv-4.5.4-vc14_vc15\opencv\build\x64\vc15\bin\opencv_world454.dll", "autoit-opencv-com\autoit_opencv_com454.dll")
 
-Local $cv = _OpenCV_get()
+Global $cv = _OpenCV_get()
 
 If IsObj($cv) Then
-    Local $img = _OpenCV_imread_and_check("data\lena.jpg")
+    Global $img = _OpenCV_imread_and_check("data\lena.jpg")
     $cv.imshow("Image", $img)
     $cv.waitKey()
     $cv.destroyAllWindows()

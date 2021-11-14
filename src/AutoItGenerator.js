@@ -90,6 +90,7 @@ class AutoItGenerator {
 
             const signatures = this.getSignatures(coclass);
 
+            // inherit methods
             for (const pfqn of coclass.parents) {
                 if (!this.classes.has(pfqn)) {
                     continue;
@@ -141,14 +142,13 @@ class AutoItGenerator {
 
             if (fqn === "cv") {
                 id++;
-
-                iidl.push(`[propget, id(${ id })] HRESULT extended([out, retval] VARIANT* pVal);`);
-                ipublic.push("STDMETHOD(get_extended)(VARIANT* pVal);");
+                iidl.push(`[propget, id(${ id })] HRESULT extended([out, retval] VARIANT* _retval);`);
+                ipublic.push("STDMETHOD(get_extended)(VARIANT* _retval);");
                 impl.push(`
-                    STDMETHODIMP C${ cotype }::get_extended(VARIANT* pVal) {
+                    STDMETHODIMP C${ cotype }::get_extended(VARIANT* _retval) {
                         auto pArray = ExtendedHolder::extended.Detach();
-                        V_VT(pVal) = VT_ARRAY | VT_VARIANT;
-                        V_ARRAY(pVal) = pArray;
+                        V_VT(_retval) = VT_ARRAY | VT_VARIANT;
+                        V_ARRAY(_retval) = pArray;
                         PVOID pDataToRelease;
                         HRESULT hr = SafeArrayAddRef(pArray, &pDataToRelease);
                         if (pDataToRelease) {
@@ -156,6 +156,15 @@ class AutoItGenerator {
                         }
                         ExtendedHolder::extended.Attach(pArray);
                         return hr;
+                    }`.replace(/^ {20}/mg, "")
+                );
+
+                id++;
+                iidl.push(`[id(${ id })] HRESULT variant([in] ULONGLONG pVal, [out, retval] VARIANT* _retval);`);
+                ipublic.push("STDMETHOD(variant)(ULONGLONG pVal, VARIANT* _retval);");
+                impl.push(`
+                    STDMETHODIMP C${ cotype }::variant(ULONGLONG pVal, VARIANT* _retval) {
+                        return VariantCopyInd(_retval, reinterpret_cast<VARIANT*>(pVal));
                     }`.replace(/^ {20}/mg, "")
                 );
             }
@@ -304,6 +313,7 @@ class AutoItGenerator {
                 let minopt = Number.POSITIVE_INFINITY;
                 const bodies = [];
                 const indent = " ".repeat(has_override ? 4 : 0);
+                const parameterNames = [];
 
                 for (const decl of overrides) {
                     const [, , , list_of_arguments] = decl;
@@ -366,6 +376,12 @@ class AutoItGenerator {
                         const j = indexes[i];
 
                         const [, argname, , arg_modifiers] = list_of_arguments[j];
+                        if (parameterNames[j] !== undefined && parameterNames[j] !== argname) {
+                            // debugger;
+                        } else {
+                            parameterNames[j] = argname;
+                        }
+
                         let [argtype, , defval] = list_of_arguments[j];
 
                         const in_val = `${ varprefix }${ i }`;
@@ -517,7 +533,7 @@ class AutoItGenerator {
                             }
 
                             if (!is_optional) {
-                                cvt_body += ` else if (is_parameter_missing(${ in_val })) {
+                                cvt_body += ` else if (PARAMETER_MISSING(${ in_val })) {
                                     printf("unable to read argument ${ j } of type %hu into ${ cpptype }\\n", V_VT(${ in_val }));
                                     return E_INVALIDARG;
                                 }`.replace(/^ {32}/mg, "");
@@ -554,7 +570,7 @@ class AutoItGenerator {
                             cvt.push(...`
                                 auto* ${ pointer } = &${ placeholder_name };
                                 hr = autoit_opencv_out(${ in_val }, ${ pointer });
-                                if (!is_parameter_missing(${ in_val }) && FAILED(hr)) {
+                                if (!PARAMETER_MISSING(${ in_val }) && FAILED(hr)) {
                                     printf("unable to read argument ${ j } of type %hu into ${ cpptype }\\n", V_VT(${ in_val }));
                                     return hr;
                                 }
@@ -607,6 +623,14 @@ class AutoItGenerator {
                 const returns = [];
                 const body = [];
 
+                for (let i = 0; i < maxargc; i++) {
+                    body.push(`PARAMETER_IN(${ varprefix }${ i });`);
+                }
+
+                if (maxargc !== 0) {
+                    body.push("");
+                }
+
                 if (coclass.namespace) {
                     body.push(`using namespace ${ coclass.namespace };`);
                 }
@@ -640,7 +664,7 @@ class AutoItGenerator {
                     }
 
                     for (let j = conditions.length; j < maxargc; j++) {
-                        conditions.push(`is_parameter_not_found(${ varprefix }${ j })`);
+                        conditions.push(`PARAMETER_NOT_FOUND(${ varprefix }${ j })`);
                     }
 
                     body.push(...declarations);
@@ -785,7 +809,7 @@ class AutoItGenerator {
                                 `.replace(/^ {36}/mg, "").trim().split("\n");
 
                                 if (rargname !== "_retval") {
-                                    const rconditions = [`!is_parameter_missing(${ rargname })`];
+                                    const rconditions = [`!PARAMETER_MISSING(${ rargname })`];
 
                                     if (rargname.startsWith(varprefix) && (is_vector || is_array)) {
                                         rconditions.push(`${ argname }_is_scalar`);
@@ -1132,7 +1156,7 @@ class AutoItGenerator {
                     #ifndef ${ hdr_id }
                     #define ${ hdr_id }
 
-                    ${ ["#include \"autoit_bridge.h\""].concat(includes).join(`\n${ " ".repeat(20) }`) }
+                    #include "autoit_bridge.h"
 
                     #if defined(_WIN32_WCE) && !defined(_CE_DCOM) && !defined(_CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA)
                     #error "Les objets COM monothread ne sont pas correctement pris en charge par les plateformes Windows CE, notamment les plateformes Windows Mobile qui ne prennent pas totalement en charge DCOM. Définissez _CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA pour forcer ATL à prendre en charge la création d'objets COM monothread et permettre l'utilisation de leurs implémentations. Le modèle de thread de votre fichier rgs a été défini sur 'Libre', car il s'agit du seul modèle de thread pris en charge par les plateformes Windows CE non-DCOM."
@@ -1142,6 +1166,7 @@ class AutoItGenerator {
 
                     ${ iface.header.split("\n").join(`\n${ " ".repeat(20) }`).trim() }
 
+                    ${ includes.join(`\n${ " ".repeat(20) }`) }
                     #endif // ${ hdr_id }
                 `.replace(/^ {20}/mg, "").trim().replace(/[^\S\n]+$/mg, "") + LF);
             }
@@ -1203,6 +1228,8 @@ class AutoItGenerator {
                 `.replace(/^ {16}/mg, ""),
                 conversion.number.declare("char", "CHAR"), "",
                 conversion.number.declare("uchar", "BYTE"), "",
+                conversion.number.declare("short", "SHORT"), "",
+                conversion.number.declare("ushort", "USHORT"), "",
                 conversion.number.declare("int", "LONG"), "",
                 conversion.number.declare("uint", "ULONG"), "",
                 conversion.number.declare("long", "LONG"), "",
@@ -1224,6 +1251,8 @@ class AutoItGenerator {
             "#include \"autoit_bridge_generated.h\"\n",
             conversion.number.define("char", "CHAR"), "",
             conversion.number.define("uchar", "BYTE"), "",
+            conversion.number.define("short", "SHORT"), "",
+            conversion.number.define("ushort", "USHORT"), "",
             conversion.number.define("int", "LONG"), "",
             conversion.number.define("uint", "ULONG"), "",
             conversion.number.define("long", "LONG"), "",
@@ -1631,9 +1660,20 @@ class AutoItGenerator {
             }
 
             // make enumerations available via a COM property
+            // because com properties and methods are case insensitive,
+            // an enum name cannot be the same as a property or a method.
+            // To workaround this limitation, an underscore is added a the end of the enum name.
+            // More over, office vba does not allow names to start with an underscore.
+            // Therefore, putting the underscore at the end is also to workaround this limitation
+            // For exemple, cv::FileNode as a method 'real' and an enum 'REAL'
+            // The enum will be names REAL_
+            // 
+            // Sources:
+            // https://docs.microsoft.com/en-us/windows/win32/com/com-technical-overview
+            // https://docs.microsoft.com/it-ch/office/vba/language/reference/user-interface-help/bad-interface-for-implements-method-has-underscore-in-name
             const basename = epath[epath.length - 1];
             const coclass = this.getCoClass(epath.slice(0, -1).join("::"));
-            coclass.addProperty(["int", `_${ basename }`, `static_cast<int>(${ epath.join("::") })`, ["/R", "/S", "/Enum", `=${ basename }`]]);
+            coclass.addProperty(["int", `${ basename }_`, `static_cast<int>(${ epath.join("::") })`, ["/R", "/S", "/Enum", `=${ basename }`]]);
         }
     }
 
@@ -1691,7 +1731,7 @@ class AutoItGenerator {
         coclass.addMethod([`${ fqn }.${ coclass.name }`, "", [], [], "", ""]);
 
         coclass.addMethod([`${ fqn }.${ coclass.name }`, "", [], [
-            ["int", "size", "", []],
+            ["size_t", "size", "", []],
         ], "", ""]);
 
         coclass.addMethod([`${ fqn }.${ coclass.name }`, "", [], [
@@ -1722,6 +1762,24 @@ class AutoItGenerator {
         coclass.addMethod([`${ fqn }.push_vector`, "void", ["/External"], [
             [fqn, "other", "", []],
             ["size_t", "count", "", []],
+            ["size_t", "start", "0", []],
+        ], "", ""]);
+
+        coclass.addMethod([`${ fqn }.slice`, fqn, ["/External"], [
+            ["size_t", "start", "0", []],
+            ["size_t", "count", "this->__self->get()->size()", []],
+        ], "", ""]);
+
+        coclass.addMethod([`${ fqn }.sort`, "void", ["/External"], [
+            ["void*", "comparator", "", []],
+            ["size_t", "start", "0", []],
+            ["size_t", "count", "this->__self->get()->size()", []],
+        ], "", ""]);
+
+        coclass.addMethod([`${ fqn }.sort_variant`, "void", ["/External"], [
+            ["void*", "comparator", "", []],
+            ["size_t", "start", "0", []],
+            ["size_t", "count", "this->__self->get()->size()", []],
         ], "", ""]);
 
         coclass.addMethod([`${ fqn }.start`, "void*", ["/External"], [], "", ""]);
@@ -1882,7 +1940,7 @@ class AutoItGenerator {
                 return "LONG";
             }
 
-            if (/^cv::(?:Point|Rect|Scalar|Size|Vec)(?:\d[bifd])?$/.test(fqn)) {
+            if (/^cv::(?:Point|Rect|Scalar|Size|Vec)(?:\d[bdfisw])?$/.test(fqn)) {
                 return "VARIANT";
             }
 

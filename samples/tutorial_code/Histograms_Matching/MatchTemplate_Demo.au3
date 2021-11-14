@@ -1,8 +1,9 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_UseX64=y
+#AutoIt3Wrapper_Change2CUI=y
+#AutoIt3Wrapper_Au3Check_Parameters=-d -w 1 -w 2 -w 3 -w 4 -w 5 -w 6
+#AutoIt3Wrapper_AU3Check_Stop_OnWarning=y
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
-
-Opt("MustDeclareVars", 1)
 
 #include <GDIPlus.au3>
 #include <GuiComboBox.au3>
@@ -15,57 +16,57 @@ Opt("MustDeclareVars", 1)
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
 
-Local $cv = _OpenCV_get()
+Global $cv = _OpenCV_get()
 
-Local Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
+Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
 
 #Region ### START Koda GUI section ### Form=
-Local $FormGUI = GUICreate("Template Matching", 1267, 556, 185, 122)
+Global $FormGUI = GUICreate("Template Matching", 1267, 556, 185, 122)
 
-Local $InputSource = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\lena_tmpl.jpg", 366, 16, 449, 21)
-Local $BtnSource = GUICtrlCreateButton("Source", 825, 14, 75, 25)
+Global $InputSource = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\lena_tmpl.jpg", 366, 16, 449, 21)
+Global $BtnSource = GUICtrlCreateButton("Source", 825, 14, 75, 25)
 
-Local $InputTemplate = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\tmpl.png", 366, 52, 449, 21)
-Local $BtnTemplate = GUICtrlCreateButton("Template", 825, 50, 75, 25)
+Global $InputTemplate = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\tmpl.png", 366, 52, 449, 21)
+Global $BtnTemplate = GUICtrlCreateButton("Template", 825, 50, 75, 25)
 
-Local $InputMask = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\mask.png", 366, 88, 449, 21)
-Local $BtnMask = GUICtrlCreateButton("Mask", 825, 86, 75, 25)
+Global $InputMask = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\mask.png", 366, 88, 449, 21)
+Global $BtnMask = GUICtrlCreateButton("Mask", 825, 86, 75, 25)
 
-Local $LabelMethod = GUICtrlCreateLabel("Method:", 604, 128, 59, 20)
+Global $LabelMethod = GUICtrlCreateLabel("Method:", 604, 128, 59, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $ComboMethod = GUICtrlCreateCombo("", 670, 128, 145, 25, BitOR($GUI_SS_DEFAULT_COMBO, $CBS_SIMPLE))
+Global $ComboMethod = GUICtrlCreateCombo("", 670, 128, 145, 25, BitOR($GUI_SS_DEFAULT_COMBO, $CBS_SIMPLE))
 GUICtrlSetData(-1, "TM SQDIFF|TM SQDIFF NORMED|TM CCORR|TM CCORR NORMED|TM CCOEFF|TM CCOEFF NORMED")
 
-Local $BtnExec = GUICtrlCreateButton("Execute", 825, 126, 75, 25)
+Global $BtnExec = GUICtrlCreateButton("Execute", 825, 126, 75, 25)
 
-Local $LabelSource = GUICtrlCreateLabel("Source Image", 141, 168, 100, 20)
+Global $LabelSource = GUICtrlCreateLabel("Source Image", 141, 168, 100, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupSource = GUICtrlCreateGroup("", 20, 190, 342, 342)
-Local $PicSource = GUICtrlCreatePic("", 25, 201, 332, 326)
+Global $GroupSource = GUICtrlCreateGroup("", 20, 190, 342, 342)
+Global $PicSource = GUICtrlCreatePic("", 25, 201, 332, 326)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-Local $LabelTemplate = GUICtrlCreateLabel("Template", 420, 176, 70, 20)
+Global $LabelTemplate = GUICtrlCreateLabel("Template", 420, 176, 70, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupTemplate = GUICtrlCreateGroup("", 376, 190, 158, 158)
-Local $PicTemplate = GUICtrlCreatePic("", 381, 201, 148, 142)
+Global $GroupTemplate = GUICtrlCreateGroup("", 376, 190, 158, 158)
+Global $PicTemplate = GUICtrlCreatePic("", 381, 201, 148, 142)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-Local $LabelMask = GUICtrlCreateLabel("Mask", 435, 360, 41, 20)
+Global $LabelMask = GUICtrlCreateLabel("Mask", 435, 360, 41, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupMask = GUICtrlCreateGroup("", 375, 374, 158, 158)
-Local $PicMask = GUICtrlCreatePic("", 380, 385, 148, 142)
+Global $GroupMask = GUICtrlCreateGroup("", 375, 374, 158, 158)
+Global $PicMask = GUICtrlCreatePic("", 380, 385, 148, 142)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-Local $LabelMatchTemplate = GUICtrlCreateLabel("Match Template", 668, 168, 115, 20)
+Global $LabelMatchTemplate = GUICtrlCreateLabel("Match Template", 668, 168, 115, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupMatchTemplate = GUICtrlCreateGroup("", 544, 190, 342, 342)
-Local $PicMatchTemplate = GUICtrlCreatePic("", 549, 201, 332, 326)
+Global $GroupMatchTemplate = GUICtrlCreateGroup("", 544, 190, 342, 342)
+Global $PicMatchTemplate = GUICtrlCreatePic("", 549, 201, 332, 326)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-Local $LabelResultImage = GUICtrlCreateLabel("Result Image", 1024, 168, 95, 20)
+Global $LabelResultImage = GUICtrlCreateLabel("Result Image", 1024, 168, 95, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupResultImage = GUICtrlCreateGroup("", 900, 190, 342, 342)
-Local $PicResultImage = GUICtrlCreatePic("", 905, 201, 332, 326)
+Global $GroupResultImage = GUICtrlCreateGroup("", 900, 190, 342, 342)
+Global $PicResultImage = GUICtrlCreatePic("", 905, 201, 332, 326)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
 GUISetState(@SW_SHOW)
@@ -73,14 +74,14 @@ GUISetState(@SW_SHOW)
 
 _GDIPlus_Startup()
 
-Local $aGreenColor = _OpenCV_RGB(0, 255, 0)
+Global $aGreenColor = _OpenCV_RGB(0, 255, 0)
 
-Local $sSource = "", $sTemplate = "", $sMask = ""
-Local $img, $templ, $mask, $match_method
-Local $nMsg
-Local $use_mask = False
+Global $sSource = "", $sTemplate = "", $sMask = ""
+Global $img, $templ, $mask, $match_method
+Global $nMsg
+Global $use_mask = False
 
-Local $aMethods[6] = [$CV_TM_SQDIFF, $CV_TM_SQDIFF_NORMED, $CV_TM_CCORR, $CV_TM_CCORR_NORMED, $CV_TM_CCOEFF, $CV_TM_CCOEFF_NORMED]
+Global $aMethods[6] = [$CV_TM_SQDIFF, $CV_TM_SQDIFF_NORMED, $CV_TM_CCORR, $CV_TM_CCORR_NORMED, $CV_TM_CCOEFF, $CV_TM_CCOEFF_NORMED]
 _GUICtrlComboBox_SetCurSel($ComboMethod, 3)
 
 Main()
@@ -89,7 +90,7 @@ While 1
 	$nMsg = GUIGetMsg()
 	Switch $nMsg
 		Case $GUI_EVENT_CLOSE
-			Exit
+			ExitLoop
 		Case $BtnSource
 			$sSource = ControlGetText($FormGUI, "", $InputSource)
 			$sSource = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.jpg;*.jpeg;*.png;*.gif)", $FD_FILEMUSTEXIST, $sSource)
@@ -203,8 +204,8 @@ Func MatchingMethod()
 	Local $matchLoc
 
 	$cv.minMaxLoc($result, ObjCreate("OpenCV.cv.Mat"))
-	Local $minVal = $cv.extended[0]
-	Local $maxVal = $cv.extended[1]
+	; Local $minVal = $cv.extended[0]
+	; Local $maxVal = $cv.extended[1]
 	Local $minLoc = $cv.extended[2]
 	Local $maxLoc = $cv.extended[3]
 

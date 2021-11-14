@@ -1,9 +1,9 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_UseX64=y
+#AutoIt3Wrapper_Change2CUI=y
+#AutoIt3Wrapper_Au3Check_Parameters=-d -w 1 -w 2 -w 3 -w 4 -w 5 -w 6
+#AutoIt3Wrapper_AU3Check_Stop_OnWarning=y
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
-
-Opt("MustDeclareVars", 1)
-Opt("GUIOnEventMode", 1)
 
 #include <GDIPlus.au3>
 #include <GuiComboBox.au3>
@@ -17,54 +17,52 @@ Opt("GUIOnEventMode", 1)
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
 
-Local $cv = _OpenCV_get()
+Global $cv = _OpenCV_get()
 
-Local Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
+Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
 
 #Region ### START Koda GUI section ### Form=
-Local $FormGUI = GUICreate("Changing the contrast and brightness of an image!", 1261, 671, 185, 122)
+Global $FormGUI = GUICreate("Changing the contrast and brightness of an image!", 1261, 671, 185, 122)
 
-Local $InputSource = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\lena.jpg", 366, 16, 449, 21)
-Local $BtnSource = GUICtrlCreateButton("Source", 825, 14, 75, 25)
+Global $InputSource = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\lena.jpg", 366, 16, 449, 21)
+GUICtrlSetState(-1, $GUI_DISABLE)
+Global $BtnSource = GUICtrlCreateButton("Source", 825, 14, 75, 25)
 
-Local $LabelAlpha = GUICtrlCreateLabel("Alpha gain (contrast) : ", 366, 56, 195, 20)
+Global $LabelAlpha = GUICtrlCreateLabel("Alpha gain (contrast) : ", 366, 56, 195, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $SliderAlpha = GUICtrlCreateSlider(560, 56, 340, 45)
+Global $SliderAlpha = GUICtrlCreateSlider(560, 56, 340, 45)
 GUICtrlSetLimit(-1, 500, 0)
 GUICtrlSetData(-1, 100)
 
-Local $LabelBeta = GUICtrlCreateLabel("Beta bias (brightness) : ", 366, 112, 197, 20)
+Global $LabelBeta = GUICtrlCreateLabel("Beta bias (brightness) : ", 366, 112, 197, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $SliderBeta = GUICtrlCreateSlider(560, 104, 340, 45)
+Global $SliderBeta = GUICtrlCreateSlider(560, 104, 340, 45)
 GUICtrlSetLimit(-1, 200, 0)
 GUICtrlSetData(-1, 100)
 
-Local $LabelGamma = GUICtrlCreateLabel("Gamma correction : ", 366, 160, 178, 20)
+Global $LabelGamma = GUICtrlCreateLabel("Gamma correction : ", 366, 160, 178, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $SliderGamma = GUICtrlCreateSlider(560, 152, 340, 45)
+Global $SliderGamma = GUICtrlCreateSlider(560, 152, 340, 45)
 GUICtrlSetLimit(-1, 200, 0)
 GUICtrlSetData(-1, 100)
 
-Local $LabelSource = GUICtrlCreateLabel("Source Image", 170, 216, 100, 20)
+Global $LabelSource = GUICtrlCreateLabel("Source Image", 170, 216, 100, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupSource = GUICtrlCreateGroup("", 16, 240, 400, 400)
-Local $PicSource = GUICtrlCreatePic("", 21, 251, 390, 384)
+Global $GroupSource = GUICtrlCreateGroup("", 16, 240, 400, 400)
+Global $PicSource = GUICtrlCreatePic("", 21, 251, 390, 384)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-Local $LabelLinearTransform = GUICtrlCreateLabel("Brightness and contrast adjustments", 504, 216, 253, 20)
+Global $LabelLinearTransform = GUICtrlCreateLabel("Brightness and contrast adjustments", 504, 216, 253, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupLinearTransform = GUICtrlCreateGroup("", 430, 238, 400, 400)
-Local $PicLinearTransform = GUICtrlCreatePic("", 435, 249, 390, 384)
+Global $GroupLinearTransform = GUICtrlCreateGroup("", 430, 238, 400, 400)
+Global $PicLinearTransform = GUICtrlCreatePic("", 435, 249, 390, 384)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-Local $LabelGammaCorrection = GUICtrlCreateLabel("Gamma correction", 975, 216, 130, 20)
+Global $LabelGammaCorrection = GUICtrlCreateLabel("Gamma correction", 975, 216, 130, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupGammaCorrection = GUICtrlCreateGroup("", 840, 238, 400, 400)
-Local $PicGammaCorrection = GUICtrlCreatePic("", 845, 249, 390, 384)
+Global $GroupGammaCorrection = GUICtrlCreateGroup("", 840, 238, 400, 400)
+Global $PicGammaCorrection = GUICtrlCreatePic("", 845, 249, 390, 384)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
-
-GUISetOnEvent($GUI_EVENT_CLOSE, "_cleanExit")
-GUICtrlSetOnEvent($BtnSource, "_handleBtnSourceClick")
 
 GUISetState(@SW_SHOW)
 #EndRegion ### END Koda GUI section ###
@@ -75,18 +73,19 @@ _GUICtrlSlider_SetTicFreq($SliderGamma, 1)
 
 _GDIPlus_Startup()
 
-Local $sInputSource, $img
+Global $sInputSource, $img
+Global $nMsg
 
 Main()
 
-Local $iCurrentAlpha = GUICtrlRead($SliderAlpha)
-Local $iLastAlpha = $iCurrentAlpha
+Global $iCurrentAlpha = GUICtrlRead($SliderAlpha)
+Global $iLastAlpha = $iCurrentAlpha
 
-Local $iCurrentBeta = GUICtrlRead($SliderBeta)
-Local $iLastBeta = $iCurrentBeta
+Global $iCurrentBeta = GUICtrlRead($SliderBeta)
+Global $iLastBeta = $iCurrentBeta
 
-Local $iCurrentGamma = GUICtrlRead($SliderGamma)
-Local $iLastGamma = $iCurrentGamma
+Global $iCurrentGamma = GUICtrlRead($SliderGamma)
+Global $iLastGamma = $iCurrentGamma
 
 While 1
 	$iCurrentAlpha = GUICtrlRead($SliderAlpha)
@@ -103,20 +102,26 @@ While 1
 		$iLastGamma = $iCurrentGamma
 	EndIf
 
-	Sleep(50) ; Sleep to reduce CPU usage
+	$nMsg = GUIGetMsg()
+	Switch $nMsg
+		Case $GUI_EVENT_CLOSE
+			ExitLoop
+		Case $BtnSource
+			$sInputSource = ControlGetText($FormGUI, "", $InputSource)
+			$sInputSource = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.jpg;*.jpeg;*.png;*.gif)", $FD_FILEMUSTEXIST, $sInputSource)
+			If @error Then
+				$sInputSource = ""
+			Else
+				ControlSetText($FormGUI, "", $InputSource, $sInputSource)
+			EndIf
+			Main()
+	EndSwitch
+
+	Sleep(30) ; Sleep to reduce CPU usage
 WEnd
 
-Func _handleBtnSourceClick()
-	$sInputSource = ControlGetText($FormGUI, "", $InputSource)
-	$sInputSource = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.jpg;*.jpeg;*.png;*.gif)", $FD_FILEMUSTEXIST, $sInputSource)
-	If @error Then
-		$sInputSource = ""
-		Return
-	EndIf
-
-	ControlSetText($FormGUI, "", $InputSource, $sInputSource)
-	Main()
-EndFunc   ;==>_handleBtnSourceClick
+_GDIPlus_Shutdown()
+_OpenCV_Unregister_And_Close()
 
 Func Main()
 	$sInputSource = ControlGetText($FormGUI, "", $InputSource)
@@ -174,15 +179,3 @@ Func gammaCorrection()
 	_OpenCV_imshow_ControlPic($res, $FormGUI, $PicGammaCorrection)
 
 EndFunc   ;==>gammaCorrection
-
-Func _cleanExit()
-	If @GUI_WinHandle <> $FormGUI Then
-		Return
-	EndIf
-
-
-	_GDIPlus_Shutdown()
-	_OpenCV_Unregister_And_Close()
-
-	Exit
-EndFunc   ;==>_cleanExit

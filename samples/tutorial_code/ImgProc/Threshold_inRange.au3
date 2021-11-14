@@ -1,8 +1,9 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_UseX64=y
+#AutoIt3Wrapper_Change2CUI=y
+#AutoIt3Wrapper_Au3Check_Parameters=-d -w 1 -w 2 -w 3 -w 4 -w 5 -w 6
+#AutoIt3Wrapper_AU3Check_Stop_OnWarning=y
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
-
-Opt("MustDeclareVars", 1)
 
 #include <GDIPlus.au3>
 #include <GuiComboBox.au3>
@@ -18,67 +19,67 @@ Opt("MustDeclareVars", 1)
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
 
-Local $cv = _OpenCV_get()
+Global $cv = _OpenCV_get()
 
-Local Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
+Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
 
-Local Const $max_value_H = 360 / 2 ;
-Local Const $max_value = 255 ;
+Global Const $max_value_H = 360 / 2 ;
+Global Const $max_value = 255 ;
 
-Local $low_H = 50 ;
-Local $low_S = 0 ;
-Local $low_V = 60 ;
-Local $high_H = 140 ;
-Local $high_S = $max_value ;
-Local $high_V = 150 ;
+Global $low_H = 50 ;
+Global $low_S = 0 ;
+Global $low_V = 60 ;
+Global $high_H = 140 ;
+Global $high_S = $max_value ;
+Global $high_V = 150 ;
 
 #Region ### START Koda GUI section ### Form=
-Local $FormGUI = GUICreate("Thresholding Operations using inRange", 1066, 745, 192, 73)
+Global $FormGUI = GUICreate("Thresholding Operations using inRange", 1066, 745, 192, 73)
 
-Local $LabelCamera = GUICtrlCreateLabel("Camera", 24, 24, 58, 20)
+Global $LabelCamera = GUICtrlCreateLabel("Camera", 24, 24, 58, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $ComboCamera = GUICtrlCreateCombo("", 136, 24, 120, 25, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL))
+Global $ComboCamera = GUICtrlCreateCombo("", 136, 24, 120, 25, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL))
 
-Local $LabelLowH = GUICtrlCreateLabel("Low H: 180", 24, 64, 78, 20)
+Global $LabelLowH = GUICtrlCreateLabel("Low H: 180", 24, 64, 78, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $SliderLowH = GUICtrlCreateSlider(128, 64, 400, 45)
+Global $SliderLowH = GUICtrlCreateSlider(128, 64, 400, 45)
 GUICtrlSetLimit(-1, $max_value_H - 1, 0)
 
-Local $LabelHighH = GUICtrlCreateLabel("High H: 180", 544, 64, 83, 20)
+Global $LabelHighH = GUICtrlCreateLabel("High H: 180", 544, 64, 83, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $SliderHighH = GUICtrlCreateSlider(648, 64, 400, 45)
+Global $SliderHighH = GUICtrlCreateSlider(648, 64, 400, 45)
 GUICtrlSetLimit(-1, $max_value_H, 1)
 
-Local $LabelLowS = GUICtrlCreateLabel("Low S: 255", 24, 104, 77, 20)
+Global $LabelLowS = GUICtrlCreateLabel("Low S: 255", 24, 104, 77, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $SliderLowS = GUICtrlCreateSlider(128, 104, 400, 45)
+Global $SliderLowS = GUICtrlCreateSlider(128, 104, 400, 45)
 GUICtrlSetLimit(-1, $max_value - 1, 0)
 
-Local $LabelHighS = GUICtrlCreateLabel("High S: 255", 544, 104, 82, 20)
+Global $LabelHighS = GUICtrlCreateLabel("High S: 255", 544, 104, 82, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $SliderHighS = GUICtrlCreateSlider(648, 104, 400, 45)
+Global $SliderHighS = GUICtrlCreateSlider(648, 104, 400, 45)
 GUICtrlSetLimit(-1, $max_value, 1)
 
-Local $LabelLowV = GUICtrlCreateLabel("Low V: 255", 24, 144, 77, 20)
+Global $LabelLowV = GUICtrlCreateLabel("Low V: 255", 24, 144, 77, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $SliderLowV = GUICtrlCreateSlider(128, 144, 400, 45)
+Global $SliderLowV = GUICtrlCreateSlider(128, 144, 400, 45)
 GUICtrlSetLimit(-1, $max_value - 1, 0)
 
-Local $LabelHighV = GUICtrlCreateLabel("High V: 255", 544, 144, 82, 20)
+Global $LabelHighV = GUICtrlCreateLabel("High V: 255", 544, 144, 82, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $SliderHighV = GUICtrlCreateSlider(648, 144, 400, 45)
+Global $SliderHighV = GUICtrlCreateSlider(648, 144, 400, 45)
 GUICtrlSetLimit(-1, $max_value, 1)
 
-Local $LabelVideoCapture = GUICtrlCreateLabel("Video Capture", 231, 196, 103, 20)
+Global $LabelVideoCapture = GUICtrlCreateLabel("Video Capture", 231, 196, 103, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupVideoCapture = GUICtrlCreateGroup("", 20, 219, 510, 516)
-Local $PicVideoCapture = GUICtrlCreatePic("", 25, 230, 500, 500)
+Global $GroupVideoCapture = GUICtrlCreateGroup("", 20, 219, 510, 516)
+Global $PicVideoCapture = GUICtrlCreatePic("", 25, 230, 500, 500)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-Local $LabelObjectDetection = GUICtrlCreateLabel("Object Detection", 735, 196, 119, 20)
+Global $LabelObjectDetection = GUICtrlCreateLabel("Object Detection", 735, 196, 119, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupObjectDetection = GUICtrlCreateGroup("", 532, 219, 510, 516)
-Local $PicObjectDetection = GUICtrlCreatePic("", 537, 230, 500, 500)
+Global $GroupObjectDetection = GUICtrlCreateGroup("", 532, 219, 510, 516)
+Global $PicObjectDetection = GUICtrlCreatePic("", 537, 230, 500, 500)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
 GUICtrlSetData($SliderLowH, $low_H)
@@ -100,20 +101,20 @@ _GUICtrlSlider_SetTicFreq($SliderHighV, 1)
 
 _GDIPlus_Startup()
 
-Local $bHasAddon = _Addon_DLLOpen(_Addon_FindDLL())
+Global $bHasAddon = _Addon_DLLOpen(_Addon_FindDLL())
 
-Local $tPtr = DllStructCreate("ptr value")
-Local $sCameraList = ""
+Global $tPtr = DllStructCreate("ptr value")
+Global $sCameraList = ""
 
-Local $cap = Null
+Global $cap = Null
 
-Local $iNewLowH, $iOldLowH, $iNewHighH, $iOldHighH
-Local $iNewLowS, $iOldLowS, $iNewSighS, $iOldHighS
-Local $iNewLowV, $iOldLowV, $iNewVighV, $iOldHighV
+Global $iNewLowH, $iOldLowH, $iNewHighH, $iOldHighH
+Global $iNewLowS, $iOldLowS, $iNewSighS, $iOldHighS
+Global $iNewLowV, $iOldLowV, $iNewVighV, $iOldHighV
 
-Local $hUser32DLL = DllOpen("user32.dll")
+Global $hUser32DLL = DllOpen("user32.dll")
 
-Local $nMsg
+Global $nMsg
 
 While 1
 	$nMsg = GUIGetMsg()

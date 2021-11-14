@@ -1,24 +1,25 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_UseX64=y
+#AutoIt3Wrapper_Change2CUI=y
+#AutoIt3Wrapper_Au3Check_Parameters=-d -w 1 -w 2 -w 3 -w 4 -w 5 -w 6
+#AutoIt3Wrapper_AU3Check_Stop_OnWarning=y
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
-
-Opt("MustDeclareVars", 1)
 
 #include "..\autoit-opencv-com\udf\opencv_udf_utils.au3"
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
 
-Local $cv = _OpenCV_get()
+Global $cv = _OpenCV_get()
 
 If IsObj($cv) Then
-	Local $img = _OpenCV_imread_and_check(_OpenCV_FindFile("samples\data\lena.jpg"))
-	Local $angle = 20
-	Local $scale = 1
+	Global $img = _OpenCV_imread_and_check(_OpenCV_FindFile("samples\data\lena.jpg"))
+	Global $angle = 20
+	Global $scale = 1
 
-	Local $size[2] = [$img.width, $img.height]
-	Local $center[2] = [$img.width / 2, $img.height / 2]
-	Local $M = $cv.getRotationMatrix2D($center, -$angle, $scale)
-	Local $rotated = $cv.warpAffine($img, $M, $size)
+	Global $size[2] = [$img.width, $img.height]
+	Global $center[2] = [$img.width / 2, $img.height / 2]
+	Global $M = $cv.getRotationMatrix2D($center, -$angle, $scale)
+	Global $rotated = $cv.warpAffine($img, $M, $size)
 
 	$cv.imshow("Rotation", $rotated)
 

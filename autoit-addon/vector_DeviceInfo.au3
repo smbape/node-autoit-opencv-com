@@ -3,12 +3,12 @@
 
 Func _VectorOfDeviceInfoCreate()
     ; AUTOIT_EXPORTS (std::vector< AUTOIT_MODULE_NAME::DeviceInfo >*) VectorOfDeviceInfoCreate();
-    Return _OpenCV_DllCall($addon_dll, "ptr:cdecl", "VectorOfDeviceInfoCreate")
+    Return _OpenCV_DllCall($h_addon_dll, "ptr:cdecl", "VectorOfDeviceInfoCreate")
 EndFunc   ;==>_VectorOfDeviceInfoCreate
 
 Func _VectorOfDeviceInfoCreateSize($size)
     ; AUTOIT_EXPORTS (std::vector< AUTOIT_MODULE_NAME::DeviceInfo >*) VectorOfDeviceInfoCreateSize(int size);
-    Return _OpenCV_DllCall($addon_dll, "ptr:cdecl", "VectorOfDeviceInfoCreateSize", "int", $size)
+    Return _OpenCV_DllCall($h_addon_dll, "ptr:cdecl", "VectorOfDeviceInfoCreateSize", "int", $size)
 EndFunc   ;==>_VectorOfDeviceInfoCreateSize
 
 Func _VectorOfDeviceInfoGetSize($v)
@@ -35,7 +35,7 @@ Func _VectorOfDeviceInfoGetSize($v)
         $bVDllType = "ptr"
     EndIf
 
-    Local $retval = _OpenCV_DllCall($addon_dll, "int:cdecl", "VectorOfDeviceInfoGetSize", $bVDllType, $vecV)
+    Local $retval = _OpenCV_DllCall($h_addon_dll, "int:cdecl", "VectorOfDeviceInfoGetSize", $bVDllType, $vecV)
 
     If $bVIsArray Then
         _VectorOfDeviceInfoRelease($vecV)
@@ -75,7 +75,7 @@ Func _VectorOfDeviceInfoPush($v, $value)
         $bValueDllType = "ptr"
     EndIf
 
-    _OpenCV_DllCall($addon_dll, "none:cdecl", "VectorOfDeviceInfoPush", $bVDllType, $vecV, $bValueDllType, $value)
+    _OpenCV_DllCall($h_addon_dll, "none:cdecl", "VectorOfDeviceInfoPush", $bVDllType, $vecV, $bValueDllType, $value)
 
     If $bVIsArray Then
         _VectorOfDeviceInfoRelease($vecV)
@@ -113,7 +113,7 @@ Func _VectorOfDeviceInfoPushMulti($v, $values, $count)
         $bValuesDllType = "ptr"
     EndIf
 
-    _OpenCV_DllCall($addon_dll, "none:cdecl", "VectorOfDeviceInfoPushMulti", $bVDllType, $vecV, $bValuesDllType, $values, "int", $count)
+    _OpenCV_DllCall($h_addon_dll, "none:cdecl", "VectorOfDeviceInfoPushMulti", $bVDllType, $vecV, $bValuesDllType, $values, "int", $count)
 
     If $bVIsArray Then
         _VectorOfDeviceInfoRelease($vecV)
@@ -165,7 +165,7 @@ Func _VectorOfDeviceInfoPushVector($v, $other)
         $bOtherDllType = "ptr"
     EndIf
 
-    _OpenCV_DllCall($addon_dll, "none:cdecl", "VectorOfDeviceInfoPushVector", $bVDllType, $vecV, $bOtherDllType, $vecOther)
+    _OpenCV_DllCall($h_addon_dll, "none:cdecl", "VectorOfDeviceInfoPushVector", $bVDllType, $vecV, $bOtherDllType, $vecOther)
 
     If $bOtherIsArray Then
         _VectorOfDeviceInfoRelease($vecOther)
@@ -200,7 +200,7 @@ Func _VectorOfDeviceInfoClear($v)
         $bVDllType = "ptr"
     EndIf
 
-    _OpenCV_DllCall($addon_dll, "none:cdecl", "VectorOfDeviceInfoClear", $bVDllType, $vecV)
+    _OpenCV_DllCall($h_addon_dll, "none:cdecl", "VectorOfDeviceInfoClear", $bVDllType, $vecV)
 
     If $bVIsArray Then
         _VectorOfDeviceInfoRelease($vecV)
@@ -231,7 +231,7 @@ Func _VectorOfDeviceInfoRelease($v)
         $bVDllType = "ptr*"
     EndIf
 
-    _OpenCV_DllCall($addon_dll, "none:cdecl", "VectorOfDeviceInfoRelease", $bVDllType, $vecV)
+    _OpenCV_DllCall($h_addon_dll, "none:cdecl", "VectorOfDeviceInfoRelease", $bVDllType, $vecV)
 
     If $bVIsArray Then
         _VectorOfDeviceInfoRelease($vecV)
@@ -269,7 +269,7 @@ Func _VectorOfDeviceInfoCopyData($v, $data)
         $bDataDllType = "ptr"
     EndIf
 
-    _OpenCV_DllCall($addon_dll, "none:cdecl", "VectorOfDeviceInfoCopyData", $bVDllType, $vecV, $bDataDllType, $data)
+    _OpenCV_DllCall($h_addon_dll, "none:cdecl", "VectorOfDeviceInfoCopyData", $bVDllType, $vecV, $bDataDllType, $data)
 
     If $bVIsArray Then
         _VectorOfDeviceInfoRelease($vecV)
@@ -300,7 +300,7 @@ Func _VectorOfDeviceInfoGetStartAddress($v)
         $bVDllType = "ptr"
     EndIf
 
-    Local $retval = _OpenCV_DllCall($addon_dll, "ptr:cdecl", "VectorOfDeviceInfoGetStartAddress", $bVDllType, $vecV)
+    Local $retval = _OpenCV_DllCall($h_addon_dll, "ptr:cdecl", "VectorOfDeviceInfoGetStartAddress", $bVDllType, $vecV)
 
     If $bVIsArray Then
         _VectorOfDeviceInfoRelease($vecV)
@@ -333,7 +333,7 @@ Func _VectorOfDeviceInfoGetEndAddress($v)
         $bVDllType = "ptr"
     EndIf
 
-    Local $retval = _OpenCV_DllCall($addon_dll, "ptr:cdecl", "VectorOfDeviceInfoGetEndAddress", $bVDllType, $vecV)
+    Local $retval = _OpenCV_DllCall($h_addon_dll, "ptr:cdecl", "VectorOfDeviceInfoGetEndAddress", $bVDllType, $vecV)
 
     If $bVIsArray Then
         _VectorOfDeviceInfoRelease($vecV)
@@ -373,7 +373,7 @@ Func _VectorOfDeviceInfoGetItem($vec, $index, $element)
         $bElementDllType = "ptr"
     EndIf
 
-    _OpenCV_DllCall($addon_dll, "none:cdecl", "VectorOfDeviceInfoGetItem", $bVecDllType, $vecVec, "int", $index, $bElementDllType, $element)
+    _OpenCV_DllCall($h_addon_dll, "none:cdecl", "VectorOfDeviceInfoGetItem", $bVecDllType, $vecVec, "int", $index, $bElementDllType, $element)
 
     If $bVecIsArray Then
         _VectorOfDeviceInfoRelease($vecVec)
@@ -411,7 +411,7 @@ Func _VectorOfDeviceInfoGetItemPtr($vec, $index, $element)
         $bElementDllType = "ptr*"
     EndIf
 
-    _OpenCV_DllCall($addon_dll, "none:cdecl", "VectorOfDeviceInfoGetItemPtr", $bVecDllType, $vecVec, "int", $index, $bElementDllType, $element)
+    _OpenCV_DllCall($h_addon_dll, "none:cdecl", "VectorOfDeviceInfoGetItemPtr", $bVecDllType, $vecVec, "int", $index, $bElementDllType, $element)
 
     If $bVecIsArray Then
         _VectorOfDeviceInfoRelease($vecVec)
@@ -420,5 +420,5 @@ EndFunc   ;==>_VectorOfDeviceInfoGetItemPtr
 
 Func _VectorOfDeviceInfoSizeOfItemInBytes()
     ; AUTOIT_EXPORTS (int) VectorOfDeviceInfoSizeOfItemInBytes();
-    Return _OpenCV_DllCall($addon_dll, "int:cdecl", "VectorOfDeviceInfoSizeOfItemInBytes")
+    Return _OpenCV_DllCall($h_addon_dll, "int:cdecl", "VectorOfDeviceInfoSizeOfItemInBytes")
 EndFunc   ;==>_VectorOfDeviceInfoSizeOfItemInBytes

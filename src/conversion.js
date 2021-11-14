@@ -294,7 +294,7 @@ Object.assign(exports, {
             }
 
             const HRESULT autoit_opencv_from(const cv::Ptr<${ coclass.fqn }>& in_val, VARIANT*& out_val) {
-                I${ cotype }* pdispVal;
+                I${ cotype }* pdispVal = NULL;
                 I${ cotype }** ppdispVal = &pdispVal;
                 HRESULT hr = autoit_opencv_from(in_val, ppdispVal);
                 if (SUCCEEDED(hr)) {
@@ -360,7 +360,7 @@ Object.assign(exports, {
                 }
 
                 const HRESULT autoit_opencv_from(const ${ coclass.fqn }& in_val, VARIANT*& out_val) {
-                    I${ cotype }* pdispVal;
+                    I${ cotype }* pdispVal = NULL;
                     I${ cotype }** ppdispVal = &pdispVal;
                     HRESULT hr = autoit_opencv_from(in_val, ppdispVal);
                     if (SUCCEEDED(hr)) {

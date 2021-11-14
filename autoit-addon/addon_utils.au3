@@ -1,7 +1,7 @@
 #include-once
 #include "..\autoit-opencv-com\udf\opencv_udf_utils.au3"
 
-Global $addon_dll = ""
+Global $h_addon_dll = -1
 
 Global Const $tagAddonDeviceInfo = _
     "long WaveInID;" & _
@@ -27,17 +27,16 @@ Func _Addon_FindDLL($sFile = Default, $sFilter = Default, $sDir = Default)
         "autoit-addon\" & $sBuildType, _
         "autoit-addon\build_x64\" & $sBuildType _
     ]
-    Return _OpenCV_FindFile($sFile, $sFilter, $sDir, $FLTA_FILES, True, $aSearchPaths)
+    Return _OpenCV_FindFile($sFile, $sFilter, $sDir, $FLTA_FILES, $aSearchPaths)
 EndFunc   ;==>_Addon_FindDLL
 
 Func _Addon_DLLOpen($s_addon_dll)
-    $addon_dll = _OpenCV_LoadDLL($s_addon_dll)
-    Return $addon_dll <> -1
+    $h_addon_dll = _OpenCV_LoadDLL($s_addon_dll)
+    Return $h_addon_dll <> -1
 EndFunc   ;==>_Addon_DLLOpen
 
 Func _Addon_DLLClose()
-    If $addon_dll == -1 Then Return False
-    DllClose($addon_dll)
-    Return True
-    $addon_dll = ""
+    If $h_addon_dll == -1 Then Return False
+    DllClose($h_addon_dll)
+    $h_addon_dll = -1
 EndFunc   ;==>_Addon_DLLClose

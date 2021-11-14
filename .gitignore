@@ -1,6 +1,7 @@
 /autoit-opencv-*-com-v*.7z
 /node_modules
 /opencv-*-vc*
+/samples/tutorial_code/yolo/yolov3.weights
 /*.sublime-workspace
 BackUp
 generated

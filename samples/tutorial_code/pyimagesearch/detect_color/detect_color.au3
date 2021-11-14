@@ -1,8 +1,9 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_UseX64=y
+#AutoIt3Wrapper_Change2CUI=y
+#AutoIt3Wrapper_Au3Check_Parameters=-d -w 1 -w 2 -w 3 -w 4 -w 5 -w 6
+#AutoIt3Wrapper_AU3Check_Stop_OnWarning=y
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
-
-Opt("MustDeclareVars", 1)
 
 #include <GDIPlus.au3>
 #include <GUIConstantsEx.au3>
@@ -14,29 +15,26 @@ Opt("MustDeclareVars", 1)
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
 
-Local $cv = _OpenCV_get()
-
-Local Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
-
-_GDIPlus_Startup()
+Global $cv = _OpenCV_get()
+Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
 
 #Region ### START Koda GUI section ### Form=
-Local $FormGUI = GUICreate("Determining object color with OpenCV", 1065, 617, 192, 124)
+Global $FormGUI = GUICreate("Determining object color with OpenCV", 1065, 617, 192, 124)
 
-Local $InputSource = GUICtrlCreateInput(@ScriptDir & "\example_shapes.png", 264, 24, 449, 21)
+Global $InputSource = GUICtrlCreateInput(@ScriptDir & "\example_shapes.png", 264, 24, 449, 21)
 GUICtrlSetState(-1, $GUI_DISABLE)
-Local $BtnSource = GUICtrlCreateButton("Open", 723, 22, 75, 25)
+Global $BtnSource = GUICtrlCreateButton("Open", 723, 22, 75, 25)
 
-Local $LabelSource = GUICtrlCreateLabel("Source Image", 231, 60, 100, 20)
+Global $LabelSource = GUICtrlCreateLabel("Source Image", 231, 60, 100, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupSource = GUICtrlCreateGroup("", 20, 83, 510, 516)
-Local $PicSource = GUICtrlCreatePic("", 25, 94, 500, 500)
+Global $GroupSource = GUICtrlCreateGroup("", 20, 83, 510, 516)
+Global $PicSource = GUICtrlCreatePic("", 25, 94, 500, 500)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-Local $LabelResult = GUICtrlCreateLabel("Color and shape detection", 719, 60, 186, 20)
+Global $LabelResult = GUICtrlCreateLabel("Color and shape detection", 719, 60, 186, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupResult = GUICtrlCreateGroup("", 532, 83, 510, 516)
-Local $PicResult = GUICtrlCreatePic("", 537, 94, 500, 500)
+Global $GroupResult = GUICtrlCreateGroup("", 532, 83, 510, 516)
+Global $PicResult = GUICtrlCreatePic("", 537, 94, 500, 500)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
 GUISetState(@SW_SHOW)
@@ -44,9 +42,9 @@ GUISetState(@SW_SHOW)
 
 _GDIPlus_Startup()
 
-Local $colors = getColors()
-Local $sImage = ""
-Local $nMsg
+Global $colors = getColors()
+Global $sImage = ""
+Global $nMsg
 
 Main()
 
@@ -88,14 +86,14 @@ Func Main()
 	;; blur the resized image slightly, then convert it to both
 	;; grayscale and the L*a*b* color spaces
 	Local $blurred = $cv.GaussianBlur($resized, _OpenCV_Size(5, 5), 0)
-	Local $gray = $cv.cvtColor($blurred, $cv._COLOR_BGR2GRAY)
-	Local $lab = $cv.cvtColor($blurred, $cv._COLOR_BGR2LAB)
-	$cv.threshold($gray, 60, 255, $cv._THRESH_BINARY)
+	Local $gray = $cv.cvtColor($blurred, $CV_COLOR_BGR2GRAY)
+	Local $lab = $cv.cvtColor($blurred, $CV_COLOR_BGR2LAB)
+	$cv.threshold($gray, 60, 255, $CV_THRESH_BINARY)
 	Local $thresh = $cv.extended[1]
 
 	;; find contours in the thresholded image and initialize the
 	;; shape detector
-	Local $cnts = $cv.findContours($thresh, $cv._RETR_EXTERNAL, $cv._CHAIN_APPROX_SIMPLE)
+	Local $cnts = $cv.findContours($thresh, $CV_RETR_EXTERNAL, $CV_CHAIN_APPROX_SIMPLE)
 	Local $tmp[1]
 
 	For $i = 0 To UBound($cnts) - 1
@@ -115,7 +113,7 @@ Func Main()
 		;; then draw the contours and the name of the shape on the image
 		$tmp[0] = $c.convertTo(-1, $ratio)
 		$cv.drawContours($image, $tmp, -1, _OpenCV_Scalar(0, 255, 0), 2)
-		$cv.putText($image, $color & " " & $shape, _OpenCV_Point($cX, $cY), $cv._FONT_HERSHEY_SIMPLEX, 0.5, _OpenCV_Scalar(255, 255, 255), 2)
+		$cv.putText($image, $color & " " & $shape, _OpenCV_Point($cX, $cY), $CV_FONT_HERSHEY_SIMPLEX, 0.5, _OpenCV_Scalar(255, 255, 255), 2)
 	Next
 
 	;; show the output image
@@ -165,7 +163,7 @@ Func label($image, $c)
 	For $i = 0 To UBound($colors) - 1
 		;; compute the distance between the current L*a*b*
 		;; color value and the mean of the image
-		Local $d = euclidean($colors[$i][1], $mean)
+		Local $d = _OpenCV_EuclideanDist($colors[$i][1], $mean)
 
 		;; if the distance is smaller than the current distance,
 		;; then update the bookkeeping variable
@@ -192,7 +190,7 @@ Func getColors()
 		$lab.Vec3b_set_at($i, $colors[$i][1])
 	Next
 
-	$lab = $cv.cvtColor($lab, $cv._COLOR_RGB2LAB)
+	$lab = $cv.cvtColor($lab, $CV_COLOR_RGB2LAB)
 
 	For $i = 0 To UBound($colors) - 1
 		$colors[$i][1] = $lab.Vec3b_at($i)
@@ -200,7 +198,3 @@ Func getColors()
 
 	Return $colors
 EndFunc   ;==>getColors
-
-Func euclidean($p, $q)
-	Return Sqrt(($p[0] - $q[0]) ^ 2 + ($p[1] - $q[1]) ^ 2 + ($p[2] - $q[2]) ^ 2)
-EndFunc   ;==>euclidean

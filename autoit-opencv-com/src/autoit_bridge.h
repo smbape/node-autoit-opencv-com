@@ -4,8 +4,9 @@
 #include <tuple>
 #include <utility>
 
-#define is_parameter_not_found(in_val) (V_VT(in_val) == VT_ERROR && V_ERROR(in_val) == DISP_E_PARAMNOTFOUND)
-#define is_parameter_missing(in_val) (V_VT(in_val) == VT_EMPTY || is_parameter_not_found(in_val))
+#define PARAMETER_NOT_FOUND(in_val) (V_VT(in_val) == VT_ERROR && V_ERROR(in_val) == DISP_E_PARAMNOTFOUND)
+#define PARAMETER_MISSING(in_val) (V_VT(in_val) == VT_EMPTY || PARAMETER_NOT_FOUND(in_val))
+#define PARAMETER_IN(in_val) variant_t variant_##in_val = get_variant_in(in_val); in_val = &variant_##in_val
 
 template<typename _Tp>
 struct TypeToImplType;
@@ -72,6 +73,7 @@ public:
 };
 
 extern IDispatch* getRealIDispatch(VARIANT const* const& in_val);
+extern const variant_t get_variant_in(VARIANT const* const& in_val);
 
 extern const bool is_assignable_from(bool& out_val, VARIANT const* const& in_val, bool is_optional);
 extern const HRESULT autoit_opencv_to(VARIANT const* const& in_val, bool& out_val);
@@ -94,6 +96,7 @@ extern const bool is_assignable_from(void*& out_val, VARIANT const* const& in_va
 extern const HRESULT autoit_opencv_to(VARIANT const* const& in_val, void*& out_val);
 
 extern const HRESULT autoit_opencv_from(uchar const* const& in_val, VARIANT*& out_val);
+extern const HRESULT autoit_opencv_to(VARIANT const* const& in_val, uchar*& out_val);
 
 extern const HRESULT autoit_opencv_from(cv::MatExpr& in_val, ICv_Mat_Object**& out_val);
 
@@ -122,8 +125,27 @@ const bool is_assignable_from(std::vector<_Tp>& out_val, VARIANT const* const& i
 		return false;
 	}
 
-	std::vector<_Tp> dummy;
-	return SUCCEEDED(autoit_opencv_to(in_val, dummy));
+	HRESULT hr = S_OK;
+	CComSafeArray<VARIANT> vArray;
+	vArray.Attach(V_ARRAY(in_val));
+
+	LONG lLower = vArray.GetLowerBound();
+	LONG lUpper = vArray.GetUpperBound();
+
+	_Tp value;
+
+	for (LONG i = lLower; i <= lUpper; i++) {
+		auto& v = vArray.GetAt(i);
+		VARIANT* pv = &v;
+		if (!is_assignable_from(value, pv, false)) {
+			hr = E_INVALIDARG;
+			break;
+		}
+	}
+
+	vArray.Detach();
+
+	return SUCCEEDED(hr);
 }
 
 template<typename _Tp>

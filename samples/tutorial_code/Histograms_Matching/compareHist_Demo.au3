@@ -1,8 +1,9 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_UseX64=y
+#AutoIt3Wrapper_Change2CUI=y
+#AutoIt3Wrapper_Au3Check_Parameters=-d -w 1 -w 2 -w 3 -w 4 -w 5 -w 6
+#AutoIt3Wrapper_AU3Check_Stop_OnWarning=y
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
-
-Opt("MustDeclareVars", 1)
 
 #include <GDIPlus.au3>
 #include <GUIConstantsEx.au3>
@@ -16,46 +17,46 @@ Opt("MustDeclareVars", 1)
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
 
-Local $cv = _OpenCV_get()
+Global $cv = _OpenCV_get()
 
-Local Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
+Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
 
 #Region ### START Koda GUI section ### Form=
-Local $FormGUI = GUICreate("Histogram Comparison", 997, 668, 192, 124)
+Global $FormGUI = GUICreate("Histogram Comparison", 997, 668, 192, 124)
 
-Local $InputSrcBase = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\Histogram_Comparison_Source_0.jpg", 230, 16, 449, 21)
-Local $BtnSrcBase = GUICtrlCreateButton("Input 1", 689, 14, 75, 25)
+Global $InputSrcBase = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\Histogram_Comparison_Source_0.jpg", 230, 16, 449, 21)
+Global $BtnSrcBase = GUICtrlCreateButton("Input 1", 689, 14, 75, 25)
 
-Local $InputSrcTest1 = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\Histogram_Comparison_Source_1.jpg", 230, 52, 449, 21)
-Local $BtnSrcTest1 = GUICtrlCreateButton("Input 2", 689, 50, 75, 25)
+Global $InputSrcTest1 = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\Histogram_Comparison_Source_1.jpg", 230, 52, 449, 21)
+Global $BtnSrcTest1 = GUICtrlCreateButton("Input 2", 689, 50, 75, 25)
 
-Local $InputSrcTest2 = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\Histogram_Comparison_Source_2.jpg", 230, 88, 449, 21)
-Local $BtnSrcTest2 = GUICtrlCreateButton("Input 3", 689, 86, 75, 25)
+Global $InputSrcTest2 = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\Histogram_Comparison_Source_2.jpg", 230, 88, 449, 21)
+Global $BtnSrcTest2 = GUICtrlCreateButton("Input 3", 689, 86, 75, 25)
 
-Local $BtnExec = GUICtrlCreateButton("Execute", 832, 48, 75, 25)
+Global $BtnExec = GUICtrlCreateButton("Execute", 832, 48, 75, 25)
 
-Local $LabelSrcBase = GUICtrlCreateLabel("Source 1", 144, 128, 65, 20)
+Global $LabelSrcBase = GUICtrlCreateLabel("Source 1", 144, 128, 65, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupSrcBase = GUICtrlCreateGroup("", 20, 150, 310, 316)
-Local $PicSrcBase = GUICtrlCreatePic("", 25, 161, 300, 300)
+Global $GroupSrcBase = GUICtrlCreateGroup("", 20, 150, 310, 316)
+Global $PicSrcBase = GUICtrlCreatePic("", 25, 161, 300, 300)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-Local $LabelSrcTest1 = GUICtrlCreateLabel("Source 2", 468, 128, 65, 20)
+Global $LabelSrcTest1 = GUICtrlCreateLabel("Source 2", 468, 128, 65, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupSrcTest1 = GUICtrlCreateGroup("", 344, 150, 310, 316)
-Local $PicSrcTest1 = GUICtrlCreatePic("", 349, 161, 300, 300)
+Global $GroupSrcTest1 = GUICtrlCreateGroup("", 344, 150, 310, 316)
+Global $PicSrcTest1 = GUICtrlCreatePic("", 349, 161, 300, 300)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-Local $LabelSrcTest2 = GUICtrlCreateLabel("Source 3", 792, 128, 65, 20)
+Global $LabelSrcTest2 = GUICtrlCreateLabel("Source 3", 792, 128, 65, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupSrcTest2 = GUICtrlCreateGroup("", 668, 150, 310, 316)
-Local $PicSrcTest2 = GUICtrlCreatePic("", 673, 161, 300, 300)
+Global $GroupSrcTest2 = GUICtrlCreateGroup("", 668, 150, 310, 316)
+Global $PicSrcTest2 = GUICtrlCreatePic("", 673, 161, 300, 300)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
 GUISetState(@SW_SHOW)
 
 GUISetState(@SW_LOCK)
-Local $Table = _GUICtrlTable_Create(20, 500, 191, 28, 5, 5, 0)
+Global $Table = _GUICtrlTable_Create(20, 500, 191, 28, 5, 5, 0)
 _GUICtrlTable_Set_RowHeight($Table, 1, 35)
 _GUICtrlTable_Set_Justify_All($Table, 1, 1)
 _GUICtrlTable_Set_TextFont_All($Table, 8.5, 800, 0, "Tahoma")
@@ -73,10 +74,10 @@ GUISetState(@SW_UNLOCK)
 
 _GDIPlus_Startup()
 
-Local $sSrcBase = "", $sSrcTest1 = "", $sSrcTest2 = ""
-Local $nMsg
+Global $sSrcBase = "", $sSrcTest1 = "", $sSrcTest2 = ""
+Global $nMsg
 
-Local $aMethodName[4] = ["Correlation", "Chi-square", "Intersection", "Bhattacharyya"]
+Global $aMethodName[4] = ["Correlation", "Chi-square", "Intersection", "Bhattacharyya"]
 
 Main()
 

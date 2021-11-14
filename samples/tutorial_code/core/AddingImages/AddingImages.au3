@@ -1,8 +1,10 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_UseX64=y
+#AutoIt3Wrapper_Change2CUI=y
+#AutoIt3Wrapper_Au3Check_Parameters=-d -w 1 -w 2 -w 3 -w 4 -w 5 -w 6
+#AutoIt3Wrapper_AU3Check_Stop_OnWarning=y
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
 
-Opt("MustDeclareVars", 1)
 Opt("GUIOnEventMode", 1)
 
 #include <File.au3>
@@ -17,42 +19,42 @@ Opt("GUIOnEventMode", 1)
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
 
-Local $cv = _OpenCV_get()
+Global $cv = _OpenCV_get()
 
-Local Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
+Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
 
 #Region ### START Koda GUI section ### Form=
-Local $FormGUI = GUICreate("Adding (blending) two images using OpenCV", 999, 500, 192, 124)
+Global $FormGUI = GUICreate("Adding (blending) two images using OpenCV", 999, 500, 192, 124)
 
-Local $InputSrc1 = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\LinuxLogo.jpg", 230, 16, 449, 21)
-Local $BtnSrc1 = GUICtrlCreateButton("Input 1", 689, 14, 75, 25)
+Global $InputSrc1 = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\LinuxLogo.jpg", 230, 16, 449, 21)
+Global $BtnSrc1 = GUICtrlCreateButton("Input 1", 689, 14, 75, 25)
 
-Local $InputSrc2 = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\WindowsLogo.jpg", 230, 52, 449, 21)
-Local $BtnSrc2 = GUICtrlCreateButton("Input 2", 689, 50, 75, 25)
+Global $InputSrc2 = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\WindowsLogo.jpg", 230, 52, 449, 21)
+Global $BtnSrc2 = GUICtrlCreateButton("Input 2", 689, 50, 75, 25)
 
-Local $LabelAlpha = GUICtrlCreateLabel("Alpha: 0.5", 230, 84, 104, 20)
+Global $LabelAlpha = GUICtrlCreateLabel("Alpha: 0.5", 230, 84, 104, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $SliderAlpha = GUICtrlCreateSlider(342, 80, 422, 45)
+Global $SliderAlpha = GUICtrlCreateSlider(342, 80, 422, 45)
 GUICtrlSetData(-1, 50)
 
-Local $BtnExec = GUICtrlCreateButton("Execute", 832, 48, 75, 25)
+Global $BtnExec = GUICtrlCreateButton("Execute", 832, 48, 75, 25)
 
-Local $LabelSrc1 = GUICtrlCreateLabel("Input 1", 144, 128, 49, 20)
+Global $LabelSrc1 = GUICtrlCreateLabel("Input 1", 144, 128, 49, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupSrc1 = GUICtrlCreateGroup("", 20, 150, 310, 316)
-Local $PicSrc1 = GUICtrlCreatePic("", 25, 161, 300, 300)
+Global $GroupSrc1 = GUICtrlCreateGroup("", 20, 150, 310, 316)
+Global $PicSrc1 = GUICtrlCreatePic("", 25, 161, 300, 300)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-Local $LabelSrc2 = GUICtrlCreateLabel("Input 2", 468, 128, 49, 20)
+Global $LabelSrc2 = GUICtrlCreateLabel("Input 2", 468, 128, 49, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupSrc2 = GUICtrlCreateGroup("", 344, 150, 310, 316)
-Local $PicSrc2 = GUICtrlCreatePic("", 349, 161, 300, 300)
+Global $GroupSrc2 = GUICtrlCreateGroup("", 344, 150, 310, 316)
+Global $PicSrc2 = GUICtrlCreatePic("", 349, 161, 300, 300)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-Local $LabelResult = GUICtrlCreateLabel("Linear Blend", 792, 128, 91, 20)
+Global $LabelResult = GUICtrlCreateLabel("Linear Blend", 792, 128, 91, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupResult = GUICtrlCreateGroup("", 668, 150, 310, 316)
-Local $PicResult = GUICtrlCreatePic("", 673, 161, 300, 300)
+Global $GroupResult = GUICtrlCreateGroup("", 668, 150, 310, 316)
+Global $PicResult = GUICtrlCreatePic("", 673, 161, 300, 300)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
 GUISetOnEvent($GUI_EVENT_CLOSE, "_cleanExit")
@@ -68,14 +70,14 @@ _GUICtrlSlider_SetTicFreq($SliderAlpha, 1)
 
 _GDIPlus_Startup()
 
-Local $sSrc1 = "", $sSrc2 = ""
-Local $src1, $src2
-Local $warned = False
+Global $sSrc1 = "", $sSrc2 = ""
+Global $src1, $src2
+Global $warned = False
 
 Main()
 
-Local $current_alpha = GUICtrlRead($SliderAlpha)
-Local $last_alpha = $current_alpha
+Global $current_alpha = GUICtrlRead($SliderAlpha)
+Global $last_alpha = $current_alpha
 
 While 1
 	$current_alpha = GUICtrlRead($SliderAlpha)

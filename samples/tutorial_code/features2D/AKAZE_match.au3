@@ -1,8 +1,9 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_UseX64=y
+#AutoIt3Wrapper_Change2CUI=y
+#AutoIt3Wrapper_Au3Check_Parameters=-d -w 1 -w 2 -w 3 -w 4 -w 5 -w 6
+#AutoIt3Wrapper_AU3Check_Stop_OnWarning=y
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
-
-Opt("MustDeclareVars", 1)
 
 #include <GDIPlus.au3>
 #include <GuiComboBox.au3>
@@ -16,29 +17,29 @@ Opt("MustDeclareVars", 1)
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
 
-Local $cv = _OpenCV_get()
-Local $addon_dll = _Addon_FindDLL()
+Global $cv = _OpenCV_get()
+Global $addon_dll = _Addon_FindDLL()
 
-Local Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
+Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
 
 #Region ### START Koda GUI section ### Form=
-Local $FormGUI = GUICreate("AKAZE local features matching", 1000, 707, 192, 95)
+Global $FormGUI = GUICreate("AKAZE local features matching", 1000, 707, 192, 95)
 
-Local $InputImg1 = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\graf1.png", 230, 16, 449, 21)
-Local $BtnImg1 = GUICtrlCreateButton("Image 1", 689, 14, 75, 25)
+Global $InputImg1 = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\graf1.png", 230, 16, 449, 21)
+Global $BtnImg1 = GUICtrlCreateButton("Image 1", 689, 14, 75, 25)
 
-Local $InputImg2 = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\graf3.png", 230, 52, 449, 21)
-Local $BtnImg2 = GUICtrlCreateButton("Image 2", 689, 50, 75, 25)
+Global $InputImg2 = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\graf3.png", 230, 52, 449, 21)
+Global $BtnImg2 = GUICtrlCreateButton("Image 2", 689, 50, 75, 25)
 
-Local $InputHomography = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\H1to3p.xml", 230, 92, 449, 21)
-Local $BtnHomography = GUICtrlCreateButton("Homography matrix", 689, 90, 115, 25)
+Global $InputHomography = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\H1to3p.xml", 230, 92, 449, 21)
+Global $BtnHomography = GUICtrlCreateButton("Homography matrix", 689, 90, 115, 25)
 
-Local $BtnExec = GUICtrlCreateButton("Execute", 832, 48, 75, 25)
+Global $BtnExec = GUICtrlCreateButton("Execute", 832, 48, 75, 25)
 
-Local $LabelMatches = GUICtrlCreateLabel("Result", 377, 144, 245, 20)
+Global $LabelMatches = GUICtrlCreateLabel("Result", 377, 144, 245, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupMatches = GUICtrlCreateGroup("", 20, 166, 958, 532)
-Local $PicMatches = GUICtrlCreatePic("", 25, 177, 948, 516)
+Global $GroupMatches = GUICtrlCreateGroup("", 20, 166, 958, 532)
+Global $PicMatches = GUICtrlCreatePic("", 25, 177, 948, 516)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
 GUISetState(@SW_SHOW)
@@ -46,9 +47,9 @@ GUISetState(@SW_SHOW)
 
 _GDIPlus_Startup()
 
-Local $img1, $img2, $homography
-Local $nMsg, $hTimer
-Local $sImg1, $sImg2, $sHomography
+Global $img1, $img2, $homography
+Global $nMsg, $hTimer
+Global $sImg1, $sImg2, $sHomography
 
 Main()
 
@@ -113,8 +114,7 @@ Func Main()
 	If StringCompare($sHomography, ControlGetText($FormGUI, "", $InputHomography), $STR_NOCASESENSE) <> 0 Then
 		$sHomography = ControlGetText($FormGUI, "", $InputHomography)
 		Local $fs = ObjCreate("OpenCV.cv.FileStorage").create($sHomography, $CV_FILE_STORAGE_READ)
-		Local $node = $fs.getFirstTopLevelNode()
-		$homography = $cv.readMat($node)
+		$homography = $fs.getFirstTopLevelNode().mat()
 
 		If $homography.empty() Then
 			ConsoleWriteError("!>Error: The xml file " & $sHomography & " could not be loaded." & @CRLF)
@@ -196,13 +196,13 @@ Func Detect()
 		;;: [doing the loop in a compiled code is way faster than doing it in autoit]
 		$hTimer = TimerInit()
 		_OpenCV_DllCall($addon_dll, "none:cdecl", "AKAZE_match_ratio_test_filtering", _
-				"ptr", $matched1.self, _
-				"ptr", $kpts1.self, _
-				"ptr", $matched2.self, _
-				"ptr", $kpts2.self, _
-				"ptr", $nn_matches.self, _
-				"float", $nn_match_ratio _
-				)
+			"ptr", $matched1.self, _
+			"ptr", $kpts1.self, _
+			"ptr", $matched2.self, _
+			"ptr", $kpts2.self, _
+			"ptr", $nn_matches.self, _
+			"float", $nn_match_ratio _
+		)
 		ConsoleWrite("DllCall AKAZE_match_ratio_test_filtering " & TimerDiff($hTimer) & "ms" & @CRLF)
 		;;: [doing the loop in a compiled code is way faster than doing it in autoit]
 	EndIf
@@ -240,14 +240,14 @@ Func Detect()
 		;;: [doing the loop in a compiled code is way faster than doing it in autoit]
 		$hTimer = TimerInit()
 		_OpenCV_DllCall($addon_dll, "none:cdecl", "AKAZE_homograpy_check", _
-				"ptr", $homography.self, _
-				"ptr", $matched1.self, _
-				"ptr", $inliers1.self, _
-				"ptr", $matched2.self, _
-				"ptr", $inliers2.self, _
-				"float", $inlier_threshold, _
-				"ptr", $good_matches.self _
-				)
+			"ptr", $homography.self, _
+			"ptr", $matched1.self, _
+			"ptr", $inliers1.self, _
+			"ptr", $matched2.self, _
+			"ptr", $inliers2.self, _
+			"float", $inlier_threshold, _
+			"ptr", $good_matches.self _
+		)
 		ConsoleWrite("DllCall AKAZE_homograpy_check            " & TimerDiff($hTimer) & "ms" & @CRLF)
 		;;: [doing the loop in a compiled code is way faster than doing it in autoit]
 	EndIf

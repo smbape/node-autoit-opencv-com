@@ -1,8 +1,9 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_UseX64=y
+#AutoIt3Wrapper_Change2CUI=y
+#AutoIt3Wrapper_Au3Check_Parameters=-d -w 1 -w 2 -w 3 -w 4 -w 5 -w 6
+#AutoIt3Wrapper_AU3Check_Stop_OnWarning=y
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
-
-Opt("MustDeclareVars", 1)
 
 #include <GDIPlus.au3>
 #include <GuiComboBox.au3>
@@ -15,34 +16,34 @@ Opt("MustDeclareVars", 1)
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
 
-Local $cv = _OpenCV_get()
+Global $cv = _OpenCV_get()
 
-Local Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
+Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
 
 #Region ### START Koda GUI section ### Form=
-Local $FormGUI = GUICreate("Smoothing Images", 1067, 641, 192, 124)
+Global $FormGUI = GUICreate("Smoothing Images", 1067, 641, 192, 124)
 
-Local $InputSource = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\lena.jpg", 264, 24, 449, 21)
+Global $InputSource = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\lena.jpg", 264, 24, 449, 21)
 GUICtrlSetState(-1, $GUI_DISABLE)
-Local $BtnSource = GUICtrlCreateButton("Open", 723, 22, 75, 25)
+Global $BtnSource = GUICtrlCreateButton("Open", 723, 22, 75, 25)
 
-Local $LabelMethod = GUICtrlCreateLabel("Method:", 504, 61, 59, 20)
+Global $LabelMethod = GUICtrlCreateLabel("Method:", 504, 61, 59, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $ComboMethod = GUICtrlCreateCombo("", 568, 61, 145, 25, BitOR($GUI_SS_DEFAULT_COMBO, $CBS_SIMPLE))
+Global $ComboMethod = GUICtrlCreateCombo("", 568, 61, 145, 25, BitOR($GUI_SS_DEFAULT_COMBO, $CBS_SIMPLE))
 GUICtrlSetData(-1, "Homogeneous Blur|Gaussian Blur|Median Blur|Bilateral Blur")
 
-Local $BtnReplay = GUICtrlCreateButton("Replay", 723, 59, 75, 25)
+Global $BtnReplay = GUICtrlCreateButton("Replay", 723, 59, 75, 25)
 
-Local $LabelSource = GUICtrlCreateLabel("Source Image", 231, 92, 100, 20)
+Global $LabelSource = GUICtrlCreateLabel("Source Image", 231, 92, 100, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupSource = GUICtrlCreateGroup("", 20, 115, 510, 516)
-Local $PicSource = GUICtrlCreatePic("", 25, 126, 500, 500)
+Global $GroupSource = GUICtrlCreateGroup("", 20, 115, 510, 516)
+Global $PicSource = GUICtrlCreatePic("", 25, 126, 500, 500)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-Local $LabelResult = GUICtrlCreateLabel("Smoothing Demo", 735, 92, 120, 20)
+Global $LabelResult = GUICtrlCreateLabel("Smoothing Demo", 735, 92, 120, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupResult = GUICtrlCreateGroup("", 532, 115, 510, 516)
-Local $PicResult = GUICtrlCreatePic("", 537, 126, 500, 500)
+Global $GroupResult = GUICtrlCreateGroup("", 532, 115, 510, 516)
+Global $PicResult = GUICtrlCreatePic("", 537, 126, 500, 500)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
 GUISetState(@SW_SHOW)
@@ -50,15 +51,15 @@ GUISetState(@SW_SHOW)
 
 _GDIPlus_Startup()
 
-Local $sImage = ""
-Local $nMsg
+Global $sImage = ""
+Global $nMsg
 
-Local $src
+Global $src
 
-Local $DELAY_BLUR = 100 ;
-Local $MAX_KERNEL_LENGTH = 31 ;
+Global $DELAY_BLUR = 100 ;
+Global $MAX_KERNEL_LENGTH = 31 ;
 
-Local $aMethods[4] = ["Homogeneous Blur", "Gaussian Blur", "Median Blur", "Bilateral Blur"]
+Global $aMethods[4] = ["Homogeneous Blur", "Gaussian Blur", "Median Blur", "Bilateral Blur"]
 _GUICtrlComboBox_SetCurSel($ComboMethod, 0)
 
 Main()

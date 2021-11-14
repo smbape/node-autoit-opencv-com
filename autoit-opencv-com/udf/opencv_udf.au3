@@ -1,73 +1,87 @@
 #include-once
 
 Global $_cv_build_type = "Release"
-
 Global $_cv_debug = 0
 
-Local $h_opencv_world_dll = -1
-Local $h_autoit_opencv_com_dll = -1
-Local $cv = 0
-
-Func _OpenCV_get()
+Func _OpenCV_get($vVal = Default)
+	Local Static $cv = 0
+	If $vVal <> Default Then
+		$cv = $vVal
+		Return $cv
+	EndIf
 	If IsObj($cv) Then Return $cv
 	$cv = ObjCreate("OpenCV.cv")
 	Return $cv
 EndFunc   ;==>_OpenCV_get
 
-Func _OpenCV_Open_And_Register($s_opencv_wolrd_dll = "opencv_world453d.dll", $s_autoit_opencv_com_dll = "autoit_opencv_com.dll", $user = True)
+Func _OpenCV_Open_And_Register($s_opencv_wolrd_dll = Default, $s_autoit_opencv_com_dll = Default, $bUser = True)
 	If Not _OpenCV_Open($s_opencv_wolrd_dll, $s_autoit_opencv_com_dll) Then Return False
-	If Not _Opencv_Register($user) Then Return False
+	If Not _Opencv_Register($bUser) Then Return False
 	Return True
 EndFunc   ;==>_OpenCV_Open_And_Register
 
-Func _OpenCV_Unregister_And_Close($user = True)
-	If Not _Opencv_Unregister($user) Then Return False
+Func _OpenCV_Unregister_And_Close($bUser = True)
+	If Not _Opencv_Unregister($bUser) Then Return False
 	If Not _OpenCV_Close() Then Return False
 	Return True
 EndFunc   ;==>_OpenCV_Unregister_And_Close
 
-Func _OpenCV_Open($s_opencv_wolrd_dll = "opencv_world453d.dll", $s_autoit_opencv_com_dll = "autoit_opencv_com.dll")
-	If $h_opencv_world_dll <> -1 Then DllClose($h_opencv_world_dll)
-	$h_opencv_world_dll = _OpenCV_LoadDLL($s_opencv_wolrd_dll)
-	If $h_opencv_world_dll == -1 Then Return False
+Func _OpenCV_Install($s_opencv_wolrd_dll = Default, $s_autoit_opencv_com_dll = Default, $bUser = Default, $bOpen = True, $bClose = True, $bInstall = False, $bUninstall = False)
+	If $s_opencv_wolrd_dll == Default Then $s_opencv_wolrd_dll = "opencv_world454.dll"
+	If $s_autoit_opencv_com_dll == Default Then $s_autoit_opencv_com_dll = "autoit_opencv_com454.dll"
+	If $bUser == Default Then $bUser = True
 
-	If $h_autoit_opencv_com_dll <> -1 Then DllClose($h_autoit_opencv_com_dll)
-	$h_autoit_opencv_com_dll = _OpenCV_LoadDLL($s_autoit_opencv_com_dll)
-	If $h_autoit_opencv_com_dll == -1 Then Return False
+	Local Static $h_opencv_world_dll = -1
+	Local Static $h_autoit_opencv_com_dll = -1
+
+	If $bClose And $h_opencv_world_dll <> -1 Then DllClose($h_opencv_world_dll)
+	If $bOpen Then
+		$h_opencv_world_dll = _OpenCV_LoadDLL($s_opencv_wolrd_dll)
+		If $h_opencv_world_dll == -1 Then Return False
+	EndIf
+
+	If $bClose And $h_autoit_opencv_com_dll <> -1 Then DllClose($h_autoit_opencv_com_dll)
+	If $bOpen Then
+		$h_autoit_opencv_com_dll = _OpenCV_LoadDLL($s_autoit_opencv_com_dll)
+		If $h_autoit_opencv_com_dll == -1 Then Return False
+	EndIf
+
+	Local $hresult
+
+	If $bUninstall Then
+		$hresult = _OpenCV_DllCall($h_autoit_opencv_com_dll, "long:cdecl", "DllInstall", "bool", False, "wstr", $bUser ? "user" : "")
+		If $hresult < 0 Then
+			ConsoleWriteError('!>Error: DllInstall ' & $hresult & @CRLF)
+			Return False
+		EndIf
+	EndIf
+
+	If $bInstall Then
+		$hresult = _OpenCV_DllCall($h_autoit_opencv_com_dll, "long:cdecl", "DllInstall", "bool", True, "wstr", $bUser ? "user" : "")
+		If $hresult < 0 Then
+			ConsoleWriteError('!>Error: DllInstall ' & $hresult & @CRLF)
+			Return False
+		EndIf
+	EndIf
 
 	Return True
 EndFunc   ;==>_OpenCV_Open
 
+Func _OpenCV_Open($s_opencv_wolrd_dll = Default, $s_autoit_opencv_com_dll = Default)
+	Return _OpenCV_Install($s_opencv_wolrd_dll, $s_autoit_opencv_com_dll)
+EndFunc   ;==>_OpenCV_Open
+
 Func _OpenCV_Close()
-	$cv = 0
-
-	If $h_opencv_world_dll <> -1 Then
-		DllClose($h_opencv_world_dll)
-		$h_opencv_world_dll = -1
-	EndIf
-
-	If $h_autoit_opencv_com_dll <> -1 Then
-		DllClose($h_autoit_opencv_com_dll)
-		$h_autoit_opencv_com_dll = -1
-	EndIf
+	_OpenCV_get(0)
+	Return _OpenCV_Install(Default, Default, True, False)
 EndFunc   ;==>_OpenCV_Close
 
-Func _Opencv_Register($user = True)
-	Local $hresult = _OpenCV_DllCall($h_autoit_opencv_com_dll, "long:cdecl", "DllInstall", "bool", True, "wstr", $user ? "user" : "")
-	If $hresult < 0 Then
-		ConsoleWriteError('!>Error: DllInstall ' & $hresult & @CRLF)
-		Return False
-	EndIf
-	Return True
+Func _Opencv_Register($bUser = Default)
+	Return _OpenCV_Install(Default, Default, $bUser, False, False, True, False)
 EndFunc   ;==>_Opencv_Register
 
-Func _Opencv_Unregister($user = True)
-	Local $hresult = _OpenCV_DllCall($h_autoit_opencv_com_dll, "long:cdecl", "DllInstall", "bool", False, "wstr", $user ? "user" : "")
-	If $hresult < 0 Then
-		ConsoleWriteError('!>Error: DllInstall ' & $hresult & @CRLF)
-		Return False
-	EndIf
-	Return True
+Func _Opencv_Unregister($bUser = Default)
+	Return _OpenCV_Install(Default, Default, $bUser, False, False, False, True)
 EndFunc   ;==>_Opencv_Unregister
 
 Func _OpenCV_DebugMsg($msg)

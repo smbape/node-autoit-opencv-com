@@ -1,8 +1,9 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_UseX64=y
+#AutoIt3Wrapper_Change2CUI=y
+#AutoIt3Wrapper_Au3Check_Parameters=-d -w 1 -w 2 -w 3 -w 4 -w 5 -w 6
+#AutoIt3Wrapper_AU3Check_Stop_OnWarning=y
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
-
-Opt("MustDeclareVars", 1)
 
 #include <GDIPlus.au3>
 #include <GuiComboBox.au3>
@@ -16,96 +17,96 @@ Opt("MustDeclareVars", 1)
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
 
-Local $cv = _OpenCV_get()
+Global $cv = _OpenCV_get()
 
-Local Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
+Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
 
 _GDIPlus_Startup()
 
 #Region ### START Koda GUI section ### Form=
-Local $FormGUI = GUICreate("Contour Features", 1061, 601, 200, 90)
+Global $FormGUI = GUICreate("Contour Features", 1061, 601, 200, 90)
 
-Local $InputSource = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\pic1.png", 120, 16, 450, 21)
-Local $BtnSource = GUICtrlCreateButton("Source", 580, 14, 75, 25)
+Global $InputSource = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\pic1.png", 120, 16, 450, 21)
+Global $BtnSource = GUICtrlCreateButton("Source", 580, 14, 75, 25)
 
-Local $BtnSaveImg = GUICtrlCreateButton("Save image", 680, 14, 100, 25)
+Global $BtnSaveImg = GUICtrlCreateButton("Save image", 680, 14, 100, 25)
 
-Local $LabelThreshold = GUICtrlCreateLabel("Threshold: 180", 120, 62, 110, 20)
+Global $LabelThreshold = GUICtrlCreateLabel("Threshold: 180", 120, 62, 110, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
 
-Local $SliderThreshold = GUICtrlCreateSlider(240, 62, 334, 45)
+Global $SliderThreshold = GUICtrlCreateSlider(240, 62, 334, 45)
 GUICtrlSetLimit(-1, 255, 0) ; change min/max value
 GUICtrlSetData($SliderThreshold, 180) ; set cursor
 _GUICtrlSlider_SetTicFreq($SliderThreshold, 1)
 
-Local $CheckboxCanny = GUICtrlCreateCheckbox("Canny", 580, 62, 58, 20)
-Local $CheckboxInvert = GUICtrlCreateCheckbox("Invert threshold (the object must be white)", 580, 92, 250, 20)
+Global $CheckboxCanny = GUICtrlCreateCheckbox("Canny", 580, 62, 58, 20)
+Global $CheckboxInvert = GUICtrlCreateCheckbox("Invert threshold (the object must be white)", 580, 92, 250, 20)
 
 GUICtrlCreateLabel("Do not show areas with size less than:", 120, 107, 290, 25)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $InputMinArea = GUICtrlCreateInput("1000", 415, 107, 50, 21)
+Global $InputMinArea = GUICtrlCreateInput("1000", 415, 107, 50, 21)
 
-Local $LabelSource = GUICtrlCreateLabel("Source Image and Contour", 130, 150, 187, 20)
+Global $LabelSource = GUICtrlCreateLabel("Source Image and Contour", 130, 150, 187, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupSource = GUICtrlCreateGroup("", 20, 170, 400, 410)
-Local $PicSource = GUICtrlCreatePic("", 25, 185, 380, 380)
+Global $GroupSource = GUICtrlCreateGroup("", 20, 170, 400, 410)
+Global $PicSource = GUICtrlCreatePic("", 25, 185, 380, 380)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-Local $LabelThresholdImage = GUICtrlCreateLabel("Threshold Image", 580, 150, 121, 20)
+Global $LabelThresholdImage = GUICtrlCreateLabel("Threshold Image", 580, 150, 121, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupThresholdImage = GUICtrlCreateGroup("", 455, 170, 400, 410)
-Local $PicThresholdImage = GUICtrlCreatePic("", 460, 185, 380, 380)
+Global $GroupThresholdImage = GUICtrlCreateGroup("", 455, 170, 400, 410)
+Global $PicThresholdImage = GUICtrlCreatePic("", 460, 185, 380, 380)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-Local $CheckboxConcave = GUICtrlCreateCheckbox("", 880, 15, 20, 21)
+Global $CheckboxConcave = GUICtrlCreateCheckbox("", 880, 15, 20, 21)
 GUICtrlSetState(-1, $GUI_CHECKED)
-Local $LabelConcave = GUICtrlCreateLabel("View Concave contour", 900, 18, 140, 21)
+Global $LabelConcave = GUICtrlCreateLabel("View Concave contour", 900, 18, 140, 21)
 GUICtrlSetColor(-1, 0x358856) ; Green
 
-Local $CheckboxConcaveCenter = GUICtrlCreateCheckbox("", 880, 45, 20, 21)
+Global $CheckboxConcaveCenter = GUICtrlCreateCheckbox("", 880, 45, 20, 21)
 GUICtrlSetState(-1, $GUI_DISABLE)
-Local $LabelConcaveCenter = GUICtrlCreateLabel("Draw Concave center", 900, 48, 140, 21)
+Global $LabelConcaveCenter = GUICtrlCreateLabel("Draw Concave center", 900, 48, 140, 21)
 GUICtrlSetState(-1, $GUI_DISABLE)
 GUICtrlSetColor(-1, 0x358856) ; Green
 
-Local $CheckboxConvex = GUICtrlCreateCheckbox("", 880, 75, 20, 21)
-Local $LabelConvex = GUICtrlCreateLabel("View Convex contour", 900, 78, 140, 21)
+Global $CheckboxConvex = GUICtrlCreateCheckbox("", 880, 75, 20, 21)
+Global $LabelConvex = GUICtrlCreateLabel("View Convex contour", 900, 78, 140, 21)
 GUICtrlSetColor(-1, 0xFF0000) ; Red
 
-Local $CheckboxConvexCenter = GUICtrlCreateCheckbox("", 880, 105, -1, 0, -1, -1)
+Global $CheckboxConvexCenter = GUICtrlCreateCheckbox("", 880, 105, -1, 0, -1, -1)
 GUICtrlSetState(-1, $GUI_DISABLE)
 GUICtrlSetColor(-1, 0xFF0000) ; Red
-Local $LabelConvexCenter = GUICtrlCreateLabel("Draw Convex center", 900, 108, 140, 21)
+Global $LabelConvexCenter = GUICtrlCreateLabel("Draw Convex center", 900, 108, 140, 21)
 GUICtrlSetState(-1, $GUI_DISABLE)
 GUICtrlSetColor(-1, 0xFF0000) ; Red
 
-Local $CheckboxBoundingRect = GUICtrlCreateCheckbox("", 880, 135, 20, 21)
-Local $LabelBoundingRect = GUICtrlCreateLabel("Straight Bounding Rectangle", 900, 138, 140, 21)
+Global $CheckboxBoundingRect = GUICtrlCreateCheckbox("", 880, 135, 20, 21)
+Global $LabelBoundingRect = GUICtrlCreateLabel("Straight Bounding Rectangle", 900, 138, 140, 21)
 GUICtrlSetColor(-1, 0x0000FF) ; Blue
 
-Local $CheckboxRotatedRectangle = GUICtrlCreateCheckbox("", 880, 165, 20, 21)
-Local $LabelRotatedRectangle = GUICtrlCreateLabel("Rotated Rectangle", 900, 168, 140, 21)
+Global $CheckboxRotatedRectangle = GUICtrlCreateCheckbox("", 880, 165, 20, 21)
+Global $LabelRotatedRectangle = GUICtrlCreateLabel("Rotated Rectangle", 900, 168, 140, 21)
 GUICtrlSetColor(-1, 0xFFA701) ; Yellow
 
-Local $CheckboxEnclosingCircle = GUICtrlCreateCheckbox("", 880, 195, 20, 21)
-Local $LabelEnclosingCircle = GUICtrlCreateLabel("Minimum Enclosing Circle", 900, 198, 140, 21)
+Global $CheckboxEnclosingCircle = GUICtrlCreateCheckbox("", 880, 195, 20, 21)
+Global $LabelEnclosingCircle = GUICtrlCreateLabel("Minimum Enclosing Circle", 900, 198, 140, 21)
 GUICtrlSetColor(-1, 0xBF3EFF) ; Purple
 
-Local $CheckboxFittingEllipse = GUICtrlCreateCheckbox("", 880, 225, 20, 21)
-Local $LabelFittingEllipse = GUICtrlCreateLabel("Fitting an Ellipse", 900, 228, 140, 21)
+Global $CheckboxFittingEllipse = GUICtrlCreateCheckbox("", 880, 225, 20, 21)
+Global $LabelFittingEllipse = GUICtrlCreateLabel("Fitting an Ellipse", 900, 228, 140, 21)
 GUICtrlSetColor(-1, 0xFF00C0) ; Pink
 
 GUISetState(@SW_SHOW)
 #EndRegion ### END Koda GUI section ###
 
-Local $src, $src_gray, $src_displayed, $sImage
+Global $src, $src_gray, $src_displayed, $sImage
 
 Main()
 
-Local $current_threshold = GUICtrlRead($SliderThreshold)
-Local $last_threshold = $current_threshold
+Global $current_threshold = GUICtrlRead($SliderThreshold)
+Global $last_threshold = $current_threshold
 
-Local $nMsg
+Global $nMsg
 While 1
 	$nMsg = GUIGetMsg()
 	Switch $nMsg
@@ -338,7 +339,7 @@ Func _DrawContours()
 			$cv.drawContours($src_displayed, $tmpcontours, -1, _OpenCV_RGB(255, 0, 0), 3)
 
 			If _IsChecked($CheckboxConvexCenter) Then
-				;Draw circle in center of Convex
+				; Draw circle in center of Convex
 				$moments = $cv.moments($tmpcontours[0])
 
 				Local $cx = $moments.m10 / $moments.m00

@@ -1,8 +1,9 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_UseX64=y
+#AutoIt3Wrapper_Change2CUI=y
+#AutoIt3Wrapper_Au3Check_Parameters=-d -w 1 -w 2 -w 3 -w 4 -w 5 -w 6
+#AutoIt3Wrapper_AU3Check_Stop_OnWarning=y
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
-
-Opt("MustDeclareVars", 1)
 
 #include <GDIPlus.au3>
 #include <GuiComboBox.au3>
@@ -17,60 +18,60 @@ Opt("MustDeclareVars", 1)
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
 
-Local $cv = _OpenCV_get()
+Global $cv = _OpenCV_get()
 
-Local Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
+Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
 
 #Region ### START Koda GUI section ### Form=
-Local $FormGUI = GUICreate("Changing the contrast and brightness of an image!", 1262, 672, 185, 122)
+Global $FormGUI = GUICreate("Changing the contrast and brightness of an image!", 1262, 672, 185, 122)
 
-Local $LabelFPS = GUICtrlCreateLabel("FPS : ", 16, 16, 105, 20)
+Global $LabelFPS = GUICtrlCreateLabel("FPS : ", 16, 16, 105, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
 
-Local $InputFile = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\vtest.avi", 366, 16, 449, 21)
+Global $InputFile = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\vtest.avi", 366, 16, 449, 21)
 GUICtrlSetState(-1, $GUI_DISABLE)
-Local $BtnFile = GUICtrlCreateButton("Video File", 825, 14, 75, 25)
+Global $BtnFile = GUICtrlCreateButton("Video File", 825, 14, 75, 25)
 
-Local $CheckboxUseCamera = GUICtrlCreateCheckbox("", 368, 56, 17, 17)
+Global $CheckboxUseCamera = GUICtrlCreateCheckbox("", 368, 56, 17, 17)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $LabelCamera = GUICtrlCreateLabel("Camera", 390, 56, 67, 20)
+Global $LabelCamera = GUICtrlCreateLabel("Camera", 390, 56, 67, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $ComboCamera = GUICtrlCreateCombo("", 464, 56, 351, 25, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL))
+Global $ComboCamera = GUICtrlCreateCombo("", 464, 56, 351, 25, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL))
 
-Local $GroupMethod = GUICtrlCreateGroup("Method", 368, 96, 137, 89)
+Global $GroupMethod = GUICtrlCreateGroup("Method", 368, 96, 137, 89)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $RadioKNN = GUICtrlCreateRadio("KNN", 392, 120, 73, 17)
+Global $RadioKNN = GUICtrlCreateRadio("KNN", 392, 120, 73, 17)
 GUICtrlSetFont(-1, 8, 400, 0, "MS Sans Serif")
-Local $RadioMOG2 = GUICtrlCreateRadio("MOG2", 392, 152, 73, 17)
+Global $RadioMOG2 = GUICtrlCreateRadio("MOG2", 392, 152, 73, 17)
 GUICtrlSetFont(-1, 8, 400, 0, "MS Sans Serif")
 GUICtrlSetState(-1, $GUI_CHECKED)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-Local $GroupCPUMode = GUICtrlCreateGroup("CPU mode", 528, 96, 137, 89)
+Global $GroupCPUMode = GUICtrlCreateGroup("CPU mode", 528, 96, 137, 89)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $RadioOpenCL = GUICtrlCreateRadio("OpenCL", 552, 120, 73, 17)
-Local $RadioCPU = GUICtrlCreateRadio("CPU", 552, 152, 73, 17)
+Global $RadioOpenCL = GUICtrlCreateRadio("OpenCL", 552, 120, 73, 17)
+Global $RadioCPU = GUICtrlCreateRadio("CPU", 552, 152, 73, 17)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-Local $BtnStart = GUICtrlCreateButton("Start", 824, 104, 75, 25)
-Local $BtnStop = GUICtrlCreateButton("Stop", 824, 144, 75, 25)
+Global $BtnStart = GUICtrlCreateButton("Start", 824, 104, 75, 25)
+Global $BtnStop = GUICtrlCreateButton("Stop", 824, 144, 75, 25)
 
-Local $LabelImage = GUICtrlCreateLabel("Image", 192, 216, 47, 20)
+Global $LabelImage = GUICtrlCreateLabel("Image", 192, 216, 47, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupImage = GUICtrlCreateGroup("", 16, 240, 400, 400)
-Local $PicImage = GUICtrlCreatePic("", 21, 251, 390, 384)
+Global $GroupImage = GUICtrlCreateGroup("", 16, 240, 400, 400)
+Global $PicImage = GUICtrlCreatePic("", 21, 251, 390, 384)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-Local $LabelForegroundMask = GUICtrlCreateLabel("Foreground mask", 567, 216, 125, 20)
+Global $LabelForegroundMask = GUICtrlCreateLabel("Foreground mask", 567, 216, 125, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupForegroundMask = GUICtrlCreateGroup("", 430, 238, 400, 400)
-Local $PicForegroundMask = GUICtrlCreatePic("", 435, 249, 390, 384)
+Global $GroupForegroundMask = GUICtrlCreateGroup("", 430, 238, 400, 400)
+Global $PicForegroundMask = GUICtrlCreatePic("", 435, 249, 390, 384)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-Local $LabelForegroundImage = GUICtrlCreateLabel("Foreground image", 975, 216, 131, 20)
+Global $LabelForegroundImage = GUICtrlCreateLabel("Foreground image", 975, 216, 131, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupForegroundImage = GUICtrlCreateGroup("", 840, 238, 400, 400)
-Local $PicForegroundImage = GUICtrlCreatePic("", 845, 249, 390, 384)
+Global $GroupForegroundImage = GUICtrlCreateGroup("", 840, 238, 400, 400)
+Global $PicForegroundImage = GUICtrlCreatePic("", 845, 249, 390, 384)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
 GUISetState(@SW_SHOW)
@@ -78,9 +79,9 @@ GUISetState(@SW_SHOW)
 
 _GDIPlus_Startup()
 
-Local $bHasAddon = _Addon_DLLOpen(_Addon_FindDLL())
+Global $bHasAddon = _Addon_DLLOpen(_Addon_FindDLL())
 
-Local $ocl = ObjCreate("OpenCV.cv.ocl")
+Global $ocl = ObjCreate("OpenCV.cv.ocl")
 
 If $ocl.useOpenCL() Then
 	GUICtrlSetState($RadioOpenCL, $GUI_CHECKED)
@@ -88,30 +89,30 @@ Else
 	GUICtrlSetState($RadioCPU, $GUI_CHECKED)
 EndIf
 
-Local $tPtr = DllStructCreate("ptr value")
-Local $sCameraList = ""
+Global $tPtr = DllStructCreate("ptr value")
+Global $sCameraList = ""
 
-Local Const $M_MOG2 = 2
-Local Const $M_KNN = 3
+Global Const $M_MOG2 = 2
+Global Const $M_KNN = 3
 
-Local $sInputFile = ""
-Local $useCamera = False
-Local $method
-Local $cap = Null
-Local $running = True
-Local $bInitialized = False
+Global $sInputFile = ""
+Global $useCamera = False
+Global $method
+Global $cap = Null
+Global $running = True
+Global $bInitialized = False
 
-Local $frame = ObjCreate("OpenCV.cv.Mat")
-Local $fgmask = ObjCreate("OpenCV.cv.Mat")
-Local $fgimg = ObjCreate("OpenCV.cv.Mat")
+Global $frame = ObjCreate("OpenCV.cv.Mat")
+Global $fgmask = ObjCreate("OpenCV.cv.Mat")
+Global $fgimg = ObjCreate("OpenCV.cv.Mat")
 
-Local $knn, $mog2
+Global $knn, $mog2
 
-Local $mode
+Global $mode
 
-Local $hUser32DLL = DllOpen("user32.dll")
+Global $hUser32DLL = DllOpen("user32.dll")
 
-Local $nMsg
+Global $nMsg
 
 While 1
 	$nMsg = GUIGetMsg()

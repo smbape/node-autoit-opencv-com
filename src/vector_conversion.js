@@ -1,7 +1,33 @@
 module.exports = (coclass, header, impl) => {
     const cotype = coclass.getClassName();
+    const comparator = `${ coclass.fqn }Comparator`;
+    const ptr_comparator = `${ coclass.fqn }PtrComparator`;
+    const { cpptype } = coclass;
+    const idltype = coclass.idltype === "VARIANT" || coclass.idltype[0] === "I" ? "VARIANT" : coclass.idltype;
+    const to_variant = idltype === "VARIANT";
+    const default_value = to_variant ? "{ VT_EMPTY }" : "NULL";
+    const ptrtype = to_variant ? idltype : cpptype;
+
+    const cvt = (to_variant || idltype[0] === "I" ? `
+        ${ to_variant ? "_variant_t" : idltype } va = ${ default_value };
+        ${ to_variant ? "_variant_t" : idltype } vb = ${ default_value };
+
+        ${ idltype }* pva = &va;
+        ${ idltype }* pvb = &vb;
+
+        autoit_opencv_from(a, pva);
+        autoit_opencv_from(b, pvb);
+
+        return cmp(pva, pvb);
+    ` : `
+        return cmp(&a, &b);
+    `).replace(/^ {8}/mg, "").trim().split("\n");
 
     header.push(`
+        typedef bool (*${ comparator })(${ cpptype } a, ${ cpptype } b);
+        typedef bool (*${ ptr_comparator })(${ ptrtype }* a, ${ ptrtype }* b);
+        typedef struct _${ comparator }Proxy  ${ comparator }Proxy;
+
         extern const bool is_assignable_from(${ coclass.fqn }& out_val, I${ cotype }*& in_val, bool is_optional);
         extern const HRESULT autoit_opencv_to(I${ cotype }*& in_val, ${ coclass.fqn }& out_val);
         extern const HRESULT autoit_opencv_out(VARIANT const* const& in_val, I${ cotype }**& out_val);
@@ -13,6 +39,13 @@ module.exports = (coclass, header, impl) => {
     `.replace(/^ {8}/mg, ""));
 
     impl.push(`
+        typedef struct _${ comparator }Proxy {
+            ${ ptr_comparator } cmp;
+            bool operator() (${ cpptype } a, ${ cpptype } b) {
+                ${ cvt.join("\n" + " ".repeat(16)) }
+            }
+        } ${ comparator }Proxy;
+
         const bool is_assignable_from(${ coclass.fqn }& out_val, I${ cotype }* in_val, bool is_optional) {
             return true;
         }
@@ -65,17 +98,37 @@ module.exports = (coclass, header, impl) => {
 
         #include "vectors_c.h"
 
-        void C${ cotype }::at(size_t i, ${ coclass.cpptype } value) {
+        void C${ cotype }::at(size_t i, ${ cpptype } value) {
             (*this->__self->get())[i] = value;
         }
 
         void C${ cotype }::push_vector(${ coclass.fqn } other) {
-            push_vector(other, other.size());
+            auto v = this->__self->get();
+            VectorPushMulti(v, &other[0], other.size());
         }
 
-        void C${ cotype }::push_vector(${ coclass.fqn } other, size_t count) {
+        void C${ cotype }::push_vector(${ coclass.fqn } other, size_t count, size_t start) {
             auto v = this->__self->get();
-            VectorPushMulti(v, &other[0], count);
+            VectorPushMulti(v, &other[start], count);
+        }
+
+        ${ coclass.fqn } C${ cotype }::slice(size_t start, size_t count) {
+            auto v = this->__self->get();
+            auto begin = v->begin() + start;
+            return ${ coclass.fqn }(begin, begin + count);
+        }
+
+        void C${ cotype }::sort(void* comparator, size_t start, size_t count) {
+            auto v = this->__self->get();
+            auto begin = v->begin() + start;
+            std::sort(begin, begin + count, reinterpret_cast<${ comparator }>(comparator));
+        }
+
+        void C${ cotype }::sort_variant(void* comparator, size_t start, size_t count) {
+            auto v = this->__self->get();
+            auto begin = v->begin() + start;
+            ${ comparator }Proxy cmp = { reinterpret_cast<${ ptr_comparator }>(comparator) };
+            std::sort(begin, begin + count, cmp);
         }
 
         void* C${ cotype }::start() {
@@ -85,8 +138,7 @@ module.exports = (coclass, header, impl) => {
 
         void* C${ cotype }::end() {
             auto v = this->__self->get();
-            if (v->empty()) return NULL;
-            return reinterpret_cast<void*>(&(*v)[v->size()]);
+            return v->empty() ? NULL : reinterpret_cast<void*>(&(*v)[v->size()]);
         }
         `.replace(/^ {8}/mg, "")
     );

@@ -1,9 +1,14 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_UseX64=y
+#AutoIt3Wrapper_Change2CUI=y
+#AutoIt3Wrapper_Au3Check_Parameters=-d -w 1 -w 2 -w 3 -w 4 -w 5 -w 6
+#AutoIt3Wrapper_AU3Check_Stop_OnWarning=y
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
-;https://docs.opencv.org/4.5.4/dd/d49/tutorial_py_contour_features.html
-;https://docs.opencv.org/4.5.4/d9/d61/tutorial_py_morphological_ops.html
-Opt("MustDeclareVars", 1)
+
+;~ Sources:
+;~     https://www.autoitscript.com/forum/topic/206432-opencv-v4-udf/page/5/?tab=comments#comment-1488802
+;~     https://docs.opencv.org/4.5.4/dd/d49/tutorial_py_contour_features.html
+;~     https://docs.opencv.org/4.5.4/d9/d61/tutorial_py_morphological_ops.html
 
 #include <ButtonConstants.au3>
 #include <ComboConstants.au3>
@@ -21,86 +26,86 @@ Opt("MustDeclareVars", 1)
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
 
-Local $cv = _OpenCV_get()
+Global $cv = _OpenCV_get()
 
-Local Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
+Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
 
 _GDIPlus_Startup()
 
-Global $gray, $Gaus, $sSource = "", $sObject, $img, $CurrentArea
+Global $gray, $Gaus, $sObject = "", $img, $CurrentArea
 Global $ErosionNumber = 0, $DilationNumber = 0, $OpeningNumber = 0, $ClosingNumber = 0, $GradientNumber = 0
 
 #Region GUI
-Local $FormGUI = GUICreate("Draw contour", 1060, 600, 200, 90)
+Global $FormGUI = GUICreate("Draw contour", 1060, 600, 200, 90)
 
-Local $InputSource = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\pic1.png", 120, 16, 450, 21)
-Local $BtnSource = GUICtrlCreateButton("Source", 580, 14, 75, 25)
-Local $BtnExec = GUICtrlCreateButton("Execute", 750, 14, 75, 25)
-Local $LabelThreshold = GUICtrlCreateLabel("Threshold: 180", 120, 70, 110, 20)
+Global $InputSource = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\pic1.png", 120, 16, 450, 21)
+Global $BtnSource = GUICtrlCreateButton("Source", 580, 14, 75, 25)
+Global $BtnExec = GUICtrlCreateButton("Execute", 750, 14, 75, 25)
+Global $LabelThreshold = GUICtrlCreateLabel("Threshold: 180", 120, 70, 110, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $SliderThreshold = GUICtrlCreateSlider(240, 70, 334, 45)
+Global $SliderThreshold = GUICtrlCreateSlider(240, 70, 334, 45)
 GUICtrlSetLimit(-1, 255, 0) ; change min/max value
 GUICtrlSetData($SliderThreshold, 180) ; set cursor
 _GUICtrlSlider_SetTicFreq($SliderThreshold, 1)
-Local $Invert = GUICtrlCreateCheckbox("Invert Gaussian Blur (the object must be white)", 580, 70, 250, 21)
+Global $Invert = GUICtrlCreateCheckbox("Invert Gaussian Blur (the object must be white)", 580, 70, 250, 21)
 
 GUICtrlCreateLabel("Do not show areas with square less than:", 120, 115, 290, 25)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $MinArea = GUICtrlCreateInput("1000", 415, 115, 50, 21)
+Global $MinArea = GUICtrlCreateInput("1000", 415, 115, 50, 21)
 
-Local $LabelSource = GUICtrlCreateLabel("Source image and Contour", 130, 150, 200, 20)
+Global $LabelSource = GUICtrlCreateLabel("Source image and Contour", 130, 150, 200, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupSource = GUICtrlCreateGroup("", 20, 170, 400, 410)
-Local $PicSource = GUICtrlCreatePic("", 25, 185, 380, 380)
+Global $GroupSource = GUICtrlCreateGroup("", 20, 170, 400, 410)
+Global $PicSource = GUICtrlCreatePic("", 25, 185, 380, 380)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-Local $LabelMatchTemplate = GUICtrlCreateLabel("Gaussian Blur", 580, 150, 100, 20)
+Global $LabelMatchTemplate = GUICtrlCreateLabel("Gaussian Blur", 580, 150, 100, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupMatchTemplate = GUICtrlCreateGroup("", 455, 170, 400, 410)
-Local $PicMatchTemplate = GUICtrlCreatePic("", 460, 185, 380, 380)
+Global $GroupMatchTemplate = GUICtrlCreateGroup("", 455, 170, 400, 410)
+Global $PicMatchTemplate = GUICtrlCreatePic("", 460, 185, 380, 380)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-Local $Concave = GUICtrlCreateCheckbox("", 880, 15, 20, 21)
+Global $Concave = GUICtrlCreateCheckbox("", 880, 15, 20, 21)
 GUICtrlCreateLabel("View Concave contour", 900, 18, 140, 21)
 GUICtrlSetColor(-1, 0x358856) ; Green
 
-Local $ConcaveCenter = GUICtrlCreateCheckbox("", 880, 45, 20, 21)
+Global $ConcaveCenter = GUICtrlCreateCheckbox("", 880, 45, 20, 21)
 GUICtrlSetState($ConcaveCenter, $GUI_DISABLE)
 GUICtrlCreateLabel("Draw Concave center", 900, 48, 140, 21)
 GUICtrlSetColor(-1, 0x358856) ; Green
 
-Local $Convex = GUICtrlCreateCheckbox("", 880, 75, 20, 21)
+Global $Convex = GUICtrlCreateCheckbox("", 880, 75, 20, 21)
 GUICtrlCreateLabel("View Convex contour", 900, 78, 140, 21)
 GUICtrlSetColor(-1, 0xFF0000) ; Red
 
-Local $ConvexCenter = GUICtrlCreateCheckbox("", 880, 105, 20, 21)
+Global $ConvexCenter = GUICtrlCreateCheckbox("", 880, 105, 20, 21)
 GUICtrlSetState($ConvexCenter, $GUI_DISABLE)
 GUICtrlCreateLabel("Draw Convex center", 900, 108, 140, 21)
 GUICtrlSetColor(-1, 0xFF0000) ; Red
 
-Local $BoundingRectangle = GUICtrlCreateCheckbox("", 880, 135, 20, 21)
+Global $BoundingRectangle = GUICtrlCreateCheckbox("", 880, 135, 20, 21)
 GUICtrlCreateLabel("Straight Bounding Rectangle", 900, 138, 140, 21)
 GUICtrlSetColor(-1, 0x0000FF) ; Blue
 
-Local $RotatedRectangle = GUICtrlCreateCheckbox("", 880, 165, 20, 21)
+Global $RotatedRectangle = GUICtrlCreateCheckbox("", 880, 165, 20, 21)
 GUICtrlCreateLabel("Rotated Rectangle", 900, 168, 140, 21)
 GUICtrlSetColor(-1, 0xFFA701) ; Yellow
 
-Local $EnclosingCircle = GUICtrlCreateCheckbox("", 880, 195, 20, 21)
+Global $EnclosingCircle = GUICtrlCreateCheckbox("", 880, 195, 20, 21)
 GUICtrlCreateLabel("Minimum Enclosing Circle", 900, 198, 140, 21)
 GUICtrlSetColor(-1, 0xbf3eff) ; Purple
 
-Local $FittingEllipse = GUICtrlCreateCheckbox("", 880, 225, 20, 21)
+Global $FittingEllipse = GUICtrlCreateCheckbox("", 880, 225, 20, 21)
 GUICtrlCreateLabel("Fitting an Ellipse", 900, 228, 140, 21)
 GUICtrlSetColor(-1, 0xff00c0) ; Pink
 
-Local $Erosion = GUICtrlCreateButton("Reduce Line Thickness (Erosion)", 870, 300, 180, 25)
-Local $Dilation = GUICtrlCreateButton("Increase Line Thickness (Dilation)", 870, 330, 180, 25)
-Local $Opening = GUICtrlCreateButton("Removing noise (Opening)", 870, 360, 180, 25)
-Local $Closing = GUICtrlCreateButton("Closing small holes inside (Closing)", 870, 390, 180, 25)
-Local $Gradient = GUICtrlCreateButton("Outline of the object (Gradient)", 870, 420, 180, 25)
+Global $Erosion = GUICtrlCreateButton("Reduce Line Thickness (Erosion)", 870, 300, 180, 25)
+Global $Dilation = GUICtrlCreateButton("Increase Line Thickness (Dilation)", 870, 330, 180, 25)
+Global $Opening = GUICtrlCreateButton("Removing noise (Opening)", 870, 360, 180, 25)
+Global $Closing = GUICtrlCreateButton("Closing small holes inside (Closing)", 870, 390, 180, 25)
+Global $Gradient = GUICtrlCreateButton("Outline of the object (Gradient)", 870, 420, 180, 25)
 
-Local $SaveImg = GUICtrlCreateButton("Save image", 910, 500, 100, 25)
+Global $SaveImg = GUICtrlCreateButton("Save image", 910, 500, 100, 25)
 #EndRegion GUI
 
 GUISetState(@SW_SHOW)
@@ -108,7 +113,7 @@ GUISetState(@SW_SHOW)
 _ReadImg()
 _Contour()
 
-Local $nMsg
+Global $nMsg, $current_threshold
 While 1
 	$nMsg = GUIGetMsg()
 	Switch $nMsg
@@ -129,7 +134,7 @@ While 1
 		Case $SliderThreshold
 			$ErosionNumber = 0
 			$DilationNumber = 0
-			Local $current_threshold = GUICtrlRead($SliderThreshold)
+			$current_threshold = GUICtrlRead($SliderThreshold)
 			GUICtrlSetData($LabelThreshold, "Threshold: " & $current_threshold)
 			_ReadImg()
 
@@ -210,10 +215,10 @@ Func _ViewThreshold()
 EndFunc   ;==>_ViewThreshold
 
 Func _ReadImg()
-	$sSource = ControlGetText($FormGUI, "", $InputSource)
-	$img = _OpenCV_imread_and_check($sSource, $CV_IMREAD_COLOR)
+	$sObject = ControlGetText($FormGUI, "", $InputSource)
+	$img = _OpenCV_imread_and_check($sObject, $CV_IMREAD_COLOR)
 	If @error Then
-		$sSource = ""
+		$sObject = ""
 		Return
 	EndIf
 
@@ -339,7 +344,7 @@ Func _Contour()
 
 	If _IsChecked($BoundingRectangle) Then
 		Local $boundingRect
-		Local $tVectorPointPtr3 = DllStructCreate("ptr value")
+		; Local $tVectorPointPtr3 = DllStructCreate("ptr value")
 
 		For $i = 0 To $good_contours.size() - 1
 			$boundingRect = $cv.boundingRect($good_contours.at($i))
@@ -372,7 +377,7 @@ Func _Contour()
 	EndIf
 
 	If _IsChecked($FittingEllipse) Then
-		Local $Less5 = 0
+		; Local $Less5 = 0
 		Local $cnt, $ellipse
 		For $i = 0 To $good_contours.size() - 1
 			$cnt = $good_contours.at($i)

@@ -1,6 +1,7 @@
 #include <opencv2/features2d.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>
+#include <iostream>
 #include "autoitdef.h"
 
 using namespace std;
@@ -71,6 +72,46 @@ AUTOITAPI(void) AKAZE_homograpy_check(
 			inliers1.push_back(matched1[i]);
 			inliers2.push_back(matched2[i]);
 			good_matches.push_back(DMatch(new_i, new_i, 0));
+		}
+	}
+}
+
+// Remove the bounding boxes with low confidence using non-maxima suppression
+AUTOITAPI(void) yolo_postprocess(
+	Mat& frame,
+	const vector<Mat>& outs,
+	const float confThreshold,
+	const float nmsThreshold,
+	vector<int>& classIds,
+	vector<float>& confidences,
+	vector<Rect2d>& boxes
+) {
+	for (size_t i = 0; i < outs.size(); ++i)
+	{
+		// Scan through all the bounding boxes output from the network and keep only the
+		// ones with high confidence scores. Assign the box's class label as the class
+		// with the highest score for the box.
+		float* data = (float*)outs[i].data;
+		for (int j = 0; j < outs[i].rows; ++j, data += outs[i].cols)
+		{
+			Mat scores = outs[i].row(j).colRange(5, outs[i].cols);
+			Point classIdPoint;
+			double confidence;
+			// Get the value and location of the maximum score
+			minMaxLoc(scores, 0, &confidence, 0, &classIdPoint);
+			if (confidence > confThreshold)
+			{
+				int centerX = (int)(data[0] * frame.cols);
+				int centerY = (int)(data[1] * frame.rows);
+				int width = (int)(data[2] * frame.cols);
+				int height = (int)(data[3] * frame.rows);
+				int left = centerX - width / 2;
+				int top = centerY - height / 2;
+
+				classIds.push_back(classIdPoint.x);
+				confidences.push_back((float)confidence);
+				boxes.push_back(Rect2d(left, top, width, height));
+			}
 		}
 	}
 }

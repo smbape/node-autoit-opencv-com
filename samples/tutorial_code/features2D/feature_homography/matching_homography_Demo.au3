@@ -1,8 +1,9 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_UseX64=y
+#AutoIt3Wrapper_Change2CUI=y
+#AutoIt3Wrapper_Au3Check_Parameters=-d -w 1 -w 2 -w 3 -w 4 -w 5 -w 6
+#AutoIt3Wrapper_AU3Check_Stop_OnWarning=y
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
-
-Opt("MustDeclareVars", 1)
 
 #include <GDIPlus.au3>
 #include <GuiComboBox.au3>
@@ -15,41 +16,41 @@ Opt("MustDeclareVars", 1)
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
 
-Local $cv = _OpenCV_get()
+Global $cv = _OpenCV_get()
 
-Local Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
+Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
 
 #Region ### START Koda GUI section ### Form=
-Local $FormGUI = GUICreate("Features2D + Homography to find a known object", 1000, 707, 192, 95)
+Global $FormGUI = GUICreate("Features2D + Homography to find a known object", 1000, 707, 192, 95)
 
-Local $InputObject = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\box.png", 230, 16, 449, 21)
-Local $BtnObject = GUICtrlCreateButton("Object", 689, 14, 75, 25)
+Global $InputObject = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\box.png", 230, 16, 449, 21)
+Global $BtnObject = GUICtrlCreateButton("Object", 689, 14, 75, 25)
 
-Local $InputScene = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\box_in_scene.png", 230, 52, 449, 21)
-Local $BtnScene = GUICtrlCreateButton("Scene", 689, 50, 75, 25)
+Global $InputScene = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\box_in_scene.png", 230, 52, 449, 21)
+Global $BtnScene = GUICtrlCreateButton("Scene", 689, 50, 75, 25)
 
-Local $LabelAlgorithm = GUICtrlCreateLabel("Algorithm", 150, 92, 69, 20)
+Global $LabelAlgorithm = GUICtrlCreateLabel("Algorithm", 150, 92, 69, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $ComboAlgorithm = GUICtrlCreateCombo("", 230, 92, 169, 25, BitOR($GUI_SS_DEFAULT_COMBO, $CBS_SIMPLE))
+Global $ComboAlgorithm = GUICtrlCreateCombo("", 230, 92, 169, 25, BitOR($GUI_SS_DEFAULT_COMBO, $CBS_SIMPLE))
 GUICtrlSetData(-1, "ORB|Brisk|FAST|MSER|SimpleBlob|GFTT|KAZE|AKAZE|Agast")
 
-Local $LabelMatchType = GUICtrlCreateLabel("Match type", 414, 92, 79, 20)
+Global $LabelMatchType = GUICtrlCreateLabel("Match type", 414, 92, 79, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $ComboMatchType = GUICtrlCreateCombo("", 502, 92, 177, 25, BitOR($GUI_SS_DEFAULT_COMBO, $CBS_SIMPLE))
+Global $ComboMatchType = GUICtrlCreateCombo("", 502, 92, 177, 25, BitOR($GUI_SS_DEFAULT_COMBO, $CBS_SIMPLE))
 GUICtrlSetData(-1, "BruteForce|BruteForce-L1|BruteForce-Hamming|BruteForce-HammingLUT|BruteForce-Hamming(2)|BruteForce-SL2")
 
-Local $BtnExec = GUICtrlCreateButton("Execute", 832, 48, 75, 25)
+Global $BtnExec = GUICtrlCreateButton("Execute", 832, 48, 75, 25)
 
-Local $LabelMatches = GUICtrlCreateLabel("Good Matches && Object detection", 377, 144, 245, 20)
+Global $LabelMatches = GUICtrlCreateLabel("Good Matches && Object detection", 377, 144, 245, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupMatches = GUICtrlCreateGroup("", 20, 166, 958, 532)
-Local $PicMatches = GUICtrlCreatePic("", 25, 177, 948, 516)
+Global $GroupMatches = GUICtrlCreateGroup("", 20, 166, 958, 532)
+Global $PicMatches = GUICtrlCreatePic("", 25, 177, 948, 516)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
 GUISetState(@SW_SHOW)
 #EndRegion ### END Koda GUI section ###
 
-Local $aMatchTypes[6] = [ _
+Global $aMatchTypes[6] = [ _
 		$CV_NORM_L2, _
 		$CV_NORM_L1, _
 		$CV_NORM_HAMMING, _
@@ -58,24 +59,24 @@ Local $aMatchTypes[6] = [ _
 		$CV_NORM_L2SQR _
 		]
 
-Local $ORB_DETECTOR = 0
-Local $BRISK_DETECTOR = 1
-Local $FAST_DETECTOR = 2
-Local $MSER_DETECTOR = 3
-Local $SIMPLE_BLOB_DETECTOR = 4
-Local $GFTT_DETECTOR = 5
-Local $KAZE_DETECTOR = 6
-Local $AKAZE_DETECTOR = 7
-Local $AGAST_DETECTOR = 8
+Global $ORB_DETECTOR = 0
+Global $BRISK_DETECTOR = 1
+Global $FAST_DETECTOR = 2
+Global $MSER_DETECTOR = 3
+Global $SIMPLE_BLOB_DETECTOR = 4
+Global $GFTT_DETECTOR = 5
+Global $KAZE_DETECTOR = 6
+Global $AKAZE_DETECTOR = 7
+Global $AGAST_DETECTOR = 8
 
 _GUICtrlComboBox_SetCurSel($ComboAlgorithm, 0)
 _GUICtrlComboBox_SetCurSel($ComboMatchType, 2)
 
 _GDIPlus_Startup()
 
-Local $img_object, $img_scene
-Local $nMsg
-Local $sObject, $sScene
+Global $img_object, $img_scene
+Global $nMsg
+Global $sObject, $sScene
 
 Main()
 

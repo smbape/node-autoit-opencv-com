@@ -10,21 +10,14 @@
 #include <WindowsConstants.au3>
 #include <WinAPI.au3>
 
-Local Const $aDefaultFormBackground[4] = [0xF0, 0xF0, 0xF0, 0xFF]
-Local Const $aDefaultSearchPaths[2] = [1, "."]
+Global Const $OPENCV_UDF_SORT_ASC = 1
+Global Const $OPENCV_UDF_SORT_DESC = -1
 
-Func _OpenCV_FindFiles($aParts, $sDir = Default, $iFlag = Default, $bReturnPath = Default)
-	If $sDir == Default Then
-		$sDir = @ScriptDir
-	EndIf
-
-	If $iFlag == Default Then
-		$iFlag = $FLTA_FILESFOLDERS
-	EndIf
-
-	If $bReturnPath == Default Then
-		$bReturnPath = False
-	EndIf
+Func _OpenCV_FindFiles($aParts, $sDir = Default, $iFlag = Default, $bReturnPath = Default, $bReverse = Default)
+	If $sDir == Default Then $sDir = @ScriptDir
+	If $iFlag == Default Then $iFlag = $FLTA_FILESFOLDERS
+	If $bReturnPath == Default Then $bReturnPath = False
+	If $bReverse == Default Then $bReverse = False
 
 	If IsString($aParts) Then
 		$aParts = StringSplit($aParts, "\", $STR_NOCOUNT)
@@ -58,12 +51,11 @@ Func _OpenCV_FindFiles($aParts, $sDir = Default, $iFlag = Default, $bReturnPath 
 		$iiFlags = $i == $iParts - 1 ? $iFlag : $FLTA_FILESFOLDERS
 
 		$aFileList = _FileListToArray($sDir, $aParts[$i], $iiFlags, $bReturnPath)
-		If @error Then
-			ExitLoop
-		EndIf
+		If @error Then ExitLoop
 
 		If $i == $iParts - 1 Then
 			ReDim $aMatches[$aFileList[0]]
+
 			For $j = 1 To $aFileList[0]
 				$sPath = $aFileList[$j]
 				If Not $bReturnPath Then
@@ -72,6 +64,8 @@ Func _OpenCV_FindFiles($aParts, $sDir = Default, $iFlag = Default, $bReturnPath 
 				EndIf
 				$aMatches[$j - 1] = $sPath
 			Next
+
+			If $bReverse Then _ArrayReverse($aMatches)
 			Return $aMatches
 		EndIf
 
@@ -86,7 +80,7 @@ Func _OpenCV_FindFiles($aParts, $sDir = Default, $iFlag = Default, $bReturnPath 
 				$sPath = $sDir & "\" & $sPath
 			EndIf
 
-			$aNextFileList = _OpenCV_FindFiles($aNextParts, $sPath, $iFlag, $bReturnPath)
+			$aNextFileList = _OpenCV_FindFiles($aNextParts, $sPath, $iFlag, $bReturnPath, $bReverse)
 			$iNextFound = UBound($aNextFileList)
 
 			If $iNextFound <> 0 Then
@@ -103,6 +97,7 @@ Func _OpenCV_FindFiles($aParts, $sDir = Default, $iFlag = Default, $bReturnPath 
 			EndIf
 		Next
 
+		If $bReverse Then _ArrayReverse($aMatches)
 		Return $aMatches
 	Next
 
@@ -119,23 +114,16 @@ Func _OpenCV_FindFiles($aParts, $sDir = Default, $iFlag = Default, $bReturnPath 
 
 	SetError(@error)
 
+	If $bReverse Then _ArrayReverse($aMatches)
 	Return $aMatches
 EndFunc   ;==>_OpenCV_FindFiles
 
-Func _OpenCV_FindFile($sFile, $sFilter = Default, $sDir = Default, $iFlag = Default, $bReturnPath = Default, $aSearchPaths = Default)
-	If $sFilter == Default Then
-		$sFilter = ""
-	EndIf
+Func _OpenCV_FindFile($sFile, $sFilter = Default, $sDir = Default, $iFlag = Default, $aSearchPaths = Default, $bReverse = Default)
+	If $sFilter == Default Then $sFilter = ""
+	If $sDir == Default Then $sDir = @ScriptDir
+	If $aSearchPaths == Default Then $aSearchPaths = _OpenCV_Tuple(1, ".")
 
-	If $sDir == Default Then
-		$sDir = @ScriptDir
-	EndIf
-
-	If $aSearchPaths == Default Then
-		$aSearchPaths = $aDefaultSearchPaths
-	EndIf
-
-	_OpenCV_DebugMsg("_OpenCV_FindFile('" & $sFile & "', '" & $sDir & "')")
+	_OpenCV_DebugMsg("_OpenCV_FindFile('" & $sFile & "', '" & $sDir & "') " & VarGetType($aSearchPaths))
 
 	Local $sFound = "", $sPath, $aFileList
 	Local $sDrive = "", $sFileName = "", $sExtension = ""
@@ -162,7 +150,7 @@ Func _OpenCV_FindFile($sFile, $sFilter = Default, $sDir = Default, $iFlag = Defa
 				$sPath &= "\" & $sFile
 			EndIf
 
-			$aFileList = _OpenCV_FindFiles($sPath, $sDir, $iFlag, True)
+			$aFileList = _OpenCV_FindFiles($sPath, $sDir, $iFlag, True, $bReverse)
 			$sFound = UBound($aFileList) == 0 ? "" : $aFileList[0]
 
 			If $sFound <> "" Then
@@ -181,7 +169,7 @@ Func _OpenCV_FindFile($sFile, $sFilter = Default, $sDir = Default, $iFlag = Defa
 	Return $sFound
 EndFunc   ;==>_OpenCV_FindFile
 
-Func _OpenCV_FindDLL($sFile, $sFilter = Default, $sDir = Default)
+Func _OpenCV_FindDLL($sFile, $sFilter = Default, $sDir = Default, $bLatestVersion = True)
 	Local $sBuildType = $_cv_build_type == "Debug" ? "Debug" : "Release"
 	Local $sPostfix = $_cv_build_type == "Debug" ? "d" : ""
 
@@ -197,7 +185,7 @@ Func _OpenCV_FindDLL($sFile, $sFilter = Default, $sDir = Default)
 		"autoit-opencv-com\build_x64", _
 		"autoit-opencv-com\build_x64\" & $sBuildType _
 	]
-	Return _OpenCV_FindFile($sFile & $sPostfix & ".dll", $sFilter, $sDir, $FLTA_FILES, True, $aSearchPaths)
+	Return _OpenCV_FindFile($sFile & $sPostfix & ".dll", $sFilter, $sDir, $FLTA_FILES, $aSearchPaths, $bLatestVersion)
 EndFunc   ;==>_OpenCV_FindDLL
 
 Func _OpenCV_imread_and_check($fileName, $flags = Default)
@@ -209,18 +197,11 @@ Func _OpenCV_imread_and_check($fileName, $flags = Default)
 	Return $img
 EndFunc   ;==>_OpenCV_imread_and_check
 
-Func _OpenCV_resizeAndCenter($matImg, $iDstWidth = Default, $iDstHeight = Default, $aBackgroundColor = Default, $iCode = Default, $bFit = True)
-	If $aBackgroundColor == Default Then
-		$aBackgroundColor = $aDefaultFormBackground
-	EndIf
-
-	If $iCode == Default Then
-		$iCode = -1
-	EndIf
-
-	If $bFit == Default Then
-		$bFit = True
-	EndIf
+Func _OpenCV_resizeAndCenter($matImg, $iDstWidth = Default, $iDstHeight = Default, $aBackgroundColor = Default, $iCode = Default, $bResize = Default, $bCenter = Default)
+	If $aBackgroundColor == Default Then $aBackgroundColor = _OpenCV_Tuple(0xF0, 0xF0, 0xF0, 0xFF)
+	If $iCode == Default Then $iCode = -1
+	If $bResize == Default Then $bResize = True
+	If $bCenter == Default Then $bCenter = True
 
 	Local $iWidth = $matImg.width
 	Local $iHeight = $matImg.height
@@ -241,7 +222,7 @@ Func _OpenCV_resizeAndCenter($matImg, $iDstWidth = Default, $iDstHeight = Defaul
 	Local $iPadWidth = 0
 
 	If $iWidth <= $iDstWidth And $iHeight <= $iDstHeight Then
-		$bFit = False
+		$bResize = False
 		$iPadHeight = Floor(($iDstHeight - $iHeight) / 2)
 		$iPadWidth = Floor(($iDstWidth - $iWidth) / 2)
 	ElseIf $fRatio * $iDstHeight > $iDstWidth Then
@@ -260,7 +241,7 @@ Func _OpenCV_resizeAndCenter($matImg, $iDstWidth = Default, $iDstHeight = Defaul
 		$matImg = $cv.cvtColor($matImg, $iCode)
 	EndIf
 
-	If $bFit Then
+	If $bResize Then
 		Local $aDsize[2] = [$iWidth, $iHeight]
 		$matImg = $cv.resize($matImg, $aDsize)
 	EndIf
@@ -271,7 +252,32 @@ Func _OpenCV_resizeAndCenter($matImg, $iDstWidth = Default, $iDstHeight = Defaul
 	Return $matResult
 EndFunc   ;==>_OpenCV_resizeAndCenter
 
-Func _OpenCV_SetControlPic($controlID, $matImg)
+Func _OpenCV_SetControlPic($controlID, $src)
+	Local $cv = _OpenCV_get()
+
+	; opencv-4.5.4-vc14_vc15\opencv\sources\modules\highgui\src\precomp.hpp
+	Local $tmp
+
+	Switch $src.depth()
+		Case $CV_8U
+			$tmp = $src
+		Case $CV_8S
+			$tmp = $cv.convertScaleAbs($src, 1, 127)
+		Case $CV_16S
+			$tmp = $cv.convertScaleAbs($src, 1 / 255.0, 127)
+		Case $CV_16U
+			$tmp = $cv.convertScaleAbs($src, 1 / 255.0)
+		Case $CV_32F
+			ContinueCase
+		Case $CV_64F ; assuming image has values in range [0, 1)
+			$tmp = $src.convertTo($CV_8U, 255.0, 0.0)
+		Case Else
+			ConsoleWriteError("!>Error: The image type is not supported." & @CRLF)
+			Return
+	EndSwitch
+
+	Local $matImg = $cv.cvtColor($tmp, $CV_COLOR_BGRA2BGR, 4)
+
 	Local $iWidth = $matImg.width
 	Local $iHeight = $matImg.height
 
@@ -292,36 +298,9 @@ Func _OpenCV_SetControlPic($controlID, $matImg)
 	_WinAPI_DeleteObject($aDIB[0])
 EndFunc   ;==>_OpenCV_SetControlPic
 
-Func _OpenCV_imshow_ControlPic($mat, $hWnd, $controlID, $aBackgroundColor = Default, $iCode = Default, $bFit = True)
-	If $iCode == Default Then
-		$iCode = -1
-	EndIf
-
-	Local $depth = $mat.depth()
-	Local $channels = $mat.channels()
-
-	If $iCode == -1 Then
-		Switch CV_MAT_TYPE($mat.flags)
-			Case $CV_8UC1
-				$iCode = $CV_COLOR_GRAY2BGRA
-			Case $CV_8UC3
-				$iCode = $CV_COLOR_BGR2BGRA
-			Case $CV_8UC4
-				$iCode = -1
-			Case $CV_32FC1
-				; convert CV_32FC1 in range [0, 1] to CV_8UC1 in range [0, 255]
-				$mat = $mat.convertTo($CV_8UC1, 255.0, 0)
-
-				; then display the CV_8UC1 image (.i.e gray) as a BGRA image
-				$iCode = $CV_COLOR_GRAY2BGRA
-			Case Else
-				ConsoleWriteError("!>Error: The image type is not supported." & @CRLF)
-				Return
-		EndSwitch
-	EndIf
-
+Func _OpenCV_imshow_ControlPic($mat, $hWnd, $controlID, $aBackgroundColor = Default, $iCode = Default, $bResize = Default, $bCenter = Default)
 	Local $aPicPos = ControlGetPos($hWnd, "", $controlID)
-	$mat = _OpenCV_resizeAndCenter($mat, $aPicPos[2], $aPicPos[3], $aBackgroundColor, $iCode, $bFit)
+	$mat = _OpenCV_resizeAndCenter($mat, $aPicPos[2], $aPicPos[3], $aBackgroundColor, $iCode, $bResize, $bCenter)
 	_OpenCV_SetControlPic($controlID, $mat)
 
 EndFunc   ;==>_OpenCV_imshow_ControlPic
@@ -406,17 +385,19 @@ EndFunc   ;==>_OpenCV_CompareMatHist
 ;                  $iLimit              - [optional] an integer value. Default is 20.
 ;                  $iCode               - [optional] color space conversion code. Use -1 for no conversion. Default is -1.
 ;                  $fOverlapping        - [optional] koeffitient to control overlapping of matches.
-;                                             $fOverlapping = 1     : two matches can overlap half-body of template
-;                                             $fOverlapping = 2     : no overlapping,only border touching possible
-;                                             $fOverlapping = > 2   : distancing matches
-;                                             0 < $fOverlapping < 1 : matches can overlap more then half.
-;                                             Default is 2.
+;                                                    $fOverlapping = 1     : two matches can overlap half-body of template
+;                                                    $fOverlapping = 2     : no overlapping,only border touching possible
+;                                                    $fOverlapping = > 2   : distancing matches
+;                                                    0 < $fOverlapping < 1 : matches can overlap more then half.
+;                                                    Default is 2.
 ;                  $aChannels           - [optional] an array of ints. List of the dims channels used to compute the histogram.
 ;                  $aHistSize           - [optional] an array of int. Array of histogram sizes in each dimension.
 ;                  $aRanges             - [optional] an array of float. Array of the dims arrays of the histogram bin boundaries in each dimension.
 ;                  $iCompareMethod      - [optional] an integer value. Default is $CV_HISTCMP_CORREL.
-;                  $iDstCn              - [optional] an integer value. Default is 0.
-;                  $bAccumulate         - [optional] a boolean value. Default is False.
+;                  $iDstCn              - [optional] number of channels in the destination image. Default is 0.
+;                  $bAccumulate         - [optional] Accumulation flag.
+;                                                    If it is set, the histogram is not cleared in the beginning when it is allocated.
+;                                                    Default is False.
 ; Return values .: An array of matches [[x1, y1, s1], [x2, y2, s2], ..., [xn, yn, sn]]
 ; Author ........: Stéphane MBAPE
 ; Modified ......:
@@ -460,6 +441,10 @@ Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = 0.95, $iMatchMethod 
 		$aRanges = $arr
 	EndIf
 
+	If $iLimit < 0 Then $iLimit = 0
+	Local $aResult[$iLimit][3]
+	If $iLimit == 0 Then Return $aResult
+
 	Local $width = $matImg.width
 	Local $height = $matImg.height
 
@@ -477,22 +462,22 @@ Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = 0.95, $iMatchMethod 
 	Local $bMethodAcceptsMask = $CV_TM_SQDIFF == $iMatchMethod Or $iMatchMethod == $CV_TM_CCORR_NORMED
 	Local $bIsNormed = $iMatchMethod == $CV_TM_SQDIFF_NORMED Or $iMatchMethod == $CV_TM_CCORR_NORMED Or $iMatchMethod == $CV_TM_CCOEFF_NORMED
 
-	Local $hTimer, $fDiff
-	$hTimer = TimerInit()
+	; Local $hTimer, $fDiff
+
+	; $hTimer = TimerInit()
 	If $bMethodAcceptsMask Then
 		$matResult = $cv.matchTemplate($matImg, $matTempl, $iMatchMethod, $matTemplMask)
 	Else
 		$matResult = $cv.matchTemplate($matImg, $matTempl, $iMatchMethod)
 	EndIf
 
-	$fDiff = TimerDiff($hTimer)
+	; $fDiff = TimerDiff($hTimer)
 	; ConsoleWrite("matchTemplate took " & $fDiff & "ms" & @CRLF)
 
 	Local $aMatchLoc
 	Local $fHistScore = 1
 	Local $fScore = 0
 	Local $fVisited
-	Local $aResult[$iLimit][3]
 	Local $iFound = 0
 
 	; For SQDIFF and SQDIFF_NORMED, the best matches are lower values. For all the other methods, the higher the better
@@ -511,12 +496,8 @@ Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = 0.95, $iMatchMethod 
 	Local $matResultMask = $mat.ones($rh, $rw, $CV_8UC1)
 	Local $minVal, $maxVal, $aMinLoc, $aMaxLoc
 
-	$hTimer = TimerInit()
-	While 1 ;use infinite loop since ExitLoop will get called
-		If $iLimit == 0 Then
-			ExitLoop
-		EndIf
-
+	; $hTimer = TimerInit()
+	While $iLimit > 0 ;use infinite loop since ExitLoop will get called
 		$iLimit = $iLimit - 1
 
 		$cv.minMaxLoc($matResult, $matResultMask)
@@ -575,7 +556,7 @@ Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = 0.95, $iMatchMethod 
 		; mask the locations that should not be matched again
 		$matMasked.copyTo($matMaskedRect)
 	WEnd
-	$fDiff = TimerDiff($hTimer)
+	; $fDiff = TimerDiff($hTimer)
 	; ConsoleWrite("minMaxLoc took " & $fDiff & "ms" & @CRLF)
 
 	ReDim $aResult[$iFound][3]
@@ -599,6 +580,8 @@ EndFunc   ;==>_OpenCV_FindTemplate
 ; Example .......: No
 ; ===============================================================================================================================
 Func _OpenCV_RotateBound($img, $angle = 0, $scale = 1.0, $flags = Default, $borderMode = Default, $borderValue = Default, $rotated = Default)
+	Local $cv = _OpenCV_get()
+
 	Local $center[2] = [$img.width / 2, $img.height / 2]
 	Local $M = $cv.getRotationMatrix2D($center, -$angle, $scale)
 
@@ -637,7 +620,6 @@ Func _OpenCV_RotateBound($img, $angle = 0, $scale = 1.0, $flags = Default, $bord
 
 	Local $size[2] = [$nW, $nH]
 
-	Local $cv = _OpenCV_get()
 	Return $cv.warpAffine($img, $M, $size, $flags, $borderMode, $borderValue, $rotated)
 EndFunc   ;==>_OpenCV_RotateBound
 
@@ -654,12 +636,12 @@ EndFunc   ;==>_OpenCV_Scalar
 Func _OpenCV_ScalarAll($v0 = 0)
 	Local $cvScalar[4] = [$v0, $v0, $v0, $v0]
 	Return $cvScalar
-EndFunc   ;==>_OpenCV_Scalar
+EndFunc   ;==>_OpenCV_ScalarAll
 
 Func _OpenCV_Point($x = 0, $y = 0)
 	Local $cvSize[2] = [$x, $y]
 	Return $cvSize
-EndFunc   ;==>_OpenCV_Size
+EndFunc   ;==>_OpenCV_Point
 
 Func _OpenCV_Size($width = 0, $height = 0)
 	Local $cvSize[2] = [$width, $height]
@@ -669,7 +651,7 @@ EndFunc   ;==>_OpenCV_Size
 Func _OpenCV_Rect($x = 0, $y = 0, $width = 0, $height = 0)
 	Local $cvSize[4] = [$x, $y, $width, $height]
 	Return $cvSize
-EndFunc   ;==>_OpenCV_Size
+EndFunc   ;==>_OpenCV_Rect
 
 ; Array.from(Array(30).keys()).map(i => `$val${ i } = 0`).join(", ")
 Func _OpenCV_Tuple($val0 = 0, $val1 = 0, $val2 = 0, $val3 = 0, $val4 = 0, $val5 = 0, $val6 = 0, $val7 = 0, $val8 = 0, $val9 = 0, $val10 = 0, $val11 = 0, $val12 = 0, $val13 = 0, $val14 = 0, $val15 = 0, $val16 = 0, $val17 = 0, $val18 = 0, $val19 = 0, $val20 = 0, $val21 = 0, $val22 = 0, $val23 = 0, $val24 = 0, $val25 = 0, $val26 = 0, $val27 = 0, $val28 = 0, $val29 = 0)
@@ -775,4 +757,242 @@ Func _OpenCV_Tuple($val0 = 0, $val1 = 0, $val2 = 0, $val3 = 0, $val4 = 0, $val5 
 	EndSwitch
 
 	Return $_aResult
-EndFunc
+EndFunc   ;==>_OpenCV_Tuple
+
+Func _OpenCV_ArraySort(ByRef $aArray, $sCompare = Default, $iOrder = Default, $iStart = Default, $iEnd = Default)
+	_OpenCV_Sort($aArray, "__OpenCV_ArraySize", "__OpenCV_ArrayGetter", "__OpenCV_ArraySetter", $sCompare, $iOrder, $iStart, $iEnd)
+EndFunc   ;==>_OpenCV_ArraySort
+
+Func _OpenCV_VectorSort(ByRef $oVector, $sCompare = Default, $iOrder = Default, $iStart = Default, $iEnd = Default)
+	_OpenCV_Sort($oVector, "__OpenCV_VectorSize", "__OpenCV_VectorGetter", "__OpenCV_VectorSetter", $sCompare, $iOrder, $iStart, $iEnd)
+EndFunc   ;==>_OpenCV_VectorSort
+
+; #FUNCTION# ====================================================================================================================
+; Name ..........: _OpenCV_Sort
+; Description ...: Sort a collection using a custom comapator, getter, setter
+; Syntax ........: _OpenCV_ArraySort(Byref $aArray[, $sCompare = Default[, $iOrder = Default[, $iStart = Default[,
+;                  $iEnd = Default]]]])
+; Parameters ....: $aArray              - [in/out] array to sort.
+;                  $sGetSize            - [optional] get size function. Default is array UBound
+;                  $sGetter             - [optional] getter function. Default is array getter
+;                  $sSetter             - [optional] setter function. Default is array setter
+;                  $sCompare            - [optional] comparator function. Default is "StringCompare".
+;                  $iOrder              - [optional] sorting order. 1 for asc, -1 for desc. Default is 1.
+;                  $iStart              - [optional] index of array to start sorting at. Default is 0
+;                  $iEnd                - [optional] index of array to stop sorting at (included). Default is UBound($aArray) - 1
+; Return values .: None
+; Author ........: Stéphane MBAPE
+; Modified ......:
+; Remarks .......:
+; Related .......:
+; Link ..........:
+; Example .......: No
+; ===============================================================================================================================
+Func _OpenCV_Sort(ByRef $aArray, $sGetSize, $sGetter, $sSetter, $sCompare = Default, $iOrder = Default, $iStart = Default, $iEnd = Default)
+	Local $iUBound = Call($sGetSize, $aArray) - 1
+
+	If $sCompare == Default Then $sCompare = "StringCompare"
+	If $iOrder == Default Then $iOrder = $OPENCV_UDF_SORT_ASC
+	If $iStart < 0 Or $iStart = Default Then $iStart = 0
+	If $iEnd < 1 Or $iEnd > $iUBound Or $iEnd = Default Then $iEnd = $iUBound
+	If $iEnd <= $iStart Then Return
+
+	__OpenCV_QuickSort($aArray, $sGetter, $sSetter, $sCompare, $iOrder, $iStart, $iEnd)
+EndFunc   ;==>_OpenCV_Sort
+
+; #FUNCTION# ====================================================================================================================
+; Name ..........: __OpenCV_QuickSort
+; Description ...: Helper function for sorting collections
+; Syntax ........: __OpenCV_QuickSort(Byref $aArray, Const Byref $sCompare, Const Byref $iStart, Const Byref $iEnd)
+; Parameters ....: $aArray              - [in/out] array to sort.
+;                  $sGetter             - [in/out and const] getter function.
+;                  $sSetter             - [in/out and const] setter function.
+;                  $sCompare            - [in/out and const] comparator function.
+;                  $iOrder              - [optional] sorting order. 1 for asc, -1 for desc. Default is 1.
+;                  $iStart              - [in/out and const] index of array to start sorting at.
+;                  $iEnd                - [in/out and const] index of array to stop sorting at (included).
+; Return values .: None
+; Author ........: Stéphane MBAPE
+; Modified ......:
+; Remarks .......: A modified version of Array.au3 __ArrayQuickSort1D
+; Related .......:
+; Link ..........:
+; Example .......: No
+; ===============================================================================================================================
+Func __OpenCV_QuickSort(ByRef $aArray, Const ByRef $sGetter, Const ByRef $sSetter, Const ByRef $sCompare, Const ByRef $iOrder, Const ByRef $iStart, Const ByRef $iEnd)
+	If $iEnd <= $iStart Then Return
+
+	Local $vTmp, $vValue
+
+	; InsertionSort (faster for smaller segments)
+	If ($iEnd - $iStart) <= 16 Then
+		For $i = $iStart + 1 To $iEnd
+			$vTmp = Call($sGetter, $aArray, $i)
+
+			For $j = $i - 1 To $iStart Step -1
+				$vValue = Call($sGetter, $aArray, $j)
+				If Call($sCompare, $vTmp, $vValue) * $iOrder >= 0 Then ExitLoop
+				Call($sSetter, $aArray, $j + 1, $vValue)
+			Next
+
+			Call($sSetter, $aArray, $j + 1, $vTmp)
+		Next
+		Return
+	EndIf
+
+	; QuickSort
+	Local $L = $iStart, $R = $iEnd, $vPivot = Call($sGetter, $aArray, Int(($iStart + $iEnd) / 2))
+	Do
+		While Call($sCompare, Call($sGetter, $aArray, $L), $vPivot) * $iOrder < 0
+			$L += 1
+		WEnd
+		While Call($sCompare, Call($sGetter, $aArray, $R), $vPivot) * $iOrder > 0
+			$R -= 1
+		WEnd
+
+		; Swap
+		If $L <= $R Then
+			If $L <> $R Then
+				$vTmp = Call($sGetter, $aArray, $L)
+				Call($sSetter, $aArray, $L, Call($sGetter, $aArray, $R))
+				Call($sSetter, $aArray, $R, $vTmp)
+			EndIf
+			$L += 1
+			$R -= 1
+		EndIf
+	Until $L > $R
+
+	__OpenCV_QuickSort($aArray, $sGetter, $sSetter, $sCompare, $iOrder, $iStart, $R)
+	__OpenCV_QuickSort($aArray, $sGetter, $sSetter, $sCompare, $iOrder, $L, $iEnd)
+EndFunc   ;==>__OpenCV_QuickSort
+
+Func __OpenCV_ArraySize(ByRef $aArray)
+	Return UBound($aArray)
+EndFunc   ;==>__OpenCV_ArraySize
+
+Func __OpenCV_ArrayGetter(ByRef $aArray, $i)
+	Return $aArray[$i]
+EndFunc   ;==>__OpenCV_ArrayGetter
+
+Func __OpenCV_ArraySetter(ByRef $aArray, $i, $vValue)
+	$aArray[$i] = $vValue
+EndFunc   ;==>__OpenCV_ArraySetter
+
+Func __OpenCV_VectorSize(ByRef $oVector)
+	Return $oVector.size()
+EndFunc   ;==>__OpenCV_VectorSize
+
+Func __OpenCV_VectorGetter(ByRef $oVector, $i)
+	Return $oVector.at($i)
+EndFunc   ;==>__OpenCV_VectorGetter
+
+Func __OpenCV_VectorSetter(ByRef $oVector, $i, $vValue)
+	$oVector.at($i, $vValue)
+EndFunc   ;==>__OpenCV_VectorSetter
+
+Func _OpenCV_FourPointTransform($image, $pts)
+	Local $cv = _OpenCV_get()
+
+	;; obtain a consistent order of the points and unpack them
+	;; individually
+	Local $rect = _OpenCV_OrderPoints($pts)
+	Local $tl = $rect.Point_at(0)
+	Local $tr = $rect.Point_at(1)
+	Local $br = $rect.Point_at(2)
+	Local $bl = $rect.Point_at(3)
+
+	;; compute the width of the new image, which will be the
+	;; maximum distance between bottom-right and bottom-left
+	;; x-coordiates or the top-right and top-left x-coordinates
+	Local $widthA = Sqrt((($br[0] - $bl[0]) ^ 2) + (($br[1] - $bl[1]) ^ 2))
+	Local $widthB = Sqrt((($tr[0] - $tl[0]) ^ 2) + (($tr[1] - $tl[1]) ^ 2))
+	Local $maxWidth = _Max($widthA, $widthB)
+
+	;; compute the height of the new image, which will be the
+	;; maximum distance between the top-right and bottom-right
+	;; y-coordinates or the top-left and bottom-left y-coordinates
+	Local $heightA = Sqrt((($tr[0] - $br[0]) ^ 2) + (($tr[1] - $br[1]) ^ 2))
+	Local $heightB = Sqrt((($tl[0] - $bl[0]) ^ 2) + (($tl[1] - $bl[1]) ^ 2))
+	Local $maxHeight = _Max($heightA, $heightB)
+
+	;; now that we have the dimensions of the new image, construct
+	;; the set of destination points to obtain a "birds eye view",
+	;; (i.e. top-down view) of the image, again specifying points
+	;; in the top-left, top-right, bottom-right, and bottom-left
+	;; order
+	Local $dst = ObjCreate("OpenCV.cv.Mat").createFromVectorOfVec2f(_OpenCV_Tuple( _
+			_OpenCV_Point(0, 0), _
+			_OpenCV_Point($maxWidth - 1, 0), _
+			_OpenCV_Point($maxWidth - 1, $maxHeight - 1), _
+			_OpenCV_Point(0, $maxHeight - 1) _
+			))
+
+	;; compute the perspective transform matrix and then apply it
+	Local $M = $cv.getPerspectiveTransform($rect, $dst)
+	Local $warped = $cv.warpPerspective($image, $M, _OpenCV_Size($maxWidth, $maxHeight))
+
+	;; return the warped image
+	Return $warped
+EndFunc   ;==>_OpenCV_FourPointTransform
+
+Func _OpenCV_OrderPoints($pts)
+	;; the original function is has bugs as reported in
+	;; https://www.pyimagesearch.com/2014/08/25/4-point-opencv-getperspective-transform-example/#comment-431230
+	;; a fixed version has been provided here
+	;; https://www.pyimagesearch.com/2016/03/21/ordering-coordinates-clockwise-with-python-and-opencv/
+	Local $tmp[$pts.rows]
+
+	For $i = 0 To $pts.rows - 1
+		$tmp[$i] = $pts.Point_at($i)
+	Next
+
+	;; sort the points based on their x-coordinates then y-coordinates
+	_OpenCV_ArraySort($tmp, "_OpenCV_CoordComparator")
+
+	Local $tl, $tr, $br, $bl
+
+	;; the top-left and bottom-left points are the 2 most left points
+	;; between those 2 points, the top-left will be the one with the lowest y-coordinate
+	;; and the bottom-left will be the other point
+	If ($tmp[0])[1] < ($tmp[1])[1] Then
+		$tl = $tmp[0]
+		$bl = $tmp[1]
+	Else
+		$tl = $tmp[1]
+		$bl = $tmp[0]
+	EndIf
+
+	;; the top-right and bottom-right points are the 2 most right points
+	;; between those 2 points, the bottom-right will be
+	;; the one with the largest euclean distance to the top-left point
+	;; and the top right will be the other point
+	Local $r1 = $tmp[$pts.rows - 2]
+	Local $r2 = $tmp[$pts.rows - 1]
+
+	If _OpenCV_EuclideanDist($tl, $r1) > _OpenCV_EuclideanDist($tl, $r2) Then
+		$br = $r1
+		$tr = $r2
+	Else
+		$br = $r2
+		$tr = $r1
+	EndIf
+
+	Local $rect = _OpenCV_Tuple($tl, $tr, $br, $bl)
+	Return ObjCreate("OpenCV.cv.Mat").createFromVectorOfVec2f($rect)
+EndFunc   ;==>_OpenCV_OrderPoints
+
+Func _OpenCV_CoordComparator($a, $b)
+	If $a[0] < $b[0] Then Return -1
+	If $a[0] > $b[0] Then Return 1
+	If $a[1] < $b[1] Then Return -1
+	If $a[1] > $b[1] Then Return 1
+	Return 0
+EndFunc   ;==>_OpenCV_CoordComparator
+
+Func _OpenCV_EuclideanDist($p, $q)
+	Local $dist = 0
+	For $i = 0 To UBound($p) - 1
+		$dist += ($p[$i] - $q[$i]) ^ 2
+	Next
+	Return Sqrt($dist)
+EndFunc   ;==>_OpenCV_EuclideanDist

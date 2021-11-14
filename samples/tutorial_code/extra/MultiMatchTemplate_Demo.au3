@@ -1,8 +1,9 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_UseX64=y
+#AutoIt3Wrapper_Change2CUI=y
+#AutoIt3Wrapper_Au3Check_Parameters=-d -w 1 -w 2 -w 3 -w 4 -w 5 -w 6
+#AutoIt3Wrapper_AU3Check_Stop_OnWarning=y
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
-
-Opt("MustDeclareVars", 1)
 
 #include <GDIPlus.au3>
 #include <GuiComboBox.au3>
@@ -15,58 +16,58 @@ Opt("MustDeclareVars", 1)
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
 
-Local $cv = _OpenCV_get()
+Global $cv = _OpenCV_get()
 
-Local Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
+Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
 
 #Region ### START Koda GUI section ### Form=
-Local $FormGUI = GUICreate("Multi-template matching", 906, 607, 183, 120)
+Global $FormGUI = GUICreate("Multi-template matching", 906, 607, 183, 120)
 
-Local $InputSource = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\mario.png", 185, 16, 449, 21)
-Local $BtnSource = GUICtrlCreateButton("Source", 644, 14, 75, 25)
+Global $InputSource = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\mario.png", 185, 16, 449, 21)
+Global $BtnSource = GUICtrlCreateButton("Source", 644, 14, 75, 25)
 
-Local $InputTemplate = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\mario_coin.png", 185, 52, 449, 21)
-Local $BtnTemplate = GUICtrlCreateButton("Template", 644, 50, 75, 25)
+Global $InputTemplate = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\mario_coin.png", 185, 52, 449, 21)
+Global $BtnTemplate = GUICtrlCreateButton("Template", 644, 50, 75, 25)
 
-Local $InputMask = GUICtrlCreateInput("", 185, 88, 449, 21)
+Global $InputMask = GUICtrlCreateInput("", 185, 88, 449, 21)
 GUICtrlSetState(-1, $GUI_DISABLE)
-Local $BtnMask = GUICtrlCreateButton("Mask", 644, 86, 75, 25)
+Global $BtnMask = GUICtrlCreateButton("Mask", 644, 86, 75, 25)
 GUICtrlSetState(-1, $GUI_DISABLE)
 
-Local $LabelMethod = GUICtrlCreateLabel("Method:", 423, 128, 59, 20)
+Global $LabelMethod = GUICtrlCreateLabel("Method:", 423, 128, 59, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $ComboMethod = GUICtrlCreateCombo("", 489, 128, 145, 25, BitOR($GUI_SS_DEFAULT_COMBO, $CBS_SIMPLE))
+Global $ComboMethod = GUICtrlCreateCombo("", 489, 128, 145, 25, BitOR($GUI_SS_DEFAULT_COMBO, $CBS_SIMPLE))
 GUICtrlSetData(-1, "TM SQDIFF|TM SQDIFF NORMED|TM CCORR|TM CCORR NORMED|TM CCOEFF|TM CCOEFF NORMED")
 
-Local $LabelThreshold = GUICtrlCreateLabel("Threshold: 0.8", 185, 180, 110, 20)
+Global $LabelThreshold = GUICtrlCreateLabel("Threshold: 0.8", 185, 180, 110, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $SliderThreshold = GUICtrlCreateSlider(300, 168, 334, 45)
+Global $SliderThreshold = GUICtrlCreateSlider(300, 168, 334, 45)
 GUICtrlSetData(-1, 80)
 
-Local $BtnExec = GUICtrlCreateButton("Execute", 644, 126, 75, 25)
+Global $BtnExec = GUICtrlCreateButton("Execute", 644, 126, 75, 25)
 
-Local $LabelSource = GUICtrlCreateLabel("Source Image", 141, 224, 100, 20)
+Global $LabelSource = GUICtrlCreateLabel("Source Image", 141, 224, 100, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupSource = GUICtrlCreateGroup("", 20, 246, 342, 342)
-Local $PicSource = GUICtrlCreatePic("", 25, 257, 332, 326)
+Global $GroupSource = GUICtrlCreateGroup("", 20, 246, 342, 342)
+Global $PicSource = GUICtrlCreatePic("", 25, 257, 332, 326)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-Local $LabelTemplate = GUICtrlCreateLabel("Template", 420, 232, 70, 20)
+Global $LabelTemplate = GUICtrlCreateLabel("Template", 420, 232, 70, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupTemplate = GUICtrlCreateGroup("", 376, 246, 158, 158)
-Local $PicTemplate = GUICtrlCreatePic("", 381, 257, 148, 142)
+Global $GroupTemplate = GUICtrlCreateGroup("", 376, 246, 158, 158)
+Global $PicTemplate = GUICtrlCreatePic("", 381, 257, 148, 142)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-Local $LabelMask = GUICtrlCreateLabel("Mask", 435, 416, 41, 20)
+Global $LabelMask = GUICtrlCreateLabel("Mask", 435, 416, 41, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupMask = GUICtrlCreateGroup("", 375, 430, 158, 158)
-Local $PicMask = GUICtrlCreatePic("", 380, 441, 148, 142)
+Global $GroupMask = GUICtrlCreateGroup("", 375, 430, 158, 158)
+Global $PicMask = GUICtrlCreatePic("", 380, 441, 148, 142)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-Local $LabelMatchTemplate = GUICtrlCreateLabel("Match Template", 668, 224, 115, 20)
+Global $LabelMatchTemplate = GUICtrlCreateLabel("Match Template", 668, 224, 115, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupMatchTemplate = GUICtrlCreateGroup("", 544, 246, 342, 342)
-Local $PicMatchTemplate = GUICtrlCreatePic("", 549, 257, 332, 326)
+Global $GroupMatchTemplate = GUICtrlCreateGroup("", 544, 246, 342, 342)
+Global $PicMatchTemplate = GUICtrlCreatePic("", 549, 257, 332, 326)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
 GUISetState(@SW_SHOW)
@@ -76,23 +77,23 @@ _GUICtrlSlider_SetTicFreq($SliderThreshold, 1)
 
 _GDIPlus_Startup()
 
-Local $aRedColor = _OpenCV_RGB(255, 0, 0)
+Global $aRedColor = _OpenCV_RGB(255, 0, 0)
 
-Local $sSource = "", $sTemplate = "", $sMask = ""
-Local $img, $templ, $mask, $match_method, $threshold
+Global $sSource = "", $sTemplate = "", $sMask = ""
+Global $img, $templ, $mask, $match_method, $threshold
 
-Local $aMethods[6] = [$CV_TM_SQDIFF, $CV_TM_SQDIFF_NORMED, $CV_TM_CCORR, $CV_TM_CCORR_NORMED, $CV_TM_CCOEFF, $CV_TM_CCOEFF_NORMED]
+Global $aMethods[6] = [$CV_TM_SQDIFF, $CV_TM_SQDIFF_NORMED, $CV_TM_CCORR, $CV_TM_CCORR_NORMED, $CV_TM_CCOEFF, $CV_TM_CCOEFF_NORMED]
 _GUICtrlComboBox_SetCurSel($ComboMethod, 5)
 
-Local $use_mask = False
-Local $aMatchRect = _OpenCV_Rect(0, 0, 0, 0)
+Global $use_mask = False
+Global $aMatchRect = _OpenCV_Rect(0, 0, 0, 0)
 
 Main()
 
-Local $current_threshold = GUICtrlRead($SliderThreshold)
-Local $last_threshold = $current_threshold
+Global $current_threshold = GUICtrlRead($SliderThreshold)
+Global $last_threshold = $current_threshold
 
-Local $nMsg
+Global $nMsg
 
 While 1
 	$nMsg = GUIGetMsg()

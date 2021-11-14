@@ -28,18 +28,32 @@ module.exports = (header = [], impl = []) => {
                 return false;
             }
 
+            HRESULT hr = S_OK;
+
             CComSafeArray<VARIANT> vArray;
             vArray.Attach(V_ARRAY(in_val));
+
             LONG lLower = vArray.GetLowerBound();
             LONG lUpper = vArray.GetUpperBound();
-            vArray.Detach();
 
             if (lUpper - lLower >= cn) {
+                vArray.Detach();
                 return false;
             }
 
-            cv::Vec<_Tp, cn> dummy;
-            return SUCCEEDED(autoit_opencv_to(in_val, dummy));
+            _Tp value;
+
+            for (LONG i = lLower; i <= lUpper && (i - lLower) < cn; i++) {
+                auto& v = vArray.GetAt(i);
+                VARIANT *pv = &v;
+                if (!is_assignable_from(value, pv, false)) {
+                    hr = E_INVALIDARG;
+                    break;
+                }
+            }
+
+            vArray.Detach();
+            return SUCCEEDED(hr);
         }`.replace(/^ {8}/mg, "")
     );
 

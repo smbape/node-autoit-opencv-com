@@ -1,8 +1,10 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_UseX64=y
+#AutoIt3Wrapper_Change2CUI=y
+#AutoIt3Wrapper_Au3Check_Parameters=-d -w 1 -w 2 -w 3 -w 4 -w 5 -w 6
+#AutoIt3Wrapper_AU3Check_Stop_OnWarning=y
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
 
-Opt("MustDeclareVars", 1)
 Opt("GUIOnEventMode", 1)
 
 #include <GDIPlus.au3>
@@ -16,39 +18,39 @@ Opt("GUIOnEventMode", 1)
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
 
-Local $cv = _OpenCV_get()
+Global $cv = _OpenCV_get()
 
-Local Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
+Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
 
 #Region ### START Koda GUI section ### Form=
-Local $FormGUI = GUICreate("Back Projection", 1263, 601, 187, 122)
+Global $FormGUI = GUICreate("Back Projection", 1263, 601, 187, 122)
 
-Local $InputSource = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\lena.jpg", 364, 16, 449, 21)
+Global $InputSource = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\lena.jpg", 364, 16, 449, 21)
 GUICtrlSetState(-1, $GUI_DISABLE)
-Local $BtnSource = GUICtrlCreateButton("Open", 823, 14, 75, 25)
+Global $BtnSource = GUICtrlCreateButton("Open", 823, 14, 75, 25)
 
-Local $LabelBins = GUICtrlCreateLabel("* Hue  bins: 25", 364, 72, 110, 20)
+Global $LabelBins = GUICtrlCreateLabel("* Hue  bins: 25", 364, 72, 110, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $SliderBins = GUICtrlCreateSlider(491, 72, 394, 45)
+Global $SliderBins = GUICtrlCreateSlider(491, 72, 394, 45)
 GUICtrlSetLimit(-1, 180, 2)
 GUICtrlSetData(-1, 25)
 
-Local $LabelSource = GUICtrlCreateLabel("Source image", 144, 128, 49, 20)
+Global $LabelSource = GUICtrlCreateLabel("Source image", 144, 128, 49, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupSource = GUICtrlCreateGroup("", 10, 150, 410, 416)
-Local $PicSource = GUICtrlCreatePic("", 15, 161, 400, 400)
+Global $GroupSource = GUICtrlCreateGroup("", 10, 150, 410, 416)
+Global $PicSource = GUICtrlCreatePic("", 15, 161, 400, 400)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-Local $LabelBackProj = GUICtrlCreateLabel("BackProj", 468, 128, 67, 20)
+Global $LabelBackProj = GUICtrlCreateLabel("BackProj", 468, 128, 67, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupBackProj = GUICtrlCreateGroup("", 426, 150, 410, 416)
-Local $PicBackProj = GUICtrlCreatePic("", 431, 161, 400, 400)
+Global $GroupBackProj = GUICtrlCreateGroup("", 426, 150, 410, 416)
+Global $PicBackProj = GUICtrlCreatePic("", 431, 161, 400, 400)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-Local $LabelHistogram = GUICtrlCreateLabel("Histogram", 792, 128, 75, 20)
+Global $LabelHistogram = GUICtrlCreateLabel("Histogram", 792, 128, 75, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Local $GroupHistogram = GUICtrlCreateGroup("", 842, 150, 410, 416)
-Local $PicHistogram = GUICtrlCreatePic("", 847, 161, 400, 400)
+Global $GroupHistogram = GUICtrlCreateGroup("", 842, 150, 410, 416)
+Global $PicHistogram = GUICtrlCreatePic("", 847, 161, 400, 400)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
 GUISetOnEvent($GUI_EVENT_CLOSE, "_cleanExit")
@@ -62,13 +64,13 @@ _GUICtrlSlider_SetTicFreq($SliderBins, 1)
 
 _GDIPlus_Startup()
 
-Local $sInputSource = ""
-Local $src, $hsv, $hue
+Global $sInputSource = ""
+Global $src, $hsv, $hue
 
 Main()
 
-Local $current_bins = GUICtrlRead($SliderBins)
-Local $last_bins = $current_bins
+Global $current_bins = GUICtrlRead($SliderBins)
+Global $last_bins = $current_bins
 
 While 1
 	$current_bins = GUICtrlRead($SliderBins)

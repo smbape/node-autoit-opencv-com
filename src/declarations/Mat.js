@@ -1,13 +1,13 @@
 const declarations = [
     ["class cv.Mat", "", ["/Simple", "/DC"], [
-        ["int", "flags", "", ["/R"]],
-        ["int", "dims", "", ["/R"]],
-        ["int", "rows", "", ["/R"]],
-        ["int", "cols", "", ["/R"]],
-        ["uchar*", "data", "", ["/R"]],
-        ["size_t", "step", "", ["/R"]],
-        ["int", "width", "", ["/R", "=cols"]],
-        ["int", "height", "", ["/R", "=rows"]]
+        ["int", "flags", "", ["/RW"]],
+        ["int", "dims", "", ["/RW"]],
+        ["int", "rows", "", ["/RW"]],
+        ["int", "cols", "", ["/RW"]],
+        ["uchar*", "data", "", ["/RW"]],
+        ["size_t", "step", "", ["/RW"]],
+        ["int", "width", "", ["/RW", "=cols"]],
+        ["int", "height", "", ["/RW", "=rows"]]
     ], "", ""],
 
     ["cv.Mat.Mat", "", [], [], "", ""],
@@ -53,13 +53,53 @@ const declarations = [
         ["Rect", "roi", "", []]
     ], "", ""],
 
+    ["cv.Mat.row", "cv::Mat", [], [
+        ["int", "y", "", []],
+    ], "", ""],
+    ["cv.Mat.col", "cv::Mat", [], [
+        ["int", "x", "", []],
+    ], "", ""],
+    ["cv.Mat.rowRange", "cv::Mat", [], [
+        ["int", "startrow", "", []],
+        ["int", "endrow", "", []],
+    ], "", ""],
+    ["cv.Mat.rowRange", "cv::Mat", [], [
+        ["Range", "r", "", []],
+    ], "", ""],
+    ["cv.Mat.colRange", "cv::Mat", [], [
+        ["int", "startcol", "", []],
+        ["int", "endcol", "", []],
+    ], "", ""],
+    ["cv.Mat.colRange", "cv::Mat", [], [
+        ["Range", "r", "", []],
+    ], "", ""],
+
     ["cv.Mat.isContinuous", "bool", [], [], "", ""],
     ["cv.Mat.isSubmatrix", "bool", [], [], "", ""],
-    ["cv.Mat.depth", "int", [], [], "", ""],
-    ["cv.Mat.size", "Size", [], [], "", ""],
+    ["cv.Mat.elemSize", "size_t", [], [], "", ""],
+    ["cv.Mat.elemSize1", "size_t", [], [], "", ""],
+
     ["cv.Mat.type", "int", [], [], "", ""],
-    ["cv.Mat.empty", "bool", [], [], "", ""],
+    ["cv.Mat.depth", "int", [], [], "", ""],
     ["cv.Mat.channels", "int", [], [], "", ""],
+
+    ["cv.Mat.step1", "size_t", [], [
+        ["int", "i", "0", []]
+    ], "", ""],
+
+    ["cv.Mat.empty", "bool", [], [], "", ""],
+    ["cv.Mat.total", "size_t", [], [], "", ""],
+    ["cv.Mat.total", "size_t", [], [
+        ["int", "startDim", "", []],
+        ["int", "endDim", "INT_MAX", []],
+    ], "", ""],
+
+    ["cv.Mat.checkVector", "int", [], [
+        ["int", "elemChannels", "", []],
+        ["int", "depth", "-1", []],
+        ["int", "requireContinuous", "true", []],
+    ], "", ""],
+
     ["cv.Mat.ptr", "uchar*", [], [
         ["int", "y", "0", []]
     ], "", ""],
@@ -72,15 +112,16 @@ const declarations = [
         ["int", "i1", "", []],
         ["int", "i2", "", []],
     ], "", ""],
+
+    ["cv.Mat.size", "Size", [], [], "", ""],
     ["cv.Mat.pop_back", "void", [], [
         ["size_t", "value", "", []]
     ], "", ""],
     ["cv.Mat.push_back", "void", [], [
         ["Mat", "value", "", []]
     ], "", ""],
-    ["cv.Mat.total", "size_t", [], [], "", ""],
     ["cv.Mat.clone", "Mat", [], [], "", ""],
-    ["cv.Mat.elemSize", "size_t", [], [], "", ""],
+    ["cv.Mat.clone", "Mat", ["=copy"], [], "", ""],
     ["cv.Mat.copyTo", "void", [], [
         ["OutputArray", "m", "", []],
     ], "", ""],
@@ -113,6 +154,48 @@ const declarations = [
     ], "", ""],
     ["cv.Mat.t", "cv::Mat", [], [], "", ""],
 
+    ["cv.Mat.Point_at", "Point2d", ["/External"], [
+        ["int", "x", "", []],
+    ], "", ""],
+
+    ["cv.Mat.Point_at", "Point2d", ["/External"], [
+        ["int", "x", "", []],
+        ["int", "y", "", []],
+    ], "", ""],
+
+    ["cv.Mat.Point_at", "Point2d", ["/External"], [
+        ["Point", "pt", "", []],
+    ], "", ""],
+
+    ["cv.Mat.at", "double", ["/External"], [
+        ["int", "x", "", []],
+    ], "", ""],
+
+    ["cv.Mat.set_at", "void", ["/External"], [
+        ["int", "x", "", []],
+        ["double", "value", "", []],
+    ], "", ""],
+
+    ["cv.Mat.at", "double", ["/External"], [
+        ["int", "x", "", []],
+        ["int", "y", "", []],
+    ], "", ""],
+
+    ["cv.Mat.set_at", "void", ["/External"], [
+        ["int", "x", "", []],
+        ["int", "y", "", []],
+        ["double", "value", "", []],
+    ], "", ""],
+
+    ["cv.Mat.at", "double", ["/External"], [
+        ["Point", "pt", "", []],
+    ], "", ""],
+
+    ["cv.Mat.set_at", "void", ["/External"], [
+        ["Point", "pt", "", []],
+        ["double", "value", "", []],
+    ], "", ""],
+
     ["cv.Mat.eye", "cv::Mat", ["/S"], [
         ["int", "rows", "", []],
         ["int", "cols", "", []],
@@ -142,7 +225,37 @@ const declarations = [
     ], "", ""],
 ];
 
-for (const type of ["int", "float", "double", "Vec3b", "Vec4b"]) {
+const types = new Set(["int", "float", "double"]);
+
+for (const _Tp of ["b", "s", "w"]) {
+    for (const cn of [2, 3, 4]) { // eslint-disable-line no-magic-numbers
+        types.add(`Vec${ cn }${ _Tp }`);
+    }
+}
+
+for (const cn of [2, 3, 4, 6, 8]) { // eslint-disable-line no-magic-numbers
+    types.add(`Vec${ cn }i`);
+}
+
+for (const _Tp of ["f", "d"]) {
+    for (const cn of [2, 3, 4, 6]) { // eslint-disable-line no-magic-numbers
+        types.add(`Vec${ cn }${ _Tp }`);
+    }
+}
+
+for (const type of types) {
+    if (type.startsWith("Vec")) {
+        declarations.push(["cv.Mat.Mat", "", [`=createFrom${ type }`], [
+            [type, "vec", "", []],
+            ["bool", "copyData", "true", []],
+        ], "", ""]);
+
+        declarations.push(["cv.Mat.Mat", "", [`=createFromVectorOf${ type }`], [
+            [`vector_${ type }`, "vec", "", []],
+            ["bool", "copyData", "true", []],
+        ], "", ""]);
+    }
+
     declarations.push(...[
         [`cv.Mat.at<${ type }>`, type, [`=${ type }_at`], [
             ["int", "x", "", []],

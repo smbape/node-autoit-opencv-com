@@ -1,11 +1,11 @@
 module.exports = [
     ["class cv.UMat", "", ["/Simple", "/DC"], [
-        ["int", "rows", "", ["/R"]],
-        ["int", "cols", "", ["/R"]],
-        ["int", "dims", "", ["/R"]],
-        ["size_t", "step", "", ["/R"]],
-        ["int", "width", "", ["/R", "=cols"]],
-        ["int", "height", "", ["/R", "=rows"]]
+        ["int", "rows", "", ["/RW"]],
+        ["int", "cols", "", ["/RW"]],
+        ["int", "dims", "", ["/RW"]],
+        ["size_t", "step", "", ["/RW"]],
+        ["int", "width", "", ["/RW", "=cols"]],
+        ["int", "height", "", ["/RW", "=rows"]]
     ], "", ""],
 
     ["cv.UMat.UMat", "", [], [
