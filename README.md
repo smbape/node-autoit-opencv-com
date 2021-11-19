@@ -8,7 +8,7 @@ If yes, then this udf might be for you.
 ## Prerequisites
 
   - Download and extract [opencv-4.5.4-vc14_vc15.exe](https://sourceforge.net/projects/opencvlibrary/files/4.5.4/opencv-4.5.4-vc14_vc15.exe/download) into a folder
-  - Download and extract [autoit-opencv-4.5.4-com-v1.0.0-rc.0.7z](https://github.com/smbape/node-autoit-opencv-com/releases/download/v1.0.0-rc.0/autoit-opencv-4.5.4-com-v1.0.0-rc.0.7z) into a folder
+  - Download and extract [autoit-opencv-4.5.4-com-v1.1.0-rc.0.7z](https://github.com/smbape/node-autoit-opencv-com/releases/download/v1.1.0-rc.0/autoit-opencv-4.5.4-com-v1.1.0-rc.0.7z) into a folder
 
 ## Usage
 
@@ -85,10 +85,10 @@ curl -L 'https://github.com/opencv/opencv/releases/download/4.5.4/opencv-4.5.4-v
 # extract opencv-4.5.4-vc14_vc15.exe 
 ./opencv-4.5.4-vc14_vc15.exe -oopencv-4.5.4-vc14_vc15 -y
 
-# download autoit-opencv-4.5.4-com-v1.0.0-rc.0.7z
-https://github.com/smbape/node-autoit-opencv-com/releases/download/v1.0.0-rc.0/autoit-opencv-4.5.4-com-v1.0.0-rc.0.7z
+# download autoit-opencv-4.5.4-com-v1.1.0-rc.0.7z
+https://github.com/smbape/node-autoit-opencv-com/releases/download/v1.1.0-rc.0/autoit-opencv-4.5.4-com-v1.1.0-rc.0.7z
 
-# extract autoit-opencv-4.5.4-com-v1.0.0-rc.0.7z
+# extract autoit-opencv-4.5.4-com-v1.1.0-rc.0.7z
 
 ```
 
