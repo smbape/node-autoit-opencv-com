@@ -31,6 +31,7 @@ class CoClass {
         this.methods = new Map();
         this.enums = new Set();
         this.is_ptr = CLASS_PTR.has(fqn);
+        this.cpp_quotes = [];
 
         if (hasProp.call(knwon_ids, fqn)) {
             this.iid = knwon_ids[fqn].iid;

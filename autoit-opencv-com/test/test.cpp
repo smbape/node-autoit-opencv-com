@@ -2,6 +2,10 @@
 #define NOMINMAX
 #endif
 
+#ifndef STRICT
+#define STRICT
+#endif
+
 #import "cvLib.tlb"
 
 #include <atlbase.h>
@@ -13,15 +17,17 @@
 #include <string>
 #include <comutil.h>
 #include <codecvt>
-#include "generated_include.h"
 #include <assert.h>
 #include <windows.h>
 #include <dshow.h>
 #include <locale>
 #include <codecvt>
 #include <string>
+#include <gdiplus.h>
+#include "generated_include.h"
 
 #pragma comment(lib, "strmiids")
+#pragma comment(lib, "gdiplus.lib")
 
 void string_to_bstr(const std::string& in_val, _bstr_t& out_val) {
 	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
@@ -217,7 +223,7 @@ static void testSpit(cvLib::ICv_ObjectPtr cv, cvLib::ICv_Mat_ObjectPtr mat) {
 
 	CComSafeArray<VARIANT> _splitted(0UL);
 	CComVariant wrapper(_splitted);
-	VARIANT variant, *pDest = &variant;
+	VARIANT variant, * pDest = &variant;
 	VariantInit(pDest);
 	wrapper.Detach(pDest);
 	splitted = pDest;
@@ -265,17 +271,25 @@ static void testAdd(cvLib::ICv_ObjectPtr cv, cvLib::ICv_Mat_ObjectPtr mat) {
 	VariantClear(&variant);
 }
 
-static void testResize(cvLib::ICv_ObjectPtr cv, cvLib::ICv_Mat_ObjectPtr mat) {
+static void testResize(cvLib::ICv_ObjectPtr cv) {
+	_bstr_t image_path;
+	// string_to_bstr(samples::findFile("aloeGT.png"), image_path);
+	string_to_bstr("E:\\development\\git\\node-autoit-opencv-com\\samples\\tutorial_code\\yolo\\scooter-5180947_1920.jpg", image_path);
+	auto mat = cv->imread(&_variant_t(image_path));
+
+	float newWidth = 600;
+	float newHeight = 399.6875;
+
 	CComSafeArray<VARIANT> dsize(2UL);
-	for (int i = 0; i < 2; i++) {
-		dsize.SetAt(i, _variant_t(512));
-	}
+	dsize.SetAt(0, _variant_t(newWidth));
+	dsize.SetAt(1, _variant_t(newHeight));
 
 	auto safeArray = dsize.Detach();
 	VARIANT variant = { VT_ARRAY | VT_VARIANT };
 	V_ARRAY(&variant) = safeArray;
 
 	cv->resize(&_variant_t(mat->clone().GetInterfacePtr()), &variant);
+	mat->GdiplusResize(&_variant_t(newWidth), &_variant_t(newHeight), &_variant_t(7));
 
 	VariantClear(&variant);
 }
@@ -414,7 +428,7 @@ static int perform() {
 	testSpit(cv, mat);
 	testAKAZE(cv);
 	testAdd(cv, mat);
-	testResize(cv, mat);
+	testResize(cv);
 	testSetTo(cv, mat);
 	testContours(cv);
 
@@ -478,6 +492,12 @@ static int perform() {
 
 int main(int argc, char* argv[])
 {
+	using namespace Gdiplus;
+	GdiplusStartupInput gdiplusStartupInput;
+	ULONG_PTR gdiplusToken;
+	auto status = GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
+	CV_Assert(status == Ok);
+
 	HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
 	if (FAILED(hr)) {
 		std::wcout << L"could not initialize COM\n";
@@ -487,6 +507,7 @@ int main(int argc, char* argv[])
 	int code = perform();
 
 	CoUninitialize();
+	GdiplusShutdown(gdiplusToken);
 
 	return code;
 }

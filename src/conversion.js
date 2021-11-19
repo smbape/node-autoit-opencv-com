@@ -144,14 +144,6 @@ Object.assign(exports, {
         const cotype = coclass.getClassName();
 
         header.push(`
-            extern const bool is_assignable_from(${ coclass.fqn }& out_val, I${ cotype }*& in_val, bool is_optional);
-            extern const bool is_assignable_from(${ coclass.fqn }& out_val, IDispatch*& in_val, bool is_optional);
-            extern const bool is_assignable_from(${ coclass.fqn }& out_val, VARIANT const* const& in_val, bool is_optional);
-
-            extern const HRESULT autoit_opencv_to(I${ cotype }*& in_val, ${ coclass.fqn }& out_val);
-            extern const HRESULT autoit_opencv_to(IDispatch*& in_val, ${ coclass.fqn }& out_val);
-            extern const HRESULT autoit_opencv_to(VARIANT const* const& in_val, ${ coclass.fqn }& out_val);
-
             extern const HRESULT autoit_opencv_out(VARIANT const* const& in_val, ${ coclass.fqn }*& out_val);
             extern const HRESULT autoit_opencv_out(VARIANT const* const& in_val, I${ cotype }**& out_val);
 
@@ -161,49 +153,6 @@ Object.assign(exports, {
         `.replace(/^ {12}/mg, ""));
 
         impl.push(`
-            const bool is_assignable_from(${ coclass.fqn }& out_val, I${ cotype }* in_val, bool is_optional) {
-                return true;
-            }
-
-            const bool is_assignable_from(${ coclass.fqn }& out_val, IDispatch*& in_val, bool is_optional) {
-                return dynamic_cast<C${ cotype }*>(in_val) ? true : false;
-            }
-
-            const bool is_assignable_from(${ coclass.fqn }& out_val, VARIANT const* const& in_val, bool is_optional) {
-                switch (V_VT(in_val)) {
-                    case VT_DISPATCH:
-                        // TODO : find a better way to check instanceof with V_DISPATH
-                        return dynamic_cast<C${ cotype }*>(getRealIDispatch(in_val)) ? true : false;
-                    ${ optional.case.join(`\n${ " ".repeat(20) }`) }
-                    default:
-                        return false;
-                }
-            }
-
-            const HRESULT autoit_opencv_to(I${ cotype }*& in_val, ${ coclass.fqn }& out_val) {
-                auto obj = reinterpret_cast<C${ cotype }*>(in_val);
-                out_val = *obj->__self->get();
-                return S_OK;
-            }
-
-            const HRESULT autoit_opencv_to(IDispatch*& in_val, ${ coclass.fqn }& out_val) {
-                auto obj = reinterpret_cast<C${ cotype }*>(in_val);
-                out_val = *obj->__self->get();
-                return S_OK;
-            }
-
-            const HRESULT autoit_opencv_to(VARIANT const* const& in_val, ${ coclass.fqn }& out_val) {
-                ${ optional.assign.join(`\n${ " ".repeat(16) }`) }
-
-                if (V_VT(in_val) != VT_DISPATCH) {
-                    return E_INVALIDARG;
-                }
-
-                auto obj = reinterpret_cast<C${ cotype }*>(getRealIDispatch(in_val));
-                out_val = *obj->__self->get();
-                return S_OK;
-            }
-
             const HRESULT autoit_opencv_out(VARIANT const* const& in_val, ${ coclass.fqn }*& out_val) {
                 if (V_VT(in_val) != VT_DISPATCH) {
                     return E_INVALIDARG;
@@ -284,6 +233,7 @@ Object.assign(exports, {
                 HRESULT hr = CoCreateInstance(CLSID_${ cotype }, NULL, CLSCTX_INPROC_SERVER, IID_I${ cotype }, reinterpret_cast<void**>(out_val));
                 if (SUCCEEDED(hr)) {
                     auto obj = static_cast<C${ cotype }*>(*out_val);
+                    delete obj->__self;
                     obj->__self = new cv::Ptr<${ coclass.fqn }>(in_val);
                 }
                 return hr;
@@ -294,7 +244,7 @@ Object.assign(exports, {
             }
 
             const HRESULT autoit_opencv_from(const cv::Ptr<${ coclass.fqn }>& in_val, VARIANT*& out_val) {
-                I${ cotype }* pdispVal = NULL;
+                I${ cotype }* pdispVal = nullptr;
                 I${ cotype }** ppdispVal = &pdispVal;
                 HRESULT hr = autoit_opencv_from(in_val, ppdispVal);
                 if (SUCCEEDED(hr)) {
@@ -337,15 +287,66 @@ Object.assign(exports, {
             `.replace(/^ {16}/mg, ""));
         }
 
-        if (coclass.is_simple || coclass.is_map || coclass.has_copy_constructor || coclass.has_default_constructor) {
+        if (coclass.is_simple || coclass.is_struct || coclass.is_map || coclass.has_copy_constructor || coclass.has_default_constructor) {
             const assign = coclass.has_default_constructor ? "*(*obj->__self) = in_val" : `obj->__self->reset(new ${ coclass.fqn }(in_val))`;
 
             header.push(`
+                extern const bool is_assignable_from(${ coclass.fqn }& out_val, I${ cotype }*& in_val, bool is_optional);
+                extern const bool is_assignable_from(${ coclass.fqn }& out_val, IDispatch*& in_val, bool is_optional);
+                extern const bool is_assignable_from(${ coclass.fqn }& out_val, VARIANT const* const& in_val, bool is_optional);
+
+                extern const HRESULT autoit_opencv_to(I${ cotype }*& in_val, ${ coclass.fqn }& out_val);
+                extern const HRESULT autoit_opencv_to(IDispatch*& in_val, ${ coclass.fqn }& out_val);
+                extern const HRESULT autoit_opencv_to(VARIANT const* const& in_val, ${ coclass.fqn }& out_val);
+
                 extern const HRESULT autoit_opencv_from(const ${ coclass.fqn }& in_val, I${ cotype }**& out_val);
                 extern const HRESULT autoit_opencv_from(const ${ coclass.fqn }& in_val, IDispatch**& out_val);
                 extern const HRESULT autoit_opencv_from(const ${ coclass.fqn }& in_val, VARIANT*& out_val);
             `.replace(/^ {16}/mg, "").trim());
             impl.push(`
+                const bool is_assignable_from(${ coclass.fqn }& out_val, I${ cotype }* in_val, bool is_optional) {
+                    return true;
+                }
+
+                const bool is_assignable_from(${ coclass.fqn }& out_val, IDispatch*& in_val, bool is_optional) {
+                    return dynamic_cast<C${ cotype }*>(in_val) ? true : false;
+                }
+
+                const bool is_assignable_from(${ coclass.fqn }& out_val, VARIANT const* const& in_val, bool is_optional) {
+                    switch (V_VT(in_val)) {
+                        case VT_DISPATCH:
+                            // TODO : find a better way to check instanceof with V_DISPATH
+                            return dynamic_cast<C${ cotype }*>(getRealIDispatch(in_val)) ? true : false;
+                        ${ optional.case.join(`\n${ " ".repeat(24) }`) }
+                        default:
+                            return false;
+                    }
+                }
+
+                const HRESULT autoit_opencv_to(I${ cotype }*& in_val, ${ coclass.fqn }& out_val) {
+                    auto obj = reinterpret_cast<C${ cotype }*>(in_val);
+                    out_val = *obj->__self->get();
+                    return S_OK;
+                }
+
+                const HRESULT autoit_opencv_to(IDispatch*& in_val, ${ coclass.fqn }& out_val) {
+                    auto obj = reinterpret_cast<C${ cotype }*>(in_val);
+                    out_val = *obj->__self->get();
+                    return S_OK;
+                }
+
+                const HRESULT autoit_opencv_to(VARIANT const* const& in_val, ${ coclass.fqn }& out_val) {
+                    ${ optional.assign.join(`\n${ " ".repeat(20) }`) }
+
+                    if (V_VT(in_val) != VT_DISPATCH) {
+                        return E_INVALIDARG;
+                    }
+
+                    auto obj = reinterpret_cast<C${ cotype }*>(getRealIDispatch(in_val));
+                    out_val = *obj->__self->get();
+                    return S_OK;
+                }
+
                 const HRESULT autoit_opencv_from(const ${ coclass.fqn }& in_val, I${ cotype }**& out_val) {
                     HRESULT hr = CoCreateInstance(CLSID_${ cotype }, NULL, CLSCTX_INPROC_SERVER, IID_I${ cotype }, reinterpret_cast<void**>(out_val));
                     if (SUCCEEDED(hr)) {
@@ -360,7 +361,7 @@ Object.assign(exports, {
                 }
 
                 const HRESULT autoit_opencv_from(const ${ coclass.fqn }& in_val, VARIANT*& out_val) {
-                    I${ cotype }* pdispVal = NULL;
+                    I${ cotype }* pdispVal = nullptr;
                     I${ cotype }** ppdispVal = &pdispVal;
                     HRESULT hr = autoit_opencv_from(in_val, ppdispVal);
                     if (SUCCEEDED(hr)) {

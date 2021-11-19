@@ -19,7 +19,7 @@
 	rename("DeleteFile", "DeleteFile2") \
 	rename("FreeSpace", "FreeSpace2") \
 	rename("MoveFile", "MoveFile2") \
-	// avoid name collision with Windows SDK's GetFreeSpace macro, this is specific to scrrun.dll
+	// avoid name collision with Windows SDK's macros, this is specific to scrrun.dll
 
 ATL::CComSafeArray<VARIANT> ExtendedHolder::extended((ULONG)0);
 HMODULE ExtendedHolder::hModule = GetModuleHandle(NULL);
@@ -251,10 +251,19 @@ const HRESULT autoit_opencv_to(VARIANT const* const& in_val, void*& out_val) {
 	return hr;
 }
 
-const HRESULT autoit_opencv_from(uchar const* const& in_val, VARIANT*& out_val) {
-	V_VT(out_val) = VT_UI8;
-	V_UI8(out_val) = reinterpret_cast<ULONGLONG>(in_val);
-	return S_OK;
+const bool is_assignable_from(uchar*& out_val, VARIANT const* const& in_val, bool is_optional) {
+	if (is_variant_number(in_val)) {
+		return true;
+	}
+
+	switch (V_VT(in_val)) {
+		case VT_EMPTY:
+			return true;
+		case VT_ERROR:
+			return V_ERROR(in_val) == DISP_E_PARAMNOTFOUND && is_optional;
+		default:
+			return false;
+	}
 }
 
 const HRESULT autoit_opencv_to(VARIANT const* const& in_val, uchar*& out_val) {
@@ -266,6 +275,12 @@ const HRESULT autoit_opencv_to(VARIANT const* const& in_val, uchar*& out_val) {
 
 	out_val = reinterpret_cast<uchar*>(_out_val);
 	return hr;
+}
+
+const HRESULT autoit_opencv_from(uchar const* const& in_val, VARIANT*& out_val) {
+	V_VT(out_val) = VT_UI8;
+	V_UI8(out_val) = reinterpret_cast<ULONGLONG>(in_val);
+	return S_OK;
 }
 
 const HRESULT autoit_opencv_from(cv::MatExpr& in_val, ICv_Mat_Object**& out_val) {
@@ -378,7 +393,7 @@ const bool is_assignable_from(cv::GMetaArg& out_val, VARIANT const* const& in_va
 		|| is_assignable_from(value_GScalarDesc, in_val, is_optional)
 		|| is_assignable_from(value_GArrayDesc, in_val, is_optional)
 		|| is_assignable_from(value_GOpaqueDesc, in_val, is_optional)
-	;
+		;
 }
 
 const HRESULT autoit_opencv_to(VARIANT const* const& in_val, cv::GMetaArg& out_val) {
@@ -488,12 +503,12 @@ HRESULT GetInterfaceName(IUnknown* punk, VARIANT* vres) {
 	return hr;
 }
 
-const bool is_assignable_from(cv::Ptr<cv::flann::IndexParams> &out_val, VARIANT* &in_val, bool is_optional) {
+const bool is_assignable_from(cv::Ptr<cv::flann::IndexParams>& out_val, VARIANT*& in_val, bool is_optional) {
 	cv::flann::IndexParams obj;
 	return is_assignable_from(obj, in_val, is_optional);
 }
 
-const bool is_assignable_from(cv::flann::IndexParams &out_val, VARIANT* &in_val, bool is_optional) {
+const bool is_assignable_from(cv::flann::IndexParams& out_val, VARIANT*& in_val, bool is_optional) {
 	VARIANT vname = { VT_EMPTY };
 	bool _result = false;
 
@@ -512,11 +527,11 @@ const bool is_assignable_from(cv::flann::IndexParams &out_val, VARIANT* &in_val,
 	}
 }
 
-const bool is_assignable_from(cv::Ptr<cv::flann::SearchParams> &out_val, VARIANT* &in_val, bool is_optional) {
+const bool is_assignable_from(cv::Ptr<cv::flann::SearchParams>& out_val, VARIANT*& in_val, bool is_optional) {
 	return is_assignable_from(static_cast<cv::Ptr<cv::flann::IndexParams>>(out_val), in_val, is_optional);
 }
 
-const HRESULT autoit_opencv_to(VARIANT* &in_val, cv::Ptr<cv::flann::IndexParams> &out_val) {
+const HRESULT autoit_opencv_to(VARIANT*& in_val, cv::Ptr<cv::flann::IndexParams>& out_val) {
 	if (V_VT(in_val) == VT_ERROR) {
 		return V_ERROR(in_val) == DISP_E_PARAMNOTFOUND ? S_OK : E_INVALIDARG;
 	}
@@ -538,7 +553,7 @@ const HRESULT autoit_opencv_to(VARIANT* &in_val, cv::Ptr<cv::flann::IndexParams>
 	return hr;
 }
 
-const HRESULT autoit_opencv_to(VARIANT* &in_val, cv::Ptr<cv::flann::SearchParams> &out_val) {
+const HRESULT autoit_opencv_to(VARIANT*& in_val, cv::Ptr<cv::flann::SearchParams>& out_val) {
 	return autoit_opencv_to(in_val, static_cast<cv::Ptr<cv::flann::IndexParams>>(out_val));
 }
 

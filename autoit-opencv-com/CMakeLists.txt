@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.6)
 
 # Name of the project (will be the name of the plugin)
 project(autoit_opencv_com)
@@ -83,6 +83,7 @@ file(GLOB test_files "./test/*.h*" "./test/*.cpp")
 
 add_executable (cpp_test ${test_files})
 target_link_libraries (cpp_test ${PROJECT_NAME})
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT cpp_test)
 
 get_filename_component(OPENCV_SAMPLES_DATA_PATH "../samples/data" REALPATH)
 file(TO_NATIVE_PATH "${OPENCV_SAMPLES_DATA_PATH}" OPENCV_SAMPLES_DATA_PATH)

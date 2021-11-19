@@ -91,6 +91,7 @@ module.exports = (coclass, header, impl) => {
             HRESULT hr = CoCreateInstance(CLSID_${ cotype }, NULL, CLSCTX_INPROC_SERVER, IID_I${ cotype }, reinterpret_cast<void**>(out_val));
             if (SUCCEEDED(hr)) {
                 auto obj = static_cast<C${ cotype }*>(*out_val);
+                delete obj->__self;
                 obj->__self = new cv::Ptr<${ coclass.fqn }>(in_val);
             }
             return hr;
@@ -98,47 +99,49 @@ module.exports = (coclass, header, impl) => {
 
         #include "vectors_c.h"
 
-        void C${ cotype }::at(size_t i, ${ cpptype } value) {
+        void C${ cotype }::at(size_t i, ${ cpptype } value, HRESULT& hr) {
             (*this->__self->get())[i] = value;
         }
 
-        void C${ cotype }::push_vector(${ coclass.fqn } other) {
+        void C${ cotype }::push_vector(${ coclass.fqn } other, HRESULT& hr) {
             auto v = this->__self->get();
             VectorPushMulti(v, &other[0], other.size());
         }
 
-        void C${ cotype }::push_vector(${ coclass.fqn } other, size_t count, size_t start) {
+        void C${ cotype }::push_vector(${ coclass.fqn } other, size_t count, size_t start, HRESULT& hr) {
             auto v = this->__self->get();
             VectorPushMulti(v, &other[start], count);
         }
 
-        ${ coclass.fqn } C${ cotype }::slice(size_t start, size_t count) {
+        const ${ coclass.fqn } C${ cotype }::slice(size_t start, size_t count, HRESULT& hr) {
             auto v = this->__self->get();
             auto begin = v->begin() + start;
             return ${ coclass.fqn }(begin, begin + count);
         }
 
-        void C${ cotype }::sort(void* comparator, size_t start, size_t count) {
+        void C${ cotype }::sort(void* comparator, size_t start, size_t count, HRESULT& hr) {
             auto v = this->__self->get();
             auto begin = v->begin() + start;
             std::sort(begin, begin + count, reinterpret_cast<${ comparator }>(comparator));
         }
 
-        void C${ cotype }::sort_variant(void* comparator, size_t start, size_t count) {
+        void C${ cotype }::sort_variant(void* comparator, size_t start, size_t count, HRESULT& hr) {
             auto v = this->__self->get();
             auto begin = v->begin() + start;
             ${ comparator }Proxy cmp = { reinterpret_cast<${ ptr_comparator }>(comparator) };
             std::sort(begin, begin + count, cmp);
         }
 
-        void* C${ cotype }::start() {
+        const void* C${ cotype }::start(HRESULT& hr) {
             auto v = this->__self->get();
-            return v->empty() ? NULL : reinterpret_cast<void*>(&(*v)[0]);
+            auto _result = v->empty() ? NULL : static_cast<const void*>(&(*v)[0]);
+            return _result;
         }
 
-        void* C${ cotype }::end() {
+        const void* C${ cotype }::end(HRESULT& hr) {
             auto v = this->__self->get();
-            return v->empty() ? NULL : reinterpret_cast<void*>(&(*v)[v->size()]);
+            auto _result = v->empty() ? NULL : static_cast<const void*>(&(*v)[v->size()]);
+            return _result;
         }
         `.replace(/^ {8}/mg, "")
     );

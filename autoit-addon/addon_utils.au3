@@ -18,14 +18,19 @@ Func _Addon_FindDLL($sFile = Default, $sFilter = Default, $sDir = Default)
         $sFile = "autoit_addon*" & $sPostfix & ".dll"
     EndIf
 
-    Local $aSearchPaths[7] = [ _
-        6, _
+    Local $aSearchPaths[12] = [ _
+        11, _
         ".", _
         $sBuildType, _
         "build_x64\" & $sBuildType, _
         "autoit-addon", _
         "autoit-addon\" & $sBuildType, _
-        "autoit-addon\build_x64\" & $sBuildType _
+        "autoit-addon\build_x64\", _
+        "autoit-addon\build_x64\" & $sBuildType, _
+        "autoit-opencv-com", _
+        "autoit-opencv-com\" & $sBuildType, _
+        "autoit-opencv-com\build_x64\", _
+        "autoit-opencv-com\build_x64\" & $sBuildType _
     ]
     Return _OpenCV_FindFile($sFile, $sFilter, $sDir, $FLTA_FILES, $aSearchPaths)
 EndFunc   ;==>_Addon_FindDLL

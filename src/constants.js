@@ -115,6 +115,8 @@ exports.CUSTOM_CLASSES = [
     ["cv.GProtoOutputArgs", ["/Simple"]],
 ];
 
+exports.CUSTOM_NAMESPACES = new Set();
+
 exports.ARRAY_CLASSES = new Set([
     // Array types
     // Unique

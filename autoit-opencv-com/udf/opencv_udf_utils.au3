@@ -5,6 +5,7 @@
 #include "cv_enums.au3"
 
 #include <File.au3>
+#include <GDIPlus.au3>
 #include <Math.au3>
 #include <StaticConstants.au3>
 #include <WindowsConstants.au3>
@@ -12,6 +13,7 @@
 
 Global Const $OPENCV_UDF_SORT_ASC = 1
 Global Const $OPENCV_UDF_SORT_DESC = -1
+Global $_cv_gdi_resize = 0
 
 Func _OpenCV_FindFiles($aParts, $sDir = Default, $iFlag = Default, $bReturnPath = Default, $bReverse = Default)
 	If $sDir == Default Then $sDir = @ScriptDir
@@ -169,7 +171,7 @@ Func _OpenCV_FindFile($sFile, $sFilter = Default, $sDir = Default, $iFlag = Defa
 	Return $sFound
 EndFunc   ;==>_OpenCV_FindFile
 
-Func _OpenCV_FindDLL($sFile, $sFilter = Default, $sDir = Default, $bLatestVersion = True)
+Func _OpenCV_FindDLL($sFile, $sFilter = Default, $sDir = Default, $bReverse = Default)
 	Local $sBuildType = $_cv_build_type == "Debug" ? "Debug" : "Release"
 	Local $sPostfix = $_cv_build_type == "Debug" ? "d" : ""
 
@@ -185,11 +187,11 @@ Func _OpenCV_FindDLL($sFile, $sFilter = Default, $sDir = Default, $bLatestVersio
 		"autoit-opencv-com\build_x64", _
 		"autoit-opencv-com\build_x64\" & $sBuildType _
 	]
-	Return _OpenCV_FindFile($sFile & $sPostfix & ".dll", $sFilter, $sDir, $FLTA_FILES, $aSearchPaths, $bLatestVersion)
+	Return _OpenCV_FindFile($sFile & $sPostfix & ".dll", $sFilter, $sDir, $FLTA_FILES, $aSearchPaths, $bReverse)
 EndFunc   ;==>_OpenCV_FindDLL
 
 Func _OpenCV_imread_and_check($fileName, $flags = Default)
-	Local $cv = _OpenCV_get()
+	Local Const $cv = _OpenCV_get()
 	Local $img = $cv.imread($fileName, $flags)
 	If $img.empty() Then
 		ConsoleWriteError("!>Error: The image " & $fileName & " could not be loaded." & @CRLF)
@@ -197,91 +199,122 @@ Func _OpenCV_imread_and_check($fileName, $flags = Default)
 	Return $img
 EndFunc   ;==>_OpenCV_imread_and_check
 
-Func _OpenCV_resizeAndCenter($matImg, $iDstWidth = Default, $iDstHeight = Default, $aBackgroundColor = Default, $iCode = Default, $bResize = Default, $bCenter = Default)
-	If $aBackgroundColor == Default Then $aBackgroundColor = _OpenCV_Tuple(0xF0, 0xF0, 0xF0, 0xFF)
-	If $iCode == Default Then $iCode = -1
-	If $bResize == Default Then $bResize = True
-	If $bCenter == Default Then $bCenter = True
-
-	Local $iWidth = $matImg.width
-	Local $iHeight = $matImg.height
-
-	If $iDstWidth == Default Then
-		If $iDstHeight == Default Then
-			$iDstWidth = $iWidth
-			$iDstHeight = $iHeight
+Func _OpenCV_computeResizeParams($iWidth, $iHeight, $iHintWidth = Default, $iHintHeight = Default, $bEnlarge = False)
+	If $iHintWidth == Default Then
+		If $iHintHeight == Default Then
+			$iHintWidth = $iWidth
+			$iHintHeight = $iHeight
 		Else
-			$iDstWidth = $iDstHeight * $iWidth / $iHeight
+			$iHintWidth = $iHintHeight * $iWidth / $iHeight
 		EndIf
-	ElseIf $iDstHeight == Default Then
-		$iDstHeight = $iDstWidth * $iHeight / $iWidth
+	ElseIf $iHintHeight == Default Then
+		$iHintHeight = $iHintWidth * $iHeight / $iWidth
 	EndIf
 
 	Local $fRatio = $iWidth / $iHeight
-	Local $iPadHeight = 0
-	Local $iPadWidth = 0
+	Local $iDstWidth = $iHintWidth
+	Local $iDstHeight = $iHintHeight
 
-	If $iWidth <= $iDstWidth And $iHeight <= $iDstHeight Then
-		$bResize = False
-		$iPadHeight = Floor(($iDstHeight - $iHeight) / 2)
-		$iPadWidth = Floor(($iDstWidth - $iWidth) / 2)
-	ElseIf $fRatio * $iDstHeight > $iDstWidth Then
-		$iWidth = $iDstWidth
-		$iHeight = Floor($iWidth / $fRatio)
-		$iPadHeight = Floor(($iDstHeight - $iHeight) / 2)
+	If $fRatio * $iDstHeight > $iDstWidth Then
+		$iDstHeight = Floor($iDstWidth / $fRatio)
 	Else
-		$iHeight = $iDstHeight
-		$iWidth = Floor($iHeight * $fRatio)
-		$iPadWidth = Floor(($iDstWidth - $iWidth) / 2)
+		$iDstWidth = Floor($iDstHeight * $fRatio)
 	EndIf
 
-	Local $cv = _OpenCV_get()
+	; ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : [$iWidth x $iHeight; $fRatio] = [' & $iWidth & ' x ' & $iHeight & '; ' & $iWidth / $iHeight & ']' & @CRLF) ;### Debug Console
+	; ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : [$iHintWidth x $iHintHeight; $fRatio] = [' & $iHintWidth & ' x ' & $iHintHeight & '; ' & $iHintWidth / $iHintHeight & ']' & @CRLF) ;### Debug Console
+	; ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : [$iDstWidth x $iDstHeight; $fRatio] = [' & $iDstWidth & ' x ' & $iDstHeight & '; ' & $iDstWidth / $iDstHeight & ']' & @CRLF) ;### Debug Console
+	; ConsoleWrite(@CRLF)
 
-	If $iCode <> -1 Then
-		$matImg = $cv.cvtColor($matImg, $iCode)
+	If $iWidth < $iDstWidth And $iHeight < $iDstHeight And Not $bEnlarge Then
+		$iDstWidth = $iWidth
+		$iDstHeight = $iHeight
 	EndIf
+
+	Local $iPadWidth = Floor(($iHintWidth - $iDstWidth) / 2)
+	Local $iPadHeight = Floor(($iHintHeight - $iDstHeight) / 2)
+
+	If $iPadWidth < 0 Then $iPadWidth = 0
+	If $iPadHeight < 0 Then $iPadHeight = 0
+
+	Return _OpenCV_Tuple($iDstWidth, $iDstHeight, $iPadWidth, $iPadHeight)
+EndFunc   ;==>_OpenCV_computeResizeParams
+
+Func _OpenCV_resizeAndCenter($matImg, $iDstWidth = Default, $iDstHeight = Default, $aBackgroundColor = Default, $bResize = Default, $bEnlarge = Default, $bCenter = Default, $interpolation = Default)
+	If $aBackgroundColor == Default Then $aBackgroundColor = _OpenCV_Scalar(0xF0, 0xF0, 0xF0, 0xFF)
+	If $bResize == Default Then $bResize = True
+	If $bCenter == Default Then $bCenter = True
+	If $bEnlarge == Default Then $bEnlarge = False
+
+	If Not $bResize And Not $bCenter Then Return $matImg
+
+	Local $aParams = _OpenCV_computeResizeParams($matImg.width, $matImg.height, $iDstWidth, $iDstHeight, $bEnlarge)
+	Local $iWidth = $aParams[0]
+	Local $iHeight = $aParams[1]
+	Local $iPadWidth = $aParams[2]
+	Local $iPadHeight = $aParams[3]
+
+	If $iDstWidth == Default Then $iDstWidth = $iWidth
+	If $iDstHeight == Default Then $iDstHeight = $iHeight
+
+	; ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : [$iDstWidth x $iDstHeight] = [' & $iDstWidth & ' x ' & $iDstHeight & ']' & @CRLF) ;### Debug Console
+	; ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : [$iWidth x $iHeight] = [' & $iWidth & ' x ' & $iHeight & ']' & @CRLF) ;### Debug Console
+
+	Local Const $cv = _OpenCV_get()
 
 	If $bResize Then
-		Local $aDsize[2] = [$iWidth, $iHeight]
-		$matImg = $cv.resize($matImg, $aDsize)
+		If $_cv_gdi_resize And $__g_hGDIPDll > 0 Then
+			Switch $interpolation
+				Case $CV_INTER_NEAREST
+					$interpolation = $GDIP_INTERPOLATIONMODE_NEARESTNEIGHBOR
+				Case $CV_INTER_LINEAR
+					$interpolation = $GDIP_INTERPOLATIONMODE_BILINEAR
+				Case $CV_INTER_CUBIC
+					$interpolation = $GDIP_INTERPOLATIONMODE_BICUBIC
+				Case $CV_INTER_AREA
+					$interpolation = $GDIP_INTERPOLATIONMODE_HIGHQUALITYBICUBIC
+				Case $CV_INTER_LANCZOS4
+					$interpolation = $GDIP_INTERPOLATIONMODE_NEARESTNEIGHBOR
+				Case $CV_INTER_LINEAR_EXACT
+					$interpolation = $GDIP_INTERPOLATIONMODE_HIGHQUALITYBILINEAR
+				Case $CV_INTER_NEAREST_EXACT
+					$interpolation = $GDIP_INTERPOLATIONMODE_HIGHQUALITYBICUBIC
+				Case Else
+					If $interpolation == Default Then $interpolation = $GDIP_INTERPOLATIONMODE_HIGHQUALITYBICUBIC
+					If $interpolation < $GDIP_INTERPOLATIONMODE_DEFAULT Then $interpolation = $GDIP_INTERPOLATIONMODE_DEFAULT
+					If $interpolation > $GDIP_INTERPOLATIONMODE_HIGHQUALITYBICUBIC Then $interpolation = $GDIP_INTERPOLATIONMODE_HIGHQUALITYBICUBIC
+			EndSwitch
+
+			$matImg = $matImg.GdiplusResize($iWidth, $iHeight, $interpolation)
+		Else
+			$matImg = $cv.resize($matImg, _OpenCV_Size($iWidth, $iHeight), 0, 0, $interpolation)
+		EndIf
 	EndIf
 
-	Local $matResult = ObjCreate("OpenCV.cv.Mat").create($iDstHeight, $iDstWidth, $CV_8UC4)
-	$cv.copyMakeBorder($matImg, $iPadHeight, $iPadHeight, $iPadWidth, $iPadWidth, $CV_BORDER_CONSTANT, $aBackgroundColor, $matResult)
+	If $bCenter Then
+		Local $matResult = ObjCreate("OpenCV.cv.Mat").create($iDstHeight, $iDstWidth, $matImg.depth())
+		$cv.copyMakeBorder($matImg, $iPadHeight, $iPadHeight, $iPadWidth, $iPadWidth, $CV_BORDER_CONSTANT, $aBackgroundColor, $matResult)
+		$matImg = $matResult
+	EndIf
 
-	Return $matResult
+	Return $matImg
 EndFunc   ;==>_OpenCV_resizeAndCenter
 
-Func _OpenCV_SetControlPic($controlID, $src)
-	Local $cv = _OpenCV_get()
+Func _OpenCV_SetControlPic($controlID, $src, $iDstWidth = Default, $iDstHeight = Default, $aBackgroundColor = Default, $bResize = False, $bEnlarge = False, $bCenter = False, $interpolation = $CV_INTER_AREA)
+	$src = $src.convertToShow()
+	; $src = _OpenCV_convertToShow($src)
+	$src = _OpenCV_resizeAndCenter($src, $iDstWidth, $iDstHeight, $aBackgroundColor, $bResize, $bEnlarge, $bCenter, $interpolation)
+	Local $hHBITMAP = _OpenCV_GetHBITMAP($src)
+	Local $hPrevImage = GUICtrlSendMsg($controlID, $STM_SETIMAGE, $IMAGE_BITMAP, $hHBITMAP)
+	; Local $hPrevImage = _SendMessage(GUICtrlGetHandle($controlID), $STM_SETIMAGE, 0, $hHBITMAP)
+	_WinAPI_DeleteObject($hPrevImage) ; Delete Prev image if any
+	_WinAPI_DeleteObject($hHBITMAP)
+EndFunc   ;==>_OpenCV_SetControlPic
 
-	; opencv-4.5.4-vc14_vc15\opencv\sources\modules\highgui\src\precomp.hpp
-	Local $tmp
-
-	Switch $src.depth()
-		Case $CV_8U
-			$tmp = $src
-		Case $CV_8S
-			$tmp = $cv.convertScaleAbs($src, 1, 127)
-		Case $CV_16S
-			$tmp = $cv.convertScaleAbs($src, 1 / 255.0, 127)
-		Case $CV_16U
-			$tmp = $cv.convertScaleAbs($src, 1 / 255.0)
-		Case $CV_32F
-			ContinueCase
-		Case $CV_64F ; assuming image has values in range [0, 1)
-			$tmp = $src.convertTo($CV_8U, 255.0, 0.0)
-		Case Else
-			ConsoleWriteError("!>Error: The image type is not supported." & @CRLF)
-			Return
-	EndSwitch
-
-	Local $matImg = $cv.cvtColor($tmp, $CV_COLOR_BGRA2BGR, 4)
-
-	Local $iWidth = $matImg.width
-	Local $iHeight = $matImg.height
-
-	Local $iChannels = $matImg.channels()
+Func _OpenCV_GetHBITMAP($img)
+	Local $iWidth = $img.width
+	Local $iHeight = $img.height
+	Local $iChannels = $img.channels()
 	Local $iSize = $iWidth * $iHeight * $iChannels
 
 	Local $tBIHDR = DllStructCreate($tagBITMAPINFO)
@@ -292,17 +325,14 @@ Func _OpenCV_SetControlPic($controlID, $src)
 	$tBIHDR.biBitCount = $iChannels * 8
 
 	Local $aDIB = DllCall("gdi32.dll", "ptr", "CreateDIBSection", "hwnd", 0, "struct*", $tBIHDR, "uint", $DIB_RGB_COLORS, "ptr*", 0, "ptr", 0, "dword", 0)
-	_OpenCV_DllCall("msvcrt.dll", "ptr", "memcpy_s", "ptr", $aDIB[4], "ulong_ptr", $iSize, "ptr", $matImg.data, "ulong_ptr", $iSize)
-	Local $hPrevImage = _SendMessage(GUICtrlGetHandle($controlID), $STM_SETIMAGE, 0, $aDIB[0])
-	_WinAPI_DeleteObject($hPrevImage) ; Delete Prev image if any
-	_WinAPI_DeleteObject($aDIB[0])
-EndFunc   ;==>_OpenCV_SetControlPic
+	_OpenCV_DllCall("msvcrt.dll", "ptr", "memcpy_s", "ptr", $aDIB[4], "ulong_ptr", $iSize, "ptr", $img.ptr(), "ulong_ptr", $iSize)
 
-Func _OpenCV_imshow_ControlPic($mat, $hWnd, $controlID, $aBackgroundColor = Default, $iCode = Default, $bResize = Default, $bCenter = Default)
+	Return $aDIB[0]
+EndFunc
+
+Func _OpenCV_imshow_ControlPic($mat, $hWnd, $controlID, $aBackgroundColor = Default, $bResize = True, $bEnlarge = Default, $bCenter = True, $interpolation = Default)
 	Local $aPicPos = ControlGetPos($hWnd, "", $controlID)
-	$mat = _OpenCV_resizeAndCenter($mat, $aPicPos[2], $aPicPos[3], $aBackgroundColor, $iCode, $bResize, $bCenter)
-	_OpenCV_SetControlPic($controlID, $mat)
-
+	_OpenCV_SetControlPic($controlID, $mat, $aPicPos[2], $aPicPos[3], $aBackgroundColor, $bResize, $bEnlarge, $bCenter, $interpolation)
 EndFunc   ;==>_OpenCV_imshow_ControlPic
 
 ; #FUNCTION# ====================================================================================================================
@@ -355,7 +385,7 @@ Func _OpenCV_GetDesktopScreenBits(ByRef $aRect)
 EndFunc   ;==>_OpenCV_GetDesktopScreenBits
 
 Func _OpenCV_CompareMatHist($matSrc, $matDst, $matMask, $aChannels, $aHistSize, $aRanges, $iCompareMethod = $CV_HISTCMP_CORREL, $bAccumulate = False)
-	Local $cv = _OpenCV_get()
+	Local Const $cv = _OpenCV_get()
 
 	Local $aMatSrc[1] = [$matSrc]
 	Local $matHistSrc = $cv.calcHist($aMatSrc, $aChannels, $matMask, $aHistSize, $aRanges, $bAccumulate)
@@ -406,7 +436,7 @@ EndFunc   ;==>_OpenCV_CompareMatHist
 ;                  https://vovkos.github.io/doxyrest-showcase/opencv/sphinx_rtd_theme/page_tutorial_histogram_calculation.html
 ; ===============================================================================================================================
 Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = 0.95, $iMatchMethod = $CV_TM_CCOEFF_NORMED, $matTemplMask = Default, $iLimit = Default, $iCode = Default, $fOverlapping = 2, $aChannels = Default, $aHistSize = Default, $aRanges = Default, $iCompareMethod = $CV_HISTCMP_CORREL, $iDstCn = 0, $bAccumulate = False)
-	Local $cv = _OpenCV_get()
+	Local Const $cv = _OpenCV_get()
 
 	If $iCode == Default Then $iCode = -1
 	If $iLimit == Default Then $iLimit = 20
@@ -580,7 +610,7 @@ EndFunc   ;==>_OpenCV_FindTemplate
 ; Example .......: No
 ; ===============================================================================================================================
 Func _OpenCV_RotateBound($img, $angle = 0, $scale = 1.0, $flags = Default, $borderMode = Default, $borderValue = Default, $rotated = Default)
-	Local $cv = _OpenCV_get()
+	Local Const $cv = _OpenCV_get()
 
 	Local $center[2] = [$img.width / 2, $img.height / 2]
 	Local $M = $cv.getRotationMatrix2D($center, -$angle, $scale)
@@ -891,7 +921,7 @@ Func __OpenCV_VectorSetter(ByRef $oVector, $i, $vValue)
 EndFunc   ;==>__OpenCV_VectorSetter
 
 Func _OpenCV_FourPointTransform($image, $pts)
-	Local $cv = _OpenCV_get()
+	Local Const $cv = _OpenCV_get()
 
 	;; obtain a consistent order of the points and unpack them
 	;; individually
@@ -921,11 +951,11 @@ Func _OpenCV_FourPointTransform($image, $pts)
 	;; in the top-left, top-right, bottom-right, and bottom-left
 	;; order
 	Local $dst = ObjCreate("OpenCV.cv.Mat").createFromVectorOfVec2f(_OpenCV_Tuple( _
-			_OpenCV_Point(0, 0), _
-			_OpenCV_Point($maxWidth - 1, 0), _
-			_OpenCV_Point($maxWidth - 1, $maxHeight - 1), _
-			_OpenCV_Point(0, $maxHeight - 1) _
-			))
+		_OpenCV_Point(0, 0), _
+		_OpenCV_Point($maxWidth - 1, 0), _
+		_OpenCV_Point($maxWidth - 1, $maxHeight - 1), _
+		_OpenCV_Point(0, $maxHeight - 1) _
+	))
 
 	;; compute the perspective transform matrix and then apply it
 	Local $M = $cv.getPerspectiveTransform($rect, $dst)

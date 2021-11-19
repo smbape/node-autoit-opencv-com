@@ -3,6 +3,9 @@
 Global $_cv_build_type = "Release"
 Global $_cv_debug = 0
 
+Global $h_opencv_world_dll = -1
+Global $h_autoit_opencv_com_dll = -1
+
 Func _OpenCV_get($vVal = Default)
 	Local Static $cv = 0
 	If $vVal <> Default Then
@@ -31,9 +34,6 @@ Func _OpenCV_Install($s_opencv_wolrd_dll = Default, $s_autoit_opencv_com_dll = D
 	If $s_autoit_opencv_com_dll == Default Then $s_autoit_opencv_com_dll = "autoit_opencv_com454.dll"
 	If $bUser == Default Then $bUser = True
 
-	Local Static $h_opencv_world_dll = -1
-	Local Static $h_autoit_opencv_com_dll = -1
-
 	If $bClose And $h_opencv_world_dll <> -1 Then DllClose($h_opencv_world_dll)
 	If $bOpen Then
 		$h_opencv_world_dll = _OpenCV_LoadDLL($s_opencv_wolrd_dll)
@@ -49,7 +49,7 @@ Func _OpenCV_Install($s_opencv_wolrd_dll = Default, $s_autoit_opencv_com_dll = D
 	Local $hresult
 
 	If $bUninstall Then
-		$hresult = _OpenCV_DllCall($h_autoit_opencv_com_dll, "long:cdecl", "DllInstall", "bool", False, "wstr", $bUser ? "user" : "")
+		$hresult = _OpenCV_DllCall($h_autoit_opencv_com_dll, "long", "DllInstall", "bool", False, "wstr", $bUser ? "user" : "")
 		If $hresult < 0 Then
 			ConsoleWriteError('!>Error: DllInstall ' & $hresult & @CRLF)
 			Return False
@@ -57,7 +57,7 @@ Func _OpenCV_Install($s_opencv_wolrd_dll = Default, $s_autoit_opencv_com_dll = D
 	EndIf
 
 	If $bInstall Then
-		$hresult = _OpenCV_DllCall($h_autoit_opencv_com_dll, "long:cdecl", "DllInstall", "bool", True, "wstr", $bUser ? "user" : "")
+		$hresult = _OpenCV_DllCall($h_autoit_opencv_com_dll, "long", "DllInstall", "bool", True, "wstr", $bUser ? "user" : "")
 		If $hresult < 0 Then
 			ConsoleWriteError('!>Error: DllInstall ' & $hresult & @CRLF)
 			Return False
@@ -96,9 +96,10 @@ EndFunc   ;==>_OpenCV_DebugMsg
 Func _OpenCV_LoadDLL($dll)
 	_OpenCV_DebugMsg('Loading ' & $dll)
 	Local $result = DllOpen($dll)
-	If $result == -1 Then
+	If @error Or $result == -1 Then
 		ConsoleWriteError('!>Error: unable to load ' & $dll & @CRLF)
 	EndIf
+	_OpenCV_DebugMsg('Loaded ' & $dll)
 	Return $result
 EndFunc   ;==>_OpenCV_LoadDLL
 

@@ -196,6 +196,16 @@ const declarations = [
         ["double", "value", "", []],
     ], "", ""],
 
+    ["cv.Mat.convertToBitmap", "void*", ["/External"], [
+        ["bool", "copy", "true", []],
+    ], "", ""],
+    ["cv.Mat.convertToShow", "cv::Mat", ["/External"], [], "", ""],
+    ["cv.Mat.GdiplusResize", "cv::Mat", ["/External"], [
+        ["float", "newWidth", "", []],
+        ["float", "newHeight", "", []],
+        ["int", "interpolation", "7", []],
+    ], "", ""],
+
     ["cv.Mat.eye", "cv::Mat", ["/S"], [
         ["int", "rows", "", []],
         ["int", "cols", "", []],

@@ -183,6 +183,8 @@ class AutoItGenerator {
                 }
 
                 destructor.push("delete this->__self;");
+                destructor.push("this->__self = nullptr;");
+
                 iidl.push(`[propget, id(${ id })] HRESULT self([out, retval] VARIANT* pVal);`);
                 iidl.push(`[propput, id(${ id })] HRESULT self([in] ULONGLONG ptr);`);
                 ipublic.push("STDMETHOD(get_self)(VARIANT* pVal);");
@@ -295,6 +297,7 @@ class AutoItGenerator {
             }).forEach(writeProperty);
 
             const varprefix = "pVarArg";
+            const include = coclass.include ? coclass.include : coclass;
 
             // methods
             for (const fname of coclass.methods.keys()) {
@@ -440,8 +443,8 @@ class AutoItGenerator {
                             defval = SIMPLE_ARGTYPE_DEFAULTS.has(argtype) ? SIMPLE_ARGTYPE_DEFAULTS.get(argtype) : "";
                         }
 
-                        const idltype = this.getIDLType(argtype, coclass);
-                        const cpptype = this.getCppType(argtype, coclass);
+                        const idltype = this.getIDLType(argtype, include);
+                        const cpptype = this.getCppType(argtype, include);
 
                         let callarg = parg + argname;
 
@@ -652,7 +655,10 @@ class AutoItGenerator {
                 } of bodies) {
                     const [name, return_value_type, func_modifiers, list_of_arguments] = decl;
 
-                    const path = name.split(".");
+                    const is_constructor = func_modifiers.includes("/CO");
+                    const is_external = func_modifiers.includes("/External");
+
+                    const path = name.split(is_constructor ? "::" : ".");
                     const is_static = !coclass.is_class && !coclass.is_struct || func_modifiers.includes("/S");
                     const is_entry_test = is_test && !options.notest.has(path.join("::"));
                     const cindent = maxargc !== 0 ? " ".repeat(4) : "";
@@ -680,13 +686,10 @@ class AutoItGenerator {
                         body.push("");
                     }
 
-                    const is_constructor = func_modifiers.includes("/CO");
-                    const is_external = func_modifiers.includes("/External");
-
                     let callee;
 
                     if (is_external) {
-                        callee = `this->${ path[path.length - 1] }`;
+                        callee = (is_static ? `C${ cotype }::` : "this->") + path[path.length - 1];
                     } else if (is_static) {
                         callee = path.join("::");
                     } else {
@@ -701,7 +704,7 @@ class AutoItGenerator {
                         callee = `${ callee }->${ path[path.length - 1] }`;
                     }
 
-                    let expr = `(${ callargs.join(", ") })`;
+                    let expr = `(${ callargs.concat(is_external ? ["hr"] : []).join(", ") })`;
 
                     for (const modifier of func_modifiers) {
                         if (modifier.startsWith("/Expr=")) {
@@ -711,14 +714,25 @@ class AutoItGenerator {
 
                     callee = `${ callee }${ expr }`;
 
-                    if (is_constructor) {
+                    if (is_constructor && !is_external) {
                         callee = `cv::Ptr<${ fqn }>(new ${ callee })`;
                     }
 
                     if (is_external) {
-                        ipublic.push(`${ this.getCppType(return_value_type === "" ? "void" : return_value_type, coclass) } ${ path[path.length - 1] }(${ list_of_arguments.map(([argtype, argname]) => {
-                            return `${ this.getCppType(argtype, coclass) } ${ argname }`;
-                        }).join(", ") });`);
+                        const type = [this.getCppType(return_value_type === "" ? "void" : return_value_type, include)];
+
+                        if (is_constructor) {
+                            type[0] = `cv::Ptr<${ type[0] }>`;
+                        }
+
+                        ipublic.push(`${ [
+                            is_static ? "static" : null,
+                            return_value_type !== "" && return_value_type !== "void" ? "const" : null,
+                            type.join(""),
+                            path[path.length - 1]
+                        ].filter(text => text !== null).join(" ") }(${ list_of_arguments.map(([argtype, argname]) => {
+                            return `${ this.getCppType(argtype, include) } ${ argname }`;
+                        }).concat(["HRESULT& hr"]).join(", ") });`);
                     }
 
                     if (return_value_type !== "void") {
@@ -737,12 +751,12 @@ class AutoItGenerator {
                     `.replace(/^ {24}/mg, "").trim().split("\n").join(`\n${ indent }${ cindent }`));
 
                     if (return_value_type !== "void") {
-                        const idltype = is_constructor ? coclass.idl : this.getIDLType(return_value_type, coclass.include ? coclass.include : coclass);
+                        const idltype = is_constructor ? coclass.idl : this.getIDLType(return_value_type, include);
                         this.setReturn(returns, idltype, "_retval");
                         retval.unshift([returns[0], "_retval", returns[0], false]);
                     } else if (retval.length !== 0) {
                         const [, argname, argtype] = retval[0];
-                        const idltype = this.getIDLType(argtype, coclass.include ? coclass.include : coclass);
+                        const idltype = this.getIDLType(argtype, include);
                         this.setReturn(returns, idltype, "_retval");
                         outputs.get(argname).push("_retval"); // mark _retval as an output of argname
                     }
@@ -1003,8 +1017,6 @@ class AutoItGenerator {
                 }
 
                 coclass.iface.header = `
-                    // C${ cotype }
-
                     class ATL_NO_VTABLE C${ cotype } :
                         ${ bases.join(`,\n${ " ".repeat(24) }`) }
                     {
@@ -1144,12 +1156,14 @@ class AutoItGenerator {
                 ]);
 
                 if (coclass.namespace) {
-                    using.add(coclass.namespace);
+                    // using.add(coclass.namespace);
                 }
 
                 if (coclass.include && coclass.include.namespace && coclass.include.namespace !== coclass.namespace) {
-                    using.add(coclass.include.namespace);
+                    // using.add(coclass.include.namespace);
                 }
+
+                coclass.cpp_quotes.unshift(`// C${ cotype }`);
 
                 files.set(sysPath.join(options.output, `${ className }.h`), `
                     #pragma once
@@ -1157,6 +1171,8 @@ class AutoItGenerator {
                     #define ${ hdr_id }
 
                     #include "autoit_bridge.h"
+
+                    ${ coclass.cpp_quotes.join(`\n${ " ".repeat(20) }`) }
 
                     #if defined(_WIN32_WCE) && !defined(_CE_DCOM) && !defined(_CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA)
                     #error "Les objets COM monothread ne sont pas correctement pris en charge par les plateformes Windows CE, notamment les plateformes Windows Mobile qui ne prennent pas totalement en charge DCOM. Définissez _CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA pour forcer ATL à prendre en charge la création d'objets COM monothread et permettre l'utilisation de leurs implémentations. Le modèle de thread de votre fichier rgs a été défini sur 'Libre', car il s'agit du seul modèle de thread pris en charge par les plateformes Windows CE non-DCOM."
@@ -1583,6 +1599,8 @@ class AutoItGenerator {
         for (const modifier of list_of_modifiers) {
             if (modifier.startsWith("/idl=")) {
                 coclass.idl = modifier.slice("/idl=".length);
+            } else if (modifier.startsWith("/cpp_quote=")) {
+                coclass.cpp_quotes.push(modifier.slice("/cpp_quote=".length));
             }
         }
 
@@ -1998,7 +2016,7 @@ class AutoItGenerator {
             }
         }
 
-        return type;
+        return /^(?:Point|Rect|Scalar|Size|Vec)(?:\d[bdfisw])?$/.test(type) ? "cv::" + type : type;
     }
 
     callCast(type, value, coclass) {

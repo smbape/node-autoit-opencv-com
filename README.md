@@ -26,12 +26,49 @@ _OpenCV_Open_And_Register("opencv-4.5.4-vc14_vc15\opencv\build\x64\vc15\bin\open
 Global $cv = _OpenCV_get()
 
 If IsObj($cv) Then
-    Global $img = _OpenCV_imread_and_check("data\lena.jpg")
+    Global $img = _OpenCV_imread_and_check("samples\data\lena.jpg")
     $cv.imshow("Image", $img)
     $cv.waitKey()
     $cv.destroyAllWindows()
 EndIf
 
+_OpenCV_Unregister_And_Close()
+```
+
+```autoit
+#Region ;**** Directives created by AutoIt3Wrapper_GUI ****
+#AutoIt3Wrapper_UseX64=y
+#AutoIt3Wrapper_Change2CUI=y
+#AutoIt3Wrapper_Au3Check_Parameters=-d -w 1 -w 2 -w 3 -w 4 -w 5 -w 6
+#AutoIt3Wrapper_AU3Check_Stop_OnWarning=y
+#EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
+
+#include <GDIPlus.au3>
+#include "autoit-opencv-com\udf\opencv_udf_utils.au3"
+
+_OpenCV_Open_And_Register("opencv-4.5.4-vc14_vc15\opencv\build\x64\vc15\bin\opencv_world454.dll", "autoit-opencv-com\autoit_opencv_com454.dll")
+
+Global $cv = _OpenCV_get()
+
+_GDIPlus_Startup()
+
+If IsObj($cv) Then
+    Global $img = _OpenCV_imread_and_check("samples\tutorial_code\yolo\scooter-5180947_1920.jpg")
+    Global $hImage = $img.convertToBitmap()
+
+    Global $hResizedImage = _GDIPlus_ImageResize($hImage, 600, 400)
+    _GDIPlus_BitmapDispose($hImage)
+
+    Global $resized = $cv.createMatFromBitmap($hResizedImage)
+    _GDIPlus_BitmapDispose($hResizedImage)
+
+    $cv.imshow("Resized with GDI+", $resized)
+
+    $cv.waitKey()
+    $cv.destroyAllWindows()
+EndIf
+
+_GDIPlus_Shutdown()
 _OpenCV_Unregister_And_Close()
 ```
 
@@ -42,9 +79,16 @@ _OpenCV_Unregister_And_Close()
 git clone https://github.com/smbape/node-autoit-opencv-com
 cd node-autoit-opencv-com
 
-# download opencv-4.5.4
+# download opencv-4.5.4-vc14_vc15.exe
 curl -L 'https://github.com/opencv/opencv/releases/download/4.5.4/opencv-4.5.4-vc14_vc15.exe' -o opencv-4.5.4-vc14_vc15.exe
+
+# extract opencv-4.5.4-vc14_vc15.exe 
 ./opencv-4.5.4-vc14_vc15.exe -oopencv-4.5.4-vc14_vc15 -y
+
+# download autoit-opencv-4.5.4-com-v1.0.0-rc.0.7z
+https://github.com/smbape/node-autoit-opencv-com/releases/download/v1.0.0-rc.0/autoit-opencv-4.5.4-com-v1.0.0-rc.0.7z
+
+# extract autoit-opencv-4.5.4-com-v1.0.0-rc.0.7z
 
 ```
 

@@ -260,15 +260,15 @@ Func UpdateFrame()
 			$mog2.apply($frame, -1, $fgmask)
 	EndSwitch
 
-	Local $fps = $cv.getTickFrequency() / ($cv.getTickCount() - $start)
-	GUICtrlSetData($LabelFPS, "FPS : " & Round($fps))
-
 	$fgimg.setTo(_OpenCV_ScalarAll(0))
 	$frame.copyTo($fgmask, $fgimg)
 
 	_OpenCV_imshow_ControlPic($frame, $FormGUI, $PicImage)
 	_OpenCV_imshow_ControlPic($fgmask, $FormGUI, $PicForegroundMask)
 	_OpenCV_imshow_ControlPic($fgimg, $FormGUI, $PicForegroundImage)
+
+	Local $fps = $cv.getTickFrequency() / ($cv.getTickCount() - $start)
+	GUICtrlSetData($LabelFPS, "FPS : " & Round($fps))
 EndFunc   ;==>UpdateFrame
 
 Func UpdateCameraList()

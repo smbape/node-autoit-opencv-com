@@ -9,6 +9,7 @@
 #include <GDIPlus.au3>
 #include <GUIConstantsEx.au3>
 #include <GuiSlider.au3>
+#include <WinAPIDiag.au3>
 #include "..\..\..\autoit-opencv-com\udf\opencv_udf_utils.au3"
 #include "..\..\..\autoit-addon\addon.au3"
 
@@ -25,32 +26,35 @@ Global $dnn = ObjCreate("OpenCV.cv.dnn")
 Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
 
 #Region ### START Koda GUI section ### Form=
-Global $FormGUI = GUICreate("OpenCV object detection", 1202, 795, 191, 27)
+Global $FormGUI = GUICreate("OpenCV object detection", 1273, 796, 191, 18)
 
-Global $InputSource = GUICtrlCreateInput(@ScriptDir & "\people-2557408_1920.jpg", 264, 24, 449, 21)
-Global $BtnSource = GUICtrlCreateButton("Browse", 723, 22, 75, 25)
+Global $InputSource = GUICtrlCreateInput(@ScriptDir & "\scooter-5180947_1920.jpg", 264, 8, 449, 21)
+Global $BtnSource = GUICtrlCreateButton("Browse", 723, 6, 75, 25)
 
-Global $InputModelNames = GUICtrlCreateInput(@ScriptDir & "\yolov3.txt", 264, 60, 449, 21)
-Global $BtnModelNames = GUICtrlCreateButton("Browse", 723, 58, 75, 25)
+Global $InputModelNames = GUICtrlCreateInput(@ScriptDir & "\yolov3.txt", 264, 44, 449, 21)
+Global $BtnModelNames = GUICtrlCreateButton("Browse", 723, 42, 75, 25)
 
-Global $InputModelConfiguration = GUICtrlCreateInput(@ScriptDir & "\yolov3.cfg", 264, 96, 449, 21)
-Global $BtnModelConfiguration = GUICtrlCreateButton("Browse", 723, 94, 75, 25)
+Global $InputModelConfiguration = GUICtrlCreateInput(@ScriptDir & "\yolov3.cfg", 264, 80, 449, 21)
+Global $BtnModelConfiguration = GUICtrlCreateButton("Browse", 723, 78, 75, 25)
 
-Global $InputModelWeights = GUICtrlCreateInput(@ScriptDir & "\yolov3.weights", 264, 132, 449, 21)
-Global $BtnModelWeights = GUICtrlCreateButton("Browse", 723, 130, 75, 25)
+Global $InputModelWeights = GUICtrlCreateInput(@ScriptDir & "\yolov3.weights", 264, 116, 449, 21)
+Global $BtnModelWeights = GUICtrlCreateButton("Browse", 723, 114, 75, 25)
 
-Global $BtnExec = GUICtrlCreateButton("Execute", 832, 24, 75, 25)
+Global $CheckboxUseGDI = GUICtrlCreateCheckbox("Use GDI+", 832, 48, 97, 17)
+GUICtrlSetState(-1, $GUI_CHECKED)
 
-Global $LabelSource = GUICtrlCreateLabel("Source Image", 271, 180, 100, 20)
+Global $BtnExec = GUICtrlCreateButton("Dectect Objects", 832, 8, 91, 25)
+
+Global $LabelSource = GUICtrlCreateLabel("Source Image", 271, 148, 100, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Global $GroupSource = GUICtrlCreateGroup("", 20, 203, 574, 580)
-Global $PicSource = GUICtrlCreatePic("", 25, 214, 564, 564)
+Global $GroupSource = GUICtrlCreateGroup("", 20, 171, 610, 616)
+Global $PicSource = GUICtrlCreatePic("", 25, 182, 600, 600)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-Global $LabelResult = GUICtrlCreateLabel("Object detection", 823, 180, 120, 20)
+Global $LabelResult = GUICtrlCreateLabel("Object detection", 863, 148, 120, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Global $GroupResult = GUICtrlCreateGroup("", 604, 203, 574, 580)
-Global $PicResult = GUICtrlCreatePic("", 609, 214, 564, 564)
+Global $GroupResult = GUICtrlCreateGroup("", 644, 171, 610, 616)
+Global $PicResult = GUICtrlCreatePic("", 649, 182, 600, 600)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
 GUISetState(@SW_SHOW)
@@ -128,6 +132,8 @@ Func Main()
 	$sModelWeights = ControlGetText($FormGUI, "", $InputModelWeights)
 	If $sModelWeights == "" Then Return
 
+	$_cv_gdi_resize = _IsChecked($CheckboxUseGDI)
+
 	;;! [Load image]
 	Local $image = _OpenCV_imread_and_check($sSource)
 	If @error Then Return
@@ -142,20 +148,36 @@ Func Main()
 	EndIf
 
 	; Local $net = $dnn.readNetFromDarknet($sModelConfiguration, $sModelWeights)
-	; $net.setPreferableBackend($CV_DNN_DNN_BACKEND_OPENCV)
-	; $net.setPreferableTarget($CV_DNN_DNN_TARGET_CPU)
 
 	$hTimer = TimerInit()
 	Local $net = $dnn.readNet($sModelWeights, $sModelConfiguration)
 	ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : $dnn.readNet    ' & TimerDiff($hTimer) & ' ms' & @CRLF)
 
+	; $net.setPreferableBackend($CV_DNN_DNN_BACKEND_OPENCV)
+	; $net.setPreferableTarget($CV_DNN_DNN_TARGET_CPU)
+
 	$hTimer = TimerInit()
 	ProcessFrame($net, $classes, $image)
-	ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : ProcessFrame    ' & TimerDiff($hTimer) & ' ms' & @CRLF)
+	ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : ProcessFrame    ' & TimerDiff($hTimer) & ' ms' & @CRLF & @CRLF)
 EndFunc   ;==>Main
 
 Func ProcessFrame($net, $classes, $frame)
 	Local $hTimer
+
+	Local $aPicPos = ControlGetPos($FormGUI, "", $PicResult)
+	Local $iDstWidth = $aPicPos[2]
+	Local $iDstHeight = $aPicPos[3]
+	Local $fRatio = $frame.width / $frame.height
+
+	If $fRatio * $iDstHeight > $iDstWidth Then
+		$iDstHeight = $iDstWidth / $fRatio
+	ElseIf $fRatio * $iDstHeight < $iDstWidth Then
+		$iDstWidth = $iDstHeight * $fRatio
+	EndIf
+
+	;; Reduce frame image to improve object detection
+	$frame = _OpenCV_resizeAndCenter($frame, $iDstWidth, $iDstHeight)
+	; ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : size = [' & $iDstWidth & ' x ' & $iDstHeight & ']' & @CRLF) ;### Debug Console
 
 	;; Create a 4D blob from a frame.
 	Local $blob = $dnn.blobFromImage($frame, 1 / 255, _OpenCV_Size($inpWidth, $inpHeight), _OpenCV_Scalar(0, 0, 0), True, False)
@@ -176,11 +198,10 @@ Func ProcessFrame($net, $classes, $frame)
 	;; Put efficiency information.
 	;; The function getPerfProfile returns the overall time for inference(t)
 	;; and the timings for each of the layers(in layersTimes)
-	Local $t = $net.getPerfProfile()
-	Local $label = 'Inference time: ' & Round($t * 1000.0 / $cv.getTickFrequency(), 2) & ' ms'
-	$cv.putText($frame, $label, _OpenCV_Point(0, 15), $CV_FONT_HERSHEY_SIMPLEX, 0.5, _OpenCV_Scalar(0, 0, 255))
+	; Local $t = $net.getPerfProfile()
+	; Local $label = 'Inference time: ' & Round($t * 1000.0 / $cv.getTickFrequency(), 2) & ' ms'
+	; $cv.putText($frame, $label, _OpenCV_Point(0, 15), $CV_FONT_HERSHEY_SIMPLEX, 0.5, _OpenCV_Scalar(0, 0, 0xFF))
 
-	$hTimer = TimerInit()
 	_OpenCV_imshow_ControlPic($frame, $FormGUI, $PicResult)
 EndFunc   ;==>ProcessFrame
 
@@ -296,46 +317,87 @@ Func postprocess($frame, $outs, $classes)
 	For $i = 0 To UBound($indices) - 1
 		$idx = $indices[$i]
 		$box = $boxes.at($idx)
-		$left = $box[0]
-		$top = $box[1]
-		$width = $box[2]
-		$height = $box[3]
-		drawPred($classIds.at($idx), $confidences.at($idx), $left, $top, $left + $width, $top + $height, $frame, $classes)
+		drawPred($classIds.at($idx), $confidences.at($idx), $box, $frame, $classes)
 	Next
 EndFunc   ;==>postprocess
 
-Func drawPred($classId, $conf, $left, $top, $right, $bottom, $frame, $classes)
+Func drawPred($classId, $conf, $box, $frame, $classes)
+	Local $thickness = 2
+
 	;; Draw a bounding box.
-	$cv.rectangle($frame, _OpenCV_Point($left, $top), _OpenCV_Point($right, $bottom), _OpenCV_Scalar(255, 178, 50), 3)
+	$cv.rectangle($frame, $box, _OpenCV_Scalar(0xFF, 0xB2, 0x32), $thickness)
 
 	;; Get the label for the class name and its confidence
-	Local $label = IsArray($classes) ? $classes[$classId] & ':' & Round($conf, 2) : String(Round($conf, 2))
-
-	Local $aPicPos = ControlGetPos($FormGUI, "", $PicResult)
-	Local $iDstWidth = $aPicPos[2]
-	Local $iDstHeight = $aPicPos[3]
-	Local $fRatio = $frame.width / $frame.height
-	Local $ratio = 1
-	If $fRatio * $iDstHeight > $iDstWidth Then
-		$ratio = $frame.width / $iDstWidth
-	ElseIf $fRatio * $iDstHeight < $iDstWidth Then
-		$ratio = $frame.height / $iDstHeight
-	Else
-		$ratio = 1
+	Local $label = StringFormat("%.4f", $conf)
+	If IsArray($classes) Then
+		$label = StringFormat("%s:%s", $classes[$classId], $label)
 	EndIf
 
-	;;Display the label at the top of the bounding box
-	Local $labelSize = $cv.getTextSize($label, $CV_FONT_HERSHEY_SIMPLEX, 0.5 * $ratio, $ratio)
-	Local $baseLine = $cv.extended[1] ;
-	$top = _Max($top, $labelSize[1])
-	$cv.rectangle( _
-		$frame, _
-		_OpenCV_Point($left, $top - 1.5 * $labelSize[1]), _
-		_OpenCV_Point($left + 1.5 * $labelSize[0], $top + $baseLine), _
-		_OpenCV_Scalar(255, 255, 255), _
-		$CV_FILLED _
-	)
-	$cv.putText($frame, $label, _OpenCV_Point($left, $top), $CV_FONT_HERSHEY_SIMPLEX, 0.75 * $ratio, _OpenCV_Scalar(0, 0, 0), $ratio)
+	Local $left = $box[0] + $thickness
+	Local $top = $box[1] + $thickness
+	Local $fLabelBackgroundOpacity = 0x7F / 0xFF
+
+	If $_cv_gdi_resize And $__g_hGDIPDll > 0 Then
+		Local $LabelBrush = _GDIPlus_BrushCreateSolid(0xFF000000)
+		Local $hLabelBackgroundBrush = _GDIPlus_BrushCreateSolid(BitOR(0x00FFFFFF, BitShift($fLabelBackgroundOpacity * 0xFF, -24))) ;color format AARRGGBB (hex)
+		Local $hImage = $frame.convertToBitmap(False)
+
+		Local $hFormat = _GDIPlus_StringFormatCreate()
+		Local $hFamily = _GDIPlus_FontFamilyCreate("Calibri")
+		Local $hFont = _GDIPlus_FontCreate($hFamily, 12)
+
+		Local $tLabelLayout = _GDIPlus_RectFCreate(0, 0, $frame.width, $frame.height)
+
+		Local $hGraphics = _GDIPlus_ImageGetGraphicsContext($hImage)
+
+		$tLabelLayout = _GDIPlus_GraphicsMeasureString($hGraphics, $label, $hFont, $tLabelLayout, $hFormat)
+		$tLabelLayout = $tLabelLayout[0]
+		$tLabelLayout.X = $left
+		$tLabelLayout.Y = $top
+
+		_GDIPlus_GraphicsSetSmoothingMode($hGraphics, $GDIP_SMOOTHINGMODE_HIGHQUALITY)
+		_GDIPlus_GraphicsFillRect($hGraphics, $left, $top, $tLabelLayout.Width, $tLabelLayout.Height, $hLabelBackgroundBrush)
+		_GDIPlus_GraphicsDrawStringEx($hGraphics, $label, $hFont, $tLabelLayout, $hFormat, $LabelBrush)
+
+		_GDIPlus_GraphicsDispose($hGraphics)
+
+		_GDIPlus_FontDispose($hFont)
+		_GDIPlus_FontFamilyDispose($hFamily)
+		_GDIPlus_StringFormatDispose($hFormat)
+
+		_GDIPlus_ImageDispose($hImage)
+		_GDIPlus_BrushDispose($hLabelBackgroundBrush)
+		_GDIPlus_BrushDispose($LabelBrush)
+	Else
+		Local $fontFace = $CV_FONT_HERSHEY_SIMPLEX
+		Local $fontScale = 0.5
+		Local $fontThickness = 1
+		Local $labelSize = $cv.getTextSize($label, $fontFace, $fontScale, $fontThickness)
+		Local $baseLine = $cv.extended[1]
+		Local $width = $labelSize[0]
+		Local $height = $labelSize[1] + $baseLine
+
+		;; Draw a transparent label background
+
+		If $fLabelBackgroundOpacity < 1 Then
+			Local $aLabelBox = _OpenCV_Rect($left, $top, $width, $height)
+			Local $oLabelRect = ObjCreate("OpenCV.cv.Mat").create($height, $width, $CV_8UC3, _OpenCV_Scalar(0xFF, 0xFF, 0xFF))
+			Local $oLabelROI = ObjCreate("OpenCV.cv.Mat").create($frame, $aLabelBox)
+
+			$oLabelRect = $cv.addWeighted($oLabelRect, $fLabelBackgroundOpacity, ObjCreate("OpenCV.cv.Mat").create($frame, $aLabelBox), 1 - $fLabelBackgroundOpacity, 0)
+			$oLabelRect.copyTo($oLabelROI)
+		Else
+			$cv.rectangle( _
+				$frame, _
+				_OpenCV_Rect($left, $top, $width, $height), _
+				_OpenCV_Scalar(0xFF, 0xFF, 0xFF), _
+				$CV_FILLED _
+			)
+		EndIf
+
+		;; Display the label in the label background
+		$cv.putText($frame, $label, _OpenCV_Point($left, $top + $labelSize[1]), $fontFace, $fontScale, _OpenCV_Scalar(0, 0, 0), $fontThickness)
+	EndIf
 EndFunc   ;==>drawPred
 
 Func _DownloadWeights($sFilePath)
@@ -343,10 +405,14 @@ Func _DownloadWeights($sFilePath)
 	Local $iActualSize = FileGetSize($sFilePath)
 	Local $iExpectedSize = InetGetSize($sUrl)
 
-	If (Not FileExists($sFilePath)) Or $iActualSize <> $iExpectedSize Then
-		ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : FileGetSize ' & $iActualSize & @CRLF) ;### Debug Console
-		ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : InetGetSize ' & $iExpectedSize & @CRLF) ;### Debug Console
-		ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : Downloading ' & $sUrl & @CRLF) ;### Debug Console
-		InetGet($sUrl, $sFilePath, $INET_FORCERELOAD)
-	EndIf
-EndFunc
+	If @error Or $iExpectedSize <= 0 Or (FileExists($sFilePath) And $iActualSize == $iExpectedSize) Then Return
+
+	ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : FileGetSize ' & $iActualSize & @CRLF) ;### Debug Console
+	ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : InetGetSize ' & $iExpectedSize & @CRLF) ;### Debug Console
+	ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : Downloading ' & $sUrl & @CRLF) ;### Debug Console
+	InetGet($sUrl, $sFilePath, $INET_FORCERELOAD)
+EndFunc   ;==>_DownloadWeights
+
+Func _IsChecked($idControlID)
+	Return BitAND(GUICtrlRead($idControlID), $GUI_CHECKED) = $GUI_CHECKED
+EndFunc   ;==>_IsChecked

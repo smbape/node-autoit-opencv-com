@@ -82,17 +82,17 @@ with open(classesFile, 'rt') as f:
 modelConfiguration = "yolov3.cfg";
 modelWeights = "yolov3.weights";
 
-# timer = datetime.datetime.now()
-# net = cv.dnn.readNetFromDarknet(modelConfiguration, modelWeights)
-# net.setPreferableBackend(cv.dnn.DNN_BACKEND_OPENCV)
-# net.setPreferableTarget(cv.dnn.DNN_TARGET_CPU)
-# print("readNetFromDarknet " + str((datetime.datetime.now() - timer).total_seconds() * 1000))
-
 timer = datetime.datetime.now()
-net = cv.dnn.readNet(modelWeights, modelConfiguration)
-print("readNet " + str((datetime.datetime.now() - timer).total_seconds() * 1000))
+net = cv.dnn.readNetFromDarknet(modelConfiguration, modelWeights)
+net.setPreferableBackend(cv.dnn.DNN_BACKEND_OPENCV)
+# net.setPreferableTarget(cv.dnn.DNN_TARGET_CPU)
+print("readNetFromDarknet " + str((datetime.datetime.now() - timer).total_seconds() * 1000))
 
-frame = cv.imread("people-2557408_1920.jpg")
+# timer = datetime.datetime.now()
+# net = cv.dnn.readNet(modelWeights, modelConfiguration)
+# print("readNet " + str((datetime.datetime.now() - timer).total_seconds() * 1000))
+
+frame = cv.imread("scooter-5180947_1920.jpg")
 
 # Create a 4D blob from a frame.
 blob = cv.dnn.blobFromImage(frame, 1/255, (inpWidth, inpHeight), [0,0,0], 1, crop=False)

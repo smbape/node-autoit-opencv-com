@@ -40,4 +40,9 @@ module.exports = [
         ["DMatch", "value", "", ["/O"]],
         ["DMatch", "default_value", "", []],
     ], "", ""],
+
+    ["cv.createMatFromBitmap", "cv::Mat", ["/External"], [
+        ["void*", "bitmap", "", []],
+        ["bool", "copy", "true", []],
+    ], "", ""],
 ];

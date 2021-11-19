@@ -144,4 +144,4 @@ Func _ContourArea($c)
 	; Return $cv.contourArea($cv.convexHull($c)) ; A better approximation but way slower
 	Local $rect = $cv.boundingRect($c)
 	Return $rect[2] * $rect[3]
-EndFunc
+EndFunc   ;==>_ContourArea

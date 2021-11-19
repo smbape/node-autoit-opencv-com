@@ -6,7 +6,7 @@
 
 #define PARAMETER_NOT_FOUND(in_val) (V_VT(in_val) == VT_ERROR && V_ERROR(in_val) == DISP_E_PARAMNOTFOUND)
 #define PARAMETER_MISSING(in_val) (V_VT(in_val) == VT_EMPTY || PARAMETER_NOT_FOUND(in_val))
-#define PARAMETER_IN(in_val) variant_t variant_##in_val = get_variant_in(in_val); in_val = &variant_##in_val
+#define PARAMETER_IN(in_val) variant_t variant_##in_val = get_variant_in(in_val); if (V_ISBYREF(in_val)) in_val = &variant_##in_val
 
 template<typename _Tp>
 struct TypeToImplType;
@@ -95,8 +95,9 @@ extern const HRESULT autoit_opencv_to(VARIANT const* const& in_val, char*& out_v
 extern const bool is_assignable_from(void*& out_val, VARIANT const* const& in_val, bool is_optional);
 extern const HRESULT autoit_opencv_to(VARIANT const* const& in_val, void*& out_val);
 
-extern const HRESULT autoit_opencv_from(uchar const* const& in_val, VARIANT*& out_val);
+extern const bool is_assignable_from(uchar*& out_val, VARIANT const* const& in_val, bool is_optional);
 extern const HRESULT autoit_opencv_to(VARIANT const* const& in_val, uchar*& out_val);
+extern const HRESULT autoit_opencv_from(uchar const* const& in_val, VARIANT*& out_val);
 
 extern const HRESULT autoit_opencv_from(cv::MatExpr& in_val, ICv_Mat_Object**& out_val);
 
@@ -214,10 +215,10 @@ const HRESULT autoit_opencv_from(const std::vector<_Tp>& in_val, VARIANT*& out_v
 	CComSafeArray<VARIANT> vArray;
 	vArray.Attach(V_ARRAY(out_val));
 
-	#pragma warning( push )
-	#pragma warning( disable : 4267)
+#pragma warning( push )
+#pragma warning( disable : 4267)
 	vArray.Resize(in_val.size());
-	#pragma warning( pop )
+#pragma warning( pop )
 
 	for (LONG i = 0; SUCCEEDED(hr) && i < in_val.size(); i++) {
 		VARIANT value = { VT_EMPTY };
@@ -392,9 +393,9 @@ extern const HRESULT autoit_opencv_from(const cv::util::variant<cv::GRunArgs, cv
 
 extern HRESULT GetInterfaceName(IUnknown* punk, VARIANT* vres);
 
-extern const bool is_assignable_from(cv::Ptr<cv::flann::IndexParams> &out_val, VARIANT* &in_val, bool is_optional);
-extern const bool is_assignable_from(cv::Ptr<cv::flann::SearchParams> &out_val, VARIANT* &in_val, bool is_optional);
-extern const bool is_assignable_from(cv::flann::IndexParams &out_val, VARIANT* &in_val, bool is_optional);
-extern const HRESULT autoit_opencv_to(VARIANT* &in_val, cv::Ptr<cv::flann::IndexParams> &out_val);
-extern const HRESULT autoit_opencv_to(VARIANT* &in_val, cv::Ptr<cv::flann::SearchParams> &out_val);
+extern const bool is_assignable_from(cv::Ptr<cv::flann::IndexParams>& out_val, VARIANT*& in_val, bool is_optional);
+extern const bool is_assignable_from(cv::Ptr<cv::flann::SearchParams>& out_val, VARIANT*& in_val, bool is_optional);
+extern const bool is_assignable_from(cv::flann::IndexParams& out_val, VARIANT*& in_val, bool is_optional);
+extern const HRESULT autoit_opencv_to(VARIANT*& in_val, cv::Ptr<cv::flann::IndexParams>& out_val);
+extern const HRESULT autoit_opencv_to(VARIANT*& in_val, cv::Ptr<cv::flann::SearchParams>& out_val);
 extern const HRESULT autoit_opencv_to(VARIANT const* const& in_val, cv::flann::IndexParams& out_val);

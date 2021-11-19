@@ -51,6 +51,7 @@ const parseArguments = OUTPUT_DIR => {
 const {
     ALIASES,
     CUSTOM_CLASSES,
+    CUSTOM_NAMESPACES,
 } = require("./constants");
 
 const custom_declarations = require("./custom_declarations");
@@ -174,6 +175,8 @@ series([
             for (const [name, modifiers] of CUSTOM_CLASSES) {
                 configuration.decls.push([`class ${ name }`, "", modifiers, [], "", ""]);
             }
+
+            configuration.namespaces.push(...CUSTOM_NAMESPACES);
 
             const generator = new AutoItGenerator();
             generator.generate(configuration, options, next);
