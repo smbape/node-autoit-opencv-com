@@ -164,7 +164,7 @@ Func gammaCorrection()
 	GUICtrlSetData($LabelGamma, "Gamma correction : " & StringFormat("%.2f", $gamma))
 
 	;;! [changing-contrast-brightness-gamma-correction]
-	Local $lookUpTable = ObjCreate("OpenCV.cv.Mat").create(1, 256, $CV_8U)
+	Local $lookUpTable = _OpenCV_ObjCreate("cv.Mat").create(1, 256, $CV_8U)
 	Local $p = DllStructCreate("byte value[256]", $lookUpTable.ptr())
 
 	For $i = 0 To 255

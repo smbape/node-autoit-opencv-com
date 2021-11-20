@@ -1,10 +1,22 @@
 #include-once
+#include "cv_interface.au3"
+#include "cv_enums.au3"
 
 Global $_cv_build_type = "Release"
 Global $_cv_debug = 0
 
 Global $h_opencv_world_dll = -1
 Global $h_autoit_opencv_com_dll = -1
+
+Func _OpenCV_ObjCreate($sClassname, $sFilename = Default)
+	Local Static $s_autoit_opencv_com_dll = ""
+	If $s_autoit_opencv_com_dll == "" Or $sFilename <> Default Then $s_autoit_opencv_com_dll = $sFilename
+	If $sFilename == Default Then $sFilename = $s_autoit_opencv_com_dll
+
+	$sClassname = "OpenCV." & $sClassname
+	Local $oObj = ObjGet($s_autoit_opencv_com_dll, $sClassname)
+	Return IsObj($oObj) ? $oObj : ObjCreate($sClassname)
+EndFunc   ;==>_OpenCV_ObjCreate
 
 Func _OpenCV_get($vVal = Default)
 	Local Static $cv = 0
@@ -13,7 +25,7 @@ Func _OpenCV_get($vVal = Default)
 		Return $cv
 	EndIf
 	If IsObj($cv) Then Return $cv
-	$cv = ObjCreate("OpenCV.cv")
+	$cv = _OpenCV_ObjCreate("cv")
 	Return $cv
 EndFunc   ;==>_OpenCV_get
 
@@ -44,6 +56,7 @@ Func _OpenCV_Install($s_opencv_wolrd_dll = Default, $s_autoit_opencv_com_dll = D
 	If $bOpen Then
 		$h_autoit_opencv_com_dll = _OpenCV_LoadDLL($s_autoit_opencv_com_dll)
 		If $h_autoit_opencv_com_dll == -1 Then Return False
+		_OpenCV_ObjCreate("cv", $s_autoit_opencv_com_dll)
 	EndIf
 
 	Local $hresult
@@ -65,7 +78,7 @@ Func _OpenCV_Install($s_opencv_wolrd_dll = Default, $s_autoit_opencv_com_dll = D
 	EndIf
 
 	Return True
-EndFunc   ;==>_OpenCV_Open
+EndFunc   ;==>_OpenCV_Install
 
 Func _OpenCV_Open($s_opencv_wolrd_dll = Default, $s_autoit_opencv_com_dll = Default)
 	Return _OpenCV_Install($s_opencv_wolrd_dll, $s_autoit_opencv_com_dll)
@@ -73,6 +86,7 @@ EndFunc   ;==>_OpenCV_Open
 
 Func _OpenCV_Close()
 	_OpenCV_get(0)
+	_OpenCV_ObjCreate("cv", "")
 	Return _OpenCV_Install(Default, Default, True, False)
 EndFunc   ;==>_OpenCV_Close
 

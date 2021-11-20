@@ -113,7 +113,7 @@ Func Main()
 
 	If StringCompare($sHomography, ControlGetText($FormGUI, "", $InputHomography), $STR_NOCASESENSE) <> 0 Then
 		$sHomography = ControlGetText($FormGUI, "", $InputHomography)
-		Local $fs = ObjCreate("OpenCV.cv.FileStorage").create($sHomography, $CV_FILE_STORAGE_READ)
+		Local $fs = _OpenCV_ObjCreate("cv.FileStorage").create($sHomography, $CV_FILE_STORAGE_READ)
 		$homography = $fs.getFirstTopLevelNode().mat()
 
 		If $homography.empty() Then
@@ -152,30 +152,30 @@ Func Detect()
 
 	;;! [AKAZE]
 	$hTimer = TimerInit()
-	Local $akaze = ObjCreate("OpenCV.cv.AKAZE").create()
+	Local $akaze = _OpenCV_ObjCreate("cv.AKAZE").create()
 
-	Local $kpts1 = ObjCreate("OpenCV.VectorOfKeyPoint")
-	Local $desc1 = ObjCreate("OpenCV.cv.Mat")
-	$akaze.detectAndCompute($img1, ObjCreate("OpenCV.cv.Mat"), Default, $kpts1, $desc1)
+	Local $kpts1 = _OpenCV_ObjCreate("VectorOfKeyPoint")
+	Local $desc1 = _OpenCV_ObjCreate("cv.Mat")
+	$akaze.detectAndCompute($img1, _OpenCV_ObjCreate("cv.Mat"), Default, $kpts1, $desc1)
 
-	Local $kpts2 = ObjCreate("OpenCV.VectorOfKeyPoint")
-	Local $desc2 = ObjCreate("OpenCV.cv.Mat")
-	$akaze.detectAndCompute($img2, ObjCreate("OpenCV.cv.Mat"), Default, $kpts2, $desc2)
+	Local $kpts2 = _OpenCV_ObjCreate("VectorOfKeyPoint")
+	Local $desc2 = _OpenCV_ObjCreate("cv.Mat")
+	$akaze.detectAndCompute($img2, _OpenCV_ObjCreate("cv.Mat"), Default, $kpts2, $desc2)
 
 	ConsoleWrite("detectAndCompute                         " & TimerDiff($hTimer) & "ms" & @CRLF)
 	;;! [AKAZE]
 
 	;;! [2-nn matching]
 	$hTimer = TimerInit()
-	Local $matcher = ObjCreate("OpenCV.cv.BFMatcher").create($CV_NORM_HAMMING)
-	Local $nn_matches = ObjCreate("OpenCV.VectorOfVectorOfDMatch")
+	Local $matcher = _OpenCV_ObjCreate("cv.BFMatcher").create($CV_NORM_HAMMING)
+	Local $nn_matches = _OpenCV_ObjCreate("VectorOfVectorOfDMatch")
 	$matcher.knnMatch($desc1, $desc2, 2, Default, Default, $nn_matches)
 	ConsoleWrite("knnMatch                                 " & TimerDiff($hTimer) & "ms" & @CRLF)
 	;;! [2-nn matching]
 
 	;;! [ratio test filtering]
-	Local $matched1 = ObjCreate("OpenCV.VectorOfKeyPoint")
-	Local $matched2 = ObjCreate("OpenCV.VectorOfKeyPoint")
+	Local $matched1 = _OpenCV_ObjCreate("VectorOfKeyPoint")
+	Local $matched2 = _OpenCV_ObjCreate("VectorOfKeyPoint")
 
 	If $addon_dll == "" Then
 		; Slower
@@ -209,19 +209,19 @@ Func Detect()
 	;;! [ratio test filtering]
 
 	;;! [homography check]
-	Local $good_matches = ObjCreate("OpenCV.VectorOfDMatch")
-	Local $inliers1 = ObjCreate("OpenCV.VectorOfKeyPoint")
-	Local $inliers2 = ObjCreate("OpenCV.VectorOfKeyPoint")
+	Local $good_matches = _OpenCV_ObjCreate("VectorOfDMatch")
+	Local $inliers1 = _OpenCV_ObjCreate("VectorOfKeyPoint")
+	Local $inliers2 = _OpenCV_ObjCreate("VectorOfKeyPoint")
 
 	If $addon_dll == "" Then
 		; Slower
 		$hTimer = TimerInit()
 		For $i = 0 To $matched1.size() - 1
-			Local $col = ObjCreate("OpenCV.cv.Mat").ones(3, 1, $CV_64F)
+			Local $col = _OpenCV_ObjCreate("cv.Mat").ones(3, 1, $CV_64F)
 			$col.double_set_at(0, $matched1.at($i).pt[0])
 			$col.double_set_at(1, $matched1.at($i).pt[1])
 
-			$col = $cv.gemm($homography, $col, 1.0, ObjCreate("OpenCV.cv.Mat"), 0.0)
+			$col = $cv.gemm($homography, $col, 1.0, _OpenCV_ObjCreate("cv.Mat"), 0.0)
 			$col = $col.convertTo(-1, 1 / $col.double_at(2), 0.0)
 
 			Local $dist = Sqrt((($col.double_at(0) - $matched2.at($i).pt[0]) ^ 2) + _
@@ -231,7 +231,7 @@ Func Detect()
 				Local $new_i = $inliers1.size()
 				$inliers1.push_back($matched1.at($i))
 				$inliers2.push_back($matched2.at($i))
-				$good_matches.push_back(ObjCreate("OpenCV.cv.DMatch").create($new_i, $new_i, 0))
+				$good_matches.push_back(_OpenCV_ObjCreate("cv.DMatch").create($new_i, $new_i, 0))
 			EndIf
 		Next
 

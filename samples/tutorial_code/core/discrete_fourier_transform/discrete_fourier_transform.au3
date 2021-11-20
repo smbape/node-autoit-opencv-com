@@ -90,7 +90,7 @@ Func Main()
 	;;! [complex_and_real]
 	Local $planes[2]
 	$planes[0] = $padded.convertTo($CV_32F, 1.0, 0.0)
-	$planes[1] = ObjCreate("OpenCV.cv.Mat").zeros($padded.rows, $padded.cols, $CV_32F)
+	$planes[1] = _OpenCV_ObjCreate("cv.Mat").zeros($padded.rows, $padded.cols, $CV_32F)
 	Local $complexI = $cv.merge($planes) ;         ; Add to the expanded another plane with zeros
 	;;! [complex_and_real]
 
@@ -113,18 +113,18 @@ Func Main()
 
 	;;! [crop_rearrange]
 	; crop the spectrum, if it has an odd number of rows or columns
-	$magI = ObjCreate("OpenCV.cv.Mat").create($magI, _OpenCV_Rect(0, 0, BitAND($magI.cols, -2), BitAND($magI.rows, -2)))
+	$magI = _OpenCV_ObjCreate("cv.Mat").create($magI, _OpenCV_Rect(0, 0, BitAND($magI.cols, -2), BitAND($magI.rows, -2)))
 
 	; rearrange the quadrants of Fourier image  so that the origin is at the image center
 	Local $cx = $magI.cols / 2 ;
 	Local $cy = $magI.rows / 2 ;
 
-	Local $q0 = ObjCreate("OpenCV.cv.Mat").create($magI, _OpenCV_Rect(0, 0, $cx, $cy)) ;     ; Top-Left - Create a ROI per quadrant
-	Local $q1 = ObjCreate("OpenCV.cv.Mat").create($magI, _OpenCV_Rect($cx, 0, $cx, $cy)) ;   ; Top-Right
-	Local $q2 = ObjCreate("OpenCV.cv.Mat").create($magI, _OpenCV_Rect(0, $cy, $cx, $cy)) ;   ; Bottom-Left
-	Local $q3 = ObjCreate("OpenCV.cv.Mat").create($magI, _OpenCV_Rect($cx, $cy, $cx, $cy)) ; ; Bottom-Right
+	Local $q0 = _OpenCV_ObjCreate("cv.Mat").create($magI, _OpenCV_Rect(0, 0, $cx, $cy)) ;     ; Top-Left - Create a ROI per quadrant
+	Local $q1 = _OpenCV_ObjCreate("cv.Mat").create($magI, _OpenCV_Rect($cx, 0, $cx, $cy)) ;   ; Top-Right
+	Local $q2 = _OpenCV_ObjCreate("cv.Mat").create($magI, _OpenCV_Rect(0, $cy, $cx, $cy)) ;   ; Bottom-Left
+	Local $q3 = _OpenCV_ObjCreate("cv.Mat").create($magI, _OpenCV_Rect($cx, $cy, $cx, $cy)) ; ; Bottom-Right
 
-	Local $tmp = ObjCreate("OpenCV.cv.Mat") ; swap quadrants (Top-Left with Bottom-Right)
+	Local $tmp = _OpenCV_ObjCreate("cv.Mat") ; swap quadrants (Top-Left with Bottom-Right)
 	$q0.copyTo($tmp)
 	$q3.copyTo($q0)
 	$tmp.copyTo($q3)

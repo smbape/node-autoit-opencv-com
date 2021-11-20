@@ -8,20 +8,23 @@
 #include "..\autoit-opencv-com\udf\opencv_udf_utils.au3"
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+Example()
+_OpenCV_Unregister_And_Close()
 
-Global $cv = _OpenCV_get()
+Func Example()
+	Local $cv = _OpenCV_get()
+	If Not IsObj($cv) Then Return
 
-If IsObj($cv) Then
-	Global $img = _OpenCV_imread_and_check(_OpenCV_FindFile("samples\data\mario.png"))
-	Global $tmpl = _OpenCV_imread_and_check(_OpenCV_FindFile("samples\data\mario_coin.png"))
+	Local $img = _OpenCV_imread_and_check(_OpenCV_FindFile("samples\data\mario.png"))
+	Local $tmpl = _OpenCV_imread_and_check(_OpenCV_FindFile("samples\data\mario_coin.png"))
 
 	; The higher the value, the higher the match is exact
-	Global $threshold = 0.8
+	Local $threshold = 0.8
 
-	Global $aMatches = _OpenCV_FindTemplate($img, $tmpl, $threshold)
+	Local $aMatches = _OpenCV_FindTemplate($img, $tmpl, $threshold)
 
-	Global $aRedColor = _OpenCV_RGB(255, 0, 0)
-	Global $aMatchRect[4] = [0, 0, $tmpl.width, $tmpl.height]
+	Local $aRedColor = _OpenCV_RGB(255, 0, 0)
+	Local $aMatchRect[4] = [0, 0, $tmpl.width, $tmpl.height]
 
 	For $i = 0 To UBound($aMatches) - 1
 		$aMatchRect[0] = $aMatches[$i][0]
@@ -35,6 +38,4 @@ If IsObj($cv) Then
 	$cv.waitKey()
 
 	$cv.destroyAllWindows()
-EndIf
-
-_OpenCV_Unregister_And_Close()
+EndFunc   ;==>Example

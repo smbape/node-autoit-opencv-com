@@ -131,7 +131,7 @@ Func GradePaper($image, $gray, $docCnt)
 	;; find contours in the thresholded image, then initialize
 	;; the list of contours that correspond to questions
 	Local $cnts = $cv.findContours($thresh, $CV_RETR_EXTERNAL, $CV_CHAIN_APPROX_SIMPLE)
-	Local $questionCnts = ObjCreate("OpenCV.VectorOfMat")
+	Local $questionCnts = _OpenCV_ObjCreate("VectorOfMat")
 	Local $c
 
 	;; loop over the contours
@@ -173,7 +173,7 @@ Func GradePaper($image, $gray, $docCnt)
 
 			;; construct a mask that reveals only the current
 			;; "bubble" for the question
-			$mask = ObjCreate("OpenCV.cv.Mat").zeros($thresh.size(), $CV_8U)
+			$mask = _OpenCV_ObjCreate("cv.Mat").zeros($thresh.size(), $CV_8U)
 			$cv.drawContours($mask, _OpenCV_Tuple($c), -1, 255, -1)
 
 			;; apply the mask to the thresholded image, then

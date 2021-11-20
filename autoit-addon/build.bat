@@ -92,4 +92,4 @@ IF "%ERROR%" == "0" GOTO END
 EXIT /B %ERROR%
 
 :END
-popd
+POPD

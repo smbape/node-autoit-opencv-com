@@ -100,7 +100,7 @@ Func Main()
 	;;! [Transform it to HSV]
 
 	;;! [Use only the Hue value]
-	$hue = ObjCreate("OpenCV.cv.Mat").create($hsv.rows, $hsv.cols, $hsv.depth())
+	$hue = _OpenCV_ObjCreate("cv.Mat").create($hsv.rows, $hsv.cols, $hsv.depth())
 	Local $ahsv[1] = [$hsv]
 	Local $ahue[1] = [$hue]
 	Local $ch[2] = [0, 0]
@@ -145,8 +145,8 @@ Func Hist_and_Backproj()
 	;;! [initialize]
 
 	;;! [Get the Histogram and normalize it]
-	Local $hist = $cv.calcHist($ahue, $channels, ObjCreate("OpenCV.cv.Mat"), $histSize, $ranges, False)
-	$cv.normalize($hist, $hist, 0, 255, $CV_NORM_MINMAX, -1, ObjCreate("OpenCV.cv.Mat"))
+	Local $hist = $cv.calcHist($ahue, $channels, _OpenCV_ObjCreate("cv.Mat"), $histSize, $ranges, False)
+	$cv.normalize($hist, $hist, 0, 255, $CV_NORM_MINMAX, -1, _OpenCV_ObjCreate("cv.Mat"))
 	;;! [Get the Histogram and normalize it]
 
 	;;! [Get Backprojection]
@@ -160,7 +160,7 @@ Func Hist_and_Backproj()
 	;;! [Draw the histogram]
 	Local $w = 400, $h = 400
 	Local $bin_w = Round($w / $histSize[0])
-	Local $histImg = ObjCreate("OpenCV.cv.Mat").zeros($h, $w, $CV_8UC3)
+	Local $histImg = _OpenCV_ObjCreate("cv.Mat").zeros($h, $w, $CV_8UC3)
 
 	For $i = 0 To $bins - 1
 		$cv.rectangle($histImg, _OpenCV_Point($i * $bin_w, $h), _OpenCV_Point(($i + 1) * $bin_w, $h - Round($hist.float_at($i) * $h / 255.0)), _

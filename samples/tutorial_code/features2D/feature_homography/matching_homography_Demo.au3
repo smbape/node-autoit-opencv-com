@@ -147,45 +147,45 @@ Func Detect()
 	Switch $algorithm
 		Case $ORB_DETECTOR
 			$can_compute = True
-			$detector = ObjCreate("OpenCV.cv.ORB").create()
+			$detector = _OpenCV_ObjCreate("cv.ORB").create()
 		Case $BRISK_DETECTOR
 			$can_compute = True
-			$detector = ObjCreate("OpenCV.cv.BRISK").create()
+			$detector = _OpenCV_ObjCreate("cv.BRISK").create()
 		Case $FAST_DETECTOR
-			$detector = ObjCreate("OpenCV.cv.FastFeatureDetector").create()
+			$detector = _OpenCV_ObjCreate("cv.FastFeatureDetector").create()
 		Case $MSER_DETECTOR
-			$detector = ObjCreate("OpenCV.cv.MSER").create()
+			$detector = _OpenCV_ObjCreate("cv.MSER").create()
 		Case $SIMPLE_BLOB_DETECTOR
-			$detector = ObjCreate("OpenCV.cv.SimpleBlobDetector").create()
+			$detector = _OpenCV_ObjCreate("cv.SimpleBlobDetector").create()
 		Case $GFTT_DETECTOR
-			$detector = ObjCreate("OpenCV.cv.GFTTDetector").create()
+			$detector = _OpenCV_ObjCreate("cv.GFTTDetector").create()
 		Case $KAZE_DETECTOR
 			$can_compute = $match_type <> $CV_NORM_HAMMING And $match_type <> $CV_NORM_HAMMING2
-			$detector = ObjCreate("OpenCV.cv.KAZE").create()
+			$detector = _OpenCV_ObjCreate("cv.KAZE").create()
 		Case $AKAZE_DETECTOR
 			$can_compute = True
-			$detector = ObjCreate("OpenCV.cv.AKAZE").create()
+			$detector = _OpenCV_ObjCreate("cv.AKAZE").create()
 		Case $AGAST_DETECTOR
-			$detector = ObjCreate("OpenCV.cv.AgastFeatureDetector").create()
+			$detector = _OpenCV_ObjCreate("cv.AgastFeatureDetector").create()
 	EndSwitch
 
-	Local $keypoints_object = ObjCreate("OpenCV.VectorOfKeyPoint")
-	Local $keypoints_scene = ObjCreate("OpenCV.VectorOfKeyPoint")
-	Local $descriptors_object = ObjCreate("OpenCV.cv.Mat")
-	Local $descriptors_scene = ObjCreate("OpenCV.cv.Mat")
+	Local $keypoints_object = _OpenCV_ObjCreate("VectorOfKeyPoint")
+	Local $keypoints_scene = _OpenCV_ObjCreate("VectorOfKeyPoint")
+	Local $descriptors_object = _OpenCV_ObjCreate("cv.Mat")
+	Local $descriptors_scene = _OpenCV_ObjCreate("cv.Mat")
 
 	If $can_compute Then
-		$detector.detectAndCompute($img_object, ObjCreate("OpenCV.cv.Mat"), Default, $keypoints_object, $descriptors_object)
-		$detector.detectAndCompute($img_scene, ObjCreate("OpenCV.cv.Mat"), Default, $keypoints_scene, $descriptors_scene)
+		$detector.detectAndCompute($img_object, _OpenCV_ObjCreate("cv.Mat"), Default, $keypoints_object, $descriptors_object)
+		$detector.detectAndCompute($img_scene, _OpenCV_ObjCreate("cv.Mat"), Default, $keypoints_scene, $descriptors_scene)
 	Else
-		$detector.detect($img_object, ObjCreate("OpenCV.cv.Mat"), $keypoints_object)
-		$detector.detect($img_scene, ObjCreate("OpenCV.cv.Mat"), $keypoints_scene)
+		$detector.detect($img_object, _OpenCV_ObjCreate("cv.Mat"), $keypoints_object)
+		$detector.detect($img_scene, _OpenCV_ObjCreate("cv.Mat"), $keypoints_scene)
 	EndIf
 
 	;;-- Step 2: Matching descriptor vectors with a BruteForce based matcher
 	;; Since ORB is a floating-point descriptor NORM_L2 is used
-	Local $matcher = ObjCreate("OpenCV.cv.BFMatcher").create()
-	Local $knn_matches = ObjCreate("OpenCV.VectorOfVectorOfDMatch")
+	Local $matcher = _OpenCV_ObjCreate("cv.BFMatcher").create()
+	Local $knn_matches = _OpenCV_ObjCreate("VectorOfVectorOfDMatch")
 
 	If $can_compute Then
 		$matcher.knnMatch($descriptors_object, $descriptors_scene, 2, Default, Default, $knn_matches)
@@ -193,7 +193,7 @@ Func Detect()
 
 	;;-- Filter matches using the Lowe's ratio test
 	Local $ratio_thresh = 0.75
-	Local $good_matches = ObjCreate("OpenCV.VectorOfDMatch")
+	Local $good_matches = _OpenCV_ObjCreate("VectorOfDMatch")
 
 	For $i = 0 To $knn_matches.size() - 1
 		Local $oDMatch0 = $knn_matches.at($i)[0]
@@ -205,17 +205,17 @@ Func Detect()
 	Next
 
 	;;-- Draw matches
-	Local $img_matches = ObjCreate("OpenCV.cv.Mat")
+	Local $img_matches = _OpenCV_ObjCreate("cv.Mat")
 	Local $matchesMask[0]
 
 	If $can_compute Then
 		$cv.drawMatches($img_object, $keypoints_object, $img_scene, $keypoints_scene, $good_matches, $img_matches, _OpenCV_ScalarAll(-1), _
 				_OpenCV_ScalarAll(-1), $matchesMask, $CV_DRAW_MATCHES_FLAGS_NOT_DRAW_SINGLE_POINTS)
 	Else
-		Local $img_object_with_keypoints = ObjCreate("OpenCV.cv.Mat")
+		Local $img_object_with_keypoints = _OpenCV_ObjCreate("cv.Mat")
 		$cv.drawKeypoints($img_object, $keypoints_object, $img_object_with_keypoints, _OpenCV_ScalarAll(-1), $CV_DRAW_MATCHES_FLAGS_NOT_DRAW_SINGLE_POINTS)
 
-		Local $img_scene_with_keypoints = ObjCreate("OpenCV.cv.Mat")
+		Local $img_scene_with_keypoints = _OpenCV_ObjCreate("cv.Mat")
 		$cv.drawKeypoints($img_scene, $keypoints_scene, $img_scene_with_keypoints, _OpenCV_ScalarAll(-1), $CV_DRAW_MATCHES_FLAGS_NOT_DRAW_SINGLE_POINTS)
 
 		; workaround to concatenate the two images
@@ -230,8 +230,8 @@ Func Detect()
 		ConsoleWriteError("!>Error: Unable to calculate homography. There is less than 4 point correspondences." & @CRLF)
 	Else
 		;;-- Localize the object
-		Local $obj = ObjCreate("OpenCV.VectorOfPoint2f")
-		Local $scene = ObjCreate("OpenCV.VectorOfPoint2f")
+		Local $obj = _OpenCV_ObjCreate("VectorOfPoint2f")
+		Local $scene = _OpenCV_ObjCreate("VectorOfPoint2f")
 
 		For $i = 0 To $good_matches.size() - 1
 			;;-- Get the keypoints from the good matches
@@ -245,14 +245,14 @@ Func Detect()
 			ConsoleWriteError("!>Error: No homography were found." & @CRLF)
 		Else
 			;;-- Get the corners from the image_1 ( the object to be "detected" )
-			Local $obj_corners = ObjCreate("OpenCV.VectorOfPoint2f").create(4)
+			Local $obj_corners = _OpenCV_ObjCreate("VectorOfPoint2f").create(4)
 
 			$obj_corners.at(0, _OpenCV_Point(0, 0))
 			$obj_corners.at(1, _OpenCV_Point($img_object.cols, 0))
 			$obj_corners.at(2, _OpenCV_Point($img_object.cols, $img_object.rows))
 			$obj_corners.at(3, _OpenCV_Point(0, $img_object.rows))
 
-			Local $scene_corners = ObjCreate("OpenCV.VectorOfPoint2f").create(4)
+			Local $scene_corners = _OpenCV_ObjCreate("VectorOfPoint2f").create(4)
 
 			$cv.perspectiveTransform($obj_corners, $H, $scene_corners)
 

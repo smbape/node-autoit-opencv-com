@@ -199,7 +199,10 @@ const declarations = [
     ["cv.Mat.convertToBitmap", "void*", ["/External"], [
         ["bool", "copy", "true", []],
     ], "", ""],
-    ["cv.Mat.convertToShow", "cv::Mat", ["/External"], [], "", ""],
+    ["cv.Mat.convertToShow", "cv::Mat", ["/External"], [
+        ["Mat", "dst", "Mat::zeros(this->__self->get()->rows, this->__self->get()->cols, CV_8UC3)", ["/IO"]],
+        ["bool", "toRGB", "false", []],
+    ], "", ""],
     ["cv.Mat.GdiplusResize", "cv::Mat", ["/External"], [
         ["float", "newWidth", "", []],
         ["float", "newHeight", "", []],

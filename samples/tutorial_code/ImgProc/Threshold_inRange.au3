@@ -244,7 +244,7 @@ Func Main()
 	on_high_V_thresh_trackbar()
 
 	Local $iCamId = _Max(0, _GUICtrlComboBox_GetCurSel($ComboCamera))
-	$cap = ObjCreate("OpenCV.cv.VideoCapture").create($iCamId)
+	$cap = _OpenCV_ObjCreate("cv.VideoCapture").create($iCamId)
 	If Not $cap.isOpened() Then
 		ConsoleWriteError("!>Error: cannot open the camera." & @CRLF)
 		$cap = Null
@@ -255,7 +255,7 @@ EndFunc   ;==>Main
 Func UpdateFrame()
 	If $cap == Null Then Return
 
-	Local $frame = ObjCreate("OpenCV.cv.Mat")
+	Local $frame = _OpenCV_ObjCreate("cv.Mat")
 
 	If Not $cap.read($frame) Then
 		ConsoleWriteError("!>Error: cannot read the camera." & @CRLF)

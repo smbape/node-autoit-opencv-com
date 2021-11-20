@@ -44,7 +44,7 @@ const Point2d CCv_Mat_Object::Point_at(int x, int y, HRESULT& hr) {
 	}
 }
 
-const Point2d CCv_Mat_Object::Point_at(Point pt, HRESULT& hr) {
+const Point2d CCv_Mat_Object::Point_at(Point& pt, HRESULT& hr) {
 	switch (this->__self->get()->depth()) {
 	case CV_8U:
 		return Point2d(this->__self->get()->at<Vec2b>(pt)[0], this->__self->get()->at<Vec2b>(pt)[1]);
@@ -159,7 +159,7 @@ void CCv_Mat_Object::set_at(int x, int y, double value, HRESULT& hr) {
 	}
 }
 
-const double CCv_Mat_Object::at(Point pt, HRESULT& hr) {
+const double CCv_Mat_Object::at(Point& pt, HRESULT& hr) {
 	switch (this->__self->get()->depth()) {
 	case CV_8U:
 		return this->__self->get()->at<uchar>(pt);
@@ -180,7 +180,7 @@ const double CCv_Mat_Object::at(Point pt, HRESULT& hr) {
 	}
 }
 
-void CCv_Mat_Object::set_at(Point pt, double value, HRESULT& hr) {
+void CCv_Mat_Object::set_at(Point& pt, double value, HRESULT& hr) {
 	switch (this->__self->get()->depth()) {
 	case CV_8U:
 		this->__self->get()->at<uchar>(pt) = static_cast<uchar>(value);
@@ -227,16 +227,16 @@ namespace Gdiplus {
 			IN UINT flags,
 			IN PixelFormat format
 		) : bitmap_(bitmap) {
-			auto rect = Gdiplus::Rect(0, 0, bitmap.GetWidth(), bitmap.GetHeight());
-			BitmapLock(bitmap, &rect, flags, format);
+			auto rect = Gdiplus::Rect(0, 0, bitmap_.GetWidth(), bitmap_.GetHeight());
+			BitmapLock(bitmap_, &rect, flags, format);
 		}
 
 		BitmapLock(
 			Bitmap& bitmap,
 			IN UINT flags
 		) : bitmap_(bitmap) {
-			auto rect = Gdiplus::Rect(0, 0, bitmap.GetWidth(), bitmap.GetHeight());
-			BitmapLock(bitmap, &rect, flags, bitmap.GetPixelFormat());
+			auto rect = Gdiplus::Rect(0, 0, bitmap_.GetWidth(), bitmap_.GetHeight());
+			BitmapLock(bitmap_, &rect, flags, bitmap_.GetPixelFormat());
 		}
 
 		~BitmapLock() {
@@ -422,7 +422,7 @@ const Mat CCv_Object::createMatFromBitmap(void* ptr, bool copy, HRESULT& hr) {
  * @param dst
  * @see https://github.com/opencv/opencv/blob/4.5.4/modules/highgui/src/precomp.hpp#L152
  */
-const Mat CCv_Mat_Object::convertToShow(HRESULT& hr) {
+const Mat CCv_Mat_Object::convertToShow(Mat& dst, bool toRGB, HRESULT& hr) {
 	auto& src = *this->__self->get();
 
 	double scale = 1.0, shift = 0.0;
@@ -458,19 +458,16 @@ const Mat CCv_Mat_Object::convertToShow(HRESULT& hr) {
 		scale = (float)maxVal == (float)minVal ? 0.0 : 255.0 / (maxVal - minVal);
 		shift = scale == 0 ? minVal : -minVal * scale;
 
-		cv::convertScaleAbs(src, tmp, scale, shift);
+		src.convertTo(tmp, CV_8U, scale, shift);
+
 		break;
 	default:
 		cv::error(cv::Error::StsAssert, "Unsupported mat type", CV_Func, __FILE__, __LINE__);
 	}
 
-	if (tmp.channels() != 4) {
-		Mat dst;
-		cv::cvtColor(tmp, dst, cv::COLOR_BGRA2BGR, 4);
-		tmp = dst;
-	}
+	cv::cvtColor(tmp, dst, toRGB ? cv::COLOR_BGR2RGB : cv::COLOR_BGRA2BGR, dst.channels());
 
-	return tmp.clone();
+	return dst;
 }
 
 static Gdiplus::ColorPalette* GenerateGrayscalePalette() {
@@ -566,26 +563,26 @@ static void RawDataToBitmap(uchar* scan0, size_t step, cv::Size size, int dstCol
 		BitmapLock lock(bmp, &Gdiplus::Rect(0, 0, size.width, size.height), ImageLockModeWrite, format);
 		BitmapData& data = lock.data;
 		cv::Mat bmpMat(size.height, size.width, CV_MAKETYPE(CV_8U, channels), data.Scan0, data.Stride);
-		Mat dataMat(size.height, size.width, CV_MAKETYPE(srcDepth, channels), scan0, step);
+		Mat srcMat(size.height, size.width, CV_MAKETYPE(srcDepth, channels), scan0, step);
 
 		if (srcDepth == CV_8U) {
-			dataMat.copyTo(bmpMat);
+			srcMat.copyTo(bmpMat);
 		}
 		else {
 			double scale = 1.0, shift = 0.0;
 			double minVal = 0, maxVal = 0;
 			cv::Point minLoc, maxLoc;
 			if (channels == 1) {
-				minMaxLoc(dataMat, &minVal, &maxVal, &minLoc, &maxLoc);
+				minMaxLoc(srcMat, &minVal, &maxVal, &minLoc, &maxLoc);
 			}
 			else {
-				minMaxLoc(dataMat.reshape(1), &minVal, &maxVal, &minLoc, &maxLoc);
+				minMaxLoc(srcMat.reshape(1), &minVal, &maxVal, &minLoc, &maxLoc);
 			}
 
 			scale = (float)maxVal == (float)minVal ? 0.0 : 255.0 / (maxVal - minVal);
 			shift = scale == 0 ? minVal : -minVal * scale;
 
-			convertScaleAbs(dataMat, bmpMat, scale, shift);
+			srcMat.convertTo(bmpMat, CV_8U, scale, shift);
 		}
 	}
 

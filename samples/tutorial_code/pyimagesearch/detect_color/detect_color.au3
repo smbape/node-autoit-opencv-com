@@ -150,7 +150,7 @@ EndFunc   ;==>detect
 Func label($image, $c)
 	;; construct a mask for the contour, then compute the
 	;; average L*a*b* value for the masked region
-	Local $mask = ObjCreate("OpenCV.cv.Mat").zeros($image.size, $CV_8UC1)
+	Local $mask = _OpenCV_ObjCreate("cv.Mat").zeros($image.size, $CV_8UC1)
 	Local $contours[1] = [$c]
 	$cv.drawContours($mask, $contours, -1, 255, -1)
 	$mask = $cv.erode($mask, Null, Default, 2)
@@ -184,7 +184,7 @@ Func getColors()
 		["blue", _OpenCV_Tuple(0, 0, 255)] _
 	]
 
-	Local $lab = ObjCreate("OpenCV.cv.Mat").zeros(UBound($colors), 1, $CV_8UC3)
+	Local $lab = _OpenCV_ObjCreate("cv.Mat").zeros(UBound($colors), 1, $CV_8UC3)
 
 	For $i = 0 To UBound($colors) - 1
 		$lab.Vec3b_set_at($i, $colors[$i][1])

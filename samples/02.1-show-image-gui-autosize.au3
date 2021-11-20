@@ -9,17 +9,20 @@
 #include <GUIConstantsEx.au3>
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+Example()
+_OpenCV_Unregister_And_Close()
 
-#Region ### START Koda GUI section ### Form=
-Global $FormGUI = GUICreate("show image in autoit gui [WINDOW_AUTOSIZE]", 400, 400, 200, 200)
-Global $Pic = GUICtrlCreatePic("", 0, 0, 400, 400)
-GUISetState(@SW_SHOW)
-#EndRegion ### END Koda GUI section ###
+Func Example()
+	Local $cv = _OpenCV_get()
+	If Not IsObj($cv) Then Return
 
-Global $cv = _OpenCV_get()
+	#Region ### START Koda GUI section ### Form=
+	Local $FormGUI = GUICreate("show image in autoit gui [WINDOW_AUTOSIZE]", 400, 400, 200, 200)
+	Local $Pic = GUICtrlCreatePic("", 0, 0, 400, 400)
+	GUISetState(@SW_SHOW)
+	#EndRegion ### END Koda GUI section ###
 
-If IsObj($cv) Then
-	Global $img = _OpenCV_imread_and_check(_OpenCV_FindFile("samples\data\lena.jpg"))
+	Local $img = _OpenCV_imread_and_check(_OpenCV_FindFile("samples\data\lena.jpg"))
 
 	; get the image size and resize the GUI and the PIC control
 	WinMove($FormGUI, "", Default, Default, $img.width, $img.height)
@@ -27,7 +30,7 @@ If IsObj($cv) Then
 
 	_OpenCV_imshow_ControlPic($img, $FormGUI, $Pic)
 
-	Global $nMsg
+	Local $nMsg
 	While 1
 		$nMsg = GUIGetMsg()
 		Switch $nMsg
@@ -37,6 +40,5 @@ If IsObj($cv) Then
 	WEnd
 
 	$cv.destroyAllWindows()
-EndIf
+EndFunc   ;==>Example
 
-_OpenCV_Unregister_And_Close()

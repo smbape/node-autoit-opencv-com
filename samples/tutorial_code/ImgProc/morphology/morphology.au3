@@ -188,7 +188,7 @@ Func _Transform()
 
 	Local $src_displayed = $src.clone()
 	Local $iterations
-	Local $kernel = ObjCreate("OpenCV.cv.Mat").ones(5, 5, $CV_8UC1)
+	Local $kernel = _OpenCV_ObjCreate("cv.Mat").ones(5, 5, $CV_8UC1)
 
 	$iterations = _CheckNumber($InputErosion)
 	If $iterations > 0 Then $src_displayed = $cv.erode($src_displayed, $kernel, Default, $iterations)
@@ -205,7 +205,7 @@ Func _Transform()
 	$iterations = _CheckNumber($InputGradient)
 	If $iterations > 0 Then $src_displayed = $cv.morphologyEx($src_displayed, $CV_MORPH_GRADIENT, $kernel, Default, $iterations)
 
-	$kernel = ObjCreate("OpenCV.cv.Mat").ones(9, 9, $CV_8UC1)
+	$kernel = _OpenCV_ObjCreate("cv.Mat").ones(9, 9, $CV_8UC1)
 
 	$iterations = _CheckNumber($InputTopHat)
 	If $iterations > 0 Then $src_displayed = $cv.morphologyEx($src_displayed, $CV_MORPH_TOPHAT, $kernel, Default, $iterations)

@@ -731,7 +731,10 @@ class AutoItGenerator {
                             type.join(""),
                             path[path.length - 1]
                         ].filter(text => text !== null).join(" ") }(${ list_of_arguments.map(([argtype, argname]) => {
-                            return `${ this.getCppType(argtype, include) } ${ argname }`;
+                            const idltype = this.getIDLType(argtype, include);
+                            const cpptype = this.getCppType(argtype, include);
+                            const byref = cpptype !== "void*" && cpptype !== "uchar*" && (idltype === "VARIANT" || idltype[0] === "I");
+                            return `${ cpptype }${ byref ? "&" : "" } ${ argname }`;
                         }).concat(["HRESULT& hr"]).join(", ") });`);
                     }
 

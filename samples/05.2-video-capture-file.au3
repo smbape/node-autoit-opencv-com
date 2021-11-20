@@ -9,17 +9,20 @@
 #include <Misc.au3>
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+Example()
+_OpenCV_Unregister_And_Close()
 
-Global $cv = _OpenCV_get()
+Func Example()
+	Local $cv = _OpenCV_get()
+	If Not IsObj($cv) Then Return
 
-If IsObj($cv) Then
-	Global $cap = ObjCreate("OpenCV.cv.VideoCapture").create(_OpenCV_FindFile("samples\data\vtest.avi"))
+	Local $cap = _OpenCV_ObjCreate("cv.VideoCapture").create(_OpenCV_FindFile("samples\data\vtest.avi"))
 	If Not $cap.isOpened() Then
 		ConsoleWriteError("!>Error: cannot open the video file." & @CRLF)
 		Exit
 	EndIf
 
-	Global $frame = ObjCreate("OpenCV.cv.Mat")
+	Local $frame = _OpenCV_ObjCreate("cv.Mat")
 
 	While 1
 		If _IsPressed("1B") Or _IsPressed(Hex(Asc("Q"))) Then
@@ -37,6 +40,4 @@ If IsObj($cv) Then
 	WEnd
 
 	$cv.destroyAllWindows()
-EndIf
-
-_OpenCV_Unregister_And_Close()
+EndFunc   ;==>Example

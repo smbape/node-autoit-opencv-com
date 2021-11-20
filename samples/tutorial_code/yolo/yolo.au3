@@ -21,7 +21,7 @@ _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv")
 
 Global $cv = _OpenCV_get()
 Global $addon_dll = _Addon_FindDLL()
-Global $dnn = ObjCreate("OpenCV.cv.dnn")
+Global $dnn = _OpenCV_ObjCreate("cv.dnn")
 
 Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
 
@@ -177,7 +177,6 @@ Func ProcessFrame($net, $classes, $frame)
 
 	;; Reduce frame image to improve object detection
 	$frame = _OpenCV_resizeAndCenter($frame, $iDstWidth, $iDstHeight)
-	; ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : size = [' & $iDstWidth & ' x ' & $iDstHeight & ']' & @CRLF) ;### Debug Console
 
 	;; Create a 4D blob from a frame.
 	Local $blob = $dnn.blobFromImage($frame, 1 / 255, _OpenCV_Size($inpWidth, $inpHeight), _OpenCV_Scalar(0, 0, 0), True, False)
@@ -215,7 +214,7 @@ Func getOutputsNames($net)
 
 	;; Get the names of the output layers in names
 	Local $names[UBound($outLayers)]
-	; Local $names = ObjCreate("OpenCV.VectorOfString").create(UBound($outLayers))
+	; Local $names = _OpenCV_ObjCreate("VectorOfString").create(UBound($outLayers))
 
 	For $i = 0 To UBound($outLayers) - 1
 		$names[$i] = $layersNames[$outLayers[$i] - 1]
@@ -232,10 +231,10 @@ Func postprocess($frame, $outs, $classes)
 
 	;; Scan through all the bounding boxes output from the network and keep only the
 	;; ones with high confidence scores. Assign the box's class label as the class with the highest score.
-	Local $classIds = ObjCreate("OpenCV.VectorOfInt")
-	Local $confidences = ObjCreate("OpenCV.VectorOfFloat")
-	Local $boxes = ObjCreate("OpenCV.VectorOfRect2d")
-	Local $Mat = ObjCreate("OpenCV.cv.Mat")
+	Local $classIds = _OpenCV_ObjCreate("VectorOfInt")
+	Local $confidences = _OpenCV_ObjCreate("VectorOfFloat")
+	Local $boxes = _OpenCV_ObjCreate("VectorOfRect2d")
+	Local $Mat = _OpenCV_ObjCreate("cv.Mat")
 
 	Local $hTimer
 
@@ -296,7 +295,7 @@ Func postprocess($frame, $outs, $classes)
 	Else
 		;;: [doing the loop in a compiled code is way faster than doing it in autoit]
 		$hTimer = TimerInit()
-		Local $vOuts = ObjCreate("OpenCV.VectorOfMat").create($outs)
+		Local $vOuts = _OpenCV_ObjCreate("VectorOfMat").create($outs)
 		_OpenCV_DllCall($addon_dll, "none:cdecl", "yolo_postprocess", _
 			"ptr", $frame.self, _
 			"ptr", $vOuts.self, _
@@ -381,10 +380,10 @@ Func drawPred($classId, $conf, $box, $frame, $classes)
 
 		If $fLabelBackgroundOpacity < 1 Then
 			Local $aLabelBox = _OpenCV_Rect($left, $top, $width, $height)
-			Local $oLabelRect = ObjCreate("OpenCV.cv.Mat").create($height, $width, $CV_8UC3, _OpenCV_Scalar(0xFF, 0xFF, 0xFF))
-			Local $oLabelROI = ObjCreate("OpenCV.cv.Mat").create($frame, $aLabelBox)
+			Local $oLabelRect = _OpenCV_ObjCreate("cv.Mat").create($height, $width, $CV_8UC3, _OpenCV_Scalar(0xFF, 0xFF, 0xFF))
+			Local $oLabelROI = _OpenCV_ObjCreate("cv.Mat").create($frame, $aLabelBox)
 
-			$oLabelRect = $cv.addWeighted($oLabelRect, $fLabelBackgroundOpacity, ObjCreate("OpenCV.cv.Mat").create($frame, $aLabelBox), 1 - $fLabelBackgroundOpacity, 0)
+			$oLabelRect = $cv.addWeighted($oLabelRect, $fLabelBackgroundOpacity, _OpenCV_ObjCreate("cv.Mat").create($frame, $aLabelBox), 1 - $fLabelBackgroundOpacity, 0)
 			$oLabelRect.copyTo($oLabelROI)
 		Else
 			$cv.rectangle( _

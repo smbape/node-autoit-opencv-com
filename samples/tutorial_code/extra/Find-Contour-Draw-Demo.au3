@@ -5,11 +5,6 @@
 #AutoIt3Wrapper_AU3Check_Stop_OnWarning=y
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
 
-;~ Sources:
-;~     https://www.autoitscript.com/forum/topic/206432-opencv-v4-udf/page/5/?tab=comments#comment-1488802
-;~     https://docs.opencv.org/4.5.4/dd/d49/tutorial_py_contour_features.html
-;~     https://docs.opencv.org/4.5.4/d9/d61/tutorial_py_morphological_ops.html
-
 #include <ButtonConstants.au3>
 #include <ComboConstants.au3>
 #include <EditConstants.au3>
@@ -23,6 +18,11 @@
 #include <StaticConstants.au3>
 #include <WindowsConstants.au3>
 #include "..\..\..\autoit-opencv-com\udf\opencv_udf_utils.au3"
+
+;~ Sources:
+;~     https://www.autoitscript.com/forum/topic/206432-opencv-v4-udf/page/5/?tab=comments#comment-1488802
+;~     https://docs.opencv.org/4.5.4/dd/d49/tutorial_py_contour_features.html
+;~     https://docs.opencv.org/4.5.4/d9/d61/tutorial_py_morphological_ops.html
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
 
@@ -227,37 +227,37 @@ Func _ReadImg()
 EndFunc   ;==>_ReadImg
 
 Func _Erosion()
-	Local $kernel = ObjCreate("OpenCV.cv.Mat")
+	Local $kernel = _OpenCV_ObjCreate("cv.Mat")
 	$gray = $cv.erode($gray, $kernel)
 	_OpenCV_imshow_ControlPic($gray, $FormGUI, $PicMatchTemplate)
 EndFunc   ;==>_Erosion
 
 Func _Dilation()
-	Local $kernel = ObjCreate("OpenCV.cv.Mat")
+	Local $kernel = _OpenCV_ObjCreate("cv.Mat")
 	$gray = $cv.dilate($gray, $kernel)
 	_OpenCV_imshow_ControlPic($gray, $FormGUI, $PicMatchTemplate)
 EndFunc   ;==>_Dilation
 
 Func _Opening()
-	Local $kernel = ObjCreate("OpenCV.cv.Mat")
+	Local $kernel = _OpenCV_ObjCreate("cv.Mat")
 	$gray = $cv.morphologyEx($gray, $CV_MORPH_OPEN, $kernel)
 	_OpenCV_imshow_ControlPic($gray, $FormGUI, $PicMatchTemplate)
 EndFunc   ;==>_Opening
 
 Func _Closing()
-	Local $kernel = ObjCreate("OpenCV.cv.Mat")
+	Local $kernel = _OpenCV_ObjCreate("cv.Mat")
 	$gray = $cv.morphologyEx($gray, $CV_MORPH_CLOSE, $kernel)
 	_OpenCV_imshow_ControlPic($gray, $FormGUI, $PicMatchTemplate)
 EndFunc   ;==>_Closing
 
 Func _Gradient()
-	Local $kernel = ObjCreate("OpenCV.cv.Mat")
+	Local $kernel = _OpenCV_ObjCreate("cv.Mat")
 	$gray = $cv.morphologyEx($gray, $CV_MORPH_GRADIENT, $kernel)
 	_OpenCV_imshow_ControlPic($gray, $FormGUI, $PicMatchTemplate)
 EndFunc   ;==>_Gradient
 
 Func _Contour()
-	Local $kernel = ObjCreate("OpenCV.cv.Mat")
+	Local $kernel = _OpenCV_ObjCreate("cv.Mat")
 
 	If $ErosionNumber > 0 Then
 		$gray = $cv.erode($gray, $kernel, _OpenCV_Point(-1, -1), $ErosionNumber)
@@ -288,7 +288,7 @@ Func _Contour()
 	If $CurrentArea = "" Then $CurrentArea = 1000
 
 	; Find contours
-	Local $good_contours = ObjCreate("OpenCV.VectorOfMat")
+	Local $good_contours = _OpenCV_ObjCreate("VectorOfMat")
 	Local $contours = $cv.findContours($gray, $CV_RETR_TREE, $CV_CHAIN_APPROX_SIMPLE) ; $CV_RETR_LIST, $CV_RETR_EXTERNAL, $CV_RETR_TREE
 
 	ConsoleWrite("Found " & UBound($contours) & " contours" & @CRLF & @CRLF)
@@ -323,8 +323,8 @@ Func _Contour()
 	; Convex draw
 	If _IsChecked($Convex) Then
 		;Find and draw Convex contour
-		Local $hull = ObjCreate("OpenCV.VectorOfMat").create($good_contours.size())
-		Local $hull_i = ObjCreate("OpenCV.cv.Mat")
+		Local $hull = _OpenCV_ObjCreate("VectorOfMat").create($good_contours.size())
+		Local $hull_i = _OpenCV_ObjCreate("cv.Mat")
 		For $i = 0 To $good_contours.size() - 1
 			$cv.convexHull($good_contours.at($i), Default, Default, $hull_i)
 			$hull.at($i, $hull_i)
@@ -353,8 +353,8 @@ Func _Contour()
 	EndIf
 
 	If _IsChecked($RotatedRectangle) Then
-		Local $countours2 = ObjCreate("OpenCV.VectorOfMat").create($good_contours.size())
-		Local $box = ObjCreate("OpenCV.cv.Mat")
+		Local $countours2 = _OpenCV_ObjCreate("VectorOfMat").create($good_contours.size())
+		Local $box = _OpenCV_ObjCreate("cv.Mat")
 		Local $rect
 
 		For $i = 0 To $good_contours.size() - 1

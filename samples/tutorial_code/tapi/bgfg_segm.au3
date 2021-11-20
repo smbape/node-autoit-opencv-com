@@ -81,7 +81,7 @@ _GDIPlus_Startup()
 
 Global $bHasAddon = _Addon_DLLOpen(_Addon_FindDLL())
 
-Global $ocl = ObjCreate("OpenCV.cv.ocl")
+Global $ocl = _OpenCV_ObjCreate("cv.ocl")
 
 If $ocl.useOpenCL() Then
 	GUICtrlSetState($RadioOpenCL, $GUI_CHECKED)
@@ -102,9 +102,9 @@ Global $cap = Null
 Global $running = True
 Global $bInitialized = False
 
-Global $frame = ObjCreate("OpenCV.cv.Mat")
-Global $fgmask = ObjCreate("OpenCV.cv.Mat")
-Global $fgimg = ObjCreate("OpenCV.cv.Mat")
+Global $frame = _OpenCV_ObjCreate("cv.Mat")
+Global $fgmask = _OpenCV_ObjCreate("cv.Mat")
+Global $fgimg = _OpenCV_ObjCreate("cv.Mat")
 
 Global $knn, $mog2
 
@@ -183,10 +183,10 @@ Func Main()
 
 	If $useCamera Then
 		Local $iCamId = _Max(0, _GUICtrlComboBox_GetCurSel($ComboCamera))
-		$cap = ObjCreate("OpenCV.cv.VideoCapture").create($iCamId)
+		$cap = _OpenCV_ObjCreate("cv.VideoCapture").create($iCamId)
 	Else
 		$sInputFile = ControlGetText($FormGUI, "", $InputFile)
-		$cap = ObjCreate("OpenCV.cv.VideoCapture").create($sInputFile)
+		$cap = _OpenCV_ObjCreate("cv.VideoCapture").create($sInputFile)
 	EndIf
 
 	If Not $cap.isOpened() Then

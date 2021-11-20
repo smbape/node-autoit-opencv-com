@@ -104,26 +104,26 @@ Func Main()
 	Local $images[1]
 
 	$images[0] = $bgr_planes[0]
-	$b_hist = $cv.calcHist($images, $channels, ObjCreate("OpenCV.cv.Mat"), $histSize, $histRange, $accumulate)
+	$b_hist = $cv.calcHist($images, $channels, _OpenCV_ObjCreate("cv.Mat"), $histSize, $histRange, $accumulate)
 
 	$images[0] = $bgr_planes[1]
-	$g_hist = $cv.calcHist($images, $channels, ObjCreate("OpenCV.cv.Mat"), $histSize, $histRange, $accumulate)
+	$g_hist = $cv.calcHist($images, $channels, _OpenCV_ObjCreate("cv.Mat"), $histSize, $histRange, $accumulate)
 
 	$images[0] = $bgr_planes[2]
-	$r_hist = $cv.calcHist($images, $channels, ObjCreate("OpenCV.cv.Mat"), $histSize, $histRange, $accumulate)
+	$r_hist = $cv.calcHist($images, $channels, _OpenCV_ObjCreate("cv.Mat"), $histSize, $histRange, $accumulate)
 	;;! [Compute the histograms]
 
 	;;! [Draw the histograms for B, G and R]
 	Local $hist_w = 512, $hist_h = 400 ;
 	Local $bin_w = Round($hist_w / $histSize[0]) ;
 
-	Local $histImage = ObjCreate("OpenCV.cv.Mat").create($hist_h, $hist_w, $CV_8UC3, _OpenCV_Scalar(0, 0, 0))
+	Local $histImage = _OpenCV_ObjCreate("cv.Mat").create($hist_h, $hist_w, $CV_8UC3, _OpenCV_Scalar(0, 0, 0))
 	;;! [Draw the histograms for B, G and R]
 
 	;;! [Normalize the result to ( 0, histImage.rows )]
-	$cv.normalize($b_hist, $b_hist, 0, $histImage.rows, $CV_NORM_MINMAX, -1, ObjCreate("OpenCV.cv.Mat"))
-	$cv.normalize($g_hist, $g_hist, 0, $histImage.rows, $CV_NORM_MINMAX, -1, ObjCreate("OpenCV.cv.Mat"))
-	$cv.normalize($r_hist, $r_hist, 0, $histImage.rows, $CV_NORM_MINMAX, -1, ObjCreate("OpenCV.cv.Mat"))
+	$cv.normalize($b_hist, $b_hist, 0, $histImage.rows, $CV_NORM_MINMAX, -1, _OpenCV_ObjCreate("cv.Mat"))
+	$cv.normalize($g_hist, $g_hist, 0, $histImage.rows, $CV_NORM_MINMAX, -1, _OpenCV_ObjCreate("cv.Mat"))
+	$cv.normalize($r_hist, $r_hist, 0, $histImage.rows, $CV_NORM_MINMAX, -1, _OpenCV_ObjCreate("cv.Mat"))
 	;;! [Normalize the result to ( 0, histImage.rows )]
 
 	;;! [Draw for each channel]

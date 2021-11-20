@@ -146,7 +146,7 @@ Func Main()
 	;;! [Convert to HSV]
 
 	;;! [Convert to HSV half]
-	Local $hsv_half_down = ObjCreate("OpenCV.cv.Mat").create($hsv_base, _OpenCV_Rect(0, $hsv_base.cols / 2, $hsv_base.rows, $hsv_base.cols / 2))
+	Local $hsv_half_down = _OpenCV_ObjCreate("cv.Mat").create($hsv_base, _OpenCV_Rect(0, $hsv_base.cols / 2, $hsv_base.rows, $hsv_base.cols / 2))
 	;;! [Convert to HSV half]
 
 	;;! [Using 50 bins for hue and 60 for saturation]
@@ -165,20 +165,20 @@ Func Main()
 
 	;;! [Calculate the histograms for the HSV images]
 	Local $a_hsv_base[1] = [$hsv_base]
-	Local $hist_base = $cv.calcHist($a_hsv_base, $channels, ObjCreate("OpenCV.cv.Mat"), $histSize, $ranges, False)
-	$cv.normalize($hist_base, $hist_base, 0, 1, $CV_NORM_MINMAX, -1, ObjCreate("OpenCV.cv.Mat"))
+	Local $hist_base = $cv.calcHist($a_hsv_base, $channels, _OpenCV_ObjCreate("cv.Mat"), $histSize, $ranges, False)
+	$cv.normalize($hist_base, $hist_base, 0, 1, $CV_NORM_MINMAX, -1, _OpenCV_ObjCreate("cv.Mat"))
 
 	Local $a_hsv_half_down[1] = [$hsv_half_down]
-	Local $hist_half_down = $cv.calcHist($a_hsv_half_down, $channels, ObjCreate("OpenCV.cv.Mat"), $histSize, $ranges, False)
-	$cv.normalize($hist_half_down, $hist_half_down, 0, 1, $CV_NORM_MINMAX, -1, ObjCreate("OpenCV.cv.Mat"))
+	Local $hist_half_down = $cv.calcHist($a_hsv_half_down, $channels, _OpenCV_ObjCreate("cv.Mat"), $histSize, $ranges, False)
+	$cv.normalize($hist_half_down, $hist_half_down, 0, 1, $CV_NORM_MINMAX, -1, _OpenCV_ObjCreate("cv.Mat"))
 
 	Local $a_hsv_test1[1] = [$hsv_test1]
-	Local $hist_test1 = $cv.calcHist($a_hsv_test1, $channels, ObjCreate("OpenCV.cv.Mat"), $histSize, $ranges, False)
-	$cv.normalize($hist_test1, $hist_test1, 0, 1, $CV_NORM_MINMAX, -1, ObjCreate("OpenCV.cv.Mat"))
+	Local $hist_test1 = $cv.calcHist($a_hsv_test1, $channels, _OpenCV_ObjCreate("cv.Mat"), $histSize, $ranges, False)
+	$cv.normalize($hist_test1, $hist_test1, 0, 1, $CV_NORM_MINMAX, -1, _OpenCV_ObjCreate("cv.Mat"))
 
 	Local $a_hsv_test2[1] = [$hsv_test2]
-	Local $hist_test2 = $cv.calcHist($a_hsv_test2, $channels, ObjCreate("OpenCV.cv.Mat"), $histSize, $ranges, False)
-	$cv.normalize($hist_test2, $hist_test2, 0, 1, $CV_NORM_MINMAX, -1, ObjCreate("OpenCV.cv.Mat"))
+	Local $hist_test2 = $cv.calcHist($a_hsv_test2, $channels, _OpenCV_ObjCreate("cv.Mat"), $histSize, $ranges, False)
+	$cv.normalize($hist_test2, $hist_test2, 0, 1, $CV_NORM_MINMAX, -1, _OpenCV_ObjCreate("cv.Mat"))
 	;;! [Calculate the histograms for the HSV images]
 
 	;;! [Apply the histogram comparison methods]

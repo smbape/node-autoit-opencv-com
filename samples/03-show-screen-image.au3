@@ -9,22 +9,22 @@
 #include <GUIConstantsEx.au3>
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+Example()
+_OpenCV_Unregister_And_Close()
 
-Global $cv = _OpenCV_get()
+Func Example()
+	Local $cv = _OpenCV_get()
+	If Not IsObj($cv) Then Return
 
-If IsObj($cv) Then
-	Global $iLeft = 200
-	Global $iTop = 200
-	Global $iWidth = 400
-	Global $iHeight = 400
+	Local $iLeft = 200
+	Local $iTop = 200
+	Local $iWidth = 400
+	Local $iHeight = 400
 
-	Global $aRect[4] = [$iLeft, $iTop, $iWidth, $iHeight]
-	Global $tBits = _OpenCV_GetDesktopScreenBits($aRect)
-	Global $img = ObjCreate("OpenCV.cv.Mat").create($iHeight, $iWidth, $CV_8UC4, DllStructGetPtr($tBits))
+	Local $aRect[4] = [$iLeft, $iTop, $iWidth, $iHeight]
+	Local $img = _OpenCV_GetDesktopScreenMat($aRect)
 
 	$cv.imshow("Screen capture", $img)
 	$cv.waitKey()
 	$cv.destroyAllWindows()
-EndIf
-
-_OpenCV_Unregister_And_Close()
+EndFunc   ;==>Example

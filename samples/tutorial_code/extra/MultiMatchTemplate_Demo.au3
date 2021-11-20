@@ -174,7 +174,7 @@ Func Main()
 		$use_mask = True
 	Else
 		$use_mask = False
-		$mask = ObjCreate("OpenCV.cv.Mat")
+		$mask = _OpenCV_ObjCreate("cv.Mat")
 	EndIf
 	;;! [load_image]
 

@@ -301,7 +301,7 @@ Func _DrawContours()
 	$src_displayed = $src.clone()
 
 	; Find contours
-	Local $good_contours = ObjCreate("OpenCV.VectorOfMat")
+	Local $good_contours = _OpenCV_ObjCreate("VectorOfMat")
 	Local $contours = $cv.findContours($src_gray, $CV_RETR_TREE, $CV_CHAIN_APPROX_SIMPLE) ; $CV_RETR_LIST, $CV_RETR_EXTERNAL, $CV_RETR_TREE
 
 	Local $sCurrentArea = GUICtrlRead($InputMinArea)

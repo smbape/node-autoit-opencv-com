@@ -7,6 +7,7 @@ module.exports = (coclass, header, impl) => {
     const to_variant = idltype === "VARIANT";
     const default_value = to_variant ? "{ VT_EMPTY }" : "NULL";
     const ptrtype = to_variant ? idltype : cpptype;
+    const byref = cpptype !== "void*" && cpptype !== "uchar*" && (idltype === "VARIANT" || idltype[0] === "I");
 
     const cvt = (to_variant || idltype[0] === "I" ? `
         ${ to_variant ? "_variant_t" : idltype } va = ${ default_value };
@@ -99,16 +100,16 @@ module.exports = (coclass, header, impl) => {
 
         #include "vectors_c.h"
 
-        void C${ cotype }::at(size_t i, ${ cpptype } value, HRESULT& hr) {
+        void C${ cotype }::at(size_t i, ${ cpptype }${ byref ? "&" : "" } value, HRESULT& hr) {
             (*this->__self->get())[i] = value;
         }
 
-        void C${ cotype }::push_vector(${ coclass.fqn } other, HRESULT& hr) {
+        void C${ cotype }::push_vector(${ coclass.fqn }& other, HRESULT& hr) {
             auto v = this->__self->get();
             VectorPushMulti(v, &other[0], other.size());
         }
 
-        void C${ cotype }::push_vector(${ coclass.fqn } other, size_t count, size_t start, HRESULT& hr) {
+        void C${ cotype }::push_vector(${ coclass.fqn }& other, size_t count, size_t start, HRESULT& hr) {
             auto v = this->__self->get();
             VectorPushMulti(v, &other[start], count);
         }

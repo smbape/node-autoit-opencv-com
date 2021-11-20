@@ -143,7 +143,7 @@ Func Main()
 		$use_mask = True
 	Else
 		$use_mask = False
-		$mask = ObjCreate("OpenCV.cv.Mat")
+		$mask = _OpenCV_ObjCreate("cv.Mat")
 	EndIf
 	;;! [load_image]
 
@@ -182,7 +182,7 @@ Func MatchingMethod()
 	Local $result_cols = $img.width - $templ.width + 1
 	Local $result_rows = $img.height - $templ.height + 1
 
-	Local $result = ObjCreate("OpenCV.cv.Mat").create($result_rows, $result_cols, $CV_32FC1)
+	Local $result = _OpenCV_ObjCreate("cv.Mat").create($result_rows, $result_cols, $CV_32FC1)
 	;;! [create_result_matrix]
 
 	;;! [match_template]
@@ -196,14 +196,14 @@ Func MatchingMethod()
 	;;! [match_template]
 
 	;;! [normalize]
-	$cv.normalize($result, $result, 0, 1, $CV_NORM_MINMAX, -1, ObjCreate("OpenCV.cv.Mat"))
+	$cv.normalize($result, $result, 0, 1, $CV_NORM_MINMAX, -1, _OpenCV_ObjCreate("cv.Mat"))
 	;;! [normalize]
 
 	;;! [best_match]
 	;;/ Localizing the best match with minMaxLoc
 	Local $matchLoc
 
-	$cv.minMaxLoc($result, ObjCreate("OpenCV.cv.Mat"))
+	$cv.minMaxLoc($result, _OpenCV_ObjCreate("cv.Mat"))
 	; Local $minVal = $cv.extended[0]
 	; Local $maxVal = $cv.extended[1]
 	Local $minLoc = $cv.extended[2]
