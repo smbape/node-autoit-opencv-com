@@ -8,7 +8,7 @@ If yes, then this udf might be for you.
 ## Prerequisites
 
   - Download and extract [opencv-4.5.4-vc14_vc15.exe](https://sourceforge.net/projects/opencvlibrary/files/4.5.4/opencv-4.5.4-vc14_vc15.exe/download) into a folder
-  - Download and extract [autoit-opencv-4.5.4-com-v1.1.0-rc.0.7z](https://github.com/smbape/node-autoit-opencv-com/releases/download/v1.1.0-rc.0/autoit-opencv-4.5.4-com-v1.1.0-rc.0.7z) into a folder
+  - Download and extract [autoit-opencv-4.5.4-com-v1.2.0-rc.0.7z](https://github.com/smbape/node-autoit-opencv-com/releases/download/v1.2.0-rc.0/autoit-opencv-4.5.4-com-v1.2.0-rc.0.7z) into a folder
 
 ## Usage
 
@@ -82,11 +82,11 @@ EndFunc   ;==>Example
 ## Running examples
 
 ```sh
-# download autoit-opencv-4.5.4-com-v1.1.0-rc.0.7z
-curl -L 'https://github.com/smbape/node-autoit-opencv-com/releases/download/v1.1.0-rc.0/autoit-opencv-4.5.4-com-v1.1.0-rc.0.7z' -o autoit-opencv-4.5.4-com-v1.1.0-rc.0.7z
+# download autoit-opencv-4.5.4-com-v1.2.0-rc.0.7z
+curl -L 'https://github.com/smbape/node-autoit-opencv-com/releases/download/v1.2.0-rc.0/autoit-opencv-4.5.4-com-v1.2.0-rc.0.7z' -o autoit-opencv-4.5.4-com-v1.2.0-rc.0.7z
 
-# extract autoit-opencv-4.5.4-com-v1.1.0-rc.0.7z
-7z x autoit-opencv-4.5.4-com-v1.1.0-rc.0.7z -aoa -oautoit-opencv-com
+# extract autoit-opencv-4.5.4-com-v1.2.0-rc.0.7z
+7z x autoit-opencv-4.5.4-com-v1.2.0-rc.0.7z -aoa -oautoit-opencv-com
 
 # download opencv-4.5.4-vc14_vc15.exe
 curl -L 'https://github.com/opencv/opencv/releases/download/4.5.4/opencv-4.5.4-vc14_vc15.exe' -o opencv-4.5.4-vc14_vc15.exe
@@ -95,8 +95,8 @@ curl -L 'https://github.com/opencv/opencv/releases/download/4.5.4/opencv-4.5.4-v
 ./opencv-4.5.4-vc14_vc15.exe -oopencv-4.5.4-vc14_vc15 -y
 
 # download the source files
-curl -L 'https://github.com/smbape/node-autoit-opencv-com/archive/refs/tags/v1.1.0-rc.0.zip' -o autoit-opencv-4.5.4-com-v1.1.0-rc.0-src.zip
-7z x autoit-opencv-4.5.4-com-v1.1.0-rc.0-src.zip -aoa 'autoit-addon\*' 'samples\*'
+curl -L 'https://github.com/smbape/node-autoit-opencv-com/archive/refs/tags/v1.2.0-rc.0.zip' -o autoit-opencv-4.5.4-com-v1.2.0-rc.0-src.zip
+7z x autoit-opencv-4.5.4-com-v1.2.0-rc.0-src.zip -aoa 'autoit-addon\*' 'samples\*'
 ```
 
 Now you can run any file in the `samples\tutorial_code` folder.
