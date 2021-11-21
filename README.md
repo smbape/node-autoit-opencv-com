@@ -96,7 +96,12 @@ curl -L 'https://github.com/opencv/opencv/releases/download/4.5.4/opencv-4.5.4-v
 
 # download the source files
 curl -L 'https://github.com/smbape/node-autoit-opencv-com/archive/refs/tags/v1.2.0-rc.0.zip' -o autoit-opencv-4.5.4-com-v1.2.0-rc.0-src.zip
-7z x autoit-opencv-4.5.4-com-v1.2.0-rc.0-src.zip -aoa 'autoit-addon\*' 'samples\*'
+
+# extract autoit-opencv-4.5.4-com-v1.2.0-rc.0-src.zip
+7z x autoit-opencv-4.5.4-com-v1.2.0-rc.0-src.zip -aoa 'node-autoit-opencv-com-1.2.0-rc.0\autoit-addon\*' 'node-autoit-opencv-com-1.2.0-rc.0\samples\*'
+mkdir -p autoit-opencv-com
+cp -rf node-autoit-opencv-com-1.2.0-rc.0/* ./
+rm -rf node-autoit-opencv-com-1.2.0-rc.0
 ```
 
 Now you can run any file in the `samples\tutorial_code` folder.
