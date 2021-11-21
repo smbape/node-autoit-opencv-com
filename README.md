@@ -15,6 +15,7 @@ If yes, then this udf might be for you.
 ```autoit
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_UseX64=y
+#AutoIt3Wrapper_Change2CUI=y
 #AutoIt3Wrapper_Au3Check_Parameters=-d -w 1 -w 2 -w 3 -w 4 -w 5 -w 6
 #AutoIt3Wrapper_AU3Check_Stop_OnWarning=y
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
@@ -22,17 +23,18 @@ If yes, then this udf might be for you.
 #include "autoit-opencv-com\udf\opencv_udf_utils.au3"
 
 _OpenCV_Open_And_Register("opencv-4.5.4-vc14_vc15\opencv\build\x64\vc15\bin\opencv_world454.dll", "autoit-opencv-com\autoit_opencv_com454.dll")
-
-Global $cv = _OpenCV_get()
-
-If IsObj($cv) Then
-    Global $img = _OpenCV_imread_and_check("samples\data\lena.jpg")
-    $cv.imshow("Image", $img)
-    $cv.waitKey()
-    $cv.destroyAllWindows()
-EndIf
-
+Example()
 _OpenCV_Unregister_And_Close()
+
+Func Example()
+  Local $cv = _OpenCV_get()
+  If Not IsObj($cv) Then Return
+
+  Local $img = _OpenCV_imread_and_check(_OpenCV_FindFile("samples\data\lena.jpg"))
+  $cv.imshow("Image", $img)
+  $cv.waitKey()
+  $cv.destroyAllWindows()
+EndFunc   ;==>Example
 ```
 
 ```autoit
@@ -43,41 +45,48 @@ _OpenCV_Unregister_And_Close()
 #AutoIt3Wrapper_AU3Check_Stop_OnWarning=y
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
 
-#include <GDIPlus.au3>
 #include "autoit-opencv-com\udf\opencv_udf_utils.au3"
+#include <GUIConstantsEx.au3>
 
 _OpenCV_Open_And_Register("opencv-4.5.4-vc14_vc15\opencv\build\x64\vc15\bin\opencv_world454.dll", "autoit-opencv-com\autoit_opencv_com454.dll")
-
-Global $cv = _OpenCV_get()
-
-_GDIPlus_Startup()
-
-If IsObj($cv) Then
-    Global $img = _OpenCV_imread_and_check("samples\tutorial_code\yolo\scooter-5180947_1920.jpg")
-    Global $hImage = $img.convertToBitmap()
-
-    Global $hResizedImage = _GDIPlus_ImageResize($hImage, 600, 400)
-    _GDIPlus_BitmapDispose($hImage)
-
-    Global $resized = $cv.createMatFromBitmap($hResizedImage)
-    _GDIPlus_BitmapDispose($hResizedImage)
-
-    $cv.imshow("Resized with GDI+", $resized)
-
-    $cv.waitKey()
-    $cv.destroyAllWindows()
-EndIf
-
-_GDIPlus_Shutdown()
+Example()
 _OpenCV_Unregister_And_Close()
+
+Func Example()
+  Local $cv = _OpenCV_get()
+  If Not IsObj($cv) Then Return
+
+  #Region ### START Koda GUI section ### Form=
+  Local $FormGUI = GUICreate("show image in autoit gui", 400, 400, 200, 200)
+  Local $Pic = GUICtrlCreatePic("", 0, 0, 400, 400)
+  GUISetState(@SW_SHOW)
+  #EndRegion ### END Koda GUI section ###
+
+  Local $img = _OpenCV_imread_and_check(_OpenCV_FindFile("samples\data\lena.jpg"))
+
+  _OpenCV_imshow_ControlPic($img, $FormGUI, $Pic)
+
+  Local $nMsg
+  While 1
+    $nMsg = GUIGetMsg()
+    Switch $nMsg
+      Case $GUI_EVENT_CLOSE
+        ExitLoop
+    EndSwitch
+  WEnd
+
+  $cv.destroyAllWindows()
+EndFunc   ;==>Example
 ```
 
 ## Running examples
 
 ```sh
-# get the source files
-git clone https://github.com/smbape/node-autoit-opencv-com
-cd node-autoit-opencv-com
+# download autoit-opencv-4.5.4-com-v1.1.0-rc.0.7z
+curl -L 'https://github.com/smbape/node-autoit-opencv-com/releases/download/v1.1.0-rc.0/autoit-opencv-4.5.4-com-v1.1.0-rc.0.7z' -o autoit-opencv-4.5.4-com-v1.1.0-rc.0.7z
+
+# extract autoit-opencv-4.5.4-com-v1.1.0-rc.0.7z
+7z x autoit-opencv-4.5.4-com-v1.1.0-rc.0.7z -aoa -oautoit-opencv-com
 
 # download opencv-4.5.4-vc14_vc15.exe
 curl -L 'https://github.com/opencv/opencv/releases/download/4.5.4/opencv-4.5.4-vc14_vc15.exe' -o opencv-4.5.4-vc14_vc15.exe
@@ -85,11 +94,9 @@ curl -L 'https://github.com/opencv/opencv/releases/download/4.5.4/opencv-4.5.4-v
 # extract opencv-4.5.4-vc14_vc15.exe 
 ./opencv-4.5.4-vc14_vc15.exe -oopencv-4.5.4-vc14_vc15 -y
 
-# download autoit-opencv-4.5.4-com-v1.1.0-rc.0.7z
-https://github.com/smbape/node-autoit-opencv-com/releases/download/v1.1.0-rc.0/autoit-opencv-4.5.4-com-v1.1.0-rc.0.7z
-
-# extract autoit-opencv-4.5.4-com-v1.1.0-rc.0.7z
-
+# download the source files
+curl -L 'https://github.com/smbape/node-autoit-opencv-com/archive/refs/tags/v1.1.0-rc.0.zip' -o autoit-opencv-4.5.4-com-v1.1.0-rc.0-src.zip
+7z x autoit-opencv-4.5.4-com-v1.1.0-rc.0-src.zip -aoa 'autoit-addon\*' 'samples\*'
 ```
 
 Now you can run any file in the `samples\tutorial_code` folder.
