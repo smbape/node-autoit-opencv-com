@@ -226,18 +226,12 @@ namespace Gdiplus {
 			Bitmap& bitmap,
 			IN UINT flags,
 			IN PixelFormat format
-		) : bitmap_(bitmap) {
-			auto rect = Gdiplus::Rect(0, 0, bitmap_.GetWidth(), bitmap_.GetHeight());
-			BitmapLock(bitmap_, &rect, flags, format);
-		}
+		) : BitmapLock(bitmap, &Gdiplus::Rect(0, 0, bitmap.GetWidth(), bitmap.GetHeight()), flags, format) {}
 
 		BitmapLock(
 			Bitmap& bitmap,
 			IN UINT flags
-		) : bitmap_(bitmap) {
-			auto rect = Gdiplus::Rect(0, 0, bitmap_.GetWidth(), bitmap_.GetHeight());
-			BitmapLock(bitmap_, &rect, flags, bitmap_.GetPixelFormat());
-		}
+		) : BitmapLock(bitmap, &Gdiplus::Rect(0, 0, bitmap.GetWidth(), bitmap.GetHeight()), flags, bitmap.GetPixelFormat()) {}
 
 		~BitmapLock() {
 			if (isOk) {

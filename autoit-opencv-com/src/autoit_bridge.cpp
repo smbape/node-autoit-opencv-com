@@ -202,7 +202,8 @@ const HRESULT autoit_opencv_from(const std::string& in_val, VARIANT*& out_val) {
 const HRESULT autoit_opencv_from(BSTR const& in_val, VARIANT*& out_val) {
 	VARIANT variant = { VT_BSTR };
 	V_BSTR(&variant) = in_val;
-	return VariantCopyInd(out_val, &variant);
+	VariantInit(out_val);
+	return VariantCopy(out_val, &variant);
 }
 
 const bool is_assignable_from(char*& out_val, VARIANT const* const& in_val, bool is_optional) {
@@ -288,7 +289,8 @@ const HRESULT autoit_opencv_from(cv::MatExpr& in_val, ICv_Mat_Object**& out_val)
 }
 
 const HRESULT autoit_opencv_from(VARIANT const& in_val, VARIANT*& out_val) {
-	return VariantCopyInd(out_val, &in_val);
+	VariantInit(out_val);
+	return VariantCopy(out_val, &in_val);
 }
 
 const HRESULT autoit_opencv_out(IDispatch*& in_val, VARIANT*& out_val) {
@@ -299,7 +301,8 @@ const HRESULT autoit_opencv_out(IDispatch*& in_val, VARIANT*& out_val) {
 }
 
 const HRESULT autoit_opencv_out(VARIANT const* const& in_val, VARIANT*& out_val) {
-	return VariantCopyInd(out_val, in_val);
+	VariantInit(out_val);
+	return VariantCopy(out_val, in_val);
 }
 
 const HRESULT autoit_opencv_out(VARIANT const* const& in_val, IDispatch**& out_val) {

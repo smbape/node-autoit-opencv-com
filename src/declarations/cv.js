@@ -1,4 +1,12 @@
 module.exports = [
+    ["cv.", "", ["/Properties"], [
+        ["_variant_t", "extended", "", ["/R", "/External"]],
+    ], "", ""],
+
+    ["cv.variant", "_variant_t", ["/External"], [
+        ["void*", "ptr", "", []],
+    ], "", ""],
+
     ["cv.read", "void", ["=readMat"], [
         ["FileNode", "node", "", []],
         ["Mat", "mat", "", ["/O"]],

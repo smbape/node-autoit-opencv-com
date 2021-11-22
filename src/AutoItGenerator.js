@@ -7,6 +7,7 @@ const cpus = require("os").cpus().length;
 const eachOfLimit = require("async/eachOfLimit");
 const series = require("async/series");
 const waterfall = require("async/waterfall");
+const eol = require("eol");
 const { convertExpression } = require("node-autoit-binding-utils/src/autoit-expression-converter");
 
 const LIB_UID = "fc210206-673e-4ec8-82d5-1a6ac561f3de";
@@ -46,10 +47,16 @@ class AutoItGenerator {
 
         this.dependents = new Map();
         this.dependencies = new Map();
+
+        this.namespace = "cv";
     }
 
     generate({decls, namespaces, generated_include}, options = {}, cb = undefined) {
         this.namespaces = new Set();
+
+        if (options.namespace) {
+            this.namespace = options.namespace;
+        }
 
         for (const namespace of namespaces) {
             this.namespaces.add(namespace.split(".").join("::"));
@@ -140,34 +147,16 @@ class AutoItGenerator {
             const constructor = [];
             const destructor = [];
 
-            if (fqn === "cv") {
-                id++;
-                iidl.push(`[propget, id(${ id })] HRESULT extended([out, retval] VARIANT* _retval);`);
-                ipublic.push("STDMETHOD(get_extended)(VARIANT* _retval);");
-                impl.push(`
-                    STDMETHODIMP C${ cotype }::get_extended(VARIANT* _retval) {
-                        auto pArray = ExtendedHolder::extended.Detach();
-                        V_VT(_retval) = VT_ARRAY | VT_VARIANT;
-                        V_ARRAY(_retval) = pArray;
-                        PVOID pDataToRelease;
-                        HRESULT hr = SafeArrayAddRef(pArray, &pDataToRelease);
-                        if (pDataToRelease) {
-                            SafeArrayReleaseData(pDataToRelease);
-                        }
-                        ExtendedHolder::extended.Attach(pArray);
-                        return hr;
-                    }`.replace(/^ {20}/mg, "")
-                );
-
-                id++;
-                iidl.push(`[id(${ id })] HRESULT variant([in] ULONGLONG pVal, [out, retval] VARIANT* _retval);`);
-                ipublic.push("STDMETHOD(variant)(ULONGLONG pVal, VARIANT* _retval);");
-                impl.push(`
-                    STDMETHODIMP C${ cotype }::variant(ULONGLONG pVal, VARIANT* _retval) {
-                        return VariantCopyInd(_retval, reinterpret_cast<VARIANT*>(pVal));
-                    }`.replace(/^ {20}/mg, "")
-                );
-            }
+            // if (fqn === "cv") {
+            //     id++;
+            //     iidl.push(`[id(${ id })] HRESULT variant([in] ULONGLONG pVal, [out, retval] VARIANT* _retval);`);
+            //     ipublic.push("STDMETHOD(variant)(ULONGLONG pVal, VARIANT* _retval);");
+            //     impl.push(`
+            //         STDMETHODIMP C${ cotype }::variant(ULONGLONG pVal, VARIANT* _retval) {
+            //             return VariantCopyInd(_retval, reinterpret_cast<VARIANT*>(pVal));
+            //         }`.replace(/^ {20}/mg, "")
+            //     );
+            // }
 
             if (is_idl_class) {
                 if (idnames.has("self".toLowerCase())) {
@@ -225,8 +214,6 @@ class AutoItGenerator {
                 const is_enum = modifiers.includes("/Enum");
                 const is_external = modifiers.includes("/External");
 
-                let is_accessible = false;
-
                 let propname = idlname;
                 for (const modifier of modifiers) {
                     if (modifier[0] === "=") {
@@ -234,8 +221,9 @@ class AutoItGenerator {
                     }
                 }
 
+                const propval = `${ is_static ? `${ fqn }::` : "this->__self->get()->" }${ propname }`;
+
                 if (is_static || is_enum || modifiers.includes("/R") || modifiers.includes("/RW")) {
-                    is_accessible = true;
                     iidl.push(`[propget, id(${ id })] HRESULT ${ idlname }([out, retval] ${ propidltype }* pVal);`);
                     ipublic.push(`STDMETHOD(get_${ idlname })(${ propidltype }* pVal);`);
 
@@ -248,7 +236,7 @@ class AutoItGenerator {
                         );
                     } else {
                         const cvt = this.convertToIdl(
-                            type, `${ is_static ? `${ fqn }::${ propname }` : "this->__self->get()->" }${ propname }`,
+                            type, propval,
                             propidltype, "pVal",
                             modifiers
                         );
@@ -267,13 +255,12 @@ class AutoItGenerator {
                 }
 
                 if (modifiers.includes("/W") || modifiers.includes("/RW")) {
-                    is_accessible = true;
                     const idltype = propidltype === "VARIANT" ? "VARIANT*" : propidltype;
 
                     iidl.push(`[propput, id(${ id })] HRESULT ${ idlname }([in] ${ idltype } newVal);`);
                     ipublic.push(`STDMETHOD(put_${ idlname })(${ idltype } newVal);`);
 
-                    const cvt = this.convertFromIdl(idltype, "newVal", type, `this->__self->get()->${ propname }`);
+                    const cvt = this.convertFromIdl(idltype, "newVal", type, propval);
                     impl.push(`
                         STDMETHODIMP C${ cotype }::put_${ idlname }(${ idltype } newVal) {
                             ${ is_prop_test ? "return S_OK; /* " : "" }${ cvt.split("\n").join(`\n${ " ".repeat(28) }`) }${ is_prop_test ? " */" : "" }
@@ -284,10 +271,6 @@ class AutoItGenerator {
                     if (is_external) {
                         impl.pop();
                     }
-                }
-
-                if (!is_enum && is_accessible && !coclass.is_class && !coclass.is_struct) {
-                    iprivate.push(`C${ CoClass.getClassName(type) } ${ idlname }${ value === "" ? "" : ` = ${ value }` };`);
                 }
             };
 
@@ -1474,7 +1457,7 @@ class AutoItGenerator {
                         },
 
                         (buffer, next) => {
-                            const content = files.get(filename);
+                            const content = eol.crlf(files.get(filename));
                             if (content !== buffer.toString()) {
                                 console.log("write file", filename);
                                 fs.writeFile(filename, content, next);
@@ -1810,10 +1793,16 @@ class AutoItGenerator {
     }
 
     add_func(decl) {
-        const [name] = decl;
+        const [name, , list_of_modifiers, properties] = decl;
         const path = name.split(".");
         const coclass = this.getCoClass(path.slice(0, -1).join("::"));
-        coclass.addMethod(decl);
+        if (list_of_modifiers.includes("/Properties")) {
+            for (const property of properties) {
+                coclass.addProperty(property);
+            }
+        } else {
+            coclass.addMethod(decl);
+        }
     }
 
     getCoClass(fqn) {
@@ -1931,7 +1920,7 @@ class AutoItGenerator {
             return "VARIANT";
         }
 
-        if (type.startsWith("VectorOf")) {
+        if (type === "_variant_t" || type.startsWith("VectorOf")) {
             return "VARIANT";
         }
 
@@ -2019,7 +2008,7 @@ class AutoItGenerator {
             }
         }
 
-        return /^(?:Point|Rect|Scalar|Size|Vec)(?:\d[bdfisw])?$/.test(type) ? "cv::" + type : type;
+        return /^(?:Point|Rect|Scalar|Size|Vec)(?:\d[bdfisw])?$/.test(type) ? this.namespace + "::" + type : type;
     }
 
     callCast(type, value, coclass) {
@@ -2110,7 +2099,7 @@ class AutoItGenerator {
         return [
             type,
             `${ coclass.fqn }::${ type }`,
-            `cv::${ type }`,
+            `${ this.namespace }::${ type }`,
             `${ coclass.namespace }::${ type }`,
         ];
     }

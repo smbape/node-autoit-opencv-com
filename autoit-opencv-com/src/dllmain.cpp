@@ -1,4 +1,4 @@
-#include "cv.h"
+#include "dllmain.h"
 
 using namespace ATL;
 

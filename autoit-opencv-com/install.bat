@@ -1,10 +1,10 @@
 @GOTO :BEGIN
-:: install.bat /i
 :: install.bat /i:user
-:: install.bat /u
 :: install.bat /u:user
-:: install.bat /u /i
 :: install.bat /u:user /i:user
+:: install.bat /i
+:: install.bat /u
+:: install.bat /u /i
 
 :BEGIN
 @SETLOCAL enabledelayedexpansion
@@ -27,7 +27,7 @@
 
 @SET nparms=20
 :LOOP
-@IF %nparms%==0 GOTO :MAIN
+@IF %nparms%==0 GOTO :mainmenu
 @IF [%1] == [/i] @SET install=1
 @IF [%1] == [/u] @SET uninstall=1
 @IF [%1] == [/i:user] @SET install_user=1
@@ -37,12 +37,89 @@
 @SHIFT
 @GOTO LOOP
 
-:MAIN
+:mainmenu
 @SET DLLDIRNAME=
 @SET DLLNAME=autoit_opencv_com454%DEBUG_PREFIX%.dll
 
 @IF EXIST "%CD%\build_x64\Release\%DLLNAME%" SET "DLLDIRNAME=%CD%\build_x64\Release\"
 @IF EXIST "%CD%\build_x64\Debug\%DLLNAME%" SET "DLLDIRNAME=%CD%\build_x64\Debug\"
+
+@SET DLLNAME=%DLLDIRNAME%%DLLNAME%
+
+@IF NOT [%install%%uninstall%%install_user%%uninstall_user%] == [0000] GOTO MAIN
+
+@CLS
+@TITLE AutoIt OpenCV COM
+@ECHO. AutoIt OpenCV COM
+@ECHO.
+@ECHO. VERSION: 1.2.0-rc.0
+@ECHO. DLLNAME: %DLLNAME%
+@ECHO.
+@ECHO.
+@ECHO. Choose your option...
+@ECHO.
+@ECHO. (1) Install for the current user
+@ECHO. (2) Uninstall for the current user
+@ECHO. (3) Reinstall for the current user
+@ECHO. (4) Install for the all users
+@ECHO. (5) Uninstall for the all users
+@ECHO. (6) Reinstall for the all users
+@ECHO. (0) Close the Program
+
+@SET /p userinp=    ^   Make your selection: 
+@SET userinp=%userinp:~0,1%
+@IF /i "%userinp%"=="1" GOTO install_user
+@IF /i "%userinp%"=="2" GOTO uninstall_user
+@IF /i "%userinp%"=="3" GOTO reinstall_user
+@IF /i "%userinp%"=="4" GOTO install
+@IF /i "%userinp%"=="5" GOTO uninstall
+@IF /i "%userinp%"=="6" GOTO reinstall
+@IF /i "%userinp%"=="0" GOTO END
+@GOTO mainmenu
+
+:install_user
+@SET install=0
+@SET uninstall=0
+@SET install_user=1
+@SET uninstall_user=0
+@GOTO mainmenu
+
+:uninstall_user
+@SET install=0
+@SET uninstall=0
+@SET install_user=0
+@SET uninstall_user=1
+@GOTO mainmenu
+
+:reinstall_user
+@SET install=0
+@SET uninstall=0
+@SET install_user=1
+@SET uninstall_user=1
+@GOTO mainmenu
+
+:install
+@SET install=1
+@SET uninstall=0
+@SET install_user=0
+@SET uninstall_user=0
+@GOTO mainmenu
+
+:uninstall
+@SET install=0
+@SET uninstall=1
+@SET install_user=0
+@SET uninstall_user=0
+@GOTO mainmenu
+
+:reinstall
+@SET install=1
+@SET uninstall=1
+@SET install_user=0
+@SET uninstall_user=0
+@GOTO mainmenu
+
+:MAIN
 
 :UNINSTALL
 @IF [%uninstall%] == [1] (
@@ -53,8 +130,8 @@
         GOTO END
     )
 
-    @ECHO regsvr32 /u /n /i %DLLDIRNAME%%DLLNAME%
-    regsvr32 /u /n /i %DLLDIRNAME%%DLLNAME%
+    @ECHO regsvr32 /u /n /i %DLLNAME%
+    regsvr32 /u /n /i %DLLNAME%
 )
 @IF NOT [%ERRORLEVEL%] == [0] GOTO END
 
@@ -66,22 +143,22 @@
         GOTO END
     )
 
-    @ECHO regsvr32 /n /i %DLLDIRNAME%%DLLNAME%
-    regsvr32 /n /i %DLLDIRNAME%%DLLNAME%
+    @ECHO regsvr32 /n /i %DLLNAME%
+    regsvr32 /n /i %DLLNAME%
 )
 @IF NOT [%ERRORLEVEL%] == [0] GOTO END
 
 :UNINSTALL_USER
 @IF [%uninstall_user%] == [1] (
-    @ECHO regsvr32 /u /n /i:user %DLLDIRNAME%%DLLNAME%
-    regsvr32 /u /n /i:user %DLLDIRNAME%%DLLNAME%
+    @ECHO regsvr32 /u /n /i:user %DLLNAME%
+    regsvr32 /u /n /i:user %DLLNAME%
 )
 @IF NOT [%ERRORLEVEL%] == [0] GOTO END
 
 :INSTALL_USER
 @IF [%install_user%] == [1] (
-    @ECHO regsvr32 /n /i:user %DLLDIRNAME%%DLLNAME%
-    regsvr32 /n /i:user %DLLDIRNAME%%DLLNAME%
+    @ECHO regsvr32 /n /i:user %DLLNAME%
+    regsvr32 /n /i:user %DLLNAME%
 )
 @IF NOT [%ERRORLEVEL%] == [0] GOTO END
 
@@ -92,9 +169,10 @@
 @SET _Args=%*
 @SET _Args=%_Args:"=""%
 @Echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\~ElevateMe.vbs"
-@ECHO UAC.ShellExecute "cmd", "/c ""%_batchFile% %_Args%""", "", "runas", 1 >> "%temp%\~ElevateMe.vbs"
+@ECHO UAC.ShellExecute "cmd", "/c ""@SET ""PATH=%PATH%"" && %_batchFile% %_Args%""", "", "runas", 1 >> "%temp%\~ElevateMe.vbs"
 @CALL "%temp%\~ElevateMe.vbs"
 @DEL /f /q "%temp%\~ElevateMe.vbs"
+@GOTO :EOF
 
 :END
 @POPD
