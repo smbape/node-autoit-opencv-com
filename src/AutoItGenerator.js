@@ -1,5 +1,5 @@
 /* eslint-disable no-magic-numbers */
-
+const version = process.env.npm_package_version || require("../package.json").version;
 const fs = require("fs");
 const sysPath = require("path");
 const {spawn} = require("child_process");
@@ -12,8 +12,7 @@ const { convertExpression } = require("node-autoit-binding-utils/src/autoit-expr
 
 const LIB_UID = "fc210206-673e-4ec8-82d5-1a6ac561f3de";
 const APP_NAME = "OpenCV";
-const VERSION_MAJOR = 1;
-const VERSION_MINOR = 0;
+const [VERSION_MAJOR, VERSION_MINOR] = version.split(".");
 
 const LF = "\n";
 
@@ -147,17 +146,6 @@ class AutoItGenerator {
             const constructor = [];
             const destructor = [];
 
-            // if (fqn === "cv") {
-            //     id++;
-            //     iidl.push(`[id(${ id })] HRESULT variant([in] ULONGLONG pVal, [out, retval] VARIANT* _retval);`);
-            //     ipublic.push("STDMETHOD(variant)(ULONGLONG pVal, VARIANT* _retval);");
-            //     impl.push(`
-            //         STDMETHODIMP C${ cotype }::variant(ULONGLONG pVal, VARIANT* _retval) {
-            //             return VariantCopyInd(_retval, reinterpret_cast<VARIANT*>(pVal));
-            //         }`.replace(/^ {20}/mg, "")
-            //     );
-            // }
-
             if (is_idl_class) {
                 if (idnames.has("self".toLowerCase())) {
                     throw new Error(`duplicated idl name ${ "self" }`);
@@ -208,7 +196,7 @@ class AutoItGenerator {
 
                 const is_prop_test = is_test && !options.notest.has(`${ fqn }::${ idlname }`);
 
-                const {type, value, modifiers} = coclass.properties.get(idlname);
+                const {type, modifiers} = coclass.properties.get(idlname);
                 const propidltype = this.getIDLType(type, coclass);
                 const is_static = !coclass.is_class && !coclass.is_struct || modifiers.includes("/S");
                 const is_enum = modifiers.includes("/Enum");
@@ -1671,7 +1659,7 @@ class AutoItGenerator {
             // Therefore, putting the underscore at the end is also to workaround this limitation
             // For exemple, cv::FileNode as a method 'real' and an enum 'REAL'
             // The enum will be names REAL_
-            // 
+            //
             // Sources:
             // https://docs.microsoft.com/en-us/windows/win32/com/com-technical-overview
             // https://docs.microsoft.com/it-ch/office/vba/language/reference/user-interface-help/bad-interface-for-implements-method-has-underscore-in-name
@@ -2008,7 +1996,7 @@ class AutoItGenerator {
             }
         }
 
-        return /^(?:Point|Rect|Scalar|Size|Vec)(?:\d[bdfisw])?$/.test(type) ? this.namespace + "::" + type : type;
+        return /^(?:Point|Rect|Scalar|Size|Vec)(?:\d[bdfisw])?$/.test(type) ? `${ this.namespace }::${ type }` : type;
     }
 
     callCast(type, value, coclass) {

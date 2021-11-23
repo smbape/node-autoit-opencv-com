@@ -11,6 +11,42 @@ const regexEscape = str => {
 const version = process.env.npm_package_version || require("../package.json").version;
 const readme = sysPath.join(__dirname, "..", "README.md");
 
+const updateContent = (file, replacer, cb) => {
+    waterfall([
+        next => {
+            fs.readFile(file, next);
+        },
+
+        (buffer, next) => {
+            const oldContent = buffer.toString();
+            const newContent = replacer(oldContent);
+
+            if (newContent === oldContent) {
+                next(null, false);
+                return;
+            }
+
+            fs.writeFile(file, newContent, err => {
+                next(err, true);
+            });
+        },
+
+        (hasChanged, next) => {
+            if (!hasChanged) {
+                next();
+                return;
+            }
+
+            const child = spawn("git", ["add", file], {
+                stdio: "inherit"
+            });
+
+            child.on("error", next);
+            child.on("close", next);
+        }
+    ], cb);
+};
+
 waterfall([
     next => {
         const oldContent = fs.readFileSync(readme).toString();
@@ -37,46 +73,31 @@ waterfall([
             return;
         }
 
-        const replacer = new RegExp(regexEscape(oldVersion), "g");
+        waterfall([
+            next => {
+                updateContent(readme, oldContent => {
+                    const replacer = new RegExp(regexEscape(oldVersion), "g");
+                    return oldContent.replace(replacer, version);
+                }, next);
+            },
 
-        eachOfLimit([
-            readme,
-            sysPath.join(__dirname, "..", "autoit-opencv-com", "install.bat"),
-        ], 1, (file, i, next) => {
-            waterfall([
-                next => {
-                    fs.readFile(file, next);
-                },
+            next => {
+                updateContent(sysPath.join(__dirname, "..", "autoit-opencv-com", "install.bat"), oldContent => {
+                    return oldContent.replace(/VERSION: \S+/, `VERSION: ${ version }`);
+                }, next);
+            },
 
-                (buffer, next) => {
-                    const oldContent = buffer.toString();
-                    const newContent = oldContent.replace(replacer, version);
-
-                    if (newContent === oldContent) {
-                        next(null, false);
-                        return;
-                    }
-
-                    fs.writeFile(readme, newContent, err => {
-                        next(err, true);
-                    });
-                },
-
-                (hasChanged, next) => {
-                    if (!hasChanged) {
-                        next();
-                        return;
-                    }
-
-                    const child = spawn("git", ["add", readme], {
-                        stdio: "inherit"
-                    });
-
-                    child.on("error", next);
-                    child.on("close", next);
-                }
-            ], next);
-        }, next);
+            next => {
+                updateContent(sysPath.join(__dirname, "..", "autoit-opencv-com", "src", "cvLib.rc"), oldContent => {
+                    const vsversion = version.split(".").join(",").replace(/[^\d,]/g, "");
+                    return oldContent
+                        .replace(/FILEVERSION \S+/, `FILEVERSION ${ vsversion }`)
+                        .replace(/PRODUCTVERSION \S+/, `PRODUCTVERSION ${ vsversion }`)
+                        .replace(/"FileVersion", "\S+"/, `"FileVersion", "${ version }"`)
+                        .replace(/"ProductVersion", "\S+"/, `"ProductVersion", "${ version }"`);
+                }, next);
+            }
+        ], next);
     }
 ], err => {
     if (err) {

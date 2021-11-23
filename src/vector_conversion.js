@@ -43,7 +43,7 @@ module.exports = (coclass, header, impl) => {
         typedef struct _${ comparator }Proxy {
             ${ ptr_comparator } cmp;
             bool operator() (${ cpptype } a, ${ cpptype } b) {
-                ${ cvt.join("\n" + " ".repeat(16)) }
+                ${ cvt.join(`\n${ " ".repeat(16) }`) }
             }
         } ${ comparator }Proxy;
 
