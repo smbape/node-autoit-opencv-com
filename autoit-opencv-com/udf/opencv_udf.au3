@@ -29,13 +29,13 @@ Func _OpenCV_get($vVal = Default)
 	Return $cv
 EndFunc   ;==>_OpenCV_get
 
-Func _OpenCV_Open_And_Register($s_opencv_wolrd_dll = Default, $s_autoit_opencv_com_dll = Default, $bUser = True)
+Func _OpenCV_Open_And_Register($s_opencv_wolrd_dll = Default, $s_autoit_opencv_com_dll = Default, $bUser = Default)
 	If Not _OpenCV_Open($s_opencv_wolrd_dll, $s_autoit_opencv_com_dll) Then Return False
 	If Not _Opencv_Register($bUser) Then Return False
 	Return True
 EndFunc   ;==>_OpenCV_Open_And_Register
 
-Func _OpenCV_Unregister_And_Close($bUser = True)
+Func _OpenCV_Unregister_And_Close($bUser = Default)
 	If Not _Opencv_Unregister($bUser) Then Return False
 	If Not _OpenCV_Close() Then Return False
 	Return True
@@ -44,7 +44,7 @@ EndFunc   ;==>_OpenCV_Unregister_And_Close
 Func _OpenCV_Install($s_opencv_wolrd_dll = Default, $s_autoit_opencv_com_dll = Default, $bUser = Default, $bOpen = True, $bClose = True, $bInstall = False, $bUninstall = False)
 	If $s_opencv_wolrd_dll == Default Then $s_opencv_wolrd_dll = "opencv_world454.dll"
 	If $s_autoit_opencv_com_dll == Default Then $s_autoit_opencv_com_dll = "autoit_opencv_com454.dll"
-	If $bUser == Default Then $bUser = True
+	If $bUser == Default Then $bUser = Not IsAdmin()
 
 	If $bClose And $h_opencv_world_dll <> -1 Then DllClose($h_opencv_world_dll)
 	If $bOpen Then
