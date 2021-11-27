@@ -544,7 +544,7 @@ class AutoItGenerator {
                             cvt.push(...`
                                 auto* ${ pointer } = &${ placeholder_name };
                                 hr = autoit_opencv_out(${ in_val }, ${ pointer });
-                                if (!PARAMETER_MISSING(${ in_val }) && FAILED(hr)) {
+                                if (FAILED(hr) && !PARAMETER_MISSING(${ in_val })) {
                                     printf("unable to read argument ${ j } of type %hu into ${ cpptype }\\n", V_VT(${ in_val }));
                                     return hr;
                                 }

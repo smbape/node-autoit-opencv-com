@@ -33,7 +33,7 @@ const updateContent = (file, replacer, cb) => {
 
         (hasChanged, next) => {
             if (!hasChanged) {
-                next();
+                next(0, null);
                 return;
             }
 
@@ -44,7 +44,9 @@ const updateContent = (file, replacer, cb) => {
             child.on("error", next);
             child.on("close", next);
         }
-    ], cb);
+    ], (err, chunk) => {
+        cb(err);
+    });
 };
 
 waterfall([

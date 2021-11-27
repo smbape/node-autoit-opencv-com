@@ -3,6 +3,8 @@
 Do you want to use [OpenCV](https://opencv.org/) v4+ in [AutoIt v3](https://www.autoitscript.com/) ?  
 If yes, then this udf might be for you.
 
+In fact, the dll being a [Component Object Model (COM)](https://docs.microsoft.com/en-us/windows/win32/com/the-component-object-model) dll, it can be used in any client dans can use COM components. For example [Office VBA](https://docs.microsoft.com/en-us/office/vba/api/overview/), [PowerShell](https://docs.microsoft.com/en-us/powershell/scripting/overview?view=powershell-7.2).
+
 # Usage of the UDF
 
 ## Prerequisites
@@ -11,6 +13,8 @@ If yes, then this udf might be for you.
   - Download and extract [autoit-opencv-4.5.4-com-v1.2.0-rc.0.7z](https://github.com/smbape/node-autoit-opencv-com/releases/download/v1.2.0-rc.0/autoit-opencv-4.5.4-com-v1.2.0-rc.0.7z) into a folder
 
 ## Usage
+
+### AutoIt
 
 ```autoit
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
@@ -77,6 +81,26 @@ Func Example()
 
   $cv.destroyAllWindows()
 EndFunc   ;==>Example
+```
+
+### PowerShell
+
+```powershell
+# Opencv bin dir must be in your path and you must have registered the autoit_opencv_com454.dll dll
+
+function _OpenCV_ObjCreate($sClassname) {
+    New-Object -ComObject "OpenCV.$sClassname"
+}
+
+function Example1() {
+    $cv = _OpenCV_ObjCreate("cv")
+    $img = $cv.imread("samples\data\lena.jpg")
+    $cv.imshow("image", $img)
+    $cv.waitKey() | Out-Null
+    $cv.destroyAllWindows()
+}
+
+Example1
 ```
 
 ## Running examples
