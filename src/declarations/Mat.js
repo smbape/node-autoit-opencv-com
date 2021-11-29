@@ -209,6 +209,38 @@ const declarations = [
         ["int", "interpolation", "7", []],
     ], "", ""],
 
+    ["cv.Mat.PixelSearch", "_variant_t", ["/External"], [
+        ["Scalar", "color", "", []],
+        ["int", "left", "0", []],
+        ["int", "top", "0", []],
+        ["int", "right", "this->__self->get()->cols - 1", []],
+        ["int", "bottom", "this->__self->get()->rows - 1", []],
+        ["uchar", "shade_variation", "0", []],
+        ["int", "step", "1", []],
+    ], "", ""],
+
+    ["cv.Mat.PixelSearch", "_variant_t", ["/External"], [
+        ["Scalar", "color", "", []],
+        ["Rect", "rect", "Rect(0, 0, this->__self->get()->cols, this->__self->get()->rows)", []],
+        ["uchar", "shade_variation", "0", []],
+        ["int", "step", "1", []],
+    ], "", ""],
+
+    ["cv.Mat.PixelChecksum", "size_t", ["/External"], [
+        ["int", "left", "0", []],
+        ["int", "top", "0", []],
+        ["int", "right", "this->__self->get()->cols - 1", []],
+        ["int", "bottom", "this->__self->get()->rows - 1", []],
+        ["int", "step", "1", []],
+        ["int", "mode", "0", []],
+    ], "", ""],
+
+    ["cv.Mat.PixelChecksum", "size_t", ["/External"], [
+        ["Rect", "rect", "Rect(0, 0, this->__self->get()->cols, this->__self->get()->rows)", []],
+        ["int", "step", "1", []],
+        ["int", "mode", "0", []],
+    ], "", ""],
+
     ["cv.Mat.eye", "cv::Mat", ["/S"], [
         ["int", "rows", "", []],
         ["int", "cols", "", []],

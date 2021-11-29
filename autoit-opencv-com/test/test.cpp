@@ -274,30 +274,44 @@ static void testAdd(cvLib::ICv_ObjectPtr cv, cvLib::ICv_Mat_ObjectPtr mat) {
 static void testResize(cvLib::ICv_ObjectPtr cv) {
 	_bstr_t image_path;
 	// string_to_bstr(samples::findFile("aloeGT.png"), image_path);
-	string_to_bstr("E:\\development\\git\\node-autoit-opencv-com\\samples\\tutorial_code\\yolo\\scooter-5180947_1920.jpg", image_path);
+	string_to_bstr(samples::findFile("..\\tutorial_code\\yolo\\scooter-5180947_1920.jpg"), image_path);
 	auto mat = cv->imread(&_variant_t(image_path));
 
 	float newWidth = 600;
 	float newHeight = 399.6875;
 
 	CComSafeArray<VARIANT> dsize(2UL);
-	dsize.SetAt(0, _variant_t(newWidth));
-	dsize.SetAt(1, _variant_t(newHeight));
+	dsize[0] = _variant_t(newWidth);
+	dsize[1] = _variant_t(newHeight);
 
-	auto safeArray = dsize.Detach();
 	VARIANT variant = { VT_ARRAY | VT_VARIANT };
-	V_ARRAY(&variant) = safeArray;
+	V_ARRAY(&variant) = dsize.Detach();
 
 	cv->resize(&_variant_t(mat->clone().GetInterfacePtr()), &variant);
+	dsize.Attach(V_ARRAY(&variant));
+	V_ARRAY(&variant) = NULL;
+
 	mat->GdiplusResize(&_variant_t(newWidth), &_variant_t(newHeight), &_variant_t(7));
 
+	CComSafeArray<VARIANT> color(4UL);
+	color[0] = 0x1E;
+	color[1] = 0x1D;
+	color[2] = 0x13;
+	color[3] = 0;
+
+	V_ARRAY(&variant) = color.Detach();
+	mat->PixelSearch(&variant);
+	dsize.Attach(V_ARRAY(&variant));
+	V_ARRAY(&variant) = NULL;
+
 	VariantClear(&variant);
+
 }
 
 static void testSetTo(cvLib::ICv_ObjectPtr cv, cvLib::ICv_Mat_ObjectPtr mat) {
 	CComSafeArray<VARIANT> scalar(4UL);
 	for (int i = 0; i < 4; i++) {
-		scalar.SetAt(i, _variant_t(0));
+		scalar[i] = _variant_t(0);
 	}
 
 	auto safeArray = scalar.Detach();

@@ -1,4 +1,7 @@
 #include "Cv_Object.h"
+#include <array>
+#include <cstdint>
+#include <numeric>
 #include <gdiplus.h>
 #pragma comment(lib, "gdiplus.lib")
 
@@ -650,4 +653,184 @@ const Mat CCv_Mat_Object::GdiplusResize(float newWidth, float newHeight, int int
 	Mat mat; createMatFromBitmap_(hBitmap, mat, true, hr);
 
 	return mat.clone();
+}
+
+const _variant_t CCv_Mat_Object::PixelSearch(cv::Scalar& color, int left, int top, int right, int bottom, uchar shade_variation, int step, HRESULT& hr) {
+	auto& src = *this->__self->get();
+
+	// accept only char type matrices
+	CV_Assert(src.depth() == CV_8U);
+
+	// Support NOMINMAX by defining local min max macros 
+#define PIXELSEARCH_MIN(a,b) (((a) < (b)) ? (a) : (b))
+#define PIXELSEARCH_MAX(a,b) (((a) > (b)) ? (a) : (b))
+
+	left = PIXELSEARCH_MAX(0, left);
+	right = PIXELSEARCH_MIN(src.cols - 1, right);
+	top = PIXELSEARCH_MAX(0, top);
+	bottom = PIXELSEARCH_MIN(src.rows - 1, bottom);
+
+#pragma warning( push )
+#pragma warning( disable : 4244)
+	int min_blue = PIXELSEARCH_MAX(0, color[0] - shade_variation);
+	int min_green = PIXELSEARCH_MAX(0, color[1] - shade_variation);
+	int min_red = PIXELSEARCH_MAX(0, color[2] - shade_variation);
+
+	int max_blue = PIXELSEARCH_MIN(0xFF, color[0] + shade_variation);
+	int max_green = PIXELSEARCH_MIN(0xFF, color[1] + shade_variation);
+	int max_red = PIXELSEARCH_MIN(0xFF, color[2] + shade_variation);
+#pragma warning( pop )
+
+	int hstep = step == 0 ? 1 : left > right ? -step : step;
+	int vstep = step == 0 ? 1 : top > bottom ? -step : step;
+
+#undef PIXELSEARCH_MIN
+#undef PIXELSEARCH_MAX
+
+	_variant_t res;
+	VariantInit(&res);
+	VARIANT* out_val = &res;
+
+	switch (src.channels()) {
+	case 1:
+	{
+		for (int i = top; (vstep > 0 ? i <= bottom : i >= bottom); i += vstep) {
+			for (int j = left; (hstep > 0 ? j <= right : j >= right); j += hstep) {
+				if (min_blue <= src.at<uchar>(i, j) && src.at<uchar>(i, j) <= max_blue) {
+					hr = autoit_opencv_from(Point(j, i), out_val);
+					goto end_swith;
+				}
+			}
+		}
+		break;
+	}
+	case 3:
+	case 4:
+	{
+		for (int i = top; (vstep > 0 ? i <= bottom : i >= bottom); i += vstep) {
+			for (int j = left; (hstep > 0 ? j <= right : j >= right); j += hstep) {
+				auto& pixel = src.at<Vec3b>(i, j);
+				BYTE blue = pixel[0];
+				BYTE green = pixel[1];
+				BYTE red = pixel[2];
+
+				if (
+					min_blue <= blue && blue <= max_blue &&
+					min_green <= green && green <= max_green &&
+					min_red <= red && red <= max_red
+					) {
+					hr = autoit_opencv_from(Point(j, i), out_val);
+					goto end_swith;
+				}
+			}
+		}
+		break;
+	}
+	}
+
+	V_VT(&res) = VT_NULL;
+
+end_swith:
+	return _variant_t(res);
+}
+
+const _variant_t CCv_Mat_Object::PixelSearch(cv::Scalar& color, cv::Rect& rect, uchar shade_variation, int step, HRESULT& hr) {
+	return PixelSearch(color, rect.x, rect.y, rect.x + rect.width - 1, rect.y + rect.height - 1, shade_variation, step, hr);
+}
+
+const std::uint_fast32_t MOD_ADLER = 65521;
+
+const std::uint_fast32_t adler32(Mat& src, const int left, const int top, const int right, const int bottom, const int hstep, const int vstep) {
+	std::uint_fast32_t a = 1, b = 0;
+
+	int channels = src.channels();
+
+	for (int i = top; (vstep > 0 ? i <= bottom : i >= bottom); i += vstep) {
+		for (int j = left; (hstep > 0 ? j <= right : j >= right); j += hstep) {
+			uchar* data = src.ptr<uchar>(i, j);
+			for (int k = 0; k < channels; k++) {
+				a = (a + data[k]) % MOD_ADLER;
+				b = (b + a) % MOD_ADLER;
+			}
+		}
+	}
+
+	return (b << 16) | a;
+}
+
+/**
+ * Generates a lookup table for the checksums of all 8-bit values.
+ * @see https://rosettacode.org/wiki/CRC-32#C.2B.2B
+ */
+std::array<std::uint_fast32_t, 256> generate_crc_lookup_table() noexcept {
+	auto const reversed_polynomial = std::uint_fast32_t{ 0xEDB88320uL };
+
+	// This is a function object that calculates the checksum for a value,
+	// then increments the value, starting from zero.
+	struct byte_checksum {
+		std::uint_fast32_t operator()() noexcept {
+			auto checksum = static_cast<std::uint_fast32_t>(n++);
+
+			for (auto i = 0; i < 8; ++i)
+				checksum = (checksum >> 1) ^ ((checksum & 0x1u) ? reversed_polynomial : 0);
+
+			return checksum;
+		}
+
+		unsigned n = 0;
+	};
+
+	auto table = std::array<std::uint_fast32_t, 256>{};
+	std::generate(table.begin(), table.end(), byte_checksum{});
+
+	return table;
+}
+
+const std::uint_fast32_t crc32(Mat& src, const int left, const int top, const int right, const int bottom, const int hstep, const int vstep) {
+	// Generate lookup table only on first use then cache it - this is thread-safe.
+	static auto const table = generate_crc_lookup_table();
+
+	std::uint_fast32_t checksum = ~std::uint_fast32_t{ 0 } &std::uint_fast32_t{ 0xFFFFFFFFuL };
+
+	int channels = src.channels();
+
+	for (int i = top; (vstep > 0 ? i <= bottom : i >= bottom); i += vstep) {
+		for (int j = left; (hstep > 0 ? j <= right : j >= right); j += hstep) {
+			uchar* data = src.ptr<uchar>(i, j);
+			for (int k = 0; k < channels; k++) {
+				std::uint_fast8_t value = data[k];
+				checksum = table[(checksum ^ value) & 0xFFu] ^ (checksum >> 8);
+			}
+		}
+	}
+
+	return ~checksum;
+}
+
+const size_t CCv_Mat_Object::PixelChecksum(int left, int top, int right, int bottom, int step, int mode, HRESULT& hr) {
+	auto& src = *this->__self->get();
+
+	// accept only char type matrices
+	CV_Assert(src.depth() == CV_8U);
+
+	// Support NOMINMAX by defining local min max macros 
+#define PIXELSEARCH_MIN(a,b) (((a) < (b)) ? (a) : (b))
+#define PIXELSEARCH_MAX(a,b) (((a) > (b)) ? (a) : (b))
+
+	left = PIXELSEARCH_MAX(0, left);
+	right = PIXELSEARCH_MIN(src.cols - 1, right);
+	top = PIXELSEARCH_MAX(0, top);
+	bottom = PIXELSEARCH_MIN(src.rows - 1, bottom);
+
+	int hstep = step == 0 ? 1 : left > right ? -step : step;
+	int vstep = step == 0 ? 1 : top > bottom ? -step : step;
+
+#undef PIXELSEARCH_MIN
+#undef PIXELSEARCH_MAX
+
+	return mode == 1 ? crc32(src, left, top, right, bottom, hstep, vstep) : adler32(src, left, top, right, bottom, hstep, vstep);
+}
+
+const size_t CCv_Mat_Object::PixelChecksum(cv::Rect& rect, int step, int mode, HRESULT& hr) {
+	return PixelChecksum(rect.x, rect.y, rect.x + rect.width - 1, rect.y + rect.height - 1, step, mode, hr);
 }

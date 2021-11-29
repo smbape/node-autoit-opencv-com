@@ -373,11 +373,11 @@ Func _OpenCV_GetDesktopScreenBits($aRect, $iChannels = Default)
 	$tBIHDR.biHeight = -$iHeight
 	$tBIHDR.biPlanes = 1
 	$tBIHDR.biBitCount = $iChannels * 8
+	$tBIHDR.biCompression = $BI_RGB
 
 	Local $pBits
-	Local $hDIB = _WinAPI_CreateDIBSection($hWnd, $tBITMAPINFO, $DIB_RGB_COLORS, $pBits)
+	Local $hPrevObject = _WinAPI_SelectObject($hMemoryDC, _WinAPI_CreateDIBSection($hWnd, $tBITMAPINFO, $DIB_RGB_COLORS, $pBits))
 
-	_WinAPI_SelectObject($hMemoryDC, $hDIB)
 	_WinAPI_BitBlt($hMemoryDC, 0, 0, $iWidth, $iHeight, $hDesktopDC, $iLeft, $iTop, $SRCCOPY)
 
 	; $pBits will be unallacoted when _WinAPI_DeleteObject will be called
@@ -385,7 +385,7 @@ Func _OpenCV_GetDesktopScreenBits($aRect, $iChannels = Default)
 	; keep the values in our own allocated memory
 	_OpenCV_DllCall("msvcrt.dll", "ptr", "memcpy_s", "struct*", $tBits, "ulong_ptr", $iSize, "ptr", $pBits, "ulong_ptr", $iSize)
 
-	_WinAPI_DeleteObject($hDIB)
+	_WinAPI_DeleteObject(_WinAPI_SelectObject($hMemoryDC, $hPrevObject))
 	_WinAPI_DeleteDC($hMemoryDC)
 	_WinAPI_ReleaseDC($hWnd, $hDesktopDC)
 
@@ -424,22 +424,97 @@ Func _OpenCV_GetDesktopScreenMat($aRect, $iChannels = Default)
 	$tBIHDR.biHeight = $iHeight
 	$tBIHDR.biPlanes = 1
 	$tBIHDR.biBitCount = $iChannels * 8
+	$tBIHDR.biCompression = $BI_RGB
 
 	Local $pBits
-	Local $hDIB = _WinAPI_CreateDIBSection($hWnd, $tBITMAPINFO, $DIB_RGB_COLORS, $pBits)
+	Local $hPrevObject = _WinAPI_SelectObject($hMemoryDC, _WinAPI_CreateDIBSection($hWnd, $tBITMAPINFO, $DIB_RGB_COLORS, $pBits))
 
-	_WinAPI_SelectObject($hMemoryDC, $hDIB)
+	; Local $hTimer = TimerInit()
 	_WinAPI_BitBlt($hMemoryDC, 0, 0, $iWidth, $iHeight, $hDesktopDC, $iLeft, $iTop, $SRCCOPY)
+	; ConsoleWrite("_WinAPI_BitBlt took " & TimerDiff($hTimer) & "ms" & @CRLF)
 
 	Local $dst = _OpenCV_ObjCreate("cv.Mat").create($iHeight, $iWidth, CV_MAKETYPE($CV_8U, $iChannels), $pBits, BitAND($iWidth * $iChannels + 3, -4)) ;
 	$dst = $cv.flip($dst, 0)
 
-	_WinAPI_DeleteObject($hDIB)
+	_WinAPI_DeleteObject(_WinAPI_SelectObject($hMemoryDC, $hPrevObject))
 	_WinAPI_DeleteDC($hMemoryDC)
 	_WinAPI_ReleaseDC($hWnd, $hDesktopDC)
 
 	Return $dst
 EndFunc   ;==>_OpenCV_GetDesktopScreenMat
+
+; #FUNCTION# ====================================================================================================================
+; Name ..........: _OpenCV_GetDesktopScreenRect
+; Description ...: Get desktop screen rect, handling multi-screen desktop.
+; Syntax ........: _OpenCV_GetDesktopScreenRect([$iScreenNum = Default])
+; Parameters ....: $iScreenNum          - [optional] The screen number. Set to Default for all screens. Default is Default.
+; Return values .: $aRect an array [left, top, width, height]
+; Author ........: Stéphane MBAPE
+; ===============================================================================================================================
+Func _OpenCV_GetDesktopScreenRect($iScreenNum = Default)
+	Local $iRight, $iBottom, $aRetrun
+
+	Local $tRect = DllStructCreate($tagRECT)
+	$tRect.Left = 0
+	$tRect.Top = 0
+	$tRect.Right = -1
+	$tRect.Bottom = -1
+
+	Local Const $tagDISPLAY_DEVICE = "dword Size;wchar Name[32];wchar String[128];dword Flags;wchar ID[128];wchar Key[128]"
+	Local $tDisplayDevice = DllStructCreate($tagDISPLAY_DEVICE)
+	$tDisplayDevice.Size = DllStructGetSize($tDisplayDevice)
+
+	Local $tDisplaySettings = DllStructCreate($tagDEVMODE_DISPLAY)
+	$tDisplaySettings.Size = DllStructGetSize($tDisplaySettings)
+
+	Local $iDevNum = 0
+	While 1
+		; _WinAPI_EnumDisplayDevices("", $iDevNum)
+		$aRetrun = DllCall("user32.dll", "int", "EnumDisplayDevicesW", "ptr", 0, "dword", $iDevNum, "struct*", $tDisplayDevice, "dword", 1)
+		If Not $aRetrun[0] Then ExitLoop
+		$iDevNum += 1
+
+		If $iScreenNum <> Default And $iScreenNum <> $iDevNum Then ContinueLoop
+
+		If BitAND($tDisplayDevice.Flags, $DISPLAY_DEVICE_MIRRORING_DRIVER) Or Not BitAND($tDisplayDevice.Flags, $DISPLAY_DEVICE_ATTACHED_TO_DESKTOP) Then
+			ContinueLoop
+		EndIf
+
+		If $_cv_debug <> 0 Then
+			_OpenCV_DebugMsg($tDisplayDevice.Name & @TAB & "Attached to desktop: " & (BitAND($tDisplayDevice.Flags, $DISPLAY_DEVICE_ATTACHED_TO_DESKTOP) <> 0))
+			_OpenCV_DebugMsg($tDisplayDevice.Name & @TAB & "Primary: " & (BitAND($tDisplayDevice.Flags, $DISPLAY_DEVICE_PRIMARY_DEVICE) <> 0))
+			_OpenCV_DebugMsg($tDisplayDevice.Name & @TAB & "Mirroring driver: " & (BitAND($tDisplayDevice.Flags, $DISPLAY_DEVICE_MIRRORING_DRIVER) <> 0))
+			_OpenCV_DebugMsg($tDisplayDevice.Name & @TAB & "VGA compatible: " & (BitAND($tDisplayDevice.Flags, $DISPLAY_DEVICE_VGA_COMPATIBLE) <> 0))
+			_OpenCV_DebugMsg($tDisplayDevice.Name & @TAB & "Removable: " & (BitAND($tDisplayDevice.Flags, $DISPLAY_DEVICE_REMOVABLE) <> 0))
+			_OpenCV_DebugMsg($tDisplayDevice.Name & @TAB & "More display modes: " & (BitAND($tDisplayDevice.Flags, $DISPLAY_DEVICE_MODESPRUNED) <> 0))
+			_OpenCV_DebugMsg("")
+		EndIf
+
+		; _WinAPI_EnumDisplaySettings($tDisplayDevice.Name, $ENUM_CURRENT_SETTINGS)
+		Local $sDevice = $tDisplayDevice.Name
+		Local $sTypeOfDevice = 'wstr'
+		If Not StringStripWS($sDevice, $STR_STRIPLEADING + $STR_STRIPTRAILING) Then
+			$sTypeOfDevice = 'ptr'
+			$sDevice = 0
+		EndIf
+		$aRetrun = DllCall("user32.dll", "bool", "EnumDisplaySettingsW", $sTypeOfDevice, $sDevice, "dword", $ENUM_CURRENT_SETTINGS, "struct*", $tDisplaySettings)
+		If Not $aRetrun[0] Then ContinueLoop
+
+		If $tRect.Left > $tDisplaySettings.X Then $tRect.Left = $tDisplaySettings.X
+		If $tRect.Top > $tDisplaySettings.Y Then $tRect.Left = $tDisplaySettings.Y
+
+		$iRight = $tDisplaySettings.X + $tDisplaySettings.PelsWidth
+		If $tRect.Right < $iRight Then $tRect.Right = $iRight
+
+		$iBottom = $tDisplaySettings.Y + $tDisplaySettings.PelsHeight
+		If $tRect.Bottom < $iBottom Then $tRect.Bottom = $iBottom
+	WEnd
+
+	$tDisplaySettings = 0
+	$tDisplayDevice = 0
+
+	Return _OpenCV_Tuple($tRect.Left, $tRect.Top, $tRect.Right - $tRect.Left, $tRect.Bottom - $tRect.Top)
+EndFunc   ;==>_OpenCV_GetDesktopScreenRect
 
 Func _OpenCV_CompareMatHist($matSrc, $matDst, $matMask, $aChannels, $aHistSize, $aRanges, $iCompareMethod = $CV_HISTCMP_CORREL, $bAccumulate = False)
 	Local Const $cv = _OpenCV_get()
@@ -492,10 +567,14 @@ EndFunc   ;==>_OpenCV_CompareMatHist
 ;                  https://docs.opencv.org/4.5.1/d8/ded/samples_2cpp_2tutorial_code_2Histograms_Matching_2MatchTemplate_Demo_8cpp-example.html#a16
 ;                  https://vovkos.github.io/doxyrest-showcase/opencv/sphinx_rtd_theme/page_tutorial_histogram_calculation.html
 ; ===============================================================================================================================
-Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = 0.95, $iMatchMethod = $CV_TM_CCOEFF_NORMED, $matTemplMask = Default, $iLimit = Default, $iCode = Default, $fOverlapping = 2, $aChannels = Default, $aHistSize = Default, $aRanges = Default, $iCompareMethod = $CV_HISTCMP_CORREL, $iDstCn = 0, $bAccumulate = False)
+Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = Default, $iMatchMethod = Default, $matTemplMask = Default, $iLimit = Default, $iCode = Default, $fOverlapping = Default, $aChannels = Default, $aHistSize = Default, $aRanges = Default, $iCompareMethod = Default, $iDstCn = Default, $bAccumulate = False)
 	Local Const $cv = _OpenCV_get()
 
+	If $fThreshold == Default Then $fThreshold = 0.95
+	If $iMatchMethod == Default Then $iMatchMethod = $CV_TM_CCOEFF_NORMED
 	If $iCode == Default Then $iCode = -1
+	If $fOverlapping == Default Then $fOverlapping = 2
+	If $iCompareMethod == Default Then $iCompareMethod = $CV_HISTCMP_CORREL
 	If $iLimit == Default Then $iLimit = 20
 
 	If $iCode >= 0 Then
@@ -543,13 +622,18 @@ Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = 0.95, $iMatchMethod 
 	Local $rw = $width - $w + 1
 	Local $rh = $height - $h + 1
 
+	If $rw <= 0 Or $rh <= 0 Then
+		ReDim $aResult[0][3]
+		Return $aResult
+	EndIf
+
 	Local $mat = _OpenCV_ObjCreate("cv.Mat")
 	Local $matResult ; = $Mat.create($rh, $rw, $CV_32FC1)
 
 	Local $bMethodAcceptsMask = $CV_TM_SQDIFF == $iMatchMethod Or $iMatchMethod == $CV_TM_CCORR_NORMED
 	Local $bIsNormed = $iMatchMethod == $CV_TM_SQDIFF_NORMED Or $iMatchMethod == $CV_TM_CCORR_NORMED Or $iMatchMethod == $CV_TM_CCOEFF_NORMED
 
-	; Local $hTimer, $fDiff
+	; Local $hTimer
 
 	; $hTimer = TimerInit()
 	If $bMethodAcceptsMask Then
@@ -557,9 +641,7 @@ Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = 0.95, $iMatchMethod 
 	Else
 		$matResult = $cv.matchTemplate($matImg, $matTempl, $iMatchMethod)
 	EndIf
-
-	; $fDiff = TimerDiff($hTimer)
-	; ConsoleWrite("matchTemplate took " & $fDiff & "ms" & @CRLF)
+	; ConsoleWrite("matchTemplate took " & TimerDiff($hTimer) & "ms" & @CRLF)
 
 	Local $aMatchLoc
 	Local $fHistScore = 1
@@ -643,8 +725,7 @@ Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = 0.95, $iMatchMethod 
 		; mask the locations that should not be matched again
 		$matMasked.copyTo($matMaskedRect)
 	WEnd
-	; $fDiff = TimerDiff($hTimer)
-	; ConsoleWrite("minMaxLoc took " & $fDiff & "ms" & @CRLF)
+	; ConsoleWrite("minMaxLoc took " & TimerDiff($hTimer) & "ms" & @CRLF)
 
 	ReDim $aResult[$iFound][3]
 
@@ -709,6 +790,16 @@ Func _OpenCV_RotateBound($img, $angle = 0, $scale = 1.0, $flags = Default, $bord
 
 	Return $cv.warpAffine($img, $M, $size, $flags, $borderMode, $borderValue, $rotated)
 EndFunc   ;==>_OpenCV_RotateBound
+
+Func _OpenCV_ColorGetScalar($iColor)
+	Local $cvScalar[4] = [ _
+		BitAND($iColor, 0xFF), _
+		BitAND(BitShift($iColor, 8), 0xFF), _
+		BitAND(BitShift($iColor, 16), 0xFF), _
+		BitAND(BitShift($iColor, 24), 0xFF) _
+	]
+	Return $cvScalar
+EndFunc   ;==>_OpenCV_ColorGetScalar
 
 Func _OpenCV_RGB($cvRed, $cvGreen, $cvBlue)
 	Local $cvScalar[4] = [$cvBlue, $cvGreen, $cvRed, 0xFF]

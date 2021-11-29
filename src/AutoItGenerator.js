@@ -303,7 +303,7 @@ class AutoItGenerator {
                     const callargs = new Array(argc);
                     const outputs = new Map();
                     const retval = [];
-                    const cindent = " ".repeat(4);
+                    const cindent = indent + " ".repeat(4);
 
                     bodies.push({
                         decl,
@@ -569,7 +569,7 @@ class AutoItGenerator {
                         }
 
                         declarations[j] = `${ indent }${ cpptype } ${ placeholder_name }${ defval === "" ? "" : ` = ${ this.valueCast(argtype, defval, coclass) }` };`;
-                        conversions[j] = `\n${ indent }${ cindent }${ is_method_test ? "// " : "" }${ cvt.join(`\n${ indent }${ cindent }${ is_method_test ? "// " : "" }`) }`;
+                        conversions[j] = `\n${ cindent }${ is_method_test ? "// " : "" }${ cvt.join(`\n${ cindent }${ is_method_test ? "// " : "" }`) }`;
 
                         if (is_out) {
                             retval.push([idltype, argname, is_array ? arrtype + (is_vector ? "OfArrays" : "") : argtype, in_val]);
@@ -632,7 +632,7 @@ class AutoItGenerator {
                     const path = name.split(is_constructor ? "::" : ".");
                     const is_static = !coclass.is_class && !coclass.is_struct || func_modifiers.includes("/S");
                     const is_entry_test = is_test && !options.notest.has(path.join("::"));
-                    const cindent = maxargc !== 0 ? " ".repeat(4) : "";
+                    const cindent = indent + (maxargc !== 0 ? " ".repeat(4) : "");
 
                     body.push("");
 
@@ -649,7 +649,7 @@ class AutoItGenerator {
                         const start = conditions.length === 1 ? "" : `\n${ indent }    `;
                         const end = conditions.length === 1 ? "" : `\n${ indent }`;
                         body.push(`${ indent }if (${ is_entry_test ? "true/* " : "" }${ start }${ conditions.join(` &&\n${ indent }    `) }${ end }${ is_entry_test ? " */" : "" }) {`);
-                        body.push(`${ indent + cindent }hr = S_OK;`);
+                        body.push(`${ cindent }hr = S_OK;`);
                     }
 
                     if (conversions.length !== 0) {
@@ -710,19 +710,37 @@ class AutoItGenerator {
                     }
 
                     if (return_value_type !== "void") {
-                        if (return_value_type === "void*") {
+                        if (return_value_type === "void*" || return_value_type === "uchar*") {
                             callee = `reinterpret_cast<ULONGLONG>(${ callee })`;
                         }
-                        body.push(`${ indent + cindent }${ is_entry_test ? "// " : "" }hr = autoit_opencv_from(${ callee }, _retval);`);
+
+                        if (is_external) {
+                            const idltype = this.getIDLType(return_value_type, include);
+                            const cpptype = this.getCppType(return_value_type, include);
+                            const byref = cpptype !== "void*" && cpptype !== "uchar*" && (idltype === "VARIANT" || idltype[0] === "I");
+
+                            const ebody = cindent + `
+                                {
+                                    auto ${ byref ? "&" : "" }tmp = ${ callee };
+                                    if (FAILED(hr)) {
+                                        return hr;
+                                    }
+                                    hr = autoit_opencv_from(tmp, _retval);
+                                }
+                            `.replace(/^ {32}/mg, "").trim().split("\n").map(line => `${ is_entry_test ? "// " : "" }${ line }`).join(`\n${ cindent }`);
+                            body.push(ebody);
+                        } else {
+                            body.push(`${ cindent }${ is_entry_test ? "// " : "" }hr = autoit_opencv_from(${ callee }, _retval);`);
+                        }
                     } else {
-                        body.push(`${ indent + cindent }${ is_entry_test ? "// " : "" }${ callee };`);
+                        body.push(`${ cindent }${ is_entry_test ? "// " : "" }${ callee };`);
                     }
 
-                    body.push(indent + cindent + `
+                    body.push(cindent + `
                         if (FAILED(hr)) {
                             return hr;
                         }
-                    `.replace(/^ {24}/mg, "").trim().split("\n").join(`\n${ indent }${ cindent }`));
+                    `.replace(/^ {24}/mg, "").trim().split("\n").join(`\n${ cindent }`));
 
                     if (return_value_type !== "void") {
                         const idltype = is_constructor ? coclass.idl : this.getIDLType(return_value_type, include);
@@ -736,10 +754,10 @@ class AutoItGenerator {
                     }
 
                     // populate global retarr array
-                    body.push(`\n${ indent }${ cindent }ExtendedHolder::SetLength(${ retval.length });`);
+                    body.push(`\n${ cindent }ExtendedHolder::SetLength(${ retval.length });`);
                     if (retval.length !== 0) {
                         body.push("");
-                        body.push(indent + cindent + retval.map(([idltype, argname, argtype, in_val], i) => {
+                        body.push(cindent + retval.map(([idltype, argname, argtype, in_val], i) => {
                             const lines = [];
                             const is_array = argtype.endsWith("Array") || argtype.endsWith("ArrayOfArrays");
                             const is_vector = argtype.startsWith("vector_") || argtype.endsWith("OfArrays");
@@ -825,11 +843,11 @@ class AutoItGenerator {
                                     ${ lines.join(`\n${ " ".repeat(36) }`) }
                                 }
                             `.replace(/^ {32}/mg, "").trim();
-                        }).join("\n\n").split("\n").join(`\n${ indent }${ cindent }`));
+                        }).join("\n\n").split("\n").join(`\n${ cindent }`));
                     }
 
                     if (maxargc !== 0) {
-                        body.push(`${ indent }${ cindent }return hr;`);
+                        body.push(`${ cindent }return hr;`);
                         body.push(`${ indent }}`);
                     }
 
@@ -1870,10 +1888,10 @@ class AutoItGenerator {
             return set_hr ? cvt : `${ cvt }\nreturn S_OK;`;
         }
 
-        if (in_type === "void*" && out_type === "VARIANT") {
+        if ((in_type === "void*" || in_type === "uchar*") && out_type === "VARIANT") {
             const cvt = `
-                V_VT(out_val) = VT_UI8;
-                V_UI8(out_val) = reinterpret_cast<ULONGLONG>(${ in_val });
+                V_VT(${ out_val }) = VT_UI8;
+                V_UI8(${ out_val }) = reinterpret_cast<ULONGLONG>(${ in_val });
             `.replace(/^ {16}/mg, "").trim();
             return set_hr ? cvt : `${ cvt }\nreturn S_OK;`;
         }
