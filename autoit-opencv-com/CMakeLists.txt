@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.16)
 
 # Name of the project (will be the name of the plugin)
 project(autoit_opencv_com)
@@ -12,16 +12,19 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
 endif()
 
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 add_compile_options(/MP)
-set_source_files_properties(./src/autoit_bridge.cpp PROPERTIES COMPILE_FLAGS "/MP1")
 
-file(GLOB project_source_resources "./src/*.rc" "./src/*.rgs")
-file(GLOB project_source_headers "./src/*.h*")
-file(GLOB project_sources_files "./src/*.c" "./src/*.cpp" "./src/*.def")
+file(GLOB_RECURSE project_source_resources "./src/*.rc" "./src/*.rgs")
+file(GLOB_RECURSE project_source_headers "./src/*.h*")
+file(GLOB_RECURSE project_sources_files "./src/*.c" "./src/*.cpp" "./src/*.def")
 
-file(GLOB project_generated_resources "./generated/*.rc" "./generated/*.rgs")
-file(GLOB project_generated_headers "./generated/*.h*")
-file(GLOB project_generated_files "./generated/*.cpp" "./generated/*_i.c")
+file(GLOB_RECURSE project_generated_resources "./generated/*.rc" "./generated/*.rgs")
+file(GLOB_RECURSE project_generated_headers "./generated/*.h*")
+file(GLOB_RECURSE project_generated_files "./generated/*.cpp" "./generated/*_i.c")
 
 source_group("Source Resources" FILES ${project_source_resources})
 source_group("Source Headers" FILES ${project_source_headers})
@@ -43,6 +46,11 @@ set(SRC_FILES
 
 # Build a shared library named as the project
 add_library(${PROJECT_NAME} SHARED ${SRC_FILES})
+target_precompile_headers(${PROJECT_NAME} PRIVATE
+  "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/src/autoit_bridge.h>"
+  "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/src/wgc/pch.h>"
+)
+set_source_files_properties(./src/autoit_bridge.cpp PROPERTIES COMPILE_FLAGS "/MP1")
 
 # Library directories
 set(OpenCV_DIR "")
@@ -58,6 +66,9 @@ unset(__f)
 
 find_package(OpenCV REQUIRED)
 
+get_filename_component(OpenCV_BINARY_DIR "${OpenCV_DIR}/x64/vc15/bin" REALPATH)
+file(TO_NATIVE_PATH "${OpenCV_BINARY_DIR}" OpenCV_BINARY_DIR)
+
 target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS})
 
 set(OpenCV_DLLVERSION "${OpenCV_VERSION_MAJOR}${OpenCV_VERSION_MINOR}${OpenCV_VERSION_PATCH}")
@@ -68,24 +79,28 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
   DEBUG_POSTFIX "${OpenCV_DEBUG_POSTFIX}"
   COMPILE_PDB_NAME "${PROJECT_NAME}${OpenCV_DLLVERSION}"
   COMPILE_PDB_NAME_DEBUG "${PROJECT_NAME}${OpenCV_DLLVERSION}${OpenCV_DEBUG_POSTFIX}"
+  VS_DEBUGGER_ENVIRONMENT "PATH=${OpenCV_BINARY_DIR};%PATH%"
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC "src")
 target_include_directories(${PROJECT_NAME} PUBLIC "generated")
 target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.dir/${CMAKE_CFG_INTDIR}")
 
-get_filename_component(OpenCV_BINARY_DIR "${OpenCV_DIR}/x64/vc15/bin" REALPATH)
-file(TO_NATIVE_PATH "${OpenCV_BINARY_DIR}" OpenCV_BINARY_DIR)
-
-set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DEBUGGER_ENVIRONMENT "PATH=${OpenCV_BINARY_DIR};%PATH%")
-
+# ===============
+# cpp_test target
+# ===============
 file(GLOB test_files "./test/*.h*" "./test/*.cpp")
 
 add_executable (cpp_test ${test_files})
-target_link_libraries (cpp_test ${PROJECT_NAME})
-set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT cpp_test)
 
 get_filename_component(OPENCV_SAMPLES_DATA_PATH "../samples/data" REALPATH)
 file(TO_NATIVE_PATH "${OPENCV_SAMPLES_DATA_PATH}" OPENCV_SAMPLES_DATA_PATH)
 
+target_precompile_headers(cpp_test PRIVATE
+  "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/test/test.h>"
+)
+set_source_files_properties(./test/test.cpp PROPERTIES COMPILE_FLAGS "/MP1")
+
+target_link_libraries (cpp_test PRIVATE ${PROJECT_NAME} "windowsapp.lib" "dwmapi.lib")
 set_property(TARGET cpp_test PROPERTY VS_DEBUGGER_ENVIRONMENT "PATH=${OpenCV_BINARY_DIR};%PATH%\nOPENCV_SAMPLES_DATA_PATH=${OPENCV_SAMPLES_DATA_PATH}")
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT cpp_test)

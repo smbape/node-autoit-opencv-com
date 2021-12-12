@@ -9,8 +9,6 @@ exports.SIMPLE_ARGTYPE_DEFAULTS = new Map([
 ]);
 
 exports.IDL_TYPES = new Map([
-    ["void*", "VARIANT"],
-    ["uchar*", "VARIANT"],
     ["bool", "VARIANT_BOOL"],
     ["float", "FLOAT"],
     ["int64", "LONGLONG"],
@@ -104,6 +102,13 @@ exports.ALIASES = new Map([
 exports.CLASS_PTR = new Set([
     "cv::cuda::GpuMat",
     "cv::cuda::GpuMat::Allocator",
+]);
+
+exports.PTR = new Set([
+    "void*",
+    "uchar*",
+    "HWND",
+    "cv::wgc::WGCFrameCallback",
 ]);
 
 exports.CUSTOM_CLASSES = [

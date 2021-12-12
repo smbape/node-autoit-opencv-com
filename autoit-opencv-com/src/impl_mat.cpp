@@ -1,4 +1,5 @@
 #include "Cv_Object.h"
+#include "cvextra.h"
 #include <array>
 #include <cstdint>
 #include <numeric>
@@ -216,33 +217,41 @@ namespace Gdiplus {
 
 	public:
 		BitmapLock(
-			Bitmap& bitmap,
+			Bitmap& in_bitmap,
 			IN const Rect* rect,
 			IN UINT flags,
 			IN PixelFormat format
-		) : bitmap_(bitmap) {
-			CV_Assert(bitmap_.LockBits(rect, flags, format, &data) == Ok);
+		) : bitmap(in_bitmap) {
+			CV_Assert(bitmap.LockBits(rect, flags, format, &data) == Ok);
 			isOk = true;
 		}
 
 		BitmapLock(
-			Bitmap& bitmap,
+			Bitmap& in_bitmap,
 			IN UINT flags,
 			IN PixelFormat format
-		) : BitmapLock(bitmap, &Gdiplus::Rect(0, 0, bitmap.GetWidth(), bitmap.GetHeight()), flags, format) {}
+		) : bitmap(in_bitmap) {
+			auto rect = Gdiplus::Rect(0, 0, bitmap.GetWidth(), bitmap.GetHeight());
+			CV_Assert(bitmap.LockBits(&rect, flags, format, &data) == Ok);
+			isOk = true;
+		}
 
 		BitmapLock(
-			Bitmap& bitmap,
+			Bitmap& in_bitmap,
 			IN UINT flags
-		) : BitmapLock(bitmap, &Gdiplus::Rect(0, 0, bitmap.GetWidth(), bitmap.GetHeight()), flags, bitmap.GetPixelFormat()) {}
+		) : bitmap(in_bitmap) {
+			auto rect = Gdiplus::Rect(0, 0, bitmap.GetWidth(), bitmap.GetHeight());
+			CV_Assert(bitmap.LockBits(&rect, flags, bitmap.GetPixelFormat(), &data) == Ok);
+			isOk = true;
+		}
 
 		~BitmapLock() {
 			if (isOk) {
-				CV_Assert(bitmap_.UnlockBits(&data) == Ok);
+				CV_Assert(bitmap.UnlockBits(&data) == Ok);
 			}
 		}
 
-		Bitmap& bitmap_;
+		Bitmap& bitmap;
 		BitmapData data;
 	};
 
@@ -299,17 +308,6 @@ namespace Gdiplus {
 			);
 			CV_Assert(status == Ok);
 
-			{
-				// There is a bug in gdiplus.
-				// When cloned size is the same as original size
-				// a shallow copy is made,
-				// keeping reference to the original data.
-				// As a consquence, if the original data
-				// is destroyed before the cloned data,
-				// the cloned data now have an invalid memory.
-				// BitmapLock(CvBitmap(gpdstBitmap), ImageLockModeRead);
-			}
-
 			return gpdstBitmap;
 		}
 	};
@@ -320,10 +318,9 @@ namespace Gdiplus {
  * @param bitmap
  * @param mat
  * @param copy   use the same data when possible, otherwise, make a copy
- * @param hr
  * @see https://github.com/emgucv/emgucv/blob/4.5.4/Emgu.CV.Platform/Emgu.CV.Bitmap/BitmapExtension.cs#L300
  */
-inline void createMatFromBitmap_(Gdiplus::Bitmap& bitmap, Mat& mat, bool copy, HRESULT& hr) {
+inline void createMatFromBitmap_(Gdiplus::Bitmap& bitmap, Mat& mat, bool copy) {
 	using namespace Gdiplus;
 
 	auto width = bitmap.GetWidth();
@@ -393,10 +390,9 @@ inline void createMatFromBitmap_(Gdiplus::Bitmap& bitmap, Mat& mat, bool copy, H
 	else {
 		cv::error(cv::Error::StsAssert, "Unsupported bitmap format", CV_Func, __FILE__, __LINE__);
 	}
-
 }
 
-const Mat CCv_Object::createMatFromBitmap(void* ptr, bool copy, HRESULT& hr) {
+cv::Mat cv::createMatFromBitmap(void* ptr, bool copy) {
 	using namespace Gdiplus;
 
 	auto nativeBitmap = static_cast<GpBitmap*>(ptr);
@@ -405,7 +401,7 @@ const Mat CCv_Object::createMatFromBitmap(void* ptr, bool copy, HRESULT& hr) {
 	CvBitmap bitmap(nativeBitmap);
 	CV_Assert(bitmap.GetLastStatus() == Ok);
 
-	Mat mat; createMatFromBitmap_(bitmap, mat, copy, hr);
+	Mat mat; createMatFromBitmap_(bitmap, mat, copy);
 
 	// Detach nativeBitmap
 	bitmap.Detach();
@@ -557,7 +553,8 @@ static void RawDataToBitmap(uchar* scan0, size_t step, cv::Size size, int dstCol
 
 	{
 		// Block to ensure unlocks before detach
-		BitmapLock lock(bmp, &Gdiplus::Rect(0, 0, size.width, size.height), ImageLockModeWrite, format);
+		auto rect = Gdiplus::Rect(0, 0, size.width, size.height);
+		BitmapLock lock(bmp, &rect, ImageLockModeWrite, format);
 		BitmapData& data = lock.data;
 		cv::Mat bmpMat(size.height, size.width, CV_MAKETYPE(CV_8U, channels), data.Scan0, data.Stride);
 		Mat srcMat(size.height, size.width, CV_MAKETYPE(srcDepth, channels), scan0, step);
@@ -616,7 +613,8 @@ const void* CCv_Mat_Object::convertToBitmap(bool copy, HRESULT& hr) {
 			bitmap.SetPalette(GenerateGrayscalePalette());
 			{
 				// Block to ensure unlocks before detach
-				BitmapLock lock(bitmap, &Gdiplus::Rect(0, 0, bitmap.GetWidth(), bitmap.GetHeight()), ImageLockModeWrite, PixelFormat8bppIndexed);
+				auto rect = Gdiplus::Rect(0, 0, bitmap.GetWidth(), bitmap.GetHeight());
+				BitmapLock lock(bitmap, &rect, ImageLockModeWrite, PixelFormat8bppIndexed);
 				BitmapData& bitmapData = lock.data;
 				cv::Mat dst(src.size(), CV_8UC1, bitmapData.Scan0, bitmapData.Stride);
 				src.copyTo(dst);
@@ -650,7 +648,7 @@ const Mat CCv_Mat_Object::GdiplusResize(float newWidth, float newHeight, int int
 	CV_Assert(hBmpCtxt.SetInterpolationMode(static_cast<Gdiplus::InterpolationMode>(interpolation)) == Ok);
 	CV_Assert(hBmpCtxt.DrawImage(&bitmap, 0.0, 0.0, newWidth, newHeight) == Ok);
 
-	Mat mat; createMatFromBitmap_(hBitmap, mat, true, hr);
+	Mat mat; createMatFromBitmap_(hBitmap, mat, true);
 
 	return mat.clone();
 }

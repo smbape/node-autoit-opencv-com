@@ -30,7 +30,7 @@ module.exports = (header = [], impl = []) => {
 
             HRESULT hr = S_OK;
 
-            CComSafeArray<VARIANT> vArray;
+            typename ATL::template CComSafeArray<VARIANT> vArray;
             vArray.Attach(V_ARRAY(in_val));
 
             LONG lLower = vArray.GetLowerBound();
@@ -97,7 +97,7 @@ module.exports = (header = [], impl = []) => {
 
             HRESULT hr = S_OK;
 
-            CComSafeArray<VARIANT> vArray;
+            typename ATL::template CComSafeArray<VARIANT> vArray;
             vArray.Attach(V_ARRAY(in_val));
 
             LONG lLower = vArray.GetLowerBound();
@@ -132,7 +132,7 @@ module.exports = (header = [], impl = []) => {
         const HRESULT autoit_opencv_from(const cv::Vec<_Tp, cn>& in_val, VARIANT*& out_val) {
             if (${ optional.condition("out_val") }) {
                 V_VT(out_val) = VT_ARRAY | VT_VARIANT;
-                CComSafeArray<VARIANT> vArray((ULONG) cn);
+                typename ATL::template CComSafeArray<VARIANT> vArray((ULONG) cn);
                 V_ARRAY(out_val) = vArray.Detach();
             }
 
@@ -142,7 +142,7 @@ module.exports = (header = [], impl = []) => {
 
             HRESULT hr = S_OK;
 
-            CComSafeArray<VARIANT> vArray;
+            typename ATL::template CComSafeArray<VARIANT> vArray;
             vArray.Attach(V_ARRAY(out_val));
             vArray.Resize(cn);
 

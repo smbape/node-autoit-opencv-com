@@ -309,8 +309,6 @@ EndFunc   ;==>_OpenCV_SetControlPic
 Func _OpenCV_GetHBITMAP($img, $iChannels = Default)
 	If $iChannels == Default Then $iChannels = 3
 
-	Local Const $cv = _OpenCV_get()
-
 	Local $iWidth = $img.width
 	Local $iHeight = $img.height
 
@@ -319,7 +317,7 @@ Func _OpenCV_GetHBITMAP($img, $iChannels = Default)
 
 	$tBIHDR.biSize = DllStructGetSize($tBIHDR)
 	$tBIHDR.biWidth = $iWidth
-	$tBIHDR.biHeight = $iHeight
+	$tBIHDR.biHeight = -$iHeight
 	$tBIHDR.biPlanes = 1
 	$tBIHDR.biBitCount = $iChannels * 8
 	$tBIHDR.biCompression = $BI_RGB
@@ -330,8 +328,7 @@ Func _OpenCV_GetHBITMAP($img, $iChannels = Default)
 	Local $hDIB = _WinAPI_CreateDIBSection(_WinAPI_GetDesktopWindow(), $tBITMAPINFO, $DIB_RGB_COLORS, $pBits)
 	Local $dst = _OpenCV_ObjCreate("cv.Mat").create($img.rows, $img.cols, CV_MAKETYPE($CV_8U, $iChannels), $pBits, BitAND($img.cols * $iChannels + 3, -4))
 	$img.convertToShow($dst)
-
-	$cv.flip($dst, 0, $dst)
+	; ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : CreateDIBSection ' & TimerDiff($hTimer) & ' ms' & @CRLF) ;### Debug Console
 
 	Return $hDIB
 EndFunc   ;==>_OpenCV_GetHBITMAP
@@ -344,27 +341,71 @@ EndFunc   ;==>_OpenCV_imshow_ControlPic
 ; #FUNCTION# ====================================================================================================================
 ; Name ..........: _OpenCV_GetDesktopScreenBits
 ; Description ...: Get the screen color bytes
-; Syntax ........: _OpenCV_GetDesktopScreenBits(Byref $aRect)
+; Syntax ........: _OpenCV_GetDesktopScreenBits($aRect[, $iChannels = 4])
 ; Parameters ....: $aRect               - [in] an array [left, top, width, height]
-;                  $iChannels           - [in] number of channels (3, 4). Default is 3
+;                  $iChannels           - [in] number of channels (3, 4). Default is 4
 ; Return values .: a byte[] struct of ABRG colors of the screen. Can be used as data for an opencv matrix
 ; Author ........: Stéphane MBAPE
 ; Modified ......:
 ; ===============================================================================================================================
 Func _OpenCV_GetDesktopScreenBits($aRect, $iChannels = Default)
 	If $iChannels == Default Then $iChannels = 4
+	Return __OpenCV_GetDesktopScreenCapture($aRect, $iChannels, "__OpenCV_HandleScreenBitsClone")
+EndFunc   ;==>_OpenCV_GetDesktopScreenBits
 
+Func __OpenCV_HandleScreenBitsClone(Const ByRef $pBits, Const ByRef $iWidth, Const ByRef $iHeight, Const ByRef $iChannels)
+	Local $iSize = $iWidth * $iHeight * $iChannels
+	Local $tBits = DllStructCreate('byte value[' & $iSize & ']')
+	_OpenCV_DllCall("msvcrt.dll", "ptr", "memcpy_s", "struct*", $tBits, "ulong_ptr", $iSize, "ptr", $pBits, "ulong_ptr", $iSize)
+	Return $tBits
+EndFunc   ;==>__OpenCV_HandleScreenBitsClone
+
+; #FUNCTION# ====================================================================================================================
+; Name ..........: _OpenCV_GetDesktopScreenMat
+; Description ...: Get the screen image mat
+; Syntax ........: _OpenCV_GetDesktopScreenMat($aRect[, $iChannels = 3])
+; Parameters ....: $aRect               - [in] an array [left, top, width, height]
+;                  $iChannels           - [in] number of channels (3, 4). Default is 3
+; Return values .: an opencv matrix
+; Author ........: Stéphane MBAPE
+; Modified ......:
+; Remarks .......: https://github.com/opencv/opencv/blob/4.5.4/modules/highgui/src/window_w32.cpp#L1407
+; ===============================================================================================================================
+Func _OpenCV_GetDesktopScreenMat($aRect, $iChannels = Default)
+	If $iChannels == Default Then $iChannels = 3
+	Return __OpenCV_GetDesktopScreenCapture($aRect, $iChannels, "__OpenCV_HandleScreenBitsMat")
+EndFunc   ;==>_OpenCV_GetDesktopScreenMat
+
+Func __OpenCV_HandleScreenBitsMat(Const ByRef $pBits, Const ByRef $iWidth, Const ByRef $iHeight, Const ByRef $iChannels)
+	; $pBits will be unallacoted when _WinAPI_DeleteObject will be called.
+	; To be able to preserve the data,
+	; copy $pBits before unallocation
+	Local $iType = CV_MAKETYPE($CV_8U, $iChannels)
+	Local $iStep = BitAND($iWidth * $iChannels + 3, -4)
+	Local $dst = _OpenCV_ObjCreate("cv.Mat").create($iHeight, $iWidth, $iType, $pBits, $iStep)
+	Return $dst.clone()
+EndFunc   ;==>__OpenCV_HandleScreenBitsMat
+
+; #FUNCTION# ====================================================================================================================
+; Name ..........: __OpenCV_GetDesktopScreenCapture
+; Description ...: Get the screen color bytes
+; Syntax ........: __OpenCV_GetDesktopScreenCapture(ByRef $aRect, ByRef $iChannels, ByRef $sCallback)
+; Parameters ....: $aRect               - [in] an array [left, top, width, height]
+;                  $iChannels           - [in] number of channels
+;                  $sCallback           - [in] callback called with ($pBits, $iWidth, $iHeight, $iChannels)
+; Return values .: The result of the callback
+; Author ........: Stéphane MBAPE
+; Modified ......:
+; ===============================================================================================================================
+Func __OpenCV_GetDesktopScreenCapture(Const ByRef $aRect, Const ByRef $iChannels, Const $sCallback)
 	Local $iLeft = $aRect[0]
 	Local $iTop = $aRect[1]
 	Local $iWidth = $aRect[2]
 	Local $iHeight = $aRect[3]
-	Local $iSize = $iWidth * $iHeight * $iChannels
-
-	Local $tBits = DllStructCreate('byte value[' & $iSize & ']')
 
 	Local $hWnd = _WinAPI_GetDesktopWindow()
-	Local $hDesktopDC = _WinAPI_GetDC($hWnd)
-	Local $hMemoryDC = _WinAPI_CreateCompatibleDC($hDesktopDC) ;create compatible memory DC
+	Local $hSrcDC = _WinAPI_GetDC($hWnd)
+	Local $hDstDC = _WinAPI_CreateCompatibleDC($hSrcDC)
 
 	Local $tBITMAPINFO = DllStructCreate($tagBITMAPINFO)
 	Local $tBIHDR = DllStructCreate($tagBITMAPINFOHEADER, DllStructGetPtr($tBITMAPINFO))
@@ -376,72 +417,20 @@ Func _OpenCV_GetDesktopScreenBits($aRect, $iChannels = Default)
 	$tBIHDR.biCompression = $BI_RGB
 
 	Local $pBits
-	Local $hPrevObject = _WinAPI_SelectObject($hMemoryDC, _WinAPI_CreateDIBSection($hWnd, $tBITMAPINFO, $DIB_RGB_COLORS, $pBits))
-
-	_WinAPI_BitBlt($hMemoryDC, 0, 0, $iWidth, $iHeight, $hDesktopDC, $iLeft, $iTop, $SRCCOPY)
-
-	; $pBits will be unallacoted when _WinAPI_DeleteObject will be called
-	; to be able to preserve the values,
-	; keep the values in our own allocated memory
-	_OpenCV_DllCall("msvcrt.dll", "ptr", "memcpy_s", "struct*", $tBits, "ulong_ptr", $iSize, "ptr", $pBits, "ulong_ptr", $iSize)
-
-	_WinAPI_DeleteObject(_WinAPI_SelectObject($hMemoryDC, $hPrevObject))
-	_WinAPI_DeleteDC($hMemoryDC)
-	_WinAPI_ReleaseDC($hWnd, $hDesktopDC)
-
-	Return $tBits
-EndFunc   ;==>_OpenCV_GetDesktopScreenBits
-
-; #FUNCTION# ====================================================================================================================
-; Name ..........: _OpenCV_GetDesktopScreenMat
-; Description ...: Get the screen image mat
-; Syntax ........: _OpenCV_GetDesktopScreenMat(Byref $aRect)
-; Parameters ....: $aRect               - [in] an array [left, top, width, height]
-;                  $iChannels           - [in] number of channels (3, 4). Default is 3
-; Return values .: an opencv matrix
-; Author ........: Stéphane MBAPE
-; Modified ......:
-; Remarks .......: https://github.com/opencv/opencv/blob/4.5.4/modules/highgui/src/window_w32.cpp#L1407
-; ===============================================================================================================================
-Func _OpenCV_GetDesktopScreenMat($aRect, $iChannels = Default)
-	If $iChannels == Default Then $iChannels = 3
-
-	Local Const $cv = _OpenCV_get()
-
-	Local $iLeft = $aRect[0]
-	Local $iTop = $aRect[1]
-	Local $iWidth = $aRect[2]
-	Local $iHeight = $aRect[3]
-
-	Local $hWnd = _WinAPI_GetDesktopWindow()
-	Local $hDesktopDC = _WinAPI_GetDC($hWnd)
-	Local $hMemoryDC = _WinAPI_CreateCompatibleDC($hDesktopDC) ;create compatible memory DC
-
-	Local $tBITMAPINFO = DllStructCreate($tagBITMAPINFO)
-	Local $tBIHDR = DllStructCreate($tagBITMAPINFOHEADER, DllStructGetPtr($tBITMAPINFO))
-	$tBIHDR.biSize = DllStructGetSize($tBIHDR)
-	$tBIHDR.biWidth = $iWidth
-	$tBIHDR.biHeight = $iHeight
-	$tBIHDR.biPlanes = 1
-	$tBIHDR.biBitCount = $iChannels * 8
-	$tBIHDR.biCompression = $BI_RGB
-
-	Local $pBits
-	Local $hPrevObject = _WinAPI_SelectObject($hMemoryDC, _WinAPI_CreateDIBSection($hWnd, $tBITMAPINFO, $DIB_RGB_COLORS, $pBits))
+	Local $hPrevDstObject = _WinAPI_SelectObject($hDstDC, _WinAPI_CreateDIBSection($hDstDC, $tBITMAPINFO, $DIB_RGB_COLORS, $pBits))
 
 	; Local $hTimer = TimerInit()
-	_WinAPI_BitBlt($hMemoryDC, 0, 0, $iWidth, $iHeight, $hDesktopDC, $iLeft, $iTop, $SRCCOPY)
+	_WinAPI_BitBlt($hDstDC, 0, 0, $iWidth, $iHeight, $hSrcDC, $iLeft, $iTop, $SRCCOPY)
 	; ConsoleWrite("_WinAPI_BitBlt took " & TimerDiff($hTimer) & "ms" & @CRLF)
 
-	Local $dst = _OpenCV_ObjCreate("cv.Mat").create($iHeight, $iWidth, CV_MAKETYPE($CV_8U, $iChannels), $pBits, BitAND($iWidth * $iChannels + 3, -4)) ;
-	$dst = $cv.flip($dst, 0)
+	Local $vRes = Call($sCallback, $pBits, $iWidth, $iHeight, $iChannels)
 
-	_WinAPI_DeleteObject(_WinAPI_SelectObject($hMemoryDC, $hPrevObject))
-	_WinAPI_DeleteDC($hMemoryDC)
-	_WinAPI_ReleaseDC($hWnd, $hDesktopDC)
+	_WinAPI_DeleteObject(_WinAPI_SelectObject($hDstDC, $hPrevDstObject))
+	_WinAPI_DeleteDC($hDstDC)
+	_WinAPI_ReleaseDC($hWnd, $hSrcDC)
 
-	Return $dst
-EndFunc   ;==>_OpenCV_GetDesktopScreenMat
+	Return $vRes
+EndFunc   ;==>__OpenCV_GetDesktopScreenCapture
 
 ; #FUNCTION# ====================================================================================================================
 ; Name ..........: _OpenCV_GetDesktopScreenRect
@@ -948,7 +937,7 @@ EndFunc   ;==>_OpenCV_VectorSort
 ; #FUNCTION# ====================================================================================================================
 ; Name ..........: _OpenCV_Sort
 ; Description ...: Sort a collection using a custom comapator, getter, setter
-; Syntax ........: _OpenCV_ArraySort(Byref $aArray[, $sCompare = Default[, $iOrder = Default[, $iStart = Default[,
+; Syntax ........: _OpenCV_ArraySort(ByRef $aArray[, $sCompare = Default[, $iOrder = Default[, $iStart = Default[,
 ;                  $iEnd = Default]]]])
 ; Parameters ....: $aArray              - [in/out] array to sort.
 ;                  $sGetSize            - [optional] get size function. Default is array UBound
@@ -981,7 +970,7 @@ EndFunc   ;==>_OpenCV_Sort
 ; #FUNCTION# ====================================================================================================================
 ; Name ..........: __OpenCV_QuickSort
 ; Description ...: Helper function for sorting collections
-; Syntax ........: __OpenCV_QuickSort(Byref $aArray, Const Byref $sCompare, Const Byref $iStart, Const Byref $iEnd)
+; Syntax ........: __OpenCV_QuickSort(ByRef $aArray, Const ByRef $sCompare, Const ByRef $iStart, Const ByRef $iEnd)
 ; Parameters ....: $aArray              - [in/out] array to sort.
 ;                  $sGetter             - [in/out and const] getter function.
 ;                  $sSetter             - [in/out and const] setter function.

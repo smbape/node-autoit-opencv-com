@@ -30,6 +30,7 @@ const {
     IGNORED_CLASSES,
     ARRAY_CLASSES,
     ARRAYS_CLASSES,
+    PTR,
 } = require("./constants");
 
 const CoClass = require("./CoClass");
@@ -72,6 +73,8 @@ class AutoItGenerator {
                 this.add_func(decl);
             }
         }
+
+        this.add_vector("vector__variant_t", {});
 
         for (const fqn of IGNORED_CLASSES) {
             if (this.classes.has(fqn)) {
@@ -178,7 +181,7 @@ class AutoItGenerator {
 
                     STDMETHODIMP C${ cotype }::put_self(ULONGLONG ptr) {
                         if (this->__self) {
-                            this->__self->reset(reinterpret_cast<${ coclass.fqn }*>(ptr));
+                            *this->__self = cv::Ptr<${ coclass.fqn }>(cv::Ptr<${ coclass.fqn }>{}, reinterpret_cast<${ coclass.fqn }*>(ptr));
                             return S_OK;
                         }
                         return E_FAIL;
@@ -484,7 +487,7 @@ class AutoItGenerator {
                             }
 
                             if (is_vector) {
-                                cvt_body += ` else if((V_VT(${ in_val }) & VT_ARRAY) == VT_ARRAY && (V_VT(${ in_val }) ^ VT_ARRAY) == VT_VARIANT) {
+                                cvt_body += ` else if ((V_VT(${ in_val }) & VT_ARRAY) == VT_ARRAY && (V_VT(${ in_val }) ^ VT_ARRAY) == VT_VARIANT) {
                                     hr = autoit_opencv_to(${ in_val }, ${ placeholder_name });
                                     if (FAILED(hr)) {
                                         printf("unable to read argument ${ j } of type %hu into ${ cpptype }\\n", V_VT(${ in_val }));
@@ -493,7 +496,7 @@ class AutoItGenerator {
                                     ${ is_scalar_variant } = true;
                                 }`.replace(/^ {32}/mg, "");
                             } else {
-                                cvt_body += ` else if(is_variant_scalar(${ in_val })) {
+                                cvt_body += ` else if (is_variant_scalar(${ in_val })) {
                                     ${ scalar_pointer }.reset(new cv::Scalar());
                                     hr = autoit_opencv_to(${ in_val }, *${ scalar_pointer }.get());
                                     if (FAILED(hr)) {
@@ -513,7 +516,9 @@ class AutoItGenerator {
                                 }`.replace(/^ {32}/mg, "");
                             }
 
-                            cvt_body += `\n\nauto& ${ argname } = ${ set_from_pointer } ? *${ pointer }.get() : _${ arrtype }(${ placeholder_name });`;
+                            cvt_body += "\n";
+                            cvt_body += `\n_${ arrtype } _${ placeholder_name }(${ placeholder_name });`;
+                            cvt_body += `\nauto& ${ argname } = ${ set_from_pointer } ? *${ pointer }.get() : _${ placeholder_name };`;
 
                             cvt.push(...cvt_body.trim().split("\n"));
                         } else if (is_vector && !has_ptr) {
@@ -521,7 +526,7 @@ class AutoItGenerator {
                                 auto* ${ pointer } = &${ placeholder_name };
 
                                 if (V_VT(${ in_val }) == VT_DISPATCH) {
-                                    auto obj = dynamic_cast<TypeToImplType<${ cpptype }>::type*>(getRealIDispatch(${ in_val }));
+                                    const auto& obj = dynamic_cast<TypeToImplType<${ cpptype }>::type*>(getRealIDispatch(${ in_val }));
                                     if (!obj) {
                                         printf("unable to read argument ${ j } of type %hu into ${ cpptype }\\n", V_VT(${ in_val }));
                                         return E_INVALIDARG;
@@ -551,6 +556,8 @@ class AutoItGenerator {
                                 auto& ${ argname } = SUCCEEDED(hr) ? *${ pointer } : ${ placeholder_name };
                                 hr = S_OK;
                             `.replace(/^ {32}/mg, "").trim().split("\n"));
+                        } else if (cpptype === "_variant_t") {
+                            cvt.push(`${ argname } = *${ in_val };`);
                         } else {
                             cvt.push(...`
                                 hr = autoit_opencv_to(${ in_val }, ${ argname });
@@ -561,7 +568,9 @@ class AutoItGenerator {
                             `.replace(/^ {32}/mg, "").trim().split("\n"));
                         }
 
-                        if (is_array) {
+                        if (argtype === "_variant_t") {
+                            conditions[j] = is_optional ? "true" : `!PARAMETER_MISSING(${ in_val })`;
+                        } else if (is_array) {
                             conditions[j] = `(is_array${ is_vector ? "s" : "" }_from(${ in_val }, ${ is_optional })`;
                             conditions[j] += `|| is_assignable_from(${ placeholder_name }, ${ in_val }, ${ is_optional }))`;
                         } else {
@@ -704,24 +713,27 @@ class AutoItGenerator {
                         ].filter(text => text !== null).join(" ") }(${ list_of_arguments.map(([argtype, argname]) => {
                             const idltype = this.getIDLType(argtype, include);
                             const cpptype = this.getCppType(argtype, include);
-                            const byref = cpptype !== "void*" && cpptype !== "uchar*" && (idltype === "VARIANT" || idltype[0] === "I");
+                            const byref = !PTR.has(cpptype) && (idltype === "VARIANT" || idltype[0] === "I");
                             return `${ cpptype }${ byref ? "&" : "" } ${ argname }`;
                         }).concat(["HRESULT& hr"]).join(", ") });`);
                     }
 
                     if (return_value_type !== "void") {
-                        if (return_value_type === "void*" || return_value_type === "uchar*") {
+                        const idltype = this.getIDLType(return_value_type, include);
+                        const cpptype = this.getCppType(return_value_type, include);
+
+                        if (PTR.has(cpptype)) {
                             callee = `reinterpret_cast<ULONGLONG>(${ callee })`;
                         }
 
                         if (is_external) {
                             const idltype = this.getIDLType(return_value_type, include);
                             const cpptype = this.getCppType(return_value_type, include);
-                            const byref = cpptype !== "void*" && cpptype !== "uchar*" && (idltype === "VARIANT" || idltype[0] === "I");
+                            const byref = !PTR.has(cpptype) && (idltype === "VARIANT" || idltype[0] === "I");
 
                             const ebody = cindent + `
                                 {
-                                    auto ${ byref ? "&" : "" }tmp = ${ callee };
+                                    const auto${ byref ? "&" : "" } tmp = ${ callee };
                                     if (FAILED(hr)) {
                                         return hr;
                                     }
@@ -1226,7 +1238,6 @@ class AutoItGenerator {
                 #include <OleAuto.h>
                 #include <string>
                 #include <comutil.h>
-                #include <codecvt>
                 #include "generated_include.h"
 
                 using namespace cv;
@@ -1714,6 +1725,7 @@ class AutoItGenerator {
         const fqn = cpptype
             .replace(/std::vector/g, "VectorOf")
             .replace(/\w+::/g, "")
+            .replace("_variant_t", "Variant")
             .replace(/\b[a-z]/g, m => m.toUpperCase())
             .replace(/[<>]/g, "");
 
@@ -1888,7 +1900,7 @@ class AutoItGenerator {
             return set_hr ? cvt : `${ cvt }\nreturn S_OK;`;
         }
 
-        if ((in_type === "void*" || in_type === "uchar*") && out_type === "VARIANT") {
+        if (PTR.has(in_type) && out_type === "VARIANT") {
             const cvt = `
                 V_VT(${ out_val }) = VT_UI8;
                 V_UI8(${ out_val }) = reinterpret_cast<ULONGLONG>(${ in_val });
@@ -1956,7 +1968,7 @@ class AutoItGenerator {
                 return "LONG";
             }
 
-            if (/^cv::(?:Point|Rect|Scalar|Size|Vec)(?:\d[bdfisw])?$/.test(fqn)) {
+            if (PTR.has(fqn) || /^cv::(?:Point|Rect|Scalar|Size|Vec)(?:\d[bdfisw])?$/.test(fqn)) {
                 return "VARIANT";
             }
 
@@ -1978,6 +1990,10 @@ class AutoItGenerator {
     }
 
     getCppType(type, coclass) {
+        if (type === "_variant_t") {
+            return type;
+        }
+
         if (type.startsWith("Ptr_")) {
             return `cv::Ptr<${ this.getCppType(type.slice("Ptr_".length), coclass) }>`;
         }

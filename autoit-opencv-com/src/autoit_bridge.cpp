@@ -183,9 +183,12 @@ const HRESULT autoit_opencv_from(std::string& in_val, BSTR& out_val) {
 
 const HRESULT autoit_opencv_from(const std::string& in_val, BSTR*& out_val) {
 	// assuming strings are utf8 encoded
+	// https://stackoverflow.com/a/59617138
+	int count = MultiByteToWideChar(CP_UTF8, 0, in_val.c_str(), in_val.length(), NULL, 0);
+	std::wstring ws(count, 0);
+	MultiByteToWideChar(CP_UTF8, 0, in_val.c_str(), in_val.length(), &ws[0], count);
+
 	// https://stackoverflow.com/a/6284978
-	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-	std::wstring ws = converter.from_bytes(in_val);
 	*out_val = SysAllocStringLen(ws.data(), ws.size());
 	return S_OK;
 }
@@ -226,7 +229,8 @@ const HRESULT autoit_opencv_to(VARIANT const* const& in_val, char*& out_val) {
 	return hr;
 }
 
-const bool is_assignable_from(void*& out_val, VARIANT const* const& in_val, bool is_optional) {
+template<typename T>
+inline const bool is_assignable_from_ptr(T& out_val, VARIANT const* const& in_val, bool is_optional) {
 	if (is_variant_number(in_val)) {
 		return true;
 	}
@@ -241,48 +245,45 @@ const bool is_assignable_from(void*& out_val, VARIANT const* const& in_val, bool
 	}
 }
 
-const HRESULT autoit_opencv_to(VARIANT const* const& in_val, void*& out_val) {
+template<typename T>
+inline const HRESULT autoit_opencv_to_ptr(VARIANT const* const& in_val, T& out_val) {
 	ULONGLONG _out_val = 0;
 	HRESULT hr = get_variant_number<ULONGLONG>(in_val, _out_val);
 	if (FAILED(hr) || PARAMETER_MISSING(in_val)) {
 		return hr;
 	}
 
-	out_val = reinterpret_cast<void*>(_out_val);
+	out_val = reinterpret_cast<T>(_out_val);
 	return hr;
 }
 
-const bool is_assignable_from(uchar*& out_val, VARIANT const* const& in_val, bool is_optional) {
-	if (is_variant_number(in_val)) {
-		return true;
-	}
-
-	switch (V_VT(in_val)) {
-		case VT_EMPTY:
-			return true;
-		case VT_ERROR:
-			return V_ERROR(in_val) == DISP_E_PARAMNOTFOUND && is_optional;
-		default:
-			return false;
-	}
-}
-
-const HRESULT autoit_opencv_to(VARIANT const* const& in_val, uchar*& out_val) {
-	ULONGLONG _out_val = 0;
-	HRESULT hr = get_variant_number<ULONGLONG>(in_val, _out_val);
-	if (FAILED(hr) || PARAMETER_MISSING(in_val)) {
-		return hr;
-	}
-
-	out_val = reinterpret_cast<uchar*>(_out_val);
-	return hr;
-}
-
-const HRESULT autoit_opencv_from(uchar const* const& in_val, VARIANT*& out_val) {
+template<typename T>
+inline const HRESULT autoit_opencv_from_ptr(T const& in_val, VARIANT*& out_val) {
 	V_VT(out_val) = VT_UI8;
 	V_UI8(out_val) = reinterpret_cast<ULONGLONG>(in_val);
 	return S_OK;
 }
+
+#define PTR_BRIDGE_IMPL(T) \
+\
+const bool is_assignable_from(T& out_val, VARIANT const* const& in_val, bool is_optional) { \
+	return is_assignable_from_ptr(out_val, in_val, is_optional); \
+} \
+\
+const HRESULT autoit_opencv_to(VARIANT const* const& in_val, T& out_val) { \
+	return autoit_opencv_to_ptr(in_val, out_val); \
+} \
+\
+const HRESULT autoit_opencv_from(T const& in_val, VARIANT*& out_val) { \
+	return autoit_opencv_from_ptr(in_val, out_val); \
+}
+
+PTR_BRIDGE_IMPL(void*)
+PTR_BRIDGE_IMPL(uchar*)
+PTR_BRIDGE_IMPL(HWND)
+PTR_BRIDGE_IMPL(cv::wgc::WGCFrameCallback)
+
+#undef PTR_BRIDGE_IMPL
 
 const HRESULT autoit_opencv_from(cv::MatExpr& in_val, ICv_Mat_Object**& out_val) {
 	return autoit_opencv_from(cv::Mat(in_val), out_val);
@@ -531,7 +532,8 @@ const bool is_assignable_from(cv::flann::IndexParams& out_val, VARIANT*& in_val,
 }
 
 const bool is_assignable_from(cv::Ptr<cv::flann::SearchParams>& out_val, VARIANT*& in_val, bool is_optional) {
-	return is_assignable_from(static_cast<cv::Ptr<cv::flann::IndexParams>>(out_val), in_val, is_optional);
+	auto _out_val = static_cast<cv::Ptr<cv::flann::IndexParams>>(out_val);
+	return is_assignable_from(_out_val, in_val, is_optional);
 }
 
 const HRESULT autoit_opencv_to(VARIANT*& in_val, cv::Ptr<cv::flann::IndexParams>& out_val) {
@@ -557,7 +559,8 @@ const HRESULT autoit_opencv_to(VARIANT*& in_val, cv::Ptr<cv::flann::IndexParams>
 }
 
 const HRESULT autoit_opencv_to(VARIANT*& in_val, cv::Ptr<cv::flann::SearchParams>& out_val) {
-	return autoit_opencv_to(in_val, static_cast<cv::Ptr<cv::flann::IndexParams>>(out_val));
+	auto _out_val = static_cast<cv::Ptr<cv::flann::IndexParams>>(out_val);
+	return autoit_opencv_to(in_val, _out_val);
 }
 
 const HRESULT autoit_opencv_to(VARIANT const* const& in_val, cv::flann::IndexParams& out_val) {
@@ -671,4 +674,13 @@ const HRESULT autoit_opencv_to(VARIANT const* const& in_val, cv::flann::IndexPar
 	}
 
 	return hr;
+}
+
+const bool is_assignable_from(_variant_t& out_val, VARIANT const* const& in_val, bool is_optional) {
+	return is_optional || !PARAMETER_MISSING(in_val);
+}
+
+const HRESULT autoit_opencv_to(VARIANT const* const& in_val, _variant_t& out_val) {
+	out_val = *in_val;
+	return S_OK;
 }

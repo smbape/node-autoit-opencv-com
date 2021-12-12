@@ -1,38 +1,27 @@
-#ifndef NOMINMAX
-#define NOMINMAX
-#endif
-
-#ifndef STRICT
-#define STRICT
-#endif
+#include "test.h"
+#include <semaphore>
 
 #import "cvLib.tlb"
 
-#include <atlbase.h>
-#include <atlcom.h>
-#include <atlctl.h>
-#include <atlsafe.h>
-#include <iostream>
-#include <OleAuto.h>
-#include <string>
-#include <comutil.h>
-#include <codecvt>
-#include <assert.h>
-#include <windows.h>
-#include <dshow.h>
-#include <locale>
-#include <codecvt>
-#include <string>
-#include <gdiplus.h>
-#include "generated_include.h"
+template<typename T>
+inline auto to_variant_t(const T& in_val) {
+	return cv::Ptr<_variant_t>(new _variant_t(in_val));
+}
 
-#pragma comment(lib, "strmiids")
-#pragma comment(lib, "gdiplus.lib")
+/**
+ * @param  str std::string
+ * @return     std::wstring
+ * @see https://stackoverflow.com/a/59617138
+ */
+inline auto ConvertUtf8ToWide(const std::string& str) {
+	int count = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), str.length(), NULL, 0);
+	std::wstring wstr(count, 0);
+	MultiByteToWideChar(CP_UTF8, 0, str.c_str(), str.length(), &wstr[0], count);
+	return wstr;
+}
 
 void string_to_bstr(const std::string& in_val, _bstr_t& out_val) {
-	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-	std::wstring ws = converter.from_bytes(in_val);
-
+	std::wstring ws = ConvertUtf8ToWide(in_val);
 	BSTR bstr = SysAllocStringLen(ws.data(), ws.size());
 	out_val = _bstr_t(bstr);
 	SysFreeString(bstr);
@@ -163,11 +152,11 @@ static void assertSplit(_variant_t splitted) {
 
 static cvLib::ICv_Mat_ObjectPtr testRead(cvLib::ICv_ObjectPtr cv, BSTR filename) {
 	// test retval
-	auto mat = cv->imread(&_variant_t(filename));
+	auto mat = cv->imread(to_variant_t(filename));
 
 	// test extended val
 	CComSafeArray<VARIANT> extended;
-	extended.Attach(V_ARRAY(&cv->extended));
+	extended.Attach(V_ARRAY(to_variant_t(cv->extended)));
 
 	// extended should contains only one output value
 	assert(extended.GetCount() == 1);
@@ -194,27 +183,27 @@ static void testSpit(cvLib::ICv_ObjectPtr cv, cvLib::ICv_Mat_ObjectPtr mat) {
 	_variant_t splitted;
 	CComSafeArray<VARIANT> extended;
 
-	splitted = cv->split(&_variant_t(mat.GetInterfacePtr()), &vtEmpty);
+	splitted = cv->split(to_variant_t(mat.GetInterfacePtr()), &vtEmpty);
 
 	// it should not modify out parameter if it is not an array nor & vector
 	assert(V_VT(&vtEmpty) == VT_EMPTY);
 
 	// extended should contains only one output value
-	extended.Attach(V_ARRAY(&cv->extended));
+	extended.Attach(V_ARRAY(to_variant_t(cv->extended)));
 	assert(extended.GetCount() == 1);
 	assertSplit(extended.GetAt(0));
 	extended.Detach();
 
 	assertSplit(splitted);
 
-	splitted = cv->split(&_variant_t(mat.GetInterfacePtr()), &vtDefault);
+	splitted = cv->split(to_variant_t(mat.GetInterfacePtr()), &vtDefault);
 
 	// it should not modify out parameter if it is not an array nor & vector
 	assert(V_VT(&vtDefault) == VT_ERROR);
 	assert(V_ERROR(&vtDefault) == DISP_E_PARAMNOTFOUND);
 
 	// extended should contains only one output value
-	extended.Attach(V_ARRAY(&cv->extended));
+	extended.Attach(V_ARRAY(to_variant_t(cv->extended)));
 	assert(extended.GetCount() == 1);
 	assertSplit(extended.GetAt(0));
 	extended.Detach();
@@ -229,13 +218,13 @@ static void testSpit(cvLib::ICv_ObjectPtr cv, cvLib::ICv_Mat_ObjectPtr mat) {
 	splitted = pDest;
 	VariantClear(pDest);
 
-	cv->split(&_variant_t(mat.GetInterfacePtr()), &splitted);
+	cv->split(to_variant_t(mat.GetInterfacePtr()), &splitted);
 
 	assert((V_VT(&splitted) & VT_ARRAY) == VT_ARRAY);
 	assert((V_VT(&splitted) ^ VT_ARRAY) == VT_VARIANT);
 
 	// extended should contains only one output value
-	extended.Attach(V_ARRAY(&cv->extended));
+	extended.Attach(V_ARRAY(to_variant_t(cv->extended)));
 	assert(extended.GetCount() == 1);
 	assertSplit(extended.GetAt(0));
 	extended.Detach();
@@ -247,11 +236,11 @@ static void testSpit(cvLib::ICv_ObjectPtr cv, cvLib::ICv_Mat_ObjectPtr mat) {
 	assert(SUCCEEDED(hr));
 
 	auto vector_Mat = VectorOfMatPtr->create();
-	cv->split(&_variant_t(mat.GetInterfacePtr()), &_variant_t(vector_Mat.GetInterfacePtr()));
+	cv->split(to_variant_t(mat.GetInterfacePtr()), to_variant_t(vector_Mat.GetInterfacePtr()));
 	assert(vector_Mat->size() == 3);
 
 	for (int i = 0; i < vector_Mat->size(); i++) {
-		auto plane = vector_Mat->at(&_variant_t(i));
+		auto plane = vector_Mat->at(to_variant_t(i));
 		assertMat(plane, 1);
 	}
 }
@@ -266,7 +255,7 @@ static void testAdd(cvLib::ICv_ObjectPtr cv, cvLib::ICv_Mat_ObjectPtr mat) {
 	VARIANT variant = { VT_ARRAY | VT_VARIANT };
 	V_ARRAY(&variant) = safeArray;
 
-	cv->add(&_variant_t(mat->clone().GetInterfacePtr()), &variant);
+	cv->add(to_variant_t(mat->clone().GetInterfacePtr()), &variant);
 
 	VariantClear(&variant);
 }
@@ -275,7 +264,7 @@ static void testResize(cvLib::ICv_ObjectPtr cv) {
 	_bstr_t image_path;
 	// string_to_bstr(samples::findFile("aloeGT.png"), image_path);
 	string_to_bstr(samples::findFile("..\\tutorial_code\\yolo\\scooter-5180947_1920.jpg"), image_path);
-	auto mat = cv->imread(&_variant_t(image_path));
+	auto mat = cv->imread(to_variant_t(image_path));
 
 	float newWidth = 600;
 	float newHeight = 399.6875;
@@ -287,11 +276,11 @@ static void testResize(cvLib::ICv_ObjectPtr cv) {
 	VARIANT variant = { VT_ARRAY | VT_VARIANT };
 	V_ARRAY(&variant) = dsize.Detach();
 
-	cv->resize(&_variant_t(mat->clone().GetInterfacePtr()), &variant);
+	cv->resize(to_variant_t(mat->clone().GetInterfacePtr()), &variant);
 	dsize.Attach(V_ARRAY(&variant));
 	V_ARRAY(&variant) = NULL;
 
-	mat->GdiplusResize(&_variant_t(newWidth), &_variant_t(newHeight), &_variant_t(7));
+	mat->GdiplusResize(to_variant_t(newWidth), to_variant_t(newHeight), to_variant_t(7));
 
 	CComSafeArray<VARIANT> color(4UL);
 	color[0] = 0x1E;
@@ -337,18 +326,18 @@ static void testAKAZE(cvLib::ICv_ObjectPtr cv) {
 	_bstr_t image_path;
 
 	string_to_bstr(samples::findFile("graf1.png"), image_path);
-	auto img1 = cv->imread(&_variant_t(image_path), &_variant_t(IMREAD_GRAYSCALE));
+	auto img1 = cv->imread(to_variant_t(image_path), to_variant_t(IMREAD_GRAYSCALE));
 
 	string_to_bstr(samples::findFile("graf3.png"), image_path);
-	auto img2 = cv->imread(&_variant_t(image_path), &_variant_t(IMREAD_GRAYSCALE));
+	auto img2 = cv->imread(to_variant_t(image_path), to_variant_t(IMREAD_GRAYSCALE));
 
 	assert(V_VT(&variant) == VT_DISPATCH);
 	cvLib::ICv_AKAZE_ObjectPtr akaze;
-	akaze.Attach(static_cast<cvLib::ICv_AKAZE_Object*>(V_DISPATCH(&variant.Detach())));
-	akaze->detectAndCompute(&_variant_t(img1.GetInterfacePtr()), &_variant_t(MatPtr->create().GetInterfacePtr()));
+	akaze.Attach(static_cast<cvLib::ICv_AKAZE_Object*>(V_DISPATCH(to_variant_t(variant.Detach()))));
+	akaze->detectAndCompute(to_variant_t(img1.GetInterfacePtr()), to_variant_t(MatPtr->create().GetInterfacePtr()));
 
 	CComSafeArray<VARIANT> extended;
-	extended.Attach(V_ARRAY(&cv->extended));
+	extended.Attach(V_ARRAY(to_variant_t(cv->extended)));
 	auto kpts1 = extended.GetAt(0);
 	auto desc1 = extended.GetAt(1);
 	extended.Detach();
@@ -376,7 +365,7 @@ static void testAKAZE(cvLib::ICv_ObjectPtr cv) {
 
 	auto vMatched1 = VectorOfKeyPointPtr->create();
 
-	// vMatched1->push_back(&_variant_t(Cv_KeyPointPtr->create().GetInterfacePtr()));
+	// vMatched1->push_back(to_variant_t(Cv_KeyPointPtr->create().GetInterfacePtr()));
 	// assert(vMatched1->size() == 1);
 
 	variant = vMatched1->Getself();
@@ -412,11 +401,11 @@ void testContours(cvLib::ICv_ObjectPtr cv) {
 
 	_bstr_t image_path;
 	string_to_bstr(samples::findFile("pic1.png"), image_path);
-	auto img = cv->imread(&_variant_t(image_path));
-	auto gray = cv->cvtColor(&_variant_t(img.GetInterfacePtr()), &_variant_t(COLOR_BGR2GRAY));
-	auto contours = cv->findContours(&gray, &_variant_t(RETR_EXTERNAL), &_variant_t(CHAIN_APPROX_SIMPLE));
+	auto img = cv->imread(to_variant_t(image_path));
+	auto gray = cv->cvtColor(to_variant_t(img.GetInterfacePtr()), to_variant_t(COLOR_BGR2GRAY));
+	auto contours = cv->findContours(&gray, to_variant_t(RETR_EXTERNAL), to_variant_t(CHAIN_APPROX_SIMPLE));
 
-	// cv->contourArea(&contours->at(&_variant_t(0)));
+	// cv->contourArea(&contours->at(to_variant_t(0)));
 }
 
 static int perform() {
@@ -472,8 +461,8 @@ static int perform() {
 			break;
 		}
 
-		if (cap->read(&_variant_t(frame.GetInterfacePtr())) == VARIANT_TRUE) {
-			extended.Attach(V_ARRAY(&cv->extended));
+		if (cap->read(to_variant_t(frame.GetInterfacePtr())) == VARIANT_TRUE) {
+			extended.Attach(V_ARRAY(to_variant_t(cv->extended)));
 			VariantInit(&variant);
 			hr = extended.GetAt(1).Detach(&variant);
 			assert(SUCCEEDED(hr));
@@ -482,30 +471,47 @@ static int perform() {
 			// in/out version
 			assert(!frame->empty());
 
-			cv->flip(&vframe, &_variant_t(1), &vflipped);
+			cv->flip(&vframe, to_variant_t(1), &vflipped);
 			assert(!flipped->empty());
 
-			cv->imshow(&_variant_t(L"capture camera"), &vflipped);
+			cv->imshow(to_variant_t(L"capture camera"), &vflipped);
 
 			// extended version
 			assert(V_VT(&variant) == VT_DISPATCH);
 			frame.Attach(static_cast<cvLib::ICv_Mat_Object*>(V_DISPATCH(&variant)));
 			assert(!frame->empty());
 
-			flipped = cv->flip(&vframe, &_variant_t(1), &vtDefault);
+			flipped = cv->flip(&vframe, to_variant_t(1), &vtDefault);
 			assert(!flipped->empty());
 			assert(V_VT(&vtDefault) == VT_ERROR);
 			assert(V_ERROR(&vtDefault) == DISP_E_PARAMNOTFOUND);
 
-			cv->imshow(&_variant_t(L"capture camera"), &vflipped);
+			cv->imshow(to_variant_t(L"capture camera"), &vflipped);
 		}
 	}
 
 	return 0;
 }
 
+class Test {
+public:
+	~Test() {
+		std::puts("Test destroyed.");
+	}
+};
+
 int main(int argc, char* argv[])
 {
+	{
+		cv::Ptr<Test> p, q;
+		std::puts("p.reset()...");
+		p.reset(new Test());
+		std::puts("q.reset()...");
+		// q = p;
+		q.reset(p.get(), [](Test*) {}/*No-Op Deleter*/);
+		std::puts("done");
+	}
+
 	using namespace Gdiplus;
 	GdiplusStartupInput gdiplusStartupInput;
 	ULONG_PTR gdiplusToken;

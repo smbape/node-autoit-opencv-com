@@ -1266,5 +1266,17 @@
     "VectorOfVec6d": {
         "iid": "33d54d54-364f-4dcd-bf34-b1d805b3f9d5",
         "clsid": "39a391f8-c193-4da1-865b-6edb2a0bf485"
+    },
+    "cv::wgc": {
+        "iid": "e1c74eb4-de4d-4d5d-943d-7cea6daeb990",
+        "clsid": "a63a65b7-9c48-49ab-b4ab-31a63c45e6c4"
+    },
+    "cv::wgc::SimpleCapture": {
+        "iid": "6afb6c07-c771-4391-8765-0fbe83d6dfa9",
+        "clsid": "c3af726e-9419-45e9-adb7-be32b06c2dfe"
+    },
+    "VectorOfVariant": {
+        "iid": "73be64d1-ae71-4892-93f3-711b9e70833b",
+        "clsid": "58094424-fc35-41af-8676-730f089b15dc"
     }
 }

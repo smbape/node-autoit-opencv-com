@@ -66,7 +66,7 @@ public:
 
 class ExtendedHolder {
 public:
-	static ATL::CComSafeArray<VARIANT> extended;
+	static typename ATL::template CComSafeArray<VARIANT> extended;
 	static HRESULT SetLength(ULONG len);
 	static HRESULT SetAt(LONG i, const VARIANT& value, bool copy = true);
 	static HMODULE hModule;
@@ -92,12 +92,17 @@ extern const HRESULT autoit_opencv_from(BSTR const& in_val, VARIANT*& out_val);
 extern const bool is_assignable_from(char*& out_val, VARIANT const* const& in_val, bool is_optional);
 extern const HRESULT autoit_opencv_to(VARIANT const* const& in_val, char*& out_val);
 
-extern const bool is_assignable_from(void*& out_val, VARIANT const* const& in_val, bool is_optional);
-extern const HRESULT autoit_opencv_to(VARIANT const* const& in_val, void*& out_val);
+#define PTR_BRIDGE_DECL(T) \
+extern const bool is_assignable_from(T& out_val, VARIANT const* const& in_val, bool is_optional); \
+extern const HRESULT autoit_opencv_to(VARIANT const* const& in_val, T& out_val); \
+extern const HRESULT autoit_opencv_from(T const& in_val, VARIANT*& out_val);
 
-extern const bool is_assignable_from(uchar*& out_val, VARIANT const* const& in_val, bool is_optional);
-extern const HRESULT autoit_opencv_to(VARIANT const* const& in_val, uchar*& out_val);
-extern const HRESULT autoit_opencv_from(uchar const* const& in_val, VARIANT*& out_val);
+PTR_BRIDGE_DECL(void*)
+PTR_BRIDGE_DECL(uchar*)
+PTR_BRIDGE_DECL(HWND)
+PTR_BRIDGE_DECL(cv::wgc::WGCFrameCallback)
+
+#undef PTR_BRIDGE_DECL
 
 extern const HRESULT autoit_opencv_from(cv::MatExpr& in_val, ICv_Mat_Object**& out_val);
 
@@ -127,7 +132,7 @@ const bool is_assignable_from(std::vector<_Tp>& out_val, VARIANT const* const& i
 	}
 
 	HRESULT hr = S_OK;
-	CComSafeArray<VARIANT> vArray;
+	typename ATL::template CComSafeArray<VARIANT> vArray;
 	vArray.Attach(V_ARRAY(in_val));
 
 	LONG lLower = vArray.GetLowerBound();
@@ -164,7 +169,7 @@ const HRESULT autoit_opencv_to(VARIANT const* const& in_val, std::vector<_Tp>& o
 	}
 
 	HRESULT hr = S_OK;
-	CComSafeArray<VARIANT> vArray;
+	typename ATL::template CComSafeArray<VARIANT> vArray;
 	vArray.Attach(V_ARRAY(in_val));
 
 	LONG lLower = vArray.GetLowerBound();
@@ -203,7 +208,7 @@ template<typename _Tp>
 const HRESULT autoit_opencv_from(const std::vector<_Tp>& in_val, VARIANT*& out_val) {
 	if (V_VT(out_val) == VT_EMPTY || V_VT(out_val) == VT_ERROR && V_ERROR(out_val) == DISP_E_PARAMNOTFOUND) {
 		V_VT(out_val) = VT_ARRAY | VT_VARIANT;
-		CComSafeArray<VARIANT> vArray((ULONG)0);
+		typename ATL::template CComSafeArray<VARIANT> vArray((ULONG)0);
 		V_ARRAY(out_val) = vArray.Detach();
 	}
 
@@ -212,7 +217,7 @@ const HRESULT autoit_opencv_from(const std::vector<_Tp>& in_val, VARIANT*& out_v
 	}
 
 	HRESULT hr = S_OK;
-	CComSafeArray<VARIANT> vArray;
+	typename ATL::template CComSafeArray<VARIANT> vArray;
 	vArray.Attach(V_ARRAY(out_val));
 
 #pragma warning( push )
@@ -250,7 +255,7 @@ const bool is_assignable_from(std::tuple <_Rest...>& out_val, VARIANT const* con
 		return false;
 	}
 
-	std::tuple<__Rest...> dummy;
+	std::tuple<_Rest...> dummy;
 	return SUCCEEDED(autoit_opencv_to(in_val, dummy));
 }
 
@@ -280,7 +285,7 @@ typename std::enable_if < I < 1 + sizeof...(_Rest), const HRESULT>::type
 		return hr;
 	}
 
-	CComSafeArray<VARIANT> vArray;
+	typename ATL::template CComSafeArray<VARIANT> vArray;
 	vArray.Attach(V_ARRAY(in_val));
 	auto& v = vArray.GetAt(I);
 	auto* pv = &v;
@@ -303,22 +308,22 @@ typename std::enable_if < I < 1 + sizeof...(_Rest), const HRESULT>::type
 
 template<std::size_t I = 0, typename... _Ts>
 typename std::enable_if<I == sizeof...(_Ts), const HRESULT>::type
-autoit_opencv_from(std::tuple<_Ts...>& in_val, VARIANT*& out_val) {
+autoit_opencv_from(const std::tuple<_Ts...>& in_val, VARIANT*& out_val) {
 	V_VT(out_val) = VT_ARRAY | VT_VARIANT;
-	CComSafeArray<VARIANT> vArray((ULONG)I);
+	typename ATL::template CComSafeArray<VARIANT> vArray((ULONG)I);
 	V_ARRAY(out_val) = vArray.Detach();
 	return S_OK;
 }
 
 template<std::size_t I = 0, typename... _Ts>
 typename std::enable_if < I < sizeof...(_Ts), const HRESULT>::type
-	autoit_opencv_from(std::tuple<_Ts...>& in_val, VARIANT*& out_val) {
+	autoit_opencv_from(const std::tuple<_Ts...>& in_val, VARIANT*& out_val) {
 	HRESULT hr = autoit_opencv_from<I + 1, _Ts...>(in_val, out_val);
 	if (FAILED(hr)) {
 		return hr;
 	}
 
-	CComSafeArray<VARIANT> vArray;
+	typename ATL::template CComSafeArray<VARIANT> vArray;
 	vArray.Attach(V_ARRAY(out_val));
 
 	VARIANT value = { VT_EMPTY };
@@ -399,3 +404,6 @@ extern const bool is_assignable_from(cv::flann::IndexParams& out_val, VARIANT*& 
 extern const HRESULT autoit_opencv_to(VARIANT*& in_val, cv::Ptr<cv::flann::IndexParams>& out_val);
 extern const HRESULT autoit_opencv_to(VARIANT*& in_val, cv::Ptr<cv::flann::SearchParams>& out_val);
 extern const HRESULT autoit_opencv_to(VARIANT const* const& in_val, cv::flann::IndexParams& out_val);
+
+extern const bool is_assignable_from(_variant_t& out_val, VARIANT const* const& in_val, bool is_optional);
+extern const HRESULT autoit_opencv_to(VARIANT const* const& in_val, _variant_t& out_val);

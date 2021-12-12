@@ -1,11 +1,13 @@
 /* eslint-disable no-magic-numbers */
 
 const fs = require("fs");
+const fsPromises = require("fs/promises");
 const sysPath = require("path");
 const {spawn} = require("child_process");
 
 const mkdirp = require("mkdirp");
-const series = require("async/series");
+const waterfall = require("async/waterfall");
+const {explore} = require("fs-explorer");
 
 const parseArguments = OUTPUT_DIR => {
     const options = {
@@ -71,9 +73,10 @@ const candidates = fs.readdirSync(sysPath.join(__dirname, "..")).filter(path => 
 });
 
 const OUTPUT_DIR = sysPath.resolve(__dirname, "../autoit-opencv-com");
+const SRC_DIR = sysPath.resolve(__dirname, "../autoit-opencv-com/src");
 
 const python_generator = sysPath.join(OUTPUT_DIR, "opencv_build_x64", "modules", "python_bindings_generator");
-const src2 = sysPath.resolve(__dirname, "..", candidates[0], "opencv", "sources", "modules", "python", "src2");
+const src2 = sysPath.resolve(__dirname, "..", candidates[0], "opencv/sources/modules/python/src2");
 const headers = sysPath.join(python_generator, "headers.txt");
 const pyopencv_generated_include = sysPath.join(python_generator, "pyopencv_generated_include.h");
 
@@ -81,31 +84,9 @@ const hdr_parser = fs.readFileSync(sysPath.join(src2, "hdr_parser.py")).toString
 const hdr_parser_start = hdr_parser.indexOf("class CppHeaderParser");
 const hdr_parser_end = hdr_parser.indexOf("if __name__ == '__main__':");
 
-const genpy = `
-import io, json, os, re, string, sys
-
-${ hdr_parser.slice(hdr_parser_start, hdr_parser_end).replace(`${ " ".repeat(20) }if self.wrap_mode:`, `${ " ".repeat(20) }if False:`) }
-
-with open(${ JSON.stringify(headers) }, 'r') as f:
-    srcfiles = [l.strip() for l in f.readlines()]
-
-srcfiles.append(${ JSON.stringify(sysPath.resolve(__dirname, "..", candidates[0], "opencv", "sources", "modules", "flann", "include", "opencv2", "flann", "defines.h")) })
-
-parser = CppHeaderParser(generate_umat_decls=True, generate_gpumat_decls=True)
-all_decls = []
-for hdr in srcfiles:
-    decls = parser.parse(hdr)
-    if len(decls) == 0 or hdr.find('/python/') != -1:
-        continue
-
-    all_decls += decls
-
-print(json.dumps({"decls": all_decls, "namespaces": sorted(parser.namespaces)}, indent=4))
-`;
-
 const options = parseArguments(OUTPUT_DIR);
 
-series([
+waterfall([
     next => {
         try {
             fs.accessSync(pyopencv_generated_include, fs.constants.R_OK);
@@ -145,7 +126,29 @@ series([
     },
 
     next => {
-        const generated_include = fs.readFileSync(pyopencv_generated_include).toString().split("\n").filter(include => include.indexOf("python_bridge") === -1);
+        const srcfiles = [];
+
+        explore(SRC_DIR, async (path, stats, next) => {
+            if (path.endsWith(".h") || path.endsWith(".hpp")) {
+                const content = await fsPromises.readFile(path);
+                if (content.includes("CV_EXPORTS")) {
+                    srcfiles.push(path);
+                }
+            }
+            next();
+        }, {followSymlink: true}, async err => {
+            const generated_include = (await fsPromises.readFile(pyopencv_generated_include))
+                .toString()
+                .split("\n")
+                .filter(include => include.indexOf("python_bridge") === -1)
+                .concat(srcfiles.map(path => `#include "${ path.slice(SRC_DIR.length + 1).replace("\\", "/") }"`));
+
+            next(err, srcfiles, generated_include);
+        });
+    },
+
+    (srcfiles, generated_include, next) => {
+        srcfiles.push(sysPath.resolve(__dirname, "..", candidates[0], "opencv/sources/modules/flann/include/opencv2/flann/defines.h"));
 
         const buffers = [];
         let nlen = 0;
@@ -166,7 +169,10 @@ series([
             const replacer = new RegExp(Array.from(ALIASES.keys()).join("|"), "g");
 
             const configuration = JSON.parse(buffer.toString().replace(replacer, (match, offset, string) => {
-                return offset === 0 || /\W/.test(string[offset - 1]) || string.endsWith("vector_", offset) || string.endsWith("Ptr_", offset) ? ALIASES.get(match) : match;
+                return offset === 0
+                    || /\W/.test(string[offset - 1])
+                    || string.endsWith("vector_", offset)
+                    || string.endsWith("Ptr_", offset) ? ALIASES.get(match) : match;
             }));
             configuration.generated_include = generated_include;
 
@@ -191,7 +197,31 @@ series([
             nlen += chunk.length;
         });
 
-        child.stdin.write(genpy);
+        child.stdin.write(`
+            import io, json, os, re, string, sys
+
+            ${ hdr_parser
+                .slice(hdr_parser_start, hdr_parser_end)
+                .replace(`${ " ".repeat(20) }if self.wrap_mode:`, `${ " ".repeat(20) }if False:`)
+                .split("\n")
+                .join(`\n${ " ".repeat(12) }`) }
+
+            with open(${ JSON.stringify(headers) }, 'r') as f:
+                srcfiles = [l.strip() for l in f.readlines()]
+
+            ${ srcfiles.map(file => `srcfiles.append(${ JSON.stringify(file) })`).join(`\n${ " ".repeat(12) }`) }
+
+            parser = CppHeaderParser(generate_umat_decls=True, generate_gpumat_decls=True)
+            all_decls = []
+            for hdr in srcfiles:
+                decls = parser.parse(hdr)
+                if len(decls) == 0 or hdr.find('/python/') != -1:
+                    continue
+
+                all_decls += decls
+
+            print(json.dumps({"decls": all_decls, "namespaces": sorted(parser.namespaces)}, indent=4))
+        `.trim().replace(/^ {12}/mg, ""));
         child.stdin.end();
     }
 ], err => {
