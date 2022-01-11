@@ -52,13 +52,13 @@ const updateContent = (file, replacer, cb) => {
 waterfall([
     next => {
         const oldContent = fs.readFileSync(readme).toString();
-        const pos = oldContent.indexOf("autoit-opencv-4.5.4-com-v");
+        const pos = oldContent.indexOf("autoit-opencv-4.5.5-com-v");
         if (pos === -1) {
             next(null, false);
             return;
         }
 
-        const start = pos + "autoit-opencv-4.5.4-com-v".length;
+        const start = pos + "autoit-opencv-4.5.5-com-v".length;
         const end = oldContent.indexOf(".7z", start);
         if (end === -1) {
             next(null, false);

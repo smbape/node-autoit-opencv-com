@@ -719,10 +719,7 @@ class AutoItGenerator {
                     }
 
                     if (return_value_type !== "void") {
-                        const idltype = this.getIDLType(return_value_type, include);
-                        const cpptype = this.getCppType(return_value_type, include);
-
-                        if (PTR.has(cpptype)) {
+                        if (PTR.has(this.getCppType(return_value_type, include))) {
                             callee = `reinterpret_cast<ULONGLONG>(${ callee })`;
                         }
 
@@ -1441,7 +1438,7 @@ class AutoItGenerator {
         files.set(sysPath.resolve(options.output, "..", "udf", "sxs.manifest"), `${ `
             <?xml version="1.0" encoding="UTF-8"?>
             <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
-                <file name="E:\\development\\git\\node-autoit-opencv-com\\autoit-opencv-com\\build_x64\\Release\\autoit_opencv_com454.dll" hashalg="SHA1">
+                <file name="E:\\development\\git\\node-autoit-opencv-com\\autoit-opencv-com\\build_x64\\Release\\autoit_opencv_com455.dll" hashalg="SHA1">
                     ${ manifest.files.map(text => text.split("\n").join(`\n${ " ".repeat(20) }`)).join(`\n\n${ " ".repeat(20) }`) }
                     <typelib tlbid="{${ LIB_UID }}" version="${ VERSION_MAJOR }.${ VERSION_MINOR }" helpdir="" flags="HASDISKIMAGE" />
                 </file>
@@ -2118,12 +2115,19 @@ class AutoItGenerator {
     }
 
     getTypes(type, coclass) {
-        return [
-            type,
-            `${ coclass.fqn }::${ type }`,
-            `${ this.namespace }::${ type }`,
-            `${ coclass.namespace }::${ type }`,
-        ];
+        const types = new Set([type, `${ this.namespace }::${ type }`]);
+
+        if (coclass.fqn) {
+            coclass.fqn.split("::").forEach((el, i, arr) => {
+                types.add(`${ arr.slice(0, arr.length - i).join("::") }::${ type }`);
+            });
+        }
+
+        if (coclass.namespace) {
+            types.add(`${ coclass.namespace }::${ type }`);
+        }
+
+        return Array.from(types);
     }
 }
 

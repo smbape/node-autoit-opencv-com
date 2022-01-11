@@ -70,6 +70,7 @@ exports.CPP_TYPES = new Map([
     ["KAZE_DiffusivityType", "KAZE::DiffusivityType"],
     ["ORB_ScoreType", "ORB::ScoreType"],
 
+    ["QRCodeEncoder_Params", "QRCodeEncoder::Params"],
     ["HOGDescriptor_HistogramNormType", "HOGDescriptor::HistogramNormType"],
     ["HOGDescriptor_DescriptorStorageFormat", "HOGDescriptor::DescriptorStorageFormat"],
 

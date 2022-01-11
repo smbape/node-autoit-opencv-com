@@ -369,7 +369,6 @@ EndFunc   ;==>__OpenCV_HandleScreenBitsClone
 ; Return values .: an opencv matrix
 ; Author ........: Stéphane MBAPE
 ; Modified ......:
-; Remarks .......: https://github.com/opencv/opencv/blob/4.5.4/modules/highgui/src/window_w32.cpp#L1407
 ; ===============================================================================================================================
 Func _OpenCV_GetDesktopScreenMat($aRect, $iChannels = Default)
 	If $iChannels == Default Then $iChannels = 3
@@ -396,6 +395,8 @@ EndFunc   ;==>__OpenCV_HandleScreenBitsMat
 ; Return values .: The result of the callback
 ; Author ........: Stéphane MBAPE
 ; Modified ......:
+; Remarks .......: https://github.com/opencv/opencv/blob/4.5.5/modules/highgui/src/window_w32.cpp#L1407
+;                  https://github.com/opencv/opencv/blob/4.5.5/modules/highgui/src/window_w32.cpp#122
 ; ===============================================================================================================================
 Func __OpenCV_GetDesktopScreenCapture(Const ByRef $aRect, Const ByRef $iChannels, Const $sCallback)
 	Local $iLeft = $aRect[0]

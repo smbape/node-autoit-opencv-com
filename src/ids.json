@@ -1278,5 +1278,33 @@
     "VectorOfVariant": {
         "iid": "73be64d1-ae71-4892-93f3-711b9e70833b",
         "clsid": "58094424-fc35-41af-8676-730f089b15dc"
+    },
+    "cv::QRCodeEncoder": {
+        "iid": "f2fd89d9-8013-48f9-a4db-02e8f62da2b2",
+        "clsid": "6c3f7bcf-72c9-4e66-8d04-e6e592055e60"
+    },
+    "cv::QRCodeEncoder::Params": {
+        "iid": "eea052f9-2a9e-4330-8a4d-17dfc53741bf",
+        "clsid": "f9cc4fe8-cc1f-42e3-89cf-8ee45943fe70"
+    },
+    "cv::gapi::wip::gst": {
+        "iid": "66fd1948-0497-42bb-a98f-e27ef189a25f",
+        "clsid": "5258710a-6c69-4efa-afbe-e688d8adbc8b"
+    },
+    "cv::gapi::wip::gst::GStreamerSource": {
+        "iid": "e7c3b167-3b5d-4ad5-9714-03919f9effc3",
+        "clsid": "7eeadbf4-45b6-45d5-89c8-041466dfd61f"
+    },
+    "cv::gapi::wip::gst::GStreamerSource::OutputType": {
+        "iid": "5377d867-12ec-4ef6-9ab9-815d9f5b734f",
+        "clsid": "7a34c38f-9850-4516-aee1-d73986dacc88"
+    },
+    "cv::gapi::wip::onevpl": {
+        "iid": "5c41d464-4e11-448f-a404-6307ac9b29ce",
+        "clsid": "28da4474-b3cf-4fd0-86d7-478c27eff159"
+    },
+    "cv::gapi::wip::onevpl::AccelType": {
+        "iid": "c500793a-8988-4e18-8e35-525c3e46aab8",
+        "clsid": "56135b18-3b50-4594-9223-6f2d8be5b08b"
     }
 }

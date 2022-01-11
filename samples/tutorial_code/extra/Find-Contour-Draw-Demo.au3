@@ -21,8 +21,8 @@
 
 ;~ Sources:
 ;~     https://www.autoitscript.com/forum/topic/206432-opencv-v4-udf/page/5/?tab=comments#comment-1488802
-;~     https://docs.opencv.org/4.5.4/dd/d49/tutorial_py_contour_features.html
-;~     https://docs.opencv.org/4.5.4/d9/d61/tutorial_py_morphological_ops.html
+;~     https://docs.opencv.org/4.5.5/dd/d49/tutorial_py_contour_features.html
+;~     https://docs.opencv.org/4.5.5/d9/d61/tutorial_py_morphological_ops.html
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
 
