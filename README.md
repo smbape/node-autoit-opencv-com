@@ -26,7 +26,7 @@ In fact, the dll being a [Component Object Model (COM)](https://docs.microsoft.c
 
 #include "autoit-opencv-com\udf\opencv_udf_utils.au3"
 
-_OpenCV_Open_And_Register("opencv-4.5.5-vc14_vc15\opencv\build\x64\vc15\bin\opencv_world454.dll", "autoit-opencv-com\autoit_opencv_com454.dll")
+_OpenCV_Open_And_Register("opencv-4.5.5-vc14_vc15\opencv\build\x64\vc15\bin\opencv_world455.dll", "autoit-opencv-com\autoit_opencv_com455.dll")
 Example()
 _OpenCV_Unregister_And_Close()
 
@@ -52,7 +52,7 @@ EndFunc   ;==>Example
 #include "autoit-opencv-com\udf\opencv_udf_utils.au3"
 #include <GUIConstantsEx.au3>
 
-_OpenCV_Open_And_Register("opencv-4.5.5-vc14_vc15\opencv\build\x64\vc15\bin\opencv_world454.dll", "autoit-opencv-com\autoit_opencv_com454.dll")
+_OpenCV_Open_And_Register("opencv-4.5.5-vc14_vc15\opencv\build\x64\vc15\bin\opencv_world455.dll", "autoit-opencv-com\autoit_opencv_com455.dll")
 Example()
 _OpenCV_Unregister_And_Close()
 
@@ -86,7 +86,7 @@ EndFunc   ;==>Example
 ### PowerShell
 
 ```powershell
-# Opencv bin dir must be in your path and you must have registered the autoit_opencv_com454.dll dll
+# Opencv bin dir must be in your path and you must have registered the autoit_opencv_com455.dll dll
 
 function _OpenCV_ObjCreate($sClassname) {
     New-Object -ComObject "OpenCV.$sClassname"
