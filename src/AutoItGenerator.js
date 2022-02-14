@@ -547,13 +547,13 @@ class AutoItGenerator {
                             `.replace(/^ {32}/mg, "").trim().split("\n"));
                         } else if (is_by_ref) {
                             cvt.push(...`
-                                auto* ${ pointer } = &${ placeholder_name };
-                                hr = autoit_opencv_out(${ in_val }, ${ pointer });
+                                cv::Ptr<${ cpptype }> ${ pointer };
+                                hr = autoit_opencv_to(${ in_val }, ${ pointer });
                                 if (FAILED(hr) && !PARAMETER_MISSING(${ in_val })) {
                                     printf("unable to read argument ${ j } of type %hu into ${ cpptype }\\n", V_VT(${ in_val }));
                                     return hr;
                                 }
-                                auto& ${ argname } = SUCCEEDED(hr) ? *${ pointer } : ${ placeholder_name };
+                                auto& ${ argname } = SUCCEEDED(hr) && !PARAMETER_MISSING(${ in_val }) ? *${ pointer }.get() : ${ placeholder_name };
                                 hr = S_OK;
                             `.replace(/^ {32}/mg, "").trim().split("\n"));
                         } else if (cpptype === "_variant_t") {

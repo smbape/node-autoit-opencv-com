@@ -20,6 +20,19 @@ inline auto ConvertUtf8ToWide(const std::string& str) {
 	return wstr;
 }
 
+inline auto _OpenCV_ScalarAll(double val) {
+	CComSafeArray<VARIANT> scalar(4UL);
+	for (int i = 0; i < 4; i++) {
+		scalar.SetAt(i, _variant_t(val));
+	}
+
+	auto safeArray = scalar.Detach();
+	VARIANT variant = { VT_ARRAY | VT_VARIANT };
+	V_ARRAY(&variant) = safeArray;
+
+	return variant;
+}
+
 void string_to_bstr(const std::string& in_val, _bstr_t& out_val) {
 	std::wstring ws = ConvertUtf8ToWide(in_val);
 	BSTR bstr = SysAllocStringLen(ws.data(), ws.size());
@@ -395,17 +408,70 @@ void testEnumerateDevices() {
 }
 
 void testContours(cvLib::ICv_ObjectPtr cv) {
-	cvLib::IVectorOfVectorOfPoint_ObjectPtr VectorOfVectorOfPointPtr;
-	HRESULT hr = VectorOfVectorOfPointPtr.CreateInstance(__uuidof(cvLib::VectorOfVectorOfPoint_Object));
-	assert(SUCCEEDED(hr));
-
 	_bstr_t image_path;
 	string_to_bstr(samples::findFile("pic1.png"), image_path);
 	auto img = cv->imread(to_variant_t(image_path));
+
 	auto gray = cv->cvtColor(to_variant_t(img.GetInterfacePtr()), to_variant_t(COLOR_BGR2GRAY));
 	auto contours = cv->findContours(&gray, to_variant_t(RETR_EXTERNAL), to_variant_t(CHAIN_APPROX_SIMPLE));
 
 	// cv->contourArea(&contours->at(to_variant_t(0)));
+}
+
+void testConvertToShow(cvLib::ICv_ObjectPtr cv) {
+	_bstr_t image_path;
+	string_to_bstr(samples::findFile("pic1.png"), image_path);
+	auto img = cv->imread(to_variant_t(image_path));
+
+	cvLib::ICv_Mat_ObjectPtr MatPtr;
+	auto hr = MatPtr.CreateInstance(__uuidof(cvLib::Cv_Mat_Object));
+	assert(SUCCEEDED(hr));
+
+	auto dst = MatPtr->create(to_variant_t(img->rows), to_variant_t(img->cols), to_variant_t(CV_MAKETYPE(CV_8U, 4)));
+	cout << "rows: " << dst->rows << endl;
+	cout << "cols: " << dst->cols << endl;
+	cout << "width: " << dst->width << endl;
+	cout << "height: " << dst->height << endl;
+	cout << "channels: " << dst->channels() << endl;
+
+	auto ret = img->convertToShow(to_variant_t(dst.GetInterfacePtr()));
+	assert(img->rows == dst->rows);
+	assert(img->cols == dst->cols);
+	cv->imshow(to_variant_t("img"), to_variant_t(img.GetInterfacePtr()));
+	cv->imshow(to_variant_t("dst"), to_variant_t(dst.GetInterfacePtr()));
+	cv->imshow(to_variant_t("ret"), to_variant_t(ret.GetInterfacePtr()));
+	cv->waitKey();
+}
+
+void testKalman(cvLib::ICv_ObjectPtr cv) {
+	cvLib::ICv_KalmanFilter_ObjectPtr Cv_KalmanFilter_ObjectPtr;
+	HRESULT hr = Cv_KalmanFilter_ObjectPtr.CreateInstance(__uuidof(cvLib::Cv_KalmanFilter_Object));
+	assert(SUCCEEDED(hr));
+
+	cvLib::ICv_Mat_ObjectPtr MatPtr;
+	hr = MatPtr.CreateInstance(__uuidof(cvLib::Cv_Mat_Object));
+	assert(SUCCEEDED(hr));
+
+	auto KF = Cv_KalmanFilter_ObjectPtr->create(to_variant_t(2), to_variant_t(1), to_variant_t(0));
+
+	KF->transitionMatrix = MatPtr->create(to_variant_t(2), to_variant_t(2), to_variant_t(CV_32F));
+
+	KF->transitionMatrix->set_at(to_variant_t(0), to_variant_t(0), to_variant_t(1));
+	KF->transitionMatrix->set_at(to_variant_t(0), to_variant_t(1), to_variant_t(1));
+	KF->transitionMatrix->set_at(to_variant_t(1), to_variant_t(0), to_variant_t(0));
+	KF->transitionMatrix->set_at(to_variant_t(1), to_variant_t(1), to_variant_t(1));
+
+	VARIANT scalar;
+
+	cv->setIdentity(to_variant_t(KF->measurementMatrix.GetInterfacePtr()));
+	scalar = _OpenCV_ScalarAll(1e-5);
+	cv->setIdentity(to_variant_t(KF->processNoiseCov.GetInterfacePtr()), &scalar);
+	scalar = _OpenCV_ScalarAll(1e-1);
+	cv->setIdentity(to_variant_t(KF->measurementNoiseCov.GetInterfacePtr()), &scalar);
+	scalar = _OpenCV_ScalarAll(1);
+	cv->setIdentity(to_variant_t(KF->errorCovPost.GetInterfacePtr()), &scalar);
+
+	KF->predict();
 }
 
 static int perform() {
@@ -434,6 +500,8 @@ static int perform() {
 	testResize(cv);
 	testSetTo(cv, mat);
 	testContours(cv);
+	testConvertToShow(cv);
+	testKalman(cv);
 
 	cvLib::ICv_VideoCapture_ObjectPtr VideoCapturePtr;
 	hr = VideoCapturePtr.CreateInstance(__uuidof(cvLib::Cv_VideoCapture_Object));
@@ -502,16 +570,6 @@ public:
 
 int main(int argc, char* argv[])
 {
-	{
-		cv::Ptr<Test> p, q;
-		std::puts("p.reset()...");
-		p.reset(new Test());
-		std::puts("q.reset()...");
-		// q = p;
-		q.reset(p.get(), [](Test*) {}/*No-Op Deleter*/);
-		std::puts("done");
-	}
-
 	using namespace Gdiplus;
 	GdiplusStartupInput gdiplusStartupInput;
 	ULONG_PTR gdiplusToken;

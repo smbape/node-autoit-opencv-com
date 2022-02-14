@@ -91,7 +91,7 @@ Object.assign(exports, {
 
                     switch (V_VT(in_val)) {
                         case VT_UI8:
-                            out_val = reinterpret_cast<${ in_type }*>(V_UI8(in_val));
+                            out_val = cv::Ptr<${ in_type }>(cv::Ptr<${ in_type }>{}, reinterpret_cast<${ in_type }*>(V_UI8(in_val)));
                         default:
                             return E_INVALIDARG;
                     }
@@ -224,7 +224,7 @@ Object.assign(exports, {
                 }
 
                 auto obj = reinterpret_cast<C${ cotype }*>(getRealIDispatch(in_val));
-                out_val.reset(obj->__self->get());
+                out_val = cv::Ptr<${ coclass.fqn }>(cv::Ptr<${ coclass.fqn }>{}, obj->__self->get());
 
                 return S_OK;
             }

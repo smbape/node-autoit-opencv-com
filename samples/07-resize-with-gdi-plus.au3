@@ -16,15 +16,23 @@ _OpenCV_Unregister_And_Close()
 Func Example()
 	Local $cv = _OpenCV_get()
 	If Not IsObj($cv) Then Return
+	Local $bMethod = 1
 
 	Local $img = _OpenCV_imread_and_check(_OpenCV_FindFile("samples\tutorial_code\yolo\scooter-5180947_1920.jpg"))
-	Local $hImage = $img.convertToBitmap()
 
-	Local $hResizedImage = _GDIPlus_ImageResize($hImage, 600, 400)
-	_GDIPlus_BitmapDispose($hImage)
+	Local $resized
 
-	Local $resized = $cv.createMatFromBitmap($hResizedImage)
-	_GDIPlus_BitmapDispose($hResizedImage)
+	If $bMethod Then
+		$resized = $img.GdiplusResize(600, 400)
+	Else
+		Local $hImage = $img.convertToBitmap()
+
+		Local $hResizedImage = _GDIPlus_ImageResize($hImage, 600, 400)
+		_GDIPlus_BitmapDispose($hImage)
+
+		$resized = $cv.createMatFromBitmap($hResizedImage)
+		_GDIPlus_BitmapDispose($hResizedImage)
+	EndIf
 
 	$cv.imshow("Resized with GDI+", $resized)
 	$cv.waitKey()

@@ -1,5 +1,10 @@
 #include-once
 
+; /* fundamental constants */
+Global Const $CV_PI = 3.1415926535897932384626433832795
+Global Const $CV_2PI = 6.283185307179586476925286766559
+Global Const $CV_LOG2 = 0.69314718055994530941723212145818
+
 ; @addtogroup core_hal_interface
 ; @{
 
