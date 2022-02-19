@@ -33,6 +33,24 @@ inline auto _OpenCV_ScalarAll(double val) {
 	return variant;
 }
 
+template<typename... T>
+inline auto _OpenCV_Tuple(T... args) {
+
+	const int size = sizeof...(args);
+	CComSafeArray<VARIANT> arr(size);
+
+	int i = 0;
+	for (auto& arg : { args... }) {
+		arr.SetAt(i++, _variant_t(arg));
+	}
+
+	auto safeArray = arr.Detach();
+	VARIANT variant = { VT_ARRAY | VT_VARIANT };
+	V_ARRAY(&variant) = safeArray;
+
+	return variant;
+}
+
 void string_to_bstr(const std::string& in_val, _bstr_t& out_val) {
 	std::wstring ws = ConvertUtf8ToWide(in_val);
 	BSTR bstr = SysAllocStringLen(ws.data(), ws.size());
@@ -389,7 +407,7 @@ static void testAKAZE(cvLib::ICv_ObjectPtr cv) {
 	matched1->push_back(KeyPoint());
 }
 
-void testEnumerateDevices() {
+static void testEnumerateDevices() {
 	IEnumMoniker* pEnum;
 
 	HRESULT hr = EnumerateDevices(CLSID_VideoInputDeviceCategory, &pEnum);
@@ -407,7 +425,7 @@ void testEnumerateDevices() {
 	}
 }
 
-void testContours(cvLib::ICv_ObjectPtr cv) {
+static void testContours(cvLib::ICv_ObjectPtr cv) {
 	_bstr_t image_path;
 	string_to_bstr(samples::findFile("pic1.png"), image_path);
 	auto img = cv->imread(to_variant_t(image_path));
@@ -418,7 +436,7 @@ void testContours(cvLib::ICv_ObjectPtr cv) {
 	// cv->contourArea(&contours->at(to_variant_t(0)));
 }
 
-void testConvertToShow(cvLib::ICv_ObjectPtr cv) {
+static void testConvertToShow(cvLib::ICv_ObjectPtr cv) {
 	_bstr_t image_path;
 	string_to_bstr(samples::findFile("pic1.png"), image_path);
 	auto img = cv->imread(to_variant_t(image_path));
@@ -440,10 +458,9 @@ void testConvertToShow(cvLib::ICv_ObjectPtr cv) {
 	cv->imshow(to_variant_t("img"), to_variant_t(img.GetInterfacePtr()));
 	cv->imshow(to_variant_t("dst"), to_variant_t(dst.GetInterfacePtr()));
 	cv->imshow(to_variant_t("ret"), to_variant_t(ret.GetInterfacePtr()));
-	cv->waitKey();
 }
 
-void testKalman(cvLib::ICv_ObjectPtr cv) {
+static void testKalman(cvLib::ICv_ObjectPtr cv) {
 	cvLib::ICv_KalmanFilter_ObjectPtr Cv_KalmanFilter_ObjectPtr;
 	HRESULT hr = Cv_KalmanFilter_ObjectPtr.CreateInstance(__uuidof(cvLib::Cv_KalmanFilter_Object));
 	assert(SUCCEEDED(hr));
@@ -461,7 +478,7 @@ void testKalman(cvLib::ICv_ObjectPtr cv) {
 	KF->transitionMatrix->set_at(to_variant_t(1), to_variant_t(0), to_variant_t(0));
 	KF->transitionMatrix->set_at(to_variant_t(1), to_variant_t(1), to_variant_t(1));
 
-	VARIANT scalar;
+	_variant_t scalar;
 
 	cv->setIdentity(to_variant_t(KF->measurementMatrix.GetInterfacePtr()));
 	scalar = _OpenCV_ScalarAll(1e-5);
@@ -472,6 +489,33 @@ void testKalman(cvLib::ICv_ObjectPtr cv) {
 	cv->setIdentity(to_variant_t(KF->errorCovPost.GetInterfacePtr()), &scalar);
 
 	KF->predict();
+}
+
+static void testSearchTemplate(cvLib::ICv_ObjectPtr cv) {
+	cvLib::ICv_Mat_ObjectPtr MatPtr;
+	auto hr = MatPtr.CreateInstance(__uuidof(cvLib::Cv_Mat_Object));
+	assert(SUCCEEDED(hr));
+
+	_bstr_t image_path;
+
+	string_to_bstr(samples::findFile("lena_tmpl.jpg"), image_path);
+	auto img = cv->imread(to_variant_t(image_path), to_variant_t(IMREAD_COLOR));
+
+	string_to_bstr(samples::findFile("tmpl.png"), image_path);
+	auto templ = cv->imread(to_variant_t(image_path), to_variant_t(IMREAD_COLOR));
+
+	string_to_bstr(samples::findFile("mask.png"), image_path);
+	auto mask = cv->imread(to_variant_t(image_path), to_variant_t(IMREAD_COLOR));
+	// auto mask = MatPtr->create();
+
+	_variant_t channels = _OpenCV_Tuple(0, 1, 2);
+	_variant_t ranges = _OpenCV_Tuple(-200, 200, -200, 200, -200, 200);
+	auto _result = cv->searchTemplate(to_variant_t(img.GetInterfacePtr()), to_variant_t(templ.GetInterfacePtr()), to_variant_t(mask.GetInterfacePtr()), &channels, &ranges);
+
+	assert(V_VT(&_result) == VT_DISPATCH);
+	auto result = static_cast<cvLib::ICv_Mat_Object*>(V_DISPATCH(&_result));
+	assert(result->rows == img->rows - templ->rows + 1);
+	assert(result->cols == img->cols - templ->cols + 1);
 }
 
 static int perform() {
@@ -502,6 +546,7 @@ static int perform() {
 	testContours(cv);
 	testConvertToShow(cv);
 	testKalman(cv);
+	testSearchTemplate(cv);
 
 	cvLib::ICv_VideoCapture_ObjectPtr VideoCapturePtr;
 	hr = VideoCapturePtr.CreateInstance(__uuidof(cvLib::Cv_VideoCapture_Object));

@@ -12,6 +12,7 @@
 Global Const $OPENCV_UDF_SORT_ASC = 1
 Global Const $OPENCV_UDF_SORT_DESC = -1
 Global $_cv_gdi_resize = 0
+Global Const $CV_TM_EXACT = -1
 
 Func _OpenCV_FindFiles($aParts, $sDir = Default, $iFlag = Default, $bReturnPath = Default, $bReverse = Default)
 	If $sDir == Default Then $sDir = @ScriptDir
@@ -287,7 +288,7 @@ Func _OpenCV_resizeAndCenter($src, $iDstWidth = Default, $iDstHeight = Default, 
 	EndIf
 
 	If $bCenter And ($iPadWidth > 0 Or $iPadHeight > 0) Then
-		Local $padded = ObjCreate("OpenCV.cv.Mat").create($iDstHeight, $iDstWidth, $src.depth())
+		Local $padded = _OpenCV_ObjCreate("cv.Mat").create($iDstHeight, $iDstWidth, $src.depth())
 		$cv.copyMakeBorder($src, $iPadHeight, $iPadHeight, $iPadWidth, $iPadWidth, $CV_BORDER_CONSTANT, $aBackgroundColor, $padded)
 		$src = $padded
 	EndIf
@@ -583,7 +584,7 @@ Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = Default, $iMatchMeth
 	If $aHistSize == Default Then
 		Local $arr[$matImg.channels()]
 		For $i = 0 To $matImg.channels() - 1
-			$arr[$i] = 32
+			$arr[$i] = $iMatchMethod == $CV_TM_EXACT ? $i : 32
 		Next
 		$aHistSize = $arr
 	EndIf
@@ -591,8 +592,8 @@ Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = Default, $iMatchMeth
 	If $aRanges == Default Then
 		Local $arr[$matImg.channels() * 2]
 		For $i = 0 To $matImg.channels() - 1
-			$arr[2 * $i] = 0
-			$arr[2 * $i + 1] = 256
+			$arr[2 * $i] = $iMatchMethod == $CV_TM_EXACT ? -(1 - $fThreshold) * 256 : 0
+			$arr[2 * $i + 1] = $iMatchMethod == $CV_TM_EXACT ? (1 - $fThreshold) * 256 : 256
 		Next
 		$aRanges = $arr
 	EndIf
@@ -620,16 +621,20 @@ Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = Default, $iMatchMeth
 	Local $mat = _OpenCV_ObjCreate("cv.Mat")
 	Local $matResult ; = $Mat.create($rh, $rw, $CV_32FC1)
 
-	Local $bMethodAcceptsMask = $CV_TM_SQDIFF == $iMatchMethod Or $iMatchMethod == $CV_TM_CCORR_NORMED
-	Local $bIsNormed = $iMatchMethod == $CV_TM_SQDIFF_NORMED Or $iMatchMethod == $CV_TM_CCORR_NORMED Or $iMatchMethod == $CV_TM_CCOEFF_NORMED
+	Local $bMethodAcceptsMask = $iMatchMethod == $CV_TM_EXACT Or $CV_TM_SQDIFF == $iMatchMethod Or $iMatchMethod == $CV_TM_CCORR_NORMED
+	Local $bIsNormed = $iMatchMethod == $CV_TM_EXACT Or $iMatchMethod == $CV_TM_SQDIFF_NORMED Or $iMatchMethod == $CV_TM_CCORR_NORMED Or $iMatchMethod == $CV_TM_CCOEFF_NORMED
+
+	If Not $bMethodAcceptsMask Then $matTemplMask = Default
 
 	; Local $hTimer
 
 	; $hTimer = TimerInit()
-	If $bMethodAcceptsMask Then
-		$matResult = $cv.matchTemplate($matImg, $matTempl, $iMatchMethod, $matTemplMask)
+	If $iMatchMethod == $CV_TM_EXACT Then
+		$matResult = $cv.searchTemplate($matImg, $matTempl, $matTemplMask, $aChannels, $aRanges)
+	ElseIf $matImg.width * $matImg.height > 500 * 500 Then
+		$matResult = $cv.matchTemplateParallel($matImg, $matTempl, $iMatchMethod, $matTemplMask)
 	Else
-		$matResult = $cv.matchTemplate($matImg, $matTempl, $iMatchMethod)
+		$matResult = $cv.matchTemplate($matImg, $matTempl, $iMatchMethod, $matTemplMask)
 	EndIf
 	; ConsoleWrite("matchTemplate took " & TimerDiff($hTimer) & "ms" & @CRLF)
 
@@ -680,7 +685,7 @@ Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = Default, $iMatchMeth
 			$aMatchRect[1] = $aMatchLoc[1]
 
 			Local $matImgMatch = $mat.create($matImg, $aMatchRect)
-			$fHistScore = _OpenCV_CompareMatHist($matImgMatch, $matTempl, $matTemplMask, $aChannels, $aHistSize, $aRanges, $iCompareMethod, $bAccumulate)
+			$fHistScore = _OpenCV_CompareMatHist($matImgMatch, $matTempl, ($matTemplMask.channels() == 1 ? $matTemplMask : _OpenCV_ObjCreate("cv.Mat")), $aChannels, $aHistSize, $aRanges, $iCompareMethod, $bAccumulate)
 			; ConsoleWrite("$fHistScore: " & $fHistScore & @CRLF)
 		EndIf
 

@@ -37,7 +37,7 @@ GUICtrlSetState(-1, $GUI_DISABLE)
 Global $LabelMethod = GUICtrlCreateLabel("Method:", 423, 128, 59, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
 Global $ComboMethod = GUICtrlCreateCombo("", 489, 128, 145, 25, BitOR($GUI_SS_DEFAULT_COMBO, $CBS_SIMPLE))
-GUICtrlSetData(-1, "TM SQDIFF|TM SQDIFF NORMED|TM CCORR|TM CCORR NORMED|TM CCOEFF|TM CCOEFF NORMED")
+GUICtrlSetData(-1, "TM EXACT|TM SQDIFF|TM SQDIFF NORMED|TM CCORR|TM CCORR NORMED|TM CCOEFF|TM CCOEFF NORMED")
 
 Global $LabelThreshold = GUICtrlCreateLabel("Threshold: 0.8", 185, 180, 110, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
@@ -70,6 +70,10 @@ Global $GroupMatchTemplate = GUICtrlCreateGroup("", 544, 246, 342, 342)
 Global $PicMatchTemplate = GUICtrlCreatePic("", 549, 257, 332, 326)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
+; ControlSetText($FormGUI, "", $InputSource, $OPENCV_SAMPLES_DATA_PATH & "\lena_tmpl.jpg")
+; ControlSetText($FormGUI, "", $InputTemplate, $OPENCV_SAMPLES_DATA_PATH & "\tmpl.png")
+; ControlSetText($FormGUI, "", $InputMask, $OPENCV_SAMPLES_DATA_PATH & "\mask.png")
+
 GUISetState(@SW_SHOW)
 #EndRegion ### END Koda GUI section ###
 
@@ -82,8 +86,8 @@ Global $aRedColor = _OpenCV_RGB(255, 0, 0)
 Global $sSource = "", $sTemplate = "", $sMask = ""
 Global $img, $templ, $mask, $match_method, $threshold
 
-Global $aMethods[6] = [$CV_TM_SQDIFF, $CV_TM_SQDIFF_NORMED, $CV_TM_CCORR, $CV_TM_CCORR_NORMED, $CV_TM_CCOEFF, $CV_TM_CCOEFF_NORMED]
-_GUICtrlComboBox_SetCurSel($ComboMethod, 5)
+Global $aMethods = _OpenCV_Tuple($CV_TM_EXACT, $CV_TM_SQDIFF, $CV_TM_SQDIFF_NORMED, $CV_TM_CCORR, $CV_TM_CCORR_NORMED, $CV_TM_CCOEFF, $CV_TM_CCOEFF_NORMED)
+_GUICtrlComboBox_SetCurSel($ComboMethod, UBound($aMethods) - 1)
 
 Global $use_mask = False
 Global $aMatchRect = _OpenCV_Rect(0, 0, 0, 0)
@@ -137,8 +141,6 @@ While 1
 				$last_threshold = $current_threshold
 			EndIf
 	EndSwitch
-
-	Sleep(30) ; Sleep to reduce CPU usage
 WEnd
 
 _GDIPlus_Shutdown()
@@ -198,7 +200,7 @@ EndFunc   ;==>Main
 Func MultiMatchTemplate()
 	$match_method = $aMethods[_GUICtrlComboBox_GetCurSel($ComboMethod)]
 
-	If $CV_TM_SQDIFF == $match_method Or $match_method == $CV_TM_CCORR_NORMED Then
+	If $CV_TM_SQDIFF == $match_method Or $match_method == $CV_TM_CCORR_NORMED Or $CV_TM_EXACT == $match_method Then
 		GUICtrlSetState($InputMask, $GUI_ENABLE)
 		GUICtrlSetState($BtnMask, $GUI_ENABLE)
 	Else
@@ -217,7 +219,11 @@ Func MultiMatchTemplate()
 	;;! [copy_source]
 
 	;;! [match_template]
+	Local $hTimer = TimerInit()
 	Local $aMatches = _OpenCV_FindTemplate($img_display, $templ, $threshold, $match_method, $mask)
+	ConsoleWrite("_OpenCV_FindTemplate took " & TimerDiff($hTimer) & "ms" & @CRLF)
+	ConsoleWrite("_OpenCV_FindTemplate found " & UBound($aMatches) & " matches" & @CRLF)
+
 	Local $iMatches = UBound($aMatches)
 	For $i = 0 To $iMatches - 1
 		$aMatchRect[0] = $aMatches[$i][0]
