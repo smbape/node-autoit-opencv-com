@@ -15,7 +15,20 @@ let idr = 105;
 
 class CoClass {
     static getClassName(fqn) {
-        return `${ fqn.split("::").map(name => name[0].toUpperCase() + name.slice(1)).join("_") }_Object`;
+        return `${ this.getObjectName(fqn, true) }_Object`;
+    }
+
+    static getObjectName(fqn, upper = false) {
+        return fqn
+            .replace(/>+$/g, "")
+            .replace(/, /g, "_and_")
+            .replace(/>/g, "_end_")
+            .split("::")
+            .map(name => {
+                name = name.replace(/\W+/g, "_");
+                return upper ? name[0].toUpperCase() + name.slice(1) : name;
+            })
+            .join("_");
     }
 
     constructor(fqn) {
@@ -25,6 +38,7 @@ class CoClass {
         this.path = path;
         this.name = path[path.length - 1];
         this.className = CoClass.getClassName(this.fqn);
+        this.objectName = CoClass.getObjectName(this.fqn);
         this.idl = `I${ this.className }*`;
         this.parents = new Set();
         this.properties = new Map();
@@ -34,8 +48,13 @@ class CoClass {
         this.cpp_quotes = [];
 
         if (hasProp.call(knwon_ids, fqn)) {
-            this.iid = knwon_ids[fqn].iid;
-            this.clsid = knwon_ids[fqn].clsid;
+            // keep order of appearance
+            const id = knwon_ids[fqn];
+            delete knwon_ids[fqn];
+            knwon_ids[fqn] = id;
+
+            this.iid = id.iid;
+            this.clsid = id.clsid;
         } else {
             this.iid = uuidv4();
             this.clsid = uuidv4();
@@ -45,7 +64,7 @@ class CoClass {
             };
         }
 
-        this.progid = path.join(".");
+        this.progid = path.map(name => CoClass.getObjectName(name)).join(".");
 
         this.idr = ++idr;
     }
@@ -55,6 +74,12 @@ class CoClass {
     }
 
     addProperty([argtype, argname, defval /* or "" if none */, list_of_modifiers]) {
+        const pos = argname.indexOf("=");
+        if (pos !== -1) {
+            defval = argname.slice(pos + 1).trim();
+            argname = argname.slice(0, pos).trim();
+        }
+
         if (this.properties.has(argname)) {
             console.log(`duplicate property '${ argname }' of '${ this.fqn }'`);
         }
@@ -76,7 +101,7 @@ class CoClass {
 
         let fname = path[path.length - 1];
 
-        const is_constructor = return_value_type === "" && fname === this.name;
+        const is_constructor = fname === this.name;
 
         if (is_constructor) {
             fname = "create";
@@ -86,13 +111,16 @@ class CoClass {
 
             if (list_of_arguments.length === 1) {
                 const [argtype] = list_of_arguments[0];
-                if (argtype === this.fqn || `${ this.namespace }::${ argtype }` === this.fqn || `cv::${ argtype }` === this.fqn) {
+                if (argtype === this.fqn || `${ this.namespace }::${ argtype }` === this.fqn) {
                     this.has_copy_constructor = true;
                 }
             }
 
             if (list_of_arguments.length === 0 || !list_of_arguments.some(([argtype, argname, defval]) => defval === "")) {
                 this.has_default_constructor = true;
+                if (return_value_type === "") {
+                    this.has_assign_operator = true;
+                }
             }
         }
 
@@ -117,8 +145,8 @@ class CoClass {
         return this.className;
     }
 
-    getFilename() {
-        return this.fqn.replace(/::/g, "_");
+    getObjectName() {
+        return this.objectName;
     }
 }
 

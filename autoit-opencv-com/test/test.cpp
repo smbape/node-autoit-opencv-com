@@ -33,6 +33,13 @@ inline auto _OpenCV_ScalarAll(double val) {
 	return variant;
 }
 
+inline void string_to_bstr(const std::string& in_val, _bstr_t& out_val) {
+	std::wstring ws = ConvertUtf8ToWide(in_val);
+	BSTR bstr = SysAllocStringLen(ws.data(), ws.size());
+	out_val = _bstr_t(bstr);
+	SysFreeString(bstr);
+}
+
 template<typename... T>
 inline auto _OpenCV_Tuple(T... args) {
 
@@ -49,13 +56,6 @@ inline auto _OpenCV_Tuple(T... args) {
 	V_ARRAY(&variant) = safeArray;
 
 	return variant;
-}
-
-void string_to_bstr(const std::string& in_val, _bstr_t& out_val) {
-	std::wstring ws = ConvertUtf8ToWide(in_val);
-	BSTR bstr = SysAllocStringLen(ws.data(), ws.size());
-	out_val = _bstr_t(bstr);
-	SysFreeString(bstr);
 }
 
 HRESULT EnumerateDevices(REFGUID category, IEnumMoniker** ppEnum)

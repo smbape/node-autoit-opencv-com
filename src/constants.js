@@ -121,8 +121,6 @@ exports.CUSTOM_CLASSES = [
     ["cv.GProtoOutputArgs", ["/Simple"]],
 ];
 
-exports.CUSTOM_NAMESPACES = new Set();
-
 exports.ARRAY_CLASSES = new Set([
     // Array types
     // Unique
@@ -165,7 +163,7 @@ exports.IGNORED_CLASSES = new Set([
 
 for (const type of exports.CPP_TYPES.keys()) {
     const cpptype = exports.CPP_TYPES.get(type);
-    if (cpptype[0] !== "_" && !cpptype.includes("<") && !type.includes("string") && !type.includes("String")) {
+    if (cpptype[0] !== "_" && !cpptype.includes("<") && !type.includes("string") && !type.includes("String") && !exports.ALIASES.has(cpptype)) {
         exports.ALIASES.set(type, cpptype);
     }
 }

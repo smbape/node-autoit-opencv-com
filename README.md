@@ -345,10 +345,6 @@ cd node-autoit-opencv-com
 
 # Install nodejs dependencies
 npm ci
-
-# download opencv-4.5.5
-curl -L 'https://github.com/opencv/opencv/releases/download/4.5.5/opencv-4.5.5-vc14_vc15.exe' -o opencv-4.5.5-vc14_vc15.exe
-./opencv-4.5.5-vc14_vc15.exe -oopencv-4.5.5-vc14_vc15 -y
 ```
 
 ### Generate the UDF files

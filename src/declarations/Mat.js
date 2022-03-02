@@ -1,5 +1,5 @@
 const declarations = [
-    ["class cv.Mat", "", ["/Simple", "/DC"], [
+    ["class cv.Mat", "", ["/Simple"], [
         ["int", "flags", "", ["/RW"]],
         ["int", "dims", "", ["/RW"]],
         ["int", "rows", "", ["/RW"]],
@@ -306,7 +306,7 @@ for (const type of types) {
             ["int", "x", "", []],
         ], "", ""],
 
-        [`cv.Mat.at<${ type }>`, "void", [`=${ type }_set_at`, "/Expr=(x) = value"], [
+        [`cv.Mat.at<${ type }>`, "void", [`=${ type }_set_at`, "/Expr=x) = (value"], [
             ["int", "x", "", []],
             [type, "value", "", []],
         ], "", ""],
@@ -316,7 +316,7 @@ for (const type of types) {
             ["int", "y", "", []]
         ], "", ""],
 
-        [`cv.Mat.at<${ type }>`, "void", [`=${ type }_set_at`, "/Expr=(x, y) = value"], [
+        [`cv.Mat.at<${ type }>`, "void", [`=${ type }_set_at`, "/Expr=x, y) = (value"], [
             ["int", "x", "", []],
             ["int", "y", "", []],
             [type, "value", "", []],
@@ -326,7 +326,7 @@ for (const type of types) {
             ["Point", "pt", "", []],
         ], "", ""],
 
-        [`cv.Mat.at<${ type }>`, "void", [`=${ type }_set_at`, "/Expr=(pt) = value"], [
+        [`cv.Mat.at<${ type }>`, "void", [`=${ type }_set_at`, "/Expr=pt) = (value"], [
             ["Point", "pt", "", []],
             [type, "value", "", []],
         ], "", ""],

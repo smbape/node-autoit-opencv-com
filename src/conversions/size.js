@@ -1,13 +1,13 @@
 /* eslint-disable no-magic-numbers */
 
-const optional = require("./optional_conversion");
+const optional = require("../optional_conversion");
 
-module.exports = (header = [], impl = []) => {
+module.exports = (header = [], impl = [], options = {}) => {
     header.push("template<typename _Tp>");
-    header.push("extern const bool is_assignable_from(cv::Point_<_Tp>& out_val, VARIANT const* const& in_val, bool is_optional);");
+    header.push("extern const bool is_assignable_from(cv::Size_<_Tp>& out_val, VARIANT const* const& in_val, bool is_optional);");
     header.push(`
         template<typename _Tp>
-        const bool is_assignable_from(cv::Point_<_Tp>& out_val, VARIANT const* const& in_val, bool is_optional) {
+        const bool is_assignable_from(cv::Size_<_Tp>& out_val, VARIANT const* const& in_val, bool is_optional) {
             ${ optional.check.join(`\n${ " ".repeat(12) }`) }
 
             if ((V_VT(in_val) & VT_ARRAY) != VT_ARRAY || (V_VT(in_val) ^ VT_ARRAY) != VT_VARIANT) {
@@ -29,7 +29,7 @@ module.exports = (header = [], impl = []) => {
 
             _Tp value;
 
-            for (LONG i = lLower; i <= lUpper && (i - lLower) < 4; i++) {
+            for (LONG i = lLower; i <= lUpper && (i - lLower) < 2; i++) {
                 auto& v = vArray.GetAt(i);
                 VARIANT *pv = &v;
                 if (!is_assignable_from(value, pv, false)) {
@@ -44,10 +44,10 @@ module.exports = (header = [], impl = []) => {
     );
 
     header.push("template<typename _Tp>");
-    header.push("extern const HRESULT autoit_opencv_to(VARIANT const* const& in_val, cv::Point_<_Tp>& out_val);");
+    header.push("extern const HRESULT autoit_to(VARIANT const* const& in_val, cv::Size_<_Tp>& out_val);");
     header.push(`
         template<typename _Tp>
-        const HRESULT autoit_opencv_to(VARIANT const* const& in_val, cv::Point_<_Tp>& out_val) {
+        const HRESULT autoit_to(VARIANT const* const& in_val, cv::Size_<_Tp>& out_val) {
             ${ optional.assign.join(`\n${ " ".repeat(12) }`) }
 
             if ((V_VT(in_val) & VT_ARRAY) != VT_ARRAY || (V_VT(in_val) ^ VT_ARRAY) != VT_VARIANT) {
@@ -69,20 +69,20 @@ module.exports = (header = [], impl = []) => {
 
             _Tp value;
 
-            for (LONG i = lLower; i <= lUpper && (i - lLower) < 4; i++) {
+            for (LONG i = lLower; i <= lUpper && (i - lLower) < 2; i++) {
                 auto& v = vArray.GetAt(i);
                 VARIANT *pv = &v;
-                hr = autoit_opencv_to(pv, value);
+                hr = autoit_to(pv, value);
                 if (FAILED(hr)) {
                     break;
                 }
 
                 switch (i) {
                     case 0:
-                        out_val.x = value;
+                        out_val.width = value;
                         break;
                     case 1:
-                        out_val.y = value;
+                        out_val.height = value;
                         break;
                 }
             }
@@ -93,10 +93,10 @@ module.exports = (header = [], impl = []) => {
     );
 
     header.push("template<typename _Tp>");
-    header.push("extern const HRESULT autoit_opencv_from(const cv::Point_<_Tp>& in_val, VARIANT*& out_val);");
+    header.push("extern const HRESULT autoit_from(const cv::Size_<_Tp>& in_val, VARIANT*& out_val);");
     header.push(`
         template<typename _Tp>
-        const HRESULT autoit_opencv_from(const cv::Point_<_Tp>& in_val, VARIANT*& out_val) {
+        const HRESULT autoit_from(const cv::Size_<_Tp>& in_val, VARIANT*& out_val) {
             if (${ optional.condition("out_val") }) {
                 V_VT(out_val) = VT_ARRAY | VT_VARIANT;
                 typename ATL::template CComSafeArray<VARIANT> vArray((ULONG) 2);
@@ -119,10 +119,10 @@ module.exports = (header = [], impl = []) => {
 
                 switch (i) {
                     case 0:
-                        hr = autoit_opencv_from(in_val.x, pvalue);
+                        hr = autoit_from(in_val.width, pvalue);
                         break;
                     case 1:
-                        hr = autoit_opencv_from(in_val.y, pvalue);
+                        hr = autoit_from(in_val.height, pvalue);
                         break;
                 }
 

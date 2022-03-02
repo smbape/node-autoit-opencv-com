@@ -1,8 +1,8 @@
 /* eslint-disable no-magic-numbers */
 
-const optional = require("./optional_conversion");
+const optional = require("../optional_conversion");
 
-module.exports = (header = [], impl = []) => {
+module.exports = (header = [], impl = [], options = {}) => {
     header.push("template<typename _Tp>");
     header.push("extern const bool is_assignable_from(cv::Rect_<_Tp>& out_val, VARIANT const* const& in_val, bool is_optional);");
     header.push(`
@@ -44,10 +44,10 @@ module.exports = (header = [], impl = []) => {
     );
 
     header.push("template<typename _Tp>");
-    header.push("extern const HRESULT autoit_opencv_to(VARIANT const* const& in_val, cv::Rect_<_Tp>& out_val);");
+    header.push("extern const HRESULT autoit_to(VARIANT const* const& in_val, cv::Rect_<_Tp>& out_val);");
     header.push(`
         template<typename _Tp>
-        const HRESULT autoit_opencv_to(VARIANT const* const& in_val, cv::Rect_<_Tp>& out_val) {
+        const HRESULT autoit_to(VARIANT const* const& in_val, cv::Rect_<_Tp>& out_val) {
             ${ optional.assign.join(`\n${ " ".repeat(12) }`) }
 
             if ((V_VT(in_val) & VT_ARRAY) != VT_ARRAY || (V_VT(in_val) ^ VT_ARRAY) != VT_VARIANT) {
@@ -72,7 +72,7 @@ module.exports = (header = [], impl = []) => {
             for (LONG i = lLower; i <= lUpper && (i - lLower) < 4; i++) {
                 auto& v = vArray.GetAt(i);
                 VARIANT *pv = &v;
-                hr = autoit_opencv_to(pv, value);
+                hr = autoit_to(pv, value);
                 if (FAILED(hr)) {
                     break;
                 }
@@ -99,10 +99,10 @@ module.exports = (header = [], impl = []) => {
     );
 
     header.push("template<typename _Tp>");
-    header.push("extern const HRESULT autoit_opencv_from(const cv::Rect_<_Tp>& in_val, VARIANT*& out_val);");
+    header.push("extern const HRESULT autoit_from(const cv::Rect_<_Tp>& in_val, VARIANT*& out_val);");
     header.push(`
         template<typename _Tp>
-        const HRESULT autoit_opencv_from(const cv::Rect_<_Tp>& in_val, VARIANT*& out_val) {
+        const HRESULT autoit_from(const cv::Rect_<_Tp>& in_val, VARIANT*& out_val) {
             if (${ optional.condition("out_val") }) {
                 V_VT(out_val) = VT_ARRAY | VT_VARIANT;
                 typename ATL::template CComSafeArray<VARIANT> vArray((ULONG) 2);
@@ -125,16 +125,16 @@ module.exports = (header = [], impl = []) => {
 
                 switch (i) {
                     case 0:
-                        hr = autoit_opencv_from(in_val.x, pvalue);
+                        hr = autoit_from(in_val.x, pvalue);
                         break;
                     case 1:
-                        hr = autoit_opencv_from(in_val.y, pvalue);
+                        hr = autoit_from(in_val.y, pvalue);
                         break;
                     case 2:
-                        hr = autoit_opencv_from(in_val.width, pvalue);
+                        hr = autoit_from(in_val.width, pvalue);
                         break;
                     case 3:
-                        hr = autoit_opencv_from(in_val.height, pvalue);
+                        hr = autoit_from(in_val.height, pvalue);
                         break;
                 }
 

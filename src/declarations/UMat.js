@@ -1,5 +1,5 @@
 module.exports = [
-    ["class cv.UMat", "", ["/Simple", "/DC"], [
+    ["class cv.UMat", "", ["/Simple"], [
         ["int", "rows", "", ["/RW"]],
         ["int", "cols", "", ["/RW"]],
         ["int", "dims", "", ["/RW"]],
@@ -7,6 +7,8 @@ module.exports = [
         ["int", "width", "", ["/RW", "=cols"]],
         ["int", "height", "", ["/RW", "=rows"]]
     ], "", ""],
+
+    ["cv.UMat.UMat", "", [], [], "", ""],
 
     ["cv.UMat.UMat", "", [], [
         ["UMat", "m", "", []]

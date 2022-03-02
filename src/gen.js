@@ -9,14 +9,27 @@ const mkdirp = require("mkdirp");
 const waterfall = require("async/waterfall");
 const {explore} = require("fs-explorer");
 
-const parseArguments = OUTPUT_DIR => {
+const parseArguments = PROJECT_DIR => {
     const options = {
+        APP_NAME: "OpenCV",
+        LIB_UID: "fc210206-673e-4ec8-82d5-1a6ac561f3de",
+        LIBRARY: "cvLib",
+        namespace: "cv",
+        shared_ptr: "cv::Ptr",
+        assert: "AUTOIT_ASSERT",
+        variantTypeReg: /^cv::(?:Point|Rect|Scalar|Size|Vec)(?:\d[bdfisw])?$/,
+        implicitNamespaceType: /^(?:Point|Rect|Scalar|Size|Vec)(?:\d[bdfisw])?$/,
+        namespaces: new Set([
+            "cv",
+            "std",
+        ]),
+        other_namespaces: new Set(),
         build: new Set(),
         notest: new Set(),
         skip: new Set(),
-        make: sysPath.join(OUTPUT_DIR, "build.bat"),
-        includes: [sysPath.join(OUTPUT_DIR, "src")],
-        output: sysPath.join(OUTPUT_DIR, "generated"),
+        make: sysPath.join(PROJECT_DIR, "build.bat"),
+        includes: [sysPath.join(PROJECT_DIR, "src")],
+        output: sysPath.join(PROJECT_DIR, "generated"),
     };
 
     for (const opt of ["iface", "hdr", "impl", "idl", "rgs", "res", "save"]) {
@@ -51,13 +64,16 @@ const parseArguments = OUTPUT_DIR => {
 };
 
 const {
-    ALIASES,
     CUSTOM_CLASSES,
-    CUSTOM_NAMESPACES,
 } = require("./constants");
+
+const {replaceAliases} = require("./alias");
 
 const custom_declarations = require("./custom_declarations");
 const AutoItGenerator = require("./AutoItGenerator");
+
+const PROJECT_DIR = sysPath.resolve(__dirname, "../autoit-opencv-com");
+const SRC_DIR = sysPath.join(PROJECT_DIR, "src");
 
 const candidates = fs.readdirSync(sysPath.join(__dirname, "..")).filter(path => {
     if (!path.startsWith("opencv-4.")) {
@@ -72,10 +88,7 @@ const candidates = fs.readdirSync(sysPath.join(__dirname, "..")).filter(path => 
     }
 });
 
-const OUTPUT_DIR = sysPath.resolve(__dirname, "../autoit-opencv-com");
-const SRC_DIR = sysPath.resolve(__dirname, "../autoit-opencv-com/src");
-
-const python_generator = sysPath.join(OUTPUT_DIR, "opencv_build_x64", "modules", "python_bindings_generator");
+const python_generator = sysPath.join(PROJECT_DIR, "opencv_build_x64", "modules", "python_bindings_generator");
 const src2 = sysPath.resolve(__dirname, "..", candidates[0], "opencv/sources/modules/python/src2");
 const headers = sysPath.join(python_generator, "headers.txt");
 const pyopencv_generated_include = sysPath.join(python_generator, "pyopencv_generated_include.h");
@@ -84,7 +97,7 @@ const hdr_parser = fs.readFileSync(sysPath.join(src2, "hdr_parser.py")).toString
 const hdr_parser_start = hdr_parser.indexOf("class CppHeaderParser");
 const hdr_parser_end = hdr_parser.indexOf("if __name__ == '__main__':");
 
-const options = parseArguments(OUTPUT_DIR);
+const options = parseArguments(PROJECT_DIR);
 
 waterfall([
     next => {
@@ -166,23 +179,18 @@ waterfall([
 
             const buffer = Buffer.concat(buffers, nlen);
 
-            const replacer = new RegExp(Array.from(ALIASES.keys()).join("|"), "g");
+            const json = JSON.parse(replaceAliases(buffer.toString(), options));
+            json.decls.push(...custom_declarations);
 
-            const configuration = JSON.parse(buffer.toString().replace(replacer, (match, offset, string) => {
-                return offset === 0
-                    || /\W/.test(string[offset - 1])
-                    || string.endsWith("vector_", offset)
-                    || string.endsWith("Ptr_", offset) ? ALIASES.get(match) : match;
-            }));
+            const configuration = JSON.parse(replaceAliases(JSON.stringify(json), options));
             configuration.generated_include = generated_include;
-
-            configuration.decls.push(...custom_declarations);
 
             for (const [name, modifiers] of CUSTOM_CLASSES) {
                 configuration.decls.push([`class ${ name }`, "", modifiers, [], "", ""]);
             }
 
-            configuration.namespaces.push(...CUSTOM_NAMESPACES);
+            configuration.namespaces.push(...options.namespaces);
+            configuration.namespaces.push(...options.other_namespaces);
 
             const generator = new AutoItGenerator();
             generator.generate(configuration, options, next);
@@ -197,12 +205,13 @@ waterfall([
             nlen += chunk.length;
         });
 
-        child.stdin.write(`
+        const code = `
             import io, json, os, re, string, sys
 
             ${ hdr_parser
                 .slice(hdr_parser_start, hdr_parser_end)
                 .replace(`${ " ".repeat(20) }if self.wrap_mode:`, `${ " ".repeat(20) }if False:`)
+                .replace(/\("std::", ""\), \("cv::", ""\)/g, Array.from(options.namespaces).map(namespace => `("${ namespace }::", "")`).join(", "))
                 .split("\n")
                 .join(`\n${ " ".repeat(12) }`) }
 
@@ -221,12 +230,16 @@ waterfall([
                 all_decls += decls
 
             print(json.dumps({"decls": all_decls, "namespaces": sorted(parser.namespaces)}, indent=4))
-        `.trim().replace(/^ {12}/mg, ""));
+        `.trim().replace(/^ {12}/mg, "");
+
+        // fs.writeFileSync(sysPath.join(__dirname, "../gen.py"), code);
+
+        child.stdin.write(code);
         child.stdin.end();
     }
 ], err => {
     if (err) {
         throw err;
     }
-    console.log(`Build files have been written to: ${ sysPath.resolve(__dirname, "../autoit-opencv-com/generated") }`);
+    console.log(`Build files have been written to: ${ options.output }`);
 });

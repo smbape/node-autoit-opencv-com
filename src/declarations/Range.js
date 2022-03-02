@@ -1,5 +1,5 @@
 module.exports = [
-    ["class cv.Range", "", ["/Simple", "/DC"], [
+    ["class cv.Range", "", ["/Simple"], [
         ["int", "start", "", ["/RW"]],
         ["int", "end", "", ["/RW"]],
     ], "", ""],

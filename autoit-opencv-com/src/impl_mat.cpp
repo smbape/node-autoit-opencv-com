@@ -695,7 +695,7 @@ const _variant_t CCv_Mat_Object::PixelSearch(cv::Scalar& color, int left, int to
 		for (int i = top; (vstep > 0 ? i <= bottom : i >= bottom); i += vstep) {
 			for (int j = left; (hstep > 0 ? j <= right : j >= right); j += hstep) {
 				if (min_blue <= src.at<uchar>(i, j) && src.at<uchar>(i, j) <= max_blue) {
-					hr = autoit_opencv_from(Point(j, i), out_val);
+					hr = autoit_from(Point(j, i), out_val);
 					goto end_swith;
 				}
 			}
@@ -717,7 +717,7 @@ const _variant_t CCv_Mat_Object::PixelSearch(cv::Scalar& color, int left, int to
 					min_green <= green && green <= max_green &&
 					min_red <= red && red <= max_red
 					) {
-					hr = autoit_opencv_from(Point(j, i), out_val);
+					hr = autoit_from(Point(j, i), out_val);
 					goto end_swith;
 				}
 			}

@@ -1,5 +1,5 @@
 module.exports = [
-    ["class cv.RotatedRect", "", ["/Simple", "/DC"], [
+    ["class cv.RotatedRect", "", ["/Simple"], [
         ["Point2f", "center", "", ["/RW"]],
         ["Size2f", "size", "", ["/RW"]],
         ["float", "angle", "", ["/RW"]],

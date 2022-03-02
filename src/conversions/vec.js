@@ -1,8 +1,8 @@
 /* eslint-disable no-magic-numbers */
 
-const optional = require("./optional_conversion");
+const optional = require("../optional_conversion");
 
-module.exports = (header = [], impl = []) => {
+module.exports = (header = [], impl = [], options = {}) => {
     header.push("template<typename _Tp, int cn>");
     header.push("extern const bool is_assignable_from(cv::Vec<_Tp, cn>& out_val, VARIANT const* const& in_val, bool is_optional);");
     header.push(`
@@ -58,10 +58,10 @@ module.exports = (header = [], impl = []) => {
     );
 
     header.push("template<typename _Tp, int cn>");
-    header.push("extern const HRESULT autoit_opencv_to(VARIANT const* const& in_val, cv::Vec<_Tp, cn>& out_val);");
+    header.push("extern const HRESULT autoit_to(VARIANT const* const& in_val, cv::Vec<_Tp, cn>& out_val);");
     header.push(`
         template<typename _Tp, int cn>
-        const HRESULT autoit_opencv_to(VARIANT const* const& in_val, cv::Vec<_Tp, cn>& out_val) {
+        const HRESULT autoit_to(VARIANT const* const& in_val, cv::Vec<_Tp, cn>& out_val) {
             ${ optional.assign.join(`\n${ " ".repeat(12) }`) }
 
             // a number can be a Scalar .i.e. Vec4d
@@ -113,7 +113,7 @@ module.exports = (header = [], impl = []) => {
             for (LONG i = lLower; i <= lUpper && (i - lLower) < cn; i++) {
                 auto& v = vArray.GetAt(i);
                 VARIANT *pv = &v;
-                hr = autoit_opencv_to(pv, value);
+                hr = autoit_to(pv, value);
                 if (FAILED(hr)) {
                     break;
                 }
@@ -126,10 +126,10 @@ module.exports = (header = [], impl = []) => {
     );
 
     header.push("template<typename _Tp, int cn>");
-    header.push("extern const HRESULT autoit_opencv_from(const cv::Vec<_Tp, cn>& in_val, VARIANT*& out_val);");
+    header.push("extern const HRESULT autoit_from(const cv::Vec<_Tp, cn>& in_val, VARIANT*& out_val);");
     header.push(`
         template<typename _Tp, int cn>
-        const HRESULT autoit_opencv_from(const cv::Vec<_Tp, cn>& in_val, VARIANT*& out_val) {
+        const HRESULT autoit_from(const cv::Vec<_Tp, cn>& in_val, VARIANT*& out_val) {
             if (${ optional.condition("out_val") }) {
                 V_VT(out_val) = VT_ARRAY | VT_VARIANT;
                 typename ATL::template CComSafeArray<VARIANT> vArray((ULONG) cn);
@@ -149,7 +149,7 @@ module.exports = (header = [], impl = []) => {
             for (LONG i = 0; i < cn; i++) {
                 VARIANT value = { VT_EMPTY };
                 auto *pvalue = &value;
-                HRESULT hr = autoit_opencv_from(in_val[i], pvalue);
+                HRESULT hr = autoit_from(in_val[i], pvalue);
                 if (FAILED(hr)) {
                     VariantClear(&value);
                     break;

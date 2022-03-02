@@ -13,9 +13,25 @@ Func _OpenCV_ObjCreate($sClassname, $sFilename = Default)
 	If $s_autoit_opencv_com_dll == "" Or $sFilename <> Default Then $s_autoit_opencv_com_dll = $sFilename
 	If $sFilename == Default Then $sFilename = $s_autoit_opencv_com_dll
 
-	$sClassname = "OpenCV." & $sClassname
-	Local $oObj = ObjGet($s_autoit_opencv_com_dll, $sClassname)
-	Return IsObj($oObj) ? $oObj : ObjCreate($sClassname)
+	Local Const $namespaces[3] = ["", "OpenCV.", "OpenCV.cv."]
+	Local $siClassname, $oObj
+
+	For $i = 0 To UBound($namespaces) -1
+		$siClassname = $namespaces[$i] & $sClassname
+		$oObj = ObjGet($s_autoit_opencv_com_dll, $siClassname)
+		If IsObj($oObj) Then
+			_OpenCV_DebugMsg("ObjCreate " & $siClassname)
+			Return $oObj
+		EndIf
+
+		$oObj = ObjCreate($siClassname)
+		If IsObj($oObj) Then
+			_OpenCV_DebugMsg("ObjCreate " & $siClassname)
+			Return $oObj
+		EndIf
+	Next
+
+	Return $oObj
 EndFunc   ;==>_OpenCV_ObjCreate
 
 Func _OpenCV_get($vVal = Default)
@@ -87,16 +103,16 @@ EndFunc   ;==>_OpenCV_Open
 Func _OpenCV_Close()
 	_OpenCV_get(0)
 	_OpenCV_ObjCreate("cv", "")
-	Return _OpenCV_Install(Default, Default, True, False)
+	Return _OpenCV_Install(Default, Default, Default, False)
 EndFunc   ;==>_OpenCV_Close
 
-Func _Opencv_Register($bUser = Default)
+Func _OpenCV_Register($bUser = Default)
 	Return _OpenCV_Install(Default, Default, $bUser, False, False, True, False)
-EndFunc   ;==>_Opencv_Register
+EndFunc   ;==>_OpenCV_Register
 
-Func _Opencv_Unregister($bUser = Default)
+Func _OpenCV_Unregister($bUser = Default)
 	Return _OpenCV_Install(Default, Default, $bUser, False, False, False, True)
-EndFunc   ;==>_Opencv_Unregister
+EndFunc   ;==>_OpenCV_Unregister
 
 Func _OpenCV_DebugMsg($msg)
 	If BitAND($_cv_debug, 1) Then

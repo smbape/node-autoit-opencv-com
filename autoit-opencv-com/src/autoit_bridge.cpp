@@ -21,331 +21,7 @@
 	rename("MoveFile", "MoveFile2") \
 	// avoid name collision with Windows SDK's macros, this is specific to scrrun.dll
 
-ATL::CComSafeArray<VARIANT> ExtendedHolder::extended((ULONG)0);
-HMODULE ExtendedHolder::hModule = GetModuleHandle(NULL);
-
-HRESULT ExtendedHolder::SetLength(ULONG len) {
-	return extended.Resize(len);
-}
-
-HRESULT ExtendedHolder::SetAt(LONG i, const VARIANT& value, bool copy) {
-	return extended.SetAt(i, value, copy);
-}
-
-IDispatch* getRealIDispatch(VARIANT const* const& in_val) {
-	auto dispatch = V_DISPATCH(in_val);
-
-	MEMORY_BASIC_INFORMATION info;
-	VirtualQuery(*reinterpret_cast<void**>(dispatch), &info, sizeof(info));
-
-	if (info.AllocationBase == ExtendedHolder::hModule) {
-		// Assume autoit object
-		dispatch = *reinterpret_cast<IDispatch**>(reinterpret_cast<char*>(dispatch) + 0x10);
-	}
-
-	return dispatch;
-}
-
-const variant_t get_variant_in(VARIANT const* const& in_val) {
-	if (!V_ISBYREF(in_val)) {
-		return _variant_t(in_val);
-	}
-
-	switch (V_VT(in_val) ^ VT_BYREF) {
-		case VT_I2:
-			return _variant_t(*V_I2REF(in_val));
-		case VT_I4:
-			return _variant_t(*V_I4REF(in_val));
-		case VT_R4:
-			return _variant_t(*V_R4REF(in_val));
-		case VT_R8:
-			return _variant_t(*V_R8REF(in_val));
-		case VT_CY:
-			return _variant_t(*V_CYREF(in_val));
-		case VT_DATE:
-			return _variant_t(*V_DATEREF(in_val));
-		case VT_BSTR:
-			return _variant_t(*V_BSTRREF(in_val));
-		case VT_DISPATCH:
-			return _variant_t(*V_DISPATCHREF(in_val));
-		case VT_ERROR:
-			return _variant_t(*V_ERRORREF(in_val));
-		case VT_BOOL:
-			return _variant_t(*V_BOOLREF(in_val));
-		case VT_VARIANT:
-			return _variant_t(*V_VARIANTREF(in_val));
-		case VT_UNKNOWN:
-			return _variant_t(*V_UNKNOWNREF(in_val));
-		case VT_DECIMAL:
-			return _variant_t(*V_DECIMALREF(in_val));
-		case VT_I1:
-			return _variant_t(*V_I1REF(in_val));
-		case VT_UI1:
-			return _variant_t(*V_UI1REF(in_val));
-		case VT_UI2:
-			return _variant_t(*V_UI2REF(in_val));
-		case VT_UI4:
-			return _variant_t(*V_UI4REF(in_val));
-		case VT_I8:
-			return _variant_t(*V_I8REF(in_val));
-		case VT_UI8:
-			return _variant_t(*V_UI8REF(in_val));
-		case VT_INT:
-			return _variant_t(*V_INTREF(in_val));
-		case VT_UINT:
-			return _variant_t(*V_UINTREF(in_val));
-		case VT_INT_PTR:
-			return _variant_t(*V_INT_PTRREF(in_val));
-		case VT_UINT_PTR:
-			return _variant_t(*V_UINT_PTRREF(in_val));
-		default:
-			return _variant_t(in_val);
-	}
-}
-
-const bool is_assignable_from(bool& out_val, VARIANT const* const& in_val, bool is_optional) {
-	switch (V_VT(in_val)) {
-	case VT_BOOL:
-		return true;
-	case VT_ERROR:
-		return V_ERROR(in_val) == DISP_E_PARAMNOTFOUND && is_optional;
-	default:
-		return false;
-	}
-}
-
-const HRESULT autoit_opencv_to(VARIANT_BOOL& in_val, bool& out_val) {
-	out_val = in_val == VARIANT_TRUE;
-	return S_OK;
-}
-
-const HRESULT autoit_opencv_to(VARIANT const* const& in_val, bool& out_val) {
-	if (V_VT(in_val) == VT_ERROR) {
-		return V_ERROR(in_val) == DISP_E_PARAMNOTFOUND ? S_OK : E_INVALIDARG;
-	}
-
-	if (V_VT(in_val) != VT_BOOL) {
-		return E_INVALIDARG;
-	}
-
-	out_val = V_BOOL(in_val) == VARIANT_TRUE;
-	return S_OK;
-}
-
-const HRESULT autoit_opencv_from(const bool& in_val, VARIANT_BOOL*& out_val) {
-	*out_val = in_val ? VARIANT_TRUE : VARIANT_FALSE;
-	return S_OK;
-}
-
-const bool is_assignable_from(std::string& out_val, BSTR const& in_val, bool is_optional) {
-	return true;
-}
-
-const bool is_assignable_from(std::string& out_val, VARIANT const* const& in_val, bool is_optional) {
-	switch (V_VT(in_val)) {
-	case VT_BSTR:
-		return true;
-	case VT_ERROR:
-		return V_ERROR(in_val) == DISP_E_PARAMNOTFOUND && is_optional;
-	default:
-		return false;
-	}
-}
-
-const HRESULT autoit_opencv_to(BSTR const& in_val, std::string& out_val) {
-	if (in_val) {
-		std::wstring wide(in_val);
-		out_val = std::string(wide.length(), 0);
-		std::transform(wide.begin(), wide.end(), out_val.begin(), [](wchar_t c) {
-			return (char)c;
-		});
-		return S_OK;
-	}
-	return E_INVALIDARG;
-}
-
-const HRESULT autoit_opencv_to(VARIANT const* const& in_val, std::string& out_val) {
-	if (V_VT(in_val) == VT_ERROR) {
-		return V_ERROR(in_val) == DISP_E_PARAMNOTFOUND ? S_OK : E_INVALIDARG;
-	}
-
-	if (V_VT(in_val) != VT_BSTR) {
-		return E_INVALIDARG;
-	}
-
-	return autoit_opencv_to(V_BSTR(in_val), out_val);
-}
-
-const HRESULT autoit_opencv_from(std::string& in_val, BSTR& out_val) {
-	auto* pout_val = &out_val;
-	return autoit_opencv_from(in_val, pout_val);
-}
-
-const HRESULT autoit_opencv_from(const std::string& in_val, BSTR*& out_val) {
-	// assuming strings are utf8 encoded
-	// https://stackoverflow.com/a/59617138
-	int count = MultiByteToWideChar(CP_UTF8, 0, in_val.c_str(), in_val.length(), NULL, 0);
-	std::wstring ws(count, 0);
-	MultiByteToWideChar(CP_UTF8, 0, in_val.c_str(), in_val.length(), &ws[0], count);
-
-	// https://stackoverflow.com/a/6284978
-	*out_val = SysAllocStringLen(ws.data(), ws.size());
-	return S_OK;
-}
-
-const HRESULT autoit_opencv_from(const std::string& in_val, VARIANT*& out_val) {
-	V_VT(out_val) = VT_BSTR;
-	BSTR bstrVal;
-	BSTR* pbstrVal = &bstrVal;
-	HRESULT hr = autoit_opencv_from(in_val, pbstrVal);
-	V_BSTR(out_val) = bstrVal;
-	return hr;
-}
-
-const HRESULT autoit_opencv_from(BSTR const& in_val, VARIANT*& out_val) {
-	VARIANT variant = { VT_BSTR };
-	V_BSTR(&variant) = in_val;
-	VariantInit(out_val);
-	return VariantCopy(out_val, &variant);
-}
-
-const bool is_assignable_from(char*& out_val, VARIANT const* const& in_val, bool is_optional) {
-	switch (V_VT(in_val)) {
-	case VT_BSTR:
-		return true;
-	case VT_ERROR:
-		return V_ERROR(in_val) == DISP_E_PARAMNOTFOUND && is_optional;
-	default:
-		return false;
-	}
-}
-
-const HRESULT autoit_opencv_to(VARIANT const* const& in_val, char*& out_val) {
-	std::string str;
-	HRESULT hr = autoit_opencv_to(in_val, str);
-	if (SUCCEEDED(hr)) {
-		out_val = const_cast<char*>(str.c_str());
-	}
-	return hr;
-}
-
-template<typename T>
-inline const bool is_assignable_from_ptr(T& out_val, VARIANT const* const& in_val, bool is_optional) {
-	if (is_variant_number(in_val)) {
-		return true;
-	}
-
-	switch (V_VT(in_val)) {
-		case VT_EMPTY:
-			return true;
-		case VT_ERROR:
-			return V_ERROR(in_val) == DISP_E_PARAMNOTFOUND && is_optional;
-		default:
-			return false;
-	}
-}
-
-template<typename T>
-inline const HRESULT autoit_opencv_to_ptr(VARIANT const* const& in_val, T& out_val) {
-	ULONGLONG _out_val = 0;
-	HRESULT hr = get_variant_number<ULONGLONG>(in_val, _out_val);
-	if (FAILED(hr) || PARAMETER_MISSING(in_val)) {
-		return hr;
-	}
-
-	out_val = reinterpret_cast<T>(_out_val);
-	return hr;
-}
-
-template<typename T>
-inline const HRESULT autoit_opencv_from_ptr(T const& in_val, VARIANT*& out_val) {
-	V_VT(out_val) = VT_UI8;
-	V_UI8(out_val) = reinterpret_cast<ULONGLONG>(in_val);
-	return S_OK;
-}
-
-#define PTR_BRIDGE_IMPL(T) \
-\
-const bool is_assignable_from(T& out_val, VARIANT const* const& in_val, bool is_optional) { \
-	return is_assignable_from_ptr(out_val, in_val, is_optional); \
-} \
-\
-const HRESULT autoit_opencv_to(VARIANT const* const& in_val, T& out_val) { \
-	return autoit_opencv_to_ptr(in_val, out_val); \
-} \
-\
-const HRESULT autoit_opencv_from(T const& in_val, VARIANT*& out_val) { \
-	return autoit_opencv_from_ptr(in_val, out_val); \
-}
-
-PTR_BRIDGE_IMPL(void*)
-PTR_BRIDGE_IMPL(uchar*)
-PTR_BRIDGE_IMPL(HWND)
 PTR_BRIDGE_IMPL(cv::wgc::WGCFrameCallback)
-
-#undef PTR_BRIDGE_IMPL
-
-const HRESULT autoit_opencv_from(cv::MatExpr& in_val, ICv_Mat_Object**& out_val) {
-	return autoit_opencv_from(cv::Mat(in_val), out_val);
-}
-
-const HRESULT autoit_opencv_from(VARIANT const& in_val, VARIANT*& out_val) {
-	VariantInit(out_val);
-	return VariantCopy(out_val, &in_val);
-}
-
-const HRESULT autoit_opencv_out(IDispatch*& in_val, VARIANT*& out_val) {
-	V_VT(out_val) = VT_DISPATCH;
-	V_DISPATCH(out_val) = in_val;
-	in_val->AddRef();
-	return S_OK;
-}
-
-const HRESULT autoit_opencv_out(VARIANT const* const& in_val, VARIANT*& out_val) {
-	VariantInit(out_val);
-	return VariantCopy(out_val, in_val);
-}
-
-const HRESULT autoit_opencv_out(VARIANT const* const& in_val, IDispatch**& out_val) {
-	if (V_VT(in_val) != VT_DISPATCH) {
-		return E_INVALIDARG;
-	}
-
-	if (*out_val) {
-		(*out_val)->Release();
-	}
-
-	*out_val = getRealIDispatch(in_val);
-	(*out_val)->AddRef();
-	return S_OK;
-}
-
-const HRESULT autoit_opencv_out(VARIANT const* const& in_val, BSTR*& out_val) {
-	if (V_VT(in_val) != VT_BSTR) {
-		return E_INVALIDARG;
-	}
-
-	*out_val = SysAllocString(V_BSTR(in_val));
-	return *out_val == NULL && V_BSTR(in_val) != NULL ? E_OUTOFMEMORY : S_OK;
-}
-
-const bool is_variant_number(VARIANT const* const& in_val) {
-	switch (V_VT(in_val)) {
-		case VT_I1:
-		case VT_I2:
-		case VT_I4:
-		case VT_I8:
-		case VT_INT:
-		case VT_UI1:
-		case VT_UI2:
-		case VT_UI4:
-		case VT_UI8:
-		case VT_UINT:
-			return true;
-		default:
-			return false;
-	}
-}
 
 const bool is_variant_scalar(VARIANT const* const& in_val) {
 	if ((V_VT(in_val) & VT_ARRAY) != VT_ARRAY || (V_VT(in_val) ^ VT_ARRAY) != VT_VARIANT) {
@@ -353,7 +29,7 @@ const bool is_variant_scalar(VARIANT const* const& in_val) {
 	}
 
 	cv::Scalar out_val;
-	return SUCCEEDED(autoit_opencv_to(in_val, out_val));
+	return SUCCEEDED(autoit_to(in_val, out_val));
 }
 
 const bool is_array_from(VARIANT const* const& in_val, bool is_optional) {
@@ -388,6 +64,10 @@ const bool is_arrays_from(VARIANT const* const& in_val, bool is_optional) {
 	return dynamic_cast<IVariantArrays*>(getRealIDispatch(in_val)) ? true : false;
 }
 
+const HRESULT autoit_from(cv::MatExpr& in_val, ICv_Mat_Object**& out_val) {
+	return autoit_from(cv::Mat(in_val), out_val);
+}
+
 const bool is_assignable_from(cv::GMetaArg& out_val, VARIANT const* const& in_val, bool is_optional) {
 	cv::GMatDesc value_GMatDesc;
 	cv::GScalarDesc value_GScalarDesc;
@@ -400,7 +80,7 @@ const bool is_assignable_from(cv::GMetaArg& out_val, VARIANT const* const& in_va
 		;
 }
 
-const HRESULT autoit_opencv_to(VARIANT const* const& in_val, cv::GMetaArg& out_val) {
+const HRESULT autoit_to(VARIANT const* const& in_val, cv::GMetaArg& out_val) {
 	cv::GMatDesc value_GMatDesc;
 	cv::GScalarDesc value_GScalarDesc;
 	cv::GArrayDesc value_GArrayDesc;
@@ -409,22 +89,22 @@ const HRESULT autoit_opencv_to(VARIANT const* const& in_val, cv::GMetaArg& out_v
 	HRESULT hr = S_OK;
 
 	if (is_assignable_from(value_GMatDesc, in_val, false)) {
-		hr = autoit_opencv_to(in_val, value_GMatDesc);
+		hr = autoit_to(in_val, value_GMatDesc);
 		if (SUCCEEDED(hr)) {
 			out_val = value_GMatDesc;
 		}
 	} else if (is_assignable_from(value_GScalarDesc, in_val, false)) {
-		hr = autoit_opencv_to(in_val, value_GScalarDesc);
+		hr = autoit_to(in_val, value_GScalarDesc);
 		if (SUCCEEDED(hr)) {
 			out_val = value_GScalarDesc;
 		}
 	} else if (is_assignable_from(value_GArrayDesc, in_val, false)) {
-		hr = autoit_opencv_to(in_val, value_GArrayDesc);
+		hr = autoit_to(in_val, value_GArrayDesc);
 		if (SUCCEEDED(hr)) {
 			out_val = value_GArrayDesc;
 		}
 	} else if (is_assignable_from(value_GOpaqueDesc, in_val, false)) {
-		hr = autoit_opencv_to(in_val, value_GOpaqueDesc);
+		hr = autoit_to(in_val, value_GOpaqueDesc);
 		if (SUCCEEDED(hr)) {
 			out_val = value_GOpaqueDesc;
 		}
@@ -434,77 +114,54 @@ const HRESULT autoit_opencv_to(VARIANT const* const& in_val, cv::GMetaArg& out_v
 	return hr;
 }
 
-const HRESULT autoit_opencv_from(const GMetaArg& in_val, VARIANT*& out_val) {
+const HRESULT autoit_from(const GMetaArg& in_val, VARIANT*& out_val) {
 	switch (in_val.index()) {
 		case cv::GMetaArg::index_of<cv::GMatDesc>():
-			return autoit_opencv_from(util::get<cv::GMatDesc>(in_val), out_val);
+			return autoit_from(util::get<cv::GMatDesc>(in_val), out_val);
 
 		case cv::GMetaArg::index_of<cv::GScalarDesc>():
-			return autoit_opencv_from(util::get<cv::GScalarDesc>(in_val), out_val);
+			return autoit_from(util::get<cv::GScalarDesc>(in_val), out_val);
 
 		case cv::GMetaArg::index_of<cv::GOpaqueDesc>():
-			return autoit_opencv_from(util::get<cv::GOpaqueDesc>(in_val), out_val);
+			return autoit_from(util::get<cv::GOpaqueDesc>(in_val), out_val);
 
 		case cv::GMetaArg::index_of<cv::GArrayDesc>():
-			return autoit_opencv_from(util::get<cv::GArrayDesc>(in_val), out_val);
+			return autoit_from(util::get<cv::GArrayDesc>(in_val), out_val);
 
 		default:
 			return E_INVALIDARG;
 	}
 }
 
-const HRESULT autoit_opencv_from(const GOptRunArg& in_val, VARIANT*& out_val) {
+const HRESULT autoit_from(const GOptRunArg& in_val, VARIANT*& out_val) {
 	switch (in_val.index()) {
 		case GOptRunArg::index_of<cv::optional<cv::Mat>>():
-			return autoit_opencv_from(util::get<cv::optional<cv::Mat>>(in_val), out_val);
+			return autoit_from(util::get<cv::optional<cv::Mat>>(in_val), out_val);
 
 		case GOptRunArg::index_of<cv::optional<cv::Scalar>>():
-			return autoit_opencv_from(util::get<cv::optional<cv::Scalar>>(in_val), out_val);
+			return autoit_from(util::get<cv::optional<cv::Scalar>>(in_val), out_val);
 
 		case GOptRunArg::index_of<optional<cv::detail::VectorRef>>():
-			return autoit_opencv_from(util::get<optional<cv::detail::VectorRef>>(in_val), out_val);
+			return autoit_from(util::get<optional<cv::detail::VectorRef>>(in_val), out_val);
 
 		case GOptRunArg::index_of<optional<cv::detail::OpaqueRef>>():
-			return autoit_opencv_from(util::get<optional<cv::detail::OpaqueRef>>(in_val), out_val);
+			return autoit_from(util::get<optional<cv::detail::OpaqueRef>>(in_val), out_val);
 
 		default:
 			return E_INVALIDARG;
 	}
 }
 
-const HRESULT autoit_opencv_from(const cv::util::variant<cv::GRunArgs, cv::GOptRunArgs>& in_val, VARIANT*& out_val) {
+const HRESULT autoit_from(const cv::util::variant<cv::GRunArgs, cv::GOptRunArgs>& in_val, VARIANT*& out_val) {
 	using RunArgs = cv::util::variant<cv::GRunArgs, cv::GOptRunArgs>;
 	switch (in_val.index()) {
 		case RunArgs::index_of<cv::GRunArgs>():
-			return autoit_opencv_from(util::get<cv::GRunArgs>(in_val), out_val);
+			return autoit_from(util::get<cv::GRunArgs>(in_val), out_val);
 		case RunArgs::index_of<cv::GOptRunArgs>():
-			return autoit_opencv_from(util::get<cv::GOptRunArgs>(in_val), out_val);
+			return autoit_from(util::get<cv::GOptRunArgs>(in_val), out_val);
 		default:
 			return E_INVALIDARG;
 	}
-}
-
-HRESULT GetInterfaceName(IUnknown* punk, VARIANT* vres) {
-	HRESULT hr;
-	IDispatch* pDisp;
-	ITypeInfo* pTI;
-	BSTR bstr = NULL;
-	hr = punk->QueryInterface(IID_IDispatch, (void**)&pDisp);
-	if (SUCCEEDED(hr) && pDisp != NULL) {
-		hr = pDisp->GetTypeInfo(0, LOCALE_USER_DEFAULT, &pTI);
-		if (SUCCEEDED(hr) && pTI != NULL) {
-			hr = pTI->GetDocumentation(MEMBERID_NIL, &bstr, NULL, NULL, NULL);
-			pTI->Release();
-		}
-		pDisp->Release();
-	}
-	if (bstr == NULL) {
-		bstr = SysAllocString(L"");
-	}
-
-	V_VT(vres) = VT_BSTR;
-	V_BSTR(vres) = bstr;
-	return hr;
 }
 
 const bool is_assignable_from(cv::Ptr<cv::flann::IndexParams>& out_val, VARIANT*& in_val, bool is_optional) {
@@ -515,10 +172,14 @@ const bool is_assignable_from(cv::Ptr<cv::flann::IndexParams>& out_val, VARIANT*
 const bool is_assignable_from(cv::flann::IndexParams& out_val, VARIANT*& in_val, bool is_optional) {
 	VARIANT vname = { VT_EMPTY };
 	bool _result = false;
+	HRESULT hr;
 
 	switch (V_VT(in_val)) {
 		case VT_DISPATCH:
-			GetInterfaceName(V_DISPATCH(in_val), &vname);
+			hr = GetInterfaceName(V_DISPATCH(in_val), &vname);
+			if (FAILED(hr)) {
+				return false;
+			}
 			_result = wcscmp(V_BSTR(&vname), L"IDictionary") == 0;
 			VariantClear(&vname);
 			return _result;
@@ -536,7 +197,7 @@ const bool is_assignable_from(cv::Ptr<cv::flann::SearchParams>& out_val, VARIANT
 	return is_assignable_from(_out_val, in_val, is_optional);
 }
 
-const HRESULT autoit_opencv_to(VARIANT*& in_val, cv::Ptr<cv::flann::IndexParams>& out_val) {
+const HRESULT autoit_to(VARIANT*& in_val, cv::Ptr<cv::flann::IndexParams>& out_val) {
 	if (V_VT(in_val) == VT_ERROR) {
 		return V_ERROR(in_val) == DISP_E_PARAMNOTFOUND ? S_OK : E_INVALIDARG;
 	}
@@ -550,7 +211,7 @@ const HRESULT autoit_opencv_to(VARIANT*& in_val, cv::Ptr<cv::flann::IndexParams>
 	}
 
 	auto obj = new cv::flann::IndexParams();
-	HRESULT hr = autoit_opencv_to(in_val, *obj);
+	HRESULT hr = autoit_to(in_val, *obj);
 	if (SUCCEEDED(hr)) {
 		out_val.reset(obj);
 	}
@@ -558,12 +219,12 @@ const HRESULT autoit_opencv_to(VARIANT*& in_val, cv::Ptr<cv::flann::IndexParams>
 	return hr;
 }
 
-const HRESULT autoit_opencv_to(VARIANT*& in_val, cv::Ptr<cv::flann::SearchParams>& out_val) {
+const HRESULT autoit_to(VARIANT*& in_val, cv::Ptr<cv::flann::SearchParams>& out_val) {
 	auto _out_val = static_cast<cv::Ptr<cv::flann::IndexParams>>(out_val);
-	return autoit_opencv_to(in_val, _out_val);
+	return autoit_to(in_val, _out_val);
 }
 
-const HRESULT autoit_opencv_to(VARIANT const* const& in_val, cv::flann::IndexParams& out_val) {
+const HRESULT autoit_to(VARIANT const* const& in_val, cv::flann::IndexParams& out_val) {
 	if (V_VT(in_val) != VT_DISPATCH) {
 		return E_INVALIDARG;
 	}
@@ -591,10 +252,9 @@ const HRESULT autoit_opencv_to(VARIANT const* const& in_val, cv::flann::IndexPar
 			break;
 		}
 
-		std::string skey;
-		autoit_opencv_to(V_BSTR(&vkey), skey);
+		std::string skey; autoit_to(V_BSTR(&vkey), skey);
+		_variant_t vvalue; VariantInit(&vvalue);
 
-		VARIANT vvalue = { VT_EMPTY };
 		hr = dict->get_Item(&vkey, &vvalue);
 		if (FAILED(hr)) {
 			std::wcout << "Failed to get property '" << _bstr_t(V_BSTR(&vkey), true) << "'" << std::endl;
@@ -609,7 +269,7 @@ const HRESULT autoit_opencv_to(VARIANT const* const& in_val, cv::flann::IndexPar
 				out_val.setBool(skey, V_BOOL(&vvalue) == VARIANT_TRUE);
 				break;
 			case VT_BSTR:
-				autoit_opencv_to(V_BSTR(&vvalue), svalue);
+				autoit_to(V_BSTR(&vvalue), svalue);
 				out_val.setString(skey, svalue);
 				break;
 			case VT_I1:
@@ -674,13 +334,4 @@ const HRESULT autoit_opencv_to(VARIANT const* const& in_val, cv::flann::IndexPar
 	}
 
 	return hr;
-}
-
-const bool is_assignable_from(_variant_t& out_val, VARIANT const* const& in_val, bool is_optional) {
-	return is_optional || !PARAMETER_MISSING(in_val);
-}
-
-const HRESULT autoit_opencv_to(VARIANT const* const& in_val, _variant_t& out_val) {
-	out_val = *in_val;
-	return S_OK;
 }
