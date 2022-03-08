@@ -276,7 +276,7 @@ void cv::matchTemplateParallel(InputArray _img, InputArray _templ, OutputArray _
 
 			if (isVSplit) {
 				left = q * r;
-				width = r == numThreads - 1 ? img.cols - left : q + templ.cols;
+				width = r == numThreads - 1 ? img.cols - left : q + templ.cols - 1;
 				top = 0;
 				height = img.rows;
 			}
@@ -284,7 +284,7 @@ void cv::matchTemplateParallel(InputArray _img, InputArray _templ, OutputArray _
 				left = 0;
 				width = img.cols;
 				top = q * r;
-				height = r == numThreads - 1 ? img.rows - top : q + templ.rows;
+				height = r == numThreads - 1 ? img.rows - top : q + templ.rows - 1;
 			}
 
 			Rect roi_img(left, top, width, height);
