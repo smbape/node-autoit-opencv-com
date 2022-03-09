@@ -181,9 +181,9 @@ const HRESULT autoit_to(VARIANT const* const& in_val, std::vector<_Tp>& out_val)
 
 	if (V_VT(in_val) == VT_DISPATCH) {
 		const auto& obj = dynamic_cast<TypeToImplType<std::vector<_Tp>>::type*>(getRealIDispatch(in_val));
-        if (!obj) {
-            return E_INVALIDARG;
-        }
+		if (!obj) {
+			return E_INVALIDARG;
+		}
 		out_val = *obj->__self->get();
 		return S_OK;
 	}
@@ -339,6 +339,14 @@ autoit_to(VARIANT const* const& in_val, std::tuple<_Ts...>& out_val) {
 template<std::size_t I = 0, typename... _Ts>
 typename std::enable_if<I != sizeof...(_Ts) - 1, const HRESULT>::type
 autoit_to(VARIANT const* const& in_val, std::tuple<_Ts...>& out_val) {
+	if (V_VT(in_val) == VT_ERROR) {
+		return V_ERROR(in_val) == DISP_E_PARAMNOTFOUND ? S_OK : E_INVALIDARG;
+	}
+
+	if (V_VT(in_val) == VT_EMPTY) {
+		return S_OK;
+	}
+
 	HRESULT hr = autoit_to<I + 1, _Ts...>(in_val, out_val);
 	if (FAILED(hr)) {
 		return hr;
@@ -395,8 +403,24 @@ const bool is_assignable_from(std::pair<_Ty1, _Ty2>& out_val, VARIANT const* con
 		return false;
 	}
 
-	std::pair<_Ty1, _Ty2> dummy;
-	return SUCCEEDED(autoit_to(in_val, dummy));
+	HRESULT hr;
+
+	typename ATL::template CComSafeArray<VARIANT> vArray;
+	vArray.Attach(V_ARRAY(in_val));
+
+	auto& vfirst = vArray.GetAt(0);
+	auto* pvfirst = &vfirst;
+	hr = is_assignable_from(out_val.first, pvfirst, false);
+
+	if (SUCCEEDED(hr)) {
+		auto& vsecond = vArray.GetAt(1);
+		auto* pvsecond = &vsecond;
+		hr = is_assignable_from(out_val.second, pvsecond, false);
+	}
+
+	vArray.Detach();
+
+	return hr;
 }
 
 template <typename _Ty1, typename _Ty2>
@@ -408,13 +432,16 @@ HRESULT autoit_to(VARIANT const* const& in_val, std::pair<_Ty1, _Ty2>& out_val) 
 
 	auto& vfirst = vArray.GetAt(0);
 	auto* pvfirst = &vfirst;
-	_Ty1 first;
-	hr = is_assignable_from(first, pvfirst, false);
+	hr = is_assignable_from(out_val.first, pvfirst, false);
 	if (SUCCEEDED(hr)) {
-		_Ty2 second;
-		auto& vsecond = vArray.GetAt(0);
+		auto& vsecond = vArray.GetAt(1);
 		auto* pvsecond = &vsecond;
-		hr = is_assignable_from(second, pvsecond, false);
+		hr = is_assignable_from(out_val.second, pvsecond, false);
+
+		if (SUCCEEDED(hr)) {
+			autoit_to(pvfirst, out_val.first);
+			autoit_to(pvsecond, out_val.second);
+		}
 	}
 
 	vArray.Detach();
