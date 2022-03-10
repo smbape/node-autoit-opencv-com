@@ -32,7 +32,7 @@ Global $GroupSource = GUICtrlCreateGroup("", 20, 83, 510, 516)
 Global $PicSource = GUICtrlCreatePic("", 25, 94, 500, 500)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-Global $LabelResult = GUICtrlCreateLabel("spectrum magnitude", 735, 60, 148, 20)
+Global $LabelResult = GUICtrlCreateLabel("Spectrum magnitude", 735, 60, 148, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
 Global $GroupResult = GUICtrlCreateGroup("", 532, 83, 510, 516)
 Global $PicResult = GUICtrlCreatePic("", 537, 94, 500, 500)

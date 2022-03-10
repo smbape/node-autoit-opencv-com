@@ -29,7 +29,6 @@ Object.assign(exports, {
     },
 
     restoreOriginalType: (type, options = {}) => {
-        // get_truth_joint_feature_vector_function
         const shared_ptr = removeNamespaces(options.shared_ptr, options);
 
         type = type
@@ -111,7 +110,7 @@ Object.assign(exports, {
         }
     },
 
-    convertToIdl(in_type, in_val, out_type, out_val, modifiers, set_hr = false) {
+    convertToIdl(generator, coclass, in_type, in_val, out_type, out_val, modifiers, is_by_ref, options) {
         for (const modifier of modifiers) {
             if (modifier.startsWith("/Cast=")) {
                 in_val = `${ modifier.slice("/Cast=".length) }(${ in_val })`;
@@ -120,12 +119,12 @@ Object.assign(exports, {
 
         if (in_type === out_type) {
             const cvt = `*${ out_val } = ${ in_val };`;
-            return set_hr ? cvt : `${ cvt }\nreturn S_OK;`;
+            return `${ cvt }\nreturn S_OK;`;
         }
 
         if (this.isNativeType(in_type) && this.isNativeType(out_type)) {
             const cvt = `*${ out_val } = static_cast<${ out_type }>(${ in_val });`;
-            return set_hr ? cvt : `${ cvt }\nreturn S_OK;`;
+            return `${ cvt }\nreturn S_OK;`;
         }
 
         if (PTR.has(in_type) && out_type === "VARIANT") {
@@ -133,11 +132,35 @@ Object.assign(exports, {
                 V_VT(${ out_val }) = VT_UI8;
                 V_UI8(${ out_val }) = reinterpret_cast<ULONGLONG>(${ in_val });
             `.replace(/^ {16}/mg, "").trim();
-            return set_hr ? cvt : `${ cvt }\nreturn S_OK;`;
+            return `${ cvt }\nreturn S_OK;`;
+        }
+
+        const cpptype = generator.getCppType(in_type, coclass, options);
+
+        if (is_by_ref) {
+            const {shared_ptr} = options;
+            in_val = `${ shared_ptr }<${ cpptype }>(${ shared_ptr }<${ cpptype }>{}, &${ in_val })`;
+        }
+
+        if (is_by_ref && cpptype.startsWith("std::vector<")) {
+            const fqn = generator.add_vector(in_type, coclass, options);
+            const cotype = generator.classes.get(fqn).getClassName();
+
+            return `
+                I${ cotype }* pdispVal = nullptr;
+                I${ cotype }** ppdispVal = &pdispVal;
+                HRESULT hr = autoit_from(${ in_val }, ppdispVal);
+                if (SUCCEEDED(hr)) {
+                    VariantClear(${ out_val });
+                    V_VT(${ out_val }) = VT_DISPATCH;
+                    V_DISPATCH(${ out_val }) = static_cast<IDispatch*>(*ppdispVal);
+                }
+                return hr;
+            `.replace(/^ {16}/mg, "").trim();
         }
 
         const cvt = `autoit_from(${ in_val }, ${ out_val });`;
-        return set_hr ? `hr = ${ cvt }` : `return ${ cvt }`;
+        return `return ${ cvt }`;
     },
 
     convertFromIdl(in_type, in_val, out_type, obj, propname, setter) {
@@ -203,7 +226,18 @@ Object.assign(exports, {
                     }`.replace(/^ {20}/mg, "")
                 );
             } else {
-                const cvt = this.convertToIdl(type, `${ obj }${ rname ? rname : propname }`, propidltype, "pVal", modifiers);
+                let is_by_ref = false;
+                const cpptype = generator.getCppType(type, coclass, options);
+
+                if (modifiers.includes("/W") || modifiers.includes("/RW")) {
+                    const shared_ptr = removeNamespaces(options.shared_ptr, options);
+                    const is_ptr = type.endsWith("*");
+                    const has_ptr = cpptype.startsWith(`${ shared_ptr }<`);
+                    const is_vector = cpptype.startsWith("std::vector<");
+                    is_by_ref = !is_ptr && !has_ptr && (is_vector || propidltype[0] === "I" && propidltype !== "IDispatch*");
+                }
+
+                const cvt = this.convertToIdl(generator, coclass, type, `${ obj }${ rname ? rname : propname }`, propidltype, "pVal", modifiers, is_by_ref, options);
 
                 impl.push(`
                     STDMETHODIMP C${ cotype }::get_${ idlname }(${ propidltype }* pVal) {

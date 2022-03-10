@@ -128,7 +128,7 @@ target_precompile_headers(cpp_test PRIVATE
 )
 set_source_files_properties(./test/test.cpp PROPERTIES COMPILE_FLAGS "/MP1")
 
-target_link_libraries (cpp_test PRIVATE ${PROJECT_NAME} "windowsapp.lib" "dwmapi.lib")
+target_link_libraries(cpp_test PRIVATE ${PROJECT_NAME} "windowsapp.lib" "dwmapi.lib")
 set_property(TARGET cpp_test PROPERTY VS_DEBUGGER_ENVIRONMENT "PATH=${OpenCV_BINARY_DIR};%PATH%\nOPENCV_SAMPLES_DATA_PATH=${OPENCV_SAMPLES_DATA_PATH}")
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT cpp_test)
 

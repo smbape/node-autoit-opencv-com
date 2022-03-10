@@ -90,7 +90,7 @@ exports.declare = (generator, type, parent, options = {}) => {
     return fqn;
 };
 
-exports.generate = (coclass, header, impl, {shared_ptr} = {}) => {
+exports.generate = (coclass, header, impl, options = {}) => {
     const cotype = coclass.getClassName();
     const { key_type } = coclass;
 

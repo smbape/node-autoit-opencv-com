@@ -18,6 +18,8 @@ Func _OpenCV_ObjCreate($sClassname, $sFilename = Default)
 
 	For $i = 0 To UBound($namespaces) -1
 		$siClassname = $namespaces[$i] & $sClassname
+		_OpenCV_DebugMsg("Try ObjCreate " & $siClassname)
+
 		$oObj = ObjGet($s_autoit_opencv_com_dll, $siClassname)
 		If IsObj($oObj) Then
 			_OpenCV_DebugMsg("ObjCreate " & $siClassname)
