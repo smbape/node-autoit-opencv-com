@@ -15,6 +15,8 @@
 ;~     https://docs.opencv.org/4.5.5/d4/dc6/tutorial_py_template_matching.html
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_GDIPlus_Startup()
+OnAutoItExitRegister("_OnAutoItExit")
 
 Global $cv = _OpenCV_get()
 
@@ -79,8 +81,6 @@ GUISetState(@SW_SHOW)
 
 _GUICtrlSlider_SetTicFreq($SliderThreshold, 1)
 
-_GDIPlus_Startup()
-
 Global $aRedColor = _OpenCV_RGB(255, 0, 0)
 
 Global $sSource = "", $sTemplate = "", $sMask = ""
@@ -142,9 +142,6 @@ While 1
 			EndIf
 	EndSwitch
 WEnd
-
-_GDIPlus_Shutdown()
-_OpenCV_Unregister_And_Close()
 
 Func Main()
 	;;! [load_image]
@@ -237,5 +234,9 @@ Func MultiMatchTemplate()
 	;;! [imshow]
 	_OpenCV_imshow_ControlPic($img_display, $FormGUI, $PicMatchTemplate)
 	;;! [imshow]
-
 EndFunc   ;==>MultiMatchTemplate
+
+Func _OnAutoItExit()
+	_GDIPlus_Shutdown()
+	_OpenCV_Unregister_And_Close()
+EndFunc   ;==>_OnAutoItExit

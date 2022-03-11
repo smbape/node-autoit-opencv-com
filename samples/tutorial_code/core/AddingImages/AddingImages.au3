@@ -18,6 +18,8 @@ Opt("GUIOnEventMode", 1)
 ;~     https://github.com/opencv/opencv/blob/4.5.5/samples/cpp/tutorial_code/core/AddingImages/AddingImages.cpp
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_GDIPlus_Startup()
+OnAutoItExitRegister("_OnAutoItExit")
 
 Global $cv = _OpenCV_get()
 
@@ -67,8 +69,6 @@ GUISetState(@SW_SHOW)
 #EndRegion ### END Koda GUI section ###
 
 _GUICtrlSlider_SetTicFreq($SliderAlpha, 1)
-
-_GDIPlus_Startup()
 
 Global $sSrc1 = "", $sSrc2 = ""
 Global $src1, $src2
@@ -163,12 +163,11 @@ Func AddWeighted()
 EndFunc   ;==>AddWeighted
 
 Func _cleanExit()
-	If @GUI_WinHandle <> $FormGUI Then
-		Return
-	EndIf
-
-	_GDIPlus_Shutdown()
-	_OpenCV_Unregister_And_Close()
-
+	If @GUI_WinHandle <> $FormGUI Then Return
 	Exit
 EndFunc   ;==>_cleanExit
+
+Func _OnAutoItExit()
+	_GDIPlus_Shutdown()
+	_OpenCV_Unregister_And_Close()
+EndFunc   ;==>_OnAutoItExit

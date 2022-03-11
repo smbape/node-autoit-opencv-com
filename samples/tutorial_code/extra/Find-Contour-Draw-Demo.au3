@@ -25,12 +25,13 @@
 ;~     https://docs.opencv.org/4.5.5/d9/d61/tutorial_py_morphological_ops.html
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_GDIPlus_Startup()
+OnAutoItExitRegister("_OnAutoItExit")
 
 Global $cv = _OpenCV_get()
 
 Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
 
-_GDIPlus_Startup()
 
 Global $gray, $Gaus, $sObject = "", $img, $CurrentArea
 Global $ErosionNumber = 0, $DilationNumber = 0, $OpeningNumber = 0, $ClosingNumber = 0, $GradientNumber = 0
@@ -195,9 +196,6 @@ While 1
 			_SaveImg()
 	EndSwitch
 WEnd
-
-_GDIPlus_Shutdown()
-_OpenCV_Unregister_And_Close()
 
 Func _SaveImg()
 	;save to file
@@ -399,3 +397,8 @@ EndFunc   ;==>_Contour
 Func _IsChecked($idControlID)
 	Return BitAND(GUICtrlRead($idControlID), $GUI_CHECKED) = $GUI_CHECKED
 EndFunc   ;==>_IsChecked
+
+Func _OnAutoItExit()
+	_GDIPlus_Shutdown()
+	_OpenCV_Unregister_And_Close()
+EndFunc   ;==>_OnAutoItExit

@@ -17,6 +17,8 @@
 ;~     https://github.com/opencv/opencv/blob/4.5.5/samples/tapi/bgfg_segm.cpp
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_GDIPlus_Startup()
+OnAutoItExitRegister("_OnAutoItExit")
 
 Global $cv = _OpenCV_get()
 
@@ -76,8 +78,6 @@ GUICtrlCreateGroup("", -99, -99, 1, 1)
 
 GUISetState(@SW_SHOW)
 #EndRegion ### END Koda GUI section ###
-
-_GDIPlus_Startup()
 
 Global $bHasAddon = _Addon_DLLOpen(_Addon_FindDLL())
 
@@ -162,9 +162,6 @@ WEnd
 DllClose($hUser32DLL)
 
 If $bHasAddon Then _Addon_DLLClose()
-
-_GDIPlus_Shutdown()
-_OpenCV_Unregister_And_Close()
 
 Func _handleBtnFileClick()
 	$sInputFile = ControlGetText($FormGUI, "", $InputFile)
@@ -425,3 +422,8 @@ Func _StringSize($sText, $iSize = Default, $iWeight = Default, $iAttrib = Defaul
 	GUIDelete($hGUI)
 	Return $avSize_Info
 EndFunc   ;==>_StringSize
+
+Func _OnAutoItExit()
+	_GDIPlus_Shutdown()
+	_OpenCV_Unregister_And_Close()
+EndFunc   ;==>_OnAutoItExit

@@ -18,6 +18,8 @@
 ;~     https://learnopencv.com/deep-learning-based-object-detection-using-yolov3-with-opencv-python-c/
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_GDIPlus_Startup()
+OnAutoItExitRegister("_OnAutoItExit")
 
 Global $cv = _OpenCV_get()
 Global $addon_dll = _Addon_FindDLL()
@@ -59,8 +61,6 @@ GUICtrlCreateGroup("", -99, -99, 1, 1)
 
 GUISetState(@SW_SHOW)
 #EndRegion ### END Koda GUI section ###
-
-_GDIPlus_Startup()
 
 ;; Initialize the parameters
 Global $confThreshold = 0.5  ; Confidence threshold
@@ -115,9 +115,6 @@ While 1
 			Main()
 	EndSwitch
 WEnd
-
-_GDIPlus_Shutdown()
-_OpenCV_Unregister_And_Close()
 
 Func Main()
 	$sSource = ControlGetText($FormGUI, "", $InputSource)
@@ -415,3 +412,8 @@ EndFunc   ;==>_DownloadWeights
 Func _IsChecked($idControlID)
 	Return BitAND(GUICtrlRead($idControlID), $GUI_CHECKED) = $GUI_CHECKED
 EndFunc   ;==>_IsChecked
+
+Func _OnAutoItExit()
+	_GDIPlus_Shutdown()
+	_OpenCV_Unregister_And_Close()
+EndFunc   ;==>_OnAutoItExit

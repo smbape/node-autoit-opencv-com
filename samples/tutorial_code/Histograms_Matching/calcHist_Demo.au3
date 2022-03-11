@@ -15,6 +15,8 @@
 ;~     https://github.com/opencv/opencv/blob/4.5.5/samples/cpp/tutorial_code/Histograms_Matching/calcHist_Demo.cpp
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_GDIPlus_Startup()
+OnAutoItExitRegister("_OnAutoItExit")
 
 Global $cv = _OpenCV_get()
 Global $addon_dll = _Addon_FindDLL()
@@ -43,8 +45,6 @@ GUICtrlCreateGroup("", -99, -99, 1, 1)
 GUISetState(@SW_SHOW)
 #EndRegion ### END Koda GUI section ###
 
-_GDIPlus_Startup()
-
 Global $sImage, $nMsg
 
 Main()
@@ -65,9 +65,6 @@ While 1
 			EndIf
 	EndSwitch
 WEnd
-
-_GDIPlus_Shutdown()
-_OpenCV_Unregister_And_Close()
 
 Func Main()
 	$sImage = ControlGetText($FormGUI, "", $InputSource)
@@ -165,3 +162,8 @@ Func Main()
 	_OpenCV_imshow_ControlPic($histImage, $FormGUI, $PicResult)
 	;;! [Display]
 EndFunc   ;==>Main
+
+Func _OnAutoItExit()
+	_GDIPlus_Shutdown()
+	_OpenCV_Unregister_And_Close()
+EndFunc   ;==>_OnAutoItExit

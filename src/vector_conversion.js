@@ -1,5 +1,3 @@
-const optional = require("./optional_conversion");
-
 exports.declare = (generator, type, parent, options = {}) => {
     const cpptype = generator.getCppType(type, parent, options);
 

@@ -8,8 +8,8 @@
 #include "..\autoit-opencv-com\udf\opencv_udf_utils.au3"
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+OnAutoItExitRegister("_OnAutoItExit")
 Example()
-_OpenCV_Unregister_And_Close()
 
 Func Example()
 	Local $cv = _OpenCV_get()
@@ -20,3 +20,7 @@ Func Example()
 	$cv.waitKey()
 	$cv.destroyAllWindows()
 EndFunc   ;==>Example
+
+Func _OnAutoItExit()
+	_OpenCV_Unregister_And_Close()
+EndFunc   ;==>_OnAutoItExit

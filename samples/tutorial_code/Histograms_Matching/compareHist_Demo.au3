@@ -16,6 +16,8 @@
 ;~     https://www.autoitscript.com/forum/topic/105814-table-udf/
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_GDIPlus_Startup()
+OnAutoItExitRegister("_OnAutoItExit")
 
 Global $cv = _OpenCV_get()
 
@@ -72,8 +74,6 @@ GUISetState(@SW_UNLOCK)
 
 #EndRegion ### END Koda GUI section ###
 
-_GDIPlus_Startup()
-
 Global $sSrcBase = "", $sSrcTest1 = "", $sSrcTest2 = ""
 Global $nMsg
 
@@ -114,9 +114,6 @@ While 1
 			Main()
 	EndSwitch
 WEnd
-
-_GDIPlus_Shutdown()
-_OpenCV_Unregister_And_Close()
 
 Func Main()
 	;;! [Load three images with different environment settings]
@@ -200,3 +197,8 @@ Func Main()
 
 	ConsoleWrite("Done " & @CRLF)
 EndFunc   ;==>Main
+
+Func _OnAutoItExit()
+	_GDIPlus_Shutdown()
+	_OpenCV_Unregister_And_Close()
+EndFunc   ;==>_OnAutoItExit

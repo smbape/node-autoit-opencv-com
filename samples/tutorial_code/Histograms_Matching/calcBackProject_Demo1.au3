@@ -17,6 +17,8 @@ Opt("GUIOnEventMode", 1)
 ;~     https://github.com/opencv/opencv/blob/4.5.5/samples/cpp/tutorial_code/Histograms_Matching/calcBackProject_Demo1.cpp
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_GDIPlus_Startup()
+OnAutoItExitRegister("_OnAutoItExit")
 
 Global $cv = _OpenCV_get()
 
@@ -62,8 +64,6 @@ GUISetState(@SW_SHOW)
 
 _GUICtrlSlider_SetTicFreq($SliderBins, 1)
 
-_GDIPlus_Startup()
-
 Global $sInputSource = ""
 Global $src, $hsv, $hue
 
@@ -80,8 +80,6 @@ While 1
 	EndIf
 	Sleep(50) ; Sleep to reduce CPU usage
 WEnd
-
-_GDIPlus_Shutdown()
 
 Func Main()
 	$sInputSource = ControlGetText($FormGUI, "", $InputSource)
@@ -173,12 +171,11 @@ Func Hist_and_Backproj()
 EndFunc   ;==>Hist_and_Backproj
 
 Func _cleanExit()
-	If @GUI_WinHandle <> $FormGUI Then
-		Return
-	EndIf
-
-	_GDIPlus_Shutdown()
-	_OpenCV_Unregister_And_Close()
-
+	If @GUI_WinHandle <> $FormGUI Then Return
 	Exit
 EndFunc   ;==>_cleanExit
+
+Func _OnAutoItExit()
+	_GDIPlus_Shutdown()
+	_OpenCV_Unregister_And_Close()
+EndFunc   ;==>_OnAutoItExit

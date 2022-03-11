@@ -14,6 +14,8 @@
 ;~     https://www.pyimagesearch.com/2016/10/03/bubble-sheet-multiple-choice-scanner-and-test-grader-using-omr-python-and-opencv/
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_GDIPlus_Startup()
+OnAutoItExitRegister("_OnAutoItExit")
 
 Global $cv = _OpenCV_get()
 
@@ -41,8 +43,6 @@ GUICtrlCreateGroup("", -99, -99, 1, 1)
 GUISetState(@SW_SHOW)
 #EndRegion ### END Koda GUI section ###
 
-_GDIPlus_Startup()
-
 Global $sImage = ""
 Global $nMsg
 
@@ -68,9 +68,6 @@ While 1
 			EndIf
 	EndSwitch
 WEnd
-
-_GDIPlus_Shutdown()
-_OpenCV_Unregister_And_Close()
 
 Func Main()
 	$sImage = ControlGetText($FormGUI, "", $InputSource)
@@ -228,3 +225,8 @@ Func _LeftToRightComparator($a, $b)
 	$b = $cv.boundingRect($b)
 	Return $a[0] - $b[0]
 EndFunc   ;==>_LeftToRightComparator
+
+Func _OnAutoItExit()
+	_GDIPlus_Shutdown()
+	_OpenCV_Unregister_And_Close()
+EndFunc   ;==>_OnAutoItExit

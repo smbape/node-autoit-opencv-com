@@ -16,12 +16,12 @@
 ;~     https://github.com/opencv/opencv/blob/4.5.5/samples/python/tutorial_code/ShapeDescriptors/bounding_rotated_ellipses/generalContours_demo2.py
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_GDIPlus_Startup()
+OnAutoItExitRegister("_OnAutoItExit")
 
 Global $cv = _OpenCV_get()
 
 Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
-
-_GDIPlus_Startup()
 
 #Region ### START Koda GUI section ### Form=
 Global $FormGUI = GUICreate("Contour Features", 1061, 601, 200, 90)
@@ -230,9 +230,6 @@ While 1
 	Sleep(30) ; Sleep to reduce CPU usage
 WEnd
 
-_GDIPlus_Shutdown()
-_OpenCV_Unregister_And_Close()
-
 Func _SaveImg()
 	Local $sFileSaveDialog = FileSaveDialog("Choose a filename.", @ScriptDir, "Image files (*.bmp;*.jpg;*.jpeg;*.png;*.gif;*.webp)", BitOR($FD_PATHMUSTEXIST, $FD_PROMPTOVERWRITE))
 	If @error Then
@@ -389,3 +386,8 @@ EndFunc   ;==>_DrawContours
 Func _IsChecked($idControlID)
 	Return BitAND(GUICtrlRead($idControlID), $GUI_CHECKED) = $GUI_CHECKED
 EndFunc   ;==>_IsChecked
+
+Func _OnAutoItExit()
+	_GDIPlus_Shutdown()
+	_OpenCV_Unregister_And_Close()
+EndFunc   ;==>_OnAutoItExit

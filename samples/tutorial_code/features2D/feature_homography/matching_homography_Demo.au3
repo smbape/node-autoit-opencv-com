@@ -15,6 +15,8 @@
 ;~     https://github.com/opencv/opencv/blob/4.5.5/samples/cpp/tutorial_code/features2D/feature_homography/SURF_FLANN_matching_homography_Demo.cpp
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_GDIPlus_Startup()
+OnAutoItExitRegister("_OnAutoItExit")
 
 Global $cv = _OpenCV_get()
 
@@ -72,8 +74,6 @@ Global $AGAST_DETECTOR = 8
 _GUICtrlComboBox_SetCurSel($ComboAlgorithm, 0)
 _GUICtrlComboBox_SetCurSel($ComboMatchType, 2)
 
-_GDIPlus_Startup()
-
 Global $img_object, $img_scene
 Global $nMsg
 Global $sObject, $sScene
@@ -109,9 +109,6 @@ While 1
 			Main()
 	EndSwitch
 WEnd
-
-_GDIPlus_Shutdown()
-_OpenCV_Unregister_And_Close()
 
 Func Main()
 	;;! [load_image]
@@ -272,3 +269,8 @@ Func Detect()
 	; _cveImshowMat("Good Matches & Object detection", $img_matches)
 	_OpenCV_imshow_ControlPic($img_matches, $FormGUI, $PicMatches)
 EndFunc   ;==>Detect
+
+Func _OnAutoItExit()
+	_GDIPlus_Shutdown()
+	_OpenCV_Unregister_And_Close()
+EndFunc   ;==>_OnAutoItExit

@@ -16,6 +16,8 @@
 ;~     https://www.pyimagesearch.com/2016/03/21/ordering-coordinates-clockwise-with-python-and-opencv/
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_GDIPlus_Startup()
+OnAutoItExitRegister("_OnAutoItExit")
 
 Global $cv = _OpenCV_get()
 
@@ -43,8 +45,6 @@ GUICtrlCreateGroup("", -99, -99, 1, 1)
 GUISetState(@SW_SHOW)
 #EndRegion ### END Koda GUI section ###
 
-_GDIPlus_Startup()
-
 Global $sImage = ""
 Global $nMsg
 
@@ -66,9 +66,6 @@ While 1
 			EndIf
 	EndSwitch
 WEnd
-
-_GDIPlus_Shutdown()
-_OpenCV_Unregister_And_Close()
 
 Func Main()
 	$sImage = ControlGetText($FormGUI, "", $InputSource)
@@ -145,3 +142,8 @@ Func _ContourArea($c)
 	Local $rect = $cv.boundingRect($c)
 	Return $rect[2] * $rect[3]
 EndFunc   ;==>_ContourArea
+
+Func _OnAutoItExit()
+	_GDIPlus_Shutdown()
+	_OpenCV_Unregister_And_Close()
+EndFunc   ;==>_OnAutoItExit

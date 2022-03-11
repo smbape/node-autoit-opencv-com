@@ -15,12 +15,12 @@
 ;~     https://github.com/opencv/opencv/blob/4.5.5/samples/python/tutorial_code/imgProc/erosion_dilatation/morphology_1.py
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_GDIPlus_Startup()
+OnAutoItExitRegister("_OnAutoItExit")
 
 Global $cv = _OpenCV_get()
 
 Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
-
-_GDIPlus_Startup()
 
 #Region ### START Koda GUI section ### Form=
 Global $FormGUI = GUICreate("Morphological Transformations", 1300, 617, 192, 124)
@@ -167,9 +167,6 @@ While 1
 	Sleep(30) ; Sleep to reduce CPU usage
 WEnd
 
-_GDIPlus_Shutdown()
-_OpenCV_Unregister_And_Close()
-
 Func Main()
 	$sImage = ControlGetText($FormGUI, "", $InputSource)
 	$src = _OpenCV_imread_and_check($sImage, $CV_IMREAD_COLOR)
@@ -230,3 +227,8 @@ Func _CheckNumber($idControlID, $bSetData = False)
 	EndIf
 	Return $nNumber
 EndFunc   ;==>_CheckNumber
+
+Func _OnAutoItExit()
+	_GDIPlus_Shutdown()
+	_OpenCV_Unregister_And_Close()
+EndFunc   ;==>_OnAutoItExit

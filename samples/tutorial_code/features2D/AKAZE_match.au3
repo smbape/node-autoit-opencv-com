@@ -16,6 +16,8 @@
 ;~     https://github.com/opencv/opencv/blob/4.5.5/samples/cpp/tutorial_code/features2D/AKAZE_match.cpp
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_GDIPlus_Startup()
+OnAutoItExitRegister("_OnAutoItExit")
 
 Global $cv = _OpenCV_get()
 Global $addon_dll = _Addon_FindDLL()
@@ -44,8 +46,6 @@ GUICtrlCreateGroup("", -99, -99, 1, 1)
 
 GUISetState(@SW_SHOW)
 #EndRegion ### END Koda GUI section ###
-
-_GDIPlus_Startup()
 
 Global $img1, $img2, $homography
 Global $nMsg, $hTimer
@@ -87,9 +87,6 @@ While 1
 			Main()
 	EndSwitch
 WEnd
-
-_GDIPlus_Shutdown()
-_OpenCV_Unregister_And_Close()
 
 Func Main()
 	;;! [load]
@@ -270,3 +267,8 @@ Func Detect()
 	_OpenCV_imshow_ControlPic($res, $FormGUI, $PicMatches)
 	;;! [draw final matches]
 EndFunc   ;==>Detect
+
+Func _OnAutoItExit()
+	_GDIPlus_Shutdown()
+	_OpenCV_Unregister_And_Close()
+EndFunc   ;==>_OnAutoItExit

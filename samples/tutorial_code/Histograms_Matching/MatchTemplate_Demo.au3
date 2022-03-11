@@ -15,6 +15,8 @@
 ;~     https://github.com/opencv/opencv/blob/4.5.5/samples/cpp/tutorial_code/Histograms_Matching/MatchTemplate_Demo.cpp
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_GDIPlus_Startup()
+OnAutoItExitRegister("_OnAutoItExit")
 
 Global $cv = _OpenCV_get()
 
@@ -72,8 +74,6 @@ GUICtrlCreateGroup("", -99, -99, 1, 1)
 GUISetState(@SW_SHOW)
 #EndRegion ### END Koda GUI section ###
 
-_GDIPlus_Startup()
-
 Global $aGreenColor = _OpenCV_RGB(0, 255, 0)
 
 Global $sSource = "", $sTemplate = "", $sMask = ""
@@ -121,9 +121,6 @@ While 1
 			Main()
 	EndSwitch
 WEnd
-
-_GDIPlus_Shutdown()
-_OpenCV_Unregister_And_Close()
 
 Func Main()
 	;;! [load_image]
@@ -232,3 +229,8 @@ Func MatchingMethod()
 	;;! [imshow]
 
 EndFunc   ;==>MatchingMethod
+
+Func _OnAutoItExit()
+	_GDIPlus_Shutdown()
+	_OpenCV_Unregister_And_Close()
+EndFunc   ;==>_OnAutoItExit
