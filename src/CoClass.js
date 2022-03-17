@@ -46,6 +46,7 @@ class CoClass {
         this.enums = new Set();
         this.is_ptr = CLASS_PTR.has(fqn);
         this.cpp_quotes = [];
+        this.interface = "IDispatch";
 
         if (hasProp.call(knwon_ids, fqn)) {
             // keep order of appearance

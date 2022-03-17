@@ -182,7 +182,7 @@ Object.assign(exports, {
         return `return autoit_to(${ in_val }, ${ obj }${ propname });`;
     },
 
-    writeProperty(generator, iidl, impl, ipublic, idnames, fqn, idlname, id, is_test, options) {
+    writeProperty(generator, iidl, impl, ipublic, iprivate, idnames, fqn, idlname, id, is_test, options) {
         const coclass = generator.classes.get(fqn);
         const cotype = coclass.getClassName();
 
@@ -195,12 +195,15 @@ Object.assign(exports, {
 
         const {type, modifiers} = coclass.properties.get(idlname);
         const propidltype = generator.getIDLType(type, coclass, options);
+        const cpptype = generator.getCppType(type, coclass, options);
         const is_static = !coclass.is_class && !coclass.is_struct || modifiers.includes("/S");
         const is_enum = modifiers.includes("/Enum");
         const is_external = modifiers.includes("/External");
 
+        let is_private = true;
         let propname = idlname;
         let rname, wname;
+        const attrs = [];
 
         for (const modifier of modifiers) {
             if (modifier[0] === "=") {
@@ -209,13 +212,19 @@ Object.assign(exports, {
                 rname = `${ modifier.slice("/R=".length) }()`;
             } else if (modifier.startsWith("/W=")) {
                 wname = modifier.slice("/W=".length);
+            } else if (modifier.startsWith("/id=")) {
+                id = modifier.slice("/id=".length);
+            } else if (modifier.startsWith("/attr=")) {
+                attrs.push(modifier.slice("/attr=".length));
             }
         }
 
         const obj = `${ is_static ? `${ fqn }::` : "this->__self->get()->" }`;
 
         if (is_static || is_enum || modifiers.includes("/R") || modifiers.includes("/RW")) {
-            iidl.push(`[propget, id(${ id })] HRESULT ${ idlname }([out, retval] ${ propidltype }* pVal);`);
+            const attributes = ["propget", `id(${ id })`].concat(attrs);
+            is_private = false;
+            iidl.push(`[${ attributes.join(", ") }] HRESULT ${ idlname }([out, retval] ${ propidltype }* pVal);`);
             ipublic.push(`STDMETHOD(get_${ idlname })(${ propidltype }* pVal);`);
 
             if (is_enum) {
@@ -227,7 +236,6 @@ Object.assign(exports, {
                 );
             } else {
                 let is_by_ref = false;
-                const cpptype = generator.getCppType(type, coclass, options);
 
                 if (modifiers.includes("/W") || modifiers.includes("/RW")) {
                     const shared_ptr = removeNamespaces(options.shared_ptr, options);
@@ -254,9 +262,11 @@ Object.assign(exports, {
         }
 
         if (modifiers.includes("/W") || modifiers.includes("/RW")) {
+            const attributes = ["propput", `id(${ id })`].concat(attrs);
+            is_private = false;
             const idltype = propidltype === "VARIANT" ? "VARIANT*" : propidltype;
 
-            iidl.push(`[propput, id(${ id })] HRESULT ${ idlname }([in] ${ idltype } newVal);`);
+            iidl.push(`[${ attributes.join(", ") }] HRESULT ${ idlname }([in] ${ idltype } newVal);`);
             ipublic.push(`STDMETHOD(put_${ idlname })(${ idltype } newVal);`);
 
             const cvt = this.convertFromIdl(idltype, "newVal", type, obj, propname, wname);
@@ -271,6 +281,10 @@ Object.assign(exports, {
             if (is_external) {
                 impl.pop();
             }
+        }
+
+        if (is_private) {
+            iprivate.push(`${ cpptype } ${ propname };`);
         }
     }
 });

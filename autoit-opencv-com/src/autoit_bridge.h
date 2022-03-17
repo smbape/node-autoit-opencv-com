@@ -71,3 +71,44 @@ extern const bool is_assignable_from(cv::flann::IndexParams& out_val, VARIANT*& 
 extern const HRESULT autoit_to(VARIANT*& in_val, cv::Ptr<cv::flann::IndexParams>& out_val);
 extern const HRESULT autoit_to(VARIANT*& in_val, cv::Ptr<cv::flann::SearchParams>& out_val);
 extern const HRESULT autoit_to(VARIANT const* const& in_val, cv::flann::IndexParams& out_val);
+
+
+namespace autoit
+{
+
+	template<typename destination_type, typename _Tp>
+	struct _GenericCopy<destination_type, cv::Point_<_Tp>> {
+		inline static HRESULT copy(VARIANT* pTo, const cv::Point_<_Tp>* pFrom) {
+			return autoit_from(*pFrom, pTo);
+		}
+	};
+
+	template<typename destination_type, typename _Tp>
+	struct _GenericCopy<destination_type, cv::Rect_<_Tp>> {
+		inline static HRESULT copy(VARIANT* pTo, const cv::Rect_<_Tp>* pFrom) {
+			return autoit_from(*pFrom, pTo);
+		}
+	};
+
+	template<typename destination_type, typename _Tp>
+	struct _GenericCopy<destination_type, cv::Size_<_Tp>> {
+		inline static HRESULT copy(VARIANT* pTo, const cv::Size_<_Tp>* pFrom) {
+			return autoit_from(*pFrom, pTo);
+		}
+	};
+
+	template<typename destination_type, typename _Tp, int cn>
+	struct _GenericCopy<destination_type, cv::Vec<_Tp, cn>> {
+		inline static HRESULT copy(VARIANT* pTo, const cv::Vec<_Tp, cn>* pFrom) {
+			return autoit_from(*pFrom, pTo);
+		}
+	};
+
+	template<typename destination_type>
+	struct _GenericCopy<destination_type, cv::GMetaArg> {
+		inline static HRESULT copy(VARIANT* pTo, const cv::GMetaArg* pFrom) {
+			return autoit_from(*pFrom, pTo);
+		}
+	};
+
+}

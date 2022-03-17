@@ -34,6 +34,15 @@ if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../opencv-4.5.5-vc14_vc15/opencv/sour
   execute_process(COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/../opencv-4.5.5-vc14_vc15.exe -o${CMAKE_CURRENT_SOURCE_DIR}/../opencv-4.5.5-vc14_vc15 -y)
 endif()
 
+execute_process(
+    COMMAND patch -p 1 -d ${CMAKE_CURRENT_SOURCE_DIR}/../opencv-4.5.5-vc14_vc15/opencv/sources/ -i "${CMAKE_CURRENT_SOURCE_DIR}/patches/001-opencv-src.patch" -R --dry-run
+    RESULT_VARIABLE ret
+    ERROR_QUIET
+)
+if(NOT ${ret} EQUAL "0")
+    execute_process(COMMAND patch -p 1 -d ${CMAKE_CURRENT_SOURCE_DIR}/../opencv-4.5.5-vc14_vc15/opencv/sources/ -i "${CMAKE_CURRENT_SOURCE_DIR}/patches/001-opencv-src.patch")
+endif()
+
 # Library directories
 set(OpenCV_DIR "")
 file(GLOB __OpenCV_ROOT_DIR "../opencv-4.*")

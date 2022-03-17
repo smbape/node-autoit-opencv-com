@@ -3,9 +3,10 @@
 const optional = require("../optional_conversion");
 
 module.exports = (header = [], impl = [], options = {}) => {
-    header.push("template<typename _Tp, int cn>");
-    header.push("extern const bool is_assignable_from(cv::Vec<_Tp, cn>& out_val, VARIANT const* const& in_val, bool is_optional);");
     header.push(`
+        template<typename _Tp, int cn>
+        extern const bool is_assignable_from(cv::Vec<_Tp, cn>& out_val, VARIANT const* const& in_val, bool is_optional);
+
         template<typename _Tp, int cn>
         const bool is_assignable_from(cv::Vec<_Tp, cn>& out_val, VARIANT const* const& in_val, bool is_optional) {
             ${ optional.check.join(`\n${ " ".repeat(12) }`) }
@@ -57,9 +58,10 @@ module.exports = (header = [], impl = [], options = {}) => {
         }`.replace(/^ {8}/mg, "")
     );
 
-    header.push("template<typename _Tp, int cn>");
-    header.push("extern const HRESULT autoit_to(VARIANT const* const& in_val, cv::Vec<_Tp, cn>& out_val);");
     header.push(`
+        template<typename _Tp, int cn>
+        extern const HRESULT autoit_to(VARIANT const* const& in_val, cv::Vec<_Tp, cn>& out_val);
+
         template<typename _Tp, int cn>
         const HRESULT autoit_to(VARIANT const* const& in_val, cv::Vec<_Tp, cn>& out_val) {
             ${ optional.assign.join(`\n${ " ".repeat(12) }`) }
@@ -125,9 +127,10 @@ module.exports = (header = [], impl = [], options = {}) => {
         }`.replace(/^ {8}/mg, "")
     );
 
-    header.push("template<typename _Tp, int cn>");
-    header.push("extern const HRESULT autoit_from(const cv::Vec<_Tp, cn>& in_val, VARIANT*& out_val);");
     header.push(`
+        template<typename _Tp, int cn>
+        extern const HRESULT autoit_from(const cv::Vec<_Tp, cn>& in_val, VARIANT*& out_val);
+
         template<typename _Tp, int cn>
         const HRESULT autoit_from(const cv::Vec<_Tp, cn>& in_val, VARIANT*& out_val) {
             if (${ optional.condition("out_val") }) {

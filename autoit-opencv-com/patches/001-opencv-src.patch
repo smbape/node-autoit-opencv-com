@@ -1,0 +1,29 @@
+diff -rupN a/modules/python/src2/hdr_parser.py b/modules/python/src2/hdr_parser.py
+--- a/modules/python/src2/hdr_parser.py
++++ b/modules/python/src2/hdr_parser.py
+@@ -412,11 +412,25 @@ class CppHeaderParser(object):
+         npos = decl_str.find("CV_EXPORTS_AS")
+         if npos >= 0:
+             arg, npos3 = self.get_macro_arg(decl_str, npos)
++            if arg.startswith("get ") or arg.startswith("put "):
++                accessor = arg[:3]
++                arg = arg[4:]
++                func_modlist.append("/attr=prop"+accessor)
++                func_modlist.append("/id=DISPID_VALUE")
++                func_modlist.append("/idlname=" + arg)
++                arg = accessor+"_" + arg
+             func_modlist.append("="+arg)
+             decl_str = decl_str[:npos] + decl_str[npos3+1:]
+         npos = decl_str.find("CV_WRAP_AS")
+         if npos >= 0:
+             arg, npos3 = self.get_macro_arg(decl_str, npos)
++            if arg.startswith("get ") or arg.startswith("put "):
++                accessor = arg[:3]
++                arg = arg[4:]
++                func_modlist.append("/attr=prop"+accessor)
++                func_modlist.append("/id=DISPID_VALUE")
++                func_modlist.append("/idlname=" + arg)
++                arg = accessor+"_" + arg
+             func_modlist.append("="+arg)
+             decl_str = decl_str[:npos] + decl_str[npos3+1:]
+         npos = decl_str.find("CV_WRAP_PHANTOM")
