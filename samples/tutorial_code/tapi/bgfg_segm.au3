@@ -178,6 +178,8 @@ EndFunc   ;==>_handleBtnFileClick
 Func Main()
 	UpdateState()
 
+	If $cap <> Null And $cap.isOpened() Then $cap.release()
+
 	If $useCamera Then
 		Local $iCamId = _Max(0, _GUICtrlComboBox_GetCurSel($ComboCamera))
 		$cap = _OpenCV_ObjCreate("cv.VideoCapture").create($iCamId)

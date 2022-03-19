@@ -93,7 +93,7 @@ Global $img, $img_used, $templ, $templ_used, $mask, $match_method, $scale_direct
 Global $nMsg
 
 Global $aMethods[6] = [$CV_TM_SQDIFF, $CV_TM_SQDIFF_NORMED, $CV_TM_CCORR, $CV_TM_CCORR_NORMED, $CV_TM_CCOEFF, $CV_TM_CCOEFF_NORMED]
-_GUICtrlComboBox_SetCurSel($ComboMethod, 2)
+_GUICtrlComboBox_SetCurSel($ComboMethod, 3)
 
 Global $use_mask = False
 

@@ -19,8 +19,6 @@ Object.assign(exports, {
         const indent = " ".repeat(has_override ? 4 : 0);
         // const parameterNames = [];
 
-        let has_changed = false;
-
         for (const decl of overrides) {
             const [, return_value_type, func_modifiers, list_of_arguments] = decl;
             const is_constructor = func_modifiers.includes("/CO");
@@ -52,24 +50,6 @@ Object.assign(exports, {
             const out_args = new Array(argc).fill(false);
             const out_array_args = new Array(argc).fill(false);
 
-            const getOldSort = (a, b) => {
-                const a_is_out = out_args[a] && !in_args[a];
-                const b_is_out = out_args[b] && !in_args[b];
-
-                if (a_is_out) {
-                    if (b_is_out) {
-                        return a - b;
-                    }
-                    return 1;
-                }
-
-                if (b_is_out) {
-                    return -1;
-                }
-
-                return a - b;
-            };
-
             const getArgWeight = j => {
                 if (!in_args[j]) {
                     // is OutPutArray
@@ -94,7 +74,7 @@ Object.assign(exports, {
 
             const outlist = [];
 
-            if (return_value_type !== ""  && return_value_type !== "void") {
+            if (return_value_type !== "" && return_value_type !== "void") {
                 outlist.push("retval");
             } else if (is_constructor) {
                 outlist.push("self");
@@ -116,18 +96,8 @@ Object.assign(exports, {
             }
 
             const indexes = Array.from(new Array(argc).keys()).sort((a, b) => {
-                let diff = getArgWeight(a) - getArgWeight(b);
-                if (diff === 0) {
-                    diff = a - b;
-                }
-
-                const old = getOldSort(a, b);
-
-                if (diff > 0 && old < 0 || diff < 0 && old > 0 || diff === 0 && old !== 0 || diff !== 0 && old === 0) {
-                    has_changed = true;
-                }
-
-                return diff;
+                const diff = getArgWeight(a) - getArgWeight(b);
+                return diff === 0 ? a - b : diff;
             });
 
             let firstoptarg = argc;
@@ -393,17 +363,18 @@ Object.assign(exports, {
                 }
             }
 
-            const argnamelist = indexes.map(j => {
-                let arg = list_of_arguments[j][1];
-                if (list_of_arguments[j][2] !== "") {
-                    arg += ` = ${ list_of_arguments[j][2]
-                        .replace(/\bthis->__self->get\(\)->/g, "this.")
-                        .replace(/\bString\(\)/g, "''")
-                        .replace(/\bnoArray\(\)/g, "Mat()")
-                    }`;
+            for (const modifier of func_modifiers) {
+                if (modifier.startsWith("/idlname=")) {
+                    idlname = modifier.slice("/idlname=".length);
+                } else if (modifier.startsWith("/id=")) {
+                    id = modifier.slice("/id=".length);
+                } else if (modifier.startsWith("/attr=")) {
+                    attrs.push(modifier.slice("/attr=".length));
                 }
-                return arg;
-            });
+            }
+
+            const argnamelist = indexes.map(j => `$${ list_of_arguments[j][1] }`);
+            const proput = id === "DISPID_VALUE" && attrs.includes("propput") ? argnamelist.pop() : false;
 
             let argstr = argnamelist.slice(0, firstoptarg).join(", ");
             argstr = [argstr].concat(argnamelist.slice(firstoptarg)).join("[, ");
@@ -422,14 +393,47 @@ Object.assign(exports, {
                 outstr = "None";
             }
 
-            const description = `${ fqn.split("::").join(".") }.${ fname }( ${ argstr } ) -> ${ outstr }`;
+            let description = `${ coclass.progid }.${ idlname }( ${ argstr } )`;
 
-            generator.docs.push(description);
+            if (proput) {
+                description += ` = ${ proput }`;
+            } else {
+                description += ` -> ${ outstr }`;
+            }
 
-        }
+            if (id === "DISPID_VALUE" && attrs.includes("propget")) {
+                description += `\n    ${ coclass.progid }( ${ argstr } ) -> ${ outstr }`;
+            }
 
-        if (has_changed) {
-            console.log(`${ fqn }::${ fname }`);
+            const cppsignature = `${ generator.getCppType(return_value_type, coclass, options) } ${ fqn }::${ fname }`;
+
+            let maxlength = 0;
+
+            const typelist = list_of_arguments.map(([argtype, , , arg_modifiers]) => {
+                let str = arg_modifiers.includes("/C") ? "const " : "";
+                str += generator.getCppType(argtype, coclass, options);
+                if (arg_modifiers.includes("/Ref")) {
+                    str += "&";
+                }
+                maxlength = Math.max(maxlength, str.length);
+                return str;
+            });
+
+            const cppdescription = `${ cppsignature }( ${ list_of_arguments.map(([, argname, defval], i) => {
+                let str = typelist[i] + " ".repeat(maxlength + 1 - typelist[i].length) + argname;
+                if (defval !== "") {
+                    str += ` = ${ defval }`;
+                }
+                return str;
+            }).join(`\n${ " ".repeat(cppsignature.length + "( ".length) }`) } )`;
+
+            generator.docs.push([
+                cppdescription,
+                "",
+                "AutoIt:",
+                " ".repeat(4) + description,
+                ""
+            ].join("\n").replace(/\s*\( {2}\)/g, "()"));
         }
 
         if (minopt === Number.POSITIVE_INFINITY) {
@@ -534,10 +538,6 @@ Object.assign(exports, {
                     expr = modifier.slice("/Expr=".length).replace(/\$(?:0\b|\{0\})/g, expr);
                 } else if (modifier.startsWith("/Call=")) {
                     callee = modifier.slice("/Call=".length).replace(/\$(?:0\b|\{0\})/g, callee);
-                } else if (modifier.startsWith("/attr=")) {
-                    attrs.push(modifier.slice("/attr=".length));
-                } else if (modifier.startsWith("/id=")) {
-                    id = modifier.slice("/id=".length);
                 }
             }
 
@@ -550,8 +550,6 @@ Object.assign(exports, {
             for (const modifier of func_modifiers) {
                 if (modifier.startsWith("/WrapAs=")) {
                     callee = `${ modifier.slice("/WrapAs=".length) }(${ callee })`;
-                } else if (modifier.startsWith("/idlname=")) {
-                    idlname = modifier.slice("/idlname=".length);
                 }
             }
 
