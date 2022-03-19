@@ -55,7 +55,7 @@ While 1
 			ExitLoop
 		Case $BtnSource
 			$sImage = ControlGetText($FormGUI, "", $InputSource)
-			$sImage = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.jpg;*.jpeg;*.png;*.gif)", $FD_FILEMUSTEXIST, $sImage)
+			$sImage = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.dlib;*.jpg;*.jpeg;*.png;*.pbm;*.pgm;*.ppm;*.pxm;*.pnm;*.pfm;*.sr;*.ras;*.tiff;*.tif;*.exr;*.hdr;.pic)", $FD_FILEMUSTEXIST, $sImage)
 			If @error Then
 				$sImage = ""
 			Else
@@ -104,7 +104,7 @@ Func Main()
 
 		;; multiply the contour (x, y)-coordinates by the resize ratio,
 		;; then draw the contours and the name of the shape on the image
-		$tmp[0] = $c.convertTo(-1, $ratio)
+		$tmp[0] = $c.convertTo(-1, Default, $ratio)
 		$cv.drawContours($image, $tmp, -1, _OpenCV_Scalar(0, 255, 0), 2)
 		$cv.putText($image, $shape, _OpenCV_Point($cX, $cY), $CV_FONT_HERSHEY_SIMPLEX, 0.5, _OpenCV_Scalar(255, 255, 255), 2)
 	Next

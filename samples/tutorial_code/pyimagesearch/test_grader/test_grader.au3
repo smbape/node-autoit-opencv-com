@@ -59,7 +59,7 @@ While 1
 			ExitLoop
 		Case $BtnSource
 			$sImage = ControlGetText($FormGUI, "", $InputSource)
-			$sImage = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.jpg;*.jpeg;*.png;*.gif)", $FD_FILEMUSTEXIST, $sImage)
+			$sImage = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.dlib;*.jpg;*.jpeg;*.png;*.pbm;*.pgm;*.ppm;*.pxm;*.pnm;*.pfm;*.sr;*.ras;*.tiff;*.tif;*.exr;*.hdr;.pic)", $FD_FILEMUSTEXIST, $sImage)
 			If @error Then
 				$sImage = ""
 			Else
@@ -176,7 +176,7 @@ Func GradePaper($image, $gray, $docCnt)
 			;; apply the mask to the thresholded image, then
 			;; count the number of non-zero pixels in the
 			;; bubble area
-			$mask = $cv.bitwise_and($thresh, $thresh, $mask)
+			$mask = $cv.bitwise_and($thresh, $thresh, Default, $mask)
 			$total = $cv.countNonZero($mask)
 
 			;; if the current total has a larger number of total

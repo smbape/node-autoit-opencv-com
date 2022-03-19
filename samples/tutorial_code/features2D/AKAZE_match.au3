@@ -60,7 +60,7 @@ While 1
 			ExitLoop
 		Case $BtnImg1
 			$sImg1 = ControlGetText($FormGUI, "", $InputImg1)
-			$sImg1 = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.jpg;*.jpeg;*.png;*.gif)", $FD_FILEMUSTEXIST, $sImg1)
+			$sImg1 = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.dlib;*.jpg;*.jpeg;*.png;*.pbm;*.pgm;*.ppm;*.pxm;*.pnm;*.pfm;*.sr;*.ras;*.tiff;*.tif;*.exr;*.hdr;.pic)", $FD_FILEMUSTEXIST, $sImg1)
 			If @error Then
 				$sImg1 = ""
 			Else
@@ -68,7 +68,7 @@ While 1
 			EndIf
 		Case $BtnImg2
 			$sImg2 = ControlGetText($FormGUI, "", $InputImg2)
-			$sImg2 = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.jpg;*.jpeg;*.png;*.gif)", $FD_FILEMUSTEXIST, $sImg2)
+			$sImg2 = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.dlib;*.jpg;*.jpeg;*.png;*.pbm;*.pgm;*.ppm;*.pxm;*.pnm;*.pfm;*.sr;*.ras;*.tiff;*.tif;*.exr;*.hdr;.pic)", $FD_FILEMUSTEXIST, $sImg2)
 			If @error Then
 				$sImg2 = ""
 			Else
@@ -153,11 +153,11 @@ Func Detect()
 
 	Local $kpts1 = _OpenCV_ObjCreate("VectorOfKeyPoint")
 	Local $desc1 = _OpenCV_ObjCreate("cv.Mat")
-	$akaze.detectAndCompute($img1, _OpenCV_ObjCreate("cv.Mat"), Default, $kpts1, $desc1)
+	$akaze.detectAndCompute($img1, Null, $desc1, Default, $kpts1)
 
 	Local $kpts2 = _OpenCV_ObjCreate("VectorOfKeyPoint")
 	Local $desc2 = _OpenCV_ObjCreate("cv.Mat")
-	$akaze.detectAndCompute($img2, _OpenCV_ObjCreate("cv.Mat"), Default, $kpts2, $desc2)
+	$akaze.detectAndCompute($img2, Null, $desc2, Default, $kpts2)
 
 	ConsoleWrite("detectAndCompute                         " & TimerDiff($hTimer) & "ms" & @CRLF)
 	;;! [AKAZE]
@@ -218,8 +218,8 @@ Func Detect()
 			$col.double_set_at(0, $matched1.at($i).pt[0])
 			$col.double_set_at(1, $matched1.at($i).pt[1])
 
-			$col = $cv.gemm($homography, $col, 1.0, _OpenCV_ObjCreate("cv.Mat"), 0.0)
-			$col = $col.convertTo(-1, 1 / $col.double_at(2), 0.0)
+			$col = $cv.gemm($homography, $col, 1.0, Null, 0.0)
+			$col = $col.convertTo(-1, Default, 1 / $col.double_at(2), 0.0)
 
 			Local $dist = Sqrt((($col.double_at(0) - $matched2.at($i).pt[0]) ^ 2) + _
 					(($col.double_at(1) - $matched2.at($i).pt[1]) ^ 2))
@@ -252,7 +252,7 @@ Func Detect()
 	;;! [homography check]
 
 	;;! [draw final matches]
-	Local $res = $cv.drawMatches($img1, $inliers1, $img2, $inliers2, $good_matches)
+	Local $res = $cv.drawMatches($img1, $inliers1, $img2, $inliers2, $good_matches, Null)
 
 	Local $inlier_ratio = $inliers1.size() / $matched1.size()
 	ConsoleWrite("A-KAZE Matching Results" & @CRLF) ;

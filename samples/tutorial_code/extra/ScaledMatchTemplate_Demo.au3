@@ -93,7 +93,7 @@ Global $img, $img_used, $templ, $templ_used, $mask, $match_method, $scale_direct
 Global $nMsg
 
 Global $aMethods[6] = [$CV_TM_SQDIFF, $CV_TM_SQDIFF_NORMED, $CV_TM_CCORR, $CV_TM_CCORR_NORMED, $CV_TM_CCOEFF, $CV_TM_CCOEFF_NORMED]
-_GUICtrlComboBox_SetCurSel($ComboMethod, 3)
+_GUICtrlComboBox_SetCurSel($ComboMethod, 2)
 
 Global $use_mask = False
 
@@ -109,7 +109,7 @@ While 1
 			ExitLoop
 		Case $BtnSource
 			$sSource = ControlGetText($FormGUI, "", $InputSource)
-			$sSource = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.jpg;*.jpeg;*.png;*.gif)", $FD_FILEMUSTEXIST, $sSource)
+			$sSource = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.dlib;*.jpg;*.jpeg;*.png;*.pbm;*.pgm;*.ppm;*.pxm;*.pnm;*.pfm;*.sr;*.ras;*.tiff;*.tif;*.exr;*.hdr;.pic)", $FD_FILEMUSTEXIST, $sSource)
 			If @error Then
 				$sSource = ""
 			Else
@@ -117,7 +117,7 @@ While 1
 			EndIf
 		Case $BtnTemplate
 			$sTemplate = ControlGetText($FormGUI, "", $InputTemplate)
-			$sTemplate = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.jpg;*.jpeg;*.png;*.gif)", $FD_FILEMUSTEXIST, $sTemplate)
+			$sTemplate = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.dlib;*.jpg;*.jpeg;*.png;*.pbm;*.pgm;*.ppm;*.pxm;*.pnm;*.pfm;*.sr;*.ras;*.tiff;*.tif;*.exr;*.hdr;.pic)", $FD_FILEMUSTEXIST, $sTemplate)
 			If @error Then
 				$sTemplate = ""
 			Else
@@ -125,7 +125,7 @@ While 1
 			EndIf
 		Case $BtnMask
 			$sMask = ControlGetText($FormGUI, "", $InputMask)
-			$sMask = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.jpg;*.jpeg;*.png;*.gif)", $FD_FILEMUSTEXIST, $sMask)
+			$sMask = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.dlib;*.jpg;*.jpeg;*.png;*.pbm;*.pgm;*.ppm;*.pxm;*.pnm;*.pfm;*.sr;*.ras;*.tiff;*.tif;*.exr;*.hdr;.pic)", $FD_FILEMUSTEXIST, $sMask)
 			If @error Then
 				$sMask = ""
 			Else

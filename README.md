@@ -149,11 +149,10 @@ Run `build.bat` script located in the `autoit-addon` folder.
 
 The transformation will usually be straight from python.
 
-The translation usually involves 3 steps:
+The translation usually involves 2 steps:
 
   - Finding the functions/constants names.
   - Transform the parameter types according to the UDF parameter. This step might involve looking at the [opencv documentation](https://docs.opencv.org/4.5.5/index.html).
-  - Adjust the parameter order. This step might involve looking at the [opencv documentation](https://docs.opencv.org/4.5.5/index.html).
 
 ### Finding the functions/constants names
 
@@ -180,12 +179,6 @@ For example, to transform an Array of `Int` to a `VectorOfInt`, do
 Local $aInt[3] = [1, 2, 3]
 Local $oVectorOfInt = ObjCreate("OpenCV.VectorOfInt").create($aInt)
 ```
-
-### Adjust the parameter order
-
-Parameters which are **OutputArray** or **OutputArrayOfArrays** will be at the end in the order of appearance.  
-They will also be available in the $cv.extended Array in the order of appearance.  
-Simply put, everything that is returned by python is available in $cv.extended
 
 ### Python translation example
 
@@ -221,7 +214,7 @@ Python:
 The AutoIt version of the function is
 ```txt
 AutoIt:
-  cv.GaussianBlur(  src, ksize, sigmaX[, sigmaY[, borderType[, dst]]] ) ->  dst
+  cv.GaussianBlur(  src, ksize, sigmaX[, dst[, sigmaY[, borderType]]] ) ->  dst
 ```
 
 The python code will therefore become
@@ -295,7 +288,7 @@ Python:
 The AutoIt version of the function is
 ```txt
 AutoIt:
-  cv.findContours(  image, mode, method[, offset[, contours[, hierarchy]]]  ) ->  contours, hierarchy
+  cv.findContours(  image, mode, method[, contours[, hierarchy[, offset]]]  ) ->  contours, hierarchy
 ```
 
 The python code will become
@@ -352,6 +345,192 @@ npm ci
 ```sh
 cmd.exe //c 'autoit-opencv-com\build.bat'
 ```
+
+## Breaking changes from v1
+
+Parameters order is now the same as in python.
+It changes the signature of the following functions, thus making them incompatible between v1 and v2 if you used the output parameters, or parameters with default values
+
+  - cv::add
+  - cv::addWeighted
+  - cv::batchDistance
+  - cv::bilateralFilter
+  - cv::bitwise_and
+  - cv::bitwise_not
+  - cv::bitwise_or
+  - cv::bitwise_xor
+  - cv::blur
+  - cv::boxFilter
+  - cv::buildOpticalFlowPyramid
+  - cv::calcCovarMatrix
+  - cv::calcHist
+  - cv::calcOpticalFlowPyrLK
+  - cv::calibrateCamera
+  - cv::calibrateCameraExtended
+  - cv::calibrateCameraRO
+  - cv::calibrateCameraROExtended
+  - cv::calibrateHandEye
+  - cv::calibrateRobotWorldHandEye
+  - cv::Canny
+  - cv::cartToPolar
+  - cv::colorChange
+  - cv::connectedComponents
+  - cv::connectedComponentsWithStats
+  - cv::convertMaps
+  - cv::convertScaleAbs
+  - cv::convexHull
+  - cv::copyMakeBorder
+  - cv::cornerEigenValsAndVecs
+  - cv::cornerHarris
+  - cv::cornerMinEigenVal
+  - cv::cvtColor
+  - cv::dct
+  - cv::demosaicing
+  - cv::detailEnhance
+  - cv::dft
+  - cv::dilate
+  - cv::distanceTransform
+  - cv::distanceTransformWithLabels
+  - cv::divide
+  - cv::divSpectrums
+  - cv::edgePreservingFilter
+  - cv::erode
+  - cv::estimateAffine2D
+  - cv::estimateAffine3D
+  - cv::estimateAffinePartial2D
+  - cv::estimateTranslation3D
+  - cv::fastNlMeansDenoising
+  - cv::fastNlMeansDenoisingColored
+  - cv::fastNlMeansDenoisingColoredMulti
+  - cv::fastNlMeansDenoisingMulti
+  - cv::filter2D
+  - cv::filterHomographyDecompByVisibleRefpoints
+  - cv::findChessboardCorners
+  - cv::findChessboardCornersSB
+  - cv::findCirclesGrid
+  - cv::findContours
+  - cv::findHomography
+  - cv::GaussianBlur
+  - cv::gemm
+  - cv::getDerivKernels
+  - cv::getRectSubPix
+  - cv::goodFeaturesToTrack
+  - cv::goodFeaturesToTrackWithQuality
+  - cv::HoughCircles
+  - cv::HoughLines
+  - cv::HoughLinesP
+  - cv::HoughLinesWithAccumulator
+  - cv::idct
+  - cv::idft
+  - cv::illuminationChange
+  - cv::integral
+  - cv::integral2
+  - cv::integral3
+  - cv::intersectConvexConvex
+  - cv::invert
+  - cv::Laplacian
+  - cv::matchTemplate
+  - cv::matchTemplateParallel
+  - cv::meanStdDev
+  - cv::morphologyEx
+  - cv::mulSpectrums
+  - cv::multiply
+  - cv::mulTransposed
+  - cv::PCACompute
+  - cv::PCACompute2
+  - cv::pencilSketch
+  - cv::phase
+  - cv::polarToCart
+  - cv::preCornerDetect
+  - cv::projectPoints
+  - cv::pyrDown
+  - cv::pyrMeanShiftFiltering
+  - cv::pyrUp
+  - cv::recoverPose
+  - cv::reduce
+  - cv::reduceArgMax
+  - cv::reduceArgMin
+  - cv::remap
+  - cv::reprojectImageTo3D
+  - cv::resize
+  - cv::Scharr
+  - cv::searchTemplate
+  - cv::sepFilter2D
+  - cv::Sobel
+  - cv::solve
+  - cv::solvePnP
+  - cv::solvePnPGeneric
+  - cv::solvePnPRansac
+  - cv::solvePoly
+  - cv::spatialGradient
+  - cv::sqrBoxFilter
+  - cv::stereoCalibrate
+  - cv::stereoCalibrateExtended
+  - cv::stereoRectify
+  - cv::stereoRectifyUncalibrated
+  - cv::stylization
+  - cv::subtract
+  - cv::SVDecomp
+  - cv::textureFlattening
+  - cv::undistort
+  - cv::undistortPoints
+  - cv::warpAffine
+  - cv::warpPerspective
+
+  - cv::AffineFeature::detectAndCompute
+  - cv::AgastFeatureDetector::detectAndCompute
+  - cv::AKAZE::detectAndCompute
+  - cv::BRISK::detectAndCompute
+  - cv::FastFeatureDetector::detectAndCompute
+  - cv::Feature2D::detectAndCompute
+  - cv::GFTTDetector::detectAndCompute
+  - cv::KAZE::detectAndCompute
+  - cv::MSER::detectAndCompute
+  - cv::ORB::detectAndCompute
+  - cv::SIFT::detectAndCompute
+  - cv::SimpleBlobDetector::detectAndCompute
+
+  - cv::BackgroundSubtractor::apply
+  - cv::BackgroundSubtractorKNN::apply
+  - cv::BackgroundSubtractorMOG2::apply
+
+  - cv::cuda::GpuMat::convertTo
+
+  - cv::dnn::Net::forward
+
+  - cv::fisheye::calibrate
+  - cv::fisheye::distortPoints
+  - cv::fisheye::estimateNewCameraMatrixForUndistortRectify
+  - cv::fisheye::projectPoints
+  - cv::fisheye::stereoCalibrate
+  - cv::fisheye::stereoRectify
+  - cv::fisheye::undistortImage
+  - cv::fisheye::undistortPoints
+
+  - cv::flann::Index::knnSearch
+  - cv::flann::Index::radiusSearch
+
+  - cv::Mat::convertTo
+
+  - cv::ml::ANN_MLP::predict
+  - cv::ml::Boost::predict
+  - cv::ml::DTrees::predict
+  - cv::ml::EM::predict
+  - cv::ml::KNearest::predict
+  - cv::ml::LogisticRegression::predict
+  - cv::ml::NormalBayesClassifier::predict
+  - cv::ml::NormalBayesClassifier::predictProb
+  - cv::ml::RTrees::predict
+  - cv::ml::StatModel::predict
+  - cv::ml::SVM::predict
+  - cv::ml::SVMSGD::predict
+
+  - cv::QRCodeDetector::decodeMulti
+  - cv::QRCodeDetector::detectAndDecodeMulti
+
+  - cv::segmentation::IntelligentScissorsMB::getContour
+
+  - cv::VideoCapture::retrieve
 
 ## History
 

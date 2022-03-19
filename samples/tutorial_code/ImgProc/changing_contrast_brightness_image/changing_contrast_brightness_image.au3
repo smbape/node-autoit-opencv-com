@@ -108,7 +108,7 @@ While 1
 			ExitLoop
 		Case $BtnSource
 			$sInputSource = ControlGetText($FormGUI, "", $InputSource)
-			$sInputSource = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.jpg;*.jpeg;*.png;*.gif)", $FD_FILEMUSTEXIST, $sInputSource)
+			$sInputSource = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.dlib;*.jpg;*.jpeg;*.png;*.pbm;*.pgm;*.ppm;*.pxm;*.pnm;*.pfm;*.sr;*.ras;*.tiff;*.tif;*.exr;*.hdr;.pic)", $FD_FILEMUSTEXIST, $sInputSource)
 			If @error Then
 				$sInputSource = ""
 			Else
@@ -149,7 +149,7 @@ Func basicLinearTransform()
 	Local $beta = GUICtrlRead($SliderBeta) - 100
 	GUICtrlSetData($LabelBeta, "Beta bias (brightness) : " & $beta)
 
-	Local $res = $img.convertTo(-1, $alpha, $beta)
+	Local $res = $img.convertTo(-1, Default, $alpha, $beta)
 
 	_OpenCV_imshow_ControlPic($res, $FormGUI, $PicLinearTransform)
 EndFunc   ;==>basicLinearTransform

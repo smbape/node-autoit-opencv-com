@@ -117,7 +117,7 @@ EndFunc   ;==>Main
 
 Func _handleBtnSourceClick()
 	$sInputSource = ControlGetText($FormGUI, "", $InputSource)
-	$sInputSource = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.jpg;*.jpeg;*.png;*.gif)", $FD_FILEMUSTEXIST, $sInputSource)
+	$sInputSource = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.dlib;*.jpg;*.jpeg;*.png;*.pbm;*.pgm;*.ppm;*.pxm;*.pnm;*.pfm;*.sr;*.ras;*.tiff;*.tif;*.exr;*.hdr;.pic)", $FD_FILEMUSTEXIST, $sInputSource)
 	If @error Then
 		$sInputSource = ""
 		Return
@@ -143,8 +143,8 @@ Func Hist_and_Backproj()
 	;;! [initialize]
 
 	;;! [Get the Histogram and normalize it]
-	Local $hist = $cv.calcHist($ahue, $channels, _OpenCV_ObjCreate("cv.Mat"), $histSize, $ranges, False)
-	$cv.normalize($hist, $hist, 0, 255, $CV_NORM_MINMAX, -1, _OpenCV_ObjCreate("cv.Mat"))
+	Local $hist = $cv.calcHist($ahue, $channels, Null, $histSize, $ranges)
+	$cv.normalize($hist, $hist, 0, 255, $CV_NORM_MINMAX, -1, Null)
 	;;! [Get the Histogram and normalize it]
 
 	;;! [Get Backprojection]

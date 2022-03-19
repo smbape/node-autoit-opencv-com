@@ -87,7 +87,7 @@ While 1
 			ExitLoop
 		Case $BtnObject
 			$sObject = ControlGetText($FormGUI, "", $InputObject)
-			$sObject = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.jpg;*.jpeg;*.png;*.gif)", $FD_FILEMUSTEXIST, $sObject)
+			$sObject = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.dlib;*.jpg;*.jpeg;*.png;*.pbm;*.pgm;*.ppm;*.pxm;*.pnm;*.pfm;*.sr;*.ras;*.tiff;*.tif;*.exr;*.hdr;.pic)", $FD_FILEMUSTEXIST, $sObject)
 			If @error Then
 				$sObject = ""
 			Else
@@ -95,7 +95,7 @@ While 1
 			EndIf
 		Case $BtnScene
 			$sScene = ControlGetText($FormGUI, "", $InputScene)
-			$sScene = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.jpg;*.jpeg;*.png;*.gif)", $FD_FILEMUSTEXIST, $sScene)
+			$sScene = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.dlib;*.jpg;*.jpeg;*.png;*.pbm;*.pgm;*.ppm;*.pxm;*.pnm;*.pfm;*.sr;*.ras;*.tiff;*.tif;*.exr;*.hdr;.pic)", $FD_FILEMUSTEXIST, $sScene)
 			If @error Then
 				$sScene = ""
 			Else
@@ -172,11 +172,11 @@ Func Detect()
 	Local $descriptors_scene = _OpenCV_ObjCreate("cv.Mat")
 
 	If $can_compute Then
-		$detector.detectAndCompute($img_object, _OpenCV_ObjCreate("cv.Mat"), Default, $keypoints_object, $descriptors_object)
-		$detector.detectAndCompute($img_scene, _OpenCV_ObjCreate("cv.Mat"), Default, $keypoints_scene, $descriptors_scene)
+		$detector.detectAndCompute($img_object, Null, $descriptors_object, Default, $keypoints_object)
+		$detector.detectAndCompute($img_scene, Null, $descriptors_scene, Default, $keypoints_scene)
 	Else
-		$detector.detect($img_object, _OpenCV_ObjCreate("cv.Mat"), $keypoints_object)
-		$detector.detect($img_scene, _OpenCV_ObjCreate("cv.Mat"), $keypoints_scene)
+		$detector.detect($img_object, Null, $keypoints_object)
+		$detector.detect($img_scene, Null, $keypoints_scene)
 	EndIf
 
 	;;-- Step 2: Matching descriptor vectors with a BruteForce based matcher

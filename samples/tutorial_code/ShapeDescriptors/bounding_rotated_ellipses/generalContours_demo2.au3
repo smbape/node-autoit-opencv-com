@@ -256,7 +256,7 @@ EndFunc   ;==>Main
 
 Func _ThresholdImage()
 	$src_gray = $cv.cvtColor($src, $CV_COLOR_BGR2GRAY)
-	$src_gray = $cv.GaussianBlur($src_gray, _OpenCV_Size(5, 5), 0, 0)
+	$src_gray = $cv.GaussianBlur($src_gray, _OpenCV_Size(5, 5), 0)
 
 	Local $threshold = GUICtrlRead($SliderThreshold)
 

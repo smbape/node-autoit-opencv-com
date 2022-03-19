@@ -90,7 +90,7 @@ WEnd
 
 Func _handleBtnSrc1Click()
 	$sSrc1 = ControlGetText($FormGUI, "", $InputSrc1)
-	$sSrc1 = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.jpg;*.jpeg;*.png;*.gif)", $FD_FILEMUSTEXIST, $sSrc1)
+	$sSrc1 = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.dlib;*.jpg;*.jpeg;*.png;*.pbm;*.pgm;*.ppm;*.pxm;*.pnm;*.pfm;*.sr;*.ras;*.tiff;*.tif;*.exr;*.hdr;.pic)", $FD_FILEMUSTEXIST, $sSrc1)
 	If @error Then
 		$sSrc1 = ""
 	Else
@@ -100,7 +100,7 @@ EndFunc   ;==>_handleBtnSrc1Click
 
 Func _handleBtnSrc2Click()
 	$sSrc2 = ControlGetText($FormGUI, "", $InputSrc2)
-	$sSrc2 = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.jpg;*.jpeg;*.png;*.gif)", $FD_FILEMUSTEXIST, $sSrc2)
+	$sSrc2 = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.dlib;*.jpg;*.jpeg;*.png;*.pbm;*.pgm;*.ppm;*.pxm;*.pnm;*.pfm;*.sr;*.ras;*.tiff;*.tif;*.exr;*.hdr;.pic)", $FD_FILEMUSTEXIST, $sSrc2)
 	If @error Then
 		$sSrc2 = ""
 	Else

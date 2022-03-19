@@ -93,7 +93,7 @@ While 1
 			ExitLoop
 		Case $BtnSource
 			$sSource = ControlGetText($FormGUI, "", $InputSource)
-			$sSource = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.jpg;*.jpeg;*.png;*.gif)", $FD_FILEMUSTEXIST, $sSource)
+			$sSource = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.dlib;*.jpg;*.jpeg;*.png;*.pbm;*.pgm;*.ppm;*.pxm;*.pnm;*.pfm;*.sr;*.ras;*.tiff;*.tif;*.exr;*.hdr;.pic)", $FD_FILEMUSTEXIST, $sSource)
 			If @error Then
 				$sSource = ""
 			Else
@@ -101,7 +101,7 @@ While 1
 			EndIf
 		Case $BtnTemplate
 			$sTemplate = ControlGetText($FormGUI, "", $InputTemplate)
-			$sTemplate = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.jpg;*.jpeg;*.png;*.gif)", $FD_FILEMUSTEXIST, $sTemplate)
+			$sTemplate = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.dlib;*.jpg;*.jpeg;*.png;*.pbm;*.pgm;*.ppm;*.pxm;*.pnm;*.pfm;*.sr;*.ras;*.tiff;*.tif;*.exr;*.hdr;.pic)", $FD_FILEMUSTEXIST, $sTemplate)
 			If @error Then
 				$sTemplate = ""
 			Else
@@ -109,7 +109,7 @@ While 1
 			EndIf
 		Case $BtnMask
 			$sMask = ControlGetText($FormGUI, "", $InputMask)
-			$sMask = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.jpg;*.jpeg;*.png;*.gif)", $FD_FILEMUSTEXIST, $sMask)
+			$sMask = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.dlib;*.jpg;*.jpeg;*.png;*.pbm;*.pgm;*.ppm;*.pxm;*.pnm;*.pfm;*.sr;*.ras;*.tiff;*.tif;*.exr;*.hdr;.pic)", $FD_FILEMUSTEXIST, $sMask)
 			If @error Then
 				$sMask = ""
 			Else
@@ -140,7 +140,7 @@ Func Main()
 		$use_mask = True
 	Else
 		$use_mask = False
-		$mask = _OpenCV_ObjCreate("cv.Mat")
+		$mask = Null
 	EndIf
 	;;! [load_image]
 
@@ -186,21 +186,21 @@ Func MatchingMethod()
 	;;/ Do the Matching and Normalize
 	Local $method_accepts_mask = $CV_TM_SQDIFF == $match_method Or $match_method == $CV_TM_CCORR_NORMED
 	If $use_mask And $method_accepts_mask Then
-		$cv.matchTemplate($img, $templ, $match_method, $mask, $result)
+		$cv.matchTemplate($img, $templ, $match_method, $result, $mask)
 	Else
-		$cv.matchTemplate($img, $templ, $match_method, Default, $result)
+		$cv.matchTemplate($img, $templ, $match_method, $result)
 	EndIf
 	;;! [match_template]
 
 	;;! [normalize]
-	$cv.normalize($result, $result, 0, 1, $CV_NORM_MINMAX, -1, _OpenCV_ObjCreate("cv.Mat"))
+	$cv.normalize($result, $result, 0, 1, $CV_NORM_MINMAX, -1, Null)
 	;;! [normalize]
 
 	;;! [best_match]
 	;;/ Localizing the best match with minMaxLoc
 	Local $matchLoc
 
-	$cv.minMaxLoc($result, _OpenCV_ObjCreate("cv.Mat"))
+	$cv.minMaxLoc($result)
 	; Local $minVal = $cv.extended[0]
 	; Local $maxVal = $cv.extended[1]
 	Local $minLoc = $cv.extended[2]

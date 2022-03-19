@@ -1,4 +1,5 @@
 /autoit-opencv-*-com-v*.7z
+/diff
 /node_modules
 /opencv-*-vc*
 /samples/tutorial_code/yolo/yolov3.weights

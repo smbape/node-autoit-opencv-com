@@ -56,7 +56,7 @@ While 1
 			ExitLoop
 		Case $BtnSource
 			$sImage = ControlGetText($FormGUI, "", $InputSource)
-			$sImage = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.jpg;*.jpeg;*.png;*.gif)", $FD_FILEMUSTEXIST, $sImage)
+			$sImage = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.dlib;*.jpg;*.jpeg;*.png;*.pbm;*.pgm;*.ppm;*.pxm;*.pnm;*.pfm;*.sr;*.ras;*.tiff;*.tif;*.exr;*.hdr;.pic)", $FD_FILEMUSTEXIST, $sImage)
 			If @error Then
 				$sImage = ""
 			Else
@@ -101,13 +101,13 @@ Func Main()
 	Local $images[1]
 
 	$images[0] = $bgr_planes[0]
-	$b_hist = $cv.calcHist($images, $channels, _OpenCV_ObjCreate("cv.Mat"), $histSize, $histRange, $accumulate)
+	$b_hist = $cv.calcHist($images, $channels, Null, $histSize, $histRange, Default, $accumulate)
 
 	$images[0] = $bgr_planes[1]
-	$g_hist = $cv.calcHist($images, $channels, _OpenCV_ObjCreate("cv.Mat"), $histSize, $histRange, $accumulate)
+	$g_hist = $cv.calcHist($images, $channels, Null, $histSize, $histRange, Default, $accumulate)
 
 	$images[0] = $bgr_planes[2]
-	$r_hist = $cv.calcHist($images, $channels, _OpenCV_ObjCreate("cv.Mat"), $histSize, $histRange, $accumulate)
+	$r_hist = $cv.calcHist($images, $channels, Null, $histSize, $histRange, Default, $accumulate)
 	;;! [Compute the histograms]
 
 	;;! [Draw the histograms for B, G and R]
@@ -118,9 +118,9 @@ Func Main()
 	;;! [Draw the histograms for B, G and R]
 
 	;;! [Normalize the result to ( 0, histImage.rows )]
-	$cv.normalize($b_hist, $b_hist, 0, $histImage.rows, $CV_NORM_MINMAX, -1, _OpenCV_ObjCreate("cv.Mat"))
-	$cv.normalize($g_hist, $g_hist, 0, $histImage.rows, $CV_NORM_MINMAX, -1, _OpenCV_ObjCreate("cv.Mat"))
-	$cv.normalize($r_hist, $r_hist, 0, $histImage.rows, $CV_NORM_MINMAX, -1, _OpenCV_ObjCreate("cv.Mat"))
+	$cv.normalize($b_hist, $b_hist, 0, $histImage.rows, $CV_NORM_MINMAX)
+	$cv.normalize($g_hist, $g_hist, 0, $histImage.rows, $CV_NORM_MINMAX)
+	$cv.normalize($r_hist, $r_hist, 0, $histImage.rows, $CV_NORM_MINMAX)
 	;;! [Normalize the result to ( 0, histImage.rows )]
 
 	;;! [Draw for each channel]

@@ -55,7 +55,7 @@ While 1
 			ExitLoop
 		Case $BtnSource
 			$sImage = ControlGetText($FormGUI, "", $InputSource)
-			$sImage = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.jpg;*.jpeg;*.png;*.gif)", $FD_FILEMUSTEXIST, $sImage)
+			$sImage = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.dlib;*.jpg;*.jpeg;*.png;*.pbm;*.pgm;*.ppm;*.pxm;*.pnm;*.pfm;*.sr;*.ras;*.tiff;*.tif;*.exr;*.hdr;.pic)", $FD_FILEMUSTEXIST, $sImage)
 			If @error Then
 				$sImage = ""
 			Else
@@ -81,12 +81,12 @@ Func Main()
 	Local $padded                            ;;expand input image to optimal size
 	Local $m = $cv.getOptimalDFTSize($I.rows)
 	Local $n = $cv.getOptimalDFTSize($I.cols)   ; on the border add zero values
-	$padded = $cv.copyMakeBorder($I, 0, $m - $I.rows, 0, $n - $I.cols, $CV_BORDER_CONSTANT, _OpenCV_ScalarAll(0))
+	$padded = $cv.copyMakeBorder($I, 0, $m - $I.rows, 0, $n - $I.cols, $CV_BORDER_CONSTANT, Default, _OpenCV_ScalarAll(0))
 	;;! [expand]
 
 	;;! [complex_and_real]
 	Local $planes[2]
-	$planes[0] = $padded.convertTo($CV_32F, 1.0, 0.0)
+	$planes[0] = $padded.convertTo($CV_32F, Default, 1.0, 0.0)
 	$planes[1] = _OpenCV_ObjCreate("cv.Mat").zeros($padded.rows, $padded.cols, $CV_32F)
 	Local $complexI = $cv.merge($planes) ;         ; Add to the expanded another plane with zeros
 	;;! [complex_and_real]

@@ -47,6 +47,8 @@ class AutoItGenerator {
 
         this.dependents = new Map();
         this.dependencies = new Map();
+
+        this.docs = [];
     }
 
     generate({decls, namespaces, generated_include}, options = {}, cb = undefined) {
@@ -695,6 +697,8 @@ class AutoItGenerator {
             ${ etext.split("\n").join(`\n${ " ".repeat(12) }`) }
         `.replace(/^ {12}/mg, "").trim() }\n`);
 
+        files.set(sysPath.resolve(options.output, "..", "udf", "docs.txt"), this.docs.sort().join("\n"));
+
         let vs_generate = false;
         const idls_to_generate = new Set();
 
@@ -721,12 +725,52 @@ class AutoItGenerator {
 
                         (buffer, next) => {
                             const content = eol.crlf(files.get(filename));
-                            if (content !== buffer.toString()) {
-                                console.log("write file", filename);
-                                fs.writeFile(filename, content, next);
-                            } else {
+                            const str = buffer.toString();
+
+                            if (content === str) {
                                 next();
+                                return;
                             }
+
+                            console.log("write file", options.output, sysPath.relative(options.output, filename));
+                            fs.writeFile(filename, content, next);
+
+                            if (!filename.startsWith(options.output)) {
+                                return;
+                            }
+
+                            const mkdirp = require("mkdirp");
+                            const diffdir = sysPath.join(__dirname, "..", "diff");
+                            const rpath = sysPath.relative(options.output, filename);
+                            const a = sysPath.join(diffdir, "a", rpath);
+                            const b = sysPath.join(diffdir, "b", rpath);
+
+                            mkdirp(sysPath.dirname(a)).
+                            then(performed => {
+                                return mkdirp(sysPath.dirname(b));
+                            })
+                            .then(performed => {
+                                return new Promise((resolve, reject) => {
+                                    fs.writeFile(a, str, err => {
+                                        if (err) {
+                                            reject(err);
+                                        } else {
+                                            resolve();
+                                        }
+                                    });
+                                });
+                            })
+                            .then(() => {
+                                return new Promise((resolve, reject) => {
+                                    fs.writeFile(b, content, err => {
+                                        if (err) {
+                                            reject(err);
+                                        } else {
+                                            resolve();
+                                        }
+                                    });
+                                });
+                            });
                         },
 
                         next => {

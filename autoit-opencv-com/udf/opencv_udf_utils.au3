@@ -279,17 +279,17 @@ Func _OpenCV_resizeAndCenter($src, $iDstWidth = Default, $iDstHeight = Default, 
 
 			; $hTimer = TimerInit()
 			$src = $src.GdiplusResize($iWidth, $iHeight, $interpolation)
-			; ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : cv.resize ' & TimerDiff($hTimer) & ' ms' & @CRLF) ;### Debug Console
+			; ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : Mat.GdiplusResize ' & TimerDiff($hTimer) & ' ms' & @CRLF) ;### Debug Console
 		Else
 			; $hTimer = TimerInit()
-			$src = $cv.resize($src, _OpenCV_Size($iWidth, $iHeight), 0, 0, $interpolation)
+			$src = $cv.resize($src, _OpenCV_Size($iWidth, $iHeight), Default, 0, 0, $interpolation)
 			; ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : cv.resize ' & TimerDiff($hTimer) & ' ms' & @CRLF) ;### Debug Console
 		EndIf
 	EndIf
 
 	If $bCenter And ($iPadWidth > 0 Or $iPadHeight > 0) Then
 		Local $padded = _OpenCV_ObjCreate("cv.Mat").create($iDstHeight, $iDstWidth, $src.depth())
-		$cv.copyMakeBorder($src, $iPadHeight, $iPadHeight, $iPadWidth, $iPadWidth, $CV_BORDER_CONSTANT, $aBackgroundColor, $padded)
+		$cv.copyMakeBorder($src, $iPadHeight, $iPadHeight, $iPadWidth, $iPadWidth, $CV_BORDER_CONSTANT, $padded, $aBackgroundColor)
 		$src = $padded
 	EndIf
 
@@ -508,14 +508,15 @@ Func _OpenCV_GetDesktopScreenRect($iScreenNum = Default)
 EndFunc   ;==>_OpenCV_GetDesktopScreenRect
 
 Func _OpenCV_CompareMatHist($matSrc, $matDst, $matMask, $aChannels, $aHistSize, $aRanges, $iCompareMethod = $CV_HISTCMP_CORREL, $bAccumulate = False)
+	If $matMask == Default Then $matMask = Null
 	Local Const $cv = _OpenCV_get()
 
 	Local $aMatSrc[1] = [$matSrc]
-	Local $matHistSrc = $cv.calcHist($aMatSrc, $aChannels, $matMask, $aHistSize, $aRanges, $bAccumulate)
+	Local $matHistSrc = $cv.calcHist($aMatSrc, $aChannels, $matMask, $aHistSize, $aRanges, Default, $bAccumulate)
 	$cv.normalize($matHistSrc, $matHistSrc, 0, 1, $CV_NORM_MINMAX)
 
 	Local $aMatDst[1] = [$matDst]
-	Local $matHistDst = $cv.calcHist($aMatDst, $aChannels, $matMask, $aHistSize, $aRanges, $bAccumulate)
+	Local $matHistDst = $cv.calcHist($aMatDst, $aChannels, $matMask, $aHistSize, $aRanges, Default, $bAccumulate)
 	$cv.normalize($matHistDst, $matHistDst, 0, 1, $CV_NORM_MINMAX)
 
 	Local $dResult = $cv.compareHist($matHistSrc, $matHistDst, $iCompareMethod)
@@ -569,8 +570,8 @@ Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = Default, $iMatchMeth
 	If $iLimit == Default Then $iLimit = 20
 
 	If $iCode >= 0 Then
-		$matImg = $cv.cvtColor($matImg, $iCode, $iDstCn)
-		$matTempl = $cv.cvtColor($matTempl, $iCode, $iDstCn)
+		$matImg = $cv.cvtColor($matImg, $iCode, Default, $iDstCn)
+		$matTempl = $cv.cvtColor($matTempl, $iCode, Default, $iDstCn)
 	EndIf
 
 	If $aChannels == Default Then
@@ -632,9 +633,9 @@ Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = Default, $iMatchMeth
 	If $iMatchMethod == $CV_TM_EXACT Then
 		$matResult = $cv.searchTemplate($matImg, $matTempl, $matTemplMask, $aChannels, $aRanges)
 	ElseIf $matImg.width * $matImg.height > 500 * 500 Then
-		$matResult = $cv.matchTemplateParallel($matImg, $matTempl, $iMatchMethod, $matTemplMask)
+		$matResult = $cv.matchTemplateParallel($matImg, $matTempl, $iMatchMethod, Default, $matTemplMask)
 	Else
-		$matResult = $cv.matchTemplate($matImg, $matTempl, $iMatchMethod, $matTemplMask)
+		$matResult = $cv.matchTemplate($matImg, $matTempl, $iMatchMethod, Default, $matTemplMask)
 	EndIf
 	; ConsoleWrite("matchTemplate took " & TimerDiff($hTimer) & "ms" & @CRLF)
 
@@ -685,7 +686,8 @@ Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = Default, $iMatchMeth
 			$aMatchRect[1] = $aMatchLoc[1]
 
 			Local $matImgMatch = $mat.create($matImg, $aMatchRect)
-			$fHistScore = _OpenCV_CompareMatHist($matImgMatch, $matTempl, ($matTemplMask.channels() == 1 ? $matTemplMask : _OpenCV_ObjCreate("cv.Mat")), $aChannels, $aHistSize, $aRanges, $iCompareMethod, $bAccumulate)
+			If $matTemplMask <> Default And $matTemplMask.channels() <> 1 Then $matTemplMask = Default
+			$fHistScore = _OpenCV_CompareMatHist($matImgMatch, $matTempl, $matTemplMask, $aChannels, $aHistSize, $aRanges, $iCompareMethod, $bAccumulate)
 			; ConsoleWrite("$fHistScore: " & $fHistScore & @CRLF)
 		EndIf
 
@@ -783,7 +785,7 @@ Func _OpenCV_RotateBound($img, $angle = 0, $scale = 1.0, $flags = Default, $bord
 
 	Local $size[2] = [$nW, $nH]
 
-	Return $cv.warpAffine($img, $M, $size, $flags, $borderMode, $borderValue, $rotated)
+	Return $cv.warpAffine($img, $M, $size, $rotated, $flags, $borderMode, $borderValue)
 EndFunc   ;==>_OpenCV_RotateBound
 
 Func _OpenCV_ColorGetScalar($iColor)

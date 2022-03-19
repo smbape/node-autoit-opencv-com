@@ -88,7 +88,7 @@ While 1
 			ExitLoop
 		Case $BtnSrcBase
 			$sSrcBase = ControlGetText($FormGUI, "", $InputSrcBase)
-			$sSrcBase = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.jpg;*.jpeg;*.png;*.gif)", $FD_FILEMUSTEXIST, $sSrcBase)
+			$sSrcBase = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.dlib;*.jpg;*.jpeg;*.png;*.pbm;*.pgm;*.ppm;*.pxm;*.pnm;*.pfm;*.sr;*.ras;*.tiff;*.tif;*.exr;*.hdr;.pic)", $FD_FILEMUSTEXIST, $sSrcBase)
 			If @error Then
 				$sSrcBase = ""
 			Else
@@ -96,7 +96,7 @@ While 1
 			EndIf
 		Case $BtnSrcTest1
 			$sSrcTest1 = ControlGetText($FormGUI, "", $InputSrcTest1)
-			$sSrcTest1 = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.jpg;*.jpeg;*.png;*.gif)", $FD_FILEMUSTEXIST, $sSrcTest1)
+			$sSrcTest1 = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.dlib;*.jpg;*.jpeg;*.png;*.pbm;*.pgm;*.ppm;*.pxm;*.pnm;*.pfm;*.sr;*.ras;*.tiff;*.tif;*.exr;*.hdr;.pic)", $FD_FILEMUSTEXIST, $sSrcTest1)
 			If @error Then
 				$sSrcTest1 = ""
 			Else
@@ -104,7 +104,7 @@ While 1
 			EndIf
 		Case $BtnSrcTest2
 			$sSrcTest2 = ControlGetText($FormGUI, "", $InputSrcTest2)
-			$sSrcTest2 = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.jpg;*.jpeg;*.png;*.gif)", $FD_FILEMUSTEXIST, $sSrcTest2)
+			$sSrcTest2 = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.dlib;*.jpg;*.jpeg;*.png;*.pbm;*.pgm;*.ppm;*.pxm;*.pnm;*.pfm;*.sr;*.ras;*.tiff;*.tif;*.exr;*.hdr;.pic)", $FD_FILEMUSTEXIST, $sSrcTest2)
 			If @error Then
 				$sSrcTest2 = ""
 			Else
@@ -162,20 +162,20 @@ Func Main()
 
 	;;! [Calculate the histograms for the HSV images]
 	Local $a_hsv_base[1] = [$hsv_base]
-	Local $hist_base = $cv.calcHist($a_hsv_base, $channels, _OpenCV_ObjCreate("cv.Mat"), $histSize, $ranges, False)
-	$cv.normalize($hist_base, $hist_base, 0, 1, $CV_NORM_MINMAX, -1, _OpenCV_ObjCreate("cv.Mat"))
+	Local $hist_base = $cv.calcHist($a_hsv_base, $channels, Null, $histSize, $ranges)
+	$cv.normalize($hist_base, $hist_base, 0, 1, $CV_NORM_MINMAX, -1, Null)
 
 	Local $a_hsv_half_down[1] = [$hsv_half_down]
-	Local $hist_half_down = $cv.calcHist($a_hsv_half_down, $channels, _OpenCV_ObjCreate("cv.Mat"), $histSize, $ranges, False)
-	$cv.normalize($hist_half_down, $hist_half_down, 0, 1, $CV_NORM_MINMAX, -1, _OpenCV_ObjCreate("cv.Mat"))
+	Local $hist_half_down = $cv.calcHist($a_hsv_half_down, $channels, Null, $histSize, $ranges)
+	$cv.normalize($hist_half_down, $hist_half_down, 0, 1, $CV_NORM_MINMAX, -1, Null)
 
 	Local $a_hsv_test1[1] = [$hsv_test1]
-	Local $hist_test1 = $cv.calcHist($a_hsv_test1, $channels, _OpenCV_ObjCreate("cv.Mat"), $histSize, $ranges, False)
-	$cv.normalize($hist_test1, $hist_test1, 0, 1, $CV_NORM_MINMAX, -1, _OpenCV_ObjCreate("cv.Mat"))
+	Local $hist_test1 = $cv.calcHist($a_hsv_test1, $channels, Null, $histSize, $ranges)
+	$cv.normalize($hist_test1, $hist_test1, 0, 1, $CV_NORM_MINMAX, -1, Null)
 
 	Local $a_hsv_test2[1] = [$hsv_test2]
-	Local $hist_test2 = $cv.calcHist($a_hsv_test2, $channels, _OpenCV_ObjCreate("cv.Mat"), $histSize, $ranges, False)
-	$cv.normalize($hist_test2, $hist_test2, 0, 1, $CV_NORM_MINMAX, -1, _OpenCV_ObjCreate("cv.Mat"))
+	Local $hist_test2 = $cv.calcHist($a_hsv_test2, $channels, Null, $histSize, $ranges)
+	$cv.normalize($hist_test2, $hist_test2, 0, 1, $CV_NORM_MINMAX, -1, Null)
 	;;! [Calculate the histograms for the HSV images]
 
 	;;! [Apply the histogram comparison methods]

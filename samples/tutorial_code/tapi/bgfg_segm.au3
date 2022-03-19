@@ -252,9 +252,9 @@ Func UpdateFrame()
 
 	Switch $method
 		Case $M_KNN
-			$knn.apply($frame, -1, $fgmask)
+			$knn.apply($frame, $fgmask)
 		Case $M_MOG2
-			$mog2.apply($frame, -1, $fgmask)
+			$mog2.apply($frame, $fgmask)
 	EndSwitch
 
 	$fgimg.setTo(_OpenCV_ScalarAll(0))

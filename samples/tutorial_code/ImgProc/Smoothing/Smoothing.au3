@@ -71,7 +71,7 @@ While 1
 			Exit
 		Case $BtnSource
 			$sImage = ControlGetText($FormGUI, "", $InputSource)
-			$sImage = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.jpg;*.jpeg;*.png;*.gif)", $FD_FILEMUSTEXIST, $sImage)
+			$sImage = FileOpenDialog("Select an image", $OPENCV_SAMPLES_DATA_PATH, "Image files (*.bmp;*.dlib;*.jpg;*.jpeg;*.png;*.pbm;*.pgm;*.ppm;*.pxm;*.pnm;*.pfm;*.sr;*.ras;*.tiff;*.tif;*.exr;*.hdr;.pic)", $FD_FILEMUSTEXIST, $sImage)
 			If Not @error Then
 				ControlSetText($FormGUI, "", $InputSource, $sImage)
 				Main()
@@ -113,7 +113,7 @@ Func Smooth()
 		Case "Homogeneous Blur"
 			;;![blur]
 			For $i = 1 To $MAX_KERNEL_LENGTH - 1 Step 2
-				$dst = $cv.blur($src, _OpenCV_Size($i, $i), _OpenCV_Point(-1, -1))
+				$dst = $cv.blur($src, _OpenCV_Size($i, $i))
 				_OpenCV_imshow_ControlPic($dst, $FormGUI, $PicResult)
 				Sleep($DELAY_BLUR)
 			Next

@@ -203,7 +203,7 @@ Func _SaveImg()
 EndFunc   ;==>_SaveImg
 
 Func _ViewThreshold()
-	$Gaus = $cv.GaussianBlur($img, _OpenCV_Size(5, 5), 0, 0)
+	$Gaus = $cv.GaussianBlur($img, _OpenCV_Size(5, 5), 0)
 
 	$gray = $cv.cvtColor($Gaus, $CV_COLOR_BGR2GRAY)
 
@@ -258,12 +258,12 @@ Func _Contour()
 	Local $kernel = _OpenCV_ObjCreate("cv.Mat")
 
 	If $ErosionNumber > 0 Then
-		$gray = $cv.erode($gray, $kernel, _OpenCV_Point(-1, -1), $ErosionNumber)
+		$gray = $cv.erode($gray, $kernel, Default, Default, $ErosionNumber)
 		_OpenCV_imshow_ControlPic($gray, $FormGUI, $PicMatchTemplate)
 	EndIf
 
 	If $DilationNumber > 0 Then
-		$gray = $cv.dilate($gray, $kernel, _OpenCV_Point(-1, -1), $DilationNumber)
+		$gray = $cv.dilate($gray, $kernel, Default, Default, $DilationNumber)
 		_OpenCV_imshow_ControlPic($gray, $FormGUI, $PicMatchTemplate)
 	EndIf
 
@@ -324,7 +324,7 @@ Func _Contour()
 		Local $hull = _OpenCV_ObjCreate("VectorOfMat").create($good_contours.size())
 		Local $hull_i = _OpenCV_ObjCreate("cv.Mat")
 		For $i = 0 To $good_contours.size() - 1
-			$cv.convexHull($good_contours.at($i), Default, Default, $hull_i)
+			$cv.convexHull($good_contours.at($i), $hull_i)
 			$hull.at($i, $hull_i)
 
 			If _IsChecked($ConvexCenter) Then
