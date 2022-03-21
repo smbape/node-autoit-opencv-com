@@ -335,3 +335,80 @@ const HRESULT autoit_to(VARIANT const* const& in_val, cv::flann::IndexParams& ou
 
 	return hr;
 }
+
+// cv::Mat cv::getMat(VARIANT* in_val) {
+// 	AUTOIT_ASSERT_THROW((V_VT(in_val) & VT_ARRAY) == VT_ARRAY, "argument must be an array");
+
+// 	auto& psa = V_ARRAY(in_val);
+// 	const auto& cDims = psa->cDims;
+// 	AUTOIT_ASSERT_THROW(cDims > 0 && cDims <= 3, "array must have at most 3 dimensions");
+
+// 	int depth;
+
+// 	switch((V_VT(in_val) ^ VT_ARRAY)) {
+// 		case VT_I1:
+// 			depth = cv::DataType<CHAR>::depth;
+// 			break;
+// 		case VT_I2:
+// 			depth = cv::DataType<SHORT>::depth;
+// 			break;
+// 		case VT_INT:
+// 			depth = cv::DataType<INT>::depth;
+// 			break;
+// 		case VT_UI1:
+// 			depth = cv::DataType<BYTE>::depth;
+// 			break;
+// 		case VT_UI2:
+// 			depth = cv::DataType<USHORT>::depth;
+// 			break;
+// 		case VT_R4:
+// 			depth = cv::DataType<FLOAT>::depth;
+// 			break;
+// 		case VT_R8:
+// 			depth = cv::DataType<DOUBLE>::depth;
+// 			break;
+// 		default:
+// 			AUTOIT_ASSERT_THROW(false, "array must be of a number type");
+// 	}
+
+// 	const auto& rgsabound = psa->rgsabound;
+
+// 	ULONG rows = 0;
+// 	ULONG cols = 1;
+// 	ULONG channels = 1;
+
+// 	for (int i = 0; i < cDims; i++) {
+// 		AUTOIT_ASSERT_THROW(rgsabound[i].lLbound == 0, "only contiguous array are supported");
+
+// 		if (i == 0) {
+// 			rows = rgsabound[i].cElements;
+// 		} else if (i == 1) {
+// 			cols = rgsabound[i].cElements;
+// 		} else {
+// 			channels = rgsabound[i].cElements;
+// 		}
+// 	}
+
+// 	return cv::Mat(rows, cols, CV_MAKETYPE(depth, channels), psa->pvData);
+// }
+
+// VARIANT cv::getArray(cv::Mat& m) {
+// 	auto& dims = m.dims;
+// 	AUTOIT_ASSERT_THROW(dims > 0 && dims <= 3, "array must have at most 3 dimensions");
+
+// 	SAFEARRAYBOUND rgsabound[dims];
+
+// 	for (int i = 0; i < dims; i++) {
+// 		rgsabound[0].lLbound = 0;
+
+// 		if (i == 0) {
+// 			rgsabound[i].cElements = m.rows;
+// 		} else if (i == 1) {
+// 			rgsabound[i].cElements = m.cols;
+// 		} else {
+// 			rgsabound[i].cElements = m.channels();
+// 		}
+// 	}
+
+// 	auto& data = m.data;
+// }

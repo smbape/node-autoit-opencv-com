@@ -154,48 +154,6 @@ const declarations = [
     ], "", ""],
     ["cv.Mat.t", "cv::Mat", [], [], "", ""],
 
-    ["cv.Mat.Point_at", "Point2d", ["/External"], [
-        ["int", "x", "", []],
-    ], "", ""],
-
-    ["cv.Mat.Point_at", "Point2d", ["/External"], [
-        ["int", "x", "", []],
-        ["int", "y", "", []],
-    ], "", ""],
-
-    ["cv.Mat.Point_at", "Point2d", ["/External"], [
-        ["Point", "pt", "", []],
-    ], "", ""],
-
-    ["cv.Mat.at", "double", ["/External"], [
-        ["int", "x", "", []],
-    ], "", ""],
-
-    ["cv.Mat.set_at", "void", ["/External"], [
-        ["int", "x", "", []],
-        ["double", "value", "", []],
-    ], "", ""],
-
-    ["cv.Mat.at", "double", ["/External"], [
-        ["int", "x", "", []],
-        ["int", "y", "", []],
-    ], "", ""],
-
-    ["cv.Mat.set_at", "void", ["/External"], [
-        ["int", "x", "", []],
-        ["int", "y", "", []],
-        ["double", "value", "", []],
-    ], "", ""],
-
-    ["cv.Mat.at", "double", ["/External"], [
-        ["Point", "pt", "", []],
-    ], "", ""],
-
-    ["cv.Mat.set_at", "void", ["/External"], [
-        ["Point", "pt", "", []],
-        ["double", "value", "", []],
-    ], "", ""],
-
     ["cv.Mat.convertToBitmap", "void*", ["/External"], [
         ["bool", "copy", "true", []],
     ], "", ""],
@@ -270,6 +228,8 @@ const declarations = [
     ], "", ""],
 ];
 
+// ["/ExternalNoDecl", "/attr=propput", "=put_Item", "/idlname=Item", "/id=DISPID_VALUE"]
+
 const types = new Set(["int", "float", "double"]);
 
 for (const _Tp of ["b", "s", "w"]) {
@@ -300,37 +260,43 @@ for (const type of types) {
             ["bool", "copyData", "true", []],
         ], "", ""]);
     }
+}
+
+for (const args of [
+    [
+        ["int", "i0", "", []],
+    ],
+    [
+        ["int", "row", "", []],
+        ["int", "col", "", []],
+    ],
+    [
+        ["int", "i0", "", []],
+        ["int", "i1", "", []],
+        ["int", "i2", "", []],
+    ],
+    [
+        ["Point", "pt", "", []],
+    ],
+]) {
 
     declarations.push(...[
-        [`cv.Mat.at<${ type }>`, type, [`=${ type }_at`], [
-            ["int", "x", "", []],
-        ], "", ""],
-
-        [`cv.Mat.at<${ type }>`, "void", [`=${ type }_set_at`, "/Expr=x) = (value"], [
-            ["int", "x", "", []],
-            [type, "value", "", []],
-        ], "", ""],
-
-        [`cv.Mat.at<${ type }>`, type, [`=${ type }_at`], [
-            ["int", "x", "", []],
-            ["int", "y", "", []]
-        ], "", ""],
-
-        [`cv.Mat.at<${ type }>`, "void", [`=${ type }_set_at`, "/Expr=x, y) = (value"], [
-            ["int", "x", "", []],
-            ["int", "y", "", []],
-            [type, "value", "", []],
-        ], "", ""],
-
-        [`cv.Mat.at<${ type }>`, type, [`=${ type }_at`], [
-            ["Point", "pt", "", []],
-        ], "", ""],
-
-        [`cv.Mat.at<${ type }>`, "void", [`=${ type }_set_at`, "/Expr=pt) = (value"], [
-            ["Point", "pt", "", []],
-            [type, "value", "", []],
-        ], "", ""],
+        ["cv.Mat.Point_at", "Point2d", ["/External"], args, "", ""],
+        ["cv.Mat.at", "double", ["/External"], args, "", ""],
+        ["cv.Mat.set_at", "void", ["/External"], args.concat([["double", "value", "", []]]), "", ""],
+        ["cv.Mat.at", "double", ["/ExternalNoDecl", "/attr=propget", "=get_Item", "/idlname=Item", "/id=DISPID_VALUE"], args, "", ""],
     ]);
+
+    const argdecl = args.map(([argtype, argname]) => `${ argtype } ${ argname }`).join(", ");
+    const argexpr = args.map(([, argname]) => argname).join(", ");
+
+    for (const type of types) {
+        declarations.push(...[
+            [`cv.Mat.at<${ type }>`, type, [`=${ type }_at`], args, "", ""],
+            [`cv.Mat.at<${ type }>`, "void", [`=${ type }_set_at`, `/Expr=${ argexpr }) = (value`], args.concat([[type, "value", "", []]]), "", ""],
+        ]);
+    }
+
 }
 
 module.exports = declarations;

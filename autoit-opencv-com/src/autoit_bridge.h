@@ -112,3 +112,47 @@ namespace autoit
 	};
 
 }
+namespace cv {
+	template<int _depth>
+	struct TypeDepth;
+
+	template<>
+	struct TypeDepth<CV_8U> {
+		typedef uchar value_type;
+	};
+
+	template<>
+	struct TypeDepth<CV_8S> {
+		typedef schar value_type;
+	};
+
+	template<>
+	struct TypeDepth<CV_16U> {
+		typedef ushort value_type;
+	};
+
+	template<>
+	struct TypeDepth<CV_16S> {
+		typedef short value_type;
+	};
+
+	template<>
+	struct TypeDepth<CV_32S> {
+		typedef int value_type;
+	};
+
+	template<>
+	struct TypeDepth<CV_32F> {
+		typedef float value_type;
+	};
+
+	template<>
+	struct TypeDepth<CV_64F> {
+		typedef double value_type;
+	};
+
+	template<>
+	struct TypeDepth<CV_16F> {
+		typedef float16_t value_type;
+	};
+}

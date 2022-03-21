@@ -405,12 +405,17 @@ Object.assign(exports, {
                 description += `\n    ${ coclass.progid }( ${ argstr } ) -> ${ outstr }`;
             }
 
-            const cppsignature = `${ generator.getCppType(return_value_type, coclass, options) } ${ fqn }::${ fname }`;
+            const cppsignature = `${ func_modifiers.includes("/S") ? "static " : "" }${ generator.getCppType(return_value_type, coclass, options) } ${ fqn }::${ fname }`;
 
             let maxlength = 0;
 
             const typelist = list_of_arguments.map(([argtype, , , arg_modifiers]) => {
-                let str = arg_modifiers.includes("/C") ? "const " : "";
+                let str = "";
+
+                if (arg_modifiers.includes("/C")) {
+                    str += "const ";
+                }
+
                 str += generator.getCppType(argtype, coclass, options);
                 if (arg_modifiers.includes("/Ref")) {
                     str += "&";
