@@ -432,15 +432,17 @@ Object.assign(exports, {
                     str += ` = ${ defval }`;
                 }
                 return str;
-            }).join(`\n${ " ".repeat(cppsignature.length + "( ".length) }`) } )`;
+            }).join(`,\n${ " ".repeat(cppsignature.length + "( ".length) }`) } )`;
 
             generator.docs.push([
+                "```cpp",
                 cppdescription,
                 "",
                 "AutoIt:",
                 " ".repeat(4) + description,
+                "```",
                 ""
-            ].join("\n").replace(/\s*\( {2}\)/g, "()").replace(/\b([_*])/g, "\\$1"));
+            ].join("\n").replace(/\s*\( {2}\)/g, "()"));
         }
 
         if (minopt === Number.POSITIVE_INFINITY) {
