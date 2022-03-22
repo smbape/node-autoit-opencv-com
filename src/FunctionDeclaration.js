@@ -395,7 +395,10 @@ Object.assign(exports, {
                 outstr = "None";
             }
 
-            let description = `${ coclass.progid }.${ idlname }( ${ argstr } )`;
+            const is_idl_class = !coclass.noidl && (coclass.is_class || coclass.is_struct);
+            const is_static = func_modifiers.includes("/S");
+            const caller = !is_idl_class || is_static ? `_${ options.APP_NAME }_ObjCreate("${ coclass.progid }")` : `$${ coclass.name[0].toLowerCase() }${ coclass.name.slice(1) }`;
+            let description = `${ caller }.${ idlname }( ${ argstr } )`;
 
             if (proput) {
                 description += ` = $${ proput }`;
@@ -407,7 +410,7 @@ Object.assign(exports, {
                 description += `\n    ${ coclass.progid }( ${ argstr } ) -> ${ outstr }`;
             }
 
-            const cppsignature = `${ func_modifiers.includes("/S") ? "static " : "" }${ generator.getCppType(return_value_type, coclass, options) } ${ fqn }::${ fname }`;
+            const cppsignature = `${ is_static ? "static " : "" }${ generator.getCppType(return_value_type, coclass, options) } ${ fqn }::${ fname }`;
 
             let maxlength = 0;
 
