@@ -5181,7 +5181,7 @@ AutoIt:
 uint cv::RNG::next()
 
 AutoIt:
-    $rNG.next() -> retval
+    $oRNG.next() -> retval
 ```
 
 ### cv::RNG::uniform_int
@@ -5191,7 +5191,7 @@ int cv::RNG::uniform_int( int a,
                           int b )
 
 AutoIt:
-    $rNG.uniform_int( $a, $b ) -> retval
+    $oRNG.uniform_int( $a, $b ) -> retval
 ```
 
 ### cv::RNG::uniform_float
@@ -5201,7 +5201,7 @@ float cv::RNG::uniform_float( float a,
                               float b )
 
 AutoIt:
-    $rNG.uniform_float( $a, $b ) -> retval
+    $oRNG.uniform_float( $a, $b ) -> retval
 ```
 
 ### cv::RNG::uniform_double
@@ -5211,7 +5211,7 @@ double cv::RNG::uniform_double( double a,
                                 double b )
 
 AutoIt:
-    $rNG.uniform_double( $a, $b ) -> retval
+    $oRNG.uniform_double( $a, $b ) -> retval
 ```
 
 ## cv::Algorithm
@@ -5222,7 +5222,7 @@ AutoIt:
 void cv::Algorithm::clear()
 
 AutoIt:
-    $algorithm.clear() -> None
+    $oAlgorithm.clear() -> None
 ```
 
 ### cv::Algorithm::write
@@ -5232,7 +5232,7 @@ void cv::Algorithm::write( const cv::Ptr<cv::FileStorage>& fs,
                            const std::string&              name = String() )
 
 AutoIt:
-    $algorithm.write( $fs[, $name] ) -> None
+    $oAlgorithm.write( $fs[, $name] ) -> None
 ```
 
 ### cv::Algorithm::read
@@ -5241,7 +5241,7 @@ AutoIt:
 void cv::Algorithm::read( const cv::FileNode& fn )
 
 AutoIt:
-    $algorithm.read( $fn ) -> None
+    $oAlgorithm.read( $fn ) -> None
 ```
 
 ### cv::Algorithm::empty
@@ -5250,7 +5250,7 @@ AutoIt:
 bool cv::Algorithm::empty()
 
 AutoIt:
-    $algorithm.empty() -> retval
+    $oAlgorithm.empty() -> retval
 ```
 
 ### cv::Algorithm::save
@@ -5259,7 +5259,7 @@ AutoIt:
 void cv::Algorithm::save( const std::string& filename )
 
 AutoIt:
-    $algorithm.save( $filename ) -> None
+    $oAlgorithm.save( $filename ) -> None
 ```
 
 ### cv::Algorithm::getDefaultName
@@ -5268,7 +5268,7 @@ AutoIt:
 std::string cv::Algorithm::getDefaultName()
 
 AutoIt:
-    $algorithm.getDefaultName() -> retval
+    $oAlgorithm.getDefaultName() -> retval
 ```
 
 ## cv::AsyncArray
@@ -5288,7 +5288,7 @@ AutoIt:
 void cv::AsyncArray::release()
 
 AutoIt:
-    $asyncArray.release() -> None
+    $oAsyncArray.release() -> None
 ```
 
 ### cv::AsyncArray::get
@@ -5297,7 +5297,7 @@ AutoIt:
 void cv::AsyncArray::get( _OutputArray dst )
 
 AutoIt:
-    $asyncArray.get( [$dst] ) -> $dst
+    $oAsyncArray.get( [$dst] ) -> $dst
 ```
 
 ```cpp
@@ -5305,7 +5305,7 @@ bool cv::AsyncArray::get( _OutputArray dst,
                           double       timeoutNs )
 
 AutoIt:
-    $asyncArray.get( $timeoutNs[, $dst] ) -> retval, $dst
+    $oAsyncArray.get( $timeoutNs[, $dst] ) -> retval, $dst
 ```
 
 ### cv::AsyncArray::wait_for
@@ -5314,7 +5314,7 @@ AutoIt:
 bool cv::AsyncArray::wait_for( double timeoutNs )
 
 AutoIt:
-    $asyncArray.wait_for( $timeoutNs ) -> retval
+    $oAsyncArray.wait_for( $timeoutNs ) -> retval
 ```
 
 ### cv::AsyncArray::valid
@@ -5323,7 +5323,7 @@ AutoIt:
 bool cv::AsyncArray::valid()
 
 AutoIt:
-    $asyncArray.valid() -> retval
+    $oAsyncArray.valid() -> retval
 ```
 
 ## cv::ipp
@@ -6108,7 +6108,7 @@ void cv::cuda::GpuMat::create( int rows,
                                int type )
 
 AutoIt:
-    $gpuMat.create( $rows, $cols, $type ) -> None
+    $oGpuMat.create( $rows, $cols, $type ) -> None
 ```
 
 ```cpp
@@ -6116,7 +6116,7 @@ void cv::cuda::GpuMat::create( cv::Size size,
                                int      type )
 
 AutoIt:
-    $gpuMat.create( $size, $type ) -> None
+    $oGpuMat.create( $size, $type ) -> None
 ```
 
 ### cv::cuda::GpuMat::swap
@@ -6125,7 +6125,7 @@ AutoIt:
 void cv::cuda::GpuMat::swap( cv::cuda::GpuMat& mat )
 
 AutoIt:
-    $gpuMat.swap( $mat ) -> None
+    $oGpuMat.swap( $mat ) -> None
 ```
 
 ### cv::cuda::GpuMat::upload
@@ -6134,7 +6134,7 @@ AutoIt:
 void cv::cuda::GpuMat::upload( _InputArray arr )
 
 AutoIt:
-    $gpuMat.upload( $arr ) -> None
+    $oGpuMat.upload( $arr ) -> None
 ```
 
 ```cpp
@@ -6142,7 +6142,7 @@ void cv::cuda::GpuMat::upload( _InputArray       arr,
                                cv::cuda::Stream& stream )
 
 AutoIt:
-    $gpuMat.upload( $arr, $stream ) -> None
+    $oGpuMat.upload( $arr, $stream ) -> None
 ```
 
 ### cv::cuda::GpuMat::download
@@ -6151,7 +6151,7 @@ AutoIt:
 void cv::cuda::GpuMat::download( _OutputArray dst )
 
 AutoIt:
-    $gpuMat.download( [$dst] ) -> $dst
+    $oGpuMat.download( [$dst] ) -> $dst
 ```
 
 ```cpp
@@ -6159,7 +6159,7 @@ void cv::cuda::GpuMat::download( _OutputArray      dst,
                                  cv::cuda::Stream& stream )
 
 AutoIt:
-    $gpuMat.download( $stream[, $dst] ) -> $dst
+    $oGpuMat.download( $stream[, $dst] ) -> $dst
 ```
 
 ### cv::cuda::GpuMat::clone
@@ -6168,7 +6168,7 @@ AutoIt:
 cv::cuda::GpuMat cv::cuda::GpuMat::clone()
 
 AutoIt:
-    $gpuMat.clone() -> retval
+    $oGpuMat.clone() -> retval
 ```
 
 ### cv::cuda::GpuMat::copyTo
@@ -6177,7 +6177,7 @@ AutoIt:
 void cv::cuda::GpuMat::copyTo( _OutputArray dst )
 
 AutoIt:
-    $gpuMat.copyTo( [$dst] ) -> $dst
+    $oGpuMat.copyTo( [$dst] ) -> $dst
 ```
 
 ```cpp
@@ -6185,7 +6185,7 @@ void cv::cuda::GpuMat::copyTo( _OutputArray      dst,
                                cv::cuda::Stream& stream )
 
 AutoIt:
-    $gpuMat.copyTo( $stream[, $dst] ) -> $dst
+    $oGpuMat.copyTo( $stream[, $dst] ) -> $dst
 ```
 
 ```cpp
@@ -6193,7 +6193,7 @@ void cv::cuda::GpuMat::copyTo( _OutputArray dst,
                                _InputArray  mask )
 
 AutoIt:
-    $gpuMat.copyTo( $mask[, $dst] ) -> $dst
+    $oGpuMat.copyTo( $mask[, $dst] ) -> $dst
 ```
 
 ```cpp
@@ -6202,7 +6202,7 @@ void cv::cuda::GpuMat::copyTo( _OutputArray      dst,
                                cv::cuda::Stream& stream )
 
 AutoIt:
-    $gpuMat.copyTo( $mask, $stream[, $dst] ) -> $dst
+    $oGpuMat.copyTo( $mask, $stream[, $dst] ) -> $dst
 ```
 
 ### cv::cuda::GpuMat::setTo
@@ -6211,7 +6211,7 @@ AutoIt:
 cv::cuda::GpuMat cv::cuda::GpuMat::setTo( cv::Scalar s )
 
 AutoIt:
-    $gpuMat.setTo( $s ) -> retval
+    $oGpuMat.setTo( $s ) -> retval
 ```
 
 ```cpp
@@ -6219,7 +6219,7 @@ cv::cuda::GpuMat cv::cuda::GpuMat::setTo( cv::Scalar        s,
                                           cv::cuda::Stream& stream )
 
 AutoIt:
-    $gpuMat.setTo( $s, $stream ) -> retval
+    $oGpuMat.setTo( $s, $stream ) -> retval
 ```
 
 ```cpp
@@ -6227,7 +6227,7 @@ cv::cuda::GpuMat cv::cuda::GpuMat::setTo( cv::Scalar  s,
                                           _InputArray mask )
 
 AutoIt:
-    $gpuMat.setTo( $s, $mask ) -> retval
+    $oGpuMat.setTo( $s, $mask ) -> retval
 ```
 
 ```cpp
@@ -6236,7 +6236,7 @@ cv::cuda::GpuMat cv::cuda::GpuMat::setTo( cv::Scalar        s,
                                           cv::cuda::Stream& stream )
 
 AutoIt:
-    $gpuMat.setTo( $s, $mask, $stream ) -> retval
+    $oGpuMat.setTo( $s, $mask, $stream ) -> retval
 ```
 
 ### cv::cuda::GpuMat::convertTo
@@ -6246,7 +6246,7 @@ void cv::cuda::GpuMat::convertTo( _OutputArray dst,
                                   int          rtype )
 
 AutoIt:
-    $gpuMat.convertTo( $rtype[, $dst] ) -> $dst
+    $oGpuMat.convertTo( $rtype[, $dst] ) -> $dst
 ```
 
 ```cpp
@@ -6255,7 +6255,7 @@ void cv::cuda::GpuMat::convertTo( _OutputArray      dst,
                                   cv::cuda::Stream& stream )
 
 AutoIt:
-    $gpuMat.convertTo( $rtype, $stream[, $dst] ) -> $dst
+    $oGpuMat.convertTo( $rtype, $stream[, $dst] ) -> $dst
 ```
 
 ```cpp
@@ -6265,7 +6265,7 @@ void cv::cuda::GpuMat::convertTo( _OutputArray dst,
                                   double       beta = 0.0 )
 
 AutoIt:
-    $gpuMat.convertTo( $rtype, $alpha[, $dst[, $beta]] ) -> $dst
+    $oGpuMat.convertTo( $rtype, $alpha[, $dst[, $beta]] ) -> $dst
 ```
 
 ```cpp
@@ -6275,7 +6275,7 @@ void cv::cuda::GpuMat::convertTo( _OutputArray      dst,
                                   cv::cuda::Stream& stream )
 
 AutoIt:
-    $gpuMat.convertTo( $rtype, $alpha, $stream[, $dst] ) -> $dst
+    $oGpuMat.convertTo( $rtype, $alpha, $stream[, $dst] ) -> $dst
 ```
 
 ```cpp
@@ -6286,7 +6286,7 @@ void cv::cuda::GpuMat::convertTo( _OutputArray      dst,
                                   cv::cuda::Stream& stream )
 
 AutoIt:
-    $gpuMat.convertTo( $rtype, $alpha, $beta, $stream[, $dst] ) -> $dst
+    $oGpuMat.convertTo( $rtype, $alpha, $beta, $stream[, $dst] ) -> $dst
 ```
 
 ### cv::cuda::GpuMat::assignTo
@@ -6296,7 +6296,7 @@ void cv::cuda::GpuMat::assignTo( cv::cuda::GpuMat& m,
                                  int               type = -1 )
 
 AutoIt:
-    $gpuMat.assignTo( $m[, $type] ) -> None
+    $oGpuMat.assignTo( $m[, $type] ) -> None
 ```
 
 ### cv::cuda::GpuMat::row
@@ -6305,7 +6305,7 @@ AutoIt:
 cv::cuda::GpuMat cv::cuda::GpuMat::row( int y )
 
 AutoIt:
-    $gpuMat.row( $y ) -> retval
+    $oGpuMat.row( $y ) -> retval
 ```
 
 ### cv::cuda::GpuMat::col
@@ -6314,7 +6314,7 @@ AutoIt:
 cv::cuda::GpuMat cv::cuda::GpuMat::col( int x )
 
 AutoIt:
-    $gpuMat.col( $x ) -> retval
+    $oGpuMat.col( $x ) -> retval
 ```
 
 ### cv::cuda::GpuMat::rowRange
@@ -6324,14 +6324,14 @@ cv::cuda::GpuMat cv::cuda::GpuMat::rowRange( int startrow,
                                              int endrow )
 
 AutoIt:
-    $gpuMat.rowRange( $startrow, $endrow ) -> retval
+    $oGpuMat.rowRange( $startrow, $endrow ) -> retval
 ```
 
 ```cpp
 cv::cuda::GpuMat cv::cuda::GpuMat::rowRange( cv::Range r )
 
 AutoIt:
-    $gpuMat.rowRange( $r ) -> retval
+    $oGpuMat.rowRange( $r ) -> retval
 ```
 
 ### cv::cuda::GpuMat::colRange
@@ -6341,14 +6341,14 @@ cv::cuda::GpuMat cv::cuda::GpuMat::colRange( int startcol,
                                              int endcol )
 
 AutoIt:
-    $gpuMat.colRange( $startcol, $endcol ) -> retval
+    $oGpuMat.colRange( $startcol, $endcol ) -> retval
 ```
 
 ```cpp
 cv::cuda::GpuMat cv::cuda::GpuMat::colRange( cv::Range r )
 
 AutoIt:
-    $gpuMat.colRange( $r ) -> retval
+    $oGpuMat.colRange( $r ) -> retval
 ```
 
 ### cv::cuda::GpuMat::reshape
@@ -6358,7 +6358,7 @@ cv::cuda::GpuMat cv::cuda::GpuMat::reshape( int cn,
                                             int rows = 0 )
 
 AutoIt:
-    $gpuMat.reshape( $cn[, $rows] ) -> retval
+    $oGpuMat.reshape( $cn[, $rows] ) -> retval
 ```
 
 ### cv::cuda::GpuMat::locateROI
@@ -6368,7 +6368,7 @@ void cv::cuda::GpuMat::locateROI( cv::Size&  wholeSize,
                                   cv::Point& ofs )
 
 AutoIt:
-    $gpuMat.locateROI( $wholeSize, $ofs ) -> None
+    $oGpuMat.locateROI( $wholeSize, $ofs ) -> None
 ```
 
 ### cv::cuda::GpuMat::adjustROI
@@ -6380,7 +6380,7 @@ cv::cuda::GpuMat cv::cuda::GpuMat::adjustROI( int dtop,
                                               int dright )
 
 AutoIt:
-    $gpuMat.adjustROI( $dtop, $dbottom, $dleft, $dright ) -> retval
+    $oGpuMat.adjustROI( $dtop, $dbottom, $dleft, $dright ) -> retval
 ```
 
 ### cv::cuda::GpuMat::isContinuous
@@ -6389,7 +6389,7 @@ AutoIt:
 bool cv::cuda::GpuMat::isContinuous()
 
 AutoIt:
-    $gpuMat.isContinuous() -> retval
+    $oGpuMat.isContinuous() -> retval
 ```
 
 ### cv::cuda::GpuMat::elemSize
@@ -6398,7 +6398,7 @@ AutoIt:
 size_t cv::cuda::GpuMat::elemSize()
 
 AutoIt:
-    $gpuMat.elemSize() -> retval
+    $oGpuMat.elemSize() -> retval
 ```
 
 ### cv::cuda::GpuMat::elemSize1
@@ -6407,7 +6407,7 @@ AutoIt:
 size_t cv::cuda::GpuMat::elemSize1()
 
 AutoIt:
-    $gpuMat.elemSize1() -> retval
+    $oGpuMat.elemSize1() -> retval
 ```
 
 ### cv::cuda::GpuMat::type
@@ -6416,7 +6416,7 @@ AutoIt:
 int cv::cuda::GpuMat::type()
 
 AutoIt:
-    $gpuMat.type() -> retval
+    $oGpuMat.type() -> retval
 ```
 
 ### cv::cuda::GpuMat::depth
@@ -6425,7 +6425,7 @@ AutoIt:
 int cv::cuda::GpuMat::depth()
 
 AutoIt:
-    $gpuMat.depth() -> retval
+    $oGpuMat.depth() -> retval
 ```
 
 ### cv::cuda::GpuMat::channels
@@ -6434,7 +6434,7 @@ AutoIt:
 int cv::cuda::GpuMat::channels()
 
 AutoIt:
-    $gpuMat.channels() -> retval
+    $oGpuMat.channels() -> retval
 ```
 
 ### cv::cuda::GpuMat::step1
@@ -6443,7 +6443,7 @@ AutoIt:
 size_t cv::cuda::GpuMat::step1()
 
 AutoIt:
-    $gpuMat.step1() -> retval
+    $oGpuMat.step1() -> retval
 ```
 
 ### cv::cuda::GpuMat::size
@@ -6452,7 +6452,7 @@ AutoIt:
 cv::Size cv::cuda::GpuMat::size()
 
 AutoIt:
-    $gpuMat.size() -> retval
+    $oGpuMat.size() -> retval
 ```
 
 ### cv::cuda::GpuMat::empty
@@ -6461,7 +6461,7 @@ AutoIt:
 bool cv::cuda::GpuMat::empty()
 
 AutoIt:
-    $gpuMat.empty() -> retval
+    $oGpuMat.empty() -> retval
 ```
 
 ### cv::cuda::GpuMat::cudaPtr
@@ -6470,7 +6470,7 @@ AutoIt:
 void* cv::cuda::GpuMat::cudaPtr()
 
 AutoIt:
-    $gpuMat.cudaPtr() -> retval
+    $oGpuMat.cudaPtr() -> retval
 ```
 
 ### cv::cuda::GpuMat::updateContinuityFlag
@@ -6479,7 +6479,7 @@ AutoIt:
 void cv::cuda::GpuMat::updateContinuityFlag()
 
 AutoIt:
-    $gpuMat.updateContinuityFlag() -> None
+    $oGpuMat.updateContinuityFlag() -> None
 ```
 
 ## cv::cuda::BufferPool
@@ -6492,7 +6492,7 @@ cv::cuda::GpuMat cv::cuda::BufferPool::getBuffer( int rows,
                                                   int type )
 
 AutoIt:
-    $bufferPool.getBuffer( $rows, $cols, $type ) -> retval
+    $oBufferPool.getBuffer( $rows, $cols, $type ) -> retval
 ```
 
 ```cpp
@@ -6500,7 +6500,7 @@ cv::cuda::GpuMat cv::cuda::BufferPool::getBuffer( cv::Size size,
                                                   int      type )
 
 AutoIt:
-    $bufferPool.getBuffer( $size, $type ) -> retval
+    $oBufferPool.getBuffer( $size, $type ) -> retval
 ```
 
 ### cv::cuda::BufferPool::getAllocator
@@ -6509,7 +6509,7 @@ AutoIt:
 cv::Ptr<cv::cuda::GpuMat::Allocator> cv::cuda::BufferPool::getAllocator()
 
 AutoIt:
-    $bufferPool.getAllocator() -> retval
+    $oBufferPool.getAllocator() -> retval
 ```
 
 ## cv::cuda::HostMem
@@ -6556,7 +6556,7 @@ void cv::cuda::HostMem::create( int rows,
                                 int type )
 
 AutoIt:
-    $hostMem.create( $rows, $cols, $type ) -> None
+    $oHostMem.create( $rows, $cols, $type ) -> None
 ```
 
 ```cpp
@@ -6572,7 +6572,7 @@ AutoIt:
 void cv::cuda::HostMem::swap( cv::cuda::HostMem& b )
 
 AutoIt:
-    $hostMem.swap( $b ) -> None
+    $oHostMem.swap( $b ) -> None
 ```
 
 ### cv::cuda::HostMem::clone
@@ -6581,7 +6581,7 @@ AutoIt:
 cv::cuda::HostMem cv::cuda::HostMem::clone()
 
 AutoIt:
-    $hostMem.clone() -> retval
+    $oHostMem.clone() -> retval
 ```
 
 ### cv::cuda::HostMem::reshape
@@ -6591,7 +6591,7 @@ cv::cuda::HostMem cv::cuda::HostMem::reshape( int cn,
                                               int rows = 0 )
 
 AutoIt:
-    $hostMem.reshape( $cn[, $rows] ) -> retval
+    $oHostMem.reshape( $cn[, $rows] ) -> retval
 ```
 
 ### cv::cuda::HostMem::createMatHeader
@@ -6600,7 +6600,7 @@ AutoIt:
 cv::Mat cv::cuda::HostMem::createMatHeader()
 
 AutoIt:
-    $hostMem.createMatHeader() -> retval
+    $oHostMem.createMatHeader() -> retval
 ```
 
 ### cv::cuda::HostMem::isContinuous
@@ -6609,7 +6609,7 @@ AutoIt:
 bool cv::cuda::HostMem::isContinuous()
 
 AutoIt:
-    $hostMem.isContinuous() -> retval
+    $oHostMem.isContinuous() -> retval
 ```
 
 ### cv::cuda::HostMem::elemSize
@@ -6618,7 +6618,7 @@ AutoIt:
 size_t cv::cuda::HostMem::elemSize()
 
 AutoIt:
-    $hostMem.elemSize() -> retval
+    $oHostMem.elemSize() -> retval
 ```
 
 ### cv::cuda::HostMem::elemSize1
@@ -6627,7 +6627,7 @@ AutoIt:
 size_t cv::cuda::HostMem::elemSize1()
 
 AutoIt:
-    $hostMem.elemSize1() -> retval
+    $oHostMem.elemSize1() -> retval
 ```
 
 ### cv::cuda::HostMem::type
@@ -6636,7 +6636,7 @@ AutoIt:
 int cv::cuda::HostMem::type()
 
 AutoIt:
-    $hostMem.type() -> retval
+    $oHostMem.type() -> retval
 ```
 
 ### cv::cuda::HostMem::depth
@@ -6645,7 +6645,7 @@ AutoIt:
 int cv::cuda::HostMem::depth()
 
 AutoIt:
-    $hostMem.depth() -> retval
+    $oHostMem.depth() -> retval
 ```
 
 ### cv::cuda::HostMem::channels
@@ -6654,7 +6654,7 @@ AutoIt:
 int cv::cuda::HostMem::channels()
 
 AutoIt:
-    $hostMem.channels() -> retval
+    $oHostMem.channels() -> retval
 ```
 
 ### cv::cuda::HostMem::step1
@@ -6663,7 +6663,7 @@ AutoIt:
 size_t cv::cuda::HostMem::step1()
 
 AutoIt:
-    $hostMem.step1() -> retval
+    $oHostMem.step1() -> retval
 ```
 
 ### cv::cuda::HostMem::size
@@ -6672,7 +6672,7 @@ AutoIt:
 cv::Size cv::cuda::HostMem::size()
 
 AutoIt:
-    $hostMem.size() -> retval
+    $oHostMem.size() -> retval
 ```
 
 ### cv::cuda::HostMem::empty
@@ -6681,7 +6681,7 @@ AutoIt:
 bool cv::cuda::HostMem::empty()
 
 AutoIt:
-    $hostMem.empty() -> retval
+    $oHostMem.empty() -> retval
 ```
 
 ## cv::cuda::Stream
@@ -6715,7 +6715,7 @@ AutoIt:
 bool cv::cuda::Stream::queryIfComplete()
 
 AutoIt:
-    $stream.queryIfComplete() -> retval
+    $oStream.queryIfComplete() -> retval
 ```
 
 ### cv::cuda::Stream::waitForCompletion
@@ -6724,7 +6724,7 @@ AutoIt:
 void cv::cuda::Stream::waitForCompletion()
 
 AutoIt:
-    $stream.waitForCompletion() -> None
+    $oStream.waitForCompletion() -> None
 ```
 
 ### cv::cuda::Stream::waitEvent
@@ -6733,7 +6733,7 @@ AutoIt:
 void cv::cuda::Stream::waitEvent( const cv::cuda::Event& event )
 
 AutoIt:
-    $stream.waitEvent( $event ) -> None
+    $oStream.waitEvent( $event ) -> None
 ```
 
 ### cv::cuda::Stream::Null
@@ -6751,7 +6751,7 @@ AutoIt:
 void* cv::cuda::Stream::cudaPtr()
 
 AutoIt:
-    $stream.cudaPtr() -> retval
+    $oStream.cudaPtr() -> retval
 ```
 
 ## cv::cuda::Event
@@ -6771,7 +6771,7 @@ AutoIt:
 void cv::cuda::Event::record( cv::cuda::Stream& stream = Stream::Null() )
 
 AutoIt:
-    $event.record( [$stream] ) -> None
+    $oEvent.record( [$stream] ) -> None
 ```
 
 ### cv::cuda::Event::queryIfComplete
@@ -6780,7 +6780,7 @@ AutoIt:
 bool cv::cuda::Event::queryIfComplete()
 
 AutoIt:
-    $event.queryIfComplete() -> retval
+    $oEvent.queryIfComplete() -> retval
 ```
 
 ### cv::cuda::Event::waitForCompletion
@@ -6789,7 +6789,7 @@ AutoIt:
 void cv::cuda::Event::waitForCompletion()
 
 AutoIt:
-    $event.waitForCompletion() -> None
+    $oEvent.waitForCompletion() -> None
 ```
 
 ### cv::cuda::Event::elapsedTime
@@ -6898,7 +6898,7 @@ AutoIt:
 int cv::cuda::DeviceInfo::deviceID()
 
 AutoIt:
-    $deviceInfo.deviceID() -> retval
+    $oDeviceInfo.deviceID() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::totalGlobalMem
@@ -6907,7 +6907,7 @@ AutoIt:
 size_t cv::cuda::DeviceInfo::totalGlobalMem()
 
 AutoIt:
-    $deviceInfo.totalGlobalMem() -> retval
+    $oDeviceInfo.totalGlobalMem() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::sharedMemPerBlock
@@ -6916,7 +6916,7 @@ AutoIt:
 size_t cv::cuda::DeviceInfo::sharedMemPerBlock()
 
 AutoIt:
-    $deviceInfo.sharedMemPerBlock() -> retval
+    $oDeviceInfo.sharedMemPerBlock() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::regsPerBlock
@@ -6925,7 +6925,7 @@ AutoIt:
 int cv::cuda::DeviceInfo::regsPerBlock()
 
 AutoIt:
-    $deviceInfo.regsPerBlock() -> retval
+    $oDeviceInfo.regsPerBlock() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::warpSize
@@ -6934,7 +6934,7 @@ AutoIt:
 int cv::cuda::DeviceInfo::warpSize()
 
 AutoIt:
-    $deviceInfo.warpSize() -> retval
+    $oDeviceInfo.warpSize() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::memPitch
@@ -6943,7 +6943,7 @@ AutoIt:
 size_t cv::cuda::DeviceInfo::memPitch()
 
 AutoIt:
-    $deviceInfo.memPitch() -> retval
+    $oDeviceInfo.memPitch() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::maxThreadsPerBlock
@@ -6952,7 +6952,7 @@ AutoIt:
 int cv::cuda::DeviceInfo::maxThreadsPerBlock()
 
 AutoIt:
-    $deviceInfo.maxThreadsPerBlock() -> retval
+    $oDeviceInfo.maxThreadsPerBlock() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::maxThreadsDim
@@ -6961,7 +6961,7 @@ AutoIt:
 cv::Vec3i cv::cuda::DeviceInfo::maxThreadsDim()
 
 AutoIt:
-    $deviceInfo.maxThreadsDim() -> retval
+    $oDeviceInfo.maxThreadsDim() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::maxGridSize
@@ -6970,7 +6970,7 @@ AutoIt:
 cv::Vec3i cv::cuda::DeviceInfo::maxGridSize()
 
 AutoIt:
-    $deviceInfo.maxGridSize() -> retval
+    $oDeviceInfo.maxGridSize() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::clockRate
@@ -6979,7 +6979,7 @@ AutoIt:
 int cv::cuda::DeviceInfo::clockRate()
 
 AutoIt:
-    $deviceInfo.clockRate() -> retval
+    $oDeviceInfo.clockRate() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::totalConstMem
@@ -6988,7 +6988,7 @@ AutoIt:
 size_t cv::cuda::DeviceInfo::totalConstMem()
 
 AutoIt:
-    $deviceInfo.totalConstMem() -> retval
+    $oDeviceInfo.totalConstMem() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::majorVersion
@@ -6997,7 +6997,7 @@ AutoIt:
 int cv::cuda::DeviceInfo::majorVersion()
 
 AutoIt:
-    $deviceInfo.majorVersion() -> retval
+    $oDeviceInfo.majorVersion() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::minorVersion
@@ -7006,7 +7006,7 @@ AutoIt:
 int cv::cuda::DeviceInfo::minorVersion()
 
 AutoIt:
-    $deviceInfo.minorVersion() -> retval
+    $oDeviceInfo.minorVersion() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::textureAlignment
@@ -7015,7 +7015,7 @@ AutoIt:
 size_t cv::cuda::DeviceInfo::textureAlignment()
 
 AutoIt:
-    $deviceInfo.textureAlignment() -> retval
+    $oDeviceInfo.textureAlignment() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::texturePitchAlignment
@@ -7024,7 +7024,7 @@ AutoIt:
 size_t cv::cuda::DeviceInfo::texturePitchAlignment()
 
 AutoIt:
-    $deviceInfo.texturePitchAlignment() -> retval
+    $oDeviceInfo.texturePitchAlignment() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::multiProcessorCount
@@ -7033,7 +7033,7 @@ AutoIt:
 int cv::cuda::DeviceInfo::multiProcessorCount()
 
 AutoIt:
-    $deviceInfo.multiProcessorCount() -> retval
+    $oDeviceInfo.multiProcessorCount() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::kernelExecTimeoutEnabled
@@ -7042,7 +7042,7 @@ AutoIt:
 bool cv::cuda::DeviceInfo::kernelExecTimeoutEnabled()
 
 AutoIt:
-    $deviceInfo.kernelExecTimeoutEnabled() -> retval
+    $oDeviceInfo.kernelExecTimeoutEnabled() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::integrated
@@ -7051,7 +7051,7 @@ AutoIt:
 bool cv::cuda::DeviceInfo::integrated()
 
 AutoIt:
-    $deviceInfo.integrated() -> retval
+    $oDeviceInfo.integrated() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::canMapHostMemory
@@ -7060,7 +7060,7 @@ AutoIt:
 bool cv::cuda::DeviceInfo::canMapHostMemory()
 
 AutoIt:
-    $deviceInfo.canMapHostMemory() -> retval
+    $oDeviceInfo.canMapHostMemory() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::computeMode
@@ -7069,7 +7069,7 @@ AutoIt:
 int cv::cuda::DeviceInfo::computeMode()
 
 AutoIt:
-    $deviceInfo.computeMode() -> retval
+    $oDeviceInfo.computeMode() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::maxTexture1D
@@ -7078,7 +7078,7 @@ AutoIt:
 int cv::cuda::DeviceInfo::maxTexture1D()
 
 AutoIt:
-    $deviceInfo.maxTexture1D() -> retval
+    $oDeviceInfo.maxTexture1D() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::maxTexture1DMipmap
@@ -7087,7 +7087,7 @@ AutoIt:
 int cv::cuda::DeviceInfo::maxTexture1DMipmap()
 
 AutoIt:
-    $deviceInfo.maxTexture1DMipmap() -> retval
+    $oDeviceInfo.maxTexture1DMipmap() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::maxTexture1DLinear
@@ -7096,7 +7096,7 @@ AutoIt:
 int cv::cuda::DeviceInfo::maxTexture1DLinear()
 
 AutoIt:
-    $deviceInfo.maxTexture1DLinear() -> retval
+    $oDeviceInfo.maxTexture1DLinear() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::maxTexture2D
@@ -7105,7 +7105,7 @@ AutoIt:
 cv::Vec2i cv::cuda::DeviceInfo::maxTexture2D()
 
 AutoIt:
-    $deviceInfo.maxTexture2D() -> retval
+    $oDeviceInfo.maxTexture2D() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::maxTexture2DMipmap
@@ -7114,7 +7114,7 @@ AutoIt:
 cv::Vec2i cv::cuda::DeviceInfo::maxTexture2DMipmap()
 
 AutoIt:
-    $deviceInfo.maxTexture2DMipmap() -> retval
+    $oDeviceInfo.maxTexture2DMipmap() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::maxTexture2DLinear
@@ -7123,7 +7123,7 @@ AutoIt:
 cv::Vec3i cv::cuda::DeviceInfo::maxTexture2DLinear()
 
 AutoIt:
-    $deviceInfo.maxTexture2DLinear() -> retval
+    $oDeviceInfo.maxTexture2DLinear() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::maxTexture2DGather
@@ -7132,7 +7132,7 @@ AutoIt:
 cv::Vec2i cv::cuda::DeviceInfo::maxTexture2DGather()
 
 AutoIt:
-    $deviceInfo.maxTexture2DGather() -> retval
+    $oDeviceInfo.maxTexture2DGather() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::maxTexture3D
@@ -7141,7 +7141,7 @@ AutoIt:
 cv::Vec3i cv::cuda::DeviceInfo::maxTexture3D()
 
 AutoIt:
-    $deviceInfo.maxTexture3D() -> retval
+    $oDeviceInfo.maxTexture3D() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::maxTextureCubemap
@@ -7150,7 +7150,7 @@ AutoIt:
 int cv::cuda::DeviceInfo::maxTextureCubemap()
 
 AutoIt:
-    $deviceInfo.maxTextureCubemap() -> retval
+    $oDeviceInfo.maxTextureCubemap() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::maxTexture1DLayered
@@ -7159,7 +7159,7 @@ AutoIt:
 cv::Vec2i cv::cuda::DeviceInfo::maxTexture1DLayered()
 
 AutoIt:
-    $deviceInfo.maxTexture1DLayered() -> retval
+    $oDeviceInfo.maxTexture1DLayered() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::maxTexture2DLayered
@@ -7168,7 +7168,7 @@ AutoIt:
 cv::Vec3i cv::cuda::DeviceInfo::maxTexture2DLayered()
 
 AutoIt:
-    $deviceInfo.maxTexture2DLayered() -> retval
+    $oDeviceInfo.maxTexture2DLayered() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::maxTextureCubemapLayered
@@ -7177,7 +7177,7 @@ AutoIt:
 cv::Vec2i cv::cuda::DeviceInfo::maxTextureCubemapLayered()
 
 AutoIt:
-    $deviceInfo.maxTextureCubemapLayered() -> retval
+    $oDeviceInfo.maxTextureCubemapLayered() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::maxSurface1D
@@ -7186,7 +7186,7 @@ AutoIt:
 int cv::cuda::DeviceInfo::maxSurface1D()
 
 AutoIt:
-    $deviceInfo.maxSurface1D() -> retval
+    $oDeviceInfo.maxSurface1D() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::maxSurface2D
@@ -7195,7 +7195,7 @@ AutoIt:
 cv::Vec2i cv::cuda::DeviceInfo::maxSurface2D()
 
 AutoIt:
-    $deviceInfo.maxSurface2D() -> retval
+    $oDeviceInfo.maxSurface2D() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::maxSurface3D
@@ -7204,7 +7204,7 @@ AutoIt:
 cv::Vec3i cv::cuda::DeviceInfo::maxSurface3D()
 
 AutoIt:
-    $deviceInfo.maxSurface3D() -> retval
+    $oDeviceInfo.maxSurface3D() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::maxSurface1DLayered
@@ -7213,7 +7213,7 @@ AutoIt:
 cv::Vec2i cv::cuda::DeviceInfo::maxSurface1DLayered()
 
 AutoIt:
-    $deviceInfo.maxSurface1DLayered() -> retval
+    $oDeviceInfo.maxSurface1DLayered() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::maxSurface2DLayered
@@ -7222,7 +7222,7 @@ AutoIt:
 cv::Vec3i cv::cuda::DeviceInfo::maxSurface2DLayered()
 
 AutoIt:
-    $deviceInfo.maxSurface2DLayered() -> retval
+    $oDeviceInfo.maxSurface2DLayered() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::maxSurfaceCubemap
@@ -7231,7 +7231,7 @@ AutoIt:
 int cv::cuda::DeviceInfo::maxSurfaceCubemap()
 
 AutoIt:
-    $deviceInfo.maxSurfaceCubemap() -> retval
+    $oDeviceInfo.maxSurfaceCubemap() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::maxSurfaceCubemapLayered
@@ -7240,7 +7240,7 @@ AutoIt:
 cv::Vec2i cv::cuda::DeviceInfo::maxSurfaceCubemapLayered()
 
 AutoIt:
-    $deviceInfo.maxSurfaceCubemapLayered() -> retval
+    $oDeviceInfo.maxSurfaceCubemapLayered() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::surfaceAlignment
@@ -7249,7 +7249,7 @@ AutoIt:
 size_t cv::cuda::DeviceInfo::surfaceAlignment()
 
 AutoIt:
-    $deviceInfo.surfaceAlignment() -> retval
+    $oDeviceInfo.surfaceAlignment() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::concurrentKernels
@@ -7258,7 +7258,7 @@ AutoIt:
 bool cv::cuda::DeviceInfo::concurrentKernels()
 
 AutoIt:
-    $deviceInfo.concurrentKernels() -> retval
+    $oDeviceInfo.concurrentKernels() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::ECCEnabled
@@ -7267,7 +7267,7 @@ AutoIt:
 bool cv::cuda::DeviceInfo::ECCEnabled()
 
 AutoIt:
-    $deviceInfo.ECCEnabled() -> retval
+    $oDeviceInfo.ECCEnabled() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::pciBusID
@@ -7276,7 +7276,7 @@ AutoIt:
 int cv::cuda::DeviceInfo::pciBusID()
 
 AutoIt:
-    $deviceInfo.pciBusID() -> retval
+    $oDeviceInfo.pciBusID() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::pciDeviceID
@@ -7285,7 +7285,7 @@ AutoIt:
 int cv::cuda::DeviceInfo::pciDeviceID()
 
 AutoIt:
-    $deviceInfo.pciDeviceID() -> retval
+    $oDeviceInfo.pciDeviceID() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::pciDomainID
@@ -7294,7 +7294,7 @@ AutoIt:
 int cv::cuda::DeviceInfo::pciDomainID()
 
 AutoIt:
-    $deviceInfo.pciDomainID() -> retval
+    $oDeviceInfo.pciDomainID() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::tccDriver
@@ -7303,7 +7303,7 @@ AutoIt:
 bool cv::cuda::DeviceInfo::tccDriver()
 
 AutoIt:
-    $deviceInfo.tccDriver() -> retval
+    $oDeviceInfo.tccDriver() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::asyncEngineCount
@@ -7312,7 +7312,7 @@ AutoIt:
 int cv::cuda::DeviceInfo::asyncEngineCount()
 
 AutoIt:
-    $deviceInfo.asyncEngineCount() -> retval
+    $oDeviceInfo.asyncEngineCount() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::unifiedAddressing
@@ -7321,7 +7321,7 @@ AutoIt:
 bool cv::cuda::DeviceInfo::unifiedAddressing()
 
 AutoIt:
-    $deviceInfo.unifiedAddressing() -> retval
+    $oDeviceInfo.unifiedAddressing() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::memoryClockRate
@@ -7330,7 +7330,7 @@ AutoIt:
 int cv::cuda::DeviceInfo::memoryClockRate()
 
 AutoIt:
-    $deviceInfo.memoryClockRate() -> retval
+    $oDeviceInfo.memoryClockRate() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::memoryBusWidth
@@ -7339,7 +7339,7 @@ AutoIt:
 int cv::cuda::DeviceInfo::memoryBusWidth()
 
 AutoIt:
-    $deviceInfo.memoryBusWidth() -> retval
+    $oDeviceInfo.memoryBusWidth() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::l2CacheSize
@@ -7348,7 +7348,7 @@ AutoIt:
 int cv::cuda::DeviceInfo::l2CacheSize()
 
 AutoIt:
-    $deviceInfo.l2CacheSize() -> retval
+    $oDeviceInfo.l2CacheSize() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::maxThreadsPerMultiProcessor
@@ -7357,7 +7357,7 @@ AutoIt:
 int cv::cuda::DeviceInfo::maxThreadsPerMultiProcessor()
 
 AutoIt:
-    $deviceInfo.maxThreadsPerMultiProcessor() -> retval
+    $oDeviceInfo.maxThreadsPerMultiProcessor() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::queryMemory
@@ -7367,7 +7367,7 @@ void cv::cuda::DeviceInfo::queryMemory( size_t& totalMemory,
                                         size_t& freeMemory )
 
 AutoIt:
-    $deviceInfo.queryMemory( $totalMemory, $freeMemory ) -> None
+    $oDeviceInfo.queryMemory( $totalMemory, $freeMemory ) -> None
 ```
 
 ### cv::cuda::DeviceInfo::freeMemory
@@ -7376,7 +7376,7 @@ AutoIt:
 size_t cv::cuda::DeviceInfo::freeMemory()
 
 AutoIt:
-    $deviceInfo.freeMemory() -> retval
+    $oDeviceInfo.freeMemory() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::totalMemory
@@ -7385,7 +7385,7 @@ AutoIt:
 size_t cv::cuda::DeviceInfo::totalMemory()
 
 AutoIt:
-    $deviceInfo.totalMemory() -> retval
+    $oDeviceInfo.totalMemory() -> retval
 ```
 
 ### cv::cuda::DeviceInfo::isCompatible
@@ -7394,7 +7394,7 @@ AutoIt:
 bool cv::cuda::DeviceInfo::isCompatible()
 
 AutoIt:
-    $deviceInfo.isCompatible() -> retval
+    $oDeviceInfo.isCompatible() -> retval
 ```
 
 ## cv::Mat
@@ -7476,7 +7476,7 @@ AutoIt:
 cv::Mat cv::Mat::row( int y )
 
 AutoIt:
-    $mat.row( $y ) -> retval
+    $oMat.row( $y ) -> retval
 ```
 
 ### cv::Mat::col
@@ -7485,7 +7485,7 @@ AutoIt:
 cv::Mat cv::Mat::col( int x )
 
 AutoIt:
-    $mat.col( $x ) -> retval
+    $oMat.col( $x ) -> retval
 ```
 
 ### cv::Mat::rowRange
@@ -7495,14 +7495,14 @@ cv::Mat cv::Mat::rowRange( int startrow,
                            int endrow )
 
 AutoIt:
-    $mat.rowRange( $startrow, $endrow ) -> retval
+    $oMat.rowRange( $startrow, $endrow ) -> retval
 ```
 
 ```cpp
 cv::Mat cv::Mat::rowRange( cv::Range r )
 
 AutoIt:
-    $mat.rowRange( $r ) -> retval
+    $oMat.rowRange( $r ) -> retval
 ```
 
 ### cv::Mat::colRange
@@ -7512,14 +7512,14 @@ cv::Mat cv::Mat::colRange( int startcol,
                            int endcol )
 
 AutoIt:
-    $mat.colRange( $startcol, $endcol ) -> retval
+    $oMat.colRange( $startcol, $endcol ) -> retval
 ```
 
 ```cpp
 cv::Mat cv::Mat::colRange( cv::Range r )
 
 AutoIt:
-    $mat.colRange( $r ) -> retval
+    $oMat.colRange( $r ) -> retval
 ```
 
 ### cv::Mat::isContinuous
@@ -7528,7 +7528,7 @@ AutoIt:
 bool cv::Mat::isContinuous()
 
 AutoIt:
-    $mat.isContinuous() -> retval
+    $oMat.isContinuous() -> retval
 ```
 
 ### cv::Mat::isSubmatrix
@@ -7537,7 +7537,7 @@ AutoIt:
 bool cv::Mat::isSubmatrix()
 
 AutoIt:
-    $mat.isSubmatrix() -> retval
+    $oMat.isSubmatrix() -> retval
 ```
 
 ### cv::Mat::elemSize
@@ -7546,7 +7546,7 @@ AutoIt:
 size_t cv::Mat::elemSize()
 
 AutoIt:
-    $mat.elemSize() -> retval
+    $oMat.elemSize() -> retval
 ```
 
 ### cv::Mat::elemSize1
@@ -7555,7 +7555,7 @@ AutoIt:
 size_t cv::Mat::elemSize1()
 
 AutoIt:
-    $mat.elemSize1() -> retval
+    $oMat.elemSize1() -> retval
 ```
 
 ### cv::Mat::type
@@ -7564,7 +7564,7 @@ AutoIt:
 int cv::Mat::type()
 
 AutoIt:
-    $mat.type() -> retval
+    $oMat.type() -> retval
 ```
 
 ### cv::Mat::depth
@@ -7573,7 +7573,7 @@ AutoIt:
 int cv::Mat::depth()
 
 AutoIt:
-    $mat.depth() -> retval
+    $oMat.depth() -> retval
 ```
 
 ### cv::Mat::channels
@@ -7582,7 +7582,7 @@ AutoIt:
 int cv::Mat::channels()
 
 AutoIt:
-    $mat.channels() -> retval
+    $oMat.channels() -> retval
 ```
 
 ### cv::Mat::step1
@@ -7591,7 +7591,7 @@ AutoIt:
 size_t cv::Mat::step1( int i = 0 )
 
 AutoIt:
-    $mat.step1( [$i] ) -> retval
+    $oMat.step1( [$i] ) -> retval
 ```
 
 ### cv::Mat::empty
@@ -7600,7 +7600,7 @@ AutoIt:
 bool cv::Mat::empty()
 
 AutoIt:
-    $mat.empty() -> retval
+    $oMat.empty() -> retval
 ```
 
 ### cv::Mat::total
@@ -7609,7 +7609,7 @@ AutoIt:
 size_t cv::Mat::total()
 
 AutoIt:
-    $mat.total() -> retval
+    $oMat.total() -> retval
 ```
 
 ```cpp
@@ -7617,7 +7617,7 @@ size_t cv::Mat::total( int startDim,
                        int endDim = INT_MAX )
 
 AutoIt:
-    $mat.total( $startDim[, $endDim] ) -> retval
+    $oMat.total( $startDim[, $endDim] ) -> retval
 ```
 
 ### cv::Mat::checkVector
@@ -7628,7 +7628,7 @@ int cv::Mat::checkVector( int elemChannels,
                           int requireContinuous = true )
 
 AutoIt:
-    $mat.checkVector( $elemChannels[, $depth[, $requireContinuous]] ) -> retval
+    $oMat.checkVector( $elemChannels[, $depth[, $requireContinuous]] ) -> retval
 ```
 
 ### cv::Mat::ptr
@@ -7637,7 +7637,7 @@ AutoIt:
 uchar* cv::Mat::ptr( int y = 0 )
 
 AutoIt:
-    $mat.ptr( [$y] ) -> retval
+    $oMat.ptr( [$y] ) -> retval
 ```
 
 ```cpp
@@ -7645,7 +7645,7 @@ uchar* cv::Mat::ptr( int i0,
                      int i1 )
 
 AutoIt:
-    $mat.ptr( $i0, $i1 ) -> retval
+    $oMat.ptr( $i0, $i1 ) -> retval
 ```
 
 ```cpp
@@ -7654,7 +7654,7 @@ uchar* cv::Mat::ptr( int i0,
                      int i2 )
 
 AutoIt:
-    $mat.ptr( $i0, $i1, $i2 ) -> retval
+    $oMat.ptr( $i0, $i1, $i2 ) -> retval
 ```
 
 ### cv::Mat::size
@@ -7663,7 +7663,7 @@ AutoIt:
 cv::Size cv::Mat::size()
 
 AutoIt:
-    $mat.size() -> retval
+    $oMat.size() -> retval
 ```
 
 ### cv::Mat::pop_back
@@ -7672,7 +7672,7 @@ AutoIt:
 void cv::Mat::pop_back( size_t value )
 
 AutoIt:
-    $mat.pop_back( $value ) -> None
+    $oMat.pop_back( $value ) -> None
 ```
 
 ### cv::Mat::push_back
@@ -7681,7 +7681,7 @@ AutoIt:
 void cv::Mat::push_back( cv::Mat value )
 
 AutoIt:
-    $mat.push_back( $value ) -> None
+    $oMat.push_back( $value ) -> None
 ```
 
 ### cv::Mat::clone
@@ -7690,7 +7690,7 @@ AutoIt:
 cv::Mat cv::Mat::clone()
 
 AutoIt:
-    $mat.clone() -> retval
+    $oMat.clone() -> retval
 ```
 
 ### cv::Mat::copy
@@ -7699,7 +7699,7 @@ AutoIt:
 cv::Mat cv::Mat::copy()
 
 AutoIt:
-    $mat.copy() -> retval
+    $oMat.copy() -> retval
 ```
 
 ### cv::Mat::copyTo
@@ -7708,7 +7708,7 @@ AutoIt:
 void cv::Mat::copyTo( _OutputArray m )
 
 AutoIt:
-    $mat.copyTo( [$m] ) -> $m
+    $oMat.copyTo( [$m] ) -> $m
 ```
 
 ```cpp
@@ -7716,7 +7716,7 @@ void cv::Mat::copyTo( _OutputArray m,
                       _InputArray  mask )
 
 AutoIt:
-    $mat.copyTo( $mask[, $m] ) -> $m
+    $oMat.copyTo( $mask[, $m] ) -> $m
 ```
 
 ### cv::Mat::setTo
@@ -7726,7 +7726,7 @@ void cv::Mat::setTo( _InputArray value,
                      _InputArray mask = noArray() )
 
 AutoIt:
-    $mat.setTo( $value[, $mask] ) -> None
+    $oMat.setTo( $value[, $mask] ) -> None
 ```
 
 ### cv::Mat::convertTo
@@ -7738,7 +7738,7 @@ void cv::Mat::convertTo( _OutputArray m,
                          double       beta = 0.0 )
 
 AutoIt:
-    $mat.convertTo( $rtype[, $m[, $alpha[, $beta]]] ) -> $m
+    $oMat.convertTo( $rtype[, $m[, $alpha[, $beta]]] ) -> $m
 ```
 
 ### cv::Mat::reshape
@@ -7748,7 +7748,7 @@ cv::Mat cv::Mat::reshape( int cn,
                           int rows = 0 )
 
 AutoIt:
-    $mat.reshape( $cn[, $rows] ) -> retval
+    $oMat.reshape( $cn[, $rows] ) -> retval
 ```
 
 ### cv::Mat::dot
@@ -7757,7 +7757,7 @@ AutoIt:
 double cv::Mat::dot( _InputArray m )
 
 AutoIt:
-    $mat.dot( $m ) -> retval
+    $oMat.dot( $m ) -> retval
 ```
 
 ### cv::Mat::cross
@@ -7766,7 +7766,7 @@ AutoIt:
 cv::Mat cv::Mat::cross( _InputArray m )
 
 AutoIt:
-    $mat.cross( $m ) -> retval
+    $oMat.cross( $m ) -> retval
 ```
 
 ### cv::Mat::diag
@@ -7775,7 +7775,7 @@ AutoIt:
 cv::Mat cv::Mat::diag( int d = 0 )
 
 AutoIt:
-    $mat.diag( [$d] ) -> retval
+    $oMat.diag( [$d] ) -> retval
 ```
 
 ### cv::Mat::t
@@ -7784,7 +7784,7 @@ AutoIt:
 cv::Mat cv::Mat::t()
 
 AutoIt:
-    $mat.t() -> retval
+    $oMat.t() -> retval
 ```
 
 ### cv::Mat::convertToBitmap
@@ -7793,7 +7793,7 @@ AutoIt:
 void* cv::Mat::convertToBitmap( bool copy = true )
 
 AutoIt:
-    $mat.convertToBitmap( [$copy] ) -> retval
+    $oMat.convertToBitmap( [$copy] ) -> retval
 ```
 
 ### cv::Mat::convertToShow
@@ -7803,7 +7803,7 @@ cv::Mat cv::Mat::convertToShow( cv::Mat dst = Mat::zeros(this->__self->get()->ro
                                 bool    toRGB = false )
 
 AutoIt:
-    $mat.convertToShow( [$dst[, $toRGB]] ) -> retval, $dst
+    $oMat.convertToShow( [$dst[, $toRGB]] ) -> retval, $dst
 ```
 
 ### cv::Mat::GdiplusResize
@@ -7814,7 +7814,7 @@ cv::Mat cv::Mat::GdiplusResize( float newWidth,
                                 int   interpolation = 7 )
 
 AutoIt:
-    $mat.GdiplusResize( $newWidth, $newHeight[, $interpolation] ) -> retval
+    $oMat.GdiplusResize( $newWidth, $newHeight[, $interpolation] ) -> retval
 ```
 
 ### cv::Mat::PixelSearch
@@ -7829,7 +7829,7 @@ _variant_t cv::Mat::PixelSearch( cv::Scalar color,
                                  int        step = 1 )
 
 AutoIt:
-    $mat.PixelSearch( $color[, $left[, $top[, $right[, $bottom[, $shade_variation[, $step]]]]]] ) -> retval
+    $oMat.PixelSearch( $color[, $left[, $top[, $right[, $bottom[, $shade_variation[, $step]]]]]] ) -> retval
 ```
 
 ```cpp
@@ -7839,7 +7839,7 @@ _variant_t cv::Mat::PixelSearch( cv::Scalar color,
                                  int        step = 1 )
 
 AutoIt:
-    $mat.PixelSearch( $color[, $rect[, $shade_variation[, $step]]] ) -> retval
+    $oMat.PixelSearch( $color[, $rect[, $shade_variation[, $step]]] ) -> retval
 ```
 
 ### cv::Mat::PixelChecksum
@@ -7853,7 +7853,7 @@ size_t cv::Mat::PixelChecksum( int left = 0,
                                int mode = 0 )
 
 AutoIt:
-    $mat.PixelChecksum( [$left[, $top[, $right[, $bottom[, $step[, $mode]]]]]] ) -> retval
+    $oMat.PixelChecksum( [$left[, $top[, $right[, $bottom[, $step[, $mode]]]]]] ) -> retval
 ```
 
 ```cpp
@@ -7862,7 +7862,7 @@ size_t cv::Mat::PixelChecksum( cv::Rect rect = Rect(0, 0, this->__self->get()->c
                                int      mode = 0 )
 
 AutoIt:
-    $mat.PixelChecksum( [$rect[, $step[, $mode]]] ) -> retval
+    $oMat.PixelChecksum( [$rect[, $step[, $mode]]] ) -> retval
 ```
 
 ### cv::Mat::eye
@@ -8360,7 +8360,7 @@ AutoIt:
 cv::Point2d cv::Mat::Point_at( int i0 )
 
 AutoIt:
-    $mat.Point_at( $i0 ) -> retval
+    $oMat.Point_at( $i0 ) -> retval
 ```
 
 ```cpp
@@ -8368,7 +8368,7 @@ cv::Point2d cv::Mat::Point_at( int row,
                                int col )
 
 AutoIt:
-    $mat.Point_at( $row, $col ) -> retval
+    $oMat.Point_at( $row, $col ) -> retval
 ```
 
 ```cpp
@@ -8377,14 +8377,14 @@ cv::Point2d cv::Mat::Point_at( int i0,
                                int i2 )
 
 AutoIt:
-    $mat.Point_at( $i0, $i1, $i2 ) -> retval
+    $oMat.Point_at( $i0, $i1, $i2 ) -> retval
 ```
 
 ```cpp
 cv::Point2d cv::Mat::Point_at( cv::Point pt )
 
 AutoIt:
-    $mat.Point_at( $pt ) -> retval
+    $oMat.Point_at( $pt ) -> retval
 ```
 
 ### cv::Mat::at
@@ -8393,7 +8393,7 @@ AutoIt:
 double cv::Mat::at( int i0 )
 
 AutoIt:
-    $mat.at( $i0 ) -> retval
+    $oMat.at( $i0 ) -> retval
 ```
 
 ```cpp
@@ -8401,7 +8401,7 @@ double cv::Mat::at( int row,
                     int col )
 
 AutoIt:
-    $mat.at( $row, $col ) -> retval
+    $oMat.at( $row, $col ) -> retval
 ```
 
 ```cpp
@@ -8410,14 +8410,14 @@ double cv::Mat::at( int i0,
                     int i2 )
 
 AutoIt:
-    $mat.at( $i0, $i1, $i2 ) -> retval
+    $oMat.at( $i0, $i1, $i2 ) -> retval
 ```
 
 ```cpp
 double cv::Mat::at( cv::Point pt )
 
 AutoIt:
-    $mat.at( $pt ) -> retval
+    $oMat.at( $pt ) -> retval
 ```
 
 ### cv::Mat::set_at
@@ -8427,7 +8427,7 @@ void cv::Mat::set_at( int    i0,
                       double value )
 
 AutoIt:
-    $mat.set_at( $i0, $value ) -> None
+    $oMat.set_at( $i0, $value ) -> None
 ```
 
 ```cpp
@@ -8436,7 +8436,7 @@ void cv::Mat::set_at( int    row,
                       double value )
 
 AutoIt:
-    $mat.set_at( $row, $col, $value ) -> None
+    $oMat.set_at( $row, $col, $value ) -> None
 ```
 
 ```cpp
@@ -8446,7 +8446,7 @@ void cv::Mat::set_at( int    i0,
                       double value )
 
 AutoIt:
-    $mat.set_at( $i0, $i1, $i2, $value ) -> None
+    $oMat.set_at( $i0, $i1, $i2, $value ) -> None
 ```
 
 ```cpp
@@ -8454,7 +8454,7 @@ void cv::Mat::set_at( cv::Point pt,
                       double    value )
 
 AutoIt:
-    $mat.set_at( $pt, $value ) -> None
+    $oMat.set_at( $pt, $value ) -> None
 ```
 
 ### cv::Mat::get_Item
@@ -8463,7 +8463,7 @@ AutoIt:
 double cv::Mat::get_Item( int i0 )
 
 AutoIt:
-    $mat.Item( $i0 ) -> retval
+    $oMat.Item( $i0 ) -> retval
     cv.Mat( $i0 ) -> retval
 ```
 
@@ -8472,7 +8472,7 @@ double cv::Mat::get_Item( int row,
                           int col )
 
 AutoIt:
-    $mat.Item( $row, $col ) -> retval
+    $oMat.Item( $row, $col ) -> retval
     cv.Mat( $row, $col ) -> retval
 ```
 
@@ -8482,7 +8482,7 @@ double cv::Mat::get_Item( int i0,
                           int i2 )
 
 AutoIt:
-    $mat.Item( $i0, $i1, $i2 ) -> retval
+    $oMat.Item( $i0, $i1, $i2 ) -> retval
     cv.Mat( $i0, $i1, $i2 ) -> retval
 ```
 
@@ -8490,7 +8490,7 @@ AutoIt:
 double cv::Mat::get_Item( cv::Point pt )
 
 AutoIt:
-    $mat.Item( $pt ) -> retval
+    $oMat.Item( $pt ) -> retval
     cv.Mat( $pt ) -> retval
 ```
 
@@ -8500,7 +8500,7 @@ AutoIt:
 int cv::Mat::int_at( int i0 )
 
 AutoIt:
-    $mat.int_at( $i0 ) -> retval
+    $oMat.int_at( $i0 ) -> retval
 ```
 
 ```cpp
@@ -8508,7 +8508,7 @@ int cv::Mat::int_at( int row,
                      int col )
 
 AutoIt:
-    $mat.int_at( $row, $col ) -> retval
+    $oMat.int_at( $row, $col ) -> retval
 ```
 
 ```cpp
@@ -8517,14 +8517,14 @@ int cv::Mat::int_at( int i0,
                      int i2 )
 
 AutoIt:
-    $mat.int_at( $i0, $i1, $i2 ) -> retval
+    $oMat.int_at( $i0, $i1, $i2 ) -> retval
 ```
 
 ```cpp
 int cv::Mat::int_at( cv::Point pt )
 
 AutoIt:
-    $mat.int_at( $pt ) -> retval
+    $oMat.int_at( $pt ) -> retval
 ```
 
 ### cv::Mat::int_set_at
@@ -8534,7 +8534,7 @@ void cv::Mat::int_set_at( int i0,
                           int value )
 
 AutoIt:
-    $mat.int_set_at( $i0, $value ) -> None
+    $oMat.int_set_at( $i0, $value ) -> None
 ```
 
 ```cpp
@@ -8543,7 +8543,7 @@ void cv::Mat::int_set_at( int row,
                           int value )
 
 AutoIt:
-    $mat.int_set_at( $row, $col, $value ) -> None
+    $oMat.int_set_at( $row, $col, $value ) -> None
 ```
 
 ```cpp
@@ -8553,7 +8553,7 @@ void cv::Mat::int_set_at( int i0,
                           int value )
 
 AutoIt:
-    $mat.int_set_at( $i0, $i1, $i2, $value ) -> None
+    $oMat.int_set_at( $i0, $i1, $i2, $value ) -> None
 ```
 
 ```cpp
@@ -8561,7 +8561,7 @@ void cv::Mat::int_set_at( cv::Point pt,
                           int       value )
 
 AutoIt:
-    $mat.int_set_at( $pt, $value ) -> None
+    $oMat.int_set_at( $pt, $value ) -> None
 ```
 
 ### cv::Mat::float_at
@@ -8570,7 +8570,7 @@ AutoIt:
 float cv::Mat::float_at( int i0 )
 
 AutoIt:
-    $mat.float_at( $i0 ) -> retval
+    $oMat.float_at( $i0 ) -> retval
 ```
 
 ```cpp
@@ -8578,7 +8578,7 @@ float cv::Mat::float_at( int row,
                          int col )
 
 AutoIt:
-    $mat.float_at( $row, $col ) -> retval
+    $oMat.float_at( $row, $col ) -> retval
 ```
 
 ```cpp
@@ -8587,14 +8587,14 @@ float cv::Mat::float_at( int i0,
                          int i2 )
 
 AutoIt:
-    $mat.float_at( $i0, $i1, $i2 ) -> retval
+    $oMat.float_at( $i0, $i1, $i2 ) -> retval
 ```
 
 ```cpp
 float cv::Mat::float_at( cv::Point pt )
 
 AutoIt:
-    $mat.float_at( $pt ) -> retval
+    $oMat.float_at( $pt ) -> retval
 ```
 
 ### cv::Mat::float_set_at
@@ -8604,7 +8604,7 @@ void cv::Mat::float_set_at( int   i0,
                             float value )
 
 AutoIt:
-    $mat.float_set_at( $i0, $value ) -> None
+    $oMat.float_set_at( $i0, $value ) -> None
 ```
 
 ```cpp
@@ -8613,7 +8613,7 @@ void cv::Mat::float_set_at( int   row,
                             float value )
 
 AutoIt:
-    $mat.float_set_at( $row, $col, $value ) -> None
+    $oMat.float_set_at( $row, $col, $value ) -> None
 ```
 
 ```cpp
@@ -8623,7 +8623,7 @@ void cv::Mat::float_set_at( int   i0,
                             float value )
 
 AutoIt:
-    $mat.float_set_at( $i0, $i1, $i2, $value ) -> None
+    $oMat.float_set_at( $i0, $i1, $i2, $value ) -> None
 ```
 
 ```cpp
@@ -8631,7 +8631,7 @@ void cv::Mat::float_set_at( cv::Point pt,
                             float     value )
 
 AutoIt:
-    $mat.float_set_at( $pt, $value ) -> None
+    $oMat.float_set_at( $pt, $value ) -> None
 ```
 
 ### cv::Mat::double_at
@@ -8640,7 +8640,7 @@ AutoIt:
 double cv::Mat::double_at( int i0 )
 
 AutoIt:
-    $mat.double_at( $i0 ) -> retval
+    $oMat.double_at( $i0 ) -> retval
 ```
 
 ```cpp
@@ -8648,7 +8648,7 @@ double cv::Mat::double_at( int row,
                            int col )
 
 AutoIt:
-    $mat.double_at( $row, $col ) -> retval
+    $oMat.double_at( $row, $col ) -> retval
 ```
 
 ```cpp
@@ -8657,14 +8657,14 @@ double cv::Mat::double_at( int i0,
                            int i2 )
 
 AutoIt:
-    $mat.double_at( $i0, $i1, $i2 ) -> retval
+    $oMat.double_at( $i0, $i1, $i2 ) -> retval
 ```
 
 ```cpp
 double cv::Mat::double_at( cv::Point pt )
 
 AutoIt:
-    $mat.double_at( $pt ) -> retval
+    $oMat.double_at( $pt ) -> retval
 ```
 
 ### cv::Mat::double_set_at
@@ -8674,7 +8674,7 @@ void cv::Mat::double_set_at( int    i0,
                              double value )
 
 AutoIt:
-    $mat.double_set_at( $i0, $value ) -> None
+    $oMat.double_set_at( $i0, $value ) -> None
 ```
 
 ```cpp
@@ -8683,7 +8683,7 @@ void cv::Mat::double_set_at( int    row,
                              double value )
 
 AutoIt:
-    $mat.double_set_at( $row, $col, $value ) -> None
+    $oMat.double_set_at( $row, $col, $value ) -> None
 ```
 
 ```cpp
@@ -8693,7 +8693,7 @@ void cv::Mat::double_set_at( int    i0,
                              double value )
 
 AutoIt:
-    $mat.double_set_at( $i0, $i1, $i2, $value ) -> None
+    $oMat.double_set_at( $i0, $i1, $i2, $value ) -> None
 ```
 
 ```cpp
@@ -8701,7 +8701,7 @@ void cv::Mat::double_set_at( cv::Point pt,
                              double    value )
 
 AutoIt:
-    $mat.double_set_at( $pt, $value ) -> None
+    $oMat.double_set_at( $pt, $value ) -> None
 ```
 
 ### cv::Mat::Vec2b_at
@@ -8710,7 +8710,7 @@ AutoIt:
 cv::Vec2b cv::Mat::Vec2b_at( int i0 )
 
 AutoIt:
-    $mat.Vec2b_at( $i0 ) -> retval
+    $oMat.Vec2b_at( $i0 ) -> retval
 ```
 
 ```cpp
@@ -8718,7 +8718,7 @@ cv::Vec2b cv::Mat::Vec2b_at( int row,
                              int col )
 
 AutoIt:
-    $mat.Vec2b_at( $row, $col ) -> retval
+    $oMat.Vec2b_at( $row, $col ) -> retval
 ```
 
 ```cpp
@@ -8727,14 +8727,14 @@ cv::Vec2b cv::Mat::Vec2b_at( int i0,
                              int i2 )
 
 AutoIt:
-    $mat.Vec2b_at( $i0, $i1, $i2 ) -> retval
+    $oMat.Vec2b_at( $i0, $i1, $i2 ) -> retval
 ```
 
 ```cpp
 cv::Vec2b cv::Mat::Vec2b_at( cv::Point pt )
 
 AutoIt:
-    $mat.Vec2b_at( $pt ) -> retval
+    $oMat.Vec2b_at( $pt ) -> retval
 ```
 
 ### cv::Mat::Vec2b_set_at
@@ -8744,7 +8744,7 @@ void cv::Mat::Vec2b_set_at( int       i0,
                             cv::Vec2b value )
 
 AutoIt:
-    $mat.Vec2b_set_at( $i0, $value ) -> None
+    $oMat.Vec2b_set_at( $i0, $value ) -> None
 ```
 
 ```cpp
@@ -8753,7 +8753,7 @@ void cv::Mat::Vec2b_set_at( int       row,
                             cv::Vec2b value )
 
 AutoIt:
-    $mat.Vec2b_set_at( $row, $col, $value ) -> None
+    $oMat.Vec2b_set_at( $row, $col, $value ) -> None
 ```
 
 ```cpp
@@ -8763,7 +8763,7 @@ void cv::Mat::Vec2b_set_at( int       i0,
                             cv::Vec2b value )
 
 AutoIt:
-    $mat.Vec2b_set_at( $i0, $i1, $i2, $value ) -> None
+    $oMat.Vec2b_set_at( $i0, $i1, $i2, $value ) -> None
 ```
 
 ```cpp
@@ -8771,7 +8771,7 @@ void cv::Mat::Vec2b_set_at( cv::Point pt,
                             cv::Vec2b value )
 
 AutoIt:
-    $mat.Vec2b_set_at( $pt, $value ) -> None
+    $oMat.Vec2b_set_at( $pt, $value ) -> None
 ```
 
 ### cv::Mat::Vec3b_at
@@ -8780,7 +8780,7 @@ AutoIt:
 cv::Vec3b cv::Mat::Vec3b_at( int i0 )
 
 AutoIt:
-    $mat.Vec3b_at( $i0 ) -> retval
+    $oMat.Vec3b_at( $i0 ) -> retval
 ```
 
 ```cpp
@@ -8788,7 +8788,7 @@ cv::Vec3b cv::Mat::Vec3b_at( int row,
                              int col )
 
 AutoIt:
-    $mat.Vec3b_at( $row, $col ) -> retval
+    $oMat.Vec3b_at( $row, $col ) -> retval
 ```
 
 ```cpp
@@ -8797,14 +8797,14 @@ cv::Vec3b cv::Mat::Vec3b_at( int i0,
                              int i2 )
 
 AutoIt:
-    $mat.Vec3b_at( $i0, $i1, $i2 ) -> retval
+    $oMat.Vec3b_at( $i0, $i1, $i2 ) -> retval
 ```
 
 ```cpp
 cv::Vec3b cv::Mat::Vec3b_at( cv::Point pt )
 
 AutoIt:
-    $mat.Vec3b_at( $pt ) -> retval
+    $oMat.Vec3b_at( $pt ) -> retval
 ```
 
 ### cv::Mat::Vec3b_set_at
@@ -8814,7 +8814,7 @@ void cv::Mat::Vec3b_set_at( int       i0,
                             cv::Vec3b value )
 
 AutoIt:
-    $mat.Vec3b_set_at( $i0, $value ) -> None
+    $oMat.Vec3b_set_at( $i0, $value ) -> None
 ```
 
 ```cpp
@@ -8823,7 +8823,7 @@ void cv::Mat::Vec3b_set_at( int       row,
                             cv::Vec3b value )
 
 AutoIt:
-    $mat.Vec3b_set_at( $row, $col, $value ) -> None
+    $oMat.Vec3b_set_at( $row, $col, $value ) -> None
 ```
 
 ```cpp
@@ -8833,7 +8833,7 @@ void cv::Mat::Vec3b_set_at( int       i0,
                             cv::Vec3b value )
 
 AutoIt:
-    $mat.Vec3b_set_at( $i0, $i1, $i2, $value ) -> None
+    $oMat.Vec3b_set_at( $i0, $i1, $i2, $value ) -> None
 ```
 
 ```cpp
@@ -8841,7 +8841,7 @@ void cv::Mat::Vec3b_set_at( cv::Point pt,
                             cv::Vec3b value )
 
 AutoIt:
-    $mat.Vec3b_set_at( $pt, $value ) -> None
+    $oMat.Vec3b_set_at( $pt, $value ) -> None
 ```
 
 ### cv::Mat::Vec4b_at
@@ -8850,7 +8850,7 @@ AutoIt:
 cv::Vec4b cv::Mat::Vec4b_at( int i0 )
 
 AutoIt:
-    $mat.Vec4b_at( $i0 ) -> retval
+    $oMat.Vec4b_at( $i0 ) -> retval
 ```
 
 ```cpp
@@ -8858,7 +8858,7 @@ cv::Vec4b cv::Mat::Vec4b_at( int row,
                              int col )
 
 AutoIt:
-    $mat.Vec4b_at( $row, $col ) -> retval
+    $oMat.Vec4b_at( $row, $col ) -> retval
 ```
 
 ```cpp
@@ -8867,14 +8867,14 @@ cv::Vec4b cv::Mat::Vec4b_at( int i0,
                              int i2 )
 
 AutoIt:
-    $mat.Vec4b_at( $i0, $i1, $i2 ) -> retval
+    $oMat.Vec4b_at( $i0, $i1, $i2 ) -> retval
 ```
 
 ```cpp
 cv::Vec4b cv::Mat::Vec4b_at( cv::Point pt )
 
 AutoIt:
-    $mat.Vec4b_at( $pt ) -> retval
+    $oMat.Vec4b_at( $pt ) -> retval
 ```
 
 ### cv::Mat::Vec4b_set_at
@@ -8884,7 +8884,7 @@ void cv::Mat::Vec4b_set_at( int       i0,
                             cv::Vec4b value )
 
 AutoIt:
-    $mat.Vec4b_set_at( $i0, $value ) -> None
+    $oMat.Vec4b_set_at( $i0, $value ) -> None
 ```
 
 ```cpp
@@ -8893,7 +8893,7 @@ void cv::Mat::Vec4b_set_at( int       row,
                             cv::Vec4b value )
 
 AutoIt:
-    $mat.Vec4b_set_at( $row, $col, $value ) -> None
+    $oMat.Vec4b_set_at( $row, $col, $value ) -> None
 ```
 
 ```cpp
@@ -8903,7 +8903,7 @@ void cv::Mat::Vec4b_set_at( int       i0,
                             cv::Vec4b value )
 
 AutoIt:
-    $mat.Vec4b_set_at( $i0, $i1, $i2, $value ) -> None
+    $oMat.Vec4b_set_at( $i0, $i1, $i2, $value ) -> None
 ```
 
 ```cpp
@@ -8911,7 +8911,7 @@ void cv::Mat::Vec4b_set_at( cv::Point pt,
                             cv::Vec4b value )
 
 AutoIt:
-    $mat.Vec4b_set_at( $pt, $value ) -> None
+    $oMat.Vec4b_set_at( $pt, $value ) -> None
 ```
 
 ### cv::Mat::Vec2s_at
@@ -8920,7 +8920,7 @@ AutoIt:
 cv::Vec2s cv::Mat::Vec2s_at( int i0 )
 
 AutoIt:
-    $mat.Vec2s_at( $i0 ) -> retval
+    $oMat.Vec2s_at( $i0 ) -> retval
 ```
 
 ```cpp
@@ -8928,7 +8928,7 @@ cv::Vec2s cv::Mat::Vec2s_at( int row,
                              int col )
 
 AutoIt:
-    $mat.Vec2s_at( $row, $col ) -> retval
+    $oMat.Vec2s_at( $row, $col ) -> retval
 ```
 
 ```cpp
@@ -8937,14 +8937,14 @@ cv::Vec2s cv::Mat::Vec2s_at( int i0,
                              int i2 )
 
 AutoIt:
-    $mat.Vec2s_at( $i0, $i1, $i2 ) -> retval
+    $oMat.Vec2s_at( $i0, $i1, $i2 ) -> retval
 ```
 
 ```cpp
 cv::Vec2s cv::Mat::Vec2s_at( cv::Point pt )
 
 AutoIt:
-    $mat.Vec2s_at( $pt ) -> retval
+    $oMat.Vec2s_at( $pt ) -> retval
 ```
 
 ### cv::Mat::Vec2s_set_at
@@ -8954,7 +8954,7 @@ void cv::Mat::Vec2s_set_at( int       i0,
                             cv::Vec2s value )
 
 AutoIt:
-    $mat.Vec2s_set_at( $i0, $value ) -> None
+    $oMat.Vec2s_set_at( $i0, $value ) -> None
 ```
 
 ```cpp
@@ -8963,7 +8963,7 @@ void cv::Mat::Vec2s_set_at( int       row,
                             cv::Vec2s value )
 
 AutoIt:
-    $mat.Vec2s_set_at( $row, $col, $value ) -> None
+    $oMat.Vec2s_set_at( $row, $col, $value ) -> None
 ```
 
 ```cpp
@@ -8973,7 +8973,7 @@ void cv::Mat::Vec2s_set_at( int       i0,
                             cv::Vec2s value )
 
 AutoIt:
-    $mat.Vec2s_set_at( $i0, $i1, $i2, $value ) -> None
+    $oMat.Vec2s_set_at( $i0, $i1, $i2, $value ) -> None
 ```
 
 ```cpp
@@ -8981,7 +8981,7 @@ void cv::Mat::Vec2s_set_at( cv::Point pt,
                             cv::Vec2s value )
 
 AutoIt:
-    $mat.Vec2s_set_at( $pt, $value ) -> None
+    $oMat.Vec2s_set_at( $pt, $value ) -> None
 ```
 
 ### cv::Mat::Vec3s_at
@@ -8990,7 +8990,7 @@ AutoIt:
 cv::Vec3s cv::Mat::Vec3s_at( int i0 )
 
 AutoIt:
-    $mat.Vec3s_at( $i0 ) -> retval
+    $oMat.Vec3s_at( $i0 ) -> retval
 ```
 
 ```cpp
@@ -8998,7 +8998,7 @@ cv::Vec3s cv::Mat::Vec3s_at( int row,
                              int col )
 
 AutoIt:
-    $mat.Vec3s_at( $row, $col ) -> retval
+    $oMat.Vec3s_at( $row, $col ) -> retval
 ```
 
 ```cpp
@@ -9007,14 +9007,14 @@ cv::Vec3s cv::Mat::Vec3s_at( int i0,
                              int i2 )
 
 AutoIt:
-    $mat.Vec3s_at( $i0, $i1, $i2 ) -> retval
+    $oMat.Vec3s_at( $i0, $i1, $i2 ) -> retval
 ```
 
 ```cpp
 cv::Vec3s cv::Mat::Vec3s_at( cv::Point pt )
 
 AutoIt:
-    $mat.Vec3s_at( $pt ) -> retval
+    $oMat.Vec3s_at( $pt ) -> retval
 ```
 
 ### cv::Mat::Vec3s_set_at
@@ -9024,7 +9024,7 @@ void cv::Mat::Vec3s_set_at( int       i0,
                             cv::Vec3s value )
 
 AutoIt:
-    $mat.Vec3s_set_at( $i0, $value ) -> None
+    $oMat.Vec3s_set_at( $i0, $value ) -> None
 ```
 
 ```cpp
@@ -9033,7 +9033,7 @@ void cv::Mat::Vec3s_set_at( int       row,
                             cv::Vec3s value )
 
 AutoIt:
-    $mat.Vec3s_set_at( $row, $col, $value ) -> None
+    $oMat.Vec3s_set_at( $row, $col, $value ) -> None
 ```
 
 ```cpp
@@ -9043,7 +9043,7 @@ void cv::Mat::Vec3s_set_at( int       i0,
                             cv::Vec3s value )
 
 AutoIt:
-    $mat.Vec3s_set_at( $i0, $i1, $i2, $value ) -> None
+    $oMat.Vec3s_set_at( $i0, $i1, $i2, $value ) -> None
 ```
 
 ```cpp
@@ -9051,7 +9051,7 @@ void cv::Mat::Vec3s_set_at( cv::Point pt,
                             cv::Vec3s value )
 
 AutoIt:
-    $mat.Vec3s_set_at( $pt, $value ) -> None
+    $oMat.Vec3s_set_at( $pt, $value ) -> None
 ```
 
 ### cv::Mat::Vec4s_at
@@ -9060,7 +9060,7 @@ AutoIt:
 cv::Vec4s cv::Mat::Vec4s_at( int i0 )
 
 AutoIt:
-    $mat.Vec4s_at( $i0 ) -> retval
+    $oMat.Vec4s_at( $i0 ) -> retval
 ```
 
 ```cpp
@@ -9068,7 +9068,7 @@ cv::Vec4s cv::Mat::Vec4s_at( int row,
                              int col )
 
 AutoIt:
-    $mat.Vec4s_at( $row, $col ) -> retval
+    $oMat.Vec4s_at( $row, $col ) -> retval
 ```
 
 ```cpp
@@ -9077,14 +9077,14 @@ cv::Vec4s cv::Mat::Vec4s_at( int i0,
                              int i2 )
 
 AutoIt:
-    $mat.Vec4s_at( $i0, $i1, $i2 ) -> retval
+    $oMat.Vec4s_at( $i0, $i1, $i2 ) -> retval
 ```
 
 ```cpp
 cv::Vec4s cv::Mat::Vec4s_at( cv::Point pt )
 
 AutoIt:
-    $mat.Vec4s_at( $pt ) -> retval
+    $oMat.Vec4s_at( $pt ) -> retval
 ```
 
 ### cv::Mat::Vec4s_set_at
@@ -9094,7 +9094,7 @@ void cv::Mat::Vec4s_set_at( int       i0,
                             cv::Vec4s value )
 
 AutoIt:
-    $mat.Vec4s_set_at( $i0, $value ) -> None
+    $oMat.Vec4s_set_at( $i0, $value ) -> None
 ```
 
 ```cpp
@@ -9103,7 +9103,7 @@ void cv::Mat::Vec4s_set_at( int       row,
                             cv::Vec4s value )
 
 AutoIt:
-    $mat.Vec4s_set_at( $row, $col, $value ) -> None
+    $oMat.Vec4s_set_at( $row, $col, $value ) -> None
 ```
 
 ```cpp
@@ -9113,7 +9113,7 @@ void cv::Mat::Vec4s_set_at( int       i0,
                             cv::Vec4s value )
 
 AutoIt:
-    $mat.Vec4s_set_at( $i0, $i1, $i2, $value ) -> None
+    $oMat.Vec4s_set_at( $i0, $i1, $i2, $value ) -> None
 ```
 
 ```cpp
@@ -9121,7 +9121,7 @@ void cv::Mat::Vec4s_set_at( cv::Point pt,
                             cv::Vec4s value )
 
 AutoIt:
-    $mat.Vec4s_set_at( $pt, $value ) -> None
+    $oMat.Vec4s_set_at( $pt, $value ) -> None
 ```
 
 ### cv::Mat::Vec2w_at
@@ -9130,7 +9130,7 @@ AutoIt:
 cv::Vec2w cv::Mat::Vec2w_at( int i0 )
 
 AutoIt:
-    $mat.Vec2w_at( $i0 ) -> retval
+    $oMat.Vec2w_at( $i0 ) -> retval
 ```
 
 ```cpp
@@ -9138,7 +9138,7 @@ cv::Vec2w cv::Mat::Vec2w_at( int row,
                              int col )
 
 AutoIt:
-    $mat.Vec2w_at( $row, $col ) -> retval
+    $oMat.Vec2w_at( $row, $col ) -> retval
 ```
 
 ```cpp
@@ -9147,14 +9147,14 @@ cv::Vec2w cv::Mat::Vec2w_at( int i0,
                              int i2 )
 
 AutoIt:
-    $mat.Vec2w_at( $i0, $i1, $i2 ) -> retval
+    $oMat.Vec2w_at( $i0, $i1, $i2 ) -> retval
 ```
 
 ```cpp
 cv::Vec2w cv::Mat::Vec2w_at( cv::Point pt )
 
 AutoIt:
-    $mat.Vec2w_at( $pt ) -> retval
+    $oMat.Vec2w_at( $pt ) -> retval
 ```
 
 ### cv::Mat::Vec2w_set_at
@@ -9164,7 +9164,7 @@ void cv::Mat::Vec2w_set_at( int       i0,
                             cv::Vec2w value )
 
 AutoIt:
-    $mat.Vec2w_set_at( $i0, $value ) -> None
+    $oMat.Vec2w_set_at( $i0, $value ) -> None
 ```
 
 ```cpp
@@ -9173,7 +9173,7 @@ void cv::Mat::Vec2w_set_at( int       row,
                             cv::Vec2w value )
 
 AutoIt:
-    $mat.Vec2w_set_at( $row, $col, $value ) -> None
+    $oMat.Vec2w_set_at( $row, $col, $value ) -> None
 ```
 
 ```cpp
@@ -9183,7 +9183,7 @@ void cv::Mat::Vec2w_set_at( int       i0,
                             cv::Vec2w value )
 
 AutoIt:
-    $mat.Vec2w_set_at( $i0, $i1, $i2, $value ) -> None
+    $oMat.Vec2w_set_at( $i0, $i1, $i2, $value ) -> None
 ```
 
 ```cpp
@@ -9191,7 +9191,7 @@ void cv::Mat::Vec2w_set_at( cv::Point pt,
                             cv::Vec2w value )
 
 AutoIt:
-    $mat.Vec2w_set_at( $pt, $value ) -> None
+    $oMat.Vec2w_set_at( $pt, $value ) -> None
 ```
 
 ### cv::Mat::Vec3w_at
@@ -9200,7 +9200,7 @@ AutoIt:
 cv::Vec3w cv::Mat::Vec3w_at( int i0 )
 
 AutoIt:
-    $mat.Vec3w_at( $i0 ) -> retval
+    $oMat.Vec3w_at( $i0 ) -> retval
 ```
 
 ```cpp
@@ -9208,7 +9208,7 @@ cv::Vec3w cv::Mat::Vec3w_at( int row,
                              int col )
 
 AutoIt:
-    $mat.Vec3w_at( $row, $col ) -> retval
+    $oMat.Vec3w_at( $row, $col ) -> retval
 ```
 
 ```cpp
@@ -9217,14 +9217,14 @@ cv::Vec3w cv::Mat::Vec3w_at( int i0,
                              int i2 )
 
 AutoIt:
-    $mat.Vec3w_at( $i0, $i1, $i2 ) -> retval
+    $oMat.Vec3w_at( $i0, $i1, $i2 ) -> retval
 ```
 
 ```cpp
 cv::Vec3w cv::Mat::Vec3w_at( cv::Point pt )
 
 AutoIt:
-    $mat.Vec3w_at( $pt ) -> retval
+    $oMat.Vec3w_at( $pt ) -> retval
 ```
 
 ### cv::Mat::Vec3w_set_at
@@ -9234,7 +9234,7 @@ void cv::Mat::Vec3w_set_at( int       i0,
                             cv::Vec3w value )
 
 AutoIt:
-    $mat.Vec3w_set_at( $i0, $value ) -> None
+    $oMat.Vec3w_set_at( $i0, $value ) -> None
 ```
 
 ```cpp
@@ -9243,7 +9243,7 @@ void cv::Mat::Vec3w_set_at( int       row,
                             cv::Vec3w value )
 
 AutoIt:
-    $mat.Vec3w_set_at( $row, $col, $value ) -> None
+    $oMat.Vec3w_set_at( $row, $col, $value ) -> None
 ```
 
 ```cpp
@@ -9253,7 +9253,7 @@ void cv::Mat::Vec3w_set_at( int       i0,
                             cv::Vec3w value )
 
 AutoIt:
-    $mat.Vec3w_set_at( $i0, $i1, $i2, $value ) -> None
+    $oMat.Vec3w_set_at( $i0, $i1, $i2, $value ) -> None
 ```
 
 ```cpp
@@ -9261,7 +9261,7 @@ void cv::Mat::Vec3w_set_at( cv::Point pt,
                             cv::Vec3w value )
 
 AutoIt:
-    $mat.Vec3w_set_at( $pt, $value ) -> None
+    $oMat.Vec3w_set_at( $pt, $value ) -> None
 ```
 
 ### cv::Mat::Vec4w_at
@@ -9270,7 +9270,7 @@ AutoIt:
 cv::Vec4w cv::Mat::Vec4w_at( int i0 )
 
 AutoIt:
-    $mat.Vec4w_at( $i0 ) -> retval
+    $oMat.Vec4w_at( $i0 ) -> retval
 ```
 
 ```cpp
@@ -9278,7 +9278,7 @@ cv::Vec4w cv::Mat::Vec4w_at( int row,
                              int col )
 
 AutoIt:
-    $mat.Vec4w_at( $row, $col ) -> retval
+    $oMat.Vec4w_at( $row, $col ) -> retval
 ```
 
 ```cpp
@@ -9287,14 +9287,14 @@ cv::Vec4w cv::Mat::Vec4w_at( int i0,
                              int i2 )
 
 AutoIt:
-    $mat.Vec4w_at( $i0, $i1, $i2 ) -> retval
+    $oMat.Vec4w_at( $i0, $i1, $i2 ) -> retval
 ```
 
 ```cpp
 cv::Vec4w cv::Mat::Vec4w_at( cv::Point pt )
 
 AutoIt:
-    $mat.Vec4w_at( $pt ) -> retval
+    $oMat.Vec4w_at( $pt ) -> retval
 ```
 
 ### cv::Mat::Vec4w_set_at
@@ -9304,7 +9304,7 @@ void cv::Mat::Vec4w_set_at( int       i0,
                             cv::Vec4w value )
 
 AutoIt:
-    $mat.Vec4w_set_at( $i0, $value ) -> None
+    $oMat.Vec4w_set_at( $i0, $value ) -> None
 ```
 
 ```cpp
@@ -9313,7 +9313,7 @@ void cv::Mat::Vec4w_set_at( int       row,
                             cv::Vec4w value )
 
 AutoIt:
-    $mat.Vec4w_set_at( $row, $col, $value ) -> None
+    $oMat.Vec4w_set_at( $row, $col, $value ) -> None
 ```
 
 ```cpp
@@ -9323,7 +9323,7 @@ void cv::Mat::Vec4w_set_at( int       i0,
                             cv::Vec4w value )
 
 AutoIt:
-    $mat.Vec4w_set_at( $i0, $i1, $i2, $value ) -> None
+    $oMat.Vec4w_set_at( $i0, $i1, $i2, $value ) -> None
 ```
 
 ```cpp
@@ -9331,7 +9331,7 @@ void cv::Mat::Vec4w_set_at( cv::Point pt,
                             cv::Vec4w value )
 
 AutoIt:
-    $mat.Vec4w_set_at( $pt, $value ) -> None
+    $oMat.Vec4w_set_at( $pt, $value ) -> None
 ```
 
 ### cv::Mat::Vec2i_at
@@ -9340,7 +9340,7 @@ AutoIt:
 cv::Vec2i cv::Mat::Vec2i_at( int i0 )
 
 AutoIt:
-    $mat.Vec2i_at( $i0 ) -> retval
+    $oMat.Vec2i_at( $i0 ) -> retval
 ```
 
 ```cpp
@@ -9348,7 +9348,7 @@ cv::Vec2i cv::Mat::Vec2i_at( int row,
                              int col )
 
 AutoIt:
-    $mat.Vec2i_at( $row, $col ) -> retval
+    $oMat.Vec2i_at( $row, $col ) -> retval
 ```
 
 ```cpp
@@ -9357,14 +9357,14 @@ cv::Vec2i cv::Mat::Vec2i_at( int i0,
                              int i2 )
 
 AutoIt:
-    $mat.Vec2i_at( $i0, $i1, $i2 ) -> retval
+    $oMat.Vec2i_at( $i0, $i1, $i2 ) -> retval
 ```
 
 ```cpp
 cv::Vec2i cv::Mat::Vec2i_at( cv::Point pt )
 
 AutoIt:
-    $mat.Vec2i_at( $pt ) -> retval
+    $oMat.Vec2i_at( $pt ) -> retval
 ```
 
 ### cv::Mat::Vec2i_set_at
@@ -9374,7 +9374,7 @@ void cv::Mat::Vec2i_set_at( int       i0,
                             cv::Vec2i value )
 
 AutoIt:
-    $mat.Vec2i_set_at( $i0, $value ) -> None
+    $oMat.Vec2i_set_at( $i0, $value ) -> None
 ```
 
 ```cpp
@@ -9383,7 +9383,7 @@ void cv::Mat::Vec2i_set_at( int       row,
                             cv::Vec2i value )
 
 AutoIt:
-    $mat.Vec2i_set_at( $row, $col, $value ) -> None
+    $oMat.Vec2i_set_at( $row, $col, $value ) -> None
 ```
 
 ```cpp
@@ -9393,7 +9393,7 @@ void cv::Mat::Vec2i_set_at( int       i0,
                             cv::Vec2i value )
 
 AutoIt:
-    $mat.Vec2i_set_at( $i0, $i1, $i2, $value ) -> None
+    $oMat.Vec2i_set_at( $i0, $i1, $i2, $value ) -> None
 ```
 
 ```cpp
@@ -9401,7 +9401,7 @@ void cv::Mat::Vec2i_set_at( cv::Point pt,
                             cv::Vec2i value )
 
 AutoIt:
-    $mat.Vec2i_set_at( $pt, $value ) -> None
+    $oMat.Vec2i_set_at( $pt, $value ) -> None
 ```
 
 ### cv::Mat::Vec3i_at
@@ -9410,7 +9410,7 @@ AutoIt:
 cv::Vec3i cv::Mat::Vec3i_at( int i0 )
 
 AutoIt:
-    $mat.Vec3i_at( $i0 ) -> retval
+    $oMat.Vec3i_at( $i0 ) -> retval
 ```
 
 ```cpp
@@ -9418,7 +9418,7 @@ cv::Vec3i cv::Mat::Vec3i_at( int row,
                              int col )
 
 AutoIt:
-    $mat.Vec3i_at( $row, $col ) -> retval
+    $oMat.Vec3i_at( $row, $col ) -> retval
 ```
 
 ```cpp
@@ -9427,14 +9427,14 @@ cv::Vec3i cv::Mat::Vec3i_at( int i0,
                              int i2 )
 
 AutoIt:
-    $mat.Vec3i_at( $i0, $i1, $i2 ) -> retval
+    $oMat.Vec3i_at( $i0, $i1, $i2 ) -> retval
 ```
 
 ```cpp
 cv::Vec3i cv::Mat::Vec3i_at( cv::Point pt )
 
 AutoIt:
-    $mat.Vec3i_at( $pt ) -> retval
+    $oMat.Vec3i_at( $pt ) -> retval
 ```
 
 ### cv::Mat::Vec3i_set_at
@@ -9444,7 +9444,7 @@ void cv::Mat::Vec3i_set_at( int       i0,
                             cv::Vec3i value )
 
 AutoIt:
-    $mat.Vec3i_set_at( $i0, $value ) -> None
+    $oMat.Vec3i_set_at( $i0, $value ) -> None
 ```
 
 ```cpp
@@ -9453,7 +9453,7 @@ void cv::Mat::Vec3i_set_at( int       row,
                             cv::Vec3i value )
 
 AutoIt:
-    $mat.Vec3i_set_at( $row, $col, $value ) -> None
+    $oMat.Vec3i_set_at( $row, $col, $value ) -> None
 ```
 
 ```cpp
@@ -9463,7 +9463,7 @@ void cv::Mat::Vec3i_set_at( int       i0,
                             cv::Vec3i value )
 
 AutoIt:
-    $mat.Vec3i_set_at( $i0, $i1, $i2, $value ) -> None
+    $oMat.Vec3i_set_at( $i0, $i1, $i2, $value ) -> None
 ```
 
 ```cpp
@@ -9471,7 +9471,7 @@ void cv::Mat::Vec3i_set_at( cv::Point pt,
                             cv::Vec3i value )
 
 AutoIt:
-    $mat.Vec3i_set_at( $pt, $value ) -> None
+    $oMat.Vec3i_set_at( $pt, $value ) -> None
 ```
 
 ### cv::Mat::Vec4i_at
@@ -9480,7 +9480,7 @@ AutoIt:
 cv::Vec4i cv::Mat::Vec4i_at( int i0 )
 
 AutoIt:
-    $mat.Vec4i_at( $i0 ) -> retval
+    $oMat.Vec4i_at( $i0 ) -> retval
 ```
 
 ```cpp
@@ -9488,7 +9488,7 @@ cv::Vec4i cv::Mat::Vec4i_at( int row,
                              int col )
 
 AutoIt:
-    $mat.Vec4i_at( $row, $col ) -> retval
+    $oMat.Vec4i_at( $row, $col ) -> retval
 ```
 
 ```cpp
@@ -9497,14 +9497,14 @@ cv::Vec4i cv::Mat::Vec4i_at( int i0,
                              int i2 )
 
 AutoIt:
-    $mat.Vec4i_at( $i0, $i1, $i2 ) -> retval
+    $oMat.Vec4i_at( $i0, $i1, $i2 ) -> retval
 ```
 
 ```cpp
 cv::Vec4i cv::Mat::Vec4i_at( cv::Point pt )
 
 AutoIt:
-    $mat.Vec4i_at( $pt ) -> retval
+    $oMat.Vec4i_at( $pt ) -> retval
 ```
 
 ### cv::Mat::Vec4i_set_at
@@ -9514,7 +9514,7 @@ void cv::Mat::Vec4i_set_at( int       i0,
                             cv::Vec4i value )
 
 AutoIt:
-    $mat.Vec4i_set_at( $i0, $value ) -> None
+    $oMat.Vec4i_set_at( $i0, $value ) -> None
 ```
 
 ```cpp
@@ -9523,7 +9523,7 @@ void cv::Mat::Vec4i_set_at( int       row,
                             cv::Vec4i value )
 
 AutoIt:
-    $mat.Vec4i_set_at( $row, $col, $value ) -> None
+    $oMat.Vec4i_set_at( $row, $col, $value ) -> None
 ```
 
 ```cpp
@@ -9533,7 +9533,7 @@ void cv::Mat::Vec4i_set_at( int       i0,
                             cv::Vec4i value )
 
 AutoIt:
-    $mat.Vec4i_set_at( $i0, $i1, $i2, $value ) -> None
+    $oMat.Vec4i_set_at( $i0, $i1, $i2, $value ) -> None
 ```
 
 ```cpp
@@ -9541,7 +9541,7 @@ void cv::Mat::Vec4i_set_at( cv::Point pt,
                             cv::Vec4i value )
 
 AutoIt:
-    $mat.Vec4i_set_at( $pt, $value ) -> None
+    $oMat.Vec4i_set_at( $pt, $value ) -> None
 ```
 
 ### cv::Mat::Vec6i_at
@@ -9550,7 +9550,7 @@ AutoIt:
 cv::Vec6i cv::Mat::Vec6i_at( int i0 )
 
 AutoIt:
-    $mat.Vec6i_at( $i0 ) -> retval
+    $oMat.Vec6i_at( $i0 ) -> retval
 ```
 
 ```cpp
@@ -9558,7 +9558,7 @@ cv::Vec6i cv::Mat::Vec6i_at( int row,
                              int col )
 
 AutoIt:
-    $mat.Vec6i_at( $row, $col ) -> retval
+    $oMat.Vec6i_at( $row, $col ) -> retval
 ```
 
 ```cpp
@@ -9567,14 +9567,14 @@ cv::Vec6i cv::Mat::Vec6i_at( int i0,
                              int i2 )
 
 AutoIt:
-    $mat.Vec6i_at( $i0, $i1, $i2 ) -> retval
+    $oMat.Vec6i_at( $i0, $i1, $i2 ) -> retval
 ```
 
 ```cpp
 cv::Vec6i cv::Mat::Vec6i_at( cv::Point pt )
 
 AutoIt:
-    $mat.Vec6i_at( $pt ) -> retval
+    $oMat.Vec6i_at( $pt ) -> retval
 ```
 
 ### cv::Mat::Vec6i_set_at
@@ -9584,7 +9584,7 @@ void cv::Mat::Vec6i_set_at( int       i0,
                             cv::Vec6i value )
 
 AutoIt:
-    $mat.Vec6i_set_at( $i0, $value ) -> None
+    $oMat.Vec6i_set_at( $i0, $value ) -> None
 ```
 
 ```cpp
@@ -9593,7 +9593,7 @@ void cv::Mat::Vec6i_set_at( int       row,
                             cv::Vec6i value )
 
 AutoIt:
-    $mat.Vec6i_set_at( $row, $col, $value ) -> None
+    $oMat.Vec6i_set_at( $row, $col, $value ) -> None
 ```
 
 ```cpp
@@ -9603,7 +9603,7 @@ void cv::Mat::Vec6i_set_at( int       i0,
                             cv::Vec6i value )
 
 AutoIt:
-    $mat.Vec6i_set_at( $i0, $i1, $i2, $value ) -> None
+    $oMat.Vec6i_set_at( $i0, $i1, $i2, $value ) -> None
 ```
 
 ```cpp
@@ -9611,7 +9611,7 @@ void cv::Mat::Vec6i_set_at( cv::Point pt,
                             cv::Vec6i value )
 
 AutoIt:
-    $mat.Vec6i_set_at( $pt, $value ) -> None
+    $oMat.Vec6i_set_at( $pt, $value ) -> None
 ```
 
 ### cv::Mat::Vec8i_at
@@ -9620,7 +9620,7 @@ AutoIt:
 cv::Vec8i cv::Mat::Vec8i_at( int i0 )
 
 AutoIt:
-    $mat.Vec8i_at( $i0 ) -> retval
+    $oMat.Vec8i_at( $i0 ) -> retval
 ```
 
 ```cpp
@@ -9628,7 +9628,7 @@ cv::Vec8i cv::Mat::Vec8i_at( int row,
                              int col )
 
 AutoIt:
-    $mat.Vec8i_at( $row, $col ) -> retval
+    $oMat.Vec8i_at( $row, $col ) -> retval
 ```
 
 ```cpp
@@ -9637,14 +9637,14 @@ cv::Vec8i cv::Mat::Vec8i_at( int i0,
                              int i2 )
 
 AutoIt:
-    $mat.Vec8i_at( $i0, $i1, $i2 ) -> retval
+    $oMat.Vec8i_at( $i0, $i1, $i2 ) -> retval
 ```
 
 ```cpp
 cv::Vec8i cv::Mat::Vec8i_at( cv::Point pt )
 
 AutoIt:
-    $mat.Vec8i_at( $pt ) -> retval
+    $oMat.Vec8i_at( $pt ) -> retval
 ```
 
 ### cv::Mat::Vec8i_set_at
@@ -9654,7 +9654,7 @@ void cv::Mat::Vec8i_set_at( int       i0,
                             cv::Vec8i value )
 
 AutoIt:
-    $mat.Vec8i_set_at( $i0, $value ) -> None
+    $oMat.Vec8i_set_at( $i0, $value ) -> None
 ```
 
 ```cpp
@@ -9663,7 +9663,7 @@ void cv::Mat::Vec8i_set_at( int       row,
                             cv::Vec8i value )
 
 AutoIt:
-    $mat.Vec8i_set_at( $row, $col, $value ) -> None
+    $oMat.Vec8i_set_at( $row, $col, $value ) -> None
 ```
 
 ```cpp
@@ -9673,7 +9673,7 @@ void cv::Mat::Vec8i_set_at( int       i0,
                             cv::Vec8i value )
 
 AutoIt:
-    $mat.Vec8i_set_at( $i0, $i1, $i2, $value ) -> None
+    $oMat.Vec8i_set_at( $i0, $i1, $i2, $value ) -> None
 ```
 
 ```cpp
@@ -9681,7 +9681,7 @@ void cv::Mat::Vec8i_set_at( cv::Point pt,
                             cv::Vec8i value )
 
 AutoIt:
-    $mat.Vec8i_set_at( $pt, $value ) -> None
+    $oMat.Vec8i_set_at( $pt, $value ) -> None
 ```
 
 ### cv::Mat::Vec2f_at
@@ -9690,7 +9690,7 @@ AutoIt:
 cv::Vec2f cv::Mat::Vec2f_at( int i0 )
 
 AutoIt:
-    $mat.Vec2f_at( $i0 ) -> retval
+    $oMat.Vec2f_at( $i0 ) -> retval
 ```
 
 ```cpp
@@ -9698,7 +9698,7 @@ cv::Vec2f cv::Mat::Vec2f_at( int row,
                              int col )
 
 AutoIt:
-    $mat.Vec2f_at( $row, $col ) -> retval
+    $oMat.Vec2f_at( $row, $col ) -> retval
 ```
 
 ```cpp
@@ -9707,14 +9707,14 @@ cv::Vec2f cv::Mat::Vec2f_at( int i0,
                              int i2 )
 
 AutoIt:
-    $mat.Vec2f_at( $i0, $i1, $i2 ) -> retval
+    $oMat.Vec2f_at( $i0, $i1, $i2 ) -> retval
 ```
 
 ```cpp
 cv::Vec2f cv::Mat::Vec2f_at( cv::Point pt )
 
 AutoIt:
-    $mat.Vec2f_at( $pt ) -> retval
+    $oMat.Vec2f_at( $pt ) -> retval
 ```
 
 ### cv::Mat::Vec2f_set_at
@@ -9724,7 +9724,7 @@ void cv::Mat::Vec2f_set_at( int       i0,
                             cv::Vec2f value )
 
 AutoIt:
-    $mat.Vec2f_set_at( $i0, $value ) -> None
+    $oMat.Vec2f_set_at( $i0, $value ) -> None
 ```
 
 ```cpp
@@ -9733,7 +9733,7 @@ void cv::Mat::Vec2f_set_at( int       row,
                             cv::Vec2f value )
 
 AutoIt:
-    $mat.Vec2f_set_at( $row, $col, $value ) -> None
+    $oMat.Vec2f_set_at( $row, $col, $value ) -> None
 ```
 
 ```cpp
@@ -9743,7 +9743,7 @@ void cv::Mat::Vec2f_set_at( int       i0,
                             cv::Vec2f value )
 
 AutoIt:
-    $mat.Vec2f_set_at( $i0, $i1, $i2, $value ) -> None
+    $oMat.Vec2f_set_at( $i0, $i1, $i2, $value ) -> None
 ```
 
 ```cpp
@@ -9751,7 +9751,7 @@ void cv::Mat::Vec2f_set_at( cv::Point pt,
                             cv::Vec2f value )
 
 AutoIt:
-    $mat.Vec2f_set_at( $pt, $value ) -> None
+    $oMat.Vec2f_set_at( $pt, $value ) -> None
 ```
 
 ### cv::Mat::Vec3f_at
@@ -9760,7 +9760,7 @@ AutoIt:
 cv::Vec3f cv::Mat::Vec3f_at( int i0 )
 
 AutoIt:
-    $mat.Vec3f_at( $i0 ) -> retval
+    $oMat.Vec3f_at( $i0 ) -> retval
 ```
 
 ```cpp
@@ -9768,7 +9768,7 @@ cv::Vec3f cv::Mat::Vec3f_at( int row,
                              int col )
 
 AutoIt:
-    $mat.Vec3f_at( $row, $col ) -> retval
+    $oMat.Vec3f_at( $row, $col ) -> retval
 ```
 
 ```cpp
@@ -9777,14 +9777,14 @@ cv::Vec3f cv::Mat::Vec3f_at( int i0,
                              int i2 )
 
 AutoIt:
-    $mat.Vec3f_at( $i0, $i1, $i2 ) -> retval
+    $oMat.Vec3f_at( $i0, $i1, $i2 ) -> retval
 ```
 
 ```cpp
 cv::Vec3f cv::Mat::Vec3f_at( cv::Point pt )
 
 AutoIt:
-    $mat.Vec3f_at( $pt ) -> retval
+    $oMat.Vec3f_at( $pt ) -> retval
 ```
 
 ### cv::Mat::Vec3f_set_at
@@ -9794,7 +9794,7 @@ void cv::Mat::Vec3f_set_at( int       i0,
                             cv::Vec3f value )
 
 AutoIt:
-    $mat.Vec3f_set_at( $i0, $value ) -> None
+    $oMat.Vec3f_set_at( $i0, $value ) -> None
 ```
 
 ```cpp
@@ -9803,7 +9803,7 @@ void cv::Mat::Vec3f_set_at( int       row,
                             cv::Vec3f value )
 
 AutoIt:
-    $mat.Vec3f_set_at( $row, $col, $value ) -> None
+    $oMat.Vec3f_set_at( $row, $col, $value ) -> None
 ```
 
 ```cpp
@@ -9813,7 +9813,7 @@ void cv::Mat::Vec3f_set_at( int       i0,
                             cv::Vec3f value )
 
 AutoIt:
-    $mat.Vec3f_set_at( $i0, $i1, $i2, $value ) -> None
+    $oMat.Vec3f_set_at( $i0, $i1, $i2, $value ) -> None
 ```
 
 ```cpp
@@ -9821,7 +9821,7 @@ void cv::Mat::Vec3f_set_at( cv::Point pt,
                             cv::Vec3f value )
 
 AutoIt:
-    $mat.Vec3f_set_at( $pt, $value ) -> None
+    $oMat.Vec3f_set_at( $pt, $value ) -> None
 ```
 
 ### cv::Mat::Vec4f_at
@@ -9830,7 +9830,7 @@ AutoIt:
 cv::Vec4f cv::Mat::Vec4f_at( int i0 )
 
 AutoIt:
-    $mat.Vec4f_at( $i0 ) -> retval
+    $oMat.Vec4f_at( $i0 ) -> retval
 ```
 
 ```cpp
@@ -9838,7 +9838,7 @@ cv::Vec4f cv::Mat::Vec4f_at( int row,
                              int col )
 
 AutoIt:
-    $mat.Vec4f_at( $row, $col ) -> retval
+    $oMat.Vec4f_at( $row, $col ) -> retval
 ```
 
 ```cpp
@@ -9847,14 +9847,14 @@ cv::Vec4f cv::Mat::Vec4f_at( int i0,
                              int i2 )
 
 AutoIt:
-    $mat.Vec4f_at( $i0, $i1, $i2 ) -> retval
+    $oMat.Vec4f_at( $i0, $i1, $i2 ) -> retval
 ```
 
 ```cpp
 cv::Vec4f cv::Mat::Vec4f_at( cv::Point pt )
 
 AutoIt:
-    $mat.Vec4f_at( $pt ) -> retval
+    $oMat.Vec4f_at( $pt ) -> retval
 ```
 
 ### cv::Mat::Vec4f_set_at
@@ -9864,7 +9864,7 @@ void cv::Mat::Vec4f_set_at( int       i0,
                             cv::Vec4f value )
 
 AutoIt:
-    $mat.Vec4f_set_at( $i0, $value ) -> None
+    $oMat.Vec4f_set_at( $i0, $value ) -> None
 ```
 
 ```cpp
@@ -9873,7 +9873,7 @@ void cv::Mat::Vec4f_set_at( int       row,
                             cv::Vec4f value )
 
 AutoIt:
-    $mat.Vec4f_set_at( $row, $col, $value ) -> None
+    $oMat.Vec4f_set_at( $row, $col, $value ) -> None
 ```
 
 ```cpp
@@ -9883,7 +9883,7 @@ void cv::Mat::Vec4f_set_at( int       i0,
                             cv::Vec4f value )
 
 AutoIt:
-    $mat.Vec4f_set_at( $i0, $i1, $i2, $value ) -> None
+    $oMat.Vec4f_set_at( $i0, $i1, $i2, $value ) -> None
 ```
 
 ```cpp
@@ -9891,7 +9891,7 @@ void cv::Mat::Vec4f_set_at( cv::Point pt,
                             cv::Vec4f value )
 
 AutoIt:
-    $mat.Vec4f_set_at( $pt, $value ) -> None
+    $oMat.Vec4f_set_at( $pt, $value ) -> None
 ```
 
 ### cv::Mat::Vec6f_at
@@ -9900,7 +9900,7 @@ AutoIt:
 cv::Vec6f cv::Mat::Vec6f_at( int i0 )
 
 AutoIt:
-    $mat.Vec6f_at( $i0 ) -> retval
+    $oMat.Vec6f_at( $i0 ) -> retval
 ```
 
 ```cpp
@@ -9908,7 +9908,7 @@ cv::Vec6f cv::Mat::Vec6f_at( int row,
                              int col )
 
 AutoIt:
-    $mat.Vec6f_at( $row, $col ) -> retval
+    $oMat.Vec6f_at( $row, $col ) -> retval
 ```
 
 ```cpp
@@ -9917,14 +9917,14 @@ cv::Vec6f cv::Mat::Vec6f_at( int i0,
                              int i2 )
 
 AutoIt:
-    $mat.Vec6f_at( $i0, $i1, $i2 ) -> retval
+    $oMat.Vec6f_at( $i0, $i1, $i2 ) -> retval
 ```
 
 ```cpp
 cv::Vec6f cv::Mat::Vec6f_at( cv::Point pt )
 
 AutoIt:
-    $mat.Vec6f_at( $pt ) -> retval
+    $oMat.Vec6f_at( $pt ) -> retval
 ```
 
 ### cv::Mat::Vec6f_set_at
@@ -9934,7 +9934,7 @@ void cv::Mat::Vec6f_set_at( int       i0,
                             cv::Vec6f value )
 
 AutoIt:
-    $mat.Vec6f_set_at( $i0, $value ) -> None
+    $oMat.Vec6f_set_at( $i0, $value ) -> None
 ```
 
 ```cpp
@@ -9943,7 +9943,7 @@ void cv::Mat::Vec6f_set_at( int       row,
                             cv::Vec6f value )
 
 AutoIt:
-    $mat.Vec6f_set_at( $row, $col, $value ) -> None
+    $oMat.Vec6f_set_at( $row, $col, $value ) -> None
 ```
 
 ```cpp
@@ -9953,7 +9953,7 @@ void cv::Mat::Vec6f_set_at( int       i0,
                             cv::Vec6f value )
 
 AutoIt:
-    $mat.Vec6f_set_at( $i0, $i1, $i2, $value ) -> None
+    $oMat.Vec6f_set_at( $i0, $i1, $i2, $value ) -> None
 ```
 
 ```cpp
@@ -9961,7 +9961,7 @@ void cv::Mat::Vec6f_set_at( cv::Point pt,
                             cv::Vec6f value )
 
 AutoIt:
-    $mat.Vec6f_set_at( $pt, $value ) -> None
+    $oMat.Vec6f_set_at( $pt, $value ) -> None
 ```
 
 ### cv::Mat::Vec2d_at
@@ -9970,7 +9970,7 @@ AutoIt:
 cv::Vec2d cv::Mat::Vec2d_at( int i0 )
 
 AutoIt:
-    $mat.Vec2d_at( $i0 ) -> retval
+    $oMat.Vec2d_at( $i0 ) -> retval
 ```
 
 ```cpp
@@ -9978,7 +9978,7 @@ cv::Vec2d cv::Mat::Vec2d_at( int row,
                              int col )
 
 AutoIt:
-    $mat.Vec2d_at( $row, $col ) -> retval
+    $oMat.Vec2d_at( $row, $col ) -> retval
 ```
 
 ```cpp
@@ -9987,14 +9987,14 @@ cv::Vec2d cv::Mat::Vec2d_at( int i0,
                              int i2 )
 
 AutoIt:
-    $mat.Vec2d_at( $i0, $i1, $i2 ) -> retval
+    $oMat.Vec2d_at( $i0, $i1, $i2 ) -> retval
 ```
 
 ```cpp
 cv::Vec2d cv::Mat::Vec2d_at( cv::Point pt )
 
 AutoIt:
-    $mat.Vec2d_at( $pt ) -> retval
+    $oMat.Vec2d_at( $pt ) -> retval
 ```
 
 ### cv::Mat::Vec2d_set_at
@@ -10004,7 +10004,7 @@ void cv::Mat::Vec2d_set_at( int       i0,
                             cv::Vec2d value )
 
 AutoIt:
-    $mat.Vec2d_set_at( $i0, $value ) -> None
+    $oMat.Vec2d_set_at( $i0, $value ) -> None
 ```
 
 ```cpp
@@ -10013,7 +10013,7 @@ void cv::Mat::Vec2d_set_at( int       row,
                             cv::Vec2d value )
 
 AutoIt:
-    $mat.Vec2d_set_at( $row, $col, $value ) -> None
+    $oMat.Vec2d_set_at( $row, $col, $value ) -> None
 ```
 
 ```cpp
@@ -10023,7 +10023,7 @@ void cv::Mat::Vec2d_set_at( int       i0,
                             cv::Vec2d value )
 
 AutoIt:
-    $mat.Vec2d_set_at( $i0, $i1, $i2, $value ) -> None
+    $oMat.Vec2d_set_at( $i0, $i1, $i2, $value ) -> None
 ```
 
 ```cpp
@@ -10031,7 +10031,7 @@ void cv::Mat::Vec2d_set_at( cv::Point pt,
                             cv::Vec2d value )
 
 AutoIt:
-    $mat.Vec2d_set_at( $pt, $value ) -> None
+    $oMat.Vec2d_set_at( $pt, $value ) -> None
 ```
 
 ### cv::Mat::Vec3d_at
@@ -10040,7 +10040,7 @@ AutoIt:
 cv::Vec3d cv::Mat::Vec3d_at( int i0 )
 
 AutoIt:
-    $mat.Vec3d_at( $i0 ) -> retval
+    $oMat.Vec3d_at( $i0 ) -> retval
 ```
 
 ```cpp
@@ -10048,7 +10048,7 @@ cv::Vec3d cv::Mat::Vec3d_at( int row,
                              int col )
 
 AutoIt:
-    $mat.Vec3d_at( $row, $col ) -> retval
+    $oMat.Vec3d_at( $row, $col ) -> retval
 ```
 
 ```cpp
@@ -10057,14 +10057,14 @@ cv::Vec3d cv::Mat::Vec3d_at( int i0,
                              int i2 )
 
 AutoIt:
-    $mat.Vec3d_at( $i0, $i1, $i2 ) -> retval
+    $oMat.Vec3d_at( $i0, $i1, $i2 ) -> retval
 ```
 
 ```cpp
 cv::Vec3d cv::Mat::Vec3d_at( cv::Point pt )
 
 AutoIt:
-    $mat.Vec3d_at( $pt ) -> retval
+    $oMat.Vec3d_at( $pt ) -> retval
 ```
 
 ### cv::Mat::Vec3d_set_at
@@ -10074,7 +10074,7 @@ void cv::Mat::Vec3d_set_at( int       i0,
                             cv::Vec3d value )
 
 AutoIt:
-    $mat.Vec3d_set_at( $i0, $value ) -> None
+    $oMat.Vec3d_set_at( $i0, $value ) -> None
 ```
 
 ```cpp
@@ -10083,7 +10083,7 @@ void cv::Mat::Vec3d_set_at( int       row,
                             cv::Vec3d value )
 
 AutoIt:
-    $mat.Vec3d_set_at( $row, $col, $value ) -> None
+    $oMat.Vec3d_set_at( $row, $col, $value ) -> None
 ```
 
 ```cpp
@@ -10093,7 +10093,7 @@ void cv::Mat::Vec3d_set_at( int       i0,
                             cv::Vec3d value )
 
 AutoIt:
-    $mat.Vec3d_set_at( $i0, $i1, $i2, $value ) -> None
+    $oMat.Vec3d_set_at( $i0, $i1, $i2, $value ) -> None
 ```
 
 ```cpp
@@ -10101,7 +10101,7 @@ void cv::Mat::Vec3d_set_at( cv::Point pt,
                             cv::Vec3d value )
 
 AutoIt:
-    $mat.Vec3d_set_at( $pt, $value ) -> None
+    $oMat.Vec3d_set_at( $pt, $value ) -> None
 ```
 
 ### cv::Mat::Vec4d_at
@@ -10110,7 +10110,7 @@ AutoIt:
 cv::Vec4d cv::Mat::Vec4d_at( int i0 )
 
 AutoIt:
-    $mat.Vec4d_at( $i0 ) -> retval
+    $oMat.Vec4d_at( $i0 ) -> retval
 ```
 
 ```cpp
@@ -10118,7 +10118,7 @@ cv::Vec4d cv::Mat::Vec4d_at( int row,
                              int col )
 
 AutoIt:
-    $mat.Vec4d_at( $row, $col ) -> retval
+    $oMat.Vec4d_at( $row, $col ) -> retval
 ```
 
 ```cpp
@@ -10127,14 +10127,14 @@ cv::Vec4d cv::Mat::Vec4d_at( int i0,
                              int i2 )
 
 AutoIt:
-    $mat.Vec4d_at( $i0, $i1, $i2 ) -> retval
+    $oMat.Vec4d_at( $i0, $i1, $i2 ) -> retval
 ```
 
 ```cpp
 cv::Vec4d cv::Mat::Vec4d_at( cv::Point pt )
 
 AutoIt:
-    $mat.Vec4d_at( $pt ) -> retval
+    $oMat.Vec4d_at( $pt ) -> retval
 ```
 
 ### cv::Mat::Vec4d_set_at
@@ -10144,7 +10144,7 @@ void cv::Mat::Vec4d_set_at( int       i0,
                             cv::Vec4d value )
 
 AutoIt:
-    $mat.Vec4d_set_at( $i0, $value ) -> None
+    $oMat.Vec4d_set_at( $i0, $value ) -> None
 ```
 
 ```cpp
@@ -10153,7 +10153,7 @@ void cv::Mat::Vec4d_set_at( int       row,
                             cv::Vec4d value )
 
 AutoIt:
-    $mat.Vec4d_set_at( $row, $col, $value ) -> None
+    $oMat.Vec4d_set_at( $row, $col, $value ) -> None
 ```
 
 ```cpp
@@ -10163,7 +10163,7 @@ void cv::Mat::Vec4d_set_at( int       i0,
                             cv::Vec4d value )
 
 AutoIt:
-    $mat.Vec4d_set_at( $i0, $i1, $i2, $value ) -> None
+    $oMat.Vec4d_set_at( $i0, $i1, $i2, $value ) -> None
 ```
 
 ```cpp
@@ -10171,7 +10171,7 @@ void cv::Mat::Vec4d_set_at( cv::Point pt,
                             cv::Vec4d value )
 
 AutoIt:
-    $mat.Vec4d_set_at( $pt, $value ) -> None
+    $oMat.Vec4d_set_at( $pt, $value ) -> None
 ```
 
 ### cv::Mat::Vec6d_at
@@ -10180,7 +10180,7 @@ AutoIt:
 cv::Vec6d cv::Mat::Vec6d_at( int i0 )
 
 AutoIt:
-    $mat.Vec6d_at( $i0 ) -> retval
+    $oMat.Vec6d_at( $i0 ) -> retval
 ```
 
 ```cpp
@@ -10188,7 +10188,7 @@ cv::Vec6d cv::Mat::Vec6d_at( int row,
                              int col )
 
 AutoIt:
-    $mat.Vec6d_at( $row, $col ) -> retval
+    $oMat.Vec6d_at( $row, $col ) -> retval
 ```
 
 ```cpp
@@ -10197,14 +10197,14 @@ cv::Vec6d cv::Mat::Vec6d_at( int i0,
                              int i2 )
 
 AutoIt:
-    $mat.Vec6d_at( $i0, $i1, $i2 ) -> retval
+    $oMat.Vec6d_at( $i0, $i1, $i2 ) -> retval
 ```
 
 ```cpp
 cv::Vec6d cv::Mat::Vec6d_at( cv::Point pt )
 
 AutoIt:
-    $mat.Vec6d_at( $pt ) -> retval
+    $oMat.Vec6d_at( $pt ) -> retval
 ```
 
 ### cv::Mat::Vec6d_set_at
@@ -10214,7 +10214,7 @@ void cv::Mat::Vec6d_set_at( int       i0,
                             cv::Vec6d value )
 
 AutoIt:
-    $mat.Vec6d_set_at( $i0, $value ) -> None
+    $oMat.Vec6d_set_at( $i0, $value ) -> None
 ```
 
 ```cpp
@@ -10223,7 +10223,7 @@ void cv::Mat::Vec6d_set_at( int       row,
                             cv::Vec6d value )
 
 AutoIt:
-    $mat.Vec6d_set_at( $row, $col, $value ) -> None
+    $oMat.Vec6d_set_at( $row, $col, $value ) -> None
 ```
 
 ```cpp
@@ -10233,7 +10233,7 @@ void cv::Mat::Vec6d_set_at( int       i0,
                             cv::Vec6d value )
 
 AutoIt:
-    $mat.Vec6d_set_at( $i0, $i1, $i2, $value ) -> None
+    $oMat.Vec6d_set_at( $i0, $i1, $i2, $value ) -> None
 ```
 
 ```cpp
@@ -10241,7 +10241,7 @@ void cv::Mat::Vec6d_set_at( cv::Point pt,
                             cv::Vec6d value )
 
 AutoIt:
-    $mat.Vec6d_set_at( $pt, $value ) -> None
+    $oMat.Vec6d_set_at( $pt, $value ) -> None
 ```
 
 ## cv::UMat
@@ -10296,7 +10296,7 @@ AutoIt:
 cv::Mat cv::UMat::getMat( int access )
 
 AutoIt:
-    $uMat.getMat( $access ) -> retval
+    $oUMat.getMat( $access ) -> retval
 ```
 
 ## cv::ocl
@@ -10372,7 +10372,7 @@ AutoIt:
 std::string cv::ocl::Device::name()
 
 AutoIt:
-    $device.name() -> retval
+    $oDevice.name() -> retval
 ```
 
 ### cv::ocl::Device::extensions
@@ -10381,7 +10381,7 @@ AutoIt:
 std::string cv::ocl::Device::extensions()
 
 AutoIt:
-    $device.extensions() -> retval
+    $oDevice.extensions() -> retval
 ```
 
 ### cv::ocl::Device::isExtensionSupported
@@ -10390,7 +10390,7 @@ AutoIt:
 bool cv::ocl::Device::isExtensionSupported( const std::string& extensionName )
 
 AutoIt:
-    $device.isExtensionSupported( $extensionName ) -> retval
+    $oDevice.isExtensionSupported( $extensionName ) -> retval
 ```
 
 ### cv::ocl::Device::version
@@ -10399,7 +10399,7 @@ AutoIt:
 std::string cv::ocl::Device::version()
 
 AutoIt:
-    $device.version() -> retval
+    $oDevice.version() -> retval
 ```
 
 ### cv::ocl::Device::vendorName
@@ -10408,7 +10408,7 @@ AutoIt:
 std::string cv::ocl::Device::vendorName()
 
 AutoIt:
-    $device.vendorName() -> retval
+    $oDevice.vendorName() -> retval
 ```
 
 ### cv::ocl::Device::OpenCL_C_Version
@@ -10417,7 +10417,7 @@ AutoIt:
 std::string cv::ocl::Device::OpenCL_C_Version()
 
 AutoIt:
-    $device.OpenCL_C_Version() -> retval
+    $oDevice.OpenCL_C_Version() -> retval
 ```
 
 ### cv::ocl::Device::OpenCLVersion
@@ -10426,7 +10426,7 @@ AutoIt:
 std::string cv::ocl::Device::OpenCLVersion()
 
 AutoIt:
-    $device.OpenCLVersion() -> retval
+    $oDevice.OpenCLVersion() -> retval
 ```
 
 ### cv::ocl::Device::deviceVersionMajor
@@ -10435,7 +10435,7 @@ AutoIt:
 int cv::ocl::Device::deviceVersionMajor()
 
 AutoIt:
-    $device.deviceVersionMajor() -> retval
+    $oDevice.deviceVersionMajor() -> retval
 ```
 
 ### cv::ocl::Device::deviceVersionMinor
@@ -10444,7 +10444,7 @@ AutoIt:
 int cv::ocl::Device::deviceVersionMinor()
 
 AutoIt:
-    $device.deviceVersionMinor() -> retval
+    $oDevice.deviceVersionMinor() -> retval
 ```
 
 ### cv::ocl::Device::driverVersion
@@ -10453,7 +10453,7 @@ AutoIt:
 std::string cv::ocl::Device::driverVersion()
 
 AutoIt:
-    $device.driverVersion() -> retval
+    $oDevice.driverVersion() -> retval
 ```
 
 ### cv::ocl::Device::type
@@ -10462,7 +10462,7 @@ AutoIt:
 int cv::ocl::Device::type()
 
 AutoIt:
-    $device.type() -> retval
+    $oDevice.type() -> retval
 ```
 
 ### cv::ocl::Device::addressBits
@@ -10471,7 +10471,7 @@ AutoIt:
 int cv::ocl::Device::addressBits()
 
 AutoIt:
-    $device.addressBits() -> retval
+    $oDevice.addressBits() -> retval
 ```
 
 ### cv::ocl::Device::available
@@ -10480,7 +10480,7 @@ AutoIt:
 bool cv::ocl::Device::available()
 
 AutoIt:
-    $device.available() -> retval
+    $oDevice.available() -> retval
 ```
 
 ### cv::ocl::Device::compilerAvailable
@@ -10489,7 +10489,7 @@ AutoIt:
 bool cv::ocl::Device::compilerAvailable()
 
 AutoIt:
-    $device.compilerAvailable() -> retval
+    $oDevice.compilerAvailable() -> retval
 ```
 
 ### cv::ocl::Device::linkerAvailable
@@ -10498,7 +10498,7 @@ AutoIt:
 bool cv::ocl::Device::linkerAvailable()
 
 AutoIt:
-    $device.linkerAvailable() -> retval
+    $oDevice.linkerAvailable() -> retval
 ```
 
 ### cv::ocl::Device::doubleFPConfig
@@ -10507,7 +10507,7 @@ AutoIt:
 int cv::ocl::Device::doubleFPConfig()
 
 AutoIt:
-    $device.doubleFPConfig() -> retval
+    $oDevice.doubleFPConfig() -> retval
 ```
 
 ### cv::ocl::Device::singleFPConfig
@@ -10516,7 +10516,7 @@ AutoIt:
 int cv::ocl::Device::singleFPConfig()
 
 AutoIt:
-    $device.singleFPConfig() -> retval
+    $oDevice.singleFPConfig() -> retval
 ```
 
 ### cv::ocl::Device::halfFPConfig
@@ -10525,7 +10525,7 @@ AutoIt:
 int cv::ocl::Device::halfFPConfig()
 
 AutoIt:
-    $device.halfFPConfig() -> retval
+    $oDevice.halfFPConfig() -> retval
 ```
 
 ### cv::ocl::Device::endianLittle
@@ -10534,7 +10534,7 @@ AutoIt:
 bool cv::ocl::Device::endianLittle()
 
 AutoIt:
-    $device.endianLittle() -> retval
+    $oDevice.endianLittle() -> retval
 ```
 
 ### cv::ocl::Device::errorCorrectionSupport
@@ -10543,7 +10543,7 @@ AutoIt:
 bool cv::ocl::Device::errorCorrectionSupport()
 
 AutoIt:
-    $device.errorCorrectionSupport() -> retval
+    $oDevice.errorCorrectionSupport() -> retval
 ```
 
 ### cv::ocl::Device::executionCapabilities
@@ -10552,7 +10552,7 @@ AutoIt:
 int cv::ocl::Device::executionCapabilities()
 
 AutoIt:
-    $device.executionCapabilities() -> retval
+    $oDevice.executionCapabilities() -> retval
 ```
 
 ### cv::ocl::Device::globalMemCacheSize
@@ -10561,7 +10561,7 @@ AutoIt:
 size_t cv::ocl::Device::globalMemCacheSize()
 
 AutoIt:
-    $device.globalMemCacheSize() -> retval
+    $oDevice.globalMemCacheSize() -> retval
 ```
 
 ### cv::ocl::Device::globalMemCacheType
@@ -10570,7 +10570,7 @@ AutoIt:
 int cv::ocl::Device::globalMemCacheType()
 
 AutoIt:
-    $device.globalMemCacheType() -> retval
+    $oDevice.globalMemCacheType() -> retval
 ```
 
 ### cv::ocl::Device::globalMemCacheLineSize
@@ -10579,7 +10579,7 @@ AutoIt:
 int cv::ocl::Device::globalMemCacheLineSize()
 
 AutoIt:
-    $device.globalMemCacheLineSize() -> retval
+    $oDevice.globalMemCacheLineSize() -> retval
 ```
 
 ### cv::ocl::Device::globalMemSize
@@ -10588,7 +10588,7 @@ AutoIt:
 size_t cv::ocl::Device::globalMemSize()
 
 AutoIt:
-    $device.globalMemSize() -> retval
+    $oDevice.globalMemSize() -> retval
 ```
 
 ### cv::ocl::Device::localMemSize
@@ -10597,7 +10597,7 @@ AutoIt:
 size_t cv::ocl::Device::localMemSize()
 
 AutoIt:
-    $device.localMemSize() -> retval
+    $oDevice.localMemSize() -> retval
 ```
 
 ### cv::ocl::Device::localMemType
@@ -10606,7 +10606,7 @@ AutoIt:
 int cv::ocl::Device::localMemType()
 
 AutoIt:
-    $device.localMemType() -> retval
+    $oDevice.localMemType() -> retval
 ```
 
 ### cv::ocl::Device::hostUnifiedMemory
@@ -10615,7 +10615,7 @@ AutoIt:
 bool cv::ocl::Device::hostUnifiedMemory()
 
 AutoIt:
-    $device.hostUnifiedMemory() -> retval
+    $oDevice.hostUnifiedMemory() -> retval
 ```
 
 ### cv::ocl::Device::imageSupport
@@ -10624,7 +10624,7 @@ AutoIt:
 bool cv::ocl::Device::imageSupport()
 
 AutoIt:
-    $device.imageSupport() -> retval
+    $oDevice.imageSupport() -> retval
 ```
 
 ### cv::ocl::Device::imageFromBufferSupport
@@ -10633,7 +10633,7 @@ AutoIt:
 bool cv::ocl::Device::imageFromBufferSupport()
 
 AutoIt:
-    $device.imageFromBufferSupport() -> retval
+    $oDevice.imageFromBufferSupport() -> retval
 ```
 
 ### cv::ocl::Device::intelSubgroupsSupport
@@ -10642,7 +10642,7 @@ AutoIt:
 bool cv::ocl::Device::intelSubgroupsSupport()
 
 AutoIt:
-    $device.intelSubgroupsSupport() -> retval
+    $oDevice.intelSubgroupsSupport() -> retval
 ```
 
 ### cv::ocl::Device::image2DMaxWidth
@@ -10651,7 +10651,7 @@ AutoIt:
 size_t cv::ocl::Device::image2DMaxWidth()
 
 AutoIt:
-    $device.image2DMaxWidth() -> retval
+    $oDevice.image2DMaxWidth() -> retval
 ```
 
 ### cv::ocl::Device::image2DMaxHeight
@@ -10660,7 +10660,7 @@ AutoIt:
 size_t cv::ocl::Device::image2DMaxHeight()
 
 AutoIt:
-    $device.image2DMaxHeight() -> retval
+    $oDevice.image2DMaxHeight() -> retval
 ```
 
 ### cv::ocl::Device::image3DMaxWidth
@@ -10669,7 +10669,7 @@ AutoIt:
 size_t cv::ocl::Device::image3DMaxWidth()
 
 AutoIt:
-    $device.image3DMaxWidth() -> retval
+    $oDevice.image3DMaxWidth() -> retval
 ```
 
 ### cv::ocl::Device::image3DMaxHeight
@@ -10678,7 +10678,7 @@ AutoIt:
 size_t cv::ocl::Device::image3DMaxHeight()
 
 AutoIt:
-    $device.image3DMaxHeight() -> retval
+    $oDevice.image3DMaxHeight() -> retval
 ```
 
 ### cv::ocl::Device::image3DMaxDepth
@@ -10687,7 +10687,7 @@ AutoIt:
 size_t cv::ocl::Device::image3DMaxDepth()
 
 AutoIt:
-    $device.image3DMaxDepth() -> retval
+    $oDevice.image3DMaxDepth() -> retval
 ```
 
 ### cv::ocl::Device::imageMaxBufferSize
@@ -10696,7 +10696,7 @@ AutoIt:
 size_t cv::ocl::Device::imageMaxBufferSize()
 
 AutoIt:
-    $device.imageMaxBufferSize() -> retval
+    $oDevice.imageMaxBufferSize() -> retval
 ```
 
 ### cv::ocl::Device::imageMaxArraySize
@@ -10705,7 +10705,7 @@ AutoIt:
 size_t cv::ocl::Device::imageMaxArraySize()
 
 AutoIt:
-    $device.imageMaxArraySize() -> retval
+    $oDevice.imageMaxArraySize() -> retval
 ```
 
 ### cv::ocl::Device::vendorID
@@ -10714,7 +10714,7 @@ AutoIt:
 int cv::ocl::Device::vendorID()
 
 AutoIt:
-    $device.vendorID() -> retval
+    $oDevice.vendorID() -> retval
 ```
 
 ### cv::ocl::Device::isAMD
@@ -10723,7 +10723,7 @@ AutoIt:
 bool cv::ocl::Device::isAMD()
 
 AutoIt:
-    $device.isAMD() -> retval
+    $oDevice.isAMD() -> retval
 ```
 
 ### cv::ocl::Device::isIntel
@@ -10732,7 +10732,7 @@ AutoIt:
 bool cv::ocl::Device::isIntel()
 
 AutoIt:
-    $device.isIntel() -> retval
+    $oDevice.isIntel() -> retval
 ```
 
 ### cv::ocl::Device::isNVidia
@@ -10741,7 +10741,7 @@ AutoIt:
 bool cv::ocl::Device::isNVidia()
 
 AutoIt:
-    $device.isNVidia() -> retval
+    $oDevice.isNVidia() -> retval
 ```
 
 ### cv::ocl::Device::maxClockFrequency
@@ -10750,7 +10750,7 @@ AutoIt:
 int cv::ocl::Device::maxClockFrequency()
 
 AutoIt:
-    $device.maxClockFrequency() -> retval
+    $oDevice.maxClockFrequency() -> retval
 ```
 
 ### cv::ocl::Device::maxComputeUnits
@@ -10759,7 +10759,7 @@ AutoIt:
 int cv::ocl::Device::maxComputeUnits()
 
 AutoIt:
-    $device.maxComputeUnits() -> retval
+    $oDevice.maxComputeUnits() -> retval
 ```
 
 ### cv::ocl::Device::maxConstantArgs
@@ -10768,7 +10768,7 @@ AutoIt:
 int cv::ocl::Device::maxConstantArgs()
 
 AutoIt:
-    $device.maxConstantArgs() -> retval
+    $oDevice.maxConstantArgs() -> retval
 ```
 
 ### cv::ocl::Device::maxConstantBufferSize
@@ -10777,7 +10777,7 @@ AutoIt:
 size_t cv::ocl::Device::maxConstantBufferSize()
 
 AutoIt:
-    $device.maxConstantBufferSize() -> retval
+    $oDevice.maxConstantBufferSize() -> retval
 ```
 
 ### cv::ocl::Device::maxMemAllocSize
@@ -10786,7 +10786,7 @@ AutoIt:
 size_t cv::ocl::Device::maxMemAllocSize()
 
 AutoIt:
-    $device.maxMemAllocSize() -> retval
+    $oDevice.maxMemAllocSize() -> retval
 ```
 
 ### cv::ocl::Device::maxParameterSize
@@ -10795,7 +10795,7 @@ AutoIt:
 size_t cv::ocl::Device::maxParameterSize()
 
 AutoIt:
-    $device.maxParameterSize() -> retval
+    $oDevice.maxParameterSize() -> retval
 ```
 
 ### cv::ocl::Device::maxReadImageArgs
@@ -10804,7 +10804,7 @@ AutoIt:
 int cv::ocl::Device::maxReadImageArgs()
 
 AutoIt:
-    $device.maxReadImageArgs() -> retval
+    $oDevice.maxReadImageArgs() -> retval
 ```
 
 ### cv::ocl::Device::maxWriteImageArgs
@@ -10813,7 +10813,7 @@ AutoIt:
 int cv::ocl::Device::maxWriteImageArgs()
 
 AutoIt:
-    $device.maxWriteImageArgs() -> retval
+    $oDevice.maxWriteImageArgs() -> retval
 ```
 
 ### cv::ocl::Device::maxSamplers
@@ -10822,7 +10822,7 @@ AutoIt:
 int cv::ocl::Device::maxSamplers()
 
 AutoIt:
-    $device.maxSamplers() -> retval
+    $oDevice.maxSamplers() -> retval
 ```
 
 ### cv::ocl::Device::maxWorkGroupSize
@@ -10831,7 +10831,7 @@ AutoIt:
 size_t cv::ocl::Device::maxWorkGroupSize()
 
 AutoIt:
-    $device.maxWorkGroupSize() -> retval
+    $oDevice.maxWorkGroupSize() -> retval
 ```
 
 ### cv::ocl::Device::maxWorkItemDims
@@ -10840,7 +10840,7 @@ AutoIt:
 int cv::ocl::Device::maxWorkItemDims()
 
 AutoIt:
-    $device.maxWorkItemDims() -> retval
+    $oDevice.maxWorkItemDims() -> retval
 ```
 
 ### cv::ocl::Device::memBaseAddrAlign
@@ -10849,7 +10849,7 @@ AutoIt:
 int cv::ocl::Device::memBaseAddrAlign()
 
 AutoIt:
-    $device.memBaseAddrAlign() -> retval
+    $oDevice.memBaseAddrAlign() -> retval
 ```
 
 ### cv::ocl::Device::nativeVectorWidthChar
@@ -10858,7 +10858,7 @@ AutoIt:
 int cv::ocl::Device::nativeVectorWidthChar()
 
 AutoIt:
-    $device.nativeVectorWidthChar() -> retval
+    $oDevice.nativeVectorWidthChar() -> retval
 ```
 
 ### cv::ocl::Device::nativeVectorWidthShort
@@ -10867,7 +10867,7 @@ AutoIt:
 int cv::ocl::Device::nativeVectorWidthShort()
 
 AutoIt:
-    $device.nativeVectorWidthShort() -> retval
+    $oDevice.nativeVectorWidthShort() -> retval
 ```
 
 ### cv::ocl::Device::nativeVectorWidthInt
@@ -10876,7 +10876,7 @@ AutoIt:
 int cv::ocl::Device::nativeVectorWidthInt()
 
 AutoIt:
-    $device.nativeVectorWidthInt() -> retval
+    $oDevice.nativeVectorWidthInt() -> retval
 ```
 
 ### cv::ocl::Device::nativeVectorWidthLong
@@ -10885,7 +10885,7 @@ AutoIt:
 int cv::ocl::Device::nativeVectorWidthLong()
 
 AutoIt:
-    $device.nativeVectorWidthLong() -> retval
+    $oDevice.nativeVectorWidthLong() -> retval
 ```
 
 ### cv::ocl::Device::nativeVectorWidthFloat
@@ -10894,7 +10894,7 @@ AutoIt:
 int cv::ocl::Device::nativeVectorWidthFloat()
 
 AutoIt:
-    $device.nativeVectorWidthFloat() -> retval
+    $oDevice.nativeVectorWidthFloat() -> retval
 ```
 
 ### cv::ocl::Device::nativeVectorWidthDouble
@@ -10903,7 +10903,7 @@ AutoIt:
 int cv::ocl::Device::nativeVectorWidthDouble()
 
 AutoIt:
-    $device.nativeVectorWidthDouble() -> retval
+    $oDevice.nativeVectorWidthDouble() -> retval
 ```
 
 ### cv::ocl::Device::nativeVectorWidthHalf
@@ -10912,7 +10912,7 @@ AutoIt:
 int cv::ocl::Device::nativeVectorWidthHalf()
 
 AutoIt:
-    $device.nativeVectorWidthHalf() -> retval
+    $oDevice.nativeVectorWidthHalf() -> retval
 ```
 
 ### cv::ocl::Device::preferredVectorWidthChar
@@ -10921,7 +10921,7 @@ AutoIt:
 int cv::ocl::Device::preferredVectorWidthChar()
 
 AutoIt:
-    $device.preferredVectorWidthChar() -> retval
+    $oDevice.preferredVectorWidthChar() -> retval
 ```
 
 ### cv::ocl::Device::preferredVectorWidthShort
@@ -10930,7 +10930,7 @@ AutoIt:
 int cv::ocl::Device::preferredVectorWidthShort()
 
 AutoIt:
-    $device.preferredVectorWidthShort() -> retval
+    $oDevice.preferredVectorWidthShort() -> retval
 ```
 
 ### cv::ocl::Device::preferredVectorWidthInt
@@ -10939,7 +10939,7 @@ AutoIt:
 int cv::ocl::Device::preferredVectorWidthInt()
 
 AutoIt:
-    $device.preferredVectorWidthInt() -> retval
+    $oDevice.preferredVectorWidthInt() -> retval
 ```
 
 ### cv::ocl::Device::preferredVectorWidthLong
@@ -10948,7 +10948,7 @@ AutoIt:
 int cv::ocl::Device::preferredVectorWidthLong()
 
 AutoIt:
-    $device.preferredVectorWidthLong() -> retval
+    $oDevice.preferredVectorWidthLong() -> retval
 ```
 
 ### cv::ocl::Device::preferredVectorWidthFloat
@@ -10957,7 +10957,7 @@ AutoIt:
 int cv::ocl::Device::preferredVectorWidthFloat()
 
 AutoIt:
-    $device.preferredVectorWidthFloat() -> retval
+    $oDevice.preferredVectorWidthFloat() -> retval
 ```
 
 ### cv::ocl::Device::preferredVectorWidthDouble
@@ -10966,7 +10966,7 @@ AutoIt:
 int cv::ocl::Device::preferredVectorWidthDouble()
 
 AutoIt:
-    $device.preferredVectorWidthDouble() -> retval
+    $oDevice.preferredVectorWidthDouble() -> retval
 ```
 
 ### cv::ocl::Device::preferredVectorWidthHalf
@@ -10975,7 +10975,7 @@ AutoIt:
 int cv::ocl::Device::preferredVectorWidthHalf()
 
 AutoIt:
-    $device.preferredVectorWidthHalf() -> retval
+    $oDevice.preferredVectorWidthHalf() -> retval
 ```
 
 ### cv::ocl::Device::printfBufferSize
@@ -10984,7 +10984,7 @@ AutoIt:
 size_t cv::ocl::Device::printfBufferSize()
 
 AutoIt:
-    $device.printfBufferSize() -> retval
+    $oDevice.printfBufferSize() -> retval
 ```
 
 ### cv::ocl::Device::profilingTimerResolution
@@ -10993,7 +10993,7 @@ AutoIt:
 size_t cv::ocl::Device::profilingTimerResolution()
 
 AutoIt:
-    $device.profilingTimerResolution() -> retval
+    $oDevice.profilingTimerResolution() -> retval
 ```
 
 ### cv::ocl::Device::getDefault
@@ -11033,7 +11033,7 @@ bool cv::FileStorage::open( const std::string& filename,
                             const std::string& encoding = String() )
 
 AutoIt:
-    $fileStorage.open( $filename, $flags[, $encoding] ) -> retval
+    $oFileStorage.open( $filename, $flags[, $encoding] ) -> retval
 ```
 
 ### cv::FileStorage::isOpened
@@ -11042,7 +11042,7 @@ AutoIt:
 bool cv::FileStorage::isOpened()
 
 AutoIt:
-    $fileStorage.isOpened() -> retval
+    $oFileStorage.isOpened() -> retval
 ```
 
 ### cv::FileStorage::release
@@ -11051,7 +11051,7 @@ AutoIt:
 void cv::FileStorage::release()
 
 AutoIt:
-    $fileStorage.release() -> None
+    $oFileStorage.release() -> None
 ```
 
 ### cv::FileStorage::releaseAndGetString
@@ -11060,7 +11060,7 @@ AutoIt:
 std::string cv::FileStorage::releaseAndGetString()
 
 AutoIt:
-    $fileStorage.releaseAndGetString() -> retval
+    $oFileStorage.releaseAndGetString() -> retval
 ```
 
 ### cv::FileStorage::getFirstTopLevelNode
@@ -11069,7 +11069,7 @@ AutoIt:
 cv::FileNode cv::FileStorage::getFirstTopLevelNode()
 
 AutoIt:
-    $fileStorage.getFirstTopLevelNode() -> retval
+    $oFileStorage.getFirstTopLevelNode() -> retval
 ```
 
 ### cv::FileStorage::root
@@ -11078,7 +11078,7 @@ AutoIt:
 cv::FileNode cv::FileStorage::root( int streamidx = 0 )
 
 AutoIt:
-    $fileStorage.root( [$streamidx] ) -> retval
+    $oFileStorage.root( [$streamidx] ) -> retval
 ```
 
 ### cv::FileStorage::getNode
@@ -11087,7 +11087,7 @@ AutoIt:
 cv::FileNode cv::FileStorage::getNode( const char* nodename )
 
 AutoIt:
-    $fileStorage.getNode( $nodename ) -> retval
+    $oFileStorage.getNode( $nodename ) -> retval
 ```
 
 ### cv::FileStorage::write
@@ -11097,7 +11097,7 @@ void cv::FileStorage::write( const std::string& name,
                              int                val )
 
 AutoIt:
-    $fileStorage.write( $name, $val ) -> None
+    $oFileStorage.write( $name, $val ) -> None
 ```
 
 ```cpp
@@ -11105,7 +11105,7 @@ void cv::FileStorage::write( const std::string& name,
                              double             val )
 
 AutoIt:
-    $fileStorage.write( $name, $val ) -> None
+    $oFileStorage.write( $name, $val ) -> None
 ```
 
 ```cpp
@@ -11113,7 +11113,7 @@ void cv::FileStorage::write( const std::string& name,
                              const std::string& val )
 
 AutoIt:
-    $fileStorage.write( $name, $val ) -> None
+    $oFileStorage.write( $name, $val ) -> None
 ```
 
 ```cpp
@@ -11121,7 +11121,7 @@ void cv::FileStorage::write( const std::string& name,
                              const cv::Mat&     val )
 
 AutoIt:
-    $fileStorage.write( $name, $val ) -> None
+    $oFileStorage.write( $name, $val ) -> None
 ```
 
 ```cpp
@@ -11129,7 +11129,7 @@ void cv::FileStorage::write( const std::string&              name,
                              const std::vector<std::string>& val )
 
 AutoIt:
-    $fileStorage.write( $name, $val ) -> None
+    $oFileStorage.write( $name, $val ) -> None
 ```
 
 ### cv::FileStorage::writeComment
@@ -11139,7 +11139,7 @@ void cv::FileStorage::writeComment( const std::string& comment,
                                     bool               append = false )
 
 AutoIt:
-    $fileStorage.writeComment( $comment[, $append] ) -> None
+    $oFileStorage.writeComment( $comment[, $append] ) -> None
 ```
 
 ### cv::FileStorage::startWriteStruct
@@ -11150,7 +11150,7 @@ void cv::FileStorage::startWriteStruct( const std::string& name,
                                         const std::string& typeName = String() )
 
 AutoIt:
-    $fileStorage.startWriteStruct( $name, $flags[, $typeName] ) -> None
+    $oFileStorage.startWriteStruct( $name, $flags[, $typeName] ) -> None
 ```
 
 ### cv::FileStorage::endWriteStruct
@@ -11159,7 +11159,7 @@ AutoIt:
 void cv::FileStorage::endWriteStruct()
 
 AutoIt:
-    $fileStorage.endWriteStruct() -> None
+    $oFileStorage.endWriteStruct() -> None
 ```
 
 ### cv::FileStorage::getFormat
@@ -11168,7 +11168,7 @@ AutoIt:
 int cv::FileStorage::getFormat()
 
 AutoIt:
-    $fileStorage.getFormat() -> retval
+    $oFileStorage.getFormat() -> retval
 ```
 
 ## cv::FileNode
@@ -11188,7 +11188,7 @@ AutoIt:
 cv::FileNode cv::FileNode::getNode( const char* nodename )
 
 AutoIt:
-    $fileNode.getNode( $nodename ) -> retval
+    $oFileNode.getNode( $nodename ) -> retval
 ```
 
 ### cv::FileNode::at
@@ -11197,7 +11197,7 @@ AutoIt:
 cv::FileNode cv::FileNode::at( int i )
 
 AutoIt:
-    $fileNode.at( $i ) -> retval
+    $oFileNode.at( $i ) -> retval
 ```
 
 ### cv::FileNode::keys
@@ -11206,7 +11206,7 @@ AutoIt:
 std::vector<std::string> cv::FileNode::keys()
 
 AutoIt:
-    $fileNode.keys() -> retval
+    $oFileNode.keys() -> retval
 ```
 
 ### cv::FileNode::type
@@ -11215,7 +11215,7 @@ AutoIt:
 int cv::FileNode::type()
 
 AutoIt:
-    $fileNode.type() -> retval
+    $oFileNode.type() -> retval
 ```
 
 ### cv::FileNode::empty
@@ -11224,7 +11224,7 @@ AutoIt:
 bool cv::FileNode::empty()
 
 AutoIt:
-    $fileNode.empty() -> retval
+    $oFileNode.empty() -> retval
 ```
 
 ### cv::FileNode::isNone
@@ -11233,7 +11233,7 @@ AutoIt:
 bool cv::FileNode::isNone()
 
 AutoIt:
-    $fileNode.isNone() -> retval
+    $oFileNode.isNone() -> retval
 ```
 
 ### cv::FileNode::isSeq
@@ -11242,7 +11242,7 @@ AutoIt:
 bool cv::FileNode::isSeq()
 
 AutoIt:
-    $fileNode.isSeq() -> retval
+    $oFileNode.isSeq() -> retval
 ```
 
 ### cv::FileNode::isMap
@@ -11251,7 +11251,7 @@ AutoIt:
 bool cv::FileNode::isMap()
 
 AutoIt:
-    $fileNode.isMap() -> retval
+    $oFileNode.isMap() -> retval
 ```
 
 ### cv::FileNode::isInt
@@ -11260,7 +11260,7 @@ AutoIt:
 bool cv::FileNode::isInt()
 
 AutoIt:
-    $fileNode.isInt() -> retval
+    $oFileNode.isInt() -> retval
 ```
 
 ### cv::FileNode::isReal
@@ -11269,7 +11269,7 @@ AutoIt:
 bool cv::FileNode::isReal()
 
 AutoIt:
-    $fileNode.isReal() -> retval
+    $oFileNode.isReal() -> retval
 ```
 
 ### cv::FileNode::isString
@@ -11278,7 +11278,7 @@ AutoIt:
 bool cv::FileNode::isString()
 
 AutoIt:
-    $fileNode.isString() -> retval
+    $oFileNode.isString() -> retval
 ```
 
 ### cv::FileNode::isNamed
@@ -11287,7 +11287,7 @@ AutoIt:
 bool cv::FileNode::isNamed()
 
 AutoIt:
-    $fileNode.isNamed() -> retval
+    $oFileNode.isNamed() -> retval
 ```
 
 ### cv::FileNode::name
@@ -11296,7 +11296,7 @@ AutoIt:
 std::string cv::FileNode::name()
 
 AutoIt:
-    $fileNode.name() -> retval
+    $oFileNode.name() -> retval
 ```
 
 ### cv::FileNode::size
@@ -11305,7 +11305,7 @@ AutoIt:
 size_t cv::FileNode::size()
 
 AutoIt:
-    $fileNode.size() -> retval
+    $oFileNode.size() -> retval
 ```
 
 ### cv::FileNode::rawSize
@@ -11314,7 +11314,7 @@ AutoIt:
 size_t cv::FileNode::rawSize()
 
 AutoIt:
-    $fileNode.rawSize() -> retval
+    $oFileNode.rawSize() -> retval
 ```
 
 ### cv::FileNode::real
@@ -11323,7 +11323,7 @@ AutoIt:
 double cv::FileNode::real()
 
 AutoIt:
-    $fileNode.real() -> retval
+    $oFileNode.real() -> retval
 ```
 
 ### cv::FileNode::string
@@ -11332,7 +11332,7 @@ AutoIt:
 std::string cv::FileNode::string()
 
 AutoIt:
-    $fileNode.string() -> retval
+    $oFileNode.string() -> retval
 ```
 
 ### cv::FileNode::mat
@@ -11341,7 +11341,7 @@ AutoIt:
 cv::Mat cv::FileNode::mat()
 
 AutoIt:
-    $fileNode.mat() -> retval
+    $oFileNode.mat() -> retval
 ```
 
 ## cv::KeyPoint
@@ -11459,7 +11459,7 @@ AutoIt:
 void cv::TickMeter::start()
 
 AutoIt:
-    $tickMeter.start() -> None
+    $oTickMeter.start() -> None
 ```
 
 ### cv::TickMeter::stop
@@ -11468,7 +11468,7 @@ AutoIt:
 void cv::TickMeter::stop()
 
 AutoIt:
-    $tickMeter.stop() -> None
+    $oTickMeter.stop() -> None
 ```
 
 ### cv::TickMeter::getTimeTicks
@@ -11477,7 +11477,7 @@ AutoIt:
 int64 cv::TickMeter::getTimeTicks()
 
 AutoIt:
-    $tickMeter.getTimeTicks() -> retval
+    $oTickMeter.getTimeTicks() -> retval
 ```
 
 ### cv::TickMeter::getTimeMicro
@@ -11486,7 +11486,7 @@ AutoIt:
 double cv::TickMeter::getTimeMicro()
 
 AutoIt:
-    $tickMeter.getTimeMicro() -> retval
+    $oTickMeter.getTimeMicro() -> retval
 ```
 
 ### cv::TickMeter::getTimeMilli
@@ -11495,7 +11495,7 @@ AutoIt:
 double cv::TickMeter::getTimeMilli()
 
 AutoIt:
-    $tickMeter.getTimeMilli() -> retval
+    $oTickMeter.getTimeMilli() -> retval
 ```
 
 ### cv::TickMeter::getTimeSec
@@ -11504,7 +11504,7 @@ AutoIt:
 double cv::TickMeter::getTimeSec()
 
 AutoIt:
-    $tickMeter.getTimeSec() -> retval
+    $oTickMeter.getTimeSec() -> retval
 ```
 
 ### cv::TickMeter::getCounter
@@ -11513,7 +11513,7 @@ AutoIt:
 int64 cv::TickMeter::getCounter()
 
 AutoIt:
-    $tickMeter.getCounter() -> retval
+    $oTickMeter.getCounter() -> retval
 ```
 
 ### cv::TickMeter::getFPS
@@ -11522,7 +11522,7 @@ AutoIt:
 double cv::TickMeter::getFPS()
 
 AutoIt:
-    $tickMeter.getFPS() -> retval
+    $oTickMeter.getFPS() -> retval
 ```
 
 ### cv::TickMeter::getAvgTimeSec
@@ -11531,7 +11531,7 @@ AutoIt:
 double cv::TickMeter::getAvgTimeSec()
 
 AutoIt:
-    $tickMeter.getAvgTimeSec() -> retval
+    $oTickMeter.getAvgTimeSec() -> retval
 ```
 
 ### cv::TickMeter::getAvgTimeMilli
@@ -11540,7 +11540,7 @@ AutoIt:
 double cv::TickMeter::getAvgTimeMilli()
 
 AutoIt:
-    $tickMeter.getAvgTimeMilli() -> retval
+    $oTickMeter.getAvgTimeMilli() -> retval
 ```
 
 ### cv::TickMeter::reset
@@ -11549,7 +11549,7 @@ AutoIt:
 void cv::TickMeter::reset()
 
 AutoIt:
-    $tickMeter.reset() -> None
+    $oTickMeter.reset() -> None
 ```
 
 ## cv::samples
@@ -11621,7 +11621,7 @@ void cv::flann::Index::build( _InputArray        features,
                               int                distType = cvflann::FLANN_DIST_L2 )
 
 AutoIt:
-    $index.build( $features, $params[, $distType] ) -> None
+    $oIndex.build( $features, $params[, $distType] ) -> None
 ```
 
 ### cv::flann::Index::knnSearch
@@ -11634,7 +11634,7 @@ void cv::flann::Index::knnSearch( _InputArray         query,
                                   const SearchParams& params = SearchParams() )
 
 AutoIt:
-    $index.knnSearch( $query, $knn[, $indices[, $dists[, $params]]] ) -> $indices, $dists
+    $oIndex.knnSearch( $query, $knn[, $indices[, $dists[, $params]]] ) -> $indices, $dists
 ```
 
 ### cv::flann::Index::radiusSearch
@@ -11648,7 +11648,7 @@ int cv::flann::Index::radiusSearch( _InputArray         query,
                                     const SearchParams& params = SearchParams() )
 
 AutoIt:
-    $index.radiusSearch( $query, $radius, $maxResults[, $indices[, $dists[, $params]]] ) -> retval, $indices, $dists
+    $oIndex.radiusSearch( $query, $radius, $maxResults[, $indices[, $dists[, $params]]] ) -> retval, $indices, $dists
 ```
 
 ### cv::flann::Index::save
@@ -11657,7 +11657,7 @@ AutoIt:
 void cv::flann::Index::save( const std::string& filename )
 
 AutoIt:
-    $index.save( $filename ) -> None
+    $oIndex.save( $filename ) -> None
 ```
 
 ### cv::flann::Index::load
@@ -11667,7 +11667,7 @@ bool cv::flann::Index::load( _InputArray        features,
                              const std::string& filename )
 
 AutoIt:
-    $index.load( $features, $filename ) -> retval
+    $oIndex.load( $features, $filename ) -> retval
 ```
 
 ### cv::flann::Index::release
@@ -11676,7 +11676,7 @@ AutoIt:
 void cv::flann::Index::release()
 
 AutoIt:
-    $index.release() -> None
+    $oIndex.release() -> None
 ```
 
 ### cv::flann::Index::getDistance
@@ -11685,7 +11685,7 @@ AutoIt:
 int cv::flann::Index::getDistance()
 
 AutoIt:
-    $index.getDistance() -> retval
+    $oIndex.getDistance() -> retval
 ```
 
 ### cv::flann::Index::getAlgorithm
@@ -11694,7 +11694,7 @@ AutoIt:
 int cv::flann::Index::getAlgorithm()
 
 AutoIt:
-    $index.getAlgorithm() -> retval
+    $oIndex.getAlgorithm() -> retval
 ```
 
 ## cv::GeneralizedHough
@@ -11706,7 +11706,7 @@ void cv::GeneralizedHough::setTemplate( _InputArray templ,
                                         cv::Point   templCenter = Point(-1, -1) )
 
 AutoIt:
-    $generalizedHough.setTemplate( $templ[, $templCenter] ) -> None
+    $oGeneralizedHough.setTemplate( $templ[, $templCenter] ) -> None
 ```
 
 ```cpp
@@ -11716,7 +11716,7 @@ void cv::GeneralizedHough::setTemplate( _InputArray edges,
                                         cv::Point   templCenter = Point(-1, -1) )
 
 AutoIt:
-    $generalizedHough.setTemplate( $edges, $dx, $dy[, $templCenter] ) -> None
+    $oGeneralizedHough.setTemplate( $edges, $dx, $dy[, $templCenter] ) -> None
 ```
 
 ### cv::GeneralizedHough::detect
@@ -11727,7 +11727,7 @@ void cv::GeneralizedHough::detect( _InputArray  image,
                                    _OutputArray votes = noArray() )
 
 AutoIt:
-    $generalizedHough.detect( $image[, $positions[, $votes]] ) -> $positions, $votes
+    $oGeneralizedHough.detect( $image[, $positions[, $votes]] ) -> $positions, $votes
 ```
 
 ```cpp
@@ -11738,7 +11738,7 @@ void cv::GeneralizedHough::detect( _InputArray  edges,
                                    _OutputArray votes = noArray() )
 
 AutoIt:
-    $generalizedHough.detect( $edges, $dx, $dy[, $positions[, $votes]] ) -> $positions, $votes
+    $oGeneralizedHough.detect( $edges, $dx, $dy[, $positions[, $votes]] ) -> $positions, $votes
 ```
 
 ### cv::GeneralizedHough::setCannyLowThresh
@@ -11747,7 +11747,7 @@ AutoIt:
 void cv::GeneralizedHough::setCannyLowThresh( int cannyLowThresh )
 
 AutoIt:
-    $generalizedHough.setCannyLowThresh( $cannyLowThresh ) -> None
+    $oGeneralizedHough.setCannyLowThresh( $cannyLowThresh ) -> None
 ```
 
 ### cv::GeneralizedHough::getCannyLowThresh
@@ -11756,7 +11756,7 @@ AutoIt:
 int cv::GeneralizedHough::getCannyLowThresh()
 
 AutoIt:
-    $generalizedHough.getCannyLowThresh() -> retval
+    $oGeneralizedHough.getCannyLowThresh() -> retval
 ```
 
 ### cv::GeneralizedHough::setCannyHighThresh
@@ -11765,7 +11765,7 @@ AutoIt:
 void cv::GeneralizedHough::setCannyHighThresh( int cannyHighThresh )
 
 AutoIt:
-    $generalizedHough.setCannyHighThresh( $cannyHighThresh ) -> None
+    $oGeneralizedHough.setCannyHighThresh( $cannyHighThresh ) -> None
 ```
 
 ### cv::GeneralizedHough::getCannyHighThresh
@@ -11774,7 +11774,7 @@ AutoIt:
 int cv::GeneralizedHough::getCannyHighThresh()
 
 AutoIt:
-    $generalizedHough.getCannyHighThresh() -> retval
+    $oGeneralizedHough.getCannyHighThresh() -> retval
 ```
 
 ### cv::GeneralizedHough::setMinDist
@@ -11783,7 +11783,7 @@ AutoIt:
 void cv::GeneralizedHough::setMinDist( double minDist )
 
 AutoIt:
-    $generalizedHough.setMinDist( $minDist ) -> None
+    $oGeneralizedHough.setMinDist( $minDist ) -> None
 ```
 
 ### cv::GeneralizedHough::getMinDist
@@ -11792,7 +11792,7 @@ AutoIt:
 double cv::GeneralizedHough::getMinDist()
 
 AutoIt:
-    $generalizedHough.getMinDist() -> retval
+    $oGeneralizedHough.getMinDist() -> retval
 ```
 
 ### cv::GeneralizedHough::setDp
@@ -11801,7 +11801,7 @@ AutoIt:
 void cv::GeneralizedHough::setDp( double dp )
 
 AutoIt:
-    $generalizedHough.setDp( $dp ) -> None
+    $oGeneralizedHough.setDp( $dp ) -> None
 ```
 
 ### cv::GeneralizedHough::getDp
@@ -11810,7 +11810,7 @@ AutoIt:
 double cv::GeneralizedHough::getDp()
 
 AutoIt:
-    $generalizedHough.getDp() -> retval
+    $oGeneralizedHough.getDp() -> retval
 ```
 
 ### cv::GeneralizedHough::setMaxBufferSize
@@ -11819,7 +11819,7 @@ AutoIt:
 void cv::GeneralizedHough::setMaxBufferSize( int maxBufferSize )
 
 AutoIt:
-    $generalizedHough.setMaxBufferSize( $maxBufferSize ) -> None
+    $oGeneralizedHough.setMaxBufferSize( $maxBufferSize ) -> None
 ```
 
 ### cv::GeneralizedHough::getMaxBufferSize
@@ -11828,7 +11828,7 @@ AutoIt:
 int cv::GeneralizedHough::getMaxBufferSize()
 
 AutoIt:
-    $generalizedHough.getMaxBufferSize() -> retval
+    $oGeneralizedHough.getMaxBufferSize() -> retval
 ```
 
 ### cv::GeneralizedHough::clear
@@ -11837,7 +11837,7 @@ AutoIt:
 void cv::GeneralizedHough::clear()
 
 AutoIt:
-    $generalizedHough.clear() -> None
+    $oGeneralizedHough.clear() -> None
 ```
 
 ### cv::GeneralizedHough::write
@@ -11847,7 +11847,7 @@ void cv::GeneralizedHough::write( const cv::Ptr<cv::FileStorage>& fs,
                                   const std::string&              name = String() )
 
 AutoIt:
-    $generalizedHough.write( $fs[, $name] ) -> None
+    $oGeneralizedHough.write( $fs[, $name] ) -> None
 ```
 
 ### cv::GeneralizedHough::read
@@ -11856,7 +11856,7 @@ AutoIt:
 void cv::GeneralizedHough::read( const cv::FileNode& fn )
 
 AutoIt:
-    $generalizedHough.read( $fn ) -> None
+    $oGeneralizedHough.read( $fn ) -> None
 ```
 
 ### cv::GeneralizedHough::empty
@@ -11865,7 +11865,7 @@ AutoIt:
 bool cv::GeneralizedHough::empty()
 
 AutoIt:
-    $generalizedHough.empty() -> retval
+    $oGeneralizedHough.empty() -> retval
 ```
 
 ### cv::GeneralizedHough::save
@@ -11874,7 +11874,7 @@ AutoIt:
 void cv::GeneralizedHough::save( const std::string& filename )
 
 AutoIt:
-    $generalizedHough.save( $filename ) -> None
+    $oGeneralizedHough.save( $filename ) -> None
 ```
 
 ### cv::GeneralizedHough::getDefaultName
@@ -11883,7 +11883,7 @@ AutoIt:
 std::string cv::GeneralizedHough::getDefaultName()
 
 AutoIt:
-    $generalizedHough.getDefaultName() -> retval
+    $oGeneralizedHough.getDefaultName() -> retval
 ```
 
 ## cv::GeneralizedHoughBallard
@@ -11894,7 +11894,7 @@ AutoIt:
 void cv::GeneralizedHoughBallard::setLevels( int levels )
 
 AutoIt:
-    $generalizedHoughBallard.setLevels( $levels ) -> None
+    $oGeneralizedHoughBallard.setLevels( $levels ) -> None
 ```
 
 ### cv::GeneralizedHoughBallard::getLevels
@@ -11903,7 +11903,7 @@ AutoIt:
 int cv::GeneralizedHoughBallard::getLevels()
 
 AutoIt:
-    $generalizedHoughBallard.getLevels() -> retval
+    $oGeneralizedHoughBallard.getLevels() -> retval
 ```
 
 ### cv::GeneralizedHoughBallard::setVotesThreshold
@@ -11912,7 +11912,7 @@ AutoIt:
 void cv::GeneralizedHoughBallard::setVotesThreshold( int votesThreshold )
 
 AutoIt:
-    $generalizedHoughBallard.setVotesThreshold( $votesThreshold ) -> None
+    $oGeneralizedHoughBallard.setVotesThreshold( $votesThreshold ) -> None
 ```
 
 ### cv::GeneralizedHoughBallard::getVotesThreshold
@@ -11921,7 +11921,7 @@ AutoIt:
 int cv::GeneralizedHoughBallard::getVotesThreshold()
 
 AutoIt:
-    $generalizedHoughBallard.getVotesThreshold() -> retval
+    $oGeneralizedHoughBallard.getVotesThreshold() -> retval
 ```
 
 ### cv::GeneralizedHoughBallard::setTemplate
@@ -11931,7 +11931,7 @@ void cv::GeneralizedHoughBallard::setTemplate( _InputArray templ,
                                                cv::Point   templCenter = Point(-1, -1) )
 
 AutoIt:
-    $generalizedHoughBallard.setTemplate( $templ[, $templCenter] ) -> None
+    $oGeneralizedHoughBallard.setTemplate( $templ[, $templCenter] ) -> None
 ```
 
 ```cpp
@@ -11941,7 +11941,7 @@ void cv::GeneralizedHoughBallard::setTemplate( _InputArray edges,
                                                cv::Point   templCenter = Point(-1, -1) )
 
 AutoIt:
-    $generalizedHoughBallard.setTemplate( $edges, $dx, $dy[, $templCenter] ) -> None
+    $oGeneralizedHoughBallard.setTemplate( $edges, $dx, $dy[, $templCenter] ) -> None
 ```
 
 ### cv::GeneralizedHoughBallard::detect
@@ -11952,7 +11952,7 @@ void cv::GeneralizedHoughBallard::detect( _InputArray  image,
                                           _OutputArray votes = noArray() )
 
 AutoIt:
-    $generalizedHoughBallard.detect( $image[, $positions[, $votes]] ) -> $positions, $votes
+    $oGeneralizedHoughBallard.detect( $image[, $positions[, $votes]] ) -> $positions, $votes
 ```
 
 ```cpp
@@ -11963,7 +11963,7 @@ void cv::GeneralizedHoughBallard::detect( _InputArray  edges,
                                           _OutputArray votes = noArray() )
 
 AutoIt:
-    $generalizedHoughBallard.detect( $edges, $dx, $dy[, $positions[, $votes]] ) -> $positions, $votes
+    $oGeneralizedHoughBallard.detect( $edges, $dx, $dy[, $positions[, $votes]] ) -> $positions, $votes
 ```
 
 ### cv::GeneralizedHoughBallard::setCannyLowThresh
@@ -11972,7 +11972,7 @@ AutoIt:
 void cv::GeneralizedHoughBallard::setCannyLowThresh( int cannyLowThresh )
 
 AutoIt:
-    $generalizedHoughBallard.setCannyLowThresh( $cannyLowThresh ) -> None
+    $oGeneralizedHoughBallard.setCannyLowThresh( $cannyLowThresh ) -> None
 ```
 
 ### cv::GeneralizedHoughBallard::getCannyLowThresh
@@ -11981,7 +11981,7 @@ AutoIt:
 int cv::GeneralizedHoughBallard::getCannyLowThresh()
 
 AutoIt:
-    $generalizedHoughBallard.getCannyLowThresh() -> retval
+    $oGeneralizedHoughBallard.getCannyLowThresh() -> retval
 ```
 
 ### cv::GeneralizedHoughBallard::setCannyHighThresh
@@ -11990,7 +11990,7 @@ AutoIt:
 void cv::GeneralizedHoughBallard::setCannyHighThresh( int cannyHighThresh )
 
 AutoIt:
-    $generalizedHoughBallard.setCannyHighThresh( $cannyHighThresh ) -> None
+    $oGeneralizedHoughBallard.setCannyHighThresh( $cannyHighThresh ) -> None
 ```
 
 ### cv::GeneralizedHoughBallard::getCannyHighThresh
@@ -11999,7 +11999,7 @@ AutoIt:
 int cv::GeneralizedHoughBallard::getCannyHighThresh()
 
 AutoIt:
-    $generalizedHoughBallard.getCannyHighThresh() -> retval
+    $oGeneralizedHoughBallard.getCannyHighThresh() -> retval
 ```
 
 ### cv::GeneralizedHoughBallard::setMinDist
@@ -12008,7 +12008,7 @@ AutoIt:
 void cv::GeneralizedHoughBallard::setMinDist( double minDist )
 
 AutoIt:
-    $generalizedHoughBallard.setMinDist( $minDist ) -> None
+    $oGeneralizedHoughBallard.setMinDist( $minDist ) -> None
 ```
 
 ### cv::GeneralizedHoughBallard::getMinDist
@@ -12017,7 +12017,7 @@ AutoIt:
 double cv::GeneralizedHoughBallard::getMinDist()
 
 AutoIt:
-    $generalizedHoughBallard.getMinDist() -> retval
+    $oGeneralizedHoughBallard.getMinDist() -> retval
 ```
 
 ### cv::GeneralizedHoughBallard::setDp
@@ -12026,7 +12026,7 @@ AutoIt:
 void cv::GeneralizedHoughBallard::setDp( double dp )
 
 AutoIt:
-    $generalizedHoughBallard.setDp( $dp ) -> None
+    $oGeneralizedHoughBallard.setDp( $dp ) -> None
 ```
 
 ### cv::GeneralizedHoughBallard::getDp
@@ -12035,7 +12035,7 @@ AutoIt:
 double cv::GeneralizedHoughBallard::getDp()
 
 AutoIt:
-    $generalizedHoughBallard.getDp() -> retval
+    $oGeneralizedHoughBallard.getDp() -> retval
 ```
 
 ### cv::GeneralizedHoughBallard::setMaxBufferSize
@@ -12044,7 +12044,7 @@ AutoIt:
 void cv::GeneralizedHoughBallard::setMaxBufferSize( int maxBufferSize )
 
 AutoIt:
-    $generalizedHoughBallard.setMaxBufferSize( $maxBufferSize ) -> None
+    $oGeneralizedHoughBallard.setMaxBufferSize( $maxBufferSize ) -> None
 ```
 
 ### cv::GeneralizedHoughBallard::getMaxBufferSize
@@ -12053,7 +12053,7 @@ AutoIt:
 int cv::GeneralizedHoughBallard::getMaxBufferSize()
 
 AutoIt:
-    $generalizedHoughBallard.getMaxBufferSize() -> retval
+    $oGeneralizedHoughBallard.getMaxBufferSize() -> retval
 ```
 
 ### cv::GeneralizedHoughBallard::clear
@@ -12062,7 +12062,7 @@ AutoIt:
 void cv::GeneralizedHoughBallard::clear()
 
 AutoIt:
-    $generalizedHoughBallard.clear() -> None
+    $oGeneralizedHoughBallard.clear() -> None
 ```
 
 ### cv::GeneralizedHoughBallard::write
@@ -12072,7 +12072,7 @@ void cv::GeneralizedHoughBallard::write( const cv::Ptr<cv::FileStorage>& fs,
                                          const std::string&              name = String() )
 
 AutoIt:
-    $generalizedHoughBallard.write( $fs[, $name] ) -> None
+    $oGeneralizedHoughBallard.write( $fs[, $name] ) -> None
 ```
 
 ### cv::GeneralizedHoughBallard::read
@@ -12081,7 +12081,7 @@ AutoIt:
 void cv::GeneralizedHoughBallard::read( const cv::FileNode& fn )
 
 AutoIt:
-    $generalizedHoughBallard.read( $fn ) -> None
+    $oGeneralizedHoughBallard.read( $fn ) -> None
 ```
 
 ### cv::GeneralizedHoughBallard::empty
@@ -12090,7 +12090,7 @@ AutoIt:
 bool cv::GeneralizedHoughBallard::empty()
 
 AutoIt:
-    $generalizedHoughBallard.empty() -> retval
+    $oGeneralizedHoughBallard.empty() -> retval
 ```
 
 ### cv::GeneralizedHoughBallard::save
@@ -12099,7 +12099,7 @@ AutoIt:
 void cv::GeneralizedHoughBallard::save( const std::string& filename )
 
 AutoIt:
-    $generalizedHoughBallard.save( $filename ) -> None
+    $oGeneralizedHoughBallard.save( $filename ) -> None
 ```
 
 ### cv::GeneralizedHoughBallard::getDefaultName
@@ -12108,7 +12108,7 @@ AutoIt:
 std::string cv::GeneralizedHoughBallard::getDefaultName()
 
 AutoIt:
-    $generalizedHoughBallard.getDefaultName() -> retval
+    $oGeneralizedHoughBallard.getDefaultName() -> retval
 ```
 
 ## cv::GeneralizedHoughGuil
@@ -12119,7 +12119,7 @@ AutoIt:
 void cv::GeneralizedHoughGuil::setXi( double xi )
 
 AutoIt:
-    $generalizedHoughGuil.setXi( $xi ) -> None
+    $oGeneralizedHoughGuil.setXi( $xi ) -> None
 ```
 
 ### cv::GeneralizedHoughGuil::getXi
@@ -12128,7 +12128,7 @@ AutoIt:
 double cv::GeneralizedHoughGuil::getXi()
 
 AutoIt:
-    $generalizedHoughGuil.getXi() -> retval
+    $oGeneralizedHoughGuil.getXi() -> retval
 ```
 
 ### cv::GeneralizedHoughGuil::setLevels
@@ -12137,7 +12137,7 @@ AutoIt:
 void cv::GeneralizedHoughGuil::setLevels( int levels )
 
 AutoIt:
-    $generalizedHoughGuil.setLevels( $levels ) -> None
+    $oGeneralizedHoughGuil.setLevels( $levels ) -> None
 ```
 
 ### cv::GeneralizedHoughGuil::getLevels
@@ -12146,7 +12146,7 @@ AutoIt:
 int cv::GeneralizedHoughGuil::getLevels()
 
 AutoIt:
-    $generalizedHoughGuil.getLevels() -> retval
+    $oGeneralizedHoughGuil.getLevels() -> retval
 ```
 
 ### cv::GeneralizedHoughGuil::setAngleEpsilon
@@ -12155,7 +12155,7 @@ AutoIt:
 void cv::GeneralizedHoughGuil::setAngleEpsilon( double angleEpsilon )
 
 AutoIt:
-    $generalizedHoughGuil.setAngleEpsilon( $angleEpsilon ) -> None
+    $oGeneralizedHoughGuil.setAngleEpsilon( $angleEpsilon ) -> None
 ```
 
 ### cv::GeneralizedHoughGuil::getAngleEpsilon
@@ -12164,7 +12164,7 @@ AutoIt:
 double cv::GeneralizedHoughGuil::getAngleEpsilon()
 
 AutoIt:
-    $generalizedHoughGuil.getAngleEpsilon() -> retval
+    $oGeneralizedHoughGuil.getAngleEpsilon() -> retval
 ```
 
 ### cv::GeneralizedHoughGuil::setMinAngle
@@ -12173,7 +12173,7 @@ AutoIt:
 void cv::GeneralizedHoughGuil::setMinAngle( double minAngle )
 
 AutoIt:
-    $generalizedHoughGuil.setMinAngle( $minAngle ) -> None
+    $oGeneralizedHoughGuil.setMinAngle( $minAngle ) -> None
 ```
 
 ### cv::GeneralizedHoughGuil::getMinAngle
@@ -12182,7 +12182,7 @@ AutoIt:
 double cv::GeneralizedHoughGuil::getMinAngle()
 
 AutoIt:
-    $generalizedHoughGuil.getMinAngle() -> retval
+    $oGeneralizedHoughGuil.getMinAngle() -> retval
 ```
 
 ### cv::GeneralizedHoughGuil::setMaxAngle
@@ -12191,7 +12191,7 @@ AutoIt:
 void cv::GeneralizedHoughGuil::setMaxAngle( double maxAngle )
 
 AutoIt:
-    $generalizedHoughGuil.setMaxAngle( $maxAngle ) -> None
+    $oGeneralizedHoughGuil.setMaxAngle( $maxAngle ) -> None
 ```
 
 ### cv::GeneralizedHoughGuil::getMaxAngle
@@ -12200,7 +12200,7 @@ AutoIt:
 double cv::GeneralizedHoughGuil::getMaxAngle()
 
 AutoIt:
-    $generalizedHoughGuil.getMaxAngle() -> retval
+    $oGeneralizedHoughGuil.getMaxAngle() -> retval
 ```
 
 ### cv::GeneralizedHoughGuil::setAngleStep
@@ -12209,7 +12209,7 @@ AutoIt:
 void cv::GeneralizedHoughGuil::setAngleStep( double angleStep )
 
 AutoIt:
-    $generalizedHoughGuil.setAngleStep( $angleStep ) -> None
+    $oGeneralizedHoughGuil.setAngleStep( $angleStep ) -> None
 ```
 
 ### cv::GeneralizedHoughGuil::getAngleStep
@@ -12218,7 +12218,7 @@ AutoIt:
 double cv::GeneralizedHoughGuil::getAngleStep()
 
 AutoIt:
-    $generalizedHoughGuil.getAngleStep() -> retval
+    $oGeneralizedHoughGuil.getAngleStep() -> retval
 ```
 
 ### cv::GeneralizedHoughGuil::setAngleThresh
@@ -12227,7 +12227,7 @@ AutoIt:
 void cv::GeneralizedHoughGuil::setAngleThresh( int angleThresh )
 
 AutoIt:
-    $generalizedHoughGuil.setAngleThresh( $angleThresh ) -> None
+    $oGeneralizedHoughGuil.setAngleThresh( $angleThresh ) -> None
 ```
 
 ### cv::GeneralizedHoughGuil::getAngleThresh
@@ -12236,7 +12236,7 @@ AutoIt:
 int cv::GeneralizedHoughGuil::getAngleThresh()
 
 AutoIt:
-    $generalizedHoughGuil.getAngleThresh() -> retval
+    $oGeneralizedHoughGuil.getAngleThresh() -> retval
 ```
 
 ### cv::GeneralizedHoughGuil::setMinScale
@@ -12245,7 +12245,7 @@ AutoIt:
 void cv::GeneralizedHoughGuil::setMinScale( double minScale )
 
 AutoIt:
-    $generalizedHoughGuil.setMinScale( $minScale ) -> None
+    $oGeneralizedHoughGuil.setMinScale( $minScale ) -> None
 ```
 
 ### cv::GeneralizedHoughGuil::getMinScale
@@ -12254,7 +12254,7 @@ AutoIt:
 double cv::GeneralizedHoughGuil::getMinScale()
 
 AutoIt:
-    $generalizedHoughGuil.getMinScale() -> retval
+    $oGeneralizedHoughGuil.getMinScale() -> retval
 ```
 
 ### cv::GeneralizedHoughGuil::setMaxScale
@@ -12263,7 +12263,7 @@ AutoIt:
 void cv::GeneralizedHoughGuil::setMaxScale( double maxScale )
 
 AutoIt:
-    $generalizedHoughGuil.setMaxScale( $maxScale ) -> None
+    $oGeneralizedHoughGuil.setMaxScale( $maxScale ) -> None
 ```
 
 ### cv::GeneralizedHoughGuil::getMaxScale
@@ -12272,7 +12272,7 @@ AutoIt:
 double cv::GeneralizedHoughGuil::getMaxScale()
 
 AutoIt:
-    $generalizedHoughGuil.getMaxScale() -> retval
+    $oGeneralizedHoughGuil.getMaxScale() -> retval
 ```
 
 ### cv::GeneralizedHoughGuil::setScaleStep
@@ -12281,7 +12281,7 @@ AutoIt:
 void cv::GeneralizedHoughGuil::setScaleStep( double scaleStep )
 
 AutoIt:
-    $generalizedHoughGuil.setScaleStep( $scaleStep ) -> None
+    $oGeneralizedHoughGuil.setScaleStep( $scaleStep ) -> None
 ```
 
 ### cv::GeneralizedHoughGuil::getScaleStep
@@ -12290,7 +12290,7 @@ AutoIt:
 double cv::GeneralizedHoughGuil::getScaleStep()
 
 AutoIt:
-    $generalizedHoughGuil.getScaleStep() -> retval
+    $oGeneralizedHoughGuil.getScaleStep() -> retval
 ```
 
 ### cv::GeneralizedHoughGuil::setScaleThresh
@@ -12299,7 +12299,7 @@ AutoIt:
 void cv::GeneralizedHoughGuil::setScaleThresh( int scaleThresh )
 
 AutoIt:
-    $generalizedHoughGuil.setScaleThresh( $scaleThresh ) -> None
+    $oGeneralizedHoughGuil.setScaleThresh( $scaleThresh ) -> None
 ```
 
 ### cv::GeneralizedHoughGuil::getScaleThresh
@@ -12308,7 +12308,7 @@ AutoIt:
 int cv::GeneralizedHoughGuil::getScaleThresh()
 
 AutoIt:
-    $generalizedHoughGuil.getScaleThresh() -> retval
+    $oGeneralizedHoughGuil.getScaleThresh() -> retval
 ```
 
 ### cv::GeneralizedHoughGuil::setPosThresh
@@ -12317,7 +12317,7 @@ AutoIt:
 void cv::GeneralizedHoughGuil::setPosThresh( int posThresh )
 
 AutoIt:
-    $generalizedHoughGuil.setPosThresh( $posThresh ) -> None
+    $oGeneralizedHoughGuil.setPosThresh( $posThresh ) -> None
 ```
 
 ### cv::GeneralizedHoughGuil::getPosThresh
@@ -12326,7 +12326,7 @@ AutoIt:
 int cv::GeneralizedHoughGuil::getPosThresh()
 
 AutoIt:
-    $generalizedHoughGuil.getPosThresh() -> retval
+    $oGeneralizedHoughGuil.getPosThresh() -> retval
 ```
 
 ### cv::GeneralizedHoughGuil::setTemplate
@@ -12336,7 +12336,7 @@ void cv::GeneralizedHoughGuil::setTemplate( _InputArray templ,
                                             cv::Point   templCenter = Point(-1, -1) )
 
 AutoIt:
-    $generalizedHoughGuil.setTemplate( $templ[, $templCenter] ) -> None
+    $oGeneralizedHoughGuil.setTemplate( $templ[, $templCenter] ) -> None
 ```
 
 ```cpp
@@ -12346,7 +12346,7 @@ void cv::GeneralizedHoughGuil::setTemplate( _InputArray edges,
                                             cv::Point   templCenter = Point(-1, -1) )
 
 AutoIt:
-    $generalizedHoughGuil.setTemplate( $edges, $dx, $dy[, $templCenter] ) -> None
+    $oGeneralizedHoughGuil.setTemplate( $edges, $dx, $dy[, $templCenter] ) -> None
 ```
 
 ### cv::GeneralizedHoughGuil::detect
@@ -12357,7 +12357,7 @@ void cv::GeneralizedHoughGuil::detect( _InputArray  image,
                                        _OutputArray votes = noArray() )
 
 AutoIt:
-    $generalizedHoughGuil.detect( $image[, $positions[, $votes]] ) -> $positions, $votes
+    $oGeneralizedHoughGuil.detect( $image[, $positions[, $votes]] ) -> $positions, $votes
 ```
 
 ```cpp
@@ -12368,7 +12368,7 @@ void cv::GeneralizedHoughGuil::detect( _InputArray  edges,
                                        _OutputArray votes = noArray() )
 
 AutoIt:
-    $generalizedHoughGuil.detect( $edges, $dx, $dy[, $positions[, $votes]] ) -> $positions, $votes
+    $oGeneralizedHoughGuil.detect( $edges, $dx, $dy[, $positions[, $votes]] ) -> $positions, $votes
 ```
 
 ### cv::GeneralizedHoughGuil::setCannyLowThresh
@@ -12377,7 +12377,7 @@ AutoIt:
 void cv::GeneralizedHoughGuil::setCannyLowThresh( int cannyLowThresh )
 
 AutoIt:
-    $generalizedHoughGuil.setCannyLowThresh( $cannyLowThresh ) -> None
+    $oGeneralizedHoughGuil.setCannyLowThresh( $cannyLowThresh ) -> None
 ```
 
 ### cv::GeneralizedHoughGuil::getCannyLowThresh
@@ -12386,7 +12386,7 @@ AutoIt:
 int cv::GeneralizedHoughGuil::getCannyLowThresh()
 
 AutoIt:
-    $generalizedHoughGuil.getCannyLowThresh() -> retval
+    $oGeneralizedHoughGuil.getCannyLowThresh() -> retval
 ```
 
 ### cv::GeneralizedHoughGuil::setCannyHighThresh
@@ -12395,7 +12395,7 @@ AutoIt:
 void cv::GeneralizedHoughGuil::setCannyHighThresh( int cannyHighThresh )
 
 AutoIt:
-    $generalizedHoughGuil.setCannyHighThresh( $cannyHighThresh ) -> None
+    $oGeneralizedHoughGuil.setCannyHighThresh( $cannyHighThresh ) -> None
 ```
 
 ### cv::GeneralizedHoughGuil::getCannyHighThresh
@@ -12404,7 +12404,7 @@ AutoIt:
 int cv::GeneralizedHoughGuil::getCannyHighThresh()
 
 AutoIt:
-    $generalizedHoughGuil.getCannyHighThresh() -> retval
+    $oGeneralizedHoughGuil.getCannyHighThresh() -> retval
 ```
 
 ### cv::GeneralizedHoughGuil::setMinDist
@@ -12413,7 +12413,7 @@ AutoIt:
 void cv::GeneralizedHoughGuil::setMinDist( double minDist )
 
 AutoIt:
-    $generalizedHoughGuil.setMinDist( $minDist ) -> None
+    $oGeneralizedHoughGuil.setMinDist( $minDist ) -> None
 ```
 
 ### cv::GeneralizedHoughGuil::getMinDist
@@ -12422,7 +12422,7 @@ AutoIt:
 double cv::GeneralizedHoughGuil::getMinDist()
 
 AutoIt:
-    $generalizedHoughGuil.getMinDist() -> retval
+    $oGeneralizedHoughGuil.getMinDist() -> retval
 ```
 
 ### cv::GeneralizedHoughGuil::setDp
@@ -12431,7 +12431,7 @@ AutoIt:
 void cv::GeneralizedHoughGuil::setDp( double dp )
 
 AutoIt:
-    $generalizedHoughGuil.setDp( $dp ) -> None
+    $oGeneralizedHoughGuil.setDp( $dp ) -> None
 ```
 
 ### cv::GeneralizedHoughGuil::getDp
@@ -12440,7 +12440,7 @@ AutoIt:
 double cv::GeneralizedHoughGuil::getDp()
 
 AutoIt:
-    $generalizedHoughGuil.getDp() -> retval
+    $oGeneralizedHoughGuil.getDp() -> retval
 ```
 
 ### cv::GeneralizedHoughGuil::setMaxBufferSize
@@ -12449,7 +12449,7 @@ AutoIt:
 void cv::GeneralizedHoughGuil::setMaxBufferSize( int maxBufferSize )
 
 AutoIt:
-    $generalizedHoughGuil.setMaxBufferSize( $maxBufferSize ) -> None
+    $oGeneralizedHoughGuil.setMaxBufferSize( $maxBufferSize ) -> None
 ```
 
 ### cv::GeneralizedHoughGuil::getMaxBufferSize
@@ -12458,7 +12458,7 @@ AutoIt:
 int cv::GeneralizedHoughGuil::getMaxBufferSize()
 
 AutoIt:
-    $generalizedHoughGuil.getMaxBufferSize() -> retval
+    $oGeneralizedHoughGuil.getMaxBufferSize() -> retval
 ```
 
 ### cv::GeneralizedHoughGuil::clear
@@ -12467,7 +12467,7 @@ AutoIt:
 void cv::GeneralizedHoughGuil::clear()
 
 AutoIt:
-    $generalizedHoughGuil.clear() -> None
+    $oGeneralizedHoughGuil.clear() -> None
 ```
 
 ### cv::GeneralizedHoughGuil::write
@@ -12477,7 +12477,7 @@ void cv::GeneralizedHoughGuil::write( const cv::Ptr<cv::FileStorage>& fs,
                                       const std::string&              name = String() )
 
 AutoIt:
-    $generalizedHoughGuil.write( $fs[, $name] ) -> None
+    $oGeneralizedHoughGuil.write( $fs[, $name] ) -> None
 ```
 
 ### cv::GeneralizedHoughGuil::read
@@ -12486,7 +12486,7 @@ AutoIt:
 void cv::GeneralizedHoughGuil::read( const cv::FileNode& fn )
 
 AutoIt:
-    $generalizedHoughGuil.read( $fn ) -> None
+    $oGeneralizedHoughGuil.read( $fn ) -> None
 ```
 
 ### cv::GeneralizedHoughGuil::empty
@@ -12495,7 +12495,7 @@ AutoIt:
 bool cv::GeneralizedHoughGuil::empty()
 
 AutoIt:
-    $generalizedHoughGuil.empty() -> retval
+    $oGeneralizedHoughGuil.empty() -> retval
 ```
 
 ### cv::GeneralizedHoughGuil::save
@@ -12504,7 +12504,7 @@ AutoIt:
 void cv::GeneralizedHoughGuil::save( const std::string& filename )
 
 AutoIt:
-    $generalizedHoughGuil.save( $filename ) -> None
+    $oGeneralizedHoughGuil.save( $filename ) -> None
 ```
 
 ### cv::GeneralizedHoughGuil::getDefaultName
@@ -12513,7 +12513,7 @@ AutoIt:
 std::string cv::GeneralizedHoughGuil::getDefaultName()
 
 AutoIt:
-    $generalizedHoughGuil.getDefaultName() -> retval
+    $oGeneralizedHoughGuil.getDefaultName() -> retval
 ```
 
 ## cv::CLAHE
@@ -12525,7 +12525,7 @@ void cv::CLAHE::apply( _InputArray  src,
                        _OutputArray dst )
 
 AutoIt:
-    $cLAHE.apply( $src[, $dst] ) -> $dst
+    $oCLAHE.apply( $src[, $dst] ) -> $dst
 ```
 
 ### cv::CLAHE::setClipLimit
@@ -12534,7 +12534,7 @@ AutoIt:
 void cv::CLAHE::setClipLimit( double clipLimit )
 
 AutoIt:
-    $cLAHE.setClipLimit( $clipLimit ) -> None
+    $oCLAHE.setClipLimit( $clipLimit ) -> None
 ```
 
 ### cv::CLAHE::getClipLimit
@@ -12543,7 +12543,7 @@ AutoIt:
 double cv::CLAHE::getClipLimit()
 
 AutoIt:
-    $cLAHE.getClipLimit() -> retval
+    $oCLAHE.getClipLimit() -> retval
 ```
 
 ### cv::CLAHE::setTilesGridSize
@@ -12552,7 +12552,7 @@ AutoIt:
 void cv::CLAHE::setTilesGridSize( cv::Size tileGridSize )
 
 AutoIt:
-    $cLAHE.setTilesGridSize( $tileGridSize ) -> None
+    $oCLAHE.setTilesGridSize( $tileGridSize ) -> None
 ```
 
 ### cv::CLAHE::getTilesGridSize
@@ -12561,7 +12561,7 @@ AutoIt:
 cv::Size cv::CLAHE::getTilesGridSize()
 
 AutoIt:
-    $cLAHE.getTilesGridSize() -> retval
+    $oCLAHE.getTilesGridSize() -> retval
 ```
 
 ### cv::CLAHE::collectGarbage
@@ -12570,7 +12570,7 @@ AutoIt:
 void cv::CLAHE::collectGarbage()
 
 AutoIt:
-    $cLAHE.collectGarbage() -> None
+    $oCLAHE.collectGarbage() -> None
 ```
 
 ### cv::CLAHE::clear
@@ -12579,7 +12579,7 @@ AutoIt:
 void cv::CLAHE::clear()
 
 AutoIt:
-    $cLAHE.clear() -> None
+    $oCLAHE.clear() -> None
 ```
 
 ### cv::CLAHE::write
@@ -12589,7 +12589,7 @@ void cv::CLAHE::write( const cv::Ptr<cv::FileStorage>& fs,
                        const std::string&              name = String() )
 
 AutoIt:
-    $cLAHE.write( $fs[, $name] ) -> None
+    $oCLAHE.write( $fs[, $name] ) -> None
 ```
 
 ### cv::CLAHE::read
@@ -12598,7 +12598,7 @@ AutoIt:
 void cv::CLAHE::read( const cv::FileNode& fn )
 
 AutoIt:
-    $cLAHE.read( $fn ) -> None
+    $oCLAHE.read( $fn ) -> None
 ```
 
 ### cv::CLAHE::empty
@@ -12607,7 +12607,7 @@ AutoIt:
 bool cv::CLAHE::empty()
 
 AutoIt:
-    $cLAHE.empty() -> retval
+    $oCLAHE.empty() -> retval
 ```
 
 ### cv::CLAHE::save
@@ -12616,7 +12616,7 @@ AutoIt:
 void cv::CLAHE::save( const std::string& filename )
 
 AutoIt:
-    $cLAHE.save( $filename ) -> None
+    $oCLAHE.save( $filename ) -> None
 ```
 
 ### cv::CLAHE::getDefaultName
@@ -12625,7 +12625,7 @@ AutoIt:
 std::string cv::CLAHE::getDefaultName()
 
 AutoIt:
-    $cLAHE.getDefaultName() -> retval
+    $oCLAHE.getDefaultName() -> retval
 ```
 
 ## cv::Subdiv2D
@@ -12652,7 +12652,7 @@ AutoIt:
 void cv::Subdiv2D::initDelaunay( cv::Rect rect )
 
 AutoIt:
-    $subdiv2D.initDelaunay( $rect ) -> None
+    $oSubdiv2D.initDelaunay( $rect ) -> None
 ```
 
 ### cv::Subdiv2D::insert
@@ -12661,14 +12661,14 @@ AutoIt:
 int cv::Subdiv2D::insert( cv::Point2f pt )
 
 AutoIt:
-    $subdiv2D.insert( $pt ) -> retval
+    $oSubdiv2D.insert( $pt ) -> retval
 ```
 
 ```cpp
 void cv::Subdiv2D::insert( const std::vector<cv::Point2f>& ptvec )
 
 AutoIt:
-    $subdiv2D.insert( $ptvec ) -> None
+    $oSubdiv2D.insert( $ptvec ) -> None
 ```
 
 ### cv::Subdiv2D::locate
@@ -12679,7 +12679,7 @@ int cv::Subdiv2D::locate( cv::Point2f pt,
                           int&        vertex )
 
 AutoIt:
-    $subdiv2D.locate( $pt[, $edge[, $vertex]] ) -> retval, $edge, $vertex
+    $oSubdiv2D.locate( $pt[, $edge[, $vertex]] ) -> retval, $edge, $vertex
 ```
 
 ### cv::Subdiv2D::findNearest
@@ -12689,7 +12689,7 @@ int cv::Subdiv2D::findNearest( cv::Point2f  pt,
                                cv::Point2f* nearestPt = 0 )
 
 AutoIt:
-    $subdiv2D.findNearest( $pt[, $nearestPt] ) -> retval, $nearestPt
+    $oSubdiv2D.findNearest( $pt[, $nearestPt] ) -> retval, $nearestPt
 ```
 
 ### cv::Subdiv2D::getEdgeList
@@ -12698,7 +12698,7 @@ AutoIt:
 void cv::Subdiv2D::getEdgeList( std::vector<cv::Vec4f>& edgeList )
 
 AutoIt:
-    $subdiv2D.getEdgeList( [$edgeList] ) -> $edgeList
+    $oSubdiv2D.getEdgeList( [$edgeList] ) -> $edgeList
 ```
 
 ### cv::Subdiv2D::getLeadingEdgeList
@@ -12707,7 +12707,7 @@ AutoIt:
 void cv::Subdiv2D::getLeadingEdgeList( std::vector<int>& leadingEdgeList )
 
 AutoIt:
-    $subdiv2D.getLeadingEdgeList( [$leadingEdgeList] ) -> $leadingEdgeList
+    $oSubdiv2D.getLeadingEdgeList( [$leadingEdgeList] ) -> $leadingEdgeList
 ```
 
 ### cv::Subdiv2D::getTriangleList
@@ -12716,7 +12716,7 @@ AutoIt:
 void cv::Subdiv2D::getTriangleList( std::vector<cv::Vec6f>& triangleList )
 
 AutoIt:
-    $subdiv2D.getTriangleList( [$triangleList] ) -> $triangleList
+    $oSubdiv2D.getTriangleList( [$triangleList] ) -> $triangleList
 ```
 
 ### cv::Subdiv2D::getVoronoiFacetList
@@ -12727,7 +12727,7 @@ void cv::Subdiv2D::getVoronoiFacetList( const std::vector<int>&                i
                                         std::vector<cv::Point2f>&              facetCenters )
 
 AutoIt:
-    $subdiv2D.getVoronoiFacetList( $idx[, $facetList[, $facetCenters]] ) -> $facetList, $facetCenters
+    $oSubdiv2D.getVoronoiFacetList( $idx[, $facetList[, $facetCenters]] ) -> $facetList, $facetCenters
 ```
 
 ### cv::Subdiv2D::getVertex
@@ -12737,7 +12737,7 @@ cv::Point2f cv::Subdiv2D::getVertex( int  vertex,
                                      int* firstEdge = 0 )
 
 AutoIt:
-    $subdiv2D.getVertex( $vertex[, $firstEdge] ) -> retval, $firstEdge
+    $oSubdiv2D.getVertex( $vertex[, $firstEdge] ) -> retval, $firstEdge
 ```
 
 ### cv::Subdiv2D::getEdge
@@ -12747,7 +12747,7 @@ int cv::Subdiv2D::getEdge( int edge,
                            int nextEdgeType )
 
 AutoIt:
-    $subdiv2D.getEdge( $edge, $nextEdgeType ) -> retval
+    $oSubdiv2D.getEdge( $edge, $nextEdgeType ) -> retval
 ```
 
 ### cv::Subdiv2D::nextEdge
@@ -12756,7 +12756,7 @@ AutoIt:
 int cv::Subdiv2D::nextEdge( int edge )
 
 AutoIt:
-    $subdiv2D.nextEdge( $edge ) -> retval
+    $oSubdiv2D.nextEdge( $edge ) -> retval
 ```
 
 ### cv::Subdiv2D::rotateEdge
@@ -12766,7 +12766,7 @@ int cv::Subdiv2D::rotateEdge( int edge,
                               int rotate )
 
 AutoIt:
-    $subdiv2D.rotateEdge( $edge, $rotate ) -> retval
+    $oSubdiv2D.rotateEdge( $edge, $rotate ) -> retval
 ```
 
 ### cv::Subdiv2D::symEdge
@@ -12775,7 +12775,7 @@ AutoIt:
 int cv::Subdiv2D::symEdge( int edge )
 
 AutoIt:
-    $subdiv2D.symEdge( $edge ) -> retval
+    $oSubdiv2D.symEdge( $edge ) -> retval
 ```
 
 ### cv::Subdiv2D::edgeOrg
@@ -12785,7 +12785,7 @@ int cv::Subdiv2D::edgeOrg( int          edge,
                            cv::Point2f* orgpt = 0 )
 
 AutoIt:
-    $subdiv2D.edgeOrg( $edge[, $orgpt] ) -> retval, $orgpt
+    $oSubdiv2D.edgeOrg( $edge[, $orgpt] ) -> retval, $orgpt
 ```
 
 ### cv::Subdiv2D::edgeDst
@@ -12795,7 +12795,7 @@ int cv::Subdiv2D::edgeDst( int          edge,
                            cv::Point2f* dstpt = 0 )
 
 AutoIt:
-    $subdiv2D.edgeDst( $edge[, $dstpt] ) -> retval, $dstpt
+    $oSubdiv2D.edgeDst( $edge[, $dstpt] ) -> retval, $dstpt
 ```
 
 ## cv::LineSegmentDetector
@@ -12810,7 +12810,7 @@ void cv::LineSegmentDetector::detect( _InputArray  image,
                                       _OutputArray nfa = noArray() )
 
 AutoIt:
-    $lineSegmentDetector.detect( $image[, $lines[, $width[, $prec[, $nfa]]]] ) -> $lines, $width, $prec, $nfa
+    $oLineSegmentDetector.detect( $image[, $lines[, $width[, $prec[, $nfa]]]] ) -> $lines, $width, $prec, $nfa
 ```
 
 ### cv::LineSegmentDetector::drawSegments
@@ -12820,7 +12820,7 @@ void cv::LineSegmentDetector::drawSegments( _InputOutputArray image,
                                             _InputArray       lines )
 
 AutoIt:
-    $lineSegmentDetector.drawSegments( $image, $lines ) -> $image
+    $oLineSegmentDetector.drawSegments( $image, $lines ) -> $image
 ```
 
 ### cv::LineSegmentDetector::compareSegments
@@ -12832,7 +12832,7 @@ int cv::LineSegmentDetector::compareSegments( const cv::Size&   size,
                                               _InputOutputArray image = noArray() )
 
 AutoIt:
-    $lineSegmentDetector.compareSegments( $size, $lines1, $lines2[, $image] ) -> retval, $image
+    $oLineSegmentDetector.compareSegments( $size, $lines1, $lines2[, $image] ) -> retval, $image
 ```
 
 ### cv::LineSegmentDetector::clear
@@ -12841,7 +12841,7 @@ AutoIt:
 void cv::LineSegmentDetector::clear()
 
 AutoIt:
-    $lineSegmentDetector.clear() -> None
+    $oLineSegmentDetector.clear() -> None
 ```
 
 ### cv::LineSegmentDetector::write
@@ -12851,7 +12851,7 @@ void cv::LineSegmentDetector::write( const cv::Ptr<cv::FileStorage>& fs,
                                      const std::string&              name = String() )
 
 AutoIt:
-    $lineSegmentDetector.write( $fs[, $name] ) -> None
+    $oLineSegmentDetector.write( $fs[, $name] ) -> None
 ```
 
 ### cv::LineSegmentDetector::read
@@ -12860,7 +12860,7 @@ AutoIt:
 void cv::LineSegmentDetector::read( const cv::FileNode& fn )
 
 AutoIt:
-    $lineSegmentDetector.read( $fn ) -> None
+    $oLineSegmentDetector.read( $fn ) -> None
 ```
 
 ### cv::LineSegmentDetector::empty
@@ -12869,7 +12869,7 @@ AutoIt:
 bool cv::LineSegmentDetector::empty()
 
 AutoIt:
-    $lineSegmentDetector.empty() -> retval
+    $oLineSegmentDetector.empty() -> retval
 ```
 
 ### cv::LineSegmentDetector::save
@@ -12878,7 +12878,7 @@ AutoIt:
 void cv::LineSegmentDetector::save( const std::string& filename )
 
 AutoIt:
-    $lineSegmentDetector.save( $filename ) -> None
+    $oLineSegmentDetector.save( $filename ) -> None
 ```
 
 ### cv::LineSegmentDetector::getDefaultName
@@ -12887,7 +12887,7 @@ AutoIt:
 std::string cv::LineSegmentDetector::getDefaultName()
 
 AutoIt:
-    $lineSegmentDetector.getDefaultName() -> retval
+    $oLineSegmentDetector.getDefaultName() -> retval
 ```
 
 ## cv::segmentation::IntelligentScissorsMB
@@ -12909,7 +12909,7 @@ cv::segmentation::IntelligentScissorsMB cv::segmentation::IntelligentScissorsMB:
                                                                                              float weight_gradient_magnitude )
 
 AutoIt:
-    $intelligentScissorsMB.setWeights( $weight_non_edge, $weight_gradient_direction, $weight_gradient_magnitude ) -> retval
+    $oIntelligentScissorsMB.setWeights( $weight_non_edge, $weight_gradient_direction, $weight_gradient_magnitude ) -> retval
 ```
 
 ### cv::segmentation::IntelligentScissorsMB::setGradientMagnitudeMaxLimit
@@ -12918,7 +12918,7 @@ AutoIt:
 cv::segmentation::IntelligentScissorsMB cv::segmentation::IntelligentScissorsMB::setGradientMagnitudeMaxLimit( float gradient_magnitude_threshold_max = 0.0f )
 
 AutoIt:
-    $intelligentScissorsMB.setGradientMagnitudeMaxLimit( [$gradient_magnitude_threshold_max] ) -> retval
+    $oIntelligentScissorsMB.setGradientMagnitudeMaxLimit( [$gradient_magnitude_threshold_max] ) -> retval
 ```
 
 ### cv::segmentation::IntelligentScissorsMB::setEdgeFeatureZeroCrossingParameters
@@ -12927,7 +12927,7 @@ AutoIt:
 cv::segmentation::IntelligentScissorsMB cv::segmentation::IntelligentScissorsMB::setEdgeFeatureZeroCrossingParameters( float gradient_magnitude_min_value = 0.0f )
 
 AutoIt:
-    $intelligentScissorsMB.setEdgeFeatureZeroCrossingParameters( [$gradient_magnitude_min_value] ) -> retval
+    $oIntelligentScissorsMB.setEdgeFeatureZeroCrossingParameters( [$gradient_magnitude_min_value] ) -> retval
 ```
 
 ### cv::segmentation::IntelligentScissorsMB::setEdgeFeatureCannyParameters
@@ -12939,7 +12939,7 @@ cv::segmentation::IntelligentScissorsMB cv::segmentation::IntelligentScissorsMB:
                                                                                                                 bool   L2gradient = false )
 
 AutoIt:
-    $intelligentScissorsMB.setEdgeFeatureCannyParameters( $threshold1, $threshold2[, $apertureSize[, $L2gradient]] ) -> retval
+    $oIntelligentScissorsMB.setEdgeFeatureCannyParameters( $threshold1, $threshold2[, $apertureSize[, $L2gradient]] ) -> retval
 ```
 
 ### cv::segmentation::IntelligentScissorsMB::applyImage
@@ -12948,7 +12948,7 @@ AutoIt:
 cv::segmentation::IntelligentScissorsMB cv::segmentation::IntelligentScissorsMB::applyImage( _InputArray image )
 
 AutoIt:
-    $intelligentScissorsMB.applyImage( $image ) -> retval
+    $oIntelligentScissorsMB.applyImage( $image ) -> retval
 ```
 
 ### cv::segmentation::IntelligentScissorsMB::applyImageFeatures
@@ -12960,7 +12960,7 @@ cv::segmentation::IntelligentScissorsMB cv::segmentation::IntelligentScissorsMB:
                                                                                                      _InputArray image = noArray() )
 
 AutoIt:
-    $intelligentScissorsMB.applyImageFeatures( $non_edge, $gradient_direction, $gradient_magnitude[, $image] ) -> retval
+    $oIntelligentScissorsMB.applyImageFeatures( $non_edge, $gradient_direction, $gradient_magnitude[, $image] ) -> retval
 ```
 
 ### cv::segmentation::IntelligentScissorsMB::buildMap
@@ -12969,7 +12969,7 @@ AutoIt:
 void cv::segmentation::IntelligentScissorsMB::buildMap( const cv::Point& sourcePt )
 
 AutoIt:
-    $intelligentScissorsMB.buildMap( $sourcePt ) -> None
+    $oIntelligentScissorsMB.buildMap( $sourcePt ) -> None
 ```
 
 ### cv::segmentation::IntelligentScissorsMB::getContour
@@ -12980,7 +12980,7 @@ void cv::segmentation::IntelligentScissorsMB::getContour( const cv::Point& targe
                                                           bool             backward = false )
 
 AutoIt:
-    $intelligentScissorsMB.getContour( $targetPt[, $contour[, $backward]] ) -> $contour
+    $oIntelligentScissorsMB.getContour( $targetPt[, $contour[, $backward]] ) -> $contour
 ```
 
 ## cv::ml::ParamGrid
@@ -13004,7 +13004,7 @@ AutoIt:
 int cv::ml::TrainData::getLayout()
 
 AutoIt:
-    $trainData.getLayout() -> retval
+    $oTrainData.getLayout() -> retval
 ```
 
 ### cv::ml::TrainData::getNTrainSamples
@@ -13013,7 +13013,7 @@ AutoIt:
 int cv::ml::TrainData::getNTrainSamples()
 
 AutoIt:
-    $trainData.getNTrainSamples() -> retval
+    $oTrainData.getNTrainSamples() -> retval
 ```
 
 ### cv::ml::TrainData::getNTestSamples
@@ -13022,7 +13022,7 @@ AutoIt:
 int cv::ml::TrainData::getNTestSamples()
 
 AutoIt:
-    $trainData.getNTestSamples() -> retval
+    $oTrainData.getNTestSamples() -> retval
 ```
 
 ### cv::ml::TrainData::getNSamples
@@ -13031,7 +13031,7 @@ AutoIt:
 int cv::ml::TrainData::getNSamples()
 
 AutoIt:
-    $trainData.getNSamples() -> retval
+    $oTrainData.getNSamples() -> retval
 ```
 
 ### cv::ml::TrainData::getNVars
@@ -13040,7 +13040,7 @@ AutoIt:
 int cv::ml::TrainData::getNVars()
 
 AutoIt:
-    $trainData.getNVars() -> retval
+    $oTrainData.getNVars() -> retval
 ```
 
 ### cv::ml::TrainData::getNAllVars
@@ -13049,7 +13049,7 @@ AutoIt:
 int cv::ml::TrainData::getNAllVars()
 
 AutoIt:
-    $trainData.getNAllVars() -> retval
+    $oTrainData.getNAllVars() -> retval
 ```
 
 ### cv::ml::TrainData::getSample
@@ -13060,7 +13060,7 @@ void cv::ml::TrainData::getSample( _InputArray varIdx,
                                    float*      buf )
 
 AutoIt:
-    $trainData.getSample( $varIdx, $sidx[, $buf] ) -> $buf
+    $oTrainData.getSample( $varIdx, $sidx[, $buf] ) -> $buf
 ```
 
 ### cv::ml::TrainData::getSamples
@@ -13069,7 +13069,7 @@ AutoIt:
 cv::Mat cv::ml::TrainData::getSamples()
 
 AutoIt:
-    $trainData.getSamples() -> retval
+    $oTrainData.getSamples() -> retval
 ```
 
 ### cv::ml::TrainData::getMissing
@@ -13078,7 +13078,7 @@ AutoIt:
 cv::Mat cv::ml::TrainData::getMissing()
 
 AutoIt:
-    $trainData.getMissing() -> retval
+    $oTrainData.getMissing() -> retval
 ```
 
 ### cv::ml::TrainData::getTrainSamples
@@ -13089,7 +13089,7 @@ cv::Mat cv::ml::TrainData::getTrainSamples( int  layout = ROW_SAMPLE,
                                             bool compressVars = true )
 
 AutoIt:
-    $trainData.getTrainSamples( [$layout[, $compressSamples[, $compressVars]]] ) -> retval
+    $oTrainData.getTrainSamples( [$layout[, $compressSamples[, $compressVars]]] ) -> retval
 ```
 
 ### cv::ml::TrainData::getTrainResponses
@@ -13098,7 +13098,7 @@ AutoIt:
 cv::Mat cv::ml::TrainData::getTrainResponses()
 
 AutoIt:
-    $trainData.getTrainResponses() -> retval
+    $oTrainData.getTrainResponses() -> retval
 ```
 
 ### cv::ml::TrainData::getTrainNormCatResponses
@@ -13107,7 +13107,7 @@ AutoIt:
 cv::Mat cv::ml::TrainData::getTrainNormCatResponses()
 
 AutoIt:
-    $trainData.getTrainNormCatResponses() -> retval
+    $oTrainData.getTrainNormCatResponses() -> retval
 ```
 
 ### cv::ml::TrainData::getTestResponses
@@ -13116,7 +13116,7 @@ AutoIt:
 cv::Mat cv::ml::TrainData::getTestResponses()
 
 AutoIt:
-    $trainData.getTestResponses() -> retval
+    $oTrainData.getTestResponses() -> retval
 ```
 
 ### cv::ml::TrainData::getTestNormCatResponses
@@ -13125,7 +13125,7 @@ AutoIt:
 cv::Mat cv::ml::TrainData::getTestNormCatResponses()
 
 AutoIt:
-    $trainData.getTestNormCatResponses() -> retval
+    $oTrainData.getTestNormCatResponses() -> retval
 ```
 
 ### cv::ml::TrainData::getResponses
@@ -13134,7 +13134,7 @@ AutoIt:
 cv::Mat cv::ml::TrainData::getResponses()
 
 AutoIt:
-    $trainData.getResponses() -> retval
+    $oTrainData.getResponses() -> retval
 ```
 
 ### cv::ml::TrainData::getNormCatResponses
@@ -13143,7 +13143,7 @@ AutoIt:
 cv::Mat cv::ml::TrainData::getNormCatResponses()
 
 AutoIt:
-    $trainData.getNormCatResponses() -> retval
+    $oTrainData.getNormCatResponses() -> retval
 ```
 
 ### cv::ml::TrainData::getSampleWeights
@@ -13152,7 +13152,7 @@ AutoIt:
 cv::Mat cv::ml::TrainData::getSampleWeights()
 
 AutoIt:
-    $trainData.getSampleWeights() -> retval
+    $oTrainData.getSampleWeights() -> retval
 ```
 
 ### cv::ml::TrainData::getTrainSampleWeights
@@ -13161,7 +13161,7 @@ AutoIt:
 cv::Mat cv::ml::TrainData::getTrainSampleWeights()
 
 AutoIt:
-    $trainData.getTrainSampleWeights() -> retval
+    $oTrainData.getTrainSampleWeights() -> retval
 ```
 
 ### cv::ml::TrainData::getTestSampleWeights
@@ -13170,7 +13170,7 @@ AutoIt:
 cv::Mat cv::ml::TrainData::getTestSampleWeights()
 
 AutoIt:
-    $trainData.getTestSampleWeights() -> retval
+    $oTrainData.getTestSampleWeights() -> retval
 ```
 
 ### cv::ml::TrainData::getVarIdx
@@ -13179,7 +13179,7 @@ AutoIt:
 cv::Mat cv::ml::TrainData::getVarIdx()
 
 AutoIt:
-    $trainData.getVarIdx() -> retval
+    $oTrainData.getVarIdx() -> retval
 ```
 
 ### cv::ml::TrainData::getVarType
@@ -13188,7 +13188,7 @@ AutoIt:
 cv::Mat cv::ml::TrainData::getVarType()
 
 AutoIt:
-    $trainData.getVarType() -> retval
+    $oTrainData.getVarType() -> retval
 ```
 
 ### cv::ml::TrainData::getVarSymbolFlags
@@ -13197,7 +13197,7 @@ AutoIt:
 cv::Mat cv::ml::TrainData::getVarSymbolFlags()
 
 AutoIt:
-    $trainData.getVarSymbolFlags() -> retval
+    $oTrainData.getVarSymbolFlags() -> retval
 ```
 
 ### cv::ml::TrainData::getResponseType
@@ -13206,7 +13206,7 @@ AutoIt:
 int cv::ml::TrainData::getResponseType()
 
 AutoIt:
-    $trainData.getResponseType() -> retval
+    $oTrainData.getResponseType() -> retval
 ```
 
 ### cv::ml::TrainData::getTrainSampleIdx
@@ -13215,7 +13215,7 @@ AutoIt:
 cv::Mat cv::ml::TrainData::getTrainSampleIdx()
 
 AutoIt:
-    $trainData.getTrainSampleIdx() -> retval
+    $oTrainData.getTrainSampleIdx() -> retval
 ```
 
 ### cv::ml::TrainData::getTestSampleIdx
@@ -13224,7 +13224,7 @@ AutoIt:
 cv::Mat cv::ml::TrainData::getTestSampleIdx()
 
 AutoIt:
-    $trainData.getTestSampleIdx() -> retval
+    $oTrainData.getTestSampleIdx() -> retval
 ```
 
 ### cv::ml::TrainData::getValues
@@ -13235,7 +13235,7 @@ void cv::ml::TrainData::getValues( int         vi,
                                    float*      values )
 
 AutoIt:
-    $trainData.getValues( $vi, $sidx[, $values] ) -> $values
+    $oTrainData.getValues( $vi, $sidx[, $values] ) -> $values
 ```
 
 ### cv::ml::TrainData::getDefaultSubstValues
@@ -13244,7 +13244,7 @@ AutoIt:
 cv::Mat cv::ml::TrainData::getDefaultSubstValues()
 
 AutoIt:
-    $trainData.getDefaultSubstValues() -> retval
+    $oTrainData.getDefaultSubstValues() -> retval
 ```
 
 ### cv::ml::TrainData::getCatCount
@@ -13253,7 +13253,7 @@ AutoIt:
 int cv::ml::TrainData::getCatCount( int vi )
 
 AutoIt:
-    $trainData.getCatCount( $vi ) -> retval
+    $oTrainData.getCatCount( $vi ) -> retval
 ```
 
 ### cv::ml::TrainData::getClassLabels
@@ -13262,7 +13262,7 @@ AutoIt:
 cv::Mat cv::ml::TrainData::getClassLabels()
 
 AutoIt:
-    $trainData.getClassLabels() -> retval
+    $oTrainData.getClassLabels() -> retval
 ```
 
 ### cv::ml::TrainData::getCatOfs
@@ -13271,7 +13271,7 @@ AutoIt:
 cv::Mat cv::ml::TrainData::getCatOfs()
 
 AutoIt:
-    $trainData.getCatOfs() -> retval
+    $oTrainData.getCatOfs() -> retval
 ```
 
 ### cv::ml::TrainData::getCatMap
@@ -13280,7 +13280,7 @@ AutoIt:
 cv::Mat cv::ml::TrainData::getCatMap()
 
 AutoIt:
-    $trainData.getCatMap() -> retval
+    $oTrainData.getCatMap() -> retval
 ```
 
 ### cv::ml::TrainData::setTrainTestSplit
@@ -13290,7 +13290,7 @@ void cv::ml::TrainData::setTrainTestSplit( int  count,
                                            bool shuffle = true )
 
 AutoIt:
-    $trainData.setTrainTestSplit( $count[, $shuffle] ) -> None
+    $oTrainData.setTrainTestSplit( $count[, $shuffle] ) -> None
 ```
 
 ### cv::ml::TrainData::setTrainTestSplitRatio
@@ -13300,7 +13300,7 @@ void cv::ml::TrainData::setTrainTestSplitRatio( double ratio,
                                                 bool   shuffle = true )
 
 AutoIt:
-    $trainData.setTrainTestSplitRatio( $ratio[, $shuffle] ) -> None
+    $oTrainData.setTrainTestSplitRatio( $ratio[, $shuffle] ) -> None
 ```
 
 ### cv::ml::TrainData::shuffleTrainTest
@@ -13309,7 +13309,7 @@ AutoIt:
 void cv::ml::TrainData::shuffleTrainTest()
 
 AutoIt:
-    $trainData.shuffleTrainTest() -> None
+    $oTrainData.shuffleTrainTest() -> None
 ```
 
 ### cv::ml::TrainData::getTestSamples
@@ -13318,7 +13318,7 @@ AutoIt:
 cv::Mat cv::ml::TrainData::getTestSamples()
 
 AutoIt:
-    $trainData.getTestSamples() -> retval
+    $oTrainData.getTestSamples() -> retval
 ```
 
 ### cv::ml::TrainData::getNames
@@ -13327,7 +13327,7 @@ AutoIt:
 void cv::ml::TrainData::getNames( std::vector<std::string>& names )
 
 AutoIt:
-    $trainData.getNames( $names ) -> None
+    $oTrainData.getNames( $names ) -> None
 ```
 
 ### cv::ml::TrainData::getSubVector
@@ -13374,7 +13374,7 @@ AutoIt:
 int cv::ml::StatModel::getVarCount()
 
 AutoIt:
-    $statModel.getVarCount() -> retval
+    $oStatModel.getVarCount() -> retval
 ```
 
 ### cv::ml::StatModel::empty
@@ -13383,7 +13383,7 @@ AutoIt:
 bool cv::ml::StatModel::empty()
 
 AutoIt:
-    $statModel.empty() -> retval
+    $oStatModel.empty() -> retval
 ```
 
 ### cv::ml::StatModel::isTrained
@@ -13392,7 +13392,7 @@ AutoIt:
 bool cv::ml::StatModel::isTrained()
 
 AutoIt:
-    $statModel.isTrained() -> retval
+    $oStatModel.isTrained() -> retval
 ```
 
 ### cv::ml::StatModel::isClassifier
@@ -13401,7 +13401,7 @@ AutoIt:
 bool cv::ml::StatModel::isClassifier()
 
 AutoIt:
-    $statModel.isClassifier() -> retval
+    $oStatModel.isClassifier() -> retval
 ```
 
 ### cv::ml::StatModel::train
@@ -13411,7 +13411,7 @@ bool cv::ml::StatModel::train( const cv::Ptr<cv::ml::TrainData>& trainData,
                                int                               flags = 0 )
 
 AutoIt:
-    $statModel.train( $trainData[, $flags] ) -> retval
+    $oStatModel.train( $trainData[, $flags] ) -> retval
 ```
 
 ```cpp
@@ -13420,7 +13420,7 @@ bool cv::ml::StatModel::train( _InputArray samples,
                                _InputArray responses )
 
 AutoIt:
-    $statModel.train( $samples, $layout, $responses ) -> retval
+    $oStatModel.train( $samples, $layout, $responses ) -> retval
 ```
 
 ### cv::ml::StatModel::calcError
@@ -13431,7 +13431,7 @@ float cv::ml::StatModel::calcError( const cv::Ptr<cv::ml::TrainData>& data,
                                     _OutputArray                      resp )
 
 AutoIt:
-    $statModel.calcError( $data, $test[, $resp] ) -> retval, $resp
+    $oStatModel.calcError( $data, $test[, $resp] ) -> retval, $resp
 ```
 
 ### cv::ml::StatModel::predict
@@ -13442,7 +13442,7 @@ float cv::ml::StatModel::predict( _InputArray  samples,
                                   int          flags = 0 )
 
 AutoIt:
-    $statModel.predict( $samples[, $results[, $flags]] ) -> retval, $results
+    $oStatModel.predict( $samples[, $results[, $flags]] ) -> retval, $results
 ```
 
 ### cv::ml::StatModel::clear
@@ -13451,7 +13451,7 @@ AutoIt:
 void cv::ml::StatModel::clear()
 
 AutoIt:
-    $statModel.clear() -> None
+    $oStatModel.clear() -> None
 ```
 
 ### cv::ml::StatModel::write
@@ -13461,7 +13461,7 @@ void cv::ml::StatModel::write( const cv::Ptr<cv::FileStorage>& fs,
                                const std::string&              name = String() )
 
 AutoIt:
-    $statModel.write( $fs[, $name] ) -> None
+    $oStatModel.write( $fs[, $name] ) -> None
 ```
 
 ### cv::ml::StatModel::read
@@ -13470,7 +13470,7 @@ AutoIt:
 void cv::ml::StatModel::read( const cv::FileNode& fn )
 
 AutoIt:
-    $statModel.read( $fn ) -> None
+    $oStatModel.read( $fn ) -> None
 ```
 
 ### cv::ml::StatModel::save
@@ -13479,7 +13479,7 @@ AutoIt:
 void cv::ml::StatModel::save( const std::string& filename )
 
 AutoIt:
-    $statModel.save( $filename ) -> None
+    $oStatModel.save( $filename ) -> None
 ```
 
 ### cv::ml::StatModel::getDefaultName
@@ -13488,7 +13488,7 @@ AutoIt:
 std::string cv::ml::StatModel::getDefaultName()
 
 AutoIt:
-    $statModel.getDefaultName() -> retval
+    $oStatModel.getDefaultName() -> retval
 ```
 
 ## cv::ml::NormalBayesClassifier
@@ -13502,7 +13502,7 @@ float cv::ml::NormalBayesClassifier::predictProb( _InputArray  inputs,
                                                   int          flags = 0 )
 
 AutoIt:
-    $normalBayesClassifier.predictProb( $inputs[, $outputs[, $outputProbs[, $flags]]] ) -> retval, $outputs, $outputProbs
+    $oNormalBayesClassifier.predictProb( $inputs[, $outputs[, $outputProbs[, $flags]]] ) -> retval, $outputs, $outputProbs
 ```
 
 ### cv::ml::NormalBayesClassifier::create
@@ -13530,7 +13530,7 @@ AutoIt:
 int cv::ml::NormalBayesClassifier::getVarCount()
 
 AutoIt:
-    $normalBayesClassifier.getVarCount() -> retval
+    $oNormalBayesClassifier.getVarCount() -> retval
 ```
 
 ### cv::ml::NormalBayesClassifier::empty
@@ -13539,7 +13539,7 @@ AutoIt:
 bool cv::ml::NormalBayesClassifier::empty()
 
 AutoIt:
-    $normalBayesClassifier.empty() -> retval
+    $oNormalBayesClassifier.empty() -> retval
 ```
 
 ### cv::ml::NormalBayesClassifier::isTrained
@@ -13548,7 +13548,7 @@ AutoIt:
 bool cv::ml::NormalBayesClassifier::isTrained()
 
 AutoIt:
-    $normalBayesClassifier.isTrained() -> retval
+    $oNormalBayesClassifier.isTrained() -> retval
 ```
 
 ### cv::ml::NormalBayesClassifier::isClassifier
@@ -13557,7 +13557,7 @@ AutoIt:
 bool cv::ml::NormalBayesClassifier::isClassifier()
 
 AutoIt:
-    $normalBayesClassifier.isClassifier() -> retval
+    $oNormalBayesClassifier.isClassifier() -> retval
 ```
 
 ### cv::ml::NormalBayesClassifier::train
@@ -13567,7 +13567,7 @@ bool cv::ml::NormalBayesClassifier::train( const cv::Ptr<cv::ml::TrainData>& tra
                                            int                               flags = 0 )
 
 AutoIt:
-    $normalBayesClassifier.train( $trainData[, $flags] ) -> retval
+    $oNormalBayesClassifier.train( $trainData[, $flags] ) -> retval
 ```
 
 ```cpp
@@ -13576,7 +13576,7 @@ bool cv::ml::NormalBayesClassifier::train( _InputArray samples,
                                            _InputArray responses )
 
 AutoIt:
-    $normalBayesClassifier.train( $samples, $layout, $responses ) -> retval
+    $oNormalBayesClassifier.train( $samples, $layout, $responses ) -> retval
 ```
 
 ### cv::ml::NormalBayesClassifier::calcError
@@ -13587,7 +13587,7 @@ float cv::ml::NormalBayesClassifier::calcError( const cv::Ptr<cv::ml::TrainData>
                                                 _OutputArray                      resp )
 
 AutoIt:
-    $normalBayesClassifier.calcError( $data, $test[, $resp] ) -> retval, $resp
+    $oNormalBayesClassifier.calcError( $data, $test[, $resp] ) -> retval, $resp
 ```
 
 ### cv::ml::NormalBayesClassifier::predict
@@ -13598,7 +13598,7 @@ float cv::ml::NormalBayesClassifier::predict( _InputArray  samples,
                                               int          flags = 0 )
 
 AutoIt:
-    $normalBayesClassifier.predict( $samples[, $results[, $flags]] ) -> retval, $results
+    $oNormalBayesClassifier.predict( $samples[, $results[, $flags]] ) -> retval, $results
 ```
 
 ### cv::ml::NormalBayesClassifier::clear
@@ -13607,7 +13607,7 @@ AutoIt:
 void cv::ml::NormalBayesClassifier::clear()
 
 AutoIt:
-    $normalBayesClassifier.clear() -> None
+    $oNormalBayesClassifier.clear() -> None
 ```
 
 ### cv::ml::NormalBayesClassifier::write
@@ -13617,7 +13617,7 @@ void cv::ml::NormalBayesClassifier::write( const cv::Ptr<cv::FileStorage>& fs,
                                            const std::string&              name = String() )
 
 AutoIt:
-    $normalBayesClassifier.write( $fs[, $name] ) -> None
+    $oNormalBayesClassifier.write( $fs[, $name] ) -> None
 ```
 
 ### cv::ml::NormalBayesClassifier::read
@@ -13626,7 +13626,7 @@ AutoIt:
 void cv::ml::NormalBayesClassifier::read( const cv::FileNode& fn )
 
 AutoIt:
-    $normalBayesClassifier.read( $fn ) -> None
+    $oNormalBayesClassifier.read( $fn ) -> None
 ```
 
 ### cv::ml::NormalBayesClassifier::save
@@ -13635,7 +13635,7 @@ AutoIt:
 void cv::ml::NormalBayesClassifier::save( const std::string& filename )
 
 AutoIt:
-    $normalBayesClassifier.save( $filename ) -> None
+    $oNormalBayesClassifier.save( $filename ) -> None
 ```
 
 ### cv::ml::NormalBayesClassifier::getDefaultName
@@ -13644,7 +13644,7 @@ AutoIt:
 std::string cv::ml::NormalBayesClassifier::getDefaultName()
 
 AutoIt:
-    $normalBayesClassifier.getDefaultName() -> retval
+    $oNormalBayesClassifier.getDefaultName() -> retval
 ```
 
 ## cv::ml::KNearest
@@ -13655,7 +13655,7 @@ AutoIt:
 int cv::ml::KNearest::getDefaultK()
 
 AutoIt:
-    $kNearest.getDefaultK() -> retval
+    $oKNearest.getDefaultK() -> retval
 ```
 
 ### cv::ml::KNearest::setDefaultK
@@ -13664,7 +13664,7 @@ AutoIt:
 void cv::ml::KNearest::setDefaultK( int val )
 
 AutoIt:
-    $kNearest.setDefaultK( $val ) -> None
+    $oKNearest.setDefaultK( $val ) -> None
 ```
 
 ### cv::ml::KNearest::getIsClassifier
@@ -13673,7 +13673,7 @@ AutoIt:
 bool cv::ml::KNearest::getIsClassifier()
 
 AutoIt:
-    $kNearest.getIsClassifier() -> retval
+    $oKNearest.getIsClassifier() -> retval
 ```
 
 ### cv::ml::KNearest::setIsClassifier
@@ -13682,7 +13682,7 @@ AutoIt:
 void cv::ml::KNearest::setIsClassifier( bool val )
 
 AutoIt:
-    $kNearest.setIsClassifier( $val ) -> None
+    $oKNearest.setIsClassifier( $val ) -> None
 ```
 
 ### cv::ml::KNearest::getEmax
@@ -13691,7 +13691,7 @@ AutoIt:
 int cv::ml::KNearest::getEmax()
 
 AutoIt:
-    $kNearest.getEmax() -> retval
+    $oKNearest.getEmax() -> retval
 ```
 
 ### cv::ml::KNearest::setEmax
@@ -13700,7 +13700,7 @@ AutoIt:
 void cv::ml::KNearest::setEmax( int val )
 
 AutoIt:
-    $kNearest.setEmax( $val ) -> None
+    $oKNearest.setEmax( $val ) -> None
 ```
 
 ### cv::ml::KNearest::getAlgorithmType
@@ -13709,7 +13709,7 @@ AutoIt:
 int cv::ml::KNearest::getAlgorithmType()
 
 AutoIt:
-    $kNearest.getAlgorithmType() -> retval
+    $oKNearest.getAlgorithmType() -> retval
 ```
 
 ### cv::ml::KNearest::setAlgorithmType
@@ -13718,7 +13718,7 @@ AutoIt:
 void cv::ml::KNearest::setAlgorithmType( int val )
 
 AutoIt:
-    $kNearest.setAlgorithmType( $val ) -> None
+    $oKNearest.setAlgorithmType( $val ) -> None
 ```
 
 ### cv::ml::KNearest::findNearest
@@ -13731,7 +13731,7 @@ float cv::ml::KNearest::findNearest( _InputArray  samples,
                                      _OutputArray dist = noArray() )
 
 AutoIt:
-    $kNearest.findNearest( $samples, $k[, $results[, $neighborResponses[, $dist]]] ) -> retval, $results, $neighborResponses, $dist
+    $oKNearest.findNearest( $samples, $k[, $results[, $neighborResponses[, $dist]]] ) -> retval, $results, $neighborResponses, $dist
 ```
 
 ### cv::ml::KNearest::create
@@ -13758,7 +13758,7 @@ AutoIt:
 int cv::ml::KNearest::getVarCount()
 
 AutoIt:
-    $kNearest.getVarCount() -> retval
+    $oKNearest.getVarCount() -> retval
 ```
 
 ### cv::ml::KNearest::empty
@@ -13767,7 +13767,7 @@ AutoIt:
 bool cv::ml::KNearest::empty()
 
 AutoIt:
-    $kNearest.empty() -> retval
+    $oKNearest.empty() -> retval
 ```
 
 ### cv::ml::KNearest::isTrained
@@ -13776,7 +13776,7 @@ AutoIt:
 bool cv::ml::KNearest::isTrained()
 
 AutoIt:
-    $kNearest.isTrained() -> retval
+    $oKNearest.isTrained() -> retval
 ```
 
 ### cv::ml::KNearest::isClassifier
@@ -13785,7 +13785,7 @@ AutoIt:
 bool cv::ml::KNearest::isClassifier()
 
 AutoIt:
-    $kNearest.isClassifier() -> retval
+    $oKNearest.isClassifier() -> retval
 ```
 
 ### cv::ml::KNearest::train
@@ -13795,7 +13795,7 @@ bool cv::ml::KNearest::train( const cv::Ptr<cv::ml::TrainData>& trainData,
                               int                               flags = 0 )
 
 AutoIt:
-    $kNearest.train( $trainData[, $flags] ) -> retval
+    $oKNearest.train( $trainData[, $flags] ) -> retval
 ```
 
 ```cpp
@@ -13804,7 +13804,7 @@ bool cv::ml::KNearest::train( _InputArray samples,
                               _InputArray responses )
 
 AutoIt:
-    $kNearest.train( $samples, $layout, $responses ) -> retval
+    $oKNearest.train( $samples, $layout, $responses ) -> retval
 ```
 
 ### cv::ml::KNearest::calcError
@@ -13815,7 +13815,7 @@ float cv::ml::KNearest::calcError( const cv::Ptr<cv::ml::TrainData>& data,
                                    _OutputArray                      resp )
 
 AutoIt:
-    $kNearest.calcError( $data, $test[, $resp] ) -> retval, $resp
+    $oKNearest.calcError( $data, $test[, $resp] ) -> retval, $resp
 ```
 
 ### cv::ml::KNearest::predict
@@ -13826,7 +13826,7 @@ float cv::ml::KNearest::predict( _InputArray  samples,
                                  int          flags = 0 )
 
 AutoIt:
-    $kNearest.predict( $samples[, $results[, $flags]] ) -> retval, $results
+    $oKNearest.predict( $samples[, $results[, $flags]] ) -> retval, $results
 ```
 
 ### cv::ml::KNearest::clear
@@ -13835,7 +13835,7 @@ AutoIt:
 void cv::ml::KNearest::clear()
 
 AutoIt:
-    $kNearest.clear() -> None
+    $oKNearest.clear() -> None
 ```
 
 ### cv::ml::KNearest::write
@@ -13845,7 +13845,7 @@ void cv::ml::KNearest::write( const cv::Ptr<cv::FileStorage>& fs,
                               const std::string&              name = String() )
 
 AutoIt:
-    $kNearest.write( $fs[, $name] ) -> None
+    $oKNearest.write( $fs[, $name] ) -> None
 ```
 
 ### cv::ml::KNearest::read
@@ -13854,7 +13854,7 @@ AutoIt:
 void cv::ml::KNearest::read( const cv::FileNode& fn )
 
 AutoIt:
-    $kNearest.read( $fn ) -> None
+    $oKNearest.read( $fn ) -> None
 ```
 
 ### cv::ml::KNearest::save
@@ -13863,7 +13863,7 @@ AutoIt:
 void cv::ml::KNearest::save( const std::string& filename )
 
 AutoIt:
-    $kNearest.save( $filename ) -> None
+    $oKNearest.save( $filename ) -> None
 ```
 
 ### cv::ml::KNearest::getDefaultName
@@ -13872,7 +13872,7 @@ AutoIt:
 std::string cv::ml::KNearest::getDefaultName()
 
 AutoIt:
-    $kNearest.getDefaultName() -> retval
+    $oKNearest.getDefaultName() -> retval
 ```
 
 ## cv::ml::SVM
@@ -13883,7 +13883,7 @@ AutoIt:
 int cv::ml::SVM::getType()
 
 AutoIt:
-    $sVM.getType() -> retval
+    $oSVM.getType() -> retval
 ```
 
 ### cv::ml::SVM::setType
@@ -13892,7 +13892,7 @@ AutoIt:
 void cv::ml::SVM::setType( int val )
 
 AutoIt:
-    $sVM.setType( $val ) -> None
+    $oSVM.setType( $val ) -> None
 ```
 
 ### cv::ml::SVM::getGamma
@@ -13901,7 +13901,7 @@ AutoIt:
 double cv::ml::SVM::getGamma()
 
 AutoIt:
-    $sVM.getGamma() -> retval
+    $oSVM.getGamma() -> retval
 ```
 
 ### cv::ml::SVM::setGamma
@@ -13910,7 +13910,7 @@ AutoIt:
 void cv::ml::SVM::setGamma( double val )
 
 AutoIt:
-    $sVM.setGamma( $val ) -> None
+    $oSVM.setGamma( $val ) -> None
 ```
 
 ### cv::ml::SVM::getCoef0
@@ -13919,7 +13919,7 @@ AutoIt:
 double cv::ml::SVM::getCoef0()
 
 AutoIt:
-    $sVM.getCoef0() -> retval
+    $oSVM.getCoef0() -> retval
 ```
 
 ### cv::ml::SVM::setCoef0
@@ -13928,7 +13928,7 @@ AutoIt:
 void cv::ml::SVM::setCoef0( double val )
 
 AutoIt:
-    $sVM.setCoef0( $val ) -> None
+    $oSVM.setCoef0( $val ) -> None
 ```
 
 ### cv::ml::SVM::getDegree
@@ -13937,7 +13937,7 @@ AutoIt:
 double cv::ml::SVM::getDegree()
 
 AutoIt:
-    $sVM.getDegree() -> retval
+    $oSVM.getDegree() -> retval
 ```
 
 ### cv::ml::SVM::setDegree
@@ -13946,7 +13946,7 @@ AutoIt:
 void cv::ml::SVM::setDegree( double val )
 
 AutoIt:
-    $sVM.setDegree( $val ) -> None
+    $oSVM.setDegree( $val ) -> None
 ```
 
 ### cv::ml::SVM::getC
@@ -13955,7 +13955,7 @@ AutoIt:
 double cv::ml::SVM::getC()
 
 AutoIt:
-    $sVM.getC() -> retval
+    $oSVM.getC() -> retval
 ```
 
 ### cv::ml::SVM::setC
@@ -13964,7 +13964,7 @@ AutoIt:
 void cv::ml::SVM::setC( double val )
 
 AutoIt:
-    $sVM.setC( $val ) -> None
+    $oSVM.setC( $val ) -> None
 ```
 
 ### cv::ml::SVM::getNu
@@ -13973,7 +13973,7 @@ AutoIt:
 double cv::ml::SVM::getNu()
 
 AutoIt:
-    $sVM.getNu() -> retval
+    $oSVM.getNu() -> retval
 ```
 
 ### cv::ml::SVM::setNu
@@ -13982,7 +13982,7 @@ AutoIt:
 void cv::ml::SVM::setNu( double val )
 
 AutoIt:
-    $sVM.setNu( $val ) -> None
+    $oSVM.setNu( $val ) -> None
 ```
 
 ### cv::ml::SVM::getP
@@ -13991,7 +13991,7 @@ AutoIt:
 double cv::ml::SVM::getP()
 
 AutoIt:
-    $sVM.getP() -> retval
+    $oSVM.getP() -> retval
 ```
 
 ### cv::ml::SVM::setP
@@ -14000,7 +14000,7 @@ AutoIt:
 void cv::ml::SVM::setP( double val )
 
 AutoIt:
-    $sVM.setP( $val ) -> None
+    $oSVM.setP( $val ) -> None
 ```
 
 ### cv::ml::SVM::getClassWeights
@@ -14009,7 +14009,7 @@ AutoIt:
 cv::Mat cv::ml::SVM::getClassWeights()
 
 AutoIt:
-    $sVM.getClassWeights() -> retval
+    $oSVM.getClassWeights() -> retval
 ```
 
 ### cv::ml::SVM::setClassWeights
@@ -14018,7 +14018,7 @@ AutoIt:
 void cv::ml::SVM::setClassWeights( const cv::Mat& val )
 
 AutoIt:
-    $sVM.setClassWeights( $val ) -> None
+    $oSVM.setClassWeights( $val ) -> None
 ```
 
 ### cv::ml::SVM::getTermCriteria
@@ -14027,7 +14027,7 @@ AutoIt:
 cv::TermCriteria cv::ml::SVM::getTermCriteria()
 
 AutoIt:
-    $sVM.getTermCriteria() -> retval
+    $oSVM.getTermCriteria() -> retval
 ```
 
 ### cv::ml::SVM::setTermCriteria
@@ -14036,7 +14036,7 @@ AutoIt:
 void cv::ml::SVM::setTermCriteria( const cv::TermCriteria& val )
 
 AutoIt:
-    $sVM.setTermCriteria( $val ) -> None
+    $oSVM.setTermCriteria( $val ) -> None
 ```
 
 ### cv::ml::SVM::getKernelType
@@ -14045,7 +14045,7 @@ AutoIt:
 int cv::ml::SVM::getKernelType()
 
 AutoIt:
-    $sVM.getKernelType() -> retval
+    $oSVM.getKernelType() -> retval
 ```
 
 ### cv::ml::SVM::setKernel
@@ -14054,7 +14054,7 @@ AutoIt:
 void cv::ml::SVM::setKernel( int kernelType )
 
 AutoIt:
-    $sVM.setKernel( $kernelType ) -> None
+    $oSVM.setKernel( $kernelType ) -> None
 ```
 
 ### cv::ml::SVM::trainAuto
@@ -14073,7 +14073,7 @@ bool cv::ml::SVM::trainAuto( _InputArray                samples,
                              bool                       balanced = false )
 
 AutoIt:
-    $sVM.trainAuto( $samples, $layout, $responses[, $kFold[, $Cgrid[, $gammaGrid[, $pGrid[, $nuGrid[, $coeffGrid[, $degreeGrid[, $balanced]]]]]]]] ) -> retval
+    $oSVM.trainAuto( $samples, $layout, $responses[, $kFold[, $Cgrid[, $gammaGrid[, $pGrid[, $nuGrid[, $coeffGrid[, $degreeGrid[, $balanced]]]]]]]] ) -> retval
 ```
 
 ### cv::ml::SVM::getSupportVectors
@@ -14082,7 +14082,7 @@ AutoIt:
 cv::Mat cv::ml::SVM::getSupportVectors()
 
 AutoIt:
-    $sVM.getSupportVectors() -> retval
+    $oSVM.getSupportVectors() -> retval
 ```
 
 ### cv::ml::SVM::getUncompressedSupportVectors
@@ -14091,7 +14091,7 @@ AutoIt:
 cv::Mat cv::ml::SVM::getUncompressedSupportVectors()
 
 AutoIt:
-    $sVM.getUncompressedSupportVectors() -> retval
+    $oSVM.getUncompressedSupportVectors() -> retval
 ```
 
 ### cv::ml::SVM::getDecisionFunction
@@ -14102,7 +14102,7 @@ double cv::ml::SVM::getDecisionFunction( int          i,
                                          _OutputArray svidx )
 
 AutoIt:
-    $sVM.getDecisionFunction( $i[, $alpha[, $svidx]] ) -> retval, $alpha, $svidx
+    $oSVM.getDecisionFunction( $i[, $alpha[, $svidx]] ) -> retval, $alpha, $svidx
 ```
 
 ### cv::ml::SVM::getDefaultGridPtr
@@ -14138,7 +14138,7 @@ AutoIt:
 int cv::ml::SVM::getVarCount()
 
 AutoIt:
-    $sVM.getVarCount() -> retval
+    $oSVM.getVarCount() -> retval
 ```
 
 ### cv::ml::SVM::empty
@@ -14147,7 +14147,7 @@ AutoIt:
 bool cv::ml::SVM::empty()
 
 AutoIt:
-    $sVM.empty() -> retval
+    $oSVM.empty() -> retval
 ```
 
 ### cv::ml::SVM::isTrained
@@ -14156,7 +14156,7 @@ AutoIt:
 bool cv::ml::SVM::isTrained()
 
 AutoIt:
-    $sVM.isTrained() -> retval
+    $oSVM.isTrained() -> retval
 ```
 
 ### cv::ml::SVM::isClassifier
@@ -14165,7 +14165,7 @@ AutoIt:
 bool cv::ml::SVM::isClassifier()
 
 AutoIt:
-    $sVM.isClassifier() -> retval
+    $oSVM.isClassifier() -> retval
 ```
 
 ### cv::ml::SVM::train
@@ -14175,7 +14175,7 @@ bool cv::ml::SVM::train( const cv::Ptr<cv::ml::TrainData>& trainData,
                          int                               flags = 0 )
 
 AutoIt:
-    $sVM.train( $trainData[, $flags] ) -> retval
+    $oSVM.train( $trainData[, $flags] ) -> retval
 ```
 
 ```cpp
@@ -14184,7 +14184,7 @@ bool cv::ml::SVM::train( _InputArray samples,
                          _InputArray responses )
 
 AutoIt:
-    $sVM.train( $samples, $layout, $responses ) -> retval
+    $oSVM.train( $samples, $layout, $responses ) -> retval
 ```
 
 ### cv::ml::SVM::calcError
@@ -14195,7 +14195,7 @@ float cv::ml::SVM::calcError( const cv::Ptr<cv::ml::TrainData>& data,
                               _OutputArray                      resp )
 
 AutoIt:
-    $sVM.calcError( $data, $test[, $resp] ) -> retval, $resp
+    $oSVM.calcError( $data, $test[, $resp] ) -> retval, $resp
 ```
 
 ### cv::ml::SVM::predict
@@ -14206,7 +14206,7 @@ float cv::ml::SVM::predict( _InputArray  samples,
                             int          flags = 0 )
 
 AutoIt:
-    $sVM.predict( $samples[, $results[, $flags]] ) -> retval, $results
+    $oSVM.predict( $samples[, $results[, $flags]] ) -> retval, $results
 ```
 
 ### cv::ml::SVM::clear
@@ -14215,7 +14215,7 @@ AutoIt:
 void cv::ml::SVM::clear()
 
 AutoIt:
-    $sVM.clear() -> None
+    $oSVM.clear() -> None
 ```
 
 ### cv::ml::SVM::write
@@ -14225,7 +14225,7 @@ void cv::ml::SVM::write( const cv::Ptr<cv::FileStorage>& fs,
                          const std::string&              name = String() )
 
 AutoIt:
-    $sVM.write( $fs[, $name] ) -> None
+    $oSVM.write( $fs[, $name] ) -> None
 ```
 
 ### cv::ml::SVM::read
@@ -14234,7 +14234,7 @@ AutoIt:
 void cv::ml::SVM::read( const cv::FileNode& fn )
 
 AutoIt:
-    $sVM.read( $fn ) -> None
+    $oSVM.read( $fn ) -> None
 ```
 
 ### cv::ml::SVM::save
@@ -14243,7 +14243,7 @@ AutoIt:
 void cv::ml::SVM::save( const std::string& filename )
 
 AutoIt:
-    $sVM.save( $filename ) -> None
+    $oSVM.save( $filename ) -> None
 ```
 
 ### cv::ml::SVM::getDefaultName
@@ -14252,7 +14252,7 @@ AutoIt:
 std::string cv::ml::SVM::getDefaultName()
 
 AutoIt:
-    $sVM.getDefaultName() -> retval
+    $oSVM.getDefaultName() -> retval
 ```
 
 ## cv::ml::EM
@@ -14263,7 +14263,7 @@ AutoIt:
 int cv::ml::EM::getClustersNumber()
 
 AutoIt:
-    $eM.getClustersNumber() -> retval
+    $oEM.getClustersNumber() -> retval
 ```
 
 ### cv::ml::EM::setClustersNumber
@@ -14272,7 +14272,7 @@ AutoIt:
 void cv::ml::EM::setClustersNumber( int val )
 
 AutoIt:
-    $eM.setClustersNumber( $val ) -> None
+    $oEM.setClustersNumber( $val ) -> None
 ```
 
 ### cv::ml::EM::getCovarianceMatrixType
@@ -14281,7 +14281,7 @@ AutoIt:
 int cv::ml::EM::getCovarianceMatrixType()
 
 AutoIt:
-    $eM.getCovarianceMatrixType() -> retval
+    $oEM.getCovarianceMatrixType() -> retval
 ```
 
 ### cv::ml::EM::setCovarianceMatrixType
@@ -14290,7 +14290,7 @@ AutoIt:
 void cv::ml::EM::setCovarianceMatrixType( int val )
 
 AutoIt:
-    $eM.setCovarianceMatrixType( $val ) -> None
+    $oEM.setCovarianceMatrixType( $val ) -> None
 ```
 
 ### cv::ml::EM::getTermCriteria
@@ -14299,7 +14299,7 @@ AutoIt:
 cv::TermCriteria cv::ml::EM::getTermCriteria()
 
 AutoIt:
-    $eM.getTermCriteria() -> retval
+    $oEM.getTermCriteria() -> retval
 ```
 
 ### cv::ml::EM::setTermCriteria
@@ -14308,7 +14308,7 @@ AutoIt:
 void cv::ml::EM::setTermCriteria( const cv::TermCriteria& val )
 
 AutoIt:
-    $eM.setTermCriteria( $val ) -> None
+    $oEM.setTermCriteria( $val ) -> None
 ```
 
 ### cv::ml::EM::getWeights
@@ -14317,7 +14317,7 @@ AutoIt:
 cv::Mat cv::ml::EM::getWeights()
 
 AutoIt:
-    $eM.getWeights() -> retval
+    $oEM.getWeights() -> retval
 ```
 
 ### cv::ml::EM::getMeans
@@ -14326,7 +14326,7 @@ AutoIt:
 cv::Mat cv::ml::EM::getMeans()
 
 AutoIt:
-    $eM.getMeans() -> retval
+    $oEM.getMeans() -> retval
 ```
 
 ### cv::ml::EM::getCovs
@@ -14335,7 +14335,7 @@ AutoIt:
 void cv::ml::EM::getCovs( std::vector<cv::Mat>& covs )
 
 AutoIt:
-    $eM.getCovs( [$covs] ) -> $covs
+    $oEM.getCovs( [$covs] ) -> $covs
 ```
 
 ### cv::ml::EM::predict
@@ -14346,7 +14346,7 @@ float cv::ml::EM::predict( _InputArray  samples,
                            int          flags = 0 )
 
 AutoIt:
-    $eM.predict( $samples[, $results[, $flags]] ) -> retval, $results
+    $oEM.predict( $samples[, $results[, $flags]] ) -> retval, $results
 ```
 
 ### cv::ml::EM::predict2
@@ -14356,7 +14356,7 @@ cv::Vec2d cv::ml::EM::predict2( _InputArray  sample,
                                 _OutputArray probs )
 
 AutoIt:
-    $eM.predict2( $sample[, $probs] ) -> retval, $probs
+    $oEM.predict2( $sample[, $probs] ) -> retval, $probs
 ```
 
 ### cv::ml::EM::trainEM
@@ -14368,7 +14368,7 @@ bool cv::ml::EM::trainEM( _InputArray  samples,
                           _OutputArray probs = noArray() )
 
 AutoIt:
-    $eM.trainEM( $samples[, $logLikelihoods[, $labels[, $probs]]] ) -> retval, $logLikelihoods, $labels, $probs
+    $oEM.trainEM( $samples[, $logLikelihoods[, $labels[, $probs]]] ) -> retval, $logLikelihoods, $labels, $probs
 ```
 
 ### cv::ml::EM::trainE
@@ -14383,7 +14383,7 @@ bool cv::ml::EM::trainE( _InputArray  samples,
                          _OutputArray probs = noArray() )
 
 AutoIt:
-    $eM.trainE( $samples, $means0[, $covs0[, $weights0[, $logLikelihoods[, $labels[, $probs]]]]] ) -> retval, $logLikelihoods, $labels, $probs
+    $oEM.trainE( $samples, $means0[, $covs0[, $weights0[, $logLikelihoods[, $labels[, $probs]]]]] ) -> retval, $logLikelihoods, $labels, $probs
 ```
 
 ### cv::ml::EM::trainM
@@ -14396,7 +14396,7 @@ bool cv::ml::EM::trainM( _InputArray  samples,
                          _OutputArray probs = noArray() )
 
 AutoIt:
-    $eM.trainM( $samples, $probs0[, $logLikelihoods[, $labels[, $probs]]] ) -> retval, $logLikelihoods, $labels, $probs
+    $oEM.trainM( $samples, $probs0[, $logLikelihoods[, $labels[, $probs]]] ) -> retval, $logLikelihoods, $labels, $probs
 ```
 
 ### cv::ml::EM::create
@@ -14424,7 +14424,7 @@ AutoIt:
 int cv::ml::EM::getVarCount()
 
 AutoIt:
-    $eM.getVarCount() -> retval
+    $oEM.getVarCount() -> retval
 ```
 
 ### cv::ml::EM::empty
@@ -14433,7 +14433,7 @@ AutoIt:
 bool cv::ml::EM::empty()
 
 AutoIt:
-    $eM.empty() -> retval
+    $oEM.empty() -> retval
 ```
 
 ### cv::ml::EM::isTrained
@@ -14442,7 +14442,7 @@ AutoIt:
 bool cv::ml::EM::isTrained()
 
 AutoIt:
-    $eM.isTrained() -> retval
+    $oEM.isTrained() -> retval
 ```
 
 ### cv::ml::EM::isClassifier
@@ -14451,7 +14451,7 @@ AutoIt:
 bool cv::ml::EM::isClassifier()
 
 AutoIt:
-    $eM.isClassifier() -> retval
+    $oEM.isClassifier() -> retval
 ```
 
 ### cv::ml::EM::train
@@ -14461,7 +14461,7 @@ bool cv::ml::EM::train( const cv::Ptr<cv::ml::TrainData>& trainData,
                         int                               flags = 0 )
 
 AutoIt:
-    $eM.train( $trainData[, $flags] ) -> retval
+    $oEM.train( $trainData[, $flags] ) -> retval
 ```
 
 ```cpp
@@ -14470,7 +14470,7 @@ bool cv::ml::EM::train( _InputArray samples,
                         _InputArray responses )
 
 AutoIt:
-    $eM.train( $samples, $layout, $responses ) -> retval
+    $oEM.train( $samples, $layout, $responses ) -> retval
 ```
 
 ### cv::ml::EM::calcError
@@ -14481,7 +14481,7 @@ float cv::ml::EM::calcError( const cv::Ptr<cv::ml::TrainData>& data,
                              _OutputArray                      resp )
 
 AutoIt:
-    $eM.calcError( $data, $test[, $resp] ) -> retval, $resp
+    $oEM.calcError( $data, $test[, $resp] ) -> retval, $resp
 ```
 
 ### cv::ml::EM::clear
@@ -14490,7 +14490,7 @@ AutoIt:
 void cv::ml::EM::clear()
 
 AutoIt:
-    $eM.clear() -> None
+    $oEM.clear() -> None
 ```
 
 ### cv::ml::EM::write
@@ -14500,7 +14500,7 @@ void cv::ml::EM::write( const cv::Ptr<cv::FileStorage>& fs,
                         const std::string&              name = String() )
 
 AutoIt:
-    $eM.write( $fs[, $name] ) -> None
+    $oEM.write( $fs[, $name] ) -> None
 ```
 
 ### cv::ml::EM::read
@@ -14509,7 +14509,7 @@ AutoIt:
 void cv::ml::EM::read( const cv::FileNode& fn )
 
 AutoIt:
-    $eM.read( $fn ) -> None
+    $oEM.read( $fn ) -> None
 ```
 
 ### cv::ml::EM::save
@@ -14518,7 +14518,7 @@ AutoIt:
 void cv::ml::EM::save( const std::string& filename )
 
 AutoIt:
-    $eM.save( $filename ) -> None
+    $oEM.save( $filename ) -> None
 ```
 
 ### cv::ml::EM::getDefaultName
@@ -14527,7 +14527,7 @@ AutoIt:
 std::string cv::ml::EM::getDefaultName()
 
 AutoIt:
-    $eM.getDefaultName() -> retval
+    $oEM.getDefaultName() -> retval
 ```
 
 ## cv::ml::DTrees
@@ -14538,7 +14538,7 @@ AutoIt:
 int cv::ml::DTrees::getMaxCategories()
 
 AutoIt:
-    $dTrees.getMaxCategories() -> retval
+    $oDTrees.getMaxCategories() -> retval
 ```
 
 ### cv::ml::DTrees::setMaxCategories
@@ -14547,7 +14547,7 @@ AutoIt:
 void cv::ml::DTrees::setMaxCategories( int val )
 
 AutoIt:
-    $dTrees.setMaxCategories( $val ) -> None
+    $oDTrees.setMaxCategories( $val ) -> None
 ```
 
 ### cv::ml::DTrees::getMaxDepth
@@ -14556,7 +14556,7 @@ AutoIt:
 int cv::ml::DTrees::getMaxDepth()
 
 AutoIt:
-    $dTrees.getMaxDepth() -> retval
+    $oDTrees.getMaxDepth() -> retval
 ```
 
 ### cv::ml::DTrees::setMaxDepth
@@ -14565,7 +14565,7 @@ AutoIt:
 void cv::ml::DTrees::setMaxDepth( int val )
 
 AutoIt:
-    $dTrees.setMaxDepth( $val ) -> None
+    $oDTrees.setMaxDepth( $val ) -> None
 ```
 
 ### cv::ml::DTrees::getMinSampleCount
@@ -14574,7 +14574,7 @@ AutoIt:
 int cv::ml::DTrees::getMinSampleCount()
 
 AutoIt:
-    $dTrees.getMinSampleCount() -> retval
+    $oDTrees.getMinSampleCount() -> retval
 ```
 
 ### cv::ml::DTrees::setMinSampleCount
@@ -14583,7 +14583,7 @@ AutoIt:
 void cv::ml::DTrees::setMinSampleCount( int val )
 
 AutoIt:
-    $dTrees.setMinSampleCount( $val ) -> None
+    $oDTrees.setMinSampleCount( $val ) -> None
 ```
 
 ### cv::ml::DTrees::getCVFolds
@@ -14592,7 +14592,7 @@ AutoIt:
 int cv::ml::DTrees::getCVFolds()
 
 AutoIt:
-    $dTrees.getCVFolds() -> retval
+    $oDTrees.getCVFolds() -> retval
 ```
 
 ### cv::ml::DTrees::setCVFolds
@@ -14601,7 +14601,7 @@ AutoIt:
 void cv::ml::DTrees::setCVFolds( int val )
 
 AutoIt:
-    $dTrees.setCVFolds( $val ) -> None
+    $oDTrees.setCVFolds( $val ) -> None
 ```
 
 ### cv::ml::DTrees::getUseSurrogates
@@ -14610,7 +14610,7 @@ AutoIt:
 bool cv::ml::DTrees::getUseSurrogates()
 
 AutoIt:
-    $dTrees.getUseSurrogates() -> retval
+    $oDTrees.getUseSurrogates() -> retval
 ```
 
 ### cv::ml::DTrees::setUseSurrogates
@@ -14619,7 +14619,7 @@ AutoIt:
 void cv::ml::DTrees::setUseSurrogates( bool val )
 
 AutoIt:
-    $dTrees.setUseSurrogates( $val ) -> None
+    $oDTrees.setUseSurrogates( $val ) -> None
 ```
 
 ### cv::ml::DTrees::getUse1SERule
@@ -14628,7 +14628,7 @@ AutoIt:
 bool cv::ml::DTrees::getUse1SERule()
 
 AutoIt:
-    $dTrees.getUse1SERule() -> retval
+    $oDTrees.getUse1SERule() -> retval
 ```
 
 ### cv::ml::DTrees::setUse1SERule
@@ -14637,7 +14637,7 @@ AutoIt:
 void cv::ml::DTrees::setUse1SERule( bool val )
 
 AutoIt:
-    $dTrees.setUse1SERule( $val ) -> None
+    $oDTrees.setUse1SERule( $val ) -> None
 ```
 
 ### cv::ml::DTrees::getTruncatePrunedTree
@@ -14646,7 +14646,7 @@ AutoIt:
 bool cv::ml::DTrees::getTruncatePrunedTree()
 
 AutoIt:
-    $dTrees.getTruncatePrunedTree() -> retval
+    $oDTrees.getTruncatePrunedTree() -> retval
 ```
 
 ### cv::ml::DTrees::setTruncatePrunedTree
@@ -14655,7 +14655,7 @@ AutoIt:
 void cv::ml::DTrees::setTruncatePrunedTree( bool val )
 
 AutoIt:
-    $dTrees.setTruncatePrunedTree( $val ) -> None
+    $oDTrees.setTruncatePrunedTree( $val ) -> None
 ```
 
 ### cv::ml::DTrees::getRegressionAccuracy
@@ -14664,7 +14664,7 @@ AutoIt:
 float cv::ml::DTrees::getRegressionAccuracy()
 
 AutoIt:
-    $dTrees.getRegressionAccuracy() -> retval
+    $oDTrees.getRegressionAccuracy() -> retval
 ```
 
 ### cv::ml::DTrees::setRegressionAccuracy
@@ -14673,7 +14673,7 @@ AutoIt:
 void cv::ml::DTrees::setRegressionAccuracy( float val )
 
 AutoIt:
-    $dTrees.setRegressionAccuracy( $val ) -> None
+    $oDTrees.setRegressionAccuracy( $val ) -> None
 ```
 
 ### cv::ml::DTrees::getPriors
@@ -14682,7 +14682,7 @@ AutoIt:
 cv::Mat cv::ml::DTrees::getPriors()
 
 AutoIt:
-    $dTrees.getPriors() -> retval
+    $oDTrees.getPriors() -> retval
 ```
 
 ### cv::ml::DTrees::setPriors
@@ -14691,7 +14691,7 @@ AutoIt:
 void cv::ml::DTrees::setPriors( const cv::Mat& val )
 
 AutoIt:
-    $dTrees.setPriors( $val ) -> None
+    $oDTrees.setPriors( $val ) -> None
 ```
 
 ### cv::ml::DTrees::create
@@ -14719,7 +14719,7 @@ AutoIt:
 int cv::ml::DTrees::getVarCount()
 
 AutoIt:
-    $dTrees.getVarCount() -> retval
+    $oDTrees.getVarCount() -> retval
 ```
 
 ### cv::ml::DTrees::empty
@@ -14728,7 +14728,7 @@ AutoIt:
 bool cv::ml::DTrees::empty()
 
 AutoIt:
-    $dTrees.empty() -> retval
+    $oDTrees.empty() -> retval
 ```
 
 ### cv::ml::DTrees::isTrained
@@ -14737,7 +14737,7 @@ AutoIt:
 bool cv::ml::DTrees::isTrained()
 
 AutoIt:
-    $dTrees.isTrained() -> retval
+    $oDTrees.isTrained() -> retval
 ```
 
 ### cv::ml::DTrees::isClassifier
@@ -14746,7 +14746,7 @@ AutoIt:
 bool cv::ml::DTrees::isClassifier()
 
 AutoIt:
-    $dTrees.isClassifier() -> retval
+    $oDTrees.isClassifier() -> retval
 ```
 
 ### cv::ml::DTrees::train
@@ -14756,7 +14756,7 @@ bool cv::ml::DTrees::train( const cv::Ptr<cv::ml::TrainData>& trainData,
                             int                               flags = 0 )
 
 AutoIt:
-    $dTrees.train( $trainData[, $flags] ) -> retval
+    $oDTrees.train( $trainData[, $flags] ) -> retval
 ```
 
 ```cpp
@@ -14765,7 +14765,7 @@ bool cv::ml::DTrees::train( _InputArray samples,
                             _InputArray responses )
 
 AutoIt:
-    $dTrees.train( $samples, $layout, $responses ) -> retval
+    $oDTrees.train( $samples, $layout, $responses ) -> retval
 ```
 
 ### cv::ml::DTrees::calcError
@@ -14776,7 +14776,7 @@ float cv::ml::DTrees::calcError( const cv::Ptr<cv::ml::TrainData>& data,
                                  _OutputArray                      resp )
 
 AutoIt:
-    $dTrees.calcError( $data, $test[, $resp] ) -> retval, $resp
+    $oDTrees.calcError( $data, $test[, $resp] ) -> retval, $resp
 ```
 
 ### cv::ml::DTrees::predict
@@ -14787,7 +14787,7 @@ float cv::ml::DTrees::predict( _InputArray  samples,
                                int          flags = 0 )
 
 AutoIt:
-    $dTrees.predict( $samples[, $results[, $flags]] ) -> retval, $results
+    $oDTrees.predict( $samples[, $results[, $flags]] ) -> retval, $results
 ```
 
 ### cv::ml::DTrees::clear
@@ -14796,7 +14796,7 @@ AutoIt:
 void cv::ml::DTrees::clear()
 
 AutoIt:
-    $dTrees.clear() -> None
+    $oDTrees.clear() -> None
 ```
 
 ### cv::ml::DTrees::write
@@ -14806,7 +14806,7 @@ void cv::ml::DTrees::write( const cv::Ptr<cv::FileStorage>& fs,
                             const std::string&              name = String() )
 
 AutoIt:
-    $dTrees.write( $fs[, $name] ) -> None
+    $oDTrees.write( $fs[, $name] ) -> None
 ```
 
 ### cv::ml::DTrees::read
@@ -14815,7 +14815,7 @@ AutoIt:
 void cv::ml::DTrees::read( const cv::FileNode& fn )
 
 AutoIt:
-    $dTrees.read( $fn ) -> None
+    $oDTrees.read( $fn ) -> None
 ```
 
 ### cv::ml::DTrees::save
@@ -14824,7 +14824,7 @@ AutoIt:
 void cv::ml::DTrees::save( const std::string& filename )
 
 AutoIt:
-    $dTrees.save( $filename ) -> None
+    $oDTrees.save( $filename ) -> None
 ```
 
 ### cv::ml::DTrees::getDefaultName
@@ -14833,7 +14833,7 @@ AutoIt:
 std::string cv::ml::DTrees::getDefaultName()
 
 AutoIt:
-    $dTrees.getDefaultName() -> retval
+    $oDTrees.getDefaultName() -> retval
 ```
 
 ## cv::ml::RTrees
@@ -14844,7 +14844,7 @@ AutoIt:
 bool cv::ml::RTrees::getCalculateVarImportance()
 
 AutoIt:
-    $rTrees.getCalculateVarImportance() -> retval
+    $oRTrees.getCalculateVarImportance() -> retval
 ```
 
 ### cv::ml::RTrees::setCalculateVarImportance
@@ -14853,7 +14853,7 @@ AutoIt:
 void cv::ml::RTrees::setCalculateVarImportance( bool val )
 
 AutoIt:
-    $rTrees.setCalculateVarImportance( $val ) -> None
+    $oRTrees.setCalculateVarImportance( $val ) -> None
 ```
 
 ### cv::ml::RTrees::getActiveVarCount
@@ -14862,7 +14862,7 @@ AutoIt:
 int cv::ml::RTrees::getActiveVarCount()
 
 AutoIt:
-    $rTrees.getActiveVarCount() -> retval
+    $oRTrees.getActiveVarCount() -> retval
 ```
 
 ### cv::ml::RTrees::setActiveVarCount
@@ -14871,7 +14871,7 @@ AutoIt:
 void cv::ml::RTrees::setActiveVarCount( int val )
 
 AutoIt:
-    $rTrees.setActiveVarCount( $val ) -> None
+    $oRTrees.setActiveVarCount( $val ) -> None
 ```
 
 ### cv::ml::RTrees::getTermCriteria
@@ -14880,7 +14880,7 @@ AutoIt:
 cv::TermCriteria cv::ml::RTrees::getTermCriteria()
 
 AutoIt:
-    $rTrees.getTermCriteria() -> retval
+    $oRTrees.getTermCriteria() -> retval
 ```
 
 ### cv::ml::RTrees::setTermCriteria
@@ -14889,7 +14889,7 @@ AutoIt:
 void cv::ml::RTrees::setTermCriteria( const cv::TermCriteria& val )
 
 AutoIt:
-    $rTrees.setTermCriteria( $val ) -> None
+    $oRTrees.setTermCriteria( $val ) -> None
 ```
 
 ### cv::ml::RTrees::getVarImportance
@@ -14898,7 +14898,7 @@ AutoIt:
 cv::Mat cv::ml::RTrees::getVarImportance()
 
 AutoIt:
-    $rTrees.getVarImportance() -> retval
+    $oRTrees.getVarImportance() -> retval
 ```
 
 ### cv::ml::RTrees::getVotes
@@ -14909,7 +14909,7 @@ void cv::ml::RTrees::getVotes( _InputArray  samples,
                                int          flags )
 
 AutoIt:
-    $rTrees.getVotes( $samples, $flags[, $results] ) -> $results
+    $oRTrees.getVotes( $samples, $flags[, $results] ) -> $results
 ```
 
 ### cv::ml::RTrees::getOOBError
@@ -14918,7 +14918,7 @@ AutoIt:
 double cv::ml::RTrees::getOOBError()
 
 AutoIt:
-    $rTrees.getOOBError() -> retval
+    $oRTrees.getOOBError() -> retval
 ```
 
 ### cv::ml::RTrees::create
@@ -14946,7 +14946,7 @@ AutoIt:
 int cv::ml::RTrees::getMaxCategories()
 
 AutoIt:
-    $rTrees.getMaxCategories() -> retval
+    $oRTrees.getMaxCategories() -> retval
 ```
 
 ### cv::ml::RTrees::setMaxCategories
@@ -14955,7 +14955,7 @@ AutoIt:
 void cv::ml::RTrees::setMaxCategories( int val )
 
 AutoIt:
-    $rTrees.setMaxCategories( $val ) -> None
+    $oRTrees.setMaxCategories( $val ) -> None
 ```
 
 ### cv::ml::RTrees::getMaxDepth
@@ -14964,7 +14964,7 @@ AutoIt:
 int cv::ml::RTrees::getMaxDepth()
 
 AutoIt:
-    $rTrees.getMaxDepth() -> retval
+    $oRTrees.getMaxDepth() -> retval
 ```
 
 ### cv::ml::RTrees::setMaxDepth
@@ -14973,7 +14973,7 @@ AutoIt:
 void cv::ml::RTrees::setMaxDepth( int val )
 
 AutoIt:
-    $rTrees.setMaxDepth( $val ) -> None
+    $oRTrees.setMaxDepth( $val ) -> None
 ```
 
 ### cv::ml::RTrees::getMinSampleCount
@@ -14982,7 +14982,7 @@ AutoIt:
 int cv::ml::RTrees::getMinSampleCount()
 
 AutoIt:
-    $rTrees.getMinSampleCount() -> retval
+    $oRTrees.getMinSampleCount() -> retval
 ```
 
 ### cv::ml::RTrees::setMinSampleCount
@@ -14991,7 +14991,7 @@ AutoIt:
 void cv::ml::RTrees::setMinSampleCount( int val )
 
 AutoIt:
-    $rTrees.setMinSampleCount( $val ) -> None
+    $oRTrees.setMinSampleCount( $val ) -> None
 ```
 
 ### cv::ml::RTrees::getCVFolds
@@ -15000,7 +15000,7 @@ AutoIt:
 int cv::ml::RTrees::getCVFolds()
 
 AutoIt:
-    $rTrees.getCVFolds() -> retval
+    $oRTrees.getCVFolds() -> retval
 ```
 
 ### cv::ml::RTrees::setCVFolds
@@ -15009,7 +15009,7 @@ AutoIt:
 void cv::ml::RTrees::setCVFolds( int val )
 
 AutoIt:
-    $rTrees.setCVFolds( $val ) -> None
+    $oRTrees.setCVFolds( $val ) -> None
 ```
 
 ### cv::ml::RTrees::getUseSurrogates
@@ -15018,7 +15018,7 @@ AutoIt:
 bool cv::ml::RTrees::getUseSurrogates()
 
 AutoIt:
-    $rTrees.getUseSurrogates() -> retval
+    $oRTrees.getUseSurrogates() -> retval
 ```
 
 ### cv::ml::RTrees::setUseSurrogates
@@ -15027,7 +15027,7 @@ AutoIt:
 void cv::ml::RTrees::setUseSurrogates( bool val )
 
 AutoIt:
-    $rTrees.setUseSurrogates( $val ) -> None
+    $oRTrees.setUseSurrogates( $val ) -> None
 ```
 
 ### cv::ml::RTrees::getUse1SERule
@@ -15036,7 +15036,7 @@ AutoIt:
 bool cv::ml::RTrees::getUse1SERule()
 
 AutoIt:
-    $rTrees.getUse1SERule() -> retval
+    $oRTrees.getUse1SERule() -> retval
 ```
 
 ### cv::ml::RTrees::setUse1SERule
@@ -15045,7 +15045,7 @@ AutoIt:
 void cv::ml::RTrees::setUse1SERule( bool val )
 
 AutoIt:
-    $rTrees.setUse1SERule( $val ) -> None
+    $oRTrees.setUse1SERule( $val ) -> None
 ```
 
 ### cv::ml::RTrees::getTruncatePrunedTree
@@ -15054,7 +15054,7 @@ AutoIt:
 bool cv::ml::RTrees::getTruncatePrunedTree()
 
 AutoIt:
-    $rTrees.getTruncatePrunedTree() -> retval
+    $oRTrees.getTruncatePrunedTree() -> retval
 ```
 
 ### cv::ml::RTrees::setTruncatePrunedTree
@@ -15063,7 +15063,7 @@ AutoIt:
 void cv::ml::RTrees::setTruncatePrunedTree( bool val )
 
 AutoIt:
-    $rTrees.setTruncatePrunedTree( $val ) -> None
+    $oRTrees.setTruncatePrunedTree( $val ) -> None
 ```
 
 ### cv::ml::RTrees::getRegressionAccuracy
@@ -15072,7 +15072,7 @@ AutoIt:
 float cv::ml::RTrees::getRegressionAccuracy()
 
 AutoIt:
-    $rTrees.getRegressionAccuracy() -> retval
+    $oRTrees.getRegressionAccuracy() -> retval
 ```
 
 ### cv::ml::RTrees::setRegressionAccuracy
@@ -15081,7 +15081,7 @@ AutoIt:
 void cv::ml::RTrees::setRegressionAccuracy( float val )
 
 AutoIt:
-    $rTrees.setRegressionAccuracy( $val ) -> None
+    $oRTrees.setRegressionAccuracy( $val ) -> None
 ```
 
 ### cv::ml::RTrees::getPriors
@@ -15090,7 +15090,7 @@ AutoIt:
 cv::Mat cv::ml::RTrees::getPriors()
 
 AutoIt:
-    $rTrees.getPriors() -> retval
+    $oRTrees.getPriors() -> retval
 ```
 
 ### cv::ml::RTrees::setPriors
@@ -15099,7 +15099,7 @@ AutoIt:
 void cv::ml::RTrees::setPriors( const cv::Mat& val )
 
 AutoIt:
-    $rTrees.setPriors( $val ) -> None
+    $oRTrees.setPriors( $val ) -> None
 ```
 
 ### cv::ml::RTrees::getVarCount
@@ -15108,7 +15108,7 @@ AutoIt:
 int cv::ml::RTrees::getVarCount()
 
 AutoIt:
-    $rTrees.getVarCount() -> retval
+    $oRTrees.getVarCount() -> retval
 ```
 
 ### cv::ml::RTrees::empty
@@ -15117,7 +15117,7 @@ AutoIt:
 bool cv::ml::RTrees::empty()
 
 AutoIt:
-    $rTrees.empty() -> retval
+    $oRTrees.empty() -> retval
 ```
 
 ### cv::ml::RTrees::isTrained
@@ -15126,7 +15126,7 @@ AutoIt:
 bool cv::ml::RTrees::isTrained()
 
 AutoIt:
-    $rTrees.isTrained() -> retval
+    $oRTrees.isTrained() -> retval
 ```
 
 ### cv::ml::RTrees::isClassifier
@@ -15135,7 +15135,7 @@ AutoIt:
 bool cv::ml::RTrees::isClassifier()
 
 AutoIt:
-    $rTrees.isClassifier() -> retval
+    $oRTrees.isClassifier() -> retval
 ```
 
 ### cv::ml::RTrees::train
@@ -15145,7 +15145,7 @@ bool cv::ml::RTrees::train( const cv::Ptr<cv::ml::TrainData>& trainData,
                             int                               flags = 0 )
 
 AutoIt:
-    $rTrees.train( $trainData[, $flags] ) -> retval
+    $oRTrees.train( $trainData[, $flags] ) -> retval
 ```
 
 ```cpp
@@ -15154,7 +15154,7 @@ bool cv::ml::RTrees::train( _InputArray samples,
                             _InputArray responses )
 
 AutoIt:
-    $rTrees.train( $samples, $layout, $responses ) -> retval
+    $oRTrees.train( $samples, $layout, $responses ) -> retval
 ```
 
 ### cv::ml::RTrees::calcError
@@ -15165,7 +15165,7 @@ float cv::ml::RTrees::calcError( const cv::Ptr<cv::ml::TrainData>& data,
                                  _OutputArray                      resp )
 
 AutoIt:
-    $rTrees.calcError( $data, $test[, $resp] ) -> retval, $resp
+    $oRTrees.calcError( $data, $test[, $resp] ) -> retval, $resp
 ```
 
 ### cv::ml::RTrees::predict
@@ -15176,7 +15176,7 @@ float cv::ml::RTrees::predict( _InputArray  samples,
                                int          flags = 0 )
 
 AutoIt:
-    $rTrees.predict( $samples[, $results[, $flags]] ) -> retval, $results
+    $oRTrees.predict( $samples[, $results[, $flags]] ) -> retval, $results
 ```
 
 ### cv::ml::RTrees::clear
@@ -15185,7 +15185,7 @@ AutoIt:
 void cv::ml::RTrees::clear()
 
 AutoIt:
-    $rTrees.clear() -> None
+    $oRTrees.clear() -> None
 ```
 
 ### cv::ml::RTrees::write
@@ -15195,7 +15195,7 @@ void cv::ml::RTrees::write( const cv::Ptr<cv::FileStorage>& fs,
                             const std::string&              name = String() )
 
 AutoIt:
-    $rTrees.write( $fs[, $name] ) -> None
+    $oRTrees.write( $fs[, $name] ) -> None
 ```
 
 ### cv::ml::RTrees::read
@@ -15204,7 +15204,7 @@ AutoIt:
 void cv::ml::RTrees::read( const cv::FileNode& fn )
 
 AutoIt:
-    $rTrees.read( $fn ) -> None
+    $oRTrees.read( $fn ) -> None
 ```
 
 ### cv::ml::RTrees::save
@@ -15213,7 +15213,7 @@ AutoIt:
 void cv::ml::RTrees::save( const std::string& filename )
 
 AutoIt:
-    $rTrees.save( $filename ) -> None
+    $oRTrees.save( $filename ) -> None
 ```
 
 ### cv::ml::RTrees::getDefaultName
@@ -15222,7 +15222,7 @@ AutoIt:
 std::string cv::ml::RTrees::getDefaultName()
 
 AutoIt:
-    $rTrees.getDefaultName() -> retval
+    $oRTrees.getDefaultName() -> retval
 ```
 
 ## cv::ml::Boost
@@ -15233,7 +15233,7 @@ AutoIt:
 int cv::ml::Boost::getBoostType()
 
 AutoIt:
-    $boost.getBoostType() -> retval
+    $oBoost.getBoostType() -> retval
 ```
 
 ### cv::ml::Boost::setBoostType
@@ -15242,7 +15242,7 @@ AutoIt:
 void cv::ml::Boost::setBoostType( int val )
 
 AutoIt:
-    $boost.setBoostType( $val ) -> None
+    $oBoost.setBoostType( $val ) -> None
 ```
 
 ### cv::ml::Boost::getWeakCount
@@ -15251,7 +15251,7 @@ AutoIt:
 int cv::ml::Boost::getWeakCount()
 
 AutoIt:
-    $boost.getWeakCount() -> retval
+    $oBoost.getWeakCount() -> retval
 ```
 
 ### cv::ml::Boost::setWeakCount
@@ -15260,7 +15260,7 @@ AutoIt:
 void cv::ml::Boost::setWeakCount( int val )
 
 AutoIt:
-    $boost.setWeakCount( $val ) -> None
+    $oBoost.setWeakCount( $val ) -> None
 ```
 
 ### cv::ml::Boost::getWeightTrimRate
@@ -15269,7 +15269,7 @@ AutoIt:
 double cv::ml::Boost::getWeightTrimRate()
 
 AutoIt:
-    $boost.getWeightTrimRate() -> retval
+    $oBoost.getWeightTrimRate() -> retval
 ```
 
 ### cv::ml::Boost::setWeightTrimRate
@@ -15278,7 +15278,7 @@ AutoIt:
 void cv::ml::Boost::setWeightTrimRate( double val )
 
 AutoIt:
-    $boost.setWeightTrimRate( $val ) -> None
+    $oBoost.setWeightTrimRate( $val ) -> None
 ```
 
 ### cv::ml::Boost::create
@@ -15306,7 +15306,7 @@ AutoIt:
 int cv::ml::Boost::getMaxCategories()
 
 AutoIt:
-    $boost.getMaxCategories() -> retval
+    $oBoost.getMaxCategories() -> retval
 ```
 
 ### cv::ml::Boost::setMaxCategories
@@ -15315,7 +15315,7 @@ AutoIt:
 void cv::ml::Boost::setMaxCategories( int val )
 
 AutoIt:
-    $boost.setMaxCategories( $val ) -> None
+    $oBoost.setMaxCategories( $val ) -> None
 ```
 
 ### cv::ml::Boost::getMaxDepth
@@ -15324,7 +15324,7 @@ AutoIt:
 int cv::ml::Boost::getMaxDepth()
 
 AutoIt:
-    $boost.getMaxDepth() -> retval
+    $oBoost.getMaxDepth() -> retval
 ```
 
 ### cv::ml::Boost::setMaxDepth
@@ -15333,7 +15333,7 @@ AutoIt:
 void cv::ml::Boost::setMaxDepth( int val )
 
 AutoIt:
-    $boost.setMaxDepth( $val ) -> None
+    $oBoost.setMaxDepth( $val ) -> None
 ```
 
 ### cv::ml::Boost::getMinSampleCount
@@ -15342,7 +15342,7 @@ AutoIt:
 int cv::ml::Boost::getMinSampleCount()
 
 AutoIt:
-    $boost.getMinSampleCount() -> retval
+    $oBoost.getMinSampleCount() -> retval
 ```
 
 ### cv::ml::Boost::setMinSampleCount
@@ -15351,7 +15351,7 @@ AutoIt:
 void cv::ml::Boost::setMinSampleCount( int val )
 
 AutoIt:
-    $boost.setMinSampleCount( $val ) -> None
+    $oBoost.setMinSampleCount( $val ) -> None
 ```
 
 ### cv::ml::Boost::getCVFolds
@@ -15360,7 +15360,7 @@ AutoIt:
 int cv::ml::Boost::getCVFolds()
 
 AutoIt:
-    $boost.getCVFolds() -> retval
+    $oBoost.getCVFolds() -> retval
 ```
 
 ### cv::ml::Boost::setCVFolds
@@ -15369,7 +15369,7 @@ AutoIt:
 void cv::ml::Boost::setCVFolds( int val )
 
 AutoIt:
-    $boost.setCVFolds( $val ) -> None
+    $oBoost.setCVFolds( $val ) -> None
 ```
 
 ### cv::ml::Boost::getUseSurrogates
@@ -15378,7 +15378,7 @@ AutoIt:
 bool cv::ml::Boost::getUseSurrogates()
 
 AutoIt:
-    $boost.getUseSurrogates() -> retval
+    $oBoost.getUseSurrogates() -> retval
 ```
 
 ### cv::ml::Boost::setUseSurrogates
@@ -15387,7 +15387,7 @@ AutoIt:
 void cv::ml::Boost::setUseSurrogates( bool val )
 
 AutoIt:
-    $boost.setUseSurrogates( $val ) -> None
+    $oBoost.setUseSurrogates( $val ) -> None
 ```
 
 ### cv::ml::Boost::getUse1SERule
@@ -15396,7 +15396,7 @@ AutoIt:
 bool cv::ml::Boost::getUse1SERule()
 
 AutoIt:
-    $boost.getUse1SERule() -> retval
+    $oBoost.getUse1SERule() -> retval
 ```
 
 ### cv::ml::Boost::setUse1SERule
@@ -15405,7 +15405,7 @@ AutoIt:
 void cv::ml::Boost::setUse1SERule( bool val )
 
 AutoIt:
-    $boost.setUse1SERule( $val ) -> None
+    $oBoost.setUse1SERule( $val ) -> None
 ```
 
 ### cv::ml::Boost::getTruncatePrunedTree
@@ -15414,7 +15414,7 @@ AutoIt:
 bool cv::ml::Boost::getTruncatePrunedTree()
 
 AutoIt:
-    $boost.getTruncatePrunedTree() -> retval
+    $oBoost.getTruncatePrunedTree() -> retval
 ```
 
 ### cv::ml::Boost::setTruncatePrunedTree
@@ -15423,7 +15423,7 @@ AutoIt:
 void cv::ml::Boost::setTruncatePrunedTree( bool val )
 
 AutoIt:
-    $boost.setTruncatePrunedTree( $val ) -> None
+    $oBoost.setTruncatePrunedTree( $val ) -> None
 ```
 
 ### cv::ml::Boost::getRegressionAccuracy
@@ -15432,7 +15432,7 @@ AutoIt:
 float cv::ml::Boost::getRegressionAccuracy()
 
 AutoIt:
-    $boost.getRegressionAccuracy() -> retval
+    $oBoost.getRegressionAccuracy() -> retval
 ```
 
 ### cv::ml::Boost::setRegressionAccuracy
@@ -15441,7 +15441,7 @@ AutoIt:
 void cv::ml::Boost::setRegressionAccuracy( float val )
 
 AutoIt:
-    $boost.setRegressionAccuracy( $val ) -> None
+    $oBoost.setRegressionAccuracy( $val ) -> None
 ```
 
 ### cv::ml::Boost::getPriors
@@ -15450,7 +15450,7 @@ AutoIt:
 cv::Mat cv::ml::Boost::getPriors()
 
 AutoIt:
-    $boost.getPriors() -> retval
+    $oBoost.getPriors() -> retval
 ```
 
 ### cv::ml::Boost::setPriors
@@ -15459,7 +15459,7 @@ AutoIt:
 void cv::ml::Boost::setPriors( const cv::Mat& val )
 
 AutoIt:
-    $boost.setPriors( $val ) -> None
+    $oBoost.setPriors( $val ) -> None
 ```
 
 ### cv::ml::Boost::getVarCount
@@ -15468,7 +15468,7 @@ AutoIt:
 int cv::ml::Boost::getVarCount()
 
 AutoIt:
-    $boost.getVarCount() -> retval
+    $oBoost.getVarCount() -> retval
 ```
 
 ### cv::ml::Boost::empty
@@ -15477,7 +15477,7 @@ AutoIt:
 bool cv::ml::Boost::empty()
 
 AutoIt:
-    $boost.empty() -> retval
+    $oBoost.empty() -> retval
 ```
 
 ### cv::ml::Boost::isTrained
@@ -15486,7 +15486,7 @@ AutoIt:
 bool cv::ml::Boost::isTrained()
 
 AutoIt:
-    $boost.isTrained() -> retval
+    $oBoost.isTrained() -> retval
 ```
 
 ### cv::ml::Boost::isClassifier
@@ -15495,7 +15495,7 @@ AutoIt:
 bool cv::ml::Boost::isClassifier()
 
 AutoIt:
-    $boost.isClassifier() -> retval
+    $oBoost.isClassifier() -> retval
 ```
 
 ### cv::ml::Boost::train
@@ -15505,7 +15505,7 @@ bool cv::ml::Boost::train( const cv::Ptr<cv::ml::TrainData>& trainData,
                            int                               flags = 0 )
 
 AutoIt:
-    $boost.train( $trainData[, $flags] ) -> retval
+    $oBoost.train( $trainData[, $flags] ) -> retval
 ```
 
 ```cpp
@@ -15514,7 +15514,7 @@ bool cv::ml::Boost::train( _InputArray samples,
                            _InputArray responses )
 
 AutoIt:
-    $boost.train( $samples, $layout, $responses ) -> retval
+    $oBoost.train( $samples, $layout, $responses ) -> retval
 ```
 
 ### cv::ml::Boost::calcError
@@ -15525,7 +15525,7 @@ float cv::ml::Boost::calcError( const cv::Ptr<cv::ml::TrainData>& data,
                                 _OutputArray                      resp )
 
 AutoIt:
-    $boost.calcError( $data, $test[, $resp] ) -> retval, $resp
+    $oBoost.calcError( $data, $test[, $resp] ) -> retval, $resp
 ```
 
 ### cv::ml::Boost::predict
@@ -15536,7 +15536,7 @@ float cv::ml::Boost::predict( _InputArray  samples,
                               int          flags = 0 )
 
 AutoIt:
-    $boost.predict( $samples[, $results[, $flags]] ) -> retval, $results
+    $oBoost.predict( $samples[, $results[, $flags]] ) -> retval, $results
 ```
 
 ### cv::ml::Boost::clear
@@ -15545,7 +15545,7 @@ AutoIt:
 void cv::ml::Boost::clear()
 
 AutoIt:
-    $boost.clear() -> None
+    $oBoost.clear() -> None
 ```
 
 ### cv::ml::Boost::write
@@ -15555,7 +15555,7 @@ void cv::ml::Boost::write( const cv::Ptr<cv::FileStorage>& fs,
                            const std::string&              name = String() )
 
 AutoIt:
-    $boost.write( $fs[, $name] ) -> None
+    $oBoost.write( $fs[, $name] ) -> None
 ```
 
 ### cv::ml::Boost::read
@@ -15564,7 +15564,7 @@ AutoIt:
 void cv::ml::Boost::read( const cv::FileNode& fn )
 
 AutoIt:
-    $boost.read( $fn ) -> None
+    $oBoost.read( $fn ) -> None
 ```
 
 ### cv::ml::Boost::save
@@ -15573,7 +15573,7 @@ AutoIt:
 void cv::ml::Boost::save( const std::string& filename )
 
 AutoIt:
-    $boost.save( $filename ) -> None
+    $oBoost.save( $filename ) -> None
 ```
 
 ### cv::ml::Boost::getDefaultName
@@ -15582,7 +15582,7 @@ AutoIt:
 std::string cv::ml::Boost::getDefaultName()
 
 AutoIt:
-    $boost.getDefaultName() -> retval
+    $oBoost.getDefaultName() -> retval
 ```
 
 ## cv::ml::ANN_MLP
@@ -15595,7 +15595,7 @@ void cv::ml::ANN_MLP::setTrainMethod( int    method,
                                       double param2 = 0 )
 
 AutoIt:
-    $aNN_MLP.setTrainMethod( $method[, $param1[, $param2]] ) -> None
+    $oANN_MLP.setTrainMethod( $method[, $param1[, $param2]] ) -> None
 ```
 
 ### cv::ml::ANN_MLP::getTrainMethod
@@ -15604,7 +15604,7 @@ AutoIt:
 int cv::ml::ANN_MLP::getTrainMethod()
 
 AutoIt:
-    $aNN_MLP.getTrainMethod() -> retval
+    $oANN_MLP.getTrainMethod() -> retval
 ```
 
 ### cv::ml::ANN_MLP::setActivationFunction
@@ -15615,7 +15615,7 @@ void cv::ml::ANN_MLP::setActivationFunction( int    type,
                                              double param2 = 0 )
 
 AutoIt:
-    $aNN_MLP.setActivationFunction( $type[, $param1[, $param2]] ) -> None
+    $oANN_MLP.setActivationFunction( $type[, $param1[, $param2]] ) -> None
 ```
 
 ### cv::ml::ANN_MLP::setLayerSizes
@@ -15624,7 +15624,7 @@ AutoIt:
 void cv::ml::ANN_MLP::setLayerSizes( _InputArray _layer_sizes )
 
 AutoIt:
-    $aNN_MLP.setLayerSizes( $_layer_sizes ) -> None
+    $oANN_MLP.setLayerSizes( $_layer_sizes ) -> None
 ```
 
 ### cv::ml::ANN_MLP::getLayerSizes
@@ -15633,7 +15633,7 @@ AutoIt:
 cv::Mat cv::ml::ANN_MLP::getLayerSizes()
 
 AutoIt:
-    $aNN_MLP.getLayerSizes() -> retval
+    $oANN_MLP.getLayerSizes() -> retval
 ```
 
 ### cv::ml::ANN_MLP::getTermCriteria
@@ -15642,7 +15642,7 @@ AutoIt:
 cv::TermCriteria cv::ml::ANN_MLP::getTermCriteria()
 
 AutoIt:
-    $aNN_MLP.getTermCriteria() -> retval
+    $oANN_MLP.getTermCriteria() -> retval
 ```
 
 ### cv::ml::ANN_MLP::setTermCriteria
@@ -15651,7 +15651,7 @@ AutoIt:
 void cv::ml::ANN_MLP::setTermCriteria( cv::TermCriteria val )
 
 AutoIt:
-    $aNN_MLP.setTermCriteria( $val ) -> None
+    $oANN_MLP.setTermCriteria( $val ) -> None
 ```
 
 ### cv::ml::ANN_MLP::getBackpropWeightScale
@@ -15660,7 +15660,7 @@ AutoIt:
 double cv::ml::ANN_MLP::getBackpropWeightScale()
 
 AutoIt:
-    $aNN_MLP.getBackpropWeightScale() -> retval
+    $oANN_MLP.getBackpropWeightScale() -> retval
 ```
 
 ### cv::ml::ANN_MLP::setBackpropWeightScale
@@ -15669,7 +15669,7 @@ AutoIt:
 void cv::ml::ANN_MLP::setBackpropWeightScale( double val )
 
 AutoIt:
-    $aNN_MLP.setBackpropWeightScale( $val ) -> None
+    $oANN_MLP.setBackpropWeightScale( $val ) -> None
 ```
 
 ### cv::ml::ANN_MLP::getBackpropMomentumScale
@@ -15678,7 +15678,7 @@ AutoIt:
 double cv::ml::ANN_MLP::getBackpropMomentumScale()
 
 AutoIt:
-    $aNN_MLP.getBackpropMomentumScale() -> retval
+    $oANN_MLP.getBackpropMomentumScale() -> retval
 ```
 
 ### cv::ml::ANN_MLP::setBackpropMomentumScale
@@ -15687,7 +15687,7 @@ AutoIt:
 void cv::ml::ANN_MLP::setBackpropMomentumScale( double val )
 
 AutoIt:
-    $aNN_MLP.setBackpropMomentumScale( $val ) -> None
+    $oANN_MLP.setBackpropMomentumScale( $val ) -> None
 ```
 
 ### cv::ml::ANN_MLP::getRpropDW0
@@ -15696,7 +15696,7 @@ AutoIt:
 double cv::ml::ANN_MLP::getRpropDW0()
 
 AutoIt:
-    $aNN_MLP.getRpropDW0() -> retval
+    $oANN_MLP.getRpropDW0() -> retval
 ```
 
 ### cv::ml::ANN_MLP::setRpropDW0
@@ -15705,7 +15705,7 @@ AutoIt:
 void cv::ml::ANN_MLP::setRpropDW0( double val )
 
 AutoIt:
-    $aNN_MLP.setRpropDW0( $val ) -> None
+    $oANN_MLP.setRpropDW0( $val ) -> None
 ```
 
 ### cv::ml::ANN_MLP::getRpropDWPlus
@@ -15714,7 +15714,7 @@ AutoIt:
 double cv::ml::ANN_MLP::getRpropDWPlus()
 
 AutoIt:
-    $aNN_MLP.getRpropDWPlus() -> retval
+    $oANN_MLP.getRpropDWPlus() -> retval
 ```
 
 ### cv::ml::ANN_MLP::setRpropDWPlus
@@ -15723,7 +15723,7 @@ AutoIt:
 void cv::ml::ANN_MLP::setRpropDWPlus( double val )
 
 AutoIt:
-    $aNN_MLP.setRpropDWPlus( $val ) -> None
+    $oANN_MLP.setRpropDWPlus( $val ) -> None
 ```
 
 ### cv::ml::ANN_MLP::getRpropDWMinus
@@ -15732,7 +15732,7 @@ AutoIt:
 double cv::ml::ANN_MLP::getRpropDWMinus()
 
 AutoIt:
-    $aNN_MLP.getRpropDWMinus() -> retval
+    $oANN_MLP.getRpropDWMinus() -> retval
 ```
 
 ### cv::ml::ANN_MLP::setRpropDWMinus
@@ -15741,7 +15741,7 @@ AutoIt:
 void cv::ml::ANN_MLP::setRpropDWMinus( double val )
 
 AutoIt:
-    $aNN_MLP.setRpropDWMinus( $val ) -> None
+    $oANN_MLP.setRpropDWMinus( $val ) -> None
 ```
 
 ### cv::ml::ANN_MLP::getRpropDWMin
@@ -15750,7 +15750,7 @@ AutoIt:
 double cv::ml::ANN_MLP::getRpropDWMin()
 
 AutoIt:
-    $aNN_MLP.getRpropDWMin() -> retval
+    $oANN_MLP.getRpropDWMin() -> retval
 ```
 
 ### cv::ml::ANN_MLP::setRpropDWMin
@@ -15759,7 +15759,7 @@ AutoIt:
 void cv::ml::ANN_MLP::setRpropDWMin( double val )
 
 AutoIt:
-    $aNN_MLP.setRpropDWMin( $val ) -> None
+    $oANN_MLP.setRpropDWMin( $val ) -> None
 ```
 
 ### cv::ml::ANN_MLP::getRpropDWMax
@@ -15768,7 +15768,7 @@ AutoIt:
 double cv::ml::ANN_MLP::getRpropDWMax()
 
 AutoIt:
-    $aNN_MLP.getRpropDWMax() -> retval
+    $oANN_MLP.getRpropDWMax() -> retval
 ```
 
 ### cv::ml::ANN_MLP::setRpropDWMax
@@ -15777,7 +15777,7 @@ AutoIt:
 void cv::ml::ANN_MLP::setRpropDWMax( double val )
 
 AutoIt:
-    $aNN_MLP.setRpropDWMax( $val ) -> None
+    $oANN_MLP.setRpropDWMax( $val ) -> None
 ```
 
 ### cv::ml::ANN_MLP::getAnnealInitialT
@@ -15786,7 +15786,7 @@ AutoIt:
 double cv::ml::ANN_MLP::getAnnealInitialT()
 
 AutoIt:
-    $aNN_MLP.getAnnealInitialT() -> retval
+    $oANN_MLP.getAnnealInitialT() -> retval
 ```
 
 ### cv::ml::ANN_MLP::setAnnealInitialT
@@ -15795,7 +15795,7 @@ AutoIt:
 void cv::ml::ANN_MLP::setAnnealInitialT( double val )
 
 AutoIt:
-    $aNN_MLP.setAnnealInitialT( $val ) -> None
+    $oANN_MLP.setAnnealInitialT( $val ) -> None
 ```
 
 ### cv::ml::ANN_MLP::getAnnealFinalT
@@ -15804,7 +15804,7 @@ AutoIt:
 double cv::ml::ANN_MLP::getAnnealFinalT()
 
 AutoIt:
-    $aNN_MLP.getAnnealFinalT() -> retval
+    $oANN_MLP.getAnnealFinalT() -> retval
 ```
 
 ### cv::ml::ANN_MLP::setAnnealFinalT
@@ -15813,7 +15813,7 @@ AutoIt:
 void cv::ml::ANN_MLP::setAnnealFinalT( double val )
 
 AutoIt:
-    $aNN_MLP.setAnnealFinalT( $val ) -> None
+    $oANN_MLP.setAnnealFinalT( $val ) -> None
 ```
 
 ### cv::ml::ANN_MLP::getAnnealCoolingRatio
@@ -15822,7 +15822,7 @@ AutoIt:
 double cv::ml::ANN_MLP::getAnnealCoolingRatio()
 
 AutoIt:
-    $aNN_MLP.getAnnealCoolingRatio() -> retval
+    $oANN_MLP.getAnnealCoolingRatio() -> retval
 ```
 
 ### cv::ml::ANN_MLP::setAnnealCoolingRatio
@@ -15831,7 +15831,7 @@ AutoIt:
 void cv::ml::ANN_MLP::setAnnealCoolingRatio( double val )
 
 AutoIt:
-    $aNN_MLP.setAnnealCoolingRatio( $val ) -> None
+    $oANN_MLP.setAnnealCoolingRatio( $val ) -> None
 ```
 
 ### cv::ml::ANN_MLP::getAnnealItePerStep
@@ -15840,7 +15840,7 @@ AutoIt:
 int cv::ml::ANN_MLP::getAnnealItePerStep()
 
 AutoIt:
-    $aNN_MLP.getAnnealItePerStep() -> retval
+    $oANN_MLP.getAnnealItePerStep() -> retval
 ```
 
 ### cv::ml::ANN_MLP::setAnnealItePerStep
@@ -15849,7 +15849,7 @@ AutoIt:
 void cv::ml::ANN_MLP::setAnnealItePerStep( int val )
 
 AutoIt:
-    $aNN_MLP.setAnnealItePerStep( $val ) -> None
+    $oANN_MLP.setAnnealItePerStep( $val ) -> None
 ```
 
 ### cv::ml::ANN_MLP::getWeights
@@ -15858,7 +15858,7 @@ AutoIt:
 cv::Mat cv::ml::ANN_MLP::getWeights( int layerIdx )
 
 AutoIt:
-    $aNN_MLP.getWeights( $layerIdx ) -> retval
+    $oANN_MLP.getWeights( $layerIdx ) -> retval
 ```
 
 ### cv::ml::ANN_MLP::create
@@ -15885,7 +15885,7 @@ AutoIt:
 int cv::ml::ANN_MLP::getVarCount()
 
 AutoIt:
-    $aNN_MLP.getVarCount() -> retval
+    $oANN_MLP.getVarCount() -> retval
 ```
 
 ### cv::ml::ANN_MLP::empty
@@ -15894,7 +15894,7 @@ AutoIt:
 bool cv::ml::ANN_MLP::empty()
 
 AutoIt:
-    $aNN_MLP.empty() -> retval
+    $oANN_MLP.empty() -> retval
 ```
 
 ### cv::ml::ANN_MLP::isTrained
@@ -15903,7 +15903,7 @@ AutoIt:
 bool cv::ml::ANN_MLP::isTrained()
 
 AutoIt:
-    $aNN_MLP.isTrained() -> retval
+    $oANN_MLP.isTrained() -> retval
 ```
 
 ### cv::ml::ANN_MLP::isClassifier
@@ -15912,7 +15912,7 @@ AutoIt:
 bool cv::ml::ANN_MLP::isClassifier()
 
 AutoIt:
-    $aNN_MLP.isClassifier() -> retval
+    $oANN_MLP.isClassifier() -> retval
 ```
 
 ### cv::ml::ANN_MLP::train
@@ -15922,7 +15922,7 @@ bool cv::ml::ANN_MLP::train( const cv::Ptr<cv::ml::TrainData>& trainData,
                              int                               flags = 0 )
 
 AutoIt:
-    $aNN_MLP.train( $trainData[, $flags] ) -> retval
+    $oANN_MLP.train( $trainData[, $flags] ) -> retval
 ```
 
 ```cpp
@@ -15931,7 +15931,7 @@ bool cv::ml::ANN_MLP::train( _InputArray samples,
                              _InputArray responses )
 
 AutoIt:
-    $aNN_MLP.train( $samples, $layout, $responses ) -> retval
+    $oANN_MLP.train( $samples, $layout, $responses ) -> retval
 ```
 
 ### cv::ml::ANN_MLP::calcError
@@ -15942,7 +15942,7 @@ float cv::ml::ANN_MLP::calcError( const cv::Ptr<cv::ml::TrainData>& data,
                                   _OutputArray                      resp )
 
 AutoIt:
-    $aNN_MLP.calcError( $data, $test[, $resp] ) -> retval, $resp
+    $oANN_MLP.calcError( $data, $test[, $resp] ) -> retval, $resp
 ```
 
 ### cv::ml::ANN_MLP::predict
@@ -15953,7 +15953,7 @@ float cv::ml::ANN_MLP::predict( _InputArray  samples,
                                 int          flags = 0 )
 
 AutoIt:
-    $aNN_MLP.predict( $samples[, $results[, $flags]] ) -> retval, $results
+    $oANN_MLP.predict( $samples[, $results[, $flags]] ) -> retval, $results
 ```
 
 ### cv::ml::ANN_MLP::clear
@@ -15962,7 +15962,7 @@ AutoIt:
 void cv::ml::ANN_MLP::clear()
 
 AutoIt:
-    $aNN_MLP.clear() -> None
+    $oANN_MLP.clear() -> None
 ```
 
 ### cv::ml::ANN_MLP::write
@@ -15972,7 +15972,7 @@ void cv::ml::ANN_MLP::write( const cv::Ptr<cv::FileStorage>& fs,
                              const std::string&              name = String() )
 
 AutoIt:
-    $aNN_MLP.write( $fs[, $name] ) -> None
+    $oANN_MLP.write( $fs[, $name] ) -> None
 ```
 
 ### cv::ml::ANN_MLP::read
@@ -15981,7 +15981,7 @@ AutoIt:
 void cv::ml::ANN_MLP::read( const cv::FileNode& fn )
 
 AutoIt:
-    $aNN_MLP.read( $fn ) -> None
+    $oANN_MLP.read( $fn ) -> None
 ```
 
 ### cv::ml::ANN_MLP::save
@@ -15990,7 +15990,7 @@ AutoIt:
 void cv::ml::ANN_MLP::save( const std::string& filename )
 
 AutoIt:
-    $aNN_MLP.save( $filename ) -> None
+    $oANN_MLP.save( $filename ) -> None
 ```
 
 ### cv::ml::ANN_MLP::getDefaultName
@@ -15999,7 +15999,7 @@ AutoIt:
 std::string cv::ml::ANN_MLP::getDefaultName()
 
 AutoIt:
-    $aNN_MLP.getDefaultName() -> retval
+    $oANN_MLP.getDefaultName() -> retval
 ```
 
 ## cv::ml::LogisticRegression
@@ -16010,7 +16010,7 @@ AutoIt:
 double cv::ml::LogisticRegression::getLearningRate()
 
 AutoIt:
-    $logisticRegression.getLearningRate() -> retval
+    $oLogisticRegression.getLearningRate() -> retval
 ```
 
 ### cv::ml::LogisticRegression::setLearningRate
@@ -16019,7 +16019,7 @@ AutoIt:
 void cv::ml::LogisticRegression::setLearningRate( double val )
 
 AutoIt:
-    $logisticRegression.setLearningRate( $val ) -> None
+    $oLogisticRegression.setLearningRate( $val ) -> None
 ```
 
 ### cv::ml::LogisticRegression::getIterations
@@ -16028,7 +16028,7 @@ AutoIt:
 int cv::ml::LogisticRegression::getIterations()
 
 AutoIt:
-    $logisticRegression.getIterations() -> retval
+    $oLogisticRegression.getIterations() -> retval
 ```
 
 ### cv::ml::LogisticRegression::setIterations
@@ -16037,7 +16037,7 @@ AutoIt:
 void cv::ml::LogisticRegression::setIterations( int val )
 
 AutoIt:
-    $logisticRegression.setIterations( $val ) -> None
+    $oLogisticRegression.setIterations( $val ) -> None
 ```
 
 ### cv::ml::LogisticRegression::getRegularization
@@ -16046,7 +16046,7 @@ AutoIt:
 int cv::ml::LogisticRegression::getRegularization()
 
 AutoIt:
-    $logisticRegression.getRegularization() -> retval
+    $oLogisticRegression.getRegularization() -> retval
 ```
 
 ### cv::ml::LogisticRegression::setRegularization
@@ -16055,7 +16055,7 @@ AutoIt:
 void cv::ml::LogisticRegression::setRegularization( int val )
 
 AutoIt:
-    $logisticRegression.setRegularization( $val ) -> None
+    $oLogisticRegression.setRegularization( $val ) -> None
 ```
 
 ### cv::ml::LogisticRegression::getTrainMethod
@@ -16064,7 +16064,7 @@ AutoIt:
 int cv::ml::LogisticRegression::getTrainMethod()
 
 AutoIt:
-    $logisticRegression.getTrainMethod() -> retval
+    $oLogisticRegression.getTrainMethod() -> retval
 ```
 
 ### cv::ml::LogisticRegression::setTrainMethod
@@ -16073,7 +16073,7 @@ AutoIt:
 void cv::ml::LogisticRegression::setTrainMethod( int val )
 
 AutoIt:
-    $logisticRegression.setTrainMethod( $val ) -> None
+    $oLogisticRegression.setTrainMethod( $val ) -> None
 ```
 
 ### cv::ml::LogisticRegression::getMiniBatchSize
@@ -16082,7 +16082,7 @@ AutoIt:
 int cv::ml::LogisticRegression::getMiniBatchSize()
 
 AutoIt:
-    $logisticRegression.getMiniBatchSize() -> retval
+    $oLogisticRegression.getMiniBatchSize() -> retval
 ```
 
 ### cv::ml::LogisticRegression::setMiniBatchSize
@@ -16091,7 +16091,7 @@ AutoIt:
 void cv::ml::LogisticRegression::setMiniBatchSize( int val )
 
 AutoIt:
-    $logisticRegression.setMiniBatchSize( $val ) -> None
+    $oLogisticRegression.setMiniBatchSize( $val ) -> None
 ```
 
 ### cv::ml::LogisticRegression::getTermCriteria
@@ -16100,7 +16100,7 @@ AutoIt:
 cv::TermCriteria cv::ml::LogisticRegression::getTermCriteria()
 
 AutoIt:
-    $logisticRegression.getTermCriteria() -> retval
+    $oLogisticRegression.getTermCriteria() -> retval
 ```
 
 ### cv::ml::LogisticRegression::setTermCriteria
@@ -16109,7 +16109,7 @@ AutoIt:
 void cv::ml::LogisticRegression::setTermCriteria( cv::TermCriteria val )
 
 AutoIt:
-    $logisticRegression.setTermCriteria( $val ) -> None
+    $oLogisticRegression.setTermCriteria( $val ) -> None
 ```
 
 ### cv::ml::LogisticRegression::predict
@@ -16120,7 +16120,7 @@ float cv::ml::LogisticRegression::predict( _InputArray  samples,
                                            int          flags = 0 )
 
 AutoIt:
-    $logisticRegression.predict( $samples[, $results[, $flags]] ) -> retval, $results
+    $oLogisticRegression.predict( $samples[, $results[, $flags]] ) -> retval, $results
 ```
 
 ### cv::ml::LogisticRegression::get_learnt_thetas
@@ -16129,7 +16129,7 @@ AutoIt:
 cv::Mat cv::ml::LogisticRegression::get_learnt_thetas()
 
 AutoIt:
-    $logisticRegression.get_learnt_thetas() -> retval
+    $oLogisticRegression.get_learnt_thetas() -> retval
 ```
 
 ### cv::ml::LogisticRegression::create
@@ -16157,7 +16157,7 @@ AutoIt:
 int cv::ml::LogisticRegression::getVarCount()
 
 AutoIt:
-    $logisticRegression.getVarCount() -> retval
+    $oLogisticRegression.getVarCount() -> retval
 ```
 
 ### cv::ml::LogisticRegression::empty
@@ -16166,7 +16166,7 @@ AutoIt:
 bool cv::ml::LogisticRegression::empty()
 
 AutoIt:
-    $logisticRegression.empty() -> retval
+    $oLogisticRegression.empty() -> retval
 ```
 
 ### cv::ml::LogisticRegression::isTrained
@@ -16175,7 +16175,7 @@ AutoIt:
 bool cv::ml::LogisticRegression::isTrained()
 
 AutoIt:
-    $logisticRegression.isTrained() -> retval
+    $oLogisticRegression.isTrained() -> retval
 ```
 
 ### cv::ml::LogisticRegression::isClassifier
@@ -16184,7 +16184,7 @@ AutoIt:
 bool cv::ml::LogisticRegression::isClassifier()
 
 AutoIt:
-    $logisticRegression.isClassifier() -> retval
+    $oLogisticRegression.isClassifier() -> retval
 ```
 
 ### cv::ml::LogisticRegression::train
@@ -16194,7 +16194,7 @@ bool cv::ml::LogisticRegression::train( const cv::Ptr<cv::ml::TrainData>& trainD
                                         int                               flags = 0 )
 
 AutoIt:
-    $logisticRegression.train( $trainData[, $flags] ) -> retval
+    $oLogisticRegression.train( $trainData[, $flags] ) -> retval
 ```
 
 ```cpp
@@ -16203,7 +16203,7 @@ bool cv::ml::LogisticRegression::train( _InputArray samples,
                                         _InputArray responses )
 
 AutoIt:
-    $logisticRegression.train( $samples, $layout, $responses ) -> retval
+    $oLogisticRegression.train( $samples, $layout, $responses ) -> retval
 ```
 
 ### cv::ml::LogisticRegression::calcError
@@ -16214,7 +16214,7 @@ float cv::ml::LogisticRegression::calcError( const cv::Ptr<cv::ml::TrainData>& d
                                              _OutputArray                      resp )
 
 AutoIt:
-    $logisticRegression.calcError( $data, $test[, $resp] ) -> retval, $resp
+    $oLogisticRegression.calcError( $data, $test[, $resp] ) -> retval, $resp
 ```
 
 ### cv::ml::LogisticRegression::clear
@@ -16223,7 +16223,7 @@ AutoIt:
 void cv::ml::LogisticRegression::clear()
 
 AutoIt:
-    $logisticRegression.clear() -> None
+    $oLogisticRegression.clear() -> None
 ```
 
 ### cv::ml::LogisticRegression::write
@@ -16233,7 +16233,7 @@ void cv::ml::LogisticRegression::write( const cv::Ptr<cv::FileStorage>& fs,
                                         const std::string&              name = String() )
 
 AutoIt:
-    $logisticRegression.write( $fs[, $name] ) -> None
+    $oLogisticRegression.write( $fs[, $name] ) -> None
 ```
 
 ### cv::ml::LogisticRegression::read
@@ -16242,7 +16242,7 @@ AutoIt:
 void cv::ml::LogisticRegression::read( const cv::FileNode& fn )
 
 AutoIt:
-    $logisticRegression.read( $fn ) -> None
+    $oLogisticRegression.read( $fn ) -> None
 ```
 
 ### cv::ml::LogisticRegression::save
@@ -16251,7 +16251,7 @@ AutoIt:
 void cv::ml::LogisticRegression::save( const std::string& filename )
 
 AutoIt:
-    $logisticRegression.save( $filename ) -> None
+    $oLogisticRegression.save( $filename ) -> None
 ```
 
 ### cv::ml::LogisticRegression::getDefaultName
@@ -16260,7 +16260,7 @@ AutoIt:
 std::string cv::ml::LogisticRegression::getDefaultName()
 
 AutoIt:
-    $logisticRegression.getDefaultName() -> retval
+    $oLogisticRegression.getDefaultName() -> retval
 ```
 
 ## cv::ml::SVMSGD
@@ -16271,7 +16271,7 @@ AutoIt:
 cv::Mat cv::ml::SVMSGD::getWeights()
 
 AutoIt:
-    $sVMSGD.getWeights() -> retval
+    $oSVMSGD.getWeights() -> retval
 ```
 
 ### cv::ml::SVMSGD::getShift
@@ -16280,7 +16280,7 @@ AutoIt:
 float cv::ml::SVMSGD::getShift()
 
 AutoIt:
-    $sVMSGD.getShift() -> retval
+    $oSVMSGD.getShift() -> retval
 ```
 
 ### cv::ml::SVMSGD::create
@@ -16309,7 +16309,7 @@ void cv::ml::SVMSGD::setOptimalParameters( int svmsgdType = SVMSGD::ASGD,
                                            int marginType = SVMSGD::SOFT_MARGIN )
 
 AutoIt:
-    $sVMSGD.setOptimalParameters( [$svmsgdType[, $marginType]] ) -> None
+    $oSVMSGD.setOptimalParameters( [$svmsgdType[, $marginType]] ) -> None
 ```
 
 ### cv::ml::SVMSGD::getSvmsgdType
@@ -16318,7 +16318,7 @@ AutoIt:
 int cv::ml::SVMSGD::getSvmsgdType()
 
 AutoIt:
-    $sVMSGD.getSvmsgdType() -> retval
+    $oSVMSGD.getSvmsgdType() -> retval
 ```
 
 ### cv::ml::SVMSGD::setSvmsgdType
@@ -16327,7 +16327,7 @@ AutoIt:
 void cv::ml::SVMSGD::setSvmsgdType( int svmsgdType )
 
 AutoIt:
-    $sVMSGD.setSvmsgdType( $svmsgdType ) -> None
+    $oSVMSGD.setSvmsgdType( $svmsgdType ) -> None
 ```
 
 ### cv::ml::SVMSGD::getMarginType
@@ -16336,7 +16336,7 @@ AutoIt:
 int cv::ml::SVMSGD::getMarginType()
 
 AutoIt:
-    $sVMSGD.getMarginType() -> retval
+    $oSVMSGD.getMarginType() -> retval
 ```
 
 ### cv::ml::SVMSGD::setMarginType
@@ -16345,7 +16345,7 @@ AutoIt:
 void cv::ml::SVMSGD::setMarginType( int marginType )
 
 AutoIt:
-    $sVMSGD.setMarginType( $marginType ) -> None
+    $oSVMSGD.setMarginType( $marginType ) -> None
 ```
 
 ### cv::ml::SVMSGD::getMarginRegularization
@@ -16354,7 +16354,7 @@ AutoIt:
 float cv::ml::SVMSGD::getMarginRegularization()
 
 AutoIt:
-    $sVMSGD.getMarginRegularization() -> retval
+    $oSVMSGD.getMarginRegularization() -> retval
 ```
 
 ### cv::ml::SVMSGD::setMarginRegularization
@@ -16363,7 +16363,7 @@ AutoIt:
 void cv::ml::SVMSGD::setMarginRegularization( float marginRegularization )
 
 AutoIt:
-    $sVMSGD.setMarginRegularization( $marginRegularization ) -> None
+    $oSVMSGD.setMarginRegularization( $marginRegularization ) -> None
 ```
 
 ### cv::ml::SVMSGD::getInitialStepSize
@@ -16372,7 +16372,7 @@ AutoIt:
 float cv::ml::SVMSGD::getInitialStepSize()
 
 AutoIt:
-    $sVMSGD.getInitialStepSize() -> retval
+    $oSVMSGD.getInitialStepSize() -> retval
 ```
 
 ### cv::ml::SVMSGD::setInitialStepSize
@@ -16381,7 +16381,7 @@ AutoIt:
 void cv::ml::SVMSGD::setInitialStepSize( float InitialStepSize )
 
 AutoIt:
-    $sVMSGD.setInitialStepSize( $InitialStepSize ) -> None
+    $oSVMSGD.setInitialStepSize( $InitialStepSize ) -> None
 ```
 
 ### cv::ml::SVMSGD::getStepDecreasingPower
@@ -16390,7 +16390,7 @@ AutoIt:
 float cv::ml::SVMSGD::getStepDecreasingPower()
 
 AutoIt:
-    $sVMSGD.getStepDecreasingPower() -> retval
+    $oSVMSGD.getStepDecreasingPower() -> retval
 ```
 
 ### cv::ml::SVMSGD::setStepDecreasingPower
@@ -16399,7 +16399,7 @@ AutoIt:
 void cv::ml::SVMSGD::setStepDecreasingPower( float stepDecreasingPower )
 
 AutoIt:
-    $sVMSGD.setStepDecreasingPower( $stepDecreasingPower ) -> None
+    $oSVMSGD.setStepDecreasingPower( $stepDecreasingPower ) -> None
 ```
 
 ### cv::ml::SVMSGD::getTermCriteria
@@ -16408,7 +16408,7 @@ AutoIt:
 cv::TermCriteria cv::ml::SVMSGD::getTermCriteria()
 
 AutoIt:
-    $sVMSGD.getTermCriteria() -> retval
+    $oSVMSGD.getTermCriteria() -> retval
 ```
 
 ### cv::ml::SVMSGD::setTermCriteria
@@ -16417,7 +16417,7 @@ AutoIt:
 void cv::ml::SVMSGD::setTermCriteria( const cv::TermCriteria& val )
 
 AutoIt:
-    $sVMSGD.setTermCriteria( $val ) -> None
+    $oSVMSGD.setTermCriteria( $val ) -> None
 ```
 
 ### cv::ml::SVMSGD::getVarCount
@@ -16426,7 +16426,7 @@ AutoIt:
 int cv::ml::SVMSGD::getVarCount()
 
 AutoIt:
-    $sVMSGD.getVarCount() -> retval
+    $oSVMSGD.getVarCount() -> retval
 ```
 
 ### cv::ml::SVMSGD::empty
@@ -16435,7 +16435,7 @@ AutoIt:
 bool cv::ml::SVMSGD::empty()
 
 AutoIt:
-    $sVMSGD.empty() -> retval
+    $oSVMSGD.empty() -> retval
 ```
 
 ### cv::ml::SVMSGD::isTrained
@@ -16444,7 +16444,7 @@ AutoIt:
 bool cv::ml::SVMSGD::isTrained()
 
 AutoIt:
-    $sVMSGD.isTrained() -> retval
+    $oSVMSGD.isTrained() -> retval
 ```
 
 ### cv::ml::SVMSGD::isClassifier
@@ -16453,7 +16453,7 @@ AutoIt:
 bool cv::ml::SVMSGD::isClassifier()
 
 AutoIt:
-    $sVMSGD.isClassifier() -> retval
+    $oSVMSGD.isClassifier() -> retval
 ```
 
 ### cv::ml::SVMSGD::train
@@ -16463,7 +16463,7 @@ bool cv::ml::SVMSGD::train( const cv::Ptr<cv::ml::TrainData>& trainData,
                             int                               flags = 0 )
 
 AutoIt:
-    $sVMSGD.train( $trainData[, $flags] ) -> retval
+    $oSVMSGD.train( $trainData[, $flags] ) -> retval
 ```
 
 ```cpp
@@ -16472,7 +16472,7 @@ bool cv::ml::SVMSGD::train( _InputArray samples,
                             _InputArray responses )
 
 AutoIt:
-    $sVMSGD.train( $samples, $layout, $responses ) -> retval
+    $oSVMSGD.train( $samples, $layout, $responses ) -> retval
 ```
 
 ### cv::ml::SVMSGD::calcError
@@ -16483,7 +16483,7 @@ float cv::ml::SVMSGD::calcError( const cv::Ptr<cv::ml::TrainData>& data,
                                  _OutputArray                      resp )
 
 AutoIt:
-    $sVMSGD.calcError( $data, $test[, $resp] ) -> retval, $resp
+    $oSVMSGD.calcError( $data, $test[, $resp] ) -> retval, $resp
 ```
 
 ### cv::ml::SVMSGD::predict
@@ -16494,7 +16494,7 @@ float cv::ml::SVMSGD::predict( _InputArray  samples,
                                int          flags = 0 )
 
 AutoIt:
-    $sVMSGD.predict( $samples[, $results[, $flags]] ) -> retval, $results
+    $oSVMSGD.predict( $samples[, $results[, $flags]] ) -> retval, $results
 ```
 
 ### cv::ml::SVMSGD::clear
@@ -16503,7 +16503,7 @@ AutoIt:
 void cv::ml::SVMSGD::clear()
 
 AutoIt:
-    $sVMSGD.clear() -> None
+    $oSVMSGD.clear() -> None
 ```
 
 ### cv::ml::SVMSGD::write
@@ -16513,7 +16513,7 @@ void cv::ml::SVMSGD::write( const cv::Ptr<cv::FileStorage>& fs,
                             const std::string&              name = String() )
 
 AutoIt:
-    $sVMSGD.write( $fs[, $name] ) -> None
+    $oSVMSGD.write( $fs[, $name] ) -> None
 ```
 
 ### cv::ml::SVMSGD::read
@@ -16522,7 +16522,7 @@ AutoIt:
 void cv::ml::SVMSGD::read( const cv::FileNode& fn )
 
 AutoIt:
-    $sVMSGD.read( $fn ) -> None
+    $oSVMSGD.read( $fn ) -> None
 ```
 
 ### cv::ml::SVMSGD::save
@@ -16531,7 +16531,7 @@ AutoIt:
 void cv::ml::SVMSGD::save( const std::string& filename )
 
 AutoIt:
-    $sVMSGD.save( $filename ) -> None
+    $oSVMSGD.save( $filename ) -> None
 ```
 
 ### cv::ml::SVMSGD::getDefaultName
@@ -16540,7 +16540,7 @@ AutoIt:
 std::string cv::ml::SVMSGD::getDefaultName()
 
 AutoIt:
-    $sVMSGD.getDefaultName() -> retval
+    $oSVMSGD.getDefaultName() -> retval
 ```
 
 ## cv::Tonemap
@@ -16552,7 +16552,7 @@ void cv::Tonemap::process( _InputArray  src,
                            _OutputArray dst )
 
 AutoIt:
-    $tonemap.process( $src[, $dst] ) -> $dst
+    $oTonemap.process( $src[, $dst] ) -> $dst
 ```
 
 ### cv::Tonemap::getGamma
@@ -16561,7 +16561,7 @@ AutoIt:
 float cv::Tonemap::getGamma()
 
 AutoIt:
-    $tonemap.getGamma() -> retval
+    $oTonemap.getGamma() -> retval
 ```
 
 ### cv::Tonemap::setGamma
@@ -16570,7 +16570,7 @@ AutoIt:
 void cv::Tonemap::setGamma( float gamma )
 
 AutoIt:
-    $tonemap.setGamma( $gamma ) -> None
+    $oTonemap.setGamma( $gamma ) -> None
 ```
 
 ### cv::Tonemap::clear
@@ -16579,7 +16579,7 @@ AutoIt:
 void cv::Tonemap::clear()
 
 AutoIt:
-    $tonemap.clear() -> None
+    $oTonemap.clear() -> None
 ```
 
 ### cv::Tonemap::write
@@ -16589,7 +16589,7 @@ void cv::Tonemap::write( const cv::Ptr<cv::FileStorage>& fs,
                          const std::string&              name = String() )
 
 AutoIt:
-    $tonemap.write( $fs[, $name] ) -> None
+    $oTonemap.write( $fs[, $name] ) -> None
 ```
 
 ### cv::Tonemap::read
@@ -16598,7 +16598,7 @@ AutoIt:
 void cv::Tonemap::read( const cv::FileNode& fn )
 
 AutoIt:
-    $tonemap.read( $fn ) -> None
+    $oTonemap.read( $fn ) -> None
 ```
 
 ### cv::Tonemap::empty
@@ -16607,7 +16607,7 @@ AutoIt:
 bool cv::Tonemap::empty()
 
 AutoIt:
-    $tonemap.empty() -> retval
+    $oTonemap.empty() -> retval
 ```
 
 ### cv::Tonemap::save
@@ -16616,7 +16616,7 @@ AutoIt:
 void cv::Tonemap::save( const std::string& filename )
 
 AutoIt:
-    $tonemap.save( $filename ) -> None
+    $oTonemap.save( $filename ) -> None
 ```
 
 ### cv::Tonemap::getDefaultName
@@ -16625,7 +16625,7 @@ AutoIt:
 std::string cv::Tonemap::getDefaultName()
 
 AutoIt:
-    $tonemap.getDefaultName() -> retval
+    $oTonemap.getDefaultName() -> retval
 ```
 
 ## cv::TonemapDrago
@@ -16636,7 +16636,7 @@ AutoIt:
 float cv::TonemapDrago::getSaturation()
 
 AutoIt:
-    $tonemapDrago.getSaturation() -> retval
+    $oTonemapDrago.getSaturation() -> retval
 ```
 
 ### cv::TonemapDrago::setSaturation
@@ -16645,7 +16645,7 @@ AutoIt:
 void cv::TonemapDrago::setSaturation( float saturation )
 
 AutoIt:
-    $tonemapDrago.setSaturation( $saturation ) -> None
+    $oTonemapDrago.setSaturation( $saturation ) -> None
 ```
 
 ### cv::TonemapDrago::getBias
@@ -16654,7 +16654,7 @@ AutoIt:
 float cv::TonemapDrago::getBias()
 
 AutoIt:
-    $tonemapDrago.getBias() -> retval
+    $oTonemapDrago.getBias() -> retval
 ```
 
 ### cv::TonemapDrago::setBias
@@ -16663,7 +16663,7 @@ AutoIt:
 void cv::TonemapDrago::setBias( float bias )
 
 AutoIt:
-    $tonemapDrago.setBias( $bias ) -> None
+    $oTonemapDrago.setBias( $bias ) -> None
 ```
 
 ### cv::TonemapDrago::process
@@ -16673,7 +16673,7 @@ void cv::TonemapDrago::process( _InputArray  src,
                                 _OutputArray dst )
 
 AutoIt:
-    $tonemapDrago.process( $src[, $dst] ) -> $dst
+    $oTonemapDrago.process( $src[, $dst] ) -> $dst
 ```
 
 ### cv::TonemapDrago::getGamma
@@ -16682,7 +16682,7 @@ AutoIt:
 float cv::TonemapDrago::getGamma()
 
 AutoIt:
-    $tonemapDrago.getGamma() -> retval
+    $oTonemapDrago.getGamma() -> retval
 ```
 
 ### cv::TonemapDrago::setGamma
@@ -16691,7 +16691,7 @@ AutoIt:
 void cv::TonemapDrago::setGamma( float gamma )
 
 AutoIt:
-    $tonemapDrago.setGamma( $gamma ) -> None
+    $oTonemapDrago.setGamma( $gamma ) -> None
 ```
 
 ### cv::TonemapDrago::clear
@@ -16700,7 +16700,7 @@ AutoIt:
 void cv::TonemapDrago::clear()
 
 AutoIt:
-    $tonemapDrago.clear() -> None
+    $oTonemapDrago.clear() -> None
 ```
 
 ### cv::TonemapDrago::write
@@ -16710,7 +16710,7 @@ void cv::TonemapDrago::write( const cv::Ptr<cv::FileStorage>& fs,
                               const std::string&              name = String() )
 
 AutoIt:
-    $tonemapDrago.write( $fs[, $name] ) -> None
+    $oTonemapDrago.write( $fs[, $name] ) -> None
 ```
 
 ### cv::TonemapDrago::read
@@ -16719,7 +16719,7 @@ AutoIt:
 void cv::TonemapDrago::read( const cv::FileNode& fn )
 
 AutoIt:
-    $tonemapDrago.read( $fn ) -> None
+    $oTonemapDrago.read( $fn ) -> None
 ```
 
 ### cv::TonemapDrago::empty
@@ -16728,7 +16728,7 @@ AutoIt:
 bool cv::TonemapDrago::empty()
 
 AutoIt:
-    $tonemapDrago.empty() -> retval
+    $oTonemapDrago.empty() -> retval
 ```
 
 ### cv::TonemapDrago::save
@@ -16737,7 +16737,7 @@ AutoIt:
 void cv::TonemapDrago::save( const std::string& filename )
 
 AutoIt:
-    $tonemapDrago.save( $filename ) -> None
+    $oTonemapDrago.save( $filename ) -> None
 ```
 
 ### cv::TonemapDrago::getDefaultName
@@ -16746,7 +16746,7 @@ AutoIt:
 std::string cv::TonemapDrago::getDefaultName()
 
 AutoIt:
-    $tonemapDrago.getDefaultName() -> retval
+    $oTonemapDrago.getDefaultName() -> retval
 ```
 
 ## cv::TonemapReinhard
@@ -16757,7 +16757,7 @@ AutoIt:
 float cv::TonemapReinhard::getIntensity()
 
 AutoIt:
-    $tonemapReinhard.getIntensity() -> retval
+    $oTonemapReinhard.getIntensity() -> retval
 ```
 
 ### cv::TonemapReinhard::setIntensity
@@ -16766,7 +16766,7 @@ AutoIt:
 void cv::TonemapReinhard::setIntensity( float intensity )
 
 AutoIt:
-    $tonemapReinhard.setIntensity( $intensity ) -> None
+    $oTonemapReinhard.setIntensity( $intensity ) -> None
 ```
 
 ### cv::TonemapReinhard::getLightAdaptation
@@ -16775,7 +16775,7 @@ AutoIt:
 float cv::TonemapReinhard::getLightAdaptation()
 
 AutoIt:
-    $tonemapReinhard.getLightAdaptation() -> retval
+    $oTonemapReinhard.getLightAdaptation() -> retval
 ```
 
 ### cv::TonemapReinhard::setLightAdaptation
@@ -16784,7 +16784,7 @@ AutoIt:
 void cv::TonemapReinhard::setLightAdaptation( float light_adapt )
 
 AutoIt:
-    $tonemapReinhard.setLightAdaptation( $light_adapt ) -> None
+    $oTonemapReinhard.setLightAdaptation( $light_adapt ) -> None
 ```
 
 ### cv::TonemapReinhard::getColorAdaptation
@@ -16793,7 +16793,7 @@ AutoIt:
 float cv::TonemapReinhard::getColorAdaptation()
 
 AutoIt:
-    $tonemapReinhard.getColorAdaptation() -> retval
+    $oTonemapReinhard.getColorAdaptation() -> retval
 ```
 
 ### cv::TonemapReinhard::setColorAdaptation
@@ -16802,7 +16802,7 @@ AutoIt:
 void cv::TonemapReinhard::setColorAdaptation( float color_adapt )
 
 AutoIt:
-    $tonemapReinhard.setColorAdaptation( $color_adapt ) -> None
+    $oTonemapReinhard.setColorAdaptation( $color_adapt ) -> None
 ```
 
 ### cv::TonemapReinhard::process
@@ -16812,7 +16812,7 @@ void cv::TonemapReinhard::process( _InputArray  src,
                                    _OutputArray dst )
 
 AutoIt:
-    $tonemapReinhard.process( $src[, $dst] ) -> $dst
+    $oTonemapReinhard.process( $src[, $dst] ) -> $dst
 ```
 
 ### cv::TonemapReinhard::getGamma
@@ -16821,7 +16821,7 @@ AutoIt:
 float cv::TonemapReinhard::getGamma()
 
 AutoIt:
-    $tonemapReinhard.getGamma() -> retval
+    $oTonemapReinhard.getGamma() -> retval
 ```
 
 ### cv::TonemapReinhard::setGamma
@@ -16830,7 +16830,7 @@ AutoIt:
 void cv::TonemapReinhard::setGamma( float gamma )
 
 AutoIt:
-    $tonemapReinhard.setGamma( $gamma ) -> None
+    $oTonemapReinhard.setGamma( $gamma ) -> None
 ```
 
 ### cv::TonemapReinhard::clear
@@ -16839,7 +16839,7 @@ AutoIt:
 void cv::TonemapReinhard::clear()
 
 AutoIt:
-    $tonemapReinhard.clear() -> None
+    $oTonemapReinhard.clear() -> None
 ```
 
 ### cv::TonemapReinhard::write
@@ -16849,7 +16849,7 @@ void cv::TonemapReinhard::write( const cv::Ptr<cv::FileStorage>& fs,
                                  const std::string&              name = String() )
 
 AutoIt:
-    $tonemapReinhard.write( $fs[, $name] ) -> None
+    $oTonemapReinhard.write( $fs[, $name] ) -> None
 ```
 
 ### cv::TonemapReinhard::read
@@ -16858,7 +16858,7 @@ AutoIt:
 void cv::TonemapReinhard::read( const cv::FileNode& fn )
 
 AutoIt:
-    $tonemapReinhard.read( $fn ) -> None
+    $oTonemapReinhard.read( $fn ) -> None
 ```
 
 ### cv::TonemapReinhard::empty
@@ -16867,7 +16867,7 @@ AutoIt:
 bool cv::TonemapReinhard::empty()
 
 AutoIt:
-    $tonemapReinhard.empty() -> retval
+    $oTonemapReinhard.empty() -> retval
 ```
 
 ### cv::TonemapReinhard::save
@@ -16876,7 +16876,7 @@ AutoIt:
 void cv::TonemapReinhard::save( const std::string& filename )
 
 AutoIt:
-    $tonemapReinhard.save( $filename ) -> None
+    $oTonemapReinhard.save( $filename ) -> None
 ```
 
 ### cv::TonemapReinhard::getDefaultName
@@ -16885,7 +16885,7 @@ AutoIt:
 std::string cv::TonemapReinhard::getDefaultName()
 
 AutoIt:
-    $tonemapReinhard.getDefaultName() -> retval
+    $oTonemapReinhard.getDefaultName() -> retval
 ```
 
 ## cv::TonemapMantiuk
@@ -16896,7 +16896,7 @@ AutoIt:
 float cv::TonemapMantiuk::getScale()
 
 AutoIt:
-    $tonemapMantiuk.getScale() -> retval
+    $oTonemapMantiuk.getScale() -> retval
 ```
 
 ### cv::TonemapMantiuk::setScale
@@ -16905,7 +16905,7 @@ AutoIt:
 void cv::TonemapMantiuk::setScale( float scale )
 
 AutoIt:
-    $tonemapMantiuk.setScale( $scale ) -> None
+    $oTonemapMantiuk.setScale( $scale ) -> None
 ```
 
 ### cv::TonemapMantiuk::getSaturation
@@ -16914,7 +16914,7 @@ AutoIt:
 float cv::TonemapMantiuk::getSaturation()
 
 AutoIt:
-    $tonemapMantiuk.getSaturation() -> retval
+    $oTonemapMantiuk.getSaturation() -> retval
 ```
 
 ### cv::TonemapMantiuk::setSaturation
@@ -16923,7 +16923,7 @@ AutoIt:
 void cv::TonemapMantiuk::setSaturation( float saturation )
 
 AutoIt:
-    $tonemapMantiuk.setSaturation( $saturation ) -> None
+    $oTonemapMantiuk.setSaturation( $saturation ) -> None
 ```
 
 ### cv::TonemapMantiuk::process
@@ -16933,7 +16933,7 @@ void cv::TonemapMantiuk::process( _InputArray  src,
                                   _OutputArray dst )
 
 AutoIt:
-    $tonemapMantiuk.process( $src[, $dst] ) -> $dst
+    $oTonemapMantiuk.process( $src[, $dst] ) -> $dst
 ```
 
 ### cv::TonemapMantiuk::getGamma
@@ -16942,7 +16942,7 @@ AutoIt:
 float cv::TonemapMantiuk::getGamma()
 
 AutoIt:
-    $tonemapMantiuk.getGamma() -> retval
+    $oTonemapMantiuk.getGamma() -> retval
 ```
 
 ### cv::TonemapMantiuk::setGamma
@@ -16951,7 +16951,7 @@ AutoIt:
 void cv::TonemapMantiuk::setGamma( float gamma )
 
 AutoIt:
-    $tonemapMantiuk.setGamma( $gamma ) -> None
+    $oTonemapMantiuk.setGamma( $gamma ) -> None
 ```
 
 ### cv::TonemapMantiuk::clear
@@ -16960,7 +16960,7 @@ AutoIt:
 void cv::TonemapMantiuk::clear()
 
 AutoIt:
-    $tonemapMantiuk.clear() -> None
+    $oTonemapMantiuk.clear() -> None
 ```
 
 ### cv::TonemapMantiuk::write
@@ -16970,7 +16970,7 @@ void cv::TonemapMantiuk::write( const cv::Ptr<cv::FileStorage>& fs,
                                 const std::string&              name = String() )
 
 AutoIt:
-    $tonemapMantiuk.write( $fs[, $name] ) -> None
+    $oTonemapMantiuk.write( $fs[, $name] ) -> None
 ```
 
 ### cv::TonemapMantiuk::read
@@ -16979,7 +16979,7 @@ AutoIt:
 void cv::TonemapMantiuk::read( const cv::FileNode& fn )
 
 AutoIt:
-    $tonemapMantiuk.read( $fn ) -> None
+    $oTonemapMantiuk.read( $fn ) -> None
 ```
 
 ### cv::TonemapMantiuk::empty
@@ -16988,7 +16988,7 @@ AutoIt:
 bool cv::TonemapMantiuk::empty()
 
 AutoIt:
-    $tonemapMantiuk.empty() -> retval
+    $oTonemapMantiuk.empty() -> retval
 ```
 
 ### cv::TonemapMantiuk::save
@@ -16997,7 +16997,7 @@ AutoIt:
 void cv::TonemapMantiuk::save( const std::string& filename )
 
 AutoIt:
-    $tonemapMantiuk.save( $filename ) -> None
+    $oTonemapMantiuk.save( $filename ) -> None
 ```
 
 ### cv::TonemapMantiuk::getDefaultName
@@ -17006,7 +17006,7 @@ AutoIt:
 std::string cv::TonemapMantiuk::getDefaultName()
 
 AutoIt:
-    $tonemapMantiuk.getDefaultName() -> retval
+    $oTonemapMantiuk.getDefaultName() -> retval
 ```
 
 ## cv::AlignExposures
@@ -17020,7 +17020,7 @@ void cv::AlignExposures::process( _InputArray           src,
                                   _InputArray           response )
 
 AutoIt:
-    $alignExposures.process( $src, $dst, $times, $response ) -> None
+    $oAlignExposures.process( $src, $dst, $times, $response ) -> None
 ```
 
 ### cv::AlignExposures::clear
@@ -17029,7 +17029,7 @@ AutoIt:
 void cv::AlignExposures::clear()
 
 AutoIt:
-    $alignExposures.clear() -> None
+    $oAlignExposures.clear() -> None
 ```
 
 ### cv::AlignExposures::write
@@ -17039,7 +17039,7 @@ void cv::AlignExposures::write( const cv::Ptr<cv::FileStorage>& fs,
                                 const std::string&              name = String() )
 
 AutoIt:
-    $alignExposures.write( $fs[, $name] ) -> None
+    $oAlignExposures.write( $fs[, $name] ) -> None
 ```
 
 ### cv::AlignExposures::read
@@ -17048,7 +17048,7 @@ AutoIt:
 void cv::AlignExposures::read( const cv::FileNode& fn )
 
 AutoIt:
-    $alignExposures.read( $fn ) -> None
+    $oAlignExposures.read( $fn ) -> None
 ```
 
 ### cv::AlignExposures::empty
@@ -17057,7 +17057,7 @@ AutoIt:
 bool cv::AlignExposures::empty()
 
 AutoIt:
-    $alignExposures.empty() -> retval
+    $oAlignExposures.empty() -> retval
 ```
 
 ### cv::AlignExposures::save
@@ -17066,7 +17066,7 @@ AutoIt:
 void cv::AlignExposures::save( const std::string& filename )
 
 AutoIt:
-    $alignExposures.save( $filename ) -> None
+    $oAlignExposures.save( $filename ) -> None
 ```
 
 ### cv::AlignExposures::getDefaultName
@@ -17075,7 +17075,7 @@ AutoIt:
 std::string cv::AlignExposures::getDefaultName()
 
 AutoIt:
-    $alignExposures.getDefaultName() -> retval
+    $oAlignExposures.getDefaultName() -> retval
 ```
 
 ## cv::AlignMTB
@@ -17089,7 +17089,7 @@ void cv::AlignMTB::process( _InputArray           src,
                             _InputArray           response )
 
 AutoIt:
-    $alignMTB.process( $src, $dst, $times, $response ) -> None
+    $oAlignMTB.process( $src, $dst, $times, $response ) -> None
 ```
 
 ```cpp
@@ -17097,7 +17097,7 @@ void cv::AlignMTB::process( _InputArray           src,
                             std::vector<cv::Mat>& dst )
 
 AutoIt:
-    $alignMTB.process( $src, $dst ) -> None
+    $oAlignMTB.process( $src, $dst ) -> None
 ```
 
 ### cv::AlignMTB::calculateShift
@@ -17107,7 +17107,7 @@ cv::Point cv::AlignMTB::calculateShift( _InputArray img0,
                                         _InputArray img1 )
 
 AutoIt:
-    $alignMTB.calculateShift( $img0, $img1 ) -> retval
+    $oAlignMTB.calculateShift( $img0, $img1 ) -> retval
 ```
 
 ### cv::AlignMTB::shiftMat
@@ -17118,7 +17118,7 @@ void cv::AlignMTB::shiftMat( _InputArray     src,
                              const cv::Point shift )
 
 AutoIt:
-    $alignMTB.shiftMat( $src, $shift[, $dst] ) -> $dst
+    $oAlignMTB.shiftMat( $src, $shift[, $dst] ) -> $dst
 ```
 
 ### cv::AlignMTB::computeBitmaps
@@ -17129,7 +17129,7 @@ void cv::AlignMTB::computeBitmaps( _InputArray  img,
                                    _OutputArray eb )
 
 AutoIt:
-    $alignMTB.computeBitmaps( $img[, $tb[, $eb]] ) -> $tb, $eb
+    $oAlignMTB.computeBitmaps( $img[, $tb[, $eb]] ) -> $tb, $eb
 ```
 
 ### cv::AlignMTB::getMaxBits
@@ -17138,7 +17138,7 @@ AutoIt:
 int cv::AlignMTB::getMaxBits()
 
 AutoIt:
-    $alignMTB.getMaxBits() -> retval
+    $oAlignMTB.getMaxBits() -> retval
 ```
 
 ### cv::AlignMTB::setMaxBits
@@ -17147,7 +17147,7 @@ AutoIt:
 void cv::AlignMTB::setMaxBits( int max_bits )
 
 AutoIt:
-    $alignMTB.setMaxBits( $max_bits ) -> None
+    $oAlignMTB.setMaxBits( $max_bits ) -> None
 ```
 
 ### cv::AlignMTB::getExcludeRange
@@ -17156,7 +17156,7 @@ AutoIt:
 int cv::AlignMTB::getExcludeRange()
 
 AutoIt:
-    $alignMTB.getExcludeRange() -> retval
+    $oAlignMTB.getExcludeRange() -> retval
 ```
 
 ### cv::AlignMTB::setExcludeRange
@@ -17165,7 +17165,7 @@ AutoIt:
 void cv::AlignMTB::setExcludeRange( int exclude_range )
 
 AutoIt:
-    $alignMTB.setExcludeRange( $exclude_range ) -> None
+    $oAlignMTB.setExcludeRange( $exclude_range ) -> None
 ```
 
 ### cv::AlignMTB::getCut
@@ -17174,7 +17174,7 @@ AutoIt:
 bool cv::AlignMTB::getCut()
 
 AutoIt:
-    $alignMTB.getCut() -> retval
+    $oAlignMTB.getCut() -> retval
 ```
 
 ### cv::AlignMTB::setCut
@@ -17183,7 +17183,7 @@ AutoIt:
 void cv::AlignMTB::setCut( bool value )
 
 AutoIt:
-    $alignMTB.setCut( $value ) -> None
+    $oAlignMTB.setCut( $value ) -> None
 ```
 
 ### cv::AlignMTB::clear
@@ -17192,7 +17192,7 @@ AutoIt:
 void cv::AlignMTB::clear()
 
 AutoIt:
-    $alignMTB.clear() -> None
+    $oAlignMTB.clear() -> None
 ```
 
 ### cv::AlignMTB::write
@@ -17202,7 +17202,7 @@ void cv::AlignMTB::write( const cv::Ptr<cv::FileStorage>& fs,
                           const std::string&              name = String() )
 
 AutoIt:
-    $alignMTB.write( $fs[, $name] ) -> None
+    $oAlignMTB.write( $fs[, $name] ) -> None
 ```
 
 ### cv::AlignMTB::read
@@ -17211,7 +17211,7 @@ AutoIt:
 void cv::AlignMTB::read( const cv::FileNode& fn )
 
 AutoIt:
-    $alignMTB.read( $fn ) -> None
+    $oAlignMTB.read( $fn ) -> None
 ```
 
 ### cv::AlignMTB::empty
@@ -17220,7 +17220,7 @@ AutoIt:
 bool cv::AlignMTB::empty()
 
 AutoIt:
-    $alignMTB.empty() -> retval
+    $oAlignMTB.empty() -> retval
 ```
 
 ### cv::AlignMTB::save
@@ -17229,7 +17229,7 @@ AutoIt:
 void cv::AlignMTB::save( const std::string& filename )
 
 AutoIt:
-    $alignMTB.save( $filename ) -> None
+    $oAlignMTB.save( $filename ) -> None
 ```
 
 ### cv::AlignMTB::getDefaultName
@@ -17238,7 +17238,7 @@ AutoIt:
 std::string cv::AlignMTB::getDefaultName()
 
 AutoIt:
-    $alignMTB.getDefaultName() -> retval
+    $oAlignMTB.getDefaultName() -> retval
 ```
 
 ## cv::CalibrateCRF
@@ -17251,7 +17251,7 @@ void cv::CalibrateCRF::process( _InputArray  src,
                                 _InputArray  times )
 
 AutoIt:
-    $calibrateCRF.process( $src, $times[, $dst] ) -> $dst
+    $oCalibrateCRF.process( $src, $times[, $dst] ) -> $dst
 ```
 
 ### cv::CalibrateCRF::clear
@@ -17260,7 +17260,7 @@ AutoIt:
 void cv::CalibrateCRF::clear()
 
 AutoIt:
-    $calibrateCRF.clear() -> None
+    $oCalibrateCRF.clear() -> None
 ```
 
 ### cv::CalibrateCRF::write
@@ -17270,7 +17270,7 @@ void cv::CalibrateCRF::write( const cv::Ptr<cv::FileStorage>& fs,
                               const std::string&              name = String() )
 
 AutoIt:
-    $calibrateCRF.write( $fs[, $name] ) -> None
+    $oCalibrateCRF.write( $fs[, $name] ) -> None
 ```
 
 ### cv::CalibrateCRF::read
@@ -17279,7 +17279,7 @@ AutoIt:
 void cv::CalibrateCRF::read( const cv::FileNode& fn )
 
 AutoIt:
-    $calibrateCRF.read( $fn ) -> None
+    $oCalibrateCRF.read( $fn ) -> None
 ```
 
 ### cv::CalibrateCRF::empty
@@ -17288,7 +17288,7 @@ AutoIt:
 bool cv::CalibrateCRF::empty()
 
 AutoIt:
-    $calibrateCRF.empty() -> retval
+    $oCalibrateCRF.empty() -> retval
 ```
 
 ### cv::CalibrateCRF::save
@@ -17297,7 +17297,7 @@ AutoIt:
 void cv::CalibrateCRF::save( const std::string& filename )
 
 AutoIt:
-    $calibrateCRF.save( $filename ) -> None
+    $oCalibrateCRF.save( $filename ) -> None
 ```
 
 ### cv::CalibrateCRF::getDefaultName
@@ -17306,7 +17306,7 @@ AutoIt:
 std::string cv::CalibrateCRF::getDefaultName()
 
 AutoIt:
-    $calibrateCRF.getDefaultName() -> retval
+    $oCalibrateCRF.getDefaultName() -> retval
 ```
 
 ## cv::CalibrateDebevec
@@ -17317,7 +17317,7 @@ AutoIt:
 float cv::CalibrateDebevec::getLambda()
 
 AutoIt:
-    $calibrateDebevec.getLambda() -> retval
+    $oCalibrateDebevec.getLambda() -> retval
 ```
 
 ### cv::CalibrateDebevec::setLambda
@@ -17326,7 +17326,7 @@ AutoIt:
 void cv::CalibrateDebevec::setLambda( float lambda )
 
 AutoIt:
-    $calibrateDebevec.setLambda( $lambda ) -> None
+    $oCalibrateDebevec.setLambda( $lambda ) -> None
 ```
 
 ### cv::CalibrateDebevec::getSamples
@@ -17335,7 +17335,7 @@ AutoIt:
 int cv::CalibrateDebevec::getSamples()
 
 AutoIt:
-    $calibrateDebevec.getSamples() -> retval
+    $oCalibrateDebevec.getSamples() -> retval
 ```
 
 ### cv::CalibrateDebevec::setSamples
@@ -17344,7 +17344,7 @@ AutoIt:
 void cv::CalibrateDebevec::setSamples( int samples )
 
 AutoIt:
-    $calibrateDebevec.setSamples( $samples ) -> None
+    $oCalibrateDebevec.setSamples( $samples ) -> None
 ```
 
 ### cv::CalibrateDebevec::getRandom
@@ -17353,7 +17353,7 @@ AutoIt:
 bool cv::CalibrateDebevec::getRandom()
 
 AutoIt:
-    $calibrateDebevec.getRandom() -> retval
+    $oCalibrateDebevec.getRandom() -> retval
 ```
 
 ### cv::CalibrateDebevec::setRandom
@@ -17362,7 +17362,7 @@ AutoIt:
 void cv::CalibrateDebevec::setRandom( bool random )
 
 AutoIt:
-    $calibrateDebevec.setRandom( $random ) -> None
+    $oCalibrateDebevec.setRandom( $random ) -> None
 ```
 
 ### cv::CalibrateDebevec::process
@@ -17373,7 +17373,7 @@ void cv::CalibrateDebevec::process( _InputArray  src,
                                     _InputArray  times )
 
 AutoIt:
-    $calibrateDebevec.process( $src, $times[, $dst] ) -> $dst
+    $oCalibrateDebevec.process( $src, $times[, $dst] ) -> $dst
 ```
 
 ### cv::CalibrateDebevec::clear
@@ -17382,7 +17382,7 @@ AutoIt:
 void cv::CalibrateDebevec::clear()
 
 AutoIt:
-    $calibrateDebevec.clear() -> None
+    $oCalibrateDebevec.clear() -> None
 ```
 
 ### cv::CalibrateDebevec::write
@@ -17392,7 +17392,7 @@ void cv::CalibrateDebevec::write( const cv::Ptr<cv::FileStorage>& fs,
                                   const std::string&              name = String() )
 
 AutoIt:
-    $calibrateDebevec.write( $fs[, $name] ) -> None
+    $oCalibrateDebevec.write( $fs[, $name] ) -> None
 ```
 
 ### cv::CalibrateDebevec::read
@@ -17401,7 +17401,7 @@ AutoIt:
 void cv::CalibrateDebevec::read( const cv::FileNode& fn )
 
 AutoIt:
-    $calibrateDebevec.read( $fn ) -> None
+    $oCalibrateDebevec.read( $fn ) -> None
 ```
 
 ### cv::CalibrateDebevec::empty
@@ -17410,7 +17410,7 @@ AutoIt:
 bool cv::CalibrateDebevec::empty()
 
 AutoIt:
-    $calibrateDebevec.empty() -> retval
+    $oCalibrateDebevec.empty() -> retval
 ```
 
 ### cv::CalibrateDebevec::save
@@ -17419,7 +17419,7 @@ AutoIt:
 void cv::CalibrateDebevec::save( const std::string& filename )
 
 AutoIt:
-    $calibrateDebevec.save( $filename ) -> None
+    $oCalibrateDebevec.save( $filename ) -> None
 ```
 
 ### cv::CalibrateDebevec::getDefaultName
@@ -17428,7 +17428,7 @@ AutoIt:
 std::string cv::CalibrateDebevec::getDefaultName()
 
 AutoIt:
-    $calibrateDebevec.getDefaultName() -> retval
+    $oCalibrateDebevec.getDefaultName() -> retval
 ```
 
 ## cv::CalibrateRobertson
@@ -17439,7 +17439,7 @@ AutoIt:
 int cv::CalibrateRobertson::getMaxIter()
 
 AutoIt:
-    $calibrateRobertson.getMaxIter() -> retval
+    $oCalibrateRobertson.getMaxIter() -> retval
 ```
 
 ### cv::CalibrateRobertson::setMaxIter
@@ -17448,7 +17448,7 @@ AutoIt:
 void cv::CalibrateRobertson::setMaxIter( int max_iter )
 
 AutoIt:
-    $calibrateRobertson.setMaxIter( $max_iter ) -> None
+    $oCalibrateRobertson.setMaxIter( $max_iter ) -> None
 ```
 
 ### cv::CalibrateRobertson::getThreshold
@@ -17457,7 +17457,7 @@ AutoIt:
 float cv::CalibrateRobertson::getThreshold()
 
 AutoIt:
-    $calibrateRobertson.getThreshold() -> retval
+    $oCalibrateRobertson.getThreshold() -> retval
 ```
 
 ### cv::CalibrateRobertson::setThreshold
@@ -17466,7 +17466,7 @@ AutoIt:
 void cv::CalibrateRobertson::setThreshold( float threshold )
 
 AutoIt:
-    $calibrateRobertson.setThreshold( $threshold ) -> None
+    $oCalibrateRobertson.setThreshold( $threshold ) -> None
 ```
 
 ### cv::CalibrateRobertson::getRadiance
@@ -17475,7 +17475,7 @@ AutoIt:
 cv::Mat cv::CalibrateRobertson::getRadiance()
 
 AutoIt:
-    $calibrateRobertson.getRadiance() -> retval
+    $oCalibrateRobertson.getRadiance() -> retval
 ```
 
 ### cv::CalibrateRobertson::process
@@ -17486,7 +17486,7 @@ void cv::CalibrateRobertson::process( _InputArray  src,
                                       _InputArray  times )
 
 AutoIt:
-    $calibrateRobertson.process( $src, $times[, $dst] ) -> $dst
+    $oCalibrateRobertson.process( $src, $times[, $dst] ) -> $dst
 ```
 
 ### cv::CalibrateRobertson::clear
@@ -17495,7 +17495,7 @@ AutoIt:
 void cv::CalibrateRobertson::clear()
 
 AutoIt:
-    $calibrateRobertson.clear() -> None
+    $oCalibrateRobertson.clear() -> None
 ```
 
 ### cv::CalibrateRobertson::write
@@ -17505,7 +17505,7 @@ void cv::CalibrateRobertson::write( const cv::Ptr<cv::FileStorage>& fs,
                                     const std::string&              name = String() )
 
 AutoIt:
-    $calibrateRobertson.write( $fs[, $name] ) -> None
+    $oCalibrateRobertson.write( $fs[, $name] ) -> None
 ```
 
 ### cv::CalibrateRobertson::read
@@ -17514,7 +17514,7 @@ AutoIt:
 void cv::CalibrateRobertson::read( const cv::FileNode& fn )
 
 AutoIt:
-    $calibrateRobertson.read( $fn ) -> None
+    $oCalibrateRobertson.read( $fn ) -> None
 ```
 
 ### cv::CalibrateRobertson::empty
@@ -17523,7 +17523,7 @@ AutoIt:
 bool cv::CalibrateRobertson::empty()
 
 AutoIt:
-    $calibrateRobertson.empty() -> retval
+    $oCalibrateRobertson.empty() -> retval
 ```
 
 ### cv::CalibrateRobertson::save
@@ -17532,7 +17532,7 @@ AutoIt:
 void cv::CalibrateRobertson::save( const std::string& filename )
 
 AutoIt:
-    $calibrateRobertson.save( $filename ) -> None
+    $oCalibrateRobertson.save( $filename ) -> None
 ```
 
 ### cv::CalibrateRobertson::getDefaultName
@@ -17541,7 +17541,7 @@ AutoIt:
 std::string cv::CalibrateRobertson::getDefaultName()
 
 AutoIt:
-    $calibrateRobertson.getDefaultName() -> retval
+    $oCalibrateRobertson.getDefaultName() -> retval
 ```
 
 ## cv::MergeExposures
@@ -17555,7 +17555,7 @@ void cv::MergeExposures::process( _InputArray  src,
                                   _InputArray  response )
 
 AutoIt:
-    $mergeExposures.process( $src, $times, $response[, $dst] ) -> $dst
+    $oMergeExposures.process( $src, $times, $response[, $dst] ) -> $dst
 ```
 
 ### cv::MergeExposures::clear
@@ -17564,7 +17564,7 @@ AutoIt:
 void cv::MergeExposures::clear()
 
 AutoIt:
-    $mergeExposures.clear() -> None
+    $oMergeExposures.clear() -> None
 ```
 
 ### cv::MergeExposures::write
@@ -17574,7 +17574,7 @@ void cv::MergeExposures::write( const cv::Ptr<cv::FileStorage>& fs,
                                 const std::string&              name = String() )
 
 AutoIt:
-    $mergeExposures.write( $fs[, $name] ) -> None
+    $oMergeExposures.write( $fs[, $name] ) -> None
 ```
 
 ### cv::MergeExposures::read
@@ -17583,7 +17583,7 @@ AutoIt:
 void cv::MergeExposures::read( const cv::FileNode& fn )
 
 AutoIt:
-    $mergeExposures.read( $fn ) -> None
+    $oMergeExposures.read( $fn ) -> None
 ```
 
 ### cv::MergeExposures::empty
@@ -17592,7 +17592,7 @@ AutoIt:
 bool cv::MergeExposures::empty()
 
 AutoIt:
-    $mergeExposures.empty() -> retval
+    $oMergeExposures.empty() -> retval
 ```
 
 ### cv::MergeExposures::save
@@ -17601,7 +17601,7 @@ AutoIt:
 void cv::MergeExposures::save( const std::string& filename )
 
 AutoIt:
-    $mergeExposures.save( $filename ) -> None
+    $oMergeExposures.save( $filename ) -> None
 ```
 
 ### cv::MergeExposures::getDefaultName
@@ -17610,7 +17610,7 @@ AutoIt:
 std::string cv::MergeExposures::getDefaultName()
 
 AutoIt:
-    $mergeExposures.getDefaultName() -> retval
+    $oMergeExposures.getDefaultName() -> retval
 ```
 
 ## cv::MergeDebevec
@@ -17624,7 +17624,7 @@ void cv::MergeDebevec::process( _InputArray  src,
                                 _InputArray  response )
 
 AutoIt:
-    $mergeDebevec.process( $src, $times, $response[, $dst] ) -> $dst
+    $oMergeDebevec.process( $src, $times, $response[, $dst] ) -> $dst
 ```
 
 ```cpp
@@ -17633,7 +17633,7 @@ void cv::MergeDebevec::process( _InputArray  src,
                                 _InputArray  times )
 
 AutoIt:
-    $mergeDebevec.process( $src, $times[, $dst] ) -> $dst
+    $oMergeDebevec.process( $src, $times[, $dst] ) -> $dst
 ```
 
 ### cv::MergeDebevec::clear
@@ -17642,7 +17642,7 @@ AutoIt:
 void cv::MergeDebevec::clear()
 
 AutoIt:
-    $mergeDebevec.clear() -> None
+    $oMergeDebevec.clear() -> None
 ```
 
 ### cv::MergeDebevec::write
@@ -17652,7 +17652,7 @@ void cv::MergeDebevec::write( const cv::Ptr<cv::FileStorage>& fs,
                               const std::string&              name = String() )
 
 AutoIt:
-    $mergeDebevec.write( $fs[, $name] ) -> None
+    $oMergeDebevec.write( $fs[, $name] ) -> None
 ```
 
 ### cv::MergeDebevec::read
@@ -17661,7 +17661,7 @@ AutoIt:
 void cv::MergeDebevec::read( const cv::FileNode& fn )
 
 AutoIt:
-    $mergeDebevec.read( $fn ) -> None
+    $oMergeDebevec.read( $fn ) -> None
 ```
 
 ### cv::MergeDebevec::empty
@@ -17670,7 +17670,7 @@ AutoIt:
 bool cv::MergeDebevec::empty()
 
 AutoIt:
-    $mergeDebevec.empty() -> retval
+    $oMergeDebevec.empty() -> retval
 ```
 
 ### cv::MergeDebevec::save
@@ -17679,7 +17679,7 @@ AutoIt:
 void cv::MergeDebevec::save( const std::string& filename )
 
 AutoIt:
-    $mergeDebevec.save( $filename ) -> None
+    $oMergeDebevec.save( $filename ) -> None
 ```
 
 ### cv::MergeDebevec::getDefaultName
@@ -17688,7 +17688,7 @@ AutoIt:
 std::string cv::MergeDebevec::getDefaultName()
 
 AutoIt:
-    $mergeDebevec.getDefaultName() -> retval
+    $oMergeDebevec.getDefaultName() -> retval
 ```
 
 ## cv::MergeMertens
@@ -17702,7 +17702,7 @@ void cv::MergeMertens::process( _InputArray  src,
                                 _InputArray  response )
 
 AutoIt:
-    $mergeMertens.process( $src, $times, $response[, $dst] ) -> $dst
+    $oMergeMertens.process( $src, $times, $response[, $dst] ) -> $dst
 ```
 
 ```cpp
@@ -17710,7 +17710,7 @@ void cv::MergeMertens::process( _InputArray  src,
                                 _OutputArray dst )
 
 AutoIt:
-    $mergeMertens.process( $src[, $dst] ) -> $dst
+    $oMergeMertens.process( $src[, $dst] ) -> $dst
 ```
 
 ### cv::MergeMertens::getContrastWeight
@@ -17719,7 +17719,7 @@ AutoIt:
 float cv::MergeMertens::getContrastWeight()
 
 AutoIt:
-    $mergeMertens.getContrastWeight() -> retval
+    $oMergeMertens.getContrastWeight() -> retval
 ```
 
 ### cv::MergeMertens::setContrastWeight
@@ -17728,7 +17728,7 @@ AutoIt:
 void cv::MergeMertens::setContrastWeight( float contrast_weiht )
 
 AutoIt:
-    $mergeMertens.setContrastWeight( $contrast_weiht ) -> None
+    $oMergeMertens.setContrastWeight( $contrast_weiht ) -> None
 ```
 
 ### cv::MergeMertens::getSaturationWeight
@@ -17737,7 +17737,7 @@ AutoIt:
 float cv::MergeMertens::getSaturationWeight()
 
 AutoIt:
-    $mergeMertens.getSaturationWeight() -> retval
+    $oMergeMertens.getSaturationWeight() -> retval
 ```
 
 ### cv::MergeMertens::setSaturationWeight
@@ -17746,7 +17746,7 @@ AutoIt:
 void cv::MergeMertens::setSaturationWeight( float saturation_weight )
 
 AutoIt:
-    $mergeMertens.setSaturationWeight( $saturation_weight ) -> None
+    $oMergeMertens.setSaturationWeight( $saturation_weight ) -> None
 ```
 
 ### cv::MergeMertens::getExposureWeight
@@ -17755,7 +17755,7 @@ AutoIt:
 float cv::MergeMertens::getExposureWeight()
 
 AutoIt:
-    $mergeMertens.getExposureWeight() -> retval
+    $oMergeMertens.getExposureWeight() -> retval
 ```
 
 ### cv::MergeMertens::setExposureWeight
@@ -17764,7 +17764,7 @@ AutoIt:
 void cv::MergeMertens::setExposureWeight( float exposure_weight )
 
 AutoIt:
-    $mergeMertens.setExposureWeight( $exposure_weight ) -> None
+    $oMergeMertens.setExposureWeight( $exposure_weight ) -> None
 ```
 
 ### cv::MergeMertens::clear
@@ -17773,7 +17773,7 @@ AutoIt:
 void cv::MergeMertens::clear()
 
 AutoIt:
-    $mergeMertens.clear() -> None
+    $oMergeMertens.clear() -> None
 ```
 
 ### cv::MergeMertens::write
@@ -17783,7 +17783,7 @@ void cv::MergeMertens::write( const cv::Ptr<cv::FileStorage>& fs,
                               const std::string&              name = String() )
 
 AutoIt:
-    $mergeMertens.write( $fs[, $name] ) -> None
+    $oMergeMertens.write( $fs[, $name] ) -> None
 ```
 
 ### cv::MergeMertens::read
@@ -17792,7 +17792,7 @@ AutoIt:
 void cv::MergeMertens::read( const cv::FileNode& fn )
 
 AutoIt:
-    $mergeMertens.read( $fn ) -> None
+    $oMergeMertens.read( $fn ) -> None
 ```
 
 ### cv::MergeMertens::empty
@@ -17801,7 +17801,7 @@ AutoIt:
 bool cv::MergeMertens::empty()
 
 AutoIt:
-    $mergeMertens.empty() -> retval
+    $oMergeMertens.empty() -> retval
 ```
 
 ### cv::MergeMertens::save
@@ -17810,7 +17810,7 @@ AutoIt:
 void cv::MergeMertens::save( const std::string& filename )
 
 AutoIt:
-    $mergeMertens.save( $filename ) -> None
+    $oMergeMertens.save( $filename ) -> None
 ```
 
 ### cv::MergeMertens::getDefaultName
@@ -17819,7 +17819,7 @@ AutoIt:
 std::string cv::MergeMertens::getDefaultName()
 
 AutoIt:
-    $mergeMertens.getDefaultName() -> retval
+    $oMergeMertens.getDefaultName() -> retval
 ```
 
 ## cv::MergeRobertson
@@ -17833,7 +17833,7 @@ void cv::MergeRobertson::process( _InputArray  src,
                                   _InputArray  response )
 
 AutoIt:
-    $mergeRobertson.process( $src, $times, $response[, $dst] ) -> $dst
+    $oMergeRobertson.process( $src, $times, $response[, $dst] ) -> $dst
 ```
 
 ```cpp
@@ -17842,7 +17842,7 @@ void cv::MergeRobertson::process( _InputArray  src,
                                   _InputArray  times )
 
 AutoIt:
-    $mergeRobertson.process( $src, $times[, $dst] ) -> $dst
+    $oMergeRobertson.process( $src, $times[, $dst] ) -> $dst
 ```
 
 ### cv::MergeRobertson::clear
@@ -17851,7 +17851,7 @@ AutoIt:
 void cv::MergeRobertson::clear()
 
 AutoIt:
-    $mergeRobertson.clear() -> None
+    $oMergeRobertson.clear() -> None
 ```
 
 ### cv::MergeRobertson::write
@@ -17861,7 +17861,7 @@ void cv::MergeRobertson::write( const cv::Ptr<cv::FileStorage>& fs,
                                 const std::string&              name = String() )
 
 AutoIt:
-    $mergeRobertson.write( $fs[, $name] ) -> None
+    $oMergeRobertson.write( $fs[, $name] ) -> None
 ```
 
 ### cv::MergeRobertson::read
@@ -17870,7 +17870,7 @@ AutoIt:
 void cv::MergeRobertson::read( const cv::FileNode& fn )
 
 AutoIt:
-    $mergeRobertson.read( $fn ) -> None
+    $oMergeRobertson.read( $fn ) -> None
 ```
 
 ### cv::MergeRobertson::empty
@@ -17879,7 +17879,7 @@ AutoIt:
 bool cv::MergeRobertson::empty()
 
 AutoIt:
-    $mergeRobertson.empty() -> retval
+    $oMergeRobertson.empty() -> retval
 ```
 
 ### cv::MergeRobertson::save
@@ -17888,7 +17888,7 @@ AutoIt:
 void cv::MergeRobertson::save( const std::string& filename )
 
 AutoIt:
-    $mergeRobertson.save( $filename ) -> None
+    $oMergeRobertson.save( $filename ) -> None
 ```
 
 ### cv::MergeRobertson::getDefaultName
@@ -17897,7 +17897,7 @@ AutoIt:
 std::string cv::MergeRobertson::getDefaultName()
 
 AutoIt:
-    $mergeRobertson.getDefaultName() -> retval
+    $oMergeRobertson.getDefaultName() -> retval
 ```
 
 ## cv::dnn
@@ -18195,7 +18195,7 @@ AutoIt:
 bool cv::dnn::DictValue::isInt()
 
 AutoIt:
-    $dictValue.isInt() -> retval
+    $oDictValue.isInt() -> retval
 ```
 
 ### cv::dnn::DictValue::isString
@@ -18204,7 +18204,7 @@ AutoIt:
 bool cv::dnn::DictValue::isString()
 
 AutoIt:
-    $dictValue.isString() -> retval
+    $oDictValue.isString() -> retval
 ```
 
 ### cv::dnn::DictValue::isReal
@@ -18213,7 +18213,7 @@ AutoIt:
 bool cv::dnn::DictValue::isReal()
 
 AutoIt:
-    $dictValue.isReal() -> retval
+    $oDictValue.isReal() -> retval
 ```
 
 ### cv::dnn::DictValue::getIntValue
@@ -18222,7 +18222,7 @@ AutoIt:
 int cv::dnn::DictValue::getIntValue( int idx = -1 )
 
 AutoIt:
-    $dictValue.getIntValue( [$idx] ) -> retval
+    $oDictValue.getIntValue( [$idx] ) -> retval
 ```
 
 ### cv::dnn::DictValue::getRealValue
@@ -18231,7 +18231,7 @@ AutoIt:
 double cv::dnn::DictValue::getRealValue( int idx = -1 )
 
 AutoIt:
-    $dictValue.getRealValue( [$idx] ) -> retval
+    $oDictValue.getRealValue( [$idx] ) -> retval
 ```
 
 ### cv::dnn::DictValue::getStringValue
@@ -18240,7 +18240,7 @@ AutoIt:
 std::string cv::dnn::DictValue::getStringValue( int idx = -1 )
 
 AutoIt:
-    $dictValue.getStringValue( [$idx] ) -> retval
+    $oDictValue.getStringValue( [$idx] ) -> retval
 ```
 
 ## cv::dnn::Layer
@@ -18252,7 +18252,7 @@ void cv::dnn::Layer::finalize( _InputArray  inputs,
                                _OutputArray outputs )
 
 AutoIt:
-    $layer.finalize( $inputs[, $outputs] ) -> $outputs
+    $oLayer.finalize( $inputs[, $outputs] ) -> $outputs
 ```
 
 ### cv::dnn::Layer::run
@@ -18263,7 +18263,7 @@ void cv::dnn::Layer::run( const std::vector<cv::Mat>& inputs,
                           std::vector<cv::Mat>&       internals )
 
 AutoIt:
-    $layer.run( $inputs, $internals[, $outputs] ) -> $outputs, $internals
+    $oLayer.run( $inputs, $internals[, $outputs] ) -> $outputs, $internals
 ```
 
 ### cv::dnn::Layer::outputNameToIndex
@@ -18272,7 +18272,7 @@ AutoIt:
 int cv::dnn::Layer::outputNameToIndex( const std::string& outputName )
 
 AutoIt:
-    $layer.outputNameToIndex( $outputName ) -> retval
+    $oLayer.outputNameToIndex( $outputName ) -> retval
 ```
 
 ### cv::dnn::Layer::clear
@@ -18281,7 +18281,7 @@ AutoIt:
 void cv::dnn::Layer::clear()
 
 AutoIt:
-    $layer.clear() -> None
+    $oLayer.clear() -> None
 ```
 
 ### cv::dnn::Layer::write
@@ -18291,7 +18291,7 @@ void cv::dnn::Layer::write( const cv::Ptr<cv::FileStorage>& fs,
                             const std::string&              name = String() )
 
 AutoIt:
-    $layer.write( $fs[, $name] ) -> None
+    $oLayer.write( $fs[, $name] ) -> None
 ```
 
 ### cv::dnn::Layer::read
@@ -18300,7 +18300,7 @@ AutoIt:
 void cv::dnn::Layer::read( const cv::FileNode& fn )
 
 AutoIt:
-    $layer.read( $fn ) -> None
+    $oLayer.read( $fn ) -> None
 ```
 
 ### cv::dnn::Layer::empty
@@ -18309,7 +18309,7 @@ AutoIt:
 bool cv::dnn::Layer::empty()
 
 AutoIt:
-    $layer.empty() -> retval
+    $oLayer.empty() -> retval
 ```
 
 ### cv::dnn::Layer::save
@@ -18318,7 +18318,7 @@ AutoIt:
 void cv::dnn::Layer::save( const std::string& filename )
 
 AutoIt:
-    $layer.save( $filename ) -> None
+    $oLayer.save( $filename ) -> None
 ```
 
 ### cv::dnn::Layer::getDefaultName
@@ -18327,7 +18327,7 @@ AutoIt:
 std::string cv::dnn::Layer::getDefaultName()
 
 AutoIt:
-    $layer.getDefaultName() -> retval
+    $oLayer.getDefaultName() -> retval
 ```
 
 ## cv::dnn::Net
@@ -18365,7 +18365,7 @@ AutoIt:
 bool cv::dnn::Net::empty()
 
 AutoIt:
-    $net.empty() -> retval
+    $oNet.empty() -> retval
 ```
 
 ### cv::dnn::Net::dump
@@ -18374,7 +18374,7 @@ AutoIt:
 std::string cv::dnn::Net::dump()
 
 AutoIt:
-    $net.dump() -> retval
+    $oNet.dump() -> retval
 ```
 
 ### cv::dnn::Net::dumpToFile
@@ -18383,7 +18383,7 @@ AutoIt:
 void cv::dnn::Net::dumpToFile( const std::string& path )
 
 AutoIt:
-    $net.dumpToFile( $path ) -> None
+    $oNet.dumpToFile( $path ) -> None
 ```
 
 ### cv::dnn::Net::getLayerId
@@ -18392,7 +18392,7 @@ AutoIt:
 int cv::dnn::Net::getLayerId( const std::string& layer )
 
 AutoIt:
-    $net.getLayerId( $layer ) -> retval
+    $oNet.getLayerId( $layer ) -> retval
 ```
 
 ### cv::dnn::Net::getLayerNames
@@ -18401,7 +18401,7 @@ AutoIt:
 std::vector<std::string> cv::dnn::Net::getLayerNames()
 
 AutoIt:
-    $net.getLayerNames() -> retval
+    $oNet.getLayerNames() -> retval
 ```
 
 ### cv::dnn::Net::getLayer
@@ -18410,7 +18410,7 @@ AutoIt:
 cv::Ptr<cv::dnn::Layer> cv::dnn::Net::getLayer( cv::dnn::DictValue layerId )
 
 AutoIt:
-    $net.getLayer( $layerId ) -> retval
+    $oNet.getLayer( $layerId ) -> retval
 ```
 
 ### cv::dnn::Net::connect
@@ -18420,7 +18420,7 @@ void cv::dnn::Net::connect( std::string outPin,
                             std::string inpPin )
 
 AutoIt:
-    $net.connect( $outPin, $inpPin ) -> None
+    $oNet.connect( $outPin, $inpPin ) -> None
 ```
 
 ### cv::dnn::Net::setInputsNames
@@ -18429,7 +18429,7 @@ AutoIt:
 void cv::dnn::Net::setInputsNames( const std::vector<std::string>& inputBlobNames )
 
 AutoIt:
-    $net.setInputsNames( $inputBlobNames ) -> None
+    $oNet.setInputsNames( $inputBlobNames ) -> None
 ```
 
 ### cv::dnn::Net::setInputShape
@@ -18439,7 +18439,7 @@ void cv::dnn::Net::setInputShape( const std::string&      inputName,
                                   const std::vector<int>& shape )
 
 AutoIt:
-    $net.setInputShape( $inputName, $shape ) -> None
+    $oNet.setInputShape( $inputName, $shape ) -> None
 ```
 
 ### cv::dnn::Net::forward
@@ -18448,7 +18448,7 @@ AutoIt:
 cv::Mat cv::dnn::Net::forward( const std::string& outputName = String() )
 
 AutoIt:
-    $net.forward( [$outputName] ) -> retval
+    $oNet.forward( [$outputName] ) -> retval
 ```
 
 ```cpp
@@ -18456,7 +18456,7 @@ void cv::dnn::Net::forward( _OutputArray       outputBlobs,
                             const std::string& outputName = String() )
 
 AutoIt:
-    $net.forward( [$outputBlobs[, $outputName]] ) -> $outputBlobs
+    $oNet.forward( [$outputBlobs[, $outputName]] ) -> $outputBlobs
 ```
 
 ```cpp
@@ -18464,7 +18464,7 @@ void cv::dnn::Net::forward( _OutputArray                    outputBlobs,
                             const std::vector<std::string>& outBlobNames )
 
 AutoIt:
-    $net.forward( $outBlobNames[, $outputBlobs] ) -> $outputBlobs
+    $oNet.forward( $outBlobNames[, $outputBlobs] ) -> $outputBlobs
 ```
 
 ### cv::dnn::Net::forwardAsync
@@ -18473,7 +18473,7 @@ AutoIt:
 cv::AsyncArray cv::dnn::Net::forwardAsync( const std::string& outputName = String() )
 
 AutoIt:
-    $net.forwardAsync( [$outputName] ) -> retval
+    $oNet.forwardAsync( [$outputName] ) -> retval
 ```
 
 ### cv::dnn::Net::forwardAndRetrieve
@@ -18483,7 +18483,7 @@ void cv::dnn::Net::forwardAndRetrieve( std::vector<std::vector<cv::Mat>>& output
                                        const std::vector<std::string>&    outBlobNames )
 
 AutoIt:
-    $net.forwardAndRetrieve( $outBlobNames[, $outputBlobs] ) -> $outputBlobs
+    $oNet.forwardAndRetrieve( $outBlobNames[, $outputBlobs] ) -> $outputBlobs
 ```
 
 ### cv::dnn::Net::quantize
@@ -18494,7 +18494,7 @@ cv::dnn::Net cv::dnn::Net::quantize( _InputArray calibData,
                                      int         outputsDtype )
 
 AutoIt:
-    $net.quantize( $calibData, $inputsDtype, $outputsDtype ) -> retval
+    $oNet.quantize( $calibData, $inputsDtype, $outputsDtype ) -> retval
 ```
 
 ### cv::dnn::Net::getInputDetails
@@ -18504,7 +18504,7 @@ void cv::dnn::Net::getInputDetails( std::vector<float>& scales,
                                     std::vector<int>&   zeropoints )
 
 AutoIt:
-    $net.getInputDetails( [$scales[, $zeropoints]] ) -> $scales, $zeropoints
+    $oNet.getInputDetails( [$scales[, $zeropoints]] ) -> $scales, $zeropoints
 ```
 
 ### cv::dnn::Net::getOutputDetails
@@ -18514,7 +18514,7 @@ void cv::dnn::Net::getOutputDetails( std::vector<float>& scales,
                                      std::vector<int>&   zeropoints )
 
 AutoIt:
-    $net.getOutputDetails( [$scales[, $zeropoints]] ) -> $scales, $zeropoints
+    $oNet.getOutputDetails( [$scales[, $zeropoints]] ) -> $scales, $zeropoints
 ```
 
 ### cv::dnn::Net::setHalideScheduler
@@ -18523,7 +18523,7 @@ AutoIt:
 void cv::dnn::Net::setHalideScheduler( const std::string& scheduler )
 
 AutoIt:
-    $net.setHalideScheduler( $scheduler ) -> None
+    $oNet.setHalideScheduler( $scheduler ) -> None
 ```
 
 ### cv::dnn::Net::setPreferableBackend
@@ -18532,7 +18532,7 @@ AutoIt:
 void cv::dnn::Net::setPreferableBackend( int backendId )
 
 AutoIt:
-    $net.setPreferableBackend( $backendId ) -> None
+    $oNet.setPreferableBackend( $backendId ) -> None
 ```
 
 ### cv::dnn::Net::setPreferableTarget
@@ -18541,7 +18541,7 @@ AutoIt:
 void cv::dnn::Net::setPreferableTarget( int targetId )
 
 AutoIt:
-    $net.setPreferableTarget( $targetId ) -> None
+    $oNet.setPreferableTarget( $targetId ) -> None
 ```
 
 ### cv::dnn::Net::setInput
@@ -18553,7 +18553,7 @@ void cv::dnn::Net::setInput( _InputArray        blob,
                              const cv::Scalar&  mean = Scalar() )
 
 AutoIt:
-    $net.setInput( $blob[, $name[, $scalefactor[, $mean]]] ) -> None
+    $oNet.setInput( $blob[, $name[, $scalefactor[, $mean]]] ) -> None
 ```
 
 ### cv::dnn::Net::setParam
@@ -18564,7 +18564,7 @@ void cv::dnn::Net::setParam( cv::dnn::DictValue layer,
                              const cv::Mat&     blob )
 
 AutoIt:
-    $net.setParam( $layer, $numParam, $blob ) -> None
+    $oNet.setParam( $layer, $numParam, $blob ) -> None
 ```
 
 ### cv::dnn::Net::getParam
@@ -18574,7 +18574,7 @@ cv::Mat cv::dnn::Net::getParam( cv::dnn::DictValue layer,
                                 int                numParam = 0 )
 
 AutoIt:
-    $net.getParam( $layer[, $numParam] ) -> retval
+    $oNet.getParam( $layer[, $numParam] ) -> retval
 ```
 
 ### cv::dnn::Net::getUnconnectedOutLayers
@@ -18583,7 +18583,7 @@ AutoIt:
 std::vector<int> cv::dnn::Net::getUnconnectedOutLayers()
 
 AutoIt:
-    $net.getUnconnectedOutLayers() -> retval
+    $oNet.getUnconnectedOutLayers() -> retval
 ```
 
 ### cv::dnn::Net::getUnconnectedOutLayersNames
@@ -18592,7 +18592,7 @@ AutoIt:
 std::vector<std::string> cv::dnn::Net::getUnconnectedOutLayersNames()
 
 AutoIt:
-    $net.getUnconnectedOutLayersNames() -> retval
+    $oNet.getUnconnectedOutLayersNames() -> retval
 ```
 
 ### cv::dnn::Net::getLayersShapes
@@ -18604,7 +18604,7 @@ void cv::dnn::Net::getLayersShapes( const std::vector<std::vector<int>>&        
                                     std::vector<std::vector<std::vector<int>>>& outLayersShapes )
 
 AutoIt:
-    $net.getLayersShapes( $netInputShapes[, $layersIds[, $inLayersShapes[, $outLayersShapes]]] ) -> $layersIds, $inLayersShapes, $outLayersShapes
+    $oNet.getLayersShapes( $netInputShapes[, $layersIds[, $inLayersShapes[, $outLayersShapes]]] ) -> $layersIds, $inLayersShapes, $outLayersShapes
 ```
 
 ```cpp
@@ -18614,7 +18614,7 @@ void cv::dnn::Net::getLayersShapes( const std::vector<int>&                     
                                     std::vector<std::vector<std::vector<int>>>& outLayersShapes )
 
 AutoIt:
-    $net.getLayersShapes( $netInputShape[, $layersIds[, $inLayersShapes[, $outLayersShapes]]] ) -> $layersIds, $inLayersShapes, $outLayersShapes
+    $oNet.getLayersShapes( $netInputShape[, $layersIds[, $inLayersShapes[, $outLayersShapes]]] ) -> $layersIds, $inLayersShapes, $outLayersShapes
 ```
 
 ### cv::dnn::Net::getFLOPS
@@ -18623,14 +18623,14 @@ AutoIt:
 int64 cv::dnn::Net::getFLOPS( const std::vector<std::vector<int>>& netInputShapes )
 
 AutoIt:
-    $net.getFLOPS( $netInputShapes ) -> retval
+    $oNet.getFLOPS( $netInputShapes ) -> retval
 ```
 
 ```cpp
 int64 cv::dnn::Net::getFLOPS( const std::vector<int>& netInputShape )
 
 AutoIt:
-    $net.getFLOPS( $netInputShape ) -> retval
+    $oNet.getFLOPS( $netInputShape ) -> retval
 ```
 
 ```cpp
@@ -18638,7 +18638,7 @@ int64 cv::dnn::Net::getFLOPS( const int                            layerId,
                               const std::vector<std::vector<int>>& netInputShapes )
 
 AutoIt:
-    $net.getFLOPS( $layerId, $netInputShapes ) -> retval
+    $oNet.getFLOPS( $layerId, $netInputShapes ) -> retval
 ```
 
 ```cpp
@@ -18646,7 +18646,7 @@ int64 cv::dnn::Net::getFLOPS( const int               layerId,
                               const std::vector<int>& netInputShape )
 
 AutoIt:
-    $net.getFLOPS( $layerId, $netInputShape ) -> retval
+    $oNet.getFLOPS( $layerId, $netInputShape ) -> retval
 ```
 
 ### cv::dnn::Net::getLayerTypes
@@ -18655,7 +18655,7 @@ AutoIt:
 void cv::dnn::Net::getLayerTypes( std::vector<std::string>& layersTypes )
 
 AutoIt:
-    $net.getLayerTypes( [$layersTypes] ) -> $layersTypes
+    $oNet.getLayerTypes( [$layersTypes] ) -> $layersTypes
 ```
 
 ### cv::dnn::Net::getLayersCount
@@ -18664,7 +18664,7 @@ AutoIt:
 int cv::dnn::Net::getLayersCount( const std::string& layerType )
 
 AutoIt:
-    $net.getLayersCount( $layerType ) -> retval
+    $oNet.getLayersCount( $layerType ) -> retval
 ```
 
 ### cv::dnn::Net::getMemoryConsumption
@@ -18675,7 +18675,7 @@ void cv::dnn::Net::getMemoryConsumption( const std::vector<int>& netInputShape,
                                          size_t&                 blobs )
 
 AutoIt:
-    $net.getMemoryConsumption( $netInputShape[, $weights[, $blobs]] ) -> $weights, $blobs
+    $oNet.getMemoryConsumption( $netInputShape[, $weights[, $blobs]] ) -> $weights, $blobs
 ```
 
 ```cpp
@@ -18685,7 +18685,7 @@ void cv::dnn::Net::getMemoryConsumption( const int                            la
                                          size_t&                              blobs )
 
 AutoIt:
-    $net.getMemoryConsumption( $layerId, $netInputShapes[, $weights[, $blobs]] ) -> $weights, $blobs
+    $oNet.getMemoryConsumption( $layerId, $netInputShapes[, $weights[, $blobs]] ) -> $weights, $blobs
 ```
 
 ```cpp
@@ -18695,7 +18695,7 @@ void cv::dnn::Net::getMemoryConsumption( const int               layerId,
                                          size_t&                 blobs )
 
 AutoIt:
-    $net.getMemoryConsumption( $layerId, $netInputShape[, $weights[, $blobs]] ) -> $weights, $blobs
+    $oNet.getMemoryConsumption( $layerId, $netInputShape[, $weights[, $blobs]] ) -> $weights, $blobs
 ```
 
 ### cv::dnn::Net::enableFusion
@@ -18704,7 +18704,7 @@ AutoIt:
 void cv::dnn::Net::enableFusion( bool fusion )
 
 AutoIt:
-    $net.enableFusion( $fusion ) -> None
+    $oNet.enableFusion( $fusion ) -> None
 ```
 
 ### cv::dnn::Net::getPerfProfile
@@ -18713,7 +18713,7 @@ AutoIt:
 int64 cv::dnn::Net::getPerfProfile( std::vector<double>& timings )
 
 AutoIt:
-    $net.getPerfProfile( [$timings] ) -> retval, $timings
+    $oNet.getPerfProfile( [$timings] ) -> retval, $timings
 ```
 
 ## cv::dnn::Model
@@ -18741,7 +18741,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::Model::setInputSize( const cv::Size& size )
 
 AutoIt:
-    $model.setInputSize( $size ) -> retval
+    $oModel.setInputSize( $size ) -> retval
 ```
 
 ```cpp
@@ -18749,7 +18749,7 @@ cv::dnn::Model cv::dnn::Model::setInputSize( int width,
                                              int height )
 
 AutoIt:
-    $model.setInputSize( $width, $height ) -> retval
+    $oModel.setInputSize( $width, $height ) -> retval
 ```
 
 ### cv::dnn::Model::setInputMean
@@ -18758,7 +18758,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::Model::setInputMean( const cv::Scalar& mean )
 
 AutoIt:
-    $model.setInputMean( $mean ) -> retval
+    $oModel.setInputMean( $mean ) -> retval
 ```
 
 ### cv::dnn::Model::setInputScale
@@ -18767,7 +18767,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::Model::setInputScale( double scale )
 
 AutoIt:
-    $model.setInputScale( $scale ) -> retval
+    $oModel.setInputScale( $scale ) -> retval
 ```
 
 ### cv::dnn::Model::setInputCrop
@@ -18776,7 +18776,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::Model::setInputCrop( bool crop )
 
 AutoIt:
-    $model.setInputCrop( $crop ) -> retval
+    $oModel.setInputCrop( $crop ) -> retval
 ```
 
 ### cv::dnn::Model::setInputSwapRB
@@ -18785,7 +18785,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::Model::setInputSwapRB( bool swapRB )
 
 AutoIt:
-    $model.setInputSwapRB( $swapRB ) -> retval
+    $oModel.setInputSwapRB( $swapRB ) -> retval
 ```
 
 ### cv::dnn::Model::setInputParams
@@ -18798,7 +18798,7 @@ void cv::dnn::Model::setInputParams( double            scale = 1.0,
                                      bool              crop = false )
 
 AutoIt:
-    $model.setInputParams( [$scale[, $size[, $mean[, $swapRB[, $crop]]]]] ) -> None
+    $oModel.setInputParams( [$scale[, $size[, $mean[, $swapRB[, $crop]]]]] ) -> None
 ```
 
 ### cv::dnn::Model::predict
@@ -18808,7 +18808,7 @@ void cv::dnn::Model::predict( _InputArray  frame,
                               _OutputArray outs )
 
 AutoIt:
-    $model.predict( $frame[, $outs] ) -> $outs
+    $oModel.predict( $frame[, $outs] ) -> $outs
 ```
 
 ### cv::dnn::Model::setPreferableBackend
@@ -18817,7 +18817,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::Model::setPreferableBackend( int backendId )
 
 AutoIt:
-    $model.setPreferableBackend( $backendId ) -> retval
+    $oModel.setPreferableBackend( $backendId ) -> retval
 ```
 
 ### cv::dnn::Model::setPreferableTarget
@@ -18826,7 +18826,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::Model::setPreferableTarget( int targetId )
 
 AutoIt:
-    $model.setPreferableTarget( $targetId ) -> retval
+    $oModel.setPreferableTarget( $targetId ) -> retval
 ```
 
 ## cv::dnn::ClassificationModel
@@ -18856,7 +18856,7 @@ void cv::dnn::ClassificationModel::classify( _InputArray frame,
                                              float&      conf )
 
 AutoIt:
-    $classificationModel.classify( $frame[, $classId[, $conf]] ) -> $classId, $conf
+    $oClassificationModel.classify( $frame[, $classId[, $conf]] ) -> $classId, $conf
 ```
 
 ### cv::dnn::ClassificationModel::setInputSize
@@ -18865,7 +18865,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::ClassificationModel::setInputSize( const cv::Size& size )
 
 AutoIt:
-    $classificationModel.setInputSize( $size ) -> retval
+    $oClassificationModel.setInputSize( $size ) -> retval
 ```
 
 ```cpp
@@ -18873,7 +18873,7 @@ cv::dnn::Model cv::dnn::ClassificationModel::setInputSize( int width,
                                                            int height )
 
 AutoIt:
-    $classificationModel.setInputSize( $width, $height ) -> retval
+    $oClassificationModel.setInputSize( $width, $height ) -> retval
 ```
 
 ### cv::dnn::ClassificationModel::setInputMean
@@ -18882,7 +18882,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::ClassificationModel::setInputMean( const cv::Scalar& mean )
 
 AutoIt:
-    $classificationModel.setInputMean( $mean ) -> retval
+    $oClassificationModel.setInputMean( $mean ) -> retval
 ```
 
 ### cv::dnn::ClassificationModel::setInputScale
@@ -18891,7 +18891,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::ClassificationModel::setInputScale( double scale )
 
 AutoIt:
-    $classificationModel.setInputScale( $scale ) -> retval
+    $oClassificationModel.setInputScale( $scale ) -> retval
 ```
 
 ### cv::dnn::ClassificationModel::setInputCrop
@@ -18900,7 +18900,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::ClassificationModel::setInputCrop( bool crop )
 
 AutoIt:
-    $classificationModel.setInputCrop( $crop ) -> retval
+    $oClassificationModel.setInputCrop( $crop ) -> retval
 ```
 
 ### cv::dnn::ClassificationModel::setInputSwapRB
@@ -18909,7 +18909,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::ClassificationModel::setInputSwapRB( bool swapRB )
 
 AutoIt:
-    $classificationModel.setInputSwapRB( $swapRB ) -> retval
+    $oClassificationModel.setInputSwapRB( $swapRB ) -> retval
 ```
 
 ### cv::dnn::ClassificationModel::setInputParams
@@ -18922,7 +18922,7 @@ void cv::dnn::ClassificationModel::setInputParams( double            scale = 1.0
                                                    bool              crop = false )
 
 AutoIt:
-    $classificationModel.setInputParams( [$scale[, $size[, $mean[, $swapRB[, $crop]]]]] ) -> None
+    $oClassificationModel.setInputParams( [$scale[, $size[, $mean[, $swapRB[, $crop]]]]] ) -> None
 ```
 
 ### cv::dnn::ClassificationModel::predict
@@ -18932,7 +18932,7 @@ void cv::dnn::ClassificationModel::predict( _InputArray  frame,
                                             _OutputArray outs )
 
 AutoIt:
-    $classificationModel.predict( $frame[, $outs] ) -> $outs
+    $oClassificationModel.predict( $frame[, $outs] ) -> $outs
 ```
 
 ### cv::dnn::ClassificationModel::setPreferableBackend
@@ -18941,7 +18941,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::ClassificationModel::setPreferableBackend( int backendId )
 
 AutoIt:
-    $classificationModel.setPreferableBackend( $backendId ) -> retval
+    $oClassificationModel.setPreferableBackend( $backendId ) -> retval
 ```
 
 ### cv::dnn::ClassificationModel::setPreferableTarget
@@ -18950,7 +18950,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::ClassificationModel::setPreferableTarget( int targetId )
 
 AutoIt:
-    $classificationModel.setPreferableTarget( $targetId ) -> retval
+    $oClassificationModel.setPreferableTarget( $targetId ) -> retval
 ```
 
 ## cv::dnn::KeypointsModel
@@ -18979,7 +18979,7 @@ std::vector<cv::Point2f> cv::dnn::KeypointsModel::estimate( _InputArray frame,
                                                             float       thresh = 0.5 )
 
 AutoIt:
-    $keypointsModel.estimate( $frame[, $thresh] ) -> retval
+    $oKeypointsModel.estimate( $frame[, $thresh] ) -> retval
 ```
 
 ### cv::dnn::KeypointsModel::setInputSize
@@ -18988,7 +18988,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::KeypointsModel::setInputSize( const cv::Size& size )
 
 AutoIt:
-    $keypointsModel.setInputSize( $size ) -> retval
+    $oKeypointsModel.setInputSize( $size ) -> retval
 ```
 
 ```cpp
@@ -18996,7 +18996,7 @@ cv::dnn::Model cv::dnn::KeypointsModel::setInputSize( int width,
                                                       int height )
 
 AutoIt:
-    $keypointsModel.setInputSize( $width, $height ) -> retval
+    $oKeypointsModel.setInputSize( $width, $height ) -> retval
 ```
 
 ### cv::dnn::KeypointsModel::setInputMean
@@ -19005,7 +19005,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::KeypointsModel::setInputMean( const cv::Scalar& mean )
 
 AutoIt:
-    $keypointsModel.setInputMean( $mean ) -> retval
+    $oKeypointsModel.setInputMean( $mean ) -> retval
 ```
 
 ### cv::dnn::KeypointsModel::setInputScale
@@ -19014,7 +19014,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::KeypointsModel::setInputScale( double scale )
 
 AutoIt:
-    $keypointsModel.setInputScale( $scale ) -> retval
+    $oKeypointsModel.setInputScale( $scale ) -> retval
 ```
 
 ### cv::dnn::KeypointsModel::setInputCrop
@@ -19023,7 +19023,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::KeypointsModel::setInputCrop( bool crop )
 
 AutoIt:
-    $keypointsModel.setInputCrop( $crop ) -> retval
+    $oKeypointsModel.setInputCrop( $crop ) -> retval
 ```
 
 ### cv::dnn::KeypointsModel::setInputSwapRB
@@ -19032,7 +19032,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::KeypointsModel::setInputSwapRB( bool swapRB )
 
 AutoIt:
-    $keypointsModel.setInputSwapRB( $swapRB ) -> retval
+    $oKeypointsModel.setInputSwapRB( $swapRB ) -> retval
 ```
 
 ### cv::dnn::KeypointsModel::setInputParams
@@ -19045,7 +19045,7 @@ void cv::dnn::KeypointsModel::setInputParams( double            scale = 1.0,
                                               bool              crop = false )
 
 AutoIt:
-    $keypointsModel.setInputParams( [$scale[, $size[, $mean[, $swapRB[, $crop]]]]] ) -> None
+    $oKeypointsModel.setInputParams( [$scale[, $size[, $mean[, $swapRB[, $crop]]]]] ) -> None
 ```
 
 ### cv::dnn::KeypointsModel::predict
@@ -19055,7 +19055,7 @@ void cv::dnn::KeypointsModel::predict( _InputArray  frame,
                                        _OutputArray outs )
 
 AutoIt:
-    $keypointsModel.predict( $frame[, $outs] ) -> $outs
+    $oKeypointsModel.predict( $frame[, $outs] ) -> $outs
 ```
 
 ### cv::dnn::KeypointsModel::setPreferableBackend
@@ -19064,7 +19064,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::KeypointsModel::setPreferableBackend( int backendId )
 
 AutoIt:
-    $keypointsModel.setPreferableBackend( $backendId ) -> retval
+    $oKeypointsModel.setPreferableBackend( $backendId ) -> retval
 ```
 
 ### cv::dnn::KeypointsModel::setPreferableTarget
@@ -19073,7 +19073,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::KeypointsModel::setPreferableTarget( int targetId )
 
 AutoIt:
-    $keypointsModel.setPreferableTarget( $targetId ) -> retval
+    $oKeypointsModel.setPreferableTarget( $targetId ) -> retval
 ```
 
 ## cv::dnn::SegmentationModel
@@ -19102,7 +19102,7 @@ void cv::dnn::SegmentationModel::segment( _InputArray  frame,
                                           _OutputArray mask )
 
 AutoIt:
-    $segmentationModel.segment( $frame[, $mask] ) -> $mask
+    $oSegmentationModel.segment( $frame[, $mask] ) -> $mask
 ```
 
 ### cv::dnn::SegmentationModel::setInputSize
@@ -19111,7 +19111,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::SegmentationModel::setInputSize( const cv::Size& size )
 
 AutoIt:
-    $segmentationModel.setInputSize( $size ) -> retval
+    $oSegmentationModel.setInputSize( $size ) -> retval
 ```
 
 ```cpp
@@ -19119,7 +19119,7 @@ cv::dnn::Model cv::dnn::SegmentationModel::setInputSize( int width,
                                                          int height )
 
 AutoIt:
-    $segmentationModel.setInputSize( $width, $height ) -> retval
+    $oSegmentationModel.setInputSize( $width, $height ) -> retval
 ```
 
 ### cv::dnn::SegmentationModel::setInputMean
@@ -19128,7 +19128,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::SegmentationModel::setInputMean( const cv::Scalar& mean )
 
 AutoIt:
-    $segmentationModel.setInputMean( $mean ) -> retval
+    $oSegmentationModel.setInputMean( $mean ) -> retval
 ```
 
 ### cv::dnn::SegmentationModel::setInputScale
@@ -19137,7 +19137,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::SegmentationModel::setInputScale( double scale )
 
 AutoIt:
-    $segmentationModel.setInputScale( $scale ) -> retval
+    $oSegmentationModel.setInputScale( $scale ) -> retval
 ```
 
 ### cv::dnn::SegmentationModel::setInputCrop
@@ -19146,7 +19146,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::SegmentationModel::setInputCrop( bool crop )
 
 AutoIt:
-    $segmentationModel.setInputCrop( $crop ) -> retval
+    $oSegmentationModel.setInputCrop( $crop ) -> retval
 ```
 
 ### cv::dnn::SegmentationModel::setInputSwapRB
@@ -19155,7 +19155,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::SegmentationModel::setInputSwapRB( bool swapRB )
 
 AutoIt:
-    $segmentationModel.setInputSwapRB( $swapRB ) -> retval
+    $oSegmentationModel.setInputSwapRB( $swapRB ) -> retval
 ```
 
 ### cv::dnn::SegmentationModel::setInputParams
@@ -19168,7 +19168,7 @@ void cv::dnn::SegmentationModel::setInputParams( double            scale = 1.0,
                                                  bool              crop = false )
 
 AutoIt:
-    $segmentationModel.setInputParams( [$scale[, $size[, $mean[, $swapRB[, $crop]]]]] ) -> None
+    $oSegmentationModel.setInputParams( [$scale[, $size[, $mean[, $swapRB[, $crop]]]]] ) -> None
 ```
 
 ### cv::dnn::SegmentationModel::predict
@@ -19178,7 +19178,7 @@ void cv::dnn::SegmentationModel::predict( _InputArray  frame,
                                           _OutputArray outs )
 
 AutoIt:
-    $segmentationModel.predict( $frame[, $outs] ) -> $outs
+    $oSegmentationModel.predict( $frame[, $outs] ) -> $outs
 ```
 
 ### cv::dnn::SegmentationModel::setPreferableBackend
@@ -19187,7 +19187,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::SegmentationModel::setPreferableBackend( int backendId )
 
 AutoIt:
-    $segmentationModel.setPreferableBackend( $backendId ) -> retval
+    $oSegmentationModel.setPreferableBackend( $backendId ) -> retval
 ```
 
 ### cv::dnn::SegmentationModel::setPreferableTarget
@@ -19196,7 +19196,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::SegmentationModel::setPreferableTarget( int targetId )
 
 AutoIt:
-    $segmentationModel.setPreferableTarget( $targetId ) -> retval
+    $oSegmentationModel.setPreferableTarget( $targetId ) -> retval
 ```
 
 ## cv::dnn::DetectionModel
@@ -19224,7 +19224,7 @@ AutoIt:
 cv::dnn::DetectionModel cv::dnn::DetectionModel::setNmsAcrossClasses( bool value )
 
 AutoIt:
-    $detectionModel.setNmsAcrossClasses( $value ) -> retval
+    $oDetectionModel.setNmsAcrossClasses( $value ) -> retval
 ```
 
 ### cv::dnn::DetectionModel::getNmsAcrossClasses
@@ -19233,7 +19233,7 @@ AutoIt:
 bool cv::dnn::DetectionModel::getNmsAcrossClasses()
 
 AutoIt:
-    $detectionModel.getNmsAcrossClasses() -> retval
+    $oDetectionModel.getNmsAcrossClasses() -> retval
 ```
 
 ### cv::dnn::DetectionModel::detect
@@ -19247,7 +19247,7 @@ void cv::dnn::DetectionModel::detect( _InputArray            frame,
                                       float                  nmsThreshold = 0.0f )
 
 AutoIt:
-    $detectionModel.detect( $frame[, $confThreshold[, $nmsThreshold[, $classIds[, $confidences[, $boxes]]]]] ) -> $classIds, $confidences, $boxes
+    $oDetectionModel.detect( $frame[, $confThreshold[, $nmsThreshold[, $classIds[, $confidences[, $boxes]]]]] ) -> $classIds, $confidences, $boxes
 ```
 
 ### cv::dnn::DetectionModel::setInputSize
@@ -19256,7 +19256,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::DetectionModel::setInputSize( const cv::Size& size )
 
 AutoIt:
-    $detectionModel.setInputSize( $size ) -> retval
+    $oDetectionModel.setInputSize( $size ) -> retval
 ```
 
 ```cpp
@@ -19264,7 +19264,7 @@ cv::dnn::Model cv::dnn::DetectionModel::setInputSize( int width,
                                                       int height )
 
 AutoIt:
-    $detectionModel.setInputSize( $width, $height ) -> retval
+    $oDetectionModel.setInputSize( $width, $height ) -> retval
 ```
 
 ### cv::dnn::DetectionModel::setInputMean
@@ -19273,7 +19273,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::DetectionModel::setInputMean( const cv::Scalar& mean )
 
 AutoIt:
-    $detectionModel.setInputMean( $mean ) -> retval
+    $oDetectionModel.setInputMean( $mean ) -> retval
 ```
 
 ### cv::dnn::DetectionModel::setInputScale
@@ -19282,7 +19282,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::DetectionModel::setInputScale( double scale )
 
 AutoIt:
-    $detectionModel.setInputScale( $scale ) -> retval
+    $oDetectionModel.setInputScale( $scale ) -> retval
 ```
 
 ### cv::dnn::DetectionModel::setInputCrop
@@ -19291,7 +19291,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::DetectionModel::setInputCrop( bool crop )
 
 AutoIt:
-    $detectionModel.setInputCrop( $crop ) -> retval
+    $oDetectionModel.setInputCrop( $crop ) -> retval
 ```
 
 ### cv::dnn::DetectionModel::setInputSwapRB
@@ -19300,7 +19300,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::DetectionModel::setInputSwapRB( bool swapRB )
 
 AutoIt:
-    $detectionModel.setInputSwapRB( $swapRB ) -> retval
+    $oDetectionModel.setInputSwapRB( $swapRB ) -> retval
 ```
 
 ### cv::dnn::DetectionModel::setInputParams
@@ -19313,7 +19313,7 @@ void cv::dnn::DetectionModel::setInputParams( double            scale = 1.0,
                                               bool              crop = false )
 
 AutoIt:
-    $detectionModel.setInputParams( [$scale[, $size[, $mean[, $swapRB[, $crop]]]]] ) -> None
+    $oDetectionModel.setInputParams( [$scale[, $size[, $mean[, $swapRB[, $crop]]]]] ) -> None
 ```
 
 ### cv::dnn::DetectionModel::predict
@@ -19323,7 +19323,7 @@ void cv::dnn::DetectionModel::predict( _InputArray  frame,
                                        _OutputArray outs )
 
 AutoIt:
-    $detectionModel.predict( $frame[, $outs] ) -> $outs
+    $oDetectionModel.predict( $frame[, $outs] ) -> $outs
 ```
 
 ### cv::dnn::DetectionModel::setPreferableBackend
@@ -19332,7 +19332,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::DetectionModel::setPreferableBackend( int backendId )
 
 AutoIt:
-    $detectionModel.setPreferableBackend( $backendId ) -> retval
+    $oDetectionModel.setPreferableBackend( $backendId ) -> retval
 ```
 
 ### cv::dnn::DetectionModel::setPreferableTarget
@@ -19341,7 +19341,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::DetectionModel::setPreferableTarget( int targetId )
 
 AutoIt:
-    $detectionModel.setPreferableTarget( $targetId ) -> retval
+    $oDetectionModel.setPreferableTarget( $targetId ) -> retval
 ```
 
 ## cv::dnn::TextRecognitionModel
@@ -19369,7 +19369,7 @@ AutoIt:
 cv::dnn::TextRecognitionModel cv::dnn::TextRecognitionModel::setDecodeType( const std::string& decodeType )
 
 AutoIt:
-    $textRecognitionModel.setDecodeType( $decodeType ) -> retval
+    $oTextRecognitionModel.setDecodeType( $decodeType ) -> retval
 ```
 
 ### cv::dnn::TextRecognitionModel::getDecodeType
@@ -19378,7 +19378,7 @@ AutoIt:
 std::string cv::dnn::TextRecognitionModel::getDecodeType()
 
 AutoIt:
-    $textRecognitionModel.getDecodeType() -> retval
+    $oTextRecognitionModel.getDecodeType() -> retval
 ```
 
 ### cv::dnn::TextRecognitionModel::setDecodeOptsCTCPrefixBeamSearch
@@ -19388,7 +19388,7 @@ cv::dnn::TextRecognitionModel cv::dnn::TextRecognitionModel::setDecodeOptsCTCPre
                                                                                                int vocPruneSize = 0 )
 
 AutoIt:
-    $textRecognitionModel.setDecodeOptsCTCPrefixBeamSearch( $beamSize[, $vocPruneSize] ) -> retval
+    $oTextRecognitionModel.setDecodeOptsCTCPrefixBeamSearch( $beamSize[, $vocPruneSize] ) -> retval
 ```
 
 ### cv::dnn::TextRecognitionModel::setVocabulary
@@ -19397,7 +19397,7 @@ AutoIt:
 cv::dnn::TextRecognitionModel cv::dnn::TextRecognitionModel::setVocabulary( const std::vector<std::string>& vocabulary )
 
 AutoIt:
-    $textRecognitionModel.setVocabulary( $vocabulary ) -> retval
+    $oTextRecognitionModel.setVocabulary( $vocabulary ) -> retval
 ```
 
 ### cv::dnn::TextRecognitionModel::getVocabulary
@@ -19406,7 +19406,7 @@ AutoIt:
 std::vector<std::string> cv::dnn::TextRecognitionModel::getVocabulary()
 
 AutoIt:
-    $textRecognitionModel.getVocabulary() -> retval
+    $oTextRecognitionModel.getVocabulary() -> retval
 ```
 
 ### cv::dnn::TextRecognitionModel::recognize
@@ -19415,7 +19415,7 @@ AutoIt:
 std::string cv::dnn::TextRecognitionModel::recognize( _InputArray frame )
 
 AutoIt:
-    $textRecognitionModel.recognize( $frame ) -> retval
+    $oTextRecognitionModel.recognize( $frame ) -> retval
 ```
 
 ```cpp
@@ -19424,7 +19424,7 @@ void cv::dnn::TextRecognitionModel::recognize( _InputArray               frame,
                                                std::vector<std::string>& results )
 
 AutoIt:
-    $textRecognitionModel.recognize( $frame, $roiRects[, $results] ) -> $results
+    $oTextRecognitionModel.recognize( $frame, $roiRects[, $results] ) -> $results
 ```
 
 ### cv::dnn::TextRecognitionModel::setInputSize
@@ -19433,7 +19433,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::TextRecognitionModel::setInputSize( const cv::Size& size )
 
 AutoIt:
-    $textRecognitionModel.setInputSize( $size ) -> retval
+    $oTextRecognitionModel.setInputSize( $size ) -> retval
 ```
 
 ```cpp
@@ -19441,7 +19441,7 @@ cv::dnn::Model cv::dnn::TextRecognitionModel::setInputSize( int width,
                                                             int height )
 
 AutoIt:
-    $textRecognitionModel.setInputSize( $width, $height ) -> retval
+    $oTextRecognitionModel.setInputSize( $width, $height ) -> retval
 ```
 
 ### cv::dnn::TextRecognitionModel::setInputMean
@@ -19450,7 +19450,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::TextRecognitionModel::setInputMean( const cv::Scalar& mean )
 
 AutoIt:
-    $textRecognitionModel.setInputMean( $mean ) -> retval
+    $oTextRecognitionModel.setInputMean( $mean ) -> retval
 ```
 
 ### cv::dnn::TextRecognitionModel::setInputScale
@@ -19459,7 +19459,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::TextRecognitionModel::setInputScale( double scale )
 
 AutoIt:
-    $textRecognitionModel.setInputScale( $scale ) -> retval
+    $oTextRecognitionModel.setInputScale( $scale ) -> retval
 ```
 
 ### cv::dnn::TextRecognitionModel::setInputCrop
@@ -19468,7 +19468,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::TextRecognitionModel::setInputCrop( bool crop )
 
 AutoIt:
-    $textRecognitionModel.setInputCrop( $crop ) -> retval
+    $oTextRecognitionModel.setInputCrop( $crop ) -> retval
 ```
 
 ### cv::dnn::TextRecognitionModel::setInputSwapRB
@@ -19477,7 +19477,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::TextRecognitionModel::setInputSwapRB( bool swapRB )
 
 AutoIt:
-    $textRecognitionModel.setInputSwapRB( $swapRB ) -> retval
+    $oTextRecognitionModel.setInputSwapRB( $swapRB ) -> retval
 ```
 
 ### cv::dnn::TextRecognitionModel::setInputParams
@@ -19490,7 +19490,7 @@ void cv::dnn::TextRecognitionModel::setInputParams( double            scale = 1.
                                                     bool              crop = false )
 
 AutoIt:
-    $textRecognitionModel.setInputParams( [$scale[, $size[, $mean[, $swapRB[, $crop]]]]] ) -> None
+    $oTextRecognitionModel.setInputParams( [$scale[, $size[, $mean[, $swapRB[, $crop]]]]] ) -> None
 ```
 
 ### cv::dnn::TextRecognitionModel::predict
@@ -19500,7 +19500,7 @@ void cv::dnn::TextRecognitionModel::predict( _InputArray  frame,
                                              _OutputArray outs )
 
 AutoIt:
-    $textRecognitionModel.predict( $frame[, $outs] ) -> $outs
+    $oTextRecognitionModel.predict( $frame[, $outs] ) -> $outs
 ```
 
 ### cv::dnn::TextRecognitionModel::setPreferableBackend
@@ -19509,7 +19509,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::TextRecognitionModel::setPreferableBackend( int backendId )
 
 AutoIt:
-    $textRecognitionModel.setPreferableBackend( $backendId ) -> retval
+    $oTextRecognitionModel.setPreferableBackend( $backendId ) -> retval
 ```
 
 ### cv::dnn::TextRecognitionModel::setPreferableTarget
@@ -19518,7 +19518,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::TextRecognitionModel::setPreferableTarget( int targetId )
 
 AutoIt:
-    $textRecognitionModel.setPreferableTarget( $targetId ) -> retval
+    $oTextRecognitionModel.setPreferableTarget( $targetId ) -> retval
 ```
 
 ## cv::dnn::TextDetectionModel
@@ -19531,7 +19531,7 @@ void cv::dnn::TextDetectionModel::detect( _InputArray                          f
                                           std::vector<float>&                  confidences )
 
 AutoIt:
-    $textDetectionModel.detect( $frame[, $detections[, $confidences]] ) -> $detections, $confidences
+    $oTextDetectionModel.detect( $frame[, $detections[, $confidences]] ) -> $detections, $confidences
 ```
 
 ```cpp
@@ -19539,7 +19539,7 @@ void cv::dnn::TextDetectionModel::detect( _InputArray                          f
                                           std::vector<std::vector<cv::Point>>& detections )
 
 AutoIt:
-    $textDetectionModel.detect( $frame[, $detections] ) -> $detections
+    $oTextDetectionModel.detect( $frame[, $detections] ) -> $detections
 ```
 
 ### cv::dnn::TextDetectionModel::detectTextRectangles
@@ -19550,7 +19550,7 @@ void cv::dnn::TextDetectionModel::detectTextRectangles( _InputArray             
                                                         std::vector<float>&           confidences )
 
 AutoIt:
-    $textDetectionModel.detectTextRectangles( $frame[, $detections[, $confidences]] ) -> $detections, $confidences
+    $oTextDetectionModel.detectTextRectangles( $frame[, $detections[, $confidences]] ) -> $detections, $confidences
 ```
 
 ```cpp
@@ -19558,7 +19558,7 @@ void cv::dnn::TextDetectionModel::detectTextRectangles( _InputArray             
                                                         std::vector<cv::RotatedRect>& detections )
 
 AutoIt:
-    $textDetectionModel.detectTextRectangles( $frame[, $detections] ) -> $detections
+    $oTextDetectionModel.detectTextRectangles( $frame[, $detections] ) -> $detections
 ```
 
 ### cv::dnn::TextDetectionModel::setInputSize
@@ -19567,7 +19567,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::TextDetectionModel::setInputSize( const cv::Size& size )
 
 AutoIt:
-    $textDetectionModel.setInputSize( $size ) -> retval
+    $oTextDetectionModel.setInputSize( $size ) -> retval
 ```
 
 ```cpp
@@ -19575,7 +19575,7 @@ cv::dnn::Model cv::dnn::TextDetectionModel::setInputSize( int width,
                                                           int height )
 
 AutoIt:
-    $textDetectionModel.setInputSize( $width, $height ) -> retval
+    $oTextDetectionModel.setInputSize( $width, $height ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel::setInputMean
@@ -19584,7 +19584,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::TextDetectionModel::setInputMean( const cv::Scalar& mean )
 
 AutoIt:
-    $textDetectionModel.setInputMean( $mean ) -> retval
+    $oTextDetectionModel.setInputMean( $mean ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel::setInputScale
@@ -19593,7 +19593,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::TextDetectionModel::setInputScale( double scale )
 
 AutoIt:
-    $textDetectionModel.setInputScale( $scale ) -> retval
+    $oTextDetectionModel.setInputScale( $scale ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel::setInputCrop
@@ -19602,7 +19602,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::TextDetectionModel::setInputCrop( bool crop )
 
 AutoIt:
-    $textDetectionModel.setInputCrop( $crop ) -> retval
+    $oTextDetectionModel.setInputCrop( $crop ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel::setInputSwapRB
@@ -19611,7 +19611,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::TextDetectionModel::setInputSwapRB( bool swapRB )
 
 AutoIt:
-    $textDetectionModel.setInputSwapRB( $swapRB ) -> retval
+    $oTextDetectionModel.setInputSwapRB( $swapRB ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel::setInputParams
@@ -19624,7 +19624,7 @@ void cv::dnn::TextDetectionModel::setInputParams( double            scale = 1.0,
                                                   bool              crop = false )
 
 AutoIt:
-    $textDetectionModel.setInputParams( [$scale[, $size[, $mean[, $swapRB[, $crop]]]]] ) -> None
+    $oTextDetectionModel.setInputParams( [$scale[, $size[, $mean[, $swapRB[, $crop]]]]] ) -> None
 ```
 
 ### cv::dnn::TextDetectionModel::predict
@@ -19634,7 +19634,7 @@ void cv::dnn::TextDetectionModel::predict( _InputArray  frame,
                                            _OutputArray outs )
 
 AutoIt:
-    $textDetectionModel.predict( $frame[, $outs] ) -> $outs
+    $oTextDetectionModel.predict( $frame[, $outs] ) -> $outs
 ```
 
 ### cv::dnn::TextDetectionModel::setPreferableBackend
@@ -19643,7 +19643,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::TextDetectionModel::setPreferableBackend( int backendId )
 
 AutoIt:
-    $textDetectionModel.setPreferableBackend( $backendId ) -> retval
+    $oTextDetectionModel.setPreferableBackend( $backendId ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel::setPreferableTarget
@@ -19652,7 +19652,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::TextDetectionModel::setPreferableTarget( int targetId )
 
 AutoIt:
-    $textDetectionModel.setPreferableTarget( $targetId ) -> retval
+    $oTextDetectionModel.setPreferableTarget( $targetId ) -> retval
 ```
 
 ## cv::dnn::TextDetectionModel_EAST
@@ -19680,7 +19680,7 @@ AutoIt:
 cv::dnn::TextDetectionModel_EAST cv::dnn::TextDetectionModel_EAST::setConfidenceThreshold( float confThreshold )
 
 AutoIt:
-    $textDetectionModel_EAST.setConfidenceThreshold( $confThreshold ) -> retval
+    $oTextDetectionModel_EAST.setConfidenceThreshold( $confThreshold ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel_EAST::getConfidenceThreshold
@@ -19689,7 +19689,7 @@ AutoIt:
 float cv::dnn::TextDetectionModel_EAST::getConfidenceThreshold()
 
 AutoIt:
-    $textDetectionModel_EAST.getConfidenceThreshold() -> retval
+    $oTextDetectionModel_EAST.getConfidenceThreshold() -> retval
 ```
 
 ### cv::dnn::TextDetectionModel_EAST::setNMSThreshold
@@ -19698,7 +19698,7 @@ AutoIt:
 cv::dnn::TextDetectionModel_EAST cv::dnn::TextDetectionModel_EAST::setNMSThreshold( float nmsThreshold )
 
 AutoIt:
-    $textDetectionModel_EAST.setNMSThreshold( $nmsThreshold ) -> retval
+    $oTextDetectionModel_EAST.setNMSThreshold( $nmsThreshold ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel_EAST::getNMSThreshold
@@ -19707,7 +19707,7 @@ AutoIt:
 float cv::dnn::TextDetectionModel_EAST::getNMSThreshold()
 
 AutoIt:
-    $textDetectionModel_EAST.getNMSThreshold() -> retval
+    $oTextDetectionModel_EAST.getNMSThreshold() -> retval
 ```
 
 ### cv::dnn::TextDetectionModel_EAST::detect
@@ -19718,7 +19718,7 @@ void cv::dnn::TextDetectionModel_EAST::detect( _InputArray                      
                                                std::vector<float>&                  confidences )
 
 AutoIt:
-    $textDetectionModel_EAST.detect( $frame[, $detections[, $confidences]] ) -> $detections, $confidences
+    $oTextDetectionModel_EAST.detect( $frame[, $detections[, $confidences]] ) -> $detections, $confidences
 ```
 
 ```cpp
@@ -19726,7 +19726,7 @@ void cv::dnn::TextDetectionModel_EAST::detect( _InputArray                      
                                                std::vector<std::vector<cv::Point>>& detections )
 
 AutoIt:
-    $textDetectionModel_EAST.detect( $frame[, $detections] ) -> $detections
+    $oTextDetectionModel_EAST.detect( $frame[, $detections] ) -> $detections
 ```
 
 ### cv::dnn::TextDetectionModel_EAST::detectTextRectangles
@@ -19737,7 +19737,7 @@ void cv::dnn::TextDetectionModel_EAST::detectTextRectangles( _InputArray        
                                                              std::vector<float>&           confidences )
 
 AutoIt:
-    $textDetectionModel_EAST.detectTextRectangles( $frame[, $detections[, $confidences]] ) -> $detections, $confidences
+    $oTextDetectionModel_EAST.detectTextRectangles( $frame[, $detections[, $confidences]] ) -> $detections, $confidences
 ```
 
 ```cpp
@@ -19745,7 +19745,7 @@ void cv::dnn::TextDetectionModel_EAST::detectTextRectangles( _InputArray        
                                                              std::vector<cv::RotatedRect>& detections )
 
 AutoIt:
-    $textDetectionModel_EAST.detectTextRectangles( $frame[, $detections] ) -> $detections
+    $oTextDetectionModel_EAST.detectTextRectangles( $frame[, $detections] ) -> $detections
 ```
 
 ### cv::dnn::TextDetectionModel_EAST::setInputSize
@@ -19754,7 +19754,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::TextDetectionModel_EAST::setInputSize( const cv::Size& size )
 
 AutoIt:
-    $textDetectionModel_EAST.setInputSize( $size ) -> retval
+    $oTextDetectionModel_EAST.setInputSize( $size ) -> retval
 ```
 
 ```cpp
@@ -19762,7 +19762,7 @@ cv::dnn::Model cv::dnn::TextDetectionModel_EAST::setInputSize( int width,
                                                                int height )
 
 AutoIt:
-    $textDetectionModel_EAST.setInputSize( $width, $height ) -> retval
+    $oTextDetectionModel_EAST.setInputSize( $width, $height ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel_EAST::setInputMean
@@ -19771,7 +19771,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::TextDetectionModel_EAST::setInputMean( const cv::Scalar& mean )
 
 AutoIt:
-    $textDetectionModel_EAST.setInputMean( $mean ) -> retval
+    $oTextDetectionModel_EAST.setInputMean( $mean ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel_EAST::setInputScale
@@ -19780,7 +19780,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::TextDetectionModel_EAST::setInputScale( double scale )
 
 AutoIt:
-    $textDetectionModel_EAST.setInputScale( $scale ) -> retval
+    $oTextDetectionModel_EAST.setInputScale( $scale ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel_EAST::setInputCrop
@@ -19789,7 +19789,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::TextDetectionModel_EAST::setInputCrop( bool crop )
 
 AutoIt:
-    $textDetectionModel_EAST.setInputCrop( $crop ) -> retval
+    $oTextDetectionModel_EAST.setInputCrop( $crop ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel_EAST::setInputSwapRB
@@ -19798,7 +19798,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::TextDetectionModel_EAST::setInputSwapRB( bool swapRB )
 
 AutoIt:
-    $textDetectionModel_EAST.setInputSwapRB( $swapRB ) -> retval
+    $oTextDetectionModel_EAST.setInputSwapRB( $swapRB ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel_EAST::setInputParams
@@ -19811,7 +19811,7 @@ void cv::dnn::TextDetectionModel_EAST::setInputParams( double            scale =
                                                        bool              crop = false )
 
 AutoIt:
-    $textDetectionModel_EAST.setInputParams( [$scale[, $size[, $mean[, $swapRB[, $crop]]]]] ) -> None
+    $oTextDetectionModel_EAST.setInputParams( [$scale[, $size[, $mean[, $swapRB[, $crop]]]]] ) -> None
 ```
 
 ### cv::dnn::TextDetectionModel_EAST::predict
@@ -19821,7 +19821,7 @@ void cv::dnn::TextDetectionModel_EAST::predict( _InputArray  frame,
                                                 _OutputArray outs )
 
 AutoIt:
-    $textDetectionModel_EAST.predict( $frame[, $outs] ) -> $outs
+    $oTextDetectionModel_EAST.predict( $frame[, $outs] ) -> $outs
 ```
 
 ### cv::dnn::TextDetectionModel_EAST::setPreferableBackend
@@ -19830,7 +19830,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::TextDetectionModel_EAST::setPreferableBackend( int backendId )
 
 AutoIt:
-    $textDetectionModel_EAST.setPreferableBackend( $backendId ) -> retval
+    $oTextDetectionModel_EAST.setPreferableBackend( $backendId ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel_EAST::setPreferableTarget
@@ -19839,7 +19839,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::TextDetectionModel_EAST::setPreferableTarget( int targetId )
 
 AutoIt:
-    $textDetectionModel_EAST.setPreferableTarget( $targetId ) -> retval
+    $oTextDetectionModel_EAST.setPreferableTarget( $targetId ) -> retval
 ```
 
 ## cv::dnn::TextDetectionModel_DB
@@ -19867,7 +19867,7 @@ AutoIt:
 cv::dnn::TextDetectionModel_DB cv::dnn::TextDetectionModel_DB::setBinaryThreshold( float binaryThreshold )
 
 AutoIt:
-    $textDetectionModel_DB.setBinaryThreshold( $binaryThreshold ) -> retval
+    $oTextDetectionModel_DB.setBinaryThreshold( $binaryThreshold ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel_DB::getBinaryThreshold
@@ -19876,7 +19876,7 @@ AutoIt:
 float cv::dnn::TextDetectionModel_DB::getBinaryThreshold()
 
 AutoIt:
-    $textDetectionModel_DB.getBinaryThreshold() -> retval
+    $oTextDetectionModel_DB.getBinaryThreshold() -> retval
 ```
 
 ### cv::dnn::TextDetectionModel_DB::setPolygonThreshold
@@ -19885,7 +19885,7 @@ AutoIt:
 cv::dnn::TextDetectionModel_DB cv::dnn::TextDetectionModel_DB::setPolygonThreshold( float polygonThreshold )
 
 AutoIt:
-    $textDetectionModel_DB.setPolygonThreshold( $polygonThreshold ) -> retval
+    $oTextDetectionModel_DB.setPolygonThreshold( $polygonThreshold ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel_DB::getPolygonThreshold
@@ -19894,7 +19894,7 @@ AutoIt:
 float cv::dnn::TextDetectionModel_DB::getPolygonThreshold()
 
 AutoIt:
-    $textDetectionModel_DB.getPolygonThreshold() -> retval
+    $oTextDetectionModel_DB.getPolygonThreshold() -> retval
 ```
 
 ### cv::dnn::TextDetectionModel_DB::setUnclipRatio
@@ -19903,7 +19903,7 @@ AutoIt:
 cv::dnn::TextDetectionModel_DB cv::dnn::TextDetectionModel_DB::setUnclipRatio( double unclipRatio )
 
 AutoIt:
-    $textDetectionModel_DB.setUnclipRatio( $unclipRatio ) -> retval
+    $oTextDetectionModel_DB.setUnclipRatio( $unclipRatio ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel_DB::getUnclipRatio
@@ -19912,7 +19912,7 @@ AutoIt:
 double cv::dnn::TextDetectionModel_DB::getUnclipRatio()
 
 AutoIt:
-    $textDetectionModel_DB.getUnclipRatio() -> retval
+    $oTextDetectionModel_DB.getUnclipRatio() -> retval
 ```
 
 ### cv::dnn::TextDetectionModel_DB::setMaxCandidates
@@ -19921,7 +19921,7 @@ AutoIt:
 cv::dnn::TextDetectionModel_DB cv::dnn::TextDetectionModel_DB::setMaxCandidates( int maxCandidates )
 
 AutoIt:
-    $textDetectionModel_DB.setMaxCandidates( $maxCandidates ) -> retval
+    $oTextDetectionModel_DB.setMaxCandidates( $maxCandidates ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel_DB::getMaxCandidates
@@ -19930,7 +19930,7 @@ AutoIt:
 int cv::dnn::TextDetectionModel_DB::getMaxCandidates()
 
 AutoIt:
-    $textDetectionModel_DB.getMaxCandidates() -> retval
+    $oTextDetectionModel_DB.getMaxCandidates() -> retval
 ```
 
 ### cv::dnn::TextDetectionModel_DB::detect
@@ -19941,7 +19941,7 @@ void cv::dnn::TextDetectionModel_DB::detect( _InputArray                        
                                              std::vector<float>&                  confidences )
 
 AutoIt:
-    $textDetectionModel_DB.detect( $frame[, $detections[, $confidences]] ) -> $detections, $confidences
+    $oTextDetectionModel_DB.detect( $frame[, $detections[, $confidences]] ) -> $detections, $confidences
 ```
 
 ```cpp
@@ -19949,7 +19949,7 @@ void cv::dnn::TextDetectionModel_DB::detect( _InputArray                        
                                              std::vector<std::vector<cv::Point>>& detections )
 
 AutoIt:
-    $textDetectionModel_DB.detect( $frame[, $detections] ) -> $detections
+    $oTextDetectionModel_DB.detect( $frame[, $detections] ) -> $detections
 ```
 
 ### cv::dnn::TextDetectionModel_DB::detectTextRectangles
@@ -19960,7 +19960,7 @@ void cv::dnn::TextDetectionModel_DB::detectTextRectangles( _InputArray          
                                                            std::vector<float>&           confidences )
 
 AutoIt:
-    $textDetectionModel_DB.detectTextRectangles( $frame[, $detections[, $confidences]] ) -> $detections, $confidences
+    $oTextDetectionModel_DB.detectTextRectangles( $frame[, $detections[, $confidences]] ) -> $detections, $confidences
 ```
 
 ```cpp
@@ -19968,7 +19968,7 @@ void cv::dnn::TextDetectionModel_DB::detectTextRectangles( _InputArray          
                                                            std::vector<cv::RotatedRect>& detections )
 
 AutoIt:
-    $textDetectionModel_DB.detectTextRectangles( $frame[, $detections] ) -> $detections
+    $oTextDetectionModel_DB.detectTextRectangles( $frame[, $detections] ) -> $detections
 ```
 
 ### cv::dnn::TextDetectionModel_DB::setInputSize
@@ -19977,7 +19977,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::TextDetectionModel_DB::setInputSize( const cv::Size& size )
 
 AutoIt:
-    $textDetectionModel_DB.setInputSize( $size ) -> retval
+    $oTextDetectionModel_DB.setInputSize( $size ) -> retval
 ```
 
 ```cpp
@@ -19985,7 +19985,7 @@ cv::dnn::Model cv::dnn::TextDetectionModel_DB::setInputSize( int width,
                                                              int height )
 
 AutoIt:
-    $textDetectionModel_DB.setInputSize( $width, $height ) -> retval
+    $oTextDetectionModel_DB.setInputSize( $width, $height ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel_DB::setInputMean
@@ -19994,7 +19994,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::TextDetectionModel_DB::setInputMean( const cv::Scalar& mean )
 
 AutoIt:
-    $textDetectionModel_DB.setInputMean( $mean ) -> retval
+    $oTextDetectionModel_DB.setInputMean( $mean ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel_DB::setInputScale
@@ -20003,7 +20003,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::TextDetectionModel_DB::setInputScale( double scale )
 
 AutoIt:
-    $textDetectionModel_DB.setInputScale( $scale ) -> retval
+    $oTextDetectionModel_DB.setInputScale( $scale ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel_DB::setInputCrop
@@ -20012,7 +20012,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::TextDetectionModel_DB::setInputCrop( bool crop )
 
 AutoIt:
-    $textDetectionModel_DB.setInputCrop( $crop ) -> retval
+    $oTextDetectionModel_DB.setInputCrop( $crop ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel_DB::setInputSwapRB
@@ -20021,7 +20021,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::TextDetectionModel_DB::setInputSwapRB( bool swapRB )
 
 AutoIt:
-    $textDetectionModel_DB.setInputSwapRB( $swapRB ) -> retval
+    $oTextDetectionModel_DB.setInputSwapRB( $swapRB ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel_DB::setInputParams
@@ -20034,7 +20034,7 @@ void cv::dnn::TextDetectionModel_DB::setInputParams( double            scale = 1
                                                      bool              crop = false )
 
 AutoIt:
-    $textDetectionModel_DB.setInputParams( [$scale[, $size[, $mean[, $swapRB[, $crop]]]]] ) -> None
+    $oTextDetectionModel_DB.setInputParams( [$scale[, $size[, $mean[, $swapRB[, $crop]]]]] ) -> None
 ```
 
 ### cv::dnn::TextDetectionModel_DB::predict
@@ -20044,7 +20044,7 @@ void cv::dnn::TextDetectionModel_DB::predict( _InputArray  frame,
                                               _OutputArray outs )
 
 AutoIt:
-    $textDetectionModel_DB.predict( $frame[, $outs] ) -> $outs
+    $oTextDetectionModel_DB.predict( $frame[, $outs] ) -> $outs
 ```
 
 ### cv::dnn::TextDetectionModel_DB::setPreferableBackend
@@ -20053,7 +20053,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::TextDetectionModel_DB::setPreferableBackend( int backendId )
 
 AutoIt:
-    $textDetectionModel_DB.setPreferableBackend( $backendId ) -> retval
+    $oTextDetectionModel_DB.setPreferableBackend( $backendId ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel_DB::setPreferableTarget
@@ -20062,7 +20062,7 @@ AutoIt:
 cv::dnn::Model cv::dnn::TextDetectionModel_DB::setPreferableTarget( int targetId )
 
 AutoIt:
-    $textDetectionModel_DB.setPreferableTarget( $targetId ) -> retval
+    $oTextDetectionModel_DB.setPreferableTarget( $targetId ) -> retval
 ```
 
 ## cv::Feature2D
@@ -20075,7 +20075,7 @@ void cv::Feature2D::detect( _InputArray                image,
                             _InputArray                mask = noArray() )
 
 AutoIt:
-    $feature2D.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
+    $oFeature2D.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
 ```
 
 ```cpp
@@ -20084,7 +20084,7 @@ void cv::Feature2D::detect( _InputArray                             images,
                             _InputArray                             masks = noArray() )
 
 AutoIt:
-    $feature2D.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
+    $oFeature2D.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
 ```
 
 ### cv::Feature2D::compute
@@ -20095,7 +20095,7 @@ void cv::Feature2D::compute( _InputArray                image,
                              _OutputArray               descriptors )
 
 AutoIt:
-    $feature2D.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
+    $oFeature2D.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ```cpp
@@ -20104,7 +20104,7 @@ void cv::Feature2D::compute( _InputArray                             images,
                              _OutputArray                            descriptors )
 
 AutoIt:
-    $feature2D.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
+    $oFeature2D.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ### cv::Feature2D::detectAndCompute
@@ -20117,7 +20117,7 @@ void cv::Feature2D::detectAndCompute( _InputArray                image,
                                       bool                       useProvidedKeypoints = false )
 
 AutoIt:
-    $feature2D.detectAndCompute( $image, $mask[, $descriptors[, $useProvidedKeypoints[, $keypoints]]] ) -> $keypoints, $descriptors
+    $oFeature2D.detectAndCompute( $image, $mask[, $descriptors[, $useProvidedKeypoints[, $keypoints]]] ) -> $keypoints, $descriptors
 ```
 
 ### cv::Feature2D::descriptorSize
@@ -20126,7 +20126,7 @@ AutoIt:
 int cv::Feature2D::descriptorSize()
 
 AutoIt:
-    $feature2D.descriptorSize() -> retval
+    $oFeature2D.descriptorSize() -> retval
 ```
 
 ### cv::Feature2D::descriptorType
@@ -20135,7 +20135,7 @@ AutoIt:
 int cv::Feature2D::descriptorType()
 
 AutoIt:
-    $feature2D.descriptorType() -> retval
+    $oFeature2D.descriptorType() -> retval
 ```
 
 ### cv::Feature2D::defaultNorm
@@ -20144,7 +20144,7 @@ AutoIt:
 int cv::Feature2D::defaultNorm()
 
 AutoIt:
-    $feature2D.defaultNorm() -> retval
+    $oFeature2D.defaultNorm() -> retval
 ```
 
 ### cv::Feature2D::write
@@ -20153,7 +20153,7 @@ AutoIt:
 void cv::Feature2D::write( const std::string& fileName )
 
 AutoIt:
-    $feature2D.write( $fileName ) -> None
+    $oFeature2D.write( $fileName ) -> None
 ```
 
 ```cpp
@@ -20161,7 +20161,7 @@ void cv::Feature2D::write( const cv::Ptr<cv::FileStorage>& fs,
                            const std::string&              name = String() )
 
 AutoIt:
-    $feature2D.write( $fs[, $name] ) -> None
+    $oFeature2D.write( $fs[, $name] ) -> None
 ```
 
 ### cv::Feature2D::read
@@ -20170,14 +20170,14 @@ AutoIt:
 void cv::Feature2D::read( const std::string& fileName )
 
 AutoIt:
-    $feature2D.read( $fileName ) -> None
+    $oFeature2D.read( $fileName ) -> None
 ```
 
 ```cpp
 void cv::Feature2D::read( const cv::FileNode& arg1 )
 
 AutoIt:
-    $feature2D.read( $arg1 ) -> None
+    $oFeature2D.read( $arg1 ) -> None
 ```
 
 ### cv::Feature2D::empty
@@ -20186,7 +20186,7 @@ AutoIt:
 bool cv::Feature2D::empty()
 
 AutoIt:
-    $feature2D.empty() -> retval
+    $oFeature2D.empty() -> retval
 ```
 
 ### cv::Feature2D::getDefaultName
@@ -20195,7 +20195,7 @@ AutoIt:
 std::string cv::Feature2D::getDefaultName()
 
 AutoIt:
-    $feature2D.getDefaultName() -> retval
+    $oFeature2D.getDefaultName() -> retval
 ```
 
 ### cv::Feature2D::clear
@@ -20204,7 +20204,7 @@ AutoIt:
 void cv::Feature2D::clear()
 
 AutoIt:
-    $feature2D.clear() -> None
+    $oFeature2D.clear() -> None
 ```
 
 ### cv::Feature2D::save
@@ -20213,7 +20213,7 @@ AutoIt:
 void cv::Feature2D::save( const std::string& filename )
 
 AutoIt:
-    $feature2D.save( $filename ) -> None
+    $oFeature2D.save( $filename ) -> None
 ```
 
 ## cv::AffineFeature
@@ -20238,7 +20238,7 @@ void cv::AffineFeature::setViewParams( const std::vector<float>& tilts,
                                        const std::vector<float>& rolls )
 
 AutoIt:
-    $affineFeature.setViewParams( $tilts, $rolls ) -> None
+    $oAffineFeature.setViewParams( $tilts, $rolls ) -> None
 ```
 
 ### cv::AffineFeature::getViewParams
@@ -20248,7 +20248,7 @@ void cv::AffineFeature::getViewParams( std::vector<float>& tilts,
                                        std::vector<float>& rolls )
 
 AutoIt:
-    $affineFeature.getViewParams( $tilts, $rolls ) -> None
+    $oAffineFeature.getViewParams( $tilts, $rolls ) -> None
 ```
 
 ### cv::AffineFeature::getDefaultName
@@ -20257,7 +20257,7 @@ AutoIt:
 std::string cv::AffineFeature::getDefaultName()
 
 AutoIt:
-    $affineFeature.getDefaultName() -> retval
+    $oAffineFeature.getDefaultName() -> retval
 ```
 
 ### cv::AffineFeature::detect
@@ -20268,7 +20268,7 @@ void cv::AffineFeature::detect( _InputArray                image,
                                 _InputArray                mask = noArray() )
 
 AutoIt:
-    $affineFeature.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
+    $oAffineFeature.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
 ```
 
 ```cpp
@@ -20277,7 +20277,7 @@ void cv::AffineFeature::detect( _InputArray                             images,
                                 _InputArray                             masks = noArray() )
 
 AutoIt:
-    $affineFeature.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
+    $oAffineFeature.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
 ```
 
 ### cv::AffineFeature::compute
@@ -20288,7 +20288,7 @@ void cv::AffineFeature::compute( _InputArray                image,
                                  _OutputArray               descriptors )
 
 AutoIt:
-    $affineFeature.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
+    $oAffineFeature.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ```cpp
@@ -20297,7 +20297,7 @@ void cv::AffineFeature::compute( _InputArray                             images,
                                  _OutputArray                            descriptors )
 
 AutoIt:
-    $affineFeature.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
+    $oAffineFeature.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ### cv::AffineFeature::detectAndCompute
@@ -20310,7 +20310,7 @@ void cv::AffineFeature::detectAndCompute( _InputArray                image,
                                           bool                       useProvidedKeypoints = false )
 
 AutoIt:
-    $affineFeature.detectAndCompute( $image, $mask[, $descriptors[, $useProvidedKeypoints[, $keypoints]]] ) -> $keypoints, $descriptors
+    $oAffineFeature.detectAndCompute( $image, $mask[, $descriptors[, $useProvidedKeypoints[, $keypoints]]] ) -> $keypoints, $descriptors
 ```
 
 ### cv::AffineFeature::descriptorSize
@@ -20319,7 +20319,7 @@ AutoIt:
 int cv::AffineFeature::descriptorSize()
 
 AutoIt:
-    $affineFeature.descriptorSize() -> retval
+    $oAffineFeature.descriptorSize() -> retval
 ```
 
 ### cv::AffineFeature::descriptorType
@@ -20328,7 +20328,7 @@ AutoIt:
 int cv::AffineFeature::descriptorType()
 
 AutoIt:
-    $affineFeature.descriptorType() -> retval
+    $oAffineFeature.descriptorType() -> retval
 ```
 
 ### cv::AffineFeature::defaultNorm
@@ -20337,7 +20337,7 @@ AutoIt:
 int cv::AffineFeature::defaultNorm()
 
 AutoIt:
-    $affineFeature.defaultNorm() -> retval
+    $oAffineFeature.defaultNorm() -> retval
 ```
 
 ### cv::AffineFeature::write
@@ -20346,7 +20346,7 @@ AutoIt:
 void cv::AffineFeature::write( const std::string& fileName )
 
 AutoIt:
-    $affineFeature.write( $fileName ) -> None
+    $oAffineFeature.write( $fileName ) -> None
 ```
 
 ```cpp
@@ -20354,7 +20354,7 @@ void cv::AffineFeature::write( const cv::Ptr<cv::FileStorage>& fs,
                                const std::string&              name = String() )
 
 AutoIt:
-    $affineFeature.write( $fs[, $name] ) -> None
+    $oAffineFeature.write( $fs[, $name] ) -> None
 ```
 
 ### cv::AffineFeature::read
@@ -20363,14 +20363,14 @@ AutoIt:
 void cv::AffineFeature::read( const std::string& fileName )
 
 AutoIt:
-    $affineFeature.read( $fileName ) -> None
+    $oAffineFeature.read( $fileName ) -> None
 ```
 
 ```cpp
 void cv::AffineFeature::read( const cv::FileNode& arg1 )
 
 AutoIt:
-    $affineFeature.read( $arg1 ) -> None
+    $oAffineFeature.read( $arg1 ) -> None
 ```
 
 ### cv::AffineFeature::empty
@@ -20379,7 +20379,7 @@ AutoIt:
 bool cv::AffineFeature::empty()
 
 AutoIt:
-    $affineFeature.empty() -> retval
+    $oAffineFeature.empty() -> retval
 ```
 
 ### cv::AffineFeature::clear
@@ -20388,7 +20388,7 @@ AutoIt:
 void cv::AffineFeature::clear()
 
 AutoIt:
-    $affineFeature.clear() -> None
+    $oAffineFeature.clear() -> None
 ```
 
 ### cv::AffineFeature::save
@@ -20397,7 +20397,7 @@ AutoIt:
 void cv::AffineFeature::save( const std::string& filename )
 
 AutoIt:
-    $affineFeature.save( $filename ) -> None
+    $oAffineFeature.save( $filename ) -> None
 ```
 
 ## cv::SIFT
@@ -20433,7 +20433,7 @@ AutoIt:
 std::string cv::SIFT::getDefaultName()
 
 AutoIt:
-    $sIFT.getDefaultName() -> retval
+    $oSIFT.getDefaultName() -> retval
 ```
 
 ### cv::SIFT::detect
@@ -20444,7 +20444,7 @@ void cv::SIFT::detect( _InputArray                image,
                        _InputArray                mask = noArray() )
 
 AutoIt:
-    $sIFT.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
+    $oSIFT.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
 ```
 
 ```cpp
@@ -20453,7 +20453,7 @@ void cv::SIFT::detect( _InputArray                             images,
                        _InputArray                             masks = noArray() )
 
 AutoIt:
-    $sIFT.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
+    $oSIFT.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
 ```
 
 ### cv::SIFT::compute
@@ -20464,7 +20464,7 @@ void cv::SIFT::compute( _InputArray                image,
                         _OutputArray               descriptors )
 
 AutoIt:
-    $sIFT.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
+    $oSIFT.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ```cpp
@@ -20473,7 +20473,7 @@ void cv::SIFT::compute( _InputArray                             images,
                         _OutputArray                            descriptors )
 
 AutoIt:
-    $sIFT.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
+    $oSIFT.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ### cv::SIFT::detectAndCompute
@@ -20486,7 +20486,7 @@ void cv::SIFT::detectAndCompute( _InputArray                image,
                                  bool                       useProvidedKeypoints = false )
 
 AutoIt:
-    $sIFT.detectAndCompute( $image, $mask[, $descriptors[, $useProvidedKeypoints[, $keypoints]]] ) -> $keypoints, $descriptors
+    $oSIFT.detectAndCompute( $image, $mask[, $descriptors[, $useProvidedKeypoints[, $keypoints]]] ) -> $keypoints, $descriptors
 ```
 
 ### cv::SIFT::descriptorSize
@@ -20495,7 +20495,7 @@ AutoIt:
 int cv::SIFT::descriptorSize()
 
 AutoIt:
-    $sIFT.descriptorSize() -> retval
+    $oSIFT.descriptorSize() -> retval
 ```
 
 ### cv::SIFT::descriptorType
@@ -20504,7 +20504,7 @@ AutoIt:
 int cv::SIFT::descriptorType()
 
 AutoIt:
-    $sIFT.descriptorType() -> retval
+    $oSIFT.descriptorType() -> retval
 ```
 
 ### cv::SIFT::defaultNorm
@@ -20513,7 +20513,7 @@ AutoIt:
 int cv::SIFT::defaultNorm()
 
 AutoIt:
-    $sIFT.defaultNorm() -> retval
+    $oSIFT.defaultNorm() -> retval
 ```
 
 ### cv::SIFT::write
@@ -20522,7 +20522,7 @@ AutoIt:
 void cv::SIFT::write( const std::string& fileName )
 
 AutoIt:
-    $sIFT.write( $fileName ) -> None
+    $oSIFT.write( $fileName ) -> None
 ```
 
 ```cpp
@@ -20530,7 +20530,7 @@ void cv::SIFT::write( const cv::Ptr<cv::FileStorage>& fs,
                       const std::string&              name = String() )
 
 AutoIt:
-    $sIFT.write( $fs[, $name] ) -> None
+    $oSIFT.write( $fs[, $name] ) -> None
 ```
 
 ### cv::SIFT::read
@@ -20539,14 +20539,14 @@ AutoIt:
 void cv::SIFT::read( const std::string& fileName )
 
 AutoIt:
-    $sIFT.read( $fileName ) -> None
+    $oSIFT.read( $fileName ) -> None
 ```
 
 ```cpp
 void cv::SIFT::read( const cv::FileNode& arg1 )
 
 AutoIt:
-    $sIFT.read( $arg1 ) -> None
+    $oSIFT.read( $arg1 ) -> None
 ```
 
 ### cv::SIFT::empty
@@ -20555,7 +20555,7 @@ AutoIt:
 bool cv::SIFT::empty()
 
 AutoIt:
-    $sIFT.empty() -> retval
+    $oSIFT.empty() -> retval
 ```
 
 ### cv::SIFT::clear
@@ -20564,7 +20564,7 @@ AutoIt:
 void cv::SIFT::clear()
 
 AutoIt:
-    $sIFT.clear() -> None
+    $oSIFT.clear() -> None
 ```
 
 ### cv::SIFT::save
@@ -20573,7 +20573,7 @@ AutoIt:
 void cv::SIFT::save( const std::string& filename )
 
 AutoIt:
-    $sIFT.save( $filename ) -> None
+    $oSIFT.save( $filename ) -> None
 ```
 
 ## cv::BRISK
@@ -20619,7 +20619,7 @@ AutoIt:
 std::string cv::BRISK::getDefaultName()
 
 AutoIt:
-    $bRISK.getDefaultName() -> retval
+    $oBRISK.getDefaultName() -> retval
 ```
 
 ### cv::BRISK::setThreshold
@@ -20628,7 +20628,7 @@ AutoIt:
 void cv::BRISK::setThreshold( int threshold )
 
 AutoIt:
-    $bRISK.setThreshold( $threshold ) -> None
+    $oBRISK.setThreshold( $threshold ) -> None
 ```
 
 ### cv::BRISK::getThreshold
@@ -20637,7 +20637,7 @@ AutoIt:
 int cv::BRISK::getThreshold()
 
 AutoIt:
-    $bRISK.getThreshold() -> retval
+    $oBRISK.getThreshold() -> retval
 ```
 
 ### cv::BRISK::setOctaves
@@ -20646,7 +20646,7 @@ AutoIt:
 void cv::BRISK::setOctaves( int octaves )
 
 AutoIt:
-    $bRISK.setOctaves( $octaves ) -> None
+    $oBRISK.setOctaves( $octaves ) -> None
 ```
 
 ### cv::BRISK::getOctaves
@@ -20655,7 +20655,7 @@ AutoIt:
 int cv::BRISK::getOctaves()
 
 AutoIt:
-    $bRISK.getOctaves() -> retval
+    $oBRISK.getOctaves() -> retval
 ```
 
 ### cv::BRISK::detect
@@ -20666,7 +20666,7 @@ void cv::BRISK::detect( _InputArray                image,
                         _InputArray                mask = noArray() )
 
 AutoIt:
-    $bRISK.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
+    $oBRISK.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
 ```
 
 ```cpp
@@ -20675,7 +20675,7 @@ void cv::BRISK::detect( _InputArray                             images,
                         _InputArray                             masks = noArray() )
 
 AutoIt:
-    $bRISK.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
+    $oBRISK.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
 ```
 
 ### cv::BRISK::compute
@@ -20686,7 +20686,7 @@ void cv::BRISK::compute( _InputArray                image,
                          _OutputArray               descriptors )
 
 AutoIt:
-    $bRISK.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
+    $oBRISK.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ```cpp
@@ -20695,7 +20695,7 @@ void cv::BRISK::compute( _InputArray                             images,
                          _OutputArray                            descriptors )
 
 AutoIt:
-    $bRISK.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
+    $oBRISK.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ### cv::BRISK::detectAndCompute
@@ -20708,7 +20708,7 @@ void cv::BRISK::detectAndCompute( _InputArray                image,
                                   bool                       useProvidedKeypoints = false )
 
 AutoIt:
-    $bRISK.detectAndCompute( $image, $mask[, $descriptors[, $useProvidedKeypoints[, $keypoints]]] ) -> $keypoints, $descriptors
+    $oBRISK.detectAndCompute( $image, $mask[, $descriptors[, $useProvidedKeypoints[, $keypoints]]] ) -> $keypoints, $descriptors
 ```
 
 ### cv::BRISK::descriptorSize
@@ -20717,7 +20717,7 @@ AutoIt:
 int cv::BRISK::descriptorSize()
 
 AutoIt:
-    $bRISK.descriptorSize() -> retval
+    $oBRISK.descriptorSize() -> retval
 ```
 
 ### cv::BRISK::descriptorType
@@ -20726,7 +20726,7 @@ AutoIt:
 int cv::BRISK::descriptorType()
 
 AutoIt:
-    $bRISK.descriptorType() -> retval
+    $oBRISK.descriptorType() -> retval
 ```
 
 ### cv::BRISK::defaultNorm
@@ -20735,7 +20735,7 @@ AutoIt:
 int cv::BRISK::defaultNorm()
 
 AutoIt:
-    $bRISK.defaultNorm() -> retval
+    $oBRISK.defaultNorm() -> retval
 ```
 
 ### cv::BRISK::write
@@ -20744,7 +20744,7 @@ AutoIt:
 void cv::BRISK::write( const std::string& fileName )
 
 AutoIt:
-    $bRISK.write( $fileName ) -> None
+    $oBRISK.write( $fileName ) -> None
 ```
 
 ```cpp
@@ -20752,7 +20752,7 @@ void cv::BRISK::write( const cv::Ptr<cv::FileStorage>& fs,
                        const std::string&              name = String() )
 
 AutoIt:
-    $bRISK.write( $fs[, $name] ) -> None
+    $oBRISK.write( $fs[, $name] ) -> None
 ```
 
 ### cv::BRISK::read
@@ -20761,14 +20761,14 @@ AutoIt:
 void cv::BRISK::read( const std::string& fileName )
 
 AutoIt:
-    $bRISK.read( $fileName ) -> None
+    $oBRISK.read( $fileName ) -> None
 ```
 
 ```cpp
 void cv::BRISK::read( const cv::FileNode& arg1 )
 
 AutoIt:
-    $bRISK.read( $arg1 ) -> None
+    $oBRISK.read( $arg1 ) -> None
 ```
 
 ### cv::BRISK::empty
@@ -20777,7 +20777,7 @@ AutoIt:
 bool cv::BRISK::empty()
 
 AutoIt:
-    $bRISK.empty() -> retval
+    $oBRISK.empty() -> retval
 ```
 
 ### cv::BRISK::clear
@@ -20786,7 +20786,7 @@ AutoIt:
 void cv::BRISK::clear()
 
 AutoIt:
-    $bRISK.clear() -> None
+    $oBRISK.clear() -> None
 ```
 
 ### cv::BRISK::save
@@ -20795,7 +20795,7 @@ AutoIt:
 void cv::BRISK::save( const std::string& filename )
 
 AutoIt:
-    $bRISK.save( $filename ) -> None
+    $oBRISK.save( $filename ) -> None
 ```
 
 ## cv::ORB
@@ -20823,7 +20823,7 @@ AutoIt:
 void cv::ORB::setMaxFeatures( int maxFeatures )
 
 AutoIt:
-    $oRB.setMaxFeatures( $maxFeatures ) -> None
+    $oORB.setMaxFeatures( $maxFeatures ) -> None
 ```
 
 ### cv::ORB::getMaxFeatures
@@ -20832,7 +20832,7 @@ AutoIt:
 int cv::ORB::getMaxFeatures()
 
 AutoIt:
-    $oRB.getMaxFeatures() -> retval
+    $oORB.getMaxFeatures() -> retval
 ```
 
 ### cv::ORB::setScaleFactor
@@ -20841,7 +20841,7 @@ AutoIt:
 void cv::ORB::setScaleFactor( double scaleFactor )
 
 AutoIt:
-    $oRB.setScaleFactor( $scaleFactor ) -> None
+    $oORB.setScaleFactor( $scaleFactor ) -> None
 ```
 
 ### cv::ORB::getScaleFactor
@@ -20850,7 +20850,7 @@ AutoIt:
 double cv::ORB::getScaleFactor()
 
 AutoIt:
-    $oRB.getScaleFactor() -> retval
+    $oORB.getScaleFactor() -> retval
 ```
 
 ### cv::ORB::setNLevels
@@ -20859,7 +20859,7 @@ AutoIt:
 void cv::ORB::setNLevels( int nlevels )
 
 AutoIt:
-    $oRB.setNLevels( $nlevels ) -> None
+    $oORB.setNLevels( $nlevels ) -> None
 ```
 
 ### cv::ORB::getNLevels
@@ -20868,7 +20868,7 @@ AutoIt:
 int cv::ORB::getNLevels()
 
 AutoIt:
-    $oRB.getNLevels() -> retval
+    $oORB.getNLevels() -> retval
 ```
 
 ### cv::ORB::setEdgeThreshold
@@ -20877,7 +20877,7 @@ AutoIt:
 void cv::ORB::setEdgeThreshold( int edgeThreshold )
 
 AutoIt:
-    $oRB.setEdgeThreshold( $edgeThreshold ) -> None
+    $oORB.setEdgeThreshold( $edgeThreshold ) -> None
 ```
 
 ### cv::ORB::getEdgeThreshold
@@ -20886,7 +20886,7 @@ AutoIt:
 int cv::ORB::getEdgeThreshold()
 
 AutoIt:
-    $oRB.getEdgeThreshold() -> retval
+    $oORB.getEdgeThreshold() -> retval
 ```
 
 ### cv::ORB::setFirstLevel
@@ -20895,7 +20895,7 @@ AutoIt:
 void cv::ORB::setFirstLevel( int firstLevel )
 
 AutoIt:
-    $oRB.setFirstLevel( $firstLevel ) -> None
+    $oORB.setFirstLevel( $firstLevel ) -> None
 ```
 
 ### cv::ORB::getFirstLevel
@@ -20904,7 +20904,7 @@ AutoIt:
 int cv::ORB::getFirstLevel()
 
 AutoIt:
-    $oRB.getFirstLevel() -> retval
+    $oORB.getFirstLevel() -> retval
 ```
 
 ### cv::ORB::setWTA_K
@@ -20913,7 +20913,7 @@ AutoIt:
 void cv::ORB::setWTA_K( int wta_k )
 
 AutoIt:
-    $oRB.setWTA_K( $wta_k ) -> None
+    $oORB.setWTA_K( $wta_k ) -> None
 ```
 
 ### cv::ORB::getWTA_K
@@ -20922,7 +20922,7 @@ AutoIt:
 int cv::ORB::getWTA_K()
 
 AutoIt:
-    $oRB.getWTA_K() -> retval
+    $oORB.getWTA_K() -> retval
 ```
 
 ### cv::ORB::setScoreType
@@ -20931,7 +20931,7 @@ AutoIt:
 void cv::ORB::setScoreType( int scoreType )
 
 AutoIt:
-    $oRB.setScoreType( $scoreType ) -> None
+    $oORB.setScoreType( $scoreType ) -> None
 ```
 
 ### cv::ORB::getScoreType
@@ -20940,7 +20940,7 @@ AutoIt:
 int cv::ORB::getScoreType()
 
 AutoIt:
-    $oRB.getScoreType() -> retval
+    $oORB.getScoreType() -> retval
 ```
 
 ### cv::ORB::setPatchSize
@@ -20949,7 +20949,7 @@ AutoIt:
 void cv::ORB::setPatchSize( int patchSize )
 
 AutoIt:
-    $oRB.setPatchSize( $patchSize ) -> None
+    $oORB.setPatchSize( $patchSize ) -> None
 ```
 
 ### cv::ORB::getPatchSize
@@ -20958,7 +20958,7 @@ AutoIt:
 int cv::ORB::getPatchSize()
 
 AutoIt:
-    $oRB.getPatchSize() -> retval
+    $oORB.getPatchSize() -> retval
 ```
 
 ### cv::ORB::setFastThreshold
@@ -20967,7 +20967,7 @@ AutoIt:
 void cv::ORB::setFastThreshold( int fastThreshold )
 
 AutoIt:
-    $oRB.setFastThreshold( $fastThreshold ) -> None
+    $oORB.setFastThreshold( $fastThreshold ) -> None
 ```
 
 ### cv::ORB::getFastThreshold
@@ -20976,7 +20976,7 @@ AutoIt:
 int cv::ORB::getFastThreshold()
 
 AutoIt:
-    $oRB.getFastThreshold() -> retval
+    $oORB.getFastThreshold() -> retval
 ```
 
 ### cv::ORB::getDefaultName
@@ -20985,7 +20985,7 @@ AutoIt:
 std::string cv::ORB::getDefaultName()
 
 AutoIt:
-    $oRB.getDefaultName() -> retval
+    $oORB.getDefaultName() -> retval
 ```
 
 ### cv::ORB::detect
@@ -20996,7 +20996,7 @@ void cv::ORB::detect( _InputArray                image,
                       _InputArray                mask = noArray() )
 
 AutoIt:
-    $oRB.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
+    $oORB.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
 ```
 
 ```cpp
@@ -21005,7 +21005,7 @@ void cv::ORB::detect( _InputArray                             images,
                       _InputArray                             masks = noArray() )
 
 AutoIt:
-    $oRB.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
+    $oORB.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
 ```
 
 ### cv::ORB::compute
@@ -21016,7 +21016,7 @@ void cv::ORB::compute( _InputArray                image,
                        _OutputArray               descriptors )
 
 AutoIt:
-    $oRB.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
+    $oORB.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ```cpp
@@ -21025,7 +21025,7 @@ void cv::ORB::compute( _InputArray                             images,
                        _OutputArray                            descriptors )
 
 AutoIt:
-    $oRB.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
+    $oORB.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ### cv::ORB::detectAndCompute
@@ -21038,7 +21038,7 @@ void cv::ORB::detectAndCompute( _InputArray                image,
                                 bool                       useProvidedKeypoints = false )
 
 AutoIt:
-    $oRB.detectAndCompute( $image, $mask[, $descriptors[, $useProvidedKeypoints[, $keypoints]]] ) -> $keypoints, $descriptors
+    $oORB.detectAndCompute( $image, $mask[, $descriptors[, $useProvidedKeypoints[, $keypoints]]] ) -> $keypoints, $descriptors
 ```
 
 ### cv::ORB::descriptorSize
@@ -21047,7 +21047,7 @@ AutoIt:
 int cv::ORB::descriptorSize()
 
 AutoIt:
-    $oRB.descriptorSize() -> retval
+    $oORB.descriptorSize() -> retval
 ```
 
 ### cv::ORB::descriptorType
@@ -21056,7 +21056,7 @@ AutoIt:
 int cv::ORB::descriptorType()
 
 AutoIt:
-    $oRB.descriptorType() -> retval
+    $oORB.descriptorType() -> retval
 ```
 
 ### cv::ORB::defaultNorm
@@ -21065,7 +21065,7 @@ AutoIt:
 int cv::ORB::defaultNorm()
 
 AutoIt:
-    $oRB.defaultNorm() -> retval
+    $oORB.defaultNorm() -> retval
 ```
 
 ### cv::ORB::write
@@ -21074,7 +21074,7 @@ AutoIt:
 void cv::ORB::write( const std::string& fileName )
 
 AutoIt:
-    $oRB.write( $fileName ) -> None
+    $oORB.write( $fileName ) -> None
 ```
 
 ```cpp
@@ -21082,7 +21082,7 @@ void cv::ORB::write( const cv::Ptr<cv::FileStorage>& fs,
                      const std::string&              name = String() )
 
 AutoIt:
-    $oRB.write( $fs[, $name] ) -> None
+    $oORB.write( $fs[, $name] ) -> None
 ```
 
 ### cv::ORB::read
@@ -21091,14 +21091,14 @@ AutoIt:
 void cv::ORB::read( const std::string& fileName )
 
 AutoIt:
-    $oRB.read( $fileName ) -> None
+    $oORB.read( $fileName ) -> None
 ```
 
 ```cpp
 void cv::ORB::read( const cv::FileNode& arg1 )
 
 AutoIt:
-    $oRB.read( $arg1 ) -> None
+    $oORB.read( $arg1 ) -> None
 ```
 
 ### cv::ORB::empty
@@ -21107,7 +21107,7 @@ AutoIt:
 bool cv::ORB::empty()
 
 AutoIt:
-    $oRB.empty() -> retval
+    $oORB.empty() -> retval
 ```
 
 ### cv::ORB::clear
@@ -21116,7 +21116,7 @@ AutoIt:
 void cv::ORB::clear()
 
 AutoIt:
-    $oRB.clear() -> None
+    $oORB.clear() -> None
 ```
 
 ### cv::ORB::save
@@ -21125,7 +21125,7 @@ AutoIt:
 void cv::ORB::save( const std::string& filename )
 
 AutoIt:
-    $oRB.save( $filename ) -> None
+    $oORB.save( $filename ) -> None
 ```
 
 ## cv::MSER
@@ -21155,7 +21155,7 @@ void cv::MSER::detectRegions( _InputArray                          image,
                               std::vector<cv::Rect>&               bboxes )
 
 AutoIt:
-    $mSER.detectRegions( $image[, $msers[, $bboxes]] ) -> $msers, $bboxes
+    $oMSER.detectRegions( $image[, $msers[, $bboxes]] ) -> $msers, $bboxes
 ```
 
 ### cv::MSER::setDelta
@@ -21164,7 +21164,7 @@ AutoIt:
 void cv::MSER::setDelta( int delta )
 
 AutoIt:
-    $mSER.setDelta( $delta ) -> None
+    $oMSER.setDelta( $delta ) -> None
 ```
 
 ### cv::MSER::getDelta
@@ -21173,7 +21173,7 @@ AutoIt:
 int cv::MSER::getDelta()
 
 AutoIt:
-    $mSER.getDelta() -> retval
+    $oMSER.getDelta() -> retval
 ```
 
 ### cv::MSER::setMinArea
@@ -21182,7 +21182,7 @@ AutoIt:
 void cv::MSER::setMinArea( int minArea )
 
 AutoIt:
-    $mSER.setMinArea( $minArea ) -> None
+    $oMSER.setMinArea( $minArea ) -> None
 ```
 
 ### cv::MSER::getMinArea
@@ -21191,7 +21191,7 @@ AutoIt:
 int cv::MSER::getMinArea()
 
 AutoIt:
-    $mSER.getMinArea() -> retval
+    $oMSER.getMinArea() -> retval
 ```
 
 ### cv::MSER::setMaxArea
@@ -21200,7 +21200,7 @@ AutoIt:
 void cv::MSER::setMaxArea( int maxArea )
 
 AutoIt:
-    $mSER.setMaxArea( $maxArea ) -> None
+    $oMSER.setMaxArea( $maxArea ) -> None
 ```
 
 ### cv::MSER::getMaxArea
@@ -21209,7 +21209,7 @@ AutoIt:
 int cv::MSER::getMaxArea()
 
 AutoIt:
-    $mSER.getMaxArea() -> retval
+    $oMSER.getMaxArea() -> retval
 ```
 
 ### cv::MSER::setPass2Only
@@ -21218,7 +21218,7 @@ AutoIt:
 void cv::MSER::setPass2Only( bool f )
 
 AutoIt:
-    $mSER.setPass2Only( $f ) -> None
+    $oMSER.setPass2Only( $f ) -> None
 ```
 
 ### cv::MSER::getPass2Only
@@ -21227,7 +21227,7 @@ AutoIt:
 bool cv::MSER::getPass2Only()
 
 AutoIt:
-    $mSER.getPass2Only() -> retval
+    $oMSER.getPass2Only() -> retval
 ```
 
 ### cv::MSER::getDefaultName
@@ -21236,7 +21236,7 @@ AutoIt:
 std::string cv::MSER::getDefaultName()
 
 AutoIt:
-    $mSER.getDefaultName() -> retval
+    $oMSER.getDefaultName() -> retval
 ```
 
 ### cv::MSER::detect
@@ -21247,7 +21247,7 @@ void cv::MSER::detect( _InputArray                image,
                        _InputArray                mask = noArray() )
 
 AutoIt:
-    $mSER.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
+    $oMSER.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
 ```
 
 ```cpp
@@ -21256,7 +21256,7 @@ void cv::MSER::detect( _InputArray                             images,
                        _InputArray                             masks = noArray() )
 
 AutoIt:
-    $mSER.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
+    $oMSER.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
 ```
 
 ### cv::MSER::compute
@@ -21267,7 +21267,7 @@ void cv::MSER::compute( _InputArray                image,
                         _OutputArray               descriptors )
 
 AutoIt:
-    $mSER.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
+    $oMSER.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ```cpp
@@ -21276,7 +21276,7 @@ void cv::MSER::compute( _InputArray                             images,
                         _OutputArray                            descriptors )
 
 AutoIt:
-    $mSER.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
+    $oMSER.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ### cv::MSER::detectAndCompute
@@ -21289,7 +21289,7 @@ void cv::MSER::detectAndCompute( _InputArray                image,
                                  bool                       useProvidedKeypoints = false )
 
 AutoIt:
-    $mSER.detectAndCompute( $image, $mask[, $descriptors[, $useProvidedKeypoints[, $keypoints]]] ) -> $keypoints, $descriptors
+    $oMSER.detectAndCompute( $image, $mask[, $descriptors[, $useProvidedKeypoints[, $keypoints]]] ) -> $keypoints, $descriptors
 ```
 
 ### cv::MSER::descriptorSize
@@ -21298,7 +21298,7 @@ AutoIt:
 int cv::MSER::descriptorSize()
 
 AutoIt:
-    $mSER.descriptorSize() -> retval
+    $oMSER.descriptorSize() -> retval
 ```
 
 ### cv::MSER::descriptorType
@@ -21307,7 +21307,7 @@ AutoIt:
 int cv::MSER::descriptorType()
 
 AutoIt:
-    $mSER.descriptorType() -> retval
+    $oMSER.descriptorType() -> retval
 ```
 
 ### cv::MSER::defaultNorm
@@ -21316,7 +21316,7 @@ AutoIt:
 int cv::MSER::defaultNorm()
 
 AutoIt:
-    $mSER.defaultNorm() -> retval
+    $oMSER.defaultNorm() -> retval
 ```
 
 ### cv::MSER::write
@@ -21325,7 +21325,7 @@ AutoIt:
 void cv::MSER::write( const std::string& fileName )
 
 AutoIt:
-    $mSER.write( $fileName ) -> None
+    $oMSER.write( $fileName ) -> None
 ```
 
 ```cpp
@@ -21333,7 +21333,7 @@ void cv::MSER::write( const cv::Ptr<cv::FileStorage>& fs,
                       const std::string&              name = String() )
 
 AutoIt:
-    $mSER.write( $fs[, $name] ) -> None
+    $oMSER.write( $fs[, $name] ) -> None
 ```
 
 ### cv::MSER::read
@@ -21342,14 +21342,14 @@ AutoIt:
 void cv::MSER::read( const std::string& fileName )
 
 AutoIt:
-    $mSER.read( $fileName ) -> None
+    $oMSER.read( $fileName ) -> None
 ```
 
 ```cpp
 void cv::MSER::read( const cv::FileNode& arg1 )
 
 AutoIt:
-    $mSER.read( $arg1 ) -> None
+    $oMSER.read( $arg1 ) -> None
 ```
 
 ### cv::MSER::empty
@@ -21358,7 +21358,7 @@ AutoIt:
 bool cv::MSER::empty()
 
 AutoIt:
-    $mSER.empty() -> retval
+    $oMSER.empty() -> retval
 ```
 
 ### cv::MSER::clear
@@ -21367,7 +21367,7 @@ AutoIt:
 void cv::MSER::clear()
 
 AutoIt:
-    $mSER.clear() -> None
+    $oMSER.clear() -> None
 ```
 
 ### cv::MSER::save
@@ -21376,7 +21376,7 @@ AutoIt:
 void cv::MSER::save( const std::string& filename )
 
 AutoIt:
-    $mSER.save( $filename ) -> None
+    $oMSER.save( $filename ) -> None
 ```
 
 ## cv::FastFeatureDetector
@@ -21398,7 +21398,7 @@ AutoIt:
 void cv::FastFeatureDetector::setThreshold( int threshold )
 
 AutoIt:
-    $fastFeatureDetector.setThreshold( $threshold ) -> None
+    $oFastFeatureDetector.setThreshold( $threshold ) -> None
 ```
 
 ### cv::FastFeatureDetector::getThreshold
@@ -21407,7 +21407,7 @@ AutoIt:
 int cv::FastFeatureDetector::getThreshold()
 
 AutoIt:
-    $fastFeatureDetector.getThreshold() -> retval
+    $oFastFeatureDetector.getThreshold() -> retval
 ```
 
 ### cv::FastFeatureDetector::setNonmaxSuppression
@@ -21416,7 +21416,7 @@ AutoIt:
 void cv::FastFeatureDetector::setNonmaxSuppression( bool f )
 
 AutoIt:
-    $fastFeatureDetector.setNonmaxSuppression( $f ) -> None
+    $oFastFeatureDetector.setNonmaxSuppression( $f ) -> None
 ```
 
 ### cv::FastFeatureDetector::getNonmaxSuppression
@@ -21425,7 +21425,7 @@ AutoIt:
 bool cv::FastFeatureDetector::getNonmaxSuppression()
 
 AutoIt:
-    $fastFeatureDetector.getNonmaxSuppression() -> retval
+    $oFastFeatureDetector.getNonmaxSuppression() -> retval
 ```
 
 ### cv::FastFeatureDetector::setType
@@ -21434,7 +21434,7 @@ AutoIt:
 void cv::FastFeatureDetector::setType( int type )
 
 AutoIt:
-    $fastFeatureDetector.setType( $type ) -> None
+    $oFastFeatureDetector.setType( $type ) -> None
 ```
 
 ### cv::FastFeatureDetector::getType
@@ -21443,7 +21443,7 @@ AutoIt:
 int cv::FastFeatureDetector::getType()
 
 AutoIt:
-    $fastFeatureDetector.getType() -> retval
+    $oFastFeatureDetector.getType() -> retval
 ```
 
 ### cv::FastFeatureDetector::getDefaultName
@@ -21452,7 +21452,7 @@ AutoIt:
 std::string cv::FastFeatureDetector::getDefaultName()
 
 AutoIt:
-    $fastFeatureDetector.getDefaultName() -> retval
+    $oFastFeatureDetector.getDefaultName() -> retval
 ```
 
 ### cv::FastFeatureDetector::detect
@@ -21463,7 +21463,7 @@ void cv::FastFeatureDetector::detect( _InputArray                image,
                                       _InputArray                mask = noArray() )
 
 AutoIt:
-    $fastFeatureDetector.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
+    $oFastFeatureDetector.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
 ```
 
 ```cpp
@@ -21472,7 +21472,7 @@ void cv::FastFeatureDetector::detect( _InputArray                             im
                                       _InputArray                             masks = noArray() )
 
 AutoIt:
-    $fastFeatureDetector.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
+    $oFastFeatureDetector.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
 ```
 
 ### cv::FastFeatureDetector::compute
@@ -21483,7 +21483,7 @@ void cv::FastFeatureDetector::compute( _InputArray                image,
                                        _OutputArray               descriptors )
 
 AutoIt:
-    $fastFeatureDetector.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
+    $oFastFeatureDetector.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ```cpp
@@ -21492,7 +21492,7 @@ void cv::FastFeatureDetector::compute( _InputArray                             i
                                        _OutputArray                            descriptors )
 
 AutoIt:
-    $fastFeatureDetector.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
+    $oFastFeatureDetector.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ### cv::FastFeatureDetector::detectAndCompute
@@ -21505,7 +21505,7 @@ void cv::FastFeatureDetector::detectAndCompute( _InputArray                image
                                                 bool                       useProvidedKeypoints = false )
 
 AutoIt:
-    $fastFeatureDetector.detectAndCompute( $image, $mask[, $descriptors[, $useProvidedKeypoints[, $keypoints]]] ) -> $keypoints, $descriptors
+    $oFastFeatureDetector.detectAndCompute( $image, $mask[, $descriptors[, $useProvidedKeypoints[, $keypoints]]] ) -> $keypoints, $descriptors
 ```
 
 ### cv::FastFeatureDetector::descriptorSize
@@ -21514,7 +21514,7 @@ AutoIt:
 int cv::FastFeatureDetector::descriptorSize()
 
 AutoIt:
-    $fastFeatureDetector.descriptorSize() -> retval
+    $oFastFeatureDetector.descriptorSize() -> retval
 ```
 
 ### cv::FastFeatureDetector::descriptorType
@@ -21523,7 +21523,7 @@ AutoIt:
 int cv::FastFeatureDetector::descriptorType()
 
 AutoIt:
-    $fastFeatureDetector.descriptorType() -> retval
+    $oFastFeatureDetector.descriptorType() -> retval
 ```
 
 ### cv::FastFeatureDetector::defaultNorm
@@ -21532,7 +21532,7 @@ AutoIt:
 int cv::FastFeatureDetector::defaultNorm()
 
 AutoIt:
-    $fastFeatureDetector.defaultNorm() -> retval
+    $oFastFeatureDetector.defaultNorm() -> retval
 ```
 
 ### cv::FastFeatureDetector::write
@@ -21541,7 +21541,7 @@ AutoIt:
 void cv::FastFeatureDetector::write( const std::string& fileName )
 
 AutoIt:
-    $fastFeatureDetector.write( $fileName ) -> None
+    $oFastFeatureDetector.write( $fileName ) -> None
 ```
 
 ```cpp
@@ -21549,7 +21549,7 @@ void cv::FastFeatureDetector::write( const cv::Ptr<cv::FileStorage>& fs,
                                      const std::string&              name = String() )
 
 AutoIt:
-    $fastFeatureDetector.write( $fs[, $name] ) -> None
+    $oFastFeatureDetector.write( $fs[, $name] ) -> None
 ```
 
 ### cv::FastFeatureDetector::read
@@ -21558,14 +21558,14 @@ AutoIt:
 void cv::FastFeatureDetector::read( const std::string& fileName )
 
 AutoIt:
-    $fastFeatureDetector.read( $fileName ) -> None
+    $oFastFeatureDetector.read( $fileName ) -> None
 ```
 
 ```cpp
 void cv::FastFeatureDetector::read( const cv::FileNode& arg1 )
 
 AutoIt:
-    $fastFeatureDetector.read( $arg1 ) -> None
+    $oFastFeatureDetector.read( $arg1 ) -> None
 ```
 
 ### cv::FastFeatureDetector::empty
@@ -21574,7 +21574,7 @@ AutoIt:
 bool cv::FastFeatureDetector::empty()
 
 AutoIt:
-    $fastFeatureDetector.empty() -> retval
+    $oFastFeatureDetector.empty() -> retval
 ```
 
 ### cv::FastFeatureDetector::clear
@@ -21583,7 +21583,7 @@ AutoIt:
 void cv::FastFeatureDetector::clear()
 
 AutoIt:
-    $fastFeatureDetector.clear() -> None
+    $oFastFeatureDetector.clear() -> None
 ```
 
 ### cv::FastFeatureDetector::save
@@ -21592,7 +21592,7 @@ AutoIt:
 void cv::FastFeatureDetector::save( const std::string& filename )
 
 AutoIt:
-    $fastFeatureDetector.save( $filename ) -> None
+    $oFastFeatureDetector.save( $filename ) -> None
 ```
 
 ## cv::AgastFeatureDetector
@@ -21614,7 +21614,7 @@ AutoIt:
 void cv::AgastFeatureDetector::setThreshold( int threshold )
 
 AutoIt:
-    $agastFeatureDetector.setThreshold( $threshold ) -> None
+    $oAgastFeatureDetector.setThreshold( $threshold ) -> None
 ```
 
 ### cv::AgastFeatureDetector::getThreshold
@@ -21623,7 +21623,7 @@ AutoIt:
 int cv::AgastFeatureDetector::getThreshold()
 
 AutoIt:
-    $agastFeatureDetector.getThreshold() -> retval
+    $oAgastFeatureDetector.getThreshold() -> retval
 ```
 
 ### cv::AgastFeatureDetector::setNonmaxSuppression
@@ -21632,7 +21632,7 @@ AutoIt:
 void cv::AgastFeatureDetector::setNonmaxSuppression( bool f )
 
 AutoIt:
-    $agastFeatureDetector.setNonmaxSuppression( $f ) -> None
+    $oAgastFeatureDetector.setNonmaxSuppression( $f ) -> None
 ```
 
 ### cv::AgastFeatureDetector::getNonmaxSuppression
@@ -21641,7 +21641,7 @@ AutoIt:
 bool cv::AgastFeatureDetector::getNonmaxSuppression()
 
 AutoIt:
-    $agastFeatureDetector.getNonmaxSuppression() -> retval
+    $oAgastFeatureDetector.getNonmaxSuppression() -> retval
 ```
 
 ### cv::AgastFeatureDetector::setType
@@ -21650,7 +21650,7 @@ AutoIt:
 void cv::AgastFeatureDetector::setType( int type )
 
 AutoIt:
-    $agastFeatureDetector.setType( $type ) -> None
+    $oAgastFeatureDetector.setType( $type ) -> None
 ```
 
 ### cv::AgastFeatureDetector::getType
@@ -21659,7 +21659,7 @@ AutoIt:
 int cv::AgastFeatureDetector::getType()
 
 AutoIt:
-    $agastFeatureDetector.getType() -> retval
+    $oAgastFeatureDetector.getType() -> retval
 ```
 
 ### cv::AgastFeatureDetector::getDefaultName
@@ -21668,7 +21668,7 @@ AutoIt:
 std::string cv::AgastFeatureDetector::getDefaultName()
 
 AutoIt:
-    $agastFeatureDetector.getDefaultName() -> retval
+    $oAgastFeatureDetector.getDefaultName() -> retval
 ```
 
 ### cv::AgastFeatureDetector::detect
@@ -21679,7 +21679,7 @@ void cv::AgastFeatureDetector::detect( _InputArray                image,
                                        _InputArray                mask = noArray() )
 
 AutoIt:
-    $agastFeatureDetector.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
+    $oAgastFeatureDetector.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
 ```
 
 ```cpp
@@ -21688,7 +21688,7 @@ void cv::AgastFeatureDetector::detect( _InputArray                             i
                                        _InputArray                             masks = noArray() )
 
 AutoIt:
-    $agastFeatureDetector.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
+    $oAgastFeatureDetector.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
 ```
 
 ### cv::AgastFeatureDetector::compute
@@ -21699,7 +21699,7 @@ void cv::AgastFeatureDetector::compute( _InputArray                image,
                                         _OutputArray               descriptors )
 
 AutoIt:
-    $agastFeatureDetector.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
+    $oAgastFeatureDetector.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ```cpp
@@ -21708,7 +21708,7 @@ void cv::AgastFeatureDetector::compute( _InputArray                             
                                         _OutputArray                            descriptors )
 
 AutoIt:
-    $agastFeatureDetector.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
+    $oAgastFeatureDetector.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ### cv::AgastFeatureDetector::detectAndCompute
@@ -21721,7 +21721,7 @@ void cv::AgastFeatureDetector::detectAndCompute( _InputArray                imag
                                                  bool                       useProvidedKeypoints = false )
 
 AutoIt:
-    $agastFeatureDetector.detectAndCompute( $image, $mask[, $descriptors[, $useProvidedKeypoints[, $keypoints]]] ) -> $keypoints, $descriptors
+    $oAgastFeatureDetector.detectAndCompute( $image, $mask[, $descriptors[, $useProvidedKeypoints[, $keypoints]]] ) -> $keypoints, $descriptors
 ```
 
 ### cv::AgastFeatureDetector::descriptorSize
@@ -21730,7 +21730,7 @@ AutoIt:
 int cv::AgastFeatureDetector::descriptorSize()
 
 AutoIt:
-    $agastFeatureDetector.descriptorSize() -> retval
+    $oAgastFeatureDetector.descriptorSize() -> retval
 ```
 
 ### cv::AgastFeatureDetector::descriptorType
@@ -21739,7 +21739,7 @@ AutoIt:
 int cv::AgastFeatureDetector::descriptorType()
 
 AutoIt:
-    $agastFeatureDetector.descriptorType() -> retval
+    $oAgastFeatureDetector.descriptorType() -> retval
 ```
 
 ### cv::AgastFeatureDetector::defaultNorm
@@ -21748,7 +21748,7 @@ AutoIt:
 int cv::AgastFeatureDetector::defaultNorm()
 
 AutoIt:
-    $agastFeatureDetector.defaultNorm() -> retval
+    $oAgastFeatureDetector.defaultNorm() -> retval
 ```
 
 ### cv::AgastFeatureDetector::write
@@ -21757,7 +21757,7 @@ AutoIt:
 void cv::AgastFeatureDetector::write( const std::string& fileName )
 
 AutoIt:
-    $agastFeatureDetector.write( $fileName ) -> None
+    $oAgastFeatureDetector.write( $fileName ) -> None
 ```
 
 ```cpp
@@ -21765,7 +21765,7 @@ void cv::AgastFeatureDetector::write( const cv::Ptr<cv::FileStorage>& fs,
                                       const std::string&              name = String() )
 
 AutoIt:
-    $agastFeatureDetector.write( $fs[, $name] ) -> None
+    $oAgastFeatureDetector.write( $fs[, $name] ) -> None
 ```
 
 ### cv::AgastFeatureDetector::read
@@ -21774,14 +21774,14 @@ AutoIt:
 void cv::AgastFeatureDetector::read( const std::string& fileName )
 
 AutoIt:
-    $agastFeatureDetector.read( $fileName ) -> None
+    $oAgastFeatureDetector.read( $fileName ) -> None
 ```
 
 ```cpp
 void cv::AgastFeatureDetector::read( const cv::FileNode& arg1 )
 
 AutoIt:
-    $agastFeatureDetector.read( $arg1 ) -> None
+    $oAgastFeatureDetector.read( $arg1 ) -> None
 ```
 
 ### cv::AgastFeatureDetector::empty
@@ -21790,7 +21790,7 @@ AutoIt:
 bool cv::AgastFeatureDetector::empty()
 
 AutoIt:
-    $agastFeatureDetector.empty() -> retval
+    $oAgastFeatureDetector.empty() -> retval
 ```
 
 ### cv::AgastFeatureDetector::clear
@@ -21799,7 +21799,7 @@ AutoIt:
 void cv::AgastFeatureDetector::clear()
 
 AutoIt:
-    $agastFeatureDetector.clear() -> None
+    $oAgastFeatureDetector.clear() -> None
 ```
 
 ### cv::AgastFeatureDetector::save
@@ -21808,7 +21808,7 @@ AutoIt:
 void cv::AgastFeatureDetector::save( const std::string& filename )
 
 AutoIt:
-    $agastFeatureDetector.save( $filename ) -> None
+    $oAgastFeatureDetector.save( $filename ) -> None
 ```
 
 ## cv::GFTTDetector
@@ -21846,7 +21846,7 @@ AutoIt:
 void cv::GFTTDetector::setMaxFeatures( int maxFeatures )
 
 AutoIt:
-    $gFTTDetector.setMaxFeatures( $maxFeatures ) -> None
+    $oGFTTDetector.setMaxFeatures( $maxFeatures ) -> None
 ```
 
 ### cv::GFTTDetector::getMaxFeatures
@@ -21855,7 +21855,7 @@ AutoIt:
 int cv::GFTTDetector::getMaxFeatures()
 
 AutoIt:
-    $gFTTDetector.getMaxFeatures() -> retval
+    $oGFTTDetector.getMaxFeatures() -> retval
 ```
 
 ### cv::GFTTDetector::setQualityLevel
@@ -21864,7 +21864,7 @@ AutoIt:
 void cv::GFTTDetector::setQualityLevel( double qlevel )
 
 AutoIt:
-    $gFTTDetector.setQualityLevel( $qlevel ) -> None
+    $oGFTTDetector.setQualityLevel( $qlevel ) -> None
 ```
 
 ### cv::GFTTDetector::getQualityLevel
@@ -21873,7 +21873,7 @@ AutoIt:
 double cv::GFTTDetector::getQualityLevel()
 
 AutoIt:
-    $gFTTDetector.getQualityLevel() -> retval
+    $oGFTTDetector.getQualityLevel() -> retval
 ```
 
 ### cv::GFTTDetector::setMinDistance
@@ -21882,7 +21882,7 @@ AutoIt:
 void cv::GFTTDetector::setMinDistance( double minDistance )
 
 AutoIt:
-    $gFTTDetector.setMinDistance( $minDistance ) -> None
+    $oGFTTDetector.setMinDistance( $minDistance ) -> None
 ```
 
 ### cv::GFTTDetector::getMinDistance
@@ -21891,7 +21891,7 @@ AutoIt:
 double cv::GFTTDetector::getMinDistance()
 
 AutoIt:
-    $gFTTDetector.getMinDistance() -> retval
+    $oGFTTDetector.getMinDistance() -> retval
 ```
 
 ### cv::GFTTDetector::setBlockSize
@@ -21900,7 +21900,7 @@ AutoIt:
 void cv::GFTTDetector::setBlockSize( int blockSize )
 
 AutoIt:
-    $gFTTDetector.setBlockSize( $blockSize ) -> None
+    $oGFTTDetector.setBlockSize( $blockSize ) -> None
 ```
 
 ### cv::GFTTDetector::getBlockSize
@@ -21909,7 +21909,7 @@ AutoIt:
 int cv::GFTTDetector::getBlockSize()
 
 AutoIt:
-    $gFTTDetector.getBlockSize() -> retval
+    $oGFTTDetector.getBlockSize() -> retval
 ```
 
 ### cv::GFTTDetector::setHarrisDetector
@@ -21918,7 +21918,7 @@ AutoIt:
 void cv::GFTTDetector::setHarrisDetector( bool val )
 
 AutoIt:
-    $gFTTDetector.setHarrisDetector( $val ) -> None
+    $oGFTTDetector.setHarrisDetector( $val ) -> None
 ```
 
 ### cv::GFTTDetector::getHarrisDetector
@@ -21927,7 +21927,7 @@ AutoIt:
 bool cv::GFTTDetector::getHarrisDetector()
 
 AutoIt:
-    $gFTTDetector.getHarrisDetector() -> retval
+    $oGFTTDetector.getHarrisDetector() -> retval
 ```
 
 ### cv::GFTTDetector::setK
@@ -21936,7 +21936,7 @@ AutoIt:
 void cv::GFTTDetector::setK( double k )
 
 AutoIt:
-    $gFTTDetector.setK( $k ) -> None
+    $oGFTTDetector.setK( $k ) -> None
 ```
 
 ### cv::GFTTDetector::getK
@@ -21945,7 +21945,7 @@ AutoIt:
 double cv::GFTTDetector::getK()
 
 AutoIt:
-    $gFTTDetector.getK() -> retval
+    $oGFTTDetector.getK() -> retval
 ```
 
 ### cv::GFTTDetector::getDefaultName
@@ -21954,7 +21954,7 @@ AutoIt:
 std::string cv::GFTTDetector::getDefaultName()
 
 AutoIt:
-    $gFTTDetector.getDefaultName() -> retval
+    $oGFTTDetector.getDefaultName() -> retval
 ```
 
 ### cv::GFTTDetector::detect
@@ -21965,7 +21965,7 @@ void cv::GFTTDetector::detect( _InputArray                image,
                                _InputArray                mask = noArray() )
 
 AutoIt:
-    $gFTTDetector.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
+    $oGFTTDetector.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
 ```
 
 ```cpp
@@ -21974,7 +21974,7 @@ void cv::GFTTDetector::detect( _InputArray                             images,
                                _InputArray                             masks = noArray() )
 
 AutoIt:
-    $gFTTDetector.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
+    $oGFTTDetector.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
 ```
 
 ### cv::GFTTDetector::compute
@@ -21985,7 +21985,7 @@ void cv::GFTTDetector::compute( _InputArray                image,
                                 _OutputArray               descriptors )
 
 AutoIt:
-    $gFTTDetector.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
+    $oGFTTDetector.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ```cpp
@@ -21994,7 +21994,7 @@ void cv::GFTTDetector::compute( _InputArray                             images,
                                 _OutputArray                            descriptors )
 
 AutoIt:
-    $gFTTDetector.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
+    $oGFTTDetector.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ### cv::GFTTDetector::detectAndCompute
@@ -22007,7 +22007,7 @@ void cv::GFTTDetector::detectAndCompute( _InputArray                image,
                                          bool                       useProvidedKeypoints = false )
 
 AutoIt:
-    $gFTTDetector.detectAndCompute( $image, $mask[, $descriptors[, $useProvidedKeypoints[, $keypoints]]] ) -> $keypoints, $descriptors
+    $oGFTTDetector.detectAndCompute( $image, $mask[, $descriptors[, $useProvidedKeypoints[, $keypoints]]] ) -> $keypoints, $descriptors
 ```
 
 ### cv::GFTTDetector::descriptorSize
@@ -22016,7 +22016,7 @@ AutoIt:
 int cv::GFTTDetector::descriptorSize()
 
 AutoIt:
-    $gFTTDetector.descriptorSize() -> retval
+    $oGFTTDetector.descriptorSize() -> retval
 ```
 
 ### cv::GFTTDetector::descriptorType
@@ -22025,7 +22025,7 @@ AutoIt:
 int cv::GFTTDetector::descriptorType()
 
 AutoIt:
-    $gFTTDetector.descriptorType() -> retval
+    $oGFTTDetector.descriptorType() -> retval
 ```
 
 ### cv::GFTTDetector::defaultNorm
@@ -22034,7 +22034,7 @@ AutoIt:
 int cv::GFTTDetector::defaultNorm()
 
 AutoIt:
-    $gFTTDetector.defaultNorm() -> retval
+    $oGFTTDetector.defaultNorm() -> retval
 ```
 
 ### cv::GFTTDetector::write
@@ -22043,7 +22043,7 @@ AutoIt:
 void cv::GFTTDetector::write( const std::string& fileName )
 
 AutoIt:
-    $gFTTDetector.write( $fileName ) -> None
+    $oGFTTDetector.write( $fileName ) -> None
 ```
 
 ```cpp
@@ -22051,7 +22051,7 @@ void cv::GFTTDetector::write( const cv::Ptr<cv::FileStorage>& fs,
                               const std::string&              name = String() )
 
 AutoIt:
-    $gFTTDetector.write( $fs[, $name] ) -> None
+    $oGFTTDetector.write( $fs[, $name] ) -> None
 ```
 
 ### cv::GFTTDetector::read
@@ -22060,14 +22060,14 @@ AutoIt:
 void cv::GFTTDetector::read( const std::string& fileName )
 
 AutoIt:
-    $gFTTDetector.read( $fileName ) -> None
+    $oGFTTDetector.read( $fileName ) -> None
 ```
 
 ```cpp
 void cv::GFTTDetector::read( const cv::FileNode& arg1 )
 
 AutoIt:
-    $gFTTDetector.read( $arg1 ) -> None
+    $oGFTTDetector.read( $arg1 ) -> None
 ```
 
 ### cv::GFTTDetector::empty
@@ -22076,7 +22076,7 @@ AutoIt:
 bool cv::GFTTDetector::empty()
 
 AutoIt:
-    $gFTTDetector.empty() -> retval
+    $oGFTTDetector.empty() -> retval
 ```
 
 ### cv::GFTTDetector::clear
@@ -22085,7 +22085,7 @@ AutoIt:
 void cv::GFTTDetector::clear()
 
 AutoIt:
-    $gFTTDetector.clear() -> None
+    $oGFTTDetector.clear() -> None
 ```
 
 ### cv::GFTTDetector::save
@@ -22094,7 +22094,7 @@ AutoIt:
 void cv::GFTTDetector::save( const std::string& filename )
 
 AutoIt:
-    $gFTTDetector.save( $filename ) -> None
+    $oGFTTDetector.save( $filename ) -> None
 ```
 
 ## cv::SimpleBlobDetector
@@ -22114,7 +22114,7 @@ AutoIt:
 std::string cv::SimpleBlobDetector::getDefaultName()
 
 AutoIt:
-    $simpleBlobDetector.getDefaultName() -> retval
+    $oSimpleBlobDetector.getDefaultName() -> retval
 ```
 
 ### cv::SimpleBlobDetector::detect
@@ -22125,7 +22125,7 @@ void cv::SimpleBlobDetector::detect( _InputArray                image,
                                      _InputArray                mask = noArray() )
 
 AutoIt:
-    $simpleBlobDetector.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
+    $oSimpleBlobDetector.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
 ```
 
 ```cpp
@@ -22134,7 +22134,7 @@ void cv::SimpleBlobDetector::detect( _InputArray                             ima
                                      _InputArray                             masks = noArray() )
 
 AutoIt:
-    $simpleBlobDetector.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
+    $oSimpleBlobDetector.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
 ```
 
 ### cv::SimpleBlobDetector::compute
@@ -22145,7 +22145,7 @@ void cv::SimpleBlobDetector::compute( _InputArray                image,
                                       _OutputArray               descriptors )
 
 AutoIt:
-    $simpleBlobDetector.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
+    $oSimpleBlobDetector.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ```cpp
@@ -22154,7 +22154,7 @@ void cv::SimpleBlobDetector::compute( _InputArray                             im
                                       _OutputArray                            descriptors )
 
 AutoIt:
-    $simpleBlobDetector.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
+    $oSimpleBlobDetector.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ### cv::SimpleBlobDetector::detectAndCompute
@@ -22167,7 +22167,7 @@ void cv::SimpleBlobDetector::detectAndCompute( _InputArray                image,
                                                bool                       useProvidedKeypoints = false )
 
 AutoIt:
-    $simpleBlobDetector.detectAndCompute( $image, $mask[, $descriptors[, $useProvidedKeypoints[, $keypoints]]] ) -> $keypoints, $descriptors
+    $oSimpleBlobDetector.detectAndCompute( $image, $mask[, $descriptors[, $useProvidedKeypoints[, $keypoints]]] ) -> $keypoints, $descriptors
 ```
 
 ### cv::SimpleBlobDetector::descriptorSize
@@ -22176,7 +22176,7 @@ AutoIt:
 int cv::SimpleBlobDetector::descriptorSize()
 
 AutoIt:
-    $simpleBlobDetector.descriptorSize() -> retval
+    $oSimpleBlobDetector.descriptorSize() -> retval
 ```
 
 ### cv::SimpleBlobDetector::descriptorType
@@ -22185,7 +22185,7 @@ AutoIt:
 int cv::SimpleBlobDetector::descriptorType()
 
 AutoIt:
-    $simpleBlobDetector.descriptorType() -> retval
+    $oSimpleBlobDetector.descriptorType() -> retval
 ```
 
 ### cv::SimpleBlobDetector::defaultNorm
@@ -22194,7 +22194,7 @@ AutoIt:
 int cv::SimpleBlobDetector::defaultNorm()
 
 AutoIt:
-    $simpleBlobDetector.defaultNorm() -> retval
+    $oSimpleBlobDetector.defaultNorm() -> retval
 ```
 
 ### cv::SimpleBlobDetector::write
@@ -22203,7 +22203,7 @@ AutoIt:
 void cv::SimpleBlobDetector::write( const std::string& fileName )
 
 AutoIt:
-    $simpleBlobDetector.write( $fileName ) -> None
+    $oSimpleBlobDetector.write( $fileName ) -> None
 ```
 
 ```cpp
@@ -22211,7 +22211,7 @@ void cv::SimpleBlobDetector::write( const cv::Ptr<cv::FileStorage>& fs,
                                     const std::string&              name = String() )
 
 AutoIt:
-    $simpleBlobDetector.write( $fs[, $name] ) -> None
+    $oSimpleBlobDetector.write( $fs[, $name] ) -> None
 ```
 
 ### cv::SimpleBlobDetector::read
@@ -22220,14 +22220,14 @@ AutoIt:
 void cv::SimpleBlobDetector::read( const std::string& fileName )
 
 AutoIt:
-    $simpleBlobDetector.read( $fileName ) -> None
+    $oSimpleBlobDetector.read( $fileName ) -> None
 ```
 
 ```cpp
 void cv::SimpleBlobDetector::read( const cv::FileNode& arg1 )
 
 AutoIt:
-    $simpleBlobDetector.read( $arg1 ) -> None
+    $oSimpleBlobDetector.read( $arg1 ) -> None
 ```
 
 ### cv::SimpleBlobDetector::empty
@@ -22236,7 +22236,7 @@ AutoIt:
 bool cv::SimpleBlobDetector::empty()
 
 AutoIt:
-    $simpleBlobDetector.empty() -> retval
+    $oSimpleBlobDetector.empty() -> retval
 ```
 
 ### cv::SimpleBlobDetector::clear
@@ -22245,7 +22245,7 @@ AutoIt:
 void cv::SimpleBlobDetector::clear()
 
 AutoIt:
-    $simpleBlobDetector.clear() -> None
+    $oSimpleBlobDetector.clear() -> None
 ```
 
 ### cv::SimpleBlobDetector::save
@@ -22254,7 +22254,7 @@ AutoIt:
 void cv::SimpleBlobDetector::save( const std::string& filename )
 
 AutoIt:
-    $simpleBlobDetector.save( $filename ) -> None
+    $oSimpleBlobDetector.save( $filename ) -> None
 ```
 
 ## cv::SimpleBlobDetector::Params
@@ -22297,7 +22297,7 @@ AutoIt:
 void cv::KAZE::setExtended( bool extended )
 
 AutoIt:
-    $kAZE.setExtended( $extended ) -> None
+    $oKAZE.setExtended( $extended ) -> None
 ```
 
 ### cv::KAZE::getExtended
@@ -22306,7 +22306,7 @@ AutoIt:
 bool cv::KAZE::getExtended()
 
 AutoIt:
-    $kAZE.getExtended() -> retval
+    $oKAZE.getExtended() -> retval
 ```
 
 ### cv::KAZE::setUpright
@@ -22315,7 +22315,7 @@ AutoIt:
 void cv::KAZE::setUpright( bool upright )
 
 AutoIt:
-    $kAZE.setUpright( $upright ) -> None
+    $oKAZE.setUpright( $upright ) -> None
 ```
 
 ### cv::KAZE::getUpright
@@ -22324,7 +22324,7 @@ AutoIt:
 bool cv::KAZE::getUpright()
 
 AutoIt:
-    $kAZE.getUpright() -> retval
+    $oKAZE.getUpright() -> retval
 ```
 
 ### cv::KAZE::setThreshold
@@ -22333,7 +22333,7 @@ AutoIt:
 void cv::KAZE::setThreshold( double threshold )
 
 AutoIt:
-    $kAZE.setThreshold( $threshold ) -> None
+    $oKAZE.setThreshold( $threshold ) -> None
 ```
 
 ### cv::KAZE::getThreshold
@@ -22342,7 +22342,7 @@ AutoIt:
 double cv::KAZE::getThreshold()
 
 AutoIt:
-    $kAZE.getThreshold() -> retval
+    $oKAZE.getThreshold() -> retval
 ```
 
 ### cv::KAZE::setNOctaves
@@ -22351,7 +22351,7 @@ AutoIt:
 void cv::KAZE::setNOctaves( int octaves )
 
 AutoIt:
-    $kAZE.setNOctaves( $octaves ) -> None
+    $oKAZE.setNOctaves( $octaves ) -> None
 ```
 
 ### cv::KAZE::getNOctaves
@@ -22360,7 +22360,7 @@ AutoIt:
 int cv::KAZE::getNOctaves()
 
 AutoIt:
-    $kAZE.getNOctaves() -> retval
+    $oKAZE.getNOctaves() -> retval
 ```
 
 ### cv::KAZE::setNOctaveLayers
@@ -22369,7 +22369,7 @@ AutoIt:
 void cv::KAZE::setNOctaveLayers( int octaveLayers )
 
 AutoIt:
-    $kAZE.setNOctaveLayers( $octaveLayers ) -> None
+    $oKAZE.setNOctaveLayers( $octaveLayers ) -> None
 ```
 
 ### cv::KAZE::getNOctaveLayers
@@ -22378,7 +22378,7 @@ AutoIt:
 int cv::KAZE::getNOctaveLayers()
 
 AutoIt:
-    $kAZE.getNOctaveLayers() -> retval
+    $oKAZE.getNOctaveLayers() -> retval
 ```
 
 ### cv::KAZE::setDiffusivity
@@ -22387,7 +22387,7 @@ AutoIt:
 void cv::KAZE::setDiffusivity( int diff )
 
 AutoIt:
-    $kAZE.setDiffusivity( $diff ) -> None
+    $oKAZE.setDiffusivity( $diff ) -> None
 ```
 
 ### cv::KAZE::getDiffusivity
@@ -22396,7 +22396,7 @@ AutoIt:
 int cv::KAZE::getDiffusivity()
 
 AutoIt:
-    $kAZE.getDiffusivity() -> retval
+    $oKAZE.getDiffusivity() -> retval
 ```
 
 ### cv::KAZE::getDefaultName
@@ -22405,7 +22405,7 @@ AutoIt:
 std::string cv::KAZE::getDefaultName()
 
 AutoIt:
-    $kAZE.getDefaultName() -> retval
+    $oKAZE.getDefaultName() -> retval
 ```
 
 ### cv::KAZE::detect
@@ -22416,7 +22416,7 @@ void cv::KAZE::detect( _InputArray                image,
                        _InputArray                mask = noArray() )
 
 AutoIt:
-    $kAZE.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
+    $oKAZE.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
 ```
 
 ```cpp
@@ -22425,7 +22425,7 @@ void cv::KAZE::detect( _InputArray                             images,
                        _InputArray                             masks = noArray() )
 
 AutoIt:
-    $kAZE.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
+    $oKAZE.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
 ```
 
 ### cv::KAZE::compute
@@ -22436,7 +22436,7 @@ void cv::KAZE::compute( _InputArray                image,
                         _OutputArray               descriptors )
 
 AutoIt:
-    $kAZE.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
+    $oKAZE.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ```cpp
@@ -22445,7 +22445,7 @@ void cv::KAZE::compute( _InputArray                             images,
                         _OutputArray                            descriptors )
 
 AutoIt:
-    $kAZE.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
+    $oKAZE.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ### cv::KAZE::detectAndCompute
@@ -22458,7 +22458,7 @@ void cv::KAZE::detectAndCompute( _InputArray                image,
                                  bool                       useProvidedKeypoints = false )
 
 AutoIt:
-    $kAZE.detectAndCompute( $image, $mask[, $descriptors[, $useProvidedKeypoints[, $keypoints]]] ) -> $keypoints, $descriptors
+    $oKAZE.detectAndCompute( $image, $mask[, $descriptors[, $useProvidedKeypoints[, $keypoints]]] ) -> $keypoints, $descriptors
 ```
 
 ### cv::KAZE::descriptorSize
@@ -22467,7 +22467,7 @@ AutoIt:
 int cv::KAZE::descriptorSize()
 
 AutoIt:
-    $kAZE.descriptorSize() -> retval
+    $oKAZE.descriptorSize() -> retval
 ```
 
 ### cv::KAZE::descriptorType
@@ -22476,7 +22476,7 @@ AutoIt:
 int cv::KAZE::descriptorType()
 
 AutoIt:
-    $kAZE.descriptorType() -> retval
+    $oKAZE.descriptorType() -> retval
 ```
 
 ### cv::KAZE::defaultNorm
@@ -22485,7 +22485,7 @@ AutoIt:
 int cv::KAZE::defaultNorm()
 
 AutoIt:
-    $kAZE.defaultNorm() -> retval
+    $oKAZE.defaultNorm() -> retval
 ```
 
 ### cv::KAZE::write
@@ -22494,7 +22494,7 @@ AutoIt:
 void cv::KAZE::write( const std::string& fileName )
 
 AutoIt:
-    $kAZE.write( $fileName ) -> None
+    $oKAZE.write( $fileName ) -> None
 ```
 
 ```cpp
@@ -22502,7 +22502,7 @@ void cv::KAZE::write( const cv::Ptr<cv::FileStorage>& fs,
                       const std::string&              name = String() )
 
 AutoIt:
-    $kAZE.write( $fs[, $name] ) -> None
+    $oKAZE.write( $fs[, $name] ) -> None
 ```
 
 ### cv::KAZE::read
@@ -22511,14 +22511,14 @@ AutoIt:
 void cv::KAZE::read( const std::string& fileName )
 
 AutoIt:
-    $kAZE.read( $fileName ) -> None
+    $oKAZE.read( $fileName ) -> None
 ```
 
 ```cpp
 void cv::KAZE::read( const cv::FileNode& arg1 )
 
 AutoIt:
-    $kAZE.read( $arg1 ) -> None
+    $oKAZE.read( $arg1 ) -> None
 ```
 
 ### cv::KAZE::empty
@@ -22527,7 +22527,7 @@ AutoIt:
 bool cv::KAZE::empty()
 
 AutoIt:
-    $kAZE.empty() -> retval
+    $oKAZE.empty() -> retval
 ```
 
 ### cv::KAZE::clear
@@ -22536,7 +22536,7 @@ AutoIt:
 void cv::KAZE::clear()
 
 AutoIt:
-    $kAZE.clear() -> None
+    $oKAZE.clear() -> None
 ```
 
 ### cv::KAZE::save
@@ -22545,7 +22545,7 @@ AutoIt:
 void cv::KAZE::save( const std::string& filename )
 
 AutoIt:
-    $kAZE.save( $filename ) -> None
+    $oKAZE.save( $filename ) -> None
 ```
 
 ## cv::AKAZE
@@ -22571,7 +22571,7 @@ AutoIt:
 void cv::AKAZE::setDescriptorType( int dtype )
 
 AutoIt:
-    $aKAZE.setDescriptorType( $dtype ) -> None
+    $oAKAZE.setDescriptorType( $dtype ) -> None
 ```
 
 ### cv::AKAZE::getDescriptorType
@@ -22580,7 +22580,7 @@ AutoIt:
 int cv::AKAZE::getDescriptorType()
 
 AutoIt:
-    $aKAZE.getDescriptorType() -> retval
+    $oAKAZE.getDescriptorType() -> retval
 ```
 
 ### cv::AKAZE::setDescriptorSize
@@ -22589,7 +22589,7 @@ AutoIt:
 void cv::AKAZE::setDescriptorSize( int dsize )
 
 AutoIt:
-    $aKAZE.setDescriptorSize( $dsize ) -> None
+    $oAKAZE.setDescriptorSize( $dsize ) -> None
 ```
 
 ### cv::AKAZE::getDescriptorSize
@@ -22598,7 +22598,7 @@ AutoIt:
 int cv::AKAZE::getDescriptorSize()
 
 AutoIt:
-    $aKAZE.getDescriptorSize() -> retval
+    $oAKAZE.getDescriptorSize() -> retval
 ```
 
 ### cv::AKAZE::setDescriptorChannels
@@ -22607,7 +22607,7 @@ AutoIt:
 void cv::AKAZE::setDescriptorChannels( int dch )
 
 AutoIt:
-    $aKAZE.setDescriptorChannels( $dch ) -> None
+    $oAKAZE.setDescriptorChannels( $dch ) -> None
 ```
 
 ### cv::AKAZE::getDescriptorChannels
@@ -22616,7 +22616,7 @@ AutoIt:
 int cv::AKAZE::getDescriptorChannels()
 
 AutoIt:
-    $aKAZE.getDescriptorChannels() -> retval
+    $oAKAZE.getDescriptorChannels() -> retval
 ```
 
 ### cv::AKAZE::setThreshold
@@ -22625,7 +22625,7 @@ AutoIt:
 void cv::AKAZE::setThreshold( double threshold )
 
 AutoIt:
-    $aKAZE.setThreshold( $threshold ) -> None
+    $oAKAZE.setThreshold( $threshold ) -> None
 ```
 
 ### cv::AKAZE::getThreshold
@@ -22634,7 +22634,7 @@ AutoIt:
 double cv::AKAZE::getThreshold()
 
 AutoIt:
-    $aKAZE.getThreshold() -> retval
+    $oAKAZE.getThreshold() -> retval
 ```
 
 ### cv::AKAZE::setNOctaves
@@ -22643,7 +22643,7 @@ AutoIt:
 void cv::AKAZE::setNOctaves( int octaves )
 
 AutoIt:
-    $aKAZE.setNOctaves( $octaves ) -> None
+    $oAKAZE.setNOctaves( $octaves ) -> None
 ```
 
 ### cv::AKAZE::getNOctaves
@@ -22652,7 +22652,7 @@ AutoIt:
 int cv::AKAZE::getNOctaves()
 
 AutoIt:
-    $aKAZE.getNOctaves() -> retval
+    $oAKAZE.getNOctaves() -> retval
 ```
 
 ### cv::AKAZE::setNOctaveLayers
@@ -22661,7 +22661,7 @@ AutoIt:
 void cv::AKAZE::setNOctaveLayers( int octaveLayers )
 
 AutoIt:
-    $aKAZE.setNOctaveLayers( $octaveLayers ) -> None
+    $oAKAZE.setNOctaveLayers( $octaveLayers ) -> None
 ```
 
 ### cv::AKAZE::getNOctaveLayers
@@ -22670,7 +22670,7 @@ AutoIt:
 int cv::AKAZE::getNOctaveLayers()
 
 AutoIt:
-    $aKAZE.getNOctaveLayers() -> retval
+    $oAKAZE.getNOctaveLayers() -> retval
 ```
 
 ### cv::AKAZE::setDiffusivity
@@ -22679,7 +22679,7 @@ AutoIt:
 void cv::AKAZE::setDiffusivity( int diff )
 
 AutoIt:
-    $aKAZE.setDiffusivity( $diff ) -> None
+    $oAKAZE.setDiffusivity( $diff ) -> None
 ```
 
 ### cv::AKAZE::getDiffusivity
@@ -22688,7 +22688,7 @@ AutoIt:
 int cv::AKAZE::getDiffusivity()
 
 AutoIt:
-    $aKAZE.getDiffusivity() -> retval
+    $oAKAZE.getDiffusivity() -> retval
 ```
 
 ### cv::AKAZE::getDefaultName
@@ -22697,7 +22697,7 @@ AutoIt:
 std::string cv::AKAZE::getDefaultName()
 
 AutoIt:
-    $aKAZE.getDefaultName() -> retval
+    $oAKAZE.getDefaultName() -> retval
 ```
 
 ### cv::AKAZE::detect
@@ -22708,7 +22708,7 @@ void cv::AKAZE::detect( _InputArray                image,
                         _InputArray                mask = noArray() )
 
 AutoIt:
-    $aKAZE.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
+    $oAKAZE.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
 ```
 
 ```cpp
@@ -22717,7 +22717,7 @@ void cv::AKAZE::detect( _InputArray                             images,
                         _InputArray                             masks = noArray() )
 
 AutoIt:
-    $aKAZE.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
+    $oAKAZE.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
 ```
 
 ### cv::AKAZE::compute
@@ -22728,7 +22728,7 @@ void cv::AKAZE::compute( _InputArray                image,
                          _OutputArray               descriptors )
 
 AutoIt:
-    $aKAZE.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
+    $oAKAZE.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ```cpp
@@ -22737,7 +22737,7 @@ void cv::AKAZE::compute( _InputArray                             images,
                          _OutputArray                            descriptors )
 
 AutoIt:
-    $aKAZE.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
+    $oAKAZE.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ### cv::AKAZE::detectAndCompute
@@ -22750,7 +22750,7 @@ void cv::AKAZE::detectAndCompute( _InputArray                image,
                                   bool                       useProvidedKeypoints = false )
 
 AutoIt:
-    $aKAZE.detectAndCompute( $image, $mask[, $descriptors[, $useProvidedKeypoints[, $keypoints]]] ) -> $keypoints, $descriptors
+    $oAKAZE.detectAndCompute( $image, $mask[, $descriptors[, $useProvidedKeypoints[, $keypoints]]] ) -> $keypoints, $descriptors
 ```
 
 ### cv::AKAZE::descriptorSize
@@ -22759,7 +22759,7 @@ AutoIt:
 int cv::AKAZE::descriptorSize()
 
 AutoIt:
-    $aKAZE.descriptorSize() -> retval
+    $oAKAZE.descriptorSize() -> retval
 ```
 
 ### cv::AKAZE::descriptorType
@@ -22768,7 +22768,7 @@ AutoIt:
 int cv::AKAZE::descriptorType()
 
 AutoIt:
-    $aKAZE.descriptorType() -> retval
+    $oAKAZE.descriptorType() -> retval
 ```
 
 ### cv::AKAZE::defaultNorm
@@ -22777,7 +22777,7 @@ AutoIt:
 int cv::AKAZE::defaultNorm()
 
 AutoIt:
-    $aKAZE.defaultNorm() -> retval
+    $oAKAZE.defaultNorm() -> retval
 ```
 
 ### cv::AKAZE::write
@@ -22786,7 +22786,7 @@ AutoIt:
 void cv::AKAZE::write( const std::string& fileName )
 
 AutoIt:
-    $aKAZE.write( $fileName ) -> None
+    $oAKAZE.write( $fileName ) -> None
 ```
 
 ```cpp
@@ -22794,7 +22794,7 @@ void cv::AKAZE::write( const cv::Ptr<cv::FileStorage>& fs,
                        const std::string&              name = String() )
 
 AutoIt:
-    $aKAZE.write( $fs[, $name] ) -> None
+    $oAKAZE.write( $fs[, $name] ) -> None
 ```
 
 ### cv::AKAZE::read
@@ -22803,14 +22803,14 @@ AutoIt:
 void cv::AKAZE::read( const std::string& fileName )
 
 AutoIt:
-    $aKAZE.read( $fileName ) -> None
+    $oAKAZE.read( $fileName ) -> None
 ```
 
 ```cpp
 void cv::AKAZE::read( const cv::FileNode& arg1 )
 
 AutoIt:
-    $aKAZE.read( $arg1 ) -> None
+    $oAKAZE.read( $arg1 ) -> None
 ```
 
 ### cv::AKAZE::empty
@@ -22819,7 +22819,7 @@ AutoIt:
 bool cv::AKAZE::empty()
 
 AutoIt:
-    $aKAZE.empty() -> retval
+    $oAKAZE.empty() -> retval
 ```
 
 ### cv::AKAZE::clear
@@ -22828,7 +22828,7 @@ AutoIt:
 void cv::AKAZE::clear()
 
 AutoIt:
-    $aKAZE.clear() -> None
+    $oAKAZE.clear() -> None
 ```
 
 ### cv::AKAZE::save
@@ -22837,7 +22837,7 @@ AutoIt:
 void cv::AKAZE::save( const std::string& filename )
 
 AutoIt:
-    $aKAZE.save( $filename ) -> None
+    $oAKAZE.save( $filename ) -> None
 ```
 
 ## cv::DescriptorMatcher
@@ -22848,7 +22848,7 @@ AutoIt:
 void cv::DescriptorMatcher::add( _InputArray descriptors )
 
 AutoIt:
-    $descriptorMatcher.add( $descriptors ) -> None
+    $oDescriptorMatcher.add( $descriptors ) -> None
 ```
 
 ### cv::DescriptorMatcher::getTrainDescriptors
@@ -22857,7 +22857,7 @@ AutoIt:
 std::vector<cv::Mat> cv::DescriptorMatcher::getTrainDescriptors()
 
 AutoIt:
-    $descriptorMatcher.getTrainDescriptors() -> retval
+    $oDescriptorMatcher.getTrainDescriptors() -> retval
 ```
 
 ### cv::DescriptorMatcher::clear
@@ -22866,7 +22866,7 @@ AutoIt:
 void cv::DescriptorMatcher::clear()
 
 AutoIt:
-    $descriptorMatcher.clear() -> None
+    $oDescriptorMatcher.clear() -> None
 ```
 
 ### cv::DescriptorMatcher::empty
@@ -22875,7 +22875,7 @@ AutoIt:
 bool cv::DescriptorMatcher::empty()
 
 AutoIt:
-    $descriptorMatcher.empty() -> retval
+    $oDescriptorMatcher.empty() -> retval
 ```
 
 ### cv::DescriptorMatcher::isMaskSupported
@@ -22884,7 +22884,7 @@ AutoIt:
 bool cv::DescriptorMatcher::isMaskSupported()
 
 AutoIt:
-    $descriptorMatcher.isMaskSupported() -> retval
+    $oDescriptorMatcher.isMaskSupported() -> retval
 ```
 
 ### cv::DescriptorMatcher::train
@@ -22893,7 +22893,7 @@ AutoIt:
 void cv::DescriptorMatcher::train()
 
 AutoIt:
-    $descriptorMatcher.train() -> None
+    $oDescriptorMatcher.train() -> None
 ```
 
 ### cv::DescriptorMatcher::match
@@ -22905,7 +22905,7 @@ void cv::DescriptorMatcher::match( _InputArray              queryDescriptors,
                                    _InputArray              mask = noArray() )
 
 AutoIt:
-    $descriptorMatcher.match( $queryDescriptors, $trainDescriptors[, $mask[, $matches]] ) -> $matches
+    $oDescriptorMatcher.match( $queryDescriptors, $trainDescriptors[, $mask[, $matches]] ) -> $matches
 ```
 
 ```cpp
@@ -22914,7 +22914,7 @@ void cv::DescriptorMatcher::match( _InputArray              queryDescriptors,
                                    _InputArray              masks = noArray() )
 
 AutoIt:
-    $descriptorMatcher.match( $queryDescriptors[, $masks[, $matches]] ) -> $matches
+    $oDescriptorMatcher.match( $queryDescriptors[, $masks[, $matches]] ) -> $matches
 ```
 
 ### cv::DescriptorMatcher::knnMatch
@@ -22928,7 +22928,7 @@ void cv::DescriptorMatcher::knnMatch( _InputArray                           quer
                                       bool                                  compactResult = false )
 
 AutoIt:
-    $descriptorMatcher.knnMatch( $queryDescriptors, $trainDescriptors, $k[, $mask[, $compactResult[, $matches]]] ) -> $matches
+    $oDescriptorMatcher.knnMatch( $queryDescriptors, $trainDescriptors, $k[, $mask[, $compactResult[, $matches]]] ) -> $matches
 ```
 
 ```cpp
@@ -22939,7 +22939,7 @@ void cv::DescriptorMatcher::knnMatch( _InputArray                           quer
                                       bool                                  compactResult = false )
 
 AutoIt:
-    $descriptorMatcher.knnMatch( $queryDescriptors, $k[, $masks[, $compactResult[, $matches]]] ) -> $matches
+    $oDescriptorMatcher.knnMatch( $queryDescriptors, $k[, $masks[, $compactResult[, $matches]]] ) -> $matches
 ```
 
 ### cv::DescriptorMatcher::radiusMatch
@@ -22953,7 +22953,7 @@ void cv::DescriptorMatcher::radiusMatch( _InputArray                           q
                                          bool                                  compactResult = false )
 
 AutoIt:
-    $descriptorMatcher.radiusMatch( $queryDescriptors, $trainDescriptors, $maxDistance[, $mask[, $compactResult[, $matches]]] ) -> $matches
+    $oDescriptorMatcher.radiusMatch( $queryDescriptors, $trainDescriptors, $maxDistance[, $mask[, $compactResult[, $matches]]] ) -> $matches
 ```
 
 ```cpp
@@ -22964,7 +22964,7 @@ void cv::DescriptorMatcher::radiusMatch( _InputArray                           q
                                          bool                                  compactResult = false )
 
 AutoIt:
-    $descriptorMatcher.radiusMatch( $queryDescriptors, $maxDistance[, $masks[, $compactResult[, $matches]]] ) -> $matches
+    $oDescriptorMatcher.radiusMatch( $queryDescriptors, $maxDistance[, $masks[, $compactResult[, $matches]]] ) -> $matches
 ```
 
 ### cv::DescriptorMatcher::write
@@ -22973,7 +22973,7 @@ AutoIt:
 void cv::DescriptorMatcher::write( const std::string& fileName )
 
 AutoIt:
-    $descriptorMatcher.write( $fileName ) -> None
+    $oDescriptorMatcher.write( $fileName ) -> None
 ```
 
 ```cpp
@@ -22981,7 +22981,7 @@ void cv::DescriptorMatcher::write( const cv::Ptr<cv::FileStorage>& fs,
                                    const std::string&              name = String() )
 
 AutoIt:
-    $descriptorMatcher.write( $fs[, $name] ) -> None
+    $oDescriptorMatcher.write( $fs[, $name] ) -> None
 ```
 
 ### cv::DescriptorMatcher::read
@@ -22990,14 +22990,14 @@ AutoIt:
 void cv::DescriptorMatcher::read( const std::string& fileName )
 
 AutoIt:
-    $descriptorMatcher.read( $fileName ) -> None
+    $oDescriptorMatcher.read( $fileName ) -> None
 ```
 
 ```cpp
 void cv::DescriptorMatcher::read( const cv::FileNode& arg1 )
 
 AutoIt:
-    $descriptorMatcher.read( $arg1 ) -> None
+    $oDescriptorMatcher.read( $arg1 ) -> None
 ```
 
 ### cv::DescriptorMatcher::clone
@@ -23006,7 +23006,7 @@ AutoIt:
 cv::Ptr<cv::DescriptorMatcher> cv::DescriptorMatcher::clone( bool emptyTrainData = false )
 
 AutoIt:
-    $descriptorMatcher.clone( [$emptyTrainData] ) -> retval
+    $oDescriptorMatcher.clone( [$emptyTrainData] ) -> retval
 ```
 
 ### cv::DescriptorMatcher::create
@@ -23031,7 +23031,7 @@ AutoIt:
 void cv::DescriptorMatcher::save( const std::string& filename )
 
 AutoIt:
-    $descriptorMatcher.save( $filename ) -> None
+    $oDescriptorMatcher.save( $filename ) -> None
 ```
 
 ### cv::DescriptorMatcher::getDefaultName
@@ -23040,7 +23040,7 @@ AutoIt:
 std::string cv::DescriptorMatcher::getDefaultName()
 
 AutoIt:
-    $descriptorMatcher.getDefaultName() -> retval
+    $oDescriptorMatcher.getDefaultName() -> retval
 ```
 
 ## cv::BFMatcher
@@ -23069,7 +23069,7 @@ AutoIt:
 void cv::BFMatcher::add( _InputArray descriptors )
 
 AutoIt:
-    $bFMatcher.add( $descriptors ) -> None
+    $oBFMatcher.add( $descriptors ) -> None
 ```
 
 ### cv::BFMatcher::getTrainDescriptors
@@ -23078,7 +23078,7 @@ AutoIt:
 std::vector<cv::Mat> cv::BFMatcher::getTrainDescriptors()
 
 AutoIt:
-    $bFMatcher.getTrainDescriptors() -> retval
+    $oBFMatcher.getTrainDescriptors() -> retval
 ```
 
 ### cv::BFMatcher::clear
@@ -23087,7 +23087,7 @@ AutoIt:
 void cv::BFMatcher::clear()
 
 AutoIt:
-    $bFMatcher.clear() -> None
+    $oBFMatcher.clear() -> None
 ```
 
 ### cv::BFMatcher::empty
@@ -23096,7 +23096,7 @@ AutoIt:
 bool cv::BFMatcher::empty()
 
 AutoIt:
-    $bFMatcher.empty() -> retval
+    $oBFMatcher.empty() -> retval
 ```
 
 ### cv::BFMatcher::isMaskSupported
@@ -23105,7 +23105,7 @@ AutoIt:
 bool cv::BFMatcher::isMaskSupported()
 
 AutoIt:
-    $bFMatcher.isMaskSupported() -> retval
+    $oBFMatcher.isMaskSupported() -> retval
 ```
 
 ### cv::BFMatcher::train
@@ -23114,7 +23114,7 @@ AutoIt:
 void cv::BFMatcher::train()
 
 AutoIt:
-    $bFMatcher.train() -> None
+    $oBFMatcher.train() -> None
 ```
 
 ### cv::BFMatcher::match
@@ -23126,7 +23126,7 @@ void cv::BFMatcher::match( _InputArray              queryDescriptors,
                            _InputArray              mask = noArray() )
 
 AutoIt:
-    $bFMatcher.match( $queryDescriptors, $trainDescriptors[, $mask[, $matches]] ) -> $matches
+    $oBFMatcher.match( $queryDescriptors, $trainDescriptors[, $mask[, $matches]] ) -> $matches
 ```
 
 ```cpp
@@ -23135,7 +23135,7 @@ void cv::BFMatcher::match( _InputArray              queryDescriptors,
                            _InputArray              masks = noArray() )
 
 AutoIt:
-    $bFMatcher.match( $queryDescriptors[, $masks[, $matches]] ) -> $matches
+    $oBFMatcher.match( $queryDescriptors[, $masks[, $matches]] ) -> $matches
 ```
 
 ### cv::BFMatcher::knnMatch
@@ -23149,7 +23149,7 @@ void cv::BFMatcher::knnMatch( _InputArray                           queryDescrip
                               bool                                  compactResult = false )
 
 AutoIt:
-    $bFMatcher.knnMatch( $queryDescriptors, $trainDescriptors, $k[, $mask[, $compactResult[, $matches]]] ) -> $matches
+    $oBFMatcher.knnMatch( $queryDescriptors, $trainDescriptors, $k[, $mask[, $compactResult[, $matches]]] ) -> $matches
 ```
 
 ```cpp
@@ -23160,7 +23160,7 @@ void cv::BFMatcher::knnMatch( _InputArray                           queryDescrip
                               bool                                  compactResult = false )
 
 AutoIt:
-    $bFMatcher.knnMatch( $queryDescriptors, $k[, $masks[, $compactResult[, $matches]]] ) -> $matches
+    $oBFMatcher.knnMatch( $queryDescriptors, $k[, $masks[, $compactResult[, $matches]]] ) -> $matches
 ```
 
 ### cv::BFMatcher::radiusMatch
@@ -23174,7 +23174,7 @@ void cv::BFMatcher::radiusMatch( _InputArray                           queryDesc
                                  bool                                  compactResult = false )
 
 AutoIt:
-    $bFMatcher.radiusMatch( $queryDescriptors, $trainDescriptors, $maxDistance[, $mask[, $compactResult[, $matches]]] ) -> $matches
+    $oBFMatcher.radiusMatch( $queryDescriptors, $trainDescriptors, $maxDistance[, $mask[, $compactResult[, $matches]]] ) -> $matches
 ```
 
 ```cpp
@@ -23185,7 +23185,7 @@ void cv::BFMatcher::radiusMatch( _InputArray                           queryDesc
                                  bool                                  compactResult = false )
 
 AutoIt:
-    $bFMatcher.radiusMatch( $queryDescriptors, $maxDistance[, $masks[, $compactResult[, $matches]]] ) -> $matches
+    $oBFMatcher.radiusMatch( $queryDescriptors, $maxDistance[, $masks[, $compactResult[, $matches]]] ) -> $matches
 ```
 
 ### cv::BFMatcher::write
@@ -23194,7 +23194,7 @@ AutoIt:
 void cv::BFMatcher::write( const std::string& fileName )
 
 AutoIt:
-    $bFMatcher.write( $fileName ) -> None
+    $oBFMatcher.write( $fileName ) -> None
 ```
 
 ```cpp
@@ -23202,7 +23202,7 @@ void cv::BFMatcher::write( const cv::Ptr<cv::FileStorage>& fs,
                            const std::string&              name = String() )
 
 AutoIt:
-    $bFMatcher.write( $fs[, $name] ) -> None
+    $oBFMatcher.write( $fs[, $name] ) -> None
 ```
 
 ### cv::BFMatcher::read
@@ -23211,14 +23211,14 @@ AutoIt:
 void cv::BFMatcher::read( const std::string& fileName )
 
 AutoIt:
-    $bFMatcher.read( $fileName ) -> None
+    $oBFMatcher.read( $fileName ) -> None
 ```
 
 ```cpp
 void cv::BFMatcher::read( const cv::FileNode& arg1 )
 
 AutoIt:
-    $bFMatcher.read( $arg1 ) -> None
+    $oBFMatcher.read( $arg1 ) -> None
 ```
 
 ### cv::BFMatcher::clone
@@ -23227,7 +23227,7 @@ AutoIt:
 cv::Ptr<cv::DescriptorMatcher> cv::BFMatcher::clone( bool emptyTrainData = false )
 
 AutoIt:
-    $bFMatcher.clone( [$emptyTrainData] ) -> retval
+    $oBFMatcher.clone( [$emptyTrainData] ) -> retval
 ```
 
 ### cv::BFMatcher::save
@@ -23236,7 +23236,7 @@ AutoIt:
 void cv::BFMatcher::save( const std::string& filename )
 
 AutoIt:
-    $bFMatcher.save( $filename ) -> None
+    $oBFMatcher.save( $filename ) -> None
 ```
 
 ### cv::BFMatcher::getDefaultName
@@ -23245,7 +23245,7 @@ AutoIt:
 std::string cv::BFMatcher::getDefaultName()
 
 AutoIt:
-    $bFMatcher.getDefaultName() -> retval
+    $oBFMatcher.getDefaultName() -> retval
 ```
 
 ## cv::FlannBasedMatcher
@@ -23273,7 +23273,7 @@ AutoIt:
 void cv::FlannBasedMatcher::add( _InputArray descriptors )
 
 AutoIt:
-    $flannBasedMatcher.add( $descriptors ) -> None
+    $oFlannBasedMatcher.add( $descriptors ) -> None
 ```
 
 ### cv::FlannBasedMatcher::getTrainDescriptors
@@ -23282,7 +23282,7 @@ AutoIt:
 std::vector<cv::Mat> cv::FlannBasedMatcher::getTrainDescriptors()
 
 AutoIt:
-    $flannBasedMatcher.getTrainDescriptors() -> retval
+    $oFlannBasedMatcher.getTrainDescriptors() -> retval
 ```
 
 ### cv::FlannBasedMatcher::clear
@@ -23291,7 +23291,7 @@ AutoIt:
 void cv::FlannBasedMatcher::clear()
 
 AutoIt:
-    $flannBasedMatcher.clear() -> None
+    $oFlannBasedMatcher.clear() -> None
 ```
 
 ### cv::FlannBasedMatcher::empty
@@ -23300,7 +23300,7 @@ AutoIt:
 bool cv::FlannBasedMatcher::empty()
 
 AutoIt:
-    $flannBasedMatcher.empty() -> retval
+    $oFlannBasedMatcher.empty() -> retval
 ```
 
 ### cv::FlannBasedMatcher::isMaskSupported
@@ -23309,7 +23309,7 @@ AutoIt:
 bool cv::FlannBasedMatcher::isMaskSupported()
 
 AutoIt:
-    $flannBasedMatcher.isMaskSupported() -> retval
+    $oFlannBasedMatcher.isMaskSupported() -> retval
 ```
 
 ### cv::FlannBasedMatcher::train
@@ -23318,7 +23318,7 @@ AutoIt:
 void cv::FlannBasedMatcher::train()
 
 AutoIt:
-    $flannBasedMatcher.train() -> None
+    $oFlannBasedMatcher.train() -> None
 ```
 
 ### cv::FlannBasedMatcher::match
@@ -23330,7 +23330,7 @@ void cv::FlannBasedMatcher::match( _InputArray              queryDescriptors,
                                    _InputArray              mask = noArray() )
 
 AutoIt:
-    $flannBasedMatcher.match( $queryDescriptors, $trainDescriptors[, $mask[, $matches]] ) -> $matches
+    $oFlannBasedMatcher.match( $queryDescriptors, $trainDescriptors[, $mask[, $matches]] ) -> $matches
 ```
 
 ```cpp
@@ -23339,7 +23339,7 @@ void cv::FlannBasedMatcher::match( _InputArray              queryDescriptors,
                                    _InputArray              masks = noArray() )
 
 AutoIt:
-    $flannBasedMatcher.match( $queryDescriptors[, $masks[, $matches]] ) -> $matches
+    $oFlannBasedMatcher.match( $queryDescriptors[, $masks[, $matches]] ) -> $matches
 ```
 
 ### cv::FlannBasedMatcher::knnMatch
@@ -23353,7 +23353,7 @@ void cv::FlannBasedMatcher::knnMatch( _InputArray                           quer
                                       bool                                  compactResult = false )
 
 AutoIt:
-    $flannBasedMatcher.knnMatch( $queryDescriptors, $trainDescriptors, $k[, $mask[, $compactResult[, $matches]]] ) -> $matches
+    $oFlannBasedMatcher.knnMatch( $queryDescriptors, $trainDescriptors, $k[, $mask[, $compactResult[, $matches]]] ) -> $matches
 ```
 
 ```cpp
@@ -23364,7 +23364,7 @@ void cv::FlannBasedMatcher::knnMatch( _InputArray                           quer
                                       bool                                  compactResult = false )
 
 AutoIt:
-    $flannBasedMatcher.knnMatch( $queryDescriptors, $k[, $masks[, $compactResult[, $matches]]] ) -> $matches
+    $oFlannBasedMatcher.knnMatch( $queryDescriptors, $k[, $masks[, $compactResult[, $matches]]] ) -> $matches
 ```
 
 ### cv::FlannBasedMatcher::radiusMatch
@@ -23378,7 +23378,7 @@ void cv::FlannBasedMatcher::radiusMatch( _InputArray                           q
                                          bool                                  compactResult = false )
 
 AutoIt:
-    $flannBasedMatcher.radiusMatch( $queryDescriptors, $trainDescriptors, $maxDistance[, $mask[, $compactResult[, $matches]]] ) -> $matches
+    $oFlannBasedMatcher.radiusMatch( $queryDescriptors, $trainDescriptors, $maxDistance[, $mask[, $compactResult[, $matches]]] ) -> $matches
 ```
 
 ```cpp
@@ -23389,7 +23389,7 @@ void cv::FlannBasedMatcher::radiusMatch( _InputArray                           q
                                          bool                                  compactResult = false )
 
 AutoIt:
-    $flannBasedMatcher.radiusMatch( $queryDescriptors, $maxDistance[, $masks[, $compactResult[, $matches]]] ) -> $matches
+    $oFlannBasedMatcher.radiusMatch( $queryDescriptors, $maxDistance[, $masks[, $compactResult[, $matches]]] ) -> $matches
 ```
 
 ### cv::FlannBasedMatcher::write
@@ -23398,7 +23398,7 @@ AutoIt:
 void cv::FlannBasedMatcher::write( const std::string& fileName )
 
 AutoIt:
-    $flannBasedMatcher.write( $fileName ) -> None
+    $oFlannBasedMatcher.write( $fileName ) -> None
 ```
 
 ```cpp
@@ -23406,7 +23406,7 @@ void cv::FlannBasedMatcher::write( const cv::Ptr<cv::FileStorage>& fs,
                                    const std::string&              name = String() )
 
 AutoIt:
-    $flannBasedMatcher.write( $fs[, $name] ) -> None
+    $oFlannBasedMatcher.write( $fs[, $name] ) -> None
 ```
 
 ### cv::FlannBasedMatcher::read
@@ -23415,14 +23415,14 @@ AutoIt:
 void cv::FlannBasedMatcher::read( const std::string& fileName )
 
 AutoIt:
-    $flannBasedMatcher.read( $fileName ) -> None
+    $oFlannBasedMatcher.read( $fileName ) -> None
 ```
 
 ```cpp
 void cv::FlannBasedMatcher::read( const cv::FileNode& arg1 )
 
 AutoIt:
-    $flannBasedMatcher.read( $arg1 ) -> None
+    $oFlannBasedMatcher.read( $arg1 ) -> None
 ```
 
 ### cv::FlannBasedMatcher::clone
@@ -23431,7 +23431,7 @@ AutoIt:
 cv::Ptr<cv::DescriptorMatcher> cv::FlannBasedMatcher::clone( bool emptyTrainData = false )
 
 AutoIt:
-    $flannBasedMatcher.clone( [$emptyTrainData] ) -> retval
+    $oFlannBasedMatcher.clone( [$emptyTrainData] ) -> retval
 ```
 
 ### cv::FlannBasedMatcher::save
@@ -23440,7 +23440,7 @@ AutoIt:
 void cv::FlannBasedMatcher::save( const std::string& filename )
 
 AutoIt:
-    $flannBasedMatcher.save( $filename ) -> None
+    $oFlannBasedMatcher.save( $filename ) -> None
 ```
 
 ### cv::FlannBasedMatcher::getDefaultName
@@ -23449,7 +23449,7 @@ AutoIt:
 std::string cv::FlannBasedMatcher::getDefaultName()
 
 AutoIt:
-    $flannBasedMatcher.getDefaultName() -> retval
+    $oFlannBasedMatcher.getDefaultName() -> retval
 ```
 
 ## cv::BOWTrainer
@@ -23460,7 +23460,7 @@ AutoIt:
 void cv::BOWTrainer::add( const cv::Mat& descriptors )
 
 AutoIt:
-    $bOWTrainer.add( $descriptors ) -> None
+    $oBOWTrainer.add( $descriptors ) -> None
 ```
 
 ### cv::BOWTrainer::getDescriptors
@@ -23469,7 +23469,7 @@ AutoIt:
 std::vector<cv::Mat> cv::BOWTrainer::getDescriptors()
 
 AutoIt:
-    $bOWTrainer.getDescriptors() -> retval
+    $oBOWTrainer.getDescriptors() -> retval
 ```
 
 ### cv::BOWTrainer::descriptorsCount
@@ -23478,7 +23478,7 @@ AutoIt:
 int cv::BOWTrainer::descriptorsCount()
 
 AutoIt:
-    $bOWTrainer.descriptorsCount() -> retval
+    $oBOWTrainer.descriptorsCount() -> retval
 ```
 
 ### cv::BOWTrainer::clear
@@ -23487,7 +23487,7 @@ AutoIt:
 void cv::BOWTrainer::clear()
 
 AutoIt:
-    $bOWTrainer.clear() -> None
+    $oBOWTrainer.clear() -> None
 ```
 
 ### cv::BOWTrainer::cluster
@@ -23496,14 +23496,14 @@ AutoIt:
 cv::Mat cv::BOWTrainer::cluster()
 
 AutoIt:
-    $bOWTrainer.cluster() -> retval
+    $oBOWTrainer.cluster() -> retval
 ```
 
 ```cpp
 cv::Mat cv::BOWTrainer::cluster( const cv::Mat& descriptors )
 
 AutoIt:
-    $bOWTrainer.cluster( $descriptors ) -> retval
+    $oBOWTrainer.cluster( $descriptors ) -> retval
 ```
 
 ## cv::BOWKMeansTrainer
@@ -23526,14 +23526,14 @@ AutoIt:
 cv::Mat cv::BOWKMeansTrainer::cluster()
 
 AutoIt:
-    $bOWKMeansTrainer.cluster() -> retval
+    $oBOWKMeansTrainer.cluster() -> retval
 ```
 
 ```cpp
 cv::Mat cv::BOWKMeansTrainer::cluster( const cv::Mat& descriptors )
 
 AutoIt:
-    $bOWKMeansTrainer.cluster( $descriptors ) -> retval
+    $oBOWKMeansTrainer.cluster( $descriptors ) -> retval
 ```
 
 ### cv::BOWKMeansTrainer::add
@@ -23542,7 +23542,7 @@ AutoIt:
 void cv::BOWKMeansTrainer::add( const cv::Mat& descriptors )
 
 AutoIt:
-    $bOWKMeansTrainer.add( $descriptors ) -> None
+    $oBOWKMeansTrainer.add( $descriptors ) -> None
 ```
 
 ### cv::BOWKMeansTrainer::getDescriptors
@@ -23551,7 +23551,7 @@ AutoIt:
 std::vector<cv::Mat> cv::BOWKMeansTrainer::getDescriptors()
 
 AutoIt:
-    $bOWKMeansTrainer.getDescriptors() -> retval
+    $oBOWKMeansTrainer.getDescriptors() -> retval
 ```
 
 ### cv::BOWKMeansTrainer::descriptorsCount
@@ -23560,7 +23560,7 @@ AutoIt:
 int cv::BOWKMeansTrainer::descriptorsCount()
 
 AutoIt:
-    $bOWKMeansTrainer.descriptorsCount() -> retval
+    $oBOWKMeansTrainer.descriptorsCount() -> retval
 ```
 
 ### cv::BOWKMeansTrainer::clear
@@ -23569,7 +23569,7 @@ AutoIt:
 void cv::BOWKMeansTrainer::clear()
 
 AutoIt:
-    $bOWKMeansTrainer.clear() -> None
+    $oBOWKMeansTrainer.clear() -> None
 ```
 
 ## cv::BOWImgDescriptorExtractor
@@ -23590,7 +23590,7 @@ AutoIt:
 void cv::BOWImgDescriptorExtractor::setVocabulary( const cv::Mat& vocabulary )
 
 AutoIt:
-    $bOWImgDescriptorExtractor.setVocabulary( $vocabulary ) -> None
+    $oBOWImgDescriptorExtractor.setVocabulary( $vocabulary ) -> None
 ```
 
 ### cv::BOWImgDescriptorExtractor::getVocabulary
@@ -23599,7 +23599,7 @@ AutoIt:
 cv::Mat cv::BOWImgDescriptorExtractor::getVocabulary()
 
 AutoIt:
-    $bOWImgDescriptorExtractor.getVocabulary() -> retval
+    $oBOWImgDescriptorExtractor.getVocabulary() -> retval
 ```
 
 ### cv::BOWImgDescriptorExtractor::compute
@@ -23610,7 +23610,7 @@ void cv::BOWImgDescriptorExtractor::compute( const cv::Mat&             image,
                                              cv::Mat&                   imgDescriptor )
 
 AutoIt:
-    $bOWImgDescriptorExtractor.compute( $image, $keypoints[, $imgDescriptor] ) -> $imgDescriptor
+    $oBOWImgDescriptorExtractor.compute( $image, $keypoints[, $imgDescriptor] ) -> $imgDescriptor
 ```
 
 ### cv::BOWImgDescriptorExtractor::descriptorSize
@@ -23619,7 +23619,7 @@ AutoIt:
 int cv::BOWImgDescriptorExtractor::descriptorSize()
 
 AutoIt:
-    $bOWImgDescriptorExtractor.descriptorSize() -> retval
+    $oBOWImgDescriptorExtractor.descriptorSize() -> retval
 ```
 
 ### cv::BOWImgDescriptorExtractor::descriptorType
@@ -23628,7 +23628,7 @@ AutoIt:
 int cv::BOWImgDescriptorExtractor::descriptorType()
 
 AutoIt:
-    $bOWImgDescriptorExtractor.descriptorType() -> retval
+    $oBOWImgDescriptorExtractor.descriptorType() -> retval
 ```
 
 ## cv::VideoCapture
@@ -23683,7 +23683,7 @@ bool cv::VideoCapture::open( const std::string& filename,
                              int                apiPreference = CAP_ANY )
 
 AutoIt:
-    $videoCapture.open( $filename[, $apiPreference] ) -> retval
+    $oVideoCapture.open( $filename[, $apiPreference] ) -> retval
 ```
 
 ```cpp
@@ -23692,7 +23692,7 @@ bool cv::VideoCapture::open( const std::string&      filename,
                              const std::vector<int>& params )
 
 AutoIt:
-    $videoCapture.open( $filename, $apiPreference, $params ) -> retval
+    $oVideoCapture.open( $filename, $apiPreference, $params ) -> retval
 ```
 
 ```cpp
@@ -23700,7 +23700,7 @@ bool cv::VideoCapture::open( int index,
                              int apiPreference = CAP_ANY )
 
 AutoIt:
-    $videoCapture.open( $index[, $apiPreference] ) -> retval
+    $oVideoCapture.open( $index[, $apiPreference] ) -> retval
 ```
 
 ```cpp
@@ -23709,7 +23709,7 @@ bool cv::VideoCapture::open( int                     index,
                              const std::vector<int>& params )
 
 AutoIt:
-    $videoCapture.open( $index, $apiPreference, $params ) -> retval
+    $oVideoCapture.open( $index, $apiPreference, $params ) -> retval
 ```
 
 ### cv::VideoCapture::isOpened
@@ -23718,7 +23718,7 @@ AutoIt:
 bool cv::VideoCapture::isOpened()
 
 AutoIt:
-    $videoCapture.isOpened() -> retval
+    $oVideoCapture.isOpened() -> retval
 ```
 
 ### cv::VideoCapture::release
@@ -23727,7 +23727,7 @@ AutoIt:
 void cv::VideoCapture::release()
 
 AutoIt:
-    $videoCapture.release() -> None
+    $oVideoCapture.release() -> None
 ```
 
 ### cv::VideoCapture::grab
@@ -23736,7 +23736,7 @@ AutoIt:
 bool cv::VideoCapture::grab()
 
 AutoIt:
-    $videoCapture.grab() -> retval
+    $oVideoCapture.grab() -> retval
 ```
 
 ### cv::VideoCapture::retrieve
@@ -23746,7 +23746,7 @@ bool cv::VideoCapture::retrieve( _OutputArray image,
                                  int          flag = 0 )
 
 AutoIt:
-    $videoCapture.retrieve( [$image[, $flag]] ) -> retval, $image
+    $oVideoCapture.retrieve( [$image[, $flag]] ) -> retval, $image
 ```
 
 ### cv::VideoCapture::read
@@ -23755,7 +23755,7 @@ AutoIt:
 bool cv::VideoCapture::read( _OutputArray image )
 
 AutoIt:
-    $videoCapture.read( [$image] ) -> retval, $image
+    $oVideoCapture.read( [$image] ) -> retval, $image
 ```
 
 ### cv::VideoCapture::set
@@ -23765,7 +23765,7 @@ bool cv::VideoCapture::set( int    propId,
                             double value )
 
 AutoIt:
-    $videoCapture.set( $propId, $value ) -> retval
+    $oVideoCapture.set( $propId, $value ) -> retval
 ```
 
 ### cv::VideoCapture::get
@@ -23774,7 +23774,7 @@ AutoIt:
 double cv::VideoCapture::get( int propId )
 
 AutoIt:
-    $videoCapture.get( $propId ) -> retval
+    $oVideoCapture.get( $propId ) -> retval
 ```
 
 ### cv::VideoCapture::getBackendName
@@ -23783,7 +23783,7 @@ AutoIt:
 std::string cv::VideoCapture::getBackendName()
 
 AutoIt:
-    $videoCapture.getBackendName() -> retval
+    $oVideoCapture.getBackendName() -> retval
 ```
 
 ### cv::VideoCapture::setExceptionMode
@@ -23792,7 +23792,7 @@ AutoIt:
 void cv::VideoCapture::setExceptionMode( bool enable )
 
 AutoIt:
-    $videoCapture.setExceptionMode( $enable ) -> None
+    $oVideoCapture.setExceptionMode( $enable ) -> None
 ```
 
 ### cv::VideoCapture::getExceptionMode
@@ -23801,7 +23801,7 @@ AutoIt:
 bool cv::VideoCapture::getExceptionMode()
 
 AutoIt:
-    $videoCapture.getExceptionMode() -> retval
+    $oVideoCapture.getExceptionMode() -> retval
 ```
 
 ## cv::VideoWriter
@@ -23871,7 +23871,7 @@ bool cv::VideoWriter::open( const std::string& filename,
                             bool               isColor = true )
 
 AutoIt:
-    $videoWriter.open( $filename, $fourcc, $fps, $frameSize[, $isColor] ) -> retval
+    $oVideoWriter.open( $filename, $fourcc, $fps, $frameSize[, $isColor] ) -> retval
 ```
 
 ```cpp
@@ -23883,7 +23883,7 @@ bool cv::VideoWriter::open( const std::string& filename,
                             bool               isColor = true )
 
 AutoIt:
-    $videoWriter.open( $filename, $apiPreference, $fourcc, $fps, $frameSize[, $isColor] ) -> retval
+    $oVideoWriter.open( $filename, $apiPreference, $fourcc, $fps, $frameSize[, $isColor] ) -> retval
 ```
 
 ```cpp
@@ -23894,7 +23894,7 @@ bool cv::VideoWriter::open( const std::string&      filename,
                             const std::vector<int>& params )
 
 AutoIt:
-    $videoWriter.open( $filename, $fourcc, $fps, $frameSize, $params ) -> retval
+    $oVideoWriter.open( $filename, $fourcc, $fps, $frameSize, $params ) -> retval
 ```
 
 ```cpp
@@ -23906,7 +23906,7 @@ bool cv::VideoWriter::open( const std::string&      filename,
                             const std::vector<int>& params )
 
 AutoIt:
-    $videoWriter.open( $filename, $apiPreference, $fourcc, $fps, $frameSize, $params ) -> retval
+    $oVideoWriter.open( $filename, $apiPreference, $fourcc, $fps, $frameSize, $params ) -> retval
 ```
 
 ### cv::VideoWriter::isOpened
@@ -23915,7 +23915,7 @@ AutoIt:
 bool cv::VideoWriter::isOpened()
 
 AutoIt:
-    $videoWriter.isOpened() -> retval
+    $oVideoWriter.isOpened() -> retval
 ```
 
 ### cv::VideoWriter::release
@@ -23924,7 +23924,7 @@ AutoIt:
 void cv::VideoWriter::release()
 
 AutoIt:
-    $videoWriter.release() -> None
+    $oVideoWriter.release() -> None
 ```
 
 ### cv::VideoWriter::write
@@ -23933,7 +23933,7 @@ AutoIt:
 void cv::VideoWriter::write( _InputArray image )
 
 AutoIt:
-    $videoWriter.write( $image ) -> None
+    $oVideoWriter.write( $image ) -> None
 ```
 
 ### cv::VideoWriter::set
@@ -23943,7 +23943,7 @@ bool cv::VideoWriter::set( int    propId,
                            double value )
 
 AutoIt:
-    $videoWriter.set( $propId, $value ) -> retval
+    $oVideoWriter.set( $propId, $value ) -> retval
 ```
 
 ### cv::VideoWriter::get
@@ -23952,7 +23952,7 @@ AutoIt:
 double cv::VideoWriter::get( int propId )
 
 AutoIt:
-    $videoWriter.get( $propId ) -> retval
+    $oVideoWriter.get( $propId ) -> retval
 ```
 
 ### cv::VideoWriter::fourcc
@@ -23973,7 +23973,7 @@ AutoIt:
 std::string cv::VideoWriter::getBackendName()
 
 AutoIt:
-    $videoWriter.getBackendName() -> retval
+    $oVideoWriter.getBackendName() -> retval
 ```
 
 ## cv::videoio_registry
@@ -24120,7 +24120,7 @@ void cv::StereoMatcher::compute( _InputArray  left,
                                  _OutputArray disparity )
 
 AutoIt:
-    $stereoMatcher.compute( $left, $right[, $disparity] ) -> $disparity
+    $oStereoMatcher.compute( $left, $right[, $disparity] ) -> $disparity
 ```
 
 ### cv::StereoMatcher::getMinDisparity
@@ -24129,7 +24129,7 @@ AutoIt:
 int cv::StereoMatcher::getMinDisparity()
 
 AutoIt:
-    $stereoMatcher.getMinDisparity() -> retval
+    $oStereoMatcher.getMinDisparity() -> retval
 ```
 
 ### cv::StereoMatcher::setMinDisparity
@@ -24138,7 +24138,7 @@ AutoIt:
 void cv::StereoMatcher::setMinDisparity( int minDisparity )
 
 AutoIt:
-    $stereoMatcher.setMinDisparity( $minDisparity ) -> None
+    $oStereoMatcher.setMinDisparity( $minDisparity ) -> None
 ```
 
 ### cv::StereoMatcher::getNumDisparities
@@ -24147,7 +24147,7 @@ AutoIt:
 int cv::StereoMatcher::getNumDisparities()
 
 AutoIt:
-    $stereoMatcher.getNumDisparities() -> retval
+    $oStereoMatcher.getNumDisparities() -> retval
 ```
 
 ### cv::StereoMatcher::setNumDisparities
@@ -24156,7 +24156,7 @@ AutoIt:
 void cv::StereoMatcher::setNumDisparities( int numDisparities )
 
 AutoIt:
-    $stereoMatcher.setNumDisparities( $numDisparities ) -> None
+    $oStereoMatcher.setNumDisparities( $numDisparities ) -> None
 ```
 
 ### cv::StereoMatcher::getBlockSize
@@ -24165,7 +24165,7 @@ AutoIt:
 int cv::StereoMatcher::getBlockSize()
 
 AutoIt:
-    $stereoMatcher.getBlockSize() -> retval
+    $oStereoMatcher.getBlockSize() -> retval
 ```
 
 ### cv::StereoMatcher::setBlockSize
@@ -24174,7 +24174,7 @@ AutoIt:
 void cv::StereoMatcher::setBlockSize( int blockSize )
 
 AutoIt:
-    $stereoMatcher.setBlockSize( $blockSize ) -> None
+    $oStereoMatcher.setBlockSize( $blockSize ) -> None
 ```
 
 ### cv::StereoMatcher::getSpeckleWindowSize
@@ -24183,7 +24183,7 @@ AutoIt:
 int cv::StereoMatcher::getSpeckleWindowSize()
 
 AutoIt:
-    $stereoMatcher.getSpeckleWindowSize() -> retval
+    $oStereoMatcher.getSpeckleWindowSize() -> retval
 ```
 
 ### cv::StereoMatcher::setSpeckleWindowSize
@@ -24192,7 +24192,7 @@ AutoIt:
 void cv::StereoMatcher::setSpeckleWindowSize( int speckleWindowSize )
 
 AutoIt:
-    $stereoMatcher.setSpeckleWindowSize( $speckleWindowSize ) -> None
+    $oStereoMatcher.setSpeckleWindowSize( $speckleWindowSize ) -> None
 ```
 
 ### cv::StereoMatcher::getSpeckleRange
@@ -24201,7 +24201,7 @@ AutoIt:
 int cv::StereoMatcher::getSpeckleRange()
 
 AutoIt:
-    $stereoMatcher.getSpeckleRange() -> retval
+    $oStereoMatcher.getSpeckleRange() -> retval
 ```
 
 ### cv::StereoMatcher::setSpeckleRange
@@ -24210,7 +24210,7 @@ AutoIt:
 void cv::StereoMatcher::setSpeckleRange( int speckleRange )
 
 AutoIt:
-    $stereoMatcher.setSpeckleRange( $speckleRange ) -> None
+    $oStereoMatcher.setSpeckleRange( $speckleRange ) -> None
 ```
 
 ### cv::StereoMatcher::getDisp12MaxDiff
@@ -24219,7 +24219,7 @@ AutoIt:
 int cv::StereoMatcher::getDisp12MaxDiff()
 
 AutoIt:
-    $stereoMatcher.getDisp12MaxDiff() -> retval
+    $oStereoMatcher.getDisp12MaxDiff() -> retval
 ```
 
 ### cv::StereoMatcher::setDisp12MaxDiff
@@ -24228,7 +24228,7 @@ AutoIt:
 void cv::StereoMatcher::setDisp12MaxDiff( int disp12MaxDiff )
 
 AutoIt:
-    $stereoMatcher.setDisp12MaxDiff( $disp12MaxDiff ) -> None
+    $oStereoMatcher.setDisp12MaxDiff( $disp12MaxDiff ) -> None
 ```
 
 ### cv::StereoMatcher::clear
@@ -24237,7 +24237,7 @@ AutoIt:
 void cv::StereoMatcher::clear()
 
 AutoIt:
-    $stereoMatcher.clear() -> None
+    $oStereoMatcher.clear() -> None
 ```
 
 ### cv::StereoMatcher::write
@@ -24247,7 +24247,7 @@ void cv::StereoMatcher::write( const cv::Ptr<cv::FileStorage>& fs,
                                const std::string&              name = String() )
 
 AutoIt:
-    $stereoMatcher.write( $fs[, $name] ) -> None
+    $oStereoMatcher.write( $fs[, $name] ) -> None
 ```
 
 ### cv::StereoMatcher::read
@@ -24256,7 +24256,7 @@ AutoIt:
 void cv::StereoMatcher::read( const cv::FileNode& fn )
 
 AutoIt:
-    $stereoMatcher.read( $fn ) -> None
+    $oStereoMatcher.read( $fn ) -> None
 ```
 
 ### cv::StereoMatcher::empty
@@ -24265,7 +24265,7 @@ AutoIt:
 bool cv::StereoMatcher::empty()
 
 AutoIt:
-    $stereoMatcher.empty() -> retval
+    $oStereoMatcher.empty() -> retval
 ```
 
 ### cv::StereoMatcher::save
@@ -24274,7 +24274,7 @@ AutoIt:
 void cv::StereoMatcher::save( const std::string& filename )
 
 AutoIt:
-    $stereoMatcher.save( $filename ) -> None
+    $oStereoMatcher.save( $filename ) -> None
 ```
 
 ### cv::StereoMatcher::getDefaultName
@@ -24283,7 +24283,7 @@ AutoIt:
 std::string cv::StereoMatcher::getDefaultName()
 
 AutoIt:
-    $stereoMatcher.getDefaultName() -> retval
+    $oStereoMatcher.getDefaultName() -> retval
 ```
 
 ## cv::StereoBM
@@ -24294,7 +24294,7 @@ AutoIt:
 int cv::StereoBM::getPreFilterType()
 
 AutoIt:
-    $stereoBM.getPreFilterType() -> retval
+    $oStereoBM.getPreFilterType() -> retval
 ```
 
 ### cv::StereoBM::setPreFilterType
@@ -24303,7 +24303,7 @@ AutoIt:
 void cv::StereoBM::setPreFilterType( int preFilterType )
 
 AutoIt:
-    $stereoBM.setPreFilterType( $preFilterType ) -> None
+    $oStereoBM.setPreFilterType( $preFilterType ) -> None
 ```
 
 ### cv::StereoBM::getPreFilterSize
@@ -24312,7 +24312,7 @@ AutoIt:
 int cv::StereoBM::getPreFilterSize()
 
 AutoIt:
-    $stereoBM.getPreFilterSize() -> retval
+    $oStereoBM.getPreFilterSize() -> retval
 ```
 
 ### cv::StereoBM::setPreFilterSize
@@ -24321,7 +24321,7 @@ AutoIt:
 void cv::StereoBM::setPreFilterSize( int preFilterSize )
 
 AutoIt:
-    $stereoBM.setPreFilterSize( $preFilterSize ) -> None
+    $oStereoBM.setPreFilterSize( $preFilterSize ) -> None
 ```
 
 ### cv::StereoBM::getPreFilterCap
@@ -24330,7 +24330,7 @@ AutoIt:
 int cv::StereoBM::getPreFilterCap()
 
 AutoIt:
-    $stereoBM.getPreFilterCap() -> retval
+    $oStereoBM.getPreFilterCap() -> retval
 ```
 
 ### cv::StereoBM::setPreFilterCap
@@ -24339,7 +24339,7 @@ AutoIt:
 void cv::StereoBM::setPreFilterCap( int preFilterCap )
 
 AutoIt:
-    $stereoBM.setPreFilterCap( $preFilterCap ) -> None
+    $oStereoBM.setPreFilterCap( $preFilterCap ) -> None
 ```
 
 ### cv::StereoBM::getTextureThreshold
@@ -24348,7 +24348,7 @@ AutoIt:
 int cv::StereoBM::getTextureThreshold()
 
 AutoIt:
-    $stereoBM.getTextureThreshold() -> retval
+    $oStereoBM.getTextureThreshold() -> retval
 ```
 
 ### cv::StereoBM::setTextureThreshold
@@ -24357,7 +24357,7 @@ AutoIt:
 void cv::StereoBM::setTextureThreshold( int textureThreshold )
 
 AutoIt:
-    $stereoBM.setTextureThreshold( $textureThreshold ) -> None
+    $oStereoBM.setTextureThreshold( $textureThreshold ) -> None
 ```
 
 ### cv::StereoBM::getUniquenessRatio
@@ -24366,7 +24366,7 @@ AutoIt:
 int cv::StereoBM::getUniquenessRatio()
 
 AutoIt:
-    $stereoBM.getUniquenessRatio() -> retval
+    $oStereoBM.getUniquenessRatio() -> retval
 ```
 
 ### cv::StereoBM::setUniquenessRatio
@@ -24375,7 +24375,7 @@ AutoIt:
 void cv::StereoBM::setUniquenessRatio( int uniquenessRatio )
 
 AutoIt:
-    $stereoBM.setUniquenessRatio( $uniquenessRatio ) -> None
+    $oStereoBM.setUniquenessRatio( $uniquenessRatio ) -> None
 ```
 
 ### cv::StereoBM::getSmallerBlockSize
@@ -24384,7 +24384,7 @@ AutoIt:
 int cv::StereoBM::getSmallerBlockSize()
 
 AutoIt:
-    $stereoBM.getSmallerBlockSize() -> retval
+    $oStereoBM.getSmallerBlockSize() -> retval
 ```
 
 ### cv::StereoBM::setSmallerBlockSize
@@ -24393,7 +24393,7 @@ AutoIt:
 void cv::StereoBM::setSmallerBlockSize( int blockSize )
 
 AutoIt:
-    $stereoBM.setSmallerBlockSize( $blockSize ) -> None
+    $oStereoBM.setSmallerBlockSize( $blockSize ) -> None
 ```
 
 ### cv::StereoBM::getROI1
@@ -24402,7 +24402,7 @@ AutoIt:
 cv::Rect cv::StereoBM::getROI1()
 
 AutoIt:
-    $stereoBM.getROI1() -> retval
+    $oStereoBM.getROI1() -> retval
 ```
 
 ### cv::StereoBM::setROI1
@@ -24411,7 +24411,7 @@ AutoIt:
 void cv::StereoBM::setROI1( cv::Rect roi1 )
 
 AutoIt:
-    $stereoBM.setROI1( $roi1 ) -> None
+    $oStereoBM.setROI1( $roi1 ) -> None
 ```
 
 ### cv::StereoBM::getROI2
@@ -24420,7 +24420,7 @@ AutoIt:
 cv::Rect cv::StereoBM::getROI2()
 
 AutoIt:
-    $stereoBM.getROI2() -> retval
+    $oStereoBM.getROI2() -> retval
 ```
 
 ### cv::StereoBM::setROI2
@@ -24429,7 +24429,7 @@ AutoIt:
 void cv::StereoBM::setROI2( cv::Rect roi2 )
 
 AutoIt:
-    $stereoBM.setROI2( $roi2 ) -> None
+    $oStereoBM.setROI2( $roi2 ) -> None
 ```
 
 ### cv::StereoBM::create
@@ -24450,7 +24450,7 @@ void cv::StereoBM::compute( _InputArray  left,
                             _OutputArray disparity )
 
 AutoIt:
-    $stereoBM.compute( $left, $right[, $disparity] ) -> $disparity
+    $oStereoBM.compute( $left, $right[, $disparity] ) -> $disparity
 ```
 
 ### cv::StereoBM::getMinDisparity
@@ -24459,7 +24459,7 @@ AutoIt:
 int cv::StereoBM::getMinDisparity()
 
 AutoIt:
-    $stereoBM.getMinDisparity() -> retval
+    $oStereoBM.getMinDisparity() -> retval
 ```
 
 ### cv::StereoBM::setMinDisparity
@@ -24468,7 +24468,7 @@ AutoIt:
 void cv::StereoBM::setMinDisparity( int minDisparity )
 
 AutoIt:
-    $stereoBM.setMinDisparity( $minDisparity ) -> None
+    $oStereoBM.setMinDisparity( $minDisparity ) -> None
 ```
 
 ### cv::StereoBM::getNumDisparities
@@ -24477,7 +24477,7 @@ AutoIt:
 int cv::StereoBM::getNumDisparities()
 
 AutoIt:
-    $stereoBM.getNumDisparities() -> retval
+    $oStereoBM.getNumDisparities() -> retval
 ```
 
 ### cv::StereoBM::setNumDisparities
@@ -24486,7 +24486,7 @@ AutoIt:
 void cv::StereoBM::setNumDisparities( int numDisparities )
 
 AutoIt:
-    $stereoBM.setNumDisparities( $numDisparities ) -> None
+    $oStereoBM.setNumDisparities( $numDisparities ) -> None
 ```
 
 ### cv::StereoBM::getBlockSize
@@ -24495,7 +24495,7 @@ AutoIt:
 int cv::StereoBM::getBlockSize()
 
 AutoIt:
-    $stereoBM.getBlockSize() -> retval
+    $oStereoBM.getBlockSize() -> retval
 ```
 
 ### cv::StereoBM::setBlockSize
@@ -24504,7 +24504,7 @@ AutoIt:
 void cv::StereoBM::setBlockSize( int blockSize )
 
 AutoIt:
-    $stereoBM.setBlockSize( $blockSize ) -> None
+    $oStereoBM.setBlockSize( $blockSize ) -> None
 ```
 
 ### cv::StereoBM::getSpeckleWindowSize
@@ -24513,7 +24513,7 @@ AutoIt:
 int cv::StereoBM::getSpeckleWindowSize()
 
 AutoIt:
-    $stereoBM.getSpeckleWindowSize() -> retval
+    $oStereoBM.getSpeckleWindowSize() -> retval
 ```
 
 ### cv::StereoBM::setSpeckleWindowSize
@@ -24522,7 +24522,7 @@ AutoIt:
 void cv::StereoBM::setSpeckleWindowSize( int speckleWindowSize )
 
 AutoIt:
-    $stereoBM.setSpeckleWindowSize( $speckleWindowSize ) -> None
+    $oStereoBM.setSpeckleWindowSize( $speckleWindowSize ) -> None
 ```
 
 ### cv::StereoBM::getSpeckleRange
@@ -24531,7 +24531,7 @@ AutoIt:
 int cv::StereoBM::getSpeckleRange()
 
 AutoIt:
-    $stereoBM.getSpeckleRange() -> retval
+    $oStereoBM.getSpeckleRange() -> retval
 ```
 
 ### cv::StereoBM::setSpeckleRange
@@ -24540,7 +24540,7 @@ AutoIt:
 void cv::StereoBM::setSpeckleRange( int speckleRange )
 
 AutoIt:
-    $stereoBM.setSpeckleRange( $speckleRange ) -> None
+    $oStereoBM.setSpeckleRange( $speckleRange ) -> None
 ```
 
 ### cv::StereoBM::getDisp12MaxDiff
@@ -24549,7 +24549,7 @@ AutoIt:
 int cv::StereoBM::getDisp12MaxDiff()
 
 AutoIt:
-    $stereoBM.getDisp12MaxDiff() -> retval
+    $oStereoBM.getDisp12MaxDiff() -> retval
 ```
 
 ### cv::StereoBM::setDisp12MaxDiff
@@ -24558,7 +24558,7 @@ AutoIt:
 void cv::StereoBM::setDisp12MaxDiff( int disp12MaxDiff )
 
 AutoIt:
-    $stereoBM.setDisp12MaxDiff( $disp12MaxDiff ) -> None
+    $oStereoBM.setDisp12MaxDiff( $disp12MaxDiff ) -> None
 ```
 
 ### cv::StereoBM::clear
@@ -24567,7 +24567,7 @@ AutoIt:
 void cv::StereoBM::clear()
 
 AutoIt:
-    $stereoBM.clear() -> None
+    $oStereoBM.clear() -> None
 ```
 
 ### cv::StereoBM::write
@@ -24577,7 +24577,7 @@ void cv::StereoBM::write( const cv::Ptr<cv::FileStorage>& fs,
                           const std::string&              name = String() )
 
 AutoIt:
-    $stereoBM.write( $fs[, $name] ) -> None
+    $oStereoBM.write( $fs[, $name] ) -> None
 ```
 
 ### cv::StereoBM::read
@@ -24586,7 +24586,7 @@ AutoIt:
 void cv::StereoBM::read( const cv::FileNode& fn )
 
 AutoIt:
-    $stereoBM.read( $fn ) -> None
+    $oStereoBM.read( $fn ) -> None
 ```
 
 ### cv::StereoBM::empty
@@ -24595,7 +24595,7 @@ AutoIt:
 bool cv::StereoBM::empty()
 
 AutoIt:
-    $stereoBM.empty() -> retval
+    $oStereoBM.empty() -> retval
 ```
 
 ### cv::StereoBM::save
@@ -24604,7 +24604,7 @@ AutoIt:
 void cv::StereoBM::save( const std::string& filename )
 
 AutoIt:
-    $stereoBM.save( $filename ) -> None
+    $oStereoBM.save( $filename ) -> None
 ```
 
 ### cv::StereoBM::getDefaultName
@@ -24613,7 +24613,7 @@ AutoIt:
 std::string cv::StereoBM::getDefaultName()
 
 AutoIt:
-    $stereoBM.getDefaultName() -> retval
+    $oStereoBM.getDefaultName() -> retval
 ```
 
 ## cv::StereoSGBM
@@ -24624,7 +24624,7 @@ AutoIt:
 int cv::StereoSGBM::getPreFilterCap()
 
 AutoIt:
-    $stereoSGBM.getPreFilterCap() -> retval
+    $oStereoSGBM.getPreFilterCap() -> retval
 ```
 
 ### cv::StereoSGBM::setPreFilterCap
@@ -24633,7 +24633,7 @@ AutoIt:
 void cv::StereoSGBM::setPreFilterCap( int preFilterCap )
 
 AutoIt:
-    $stereoSGBM.setPreFilterCap( $preFilterCap ) -> None
+    $oStereoSGBM.setPreFilterCap( $preFilterCap ) -> None
 ```
 
 ### cv::StereoSGBM::getUniquenessRatio
@@ -24642,7 +24642,7 @@ AutoIt:
 int cv::StereoSGBM::getUniquenessRatio()
 
 AutoIt:
-    $stereoSGBM.getUniquenessRatio() -> retval
+    $oStereoSGBM.getUniquenessRatio() -> retval
 ```
 
 ### cv::StereoSGBM::setUniquenessRatio
@@ -24651,7 +24651,7 @@ AutoIt:
 void cv::StereoSGBM::setUniquenessRatio( int uniquenessRatio )
 
 AutoIt:
-    $stereoSGBM.setUniquenessRatio( $uniquenessRatio ) -> None
+    $oStereoSGBM.setUniquenessRatio( $uniquenessRatio ) -> None
 ```
 
 ### cv::StereoSGBM::getP1
@@ -24660,7 +24660,7 @@ AutoIt:
 int cv::StereoSGBM::getP1()
 
 AutoIt:
-    $stereoSGBM.getP1() -> retval
+    $oStereoSGBM.getP1() -> retval
 ```
 
 ### cv::StereoSGBM::setP1
@@ -24669,7 +24669,7 @@ AutoIt:
 void cv::StereoSGBM::setP1( int P1 )
 
 AutoIt:
-    $stereoSGBM.setP1( $P1 ) -> None
+    $oStereoSGBM.setP1( $P1 ) -> None
 ```
 
 ### cv::StereoSGBM::getP2
@@ -24678,7 +24678,7 @@ AutoIt:
 int cv::StereoSGBM::getP2()
 
 AutoIt:
-    $stereoSGBM.getP2() -> retval
+    $oStereoSGBM.getP2() -> retval
 ```
 
 ### cv::StereoSGBM::setP2
@@ -24687,7 +24687,7 @@ AutoIt:
 void cv::StereoSGBM::setP2( int P2 )
 
 AutoIt:
-    $stereoSGBM.setP2( $P2 ) -> None
+    $oStereoSGBM.setP2( $P2 ) -> None
 ```
 
 ### cv::StereoSGBM::getMode
@@ -24696,7 +24696,7 @@ AutoIt:
 int cv::StereoSGBM::getMode()
 
 AutoIt:
-    $stereoSGBM.getMode() -> retval
+    $oStereoSGBM.getMode() -> retval
 ```
 
 ### cv::StereoSGBM::setMode
@@ -24705,7 +24705,7 @@ AutoIt:
 void cv::StereoSGBM::setMode( int mode )
 
 AutoIt:
-    $stereoSGBM.setMode( $mode ) -> None
+    $oStereoSGBM.setMode( $mode ) -> None
 ```
 
 ### cv::StereoSGBM::create
@@ -24735,7 +24735,7 @@ void cv::StereoSGBM::compute( _InputArray  left,
                               _OutputArray disparity )
 
 AutoIt:
-    $stereoSGBM.compute( $left, $right[, $disparity] ) -> $disparity
+    $oStereoSGBM.compute( $left, $right[, $disparity] ) -> $disparity
 ```
 
 ### cv::StereoSGBM::getMinDisparity
@@ -24744,7 +24744,7 @@ AutoIt:
 int cv::StereoSGBM::getMinDisparity()
 
 AutoIt:
-    $stereoSGBM.getMinDisparity() -> retval
+    $oStereoSGBM.getMinDisparity() -> retval
 ```
 
 ### cv::StereoSGBM::setMinDisparity
@@ -24753,7 +24753,7 @@ AutoIt:
 void cv::StereoSGBM::setMinDisparity( int minDisparity )
 
 AutoIt:
-    $stereoSGBM.setMinDisparity( $minDisparity ) -> None
+    $oStereoSGBM.setMinDisparity( $minDisparity ) -> None
 ```
 
 ### cv::StereoSGBM::getNumDisparities
@@ -24762,7 +24762,7 @@ AutoIt:
 int cv::StereoSGBM::getNumDisparities()
 
 AutoIt:
-    $stereoSGBM.getNumDisparities() -> retval
+    $oStereoSGBM.getNumDisparities() -> retval
 ```
 
 ### cv::StereoSGBM::setNumDisparities
@@ -24771,7 +24771,7 @@ AutoIt:
 void cv::StereoSGBM::setNumDisparities( int numDisparities )
 
 AutoIt:
-    $stereoSGBM.setNumDisparities( $numDisparities ) -> None
+    $oStereoSGBM.setNumDisparities( $numDisparities ) -> None
 ```
 
 ### cv::StereoSGBM::getBlockSize
@@ -24780,7 +24780,7 @@ AutoIt:
 int cv::StereoSGBM::getBlockSize()
 
 AutoIt:
-    $stereoSGBM.getBlockSize() -> retval
+    $oStereoSGBM.getBlockSize() -> retval
 ```
 
 ### cv::StereoSGBM::setBlockSize
@@ -24789,7 +24789,7 @@ AutoIt:
 void cv::StereoSGBM::setBlockSize( int blockSize )
 
 AutoIt:
-    $stereoSGBM.setBlockSize( $blockSize ) -> None
+    $oStereoSGBM.setBlockSize( $blockSize ) -> None
 ```
 
 ### cv::StereoSGBM::getSpeckleWindowSize
@@ -24798,7 +24798,7 @@ AutoIt:
 int cv::StereoSGBM::getSpeckleWindowSize()
 
 AutoIt:
-    $stereoSGBM.getSpeckleWindowSize() -> retval
+    $oStereoSGBM.getSpeckleWindowSize() -> retval
 ```
 
 ### cv::StereoSGBM::setSpeckleWindowSize
@@ -24807,7 +24807,7 @@ AutoIt:
 void cv::StereoSGBM::setSpeckleWindowSize( int speckleWindowSize )
 
 AutoIt:
-    $stereoSGBM.setSpeckleWindowSize( $speckleWindowSize ) -> None
+    $oStereoSGBM.setSpeckleWindowSize( $speckleWindowSize ) -> None
 ```
 
 ### cv::StereoSGBM::getSpeckleRange
@@ -24816,7 +24816,7 @@ AutoIt:
 int cv::StereoSGBM::getSpeckleRange()
 
 AutoIt:
-    $stereoSGBM.getSpeckleRange() -> retval
+    $oStereoSGBM.getSpeckleRange() -> retval
 ```
 
 ### cv::StereoSGBM::setSpeckleRange
@@ -24825,7 +24825,7 @@ AutoIt:
 void cv::StereoSGBM::setSpeckleRange( int speckleRange )
 
 AutoIt:
-    $stereoSGBM.setSpeckleRange( $speckleRange ) -> None
+    $oStereoSGBM.setSpeckleRange( $speckleRange ) -> None
 ```
 
 ### cv::StereoSGBM::getDisp12MaxDiff
@@ -24834,7 +24834,7 @@ AutoIt:
 int cv::StereoSGBM::getDisp12MaxDiff()
 
 AutoIt:
-    $stereoSGBM.getDisp12MaxDiff() -> retval
+    $oStereoSGBM.getDisp12MaxDiff() -> retval
 ```
 
 ### cv::StereoSGBM::setDisp12MaxDiff
@@ -24843,7 +24843,7 @@ AutoIt:
 void cv::StereoSGBM::setDisp12MaxDiff( int disp12MaxDiff )
 
 AutoIt:
-    $stereoSGBM.setDisp12MaxDiff( $disp12MaxDiff ) -> None
+    $oStereoSGBM.setDisp12MaxDiff( $disp12MaxDiff ) -> None
 ```
 
 ### cv::StereoSGBM::clear
@@ -24852,7 +24852,7 @@ AutoIt:
 void cv::StereoSGBM::clear()
 
 AutoIt:
-    $stereoSGBM.clear() -> None
+    $oStereoSGBM.clear() -> None
 ```
 
 ### cv::StereoSGBM::write
@@ -24862,7 +24862,7 @@ void cv::StereoSGBM::write( const cv::Ptr<cv::FileStorage>& fs,
                             const std::string&              name = String() )
 
 AutoIt:
-    $stereoSGBM.write( $fs[, $name] ) -> None
+    $oStereoSGBM.write( $fs[, $name] ) -> None
 ```
 
 ### cv::StereoSGBM::read
@@ -24871,7 +24871,7 @@ AutoIt:
 void cv::StereoSGBM::read( const cv::FileNode& fn )
 
 AutoIt:
-    $stereoSGBM.read( $fn ) -> None
+    $oStereoSGBM.read( $fn ) -> None
 ```
 
 ### cv::StereoSGBM::empty
@@ -24880,7 +24880,7 @@ AutoIt:
 bool cv::StereoSGBM::empty()
 
 AutoIt:
-    $stereoSGBM.empty() -> retval
+    $oStereoSGBM.empty() -> retval
 ```
 
 ### cv::StereoSGBM::save
@@ -24889,7 +24889,7 @@ AutoIt:
 void cv::StereoSGBM::save( const std::string& filename )
 
 AutoIt:
-    $stereoSGBM.save( $filename ) -> None
+    $oStereoSGBM.save( $filename ) -> None
 ```
 
 ### cv::StereoSGBM::getDefaultName
@@ -24898,7 +24898,7 @@ AutoIt:
 std::string cv::StereoSGBM::getDefaultName()
 
 AutoIt:
-    $stereoSGBM.getDefaultName() -> retval
+    $oStereoSGBM.getDefaultName() -> retval
 ```
 
 ## cv::fisheye
@@ -25061,7 +25061,7 @@ AutoIt:
 void cv::BaseCascadeClassifier::clear()
 
 AutoIt:
-    $baseCascadeClassifier.clear() -> None
+    $oBaseCascadeClassifier.clear() -> None
 ```
 
 ### cv::BaseCascadeClassifier::write
@@ -25071,7 +25071,7 @@ void cv::BaseCascadeClassifier::write( const cv::Ptr<cv::FileStorage>& fs,
                                        const std::string&              name = String() )
 
 AutoIt:
-    $baseCascadeClassifier.write( $fs[, $name] ) -> None
+    $oBaseCascadeClassifier.write( $fs[, $name] ) -> None
 ```
 
 ### cv::BaseCascadeClassifier::read
@@ -25080,7 +25080,7 @@ AutoIt:
 void cv::BaseCascadeClassifier::read( const cv::FileNode& fn )
 
 AutoIt:
-    $baseCascadeClassifier.read( $fn ) -> None
+    $oBaseCascadeClassifier.read( $fn ) -> None
 ```
 
 ### cv::BaseCascadeClassifier::empty
@@ -25089,7 +25089,7 @@ AutoIt:
 bool cv::BaseCascadeClassifier::empty()
 
 AutoIt:
-    $baseCascadeClassifier.empty() -> retval
+    $oBaseCascadeClassifier.empty() -> retval
 ```
 
 ### cv::BaseCascadeClassifier::save
@@ -25098,7 +25098,7 @@ AutoIt:
 void cv::BaseCascadeClassifier::save( const std::string& filename )
 
 AutoIt:
-    $baseCascadeClassifier.save( $filename ) -> None
+    $oBaseCascadeClassifier.save( $filename ) -> None
 ```
 
 ### cv::BaseCascadeClassifier::getDefaultName
@@ -25107,7 +25107,7 @@ AutoIt:
 std::string cv::BaseCascadeClassifier::getDefaultName()
 
 AutoIt:
-    $baseCascadeClassifier.getDefaultName() -> retval
+    $oBaseCascadeClassifier.getDefaultName() -> retval
 ```
 
 ## cv::CascadeClassifier
@@ -25134,7 +25134,7 @@ AutoIt:
 bool cv::CascadeClassifier::empty()
 
 AutoIt:
-    $cascadeClassifier.empty() -> retval
+    $oCascadeClassifier.empty() -> retval
 ```
 
 ### cv::CascadeClassifier::load
@@ -25143,7 +25143,7 @@ AutoIt:
 bool cv::CascadeClassifier::load( const std::string& filename )
 
 AutoIt:
-    $cascadeClassifier.load( $filename ) -> retval
+    $oCascadeClassifier.load( $filename ) -> retval
 ```
 
 ### cv::CascadeClassifier::read
@@ -25152,7 +25152,7 @@ AutoIt:
 bool cv::CascadeClassifier::read( const cv::FileNode& node )
 
 AutoIt:
-    $cascadeClassifier.read( $node ) -> retval
+    $oCascadeClassifier.read( $node ) -> retval
 ```
 
 ### cv::CascadeClassifier::detectMultiScale
@@ -25167,7 +25167,7 @@ void cv::CascadeClassifier::detectMultiScale( _InputArray            image,
                                               cv::Size               maxSize = Size() )
 
 AutoIt:
-    $cascadeClassifier.detectMultiScale( $image[, $scaleFactor[, $minNeighbors[, $flags[, $minSize[, $maxSize[, $objects]]]]]] ) -> $objects
+    $oCascadeClassifier.detectMultiScale( $image[, $scaleFactor[, $minNeighbors[, $flags[, $minSize[, $maxSize[, $objects]]]]]] ) -> $objects
 ```
 
 ### cv::CascadeClassifier::detectMultiScale2
@@ -25183,7 +25183,7 @@ void cv::CascadeClassifier::detectMultiScale2( _InputArray            image,
                                                cv::Size               maxSize = Size() )
 
 AutoIt:
-    $cascadeClassifier.detectMultiScale2( $image[, $scaleFactor[, $minNeighbors[, $flags[, $minSize[, $maxSize[, $objects[, $numDetections]]]]]]] ) -> $objects, $numDetections
+    $oCascadeClassifier.detectMultiScale2( $image[, $scaleFactor[, $minNeighbors[, $flags[, $minSize[, $maxSize[, $objects[, $numDetections]]]]]]] ) -> $objects, $numDetections
 ```
 
 ### cv::CascadeClassifier::detectMultiScale3
@@ -25201,7 +25201,7 @@ void cv::CascadeClassifier::detectMultiScale3( _InputArray            image,
                                                bool                   outputRejectLevels = false )
 
 AutoIt:
-    $cascadeClassifier.detectMultiScale3( $image[, $scaleFactor[, $minNeighbors[, $flags[, $minSize[, $maxSize[, $outputRejectLevels[, $objects[, $rejectLevels[, $levelWeights]]]]]]]]] ) -> $objects, $rejectLevels, $levelWeights
+    $oCascadeClassifier.detectMultiScale3( $image[, $scaleFactor[, $minNeighbors[, $flags[, $minSize[, $maxSize[, $outputRejectLevels[, $objects[, $rejectLevels[, $levelWeights]]]]]]]]] ) -> $objects, $rejectLevels, $levelWeights
 ```
 
 ### cv::CascadeClassifier::isOldFormatCascade
@@ -25210,7 +25210,7 @@ AutoIt:
 bool cv::CascadeClassifier::isOldFormatCascade()
 
 AutoIt:
-    $cascadeClassifier.isOldFormatCascade() -> retval
+    $oCascadeClassifier.isOldFormatCascade() -> retval
 ```
 
 ### cv::CascadeClassifier::getOriginalWindowSize
@@ -25219,7 +25219,7 @@ AutoIt:
 cv::Size cv::CascadeClassifier::getOriginalWindowSize()
 
 AutoIt:
-    $cascadeClassifier.getOriginalWindowSize() -> retval
+    $oCascadeClassifier.getOriginalWindowSize() -> retval
 ```
 
 ### cv::CascadeClassifier::getFeatureType
@@ -25228,7 +25228,7 @@ AutoIt:
 int cv::CascadeClassifier::getFeatureType()
 
 AutoIt:
-    $cascadeClassifier.getFeatureType() -> retval
+    $oCascadeClassifier.getFeatureType() -> retval
 ```
 
 ### cv::CascadeClassifier::convert
@@ -25290,7 +25290,7 @@ AutoIt:
 size_t cv::HOGDescriptor::getDescriptorSize()
 
 AutoIt:
-    $hOGDescriptor.getDescriptorSize() -> retval
+    $oHOGDescriptor.getDescriptorSize() -> retval
 ```
 
 ### cv::HOGDescriptor::checkDetectorSize
@@ -25299,7 +25299,7 @@ AutoIt:
 bool cv::HOGDescriptor::checkDetectorSize()
 
 AutoIt:
-    $hOGDescriptor.checkDetectorSize() -> retval
+    $oHOGDescriptor.checkDetectorSize() -> retval
 ```
 
 ### cv::HOGDescriptor::getWinSigma
@@ -25308,7 +25308,7 @@ AutoIt:
 double cv::HOGDescriptor::getWinSigma()
 
 AutoIt:
-    $hOGDescriptor.getWinSigma() -> retval
+    $oHOGDescriptor.getWinSigma() -> retval
 ```
 
 ### cv::HOGDescriptor::setSVMDetector
@@ -25317,7 +25317,7 @@ AutoIt:
 void cv::HOGDescriptor::setSVMDetector( _InputArray svmdetector )
 
 AutoIt:
-    $hOGDescriptor.setSVMDetector( $svmdetector ) -> None
+    $oHOGDescriptor.setSVMDetector( $svmdetector ) -> None
 ```
 
 ### cv::HOGDescriptor::load
@@ -25327,7 +25327,7 @@ bool cv::HOGDescriptor::load( const std::string& filename,
                               const std::string& objname = String() )
 
 AutoIt:
-    $hOGDescriptor.load( $filename[, $objname] ) -> retval
+    $oHOGDescriptor.load( $filename[, $objname] ) -> retval
 ```
 
 ### cv::HOGDescriptor::save
@@ -25337,7 +25337,7 @@ void cv::HOGDescriptor::save( const std::string& filename,
                               const std::string& objname = String() )
 
 AutoIt:
-    $hOGDescriptor.save( $filename[, $objname] ) -> None
+    $oHOGDescriptor.save( $filename[, $objname] ) -> None
 ```
 
 ### cv::HOGDescriptor::compute
@@ -25350,7 +25350,7 @@ void cv::HOGDescriptor::compute( _InputArray                   img,
                                  const std::vector<cv::Point>& locations = std::vector<Point>() )
 
 AutoIt:
-    $hOGDescriptor.compute( $img[, $winStride[, $padding[, $locations[, $descriptors]]]] ) -> $descriptors
+    $oHOGDescriptor.compute( $img[, $winStride[, $padding[, $locations[, $descriptors]]]] ) -> $descriptors
 ```
 
 ### cv::HOGDescriptor::detect
@@ -25365,7 +25365,7 @@ void cv::HOGDescriptor::detect( _InputArray                   img,
                                 const std::vector<cv::Point>& searchLocations = std::vector<Point>() )
 
 AutoIt:
-    $hOGDescriptor.detect( $img[, $hitThreshold[, $winStride[, $padding[, $searchLocations[, $foundLocations[, $weights]]]]]] ) -> $foundLocations, $weights
+    $oHOGDescriptor.detect( $img[, $hitThreshold[, $winStride[, $padding[, $searchLocations[, $foundLocations[, $weights]]]]]] ) -> $foundLocations, $weights
 ```
 
 ### cv::HOGDescriptor::detectMultiScale
@@ -25382,7 +25382,7 @@ void cv::HOGDescriptor::detectMultiScale( _InputArray            img,
                                           bool                   useMeanshiftGrouping = false )
 
 AutoIt:
-    $hOGDescriptor.detectMultiScale( $img[, $hitThreshold[, $winStride[, $padding[, $scale[, $finalThreshold[, $useMeanshiftGrouping[, $foundLocations[, $foundWeights]]]]]]]] ) -> $foundLocations, $foundWeights
+    $oHOGDescriptor.detectMultiScale( $img[, $hitThreshold[, $winStride[, $padding[, $scale[, $finalThreshold[, $useMeanshiftGrouping[, $foundLocations[, $foundWeights]]]]]]]] ) -> $foundLocations, $foundWeights
 ```
 
 ### cv::HOGDescriptor::computeGradient
@@ -25395,7 +25395,7 @@ void cv::HOGDescriptor::computeGradient( _InputArray       img,
                                          cv::Size          paddingBR = Size() )
 
 AutoIt:
-    $hOGDescriptor.computeGradient( $img, $grad, $angleOfs[, $paddingTL[, $paddingBR]] ) -> $grad, $angleOfs
+    $oHOGDescriptor.computeGradient( $img, $grad, $angleOfs[, $paddingTL[, $paddingBR]] ) -> $grad, $angleOfs
 ```
 
 ### cv::HOGDescriptor::getDefaultPeopleDetector
@@ -25434,7 +25434,7 @@ void cv::QRCodeEncoder::encode( const std::string& encoded_info,
                                 _OutputArray       qrcode )
 
 AutoIt:
-    $qRCodeEncoder.encode( $encoded_info[, $qrcode] ) -> $qrcode
+    $oQRCodeEncoder.encode( $encoded_info[, $qrcode] ) -> $qrcode
 ```
 
 ### cv::QRCodeEncoder::encodeStructuredAppend
@@ -25444,7 +25444,7 @@ void cv::QRCodeEncoder::encodeStructuredAppend( const std::string& encoded_info,
                                                 _OutputArray       qrcodes )
 
 AutoIt:
-    $qRCodeEncoder.encodeStructuredAppend( $encoded_info[, $qrcodes] ) -> $qrcodes
+    $oQRCodeEncoder.encodeStructuredAppend( $encoded_info[, $qrcodes] ) -> $qrcodes
 ```
 
 ## cv::QRCodeEncoder::Params
@@ -25482,7 +25482,7 @@ AutoIt:
 void cv::QRCodeDetector::setEpsX( double epsX )
 
 AutoIt:
-    $qRCodeDetector.setEpsX( $epsX ) -> None
+    $oQRCodeDetector.setEpsX( $epsX ) -> None
 ```
 
 ### cv::QRCodeDetector::setEpsY
@@ -25491,7 +25491,7 @@ AutoIt:
 void cv::QRCodeDetector::setEpsY( double epsY )
 
 AutoIt:
-    $qRCodeDetector.setEpsY( $epsY ) -> None
+    $oQRCodeDetector.setEpsY( $epsY ) -> None
 ```
 
 ### cv::QRCodeDetector::detect
@@ -25501,7 +25501,7 @@ bool cv::QRCodeDetector::detect( _InputArray  img,
                                  _OutputArray points )
 
 AutoIt:
-    $qRCodeDetector.detect( $img[, $points] ) -> retval, $points
+    $oQRCodeDetector.detect( $img[, $points] ) -> retval, $points
 ```
 
 ### cv::QRCodeDetector::decode
@@ -25512,7 +25512,7 @@ std::string cv::QRCodeDetector::decode( _InputArray  img,
                                         _OutputArray straight_qrcode = noArray() )
 
 AutoIt:
-    $qRCodeDetector.decode( $img, $points[, $straight_qrcode] ) -> retval, $straight_qrcode
+    $oQRCodeDetector.decode( $img, $points[, $straight_qrcode] ) -> retval, $straight_qrcode
 ```
 
 ### cv::QRCodeDetector::decodeCurved
@@ -25523,7 +25523,7 @@ std::string cv::QRCodeDetector::decodeCurved( _InputArray  img,
                                               _OutputArray straight_qrcode = noArray() )
 
 AutoIt:
-    $qRCodeDetector.decodeCurved( $img, $points[, $straight_qrcode] ) -> retval, $straight_qrcode
+    $oQRCodeDetector.decodeCurved( $img, $points[, $straight_qrcode] ) -> retval, $straight_qrcode
 ```
 
 ### cv::QRCodeDetector::detectAndDecode
@@ -25534,7 +25534,7 @@ std::string cv::QRCodeDetector::detectAndDecode( _InputArray  img,
                                                  _OutputArray straight_qrcode = noArray() )
 
 AutoIt:
-    $qRCodeDetector.detectAndDecode( $img[, $points[, $straight_qrcode]] ) -> retval, $points, $straight_qrcode
+    $oQRCodeDetector.detectAndDecode( $img[, $points[, $straight_qrcode]] ) -> retval, $points, $straight_qrcode
 ```
 
 ### cv::QRCodeDetector::detectAndDecodeCurved
@@ -25545,7 +25545,7 @@ std::string cv::QRCodeDetector::detectAndDecodeCurved( _InputArray  img,
                                                        _OutputArray straight_qrcode = noArray() )
 
 AutoIt:
-    $qRCodeDetector.detectAndDecodeCurved( $img[, $points[, $straight_qrcode]] ) -> retval, $points, $straight_qrcode
+    $oQRCodeDetector.detectAndDecodeCurved( $img[, $points[, $straight_qrcode]] ) -> retval, $points, $straight_qrcode
 ```
 
 ### cv::QRCodeDetector::detectMulti
@@ -25555,7 +25555,7 @@ bool cv::QRCodeDetector::detectMulti( _InputArray  img,
                                       _OutputArray points )
 
 AutoIt:
-    $qRCodeDetector.detectMulti( $img[, $points] ) -> retval, $points
+    $oQRCodeDetector.detectMulti( $img[, $points] ) -> retval, $points
 ```
 
 ### cv::QRCodeDetector::decodeMulti
@@ -25567,7 +25567,7 @@ bool cv::QRCodeDetector::decodeMulti( _InputArray               img,
                                       _OutputArray              straight_qrcode = noArray() )
 
 AutoIt:
-    $qRCodeDetector.decodeMulti( $img, $points[, $straight_qrcode[, $decoded_info]] ) -> retval, $decoded_info, $straight_qrcode
+    $oQRCodeDetector.decodeMulti( $img, $points[, $straight_qrcode[, $decoded_info]] ) -> retval, $decoded_info, $straight_qrcode
 ```
 
 ### cv::QRCodeDetector::detectAndDecodeMulti
@@ -25579,7 +25579,7 @@ bool cv::QRCodeDetector::detectAndDecodeMulti( _InputArray               img,
                                                _OutputArray              straight_qrcode = noArray() )
 
 AutoIt:
-    $qRCodeDetector.detectAndDecodeMulti( $img[, $points[, $straight_qrcode[, $decoded_info]]] ) -> retval, $decoded_info, $points, $straight_qrcode
+    $oQRCodeDetector.detectAndDecodeMulti( $img[, $points[, $straight_qrcode[, $decoded_info]]] ) -> retval, $decoded_info, $points, $straight_qrcode
 ```
 
 ## cv::FaceDetectorYN
@@ -25590,7 +25590,7 @@ AutoIt:
 void cv::FaceDetectorYN::setInputSize( const cv::Size& input_size )
 
 AutoIt:
-    $faceDetectorYN.setInputSize( $input_size ) -> None
+    $oFaceDetectorYN.setInputSize( $input_size ) -> None
 ```
 
 ### cv::FaceDetectorYN::getInputSize
@@ -25599,7 +25599,7 @@ AutoIt:
 cv::Size cv::FaceDetectorYN::getInputSize()
 
 AutoIt:
-    $faceDetectorYN.getInputSize() -> retval
+    $oFaceDetectorYN.getInputSize() -> retval
 ```
 
 ### cv::FaceDetectorYN::setScoreThreshold
@@ -25608,7 +25608,7 @@ AutoIt:
 void cv::FaceDetectorYN::setScoreThreshold( float score_threshold )
 
 AutoIt:
-    $faceDetectorYN.setScoreThreshold( $score_threshold ) -> None
+    $oFaceDetectorYN.setScoreThreshold( $score_threshold ) -> None
 ```
 
 ### cv::FaceDetectorYN::getScoreThreshold
@@ -25617,7 +25617,7 @@ AutoIt:
 float cv::FaceDetectorYN::getScoreThreshold()
 
 AutoIt:
-    $faceDetectorYN.getScoreThreshold() -> retval
+    $oFaceDetectorYN.getScoreThreshold() -> retval
 ```
 
 ### cv::FaceDetectorYN::setNMSThreshold
@@ -25626,7 +25626,7 @@ AutoIt:
 void cv::FaceDetectorYN::setNMSThreshold( float nms_threshold )
 
 AutoIt:
-    $faceDetectorYN.setNMSThreshold( $nms_threshold ) -> None
+    $oFaceDetectorYN.setNMSThreshold( $nms_threshold ) -> None
 ```
 
 ### cv::FaceDetectorYN::getNMSThreshold
@@ -25635,7 +25635,7 @@ AutoIt:
 float cv::FaceDetectorYN::getNMSThreshold()
 
 AutoIt:
-    $faceDetectorYN.getNMSThreshold() -> retval
+    $oFaceDetectorYN.getNMSThreshold() -> retval
 ```
 
 ### cv::FaceDetectorYN::setTopK
@@ -25644,7 +25644,7 @@ AutoIt:
 void cv::FaceDetectorYN::setTopK( int top_k )
 
 AutoIt:
-    $faceDetectorYN.setTopK( $top_k ) -> None
+    $oFaceDetectorYN.setTopK( $top_k ) -> None
 ```
 
 ### cv::FaceDetectorYN::getTopK
@@ -25653,7 +25653,7 @@ AutoIt:
 int cv::FaceDetectorYN::getTopK()
 
 AutoIt:
-    $faceDetectorYN.getTopK() -> retval
+    $oFaceDetectorYN.getTopK() -> retval
 ```
 
 ### cv::FaceDetectorYN::detect
@@ -25663,7 +25663,7 @@ int cv::FaceDetectorYN::detect( _InputArray  image,
                                 _OutputArray faces )
 
 AutoIt:
-    $faceDetectorYN.detect( $image[, $faces] ) -> retval, $faces
+    $oFaceDetectorYN.detect( $image[, $faces] ) -> retval, $faces
 ```
 
 ### cv::FaceDetectorYN::create
@@ -25692,7 +25692,7 @@ void cv::FaceRecognizerSF::alignCrop( _InputArray  src_img,
                                       _OutputArray aligned_img )
 
 AutoIt:
-    $faceRecognizerSF.alignCrop( $src_img, $face_box[, $aligned_img] ) -> $aligned_img
+    $oFaceRecognizerSF.alignCrop( $src_img, $face_box[, $aligned_img] ) -> $aligned_img
 ```
 
 ### cv::FaceRecognizerSF::feature
@@ -25702,7 +25702,7 @@ void cv::FaceRecognizerSF::feature( _InputArray  aligned_img,
                                     _OutputArray face_feature )
 
 AutoIt:
-    $faceRecognizerSF.feature( $aligned_img[, $face_feature] ) -> $face_feature
+    $oFaceRecognizerSF.feature( $aligned_img[, $face_feature] ) -> $face_feature
 ```
 
 ### cv::FaceRecognizerSF::match
@@ -25713,7 +25713,7 @@ double cv::FaceRecognizerSF::match( _InputArray _face_feature1,
                                     int         dis_type = FaceRecognizerSF::FR_COSINE )
 
 AutoIt:
-    $faceRecognizerSF.match( $_face_feature1, $_face_feature2[, $dis_type] ) -> retval
+    $oFaceRecognizerSF.match( $_face_feature1, $_face_feature2[, $dis_type] ) -> retval
 ```
 
 ### cv::FaceRecognizerSF::create
@@ -25745,7 +25745,7 @@ AutoIt:
 double cv::Stitcher::registrationResol()
 
 AutoIt:
-    $stitcher.registrationResol() -> retval
+    $oStitcher.registrationResol() -> retval
 ```
 
 ### cv::Stitcher::setRegistrationResol
@@ -25754,7 +25754,7 @@ AutoIt:
 void cv::Stitcher::setRegistrationResol( double resol_mpx )
 
 AutoIt:
-    $stitcher.setRegistrationResol( $resol_mpx ) -> None
+    $oStitcher.setRegistrationResol( $resol_mpx ) -> None
 ```
 
 ### cv::Stitcher::seamEstimationResol
@@ -25763,7 +25763,7 @@ AutoIt:
 double cv::Stitcher::seamEstimationResol()
 
 AutoIt:
-    $stitcher.seamEstimationResol() -> retval
+    $oStitcher.seamEstimationResol() -> retval
 ```
 
 ### cv::Stitcher::setSeamEstimationResol
@@ -25772,7 +25772,7 @@ AutoIt:
 void cv::Stitcher::setSeamEstimationResol( double resol_mpx )
 
 AutoIt:
-    $stitcher.setSeamEstimationResol( $resol_mpx ) -> None
+    $oStitcher.setSeamEstimationResol( $resol_mpx ) -> None
 ```
 
 ### cv::Stitcher::compositingResol
@@ -25781,7 +25781,7 @@ AutoIt:
 double cv::Stitcher::compositingResol()
 
 AutoIt:
-    $stitcher.compositingResol() -> retval
+    $oStitcher.compositingResol() -> retval
 ```
 
 ### cv::Stitcher::setCompositingResol
@@ -25790,7 +25790,7 @@ AutoIt:
 void cv::Stitcher::setCompositingResol( double resol_mpx )
 
 AutoIt:
-    $stitcher.setCompositingResol( $resol_mpx ) -> None
+    $oStitcher.setCompositingResol( $resol_mpx ) -> None
 ```
 
 ### cv::Stitcher::panoConfidenceThresh
@@ -25799,7 +25799,7 @@ AutoIt:
 double cv::Stitcher::panoConfidenceThresh()
 
 AutoIt:
-    $stitcher.panoConfidenceThresh() -> retval
+    $oStitcher.panoConfidenceThresh() -> retval
 ```
 
 ### cv::Stitcher::setPanoConfidenceThresh
@@ -25808,7 +25808,7 @@ AutoIt:
 void cv::Stitcher::setPanoConfidenceThresh( double conf_thresh )
 
 AutoIt:
-    $stitcher.setPanoConfidenceThresh( $conf_thresh ) -> None
+    $oStitcher.setPanoConfidenceThresh( $conf_thresh ) -> None
 ```
 
 ### cv::Stitcher::waveCorrection
@@ -25817,7 +25817,7 @@ AutoIt:
 bool cv::Stitcher::waveCorrection()
 
 AutoIt:
-    $stitcher.waveCorrection() -> retval
+    $oStitcher.waveCorrection() -> retval
 ```
 
 ### cv::Stitcher::setWaveCorrection
@@ -25826,7 +25826,7 @@ AutoIt:
 void cv::Stitcher::setWaveCorrection( bool flag )
 
 AutoIt:
-    $stitcher.setWaveCorrection( $flag ) -> None
+    $oStitcher.setWaveCorrection( $flag ) -> None
 ```
 
 ### cv::Stitcher::interpolationFlags
@@ -25835,7 +25835,7 @@ AutoIt:
 int cv::Stitcher::interpolationFlags()
 
 AutoIt:
-    $stitcher.interpolationFlags() -> retval
+    $oStitcher.interpolationFlags() -> retval
 ```
 
 ### cv::Stitcher::setInterpolationFlags
@@ -25844,7 +25844,7 @@ AutoIt:
 void cv::Stitcher::setInterpolationFlags( int interp_flags )
 
 AutoIt:
-    $stitcher.setInterpolationFlags( $interp_flags ) -> None
+    $oStitcher.setInterpolationFlags( $interp_flags ) -> None
 ```
 
 ### cv::Stitcher::estimateTransform
@@ -25854,7 +25854,7 @@ int cv::Stitcher::estimateTransform( _InputArray images,
                                      _InputArray masks = noArray() )
 
 AutoIt:
-    $stitcher.estimateTransform( $images[, $masks] ) -> retval
+    $oStitcher.estimateTransform( $images[, $masks] ) -> retval
 ```
 
 ### cv::Stitcher::composePanorama
@@ -25863,7 +25863,7 @@ AutoIt:
 int cv::Stitcher::composePanorama( _OutputArray pano )
 
 AutoIt:
-    $stitcher.composePanorama( [$pano] ) -> retval, $pano
+    $oStitcher.composePanorama( [$pano] ) -> retval, $pano
 ```
 
 ```cpp
@@ -25871,7 +25871,7 @@ int cv::Stitcher::composePanorama( _InputArray  images,
                                    _OutputArray pano )
 
 AutoIt:
-    $stitcher.composePanorama( $images[, $pano] ) -> retval, $pano
+    $oStitcher.composePanorama( $images[, $pano] ) -> retval, $pano
 ```
 
 ### cv::Stitcher::stitch
@@ -25881,7 +25881,7 @@ int cv::Stitcher::stitch( _InputArray  images,
                           _OutputArray pano )
 
 AutoIt:
-    $stitcher.stitch( $images[, $pano] ) -> retval, $pano
+    $oStitcher.stitch( $images[, $pano] ) -> retval, $pano
 ```
 
 ```cpp
@@ -25890,7 +25890,7 @@ int cv::Stitcher::stitch( _InputArray  images,
                           _OutputArray pano )
 
 AutoIt:
-    $stitcher.stitch( $images, $masks[, $pano] ) -> retval, $pano
+    $oStitcher.stitch( $images, $masks[, $pano] ) -> retval, $pano
 ```
 
 ### cv::Stitcher::workScale
@@ -25899,7 +25899,7 @@ AutoIt:
 double cv::Stitcher::workScale()
 
 AutoIt:
-    $stitcher.workScale() -> retval
+    $oStitcher.workScale() -> retval
 ```
 
 ## cv::PyRotationWarper
@@ -25929,7 +25929,7 @@ cv::Point2f cv::PyRotationWarper::warpPoint( const cv::Point2f& pt,
                                              _InputArray        R )
 
 AutoIt:
-    $pyRotationWarper.warpPoint( $pt, $K, $R ) -> retval
+    $oPyRotationWarper.warpPoint( $pt, $K, $R ) -> retval
 ```
 
 ### cv::PyRotationWarper::warpPointBackward
@@ -25940,7 +25940,7 @@ cv::Point2f cv::PyRotationWarper::warpPointBackward( const cv::Point2f& pt,
                                                      _InputArray        R )
 
 AutoIt:
-    $pyRotationWarper.warpPointBackward( $pt, $K, $R ) -> retval
+    $oPyRotationWarper.warpPointBackward( $pt, $K, $R ) -> retval
 ```
 
 ```cpp
@@ -25949,7 +25949,7 @@ cv::Point2f cv::PyRotationWarper::warpPointBackward( const cv::Point2f& pt,
                                                      _InputArray        R )
 
 AutoIt:
-    $pyRotationWarper.warpPointBackward( $pt, $K, $R ) -> retval
+    $oPyRotationWarper.warpPointBackward( $pt, $K, $R ) -> retval
 ```
 
 ### cv::PyRotationWarper::buildMaps
@@ -25962,7 +25962,7 @@ cv::Rect cv::PyRotationWarper::buildMaps( cv::Size     src_size,
                                           _OutputArray ymap )
 
 AutoIt:
-    $pyRotationWarper.buildMaps( $src_size, $K, $R[, $xmap[, $ymap]] ) -> retval, $xmap, $ymap
+    $oPyRotationWarper.buildMaps( $src_size, $K, $R[, $xmap[, $ymap]] ) -> retval, $xmap, $ymap
 ```
 
 ### cv::PyRotationWarper::warp
@@ -25976,7 +25976,7 @@ cv::Point cv::PyRotationWarper::warp( _InputArray  src,
                                       _OutputArray dst )
 
 AutoIt:
-    $pyRotationWarper.warp( $src, $K, $R, $interp_mode, $border_mode[, $dst] ) -> retval, $dst
+    $oPyRotationWarper.warp( $src, $K, $R, $interp_mode, $border_mode[, $dst] ) -> retval, $dst
 ```
 
 ### cv::PyRotationWarper::warpBackward
@@ -25991,7 +25991,7 @@ void cv::PyRotationWarper::warpBackward( _InputArray  src,
                                          _OutputArray dst )
 
 AutoIt:
-    $pyRotationWarper.warpBackward( $src, $K, $R, $interp_mode, $border_mode, $dst_size[, $dst] ) -> $dst
+    $oPyRotationWarper.warpBackward( $src, $K, $R, $interp_mode, $border_mode, $dst_size[, $dst] ) -> $dst
 ```
 
 ### cv::PyRotationWarper::warpRoi
@@ -26002,7 +26002,7 @@ cv::Rect cv::PyRotationWarper::warpRoi( cv::Size    src_size,
                                         _InputArray R )
 
 AutoIt:
-    $pyRotationWarper.warpRoi( $src_size, $K, $R ) -> retval
+    $oPyRotationWarper.warpRoi( $src_size, $K, $R ) -> retval
 ```
 
 ### cv::PyRotationWarper::getScale
@@ -26011,7 +26011,7 @@ AutoIt:
 float cv::PyRotationWarper::getScale()
 
 AutoIt:
-    $pyRotationWarper.getScale() -> retval
+    $oPyRotationWarper.getScale() -> retval
 ```
 
 ### cv::PyRotationWarper::setScale
@@ -26020,7 +26020,7 @@ AutoIt:
 void cv::PyRotationWarper::setScale( float arg1 )
 
 AutoIt:
-    $pyRotationWarper.setScale( $arg1 ) -> None
+    $oPyRotationWarper.setScale( $arg1 ) -> None
 ```
 
 ## cv::detail::Blender
@@ -26042,14 +26042,14 @@ void cv::detail::Blender::prepare( const std::vector<cv::Point>& corners,
                                    const std::vector<cv::Size>&  sizes )
 
 AutoIt:
-    $blender.prepare( $corners, $sizes ) -> None
+    $oBlender.prepare( $corners, $sizes ) -> None
 ```
 
 ```cpp
 void cv::detail::Blender::prepare( cv::Rect dst_roi )
 
 AutoIt:
-    $blender.prepare( $dst_roi ) -> None
+    $oBlender.prepare( $dst_roi ) -> None
 ```
 
 ### cv::detail::Blender::feed
@@ -26060,7 +26060,7 @@ void cv::detail::Blender::feed( _InputArray img,
                                 cv::Point   tl )
 
 AutoIt:
-    $blender.feed( $img, $mask, $tl ) -> None
+    $oBlender.feed( $img, $mask, $tl ) -> None
 ```
 
 ### cv::detail::Blender::blend
@@ -26070,7 +26070,7 @@ void cv::detail::Blender::blend( _InputOutputArray dst,
                                  _InputOutputArray dst_mask )
 
 AutoIt:
-    $blender.blend( $dst, $dst_mask ) -> $dst, $dst_mask
+    $oBlender.blend( $dst, $dst_mask ) -> $dst, $dst_mask
 ```
 
 ## cv::detail::FeatherBlender
@@ -26090,7 +26090,7 @@ AutoIt:
 float cv::detail::FeatherBlender::sharpness()
 
 AutoIt:
-    $featherBlender.sharpness() -> retval
+    $oFeatherBlender.sharpness() -> retval
 ```
 
 ### cv::detail::FeatherBlender::setSharpness
@@ -26099,7 +26099,7 @@ AutoIt:
 void cv::detail::FeatherBlender::setSharpness( float val )
 
 AutoIt:
-    $featherBlender.setSharpness( $val ) -> None
+    $oFeatherBlender.setSharpness( $val ) -> None
 ```
 
 ### cv::detail::FeatherBlender::prepare
@@ -26108,7 +26108,7 @@ AutoIt:
 void cv::detail::FeatherBlender::prepare( cv::Rect dst_roi )
 
 AutoIt:
-    $featherBlender.prepare( $dst_roi ) -> None
+    $oFeatherBlender.prepare( $dst_roi ) -> None
 ```
 
 ```cpp
@@ -26116,7 +26116,7 @@ void cv::detail::FeatherBlender::prepare( const std::vector<cv::Point>& corners,
                                           const std::vector<cv::Size>&  sizes )
 
 AutoIt:
-    $featherBlender.prepare( $corners, $sizes ) -> None
+    $oFeatherBlender.prepare( $corners, $sizes ) -> None
 ```
 
 ### cv::detail::FeatherBlender::feed
@@ -26127,7 +26127,7 @@ void cv::detail::FeatherBlender::feed( _InputArray img,
                                        cv::Point   tl )
 
 AutoIt:
-    $featherBlender.feed( $img, $mask, $tl ) -> None
+    $oFeatherBlender.feed( $img, $mask, $tl ) -> None
 ```
 
 ### cv::detail::FeatherBlender::blend
@@ -26137,7 +26137,7 @@ void cv::detail::FeatherBlender::blend( _InputOutputArray dst,
                                         _InputOutputArray dst_mask )
 
 AutoIt:
-    $featherBlender.blend( $dst, $dst_mask ) -> $dst, $dst_mask
+    $oFeatherBlender.blend( $dst, $dst_mask ) -> $dst, $dst_mask
 ```
 
 ### cv::detail::FeatherBlender::createWeightMaps
@@ -26148,7 +26148,7 @@ cv::Rect cv::detail::FeatherBlender::createWeightMaps( const std::vector<cv::UMa
                                                        std::vector<cv::UMat>&        weight_maps )
 
 AutoIt:
-    $featherBlender.createWeightMaps( $masks, $corners, $weight_maps ) -> retval, $weight_maps
+    $oFeatherBlender.createWeightMaps( $masks, $corners, $weight_maps ) -> retval, $weight_maps
 ```
 
 ### cv::detail::FeatherBlender::createDefault
@@ -26180,7 +26180,7 @@ AutoIt:
 int cv::detail::MultiBandBlender::numBands()
 
 AutoIt:
-    $multiBandBlender.numBands() -> retval
+    $oMultiBandBlender.numBands() -> retval
 ```
 
 ### cv::detail::MultiBandBlender::setNumBands
@@ -26189,7 +26189,7 @@ AutoIt:
 void cv::detail::MultiBandBlender::setNumBands( int val )
 
 AutoIt:
-    $multiBandBlender.setNumBands( $val ) -> None
+    $oMultiBandBlender.setNumBands( $val ) -> None
 ```
 
 ### cv::detail::MultiBandBlender::prepare
@@ -26198,7 +26198,7 @@ AutoIt:
 void cv::detail::MultiBandBlender::prepare( cv::Rect dst_roi )
 
 AutoIt:
-    $multiBandBlender.prepare( $dst_roi ) -> None
+    $oMultiBandBlender.prepare( $dst_roi ) -> None
 ```
 
 ```cpp
@@ -26206,7 +26206,7 @@ void cv::detail::MultiBandBlender::prepare( const std::vector<cv::Point>& corner
                                             const std::vector<cv::Size>&  sizes )
 
 AutoIt:
-    $multiBandBlender.prepare( $corners, $sizes ) -> None
+    $oMultiBandBlender.prepare( $corners, $sizes ) -> None
 ```
 
 ### cv::detail::MultiBandBlender::feed
@@ -26217,7 +26217,7 @@ void cv::detail::MultiBandBlender::feed( _InputArray img,
                                          cv::Point   tl )
 
 AutoIt:
-    $multiBandBlender.feed( $img, $mask, $tl ) -> None
+    $oMultiBandBlender.feed( $img, $mask, $tl ) -> None
 ```
 
 ### cv::detail::MultiBandBlender::blend
@@ -26227,7 +26227,7 @@ void cv::detail::MultiBandBlender::blend( _InputOutputArray dst,
                                           _InputOutputArray dst_mask )
 
 AutoIt:
-    $multiBandBlender.blend( $dst, $dst_mask ) -> $dst, $dst_mask
+    $oMultiBandBlender.blend( $dst, $dst_mask ) -> $dst, $dst_mask
 ```
 
 ### cv::detail::MultiBandBlender::createDefault
@@ -26257,7 +26257,7 @@ AutoIt:
 cv::Mat cv::detail::CameraParams::K()
 
 AutoIt:
-    $cameraParams.K() -> retval
+    $oCameraParams.K() -> retval
 ```
 
 ## cv::detail::ExposureCompensator
@@ -26279,7 +26279,7 @@ void cv::detail::ExposureCompensator::feed( const std::vector<cv::Point>& corner
                                             const std::vector<cv::UMat>&  masks )
 
 AutoIt:
-    $exposureCompensator.feed( $corners, $images, $masks ) -> None
+    $oExposureCompensator.feed( $corners, $images, $masks ) -> None
 ```
 
 ### cv::detail::ExposureCompensator::apply
@@ -26291,7 +26291,7 @@ void cv::detail::ExposureCompensator::apply( int               index,
                                              _InputArray       mask )
 
 AutoIt:
-    $exposureCompensator.apply( $index, $corner, $image, $mask ) -> $image
+    $oExposureCompensator.apply( $index, $corner, $image, $mask ) -> $image
 ```
 
 ### cv::detail::ExposureCompensator::getMatGains
@@ -26300,7 +26300,7 @@ AutoIt:
 void cv::detail::ExposureCompensator::getMatGains( std::vector<cv::Mat>& arg1 )
 
 AutoIt:
-    $exposureCompensator.getMatGains( [$arg1] ) -> $arg1
+    $oExposureCompensator.getMatGains( [$arg1] ) -> $arg1
 ```
 
 ### cv::detail::ExposureCompensator::setMatGains
@@ -26309,7 +26309,7 @@ AutoIt:
 void cv::detail::ExposureCompensator::setMatGains( std::vector<cv::Mat>& arg1 )
 
 AutoIt:
-    $exposureCompensator.setMatGains( $arg1 ) -> None
+    $oExposureCompensator.setMatGains( $arg1 ) -> None
 ```
 
 ### cv::detail::ExposureCompensator::setUpdateGain
@@ -26318,7 +26318,7 @@ AutoIt:
 void cv::detail::ExposureCompensator::setUpdateGain( bool b )
 
 AutoIt:
-    $exposureCompensator.setUpdateGain( $b ) -> None
+    $oExposureCompensator.setUpdateGain( $b ) -> None
 ```
 
 ### cv::detail::ExposureCompensator::getUpdateGain
@@ -26327,7 +26327,7 @@ AutoIt:
 bool cv::detail::ExposureCompensator::getUpdateGain()
 
 AutoIt:
-    $exposureCompensator.getUpdateGain() -> retval
+    $oExposureCompensator.getUpdateGain() -> retval
 ```
 
 ## cv::detail::NoExposureCompensator
@@ -26341,7 +26341,7 @@ void cv::detail::NoExposureCompensator::apply( int               arg1,
                                                _InputArray       arg4 )
 
 AutoIt:
-    $noExposureCompensator.apply( $arg1, $arg2, $arg3, $arg4 ) -> $arg3
+    $oNoExposureCompensator.apply( $arg1, $arg2, $arg3, $arg4 ) -> $arg3
 ```
 
 ### cv::detail::NoExposureCompensator::getMatGains
@@ -26350,7 +26350,7 @@ AutoIt:
 void cv::detail::NoExposureCompensator::getMatGains( std::vector<cv::Mat>& umv )
 
 AutoIt:
-    $noExposureCompensator.getMatGains( [$umv] ) -> $umv
+    $oNoExposureCompensator.getMatGains( [$umv] ) -> $umv
 ```
 
 ### cv::detail::NoExposureCompensator::setMatGains
@@ -26359,7 +26359,7 @@ AutoIt:
 void cv::detail::NoExposureCompensator::setMatGains( std::vector<cv::Mat>& umv )
 
 AutoIt:
-    $noExposureCompensator.setMatGains( $umv ) -> None
+    $oNoExposureCompensator.setMatGains( $umv ) -> None
 ```
 
 ### cv::detail::NoExposureCompensator::createDefault
@@ -26379,7 +26379,7 @@ void cv::detail::NoExposureCompensator::feed( const std::vector<cv::Point>& corn
                                               const std::vector<cv::UMat>&  masks )
 
 AutoIt:
-    $noExposureCompensator.feed( $corners, $images, $masks ) -> None
+    $oNoExposureCompensator.feed( $corners, $images, $masks ) -> None
 ```
 
 ### cv::detail::NoExposureCompensator::setUpdateGain
@@ -26388,7 +26388,7 @@ AutoIt:
 void cv::detail::NoExposureCompensator::setUpdateGain( bool b )
 
 AutoIt:
-    $noExposureCompensator.setUpdateGain( $b ) -> None
+    $oNoExposureCompensator.setUpdateGain( $b ) -> None
 ```
 
 ### cv::detail::NoExposureCompensator::getUpdateGain
@@ -26397,7 +26397,7 @@ AutoIt:
 bool cv::detail::NoExposureCompensator::getUpdateGain()
 
 AutoIt:
-    $noExposureCompensator.getUpdateGain() -> retval
+    $oNoExposureCompensator.getUpdateGain() -> retval
 ```
 
 ## cv::detail::GainCompensator
@@ -26427,7 +26427,7 @@ void cv::detail::GainCompensator::apply( int               index,
                                          _InputArray       mask )
 
 AutoIt:
-    $gainCompensator.apply( $index, $corner, $image, $mask ) -> $image
+    $oGainCompensator.apply( $index, $corner, $image, $mask ) -> $image
 ```
 
 ### cv::detail::GainCompensator::getMatGains
@@ -26436,7 +26436,7 @@ AutoIt:
 void cv::detail::GainCompensator::getMatGains( std::vector<cv::Mat>& umv )
 
 AutoIt:
-    $gainCompensator.getMatGains( [$umv] ) -> $umv
+    $oGainCompensator.getMatGains( [$umv] ) -> $umv
 ```
 
 ### cv::detail::GainCompensator::setMatGains
@@ -26445,7 +26445,7 @@ AutoIt:
 void cv::detail::GainCompensator::setMatGains( std::vector<cv::Mat>& umv )
 
 AutoIt:
-    $gainCompensator.setMatGains( $umv ) -> None
+    $oGainCompensator.setMatGains( $umv ) -> None
 ```
 
 ### cv::detail::GainCompensator::setNrFeeds
@@ -26454,7 +26454,7 @@ AutoIt:
 void cv::detail::GainCompensator::setNrFeeds( int nr_feeds )
 
 AutoIt:
-    $gainCompensator.setNrFeeds( $nr_feeds ) -> None
+    $oGainCompensator.setNrFeeds( $nr_feeds ) -> None
 ```
 
 ### cv::detail::GainCompensator::getNrFeeds
@@ -26463,7 +26463,7 @@ AutoIt:
 int cv::detail::GainCompensator::getNrFeeds()
 
 AutoIt:
-    $gainCompensator.getNrFeeds() -> retval
+    $oGainCompensator.getNrFeeds() -> retval
 ```
 
 ### cv::detail::GainCompensator::setSimilarityThreshold
@@ -26472,7 +26472,7 @@ AutoIt:
 void cv::detail::GainCompensator::setSimilarityThreshold( double similarity_threshold )
 
 AutoIt:
-    $gainCompensator.setSimilarityThreshold( $similarity_threshold ) -> None
+    $oGainCompensator.setSimilarityThreshold( $similarity_threshold ) -> None
 ```
 
 ### cv::detail::GainCompensator::getSimilarityThreshold
@@ -26481,7 +26481,7 @@ AutoIt:
 double cv::detail::GainCompensator::getSimilarityThreshold()
 
 AutoIt:
-    $gainCompensator.getSimilarityThreshold() -> retval
+    $oGainCompensator.getSimilarityThreshold() -> retval
 ```
 
 ### cv::detail::GainCompensator::createDefault
@@ -26501,7 +26501,7 @@ void cv::detail::GainCompensator::feed( const std::vector<cv::Point>& corners,
                                         const std::vector<cv::UMat>&  masks )
 
 AutoIt:
-    $gainCompensator.feed( $corners, $images, $masks ) -> None
+    $oGainCompensator.feed( $corners, $images, $masks ) -> None
 ```
 
 ### cv::detail::GainCompensator::setUpdateGain
@@ -26510,7 +26510,7 @@ AutoIt:
 void cv::detail::GainCompensator::setUpdateGain( bool b )
 
 AutoIt:
-    $gainCompensator.setUpdateGain( $b ) -> None
+    $oGainCompensator.setUpdateGain( $b ) -> None
 ```
 
 ### cv::detail::GainCompensator::getUpdateGain
@@ -26519,7 +26519,7 @@ AutoIt:
 bool cv::detail::GainCompensator::getUpdateGain()
 
 AutoIt:
-    $gainCompensator.getUpdateGain() -> retval
+    $oGainCompensator.getUpdateGain() -> retval
 ```
 
 ## cv::detail::ChannelsCompensator
@@ -26542,7 +26542,7 @@ void cv::detail::ChannelsCompensator::apply( int               index,
                                              _InputArray       mask )
 
 AutoIt:
-    $channelsCompensator.apply( $index, $corner, $image, $mask ) -> $image
+    $oChannelsCompensator.apply( $index, $corner, $image, $mask ) -> $image
 ```
 
 ### cv::detail::ChannelsCompensator::getMatGains
@@ -26551,7 +26551,7 @@ AutoIt:
 void cv::detail::ChannelsCompensator::getMatGains( std::vector<cv::Mat>& umv )
 
 AutoIt:
-    $channelsCompensator.getMatGains( [$umv] ) -> $umv
+    $oChannelsCompensator.getMatGains( [$umv] ) -> $umv
 ```
 
 ### cv::detail::ChannelsCompensator::setMatGains
@@ -26560,7 +26560,7 @@ AutoIt:
 void cv::detail::ChannelsCompensator::setMatGains( std::vector<cv::Mat>& umv )
 
 AutoIt:
-    $channelsCompensator.setMatGains( $umv ) -> None
+    $oChannelsCompensator.setMatGains( $umv ) -> None
 ```
 
 ### cv::detail::ChannelsCompensator::setNrFeeds
@@ -26569,7 +26569,7 @@ AutoIt:
 void cv::detail::ChannelsCompensator::setNrFeeds( int nr_feeds )
 
 AutoIt:
-    $channelsCompensator.setNrFeeds( $nr_feeds ) -> None
+    $oChannelsCompensator.setNrFeeds( $nr_feeds ) -> None
 ```
 
 ### cv::detail::ChannelsCompensator::getNrFeeds
@@ -26578,7 +26578,7 @@ AutoIt:
 int cv::detail::ChannelsCompensator::getNrFeeds()
 
 AutoIt:
-    $channelsCompensator.getNrFeeds() -> retval
+    $oChannelsCompensator.getNrFeeds() -> retval
 ```
 
 ### cv::detail::ChannelsCompensator::setSimilarityThreshold
@@ -26587,7 +26587,7 @@ AutoIt:
 void cv::detail::ChannelsCompensator::setSimilarityThreshold( double similarity_threshold )
 
 AutoIt:
-    $channelsCompensator.setSimilarityThreshold( $similarity_threshold ) -> None
+    $oChannelsCompensator.setSimilarityThreshold( $similarity_threshold ) -> None
 ```
 
 ### cv::detail::ChannelsCompensator::getSimilarityThreshold
@@ -26596,7 +26596,7 @@ AutoIt:
 double cv::detail::ChannelsCompensator::getSimilarityThreshold()
 
 AutoIt:
-    $channelsCompensator.getSimilarityThreshold() -> retval
+    $oChannelsCompensator.getSimilarityThreshold() -> retval
 ```
 
 ### cv::detail::ChannelsCompensator::createDefault
@@ -26616,7 +26616,7 @@ void cv::detail::ChannelsCompensator::feed( const std::vector<cv::Point>& corner
                                             const std::vector<cv::UMat>&  masks )
 
 AutoIt:
-    $channelsCompensator.feed( $corners, $images, $masks ) -> None
+    $oChannelsCompensator.feed( $corners, $images, $masks ) -> None
 ```
 
 ### cv::detail::ChannelsCompensator::setUpdateGain
@@ -26625,7 +26625,7 @@ AutoIt:
 void cv::detail::ChannelsCompensator::setUpdateGain( bool b )
 
 AutoIt:
-    $channelsCompensator.setUpdateGain( $b ) -> None
+    $oChannelsCompensator.setUpdateGain( $b ) -> None
 ```
 
 ### cv::detail::ChannelsCompensator::getUpdateGain
@@ -26634,7 +26634,7 @@ AutoIt:
 bool cv::detail::ChannelsCompensator::getUpdateGain()
 
 AutoIt:
-    $channelsCompensator.getUpdateGain() -> retval
+    $oChannelsCompensator.getUpdateGain() -> retval
 ```
 
 ## cv::detail::BlocksCompensator
@@ -26648,7 +26648,7 @@ void cv::detail::BlocksCompensator::apply( int               index,
                                            _InputArray       mask )
 
 AutoIt:
-    $blocksCompensator.apply( $index, $corner, $image, $mask ) -> $image
+    $oBlocksCompensator.apply( $index, $corner, $image, $mask ) -> $image
 ```
 
 ### cv::detail::BlocksCompensator::getMatGains
@@ -26657,7 +26657,7 @@ AutoIt:
 void cv::detail::BlocksCompensator::getMatGains( std::vector<cv::Mat>& umv )
 
 AutoIt:
-    $blocksCompensator.getMatGains( [$umv] ) -> $umv
+    $oBlocksCompensator.getMatGains( [$umv] ) -> $umv
 ```
 
 ### cv::detail::BlocksCompensator::setMatGains
@@ -26666,7 +26666,7 @@ AutoIt:
 void cv::detail::BlocksCompensator::setMatGains( std::vector<cv::Mat>& umv )
 
 AutoIt:
-    $blocksCompensator.setMatGains( $umv ) -> None
+    $oBlocksCompensator.setMatGains( $umv ) -> None
 ```
 
 ### cv::detail::BlocksCompensator::setNrFeeds
@@ -26675,7 +26675,7 @@ AutoIt:
 void cv::detail::BlocksCompensator::setNrFeeds( int nr_feeds )
 
 AutoIt:
-    $blocksCompensator.setNrFeeds( $nr_feeds ) -> None
+    $oBlocksCompensator.setNrFeeds( $nr_feeds ) -> None
 ```
 
 ### cv::detail::BlocksCompensator::getNrFeeds
@@ -26684,7 +26684,7 @@ AutoIt:
 int cv::detail::BlocksCompensator::getNrFeeds()
 
 AutoIt:
-    $blocksCompensator.getNrFeeds() -> retval
+    $oBlocksCompensator.getNrFeeds() -> retval
 ```
 
 ### cv::detail::BlocksCompensator::setSimilarityThreshold
@@ -26693,7 +26693,7 @@ AutoIt:
 void cv::detail::BlocksCompensator::setSimilarityThreshold( double similarity_threshold )
 
 AutoIt:
-    $blocksCompensator.setSimilarityThreshold( $similarity_threshold ) -> None
+    $oBlocksCompensator.setSimilarityThreshold( $similarity_threshold ) -> None
 ```
 
 ### cv::detail::BlocksCompensator::getSimilarityThreshold
@@ -26702,7 +26702,7 @@ AutoIt:
 double cv::detail::BlocksCompensator::getSimilarityThreshold()
 
 AutoIt:
-    $blocksCompensator.getSimilarityThreshold() -> retval
+    $oBlocksCompensator.getSimilarityThreshold() -> retval
 ```
 
 ### cv::detail::BlocksCompensator::setBlockSize
@@ -26712,14 +26712,14 @@ void cv::detail::BlocksCompensator::setBlockSize( int width,
                                                   int height )
 
 AutoIt:
-    $blocksCompensator.setBlockSize( $width, $height ) -> None
+    $oBlocksCompensator.setBlockSize( $width, $height ) -> None
 ```
 
 ```cpp
 void cv::detail::BlocksCompensator::setBlockSize( cv::Size size )
 
 AutoIt:
-    $blocksCompensator.setBlockSize( $size ) -> None
+    $oBlocksCompensator.setBlockSize( $size ) -> None
 ```
 
 ### cv::detail::BlocksCompensator::getBlockSize
@@ -26728,7 +26728,7 @@ AutoIt:
 cv::Size cv::detail::BlocksCompensator::getBlockSize()
 
 AutoIt:
-    $blocksCompensator.getBlockSize() -> retval
+    $oBlocksCompensator.getBlockSize() -> retval
 ```
 
 ### cv::detail::BlocksCompensator::setNrGainsFilteringIterations
@@ -26737,7 +26737,7 @@ AutoIt:
 void cv::detail::BlocksCompensator::setNrGainsFilteringIterations( int nr_iterations )
 
 AutoIt:
-    $blocksCompensator.setNrGainsFilteringIterations( $nr_iterations ) -> None
+    $oBlocksCompensator.setNrGainsFilteringIterations( $nr_iterations ) -> None
 ```
 
 ### cv::detail::BlocksCompensator::getNrGainsFilteringIterations
@@ -26746,7 +26746,7 @@ AutoIt:
 int cv::detail::BlocksCompensator::getNrGainsFilteringIterations()
 
 AutoIt:
-    $blocksCompensator.getNrGainsFilteringIterations() -> retval
+    $oBlocksCompensator.getNrGainsFilteringIterations() -> retval
 ```
 
 ### cv::detail::BlocksCompensator::createDefault
@@ -26766,7 +26766,7 @@ void cv::detail::BlocksCompensator::feed( const std::vector<cv::Point>& corners,
                                           const std::vector<cv::UMat>&  masks )
 
 AutoIt:
-    $blocksCompensator.feed( $corners, $images, $masks ) -> None
+    $oBlocksCompensator.feed( $corners, $images, $masks ) -> None
 ```
 
 ### cv::detail::BlocksCompensator::setUpdateGain
@@ -26775,7 +26775,7 @@ AutoIt:
 void cv::detail::BlocksCompensator::setUpdateGain( bool b )
 
 AutoIt:
-    $blocksCompensator.setUpdateGain( $b ) -> None
+    $oBlocksCompensator.setUpdateGain( $b ) -> None
 ```
 
 ### cv::detail::BlocksCompensator::getUpdateGain
@@ -26784,7 +26784,7 @@ AutoIt:
 bool cv::detail::BlocksCompensator::getUpdateGain()
 
 AutoIt:
-    $blocksCompensator.getUpdateGain() -> retval
+    $oBlocksCompensator.getUpdateGain() -> retval
 ```
 
 ## cv::detail::BlocksGainCompensator
@@ -26817,7 +26817,7 @@ void cv::detail::BlocksGainCompensator::apply( int               index,
                                                _InputArray       mask )
 
 AutoIt:
-    $blocksGainCompensator.apply( $index, $corner, $image, $mask ) -> $image
+    $oBlocksGainCompensator.apply( $index, $corner, $image, $mask ) -> $image
 ```
 
 ### cv::detail::BlocksGainCompensator::getMatGains
@@ -26826,7 +26826,7 @@ AutoIt:
 void cv::detail::BlocksGainCompensator::getMatGains( std::vector<cv::Mat>& umv )
 
 AutoIt:
-    $blocksGainCompensator.getMatGains( [$umv] ) -> $umv
+    $oBlocksGainCompensator.getMatGains( [$umv] ) -> $umv
 ```
 
 ### cv::detail::BlocksGainCompensator::setMatGains
@@ -26835,7 +26835,7 @@ AutoIt:
 void cv::detail::BlocksGainCompensator::setMatGains( std::vector<cv::Mat>& umv )
 
 AutoIt:
-    $blocksGainCompensator.setMatGains( $umv ) -> None
+    $oBlocksGainCompensator.setMatGains( $umv ) -> None
 ```
 
 ### cv::detail::BlocksGainCompensator::setNrFeeds
@@ -26844,7 +26844,7 @@ AutoIt:
 void cv::detail::BlocksGainCompensator::setNrFeeds( int nr_feeds )
 
 AutoIt:
-    $blocksGainCompensator.setNrFeeds( $nr_feeds ) -> None
+    $oBlocksGainCompensator.setNrFeeds( $nr_feeds ) -> None
 ```
 
 ### cv::detail::BlocksGainCompensator::getNrFeeds
@@ -26853,7 +26853,7 @@ AutoIt:
 int cv::detail::BlocksGainCompensator::getNrFeeds()
 
 AutoIt:
-    $blocksGainCompensator.getNrFeeds() -> retval
+    $oBlocksGainCompensator.getNrFeeds() -> retval
 ```
 
 ### cv::detail::BlocksGainCompensator::setSimilarityThreshold
@@ -26862,7 +26862,7 @@ AutoIt:
 void cv::detail::BlocksGainCompensator::setSimilarityThreshold( double similarity_threshold )
 
 AutoIt:
-    $blocksGainCompensator.setSimilarityThreshold( $similarity_threshold ) -> None
+    $oBlocksGainCompensator.setSimilarityThreshold( $similarity_threshold ) -> None
 ```
 
 ### cv::detail::BlocksGainCompensator::getSimilarityThreshold
@@ -26871,7 +26871,7 @@ AutoIt:
 double cv::detail::BlocksGainCompensator::getSimilarityThreshold()
 
 AutoIt:
-    $blocksGainCompensator.getSimilarityThreshold() -> retval
+    $oBlocksGainCompensator.getSimilarityThreshold() -> retval
 ```
 
 ### cv::detail::BlocksGainCompensator::setBlockSize
@@ -26881,14 +26881,14 @@ void cv::detail::BlocksGainCompensator::setBlockSize( int width,
                                                       int height )
 
 AutoIt:
-    $blocksGainCompensator.setBlockSize( $width, $height ) -> None
+    $oBlocksGainCompensator.setBlockSize( $width, $height ) -> None
 ```
 
 ```cpp
 void cv::detail::BlocksGainCompensator::setBlockSize( cv::Size size )
 
 AutoIt:
-    $blocksGainCompensator.setBlockSize( $size ) -> None
+    $oBlocksGainCompensator.setBlockSize( $size ) -> None
 ```
 
 ### cv::detail::BlocksGainCompensator::getBlockSize
@@ -26897,7 +26897,7 @@ AutoIt:
 cv::Size cv::detail::BlocksGainCompensator::getBlockSize()
 
 AutoIt:
-    $blocksGainCompensator.getBlockSize() -> retval
+    $oBlocksGainCompensator.getBlockSize() -> retval
 ```
 
 ### cv::detail::BlocksGainCompensator::setNrGainsFilteringIterations
@@ -26906,7 +26906,7 @@ AutoIt:
 void cv::detail::BlocksGainCompensator::setNrGainsFilteringIterations( int nr_iterations )
 
 AutoIt:
-    $blocksGainCompensator.setNrGainsFilteringIterations( $nr_iterations ) -> None
+    $oBlocksGainCompensator.setNrGainsFilteringIterations( $nr_iterations ) -> None
 ```
 
 ### cv::detail::BlocksGainCompensator::getNrGainsFilteringIterations
@@ -26915,7 +26915,7 @@ AutoIt:
 int cv::detail::BlocksGainCompensator::getNrGainsFilteringIterations()
 
 AutoIt:
-    $blocksGainCompensator.getNrGainsFilteringIterations() -> retval
+    $oBlocksGainCompensator.getNrGainsFilteringIterations() -> retval
 ```
 
 ### cv::detail::BlocksGainCompensator::createDefault
@@ -26935,7 +26935,7 @@ void cv::detail::BlocksGainCompensator::feed( const std::vector<cv::Point>& corn
                                               const std::vector<cv::UMat>&  masks )
 
 AutoIt:
-    $blocksGainCompensator.feed( $corners, $images, $masks ) -> None
+    $oBlocksGainCompensator.feed( $corners, $images, $masks ) -> None
 ```
 
 ### cv::detail::BlocksGainCompensator::setUpdateGain
@@ -26944,7 +26944,7 @@ AutoIt:
 void cv::detail::BlocksGainCompensator::setUpdateGain( bool b )
 
 AutoIt:
-    $blocksGainCompensator.setUpdateGain( $b ) -> None
+    $oBlocksGainCompensator.setUpdateGain( $b ) -> None
 ```
 
 ### cv::detail::BlocksGainCompensator::getUpdateGain
@@ -26953,7 +26953,7 @@ AutoIt:
 bool cv::detail::BlocksGainCompensator::getUpdateGain()
 
 AutoIt:
-    $blocksGainCompensator.getUpdateGain() -> retval
+    $oBlocksGainCompensator.getUpdateGain() -> retval
 ```
 
 ## cv::detail::BlocksChannelsCompensator
@@ -26978,7 +26978,7 @@ void cv::detail::BlocksChannelsCompensator::apply( int               index,
                                                    _InputArray       mask )
 
 AutoIt:
-    $blocksChannelsCompensator.apply( $index, $corner, $image, $mask ) -> $image
+    $oBlocksChannelsCompensator.apply( $index, $corner, $image, $mask ) -> $image
 ```
 
 ### cv::detail::BlocksChannelsCompensator::getMatGains
@@ -26987,7 +26987,7 @@ AutoIt:
 void cv::detail::BlocksChannelsCompensator::getMatGains( std::vector<cv::Mat>& umv )
 
 AutoIt:
-    $blocksChannelsCompensator.getMatGains( [$umv] ) -> $umv
+    $oBlocksChannelsCompensator.getMatGains( [$umv] ) -> $umv
 ```
 
 ### cv::detail::BlocksChannelsCompensator::setMatGains
@@ -26996,7 +26996,7 @@ AutoIt:
 void cv::detail::BlocksChannelsCompensator::setMatGains( std::vector<cv::Mat>& umv )
 
 AutoIt:
-    $blocksChannelsCompensator.setMatGains( $umv ) -> None
+    $oBlocksChannelsCompensator.setMatGains( $umv ) -> None
 ```
 
 ### cv::detail::BlocksChannelsCompensator::setNrFeeds
@@ -27005,7 +27005,7 @@ AutoIt:
 void cv::detail::BlocksChannelsCompensator::setNrFeeds( int nr_feeds )
 
 AutoIt:
-    $blocksChannelsCompensator.setNrFeeds( $nr_feeds ) -> None
+    $oBlocksChannelsCompensator.setNrFeeds( $nr_feeds ) -> None
 ```
 
 ### cv::detail::BlocksChannelsCompensator::getNrFeeds
@@ -27014,7 +27014,7 @@ AutoIt:
 int cv::detail::BlocksChannelsCompensator::getNrFeeds()
 
 AutoIt:
-    $blocksChannelsCompensator.getNrFeeds() -> retval
+    $oBlocksChannelsCompensator.getNrFeeds() -> retval
 ```
 
 ### cv::detail::BlocksChannelsCompensator::setSimilarityThreshold
@@ -27023,7 +27023,7 @@ AutoIt:
 void cv::detail::BlocksChannelsCompensator::setSimilarityThreshold( double similarity_threshold )
 
 AutoIt:
-    $blocksChannelsCompensator.setSimilarityThreshold( $similarity_threshold ) -> None
+    $oBlocksChannelsCompensator.setSimilarityThreshold( $similarity_threshold ) -> None
 ```
 
 ### cv::detail::BlocksChannelsCompensator::getSimilarityThreshold
@@ -27032,7 +27032,7 @@ AutoIt:
 double cv::detail::BlocksChannelsCompensator::getSimilarityThreshold()
 
 AutoIt:
-    $blocksChannelsCompensator.getSimilarityThreshold() -> retval
+    $oBlocksChannelsCompensator.getSimilarityThreshold() -> retval
 ```
 
 ### cv::detail::BlocksChannelsCompensator::setBlockSize
@@ -27042,14 +27042,14 @@ void cv::detail::BlocksChannelsCompensator::setBlockSize( int width,
                                                           int height )
 
 AutoIt:
-    $blocksChannelsCompensator.setBlockSize( $width, $height ) -> None
+    $oBlocksChannelsCompensator.setBlockSize( $width, $height ) -> None
 ```
 
 ```cpp
 void cv::detail::BlocksChannelsCompensator::setBlockSize( cv::Size size )
 
 AutoIt:
-    $blocksChannelsCompensator.setBlockSize( $size ) -> None
+    $oBlocksChannelsCompensator.setBlockSize( $size ) -> None
 ```
 
 ### cv::detail::BlocksChannelsCompensator::getBlockSize
@@ -27058,7 +27058,7 @@ AutoIt:
 cv::Size cv::detail::BlocksChannelsCompensator::getBlockSize()
 
 AutoIt:
-    $blocksChannelsCompensator.getBlockSize() -> retval
+    $oBlocksChannelsCompensator.getBlockSize() -> retval
 ```
 
 ### cv::detail::BlocksChannelsCompensator::setNrGainsFilteringIterations
@@ -27067,7 +27067,7 @@ AutoIt:
 void cv::detail::BlocksChannelsCompensator::setNrGainsFilteringIterations( int nr_iterations )
 
 AutoIt:
-    $blocksChannelsCompensator.setNrGainsFilteringIterations( $nr_iterations ) -> None
+    $oBlocksChannelsCompensator.setNrGainsFilteringIterations( $nr_iterations ) -> None
 ```
 
 ### cv::detail::BlocksChannelsCompensator::getNrGainsFilteringIterations
@@ -27076,7 +27076,7 @@ AutoIt:
 int cv::detail::BlocksChannelsCompensator::getNrGainsFilteringIterations()
 
 AutoIt:
-    $blocksChannelsCompensator.getNrGainsFilteringIterations() -> retval
+    $oBlocksChannelsCompensator.getNrGainsFilteringIterations() -> retval
 ```
 
 ### cv::detail::BlocksChannelsCompensator::createDefault
@@ -27096,7 +27096,7 @@ void cv::detail::BlocksChannelsCompensator::feed( const std::vector<cv::Point>& 
                                                   const std::vector<cv::UMat>&  masks )
 
 AutoIt:
-    $blocksChannelsCompensator.feed( $corners, $images, $masks ) -> None
+    $oBlocksChannelsCompensator.feed( $corners, $images, $masks ) -> None
 ```
 
 ### cv::detail::BlocksChannelsCompensator::setUpdateGain
@@ -27105,7 +27105,7 @@ AutoIt:
 void cv::detail::BlocksChannelsCompensator::setUpdateGain( bool b )
 
 AutoIt:
-    $blocksChannelsCompensator.setUpdateGain( $b ) -> None
+    $oBlocksChannelsCompensator.setUpdateGain( $b ) -> None
 ```
 
 ### cv::detail::BlocksChannelsCompensator::getUpdateGain
@@ -27114,7 +27114,7 @@ AutoIt:
 bool cv::detail::BlocksChannelsCompensator::getUpdateGain()
 
 AutoIt:
-    $blocksChannelsCompensator.getUpdateGain() -> retval
+    $oBlocksChannelsCompensator.getUpdateGain() -> retval
 ```
 
 ## cv::detail::ImageFeatures
@@ -27134,7 +27134,7 @@ AutoIt:
 std::vector<cv::KeyPoint> cv::detail::ImageFeatures::getKeypoints()
 
 AutoIt:
-    $imageFeatures.getKeypoints() -> retval
+    $oImageFeatures.getKeypoints() -> retval
 ```
 
 ## cv::detail::MatchesInfo
@@ -27154,7 +27154,7 @@ AutoIt:
 std::vector<cv::DMatch> cv::detail::MatchesInfo::getMatches()
 
 AutoIt:
-    $matchesInfo.getMatches() -> retval
+    $oMatchesInfo.getMatches() -> retval
 ```
 
 ### cv::detail::MatchesInfo::getInliers
@@ -27163,7 +27163,7 @@ AutoIt:
 std::vector<uchar> cv::detail::MatchesInfo::getInliers()
 
 AutoIt:
-    $matchesInfo.getInliers() -> retval
+    $oMatchesInfo.getInliers() -> retval
 ```
 
 ## cv::detail::FeaturesMatcher
@@ -27176,7 +27176,7 @@ void cv::detail::FeaturesMatcher::apply( const cv::detail::ImageFeatures& featur
                                          cv::detail::MatchesInfo&         matches_info )
 
 AutoIt:
-    $featuresMatcher.apply( $features1, $features2[, $matches_info] ) -> $matches_info
+    $oFeaturesMatcher.apply( $features1, $features2[, $matches_info] ) -> $matches_info
 ```
 
 ### cv::detail::FeaturesMatcher::apply2
@@ -27187,7 +27187,7 @@ void cv::detail::FeaturesMatcher::apply2( const std::vector<cv::detail::ImageFea
                                           const cv::UMat&                               mask = cv::UMat() )
 
 AutoIt:
-    $featuresMatcher.apply2( $features[, $mask[, $pairwise_matches]] ) -> $pairwise_matches
+    $oFeaturesMatcher.apply2( $features[, $mask[, $pairwise_matches]] ) -> $pairwise_matches
 ```
 
 ### cv::detail::FeaturesMatcher::isThreadSafe
@@ -27196,7 +27196,7 @@ AutoIt:
 bool cv::detail::FeaturesMatcher::isThreadSafe()
 
 AutoIt:
-    $featuresMatcher.isThreadSafe() -> retval
+    $oFeaturesMatcher.isThreadSafe() -> retval
 ```
 
 ### cv::detail::FeaturesMatcher::collectGarbage
@@ -27205,7 +27205,7 @@ AutoIt:
 void cv::detail::FeaturesMatcher::collectGarbage()
 
 AutoIt:
-    $featuresMatcher.collectGarbage() -> None
+    $oFeaturesMatcher.collectGarbage() -> None
 ```
 
 ## cv::detail::BestOf2NearestMatcher
@@ -27238,7 +27238,7 @@ AutoIt:
 void cv::detail::BestOf2NearestMatcher::collectGarbage()
 
 AutoIt:
-    $bestOf2NearestMatcher.collectGarbage() -> None
+    $oBestOf2NearestMatcher.collectGarbage() -> None
 ```
 
 ### cv::detail::BestOf2NearestMatcher::apply
@@ -27249,7 +27249,7 @@ void cv::detail::BestOf2NearestMatcher::apply( const cv::detail::ImageFeatures& 
                                                cv::detail::MatchesInfo&         matches_info )
 
 AutoIt:
-    $bestOf2NearestMatcher.apply( $features1, $features2[, $matches_info] ) -> $matches_info
+    $oBestOf2NearestMatcher.apply( $features1, $features2[, $matches_info] ) -> $matches_info
 ```
 
 ### cv::detail::BestOf2NearestMatcher::apply2
@@ -27260,7 +27260,7 @@ void cv::detail::BestOf2NearestMatcher::apply2( const std::vector<cv::detail::Im
                                                 const cv::UMat&                               mask = cv::UMat() )
 
 AutoIt:
-    $bestOf2NearestMatcher.apply2( $features[, $mask[, $pairwise_matches]] ) -> $pairwise_matches
+    $oBestOf2NearestMatcher.apply2( $features[, $mask[, $pairwise_matches]] ) -> $pairwise_matches
 ```
 
 ### cv::detail::BestOf2NearestMatcher::isThreadSafe
@@ -27269,7 +27269,7 @@ AutoIt:
 bool cv::detail::BestOf2NearestMatcher::isThreadSafe()
 
 AutoIt:
-    $bestOf2NearestMatcher.isThreadSafe() -> retval
+    $oBestOf2NearestMatcher.isThreadSafe() -> retval
 ```
 
 ## cv::detail::BestOf2NearestRangeMatcher
@@ -27293,7 +27293,7 @@ AutoIt:
 void cv::detail::BestOf2NearestRangeMatcher::collectGarbage()
 
 AutoIt:
-    $bestOf2NearestRangeMatcher.collectGarbage() -> None
+    $oBestOf2NearestRangeMatcher.collectGarbage() -> None
 ```
 
 ### cv::detail::BestOf2NearestRangeMatcher::apply
@@ -27304,7 +27304,7 @@ void cv::detail::BestOf2NearestRangeMatcher::apply( const cv::detail::ImageFeatu
                                                     cv::detail::MatchesInfo&         matches_info )
 
 AutoIt:
-    $bestOf2NearestRangeMatcher.apply( $features1, $features2[, $matches_info] ) -> $matches_info
+    $oBestOf2NearestRangeMatcher.apply( $features1, $features2[, $matches_info] ) -> $matches_info
 ```
 
 ### cv::detail::BestOf2NearestRangeMatcher::apply2
@@ -27315,7 +27315,7 @@ void cv::detail::BestOf2NearestRangeMatcher::apply2( const std::vector<cv::detai
                                                      const cv::UMat&                               mask = cv::UMat() )
 
 AutoIt:
-    $bestOf2NearestRangeMatcher.apply2( $features[, $mask[, $pairwise_matches]] ) -> $pairwise_matches
+    $oBestOf2NearestRangeMatcher.apply2( $features[, $mask[, $pairwise_matches]] ) -> $pairwise_matches
 ```
 
 ### cv::detail::BestOf2NearestRangeMatcher::isThreadSafe
@@ -27324,7 +27324,7 @@ AutoIt:
 bool cv::detail::BestOf2NearestRangeMatcher::isThreadSafe()
 
 AutoIt:
-    $bestOf2NearestRangeMatcher.isThreadSafe() -> retval
+    $oBestOf2NearestRangeMatcher.isThreadSafe() -> retval
 ```
 
 ## cv::detail::AffineBestOf2NearestMatcher
@@ -27347,7 +27347,7 @@ AutoIt:
 void cv::detail::AffineBestOf2NearestMatcher::collectGarbage()
 
 AutoIt:
-    $affineBestOf2NearestMatcher.collectGarbage() -> None
+    $oAffineBestOf2NearestMatcher.collectGarbage() -> None
 ```
 
 ### cv::detail::AffineBestOf2NearestMatcher::apply
@@ -27358,7 +27358,7 @@ void cv::detail::AffineBestOf2NearestMatcher::apply( const cv::detail::ImageFeat
                                                      cv::detail::MatchesInfo&         matches_info )
 
 AutoIt:
-    $affineBestOf2NearestMatcher.apply( $features1, $features2[, $matches_info] ) -> $matches_info
+    $oAffineBestOf2NearestMatcher.apply( $features1, $features2[, $matches_info] ) -> $matches_info
 ```
 
 ### cv::detail::AffineBestOf2NearestMatcher::apply2
@@ -27369,7 +27369,7 @@ void cv::detail::AffineBestOf2NearestMatcher::apply2( const std::vector<cv::deta
                                                       const cv::UMat&                               mask = cv::UMat() )
 
 AutoIt:
-    $affineBestOf2NearestMatcher.apply2( $features[, $mask[, $pairwise_matches]] ) -> $pairwise_matches
+    $oAffineBestOf2NearestMatcher.apply2( $features[, $mask[, $pairwise_matches]] ) -> $pairwise_matches
 ```
 
 ### cv::detail::AffineBestOf2NearestMatcher::isThreadSafe
@@ -27378,7 +27378,7 @@ AutoIt:
 bool cv::detail::AffineBestOf2NearestMatcher::isThreadSafe()
 
 AutoIt:
-    $affineBestOf2NearestMatcher.isThreadSafe() -> retval
+    $oAffineBestOf2NearestMatcher.isThreadSafe() -> retval
 ```
 
 ## cv::detail::Estimator
@@ -27391,7 +27391,7 @@ bool cv::detail::Estimator::apply( const std::vector<cv::detail::ImageFeatures>&
                                    std::vector<cv::detail::CameraParams>&        cameras )
 
 AutoIt:
-    $estimator.apply( $features, $pairwise_matches, $cameras ) -> retval, $cameras
+    $oEstimator.apply( $features, $pairwise_matches, $cameras ) -> retval, $cameras
 ```
 
 ## cv::detail::HomographyBasedEstimator
@@ -27413,7 +27413,7 @@ bool cv::detail::HomographyBasedEstimator::apply( const std::vector<cv::detail::
                                                   std::vector<cv::detail::CameraParams>&        cameras )
 
 AutoIt:
-    $homographyBasedEstimator.apply( $features, $pairwise_matches, $cameras ) -> retval, $cameras
+    $oHomographyBasedEstimator.apply( $features, $pairwise_matches, $cameras ) -> retval, $cameras
 ```
 
 ## cv::detail::AffineBasedEstimator
@@ -27435,7 +27435,7 @@ bool cv::detail::AffineBasedEstimator::apply( const std::vector<cv::detail::Imag
                                               std::vector<cv::detail::CameraParams>&        cameras )
 
 AutoIt:
-    $affineBasedEstimator.apply( $features, $pairwise_matches, $cameras ) -> retval, $cameras
+    $oAffineBasedEstimator.apply( $features, $pairwise_matches, $cameras ) -> retval, $cameras
 ```
 
 ## cv::detail::BundleAdjusterBase
@@ -27446,7 +27446,7 @@ AutoIt:
 cv::Mat cv::detail::BundleAdjusterBase::refinementMask()
 
 AutoIt:
-    $bundleAdjusterBase.refinementMask() -> retval
+    $oBundleAdjusterBase.refinementMask() -> retval
 ```
 
 ### cv::detail::BundleAdjusterBase::setRefinementMask
@@ -27455,7 +27455,7 @@ AutoIt:
 void cv::detail::BundleAdjusterBase::setRefinementMask( const cv::Mat& mask )
 
 AutoIt:
-    $bundleAdjusterBase.setRefinementMask( $mask ) -> None
+    $oBundleAdjusterBase.setRefinementMask( $mask ) -> None
 ```
 
 ### cv::detail::BundleAdjusterBase::confThresh
@@ -27464,7 +27464,7 @@ AutoIt:
 double cv::detail::BundleAdjusterBase::confThresh()
 
 AutoIt:
-    $bundleAdjusterBase.confThresh() -> retval
+    $oBundleAdjusterBase.confThresh() -> retval
 ```
 
 ### cv::detail::BundleAdjusterBase::setConfThresh
@@ -27473,7 +27473,7 @@ AutoIt:
 void cv::detail::BundleAdjusterBase::setConfThresh( double conf_thresh )
 
 AutoIt:
-    $bundleAdjusterBase.setConfThresh( $conf_thresh ) -> None
+    $oBundleAdjusterBase.setConfThresh( $conf_thresh ) -> None
 ```
 
 ### cv::detail::BundleAdjusterBase::termCriteria
@@ -27482,7 +27482,7 @@ AutoIt:
 cv::TermCriteria cv::detail::BundleAdjusterBase::termCriteria()
 
 AutoIt:
-    $bundleAdjusterBase.termCriteria() -> retval
+    $oBundleAdjusterBase.termCriteria() -> retval
 ```
 
 ### cv::detail::BundleAdjusterBase::setTermCriteria
@@ -27491,7 +27491,7 @@ AutoIt:
 void cv::detail::BundleAdjusterBase::setTermCriteria( const cv::TermCriteria& term_criteria )
 
 AutoIt:
-    $bundleAdjusterBase.setTermCriteria( $term_criteria ) -> None
+    $oBundleAdjusterBase.setTermCriteria( $term_criteria ) -> None
 ```
 
 ### cv::detail::BundleAdjusterBase::apply
@@ -27502,7 +27502,7 @@ bool cv::detail::BundleAdjusterBase::apply( const std::vector<cv::detail::ImageF
                                             std::vector<cv::detail::CameraParams>&        cameras )
 
 AutoIt:
-    $bundleAdjusterBase.apply( $features, $pairwise_matches, $cameras ) -> retval, $cameras
+    $oBundleAdjusterBase.apply( $features, $pairwise_matches, $cameras ) -> retval, $cameras
 ```
 
 ## cv::detail::NoBundleAdjuster
@@ -27522,7 +27522,7 @@ AutoIt:
 cv::Mat cv::detail::NoBundleAdjuster::refinementMask()
 
 AutoIt:
-    $noBundleAdjuster.refinementMask() -> retval
+    $oNoBundleAdjuster.refinementMask() -> retval
 ```
 
 ### cv::detail::NoBundleAdjuster::setRefinementMask
@@ -27531,7 +27531,7 @@ AutoIt:
 void cv::detail::NoBundleAdjuster::setRefinementMask( const cv::Mat& mask )
 
 AutoIt:
-    $noBundleAdjuster.setRefinementMask( $mask ) -> None
+    $oNoBundleAdjuster.setRefinementMask( $mask ) -> None
 ```
 
 ### cv::detail::NoBundleAdjuster::confThresh
@@ -27540,7 +27540,7 @@ AutoIt:
 double cv::detail::NoBundleAdjuster::confThresh()
 
 AutoIt:
-    $noBundleAdjuster.confThresh() -> retval
+    $oNoBundleAdjuster.confThresh() -> retval
 ```
 
 ### cv::detail::NoBundleAdjuster::setConfThresh
@@ -27549,7 +27549,7 @@ AutoIt:
 void cv::detail::NoBundleAdjuster::setConfThresh( double conf_thresh )
 
 AutoIt:
-    $noBundleAdjuster.setConfThresh( $conf_thresh ) -> None
+    $oNoBundleAdjuster.setConfThresh( $conf_thresh ) -> None
 ```
 
 ### cv::detail::NoBundleAdjuster::termCriteria
@@ -27558,7 +27558,7 @@ AutoIt:
 cv::TermCriteria cv::detail::NoBundleAdjuster::termCriteria()
 
 AutoIt:
-    $noBundleAdjuster.termCriteria() -> retval
+    $oNoBundleAdjuster.termCriteria() -> retval
 ```
 
 ### cv::detail::NoBundleAdjuster::setTermCriteria
@@ -27567,7 +27567,7 @@ AutoIt:
 void cv::detail::NoBundleAdjuster::setTermCriteria( const cv::TermCriteria& term_criteria )
 
 AutoIt:
-    $noBundleAdjuster.setTermCriteria( $term_criteria ) -> None
+    $oNoBundleAdjuster.setTermCriteria( $term_criteria ) -> None
 ```
 
 ### cv::detail::NoBundleAdjuster::apply
@@ -27578,7 +27578,7 @@ bool cv::detail::NoBundleAdjuster::apply( const std::vector<cv::detail::ImageFea
                                           std::vector<cv::detail::CameraParams>&        cameras )
 
 AutoIt:
-    $noBundleAdjuster.apply( $features, $pairwise_matches, $cameras ) -> retval, $cameras
+    $oNoBundleAdjuster.apply( $features, $pairwise_matches, $cameras ) -> retval, $cameras
 ```
 
 ## cv::detail::BundleAdjusterReproj
@@ -27598,7 +27598,7 @@ AutoIt:
 cv::Mat cv::detail::BundleAdjusterReproj::refinementMask()
 
 AutoIt:
-    $bundleAdjusterReproj.refinementMask() -> retval
+    $oBundleAdjusterReproj.refinementMask() -> retval
 ```
 
 ### cv::detail::BundleAdjusterReproj::setRefinementMask
@@ -27607,7 +27607,7 @@ AutoIt:
 void cv::detail::BundleAdjusterReproj::setRefinementMask( const cv::Mat& mask )
 
 AutoIt:
-    $bundleAdjusterReproj.setRefinementMask( $mask ) -> None
+    $oBundleAdjusterReproj.setRefinementMask( $mask ) -> None
 ```
 
 ### cv::detail::BundleAdjusterReproj::confThresh
@@ -27616,7 +27616,7 @@ AutoIt:
 double cv::detail::BundleAdjusterReproj::confThresh()
 
 AutoIt:
-    $bundleAdjusterReproj.confThresh() -> retval
+    $oBundleAdjusterReproj.confThresh() -> retval
 ```
 
 ### cv::detail::BundleAdjusterReproj::setConfThresh
@@ -27625,7 +27625,7 @@ AutoIt:
 void cv::detail::BundleAdjusterReproj::setConfThresh( double conf_thresh )
 
 AutoIt:
-    $bundleAdjusterReproj.setConfThresh( $conf_thresh ) -> None
+    $oBundleAdjusterReproj.setConfThresh( $conf_thresh ) -> None
 ```
 
 ### cv::detail::BundleAdjusterReproj::termCriteria
@@ -27634,7 +27634,7 @@ AutoIt:
 cv::TermCriteria cv::detail::BundleAdjusterReproj::termCriteria()
 
 AutoIt:
-    $bundleAdjusterReproj.termCriteria() -> retval
+    $oBundleAdjusterReproj.termCriteria() -> retval
 ```
 
 ### cv::detail::BundleAdjusterReproj::setTermCriteria
@@ -27643,7 +27643,7 @@ AutoIt:
 void cv::detail::BundleAdjusterReproj::setTermCriteria( const cv::TermCriteria& term_criteria )
 
 AutoIt:
-    $bundleAdjusterReproj.setTermCriteria( $term_criteria ) -> None
+    $oBundleAdjusterReproj.setTermCriteria( $term_criteria ) -> None
 ```
 
 ### cv::detail::BundleAdjusterReproj::apply
@@ -27654,7 +27654,7 @@ bool cv::detail::BundleAdjusterReproj::apply( const std::vector<cv::detail::Imag
                                               std::vector<cv::detail::CameraParams>&        cameras )
 
 AutoIt:
-    $bundleAdjusterReproj.apply( $features, $pairwise_matches, $cameras ) -> retval, $cameras
+    $oBundleAdjusterReproj.apply( $features, $pairwise_matches, $cameras ) -> retval, $cameras
 ```
 
 ## cv::detail::BundleAdjusterRay
@@ -27674,7 +27674,7 @@ AutoIt:
 cv::Mat cv::detail::BundleAdjusterRay::refinementMask()
 
 AutoIt:
-    $bundleAdjusterRay.refinementMask() -> retval
+    $oBundleAdjusterRay.refinementMask() -> retval
 ```
 
 ### cv::detail::BundleAdjusterRay::setRefinementMask
@@ -27683,7 +27683,7 @@ AutoIt:
 void cv::detail::BundleAdjusterRay::setRefinementMask( const cv::Mat& mask )
 
 AutoIt:
-    $bundleAdjusterRay.setRefinementMask( $mask ) -> None
+    $oBundleAdjusterRay.setRefinementMask( $mask ) -> None
 ```
 
 ### cv::detail::BundleAdjusterRay::confThresh
@@ -27692,7 +27692,7 @@ AutoIt:
 double cv::detail::BundleAdjusterRay::confThresh()
 
 AutoIt:
-    $bundleAdjusterRay.confThresh() -> retval
+    $oBundleAdjusterRay.confThresh() -> retval
 ```
 
 ### cv::detail::BundleAdjusterRay::setConfThresh
@@ -27701,7 +27701,7 @@ AutoIt:
 void cv::detail::BundleAdjusterRay::setConfThresh( double conf_thresh )
 
 AutoIt:
-    $bundleAdjusterRay.setConfThresh( $conf_thresh ) -> None
+    $oBundleAdjusterRay.setConfThresh( $conf_thresh ) -> None
 ```
 
 ### cv::detail::BundleAdjusterRay::termCriteria
@@ -27710,7 +27710,7 @@ AutoIt:
 cv::TermCriteria cv::detail::BundleAdjusterRay::termCriteria()
 
 AutoIt:
-    $bundleAdjusterRay.termCriteria() -> retval
+    $oBundleAdjusterRay.termCriteria() -> retval
 ```
 
 ### cv::detail::BundleAdjusterRay::setTermCriteria
@@ -27719,7 +27719,7 @@ AutoIt:
 void cv::detail::BundleAdjusterRay::setTermCriteria( const cv::TermCriteria& term_criteria )
 
 AutoIt:
-    $bundleAdjusterRay.setTermCriteria( $term_criteria ) -> None
+    $oBundleAdjusterRay.setTermCriteria( $term_criteria ) -> None
 ```
 
 ### cv::detail::BundleAdjusterRay::apply
@@ -27730,7 +27730,7 @@ bool cv::detail::BundleAdjusterRay::apply( const std::vector<cv::detail::ImageFe
                                            std::vector<cv::detail::CameraParams>&        cameras )
 
 AutoIt:
-    $bundleAdjusterRay.apply( $features, $pairwise_matches, $cameras ) -> retval, $cameras
+    $oBundleAdjusterRay.apply( $features, $pairwise_matches, $cameras ) -> retval, $cameras
 ```
 
 ## cv::detail::BundleAdjusterAffine
@@ -27750,7 +27750,7 @@ AutoIt:
 cv::Mat cv::detail::BundleAdjusterAffine::refinementMask()
 
 AutoIt:
-    $bundleAdjusterAffine.refinementMask() -> retval
+    $oBundleAdjusterAffine.refinementMask() -> retval
 ```
 
 ### cv::detail::BundleAdjusterAffine::setRefinementMask
@@ -27759,7 +27759,7 @@ AutoIt:
 void cv::detail::BundleAdjusterAffine::setRefinementMask( const cv::Mat& mask )
 
 AutoIt:
-    $bundleAdjusterAffine.setRefinementMask( $mask ) -> None
+    $oBundleAdjusterAffine.setRefinementMask( $mask ) -> None
 ```
 
 ### cv::detail::BundleAdjusterAffine::confThresh
@@ -27768,7 +27768,7 @@ AutoIt:
 double cv::detail::BundleAdjusterAffine::confThresh()
 
 AutoIt:
-    $bundleAdjusterAffine.confThresh() -> retval
+    $oBundleAdjusterAffine.confThresh() -> retval
 ```
 
 ### cv::detail::BundleAdjusterAffine::setConfThresh
@@ -27777,7 +27777,7 @@ AutoIt:
 void cv::detail::BundleAdjusterAffine::setConfThresh( double conf_thresh )
 
 AutoIt:
-    $bundleAdjusterAffine.setConfThresh( $conf_thresh ) -> None
+    $oBundleAdjusterAffine.setConfThresh( $conf_thresh ) -> None
 ```
 
 ### cv::detail::BundleAdjusterAffine::termCriteria
@@ -27786,7 +27786,7 @@ AutoIt:
 cv::TermCriteria cv::detail::BundleAdjusterAffine::termCriteria()
 
 AutoIt:
-    $bundleAdjusterAffine.termCriteria() -> retval
+    $oBundleAdjusterAffine.termCriteria() -> retval
 ```
 
 ### cv::detail::BundleAdjusterAffine::setTermCriteria
@@ -27795,7 +27795,7 @@ AutoIt:
 void cv::detail::BundleAdjusterAffine::setTermCriteria( const cv::TermCriteria& term_criteria )
 
 AutoIt:
-    $bundleAdjusterAffine.setTermCriteria( $term_criteria ) -> None
+    $oBundleAdjusterAffine.setTermCriteria( $term_criteria ) -> None
 ```
 
 ### cv::detail::BundleAdjusterAffine::apply
@@ -27806,7 +27806,7 @@ bool cv::detail::BundleAdjusterAffine::apply( const std::vector<cv::detail::Imag
                                               std::vector<cv::detail::CameraParams>&        cameras )
 
 AutoIt:
-    $bundleAdjusterAffine.apply( $features, $pairwise_matches, $cameras ) -> retval, $cameras
+    $oBundleAdjusterAffine.apply( $features, $pairwise_matches, $cameras ) -> retval, $cameras
 ```
 
 ## cv::detail::BundleAdjusterAffinePartial
@@ -27826,7 +27826,7 @@ AutoIt:
 cv::Mat cv::detail::BundleAdjusterAffinePartial::refinementMask()
 
 AutoIt:
-    $bundleAdjusterAffinePartial.refinementMask() -> retval
+    $oBundleAdjusterAffinePartial.refinementMask() -> retval
 ```
 
 ### cv::detail::BundleAdjusterAffinePartial::setRefinementMask
@@ -27835,7 +27835,7 @@ AutoIt:
 void cv::detail::BundleAdjusterAffinePartial::setRefinementMask( const cv::Mat& mask )
 
 AutoIt:
-    $bundleAdjusterAffinePartial.setRefinementMask( $mask ) -> None
+    $oBundleAdjusterAffinePartial.setRefinementMask( $mask ) -> None
 ```
 
 ### cv::detail::BundleAdjusterAffinePartial::confThresh
@@ -27844,7 +27844,7 @@ AutoIt:
 double cv::detail::BundleAdjusterAffinePartial::confThresh()
 
 AutoIt:
-    $bundleAdjusterAffinePartial.confThresh() -> retval
+    $oBundleAdjusterAffinePartial.confThresh() -> retval
 ```
 
 ### cv::detail::BundleAdjusterAffinePartial::setConfThresh
@@ -27853,7 +27853,7 @@ AutoIt:
 void cv::detail::BundleAdjusterAffinePartial::setConfThresh( double conf_thresh )
 
 AutoIt:
-    $bundleAdjusterAffinePartial.setConfThresh( $conf_thresh ) -> None
+    $oBundleAdjusterAffinePartial.setConfThresh( $conf_thresh ) -> None
 ```
 
 ### cv::detail::BundleAdjusterAffinePartial::termCriteria
@@ -27862,7 +27862,7 @@ AutoIt:
 cv::TermCriteria cv::detail::BundleAdjusterAffinePartial::termCriteria()
 
 AutoIt:
-    $bundleAdjusterAffinePartial.termCriteria() -> retval
+    $oBundleAdjusterAffinePartial.termCriteria() -> retval
 ```
 
 ### cv::detail::BundleAdjusterAffinePartial::setTermCriteria
@@ -27871,7 +27871,7 @@ AutoIt:
 void cv::detail::BundleAdjusterAffinePartial::setTermCriteria( const cv::TermCriteria& term_criteria )
 
 AutoIt:
-    $bundleAdjusterAffinePartial.setTermCriteria( $term_criteria ) -> None
+    $oBundleAdjusterAffinePartial.setTermCriteria( $term_criteria ) -> None
 ```
 
 ### cv::detail::BundleAdjusterAffinePartial::apply
@@ -27882,7 +27882,7 @@ bool cv::detail::BundleAdjusterAffinePartial::apply( const std::vector<cv::detai
                                                      std::vector<cv::detail::CameraParams>&        cameras )
 
 AutoIt:
-    $bundleAdjusterAffinePartial.apply( $features, $pairwise_matches, $cameras ) -> retval, $cameras
+    $oBundleAdjusterAffinePartial.apply( $features, $pairwise_matches, $cameras ) -> retval, $cameras
 ```
 
 ## cv::detail::SeamFinder
@@ -27895,7 +27895,7 @@ void cv::detail::SeamFinder::find( const std::vector<cv::UMat>&  src,
                                    std::vector<cv::UMat>&        masks )
 
 AutoIt:
-    $seamFinder.find( $src, $corners, $masks ) -> $masks
+    $oSeamFinder.find( $src, $corners, $masks ) -> $masks
 ```
 
 ### cv::detail::SeamFinder::createDefault
@@ -27917,7 +27917,7 @@ void cv::detail::NoSeamFinder::find( const std::vector<cv::UMat>&  arg1,
                                      std::vector<cv::UMat>&        arg3 )
 
 AutoIt:
-    $noSeamFinder.find( $arg1, $arg2, $arg3 ) -> $arg3
+    $oNoSeamFinder.find( $arg1, $arg2, $arg3 ) -> $arg3
 ```
 
 ### cv::detail::NoSeamFinder::createDefault
@@ -27939,7 +27939,7 @@ void cv::detail::PairwiseSeamFinder::find( const std::vector<cv::UMat>&  src,
                                            std::vector<cv::UMat>&        masks )
 
 AutoIt:
-    $pairwiseSeamFinder.find( $src, $corners, $masks ) -> $masks
+    $oPairwiseSeamFinder.find( $src, $corners, $masks ) -> $masks
 ```
 
 ### cv::detail::PairwiseSeamFinder::createDefault
@@ -27961,7 +27961,7 @@ void cv::detail::VoronoiSeamFinder::find( const std::vector<cv::UMat>&  src,
                                           std::vector<cv::UMat>&        masks )
 
 AutoIt:
-    $voronoiSeamFinder.find( $src, $corners, $masks ) -> $masks
+    $oVoronoiSeamFinder.find( $src, $corners, $masks ) -> $masks
 ```
 
 ### cv::detail::VoronoiSeamFinder::createDefault
@@ -27990,7 +27990,7 @@ AutoIt:
 void cv::detail::DpSeamFinder::setCostFunction( std::string val )
 
 AutoIt:
-    $dpSeamFinder.setCostFunction( $val ) -> None
+    $oDpSeamFinder.setCostFunction( $val ) -> None
 ```
 
 ### cv::detail::DpSeamFinder::find
@@ -28001,7 +28001,7 @@ void cv::detail::DpSeamFinder::find( const std::vector<cv::UMat>&  src,
                                      std::vector<cv::UMat>&        masks )
 
 AutoIt:
-    $dpSeamFinder.find( $src, $corners, $masks ) -> $masks
+    $oDpSeamFinder.find( $src, $corners, $masks ) -> $masks
 ```
 
 ### cv::detail::DpSeamFinder::createDefault
@@ -28034,7 +28034,7 @@ void cv::detail::GraphCutSeamFinder::find( const std::vector<cv::UMat>&  src,
                                            std::vector<cv::UMat>&        masks )
 
 AutoIt:
-    $graphCutSeamFinder.find( $src, $corners, $masks ) -> None
+    $oGraphCutSeamFinder.find( $src, $corners, $masks ) -> None
 ```
 
 ### cv::detail::GraphCutSeamFinder::createDefault
@@ -28064,7 +28064,7 @@ void cv::detail::Timelapser::initialize( const std::vector<cv::Point>& corners,
                                          const std::vector<cv::Size>&  sizes )
 
 AutoIt:
-    $timelapser.initialize( $corners, $sizes ) -> None
+    $oTimelapser.initialize( $corners, $sizes ) -> None
 ```
 
 ### cv::detail::Timelapser::process
@@ -28075,7 +28075,7 @@ void cv::detail::Timelapser::process( _InputArray img,
                                       cv::Point   tl )
 
 AutoIt:
-    $timelapser.process( $img, $mask, $tl ) -> None
+    $oTimelapser.process( $img, $mask, $tl ) -> None
 ```
 
 ### cv::detail::Timelapser::getDst
@@ -28084,7 +28084,7 @@ AutoIt:
 cv::UMat cv::detail::Timelapser::getDst()
 
 AutoIt:
-    $timelapser.getDst() -> retval
+    $oTimelapser.getDst() -> retval
 ```
 
 ## cv::detail::TimelapserCrop
@@ -28105,7 +28105,7 @@ void cv::detail::TimelapserCrop::initialize( const std::vector<cv::Point>& corne
                                              const std::vector<cv::Size>&  sizes )
 
 AutoIt:
-    $timelapserCrop.initialize( $corners, $sizes ) -> None
+    $oTimelapserCrop.initialize( $corners, $sizes ) -> None
 ```
 
 ### cv::detail::TimelapserCrop::process
@@ -28116,7 +28116,7 @@ void cv::detail::TimelapserCrop::process( _InputArray img,
                                           cv::Point   tl )
 
 AutoIt:
-    $timelapserCrop.process( $img, $mask, $tl ) -> None
+    $oTimelapserCrop.process( $img, $mask, $tl ) -> None
 ```
 
 ### cv::detail::TimelapserCrop::getDst
@@ -28125,7 +28125,7 @@ AutoIt:
 cv::UMat cv::detail::TimelapserCrop::getDst()
 
 AutoIt:
-    $timelapserCrop.getDst() -> retval
+    $oTimelapserCrop.getDst() -> retval
 ```
 
 ## cv::detail::ProjectorBase
@@ -28159,7 +28159,7 @@ void cv::detail::SphericalProjector::mapForward( float  x,
                                                  float& v )
 
 AutoIt:
-    $sphericalProjector.mapForward( $x, $y, $u, $v ) -> None
+    $oSphericalProjector.mapForward( $x, $y, $u, $v ) -> None
 ```
 
 ### cv::detail::SphericalProjector::mapBackward
@@ -28171,7 +28171,7 @@ void cv::detail::SphericalProjector::mapBackward( float  u,
                                                   float& y )
 
 AutoIt:
-    $sphericalProjector.mapBackward( $u, $v, $x, $y ) -> None
+    $oSphericalProjector.mapBackward( $u, $v, $x, $y ) -> None
 ```
 
 ## cv::BackgroundSubtractor
@@ -28184,7 +28184,7 @@ void cv::BackgroundSubtractor::apply( _InputArray  image,
                                       double       learningRate = -1 )
 
 AutoIt:
-    $backgroundSubtractor.apply( $image[, $fgmask[, $learningRate]] ) -> $fgmask
+    $oBackgroundSubtractor.apply( $image[, $fgmask[, $learningRate]] ) -> $fgmask
 ```
 
 ### cv::BackgroundSubtractor::getBackgroundImage
@@ -28193,7 +28193,7 @@ AutoIt:
 void cv::BackgroundSubtractor::getBackgroundImage( _OutputArray backgroundImage )
 
 AutoIt:
-    $backgroundSubtractor.getBackgroundImage( [$backgroundImage] ) -> $backgroundImage
+    $oBackgroundSubtractor.getBackgroundImage( [$backgroundImage] ) -> $backgroundImage
 ```
 
 ### cv::BackgroundSubtractor::clear
@@ -28202,7 +28202,7 @@ AutoIt:
 void cv::BackgroundSubtractor::clear()
 
 AutoIt:
-    $backgroundSubtractor.clear() -> None
+    $oBackgroundSubtractor.clear() -> None
 ```
 
 ### cv::BackgroundSubtractor::write
@@ -28212,7 +28212,7 @@ void cv::BackgroundSubtractor::write( const cv::Ptr<cv::FileStorage>& fs,
                                       const std::string&              name = String() )
 
 AutoIt:
-    $backgroundSubtractor.write( $fs[, $name] ) -> None
+    $oBackgroundSubtractor.write( $fs[, $name] ) -> None
 ```
 
 ### cv::BackgroundSubtractor::read
@@ -28221,7 +28221,7 @@ AutoIt:
 void cv::BackgroundSubtractor::read( const cv::FileNode& fn )
 
 AutoIt:
-    $backgroundSubtractor.read( $fn ) -> None
+    $oBackgroundSubtractor.read( $fn ) -> None
 ```
 
 ### cv::BackgroundSubtractor::empty
@@ -28230,7 +28230,7 @@ AutoIt:
 bool cv::BackgroundSubtractor::empty()
 
 AutoIt:
-    $backgroundSubtractor.empty() -> retval
+    $oBackgroundSubtractor.empty() -> retval
 ```
 
 ### cv::BackgroundSubtractor::save
@@ -28239,7 +28239,7 @@ AutoIt:
 void cv::BackgroundSubtractor::save( const std::string& filename )
 
 AutoIt:
-    $backgroundSubtractor.save( $filename ) -> None
+    $oBackgroundSubtractor.save( $filename ) -> None
 ```
 
 ### cv::BackgroundSubtractor::getDefaultName
@@ -28248,7 +28248,7 @@ AutoIt:
 std::string cv::BackgroundSubtractor::getDefaultName()
 
 AutoIt:
-    $backgroundSubtractor.getDefaultName() -> retval
+    $oBackgroundSubtractor.getDefaultName() -> retval
 ```
 
 ## cv::BackgroundSubtractorMOG2
@@ -28259,7 +28259,7 @@ AutoIt:
 int cv::BackgroundSubtractorMOG2::getHistory()
 
 AutoIt:
-    $backgroundSubtractorMOG2.getHistory() -> retval
+    $oBackgroundSubtractorMOG2.getHistory() -> retval
 ```
 
 ### cv::BackgroundSubtractorMOG2::setHistory
@@ -28268,7 +28268,7 @@ AutoIt:
 void cv::BackgroundSubtractorMOG2::setHistory( int history )
 
 AutoIt:
-    $backgroundSubtractorMOG2.setHistory( $history ) -> None
+    $oBackgroundSubtractorMOG2.setHistory( $history ) -> None
 ```
 
 ### cv::BackgroundSubtractorMOG2::getNMixtures
@@ -28277,7 +28277,7 @@ AutoIt:
 int cv::BackgroundSubtractorMOG2::getNMixtures()
 
 AutoIt:
-    $backgroundSubtractorMOG2.getNMixtures() -> retval
+    $oBackgroundSubtractorMOG2.getNMixtures() -> retval
 ```
 
 ### cv::BackgroundSubtractorMOG2::setNMixtures
@@ -28286,7 +28286,7 @@ AutoIt:
 void cv::BackgroundSubtractorMOG2::setNMixtures( int nmixtures )
 
 AutoIt:
-    $backgroundSubtractorMOG2.setNMixtures( $nmixtures ) -> None
+    $oBackgroundSubtractorMOG2.setNMixtures( $nmixtures ) -> None
 ```
 
 ### cv::BackgroundSubtractorMOG2::getBackgroundRatio
@@ -28295,7 +28295,7 @@ AutoIt:
 double cv::BackgroundSubtractorMOG2::getBackgroundRatio()
 
 AutoIt:
-    $backgroundSubtractorMOG2.getBackgroundRatio() -> retval
+    $oBackgroundSubtractorMOG2.getBackgroundRatio() -> retval
 ```
 
 ### cv::BackgroundSubtractorMOG2::setBackgroundRatio
@@ -28304,7 +28304,7 @@ AutoIt:
 void cv::BackgroundSubtractorMOG2::setBackgroundRatio( double ratio )
 
 AutoIt:
-    $backgroundSubtractorMOG2.setBackgroundRatio( $ratio ) -> None
+    $oBackgroundSubtractorMOG2.setBackgroundRatio( $ratio ) -> None
 ```
 
 ### cv::BackgroundSubtractorMOG2::getVarThreshold
@@ -28313,7 +28313,7 @@ AutoIt:
 double cv::BackgroundSubtractorMOG2::getVarThreshold()
 
 AutoIt:
-    $backgroundSubtractorMOG2.getVarThreshold() -> retval
+    $oBackgroundSubtractorMOG2.getVarThreshold() -> retval
 ```
 
 ### cv::BackgroundSubtractorMOG2::setVarThreshold
@@ -28322,7 +28322,7 @@ AutoIt:
 void cv::BackgroundSubtractorMOG2::setVarThreshold( double varThreshold )
 
 AutoIt:
-    $backgroundSubtractorMOG2.setVarThreshold( $varThreshold ) -> None
+    $oBackgroundSubtractorMOG2.setVarThreshold( $varThreshold ) -> None
 ```
 
 ### cv::BackgroundSubtractorMOG2::getVarThresholdGen
@@ -28331,7 +28331,7 @@ AutoIt:
 double cv::BackgroundSubtractorMOG2::getVarThresholdGen()
 
 AutoIt:
-    $backgroundSubtractorMOG2.getVarThresholdGen() -> retval
+    $oBackgroundSubtractorMOG2.getVarThresholdGen() -> retval
 ```
 
 ### cv::BackgroundSubtractorMOG2::setVarThresholdGen
@@ -28340,7 +28340,7 @@ AutoIt:
 void cv::BackgroundSubtractorMOG2::setVarThresholdGen( double varThresholdGen )
 
 AutoIt:
-    $backgroundSubtractorMOG2.setVarThresholdGen( $varThresholdGen ) -> None
+    $oBackgroundSubtractorMOG2.setVarThresholdGen( $varThresholdGen ) -> None
 ```
 
 ### cv::BackgroundSubtractorMOG2::getVarInit
@@ -28349,7 +28349,7 @@ AutoIt:
 double cv::BackgroundSubtractorMOG2::getVarInit()
 
 AutoIt:
-    $backgroundSubtractorMOG2.getVarInit() -> retval
+    $oBackgroundSubtractorMOG2.getVarInit() -> retval
 ```
 
 ### cv::BackgroundSubtractorMOG2::setVarInit
@@ -28358,7 +28358,7 @@ AutoIt:
 void cv::BackgroundSubtractorMOG2::setVarInit( double varInit )
 
 AutoIt:
-    $backgroundSubtractorMOG2.setVarInit( $varInit ) -> None
+    $oBackgroundSubtractorMOG2.setVarInit( $varInit ) -> None
 ```
 
 ### cv::BackgroundSubtractorMOG2::getVarMin
@@ -28367,7 +28367,7 @@ AutoIt:
 double cv::BackgroundSubtractorMOG2::getVarMin()
 
 AutoIt:
-    $backgroundSubtractorMOG2.getVarMin() -> retval
+    $oBackgroundSubtractorMOG2.getVarMin() -> retval
 ```
 
 ### cv::BackgroundSubtractorMOG2::setVarMin
@@ -28376,7 +28376,7 @@ AutoIt:
 void cv::BackgroundSubtractorMOG2::setVarMin( double varMin )
 
 AutoIt:
-    $backgroundSubtractorMOG2.setVarMin( $varMin ) -> None
+    $oBackgroundSubtractorMOG2.setVarMin( $varMin ) -> None
 ```
 
 ### cv::BackgroundSubtractorMOG2::getVarMax
@@ -28385,7 +28385,7 @@ AutoIt:
 double cv::BackgroundSubtractorMOG2::getVarMax()
 
 AutoIt:
-    $backgroundSubtractorMOG2.getVarMax() -> retval
+    $oBackgroundSubtractorMOG2.getVarMax() -> retval
 ```
 
 ### cv::BackgroundSubtractorMOG2::setVarMax
@@ -28394,7 +28394,7 @@ AutoIt:
 void cv::BackgroundSubtractorMOG2::setVarMax( double varMax )
 
 AutoIt:
-    $backgroundSubtractorMOG2.setVarMax( $varMax ) -> None
+    $oBackgroundSubtractorMOG2.setVarMax( $varMax ) -> None
 ```
 
 ### cv::BackgroundSubtractorMOG2::getComplexityReductionThreshold
@@ -28403,7 +28403,7 @@ AutoIt:
 double cv::BackgroundSubtractorMOG2::getComplexityReductionThreshold()
 
 AutoIt:
-    $backgroundSubtractorMOG2.getComplexityReductionThreshold() -> retval
+    $oBackgroundSubtractorMOG2.getComplexityReductionThreshold() -> retval
 ```
 
 ### cv::BackgroundSubtractorMOG2::setComplexityReductionThreshold
@@ -28412,7 +28412,7 @@ AutoIt:
 void cv::BackgroundSubtractorMOG2::setComplexityReductionThreshold( double ct )
 
 AutoIt:
-    $backgroundSubtractorMOG2.setComplexityReductionThreshold( $ct ) -> None
+    $oBackgroundSubtractorMOG2.setComplexityReductionThreshold( $ct ) -> None
 ```
 
 ### cv::BackgroundSubtractorMOG2::getDetectShadows
@@ -28421,7 +28421,7 @@ AutoIt:
 bool cv::BackgroundSubtractorMOG2::getDetectShadows()
 
 AutoIt:
-    $backgroundSubtractorMOG2.getDetectShadows() -> retval
+    $oBackgroundSubtractorMOG2.getDetectShadows() -> retval
 ```
 
 ### cv::BackgroundSubtractorMOG2::setDetectShadows
@@ -28430,7 +28430,7 @@ AutoIt:
 void cv::BackgroundSubtractorMOG2::setDetectShadows( bool detectShadows )
 
 AutoIt:
-    $backgroundSubtractorMOG2.setDetectShadows( $detectShadows ) -> None
+    $oBackgroundSubtractorMOG2.setDetectShadows( $detectShadows ) -> None
 ```
 
 ### cv::BackgroundSubtractorMOG2::getShadowValue
@@ -28439,7 +28439,7 @@ AutoIt:
 int cv::BackgroundSubtractorMOG2::getShadowValue()
 
 AutoIt:
-    $backgroundSubtractorMOG2.getShadowValue() -> retval
+    $oBackgroundSubtractorMOG2.getShadowValue() -> retval
 ```
 
 ### cv::BackgroundSubtractorMOG2::setShadowValue
@@ -28448,7 +28448,7 @@ AutoIt:
 void cv::BackgroundSubtractorMOG2::setShadowValue( int value )
 
 AutoIt:
-    $backgroundSubtractorMOG2.setShadowValue( $value ) -> None
+    $oBackgroundSubtractorMOG2.setShadowValue( $value ) -> None
 ```
 
 ### cv::BackgroundSubtractorMOG2::getShadowThreshold
@@ -28457,7 +28457,7 @@ AutoIt:
 double cv::BackgroundSubtractorMOG2::getShadowThreshold()
 
 AutoIt:
-    $backgroundSubtractorMOG2.getShadowThreshold() -> retval
+    $oBackgroundSubtractorMOG2.getShadowThreshold() -> retval
 ```
 
 ### cv::BackgroundSubtractorMOG2::setShadowThreshold
@@ -28466,7 +28466,7 @@ AutoIt:
 void cv::BackgroundSubtractorMOG2::setShadowThreshold( double threshold )
 
 AutoIt:
-    $backgroundSubtractorMOG2.setShadowThreshold( $threshold ) -> None
+    $oBackgroundSubtractorMOG2.setShadowThreshold( $threshold ) -> None
 ```
 
 ### cv::BackgroundSubtractorMOG2::apply
@@ -28477,7 +28477,7 @@ void cv::BackgroundSubtractorMOG2::apply( _InputArray  image,
                                           double       learningRate = -1 )
 
 AutoIt:
-    $backgroundSubtractorMOG2.apply( $image[, $fgmask[, $learningRate]] ) -> $fgmask
+    $oBackgroundSubtractorMOG2.apply( $image[, $fgmask[, $learningRate]] ) -> $fgmask
 ```
 
 ### cv::BackgroundSubtractorMOG2::getBackgroundImage
@@ -28486,7 +28486,7 @@ AutoIt:
 void cv::BackgroundSubtractorMOG2::getBackgroundImage( _OutputArray backgroundImage )
 
 AutoIt:
-    $backgroundSubtractorMOG2.getBackgroundImage( [$backgroundImage] ) -> $backgroundImage
+    $oBackgroundSubtractorMOG2.getBackgroundImage( [$backgroundImage] ) -> $backgroundImage
 ```
 
 ### cv::BackgroundSubtractorMOG2::clear
@@ -28495,7 +28495,7 @@ AutoIt:
 void cv::BackgroundSubtractorMOG2::clear()
 
 AutoIt:
-    $backgroundSubtractorMOG2.clear() -> None
+    $oBackgroundSubtractorMOG2.clear() -> None
 ```
 
 ### cv::BackgroundSubtractorMOG2::write
@@ -28505,7 +28505,7 @@ void cv::BackgroundSubtractorMOG2::write( const cv::Ptr<cv::FileStorage>& fs,
                                           const std::string&              name = String() )
 
 AutoIt:
-    $backgroundSubtractorMOG2.write( $fs[, $name] ) -> None
+    $oBackgroundSubtractorMOG2.write( $fs[, $name] ) -> None
 ```
 
 ### cv::BackgroundSubtractorMOG2::read
@@ -28514,7 +28514,7 @@ AutoIt:
 void cv::BackgroundSubtractorMOG2::read( const cv::FileNode& fn )
 
 AutoIt:
-    $backgroundSubtractorMOG2.read( $fn ) -> None
+    $oBackgroundSubtractorMOG2.read( $fn ) -> None
 ```
 
 ### cv::BackgroundSubtractorMOG2::empty
@@ -28523,7 +28523,7 @@ AutoIt:
 bool cv::BackgroundSubtractorMOG2::empty()
 
 AutoIt:
-    $backgroundSubtractorMOG2.empty() -> retval
+    $oBackgroundSubtractorMOG2.empty() -> retval
 ```
 
 ### cv::BackgroundSubtractorMOG2::save
@@ -28532,7 +28532,7 @@ AutoIt:
 void cv::BackgroundSubtractorMOG2::save( const std::string& filename )
 
 AutoIt:
-    $backgroundSubtractorMOG2.save( $filename ) -> None
+    $oBackgroundSubtractorMOG2.save( $filename ) -> None
 ```
 
 ### cv::BackgroundSubtractorMOG2::getDefaultName
@@ -28541,7 +28541,7 @@ AutoIt:
 std::string cv::BackgroundSubtractorMOG2::getDefaultName()
 
 AutoIt:
-    $backgroundSubtractorMOG2.getDefaultName() -> retval
+    $oBackgroundSubtractorMOG2.getDefaultName() -> retval
 ```
 
 ## cv::BackgroundSubtractorKNN
@@ -28552,7 +28552,7 @@ AutoIt:
 int cv::BackgroundSubtractorKNN::getHistory()
 
 AutoIt:
-    $backgroundSubtractorKNN.getHistory() -> retval
+    $oBackgroundSubtractorKNN.getHistory() -> retval
 ```
 
 ### cv::BackgroundSubtractorKNN::setHistory
@@ -28561,7 +28561,7 @@ AutoIt:
 void cv::BackgroundSubtractorKNN::setHistory( int history )
 
 AutoIt:
-    $backgroundSubtractorKNN.setHistory( $history ) -> None
+    $oBackgroundSubtractorKNN.setHistory( $history ) -> None
 ```
 
 ### cv::BackgroundSubtractorKNN::getNSamples
@@ -28570,7 +28570,7 @@ AutoIt:
 int cv::BackgroundSubtractorKNN::getNSamples()
 
 AutoIt:
-    $backgroundSubtractorKNN.getNSamples() -> retval
+    $oBackgroundSubtractorKNN.getNSamples() -> retval
 ```
 
 ### cv::BackgroundSubtractorKNN::setNSamples
@@ -28579,7 +28579,7 @@ AutoIt:
 void cv::BackgroundSubtractorKNN::setNSamples( int _nN )
 
 AutoIt:
-    $backgroundSubtractorKNN.setNSamples( $_nN ) -> None
+    $oBackgroundSubtractorKNN.setNSamples( $_nN ) -> None
 ```
 
 ### cv::BackgroundSubtractorKNN::getDist2Threshold
@@ -28588,7 +28588,7 @@ AutoIt:
 double cv::BackgroundSubtractorKNN::getDist2Threshold()
 
 AutoIt:
-    $backgroundSubtractorKNN.getDist2Threshold() -> retval
+    $oBackgroundSubtractorKNN.getDist2Threshold() -> retval
 ```
 
 ### cv::BackgroundSubtractorKNN::setDist2Threshold
@@ -28597,7 +28597,7 @@ AutoIt:
 void cv::BackgroundSubtractorKNN::setDist2Threshold( double _dist2Threshold )
 
 AutoIt:
-    $backgroundSubtractorKNN.setDist2Threshold( $_dist2Threshold ) -> None
+    $oBackgroundSubtractorKNN.setDist2Threshold( $_dist2Threshold ) -> None
 ```
 
 ### cv::BackgroundSubtractorKNN::getkNNSamples
@@ -28606,7 +28606,7 @@ AutoIt:
 int cv::BackgroundSubtractorKNN::getkNNSamples()
 
 AutoIt:
-    $backgroundSubtractorKNN.getkNNSamples() -> retval
+    $oBackgroundSubtractorKNN.getkNNSamples() -> retval
 ```
 
 ### cv::BackgroundSubtractorKNN::setkNNSamples
@@ -28615,7 +28615,7 @@ AutoIt:
 void cv::BackgroundSubtractorKNN::setkNNSamples( int _nkNN )
 
 AutoIt:
-    $backgroundSubtractorKNN.setkNNSamples( $_nkNN ) -> None
+    $oBackgroundSubtractorKNN.setkNNSamples( $_nkNN ) -> None
 ```
 
 ### cv::BackgroundSubtractorKNN::getDetectShadows
@@ -28624,7 +28624,7 @@ AutoIt:
 bool cv::BackgroundSubtractorKNN::getDetectShadows()
 
 AutoIt:
-    $backgroundSubtractorKNN.getDetectShadows() -> retval
+    $oBackgroundSubtractorKNN.getDetectShadows() -> retval
 ```
 
 ### cv::BackgroundSubtractorKNN::setDetectShadows
@@ -28633,7 +28633,7 @@ AutoIt:
 void cv::BackgroundSubtractorKNN::setDetectShadows( bool detectShadows )
 
 AutoIt:
-    $backgroundSubtractorKNN.setDetectShadows( $detectShadows ) -> None
+    $oBackgroundSubtractorKNN.setDetectShadows( $detectShadows ) -> None
 ```
 
 ### cv::BackgroundSubtractorKNN::getShadowValue
@@ -28642,7 +28642,7 @@ AutoIt:
 int cv::BackgroundSubtractorKNN::getShadowValue()
 
 AutoIt:
-    $backgroundSubtractorKNN.getShadowValue() -> retval
+    $oBackgroundSubtractorKNN.getShadowValue() -> retval
 ```
 
 ### cv::BackgroundSubtractorKNN::setShadowValue
@@ -28651,7 +28651,7 @@ AutoIt:
 void cv::BackgroundSubtractorKNN::setShadowValue( int value )
 
 AutoIt:
-    $backgroundSubtractorKNN.setShadowValue( $value ) -> None
+    $oBackgroundSubtractorKNN.setShadowValue( $value ) -> None
 ```
 
 ### cv::BackgroundSubtractorKNN::getShadowThreshold
@@ -28660,7 +28660,7 @@ AutoIt:
 double cv::BackgroundSubtractorKNN::getShadowThreshold()
 
 AutoIt:
-    $backgroundSubtractorKNN.getShadowThreshold() -> retval
+    $oBackgroundSubtractorKNN.getShadowThreshold() -> retval
 ```
 
 ### cv::BackgroundSubtractorKNN::setShadowThreshold
@@ -28669,7 +28669,7 @@ AutoIt:
 void cv::BackgroundSubtractorKNN::setShadowThreshold( double threshold )
 
 AutoIt:
-    $backgroundSubtractorKNN.setShadowThreshold( $threshold ) -> None
+    $oBackgroundSubtractorKNN.setShadowThreshold( $threshold ) -> None
 ```
 
 ### cv::BackgroundSubtractorKNN::apply
@@ -28680,7 +28680,7 @@ void cv::BackgroundSubtractorKNN::apply( _InputArray  image,
                                          double       learningRate = -1 )
 
 AutoIt:
-    $backgroundSubtractorKNN.apply( $image[, $fgmask[, $learningRate]] ) -> $fgmask
+    $oBackgroundSubtractorKNN.apply( $image[, $fgmask[, $learningRate]] ) -> $fgmask
 ```
 
 ### cv::BackgroundSubtractorKNN::getBackgroundImage
@@ -28689,7 +28689,7 @@ AutoIt:
 void cv::BackgroundSubtractorKNN::getBackgroundImage( _OutputArray backgroundImage )
 
 AutoIt:
-    $backgroundSubtractorKNN.getBackgroundImage( [$backgroundImage] ) -> $backgroundImage
+    $oBackgroundSubtractorKNN.getBackgroundImage( [$backgroundImage] ) -> $backgroundImage
 ```
 
 ### cv::BackgroundSubtractorKNN::clear
@@ -28698,7 +28698,7 @@ AutoIt:
 void cv::BackgroundSubtractorKNN::clear()
 
 AutoIt:
-    $backgroundSubtractorKNN.clear() -> None
+    $oBackgroundSubtractorKNN.clear() -> None
 ```
 
 ### cv::BackgroundSubtractorKNN::write
@@ -28708,7 +28708,7 @@ void cv::BackgroundSubtractorKNN::write( const cv::Ptr<cv::FileStorage>& fs,
                                          const std::string&              name = String() )
 
 AutoIt:
-    $backgroundSubtractorKNN.write( $fs[, $name] ) -> None
+    $oBackgroundSubtractorKNN.write( $fs[, $name] ) -> None
 ```
 
 ### cv::BackgroundSubtractorKNN::read
@@ -28717,7 +28717,7 @@ AutoIt:
 void cv::BackgroundSubtractorKNN::read( const cv::FileNode& fn )
 
 AutoIt:
-    $backgroundSubtractorKNN.read( $fn ) -> None
+    $oBackgroundSubtractorKNN.read( $fn ) -> None
 ```
 
 ### cv::BackgroundSubtractorKNN::empty
@@ -28726,7 +28726,7 @@ AutoIt:
 bool cv::BackgroundSubtractorKNN::empty()
 
 AutoIt:
-    $backgroundSubtractorKNN.empty() -> retval
+    $oBackgroundSubtractorKNN.empty() -> retval
 ```
 
 ### cv::BackgroundSubtractorKNN::save
@@ -28735,7 +28735,7 @@ AutoIt:
 void cv::BackgroundSubtractorKNN::save( const std::string& filename )
 
 AutoIt:
-    $backgroundSubtractorKNN.save( $filename ) -> None
+    $oBackgroundSubtractorKNN.save( $filename ) -> None
 ```
 
 ### cv::BackgroundSubtractorKNN::getDefaultName
@@ -28744,7 +28744,7 @@ AutoIt:
 std::string cv::BackgroundSubtractorKNN::getDefaultName()
 
 AutoIt:
-    $backgroundSubtractorKNN.getDefaultName() -> retval
+    $oBackgroundSubtractorKNN.getDefaultName() -> retval
 ```
 
 ## cv::KalmanFilter
@@ -28774,7 +28774,7 @@ AutoIt:
 cv::Mat cv::KalmanFilter::predict( const cv::Mat& control = Mat() )
 
 AutoIt:
-    $kalmanFilter.predict( [$control] ) -> retval
+    $oKalmanFilter.predict( [$control] ) -> retval
 ```
 
 ### cv::KalmanFilter::correct
@@ -28783,7 +28783,7 @@ AutoIt:
 cv::Mat cv::KalmanFilter::correct( const cv::Mat& measurement )
 
 AutoIt:
-    $kalmanFilter.correct( $measurement ) -> retval
+    $oKalmanFilter.correct( $measurement ) -> retval
 ```
 
 ## cv::DenseOpticalFlow
@@ -28796,7 +28796,7 @@ void cv::DenseOpticalFlow::calc( _InputArray       I0,
                                  _InputOutputArray flow )
 
 AutoIt:
-    $denseOpticalFlow.calc( $I0, $I1, $flow ) -> $flow
+    $oDenseOpticalFlow.calc( $I0, $I1, $flow ) -> $flow
 ```
 
 ### cv::DenseOpticalFlow::collectGarbage
@@ -28805,7 +28805,7 @@ AutoIt:
 void cv::DenseOpticalFlow::collectGarbage()
 
 AutoIt:
-    $denseOpticalFlow.collectGarbage() -> None
+    $oDenseOpticalFlow.collectGarbage() -> None
 ```
 
 ### cv::DenseOpticalFlow::clear
@@ -28814,7 +28814,7 @@ AutoIt:
 void cv::DenseOpticalFlow::clear()
 
 AutoIt:
-    $denseOpticalFlow.clear() -> None
+    $oDenseOpticalFlow.clear() -> None
 ```
 
 ### cv::DenseOpticalFlow::write
@@ -28824,7 +28824,7 @@ void cv::DenseOpticalFlow::write( const cv::Ptr<cv::FileStorage>& fs,
                                   const std::string&              name = String() )
 
 AutoIt:
-    $denseOpticalFlow.write( $fs[, $name] ) -> None
+    $oDenseOpticalFlow.write( $fs[, $name] ) -> None
 ```
 
 ### cv::DenseOpticalFlow::read
@@ -28833,7 +28833,7 @@ AutoIt:
 void cv::DenseOpticalFlow::read( const cv::FileNode& fn )
 
 AutoIt:
-    $denseOpticalFlow.read( $fn ) -> None
+    $oDenseOpticalFlow.read( $fn ) -> None
 ```
 
 ### cv::DenseOpticalFlow::empty
@@ -28842,7 +28842,7 @@ AutoIt:
 bool cv::DenseOpticalFlow::empty()
 
 AutoIt:
-    $denseOpticalFlow.empty() -> retval
+    $oDenseOpticalFlow.empty() -> retval
 ```
 
 ### cv::DenseOpticalFlow::save
@@ -28851,7 +28851,7 @@ AutoIt:
 void cv::DenseOpticalFlow::save( const std::string& filename )
 
 AutoIt:
-    $denseOpticalFlow.save( $filename ) -> None
+    $oDenseOpticalFlow.save( $filename ) -> None
 ```
 
 ### cv::DenseOpticalFlow::getDefaultName
@@ -28860,7 +28860,7 @@ AutoIt:
 std::string cv::DenseOpticalFlow::getDefaultName()
 
 AutoIt:
-    $denseOpticalFlow.getDefaultName() -> retval
+    $oDenseOpticalFlow.getDefaultName() -> retval
 ```
 
 ## cv::SparseOpticalFlow
@@ -28876,7 +28876,7 @@ void cv::SparseOpticalFlow::calc( _InputArray       prevImg,
                                   _OutputArray      err = cv::noArray() )
 
 AutoIt:
-    $sparseOpticalFlow.calc( $prevImg, $nextImg, $prevPts, $nextPts[, $status[, $err]] ) -> $nextPts, $status, $err
+    $oSparseOpticalFlow.calc( $prevImg, $nextImg, $prevPts, $nextPts[, $status[, $err]] ) -> $nextPts, $status, $err
 ```
 
 ### cv::SparseOpticalFlow::clear
@@ -28885,7 +28885,7 @@ AutoIt:
 void cv::SparseOpticalFlow::clear()
 
 AutoIt:
-    $sparseOpticalFlow.clear() -> None
+    $oSparseOpticalFlow.clear() -> None
 ```
 
 ### cv::SparseOpticalFlow::write
@@ -28895,7 +28895,7 @@ void cv::SparseOpticalFlow::write( const cv::Ptr<cv::FileStorage>& fs,
                                    const std::string&              name = String() )
 
 AutoIt:
-    $sparseOpticalFlow.write( $fs[, $name] ) -> None
+    $oSparseOpticalFlow.write( $fs[, $name] ) -> None
 ```
 
 ### cv::SparseOpticalFlow::read
@@ -28904,7 +28904,7 @@ AutoIt:
 void cv::SparseOpticalFlow::read( const cv::FileNode& fn )
 
 AutoIt:
-    $sparseOpticalFlow.read( $fn ) -> None
+    $oSparseOpticalFlow.read( $fn ) -> None
 ```
 
 ### cv::SparseOpticalFlow::empty
@@ -28913,7 +28913,7 @@ AutoIt:
 bool cv::SparseOpticalFlow::empty()
 
 AutoIt:
-    $sparseOpticalFlow.empty() -> retval
+    $oSparseOpticalFlow.empty() -> retval
 ```
 
 ### cv::SparseOpticalFlow::save
@@ -28922,7 +28922,7 @@ AutoIt:
 void cv::SparseOpticalFlow::save( const std::string& filename )
 
 AutoIt:
-    $sparseOpticalFlow.save( $filename ) -> None
+    $oSparseOpticalFlow.save( $filename ) -> None
 ```
 
 ### cv::SparseOpticalFlow::getDefaultName
@@ -28931,7 +28931,7 @@ AutoIt:
 std::string cv::SparseOpticalFlow::getDefaultName()
 
 AutoIt:
-    $sparseOpticalFlow.getDefaultName() -> retval
+    $oSparseOpticalFlow.getDefaultName() -> retval
 ```
 
 ## cv::FarnebackOpticalFlow
@@ -28942,7 +28942,7 @@ AutoIt:
 int cv::FarnebackOpticalFlow::getNumLevels()
 
 AutoIt:
-    $farnebackOpticalFlow.getNumLevels() -> retval
+    $oFarnebackOpticalFlow.getNumLevels() -> retval
 ```
 
 ### cv::FarnebackOpticalFlow::setNumLevels
@@ -28951,7 +28951,7 @@ AutoIt:
 void cv::FarnebackOpticalFlow::setNumLevels( int numLevels )
 
 AutoIt:
-    $farnebackOpticalFlow.setNumLevels( $numLevels ) -> None
+    $oFarnebackOpticalFlow.setNumLevels( $numLevels ) -> None
 ```
 
 ### cv::FarnebackOpticalFlow::getPyrScale
@@ -28960,7 +28960,7 @@ AutoIt:
 double cv::FarnebackOpticalFlow::getPyrScale()
 
 AutoIt:
-    $farnebackOpticalFlow.getPyrScale() -> retval
+    $oFarnebackOpticalFlow.getPyrScale() -> retval
 ```
 
 ### cv::FarnebackOpticalFlow::setPyrScale
@@ -28969,7 +28969,7 @@ AutoIt:
 void cv::FarnebackOpticalFlow::setPyrScale( double pyrScale )
 
 AutoIt:
-    $farnebackOpticalFlow.setPyrScale( $pyrScale ) -> None
+    $oFarnebackOpticalFlow.setPyrScale( $pyrScale ) -> None
 ```
 
 ### cv::FarnebackOpticalFlow::getFastPyramids
@@ -28978,7 +28978,7 @@ AutoIt:
 bool cv::FarnebackOpticalFlow::getFastPyramids()
 
 AutoIt:
-    $farnebackOpticalFlow.getFastPyramids() -> retval
+    $oFarnebackOpticalFlow.getFastPyramids() -> retval
 ```
 
 ### cv::FarnebackOpticalFlow::setFastPyramids
@@ -28987,7 +28987,7 @@ AutoIt:
 void cv::FarnebackOpticalFlow::setFastPyramids( bool fastPyramids )
 
 AutoIt:
-    $farnebackOpticalFlow.setFastPyramids( $fastPyramids ) -> None
+    $oFarnebackOpticalFlow.setFastPyramids( $fastPyramids ) -> None
 ```
 
 ### cv::FarnebackOpticalFlow::getWinSize
@@ -28996,7 +28996,7 @@ AutoIt:
 int cv::FarnebackOpticalFlow::getWinSize()
 
 AutoIt:
-    $farnebackOpticalFlow.getWinSize() -> retval
+    $oFarnebackOpticalFlow.getWinSize() -> retval
 ```
 
 ### cv::FarnebackOpticalFlow::setWinSize
@@ -29005,7 +29005,7 @@ AutoIt:
 void cv::FarnebackOpticalFlow::setWinSize( int winSize )
 
 AutoIt:
-    $farnebackOpticalFlow.setWinSize( $winSize ) -> None
+    $oFarnebackOpticalFlow.setWinSize( $winSize ) -> None
 ```
 
 ### cv::FarnebackOpticalFlow::getNumIters
@@ -29014,7 +29014,7 @@ AutoIt:
 int cv::FarnebackOpticalFlow::getNumIters()
 
 AutoIt:
-    $farnebackOpticalFlow.getNumIters() -> retval
+    $oFarnebackOpticalFlow.getNumIters() -> retval
 ```
 
 ### cv::FarnebackOpticalFlow::setNumIters
@@ -29023,7 +29023,7 @@ AutoIt:
 void cv::FarnebackOpticalFlow::setNumIters( int numIters )
 
 AutoIt:
-    $farnebackOpticalFlow.setNumIters( $numIters ) -> None
+    $oFarnebackOpticalFlow.setNumIters( $numIters ) -> None
 ```
 
 ### cv::FarnebackOpticalFlow::getPolyN
@@ -29032,7 +29032,7 @@ AutoIt:
 int cv::FarnebackOpticalFlow::getPolyN()
 
 AutoIt:
-    $farnebackOpticalFlow.getPolyN() -> retval
+    $oFarnebackOpticalFlow.getPolyN() -> retval
 ```
 
 ### cv::FarnebackOpticalFlow::setPolyN
@@ -29041,7 +29041,7 @@ AutoIt:
 void cv::FarnebackOpticalFlow::setPolyN( int polyN )
 
 AutoIt:
-    $farnebackOpticalFlow.setPolyN( $polyN ) -> None
+    $oFarnebackOpticalFlow.setPolyN( $polyN ) -> None
 ```
 
 ### cv::FarnebackOpticalFlow::getPolySigma
@@ -29050,7 +29050,7 @@ AutoIt:
 double cv::FarnebackOpticalFlow::getPolySigma()
 
 AutoIt:
-    $farnebackOpticalFlow.getPolySigma() -> retval
+    $oFarnebackOpticalFlow.getPolySigma() -> retval
 ```
 
 ### cv::FarnebackOpticalFlow::setPolySigma
@@ -29059,7 +29059,7 @@ AutoIt:
 void cv::FarnebackOpticalFlow::setPolySigma( double polySigma )
 
 AutoIt:
-    $farnebackOpticalFlow.setPolySigma( $polySigma ) -> None
+    $oFarnebackOpticalFlow.setPolySigma( $polySigma ) -> None
 ```
 
 ### cv::FarnebackOpticalFlow::getFlags
@@ -29068,7 +29068,7 @@ AutoIt:
 int cv::FarnebackOpticalFlow::getFlags()
 
 AutoIt:
-    $farnebackOpticalFlow.getFlags() -> retval
+    $oFarnebackOpticalFlow.getFlags() -> retval
 ```
 
 ### cv::FarnebackOpticalFlow::setFlags
@@ -29077,7 +29077,7 @@ AutoIt:
 void cv::FarnebackOpticalFlow::setFlags( int flags )
 
 AutoIt:
-    $farnebackOpticalFlow.setFlags( $flags ) -> None
+    $oFarnebackOpticalFlow.setFlags( $flags ) -> None
 ```
 
 ### cv::FarnebackOpticalFlow::create
@@ -29104,7 +29104,7 @@ void cv::FarnebackOpticalFlow::calc( _InputArray       I0,
                                      _InputOutputArray flow )
 
 AutoIt:
-    $farnebackOpticalFlow.calc( $I0, $I1, $flow ) -> $flow
+    $oFarnebackOpticalFlow.calc( $I0, $I1, $flow ) -> $flow
 ```
 
 ### cv::FarnebackOpticalFlow::collectGarbage
@@ -29113,7 +29113,7 @@ AutoIt:
 void cv::FarnebackOpticalFlow::collectGarbage()
 
 AutoIt:
-    $farnebackOpticalFlow.collectGarbage() -> None
+    $oFarnebackOpticalFlow.collectGarbage() -> None
 ```
 
 ### cv::FarnebackOpticalFlow::clear
@@ -29122,7 +29122,7 @@ AutoIt:
 void cv::FarnebackOpticalFlow::clear()
 
 AutoIt:
-    $farnebackOpticalFlow.clear() -> None
+    $oFarnebackOpticalFlow.clear() -> None
 ```
 
 ### cv::FarnebackOpticalFlow::write
@@ -29132,7 +29132,7 @@ void cv::FarnebackOpticalFlow::write( const cv::Ptr<cv::FileStorage>& fs,
                                       const std::string&              name = String() )
 
 AutoIt:
-    $farnebackOpticalFlow.write( $fs[, $name] ) -> None
+    $oFarnebackOpticalFlow.write( $fs[, $name] ) -> None
 ```
 
 ### cv::FarnebackOpticalFlow::read
@@ -29141,7 +29141,7 @@ AutoIt:
 void cv::FarnebackOpticalFlow::read( const cv::FileNode& fn )
 
 AutoIt:
-    $farnebackOpticalFlow.read( $fn ) -> None
+    $oFarnebackOpticalFlow.read( $fn ) -> None
 ```
 
 ### cv::FarnebackOpticalFlow::empty
@@ -29150,7 +29150,7 @@ AutoIt:
 bool cv::FarnebackOpticalFlow::empty()
 
 AutoIt:
-    $farnebackOpticalFlow.empty() -> retval
+    $oFarnebackOpticalFlow.empty() -> retval
 ```
 
 ### cv::FarnebackOpticalFlow::save
@@ -29159,7 +29159,7 @@ AutoIt:
 void cv::FarnebackOpticalFlow::save( const std::string& filename )
 
 AutoIt:
-    $farnebackOpticalFlow.save( $filename ) -> None
+    $oFarnebackOpticalFlow.save( $filename ) -> None
 ```
 
 ### cv::FarnebackOpticalFlow::getDefaultName
@@ -29168,7 +29168,7 @@ AutoIt:
 std::string cv::FarnebackOpticalFlow::getDefaultName()
 
 AutoIt:
-    $farnebackOpticalFlow.getDefaultName() -> retval
+    $oFarnebackOpticalFlow.getDefaultName() -> retval
 ```
 
 ## cv::VariationalRefinement
@@ -29182,7 +29182,7 @@ void cv::VariationalRefinement::calcUV( _InputArray       I0,
                                         _InputOutputArray flow_v )
 
 AutoIt:
-    $variationalRefinement.calcUV( $I0, $I1, $flow_u, $flow_v ) -> $flow_u, $flow_v
+    $oVariationalRefinement.calcUV( $I0, $I1, $flow_u, $flow_v ) -> $flow_u, $flow_v
 ```
 
 ### cv::VariationalRefinement::getFixedPointIterations
@@ -29191,7 +29191,7 @@ AutoIt:
 int cv::VariationalRefinement::getFixedPointIterations()
 
 AutoIt:
-    $variationalRefinement.getFixedPointIterations() -> retval
+    $oVariationalRefinement.getFixedPointIterations() -> retval
 ```
 
 ### cv::VariationalRefinement::setFixedPointIterations
@@ -29200,7 +29200,7 @@ AutoIt:
 void cv::VariationalRefinement::setFixedPointIterations( int val )
 
 AutoIt:
-    $variationalRefinement.setFixedPointIterations( $val ) -> None
+    $oVariationalRefinement.setFixedPointIterations( $val ) -> None
 ```
 
 ### cv::VariationalRefinement::getSorIterations
@@ -29209,7 +29209,7 @@ AutoIt:
 int cv::VariationalRefinement::getSorIterations()
 
 AutoIt:
-    $variationalRefinement.getSorIterations() -> retval
+    $oVariationalRefinement.getSorIterations() -> retval
 ```
 
 ### cv::VariationalRefinement::setSorIterations
@@ -29218,7 +29218,7 @@ AutoIt:
 void cv::VariationalRefinement::setSorIterations( int val )
 
 AutoIt:
-    $variationalRefinement.setSorIterations( $val ) -> None
+    $oVariationalRefinement.setSorIterations( $val ) -> None
 ```
 
 ### cv::VariationalRefinement::getOmega
@@ -29227,7 +29227,7 @@ AutoIt:
 float cv::VariationalRefinement::getOmega()
 
 AutoIt:
-    $variationalRefinement.getOmega() -> retval
+    $oVariationalRefinement.getOmega() -> retval
 ```
 
 ### cv::VariationalRefinement::setOmega
@@ -29236,7 +29236,7 @@ AutoIt:
 void cv::VariationalRefinement::setOmega( float val )
 
 AutoIt:
-    $variationalRefinement.setOmega( $val ) -> None
+    $oVariationalRefinement.setOmega( $val ) -> None
 ```
 
 ### cv::VariationalRefinement::getAlpha
@@ -29245,7 +29245,7 @@ AutoIt:
 float cv::VariationalRefinement::getAlpha()
 
 AutoIt:
-    $variationalRefinement.getAlpha() -> retval
+    $oVariationalRefinement.getAlpha() -> retval
 ```
 
 ### cv::VariationalRefinement::setAlpha
@@ -29254,7 +29254,7 @@ AutoIt:
 void cv::VariationalRefinement::setAlpha( float val )
 
 AutoIt:
-    $variationalRefinement.setAlpha( $val ) -> None
+    $oVariationalRefinement.setAlpha( $val ) -> None
 ```
 
 ### cv::VariationalRefinement::getDelta
@@ -29263,7 +29263,7 @@ AutoIt:
 float cv::VariationalRefinement::getDelta()
 
 AutoIt:
-    $variationalRefinement.getDelta() -> retval
+    $oVariationalRefinement.getDelta() -> retval
 ```
 
 ### cv::VariationalRefinement::setDelta
@@ -29272,7 +29272,7 @@ AutoIt:
 void cv::VariationalRefinement::setDelta( float val )
 
 AutoIt:
-    $variationalRefinement.setDelta( $val ) -> None
+    $oVariationalRefinement.setDelta( $val ) -> None
 ```
 
 ### cv::VariationalRefinement::getGamma
@@ -29281,7 +29281,7 @@ AutoIt:
 float cv::VariationalRefinement::getGamma()
 
 AutoIt:
-    $variationalRefinement.getGamma() -> retval
+    $oVariationalRefinement.getGamma() -> retval
 ```
 
 ### cv::VariationalRefinement::setGamma
@@ -29290,7 +29290,7 @@ AutoIt:
 void cv::VariationalRefinement::setGamma( float val )
 
 AutoIt:
-    $variationalRefinement.setGamma( $val ) -> None
+    $oVariationalRefinement.setGamma( $val ) -> None
 ```
 
 ### cv::VariationalRefinement::create
@@ -29310,7 +29310,7 @@ void cv::VariationalRefinement::calc( _InputArray       I0,
                                       _InputOutputArray flow )
 
 AutoIt:
-    $variationalRefinement.calc( $I0, $I1, $flow ) -> $flow
+    $oVariationalRefinement.calc( $I0, $I1, $flow ) -> $flow
 ```
 
 ### cv::VariationalRefinement::collectGarbage
@@ -29319,7 +29319,7 @@ AutoIt:
 void cv::VariationalRefinement::collectGarbage()
 
 AutoIt:
-    $variationalRefinement.collectGarbage() -> None
+    $oVariationalRefinement.collectGarbage() -> None
 ```
 
 ### cv::VariationalRefinement::clear
@@ -29328,7 +29328,7 @@ AutoIt:
 void cv::VariationalRefinement::clear()
 
 AutoIt:
-    $variationalRefinement.clear() -> None
+    $oVariationalRefinement.clear() -> None
 ```
 
 ### cv::VariationalRefinement::write
@@ -29338,7 +29338,7 @@ void cv::VariationalRefinement::write( const cv::Ptr<cv::FileStorage>& fs,
                                        const std::string&              name = String() )
 
 AutoIt:
-    $variationalRefinement.write( $fs[, $name] ) -> None
+    $oVariationalRefinement.write( $fs[, $name] ) -> None
 ```
 
 ### cv::VariationalRefinement::read
@@ -29347,7 +29347,7 @@ AutoIt:
 void cv::VariationalRefinement::read( const cv::FileNode& fn )
 
 AutoIt:
-    $variationalRefinement.read( $fn ) -> None
+    $oVariationalRefinement.read( $fn ) -> None
 ```
 
 ### cv::VariationalRefinement::empty
@@ -29356,7 +29356,7 @@ AutoIt:
 bool cv::VariationalRefinement::empty()
 
 AutoIt:
-    $variationalRefinement.empty() -> retval
+    $oVariationalRefinement.empty() -> retval
 ```
 
 ### cv::VariationalRefinement::save
@@ -29365,7 +29365,7 @@ AutoIt:
 void cv::VariationalRefinement::save( const std::string& filename )
 
 AutoIt:
-    $variationalRefinement.save( $filename ) -> None
+    $oVariationalRefinement.save( $filename ) -> None
 ```
 
 ### cv::VariationalRefinement::getDefaultName
@@ -29374,7 +29374,7 @@ AutoIt:
 std::string cv::VariationalRefinement::getDefaultName()
 
 AutoIt:
-    $variationalRefinement.getDefaultName() -> retval
+    $oVariationalRefinement.getDefaultName() -> retval
 ```
 
 ## cv::DISOpticalFlow
@@ -29385,7 +29385,7 @@ AutoIt:
 int cv::DISOpticalFlow::getFinestScale()
 
 AutoIt:
-    $dISOpticalFlow.getFinestScale() -> retval
+    $oDISOpticalFlow.getFinestScale() -> retval
 ```
 
 ### cv::DISOpticalFlow::setFinestScale
@@ -29394,7 +29394,7 @@ AutoIt:
 void cv::DISOpticalFlow::setFinestScale( int val )
 
 AutoIt:
-    $dISOpticalFlow.setFinestScale( $val ) -> None
+    $oDISOpticalFlow.setFinestScale( $val ) -> None
 ```
 
 ### cv::DISOpticalFlow::getPatchSize
@@ -29403,7 +29403,7 @@ AutoIt:
 int cv::DISOpticalFlow::getPatchSize()
 
 AutoIt:
-    $dISOpticalFlow.getPatchSize() -> retval
+    $oDISOpticalFlow.getPatchSize() -> retval
 ```
 
 ### cv::DISOpticalFlow::setPatchSize
@@ -29412,7 +29412,7 @@ AutoIt:
 void cv::DISOpticalFlow::setPatchSize( int val )
 
 AutoIt:
-    $dISOpticalFlow.setPatchSize( $val ) -> None
+    $oDISOpticalFlow.setPatchSize( $val ) -> None
 ```
 
 ### cv::DISOpticalFlow::getPatchStride
@@ -29421,7 +29421,7 @@ AutoIt:
 int cv::DISOpticalFlow::getPatchStride()
 
 AutoIt:
-    $dISOpticalFlow.getPatchStride() -> retval
+    $oDISOpticalFlow.getPatchStride() -> retval
 ```
 
 ### cv::DISOpticalFlow::setPatchStride
@@ -29430,7 +29430,7 @@ AutoIt:
 void cv::DISOpticalFlow::setPatchStride( int val )
 
 AutoIt:
-    $dISOpticalFlow.setPatchStride( $val ) -> None
+    $oDISOpticalFlow.setPatchStride( $val ) -> None
 ```
 
 ### cv::DISOpticalFlow::getGradientDescentIterations
@@ -29439,7 +29439,7 @@ AutoIt:
 int cv::DISOpticalFlow::getGradientDescentIterations()
 
 AutoIt:
-    $dISOpticalFlow.getGradientDescentIterations() -> retval
+    $oDISOpticalFlow.getGradientDescentIterations() -> retval
 ```
 
 ### cv::DISOpticalFlow::setGradientDescentIterations
@@ -29448,7 +29448,7 @@ AutoIt:
 void cv::DISOpticalFlow::setGradientDescentIterations( int val )
 
 AutoIt:
-    $dISOpticalFlow.setGradientDescentIterations( $val ) -> None
+    $oDISOpticalFlow.setGradientDescentIterations( $val ) -> None
 ```
 
 ### cv::DISOpticalFlow::getVariationalRefinementIterations
@@ -29457,7 +29457,7 @@ AutoIt:
 int cv::DISOpticalFlow::getVariationalRefinementIterations()
 
 AutoIt:
-    $dISOpticalFlow.getVariationalRefinementIterations() -> retval
+    $oDISOpticalFlow.getVariationalRefinementIterations() -> retval
 ```
 
 ### cv::DISOpticalFlow::setVariationalRefinementIterations
@@ -29466,7 +29466,7 @@ AutoIt:
 void cv::DISOpticalFlow::setVariationalRefinementIterations( int val )
 
 AutoIt:
-    $dISOpticalFlow.setVariationalRefinementIterations( $val ) -> None
+    $oDISOpticalFlow.setVariationalRefinementIterations( $val ) -> None
 ```
 
 ### cv::DISOpticalFlow::getVariationalRefinementAlpha
@@ -29475,7 +29475,7 @@ AutoIt:
 float cv::DISOpticalFlow::getVariationalRefinementAlpha()
 
 AutoIt:
-    $dISOpticalFlow.getVariationalRefinementAlpha() -> retval
+    $oDISOpticalFlow.getVariationalRefinementAlpha() -> retval
 ```
 
 ### cv::DISOpticalFlow::setVariationalRefinementAlpha
@@ -29484,7 +29484,7 @@ AutoIt:
 void cv::DISOpticalFlow::setVariationalRefinementAlpha( float val )
 
 AutoIt:
-    $dISOpticalFlow.setVariationalRefinementAlpha( $val ) -> None
+    $oDISOpticalFlow.setVariationalRefinementAlpha( $val ) -> None
 ```
 
 ### cv::DISOpticalFlow::getVariationalRefinementDelta
@@ -29493,7 +29493,7 @@ AutoIt:
 float cv::DISOpticalFlow::getVariationalRefinementDelta()
 
 AutoIt:
-    $dISOpticalFlow.getVariationalRefinementDelta() -> retval
+    $oDISOpticalFlow.getVariationalRefinementDelta() -> retval
 ```
 
 ### cv::DISOpticalFlow::setVariationalRefinementDelta
@@ -29502,7 +29502,7 @@ AutoIt:
 void cv::DISOpticalFlow::setVariationalRefinementDelta( float val )
 
 AutoIt:
-    $dISOpticalFlow.setVariationalRefinementDelta( $val ) -> None
+    $oDISOpticalFlow.setVariationalRefinementDelta( $val ) -> None
 ```
 
 ### cv::DISOpticalFlow::getVariationalRefinementGamma
@@ -29511,7 +29511,7 @@ AutoIt:
 float cv::DISOpticalFlow::getVariationalRefinementGamma()
 
 AutoIt:
-    $dISOpticalFlow.getVariationalRefinementGamma() -> retval
+    $oDISOpticalFlow.getVariationalRefinementGamma() -> retval
 ```
 
 ### cv::DISOpticalFlow::setVariationalRefinementGamma
@@ -29520,7 +29520,7 @@ AutoIt:
 void cv::DISOpticalFlow::setVariationalRefinementGamma( float val )
 
 AutoIt:
-    $dISOpticalFlow.setVariationalRefinementGamma( $val ) -> None
+    $oDISOpticalFlow.setVariationalRefinementGamma( $val ) -> None
 ```
 
 ### cv::DISOpticalFlow::getUseMeanNormalization
@@ -29529,7 +29529,7 @@ AutoIt:
 bool cv::DISOpticalFlow::getUseMeanNormalization()
 
 AutoIt:
-    $dISOpticalFlow.getUseMeanNormalization() -> retval
+    $oDISOpticalFlow.getUseMeanNormalization() -> retval
 ```
 
 ### cv::DISOpticalFlow::setUseMeanNormalization
@@ -29538,7 +29538,7 @@ AutoIt:
 void cv::DISOpticalFlow::setUseMeanNormalization( bool val )
 
 AutoIt:
-    $dISOpticalFlow.setUseMeanNormalization( $val ) -> None
+    $oDISOpticalFlow.setUseMeanNormalization( $val ) -> None
 ```
 
 ### cv::DISOpticalFlow::getUseSpatialPropagation
@@ -29547,7 +29547,7 @@ AutoIt:
 bool cv::DISOpticalFlow::getUseSpatialPropagation()
 
 AutoIt:
-    $dISOpticalFlow.getUseSpatialPropagation() -> retval
+    $oDISOpticalFlow.getUseSpatialPropagation() -> retval
 ```
 
 ### cv::DISOpticalFlow::setUseSpatialPropagation
@@ -29556,7 +29556,7 @@ AutoIt:
 void cv::DISOpticalFlow::setUseSpatialPropagation( bool val )
 
 AutoIt:
-    $dISOpticalFlow.setUseSpatialPropagation( $val ) -> None
+    $oDISOpticalFlow.setUseSpatialPropagation( $val ) -> None
 ```
 
 ### cv::DISOpticalFlow::create
@@ -29576,7 +29576,7 @@ void cv::DISOpticalFlow::calc( _InputArray       I0,
                                _InputOutputArray flow )
 
 AutoIt:
-    $dISOpticalFlow.calc( $I0, $I1, $flow ) -> $flow
+    $oDISOpticalFlow.calc( $I0, $I1, $flow ) -> $flow
 ```
 
 ### cv::DISOpticalFlow::collectGarbage
@@ -29585,7 +29585,7 @@ AutoIt:
 void cv::DISOpticalFlow::collectGarbage()
 
 AutoIt:
-    $dISOpticalFlow.collectGarbage() -> None
+    $oDISOpticalFlow.collectGarbage() -> None
 ```
 
 ### cv::DISOpticalFlow::clear
@@ -29594,7 +29594,7 @@ AutoIt:
 void cv::DISOpticalFlow::clear()
 
 AutoIt:
-    $dISOpticalFlow.clear() -> None
+    $oDISOpticalFlow.clear() -> None
 ```
 
 ### cv::DISOpticalFlow::write
@@ -29604,7 +29604,7 @@ void cv::DISOpticalFlow::write( const cv::Ptr<cv::FileStorage>& fs,
                                 const std::string&              name = String() )
 
 AutoIt:
-    $dISOpticalFlow.write( $fs[, $name] ) -> None
+    $oDISOpticalFlow.write( $fs[, $name] ) -> None
 ```
 
 ### cv::DISOpticalFlow::read
@@ -29613,7 +29613,7 @@ AutoIt:
 void cv::DISOpticalFlow::read( const cv::FileNode& fn )
 
 AutoIt:
-    $dISOpticalFlow.read( $fn ) -> None
+    $oDISOpticalFlow.read( $fn ) -> None
 ```
 
 ### cv::DISOpticalFlow::empty
@@ -29622,7 +29622,7 @@ AutoIt:
 bool cv::DISOpticalFlow::empty()
 
 AutoIt:
-    $dISOpticalFlow.empty() -> retval
+    $oDISOpticalFlow.empty() -> retval
 ```
 
 ### cv::DISOpticalFlow::save
@@ -29631,7 +29631,7 @@ AutoIt:
 void cv::DISOpticalFlow::save( const std::string& filename )
 
 AutoIt:
-    $dISOpticalFlow.save( $filename ) -> None
+    $oDISOpticalFlow.save( $filename ) -> None
 ```
 
 ### cv::DISOpticalFlow::getDefaultName
@@ -29640,7 +29640,7 @@ AutoIt:
 std::string cv::DISOpticalFlow::getDefaultName()
 
 AutoIt:
-    $dISOpticalFlow.getDefaultName() -> retval
+    $oDISOpticalFlow.getDefaultName() -> retval
 ```
 
 ## cv::SparsePyrLKOpticalFlow
@@ -29651,7 +29651,7 @@ AutoIt:
 cv::Size cv::SparsePyrLKOpticalFlow::getWinSize()
 
 AutoIt:
-    $sparsePyrLKOpticalFlow.getWinSize() -> retval
+    $oSparsePyrLKOpticalFlow.getWinSize() -> retval
 ```
 
 ### cv::SparsePyrLKOpticalFlow::setWinSize
@@ -29660,7 +29660,7 @@ AutoIt:
 void cv::SparsePyrLKOpticalFlow::setWinSize( cv::Size winSize )
 
 AutoIt:
-    $sparsePyrLKOpticalFlow.setWinSize( $winSize ) -> None
+    $oSparsePyrLKOpticalFlow.setWinSize( $winSize ) -> None
 ```
 
 ### cv::SparsePyrLKOpticalFlow::getMaxLevel
@@ -29669,7 +29669,7 @@ AutoIt:
 int cv::SparsePyrLKOpticalFlow::getMaxLevel()
 
 AutoIt:
-    $sparsePyrLKOpticalFlow.getMaxLevel() -> retval
+    $oSparsePyrLKOpticalFlow.getMaxLevel() -> retval
 ```
 
 ### cv::SparsePyrLKOpticalFlow::setMaxLevel
@@ -29678,7 +29678,7 @@ AutoIt:
 void cv::SparsePyrLKOpticalFlow::setMaxLevel( int maxLevel )
 
 AutoIt:
-    $sparsePyrLKOpticalFlow.setMaxLevel( $maxLevel ) -> None
+    $oSparsePyrLKOpticalFlow.setMaxLevel( $maxLevel ) -> None
 ```
 
 ### cv::SparsePyrLKOpticalFlow::getTermCriteria
@@ -29687,7 +29687,7 @@ AutoIt:
 cv::TermCriteria cv::SparsePyrLKOpticalFlow::getTermCriteria()
 
 AutoIt:
-    $sparsePyrLKOpticalFlow.getTermCriteria() -> retval
+    $oSparsePyrLKOpticalFlow.getTermCriteria() -> retval
 ```
 
 ### cv::SparsePyrLKOpticalFlow::setTermCriteria
@@ -29696,7 +29696,7 @@ AutoIt:
 void cv::SparsePyrLKOpticalFlow::setTermCriteria( cv::TermCriteria& crit )
 
 AutoIt:
-    $sparsePyrLKOpticalFlow.setTermCriteria( $crit ) -> None
+    $oSparsePyrLKOpticalFlow.setTermCriteria( $crit ) -> None
 ```
 
 ### cv::SparsePyrLKOpticalFlow::getFlags
@@ -29705,7 +29705,7 @@ AutoIt:
 int cv::SparsePyrLKOpticalFlow::getFlags()
 
 AutoIt:
-    $sparsePyrLKOpticalFlow.getFlags() -> retval
+    $oSparsePyrLKOpticalFlow.getFlags() -> retval
 ```
 
 ### cv::SparsePyrLKOpticalFlow::setFlags
@@ -29714,7 +29714,7 @@ AutoIt:
 void cv::SparsePyrLKOpticalFlow::setFlags( int flags )
 
 AutoIt:
-    $sparsePyrLKOpticalFlow.setFlags( $flags ) -> None
+    $oSparsePyrLKOpticalFlow.setFlags( $flags ) -> None
 ```
 
 ### cv::SparsePyrLKOpticalFlow::getMinEigThreshold
@@ -29723,7 +29723,7 @@ AutoIt:
 double cv::SparsePyrLKOpticalFlow::getMinEigThreshold()
 
 AutoIt:
-    $sparsePyrLKOpticalFlow.getMinEigThreshold() -> retval
+    $oSparsePyrLKOpticalFlow.getMinEigThreshold() -> retval
 ```
 
 ### cv::SparsePyrLKOpticalFlow::setMinEigThreshold
@@ -29732,7 +29732,7 @@ AutoIt:
 void cv::SparsePyrLKOpticalFlow::setMinEigThreshold( double minEigThreshold )
 
 AutoIt:
-    $sparsePyrLKOpticalFlow.setMinEigThreshold( $minEigThreshold ) -> None
+    $oSparsePyrLKOpticalFlow.setMinEigThreshold( $minEigThreshold ) -> None
 ```
 
 ### cv::SparsePyrLKOpticalFlow::create
@@ -29759,7 +29759,7 @@ void cv::SparsePyrLKOpticalFlow::calc( _InputArray       prevImg,
                                        _OutputArray      err = cv::noArray() )
 
 AutoIt:
-    $sparsePyrLKOpticalFlow.calc( $prevImg, $nextImg, $prevPts, $nextPts[, $status[, $err]] ) -> $nextPts, $status, $err
+    $oSparsePyrLKOpticalFlow.calc( $prevImg, $nextImg, $prevPts, $nextPts[, $status[, $err]] ) -> $nextPts, $status, $err
 ```
 
 ### cv::SparsePyrLKOpticalFlow::clear
@@ -29768,7 +29768,7 @@ AutoIt:
 void cv::SparsePyrLKOpticalFlow::clear()
 
 AutoIt:
-    $sparsePyrLKOpticalFlow.clear() -> None
+    $oSparsePyrLKOpticalFlow.clear() -> None
 ```
 
 ### cv::SparsePyrLKOpticalFlow::write
@@ -29778,7 +29778,7 @@ void cv::SparsePyrLKOpticalFlow::write( const cv::Ptr<cv::FileStorage>& fs,
                                         const std::string&              name = String() )
 
 AutoIt:
-    $sparsePyrLKOpticalFlow.write( $fs[, $name] ) -> None
+    $oSparsePyrLKOpticalFlow.write( $fs[, $name] ) -> None
 ```
 
 ### cv::SparsePyrLKOpticalFlow::read
@@ -29787,7 +29787,7 @@ AutoIt:
 void cv::SparsePyrLKOpticalFlow::read( const cv::FileNode& fn )
 
 AutoIt:
-    $sparsePyrLKOpticalFlow.read( $fn ) -> None
+    $oSparsePyrLKOpticalFlow.read( $fn ) -> None
 ```
 
 ### cv::SparsePyrLKOpticalFlow::empty
@@ -29796,7 +29796,7 @@ AutoIt:
 bool cv::SparsePyrLKOpticalFlow::empty()
 
 AutoIt:
-    $sparsePyrLKOpticalFlow.empty() -> retval
+    $oSparsePyrLKOpticalFlow.empty() -> retval
 ```
 
 ### cv::SparsePyrLKOpticalFlow::save
@@ -29805,7 +29805,7 @@ AutoIt:
 void cv::SparsePyrLKOpticalFlow::save( const std::string& filename )
 
 AutoIt:
-    $sparsePyrLKOpticalFlow.save( $filename ) -> None
+    $oSparsePyrLKOpticalFlow.save( $filename ) -> None
 ```
 
 ### cv::SparsePyrLKOpticalFlow::getDefaultName
@@ -29814,7 +29814,7 @@ AutoIt:
 std::string cv::SparsePyrLKOpticalFlow::getDefaultName()
 
 AutoIt:
-    $sparsePyrLKOpticalFlow.getDefaultName() -> retval
+    $oSparsePyrLKOpticalFlow.getDefaultName() -> retval
 ```
 
 ## cv::Tracker
@@ -29826,7 +29826,7 @@ void cv::Tracker::init( _InputArray     image,
                         const cv::Rect& boundingBox )
 
 AutoIt:
-    $tracker.init( $image, $boundingBox ) -> None
+    $oTracker.init( $image, $boundingBox ) -> None
 ```
 
 ### cv::Tracker::update
@@ -29836,7 +29836,7 @@ bool cv::Tracker::update( _InputArray image,
                           cv::Rect&   boundingBox )
 
 AutoIt:
-    $tracker.update( $image[, $boundingBox] ) -> retval, $boundingBox
+    $oTracker.update( $image[, $boundingBox] ) -> retval, $boundingBox
 ```
 
 ## cv::TrackerMIL
@@ -29857,7 +29857,7 @@ void cv::TrackerMIL::init( _InputArray     image,
                            const cv::Rect& boundingBox )
 
 AutoIt:
-    $trackerMIL.init( $image, $boundingBox ) -> None
+    $oTrackerMIL.init( $image, $boundingBox ) -> None
 ```
 
 ### cv::TrackerMIL::update
@@ -29867,7 +29867,7 @@ bool cv::TrackerMIL::update( _InputArray image,
                              cv::Rect&   boundingBox )
 
 AutoIt:
-    $trackerMIL.update( $image[, $boundingBox] ) -> retval, $boundingBox
+    $oTrackerMIL.update( $image[, $boundingBox] ) -> retval, $boundingBox
 ```
 
 ## cv::TrackerMIL::Params
@@ -29906,7 +29906,7 @@ void cv::TrackerGOTURN::init( _InputArray     image,
                               const cv::Rect& boundingBox )
 
 AutoIt:
-    $trackerGOTURN.init( $image, $boundingBox ) -> None
+    $oTrackerGOTURN.init( $image, $boundingBox ) -> None
 ```
 
 ### cv::TrackerGOTURN::update
@@ -29916,7 +29916,7 @@ bool cv::TrackerGOTURN::update( _InputArray image,
                                 cv::Rect&   boundingBox )
 
 AutoIt:
-    $trackerGOTURN.update( $image[, $boundingBox] ) -> retval, $boundingBox
+    $oTrackerGOTURN.update( $image[, $boundingBox] ) -> retval, $boundingBox
 ```
 
 ## cv::TrackerGOTURN::Params
@@ -29954,7 +29954,7 @@ AutoIt:
 float cv::TrackerDaSiamRPN::getTrackingScore()
 
 AutoIt:
-    $trackerDaSiamRPN.getTrackingScore() -> retval
+    $oTrackerDaSiamRPN.getTrackingScore() -> retval
 ```
 
 ### cv::TrackerDaSiamRPN::init
@@ -29964,7 +29964,7 @@ void cv::TrackerDaSiamRPN::init( _InputArray     image,
                                  const cv::Rect& boundingBox )
 
 AutoIt:
-    $trackerDaSiamRPN.init( $image, $boundingBox ) -> None
+    $oTrackerDaSiamRPN.init( $image, $boundingBox ) -> None
 ```
 
 ### cv::TrackerDaSiamRPN::update
@@ -29974,7 +29974,7 @@ bool cv::TrackerDaSiamRPN::update( _InputArray image,
                                    cv::Rect&   boundingBox )
 
 AutoIt:
-    $trackerDaSiamRPN.update( $image[, $boundingBox] ) -> retval, $boundingBox
+    $oTrackerDaSiamRPN.update( $image[, $boundingBox] ) -> retval, $boundingBox
 ```
 
 ## cv::TrackerDaSiamRPN::Params
@@ -30286,7 +30286,7 @@ std::vector<cv::GRunArg> cv::GComputation::apply( const cv::detail::ExtractArgsC
                                                   std::vector<cv::GCompileArg>           args = {} )
 
 AutoIt:
-    $gComputation.apply( $callback[, $args] ) -> retval
+    $oGComputation.apply( $callback[, $args] ) -> retval
 ```
 
 ### cv::GComputation::compileStreaming
@@ -30296,14 +30296,14 @@ cv::GStreamingCompiled cv::GComputation::compileStreaming( std::vector<GMetaArg>
                                                            std::vector<cv::GCompileArg> args = {} )
 
 AutoIt:
-    $gComputation.compileStreaming( $in_metas[, $args] ) -> retval
+    $oGComputation.compileStreaming( $in_metas[, $args] ) -> retval
 ```
 
 ```cpp
 cv::GStreamingCompiled cv::GComputation::compileStreaming( std::vector<cv::GCompileArg> args = {} )
 
 AutoIt:
-    $gComputation.compileStreaming( [$args] ) -> retval
+    $oGComputation.compileStreaming( [$args] ) -> retval
 ```
 
 ```cpp
@@ -30311,7 +30311,7 @@ cv::GStreamingCompiled cv::GComputation::compileStreaming( const cv::detail::Ext
                                                            std::vector<cv::GCompileArg>           args = {} )
 
 AutoIt:
-    $gComputation.compileStreaming( $callback[, $args] ) -> retval
+    $oGComputation.compileStreaming( $callback[, $args] ) -> retval
 ```
 
 ## cv::GFrame
@@ -30386,7 +30386,7 @@ AutoIt:
 cv::GMatDesc cv::GMatDesc::withSizeDelta( cv::Size delta )
 
 AutoIt:
-    $gMatDesc.withSizeDelta( $delta ) -> retval
+    $oGMatDesc.withSizeDelta( $delta ) -> retval
 ```
 
 ```cpp
@@ -30394,7 +30394,7 @@ cv::GMatDesc cv::GMatDesc::withSizeDelta( int dx,
                                           int dy )
 
 AutoIt:
-    $gMatDesc.withSizeDelta( $dx, $dy ) -> retval
+    $oGMatDesc.withSizeDelta( $dx, $dy ) -> retval
 ```
 
 ### cv::GMatDesc::withSize
@@ -30403,7 +30403,7 @@ AutoIt:
 cv::GMatDesc cv::GMatDesc::withSize( cv::Size sz )
 
 AutoIt:
-    $gMatDesc.withSize( $sz ) -> retval
+    $oGMatDesc.withSize( $sz ) -> retval
 ```
 
 ### cv::GMatDesc::withDepth
@@ -30412,7 +30412,7 @@ AutoIt:
 cv::GMatDesc cv::GMatDesc::withDepth( int ddepth )
 
 AutoIt:
-    $gMatDesc.withDepth( $ddepth ) -> retval
+    $oGMatDesc.withDepth( $ddepth ) -> retval
 ```
 
 ### cv::GMatDesc::withType
@@ -30422,7 +30422,7 @@ cv::GMatDesc cv::GMatDesc::withType( int ddepth,
                                      int dchan )
 
 AutoIt:
-    $gMatDesc.withType( $ddepth, $dchan ) -> retval
+    $oGMatDesc.withType( $ddepth, $dchan ) -> retval
 ```
 
 ### cv::GMatDesc::asPlanar
@@ -30431,14 +30431,14 @@ AutoIt:
 cv::GMatDesc cv::GMatDesc::asPlanar()
 
 AutoIt:
-    $gMatDesc.asPlanar() -> retval
+    $oGMatDesc.asPlanar() -> retval
 ```
 
 ```cpp
 cv::GMatDesc cv::GMatDesc::asPlanar( int planes )
 
 AutoIt:
-    $gMatDesc.asPlanar( $planes ) -> retval
+    $oGMatDesc.asPlanar( $planes ) -> retval
 ```
 
 ### cv::GMatDesc::asInterleaved
@@ -30447,7 +30447,7 @@ AutoIt:
 cv::GMatDesc cv::GMatDesc::asInterleaved()
 
 AutoIt:
-    $gMatDesc.asInterleaved() -> retval
+    $oGMatDesc.asInterleaved() -> retval
 ```
 
 ## cv::GOpaqueDesc
@@ -30500,7 +30500,7 @@ AutoIt:
 void cv::GStreamingCompiled::setSource( const cv::detail::ExtractArgsCallback& callback )
 
 AutoIt:
-    $gStreamingCompiled.setSource( $callback ) -> None
+    $oGStreamingCompiled.setSource( $callback ) -> None
 ```
 
 ### cv::GStreamingCompiled::start
@@ -30509,7 +30509,7 @@ AutoIt:
 void cv::GStreamingCompiled::start()
 
 AutoIt:
-    $gStreamingCompiled.start() -> None
+    $oGStreamingCompiled.start() -> None
 ```
 
 ### cv::GStreamingCompiled::pull
@@ -30518,7 +30518,7 @@ AutoIt:
 std::tuple<bool, util_variant_GRunArgs, GOptRunArgs> cv::GStreamingCompiled::pull()
 
 AutoIt:
-    $gStreamingCompiled.pull() -> retval
+    $oGStreamingCompiled.pull() -> retval
 ```
 
 ### cv::GStreamingCompiled::stop
@@ -30527,7 +30527,7 @@ AutoIt:
 void cv::GStreamingCompiled::stop()
 
 AutoIt:
-    $gStreamingCompiled.stop() -> None
+    $oGStreamingCompiled.stop() -> None
 ```
 
 ### cv::GStreamingCompiled::running
@@ -30536,7 +30536,7 @@ AutoIt:
 bool cv::GStreamingCompiled::running()
 
 AutoIt:
-    $gStreamingCompiled.running() -> retval
+    $oGStreamingCompiled.running() -> retval
 ```
 
 ## cv::gapi::streaming::queue_capacity
@@ -30654,7 +30654,7 @@ cv::gapi::ie::PyParams cv::gapi::ie::PyParams::constInput( const std::string& la
                                                            int                hint = TraitAs::TENSOR )
 
 AutoIt:
-    $pyParams.constInput( $layer_name, $data[, $hint] ) -> retval
+    $oPyParams.constInput( $layer_name, $data[, $hint] ) -> retval
 ```
 
 ### cv::gapi::ie::PyParams::cfgNumRequests
@@ -30663,7 +30663,7 @@ AutoIt:
 cv::gapi::ie::PyParams cv::gapi::ie::PyParams::cfgNumRequests( size_t nireq )
 
 AutoIt:
-    $pyParams.cfgNumRequests( $nireq ) -> retval
+    $oPyParams.cfgNumRequests( $nireq ) -> retval
 ```
 
 ### cv::gapi::ie::PyParams::cfgBatchSize
@@ -30672,7 +30672,7 @@ AutoIt:
 cv::gapi::ie::PyParams cv::gapi::ie::PyParams::cfgBatchSize( const size_t size )
 
 AutoIt:
-    $pyParams.cfgBatchSize( $size ) -> retval
+    $oPyParams.cfgBatchSize( $size ) -> retval
 ```
 
 ## cv::gapi::core::ocl
@@ -30983,7 +30983,7 @@ bool cv::wgc::SimpleCapture::setHandle( HWND hWnd,
                                         WORD channels = 4 )
 
 AutoIt:
-    $simpleCapture.setHandle( $hWnd[, $channels] ) -> retval
+    $oSimpleCapture.setHandle( $hWnd[, $channels] ) -> retval
 ```
 
 ### cv::wgc::SimpleCapture::Start
@@ -30992,7 +30992,7 @@ AutoIt:
 bool cv::wgc::SimpleCapture::Start()
 
 AutoIt:
-    $simpleCapture.Start() -> retval
+    $oSimpleCapture.Start() -> retval
 ```
 
 ### cv::wgc::SimpleCapture::Pause
@@ -31001,7 +31001,7 @@ AutoIt:
 bool cv::wgc::SimpleCapture::Pause()
 
 AutoIt:
-    $simpleCapture.Pause() -> retval
+    $oSimpleCapture.Pause() -> retval
 ```
 
 ### cv::wgc::SimpleCapture::Resume
@@ -31010,7 +31010,7 @@ AutoIt:
 bool cv::wgc::SimpleCapture::Resume()
 
 AutoIt:
-    $simpleCapture.Resume() -> retval
+    $oSimpleCapture.Resume() -> retval
 ```
 
 ### cv::wgc::SimpleCapture::Stop
@@ -31019,7 +31019,7 @@ AutoIt:
 bool cv::wgc::SimpleCapture::Stop()
 
 AutoIt:
-    $simpleCapture.Stop() -> retval
+    $oSimpleCapture.Stop() -> retval
 ```
 
 ### cv::wgc::SimpleCapture::Paused
@@ -31028,7 +31028,7 @@ AutoIt:
 bool cv::wgc::SimpleCapture::Paused()
 
 AutoIt:
-    $simpleCapture.Paused() -> retval
+    $oSimpleCapture.Paused() -> retval
 ```
 
 ## cv::Range
@@ -31056,7 +31056,7 @@ AutoIt:
 int cv::Range::size()
 
 AutoIt:
-    $range.size() -> retval
+    $oRange.size() -> retval
 ```
 
 ### cv::Range::empty
@@ -31065,7 +31065,7 @@ AutoIt:
 bool cv::Range::empty()
 
 AutoIt:
-    $range.empty() -> retval
+    $oRange.empty() -> retval
 ```
 
 ### cv::Range::all
@@ -31112,7 +31112,7 @@ AutoIt:
 cv::Rect cv::RotatedRect::boundingRect()
 
 AutoIt:
-    $rotatedRect.boundingRect() -> retval
+    $oRotatedRect.boundingRect() -> retval
 ```
 
 ## cv::GCompileArg
@@ -31168,7 +31168,7 @@ AutoIt:
 std::vector<int> VectorOfVariant::Keys()
 
 AutoIt:
-    $vectorOfVariant.Keys() -> retval
+    $oVectorOfVariant.Keys() -> retval
 ```
 
 ### VectorOfVariant::Items
@@ -31177,7 +31177,7 @@ AutoIt:
 VectorOfVariant VectorOfVariant::Items()
 
 AutoIt:
-    $vectorOfVariant.Items() -> retval
+    $oVectorOfVariant.Items() -> retval
 ```
 
 ### VectorOfVariant::push_back
@@ -31186,7 +31186,7 @@ AutoIt:
 void VectorOfVariant::push_back( _variant_t value )
 
 AutoIt:
-    $vectorOfVariant.push_back( $value ) -> None
+    $oVectorOfVariant.push_back( $value ) -> None
 ```
 
 ### VectorOfVariant::Add
@@ -31195,7 +31195,7 @@ AutoIt:
 void VectorOfVariant::Add( _variant_t value )
 
 AutoIt:
-    $vectorOfVariant.Add( $value ) -> None
+    $oVectorOfVariant.Add( $value ) -> None
 ```
 
 ### VectorOfVariant::Remove
@@ -31204,7 +31204,7 @@ AutoIt:
 void VectorOfVariant::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVariant.Remove( $index ) -> None
+    $oVectorOfVariant.Remove( $index ) -> None
 ```
 
 ### VectorOfVariant::at
@@ -31213,7 +31213,7 @@ AutoIt:
 _variant_t VectorOfVariant::at( size_t index )
 
 AutoIt:
-    $vectorOfVariant.at( $index ) -> retval
+    $oVectorOfVariant.at( $index ) -> retval
 ```
 
 ```cpp
@@ -31221,7 +31221,7 @@ void VectorOfVariant::at( size_t     index,
                           _variant_t value )
 
 AutoIt:
-    $vectorOfVariant.at( $index, $value ) -> None
+    $oVectorOfVariant.at( $index, $value ) -> None
 ```
 
 ### VectorOfVariant::size
@@ -31230,7 +31230,7 @@ AutoIt:
 size_t VectorOfVariant::size()
 
 AutoIt:
-    $vectorOfVariant.size() -> retval
+    $oVectorOfVariant.size() -> retval
 ```
 
 ### VectorOfVariant::empty
@@ -31239,7 +31239,7 @@ AutoIt:
 bool VectorOfVariant::empty()
 
 AutoIt:
-    $vectorOfVariant.empty() -> retval
+    $oVectorOfVariant.empty() -> retval
 ```
 
 ### VectorOfVariant::clear
@@ -31248,7 +31248,7 @@ AutoIt:
 void VectorOfVariant::clear()
 
 AutoIt:
-    $vectorOfVariant.clear() -> None
+    $oVectorOfVariant.clear() -> None
 ```
 
 ### VectorOfVariant::push_vector
@@ -31257,7 +31257,7 @@ AutoIt:
 void VectorOfVariant::push_vector( VectorOfVariant other )
 
 AutoIt:
-    $vectorOfVariant.push_vector( $other ) -> None
+    $oVectorOfVariant.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -31266,7 +31266,7 @@ void VectorOfVariant::push_vector( VectorOfVariant other,
                                    size_t          start = 0 )
 
 AutoIt:
-    $vectorOfVariant.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVariant.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVariant::slice
@@ -31276,7 +31276,7 @@ VectorOfVariant VectorOfVariant::slice( size_t start = 0,
                                         size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVariant.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVariant.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVariant::sort
@@ -31287,7 +31287,7 @@ void VectorOfVariant::sort( void*  comparator,
                             size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVariant.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVariant.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVariant::sort_variant
@@ -31298,7 +31298,7 @@ void VectorOfVariant::sort_variant( void*  comparator,
                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVariant.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVariant.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVariant::start
@@ -31307,7 +31307,7 @@ AutoIt:
 void* VectorOfVariant::start()
 
 AutoIt:
-    $vectorOfVariant.start() -> retval
+    $oVectorOfVariant.start() -> retval
 ```
 
 ### VectorOfVariant::end
@@ -31316,7 +31316,7 @@ AutoIt:
 void* VectorOfVariant::end()
 
 AutoIt:
-    $vectorOfVariant.end() -> retval
+    $oVectorOfVariant.end() -> retval
 ```
 
 ### VectorOfVariant::get_Item
@@ -31325,7 +31325,7 @@ AutoIt:
 _variant_t VectorOfVariant::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVariant.Item( $vIndex ) -> retval
+    $oVectorOfVariant.Item( $vIndex ) -> retval
     VectorOfVariant( $vIndex ) -> retval
 ```
 
@@ -31336,7 +31336,7 @@ void VectorOfVariant::put_Item( size_t     vIndex,
                                 _variant_t vItem )
 
 AutoIt:
-    $vectorOfVariant.Item( $vIndex ) = $$vItem
+    $oVectorOfVariant.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfMat
@@ -31370,7 +31370,7 @@ AutoIt:
 std::vector<int> VectorOfMat::Keys()
 
 AutoIt:
-    $vectorOfMat.Keys() -> retval
+    $oVectorOfMat.Keys() -> retval
 ```
 
 ### VectorOfMat::Items
@@ -31379,7 +31379,7 @@ AutoIt:
 VectorOfMat VectorOfMat::Items()
 
 AutoIt:
-    $vectorOfMat.Items() -> retval
+    $oVectorOfMat.Items() -> retval
 ```
 
 ### VectorOfMat::push_back
@@ -31388,7 +31388,7 @@ AutoIt:
 void VectorOfMat::push_back( cv::Mat value )
 
 AutoIt:
-    $vectorOfMat.push_back( $value ) -> None
+    $oVectorOfMat.push_back( $value ) -> None
 ```
 
 ### VectorOfMat::Add
@@ -31397,7 +31397,7 @@ AutoIt:
 void VectorOfMat::Add( cv::Mat value )
 
 AutoIt:
-    $vectorOfMat.Add( $value ) -> None
+    $oVectorOfMat.Add( $value ) -> None
 ```
 
 ### VectorOfMat::Remove
@@ -31406,7 +31406,7 @@ AutoIt:
 void VectorOfMat::Remove( size_t index )
 
 AutoIt:
-    $vectorOfMat.Remove( $index ) -> None
+    $oVectorOfMat.Remove( $index ) -> None
 ```
 
 ### VectorOfMat::at
@@ -31415,7 +31415,7 @@ AutoIt:
 cv::Mat VectorOfMat::at( size_t index )
 
 AutoIt:
-    $vectorOfMat.at( $index ) -> retval
+    $oVectorOfMat.at( $index ) -> retval
 ```
 
 ```cpp
@@ -31423,7 +31423,7 @@ void VectorOfMat::at( size_t  index,
                       cv::Mat value )
 
 AutoIt:
-    $vectorOfMat.at( $index, $value ) -> None
+    $oVectorOfMat.at( $index, $value ) -> None
 ```
 
 ### VectorOfMat::size
@@ -31432,7 +31432,7 @@ AutoIt:
 size_t VectorOfMat::size()
 
 AutoIt:
-    $vectorOfMat.size() -> retval
+    $oVectorOfMat.size() -> retval
 ```
 
 ### VectorOfMat::empty
@@ -31441,7 +31441,7 @@ AutoIt:
 bool VectorOfMat::empty()
 
 AutoIt:
-    $vectorOfMat.empty() -> retval
+    $oVectorOfMat.empty() -> retval
 ```
 
 ### VectorOfMat::clear
@@ -31450,7 +31450,7 @@ AutoIt:
 void VectorOfMat::clear()
 
 AutoIt:
-    $vectorOfMat.clear() -> None
+    $oVectorOfMat.clear() -> None
 ```
 
 ### VectorOfMat::push_vector
@@ -31459,7 +31459,7 @@ AutoIt:
 void VectorOfMat::push_vector( VectorOfMat other )
 
 AutoIt:
-    $vectorOfMat.push_vector( $other ) -> None
+    $oVectorOfMat.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -31468,7 +31468,7 @@ void VectorOfMat::push_vector( VectorOfMat other,
                                size_t      start = 0 )
 
 AutoIt:
-    $vectorOfMat.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfMat.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfMat::slice
@@ -31478,7 +31478,7 @@ VectorOfMat VectorOfMat::slice( size_t start = 0,
                                 size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfMat.slice( [$start[, $count]] ) -> retval
+    $oVectorOfMat.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfMat::sort
@@ -31489,7 +31489,7 @@ void VectorOfMat::sort( void*  comparator,
                         size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfMat.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfMat.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfMat::sort_variant
@@ -31500,7 +31500,7 @@ void VectorOfMat::sort_variant( void*  comparator,
                                 size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfMat.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfMat.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfMat::start
@@ -31509,7 +31509,7 @@ AutoIt:
 void* VectorOfMat::start()
 
 AutoIt:
-    $vectorOfMat.start() -> retval
+    $oVectorOfMat.start() -> retval
 ```
 
 ### VectorOfMat::end
@@ -31518,7 +31518,7 @@ AutoIt:
 void* VectorOfMat::end()
 
 AutoIt:
-    $vectorOfMat.end() -> retval
+    $oVectorOfMat.end() -> retval
 ```
 
 ### VectorOfMat::get_Item
@@ -31527,7 +31527,7 @@ AutoIt:
 cv::Mat VectorOfMat::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfMat.Item( $vIndex ) -> retval
+    $oVectorOfMat.Item( $vIndex ) -> retval
     VectorOfMat( $vIndex ) -> retval
 ```
 
@@ -31538,7 +31538,7 @@ void VectorOfMat::put_Item( size_t  vIndex,
                             cv::Mat vItem )
 
 AutoIt:
-    $vectorOfMat.Item( $vIndex ) = $$vItem
+    $oVectorOfMat.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfInt
@@ -31572,7 +31572,7 @@ AutoIt:
 std::vector<int> VectorOfInt::Keys()
 
 AutoIt:
-    $vectorOfInt.Keys() -> retval
+    $oVectorOfInt.Keys() -> retval
 ```
 
 ### VectorOfInt::Items
@@ -31581,7 +31581,7 @@ AutoIt:
 VectorOfInt VectorOfInt::Items()
 
 AutoIt:
-    $vectorOfInt.Items() -> retval
+    $oVectorOfInt.Items() -> retval
 ```
 
 ### VectorOfInt::push_back
@@ -31590,7 +31590,7 @@ AutoIt:
 void VectorOfInt::push_back( int value )
 
 AutoIt:
-    $vectorOfInt.push_back( $value ) -> None
+    $oVectorOfInt.push_back( $value ) -> None
 ```
 
 ### VectorOfInt::Add
@@ -31599,7 +31599,7 @@ AutoIt:
 void VectorOfInt::Add( int value )
 
 AutoIt:
-    $vectorOfInt.Add( $value ) -> None
+    $oVectorOfInt.Add( $value ) -> None
 ```
 
 ### VectorOfInt::Remove
@@ -31608,7 +31608,7 @@ AutoIt:
 void VectorOfInt::Remove( size_t index )
 
 AutoIt:
-    $vectorOfInt.Remove( $index ) -> None
+    $oVectorOfInt.Remove( $index ) -> None
 ```
 
 ### VectorOfInt::at
@@ -31617,7 +31617,7 @@ AutoIt:
 int VectorOfInt::at( size_t index )
 
 AutoIt:
-    $vectorOfInt.at( $index ) -> retval
+    $oVectorOfInt.at( $index ) -> retval
 ```
 
 ```cpp
@@ -31625,7 +31625,7 @@ void VectorOfInt::at( size_t index,
                       int    value )
 
 AutoIt:
-    $vectorOfInt.at( $index, $value ) -> None
+    $oVectorOfInt.at( $index, $value ) -> None
 ```
 
 ### VectorOfInt::size
@@ -31634,7 +31634,7 @@ AutoIt:
 size_t VectorOfInt::size()
 
 AutoIt:
-    $vectorOfInt.size() -> retval
+    $oVectorOfInt.size() -> retval
 ```
 
 ### VectorOfInt::empty
@@ -31643,7 +31643,7 @@ AutoIt:
 bool VectorOfInt::empty()
 
 AutoIt:
-    $vectorOfInt.empty() -> retval
+    $oVectorOfInt.empty() -> retval
 ```
 
 ### VectorOfInt::clear
@@ -31652,7 +31652,7 @@ AutoIt:
 void VectorOfInt::clear()
 
 AutoIt:
-    $vectorOfInt.clear() -> None
+    $oVectorOfInt.clear() -> None
 ```
 
 ### VectorOfInt::push_vector
@@ -31661,7 +31661,7 @@ AutoIt:
 void VectorOfInt::push_vector( VectorOfInt other )
 
 AutoIt:
-    $vectorOfInt.push_vector( $other ) -> None
+    $oVectorOfInt.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -31670,7 +31670,7 @@ void VectorOfInt::push_vector( VectorOfInt other,
                                size_t      start = 0 )
 
 AutoIt:
-    $vectorOfInt.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfInt.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfInt::slice
@@ -31680,7 +31680,7 @@ VectorOfInt VectorOfInt::slice( size_t start = 0,
                                 size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfInt.slice( [$start[, $count]] ) -> retval
+    $oVectorOfInt.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfInt::sort
@@ -31691,7 +31691,7 @@ void VectorOfInt::sort( void*  comparator,
                         size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfInt.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfInt.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfInt::sort_variant
@@ -31702,7 +31702,7 @@ void VectorOfInt::sort_variant( void*  comparator,
                                 size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfInt.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfInt.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfInt::start
@@ -31711,7 +31711,7 @@ AutoIt:
 void* VectorOfInt::start()
 
 AutoIt:
-    $vectorOfInt.start() -> retval
+    $oVectorOfInt.start() -> retval
 ```
 
 ### VectorOfInt::end
@@ -31720,7 +31720,7 @@ AutoIt:
 void* VectorOfInt::end()
 
 AutoIt:
-    $vectorOfInt.end() -> retval
+    $oVectorOfInt.end() -> retval
 ```
 
 ### VectorOfInt::get_Item
@@ -31729,7 +31729,7 @@ AutoIt:
 int VectorOfInt::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfInt.Item( $vIndex ) -> retval
+    $oVectorOfInt.Item( $vIndex ) -> retval
     VectorOfInt( $vIndex ) -> retval
 ```
 
@@ -31740,7 +31740,7 @@ void VectorOfInt::put_Item( size_t vIndex,
                             int    vItem )
 
 AutoIt:
-    $vectorOfInt.Item( $vIndex ) = $$vItem
+    $oVectorOfInt.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfFloat
@@ -31774,7 +31774,7 @@ AutoIt:
 std::vector<int> VectorOfFloat::Keys()
 
 AutoIt:
-    $vectorOfFloat.Keys() -> retval
+    $oVectorOfFloat.Keys() -> retval
 ```
 
 ### VectorOfFloat::Items
@@ -31783,7 +31783,7 @@ AutoIt:
 VectorOfFloat VectorOfFloat::Items()
 
 AutoIt:
-    $vectorOfFloat.Items() -> retval
+    $oVectorOfFloat.Items() -> retval
 ```
 
 ### VectorOfFloat::push_back
@@ -31792,7 +31792,7 @@ AutoIt:
 void VectorOfFloat::push_back( float value )
 
 AutoIt:
-    $vectorOfFloat.push_back( $value ) -> None
+    $oVectorOfFloat.push_back( $value ) -> None
 ```
 
 ### VectorOfFloat::Add
@@ -31801,7 +31801,7 @@ AutoIt:
 void VectorOfFloat::Add( float value )
 
 AutoIt:
-    $vectorOfFloat.Add( $value ) -> None
+    $oVectorOfFloat.Add( $value ) -> None
 ```
 
 ### VectorOfFloat::Remove
@@ -31810,7 +31810,7 @@ AutoIt:
 void VectorOfFloat::Remove( size_t index )
 
 AutoIt:
-    $vectorOfFloat.Remove( $index ) -> None
+    $oVectorOfFloat.Remove( $index ) -> None
 ```
 
 ### VectorOfFloat::at
@@ -31819,7 +31819,7 @@ AutoIt:
 float VectorOfFloat::at( size_t index )
 
 AutoIt:
-    $vectorOfFloat.at( $index ) -> retval
+    $oVectorOfFloat.at( $index ) -> retval
 ```
 
 ```cpp
@@ -31827,7 +31827,7 @@ void VectorOfFloat::at( size_t index,
                         float  value )
 
 AutoIt:
-    $vectorOfFloat.at( $index, $value ) -> None
+    $oVectorOfFloat.at( $index, $value ) -> None
 ```
 
 ### VectorOfFloat::size
@@ -31836,7 +31836,7 @@ AutoIt:
 size_t VectorOfFloat::size()
 
 AutoIt:
-    $vectorOfFloat.size() -> retval
+    $oVectorOfFloat.size() -> retval
 ```
 
 ### VectorOfFloat::empty
@@ -31845,7 +31845,7 @@ AutoIt:
 bool VectorOfFloat::empty()
 
 AutoIt:
-    $vectorOfFloat.empty() -> retval
+    $oVectorOfFloat.empty() -> retval
 ```
 
 ### VectorOfFloat::clear
@@ -31854,7 +31854,7 @@ AutoIt:
 void VectorOfFloat::clear()
 
 AutoIt:
-    $vectorOfFloat.clear() -> None
+    $oVectorOfFloat.clear() -> None
 ```
 
 ### VectorOfFloat::push_vector
@@ -31863,7 +31863,7 @@ AutoIt:
 void VectorOfFloat::push_vector( VectorOfFloat other )
 
 AutoIt:
-    $vectorOfFloat.push_vector( $other ) -> None
+    $oVectorOfFloat.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -31872,7 +31872,7 @@ void VectorOfFloat::push_vector( VectorOfFloat other,
                                  size_t        start = 0 )
 
 AutoIt:
-    $vectorOfFloat.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfFloat.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfFloat::slice
@@ -31882,7 +31882,7 @@ VectorOfFloat VectorOfFloat::slice( size_t start = 0,
                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfFloat.slice( [$start[, $count]] ) -> retval
+    $oVectorOfFloat.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfFloat::sort
@@ -31893,7 +31893,7 @@ void VectorOfFloat::sort( void*  comparator,
                           size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfFloat.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfFloat.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfFloat::sort_variant
@@ -31904,7 +31904,7 @@ void VectorOfFloat::sort_variant( void*  comparator,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfFloat.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfFloat.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfFloat::start
@@ -31913,7 +31913,7 @@ AutoIt:
 void* VectorOfFloat::start()
 
 AutoIt:
-    $vectorOfFloat.start() -> retval
+    $oVectorOfFloat.start() -> retval
 ```
 
 ### VectorOfFloat::end
@@ -31922,7 +31922,7 @@ AutoIt:
 void* VectorOfFloat::end()
 
 AutoIt:
-    $vectorOfFloat.end() -> retval
+    $oVectorOfFloat.end() -> retval
 ```
 
 ### VectorOfFloat::get_Item
@@ -31931,7 +31931,7 @@ AutoIt:
 float VectorOfFloat::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfFloat.Item( $vIndex ) -> retval
+    $oVectorOfFloat.Item( $vIndex ) -> retval
     VectorOfFloat( $vIndex ) -> retval
 ```
 
@@ -31942,7 +31942,7 @@ void VectorOfFloat::put_Item( size_t vIndex,
                               float  vItem )
 
 AutoIt:
-    $vectorOfFloat.Item( $vIndex ) = $$vItem
+    $oVectorOfFloat.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfPoint
@@ -31976,7 +31976,7 @@ AutoIt:
 std::vector<int> VectorOfPoint::Keys()
 
 AutoIt:
-    $vectorOfPoint.Keys() -> retval
+    $oVectorOfPoint.Keys() -> retval
 ```
 
 ### VectorOfPoint::Items
@@ -31985,7 +31985,7 @@ AutoIt:
 VectorOfPoint VectorOfPoint::Items()
 
 AutoIt:
-    $vectorOfPoint.Items() -> retval
+    $oVectorOfPoint.Items() -> retval
 ```
 
 ### VectorOfPoint::push_back
@@ -31994,7 +31994,7 @@ AutoIt:
 void VectorOfPoint::push_back( cv::Point value )
 
 AutoIt:
-    $vectorOfPoint.push_back( $value ) -> None
+    $oVectorOfPoint.push_back( $value ) -> None
 ```
 
 ### VectorOfPoint::Add
@@ -32003,7 +32003,7 @@ AutoIt:
 void VectorOfPoint::Add( cv::Point value )
 
 AutoIt:
-    $vectorOfPoint.Add( $value ) -> None
+    $oVectorOfPoint.Add( $value ) -> None
 ```
 
 ### VectorOfPoint::Remove
@@ -32012,7 +32012,7 @@ AutoIt:
 void VectorOfPoint::Remove( size_t index )
 
 AutoIt:
-    $vectorOfPoint.Remove( $index ) -> None
+    $oVectorOfPoint.Remove( $index ) -> None
 ```
 
 ### VectorOfPoint::at
@@ -32021,7 +32021,7 @@ AutoIt:
 cv::Point VectorOfPoint::at( size_t index )
 
 AutoIt:
-    $vectorOfPoint.at( $index ) -> retval
+    $oVectorOfPoint.at( $index ) -> retval
 ```
 
 ```cpp
@@ -32029,7 +32029,7 @@ void VectorOfPoint::at( size_t    index,
                         cv::Point value )
 
 AutoIt:
-    $vectorOfPoint.at( $index, $value ) -> None
+    $oVectorOfPoint.at( $index, $value ) -> None
 ```
 
 ### VectorOfPoint::size
@@ -32038,7 +32038,7 @@ AutoIt:
 size_t VectorOfPoint::size()
 
 AutoIt:
-    $vectorOfPoint.size() -> retval
+    $oVectorOfPoint.size() -> retval
 ```
 
 ### VectorOfPoint::empty
@@ -32047,7 +32047,7 @@ AutoIt:
 bool VectorOfPoint::empty()
 
 AutoIt:
-    $vectorOfPoint.empty() -> retval
+    $oVectorOfPoint.empty() -> retval
 ```
 
 ### VectorOfPoint::clear
@@ -32056,7 +32056,7 @@ AutoIt:
 void VectorOfPoint::clear()
 
 AutoIt:
-    $vectorOfPoint.clear() -> None
+    $oVectorOfPoint.clear() -> None
 ```
 
 ### VectorOfPoint::push_vector
@@ -32065,7 +32065,7 @@ AutoIt:
 void VectorOfPoint::push_vector( VectorOfPoint other )
 
 AutoIt:
-    $vectorOfPoint.push_vector( $other ) -> None
+    $oVectorOfPoint.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -32074,7 +32074,7 @@ void VectorOfPoint::push_vector( VectorOfPoint other,
                                  size_t        start = 0 )
 
 AutoIt:
-    $vectorOfPoint.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfPoint.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfPoint::slice
@@ -32084,7 +32084,7 @@ VectorOfPoint VectorOfPoint::slice( size_t start = 0,
                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfPoint.slice( [$start[, $count]] ) -> retval
+    $oVectorOfPoint.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfPoint::sort
@@ -32095,7 +32095,7 @@ void VectorOfPoint::sort( void*  comparator,
                           size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfPoint.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfPoint.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfPoint::sort_variant
@@ -32106,7 +32106,7 @@ void VectorOfPoint::sort_variant( void*  comparator,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfPoint.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfPoint.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfPoint::start
@@ -32115,7 +32115,7 @@ AutoIt:
 void* VectorOfPoint::start()
 
 AutoIt:
-    $vectorOfPoint.start() -> retval
+    $oVectorOfPoint.start() -> retval
 ```
 
 ### VectorOfPoint::end
@@ -32124,7 +32124,7 @@ AutoIt:
 void* VectorOfPoint::end()
 
 AutoIt:
-    $vectorOfPoint.end() -> retval
+    $oVectorOfPoint.end() -> retval
 ```
 
 ### VectorOfPoint::get_Item
@@ -32133,7 +32133,7 @@ AutoIt:
 cv::Point VectorOfPoint::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfPoint.Item( $vIndex ) -> retval
+    $oVectorOfPoint.Item( $vIndex ) -> retval
     VectorOfPoint( $vIndex ) -> retval
 ```
 
@@ -32144,7 +32144,7 @@ void VectorOfPoint::put_Item( size_t    vIndex,
                               cv::Point vItem )
 
 AutoIt:
-    $vectorOfPoint.Item( $vIndex ) = $$vItem
+    $oVectorOfPoint.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfKeyPoint
@@ -32178,7 +32178,7 @@ AutoIt:
 std::vector<int> VectorOfKeyPoint::Keys()
 
 AutoIt:
-    $vectorOfKeyPoint.Keys() -> retval
+    $oVectorOfKeyPoint.Keys() -> retval
 ```
 
 ### VectorOfKeyPoint::Items
@@ -32187,7 +32187,7 @@ AutoIt:
 VectorOfKeyPoint VectorOfKeyPoint::Items()
 
 AutoIt:
-    $vectorOfKeyPoint.Items() -> retval
+    $oVectorOfKeyPoint.Items() -> retval
 ```
 
 ### VectorOfKeyPoint::push_back
@@ -32196,7 +32196,7 @@ AutoIt:
 void VectorOfKeyPoint::push_back( cv::KeyPoint value )
 
 AutoIt:
-    $vectorOfKeyPoint.push_back( $value ) -> None
+    $oVectorOfKeyPoint.push_back( $value ) -> None
 ```
 
 ### VectorOfKeyPoint::Add
@@ -32205,7 +32205,7 @@ AutoIt:
 void VectorOfKeyPoint::Add( cv::KeyPoint value )
 
 AutoIt:
-    $vectorOfKeyPoint.Add( $value ) -> None
+    $oVectorOfKeyPoint.Add( $value ) -> None
 ```
 
 ### VectorOfKeyPoint::Remove
@@ -32214,7 +32214,7 @@ AutoIt:
 void VectorOfKeyPoint::Remove( size_t index )
 
 AutoIt:
-    $vectorOfKeyPoint.Remove( $index ) -> None
+    $oVectorOfKeyPoint.Remove( $index ) -> None
 ```
 
 ### VectorOfKeyPoint::at
@@ -32223,7 +32223,7 @@ AutoIt:
 cv::KeyPoint VectorOfKeyPoint::at( size_t index )
 
 AutoIt:
-    $vectorOfKeyPoint.at( $index ) -> retval
+    $oVectorOfKeyPoint.at( $index ) -> retval
 ```
 
 ```cpp
@@ -32231,7 +32231,7 @@ void VectorOfKeyPoint::at( size_t       index,
                            cv::KeyPoint value )
 
 AutoIt:
-    $vectorOfKeyPoint.at( $index, $value ) -> None
+    $oVectorOfKeyPoint.at( $index, $value ) -> None
 ```
 
 ### VectorOfKeyPoint::size
@@ -32240,7 +32240,7 @@ AutoIt:
 size_t VectorOfKeyPoint::size()
 
 AutoIt:
-    $vectorOfKeyPoint.size() -> retval
+    $oVectorOfKeyPoint.size() -> retval
 ```
 
 ### VectorOfKeyPoint::empty
@@ -32249,7 +32249,7 @@ AutoIt:
 bool VectorOfKeyPoint::empty()
 
 AutoIt:
-    $vectorOfKeyPoint.empty() -> retval
+    $oVectorOfKeyPoint.empty() -> retval
 ```
 
 ### VectorOfKeyPoint::clear
@@ -32258,7 +32258,7 @@ AutoIt:
 void VectorOfKeyPoint::clear()
 
 AutoIt:
-    $vectorOfKeyPoint.clear() -> None
+    $oVectorOfKeyPoint.clear() -> None
 ```
 
 ### VectorOfKeyPoint::push_vector
@@ -32267,7 +32267,7 @@ AutoIt:
 void VectorOfKeyPoint::push_vector( VectorOfKeyPoint other )
 
 AutoIt:
-    $vectorOfKeyPoint.push_vector( $other ) -> None
+    $oVectorOfKeyPoint.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -32276,7 +32276,7 @@ void VectorOfKeyPoint::push_vector( VectorOfKeyPoint other,
                                     size_t           start = 0 )
 
 AutoIt:
-    $vectorOfKeyPoint.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfKeyPoint.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfKeyPoint::slice
@@ -32286,7 +32286,7 @@ VectorOfKeyPoint VectorOfKeyPoint::slice( size_t start = 0,
                                           size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfKeyPoint.slice( [$start[, $count]] ) -> retval
+    $oVectorOfKeyPoint.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfKeyPoint::sort
@@ -32297,7 +32297,7 @@ void VectorOfKeyPoint::sort( void*  comparator,
                              size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfKeyPoint.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfKeyPoint.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfKeyPoint::sort_variant
@@ -32308,7 +32308,7 @@ void VectorOfKeyPoint::sort_variant( void*  comparator,
                                      size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfKeyPoint.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfKeyPoint.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfKeyPoint::start
@@ -32317,7 +32317,7 @@ AutoIt:
 void* VectorOfKeyPoint::start()
 
 AutoIt:
-    $vectorOfKeyPoint.start() -> retval
+    $oVectorOfKeyPoint.start() -> retval
 ```
 
 ### VectorOfKeyPoint::end
@@ -32326,7 +32326,7 @@ AutoIt:
 void* VectorOfKeyPoint::end()
 
 AutoIt:
-    $vectorOfKeyPoint.end() -> retval
+    $oVectorOfKeyPoint.end() -> retval
 ```
 
 ### VectorOfKeyPoint::get_Item
@@ -32335,7 +32335,7 @@ AutoIt:
 cv::KeyPoint VectorOfKeyPoint::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfKeyPoint.Item( $vIndex ) -> retval
+    $oVectorOfKeyPoint.Item( $vIndex ) -> retval
     VectorOfKeyPoint( $vIndex ) -> retval
 ```
 
@@ -32346,7 +32346,7 @@ void VectorOfKeyPoint::put_Item( size_t       vIndex,
                                  cv::KeyPoint vItem )
 
 AutoIt:
-    $vectorOfKeyPoint.Item( $vIndex ) = $$vItem
+    $oVectorOfKeyPoint.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfDMatch
@@ -32380,7 +32380,7 @@ AutoIt:
 std::vector<int> VectorOfDMatch::Keys()
 
 AutoIt:
-    $vectorOfDMatch.Keys() -> retval
+    $oVectorOfDMatch.Keys() -> retval
 ```
 
 ### VectorOfDMatch::Items
@@ -32389,7 +32389,7 @@ AutoIt:
 VectorOfDMatch VectorOfDMatch::Items()
 
 AutoIt:
-    $vectorOfDMatch.Items() -> retval
+    $oVectorOfDMatch.Items() -> retval
 ```
 
 ### VectorOfDMatch::push_back
@@ -32398,7 +32398,7 @@ AutoIt:
 void VectorOfDMatch::push_back( cv::DMatch value )
 
 AutoIt:
-    $vectorOfDMatch.push_back( $value ) -> None
+    $oVectorOfDMatch.push_back( $value ) -> None
 ```
 
 ### VectorOfDMatch::Add
@@ -32407,7 +32407,7 @@ AutoIt:
 void VectorOfDMatch::Add( cv::DMatch value )
 
 AutoIt:
-    $vectorOfDMatch.Add( $value ) -> None
+    $oVectorOfDMatch.Add( $value ) -> None
 ```
 
 ### VectorOfDMatch::Remove
@@ -32416,7 +32416,7 @@ AutoIt:
 void VectorOfDMatch::Remove( size_t index )
 
 AutoIt:
-    $vectorOfDMatch.Remove( $index ) -> None
+    $oVectorOfDMatch.Remove( $index ) -> None
 ```
 
 ### VectorOfDMatch::at
@@ -32425,7 +32425,7 @@ AutoIt:
 cv::DMatch VectorOfDMatch::at( size_t index )
 
 AutoIt:
-    $vectorOfDMatch.at( $index ) -> retval
+    $oVectorOfDMatch.at( $index ) -> retval
 ```
 
 ```cpp
@@ -32433,7 +32433,7 @@ void VectorOfDMatch::at( size_t     index,
                          cv::DMatch value )
 
 AutoIt:
-    $vectorOfDMatch.at( $index, $value ) -> None
+    $oVectorOfDMatch.at( $index, $value ) -> None
 ```
 
 ### VectorOfDMatch::size
@@ -32442,7 +32442,7 @@ AutoIt:
 size_t VectorOfDMatch::size()
 
 AutoIt:
-    $vectorOfDMatch.size() -> retval
+    $oVectorOfDMatch.size() -> retval
 ```
 
 ### VectorOfDMatch::empty
@@ -32451,7 +32451,7 @@ AutoIt:
 bool VectorOfDMatch::empty()
 
 AutoIt:
-    $vectorOfDMatch.empty() -> retval
+    $oVectorOfDMatch.empty() -> retval
 ```
 
 ### VectorOfDMatch::clear
@@ -32460,7 +32460,7 @@ AutoIt:
 void VectorOfDMatch::clear()
 
 AutoIt:
-    $vectorOfDMatch.clear() -> None
+    $oVectorOfDMatch.clear() -> None
 ```
 
 ### VectorOfDMatch::push_vector
@@ -32469,7 +32469,7 @@ AutoIt:
 void VectorOfDMatch::push_vector( VectorOfDMatch other )
 
 AutoIt:
-    $vectorOfDMatch.push_vector( $other ) -> None
+    $oVectorOfDMatch.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -32478,7 +32478,7 @@ void VectorOfDMatch::push_vector( VectorOfDMatch other,
                                   size_t         start = 0 )
 
 AutoIt:
-    $vectorOfDMatch.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfDMatch.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfDMatch::slice
@@ -32488,7 +32488,7 @@ VectorOfDMatch VectorOfDMatch::slice( size_t start = 0,
                                       size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfDMatch.slice( [$start[, $count]] ) -> retval
+    $oVectorOfDMatch.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfDMatch::sort
@@ -32499,7 +32499,7 @@ void VectorOfDMatch::sort( void*  comparator,
                            size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfDMatch.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfDMatch.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfDMatch::sort_variant
@@ -32510,7 +32510,7 @@ void VectorOfDMatch::sort_variant( void*  comparator,
                                    size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfDMatch.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfDMatch.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfDMatch::start
@@ -32519,7 +32519,7 @@ AutoIt:
 void* VectorOfDMatch::start()
 
 AutoIt:
-    $vectorOfDMatch.start() -> retval
+    $oVectorOfDMatch.start() -> retval
 ```
 
 ### VectorOfDMatch::end
@@ -32528,7 +32528,7 @@ AutoIt:
 void* VectorOfDMatch::end()
 
 AutoIt:
-    $vectorOfDMatch.end() -> retval
+    $oVectorOfDMatch.end() -> retval
 ```
 
 ### VectorOfDMatch::get_Item
@@ -32537,7 +32537,7 @@ AutoIt:
 cv::DMatch VectorOfDMatch::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfDMatch.Item( $vIndex ) -> retval
+    $oVectorOfDMatch.Item( $vIndex ) -> retval
     VectorOfDMatch( $vIndex ) -> retval
 ```
 
@@ -32548,7 +32548,7 @@ void VectorOfDMatch::put_Item( size_t     vIndex,
                                cv::DMatch vItem )
 
 AutoIt:
-    $vectorOfDMatch.Item( $vIndex ) = $$vItem
+    $oVectorOfDMatch.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfChar
@@ -32582,7 +32582,7 @@ AutoIt:
 std::vector<int> VectorOfChar::Keys()
 
 AutoIt:
-    $vectorOfChar.Keys() -> retval
+    $oVectorOfChar.Keys() -> retval
 ```
 
 ### VectorOfChar::Items
@@ -32591,7 +32591,7 @@ AutoIt:
 VectorOfChar VectorOfChar::Items()
 
 AutoIt:
-    $vectorOfChar.Items() -> retval
+    $oVectorOfChar.Items() -> retval
 ```
 
 ### VectorOfChar::push_back
@@ -32600,7 +32600,7 @@ AutoIt:
 void VectorOfChar::push_back( char value )
 
 AutoIt:
-    $vectorOfChar.push_back( $value ) -> None
+    $oVectorOfChar.push_back( $value ) -> None
 ```
 
 ### VectorOfChar::Add
@@ -32609,7 +32609,7 @@ AutoIt:
 void VectorOfChar::Add( char value )
 
 AutoIt:
-    $vectorOfChar.Add( $value ) -> None
+    $oVectorOfChar.Add( $value ) -> None
 ```
 
 ### VectorOfChar::Remove
@@ -32618,7 +32618,7 @@ AutoIt:
 void VectorOfChar::Remove( size_t index )
 
 AutoIt:
-    $vectorOfChar.Remove( $index ) -> None
+    $oVectorOfChar.Remove( $index ) -> None
 ```
 
 ### VectorOfChar::at
@@ -32627,7 +32627,7 @@ AutoIt:
 char VectorOfChar::at( size_t index )
 
 AutoIt:
-    $vectorOfChar.at( $index ) -> retval
+    $oVectorOfChar.at( $index ) -> retval
 ```
 
 ```cpp
@@ -32635,7 +32635,7 @@ void VectorOfChar::at( size_t index,
                        char   value )
 
 AutoIt:
-    $vectorOfChar.at( $index, $value ) -> None
+    $oVectorOfChar.at( $index, $value ) -> None
 ```
 
 ### VectorOfChar::size
@@ -32644,7 +32644,7 @@ AutoIt:
 size_t VectorOfChar::size()
 
 AutoIt:
-    $vectorOfChar.size() -> retval
+    $oVectorOfChar.size() -> retval
 ```
 
 ### VectorOfChar::empty
@@ -32653,7 +32653,7 @@ AutoIt:
 bool VectorOfChar::empty()
 
 AutoIt:
-    $vectorOfChar.empty() -> retval
+    $oVectorOfChar.empty() -> retval
 ```
 
 ### VectorOfChar::clear
@@ -32662,7 +32662,7 @@ AutoIt:
 void VectorOfChar::clear()
 
 AutoIt:
-    $vectorOfChar.clear() -> None
+    $oVectorOfChar.clear() -> None
 ```
 
 ### VectorOfChar::push_vector
@@ -32671,7 +32671,7 @@ AutoIt:
 void VectorOfChar::push_vector( VectorOfChar other )
 
 AutoIt:
-    $vectorOfChar.push_vector( $other ) -> None
+    $oVectorOfChar.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -32680,7 +32680,7 @@ void VectorOfChar::push_vector( VectorOfChar other,
                                 size_t       start = 0 )
 
 AutoIt:
-    $vectorOfChar.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfChar.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfChar::slice
@@ -32690,7 +32690,7 @@ VectorOfChar VectorOfChar::slice( size_t start = 0,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfChar.slice( [$start[, $count]] ) -> retval
+    $oVectorOfChar.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfChar::sort
@@ -32701,7 +32701,7 @@ void VectorOfChar::sort( void*  comparator,
                          size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfChar.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfChar.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfChar::sort_variant
@@ -32712,7 +32712,7 @@ void VectorOfChar::sort_variant( void*  comparator,
                                  size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfChar.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfChar.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfChar::start
@@ -32721,7 +32721,7 @@ AutoIt:
 void* VectorOfChar::start()
 
 AutoIt:
-    $vectorOfChar.start() -> retval
+    $oVectorOfChar.start() -> retval
 ```
 
 ### VectorOfChar::end
@@ -32730,7 +32730,7 @@ AutoIt:
 void* VectorOfChar::end()
 
 AutoIt:
-    $vectorOfChar.end() -> retval
+    $oVectorOfChar.end() -> retval
 ```
 
 ### VectorOfChar::get_Item
@@ -32739,7 +32739,7 @@ AutoIt:
 char VectorOfChar::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfChar.Item( $vIndex ) -> retval
+    $oVectorOfChar.Item( $vIndex ) -> retval
     VectorOfChar( $vIndex ) -> retval
 ```
 
@@ -32750,7 +32750,7 @@ void VectorOfChar::put_Item( size_t vIndex,
                              char   vItem )
 
 AutoIt:
-    $vectorOfChar.Item( $vIndex ) = $$vItem
+    $oVectorOfChar.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfVectorOfDMatch
@@ -32784,7 +32784,7 @@ AutoIt:
 std::vector<int> VectorOfVectorOfDMatch::Keys()
 
 AutoIt:
-    $vectorOfVectorOfDMatch.Keys() -> retval
+    $oVectorOfVectorOfDMatch.Keys() -> retval
 ```
 
 ### VectorOfVectorOfDMatch::Items
@@ -32793,7 +32793,7 @@ AutoIt:
 VectorOfVectorOfDMatch VectorOfVectorOfDMatch::Items()
 
 AutoIt:
-    $vectorOfVectorOfDMatch.Items() -> retval
+    $oVectorOfVectorOfDMatch.Items() -> retval
 ```
 
 ### VectorOfVectorOfDMatch::push_back
@@ -32802,7 +32802,7 @@ AutoIt:
 void VectorOfVectorOfDMatch::push_back( std::vector<cv::DMatch> value )
 
 AutoIt:
-    $vectorOfVectorOfDMatch.push_back( $value ) -> None
+    $oVectorOfVectorOfDMatch.push_back( $value ) -> None
 ```
 
 ### VectorOfVectorOfDMatch::Add
@@ -32811,7 +32811,7 @@ AutoIt:
 void VectorOfVectorOfDMatch::Add( std::vector<cv::DMatch> value )
 
 AutoIt:
-    $vectorOfVectorOfDMatch.Add( $value ) -> None
+    $oVectorOfVectorOfDMatch.Add( $value ) -> None
 ```
 
 ### VectorOfVectorOfDMatch::Remove
@@ -32820,7 +32820,7 @@ AutoIt:
 void VectorOfVectorOfDMatch::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVectorOfDMatch.Remove( $index ) -> None
+    $oVectorOfVectorOfDMatch.Remove( $index ) -> None
 ```
 
 ### VectorOfVectorOfDMatch::at
@@ -32829,7 +32829,7 @@ AutoIt:
 std::vector<cv::DMatch> VectorOfVectorOfDMatch::at( size_t index )
 
 AutoIt:
-    $vectorOfVectorOfDMatch.at( $index ) -> retval
+    $oVectorOfVectorOfDMatch.at( $index ) -> retval
 ```
 
 ```cpp
@@ -32837,7 +32837,7 @@ void VectorOfVectorOfDMatch::at( size_t                  index,
                                  std::vector<cv::DMatch> value )
 
 AutoIt:
-    $vectorOfVectorOfDMatch.at( $index, $value ) -> None
+    $oVectorOfVectorOfDMatch.at( $index, $value ) -> None
 ```
 
 ### VectorOfVectorOfDMatch::size
@@ -32846,7 +32846,7 @@ AutoIt:
 size_t VectorOfVectorOfDMatch::size()
 
 AutoIt:
-    $vectorOfVectorOfDMatch.size() -> retval
+    $oVectorOfVectorOfDMatch.size() -> retval
 ```
 
 ### VectorOfVectorOfDMatch::empty
@@ -32855,7 +32855,7 @@ AutoIt:
 bool VectorOfVectorOfDMatch::empty()
 
 AutoIt:
-    $vectorOfVectorOfDMatch.empty() -> retval
+    $oVectorOfVectorOfDMatch.empty() -> retval
 ```
 
 ### VectorOfVectorOfDMatch::clear
@@ -32864,7 +32864,7 @@ AutoIt:
 void VectorOfVectorOfDMatch::clear()
 
 AutoIt:
-    $vectorOfVectorOfDMatch.clear() -> None
+    $oVectorOfVectorOfDMatch.clear() -> None
 ```
 
 ### VectorOfVectorOfDMatch::push_vector
@@ -32873,7 +32873,7 @@ AutoIt:
 void VectorOfVectorOfDMatch::push_vector( VectorOfVectorOfDMatch other )
 
 AutoIt:
-    $vectorOfVectorOfDMatch.push_vector( $other ) -> None
+    $oVectorOfVectorOfDMatch.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -32882,7 +32882,7 @@ void VectorOfVectorOfDMatch::push_vector( VectorOfVectorOfDMatch other,
                                           size_t                 start = 0 )
 
 AutoIt:
-    $vectorOfVectorOfDMatch.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVectorOfDMatch.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVectorOfDMatch::slice
@@ -32892,7 +32892,7 @@ VectorOfVectorOfDMatch VectorOfVectorOfDMatch::slice( size_t start = 0,
                                                       size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVectorOfDMatch.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVectorOfDMatch.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVectorOfDMatch::sort
@@ -32903,7 +32903,7 @@ void VectorOfVectorOfDMatch::sort( void*  comparator,
                                    size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVectorOfDMatch.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVectorOfDMatch.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVectorOfDMatch::sort_variant
@@ -32914,7 +32914,7 @@ void VectorOfVectorOfDMatch::sort_variant( void*  comparator,
                                            size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVectorOfDMatch.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVectorOfDMatch.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVectorOfDMatch::start
@@ -32923,7 +32923,7 @@ AutoIt:
 void* VectorOfVectorOfDMatch::start()
 
 AutoIt:
-    $vectorOfVectorOfDMatch.start() -> retval
+    $oVectorOfVectorOfDMatch.start() -> retval
 ```
 
 ### VectorOfVectorOfDMatch::end
@@ -32932,7 +32932,7 @@ AutoIt:
 void* VectorOfVectorOfDMatch::end()
 
 AutoIt:
-    $vectorOfVectorOfDMatch.end() -> retval
+    $oVectorOfVectorOfDMatch.end() -> retval
 ```
 
 ### VectorOfVectorOfDMatch::get_Item
@@ -32941,7 +32941,7 @@ AutoIt:
 std::vector<cv::DMatch> VectorOfVectorOfDMatch::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVectorOfDMatch.Item( $vIndex ) -> retval
+    $oVectorOfVectorOfDMatch.Item( $vIndex ) -> retval
     VectorOfVectorOfDMatch( $vIndex ) -> retval
 ```
 
@@ -32952,7 +32952,7 @@ void VectorOfVectorOfDMatch::put_Item( size_t                  vIndex,
                                        std::vector<cv::DMatch> vItem )
 
 AutoIt:
-    $vectorOfVectorOfDMatch.Item( $vIndex ) = $$vItem
+    $oVectorOfVectorOfDMatch.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfVectorOfChar
@@ -32986,7 +32986,7 @@ AutoIt:
 std::vector<int> VectorOfVectorOfChar::Keys()
 
 AutoIt:
-    $vectorOfVectorOfChar.Keys() -> retval
+    $oVectorOfVectorOfChar.Keys() -> retval
 ```
 
 ### VectorOfVectorOfChar::Items
@@ -32995,7 +32995,7 @@ AutoIt:
 VectorOfVectorOfChar VectorOfVectorOfChar::Items()
 
 AutoIt:
-    $vectorOfVectorOfChar.Items() -> retval
+    $oVectorOfVectorOfChar.Items() -> retval
 ```
 
 ### VectorOfVectorOfChar::push_back
@@ -33004,7 +33004,7 @@ AutoIt:
 void VectorOfVectorOfChar::push_back( std::vector<char> value )
 
 AutoIt:
-    $vectorOfVectorOfChar.push_back( $value ) -> None
+    $oVectorOfVectorOfChar.push_back( $value ) -> None
 ```
 
 ### VectorOfVectorOfChar::Add
@@ -33013,7 +33013,7 @@ AutoIt:
 void VectorOfVectorOfChar::Add( std::vector<char> value )
 
 AutoIt:
-    $vectorOfVectorOfChar.Add( $value ) -> None
+    $oVectorOfVectorOfChar.Add( $value ) -> None
 ```
 
 ### VectorOfVectorOfChar::Remove
@@ -33022,7 +33022,7 @@ AutoIt:
 void VectorOfVectorOfChar::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVectorOfChar.Remove( $index ) -> None
+    $oVectorOfVectorOfChar.Remove( $index ) -> None
 ```
 
 ### VectorOfVectorOfChar::at
@@ -33031,7 +33031,7 @@ AutoIt:
 std::vector<char> VectorOfVectorOfChar::at( size_t index )
 
 AutoIt:
-    $vectorOfVectorOfChar.at( $index ) -> retval
+    $oVectorOfVectorOfChar.at( $index ) -> retval
 ```
 
 ```cpp
@@ -33039,7 +33039,7 @@ void VectorOfVectorOfChar::at( size_t            index,
                                std::vector<char> value )
 
 AutoIt:
-    $vectorOfVectorOfChar.at( $index, $value ) -> None
+    $oVectorOfVectorOfChar.at( $index, $value ) -> None
 ```
 
 ### VectorOfVectorOfChar::size
@@ -33048,7 +33048,7 @@ AutoIt:
 size_t VectorOfVectorOfChar::size()
 
 AutoIt:
-    $vectorOfVectorOfChar.size() -> retval
+    $oVectorOfVectorOfChar.size() -> retval
 ```
 
 ### VectorOfVectorOfChar::empty
@@ -33057,7 +33057,7 @@ AutoIt:
 bool VectorOfVectorOfChar::empty()
 
 AutoIt:
-    $vectorOfVectorOfChar.empty() -> retval
+    $oVectorOfVectorOfChar.empty() -> retval
 ```
 
 ### VectorOfVectorOfChar::clear
@@ -33066,7 +33066,7 @@ AutoIt:
 void VectorOfVectorOfChar::clear()
 
 AutoIt:
-    $vectorOfVectorOfChar.clear() -> None
+    $oVectorOfVectorOfChar.clear() -> None
 ```
 
 ### VectorOfVectorOfChar::push_vector
@@ -33075,7 +33075,7 @@ AutoIt:
 void VectorOfVectorOfChar::push_vector( VectorOfVectorOfChar other )
 
 AutoIt:
-    $vectorOfVectorOfChar.push_vector( $other ) -> None
+    $oVectorOfVectorOfChar.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -33084,7 +33084,7 @@ void VectorOfVectorOfChar::push_vector( VectorOfVectorOfChar other,
                                         size_t               start = 0 )
 
 AutoIt:
-    $vectorOfVectorOfChar.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVectorOfChar.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVectorOfChar::slice
@@ -33094,7 +33094,7 @@ VectorOfVectorOfChar VectorOfVectorOfChar::slice( size_t start = 0,
                                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVectorOfChar.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVectorOfChar.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVectorOfChar::sort
@@ -33105,7 +33105,7 @@ void VectorOfVectorOfChar::sort( void*  comparator,
                                  size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVectorOfChar.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVectorOfChar.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVectorOfChar::sort_variant
@@ -33116,7 +33116,7 @@ void VectorOfVectorOfChar::sort_variant( void*  comparator,
                                          size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVectorOfChar.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVectorOfChar.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVectorOfChar::start
@@ -33125,7 +33125,7 @@ AutoIt:
 void* VectorOfVectorOfChar::start()
 
 AutoIt:
-    $vectorOfVectorOfChar.start() -> retval
+    $oVectorOfVectorOfChar.start() -> retval
 ```
 
 ### VectorOfVectorOfChar::end
@@ -33134,7 +33134,7 @@ AutoIt:
 void* VectorOfVectorOfChar::end()
 
 AutoIt:
-    $vectorOfVectorOfChar.end() -> retval
+    $oVectorOfVectorOfChar.end() -> retval
 ```
 
 ### VectorOfVectorOfChar::get_Item
@@ -33143,7 +33143,7 @@ AutoIt:
 std::vector<char> VectorOfVectorOfChar::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVectorOfChar.Item( $vIndex ) -> retval
+    $oVectorOfVectorOfChar.Item( $vIndex ) -> retval
     VectorOfVectorOfChar( $vIndex ) -> retval
 ```
 
@@ -33154,7 +33154,7 @@ void VectorOfVectorOfChar::put_Item( size_t            vIndex,
                                      std::vector<char> vItem )
 
 AutoIt:
-    $vectorOfVectorOfChar.Item( $vIndex ) = $$vItem
+    $oVectorOfVectorOfChar.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfUchar
@@ -33188,7 +33188,7 @@ AutoIt:
 std::vector<int> VectorOfUchar::Keys()
 
 AutoIt:
-    $vectorOfUchar.Keys() -> retval
+    $oVectorOfUchar.Keys() -> retval
 ```
 
 ### VectorOfUchar::Items
@@ -33197,7 +33197,7 @@ AutoIt:
 VectorOfUchar VectorOfUchar::Items()
 
 AutoIt:
-    $vectorOfUchar.Items() -> retval
+    $oVectorOfUchar.Items() -> retval
 ```
 
 ### VectorOfUchar::push_back
@@ -33206,7 +33206,7 @@ AutoIt:
 void VectorOfUchar::push_back( uchar value )
 
 AutoIt:
-    $vectorOfUchar.push_back( $value ) -> None
+    $oVectorOfUchar.push_back( $value ) -> None
 ```
 
 ### VectorOfUchar::Add
@@ -33215,7 +33215,7 @@ AutoIt:
 void VectorOfUchar::Add( uchar value )
 
 AutoIt:
-    $vectorOfUchar.Add( $value ) -> None
+    $oVectorOfUchar.Add( $value ) -> None
 ```
 
 ### VectorOfUchar::Remove
@@ -33224,7 +33224,7 @@ AutoIt:
 void VectorOfUchar::Remove( size_t index )
 
 AutoIt:
-    $vectorOfUchar.Remove( $index ) -> None
+    $oVectorOfUchar.Remove( $index ) -> None
 ```
 
 ### VectorOfUchar::at
@@ -33233,7 +33233,7 @@ AutoIt:
 uchar VectorOfUchar::at( size_t index )
 
 AutoIt:
-    $vectorOfUchar.at( $index ) -> retval
+    $oVectorOfUchar.at( $index ) -> retval
 ```
 
 ```cpp
@@ -33241,7 +33241,7 @@ void VectorOfUchar::at( size_t index,
                         uchar  value )
 
 AutoIt:
-    $vectorOfUchar.at( $index, $value ) -> None
+    $oVectorOfUchar.at( $index, $value ) -> None
 ```
 
 ### VectorOfUchar::size
@@ -33250,7 +33250,7 @@ AutoIt:
 size_t VectorOfUchar::size()
 
 AutoIt:
-    $vectorOfUchar.size() -> retval
+    $oVectorOfUchar.size() -> retval
 ```
 
 ### VectorOfUchar::empty
@@ -33259,7 +33259,7 @@ AutoIt:
 bool VectorOfUchar::empty()
 
 AutoIt:
-    $vectorOfUchar.empty() -> retval
+    $oVectorOfUchar.empty() -> retval
 ```
 
 ### VectorOfUchar::clear
@@ -33268,7 +33268,7 @@ AutoIt:
 void VectorOfUchar::clear()
 
 AutoIt:
-    $vectorOfUchar.clear() -> None
+    $oVectorOfUchar.clear() -> None
 ```
 
 ### VectorOfUchar::push_vector
@@ -33277,7 +33277,7 @@ AutoIt:
 void VectorOfUchar::push_vector( VectorOfUchar other )
 
 AutoIt:
-    $vectorOfUchar.push_vector( $other ) -> None
+    $oVectorOfUchar.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -33286,7 +33286,7 @@ void VectorOfUchar::push_vector( VectorOfUchar other,
                                  size_t        start = 0 )
 
 AutoIt:
-    $vectorOfUchar.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfUchar.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfUchar::slice
@@ -33296,7 +33296,7 @@ VectorOfUchar VectorOfUchar::slice( size_t start = 0,
                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfUchar.slice( [$start[, $count]] ) -> retval
+    $oVectorOfUchar.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfUchar::sort
@@ -33307,7 +33307,7 @@ void VectorOfUchar::sort( void*  comparator,
                           size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfUchar.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfUchar.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfUchar::sort_variant
@@ -33318,7 +33318,7 @@ void VectorOfUchar::sort_variant( void*  comparator,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfUchar.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfUchar.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfUchar::start
@@ -33327,7 +33327,7 @@ AutoIt:
 void* VectorOfUchar::start()
 
 AutoIt:
-    $vectorOfUchar.start() -> retval
+    $oVectorOfUchar.start() -> retval
 ```
 
 ### VectorOfUchar::end
@@ -33336,7 +33336,7 @@ AutoIt:
 void* VectorOfUchar::end()
 
 AutoIt:
-    $vectorOfUchar.end() -> retval
+    $oVectorOfUchar.end() -> retval
 ```
 
 ### VectorOfUchar::get_Item
@@ -33345,7 +33345,7 @@ AutoIt:
 uchar VectorOfUchar::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfUchar.Item( $vIndex ) -> retval
+    $oVectorOfUchar.Item( $vIndex ) -> retval
     VectorOfUchar( $vIndex ) -> retval
 ```
 
@@ -33356,7 +33356,7 @@ void VectorOfUchar::put_Item( size_t vIndex,
                               uchar  vItem )
 
 AutoIt:
-    $vectorOfUchar.Item( $vIndex ) = $$vItem
+    $oVectorOfUchar.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfRect
@@ -33390,7 +33390,7 @@ AutoIt:
 std::vector<int> VectorOfRect::Keys()
 
 AutoIt:
-    $vectorOfRect.Keys() -> retval
+    $oVectorOfRect.Keys() -> retval
 ```
 
 ### VectorOfRect::Items
@@ -33399,7 +33399,7 @@ AutoIt:
 VectorOfRect VectorOfRect::Items()
 
 AutoIt:
-    $vectorOfRect.Items() -> retval
+    $oVectorOfRect.Items() -> retval
 ```
 
 ### VectorOfRect::push_back
@@ -33408,7 +33408,7 @@ AutoIt:
 void VectorOfRect::push_back( cv::Rect value )
 
 AutoIt:
-    $vectorOfRect.push_back( $value ) -> None
+    $oVectorOfRect.push_back( $value ) -> None
 ```
 
 ### VectorOfRect::Add
@@ -33417,7 +33417,7 @@ AutoIt:
 void VectorOfRect::Add( cv::Rect value )
 
 AutoIt:
-    $vectorOfRect.Add( $value ) -> None
+    $oVectorOfRect.Add( $value ) -> None
 ```
 
 ### VectorOfRect::Remove
@@ -33426,7 +33426,7 @@ AutoIt:
 void VectorOfRect::Remove( size_t index )
 
 AutoIt:
-    $vectorOfRect.Remove( $index ) -> None
+    $oVectorOfRect.Remove( $index ) -> None
 ```
 
 ### VectorOfRect::at
@@ -33435,7 +33435,7 @@ AutoIt:
 cv::Rect VectorOfRect::at( size_t index )
 
 AutoIt:
-    $vectorOfRect.at( $index ) -> retval
+    $oVectorOfRect.at( $index ) -> retval
 ```
 
 ```cpp
@@ -33443,7 +33443,7 @@ void VectorOfRect::at( size_t   index,
                        cv::Rect value )
 
 AutoIt:
-    $vectorOfRect.at( $index, $value ) -> None
+    $oVectorOfRect.at( $index, $value ) -> None
 ```
 
 ### VectorOfRect::size
@@ -33452,7 +33452,7 @@ AutoIt:
 size_t VectorOfRect::size()
 
 AutoIt:
-    $vectorOfRect.size() -> retval
+    $oVectorOfRect.size() -> retval
 ```
 
 ### VectorOfRect::empty
@@ -33461,7 +33461,7 @@ AutoIt:
 bool VectorOfRect::empty()
 
 AutoIt:
-    $vectorOfRect.empty() -> retval
+    $oVectorOfRect.empty() -> retval
 ```
 
 ### VectorOfRect::clear
@@ -33470,7 +33470,7 @@ AutoIt:
 void VectorOfRect::clear()
 
 AutoIt:
-    $vectorOfRect.clear() -> None
+    $oVectorOfRect.clear() -> None
 ```
 
 ### VectorOfRect::push_vector
@@ -33479,7 +33479,7 @@ AutoIt:
 void VectorOfRect::push_vector( VectorOfRect other )
 
 AutoIt:
-    $vectorOfRect.push_vector( $other ) -> None
+    $oVectorOfRect.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -33488,7 +33488,7 @@ void VectorOfRect::push_vector( VectorOfRect other,
                                 size_t       start = 0 )
 
 AutoIt:
-    $vectorOfRect.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfRect.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfRect::slice
@@ -33498,7 +33498,7 @@ VectorOfRect VectorOfRect::slice( size_t start = 0,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfRect.slice( [$start[, $count]] ) -> retval
+    $oVectorOfRect.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfRect::sort
@@ -33509,7 +33509,7 @@ void VectorOfRect::sort( void*  comparator,
                          size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfRect.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfRect.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfRect::sort_variant
@@ -33520,7 +33520,7 @@ void VectorOfRect::sort_variant( void*  comparator,
                                  size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfRect.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfRect.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfRect::start
@@ -33529,7 +33529,7 @@ AutoIt:
 void* VectorOfRect::start()
 
 AutoIt:
-    $vectorOfRect.start() -> retval
+    $oVectorOfRect.start() -> retval
 ```
 
 ### VectorOfRect::end
@@ -33538,7 +33538,7 @@ AutoIt:
 void* VectorOfRect::end()
 
 AutoIt:
-    $vectorOfRect.end() -> retval
+    $oVectorOfRect.end() -> retval
 ```
 
 ### VectorOfRect::get_Item
@@ -33547,7 +33547,7 @@ AutoIt:
 cv::Rect VectorOfRect::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfRect.Item( $vIndex ) -> retval
+    $oVectorOfRect.Item( $vIndex ) -> retval
     VectorOfRect( $vIndex ) -> retval
 ```
 
@@ -33558,7 +33558,7 @@ void VectorOfRect::put_Item( size_t   vIndex,
                              cv::Rect vItem )
 
 AutoIt:
-    $vectorOfRect.Item( $vIndex ) = $$vItem
+    $oVectorOfRect.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfRotatedRect
@@ -33592,7 +33592,7 @@ AutoIt:
 std::vector<int> VectorOfRotatedRect::Keys()
 
 AutoIt:
-    $vectorOfRotatedRect.Keys() -> retval
+    $oVectorOfRotatedRect.Keys() -> retval
 ```
 
 ### VectorOfRotatedRect::Items
@@ -33601,7 +33601,7 @@ AutoIt:
 VectorOfRotatedRect VectorOfRotatedRect::Items()
 
 AutoIt:
-    $vectorOfRotatedRect.Items() -> retval
+    $oVectorOfRotatedRect.Items() -> retval
 ```
 
 ### VectorOfRotatedRect::push_back
@@ -33610,7 +33610,7 @@ AutoIt:
 void VectorOfRotatedRect::push_back( cv::RotatedRect value )
 
 AutoIt:
-    $vectorOfRotatedRect.push_back( $value ) -> None
+    $oVectorOfRotatedRect.push_back( $value ) -> None
 ```
 
 ### VectorOfRotatedRect::Add
@@ -33619,7 +33619,7 @@ AutoIt:
 void VectorOfRotatedRect::Add( cv::RotatedRect value )
 
 AutoIt:
-    $vectorOfRotatedRect.Add( $value ) -> None
+    $oVectorOfRotatedRect.Add( $value ) -> None
 ```
 
 ### VectorOfRotatedRect::Remove
@@ -33628,7 +33628,7 @@ AutoIt:
 void VectorOfRotatedRect::Remove( size_t index )
 
 AutoIt:
-    $vectorOfRotatedRect.Remove( $index ) -> None
+    $oVectorOfRotatedRect.Remove( $index ) -> None
 ```
 
 ### VectorOfRotatedRect::at
@@ -33637,7 +33637,7 @@ AutoIt:
 cv::RotatedRect VectorOfRotatedRect::at( size_t index )
 
 AutoIt:
-    $vectorOfRotatedRect.at( $index ) -> retval
+    $oVectorOfRotatedRect.at( $index ) -> retval
 ```
 
 ```cpp
@@ -33645,7 +33645,7 @@ void VectorOfRotatedRect::at( size_t          index,
                               cv::RotatedRect value )
 
 AutoIt:
-    $vectorOfRotatedRect.at( $index, $value ) -> None
+    $oVectorOfRotatedRect.at( $index, $value ) -> None
 ```
 
 ### VectorOfRotatedRect::size
@@ -33654,7 +33654,7 @@ AutoIt:
 size_t VectorOfRotatedRect::size()
 
 AutoIt:
-    $vectorOfRotatedRect.size() -> retval
+    $oVectorOfRotatedRect.size() -> retval
 ```
 
 ### VectorOfRotatedRect::empty
@@ -33663,7 +33663,7 @@ AutoIt:
 bool VectorOfRotatedRect::empty()
 
 AutoIt:
-    $vectorOfRotatedRect.empty() -> retval
+    $oVectorOfRotatedRect.empty() -> retval
 ```
 
 ### VectorOfRotatedRect::clear
@@ -33672,7 +33672,7 @@ AutoIt:
 void VectorOfRotatedRect::clear()
 
 AutoIt:
-    $vectorOfRotatedRect.clear() -> None
+    $oVectorOfRotatedRect.clear() -> None
 ```
 
 ### VectorOfRotatedRect::push_vector
@@ -33681,7 +33681,7 @@ AutoIt:
 void VectorOfRotatedRect::push_vector( VectorOfRotatedRect other )
 
 AutoIt:
-    $vectorOfRotatedRect.push_vector( $other ) -> None
+    $oVectorOfRotatedRect.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -33690,7 +33690,7 @@ void VectorOfRotatedRect::push_vector( VectorOfRotatedRect other,
                                        size_t              start = 0 )
 
 AutoIt:
-    $vectorOfRotatedRect.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfRotatedRect.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfRotatedRect::slice
@@ -33700,7 +33700,7 @@ VectorOfRotatedRect VectorOfRotatedRect::slice( size_t start = 0,
                                                 size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfRotatedRect.slice( [$start[, $count]] ) -> retval
+    $oVectorOfRotatedRect.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfRotatedRect::sort
@@ -33711,7 +33711,7 @@ void VectorOfRotatedRect::sort( void*  comparator,
                                 size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfRotatedRect.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfRotatedRect.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfRotatedRect::sort_variant
@@ -33722,7 +33722,7 @@ void VectorOfRotatedRect::sort_variant( void*  comparator,
                                         size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfRotatedRect.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfRotatedRect.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfRotatedRect::start
@@ -33731,7 +33731,7 @@ AutoIt:
 void* VectorOfRotatedRect::start()
 
 AutoIt:
-    $vectorOfRotatedRect.start() -> retval
+    $oVectorOfRotatedRect.start() -> retval
 ```
 
 ### VectorOfRotatedRect::end
@@ -33740,7 +33740,7 @@ AutoIt:
 void* VectorOfRotatedRect::end()
 
 AutoIt:
-    $vectorOfRotatedRect.end() -> retval
+    $oVectorOfRotatedRect.end() -> retval
 ```
 
 ### VectorOfRotatedRect::get_Item
@@ -33749,7 +33749,7 @@ AutoIt:
 cv::RotatedRect VectorOfRotatedRect::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfRotatedRect.Item( $vIndex ) -> retval
+    $oVectorOfRotatedRect.Item( $vIndex ) -> retval
     VectorOfRotatedRect( $vIndex ) -> retval
 ```
 
@@ -33760,7 +33760,7 @@ void VectorOfRotatedRect::put_Item( size_t          vIndex,
                                     cv::RotatedRect vItem )
 
 AutoIt:
-    $vectorOfRotatedRect.Item( $vIndex ) = $$vItem
+    $oVectorOfRotatedRect.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfDouble
@@ -33794,7 +33794,7 @@ AutoIt:
 std::vector<int> VectorOfDouble::Keys()
 
 AutoIt:
-    $vectorOfDouble.Keys() -> retval
+    $oVectorOfDouble.Keys() -> retval
 ```
 
 ### VectorOfDouble::Items
@@ -33803,7 +33803,7 @@ AutoIt:
 VectorOfDouble VectorOfDouble::Items()
 
 AutoIt:
-    $vectorOfDouble.Items() -> retval
+    $oVectorOfDouble.Items() -> retval
 ```
 
 ### VectorOfDouble::push_back
@@ -33812,7 +33812,7 @@ AutoIt:
 void VectorOfDouble::push_back( double value )
 
 AutoIt:
-    $vectorOfDouble.push_back( $value ) -> None
+    $oVectorOfDouble.push_back( $value ) -> None
 ```
 
 ### VectorOfDouble::Add
@@ -33821,7 +33821,7 @@ AutoIt:
 void VectorOfDouble::Add( double value )
 
 AutoIt:
-    $vectorOfDouble.Add( $value ) -> None
+    $oVectorOfDouble.Add( $value ) -> None
 ```
 
 ### VectorOfDouble::Remove
@@ -33830,7 +33830,7 @@ AutoIt:
 void VectorOfDouble::Remove( size_t index )
 
 AutoIt:
-    $vectorOfDouble.Remove( $index ) -> None
+    $oVectorOfDouble.Remove( $index ) -> None
 ```
 
 ### VectorOfDouble::at
@@ -33839,7 +33839,7 @@ AutoIt:
 double VectorOfDouble::at( size_t index )
 
 AutoIt:
-    $vectorOfDouble.at( $index ) -> retval
+    $oVectorOfDouble.at( $index ) -> retval
 ```
 
 ```cpp
@@ -33847,7 +33847,7 @@ void VectorOfDouble::at( size_t index,
                          double value )
 
 AutoIt:
-    $vectorOfDouble.at( $index, $value ) -> None
+    $oVectorOfDouble.at( $index, $value ) -> None
 ```
 
 ### VectorOfDouble::size
@@ -33856,7 +33856,7 @@ AutoIt:
 size_t VectorOfDouble::size()
 
 AutoIt:
-    $vectorOfDouble.size() -> retval
+    $oVectorOfDouble.size() -> retval
 ```
 
 ### VectorOfDouble::empty
@@ -33865,7 +33865,7 @@ AutoIt:
 bool VectorOfDouble::empty()
 
 AutoIt:
-    $vectorOfDouble.empty() -> retval
+    $oVectorOfDouble.empty() -> retval
 ```
 
 ### VectorOfDouble::clear
@@ -33874,7 +33874,7 @@ AutoIt:
 void VectorOfDouble::clear()
 
 AutoIt:
-    $vectorOfDouble.clear() -> None
+    $oVectorOfDouble.clear() -> None
 ```
 
 ### VectorOfDouble::push_vector
@@ -33883,7 +33883,7 @@ AutoIt:
 void VectorOfDouble::push_vector( VectorOfDouble other )
 
 AutoIt:
-    $vectorOfDouble.push_vector( $other ) -> None
+    $oVectorOfDouble.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -33892,7 +33892,7 @@ void VectorOfDouble::push_vector( VectorOfDouble other,
                                   size_t         start = 0 )
 
 AutoIt:
-    $vectorOfDouble.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfDouble.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfDouble::slice
@@ -33902,7 +33902,7 @@ VectorOfDouble VectorOfDouble::slice( size_t start = 0,
                                       size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfDouble.slice( [$start[, $count]] ) -> retval
+    $oVectorOfDouble.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfDouble::sort
@@ -33913,7 +33913,7 @@ void VectorOfDouble::sort( void*  comparator,
                            size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfDouble.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfDouble.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfDouble::sort_variant
@@ -33924,7 +33924,7 @@ void VectorOfDouble::sort_variant( void*  comparator,
                                    size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfDouble.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfDouble.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfDouble::start
@@ -33933,7 +33933,7 @@ AutoIt:
 void* VectorOfDouble::start()
 
 AutoIt:
-    $vectorOfDouble.start() -> retval
+    $oVectorOfDouble.start() -> retval
 ```
 
 ### VectorOfDouble::end
@@ -33942,7 +33942,7 @@ AutoIt:
 void* VectorOfDouble::end()
 
 AutoIt:
-    $vectorOfDouble.end() -> retval
+    $oVectorOfDouble.end() -> retval
 ```
 
 ### VectorOfDouble::get_Item
@@ -33951,7 +33951,7 @@ AutoIt:
 double VectorOfDouble::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfDouble.Item( $vIndex ) -> retval
+    $oVectorOfDouble.Item( $vIndex ) -> retval
     VectorOfDouble( $vIndex ) -> retval
 ```
 
@@ -33962,7 +33962,7 @@ void VectorOfDouble::put_Item( size_t vIndex,
                                double vItem )
 
 AutoIt:
-    $vectorOfDouble.Item( $vIndex ) = $$vItem
+    $oVectorOfDouble.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfUMat
@@ -33996,7 +33996,7 @@ AutoIt:
 std::vector<int> VectorOfUMat::Keys()
 
 AutoIt:
-    $vectorOfUMat.Keys() -> retval
+    $oVectorOfUMat.Keys() -> retval
 ```
 
 ### VectorOfUMat::Items
@@ -34005,7 +34005,7 @@ AutoIt:
 VectorOfUMat VectorOfUMat::Items()
 
 AutoIt:
-    $vectorOfUMat.Items() -> retval
+    $oVectorOfUMat.Items() -> retval
 ```
 
 ### VectorOfUMat::push_back
@@ -34014,7 +34014,7 @@ AutoIt:
 void VectorOfUMat::push_back( cv::UMat value )
 
 AutoIt:
-    $vectorOfUMat.push_back( $value ) -> None
+    $oVectorOfUMat.push_back( $value ) -> None
 ```
 
 ### VectorOfUMat::Add
@@ -34023,7 +34023,7 @@ AutoIt:
 void VectorOfUMat::Add( cv::UMat value )
 
 AutoIt:
-    $vectorOfUMat.Add( $value ) -> None
+    $oVectorOfUMat.Add( $value ) -> None
 ```
 
 ### VectorOfUMat::Remove
@@ -34032,7 +34032,7 @@ AutoIt:
 void VectorOfUMat::Remove( size_t index )
 
 AutoIt:
-    $vectorOfUMat.Remove( $index ) -> None
+    $oVectorOfUMat.Remove( $index ) -> None
 ```
 
 ### VectorOfUMat::at
@@ -34041,7 +34041,7 @@ AutoIt:
 cv::UMat VectorOfUMat::at( size_t index )
 
 AutoIt:
-    $vectorOfUMat.at( $index ) -> retval
+    $oVectorOfUMat.at( $index ) -> retval
 ```
 
 ```cpp
@@ -34049,7 +34049,7 @@ void VectorOfUMat::at( size_t   index,
                        cv::UMat value )
 
 AutoIt:
-    $vectorOfUMat.at( $index, $value ) -> None
+    $oVectorOfUMat.at( $index, $value ) -> None
 ```
 
 ### VectorOfUMat::size
@@ -34058,7 +34058,7 @@ AutoIt:
 size_t VectorOfUMat::size()
 
 AutoIt:
-    $vectorOfUMat.size() -> retval
+    $oVectorOfUMat.size() -> retval
 ```
 
 ### VectorOfUMat::empty
@@ -34067,7 +34067,7 @@ AutoIt:
 bool VectorOfUMat::empty()
 
 AutoIt:
-    $vectorOfUMat.empty() -> retval
+    $oVectorOfUMat.empty() -> retval
 ```
 
 ### VectorOfUMat::clear
@@ -34076,7 +34076,7 @@ AutoIt:
 void VectorOfUMat::clear()
 
 AutoIt:
-    $vectorOfUMat.clear() -> None
+    $oVectorOfUMat.clear() -> None
 ```
 
 ### VectorOfUMat::push_vector
@@ -34085,7 +34085,7 @@ AutoIt:
 void VectorOfUMat::push_vector( VectorOfUMat other )
 
 AutoIt:
-    $vectorOfUMat.push_vector( $other ) -> None
+    $oVectorOfUMat.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -34094,7 +34094,7 @@ void VectorOfUMat::push_vector( VectorOfUMat other,
                                 size_t       start = 0 )
 
 AutoIt:
-    $vectorOfUMat.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfUMat.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfUMat::slice
@@ -34104,7 +34104,7 @@ VectorOfUMat VectorOfUMat::slice( size_t start = 0,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfUMat.slice( [$start[, $count]] ) -> retval
+    $oVectorOfUMat.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfUMat::sort
@@ -34115,7 +34115,7 @@ void VectorOfUMat::sort( void*  comparator,
                          size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfUMat.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfUMat.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfUMat::sort_variant
@@ -34126,7 +34126,7 @@ void VectorOfUMat::sort_variant( void*  comparator,
                                  size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfUMat.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfUMat.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfUMat::start
@@ -34135,7 +34135,7 @@ AutoIt:
 void* VectorOfUMat::start()
 
 AutoIt:
-    $vectorOfUMat.start() -> retval
+    $oVectorOfUMat.start() -> retval
 ```
 
 ### VectorOfUMat::end
@@ -34144,7 +34144,7 @@ AutoIt:
 void* VectorOfUMat::end()
 
 AutoIt:
-    $vectorOfUMat.end() -> retval
+    $oVectorOfUMat.end() -> retval
 ```
 
 ### VectorOfUMat::get_Item
@@ -34153,7 +34153,7 @@ AutoIt:
 cv::UMat VectorOfUMat::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfUMat.Item( $vIndex ) -> retval
+    $oVectorOfUMat.Item( $vIndex ) -> retval
     VectorOfUMat( $vIndex ) -> retval
 ```
 
@@ -34164,7 +34164,7 @@ void VectorOfUMat::put_Item( size_t   vIndex,
                              cv::UMat vItem )
 
 AutoIt:
-    $vectorOfUMat.Item( $vIndex ) = $$vItem
+    $oVectorOfUMat.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfImageFeatures
@@ -34198,7 +34198,7 @@ AutoIt:
 std::vector<int> VectorOfImageFeatures::Keys()
 
 AutoIt:
-    $vectorOfImageFeatures.Keys() -> retval
+    $oVectorOfImageFeatures.Keys() -> retval
 ```
 
 ### VectorOfImageFeatures::Items
@@ -34207,7 +34207,7 @@ AutoIt:
 VectorOfImageFeatures VectorOfImageFeatures::Items()
 
 AutoIt:
-    $vectorOfImageFeatures.Items() -> retval
+    $oVectorOfImageFeatures.Items() -> retval
 ```
 
 ### VectorOfImageFeatures::push_back
@@ -34216,7 +34216,7 @@ AutoIt:
 void VectorOfImageFeatures::push_back( cv::detail::ImageFeatures value )
 
 AutoIt:
-    $vectorOfImageFeatures.push_back( $value ) -> None
+    $oVectorOfImageFeatures.push_back( $value ) -> None
 ```
 
 ### VectorOfImageFeatures::Add
@@ -34225,7 +34225,7 @@ AutoIt:
 void VectorOfImageFeatures::Add( cv::detail::ImageFeatures value )
 
 AutoIt:
-    $vectorOfImageFeatures.Add( $value ) -> None
+    $oVectorOfImageFeatures.Add( $value ) -> None
 ```
 
 ### VectorOfImageFeatures::Remove
@@ -34234,7 +34234,7 @@ AutoIt:
 void VectorOfImageFeatures::Remove( size_t index )
 
 AutoIt:
-    $vectorOfImageFeatures.Remove( $index ) -> None
+    $oVectorOfImageFeatures.Remove( $index ) -> None
 ```
 
 ### VectorOfImageFeatures::at
@@ -34243,7 +34243,7 @@ AutoIt:
 cv::detail::ImageFeatures VectorOfImageFeatures::at( size_t index )
 
 AutoIt:
-    $vectorOfImageFeatures.at( $index ) -> retval
+    $oVectorOfImageFeatures.at( $index ) -> retval
 ```
 
 ```cpp
@@ -34251,7 +34251,7 @@ void VectorOfImageFeatures::at( size_t                    index,
                                 cv::detail::ImageFeatures value )
 
 AutoIt:
-    $vectorOfImageFeatures.at( $index, $value ) -> None
+    $oVectorOfImageFeatures.at( $index, $value ) -> None
 ```
 
 ### VectorOfImageFeatures::size
@@ -34260,7 +34260,7 @@ AutoIt:
 size_t VectorOfImageFeatures::size()
 
 AutoIt:
-    $vectorOfImageFeatures.size() -> retval
+    $oVectorOfImageFeatures.size() -> retval
 ```
 
 ### VectorOfImageFeatures::empty
@@ -34269,7 +34269,7 @@ AutoIt:
 bool VectorOfImageFeatures::empty()
 
 AutoIt:
-    $vectorOfImageFeatures.empty() -> retval
+    $oVectorOfImageFeatures.empty() -> retval
 ```
 
 ### VectorOfImageFeatures::clear
@@ -34278,7 +34278,7 @@ AutoIt:
 void VectorOfImageFeatures::clear()
 
 AutoIt:
-    $vectorOfImageFeatures.clear() -> None
+    $oVectorOfImageFeatures.clear() -> None
 ```
 
 ### VectorOfImageFeatures::push_vector
@@ -34287,7 +34287,7 @@ AutoIt:
 void VectorOfImageFeatures::push_vector( VectorOfImageFeatures other )
 
 AutoIt:
-    $vectorOfImageFeatures.push_vector( $other ) -> None
+    $oVectorOfImageFeatures.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -34296,7 +34296,7 @@ void VectorOfImageFeatures::push_vector( VectorOfImageFeatures other,
                                          size_t                start = 0 )
 
 AutoIt:
-    $vectorOfImageFeatures.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfImageFeatures.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfImageFeatures::slice
@@ -34306,7 +34306,7 @@ VectorOfImageFeatures VectorOfImageFeatures::slice( size_t start = 0,
                                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfImageFeatures.slice( [$start[, $count]] ) -> retval
+    $oVectorOfImageFeatures.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfImageFeatures::sort
@@ -34317,7 +34317,7 @@ void VectorOfImageFeatures::sort( void*  comparator,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfImageFeatures.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfImageFeatures.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfImageFeatures::sort_variant
@@ -34328,7 +34328,7 @@ void VectorOfImageFeatures::sort_variant( void*  comparator,
                                           size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfImageFeatures.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfImageFeatures.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfImageFeatures::start
@@ -34337,7 +34337,7 @@ AutoIt:
 void* VectorOfImageFeatures::start()
 
 AutoIt:
-    $vectorOfImageFeatures.start() -> retval
+    $oVectorOfImageFeatures.start() -> retval
 ```
 
 ### VectorOfImageFeatures::end
@@ -34346,7 +34346,7 @@ AutoIt:
 void* VectorOfImageFeatures::end()
 
 AutoIt:
-    $vectorOfImageFeatures.end() -> retval
+    $oVectorOfImageFeatures.end() -> retval
 ```
 
 ### VectorOfImageFeatures::get_Item
@@ -34355,7 +34355,7 @@ AutoIt:
 cv::detail::ImageFeatures VectorOfImageFeatures::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfImageFeatures.Item( $vIndex ) -> retval
+    $oVectorOfImageFeatures.Item( $vIndex ) -> retval
     VectorOfImageFeatures( $vIndex ) -> retval
 ```
 
@@ -34366,7 +34366,7 @@ void VectorOfImageFeatures::put_Item( size_t                    vIndex,
                                       cv::detail::ImageFeatures vItem )
 
 AutoIt:
-    $vectorOfImageFeatures.Item( $vIndex ) = $$vItem
+    $oVectorOfImageFeatures.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfString
@@ -34400,7 +34400,7 @@ AutoIt:
 std::vector<int> VectorOfString::Keys()
 
 AutoIt:
-    $vectorOfString.Keys() -> retval
+    $oVectorOfString.Keys() -> retval
 ```
 
 ### VectorOfString::Items
@@ -34409,7 +34409,7 @@ AutoIt:
 VectorOfString VectorOfString::Items()
 
 AutoIt:
-    $vectorOfString.Items() -> retval
+    $oVectorOfString.Items() -> retval
 ```
 
 ### VectorOfString::push_back
@@ -34418,7 +34418,7 @@ AutoIt:
 void VectorOfString::push_back( std::string value )
 
 AutoIt:
-    $vectorOfString.push_back( $value ) -> None
+    $oVectorOfString.push_back( $value ) -> None
 ```
 
 ### VectorOfString::Add
@@ -34427,7 +34427,7 @@ AutoIt:
 void VectorOfString::Add( std::string value )
 
 AutoIt:
-    $vectorOfString.Add( $value ) -> None
+    $oVectorOfString.Add( $value ) -> None
 ```
 
 ### VectorOfString::Remove
@@ -34436,7 +34436,7 @@ AutoIt:
 void VectorOfString::Remove( size_t index )
 
 AutoIt:
-    $vectorOfString.Remove( $index ) -> None
+    $oVectorOfString.Remove( $index ) -> None
 ```
 
 ### VectorOfString::at
@@ -34445,7 +34445,7 @@ AutoIt:
 std::string VectorOfString::at( size_t index )
 
 AutoIt:
-    $vectorOfString.at( $index ) -> retval
+    $oVectorOfString.at( $index ) -> retval
 ```
 
 ```cpp
@@ -34453,7 +34453,7 @@ void VectorOfString::at( size_t      index,
                          std::string value )
 
 AutoIt:
-    $vectorOfString.at( $index, $value ) -> None
+    $oVectorOfString.at( $index, $value ) -> None
 ```
 
 ### VectorOfString::size
@@ -34462,7 +34462,7 @@ AutoIt:
 size_t VectorOfString::size()
 
 AutoIt:
-    $vectorOfString.size() -> retval
+    $oVectorOfString.size() -> retval
 ```
 
 ### VectorOfString::empty
@@ -34471,7 +34471,7 @@ AutoIt:
 bool VectorOfString::empty()
 
 AutoIt:
-    $vectorOfString.empty() -> retval
+    $oVectorOfString.empty() -> retval
 ```
 
 ### VectorOfString::clear
@@ -34480,7 +34480,7 @@ AutoIt:
 void VectorOfString::clear()
 
 AutoIt:
-    $vectorOfString.clear() -> None
+    $oVectorOfString.clear() -> None
 ```
 
 ### VectorOfString::push_vector
@@ -34489,7 +34489,7 @@ AutoIt:
 void VectorOfString::push_vector( VectorOfString other )
 
 AutoIt:
-    $vectorOfString.push_vector( $other ) -> None
+    $oVectorOfString.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -34498,7 +34498,7 @@ void VectorOfString::push_vector( VectorOfString other,
                                   size_t         start = 0 )
 
 AutoIt:
-    $vectorOfString.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfString.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfString::slice
@@ -34508,7 +34508,7 @@ VectorOfString VectorOfString::slice( size_t start = 0,
                                       size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfString.slice( [$start[, $count]] ) -> retval
+    $oVectorOfString.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfString::sort
@@ -34519,7 +34519,7 @@ void VectorOfString::sort( void*  comparator,
                            size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfString.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfString.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfString::sort_variant
@@ -34530,7 +34530,7 @@ void VectorOfString::sort_variant( void*  comparator,
                                    size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfString.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfString.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfString::start
@@ -34539,7 +34539,7 @@ AutoIt:
 void* VectorOfString::start()
 
 AutoIt:
-    $vectorOfString.start() -> retval
+    $oVectorOfString.start() -> retval
 ```
 
 ### VectorOfString::end
@@ -34548,7 +34548,7 @@ AutoIt:
 void* VectorOfString::end()
 
 AutoIt:
-    $vectorOfString.end() -> retval
+    $oVectorOfString.end() -> retval
 ```
 
 ### VectorOfString::get_Item
@@ -34557,7 +34557,7 @@ AutoIt:
 std::string VectorOfString::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfString.Item( $vIndex ) -> retval
+    $oVectorOfString.Item( $vIndex ) -> retval
     VectorOfString( $vIndex ) -> retval
 ```
 
@@ -34568,7 +34568,7 @@ void VectorOfString::put_Item( size_t      vIndex,
                                std::string vItem )
 
 AutoIt:
-    $vectorOfString.Item( $vIndex ) = $$vItem
+    $oVectorOfString.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfMatchesInfo
@@ -34602,7 +34602,7 @@ AutoIt:
 std::vector<int> VectorOfMatchesInfo::Keys()
 
 AutoIt:
-    $vectorOfMatchesInfo.Keys() -> retval
+    $oVectorOfMatchesInfo.Keys() -> retval
 ```
 
 ### VectorOfMatchesInfo::Items
@@ -34611,7 +34611,7 @@ AutoIt:
 VectorOfMatchesInfo VectorOfMatchesInfo::Items()
 
 AutoIt:
-    $vectorOfMatchesInfo.Items() -> retval
+    $oVectorOfMatchesInfo.Items() -> retval
 ```
 
 ### VectorOfMatchesInfo::push_back
@@ -34620,7 +34620,7 @@ AutoIt:
 void VectorOfMatchesInfo::push_back( cv::detail::MatchesInfo value )
 
 AutoIt:
-    $vectorOfMatchesInfo.push_back( $value ) -> None
+    $oVectorOfMatchesInfo.push_back( $value ) -> None
 ```
 
 ### VectorOfMatchesInfo::Add
@@ -34629,7 +34629,7 @@ AutoIt:
 void VectorOfMatchesInfo::Add( cv::detail::MatchesInfo value )
 
 AutoIt:
-    $vectorOfMatchesInfo.Add( $value ) -> None
+    $oVectorOfMatchesInfo.Add( $value ) -> None
 ```
 
 ### VectorOfMatchesInfo::Remove
@@ -34638,7 +34638,7 @@ AutoIt:
 void VectorOfMatchesInfo::Remove( size_t index )
 
 AutoIt:
-    $vectorOfMatchesInfo.Remove( $index ) -> None
+    $oVectorOfMatchesInfo.Remove( $index ) -> None
 ```
 
 ### VectorOfMatchesInfo::at
@@ -34647,7 +34647,7 @@ AutoIt:
 cv::detail::MatchesInfo VectorOfMatchesInfo::at( size_t index )
 
 AutoIt:
-    $vectorOfMatchesInfo.at( $index ) -> retval
+    $oVectorOfMatchesInfo.at( $index ) -> retval
 ```
 
 ```cpp
@@ -34655,7 +34655,7 @@ void VectorOfMatchesInfo::at( size_t                  index,
                               cv::detail::MatchesInfo value )
 
 AutoIt:
-    $vectorOfMatchesInfo.at( $index, $value ) -> None
+    $oVectorOfMatchesInfo.at( $index, $value ) -> None
 ```
 
 ### VectorOfMatchesInfo::size
@@ -34664,7 +34664,7 @@ AutoIt:
 size_t VectorOfMatchesInfo::size()
 
 AutoIt:
-    $vectorOfMatchesInfo.size() -> retval
+    $oVectorOfMatchesInfo.size() -> retval
 ```
 
 ### VectorOfMatchesInfo::empty
@@ -34673,7 +34673,7 @@ AutoIt:
 bool VectorOfMatchesInfo::empty()
 
 AutoIt:
-    $vectorOfMatchesInfo.empty() -> retval
+    $oVectorOfMatchesInfo.empty() -> retval
 ```
 
 ### VectorOfMatchesInfo::clear
@@ -34682,7 +34682,7 @@ AutoIt:
 void VectorOfMatchesInfo::clear()
 
 AutoIt:
-    $vectorOfMatchesInfo.clear() -> None
+    $oVectorOfMatchesInfo.clear() -> None
 ```
 
 ### VectorOfMatchesInfo::push_vector
@@ -34691,7 +34691,7 @@ AutoIt:
 void VectorOfMatchesInfo::push_vector( VectorOfMatchesInfo other )
 
 AutoIt:
-    $vectorOfMatchesInfo.push_vector( $other ) -> None
+    $oVectorOfMatchesInfo.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -34700,7 +34700,7 @@ void VectorOfMatchesInfo::push_vector( VectorOfMatchesInfo other,
                                        size_t              start = 0 )
 
 AutoIt:
-    $vectorOfMatchesInfo.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfMatchesInfo.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfMatchesInfo::slice
@@ -34710,7 +34710,7 @@ VectorOfMatchesInfo VectorOfMatchesInfo::slice( size_t start = 0,
                                                 size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfMatchesInfo.slice( [$start[, $count]] ) -> retval
+    $oVectorOfMatchesInfo.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfMatchesInfo::sort
@@ -34721,7 +34721,7 @@ void VectorOfMatchesInfo::sort( void*  comparator,
                                 size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfMatchesInfo.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfMatchesInfo.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfMatchesInfo::sort_variant
@@ -34732,7 +34732,7 @@ void VectorOfMatchesInfo::sort_variant( void*  comparator,
                                         size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfMatchesInfo.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfMatchesInfo.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfMatchesInfo::start
@@ -34741,7 +34741,7 @@ AutoIt:
 void* VectorOfMatchesInfo::start()
 
 AutoIt:
-    $vectorOfMatchesInfo.start() -> retval
+    $oVectorOfMatchesInfo.start() -> retval
 ```
 
 ### VectorOfMatchesInfo::end
@@ -34750,7 +34750,7 @@ AutoIt:
 void* VectorOfMatchesInfo::end()
 
 AutoIt:
-    $vectorOfMatchesInfo.end() -> retval
+    $oVectorOfMatchesInfo.end() -> retval
 ```
 
 ### VectorOfMatchesInfo::get_Item
@@ -34759,7 +34759,7 @@ AutoIt:
 cv::detail::MatchesInfo VectorOfMatchesInfo::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfMatchesInfo.Item( $vIndex ) -> retval
+    $oVectorOfMatchesInfo.Item( $vIndex ) -> retval
     VectorOfMatchesInfo( $vIndex ) -> retval
 ```
 
@@ -34770,7 +34770,7 @@ void VectorOfMatchesInfo::put_Item( size_t                  vIndex,
                                     cv::detail::MatchesInfo vItem )
 
 AutoIt:
-    $vectorOfMatchesInfo.Item( $vIndex ) = $$vItem
+    $oVectorOfMatchesInfo.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfSize
@@ -34804,7 +34804,7 @@ AutoIt:
 std::vector<int> VectorOfSize::Keys()
 
 AutoIt:
-    $vectorOfSize.Keys() -> retval
+    $oVectorOfSize.Keys() -> retval
 ```
 
 ### VectorOfSize::Items
@@ -34813,7 +34813,7 @@ AutoIt:
 VectorOfSize VectorOfSize::Items()
 
 AutoIt:
-    $vectorOfSize.Items() -> retval
+    $oVectorOfSize.Items() -> retval
 ```
 
 ### VectorOfSize::push_back
@@ -34822,7 +34822,7 @@ AutoIt:
 void VectorOfSize::push_back( cv::Size value )
 
 AutoIt:
-    $vectorOfSize.push_back( $value ) -> None
+    $oVectorOfSize.push_back( $value ) -> None
 ```
 
 ### VectorOfSize::Add
@@ -34831,7 +34831,7 @@ AutoIt:
 void VectorOfSize::Add( cv::Size value )
 
 AutoIt:
-    $vectorOfSize.Add( $value ) -> None
+    $oVectorOfSize.Add( $value ) -> None
 ```
 
 ### VectorOfSize::Remove
@@ -34840,7 +34840,7 @@ AutoIt:
 void VectorOfSize::Remove( size_t index )
 
 AutoIt:
-    $vectorOfSize.Remove( $index ) -> None
+    $oVectorOfSize.Remove( $index ) -> None
 ```
 
 ### VectorOfSize::at
@@ -34849,7 +34849,7 @@ AutoIt:
 cv::Size VectorOfSize::at( size_t index )
 
 AutoIt:
-    $vectorOfSize.at( $index ) -> retval
+    $oVectorOfSize.at( $index ) -> retval
 ```
 
 ```cpp
@@ -34857,7 +34857,7 @@ void VectorOfSize::at( size_t   index,
                        cv::Size value )
 
 AutoIt:
-    $vectorOfSize.at( $index, $value ) -> None
+    $oVectorOfSize.at( $index, $value ) -> None
 ```
 
 ### VectorOfSize::size
@@ -34866,7 +34866,7 @@ AutoIt:
 size_t VectorOfSize::size()
 
 AutoIt:
-    $vectorOfSize.size() -> retval
+    $oVectorOfSize.size() -> retval
 ```
 
 ### VectorOfSize::empty
@@ -34875,7 +34875,7 @@ AutoIt:
 bool VectorOfSize::empty()
 
 AutoIt:
-    $vectorOfSize.empty() -> retval
+    $oVectorOfSize.empty() -> retval
 ```
 
 ### VectorOfSize::clear
@@ -34884,7 +34884,7 @@ AutoIt:
 void VectorOfSize::clear()
 
 AutoIt:
-    $vectorOfSize.clear() -> None
+    $oVectorOfSize.clear() -> None
 ```
 
 ### VectorOfSize::push_vector
@@ -34893,7 +34893,7 @@ AutoIt:
 void VectorOfSize::push_vector( VectorOfSize other )
 
 AutoIt:
-    $vectorOfSize.push_vector( $other ) -> None
+    $oVectorOfSize.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -34902,7 +34902,7 @@ void VectorOfSize::push_vector( VectorOfSize other,
                                 size_t       start = 0 )
 
 AutoIt:
-    $vectorOfSize.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfSize.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfSize::slice
@@ -34912,7 +34912,7 @@ VectorOfSize VectorOfSize::slice( size_t start = 0,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfSize.slice( [$start[, $count]] ) -> retval
+    $oVectorOfSize.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfSize::sort
@@ -34923,7 +34923,7 @@ void VectorOfSize::sort( void*  comparator,
                          size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfSize.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfSize.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfSize::sort_variant
@@ -34934,7 +34934,7 @@ void VectorOfSize::sort_variant( void*  comparator,
                                  size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfSize.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfSize.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfSize::start
@@ -34943,7 +34943,7 @@ AutoIt:
 void* VectorOfSize::start()
 
 AutoIt:
-    $vectorOfSize.start() -> retval
+    $oVectorOfSize.start() -> retval
 ```
 
 ### VectorOfSize::end
@@ -34952,7 +34952,7 @@ AutoIt:
 void* VectorOfSize::end()
 
 AutoIt:
-    $vectorOfSize.end() -> retval
+    $oVectorOfSize.end() -> retval
 ```
 
 ### VectorOfSize::get_Item
@@ -34961,7 +34961,7 @@ AutoIt:
 cv::Size VectorOfSize::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfSize.Item( $vIndex ) -> retval
+    $oVectorOfSize.Item( $vIndex ) -> retval
     VectorOfSize( $vIndex ) -> retval
 ```
 
@@ -34972,7 +34972,7 @@ void VectorOfSize::put_Item( size_t   vIndex,
                              cv::Size vItem )
 
 AutoIt:
-    $vectorOfSize.Item( $vIndex ) = $$vItem
+    $oVectorOfSize.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfVec2b
@@ -35006,7 +35006,7 @@ AutoIt:
 std::vector<int> VectorOfVec2b::Keys()
 
 AutoIt:
-    $vectorOfVec2b.Keys() -> retval
+    $oVectorOfVec2b.Keys() -> retval
 ```
 
 ### VectorOfVec2b::Items
@@ -35015,7 +35015,7 @@ AutoIt:
 VectorOfVec2b VectorOfVec2b::Items()
 
 AutoIt:
-    $vectorOfVec2b.Items() -> retval
+    $oVectorOfVec2b.Items() -> retval
 ```
 
 ### VectorOfVec2b::push_back
@@ -35024,7 +35024,7 @@ AutoIt:
 void VectorOfVec2b::push_back( cv::Vec2b value )
 
 AutoIt:
-    $vectorOfVec2b.push_back( $value ) -> None
+    $oVectorOfVec2b.push_back( $value ) -> None
 ```
 
 ### VectorOfVec2b::Add
@@ -35033,7 +35033,7 @@ AutoIt:
 void VectorOfVec2b::Add( cv::Vec2b value )
 
 AutoIt:
-    $vectorOfVec2b.Add( $value ) -> None
+    $oVectorOfVec2b.Add( $value ) -> None
 ```
 
 ### VectorOfVec2b::Remove
@@ -35042,7 +35042,7 @@ AutoIt:
 void VectorOfVec2b::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVec2b.Remove( $index ) -> None
+    $oVectorOfVec2b.Remove( $index ) -> None
 ```
 
 ### VectorOfVec2b::at
@@ -35051,7 +35051,7 @@ AutoIt:
 cv::Vec2b VectorOfVec2b::at( size_t index )
 
 AutoIt:
-    $vectorOfVec2b.at( $index ) -> retval
+    $oVectorOfVec2b.at( $index ) -> retval
 ```
 
 ```cpp
@@ -35059,7 +35059,7 @@ void VectorOfVec2b::at( size_t    index,
                         cv::Vec2b value )
 
 AutoIt:
-    $vectorOfVec2b.at( $index, $value ) -> None
+    $oVectorOfVec2b.at( $index, $value ) -> None
 ```
 
 ### VectorOfVec2b::size
@@ -35068,7 +35068,7 @@ AutoIt:
 size_t VectorOfVec2b::size()
 
 AutoIt:
-    $vectorOfVec2b.size() -> retval
+    $oVectorOfVec2b.size() -> retval
 ```
 
 ### VectorOfVec2b::empty
@@ -35077,7 +35077,7 @@ AutoIt:
 bool VectorOfVec2b::empty()
 
 AutoIt:
-    $vectorOfVec2b.empty() -> retval
+    $oVectorOfVec2b.empty() -> retval
 ```
 
 ### VectorOfVec2b::clear
@@ -35086,7 +35086,7 @@ AutoIt:
 void VectorOfVec2b::clear()
 
 AutoIt:
-    $vectorOfVec2b.clear() -> None
+    $oVectorOfVec2b.clear() -> None
 ```
 
 ### VectorOfVec2b::push_vector
@@ -35095,7 +35095,7 @@ AutoIt:
 void VectorOfVec2b::push_vector( VectorOfVec2b other )
 
 AutoIt:
-    $vectorOfVec2b.push_vector( $other ) -> None
+    $oVectorOfVec2b.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -35104,7 +35104,7 @@ void VectorOfVec2b::push_vector( VectorOfVec2b other,
                                  size_t        start = 0 )
 
 AutoIt:
-    $vectorOfVec2b.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVec2b.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVec2b::slice
@@ -35114,7 +35114,7 @@ VectorOfVec2b VectorOfVec2b::slice( size_t start = 0,
                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec2b.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVec2b.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVec2b::sort
@@ -35125,7 +35125,7 @@ void VectorOfVec2b::sort( void*  comparator,
                           size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec2b.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec2b.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec2b::sort_variant
@@ -35136,7 +35136,7 @@ void VectorOfVec2b::sort_variant( void*  comparator,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec2b.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec2b.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec2b::start
@@ -35145,7 +35145,7 @@ AutoIt:
 void* VectorOfVec2b::start()
 
 AutoIt:
-    $vectorOfVec2b.start() -> retval
+    $oVectorOfVec2b.start() -> retval
 ```
 
 ### VectorOfVec2b::end
@@ -35154,7 +35154,7 @@ AutoIt:
 void* VectorOfVec2b::end()
 
 AutoIt:
-    $vectorOfVec2b.end() -> retval
+    $oVectorOfVec2b.end() -> retval
 ```
 
 ### VectorOfVec2b::get_Item
@@ -35163,7 +35163,7 @@ AutoIt:
 cv::Vec2b VectorOfVec2b::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVec2b.Item( $vIndex ) -> retval
+    $oVectorOfVec2b.Item( $vIndex ) -> retval
     VectorOfVec2b( $vIndex ) -> retval
 ```
 
@@ -35174,7 +35174,7 @@ void VectorOfVec2b::put_Item( size_t    vIndex,
                               cv::Vec2b vItem )
 
 AutoIt:
-    $vectorOfVec2b.Item( $vIndex ) = $$vItem
+    $oVectorOfVec2b.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfVec3b
@@ -35208,7 +35208,7 @@ AutoIt:
 std::vector<int> VectorOfVec3b::Keys()
 
 AutoIt:
-    $vectorOfVec3b.Keys() -> retval
+    $oVectorOfVec3b.Keys() -> retval
 ```
 
 ### VectorOfVec3b::Items
@@ -35217,7 +35217,7 @@ AutoIt:
 VectorOfVec3b VectorOfVec3b::Items()
 
 AutoIt:
-    $vectorOfVec3b.Items() -> retval
+    $oVectorOfVec3b.Items() -> retval
 ```
 
 ### VectorOfVec3b::push_back
@@ -35226,7 +35226,7 @@ AutoIt:
 void VectorOfVec3b::push_back( cv::Vec3b value )
 
 AutoIt:
-    $vectorOfVec3b.push_back( $value ) -> None
+    $oVectorOfVec3b.push_back( $value ) -> None
 ```
 
 ### VectorOfVec3b::Add
@@ -35235,7 +35235,7 @@ AutoIt:
 void VectorOfVec3b::Add( cv::Vec3b value )
 
 AutoIt:
-    $vectorOfVec3b.Add( $value ) -> None
+    $oVectorOfVec3b.Add( $value ) -> None
 ```
 
 ### VectorOfVec3b::Remove
@@ -35244,7 +35244,7 @@ AutoIt:
 void VectorOfVec3b::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVec3b.Remove( $index ) -> None
+    $oVectorOfVec3b.Remove( $index ) -> None
 ```
 
 ### VectorOfVec3b::at
@@ -35253,7 +35253,7 @@ AutoIt:
 cv::Vec3b VectorOfVec3b::at( size_t index )
 
 AutoIt:
-    $vectorOfVec3b.at( $index ) -> retval
+    $oVectorOfVec3b.at( $index ) -> retval
 ```
 
 ```cpp
@@ -35261,7 +35261,7 @@ void VectorOfVec3b::at( size_t    index,
                         cv::Vec3b value )
 
 AutoIt:
-    $vectorOfVec3b.at( $index, $value ) -> None
+    $oVectorOfVec3b.at( $index, $value ) -> None
 ```
 
 ### VectorOfVec3b::size
@@ -35270,7 +35270,7 @@ AutoIt:
 size_t VectorOfVec3b::size()
 
 AutoIt:
-    $vectorOfVec3b.size() -> retval
+    $oVectorOfVec3b.size() -> retval
 ```
 
 ### VectorOfVec3b::empty
@@ -35279,7 +35279,7 @@ AutoIt:
 bool VectorOfVec3b::empty()
 
 AutoIt:
-    $vectorOfVec3b.empty() -> retval
+    $oVectorOfVec3b.empty() -> retval
 ```
 
 ### VectorOfVec3b::clear
@@ -35288,7 +35288,7 @@ AutoIt:
 void VectorOfVec3b::clear()
 
 AutoIt:
-    $vectorOfVec3b.clear() -> None
+    $oVectorOfVec3b.clear() -> None
 ```
 
 ### VectorOfVec3b::push_vector
@@ -35297,7 +35297,7 @@ AutoIt:
 void VectorOfVec3b::push_vector( VectorOfVec3b other )
 
 AutoIt:
-    $vectorOfVec3b.push_vector( $other ) -> None
+    $oVectorOfVec3b.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -35306,7 +35306,7 @@ void VectorOfVec3b::push_vector( VectorOfVec3b other,
                                  size_t        start = 0 )
 
 AutoIt:
-    $vectorOfVec3b.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVec3b.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVec3b::slice
@@ -35316,7 +35316,7 @@ VectorOfVec3b VectorOfVec3b::slice( size_t start = 0,
                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec3b.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVec3b.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVec3b::sort
@@ -35327,7 +35327,7 @@ void VectorOfVec3b::sort( void*  comparator,
                           size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec3b.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec3b.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec3b::sort_variant
@@ -35338,7 +35338,7 @@ void VectorOfVec3b::sort_variant( void*  comparator,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec3b.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec3b.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec3b::start
@@ -35347,7 +35347,7 @@ AutoIt:
 void* VectorOfVec3b::start()
 
 AutoIt:
-    $vectorOfVec3b.start() -> retval
+    $oVectorOfVec3b.start() -> retval
 ```
 
 ### VectorOfVec3b::end
@@ -35356,7 +35356,7 @@ AutoIt:
 void* VectorOfVec3b::end()
 
 AutoIt:
-    $vectorOfVec3b.end() -> retval
+    $oVectorOfVec3b.end() -> retval
 ```
 
 ### VectorOfVec3b::get_Item
@@ -35365,7 +35365,7 @@ AutoIt:
 cv::Vec3b VectorOfVec3b::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVec3b.Item( $vIndex ) -> retval
+    $oVectorOfVec3b.Item( $vIndex ) -> retval
     VectorOfVec3b( $vIndex ) -> retval
 ```
 
@@ -35376,7 +35376,7 @@ void VectorOfVec3b::put_Item( size_t    vIndex,
                               cv::Vec3b vItem )
 
 AutoIt:
-    $vectorOfVec3b.Item( $vIndex ) = $$vItem
+    $oVectorOfVec3b.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfVec4b
@@ -35410,7 +35410,7 @@ AutoIt:
 std::vector<int> VectorOfVec4b::Keys()
 
 AutoIt:
-    $vectorOfVec4b.Keys() -> retval
+    $oVectorOfVec4b.Keys() -> retval
 ```
 
 ### VectorOfVec4b::Items
@@ -35419,7 +35419,7 @@ AutoIt:
 VectorOfVec4b VectorOfVec4b::Items()
 
 AutoIt:
-    $vectorOfVec4b.Items() -> retval
+    $oVectorOfVec4b.Items() -> retval
 ```
 
 ### VectorOfVec4b::push_back
@@ -35428,7 +35428,7 @@ AutoIt:
 void VectorOfVec4b::push_back( cv::Vec4b value )
 
 AutoIt:
-    $vectorOfVec4b.push_back( $value ) -> None
+    $oVectorOfVec4b.push_back( $value ) -> None
 ```
 
 ### VectorOfVec4b::Add
@@ -35437,7 +35437,7 @@ AutoIt:
 void VectorOfVec4b::Add( cv::Vec4b value )
 
 AutoIt:
-    $vectorOfVec4b.Add( $value ) -> None
+    $oVectorOfVec4b.Add( $value ) -> None
 ```
 
 ### VectorOfVec4b::Remove
@@ -35446,7 +35446,7 @@ AutoIt:
 void VectorOfVec4b::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVec4b.Remove( $index ) -> None
+    $oVectorOfVec4b.Remove( $index ) -> None
 ```
 
 ### VectorOfVec4b::at
@@ -35455,7 +35455,7 @@ AutoIt:
 cv::Vec4b VectorOfVec4b::at( size_t index )
 
 AutoIt:
-    $vectorOfVec4b.at( $index ) -> retval
+    $oVectorOfVec4b.at( $index ) -> retval
 ```
 
 ```cpp
@@ -35463,7 +35463,7 @@ void VectorOfVec4b::at( size_t    index,
                         cv::Vec4b value )
 
 AutoIt:
-    $vectorOfVec4b.at( $index, $value ) -> None
+    $oVectorOfVec4b.at( $index, $value ) -> None
 ```
 
 ### VectorOfVec4b::size
@@ -35472,7 +35472,7 @@ AutoIt:
 size_t VectorOfVec4b::size()
 
 AutoIt:
-    $vectorOfVec4b.size() -> retval
+    $oVectorOfVec4b.size() -> retval
 ```
 
 ### VectorOfVec4b::empty
@@ -35481,7 +35481,7 @@ AutoIt:
 bool VectorOfVec4b::empty()
 
 AutoIt:
-    $vectorOfVec4b.empty() -> retval
+    $oVectorOfVec4b.empty() -> retval
 ```
 
 ### VectorOfVec4b::clear
@@ -35490,7 +35490,7 @@ AutoIt:
 void VectorOfVec4b::clear()
 
 AutoIt:
-    $vectorOfVec4b.clear() -> None
+    $oVectorOfVec4b.clear() -> None
 ```
 
 ### VectorOfVec4b::push_vector
@@ -35499,7 +35499,7 @@ AutoIt:
 void VectorOfVec4b::push_vector( VectorOfVec4b other )
 
 AutoIt:
-    $vectorOfVec4b.push_vector( $other ) -> None
+    $oVectorOfVec4b.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -35508,7 +35508,7 @@ void VectorOfVec4b::push_vector( VectorOfVec4b other,
                                  size_t        start = 0 )
 
 AutoIt:
-    $vectorOfVec4b.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVec4b.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVec4b::slice
@@ -35518,7 +35518,7 @@ VectorOfVec4b VectorOfVec4b::slice( size_t start = 0,
                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec4b.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVec4b.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVec4b::sort
@@ -35529,7 +35529,7 @@ void VectorOfVec4b::sort( void*  comparator,
                           size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec4b.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec4b.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec4b::sort_variant
@@ -35540,7 +35540,7 @@ void VectorOfVec4b::sort_variant( void*  comparator,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec4b.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec4b.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec4b::start
@@ -35549,7 +35549,7 @@ AutoIt:
 void* VectorOfVec4b::start()
 
 AutoIt:
-    $vectorOfVec4b.start() -> retval
+    $oVectorOfVec4b.start() -> retval
 ```
 
 ### VectorOfVec4b::end
@@ -35558,7 +35558,7 @@ AutoIt:
 void* VectorOfVec4b::end()
 
 AutoIt:
-    $vectorOfVec4b.end() -> retval
+    $oVectorOfVec4b.end() -> retval
 ```
 
 ### VectorOfVec4b::get_Item
@@ -35567,7 +35567,7 @@ AutoIt:
 cv::Vec4b VectorOfVec4b::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVec4b.Item( $vIndex ) -> retval
+    $oVectorOfVec4b.Item( $vIndex ) -> retval
     VectorOfVec4b( $vIndex ) -> retval
 ```
 
@@ -35578,7 +35578,7 @@ void VectorOfVec4b::put_Item( size_t    vIndex,
                               cv::Vec4b vItem )
 
 AutoIt:
-    $vectorOfVec4b.Item( $vIndex ) = $$vItem
+    $oVectorOfVec4b.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfVec2s
@@ -35612,7 +35612,7 @@ AutoIt:
 std::vector<int> VectorOfVec2s::Keys()
 
 AutoIt:
-    $vectorOfVec2s.Keys() -> retval
+    $oVectorOfVec2s.Keys() -> retval
 ```
 
 ### VectorOfVec2s::Items
@@ -35621,7 +35621,7 @@ AutoIt:
 VectorOfVec2s VectorOfVec2s::Items()
 
 AutoIt:
-    $vectorOfVec2s.Items() -> retval
+    $oVectorOfVec2s.Items() -> retval
 ```
 
 ### VectorOfVec2s::push_back
@@ -35630,7 +35630,7 @@ AutoIt:
 void VectorOfVec2s::push_back( cv::Vec2s value )
 
 AutoIt:
-    $vectorOfVec2s.push_back( $value ) -> None
+    $oVectorOfVec2s.push_back( $value ) -> None
 ```
 
 ### VectorOfVec2s::Add
@@ -35639,7 +35639,7 @@ AutoIt:
 void VectorOfVec2s::Add( cv::Vec2s value )
 
 AutoIt:
-    $vectorOfVec2s.Add( $value ) -> None
+    $oVectorOfVec2s.Add( $value ) -> None
 ```
 
 ### VectorOfVec2s::Remove
@@ -35648,7 +35648,7 @@ AutoIt:
 void VectorOfVec2s::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVec2s.Remove( $index ) -> None
+    $oVectorOfVec2s.Remove( $index ) -> None
 ```
 
 ### VectorOfVec2s::at
@@ -35657,7 +35657,7 @@ AutoIt:
 cv::Vec2s VectorOfVec2s::at( size_t index )
 
 AutoIt:
-    $vectorOfVec2s.at( $index ) -> retval
+    $oVectorOfVec2s.at( $index ) -> retval
 ```
 
 ```cpp
@@ -35665,7 +35665,7 @@ void VectorOfVec2s::at( size_t    index,
                         cv::Vec2s value )
 
 AutoIt:
-    $vectorOfVec2s.at( $index, $value ) -> None
+    $oVectorOfVec2s.at( $index, $value ) -> None
 ```
 
 ### VectorOfVec2s::size
@@ -35674,7 +35674,7 @@ AutoIt:
 size_t VectorOfVec2s::size()
 
 AutoIt:
-    $vectorOfVec2s.size() -> retval
+    $oVectorOfVec2s.size() -> retval
 ```
 
 ### VectorOfVec2s::empty
@@ -35683,7 +35683,7 @@ AutoIt:
 bool VectorOfVec2s::empty()
 
 AutoIt:
-    $vectorOfVec2s.empty() -> retval
+    $oVectorOfVec2s.empty() -> retval
 ```
 
 ### VectorOfVec2s::clear
@@ -35692,7 +35692,7 @@ AutoIt:
 void VectorOfVec2s::clear()
 
 AutoIt:
-    $vectorOfVec2s.clear() -> None
+    $oVectorOfVec2s.clear() -> None
 ```
 
 ### VectorOfVec2s::push_vector
@@ -35701,7 +35701,7 @@ AutoIt:
 void VectorOfVec2s::push_vector( VectorOfVec2s other )
 
 AutoIt:
-    $vectorOfVec2s.push_vector( $other ) -> None
+    $oVectorOfVec2s.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -35710,7 +35710,7 @@ void VectorOfVec2s::push_vector( VectorOfVec2s other,
                                  size_t        start = 0 )
 
 AutoIt:
-    $vectorOfVec2s.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVec2s.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVec2s::slice
@@ -35720,7 +35720,7 @@ VectorOfVec2s VectorOfVec2s::slice( size_t start = 0,
                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec2s.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVec2s.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVec2s::sort
@@ -35731,7 +35731,7 @@ void VectorOfVec2s::sort( void*  comparator,
                           size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec2s.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec2s.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec2s::sort_variant
@@ -35742,7 +35742,7 @@ void VectorOfVec2s::sort_variant( void*  comparator,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec2s.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec2s.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec2s::start
@@ -35751,7 +35751,7 @@ AutoIt:
 void* VectorOfVec2s::start()
 
 AutoIt:
-    $vectorOfVec2s.start() -> retval
+    $oVectorOfVec2s.start() -> retval
 ```
 
 ### VectorOfVec2s::end
@@ -35760,7 +35760,7 @@ AutoIt:
 void* VectorOfVec2s::end()
 
 AutoIt:
-    $vectorOfVec2s.end() -> retval
+    $oVectorOfVec2s.end() -> retval
 ```
 
 ### VectorOfVec2s::get_Item
@@ -35769,7 +35769,7 @@ AutoIt:
 cv::Vec2s VectorOfVec2s::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVec2s.Item( $vIndex ) -> retval
+    $oVectorOfVec2s.Item( $vIndex ) -> retval
     VectorOfVec2s( $vIndex ) -> retval
 ```
 
@@ -35780,7 +35780,7 @@ void VectorOfVec2s::put_Item( size_t    vIndex,
                               cv::Vec2s vItem )
 
 AutoIt:
-    $vectorOfVec2s.Item( $vIndex ) = $$vItem
+    $oVectorOfVec2s.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfVec3s
@@ -35814,7 +35814,7 @@ AutoIt:
 std::vector<int> VectorOfVec3s::Keys()
 
 AutoIt:
-    $vectorOfVec3s.Keys() -> retval
+    $oVectorOfVec3s.Keys() -> retval
 ```
 
 ### VectorOfVec3s::Items
@@ -35823,7 +35823,7 @@ AutoIt:
 VectorOfVec3s VectorOfVec3s::Items()
 
 AutoIt:
-    $vectorOfVec3s.Items() -> retval
+    $oVectorOfVec3s.Items() -> retval
 ```
 
 ### VectorOfVec3s::push_back
@@ -35832,7 +35832,7 @@ AutoIt:
 void VectorOfVec3s::push_back( cv::Vec3s value )
 
 AutoIt:
-    $vectorOfVec3s.push_back( $value ) -> None
+    $oVectorOfVec3s.push_back( $value ) -> None
 ```
 
 ### VectorOfVec3s::Add
@@ -35841,7 +35841,7 @@ AutoIt:
 void VectorOfVec3s::Add( cv::Vec3s value )
 
 AutoIt:
-    $vectorOfVec3s.Add( $value ) -> None
+    $oVectorOfVec3s.Add( $value ) -> None
 ```
 
 ### VectorOfVec3s::Remove
@@ -35850,7 +35850,7 @@ AutoIt:
 void VectorOfVec3s::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVec3s.Remove( $index ) -> None
+    $oVectorOfVec3s.Remove( $index ) -> None
 ```
 
 ### VectorOfVec3s::at
@@ -35859,7 +35859,7 @@ AutoIt:
 cv::Vec3s VectorOfVec3s::at( size_t index )
 
 AutoIt:
-    $vectorOfVec3s.at( $index ) -> retval
+    $oVectorOfVec3s.at( $index ) -> retval
 ```
 
 ```cpp
@@ -35867,7 +35867,7 @@ void VectorOfVec3s::at( size_t    index,
                         cv::Vec3s value )
 
 AutoIt:
-    $vectorOfVec3s.at( $index, $value ) -> None
+    $oVectorOfVec3s.at( $index, $value ) -> None
 ```
 
 ### VectorOfVec3s::size
@@ -35876,7 +35876,7 @@ AutoIt:
 size_t VectorOfVec3s::size()
 
 AutoIt:
-    $vectorOfVec3s.size() -> retval
+    $oVectorOfVec3s.size() -> retval
 ```
 
 ### VectorOfVec3s::empty
@@ -35885,7 +35885,7 @@ AutoIt:
 bool VectorOfVec3s::empty()
 
 AutoIt:
-    $vectorOfVec3s.empty() -> retval
+    $oVectorOfVec3s.empty() -> retval
 ```
 
 ### VectorOfVec3s::clear
@@ -35894,7 +35894,7 @@ AutoIt:
 void VectorOfVec3s::clear()
 
 AutoIt:
-    $vectorOfVec3s.clear() -> None
+    $oVectorOfVec3s.clear() -> None
 ```
 
 ### VectorOfVec3s::push_vector
@@ -35903,7 +35903,7 @@ AutoIt:
 void VectorOfVec3s::push_vector( VectorOfVec3s other )
 
 AutoIt:
-    $vectorOfVec3s.push_vector( $other ) -> None
+    $oVectorOfVec3s.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -35912,7 +35912,7 @@ void VectorOfVec3s::push_vector( VectorOfVec3s other,
                                  size_t        start = 0 )
 
 AutoIt:
-    $vectorOfVec3s.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVec3s.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVec3s::slice
@@ -35922,7 +35922,7 @@ VectorOfVec3s VectorOfVec3s::slice( size_t start = 0,
                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec3s.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVec3s.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVec3s::sort
@@ -35933,7 +35933,7 @@ void VectorOfVec3s::sort( void*  comparator,
                           size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec3s.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec3s.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec3s::sort_variant
@@ -35944,7 +35944,7 @@ void VectorOfVec3s::sort_variant( void*  comparator,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec3s.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec3s.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec3s::start
@@ -35953,7 +35953,7 @@ AutoIt:
 void* VectorOfVec3s::start()
 
 AutoIt:
-    $vectorOfVec3s.start() -> retval
+    $oVectorOfVec3s.start() -> retval
 ```
 
 ### VectorOfVec3s::end
@@ -35962,7 +35962,7 @@ AutoIt:
 void* VectorOfVec3s::end()
 
 AutoIt:
-    $vectorOfVec3s.end() -> retval
+    $oVectorOfVec3s.end() -> retval
 ```
 
 ### VectorOfVec3s::get_Item
@@ -35971,7 +35971,7 @@ AutoIt:
 cv::Vec3s VectorOfVec3s::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVec3s.Item( $vIndex ) -> retval
+    $oVectorOfVec3s.Item( $vIndex ) -> retval
     VectorOfVec3s( $vIndex ) -> retval
 ```
 
@@ -35982,7 +35982,7 @@ void VectorOfVec3s::put_Item( size_t    vIndex,
                               cv::Vec3s vItem )
 
 AutoIt:
-    $vectorOfVec3s.Item( $vIndex ) = $$vItem
+    $oVectorOfVec3s.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfVec4s
@@ -36016,7 +36016,7 @@ AutoIt:
 std::vector<int> VectorOfVec4s::Keys()
 
 AutoIt:
-    $vectorOfVec4s.Keys() -> retval
+    $oVectorOfVec4s.Keys() -> retval
 ```
 
 ### VectorOfVec4s::Items
@@ -36025,7 +36025,7 @@ AutoIt:
 VectorOfVec4s VectorOfVec4s::Items()
 
 AutoIt:
-    $vectorOfVec4s.Items() -> retval
+    $oVectorOfVec4s.Items() -> retval
 ```
 
 ### VectorOfVec4s::push_back
@@ -36034,7 +36034,7 @@ AutoIt:
 void VectorOfVec4s::push_back( cv::Vec4s value )
 
 AutoIt:
-    $vectorOfVec4s.push_back( $value ) -> None
+    $oVectorOfVec4s.push_back( $value ) -> None
 ```
 
 ### VectorOfVec4s::Add
@@ -36043,7 +36043,7 @@ AutoIt:
 void VectorOfVec4s::Add( cv::Vec4s value )
 
 AutoIt:
-    $vectorOfVec4s.Add( $value ) -> None
+    $oVectorOfVec4s.Add( $value ) -> None
 ```
 
 ### VectorOfVec4s::Remove
@@ -36052,7 +36052,7 @@ AutoIt:
 void VectorOfVec4s::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVec4s.Remove( $index ) -> None
+    $oVectorOfVec4s.Remove( $index ) -> None
 ```
 
 ### VectorOfVec4s::at
@@ -36061,7 +36061,7 @@ AutoIt:
 cv::Vec4s VectorOfVec4s::at( size_t index )
 
 AutoIt:
-    $vectorOfVec4s.at( $index ) -> retval
+    $oVectorOfVec4s.at( $index ) -> retval
 ```
 
 ```cpp
@@ -36069,7 +36069,7 @@ void VectorOfVec4s::at( size_t    index,
                         cv::Vec4s value )
 
 AutoIt:
-    $vectorOfVec4s.at( $index, $value ) -> None
+    $oVectorOfVec4s.at( $index, $value ) -> None
 ```
 
 ### VectorOfVec4s::size
@@ -36078,7 +36078,7 @@ AutoIt:
 size_t VectorOfVec4s::size()
 
 AutoIt:
-    $vectorOfVec4s.size() -> retval
+    $oVectorOfVec4s.size() -> retval
 ```
 
 ### VectorOfVec4s::empty
@@ -36087,7 +36087,7 @@ AutoIt:
 bool VectorOfVec4s::empty()
 
 AutoIt:
-    $vectorOfVec4s.empty() -> retval
+    $oVectorOfVec4s.empty() -> retval
 ```
 
 ### VectorOfVec4s::clear
@@ -36096,7 +36096,7 @@ AutoIt:
 void VectorOfVec4s::clear()
 
 AutoIt:
-    $vectorOfVec4s.clear() -> None
+    $oVectorOfVec4s.clear() -> None
 ```
 
 ### VectorOfVec4s::push_vector
@@ -36105,7 +36105,7 @@ AutoIt:
 void VectorOfVec4s::push_vector( VectorOfVec4s other )
 
 AutoIt:
-    $vectorOfVec4s.push_vector( $other ) -> None
+    $oVectorOfVec4s.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -36114,7 +36114,7 @@ void VectorOfVec4s::push_vector( VectorOfVec4s other,
                                  size_t        start = 0 )
 
 AutoIt:
-    $vectorOfVec4s.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVec4s.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVec4s::slice
@@ -36124,7 +36124,7 @@ VectorOfVec4s VectorOfVec4s::slice( size_t start = 0,
                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec4s.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVec4s.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVec4s::sort
@@ -36135,7 +36135,7 @@ void VectorOfVec4s::sort( void*  comparator,
                           size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec4s.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec4s.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec4s::sort_variant
@@ -36146,7 +36146,7 @@ void VectorOfVec4s::sort_variant( void*  comparator,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec4s.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec4s.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec4s::start
@@ -36155,7 +36155,7 @@ AutoIt:
 void* VectorOfVec4s::start()
 
 AutoIt:
-    $vectorOfVec4s.start() -> retval
+    $oVectorOfVec4s.start() -> retval
 ```
 
 ### VectorOfVec4s::end
@@ -36164,7 +36164,7 @@ AutoIt:
 void* VectorOfVec4s::end()
 
 AutoIt:
-    $vectorOfVec4s.end() -> retval
+    $oVectorOfVec4s.end() -> retval
 ```
 
 ### VectorOfVec4s::get_Item
@@ -36173,7 +36173,7 @@ AutoIt:
 cv::Vec4s VectorOfVec4s::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVec4s.Item( $vIndex ) -> retval
+    $oVectorOfVec4s.Item( $vIndex ) -> retval
     VectorOfVec4s( $vIndex ) -> retval
 ```
 
@@ -36184,7 +36184,7 @@ void VectorOfVec4s::put_Item( size_t    vIndex,
                               cv::Vec4s vItem )
 
 AutoIt:
-    $vectorOfVec4s.Item( $vIndex ) = $$vItem
+    $oVectorOfVec4s.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfVec2w
@@ -36218,7 +36218,7 @@ AutoIt:
 std::vector<int> VectorOfVec2w::Keys()
 
 AutoIt:
-    $vectorOfVec2w.Keys() -> retval
+    $oVectorOfVec2w.Keys() -> retval
 ```
 
 ### VectorOfVec2w::Items
@@ -36227,7 +36227,7 @@ AutoIt:
 VectorOfVec2w VectorOfVec2w::Items()
 
 AutoIt:
-    $vectorOfVec2w.Items() -> retval
+    $oVectorOfVec2w.Items() -> retval
 ```
 
 ### VectorOfVec2w::push_back
@@ -36236,7 +36236,7 @@ AutoIt:
 void VectorOfVec2w::push_back( cv::Vec2w value )
 
 AutoIt:
-    $vectorOfVec2w.push_back( $value ) -> None
+    $oVectorOfVec2w.push_back( $value ) -> None
 ```
 
 ### VectorOfVec2w::Add
@@ -36245,7 +36245,7 @@ AutoIt:
 void VectorOfVec2w::Add( cv::Vec2w value )
 
 AutoIt:
-    $vectorOfVec2w.Add( $value ) -> None
+    $oVectorOfVec2w.Add( $value ) -> None
 ```
 
 ### VectorOfVec2w::Remove
@@ -36254,7 +36254,7 @@ AutoIt:
 void VectorOfVec2w::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVec2w.Remove( $index ) -> None
+    $oVectorOfVec2w.Remove( $index ) -> None
 ```
 
 ### VectorOfVec2w::at
@@ -36263,7 +36263,7 @@ AutoIt:
 cv::Vec2w VectorOfVec2w::at( size_t index )
 
 AutoIt:
-    $vectorOfVec2w.at( $index ) -> retval
+    $oVectorOfVec2w.at( $index ) -> retval
 ```
 
 ```cpp
@@ -36271,7 +36271,7 @@ void VectorOfVec2w::at( size_t    index,
                         cv::Vec2w value )
 
 AutoIt:
-    $vectorOfVec2w.at( $index, $value ) -> None
+    $oVectorOfVec2w.at( $index, $value ) -> None
 ```
 
 ### VectorOfVec2w::size
@@ -36280,7 +36280,7 @@ AutoIt:
 size_t VectorOfVec2w::size()
 
 AutoIt:
-    $vectorOfVec2w.size() -> retval
+    $oVectorOfVec2w.size() -> retval
 ```
 
 ### VectorOfVec2w::empty
@@ -36289,7 +36289,7 @@ AutoIt:
 bool VectorOfVec2w::empty()
 
 AutoIt:
-    $vectorOfVec2w.empty() -> retval
+    $oVectorOfVec2w.empty() -> retval
 ```
 
 ### VectorOfVec2w::clear
@@ -36298,7 +36298,7 @@ AutoIt:
 void VectorOfVec2w::clear()
 
 AutoIt:
-    $vectorOfVec2w.clear() -> None
+    $oVectorOfVec2w.clear() -> None
 ```
 
 ### VectorOfVec2w::push_vector
@@ -36307,7 +36307,7 @@ AutoIt:
 void VectorOfVec2w::push_vector( VectorOfVec2w other )
 
 AutoIt:
-    $vectorOfVec2w.push_vector( $other ) -> None
+    $oVectorOfVec2w.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -36316,7 +36316,7 @@ void VectorOfVec2w::push_vector( VectorOfVec2w other,
                                  size_t        start = 0 )
 
 AutoIt:
-    $vectorOfVec2w.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVec2w.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVec2w::slice
@@ -36326,7 +36326,7 @@ VectorOfVec2w VectorOfVec2w::slice( size_t start = 0,
                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec2w.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVec2w.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVec2w::sort
@@ -36337,7 +36337,7 @@ void VectorOfVec2w::sort( void*  comparator,
                           size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec2w.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec2w.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec2w::sort_variant
@@ -36348,7 +36348,7 @@ void VectorOfVec2w::sort_variant( void*  comparator,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec2w.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec2w.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec2w::start
@@ -36357,7 +36357,7 @@ AutoIt:
 void* VectorOfVec2w::start()
 
 AutoIt:
-    $vectorOfVec2w.start() -> retval
+    $oVectorOfVec2w.start() -> retval
 ```
 
 ### VectorOfVec2w::end
@@ -36366,7 +36366,7 @@ AutoIt:
 void* VectorOfVec2w::end()
 
 AutoIt:
-    $vectorOfVec2w.end() -> retval
+    $oVectorOfVec2w.end() -> retval
 ```
 
 ### VectorOfVec2w::get_Item
@@ -36375,7 +36375,7 @@ AutoIt:
 cv::Vec2w VectorOfVec2w::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVec2w.Item( $vIndex ) -> retval
+    $oVectorOfVec2w.Item( $vIndex ) -> retval
     VectorOfVec2w( $vIndex ) -> retval
 ```
 
@@ -36386,7 +36386,7 @@ void VectorOfVec2w::put_Item( size_t    vIndex,
                               cv::Vec2w vItem )
 
 AutoIt:
-    $vectorOfVec2w.Item( $vIndex ) = $$vItem
+    $oVectorOfVec2w.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfVec3w
@@ -36420,7 +36420,7 @@ AutoIt:
 std::vector<int> VectorOfVec3w::Keys()
 
 AutoIt:
-    $vectorOfVec3w.Keys() -> retval
+    $oVectorOfVec3w.Keys() -> retval
 ```
 
 ### VectorOfVec3w::Items
@@ -36429,7 +36429,7 @@ AutoIt:
 VectorOfVec3w VectorOfVec3w::Items()
 
 AutoIt:
-    $vectorOfVec3w.Items() -> retval
+    $oVectorOfVec3w.Items() -> retval
 ```
 
 ### VectorOfVec3w::push_back
@@ -36438,7 +36438,7 @@ AutoIt:
 void VectorOfVec3w::push_back( cv::Vec3w value )
 
 AutoIt:
-    $vectorOfVec3w.push_back( $value ) -> None
+    $oVectorOfVec3w.push_back( $value ) -> None
 ```
 
 ### VectorOfVec3w::Add
@@ -36447,7 +36447,7 @@ AutoIt:
 void VectorOfVec3w::Add( cv::Vec3w value )
 
 AutoIt:
-    $vectorOfVec3w.Add( $value ) -> None
+    $oVectorOfVec3w.Add( $value ) -> None
 ```
 
 ### VectorOfVec3w::Remove
@@ -36456,7 +36456,7 @@ AutoIt:
 void VectorOfVec3w::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVec3w.Remove( $index ) -> None
+    $oVectorOfVec3w.Remove( $index ) -> None
 ```
 
 ### VectorOfVec3w::at
@@ -36465,7 +36465,7 @@ AutoIt:
 cv::Vec3w VectorOfVec3w::at( size_t index )
 
 AutoIt:
-    $vectorOfVec3w.at( $index ) -> retval
+    $oVectorOfVec3w.at( $index ) -> retval
 ```
 
 ```cpp
@@ -36473,7 +36473,7 @@ void VectorOfVec3w::at( size_t    index,
                         cv::Vec3w value )
 
 AutoIt:
-    $vectorOfVec3w.at( $index, $value ) -> None
+    $oVectorOfVec3w.at( $index, $value ) -> None
 ```
 
 ### VectorOfVec3w::size
@@ -36482,7 +36482,7 @@ AutoIt:
 size_t VectorOfVec3w::size()
 
 AutoIt:
-    $vectorOfVec3w.size() -> retval
+    $oVectorOfVec3w.size() -> retval
 ```
 
 ### VectorOfVec3w::empty
@@ -36491,7 +36491,7 @@ AutoIt:
 bool VectorOfVec3w::empty()
 
 AutoIt:
-    $vectorOfVec3w.empty() -> retval
+    $oVectorOfVec3w.empty() -> retval
 ```
 
 ### VectorOfVec3w::clear
@@ -36500,7 +36500,7 @@ AutoIt:
 void VectorOfVec3w::clear()
 
 AutoIt:
-    $vectorOfVec3w.clear() -> None
+    $oVectorOfVec3w.clear() -> None
 ```
 
 ### VectorOfVec3w::push_vector
@@ -36509,7 +36509,7 @@ AutoIt:
 void VectorOfVec3w::push_vector( VectorOfVec3w other )
 
 AutoIt:
-    $vectorOfVec3w.push_vector( $other ) -> None
+    $oVectorOfVec3w.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -36518,7 +36518,7 @@ void VectorOfVec3w::push_vector( VectorOfVec3w other,
                                  size_t        start = 0 )
 
 AutoIt:
-    $vectorOfVec3w.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVec3w.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVec3w::slice
@@ -36528,7 +36528,7 @@ VectorOfVec3w VectorOfVec3w::slice( size_t start = 0,
                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec3w.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVec3w.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVec3w::sort
@@ -36539,7 +36539,7 @@ void VectorOfVec3w::sort( void*  comparator,
                           size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec3w.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec3w.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec3w::sort_variant
@@ -36550,7 +36550,7 @@ void VectorOfVec3w::sort_variant( void*  comparator,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec3w.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec3w.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec3w::start
@@ -36559,7 +36559,7 @@ AutoIt:
 void* VectorOfVec3w::start()
 
 AutoIt:
-    $vectorOfVec3w.start() -> retval
+    $oVectorOfVec3w.start() -> retval
 ```
 
 ### VectorOfVec3w::end
@@ -36568,7 +36568,7 @@ AutoIt:
 void* VectorOfVec3w::end()
 
 AutoIt:
-    $vectorOfVec3w.end() -> retval
+    $oVectorOfVec3w.end() -> retval
 ```
 
 ### VectorOfVec3w::get_Item
@@ -36577,7 +36577,7 @@ AutoIt:
 cv::Vec3w VectorOfVec3w::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVec3w.Item( $vIndex ) -> retval
+    $oVectorOfVec3w.Item( $vIndex ) -> retval
     VectorOfVec3w( $vIndex ) -> retval
 ```
 
@@ -36588,7 +36588,7 @@ void VectorOfVec3w::put_Item( size_t    vIndex,
                               cv::Vec3w vItem )
 
 AutoIt:
-    $vectorOfVec3w.Item( $vIndex ) = $$vItem
+    $oVectorOfVec3w.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfVec4w
@@ -36622,7 +36622,7 @@ AutoIt:
 std::vector<int> VectorOfVec4w::Keys()
 
 AutoIt:
-    $vectorOfVec4w.Keys() -> retval
+    $oVectorOfVec4w.Keys() -> retval
 ```
 
 ### VectorOfVec4w::Items
@@ -36631,7 +36631,7 @@ AutoIt:
 VectorOfVec4w VectorOfVec4w::Items()
 
 AutoIt:
-    $vectorOfVec4w.Items() -> retval
+    $oVectorOfVec4w.Items() -> retval
 ```
 
 ### VectorOfVec4w::push_back
@@ -36640,7 +36640,7 @@ AutoIt:
 void VectorOfVec4w::push_back( cv::Vec4w value )
 
 AutoIt:
-    $vectorOfVec4w.push_back( $value ) -> None
+    $oVectorOfVec4w.push_back( $value ) -> None
 ```
 
 ### VectorOfVec4w::Add
@@ -36649,7 +36649,7 @@ AutoIt:
 void VectorOfVec4w::Add( cv::Vec4w value )
 
 AutoIt:
-    $vectorOfVec4w.Add( $value ) -> None
+    $oVectorOfVec4w.Add( $value ) -> None
 ```
 
 ### VectorOfVec4w::Remove
@@ -36658,7 +36658,7 @@ AutoIt:
 void VectorOfVec4w::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVec4w.Remove( $index ) -> None
+    $oVectorOfVec4w.Remove( $index ) -> None
 ```
 
 ### VectorOfVec4w::at
@@ -36667,7 +36667,7 @@ AutoIt:
 cv::Vec4w VectorOfVec4w::at( size_t index )
 
 AutoIt:
-    $vectorOfVec4w.at( $index ) -> retval
+    $oVectorOfVec4w.at( $index ) -> retval
 ```
 
 ```cpp
@@ -36675,7 +36675,7 @@ void VectorOfVec4w::at( size_t    index,
                         cv::Vec4w value )
 
 AutoIt:
-    $vectorOfVec4w.at( $index, $value ) -> None
+    $oVectorOfVec4w.at( $index, $value ) -> None
 ```
 
 ### VectorOfVec4w::size
@@ -36684,7 +36684,7 @@ AutoIt:
 size_t VectorOfVec4w::size()
 
 AutoIt:
-    $vectorOfVec4w.size() -> retval
+    $oVectorOfVec4w.size() -> retval
 ```
 
 ### VectorOfVec4w::empty
@@ -36693,7 +36693,7 @@ AutoIt:
 bool VectorOfVec4w::empty()
 
 AutoIt:
-    $vectorOfVec4w.empty() -> retval
+    $oVectorOfVec4w.empty() -> retval
 ```
 
 ### VectorOfVec4w::clear
@@ -36702,7 +36702,7 @@ AutoIt:
 void VectorOfVec4w::clear()
 
 AutoIt:
-    $vectorOfVec4w.clear() -> None
+    $oVectorOfVec4w.clear() -> None
 ```
 
 ### VectorOfVec4w::push_vector
@@ -36711,7 +36711,7 @@ AutoIt:
 void VectorOfVec4w::push_vector( VectorOfVec4w other )
 
 AutoIt:
-    $vectorOfVec4w.push_vector( $other ) -> None
+    $oVectorOfVec4w.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -36720,7 +36720,7 @@ void VectorOfVec4w::push_vector( VectorOfVec4w other,
                                  size_t        start = 0 )
 
 AutoIt:
-    $vectorOfVec4w.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVec4w.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVec4w::slice
@@ -36730,7 +36730,7 @@ VectorOfVec4w VectorOfVec4w::slice( size_t start = 0,
                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec4w.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVec4w.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVec4w::sort
@@ -36741,7 +36741,7 @@ void VectorOfVec4w::sort( void*  comparator,
                           size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec4w.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec4w.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec4w::sort_variant
@@ -36752,7 +36752,7 @@ void VectorOfVec4w::sort_variant( void*  comparator,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec4w.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec4w.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec4w::start
@@ -36761,7 +36761,7 @@ AutoIt:
 void* VectorOfVec4w::start()
 
 AutoIt:
-    $vectorOfVec4w.start() -> retval
+    $oVectorOfVec4w.start() -> retval
 ```
 
 ### VectorOfVec4w::end
@@ -36770,7 +36770,7 @@ AutoIt:
 void* VectorOfVec4w::end()
 
 AutoIt:
-    $vectorOfVec4w.end() -> retval
+    $oVectorOfVec4w.end() -> retval
 ```
 
 ### VectorOfVec4w::get_Item
@@ -36779,7 +36779,7 @@ AutoIt:
 cv::Vec4w VectorOfVec4w::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVec4w.Item( $vIndex ) -> retval
+    $oVectorOfVec4w.Item( $vIndex ) -> retval
     VectorOfVec4w( $vIndex ) -> retval
 ```
 
@@ -36790,7 +36790,7 @@ void VectorOfVec4w::put_Item( size_t    vIndex,
                               cv::Vec4w vItem )
 
 AutoIt:
-    $vectorOfVec4w.Item( $vIndex ) = $$vItem
+    $oVectorOfVec4w.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfVec2i
@@ -36824,7 +36824,7 @@ AutoIt:
 std::vector<int> VectorOfVec2i::Keys()
 
 AutoIt:
-    $vectorOfVec2i.Keys() -> retval
+    $oVectorOfVec2i.Keys() -> retval
 ```
 
 ### VectorOfVec2i::Items
@@ -36833,7 +36833,7 @@ AutoIt:
 VectorOfVec2i VectorOfVec2i::Items()
 
 AutoIt:
-    $vectorOfVec2i.Items() -> retval
+    $oVectorOfVec2i.Items() -> retval
 ```
 
 ### VectorOfVec2i::push_back
@@ -36842,7 +36842,7 @@ AutoIt:
 void VectorOfVec2i::push_back( cv::Vec2i value )
 
 AutoIt:
-    $vectorOfVec2i.push_back( $value ) -> None
+    $oVectorOfVec2i.push_back( $value ) -> None
 ```
 
 ### VectorOfVec2i::Add
@@ -36851,7 +36851,7 @@ AutoIt:
 void VectorOfVec2i::Add( cv::Vec2i value )
 
 AutoIt:
-    $vectorOfVec2i.Add( $value ) -> None
+    $oVectorOfVec2i.Add( $value ) -> None
 ```
 
 ### VectorOfVec2i::Remove
@@ -36860,7 +36860,7 @@ AutoIt:
 void VectorOfVec2i::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVec2i.Remove( $index ) -> None
+    $oVectorOfVec2i.Remove( $index ) -> None
 ```
 
 ### VectorOfVec2i::at
@@ -36869,7 +36869,7 @@ AutoIt:
 cv::Vec2i VectorOfVec2i::at( size_t index )
 
 AutoIt:
-    $vectorOfVec2i.at( $index ) -> retval
+    $oVectorOfVec2i.at( $index ) -> retval
 ```
 
 ```cpp
@@ -36877,7 +36877,7 @@ void VectorOfVec2i::at( size_t    index,
                         cv::Vec2i value )
 
 AutoIt:
-    $vectorOfVec2i.at( $index, $value ) -> None
+    $oVectorOfVec2i.at( $index, $value ) -> None
 ```
 
 ### VectorOfVec2i::size
@@ -36886,7 +36886,7 @@ AutoIt:
 size_t VectorOfVec2i::size()
 
 AutoIt:
-    $vectorOfVec2i.size() -> retval
+    $oVectorOfVec2i.size() -> retval
 ```
 
 ### VectorOfVec2i::empty
@@ -36895,7 +36895,7 @@ AutoIt:
 bool VectorOfVec2i::empty()
 
 AutoIt:
-    $vectorOfVec2i.empty() -> retval
+    $oVectorOfVec2i.empty() -> retval
 ```
 
 ### VectorOfVec2i::clear
@@ -36904,7 +36904,7 @@ AutoIt:
 void VectorOfVec2i::clear()
 
 AutoIt:
-    $vectorOfVec2i.clear() -> None
+    $oVectorOfVec2i.clear() -> None
 ```
 
 ### VectorOfVec2i::push_vector
@@ -36913,7 +36913,7 @@ AutoIt:
 void VectorOfVec2i::push_vector( VectorOfVec2i other )
 
 AutoIt:
-    $vectorOfVec2i.push_vector( $other ) -> None
+    $oVectorOfVec2i.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -36922,7 +36922,7 @@ void VectorOfVec2i::push_vector( VectorOfVec2i other,
                                  size_t        start = 0 )
 
 AutoIt:
-    $vectorOfVec2i.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVec2i.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVec2i::slice
@@ -36932,7 +36932,7 @@ VectorOfVec2i VectorOfVec2i::slice( size_t start = 0,
                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec2i.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVec2i.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVec2i::sort
@@ -36943,7 +36943,7 @@ void VectorOfVec2i::sort( void*  comparator,
                           size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec2i.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec2i.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec2i::sort_variant
@@ -36954,7 +36954,7 @@ void VectorOfVec2i::sort_variant( void*  comparator,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec2i.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec2i.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec2i::start
@@ -36963,7 +36963,7 @@ AutoIt:
 void* VectorOfVec2i::start()
 
 AutoIt:
-    $vectorOfVec2i.start() -> retval
+    $oVectorOfVec2i.start() -> retval
 ```
 
 ### VectorOfVec2i::end
@@ -36972,7 +36972,7 @@ AutoIt:
 void* VectorOfVec2i::end()
 
 AutoIt:
-    $vectorOfVec2i.end() -> retval
+    $oVectorOfVec2i.end() -> retval
 ```
 
 ### VectorOfVec2i::get_Item
@@ -36981,7 +36981,7 @@ AutoIt:
 cv::Vec2i VectorOfVec2i::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVec2i.Item( $vIndex ) -> retval
+    $oVectorOfVec2i.Item( $vIndex ) -> retval
     VectorOfVec2i( $vIndex ) -> retval
 ```
 
@@ -36992,7 +36992,7 @@ void VectorOfVec2i::put_Item( size_t    vIndex,
                               cv::Vec2i vItem )
 
 AutoIt:
-    $vectorOfVec2i.Item( $vIndex ) = $$vItem
+    $oVectorOfVec2i.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfVec3i
@@ -37026,7 +37026,7 @@ AutoIt:
 std::vector<int> VectorOfVec3i::Keys()
 
 AutoIt:
-    $vectorOfVec3i.Keys() -> retval
+    $oVectorOfVec3i.Keys() -> retval
 ```
 
 ### VectorOfVec3i::Items
@@ -37035,7 +37035,7 @@ AutoIt:
 VectorOfVec3i VectorOfVec3i::Items()
 
 AutoIt:
-    $vectorOfVec3i.Items() -> retval
+    $oVectorOfVec3i.Items() -> retval
 ```
 
 ### VectorOfVec3i::push_back
@@ -37044,7 +37044,7 @@ AutoIt:
 void VectorOfVec3i::push_back( cv::Vec3i value )
 
 AutoIt:
-    $vectorOfVec3i.push_back( $value ) -> None
+    $oVectorOfVec3i.push_back( $value ) -> None
 ```
 
 ### VectorOfVec3i::Add
@@ -37053,7 +37053,7 @@ AutoIt:
 void VectorOfVec3i::Add( cv::Vec3i value )
 
 AutoIt:
-    $vectorOfVec3i.Add( $value ) -> None
+    $oVectorOfVec3i.Add( $value ) -> None
 ```
 
 ### VectorOfVec3i::Remove
@@ -37062,7 +37062,7 @@ AutoIt:
 void VectorOfVec3i::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVec3i.Remove( $index ) -> None
+    $oVectorOfVec3i.Remove( $index ) -> None
 ```
 
 ### VectorOfVec3i::at
@@ -37071,7 +37071,7 @@ AutoIt:
 cv::Vec3i VectorOfVec3i::at( size_t index )
 
 AutoIt:
-    $vectorOfVec3i.at( $index ) -> retval
+    $oVectorOfVec3i.at( $index ) -> retval
 ```
 
 ```cpp
@@ -37079,7 +37079,7 @@ void VectorOfVec3i::at( size_t    index,
                         cv::Vec3i value )
 
 AutoIt:
-    $vectorOfVec3i.at( $index, $value ) -> None
+    $oVectorOfVec3i.at( $index, $value ) -> None
 ```
 
 ### VectorOfVec3i::size
@@ -37088,7 +37088,7 @@ AutoIt:
 size_t VectorOfVec3i::size()
 
 AutoIt:
-    $vectorOfVec3i.size() -> retval
+    $oVectorOfVec3i.size() -> retval
 ```
 
 ### VectorOfVec3i::empty
@@ -37097,7 +37097,7 @@ AutoIt:
 bool VectorOfVec3i::empty()
 
 AutoIt:
-    $vectorOfVec3i.empty() -> retval
+    $oVectorOfVec3i.empty() -> retval
 ```
 
 ### VectorOfVec3i::clear
@@ -37106,7 +37106,7 @@ AutoIt:
 void VectorOfVec3i::clear()
 
 AutoIt:
-    $vectorOfVec3i.clear() -> None
+    $oVectorOfVec3i.clear() -> None
 ```
 
 ### VectorOfVec3i::push_vector
@@ -37115,7 +37115,7 @@ AutoIt:
 void VectorOfVec3i::push_vector( VectorOfVec3i other )
 
 AutoIt:
-    $vectorOfVec3i.push_vector( $other ) -> None
+    $oVectorOfVec3i.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -37124,7 +37124,7 @@ void VectorOfVec3i::push_vector( VectorOfVec3i other,
                                  size_t        start = 0 )
 
 AutoIt:
-    $vectorOfVec3i.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVec3i.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVec3i::slice
@@ -37134,7 +37134,7 @@ VectorOfVec3i VectorOfVec3i::slice( size_t start = 0,
                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec3i.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVec3i.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVec3i::sort
@@ -37145,7 +37145,7 @@ void VectorOfVec3i::sort( void*  comparator,
                           size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec3i.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec3i.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec3i::sort_variant
@@ -37156,7 +37156,7 @@ void VectorOfVec3i::sort_variant( void*  comparator,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec3i.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec3i.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec3i::start
@@ -37165,7 +37165,7 @@ AutoIt:
 void* VectorOfVec3i::start()
 
 AutoIt:
-    $vectorOfVec3i.start() -> retval
+    $oVectorOfVec3i.start() -> retval
 ```
 
 ### VectorOfVec3i::end
@@ -37174,7 +37174,7 @@ AutoIt:
 void* VectorOfVec3i::end()
 
 AutoIt:
-    $vectorOfVec3i.end() -> retval
+    $oVectorOfVec3i.end() -> retval
 ```
 
 ### VectorOfVec3i::get_Item
@@ -37183,7 +37183,7 @@ AutoIt:
 cv::Vec3i VectorOfVec3i::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVec3i.Item( $vIndex ) -> retval
+    $oVectorOfVec3i.Item( $vIndex ) -> retval
     VectorOfVec3i( $vIndex ) -> retval
 ```
 
@@ -37194,7 +37194,7 @@ void VectorOfVec3i::put_Item( size_t    vIndex,
                               cv::Vec3i vItem )
 
 AutoIt:
-    $vectorOfVec3i.Item( $vIndex ) = $$vItem
+    $oVectorOfVec3i.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfVec4i
@@ -37228,7 +37228,7 @@ AutoIt:
 std::vector<int> VectorOfVec4i::Keys()
 
 AutoIt:
-    $vectorOfVec4i.Keys() -> retval
+    $oVectorOfVec4i.Keys() -> retval
 ```
 
 ### VectorOfVec4i::Items
@@ -37237,7 +37237,7 @@ AutoIt:
 VectorOfVec4i VectorOfVec4i::Items()
 
 AutoIt:
-    $vectorOfVec4i.Items() -> retval
+    $oVectorOfVec4i.Items() -> retval
 ```
 
 ### VectorOfVec4i::push_back
@@ -37246,7 +37246,7 @@ AutoIt:
 void VectorOfVec4i::push_back( cv::Vec4i value )
 
 AutoIt:
-    $vectorOfVec4i.push_back( $value ) -> None
+    $oVectorOfVec4i.push_back( $value ) -> None
 ```
 
 ### VectorOfVec4i::Add
@@ -37255,7 +37255,7 @@ AutoIt:
 void VectorOfVec4i::Add( cv::Vec4i value )
 
 AutoIt:
-    $vectorOfVec4i.Add( $value ) -> None
+    $oVectorOfVec4i.Add( $value ) -> None
 ```
 
 ### VectorOfVec4i::Remove
@@ -37264,7 +37264,7 @@ AutoIt:
 void VectorOfVec4i::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVec4i.Remove( $index ) -> None
+    $oVectorOfVec4i.Remove( $index ) -> None
 ```
 
 ### VectorOfVec4i::at
@@ -37273,7 +37273,7 @@ AutoIt:
 cv::Vec4i VectorOfVec4i::at( size_t index )
 
 AutoIt:
-    $vectorOfVec4i.at( $index ) -> retval
+    $oVectorOfVec4i.at( $index ) -> retval
 ```
 
 ```cpp
@@ -37281,7 +37281,7 @@ void VectorOfVec4i::at( size_t    index,
                         cv::Vec4i value )
 
 AutoIt:
-    $vectorOfVec4i.at( $index, $value ) -> None
+    $oVectorOfVec4i.at( $index, $value ) -> None
 ```
 
 ### VectorOfVec4i::size
@@ -37290,7 +37290,7 @@ AutoIt:
 size_t VectorOfVec4i::size()
 
 AutoIt:
-    $vectorOfVec4i.size() -> retval
+    $oVectorOfVec4i.size() -> retval
 ```
 
 ### VectorOfVec4i::empty
@@ -37299,7 +37299,7 @@ AutoIt:
 bool VectorOfVec4i::empty()
 
 AutoIt:
-    $vectorOfVec4i.empty() -> retval
+    $oVectorOfVec4i.empty() -> retval
 ```
 
 ### VectorOfVec4i::clear
@@ -37308,7 +37308,7 @@ AutoIt:
 void VectorOfVec4i::clear()
 
 AutoIt:
-    $vectorOfVec4i.clear() -> None
+    $oVectorOfVec4i.clear() -> None
 ```
 
 ### VectorOfVec4i::push_vector
@@ -37317,7 +37317,7 @@ AutoIt:
 void VectorOfVec4i::push_vector( VectorOfVec4i other )
 
 AutoIt:
-    $vectorOfVec4i.push_vector( $other ) -> None
+    $oVectorOfVec4i.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -37326,7 +37326,7 @@ void VectorOfVec4i::push_vector( VectorOfVec4i other,
                                  size_t        start = 0 )
 
 AutoIt:
-    $vectorOfVec4i.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVec4i.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVec4i::slice
@@ -37336,7 +37336,7 @@ VectorOfVec4i VectorOfVec4i::slice( size_t start = 0,
                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec4i.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVec4i.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVec4i::sort
@@ -37347,7 +37347,7 @@ void VectorOfVec4i::sort( void*  comparator,
                           size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec4i.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec4i.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec4i::sort_variant
@@ -37358,7 +37358,7 @@ void VectorOfVec4i::sort_variant( void*  comparator,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec4i.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec4i.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec4i::start
@@ -37367,7 +37367,7 @@ AutoIt:
 void* VectorOfVec4i::start()
 
 AutoIt:
-    $vectorOfVec4i.start() -> retval
+    $oVectorOfVec4i.start() -> retval
 ```
 
 ### VectorOfVec4i::end
@@ -37376,7 +37376,7 @@ AutoIt:
 void* VectorOfVec4i::end()
 
 AutoIt:
-    $vectorOfVec4i.end() -> retval
+    $oVectorOfVec4i.end() -> retval
 ```
 
 ### VectorOfVec4i::get_Item
@@ -37385,7 +37385,7 @@ AutoIt:
 cv::Vec4i VectorOfVec4i::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVec4i.Item( $vIndex ) -> retval
+    $oVectorOfVec4i.Item( $vIndex ) -> retval
     VectorOfVec4i( $vIndex ) -> retval
 ```
 
@@ -37396,7 +37396,7 @@ void VectorOfVec4i::put_Item( size_t    vIndex,
                               cv::Vec4i vItem )
 
 AutoIt:
-    $vectorOfVec4i.Item( $vIndex ) = $$vItem
+    $oVectorOfVec4i.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfVec6i
@@ -37430,7 +37430,7 @@ AutoIt:
 std::vector<int> VectorOfVec6i::Keys()
 
 AutoIt:
-    $vectorOfVec6i.Keys() -> retval
+    $oVectorOfVec6i.Keys() -> retval
 ```
 
 ### VectorOfVec6i::Items
@@ -37439,7 +37439,7 @@ AutoIt:
 VectorOfVec6i VectorOfVec6i::Items()
 
 AutoIt:
-    $vectorOfVec6i.Items() -> retval
+    $oVectorOfVec6i.Items() -> retval
 ```
 
 ### VectorOfVec6i::push_back
@@ -37448,7 +37448,7 @@ AutoIt:
 void VectorOfVec6i::push_back( cv::Vec6i value )
 
 AutoIt:
-    $vectorOfVec6i.push_back( $value ) -> None
+    $oVectorOfVec6i.push_back( $value ) -> None
 ```
 
 ### VectorOfVec6i::Add
@@ -37457,7 +37457,7 @@ AutoIt:
 void VectorOfVec6i::Add( cv::Vec6i value )
 
 AutoIt:
-    $vectorOfVec6i.Add( $value ) -> None
+    $oVectorOfVec6i.Add( $value ) -> None
 ```
 
 ### VectorOfVec6i::Remove
@@ -37466,7 +37466,7 @@ AutoIt:
 void VectorOfVec6i::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVec6i.Remove( $index ) -> None
+    $oVectorOfVec6i.Remove( $index ) -> None
 ```
 
 ### VectorOfVec6i::at
@@ -37475,7 +37475,7 @@ AutoIt:
 cv::Vec6i VectorOfVec6i::at( size_t index )
 
 AutoIt:
-    $vectorOfVec6i.at( $index ) -> retval
+    $oVectorOfVec6i.at( $index ) -> retval
 ```
 
 ```cpp
@@ -37483,7 +37483,7 @@ void VectorOfVec6i::at( size_t    index,
                         cv::Vec6i value )
 
 AutoIt:
-    $vectorOfVec6i.at( $index, $value ) -> None
+    $oVectorOfVec6i.at( $index, $value ) -> None
 ```
 
 ### VectorOfVec6i::size
@@ -37492,7 +37492,7 @@ AutoIt:
 size_t VectorOfVec6i::size()
 
 AutoIt:
-    $vectorOfVec6i.size() -> retval
+    $oVectorOfVec6i.size() -> retval
 ```
 
 ### VectorOfVec6i::empty
@@ -37501,7 +37501,7 @@ AutoIt:
 bool VectorOfVec6i::empty()
 
 AutoIt:
-    $vectorOfVec6i.empty() -> retval
+    $oVectorOfVec6i.empty() -> retval
 ```
 
 ### VectorOfVec6i::clear
@@ -37510,7 +37510,7 @@ AutoIt:
 void VectorOfVec6i::clear()
 
 AutoIt:
-    $vectorOfVec6i.clear() -> None
+    $oVectorOfVec6i.clear() -> None
 ```
 
 ### VectorOfVec6i::push_vector
@@ -37519,7 +37519,7 @@ AutoIt:
 void VectorOfVec6i::push_vector( VectorOfVec6i other )
 
 AutoIt:
-    $vectorOfVec6i.push_vector( $other ) -> None
+    $oVectorOfVec6i.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -37528,7 +37528,7 @@ void VectorOfVec6i::push_vector( VectorOfVec6i other,
                                  size_t        start = 0 )
 
 AutoIt:
-    $vectorOfVec6i.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVec6i.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVec6i::slice
@@ -37538,7 +37538,7 @@ VectorOfVec6i VectorOfVec6i::slice( size_t start = 0,
                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec6i.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVec6i.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVec6i::sort
@@ -37549,7 +37549,7 @@ void VectorOfVec6i::sort( void*  comparator,
                           size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec6i.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec6i.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec6i::sort_variant
@@ -37560,7 +37560,7 @@ void VectorOfVec6i::sort_variant( void*  comparator,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec6i.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec6i.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec6i::start
@@ -37569,7 +37569,7 @@ AutoIt:
 void* VectorOfVec6i::start()
 
 AutoIt:
-    $vectorOfVec6i.start() -> retval
+    $oVectorOfVec6i.start() -> retval
 ```
 
 ### VectorOfVec6i::end
@@ -37578,7 +37578,7 @@ AutoIt:
 void* VectorOfVec6i::end()
 
 AutoIt:
-    $vectorOfVec6i.end() -> retval
+    $oVectorOfVec6i.end() -> retval
 ```
 
 ### VectorOfVec6i::get_Item
@@ -37587,7 +37587,7 @@ AutoIt:
 cv::Vec6i VectorOfVec6i::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVec6i.Item( $vIndex ) -> retval
+    $oVectorOfVec6i.Item( $vIndex ) -> retval
     VectorOfVec6i( $vIndex ) -> retval
 ```
 
@@ -37598,7 +37598,7 @@ void VectorOfVec6i::put_Item( size_t    vIndex,
                               cv::Vec6i vItem )
 
 AutoIt:
-    $vectorOfVec6i.Item( $vIndex ) = $$vItem
+    $oVectorOfVec6i.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfVec8i
@@ -37632,7 +37632,7 @@ AutoIt:
 std::vector<int> VectorOfVec8i::Keys()
 
 AutoIt:
-    $vectorOfVec8i.Keys() -> retval
+    $oVectorOfVec8i.Keys() -> retval
 ```
 
 ### VectorOfVec8i::Items
@@ -37641,7 +37641,7 @@ AutoIt:
 VectorOfVec8i VectorOfVec8i::Items()
 
 AutoIt:
-    $vectorOfVec8i.Items() -> retval
+    $oVectorOfVec8i.Items() -> retval
 ```
 
 ### VectorOfVec8i::push_back
@@ -37650,7 +37650,7 @@ AutoIt:
 void VectorOfVec8i::push_back( cv::Vec8i value )
 
 AutoIt:
-    $vectorOfVec8i.push_back( $value ) -> None
+    $oVectorOfVec8i.push_back( $value ) -> None
 ```
 
 ### VectorOfVec8i::Add
@@ -37659,7 +37659,7 @@ AutoIt:
 void VectorOfVec8i::Add( cv::Vec8i value )
 
 AutoIt:
-    $vectorOfVec8i.Add( $value ) -> None
+    $oVectorOfVec8i.Add( $value ) -> None
 ```
 
 ### VectorOfVec8i::Remove
@@ -37668,7 +37668,7 @@ AutoIt:
 void VectorOfVec8i::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVec8i.Remove( $index ) -> None
+    $oVectorOfVec8i.Remove( $index ) -> None
 ```
 
 ### VectorOfVec8i::at
@@ -37677,7 +37677,7 @@ AutoIt:
 cv::Vec8i VectorOfVec8i::at( size_t index )
 
 AutoIt:
-    $vectorOfVec8i.at( $index ) -> retval
+    $oVectorOfVec8i.at( $index ) -> retval
 ```
 
 ```cpp
@@ -37685,7 +37685,7 @@ void VectorOfVec8i::at( size_t    index,
                         cv::Vec8i value )
 
 AutoIt:
-    $vectorOfVec8i.at( $index, $value ) -> None
+    $oVectorOfVec8i.at( $index, $value ) -> None
 ```
 
 ### VectorOfVec8i::size
@@ -37694,7 +37694,7 @@ AutoIt:
 size_t VectorOfVec8i::size()
 
 AutoIt:
-    $vectorOfVec8i.size() -> retval
+    $oVectorOfVec8i.size() -> retval
 ```
 
 ### VectorOfVec8i::empty
@@ -37703,7 +37703,7 @@ AutoIt:
 bool VectorOfVec8i::empty()
 
 AutoIt:
-    $vectorOfVec8i.empty() -> retval
+    $oVectorOfVec8i.empty() -> retval
 ```
 
 ### VectorOfVec8i::clear
@@ -37712,7 +37712,7 @@ AutoIt:
 void VectorOfVec8i::clear()
 
 AutoIt:
-    $vectorOfVec8i.clear() -> None
+    $oVectorOfVec8i.clear() -> None
 ```
 
 ### VectorOfVec8i::push_vector
@@ -37721,7 +37721,7 @@ AutoIt:
 void VectorOfVec8i::push_vector( VectorOfVec8i other )
 
 AutoIt:
-    $vectorOfVec8i.push_vector( $other ) -> None
+    $oVectorOfVec8i.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -37730,7 +37730,7 @@ void VectorOfVec8i::push_vector( VectorOfVec8i other,
                                  size_t        start = 0 )
 
 AutoIt:
-    $vectorOfVec8i.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVec8i.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVec8i::slice
@@ -37740,7 +37740,7 @@ VectorOfVec8i VectorOfVec8i::slice( size_t start = 0,
                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec8i.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVec8i.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVec8i::sort
@@ -37751,7 +37751,7 @@ void VectorOfVec8i::sort( void*  comparator,
                           size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec8i.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec8i.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec8i::sort_variant
@@ -37762,7 +37762,7 @@ void VectorOfVec8i::sort_variant( void*  comparator,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec8i.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec8i.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec8i::start
@@ -37771,7 +37771,7 @@ AutoIt:
 void* VectorOfVec8i::start()
 
 AutoIt:
-    $vectorOfVec8i.start() -> retval
+    $oVectorOfVec8i.start() -> retval
 ```
 
 ### VectorOfVec8i::end
@@ -37780,7 +37780,7 @@ AutoIt:
 void* VectorOfVec8i::end()
 
 AutoIt:
-    $vectorOfVec8i.end() -> retval
+    $oVectorOfVec8i.end() -> retval
 ```
 
 ### VectorOfVec8i::get_Item
@@ -37789,7 +37789,7 @@ AutoIt:
 cv::Vec8i VectorOfVec8i::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVec8i.Item( $vIndex ) -> retval
+    $oVectorOfVec8i.Item( $vIndex ) -> retval
     VectorOfVec8i( $vIndex ) -> retval
 ```
 
@@ -37800,7 +37800,7 @@ void VectorOfVec8i::put_Item( size_t    vIndex,
                               cv::Vec8i vItem )
 
 AutoIt:
-    $vectorOfVec8i.Item( $vIndex ) = $$vItem
+    $oVectorOfVec8i.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfVec2f
@@ -37834,7 +37834,7 @@ AutoIt:
 std::vector<int> VectorOfVec2f::Keys()
 
 AutoIt:
-    $vectorOfVec2f.Keys() -> retval
+    $oVectorOfVec2f.Keys() -> retval
 ```
 
 ### VectorOfVec2f::Items
@@ -37843,7 +37843,7 @@ AutoIt:
 VectorOfVec2f VectorOfVec2f::Items()
 
 AutoIt:
-    $vectorOfVec2f.Items() -> retval
+    $oVectorOfVec2f.Items() -> retval
 ```
 
 ### VectorOfVec2f::push_back
@@ -37852,7 +37852,7 @@ AutoIt:
 void VectorOfVec2f::push_back( cv::Vec2f value )
 
 AutoIt:
-    $vectorOfVec2f.push_back( $value ) -> None
+    $oVectorOfVec2f.push_back( $value ) -> None
 ```
 
 ### VectorOfVec2f::Add
@@ -37861,7 +37861,7 @@ AutoIt:
 void VectorOfVec2f::Add( cv::Vec2f value )
 
 AutoIt:
-    $vectorOfVec2f.Add( $value ) -> None
+    $oVectorOfVec2f.Add( $value ) -> None
 ```
 
 ### VectorOfVec2f::Remove
@@ -37870,7 +37870,7 @@ AutoIt:
 void VectorOfVec2f::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVec2f.Remove( $index ) -> None
+    $oVectorOfVec2f.Remove( $index ) -> None
 ```
 
 ### VectorOfVec2f::at
@@ -37879,7 +37879,7 @@ AutoIt:
 cv::Vec2f VectorOfVec2f::at( size_t index )
 
 AutoIt:
-    $vectorOfVec2f.at( $index ) -> retval
+    $oVectorOfVec2f.at( $index ) -> retval
 ```
 
 ```cpp
@@ -37887,7 +37887,7 @@ void VectorOfVec2f::at( size_t    index,
                         cv::Vec2f value )
 
 AutoIt:
-    $vectorOfVec2f.at( $index, $value ) -> None
+    $oVectorOfVec2f.at( $index, $value ) -> None
 ```
 
 ### VectorOfVec2f::size
@@ -37896,7 +37896,7 @@ AutoIt:
 size_t VectorOfVec2f::size()
 
 AutoIt:
-    $vectorOfVec2f.size() -> retval
+    $oVectorOfVec2f.size() -> retval
 ```
 
 ### VectorOfVec2f::empty
@@ -37905,7 +37905,7 @@ AutoIt:
 bool VectorOfVec2f::empty()
 
 AutoIt:
-    $vectorOfVec2f.empty() -> retval
+    $oVectorOfVec2f.empty() -> retval
 ```
 
 ### VectorOfVec2f::clear
@@ -37914,7 +37914,7 @@ AutoIt:
 void VectorOfVec2f::clear()
 
 AutoIt:
-    $vectorOfVec2f.clear() -> None
+    $oVectorOfVec2f.clear() -> None
 ```
 
 ### VectorOfVec2f::push_vector
@@ -37923,7 +37923,7 @@ AutoIt:
 void VectorOfVec2f::push_vector( VectorOfVec2f other )
 
 AutoIt:
-    $vectorOfVec2f.push_vector( $other ) -> None
+    $oVectorOfVec2f.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -37932,7 +37932,7 @@ void VectorOfVec2f::push_vector( VectorOfVec2f other,
                                  size_t        start = 0 )
 
 AutoIt:
-    $vectorOfVec2f.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVec2f.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVec2f::slice
@@ -37942,7 +37942,7 @@ VectorOfVec2f VectorOfVec2f::slice( size_t start = 0,
                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec2f.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVec2f.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVec2f::sort
@@ -37953,7 +37953,7 @@ void VectorOfVec2f::sort( void*  comparator,
                           size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec2f.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec2f.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec2f::sort_variant
@@ -37964,7 +37964,7 @@ void VectorOfVec2f::sort_variant( void*  comparator,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec2f.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec2f.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec2f::start
@@ -37973,7 +37973,7 @@ AutoIt:
 void* VectorOfVec2f::start()
 
 AutoIt:
-    $vectorOfVec2f.start() -> retval
+    $oVectorOfVec2f.start() -> retval
 ```
 
 ### VectorOfVec2f::end
@@ -37982,7 +37982,7 @@ AutoIt:
 void* VectorOfVec2f::end()
 
 AutoIt:
-    $vectorOfVec2f.end() -> retval
+    $oVectorOfVec2f.end() -> retval
 ```
 
 ### VectorOfVec2f::get_Item
@@ -37991,7 +37991,7 @@ AutoIt:
 cv::Vec2f VectorOfVec2f::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVec2f.Item( $vIndex ) -> retval
+    $oVectorOfVec2f.Item( $vIndex ) -> retval
     VectorOfVec2f( $vIndex ) -> retval
 ```
 
@@ -38002,7 +38002,7 @@ void VectorOfVec2f::put_Item( size_t    vIndex,
                               cv::Vec2f vItem )
 
 AutoIt:
-    $vectorOfVec2f.Item( $vIndex ) = $$vItem
+    $oVectorOfVec2f.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfVec3f
@@ -38036,7 +38036,7 @@ AutoIt:
 std::vector<int> VectorOfVec3f::Keys()
 
 AutoIt:
-    $vectorOfVec3f.Keys() -> retval
+    $oVectorOfVec3f.Keys() -> retval
 ```
 
 ### VectorOfVec3f::Items
@@ -38045,7 +38045,7 @@ AutoIt:
 VectorOfVec3f VectorOfVec3f::Items()
 
 AutoIt:
-    $vectorOfVec3f.Items() -> retval
+    $oVectorOfVec3f.Items() -> retval
 ```
 
 ### VectorOfVec3f::push_back
@@ -38054,7 +38054,7 @@ AutoIt:
 void VectorOfVec3f::push_back( cv::Vec3f value )
 
 AutoIt:
-    $vectorOfVec3f.push_back( $value ) -> None
+    $oVectorOfVec3f.push_back( $value ) -> None
 ```
 
 ### VectorOfVec3f::Add
@@ -38063,7 +38063,7 @@ AutoIt:
 void VectorOfVec3f::Add( cv::Vec3f value )
 
 AutoIt:
-    $vectorOfVec3f.Add( $value ) -> None
+    $oVectorOfVec3f.Add( $value ) -> None
 ```
 
 ### VectorOfVec3f::Remove
@@ -38072,7 +38072,7 @@ AutoIt:
 void VectorOfVec3f::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVec3f.Remove( $index ) -> None
+    $oVectorOfVec3f.Remove( $index ) -> None
 ```
 
 ### VectorOfVec3f::at
@@ -38081,7 +38081,7 @@ AutoIt:
 cv::Vec3f VectorOfVec3f::at( size_t index )
 
 AutoIt:
-    $vectorOfVec3f.at( $index ) -> retval
+    $oVectorOfVec3f.at( $index ) -> retval
 ```
 
 ```cpp
@@ -38089,7 +38089,7 @@ void VectorOfVec3f::at( size_t    index,
                         cv::Vec3f value )
 
 AutoIt:
-    $vectorOfVec3f.at( $index, $value ) -> None
+    $oVectorOfVec3f.at( $index, $value ) -> None
 ```
 
 ### VectorOfVec3f::size
@@ -38098,7 +38098,7 @@ AutoIt:
 size_t VectorOfVec3f::size()
 
 AutoIt:
-    $vectorOfVec3f.size() -> retval
+    $oVectorOfVec3f.size() -> retval
 ```
 
 ### VectorOfVec3f::empty
@@ -38107,7 +38107,7 @@ AutoIt:
 bool VectorOfVec3f::empty()
 
 AutoIt:
-    $vectorOfVec3f.empty() -> retval
+    $oVectorOfVec3f.empty() -> retval
 ```
 
 ### VectorOfVec3f::clear
@@ -38116,7 +38116,7 @@ AutoIt:
 void VectorOfVec3f::clear()
 
 AutoIt:
-    $vectorOfVec3f.clear() -> None
+    $oVectorOfVec3f.clear() -> None
 ```
 
 ### VectorOfVec3f::push_vector
@@ -38125,7 +38125,7 @@ AutoIt:
 void VectorOfVec3f::push_vector( VectorOfVec3f other )
 
 AutoIt:
-    $vectorOfVec3f.push_vector( $other ) -> None
+    $oVectorOfVec3f.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -38134,7 +38134,7 @@ void VectorOfVec3f::push_vector( VectorOfVec3f other,
                                  size_t        start = 0 )
 
 AutoIt:
-    $vectorOfVec3f.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVec3f.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVec3f::slice
@@ -38144,7 +38144,7 @@ VectorOfVec3f VectorOfVec3f::slice( size_t start = 0,
                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec3f.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVec3f.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVec3f::sort
@@ -38155,7 +38155,7 @@ void VectorOfVec3f::sort( void*  comparator,
                           size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec3f.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec3f.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec3f::sort_variant
@@ -38166,7 +38166,7 @@ void VectorOfVec3f::sort_variant( void*  comparator,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec3f.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec3f.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec3f::start
@@ -38175,7 +38175,7 @@ AutoIt:
 void* VectorOfVec3f::start()
 
 AutoIt:
-    $vectorOfVec3f.start() -> retval
+    $oVectorOfVec3f.start() -> retval
 ```
 
 ### VectorOfVec3f::end
@@ -38184,7 +38184,7 @@ AutoIt:
 void* VectorOfVec3f::end()
 
 AutoIt:
-    $vectorOfVec3f.end() -> retval
+    $oVectorOfVec3f.end() -> retval
 ```
 
 ### VectorOfVec3f::get_Item
@@ -38193,7 +38193,7 @@ AutoIt:
 cv::Vec3f VectorOfVec3f::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVec3f.Item( $vIndex ) -> retval
+    $oVectorOfVec3f.Item( $vIndex ) -> retval
     VectorOfVec3f( $vIndex ) -> retval
 ```
 
@@ -38204,7 +38204,7 @@ void VectorOfVec3f::put_Item( size_t    vIndex,
                               cv::Vec3f vItem )
 
 AutoIt:
-    $vectorOfVec3f.Item( $vIndex ) = $$vItem
+    $oVectorOfVec3f.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfVec4f
@@ -38238,7 +38238,7 @@ AutoIt:
 std::vector<int> VectorOfVec4f::Keys()
 
 AutoIt:
-    $vectorOfVec4f.Keys() -> retval
+    $oVectorOfVec4f.Keys() -> retval
 ```
 
 ### VectorOfVec4f::Items
@@ -38247,7 +38247,7 @@ AutoIt:
 VectorOfVec4f VectorOfVec4f::Items()
 
 AutoIt:
-    $vectorOfVec4f.Items() -> retval
+    $oVectorOfVec4f.Items() -> retval
 ```
 
 ### VectorOfVec4f::push_back
@@ -38256,7 +38256,7 @@ AutoIt:
 void VectorOfVec4f::push_back( cv::Vec4f value )
 
 AutoIt:
-    $vectorOfVec4f.push_back( $value ) -> None
+    $oVectorOfVec4f.push_back( $value ) -> None
 ```
 
 ### VectorOfVec4f::Add
@@ -38265,7 +38265,7 @@ AutoIt:
 void VectorOfVec4f::Add( cv::Vec4f value )
 
 AutoIt:
-    $vectorOfVec4f.Add( $value ) -> None
+    $oVectorOfVec4f.Add( $value ) -> None
 ```
 
 ### VectorOfVec4f::Remove
@@ -38274,7 +38274,7 @@ AutoIt:
 void VectorOfVec4f::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVec4f.Remove( $index ) -> None
+    $oVectorOfVec4f.Remove( $index ) -> None
 ```
 
 ### VectorOfVec4f::at
@@ -38283,7 +38283,7 @@ AutoIt:
 cv::Vec4f VectorOfVec4f::at( size_t index )
 
 AutoIt:
-    $vectorOfVec4f.at( $index ) -> retval
+    $oVectorOfVec4f.at( $index ) -> retval
 ```
 
 ```cpp
@@ -38291,7 +38291,7 @@ void VectorOfVec4f::at( size_t    index,
                         cv::Vec4f value )
 
 AutoIt:
-    $vectorOfVec4f.at( $index, $value ) -> None
+    $oVectorOfVec4f.at( $index, $value ) -> None
 ```
 
 ### VectorOfVec4f::size
@@ -38300,7 +38300,7 @@ AutoIt:
 size_t VectorOfVec4f::size()
 
 AutoIt:
-    $vectorOfVec4f.size() -> retval
+    $oVectorOfVec4f.size() -> retval
 ```
 
 ### VectorOfVec4f::empty
@@ -38309,7 +38309,7 @@ AutoIt:
 bool VectorOfVec4f::empty()
 
 AutoIt:
-    $vectorOfVec4f.empty() -> retval
+    $oVectorOfVec4f.empty() -> retval
 ```
 
 ### VectorOfVec4f::clear
@@ -38318,7 +38318,7 @@ AutoIt:
 void VectorOfVec4f::clear()
 
 AutoIt:
-    $vectorOfVec4f.clear() -> None
+    $oVectorOfVec4f.clear() -> None
 ```
 
 ### VectorOfVec4f::push_vector
@@ -38327,7 +38327,7 @@ AutoIt:
 void VectorOfVec4f::push_vector( VectorOfVec4f other )
 
 AutoIt:
-    $vectorOfVec4f.push_vector( $other ) -> None
+    $oVectorOfVec4f.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -38336,7 +38336,7 @@ void VectorOfVec4f::push_vector( VectorOfVec4f other,
                                  size_t        start = 0 )
 
 AutoIt:
-    $vectorOfVec4f.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVec4f.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVec4f::slice
@@ -38346,7 +38346,7 @@ VectorOfVec4f VectorOfVec4f::slice( size_t start = 0,
                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec4f.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVec4f.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVec4f::sort
@@ -38357,7 +38357,7 @@ void VectorOfVec4f::sort( void*  comparator,
                           size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec4f.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec4f.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec4f::sort_variant
@@ -38368,7 +38368,7 @@ void VectorOfVec4f::sort_variant( void*  comparator,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec4f.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec4f.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec4f::start
@@ -38377,7 +38377,7 @@ AutoIt:
 void* VectorOfVec4f::start()
 
 AutoIt:
-    $vectorOfVec4f.start() -> retval
+    $oVectorOfVec4f.start() -> retval
 ```
 
 ### VectorOfVec4f::end
@@ -38386,7 +38386,7 @@ AutoIt:
 void* VectorOfVec4f::end()
 
 AutoIt:
-    $vectorOfVec4f.end() -> retval
+    $oVectorOfVec4f.end() -> retval
 ```
 
 ### VectorOfVec4f::get_Item
@@ -38395,7 +38395,7 @@ AutoIt:
 cv::Vec4f VectorOfVec4f::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVec4f.Item( $vIndex ) -> retval
+    $oVectorOfVec4f.Item( $vIndex ) -> retval
     VectorOfVec4f( $vIndex ) -> retval
 ```
 
@@ -38406,7 +38406,7 @@ void VectorOfVec4f::put_Item( size_t    vIndex,
                               cv::Vec4f vItem )
 
 AutoIt:
-    $vectorOfVec4f.Item( $vIndex ) = $$vItem
+    $oVectorOfVec4f.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfVec6f
@@ -38440,7 +38440,7 @@ AutoIt:
 std::vector<int> VectorOfVec6f::Keys()
 
 AutoIt:
-    $vectorOfVec6f.Keys() -> retval
+    $oVectorOfVec6f.Keys() -> retval
 ```
 
 ### VectorOfVec6f::Items
@@ -38449,7 +38449,7 @@ AutoIt:
 VectorOfVec6f VectorOfVec6f::Items()
 
 AutoIt:
-    $vectorOfVec6f.Items() -> retval
+    $oVectorOfVec6f.Items() -> retval
 ```
 
 ### VectorOfVec6f::push_back
@@ -38458,7 +38458,7 @@ AutoIt:
 void VectorOfVec6f::push_back( cv::Vec6f value )
 
 AutoIt:
-    $vectorOfVec6f.push_back( $value ) -> None
+    $oVectorOfVec6f.push_back( $value ) -> None
 ```
 
 ### VectorOfVec6f::Add
@@ -38467,7 +38467,7 @@ AutoIt:
 void VectorOfVec6f::Add( cv::Vec6f value )
 
 AutoIt:
-    $vectorOfVec6f.Add( $value ) -> None
+    $oVectorOfVec6f.Add( $value ) -> None
 ```
 
 ### VectorOfVec6f::Remove
@@ -38476,7 +38476,7 @@ AutoIt:
 void VectorOfVec6f::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVec6f.Remove( $index ) -> None
+    $oVectorOfVec6f.Remove( $index ) -> None
 ```
 
 ### VectorOfVec6f::at
@@ -38485,7 +38485,7 @@ AutoIt:
 cv::Vec6f VectorOfVec6f::at( size_t index )
 
 AutoIt:
-    $vectorOfVec6f.at( $index ) -> retval
+    $oVectorOfVec6f.at( $index ) -> retval
 ```
 
 ```cpp
@@ -38493,7 +38493,7 @@ void VectorOfVec6f::at( size_t    index,
                         cv::Vec6f value )
 
 AutoIt:
-    $vectorOfVec6f.at( $index, $value ) -> None
+    $oVectorOfVec6f.at( $index, $value ) -> None
 ```
 
 ### VectorOfVec6f::size
@@ -38502,7 +38502,7 @@ AutoIt:
 size_t VectorOfVec6f::size()
 
 AutoIt:
-    $vectorOfVec6f.size() -> retval
+    $oVectorOfVec6f.size() -> retval
 ```
 
 ### VectorOfVec6f::empty
@@ -38511,7 +38511,7 @@ AutoIt:
 bool VectorOfVec6f::empty()
 
 AutoIt:
-    $vectorOfVec6f.empty() -> retval
+    $oVectorOfVec6f.empty() -> retval
 ```
 
 ### VectorOfVec6f::clear
@@ -38520,7 +38520,7 @@ AutoIt:
 void VectorOfVec6f::clear()
 
 AutoIt:
-    $vectorOfVec6f.clear() -> None
+    $oVectorOfVec6f.clear() -> None
 ```
 
 ### VectorOfVec6f::push_vector
@@ -38529,7 +38529,7 @@ AutoIt:
 void VectorOfVec6f::push_vector( VectorOfVec6f other )
 
 AutoIt:
-    $vectorOfVec6f.push_vector( $other ) -> None
+    $oVectorOfVec6f.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -38538,7 +38538,7 @@ void VectorOfVec6f::push_vector( VectorOfVec6f other,
                                  size_t        start = 0 )
 
 AutoIt:
-    $vectorOfVec6f.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVec6f.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVec6f::slice
@@ -38548,7 +38548,7 @@ VectorOfVec6f VectorOfVec6f::slice( size_t start = 0,
                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec6f.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVec6f.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVec6f::sort
@@ -38559,7 +38559,7 @@ void VectorOfVec6f::sort( void*  comparator,
                           size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec6f.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec6f.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec6f::sort_variant
@@ -38570,7 +38570,7 @@ void VectorOfVec6f::sort_variant( void*  comparator,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec6f.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec6f.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec6f::start
@@ -38579,7 +38579,7 @@ AutoIt:
 void* VectorOfVec6f::start()
 
 AutoIt:
-    $vectorOfVec6f.start() -> retval
+    $oVectorOfVec6f.start() -> retval
 ```
 
 ### VectorOfVec6f::end
@@ -38588,7 +38588,7 @@ AutoIt:
 void* VectorOfVec6f::end()
 
 AutoIt:
-    $vectorOfVec6f.end() -> retval
+    $oVectorOfVec6f.end() -> retval
 ```
 
 ### VectorOfVec6f::get_Item
@@ -38597,7 +38597,7 @@ AutoIt:
 cv::Vec6f VectorOfVec6f::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVec6f.Item( $vIndex ) -> retval
+    $oVectorOfVec6f.Item( $vIndex ) -> retval
     VectorOfVec6f( $vIndex ) -> retval
 ```
 
@@ -38608,7 +38608,7 @@ void VectorOfVec6f::put_Item( size_t    vIndex,
                               cv::Vec6f vItem )
 
 AutoIt:
-    $vectorOfVec6f.Item( $vIndex ) = $$vItem
+    $oVectorOfVec6f.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfVec2d
@@ -38642,7 +38642,7 @@ AutoIt:
 std::vector<int> VectorOfVec2d::Keys()
 
 AutoIt:
-    $vectorOfVec2d.Keys() -> retval
+    $oVectorOfVec2d.Keys() -> retval
 ```
 
 ### VectorOfVec2d::Items
@@ -38651,7 +38651,7 @@ AutoIt:
 VectorOfVec2d VectorOfVec2d::Items()
 
 AutoIt:
-    $vectorOfVec2d.Items() -> retval
+    $oVectorOfVec2d.Items() -> retval
 ```
 
 ### VectorOfVec2d::push_back
@@ -38660,7 +38660,7 @@ AutoIt:
 void VectorOfVec2d::push_back( cv::Vec2d value )
 
 AutoIt:
-    $vectorOfVec2d.push_back( $value ) -> None
+    $oVectorOfVec2d.push_back( $value ) -> None
 ```
 
 ### VectorOfVec2d::Add
@@ -38669,7 +38669,7 @@ AutoIt:
 void VectorOfVec2d::Add( cv::Vec2d value )
 
 AutoIt:
-    $vectorOfVec2d.Add( $value ) -> None
+    $oVectorOfVec2d.Add( $value ) -> None
 ```
 
 ### VectorOfVec2d::Remove
@@ -38678,7 +38678,7 @@ AutoIt:
 void VectorOfVec2d::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVec2d.Remove( $index ) -> None
+    $oVectorOfVec2d.Remove( $index ) -> None
 ```
 
 ### VectorOfVec2d::at
@@ -38687,7 +38687,7 @@ AutoIt:
 cv::Vec2d VectorOfVec2d::at( size_t index )
 
 AutoIt:
-    $vectorOfVec2d.at( $index ) -> retval
+    $oVectorOfVec2d.at( $index ) -> retval
 ```
 
 ```cpp
@@ -38695,7 +38695,7 @@ void VectorOfVec2d::at( size_t    index,
                         cv::Vec2d value )
 
 AutoIt:
-    $vectorOfVec2d.at( $index, $value ) -> None
+    $oVectorOfVec2d.at( $index, $value ) -> None
 ```
 
 ### VectorOfVec2d::size
@@ -38704,7 +38704,7 @@ AutoIt:
 size_t VectorOfVec2d::size()
 
 AutoIt:
-    $vectorOfVec2d.size() -> retval
+    $oVectorOfVec2d.size() -> retval
 ```
 
 ### VectorOfVec2d::empty
@@ -38713,7 +38713,7 @@ AutoIt:
 bool VectorOfVec2d::empty()
 
 AutoIt:
-    $vectorOfVec2d.empty() -> retval
+    $oVectorOfVec2d.empty() -> retval
 ```
 
 ### VectorOfVec2d::clear
@@ -38722,7 +38722,7 @@ AutoIt:
 void VectorOfVec2d::clear()
 
 AutoIt:
-    $vectorOfVec2d.clear() -> None
+    $oVectorOfVec2d.clear() -> None
 ```
 
 ### VectorOfVec2d::push_vector
@@ -38731,7 +38731,7 @@ AutoIt:
 void VectorOfVec2d::push_vector( VectorOfVec2d other )
 
 AutoIt:
-    $vectorOfVec2d.push_vector( $other ) -> None
+    $oVectorOfVec2d.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -38740,7 +38740,7 @@ void VectorOfVec2d::push_vector( VectorOfVec2d other,
                                  size_t        start = 0 )
 
 AutoIt:
-    $vectorOfVec2d.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVec2d.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVec2d::slice
@@ -38750,7 +38750,7 @@ VectorOfVec2d VectorOfVec2d::slice( size_t start = 0,
                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec2d.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVec2d.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVec2d::sort
@@ -38761,7 +38761,7 @@ void VectorOfVec2d::sort( void*  comparator,
                           size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec2d.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec2d.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec2d::sort_variant
@@ -38772,7 +38772,7 @@ void VectorOfVec2d::sort_variant( void*  comparator,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec2d.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec2d.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec2d::start
@@ -38781,7 +38781,7 @@ AutoIt:
 void* VectorOfVec2d::start()
 
 AutoIt:
-    $vectorOfVec2d.start() -> retval
+    $oVectorOfVec2d.start() -> retval
 ```
 
 ### VectorOfVec2d::end
@@ -38790,7 +38790,7 @@ AutoIt:
 void* VectorOfVec2d::end()
 
 AutoIt:
-    $vectorOfVec2d.end() -> retval
+    $oVectorOfVec2d.end() -> retval
 ```
 
 ### VectorOfVec2d::get_Item
@@ -38799,7 +38799,7 @@ AutoIt:
 cv::Vec2d VectorOfVec2d::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVec2d.Item( $vIndex ) -> retval
+    $oVectorOfVec2d.Item( $vIndex ) -> retval
     VectorOfVec2d( $vIndex ) -> retval
 ```
 
@@ -38810,7 +38810,7 @@ void VectorOfVec2d::put_Item( size_t    vIndex,
                               cv::Vec2d vItem )
 
 AutoIt:
-    $vectorOfVec2d.Item( $vIndex ) = $$vItem
+    $oVectorOfVec2d.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfVec3d
@@ -38844,7 +38844,7 @@ AutoIt:
 std::vector<int> VectorOfVec3d::Keys()
 
 AutoIt:
-    $vectorOfVec3d.Keys() -> retval
+    $oVectorOfVec3d.Keys() -> retval
 ```
 
 ### VectorOfVec3d::Items
@@ -38853,7 +38853,7 @@ AutoIt:
 VectorOfVec3d VectorOfVec3d::Items()
 
 AutoIt:
-    $vectorOfVec3d.Items() -> retval
+    $oVectorOfVec3d.Items() -> retval
 ```
 
 ### VectorOfVec3d::push_back
@@ -38862,7 +38862,7 @@ AutoIt:
 void VectorOfVec3d::push_back( cv::Vec3d value )
 
 AutoIt:
-    $vectorOfVec3d.push_back( $value ) -> None
+    $oVectorOfVec3d.push_back( $value ) -> None
 ```
 
 ### VectorOfVec3d::Add
@@ -38871,7 +38871,7 @@ AutoIt:
 void VectorOfVec3d::Add( cv::Vec3d value )
 
 AutoIt:
-    $vectorOfVec3d.Add( $value ) -> None
+    $oVectorOfVec3d.Add( $value ) -> None
 ```
 
 ### VectorOfVec3d::Remove
@@ -38880,7 +38880,7 @@ AutoIt:
 void VectorOfVec3d::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVec3d.Remove( $index ) -> None
+    $oVectorOfVec3d.Remove( $index ) -> None
 ```
 
 ### VectorOfVec3d::at
@@ -38889,7 +38889,7 @@ AutoIt:
 cv::Vec3d VectorOfVec3d::at( size_t index )
 
 AutoIt:
-    $vectorOfVec3d.at( $index ) -> retval
+    $oVectorOfVec3d.at( $index ) -> retval
 ```
 
 ```cpp
@@ -38897,7 +38897,7 @@ void VectorOfVec3d::at( size_t    index,
                         cv::Vec3d value )
 
 AutoIt:
-    $vectorOfVec3d.at( $index, $value ) -> None
+    $oVectorOfVec3d.at( $index, $value ) -> None
 ```
 
 ### VectorOfVec3d::size
@@ -38906,7 +38906,7 @@ AutoIt:
 size_t VectorOfVec3d::size()
 
 AutoIt:
-    $vectorOfVec3d.size() -> retval
+    $oVectorOfVec3d.size() -> retval
 ```
 
 ### VectorOfVec3d::empty
@@ -38915,7 +38915,7 @@ AutoIt:
 bool VectorOfVec3d::empty()
 
 AutoIt:
-    $vectorOfVec3d.empty() -> retval
+    $oVectorOfVec3d.empty() -> retval
 ```
 
 ### VectorOfVec3d::clear
@@ -38924,7 +38924,7 @@ AutoIt:
 void VectorOfVec3d::clear()
 
 AutoIt:
-    $vectorOfVec3d.clear() -> None
+    $oVectorOfVec3d.clear() -> None
 ```
 
 ### VectorOfVec3d::push_vector
@@ -38933,7 +38933,7 @@ AutoIt:
 void VectorOfVec3d::push_vector( VectorOfVec3d other )
 
 AutoIt:
-    $vectorOfVec3d.push_vector( $other ) -> None
+    $oVectorOfVec3d.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -38942,7 +38942,7 @@ void VectorOfVec3d::push_vector( VectorOfVec3d other,
                                  size_t        start = 0 )
 
 AutoIt:
-    $vectorOfVec3d.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVec3d.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVec3d::slice
@@ -38952,7 +38952,7 @@ VectorOfVec3d VectorOfVec3d::slice( size_t start = 0,
                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec3d.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVec3d.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVec3d::sort
@@ -38963,7 +38963,7 @@ void VectorOfVec3d::sort( void*  comparator,
                           size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec3d.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec3d.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec3d::sort_variant
@@ -38974,7 +38974,7 @@ void VectorOfVec3d::sort_variant( void*  comparator,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec3d.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec3d.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec3d::start
@@ -38983,7 +38983,7 @@ AutoIt:
 void* VectorOfVec3d::start()
 
 AutoIt:
-    $vectorOfVec3d.start() -> retval
+    $oVectorOfVec3d.start() -> retval
 ```
 
 ### VectorOfVec3d::end
@@ -38992,7 +38992,7 @@ AutoIt:
 void* VectorOfVec3d::end()
 
 AutoIt:
-    $vectorOfVec3d.end() -> retval
+    $oVectorOfVec3d.end() -> retval
 ```
 
 ### VectorOfVec3d::get_Item
@@ -39001,7 +39001,7 @@ AutoIt:
 cv::Vec3d VectorOfVec3d::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVec3d.Item( $vIndex ) -> retval
+    $oVectorOfVec3d.Item( $vIndex ) -> retval
     VectorOfVec3d( $vIndex ) -> retval
 ```
 
@@ -39012,7 +39012,7 @@ void VectorOfVec3d::put_Item( size_t    vIndex,
                               cv::Vec3d vItem )
 
 AutoIt:
-    $vectorOfVec3d.Item( $vIndex ) = $$vItem
+    $oVectorOfVec3d.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfVec4d
@@ -39046,7 +39046,7 @@ AutoIt:
 std::vector<int> VectorOfVec4d::Keys()
 
 AutoIt:
-    $vectorOfVec4d.Keys() -> retval
+    $oVectorOfVec4d.Keys() -> retval
 ```
 
 ### VectorOfVec4d::Items
@@ -39055,7 +39055,7 @@ AutoIt:
 VectorOfVec4d VectorOfVec4d::Items()
 
 AutoIt:
-    $vectorOfVec4d.Items() -> retval
+    $oVectorOfVec4d.Items() -> retval
 ```
 
 ### VectorOfVec4d::push_back
@@ -39064,7 +39064,7 @@ AutoIt:
 void VectorOfVec4d::push_back( cv::Vec4d value )
 
 AutoIt:
-    $vectorOfVec4d.push_back( $value ) -> None
+    $oVectorOfVec4d.push_back( $value ) -> None
 ```
 
 ### VectorOfVec4d::Add
@@ -39073,7 +39073,7 @@ AutoIt:
 void VectorOfVec4d::Add( cv::Vec4d value )
 
 AutoIt:
-    $vectorOfVec4d.Add( $value ) -> None
+    $oVectorOfVec4d.Add( $value ) -> None
 ```
 
 ### VectorOfVec4d::Remove
@@ -39082,7 +39082,7 @@ AutoIt:
 void VectorOfVec4d::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVec4d.Remove( $index ) -> None
+    $oVectorOfVec4d.Remove( $index ) -> None
 ```
 
 ### VectorOfVec4d::at
@@ -39091,7 +39091,7 @@ AutoIt:
 cv::Vec4d VectorOfVec4d::at( size_t index )
 
 AutoIt:
-    $vectorOfVec4d.at( $index ) -> retval
+    $oVectorOfVec4d.at( $index ) -> retval
 ```
 
 ```cpp
@@ -39099,7 +39099,7 @@ void VectorOfVec4d::at( size_t    index,
                         cv::Vec4d value )
 
 AutoIt:
-    $vectorOfVec4d.at( $index, $value ) -> None
+    $oVectorOfVec4d.at( $index, $value ) -> None
 ```
 
 ### VectorOfVec4d::size
@@ -39108,7 +39108,7 @@ AutoIt:
 size_t VectorOfVec4d::size()
 
 AutoIt:
-    $vectorOfVec4d.size() -> retval
+    $oVectorOfVec4d.size() -> retval
 ```
 
 ### VectorOfVec4d::empty
@@ -39117,7 +39117,7 @@ AutoIt:
 bool VectorOfVec4d::empty()
 
 AutoIt:
-    $vectorOfVec4d.empty() -> retval
+    $oVectorOfVec4d.empty() -> retval
 ```
 
 ### VectorOfVec4d::clear
@@ -39126,7 +39126,7 @@ AutoIt:
 void VectorOfVec4d::clear()
 
 AutoIt:
-    $vectorOfVec4d.clear() -> None
+    $oVectorOfVec4d.clear() -> None
 ```
 
 ### VectorOfVec4d::push_vector
@@ -39135,7 +39135,7 @@ AutoIt:
 void VectorOfVec4d::push_vector( VectorOfVec4d other )
 
 AutoIt:
-    $vectorOfVec4d.push_vector( $other ) -> None
+    $oVectorOfVec4d.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -39144,7 +39144,7 @@ void VectorOfVec4d::push_vector( VectorOfVec4d other,
                                  size_t        start = 0 )
 
 AutoIt:
-    $vectorOfVec4d.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVec4d.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVec4d::slice
@@ -39154,7 +39154,7 @@ VectorOfVec4d VectorOfVec4d::slice( size_t start = 0,
                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec4d.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVec4d.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVec4d::sort
@@ -39165,7 +39165,7 @@ void VectorOfVec4d::sort( void*  comparator,
                           size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec4d.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec4d.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec4d::sort_variant
@@ -39176,7 +39176,7 @@ void VectorOfVec4d::sort_variant( void*  comparator,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec4d.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec4d.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec4d::start
@@ -39185,7 +39185,7 @@ AutoIt:
 void* VectorOfVec4d::start()
 
 AutoIt:
-    $vectorOfVec4d.start() -> retval
+    $oVectorOfVec4d.start() -> retval
 ```
 
 ### VectorOfVec4d::end
@@ -39194,7 +39194,7 @@ AutoIt:
 void* VectorOfVec4d::end()
 
 AutoIt:
-    $vectorOfVec4d.end() -> retval
+    $oVectorOfVec4d.end() -> retval
 ```
 
 ### VectorOfVec4d::get_Item
@@ -39203,7 +39203,7 @@ AutoIt:
 cv::Vec4d VectorOfVec4d::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVec4d.Item( $vIndex ) -> retval
+    $oVectorOfVec4d.Item( $vIndex ) -> retval
     VectorOfVec4d( $vIndex ) -> retval
 ```
 
@@ -39214,7 +39214,7 @@ void VectorOfVec4d::put_Item( size_t    vIndex,
                               cv::Vec4d vItem )
 
 AutoIt:
-    $vectorOfVec4d.Item( $vIndex ) = $$vItem
+    $oVectorOfVec4d.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfVec6d
@@ -39248,7 +39248,7 @@ AutoIt:
 std::vector<int> VectorOfVec6d::Keys()
 
 AutoIt:
-    $vectorOfVec6d.Keys() -> retval
+    $oVectorOfVec6d.Keys() -> retval
 ```
 
 ### VectorOfVec6d::Items
@@ -39257,7 +39257,7 @@ AutoIt:
 VectorOfVec6d VectorOfVec6d::Items()
 
 AutoIt:
-    $vectorOfVec6d.Items() -> retval
+    $oVectorOfVec6d.Items() -> retval
 ```
 
 ### VectorOfVec6d::push_back
@@ -39266,7 +39266,7 @@ AutoIt:
 void VectorOfVec6d::push_back( cv::Vec6d value )
 
 AutoIt:
-    $vectorOfVec6d.push_back( $value ) -> None
+    $oVectorOfVec6d.push_back( $value ) -> None
 ```
 
 ### VectorOfVec6d::Add
@@ -39275,7 +39275,7 @@ AutoIt:
 void VectorOfVec6d::Add( cv::Vec6d value )
 
 AutoIt:
-    $vectorOfVec6d.Add( $value ) -> None
+    $oVectorOfVec6d.Add( $value ) -> None
 ```
 
 ### VectorOfVec6d::Remove
@@ -39284,7 +39284,7 @@ AutoIt:
 void VectorOfVec6d::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVec6d.Remove( $index ) -> None
+    $oVectorOfVec6d.Remove( $index ) -> None
 ```
 
 ### VectorOfVec6d::at
@@ -39293,7 +39293,7 @@ AutoIt:
 cv::Vec6d VectorOfVec6d::at( size_t index )
 
 AutoIt:
-    $vectorOfVec6d.at( $index ) -> retval
+    $oVectorOfVec6d.at( $index ) -> retval
 ```
 
 ```cpp
@@ -39301,7 +39301,7 @@ void VectorOfVec6d::at( size_t    index,
                         cv::Vec6d value )
 
 AutoIt:
-    $vectorOfVec6d.at( $index, $value ) -> None
+    $oVectorOfVec6d.at( $index, $value ) -> None
 ```
 
 ### VectorOfVec6d::size
@@ -39310,7 +39310,7 @@ AutoIt:
 size_t VectorOfVec6d::size()
 
 AutoIt:
-    $vectorOfVec6d.size() -> retval
+    $oVectorOfVec6d.size() -> retval
 ```
 
 ### VectorOfVec6d::empty
@@ -39319,7 +39319,7 @@ AutoIt:
 bool VectorOfVec6d::empty()
 
 AutoIt:
-    $vectorOfVec6d.empty() -> retval
+    $oVectorOfVec6d.empty() -> retval
 ```
 
 ### VectorOfVec6d::clear
@@ -39328,7 +39328,7 @@ AutoIt:
 void VectorOfVec6d::clear()
 
 AutoIt:
-    $vectorOfVec6d.clear() -> None
+    $oVectorOfVec6d.clear() -> None
 ```
 
 ### VectorOfVec6d::push_vector
@@ -39337,7 +39337,7 @@ AutoIt:
 void VectorOfVec6d::push_vector( VectorOfVec6d other )
 
 AutoIt:
-    $vectorOfVec6d.push_vector( $other ) -> None
+    $oVectorOfVec6d.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -39346,7 +39346,7 @@ void VectorOfVec6d::push_vector( VectorOfVec6d other,
                                  size_t        start = 0 )
 
 AutoIt:
-    $vectorOfVec6d.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVec6d.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVec6d::slice
@@ -39356,7 +39356,7 @@ VectorOfVec6d VectorOfVec6d::slice( size_t start = 0,
                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec6d.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVec6d.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVec6d::sort
@@ -39367,7 +39367,7 @@ void VectorOfVec6d::sort( void*  comparator,
                           size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec6d.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec6d.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec6d::sort_variant
@@ -39378,7 +39378,7 @@ void VectorOfVec6d::sort_variant( void*  comparator,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVec6d.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVec6d.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVec6d::start
@@ -39387,7 +39387,7 @@ AutoIt:
 void* VectorOfVec6d::start()
 
 AutoIt:
-    $vectorOfVec6d.start() -> retval
+    $oVectorOfVec6d.start() -> retval
 ```
 
 ### VectorOfVec6d::end
@@ -39396,7 +39396,7 @@ AutoIt:
 void* VectorOfVec6d::end()
 
 AutoIt:
-    $vectorOfVec6d.end() -> retval
+    $oVectorOfVec6d.end() -> retval
 ```
 
 ### VectorOfVec6d::get_Item
@@ -39405,7 +39405,7 @@ AutoIt:
 cv::Vec6d VectorOfVec6d::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVec6d.Item( $vIndex ) -> retval
+    $oVectorOfVec6d.Item( $vIndex ) -> retval
     VectorOfVec6d( $vIndex ) -> retval
 ```
 
@@ -39416,7 +39416,7 @@ void VectorOfVec6d::put_Item( size_t    vIndex,
                               cv::Vec6d vItem )
 
 AutoIt:
-    $vectorOfVec6d.Item( $vIndex ) = $$vItem
+    $oVectorOfVec6d.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfPoint2f
@@ -39450,7 +39450,7 @@ AutoIt:
 std::vector<int> VectorOfPoint2f::Keys()
 
 AutoIt:
-    $vectorOfPoint2f.Keys() -> retval
+    $oVectorOfPoint2f.Keys() -> retval
 ```
 
 ### VectorOfPoint2f::Items
@@ -39459,7 +39459,7 @@ AutoIt:
 VectorOfPoint2f VectorOfPoint2f::Items()
 
 AutoIt:
-    $vectorOfPoint2f.Items() -> retval
+    $oVectorOfPoint2f.Items() -> retval
 ```
 
 ### VectorOfPoint2f::push_back
@@ -39468,7 +39468,7 @@ AutoIt:
 void VectorOfPoint2f::push_back( cv::Point2f value )
 
 AutoIt:
-    $vectorOfPoint2f.push_back( $value ) -> None
+    $oVectorOfPoint2f.push_back( $value ) -> None
 ```
 
 ### VectorOfPoint2f::Add
@@ -39477,7 +39477,7 @@ AutoIt:
 void VectorOfPoint2f::Add( cv::Point2f value )
 
 AutoIt:
-    $vectorOfPoint2f.Add( $value ) -> None
+    $oVectorOfPoint2f.Add( $value ) -> None
 ```
 
 ### VectorOfPoint2f::Remove
@@ -39486,7 +39486,7 @@ AutoIt:
 void VectorOfPoint2f::Remove( size_t index )
 
 AutoIt:
-    $vectorOfPoint2f.Remove( $index ) -> None
+    $oVectorOfPoint2f.Remove( $index ) -> None
 ```
 
 ### VectorOfPoint2f::at
@@ -39495,7 +39495,7 @@ AutoIt:
 cv::Point2f VectorOfPoint2f::at( size_t index )
 
 AutoIt:
-    $vectorOfPoint2f.at( $index ) -> retval
+    $oVectorOfPoint2f.at( $index ) -> retval
 ```
 
 ```cpp
@@ -39503,7 +39503,7 @@ void VectorOfPoint2f::at( size_t      index,
                           cv::Point2f value )
 
 AutoIt:
-    $vectorOfPoint2f.at( $index, $value ) -> None
+    $oVectorOfPoint2f.at( $index, $value ) -> None
 ```
 
 ### VectorOfPoint2f::size
@@ -39512,7 +39512,7 @@ AutoIt:
 size_t VectorOfPoint2f::size()
 
 AutoIt:
-    $vectorOfPoint2f.size() -> retval
+    $oVectorOfPoint2f.size() -> retval
 ```
 
 ### VectorOfPoint2f::empty
@@ -39521,7 +39521,7 @@ AutoIt:
 bool VectorOfPoint2f::empty()
 
 AutoIt:
-    $vectorOfPoint2f.empty() -> retval
+    $oVectorOfPoint2f.empty() -> retval
 ```
 
 ### VectorOfPoint2f::clear
@@ -39530,7 +39530,7 @@ AutoIt:
 void VectorOfPoint2f::clear()
 
 AutoIt:
-    $vectorOfPoint2f.clear() -> None
+    $oVectorOfPoint2f.clear() -> None
 ```
 
 ### VectorOfPoint2f::push_vector
@@ -39539,7 +39539,7 @@ AutoIt:
 void VectorOfPoint2f::push_vector( VectorOfPoint2f other )
 
 AutoIt:
-    $vectorOfPoint2f.push_vector( $other ) -> None
+    $oVectorOfPoint2f.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -39548,7 +39548,7 @@ void VectorOfPoint2f::push_vector( VectorOfPoint2f other,
                                    size_t          start = 0 )
 
 AutoIt:
-    $vectorOfPoint2f.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfPoint2f.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfPoint2f::slice
@@ -39558,7 +39558,7 @@ VectorOfPoint2f VectorOfPoint2f::slice( size_t start = 0,
                                         size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfPoint2f.slice( [$start[, $count]] ) -> retval
+    $oVectorOfPoint2f.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfPoint2f::sort
@@ -39569,7 +39569,7 @@ void VectorOfPoint2f::sort( void*  comparator,
                             size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfPoint2f.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfPoint2f.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfPoint2f::sort_variant
@@ -39580,7 +39580,7 @@ void VectorOfPoint2f::sort_variant( void*  comparator,
                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfPoint2f.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfPoint2f.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfPoint2f::start
@@ -39589,7 +39589,7 @@ AutoIt:
 void* VectorOfPoint2f::start()
 
 AutoIt:
-    $vectorOfPoint2f.start() -> retval
+    $oVectorOfPoint2f.start() -> retval
 ```
 
 ### VectorOfPoint2f::end
@@ -39598,7 +39598,7 @@ AutoIt:
 void* VectorOfPoint2f::end()
 
 AutoIt:
-    $vectorOfPoint2f.end() -> retval
+    $oVectorOfPoint2f.end() -> retval
 ```
 
 ### VectorOfPoint2f::get_Item
@@ -39607,7 +39607,7 @@ AutoIt:
 cv::Point2f VectorOfPoint2f::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfPoint2f.Item( $vIndex ) -> retval
+    $oVectorOfPoint2f.Item( $vIndex ) -> retval
     VectorOfPoint2f( $vIndex ) -> retval
 ```
 
@@ -39618,7 +39618,7 @@ void VectorOfPoint2f::put_Item( size_t      vIndex,
                                 cv::Point2f vItem )
 
 AutoIt:
-    $vectorOfPoint2f.Item( $vIndex ) = $$vItem
+    $oVectorOfPoint2f.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfVectorOfPoint2f
@@ -39652,7 +39652,7 @@ AutoIt:
 std::vector<int> VectorOfVectorOfPoint2f::Keys()
 
 AutoIt:
-    $vectorOfVectorOfPoint2f.Keys() -> retval
+    $oVectorOfVectorOfPoint2f.Keys() -> retval
 ```
 
 ### VectorOfVectorOfPoint2f::Items
@@ -39661,7 +39661,7 @@ AutoIt:
 VectorOfVectorOfPoint2f VectorOfVectorOfPoint2f::Items()
 
 AutoIt:
-    $vectorOfVectorOfPoint2f.Items() -> retval
+    $oVectorOfVectorOfPoint2f.Items() -> retval
 ```
 
 ### VectorOfVectorOfPoint2f::push_back
@@ -39670,7 +39670,7 @@ AutoIt:
 void VectorOfVectorOfPoint2f::push_back( std::vector<cv::Point2f> value )
 
 AutoIt:
-    $vectorOfVectorOfPoint2f.push_back( $value ) -> None
+    $oVectorOfVectorOfPoint2f.push_back( $value ) -> None
 ```
 
 ### VectorOfVectorOfPoint2f::Add
@@ -39679,7 +39679,7 @@ AutoIt:
 void VectorOfVectorOfPoint2f::Add( std::vector<cv::Point2f> value )
 
 AutoIt:
-    $vectorOfVectorOfPoint2f.Add( $value ) -> None
+    $oVectorOfVectorOfPoint2f.Add( $value ) -> None
 ```
 
 ### VectorOfVectorOfPoint2f::Remove
@@ -39688,7 +39688,7 @@ AutoIt:
 void VectorOfVectorOfPoint2f::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVectorOfPoint2f.Remove( $index ) -> None
+    $oVectorOfVectorOfPoint2f.Remove( $index ) -> None
 ```
 
 ### VectorOfVectorOfPoint2f::at
@@ -39697,7 +39697,7 @@ AutoIt:
 std::vector<cv::Point2f> VectorOfVectorOfPoint2f::at( size_t index )
 
 AutoIt:
-    $vectorOfVectorOfPoint2f.at( $index ) -> retval
+    $oVectorOfVectorOfPoint2f.at( $index ) -> retval
 ```
 
 ```cpp
@@ -39705,7 +39705,7 @@ void VectorOfVectorOfPoint2f::at( size_t                   index,
                                   std::vector<cv::Point2f> value )
 
 AutoIt:
-    $vectorOfVectorOfPoint2f.at( $index, $value ) -> None
+    $oVectorOfVectorOfPoint2f.at( $index, $value ) -> None
 ```
 
 ### VectorOfVectorOfPoint2f::size
@@ -39714,7 +39714,7 @@ AutoIt:
 size_t VectorOfVectorOfPoint2f::size()
 
 AutoIt:
-    $vectorOfVectorOfPoint2f.size() -> retval
+    $oVectorOfVectorOfPoint2f.size() -> retval
 ```
 
 ### VectorOfVectorOfPoint2f::empty
@@ -39723,7 +39723,7 @@ AutoIt:
 bool VectorOfVectorOfPoint2f::empty()
 
 AutoIt:
-    $vectorOfVectorOfPoint2f.empty() -> retval
+    $oVectorOfVectorOfPoint2f.empty() -> retval
 ```
 
 ### VectorOfVectorOfPoint2f::clear
@@ -39732,7 +39732,7 @@ AutoIt:
 void VectorOfVectorOfPoint2f::clear()
 
 AutoIt:
-    $vectorOfVectorOfPoint2f.clear() -> None
+    $oVectorOfVectorOfPoint2f.clear() -> None
 ```
 
 ### VectorOfVectorOfPoint2f::push_vector
@@ -39741,7 +39741,7 @@ AutoIt:
 void VectorOfVectorOfPoint2f::push_vector( VectorOfVectorOfPoint2f other )
 
 AutoIt:
-    $vectorOfVectorOfPoint2f.push_vector( $other ) -> None
+    $oVectorOfVectorOfPoint2f.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -39750,7 +39750,7 @@ void VectorOfVectorOfPoint2f::push_vector( VectorOfVectorOfPoint2f other,
                                            size_t                  start = 0 )
 
 AutoIt:
-    $vectorOfVectorOfPoint2f.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVectorOfPoint2f.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVectorOfPoint2f::slice
@@ -39760,7 +39760,7 @@ VectorOfVectorOfPoint2f VectorOfVectorOfPoint2f::slice( size_t start = 0,
                                                         size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVectorOfPoint2f.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVectorOfPoint2f.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVectorOfPoint2f::sort
@@ -39771,7 +39771,7 @@ void VectorOfVectorOfPoint2f::sort( void*  comparator,
                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVectorOfPoint2f.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVectorOfPoint2f.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVectorOfPoint2f::sort_variant
@@ -39782,7 +39782,7 @@ void VectorOfVectorOfPoint2f::sort_variant( void*  comparator,
                                             size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVectorOfPoint2f.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVectorOfPoint2f.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVectorOfPoint2f::start
@@ -39791,7 +39791,7 @@ AutoIt:
 void* VectorOfVectorOfPoint2f::start()
 
 AutoIt:
-    $vectorOfVectorOfPoint2f.start() -> retval
+    $oVectorOfVectorOfPoint2f.start() -> retval
 ```
 
 ### VectorOfVectorOfPoint2f::end
@@ -39800,7 +39800,7 @@ AutoIt:
 void* VectorOfVectorOfPoint2f::end()
 
 AutoIt:
-    $vectorOfVectorOfPoint2f.end() -> retval
+    $oVectorOfVectorOfPoint2f.end() -> retval
 ```
 
 ### VectorOfVectorOfPoint2f::get_Item
@@ -39809,7 +39809,7 @@ AutoIt:
 std::vector<cv::Point2f> VectorOfVectorOfPoint2f::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVectorOfPoint2f.Item( $vIndex ) -> retval
+    $oVectorOfVectorOfPoint2f.Item( $vIndex ) -> retval
     VectorOfVectorOfPoint2f( $vIndex ) -> retval
 ```
 
@@ -39820,7 +39820,7 @@ void VectorOfVectorOfPoint2f::put_Item( size_t                   vIndex,
                                         std::vector<cv::Point2f> vItem )
 
 AutoIt:
-    $vectorOfVectorOfPoint2f.Item( $vIndex ) = $$vItem
+    $oVectorOfVectorOfPoint2f.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfRect2d
@@ -39854,7 +39854,7 @@ AutoIt:
 std::vector<int> VectorOfRect2d::Keys()
 
 AutoIt:
-    $vectorOfRect2d.Keys() -> retval
+    $oVectorOfRect2d.Keys() -> retval
 ```
 
 ### VectorOfRect2d::Items
@@ -39863,7 +39863,7 @@ AutoIt:
 VectorOfRect2d VectorOfRect2d::Items()
 
 AutoIt:
-    $vectorOfRect2d.Items() -> retval
+    $oVectorOfRect2d.Items() -> retval
 ```
 
 ### VectorOfRect2d::push_back
@@ -39872,7 +39872,7 @@ AutoIt:
 void VectorOfRect2d::push_back( cv::Rect2d value )
 
 AutoIt:
-    $vectorOfRect2d.push_back( $value ) -> None
+    $oVectorOfRect2d.push_back( $value ) -> None
 ```
 
 ### VectorOfRect2d::Add
@@ -39881,7 +39881,7 @@ AutoIt:
 void VectorOfRect2d::Add( cv::Rect2d value )
 
 AutoIt:
-    $vectorOfRect2d.Add( $value ) -> None
+    $oVectorOfRect2d.Add( $value ) -> None
 ```
 
 ### VectorOfRect2d::Remove
@@ -39890,7 +39890,7 @@ AutoIt:
 void VectorOfRect2d::Remove( size_t index )
 
 AutoIt:
-    $vectorOfRect2d.Remove( $index ) -> None
+    $oVectorOfRect2d.Remove( $index ) -> None
 ```
 
 ### VectorOfRect2d::at
@@ -39899,7 +39899,7 @@ AutoIt:
 cv::Rect2d VectorOfRect2d::at( size_t index )
 
 AutoIt:
-    $vectorOfRect2d.at( $index ) -> retval
+    $oVectorOfRect2d.at( $index ) -> retval
 ```
 
 ```cpp
@@ -39907,7 +39907,7 @@ void VectorOfRect2d::at( size_t     index,
                          cv::Rect2d value )
 
 AutoIt:
-    $vectorOfRect2d.at( $index, $value ) -> None
+    $oVectorOfRect2d.at( $index, $value ) -> None
 ```
 
 ### VectorOfRect2d::size
@@ -39916,7 +39916,7 @@ AutoIt:
 size_t VectorOfRect2d::size()
 
 AutoIt:
-    $vectorOfRect2d.size() -> retval
+    $oVectorOfRect2d.size() -> retval
 ```
 
 ### VectorOfRect2d::empty
@@ -39925,7 +39925,7 @@ AutoIt:
 bool VectorOfRect2d::empty()
 
 AutoIt:
-    $vectorOfRect2d.empty() -> retval
+    $oVectorOfRect2d.empty() -> retval
 ```
 
 ### VectorOfRect2d::clear
@@ -39934,7 +39934,7 @@ AutoIt:
 void VectorOfRect2d::clear()
 
 AutoIt:
-    $vectorOfRect2d.clear() -> None
+    $oVectorOfRect2d.clear() -> None
 ```
 
 ### VectorOfRect2d::push_vector
@@ -39943,7 +39943,7 @@ AutoIt:
 void VectorOfRect2d::push_vector( VectorOfRect2d other )
 
 AutoIt:
-    $vectorOfRect2d.push_vector( $other ) -> None
+    $oVectorOfRect2d.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -39952,7 +39952,7 @@ void VectorOfRect2d::push_vector( VectorOfRect2d other,
                                   size_t         start = 0 )
 
 AutoIt:
-    $vectorOfRect2d.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfRect2d.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfRect2d::slice
@@ -39962,7 +39962,7 @@ VectorOfRect2d VectorOfRect2d::slice( size_t start = 0,
                                       size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfRect2d.slice( [$start[, $count]] ) -> retval
+    $oVectorOfRect2d.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfRect2d::sort
@@ -39973,7 +39973,7 @@ void VectorOfRect2d::sort( void*  comparator,
                            size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfRect2d.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfRect2d.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfRect2d::sort_variant
@@ -39984,7 +39984,7 @@ void VectorOfRect2d::sort_variant( void*  comparator,
                                    size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfRect2d.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfRect2d.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfRect2d::start
@@ -39993,7 +39993,7 @@ AutoIt:
 void* VectorOfRect2d::start()
 
 AutoIt:
-    $vectorOfRect2d.start() -> retval
+    $oVectorOfRect2d.start() -> retval
 ```
 
 ### VectorOfRect2d::end
@@ -40002,7 +40002,7 @@ AutoIt:
 void* VectorOfRect2d::end()
 
 AutoIt:
-    $vectorOfRect2d.end() -> retval
+    $oVectorOfRect2d.end() -> retval
 ```
 
 ### VectorOfRect2d::get_Item
@@ -40011,7 +40011,7 @@ AutoIt:
 cv::Rect2d VectorOfRect2d::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfRect2d.Item( $vIndex ) -> retval
+    $oVectorOfRect2d.Item( $vIndex ) -> retval
     VectorOfRect2d( $vIndex ) -> retval
 ```
 
@@ -40022,7 +40022,7 @@ void VectorOfRect2d::put_Item( size_t     vIndex,
                                cv::Rect2d vItem )
 
 AutoIt:
-    $vectorOfRect2d.Item( $vIndex ) = $$vItem
+    $oVectorOfRect2d.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfVectorOfMat
@@ -40056,7 +40056,7 @@ AutoIt:
 std::vector<int> VectorOfVectorOfMat::Keys()
 
 AutoIt:
-    $vectorOfVectorOfMat.Keys() -> retval
+    $oVectorOfVectorOfMat.Keys() -> retval
 ```
 
 ### VectorOfVectorOfMat::Items
@@ -40065,7 +40065,7 @@ AutoIt:
 VectorOfVectorOfMat VectorOfVectorOfMat::Items()
 
 AutoIt:
-    $vectorOfVectorOfMat.Items() -> retval
+    $oVectorOfVectorOfMat.Items() -> retval
 ```
 
 ### VectorOfVectorOfMat::push_back
@@ -40074,7 +40074,7 @@ AutoIt:
 void VectorOfVectorOfMat::push_back( std::vector<cv::Mat> value )
 
 AutoIt:
-    $vectorOfVectorOfMat.push_back( $value ) -> None
+    $oVectorOfVectorOfMat.push_back( $value ) -> None
 ```
 
 ### VectorOfVectorOfMat::Add
@@ -40083,7 +40083,7 @@ AutoIt:
 void VectorOfVectorOfMat::Add( std::vector<cv::Mat> value )
 
 AutoIt:
-    $vectorOfVectorOfMat.Add( $value ) -> None
+    $oVectorOfVectorOfMat.Add( $value ) -> None
 ```
 
 ### VectorOfVectorOfMat::Remove
@@ -40092,7 +40092,7 @@ AutoIt:
 void VectorOfVectorOfMat::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVectorOfMat.Remove( $index ) -> None
+    $oVectorOfVectorOfMat.Remove( $index ) -> None
 ```
 
 ### VectorOfVectorOfMat::at
@@ -40101,7 +40101,7 @@ AutoIt:
 std::vector<cv::Mat> VectorOfVectorOfMat::at( size_t index )
 
 AutoIt:
-    $vectorOfVectorOfMat.at( $index ) -> retval
+    $oVectorOfVectorOfMat.at( $index ) -> retval
 ```
 
 ```cpp
@@ -40109,7 +40109,7 @@ void VectorOfVectorOfMat::at( size_t               index,
                               std::vector<cv::Mat> value )
 
 AutoIt:
-    $vectorOfVectorOfMat.at( $index, $value ) -> None
+    $oVectorOfVectorOfMat.at( $index, $value ) -> None
 ```
 
 ### VectorOfVectorOfMat::size
@@ -40118,7 +40118,7 @@ AutoIt:
 size_t VectorOfVectorOfMat::size()
 
 AutoIt:
-    $vectorOfVectorOfMat.size() -> retval
+    $oVectorOfVectorOfMat.size() -> retval
 ```
 
 ### VectorOfVectorOfMat::empty
@@ -40127,7 +40127,7 @@ AutoIt:
 bool VectorOfVectorOfMat::empty()
 
 AutoIt:
-    $vectorOfVectorOfMat.empty() -> retval
+    $oVectorOfVectorOfMat.empty() -> retval
 ```
 
 ### VectorOfVectorOfMat::clear
@@ -40136,7 +40136,7 @@ AutoIt:
 void VectorOfVectorOfMat::clear()
 
 AutoIt:
-    $vectorOfVectorOfMat.clear() -> None
+    $oVectorOfVectorOfMat.clear() -> None
 ```
 
 ### VectorOfVectorOfMat::push_vector
@@ -40145,7 +40145,7 @@ AutoIt:
 void VectorOfVectorOfMat::push_vector( VectorOfVectorOfMat other )
 
 AutoIt:
-    $vectorOfVectorOfMat.push_vector( $other ) -> None
+    $oVectorOfVectorOfMat.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -40154,7 +40154,7 @@ void VectorOfVectorOfMat::push_vector( VectorOfVectorOfMat other,
                                        size_t              start = 0 )
 
 AutoIt:
-    $vectorOfVectorOfMat.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVectorOfMat.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVectorOfMat::slice
@@ -40164,7 +40164,7 @@ VectorOfVectorOfMat VectorOfVectorOfMat::slice( size_t start = 0,
                                                 size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVectorOfMat.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVectorOfMat.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVectorOfMat::sort
@@ -40175,7 +40175,7 @@ void VectorOfVectorOfMat::sort( void*  comparator,
                                 size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVectorOfMat.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVectorOfMat.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVectorOfMat::sort_variant
@@ -40186,7 +40186,7 @@ void VectorOfVectorOfMat::sort_variant( void*  comparator,
                                         size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVectorOfMat.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVectorOfMat.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVectorOfMat::start
@@ -40195,7 +40195,7 @@ AutoIt:
 void* VectorOfVectorOfMat::start()
 
 AutoIt:
-    $vectorOfVectorOfMat.start() -> retval
+    $oVectorOfVectorOfMat.start() -> retval
 ```
 
 ### VectorOfVectorOfMat::end
@@ -40204,7 +40204,7 @@ AutoIt:
 void* VectorOfVectorOfMat::end()
 
 AutoIt:
-    $vectorOfVectorOfMat.end() -> retval
+    $oVectorOfVectorOfMat.end() -> retval
 ```
 
 ### VectorOfVectorOfMat::get_Item
@@ -40213,7 +40213,7 @@ AutoIt:
 std::vector<cv::Mat> VectorOfVectorOfMat::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVectorOfMat.Item( $vIndex ) -> retval
+    $oVectorOfVectorOfMat.Item( $vIndex ) -> retval
     VectorOfVectorOfMat( $vIndex ) -> retval
 ```
 
@@ -40224,7 +40224,7 @@ void VectorOfVectorOfMat::put_Item( size_t               vIndex,
                                     std::vector<cv::Mat> vItem )
 
 AutoIt:
-    $vectorOfVectorOfMat.Item( $vIndex ) = $$vItem
+    $oVectorOfVectorOfMat.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfVectorOfInt
@@ -40258,7 +40258,7 @@ AutoIt:
 std::vector<int> VectorOfVectorOfInt::Keys()
 
 AutoIt:
-    $vectorOfVectorOfInt.Keys() -> retval
+    $oVectorOfVectorOfInt.Keys() -> retval
 ```
 
 ### VectorOfVectorOfInt::Items
@@ -40267,7 +40267,7 @@ AutoIt:
 VectorOfVectorOfInt VectorOfVectorOfInt::Items()
 
 AutoIt:
-    $vectorOfVectorOfInt.Items() -> retval
+    $oVectorOfVectorOfInt.Items() -> retval
 ```
 
 ### VectorOfVectorOfInt::push_back
@@ -40276,7 +40276,7 @@ AutoIt:
 void VectorOfVectorOfInt::push_back( std::vector<int> value )
 
 AutoIt:
-    $vectorOfVectorOfInt.push_back( $value ) -> None
+    $oVectorOfVectorOfInt.push_back( $value ) -> None
 ```
 
 ### VectorOfVectorOfInt::Add
@@ -40285,7 +40285,7 @@ AutoIt:
 void VectorOfVectorOfInt::Add( std::vector<int> value )
 
 AutoIt:
-    $vectorOfVectorOfInt.Add( $value ) -> None
+    $oVectorOfVectorOfInt.Add( $value ) -> None
 ```
 
 ### VectorOfVectorOfInt::Remove
@@ -40294,7 +40294,7 @@ AutoIt:
 void VectorOfVectorOfInt::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVectorOfInt.Remove( $index ) -> None
+    $oVectorOfVectorOfInt.Remove( $index ) -> None
 ```
 
 ### VectorOfVectorOfInt::at
@@ -40303,7 +40303,7 @@ AutoIt:
 std::vector<int> VectorOfVectorOfInt::at( size_t index )
 
 AutoIt:
-    $vectorOfVectorOfInt.at( $index ) -> retval
+    $oVectorOfVectorOfInt.at( $index ) -> retval
 ```
 
 ```cpp
@@ -40311,7 +40311,7 @@ void VectorOfVectorOfInt::at( size_t           index,
                               std::vector<int> value )
 
 AutoIt:
-    $vectorOfVectorOfInt.at( $index, $value ) -> None
+    $oVectorOfVectorOfInt.at( $index, $value ) -> None
 ```
 
 ### VectorOfVectorOfInt::size
@@ -40320,7 +40320,7 @@ AutoIt:
 size_t VectorOfVectorOfInt::size()
 
 AutoIt:
-    $vectorOfVectorOfInt.size() -> retval
+    $oVectorOfVectorOfInt.size() -> retval
 ```
 
 ### VectorOfVectorOfInt::empty
@@ -40329,7 +40329,7 @@ AutoIt:
 bool VectorOfVectorOfInt::empty()
 
 AutoIt:
-    $vectorOfVectorOfInt.empty() -> retval
+    $oVectorOfVectorOfInt.empty() -> retval
 ```
 
 ### VectorOfVectorOfInt::clear
@@ -40338,7 +40338,7 @@ AutoIt:
 void VectorOfVectorOfInt::clear()
 
 AutoIt:
-    $vectorOfVectorOfInt.clear() -> None
+    $oVectorOfVectorOfInt.clear() -> None
 ```
 
 ### VectorOfVectorOfInt::push_vector
@@ -40347,7 +40347,7 @@ AutoIt:
 void VectorOfVectorOfInt::push_vector( VectorOfVectorOfInt other )
 
 AutoIt:
-    $vectorOfVectorOfInt.push_vector( $other ) -> None
+    $oVectorOfVectorOfInt.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -40356,7 +40356,7 @@ void VectorOfVectorOfInt::push_vector( VectorOfVectorOfInt other,
                                        size_t              start = 0 )
 
 AutoIt:
-    $vectorOfVectorOfInt.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVectorOfInt.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVectorOfInt::slice
@@ -40366,7 +40366,7 @@ VectorOfVectorOfInt VectorOfVectorOfInt::slice( size_t start = 0,
                                                 size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVectorOfInt.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVectorOfInt.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVectorOfInt::sort
@@ -40377,7 +40377,7 @@ void VectorOfVectorOfInt::sort( void*  comparator,
                                 size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVectorOfInt.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVectorOfInt.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVectorOfInt::sort_variant
@@ -40388,7 +40388,7 @@ void VectorOfVectorOfInt::sort_variant( void*  comparator,
                                         size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVectorOfInt.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVectorOfInt.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVectorOfInt::start
@@ -40397,7 +40397,7 @@ AutoIt:
 void* VectorOfVectorOfInt::start()
 
 AutoIt:
-    $vectorOfVectorOfInt.start() -> retval
+    $oVectorOfVectorOfInt.start() -> retval
 ```
 
 ### VectorOfVectorOfInt::end
@@ -40406,7 +40406,7 @@ AutoIt:
 void* VectorOfVectorOfInt::end()
 
 AutoIt:
-    $vectorOfVectorOfInt.end() -> retval
+    $oVectorOfVectorOfInt.end() -> retval
 ```
 
 ### VectorOfVectorOfInt::get_Item
@@ -40415,7 +40415,7 @@ AutoIt:
 std::vector<int> VectorOfVectorOfInt::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVectorOfInt.Item( $vIndex ) -> retval
+    $oVectorOfVectorOfInt.Item( $vIndex ) -> retval
     VectorOfVectorOfInt( $vIndex ) -> retval
 ```
 
@@ -40426,7 +40426,7 @@ void VectorOfVectorOfInt::put_Item( size_t           vIndex,
                                     std::vector<int> vItem )
 
 AutoIt:
-    $vectorOfVectorOfInt.Item( $vIndex ) = $$vItem
+    $oVectorOfVectorOfInt.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfVectorOfVectorOfInt
@@ -40460,7 +40460,7 @@ AutoIt:
 std::vector<int> VectorOfVectorOfVectorOfInt::Keys()
 
 AutoIt:
-    $vectorOfVectorOfVectorOfInt.Keys() -> retval
+    $oVectorOfVectorOfVectorOfInt.Keys() -> retval
 ```
 
 ### VectorOfVectorOfVectorOfInt::Items
@@ -40469,7 +40469,7 @@ AutoIt:
 VectorOfVectorOfVectorOfInt VectorOfVectorOfVectorOfInt::Items()
 
 AutoIt:
-    $vectorOfVectorOfVectorOfInt.Items() -> retval
+    $oVectorOfVectorOfVectorOfInt.Items() -> retval
 ```
 
 ### VectorOfVectorOfVectorOfInt::push_back
@@ -40478,7 +40478,7 @@ AutoIt:
 void VectorOfVectorOfVectorOfInt::push_back( std::vector<std::vector<int>> value )
 
 AutoIt:
-    $vectorOfVectorOfVectorOfInt.push_back( $value ) -> None
+    $oVectorOfVectorOfVectorOfInt.push_back( $value ) -> None
 ```
 
 ### VectorOfVectorOfVectorOfInt::Add
@@ -40487,7 +40487,7 @@ AutoIt:
 void VectorOfVectorOfVectorOfInt::Add( std::vector<std::vector<int>> value )
 
 AutoIt:
-    $vectorOfVectorOfVectorOfInt.Add( $value ) -> None
+    $oVectorOfVectorOfVectorOfInt.Add( $value ) -> None
 ```
 
 ### VectorOfVectorOfVectorOfInt::Remove
@@ -40496,7 +40496,7 @@ AutoIt:
 void VectorOfVectorOfVectorOfInt::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVectorOfVectorOfInt.Remove( $index ) -> None
+    $oVectorOfVectorOfVectorOfInt.Remove( $index ) -> None
 ```
 
 ### VectorOfVectorOfVectorOfInt::at
@@ -40505,7 +40505,7 @@ AutoIt:
 std::vector<std::vector<int>> VectorOfVectorOfVectorOfInt::at( size_t index )
 
 AutoIt:
-    $vectorOfVectorOfVectorOfInt.at( $index ) -> retval
+    $oVectorOfVectorOfVectorOfInt.at( $index ) -> retval
 ```
 
 ```cpp
@@ -40513,7 +40513,7 @@ void VectorOfVectorOfVectorOfInt::at( size_t                        index,
                                       std::vector<std::vector<int>> value )
 
 AutoIt:
-    $vectorOfVectorOfVectorOfInt.at( $index, $value ) -> None
+    $oVectorOfVectorOfVectorOfInt.at( $index, $value ) -> None
 ```
 
 ### VectorOfVectorOfVectorOfInt::size
@@ -40522,7 +40522,7 @@ AutoIt:
 size_t VectorOfVectorOfVectorOfInt::size()
 
 AutoIt:
-    $vectorOfVectorOfVectorOfInt.size() -> retval
+    $oVectorOfVectorOfVectorOfInt.size() -> retval
 ```
 
 ### VectorOfVectorOfVectorOfInt::empty
@@ -40531,7 +40531,7 @@ AutoIt:
 bool VectorOfVectorOfVectorOfInt::empty()
 
 AutoIt:
-    $vectorOfVectorOfVectorOfInt.empty() -> retval
+    $oVectorOfVectorOfVectorOfInt.empty() -> retval
 ```
 
 ### VectorOfVectorOfVectorOfInt::clear
@@ -40540,7 +40540,7 @@ AutoIt:
 void VectorOfVectorOfVectorOfInt::clear()
 
 AutoIt:
-    $vectorOfVectorOfVectorOfInt.clear() -> None
+    $oVectorOfVectorOfVectorOfInt.clear() -> None
 ```
 
 ### VectorOfVectorOfVectorOfInt::push_vector
@@ -40549,7 +40549,7 @@ AutoIt:
 void VectorOfVectorOfVectorOfInt::push_vector( VectorOfVectorOfVectorOfInt other )
 
 AutoIt:
-    $vectorOfVectorOfVectorOfInt.push_vector( $other ) -> None
+    $oVectorOfVectorOfVectorOfInt.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -40558,7 +40558,7 @@ void VectorOfVectorOfVectorOfInt::push_vector( VectorOfVectorOfVectorOfInt other
                                                size_t                      start = 0 )
 
 AutoIt:
-    $vectorOfVectorOfVectorOfInt.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVectorOfVectorOfInt.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVectorOfVectorOfInt::slice
@@ -40568,7 +40568,7 @@ VectorOfVectorOfVectorOfInt VectorOfVectorOfVectorOfInt::slice( size_t start = 0
                                                                 size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVectorOfVectorOfInt.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVectorOfVectorOfInt.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVectorOfVectorOfInt::sort
@@ -40579,7 +40579,7 @@ void VectorOfVectorOfVectorOfInt::sort( void*  comparator,
                                         size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVectorOfVectorOfInt.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVectorOfVectorOfInt.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVectorOfVectorOfInt::sort_variant
@@ -40590,7 +40590,7 @@ void VectorOfVectorOfVectorOfInt::sort_variant( void*  comparator,
                                                 size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVectorOfVectorOfInt.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVectorOfVectorOfInt.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVectorOfVectorOfInt::start
@@ -40599,7 +40599,7 @@ AutoIt:
 void* VectorOfVectorOfVectorOfInt::start()
 
 AutoIt:
-    $vectorOfVectorOfVectorOfInt.start() -> retval
+    $oVectorOfVectorOfVectorOfInt.start() -> retval
 ```
 
 ### VectorOfVectorOfVectorOfInt::end
@@ -40608,7 +40608,7 @@ AutoIt:
 void* VectorOfVectorOfVectorOfInt::end()
 
 AutoIt:
-    $vectorOfVectorOfVectorOfInt.end() -> retval
+    $oVectorOfVectorOfVectorOfInt.end() -> retval
 ```
 
 ### VectorOfVectorOfVectorOfInt::get_Item
@@ -40617,7 +40617,7 @@ AutoIt:
 std::vector<std::vector<int>> VectorOfVectorOfVectorOfInt::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVectorOfVectorOfInt.Item( $vIndex ) -> retval
+    $oVectorOfVectorOfVectorOfInt.Item( $vIndex ) -> retval
     VectorOfVectorOfVectorOfInt( $vIndex ) -> retval
 ```
 
@@ -40628,7 +40628,7 @@ void VectorOfVectorOfVectorOfInt::put_Item( size_t                        vIndex
                                             std::vector<std::vector<int>> vItem )
 
 AutoIt:
-    $vectorOfVectorOfVectorOfInt.Item( $vIndex ) = $$vItem
+    $oVectorOfVectorOfVectorOfInt.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfVectorOfPoint
@@ -40662,7 +40662,7 @@ AutoIt:
 std::vector<int> VectorOfVectorOfPoint::Keys()
 
 AutoIt:
-    $vectorOfVectorOfPoint.Keys() -> retval
+    $oVectorOfVectorOfPoint.Keys() -> retval
 ```
 
 ### VectorOfVectorOfPoint::Items
@@ -40671,7 +40671,7 @@ AutoIt:
 VectorOfVectorOfPoint VectorOfVectorOfPoint::Items()
 
 AutoIt:
-    $vectorOfVectorOfPoint.Items() -> retval
+    $oVectorOfVectorOfPoint.Items() -> retval
 ```
 
 ### VectorOfVectorOfPoint::push_back
@@ -40680,7 +40680,7 @@ AutoIt:
 void VectorOfVectorOfPoint::push_back( std::vector<cv::Point> value )
 
 AutoIt:
-    $vectorOfVectorOfPoint.push_back( $value ) -> None
+    $oVectorOfVectorOfPoint.push_back( $value ) -> None
 ```
 
 ### VectorOfVectorOfPoint::Add
@@ -40689,7 +40689,7 @@ AutoIt:
 void VectorOfVectorOfPoint::Add( std::vector<cv::Point> value )
 
 AutoIt:
-    $vectorOfVectorOfPoint.Add( $value ) -> None
+    $oVectorOfVectorOfPoint.Add( $value ) -> None
 ```
 
 ### VectorOfVectorOfPoint::Remove
@@ -40698,7 +40698,7 @@ AutoIt:
 void VectorOfVectorOfPoint::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVectorOfPoint.Remove( $index ) -> None
+    $oVectorOfVectorOfPoint.Remove( $index ) -> None
 ```
 
 ### VectorOfVectorOfPoint::at
@@ -40707,7 +40707,7 @@ AutoIt:
 std::vector<cv::Point> VectorOfVectorOfPoint::at( size_t index )
 
 AutoIt:
-    $vectorOfVectorOfPoint.at( $index ) -> retval
+    $oVectorOfVectorOfPoint.at( $index ) -> retval
 ```
 
 ```cpp
@@ -40715,7 +40715,7 @@ void VectorOfVectorOfPoint::at( size_t                 index,
                                 std::vector<cv::Point> value )
 
 AutoIt:
-    $vectorOfVectorOfPoint.at( $index, $value ) -> None
+    $oVectorOfVectorOfPoint.at( $index, $value ) -> None
 ```
 
 ### VectorOfVectorOfPoint::size
@@ -40724,7 +40724,7 @@ AutoIt:
 size_t VectorOfVectorOfPoint::size()
 
 AutoIt:
-    $vectorOfVectorOfPoint.size() -> retval
+    $oVectorOfVectorOfPoint.size() -> retval
 ```
 
 ### VectorOfVectorOfPoint::empty
@@ -40733,7 +40733,7 @@ AutoIt:
 bool VectorOfVectorOfPoint::empty()
 
 AutoIt:
-    $vectorOfVectorOfPoint.empty() -> retval
+    $oVectorOfVectorOfPoint.empty() -> retval
 ```
 
 ### VectorOfVectorOfPoint::clear
@@ -40742,7 +40742,7 @@ AutoIt:
 void VectorOfVectorOfPoint::clear()
 
 AutoIt:
-    $vectorOfVectorOfPoint.clear() -> None
+    $oVectorOfVectorOfPoint.clear() -> None
 ```
 
 ### VectorOfVectorOfPoint::push_vector
@@ -40751,7 +40751,7 @@ AutoIt:
 void VectorOfVectorOfPoint::push_vector( VectorOfVectorOfPoint other )
 
 AutoIt:
-    $vectorOfVectorOfPoint.push_vector( $other ) -> None
+    $oVectorOfVectorOfPoint.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -40760,7 +40760,7 @@ void VectorOfVectorOfPoint::push_vector( VectorOfVectorOfPoint other,
                                          size_t                start = 0 )
 
 AutoIt:
-    $vectorOfVectorOfPoint.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVectorOfPoint.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVectorOfPoint::slice
@@ -40770,7 +40770,7 @@ VectorOfVectorOfPoint VectorOfVectorOfPoint::slice( size_t start = 0,
                                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVectorOfPoint.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVectorOfPoint.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVectorOfPoint::sort
@@ -40781,7 +40781,7 @@ void VectorOfVectorOfPoint::sort( void*  comparator,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVectorOfPoint.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVectorOfPoint.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVectorOfPoint::sort_variant
@@ -40792,7 +40792,7 @@ void VectorOfVectorOfPoint::sort_variant( void*  comparator,
                                           size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVectorOfPoint.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVectorOfPoint.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVectorOfPoint::start
@@ -40801,7 +40801,7 @@ AutoIt:
 void* VectorOfVectorOfPoint::start()
 
 AutoIt:
-    $vectorOfVectorOfPoint.start() -> retval
+    $oVectorOfVectorOfPoint.start() -> retval
 ```
 
 ### VectorOfVectorOfPoint::end
@@ -40810,7 +40810,7 @@ AutoIt:
 void* VectorOfVectorOfPoint::end()
 
 AutoIt:
-    $vectorOfVectorOfPoint.end() -> retval
+    $oVectorOfVectorOfPoint.end() -> retval
 ```
 
 ### VectorOfVectorOfPoint::get_Item
@@ -40819,7 +40819,7 @@ AutoIt:
 std::vector<cv::Point> VectorOfVectorOfPoint::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVectorOfPoint.Item( $vIndex ) -> retval
+    $oVectorOfVectorOfPoint.Item( $vIndex ) -> retval
     VectorOfVectorOfPoint( $vIndex ) -> retval
 ```
 
@@ -40830,7 +40830,7 @@ void VectorOfVectorOfPoint::put_Item( size_t                 vIndex,
                                       std::vector<cv::Point> vItem )
 
 AutoIt:
-    $vectorOfVectorOfPoint.Item( $vIndex ) = $$vItem
+    $oVectorOfVectorOfPoint.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfVectorOfKeyPoint
@@ -40864,7 +40864,7 @@ AutoIt:
 std::vector<int> VectorOfVectorOfKeyPoint::Keys()
 
 AutoIt:
-    $vectorOfVectorOfKeyPoint.Keys() -> retval
+    $oVectorOfVectorOfKeyPoint.Keys() -> retval
 ```
 
 ### VectorOfVectorOfKeyPoint::Items
@@ -40873,7 +40873,7 @@ AutoIt:
 VectorOfVectorOfKeyPoint VectorOfVectorOfKeyPoint::Items()
 
 AutoIt:
-    $vectorOfVectorOfKeyPoint.Items() -> retval
+    $oVectorOfVectorOfKeyPoint.Items() -> retval
 ```
 
 ### VectorOfVectorOfKeyPoint::push_back
@@ -40882,7 +40882,7 @@ AutoIt:
 void VectorOfVectorOfKeyPoint::push_back( std::vector<cv::KeyPoint> value )
 
 AutoIt:
-    $vectorOfVectorOfKeyPoint.push_back( $value ) -> None
+    $oVectorOfVectorOfKeyPoint.push_back( $value ) -> None
 ```
 
 ### VectorOfVectorOfKeyPoint::Add
@@ -40891,7 +40891,7 @@ AutoIt:
 void VectorOfVectorOfKeyPoint::Add( std::vector<cv::KeyPoint> value )
 
 AutoIt:
-    $vectorOfVectorOfKeyPoint.Add( $value ) -> None
+    $oVectorOfVectorOfKeyPoint.Add( $value ) -> None
 ```
 
 ### VectorOfVectorOfKeyPoint::Remove
@@ -40900,7 +40900,7 @@ AutoIt:
 void VectorOfVectorOfKeyPoint::Remove( size_t index )
 
 AutoIt:
-    $vectorOfVectorOfKeyPoint.Remove( $index ) -> None
+    $oVectorOfVectorOfKeyPoint.Remove( $index ) -> None
 ```
 
 ### VectorOfVectorOfKeyPoint::at
@@ -40909,7 +40909,7 @@ AutoIt:
 std::vector<cv::KeyPoint> VectorOfVectorOfKeyPoint::at( size_t index )
 
 AutoIt:
-    $vectorOfVectorOfKeyPoint.at( $index ) -> retval
+    $oVectorOfVectorOfKeyPoint.at( $index ) -> retval
 ```
 
 ```cpp
@@ -40917,7 +40917,7 @@ void VectorOfVectorOfKeyPoint::at( size_t                    index,
                                    std::vector<cv::KeyPoint> value )
 
 AutoIt:
-    $vectorOfVectorOfKeyPoint.at( $index, $value ) -> None
+    $oVectorOfVectorOfKeyPoint.at( $index, $value ) -> None
 ```
 
 ### VectorOfVectorOfKeyPoint::size
@@ -40926,7 +40926,7 @@ AutoIt:
 size_t VectorOfVectorOfKeyPoint::size()
 
 AutoIt:
-    $vectorOfVectorOfKeyPoint.size() -> retval
+    $oVectorOfVectorOfKeyPoint.size() -> retval
 ```
 
 ### VectorOfVectorOfKeyPoint::empty
@@ -40935,7 +40935,7 @@ AutoIt:
 bool VectorOfVectorOfKeyPoint::empty()
 
 AutoIt:
-    $vectorOfVectorOfKeyPoint.empty() -> retval
+    $oVectorOfVectorOfKeyPoint.empty() -> retval
 ```
 
 ### VectorOfVectorOfKeyPoint::clear
@@ -40944,7 +40944,7 @@ AutoIt:
 void VectorOfVectorOfKeyPoint::clear()
 
 AutoIt:
-    $vectorOfVectorOfKeyPoint.clear() -> None
+    $oVectorOfVectorOfKeyPoint.clear() -> None
 ```
 
 ### VectorOfVectorOfKeyPoint::push_vector
@@ -40953,7 +40953,7 @@ AutoIt:
 void VectorOfVectorOfKeyPoint::push_vector( VectorOfVectorOfKeyPoint other )
 
 AutoIt:
-    $vectorOfVectorOfKeyPoint.push_vector( $other ) -> None
+    $oVectorOfVectorOfKeyPoint.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -40962,7 +40962,7 @@ void VectorOfVectorOfKeyPoint::push_vector( VectorOfVectorOfKeyPoint other,
                                             size_t                   start = 0 )
 
 AutoIt:
-    $vectorOfVectorOfKeyPoint.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVectorOfKeyPoint.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfVectorOfKeyPoint::slice
@@ -40972,7 +40972,7 @@ VectorOfVectorOfKeyPoint VectorOfVectorOfKeyPoint::slice( size_t start = 0,
                                                           size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVectorOfKeyPoint.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVectorOfKeyPoint.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfVectorOfKeyPoint::sort
@@ -40983,7 +40983,7 @@ void VectorOfVectorOfKeyPoint::sort( void*  comparator,
                                      size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVectorOfKeyPoint.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVectorOfKeyPoint.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVectorOfKeyPoint::sort_variant
@@ -40994,7 +40994,7 @@ void VectorOfVectorOfKeyPoint::sort_variant( void*  comparator,
                                              size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfVectorOfKeyPoint.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVectorOfKeyPoint.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfVectorOfKeyPoint::start
@@ -41003,7 +41003,7 @@ AutoIt:
 void* VectorOfVectorOfKeyPoint::start()
 
 AutoIt:
-    $vectorOfVectorOfKeyPoint.start() -> retval
+    $oVectorOfVectorOfKeyPoint.start() -> retval
 ```
 
 ### VectorOfVectorOfKeyPoint::end
@@ -41012,7 +41012,7 @@ AutoIt:
 void* VectorOfVectorOfKeyPoint::end()
 
 AutoIt:
-    $vectorOfVectorOfKeyPoint.end() -> retval
+    $oVectorOfVectorOfKeyPoint.end() -> retval
 ```
 
 ### VectorOfVectorOfKeyPoint::get_Item
@@ -41021,7 +41021,7 @@ AutoIt:
 std::vector<cv::KeyPoint> VectorOfVectorOfKeyPoint::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfVectorOfKeyPoint.Item( $vIndex ) -> retval
+    $oVectorOfVectorOfKeyPoint.Item( $vIndex ) -> retval
     VectorOfVectorOfKeyPoint( $vIndex ) -> retval
 ```
 
@@ -41032,7 +41032,7 @@ void VectorOfVectorOfKeyPoint::put_Item( size_t                    vIndex,
                                          std::vector<cv::KeyPoint> vItem )
 
 AutoIt:
-    $vectorOfVectorOfKeyPoint.Item( $vIndex ) = $$vItem
+    $oVectorOfVectorOfKeyPoint.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfCameraParams
@@ -41066,7 +41066,7 @@ AutoIt:
 std::vector<int> VectorOfCameraParams::Keys()
 
 AutoIt:
-    $vectorOfCameraParams.Keys() -> retval
+    $oVectorOfCameraParams.Keys() -> retval
 ```
 
 ### VectorOfCameraParams::Items
@@ -41075,7 +41075,7 @@ AutoIt:
 VectorOfCameraParams VectorOfCameraParams::Items()
 
 AutoIt:
-    $vectorOfCameraParams.Items() -> retval
+    $oVectorOfCameraParams.Items() -> retval
 ```
 
 ### VectorOfCameraParams::push_back
@@ -41084,7 +41084,7 @@ AutoIt:
 void VectorOfCameraParams::push_back( cv::detail::CameraParams value )
 
 AutoIt:
-    $vectorOfCameraParams.push_back( $value ) -> None
+    $oVectorOfCameraParams.push_back( $value ) -> None
 ```
 
 ### VectorOfCameraParams::Add
@@ -41093,7 +41093,7 @@ AutoIt:
 void VectorOfCameraParams::Add( cv::detail::CameraParams value )
 
 AutoIt:
-    $vectorOfCameraParams.Add( $value ) -> None
+    $oVectorOfCameraParams.Add( $value ) -> None
 ```
 
 ### VectorOfCameraParams::Remove
@@ -41102,7 +41102,7 @@ AutoIt:
 void VectorOfCameraParams::Remove( size_t index )
 
 AutoIt:
-    $vectorOfCameraParams.Remove( $index ) -> None
+    $oVectorOfCameraParams.Remove( $index ) -> None
 ```
 
 ### VectorOfCameraParams::at
@@ -41111,7 +41111,7 @@ AutoIt:
 cv::detail::CameraParams VectorOfCameraParams::at( size_t index )
 
 AutoIt:
-    $vectorOfCameraParams.at( $index ) -> retval
+    $oVectorOfCameraParams.at( $index ) -> retval
 ```
 
 ```cpp
@@ -41119,7 +41119,7 @@ void VectorOfCameraParams::at( size_t                   index,
                                cv::detail::CameraParams value )
 
 AutoIt:
-    $vectorOfCameraParams.at( $index, $value ) -> None
+    $oVectorOfCameraParams.at( $index, $value ) -> None
 ```
 
 ### VectorOfCameraParams::size
@@ -41128,7 +41128,7 @@ AutoIt:
 size_t VectorOfCameraParams::size()
 
 AutoIt:
-    $vectorOfCameraParams.size() -> retval
+    $oVectorOfCameraParams.size() -> retval
 ```
 
 ### VectorOfCameraParams::empty
@@ -41137,7 +41137,7 @@ AutoIt:
 bool VectorOfCameraParams::empty()
 
 AutoIt:
-    $vectorOfCameraParams.empty() -> retval
+    $oVectorOfCameraParams.empty() -> retval
 ```
 
 ### VectorOfCameraParams::clear
@@ -41146,7 +41146,7 @@ AutoIt:
 void VectorOfCameraParams::clear()
 
 AutoIt:
-    $vectorOfCameraParams.clear() -> None
+    $oVectorOfCameraParams.clear() -> None
 ```
 
 ### VectorOfCameraParams::push_vector
@@ -41155,7 +41155,7 @@ AutoIt:
 void VectorOfCameraParams::push_vector( VectorOfCameraParams other )
 
 AutoIt:
-    $vectorOfCameraParams.push_vector( $other ) -> None
+    $oVectorOfCameraParams.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -41164,7 +41164,7 @@ void VectorOfCameraParams::push_vector( VectorOfCameraParams other,
                                         size_t               start = 0 )
 
 AutoIt:
-    $vectorOfCameraParams.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfCameraParams.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfCameraParams::slice
@@ -41174,7 +41174,7 @@ VectorOfCameraParams VectorOfCameraParams::slice( size_t start = 0,
                                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfCameraParams.slice( [$start[, $count]] ) -> retval
+    $oVectorOfCameraParams.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfCameraParams::sort
@@ -41185,7 +41185,7 @@ void VectorOfCameraParams::sort( void*  comparator,
                                  size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfCameraParams.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfCameraParams.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfCameraParams::sort_variant
@@ -41196,7 +41196,7 @@ void VectorOfCameraParams::sort_variant( void*  comparator,
                                          size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfCameraParams.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfCameraParams.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfCameraParams::start
@@ -41205,7 +41205,7 @@ AutoIt:
 void* VectorOfCameraParams::start()
 
 AutoIt:
-    $vectorOfCameraParams.start() -> retval
+    $oVectorOfCameraParams.start() -> retval
 ```
 
 ### VectorOfCameraParams::end
@@ -41214,7 +41214,7 @@ AutoIt:
 void* VectorOfCameraParams::end()
 
 AutoIt:
-    $vectorOfCameraParams.end() -> retval
+    $oVectorOfCameraParams.end() -> retval
 ```
 
 ### VectorOfCameraParams::get_Item
@@ -41223,7 +41223,7 @@ AutoIt:
 cv::detail::CameraParams VectorOfCameraParams::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfCameraParams.Item( $vIndex ) -> retval
+    $oVectorOfCameraParams.Item( $vIndex ) -> retval
     VectorOfCameraParams( $vIndex ) -> retval
 ```
 
@@ -41234,7 +41234,7 @@ void VectorOfCameraParams::put_Item( size_t                   vIndex,
                                      cv::detail::CameraParams vItem )
 
 AutoIt:
-    $vectorOfCameraParams.Item( $vIndex ) = $$vItem
+    $oVectorOfCameraParams.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfGCompileArg
@@ -41268,7 +41268,7 @@ AutoIt:
 std::vector<int> VectorOfGCompileArg::Keys()
 
 AutoIt:
-    $vectorOfGCompileArg.Keys() -> retval
+    $oVectorOfGCompileArg.Keys() -> retval
 ```
 
 ### VectorOfGCompileArg::Items
@@ -41277,7 +41277,7 @@ AutoIt:
 VectorOfGCompileArg VectorOfGCompileArg::Items()
 
 AutoIt:
-    $vectorOfGCompileArg.Items() -> retval
+    $oVectorOfGCompileArg.Items() -> retval
 ```
 
 ### VectorOfGCompileArg::push_back
@@ -41286,7 +41286,7 @@ AutoIt:
 void VectorOfGCompileArg::push_back( cv::GCompileArg value )
 
 AutoIt:
-    $vectorOfGCompileArg.push_back( $value ) -> None
+    $oVectorOfGCompileArg.push_back( $value ) -> None
 ```
 
 ### VectorOfGCompileArg::Add
@@ -41295,7 +41295,7 @@ AutoIt:
 void VectorOfGCompileArg::Add( cv::GCompileArg value )
 
 AutoIt:
-    $vectorOfGCompileArg.Add( $value ) -> None
+    $oVectorOfGCompileArg.Add( $value ) -> None
 ```
 
 ### VectorOfGCompileArg::Remove
@@ -41304,7 +41304,7 @@ AutoIt:
 void VectorOfGCompileArg::Remove( size_t index )
 
 AutoIt:
-    $vectorOfGCompileArg.Remove( $index ) -> None
+    $oVectorOfGCompileArg.Remove( $index ) -> None
 ```
 
 ### VectorOfGCompileArg::at
@@ -41313,7 +41313,7 @@ AutoIt:
 cv::GCompileArg VectorOfGCompileArg::at( size_t index )
 
 AutoIt:
-    $vectorOfGCompileArg.at( $index ) -> retval
+    $oVectorOfGCompileArg.at( $index ) -> retval
 ```
 
 ```cpp
@@ -41321,7 +41321,7 @@ void VectorOfGCompileArg::at( size_t          index,
                               cv::GCompileArg value )
 
 AutoIt:
-    $vectorOfGCompileArg.at( $index, $value ) -> None
+    $oVectorOfGCompileArg.at( $index, $value ) -> None
 ```
 
 ### VectorOfGCompileArg::size
@@ -41330,7 +41330,7 @@ AutoIt:
 size_t VectorOfGCompileArg::size()
 
 AutoIt:
-    $vectorOfGCompileArg.size() -> retval
+    $oVectorOfGCompileArg.size() -> retval
 ```
 
 ### VectorOfGCompileArg::empty
@@ -41339,7 +41339,7 @@ AutoIt:
 bool VectorOfGCompileArg::empty()
 
 AutoIt:
-    $vectorOfGCompileArg.empty() -> retval
+    $oVectorOfGCompileArg.empty() -> retval
 ```
 
 ### VectorOfGCompileArg::clear
@@ -41348,7 +41348,7 @@ AutoIt:
 void VectorOfGCompileArg::clear()
 
 AutoIt:
-    $vectorOfGCompileArg.clear() -> None
+    $oVectorOfGCompileArg.clear() -> None
 ```
 
 ### VectorOfGCompileArg::push_vector
@@ -41357,7 +41357,7 @@ AutoIt:
 void VectorOfGCompileArg::push_vector( VectorOfGCompileArg other )
 
 AutoIt:
-    $vectorOfGCompileArg.push_vector( $other ) -> None
+    $oVectorOfGCompileArg.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -41366,7 +41366,7 @@ void VectorOfGCompileArg::push_vector( VectorOfGCompileArg other,
                                        size_t              start = 0 )
 
 AutoIt:
-    $vectorOfGCompileArg.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfGCompileArg.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfGCompileArg::slice
@@ -41376,7 +41376,7 @@ VectorOfGCompileArg VectorOfGCompileArg::slice( size_t start = 0,
                                                 size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfGCompileArg.slice( [$start[, $count]] ) -> retval
+    $oVectorOfGCompileArg.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfGCompileArg::sort
@@ -41387,7 +41387,7 @@ void VectorOfGCompileArg::sort( void*  comparator,
                                 size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfGCompileArg.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfGCompileArg.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfGCompileArg::sort_variant
@@ -41398,7 +41398,7 @@ void VectorOfGCompileArg::sort_variant( void*  comparator,
                                         size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfGCompileArg.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfGCompileArg.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfGCompileArg::start
@@ -41407,7 +41407,7 @@ AutoIt:
 void* VectorOfGCompileArg::start()
 
 AutoIt:
-    $vectorOfGCompileArg.start() -> retval
+    $oVectorOfGCompileArg.start() -> retval
 ```
 
 ### VectorOfGCompileArg::end
@@ -41416,7 +41416,7 @@ AutoIt:
 void* VectorOfGCompileArg::end()
 
 AutoIt:
-    $vectorOfGCompileArg.end() -> retval
+    $oVectorOfGCompileArg.end() -> retval
 ```
 
 ### VectorOfGCompileArg::get_Item
@@ -41425,7 +41425,7 @@ AutoIt:
 cv::GCompileArg VectorOfGCompileArg::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfGCompileArg.Item( $vIndex ) -> retval
+    $oVectorOfGCompileArg.Item( $vIndex ) -> retval
     VectorOfGCompileArg( $vIndex ) -> retval
 ```
 
@@ -41436,7 +41436,7 @@ void VectorOfGCompileArg::put_Item( size_t          vIndex,
                                     cv::GCompileArg vItem )
 
 AutoIt:
-    $vectorOfGCompileArg.Item( $vIndex ) = $$vItem
+    $oVectorOfGCompileArg.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfGRunArg
@@ -41470,7 +41470,7 @@ AutoIt:
 std::vector<int> VectorOfGRunArg::Keys()
 
 AutoIt:
-    $vectorOfGRunArg.Keys() -> retval
+    $oVectorOfGRunArg.Keys() -> retval
 ```
 
 ### VectorOfGRunArg::Items
@@ -41479,7 +41479,7 @@ AutoIt:
 VectorOfGRunArg VectorOfGRunArg::Items()
 
 AutoIt:
-    $vectorOfGRunArg.Items() -> retval
+    $oVectorOfGRunArg.Items() -> retval
 ```
 
 ### VectorOfGRunArg::push_back
@@ -41488,7 +41488,7 @@ AutoIt:
 void VectorOfGRunArg::push_back( cv::GRunArg value )
 
 AutoIt:
-    $vectorOfGRunArg.push_back( $value ) -> None
+    $oVectorOfGRunArg.push_back( $value ) -> None
 ```
 
 ### VectorOfGRunArg::Add
@@ -41497,7 +41497,7 @@ AutoIt:
 void VectorOfGRunArg::Add( cv::GRunArg value )
 
 AutoIt:
-    $vectorOfGRunArg.Add( $value ) -> None
+    $oVectorOfGRunArg.Add( $value ) -> None
 ```
 
 ### VectorOfGRunArg::Remove
@@ -41506,7 +41506,7 @@ AutoIt:
 void VectorOfGRunArg::Remove( size_t index )
 
 AutoIt:
-    $vectorOfGRunArg.Remove( $index ) -> None
+    $oVectorOfGRunArg.Remove( $index ) -> None
 ```
 
 ### VectorOfGRunArg::at
@@ -41515,7 +41515,7 @@ AutoIt:
 cv::GRunArg VectorOfGRunArg::at( size_t index )
 
 AutoIt:
-    $vectorOfGRunArg.at( $index ) -> retval
+    $oVectorOfGRunArg.at( $index ) -> retval
 ```
 
 ```cpp
@@ -41523,7 +41523,7 @@ void VectorOfGRunArg::at( size_t      index,
                           cv::GRunArg value )
 
 AutoIt:
-    $vectorOfGRunArg.at( $index, $value ) -> None
+    $oVectorOfGRunArg.at( $index, $value ) -> None
 ```
 
 ### VectorOfGRunArg::size
@@ -41532,7 +41532,7 @@ AutoIt:
 size_t VectorOfGRunArg::size()
 
 AutoIt:
-    $vectorOfGRunArg.size() -> retval
+    $oVectorOfGRunArg.size() -> retval
 ```
 
 ### VectorOfGRunArg::empty
@@ -41541,7 +41541,7 @@ AutoIt:
 bool VectorOfGRunArg::empty()
 
 AutoIt:
-    $vectorOfGRunArg.empty() -> retval
+    $oVectorOfGRunArg.empty() -> retval
 ```
 
 ### VectorOfGRunArg::clear
@@ -41550,7 +41550,7 @@ AutoIt:
 void VectorOfGRunArg::clear()
 
 AutoIt:
-    $vectorOfGRunArg.clear() -> None
+    $oVectorOfGRunArg.clear() -> None
 ```
 
 ### VectorOfGRunArg::push_vector
@@ -41559,7 +41559,7 @@ AutoIt:
 void VectorOfGRunArg::push_vector( VectorOfGRunArg other )
 
 AutoIt:
-    $vectorOfGRunArg.push_vector( $other ) -> None
+    $oVectorOfGRunArg.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -41568,7 +41568,7 @@ void VectorOfGRunArg::push_vector( VectorOfGRunArg other,
                                    size_t          start = 0 )
 
 AutoIt:
-    $vectorOfGRunArg.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfGRunArg.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfGRunArg::slice
@@ -41578,7 +41578,7 @@ VectorOfGRunArg VectorOfGRunArg::slice( size_t start = 0,
                                         size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfGRunArg.slice( [$start[, $count]] ) -> retval
+    $oVectorOfGRunArg.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfGRunArg::sort
@@ -41589,7 +41589,7 @@ void VectorOfGRunArg::sort( void*  comparator,
                             size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfGRunArg.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfGRunArg.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfGRunArg::sort_variant
@@ -41600,7 +41600,7 @@ void VectorOfGRunArg::sort_variant( void*  comparator,
                                     size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfGRunArg.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfGRunArg.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfGRunArg::start
@@ -41609,7 +41609,7 @@ AutoIt:
 void* VectorOfGRunArg::start()
 
 AutoIt:
-    $vectorOfGRunArg.start() -> retval
+    $oVectorOfGRunArg.start() -> retval
 ```
 
 ### VectorOfGRunArg::end
@@ -41618,7 +41618,7 @@ AutoIt:
 void* VectorOfGRunArg::end()
 
 AutoIt:
-    $vectorOfGRunArg.end() -> retval
+    $oVectorOfGRunArg.end() -> retval
 ```
 
 ### VectorOfGRunArg::get_Item
@@ -41627,7 +41627,7 @@ AutoIt:
 cv::GRunArg VectorOfGRunArg::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfGRunArg.Item( $vIndex ) -> retval
+    $oVectorOfGRunArg.Item( $vIndex ) -> retval
     VectorOfGRunArg( $vIndex ) -> retval
 ```
 
@@ -41638,7 +41638,7 @@ void VectorOfGRunArg::put_Item( size_t      vIndex,
                                 cv::GRunArg vItem )
 
 AutoIt:
-    $vectorOfGRunArg.Item( $vIndex ) = $$vItem
+    $oVectorOfGRunArg.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfGMetaArg
@@ -41672,7 +41672,7 @@ AutoIt:
 std::vector<int> VectorOfGMetaArg::Keys()
 
 AutoIt:
-    $vectorOfGMetaArg.Keys() -> retval
+    $oVectorOfGMetaArg.Keys() -> retval
 ```
 
 ### VectorOfGMetaArg::Items
@@ -41681,7 +41681,7 @@ AutoIt:
 VectorOfGMetaArg VectorOfGMetaArg::Items()
 
 AutoIt:
-    $vectorOfGMetaArg.Items() -> retval
+    $oVectorOfGMetaArg.Items() -> retval
 ```
 
 ### VectorOfGMetaArg::push_back
@@ -41690,7 +41690,7 @@ AutoIt:
 void VectorOfGMetaArg::push_back( GMetaArg value )
 
 AutoIt:
-    $vectorOfGMetaArg.push_back( $value ) -> None
+    $oVectorOfGMetaArg.push_back( $value ) -> None
 ```
 
 ### VectorOfGMetaArg::Add
@@ -41699,7 +41699,7 @@ AutoIt:
 void VectorOfGMetaArg::Add( GMetaArg value )
 
 AutoIt:
-    $vectorOfGMetaArg.Add( $value ) -> None
+    $oVectorOfGMetaArg.Add( $value ) -> None
 ```
 
 ### VectorOfGMetaArg::Remove
@@ -41708,7 +41708,7 @@ AutoIt:
 void VectorOfGMetaArg::Remove( size_t index )
 
 AutoIt:
-    $vectorOfGMetaArg.Remove( $index ) -> None
+    $oVectorOfGMetaArg.Remove( $index ) -> None
 ```
 
 ### VectorOfGMetaArg::at
@@ -41717,7 +41717,7 @@ AutoIt:
 GMetaArg VectorOfGMetaArg::at( size_t index )
 
 AutoIt:
-    $vectorOfGMetaArg.at( $index ) -> retval
+    $oVectorOfGMetaArg.at( $index ) -> retval
 ```
 
 ```cpp
@@ -41725,7 +41725,7 @@ void VectorOfGMetaArg::at( size_t   index,
                            GMetaArg value )
 
 AutoIt:
-    $vectorOfGMetaArg.at( $index, $value ) -> None
+    $oVectorOfGMetaArg.at( $index, $value ) -> None
 ```
 
 ### VectorOfGMetaArg::size
@@ -41734,7 +41734,7 @@ AutoIt:
 size_t VectorOfGMetaArg::size()
 
 AutoIt:
-    $vectorOfGMetaArg.size() -> retval
+    $oVectorOfGMetaArg.size() -> retval
 ```
 
 ### VectorOfGMetaArg::empty
@@ -41743,7 +41743,7 @@ AutoIt:
 bool VectorOfGMetaArg::empty()
 
 AutoIt:
-    $vectorOfGMetaArg.empty() -> retval
+    $oVectorOfGMetaArg.empty() -> retval
 ```
 
 ### VectorOfGMetaArg::clear
@@ -41752,7 +41752,7 @@ AutoIt:
 void VectorOfGMetaArg::clear()
 
 AutoIt:
-    $vectorOfGMetaArg.clear() -> None
+    $oVectorOfGMetaArg.clear() -> None
 ```
 
 ### VectorOfGMetaArg::push_vector
@@ -41761,7 +41761,7 @@ AutoIt:
 void VectorOfGMetaArg::push_vector( VectorOfGMetaArg other )
 
 AutoIt:
-    $vectorOfGMetaArg.push_vector( $other ) -> None
+    $oVectorOfGMetaArg.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -41770,7 +41770,7 @@ void VectorOfGMetaArg::push_vector( VectorOfGMetaArg other,
                                     size_t           start = 0 )
 
 AutoIt:
-    $vectorOfGMetaArg.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfGMetaArg.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfGMetaArg::slice
@@ -41780,7 +41780,7 @@ VectorOfGMetaArg VectorOfGMetaArg::slice( size_t start = 0,
                                           size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfGMetaArg.slice( [$start[, $count]] ) -> retval
+    $oVectorOfGMetaArg.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfGMetaArg::sort
@@ -41791,7 +41791,7 @@ void VectorOfGMetaArg::sort( void*  comparator,
                              size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfGMetaArg.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfGMetaArg.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfGMetaArg::sort_variant
@@ -41802,7 +41802,7 @@ void VectorOfGMetaArg::sort_variant( void*  comparator,
                                      size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfGMetaArg.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfGMetaArg.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfGMetaArg::start
@@ -41811,7 +41811,7 @@ AutoIt:
 void* VectorOfGMetaArg::start()
 
 AutoIt:
-    $vectorOfGMetaArg.start() -> retval
+    $oVectorOfGMetaArg.start() -> retval
 ```
 
 ### VectorOfGMetaArg::end
@@ -41820,7 +41820,7 @@ AutoIt:
 void* VectorOfGMetaArg::end()
 
 AutoIt:
-    $vectorOfGMetaArg.end() -> retval
+    $oVectorOfGMetaArg.end() -> retval
 ```
 
 ### VectorOfGMetaArg::get_Item
@@ -41829,7 +41829,7 @@ AutoIt:
 GMetaArg VectorOfGMetaArg::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfGMetaArg.Item( $vIndex ) -> retval
+    $oVectorOfGMetaArg.Item( $vIndex ) -> retval
     VectorOfGMetaArg( $vIndex ) -> retval
 ```
 
@@ -41840,7 +41840,7 @@ void VectorOfGMetaArg::put_Item( size_t   vIndex,
                                  GMetaArg vItem )
 
 AutoIt:
-    $vectorOfGMetaArg.Item( $vIndex ) = $$vItem
+    $oVectorOfGMetaArg.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfGNetParam
@@ -41874,7 +41874,7 @@ AutoIt:
 std::vector<int> VectorOfGNetParam::Keys()
 
 AutoIt:
-    $vectorOfGNetParam.Keys() -> retval
+    $oVectorOfGNetParam.Keys() -> retval
 ```
 
 ### VectorOfGNetParam::Items
@@ -41883,7 +41883,7 @@ AutoIt:
 VectorOfGNetParam VectorOfGNetParam::Items()
 
 AutoIt:
-    $vectorOfGNetParam.Items() -> retval
+    $oVectorOfGNetParam.Items() -> retval
 ```
 
 ### VectorOfGNetParam::push_back
@@ -41892,7 +41892,7 @@ AutoIt:
 void VectorOfGNetParam::push_back( cv::gapi::GNetParam value )
 
 AutoIt:
-    $vectorOfGNetParam.push_back( $value ) -> None
+    $oVectorOfGNetParam.push_back( $value ) -> None
 ```
 
 ### VectorOfGNetParam::Add
@@ -41901,7 +41901,7 @@ AutoIt:
 void VectorOfGNetParam::Add( cv::gapi::GNetParam value )
 
 AutoIt:
-    $vectorOfGNetParam.Add( $value ) -> None
+    $oVectorOfGNetParam.Add( $value ) -> None
 ```
 
 ### VectorOfGNetParam::Remove
@@ -41910,7 +41910,7 @@ AutoIt:
 void VectorOfGNetParam::Remove( size_t index )
 
 AutoIt:
-    $vectorOfGNetParam.Remove( $index ) -> None
+    $oVectorOfGNetParam.Remove( $index ) -> None
 ```
 
 ### VectorOfGNetParam::at
@@ -41919,7 +41919,7 @@ AutoIt:
 cv::gapi::GNetParam VectorOfGNetParam::at( size_t index )
 
 AutoIt:
-    $vectorOfGNetParam.at( $index ) -> retval
+    $oVectorOfGNetParam.at( $index ) -> retval
 ```
 
 ```cpp
@@ -41927,7 +41927,7 @@ void VectorOfGNetParam::at( size_t              index,
                             cv::gapi::GNetParam value )
 
 AutoIt:
-    $vectorOfGNetParam.at( $index, $value ) -> None
+    $oVectorOfGNetParam.at( $index, $value ) -> None
 ```
 
 ### VectorOfGNetParam::size
@@ -41936,7 +41936,7 @@ AutoIt:
 size_t VectorOfGNetParam::size()
 
 AutoIt:
-    $vectorOfGNetParam.size() -> retval
+    $oVectorOfGNetParam.size() -> retval
 ```
 
 ### VectorOfGNetParam::empty
@@ -41945,7 +41945,7 @@ AutoIt:
 bool VectorOfGNetParam::empty()
 
 AutoIt:
-    $vectorOfGNetParam.empty() -> retval
+    $oVectorOfGNetParam.empty() -> retval
 ```
 
 ### VectorOfGNetParam::clear
@@ -41954,7 +41954,7 @@ AutoIt:
 void VectorOfGNetParam::clear()
 
 AutoIt:
-    $vectorOfGNetParam.clear() -> None
+    $oVectorOfGNetParam.clear() -> None
 ```
 
 ### VectorOfGNetParam::push_vector
@@ -41963,7 +41963,7 @@ AutoIt:
 void VectorOfGNetParam::push_vector( VectorOfGNetParam other )
 
 AutoIt:
-    $vectorOfGNetParam.push_vector( $other ) -> None
+    $oVectorOfGNetParam.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -41972,7 +41972,7 @@ void VectorOfGNetParam::push_vector( VectorOfGNetParam other,
                                      size_t            start = 0 )
 
 AutoIt:
-    $vectorOfGNetParam.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfGNetParam.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfGNetParam::slice
@@ -41982,7 +41982,7 @@ VectorOfGNetParam VectorOfGNetParam::slice( size_t start = 0,
                                             size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfGNetParam.slice( [$start[, $count]] ) -> retval
+    $oVectorOfGNetParam.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfGNetParam::sort
@@ -41993,7 +41993,7 @@ void VectorOfGNetParam::sort( void*  comparator,
                               size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfGNetParam.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfGNetParam.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfGNetParam::sort_variant
@@ -42004,7 +42004,7 @@ void VectorOfGNetParam::sort_variant( void*  comparator,
                                       size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfGNetParam.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfGNetParam.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfGNetParam::start
@@ -42013,7 +42013,7 @@ AutoIt:
 void* VectorOfGNetParam::start()
 
 AutoIt:
-    $vectorOfGNetParam.start() -> retval
+    $oVectorOfGNetParam.start() -> retval
 ```
 
 ### VectorOfGNetParam::end
@@ -42022,7 +42022,7 @@ AutoIt:
 void* VectorOfGNetParam::end()
 
 AutoIt:
-    $vectorOfGNetParam.end() -> retval
+    $oVectorOfGNetParam.end() -> retval
 ```
 
 ### VectorOfGNetParam::get_Item
@@ -42031,7 +42031,7 @@ AutoIt:
 cv::gapi::GNetParam VectorOfGNetParam::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfGNetParam.Item( $vIndex ) -> retval
+    $oVectorOfGNetParam.Item( $vIndex ) -> retval
     VectorOfGNetParam( $vIndex ) -> retval
 ```
 
@@ -42042,7 +42042,7 @@ void VectorOfGNetParam::put_Item( size_t              vIndex,
                                   cv::gapi::GNetParam vItem )
 
 AutoIt:
-    $vectorOfGNetParam.Item( $vIndex ) = $$vItem
+    $oVectorOfGNetParam.Item( $vIndex ) = $$vItem
 ```
 
 ## VectorOfPrim
@@ -42076,7 +42076,7 @@ AutoIt:
 std::vector<int> VectorOfPrim::Keys()
 
 AutoIt:
-    $vectorOfPrim.Keys() -> retval
+    $oVectorOfPrim.Keys() -> retval
 ```
 
 ### VectorOfPrim::Items
@@ -42085,7 +42085,7 @@ AutoIt:
 VectorOfPrim VectorOfPrim::Items()
 
 AutoIt:
-    $vectorOfPrim.Items() -> retval
+    $oVectorOfPrim.Items() -> retval
 ```
 
 ### VectorOfPrim::push_back
@@ -42094,7 +42094,7 @@ AutoIt:
 void VectorOfPrim::push_back( cv::gapi::wip::draw::Prim value )
 
 AutoIt:
-    $vectorOfPrim.push_back( $value ) -> None
+    $oVectorOfPrim.push_back( $value ) -> None
 ```
 
 ### VectorOfPrim::Add
@@ -42103,7 +42103,7 @@ AutoIt:
 void VectorOfPrim::Add( cv::gapi::wip::draw::Prim value )
 
 AutoIt:
-    $vectorOfPrim.Add( $value ) -> None
+    $oVectorOfPrim.Add( $value ) -> None
 ```
 
 ### VectorOfPrim::Remove
@@ -42112,7 +42112,7 @@ AutoIt:
 void VectorOfPrim::Remove( size_t index )
 
 AutoIt:
-    $vectorOfPrim.Remove( $index ) -> None
+    $oVectorOfPrim.Remove( $index ) -> None
 ```
 
 ### VectorOfPrim::at
@@ -42121,7 +42121,7 @@ AutoIt:
 cv::gapi::wip::draw::Prim VectorOfPrim::at( size_t index )
 
 AutoIt:
-    $vectorOfPrim.at( $index ) -> retval
+    $oVectorOfPrim.at( $index ) -> retval
 ```
 
 ```cpp
@@ -42129,7 +42129,7 @@ void VectorOfPrim::at( size_t                    index,
                        cv::gapi::wip::draw::Prim value )
 
 AutoIt:
-    $vectorOfPrim.at( $index, $value ) -> None
+    $oVectorOfPrim.at( $index, $value ) -> None
 ```
 
 ### VectorOfPrim::size
@@ -42138,7 +42138,7 @@ AutoIt:
 size_t VectorOfPrim::size()
 
 AutoIt:
-    $vectorOfPrim.size() -> retval
+    $oVectorOfPrim.size() -> retval
 ```
 
 ### VectorOfPrim::empty
@@ -42147,7 +42147,7 @@ AutoIt:
 bool VectorOfPrim::empty()
 
 AutoIt:
-    $vectorOfPrim.empty() -> retval
+    $oVectorOfPrim.empty() -> retval
 ```
 
 ### VectorOfPrim::clear
@@ -42156,7 +42156,7 @@ AutoIt:
 void VectorOfPrim::clear()
 
 AutoIt:
-    $vectorOfPrim.clear() -> None
+    $oVectorOfPrim.clear() -> None
 ```
 
 ### VectorOfPrim::push_vector
@@ -42165,7 +42165,7 @@ AutoIt:
 void VectorOfPrim::push_vector( VectorOfPrim other )
 
 AutoIt:
-    $vectorOfPrim.push_vector( $other ) -> None
+    $oVectorOfPrim.push_vector( $other ) -> None
 ```
 
 ```cpp
@@ -42174,7 +42174,7 @@ void VectorOfPrim::push_vector( VectorOfPrim other,
                                 size_t       start = 0 )
 
 AutoIt:
-    $vectorOfPrim.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfPrim.push_vector( $other, $count[, $start] ) -> None
 ```
 
 ### VectorOfPrim::slice
@@ -42184,7 +42184,7 @@ VectorOfPrim VectorOfPrim::slice( size_t start = 0,
                                   size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfPrim.slice( [$start[, $count]] ) -> retval
+    $oVectorOfPrim.slice( [$start[, $count]] ) -> retval
 ```
 
 ### VectorOfPrim::sort
@@ -42195,7 +42195,7 @@ void VectorOfPrim::sort( void*  comparator,
                          size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfPrim.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfPrim.sort( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfPrim::sort_variant
@@ -42206,7 +42206,7 @@ void VectorOfPrim::sort_variant( void*  comparator,
                                  size_t count = this->__self->get()->size() )
 
 AutoIt:
-    $vectorOfPrim.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfPrim.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
 
 ### VectorOfPrim::start
@@ -42215,7 +42215,7 @@ AutoIt:
 void* VectorOfPrim::start()
 
 AutoIt:
-    $vectorOfPrim.start() -> retval
+    $oVectorOfPrim.start() -> retval
 ```
 
 ### VectorOfPrim::end
@@ -42224,7 +42224,7 @@ AutoIt:
 void* VectorOfPrim::end()
 
 AutoIt:
-    $vectorOfPrim.end() -> retval
+    $oVectorOfPrim.end() -> retval
 ```
 
 ### VectorOfPrim::get_Item
@@ -42233,7 +42233,7 @@ AutoIt:
 cv::gapi::wip::draw::Prim VectorOfPrim::get_Item( size_t vIndex )
 
 AutoIt:
-    $vectorOfPrim.Item( $vIndex ) -> retval
+    $oVectorOfPrim.Item( $vIndex ) -> retval
     VectorOfPrim( $vIndex ) -> retval
 ```
 
@@ -42244,5 +42244,5 @@ void VectorOfPrim::put_Item( size_t                    vIndex,
                              cv::gapi::wip::draw::Prim vItem )
 
 AutoIt:
-    $vectorOfPrim.Item( $vIndex ) = $$vItem
+    $oVectorOfPrim.Item( $vIndex ) = $$vItem
 ```

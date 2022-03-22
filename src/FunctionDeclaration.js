@@ -397,7 +397,7 @@ Object.assign(exports, {
 
             const is_idl_class = !coclass.noidl && (coclass.is_class || coclass.is_struct);
             const is_static = func_modifiers.includes("/S");
-            const caller = !is_idl_class || is_static ? `_${ options.APP_NAME }_ObjCreate("${ coclass.progid }")` : `$${ coclass.name[0].toLowerCase() }${ coclass.name.slice(1) }`;
+            const caller = !is_idl_class || is_static ? `_${ options.APP_NAME }_ObjCreate("${ coclass.progid }")` : `$o${ coclass.name }`;
             let description = `${ caller }.${ idlname }( ${ argstr } )`;
 
             if (proput) {
