@@ -31336,7 +31336,7 @@ void VectorOfVariant::put_Item( size_t     vIndex,
                                 _variant_t vItem )
 
 AutoIt:
-    $oVectorOfVariant.Item( $vIndex ) = $$vItem
+    $oVectorOfVariant.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfMat
@@ -31538,7 +31538,7 @@ void VectorOfMat::put_Item( size_t  vIndex,
                             cv::Mat vItem )
 
 AutoIt:
-    $oVectorOfMat.Item( $vIndex ) = $$vItem
+    $oVectorOfMat.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfInt
@@ -31740,7 +31740,7 @@ void VectorOfInt::put_Item( size_t vIndex,
                             int    vItem )
 
 AutoIt:
-    $oVectorOfInt.Item( $vIndex ) = $$vItem
+    $oVectorOfInt.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfFloat
@@ -31942,7 +31942,7 @@ void VectorOfFloat::put_Item( size_t vIndex,
                               float  vItem )
 
 AutoIt:
-    $oVectorOfFloat.Item( $vIndex ) = $$vItem
+    $oVectorOfFloat.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfPoint
@@ -32144,7 +32144,7 @@ void VectorOfPoint::put_Item( size_t    vIndex,
                               cv::Point vItem )
 
 AutoIt:
-    $oVectorOfPoint.Item( $vIndex ) = $$vItem
+    $oVectorOfPoint.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfKeyPoint
@@ -32346,7 +32346,7 @@ void VectorOfKeyPoint::put_Item( size_t       vIndex,
                                  cv::KeyPoint vItem )
 
 AutoIt:
-    $oVectorOfKeyPoint.Item( $vIndex ) = $$vItem
+    $oVectorOfKeyPoint.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfDMatch
@@ -32548,7 +32548,7 @@ void VectorOfDMatch::put_Item( size_t     vIndex,
                                cv::DMatch vItem )
 
 AutoIt:
-    $oVectorOfDMatch.Item( $vIndex ) = $$vItem
+    $oVectorOfDMatch.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfChar
@@ -32750,7 +32750,7 @@ void VectorOfChar::put_Item( size_t vIndex,
                              char   vItem )
 
 AutoIt:
-    $oVectorOfChar.Item( $vIndex ) = $$vItem
+    $oVectorOfChar.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVectorOfDMatch
@@ -32952,7 +32952,7 @@ void VectorOfVectorOfDMatch::put_Item( size_t                  vIndex,
                                        std::vector<cv::DMatch> vItem )
 
 AutoIt:
-    $oVectorOfVectorOfDMatch.Item( $vIndex ) = $$vItem
+    $oVectorOfVectorOfDMatch.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVectorOfChar
@@ -33154,7 +33154,7 @@ void VectorOfVectorOfChar::put_Item( size_t            vIndex,
                                      std::vector<char> vItem )
 
 AutoIt:
-    $oVectorOfVectorOfChar.Item( $vIndex ) = $$vItem
+    $oVectorOfVectorOfChar.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfUchar
@@ -33356,7 +33356,7 @@ void VectorOfUchar::put_Item( size_t vIndex,
                               uchar  vItem )
 
 AutoIt:
-    $oVectorOfUchar.Item( $vIndex ) = $$vItem
+    $oVectorOfUchar.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfRect
@@ -33558,7 +33558,7 @@ void VectorOfRect::put_Item( size_t   vIndex,
                              cv::Rect vItem )
 
 AutoIt:
-    $oVectorOfRect.Item( $vIndex ) = $$vItem
+    $oVectorOfRect.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfRotatedRect
@@ -33760,7 +33760,7 @@ void VectorOfRotatedRect::put_Item( size_t          vIndex,
                                     cv::RotatedRect vItem )
 
 AutoIt:
-    $oVectorOfRotatedRect.Item( $vIndex ) = $$vItem
+    $oVectorOfRotatedRect.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfDouble
@@ -33962,7 +33962,7 @@ void VectorOfDouble::put_Item( size_t vIndex,
                                double vItem )
 
 AutoIt:
-    $oVectorOfDouble.Item( $vIndex ) = $$vItem
+    $oVectorOfDouble.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfUMat
@@ -34164,7 +34164,7 @@ void VectorOfUMat::put_Item( size_t   vIndex,
                              cv::UMat vItem )
 
 AutoIt:
-    $oVectorOfUMat.Item( $vIndex ) = $$vItem
+    $oVectorOfUMat.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfImageFeatures
@@ -34366,7 +34366,7 @@ void VectorOfImageFeatures::put_Item( size_t                    vIndex,
                                       cv::detail::ImageFeatures vItem )
 
 AutoIt:
-    $oVectorOfImageFeatures.Item( $vIndex ) = $$vItem
+    $oVectorOfImageFeatures.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfString
@@ -34568,7 +34568,7 @@ void VectorOfString::put_Item( size_t      vIndex,
                                std::string vItem )
 
 AutoIt:
-    $oVectorOfString.Item( $vIndex ) = $$vItem
+    $oVectorOfString.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfMatchesInfo
@@ -34770,7 +34770,7 @@ void VectorOfMatchesInfo::put_Item( size_t                  vIndex,
                                     cv::detail::MatchesInfo vItem )
 
 AutoIt:
-    $oVectorOfMatchesInfo.Item( $vIndex ) = $$vItem
+    $oVectorOfMatchesInfo.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfSize
@@ -34972,7 +34972,7 @@ void VectorOfSize::put_Item( size_t   vIndex,
                              cv::Size vItem )
 
 AutoIt:
-    $oVectorOfSize.Item( $vIndex ) = $$vItem
+    $oVectorOfSize.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec2b
@@ -35174,7 +35174,7 @@ void VectorOfVec2b::put_Item( size_t    vIndex,
                               cv::Vec2b vItem )
 
 AutoIt:
-    $oVectorOfVec2b.Item( $vIndex ) = $$vItem
+    $oVectorOfVec2b.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec3b
@@ -35376,7 +35376,7 @@ void VectorOfVec3b::put_Item( size_t    vIndex,
                               cv::Vec3b vItem )
 
 AutoIt:
-    $oVectorOfVec3b.Item( $vIndex ) = $$vItem
+    $oVectorOfVec3b.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec4b
@@ -35578,7 +35578,7 @@ void VectorOfVec4b::put_Item( size_t    vIndex,
                               cv::Vec4b vItem )
 
 AutoIt:
-    $oVectorOfVec4b.Item( $vIndex ) = $$vItem
+    $oVectorOfVec4b.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec2s
@@ -35780,7 +35780,7 @@ void VectorOfVec2s::put_Item( size_t    vIndex,
                               cv::Vec2s vItem )
 
 AutoIt:
-    $oVectorOfVec2s.Item( $vIndex ) = $$vItem
+    $oVectorOfVec2s.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec3s
@@ -35982,7 +35982,7 @@ void VectorOfVec3s::put_Item( size_t    vIndex,
                               cv::Vec3s vItem )
 
 AutoIt:
-    $oVectorOfVec3s.Item( $vIndex ) = $$vItem
+    $oVectorOfVec3s.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec4s
@@ -36184,7 +36184,7 @@ void VectorOfVec4s::put_Item( size_t    vIndex,
                               cv::Vec4s vItem )
 
 AutoIt:
-    $oVectorOfVec4s.Item( $vIndex ) = $$vItem
+    $oVectorOfVec4s.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec2w
@@ -36386,7 +36386,7 @@ void VectorOfVec2w::put_Item( size_t    vIndex,
                               cv::Vec2w vItem )
 
 AutoIt:
-    $oVectorOfVec2w.Item( $vIndex ) = $$vItem
+    $oVectorOfVec2w.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec3w
@@ -36588,7 +36588,7 @@ void VectorOfVec3w::put_Item( size_t    vIndex,
                               cv::Vec3w vItem )
 
 AutoIt:
-    $oVectorOfVec3w.Item( $vIndex ) = $$vItem
+    $oVectorOfVec3w.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec4w
@@ -36790,7 +36790,7 @@ void VectorOfVec4w::put_Item( size_t    vIndex,
                               cv::Vec4w vItem )
 
 AutoIt:
-    $oVectorOfVec4w.Item( $vIndex ) = $$vItem
+    $oVectorOfVec4w.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec2i
@@ -36992,7 +36992,7 @@ void VectorOfVec2i::put_Item( size_t    vIndex,
                               cv::Vec2i vItem )
 
 AutoIt:
-    $oVectorOfVec2i.Item( $vIndex ) = $$vItem
+    $oVectorOfVec2i.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec3i
@@ -37194,7 +37194,7 @@ void VectorOfVec3i::put_Item( size_t    vIndex,
                               cv::Vec3i vItem )
 
 AutoIt:
-    $oVectorOfVec3i.Item( $vIndex ) = $$vItem
+    $oVectorOfVec3i.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec4i
@@ -37396,7 +37396,7 @@ void VectorOfVec4i::put_Item( size_t    vIndex,
                               cv::Vec4i vItem )
 
 AutoIt:
-    $oVectorOfVec4i.Item( $vIndex ) = $$vItem
+    $oVectorOfVec4i.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec6i
@@ -37598,7 +37598,7 @@ void VectorOfVec6i::put_Item( size_t    vIndex,
                               cv::Vec6i vItem )
 
 AutoIt:
-    $oVectorOfVec6i.Item( $vIndex ) = $$vItem
+    $oVectorOfVec6i.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec8i
@@ -37800,7 +37800,7 @@ void VectorOfVec8i::put_Item( size_t    vIndex,
                               cv::Vec8i vItem )
 
 AutoIt:
-    $oVectorOfVec8i.Item( $vIndex ) = $$vItem
+    $oVectorOfVec8i.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec2f
@@ -38002,7 +38002,7 @@ void VectorOfVec2f::put_Item( size_t    vIndex,
                               cv::Vec2f vItem )
 
 AutoIt:
-    $oVectorOfVec2f.Item( $vIndex ) = $$vItem
+    $oVectorOfVec2f.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec3f
@@ -38204,7 +38204,7 @@ void VectorOfVec3f::put_Item( size_t    vIndex,
                               cv::Vec3f vItem )
 
 AutoIt:
-    $oVectorOfVec3f.Item( $vIndex ) = $$vItem
+    $oVectorOfVec3f.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec4f
@@ -38406,7 +38406,7 @@ void VectorOfVec4f::put_Item( size_t    vIndex,
                               cv::Vec4f vItem )
 
 AutoIt:
-    $oVectorOfVec4f.Item( $vIndex ) = $$vItem
+    $oVectorOfVec4f.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec6f
@@ -38608,7 +38608,7 @@ void VectorOfVec6f::put_Item( size_t    vIndex,
                               cv::Vec6f vItem )
 
 AutoIt:
-    $oVectorOfVec6f.Item( $vIndex ) = $$vItem
+    $oVectorOfVec6f.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec2d
@@ -38810,7 +38810,7 @@ void VectorOfVec2d::put_Item( size_t    vIndex,
                               cv::Vec2d vItem )
 
 AutoIt:
-    $oVectorOfVec2d.Item( $vIndex ) = $$vItem
+    $oVectorOfVec2d.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec3d
@@ -39012,7 +39012,7 @@ void VectorOfVec3d::put_Item( size_t    vIndex,
                               cv::Vec3d vItem )
 
 AutoIt:
-    $oVectorOfVec3d.Item( $vIndex ) = $$vItem
+    $oVectorOfVec3d.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec4d
@@ -39214,7 +39214,7 @@ void VectorOfVec4d::put_Item( size_t    vIndex,
                               cv::Vec4d vItem )
 
 AutoIt:
-    $oVectorOfVec4d.Item( $vIndex ) = $$vItem
+    $oVectorOfVec4d.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec6d
@@ -39416,7 +39416,7 @@ void VectorOfVec6d::put_Item( size_t    vIndex,
                               cv::Vec6d vItem )
 
 AutoIt:
-    $oVectorOfVec6d.Item( $vIndex ) = $$vItem
+    $oVectorOfVec6d.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfPoint2f
@@ -39618,7 +39618,7 @@ void VectorOfPoint2f::put_Item( size_t      vIndex,
                                 cv::Point2f vItem )
 
 AutoIt:
-    $oVectorOfPoint2f.Item( $vIndex ) = $$vItem
+    $oVectorOfPoint2f.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVectorOfPoint2f
@@ -39820,7 +39820,7 @@ void VectorOfVectorOfPoint2f::put_Item( size_t                   vIndex,
                                         std::vector<cv::Point2f> vItem )
 
 AutoIt:
-    $oVectorOfVectorOfPoint2f.Item( $vIndex ) = $$vItem
+    $oVectorOfVectorOfPoint2f.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfRect2d
@@ -40022,7 +40022,7 @@ void VectorOfRect2d::put_Item( size_t     vIndex,
                                cv::Rect2d vItem )
 
 AutoIt:
-    $oVectorOfRect2d.Item( $vIndex ) = $$vItem
+    $oVectorOfRect2d.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVectorOfMat
@@ -40224,7 +40224,7 @@ void VectorOfVectorOfMat::put_Item( size_t               vIndex,
                                     std::vector<cv::Mat> vItem )
 
 AutoIt:
-    $oVectorOfVectorOfMat.Item( $vIndex ) = $$vItem
+    $oVectorOfVectorOfMat.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVectorOfInt
@@ -40426,7 +40426,7 @@ void VectorOfVectorOfInt::put_Item( size_t           vIndex,
                                     std::vector<int> vItem )
 
 AutoIt:
-    $oVectorOfVectorOfInt.Item( $vIndex ) = $$vItem
+    $oVectorOfVectorOfInt.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVectorOfVectorOfInt
@@ -40628,7 +40628,7 @@ void VectorOfVectorOfVectorOfInt::put_Item( size_t                        vIndex
                                             std::vector<std::vector<int>> vItem )
 
 AutoIt:
-    $oVectorOfVectorOfVectorOfInt.Item( $vIndex ) = $$vItem
+    $oVectorOfVectorOfVectorOfInt.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVectorOfPoint
@@ -40830,7 +40830,7 @@ void VectorOfVectorOfPoint::put_Item( size_t                 vIndex,
                                       std::vector<cv::Point> vItem )
 
 AutoIt:
-    $oVectorOfVectorOfPoint.Item( $vIndex ) = $$vItem
+    $oVectorOfVectorOfPoint.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVectorOfKeyPoint
@@ -41032,7 +41032,7 @@ void VectorOfVectorOfKeyPoint::put_Item( size_t                    vIndex,
                                          std::vector<cv::KeyPoint> vItem )
 
 AutoIt:
-    $oVectorOfVectorOfKeyPoint.Item( $vIndex ) = $$vItem
+    $oVectorOfVectorOfKeyPoint.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfCameraParams
@@ -41234,7 +41234,7 @@ void VectorOfCameraParams::put_Item( size_t                   vIndex,
                                      cv::detail::CameraParams vItem )
 
 AutoIt:
-    $oVectorOfCameraParams.Item( $vIndex ) = $$vItem
+    $oVectorOfCameraParams.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfGCompileArg
@@ -41436,7 +41436,7 @@ void VectorOfGCompileArg::put_Item( size_t          vIndex,
                                     cv::GCompileArg vItem )
 
 AutoIt:
-    $oVectorOfGCompileArg.Item( $vIndex ) = $$vItem
+    $oVectorOfGCompileArg.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfGRunArg
@@ -41638,7 +41638,7 @@ void VectorOfGRunArg::put_Item( size_t      vIndex,
                                 cv::GRunArg vItem )
 
 AutoIt:
-    $oVectorOfGRunArg.Item( $vIndex ) = $$vItem
+    $oVectorOfGRunArg.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfGMetaArg
@@ -41840,7 +41840,7 @@ void VectorOfGMetaArg::put_Item( size_t   vIndex,
                                  GMetaArg vItem )
 
 AutoIt:
-    $oVectorOfGMetaArg.Item( $vIndex ) = $$vItem
+    $oVectorOfGMetaArg.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfGNetParam
@@ -42042,7 +42042,7 @@ void VectorOfGNetParam::put_Item( size_t              vIndex,
                                   cv::gapi::GNetParam vItem )
 
 AutoIt:
-    $oVectorOfGNetParam.Item( $vIndex ) = $$vItem
+    $oVectorOfGNetParam.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfPrim
@@ -42244,5 +42244,5 @@ void VectorOfPrim::put_Item( size_t                    vIndex,
                              cv::gapi::wip::draw::Prim vItem )
 
 AutoIt:
-    $oVectorOfPrim.Item( $vIndex ) = $$vItem
+    $oVectorOfPrim.Item( $vIndex ) = $vItem
 ```

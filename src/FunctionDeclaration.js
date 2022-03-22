@@ -401,7 +401,7 @@ Object.assign(exports, {
             let description = `${ caller }.${ idlname }( ${ argstr } )`;
 
             if (proput) {
-                description += ` = $${ proput }`;
+                description += ` = ${ proput }`;
             } else {
                 description += ` -> ${ outstr }`;
             }
