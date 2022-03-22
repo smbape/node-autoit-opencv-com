@@ -30,25 +30,29 @@ exports.transformAndSave = (files, cb, mode = exports.modes.github, maxHeaderLev
             },
 
             (buffer, next) => {
-                const result = transform(buffer.toString(), mode, maxHeaderLevel, title, notitle, entryPrefix, processAll, updateOnly);
+                const content = buffer.toString();
+                const result = transform(content, mode, maxHeaderLevel, title, notitle, entryPrefix, processAll, updateOnly);
+                const shouldUpdate = result.transformed && content !== result.data;
 
                 if (stdOut) {
                     console.log(result.toc);
-                }
-
-                if (result.transformed) {
-                    if (stdOut) {
+                    if (shouldUpdate) {
                         console.log("==================\n\n\"%s\" should be updated", file);
-                    } else {
-                        console.log("\"%s\" will be updated", file);
-                        fs.writeFile(file, result.data, next);
-                        return;
                     }
-                } else {
-                    console.log("\"%s\" is up to date", file);
+                    next(null, result.transformed);
+                    return;
                 }
 
-                next();
+                if (shouldUpdate) {
+                    console.log("\"%s\" will be updated", file);
+                    fs.writeFile(file, result.data, err => {
+                        next(err, true);
+                    });
+                    return;
+                }
+
+                console.log("\"%s\" is up to date", file);
+                next(null, false);
             }
         ], next);
     }, cb);

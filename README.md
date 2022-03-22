@@ -10,34 +10,30 @@ In fact, the dll being a [Component Object Model (COM)](https://docs.microsoft.c
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
-- [Usage of the UDF](#usage-of-the-udf)
-  - [Prerequisites](#prerequisites)
-  - [Usage](#usage)
-    - [AutoIt](#autoit)
-    - [PowerShell](#powershell)
-  - [Running examples](#running-examples)
-    - [\[optional\] Build the addon dll](#%5Coptional%5C-build-the-addon-dll)
-      - [Prerequisite](#prerequisite)
-      - [Building](#building)
-  - [How to translate python/c++ code to the UDF](#how-to-translate-pythonc-code-to-the-udf)
-    - [Finding the functions/constants names](#finding-the-functionsconstants-names)
-    - [Transform the parameter types](#transform-the-parameter-types)
-    - [Python translation example](#python-translation-example)
-      - [First line](#first-line)
-      - [Second line](#second-line)
-      - [Third line](#third-line)
-      - [Final result](#final-result)
-  - [Developpement](#developpement)
-    - [Prerequisites](#prerequisites-1)
-    - [Environment](#environment)
-    - [Generate the UDF files](#generate-the-udf-files)
-  - [Breaking changes from v1](#breaking-changes-from-v1)
-  - [History](#history)
+- [Prerequisites](#prerequisites)
+- [Usage](#usage)
+  - [AutoIt](#autoit)
+  - [PowerShell](#powershell)
+- [Running examples](#running-examples)
+  - [\[optional\] Build the addon dll](#%5Coptional%5C-build-the-addon-dll)
+    - [Prerequisite](#prerequisite)
+    - [Building](#building)
+- [How to translate python/c++ code to the UDF](#how-to-translate-pythonc-code-to-the-udf)
+  - [Finding the functions/constants names](#finding-the-functionsconstants-names)
+  - [Transform the parameter types](#transform-the-parameter-types)
+  - [Python translation example](#python-translation-example)
+    - [First line](#first-line)
+    - [Second line](#second-line)
+    - [Third line](#third-line)
+    - [Final result](#final-result)
+- [Developpement](#developpement)
+  - [Prerequisites](#prerequisites-1)
+  - [Environment](#environment)
+  - [Generate the UDF files](#generate-the-udf-files)
+- [Breaking changes from v1](#breaking-changes-from-v1)
+- [History](#history)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-# Usage of the UDF
 
 ## Prerequisites
 

@@ -3,6 +3,7 @@ const sysPath = require("path");
 const fs = require("fs");
 const eachOfLimit = require("async/eachOfLimit");
 const waterfall = require("async/waterfall");
+const doctoc = require("../src/doctoc");
 
 const regexEscape = str => {
     return str.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&");
@@ -33,7 +34,7 @@ const updateContent = (file, replacer, cb) => {
 
         (hasChanged, next) => {
             if (!hasChanged) {
-                next(0, null);
+                next(null, hasChanged);
                 return;
             }
 
@@ -42,11 +43,11 @@ const updateContent = (file, replacer, cb) => {
             });
 
             child.on("error", next);
-            child.on("close", next);
+            child.on("close", () => {
+                next(null, hasChanged);
+            });
         }
-    ], (err, chunk) => {
-        cb(err);
-    });
+    ], cb);
 };
 
 waterfall([
@@ -83,13 +84,33 @@ waterfall([
                 }, next);
             },
 
-            next => {
+            (hasChanged, next) => {
+                doctoc.transformAndSave([readme], (err, transformed) => {
+                    if (!transformed) {
+                        next(null, transformed);
+                        return;
+                    }
+
+                    const child = spawn("git", ["add", readme], {
+                        stdio: "inherit"
+                    });
+
+                    child.on("error", next);
+                    child.on("close", () => {
+                        next(null, transformed);
+                    });
+
+                    next(err, transformed);
+                });
+            },
+
+            (hasChanged, next) => {
                 updateContent(sysPath.join(__dirname, "..", "autoit-opencv-com", "install.bat"), oldContent => {
                     return oldContent.replace(/VERSION: \S+/, `VERSION: ${ version }`);
                 }, next);
             },
 
-            next => {
+            (hasChanged, next) => {
                 updateContent(sysPath.join(__dirname, "..", "autoit-opencv-com", "src", "cvLib.rc"), oldContent => {
                     const vsversion = version.split(".").join(",").replace(/[^\d,]/g, "");
                     return oldContent
