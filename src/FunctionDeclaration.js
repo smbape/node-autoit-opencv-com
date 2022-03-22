@@ -435,7 +435,7 @@ Object.assign(exports, {
                     str += ` = ${ defval }`;
                 }
                 return str;
-            }).join(`,\n${ " ".repeat(cppsignature.length + "( ".length) }`) } )`;
+            }).join(`,\n${ " ".repeat(cppsignature.length + "( ".length) }`) } );`;
 
             generator.docs.push([
                 "```cpp",
