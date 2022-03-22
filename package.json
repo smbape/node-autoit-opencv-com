@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "async": "^3.2.0",
+    "doctoc": "^2.1.0",
     "eol": "^0.9.1",
     "fs-explorer": "^1.4.2",
     "mkdirp": "^1.0.4",

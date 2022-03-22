@@ -10,7 +10,7 @@ const project = sysPath.join(sources, "autoit-opencv-com");
 const files = [
     [project, "install.bat"],
     [project, "udf/*.au3"],
-    [project, "udf/*.txt"],
+    [project, "udf/*.md"],
     [sysPath.join(project, "generated"), "cvLib.tlb"],
     [sysPath.join(project, "build_x64", "Debug"), "autoit*"],
     [sysPath.join(project, "build_x64", "Release"), "autoit*"],

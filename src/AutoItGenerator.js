@@ -22,6 +22,7 @@ const map_conversion = require("./map_conversion");
 const vector_conversion = require("./vector_conversion");
 const FunctionDeclaration = require("./FunctionDeclaration");
 const PropertyDeclaration = require("./PropertyDeclaration");
+const doctoc = require("./doctoc");
 
 const {
     IDL_TYPES,
@@ -89,6 +90,8 @@ class AutoItGenerator {
         const resources = [];
 
         for (const fqn of this.classes.keys()) {
+            const docid = this.docs.length;
+
             const is_test = options.test && !options.notest.has(fqn);
 
             const coclass = this.classes.get(fqn);
@@ -366,6 +369,10 @@ class AutoItGenerator {
             }
 
             coclass.iface.impl = impl.join("\n");
+
+            if (docid !== this.docs.length) {
+                this.docs.splice(docid, 0, `## ${ fqn }\n`);
+            }
         }
 
         const rgs = [];
@@ -697,10 +704,20 @@ class AutoItGenerator {
             ${ etext.split("\n").join(`\n${ " ".repeat(12) }`) }
         `.replace(/^ {12}/mg, "").trim() }\n`);
 
-        files.set(sysPath.resolve(options.output, "..", "udf", "docs.txt"), this.docs.join("\n"));
+        this.docs.unshift(`
+            # AutoIt ${ options.APP_NAME } UDF
+
+            ## Table Of Contents
+
+            <!-- START doctoc -->
+            <!-- END doctoc -->
+        `.replace(/^ {12}/mg, "").trim());
+
+        files.set(sysPath.resolve(options.output, "..", "udf", "docs.md"), this.docs.join("\n"));
 
         let vs_generate = false;
         const idls_to_generate = new Set();
+        const doctoc_to_generate = new Set();
 
         series([
             next => {
@@ -737,6 +754,10 @@ class AutoItGenerator {
                         },
 
                         next => {
+                            if (filename.endsWith(".md")) {
+                                doctoc_to_generate.add(filename);
+                            }
+
                             if (!filename.endsWith(".idl")) {
                                 next();
                                 return;
@@ -771,6 +792,12 @@ class AutoItGenerator {
                     ], next);
                 }, next);
             },
+
+            next => {
+                // generate doctoc
+                doctoc.transformAndSave(doctoc_to_generate, next);
+            },
+
             next => {
                 // compile idls
                 // manual compilation is necessary because

@@ -19,6 +19,8 @@ Object.assign(exports, {
         const indent = " ".repeat(has_override ? 4 : 0);
         // const parameterNames = [];
 
+        generator.docs.push(`### ${ fqn }::${ fname }\n`);
+
         for (const decl of overrides) {
             const [, return_value_type, func_modifiers, list_of_arguments] = decl;
             const is_constructor = func_modifiers.includes("/CO");
@@ -91,7 +93,7 @@ Object.assign(exports, {
                 out_array_args[j] = is_out_array;
 
                 if (out_args[j]) {
-                    outlist.push(argname);
+                    outlist.push(`$${ argname }`);
                 }
             }
 
@@ -396,7 +398,7 @@ Object.assign(exports, {
             let description = `${ coclass.progid }.${ idlname }( ${ argstr } )`;
 
             if (proput) {
-                description += ` = ${ proput }`;
+                description += ` = $${ proput }`;
             } else {
                 description += ` -> ${ outstr }`;
             }
@@ -438,7 +440,7 @@ Object.assign(exports, {
                 "AutoIt:",
                 " ".repeat(4) + description,
                 ""
-            ].join("\n").replace(/\s*\( {2}\)/g, "()"));
+            ].join("\n").replace(/\s*\( {2}\)/g, "()").replace(/\b([_*])/g, "\\$1"));
         }
 
         if (minopt === Number.POSITIVE_INFINITY) {

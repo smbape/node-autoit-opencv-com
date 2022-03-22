@@ -279,7 +279,6 @@ for (const args of [
         ["Point", "pt", "", []],
     ],
 ]) {
-
     declarations.push(...[
         ["cv.Mat.Point_at", "Point2d", ["/External"], args, "", ""],
         ["cv.Mat.at", "double", ["/External"], args, "", ""],
@@ -287,7 +286,6 @@ for (const args of [
         ["cv.Mat.at", "double", ["/ExternalNoDecl", "/attr=propget", "=get_Item", "/idlname=Item", "/id=DISPID_VALUE"], args, "", ""],
     ]);
 
-    const argdecl = args.map(([argtype, argname]) => `${ argtype } ${ argname }`).join(", ");
     const argexpr = args.map(([, argname]) => argname).join(", ");
 
     for (const type of types) {
@@ -296,7 +294,6 @@ for (const args of [
             [`cv.Mat.at<${ type }>`, "void", [`=${ type }_set_at`, `/Expr=${ argexpr }) = (value`], args.concat([[type, "value", "", []]]), "", ""],
         ]);
     }
-
 }
 
 module.exports = declarations;
