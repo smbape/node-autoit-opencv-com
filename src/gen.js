@@ -30,6 +30,7 @@ const parseArguments = PROJECT_DIR => {
         make: sysPath.join(PROJECT_DIR, "build.bat"),
         includes: [sysPath.join(PROJECT_DIR, "src")],
         output: sysPath.join(PROJECT_DIR, "generated"),
+        toc: false,
     };
 
     for (const opt of ["iface", "hdr", "impl", "idl", "rgs", "res", "save"]) {

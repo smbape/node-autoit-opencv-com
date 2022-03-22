@@ -704,13 +704,19 @@ class AutoItGenerator {
             ${ etext.split("\n").join(`\n${ " ".repeat(12) }`) }
         `.replace(/^ {12}/mg, "").trim() }\n`);
 
+        if (options.toc !== false) {
+            this.docs.unshift("");
+            this.docs.unshift(`
+                ## Table Of Contents
+
+                <!-- START doctoc -->
+                <!-- END doctoc -->
+            `.replace(/^ {16}/mg, "").trim());
+        }
+
+        this.docs.unshift("");
         this.docs.unshift(`
             # AutoIt ${ options.APP_NAME } UDF
-
-            ## Table Of Contents
-
-            <!-- START doctoc -->
-            <!-- END doctoc -->
         `.replace(/^ {12}/mg, "").trim());
 
         files.set(sysPath.resolve(options.output, "..", "udf", "docs.md"), this.docs.join("\n"));
@@ -754,7 +760,7 @@ class AutoItGenerator {
                         },
 
                         next => {
-                            if (filename.endsWith(".md")) {
+                            if (options.toc !== false && filename.endsWith(".md")) {
                                 doctoc_to_generate.add(filename);
                             }
 
