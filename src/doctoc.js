@@ -22,7 +22,7 @@ exports.transformAndSave = (files, cb, mode = exports.modes.github, maxHeaderLev
     }
 
     eachOfLimit(files, stdOut ? 1 : cpus, (file, i, next) => {
-        console.log ('DocToccing file "%s" for %s.', file, mode);
+        console.log("DocToccing file \"%s\" for %s.", file, mode);
 
         waterfall([
             next => {

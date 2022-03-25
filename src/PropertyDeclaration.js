@@ -136,13 +136,14 @@ Object.assign(exports, {
         }
 
         const cpptype = generator.getCppType(in_type, coclass, options);
+        const is_const = modifiers.includes("/C");
 
-        if (is_by_ref) {
+        if (is_by_ref && !is_const) {
             const {shared_ptr} = options;
             in_val = `${ shared_ptr }<${ cpptype }>(${ shared_ptr }<${ cpptype }>{}, &${ in_val })`;
         }
 
-        if (is_by_ref && cpptype.startsWith("std::vector<")) {
+        if (is_by_ref && !is_const && cpptype.startsWith("std::vector<")) {
             const fqn = generator.add_vector(in_type, coclass, options);
             const cotype = generator.classes.get(fqn).getClassName();
 
@@ -221,7 +222,7 @@ Object.assign(exports, {
 
         const obj = `${ is_static ? `${ fqn }::` : "this->__self->get()->" }`;
 
-        if (is_static || is_enum || modifiers.includes("/R") || modifiers.includes("/RW")) {
+        if (is_static || is_enum || modifiers.includes("/R") || modifiers.includes("/RW") || rname) {
             const attributes = ["propget", `id(${ id })`].concat(attrs);
             is_private = false;
             iidl.push(`[${ attributes.join(", ") }] HRESULT ${ idlname }([out, retval] ${ propidltype }* pVal);`);
@@ -237,7 +238,7 @@ Object.assign(exports, {
             } else {
                 let is_by_ref = false;
 
-                if (modifiers.includes("/W") || modifiers.includes("/RW")) {
+                if (modifiers.includes("/W") || modifiers.includes("/RW") || rname) {
                     const shared_ptr = removeNamespaces(options.shared_ptr, options);
                     const is_ptr = type.endsWith("*");
                     const has_ptr = cpptype.startsWith(`${ shared_ptr }<`);
@@ -261,7 +262,7 @@ Object.assign(exports, {
             }
         }
 
-        if (modifiers.includes("/W") || modifiers.includes("/RW")) {
+        if (modifiers.includes("/W") || modifiers.includes("/RW") || wname) {
             const attributes = ["propput", `id(${ id })`].concat(attrs);
             is_private = false;
             const idltype = propidltype === "VARIANT" ? "VARIANT*" : propidltype;

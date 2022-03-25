@@ -5,7 +5,7 @@ const {
 
 Object.assign(exports, {
     declare: (generator, coclass, overrides, fname, idlname, id, iidl, ipublic, impl, is_test, options = {}) => {
-        const {shared_ptr} = options;
+        const {make_shared, shared_ptr} = options;
         const fqn = coclass.fqn;
         const cotype = coclass.getClassName();
         const has_override = overrides.length !== 1;
@@ -204,6 +204,7 @@ Object.assign(exports, {
                 const is_scalar_variant = `${ argname }_is_scalar`;
                 const set_from_pointer = `set_${ argname }_from_ptr`;
                 const cvt = [];
+                let is_shared_ptr = false;
 
                 if (is_vector || is_array) {
                     cvt.push(`bool ${ is_scalar_variant } = false;`);
@@ -306,16 +307,48 @@ Object.assign(exports, {
                         auto& ${ argname } = *${ pointer };
                     `.replace(/^ {24}/mg, "").trim().split("\n"));
                 } else if (is_by_ref) {
-                    cvt.push(...`
-                        ${ shared_ptr }<${ cpptype }> ${ pointer };
-                        hr = autoit_to(${ in_val }, ${ pointer });
-                        if (FAILED(hr) && !PARAMETER_MISSING(${ in_val })) {
-                            printf("unable to read argument ${ j } of type %hu into ${ cpptype }\\n", V_VT(${ in_val }));
-                            return hr;
-                        }
-                        auto& ${ argname } = SUCCEEDED(hr) && !PARAMETER_MISSING(${ in_val }) ? *${ pointer }.get() : ${ placeholder_name };
-                        hr = S_OK;
-                    `.replace(/^ {24}/mg, "").trim().split("\n"));
+                    if (is_optional) {
+                        cvt.push(...`
+                            ${ shared_ptr }<${ cpptype }> ${ pointer };
+                            hr = autoit_to(${ in_val }, ${ pointer });
+                            if (FAILED(hr) && !PARAMETER_MISSING(${ in_val })) {
+                                printf("unable to read argument ${ j } of type %hu into ${ cpptype }\\n", V_VT(${ in_val }));
+                                return hr;
+                            }
+                            auto& ${ argname } = SUCCEEDED(hr) && !PARAMETER_MISSING(${ in_val }) ? *${ pointer }.get() : ${ placeholder_name };
+                            hr = S_OK;
+                        `.replace(/^ {28}/mg, "").trim().split("\n"));
+                    } else {
+                        is_shared_ptr = true;
+
+                        cvt.push(...`
+                            ${ cpptype }* ${ pointer } = NULL;
+
+                            if (V_VT(${ in_val }) == VT_DISPATCH) {
+                                const auto& obj = dynamic_cast<TypeToImplType<${ cpptype }>::type*>(getRealIDispatch(${ in_val }));
+                                if (!obj) {
+                                    printf("unable to read argument ${ j } of type %hu into ${ cpptype }\\n", V_VT(${ in_val }));
+                                    return E_INVALIDARG;
+                                }
+
+                                ${ pointer } = obj->__self->get();
+                                hr = S_FALSE;
+                            } else if (V_VT(${ in_val }) == VT_UI8) {
+                                const auto& ptr = V_UI8(${ in_val });
+                                ${ pointer } = reinterpret_cast<${ cpptype }*>(ptr);
+                                hr = S_FALSE;
+                            } else {
+                                hr = autoit_to(${ in_val }, ${ placeholder_name });
+                                if (FAILED(hr)) {
+                                    printf("unable to read argument ${ j } of type %hu into ${ cpptype }\\n", V_VT(${ in_val }));
+                                    return hr;
+                                }
+                            }
+
+                            auto& ${ argname } = hr == S_FALSE ? *${ pointer } : *${ placeholder_name }.get();
+                            hr = S_OK;
+                        `.replace(/^ {28}/mg, "").trim().split("\n"));
+                    }
                 } else if (cpptype === "_variant_t") {
                     cvt.push(`${ argname } = *${ in_val };`);
                 } else if (cpptype === "VARIANT*") {
@@ -339,7 +372,16 @@ Object.assign(exports, {
                     conditions[j] = `is_assignable_from(${ placeholder_name }, ${ in_val }, ${ is_optional })`;
                 }
 
-                declarations[j] = `${ indent }${ cpptype } ${ placeholder_name }${ defval === "" ? "" : ` = ${ generator.castFromEnumIfNeeded(argtype, defval, coclass) }` };`;
+                if (is_shared_ptr) {
+                    declarations[j] = `${ indent }${ shared_ptr }<${ cpptype }> ${ placeholder_name };`;
+                } else {
+                    declarations[j] = `${ indent }${ cpptype } ${ placeholder_name }`;
+                    if (defval !== "") {
+                        declarations[j] += ` = ${ generator.castFromEnumIfNeeded(argtype, defval, coclass) }`;
+                    }
+                    declarations[j] += ";";
+                }
+
                 conversions[j] = `\n${ cindent }${ is_method_test ? "// " : "" }${ cvt.join(`\n${ cindent }${ is_method_test ? "// " : "" }`) }`;
 
                 if (other_default) {
@@ -347,7 +389,7 @@ Object.assign(exports, {
                 }
 
                 if (is_out) {
-                    retval.push([idltype, argname, is_array ? arrtype + (is_vector ? "OfArrays" : "") : argtype, in_val]);
+                    retval.push([idltype, argname, is_array ? arrtype + (is_vector ? "OfArrays" : "") : argtype, in_val, j]);
 
                     if (!outputs.has(argname)) {
                         outputs.set(argname, []);
@@ -410,7 +452,15 @@ Object.assign(exports, {
                 description += `\n    ${ coclass.progid }( ${ argstr } ) -> ${ outstr }`;
             }
 
-            const cppsignature = `${ is_static ? "static " : "" }${ generator.getCppType(return_value_type, coclass, options) } ${ fqn }::${ fname }`;
+            let cppsignature = `${ generator.getCppType(return_value_type, coclass, options) } ${ fqn }::${ fname }`;
+
+            if (is_static) {
+                cppsignature = `static ${ cppsignature }`;
+            }
+
+            if (func_modifiers.includes("/C")) {
+                cppsignature = `${ cppsignature } const`;
+            }
 
             let maxlength = 0;
 
@@ -424,6 +474,8 @@ Object.assign(exports, {
                 str += generator.getCppType(argtype, coclass, options);
                 if (arg_modifiers.includes("/Ref")) {
                     str += "&";
+                } else if (arg_modifiers.includes("/RRef")) {
+                    str += "&&";
                 }
                 maxlength = Math.max(maxlength, str.length);
                 return str;
@@ -556,7 +608,7 @@ Object.assign(exports, {
             callee = `${ callee }(${ expr })`;
 
             if (is_constructor && !is_external) {
-                callee = `${ shared_ptr }<${ fqn }>(new ${ callee })`;
+                callee = `${ make_shared }<${ fqn }>(${ expr })`;
             }
 
             for (const modifier of func_modifiers) {
@@ -634,7 +686,11 @@ Object.assign(exports, {
 
             if (retval.length !== 0) {
                 body.push("");
-                body.push(cindent + retval.map(([idltype, argname, argtype, in_val], i) => {
+                body.push(cindent + retval.sort((a, b) => {
+                    a = a[4] === undefined ? -1 : a[4];
+                    b = b[4] === undefined ? -1 : b[4];
+                    return a - b;
+                }).map(([idltype, argname, argtype, in_val], i) => {
                     const lines = [];
                     const is_array = argtype.endsWith("Array") || argtype.endsWith("ArrayOfArrays");
                     const is_vector = argtype.startsWith("vector_") || argtype.startsWith("vector<") || argtype.endsWith("OfArrays");

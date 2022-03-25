@@ -5228,8 +5228,8 @@ AutoIt:
 ### cv::Algorithm::write
 
 ```cpp
-void cv::Algorithm::write( const cv::Ptr<cv::FileStorage>& fs,
-                           const std::string&              name = String() );
+void cv::Algorithm::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                 const std::string&              name = String() );
 
 AutoIt:
     $oAlgorithm.write( $fs[, $name] ) -> None
@@ -5247,7 +5247,7 @@ AutoIt:
 ### cv::Algorithm::empty
 
 ```cpp
-bool cv::Algorithm::empty();
+bool cv::Algorithm::empty const();
 
 AutoIt:
     $oAlgorithm.empty() -> retval
@@ -5256,7 +5256,7 @@ AutoIt:
 ### cv::Algorithm::save
 
 ```cpp
-void cv::Algorithm::save( const std::string& filename );
+void cv::Algorithm::save const( const std::string& filename );
 
 AutoIt:
     $oAlgorithm.save( $filename ) -> None
@@ -5265,7 +5265,7 @@ AutoIt:
 ### cv::Algorithm::getDefaultName
 
 ```cpp
-std::string cv::Algorithm::getDefaultName();
+std::string cv::Algorithm::getDefaultName const();
 
 AutoIt:
     $oAlgorithm.getDefaultName() -> retval
@@ -5294,15 +5294,15 @@ AutoIt:
 ### cv::AsyncArray::get
 
 ```cpp
-void cv::AsyncArray::get( _OutputArray dst );
+void cv::AsyncArray::get const( _OutputArray dst );
 
 AutoIt:
     $oAsyncArray.get( [$dst] ) -> $dst
 ```
 
 ```cpp
-bool cv::AsyncArray::get( _OutputArray dst,
-                          double       timeoutNs );
+bool cv::AsyncArray::get const( _OutputArray dst,
+                                double       timeoutNs );
 
 AutoIt:
     $oAsyncArray.get( $timeoutNs[, $dst] ) -> retval, $dst
@@ -5311,7 +5311,7 @@ AutoIt:
 ### cv::AsyncArray::wait_for
 
 ```cpp
-bool cv::AsyncArray::wait_for( double timeoutNs );
+bool cv::AsyncArray::wait_for const( double timeoutNs );
 
 AutoIt:
     $oAsyncArray.wait_for( $timeoutNs ) -> retval
@@ -5320,7 +5320,7 @@ AutoIt:
 ### cv::AsyncArray::valid
 
 ```cpp
-bool cv::AsyncArray::valid();
+bool cv::AsyncArray::valid const();
 
 AutoIt:
     $oAsyncArray.valid() -> retval
@@ -6148,15 +6148,15 @@ AutoIt:
 ### cv::cuda::GpuMat::download
 
 ```cpp
-void cv::cuda::GpuMat::download( _OutputArray dst );
+void cv::cuda::GpuMat::download const( _OutputArray dst );
 
 AutoIt:
     $oGpuMat.download( [$dst] ) -> $dst
 ```
 
 ```cpp
-void cv::cuda::GpuMat::download( _OutputArray      dst,
-                                 cv::cuda::Stream& stream );
+void cv::cuda::GpuMat::download const( _OutputArray      dst,
+                                       cv::cuda::Stream& stream );
 
 AutoIt:
     $oGpuMat.download( $stream[, $dst] ) -> $dst
@@ -6165,7 +6165,7 @@ AutoIt:
 ### cv::cuda::GpuMat::clone
 
 ```cpp
-cv::cuda::GpuMat cv::cuda::GpuMat::clone();
+cv::cuda::GpuMat cv::cuda::GpuMat::clone const();
 
 AutoIt:
     $oGpuMat.clone() -> retval
@@ -6174,32 +6174,32 @@ AutoIt:
 ### cv::cuda::GpuMat::copyTo
 
 ```cpp
-void cv::cuda::GpuMat::copyTo( _OutputArray dst );
+void cv::cuda::GpuMat::copyTo const( _OutputArray dst );
 
 AutoIt:
     $oGpuMat.copyTo( [$dst] ) -> $dst
 ```
 
 ```cpp
-void cv::cuda::GpuMat::copyTo( _OutputArray      dst,
-                               cv::cuda::Stream& stream );
+void cv::cuda::GpuMat::copyTo const( _OutputArray      dst,
+                                     cv::cuda::Stream& stream );
 
 AutoIt:
     $oGpuMat.copyTo( $stream[, $dst] ) -> $dst
 ```
 
 ```cpp
-void cv::cuda::GpuMat::copyTo( _OutputArray dst,
-                               _InputArray  mask );
+void cv::cuda::GpuMat::copyTo const( _OutputArray dst,
+                                     _InputArray  mask );
 
 AutoIt:
     $oGpuMat.copyTo( $mask[, $dst] ) -> $dst
 ```
 
 ```cpp
-void cv::cuda::GpuMat::copyTo( _OutputArray      dst,
-                               _InputArray       mask,
-                               cv::cuda::Stream& stream );
+void cv::cuda::GpuMat::copyTo const( _OutputArray      dst,
+                                     _InputArray       mask,
+                                     cv::cuda::Stream& stream );
 
 AutoIt:
     $oGpuMat.copyTo( $mask, $stream[, $dst] ) -> $dst
@@ -6242,48 +6242,48 @@ AutoIt:
 ### cv::cuda::GpuMat::convertTo
 
 ```cpp
-void cv::cuda::GpuMat::convertTo( _OutputArray dst,
-                                  int          rtype );
+void cv::cuda::GpuMat::convertTo const( _OutputArray dst,
+                                        int          rtype );
 
 AutoIt:
     $oGpuMat.convertTo( $rtype[, $dst] ) -> $dst
 ```
 
 ```cpp
-void cv::cuda::GpuMat::convertTo( _OutputArray      dst,
-                                  int               rtype,
-                                  cv::cuda::Stream& stream );
+void cv::cuda::GpuMat::convertTo const( _OutputArray      dst,
+                                        int               rtype,
+                                        cv::cuda::Stream& stream );
 
 AutoIt:
     $oGpuMat.convertTo( $rtype, $stream[, $dst] ) -> $dst
 ```
 
 ```cpp
-void cv::cuda::GpuMat::convertTo( _OutputArray dst,
-                                  int          rtype,
-                                  double       alpha,
-                                  double       beta = 0.0 );
+void cv::cuda::GpuMat::convertTo const( _OutputArray dst,
+                                        int          rtype,
+                                        double       alpha,
+                                        double       beta = 0.0 );
 
 AutoIt:
     $oGpuMat.convertTo( $rtype, $alpha[, $dst[, $beta]] ) -> $dst
 ```
 
 ```cpp
-void cv::cuda::GpuMat::convertTo( _OutputArray      dst,
-                                  int               rtype,
-                                  double            alpha,
-                                  cv::cuda::Stream& stream );
+void cv::cuda::GpuMat::convertTo const( _OutputArray      dst,
+                                        int               rtype,
+                                        double            alpha,
+                                        cv::cuda::Stream& stream );
 
 AutoIt:
     $oGpuMat.convertTo( $rtype, $alpha, $stream[, $dst] ) -> $dst
 ```
 
 ```cpp
-void cv::cuda::GpuMat::convertTo( _OutputArray      dst,
-                                  int               rtype,
-                                  double            alpha,
-                                  double            beta,
-                                  cv::cuda::Stream& stream );
+void cv::cuda::GpuMat::convertTo const( _OutputArray      dst,
+                                        int               rtype,
+                                        double            alpha,
+                                        double            beta,
+                                        cv::cuda::Stream& stream );
 
 AutoIt:
     $oGpuMat.convertTo( $rtype, $alpha, $beta, $stream[, $dst] ) -> $dst
@@ -6292,8 +6292,8 @@ AutoIt:
 ### cv::cuda::GpuMat::assignTo
 
 ```cpp
-void cv::cuda::GpuMat::assignTo( cv::cuda::GpuMat& m,
-                                 int               type = -1 );
+void cv::cuda::GpuMat::assignTo const( cv::cuda::GpuMat& m,
+                                       int               type = -1 );
 
 AutoIt:
     $oGpuMat.assignTo( $m[, $type] ) -> None
@@ -6302,7 +6302,7 @@ AutoIt:
 ### cv::cuda::GpuMat::row
 
 ```cpp
-cv::cuda::GpuMat cv::cuda::GpuMat::row( int y );
+cv::cuda::GpuMat cv::cuda::GpuMat::row const( int y );
 
 AutoIt:
     $oGpuMat.row( $y ) -> retval
@@ -6311,7 +6311,7 @@ AutoIt:
 ### cv::cuda::GpuMat::col
 
 ```cpp
-cv::cuda::GpuMat cv::cuda::GpuMat::col( int x );
+cv::cuda::GpuMat cv::cuda::GpuMat::col const( int x );
 
 AutoIt:
     $oGpuMat.col( $x ) -> retval
@@ -6320,15 +6320,15 @@ AutoIt:
 ### cv::cuda::GpuMat::rowRange
 
 ```cpp
-cv::cuda::GpuMat cv::cuda::GpuMat::rowRange( int startrow,
-                                             int endrow );
+cv::cuda::GpuMat cv::cuda::GpuMat::rowRange const( int startrow,
+                                                   int endrow );
 
 AutoIt:
     $oGpuMat.rowRange( $startrow, $endrow ) -> retval
 ```
 
 ```cpp
-cv::cuda::GpuMat cv::cuda::GpuMat::rowRange( cv::Range r );
+cv::cuda::GpuMat cv::cuda::GpuMat::rowRange const( cv::Range r );
 
 AutoIt:
     $oGpuMat.rowRange( $r ) -> retval
@@ -6337,15 +6337,15 @@ AutoIt:
 ### cv::cuda::GpuMat::colRange
 
 ```cpp
-cv::cuda::GpuMat cv::cuda::GpuMat::colRange( int startcol,
-                                             int endcol );
+cv::cuda::GpuMat cv::cuda::GpuMat::colRange const( int startcol,
+                                                   int endcol );
 
 AutoIt:
     $oGpuMat.colRange( $startcol, $endcol ) -> retval
 ```
 
 ```cpp
-cv::cuda::GpuMat cv::cuda::GpuMat::colRange( cv::Range r );
+cv::cuda::GpuMat cv::cuda::GpuMat::colRange const( cv::Range r );
 
 AutoIt:
     $oGpuMat.colRange( $r ) -> retval
@@ -6354,8 +6354,8 @@ AutoIt:
 ### cv::cuda::GpuMat::reshape
 
 ```cpp
-cv::cuda::GpuMat cv::cuda::GpuMat::reshape( int cn,
-                                            int rows = 0 );
+cv::cuda::GpuMat cv::cuda::GpuMat::reshape const( int cn,
+                                                  int rows = 0 );
 
 AutoIt:
     $oGpuMat.reshape( $cn[, $rows] ) -> retval
@@ -6364,8 +6364,8 @@ AutoIt:
 ### cv::cuda::GpuMat::locateROI
 
 ```cpp
-void cv::cuda::GpuMat::locateROI( cv::Size&  wholeSize,
-                                  cv::Point& ofs );
+void cv::cuda::GpuMat::locateROI const( cv::Size&  wholeSize,
+                                        cv::Point& ofs );
 
 AutoIt:
     $oGpuMat.locateROI( $wholeSize, $ofs ) -> None
@@ -6386,7 +6386,7 @@ AutoIt:
 ### cv::cuda::GpuMat::isContinuous
 
 ```cpp
-bool cv::cuda::GpuMat::isContinuous();
+bool cv::cuda::GpuMat::isContinuous const();
 
 AutoIt:
     $oGpuMat.isContinuous() -> retval
@@ -6395,7 +6395,7 @@ AutoIt:
 ### cv::cuda::GpuMat::elemSize
 
 ```cpp
-size_t cv::cuda::GpuMat::elemSize();
+size_t cv::cuda::GpuMat::elemSize const();
 
 AutoIt:
     $oGpuMat.elemSize() -> retval
@@ -6404,7 +6404,7 @@ AutoIt:
 ### cv::cuda::GpuMat::elemSize1
 
 ```cpp
-size_t cv::cuda::GpuMat::elemSize1();
+size_t cv::cuda::GpuMat::elemSize1 const();
 
 AutoIt:
     $oGpuMat.elemSize1() -> retval
@@ -6413,7 +6413,7 @@ AutoIt:
 ### cv::cuda::GpuMat::type
 
 ```cpp
-int cv::cuda::GpuMat::type();
+int cv::cuda::GpuMat::type const();
 
 AutoIt:
     $oGpuMat.type() -> retval
@@ -6422,7 +6422,7 @@ AutoIt:
 ### cv::cuda::GpuMat::depth
 
 ```cpp
-int cv::cuda::GpuMat::depth();
+int cv::cuda::GpuMat::depth const();
 
 AutoIt:
     $oGpuMat.depth() -> retval
@@ -6431,7 +6431,7 @@ AutoIt:
 ### cv::cuda::GpuMat::channels
 
 ```cpp
-int cv::cuda::GpuMat::channels();
+int cv::cuda::GpuMat::channels const();
 
 AutoIt:
     $oGpuMat.channels() -> retval
@@ -6440,7 +6440,7 @@ AutoIt:
 ### cv::cuda::GpuMat::step1
 
 ```cpp
-size_t cv::cuda::GpuMat::step1();
+size_t cv::cuda::GpuMat::step1 const();
 
 AutoIt:
     $oGpuMat.step1() -> retval
@@ -6449,7 +6449,7 @@ AutoIt:
 ### cv::cuda::GpuMat::size
 
 ```cpp
-cv::Size cv::cuda::GpuMat::size();
+cv::Size cv::cuda::GpuMat::size const();
 
 AutoIt:
     $oGpuMat.size() -> retval
@@ -6458,7 +6458,7 @@ AutoIt:
 ### cv::cuda::GpuMat::empty
 
 ```cpp
-bool cv::cuda::GpuMat::empty();
+bool cv::cuda::GpuMat::empty const();
 
 AutoIt:
     $oGpuMat.empty() -> retval
@@ -6467,7 +6467,7 @@ AutoIt:
 ### cv::cuda::GpuMat::cudaPtr
 
 ```cpp
-void* cv::cuda::GpuMat::cudaPtr();
+void* cv::cuda::GpuMat::cudaPtr const();
 
 AutoIt:
     $oGpuMat.cudaPtr() -> retval
@@ -6506,7 +6506,7 @@ AutoIt:
 ### cv::cuda::BufferPool::getAllocator
 
 ```cpp
-cv::Ptr<cv::cuda::GpuMat::Allocator> cv::cuda::BufferPool::getAllocator();
+cv::Ptr<cv::cuda::GpuMat::Allocator> cv::cuda::BufferPool::getAllocator const();
 
 AutoIt:
     $oBufferPool.getAllocator() -> retval
@@ -6578,7 +6578,7 @@ AutoIt:
 ### cv::cuda::HostMem::clone
 
 ```cpp
-cv::cuda::HostMem cv::cuda::HostMem::clone();
+cv::cuda::HostMem cv::cuda::HostMem::clone const();
 
 AutoIt:
     $oHostMem.clone() -> retval
@@ -6587,8 +6587,8 @@ AutoIt:
 ### cv::cuda::HostMem::reshape
 
 ```cpp
-cv::cuda::HostMem cv::cuda::HostMem::reshape( int cn,
-                                              int rows = 0 );
+cv::cuda::HostMem cv::cuda::HostMem::reshape const( int cn,
+                                                    int rows = 0 );
 
 AutoIt:
     $oHostMem.reshape( $cn[, $rows] ) -> retval
@@ -6597,7 +6597,7 @@ AutoIt:
 ### cv::cuda::HostMem::createMatHeader
 
 ```cpp
-cv::Mat cv::cuda::HostMem::createMatHeader();
+cv::Mat cv::cuda::HostMem::createMatHeader const();
 
 AutoIt:
     $oHostMem.createMatHeader() -> retval
@@ -6606,7 +6606,7 @@ AutoIt:
 ### cv::cuda::HostMem::isContinuous
 
 ```cpp
-bool cv::cuda::HostMem::isContinuous();
+bool cv::cuda::HostMem::isContinuous const();
 
 AutoIt:
     $oHostMem.isContinuous() -> retval
@@ -6615,7 +6615,7 @@ AutoIt:
 ### cv::cuda::HostMem::elemSize
 
 ```cpp
-size_t cv::cuda::HostMem::elemSize();
+size_t cv::cuda::HostMem::elemSize const();
 
 AutoIt:
     $oHostMem.elemSize() -> retval
@@ -6624,7 +6624,7 @@ AutoIt:
 ### cv::cuda::HostMem::elemSize1
 
 ```cpp
-size_t cv::cuda::HostMem::elemSize1();
+size_t cv::cuda::HostMem::elemSize1 const();
 
 AutoIt:
     $oHostMem.elemSize1() -> retval
@@ -6633,7 +6633,7 @@ AutoIt:
 ### cv::cuda::HostMem::type
 
 ```cpp
-int cv::cuda::HostMem::type();
+int cv::cuda::HostMem::type const();
 
 AutoIt:
     $oHostMem.type() -> retval
@@ -6642,7 +6642,7 @@ AutoIt:
 ### cv::cuda::HostMem::depth
 
 ```cpp
-int cv::cuda::HostMem::depth();
+int cv::cuda::HostMem::depth const();
 
 AutoIt:
     $oHostMem.depth() -> retval
@@ -6651,7 +6651,7 @@ AutoIt:
 ### cv::cuda::HostMem::channels
 
 ```cpp
-int cv::cuda::HostMem::channels();
+int cv::cuda::HostMem::channels const();
 
 AutoIt:
     $oHostMem.channels() -> retval
@@ -6660,7 +6660,7 @@ AutoIt:
 ### cv::cuda::HostMem::step1
 
 ```cpp
-size_t cv::cuda::HostMem::step1();
+size_t cv::cuda::HostMem::step1 const();
 
 AutoIt:
     $oHostMem.step1() -> retval
@@ -6669,7 +6669,7 @@ AutoIt:
 ### cv::cuda::HostMem::size
 
 ```cpp
-cv::Size cv::cuda::HostMem::size();
+cv::Size cv::cuda::HostMem::size const();
 
 AutoIt:
     $oHostMem.size() -> retval
@@ -6678,7 +6678,7 @@ AutoIt:
 ### cv::cuda::HostMem::empty
 
 ```cpp
-bool cv::cuda::HostMem::empty();
+bool cv::cuda::HostMem::empty const();
 
 AutoIt:
     $oHostMem.empty() -> retval
@@ -6712,7 +6712,7 @@ AutoIt:
 ### cv::cuda::Stream::queryIfComplete
 
 ```cpp
-bool cv::cuda::Stream::queryIfComplete();
+bool cv::cuda::Stream::queryIfComplete const();
 
 AutoIt:
     $oStream.queryIfComplete() -> retval
@@ -6748,7 +6748,7 @@ AutoIt:
 ### cv::cuda::Stream::cudaPtr
 
 ```cpp
-void* cv::cuda::Stream::cudaPtr();
+void* cv::cuda::Stream::cudaPtr const();
 
 AutoIt:
     $oStream.cudaPtr() -> retval
@@ -6777,7 +6777,7 @@ AutoIt:
 ### cv::cuda::Event::queryIfComplete
 
 ```cpp
-bool cv::cuda::Event::queryIfComplete();
+bool cv::cuda::Event::queryIfComplete const();
 
 AutoIt:
     $oEvent.queryIfComplete() -> retval
@@ -6895,7 +6895,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::deviceID
 
 ```cpp
-int cv::cuda::DeviceInfo::deviceID();
+int cv::cuda::DeviceInfo::deviceID const();
 
 AutoIt:
     $oDeviceInfo.deviceID() -> retval
@@ -6904,7 +6904,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::totalGlobalMem
 
 ```cpp
-size_t cv::cuda::DeviceInfo::totalGlobalMem();
+size_t cv::cuda::DeviceInfo::totalGlobalMem const();
 
 AutoIt:
     $oDeviceInfo.totalGlobalMem() -> retval
@@ -6913,7 +6913,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::sharedMemPerBlock
 
 ```cpp
-size_t cv::cuda::DeviceInfo::sharedMemPerBlock();
+size_t cv::cuda::DeviceInfo::sharedMemPerBlock const();
 
 AutoIt:
     $oDeviceInfo.sharedMemPerBlock() -> retval
@@ -6922,7 +6922,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::regsPerBlock
 
 ```cpp
-int cv::cuda::DeviceInfo::regsPerBlock();
+int cv::cuda::DeviceInfo::regsPerBlock const();
 
 AutoIt:
     $oDeviceInfo.regsPerBlock() -> retval
@@ -6931,7 +6931,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::warpSize
 
 ```cpp
-int cv::cuda::DeviceInfo::warpSize();
+int cv::cuda::DeviceInfo::warpSize const();
 
 AutoIt:
     $oDeviceInfo.warpSize() -> retval
@@ -6940,7 +6940,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::memPitch
 
 ```cpp
-size_t cv::cuda::DeviceInfo::memPitch();
+size_t cv::cuda::DeviceInfo::memPitch const();
 
 AutoIt:
     $oDeviceInfo.memPitch() -> retval
@@ -6949,7 +6949,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::maxThreadsPerBlock
 
 ```cpp
-int cv::cuda::DeviceInfo::maxThreadsPerBlock();
+int cv::cuda::DeviceInfo::maxThreadsPerBlock const();
 
 AutoIt:
     $oDeviceInfo.maxThreadsPerBlock() -> retval
@@ -6958,7 +6958,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::maxThreadsDim
 
 ```cpp
-cv::Vec3i cv::cuda::DeviceInfo::maxThreadsDim();
+cv::Vec3i cv::cuda::DeviceInfo::maxThreadsDim const();
 
 AutoIt:
     $oDeviceInfo.maxThreadsDim() -> retval
@@ -6967,7 +6967,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::maxGridSize
 
 ```cpp
-cv::Vec3i cv::cuda::DeviceInfo::maxGridSize();
+cv::Vec3i cv::cuda::DeviceInfo::maxGridSize const();
 
 AutoIt:
     $oDeviceInfo.maxGridSize() -> retval
@@ -6976,7 +6976,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::clockRate
 
 ```cpp
-int cv::cuda::DeviceInfo::clockRate();
+int cv::cuda::DeviceInfo::clockRate const();
 
 AutoIt:
     $oDeviceInfo.clockRate() -> retval
@@ -6985,7 +6985,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::totalConstMem
 
 ```cpp
-size_t cv::cuda::DeviceInfo::totalConstMem();
+size_t cv::cuda::DeviceInfo::totalConstMem const();
 
 AutoIt:
     $oDeviceInfo.totalConstMem() -> retval
@@ -6994,7 +6994,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::majorVersion
 
 ```cpp
-int cv::cuda::DeviceInfo::majorVersion();
+int cv::cuda::DeviceInfo::majorVersion const();
 
 AutoIt:
     $oDeviceInfo.majorVersion() -> retval
@@ -7003,7 +7003,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::minorVersion
 
 ```cpp
-int cv::cuda::DeviceInfo::minorVersion();
+int cv::cuda::DeviceInfo::minorVersion const();
 
 AutoIt:
     $oDeviceInfo.minorVersion() -> retval
@@ -7012,7 +7012,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::textureAlignment
 
 ```cpp
-size_t cv::cuda::DeviceInfo::textureAlignment();
+size_t cv::cuda::DeviceInfo::textureAlignment const();
 
 AutoIt:
     $oDeviceInfo.textureAlignment() -> retval
@@ -7021,7 +7021,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::texturePitchAlignment
 
 ```cpp
-size_t cv::cuda::DeviceInfo::texturePitchAlignment();
+size_t cv::cuda::DeviceInfo::texturePitchAlignment const();
 
 AutoIt:
     $oDeviceInfo.texturePitchAlignment() -> retval
@@ -7030,7 +7030,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::multiProcessorCount
 
 ```cpp
-int cv::cuda::DeviceInfo::multiProcessorCount();
+int cv::cuda::DeviceInfo::multiProcessorCount const();
 
 AutoIt:
     $oDeviceInfo.multiProcessorCount() -> retval
@@ -7039,7 +7039,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::kernelExecTimeoutEnabled
 
 ```cpp
-bool cv::cuda::DeviceInfo::kernelExecTimeoutEnabled();
+bool cv::cuda::DeviceInfo::kernelExecTimeoutEnabled const();
 
 AutoIt:
     $oDeviceInfo.kernelExecTimeoutEnabled() -> retval
@@ -7048,7 +7048,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::integrated
 
 ```cpp
-bool cv::cuda::DeviceInfo::integrated();
+bool cv::cuda::DeviceInfo::integrated const();
 
 AutoIt:
     $oDeviceInfo.integrated() -> retval
@@ -7057,7 +7057,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::canMapHostMemory
 
 ```cpp
-bool cv::cuda::DeviceInfo::canMapHostMemory();
+bool cv::cuda::DeviceInfo::canMapHostMemory const();
 
 AutoIt:
     $oDeviceInfo.canMapHostMemory() -> retval
@@ -7066,7 +7066,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::computeMode
 
 ```cpp
-int cv::cuda::DeviceInfo::computeMode();
+int cv::cuda::DeviceInfo::computeMode const();
 
 AutoIt:
     $oDeviceInfo.computeMode() -> retval
@@ -7075,7 +7075,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::maxTexture1D
 
 ```cpp
-int cv::cuda::DeviceInfo::maxTexture1D();
+int cv::cuda::DeviceInfo::maxTexture1D const();
 
 AutoIt:
     $oDeviceInfo.maxTexture1D() -> retval
@@ -7084,7 +7084,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::maxTexture1DMipmap
 
 ```cpp
-int cv::cuda::DeviceInfo::maxTexture1DMipmap();
+int cv::cuda::DeviceInfo::maxTexture1DMipmap const();
 
 AutoIt:
     $oDeviceInfo.maxTexture1DMipmap() -> retval
@@ -7093,7 +7093,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::maxTexture1DLinear
 
 ```cpp
-int cv::cuda::DeviceInfo::maxTexture1DLinear();
+int cv::cuda::DeviceInfo::maxTexture1DLinear const();
 
 AutoIt:
     $oDeviceInfo.maxTexture1DLinear() -> retval
@@ -7102,7 +7102,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::maxTexture2D
 
 ```cpp
-cv::Vec2i cv::cuda::DeviceInfo::maxTexture2D();
+cv::Vec2i cv::cuda::DeviceInfo::maxTexture2D const();
 
 AutoIt:
     $oDeviceInfo.maxTexture2D() -> retval
@@ -7111,7 +7111,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::maxTexture2DMipmap
 
 ```cpp
-cv::Vec2i cv::cuda::DeviceInfo::maxTexture2DMipmap();
+cv::Vec2i cv::cuda::DeviceInfo::maxTexture2DMipmap const();
 
 AutoIt:
     $oDeviceInfo.maxTexture2DMipmap() -> retval
@@ -7120,7 +7120,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::maxTexture2DLinear
 
 ```cpp
-cv::Vec3i cv::cuda::DeviceInfo::maxTexture2DLinear();
+cv::Vec3i cv::cuda::DeviceInfo::maxTexture2DLinear const();
 
 AutoIt:
     $oDeviceInfo.maxTexture2DLinear() -> retval
@@ -7129,7 +7129,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::maxTexture2DGather
 
 ```cpp
-cv::Vec2i cv::cuda::DeviceInfo::maxTexture2DGather();
+cv::Vec2i cv::cuda::DeviceInfo::maxTexture2DGather const();
 
 AutoIt:
     $oDeviceInfo.maxTexture2DGather() -> retval
@@ -7138,7 +7138,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::maxTexture3D
 
 ```cpp
-cv::Vec3i cv::cuda::DeviceInfo::maxTexture3D();
+cv::Vec3i cv::cuda::DeviceInfo::maxTexture3D const();
 
 AutoIt:
     $oDeviceInfo.maxTexture3D() -> retval
@@ -7147,7 +7147,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::maxTextureCubemap
 
 ```cpp
-int cv::cuda::DeviceInfo::maxTextureCubemap();
+int cv::cuda::DeviceInfo::maxTextureCubemap const();
 
 AutoIt:
     $oDeviceInfo.maxTextureCubemap() -> retval
@@ -7156,7 +7156,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::maxTexture1DLayered
 
 ```cpp
-cv::Vec2i cv::cuda::DeviceInfo::maxTexture1DLayered();
+cv::Vec2i cv::cuda::DeviceInfo::maxTexture1DLayered const();
 
 AutoIt:
     $oDeviceInfo.maxTexture1DLayered() -> retval
@@ -7165,7 +7165,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::maxTexture2DLayered
 
 ```cpp
-cv::Vec3i cv::cuda::DeviceInfo::maxTexture2DLayered();
+cv::Vec3i cv::cuda::DeviceInfo::maxTexture2DLayered const();
 
 AutoIt:
     $oDeviceInfo.maxTexture2DLayered() -> retval
@@ -7174,7 +7174,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::maxTextureCubemapLayered
 
 ```cpp
-cv::Vec2i cv::cuda::DeviceInfo::maxTextureCubemapLayered();
+cv::Vec2i cv::cuda::DeviceInfo::maxTextureCubemapLayered const();
 
 AutoIt:
     $oDeviceInfo.maxTextureCubemapLayered() -> retval
@@ -7183,7 +7183,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::maxSurface1D
 
 ```cpp
-int cv::cuda::DeviceInfo::maxSurface1D();
+int cv::cuda::DeviceInfo::maxSurface1D const();
 
 AutoIt:
     $oDeviceInfo.maxSurface1D() -> retval
@@ -7192,7 +7192,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::maxSurface2D
 
 ```cpp
-cv::Vec2i cv::cuda::DeviceInfo::maxSurface2D();
+cv::Vec2i cv::cuda::DeviceInfo::maxSurface2D const();
 
 AutoIt:
     $oDeviceInfo.maxSurface2D() -> retval
@@ -7201,7 +7201,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::maxSurface3D
 
 ```cpp
-cv::Vec3i cv::cuda::DeviceInfo::maxSurface3D();
+cv::Vec3i cv::cuda::DeviceInfo::maxSurface3D const();
 
 AutoIt:
     $oDeviceInfo.maxSurface3D() -> retval
@@ -7210,7 +7210,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::maxSurface1DLayered
 
 ```cpp
-cv::Vec2i cv::cuda::DeviceInfo::maxSurface1DLayered();
+cv::Vec2i cv::cuda::DeviceInfo::maxSurface1DLayered const();
 
 AutoIt:
     $oDeviceInfo.maxSurface1DLayered() -> retval
@@ -7219,7 +7219,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::maxSurface2DLayered
 
 ```cpp
-cv::Vec3i cv::cuda::DeviceInfo::maxSurface2DLayered();
+cv::Vec3i cv::cuda::DeviceInfo::maxSurface2DLayered const();
 
 AutoIt:
     $oDeviceInfo.maxSurface2DLayered() -> retval
@@ -7228,7 +7228,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::maxSurfaceCubemap
 
 ```cpp
-int cv::cuda::DeviceInfo::maxSurfaceCubemap();
+int cv::cuda::DeviceInfo::maxSurfaceCubemap const();
 
 AutoIt:
     $oDeviceInfo.maxSurfaceCubemap() -> retval
@@ -7237,7 +7237,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::maxSurfaceCubemapLayered
 
 ```cpp
-cv::Vec2i cv::cuda::DeviceInfo::maxSurfaceCubemapLayered();
+cv::Vec2i cv::cuda::DeviceInfo::maxSurfaceCubemapLayered const();
 
 AutoIt:
     $oDeviceInfo.maxSurfaceCubemapLayered() -> retval
@@ -7246,7 +7246,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::surfaceAlignment
 
 ```cpp
-size_t cv::cuda::DeviceInfo::surfaceAlignment();
+size_t cv::cuda::DeviceInfo::surfaceAlignment const();
 
 AutoIt:
     $oDeviceInfo.surfaceAlignment() -> retval
@@ -7255,7 +7255,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::concurrentKernels
 
 ```cpp
-bool cv::cuda::DeviceInfo::concurrentKernels();
+bool cv::cuda::DeviceInfo::concurrentKernels const();
 
 AutoIt:
     $oDeviceInfo.concurrentKernels() -> retval
@@ -7264,7 +7264,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::ECCEnabled
 
 ```cpp
-bool cv::cuda::DeviceInfo::ECCEnabled();
+bool cv::cuda::DeviceInfo::ECCEnabled const();
 
 AutoIt:
     $oDeviceInfo.ECCEnabled() -> retval
@@ -7273,7 +7273,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::pciBusID
 
 ```cpp
-int cv::cuda::DeviceInfo::pciBusID();
+int cv::cuda::DeviceInfo::pciBusID const();
 
 AutoIt:
     $oDeviceInfo.pciBusID() -> retval
@@ -7282,7 +7282,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::pciDeviceID
 
 ```cpp
-int cv::cuda::DeviceInfo::pciDeviceID();
+int cv::cuda::DeviceInfo::pciDeviceID const();
 
 AutoIt:
     $oDeviceInfo.pciDeviceID() -> retval
@@ -7291,7 +7291,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::pciDomainID
 
 ```cpp
-int cv::cuda::DeviceInfo::pciDomainID();
+int cv::cuda::DeviceInfo::pciDomainID const();
 
 AutoIt:
     $oDeviceInfo.pciDomainID() -> retval
@@ -7300,7 +7300,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::tccDriver
 
 ```cpp
-bool cv::cuda::DeviceInfo::tccDriver();
+bool cv::cuda::DeviceInfo::tccDriver const();
 
 AutoIt:
     $oDeviceInfo.tccDriver() -> retval
@@ -7309,7 +7309,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::asyncEngineCount
 
 ```cpp
-int cv::cuda::DeviceInfo::asyncEngineCount();
+int cv::cuda::DeviceInfo::asyncEngineCount const();
 
 AutoIt:
     $oDeviceInfo.asyncEngineCount() -> retval
@@ -7318,7 +7318,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::unifiedAddressing
 
 ```cpp
-bool cv::cuda::DeviceInfo::unifiedAddressing();
+bool cv::cuda::DeviceInfo::unifiedAddressing const();
 
 AutoIt:
     $oDeviceInfo.unifiedAddressing() -> retval
@@ -7327,7 +7327,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::memoryClockRate
 
 ```cpp
-int cv::cuda::DeviceInfo::memoryClockRate();
+int cv::cuda::DeviceInfo::memoryClockRate const();
 
 AutoIt:
     $oDeviceInfo.memoryClockRate() -> retval
@@ -7336,7 +7336,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::memoryBusWidth
 
 ```cpp
-int cv::cuda::DeviceInfo::memoryBusWidth();
+int cv::cuda::DeviceInfo::memoryBusWidth const();
 
 AutoIt:
     $oDeviceInfo.memoryBusWidth() -> retval
@@ -7345,7 +7345,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::l2CacheSize
 
 ```cpp
-int cv::cuda::DeviceInfo::l2CacheSize();
+int cv::cuda::DeviceInfo::l2CacheSize const();
 
 AutoIt:
     $oDeviceInfo.l2CacheSize() -> retval
@@ -7354,7 +7354,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::maxThreadsPerMultiProcessor
 
 ```cpp
-int cv::cuda::DeviceInfo::maxThreadsPerMultiProcessor();
+int cv::cuda::DeviceInfo::maxThreadsPerMultiProcessor const();
 
 AutoIt:
     $oDeviceInfo.maxThreadsPerMultiProcessor() -> retval
@@ -7363,8 +7363,8 @@ AutoIt:
 ### cv::cuda::DeviceInfo::queryMemory
 
 ```cpp
-void cv::cuda::DeviceInfo::queryMemory( size_t& totalMemory,
-                                        size_t& freeMemory );
+void cv::cuda::DeviceInfo::queryMemory const( size_t& totalMemory,
+                                              size_t& freeMemory );
 
 AutoIt:
     $oDeviceInfo.queryMemory( $totalMemory, $freeMemory ) -> None
@@ -7373,7 +7373,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::freeMemory
 
 ```cpp
-size_t cv::cuda::DeviceInfo::freeMemory();
+size_t cv::cuda::DeviceInfo::freeMemory const();
 
 AutoIt:
     $oDeviceInfo.freeMemory() -> retval
@@ -7382,7 +7382,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::totalMemory
 
 ```cpp
-size_t cv::cuda::DeviceInfo::totalMemory();
+size_t cv::cuda::DeviceInfo::totalMemory const();
 
 AutoIt:
     $oDeviceInfo.totalMemory() -> retval
@@ -7391,7 +7391,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::isCompatible
 
 ```cpp
-bool cv::cuda::DeviceInfo::isCompatible();
+bool cv::cuda::DeviceInfo::isCompatible const();
 
 AutoIt:
     $oDeviceInfo.isCompatible() -> retval
@@ -10369,7 +10369,7 @@ AutoIt:
 ### cv::ocl::Device::name
 
 ```cpp
-std::string cv::ocl::Device::name();
+std::string cv::ocl::Device::name const();
 
 AutoIt:
     $oDevice.name() -> retval
@@ -10378,7 +10378,7 @@ AutoIt:
 ### cv::ocl::Device::extensions
 
 ```cpp
-std::string cv::ocl::Device::extensions();
+std::string cv::ocl::Device::extensions const();
 
 AutoIt:
     $oDevice.extensions() -> retval
@@ -10387,7 +10387,7 @@ AutoIt:
 ### cv::ocl::Device::isExtensionSupported
 
 ```cpp
-bool cv::ocl::Device::isExtensionSupported( const std::string& extensionName );
+bool cv::ocl::Device::isExtensionSupported const( const std::string& extensionName );
 
 AutoIt:
     $oDevice.isExtensionSupported( $extensionName ) -> retval
@@ -10396,7 +10396,7 @@ AutoIt:
 ### cv::ocl::Device::version
 
 ```cpp
-std::string cv::ocl::Device::version();
+std::string cv::ocl::Device::version const();
 
 AutoIt:
     $oDevice.version() -> retval
@@ -10405,7 +10405,7 @@ AutoIt:
 ### cv::ocl::Device::vendorName
 
 ```cpp
-std::string cv::ocl::Device::vendorName();
+std::string cv::ocl::Device::vendorName const();
 
 AutoIt:
     $oDevice.vendorName() -> retval
@@ -10414,7 +10414,7 @@ AutoIt:
 ### cv::ocl::Device::OpenCL_C_Version
 
 ```cpp
-std::string cv::ocl::Device::OpenCL_C_Version();
+std::string cv::ocl::Device::OpenCL_C_Version const();
 
 AutoIt:
     $oDevice.OpenCL_C_Version() -> retval
@@ -10423,7 +10423,7 @@ AutoIt:
 ### cv::ocl::Device::OpenCLVersion
 
 ```cpp
-std::string cv::ocl::Device::OpenCLVersion();
+std::string cv::ocl::Device::OpenCLVersion const();
 
 AutoIt:
     $oDevice.OpenCLVersion() -> retval
@@ -10432,7 +10432,7 @@ AutoIt:
 ### cv::ocl::Device::deviceVersionMajor
 
 ```cpp
-int cv::ocl::Device::deviceVersionMajor();
+int cv::ocl::Device::deviceVersionMajor const();
 
 AutoIt:
     $oDevice.deviceVersionMajor() -> retval
@@ -10441,7 +10441,7 @@ AutoIt:
 ### cv::ocl::Device::deviceVersionMinor
 
 ```cpp
-int cv::ocl::Device::deviceVersionMinor();
+int cv::ocl::Device::deviceVersionMinor const();
 
 AutoIt:
     $oDevice.deviceVersionMinor() -> retval
@@ -10450,7 +10450,7 @@ AutoIt:
 ### cv::ocl::Device::driverVersion
 
 ```cpp
-std::string cv::ocl::Device::driverVersion();
+std::string cv::ocl::Device::driverVersion const();
 
 AutoIt:
     $oDevice.driverVersion() -> retval
@@ -10459,7 +10459,7 @@ AutoIt:
 ### cv::ocl::Device::type
 
 ```cpp
-int cv::ocl::Device::type();
+int cv::ocl::Device::type const();
 
 AutoIt:
     $oDevice.type() -> retval
@@ -10468,7 +10468,7 @@ AutoIt:
 ### cv::ocl::Device::addressBits
 
 ```cpp
-int cv::ocl::Device::addressBits();
+int cv::ocl::Device::addressBits const();
 
 AutoIt:
     $oDevice.addressBits() -> retval
@@ -10477,7 +10477,7 @@ AutoIt:
 ### cv::ocl::Device::available
 
 ```cpp
-bool cv::ocl::Device::available();
+bool cv::ocl::Device::available const();
 
 AutoIt:
     $oDevice.available() -> retval
@@ -10486,7 +10486,7 @@ AutoIt:
 ### cv::ocl::Device::compilerAvailable
 
 ```cpp
-bool cv::ocl::Device::compilerAvailable();
+bool cv::ocl::Device::compilerAvailable const();
 
 AutoIt:
     $oDevice.compilerAvailable() -> retval
@@ -10495,7 +10495,7 @@ AutoIt:
 ### cv::ocl::Device::linkerAvailable
 
 ```cpp
-bool cv::ocl::Device::linkerAvailable();
+bool cv::ocl::Device::linkerAvailable const();
 
 AutoIt:
     $oDevice.linkerAvailable() -> retval
@@ -10504,7 +10504,7 @@ AutoIt:
 ### cv::ocl::Device::doubleFPConfig
 
 ```cpp
-int cv::ocl::Device::doubleFPConfig();
+int cv::ocl::Device::doubleFPConfig const();
 
 AutoIt:
     $oDevice.doubleFPConfig() -> retval
@@ -10513,7 +10513,7 @@ AutoIt:
 ### cv::ocl::Device::singleFPConfig
 
 ```cpp
-int cv::ocl::Device::singleFPConfig();
+int cv::ocl::Device::singleFPConfig const();
 
 AutoIt:
     $oDevice.singleFPConfig() -> retval
@@ -10522,7 +10522,7 @@ AutoIt:
 ### cv::ocl::Device::halfFPConfig
 
 ```cpp
-int cv::ocl::Device::halfFPConfig();
+int cv::ocl::Device::halfFPConfig const();
 
 AutoIt:
     $oDevice.halfFPConfig() -> retval
@@ -10531,7 +10531,7 @@ AutoIt:
 ### cv::ocl::Device::endianLittle
 
 ```cpp
-bool cv::ocl::Device::endianLittle();
+bool cv::ocl::Device::endianLittle const();
 
 AutoIt:
     $oDevice.endianLittle() -> retval
@@ -10540,7 +10540,7 @@ AutoIt:
 ### cv::ocl::Device::errorCorrectionSupport
 
 ```cpp
-bool cv::ocl::Device::errorCorrectionSupport();
+bool cv::ocl::Device::errorCorrectionSupport const();
 
 AutoIt:
     $oDevice.errorCorrectionSupport() -> retval
@@ -10549,7 +10549,7 @@ AutoIt:
 ### cv::ocl::Device::executionCapabilities
 
 ```cpp
-int cv::ocl::Device::executionCapabilities();
+int cv::ocl::Device::executionCapabilities const();
 
 AutoIt:
     $oDevice.executionCapabilities() -> retval
@@ -10558,7 +10558,7 @@ AutoIt:
 ### cv::ocl::Device::globalMemCacheSize
 
 ```cpp
-size_t cv::ocl::Device::globalMemCacheSize();
+size_t cv::ocl::Device::globalMemCacheSize const();
 
 AutoIt:
     $oDevice.globalMemCacheSize() -> retval
@@ -10567,7 +10567,7 @@ AutoIt:
 ### cv::ocl::Device::globalMemCacheType
 
 ```cpp
-int cv::ocl::Device::globalMemCacheType();
+int cv::ocl::Device::globalMemCacheType const();
 
 AutoIt:
     $oDevice.globalMemCacheType() -> retval
@@ -10576,7 +10576,7 @@ AutoIt:
 ### cv::ocl::Device::globalMemCacheLineSize
 
 ```cpp
-int cv::ocl::Device::globalMemCacheLineSize();
+int cv::ocl::Device::globalMemCacheLineSize const();
 
 AutoIt:
     $oDevice.globalMemCacheLineSize() -> retval
@@ -10585,7 +10585,7 @@ AutoIt:
 ### cv::ocl::Device::globalMemSize
 
 ```cpp
-size_t cv::ocl::Device::globalMemSize();
+size_t cv::ocl::Device::globalMemSize const();
 
 AutoIt:
     $oDevice.globalMemSize() -> retval
@@ -10594,7 +10594,7 @@ AutoIt:
 ### cv::ocl::Device::localMemSize
 
 ```cpp
-size_t cv::ocl::Device::localMemSize();
+size_t cv::ocl::Device::localMemSize const();
 
 AutoIt:
     $oDevice.localMemSize() -> retval
@@ -10603,7 +10603,7 @@ AutoIt:
 ### cv::ocl::Device::localMemType
 
 ```cpp
-int cv::ocl::Device::localMemType();
+int cv::ocl::Device::localMemType const();
 
 AutoIt:
     $oDevice.localMemType() -> retval
@@ -10612,7 +10612,7 @@ AutoIt:
 ### cv::ocl::Device::hostUnifiedMemory
 
 ```cpp
-bool cv::ocl::Device::hostUnifiedMemory();
+bool cv::ocl::Device::hostUnifiedMemory const();
 
 AutoIt:
     $oDevice.hostUnifiedMemory() -> retval
@@ -10621,7 +10621,7 @@ AutoIt:
 ### cv::ocl::Device::imageSupport
 
 ```cpp
-bool cv::ocl::Device::imageSupport();
+bool cv::ocl::Device::imageSupport const();
 
 AutoIt:
     $oDevice.imageSupport() -> retval
@@ -10630,7 +10630,7 @@ AutoIt:
 ### cv::ocl::Device::imageFromBufferSupport
 
 ```cpp
-bool cv::ocl::Device::imageFromBufferSupport();
+bool cv::ocl::Device::imageFromBufferSupport const();
 
 AutoIt:
     $oDevice.imageFromBufferSupport() -> retval
@@ -10639,7 +10639,7 @@ AutoIt:
 ### cv::ocl::Device::intelSubgroupsSupport
 
 ```cpp
-bool cv::ocl::Device::intelSubgroupsSupport();
+bool cv::ocl::Device::intelSubgroupsSupport const();
 
 AutoIt:
     $oDevice.intelSubgroupsSupport() -> retval
@@ -10648,7 +10648,7 @@ AutoIt:
 ### cv::ocl::Device::image2DMaxWidth
 
 ```cpp
-size_t cv::ocl::Device::image2DMaxWidth();
+size_t cv::ocl::Device::image2DMaxWidth const();
 
 AutoIt:
     $oDevice.image2DMaxWidth() -> retval
@@ -10657,7 +10657,7 @@ AutoIt:
 ### cv::ocl::Device::image2DMaxHeight
 
 ```cpp
-size_t cv::ocl::Device::image2DMaxHeight();
+size_t cv::ocl::Device::image2DMaxHeight const();
 
 AutoIt:
     $oDevice.image2DMaxHeight() -> retval
@@ -10666,7 +10666,7 @@ AutoIt:
 ### cv::ocl::Device::image3DMaxWidth
 
 ```cpp
-size_t cv::ocl::Device::image3DMaxWidth();
+size_t cv::ocl::Device::image3DMaxWidth const();
 
 AutoIt:
     $oDevice.image3DMaxWidth() -> retval
@@ -10675,7 +10675,7 @@ AutoIt:
 ### cv::ocl::Device::image3DMaxHeight
 
 ```cpp
-size_t cv::ocl::Device::image3DMaxHeight();
+size_t cv::ocl::Device::image3DMaxHeight const();
 
 AutoIt:
     $oDevice.image3DMaxHeight() -> retval
@@ -10684,7 +10684,7 @@ AutoIt:
 ### cv::ocl::Device::image3DMaxDepth
 
 ```cpp
-size_t cv::ocl::Device::image3DMaxDepth();
+size_t cv::ocl::Device::image3DMaxDepth const();
 
 AutoIt:
     $oDevice.image3DMaxDepth() -> retval
@@ -10693,7 +10693,7 @@ AutoIt:
 ### cv::ocl::Device::imageMaxBufferSize
 
 ```cpp
-size_t cv::ocl::Device::imageMaxBufferSize();
+size_t cv::ocl::Device::imageMaxBufferSize const();
 
 AutoIt:
     $oDevice.imageMaxBufferSize() -> retval
@@ -10702,7 +10702,7 @@ AutoIt:
 ### cv::ocl::Device::imageMaxArraySize
 
 ```cpp
-size_t cv::ocl::Device::imageMaxArraySize();
+size_t cv::ocl::Device::imageMaxArraySize const();
 
 AutoIt:
     $oDevice.imageMaxArraySize() -> retval
@@ -10711,7 +10711,7 @@ AutoIt:
 ### cv::ocl::Device::vendorID
 
 ```cpp
-int cv::ocl::Device::vendorID();
+int cv::ocl::Device::vendorID const();
 
 AutoIt:
     $oDevice.vendorID() -> retval
@@ -10720,7 +10720,7 @@ AutoIt:
 ### cv::ocl::Device::isAMD
 
 ```cpp
-bool cv::ocl::Device::isAMD();
+bool cv::ocl::Device::isAMD const();
 
 AutoIt:
     $oDevice.isAMD() -> retval
@@ -10729,7 +10729,7 @@ AutoIt:
 ### cv::ocl::Device::isIntel
 
 ```cpp
-bool cv::ocl::Device::isIntel();
+bool cv::ocl::Device::isIntel const();
 
 AutoIt:
     $oDevice.isIntel() -> retval
@@ -10738,7 +10738,7 @@ AutoIt:
 ### cv::ocl::Device::isNVidia
 
 ```cpp
-bool cv::ocl::Device::isNVidia();
+bool cv::ocl::Device::isNVidia const();
 
 AutoIt:
     $oDevice.isNVidia() -> retval
@@ -10747,7 +10747,7 @@ AutoIt:
 ### cv::ocl::Device::maxClockFrequency
 
 ```cpp
-int cv::ocl::Device::maxClockFrequency();
+int cv::ocl::Device::maxClockFrequency const();
 
 AutoIt:
     $oDevice.maxClockFrequency() -> retval
@@ -10756,7 +10756,7 @@ AutoIt:
 ### cv::ocl::Device::maxComputeUnits
 
 ```cpp
-int cv::ocl::Device::maxComputeUnits();
+int cv::ocl::Device::maxComputeUnits const();
 
 AutoIt:
     $oDevice.maxComputeUnits() -> retval
@@ -10765,7 +10765,7 @@ AutoIt:
 ### cv::ocl::Device::maxConstantArgs
 
 ```cpp
-int cv::ocl::Device::maxConstantArgs();
+int cv::ocl::Device::maxConstantArgs const();
 
 AutoIt:
     $oDevice.maxConstantArgs() -> retval
@@ -10774,7 +10774,7 @@ AutoIt:
 ### cv::ocl::Device::maxConstantBufferSize
 
 ```cpp
-size_t cv::ocl::Device::maxConstantBufferSize();
+size_t cv::ocl::Device::maxConstantBufferSize const();
 
 AutoIt:
     $oDevice.maxConstantBufferSize() -> retval
@@ -10783,7 +10783,7 @@ AutoIt:
 ### cv::ocl::Device::maxMemAllocSize
 
 ```cpp
-size_t cv::ocl::Device::maxMemAllocSize();
+size_t cv::ocl::Device::maxMemAllocSize const();
 
 AutoIt:
     $oDevice.maxMemAllocSize() -> retval
@@ -10792,7 +10792,7 @@ AutoIt:
 ### cv::ocl::Device::maxParameterSize
 
 ```cpp
-size_t cv::ocl::Device::maxParameterSize();
+size_t cv::ocl::Device::maxParameterSize const();
 
 AutoIt:
     $oDevice.maxParameterSize() -> retval
@@ -10801,7 +10801,7 @@ AutoIt:
 ### cv::ocl::Device::maxReadImageArgs
 
 ```cpp
-int cv::ocl::Device::maxReadImageArgs();
+int cv::ocl::Device::maxReadImageArgs const();
 
 AutoIt:
     $oDevice.maxReadImageArgs() -> retval
@@ -10810,7 +10810,7 @@ AutoIt:
 ### cv::ocl::Device::maxWriteImageArgs
 
 ```cpp
-int cv::ocl::Device::maxWriteImageArgs();
+int cv::ocl::Device::maxWriteImageArgs const();
 
 AutoIt:
     $oDevice.maxWriteImageArgs() -> retval
@@ -10819,7 +10819,7 @@ AutoIt:
 ### cv::ocl::Device::maxSamplers
 
 ```cpp
-int cv::ocl::Device::maxSamplers();
+int cv::ocl::Device::maxSamplers const();
 
 AutoIt:
     $oDevice.maxSamplers() -> retval
@@ -10828,7 +10828,7 @@ AutoIt:
 ### cv::ocl::Device::maxWorkGroupSize
 
 ```cpp
-size_t cv::ocl::Device::maxWorkGroupSize();
+size_t cv::ocl::Device::maxWorkGroupSize const();
 
 AutoIt:
     $oDevice.maxWorkGroupSize() -> retval
@@ -10837,7 +10837,7 @@ AutoIt:
 ### cv::ocl::Device::maxWorkItemDims
 
 ```cpp
-int cv::ocl::Device::maxWorkItemDims();
+int cv::ocl::Device::maxWorkItemDims const();
 
 AutoIt:
     $oDevice.maxWorkItemDims() -> retval
@@ -10846,7 +10846,7 @@ AutoIt:
 ### cv::ocl::Device::memBaseAddrAlign
 
 ```cpp
-int cv::ocl::Device::memBaseAddrAlign();
+int cv::ocl::Device::memBaseAddrAlign const();
 
 AutoIt:
     $oDevice.memBaseAddrAlign() -> retval
@@ -10855,7 +10855,7 @@ AutoIt:
 ### cv::ocl::Device::nativeVectorWidthChar
 
 ```cpp
-int cv::ocl::Device::nativeVectorWidthChar();
+int cv::ocl::Device::nativeVectorWidthChar const();
 
 AutoIt:
     $oDevice.nativeVectorWidthChar() -> retval
@@ -10864,7 +10864,7 @@ AutoIt:
 ### cv::ocl::Device::nativeVectorWidthShort
 
 ```cpp
-int cv::ocl::Device::nativeVectorWidthShort();
+int cv::ocl::Device::nativeVectorWidthShort const();
 
 AutoIt:
     $oDevice.nativeVectorWidthShort() -> retval
@@ -10873,7 +10873,7 @@ AutoIt:
 ### cv::ocl::Device::nativeVectorWidthInt
 
 ```cpp
-int cv::ocl::Device::nativeVectorWidthInt();
+int cv::ocl::Device::nativeVectorWidthInt const();
 
 AutoIt:
     $oDevice.nativeVectorWidthInt() -> retval
@@ -10882,7 +10882,7 @@ AutoIt:
 ### cv::ocl::Device::nativeVectorWidthLong
 
 ```cpp
-int cv::ocl::Device::nativeVectorWidthLong();
+int cv::ocl::Device::nativeVectorWidthLong const();
 
 AutoIt:
     $oDevice.nativeVectorWidthLong() -> retval
@@ -10891,7 +10891,7 @@ AutoIt:
 ### cv::ocl::Device::nativeVectorWidthFloat
 
 ```cpp
-int cv::ocl::Device::nativeVectorWidthFloat();
+int cv::ocl::Device::nativeVectorWidthFloat const();
 
 AutoIt:
     $oDevice.nativeVectorWidthFloat() -> retval
@@ -10900,7 +10900,7 @@ AutoIt:
 ### cv::ocl::Device::nativeVectorWidthDouble
 
 ```cpp
-int cv::ocl::Device::nativeVectorWidthDouble();
+int cv::ocl::Device::nativeVectorWidthDouble const();
 
 AutoIt:
     $oDevice.nativeVectorWidthDouble() -> retval
@@ -10909,7 +10909,7 @@ AutoIt:
 ### cv::ocl::Device::nativeVectorWidthHalf
 
 ```cpp
-int cv::ocl::Device::nativeVectorWidthHalf();
+int cv::ocl::Device::nativeVectorWidthHalf const();
 
 AutoIt:
     $oDevice.nativeVectorWidthHalf() -> retval
@@ -10918,7 +10918,7 @@ AutoIt:
 ### cv::ocl::Device::preferredVectorWidthChar
 
 ```cpp
-int cv::ocl::Device::preferredVectorWidthChar();
+int cv::ocl::Device::preferredVectorWidthChar const();
 
 AutoIt:
     $oDevice.preferredVectorWidthChar() -> retval
@@ -10927,7 +10927,7 @@ AutoIt:
 ### cv::ocl::Device::preferredVectorWidthShort
 
 ```cpp
-int cv::ocl::Device::preferredVectorWidthShort();
+int cv::ocl::Device::preferredVectorWidthShort const();
 
 AutoIt:
     $oDevice.preferredVectorWidthShort() -> retval
@@ -10936,7 +10936,7 @@ AutoIt:
 ### cv::ocl::Device::preferredVectorWidthInt
 
 ```cpp
-int cv::ocl::Device::preferredVectorWidthInt();
+int cv::ocl::Device::preferredVectorWidthInt const();
 
 AutoIt:
     $oDevice.preferredVectorWidthInt() -> retval
@@ -10945,7 +10945,7 @@ AutoIt:
 ### cv::ocl::Device::preferredVectorWidthLong
 
 ```cpp
-int cv::ocl::Device::preferredVectorWidthLong();
+int cv::ocl::Device::preferredVectorWidthLong const();
 
 AutoIt:
     $oDevice.preferredVectorWidthLong() -> retval
@@ -10954,7 +10954,7 @@ AutoIt:
 ### cv::ocl::Device::preferredVectorWidthFloat
 
 ```cpp
-int cv::ocl::Device::preferredVectorWidthFloat();
+int cv::ocl::Device::preferredVectorWidthFloat const();
 
 AutoIt:
     $oDevice.preferredVectorWidthFloat() -> retval
@@ -10963,7 +10963,7 @@ AutoIt:
 ### cv::ocl::Device::preferredVectorWidthDouble
 
 ```cpp
-int cv::ocl::Device::preferredVectorWidthDouble();
+int cv::ocl::Device::preferredVectorWidthDouble const();
 
 AutoIt:
     $oDevice.preferredVectorWidthDouble() -> retval
@@ -10972,7 +10972,7 @@ AutoIt:
 ### cv::ocl::Device::preferredVectorWidthHalf
 
 ```cpp
-int cv::ocl::Device::preferredVectorWidthHalf();
+int cv::ocl::Device::preferredVectorWidthHalf const();
 
 AutoIt:
     $oDevice.preferredVectorWidthHalf() -> retval
@@ -10981,7 +10981,7 @@ AutoIt:
 ### cv::ocl::Device::printfBufferSize
 
 ```cpp
-size_t cv::ocl::Device::printfBufferSize();
+size_t cv::ocl::Device::printfBufferSize const();
 
 AutoIt:
     $oDevice.printfBufferSize() -> retval
@@ -10990,7 +10990,7 @@ AutoIt:
 ### cv::ocl::Device::profilingTimerResolution
 
 ```cpp
-size_t cv::ocl::Device::profilingTimerResolution();
+size_t cv::ocl::Device::profilingTimerResolution const();
 
 AutoIt:
     $oDevice.profilingTimerResolution() -> retval
@@ -11039,7 +11039,7 @@ AutoIt:
 ### cv::FileStorage::isOpened
 
 ```cpp
-bool cv::FileStorage::isOpened();
+bool cv::FileStorage::isOpened const();
 
 AutoIt:
     $oFileStorage.isOpened() -> retval
@@ -11066,7 +11066,7 @@ AutoIt:
 ### cv::FileStorage::getFirstTopLevelNode
 
 ```cpp
-cv::FileNode cv::FileStorage::getFirstTopLevelNode();
+cv::FileNode cv::FileStorage::getFirstTopLevelNode const();
 
 AutoIt:
     $oFileStorage.getFirstTopLevelNode() -> retval
@@ -11075,7 +11075,7 @@ AutoIt:
 ### cv::FileStorage::root
 
 ```cpp
-cv::FileNode cv::FileStorage::root( int streamidx = 0 );
+cv::FileNode cv::FileStorage::root const( int streamidx = 0 );
 
 AutoIt:
     $oFileStorage.root( [$streamidx] ) -> retval
@@ -11084,7 +11084,7 @@ AutoIt:
 ### cv::FileStorage::getNode
 
 ```cpp
-cv::FileNode cv::FileStorage::getNode( const char* nodename );
+cv::FileNode cv::FileStorage::getNode const( const char* nodename );
 
 AutoIt:
     $oFileStorage.getNode( $nodename ) -> retval
@@ -11165,7 +11165,7 @@ AutoIt:
 ### cv::FileStorage::getFormat
 
 ```cpp
-int cv::FileStorage::getFormat();
+int cv::FileStorage::getFormat const();
 
 AutoIt:
     $oFileStorage.getFormat() -> retval
@@ -11185,7 +11185,7 @@ AutoIt:
 ### cv::FileNode::getNode
 
 ```cpp
-cv::FileNode cv::FileNode::getNode( const char* nodename );
+cv::FileNode cv::FileNode::getNode const( const char* nodename );
 
 AutoIt:
     $oFileNode.getNode( $nodename ) -> retval
@@ -11194,7 +11194,7 @@ AutoIt:
 ### cv::FileNode::at
 
 ```cpp
-cv::FileNode cv::FileNode::at( int i );
+cv::FileNode cv::FileNode::at const( int i );
 
 AutoIt:
     $oFileNode.at( $i ) -> retval
@@ -11203,7 +11203,7 @@ AutoIt:
 ### cv::FileNode::keys
 
 ```cpp
-std::vector<std::string> cv::FileNode::keys();
+std::vector<std::string> cv::FileNode::keys const();
 
 AutoIt:
     $oFileNode.keys() -> retval
@@ -11212,7 +11212,7 @@ AutoIt:
 ### cv::FileNode::type
 
 ```cpp
-int cv::FileNode::type();
+int cv::FileNode::type const();
 
 AutoIt:
     $oFileNode.type() -> retval
@@ -11221,7 +11221,7 @@ AutoIt:
 ### cv::FileNode::empty
 
 ```cpp
-bool cv::FileNode::empty();
+bool cv::FileNode::empty const();
 
 AutoIt:
     $oFileNode.empty() -> retval
@@ -11230,7 +11230,7 @@ AutoIt:
 ### cv::FileNode::isNone
 
 ```cpp
-bool cv::FileNode::isNone();
+bool cv::FileNode::isNone const();
 
 AutoIt:
     $oFileNode.isNone() -> retval
@@ -11239,7 +11239,7 @@ AutoIt:
 ### cv::FileNode::isSeq
 
 ```cpp
-bool cv::FileNode::isSeq();
+bool cv::FileNode::isSeq const();
 
 AutoIt:
     $oFileNode.isSeq() -> retval
@@ -11248,7 +11248,7 @@ AutoIt:
 ### cv::FileNode::isMap
 
 ```cpp
-bool cv::FileNode::isMap();
+bool cv::FileNode::isMap const();
 
 AutoIt:
     $oFileNode.isMap() -> retval
@@ -11257,7 +11257,7 @@ AutoIt:
 ### cv::FileNode::isInt
 
 ```cpp
-bool cv::FileNode::isInt();
+bool cv::FileNode::isInt const();
 
 AutoIt:
     $oFileNode.isInt() -> retval
@@ -11266,7 +11266,7 @@ AutoIt:
 ### cv::FileNode::isReal
 
 ```cpp
-bool cv::FileNode::isReal();
+bool cv::FileNode::isReal const();
 
 AutoIt:
     $oFileNode.isReal() -> retval
@@ -11275,7 +11275,7 @@ AutoIt:
 ### cv::FileNode::isString
 
 ```cpp
-bool cv::FileNode::isString();
+bool cv::FileNode::isString const();
 
 AutoIt:
     $oFileNode.isString() -> retval
@@ -11284,7 +11284,7 @@ AutoIt:
 ### cv::FileNode::isNamed
 
 ```cpp
-bool cv::FileNode::isNamed();
+bool cv::FileNode::isNamed const();
 
 AutoIt:
     $oFileNode.isNamed() -> retval
@@ -11293,7 +11293,7 @@ AutoIt:
 ### cv::FileNode::name
 
 ```cpp
-std::string cv::FileNode::name();
+std::string cv::FileNode::name const();
 
 AutoIt:
     $oFileNode.name() -> retval
@@ -11302,7 +11302,7 @@ AutoIt:
 ### cv::FileNode::size
 
 ```cpp
-size_t cv::FileNode::size();
+size_t cv::FileNode::size const();
 
 AutoIt:
     $oFileNode.size() -> retval
@@ -11311,7 +11311,7 @@ AutoIt:
 ### cv::FileNode::rawSize
 
 ```cpp
-size_t cv::FileNode::rawSize();
+size_t cv::FileNode::rawSize const();
 
 AutoIt:
     $oFileNode.rawSize() -> retval
@@ -11320,7 +11320,7 @@ AutoIt:
 ### cv::FileNode::real
 
 ```cpp
-double cv::FileNode::real();
+double cv::FileNode::real const();
 
 AutoIt:
     $oFileNode.real() -> retval
@@ -11329,7 +11329,7 @@ AutoIt:
 ### cv::FileNode::string
 
 ```cpp
-std::string cv::FileNode::string();
+std::string cv::FileNode::string const();
 
 AutoIt:
     $oFileNode.string() -> retval
@@ -11338,7 +11338,7 @@ AutoIt:
 ### cv::FileNode::mat
 
 ```cpp
-cv::Mat cv::FileNode::mat();
+cv::Mat cv::FileNode::mat const();
 
 AutoIt:
     $oFileNode.mat() -> retval
@@ -11442,6 +11442,17 @@ AutoIt:
     _OpenCV_ObjCreate("cv.TermCriteria").create() -> <cv.TermCriteria object>
 ```
 
+## cv::Moments
+
+### cv::Moments::create
+
+```cpp
+static cv::Moments cv::Moments::create();
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.Moments").create() -> <cv.Moments object>
+```
+
 ## cv::TickMeter
 
 ### cv::TickMeter::create
@@ -11474,7 +11485,7 @@ AutoIt:
 ### cv::TickMeter::getTimeTicks
 
 ```cpp
-int64 cv::TickMeter::getTimeTicks();
+int64 cv::TickMeter::getTimeTicks const();
 
 AutoIt:
     $oTickMeter.getTimeTicks() -> retval
@@ -11483,7 +11494,7 @@ AutoIt:
 ### cv::TickMeter::getTimeMicro
 
 ```cpp
-double cv::TickMeter::getTimeMicro();
+double cv::TickMeter::getTimeMicro const();
 
 AutoIt:
     $oTickMeter.getTimeMicro() -> retval
@@ -11492,7 +11503,7 @@ AutoIt:
 ### cv::TickMeter::getTimeMilli
 
 ```cpp
-double cv::TickMeter::getTimeMilli();
+double cv::TickMeter::getTimeMilli const();
 
 AutoIt:
     $oTickMeter.getTimeMilli() -> retval
@@ -11501,7 +11512,7 @@ AutoIt:
 ### cv::TickMeter::getTimeSec
 
 ```cpp
-double cv::TickMeter::getTimeSec();
+double cv::TickMeter::getTimeSec const();
 
 AutoIt:
     $oTickMeter.getTimeSec() -> retval
@@ -11510,7 +11521,7 @@ AutoIt:
 ### cv::TickMeter::getCounter
 
 ```cpp
-int64 cv::TickMeter::getCounter();
+int64 cv::TickMeter::getCounter const();
 
 AutoIt:
     $oTickMeter.getCounter() -> retval
@@ -11519,7 +11530,7 @@ AutoIt:
 ### cv::TickMeter::getFPS
 
 ```cpp
-double cv::TickMeter::getFPS();
+double cv::TickMeter::getFPS const();
 
 AutoIt:
     $oTickMeter.getFPS() -> retval
@@ -11528,7 +11539,7 @@ AutoIt:
 ### cv::TickMeter::getAvgTimeSec
 
 ```cpp
-double cv::TickMeter::getAvgTimeSec();
+double cv::TickMeter::getAvgTimeSec const();
 
 AutoIt:
     $oTickMeter.getAvgTimeSec() -> retval
@@ -11537,7 +11548,7 @@ AutoIt:
 ### cv::TickMeter::getAvgTimeMilli
 
 ```cpp
-double cv::TickMeter::getAvgTimeMilli();
+double cv::TickMeter::getAvgTimeMilli const();
 
 AutoIt:
     $oTickMeter.getAvgTimeMilli() -> retval
@@ -11654,7 +11665,7 @@ AutoIt:
 ### cv::flann::Index::save
 
 ```cpp
-void cv::flann::Index::save( const std::string& filename );
+void cv::flann::Index::save const( const std::string& filename );
 
 AutoIt:
     $oIndex.save( $filename ) -> None
@@ -11682,7 +11693,7 @@ AutoIt:
 ### cv::flann::Index::getDistance
 
 ```cpp
-int cv::flann::Index::getDistance();
+int cv::flann::Index::getDistance const();
 
 AutoIt:
     $oIndex.getDistance() -> retval
@@ -11691,7 +11702,7 @@ AutoIt:
 ### cv::flann::Index::getAlgorithm
 
 ```cpp
-int cv::flann::Index::getAlgorithm();
+int cv::flann::Index::getAlgorithm const();
 
 AutoIt:
     $oIndex.getAlgorithm() -> retval
@@ -11753,7 +11764,7 @@ AutoIt:
 ### cv::GeneralizedHough::getCannyLowThresh
 
 ```cpp
-int cv::GeneralizedHough::getCannyLowThresh();
+int cv::GeneralizedHough::getCannyLowThresh const();
 
 AutoIt:
     $oGeneralizedHough.getCannyLowThresh() -> retval
@@ -11771,7 +11782,7 @@ AutoIt:
 ### cv::GeneralizedHough::getCannyHighThresh
 
 ```cpp
-int cv::GeneralizedHough::getCannyHighThresh();
+int cv::GeneralizedHough::getCannyHighThresh const();
 
 AutoIt:
     $oGeneralizedHough.getCannyHighThresh() -> retval
@@ -11789,7 +11800,7 @@ AutoIt:
 ### cv::GeneralizedHough::getMinDist
 
 ```cpp
-double cv::GeneralizedHough::getMinDist();
+double cv::GeneralizedHough::getMinDist const();
 
 AutoIt:
     $oGeneralizedHough.getMinDist() -> retval
@@ -11807,7 +11818,7 @@ AutoIt:
 ### cv::GeneralizedHough::getDp
 
 ```cpp
-double cv::GeneralizedHough::getDp();
+double cv::GeneralizedHough::getDp const();
 
 AutoIt:
     $oGeneralizedHough.getDp() -> retval
@@ -11825,7 +11836,7 @@ AutoIt:
 ### cv::GeneralizedHough::getMaxBufferSize
 
 ```cpp
-int cv::GeneralizedHough::getMaxBufferSize();
+int cv::GeneralizedHough::getMaxBufferSize const();
 
 AutoIt:
     $oGeneralizedHough.getMaxBufferSize() -> retval
@@ -11843,8 +11854,8 @@ AutoIt:
 ### cv::GeneralizedHough::write
 
 ```cpp
-void cv::GeneralizedHough::write( const cv::Ptr<cv::FileStorage>& fs,
-                                  const std::string&              name = String() );
+void cv::GeneralizedHough::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                        const std::string&              name = String() );
 
 AutoIt:
     $oGeneralizedHough.write( $fs[, $name] ) -> None
@@ -11862,7 +11873,7 @@ AutoIt:
 ### cv::GeneralizedHough::empty
 
 ```cpp
-bool cv::GeneralizedHough::empty();
+bool cv::GeneralizedHough::empty const();
 
 AutoIt:
     $oGeneralizedHough.empty() -> retval
@@ -11871,7 +11882,7 @@ AutoIt:
 ### cv::GeneralizedHough::save
 
 ```cpp
-void cv::GeneralizedHough::save( const std::string& filename );
+void cv::GeneralizedHough::save const( const std::string& filename );
 
 AutoIt:
     $oGeneralizedHough.save( $filename ) -> None
@@ -11880,7 +11891,7 @@ AutoIt:
 ### cv::GeneralizedHough::getDefaultName
 
 ```cpp
-std::string cv::GeneralizedHough::getDefaultName();
+std::string cv::GeneralizedHough::getDefaultName const();
 
 AutoIt:
     $oGeneralizedHough.getDefaultName() -> retval
@@ -11900,7 +11911,7 @@ AutoIt:
 ### cv::GeneralizedHoughBallard::getLevels
 
 ```cpp
-int cv::GeneralizedHoughBallard::getLevels();
+int cv::GeneralizedHoughBallard::getLevels const();
 
 AutoIt:
     $oGeneralizedHoughBallard.getLevels() -> retval
@@ -11918,7 +11929,7 @@ AutoIt:
 ### cv::GeneralizedHoughBallard::getVotesThreshold
 
 ```cpp
-int cv::GeneralizedHoughBallard::getVotesThreshold();
+int cv::GeneralizedHoughBallard::getVotesThreshold const();
 
 AutoIt:
     $oGeneralizedHoughBallard.getVotesThreshold() -> retval
@@ -11978,7 +11989,7 @@ AutoIt:
 ### cv::GeneralizedHoughBallard::getCannyLowThresh
 
 ```cpp
-int cv::GeneralizedHoughBallard::getCannyLowThresh();
+int cv::GeneralizedHoughBallard::getCannyLowThresh const();
 
 AutoIt:
     $oGeneralizedHoughBallard.getCannyLowThresh() -> retval
@@ -11996,7 +12007,7 @@ AutoIt:
 ### cv::GeneralizedHoughBallard::getCannyHighThresh
 
 ```cpp
-int cv::GeneralizedHoughBallard::getCannyHighThresh();
+int cv::GeneralizedHoughBallard::getCannyHighThresh const();
 
 AutoIt:
     $oGeneralizedHoughBallard.getCannyHighThresh() -> retval
@@ -12014,7 +12025,7 @@ AutoIt:
 ### cv::GeneralizedHoughBallard::getMinDist
 
 ```cpp
-double cv::GeneralizedHoughBallard::getMinDist();
+double cv::GeneralizedHoughBallard::getMinDist const();
 
 AutoIt:
     $oGeneralizedHoughBallard.getMinDist() -> retval
@@ -12032,7 +12043,7 @@ AutoIt:
 ### cv::GeneralizedHoughBallard::getDp
 
 ```cpp
-double cv::GeneralizedHoughBallard::getDp();
+double cv::GeneralizedHoughBallard::getDp const();
 
 AutoIt:
     $oGeneralizedHoughBallard.getDp() -> retval
@@ -12050,7 +12061,7 @@ AutoIt:
 ### cv::GeneralizedHoughBallard::getMaxBufferSize
 
 ```cpp
-int cv::GeneralizedHoughBallard::getMaxBufferSize();
+int cv::GeneralizedHoughBallard::getMaxBufferSize const();
 
 AutoIt:
     $oGeneralizedHoughBallard.getMaxBufferSize() -> retval
@@ -12068,8 +12079,8 @@ AutoIt:
 ### cv::GeneralizedHoughBallard::write
 
 ```cpp
-void cv::GeneralizedHoughBallard::write( const cv::Ptr<cv::FileStorage>& fs,
-                                         const std::string&              name = String() );
+void cv::GeneralizedHoughBallard::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                               const std::string&              name = String() );
 
 AutoIt:
     $oGeneralizedHoughBallard.write( $fs[, $name] ) -> None
@@ -12087,7 +12098,7 @@ AutoIt:
 ### cv::GeneralizedHoughBallard::empty
 
 ```cpp
-bool cv::GeneralizedHoughBallard::empty();
+bool cv::GeneralizedHoughBallard::empty const();
 
 AutoIt:
     $oGeneralizedHoughBallard.empty() -> retval
@@ -12096,7 +12107,7 @@ AutoIt:
 ### cv::GeneralizedHoughBallard::save
 
 ```cpp
-void cv::GeneralizedHoughBallard::save( const std::string& filename );
+void cv::GeneralizedHoughBallard::save const( const std::string& filename );
 
 AutoIt:
     $oGeneralizedHoughBallard.save( $filename ) -> None
@@ -12105,7 +12116,7 @@ AutoIt:
 ### cv::GeneralizedHoughBallard::getDefaultName
 
 ```cpp
-std::string cv::GeneralizedHoughBallard::getDefaultName();
+std::string cv::GeneralizedHoughBallard::getDefaultName const();
 
 AutoIt:
     $oGeneralizedHoughBallard.getDefaultName() -> retval
@@ -12125,7 +12136,7 @@ AutoIt:
 ### cv::GeneralizedHoughGuil::getXi
 
 ```cpp
-double cv::GeneralizedHoughGuil::getXi();
+double cv::GeneralizedHoughGuil::getXi const();
 
 AutoIt:
     $oGeneralizedHoughGuil.getXi() -> retval
@@ -12143,7 +12154,7 @@ AutoIt:
 ### cv::GeneralizedHoughGuil::getLevels
 
 ```cpp
-int cv::GeneralizedHoughGuil::getLevels();
+int cv::GeneralizedHoughGuil::getLevels const();
 
 AutoIt:
     $oGeneralizedHoughGuil.getLevels() -> retval
@@ -12161,7 +12172,7 @@ AutoIt:
 ### cv::GeneralizedHoughGuil::getAngleEpsilon
 
 ```cpp
-double cv::GeneralizedHoughGuil::getAngleEpsilon();
+double cv::GeneralizedHoughGuil::getAngleEpsilon const();
 
 AutoIt:
     $oGeneralizedHoughGuil.getAngleEpsilon() -> retval
@@ -12179,7 +12190,7 @@ AutoIt:
 ### cv::GeneralizedHoughGuil::getMinAngle
 
 ```cpp
-double cv::GeneralizedHoughGuil::getMinAngle();
+double cv::GeneralizedHoughGuil::getMinAngle const();
 
 AutoIt:
     $oGeneralizedHoughGuil.getMinAngle() -> retval
@@ -12197,7 +12208,7 @@ AutoIt:
 ### cv::GeneralizedHoughGuil::getMaxAngle
 
 ```cpp
-double cv::GeneralizedHoughGuil::getMaxAngle();
+double cv::GeneralizedHoughGuil::getMaxAngle const();
 
 AutoIt:
     $oGeneralizedHoughGuil.getMaxAngle() -> retval
@@ -12215,7 +12226,7 @@ AutoIt:
 ### cv::GeneralizedHoughGuil::getAngleStep
 
 ```cpp
-double cv::GeneralizedHoughGuil::getAngleStep();
+double cv::GeneralizedHoughGuil::getAngleStep const();
 
 AutoIt:
     $oGeneralizedHoughGuil.getAngleStep() -> retval
@@ -12233,7 +12244,7 @@ AutoIt:
 ### cv::GeneralizedHoughGuil::getAngleThresh
 
 ```cpp
-int cv::GeneralizedHoughGuil::getAngleThresh();
+int cv::GeneralizedHoughGuil::getAngleThresh const();
 
 AutoIt:
     $oGeneralizedHoughGuil.getAngleThresh() -> retval
@@ -12251,7 +12262,7 @@ AutoIt:
 ### cv::GeneralizedHoughGuil::getMinScale
 
 ```cpp
-double cv::GeneralizedHoughGuil::getMinScale();
+double cv::GeneralizedHoughGuil::getMinScale const();
 
 AutoIt:
     $oGeneralizedHoughGuil.getMinScale() -> retval
@@ -12269,7 +12280,7 @@ AutoIt:
 ### cv::GeneralizedHoughGuil::getMaxScale
 
 ```cpp
-double cv::GeneralizedHoughGuil::getMaxScale();
+double cv::GeneralizedHoughGuil::getMaxScale const();
 
 AutoIt:
     $oGeneralizedHoughGuil.getMaxScale() -> retval
@@ -12287,7 +12298,7 @@ AutoIt:
 ### cv::GeneralizedHoughGuil::getScaleStep
 
 ```cpp
-double cv::GeneralizedHoughGuil::getScaleStep();
+double cv::GeneralizedHoughGuil::getScaleStep const();
 
 AutoIt:
     $oGeneralizedHoughGuil.getScaleStep() -> retval
@@ -12305,7 +12316,7 @@ AutoIt:
 ### cv::GeneralizedHoughGuil::getScaleThresh
 
 ```cpp
-int cv::GeneralizedHoughGuil::getScaleThresh();
+int cv::GeneralizedHoughGuil::getScaleThresh const();
 
 AutoIt:
     $oGeneralizedHoughGuil.getScaleThresh() -> retval
@@ -12323,7 +12334,7 @@ AutoIt:
 ### cv::GeneralizedHoughGuil::getPosThresh
 
 ```cpp
-int cv::GeneralizedHoughGuil::getPosThresh();
+int cv::GeneralizedHoughGuil::getPosThresh const();
 
 AutoIt:
     $oGeneralizedHoughGuil.getPosThresh() -> retval
@@ -12383,7 +12394,7 @@ AutoIt:
 ### cv::GeneralizedHoughGuil::getCannyLowThresh
 
 ```cpp
-int cv::GeneralizedHoughGuil::getCannyLowThresh();
+int cv::GeneralizedHoughGuil::getCannyLowThresh const();
 
 AutoIt:
     $oGeneralizedHoughGuil.getCannyLowThresh() -> retval
@@ -12401,7 +12412,7 @@ AutoIt:
 ### cv::GeneralizedHoughGuil::getCannyHighThresh
 
 ```cpp
-int cv::GeneralizedHoughGuil::getCannyHighThresh();
+int cv::GeneralizedHoughGuil::getCannyHighThresh const();
 
 AutoIt:
     $oGeneralizedHoughGuil.getCannyHighThresh() -> retval
@@ -12419,7 +12430,7 @@ AutoIt:
 ### cv::GeneralizedHoughGuil::getMinDist
 
 ```cpp
-double cv::GeneralizedHoughGuil::getMinDist();
+double cv::GeneralizedHoughGuil::getMinDist const();
 
 AutoIt:
     $oGeneralizedHoughGuil.getMinDist() -> retval
@@ -12437,7 +12448,7 @@ AutoIt:
 ### cv::GeneralizedHoughGuil::getDp
 
 ```cpp
-double cv::GeneralizedHoughGuil::getDp();
+double cv::GeneralizedHoughGuil::getDp const();
 
 AutoIt:
     $oGeneralizedHoughGuil.getDp() -> retval
@@ -12455,7 +12466,7 @@ AutoIt:
 ### cv::GeneralizedHoughGuil::getMaxBufferSize
 
 ```cpp
-int cv::GeneralizedHoughGuil::getMaxBufferSize();
+int cv::GeneralizedHoughGuil::getMaxBufferSize const();
 
 AutoIt:
     $oGeneralizedHoughGuil.getMaxBufferSize() -> retval
@@ -12473,8 +12484,8 @@ AutoIt:
 ### cv::GeneralizedHoughGuil::write
 
 ```cpp
-void cv::GeneralizedHoughGuil::write( const cv::Ptr<cv::FileStorage>& fs,
-                                      const std::string&              name = String() );
+void cv::GeneralizedHoughGuil::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                            const std::string&              name = String() );
 
 AutoIt:
     $oGeneralizedHoughGuil.write( $fs[, $name] ) -> None
@@ -12492,7 +12503,7 @@ AutoIt:
 ### cv::GeneralizedHoughGuil::empty
 
 ```cpp
-bool cv::GeneralizedHoughGuil::empty();
+bool cv::GeneralizedHoughGuil::empty const();
 
 AutoIt:
     $oGeneralizedHoughGuil.empty() -> retval
@@ -12501,7 +12512,7 @@ AutoIt:
 ### cv::GeneralizedHoughGuil::save
 
 ```cpp
-void cv::GeneralizedHoughGuil::save( const std::string& filename );
+void cv::GeneralizedHoughGuil::save const( const std::string& filename );
 
 AutoIt:
     $oGeneralizedHoughGuil.save( $filename ) -> None
@@ -12510,7 +12521,7 @@ AutoIt:
 ### cv::GeneralizedHoughGuil::getDefaultName
 
 ```cpp
-std::string cv::GeneralizedHoughGuil::getDefaultName();
+std::string cv::GeneralizedHoughGuil::getDefaultName const();
 
 AutoIt:
     $oGeneralizedHoughGuil.getDefaultName() -> retval
@@ -12540,7 +12551,7 @@ AutoIt:
 ### cv::CLAHE::getClipLimit
 
 ```cpp
-double cv::CLAHE::getClipLimit();
+double cv::CLAHE::getClipLimit const();
 
 AutoIt:
     $oCLAHE.getClipLimit() -> retval
@@ -12558,7 +12569,7 @@ AutoIt:
 ### cv::CLAHE::getTilesGridSize
 
 ```cpp
-cv::Size cv::CLAHE::getTilesGridSize();
+cv::Size cv::CLAHE::getTilesGridSize const();
 
 AutoIt:
     $oCLAHE.getTilesGridSize() -> retval
@@ -12585,8 +12596,8 @@ AutoIt:
 ### cv::CLAHE::write
 
 ```cpp
-void cv::CLAHE::write( const cv::Ptr<cv::FileStorage>& fs,
-                       const std::string&              name = String() );
+void cv::CLAHE::write const( const cv::Ptr<cv::FileStorage>& fs,
+                             const std::string&              name = String() );
 
 AutoIt:
     $oCLAHE.write( $fs[, $name] ) -> None
@@ -12604,7 +12615,7 @@ AutoIt:
 ### cv::CLAHE::empty
 
 ```cpp
-bool cv::CLAHE::empty();
+bool cv::CLAHE::empty const();
 
 AutoIt:
     $oCLAHE.empty() -> retval
@@ -12613,7 +12624,7 @@ AutoIt:
 ### cv::CLAHE::save
 
 ```cpp
-void cv::CLAHE::save( const std::string& filename );
+void cv::CLAHE::save const( const std::string& filename );
 
 AutoIt:
     $oCLAHE.save( $filename ) -> None
@@ -12622,7 +12633,7 @@ AutoIt:
 ### cv::CLAHE::getDefaultName
 
 ```cpp
-std::string cv::CLAHE::getDefaultName();
+std::string cv::CLAHE::getDefaultName const();
 
 AutoIt:
     $oCLAHE.getDefaultName() -> retval
@@ -12695,7 +12706,7 @@ AutoIt:
 ### cv::Subdiv2D::getEdgeList
 
 ```cpp
-void cv::Subdiv2D::getEdgeList( std::vector<cv::Vec4f>& edgeList );
+void cv::Subdiv2D::getEdgeList const( std::vector<cv::Vec4f>& edgeList );
 
 AutoIt:
     $oSubdiv2D.getEdgeList( [$edgeList] ) -> $edgeList
@@ -12704,7 +12715,7 @@ AutoIt:
 ### cv::Subdiv2D::getLeadingEdgeList
 
 ```cpp
-void cv::Subdiv2D::getLeadingEdgeList( std::vector<int>& leadingEdgeList );
+void cv::Subdiv2D::getLeadingEdgeList const( std::vector<int>& leadingEdgeList );
 
 AutoIt:
     $oSubdiv2D.getLeadingEdgeList( [$leadingEdgeList] ) -> $leadingEdgeList
@@ -12713,7 +12724,7 @@ AutoIt:
 ### cv::Subdiv2D::getTriangleList
 
 ```cpp
-void cv::Subdiv2D::getTriangleList( std::vector<cv::Vec6f>& triangleList );
+void cv::Subdiv2D::getTriangleList const( std::vector<cv::Vec6f>& triangleList );
 
 AutoIt:
     $oSubdiv2D.getTriangleList( [$triangleList] ) -> $triangleList
@@ -12733,8 +12744,8 @@ AutoIt:
 ### cv::Subdiv2D::getVertex
 
 ```cpp
-cv::Point2f cv::Subdiv2D::getVertex( int  vertex,
-                                     int* firstEdge = 0 );
+cv::Point2f cv::Subdiv2D::getVertex const( int  vertex,
+                                           int* firstEdge = 0 );
 
 AutoIt:
     $oSubdiv2D.getVertex( $vertex[, $firstEdge] ) -> retval, $firstEdge
@@ -12743,8 +12754,8 @@ AutoIt:
 ### cv::Subdiv2D::getEdge
 
 ```cpp
-int cv::Subdiv2D::getEdge( int edge,
-                           int nextEdgeType );
+int cv::Subdiv2D::getEdge const( int edge,
+                                 int nextEdgeType );
 
 AutoIt:
     $oSubdiv2D.getEdge( $edge, $nextEdgeType ) -> retval
@@ -12753,7 +12764,7 @@ AutoIt:
 ### cv::Subdiv2D::nextEdge
 
 ```cpp
-int cv::Subdiv2D::nextEdge( int edge );
+int cv::Subdiv2D::nextEdge const( int edge );
 
 AutoIt:
     $oSubdiv2D.nextEdge( $edge ) -> retval
@@ -12762,8 +12773,8 @@ AutoIt:
 ### cv::Subdiv2D::rotateEdge
 
 ```cpp
-int cv::Subdiv2D::rotateEdge( int edge,
-                              int rotate );
+int cv::Subdiv2D::rotateEdge const( int edge,
+                                    int rotate );
 
 AutoIt:
     $oSubdiv2D.rotateEdge( $edge, $rotate ) -> retval
@@ -12772,7 +12783,7 @@ AutoIt:
 ### cv::Subdiv2D::symEdge
 
 ```cpp
-int cv::Subdiv2D::symEdge( int edge );
+int cv::Subdiv2D::symEdge const( int edge );
 
 AutoIt:
     $oSubdiv2D.symEdge( $edge ) -> retval
@@ -12781,8 +12792,8 @@ AutoIt:
 ### cv::Subdiv2D::edgeOrg
 
 ```cpp
-int cv::Subdiv2D::edgeOrg( int          edge,
-                           cv::Point2f* orgpt = 0 );
+int cv::Subdiv2D::edgeOrg const( int          edge,
+                                 cv::Point2f* orgpt = 0 );
 
 AutoIt:
     $oSubdiv2D.edgeOrg( $edge[, $orgpt] ) -> retval, $orgpt
@@ -12791,8 +12802,8 @@ AutoIt:
 ### cv::Subdiv2D::edgeDst
 
 ```cpp
-int cv::Subdiv2D::edgeDst( int          edge,
-                           cv::Point2f* dstpt = 0 );
+int cv::Subdiv2D::edgeDst const( int          edge,
+                                 cv::Point2f* dstpt = 0 );
 
 AutoIt:
     $oSubdiv2D.edgeDst( $edge[, $dstpt] ) -> retval, $dstpt
@@ -12847,8 +12858,8 @@ AutoIt:
 ### cv::LineSegmentDetector::write
 
 ```cpp
-void cv::LineSegmentDetector::write( const cv::Ptr<cv::FileStorage>& fs,
-                                     const std::string&              name = String() );
+void cv::LineSegmentDetector::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                           const std::string&              name = String() );
 
 AutoIt:
     $oLineSegmentDetector.write( $fs[, $name] ) -> None
@@ -12866,7 +12877,7 @@ AutoIt:
 ### cv::LineSegmentDetector::empty
 
 ```cpp
-bool cv::LineSegmentDetector::empty();
+bool cv::LineSegmentDetector::empty const();
 
 AutoIt:
     $oLineSegmentDetector.empty() -> retval
@@ -12875,7 +12886,7 @@ AutoIt:
 ### cv::LineSegmentDetector::save
 
 ```cpp
-void cv::LineSegmentDetector::save( const std::string& filename );
+void cv::LineSegmentDetector::save const( const std::string& filename );
 
 AutoIt:
     $oLineSegmentDetector.save( $filename ) -> None
@@ -12884,7 +12895,7 @@ AutoIt:
 ### cv::LineSegmentDetector::getDefaultName
 
 ```cpp
-std::string cv::LineSegmentDetector::getDefaultName();
+std::string cv::LineSegmentDetector::getDefaultName const();
 
 AutoIt:
     $oLineSegmentDetector.getDefaultName() -> retval
@@ -12975,9 +12986,9 @@ AutoIt:
 ### cv::segmentation::IntelligentScissorsMB::getContour
 
 ```cpp
-void cv::segmentation::IntelligentScissorsMB::getContour( const cv::Point& targetPt,
-                                                          _OutputArray     contour,
-                                                          bool             backward = false );
+void cv::segmentation::IntelligentScissorsMB::getContour const( const cv::Point& targetPt,
+                                                                _OutputArray     contour,
+                                                                bool             backward = false );
 
 AutoIt:
     $oIntelligentScissorsMB.getContour( $targetPt[, $contour[, $backward]] ) -> $contour
@@ -13001,7 +13012,7 @@ AutoIt:
 ### cv::ml::TrainData::getLayout
 
 ```cpp
-int cv::ml::TrainData::getLayout();
+int cv::ml::TrainData::getLayout const();
 
 AutoIt:
     $oTrainData.getLayout() -> retval
@@ -13010,7 +13021,7 @@ AutoIt:
 ### cv::ml::TrainData::getNTrainSamples
 
 ```cpp
-int cv::ml::TrainData::getNTrainSamples();
+int cv::ml::TrainData::getNTrainSamples const();
 
 AutoIt:
     $oTrainData.getNTrainSamples() -> retval
@@ -13019,7 +13030,7 @@ AutoIt:
 ### cv::ml::TrainData::getNTestSamples
 
 ```cpp
-int cv::ml::TrainData::getNTestSamples();
+int cv::ml::TrainData::getNTestSamples const();
 
 AutoIt:
     $oTrainData.getNTestSamples() -> retval
@@ -13028,7 +13039,7 @@ AutoIt:
 ### cv::ml::TrainData::getNSamples
 
 ```cpp
-int cv::ml::TrainData::getNSamples();
+int cv::ml::TrainData::getNSamples const();
 
 AutoIt:
     $oTrainData.getNSamples() -> retval
@@ -13037,7 +13048,7 @@ AutoIt:
 ### cv::ml::TrainData::getNVars
 
 ```cpp
-int cv::ml::TrainData::getNVars();
+int cv::ml::TrainData::getNVars const();
 
 AutoIt:
     $oTrainData.getNVars() -> retval
@@ -13046,7 +13057,7 @@ AutoIt:
 ### cv::ml::TrainData::getNAllVars
 
 ```cpp
-int cv::ml::TrainData::getNAllVars();
+int cv::ml::TrainData::getNAllVars const();
 
 AutoIt:
     $oTrainData.getNAllVars() -> retval
@@ -13055,9 +13066,9 @@ AutoIt:
 ### cv::ml::TrainData::getSample
 
 ```cpp
-void cv::ml::TrainData::getSample( _InputArray varIdx,
-                                   int         sidx,
-                                   float*      buf );
+void cv::ml::TrainData::getSample const( _InputArray varIdx,
+                                         int         sidx,
+                                         float*      buf );
 
 AutoIt:
     $oTrainData.getSample( $varIdx, $sidx[, $buf] ) -> $buf
@@ -13066,7 +13077,7 @@ AutoIt:
 ### cv::ml::TrainData::getSamples
 
 ```cpp
-cv::Mat cv::ml::TrainData::getSamples();
+cv::Mat cv::ml::TrainData::getSamples const();
 
 AutoIt:
     $oTrainData.getSamples() -> retval
@@ -13075,7 +13086,7 @@ AutoIt:
 ### cv::ml::TrainData::getMissing
 
 ```cpp
-cv::Mat cv::ml::TrainData::getMissing();
+cv::Mat cv::ml::TrainData::getMissing const();
 
 AutoIt:
     $oTrainData.getMissing() -> retval
@@ -13084,9 +13095,9 @@ AutoIt:
 ### cv::ml::TrainData::getTrainSamples
 
 ```cpp
-cv::Mat cv::ml::TrainData::getTrainSamples( int  layout = ROW_SAMPLE,
-                                            bool compressSamples = true,
-                                            bool compressVars = true );
+cv::Mat cv::ml::TrainData::getTrainSamples const( int  layout = ROW_SAMPLE,
+                                                  bool compressSamples = true,
+                                                  bool compressVars = true );
 
 AutoIt:
     $oTrainData.getTrainSamples( [$layout[, $compressSamples[, $compressVars]]] ) -> retval
@@ -13095,7 +13106,7 @@ AutoIt:
 ### cv::ml::TrainData::getTrainResponses
 
 ```cpp
-cv::Mat cv::ml::TrainData::getTrainResponses();
+cv::Mat cv::ml::TrainData::getTrainResponses const();
 
 AutoIt:
     $oTrainData.getTrainResponses() -> retval
@@ -13104,7 +13115,7 @@ AutoIt:
 ### cv::ml::TrainData::getTrainNormCatResponses
 
 ```cpp
-cv::Mat cv::ml::TrainData::getTrainNormCatResponses();
+cv::Mat cv::ml::TrainData::getTrainNormCatResponses const();
 
 AutoIt:
     $oTrainData.getTrainNormCatResponses() -> retval
@@ -13113,7 +13124,7 @@ AutoIt:
 ### cv::ml::TrainData::getTestResponses
 
 ```cpp
-cv::Mat cv::ml::TrainData::getTestResponses();
+cv::Mat cv::ml::TrainData::getTestResponses const();
 
 AutoIt:
     $oTrainData.getTestResponses() -> retval
@@ -13122,7 +13133,7 @@ AutoIt:
 ### cv::ml::TrainData::getTestNormCatResponses
 
 ```cpp
-cv::Mat cv::ml::TrainData::getTestNormCatResponses();
+cv::Mat cv::ml::TrainData::getTestNormCatResponses const();
 
 AutoIt:
     $oTrainData.getTestNormCatResponses() -> retval
@@ -13131,7 +13142,7 @@ AutoIt:
 ### cv::ml::TrainData::getResponses
 
 ```cpp
-cv::Mat cv::ml::TrainData::getResponses();
+cv::Mat cv::ml::TrainData::getResponses const();
 
 AutoIt:
     $oTrainData.getResponses() -> retval
@@ -13140,7 +13151,7 @@ AutoIt:
 ### cv::ml::TrainData::getNormCatResponses
 
 ```cpp
-cv::Mat cv::ml::TrainData::getNormCatResponses();
+cv::Mat cv::ml::TrainData::getNormCatResponses const();
 
 AutoIt:
     $oTrainData.getNormCatResponses() -> retval
@@ -13149,7 +13160,7 @@ AutoIt:
 ### cv::ml::TrainData::getSampleWeights
 
 ```cpp
-cv::Mat cv::ml::TrainData::getSampleWeights();
+cv::Mat cv::ml::TrainData::getSampleWeights const();
 
 AutoIt:
     $oTrainData.getSampleWeights() -> retval
@@ -13158,7 +13169,7 @@ AutoIt:
 ### cv::ml::TrainData::getTrainSampleWeights
 
 ```cpp
-cv::Mat cv::ml::TrainData::getTrainSampleWeights();
+cv::Mat cv::ml::TrainData::getTrainSampleWeights const();
 
 AutoIt:
     $oTrainData.getTrainSampleWeights() -> retval
@@ -13167,7 +13178,7 @@ AutoIt:
 ### cv::ml::TrainData::getTestSampleWeights
 
 ```cpp
-cv::Mat cv::ml::TrainData::getTestSampleWeights();
+cv::Mat cv::ml::TrainData::getTestSampleWeights const();
 
 AutoIt:
     $oTrainData.getTestSampleWeights() -> retval
@@ -13176,7 +13187,7 @@ AutoIt:
 ### cv::ml::TrainData::getVarIdx
 
 ```cpp
-cv::Mat cv::ml::TrainData::getVarIdx();
+cv::Mat cv::ml::TrainData::getVarIdx const();
 
 AutoIt:
     $oTrainData.getVarIdx() -> retval
@@ -13185,7 +13196,7 @@ AutoIt:
 ### cv::ml::TrainData::getVarType
 
 ```cpp
-cv::Mat cv::ml::TrainData::getVarType();
+cv::Mat cv::ml::TrainData::getVarType const();
 
 AutoIt:
     $oTrainData.getVarType() -> retval
@@ -13194,7 +13205,7 @@ AutoIt:
 ### cv::ml::TrainData::getVarSymbolFlags
 
 ```cpp
-cv::Mat cv::ml::TrainData::getVarSymbolFlags();
+cv::Mat cv::ml::TrainData::getVarSymbolFlags const();
 
 AutoIt:
     $oTrainData.getVarSymbolFlags() -> retval
@@ -13203,7 +13214,7 @@ AutoIt:
 ### cv::ml::TrainData::getResponseType
 
 ```cpp
-int cv::ml::TrainData::getResponseType();
+int cv::ml::TrainData::getResponseType const();
 
 AutoIt:
     $oTrainData.getResponseType() -> retval
@@ -13212,7 +13223,7 @@ AutoIt:
 ### cv::ml::TrainData::getTrainSampleIdx
 
 ```cpp
-cv::Mat cv::ml::TrainData::getTrainSampleIdx();
+cv::Mat cv::ml::TrainData::getTrainSampleIdx const();
 
 AutoIt:
     $oTrainData.getTrainSampleIdx() -> retval
@@ -13221,7 +13232,7 @@ AutoIt:
 ### cv::ml::TrainData::getTestSampleIdx
 
 ```cpp
-cv::Mat cv::ml::TrainData::getTestSampleIdx();
+cv::Mat cv::ml::TrainData::getTestSampleIdx const();
 
 AutoIt:
     $oTrainData.getTestSampleIdx() -> retval
@@ -13230,9 +13241,9 @@ AutoIt:
 ### cv::ml::TrainData::getValues
 
 ```cpp
-void cv::ml::TrainData::getValues( int         vi,
-                                   _InputArray sidx,
-                                   float*      values );
+void cv::ml::TrainData::getValues const( int         vi,
+                                         _InputArray sidx,
+                                         float*      values );
 
 AutoIt:
     $oTrainData.getValues( $vi, $sidx[, $values] ) -> $values
@@ -13241,7 +13252,7 @@ AutoIt:
 ### cv::ml::TrainData::getDefaultSubstValues
 
 ```cpp
-cv::Mat cv::ml::TrainData::getDefaultSubstValues();
+cv::Mat cv::ml::TrainData::getDefaultSubstValues const();
 
 AutoIt:
     $oTrainData.getDefaultSubstValues() -> retval
@@ -13250,7 +13261,7 @@ AutoIt:
 ### cv::ml::TrainData::getCatCount
 
 ```cpp
-int cv::ml::TrainData::getCatCount( int vi );
+int cv::ml::TrainData::getCatCount const( int vi );
 
 AutoIt:
     $oTrainData.getCatCount( $vi ) -> retval
@@ -13259,7 +13270,7 @@ AutoIt:
 ### cv::ml::TrainData::getClassLabels
 
 ```cpp
-cv::Mat cv::ml::TrainData::getClassLabels();
+cv::Mat cv::ml::TrainData::getClassLabels const();
 
 AutoIt:
     $oTrainData.getClassLabels() -> retval
@@ -13268,7 +13279,7 @@ AutoIt:
 ### cv::ml::TrainData::getCatOfs
 
 ```cpp
-cv::Mat cv::ml::TrainData::getCatOfs();
+cv::Mat cv::ml::TrainData::getCatOfs const();
 
 AutoIt:
     $oTrainData.getCatOfs() -> retval
@@ -13277,7 +13288,7 @@ AutoIt:
 ### cv::ml::TrainData::getCatMap
 
 ```cpp
-cv::Mat cv::ml::TrainData::getCatMap();
+cv::Mat cv::ml::TrainData::getCatMap const();
 
 AutoIt:
     $oTrainData.getCatMap() -> retval
@@ -13315,7 +13326,7 @@ AutoIt:
 ### cv::ml::TrainData::getTestSamples
 
 ```cpp
-cv::Mat cv::ml::TrainData::getTestSamples();
+cv::Mat cv::ml::TrainData::getTestSamples const();
 
 AutoIt:
     $oTrainData.getTestSamples() -> retval
@@ -13324,7 +13335,7 @@ AutoIt:
 ### cv::ml::TrainData::getNames
 
 ```cpp
-void cv::ml::TrainData::getNames( std::vector<std::string>& names );
+void cv::ml::TrainData::getNames const( std::vector<std::string>& names );
 
 AutoIt:
     $oTrainData.getNames( $names ) -> None
@@ -13371,7 +13382,7 @@ AutoIt:
 ### cv::ml::StatModel::getVarCount
 
 ```cpp
-int cv::ml::StatModel::getVarCount();
+int cv::ml::StatModel::getVarCount const();
 
 AutoIt:
     $oStatModel.getVarCount() -> retval
@@ -13380,7 +13391,7 @@ AutoIt:
 ### cv::ml::StatModel::empty
 
 ```cpp
-bool cv::ml::StatModel::empty();
+bool cv::ml::StatModel::empty const();
 
 AutoIt:
     $oStatModel.empty() -> retval
@@ -13389,7 +13400,7 @@ AutoIt:
 ### cv::ml::StatModel::isTrained
 
 ```cpp
-bool cv::ml::StatModel::isTrained();
+bool cv::ml::StatModel::isTrained const();
 
 AutoIt:
     $oStatModel.isTrained() -> retval
@@ -13398,7 +13409,7 @@ AutoIt:
 ### cv::ml::StatModel::isClassifier
 
 ```cpp
-bool cv::ml::StatModel::isClassifier();
+bool cv::ml::StatModel::isClassifier const();
 
 AutoIt:
     $oStatModel.isClassifier() -> retval
@@ -13426,9 +13437,9 @@ AutoIt:
 ### cv::ml::StatModel::calcError
 
 ```cpp
-float cv::ml::StatModel::calcError( const cv::Ptr<cv::ml::TrainData>& data,
-                                    bool                              test,
-                                    _OutputArray                      resp );
+float cv::ml::StatModel::calcError const( const cv::Ptr<cv::ml::TrainData>& data,
+                                          bool                              test,
+                                          _OutputArray                      resp );
 
 AutoIt:
     $oStatModel.calcError( $data, $test[, $resp] ) -> retval, $resp
@@ -13437,9 +13448,9 @@ AutoIt:
 ### cv::ml::StatModel::predict
 
 ```cpp
-float cv::ml::StatModel::predict( _InputArray  samples,
-                                  _OutputArray results = noArray(),
-                                  int          flags = 0 );
+float cv::ml::StatModel::predict const( _InputArray  samples,
+                                        _OutputArray results = noArray(),
+                                        int          flags = 0 );
 
 AutoIt:
     $oStatModel.predict( $samples[, $results[, $flags]] ) -> retval, $results
@@ -13457,8 +13468,8 @@ AutoIt:
 ### cv::ml::StatModel::write
 
 ```cpp
-void cv::ml::StatModel::write( const cv::Ptr<cv::FileStorage>& fs,
-                               const std::string&              name = String() );
+void cv::ml::StatModel::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                     const std::string&              name = String() );
 
 AutoIt:
     $oStatModel.write( $fs[, $name] ) -> None
@@ -13476,7 +13487,7 @@ AutoIt:
 ### cv::ml::StatModel::save
 
 ```cpp
-void cv::ml::StatModel::save( const std::string& filename );
+void cv::ml::StatModel::save const( const std::string& filename );
 
 AutoIt:
     $oStatModel.save( $filename ) -> None
@@ -13485,7 +13496,7 @@ AutoIt:
 ### cv::ml::StatModel::getDefaultName
 
 ```cpp
-std::string cv::ml::StatModel::getDefaultName();
+std::string cv::ml::StatModel::getDefaultName const();
 
 AutoIt:
     $oStatModel.getDefaultName() -> retval
@@ -13496,10 +13507,10 @@ AutoIt:
 ### cv::ml::NormalBayesClassifier::predictProb
 
 ```cpp
-float cv::ml::NormalBayesClassifier::predictProb( _InputArray  inputs,
-                                                  _OutputArray outputs,
-                                                  _OutputArray outputProbs,
-                                                  int          flags = 0 );
+float cv::ml::NormalBayesClassifier::predictProb const( _InputArray  inputs,
+                                                        _OutputArray outputs,
+                                                        _OutputArray outputProbs,
+                                                        int          flags = 0 );
 
 AutoIt:
     $oNormalBayesClassifier.predictProb( $inputs[, $outputs[, $outputProbs[, $flags]]] ) -> retval, $outputs, $outputProbs
@@ -13527,7 +13538,7 @@ AutoIt:
 ### cv::ml::NormalBayesClassifier::getVarCount
 
 ```cpp
-int cv::ml::NormalBayesClassifier::getVarCount();
+int cv::ml::NormalBayesClassifier::getVarCount const();
 
 AutoIt:
     $oNormalBayesClassifier.getVarCount() -> retval
@@ -13536,7 +13547,7 @@ AutoIt:
 ### cv::ml::NormalBayesClassifier::empty
 
 ```cpp
-bool cv::ml::NormalBayesClassifier::empty();
+bool cv::ml::NormalBayesClassifier::empty const();
 
 AutoIt:
     $oNormalBayesClassifier.empty() -> retval
@@ -13545,7 +13556,7 @@ AutoIt:
 ### cv::ml::NormalBayesClassifier::isTrained
 
 ```cpp
-bool cv::ml::NormalBayesClassifier::isTrained();
+bool cv::ml::NormalBayesClassifier::isTrained const();
 
 AutoIt:
     $oNormalBayesClassifier.isTrained() -> retval
@@ -13554,7 +13565,7 @@ AutoIt:
 ### cv::ml::NormalBayesClassifier::isClassifier
 
 ```cpp
-bool cv::ml::NormalBayesClassifier::isClassifier();
+bool cv::ml::NormalBayesClassifier::isClassifier const();
 
 AutoIt:
     $oNormalBayesClassifier.isClassifier() -> retval
@@ -13582,9 +13593,9 @@ AutoIt:
 ### cv::ml::NormalBayesClassifier::calcError
 
 ```cpp
-float cv::ml::NormalBayesClassifier::calcError( const cv::Ptr<cv::ml::TrainData>& data,
-                                                bool                              test,
-                                                _OutputArray                      resp );
+float cv::ml::NormalBayesClassifier::calcError const( const cv::Ptr<cv::ml::TrainData>& data,
+                                                      bool                              test,
+                                                      _OutputArray                      resp );
 
 AutoIt:
     $oNormalBayesClassifier.calcError( $data, $test[, $resp] ) -> retval, $resp
@@ -13593,9 +13604,9 @@ AutoIt:
 ### cv::ml::NormalBayesClassifier::predict
 
 ```cpp
-float cv::ml::NormalBayesClassifier::predict( _InputArray  samples,
-                                              _OutputArray results = noArray(),
-                                              int          flags = 0 );
+float cv::ml::NormalBayesClassifier::predict const( _InputArray  samples,
+                                                    _OutputArray results = noArray(),
+                                                    int          flags = 0 );
 
 AutoIt:
     $oNormalBayesClassifier.predict( $samples[, $results[, $flags]] ) -> retval, $results
@@ -13613,8 +13624,8 @@ AutoIt:
 ### cv::ml::NormalBayesClassifier::write
 
 ```cpp
-void cv::ml::NormalBayesClassifier::write( const cv::Ptr<cv::FileStorage>& fs,
-                                           const std::string&              name = String() );
+void cv::ml::NormalBayesClassifier::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                                 const std::string&              name = String() );
 
 AutoIt:
     $oNormalBayesClassifier.write( $fs[, $name] ) -> None
@@ -13632,7 +13643,7 @@ AutoIt:
 ### cv::ml::NormalBayesClassifier::save
 
 ```cpp
-void cv::ml::NormalBayesClassifier::save( const std::string& filename );
+void cv::ml::NormalBayesClassifier::save const( const std::string& filename );
 
 AutoIt:
     $oNormalBayesClassifier.save( $filename ) -> None
@@ -13641,7 +13652,7 @@ AutoIt:
 ### cv::ml::NormalBayesClassifier::getDefaultName
 
 ```cpp
-std::string cv::ml::NormalBayesClassifier::getDefaultName();
+std::string cv::ml::NormalBayesClassifier::getDefaultName const();
 
 AutoIt:
     $oNormalBayesClassifier.getDefaultName() -> retval
@@ -13652,7 +13663,7 @@ AutoIt:
 ### cv::ml::KNearest::getDefaultK
 
 ```cpp
-int cv::ml::KNearest::getDefaultK();
+int cv::ml::KNearest::getDefaultK const();
 
 AutoIt:
     $oKNearest.getDefaultK() -> retval
@@ -13670,7 +13681,7 @@ AutoIt:
 ### cv::ml::KNearest::getIsClassifier
 
 ```cpp
-bool cv::ml::KNearest::getIsClassifier();
+bool cv::ml::KNearest::getIsClassifier const();
 
 AutoIt:
     $oKNearest.getIsClassifier() -> retval
@@ -13688,7 +13699,7 @@ AutoIt:
 ### cv::ml::KNearest::getEmax
 
 ```cpp
-int cv::ml::KNearest::getEmax();
+int cv::ml::KNearest::getEmax const();
 
 AutoIt:
     $oKNearest.getEmax() -> retval
@@ -13706,7 +13717,7 @@ AutoIt:
 ### cv::ml::KNearest::getAlgorithmType
 
 ```cpp
-int cv::ml::KNearest::getAlgorithmType();
+int cv::ml::KNearest::getAlgorithmType const();
 
 AutoIt:
     $oKNearest.getAlgorithmType() -> retval
@@ -13724,11 +13735,11 @@ AutoIt:
 ### cv::ml::KNearest::findNearest
 
 ```cpp
-float cv::ml::KNearest::findNearest( _InputArray  samples,
-                                     int          k,
-                                     _OutputArray results,
-                                     _OutputArray neighborResponses = noArray(),
-                                     _OutputArray dist = noArray() );
+float cv::ml::KNearest::findNearest const( _InputArray  samples,
+                                           int          k,
+                                           _OutputArray results,
+                                           _OutputArray neighborResponses = noArray(),
+                                           _OutputArray dist = noArray() );
 
 AutoIt:
     $oKNearest.findNearest( $samples, $k[, $results[, $neighborResponses[, $dist]]] ) -> retval, $results, $neighborResponses, $dist
@@ -13755,7 +13766,7 @@ AutoIt:
 ### cv::ml::KNearest::getVarCount
 
 ```cpp
-int cv::ml::KNearest::getVarCount();
+int cv::ml::KNearest::getVarCount const();
 
 AutoIt:
     $oKNearest.getVarCount() -> retval
@@ -13764,7 +13775,7 @@ AutoIt:
 ### cv::ml::KNearest::empty
 
 ```cpp
-bool cv::ml::KNearest::empty();
+bool cv::ml::KNearest::empty const();
 
 AutoIt:
     $oKNearest.empty() -> retval
@@ -13773,7 +13784,7 @@ AutoIt:
 ### cv::ml::KNearest::isTrained
 
 ```cpp
-bool cv::ml::KNearest::isTrained();
+bool cv::ml::KNearest::isTrained const();
 
 AutoIt:
     $oKNearest.isTrained() -> retval
@@ -13782,7 +13793,7 @@ AutoIt:
 ### cv::ml::KNearest::isClassifier
 
 ```cpp
-bool cv::ml::KNearest::isClassifier();
+bool cv::ml::KNearest::isClassifier const();
 
 AutoIt:
     $oKNearest.isClassifier() -> retval
@@ -13810,9 +13821,9 @@ AutoIt:
 ### cv::ml::KNearest::calcError
 
 ```cpp
-float cv::ml::KNearest::calcError( const cv::Ptr<cv::ml::TrainData>& data,
-                                   bool                              test,
-                                   _OutputArray                      resp );
+float cv::ml::KNearest::calcError const( const cv::Ptr<cv::ml::TrainData>& data,
+                                         bool                              test,
+                                         _OutputArray                      resp );
 
 AutoIt:
     $oKNearest.calcError( $data, $test[, $resp] ) -> retval, $resp
@@ -13821,9 +13832,9 @@ AutoIt:
 ### cv::ml::KNearest::predict
 
 ```cpp
-float cv::ml::KNearest::predict( _InputArray  samples,
-                                 _OutputArray results = noArray(),
-                                 int          flags = 0 );
+float cv::ml::KNearest::predict const( _InputArray  samples,
+                                       _OutputArray results = noArray(),
+                                       int          flags = 0 );
 
 AutoIt:
     $oKNearest.predict( $samples[, $results[, $flags]] ) -> retval, $results
@@ -13841,8 +13852,8 @@ AutoIt:
 ### cv::ml::KNearest::write
 
 ```cpp
-void cv::ml::KNearest::write( const cv::Ptr<cv::FileStorage>& fs,
-                              const std::string&              name = String() );
+void cv::ml::KNearest::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                    const std::string&              name = String() );
 
 AutoIt:
     $oKNearest.write( $fs[, $name] ) -> None
@@ -13860,7 +13871,7 @@ AutoIt:
 ### cv::ml::KNearest::save
 
 ```cpp
-void cv::ml::KNearest::save( const std::string& filename );
+void cv::ml::KNearest::save const( const std::string& filename );
 
 AutoIt:
     $oKNearest.save( $filename ) -> None
@@ -13869,7 +13880,7 @@ AutoIt:
 ### cv::ml::KNearest::getDefaultName
 
 ```cpp
-std::string cv::ml::KNearest::getDefaultName();
+std::string cv::ml::KNearest::getDefaultName const();
 
 AutoIt:
     $oKNearest.getDefaultName() -> retval
@@ -13880,7 +13891,7 @@ AutoIt:
 ### cv::ml::SVM::getType
 
 ```cpp
-int cv::ml::SVM::getType();
+int cv::ml::SVM::getType const();
 
 AutoIt:
     $oSVM.getType() -> retval
@@ -13898,7 +13909,7 @@ AutoIt:
 ### cv::ml::SVM::getGamma
 
 ```cpp
-double cv::ml::SVM::getGamma();
+double cv::ml::SVM::getGamma const();
 
 AutoIt:
     $oSVM.getGamma() -> retval
@@ -13916,7 +13927,7 @@ AutoIt:
 ### cv::ml::SVM::getCoef0
 
 ```cpp
-double cv::ml::SVM::getCoef0();
+double cv::ml::SVM::getCoef0 const();
 
 AutoIt:
     $oSVM.getCoef0() -> retval
@@ -13934,7 +13945,7 @@ AutoIt:
 ### cv::ml::SVM::getDegree
 
 ```cpp
-double cv::ml::SVM::getDegree();
+double cv::ml::SVM::getDegree const();
 
 AutoIt:
     $oSVM.getDegree() -> retval
@@ -13952,7 +13963,7 @@ AutoIt:
 ### cv::ml::SVM::getC
 
 ```cpp
-double cv::ml::SVM::getC();
+double cv::ml::SVM::getC const();
 
 AutoIt:
     $oSVM.getC() -> retval
@@ -13970,7 +13981,7 @@ AutoIt:
 ### cv::ml::SVM::getNu
 
 ```cpp
-double cv::ml::SVM::getNu();
+double cv::ml::SVM::getNu const();
 
 AutoIt:
     $oSVM.getNu() -> retval
@@ -13988,7 +13999,7 @@ AutoIt:
 ### cv::ml::SVM::getP
 
 ```cpp
-double cv::ml::SVM::getP();
+double cv::ml::SVM::getP const();
 
 AutoIt:
     $oSVM.getP() -> retval
@@ -14006,7 +14017,7 @@ AutoIt:
 ### cv::ml::SVM::getClassWeights
 
 ```cpp
-cv::Mat cv::ml::SVM::getClassWeights();
+cv::Mat cv::ml::SVM::getClassWeights const();
 
 AutoIt:
     $oSVM.getClassWeights() -> retval
@@ -14024,7 +14035,7 @@ AutoIt:
 ### cv::ml::SVM::getTermCriteria
 
 ```cpp
-cv::TermCriteria cv::ml::SVM::getTermCriteria();
+cv::TermCriteria cv::ml::SVM::getTermCriteria const();
 
 AutoIt:
     $oSVM.getTermCriteria() -> retval
@@ -14042,7 +14053,7 @@ AutoIt:
 ### cv::ml::SVM::getKernelType
 
 ```cpp
-int cv::ml::SVM::getKernelType();
+int cv::ml::SVM::getKernelType const();
 
 AutoIt:
     $oSVM.getKernelType() -> retval
@@ -14079,7 +14090,7 @@ AutoIt:
 ### cv::ml::SVM::getSupportVectors
 
 ```cpp
-cv::Mat cv::ml::SVM::getSupportVectors();
+cv::Mat cv::ml::SVM::getSupportVectors const();
 
 AutoIt:
     $oSVM.getSupportVectors() -> retval
@@ -14088,7 +14099,7 @@ AutoIt:
 ### cv::ml::SVM::getUncompressedSupportVectors
 
 ```cpp
-cv::Mat cv::ml::SVM::getUncompressedSupportVectors();
+cv::Mat cv::ml::SVM::getUncompressedSupportVectors const();
 
 AutoIt:
     $oSVM.getUncompressedSupportVectors() -> retval
@@ -14097,9 +14108,9 @@ AutoIt:
 ### cv::ml::SVM::getDecisionFunction
 
 ```cpp
-double cv::ml::SVM::getDecisionFunction( int          i,
-                                         _OutputArray alpha,
-                                         _OutputArray svidx );
+double cv::ml::SVM::getDecisionFunction const( int          i,
+                                               _OutputArray alpha,
+                                               _OutputArray svidx );
 
 AutoIt:
     $oSVM.getDecisionFunction( $i[, $alpha[, $svidx]] ) -> retval, $alpha, $svidx
@@ -14135,7 +14146,7 @@ AutoIt:
 ### cv::ml::SVM::getVarCount
 
 ```cpp
-int cv::ml::SVM::getVarCount();
+int cv::ml::SVM::getVarCount const();
 
 AutoIt:
     $oSVM.getVarCount() -> retval
@@ -14144,7 +14155,7 @@ AutoIt:
 ### cv::ml::SVM::empty
 
 ```cpp
-bool cv::ml::SVM::empty();
+bool cv::ml::SVM::empty const();
 
 AutoIt:
     $oSVM.empty() -> retval
@@ -14153,7 +14164,7 @@ AutoIt:
 ### cv::ml::SVM::isTrained
 
 ```cpp
-bool cv::ml::SVM::isTrained();
+bool cv::ml::SVM::isTrained const();
 
 AutoIt:
     $oSVM.isTrained() -> retval
@@ -14162,7 +14173,7 @@ AutoIt:
 ### cv::ml::SVM::isClassifier
 
 ```cpp
-bool cv::ml::SVM::isClassifier();
+bool cv::ml::SVM::isClassifier const();
 
 AutoIt:
     $oSVM.isClassifier() -> retval
@@ -14190,9 +14201,9 @@ AutoIt:
 ### cv::ml::SVM::calcError
 
 ```cpp
-float cv::ml::SVM::calcError( const cv::Ptr<cv::ml::TrainData>& data,
-                              bool                              test,
-                              _OutputArray                      resp );
+float cv::ml::SVM::calcError const( const cv::Ptr<cv::ml::TrainData>& data,
+                                    bool                              test,
+                                    _OutputArray                      resp );
 
 AutoIt:
     $oSVM.calcError( $data, $test[, $resp] ) -> retval, $resp
@@ -14201,9 +14212,9 @@ AutoIt:
 ### cv::ml::SVM::predict
 
 ```cpp
-float cv::ml::SVM::predict( _InputArray  samples,
-                            _OutputArray results = noArray(),
-                            int          flags = 0 );
+float cv::ml::SVM::predict const( _InputArray  samples,
+                                  _OutputArray results = noArray(),
+                                  int          flags = 0 );
 
 AutoIt:
     $oSVM.predict( $samples[, $results[, $flags]] ) -> retval, $results
@@ -14221,8 +14232,8 @@ AutoIt:
 ### cv::ml::SVM::write
 
 ```cpp
-void cv::ml::SVM::write( const cv::Ptr<cv::FileStorage>& fs,
-                         const std::string&              name = String() );
+void cv::ml::SVM::write const( const cv::Ptr<cv::FileStorage>& fs,
+                               const std::string&              name = String() );
 
 AutoIt:
     $oSVM.write( $fs[, $name] ) -> None
@@ -14240,7 +14251,7 @@ AutoIt:
 ### cv::ml::SVM::save
 
 ```cpp
-void cv::ml::SVM::save( const std::string& filename );
+void cv::ml::SVM::save const( const std::string& filename );
 
 AutoIt:
     $oSVM.save( $filename ) -> None
@@ -14249,7 +14260,7 @@ AutoIt:
 ### cv::ml::SVM::getDefaultName
 
 ```cpp
-std::string cv::ml::SVM::getDefaultName();
+std::string cv::ml::SVM::getDefaultName const();
 
 AutoIt:
     $oSVM.getDefaultName() -> retval
@@ -14260,7 +14271,7 @@ AutoIt:
 ### cv::ml::EM::getClustersNumber
 
 ```cpp
-int cv::ml::EM::getClustersNumber();
+int cv::ml::EM::getClustersNumber const();
 
 AutoIt:
     $oEM.getClustersNumber() -> retval
@@ -14278,7 +14289,7 @@ AutoIt:
 ### cv::ml::EM::getCovarianceMatrixType
 
 ```cpp
-int cv::ml::EM::getCovarianceMatrixType();
+int cv::ml::EM::getCovarianceMatrixType const();
 
 AutoIt:
     $oEM.getCovarianceMatrixType() -> retval
@@ -14296,7 +14307,7 @@ AutoIt:
 ### cv::ml::EM::getTermCriteria
 
 ```cpp
-cv::TermCriteria cv::ml::EM::getTermCriteria();
+cv::TermCriteria cv::ml::EM::getTermCriteria const();
 
 AutoIt:
     $oEM.getTermCriteria() -> retval
@@ -14314,7 +14325,7 @@ AutoIt:
 ### cv::ml::EM::getWeights
 
 ```cpp
-cv::Mat cv::ml::EM::getWeights();
+cv::Mat cv::ml::EM::getWeights const();
 
 AutoIt:
     $oEM.getWeights() -> retval
@@ -14323,7 +14334,7 @@ AutoIt:
 ### cv::ml::EM::getMeans
 
 ```cpp
-cv::Mat cv::ml::EM::getMeans();
+cv::Mat cv::ml::EM::getMeans const();
 
 AutoIt:
     $oEM.getMeans() -> retval
@@ -14332,7 +14343,7 @@ AutoIt:
 ### cv::ml::EM::getCovs
 
 ```cpp
-void cv::ml::EM::getCovs( std::vector<cv::Mat>& covs );
+void cv::ml::EM::getCovs const( std::vector<cv::Mat>& covs );
 
 AutoIt:
     $oEM.getCovs( [$covs] ) -> $covs
@@ -14341,9 +14352,9 @@ AutoIt:
 ### cv::ml::EM::predict
 
 ```cpp
-float cv::ml::EM::predict( _InputArray  samples,
-                           _OutputArray results = noArray(),
-                           int          flags = 0 );
+float cv::ml::EM::predict const( _InputArray  samples,
+                                 _OutputArray results = noArray(),
+                                 int          flags = 0 );
 
 AutoIt:
     $oEM.predict( $samples[, $results[, $flags]] ) -> retval, $results
@@ -14352,8 +14363,8 @@ AutoIt:
 ### cv::ml::EM::predict2
 
 ```cpp
-cv::Vec2d cv::ml::EM::predict2( _InputArray  sample,
-                                _OutputArray probs );
+cv::Vec2d cv::ml::EM::predict2 const( _InputArray  sample,
+                                      _OutputArray probs );
 
 AutoIt:
     $oEM.predict2( $sample[, $probs] ) -> retval, $probs
@@ -14421,7 +14432,7 @@ AutoIt:
 ### cv::ml::EM::getVarCount
 
 ```cpp
-int cv::ml::EM::getVarCount();
+int cv::ml::EM::getVarCount const();
 
 AutoIt:
     $oEM.getVarCount() -> retval
@@ -14430,7 +14441,7 @@ AutoIt:
 ### cv::ml::EM::empty
 
 ```cpp
-bool cv::ml::EM::empty();
+bool cv::ml::EM::empty const();
 
 AutoIt:
     $oEM.empty() -> retval
@@ -14439,7 +14450,7 @@ AutoIt:
 ### cv::ml::EM::isTrained
 
 ```cpp
-bool cv::ml::EM::isTrained();
+bool cv::ml::EM::isTrained const();
 
 AutoIt:
     $oEM.isTrained() -> retval
@@ -14448,7 +14459,7 @@ AutoIt:
 ### cv::ml::EM::isClassifier
 
 ```cpp
-bool cv::ml::EM::isClassifier();
+bool cv::ml::EM::isClassifier const();
 
 AutoIt:
     $oEM.isClassifier() -> retval
@@ -14476,9 +14487,9 @@ AutoIt:
 ### cv::ml::EM::calcError
 
 ```cpp
-float cv::ml::EM::calcError( const cv::Ptr<cv::ml::TrainData>& data,
-                             bool                              test,
-                             _OutputArray                      resp );
+float cv::ml::EM::calcError const( const cv::Ptr<cv::ml::TrainData>& data,
+                                   bool                              test,
+                                   _OutputArray                      resp );
 
 AutoIt:
     $oEM.calcError( $data, $test[, $resp] ) -> retval, $resp
@@ -14496,8 +14507,8 @@ AutoIt:
 ### cv::ml::EM::write
 
 ```cpp
-void cv::ml::EM::write( const cv::Ptr<cv::FileStorage>& fs,
-                        const std::string&              name = String() );
+void cv::ml::EM::write const( const cv::Ptr<cv::FileStorage>& fs,
+                              const std::string&              name = String() );
 
 AutoIt:
     $oEM.write( $fs[, $name] ) -> None
@@ -14515,7 +14526,7 @@ AutoIt:
 ### cv::ml::EM::save
 
 ```cpp
-void cv::ml::EM::save( const std::string& filename );
+void cv::ml::EM::save const( const std::string& filename );
 
 AutoIt:
     $oEM.save( $filename ) -> None
@@ -14524,7 +14535,7 @@ AutoIt:
 ### cv::ml::EM::getDefaultName
 
 ```cpp
-std::string cv::ml::EM::getDefaultName();
+std::string cv::ml::EM::getDefaultName const();
 
 AutoIt:
     $oEM.getDefaultName() -> retval
@@ -14535,7 +14546,7 @@ AutoIt:
 ### cv::ml::DTrees::getMaxCategories
 
 ```cpp
-int cv::ml::DTrees::getMaxCategories();
+int cv::ml::DTrees::getMaxCategories const();
 
 AutoIt:
     $oDTrees.getMaxCategories() -> retval
@@ -14553,7 +14564,7 @@ AutoIt:
 ### cv::ml::DTrees::getMaxDepth
 
 ```cpp
-int cv::ml::DTrees::getMaxDepth();
+int cv::ml::DTrees::getMaxDepth const();
 
 AutoIt:
     $oDTrees.getMaxDepth() -> retval
@@ -14571,7 +14582,7 @@ AutoIt:
 ### cv::ml::DTrees::getMinSampleCount
 
 ```cpp
-int cv::ml::DTrees::getMinSampleCount();
+int cv::ml::DTrees::getMinSampleCount const();
 
 AutoIt:
     $oDTrees.getMinSampleCount() -> retval
@@ -14589,7 +14600,7 @@ AutoIt:
 ### cv::ml::DTrees::getCVFolds
 
 ```cpp
-int cv::ml::DTrees::getCVFolds();
+int cv::ml::DTrees::getCVFolds const();
 
 AutoIt:
     $oDTrees.getCVFolds() -> retval
@@ -14607,7 +14618,7 @@ AutoIt:
 ### cv::ml::DTrees::getUseSurrogates
 
 ```cpp
-bool cv::ml::DTrees::getUseSurrogates();
+bool cv::ml::DTrees::getUseSurrogates const();
 
 AutoIt:
     $oDTrees.getUseSurrogates() -> retval
@@ -14625,7 +14636,7 @@ AutoIt:
 ### cv::ml::DTrees::getUse1SERule
 
 ```cpp
-bool cv::ml::DTrees::getUse1SERule();
+bool cv::ml::DTrees::getUse1SERule const();
 
 AutoIt:
     $oDTrees.getUse1SERule() -> retval
@@ -14643,7 +14654,7 @@ AutoIt:
 ### cv::ml::DTrees::getTruncatePrunedTree
 
 ```cpp
-bool cv::ml::DTrees::getTruncatePrunedTree();
+bool cv::ml::DTrees::getTruncatePrunedTree const();
 
 AutoIt:
     $oDTrees.getTruncatePrunedTree() -> retval
@@ -14661,7 +14672,7 @@ AutoIt:
 ### cv::ml::DTrees::getRegressionAccuracy
 
 ```cpp
-float cv::ml::DTrees::getRegressionAccuracy();
+float cv::ml::DTrees::getRegressionAccuracy const();
 
 AutoIt:
     $oDTrees.getRegressionAccuracy() -> retval
@@ -14679,7 +14690,7 @@ AutoIt:
 ### cv::ml::DTrees::getPriors
 
 ```cpp
-cv::Mat cv::ml::DTrees::getPriors();
+cv::Mat cv::ml::DTrees::getPriors const();
 
 AutoIt:
     $oDTrees.getPriors() -> retval
@@ -14716,7 +14727,7 @@ AutoIt:
 ### cv::ml::DTrees::getVarCount
 
 ```cpp
-int cv::ml::DTrees::getVarCount();
+int cv::ml::DTrees::getVarCount const();
 
 AutoIt:
     $oDTrees.getVarCount() -> retval
@@ -14725,7 +14736,7 @@ AutoIt:
 ### cv::ml::DTrees::empty
 
 ```cpp
-bool cv::ml::DTrees::empty();
+bool cv::ml::DTrees::empty const();
 
 AutoIt:
     $oDTrees.empty() -> retval
@@ -14734,7 +14745,7 @@ AutoIt:
 ### cv::ml::DTrees::isTrained
 
 ```cpp
-bool cv::ml::DTrees::isTrained();
+bool cv::ml::DTrees::isTrained const();
 
 AutoIt:
     $oDTrees.isTrained() -> retval
@@ -14743,7 +14754,7 @@ AutoIt:
 ### cv::ml::DTrees::isClassifier
 
 ```cpp
-bool cv::ml::DTrees::isClassifier();
+bool cv::ml::DTrees::isClassifier const();
 
 AutoIt:
     $oDTrees.isClassifier() -> retval
@@ -14771,9 +14782,9 @@ AutoIt:
 ### cv::ml::DTrees::calcError
 
 ```cpp
-float cv::ml::DTrees::calcError( const cv::Ptr<cv::ml::TrainData>& data,
-                                 bool                              test,
-                                 _OutputArray                      resp );
+float cv::ml::DTrees::calcError const( const cv::Ptr<cv::ml::TrainData>& data,
+                                       bool                              test,
+                                       _OutputArray                      resp );
 
 AutoIt:
     $oDTrees.calcError( $data, $test[, $resp] ) -> retval, $resp
@@ -14782,9 +14793,9 @@ AutoIt:
 ### cv::ml::DTrees::predict
 
 ```cpp
-float cv::ml::DTrees::predict( _InputArray  samples,
-                               _OutputArray results = noArray(),
-                               int          flags = 0 );
+float cv::ml::DTrees::predict const( _InputArray  samples,
+                                     _OutputArray results = noArray(),
+                                     int          flags = 0 );
 
 AutoIt:
     $oDTrees.predict( $samples[, $results[, $flags]] ) -> retval, $results
@@ -14802,8 +14813,8 @@ AutoIt:
 ### cv::ml::DTrees::write
 
 ```cpp
-void cv::ml::DTrees::write( const cv::Ptr<cv::FileStorage>& fs,
-                            const std::string&              name = String() );
+void cv::ml::DTrees::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                  const std::string&              name = String() );
 
 AutoIt:
     $oDTrees.write( $fs[, $name] ) -> None
@@ -14821,7 +14832,7 @@ AutoIt:
 ### cv::ml::DTrees::save
 
 ```cpp
-void cv::ml::DTrees::save( const std::string& filename );
+void cv::ml::DTrees::save const( const std::string& filename );
 
 AutoIt:
     $oDTrees.save( $filename ) -> None
@@ -14830,7 +14841,7 @@ AutoIt:
 ### cv::ml::DTrees::getDefaultName
 
 ```cpp
-std::string cv::ml::DTrees::getDefaultName();
+std::string cv::ml::DTrees::getDefaultName const();
 
 AutoIt:
     $oDTrees.getDefaultName() -> retval
@@ -14841,7 +14852,7 @@ AutoIt:
 ### cv::ml::RTrees::getCalculateVarImportance
 
 ```cpp
-bool cv::ml::RTrees::getCalculateVarImportance();
+bool cv::ml::RTrees::getCalculateVarImportance const();
 
 AutoIt:
     $oRTrees.getCalculateVarImportance() -> retval
@@ -14859,7 +14870,7 @@ AutoIt:
 ### cv::ml::RTrees::getActiveVarCount
 
 ```cpp
-int cv::ml::RTrees::getActiveVarCount();
+int cv::ml::RTrees::getActiveVarCount const();
 
 AutoIt:
     $oRTrees.getActiveVarCount() -> retval
@@ -14877,7 +14888,7 @@ AutoIt:
 ### cv::ml::RTrees::getTermCriteria
 
 ```cpp
-cv::TermCriteria cv::ml::RTrees::getTermCriteria();
+cv::TermCriteria cv::ml::RTrees::getTermCriteria const();
 
 AutoIt:
     $oRTrees.getTermCriteria() -> retval
@@ -14895,7 +14906,7 @@ AutoIt:
 ### cv::ml::RTrees::getVarImportance
 
 ```cpp
-cv::Mat cv::ml::RTrees::getVarImportance();
+cv::Mat cv::ml::RTrees::getVarImportance const();
 
 AutoIt:
     $oRTrees.getVarImportance() -> retval
@@ -14904,9 +14915,9 @@ AutoIt:
 ### cv::ml::RTrees::getVotes
 
 ```cpp
-void cv::ml::RTrees::getVotes( _InputArray  samples,
-                               _OutputArray results,
-                               int          flags );
+void cv::ml::RTrees::getVotes const( _InputArray  samples,
+                                     _OutputArray results,
+                                     int          flags );
 
 AutoIt:
     $oRTrees.getVotes( $samples, $flags[, $results] ) -> $results
@@ -14915,7 +14926,7 @@ AutoIt:
 ### cv::ml::RTrees::getOOBError
 
 ```cpp
-double cv::ml::RTrees::getOOBError();
+double cv::ml::RTrees::getOOBError const();
 
 AutoIt:
     $oRTrees.getOOBError() -> retval
@@ -14943,7 +14954,7 @@ AutoIt:
 ### cv::ml::RTrees::getMaxCategories
 
 ```cpp
-int cv::ml::RTrees::getMaxCategories();
+int cv::ml::RTrees::getMaxCategories const();
 
 AutoIt:
     $oRTrees.getMaxCategories() -> retval
@@ -14961,7 +14972,7 @@ AutoIt:
 ### cv::ml::RTrees::getMaxDepth
 
 ```cpp
-int cv::ml::RTrees::getMaxDepth();
+int cv::ml::RTrees::getMaxDepth const();
 
 AutoIt:
     $oRTrees.getMaxDepth() -> retval
@@ -14979,7 +14990,7 @@ AutoIt:
 ### cv::ml::RTrees::getMinSampleCount
 
 ```cpp
-int cv::ml::RTrees::getMinSampleCount();
+int cv::ml::RTrees::getMinSampleCount const();
 
 AutoIt:
     $oRTrees.getMinSampleCount() -> retval
@@ -14997,7 +15008,7 @@ AutoIt:
 ### cv::ml::RTrees::getCVFolds
 
 ```cpp
-int cv::ml::RTrees::getCVFolds();
+int cv::ml::RTrees::getCVFolds const();
 
 AutoIt:
     $oRTrees.getCVFolds() -> retval
@@ -15015,7 +15026,7 @@ AutoIt:
 ### cv::ml::RTrees::getUseSurrogates
 
 ```cpp
-bool cv::ml::RTrees::getUseSurrogates();
+bool cv::ml::RTrees::getUseSurrogates const();
 
 AutoIt:
     $oRTrees.getUseSurrogates() -> retval
@@ -15033,7 +15044,7 @@ AutoIt:
 ### cv::ml::RTrees::getUse1SERule
 
 ```cpp
-bool cv::ml::RTrees::getUse1SERule();
+bool cv::ml::RTrees::getUse1SERule const();
 
 AutoIt:
     $oRTrees.getUse1SERule() -> retval
@@ -15051,7 +15062,7 @@ AutoIt:
 ### cv::ml::RTrees::getTruncatePrunedTree
 
 ```cpp
-bool cv::ml::RTrees::getTruncatePrunedTree();
+bool cv::ml::RTrees::getTruncatePrunedTree const();
 
 AutoIt:
     $oRTrees.getTruncatePrunedTree() -> retval
@@ -15069,7 +15080,7 @@ AutoIt:
 ### cv::ml::RTrees::getRegressionAccuracy
 
 ```cpp
-float cv::ml::RTrees::getRegressionAccuracy();
+float cv::ml::RTrees::getRegressionAccuracy const();
 
 AutoIt:
     $oRTrees.getRegressionAccuracy() -> retval
@@ -15087,7 +15098,7 @@ AutoIt:
 ### cv::ml::RTrees::getPriors
 
 ```cpp
-cv::Mat cv::ml::RTrees::getPriors();
+cv::Mat cv::ml::RTrees::getPriors const();
 
 AutoIt:
     $oRTrees.getPriors() -> retval
@@ -15105,7 +15116,7 @@ AutoIt:
 ### cv::ml::RTrees::getVarCount
 
 ```cpp
-int cv::ml::RTrees::getVarCount();
+int cv::ml::RTrees::getVarCount const();
 
 AutoIt:
     $oRTrees.getVarCount() -> retval
@@ -15114,7 +15125,7 @@ AutoIt:
 ### cv::ml::RTrees::empty
 
 ```cpp
-bool cv::ml::RTrees::empty();
+bool cv::ml::RTrees::empty const();
 
 AutoIt:
     $oRTrees.empty() -> retval
@@ -15123,7 +15134,7 @@ AutoIt:
 ### cv::ml::RTrees::isTrained
 
 ```cpp
-bool cv::ml::RTrees::isTrained();
+bool cv::ml::RTrees::isTrained const();
 
 AutoIt:
     $oRTrees.isTrained() -> retval
@@ -15132,7 +15143,7 @@ AutoIt:
 ### cv::ml::RTrees::isClassifier
 
 ```cpp
-bool cv::ml::RTrees::isClassifier();
+bool cv::ml::RTrees::isClassifier const();
 
 AutoIt:
     $oRTrees.isClassifier() -> retval
@@ -15160,9 +15171,9 @@ AutoIt:
 ### cv::ml::RTrees::calcError
 
 ```cpp
-float cv::ml::RTrees::calcError( const cv::Ptr<cv::ml::TrainData>& data,
-                                 bool                              test,
-                                 _OutputArray                      resp );
+float cv::ml::RTrees::calcError const( const cv::Ptr<cv::ml::TrainData>& data,
+                                       bool                              test,
+                                       _OutputArray                      resp );
 
 AutoIt:
     $oRTrees.calcError( $data, $test[, $resp] ) -> retval, $resp
@@ -15171,9 +15182,9 @@ AutoIt:
 ### cv::ml::RTrees::predict
 
 ```cpp
-float cv::ml::RTrees::predict( _InputArray  samples,
-                               _OutputArray results = noArray(),
-                               int          flags = 0 );
+float cv::ml::RTrees::predict const( _InputArray  samples,
+                                     _OutputArray results = noArray(),
+                                     int          flags = 0 );
 
 AutoIt:
     $oRTrees.predict( $samples[, $results[, $flags]] ) -> retval, $results
@@ -15191,8 +15202,8 @@ AutoIt:
 ### cv::ml::RTrees::write
 
 ```cpp
-void cv::ml::RTrees::write( const cv::Ptr<cv::FileStorage>& fs,
-                            const std::string&              name = String() );
+void cv::ml::RTrees::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                  const std::string&              name = String() );
 
 AutoIt:
     $oRTrees.write( $fs[, $name] ) -> None
@@ -15210,7 +15221,7 @@ AutoIt:
 ### cv::ml::RTrees::save
 
 ```cpp
-void cv::ml::RTrees::save( const std::string& filename );
+void cv::ml::RTrees::save const( const std::string& filename );
 
 AutoIt:
     $oRTrees.save( $filename ) -> None
@@ -15219,7 +15230,7 @@ AutoIt:
 ### cv::ml::RTrees::getDefaultName
 
 ```cpp
-std::string cv::ml::RTrees::getDefaultName();
+std::string cv::ml::RTrees::getDefaultName const();
 
 AutoIt:
     $oRTrees.getDefaultName() -> retval
@@ -15230,7 +15241,7 @@ AutoIt:
 ### cv::ml::Boost::getBoostType
 
 ```cpp
-int cv::ml::Boost::getBoostType();
+int cv::ml::Boost::getBoostType const();
 
 AutoIt:
     $oBoost.getBoostType() -> retval
@@ -15248,7 +15259,7 @@ AutoIt:
 ### cv::ml::Boost::getWeakCount
 
 ```cpp
-int cv::ml::Boost::getWeakCount();
+int cv::ml::Boost::getWeakCount const();
 
 AutoIt:
     $oBoost.getWeakCount() -> retval
@@ -15266,7 +15277,7 @@ AutoIt:
 ### cv::ml::Boost::getWeightTrimRate
 
 ```cpp
-double cv::ml::Boost::getWeightTrimRate();
+double cv::ml::Boost::getWeightTrimRate const();
 
 AutoIt:
     $oBoost.getWeightTrimRate() -> retval
@@ -15303,7 +15314,7 @@ AutoIt:
 ### cv::ml::Boost::getMaxCategories
 
 ```cpp
-int cv::ml::Boost::getMaxCategories();
+int cv::ml::Boost::getMaxCategories const();
 
 AutoIt:
     $oBoost.getMaxCategories() -> retval
@@ -15321,7 +15332,7 @@ AutoIt:
 ### cv::ml::Boost::getMaxDepth
 
 ```cpp
-int cv::ml::Boost::getMaxDepth();
+int cv::ml::Boost::getMaxDepth const();
 
 AutoIt:
     $oBoost.getMaxDepth() -> retval
@@ -15339,7 +15350,7 @@ AutoIt:
 ### cv::ml::Boost::getMinSampleCount
 
 ```cpp
-int cv::ml::Boost::getMinSampleCount();
+int cv::ml::Boost::getMinSampleCount const();
 
 AutoIt:
     $oBoost.getMinSampleCount() -> retval
@@ -15357,7 +15368,7 @@ AutoIt:
 ### cv::ml::Boost::getCVFolds
 
 ```cpp
-int cv::ml::Boost::getCVFolds();
+int cv::ml::Boost::getCVFolds const();
 
 AutoIt:
     $oBoost.getCVFolds() -> retval
@@ -15375,7 +15386,7 @@ AutoIt:
 ### cv::ml::Boost::getUseSurrogates
 
 ```cpp
-bool cv::ml::Boost::getUseSurrogates();
+bool cv::ml::Boost::getUseSurrogates const();
 
 AutoIt:
     $oBoost.getUseSurrogates() -> retval
@@ -15393,7 +15404,7 @@ AutoIt:
 ### cv::ml::Boost::getUse1SERule
 
 ```cpp
-bool cv::ml::Boost::getUse1SERule();
+bool cv::ml::Boost::getUse1SERule const();
 
 AutoIt:
     $oBoost.getUse1SERule() -> retval
@@ -15411,7 +15422,7 @@ AutoIt:
 ### cv::ml::Boost::getTruncatePrunedTree
 
 ```cpp
-bool cv::ml::Boost::getTruncatePrunedTree();
+bool cv::ml::Boost::getTruncatePrunedTree const();
 
 AutoIt:
     $oBoost.getTruncatePrunedTree() -> retval
@@ -15429,7 +15440,7 @@ AutoIt:
 ### cv::ml::Boost::getRegressionAccuracy
 
 ```cpp
-float cv::ml::Boost::getRegressionAccuracy();
+float cv::ml::Boost::getRegressionAccuracy const();
 
 AutoIt:
     $oBoost.getRegressionAccuracy() -> retval
@@ -15447,7 +15458,7 @@ AutoIt:
 ### cv::ml::Boost::getPriors
 
 ```cpp
-cv::Mat cv::ml::Boost::getPriors();
+cv::Mat cv::ml::Boost::getPriors const();
 
 AutoIt:
     $oBoost.getPriors() -> retval
@@ -15465,7 +15476,7 @@ AutoIt:
 ### cv::ml::Boost::getVarCount
 
 ```cpp
-int cv::ml::Boost::getVarCount();
+int cv::ml::Boost::getVarCount const();
 
 AutoIt:
     $oBoost.getVarCount() -> retval
@@ -15474,7 +15485,7 @@ AutoIt:
 ### cv::ml::Boost::empty
 
 ```cpp
-bool cv::ml::Boost::empty();
+bool cv::ml::Boost::empty const();
 
 AutoIt:
     $oBoost.empty() -> retval
@@ -15483,7 +15494,7 @@ AutoIt:
 ### cv::ml::Boost::isTrained
 
 ```cpp
-bool cv::ml::Boost::isTrained();
+bool cv::ml::Boost::isTrained const();
 
 AutoIt:
     $oBoost.isTrained() -> retval
@@ -15492,7 +15503,7 @@ AutoIt:
 ### cv::ml::Boost::isClassifier
 
 ```cpp
-bool cv::ml::Boost::isClassifier();
+bool cv::ml::Boost::isClassifier const();
 
 AutoIt:
     $oBoost.isClassifier() -> retval
@@ -15520,9 +15531,9 @@ AutoIt:
 ### cv::ml::Boost::calcError
 
 ```cpp
-float cv::ml::Boost::calcError( const cv::Ptr<cv::ml::TrainData>& data,
-                                bool                              test,
-                                _OutputArray                      resp );
+float cv::ml::Boost::calcError const( const cv::Ptr<cv::ml::TrainData>& data,
+                                      bool                              test,
+                                      _OutputArray                      resp );
 
 AutoIt:
     $oBoost.calcError( $data, $test[, $resp] ) -> retval, $resp
@@ -15531,9 +15542,9 @@ AutoIt:
 ### cv::ml::Boost::predict
 
 ```cpp
-float cv::ml::Boost::predict( _InputArray  samples,
-                              _OutputArray results = noArray(),
-                              int          flags = 0 );
+float cv::ml::Boost::predict const( _InputArray  samples,
+                                    _OutputArray results = noArray(),
+                                    int          flags = 0 );
 
 AutoIt:
     $oBoost.predict( $samples[, $results[, $flags]] ) -> retval, $results
@@ -15551,8 +15562,8 @@ AutoIt:
 ### cv::ml::Boost::write
 
 ```cpp
-void cv::ml::Boost::write( const cv::Ptr<cv::FileStorage>& fs,
-                           const std::string&              name = String() );
+void cv::ml::Boost::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                 const std::string&              name = String() );
 
 AutoIt:
     $oBoost.write( $fs[, $name] ) -> None
@@ -15570,7 +15581,7 @@ AutoIt:
 ### cv::ml::Boost::save
 
 ```cpp
-void cv::ml::Boost::save( const std::string& filename );
+void cv::ml::Boost::save const( const std::string& filename );
 
 AutoIt:
     $oBoost.save( $filename ) -> None
@@ -15579,7 +15590,7 @@ AutoIt:
 ### cv::ml::Boost::getDefaultName
 
 ```cpp
-std::string cv::ml::Boost::getDefaultName();
+std::string cv::ml::Boost::getDefaultName const();
 
 AutoIt:
     $oBoost.getDefaultName() -> retval
@@ -15601,7 +15612,7 @@ AutoIt:
 ### cv::ml::ANN_MLP::getTrainMethod
 
 ```cpp
-int cv::ml::ANN_MLP::getTrainMethod();
+int cv::ml::ANN_MLP::getTrainMethod const();
 
 AutoIt:
     $oANN_MLP.getTrainMethod() -> retval
@@ -15630,7 +15641,7 @@ AutoIt:
 ### cv::ml::ANN_MLP::getLayerSizes
 
 ```cpp
-cv::Mat cv::ml::ANN_MLP::getLayerSizes();
+cv::Mat cv::ml::ANN_MLP::getLayerSizes const();
 
 AutoIt:
     $oANN_MLP.getLayerSizes() -> retval
@@ -15639,7 +15650,7 @@ AutoIt:
 ### cv::ml::ANN_MLP::getTermCriteria
 
 ```cpp
-cv::TermCriteria cv::ml::ANN_MLP::getTermCriteria();
+cv::TermCriteria cv::ml::ANN_MLP::getTermCriteria const();
 
 AutoIt:
     $oANN_MLP.getTermCriteria() -> retval
@@ -15657,7 +15668,7 @@ AutoIt:
 ### cv::ml::ANN_MLP::getBackpropWeightScale
 
 ```cpp
-double cv::ml::ANN_MLP::getBackpropWeightScale();
+double cv::ml::ANN_MLP::getBackpropWeightScale const();
 
 AutoIt:
     $oANN_MLP.getBackpropWeightScale() -> retval
@@ -15675,7 +15686,7 @@ AutoIt:
 ### cv::ml::ANN_MLP::getBackpropMomentumScale
 
 ```cpp
-double cv::ml::ANN_MLP::getBackpropMomentumScale();
+double cv::ml::ANN_MLP::getBackpropMomentumScale const();
 
 AutoIt:
     $oANN_MLP.getBackpropMomentumScale() -> retval
@@ -15693,7 +15704,7 @@ AutoIt:
 ### cv::ml::ANN_MLP::getRpropDW0
 
 ```cpp
-double cv::ml::ANN_MLP::getRpropDW0();
+double cv::ml::ANN_MLP::getRpropDW0 const();
 
 AutoIt:
     $oANN_MLP.getRpropDW0() -> retval
@@ -15711,7 +15722,7 @@ AutoIt:
 ### cv::ml::ANN_MLP::getRpropDWPlus
 
 ```cpp
-double cv::ml::ANN_MLP::getRpropDWPlus();
+double cv::ml::ANN_MLP::getRpropDWPlus const();
 
 AutoIt:
     $oANN_MLP.getRpropDWPlus() -> retval
@@ -15729,7 +15740,7 @@ AutoIt:
 ### cv::ml::ANN_MLP::getRpropDWMinus
 
 ```cpp
-double cv::ml::ANN_MLP::getRpropDWMinus();
+double cv::ml::ANN_MLP::getRpropDWMinus const();
 
 AutoIt:
     $oANN_MLP.getRpropDWMinus() -> retval
@@ -15747,7 +15758,7 @@ AutoIt:
 ### cv::ml::ANN_MLP::getRpropDWMin
 
 ```cpp
-double cv::ml::ANN_MLP::getRpropDWMin();
+double cv::ml::ANN_MLP::getRpropDWMin const();
 
 AutoIt:
     $oANN_MLP.getRpropDWMin() -> retval
@@ -15765,7 +15776,7 @@ AutoIt:
 ### cv::ml::ANN_MLP::getRpropDWMax
 
 ```cpp
-double cv::ml::ANN_MLP::getRpropDWMax();
+double cv::ml::ANN_MLP::getRpropDWMax const();
 
 AutoIt:
     $oANN_MLP.getRpropDWMax() -> retval
@@ -15783,7 +15794,7 @@ AutoIt:
 ### cv::ml::ANN_MLP::getAnnealInitialT
 
 ```cpp
-double cv::ml::ANN_MLP::getAnnealInitialT();
+double cv::ml::ANN_MLP::getAnnealInitialT const();
 
 AutoIt:
     $oANN_MLP.getAnnealInitialT() -> retval
@@ -15801,7 +15812,7 @@ AutoIt:
 ### cv::ml::ANN_MLP::getAnnealFinalT
 
 ```cpp
-double cv::ml::ANN_MLP::getAnnealFinalT();
+double cv::ml::ANN_MLP::getAnnealFinalT const();
 
 AutoIt:
     $oANN_MLP.getAnnealFinalT() -> retval
@@ -15819,7 +15830,7 @@ AutoIt:
 ### cv::ml::ANN_MLP::getAnnealCoolingRatio
 
 ```cpp
-double cv::ml::ANN_MLP::getAnnealCoolingRatio();
+double cv::ml::ANN_MLP::getAnnealCoolingRatio const();
 
 AutoIt:
     $oANN_MLP.getAnnealCoolingRatio() -> retval
@@ -15837,7 +15848,7 @@ AutoIt:
 ### cv::ml::ANN_MLP::getAnnealItePerStep
 
 ```cpp
-int cv::ml::ANN_MLP::getAnnealItePerStep();
+int cv::ml::ANN_MLP::getAnnealItePerStep const();
 
 AutoIt:
     $oANN_MLP.getAnnealItePerStep() -> retval
@@ -15855,7 +15866,7 @@ AutoIt:
 ### cv::ml::ANN_MLP::getWeights
 
 ```cpp
-cv::Mat cv::ml::ANN_MLP::getWeights( int layerIdx );
+cv::Mat cv::ml::ANN_MLP::getWeights const( int layerIdx );
 
 AutoIt:
     $oANN_MLP.getWeights( $layerIdx ) -> retval
@@ -15882,7 +15893,7 @@ AutoIt:
 ### cv::ml::ANN_MLP::getVarCount
 
 ```cpp
-int cv::ml::ANN_MLP::getVarCount();
+int cv::ml::ANN_MLP::getVarCount const();
 
 AutoIt:
     $oANN_MLP.getVarCount() -> retval
@@ -15891,7 +15902,7 @@ AutoIt:
 ### cv::ml::ANN_MLP::empty
 
 ```cpp
-bool cv::ml::ANN_MLP::empty();
+bool cv::ml::ANN_MLP::empty const();
 
 AutoIt:
     $oANN_MLP.empty() -> retval
@@ -15900,7 +15911,7 @@ AutoIt:
 ### cv::ml::ANN_MLP::isTrained
 
 ```cpp
-bool cv::ml::ANN_MLP::isTrained();
+bool cv::ml::ANN_MLP::isTrained const();
 
 AutoIt:
     $oANN_MLP.isTrained() -> retval
@@ -15909,7 +15920,7 @@ AutoIt:
 ### cv::ml::ANN_MLP::isClassifier
 
 ```cpp
-bool cv::ml::ANN_MLP::isClassifier();
+bool cv::ml::ANN_MLP::isClassifier const();
 
 AutoIt:
     $oANN_MLP.isClassifier() -> retval
@@ -15937,9 +15948,9 @@ AutoIt:
 ### cv::ml::ANN_MLP::calcError
 
 ```cpp
-float cv::ml::ANN_MLP::calcError( const cv::Ptr<cv::ml::TrainData>& data,
-                                  bool                              test,
-                                  _OutputArray                      resp );
+float cv::ml::ANN_MLP::calcError const( const cv::Ptr<cv::ml::TrainData>& data,
+                                        bool                              test,
+                                        _OutputArray                      resp );
 
 AutoIt:
     $oANN_MLP.calcError( $data, $test[, $resp] ) -> retval, $resp
@@ -15948,9 +15959,9 @@ AutoIt:
 ### cv::ml::ANN_MLP::predict
 
 ```cpp
-float cv::ml::ANN_MLP::predict( _InputArray  samples,
-                                _OutputArray results = noArray(),
-                                int          flags = 0 );
+float cv::ml::ANN_MLP::predict const( _InputArray  samples,
+                                      _OutputArray results = noArray(),
+                                      int          flags = 0 );
 
 AutoIt:
     $oANN_MLP.predict( $samples[, $results[, $flags]] ) -> retval, $results
@@ -15968,8 +15979,8 @@ AutoIt:
 ### cv::ml::ANN_MLP::write
 
 ```cpp
-void cv::ml::ANN_MLP::write( const cv::Ptr<cv::FileStorage>& fs,
-                             const std::string&              name = String() );
+void cv::ml::ANN_MLP::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                   const std::string&              name = String() );
 
 AutoIt:
     $oANN_MLP.write( $fs[, $name] ) -> None
@@ -15987,7 +15998,7 @@ AutoIt:
 ### cv::ml::ANN_MLP::save
 
 ```cpp
-void cv::ml::ANN_MLP::save( const std::string& filename );
+void cv::ml::ANN_MLP::save const( const std::string& filename );
 
 AutoIt:
     $oANN_MLP.save( $filename ) -> None
@@ -15996,7 +16007,7 @@ AutoIt:
 ### cv::ml::ANN_MLP::getDefaultName
 
 ```cpp
-std::string cv::ml::ANN_MLP::getDefaultName();
+std::string cv::ml::ANN_MLP::getDefaultName const();
 
 AutoIt:
     $oANN_MLP.getDefaultName() -> retval
@@ -16007,7 +16018,7 @@ AutoIt:
 ### cv::ml::LogisticRegression::getLearningRate
 
 ```cpp
-double cv::ml::LogisticRegression::getLearningRate();
+double cv::ml::LogisticRegression::getLearningRate const();
 
 AutoIt:
     $oLogisticRegression.getLearningRate() -> retval
@@ -16025,7 +16036,7 @@ AutoIt:
 ### cv::ml::LogisticRegression::getIterations
 
 ```cpp
-int cv::ml::LogisticRegression::getIterations();
+int cv::ml::LogisticRegression::getIterations const();
 
 AutoIt:
     $oLogisticRegression.getIterations() -> retval
@@ -16043,7 +16054,7 @@ AutoIt:
 ### cv::ml::LogisticRegression::getRegularization
 
 ```cpp
-int cv::ml::LogisticRegression::getRegularization();
+int cv::ml::LogisticRegression::getRegularization const();
 
 AutoIt:
     $oLogisticRegression.getRegularization() -> retval
@@ -16061,7 +16072,7 @@ AutoIt:
 ### cv::ml::LogisticRegression::getTrainMethod
 
 ```cpp
-int cv::ml::LogisticRegression::getTrainMethod();
+int cv::ml::LogisticRegression::getTrainMethod const();
 
 AutoIt:
     $oLogisticRegression.getTrainMethod() -> retval
@@ -16079,7 +16090,7 @@ AutoIt:
 ### cv::ml::LogisticRegression::getMiniBatchSize
 
 ```cpp
-int cv::ml::LogisticRegression::getMiniBatchSize();
+int cv::ml::LogisticRegression::getMiniBatchSize const();
 
 AutoIt:
     $oLogisticRegression.getMiniBatchSize() -> retval
@@ -16097,7 +16108,7 @@ AutoIt:
 ### cv::ml::LogisticRegression::getTermCriteria
 
 ```cpp
-cv::TermCriteria cv::ml::LogisticRegression::getTermCriteria();
+cv::TermCriteria cv::ml::LogisticRegression::getTermCriteria const();
 
 AutoIt:
     $oLogisticRegression.getTermCriteria() -> retval
@@ -16115,9 +16126,9 @@ AutoIt:
 ### cv::ml::LogisticRegression::predict
 
 ```cpp
-float cv::ml::LogisticRegression::predict( _InputArray  samples,
-                                           _OutputArray results = noArray(),
-                                           int          flags = 0 );
+float cv::ml::LogisticRegression::predict const( _InputArray  samples,
+                                                 _OutputArray results = noArray(),
+                                                 int          flags = 0 );
 
 AutoIt:
     $oLogisticRegression.predict( $samples[, $results[, $flags]] ) -> retval, $results
@@ -16126,7 +16137,7 @@ AutoIt:
 ### cv::ml::LogisticRegression::get_learnt_thetas
 
 ```cpp
-cv::Mat cv::ml::LogisticRegression::get_learnt_thetas();
+cv::Mat cv::ml::LogisticRegression::get_learnt_thetas const();
 
 AutoIt:
     $oLogisticRegression.get_learnt_thetas() -> retval
@@ -16154,7 +16165,7 @@ AutoIt:
 ### cv::ml::LogisticRegression::getVarCount
 
 ```cpp
-int cv::ml::LogisticRegression::getVarCount();
+int cv::ml::LogisticRegression::getVarCount const();
 
 AutoIt:
     $oLogisticRegression.getVarCount() -> retval
@@ -16163,7 +16174,7 @@ AutoIt:
 ### cv::ml::LogisticRegression::empty
 
 ```cpp
-bool cv::ml::LogisticRegression::empty();
+bool cv::ml::LogisticRegression::empty const();
 
 AutoIt:
     $oLogisticRegression.empty() -> retval
@@ -16172,7 +16183,7 @@ AutoIt:
 ### cv::ml::LogisticRegression::isTrained
 
 ```cpp
-bool cv::ml::LogisticRegression::isTrained();
+bool cv::ml::LogisticRegression::isTrained const();
 
 AutoIt:
     $oLogisticRegression.isTrained() -> retval
@@ -16181,7 +16192,7 @@ AutoIt:
 ### cv::ml::LogisticRegression::isClassifier
 
 ```cpp
-bool cv::ml::LogisticRegression::isClassifier();
+bool cv::ml::LogisticRegression::isClassifier const();
 
 AutoIt:
     $oLogisticRegression.isClassifier() -> retval
@@ -16209,9 +16220,9 @@ AutoIt:
 ### cv::ml::LogisticRegression::calcError
 
 ```cpp
-float cv::ml::LogisticRegression::calcError( const cv::Ptr<cv::ml::TrainData>& data,
-                                             bool                              test,
-                                             _OutputArray                      resp );
+float cv::ml::LogisticRegression::calcError const( const cv::Ptr<cv::ml::TrainData>& data,
+                                                   bool                              test,
+                                                   _OutputArray                      resp );
 
 AutoIt:
     $oLogisticRegression.calcError( $data, $test[, $resp] ) -> retval, $resp
@@ -16229,8 +16240,8 @@ AutoIt:
 ### cv::ml::LogisticRegression::write
 
 ```cpp
-void cv::ml::LogisticRegression::write( const cv::Ptr<cv::FileStorage>& fs,
-                                        const std::string&              name = String() );
+void cv::ml::LogisticRegression::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                              const std::string&              name = String() );
 
 AutoIt:
     $oLogisticRegression.write( $fs[, $name] ) -> None
@@ -16248,7 +16259,7 @@ AutoIt:
 ### cv::ml::LogisticRegression::save
 
 ```cpp
-void cv::ml::LogisticRegression::save( const std::string& filename );
+void cv::ml::LogisticRegression::save const( const std::string& filename );
 
 AutoIt:
     $oLogisticRegression.save( $filename ) -> None
@@ -16257,7 +16268,7 @@ AutoIt:
 ### cv::ml::LogisticRegression::getDefaultName
 
 ```cpp
-std::string cv::ml::LogisticRegression::getDefaultName();
+std::string cv::ml::LogisticRegression::getDefaultName const();
 
 AutoIt:
     $oLogisticRegression.getDefaultName() -> retval
@@ -16315,7 +16326,7 @@ AutoIt:
 ### cv::ml::SVMSGD::getSvmsgdType
 
 ```cpp
-int cv::ml::SVMSGD::getSvmsgdType();
+int cv::ml::SVMSGD::getSvmsgdType const();
 
 AutoIt:
     $oSVMSGD.getSvmsgdType() -> retval
@@ -16333,7 +16344,7 @@ AutoIt:
 ### cv::ml::SVMSGD::getMarginType
 
 ```cpp
-int cv::ml::SVMSGD::getMarginType();
+int cv::ml::SVMSGD::getMarginType const();
 
 AutoIt:
     $oSVMSGD.getMarginType() -> retval
@@ -16351,7 +16362,7 @@ AutoIt:
 ### cv::ml::SVMSGD::getMarginRegularization
 
 ```cpp
-float cv::ml::SVMSGD::getMarginRegularization();
+float cv::ml::SVMSGD::getMarginRegularization const();
 
 AutoIt:
     $oSVMSGD.getMarginRegularization() -> retval
@@ -16369,7 +16380,7 @@ AutoIt:
 ### cv::ml::SVMSGD::getInitialStepSize
 
 ```cpp
-float cv::ml::SVMSGD::getInitialStepSize();
+float cv::ml::SVMSGD::getInitialStepSize const();
 
 AutoIt:
     $oSVMSGD.getInitialStepSize() -> retval
@@ -16387,7 +16398,7 @@ AutoIt:
 ### cv::ml::SVMSGD::getStepDecreasingPower
 
 ```cpp
-float cv::ml::SVMSGD::getStepDecreasingPower();
+float cv::ml::SVMSGD::getStepDecreasingPower const();
 
 AutoIt:
     $oSVMSGD.getStepDecreasingPower() -> retval
@@ -16405,7 +16416,7 @@ AutoIt:
 ### cv::ml::SVMSGD::getTermCriteria
 
 ```cpp
-cv::TermCriteria cv::ml::SVMSGD::getTermCriteria();
+cv::TermCriteria cv::ml::SVMSGD::getTermCriteria const();
 
 AutoIt:
     $oSVMSGD.getTermCriteria() -> retval
@@ -16423,7 +16434,7 @@ AutoIt:
 ### cv::ml::SVMSGD::getVarCount
 
 ```cpp
-int cv::ml::SVMSGD::getVarCount();
+int cv::ml::SVMSGD::getVarCount const();
 
 AutoIt:
     $oSVMSGD.getVarCount() -> retval
@@ -16432,7 +16443,7 @@ AutoIt:
 ### cv::ml::SVMSGD::empty
 
 ```cpp
-bool cv::ml::SVMSGD::empty();
+bool cv::ml::SVMSGD::empty const();
 
 AutoIt:
     $oSVMSGD.empty() -> retval
@@ -16441,7 +16452,7 @@ AutoIt:
 ### cv::ml::SVMSGD::isTrained
 
 ```cpp
-bool cv::ml::SVMSGD::isTrained();
+bool cv::ml::SVMSGD::isTrained const();
 
 AutoIt:
     $oSVMSGD.isTrained() -> retval
@@ -16450,7 +16461,7 @@ AutoIt:
 ### cv::ml::SVMSGD::isClassifier
 
 ```cpp
-bool cv::ml::SVMSGD::isClassifier();
+bool cv::ml::SVMSGD::isClassifier const();
 
 AutoIt:
     $oSVMSGD.isClassifier() -> retval
@@ -16478,9 +16489,9 @@ AutoIt:
 ### cv::ml::SVMSGD::calcError
 
 ```cpp
-float cv::ml::SVMSGD::calcError( const cv::Ptr<cv::ml::TrainData>& data,
-                                 bool                              test,
-                                 _OutputArray                      resp );
+float cv::ml::SVMSGD::calcError const( const cv::Ptr<cv::ml::TrainData>& data,
+                                       bool                              test,
+                                       _OutputArray                      resp );
 
 AutoIt:
     $oSVMSGD.calcError( $data, $test[, $resp] ) -> retval, $resp
@@ -16489,9 +16500,9 @@ AutoIt:
 ### cv::ml::SVMSGD::predict
 
 ```cpp
-float cv::ml::SVMSGD::predict( _InputArray  samples,
-                               _OutputArray results = noArray(),
-                               int          flags = 0 );
+float cv::ml::SVMSGD::predict const( _InputArray  samples,
+                                     _OutputArray results = noArray(),
+                                     int          flags = 0 );
 
 AutoIt:
     $oSVMSGD.predict( $samples[, $results[, $flags]] ) -> retval, $results
@@ -16509,8 +16520,8 @@ AutoIt:
 ### cv::ml::SVMSGD::write
 
 ```cpp
-void cv::ml::SVMSGD::write( const cv::Ptr<cv::FileStorage>& fs,
-                            const std::string&              name = String() );
+void cv::ml::SVMSGD::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                  const std::string&              name = String() );
 
 AutoIt:
     $oSVMSGD.write( $fs[, $name] ) -> None
@@ -16528,7 +16539,7 @@ AutoIt:
 ### cv::ml::SVMSGD::save
 
 ```cpp
-void cv::ml::SVMSGD::save( const std::string& filename );
+void cv::ml::SVMSGD::save const( const std::string& filename );
 
 AutoIt:
     $oSVMSGD.save( $filename ) -> None
@@ -16537,7 +16548,7 @@ AutoIt:
 ### cv::ml::SVMSGD::getDefaultName
 
 ```cpp
-std::string cv::ml::SVMSGD::getDefaultName();
+std::string cv::ml::SVMSGD::getDefaultName const();
 
 AutoIt:
     $oSVMSGD.getDefaultName() -> retval
@@ -16558,7 +16569,7 @@ AutoIt:
 ### cv::Tonemap::getGamma
 
 ```cpp
-float cv::Tonemap::getGamma();
+float cv::Tonemap::getGamma const();
 
 AutoIt:
     $oTonemap.getGamma() -> retval
@@ -16585,8 +16596,8 @@ AutoIt:
 ### cv::Tonemap::write
 
 ```cpp
-void cv::Tonemap::write( const cv::Ptr<cv::FileStorage>& fs,
-                         const std::string&              name = String() );
+void cv::Tonemap::write const( const cv::Ptr<cv::FileStorage>& fs,
+                               const std::string&              name = String() );
 
 AutoIt:
     $oTonemap.write( $fs[, $name] ) -> None
@@ -16604,7 +16615,7 @@ AutoIt:
 ### cv::Tonemap::empty
 
 ```cpp
-bool cv::Tonemap::empty();
+bool cv::Tonemap::empty const();
 
 AutoIt:
     $oTonemap.empty() -> retval
@@ -16613,7 +16624,7 @@ AutoIt:
 ### cv::Tonemap::save
 
 ```cpp
-void cv::Tonemap::save( const std::string& filename );
+void cv::Tonemap::save const( const std::string& filename );
 
 AutoIt:
     $oTonemap.save( $filename ) -> None
@@ -16622,7 +16633,7 @@ AutoIt:
 ### cv::Tonemap::getDefaultName
 
 ```cpp
-std::string cv::Tonemap::getDefaultName();
+std::string cv::Tonemap::getDefaultName const();
 
 AutoIt:
     $oTonemap.getDefaultName() -> retval
@@ -16633,7 +16644,7 @@ AutoIt:
 ### cv::TonemapDrago::getSaturation
 
 ```cpp
-float cv::TonemapDrago::getSaturation();
+float cv::TonemapDrago::getSaturation const();
 
 AutoIt:
     $oTonemapDrago.getSaturation() -> retval
@@ -16651,7 +16662,7 @@ AutoIt:
 ### cv::TonemapDrago::getBias
 
 ```cpp
-float cv::TonemapDrago::getBias();
+float cv::TonemapDrago::getBias const();
 
 AutoIt:
     $oTonemapDrago.getBias() -> retval
@@ -16679,7 +16690,7 @@ AutoIt:
 ### cv::TonemapDrago::getGamma
 
 ```cpp
-float cv::TonemapDrago::getGamma();
+float cv::TonemapDrago::getGamma const();
 
 AutoIt:
     $oTonemapDrago.getGamma() -> retval
@@ -16706,8 +16717,8 @@ AutoIt:
 ### cv::TonemapDrago::write
 
 ```cpp
-void cv::TonemapDrago::write( const cv::Ptr<cv::FileStorage>& fs,
-                              const std::string&              name = String() );
+void cv::TonemapDrago::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                    const std::string&              name = String() );
 
 AutoIt:
     $oTonemapDrago.write( $fs[, $name] ) -> None
@@ -16725,7 +16736,7 @@ AutoIt:
 ### cv::TonemapDrago::empty
 
 ```cpp
-bool cv::TonemapDrago::empty();
+bool cv::TonemapDrago::empty const();
 
 AutoIt:
     $oTonemapDrago.empty() -> retval
@@ -16734,7 +16745,7 @@ AutoIt:
 ### cv::TonemapDrago::save
 
 ```cpp
-void cv::TonemapDrago::save( const std::string& filename );
+void cv::TonemapDrago::save const( const std::string& filename );
 
 AutoIt:
     $oTonemapDrago.save( $filename ) -> None
@@ -16743,7 +16754,7 @@ AutoIt:
 ### cv::TonemapDrago::getDefaultName
 
 ```cpp
-std::string cv::TonemapDrago::getDefaultName();
+std::string cv::TonemapDrago::getDefaultName const();
 
 AutoIt:
     $oTonemapDrago.getDefaultName() -> retval
@@ -16754,7 +16765,7 @@ AutoIt:
 ### cv::TonemapReinhard::getIntensity
 
 ```cpp
-float cv::TonemapReinhard::getIntensity();
+float cv::TonemapReinhard::getIntensity const();
 
 AutoIt:
     $oTonemapReinhard.getIntensity() -> retval
@@ -16772,7 +16783,7 @@ AutoIt:
 ### cv::TonemapReinhard::getLightAdaptation
 
 ```cpp
-float cv::TonemapReinhard::getLightAdaptation();
+float cv::TonemapReinhard::getLightAdaptation const();
 
 AutoIt:
     $oTonemapReinhard.getLightAdaptation() -> retval
@@ -16790,7 +16801,7 @@ AutoIt:
 ### cv::TonemapReinhard::getColorAdaptation
 
 ```cpp
-float cv::TonemapReinhard::getColorAdaptation();
+float cv::TonemapReinhard::getColorAdaptation const();
 
 AutoIt:
     $oTonemapReinhard.getColorAdaptation() -> retval
@@ -16818,7 +16829,7 @@ AutoIt:
 ### cv::TonemapReinhard::getGamma
 
 ```cpp
-float cv::TonemapReinhard::getGamma();
+float cv::TonemapReinhard::getGamma const();
 
 AutoIt:
     $oTonemapReinhard.getGamma() -> retval
@@ -16845,8 +16856,8 @@ AutoIt:
 ### cv::TonemapReinhard::write
 
 ```cpp
-void cv::TonemapReinhard::write( const cv::Ptr<cv::FileStorage>& fs,
-                                 const std::string&              name = String() );
+void cv::TonemapReinhard::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                       const std::string&              name = String() );
 
 AutoIt:
     $oTonemapReinhard.write( $fs[, $name] ) -> None
@@ -16864,7 +16875,7 @@ AutoIt:
 ### cv::TonemapReinhard::empty
 
 ```cpp
-bool cv::TonemapReinhard::empty();
+bool cv::TonemapReinhard::empty const();
 
 AutoIt:
     $oTonemapReinhard.empty() -> retval
@@ -16873,7 +16884,7 @@ AutoIt:
 ### cv::TonemapReinhard::save
 
 ```cpp
-void cv::TonemapReinhard::save( const std::string& filename );
+void cv::TonemapReinhard::save const( const std::string& filename );
 
 AutoIt:
     $oTonemapReinhard.save( $filename ) -> None
@@ -16882,7 +16893,7 @@ AutoIt:
 ### cv::TonemapReinhard::getDefaultName
 
 ```cpp
-std::string cv::TonemapReinhard::getDefaultName();
+std::string cv::TonemapReinhard::getDefaultName const();
 
 AutoIt:
     $oTonemapReinhard.getDefaultName() -> retval
@@ -16893,7 +16904,7 @@ AutoIt:
 ### cv::TonemapMantiuk::getScale
 
 ```cpp
-float cv::TonemapMantiuk::getScale();
+float cv::TonemapMantiuk::getScale const();
 
 AutoIt:
     $oTonemapMantiuk.getScale() -> retval
@@ -16911,7 +16922,7 @@ AutoIt:
 ### cv::TonemapMantiuk::getSaturation
 
 ```cpp
-float cv::TonemapMantiuk::getSaturation();
+float cv::TonemapMantiuk::getSaturation const();
 
 AutoIt:
     $oTonemapMantiuk.getSaturation() -> retval
@@ -16939,7 +16950,7 @@ AutoIt:
 ### cv::TonemapMantiuk::getGamma
 
 ```cpp
-float cv::TonemapMantiuk::getGamma();
+float cv::TonemapMantiuk::getGamma const();
 
 AutoIt:
     $oTonemapMantiuk.getGamma() -> retval
@@ -16966,8 +16977,8 @@ AutoIt:
 ### cv::TonemapMantiuk::write
 
 ```cpp
-void cv::TonemapMantiuk::write( const cv::Ptr<cv::FileStorage>& fs,
-                                const std::string&              name = String() );
+void cv::TonemapMantiuk::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                      const std::string&              name = String() );
 
 AutoIt:
     $oTonemapMantiuk.write( $fs[, $name] ) -> None
@@ -16985,7 +16996,7 @@ AutoIt:
 ### cv::TonemapMantiuk::empty
 
 ```cpp
-bool cv::TonemapMantiuk::empty();
+bool cv::TonemapMantiuk::empty const();
 
 AutoIt:
     $oTonemapMantiuk.empty() -> retval
@@ -16994,7 +17005,7 @@ AutoIt:
 ### cv::TonemapMantiuk::save
 
 ```cpp
-void cv::TonemapMantiuk::save( const std::string& filename );
+void cv::TonemapMantiuk::save const( const std::string& filename );
 
 AutoIt:
     $oTonemapMantiuk.save( $filename ) -> None
@@ -17003,7 +17014,7 @@ AutoIt:
 ### cv::TonemapMantiuk::getDefaultName
 
 ```cpp
-std::string cv::TonemapMantiuk::getDefaultName();
+std::string cv::TonemapMantiuk::getDefaultName const();
 
 AutoIt:
     $oTonemapMantiuk.getDefaultName() -> retval
@@ -17035,8 +17046,8 @@ AutoIt:
 ### cv::AlignExposures::write
 
 ```cpp
-void cv::AlignExposures::write( const cv::Ptr<cv::FileStorage>& fs,
-                                const std::string&              name = String() );
+void cv::AlignExposures::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                      const std::string&              name = String() );
 
 AutoIt:
     $oAlignExposures.write( $fs[, $name] ) -> None
@@ -17054,7 +17065,7 @@ AutoIt:
 ### cv::AlignExposures::empty
 
 ```cpp
-bool cv::AlignExposures::empty();
+bool cv::AlignExposures::empty const();
 
 AutoIt:
     $oAlignExposures.empty() -> retval
@@ -17063,7 +17074,7 @@ AutoIt:
 ### cv::AlignExposures::save
 
 ```cpp
-void cv::AlignExposures::save( const std::string& filename );
+void cv::AlignExposures::save const( const std::string& filename );
 
 AutoIt:
     $oAlignExposures.save( $filename ) -> None
@@ -17072,7 +17083,7 @@ AutoIt:
 ### cv::AlignExposures::getDefaultName
 
 ```cpp
-std::string cv::AlignExposures::getDefaultName();
+std::string cv::AlignExposures::getDefaultName const();
 
 AutoIt:
     $oAlignExposures.getDefaultName() -> retval
@@ -17135,7 +17146,7 @@ AutoIt:
 ### cv::AlignMTB::getMaxBits
 
 ```cpp
-int cv::AlignMTB::getMaxBits();
+int cv::AlignMTB::getMaxBits const();
 
 AutoIt:
     $oAlignMTB.getMaxBits() -> retval
@@ -17153,7 +17164,7 @@ AutoIt:
 ### cv::AlignMTB::getExcludeRange
 
 ```cpp
-int cv::AlignMTB::getExcludeRange();
+int cv::AlignMTB::getExcludeRange const();
 
 AutoIt:
     $oAlignMTB.getExcludeRange() -> retval
@@ -17171,7 +17182,7 @@ AutoIt:
 ### cv::AlignMTB::getCut
 
 ```cpp
-bool cv::AlignMTB::getCut();
+bool cv::AlignMTB::getCut const();
 
 AutoIt:
     $oAlignMTB.getCut() -> retval
@@ -17198,8 +17209,8 @@ AutoIt:
 ### cv::AlignMTB::write
 
 ```cpp
-void cv::AlignMTB::write( const cv::Ptr<cv::FileStorage>& fs,
-                          const std::string&              name = String() );
+void cv::AlignMTB::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                const std::string&              name = String() );
 
 AutoIt:
     $oAlignMTB.write( $fs[, $name] ) -> None
@@ -17217,7 +17228,7 @@ AutoIt:
 ### cv::AlignMTB::empty
 
 ```cpp
-bool cv::AlignMTB::empty();
+bool cv::AlignMTB::empty const();
 
 AutoIt:
     $oAlignMTB.empty() -> retval
@@ -17226,7 +17237,7 @@ AutoIt:
 ### cv::AlignMTB::save
 
 ```cpp
-void cv::AlignMTB::save( const std::string& filename );
+void cv::AlignMTB::save const( const std::string& filename );
 
 AutoIt:
     $oAlignMTB.save( $filename ) -> None
@@ -17235,7 +17246,7 @@ AutoIt:
 ### cv::AlignMTB::getDefaultName
 
 ```cpp
-std::string cv::AlignMTB::getDefaultName();
+std::string cv::AlignMTB::getDefaultName const();
 
 AutoIt:
     $oAlignMTB.getDefaultName() -> retval
@@ -17266,8 +17277,8 @@ AutoIt:
 ### cv::CalibrateCRF::write
 
 ```cpp
-void cv::CalibrateCRF::write( const cv::Ptr<cv::FileStorage>& fs,
-                              const std::string&              name = String() );
+void cv::CalibrateCRF::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                    const std::string&              name = String() );
 
 AutoIt:
     $oCalibrateCRF.write( $fs[, $name] ) -> None
@@ -17285,7 +17296,7 @@ AutoIt:
 ### cv::CalibrateCRF::empty
 
 ```cpp
-bool cv::CalibrateCRF::empty();
+bool cv::CalibrateCRF::empty const();
 
 AutoIt:
     $oCalibrateCRF.empty() -> retval
@@ -17294,7 +17305,7 @@ AutoIt:
 ### cv::CalibrateCRF::save
 
 ```cpp
-void cv::CalibrateCRF::save( const std::string& filename );
+void cv::CalibrateCRF::save const( const std::string& filename );
 
 AutoIt:
     $oCalibrateCRF.save( $filename ) -> None
@@ -17303,7 +17314,7 @@ AutoIt:
 ### cv::CalibrateCRF::getDefaultName
 
 ```cpp
-std::string cv::CalibrateCRF::getDefaultName();
+std::string cv::CalibrateCRF::getDefaultName const();
 
 AutoIt:
     $oCalibrateCRF.getDefaultName() -> retval
@@ -17314,7 +17325,7 @@ AutoIt:
 ### cv::CalibrateDebevec::getLambda
 
 ```cpp
-float cv::CalibrateDebevec::getLambda();
+float cv::CalibrateDebevec::getLambda const();
 
 AutoIt:
     $oCalibrateDebevec.getLambda() -> retval
@@ -17332,7 +17343,7 @@ AutoIt:
 ### cv::CalibrateDebevec::getSamples
 
 ```cpp
-int cv::CalibrateDebevec::getSamples();
+int cv::CalibrateDebevec::getSamples const();
 
 AutoIt:
     $oCalibrateDebevec.getSamples() -> retval
@@ -17350,7 +17361,7 @@ AutoIt:
 ### cv::CalibrateDebevec::getRandom
 
 ```cpp
-bool cv::CalibrateDebevec::getRandom();
+bool cv::CalibrateDebevec::getRandom const();
 
 AutoIt:
     $oCalibrateDebevec.getRandom() -> retval
@@ -17388,8 +17399,8 @@ AutoIt:
 ### cv::CalibrateDebevec::write
 
 ```cpp
-void cv::CalibrateDebevec::write( const cv::Ptr<cv::FileStorage>& fs,
-                                  const std::string&              name = String() );
+void cv::CalibrateDebevec::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                        const std::string&              name = String() );
 
 AutoIt:
     $oCalibrateDebevec.write( $fs[, $name] ) -> None
@@ -17407,7 +17418,7 @@ AutoIt:
 ### cv::CalibrateDebevec::empty
 
 ```cpp
-bool cv::CalibrateDebevec::empty();
+bool cv::CalibrateDebevec::empty const();
 
 AutoIt:
     $oCalibrateDebevec.empty() -> retval
@@ -17416,7 +17427,7 @@ AutoIt:
 ### cv::CalibrateDebevec::save
 
 ```cpp
-void cv::CalibrateDebevec::save( const std::string& filename );
+void cv::CalibrateDebevec::save const( const std::string& filename );
 
 AutoIt:
     $oCalibrateDebevec.save( $filename ) -> None
@@ -17425,7 +17436,7 @@ AutoIt:
 ### cv::CalibrateDebevec::getDefaultName
 
 ```cpp
-std::string cv::CalibrateDebevec::getDefaultName();
+std::string cv::CalibrateDebevec::getDefaultName const();
 
 AutoIt:
     $oCalibrateDebevec.getDefaultName() -> retval
@@ -17436,7 +17447,7 @@ AutoIt:
 ### cv::CalibrateRobertson::getMaxIter
 
 ```cpp
-int cv::CalibrateRobertson::getMaxIter();
+int cv::CalibrateRobertson::getMaxIter const();
 
 AutoIt:
     $oCalibrateRobertson.getMaxIter() -> retval
@@ -17454,7 +17465,7 @@ AutoIt:
 ### cv::CalibrateRobertson::getThreshold
 
 ```cpp
-float cv::CalibrateRobertson::getThreshold();
+float cv::CalibrateRobertson::getThreshold const();
 
 AutoIt:
     $oCalibrateRobertson.getThreshold() -> retval
@@ -17472,7 +17483,7 @@ AutoIt:
 ### cv::CalibrateRobertson::getRadiance
 
 ```cpp
-cv::Mat cv::CalibrateRobertson::getRadiance();
+cv::Mat cv::CalibrateRobertson::getRadiance const();
 
 AutoIt:
     $oCalibrateRobertson.getRadiance() -> retval
@@ -17501,8 +17512,8 @@ AutoIt:
 ### cv::CalibrateRobertson::write
 
 ```cpp
-void cv::CalibrateRobertson::write( const cv::Ptr<cv::FileStorage>& fs,
-                                    const std::string&              name = String() );
+void cv::CalibrateRobertson::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                          const std::string&              name = String() );
 
 AutoIt:
     $oCalibrateRobertson.write( $fs[, $name] ) -> None
@@ -17520,7 +17531,7 @@ AutoIt:
 ### cv::CalibrateRobertson::empty
 
 ```cpp
-bool cv::CalibrateRobertson::empty();
+bool cv::CalibrateRobertson::empty const();
 
 AutoIt:
     $oCalibrateRobertson.empty() -> retval
@@ -17529,7 +17540,7 @@ AutoIt:
 ### cv::CalibrateRobertson::save
 
 ```cpp
-void cv::CalibrateRobertson::save( const std::string& filename );
+void cv::CalibrateRobertson::save const( const std::string& filename );
 
 AutoIt:
     $oCalibrateRobertson.save( $filename ) -> None
@@ -17538,7 +17549,7 @@ AutoIt:
 ### cv::CalibrateRobertson::getDefaultName
 
 ```cpp
-std::string cv::CalibrateRobertson::getDefaultName();
+std::string cv::CalibrateRobertson::getDefaultName const();
 
 AutoIt:
     $oCalibrateRobertson.getDefaultName() -> retval
@@ -17570,8 +17581,8 @@ AutoIt:
 ### cv::MergeExposures::write
 
 ```cpp
-void cv::MergeExposures::write( const cv::Ptr<cv::FileStorage>& fs,
-                                const std::string&              name = String() );
+void cv::MergeExposures::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                      const std::string&              name = String() );
 
 AutoIt:
     $oMergeExposures.write( $fs[, $name] ) -> None
@@ -17589,7 +17600,7 @@ AutoIt:
 ### cv::MergeExposures::empty
 
 ```cpp
-bool cv::MergeExposures::empty();
+bool cv::MergeExposures::empty const();
 
 AutoIt:
     $oMergeExposures.empty() -> retval
@@ -17598,7 +17609,7 @@ AutoIt:
 ### cv::MergeExposures::save
 
 ```cpp
-void cv::MergeExposures::save( const std::string& filename );
+void cv::MergeExposures::save const( const std::string& filename );
 
 AutoIt:
     $oMergeExposures.save( $filename ) -> None
@@ -17607,7 +17618,7 @@ AutoIt:
 ### cv::MergeExposures::getDefaultName
 
 ```cpp
-std::string cv::MergeExposures::getDefaultName();
+std::string cv::MergeExposures::getDefaultName const();
 
 AutoIt:
     $oMergeExposures.getDefaultName() -> retval
@@ -17648,8 +17659,8 @@ AutoIt:
 ### cv::MergeDebevec::write
 
 ```cpp
-void cv::MergeDebevec::write( const cv::Ptr<cv::FileStorage>& fs,
-                              const std::string&              name = String() );
+void cv::MergeDebevec::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                    const std::string&              name = String() );
 
 AutoIt:
     $oMergeDebevec.write( $fs[, $name] ) -> None
@@ -17667,7 +17678,7 @@ AutoIt:
 ### cv::MergeDebevec::empty
 
 ```cpp
-bool cv::MergeDebevec::empty();
+bool cv::MergeDebevec::empty const();
 
 AutoIt:
     $oMergeDebevec.empty() -> retval
@@ -17676,7 +17687,7 @@ AutoIt:
 ### cv::MergeDebevec::save
 
 ```cpp
-void cv::MergeDebevec::save( const std::string& filename );
+void cv::MergeDebevec::save const( const std::string& filename );
 
 AutoIt:
     $oMergeDebevec.save( $filename ) -> None
@@ -17685,7 +17696,7 @@ AutoIt:
 ### cv::MergeDebevec::getDefaultName
 
 ```cpp
-std::string cv::MergeDebevec::getDefaultName();
+std::string cv::MergeDebevec::getDefaultName const();
 
 AutoIt:
     $oMergeDebevec.getDefaultName() -> retval
@@ -17716,7 +17727,7 @@ AutoIt:
 ### cv::MergeMertens::getContrastWeight
 
 ```cpp
-float cv::MergeMertens::getContrastWeight();
+float cv::MergeMertens::getContrastWeight const();
 
 AutoIt:
     $oMergeMertens.getContrastWeight() -> retval
@@ -17734,7 +17745,7 @@ AutoIt:
 ### cv::MergeMertens::getSaturationWeight
 
 ```cpp
-float cv::MergeMertens::getSaturationWeight();
+float cv::MergeMertens::getSaturationWeight const();
 
 AutoIt:
     $oMergeMertens.getSaturationWeight() -> retval
@@ -17752,7 +17763,7 @@ AutoIt:
 ### cv::MergeMertens::getExposureWeight
 
 ```cpp
-float cv::MergeMertens::getExposureWeight();
+float cv::MergeMertens::getExposureWeight const();
 
 AutoIt:
     $oMergeMertens.getExposureWeight() -> retval
@@ -17779,8 +17790,8 @@ AutoIt:
 ### cv::MergeMertens::write
 
 ```cpp
-void cv::MergeMertens::write( const cv::Ptr<cv::FileStorage>& fs,
-                              const std::string&              name = String() );
+void cv::MergeMertens::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                    const std::string&              name = String() );
 
 AutoIt:
     $oMergeMertens.write( $fs[, $name] ) -> None
@@ -17798,7 +17809,7 @@ AutoIt:
 ### cv::MergeMertens::empty
 
 ```cpp
-bool cv::MergeMertens::empty();
+bool cv::MergeMertens::empty const();
 
 AutoIt:
     $oMergeMertens.empty() -> retval
@@ -17807,7 +17818,7 @@ AutoIt:
 ### cv::MergeMertens::save
 
 ```cpp
-void cv::MergeMertens::save( const std::string& filename );
+void cv::MergeMertens::save const( const std::string& filename );
 
 AutoIt:
     $oMergeMertens.save( $filename ) -> None
@@ -17816,7 +17827,7 @@ AutoIt:
 ### cv::MergeMertens::getDefaultName
 
 ```cpp
-std::string cv::MergeMertens::getDefaultName();
+std::string cv::MergeMertens::getDefaultName const();
 
 AutoIt:
     $oMergeMertens.getDefaultName() -> retval
@@ -17857,8 +17868,8 @@ AutoIt:
 ### cv::MergeRobertson::write
 
 ```cpp
-void cv::MergeRobertson::write( const cv::Ptr<cv::FileStorage>& fs,
-                                const std::string&              name = String() );
+void cv::MergeRobertson::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                      const std::string&              name = String() );
 
 AutoIt:
     $oMergeRobertson.write( $fs[, $name] ) -> None
@@ -17876,7 +17887,7 @@ AutoIt:
 ### cv::MergeRobertson::empty
 
 ```cpp
-bool cv::MergeRobertson::empty();
+bool cv::MergeRobertson::empty const();
 
 AutoIt:
     $oMergeRobertson.empty() -> retval
@@ -17885,7 +17896,7 @@ AutoIt:
 ### cv::MergeRobertson::save
 
 ```cpp
-void cv::MergeRobertson::save( const std::string& filename );
+void cv::MergeRobertson::save const( const std::string& filename );
 
 AutoIt:
     $oMergeRobertson.save( $filename ) -> None
@@ -17894,7 +17905,7 @@ AutoIt:
 ### cv::MergeRobertson::getDefaultName
 
 ```cpp
-std::string cv::MergeRobertson::getDefaultName();
+std::string cv::MergeRobertson::getDefaultName const();
 
 AutoIt:
     $oMergeRobertson.getDefaultName() -> retval
@@ -18162,13 +18173,6 @@ AutoIt:
 ### cv::dnn::DictValue::create
 
 ```cpp
-static cv::dnn::DictValue cv::dnn::DictValue::create();
-
-AutoIt:
-    _OpenCV_ObjCreate("cv.dnn.DictValue").create() -> <cv.dnn.DictValue object>
-```
-
-```cpp
 static cv::dnn::DictValue cv::dnn::DictValue::create( int i );
 
 AutoIt:
@@ -18192,7 +18196,7 @@ AutoIt:
 ### cv::dnn::DictValue::isInt
 
 ```cpp
-bool cv::dnn::DictValue::isInt();
+bool cv::dnn::DictValue::isInt const();
 
 AutoIt:
     $oDictValue.isInt() -> retval
@@ -18201,7 +18205,7 @@ AutoIt:
 ### cv::dnn::DictValue::isString
 
 ```cpp
-bool cv::dnn::DictValue::isString();
+bool cv::dnn::DictValue::isString const();
 
 AutoIt:
     $oDictValue.isString() -> retval
@@ -18210,7 +18214,7 @@ AutoIt:
 ### cv::dnn::DictValue::isReal
 
 ```cpp
-bool cv::dnn::DictValue::isReal();
+bool cv::dnn::DictValue::isReal const();
 
 AutoIt:
     $oDictValue.isReal() -> retval
@@ -18219,7 +18223,7 @@ AutoIt:
 ### cv::dnn::DictValue::getIntValue
 
 ```cpp
-int cv::dnn::DictValue::getIntValue( int idx = -1 );
+int cv::dnn::DictValue::getIntValue const( int idx = -1 );
 
 AutoIt:
     $oDictValue.getIntValue( [$idx] ) -> retval
@@ -18228,7 +18232,7 @@ AutoIt:
 ### cv::dnn::DictValue::getRealValue
 
 ```cpp
-double cv::dnn::DictValue::getRealValue( int idx = -1 );
+double cv::dnn::DictValue::getRealValue const( int idx = -1 );
 
 AutoIt:
     $oDictValue.getRealValue( [$idx] ) -> retval
@@ -18237,7 +18241,7 @@ AutoIt:
 ### cv::dnn::DictValue::getStringValue
 
 ```cpp
-std::string cv::dnn::DictValue::getStringValue( int idx = -1 );
+std::string cv::dnn::DictValue::getStringValue const( int idx = -1 );
 
 AutoIt:
     $oDictValue.getStringValue( [$idx] ) -> retval
@@ -18287,8 +18291,8 @@ AutoIt:
 ### cv::dnn::Layer::write
 
 ```cpp
-void cv::dnn::Layer::write( const cv::Ptr<cv::FileStorage>& fs,
-                            const std::string&              name = String() );
+void cv::dnn::Layer::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                  const std::string&              name = String() );
 
 AutoIt:
     $oLayer.write( $fs[, $name] ) -> None
@@ -18306,7 +18310,7 @@ AutoIt:
 ### cv::dnn::Layer::empty
 
 ```cpp
-bool cv::dnn::Layer::empty();
+bool cv::dnn::Layer::empty const();
 
 AutoIt:
     $oLayer.empty() -> retval
@@ -18315,7 +18319,7 @@ AutoIt:
 ### cv::dnn::Layer::save
 
 ```cpp
-void cv::dnn::Layer::save( const std::string& filename );
+void cv::dnn::Layer::save const( const std::string& filename );
 
 AutoIt:
     $oLayer.save( $filename ) -> None
@@ -18324,7 +18328,7 @@ AutoIt:
 ### cv::dnn::Layer::getDefaultName
 
 ```cpp
-std::string cv::dnn::Layer::getDefaultName();
+std::string cv::dnn::Layer::getDefaultName const();
 
 AutoIt:
     $oLayer.getDefaultName() -> retval
@@ -18362,7 +18366,7 @@ AutoIt:
 ### cv::dnn::Net::empty
 
 ```cpp
-bool cv::dnn::Net::empty();
+bool cv::dnn::Net::empty const();
 
 AutoIt:
     $oNet.empty() -> retval
@@ -18398,7 +18402,7 @@ AutoIt:
 ### cv::dnn::Net::getLayerNames
 
 ```cpp
-std::vector<std::string> cv::dnn::Net::getLayerNames();
+std::vector<std::string> cv::dnn::Net::getLayerNames const();
 
 AutoIt:
     $oNet.getLayerNames() -> retval
@@ -18500,8 +18504,8 @@ AutoIt:
 ### cv::dnn::Net::getInputDetails
 
 ```cpp
-void cv::dnn::Net::getInputDetails( std::vector<float>& scales,
-                                    std::vector<int>&   zeropoints );
+void cv::dnn::Net::getInputDetails const( std::vector<float>& scales,
+                                          std::vector<int>&   zeropoints );
 
 AutoIt:
     $oNet.getInputDetails( [$scales[, $zeropoints]] ) -> $scales, $zeropoints
@@ -18510,8 +18514,8 @@ AutoIt:
 ### cv::dnn::Net::getOutputDetails
 
 ```cpp
-void cv::dnn::Net::getOutputDetails( std::vector<float>& scales,
-                                     std::vector<int>&   zeropoints );
+void cv::dnn::Net::getOutputDetails const( std::vector<float>& scales,
+                                           std::vector<int>&   zeropoints );
 
 AutoIt:
     $oNet.getOutputDetails( [$scales[, $zeropoints]] ) -> $scales, $zeropoints
@@ -18580,7 +18584,7 @@ AutoIt:
 ### cv::dnn::Net::getUnconnectedOutLayers
 
 ```cpp
-std::vector<int> cv::dnn::Net::getUnconnectedOutLayers();
+std::vector<int> cv::dnn::Net::getUnconnectedOutLayers const();
 
 AutoIt:
     $oNet.getUnconnectedOutLayers() -> retval
@@ -18589,7 +18593,7 @@ AutoIt:
 ### cv::dnn::Net::getUnconnectedOutLayersNames
 
 ```cpp
-std::vector<std::string> cv::dnn::Net::getUnconnectedOutLayersNames();
+std::vector<std::string> cv::dnn::Net::getUnconnectedOutLayersNames const();
 
 AutoIt:
     $oNet.getUnconnectedOutLayersNames() -> retval
@@ -18598,20 +18602,20 @@ AutoIt:
 ### cv::dnn::Net::getLayersShapes
 
 ```cpp
-void cv::dnn::Net::getLayersShapes( const std::vector<std::vector<int>>&        netInputShapes,
-                                    std::vector<int>&                           layersIds,
-                                    std::vector<std::vector<std::vector<int>>>& inLayersShapes,
-                                    std::vector<std::vector<std::vector<int>>>& outLayersShapes );
+void cv::dnn::Net::getLayersShapes const( const std::vector<std::vector<int>>&        netInputShapes,
+                                          std::vector<int>&                           layersIds,
+                                          std::vector<std::vector<std::vector<int>>>& inLayersShapes,
+                                          std::vector<std::vector<std::vector<int>>>& outLayersShapes );
 
 AutoIt:
     $oNet.getLayersShapes( $netInputShapes[, $layersIds[, $inLayersShapes[, $outLayersShapes]]] ) -> $layersIds, $inLayersShapes, $outLayersShapes
 ```
 
 ```cpp
-void cv::dnn::Net::getLayersShapes( const std::vector<int>&                     netInputShape,
-                                    std::vector<int>&                           layersIds,
-                                    std::vector<std::vector<std::vector<int>>>& inLayersShapes,
-                                    std::vector<std::vector<std::vector<int>>>& outLayersShapes );
+void cv::dnn::Net::getLayersShapes const( const std::vector<int>&                     netInputShape,
+                                          std::vector<int>&                           layersIds,
+                                          std::vector<std::vector<std::vector<int>>>& inLayersShapes,
+                                          std::vector<std::vector<std::vector<int>>>& outLayersShapes );
 
 AutoIt:
     $oNet.getLayersShapes( $netInputShape[, $layersIds[, $inLayersShapes[, $outLayersShapes]]] ) -> $layersIds, $inLayersShapes, $outLayersShapes
@@ -18620,30 +18624,30 @@ AutoIt:
 ### cv::dnn::Net::getFLOPS
 
 ```cpp
-int64 cv::dnn::Net::getFLOPS( const std::vector<std::vector<int>>& netInputShapes );
+int64 cv::dnn::Net::getFLOPS const( const std::vector<std::vector<int>>& netInputShapes );
 
 AutoIt:
     $oNet.getFLOPS( $netInputShapes ) -> retval
 ```
 
 ```cpp
-int64 cv::dnn::Net::getFLOPS( const std::vector<int>& netInputShape );
+int64 cv::dnn::Net::getFLOPS const( const std::vector<int>& netInputShape );
 
 AutoIt:
     $oNet.getFLOPS( $netInputShape ) -> retval
 ```
 
 ```cpp
-int64 cv::dnn::Net::getFLOPS( const int                            layerId,
-                              const std::vector<std::vector<int>>& netInputShapes );
+int64 cv::dnn::Net::getFLOPS const( const int                            layerId,
+                                    const std::vector<std::vector<int>>& netInputShapes );
 
 AutoIt:
     $oNet.getFLOPS( $layerId, $netInputShapes ) -> retval
 ```
 
 ```cpp
-int64 cv::dnn::Net::getFLOPS( const int               layerId,
-                              const std::vector<int>& netInputShape );
+int64 cv::dnn::Net::getFLOPS const( const int               layerId,
+                                    const std::vector<int>& netInputShape );
 
 AutoIt:
     $oNet.getFLOPS( $layerId, $netInputShape ) -> retval
@@ -18652,7 +18656,7 @@ AutoIt:
 ### cv::dnn::Net::getLayerTypes
 
 ```cpp
-void cv::dnn::Net::getLayerTypes( std::vector<std::string>& layersTypes );
+void cv::dnn::Net::getLayerTypes const( std::vector<std::string>& layersTypes );
 
 AutoIt:
     $oNet.getLayerTypes( [$layersTypes] ) -> $layersTypes
@@ -18661,7 +18665,7 @@ AutoIt:
 ### cv::dnn::Net::getLayersCount
 
 ```cpp
-int cv::dnn::Net::getLayersCount( const std::string& layerType );
+int cv::dnn::Net::getLayersCount const( const std::string& layerType );
 
 AutoIt:
     $oNet.getLayersCount( $layerType ) -> retval
@@ -18670,29 +18674,29 @@ AutoIt:
 ### cv::dnn::Net::getMemoryConsumption
 
 ```cpp
-void cv::dnn::Net::getMemoryConsumption( const std::vector<int>& netInputShape,
-                                         size_t&                 weights,
-                                         size_t&                 blobs );
+void cv::dnn::Net::getMemoryConsumption const( const std::vector<int>& netInputShape,
+                                               size_t&                 weights,
+                                               size_t&                 blobs );
 
 AutoIt:
     $oNet.getMemoryConsumption( $netInputShape[, $weights[, $blobs]] ) -> $weights, $blobs
 ```
 
 ```cpp
-void cv::dnn::Net::getMemoryConsumption( const int                            layerId,
-                                         const std::vector<std::vector<int>>& netInputShapes,
-                                         size_t&                              weights,
-                                         size_t&                              blobs );
+void cv::dnn::Net::getMemoryConsumption const( const int                            layerId,
+                                               const std::vector<std::vector<int>>& netInputShapes,
+                                               size_t&                              weights,
+                                               size_t&                              blobs );
 
 AutoIt:
     $oNet.getMemoryConsumption( $layerId, $netInputShapes[, $weights[, $blobs]] ) -> $weights, $blobs
 ```
 
 ```cpp
-void cv::dnn::Net::getMemoryConsumption( const int               layerId,
-                                         const std::vector<int>& netInputShape,
-                                         size_t&                 weights,
-                                         size_t&                 blobs );
+void cv::dnn::Net::getMemoryConsumption const( const int               layerId,
+                                               const std::vector<int>& netInputShape,
+                                               size_t&                 weights,
+                                               size_t&                 blobs );
 
 AutoIt:
     $oNet.getMemoryConsumption( $layerId, $netInputShape[, $weights[, $blobs]] ) -> $weights, $blobs
@@ -18804,8 +18808,8 @@ AutoIt:
 ### cv::dnn::Model::predict
 
 ```cpp
-void cv::dnn::Model::predict( _InputArray  frame,
-                              _OutputArray outs );
+void cv::dnn::Model::predict const( _InputArray  frame,
+                                    _OutputArray outs );
 
 AutoIt:
     $oModel.predict( $frame[, $outs] ) -> $outs
@@ -18928,8 +18932,8 @@ AutoIt:
 ### cv::dnn::ClassificationModel::predict
 
 ```cpp
-void cv::dnn::ClassificationModel::predict( _InputArray  frame,
-                                            _OutputArray outs );
+void cv::dnn::ClassificationModel::predict const( _InputArray  frame,
+                                                  _OutputArray outs );
 
 AutoIt:
     $oClassificationModel.predict( $frame[, $outs] ) -> $outs
@@ -19051,8 +19055,8 @@ AutoIt:
 ### cv::dnn::KeypointsModel::predict
 
 ```cpp
-void cv::dnn::KeypointsModel::predict( _InputArray  frame,
-                                       _OutputArray outs );
+void cv::dnn::KeypointsModel::predict const( _InputArray  frame,
+                                             _OutputArray outs );
 
 AutoIt:
     $oKeypointsModel.predict( $frame[, $outs] ) -> $outs
@@ -19174,8 +19178,8 @@ AutoIt:
 ### cv::dnn::SegmentationModel::predict
 
 ```cpp
-void cv::dnn::SegmentationModel::predict( _InputArray  frame,
-                                          _OutputArray outs );
+void cv::dnn::SegmentationModel::predict const( _InputArray  frame,
+                                                _OutputArray outs );
 
 AutoIt:
     $oSegmentationModel.predict( $frame[, $outs] ) -> $outs
@@ -19319,8 +19323,8 @@ AutoIt:
 ### cv::dnn::DetectionModel::predict
 
 ```cpp
-void cv::dnn::DetectionModel::predict( _InputArray  frame,
-                                       _OutputArray outs );
+void cv::dnn::DetectionModel::predict const( _InputArray  frame,
+                                             _OutputArray outs );
 
 AutoIt:
     $oDetectionModel.predict( $frame[, $outs] ) -> $outs
@@ -19375,7 +19379,7 @@ AutoIt:
 ### cv::dnn::TextRecognitionModel::getDecodeType
 
 ```cpp
-std::string cv::dnn::TextRecognitionModel::getDecodeType();
+std::string cv::dnn::TextRecognitionModel::getDecodeType const();
 
 AutoIt:
     $oTextRecognitionModel.getDecodeType() -> retval
@@ -19403,7 +19407,7 @@ AutoIt:
 ### cv::dnn::TextRecognitionModel::getVocabulary
 
 ```cpp
-std::vector<std::string> cv::dnn::TextRecognitionModel::getVocabulary();
+std::vector<std::string> cv::dnn::TextRecognitionModel::getVocabulary const();
 
 AutoIt:
     $oTextRecognitionModel.getVocabulary() -> retval
@@ -19412,16 +19416,16 @@ AutoIt:
 ### cv::dnn::TextRecognitionModel::recognize
 
 ```cpp
-std::string cv::dnn::TextRecognitionModel::recognize( _InputArray frame );
+std::string cv::dnn::TextRecognitionModel::recognize const( _InputArray frame );
 
 AutoIt:
     $oTextRecognitionModel.recognize( $frame ) -> retval
 ```
 
 ```cpp
-void cv::dnn::TextRecognitionModel::recognize( _InputArray               frame,
-                                               _InputArray               roiRects,
-                                               std::vector<std::string>& results );
+void cv::dnn::TextRecognitionModel::recognize const( _InputArray               frame,
+                                                     _InputArray               roiRects,
+                                                     std::vector<std::string>& results );
 
 AutoIt:
     $oTextRecognitionModel.recognize( $frame, $roiRects[, $results] ) -> $results
@@ -19496,8 +19500,8 @@ AutoIt:
 ### cv::dnn::TextRecognitionModel::predict
 
 ```cpp
-void cv::dnn::TextRecognitionModel::predict( _InputArray  frame,
-                                             _OutputArray outs );
+void cv::dnn::TextRecognitionModel::predict const( _InputArray  frame,
+                                                   _OutputArray outs );
 
 AutoIt:
     $oTextRecognitionModel.predict( $frame[, $outs] ) -> $outs
@@ -19526,17 +19530,17 @@ AutoIt:
 ### cv::dnn::TextDetectionModel::detect
 
 ```cpp
-void cv::dnn::TextDetectionModel::detect( _InputArray                          frame,
-                                          std::vector<std::vector<cv::Point>>& detections,
-                                          std::vector<float>&                  confidences );
+void cv::dnn::TextDetectionModel::detect const( _InputArray                          frame,
+                                                std::vector<std::vector<cv::Point>>& detections,
+                                                std::vector<float>&                  confidences );
 
 AutoIt:
     $oTextDetectionModel.detect( $frame[, $detections[, $confidences]] ) -> $detections, $confidences
 ```
 
 ```cpp
-void cv::dnn::TextDetectionModel::detect( _InputArray                          frame,
-                                          std::vector<std::vector<cv::Point>>& detections );
+void cv::dnn::TextDetectionModel::detect const( _InputArray                          frame,
+                                                std::vector<std::vector<cv::Point>>& detections );
 
 AutoIt:
     $oTextDetectionModel.detect( $frame[, $detections] ) -> $detections
@@ -19545,17 +19549,17 @@ AutoIt:
 ### cv::dnn::TextDetectionModel::detectTextRectangles
 
 ```cpp
-void cv::dnn::TextDetectionModel::detectTextRectangles( _InputArray                   frame,
-                                                        std::vector<cv::RotatedRect>& detections,
-                                                        std::vector<float>&           confidences );
+void cv::dnn::TextDetectionModel::detectTextRectangles const( _InputArray                   frame,
+                                                              std::vector<cv::RotatedRect>& detections,
+                                                              std::vector<float>&           confidences );
 
 AutoIt:
     $oTextDetectionModel.detectTextRectangles( $frame[, $detections[, $confidences]] ) -> $detections, $confidences
 ```
 
 ```cpp
-void cv::dnn::TextDetectionModel::detectTextRectangles( _InputArray                   frame,
-                                                        std::vector<cv::RotatedRect>& detections );
+void cv::dnn::TextDetectionModel::detectTextRectangles const( _InputArray                   frame,
+                                                              std::vector<cv::RotatedRect>& detections );
 
 AutoIt:
     $oTextDetectionModel.detectTextRectangles( $frame[, $detections] ) -> $detections
@@ -19630,8 +19634,8 @@ AutoIt:
 ### cv::dnn::TextDetectionModel::predict
 
 ```cpp
-void cv::dnn::TextDetectionModel::predict( _InputArray  frame,
-                                           _OutputArray outs );
+void cv::dnn::TextDetectionModel::predict const( _InputArray  frame,
+                                                 _OutputArray outs );
 
 AutoIt:
     $oTextDetectionModel.predict( $frame[, $outs] ) -> $outs
@@ -19686,7 +19690,7 @@ AutoIt:
 ### cv::dnn::TextDetectionModel_EAST::getConfidenceThreshold
 
 ```cpp
-float cv::dnn::TextDetectionModel_EAST::getConfidenceThreshold();
+float cv::dnn::TextDetectionModel_EAST::getConfidenceThreshold const();
 
 AutoIt:
     $oTextDetectionModel_EAST.getConfidenceThreshold() -> retval
@@ -19704,7 +19708,7 @@ AutoIt:
 ### cv::dnn::TextDetectionModel_EAST::getNMSThreshold
 
 ```cpp
-float cv::dnn::TextDetectionModel_EAST::getNMSThreshold();
+float cv::dnn::TextDetectionModel_EAST::getNMSThreshold const();
 
 AutoIt:
     $oTextDetectionModel_EAST.getNMSThreshold() -> retval
@@ -19713,17 +19717,17 @@ AutoIt:
 ### cv::dnn::TextDetectionModel_EAST::detect
 
 ```cpp
-void cv::dnn::TextDetectionModel_EAST::detect( _InputArray                          frame,
-                                               std::vector<std::vector<cv::Point>>& detections,
-                                               std::vector<float>&                  confidences );
+void cv::dnn::TextDetectionModel_EAST::detect const( _InputArray                          frame,
+                                                     std::vector<std::vector<cv::Point>>& detections,
+                                                     std::vector<float>&                  confidences );
 
 AutoIt:
     $oTextDetectionModel_EAST.detect( $frame[, $detections[, $confidences]] ) -> $detections, $confidences
 ```
 
 ```cpp
-void cv::dnn::TextDetectionModel_EAST::detect( _InputArray                          frame,
-                                               std::vector<std::vector<cv::Point>>& detections );
+void cv::dnn::TextDetectionModel_EAST::detect const( _InputArray                          frame,
+                                                     std::vector<std::vector<cv::Point>>& detections );
 
 AutoIt:
     $oTextDetectionModel_EAST.detect( $frame[, $detections] ) -> $detections
@@ -19732,17 +19736,17 @@ AutoIt:
 ### cv::dnn::TextDetectionModel_EAST::detectTextRectangles
 
 ```cpp
-void cv::dnn::TextDetectionModel_EAST::detectTextRectangles( _InputArray                   frame,
-                                                             std::vector<cv::RotatedRect>& detections,
-                                                             std::vector<float>&           confidences );
+void cv::dnn::TextDetectionModel_EAST::detectTextRectangles const( _InputArray                   frame,
+                                                                   std::vector<cv::RotatedRect>& detections,
+                                                                   std::vector<float>&           confidences );
 
 AutoIt:
     $oTextDetectionModel_EAST.detectTextRectangles( $frame[, $detections[, $confidences]] ) -> $detections, $confidences
 ```
 
 ```cpp
-void cv::dnn::TextDetectionModel_EAST::detectTextRectangles( _InputArray                   frame,
-                                                             std::vector<cv::RotatedRect>& detections );
+void cv::dnn::TextDetectionModel_EAST::detectTextRectangles const( _InputArray                   frame,
+                                                                   std::vector<cv::RotatedRect>& detections );
 
 AutoIt:
     $oTextDetectionModel_EAST.detectTextRectangles( $frame[, $detections] ) -> $detections
@@ -19817,8 +19821,8 @@ AutoIt:
 ### cv::dnn::TextDetectionModel_EAST::predict
 
 ```cpp
-void cv::dnn::TextDetectionModel_EAST::predict( _InputArray  frame,
-                                                _OutputArray outs );
+void cv::dnn::TextDetectionModel_EAST::predict const( _InputArray  frame,
+                                                      _OutputArray outs );
 
 AutoIt:
     $oTextDetectionModel_EAST.predict( $frame[, $outs] ) -> $outs
@@ -19873,7 +19877,7 @@ AutoIt:
 ### cv::dnn::TextDetectionModel_DB::getBinaryThreshold
 
 ```cpp
-float cv::dnn::TextDetectionModel_DB::getBinaryThreshold();
+float cv::dnn::TextDetectionModel_DB::getBinaryThreshold const();
 
 AutoIt:
     $oTextDetectionModel_DB.getBinaryThreshold() -> retval
@@ -19891,7 +19895,7 @@ AutoIt:
 ### cv::dnn::TextDetectionModel_DB::getPolygonThreshold
 
 ```cpp
-float cv::dnn::TextDetectionModel_DB::getPolygonThreshold();
+float cv::dnn::TextDetectionModel_DB::getPolygonThreshold const();
 
 AutoIt:
     $oTextDetectionModel_DB.getPolygonThreshold() -> retval
@@ -19909,7 +19913,7 @@ AutoIt:
 ### cv::dnn::TextDetectionModel_DB::getUnclipRatio
 
 ```cpp
-double cv::dnn::TextDetectionModel_DB::getUnclipRatio();
+double cv::dnn::TextDetectionModel_DB::getUnclipRatio const();
 
 AutoIt:
     $oTextDetectionModel_DB.getUnclipRatio() -> retval
@@ -19927,7 +19931,7 @@ AutoIt:
 ### cv::dnn::TextDetectionModel_DB::getMaxCandidates
 
 ```cpp
-int cv::dnn::TextDetectionModel_DB::getMaxCandidates();
+int cv::dnn::TextDetectionModel_DB::getMaxCandidates const();
 
 AutoIt:
     $oTextDetectionModel_DB.getMaxCandidates() -> retval
@@ -19936,17 +19940,17 @@ AutoIt:
 ### cv::dnn::TextDetectionModel_DB::detect
 
 ```cpp
-void cv::dnn::TextDetectionModel_DB::detect( _InputArray                          frame,
-                                             std::vector<std::vector<cv::Point>>& detections,
-                                             std::vector<float>&                  confidences );
+void cv::dnn::TextDetectionModel_DB::detect const( _InputArray                          frame,
+                                                   std::vector<std::vector<cv::Point>>& detections,
+                                                   std::vector<float>&                  confidences );
 
 AutoIt:
     $oTextDetectionModel_DB.detect( $frame[, $detections[, $confidences]] ) -> $detections, $confidences
 ```
 
 ```cpp
-void cv::dnn::TextDetectionModel_DB::detect( _InputArray                          frame,
-                                             std::vector<std::vector<cv::Point>>& detections );
+void cv::dnn::TextDetectionModel_DB::detect const( _InputArray                          frame,
+                                                   std::vector<std::vector<cv::Point>>& detections );
 
 AutoIt:
     $oTextDetectionModel_DB.detect( $frame[, $detections] ) -> $detections
@@ -19955,17 +19959,17 @@ AutoIt:
 ### cv::dnn::TextDetectionModel_DB::detectTextRectangles
 
 ```cpp
-void cv::dnn::TextDetectionModel_DB::detectTextRectangles( _InputArray                   frame,
-                                                           std::vector<cv::RotatedRect>& detections,
-                                                           std::vector<float>&           confidences );
+void cv::dnn::TextDetectionModel_DB::detectTextRectangles const( _InputArray                   frame,
+                                                                 std::vector<cv::RotatedRect>& detections,
+                                                                 std::vector<float>&           confidences );
 
 AutoIt:
     $oTextDetectionModel_DB.detectTextRectangles( $frame[, $detections[, $confidences]] ) -> $detections, $confidences
 ```
 
 ```cpp
-void cv::dnn::TextDetectionModel_DB::detectTextRectangles( _InputArray                   frame,
-                                                           std::vector<cv::RotatedRect>& detections );
+void cv::dnn::TextDetectionModel_DB::detectTextRectangles const( _InputArray                   frame,
+                                                                 std::vector<cv::RotatedRect>& detections );
 
 AutoIt:
     $oTextDetectionModel_DB.detectTextRectangles( $frame[, $detections] ) -> $detections
@@ -20040,8 +20044,8 @@ AutoIt:
 ### cv::dnn::TextDetectionModel_DB::predict
 
 ```cpp
-void cv::dnn::TextDetectionModel_DB::predict( _InputArray  frame,
-                                              _OutputArray outs );
+void cv::dnn::TextDetectionModel_DB::predict const( _InputArray  frame,
+                                                    _OutputArray outs );
 
 AutoIt:
     $oTextDetectionModel_DB.predict( $frame[, $outs] ) -> $outs
@@ -20123,7 +20127,7 @@ AutoIt:
 ### cv::Feature2D::descriptorSize
 
 ```cpp
-int cv::Feature2D::descriptorSize();
+int cv::Feature2D::descriptorSize const();
 
 AutoIt:
     $oFeature2D.descriptorSize() -> retval
@@ -20132,7 +20136,7 @@ AutoIt:
 ### cv::Feature2D::descriptorType
 
 ```cpp
-int cv::Feature2D::descriptorType();
+int cv::Feature2D::descriptorType const();
 
 AutoIt:
     $oFeature2D.descriptorType() -> retval
@@ -20141,7 +20145,7 @@ AutoIt:
 ### cv::Feature2D::defaultNorm
 
 ```cpp
-int cv::Feature2D::defaultNorm();
+int cv::Feature2D::defaultNorm const();
 
 AutoIt:
     $oFeature2D.defaultNorm() -> retval
@@ -20150,15 +20154,15 @@ AutoIt:
 ### cv::Feature2D::write
 
 ```cpp
-void cv::Feature2D::write( const std::string& fileName );
+void cv::Feature2D::write const( const std::string& fileName );
 
 AutoIt:
     $oFeature2D.write( $fileName ) -> None
 ```
 
 ```cpp
-void cv::Feature2D::write( const cv::Ptr<cv::FileStorage>& fs,
-                           const std::string&              name = String() );
+void cv::Feature2D::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                 const std::string&              name = String() );
 
 AutoIt:
     $oFeature2D.write( $fs[, $name] ) -> None
@@ -20183,7 +20187,7 @@ AutoIt:
 ### cv::Feature2D::empty
 
 ```cpp
-bool cv::Feature2D::empty();
+bool cv::Feature2D::empty const();
 
 AutoIt:
     $oFeature2D.empty() -> retval
@@ -20192,7 +20196,7 @@ AutoIt:
 ### cv::Feature2D::getDefaultName
 
 ```cpp
-std::string cv::Feature2D::getDefaultName();
+std::string cv::Feature2D::getDefaultName const();
 
 AutoIt:
     $oFeature2D.getDefaultName() -> retval
@@ -20210,7 +20214,7 @@ AutoIt:
 ### cv::Feature2D::save
 
 ```cpp
-void cv::Feature2D::save( const std::string& filename );
+void cv::Feature2D::save const( const std::string& filename );
 
 AutoIt:
     $oFeature2D.save( $filename ) -> None
@@ -20244,8 +20248,8 @@ AutoIt:
 ### cv::AffineFeature::getViewParams
 
 ```cpp
-void cv::AffineFeature::getViewParams( std::vector<float>& tilts,
-                                       std::vector<float>& rolls );
+void cv::AffineFeature::getViewParams const( std::vector<float>& tilts,
+                                             std::vector<float>& rolls );
 
 AutoIt:
     $oAffineFeature.getViewParams( $tilts, $rolls ) -> None
@@ -20254,7 +20258,7 @@ AutoIt:
 ### cv::AffineFeature::getDefaultName
 
 ```cpp
-std::string cv::AffineFeature::getDefaultName();
+std::string cv::AffineFeature::getDefaultName const();
 
 AutoIt:
     $oAffineFeature.getDefaultName() -> retval
@@ -20316,7 +20320,7 @@ AutoIt:
 ### cv::AffineFeature::descriptorSize
 
 ```cpp
-int cv::AffineFeature::descriptorSize();
+int cv::AffineFeature::descriptorSize const();
 
 AutoIt:
     $oAffineFeature.descriptorSize() -> retval
@@ -20325,7 +20329,7 @@ AutoIt:
 ### cv::AffineFeature::descriptorType
 
 ```cpp
-int cv::AffineFeature::descriptorType();
+int cv::AffineFeature::descriptorType const();
 
 AutoIt:
     $oAffineFeature.descriptorType() -> retval
@@ -20334,7 +20338,7 @@ AutoIt:
 ### cv::AffineFeature::defaultNorm
 
 ```cpp
-int cv::AffineFeature::defaultNorm();
+int cv::AffineFeature::defaultNorm const();
 
 AutoIt:
     $oAffineFeature.defaultNorm() -> retval
@@ -20343,15 +20347,15 @@ AutoIt:
 ### cv::AffineFeature::write
 
 ```cpp
-void cv::AffineFeature::write( const std::string& fileName );
+void cv::AffineFeature::write const( const std::string& fileName );
 
 AutoIt:
     $oAffineFeature.write( $fileName ) -> None
 ```
 
 ```cpp
-void cv::AffineFeature::write( const cv::Ptr<cv::FileStorage>& fs,
-                               const std::string&              name = String() );
+void cv::AffineFeature::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                     const std::string&              name = String() );
 
 AutoIt:
     $oAffineFeature.write( $fs[, $name] ) -> None
@@ -20376,7 +20380,7 @@ AutoIt:
 ### cv::AffineFeature::empty
 
 ```cpp
-bool cv::AffineFeature::empty();
+bool cv::AffineFeature::empty const();
 
 AutoIt:
     $oAffineFeature.empty() -> retval
@@ -20394,7 +20398,7 @@ AutoIt:
 ### cv::AffineFeature::save
 
 ```cpp
-void cv::AffineFeature::save( const std::string& filename );
+void cv::AffineFeature::save const( const std::string& filename );
 
 AutoIt:
     $oAffineFeature.save( $filename ) -> None
@@ -20430,7 +20434,7 @@ AutoIt:
 ### cv::SIFT::getDefaultName
 
 ```cpp
-std::string cv::SIFT::getDefaultName();
+std::string cv::SIFT::getDefaultName const();
 
 AutoIt:
     $oSIFT.getDefaultName() -> retval
@@ -20492,7 +20496,7 @@ AutoIt:
 ### cv::SIFT::descriptorSize
 
 ```cpp
-int cv::SIFT::descriptorSize();
+int cv::SIFT::descriptorSize const();
 
 AutoIt:
     $oSIFT.descriptorSize() -> retval
@@ -20501,7 +20505,7 @@ AutoIt:
 ### cv::SIFT::descriptorType
 
 ```cpp
-int cv::SIFT::descriptorType();
+int cv::SIFT::descriptorType const();
 
 AutoIt:
     $oSIFT.descriptorType() -> retval
@@ -20510,7 +20514,7 @@ AutoIt:
 ### cv::SIFT::defaultNorm
 
 ```cpp
-int cv::SIFT::defaultNorm();
+int cv::SIFT::defaultNorm const();
 
 AutoIt:
     $oSIFT.defaultNorm() -> retval
@@ -20519,15 +20523,15 @@ AutoIt:
 ### cv::SIFT::write
 
 ```cpp
-void cv::SIFT::write( const std::string& fileName );
+void cv::SIFT::write const( const std::string& fileName );
 
 AutoIt:
     $oSIFT.write( $fileName ) -> None
 ```
 
 ```cpp
-void cv::SIFT::write( const cv::Ptr<cv::FileStorage>& fs,
-                      const std::string&              name = String() );
+void cv::SIFT::write const( const cv::Ptr<cv::FileStorage>& fs,
+                            const std::string&              name = String() );
 
 AutoIt:
     $oSIFT.write( $fs[, $name] ) -> None
@@ -20552,7 +20556,7 @@ AutoIt:
 ### cv::SIFT::empty
 
 ```cpp
-bool cv::SIFT::empty();
+bool cv::SIFT::empty const();
 
 AutoIt:
     $oSIFT.empty() -> retval
@@ -20570,7 +20574,7 @@ AutoIt:
 ### cv::SIFT::save
 
 ```cpp
-void cv::SIFT::save( const std::string& filename );
+void cv::SIFT::save const( const std::string& filename );
 
 AutoIt:
     $oSIFT.save( $filename ) -> None
@@ -20616,7 +20620,7 @@ AutoIt:
 ### cv::BRISK::getDefaultName
 
 ```cpp
-std::string cv::BRISK::getDefaultName();
+std::string cv::BRISK::getDefaultName const();
 
 AutoIt:
     $oBRISK.getDefaultName() -> retval
@@ -20634,7 +20638,7 @@ AutoIt:
 ### cv::BRISK::getThreshold
 
 ```cpp
-int cv::BRISK::getThreshold();
+int cv::BRISK::getThreshold const();
 
 AutoIt:
     $oBRISK.getThreshold() -> retval
@@ -20652,7 +20656,7 @@ AutoIt:
 ### cv::BRISK::getOctaves
 
 ```cpp
-int cv::BRISK::getOctaves();
+int cv::BRISK::getOctaves const();
 
 AutoIt:
     $oBRISK.getOctaves() -> retval
@@ -20714,7 +20718,7 @@ AutoIt:
 ### cv::BRISK::descriptorSize
 
 ```cpp
-int cv::BRISK::descriptorSize();
+int cv::BRISK::descriptorSize const();
 
 AutoIt:
     $oBRISK.descriptorSize() -> retval
@@ -20723,7 +20727,7 @@ AutoIt:
 ### cv::BRISK::descriptorType
 
 ```cpp
-int cv::BRISK::descriptorType();
+int cv::BRISK::descriptorType const();
 
 AutoIt:
     $oBRISK.descriptorType() -> retval
@@ -20732,7 +20736,7 @@ AutoIt:
 ### cv::BRISK::defaultNorm
 
 ```cpp
-int cv::BRISK::defaultNorm();
+int cv::BRISK::defaultNorm const();
 
 AutoIt:
     $oBRISK.defaultNorm() -> retval
@@ -20741,15 +20745,15 @@ AutoIt:
 ### cv::BRISK::write
 
 ```cpp
-void cv::BRISK::write( const std::string& fileName );
+void cv::BRISK::write const( const std::string& fileName );
 
 AutoIt:
     $oBRISK.write( $fileName ) -> None
 ```
 
 ```cpp
-void cv::BRISK::write( const cv::Ptr<cv::FileStorage>& fs,
-                       const std::string&              name = String() );
+void cv::BRISK::write const( const cv::Ptr<cv::FileStorage>& fs,
+                             const std::string&              name = String() );
 
 AutoIt:
     $oBRISK.write( $fs[, $name] ) -> None
@@ -20774,7 +20778,7 @@ AutoIt:
 ### cv::BRISK::empty
 
 ```cpp
-bool cv::BRISK::empty();
+bool cv::BRISK::empty const();
 
 AutoIt:
     $oBRISK.empty() -> retval
@@ -20792,7 +20796,7 @@ AutoIt:
 ### cv::BRISK::save
 
 ```cpp
-void cv::BRISK::save( const std::string& filename );
+void cv::BRISK::save const( const std::string& filename );
 
 AutoIt:
     $oBRISK.save( $filename ) -> None
@@ -20829,7 +20833,7 @@ AutoIt:
 ### cv::ORB::getMaxFeatures
 
 ```cpp
-int cv::ORB::getMaxFeatures();
+int cv::ORB::getMaxFeatures const();
 
 AutoIt:
     $oORB.getMaxFeatures() -> retval
@@ -20847,7 +20851,7 @@ AutoIt:
 ### cv::ORB::getScaleFactor
 
 ```cpp
-double cv::ORB::getScaleFactor();
+double cv::ORB::getScaleFactor const();
 
 AutoIt:
     $oORB.getScaleFactor() -> retval
@@ -20865,7 +20869,7 @@ AutoIt:
 ### cv::ORB::getNLevels
 
 ```cpp
-int cv::ORB::getNLevels();
+int cv::ORB::getNLevels const();
 
 AutoIt:
     $oORB.getNLevels() -> retval
@@ -20883,7 +20887,7 @@ AutoIt:
 ### cv::ORB::getEdgeThreshold
 
 ```cpp
-int cv::ORB::getEdgeThreshold();
+int cv::ORB::getEdgeThreshold const();
 
 AutoIt:
     $oORB.getEdgeThreshold() -> retval
@@ -20901,7 +20905,7 @@ AutoIt:
 ### cv::ORB::getFirstLevel
 
 ```cpp
-int cv::ORB::getFirstLevel();
+int cv::ORB::getFirstLevel const();
 
 AutoIt:
     $oORB.getFirstLevel() -> retval
@@ -20919,7 +20923,7 @@ AutoIt:
 ### cv::ORB::getWTA_K
 
 ```cpp
-int cv::ORB::getWTA_K();
+int cv::ORB::getWTA_K const();
 
 AutoIt:
     $oORB.getWTA_K() -> retval
@@ -20937,7 +20941,7 @@ AutoIt:
 ### cv::ORB::getScoreType
 
 ```cpp
-int cv::ORB::getScoreType();
+int cv::ORB::getScoreType const();
 
 AutoIt:
     $oORB.getScoreType() -> retval
@@ -20955,7 +20959,7 @@ AutoIt:
 ### cv::ORB::getPatchSize
 
 ```cpp
-int cv::ORB::getPatchSize();
+int cv::ORB::getPatchSize const();
 
 AutoIt:
     $oORB.getPatchSize() -> retval
@@ -20973,7 +20977,7 @@ AutoIt:
 ### cv::ORB::getFastThreshold
 
 ```cpp
-int cv::ORB::getFastThreshold();
+int cv::ORB::getFastThreshold const();
 
 AutoIt:
     $oORB.getFastThreshold() -> retval
@@ -20982,7 +20986,7 @@ AutoIt:
 ### cv::ORB::getDefaultName
 
 ```cpp
-std::string cv::ORB::getDefaultName();
+std::string cv::ORB::getDefaultName const();
 
 AutoIt:
     $oORB.getDefaultName() -> retval
@@ -21044,7 +21048,7 @@ AutoIt:
 ### cv::ORB::descriptorSize
 
 ```cpp
-int cv::ORB::descriptorSize();
+int cv::ORB::descriptorSize const();
 
 AutoIt:
     $oORB.descriptorSize() -> retval
@@ -21053,7 +21057,7 @@ AutoIt:
 ### cv::ORB::descriptorType
 
 ```cpp
-int cv::ORB::descriptorType();
+int cv::ORB::descriptorType const();
 
 AutoIt:
     $oORB.descriptorType() -> retval
@@ -21062,7 +21066,7 @@ AutoIt:
 ### cv::ORB::defaultNorm
 
 ```cpp
-int cv::ORB::defaultNorm();
+int cv::ORB::defaultNorm const();
 
 AutoIt:
     $oORB.defaultNorm() -> retval
@@ -21071,15 +21075,15 @@ AutoIt:
 ### cv::ORB::write
 
 ```cpp
-void cv::ORB::write( const std::string& fileName );
+void cv::ORB::write const( const std::string& fileName );
 
 AutoIt:
     $oORB.write( $fileName ) -> None
 ```
 
 ```cpp
-void cv::ORB::write( const cv::Ptr<cv::FileStorage>& fs,
-                     const std::string&              name = String() );
+void cv::ORB::write const( const cv::Ptr<cv::FileStorage>& fs,
+                           const std::string&              name = String() );
 
 AutoIt:
     $oORB.write( $fs[, $name] ) -> None
@@ -21104,7 +21108,7 @@ AutoIt:
 ### cv::ORB::empty
 
 ```cpp
-bool cv::ORB::empty();
+bool cv::ORB::empty const();
 
 AutoIt:
     $oORB.empty() -> retval
@@ -21122,7 +21126,7 @@ AutoIt:
 ### cv::ORB::save
 
 ```cpp
-void cv::ORB::save( const std::string& filename );
+void cv::ORB::save const( const std::string& filename );
 
 AutoIt:
     $oORB.save( $filename ) -> None
@@ -21170,7 +21174,7 @@ AutoIt:
 ### cv::MSER::getDelta
 
 ```cpp
-int cv::MSER::getDelta();
+int cv::MSER::getDelta const();
 
 AutoIt:
     $oMSER.getDelta() -> retval
@@ -21188,7 +21192,7 @@ AutoIt:
 ### cv::MSER::getMinArea
 
 ```cpp
-int cv::MSER::getMinArea();
+int cv::MSER::getMinArea const();
 
 AutoIt:
     $oMSER.getMinArea() -> retval
@@ -21206,7 +21210,7 @@ AutoIt:
 ### cv::MSER::getMaxArea
 
 ```cpp
-int cv::MSER::getMaxArea();
+int cv::MSER::getMaxArea const();
 
 AutoIt:
     $oMSER.getMaxArea() -> retval
@@ -21224,7 +21228,7 @@ AutoIt:
 ### cv::MSER::getPass2Only
 
 ```cpp
-bool cv::MSER::getPass2Only();
+bool cv::MSER::getPass2Only const();
 
 AutoIt:
     $oMSER.getPass2Only() -> retval
@@ -21233,7 +21237,7 @@ AutoIt:
 ### cv::MSER::getDefaultName
 
 ```cpp
-std::string cv::MSER::getDefaultName();
+std::string cv::MSER::getDefaultName const();
 
 AutoIt:
     $oMSER.getDefaultName() -> retval
@@ -21295,7 +21299,7 @@ AutoIt:
 ### cv::MSER::descriptorSize
 
 ```cpp
-int cv::MSER::descriptorSize();
+int cv::MSER::descriptorSize const();
 
 AutoIt:
     $oMSER.descriptorSize() -> retval
@@ -21304,7 +21308,7 @@ AutoIt:
 ### cv::MSER::descriptorType
 
 ```cpp
-int cv::MSER::descriptorType();
+int cv::MSER::descriptorType const();
 
 AutoIt:
     $oMSER.descriptorType() -> retval
@@ -21313,7 +21317,7 @@ AutoIt:
 ### cv::MSER::defaultNorm
 
 ```cpp
-int cv::MSER::defaultNorm();
+int cv::MSER::defaultNorm const();
 
 AutoIt:
     $oMSER.defaultNorm() -> retval
@@ -21322,15 +21326,15 @@ AutoIt:
 ### cv::MSER::write
 
 ```cpp
-void cv::MSER::write( const std::string& fileName );
+void cv::MSER::write const( const std::string& fileName );
 
 AutoIt:
     $oMSER.write( $fileName ) -> None
 ```
 
 ```cpp
-void cv::MSER::write( const cv::Ptr<cv::FileStorage>& fs,
-                      const std::string&              name = String() );
+void cv::MSER::write const( const cv::Ptr<cv::FileStorage>& fs,
+                            const std::string&              name = String() );
 
 AutoIt:
     $oMSER.write( $fs[, $name] ) -> None
@@ -21355,7 +21359,7 @@ AutoIt:
 ### cv::MSER::empty
 
 ```cpp
-bool cv::MSER::empty();
+bool cv::MSER::empty const();
 
 AutoIt:
     $oMSER.empty() -> retval
@@ -21373,7 +21377,7 @@ AutoIt:
 ### cv::MSER::save
 
 ```cpp
-void cv::MSER::save( const std::string& filename );
+void cv::MSER::save const( const std::string& filename );
 
 AutoIt:
     $oMSER.save( $filename ) -> None
@@ -21404,7 +21408,7 @@ AutoIt:
 ### cv::FastFeatureDetector::getThreshold
 
 ```cpp
-int cv::FastFeatureDetector::getThreshold();
+int cv::FastFeatureDetector::getThreshold const();
 
 AutoIt:
     $oFastFeatureDetector.getThreshold() -> retval
@@ -21422,7 +21426,7 @@ AutoIt:
 ### cv::FastFeatureDetector::getNonmaxSuppression
 
 ```cpp
-bool cv::FastFeatureDetector::getNonmaxSuppression();
+bool cv::FastFeatureDetector::getNonmaxSuppression const();
 
 AutoIt:
     $oFastFeatureDetector.getNonmaxSuppression() -> retval
@@ -21440,7 +21444,7 @@ AutoIt:
 ### cv::FastFeatureDetector::getType
 
 ```cpp
-int cv::FastFeatureDetector::getType();
+int cv::FastFeatureDetector::getType const();
 
 AutoIt:
     $oFastFeatureDetector.getType() -> retval
@@ -21449,7 +21453,7 @@ AutoIt:
 ### cv::FastFeatureDetector::getDefaultName
 
 ```cpp
-std::string cv::FastFeatureDetector::getDefaultName();
+std::string cv::FastFeatureDetector::getDefaultName const();
 
 AutoIt:
     $oFastFeatureDetector.getDefaultName() -> retval
@@ -21511,7 +21515,7 @@ AutoIt:
 ### cv::FastFeatureDetector::descriptorSize
 
 ```cpp
-int cv::FastFeatureDetector::descriptorSize();
+int cv::FastFeatureDetector::descriptorSize const();
 
 AutoIt:
     $oFastFeatureDetector.descriptorSize() -> retval
@@ -21520,7 +21524,7 @@ AutoIt:
 ### cv::FastFeatureDetector::descriptorType
 
 ```cpp
-int cv::FastFeatureDetector::descriptorType();
+int cv::FastFeatureDetector::descriptorType const();
 
 AutoIt:
     $oFastFeatureDetector.descriptorType() -> retval
@@ -21529,7 +21533,7 @@ AutoIt:
 ### cv::FastFeatureDetector::defaultNorm
 
 ```cpp
-int cv::FastFeatureDetector::defaultNorm();
+int cv::FastFeatureDetector::defaultNorm const();
 
 AutoIt:
     $oFastFeatureDetector.defaultNorm() -> retval
@@ -21538,15 +21542,15 @@ AutoIt:
 ### cv::FastFeatureDetector::write
 
 ```cpp
-void cv::FastFeatureDetector::write( const std::string& fileName );
+void cv::FastFeatureDetector::write const( const std::string& fileName );
 
 AutoIt:
     $oFastFeatureDetector.write( $fileName ) -> None
 ```
 
 ```cpp
-void cv::FastFeatureDetector::write( const cv::Ptr<cv::FileStorage>& fs,
-                                     const std::string&              name = String() );
+void cv::FastFeatureDetector::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                           const std::string&              name = String() );
 
 AutoIt:
     $oFastFeatureDetector.write( $fs[, $name] ) -> None
@@ -21571,7 +21575,7 @@ AutoIt:
 ### cv::FastFeatureDetector::empty
 
 ```cpp
-bool cv::FastFeatureDetector::empty();
+bool cv::FastFeatureDetector::empty const();
 
 AutoIt:
     $oFastFeatureDetector.empty() -> retval
@@ -21589,7 +21593,7 @@ AutoIt:
 ### cv::FastFeatureDetector::save
 
 ```cpp
-void cv::FastFeatureDetector::save( const std::string& filename );
+void cv::FastFeatureDetector::save const( const std::string& filename );
 
 AutoIt:
     $oFastFeatureDetector.save( $filename ) -> None
@@ -21620,7 +21624,7 @@ AutoIt:
 ### cv::AgastFeatureDetector::getThreshold
 
 ```cpp
-int cv::AgastFeatureDetector::getThreshold();
+int cv::AgastFeatureDetector::getThreshold const();
 
 AutoIt:
     $oAgastFeatureDetector.getThreshold() -> retval
@@ -21638,7 +21642,7 @@ AutoIt:
 ### cv::AgastFeatureDetector::getNonmaxSuppression
 
 ```cpp
-bool cv::AgastFeatureDetector::getNonmaxSuppression();
+bool cv::AgastFeatureDetector::getNonmaxSuppression const();
 
 AutoIt:
     $oAgastFeatureDetector.getNonmaxSuppression() -> retval
@@ -21656,7 +21660,7 @@ AutoIt:
 ### cv::AgastFeatureDetector::getType
 
 ```cpp
-int cv::AgastFeatureDetector::getType();
+int cv::AgastFeatureDetector::getType const();
 
 AutoIt:
     $oAgastFeatureDetector.getType() -> retval
@@ -21665,7 +21669,7 @@ AutoIt:
 ### cv::AgastFeatureDetector::getDefaultName
 
 ```cpp
-std::string cv::AgastFeatureDetector::getDefaultName();
+std::string cv::AgastFeatureDetector::getDefaultName const();
 
 AutoIt:
     $oAgastFeatureDetector.getDefaultName() -> retval
@@ -21727,7 +21731,7 @@ AutoIt:
 ### cv::AgastFeatureDetector::descriptorSize
 
 ```cpp
-int cv::AgastFeatureDetector::descriptorSize();
+int cv::AgastFeatureDetector::descriptorSize const();
 
 AutoIt:
     $oAgastFeatureDetector.descriptorSize() -> retval
@@ -21736,7 +21740,7 @@ AutoIt:
 ### cv::AgastFeatureDetector::descriptorType
 
 ```cpp
-int cv::AgastFeatureDetector::descriptorType();
+int cv::AgastFeatureDetector::descriptorType const();
 
 AutoIt:
     $oAgastFeatureDetector.descriptorType() -> retval
@@ -21745,7 +21749,7 @@ AutoIt:
 ### cv::AgastFeatureDetector::defaultNorm
 
 ```cpp
-int cv::AgastFeatureDetector::defaultNorm();
+int cv::AgastFeatureDetector::defaultNorm const();
 
 AutoIt:
     $oAgastFeatureDetector.defaultNorm() -> retval
@@ -21754,15 +21758,15 @@ AutoIt:
 ### cv::AgastFeatureDetector::write
 
 ```cpp
-void cv::AgastFeatureDetector::write( const std::string& fileName );
+void cv::AgastFeatureDetector::write const( const std::string& fileName );
 
 AutoIt:
     $oAgastFeatureDetector.write( $fileName ) -> None
 ```
 
 ```cpp
-void cv::AgastFeatureDetector::write( const cv::Ptr<cv::FileStorage>& fs,
-                                      const std::string&              name = String() );
+void cv::AgastFeatureDetector::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                            const std::string&              name = String() );
 
 AutoIt:
     $oAgastFeatureDetector.write( $fs[, $name] ) -> None
@@ -21787,7 +21791,7 @@ AutoIt:
 ### cv::AgastFeatureDetector::empty
 
 ```cpp
-bool cv::AgastFeatureDetector::empty();
+bool cv::AgastFeatureDetector::empty const();
 
 AutoIt:
     $oAgastFeatureDetector.empty() -> retval
@@ -21805,7 +21809,7 @@ AutoIt:
 ### cv::AgastFeatureDetector::save
 
 ```cpp
-void cv::AgastFeatureDetector::save( const std::string& filename );
+void cv::AgastFeatureDetector::save const( const std::string& filename );
 
 AutoIt:
     $oAgastFeatureDetector.save( $filename ) -> None
@@ -21852,7 +21856,7 @@ AutoIt:
 ### cv::GFTTDetector::getMaxFeatures
 
 ```cpp
-int cv::GFTTDetector::getMaxFeatures();
+int cv::GFTTDetector::getMaxFeatures const();
 
 AutoIt:
     $oGFTTDetector.getMaxFeatures() -> retval
@@ -21870,7 +21874,7 @@ AutoIt:
 ### cv::GFTTDetector::getQualityLevel
 
 ```cpp
-double cv::GFTTDetector::getQualityLevel();
+double cv::GFTTDetector::getQualityLevel const();
 
 AutoIt:
     $oGFTTDetector.getQualityLevel() -> retval
@@ -21888,7 +21892,7 @@ AutoIt:
 ### cv::GFTTDetector::getMinDistance
 
 ```cpp
-double cv::GFTTDetector::getMinDistance();
+double cv::GFTTDetector::getMinDistance const();
 
 AutoIt:
     $oGFTTDetector.getMinDistance() -> retval
@@ -21906,7 +21910,7 @@ AutoIt:
 ### cv::GFTTDetector::getBlockSize
 
 ```cpp
-int cv::GFTTDetector::getBlockSize();
+int cv::GFTTDetector::getBlockSize const();
 
 AutoIt:
     $oGFTTDetector.getBlockSize() -> retval
@@ -21924,7 +21928,7 @@ AutoIt:
 ### cv::GFTTDetector::getHarrisDetector
 
 ```cpp
-bool cv::GFTTDetector::getHarrisDetector();
+bool cv::GFTTDetector::getHarrisDetector const();
 
 AutoIt:
     $oGFTTDetector.getHarrisDetector() -> retval
@@ -21942,7 +21946,7 @@ AutoIt:
 ### cv::GFTTDetector::getK
 
 ```cpp
-double cv::GFTTDetector::getK();
+double cv::GFTTDetector::getK const();
 
 AutoIt:
     $oGFTTDetector.getK() -> retval
@@ -21951,7 +21955,7 @@ AutoIt:
 ### cv::GFTTDetector::getDefaultName
 
 ```cpp
-std::string cv::GFTTDetector::getDefaultName();
+std::string cv::GFTTDetector::getDefaultName const();
 
 AutoIt:
     $oGFTTDetector.getDefaultName() -> retval
@@ -22013,7 +22017,7 @@ AutoIt:
 ### cv::GFTTDetector::descriptorSize
 
 ```cpp
-int cv::GFTTDetector::descriptorSize();
+int cv::GFTTDetector::descriptorSize const();
 
 AutoIt:
     $oGFTTDetector.descriptorSize() -> retval
@@ -22022,7 +22026,7 @@ AutoIt:
 ### cv::GFTTDetector::descriptorType
 
 ```cpp
-int cv::GFTTDetector::descriptorType();
+int cv::GFTTDetector::descriptorType const();
 
 AutoIt:
     $oGFTTDetector.descriptorType() -> retval
@@ -22031,7 +22035,7 @@ AutoIt:
 ### cv::GFTTDetector::defaultNorm
 
 ```cpp
-int cv::GFTTDetector::defaultNorm();
+int cv::GFTTDetector::defaultNorm const();
 
 AutoIt:
     $oGFTTDetector.defaultNorm() -> retval
@@ -22040,15 +22044,15 @@ AutoIt:
 ### cv::GFTTDetector::write
 
 ```cpp
-void cv::GFTTDetector::write( const std::string& fileName );
+void cv::GFTTDetector::write const( const std::string& fileName );
 
 AutoIt:
     $oGFTTDetector.write( $fileName ) -> None
 ```
 
 ```cpp
-void cv::GFTTDetector::write( const cv::Ptr<cv::FileStorage>& fs,
-                              const std::string&              name = String() );
+void cv::GFTTDetector::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                    const std::string&              name = String() );
 
 AutoIt:
     $oGFTTDetector.write( $fs[, $name] ) -> None
@@ -22073,7 +22077,7 @@ AutoIt:
 ### cv::GFTTDetector::empty
 
 ```cpp
-bool cv::GFTTDetector::empty();
+bool cv::GFTTDetector::empty const();
 
 AutoIt:
     $oGFTTDetector.empty() -> retval
@@ -22091,7 +22095,7 @@ AutoIt:
 ### cv::GFTTDetector::save
 
 ```cpp
-void cv::GFTTDetector::save( const std::string& filename );
+void cv::GFTTDetector::save const( const std::string& filename );
 
 AutoIt:
     $oGFTTDetector.save( $filename ) -> None
@@ -22111,7 +22115,7 @@ AutoIt:
 ### cv::SimpleBlobDetector::getDefaultName
 
 ```cpp
-std::string cv::SimpleBlobDetector::getDefaultName();
+std::string cv::SimpleBlobDetector::getDefaultName const();
 
 AutoIt:
     $oSimpleBlobDetector.getDefaultName() -> retval
@@ -22173,7 +22177,7 @@ AutoIt:
 ### cv::SimpleBlobDetector::descriptorSize
 
 ```cpp
-int cv::SimpleBlobDetector::descriptorSize();
+int cv::SimpleBlobDetector::descriptorSize const();
 
 AutoIt:
     $oSimpleBlobDetector.descriptorSize() -> retval
@@ -22182,7 +22186,7 @@ AutoIt:
 ### cv::SimpleBlobDetector::descriptorType
 
 ```cpp
-int cv::SimpleBlobDetector::descriptorType();
+int cv::SimpleBlobDetector::descriptorType const();
 
 AutoIt:
     $oSimpleBlobDetector.descriptorType() -> retval
@@ -22191,7 +22195,7 @@ AutoIt:
 ### cv::SimpleBlobDetector::defaultNorm
 
 ```cpp
-int cv::SimpleBlobDetector::defaultNorm();
+int cv::SimpleBlobDetector::defaultNorm const();
 
 AutoIt:
     $oSimpleBlobDetector.defaultNorm() -> retval
@@ -22200,15 +22204,15 @@ AutoIt:
 ### cv::SimpleBlobDetector::write
 
 ```cpp
-void cv::SimpleBlobDetector::write( const std::string& fileName );
+void cv::SimpleBlobDetector::write const( const std::string& fileName );
 
 AutoIt:
     $oSimpleBlobDetector.write( $fileName ) -> None
 ```
 
 ```cpp
-void cv::SimpleBlobDetector::write( const cv::Ptr<cv::FileStorage>& fs,
-                                    const std::string&              name = String() );
+void cv::SimpleBlobDetector::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                          const std::string&              name = String() );
 
 AutoIt:
     $oSimpleBlobDetector.write( $fs[, $name] ) -> None
@@ -22233,7 +22237,7 @@ AutoIt:
 ### cv::SimpleBlobDetector::empty
 
 ```cpp
-bool cv::SimpleBlobDetector::empty();
+bool cv::SimpleBlobDetector::empty const();
 
 AutoIt:
     $oSimpleBlobDetector.empty() -> retval
@@ -22251,7 +22255,7 @@ AutoIt:
 ### cv::SimpleBlobDetector::save
 
 ```cpp
-void cv::SimpleBlobDetector::save( const std::string& filename );
+void cv::SimpleBlobDetector::save const( const std::string& filename );
 
 AutoIt:
     $oSimpleBlobDetector.save( $filename ) -> None
@@ -22303,7 +22307,7 @@ AutoIt:
 ### cv::KAZE::getExtended
 
 ```cpp
-bool cv::KAZE::getExtended();
+bool cv::KAZE::getExtended const();
 
 AutoIt:
     $oKAZE.getExtended() -> retval
@@ -22321,7 +22325,7 @@ AutoIt:
 ### cv::KAZE::getUpright
 
 ```cpp
-bool cv::KAZE::getUpright();
+bool cv::KAZE::getUpright const();
 
 AutoIt:
     $oKAZE.getUpright() -> retval
@@ -22339,7 +22343,7 @@ AutoIt:
 ### cv::KAZE::getThreshold
 
 ```cpp
-double cv::KAZE::getThreshold();
+double cv::KAZE::getThreshold const();
 
 AutoIt:
     $oKAZE.getThreshold() -> retval
@@ -22357,7 +22361,7 @@ AutoIt:
 ### cv::KAZE::getNOctaves
 
 ```cpp
-int cv::KAZE::getNOctaves();
+int cv::KAZE::getNOctaves const();
 
 AutoIt:
     $oKAZE.getNOctaves() -> retval
@@ -22375,7 +22379,7 @@ AutoIt:
 ### cv::KAZE::getNOctaveLayers
 
 ```cpp
-int cv::KAZE::getNOctaveLayers();
+int cv::KAZE::getNOctaveLayers const();
 
 AutoIt:
     $oKAZE.getNOctaveLayers() -> retval
@@ -22393,7 +22397,7 @@ AutoIt:
 ### cv::KAZE::getDiffusivity
 
 ```cpp
-int cv::KAZE::getDiffusivity();
+int cv::KAZE::getDiffusivity const();
 
 AutoIt:
     $oKAZE.getDiffusivity() -> retval
@@ -22402,7 +22406,7 @@ AutoIt:
 ### cv::KAZE::getDefaultName
 
 ```cpp
-std::string cv::KAZE::getDefaultName();
+std::string cv::KAZE::getDefaultName const();
 
 AutoIt:
     $oKAZE.getDefaultName() -> retval
@@ -22464,7 +22468,7 @@ AutoIt:
 ### cv::KAZE::descriptorSize
 
 ```cpp
-int cv::KAZE::descriptorSize();
+int cv::KAZE::descriptorSize const();
 
 AutoIt:
     $oKAZE.descriptorSize() -> retval
@@ -22473,7 +22477,7 @@ AutoIt:
 ### cv::KAZE::descriptorType
 
 ```cpp
-int cv::KAZE::descriptorType();
+int cv::KAZE::descriptorType const();
 
 AutoIt:
     $oKAZE.descriptorType() -> retval
@@ -22482,7 +22486,7 @@ AutoIt:
 ### cv::KAZE::defaultNorm
 
 ```cpp
-int cv::KAZE::defaultNorm();
+int cv::KAZE::defaultNorm const();
 
 AutoIt:
     $oKAZE.defaultNorm() -> retval
@@ -22491,15 +22495,15 @@ AutoIt:
 ### cv::KAZE::write
 
 ```cpp
-void cv::KAZE::write( const std::string& fileName );
+void cv::KAZE::write const( const std::string& fileName );
 
 AutoIt:
     $oKAZE.write( $fileName ) -> None
 ```
 
 ```cpp
-void cv::KAZE::write( const cv::Ptr<cv::FileStorage>& fs,
-                      const std::string&              name = String() );
+void cv::KAZE::write const( const cv::Ptr<cv::FileStorage>& fs,
+                            const std::string&              name = String() );
 
 AutoIt:
     $oKAZE.write( $fs[, $name] ) -> None
@@ -22524,7 +22528,7 @@ AutoIt:
 ### cv::KAZE::empty
 
 ```cpp
-bool cv::KAZE::empty();
+bool cv::KAZE::empty const();
 
 AutoIt:
     $oKAZE.empty() -> retval
@@ -22542,7 +22546,7 @@ AutoIt:
 ### cv::KAZE::save
 
 ```cpp
-void cv::KAZE::save( const std::string& filename );
+void cv::KAZE::save const( const std::string& filename );
 
 AutoIt:
     $oKAZE.save( $filename ) -> None
@@ -22577,7 +22581,7 @@ AutoIt:
 ### cv::AKAZE::getDescriptorType
 
 ```cpp
-int cv::AKAZE::getDescriptorType();
+int cv::AKAZE::getDescriptorType const();
 
 AutoIt:
     $oAKAZE.getDescriptorType() -> retval
@@ -22595,7 +22599,7 @@ AutoIt:
 ### cv::AKAZE::getDescriptorSize
 
 ```cpp
-int cv::AKAZE::getDescriptorSize();
+int cv::AKAZE::getDescriptorSize const();
 
 AutoIt:
     $oAKAZE.getDescriptorSize() -> retval
@@ -22613,7 +22617,7 @@ AutoIt:
 ### cv::AKAZE::getDescriptorChannels
 
 ```cpp
-int cv::AKAZE::getDescriptorChannels();
+int cv::AKAZE::getDescriptorChannels const();
 
 AutoIt:
     $oAKAZE.getDescriptorChannels() -> retval
@@ -22631,7 +22635,7 @@ AutoIt:
 ### cv::AKAZE::getThreshold
 
 ```cpp
-double cv::AKAZE::getThreshold();
+double cv::AKAZE::getThreshold const();
 
 AutoIt:
     $oAKAZE.getThreshold() -> retval
@@ -22649,7 +22653,7 @@ AutoIt:
 ### cv::AKAZE::getNOctaves
 
 ```cpp
-int cv::AKAZE::getNOctaves();
+int cv::AKAZE::getNOctaves const();
 
 AutoIt:
     $oAKAZE.getNOctaves() -> retval
@@ -22667,7 +22671,7 @@ AutoIt:
 ### cv::AKAZE::getNOctaveLayers
 
 ```cpp
-int cv::AKAZE::getNOctaveLayers();
+int cv::AKAZE::getNOctaveLayers const();
 
 AutoIt:
     $oAKAZE.getNOctaveLayers() -> retval
@@ -22685,7 +22689,7 @@ AutoIt:
 ### cv::AKAZE::getDiffusivity
 
 ```cpp
-int cv::AKAZE::getDiffusivity();
+int cv::AKAZE::getDiffusivity const();
 
 AutoIt:
     $oAKAZE.getDiffusivity() -> retval
@@ -22694,7 +22698,7 @@ AutoIt:
 ### cv::AKAZE::getDefaultName
 
 ```cpp
-std::string cv::AKAZE::getDefaultName();
+std::string cv::AKAZE::getDefaultName const();
 
 AutoIt:
     $oAKAZE.getDefaultName() -> retval
@@ -22756,7 +22760,7 @@ AutoIt:
 ### cv::AKAZE::descriptorSize
 
 ```cpp
-int cv::AKAZE::descriptorSize();
+int cv::AKAZE::descriptorSize const();
 
 AutoIt:
     $oAKAZE.descriptorSize() -> retval
@@ -22765,7 +22769,7 @@ AutoIt:
 ### cv::AKAZE::descriptorType
 
 ```cpp
-int cv::AKAZE::descriptorType();
+int cv::AKAZE::descriptorType const();
 
 AutoIt:
     $oAKAZE.descriptorType() -> retval
@@ -22774,7 +22778,7 @@ AutoIt:
 ### cv::AKAZE::defaultNorm
 
 ```cpp
-int cv::AKAZE::defaultNorm();
+int cv::AKAZE::defaultNorm const();
 
 AutoIt:
     $oAKAZE.defaultNorm() -> retval
@@ -22783,15 +22787,15 @@ AutoIt:
 ### cv::AKAZE::write
 
 ```cpp
-void cv::AKAZE::write( const std::string& fileName );
+void cv::AKAZE::write const( const std::string& fileName );
 
 AutoIt:
     $oAKAZE.write( $fileName ) -> None
 ```
 
 ```cpp
-void cv::AKAZE::write( const cv::Ptr<cv::FileStorage>& fs,
-                       const std::string&              name = String() );
+void cv::AKAZE::write const( const cv::Ptr<cv::FileStorage>& fs,
+                             const std::string&              name = String() );
 
 AutoIt:
     $oAKAZE.write( $fs[, $name] ) -> None
@@ -22816,7 +22820,7 @@ AutoIt:
 ### cv::AKAZE::empty
 
 ```cpp
-bool cv::AKAZE::empty();
+bool cv::AKAZE::empty const();
 
 AutoIt:
     $oAKAZE.empty() -> retval
@@ -22834,7 +22838,7 @@ AutoIt:
 ### cv::AKAZE::save
 
 ```cpp
-void cv::AKAZE::save( const std::string& filename );
+void cv::AKAZE::save const( const std::string& filename );
 
 AutoIt:
     $oAKAZE.save( $filename ) -> None
@@ -22854,7 +22858,7 @@ AutoIt:
 ### cv::DescriptorMatcher::getTrainDescriptors
 
 ```cpp
-std::vector<cv::Mat> cv::DescriptorMatcher::getTrainDescriptors();
+std::vector<cv::Mat> cv::DescriptorMatcher::getTrainDescriptors const();
 
 AutoIt:
     $oDescriptorMatcher.getTrainDescriptors() -> retval
@@ -22872,7 +22876,7 @@ AutoIt:
 ### cv::DescriptorMatcher::empty
 
 ```cpp
-bool cv::DescriptorMatcher::empty();
+bool cv::DescriptorMatcher::empty const();
 
 AutoIt:
     $oDescriptorMatcher.empty() -> retval
@@ -22881,7 +22885,7 @@ AutoIt:
 ### cv::DescriptorMatcher::isMaskSupported
 
 ```cpp
-bool cv::DescriptorMatcher::isMaskSupported();
+bool cv::DescriptorMatcher::isMaskSupported const();
 
 AutoIt:
     $oDescriptorMatcher.isMaskSupported() -> retval
@@ -22899,10 +22903,10 @@ AutoIt:
 ### cv::DescriptorMatcher::match
 
 ```cpp
-void cv::DescriptorMatcher::match( _InputArray              queryDescriptors,
-                                   _InputArray              trainDescriptors,
-                                   std::vector<cv::DMatch>& matches,
-                                   _InputArray              mask = noArray() );
+void cv::DescriptorMatcher::match const( _InputArray              queryDescriptors,
+                                         _InputArray              trainDescriptors,
+                                         std::vector<cv::DMatch>& matches,
+                                         _InputArray              mask = noArray() );
 
 AutoIt:
     $oDescriptorMatcher.match( $queryDescriptors, $trainDescriptors[, $mask[, $matches]] ) -> $matches
@@ -22920,12 +22924,12 @@ AutoIt:
 ### cv::DescriptorMatcher::knnMatch
 
 ```cpp
-void cv::DescriptorMatcher::knnMatch( _InputArray                           queryDescriptors,
-                                      _InputArray                           trainDescriptors,
-                                      std::vector<std::vector<cv::DMatch>>& matches,
-                                      int                                   k,
-                                      _InputArray                           mask = noArray(),
-                                      bool                                  compactResult = false );
+void cv::DescriptorMatcher::knnMatch const( _InputArray                           queryDescriptors,
+                                            _InputArray                           trainDescriptors,
+                                            std::vector<std::vector<cv::DMatch>>& matches,
+                                            int                                   k,
+                                            _InputArray                           mask = noArray(),
+                                            bool                                  compactResult = false );
 
 AutoIt:
     $oDescriptorMatcher.knnMatch( $queryDescriptors, $trainDescriptors, $k[, $mask[, $compactResult[, $matches]]] ) -> $matches
@@ -22945,12 +22949,12 @@ AutoIt:
 ### cv::DescriptorMatcher::radiusMatch
 
 ```cpp
-void cv::DescriptorMatcher::radiusMatch( _InputArray                           queryDescriptors,
-                                         _InputArray                           trainDescriptors,
-                                         std::vector<std::vector<cv::DMatch>>& matches,
-                                         float                                 maxDistance,
-                                         _InputArray                           mask = noArray(),
-                                         bool                                  compactResult = false );
+void cv::DescriptorMatcher::radiusMatch const( _InputArray                           queryDescriptors,
+                                               _InputArray                           trainDescriptors,
+                                               std::vector<std::vector<cv::DMatch>>& matches,
+                                               float                                 maxDistance,
+                                               _InputArray                           mask = noArray(),
+                                               bool                                  compactResult = false );
 
 AutoIt:
     $oDescriptorMatcher.radiusMatch( $queryDescriptors, $trainDescriptors, $maxDistance[, $mask[, $compactResult[, $matches]]] ) -> $matches
@@ -22970,15 +22974,15 @@ AutoIt:
 ### cv::DescriptorMatcher::write
 
 ```cpp
-void cv::DescriptorMatcher::write( const std::string& fileName );
+void cv::DescriptorMatcher::write const( const std::string& fileName );
 
 AutoIt:
     $oDescriptorMatcher.write( $fileName ) -> None
 ```
 
 ```cpp
-void cv::DescriptorMatcher::write( const cv::Ptr<cv::FileStorage>& fs,
-                                   const std::string&              name = String() );
+void cv::DescriptorMatcher::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                         const std::string&              name = String() );
 
 AutoIt:
     $oDescriptorMatcher.write( $fs[, $name] ) -> None
@@ -23003,7 +23007,7 @@ AutoIt:
 ### cv::DescriptorMatcher::clone
 
 ```cpp
-cv::Ptr<cv::DescriptorMatcher> cv::DescriptorMatcher::clone( bool emptyTrainData = false );
+cv::Ptr<cv::DescriptorMatcher> cv::DescriptorMatcher::clone const( bool emptyTrainData = false );
 
 AutoIt:
     $oDescriptorMatcher.clone( [$emptyTrainData] ) -> retval
@@ -23028,7 +23032,7 @@ AutoIt:
 ### cv::DescriptorMatcher::save
 
 ```cpp
-void cv::DescriptorMatcher::save( const std::string& filename );
+void cv::DescriptorMatcher::save const( const std::string& filename );
 
 AutoIt:
     $oDescriptorMatcher.save( $filename ) -> None
@@ -23037,7 +23041,7 @@ AutoIt:
 ### cv::DescriptorMatcher::getDefaultName
 
 ```cpp
-std::string cv::DescriptorMatcher::getDefaultName();
+std::string cv::DescriptorMatcher::getDefaultName const();
 
 AutoIt:
     $oDescriptorMatcher.getDefaultName() -> retval
@@ -23075,7 +23079,7 @@ AutoIt:
 ### cv::BFMatcher::getTrainDescriptors
 
 ```cpp
-std::vector<cv::Mat> cv::BFMatcher::getTrainDescriptors();
+std::vector<cv::Mat> cv::BFMatcher::getTrainDescriptors const();
 
 AutoIt:
     $oBFMatcher.getTrainDescriptors() -> retval
@@ -23093,7 +23097,7 @@ AutoIt:
 ### cv::BFMatcher::empty
 
 ```cpp
-bool cv::BFMatcher::empty();
+bool cv::BFMatcher::empty const();
 
 AutoIt:
     $oBFMatcher.empty() -> retval
@@ -23102,7 +23106,7 @@ AutoIt:
 ### cv::BFMatcher::isMaskSupported
 
 ```cpp
-bool cv::BFMatcher::isMaskSupported();
+bool cv::BFMatcher::isMaskSupported const();
 
 AutoIt:
     $oBFMatcher.isMaskSupported() -> retval
@@ -23120,10 +23124,10 @@ AutoIt:
 ### cv::BFMatcher::match
 
 ```cpp
-void cv::BFMatcher::match( _InputArray              queryDescriptors,
-                           _InputArray              trainDescriptors,
-                           std::vector<cv::DMatch>& matches,
-                           _InputArray              mask = noArray() );
+void cv::BFMatcher::match const( _InputArray              queryDescriptors,
+                                 _InputArray              trainDescriptors,
+                                 std::vector<cv::DMatch>& matches,
+                                 _InputArray              mask = noArray() );
 
 AutoIt:
     $oBFMatcher.match( $queryDescriptors, $trainDescriptors[, $mask[, $matches]] ) -> $matches
@@ -23141,12 +23145,12 @@ AutoIt:
 ### cv::BFMatcher::knnMatch
 
 ```cpp
-void cv::BFMatcher::knnMatch( _InputArray                           queryDescriptors,
-                              _InputArray                           trainDescriptors,
-                              std::vector<std::vector<cv::DMatch>>& matches,
-                              int                                   k,
-                              _InputArray                           mask = noArray(),
-                              bool                                  compactResult = false );
+void cv::BFMatcher::knnMatch const( _InputArray                           queryDescriptors,
+                                    _InputArray                           trainDescriptors,
+                                    std::vector<std::vector<cv::DMatch>>& matches,
+                                    int                                   k,
+                                    _InputArray                           mask = noArray(),
+                                    bool                                  compactResult = false );
 
 AutoIt:
     $oBFMatcher.knnMatch( $queryDescriptors, $trainDescriptors, $k[, $mask[, $compactResult[, $matches]]] ) -> $matches
@@ -23166,12 +23170,12 @@ AutoIt:
 ### cv::BFMatcher::radiusMatch
 
 ```cpp
-void cv::BFMatcher::radiusMatch( _InputArray                           queryDescriptors,
-                                 _InputArray                           trainDescriptors,
-                                 std::vector<std::vector<cv::DMatch>>& matches,
-                                 float                                 maxDistance,
-                                 _InputArray                           mask = noArray(),
-                                 bool                                  compactResult = false );
+void cv::BFMatcher::radiusMatch const( _InputArray                           queryDescriptors,
+                                       _InputArray                           trainDescriptors,
+                                       std::vector<std::vector<cv::DMatch>>& matches,
+                                       float                                 maxDistance,
+                                       _InputArray                           mask = noArray(),
+                                       bool                                  compactResult = false );
 
 AutoIt:
     $oBFMatcher.radiusMatch( $queryDescriptors, $trainDescriptors, $maxDistance[, $mask[, $compactResult[, $matches]]] ) -> $matches
@@ -23191,15 +23195,15 @@ AutoIt:
 ### cv::BFMatcher::write
 
 ```cpp
-void cv::BFMatcher::write( const std::string& fileName );
+void cv::BFMatcher::write const( const std::string& fileName );
 
 AutoIt:
     $oBFMatcher.write( $fileName ) -> None
 ```
 
 ```cpp
-void cv::BFMatcher::write( const cv::Ptr<cv::FileStorage>& fs,
-                           const std::string&              name = String() );
+void cv::BFMatcher::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                 const std::string&              name = String() );
 
 AutoIt:
     $oBFMatcher.write( $fs[, $name] ) -> None
@@ -23224,7 +23228,7 @@ AutoIt:
 ### cv::BFMatcher::clone
 
 ```cpp
-cv::Ptr<cv::DescriptorMatcher> cv::BFMatcher::clone( bool emptyTrainData = false );
+cv::Ptr<cv::DescriptorMatcher> cv::BFMatcher::clone const( bool emptyTrainData = false );
 
 AutoIt:
     $oBFMatcher.clone( [$emptyTrainData] ) -> retval
@@ -23233,7 +23237,7 @@ AutoIt:
 ### cv::BFMatcher::save
 
 ```cpp
-void cv::BFMatcher::save( const std::string& filename );
+void cv::BFMatcher::save const( const std::string& filename );
 
 AutoIt:
     $oBFMatcher.save( $filename ) -> None
@@ -23242,7 +23246,7 @@ AutoIt:
 ### cv::BFMatcher::getDefaultName
 
 ```cpp
-std::string cv::BFMatcher::getDefaultName();
+std::string cv::BFMatcher::getDefaultName const();
 
 AutoIt:
     $oBFMatcher.getDefaultName() -> retval
@@ -23279,7 +23283,7 @@ AutoIt:
 ### cv::FlannBasedMatcher::getTrainDescriptors
 
 ```cpp
-std::vector<cv::Mat> cv::FlannBasedMatcher::getTrainDescriptors();
+std::vector<cv::Mat> cv::FlannBasedMatcher::getTrainDescriptors const();
 
 AutoIt:
     $oFlannBasedMatcher.getTrainDescriptors() -> retval
@@ -23297,7 +23301,7 @@ AutoIt:
 ### cv::FlannBasedMatcher::empty
 
 ```cpp
-bool cv::FlannBasedMatcher::empty();
+bool cv::FlannBasedMatcher::empty const();
 
 AutoIt:
     $oFlannBasedMatcher.empty() -> retval
@@ -23306,7 +23310,7 @@ AutoIt:
 ### cv::FlannBasedMatcher::isMaskSupported
 
 ```cpp
-bool cv::FlannBasedMatcher::isMaskSupported();
+bool cv::FlannBasedMatcher::isMaskSupported const();
 
 AutoIt:
     $oFlannBasedMatcher.isMaskSupported() -> retval
@@ -23324,10 +23328,10 @@ AutoIt:
 ### cv::FlannBasedMatcher::match
 
 ```cpp
-void cv::FlannBasedMatcher::match( _InputArray              queryDescriptors,
-                                   _InputArray              trainDescriptors,
-                                   std::vector<cv::DMatch>& matches,
-                                   _InputArray              mask = noArray() );
+void cv::FlannBasedMatcher::match const( _InputArray              queryDescriptors,
+                                         _InputArray              trainDescriptors,
+                                         std::vector<cv::DMatch>& matches,
+                                         _InputArray              mask = noArray() );
 
 AutoIt:
     $oFlannBasedMatcher.match( $queryDescriptors, $trainDescriptors[, $mask[, $matches]] ) -> $matches
@@ -23345,12 +23349,12 @@ AutoIt:
 ### cv::FlannBasedMatcher::knnMatch
 
 ```cpp
-void cv::FlannBasedMatcher::knnMatch( _InputArray                           queryDescriptors,
-                                      _InputArray                           trainDescriptors,
-                                      std::vector<std::vector<cv::DMatch>>& matches,
-                                      int                                   k,
-                                      _InputArray                           mask = noArray(),
-                                      bool                                  compactResult = false );
+void cv::FlannBasedMatcher::knnMatch const( _InputArray                           queryDescriptors,
+                                            _InputArray                           trainDescriptors,
+                                            std::vector<std::vector<cv::DMatch>>& matches,
+                                            int                                   k,
+                                            _InputArray                           mask = noArray(),
+                                            bool                                  compactResult = false );
 
 AutoIt:
     $oFlannBasedMatcher.knnMatch( $queryDescriptors, $trainDescriptors, $k[, $mask[, $compactResult[, $matches]]] ) -> $matches
@@ -23370,12 +23374,12 @@ AutoIt:
 ### cv::FlannBasedMatcher::radiusMatch
 
 ```cpp
-void cv::FlannBasedMatcher::radiusMatch( _InputArray                           queryDescriptors,
-                                         _InputArray                           trainDescriptors,
-                                         std::vector<std::vector<cv::DMatch>>& matches,
-                                         float                                 maxDistance,
-                                         _InputArray                           mask = noArray(),
-                                         bool                                  compactResult = false );
+void cv::FlannBasedMatcher::radiusMatch const( _InputArray                           queryDescriptors,
+                                               _InputArray                           trainDescriptors,
+                                               std::vector<std::vector<cv::DMatch>>& matches,
+                                               float                                 maxDistance,
+                                               _InputArray                           mask = noArray(),
+                                               bool                                  compactResult = false );
 
 AutoIt:
     $oFlannBasedMatcher.radiusMatch( $queryDescriptors, $trainDescriptors, $maxDistance[, $mask[, $compactResult[, $matches]]] ) -> $matches
@@ -23395,15 +23399,15 @@ AutoIt:
 ### cv::FlannBasedMatcher::write
 
 ```cpp
-void cv::FlannBasedMatcher::write( const std::string& fileName );
+void cv::FlannBasedMatcher::write const( const std::string& fileName );
 
 AutoIt:
     $oFlannBasedMatcher.write( $fileName ) -> None
 ```
 
 ```cpp
-void cv::FlannBasedMatcher::write( const cv::Ptr<cv::FileStorage>& fs,
-                                   const std::string&              name = String() );
+void cv::FlannBasedMatcher::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                         const std::string&              name = String() );
 
 AutoIt:
     $oFlannBasedMatcher.write( $fs[, $name] ) -> None
@@ -23428,7 +23432,7 @@ AutoIt:
 ### cv::FlannBasedMatcher::clone
 
 ```cpp
-cv::Ptr<cv::DescriptorMatcher> cv::FlannBasedMatcher::clone( bool emptyTrainData = false );
+cv::Ptr<cv::DescriptorMatcher> cv::FlannBasedMatcher::clone const( bool emptyTrainData = false );
 
 AutoIt:
     $oFlannBasedMatcher.clone( [$emptyTrainData] ) -> retval
@@ -23437,7 +23441,7 @@ AutoIt:
 ### cv::FlannBasedMatcher::save
 
 ```cpp
-void cv::FlannBasedMatcher::save( const std::string& filename );
+void cv::FlannBasedMatcher::save const( const std::string& filename );
 
 AutoIt:
     $oFlannBasedMatcher.save( $filename ) -> None
@@ -23446,7 +23450,7 @@ AutoIt:
 ### cv::FlannBasedMatcher::getDefaultName
 
 ```cpp
-std::string cv::FlannBasedMatcher::getDefaultName();
+std::string cv::FlannBasedMatcher::getDefaultName const();
 
 AutoIt:
     $oFlannBasedMatcher.getDefaultName() -> retval
@@ -23466,7 +23470,7 @@ AutoIt:
 ### cv::BOWTrainer::getDescriptors
 
 ```cpp
-std::vector<cv::Mat> cv::BOWTrainer::getDescriptors();
+std::vector<cv::Mat> cv::BOWTrainer::getDescriptors const();
 
 AutoIt:
     $oBOWTrainer.getDescriptors() -> retval
@@ -23475,7 +23479,7 @@ AutoIt:
 ### cv::BOWTrainer::descriptorsCount
 
 ```cpp
-int cv::BOWTrainer::descriptorsCount();
+int cv::BOWTrainer::descriptorsCount const();
 
 AutoIt:
     $oBOWTrainer.descriptorsCount() -> retval
@@ -23493,14 +23497,14 @@ AutoIt:
 ### cv::BOWTrainer::cluster
 
 ```cpp
-cv::Mat cv::BOWTrainer::cluster();
+cv::Mat cv::BOWTrainer::cluster const();
 
 AutoIt:
     $oBOWTrainer.cluster() -> retval
 ```
 
 ```cpp
-cv::Mat cv::BOWTrainer::cluster( const cv::Mat& descriptors );
+cv::Mat cv::BOWTrainer::cluster const( const cv::Mat& descriptors );
 
 AutoIt:
     $oBOWTrainer.cluster( $descriptors ) -> retval
@@ -23523,14 +23527,14 @@ AutoIt:
 ### cv::BOWKMeansTrainer::cluster
 
 ```cpp
-cv::Mat cv::BOWKMeansTrainer::cluster();
+cv::Mat cv::BOWKMeansTrainer::cluster const();
 
 AutoIt:
     $oBOWKMeansTrainer.cluster() -> retval
 ```
 
 ```cpp
-cv::Mat cv::BOWKMeansTrainer::cluster( const cv::Mat& descriptors );
+cv::Mat cv::BOWKMeansTrainer::cluster const( const cv::Mat& descriptors );
 
 AutoIt:
     $oBOWKMeansTrainer.cluster( $descriptors ) -> retval
@@ -23548,7 +23552,7 @@ AutoIt:
 ### cv::BOWKMeansTrainer::getDescriptors
 
 ```cpp
-std::vector<cv::Mat> cv::BOWKMeansTrainer::getDescriptors();
+std::vector<cv::Mat> cv::BOWKMeansTrainer::getDescriptors const();
 
 AutoIt:
     $oBOWKMeansTrainer.getDescriptors() -> retval
@@ -23557,7 +23561,7 @@ AutoIt:
 ### cv::BOWKMeansTrainer::descriptorsCount
 
 ```cpp
-int cv::BOWKMeansTrainer::descriptorsCount();
+int cv::BOWKMeansTrainer::descriptorsCount const();
 
 AutoIt:
     $oBOWKMeansTrainer.descriptorsCount() -> retval
@@ -23596,7 +23600,7 @@ AutoIt:
 ### cv::BOWImgDescriptorExtractor::getVocabulary
 
 ```cpp
-cv::Mat cv::BOWImgDescriptorExtractor::getVocabulary();
+cv::Mat cv::BOWImgDescriptorExtractor::getVocabulary const();
 
 AutoIt:
     $oBOWImgDescriptorExtractor.getVocabulary() -> retval
@@ -23616,7 +23620,7 @@ AutoIt:
 ### cv::BOWImgDescriptorExtractor::descriptorSize
 
 ```cpp
-int cv::BOWImgDescriptorExtractor::descriptorSize();
+int cv::BOWImgDescriptorExtractor::descriptorSize const();
 
 AutoIt:
     $oBOWImgDescriptorExtractor.descriptorSize() -> retval
@@ -23625,7 +23629,7 @@ AutoIt:
 ### cv::BOWImgDescriptorExtractor::descriptorType
 
 ```cpp
-int cv::BOWImgDescriptorExtractor::descriptorType();
+int cv::BOWImgDescriptorExtractor::descriptorType const();
 
 AutoIt:
     $oBOWImgDescriptorExtractor.descriptorType() -> retval
@@ -23715,7 +23719,7 @@ AutoIt:
 ### cv::VideoCapture::isOpened
 
 ```cpp
-bool cv::VideoCapture::isOpened();
+bool cv::VideoCapture::isOpened const();
 
 AutoIt:
     $oVideoCapture.isOpened() -> retval
@@ -23771,7 +23775,7 @@ AutoIt:
 ### cv::VideoCapture::get
 
 ```cpp
-double cv::VideoCapture::get( int propId );
+double cv::VideoCapture::get const( int propId );
 
 AutoIt:
     $oVideoCapture.get( $propId ) -> retval
@@ -23780,7 +23784,7 @@ AutoIt:
 ### cv::VideoCapture::getBackendName
 
 ```cpp
-std::string cv::VideoCapture::getBackendName();
+std::string cv::VideoCapture::getBackendName const();
 
 AutoIt:
     $oVideoCapture.getBackendName() -> retval
@@ -23912,7 +23916,7 @@ AutoIt:
 ### cv::VideoWriter::isOpened
 
 ```cpp
-bool cv::VideoWriter::isOpened();
+bool cv::VideoWriter::isOpened const();
 
 AutoIt:
     $oVideoWriter.isOpened() -> retval
@@ -23949,7 +23953,7 @@ AutoIt:
 ### cv::VideoWriter::get
 
 ```cpp
-double cv::VideoWriter::get( int propId );
+double cv::VideoWriter::get const( int propId );
 
 AutoIt:
     $oVideoWriter.get( $propId ) -> retval
@@ -23970,7 +23974,7 @@ AutoIt:
 ### cv::VideoWriter::getBackendName
 
 ```cpp
-std::string cv::VideoWriter::getBackendName();
+std::string cv::VideoWriter::getBackendName const();
 
 AutoIt:
     $oVideoWriter.getBackendName() -> retval
@@ -24126,7 +24130,7 @@ AutoIt:
 ### cv::StereoMatcher::getMinDisparity
 
 ```cpp
-int cv::StereoMatcher::getMinDisparity();
+int cv::StereoMatcher::getMinDisparity const();
 
 AutoIt:
     $oStereoMatcher.getMinDisparity() -> retval
@@ -24144,7 +24148,7 @@ AutoIt:
 ### cv::StereoMatcher::getNumDisparities
 
 ```cpp
-int cv::StereoMatcher::getNumDisparities();
+int cv::StereoMatcher::getNumDisparities const();
 
 AutoIt:
     $oStereoMatcher.getNumDisparities() -> retval
@@ -24162,7 +24166,7 @@ AutoIt:
 ### cv::StereoMatcher::getBlockSize
 
 ```cpp
-int cv::StereoMatcher::getBlockSize();
+int cv::StereoMatcher::getBlockSize const();
 
 AutoIt:
     $oStereoMatcher.getBlockSize() -> retval
@@ -24180,7 +24184,7 @@ AutoIt:
 ### cv::StereoMatcher::getSpeckleWindowSize
 
 ```cpp
-int cv::StereoMatcher::getSpeckleWindowSize();
+int cv::StereoMatcher::getSpeckleWindowSize const();
 
 AutoIt:
     $oStereoMatcher.getSpeckleWindowSize() -> retval
@@ -24198,7 +24202,7 @@ AutoIt:
 ### cv::StereoMatcher::getSpeckleRange
 
 ```cpp
-int cv::StereoMatcher::getSpeckleRange();
+int cv::StereoMatcher::getSpeckleRange const();
 
 AutoIt:
     $oStereoMatcher.getSpeckleRange() -> retval
@@ -24216,7 +24220,7 @@ AutoIt:
 ### cv::StereoMatcher::getDisp12MaxDiff
 
 ```cpp
-int cv::StereoMatcher::getDisp12MaxDiff();
+int cv::StereoMatcher::getDisp12MaxDiff const();
 
 AutoIt:
     $oStereoMatcher.getDisp12MaxDiff() -> retval
@@ -24243,8 +24247,8 @@ AutoIt:
 ### cv::StereoMatcher::write
 
 ```cpp
-void cv::StereoMatcher::write( const cv::Ptr<cv::FileStorage>& fs,
-                               const std::string&              name = String() );
+void cv::StereoMatcher::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                     const std::string&              name = String() );
 
 AutoIt:
     $oStereoMatcher.write( $fs[, $name] ) -> None
@@ -24262,7 +24266,7 @@ AutoIt:
 ### cv::StereoMatcher::empty
 
 ```cpp
-bool cv::StereoMatcher::empty();
+bool cv::StereoMatcher::empty const();
 
 AutoIt:
     $oStereoMatcher.empty() -> retval
@@ -24271,7 +24275,7 @@ AutoIt:
 ### cv::StereoMatcher::save
 
 ```cpp
-void cv::StereoMatcher::save( const std::string& filename );
+void cv::StereoMatcher::save const( const std::string& filename );
 
 AutoIt:
     $oStereoMatcher.save( $filename ) -> None
@@ -24280,7 +24284,7 @@ AutoIt:
 ### cv::StereoMatcher::getDefaultName
 
 ```cpp
-std::string cv::StereoMatcher::getDefaultName();
+std::string cv::StereoMatcher::getDefaultName const();
 
 AutoIt:
     $oStereoMatcher.getDefaultName() -> retval
@@ -24291,7 +24295,7 @@ AutoIt:
 ### cv::StereoBM::getPreFilterType
 
 ```cpp
-int cv::StereoBM::getPreFilterType();
+int cv::StereoBM::getPreFilterType const();
 
 AutoIt:
     $oStereoBM.getPreFilterType() -> retval
@@ -24309,7 +24313,7 @@ AutoIt:
 ### cv::StereoBM::getPreFilterSize
 
 ```cpp
-int cv::StereoBM::getPreFilterSize();
+int cv::StereoBM::getPreFilterSize const();
 
 AutoIt:
     $oStereoBM.getPreFilterSize() -> retval
@@ -24327,7 +24331,7 @@ AutoIt:
 ### cv::StereoBM::getPreFilterCap
 
 ```cpp
-int cv::StereoBM::getPreFilterCap();
+int cv::StereoBM::getPreFilterCap const();
 
 AutoIt:
     $oStereoBM.getPreFilterCap() -> retval
@@ -24345,7 +24349,7 @@ AutoIt:
 ### cv::StereoBM::getTextureThreshold
 
 ```cpp
-int cv::StereoBM::getTextureThreshold();
+int cv::StereoBM::getTextureThreshold const();
 
 AutoIt:
     $oStereoBM.getTextureThreshold() -> retval
@@ -24363,7 +24367,7 @@ AutoIt:
 ### cv::StereoBM::getUniquenessRatio
 
 ```cpp
-int cv::StereoBM::getUniquenessRatio();
+int cv::StereoBM::getUniquenessRatio const();
 
 AutoIt:
     $oStereoBM.getUniquenessRatio() -> retval
@@ -24381,7 +24385,7 @@ AutoIt:
 ### cv::StereoBM::getSmallerBlockSize
 
 ```cpp
-int cv::StereoBM::getSmallerBlockSize();
+int cv::StereoBM::getSmallerBlockSize const();
 
 AutoIt:
     $oStereoBM.getSmallerBlockSize() -> retval
@@ -24399,7 +24403,7 @@ AutoIt:
 ### cv::StereoBM::getROI1
 
 ```cpp
-cv::Rect cv::StereoBM::getROI1();
+cv::Rect cv::StereoBM::getROI1 const();
 
 AutoIt:
     $oStereoBM.getROI1() -> retval
@@ -24417,7 +24421,7 @@ AutoIt:
 ### cv::StereoBM::getROI2
 
 ```cpp
-cv::Rect cv::StereoBM::getROI2();
+cv::Rect cv::StereoBM::getROI2 const();
 
 AutoIt:
     $oStereoBM.getROI2() -> retval
@@ -24456,7 +24460,7 @@ AutoIt:
 ### cv::StereoBM::getMinDisparity
 
 ```cpp
-int cv::StereoBM::getMinDisparity();
+int cv::StereoBM::getMinDisparity const();
 
 AutoIt:
     $oStereoBM.getMinDisparity() -> retval
@@ -24474,7 +24478,7 @@ AutoIt:
 ### cv::StereoBM::getNumDisparities
 
 ```cpp
-int cv::StereoBM::getNumDisparities();
+int cv::StereoBM::getNumDisparities const();
 
 AutoIt:
     $oStereoBM.getNumDisparities() -> retval
@@ -24492,7 +24496,7 @@ AutoIt:
 ### cv::StereoBM::getBlockSize
 
 ```cpp
-int cv::StereoBM::getBlockSize();
+int cv::StereoBM::getBlockSize const();
 
 AutoIt:
     $oStereoBM.getBlockSize() -> retval
@@ -24510,7 +24514,7 @@ AutoIt:
 ### cv::StereoBM::getSpeckleWindowSize
 
 ```cpp
-int cv::StereoBM::getSpeckleWindowSize();
+int cv::StereoBM::getSpeckleWindowSize const();
 
 AutoIt:
     $oStereoBM.getSpeckleWindowSize() -> retval
@@ -24528,7 +24532,7 @@ AutoIt:
 ### cv::StereoBM::getSpeckleRange
 
 ```cpp
-int cv::StereoBM::getSpeckleRange();
+int cv::StereoBM::getSpeckleRange const();
 
 AutoIt:
     $oStereoBM.getSpeckleRange() -> retval
@@ -24546,7 +24550,7 @@ AutoIt:
 ### cv::StereoBM::getDisp12MaxDiff
 
 ```cpp
-int cv::StereoBM::getDisp12MaxDiff();
+int cv::StereoBM::getDisp12MaxDiff const();
 
 AutoIt:
     $oStereoBM.getDisp12MaxDiff() -> retval
@@ -24573,8 +24577,8 @@ AutoIt:
 ### cv::StereoBM::write
 
 ```cpp
-void cv::StereoBM::write( const cv::Ptr<cv::FileStorage>& fs,
-                          const std::string&              name = String() );
+void cv::StereoBM::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                const std::string&              name = String() );
 
 AutoIt:
     $oStereoBM.write( $fs[, $name] ) -> None
@@ -24592,7 +24596,7 @@ AutoIt:
 ### cv::StereoBM::empty
 
 ```cpp
-bool cv::StereoBM::empty();
+bool cv::StereoBM::empty const();
 
 AutoIt:
     $oStereoBM.empty() -> retval
@@ -24601,7 +24605,7 @@ AutoIt:
 ### cv::StereoBM::save
 
 ```cpp
-void cv::StereoBM::save( const std::string& filename );
+void cv::StereoBM::save const( const std::string& filename );
 
 AutoIt:
     $oStereoBM.save( $filename ) -> None
@@ -24610,7 +24614,7 @@ AutoIt:
 ### cv::StereoBM::getDefaultName
 
 ```cpp
-std::string cv::StereoBM::getDefaultName();
+std::string cv::StereoBM::getDefaultName const();
 
 AutoIt:
     $oStereoBM.getDefaultName() -> retval
@@ -24621,7 +24625,7 @@ AutoIt:
 ### cv::StereoSGBM::getPreFilterCap
 
 ```cpp
-int cv::StereoSGBM::getPreFilterCap();
+int cv::StereoSGBM::getPreFilterCap const();
 
 AutoIt:
     $oStereoSGBM.getPreFilterCap() -> retval
@@ -24639,7 +24643,7 @@ AutoIt:
 ### cv::StereoSGBM::getUniquenessRatio
 
 ```cpp
-int cv::StereoSGBM::getUniquenessRatio();
+int cv::StereoSGBM::getUniquenessRatio const();
 
 AutoIt:
     $oStereoSGBM.getUniquenessRatio() -> retval
@@ -24657,7 +24661,7 @@ AutoIt:
 ### cv::StereoSGBM::getP1
 
 ```cpp
-int cv::StereoSGBM::getP1();
+int cv::StereoSGBM::getP1 const();
 
 AutoIt:
     $oStereoSGBM.getP1() -> retval
@@ -24675,7 +24679,7 @@ AutoIt:
 ### cv::StereoSGBM::getP2
 
 ```cpp
-int cv::StereoSGBM::getP2();
+int cv::StereoSGBM::getP2 const();
 
 AutoIt:
     $oStereoSGBM.getP2() -> retval
@@ -24693,7 +24697,7 @@ AutoIt:
 ### cv::StereoSGBM::getMode
 
 ```cpp
-int cv::StereoSGBM::getMode();
+int cv::StereoSGBM::getMode const();
 
 AutoIt:
     $oStereoSGBM.getMode() -> retval
@@ -24741,7 +24745,7 @@ AutoIt:
 ### cv::StereoSGBM::getMinDisparity
 
 ```cpp
-int cv::StereoSGBM::getMinDisparity();
+int cv::StereoSGBM::getMinDisparity const();
 
 AutoIt:
     $oStereoSGBM.getMinDisparity() -> retval
@@ -24759,7 +24763,7 @@ AutoIt:
 ### cv::StereoSGBM::getNumDisparities
 
 ```cpp
-int cv::StereoSGBM::getNumDisparities();
+int cv::StereoSGBM::getNumDisparities const();
 
 AutoIt:
     $oStereoSGBM.getNumDisparities() -> retval
@@ -24777,7 +24781,7 @@ AutoIt:
 ### cv::StereoSGBM::getBlockSize
 
 ```cpp
-int cv::StereoSGBM::getBlockSize();
+int cv::StereoSGBM::getBlockSize const();
 
 AutoIt:
     $oStereoSGBM.getBlockSize() -> retval
@@ -24795,7 +24799,7 @@ AutoIt:
 ### cv::StereoSGBM::getSpeckleWindowSize
 
 ```cpp
-int cv::StereoSGBM::getSpeckleWindowSize();
+int cv::StereoSGBM::getSpeckleWindowSize const();
 
 AutoIt:
     $oStereoSGBM.getSpeckleWindowSize() -> retval
@@ -24813,7 +24817,7 @@ AutoIt:
 ### cv::StereoSGBM::getSpeckleRange
 
 ```cpp
-int cv::StereoSGBM::getSpeckleRange();
+int cv::StereoSGBM::getSpeckleRange const();
 
 AutoIt:
     $oStereoSGBM.getSpeckleRange() -> retval
@@ -24831,7 +24835,7 @@ AutoIt:
 ### cv::StereoSGBM::getDisp12MaxDiff
 
 ```cpp
-int cv::StereoSGBM::getDisp12MaxDiff();
+int cv::StereoSGBM::getDisp12MaxDiff const();
 
 AutoIt:
     $oStereoSGBM.getDisp12MaxDiff() -> retval
@@ -24858,8 +24862,8 @@ AutoIt:
 ### cv::StereoSGBM::write
 
 ```cpp
-void cv::StereoSGBM::write( const cv::Ptr<cv::FileStorage>& fs,
-                            const std::string&              name = String() );
+void cv::StereoSGBM::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                  const std::string&              name = String() );
 
 AutoIt:
     $oStereoSGBM.write( $fs[, $name] ) -> None
@@ -24877,7 +24881,7 @@ AutoIt:
 ### cv::StereoSGBM::empty
 
 ```cpp
-bool cv::StereoSGBM::empty();
+bool cv::StereoSGBM::empty const();
 
 AutoIt:
     $oStereoSGBM.empty() -> retval
@@ -24886,7 +24890,7 @@ AutoIt:
 ### cv::StereoSGBM::save
 
 ```cpp
-void cv::StereoSGBM::save( const std::string& filename );
+void cv::StereoSGBM::save const( const std::string& filename );
 
 AutoIt:
     $oStereoSGBM.save( $filename ) -> None
@@ -24895,7 +24899,7 @@ AutoIt:
 ### cv::StereoSGBM::getDefaultName
 
 ```cpp
-std::string cv::StereoSGBM::getDefaultName();
+std::string cv::StereoSGBM::getDefaultName const();
 
 AutoIt:
     $oStereoSGBM.getDefaultName() -> retval
@@ -25067,8 +25071,8 @@ AutoIt:
 ### cv::BaseCascadeClassifier::write
 
 ```cpp
-void cv::BaseCascadeClassifier::write( const cv::Ptr<cv::FileStorage>& fs,
-                                       const std::string&              name = String() );
+void cv::BaseCascadeClassifier::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                             const std::string&              name = String() );
 
 AutoIt:
     $oBaseCascadeClassifier.write( $fs[, $name] ) -> None
@@ -25086,7 +25090,7 @@ AutoIt:
 ### cv::BaseCascadeClassifier::empty
 
 ```cpp
-bool cv::BaseCascadeClassifier::empty();
+bool cv::BaseCascadeClassifier::empty const();
 
 AutoIt:
     $oBaseCascadeClassifier.empty() -> retval
@@ -25095,7 +25099,7 @@ AutoIt:
 ### cv::BaseCascadeClassifier::save
 
 ```cpp
-void cv::BaseCascadeClassifier::save( const std::string& filename );
+void cv::BaseCascadeClassifier::save const( const std::string& filename );
 
 AutoIt:
     $oBaseCascadeClassifier.save( $filename ) -> None
@@ -25104,7 +25108,7 @@ AutoIt:
 ### cv::BaseCascadeClassifier::getDefaultName
 
 ```cpp
-std::string cv::BaseCascadeClassifier::getDefaultName();
+std::string cv::BaseCascadeClassifier::getDefaultName const();
 
 AutoIt:
     $oBaseCascadeClassifier.getDefaultName() -> retval
@@ -25131,7 +25135,7 @@ AutoIt:
 ### cv::CascadeClassifier::empty
 
 ```cpp
-bool cv::CascadeClassifier::empty();
+bool cv::CascadeClassifier::empty const();
 
 AutoIt:
     $oCascadeClassifier.empty() -> retval
@@ -25207,7 +25211,7 @@ AutoIt:
 ### cv::CascadeClassifier::isOldFormatCascade
 
 ```cpp
-bool cv::CascadeClassifier::isOldFormatCascade();
+bool cv::CascadeClassifier::isOldFormatCascade const();
 
 AutoIt:
     $oCascadeClassifier.isOldFormatCascade() -> retval
@@ -25216,7 +25220,7 @@ AutoIt:
 ### cv::CascadeClassifier::getOriginalWindowSize
 
 ```cpp
-cv::Size cv::CascadeClassifier::getOriginalWindowSize();
+cv::Size cv::CascadeClassifier::getOriginalWindowSize const();
 
 AutoIt:
     $oCascadeClassifier.getOriginalWindowSize() -> retval
@@ -25225,7 +25229,7 @@ AutoIt:
 ### cv::CascadeClassifier::getFeatureType
 
 ```cpp
-int cv::CascadeClassifier::getFeatureType();
+int cv::CascadeClassifier::getFeatureType const();
 
 AutoIt:
     $oCascadeClassifier.getFeatureType() -> retval
@@ -25244,13 +25248,6 @@ AutoIt:
 ## cv::HOGDescriptor
 
 ### cv::HOGDescriptor::create
-
-```cpp
-static cv::HOGDescriptor cv::HOGDescriptor::create();
-
-AutoIt:
-    _OpenCV_ObjCreate("cv.HOGDescriptor").create() -> <cv.HOGDescriptor object>
-```
 
 ```cpp
 static cv::HOGDescriptor cv::HOGDescriptor::create();
@@ -25287,7 +25284,7 @@ AutoIt:
 ### cv::HOGDescriptor::getDescriptorSize
 
 ```cpp
-size_t cv::HOGDescriptor::getDescriptorSize();
+size_t cv::HOGDescriptor::getDescriptorSize const();
 
 AutoIt:
     $oHOGDescriptor.getDescriptorSize() -> retval
@@ -25296,7 +25293,7 @@ AutoIt:
 ### cv::HOGDescriptor::checkDetectorSize
 
 ```cpp
-bool cv::HOGDescriptor::checkDetectorSize();
+bool cv::HOGDescriptor::checkDetectorSize const();
 
 AutoIt:
     $oHOGDescriptor.checkDetectorSize() -> retval
@@ -25305,7 +25302,7 @@ AutoIt:
 ### cv::HOGDescriptor::getWinSigma
 
 ```cpp
-double cv::HOGDescriptor::getWinSigma();
+double cv::HOGDescriptor::getWinSigma const();
 
 AutoIt:
     $oHOGDescriptor.getWinSigma() -> retval
@@ -25333,8 +25330,8 @@ AutoIt:
 ### cv::HOGDescriptor::save
 
 ```cpp
-void cv::HOGDescriptor::save( const std::string& filename,
-                              const std::string& objname = String() );
+void cv::HOGDescriptor::save const( const std::string& filename,
+                                    const std::string& objname = String() );
 
 AutoIt:
     $oHOGDescriptor.save( $filename[, $objname] ) -> None
@@ -25343,11 +25340,11 @@ AutoIt:
 ### cv::HOGDescriptor::compute
 
 ```cpp
-void cv::HOGDescriptor::compute( _InputArray                   img,
-                                 std::vector<float>&           descriptors,
-                                 cv::Size                      winStride = Size(),
-                                 cv::Size                      padding = Size(),
-                                 const std::vector<cv::Point>& locations = std::vector<Point>() );
+void cv::HOGDescriptor::compute const( _InputArray                   img,
+                                       std::vector<float>&           descriptors,
+                                       cv::Size                      winStride = Size(),
+                                       cv::Size                      padding = Size(),
+                                       const std::vector<cv::Point>& locations = std::vector<Point>() );
 
 AutoIt:
     $oHOGDescriptor.compute( $img[, $winStride[, $padding[, $locations[, $descriptors]]]] ) -> $descriptors
@@ -25356,13 +25353,13 @@ AutoIt:
 ### cv::HOGDescriptor::detect
 
 ```cpp
-void cv::HOGDescriptor::detect( _InputArray                   img,
-                                std::vector<cv::Point>&       foundLocations,
-                                std::vector<double>&          weights,
-                                double                        hitThreshold = 0,
-                                cv::Size                      winStride = Size(),
-                                cv::Size                      padding = Size(),
-                                const std::vector<cv::Point>& searchLocations = std::vector<Point>() );
+void cv::HOGDescriptor::detect const( _InputArray                   img,
+                                      std::vector<cv::Point>&       foundLocations,
+                                      std::vector<double>&          weights,
+                                      double                        hitThreshold = 0,
+                                      cv::Size                      winStride = Size(),
+                                      cv::Size                      padding = Size(),
+                                      const std::vector<cv::Point>& searchLocations = std::vector<Point>() );
 
 AutoIt:
     $oHOGDescriptor.detect( $img[, $hitThreshold[, $winStride[, $padding[, $searchLocations[, $foundLocations[, $weights]]]]]] ) -> $foundLocations, $weights
@@ -25371,15 +25368,15 @@ AutoIt:
 ### cv::HOGDescriptor::detectMultiScale
 
 ```cpp
-void cv::HOGDescriptor::detectMultiScale( _InputArray            img,
-                                          std::vector<cv::Rect>& foundLocations,
-                                          std::vector<double>&   foundWeights,
-                                          double                 hitThreshold = 0,
-                                          cv::Size               winStride = Size(),
-                                          cv::Size               padding = Size(),
-                                          double                 scale = 1.05,
-                                          double                 finalThreshold = 2.0,
-                                          bool                   useMeanshiftGrouping = false );
+void cv::HOGDescriptor::detectMultiScale const( _InputArray            img,
+                                                std::vector<cv::Rect>& foundLocations,
+                                                std::vector<double>&   foundWeights,
+                                                double                 hitThreshold = 0,
+                                                cv::Size               winStride = Size(),
+                                                cv::Size               padding = Size(),
+                                                double                 scale = 1.05,
+                                                double                 finalThreshold = 2.0,
+                                                bool                   useMeanshiftGrouping = false );
 
 AutoIt:
     $oHOGDescriptor.detectMultiScale( $img[, $hitThreshold[, $winStride[, $padding[, $scale[, $finalThreshold[, $useMeanshiftGrouping[, $foundLocations[, $foundWeights]]]]]]]] ) -> $foundLocations, $foundWeights
@@ -25388,11 +25385,11 @@ AutoIt:
 ### cv::HOGDescriptor::computeGradient
 
 ```cpp
-void cv::HOGDescriptor::computeGradient( _InputArray       img,
-                                         _InputOutputArray grad,
-                                         _InputOutputArray angleOfs,
-                                         cv::Size          paddingTL = Size(),
-                                         cv::Size          paddingBR = Size() );
+void cv::HOGDescriptor::computeGradient const( _InputArray       img,
+                                               _InputOutputArray grad,
+                                               _InputOutputArray angleOfs,
+                                               cv::Size          paddingTL = Size(),
+                                               cv::Size          paddingBR = Size() );
 
 AutoIt:
     $oHOGDescriptor.computeGradient( $img, $grad, $angleOfs[, $paddingTL[, $paddingBR]] ) -> $grad, $angleOfs
@@ -25497,8 +25494,8 @@ AutoIt:
 ### cv::QRCodeDetector::detect
 
 ```cpp
-bool cv::QRCodeDetector::detect( _InputArray  img,
-                                 _OutputArray points );
+bool cv::QRCodeDetector::detect const( _InputArray  img,
+                                       _OutputArray points );
 
 AutoIt:
     $oQRCodeDetector.detect( $img[, $points] ) -> retval, $points
@@ -25551,8 +25548,8 @@ AutoIt:
 ### cv::QRCodeDetector::detectMulti
 
 ```cpp
-bool cv::QRCodeDetector::detectMulti( _InputArray  img,
-                                      _OutputArray points );
+bool cv::QRCodeDetector::detectMulti const( _InputArray  img,
+                                            _OutputArray points );
 
 AutoIt:
     $oQRCodeDetector.detectMulti( $img[, $points] ) -> retval, $points
@@ -25561,10 +25558,10 @@ AutoIt:
 ### cv::QRCodeDetector::decodeMulti
 
 ```cpp
-bool cv::QRCodeDetector::decodeMulti( _InputArray               img,
-                                      _InputArray               points,
-                                      std::vector<std::string>& decoded_info,
-                                      _OutputArray              straight_qrcode = noArray() );
+bool cv::QRCodeDetector::decodeMulti const( _InputArray               img,
+                                            _InputArray               points,
+                                            std::vector<std::string>& decoded_info,
+                                            _OutputArray              straight_qrcode = noArray() );
 
 AutoIt:
     $oQRCodeDetector.decodeMulti( $img, $points[, $straight_qrcode[, $decoded_info]] ) -> retval, $decoded_info, $straight_qrcode
@@ -25573,10 +25570,10 @@ AutoIt:
 ### cv::QRCodeDetector::detectAndDecodeMulti
 
 ```cpp
-bool cv::QRCodeDetector::detectAndDecodeMulti( _InputArray               img,
-                                               std::vector<std::string>& decoded_info,
-                                               _OutputArray              points = noArray(),
-                                               _OutputArray              straight_qrcode = noArray() );
+bool cv::QRCodeDetector::detectAndDecodeMulti const( _InputArray               img,
+                                                     std::vector<std::string>& decoded_info,
+                                                     _OutputArray              points = noArray(),
+                                                     _OutputArray              straight_qrcode = noArray() );
 
 AutoIt:
     $oQRCodeDetector.detectAndDecodeMulti( $img[, $points[, $straight_qrcode[, $decoded_info]]] ) -> retval, $decoded_info, $points, $straight_qrcode
@@ -25687,9 +25684,9 @@ AutoIt:
 ### cv::FaceRecognizerSF::alignCrop
 
 ```cpp
-void cv::FaceRecognizerSF::alignCrop( _InputArray  src_img,
-                                      _InputArray  face_box,
-                                      _OutputArray aligned_img );
+void cv::FaceRecognizerSF::alignCrop const( _InputArray  src_img,
+                                            _InputArray  face_box,
+                                            _OutputArray aligned_img );
 
 AutoIt:
     $oFaceRecognizerSF.alignCrop( $src_img, $face_box[, $aligned_img] ) -> $aligned_img
@@ -25708,9 +25705,9 @@ AutoIt:
 ### cv::FaceRecognizerSF::match
 
 ```cpp
-double cv::FaceRecognizerSF::match( _InputArray _face_feature1,
-                                    _InputArray _face_feature2,
-                                    int         dis_type = FaceRecognizerSF::FR_COSINE );
+double cv::FaceRecognizerSF::match const( _InputArray _face_feature1,
+                                          _InputArray _face_feature2,
+                                          int         dis_type = FaceRecognizerSF::FR_COSINE );
 
 AutoIt:
     $oFaceRecognizerSF.match( $_face_feature1, $_face_feature2[, $dis_type] ) -> retval
@@ -25742,7 +25739,7 @@ AutoIt:
 ### cv::Stitcher::registrationResol
 
 ```cpp
-double cv::Stitcher::registrationResol();
+double cv::Stitcher::registrationResol const();
 
 AutoIt:
     $oStitcher.registrationResol() -> retval
@@ -25760,7 +25757,7 @@ AutoIt:
 ### cv::Stitcher::seamEstimationResol
 
 ```cpp
-double cv::Stitcher::seamEstimationResol();
+double cv::Stitcher::seamEstimationResol const();
 
 AutoIt:
     $oStitcher.seamEstimationResol() -> retval
@@ -25778,7 +25775,7 @@ AutoIt:
 ### cv::Stitcher::compositingResol
 
 ```cpp
-double cv::Stitcher::compositingResol();
+double cv::Stitcher::compositingResol const();
 
 AutoIt:
     $oStitcher.compositingResol() -> retval
@@ -25796,7 +25793,7 @@ AutoIt:
 ### cv::Stitcher::panoConfidenceThresh
 
 ```cpp
-double cv::Stitcher::panoConfidenceThresh();
+double cv::Stitcher::panoConfidenceThresh const();
 
 AutoIt:
     $oStitcher.panoConfidenceThresh() -> retval
@@ -25814,7 +25811,7 @@ AutoIt:
 ### cv::Stitcher::waveCorrection
 
 ```cpp
-bool cv::Stitcher::waveCorrection();
+bool cv::Stitcher::waveCorrection const();
 
 AutoIt:
     $oStitcher.waveCorrection() -> retval
@@ -25832,7 +25829,7 @@ AutoIt:
 ### cv::Stitcher::interpolationFlags
 
 ```cpp
-int cv::Stitcher::interpolationFlags();
+int cv::Stitcher::interpolationFlags const();
 
 AutoIt:
     $oStitcher.interpolationFlags() -> retval
@@ -25896,7 +25893,7 @@ AutoIt:
 ### cv::Stitcher::workScale
 
 ```cpp
-double cv::Stitcher::workScale();
+double cv::Stitcher::workScale const();
 
 AutoIt:
     $oStitcher.workScale() -> retval
@@ -26008,7 +26005,7 @@ AutoIt:
 ### cv::PyRotationWarper::getScale
 
 ```cpp
-float cv::PyRotationWarper::getScale();
+float cv::PyRotationWarper::getScale const();
 
 AutoIt:
     $oPyRotationWarper.getScale() -> retval
@@ -26087,7 +26084,7 @@ AutoIt:
 ### cv::detail::FeatherBlender::sharpness
 
 ```cpp
-float cv::detail::FeatherBlender::sharpness();
+float cv::detail::FeatherBlender::sharpness const();
 
 AutoIt:
     $oFeatherBlender.sharpness() -> retval
@@ -26177,7 +26174,7 @@ AutoIt:
 ### cv::detail::MultiBandBlender::numBands
 
 ```cpp
-int cv::detail::MultiBandBlender::numBands();
+int cv::detail::MultiBandBlender::numBands const();
 
 AutoIt:
     $oMultiBandBlender.numBands() -> retval
@@ -26254,7 +26251,7 @@ AutoIt:
 ### cv::detail::CameraParams::K
 
 ```cpp
-cv::Mat cv::detail::CameraParams::K();
+cv::Mat cv::detail::CameraParams::K const();
 
 AutoIt:
     $oCameraParams.K() -> retval
@@ -26478,7 +26475,7 @@ AutoIt:
 ### cv::detail::GainCompensator::getSimilarityThreshold
 
 ```cpp
-double cv::detail::GainCompensator::getSimilarityThreshold();
+double cv::detail::GainCompensator::getSimilarityThreshold const();
 
 AutoIt:
     $oGainCompensator.getSimilarityThreshold() -> retval
@@ -26593,7 +26590,7 @@ AutoIt:
 ### cv::detail::ChannelsCompensator::getSimilarityThreshold
 
 ```cpp
-double cv::detail::ChannelsCompensator::getSimilarityThreshold();
+double cv::detail::ChannelsCompensator::getSimilarityThreshold const();
 
 AutoIt:
     $oChannelsCompensator.getSimilarityThreshold() -> retval
@@ -26699,7 +26696,7 @@ AutoIt:
 ### cv::detail::BlocksCompensator::getSimilarityThreshold
 
 ```cpp
-double cv::detail::BlocksCompensator::getSimilarityThreshold();
+double cv::detail::BlocksCompensator::getSimilarityThreshold const();
 
 AutoIt:
     $oBlocksCompensator.getSimilarityThreshold() -> retval
@@ -26725,7 +26722,7 @@ AutoIt:
 ### cv::detail::BlocksCompensator::getBlockSize
 
 ```cpp
-cv::Size cv::detail::BlocksCompensator::getBlockSize();
+cv::Size cv::detail::BlocksCompensator::getBlockSize const();
 
 AutoIt:
     $oBlocksCompensator.getBlockSize() -> retval
@@ -26743,7 +26740,7 @@ AutoIt:
 ### cv::detail::BlocksCompensator::getNrGainsFilteringIterations
 
 ```cpp
-int cv::detail::BlocksCompensator::getNrGainsFilteringIterations();
+int cv::detail::BlocksCompensator::getNrGainsFilteringIterations const();
 
 AutoIt:
     $oBlocksCompensator.getNrGainsFilteringIterations() -> retval
@@ -26868,7 +26865,7 @@ AutoIt:
 ### cv::detail::BlocksGainCompensator::getSimilarityThreshold
 
 ```cpp
-double cv::detail::BlocksGainCompensator::getSimilarityThreshold();
+double cv::detail::BlocksGainCompensator::getSimilarityThreshold const();
 
 AutoIt:
     $oBlocksGainCompensator.getSimilarityThreshold() -> retval
@@ -26894,7 +26891,7 @@ AutoIt:
 ### cv::detail::BlocksGainCompensator::getBlockSize
 
 ```cpp
-cv::Size cv::detail::BlocksGainCompensator::getBlockSize();
+cv::Size cv::detail::BlocksGainCompensator::getBlockSize const();
 
 AutoIt:
     $oBlocksGainCompensator.getBlockSize() -> retval
@@ -26912,7 +26909,7 @@ AutoIt:
 ### cv::detail::BlocksGainCompensator::getNrGainsFilteringIterations
 
 ```cpp
-int cv::detail::BlocksGainCompensator::getNrGainsFilteringIterations();
+int cv::detail::BlocksGainCompensator::getNrGainsFilteringIterations const();
 
 AutoIt:
     $oBlocksGainCompensator.getNrGainsFilteringIterations() -> retval
@@ -27029,7 +27026,7 @@ AutoIt:
 ### cv::detail::BlocksChannelsCompensator::getSimilarityThreshold
 
 ```cpp
-double cv::detail::BlocksChannelsCompensator::getSimilarityThreshold();
+double cv::detail::BlocksChannelsCompensator::getSimilarityThreshold const();
 
 AutoIt:
     $oBlocksChannelsCompensator.getSimilarityThreshold() -> retval
@@ -27055,7 +27052,7 @@ AutoIt:
 ### cv::detail::BlocksChannelsCompensator::getBlockSize
 
 ```cpp
-cv::Size cv::detail::BlocksChannelsCompensator::getBlockSize();
+cv::Size cv::detail::BlocksChannelsCompensator::getBlockSize const();
 
 AutoIt:
     $oBlocksChannelsCompensator.getBlockSize() -> retval
@@ -27073,7 +27070,7 @@ AutoIt:
 ### cv::detail::BlocksChannelsCompensator::getNrGainsFilteringIterations
 
 ```cpp
-int cv::detail::BlocksChannelsCompensator::getNrGainsFilteringIterations();
+int cv::detail::BlocksChannelsCompensator::getNrGainsFilteringIterations const();
 
 AutoIt:
     $oBlocksChannelsCompensator.getNrGainsFilteringIterations() -> retval
@@ -27193,7 +27190,7 @@ AutoIt:
 ### cv::detail::FeaturesMatcher::isThreadSafe
 
 ```cpp
-bool cv::detail::FeaturesMatcher::isThreadSafe();
+bool cv::detail::FeaturesMatcher::isThreadSafe const();
 
 AutoIt:
     $oFeaturesMatcher.isThreadSafe() -> retval
@@ -27266,7 +27263,7 @@ AutoIt:
 ### cv::detail::BestOf2NearestMatcher::isThreadSafe
 
 ```cpp
-bool cv::detail::BestOf2NearestMatcher::isThreadSafe();
+bool cv::detail::BestOf2NearestMatcher::isThreadSafe const();
 
 AutoIt:
     $oBestOf2NearestMatcher.isThreadSafe() -> retval
@@ -27321,7 +27318,7 @@ AutoIt:
 ### cv::detail::BestOf2NearestRangeMatcher::isThreadSafe
 
 ```cpp
-bool cv::detail::BestOf2NearestRangeMatcher::isThreadSafe();
+bool cv::detail::BestOf2NearestRangeMatcher::isThreadSafe const();
 
 AutoIt:
     $oBestOf2NearestRangeMatcher.isThreadSafe() -> retval
@@ -27375,7 +27372,7 @@ AutoIt:
 ### cv::detail::AffineBestOf2NearestMatcher::isThreadSafe
 
 ```cpp
-bool cv::detail::AffineBestOf2NearestMatcher::isThreadSafe();
+bool cv::detail::AffineBestOf2NearestMatcher::isThreadSafe const();
 
 AutoIt:
     $oAffineBestOf2NearestMatcher.isThreadSafe() -> retval
@@ -27443,7 +27440,7 @@ AutoIt:
 ### cv::detail::BundleAdjusterBase::refinementMask
 
 ```cpp
-cv::Mat cv::detail::BundleAdjusterBase::refinementMask();
+cv::Mat cv::detail::BundleAdjusterBase::refinementMask const();
 
 AutoIt:
     $oBundleAdjusterBase.refinementMask() -> retval
@@ -27461,7 +27458,7 @@ AutoIt:
 ### cv::detail::BundleAdjusterBase::confThresh
 
 ```cpp
-double cv::detail::BundleAdjusterBase::confThresh();
+double cv::detail::BundleAdjusterBase::confThresh const();
 
 AutoIt:
     $oBundleAdjusterBase.confThresh() -> retval
@@ -27519,7 +27516,7 @@ AutoIt:
 ### cv::detail::NoBundleAdjuster::refinementMask
 
 ```cpp
-cv::Mat cv::detail::NoBundleAdjuster::refinementMask();
+cv::Mat cv::detail::NoBundleAdjuster::refinementMask const();
 
 AutoIt:
     $oNoBundleAdjuster.refinementMask() -> retval
@@ -27537,7 +27534,7 @@ AutoIt:
 ### cv::detail::NoBundleAdjuster::confThresh
 
 ```cpp
-double cv::detail::NoBundleAdjuster::confThresh();
+double cv::detail::NoBundleAdjuster::confThresh const();
 
 AutoIt:
     $oNoBundleAdjuster.confThresh() -> retval
@@ -27595,7 +27592,7 @@ AutoIt:
 ### cv::detail::BundleAdjusterReproj::refinementMask
 
 ```cpp
-cv::Mat cv::detail::BundleAdjusterReproj::refinementMask();
+cv::Mat cv::detail::BundleAdjusterReproj::refinementMask const();
 
 AutoIt:
     $oBundleAdjusterReproj.refinementMask() -> retval
@@ -27613,7 +27610,7 @@ AutoIt:
 ### cv::detail::BundleAdjusterReproj::confThresh
 
 ```cpp
-double cv::detail::BundleAdjusterReproj::confThresh();
+double cv::detail::BundleAdjusterReproj::confThresh const();
 
 AutoIt:
     $oBundleAdjusterReproj.confThresh() -> retval
@@ -27671,7 +27668,7 @@ AutoIt:
 ### cv::detail::BundleAdjusterRay::refinementMask
 
 ```cpp
-cv::Mat cv::detail::BundleAdjusterRay::refinementMask();
+cv::Mat cv::detail::BundleAdjusterRay::refinementMask const();
 
 AutoIt:
     $oBundleAdjusterRay.refinementMask() -> retval
@@ -27689,7 +27686,7 @@ AutoIt:
 ### cv::detail::BundleAdjusterRay::confThresh
 
 ```cpp
-double cv::detail::BundleAdjusterRay::confThresh();
+double cv::detail::BundleAdjusterRay::confThresh const();
 
 AutoIt:
     $oBundleAdjusterRay.confThresh() -> retval
@@ -27747,7 +27744,7 @@ AutoIt:
 ### cv::detail::BundleAdjusterAffine::refinementMask
 
 ```cpp
-cv::Mat cv::detail::BundleAdjusterAffine::refinementMask();
+cv::Mat cv::detail::BundleAdjusterAffine::refinementMask const();
 
 AutoIt:
     $oBundleAdjusterAffine.refinementMask() -> retval
@@ -27765,7 +27762,7 @@ AutoIt:
 ### cv::detail::BundleAdjusterAffine::confThresh
 
 ```cpp
-double cv::detail::BundleAdjusterAffine::confThresh();
+double cv::detail::BundleAdjusterAffine::confThresh const();
 
 AutoIt:
     $oBundleAdjusterAffine.confThresh() -> retval
@@ -27823,7 +27820,7 @@ AutoIt:
 ### cv::detail::BundleAdjusterAffinePartial::refinementMask
 
 ```cpp
-cv::Mat cv::detail::BundleAdjusterAffinePartial::refinementMask();
+cv::Mat cv::detail::BundleAdjusterAffinePartial::refinementMask const();
 
 AutoIt:
     $oBundleAdjusterAffinePartial.refinementMask() -> retval
@@ -27841,7 +27838,7 @@ AutoIt:
 ### cv::detail::BundleAdjusterAffinePartial::confThresh
 
 ```cpp
-double cv::detail::BundleAdjusterAffinePartial::confThresh();
+double cv::detail::BundleAdjusterAffinePartial::confThresh const();
 
 AutoIt:
     $oBundleAdjusterAffinePartial.confThresh() -> retval
@@ -28190,7 +28187,7 @@ AutoIt:
 ### cv::BackgroundSubtractor::getBackgroundImage
 
 ```cpp
-void cv::BackgroundSubtractor::getBackgroundImage( _OutputArray backgroundImage );
+void cv::BackgroundSubtractor::getBackgroundImage const( _OutputArray backgroundImage );
 
 AutoIt:
     $oBackgroundSubtractor.getBackgroundImage( [$backgroundImage] ) -> $backgroundImage
@@ -28208,8 +28205,8 @@ AutoIt:
 ### cv::BackgroundSubtractor::write
 
 ```cpp
-void cv::BackgroundSubtractor::write( const cv::Ptr<cv::FileStorage>& fs,
-                                      const std::string&              name = String() );
+void cv::BackgroundSubtractor::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                            const std::string&              name = String() );
 
 AutoIt:
     $oBackgroundSubtractor.write( $fs[, $name] ) -> None
@@ -28227,7 +28224,7 @@ AutoIt:
 ### cv::BackgroundSubtractor::empty
 
 ```cpp
-bool cv::BackgroundSubtractor::empty();
+bool cv::BackgroundSubtractor::empty const();
 
 AutoIt:
     $oBackgroundSubtractor.empty() -> retval
@@ -28236,7 +28233,7 @@ AutoIt:
 ### cv::BackgroundSubtractor::save
 
 ```cpp
-void cv::BackgroundSubtractor::save( const std::string& filename );
+void cv::BackgroundSubtractor::save const( const std::string& filename );
 
 AutoIt:
     $oBackgroundSubtractor.save( $filename ) -> None
@@ -28245,7 +28242,7 @@ AutoIt:
 ### cv::BackgroundSubtractor::getDefaultName
 
 ```cpp
-std::string cv::BackgroundSubtractor::getDefaultName();
+std::string cv::BackgroundSubtractor::getDefaultName const();
 
 AutoIt:
     $oBackgroundSubtractor.getDefaultName() -> retval
@@ -28256,7 +28253,7 @@ AutoIt:
 ### cv::BackgroundSubtractorMOG2::getHistory
 
 ```cpp
-int cv::BackgroundSubtractorMOG2::getHistory();
+int cv::BackgroundSubtractorMOG2::getHistory const();
 
 AutoIt:
     $oBackgroundSubtractorMOG2.getHistory() -> retval
@@ -28274,7 +28271,7 @@ AutoIt:
 ### cv::BackgroundSubtractorMOG2::getNMixtures
 
 ```cpp
-int cv::BackgroundSubtractorMOG2::getNMixtures();
+int cv::BackgroundSubtractorMOG2::getNMixtures const();
 
 AutoIt:
     $oBackgroundSubtractorMOG2.getNMixtures() -> retval
@@ -28292,7 +28289,7 @@ AutoIt:
 ### cv::BackgroundSubtractorMOG2::getBackgroundRatio
 
 ```cpp
-double cv::BackgroundSubtractorMOG2::getBackgroundRatio();
+double cv::BackgroundSubtractorMOG2::getBackgroundRatio const();
 
 AutoIt:
     $oBackgroundSubtractorMOG2.getBackgroundRatio() -> retval
@@ -28310,7 +28307,7 @@ AutoIt:
 ### cv::BackgroundSubtractorMOG2::getVarThreshold
 
 ```cpp
-double cv::BackgroundSubtractorMOG2::getVarThreshold();
+double cv::BackgroundSubtractorMOG2::getVarThreshold const();
 
 AutoIt:
     $oBackgroundSubtractorMOG2.getVarThreshold() -> retval
@@ -28328,7 +28325,7 @@ AutoIt:
 ### cv::BackgroundSubtractorMOG2::getVarThresholdGen
 
 ```cpp
-double cv::BackgroundSubtractorMOG2::getVarThresholdGen();
+double cv::BackgroundSubtractorMOG2::getVarThresholdGen const();
 
 AutoIt:
     $oBackgroundSubtractorMOG2.getVarThresholdGen() -> retval
@@ -28346,7 +28343,7 @@ AutoIt:
 ### cv::BackgroundSubtractorMOG2::getVarInit
 
 ```cpp
-double cv::BackgroundSubtractorMOG2::getVarInit();
+double cv::BackgroundSubtractorMOG2::getVarInit const();
 
 AutoIt:
     $oBackgroundSubtractorMOG2.getVarInit() -> retval
@@ -28364,7 +28361,7 @@ AutoIt:
 ### cv::BackgroundSubtractorMOG2::getVarMin
 
 ```cpp
-double cv::BackgroundSubtractorMOG2::getVarMin();
+double cv::BackgroundSubtractorMOG2::getVarMin const();
 
 AutoIt:
     $oBackgroundSubtractorMOG2.getVarMin() -> retval
@@ -28382,7 +28379,7 @@ AutoIt:
 ### cv::BackgroundSubtractorMOG2::getVarMax
 
 ```cpp
-double cv::BackgroundSubtractorMOG2::getVarMax();
+double cv::BackgroundSubtractorMOG2::getVarMax const();
 
 AutoIt:
     $oBackgroundSubtractorMOG2.getVarMax() -> retval
@@ -28400,7 +28397,7 @@ AutoIt:
 ### cv::BackgroundSubtractorMOG2::getComplexityReductionThreshold
 
 ```cpp
-double cv::BackgroundSubtractorMOG2::getComplexityReductionThreshold();
+double cv::BackgroundSubtractorMOG2::getComplexityReductionThreshold const();
 
 AutoIt:
     $oBackgroundSubtractorMOG2.getComplexityReductionThreshold() -> retval
@@ -28418,7 +28415,7 @@ AutoIt:
 ### cv::BackgroundSubtractorMOG2::getDetectShadows
 
 ```cpp
-bool cv::BackgroundSubtractorMOG2::getDetectShadows();
+bool cv::BackgroundSubtractorMOG2::getDetectShadows const();
 
 AutoIt:
     $oBackgroundSubtractorMOG2.getDetectShadows() -> retval
@@ -28436,7 +28433,7 @@ AutoIt:
 ### cv::BackgroundSubtractorMOG2::getShadowValue
 
 ```cpp
-int cv::BackgroundSubtractorMOG2::getShadowValue();
+int cv::BackgroundSubtractorMOG2::getShadowValue const();
 
 AutoIt:
     $oBackgroundSubtractorMOG2.getShadowValue() -> retval
@@ -28454,7 +28451,7 @@ AutoIt:
 ### cv::BackgroundSubtractorMOG2::getShadowThreshold
 
 ```cpp
-double cv::BackgroundSubtractorMOG2::getShadowThreshold();
+double cv::BackgroundSubtractorMOG2::getShadowThreshold const();
 
 AutoIt:
     $oBackgroundSubtractorMOG2.getShadowThreshold() -> retval
@@ -28483,7 +28480,7 @@ AutoIt:
 ### cv::BackgroundSubtractorMOG2::getBackgroundImage
 
 ```cpp
-void cv::BackgroundSubtractorMOG2::getBackgroundImage( _OutputArray backgroundImage );
+void cv::BackgroundSubtractorMOG2::getBackgroundImage const( _OutputArray backgroundImage );
 
 AutoIt:
     $oBackgroundSubtractorMOG2.getBackgroundImage( [$backgroundImage] ) -> $backgroundImage
@@ -28501,8 +28498,8 @@ AutoIt:
 ### cv::BackgroundSubtractorMOG2::write
 
 ```cpp
-void cv::BackgroundSubtractorMOG2::write( const cv::Ptr<cv::FileStorage>& fs,
-                                          const std::string&              name = String() );
+void cv::BackgroundSubtractorMOG2::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                                const std::string&              name = String() );
 
 AutoIt:
     $oBackgroundSubtractorMOG2.write( $fs[, $name] ) -> None
@@ -28520,7 +28517,7 @@ AutoIt:
 ### cv::BackgroundSubtractorMOG2::empty
 
 ```cpp
-bool cv::BackgroundSubtractorMOG2::empty();
+bool cv::BackgroundSubtractorMOG2::empty const();
 
 AutoIt:
     $oBackgroundSubtractorMOG2.empty() -> retval
@@ -28529,7 +28526,7 @@ AutoIt:
 ### cv::BackgroundSubtractorMOG2::save
 
 ```cpp
-void cv::BackgroundSubtractorMOG2::save( const std::string& filename );
+void cv::BackgroundSubtractorMOG2::save const( const std::string& filename );
 
 AutoIt:
     $oBackgroundSubtractorMOG2.save( $filename ) -> None
@@ -28538,7 +28535,7 @@ AutoIt:
 ### cv::BackgroundSubtractorMOG2::getDefaultName
 
 ```cpp
-std::string cv::BackgroundSubtractorMOG2::getDefaultName();
+std::string cv::BackgroundSubtractorMOG2::getDefaultName const();
 
 AutoIt:
     $oBackgroundSubtractorMOG2.getDefaultName() -> retval
@@ -28549,7 +28546,7 @@ AutoIt:
 ### cv::BackgroundSubtractorKNN::getHistory
 
 ```cpp
-int cv::BackgroundSubtractorKNN::getHistory();
+int cv::BackgroundSubtractorKNN::getHistory const();
 
 AutoIt:
     $oBackgroundSubtractorKNN.getHistory() -> retval
@@ -28567,7 +28564,7 @@ AutoIt:
 ### cv::BackgroundSubtractorKNN::getNSamples
 
 ```cpp
-int cv::BackgroundSubtractorKNN::getNSamples();
+int cv::BackgroundSubtractorKNN::getNSamples const();
 
 AutoIt:
     $oBackgroundSubtractorKNN.getNSamples() -> retval
@@ -28585,7 +28582,7 @@ AutoIt:
 ### cv::BackgroundSubtractorKNN::getDist2Threshold
 
 ```cpp
-double cv::BackgroundSubtractorKNN::getDist2Threshold();
+double cv::BackgroundSubtractorKNN::getDist2Threshold const();
 
 AutoIt:
     $oBackgroundSubtractorKNN.getDist2Threshold() -> retval
@@ -28603,7 +28600,7 @@ AutoIt:
 ### cv::BackgroundSubtractorKNN::getkNNSamples
 
 ```cpp
-int cv::BackgroundSubtractorKNN::getkNNSamples();
+int cv::BackgroundSubtractorKNN::getkNNSamples const();
 
 AutoIt:
     $oBackgroundSubtractorKNN.getkNNSamples() -> retval
@@ -28621,7 +28618,7 @@ AutoIt:
 ### cv::BackgroundSubtractorKNN::getDetectShadows
 
 ```cpp
-bool cv::BackgroundSubtractorKNN::getDetectShadows();
+bool cv::BackgroundSubtractorKNN::getDetectShadows const();
 
 AutoIt:
     $oBackgroundSubtractorKNN.getDetectShadows() -> retval
@@ -28639,7 +28636,7 @@ AutoIt:
 ### cv::BackgroundSubtractorKNN::getShadowValue
 
 ```cpp
-int cv::BackgroundSubtractorKNN::getShadowValue();
+int cv::BackgroundSubtractorKNN::getShadowValue const();
 
 AutoIt:
     $oBackgroundSubtractorKNN.getShadowValue() -> retval
@@ -28657,7 +28654,7 @@ AutoIt:
 ### cv::BackgroundSubtractorKNN::getShadowThreshold
 
 ```cpp
-double cv::BackgroundSubtractorKNN::getShadowThreshold();
+double cv::BackgroundSubtractorKNN::getShadowThreshold const();
 
 AutoIt:
     $oBackgroundSubtractorKNN.getShadowThreshold() -> retval
@@ -28686,7 +28683,7 @@ AutoIt:
 ### cv::BackgroundSubtractorKNN::getBackgroundImage
 
 ```cpp
-void cv::BackgroundSubtractorKNN::getBackgroundImage( _OutputArray backgroundImage );
+void cv::BackgroundSubtractorKNN::getBackgroundImage const( _OutputArray backgroundImage );
 
 AutoIt:
     $oBackgroundSubtractorKNN.getBackgroundImage( [$backgroundImage] ) -> $backgroundImage
@@ -28704,8 +28701,8 @@ AutoIt:
 ### cv::BackgroundSubtractorKNN::write
 
 ```cpp
-void cv::BackgroundSubtractorKNN::write( const cv::Ptr<cv::FileStorage>& fs,
-                                         const std::string&              name = String() );
+void cv::BackgroundSubtractorKNN::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                               const std::string&              name = String() );
 
 AutoIt:
     $oBackgroundSubtractorKNN.write( $fs[, $name] ) -> None
@@ -28723,7 +28720,7 @@ AutoIt:
 ### cv::BackgroundSubtractorKNN::empty
 
 ```cpp
-bool cv::BackgroundSubtractorKNN::empty();
+bool cv::BackgroundSubtractorKNN::empty const();
 
 AutoIt:
     $oBackgroundSubtractorKNN.empty() -> retval
@@ -28732,7 +28729,7 @@ AutoIt:
 ### cv::BackgroundSubtractorKNN::save
 
 ```cpp
-void cv::BackgroundSubtractorKNN::save( const std::string& filename );
+void cv::BackgroundSubtractorKNN::save const( const std::string& filename );
 
 AutoIt:
     $oBackgroundSubtractorKNN.save( $filename ) -> None
@@ -28741,7 +28738,7 @@ AutoIt:
 ### cv::BackgroundSubtractorKNN::getDefaultName
 
 ```cpp
-std::string cv::BackgroundSubtractorKNN::getDefaultName();
+std::string cv::BackgroundSubtractorKNN::getDefaultName const();
 
 AutoIt:
     $oBackgroundSubtractorKNN.getDefaultName() -> retval
@@ -28820,8 +28817,8 @@ AutoIt:
 ### cv::DenseOpticalFlow::write
 
 ```cpp
-void cv::DenseOpticalFlow::write( const cv::Ptr<cv::FileStorage>& fs,
-                                  const std::string&              name = String() );
+void cv::DenseOpticalFlow::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                        const std::string&              name = String() );
 
 AutoIt:
     $oDenseOpticalFlow.write( $fs[, $name] ) -> None
@@ -28839,7 +28836,7 @@ AutoIt:
 ### cv::DenseOpticalFlow::empty
 
 ```cpp
-bool cv::DenseOpticalFlow::empty();
+bool cv::DenseOpticalFlow::empty const();
 
 AutoIt:
     $oDenseOpticalFlow.empty() -> retval
@@ -28848,7 +28845,7 @@ AutoIt:
 ### cv::DenseOpticalFlow::save
 
 ```cpp
-void cv::DenseOpticalFlow::save( const std::string& filename );
+void cv::DenseOpticalFlow::save const( const std::string& filename );
 
 AutoIt:
     $oDenseOpticalFlow.save( $filename ) -> None
@@ -28857,7 +28854,7 @@ AutoIt:
 ### cv::DenseOpticalFlow::getDefaultName
 
 ```cpp
-std::string cv::DenseOpticalFlow::getDefaultName();
+std::string cv::DenseOpticalFlow::getDefaultName const();
 
 AutoIt:
     $oDenseOpticalFlow.getDefaultName() -> retval
@@ -28891,8 +28888,8 @@ AutoIt:
 ### cv::SparseOpticalFlow::write
 
 ```cpp
-void cv::SparseOpticalFlow::write( const cv::Ptr<cv::FileStorage>& fs,
-                                   const std::string&              name = String() );
+void cv::SparseOpticalFlow::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                         const std::string&              name = String() );
 
 AutoIt:
     $oSparseOpticalFlow.write( $fs[, $name] ) -> None
@@ -28910,7 +28907,7 @@ AutoIt:
 ### cv::SparseOpticalFlow::empty
 
 ```cpp
-bool cv::SparseOpticalFlow::empty();
+bool cv::SparseOpticalFlow::empty const();
 
 AutoIt:
     $oSparseOpticalFlow.empty() -> retval
@@ -28919,7 +28916,7 @@ AutoIt:
 ### cv::SparseOpticalFlow::save
 
 ```cpp
-void cv::SparseOpticalFlow::save( const std::string& filename );
+void cv::SparseOpticalFlow::save const( const std::string& filename );
 
 AutoIt:
     $oSparseOpticalFlow.save( $filename ) -> None
@@ -28928,7 +28925,7 @@ AutoIt:
 ### cv::SparseOpticalFlow::getDefaultName
 
 ```cpp
-std::string cv::SparseOpticalFlow::getDefaultName();
+std::string cv::SparseOpticalFlow::getDefaultName const();
 
 AutoIt:
     $oSparseOpticalFlow.getDefaultName() -> retval
@@ -28939,7 +28936,7 @@ AutoIt:
 ### cv::FarnebackOpticalFlow::getNumLevels
 
 ```cpp
-int cv::FarnebackOpticalFlow::getNumLevels();
+int cv::FarnebackOpticalFlow::getNumLevels const();
 
 AutoIt:
     $oFarnebackOpticalFlow.getNumLevels() -> retval
@@ -28957,7 +28954,7 @@ AutoIt:
 ### cv::FarnebackOpticalFlow::getPyrScale
 
 ```cpp
-double cv::FarnebackOpticalFlow::getPyrScale();
+double cv::FarnebackOpticalFlow::getPyrScale const();
 
 AutoIt:
     $oFarnebackOpticalFlow.getPyrScale() -> retval
@@ -28975,7 +28972,7 @@ AutoIt:
 ### cv::FarnebackOpticalFlow::getFastPyramids
 
 ```cpp
-bool cv::FarnebackOpticalFlow::getFastPyramids();
+bool cv::FarnebackOpticalFlow::getFastPyramids const();
 
 AutoIt:
     $oFarnebackOpticalFlow.getFastPyramids() -> retval
@@ -28993,7 +28990,7 @@ AutoIt:
 ### cv::FarnebackOpticalFlow::getWinSize
 
 ```cpp
-int cv::FarnebackOpticalFlow::getWinSize();
+int cv::FarnebackOpticalFlow::getWinSize const();
 
 AutoIt:
     $oFarnebackOpticalFlow.getWinSize() -> retval
@@ -29011,7 +29008,7 @@ AutoIt:
 ### cv::FarnebackOpticalFlow::getNumIters
 
 ```cpp
-int cv::FarnebackOpticalFlow::getNumIters();
+int cv::FarnebackOpticalFlow::getNumIters const();
 
 AutoIt:
     $oFarnebackOpticalFlow.getNumIters() -> retval
@@ -29029,7 +29026,7 @@ AutoIt:
 ### cv::FarnebackOpticalFlow::getPolyN
 
 ```cpp
-int cv::FarnebackOpticalFlow::getPolyN();
+int cv::FarnebackOpticalFlow::getPolyN const();
 
 AutoIt:
     $oFarnebackOpticalFlow.getPolyN() -> retval
@@ -29047,7 +29044,7 @@ AutoIt:
 ### cv::FarnebackOpticalFlow::getPolySigma
 
 ```cpp
-double cv::FarnebackOpticalFlow::getPolySigma();
+double cv::FarnebackOpticalFlow::getPolySigma const();
 
 AutoIt:
     $oFarnebackOpticalFlow.getPolySigma() -> retval
@@ -29065,7 +29062,7 @@ AutoIt:
 ### cv::FarnebackOpticalFlow::getFlags
 
 ```cpp
-int cv::FarnebackOpticalFlow::getFlags();
+int cv::FarnebackOpticalFlow::getFlags const();
 
 AutoIt:
     $oFarnebackOpticalFlow.getFlags() -> retval
@@ -29128,8 +29125,8 @@ AutoIt:
 ### cv::FarnebackOpticalFlow::write
 
 ```cpp
-void cv::FarnebackOpticalFlow::write( const cv::Ptr<cv::FileStorage>& fs,
-                                      const std::string&              name = String() );
+void cv::FarnebackOpticalFlow::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                            const std::string&              name = String() );
 
 AutoIt:
     $oFarnebackOpticalFlow.write( $fs[, $name] ) -> None
@@ -29147,7 +29144,7 @@ AutoIt:
 ### cv::FarnebackOpticalFlow::empty
 
 ```cpp
-bool cv::FarnebackOpticalFlow::empty();
+bool cv::FarnebackOpticalFlow::empty const();
 
 AutoIt:
     $oFarnebackOpticalFlow.empty() -> retval
@@ -29156,7 +29153,7 @@ AutoIt:
 ### cv::FarnebackOpticalFlow::save
 
 ```cpp
-void cv::FarnebackOpticalFlow::save( const std::string& filename );
+void cv::FarnebackOpticalFlow::save const( const std::string& filename );
 
 AutoIt:
     $oFarnebackOpticalFlow.save( $filename ) -> None
@@ -29165,7 +29162,7 @@ AutoIt:
 ### cv::FarnebackOpticalFlow::getDefaultName
 
 ```cpp
-std::string cv::FarnebackOpticalFlow::getDefaultName();
+std::string cv::FarnebackOpticalFlow::getDefaultName const();
 
 AutoIt:
     $oFarnebackOpticalFlow.getDefaultName() -> retval
@@ -29188,7 +29185,7 @@ AutoIt:
 ### cv::VariationalRefinement::getFixedPointIterations
 
 ```cpp
-int cv::VariationalRefinement::getFixedPointIterations();
+int cv::VariationalRefinement::getFixedPointIterations const();
 
 AutoIt:
     $oVariationalRefinement.getFixedPointIterations() -> retval
@@ -29206,7 +29203,7 @@ AutoIt:
 ### cv::VariationalRefinement::getSorIterations
 
 ```cpp
-int cv::VariationalRefinement::getSorIterations();
+int cv::VariationalRefinement::getSorIterations const();
 
 AutoIt:
     $oVariationalRefinement.getSorIterations() -> retval
@@ -29224,7 +29221,7 @@ AutoIt:
 ### cv::VariationalRefinement::getOmega
 
 ```cpp
-float cv::VariationalRefinement::getOmega();
+float cv::VariationalRefinement::getOmega const();
 
 AutoIt:
     $oVariationalRefinement.getOmega() -> retval
@@ -29242,7 +29239,7 @@ AutoIt:
 ### cv::VariationalRefinement::getAlpha
 
 ```cpp
-float cv::VariationalRefinement::getAlpha();
+float cv::VariationalRefinement::getAlpha const();
 
 AutoIt:
     $oVariationalRefinement.getAlpha() -> retval
@@ -29260,7 +29257,7 @@ AutoIt:
 ### cv::VariationalRefinement::getDelta
 
 ```cpp
-float cv::VariationalRefinement::getDelta();
+float cv::VariationalRefinement::getDelta const();
 
 AutoIt:
     $oVariationalRefinement.getDelta() -> retval
@@ -29278,7 +29275,7 @@ AutoIt:
 ### cv::VariationalRefinement::getGamma
 
 ```cpp
-float cv::VariationalRefinement::getGamma();
+float cv::VariationalRefinement::getGamma const();
 
 AutoIt:
     $oVariationalRefinement.getGamma() -> retval
@@ -29334,8 +29331,8 @@ AutoIt:
 ### cv::VariationalRefinement::write
 
 ```cpp
-void cv::VariationalRefinement::write( const cv::Ptr<cv::FileStorage>& fs,
-                                       const std::string&              name = String() );
+void cv::VariationalRefinement::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                             const std::string&              name = String() );
 
 AutoIt:
     $oVariationalRefinement.write( $fs[, $name] ) -> None
@@ -29353,7 +29350,7 @@ AutoIt:
 ### cv::VariationalRefinement::empty
 
 ```cpp
-bool cv::VariationalRefinement::empty();
+bool cv::VariationalRefinement::empty const();
 
 AutoIt:
     $oVariationalRefinement.empty() -> retval
@@ -29362,7 +29359,7 @@ AutoIt:
 ### cv::VariationalRefinement::save
 
 ```cpp
-void cv::VariationalRefinement::save( const std::string& filename );
+void cv::VariationalRefinement::save const( const std::string& filename );
 
 AutoIt:
     $oVariationalRefinement.save( $filename ) -> None
@@ -29371,7 +29368,7 @@ AutoIt:
 ### cv::VariationalRefinement::getDefaultName
 
 ```cpp
-std::string cv::VariationalRefinement::getDefaultName();
+std::string cv::VariationalRefinement::getDefaultName const();
 
 AutoIt:
     $oVariationalRefinement.getDefaultName() -> retval
@@ -29382,7 +29379,7 @@ AutoIt:
 ### cv::DISOpticalFlow::getFinestScale
 
 ```cpp
-int cv::DISOpticalFlow::getFinestScale();
+int cv::DISOpticalFlow::getFinestScale const();
 
 AutoIt:
     $oDISOpticalFlow.getFinestScale() -> retval
@@ -29400,7 +29397,7 @@ AutoIt:
 ### cv::DISOpticalFlow::getPatchSize
 
 ```cpp
-int cv::DISOpticalFlow::getPatchSize();
+int cv::DISOpticalFlow::getPatchSize const();
 
 AutoIt:
     $oDISOpticalFlow.getPatchSize() -> retval
@@ -29418,7 +29415,7 @@ AutoIt:
 ### cv::DISOpticalFlow::getPatchStride
 
 ```cpp
-int cv::DISOpticalFlow::getPatchStride();
+int cv::DISOpticalFlow::getPatchStride const();
 
 AutoIt:
     $oDISOpticalFlow.getPatchStride() -> retval
@@ -29436,7 +29433,7 @@ AutoIt:
 ### cv::DISOpticalFlow::getGradientDescentIterations
 
 ```cpp
-int cv::DISOpticalFlow::getGradientDescentIterations();
+int cv::DISOpticalFlow::getGradientDescentIterations const();
 
 AutoIt:
     $oDISOpticalFlow.getGradientDescentIterations() -> retval
@@ -29454,7 +29451,7 @@ AutoIt:
 ### cv::DISOpticalFlow::getVariationalRefinementIterations
 
 ```cpp
-int cv::DISOpticalFlow::getVariationalRefinementIterations();
+int cv::DISOpticalFlow::getVariationalRefinementIterations const();
 
 AutoIt:
     $oDISOpticalFlow.getVariationalRefinementIterations() -> retval
@@ -29472,7 +29469,7 @@ AutoIt:
 ### cv::DISOpticalFlow::getVariationalRefinementAlpha
 
 ```cpp
-float cv::DISOpticalFlow::getVariationalRefinementAlpha();
+float cv::DISOpticalFlow::getVariationalRefinementAlpha const();
 
 AutoIt:
     $oDISOpticalFlow.getVariationalRefinementAlpha() -> retval
@@ -29490,7 +29487,7 @@ AutoIt:
 ### cv::DISOpticalFlow::getVariationalRefinementDelta
 
 ```cpp
-float cv::DISOpticalFlow::getVariationalRefinementDelta();
+float cv::DISOpticalFlow::getVariationalRefinementDelta const();
 
 AutoIt:
     $oDISOpticalFlow.getVariationalRefinementDelta() -> retval
@@ -29508,7 +29505,7 @@ AutoIt:
 ### cv::DISOpticalFlow::getVariationalRefinementGamma
 
 ```cpp
-float cv::DISOpticalFlow::getVariationalRefinementGamma();
+float cv::DISOpticalFlow::getVariationalRefinementGamma const();
 
 AutoIt:
     $oDISOpticalFlow.getVariationalRefinementGamma() -> retval
@@ -29526,7 +29523,7 @@ AutoIt:
 ### cv::DISOpticalFlow::getUseMeanNormalization
 
 ```cpp
-bool cv::DISOpticalFlow::getUseMeanNormalization();
+bool cv::DISOpticalFlow::getUseMeanNormalization const();
 
 AutoIt:
     $oDISOpticalFlow.getUseMeanNormalization() -> retval
@@ -29544,7 +29541,7 @@ AutoIt:
 ### cv::DISOpticalFlow::getUseSpatialPropagation
 
 ```cpp
-bool cv::DISOpticalFlow::getUseSpatialPropagation();
+bool cv::DISOpticalFlow::getUseSpatialPropagation const();
 
 AutoIt:
     $oDISOpticalFlow.getUseSpatialPropagation() -> retval
@@ -29600,8 +29597,8 @@ AutoIt:
 ### cv::DISOpticalFlow::write
 
 ```cpp
-void cv::DISOpticalFlow::write( const cv::Ptr<cv::FileStorage>& fs,
-                                const std::string&              name = String() );
+void cv::DISOpticalFlow::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                      const std::string&              name = String() );
 
 AutoIt:
     $oDISOpticalFlow.write( $fs[, $name] ) -> None
@@ -29619,7 +29616,7 @@ AutoIt:
 ### cv::DISOpticalFlow::empty
 
 ```cpp
-bool cv::DISOpticalFlow::empty();
+bool cv::DISOpticalFlow::empty const();
 
 AutoIt:
     $oDISOpticalFlow.empty() -> retval
@@ -29628,7 +29625,7 @@ AutoIt:
 ### cv::DISOpticalFlow::save
 
 ```cpp
-void cv::DISOpticalFlow::save( const std::string& filename );
+void cv::DISOpticalFlow::save const( const std::string& filename );
 
 AutoIt:
     $oDISOpticalFlow.save( $filename ) -> None
@@ -29637,7 +29634,7 @@ AutoIt:
 ### cv::DISOpticalFlow::getDefaultName
 
 ```cpp
-std::string cv::DISOpticalFlow::getDefaultName();
+std::string cv::DISOpticalFlow::getDefaultName const();
 
 AutoIt:
     $oDISOpticalFlow.getDefaultName() -> retval
@@ -29648,7 +29645,7 @@ AutoIt:
 ### cv::SparsePyrLKOpticalFlow::getWinSize
 
 ```cpp
-cv::Size cv::SparsePyrLKOpticalFlow::getWinSize();
+cv::Size cv::SparsePyrLKOpticalFlow::getWinSize const();
 
 AutoIt:
     $oSparsePyrLKOpticalFlow.getWinSize() -> retval
@@ -29666,7 +29663,7 @@ AutoIt:
 ### cv::SparsePyrLKOpticalFlow::getMaxLevel
 
 ```cpp
-int cv::SparsePyrLKOpticalFlow::getMaxLevel();
+int cv::SparsePyrLKOpticalFlow::getMaxLevel const();
 
 AutoIt:
     $oSparsePyrLKOpticalFlow.getMaxLevel() -> retval
@@ -29684,7 +29681,7 @@ AutoIt:
 ### cv::SparsePyrLKOpticalFlow::getTermCriteria
 
 ```cpp
-cv::TermCriteria cv::SparsePyrLKOpticalFlow::getTermCriteria();
+cv::TermCriteria cv::SparsePyrLKOpticalFlow::getTermCriteria const();
 
 AutoIt:
     $oSparsePyrLKOpticalFlow.getTermCriteria() -> retval
@@ -29702,7 +29699,7 @@ AutoIt:
 ### cv::SparsePyrLKOpticalFlow::getFlags
 
 ```cpp
-int cv::SparsePyrLKOpticalFlow::getFlags();
+int cv::SparsePyrLKOpticalFlow::getFlags const();
 
 AutoIt:
     $oSparsePyrLKOpticalFlow.getFlags() -> retval
@@ -29720,7 +29717,7 @@ AutoIt:
 ### cv::SparsePyrLKOpticalFlow::getMinEigThreshold
 
 ```cpp
-double cv::SparsePyrLKOpticalFlow::getMinEigThreshold();
+double cv::SparsePyrLKOpticalFlow::getMinEigThreshold const();
 
 AutoIt:
     $oSparsePyrLKOpticalFlow.getMinEigThreshold() -> retval
@@ -29774,8 +29771,8 @@ AutoIt:
 ### cv::SparsePyrLKOpticalFlow::write
 
 ```cpp
-void cv::SparsePyrLKOpticalFlow::write( const cv::Ptr<cv::FileStorage>& fs,
-                                        const std::string&              name = String() );
+void cv::SparsePyrLKOpticalFlow::write const( const cv::Ptr<cv::FileStorage>& fs,
+                                              const std::string&              name = String() );
 
 AutoIt:
     $oSparsePyrLKOpticalFlow.write( $fs[, $name] ) -> None
@@ -29793,7 +29790,7 @@ AutoIt:
 ### cv::SparsePyrLKOpticalFlow::empty
 
 ```cpp
-bool cv::SparsePyrLKOpticalFlow::empty();
+bool cv::SparsePyrLKOpticalFlow::empty const();
 
 AutoIt:
     $oSparsePyrLKOpticalFlow.empty() -> retval
@@ -29802,7 +29799,7 @@ AutoIt:
 ### cv::SparsePyrLKOpticalFlow::save
 
 ```cpp
-void cv::SparsePyrLKOpticalFlow::save( const std::string& filename );
+void cv::SparsePyrLKOpticalFlow::save const( const std::string& filename );
 
 AutoIt:
     $oSparsePyrLKOpticalFlow.save( $filename ) -> None
@@ -29811,7 +29808,7 @@ AutoIt:
 ### cv::SparsePyrLKOpticalFlow::getDefaultName
 
 ```cpp
-std::string cv::SparsePyrLKOpticalFlow::getDefaultName();
+std::string cv::SparsePyrLKOpticalFlow::getDefaultName const();
 
 AutoIt:
     $oSparsePyrLKOpticalFlow.getDefaultName() -> retval
@@ -30247,8 +30244,8 @@ AutoIt:
 ### cv::GComputation::create
 
 ```cpp
-static cv::GComputation cv::GComputation::create( cv::GProtoInputArgs  ins,
-                                                  cv::GProtoOutputArgs outs );
+static cv::GComputation cv::GComputation::create( cv::GProtoInputArgs&&  ins,
+                                                  cv::GProtoOutputArgs&& outs );
 
 AutoIt:
     _OpenCV_ObjCreate("cv.GComputation").create( $ins, $outs ) -> <cv.GComputation object>
@@ -30283,7 +30280,7 @@ AutoIt:
 
 ```cpp
 std::vector<cv::GRunArg> cv::GComputation::apply( const cv::detail::ExtractArgsCallback& callback,
-                                                  std::vector<cv::GCompileArg>           args = {} );
+                                                  std::vector<cv::GCompileArg>&&         args = {} );
 
 AutoIt:
     $oGComputation.apply( $callback[, $args] ) -> retval
@@ -30292,15 +30289,15 @@ AutoIt:
 ### cv::GComputation::compileStreaming
 
 ```cpp
-cv::GStreamingCompiled cv::GComputation::compileStreaming( std::vector<GMetaArg>        in_metas,
-                                                           std::vector<cv::GCompileArg> args = {} );
+cv::GStreamingCompiled cv::GComputation::compileStreaming( std::vector<GMetaArg>&&        in_metas,
+                                                           std::vector<cv::GCompileArg>&& args = {} );
 
 AutoIt:
     $oGComputation.compileStreaming( $in_metas[, $args] ) -> retval
 ```
 
 ```cpp
-cv::GStreamingCompiled cv::GComputation::compileStreaming( std::vector<cv::GCompileArg> args = {} );
+cv::GStreamingCompiled cv::GComputation::compileStreaming( std::vector<cv::GCompileArg>&& args = {} );
 
 AutoIt:
     $oGComputation.compileStreaming( [$args] ) -> retval
@@ -30308,7 +30305,7 @@ AutoIt:
 
 ```cpp
 cv::GStreamingCompiled cv::GComputation::compileStreaming( const cv::detail::ExtractMetaCallback& callback,
-                                                           std::vector<cv::GCompileArg>           args = {} );
+                                                           std::vector<cv::GCompileArg>&&         args = {} );
 
 AutoIt:
     $oGComputation.compileStreaming( $callback[, $args] ) -> retval
@@ -30366,8 +30363,8 @@ AutoIt:
 ```
 
 ```cpp
-static cv::GMatDesc cv::GMatDesc::create( int              d,
-                                          std::vector<int> dd );
+static cv::GMatDesc cv::GMatDesc::create( int                d,
+                                          std::vector<int>&& dd );
 
 AutoIt:
     _OpenCV_ObjCreate("cv.GMatDesc").create( $d, $dd ) -> <cv.GMatDesc object>
@@ -30383,15 +30380,15 @@ AutoIt:
 ### cv::GMatDesc::withSizeDelta
 
 ```cpp
-cv::GMatDesc cv::GMatDesc::withSizeDelta( cv::Size delta );
+cv::GMatDesc cv::GMatDesc::withSizeDelta const( cv::Size delta );
 
 AutoIt:
     $oGMatDesc.withSizeDelta( $delta ) -> retval
 ```
 
 ```cpp
-cv::GMatDesc cv::GMatDesc::withSizeDelta( int dx,
-                                          int dy );
+cv::GMatDesc cv::GMatDesc::withSizeDelta const( int dx,
+                                                int dy );
 
 AutoIt:
     $oGMatDesc.withSizeDelta( $dx, $dy ) -> retval
@@ -30400,7 +30397,7 @@ AutoIt:
 ### cv::GMatDesc::withSize
 
 ```cpp
-cv::GMatDesc cv::GMatDesc::withSize( cv::Size sz );
+cv::GMatDesc cv::GMatDesc::withSize const( cv::Size sz );
 
 AutoIt:
     $oGMatDesc.withSize( $sz ) -> retval
@@ -30409,7 +30406,7 @@ AutoIt:
 ### cv::GMatDesc::withDepth
 
 ```cpp
-cv::GMatDesc cv::GMatDesc::withDepth( int ddepth );
+cv::GMatDesc cv::GMatDesc::withDepth const( int ddepth );
 
 AutoIt:
     $oGMatDesc.withDepth( $ddepth ) -> retval
@@ -30418,8 +30415,8 @@ AutoIt:
 ### cv::GMatDesc::withType
 
 ```cpp
-cv::GMatDesc cv::GMatDesc::withType( int ddepth,
-                                     int dchan );
+cv::GMatDesc cv::GMatDesc::withType const( int ddepth,
+                                           int dchan );
 
 AutoIt:
     $oGMatDesc.withType( $ddepth, $dchan ) -> retval
@@ -30428,14 +30425,14 @@ AutoIt:
 ### cv::GMatDesc::asPlanar
 
 ```cpp
-cv::GMatDesc cv::GMatDesc::asPlanar();
+cv::GMatDesc cv::GMatDesc::asPlanar const();
 
 AutoIt:
     $oGMatDesc.asPlanar() -> retval
 ```
 
 ```cpp
-cv::GMatDesc cv::GMatDesc::asPlanar( int planes );
+cv::GMatDesc cv::GMatDesc::asPlanar const( int planes );
 
 AutoIt:
     $oGMatDesc.asPlanar( $planes ) -> retval
@@ -30444,7 +30441,7 @@ AutoIt:
 ### cv::GMatDesc::asInterleaved
 
 ```cpp
-cv::GMatDesc cv::GMatDesc::asInterleaved();
+cv::GMatDesc cv::GMatDesc::asInterleaved const();
 
 AutoIt:
     $oGMatDesc.asInterleaved() -> retval
@@ -30533,7 +30530,7 @@ AutoIt:
 ### cv::GStreamingCompiled::running
 
 ```cpp
-bool cv::GStreamingCompiled::running();
+bool cv::GStreamingCompiled::running const();
 
 AutoIt:
     $oGStreamingCompiled.running() -> retval
@@ -30704,7 +30701,7 @@ AutoIt:
 ```cpp
 void cv::gapi::wip::draw::render( cv::Mat&                                      bgr,
                                   const std::vector<cv::gapi::wip::draw::Prim>& prims,
-                                  std::vector<cv::GCompileArg>                  args = {} );
+                                  std::vector<cv::GCompileArg>&&                args = {} );
 
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw").render( $bgr, $prims[, $args] ) -> None
@@ -30714,7 +30711,7 @@ AutoIt:
 void cv::gapi::wip::draw::render( cv::Mat&                                      y_plane,
                                   cv::Mat&                                      uv_plane,
                                   const std::vector<cv::gapi::wip::draw::Prim>& prims,
-                                  std::vector<cv::GCompileArg>                  args = {} );
+                                  std::vector<cv::GCompileArg>&&                args = {} );
 
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw").render( $y_plane, $uv_plane, $prims[, $args] ) -> None
@@ -31135,6 +31132,17 @@ static cv::GRunArg cv::GRunArg::create();
 
 AutoIt:
     _OpenCV_ObjCreate("cv.GRunArg").create() -> <cv.GRunArg object>
+```
+
+## cv::gapi::wip::draw::Prim
+
+### cv::gapi::wip::draw::Prim::create
+
+```cpp
+static cv::gapi::wip::draw::Prim cv::gapi::wip::draw::Prim::create();
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Prim").create() -> <cv.gapi.wip.draw.Prim object>
 ```
 
 ## VectorOfVariant

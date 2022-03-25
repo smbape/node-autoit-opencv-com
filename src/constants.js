@@ -115,7 +115,7 @@ exports.PTR = new Set([
 exports.CUSTOM_CLASSES = [
     ["cv.detail.ExtractArgsCallback", ["/Simple"]],
     ["cv.detail.ExtractMetaCallback", ["/Simple"]],
-    ["cv.gapi.wip.draw.Prim", ["/Simple"]],
+    ["cv.gapi.wip.draw.Prim", ["/Simple", "/DC"]],
     ["cv.gapi.wip.IStreamSource", []],
     ["cv.GProtoInputArgs", ["/Simple"]],
     ["cv.GProtoOutputArgs", ["/Simple"]],

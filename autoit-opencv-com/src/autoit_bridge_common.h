@@ -689,3 +689,124 @@ public:
 		return hRes;
 	}
 };
+
+template <class Base, const IID* piid, class T>
+class ATL_NO_VTABLE IEnumOnSTLImpl<Base, piid, T, autoit::GenericCopy<bool>, std::vector<bool>> :
+	public Base
+{
+public:
+	typedef autoit::GenericCopy<bool> Copy;
+	typedef std::vector<bool> CollType;
+
+	HRESULT Init(
+		_In_ IUnknown* pUnkForRelease,
+		_In_ CollType& collection)
+	{
+		m_spUnk = pUnkForRelease;
+		m_pcollection = &collection;
+		m_iter = m_pcollection->begin();
+		return S_OK;
+	}
+	STDMETHOD(Next)(
+		_In_ ULONG celt,
+		_Out_writes_to_(celt, *pceltFetched) T* rgelt,
+		_Out_opt_ ULONG* pceltFetched);
+	STDMETHOD(Skip)(_In_ ULONG celt);
+	STDMETHOD(Reset)(void)
+	{
+		if (m_pcollection == NULL)
+			return E_FAIL;
+		m_iter = m_pcollection->begin();
+		return S_OK;
+	}
+	STDMETHOD(Clone)(_Outptr_ Base** ppEnum);
+	//Data
+	CComPtr<IUnknown> m_spUnk;
+	CollType* m_pcollection;
+	typename CollType::const_iterator m_iter;
+};
+
+template <class Base, const IID* piid, class T>
+COM_DECLSPEC_NOTHROW STDMETHODIMP IEnumOnSTLImpl<Base, piid, T, autoit::GenericCopy<bool>, std::vector<bool>>::Next(
+	_In_ ULONG celt,
+	_Out_writes_to_(celt, *pceltFetched) T* rgelt,
+	_Out_opt_ ULONG* pceltFetched)
+{
+	if (rgelt == NULL || (celt > 1 && pceltFetched == NULL))
+		return E_POINTER;
+	if (pceltFetched != NULL)
+		*pceltFetched = 0;
+	if (m_pcollection == NULL)
+		return E_FAIL;
+
+	ULONG nActual = 0;
+	HRESULT hr = S_OK;
+	T* pelt = rgelt;
+	while (SUCCEEDED(hr) && m_iter != m_pcollection->end() && nActual < celt)
+	{
+		hr = autoit_from(*m_iter, pelt);
+		if (FAILED(hr))
+		{
+			while (rgelt < pelt)
+				Copy::destroy(rgelt++);
+			nActual = 0;
+		}
+		else
+		{
+			pelt++;
+			m_iter++;
+			nActual++;
+		}
+	}
+	if (SUCCEEDED(hr))
+	{
+		if (pceltFetched)
+			*pceltFetched = nActual;
+		if (nActual < celt)
+			hr = S_FALSE;
+	}
+	return hr;
+}
+
+template <class Base, const IID* piid, class T>
+COM_DECLSPEC_NOTHROW STDMETHODIMP IEnumOnSTLImpl<Base, piid, T, autoit::GenericCopy<bool>, std::vector<bool>>::Skip(_In_ ULONG celt)
+{
+	HRESULT hr = S_OK;
+	while (celt--)
+	{
+		if (m_iter != m_pcollection->end())
+			m_iter++;
+		else
+		{
+			hr = S_FALSE;
+			break;
+		}
+	}
+	return hr;
+}
+
+template <class Base, const IID* piid, class T>
+COM_DECLSPEC_NOTHROW STDMETHODIMP IEnumOnSTLImpl<Base, piid, T, autoit::GenericCopy<bool>, std::vector<bool>>::Clone(
+	_Outptr_ Base** ppEnum)
+{
+	typedef CComObject<CComEnumOnSTL<Base, piid, T, Copy, CollType> > _class;
+	HRESULT hRes = E_POINTER;
+	if (ppEnum != NULL)
+	{
+		*ppEnum = NULL;
+		_class* p;
+		hRes = _class::CreateInstance(&p);
+		if (SUCCEEDED(hRes))
+		{
+			hRes = p->Init(m_spUnk, *m_pcollection);
+			if (SUCCEEDED(hRes))
+			{
+				p->m_iter = m_iter;
+				hRes = p->_InternalQueryInterface(*piid, (void**)ppEnum);
+			}
+			if (FAILED(hRes))
+				delete p;
+		}
+	}
+	return hRes;
+}

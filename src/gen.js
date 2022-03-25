@@ -16,6 +16,7 @@ const parseArguments = PROJECT_DIR => {
         LIBRARY: "cvLib",
         namespace: "cv",
         shared_ptr: "cv::Ptr",
+        make_shared: "std::make_shared",
         assert: "AUTOIT_ASSERT",
         variantTypeReg: /^cv::(?:Point|Rect|Scalar|Size|Vec)(?:\d[bdfisw])?$/,
         implicitNamespaceType: /^(?:Point|Rect|Scalar|Size|Vec)(?:\d[bdfisw])?$/,

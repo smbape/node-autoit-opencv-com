@@ -53,7 +53,7 @@ class AutoItGenerator {
     }
 
     generate({decls, namespaces, generated_include}, options = {}, cb = undefined) {
-        const {APP_NAME, LIB_UID, LIBRARY, shared_ptr} = options;
+        const {APP_NAME, LIB_UID, LIBRARY, shared_ptr, make_shared} = options;
 
         this.namespaces = new Set();
 
@@ -160,7 +160,7 @@ class AutoItGenerator {
                 constructor.push(`this->__self = new ${ shared_ptr }<${ coclass.fqn }>();`);
 
                 if (coclass.has_default_constructor) {
-                    constructor.push(`this->__self->reset(new ${ coclass.fqn }());`);
+                    constructor.push(`*this->__self = ${ make_shared }<${ coclass.fqn }>();`);
                 }
 
                 destructor.push("delete this->__self;");
@@ -881,7 +881,7 @@ class AutoItGenerator {
             coclass.is_ptr = true;
         }
 
-        if ((coclass.is_struct || list_of_modifiers.includes("/DC")) && !this.has_default_constructor) {
+        if ((coclass.is_map || coclass.is_struct && coclass.is_simple || list_of_modifiers.includes("/DC")) && !this.has_default_constructor) {
             // Add a default constructor
             coclass.addMethod([
                 `${ name.slice("class ".length) }.${ coclass.name }`,
