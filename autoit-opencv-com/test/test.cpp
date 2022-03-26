@@ -510,7 +510,7 @@ static void testSearchTemplate(cvLib::ICv_ObjectPtr cv) {
 
 	_variant_t channels = _OpenCV_Tuple(0, 1, 2);
 	_variant_t ranges = _OpenCV_Tuple(-200, 200, -200, 200, -200, 200);
-	auto _result = cv->searchTemplate(to_variant_t(img.GetInterfacePtr()), to_variant_t(templ.GetInterfacePtr()), to_variant_t(mask.GetInterfacePtr()), &channels, &ranges);
+	auto _result = cv->searchTemplate(to_variant_t(img.GetInterfacePtr()), to_variant_t(templ.GetInterfacePtr()), &vtDefault, to_variant_t(mask.GetInterfacePtr()), &channels, &ranges);
 
 	assert(V_VT(&_result) == VT_DISPATCH);
 	auto result = static_cast<cvLib::ICv_Mat_Object*>(V_DISPATCH(&_result));

@@ -159,7 +159,7 @@ exports.generate = (coclass, header, impl, {shared_ptr} = {}) => {
     `).replace(/^ {8}/mg, "").trim().split("\n");
 
     header.push(`
-        typedef bool (*${ comparator })(${ cpptype } a, ${ cpptype } b);
+        typedef bool (*${ comparator })(${ cpptype }${ byref ? "&" : "" } a, ${ cpptype }${ byref ? "&" : "" } b);
         typedef bool (*${ ptr_comparator })(${ ptrtype }* a, ${ ptrtype }* b);
         typedef struct _${ comparator }Proxy  ${ comparator }Proxy;
     `.replace(/^ {8}/mg, ""));
@@ -167,7 +167,7 @@ exports.generate = (coclass, header, impl, {shared_ptr} = {}) => {
     impl.push(`
         typedef struct _${ comparator }Proxy {
             ${ ptr_comparator } cmp;
-            bool operator() (${ cpptype } a, ${ cpptype } b) {
+            bool operator() (${ cpptype }${ byref ? "&" : "" } a, ${ cpptype }${ byref ? "&" : "" } b) {
                 ${ cvt.join(`\n${ " ".repeat(16) }`) }
             }
         } ${ comparator }Proxy;

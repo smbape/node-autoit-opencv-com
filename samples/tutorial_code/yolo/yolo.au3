@@ -376,6 +376,11 @@ Func drawPred($classId, $conf, $box, $frame, $classes)
 		;; Draw a transparent label background
 
 		If $fLabelBackgroundOpacity < 1 Then
+			$left = _Max(0, $left - $thickness) + $thickness
+			$top = _Max(0, $top - $thickness) + $thickness
+			$width = _Min($left + $width, $frame.width) - $left
+			$height = _Min($top + $height, $frame.height) - $top
+
 			Local $aLabelBox = _OpenCV_Rect($left, $top, $width, $height)
 			Local $oLabelRect = _OpenCV_ObjCreate("cv.Mat").create($height, $width, $CV_8UC3, _OpenCV_Scalar(0xFF, 0xFF, 0xFF))
 			Local $oLabelROI = _OpenCV_ObjCreate("cv.Mat").create($frame, $aLabelBox)

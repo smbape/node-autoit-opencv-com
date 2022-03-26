@@ -137,7 +137,7 @@ Object.assign(exports, {
             return;
         }
 
-        const {shared_ptr, make_shared} = options;
+        const {shared_ptr} = options;
 
         const cotype = coclass.getClassName();
         const iface = coclass.interface;
@@ -301,7 +301,7 @@ Object.assign(exports, {
         }
 
         if (coclass.is_struct || coclass.is_simple || coclass.is_map || coclass.has_copy_constructor || coclass.has_assign_operator) {
-            const assign = coclass.has_assign_operator ? "*(*obj->__self) = in_val" : `*obj->__self = ${ make_shared }<${ coclass.fqn }>(in_val)`;
+            const assign = coclass.has_assign_operator ? "*(*obj->__self) = in_val" : `obj->__self->reset(new ${ coclass.fqn }(in_val))`;
 
             if (!coclass.is_vector) {
                 header.push(`extern const bool is_assignable_from(${ coclass.fqn }& out_val, VARIANT const* const& in_val, bool is_optional);`);

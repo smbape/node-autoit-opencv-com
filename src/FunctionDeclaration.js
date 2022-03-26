@@ -5,7 +5,7 @@ const {
 
 Object.assign(exports, {
     declare: (generator, coclass, overrides, fname, idlname, id, iidl, ipublic, impl, is_test, options = {}) => {
-        const {make_shared, shared_ptr} = options;
+        const {shared_ptr} = options;
         const fqn = coclass.fqn;
         const cotype = coclass.getClassName();
         const has_override = overrides.length !== 1;
@@ -608,7 +608,7 @@ Object.assign(exports, {
             callee = `${ callee }(${ expr })`;
 
             if (is_constructor && !is_external) {
-                callee = `${ make_shared }<${ fqn }>(${ expr })`;
+                callee = `${ shared_ptr }<${ fqn }>(new ${ callee })`;
             }
 
             for (const modifier of func_modifiers) {

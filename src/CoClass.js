@@ -111,8 +111,8 @@ class CoClass {
             decl[1] = this.fqn;
 
             if (list_of_arguments.length === 1) {
-                const [argtype] = list_of_arguments[0];
-                if (argtype === this.fqn || `${ this.namespace }::${ argtype }` === this.fqn) {
+                const [argtype, , , arg_modifiers] = list_of_arguments[0];
+                if (!arg_modifiers.includes("/RRef") && (argtype === this.fqn || `${ this.namespace }::${ argtype }` === this.fqn)) {
                     this.has_copy_constructor = true;
                 }
             }
