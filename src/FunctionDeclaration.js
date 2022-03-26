@@ -458,10 +458,6 @@ Object.assign(exports, {
                 cppsignature = `static ${ cppsignature }`;
             }
 
-            if (func_modifiers.includes("/C")) {
-                cppsignature = `${ cppsignature } const`;
-            }
-
             let maxlength = 0;
 
             const typelist = list_of_arguments.map(([argtype, , , arg_modifiers]) => {
@@ -481,17 +477,23 @@ Object.assign(exports, {
                 return str;
             });
 
-            const cppdescription = `${ cppsignature }( ${ list_of_arguments.map(([, argname, defval], i) => {
+            cppsignature = `${ cppsignature }( ${ list_of_arguments.map(([, argname, defval], i) => {
                 let str = typelist[i] + " ".repeat(maxlength + 1 - typelist[i].length) + argname;
                 if (defval !== "") {
                     str += ` = ${ defval }`;
                 }
                 return str;
-            }).join(`,\n${ " ".repeat(cppsignature.length + "( ".length) }`) } );`;
+            }).join(`,\n${ " ".repeat(cppsignature.length + "( ".length) }`) } )`;
+
+            if (func_modifiers.includes("/C")) {
+                cppsignature = `${ cppsignature } const`;
+            }
+
+            cppsignature += ";";
 
             generator.docs.push([
                 "```cpp",
-                cppdescription,
+                cppsignature,
                 "",
                 "AutoIt:",
                 " ".repeat(4) + description,

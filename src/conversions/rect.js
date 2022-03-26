@@ -3,8 +3,6 @@
 const optional = require("../optional_conversion");
 
 module.exports = (header = [], impl = [], options = {}) => {
-    header.push("template<typename _Tp>");
-    header.push("extern const bool is_assignable_from(cv::Rect_<_Tp>& out_val, VARIANT const* const& in_val, bool is_optional);");
     header.push(`
         template<typename _Tp>
         const bool is_assignable_from(cv::Rect_<_Tp>& out_val, VARIANT const* const& in_val, bool is_optional) {
@@ -27,7 +25,7 @@ module.exports = (header = [], impl = [], options = {}) => {
                 return false;
             }
 
-            _Tp value;
+            static _Tp value;
 
             for (LONG i = lLower; i <= lUpper && (i - lLower) < 4; i++) {
                 auto& v = vArray.GetAt(i);
@@ -40,12 +38,14 @@ module.exports = (header = [], impl = [], options = {}) => {
 
             vArray.Detach();
             return SUCCEEDED(hr);
-        }`.replace(/^ {8}/mg, "")
-    );
+        }
 
-    header.push("template<typename _Tp>");
-    header.push("extern const HRESULT autoit_to(VARIANT const* const& in_val, cv::Rect_<_Tp>& out_val);");
-    header.push(`
+        template<typename _Tp>
+        const bool is_assignable_from(cv::Ptr<cv::Rect_<_Tp>>& out_val, VARIANT const* const& in_val, bool is_optional) {
+            static cv::Rect_<_Tp> tmp;
+            return is_assignable_from(tmp, in_val, is_optional);
+        }
+
         template<typename _Tp>
         const HRESULT autoit_to(VARIANT const* const& in_val, cv::Rect_<_Tp>& out_val) {
             ${ optional.assign.join(`\n${ " ".repeat(12) }`) }
@@ -95,12 +95,14 @@ module.exports = (header = [], impl = [], options = {}) => {
 
             vArray.Detach();
             return hr;
-        }`.replace(/^ {8}/mg, "")
-    );
+        }
 
-    header.push("template<typename _Tp>");
-    header.push("extern const HRESULT autoit_from(const cv::Rect_<_Tp>& in_val, VARIANT*& out_val);");
-    header.push(`
+        template<typename _Tp>
+        const HRESULT autoit_to(VARIANT const* const& in_val, cv::Ptr<cv::Rect_<_Tp>>& out_val) {
+            out_val = std::make_shared<cv::Rect_<_Tp>>();
+            return autoit_to(in_val, *out_val.get());
+        }
+
         template<typename _Tp>
         const HRESULT autoit_from(const cv::Rect_<_Tp>& in_val, VARIANT*& out_val) {
             if (${ optional.condition("out_val") }) {

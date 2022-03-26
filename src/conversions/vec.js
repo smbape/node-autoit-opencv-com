@@ -5,9 +5,6 @@ const optional = require("../optional_conversion");
 module.exports = (header = [], impl = [], options = {}) => {
     header.push(`
         template<typename _Tp, int cn>
-        extern const bool is_assignable_from(cv::Vec<_Tp, cn>& out_val, VARIANT const* const& in_val, bool is_optional);
-
-        template<typename _Tp, int cn>
         const bool is_assignable_from(cv::Vec<_Tp, cn>& out_val, VARIANT const* const& in_val, bool is_optional) {
             ${ optional.check.join(`\n${ " ".repeat(12) }`) }
 
@@ -55,12 +52,13 @@ module.exports = (header = [], impl = [], options = {}) => {
 
             vArray.Detach();
             return SUCCEEDED(hr);
-        }`.replace(/^ {8}/mg, "")
-    );
+        }
 
-    header.push(`
         template<typename _Tp, int cn>
-        extern const HRESULT autoit_to(VARIANT const* const& in_val, cv::Vec<_Tp, cn>& out_val);
+        const bool is_assignable_from(cv::Ptr<cv::Vec<_Tp, cn>>& out_val, VARIANT const* const& in_val, bool is_optional) {
+            static cv::Vec<_Tp, cn> tmp;
+            return is_assignable_from(tmp, in_val, is_optional);
+        }
 
         template<typename _Tp, int cn>
         const HRESULT autoit_to(VARIANT const* const& in_val, cv::Vec<_Tp, cn>& out_val) {
@@ -124,12 +122,13 @@ module.exports = (header = [], impl = [], options = {}) => {
 
             vArray.Detach();
             return hr;
-        }`.replace(/^ {8}/mg, "")
-    );
+        }
 
-    header.push(`
         template<typename _Tp, int cn>
-        extern const HRESULT autoit_from(const cv::Vec<_Tp, cn>& in_val, VARIANT*& out_val);
+        const HRESULT autoit_to(VARIANT const* const& in_val, cv::Ptr<cv::Vec<_Tp, cn>>& out_val) {
+            out_val = std::make_shared<cv::Vec<_Tp, cn>>();
+            return autoit_to(in_val, *out_val.get());
+        }
 
         template<typename _Tp, int cn>
         const HRESULT autoit_from(const cv::Vec<_Tp, cn>& in_val, VARIANT*& out_val) {

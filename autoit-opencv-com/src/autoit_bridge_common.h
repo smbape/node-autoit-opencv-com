@@ -47,11 +47,11 @@
 
 #ifndef AUTOIT_ASSERT_THROW
 #define AUTOIT_ASSERT_THROW( expr, _message ) do { if(!!(expr)) ; else { \
-    std::ostringstream _out; _out << _message;	\
-    fflush(stdout); fflush(stderr);         \
-    fprintf(stderr, AUTOIT_QUOTE_STRING(AUTOIT_LIB_NAME) "(%s) Error: %s (%s) in %s, file %s, line %d\n", AUTOIT_QUOTE_STRING(AUTOIT_LIB_VERSION), _out.str().c_str(), #expr, AutoIt_Func, __FILE__, __LINE__); \
-    fflush(stdout); fflush(stderr);         \
-    throw std::exception(_out.str().c_str());    \
+	std::ostringstream _out; _out << _message;	\
+	fflush(stdout); fflush(stderr);         \
+	fprintf(stderr, AUTOIT_QUOTE_STRING(AUTOIT_LIB_NAME) "(%s) Error: %s (%s) in %s, file %s, line %d\n", AUTOIT_QUOTE_STRING(AUTOIT_LIB_VERSION), _out.str().c_str(), #expr, AutoIt_Func, __FILE__, __LINE__); \
+	fflush(stdout); fflush(stderr);         \
+	throw std::exception(_out.str().c_str());    \
 }} while(0)
 #endif
 
@@ -170,6 +170,12 @@ const bool is_assignable_from(std::vector<_Tp>& out_val, VARIANT const* const& i
 }
 
 template<typename _Tp>
+const bool is_assignable_from(AUTOIT_PTR<std::vector<_Tp>>& out_val, VARIANT const* const& in_val, bool is_optional) {
+	static std::vector<_Tp> tmp;
+	return is_assignable_from(tmp, in_val, is_optional);
+}
+
+template<typename _Tp>
 const HRESULT autoit_to(VARIANT const* const& in_val, std::vector<_Tp>& out_val) {
 	if (V_VT(in_val) == VT_ERROR) {
 		return V_ERROR(in_val) == DISP_E_PARAMNOTFOUND ? S_OK : E_INVALIDARG;
@@ -221,6 +227,12 @@ const HRESULT autoit_to(VARIANT const* const& in_val, std::vector<_Tp>& out_val)
 
 	vArray.Detach();
 	return hr;
+}
+
+template<typename _Tp>
+const HRESULT autoit_to(VARIANT const* const& in_val, AUTOIT_PTR<std::vector<_Tp>>& out_val) {
+	out_val = std::make_shared<std::vector<_Tp>>();
+	return autoit_to(in_val, *out_val.get());
 }
 
 template<typename _Tp>

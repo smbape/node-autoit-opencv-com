@@ -305,7 +305,6 @@ Object.assign(exports, {
 
             if (!coclass.is_vector) {
                 header.push(`extern const bool is_assignable_from(${ coclass.fqn }& out_val, VARIANT const* const& in_val, bool is_optional);`);
-
                 impl.push(`
                     const bool is_assignable_from(${ coclass.fqn }& out_val, VARIANT const* const& in_val, bool is_optional) {
                         switch (V_VT(in_val)) {
@@ -321,22 +320,20 @@ Object.assign(exports, {
                     }
                 `.replace(/^ {20}/mg, "").trim());
 
-                if (coclass.is_struct && coclass.is_simple || coclass.is_map || coclass.has_copy_constructor || coclass.has_assign_operator) {
-                    header.push(`extern const HRESULT autoit_to(VARIANT const* const& in_val, ${ coclass.fqn }& out_val);`);
-                    impl.push(`
-                        const HRESULT autoit_to(VARIANT const* const& in_val, ${ coclass.fqn }& out_val) {
-                            ${ optional.assign.join(`\n${ " ".repeat(28) }`) }
+                header.push(`extern const HRESULT autoit_to(VARIANT const* const& in_val, ${ coclass.fqn }& out_val);`);
+                impl.push(`
+                    const HRESULT autoit_to(VARIANT const* const& in_val, ${ coclass.fqn }& out_val) {
+                        ${ optional.assign.join(`\n${ " ".repeat(24) }`) }
 
-                            if (V_VT(in_val) == VT_${ wtype }) {
-                                auto obj = dynamic_cast<C${ cotype }*>(getRealIDispatch(in_val));
-                                out_val = *obj->__self->get();
-                                return S_OK;
-                            }
-
-                            return E_INVALIDARG;
+                        if (V_VT(in_val) == VT_${ wtype }) {
+                            auto obj = dynamic_cast<C${ cotype }*>(getRealIDispatch(in_val));
+                            out_val = *obj->__self->get();
+                            return S_OK;
                         }
-                    `.replace(/^ {24}/mg, "").trim());
-                }
+
+                        return E_INVALIDARG;
+                    }
+                `.replace(/^ {20}/mg, "").trim());
             }
 
             header.push(`

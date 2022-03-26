@@ -16,7 +16,7 @@ Func _OpenCV_ObjCreate($sClassname, $sFilename = Default)
 	Local Const $namespaces[3] = ["", "OpenCV.", "OpenCV.cv."]
 	Local $siClassname, $oObj
 
-	For $i = 0 To UBound($namespaces) -1
+	For $i = 0 To UBound($namespaces) - 1
 		$siClassname = $namespaces[$i] & $sClassname
 		_OpenCV_DebugMsg("Try ObjCreate " & $siClassname)
 
@@ -49,12 +49,12 @@ EndFunc   ;==>_OpenCV_get
 
 Func _OpenCV_Open_And_Register($s_opencv_wolrd_dll = Default, $s_autoit_opencv_com_dll = Default, $bUser = Default)
 	If Not _OpenCV_Open($s_opencv_wolrd_dll, $s_autoit_opencv_com_dll) Then Return False
-	If Not _Opencv_Register($bUser) Then Return False
+	If Not _OpenCV_Register($bUser) Then Return False
 	Return True
 EndFunc   ;==>_OpenCV_Open_And_Register
 
 Func _OpenCV_Unregister_And_Close($bUser = Default)
-	If Not _Opencv_Unregister($bUser) Then Return False
+	If Not _OpenCV_Unregister($bUser) Then Return False
 	If Not _OpenCV_Close() Then Return False
 	Return True
 EndFunc   ;==>_OpenCV_Unregister_And_Close
