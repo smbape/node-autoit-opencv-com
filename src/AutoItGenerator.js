@@ -100,6 +100,16 @@ class AutoItGenerator {
 
             const signatures = this.getSignatures(coclass, options);
 
+            // Add a default constructor
+            if (coclass.has_default_constructor === 0) {
+                coclass.addMethod([
+                    `${ coclass.fqn }.${ coclass.name }`,
+                    "",
+                    [],
+                    []
+                ]);
+            }
+
             // inherit methods
             for (const pfqn of coclass.parents) {
                 if (!this.classes.has(pfqn)) {
@@ -198,7 +208,17 @@ class AutoItGenerator {
             });
 
             // methods
-            for (const fname of coclass.methods.keys()) {
+            for (const fname of Array.from(coclass.methods.keys()).sort((a, b) => {
+                if (a === "create") {
+                    return -1;
+                }
+
+                if (b === "create") {
+                    return 1;
+                }
+
+                return a > b ? 1 : a < b ? -1 : 0;
+            })) {
                 if (idnames.has(fname.toLowerCase())) {
                     throw new Error(`duplicated idl name ${ fqn }::${ fname }`);
                 }
@@ -881,14 +901,8 @@ class AutoItGenerator {
             coclass.is_ptr = true;
         }
 
-        if ((coclass.is_map || coclass.is_struct && coclass.is_simple || list_of_modifiers.includes("/DC")) && !this.has_default_constructor) {
-            // Add a default constructor
-            coclass.addMethod([
-                `${ name.slice("class ".length) }.${ coclass.name }`,
-                "",
-                [],
-                []
-            ]);
+        if ((coclass.is_map || coclass.is_struct && coclass.is_simple || list_of_modifiers.includes("/DC")) && !coclass.has_default_constructor) {
+            coclass.has_default_constructor = 0;
         }
 
         coclass.noidl = list_of_modifiers.includes("/noidl");

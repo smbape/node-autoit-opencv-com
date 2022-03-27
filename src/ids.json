@@ -1071,10 +1071,6 @@
         "iid": "1ecc7661-147c-4dd6-86e5-724562b684e2",
         "clsid": "89d8d75c-8c90-43ee-a5a9-371e15fe0896"
     },
-    "VectorOfPoint": {
-        "iid": "57deac51-9b7f-4a19-9e37-28f2cb7880b8",
-        "clsid": "cc76d3b0-4733-49a6-9e7e-e447b87405c1"
-    },
     "VectorOfKeyPoint": {
         "iid": "b1fea927-61d0-4a31-a490-3e74499e371d",
         "clsid": "86c35766-a2d6-4e76-b5a4-6bda1f5e48ae"
@@ -1095,37 +1091,41 @@
         "iid": "784c46e7-419b-4985-8db8-f724cce08b11",
         "clsid": "56846023-c023-4ce5-9dde-ada911c55392"
     },
-    "VectorOfUchar": {
-        "iid": "ad883821-3e3c-46a9-9cf1-75e83af5a4b8",
-        "clsid": "b90a1709-35d2-410e-8689-0808b75dbfda"
+    "VectorOfPoint": {
+        "iid": "57deac51-9b7f-4a19-9e37-28f2cb7880b8",
+        "clsid": "cc76d3b0-4733-49a6-9e7e-e447b87405c1"
     },
     "VectorOfRect": {
         "iid": "3174f865-b9ec-4e26-81b6-af0dadf66c3a",
         "clsid": "c9f26cbf-9ccf-4bdb-971d-d14ca4ee83ed"
     },
-    "VectorOfRotatedRect": {
-        "iid": "f7a24b12-8ed1-481c-9116-9d8a5b41dff1",
-        "clsid": "06f9b7c3-b3d2-4646-a004-34aedd784339"
+    "VectorOfUchar": {
+        "iid": "ad883821-3e3c-46a9-9cf1-75e83af5a4b8",
+        "clsid": "b90a1709-35d2-410e-8689-0808b75dbfda"
     },
     "VectorOfDouble": {
         "iid": "9db3d35a-8245-469a-9b3c-c52f631c570a",
         "clsid": "ccc074c7-e102-40aa-b44f-d59fb9fb12a5"
     },
-    "VectorOfUMat": {
-        "iid": "597b2502-4e10-4893-b7e3-54a3d86dd697",
-        "clsid": "24b923fe-328a-4a87-9109-d438bd154a69"
+    "VectorOfRotatedRect": {
+        "iid": "f7a24b12-8ed1-481c-9116-9d8a5b41dff1",
+        "clsid": "06f9b7c3-b3d2-4646-a004-34aedd784339"
     },
     "VectorOfImageFeatures": {
         "iid": "3717afd5-d5e1-45cb-809a-44c65f3b80b9",
         "clsid": "00c3f1d1-d5b3-4110-a580-6915ddd739b7"
     },
-    "VectorOfString": {
-        "iid": "2db07441-cff6-4ede-91d9-5f2d7c6afde5",
-        "clsid": "eddb16f7-dc76-42ca-bcba-6ec2ca1d7aab"
+    "VectorOfUMat": {
+        "iid": "597b2502-4e10-4893-b7e3-54a3d86dd697",
+        "clsid": "24b923fe-328a-4a87-9109-d438bd154a69"
     },
     "VectorOfMatchesInfo": {
         "iid": "e035442d-c006-4382-a99d-08c10efab315",
         "clsid": "934c2218-71e7-4ef5-bf86-8a0fd46f4102"
+    },
+    "VectorOfString": {
+        "iid": "2db07441-cff6-4ede-91d9-5f2d7c6afde5",
+        "clsid": "eddb16f7-dc76-42ca-bcba-6ec2ca1d7aab"
     },
     "VectorOfSize": {
         "iid": "f1c158f4-42fa-4be7-befe-8459c7340d2f",
@@ -1135,49 +1135,81 @@
         "iid": "67ea9395-9dae-4259-b4eb-dec32591efe7",
         "clsid": "6fb2c146-ad1b-462f-bf33-3b46d7e634b5"
     },
-    "VectorOfVec3b": {
-        "iid": "7417efbc-96a2-40a5-9a7c-fce4bc5214d0",
-        "clsid": "6b8ef177-9f9c-49d0-9705-5a380c8b406d"
+    "VectorOfVec2d": {
+        "iid": "efa4efb2-e683-4643-a792-9fef64305dd2",
+        "clsid": "e25b0dc8-5400-4fe1-b08b-2690f6d55def"
     },
-    "VectorOfVec4b": {
-        "iid": "5e500f01-e953-4d76-8975-577f91c04efd",
-        "clsid": "b271a352-2c09-49be-aec8-a398ed4cd3f8"
-    },
-    "VectorOfVec2s": {
-        "iid": "919989cf-2f38-4ed3-a647-417fab30f5b4",
-        "clsid": "78ac72d4-e6a2-43a3-8576-cd84cb3b85d9"
-    },
-    "VectorOfVec3s": {
-        "iid": "fa913777-fd4c-4882-863f-7fcda8005411",
-        "clsid": "90cff7c0-4147-4a45-a81f-6ed064aa00f1"
-    },
-    "VectorOfVec4s": {
-        "iid": "44a28c35-246c-46a0-8071-abbe2fb0c9b9",
-        "clsid": "29156e51-7b4b-490d-bfa6-f300c61c0fdb"
-    },
-    "VectorOfVec2w": {
-        "iid": "0c0e30aa-a90a-45b2-922a-61e8b30df7bb",
-        "clsid": "45a00ec4-0352-49f8-aa7e-a82d2ca81c8a"
-    },
-    "VectorOfVec3w": {
-        "iid": "c1cdd20c-cf0d-496b-a6f1-209b8787c793",
-        "clsid": "d128bd06-57da-4408-9e97-15ba11ba050b"
-    },
-    "VectorOfVec4w": {
-        "iid": "52894b23-da66-4b2a-b126-8ae2ccff07f3",
-        "clsid": "ab9145ad-ec6c-4501-8913-f1946ec7ecab"
+    "VectorOfVec2f": {
+        "iid": "3ccbcd6a-5cd8-4eef-b8eb-2eee4027112c",
+        "clsid": "323d713d-a7a9-413a-b091-21712e12d2e7"
     },
     "VectorOfVec2i": {
         "iid": "2b52dc3a-e299-4e3e-b863-4fd4b5cc0b50",
         "clsid": "c71ed0db-2b23-436a-818d-64050a8d463f"
     },
+    "VectorOfVec2s": {
+        "iid": "919989cf-2f38-4ed3-a647-417fab30f5b4",
+        "clsid": "78ac72d4-e6a2-43a3-8576-cd84cb3b85d9"
+    },
+    "VectorOfVec2w": {
+        "iid": "0c0e30aa-a90a-45b2-922a-61e8b30df7bb",
+        "clsid": "45a00ec4-0352-49f8-aa7e-a82d2ca81c8a"
+    },
+    "VectorOfVec3b": {
+        "iid": "7417efbc-96a2-40a5-9a7c-fce4bc5214d0",
+        "clsid": "6b8ef177-9f9c-49d0-9705-5a380c8b406d"
+    },
+    "VectorOfVec3d": {
+        "iid": "17be9d7f-68b3-427a-80cc-ba139a9e66a8",
+        "clsid": "c2b4c268-2047-4b2e-9f3a-98ddf0118db6"
+    },
+    "VectorOfVec3f": {
+        "iid": "02e91e30-a68b-4a22-823e-704d3835f793",
+        "clsid": "5e0ca924-b621-49e1-96f2-931af15c346c"
+    },
     "VectorOfVec3i": {
         "iid": "29ae6641-4e4a-4efa-a403-33951723d675",
         "clsid": "d7e1e748-004b-4a5a-81b0-8fec2c6208be"
     },
+    "VectorOfVec3s": {
+        "iid": "fa913777-fd4c-4882-863f-7fcda8005411",
+        "clsid": "90cff7c0-4147-4a45-a81f-6ed064aa00f1"
+    },
+    "VectorOfVec3w": {
+        "iid": "c1cdd20c-cf0d-496b-a6f1-209b8787c793",
+        "clsid": "d128bd06-57da-4408-9e97-15ba11ba050b"
+    },
+    "VectorOfVec4b": {
+        "iid": "5e500f01-e953-4d76-8975-577f91c04efd",
+        "clsid": "b271a352-2c09-49be-aec8-a398ed4cd3f8"
+    },
+    "VectorOfVec4d": {
+        "iid": "a77b8233-b041-4057-8057-abef67d23e14",
+        "clsid": "3129db4a-a6e7-4e38-a4cb-9eacbd0c939b"
+    },
+    "VectorOfVec4f": {
+        "iid": "1ff3df45-af95-4f0e-bc5b-4f08e185d3f2",
+        "clsid": "fd550d92-c63f-4f04-97fd-96c106fca85d"
+    },
     "VectorOfVec4i": {
         "iid": "b7c07954-8e5c-43b1-8db4-83f5a0a0acc6",
         "clsid": "c264b5e5-0628-46ad-bae2-440e5332a28f"
+    },
+    "VectorOfVec4s": {
+        "iid": "44a28c35-246c-46a0-8071-abbe2fb0c9b9",
+        "clsid": "29156e51-7b4b-490d-bfa6-f300c61c0fdb"
+    },
+    "VectorOfVec4w": {
+        "iid": "52894b23-da66-4b2a-b126-8ae2ccff07f3",
+        "clsid": "ab9145ad-ec6c-4501-8913-f1946ec7ecab"
+    },
+    "VectorOfVec6d": {
+        "iid": "33d54d54-364f-4dcd-bf34-b1d805b3f9d5",
+        "clsid": "39a391f8-c193-4da1-865b-6edb2a0bf485"
+    },
+    "VectorOfVec6f": {
+        "iid": "c6225a51-4274-40c0-87b7-975f6a39fe44",
+        "clsid": "8e10a4cd-d95b-4774-942e-1c9066e72123"
     },
     "VectorOfVec6i": {
         "iid": "e559ad43-b172-4f80-8714-641b5f557f6f",
@@ -1186,38 +1218,6 @@
     "VectorOfVec8i": {
         "iid": "287d1f23-aa7b-4132-a815-38f52a269f8e",
         "clsid": "64699d92-a698-4c49-aee5-0673d5e05652"
-    },
-    "VectorOfVec2f": {
-        "iid": "3ccbcd6a-5cd8-4eef-b8eb-2eee4027112c",
-        "clsid": "323d713d-a7a9-413a-b091-21712e12d2e7"
-    },
-    "VectorOfVec3f": {
-        "iid": "02e91e30-a68b-4a22-823e-704d3835f793",
-        "clsid": "5e0ca924-b621-49e1-96f2-931af15c346c"
-    },
-    "VectorOfVec4f": {
-        "iid": "1ff3df45-af95-4f0e-bc5b-4f08e185d3f2",
-        "clsid": "fd550d92-c63f-4f04-97fd-96c106fca85d"
-    },
-    "VectorOfVec6f": {
-        "iid": "c6225a51-4274-40c0-87b7-975f6a39fe44",
-        "clsid": "8e10a4cd-d95b-4774-942e-1c9066e72123"
-    },
-    "VectorOfVec2d": {
-        "iid": "efa4efb2-e683-4643-a792-9fef64305dd2",
-        "clsid": "e25b0dc8-5400-4fe1-b08b-2690f6d55def"
-    },
-    "VectorOfVec3d": {
-        "iid": "17be9d7f-68b3-427a-80cc-ba139a9e66a8",
-        "clsid": "c2b4c268-2047-4b2e-9f3a-98ddf0118db6"
-    },
-    "VectorOfVec4d": {
-        "iid": "a77b8233-b041-4057-8057-abef67d23e14",
-        "clsid": "3129db4a-a6e7-4e38-a4cb-9eacbd0c939b"
-    },
-    "VectorOfVec6d": {
-        "iid": "33d54d54-364f-4dcd-bf34-b1d805b3f9d5",
-        "clsid": "39a391f8-c193-4da1-865b-6edb2a0bf485"
     },
     "VectorOfPoint2f": {
         "iid": "57452599-ade1-4c80-ac59-fe457ff83e5b",
@@ -1255,6 +1255,14 @@
         "iid": "e67b2cff-7ec9-4a2d-bd11-a210011ae349",
         "clsid": "951cd9ba-c2a6-40bb-a722-b3cdb56c67cd"
     },
+    "GArray_Point2i": {
+        "iid": "045f4549-2cea-41cd-829c-29924ce603d5",
+        "clsid": "849f2a28-80cb-4086-8ad3-cf0eda0b00db"
+    },
+    "GOpaque_Rect": {
+        "iid": "10562eb9-34c7-4910-97ff-031f4d507b63",
+        "clsid": "1e4af5ef-0a8a-441d-bf28-dd9fca960882"
+    },
     "GArray_Point2f": {
         "iid": "05ede438-b22a-43c9-84d1-973fb804a60c",
         "clsid": "a4c07867-a920-4c8e-bf99-58fc6ff8f7c5"
@@ -1266,14 +1274,6 @@
     "GOpaque_double": {
         "iid": "175868e0-28ba-4111-a68d-7178f7020c60",
         "clsid": "97f17079-35af-4600-a44f-771a612d8adb"
-    },
-    "GArray_Point2i": {
-        "iid": "045f4549-2cea-41cd-829c-29924ce603d5",
-        "clsid": "849f2a28-80cb-4086-8ad3-cf0eda0b00db"
-    },
-    "GOpaque_Rect": {
-        "iid": "10562eb9-34c7-4910-97ff-031f4d507b63",
-        "clsid": "1e4af5ef-0a8a-441d-bf28-dd9fca960882"
     },
     "GOpaque_Size": {
         "iid": "905a3769-9668-40e1-8858-550a9362e53f",
