@@ -467,7 +467,10 @@ Object.assign(exports, {
                     str += "const ";
                 }
 
-                str += generator.getCppType(argtype, coclass, options);
+                const is_in_array = /^Input(?:Output)?Array(?:OfArrays)?$/.test(argtype);
+                const is_out_array = /^(?:Input)?OutputArray(?:OfArrays)?$/.test(argtype);
+                str += is_in_array || is_out_array ? argtype : generator.getCppType(argtype, coclass, options);
+
                 if (arg_modifiers.includes("/Ref")) {
                     str += "&";
                 } else if (arg_modifiers.includes("/RRef")) {

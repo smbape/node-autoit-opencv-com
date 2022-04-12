@@ -5,7 +5,7 @@
 ### cv::CamShift
 
 ```cpp
-cv::RotatedRect cv::CamShift( _InputArray      probImage,
+cv::RotatedRect cv::CamShift( InputArray       probImage,
                               cv::Rect&        window,
                               cv::TermCriteria criteria );
 
@@ -16,24 +16,24 @@ AutoIt:
 ### cv::Canny
 
 ```cpp
-void cv::Canny( _InputArray  image,
-                _OutputArray edges,
-                double       threshold1,
-                double       threshold2,
-                int          apertureSize = 3,
-                bool         L2gradient = false );
+void cv::Canny( InputArray  image,
+                OutputArray edges,
+                double      threshold1,
+                double      threshold2,
+                int         apertureSize = 3,
+                bool        L2gradient = false );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").Canny( $image, $threshold1, $threshold2[, $edges[, $apertureSize[, $L2gradient]]] ) -> $edges
 ```
 
 ```cpp
-void cv::Canny( _InputArray  dx,
-                _InputArray  dy,
-                _OutputArray edges,
-                double       threshold1,
-                double       threshold2,
-                bool         L2gradient = false );
+void cv::Canny( InputArray  dx,
+                InputArray  dy,
+                OutputArray edges,
+                double      threshold1,
+                double      threshold2,
+                bool        L2gradient = false );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").Canny( $dx, $dy, $threshold1, $threshold2[, $edges[, $L2gradient]] ) -> $edges
@@ -42,12 +42,12 @@ AutoIt:
 ### cv::EMD
 
 ```cpp
-float cv::EMD( _InputArray    signature1,
-               _InputArray    signature2,
+float cv::EMD( InputArray     signature1,
+               InputArray     signature2,
                int            distType,
-               _InputArray    cost = noArray(),
+               InputArray     cost = noArray(),
                cv::Ptr<float> lowerBound = Ptr<float>(),
-               _OutputArray   flow = noArray() );
+               OutputArray    flow = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").EMD( $signature1, $signature2, $distType[, $cost[, $lowerBound[, $flow]]] ) -> retval, $lowerBound, $flow
@@ -56,12 +56,12 @@ AutoIt:
 ### cv::GaussianBlur
 
 ```cpp
-void cv::GaussianBlur( _InputArray  src,
-                       _OutputArray dst,
-                       cv::Size     ksize,
-                       double       sigmaX,
-                       double       sigmaY = 0,
-                       int          borderType = BORDER_DEFAULT );
+void cv::GaussianBlur( InputArray  src,
+                       OutputArray dst,
+                       cv::Size    ksize,
+                       double      sigmaX,
+                       double      sigmaY = 0,
+                       int         borderType = BORDER_DEFAULT );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").GaussianBlur( $src, $ksize, $sigmaX[, $dst[, $sigmaY[, $borderType]]] ) -> $dst
@@ -70,15 +70,15 @@ AutoIt:
 ### cv::HoughCircles
 
 ```cpp
-void cv::HoughCircles( _InputArray  image,
-                       _OutputArray circles,
-                       int          method,
-                       double       dp,
-                       double       minDist,
-                       double       param1 = 100,
-                       double       param2 = 100,
-                       int          minRadius = 0,
-                       int          maxRadius = 0 );
+void cv::HoughCircles( InputArray  image,
+                       OutputArray circles,
+                       int         method,
+                       double      dp,
+                       double      minDist,
+                       double      param1 = 100,
+                       double      param2 = 100,
+                       int         minRadius = 0,
+                       int         maxRadius = 0 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").HoughCircles( $image, $method, $dp, $minDist[, $circles[, $param1[, $param2[, $minRadius[, $maxRadius]]]]] ) -> $circles
@@ -87,15 +87,15 @@ AutoIt:
 ### cv::HoughLines
 
 ```cpp
-void cv::HoughLines( _InputArray  image,
-                     _OutputArray lines,
-                     double       rho,
-                     double       theta,
-                     int          threshold,
-                     double       srn = 0,
-                     double       stn = 0,
-                     double       min_theta = 0,
-                     double       max_theta = CV_PI );
+void cv::HoughLines( InputArray  image,
+                     OutputArray lines,
+                     double      rho,
+                     double      theta,
+                     int         threshold,
+                     double      srn = 0,
+                     double      stn = 0,
+                     double      min_theta = 0,
+                     double      max_theta = CV_PI );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").HoughLines( $image, $rho, $theta, $threshold[, $lines[, $srn[, $stn[, $min_theta[, $max_theta]]]]] ) -> $lines
@@ -104,13 +104,13 @@ AutoIt:
 ### cv::HoughLinesP
 
 ```cpp
-void cv::HoughLinesP( _InputArray  image,
-                      _OutputArray lines,
-                      double       rho,
-                      double       theta,
-                      int          threshold,
-                      double       minLineLength = 0,
-                      double       maxLineGap = 0 );
+void cv::HoughLinesP( InputArray  image,
+                      OutputArray lines,
+                      double      rho,
+                      double      theta,
+                      int         threshold,
+                      double      minLineLength = 0,
+                      double      maxLineGap = 0 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").HoughLinesP( $image, $rho, $theta, $threshold[, $lines[, $minLineLength[, $maxLineGap]]] ) -> $lines
@@ -119,16 +119,16 @@ AutoIt:
 ### cv::HoughLinesPointSet
 
 ```cpp
-void cv::HoughLinesPointSet( _InputArray  point,
-                             _OutputArray lines,
-                             int          lines_max,
-                             int          threshold,
-                             double       min_rho,
-                             double       max_rho,
-                             double       rho_step,
-                             double       min_theta,
-                             double       max_theta,
-                             double       theta_step );
+void cv::HoughLinesPointSet( InputArray  point,
+                             OutputArray lines,
+                             int         lines_max,
+                             int         threshold,
+                             double      min_rho,
+                             double      max_rho,
+                             double      rho_step,
+                             double      min_theta,
+                             double      max_theta,
+                             double      theta_step );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").HoughLinesPointSet( $point, $lines_max, $threshold, $min_rho, $max_rho, $rho_step, $min_theta, $max_theta, $theta_step[, $lines] ) -> $lines
@@ -137,15 +137,15 @@ AutoIt:
 ### cv::HoughLinesWithAccumulator
 
 ```cpp
-void cv::HoughLinesWithAccumulator( _InputArray  image,
-                                    _OutputArray lines,
-                                    double       rho,
-                                    double       theta,
-                                    int          threshold,
-                                    double       srn = 0,
-                                    double       stn = 0,
-                                    double       min_theta = 0,
-                                    double       max_theta = CV_PI );
+void cv::HoughLinesWithAccumulator( InputArray  image,
+                                    OutputArray lines,
+                                    double      rho,
+                                    double      theta,
+                                    int         threshold,
+                                    double      srn = 0,
+                                    double      stn = 0,
+                                    double      min_theta = 0,
+                                    double      max_theta = CV_PI );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").HoughLinesWithAccumulator( $image, $rho, $theta, $threshold[, $lines[, $srn[, $stn[, $min_theta[, $max_theta]]]]] ) -> $lines
@@ -155,7 +155,7 @@ AutoIt:
 
 ```cpp
 void cv::HuMoments( const cv::Moments& m,
-                    _OutputArray       hu );
+                    OutputArray        hu );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").HuMoments( $m[, $hu] ) -> $hu
@@ -164,9 +164,9 @@ AutoIt:
 ### cv::LUT
 
 ```cpp
-void cv::LUT( _InputArray  src,
-              _InputArray  lut,
-              _OutputArray dst );
+void cv::LUT( InputArray  src,
+              InputArray  lut,
+              OutputArray dst );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").LUT( $src, $lut[, $dst] ) -> $dst
@@ -175,13 +175,13 @@ AutoIt:
 ### cv::Laplacian
 
 ```cpp
-void cv::Laplacian( _InputArray  src,
-                    _OutputArray dst,
-                    int          ddepth,
-                    int          ksize = 1,
-                    double       scale = 1,
-                    double       delta = 0,
-                    int          borderType = BORDER_DEFAULT );
+void cv::Laplacian( InputArray  src,
+                    OutputArray dst,
+                    int         ddepth,
+                    int         ksize = 1,
+                    double      scale = 1,
+                    double      delta = 0,
+                    int         borderType = BORDER_DEFAULT );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").Laplacian( $src, $ddepth[, $dst[, $ksize[, $scale[, $delta[, $borderType]]]]] ) -> $dst
@@ -190,9 +190,9 @@ AutoIt:
 ### cv::Mahalanobis
 
 ```cpp
-double cv::Mahalanobis( _InputArray v1,
-                        _InputArray v2,
-                        _InputArray icovar );
+double cv::Mahalanobis( InputArray v1,
+                        InputArray v2,
+                        InputArray icovar );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").Mahalanobis( $v1, $v2, $icovar ) -> retval
@@ -201,10 +201,10 @@ AutoIt:
 ### cv::PCABackProject
 
 ```cpp
-void cv::PCABackProject( _InputArray  data,
-                         _InputArray  mean,
-                         _InputArray  eigenvectors,
-                         _OutputArray result );
+void cv::PCABackProject( InputArray  data,
+                         InputArray  mean,
+                         InputArray  eigenvectors,
+                         OutputArray result );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").PCABackProject( $data, $mean, $eigenvectors[, $result] ) -> $result
@@ -213,20 +213,20 @@ AutoIt:
 ### cv::PCACompute
 
 ```cpp
-void cv::PCACompute( _InputArray       data,
-                     _InputOutputArray mean,
-                     _OutputArray      eigenvectors,
-                     int               maxComponents = 0 );
+void cv::PCACompute( InputArray       data,
+                     InputOutputArray mean,
+                     OutputArray      eigenvectors,
+                     int              maxComponents = 0 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").PCACompute( $data, $mean[, $eigenvectors[, $maxComponents]] ) -> $mean, $eigenvectors
 ```
 
 ```cpp
-void cv::PCACompute( _InputArray       data,
-                     _InputOutputArray mean,
-                     _OutputArray      eigenvectors,
-                     double            retainedVariance );
+void cv::PCACompute( InputArray       data,
+                     InputOutputArray mean,
+                     OutputArray      eigenvectors,
+                     double           retainedVariance );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").PCACompute( $data, $mean, $retainedVariance[, $eigenvectors] ) -> $mean, $eigenvectors
@@ -235,22 +235,22 @@ AutoIt:
 ### cv::PCACompute2
 
 ```cpp
-void cv::PCACompute2( _InputArray       data,
-                      _InputOutputArray mean,
-                      _OutputArray      eigenvectors,
-                      _OutputArray      eigenvalues,
-                      int               maxComponents = 0 );
+void cv::PCACompute2( InputArray       data,
+                      InputOutputArray mean,
+                      OutputArray      eigenvectors,
+                      OutputArray      eigenvalues,
+                      int              maxComponents = 0 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").PCACompute2( $data, $mean[, $eigenvectors[, $eigenvalues[, $maxComponents]]] ) -> $mean, $eigenvectors, $eigenvalues
 ```
 
 ```cpp
-void cv::PCACompute2( _InputArray       data,
-                      _InputOutputArray mean,
-                      _OutputArray      eigenvectors,
-                      _OutputArray      eigenvalues,
-                      double            retainedVariance );
+void cv::PCACompute2( InputArray       data,
+                      InputOutputArray mean,
+                      OutputArray      eigenvectors,
+                      OutputArray      eigenvalues,
+                      double           retainedVariance );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").PCACompute2( $data, $mean, $retainedVariance[, $eigenvectors[, $eigenvalues]] ) -> $mean, $eigenvectors, $eigenvalues
@@ -259,10 +259,10 @@ AutoIt:
 ### cv::PCAProject
 
 ```cpp
-void cv::PCAProject( _InputArray  data,
-                     _InputArray  mean,
-                     _InputArray  eigenvectors,
-                     _OutputArray result );
+void cv::PCAProject( InputArray  data,
+                     InputArray  mean,
+                     InputArray  eigenvectors,
+                     OutputArray result );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").PCAProject( $data, $mean, $eigenvectors[, $result] ) -> $result
@@ -271,9 +271,9 @@ AutoIt:
 ### cv::PSNR
 
 ```cpp
-double cv::PSNR( _InputArray src1,
-                 _InputArray src2,
-                 double      R = 255. );
+double cv::PSNR( InputArray src1,
+                 InputArray src2,
+                 double     R = 255. );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").PSNR( $src1, $src2[, $R] ) -> retval
@@ -282,12 +282,12 @@ AutoIt:
 ### cv::RQDecomp3x3
 
 ```cpp
-cv::Vec3d cv::RQDecomp3x3( _InputArray  src,
-                           _OutputArray mtxR,
-                           _OutputArray mtxQ,
-                           _OutputArray Qx = noArray(),
-                           _OutputArray Qy = noArray(),
-                           _OutputArray Qz = noArray() );
+cv::Vec3d cv::RQDecomp3x3( InputArray  src,
+                           OutputArray mtxR,
+                           OutputArray mtxQ,
+                           OutputArray Qx = noArray(),
+                           OutputArray Qy = noArray(),
+                           OutputArray Qz = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").RQDecomp3x3( $src[, $mtxR[, $mtxQ[, $Qx[, $Qy[, $Qz]]]]] ) -> retval, $mtxR, $mtxQ, $Qx, $Qy, $Qz
@@ -296,9 +296,9 @@ AutoIt:
 ### cv::Rodrigues
 
 ```cpp
-void cv::Rodrigues( _InputArray  src,
-                    _OutputArray dst,
-                    _OutputArray jacobian = noArray() );
+void cv::Rodrigues( InputArray  src,
+                    OutputArray dst,
+                    OutputArray jacobian = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").Rodrigues( $src[, $dst[, $jacobian]] ) -> $dst, $jacobian
@@ -307,11 +307,11 @@ AutoIt:
 ### cv::SVBackSubst
 
 ```cpp
-void cv::SVBackSubst( _InputArray  w,
-                      _InputArray  u,
-                      _InputArray  vt,
-                      _InputArray  rhs,
-                      _OutputArray dst );
+void cv::SVBackSubst( InputArray  w,
+                      InputArray  u,
+                      InputArray  vt,
+                      InputArray  rhs,
+                      OutputArray dst );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").SVBackSubst( $w, $u, $vt, $rhs[, $dst] ) -> $dst
@@ -320,11 +320,11 @@ AutoIt:
 ### cv::SVDecomp
 
 ```cpp
-void cv::SVDecomp( _InputArray  src,
-                   _OutputArray w,
-                   _OutputArray u,
-                   _OutputArray vt,
-                   int          flags = 0 );
+void cv::SVDecomp( InputArray  src,
+                   OutputArray w,
+                   OutputArray u,
+                   OutputArray vt,
+                   int         flags = 0 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").SVDecomp( $src[, $w[, $u[, $vt[, $flags]]]] ) -> $w, $u, $vt
@@ -333,14 +333,14 @@ AutoIt:
 ### cv::Scharr
 
 ```cpp
-void cv::Scharr( _InputArray  src,
-                 _OutputArray dst,
-                 int          ddepth,
-                 int          dx,
-                 int          dy,
-                 double       scale = 1,
-                 double       delta = 0,
-                 int          borderType = BORDER_DEFAULT );
+void cv::Scharr( InputArray  src,
+                 OutputArray dst,
+                 int         ddepth,
+                 int         dx,
+                 int         dy,
+                 double      scale = 1,
+                 double      delta = 0,
+                 int         borderType = BORDER_DEFAULT );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").Scharr( $src, $ddepth, $dx, $dy[, $dst[, $scale[, $delta[, $borderType]]]] ) -> $dst
@@ -349,15 +349,15 @@ AutoIt:
 ### cv::Sobel
 
 ```cpp
-void cv::Sobel( _InputArray  src,
-                _OutputArray dst,
-                int          ddepth,
-                int          dx,
-                int          dy,
-                int          ksize = 3,
-                double       scale = 1,
-                double       delta = 0,
-                int          borderType = BORDER_DEFAULT );
+void cv::Sobel( InputArray  src,
+                OutputArray dst,
+                int         ddepth,
+                int         dx,
+                int         dy,
+                int         ksize = 3,
+                double      scale = 1,
+                double      delta = 0,
+                int         borderType = BORDER_DEFAULT );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").Sobel( $src, $ddepth, $dx, $dy[, $dst[, $ksize[, $scale[, $delta[, $borderType]]]]] ) -> $dst
@@ -366,9 +366,9 @@ AutoIt:
 ### cv::absdiff
 
 ```cpp
-void cv::absdiff( _InputArray  src1,
-                  _InputArray  src2,
-                  _OutputArray dst );
+void cv::absdiff( InputArray  src1,
+                  InputArray  src2,
+                  OutputArray dst );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").absdiff( $src1, $src2[, $dst] ) -> $dst
@@ -377,9 +377,9 @@ AutoIt:
 ### cv::accumulate
 
 ```cpp
-void cv::accumulate( _InputArray       src,
-                     _InputOutputArray dst,
-                     _InputArray       mask = noArray() );
+void cv::accumulate( InputArray       src,
+                     InputOutputArray dst,
+                     InputArray       mask = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").accumulate( $src, $dst[, $mask] ) -> $dst
@@ -388,10 +388,10 @@ AutoIt:
 ### cv::accumulateProduct
 
 ```cpp
-void cv::accumulateProduct( _InputArray       src1,
-                            _InputArray       src2,
-                            _InputOutputArray dst,
-                            _InputArray       mask = noArray() );
+void cv::accumulateProduct( InputArray       src1,
+                            InputArray       src2,
+                            InputOutputArray dst,
+                            InputArray       mask = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").accumulateProduct( $src1, $src2, $dst[, $mask] ) -> $dst
@@ -400,9 +400,9 @@ AutoIt:
 ### cv::accumulateSquare
 
 ```cpp
-void cv::accumulateSquare( _InputArray       src,
-                           _InputOutputArray dst,
-                           _InputArray       mask = noArray() );
+void cv::accumulateSquare( InputArray       src,
+                           InputOutputArray dst,
+                           InputArray       mask = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").accumulateSquare( $src, $dst[, $mask] ) -> $dst
@@ -411,10 +411,10 @@ AutoIt:
 ### cv::accumulateWeighted
 
 ```cpp
-void cv::accumulateWeighted( _InputArray       src,
-                             _InputOutputArray dst,
-                             double            alpha,
-                             _InputArray       mask = noArray() );
+void cv::accumulateWeighted( InputArray       src,
+                             InputOutputArray dst,
+                             double           alpha,
+                             InputArray       mask = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").accumulateWeighted( $src, $dst, $alpha[, $mask] ) -> $dst
@@ -423,13 +423,13 @@ AutoIt:
 ### cv::adaptiveThreshold
 
 ```cpp
-void cv::adaptiveThreshold( _InputArray  src,
-                            _OutputArray dst,
-                            double       maxValue,
-                            int          adaptiveMethod,
-                            int          thresholdType,
-                            int          blockSize,
-                            double       C );
+void cv::adaptiveThreshold( InputArray  src,
+                            OutputArray dst,
+                            double      maxValue,
+                            int         adaptiveMethod,
+                            int         thresholdType,
+                            int         blockSize,
+                            double      C );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").adaptiveThreshold( $src, $maxValue, $adaptiveMethod, $thresholdType, $blockSize, $C[, $dst] ) -> $dst
@@ -438,11 +438,11 @@ AutoIt:
 ### cv::add
 
 ```cpp
-void cv::add( _InputArray  src1,
-              _InputArray  src2,
-              _OutputArray dst,
-              _InputArray  mask = noArray(),
-              int          dtype = -1 );
+void cv::add( InputArray  src1,
+              InputArray  src2,
+              OutputArray dst,
+              InputArray  mask = noArray(),
+              int         dtype = -1 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").add( $src1, $src2[, $dst[, $mask[, $dtype]]] ) -> $dst
@@ -468,13 +468,13 @@ AutoIt:
 ### cv::addWeighted
 
 ```cpp
-void cv::addWeighted( _InputArray  src1,
-                      double       alpha,
-                      _InputArray  src2,
-                      double       beta,
-                      double       gamma,
-                      _OutputArray dst,
-                      int          dtype = -1 );
+void cv::addWeighted( InputArray  src1,
+                      double      alpha,
+                      InputArray  src2,
+                      double      beta,
+                      double      gamma,
+                      OutputArray dst,
+                      int         dtype = -1 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").addWeighted( $src1, $alpha, $src2, $beta, $gamma[, $dst[, $dtype]] ) -> $dst
@@ -483,18 +483,18 @@ AutoIt:
 ### cv::applyColorMap
 
 ```cpp
-void cv::applyColorMap( _InputArray  src,
-                        _OutputArray dst,
-                        int          colormap );
+void cv::applyColorMap( InputArray  src,
+                        OutputArray dst,
+                        int         colormap );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").applyColorMap( $src, $colormap[, $dst] ) -> $dst
 ```
 
 ```cpp
-void cv::applyColorMap( _InputArray  src,
-                        _OutputArray dst,
-                        _InputArray  userColor );
+void cv::applyColorMap( InputArray  src,
+                        OutputArray dst,
+                        InputArray  userColor );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").applyColorMap( $src, $userColor[, $dst] ) -> $dst
@@ -503,10 +503,10 @@ AutoIt:
 ### cv::approxPolyDP
 
 ```cpp
-void cv::approxPolyDP( _InputArray  curve,
-                       _OutputArray approxCurve,
-                       double       epsilon,
-                       bool         closed );
+void cv::approxPolyDP( InputArray  curve,
+                       OutputArray approxCurve,
+                       double      epsilon,
+                       bool        closed );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").approxPolyDP( $curve, $epsilon, $closed[, $approxCurve] ) -> $approxCurve
@@ -515,8 +515,8 @@ AutoIt:
 ### cv::arcLength
 
 ```cpp
-double cv::arcLength( _InputArray curve,
-                      bool        closed );
+double cv::arcLength( InputArray curve,
+                      bool       closed );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").arcLength( $curve, $closed ) -> retval
@@ -525,7 +525,7 @@ AutoIt:
 ### cv::arrowedLine
 
 ```cpp
-void cv::arrowedLine( _InputOutputArray img,
+void cv::arrowedLine( InputOutputArray  img,
                       cv::Point         pt1,
                       cv::Point         pt2,
                       const cv::Scalar& color,
@@ -541,16 +541,16 @@ AutoIt:
 ### cv::batchDistance
 
 ```cpp
-void cv::batchDistance( _InputArray  src1,
-                        _InputArray  src2,
-                        _OutputArray dist,
-                        int          dtype,
-                        _OutputArray nidx,
-                        int          normType = NORM_L2,
-                        int          K = 0,
-                        _InputArray  mask = noArray(),
-                        int          update = 0,
-                        bool         crosscheck = false );
+void cv::batchDistance( InputArray  src1,
+                        InputArray  src2,
+                        OutputArray dist,
+                        int         dtype,
+                        OutputArray nidx,
+                        int         normType = NORM_L2,
+                        int         K = 0,
+                        InputArray  mask = noArray(),
+                        int         update = 0,
+                        bool        crosscheck = false );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").batchDistance( $src1, $src2, $dtype[, $dist[, $nidx[, $normType[, $K[, $mask[, $update[, $crosscheck]]]]]]] ) -> $dist, $nidx
@@ -559,12 +559,12 @@ AutoIt:
 ### cv::bilateralFilter
 
 ```cpp
-void cv::bilateralFilter( _InputArray  src,
-                          _OutputArray dst,
-                          int          d,
-                          double       sigmaColor,
-                          double       sigmaSpace,
-                          int          borderType = BORDER_DEFAULT );
+void cv::bilateralFilter( InputArray  src,
+                          OutputArray dst,
+                          int         d,
+                          double      sigmaColor,
+                          double      sigmaSpace,
+                          int         borderType = BORDER_DEFAULT );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").bilateralFilter( $src, $d, $sigmaColor, $sigmaSpace[, $dst[, $borderType]] ) -> $dst
@@ -573,10 +573,10 @@ AutoIt:
 ### cv::bitwise_and
 
 ```cpp
-void cv::bitwise_and( _InputArray  src1,
-                      _InputArray  src2,
-                      _OutputArray dst,
-                      _InputArray  mask = noArray() );
+void cv::bitwise_and( InputArray  src1,
+                      InputArray  src2,
+                      OutputArray dst,
+                      InputArray  mask = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").bitwise_and( $src1, $src2[, $dst[, $mask]] ) -> $dst
@@ -585,9 +585,9 @@ AutoIt:
 ### cv::bitwise_not
 
 ```cpp
-void cv::bitwise_not( _InputArray  src,
-                      _OutputArray dst,
-                      _InputArray  mask = noArray() );
+void cv::bitwise_not( InputArray  src,
+                      OutputArray dst,
+                      InputArray  mask = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").bitwise_not( $src[, $dst[, $mask]] ) -> $dst
@@ -596,10 +596,10 @@ AutoIt:
 ### cv::bitwise_or
 
 ```cpp
-void cv::bitwise_or( _InputArray  src1,
-                     _InputArray  src2,
-                     _OutputArray dst,
-                     _InputArray  mask = noArray() );
+void cv::bitwise_or( InputArray  src1,
+                     InputArray  src2,
+                     OutputArray dst,
+                     InputArray  mask = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").bitwise_or( $src1, $src2[, $dst[, $mask]] ) -> $dst
@@ -608,10 +608,10 @@ AutoIt:
 ### cv::bitwise_xor
 
 ```cpp
-void cv::bitwise_xor( _InputArray  src1,
-                      _InputArray  src2,
-                      _OutputArray dst,
-                      _InputArray  mask = noArray() );
+void cv::bitwise_xor( InputArray  src1,
+                      InputArray  src2,
+                      OutputArray dst,
+                      InputArray  mask = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").bitwise_xor( $src1, $src2[, $dst[, $mask]] ) -> $dst
@@ -620,11 +620,11 @@ AutoIt:
 ### cv::blendLinear
 
 ```cpp
-void cv::blendLinear( _InputArray  src1,
-                      _InputArray  src2,
-                      _InputArray  weights1,
-                      _InputArray  weights2,
-                      _OutputArray dst );
+void cv::blendLinear( InputArray  src1,
+                      InputArray  src2,
+                      InputArray  weights1,
+                      InputArray  weights2,
+                      OutputArray dst );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").blendLinear( $src1, $src2, $weights1, $weights2[, $dst] ) -> $dst
@@ -633,11 +633,11 @@ AutoIt:
 ### cv::blur
 
 ```cpp
-void cv::blur( _InputArray  src,
-               _OutputArray dst,
-               cv::Size     ksize,
-               cv::Point    anchor = Point(-1,-1),
-               int          borderType = BORDER_DEFAULT );
+void cv::blur( InputArray  src,
+               OutputArray dst,
+               cv::Size    ksize,
+               cv::Point   anchor = Point(-1,-1),
+               int         borderType = BORDER_DEFAULT );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").blur( $src, $ksize[, $dst[, $anchor[, $borderType]]] ) -> $dst
@@ -657,7 +657,7 @@ AutoIt:
 ### cv::boundingRect
 
 ```cpp
-cv::Rect cv::boundingRect( _InputArray array );
+cv::Rect cv::boundingRect( InputArray array );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").boundingRect( $array ) -> retval
@@ -666,13 +666,13 @@ AutoIt:
 ### cv::boxFilter
 
 ```cpp
-void cv::boxFilter( _InputArray  src,
-                    _OutputArray dst,
-                    int          ddepth,
-                    cv::Size     ksize,
-                    cv::Point    anchor = Point(-1,-1),
-                    bool         normalize = true,
-                    int          borderType = BORDER_DEFAULT );
+void cv::boxFilter( InputArray  src,
+                    OutputArray dst,
+                    int         ddepth,
+                    cv::Size    ksize,
+                    cv::Point   anchor = Point(-1,-1),
+                    bool        normalize = true,
+                    int         borderType = BORDER_DEFAULT );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").boxFilter( $src, $ddepth, $ksize[, $dst[, $anchor[, $normalize[, $borderType]]]] ) -> $dst
@@ -682,7 +682,7 @@ AutoIt:
 
 ```cpp
 void cv::boxPoints( cv::RotatedRect box,
-                    _OutputArray    points );
+                    OutputArray     points );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").boxPoints( $box[, $points] ) -> $points
@@ -691,14 +691,14 @@ AutoIt:
 ### cv::buildOpticalFlowPyramid
 
 ```cpp
-int cv::buildOpticalFlowPyramid( _InputArray  img,
-                                 _OutputArray pyramid,
-                                 cv::Size     winSize,
-                                 int          maxLevel,
-                                 bool         withDerivatives = true,
-                                 int          pyrBorder = BORDER_REFLECT_101,
-                                 int          derivBorder = BORDER_CONSTANT,
-                                 bool         tryReuseInputImage = true );
+int cv::buildOpticalFlowPyramid( InputArray          img,
+                                 OutputArrayOfArrays pyramid,
+                                 cv::Size            winSize,
+                                 int                 maxLevel,
+                                 bool                withDerivatives = true,
+                                 int                 pyrBorder = BORDER_REFLECT_101,
+                                 int                 derivBorder = BORDER_CONSTANT,
+                                 bool                tryReuseInputImage = true );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").buildOpticalFlowPyramid( $img, $winSize, $maxLevel[, $pyramid[, $withDerivatives[, $pyrBorder[, $derivBorder[, $tryReuseInputImage]]]]] ) -> retval, $pyramid
@@ -707,10 +707,10 @@ AutoIt:
 ### cv::calcBackProject
 
 ```cpp
-void cv::calcBackProject( _InputArray               images,
+void cv::calcBackProject( InputArrayOfArrays        images,
                           const std::vector<int>&   channels,
-                          _InputArray               hist,
-                          _OutputArray              dst,
+                          InputArray                hist,
+                          OutputArray               dst,
                           const std::vector<float>& ranges,
                           double                    scale );
 
@@ -721,11 +721,11 @@ AutoIt:
 ### cv::calcCovarMatrix
 
 ```cpp
-void cv::calcCovarMatrix( _InputArray       samples,
-                          _OutputArray      covar,
-                          _InputOutputArray mean,
-                          int               flags,
-                          int               ctype = CV_64F );
+void cv::calcCovarMatrix( InputArray       samples,
+                          OutputArray      covar,
+                          InputOutputArray mean,
+                          int              flags,
+                          int              ctype = CV_64F );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").calcCovarMatrix( $samples, $mean, $flags[, $covar[, $ctype]] ) -> $covar, $mean
@@ -734,10 +734,10 @@ AutoIt:
 ### cv::calcHist
 
 ```cpp
-void cv::calcHist( _InputArray               images,
+void cv::calcHist( InputArrayOfArrays        images,
                    const std::vector<int>&   channels,
-                   _InputArray               mask,
-                   _OutputArray              hist,
+                   InputArray                mask,
+                   OutputArray               hist,
                    const std::vector<int>&   histSize,
                    const std::vector<float>& ranges,
                    bool                      accumulate = false );
@@ -749,16 +749,16 @@ AutoIt:
 ### cv::calcOpticalFlowFarneback
 
 ```cpp
-void cv::calcOpticalFlowFarneback( _InputArray       prev,
-                                   _InputArray       next,
-                                   _InputOutputArray flow,
-                                   double            pyr_scale,
-                                   int               levels,
-                                   int               winsize,
-                                   int               iterations,
-                                   int               poly_n,
-                                   double            poly_sigma,
-                                   int               flags );
+void cv::calcOpticalFlowFarneback( InputArray       prev,
+                                   InputArray       next,
+                                   InputOutputArray flow,
+                                   double           pyr_scale,
+                                   int              levels,
+                                   int              winsize,
+                                   int              iterations,
+                                   int              poly_n,
+                                   double           poly_sigma,
+                                   int              flags );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").calcOpticalFlowFarneback( $prev, $next, $flow, $pyr_scale, $levels, $winsize, $iterations, $poly_n, $poly_sigma, $flags ) -> $flow
@@ -767,17 +767,17 @@ AutoIt:
 ### cv::calcOpticalFlowPyrLK
 
 ```cpp
-void cv::calcOpticalFlowPyrLK( _InputArray       prevImg,
-                               _InputArray       nextImg,
-                               _InputArray       prevPts,
-                               _InputOutputArray nextPts,
-                               _OutputArray      status,
-                               _OutputArray      err,
-                               cv::Size          winSize = Size(21,21),
-                               int               maxLevel = 3,
-                               cv::TermCriteria  criteria = TermCriteria(TermCriteria::COUNT+TermCriteria::EPS, 30, 0.01),
-                               int               flags = 0,
-                               double            minEigThreshold = 1e-4 );
+void cv::calcOpticalFlowPyrLK( InputArray       prevImg,
+                               InputArray       nextImg,
+                               InputArray       prevPts,
+                               InputOutputArray nextPts,
+                               OutputArray      status,
+                               OutputArray      err,
+                               cv::Size         winSize = Size(21,21),
+                               int              maxLevel = 3,
+                               cv::TermCriteria criteria = TermCriteria(TermCriteria::COUNT+TermCriteria::EPS, 30, 0.01),
+                               int              flags = 0,
+                               double           minEigThreshold = 1e-4 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").calcOpticalFlowPyrLK( $prevImg, $nextImg, $prevPts, $nextPts[, $status[, $err[, $winSize[, $maxLevel[, $criteria[, $flags[, $minEigThreshold]]]]]]] ) -> $nextPts, $status, $err
@@ -786,15 +786,15 @@ AutoIt:
 ### cv::calibrateCamera
 
 ```cpp
-double cv::calibrateCamera( _InputArray       objectPoints,
-                            _InputArray       imagePoints,
-                            cv::Size          imageSize,
-                            _InputOutputArray cameraMatrix,
-                            _InputOutputArray distCoeffs,
-                            _OutputArray      rvecs,
-                            _OutputArray      tvecs,
-                            int               flags = 0,
-                            cv::TermCriteria  criteria = TermCriteria( TermCriteria::COUNT + TermCriteria::EPS, 30, DBL_EPSILON) );
+double cv::calibrateCamera( InputArrayOfArrays  objectPoints,
+                            InputArrayOfArrays  imagePoints,
+                            cv::Size            imageSize,
+                            InputOutputArray    cameraMatrix,
+                            InputOutputArray    distCoeffs,
+                            OutputArrayOfArrays rvecs,
+                            OutputArrayOfArrays tvecs,
+                            int                 flags = 0,
+                            cv::TermCriteria    criteria = TermCriteria( TermCriteria::COUNT + TermCriteria::EPS, 30, DBL_EPSILON) );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").calibrateCamera( $objectPoints, $imagePoints, $imageSize, $cameraMatrix, $distCoeffs[, $rvecs[, $tvecs[, $flags[, $criteria]]]] ) -> retval, $cameraMatrix, $distCoeffs, $rvecs, $tvecs
@@ -803,18 +803,18 @@ AutoIt:
 ### cv::calibrateCameraExtended
 
 ```cpp
-double cv::calibrateCameraExtended( _InputArray       objectPoints,
-                                    _InputArray       imagePoints,
-                                    cv::Size          imageSize,
-                                    _InputOutputArray cameraMatrix,
-                                    _InputOutputArray distCoeffs,
-                                    _OutputArray      rvecs,
-                                    _OutputArray      tvecs,
-                                    _OutputArray      stdDeviationsIntrinsics,
-                                    _OutputArray      stdDeviationsExtrinsics,
-                                    _OutputArray      perViewErrors,
-                                    int               flags = 0,
-                                    cv::TermCriteria  criteria = TermCriteria( TermCriteria::COUNT + TermCriteria::EPS, 30, DBL_EPSILON) );
+double cv::calibrateCameraExtended( InputArrayOfArrays  objectPoints,
+                                    InputArrayOfArrays  imagePoints,
+                                    cv::Size            imageSize,
+                                    InputOutputArray    cameraMatrix,
+                                    InputOutputArray    distCoeffs,
+                                    OutputArrayOfArrays rvecs,
+                                    OutputArrayOfArrays tvecs,
+                                    OutputArray         stdDeviationsIntrinsics,
+                                    OutputArray         stdDeviationsExtrinsics,
+                                    OutputArray         perViewErrors,
+                                    int                 flags = 0,
+                                    cv::TermCriteria    criteria = TermCriteria( TermCriteria::COUNT + TermCriteria::EPS, 30, DBL_EPSILON) );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").calibrateCameraExtended( $objectPoints, $imagePoints, $imageSize, $cameraMatrix, $distCoeffs[, $rvecs[, $tvecs[, $stdDeviationsIntrinsics[, $stdDeviationsExtrinsics[, $perViewErrors[, $flags[, $criteria]]]]]]] ) -> retval, $cameraMatrix, $distCoeffs, $rvecs, $tvecs, $stdDeviationsIntrinsics, $stdDeviationsExtrinsics, $perViewErrors
@@ -823,17 +823,17 @@ AutoIt:
 ### cv::calibrateCameraRO
 
 ```cpp
-double cv::calibrateCameraRO( _InputArray       objectPoints,
-                              _InputArray       imagePoints,
-                              cv::Size          imageSize,
-                              int               iFixedPoint,
-                              _InputOutputArray cameraMatrix,
-                              _InputOutputArray distCoeffs,
-                              _OutputArray      rvecs,
-                              _OutputArray      tvecs,
-                              _OutputArray      newObjPoints,
-                              int               flags = 0,
-                              cv::TermCriteria  criteria = TermCriteria( TermCriteria::COUNT + TermCriteria::EPS, 30, DBL_EPSILON) );
+double cv::calibrateCameraRO( InputArrayOfArrays  objectPoints,
+                              InputArrayOfArrays  imagePoints,
+                              cv::Size            imageSize,
+                              int                 iFixedPoint,
+                              InputOutputArray    cameraMatrix,
+                              InputOutputArray    distCoeffs,
+                              OutputArrayOfArrays rvecs,
+                              OutputArrayOfArrays tvecs,
+                              OutputArray         newObjPoints,
+                              int                 flags = 0,
+                              cv::TermCriteria    criteria = TermCriteria( TermCriteria::COUNT + TermCriteria::EPS, 30, DBL_EPSILON) );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").calibrateCameraRO( $objectPoints, $imagePoints, $imageSize, $iFixedPoint, $cameraMatrix, $distCoeffs[, $rvecs[, $tvecs[, $newObjPoints[, $flags[, $criteria]]]]] ) -> retval, $cameraMatrix, $distCoeffs, $rvecs, $tvecs, $newObjPoints
@@ -842,21 +842,21 @@ AutoIt:
 ### cv::calibrateCameraROExtended
 
 ```cpp
-double cv::calibrateCameraROExtended( _InputArray       objectPoints,
-                                      _InputArray       imagePoints,
-                                      cv::Size          imageSize,
-                                      int               iFixedPoint,
-                                      _InputOutputArray cameraMatrix,
-                                      _InputOutputArray distCoeffs,
-                                      _OutputArray      rvecs,
-                                      _OutputArray      tvecs,
-                                      _OutputArray      newObjPoints,
-                                      _OutputArray      stdDeviationsIntrinsics,
-                                      _OutputArray      stdDeviationsExtrinsics,
-                                      _OutputArray      stdDeviationsObjPoints,
-                                      _OutputArray      perViewErrors,
-                                      int               flags = 0,
-                                      cv::TermCriteria  criteria = TermCriteria( TermCriteria::COUNT + TermCriteria::EPS, 30, DBL_EPSILON) );
+double cv::calibrateCameraROExtended( InputArrayOfArrays  objectPoints,
+                                      InputArrayOfArrays  imagePoints,
+                                      cv::Size            imageSize,
+                                      int                 iFixedPoint,
+                                      InputOutputArray    cameraMatrix,
+                                      InputOutputArray    distCoeffs,
+                                      OutputArrayOfArrays rvecs,
+                                      OutputArrayOfArrays tvecs,
+                                      OutputArray         newObjPoints,
+                                      OutputArray         stdDeviationsIntrinsics,
+                                      OutputArray         stdDeviationsExtrinsics,
+                                      OutputArray         stdDeviationsObjPoints,
+                                      OutputArray         perViewErrors,
+                                      int                 flags = 0,
+                                      cv::TermCriteria    criteria = TermCriteria( TermCriteria::COUNT + TermCriteria::EPS, 30, DBL_EPSILON) );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").calibrateCameraROExtended( $objectPoints, $imagePoints, $imageSize, $iFixedPoint, $cameraMatrix, $distCoeffs[, $rvecs[, $tvecs[, $newObjPoints[, $stdDeviationsIntrinsics[, $stdDeviationsExtrinsics[, $stdDeviationsObjPoints[, $perViewErrors[, $flags[, $criteria]]]]]]]]] ) -> retval, $cameraMatrix, $distCoeffs, $rvecs, $tvecs, $newObjPoints, $stdDeviationsIntrinsics, $stdDeviationsExtrinsics, $stdDeviationsObjPoints, $perViewErrors
@@ -865,13 +865,13 @@ AutoIt:
 ### cv::calibrateHandEye
 
 ```cpp
-void cv::calibrateHandEye( _InputArray  R_gripper2base,
-                           _InputArray  t_gripper2base,
-                           _InputArray  R_target2cam,
-                           _InputArray  t_target2cam,
-                           _OutputArray R_cam2gripper,
-                           _OutputArray t_cam2gripper,
-                           int          method = CALIB_HAND_EYE_TSAI );
+void cv::calibrateHandEye( InputArrayOfArrays R_gripper2base,
+                           InputArrayOfArrays t_gripper2base,
+                           InputArrayOfArrays R_target2cam,
+                           InputArrayOfArrays t_target2cam,
+                           OutputArray        R_cam2gripper,
+                           OutputArray        t_cam2gripper,
+                           int                method = CALIB_HAND_EYE_TSAI );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").calibrateHandEye( $R_gripper2base, $t_gripper2base, $R_target2cam, $t_target2cam[, $R_cam2gripper[, $t_cam2gripper[, $method]]] ) -> $R_cam2gripper, $t_cam2gripper
@@ -880,15 +880,15 @@ AutoIt:
 ### cv::calibrateRobotWorldHandEye
 
 ```cpp
-void cv::calibrateRobotWorldHandEye( _InputArray  R_world2cam,
-                                     _InputArray  t_world2cam,
-                                     _InputArray  R_base2gripper,
-                                     _InputArray  t_base2gripper,
-                                     _OutputArray R_base2world,
-                                     _OutputArray t_base2world,
-                                     _OutputArray R_gripper2cam,
-                                     _OutputArray t_gripper2cam,
-                                     int          method = CALIB_ROBOT_WORLD_HAND_EYE_SHAH );
+void cv::calibrateRobotWorldHandEye( InputArrayOfArrays R_world2cam,
+                                     InputArrayOfArrays t_world2cam,
+                                     InputArrayOfArrays R_base2gripper,
+                                     InputArrayOfArrays t_base2gripper,
+                                     OutputArray        R_base2world,
+                                     OutputArray        t_base2world,
+                                     OutputArray        R_gripper2cam,
+                                     OutputArray        t_gripper2cam,
+                                     int                method = CALIB_ROBOT_WORLD_HAND_EYE_SHAH );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").calibrateRobotWorldHandEye( $R_world2cam, $t_world2cam, $R_base2gripper, $t_base2gripper[, $R_base2world[, $t_base2world[, $R_gripper2cam[, $t_gripper2cam[, $method]]]]] ) -> $R_base2world, $t_base2world, $R_gripper2cam, $t_gripper2cam
@@ -897,7 +897,7 @@ AutoIt:
 ### cv::calibrationMatrixValues
 
 ```cpp
-void cv::calibrationMatrixValues( _InputArray  cameraMatrix,
+void cv::calibrationMatrixValues( InputArray   cameraMatrix,
                                   cv::Size     imageSize,
                                   double       apertureWidth,
                                   double       apertureHeight,
@@ -914,11 +914,11 @@ AutoIt:
 ### cv::cartToPolar
 
 ```cpp
-void cv::cartToPolar( _InputArray  x,
-                      _InputArray  y,
-                      _OutputArray magnitude,
-                      _OutputArray angle,
-                      bool         angleInDegrees = false );
+void cv::cartToPolar( InputArray  x,
+                      InputArray  y,
+                      OutputArray magnitude,
+                      OutputArray angle,
+                      bool        angleInDegrees = false );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").cartToPolar( $x, $y[, $magnitude[, $angle[, $angleInDegrees]]] ) -> $magnitude, $angle
@@ -927,8 +927,8 @@ AutoIt:
 ### cv::checkChessboard
 
 ```cpp
-bool cv::checkChessboard( _InputArray img,
-                          cv::Size    size );
+bool cv::checkChessboard( InputArray img,
+                          cv::Size   size );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").checkChessboard( $img, $size ) -> retval
@@ -946,11 +946,11 @@ AutoIt:
 ### cv::checkRange
 
 ```cpp
-bool cv::checkRange( _InputArray a,
-                     bool        quiet = true,
-                     cv::Point*  pos = 0,
-                     double      minVal = -DBL_MAX,
-                     double      maxVal = DBL_MAX );
+bool cv::checkRange( InputArray a,
+                     bool       quiet = true,
+                     cv::Point* pos = 0,
+                     double     minVal = -DBL_MAX,
+                     double     maxVal = DBL_MAX );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").checkRange( $a[, $quiet[, $minVal[, $maxVal[, $pos]]]] ) -> retval, $pos
@@ -959,7 +959,7 @@ AutoIt:
 ### cv::circle
 
 ```cpp
-void cv::circle( _InputOutputArray img,
+void cv::circle( InputOutputArray  img,
                  cv::Point         center,
                  int               radius,
                  const cv::Scalar& color,
@@ -985,12 +985,12 @@ AutoIt:
 ### cv::colorChange
 
 ```cpp
-void cv::colorChange( _InputArray  src,
-                      _InputArray  mask,
-                      _OutputArray dst,
-                      float        red_mul = 1.0f,
-                      float        green_mul = 1.0f,
-                      float        blue_mul = 1.0f );
+void cv::colorChange( InputArray  src,
+                      InputArray  mask,
+                      OutputArray dst,
+                      float       red_mul = 1.0f,
+                      float       green_mul = 1.0f,
+                      float       blue_mul = 1.0f );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").colorChange( $src, $mask[, $dst[, $red_mul[, $green_mul[, $blue_mul]]]] ) -> $dst
@@ -999,10 +999,10 @@ AutoIt:
 ### cv::compare
 
 ```cpp
-void cv::compare( _InputArray  src1,
-                  _InputArray  src2,
-                  _OutputArray dst,
-                  int          cmpop );
+void cv::compare( InputArray  src1,
+                  InputArray  src2,
+                  OutputArray dst,
+                  int         cmpop );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").compare( $src1, $src2, $cmpop[, $dst] ) -> $dst
@@ -1011,9 +1011,9 @@ AutoIt:
 ### cv::compareHist
 
 ```cpp
-double cv::compareHist( _InputArray H1,
-                        _InputArray H2,
-                        int         method );
+double cv::compareHist( InputArray H1,
+                        InputArray H2,
+                        int        method );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").compareHist( $H1, $H2, $method ) -> retval
@@ -1022,8 +1022,8 @@ AutoIt:
 ### cv::completeSymm
 
 ```cpp
-void cv::completeSymm( _InputOutputArray m,
-                       bool              lowerToUpper = false );
+void cv::completeSymm( InputOutputArray m,
+                       bool             lowerToUpper = false );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").completeSymm( $m[, $lowerToUpper] ) -> $m
@@ -1032,20 +1032,20 @@ AutoIt:
 ### cv::composeRT
 
 ```cpp
-void cv::composeRT( _InputArray  rvec1,
-                    _InputArray  tvec1,
-                    _InputArray  rvec2,
-                    _InputArray  tvec2,
-                    _OutputArray rvec3,
-                    _OutputArray tvec3,
-                    _OutputArray dr3dr1 = noArray(),
-                    _OutputArray dr3dt1 = noArray(),
-                    _OutputArray dr3dr2 = noArray(),
-                    _OutputArray dr3dt2 = noArray(),
-                    _OutputArray dt3dr1 = noArray(),
-                    _OutputArray dt3dt1 = noArray(),
-                    _OutputArray dt3dr2 = noArray(),
-                    _OutputArray dt3dt2 = noArray() );
+void cv::composeRT( InputArray  rvec1,
+                    InputArray  tvec1,
+                    InputArray  rvec2,
+                    InputArray  tvec2,
+                    OutputArray rvec3,
+                    OutputArray tvec3,
+                    OutputArray dr3dr1 = noArray(),
+                    OutputArray dr3dt1 = noArray(),
+                    OutputArray dr3dr2 = noArray(),
+                    OutputArray dr3dt2 = noArray(),
+                    OutputArray dt3dr1 = noArray(),
+                    OutputArray dt3dt1 = noArray(),
+                    OutputArray dt3dr2 = noArray(),
+                    OutputArray dt3dt2 = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").composeRT( $rvec1, $tvec1, $rvec2, $tvec2[, $rvec3[, $tvec3[, $dr3dr1[, $dr3dt1[, $dr3dr2[, $dr3dt2[, $dt3dr1[, $dt3dt1[, $dt3dr2[, $dt3dt2]]]]]]]]]] ) -> $rvec3, $tvec3, $dr3dr1, $dr3dt1, $dr3dr2, $dr3dt2, $dt3dr1, $dt3dt1, $dt3dr2, $dt3dt2
@@ -1054,10 +1054,10 @@ AutoIt:
 ### cv::computeCorrespondEpilines
 
 ```cpp
-void cv::computeCorrespondEpilines( _InputArray  points,
-                                    int          whichImage,
-                                    _InputArray  F,
-                                    _OutputArray lines );
+void cv::computeCorrespondEpilines( InputArray  points,
+                                    int         whichImage,
+                                    InputArray  F,
+                                    OutputArray lines );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").computeCorrespondEpilines( $points, $whichImage, $F[, $lines] ) -> $lines
@@ -1066,9 +1066,9 @@ AutoIt:
 ### cv::computeECC
 
 ```cpp
-double cv::computeECC( _InputArray templateImage,
-                       _InputArray inputImage,
-                       _InputArray inputMask = noArray() );
+double cv::computeECC( InputArray templateImage,
+                       InputArray inputImage,
+                       InputArray inputMask = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").computeECC( $templateImage, $inputImage[, $inputMask] ) -> retval
@@ -1077,10 +1077,10 @@ AutoIt:
 ### cv::connectedComponents
 
 ```cpp
-int cv::connectedComponents( _InputArray  image,
-                             _OutputArray labels,
-                             int          connectivity = 8,
-                             int          ltype = CV_32S );
+int cv::connectedComponents( InputArray  image,
+                             OutputArray labels,
+                             int         connectivity = 8,
+                             int         ltype = CV_32S );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").connectedComponents( $image[, $labels[, $connectivity[, $ltype]]] ) -> retval, $labels
@@ -1089,11 +1089,11 @@ AutoIt:
 ### cv::connectedComponentsWithAlgorithm
 
 ```cpp
-int cv::connectedComponentsWithAlgorithm( _InputArray  image,
-                                          _OutputArray labels,
-                                          int          connectivity,
-                                          int          ltype,
-                                          int          ccltype );
+int cv::connectedComponentsWithAlgorithm( InputArray  image,
+                                          OutputArray labels,
+                                          int         connectivity,
+                                          int         ltype,
+                                          int         ccltype );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").connectedComponentsWithAlgorithm( $image, $connectivity, $ltype, $ccltype[, $labels] ) -> retval, $labels
@@ -1102,12 +1102,12 @@ AutoIt:
 ### cv::connectedComponentsWithStats
 
 ```cpp
-int cv::connectedComponentsWithStats( _InputArray  image,
-                                      _OutputArray labels,
-                                      _OutputArray stats,
-                                      _OutputArray centroids,
-                                      int          connectivity = 8,
-                                      int          ltype = CV_32S );
+int cv::connectedComponentsWithStats( InputArray  image,
+                                      OutputArray labels,
+                                      OutputArray stats,
+                                      OutputArray centroids,
+                                      int         connectivity = 8,
+                                      int         ltype = CV_32S );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").connectedComponentsWithStats( $image[, $labels[, $stats[, $centroids[, $connectivity[, $ltype]]]]] ) -> retval, $labels, $stats, $centroids
@@ -1116,13 +1116,13 @@ AutoIt:
 ### cv::connectedComponentsWithStatsWithAlgorithm
 
 ```cpp
-int cv::connectedComponentsWithStatsWithAlgorithm( _InputArray  image,
-                                                   _OutputArray labels,
-                                                   _OutputArray stats,
-                                                   _OutputArray centroids,
-                                                   int          connectivity,
-                                                   int          ltype,
-                                                   int          ccltype );
+int cv::connectedComponentsWithStatsWithAlgorithm( InputArray  image,
+                                                   OutputArray labels,
+                                                   OutputArray stats,
+                                                   OutputArray centroids,
+                                                   int         connectivity,
+                                                   int         ltype,
+                                                   int         ccltype );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").connectedComponentsWithStatsWithAlgorithm( $image, $connectivity, $ltype, $ccltype[, $labels[, $stats[, $centroids]]] ) -> retval, $labels, $stats, $centroids
@@ -1131,8 +1131,8 @@ AutoIt:
 ### cv::contourArea
 
 ```cpp
-double cv::contourArea( _InputArray contour,
-                        bool        oriented = false );
+double cv::contourArea( InputArray contour,
+                        bool       oriented = false );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").contourArea( $contour[, $oriented] ) -> retval
@@ -1141,8 +1141,8 @@ AutoIt:
 ### cv::convertFp16
 
 ```cpp
-void cv::convertFp16( _InputArray  src,
-                      _OutputArray dst );
+void cv::convertFp16( InputArray  src,
+                      OutputArray dst );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").convertFp16( $src[, $dst] ) -> $dst
@@ -1151,12 +1151,12 @@ AutoIt:
 ### cv::convertMaps
 
 ```cpp
-void cv::convertMaps( _InputArray  map1,
-                      _InputArray  map2,
-                      _OutputArray dstmap1,
-                      _OutputArray dstmap2,
-                      int          dstmap1type,
-                      bool         nninterpolation = false );
+void cv::convertMaps( InputArray  map1,
+                      InputArray  map2,
+                      OutputArray dstmap1,
+                      OutputArray dstmap2,
+                      int         dstmap1type,
+                      bool        nninterpolation = false );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").convertMaps( $map1, $map2, $dstmap1type[, $dstmap1[, $dstmap2[, $nninterpolation]]] ) -> $dstmap1, $dstmap2
@@ -1165,8 +1165,8 @@ AutoIt:
 ### cv::convertPointsFromHomogeneous
 
 ```cpp
-void cv::convertPointsFromHomogeneous( _InputArray  src,
-                                       _OutputArray dst );
+void cv::convertPointsFromHomogeneous( InputArray  src,
+                                       OutputArray dst );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").convertPointsFromHomogeneous( $src[, $dst] ) -> $dst
@@ -1175,8 +1175,8 @@ AutoIt:
 ### cv::convertPointsToHomogeneous
 
 ```cpp
-void cv::convertPointsToHomogeneous( _InputArray  src,
-                                     _OutputArray dst );
+void cv::convertPointsToHomogeneous( InputArray  src,
+                                     OutputArray dst );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").convertPointsToHomogeneous( $src[, $dst] ) -> $dst
@@ -1185,10 +1185,10 @@ AutoIt:
 ### cv::convertScaleAbs
 
 ```cpp
-void cv::convertScaleAbs( _InputArray  src,
-                          _OutputArray dst,
-                          double       alpha = 1,
-                          double       beta = 0 );
+void cv::convertScaleAbs( InputArray  src,
+                          OutputArray dst,
+                          double      alpha = 1,
+                          double      beta = 0 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").convertScaleAbs( $src[, $dst[, $alpha[, $beta]]] ) -> $dst
@@ -1197,10 +1197,10 @@ AutoIt:
 ### cv::convexHull
 
 ```cpp
-void cv::convexHull( _InputArray  points,
-                     _OutputArray hull,
-                     bool         clockwise = false,
-                     bool         returnPoints = true );
+void cv::convexHull( InputArray  points,
+                     OutputArray hull,
+                     bool        clockwise = false,
+                     bool        returnPoints = true );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").convexHull( $points[, $hull[, $clockwise[, $returnPoints]]] ) -> $hull
@@ -1209,9 +1209,9 @@ AutoIt:
 ### cv::convexityDefects
 
 ```cpp
-void cv::convexityDefects( _InputArray  contour,
-                           _InputArray  convexhull,
-                           _OutputArray convexityDefects );
+void cv::convexityDefects( InputArray  contour,
+                           InputArray  convexhull,
+                           OutputArray convexityDefects );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").convexityDefects( $contour, $convexhull[, $convexityDefects] ) -> $convexityDefects
@@ -1220,8 +1220,8 @@ AutoIt:
 ### cv::copyMakeBorder
 
 ```cpp
-void cv::copyMakeBorder( _InputArray       src,
-                         _OutputArray      dst,
+void cv::copyMakeBorder( InputArray        src,
+                         OutputArray       dst,
                          int               top,
                          int               bottom,
                          int               left,
@@ -1236,9 +1236,9 @@ AutoIt:
 ### cv::copyTo
 
 ```cpp
-void cv::copyTo( _InputArray  src,
-                 _OutputArray dst,
-                 _InputArray  mask );
+void cv::copyTo( InputArray  src,
+                 OutputArray dst,
+                 InputArray  mask );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").copyTo( $src, $mask[, $dst] ) -> $dst
@@ -1247,11 +1247,11 @@ AutoIt:
 ### cv::cornerEigenValsAndVecs
 
 ```cpp
-void cv::cornerEigenValsAndVecs( _InputArray  src,
-                                 _OutputArray dst,
-                                 int          blockSize,
-                                 int          ksize,
-                                 int          borderType = BORDER_DEFAULT );
+void cv::cornerEigenValsAndVecs( InputArray  src,
+                                 OutputArray dst,
+                                 int         blockSize,
+                                 int         ksize,
+                                 int         borderType = BORDER_DEFAULT );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").cornerEigenValsAndVecs( $src, $blockSize, $ksize[, $dst[, $borderType]] ) -> $dst
@@ -1260,12 +1260,12 @@ AutoIt:
 ### cv::cornerHarris
 
 ```cpp
-void cv::cornerHarris( _InputArray  src,
-                       _OutputArray dst,
-                       int          blockSize,
-                       int          ksize,
-                       double       k,
-                       int          borderType = BORDER_DEFAULT );
+void cv::cornerHarris( InputArray  src,
+                       OutputArray dst,
+                       int         blockSize,
+                       int         ksize,
+                       double      k,
+                       int         borderType = BORDER_DEFAULT );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").cornerHarris( $src, $blockSize, $ksize, $k[, $dst[, $borderType]] ) -> $dst
@@ -1274,11 +1274,11 @@ AutoIt:
 ### cv::cornerMinEigenVal
 
 ```cpp
-void cv::cornerMinEigenVal( _InputArray  src,
-                            _OutputArray dst,
-                            int          blockSize,
-                            int          ksize = 3,
-                            int          borderType = BORDER_DEFAULT );
+void cv::cornerMinEigenVal( InputArray  src,
+                            OutputArray dst,
+                            int         blockSize,
+                            int         ksize = 3,
+                            int         borderType = BORDER_DEFAULT );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").cornerMinEigenVal( $src, $blockSize[, $dst[, $ksize[, $borderType]]] ) -> $dst
@@ -1287,11 +1287,11 @@ AutoIt:
 ### cv::cornerSubPix
 
 ```cpp
-void cv::cornerSubPix( _InputArray       image,
-                       _InputOutputArray corners,
-                       cv::Size          winSize,
-                       cv::Size          zeroZone,
-                       cv::TermCriteria  criteria );
+void cv::cornerSubPix( InputArray       image,
+                       InputOutputArray corners,
+                       cv::Size         winSize,
+                       cv::Size         zeroZone,
+                       cv::TermCriteria criteria );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").cornerSubPix( $image, $corners, $winSize, $zeroZone, $criteria ) -> $corners
@@ -1300,11 +1300,11 @@ AutoIt:
 ### cv::correctMatches
 
 ```cpp
-void cv::correctMatches( _InputArray  F,
-                         _InputArray  points1,
-                         _InputArray  points2,
-                         _OutputArray newPoints1,
-                         _OutputArray newPoints2 );
+void cv::correctMatches( InputArray  F,
+                         InputArray  points1,
+                         InputArray  points2,
+                         OutputArray newPoints1,
+                         OutputArray newPoints2 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").correctMatches( $F, $points1, $points2[, $newPoints1[, $newPoints2]] ) -> $newPoints1, $newPoints2
@@ -1313,7 +1313,7 @@ AutoIt:
 ### cv::countNonZero
 
 ```cpp
-int cv::countNonZero( _InputArray src );
+int cv::countNonZero( InputArray src );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").countNonZero( $src ) -> retval
@@ -1404,9 +1404,9 @@ AutoIt:
 ### cv::createHanningWindow
 
 ```cpp
-void cv::createHanningWindow( _OutputArray dst,
-                              cv::Size     winSize,
-                              int          type );
+void cv::createHanningWindow( OutputArray dst,
+                              cv::Size    winSize,
+                              int         type );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").createHanningWindow( $winSize, $type[, $dst] ) -> $dst
@@ -1522,10 +1522,10 @@ AutoIt:
 ### cv::cvtColor
 
 ```cpp
-void cv::cvtColor( _InputArray  src,
-                   _OutputArray dst,
-                   int          code,
-                   int          dstCn = 0 );
+void cv::cvtColor( InputArray  src,
+                   OutputArray dst,
+                   int         code,
+                   int         dstCn = 0 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").cvtColor( $src, $code[, $dst[, $dstCn]] ) -> $dst
@@ -1534,10 +1534,10 @@ AutoIt:
 ### cv::cvtColorTwoPlane
 
 ```cpp
-void cv::cvtColorTwoPlane( _InputArray  src1,
-                           _InputArray  src2,
-                           _OutputArray dst,
-                           int          code );
+void cv::cvtColorTwoPlane( InputArray  src1,
+                           InputArray  src2,
+                           OutputArray dst,
+                           int         code );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").cvtColorTwoPlane( $src1, $src2, $code[, $dst] ) -> $dst
@@ -1546,9 +1546,9 @@ AutoIt:
 ### cv::dct
 
 ```cpp
-void cv::dct( _InputArray  src,
-              _OutputArray dst,
-              int          flags = 0 );
+void cv::dct( InputArray  src,
+              OutputArray dst,
+              int         flags = 0 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").dct( $src[, $dst[, $flags]] ) -> $dst
@@ -1557,9 +1557,9 @@ AutoIt:
 ### cv::decolor
 
 ```cpp
-void cv::decolor( _InputArray  src,
-                  _OutputArray grayscale,
-                  _OutputArray color_boost );
+void cv::decolor( InputArray  src,
+                  OutputArray grayscale,
+                  OutputArray color_boost );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").decolor( $src[, $grayscale[, $color_boost]] ) -> $grayscale, $color_boost
@@ -1568,10 +1568,10 @@ AutoIt:
 ### cv::decomposeEssentialMat
 
 ```cpp
-void cv::decomposeEssentialMat( _InputArray  E,
-                                _OutputArray R1,
-                                _OutputArray R2,
-                                _OutputArray t );
+void cv::decomposeEssentialMat( InputArray  E,
+                                OutputArray R1,
+                                OutputArray R2,
+                                OutputArray t );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").decomposeEssentialMat( $E[, $R1[, $R2[, $t]]] ) -> $R1, $R2, $t
@@ -1580,11 +1580,11 @@ AutoIt:
 ### cv::decomposeHomographyMat
 
 ```cpp
-int cv::decomposeHomographyMat( _InputArray  H,
-                                _InputArray  K,
-                                _OutputArray rotations,
-                                _OutputArray translations,
-                                _OutputArray normals );
+int cv::decomposeHomographyMat( InputArray          H,
+                                InputArray          K,
+                                OutputArrayOfArrays rotations,
+                                OutputArrayOfArrays translations,
+                                OutputArrayOfArrays normals );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").decomposeHomographyMat( $H, $K[, $rotations[, $translations[, $normals]]] ) -> retval, $rotations, $translations, $normals
@@ -1593,14 +1593,14 @@ AutoIt:
 ### cv::decomposeProjectionMatrix
 
 ```cpp
-void cv::decomposeProjectionMatrix( _InputArray  projMatrix,
-                                    _OutputArray cameraMatrix,
-                                    _OutputArray rotMatrix,
-                                    _OutputArray transVect,
-                                    _OutputArray rotMatrixX = noArray(),
-                                    _OutputArray rotMatrixY = noArray(),
-                                    _OutputArray rotMatrixZ = noArray(),
-                                    _OutputArray eulerAngles = noArray() );
+void cv::decomposeProjectionMatrix( InputArray  projMatrix,
+                                    OutputArray cameraMatrix,
+                                    OutputArray rotMatrix,
+                                    OutputArray transVect,
+                                    OutputArray rotMatrixX = noArray(),
+                                    OutputArray rotMatrixY = noArray(),
+                                    OutputArray rotMatrixZ = noArray(),
+                                    OutputArray eulerAngles = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").decomposeProjectionMatrix( $projMatrix[, $cameraMatrix[, $rotMatrix[, $transVect[, $rotMatrixX[, $rotMatrixY[, $rotMatrixZ[, $eulerAngles]]]]]]] ) -> $cameraMatrix, $rotMatrix, $transVect, $rotMatrixX, $rotMatrixY, $rotMatrixZ, $eulerAngles
@@ -1609,10 +1609,10 @@ AutoIt:
 ### cv::demosaicing
 
 ```cpp
-void cv::demosaicing( _InputArray  src,
-                      _OutputArray dst,
-                      int          code,
-                      int          dstCn = 0 );
+void cv::demosaicing( InputArray  src,
+                      OutputArray dst,
+                      int         code,
+                      int         dstCn = 0 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").demosaicing( $src, $code[, $dst[, $dstCn]] ) -> $dst
@@ -1651,10 +1651,10 @@ AutoIt:
 ### cv::detailEnhance
 
 ```cpp
-void cv::detailEnhance( _InputArray  src,
-                        _OutputArray dst,
-                        float        sigma_s = 10,
-                        float        sigma_r = 0.15f );
+void cv::detailEnhance( InputArray  src,
+                        OutputArray dst,
+                        float       sigma_s = 10,
+                        float       sigma_r = 0.15f );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").detailEnhance( $src[, $dst[, $sigma_s[, $sigma_r]]] ) -> $dst
@@ -1663,7 +1663,7 @@ AutoIt:
 ### cv::determinant
 
 ```cpp
-double cv::determinant( _InputArray mtx );
+double cv::determinant( InputArray mtx );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").determinant( $mtx ) -> retval
@@ -1672,10 +1672,10 @@ AutoIt:
 ### cv::dft
 
 ```cpp
-void cv::dft( _InputArray  src,
-              _OutputArray dst,
-              int          flags = 0,
-              int          nonzeroRows = 0 );
+void cv::dft( InputArray  src,
+              OutputArray dst,
+              int         flags = 0,
+              int         nonzeroRows = 0 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").dft( $src[, $dst[, $flags[, $nonzeroRows]]] ) -> $dst
@@ -1684,9 +1684,9 @@ AutoIt:
 ### cv::dilate
 
 ```cpp
-void cv::dilate( _InputArray       src,
-                 _OutputArray      dst,
-                 _InputArray       kernel,
+void cv::dilate( InputArray        src,
+                 OutputArray       dst,
+                 InputArray        kernel,
                  cv::Point         anchor = Point(-1,-1),
                  int               iterations = 1,
                  int               borderType = BORDER_CONSTANT,
@@ -1721,11 +1721,11 @@ AutoIt:
 ### cv::distanceTransform
 
 ```cpp
-void cv::distanceTransform( _InputArray  src,
-                            _OutputArray dst,
-                            int          distanceType,
-                            int          maskSize,
-                            int          dstType = CV_32F );
+void cv::distanceTransform( InputArray  src,
+                            OutputArray dst,
+                            int         distanceType,
+                            int         maskSize,
+                            int         dstType = CV_32F );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").distanceTransform( $src, $distanceType, $maskSize[, $dst[, $dstType]] ) -> $dst
@@ -1734,12 +1734,12 @@ AutoIt:
 ### cv::distanceTransformWithLabels
 
 ```cpp
-void cv::distanceTransformWithLabels( _InputArray  src,
-                                      _OutputArray dst,
-                                      _OutputArray labels,
-                                      int          distanceType,
-                                      int          maskSize,
-                                      int          labelType = DIST_LABEL_CCOMP );
+void cv::distanceTransformWithLabels( InputArray  src,
+                                      OutputArray dst,
+                                      OutputArray labels,
+                                      int         distanceType,
+                                      int         maskSize,
+                                      int         labelType = DIST_LABEL_CCOMP );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").distanceTransformWithLabels( $src, $distanceType, $maskSize[, $dst[, $labels[, $labelType]]] ) -> $dst, $labels
@@ -1748,11 +1748,11 @@ AutoIt:
 ### cv::divSpectrums
 
 ```cpp
-void cv::divSpectrums( _InputArray  a,
-                       _InputArray  b,
-                       _OutputArray c,
-                       int          flags,
-                       bool         conjB = false );
+void cv::divSpectrums( InputArray  a,
+                       InputArray  b,
+                       OutputArray c,
+                       int         flags,
+                       bool        conjB = false );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").divSpectrums( $a, $b, $flags[, $c[, $conjB]] ) -> $c
@@ -1761,21 +1761,21 @@ AutoIt:
 ### cv::divide
 
 ```cpp
-void cv::divide( _InputArray  src1,
-                 _InputArray  src2,
-                 _OutputArray dst,
-                 double       scale = 1,
-                 int          dtype = -1 );
+void cv::divide( InputArray  src1,
+                 InputArray  src2,
+                 OutputArray dst,
+                 double      scale = 1,
+                 int         dtype = -1 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").divide( $src1, $src2[, $dst[, $scale[, $dtype]]] ) -> $dst
 ```
 
 ```cpp
-void cv::divide( double       scale,
-                 _InputArray  src2,
-                 _OutputArray dst,
-                 int          dtype = -1 );
+void cv::divide( double      scale,
+                 InputArray  src2,
+                 OutputArray dst,
+                 int         dtype = -1 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").divide( $scale, $src2[, $dst[, $dtype]] ) -> $dst
@@ -1784,10 +1784,10 @@ AutoIt:
 ### cv::drawChessboardCorners
 
 ```cpp
-void cv::drawChessboardCorners( _InputOutputArray image,
-                                cv::Size          patternSize,
-                                _InputArray       corners,
-                                bool              patternWasFound );
+void cv::drawChessboardCorners( InputOutputArray image,
+                                cv::Size         patternSize,
+                                InputArray       corners,
+                                bool             patternWasFound );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").drawChessboardCorners( $image, $patternSize, $corners, $patternWasFound ) -> $image
@@ -1796,15 +1796,15 @@ AutoIt:
 ### cv::drawContours
 
 ```cpp
-void cv::drawContours( _InputOutputArray image,
-                       _InputArray       contours,
-                       int               contourIdx,
-                       const cv::Scalar& color,
-                       int               thickness = 1,
-                       int               lineType = LINE_8,
-                       _InputArray       hierarchy = noArray(),
-                       int               maxLevel = INT_MAX,
-                       cv::Point         offset = Point() );
+void cv::drawContours( InputOutputArray   image,
+                       InputArrayOfArrays contours,
+                       int                contourIdx,
+                       const cv::Scalar&  color,
+                       int                thickness = 1,
+                       int                lineType = LINE_8,
+                       InputArray         hierarchy = noArray(),
+                       int                maxLevel = INT_MAX,
+                       cv::Point          offset = Point() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").drawContours( $image, $contours, $contourIdx, $color[, $thickness[, $lineType[, $hierarchy[, $maxLevel[, $offset]]]]] ) -> $image
@@ -1813,13 +1813,13 @@ AutoIt:
 ### cv::drawFrameAxes
 
 ```cpp
-void cv::drawFrameAxes( _InputOutputArray image,
-                        _InputArray       cameraMatrix,
-                        _InputArray       distCoeffs,
-                        _InputArray       rvec,
-                        _InputArray       tvec,
-                        float             length,
-                        int               thickness = 3 );
+void cv::drawFrameAxes( InputOutputArray image,
+                        InputArray       cameraMatrix,
+                        InputArray       distCoeffs,
+                        InputArray       rvec,
+                        InputArray       tvec,
+                        float            length,
+                        int              thickness = 3 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").drawFrameAxes( $image, $cameraMatrix, $distCoeffs, $rvec, $tvec, $length[, $thickness] ) -> $image
@@ -1828,9 +1828,9 @@ AutoIt:
 ### cv::drawKeypoints
 
 ```cpp
-void cv::drawKeypoints( _InputArray                      image,
+void cv::drawKeypoints( InputArray                       image,
                         const std::vector<cv::KeyPoint>& keypoints,
-                        _InputOutputArray                outImage,
+                        InputOutputArray                 outImage,
                         const cv::Scalar&                color = Scalar::all(-1),
                         int                              flags = DrawMatchesFlags::DEFAULT );
 
@@ -1841,7 +1841,7 @@ AutoIt:
 ### cv::drawMarker
 
 ```cpp
-void cv::drawMarker( _InputOutputArray img,
+void cv::drawMarker( InputOutputArray  img,
                      cv::Point         position,
                      const cv::Scalar& color,
                      int               markerType = MARKER_CROSS,
@@ -1856,12 +1856,12 @@ AutoIt:
 ### cv::drawMatches
 
 ```cpp
-void cv::drawMatches( _InputArray                      img1,
+void cv::drawMatches( InputArray                       img1,
                       const std::vector<cv::KeyPoint>& keypoints1,
-                      _InputArray                      img2,
+                      InputArray                       img2,
                       const std::vector<cv::KeyPoint>& keypoints2,
                       const std::vector<cv::DMatch>&   matches1to2,
-                      _InputOutputArray                outImg,
+                      InputOutputArray                 outImg,
                       const cv::Scalar&                matchColor = Scalar::all(-1),
                       const cv::Scalar&                singlePointColor = Scalar::all(-1),
                       const std::vector<char>&         matchesMask = std::vector<char>(),
@@ -1872,12 +1872,12 @@ AutoIt:
 ```
 
 ```cpp
-void cv::drawMatches( _InputArray                      img1,
+void cv::drawMatches( InputArray                       img1,
                       const std::vector<cv::KeyPoint>& keypoints1,
-                      _InputArray                      img2,
+                      InputArray                       img2,
                       const std::vector<cv::KeyPoint>& keypoints2,
                       const std::vector<cv::DMatch>&   matches1to2,
-                      _InputOutputArray                outImg,
+                      InputOutputArray                 outImg,
                       const int                        matchesThickness,
                       const cv::Scalar&                matchColor = Scalar::all(-1),
                       const cv::Scalar&                singlePointColor = Scalar::all(-1),
@@ -1891,12 +1891,12 @@ AutoIt:
 ### cv::drawMatchesKnn
 
 ```cpp
-void cv::drawMatchesKnn( _InputArray                                 img1,
+void cv::drawMatchesKnn( InputArray                                  img1,
                          const std::vector<cv::KeyPoint>&            keypoints1,
-                         _InputArray                                 img2,
+                         InputArray                                  img2,
                          const std::vector<cv::KeyPoint>&            keypoints2,
                          const std::vector<std::vector<cv::DMatch>>& matches1to2,
-                         _InputOutputArray                           outImg,
+                         InputOutputArray                            outImg,
                          const cv::Scalar&                           matchColor = Scalar::all(-1),
                          const cv::Scalar&                           singlePointColor = Scalar::all(-1),
                          const std::vector<std::vector<char>>&       matchesMask = std::vector<std::vector<char> >(),
@@ -1909,11 +1909,11 @@ AutoIt:
 ### cv::edgePreservingFilter
 
 ```cpp
-void cv::edgePreservingFilter( _InputArray  src,
-                               _OutputArray dst,
-                               int          flags = 1,
-                               float        sigma_s = 60,
-                               float        sigma_r = 0.4f );
+void cv::edgePreservingFilter( InputArray  src,
+                               OutputArray dst,
+                               int         flags = 1,
+                               float       sigma_s = 60,
+                               float       sigma_r = 0.4f );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").edgePreservingFilter( $src[, $dst[, $flags[, $sigma_s[, $sigma_r]]]] ) -> $dst
@@ -1922,9 +1922,9 @@ AutoIt:
 ### cv::eigen
 
 ```cpp
-bool cv::eigen( _InputArray  src,
-                _OutputArray eigenvalues,
-                _OutputArray eigenvectors = noArray() );
+bool cv::eigen( InputArray  src,
+                OutputArray eigenvalues,
+                OutputArray eigenvectors = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").eigen( $src[, $eigenvalues[, $eigenvectors]] ) -> retval, $eigenvalues, $eigenvectors
@@ -1933,9 +1933,9 @@ AutoIt:
 ### cv::eigenNonSymmetric
 
 ```cpp
-void cv::eigenNonSymmetric( _InputArray  src,
-                            _OutputArray eigenvalues,
-                            _OutputArray eigenvectors );
+void cv::eigenNonSymmetric( InputArray  src,
+                            OutputArray eigenvalues,
+                            OutputArray eigenvectors );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").eigenNonSymmetric( $src[, $eigenvalues[, $eigenvectors]] ) -> $eigenvalues, $eigenvectors
@@ -1944,7 +1944,7 @@ AutoIt:
 ### cv::ellipse
 
 ```cpp
-void cv::ellipse( _InputOutputArray img,
+void cv::ellipse( InputOutputArray  img,
                   cv::Point         center,
                   cv::Size          axes,
                   double            angle,
@@ -1960,7 +1960,7 @@ AutoIt:
 ```
 
 ```cpp
-void cv::ellipse( _InputOutputArray      img,
+void cv::ellipse( InputOutputArray       img,
                   const cv::RotatedRect& box,
                   const cv::Scalar&      color,
                   int                    thickness = 1,
@@ -2015,8 +2015,8 @@ AutoIt:
 ### cv::equalizeHist
 
 ```cpp
-void cv::equalizeHist( _InputArray  src,
-                       _OutputArray dst );
+void cv::equalizeHist( InputArray  src,
+                       OutputArray dst );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").equalizeHist( $src[, $dst] ) -> $dst
@@ -2025,9 +2025,9 @@ AutoIt:
 ### cv::erode
 
 ```cpp
-void cv::erode( _InputArray       src,
-                _OutputArray      dst,
-                _InputArray       kernel,
+void cv::erode( InputArray        src,
+                OutputArray       dst,
+                InputArray        kernel,
                 cv::Point         anchor = Point(-1,-1),
                 int               iterations = 1,
                 int               borderType = BORDER_CONSTANT,
@@ -2040,23 +2040,23 @@ AutoIt:
 ### cv::estimateAffine2D
 
 ```cpp
-cv::Mat cv::estimateAffine2D( _InputArray  from,
-                              _InputArray  to,
-                              _OutputArray inliers = noArray(),
-                              int          method = RANSAC,
-                              double       ransacReprojThreshold = 3,
-                              size_t       maxIters = 2000,
-                              double       confidence = 0.99,
-                              size_t       refineIters = 10 );
+cv::Mat cv::estimateAffine2D( InputArray  from,
+                              InputArray  to,
+                              OutputArray inliers = noArray(),
+                              int         method = RANSAC,
+                              double      ransacReprojThreshold = 3,
+                              size_t      maxIters = 2000,
+                              double      confidence = 0.99,
+                              size_t      refineIters = 10 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").estimateAffine2D( $from, $to[, $inliers[, $method[, $ransacReprojThreshold[, $maxIters[, $confidence[, $refineIters]]]]]] ) -> retval, $inliers
 ```
 
 ```cpp
-cv::Mat cv::estimateAffine2D( _InputArray           pts1,
-                              _InputArray           pts2,
-                              _OutputArray          inliers,
+cv::Mat cv::estimateAffine2D( InputArray            pts1,
+                              InputArray            pts2,
+                              OutputArray           inliers,
                               const cv::UsacParams& params );
 
 AutoIt:
@@ -2066,22 +2066,22 @@ AutoIt:
 ### cv::estimateAffine3D
 
 ```cpp
-int cv::estimateAffine3D( _InputArray  src,
-                          _InputArray  dst,
-                          _OutputArray out,
-                          _OutputArray inliers,
-                          double       ransacThreshold = 3,
-                          double       confidence = 0.99 );
+int cv::estimateAffine3D( InputArray  src,
+                          InputArray  dst,
+                          OutputArray out,
+                          OutputArray inliers,
+                          double      ransacThreshold = 3,
+                          double      confidence = 0.99 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").estimateAffine3D( $src, $dst[, $out[, $inliers[, $ransacThreshold[, $confidence]]]] ) -> retval, $out, $inliers
 ```
 
 ```cpp
-cv::Mat cv::estimateAffine3D( _InputArray src,
-                              _InputArray dst,
-                              double*     scale = nullptr,
-                              bool        force_rotation = true );
+cv::Mat cv::estimateAffine3D( InputArray src,
+                              InputArray dst,
+                              double*    scale = nullptr,
+                              bool       force_rotation = true );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").estimateAffine3D( $src, $dst[, $force_rotation[, $scale]] ) -> retval, $scale
@@ -2090,14 +2090,14 @@ AutoIt:
 ### cv::estimateAffinePartial2D
 
 ```cpp
-cv::Mat cv::estimateAffinePartial2D( _InputArray  from,
-                                     _InputArray  to,
-                                     _OutputArray inliers = noArray(),
-                                     int          method = RANSAC,
-                                     double       ransacReprojThreshold = 3,
-                                     size_t       maxIters = 2000,
-                                     double       confidence = 0.99,
-                                     size_t       refineIters = 10 );
+cv::Mat cv::estimateAffinePartial2D( InputArray  from,
+                                     InputArray  to,
+                                     OutputArray inliers = noArray(),
+                                     int         method = RANSAC,
+                                     double      ransacReprojThreshold = 3,
+                                     size_t      maxIters = 2000,
+                                     double      confidence = 0.99,
+                                     size_t      refineIters = 10 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").estimateAffinePartial2D( $from, $to[, $inliers[, $method[, $ransacReprojThreshold[, $maxIters[, $confidence[, $refineIters]]]]]] ) -> retval, $inliers
@@ -2106,12 +2106,12 @@ AutoIt:
 ### cv::estimateChessboardSharpness
 
 ```cpp
-cv::Scalar cv::estimateChessboardSharpness( _InputArray  image,
-                                            cv::Size     patternSize,
-                                            _InputArray  corners,
-                                            float        rise_distance = 0.8F,
-                                            bool         vertical = false,
-                                            _OutputArray sharpness = noArray() );
+cv::Scalar cv::estimateChessboardSharpness( InputArray  image,
+                                            cv::Size    patternSize,
+                                            InputArray  corners,
+                                            float       rise_distance = 0.8F,
+                                            bool        vertical = false,
+                                            OutputArray sharpness = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").estimateChessboardSharpness( $image, $patternSize, $corners[, $rise_distance[, $vertical[, $sharpness]]] ) -> retval, $sharpness
@@ -2120,12 +2120,12 @@ AutoIt:
 ### cv::estimateTranslation3D
 
 ```cpp
-int cv::estimateTranslation3D( _InputArray  src,
-                               _InputArray  dst,
-                               _OutputArray out,
-                               _OutputArray inliers,
-                               double       ransacThreshold = 3,
-                               double       confidence = 0.99 );
+int cv::estimateTranslation3D( InputArray  src,
+                               InputArray  dst,
+                               OutputArray out,
+                               OutputArray inliers,
+                               double      ransacThreshold = 3,
+                               double      confidence = 0.99 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").estimateTranslation3D( $src, $dst[, $out[, $inliers[, $ransacThreshold[, $confidence]]]] ) -> retval, $out, $inliers
@@ -2134,8 +2134,8 @@ AutoIt:
 ### cv::exp
 
 ```cpp
-void cv::exp( _InputArray  src,
-              _OutputArray dst );
+void cv::exp( InputArray  src,
+              OutputArray dst );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").exp( $src[, $dst] ) -> $dst
@@ -2144,9 +2144,9 @@ AutoIt:
 ### cv::extractChannel
 
 ```cpp
-void cv::extractChannel( _InputArray  src,
-                         _OutputArray dst,
-                         int          coi );
+void cv::extractChannel( InputArray  src,
+                         OutputArray dst,
+                         int         coi );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").extractChannel( $src, $coi[, $dst] ) -> $dst
@@ -2165,19 +2165,19 @@ AutoIt:
 ### cv::fastNlMeansDenoising
 
 ```cpp
-void cv::fastNlMeansDenoising( _InputArray  src,
-                               _OutputArray dst,
-                               float        h = 3,
-                               int          templateWindowSize = 7,
-                               int          searchWindowSize = 21 );
+void cv::fastNlMeansDenoising( InputArray  src,
+                               OutputArray dst,
+                               float       h = 3,
+                               int         templateWindowSize = 7,
+                               int         searchWindowSize = 21 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").fastNlMeansDenoising( $src[, $dst[, $h[, $templateWindowSize[, $searchWindowSize]]]] ) -> $dst
 ```
 
 ```cpp
-void cv::fastNlMeansDenoising( _InputArray               src,
-                               _OutputArray              dst,
+void cv::fastNlMeansDenoising( InputArray                src,
+                               OutputArray               dst,
                                const std::vector<float>& h,
                                int                       templateWindowSize = 7,
                                int                       searchWindowSize = 21,
@@ -2190,12 +2190,12 @@ AutoIt:
 ### cv::fastNlMeansDenoisingColored
 
 ```cpp
-void cv::fastNlMeansDenoisingColored( _InputArray  src,
-                                      _OutputArray dst,
-                                      float        h = 3,
-                                      float        hColor = 3,
-                                      int          templateWindowSize = 7,
-                                      int          searchWindowSize = 21 );
+void cv::fastNlMeansDenoisingColored( InputArray  src,
+                                      OutputArray dst,
+                                      float       h = 3,
+                                      float       hColor = 3,
+                                      int         templateWindowSize = 7,
+                                      int         searchWindowSize = 21 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").fastNlMeansDenoisingColored( $src[, $dst[, $h[, $hColor[, $templateWindowSize[, $searchWindowSize]]]]] ) -> $dst
@@ -2204,14 +2204,14 @@ AutoIt:
 ### cv::fastNlMeansDenoisingColoredMulti
 
 ```cpp
-void cv::fastNlMeansDenoisingColoredMulti( _InputArray  srcImgs,
-                                           _OutputArray dst,
-                                           int          imgToDenoiseIndex,
-                                           int          temporalWindowSize,
-                                           float        h = 3,
-                                           float        hColor = 3,
-                                           int          templateWindowSize = 7,
-                                           int          searchWindowSize = 21 );
+void cv::fastNlMeansDenoisingColoredMulti( InputArrayOfArrays srcImgs,
+                                           OutputArray        dst,
+                                           int                imgToDenoiseIndex,
+                                           int                temporalWindowSize,
+                                           float              h = 3,
+                                           float              hColor = 3,
+                                           int                templateWindowSize = 7,
+                                           int                searchWindowSize = 21 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").fastNlMeansDenoisingColoredMulti( $srcImgs, $imgToDenoiseIndex, $temporalWindowSize[, $dst[, $h[, $hColor[, $templateWindowSize[, $searchWindowSize]]]]] ) -> $dst
@@ -2220,21 +2220,21 @@ AutoIt:
 ### cv::fastNlMeansDenoisingMulti
 
 ```cpp
-void cv::fastNlMeansDenoisingMulti( _InputArray  srcImgs,
-                                    _OutputArray dst,
-                                    int          imgToDenoiseIndex,
-                                    int          temporalWindowSize,
-                                    float        h = 3,
-                                    int          templateWindowSize = 7,
-                                    int          searchWindowSize = 21 );
+void cv::fastNlMeansDenoisingMulti( InputArrayOfArrays srcImgs,
+                                    OutputArray        dst,
+                                    int                imgToDenoiseIndex,
+                                    int                temporalWindowSize,
+                                    float              h = 3,
+                                    int                templateWindowSize = 7,
+                                    int                searchWindowSize = 21 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").fastNlMeansDenoisingMulti( $srcImgs, $imgToDenoiseIndex, $temporalWindowSize[, $dst[, $h[, $templateWindowSize[, $searchWindowSize]]]] ) -> $dst
 ```
 
 ```cpp
-void cv::fastNlMeansDenoisingMulti( _InputArray               srcImgs,
-                                    _OutputArray              dst,
+void cv::fastNlMeansDenoisingMulti( InputArrayOfArrays        srcImgs,
+                                    OutputArray               dst,
                                     int                       imgToDenoiseIndex,
                                     int                       temporalWindowSize,
                                     const std::vector<float>& h,
@@ -2249,8 +2249,8 @@ AutoIt:
 ### cv::fillConvexPoly
 
 ```cpp
-void cv::fillConvexPoly( _InputOutputArray img,
-                         _InputArray       points,
+void cv::fillConvexPoly( InputOutputArray  img,
+                         InputArray        points,
                          const cv::Scalar& color,
                          int               lineType = LINE_8,
                          int               shift = 0 );
@@ -2262,12 +2262,12 @@ AutoIt:
 ### cv::fillPoly
 
 ```cpp
-void cv::fillPoly( _InputOutputArray img,
-                   _InputArray       pts,
-                   const cv::Scalar& color,
-                   int               lineType = LINE_8,
-                   int               shift = 0,
-                   cv::Point         offset = Point() );
+void cv::fillPoly( InputOutputArray   img,
+                   InputArrayOfArrays pts,
+                   const cv::Scalar&  color,
+                   int                lineType = LINE_8,
+                   int                shift = 0,
+                   cv::Point          offset = Point() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").fillPoly( $img, $pts, $color[, $lineType[, $shift[, $offset]]] ) -> $img
@@ -2276,13 +2276,13 @@ AutoIt:
 ### cv::filter2D
 
 ```cpp
-void cv::filter2D( _InputArray  src,
-                   _OutputArray dst,
-                   int          ddepth,
-                   _InputArray  kernel,
-                   cv::Point    anchor = Point(-1,-1),
-                   double       delta = 0,
-                   int          borderType = BORDER_DEFAULT );
+void cv::filter2D( InputArray  src,
+                   OutputArray dst,
+                   int         ddepth,
+                   InputArray  kernel,
+                   cv::Point   anchor = Point(-1,-1),
+                   double      delta = 0,
+                   int         borderType = BORDER_DEFAULT );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").filter2D( $src, $ddepth, $kernel[, $dst[, $anchor[, $delta[, $borderType]]]] ) -> $dst
@@ -2291,12 +2291,12 @@ AutoIt:
 ### cv::filterHomographyDecompByVisibleRefpoints
 
 ```cpp
-void cv::filterHomographyDecompByVisibleRefpoints( _InputArray  rotations,
-                                                   _InputArray  normals,
-                                                   _InputArray  beforePoints,
-                                                   _InputArray  afterPoints,
-                                                   _OutputArray possibleSolutions,
-                                                   _InputArray  pointsMask = noArray() );
+void cv::filterHomographyDecompByVisibleRefpoints( InputArrayOfArrays rotations,
+                                                   InputArrayOfArrays normals,
+                                                   InputArray         beforePoints,
+                                                   InputArray         afterPoints,
+                                                   OutputArray        possibleSolutions,
+                                                   InputArray         pointsMask = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").filterHomographyDecompByVisibleRefpoints( $rotations, $normals, $beforePoints, $afterPoints[, $possibleSolutions[, $pointsMask]] ) -> $possibleSolutions
@@ -2305,11 +2305,11 @@ AutoIt:
 ### cv::filterSpeckles
 
 ```cpp
-void cv::filterSpeckles( _InputOutputArray img,
-                         double            newVal,
-                         int               maxSpeckleSize,
-                         double            maxDiff,
-                         _InputOutputArray buf = noArray() );
+void cv::filterSpeckles( InputOutputArray img,
+                         double           newVal,
+                         int              maxSpeckleSize,
+                         double           maxDiff,
+                         InputOutputArray buf = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").filterSpeckles( $img, $newVal, $maxSpeckleSize, $maxDiff[, $buf] ) -> $img, $buf
@@ -2318,9 +2318,9 @@ AutoIt:
 ### cv::find4QuadCornerSubpix
 
 ```cpp
-bool cv::find4QuadCornerSubpix( _InputArray       img,
-                                _InputOutputArray corners,
-                                cv::Size          region_size );
+bool cv::find4QuadCornerSubpix( InputArray       img,
+                                InputOutputArray corners,
+                                cv::Size         region_size );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").find4QuadCornerSubpix( $img, $corners, $region_size ) -> retval, $corners
@@ -2329,10 +2329,10 @@ AutoIt:
 ### cv::findChessboardCorners
 
 ```cpp
-bool cv::findChessboardCorners( _InputArray  image,
-                                cv::Size     patternSize,
-                                _OutputArray corners,
-                                int          flags = CALIB_CB_ADAPTIVE_THRESH + CALIB_CB_NORMALIZE_IMAGE );
+bool cv::findChessboardCorners( InputArray  image,
+                                cv::Size    patternSize,
+                                OutputArray corners,
+                                int         flags = CALIB_CB_ADAPTIVE_THRESH + CALIB_CB_NORMALIZE_IMAGE );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").findChessboardCorners( $image, $patternSize[, $corners[, $flags]] ) -> retval, $corners
@@ -2341,10 +2341,10 @@ AutoIt:
 ### cv::findChessboardCornersSB
 
 ```cpp
-bool cv::findChessboardCornersSB( _InputArray  image,
-                                  cv::Size     patternSize,
-                                  _OutputArray corners,
-                                  int          flags = 0 );
+bool cv::findChessboardCornersSB( InputArray  image,
+                                  cv::Size    patternSize,
+                                  OutputArray corners,
+                                  int         flags = 0 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").findChessboardCornersSB( $image, $patternSize[, $corners[, $flags]] ) -> retval, $corners
@@ -2353,11 +2353,11 @@ AutoIt:
 ### cv::findChessboardCornersSBWithMeta
 
 ```cpp
-bool cv::findChessboardCornersSBWithMeta( _InputArray  image,
-                                          cv::Size     patternSize,
-                                          _OutputArray corners,
-                                          int          flags,
-                                          _OutputArray meta );
+bool cv::findChessboardCornersSBWithMeta( InputArray  image,
+                                          cv::Size    patternSize,
+                                          OutputArray corners,
+                                          int         flags,
+                                          OutputArray meta );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").findChessboardCornersSBWithMeta( $image, $patternSize, $flags[, $corners[, $meta]] ) -> retval, $corners, $meta
@@ -2366,9 +2366,9 @@ AutoIt:
 ### cv::findCirclesGrid
 
 ```cpp
-bool cv::findCirclesGrid( _InputArray                            image,
+bool cv::findCirclesGrid( InputArray                             image,
                           cv::Size                               patternSize,
-                          _OutputArray                           centers,
+                          OutputArray                            centers,
                           int                                    flags,
                           const cv::Ptr<cv::Feature2D>&          blobDetector,
                           const cv::CirclesGridFinderParameters& parameters );
@@ -2378,9 +2378,9 @@ AutoIt:
 ```
 
 ```cpp
-bool cv::findCirclesGrid( _InputArray                   image,
+bool cv::findCirclesGrid( InputArray                    image,
                           cv::Size                      patternSize,
-                          _OutputArray                  centers,
+                          OutputArray                   centers,
                           int                           flags = CALIB_CB_SYMMETRIC_GRID,
                           const cv::Ptr<cv::Feature2D>& blobDetector = SimpleBlobDetector::create() );
 
@@ -2391,12 +2391,12 @@ AutoIt:
 ### cv::findContours
 
 ```cpp
-void cv::findContours( _InputArray  image,
-                       _OutputArray contours,
-                       _OutputArray hierarchy,
-                       int          mode,
-                       int          method,
-                       cv::Point    offset = Point() );
+void cv::findContours( InputArray          image,
+                       OutputArrayOfArrays contours,
+                       OutputArray         hierarchy,
+                       int                 mode,
+                       int                 method,
+                       cv::Point           offset = Point() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").findContours( $image, $mode, $method[, $contours[, $hierarchy[, $offset]]] ) -> $contours, $hierarchy
@@ -2405,58 +2405,58 @@ AutoIt:
 ### cv::findEssentialMat
 
 ```cpp
-cv::Mat cv::findEssentialMat( _InputArray  points1,
-                              _InputArray  points2,
-                              _InputArray  cameraMatrix,
-                              int          method = RANSAC,
-                              double       prob = 0.999,
-                              double       threshold = 1.0,
-                              int          maxIters = 1000,
-                              _OutputArray mask = noArray() );
+cv::Mat cv::findEssentialMat( InputArray  points1,
+                              InputArray  points2,
+                              InputArray  cameraMatrix,
+                              int         method = RANSAC,
+                              double      prob = 0.999,
+                              double      threshold = 1.0,
+                              int         maxIters = 1000,
+                              OutputArray mask = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").findEssentialMat( $points1, $points2, $cameraMatrix[, $method[, $prob[, $threshold[, $maxIters[, $mask]]]]] ) -> retval, $mask
 ```
 
 ```cpp
-cv::Mat cv::findEssentialMat( _InputArray  points1,
-                              _InputArray  points2,
-                              double       focal = 1.0,
-                              cv::Point2d  pp = Point2d(0, 0),
-                              int          method = RANSAC,
-                              double       prob = 0.999,
-                              double       threshold = 1.0,
-                              int          maxIters = 1000,
-                              _OutputArray mask = noArray() );
+cv::Mat cv::findEssentialMat( InputArray  points1,
+                              InputArray  points2,
+                              double      focal = 1.0,
+                              cv::Point2d pp = Point2d(0, 0),
+                              int         method = RANSAC,
+                              double      prob = 0.999,
+                              double      threshold = 1.0,
+                              int         maxIters = 1000,
+                              OutputArray mask = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").findEssentialMat( $points1, $points2[, $focal[, $pp[, $method[, $prob[, $threshold[, $maxIters[, $mask]]]]]]] ) -> retval, $mask
 ```
 
 ```cpp
-cv::Mat cv::findEssentialMat( _InputArray  points1,
-                              _InputArray  points2,
-                              _InputArray  cameraMatrix1,
-                              _InputArray  distCoeffs1,
-                              _InputArray  cameraMatrix2,
-                              _InputArray  distCoeffs2,
-                              int          method = RANSAC,
-                              double       prob = 0.999,
-                              double       threshold = 1.0,
-                              _OutputArray mask = noArray() );
+cv::Mat cv::findEssentialMat( InputArray  points1,
+                              InputArray  points2,
+                              InputArray  cameraMatrix1,
+                              InputArray  distCoeffs1,
+                              InputArray  cameraMatrix2,
+                              InputArray  distCoeffs2,
+                              int         method = RANSAC,
+                              double      prob = 0.999,
+                              double      threshold = 1.0,
+                              OutputArray mask = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").findEssentialMat( $points1, $points2, $cameraMatrix1, $distCoeffs1, $cameraMatrix2, $distCoeffs2[, $method[, $prob[, $threshold[, $mask]]]] ) -> retval, $mask
 ```
 
 ```cpp
-cv::Mat cv::findEssentialMat( _InputArray           points1,
-                              _InputArray           points2,
-                              _InputArray           cameraMatrix1,
-                              _InputArray           cameraMatrix2,
-                              _InputArray           dist_coeff1,
-                              _InputArray           dist_coeff2,
-                              _OutputArray          mask,
+cv::Mat cv::findEssentialMat( InputArray            points1,
+                              InputArray            points2,
+                              InputArray            cameraMatrix1,
+                              InputArray            cameraMatrix2,
+                              InputArray            dist_coeff1,
+                              InputArray            dist_coeff2,
+                              OutputArray           mask,
                               const cv::UsacParams& params );
 
 AutoIt:
@@ -2466,34 +2466,34 @@ AutoIt:
 ### cv::findFundamentalMat
 
 ```cpp
-cv::Mat cv::findFundamentalMat( _InputArray  points1,
-                                _InputArray  points2,
-                                int          method,
-                                double       ransacReprojThreshold,
-                                double       confidence,
-                                int          maxIters,
-                                _OutputArray mask = noArray() );
+cv::Mat cv::findFundamentalMat( InputArray  points1,
+                                InputArray  points2,
+                                int         method,
+                                double      ransacReprojThreshold,
+                                double      confidence,
+                                int         maxIters,
+                                OutputArray mask = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").findFundamentalMat( $points1, $points2, $method, $ransacReprojThreshold, $confidence, $maxIters[, $mask] ) -> retval, $mask
 ```
 
 ```cpp
-cv::Mat cv::findFundamentalMat( _InputArray  points1,
-                                _InputArray  points2,
-                                int          method = FM_RANSAC,
-                                double       ransacReprojThreshold = 3.,
-                                double       confidence = 0.99,
-                                _OutputArray mask = noArray() );
+cv::Mat cv::findFundamentalMat( InputArray  points1,
+                                InputArray  points2,
+                                int         method = FM_RANSAC,
+                                double      ransacReprojThreshold = 3.,
+                                double      confidence = 0.99,
+                                OutputArray mask = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").findFundamentalMat( $points1, $points2[, $method[, $ransacReprojThreshold[, $confidence[, $mask]]]] ) -> retval, $mask
 ```
 
 ```cpp
-cv::Mat cv::findFundamentalMat( _InputArray           points1,
-                                _InputArray           points2,
-                                _OutputArray          mask,
+cv::Mat cv::findFundamentalMat( InputArray            points1,
+                                InputArray            points2,
+                                OutputArray           mask,
                                 const cv::UsacParams& params );
 
 AutoIt:
@@ -2503,11 +2503,11 @@ AutoIt:
 ### cv::findHomography
 
 ```cpp
-cv::Mat cv::findHomography( _InputArray  srcPoints,
-                            _InputArray  dstPoints,
+cv::Mat cv::findHomography( InputArray   srcPoints,
+                            InputArray   dstPoints,
                             int          method = 0,
                             double       ransacReprojThreshold = 3,
-                            _OutputArray mask = noArray(),
+                            OutputArray  mask = noArray(),
                             const int    maxIters = 2000,
                             const double confidence = 0.995 );
 
@@ -2516,9 +2516,9 @@ AutoIt:
 ```
 
 ```cpp
-cv::Mat cv::findHomography( _InputArray           srcPoints,
-                            _InputArray           dstPoints,
-                            _OutputArray          mask,
+cv::Mat cv::findHomography( InputArray            srcPoints,
+                            InputArray            dstPoints,
+                            OutputArray           mask,
                             const cv::UsacParams& params );
 
 AutoIt:
@@ -2528,8 +2528,8 @@ AutoIt:
 ### cv::findNonZero
 
 ```cpp
-void cv::findNonZero( _InputArray  src,
-                      _OutputArray idx );
+void cv::findNonZero( InputArray  src,
+                      OutputArray idx );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").findNonZero( $src[, $idx] ) -> $idx
@@ -2538,25 +2538,25 @@ AutoIt:
 ### cv::findTransformECC
 
 ```cpp
-double cv::findTransformECC( _InputArray       templateImage,
-                             _InputArray       inputImage,
-                             _InputOutputArray warpMatrix,
-                             int               motionType,
-                             cv::TermCriteria  criteria,
-                             _InputArray       inputMask,
-                             int               gaussFiltSize );
+double cv::findTransformECC( InputArray       templateImage,
+                             InputArray       inputImage,
+                             InputOutputArray warpMatrix,
+                             int              motionType,
+                             cv::TermCriteria criteria,
+                             InputArray       inputMask,
+                             int              gaussFiltSize );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").findTransformECC( $templateImage, $inputImage, $warpMatrix, $motionType, $criteria, $inputMask, $gaussFiltSize ) -> retval, $warpMatrix
 ```
 
 ```cpp
-double cv::findTransformECC( _InputArray       templateImage,
-                             _InputArray       inputImage,
-                             _InputOutputArray warpMatrix,
-                             int               motionType = MOTION_AFFINE,
-                             cv::TermCriteria  criteria = TermCriteria(TermCriteria::COUNT+TermCriteria::EPS, 50, 0.001),
-                             _InputArray       inputMask = noArray() );
+double cv::findTransformECC( InputArray       templateImage,
+                             InputArray       inputImage,
+                             InputOutputArray warpMatrix,
+                             int              motionType = MOTION_AFFINE,
+                             cv::TermCriteria criteria = TermCriteria(TermCriteria::COUNT+TermCriteria::EPS, 50, 0.001),
+                             InputArray       inputMask = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").findTransformECC( $templateImage, $inputImage, $warpMatrix[, $motionType[, $criteria[, $inputMask]]] ) -> retval, $warpMatrix
@@ -2565,7 +2565,7 @@ AutoIt:
 ### cv::fitEllipse
 
 ```cpp
-cv::RotatedRect cv::fitEllipse( _InputArray points );
+cv::RotatedRect cv::fitEllipse( InputArray points );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").fitEllipse( $points ) -> retval
@@ -2574,7 +2574,7 @@ AutoIt:
 ### cv::fitEllipseAMS
 
 ```cpp
-cv::RotatedRect cv::fitEllipseAMS( _InputArray points );
+cv::RotatedRect cv::fitEllipseAMS( InputArray points );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").fitEllipseAMS( $points ) -> retval
@@ -2583,7 +2583,7 @@ AutoIt:
 ### cv::fitEllipseDirect
 
 ```cpp
-cv::RotatedRect cv::fitEllipseDirect( _InputArray points );
+cv::RotatedRect cv::fitEllipseDirect( InputArray points );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").fitEllipseDirect( $points ) -> retval
@@ -2592,12 +2592,12 @@ AutoIt:
 ### cv::fitLine
 
 ```cpp
-void cv::fitLine( _InputArray  points,
-                  _OutputArray line,
-                  int          distType,
-                  double       param,
-                  double       reps,
-                  double       aeps );
+void cv::fitLine( InputArray  points,
+                  OutputArray line,
+                  int         distType,
+                  double      param,
+                  double      reps,
+                  double      aeps );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").fitLine( $points, $distType, $param, $reps, $aeps[, $line] ) -> $line
@@ -2606,9 +2606,9 @@ AutoIt:
 ### cv::flip
 
 ```cpp
-void cv::flip( _InputArray  src,
-               _OutputArray dst,
-               int          flipCode );
+void cv::flip( InputArray  src,
+               OutputArray dst,
+               int         flipCode );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").flip( $src, $flipCode[, $dst] ) -> $dst
@@ -2617,14 +2617,14 @@ AutoIt:
 ### cv::floodFill
 
 ```cpp
-int cv::floodFill( _InputOutputArray image,
-                   _InputOutputArray mask,
-                   cv::Point         seedPoint,
-                   cv::Scalar        newVal,
-                   cv::Rect*         rect = 0,
-                   cv::Scalar        loDiff = Scalar(),
-                   cv::Scalar        upDiff = Scalar(),
-                   int               flags = 4 );
+int cv::floodFill( InputOutputArray image,
+                   InputOutputArray mask,
+                   cv::Point        seedPoint,
+                   cv::Scalar       newVal,
+                   cv::Rect*        rect = 0,
+                   cv::Scalar       loDiff = Scalar(),
+                   cv::Scalar       upDiff = Scalar(),
+                   int              flags = 4 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").floodFill( $image, $mask, $seedPoint, $newVal[, $loDiff[, $upDiff[, $flags[, $rect]]]] ) -> retval, $image, $mask, $rect
@@ -2633,13 +2633,13 @@ AutoIt:
 ### cv::gemm
 
 ```cpp
-void cv::gemm( _InputArray  src1,
-               _InputArray  src2,
-               double       alpha,
-               _InputArray  src3,
-               double       beta,
-               _OutputArray dst,
-               int          flags = 0 );
+void cv::gemm( InputArray  src1,
+               InputArray  src2,
+               double      alpha,
+               InputArray  src3,
+               double      beta,
+               OutputArray dst,
+               int         flags = 0 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").gemm( $src1, $src2, $alpha, $src3, $beta[, $dst[, $flags]] ) -> $dst
@@ -2648,8 +2648,8 @@ AutoIt:
 ### cv::getAffineTransform
 
 ```cpp
-cv::Mat cv::getAffineTransform( _InputArray src,
-                                _InputArray dst );
+cv::Mat cv::getAffineTransform( InputArray src,
+                                InputArray dst );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").getAffineTransform( $src, $dst ) -> retval
@@ -2685,9 +2685,9 @@ AutoIt:
 ### cv::getDefaultNewCameraMatrix
 
 ```cpp
-cv::Mat cv::getDefaultNewCameraMatrix( _InputArray cameraMatrix,
-                                       cv::Size    imgsize = Size(),
-                                       bool        centerPrincipalPoint = false );
+cv::Mat cv::getDefaultNewCameraMatrix( InputArray cameraMatrix,
+                                       cv::Size   imgsize = Size(),
+                                       bool       centerPrincipalPoint = false );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").getDefaultNewCameraMatrix( $cameraMatrix[, $imgsize[, $centerPrincipalPoint]] ) -> retval
@@ -2696,13 +2696,13 @@ AutoIt:
 ### cv::getDerivKernels
 
 ```cpp
-void cv::getDerivKernels( _OutputArray kx,
-                          _OutputArray ky,
-                          int          dx,
-                          int          dy,
-                          int          ksize,
-                          bool         normalize = false,
-                          int          ktype = CV_32F );
+void cv::getDerivKernels( OutputArray kx,
+                          OutputArray ky,
+                          int         dx,
+                          int         dy,
+                          int         ksize,
+                          bool        normalize = false,
+                          int         ktype = CV_32F );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").getDerivKernels( $dx, $dy, $ksize[, $kx[, $ky[, $normalize[, $ktype]]]] ) -> $kx, $ky
@@ -2793,13 +2793,13 @@ AutoIt:
 ### cv::getOptimalNewCameraMatrix
 
 ```cpp
-cv::Mat cv::getOptimalNewCameraMatrix( _InputArray cameraMatrix,
-                                       _InputArray distCoeffs,
-                                       cv::Size    imageSize,
-                                       double      alpha,
-                                       cv::Size    newImgSize = Size(),
-                                       cv::Rect*   validPixROI = 0,
-                                       bool        centerPrincipalPoint = false );
+cv::Mat cv::getOptimalNewCameraMatrix( InputArray cameraMatrix,
+                                       InputArray distCoeffs,
+                                       cv::Size   imageSize,
+                                       double     alpha,
+                                       cv::Size   newImgSize = Size(),
+                                       cv::Rect*  validPixROI = 0,
+                                       bool       centerPrincipalPoint = false );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").getOptimalNewCameraMatrix( $cameraMatrix, $distCoeffs, $imageSize, $alpha[, $newImgSize[, $centerPrincipalPoint[, $validPixROI]]] ) -> retval, $validPixROI
@@ -2808,9 +2808,9 @@ AutoIt:
 ### cv::getPerspectiveTransform
 
 ```cpp
-cv::Mat cv::getPerspectiveTransform( _InputArray src,
-                                     _InputArray dst,
-                                     int         solveMethod = DECOMP_LU );
+cv::Mat cv::getPerspectiveTransform( InputArray src,
+                                     InputArray dst,
+                                     int        solveMethod = DECOMP_LU );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").getPerspectiveTransform( $src, $dst[, $solveMethod] ) -> retval
@@ -2819,11 +2819,11 @@ AutoIt:
 ### cv::getRectSubPix
 
 ```cpp
-void cv::getRectSubPix( _InputArray  image,
-                        cv::Size     patchSize,
-                        cv::Point2f  center,
-                        _OutputArray patch,
-                        int          patchType = -1 );
+void cv::getRectSubPix( InputArray  image,
+                        cv::Size    patchSize,
+                        cv::Point2f center,
+                        OutputArray patch,
+                        int         patchType = -1 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").getRectSubPix( $image, $patchSize, $center[, $patch[, $patchType]] ) -> $patch
@@ -2972,31 +2972,31 @@ AutoIt:
 ### cv::goodFeaturesToTrack
 
 ```cpp
-void cv::goodFeaturesToTrack( _InputArray  image,
-                              _OutputArray corners,
-                              int          maxCorners,
-                              double       qualityLevel,
-                              double       minDistance,
-                              _InputArray  mask = noArray(),
-                              int          blockSize = 3,
-                              bool         useHarrisDetector = false,
-                              double       k = 0.04 );
+void cv::goodFeaturesToTrack( InputArray  image,
+                              OutputArray corners,
+                              int         maxCorners,
+                              double      qualityLevel,
+                              double      minDistance,
+                              InputArray  mask = noArray(),
+                              int         blockSize = 3,
+                              bool        useHarrisDetector = false,
+                              double      k = 0.04 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").goodFeaturesToTrack( $image, $maxCorners, $qualityLevel, $minDistance[, $corners[, $mask[, $blockSize[, $useHarrisDetector[, $k]]]]] ) -> $corners
 ```
 
 ```cpp
-void cv::goodFeaturesToTrack( _InputArray  image,
-                              _OutputArray corners,
-                              int          maxCorners,
-                              double       qualityLevel,
-                              double       minDistance,
-                              _InputArray  mask,
-                              int          blockSize,
-                              int          gradientSize,
-                              bool         useHarrisDetector = false,
-                              double       k = 0.04 );
+void cv::goodFeaturesToTrack( InputArray  image,
+                              OutputArray corners,
+                              int         maxCorners,
+                              double      qualityLevel,
+                              double      minDistance,
+                              InputArray  mask,
+                              int         blockSize,
+                              int         gradientSize,
+                              bool        useHarrisDetector = false,
+                              double      k = 0.04 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").goodFeaturesToTrack( $image, $maxCorners, $qualityLevel, $minDistance, $mask, $blockSize, $gradientSize[, $corners[, $useHarrisDetector[, $k]]] ) -> $corners
@@ -3005,17 +3005,17 @@ AutoIt:
 ### cv::goodFeaturesToTrackWithQuality
 
 ```cpp
-void cv::goodFeaturesToTrackWithQuality( _InputArray  image,
-                                         _OutputArray corners,
-                                         int          maxCorners,
-                                         double       qualityLevel,
-                                         double       minDistance,
-                                         _InputArray  mask,
-                                         _OutputArray cornersQuality,
-                                         int          blockSize = 3,
-                                         int          gradientSize = 3,
-                                         bool         useHarrisDetector = false,
-                                         double       k = 0.04 );
+void cv::goodFeaturesToTrackWithQuality( InputArray  image,
+                                         OutputArray corners,
+                                         int         maxCorners,
+                                         double      qualityLevel,
+                                         double      minDistance,
+                                         InputArray  mask,
+                                         OutputArray cornersQuality,
+                                         int         blockSize = 3,
+                                         int         gradientSize = 3,
+                                         bool        useHarrisDetector = false,
+                                         double      k = 0.04 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").goodFeaturesToTrackWithQuality( $image, $maxCorners, $qualityLevel, $minDistance, $mask[, $corners[, $cornersQuality[, $blockSize[, $gradientSize[, $useHarrisDetector[, $k]]]]]] ) -> $corners, $cornersQuality
@@ -3024,13 +3024,13 @@ AutoIt:
 ### cv::grabCut
 
 ```cpp
-void cv::grabCut( _InputArray       img,
-                  _InputOutputArray mask,
-                  cv::Rect          rect,
-                  _InputOutputArray bgdModel,
-                  _InputOutputArray fgdModel,
-                  int               iterCount,
-                  int               mode = GC_EVAL );
+void cv::grabCut( InputArray       img,
+                  InputOutputArray mask,
+                  cv::Rect         rect,
+                  InputOutputArray bgdModel,
+                  InputOutputArray fgdModel,
+                  int              iterCount,
+                  int              mode = GC_EVAL );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").grabCut( $img, $mask, $rect, $bgdModel, $fgdModel, $iterCount[, $mode] ) -> $mask, $bgdModel, $fgdModel
@@ -3078,8 +3078,8 @@ AutoIt:
 ### cv::hconcat
 
 ```cpp
-void cv::hconcat( _InputArray  src,
-                  _OutputArray dst );
+void cv::hconcat( InputArrayOfArrays src,
+                  OutputArray        dst );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").hconcat( $src[, $dst] ) -> $dst
@@ -3088,9 +3088,9 @@ AutoIt:
 ### cv::idct
 
 ```cpp
-void cv::idct( _InputArray  src,
-               _OutputArray dst,
-               int          flags = 0 );
+void cv::idct( InputArray  src,
+               OutputArray dst,
+               int         flags = 0 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").idct( $src[, $dst[, $flags]] ) -> $dst
@@ -3099,10 +3099,10 @@ AutoIt:
 ### cv::idft
 
 ```cpp
-void cv::idft( _InputArray  src,
-               _OutputArray dst,
-               int          flags = 0,
-               int          nonzeroRows = 0 );
+void cv::idft( InputArray  src,
+               OutputArray dst,
+               int         flags = 0,
+               int         nonzeroRows = 0 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").idft( $src[, $dst[, $flags[, $nonzeroRows]]] ) -> $dst
@@ -3111,11 +3111,11 @@ AutoIt:
 ### cv::illuminationChange
 
 ```cpp
-void cv::illuminationChange( _InputArray  src,
-                             _InputArray  mask,
-                             _OutputArray dst,
-                             float        alpha = 0.2f,
-                             float        beta = 0.4f );
+void cv::illuminationChange( InputArray  src,
+                             InputArray  mask,
+                             OutputArray dst,
+                             float       alpha = 0.2f,
+                             float       beta = 0.4f );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").illuminationChange( $src, $mask[, $dst[, $alpha[, $beta]]] ) -> $dst
@@ -3134,8 +3134,8 @@ AutoIt:
 ### cv::imdecode
 
 ```cpp
-cv::Mat cv::imdecode( _InputArray buf,
-                      int         flags );
+cv::Mat cv::imdecode( InputArray buf,
+                      int        flags );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").imdecode( $buf, $flags ) -> retval
@@ -3145,7 +3145,7 @@ AutoIt:
 
 ```cpp
 bool cv::imencode( const std::string&      ext,
-                   _InputArray             img,
+                   InputArray              img,
                    std::vector<uchar>&     buf,
                    const std::vector<int>& params = std::vector<int>() );
 
@@ -3189,7 +3189,7 @@ AutoIt:
 
 ```cpp
 void cv::imshow( const std::string& winname,
-                 _InputArray        mat );
+                 InputArray         mat );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").imshow( $winname, $mat ) -> None
@@ -3199,7 +3199,7 @@ AutoIt:
 
 ```cpp
 bool cv::imwrite( const std::string&      filename,
-                  _InputArray             img,
+                  InputArray              img,
                   const std::vector<int>& params = std::vector<int>() );
 
 AutoIt:
@@ -3210,7 +3210,7 @@ AutoIt:
 
 ```cpp
 bool cv::imwritemulti( const std::string&      filename,
-                       _InputArray             img,
+                       InputArrayOfArrays      img,
                        const std::vector<int>& params = std::vector<int>() );
 
 AutoIt:
@@ -3220,10 +3220,10 @@ AutoIt:
 ### cv::inRange
 
 ```cpp
-void cv::inRange( _InputArray  src,
-                  _InputArray  lowerb,
-                  _InputArray  upperb,
-                  _OutputArray dst );
+void cv::inRange( InputArray  src,
+                  InputArray  lowerb,
+                  InputArray  upperb,
+                  OutputArray dst );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").inRange( $src, $lowerb, $upperb[, $dst] ) -> $dst
@@ -3232,10 +3232,10 @@ AutoIt:
 ### cv::initCameraMatrix2D
 
 ```cpp
-cv::Mat cv::initCameraMatrix2D( _InputArray objectPoints,
-                                _InputArray imagePoints,
-                                cv::Size    imageSize,
-                                double      aspectRatio = 1.0 );
+cv::Mat cv::initCameraMatrix2D( InputArrayOfArrays objectPoints,
+                                InputArrayOfArrays imagePoints,
+                                cv::Size           imageSize,
+                                double             aspectRatio = 1.0 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").initCameraMatrix2D( $objectPoints, $imagePoints, $imageSize[, $aspectRatio] ) -> retval
@@ -3244,14 +3244,14 @@ AutoIt:
 ### cv::initInverseRectificationMap
 
 ```cpp
-void cv::initInverseRectificationMap( _InputArray     cameraMatrix,
-                                      _InputArray     distCoeffs,
-                                      _InputArray     R,
-                                      _InputArray     newCameraMatrix,
+void cv::initInverseRectificationMap( InputArray      cameraMatrix,
+                                      InputArray      distCoeffs,
+                                      InputArray      R,
+                                      InputArray      newCameraMatrix,
                                       const cv::Size& size,
                                       int             m1type,
-                                      _OutputArray    map1,
-                                      _OutputArray    map2 );
+                                      OutputArray     map1,
+                                      OutputArray     map2 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").initInverseRectificationMap( $cameraMatrix, $distCoeffs, $R, $newCameraMatrix, $size, $m1type[, $map1[, $map2]] ) -> $map1, $map2
@@ -3260,14 +3260,14 @@ AutoIt:
 ### cv::initUndistortRectifyMap
 
 ```cpp
-void cv::initUndistortRectifyMap( _InputArray  cameraMatrix,
-                                  _InputArray  distCoeffs,
-                                  _InputArray  R,
-                                  _InputArray  newCameraMatrix,
-                                  cv::Size     size,
-                                  int          m1type,
-                                  _OutputArray map1,
-                                  _OutputArray map2 );
+void cv::initUndistortRectifyMap( InputArray  cameraMatrix,
+                                  InputArray  distCoeffs,
+                                  InputArray  R,
+                                  InputArray  newCameraMatrix,
+                                  cv::Size    size,
+                                  int         m1type,
+                                  OutputArray map1,
+                                  OutputArray map2 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").initUndistortRectifyMap( $cameraMatrix, $distCoeffs, $R, $newCameraMatrix, $size, $m1type[, $map1[, $map2]] ) -> $map1, $map2
@@ -3276,11 +3276,11 @@ AutoIt:
 ### cv::inpaint
 
 ```cpp
-void cv::inpaint( _InputArray  src,
-                  _InputArray  inpaintMask,
-                  _OutputArray dst,
-                  double       inpaintRadius,
-                  int          flags );
+void cv::inpaint( InputArray  src,
+                  InputArray  inpaintMask,
+                  OutputArray dst,
+                  double      inpaintRadius,
+                  int         flags );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").inpaint( $src, $inpaintMask, $inpaintRadius, $flags[, $dst] ) -> $dst
@@ -3289,9 +3289,9 @@ AutoIt:
 ### cv::insertChannel
 
 ```cpp
-void cv::insertChannel( _InputArray       src,
-                        _InputOutputArray dst,
-                        int               coi );
+void cv::insertChannel( InputArray       src,
+                        InputOutputArray dst,
+                        int              coi );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").insertChannel( $src, $dst, $coi ) -> $dst
@@ -3300,9 +3300,9 @@ AutoIt:
 ### cv::integral
 
 ```cpp
-void cv::integral( _InputArray  src,
-                   _OutputArray sum,
-                   int          sdepth = -1 );
+void cv::integral( InputArray  src,
+                   OutputArray sum,
+                   int         sdepth = -1 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").integral( $src[, $sum[, $sdepth]] ) -> $sum
@@ -3311,11 +3311,11 @@ AutoIt:
 ### cv::integral2
 
 ```cpp
-void cv::integral2( _InputArray  src,
-                    _OutputArray sum,
-                    _OutputArray sqsum,
-                    int          sdepth = -1,
-                    int          sqdepth = -1 );
+void cv::integral2( InputArray  src,
+                    OutputArray sum,
+                    OutputArray sqsum,
+                    int         sdepth = -1,
+                    int         sqdepth = -1 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").integral2( $src[, $sum[, $sqsum[, $sdepth[, $sqdepth]]]] ) -> $sum, $sqsum
@@ -3324,12 +3324,12 @@ AutoIt:
 ### cv::integral3
 
 ```cpp
-void cv::integral3( _InputArray  src,
-                    _OutputArray sum,
-                    _OutputArray sqsum,
-                    _OutputArray tilted,
-                    int          sdepth = -1,
-                    int          sqdepth = -1 );
+void cv::integral3( InputArray  src,
+                    OutputArray sum,
+                    OutputArray sqsum,
+                    OutputArray tilted,
+                    int         sdepth = -1,
+                    int         sqdepth = -1 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").integral3( $src[, $sum[, $sqsum[, $tilted[, $sdepth[, $sqdepth]]]]] ) -> $sum, $sqsum, $tilted
@@ -3338,10 +3338,10 @@ AutoIt:
 ### cv::intersectConvexConvex
 
 ```cpp
-float cv::intersectConvexConvex( _InputArray  p1,
-                                 _InputArray  p2,
-                                 _OutputArray p12,
-                                 bool         handleNested = true );
+float cv::intersectConvexConvex( InputArray  p1,
+                                 InputArray  p2,
+                                 OutputArray p12,
+                                 bool        handleNested = true );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").intersectConvexConvex( $p1, $p2[, $p12[, $handleNested]] ) -> retval, $p12
@@ -3350,9 +3350,9 @@ AutoIt:
 ### cv::invert
 
 ```cpp
-double cv::invert( _InputArray  src,
-                   _OutputArray dst,
-                   int          flags = DECOMP_LU );
+double cv::invert( InputArray  src,
+                   OutputArray dst,
+                   int         flags = DECOMP_LU );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").invert( $src[, $dst[, $flags]] ) -> retval, $dst
@@ -3361,8 +3361,8 @@ AutoIt:
 ### cv::invertAffineTransform
 
 ```cpp
-void cv::invertAffineTransform( _InputArray  M,
-                                _OutputArray iM );
+void cv::invertAffineTransform( InputArray  M,
+                                OutputArray iM );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").invertAffineTransform( $M[, $iM] ) -> $iM
@@ -3371,7 +3371,7 @@ AutoIt:
 ### cv::isContourConvex
 
 ```cpp
-bool cv::isContourConvex( _InputArray contour );
+bool cv::isContourConvex( InputArray contour );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").isContourConvex( $contour ) -> retval
@@ -3380,13 +3380,13 @@ AutoIt:
 ### cv::kmeans
 
 ```cpp
-double cv::kmeans( _InputArray       data,
-                   int               K,
-                   _InputOutputArray bestLabels,
-                   cv::TermCriteria  criteria,
-                   int               attempts,
-                   int               flags,
-                   _OutputArray      centers = noArray() );
+double cv::kmeans( InputArray       data,
+                   int              K,
+                   InputOutputArray bestLabels,
+                   cv::TermCriteria criteria,
+                   int              attempts,
+                   int              flags,
+                   OutputArray      centers = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").kmeans( $data, $K, $bestLabels, $criteria, $attempts, $flags[, $centers] ) -> retval, $bestLabels, $centers
@@ -3395,7 +3395,7 @@ AutoIt:
 ### cv::line
 
 ```cpp
-void cv::line( _InputOutputArray img,
+void cv::line( InputOutputArray  img,
                cv::Point         pt1,
                cv::Point         pt2,
                const cv::Scalar& color,
@@ -3410,11 +3410,11 @@ AutoIt:
 ### cv::linearPolar
 
 ```cpp
-void cv::linearPolar( _InputArray  src,
-                      _OutputArray dst,
-                      cv::Point2f  center,
-                      double       maxRadius,
-                      int          flags );
+void cv::linearPolar( InputArray  src,
+                      OutputArray dst,
+                      cv::Point2f center,
+                      double      maxRadius,
+                      int         flags );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").linearPolar( $src, $center, $maxRadius, $flags[, $dst] ) -> $dst
@@ -3423,8 +3423,8 @@ AutoIt:
 ### cv::log
 
 ```cpp
-void cv::log( _InputArray  src,
-              _OutputArray dst );
+void cv::log( InputArray  src,
+              OutputArray dst );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").log( $src[, $dst] ) -> $dst
@@ -3433,11 +3433,11 @@ AutoIt:
 ### cv::logPolar
 
 ```cpp
-void cv::logPolar( _InputArray  src,
-                   _OutputArray dst,
-                   cv::Point2f  center,
-                   double       M,
-                   int          flags );
+void cv::logPolar( InputArray  src,
+                   OutputArray dst,
+                   cv::Point2f center,
+                   double      M,
+                   int         flags );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").logPolar( $src, $center, $M, $flags[, $dst] ) -> $dst
@@ -3446,9 +3446,9 @@ AutoIt:
 ### cv::magnitude
 
 ```cpp
-void cv::magnitude( _InputArray  x,
-                    _InputArray  y,
-                    _OutputArray magnitude );
+void cv::magnitude( InputArray  x,
+                    InputArray  y,
+                    OutputArray magnitude );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").magnitude( $x, $y[, $magnitude] ) -> $magnitude
@@ -3457,10 +3457,10 @@ AutoIt:
 ### cv::matMulDeriv
 
 ```cpp
-void cv::matMulDeriv( _InputArray  A,
-                      _InputArray  B,
-                      _OutputArray dABdA,
-                      _OutputArray dABdB );
+void cv::matMulDeriv( InputArray  A,
+                      InputArray  B,
+                      OutputArray dABdA,
+                      OutputArray dABdB );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").matMulDeriv( $A, $B[, $dABdA[, $dABdB]] ) -> $dABdA, $dABdB
@@ -3469,10 +3469,10 @@ AutoIt:
 ### cv::matchShapes
 
 ```cpp
-double cv::matchShapes( _InputArray contour1,
-                        _InputArray contour2,
-                        int         method,
-                        double      parameter );
+double cv::matchShapes( InputArray contour1,
+                        InputArray contour2,
+                        int        method,
+                        double     parameter );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").matchShapes( $contour1, $contour2, $method, $parameter ) -> retval
@@ -3481,11 +3481,11 @@ AutoIt:
 ### cv::matchTemplate
 
 ```cpp
-void cv::matchTemplate( _InputArray  image,
-                        _InputArray  templ,
-                        _OutputArray result,
-                        int          method,
-                        _InputArray  mask = noArray() );
+void cv::matchTemplate( InputArray  image,
+                        InputArray  templ,
+                        OutputArray result,
+                        int         method,
+                        InputArray  mask = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").matchTemplate( $image, $templ, $method[, $result[, $mask]] ) -> $result
@@ -3494,11 +3494,11 @@ AutoIt:
 ### cv::matchTemplateParallel
 
 ```cpp
-void cv::matchTemplateParallel( _InputArray  image,
-                                _InputArray  templ,
-                                _OutputArray result,
-                                int          method,
-                                _InputArray  mask = noArray() );
+void cv::matchTemplateParallel( InputArray  image,
+                                InputArray  templ,
+                                OutputArray result,
+                                int         method,
+                                InputArray  mask = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").matchTemplateParallel( $image, $templ, $method[, $result[, $mask]] ) -> $result
@@ -3507,9 +3507,9 @@ AutoIt:
 ### cv::max
 
 ```cpp
-void cv::max( _InputArray  src1,
-              _InputArray  src2,
-              _OutputArray dst );
+void cv::max( InputArray  src1,
+              InputArray  src2,
+              OutputArray dst );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").max( $src1, $src2[, $dst] ) -> $dst
@@ -3518,8 +3518,8 @@ AutoIt:
 ### cv::mean
 
 ```cpp
-cv::Scalar cv::mean( _InputArray src,
-                     _InputArray mask = noArray() );
+cv::Scalar cv::mean( InputArray src,
+                     InputArray mask = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").mean( $src[, $mask] ) -> retval
@@ -3528,7 +3528,7 @@ AutoIt:
 ### cv::meanShift
 
 ```cpp
-int cv::meanShift( _InputArray      probImage,
+int cv::meanShift( InputArray       probImage,
                    cv::Rect&        window,
                    cv::TermCriteria criteria );
 
@@ -3539,10 +3539,10 @@ AutoIt:
 ### cv::meanStdDev
 
 ```cpp
-void cv::meanStdDev( _InputArray  src,
-                     _OutputArray mean,
-                     _OutputArray stddev,
-                     _InputArray  mask = noArray() );
+void cv::meanStdDev( InputArray  src,
+                     OutputArray mean,
+                     OutputArray stddev,
+                     InputArray  mask = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").meanStdDev( $src[, $mean[, $stddev[, $mask]]] ) -> $mean, $stddev
@@ -3551,9 +3551,9 @@ AutoIt:
 ### cv::medianBlur
 
 ```cpp
-void cv::medianBlur( _InputArray  src,
-                     _OutputArray dst,
-                     int          ksize );
+void cv::medianBlur( InputArray  src,
+                     OutputArray dst,
+                     int         ksize );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").medianBlur( $src, $ksize[, $dst] ) -> $dst
@@ -3562,8 +3562,8 @@ AutoIt:
 ### cv::merge
 
 ```cpp
-void cv::merge( _InputArray  mv,
-                _OutputArray dst );
+void cv::merge( InputArrayOfArrays mv,
+                OutputArray        dst );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").merge( $mv[, $dst] ) -> $dst
@@ -3572,9 +3572,9 @@ AutoIt:
 ### cv::min
 
 ```cpp
-void cv::min( _InputArray  src1,
-              _InputArray  src2,
-              _OutputArray dst );
+void cv::min( InputArray  src1,
+              InputArray  src2,
+              OutputArray dst );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").min( $src1, $src2[, $dst] ) -> $dst
@@ -3583,7 +3583,7 @@ AutoIt:
 ### cv::minAreaRect
 
 ```cpp
-cv::RotatedRect cv::minAreaRect( _InputArray points );
+cv::RotatedRect cv::minAreaRect( InputArray points );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").minAreaRect( $points ) -> retval
@@ -3592,7 +3592,7 @@ AutoIt:
 ### cv::minEnclosingCircle
 
 ```cpp
-void cv::minEnclosingCircle( _InputArray  points,
+void cv::minEnclosingCircle( InputArray   points,
                              cv::Point2f& center,
                              float&       radius );
 
@@ -3603,8 +3603,8 @@ AutoIt:
 ### cv::minEnclosingTriangle
 
 ```cpp
-double cv::minEnclosingTriangle( _InputArray  points,
-                                 _OutputArray triangle );
+double cv::minEnclosingTriangle( InputArray  points,
+                                 OutputArray triangle );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").minEnclosingTriangle( $points[, $triangle] ) -> retval, $triangle
@@ -3613,12 +3613,12 @@ AutoIt:
 ### cv::minMaxLoc
 
 ```cpp
-void cv::minMaxLoc( _InputArray src,
-                    double*     minVal,
-                    double*     maxVal = 0,
-                    cv::Point*  minLoc = 0,
-                    cv::Point*  maxLoc = 0,
-                    _InputArray mask = noArray() );
+void cv::minMaxLoc( InputArray src,
+                    double*    minVal,
+                    double*    maxVal = 0,
+                    cv::Point* minLoc = 0,
+                    cv::Point* maxLoc = 0,
+                    InputArray mask = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").minMaxLoc( $src[, $mask[, $minVal[, $maxVal[, $minLoc[, $maxLoc]]]]] ) -> $minVal, $maxVal, $minLoc, $maxLoc
@@ -3627,9 +3627,9 @@ AutoIt:
 ### cv::mixChannels
 
 ```cpp
-void cv::mixChannels( _InputArray             src,
-                      _InputOutputArray       dst,
-                      const std::vector<int>& fromTo );
+void cv::mixChannels( InputArrayOfArrays       src,
+                      InputOutputArrayOfArrays dst,
+                      const std::vector<int>&  fromTo );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").mixChannels( $src, $dst, $fromTo ) -> $dst
@@ -3638,8 +3638,8 @@ AutoIt:
 ### cv::moments
 
 ```cpp
-cv::Moments cv::moments( _InputArray array,
-                         bool        binaryImage = false );
+cv::Moments cv::moments( InputArray array,
+                         bool       binaryImage = false );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").moments( $array[, $binaryImage] ) -> retval
@@ -3648,10 +3648,10 @@ AutoIt:
 ### cv::morphologyEx
 
 ```cpp
-void cv::morphologyEx( _InputArray       src,
-                       _OutputArray      dst,
+void cv::morphologyEx( InputArray        src,
+                       OutputArray       dst,
                        int               op,
-                       _InputArray       kernel,
+                       InputArray        kernel,
                        cv::Point         anchor = Point(-1,-1),
                        int               iterations = 1,
                        int               borderType = BORDER_CONSTANT,
@@ -3675,11 +3675,11 @@ AutoIt:
 ### cv::mulSpectrums
 
 ```cpp
-void cv::mulSpectrums( _InputArray  a,
-                       _InputArray  b,
-                       _OutputArray c,
-                       int          flags,
-                       bool         conjB = false );
+void cv::mulSpectrums( InputArray  a,
+                       InputArray  b,
+                       OutputArray c,
+                       int         flags,
+                       bool        conjB = false );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").mulSpectrums( $a, $b, $flags[, $c[, $conjB]] ) -> $c
@@ -3688,12 +3688,12 @@ AutoIt:
 ### cv::mulTransposed
 
 ```cpp
-void cv::mulTransposed( _InputArray  src,
-                        _OutputArray dst,
-                        bool         aTa,
-                        _InputArray  delta = noArray(),
-                        double       scale = 1,
-                        int          dtype = -1 );
+void cv::mulTransposed( InputArray  src,
+                        OutputArray dst,
+                        bool        aTa,
+                        InputArray  delta = noArray(),
+                        double      scale = 1,
+                        int         dtype = -1 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").mulTransposed( $src, $aTa[, $dst[, $delta[, $scale[, $dtype]]]] ) -> $dst
@@ -3702,11 +3702,11 @@ AutoIt:
 ### cv::multiply
 
 ```cpp
-void cv::multiply( _InputArray  src1,
-                   _InputArray  src2,
-                   _OutputArray dst,
-                   double       scale = 1,
-                   int          dtype = -1 );
+void cv::multiply( InputArray  src1,
+                   InputArray  src2,
+                   OutputArray dst,
+                   double      scale = 1,
+                   int         dtype = -1 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").multiply( $src1, $src2[, $dst[, $scale[, $dtype]]] ) -> $dst
@@ -3725,19 +3725,19 @@ AutoIt:
 ### cv::norm
 
 ```cpp
-double cv::norm( _InputArray src1,
-                 int         normType = NORM_L2,
-                 _InputArray mask = noArray() );
+double cv::norm( InputArray src1,
+                 int        normType = NORM_L2,
+                 InputArray mask = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").norm( $src1[, $normType[, $mask]] ) -> retval
 ```
 
 ```cpp
-double cv::norm( _InputArray src1,
-                 _InputArray src2,
-                 int         normType = NORM_L2,
-                 _InputArray mask = noArray() );
+double cv::norm( InputArray src1,
+                 InputArray src2,
+                 int        normType = NORM_L2,
+                 InputArray mask = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").norm( $src1, $src2[, $normType[, $mask]] ) -> retval
@@ -3746,13 +3746,13 @@ AutoIt:
 ### cv::normalize
 
 ```cpp
-void cv::normalize( _InputArray       src,
-                    _InputOutputArray dst,
-                    double            alpha = 1,
-                    double            beta = 0,
-                    int               norm_type = NORM_L2,
-                    int               dtype = -1,
-                    _InputArray       mask = noArray() );
+void cv::normalize( InputArray       src,
+                    InputOutputArray dst,
+                    double           alpha = 1,
+                    double           beta = 0,
+                    int              norm_type = NORM_L2,
+                    int              dtype = -1,
+                    InputArray       mask = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").normalize( $src, $dst[, $alpha[, $beta[, $norm_type[, $dtype[, $mask]]]]] ) -> $dst
@@ -3761,8 +3761,8 @@ AutoIt:
 ### cv::patchNaNs
 
 ```cpp
-void cv::patchNaNs( _InputOutputArray a,
-                    double            val = 0 );
+void cv::patchNaNs( InputOutputArray a,
+                    double           val = 0 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").patchNaNs( $a[, $val] ) -> $a
@@ -3771,12 +3771,12 @@ AutoIt:
 ### cv::pencilSketch
 
 ```cpp
-void cv::pencilSketch( _InputArray  src,
-                       _OutputArray dst1,
-                       _OutputArray dst2,
-                       float        sigma_s = 60,
-                       float        sigma_r = 0.07f,
-                       float        shade_factor = 0.02f );
+void cv::pencilSketch( InputArray  src,
+                       OutputArray dst1,
+                       OutputArray dst2,
+                       float       sigma_s = 60,
+                       float       sigma_r = 0.07f,
+                       float       shade_factor = 0.02f );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").pencilSketch( $src[, $dst1[, $dst2[, $sigma_s[, $sigma_r[, $shade_factor]]]]] ) -> $dst1, $dst2
@@ -3785,9 +3785,9 @@ AutoIt:
 ### cv::perspectiveTransform
 
 ```cpp
-void cv::perspectiveTransform( _InputArray  src,
-                               _OutputArray dst,
-                               _InputArray  m );
+void cv::perspectiveTransform( InputArray  src,
+                               OutputArray dst,
+                               InputArray  m );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").perspectiveTransform( $src, $m[, $dst] ) -> $dst
@@ -3796,10 +3796,10 @@ AutoIt:
 ### cv::phase
 
 ```cpp
-void cv::phase( _InputArray  x,
-                _InputArray  y,
-                _OutputArray angle,
-                bool         angleInDegrees = false );
+void cv::phase( InputArray  x,
+                InputArray  y,
+                OutputArray angle,
+                bool        angleInDegrees = false );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").phase( $x, $y[, $angle[, $angleInDegrees]] ) -> $angle
@@ -3808,10 +3808,10 @@ AutoIt:
 ### cv::phaseCorrelate
 
 ```cpp
-cv::Point2d cv::phaseCorrelate( _InputArray src1,
-                                _InputArray src2,
-                                _InputArray window = noArray(),
-                                double*     response = 0 );
+cv::Point2d cv::phaseCorrelate( InputArray src1,
+                                InputArray src2,
+                                InputArray window = noArray(),
+                                double*    response = 0 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").phaseCorrelate( $src1, $src2[, $window[, $response]] ) -> retval, $response
@@ -3820,7 +3820,7 @@ AutoIt:
 ### cv::pointPolygonTest
 
 ```cpp
-double cv::pointPolygonTest( _InputArray contour,
+double cv::pointPolygonTest( InputArray  contour,
                              cv::Point2f pt,
                              bool        measureDist );
 
@@ -3831,11 +3831,11 @@ AutoIt:
 ### cv::polarToCart
 
 ```cpp
-void cv::polarToCart( _InputArray  magnitude,
-                      _InputArray  angle,
-                      _OutputArray x,
-                      _OutputArray y,
-                      bool         angleInDegrees = false );
+void cv::polarToCart( InputArray  magnitude,
+                      InputArray  angle,
+                      OutputArray x,
+                      OutputArray y,
+                      bool        angleInDegrees = false );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").polarToCart( $magnitude, $angle[, $x[, $y[, $angleInDegrees]]] ) -> $x, $y
@@ -3853,13 +3853,13 @@ AutoIt:
 ### cv::polylines
 
 ```cpp
-void cv::polylines( _InputOutputArray img,
-                    _InputArray       pts,
-                    bool              isClosed,
-                    const cv::Scalar& color,
-                    int               thickness = 1,
-                    int               lineType = LINE_8,
-                    int               shift = 0 );
+void cv::polylines( InputOutputArray   img,
+                    InputArrayOfArrays pts,
+                    bool               isClosed,
+                    const cv::Scalar&  color,
+                    int                thickness = 1,
+                    int                lineType = LINE_8,
+                    int                shift = 0 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").polylines( $img, $pts, $isClosed, $color[, $thickness[, $lineType[, $shift]]] ) -> $img
@@ -3868,9 +3868,9 @@ AutoIt:
 ### cv::pow
 
 ```cpp
-void cv::pow( _InputArray  src,
-              double       power,
-              _OutputArray dst );
+void cv::pow( InputArray  src,
+              double      power,
+              OutputArray dst );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").pow( $src, $power[, $dst] ) -> $dst
@@ -3879,10 +3879,10 @@ AutoIt:
 ### cv::preCornerDetect
 
 ```cpp
-void cv::preCornerDetect( _InputArray  src,
-                          _OutputArray dst,
-                          int          ksize,
-                          int          borderType = BORDER_DEFAULT );
+void cv::preCornerDetect( InputArray  src,
+                          OutputArray dst,
+                          int         ksize,
+                          int         borderType = BORDER_DEFAULT );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").preCornerDetect( $src, $ksize[, $dst[, $borderType]] ) -> $dst
@@ -3891,14 +3891,14 @@ AutoIt:
 ### cv::projectPoints
 
 ```cpp
-void cv::projectPoints( _InputArray  objectPoints,
-                        _InputArray  rvec,
-                        _InputArray  tvec,
-                        _InputArray  cameraMatrix,
-                        _InputArray  distCoeffs,
-                        _OutputArray imagePoints,
-                        _OutputArray jacobian = noArray(),
-                        double       aspectRatio = 0 );
+void cv::projectPoints( InputArray  objectPoints,
+                        InputArray  rvec,
+                        InputArray  tvec,
+                        InputArray  cameraMatrix,
+                        InputArray  distCoeffs,
+                        OutputArray imagePoints,
+                        OutputArray jacobian = noArray(),
+                        double      aspectRatio = 0 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").projectPoints( $objectPoints, $rvec, $tvec, $cameraMatrix, $distCoeffs[, $imagePoints[, $jacobian[, $aspectRatio]]] ) -> $imagePoints, $jacobian
@@ -3907,7 +3907,7 @@ AutoIt:
 ### cv::putText
 
 ```cpp
-void cv::putText( _InputOutputArray  img,
+void cv::putText( InputOutputArray   img,
                   const std::string& text,
                   cv::Point          org,
                   int                fontFace,
@@ -3924,8 +3924,8 @@ AutoIt:
 ### cv::pyrDown
 
 ```cpp
-void cv::pyrDown( _InputArray     src,
-                  _OutputArray    dst,
+void cv::pyrDown( InputArray      src,
+                  OutputArray     dst,
                   const cv::Size& dstsize = Size(),
                   int             borderType = BORDER_DEFAULT );
 
@@ -3936,8 +3936,8 @@ AutoIt:
 ### cv::pyrMeanShiftFiltering
 
 ```cpp
-void cv::pyrMeanShiftFiltering( _InputArray      src,
-                                _OutputArray     dst,
+void cv::pyrMeanShiftFiltering( InputArray       src,
+                                OutputArray      dst,
                                 double           sp,
                                 double           sr,
                                 int              maxLevel = 1,
@@ -3950,8 +3950,8 @@ AutoIt:
 ### cv::pyrUp
 
 ```cpp
-void cv::pyrUp( _InputArray     src,
-                _OutputArray    dst,
+void cv::pyrUp( InputArray      src,
+                OutputArray     dst,
                 const cv::Size& dstsize = Size(),
                 int             borderType = BORDER_DEFAULT );
 
@@ -3962,9 +3962,9 @@ AutoIt:
 ### cv::randShuffle
 
 ```cpp
-void cv::randShuffle( _InputOutputArray dst,
-                      double            iterFactor = 1.,
-                      cv::RNG*          rng = 0 );
+void cv::randShuffle( InputOutputArray dst,
+                      double           iterFactor = 1.,
+                      cv::RNG*         rng = 0 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").randShuffle( $dst[, $iterFactor[, $rng]] ) -> $dst
@@ -3973,9 +3973,9 @@ AutoIt:
 ### cv::randn
 
 ```cpp
-void cv::randn( _InputOutputArray dst,
-                _InputArray       mean,
-                _InputArray       stddev );
+void cv::randn( InputOutputArray dst,
+                InputArray       mean,
+                InputArray       stddev );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").randn( $dst, $mean, $stddev ) -> $dst
@@ -3984,9 +3984,9 @@ AutoIt:
 ### cv::randu
 
 ```cpp
-void cv::randu( _InputOutputArray dst,
-                _InputArray       low,
-                _InputArray       high );
+void cv::randu( InputOutputArray dst,
+                InputArray       low,
+                InputArray       high );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").randu( $dst, $low, $high ) -> $dst
@@ -4081,61 +4081,61 @@ AutoIt:
 ### cv::recoverPose
 
 ```cpp
-int cv::recoverPose( _InputArray       points1,
-                     _InputArray       points2,
-                     _InputArray       cameraMatrix1,
-                     _InputArray       distCoeffs1,
-                     _InputArray       cameraMatrix2,
-                     _InputArray       distCoeffs2,
-                     _OutputArray      E,
-                     _OutputArray      R,
-                     _OutputArray      t,
-                     int               method = cv::RANSAC,
-                     double            prob = 0.999,
-                     double            threshold = 1.0,
-                     _InputOutputArray mask = noArray() );
+int cv::recoverPose( InputArray       points1,
+                     InputArray       points2,
+                     InputArray       cameraMatrix1,
+                     InputArray       distCoeffs1,
+                     InputArray       cameraMatrix2,
+                     InputArray       distCoeffs2,
+                     OutputArray      E,
+                     OutputArray      R,
+                     OutputArray      t,
+                     int              method = cv::RANSAC,
+                     double           prob = 0.999,
+                     double           threshold = 1.0,
+                     InputOutputArray mask = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").recoverPose( $points1, $points2, $cameraMatrix1, $distCoeffs1, $cameraMatrix2, $distCoeffs2[, $E[, $R[, $t[, $method[, $prob[, $threshold[, $mask]]]]]]] ) -> retval, $E, $R, $t, $mask
 ```
 
 ```cpp
-int cv::recoverPose( _InputArray       E,
-                     _InputArray       points1,
-                     _InputArray       points2,
-                     _InputArray       cameraMatrix,
-                     _OutputArray      R,
-                     _OutputArray      t,
-                     _InputOutputArray mask = noArray() );
+int cv::recoverPose( InputArray       E,
+                     InputArray       points1,
+                     InputArray       points2,
+                     InputArray       cameraMatrix,
+                     OutputArray      R,
+                     OutputArray      t,
+                     InputOutputArray mask = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").recoverPose( $E, $points1, $points2, $cameraMatrix[, $R[, $t[, $mask]]] ) -> retval, $R, $t, $mask
 ```
 
 ```cpp
-int cv::recoverPose( _InputArray       E,
-                     _InputArray       points1,
-                     _InputArray       points2,
-                     _OutputArray      R,
-                     _OutputArray      t,
-                     double            focal = 1.0,
-                     cv::Point2d       pp = Point2d(0, 0),
-                     _InputOutputArray mask = noArray() );
+int cv::recoverPose( InputArray       E,
+                     InputArray       points1,
+                     InputArray       points2,
+                     OutputArray      R,
+                     OutputArray      t,
+                     double           focal = 1.0,
+                     cv::Point2d      pp = Point2d(0, 0),
+                     InputOutputArray mask = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").recoverPose( $E, $points1, $points2[, $R[, $t[, $focal[, $pp[, $mask]]]]] ) -> retval, $R, $t, $mask
 ```
 
 ```cpp
-int cv::recoverPose( _InputArray       E,
-                     _InputArray       points1,
-                     _InputArray       points2,
-                     _InputArray       cameraMatrix,
-                     _OutputArray      R,
-                     _OutputArray      t,
-                     double            distanceThresh,
-                     _InputOutputArray mask = noArray(),
-                     _OutputArray      triangulatedPoints = noArray() );
+int cv::recoverPose( InputArray       E,
+                     InputArray       points1,
+                     InputArray       points2,
+                     InputArray       cameraMatrix,
+                     OutputArray      R,
+                     OutputArray      t,
+                     double           distanceThresh,
+                     InputOutputArray mask = noArray(),
+                     OutputArray      triangulatedPoints = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").recoverPose( $E, $points1, $points2, $cameraMatrix, $distanceThresh[, $R[, $t[, $mask[, $triangulatedPoints]]]] ) -> retval, $R, $t, $mask, $triangulatedPoints
@@ -4144,7 +4144,7 @@ AutoIt:
 ### cv::rectangle
 
 ```cpp
-void cv::rectangle( _InputOutputArray img,
+void cv::rectangle( InputOutputArray  img,
                     cv::Point         pt1,
                     cv::Point         pt2,
                     const cv::Scalar& color,
@@ -4157,7 +4157,7 @@ AutoIt:
 ```
 
 ```cpp
-void cv::rectangle( _InputOutputArray img,
+void cv::rectangle( InputOutputArray  img,
                     cv::Rect          rec,
                     const cv::Scalar& color,
                     int               thickness = 1,
@@ -4171,31 +4171,31 @@ AutoIt:
 ### cv::rectify3Collinear
 
 ```cpp
-float cv::rectify3Collinear( _InputArray  cameraMatrix1,
-                             _InputArray  distCoeffs1,
-                             _InputArray  cameraMatrix2,
-                             _InputArray  distCoeffs2,
-                             _InputArray  cameraMatrix3,
-                             _InputArray  distCoeffs3,
-                             _InputArray  imgpt1,
-                             _InputArray  imgpt3,
-                             cv::Size     imageSize,
-                             _InputArray  R12,
-                             _InputArray  T12,
-                             _InputArray  R13,
-                             _InputArray  T13,
-                             _OutputArray R1,
-                             _OutputArray R2,
-                             _OutputArray R3,
-                             _OutputArray P1,
-                             _OutputArray P2,
-                             _OutputArray P3,
-                             _OutputArray Q,
-                             double       alpha,
-                             cv::Size     newImgSize,
-                             cv::Rect*    roi1,
-                             cv::Rect*    roi2,
-                             int          flags );
+float cv::rectify3Collinear( InputArray         cameraMatrix1,
+                             InputArray         distCoeffs1,
+                             InputArray         cameraMatrix2,
+                             InputArray         distCoeffs2,
+                             InputArray         cameraMatrix3,
+                             InputArray         distCoeffs3,
+                             InputArrayOfArrays imgpt1,
+                             InputArrayOfArrays imgpt3,
+                             cv::Size           imageSize,
+                             InputArray         R12,
+                             InputArray         T12,
+                             InputArray         R13,
+                             InputArray         T13,
+                             OutputArray        R1,
+                             OutputArray        R2,
+                             OutputArray        R3,
+                             OutputArray        P1,
+                             OutputArray        P2,
+                             OutputArray        P3,
+                             OutputArray        Q,
+                             double             alpha,
+                             cv::Size           newImgSize,
+                             cv::Rect*          roi1,
+                             cv::Rect*          roi2,
+                             int                flags );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").rectify3Collinear( $cameraMatrix1, $distCoeffs1, $cameraMatrix2, $distCoeffs2, $cameraMatrix3, $distCoeffs3, $imgpt1, $imgpt3, $imageSize, $R12, $T12, $R13, $T13, $alpha, $newImgSize, $flags[, $R1[, $R2[, $R3[, $P1[, $P2[, $P3[, $Q[, $roi1[, $roi2]]]]]]]]] ) -> retval, $R1, $R2, $R3, $P1, $P2, $P3, $Q, $roi1, $roi2
@@ -4204,11 +4204,11 @@ AutoIt:
 ### cv::reduce
 
 ```cpp
-void cv::reduce( _InputArray  src,
-                 _OutputArray dst,
-                 int          dim,
-                 int          rtype,
-                 int          dtype = -1 );
+void cv::reduce( InputArray  src,
+                 OutputArray dst,
+                 int         dim,
+                 int         rtype,
+                 int         dtype = -1 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").reduce( $src, $dim, $rtype[, $dst[, $dtype]] ) -> $dst
@@ -4217,10 +4217,10 @@ AutoIt:
 ### cv::reduceArgMax
 
 ```cpp
-void cv::reduceArgMax( _InputArray  src,
-                       _OutputArray dst,
-                       int          axis,
-                       bool         lastIndex = false );
+void cv::reduceArgMax( InputArray  src,
+                       OutputArray dst,
+                       int         axis,
+                       bool        lastIndex = false );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").reduceArgMax( $src, $axis[, $dst[, $lastIndex]] ) -> $dst
@@ -4229,10 +4229,10 @@ AutoIt:
 ### cv::reduceArgMin
 
 ```cpp
-void cv::reduceArgMin( _InputArray  src,
-                       _OutputArray dst,
-                       int          axis,
-                       bool         lastIndex = false );
+void cv::reduceArgMin( InputArray  src,
+                       OutputArray dst,
+                       int         axis,
+                       bool        lastIndex = false );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").reduceArgMin( $src, $axis[, $dst[, $lastIndex]] ) -> $dst
@@ -4241,10 +4241,10 @@ AutoIt:
 ### cv::remap
 
 ```cpp
-void cv::remap( _InputArray       src,
-                _OutputArray      dst,
-                _InputArray       map1,
-                _InputArray       map2,
+void cv::remap( InputArray        src,
+                OutputArray       dst,
+                InputArray        map1,
+                InputArray        map2,
                 int               interpolation,
                 int               borderMode = BORDER_CONSTANT,
                 const cv::Scalar& borderValue = Scalar() );
@@ -4256,10 +4256,10 @@ AutoIt:
 ### cv::repeat
 
 ```cpp
-void cv::repeat( _InputArray  src,
-                 int          ny,
-                 int          nx,
-                 _OutputArray dst );
+void cv::repeat( InputArray  src,
+                 int         ny,
+                 int         nx,
+                 OutputArray dst );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").repeat( $src, $ny, $nx[, $dst] ) -> $dst
@@ -4268,11 +4268,11 @@ AutoIt:
 ### cv::reprojectImageTo3D
 
 ```cpp
-void cv::reprojectImageTo3D( _InputArray  disparity,
-                             _OutputArray _3dImage,
-                             _InputArray  Q,
-                             bool         handleMissingValues = false,
-                             int          ddepth = -1 );
+void cv::reprojectImageTo3D( InputArray  disparity,
+                             OutputArray _3dImage,
+                             InputArray  Q,
+                             bool        handleMissingValues = false,
+                             int         ddepth = -1 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").reprojectImageTo3D( $disparity, $Q[, $_3dImage[, $handleMissingValues[, $ddepth]]] ) -> $_3dImage
@@ -4281,12 +4281,12 @@ AutoIt:
 ### cv::resize
 
 ```cpp
-void cv::resize( _InputArray  src,
-                 _OutputArray dst,
-                 cv::Size     dsize,
-                 double       fx = 0,
-                 double       fy = 0,
-                 int          interpolation = INTER_LINEAR );
+void cv::resize( InputArray  src,
+                 OutputArray dst,
+                 cv::Size    dsize,
+                 double      fx = 0,
+                 double      fy = 0,
+                 int         interpolation = INTER_LINEAR );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").resize( $src, $dsize[, $dst[, $fx[, $fy[, $interpolation]]]] ) -> $dst
@@ -4314,9 +4314,9 @@ AutoIt:
 ### cv::rotate
 
 ```cpp
-void cv::rotate( _InputArray  src,
-                 _OutputArray dst,
-                 int          rotateCode );
+void cv::rotate( InputArray  src,
+                 OutputArray dst,
+                 int         rotateCode );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").rotate( $src, $rotateCode[, $dst] ) -> $dst
@@ -4327,7 +4327,7 @@ AutoIt:
 ```cpp
 int cv::rotatedRectangleIntersection( const cv::RotatedRect& rect1,
                                       const cv::RotatedRect& rect2,
-                                      _OutputArray           intersectingRegion );
+                                      OutputArray            intersectingRegion );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").rotatedRectangleIntersection( $rect1, $rect2[, $intersectingRegion] ) -> retval, $intersectingRegion
@@ -4336,9 +4336,9 @@ AutoIt:
 ### cv::sampsonDistance
 
 ```cpp
-double cv::sampsonDistance( _InputArray pt1,
-                            _InputArray pt2,
-                            _InputArray F );
+double cv::sampsonDistance( InputArray pt1,
+                            InputArray pt2,
+                            InputArray F );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").sampsonDistance( $pt1, $pt2, $F ) -> retval
@@ -4347,10 +4347,10 @@ AutoIt:
 ### cv::scaleAdd
 
 ```cpp
-void cv::scaleAdd( _InputArray  src1,
-                   double       alpha,
-                   _InputArray  src2,
-                   _OutputArray dst );
+void cv::scaleAdd( InputArray  src1,
+                   double      alpha,
+                   InputArray  src2,
+                   OutputArray dst );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").scaleAdd( $src1, $alpha, $src2[, $dst] ) -> $dst
@@ -4359,12 +4359,12 @@ AutoIt:
 ### cv::seamlessClone
 
 ```cpp
-void cv::seamlessClone( _InputArray  src,
-                        _InputArray  dst,
-                        _InputArray  mask,
-                        cv::Point    p,
-                        _OutputArray blend,
-                        int          flags );
+void cv::seamlessClone( InputArray  src,
+                        InputArray  dst,
+                        InputArray  mask,
+                        cv::Point   p,
+                        OutputArray blend,
+                        int         flags );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").seamlessClone( $src, $dst, $mask, $p, $flags[, $blend] ) -> $blend
@@ -4373,10 +4373,10 @@ AutoIt:
 ### cv::searchTemplate
 
 ```cpp
-void cv::searchTemplate( _InputArray             image,
-                         _InputArray             templ,
-                         _OutputArray            result,
-                         _InputArray             mask = noArray(),
+void cv::searchTemplate( InputArray              image,
+                         InputArray              templ,
+                         OutputArray             result,
+                         InputArray              mask = noArray(),
                          const std::vector<int>& channels = std::vector<int>(),
                          const std::vector<int>& ranges = std::vector<int>(),
                          const bool              parallel = false );
@@ -4389,7 +4389,7 @@ AutoIt:
 
 ```cpp
 cv::Rect cv::selectROI( const std::string& windowName,
-                        _InputArray        img,
+                        InputArray         img,
                         bool               showCrosshair = true,
                         bool               fromCenter = false );
 
@@ -4398,9 +4398,9 @@ AutoIt:
 ```
 
 ```cpp
-cv::Rect cv::selectROI( _InputArray img,
-                        bool        showCrosshair = true,
-                        bool        fromCenter = false );
+cv::Rect cv::selectROI( InputArray img,
+                        bool       showCrosshair = true,
+                        bool       fromCenter = false );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").selectROI( $img[, $showCrosshair[, $fromCenter]] ) -> retval
@@ -4410,7 +4410,7 @@ AutoIt:
 
 ```cpp
 void cv::selectROIs( const std::string&     windowName,
-                     _InputArray            img,
+                     InputArray             img,
                      std::vector<cv::Rect>& boundingBoxes,
                      bool                   showCrosshair = true,
                      bool                   fromCenter = false );
@@ -4422,14 +4422,14 @@ AutoIt:
 ### cv::sepFilter2D
 
 ```cpp
-void cv::sepFilter2D( _InputArray  src,
-                      _OutputArray dst,
-                      int          ddepth,
-                      _InputArray  kernelX,
-                      _InputArray  kernelY,
-                      cv::Point    anchor = Point(-1,-1),
-                      double       delta = 0,
-                      int          borderType = BORDER_DEFAULT );
+void cv::sepFilter2D( InputArray  src,
+                      OutputArray dst,
+                      int         ddepth,
+                      InputArray  kernelX,
+                      InputArray  kernelY,
+                      cv::Point   anchor = Point(-1,-1),
+                      double      delta = 0,
+                      int         borderType = BORDER_DEFAULT );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").sepFilter2D( $src, $ddepth, $kernelX, $kernelY[, $dst[, $anchor[, $delta[, $borderType]]]] ) -> $dst
@@ -4438,7 +4438,7 @@ AutoIt:
 ### cv::setIdentity
 
 ```cpp
-void cv::setIdentity( _InputOutputArray mtx,
+void cv::setIdentity( InputOutputArray  mtx,
                       const cv::Scalar& s = Scalar(1) );
 
 AutoIt:
@@ -4547,10 +4547,10 @@ AutoIt:
 ### cv::solve
 
 ```cpp
-bool cv::solve( _InputArray  src1,
-                _InputArray  src2,
-                _OutputArray dst,
-                int          flags = DECOMP_LU );
+bool cv::solve( InputArray  src1,
+                InputArray  src2,
+                OutputArray dst,
+                int         flags = DECOMP_LU );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").solve( $src1, $src2[, $dst[, $flags]] ) -> retval, $dst
@@ -4559,8 +4559,8 @@ AutoIt:
 ### cv::solveCubic
 
 ```cpp
-int cv::solveCubic( _InputArray  coeffs,
-                    _OutputArray roots );
+int cv::solveCubic( InputArray  coeffs,
+                    OutputArray roots );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").solveCubic( $coeffs[, $roots] ) -> retval, $roots
@@ -4569,9 +4569,9 @@ AutoIt:
 ### cv::solveLP
 
 ```cpp
-int cv::solveLP( _InputArray  Func,
-                 _InputArray  Constr,
-                 _OutputArray z );
+int cv::solveLP( InputArray  Func,
+                 InputArray  Constr,
+                 OutputArray z );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").solveLP( $Func, $Constr[, $z] ) -> retval, $z
@@ -4580,13 +4580,13 @@ AutoIt:
 ### cv::solveP3P
 
 ```cpp
-int cv::solveP3P( _InputArray  objectPoints,
-                  _InputArray  imagePoints,
-                  _InputArray  cameraMatrix,
-                  _InputArray  distCoeffs,
-                  _OutputArray rvecs,
-                  _OutputArray tvecs,
-                  int          flags );
+int cv::solveP3P( InputArray          objectPoints,
+                  InputArray          imagePoints,
+                  InputArray          cameraMatrix,
+                  InputArray          distCoeffs,
+                  OutputArrayOfArrays rvecs,
+                  OutputArrayOfArrays tvecs,
+                  int                 flags );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").solveP3P( $objectPoints, $imagePoints, $cameraMatrix, $distCoeffs, $flags[, $rvecs[, $tvecs]] ) -> retval, $rvecs, $tvecs
@@ -4595,14 +4595,14 @@ AutoIt:
 ### cv::solvePnP
 
 ```cpp
-bool cv::solvePnP( _InputArray  objectPoints,
-                   _InputArray  imagePoints,
-                   _InputArray  cameraMatrix,
-                   _InputArray  distCoeffs,
-                   _OutputArray rvec,
-                   _OutputArray tvec,
-                   bool         useExtrinsicGuess = false,
-                   int          flags = SOLVEPNP_ITERATIVE );
+bool cv::solvePnP( InputArray  objectPoints,
+                   InputArray  imagePoints,
+                   InputArray  cameraMatrix,
+                   InputArray  distCoeffs,
+                   OutputArray rvec,
+                   OutputArray tvec,
+                   bool        useExtrinsicGuess = false,
+                   int         flags = SOLVEPNP_ITERATIVE );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").solvePnP( $objectPoints, $imagePoints, $cameraMatrix, $distCoeffs[, $rvec[, $tvec[, $useExtrinsicGuess[, $flags]]]] ) -> retval, $rvec, $tvec
@@ -4611,17 +4611,17 @@ AutoIt:
 ### cv::solvePnPGeneric
 
 ```cpp
-int cv::solvePnPGeneric( _InputArray  objectPoints,
-                         _InputArray  imagePoints,
-                         _InputArray  cameraMatrix,
-                         _InputArray  distCoeffs,
-                         _OutputArray rvecs,
-                         _OutputArray tvecs,
-                         bool         useExtrinsicGuess = false,
-                         int          flags = SOLVEPNP_ITERATIVE,
-                         _InputArray  rvec = noArray(),
-                         _InputArray  tvec = noArray(),
-                         _OutputArray reprojectionError = noArray() );
+int cv::solvePnPGeneric( InputArray          objectPoints,
+                         InputArray          imagePoints,
+                         InputArray          cameraMatrix,
+                         InputArray          distCoeffs,
+                         OutputArrayOfArrays rvecs,
+                         OutputArrayOfArrays tvecs,
+                         bool                useExtrinsicGuess = false,
+                         int                 flags = SOLVEPNP_ITERATIVE,
+                         InputArray          rvec = noArray(),
+                         InputArray          tvec = noArray(),
+                         OutputArray         reprojectionError = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").solvePnPGeneric( $objectPoints, $imagePoints, $cameraMatrix, $distCoeffs[, $rvecs[, $tvecs[, $useExtrinsicGuess[, $flags[, $rvec[, $tvec[, $reprojectionError]]]]]]] ) -> retval, $rvecs, $tvecs, $reprojectionError
@@ -4630,31 +4630,31 @@ AutoIt:
 ### cv::solvePnPRansac
 
 ```cpp
-bool cv::solvePnPRansac( _InputArray  objectPoints,
-                         _InputArray  imagePoints,
-                         _InputArray  cameraMatrix,
-                         _InputArray  distCoeffs,
-                         _OutputArray rvec,
-                         _OutputArray tvec,
-                         bool         useExtrinsicGuess = false,
-                         int          iterationsCount = 100,
-                         float        reprojectionError = 8.0,
-                         double       confidence = 0.99,
-                         _OutputArray inliers = noArray(),
-                         int          flags = SOLVEPNP_ITERATIVE );
+bool cv::solvePnPRansac( InputArray  objectPoints,
+                         InputArray  imagePoints,
+                         InputArray  cameraMatrix,
+                         InputArray  distCoeffs,
+                         OutputArray rvec,
+                         OutputArray tvec,
+                         bool        useExtrinsicGuess = false,
+                         int         iterationsCount = 100,
+                         float       reprojectionError = 8.0,
+                         double      confidence = 0.99,
+                         OutputArray inliers = noArray(),
+                         int         flags = SOLVEPNP_ITERATIVE );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").solvePnPRansac( $objectPoints, $imagePoints, $cameraMatrix, $distCoeffs[, $rvec[, $tvec[, $useExtrinsicGuess[, $iterationsCount[, $reprojectionError[, $confidence[, $inliers[, $flags]]]]]]]] ) -> retval, $rvec, $tvec, $inliers
 ```
 
 ```cpp
-bool cv::solvePnPRansac( _InputArray           objectPoints,
-                         _InputArray           imagePoints,
-                         _InputOutputArray     cameraMatrix,
-                         _InputArray           distCoeffs,
-                         _OutputArray          rvec,
-                         _OutputArray          tvec,
-                         _OutputArray          inliers,
+bool cv::solvePnPRansac( InputArray            objectPoints,
+                         InputArray            imagePoints,
+                         InputOutputArray      cameraMatrix,
+                         InputArray            distCoeffs,
+                         OutputArray           rvec,
+                         OutputArray           tvec,
+                         OutputArray           inliers,
                          const cv::UsacParams& params = UsacParams() );
 
 AutoIt:
@@ -4664,13 +4664,13 @@ AutoIt:
 ### cv::solvePnPRefineLM
 
 ```cpp
-void cv::solvePnPRefineLM( _InputArray       objectPoints,
-                           _InputArray       imagePoints,
-                           _InputArray       cameraMatrix,
-                           _InputArray       distCoeffs,
-                           _InputOutputArray rvec,
-                           _InputOutputArray tvec,
-                           cv::TermCriteria  criteria = TermCriteria(TermCriteria::EPS + TermCriteria::COUNT, 20, FLT_EPSILON) );
+void cv::solvePnPRefineLM( InputArray       objectPoints,
+                           InputArray       imagePoints,
+                           InputArray       cameraMatrix,
+                           InputArray       distCoeffs,
+                           InputOutputArray rvec,
+                           InputOutputArray tvec,
+                           cv::TermCriteria criteria = TermCriteria(TermCriteria::EPS + TermCriteria::COUNT, 20, FLT_EPSILON) );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").solvePnPRefineLM( $objectPoints, $imagePoints, $cameraMatrix, $distCoeffs, $rvec, $tvec[, $criteria] ) -> $rvec, $tvec
@@ -4679,14 +4679,14 @@ AutoIt:
 ### cv::solvePnPRefineVVS
 
 ```cpp
-void cv::solvePnPRefineVVS( _InputArray       objectPoints,
-                            _InputArray       imagePoints,
-                            _InputArray       cameraMatrix,
-                            _InputArray       distCoeffs,
-                            _InputOutputArray rvec,
-                            _InputOutputArray tvec,
-                            cv::TermCriteria  criteria = TermCriteria(TermCriteria::EPS + TermCriteria::COUNT, 20, FLT_EPSILON),
-                            double            VVSlambda = 1 );
+void cv::solvePnPRefineVVS( InputArray       objectPoints,
+                            InputArray       imagePoints,
+                            InputArray       cameraMatrix,
+                            InputArray       distCoeffs,
+                            InputOutputArray rvec,
+                            InputOutputArray tvec,
+                            cv::TermCriteria criteria = TermCriteria(TermCriteria::EPS + TermCriteria::COUNT, 20, FLT_EPSILON),
+                            double           VVSlambda = 1 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").solvePnPRefineVVS( $objectPoints, $imagePoints, $cameraMatrix, $distCoeffs, $rvec, $tvec[, $criteria[, $VVSlambda]] ) -> $rvec, $tvec
@@ -4695,9 +4695,9 @@ AutoIt:
 ### cv::solvePoly
 
 ```cpp
-double cv::solvePoly( _InputArray  coeffs,
-                      _OutputArray roots,
-                      int          maxIters = 300 );
+double cv::solvePoly( InputArray  coeffs,
+                      OutputArray roots,
+                      int         maxIters = 300 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").solvePoly( $coeffs[, $roots[, $maxIters]] ) -> retval, $roots
@@ -4706,9 +4706,9 @@ AutoIt:
 ### cv::sort
 
 ```cpp
-void cv::sort( _InputArray  src,
-               _OutputArray dst,
-               int          flags );
+void cv::sort( InputArray  src,
+               OutputArray dst,
+               int         flags );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").sort( $src, $flags[, $dst] ) -> $dst
@@ -4717,9 +4717,9 @@ AutoIt:
 ### cv::sortIdx
 
 ```cpp
-void cv::sortIdx( _InputArray  src,
-                  _OutputArray dst,
-                  int          flags );
+void cv::sortIdx( InputArray  src,
+                  OutputArray dst,
+                  int         flags );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").sortIdx( $src, $flags[, $dst] ) -> $dst
@@ -4728,11 +4728,11 @@ AutoIt:
 ### cv::spatialGradient
 
 ```cpp
-void cv::spatialGradient( _InputArray  src,
-                          _OutputArray dx,
-                          _OutputArray dy,
-                          int          ksize = 3,
-                          int          borderType = BORDER_DEFAULT );
+void cv::spatialGradient( InputArray  src,
+                          OutputArray dx,
+                          OutputArray dy,
+                          int         ksize = 3,
+                          int         borderType = BORDER_DEFAULT );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").spatialGradient( $src[, $dx[, $dy[, $ksize[, $borderType]]]] ) -> $dx, $dy
@@ -4741,8 +4741,8 @@ AutoIt:
 ### cv::split
 
 ```cpp
-void cv::split( _InputArray  m,
-                _OutputArray mv );
+void cv::split( InputArray          m,
+                OutputArrayOfArrays mv );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").split( $m[, $mv] ) -> $mv
@@ -4751,13 +4751,13 @@ AutoIt:
 ### cv::sqrBoxFilter
 
 ```cpp
-void cv::sqrBoxFilter( _InputArray  src,
-                       _OutputArray dst,
-                       int          ddepth,
-                       cv::Size     ksize,
-                       cv::Point    anchor = Point(-1, -1),
-                       bool         normalize = true,
-                       int          borderType = BORDER_DEFAULT );
+void cv::sqrBoxFilter( InputArray  src,
+                       OutputArray dst,
+                       int         ddepth,
+                       cv::Size    ksize,
+                       cv::Point   anchor = Point(-1, -1),
+                       bool        normalize = true,
+                       int         borderType = BORDER_DEFAULT );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").sqrBoxFilter( $src, $ddepth, $ksize[, $dst[, $anchor[, $normalize[, $borderType]]]] ) -> $dst
@@ -4766,8 +4766,8 @@ AutoIt:
 ### cv::sqrt
 
 ```cpp
-void cv::sqrt( _InputArray  src,
-               _OutputArray dst );
+void cv::sqrt( InputArray  src,
+               OutputArray dst );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").sqrt( $src[, $dst] ) -> $dst
@@ -4785,20 +4785,20 @@ AutoIt:
 ### cv::stereoCalibrate
 
 ```cpp
-double cv::stereoCalibrate( _InputArray       objectPoints,
-                            _InputArray       imagePoints1,
-                            _InputArray       imagePoints2,
-                            _InputOutputArray cameraMatrix1,
-                            _InputOutputArray distCoeffs1,
-                            _InputOutputArray cameraMatrix2,
-                            _InputOutputArray distCoeffs2,
-                            cv::Size          imageSize,
-                            _OutputArray      R,
-                            _OutputArray      T,
-                            _OutputArray      E,
-                            _OutputArray      F,
-                            int               flags = CALIB_FIX_INTRINSIC,
-                            cv::TermCriteria  criteria = TermCriteria(TermCriteria::COUNT+TermCriteria::EPS, 30, 1e-6) );
+double cv::stereoCalibrate( InputArrayOfArrays objectPoints,
+                            InputArrayOfArrays imagePoints1,
+                            InputArrayOfArrays imagePoints2,
+                            InputOutputArray   cameraMatrix1,
+                            InputOutputArray   distCoeffs1,
+                            InputOutputArray   cameraMatrix2,
+                            InputOutputArray   distCoeffs2,
+                            cv::Size           imageSize,
+                            OutputArray        R,
+                            OutputArray        T,
+                            OutputArray        E,
+                            OutputArray        F,
+                            int                flags = CALIB_FIX_INTRINSIC,
+                            cv::TermCriteria   criteria = TermCriteria(TermCriteria::COUNT+TermCriteria::EPS, 30, 1e-6) );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").stereoCalibrate( $objectPoints, $imagePoints1, $imagePoints2, $cameraMatrix1, $distCoeffs1, $cameraMatrix2, $distCoeffs2, $imageSize[, $R[, $T[, $E[, $F[, $flags[, $criteria]]]]]] ) -> retval, $cameraMatrix1, $distCoeffs1, $cameraMatrix2, $distCoeffs2, $R, $T, $E, $F
@@ -4807,21 +4807,21 @@ AutoIt:
 ### cv::stereoCalibrateExtended
 
 ```cpp
-double cv::stereoCalibrateExtended( _InputArray       objectPoints,
-                                    _InputArray       imagePoints1,
-                                    _InputArray       imagePoints2,
-                                    _InputOutputArray cameraMatrix1,
-                                    _InputOutputArray distCoeffs1,
-                                    _InputOutputArray cameraMatrix2,
-                                    _InputOutputArray distCoeffs2,
-                                    cv::Size          imageSize,
-                                    _InputOutputArray R,
-                                    _InputOutputArray T,
-                                    _OutputArray      E,
-                                    _OutputArray      F,
-                                    _OutputArray      perViewErrors,
-                                    int               flags = CALIB_FIX_INTRINSIC,
-                                    cv::TermCriteria  criteria = TermCriteria(TermCriteria::COUNT+TermCriteria::EPS, 30, 1e-6) );
+double cv::stereoCalibrateExtended( InputArrayOfArrays objectPoints,
+                                    InputArrayOfArrays imagePoints1,
+                                    InputArrayOfArrays imagePoints2,
+                                    InputOutputArray   cameraMatrix1,
+                                    InputOutputArray   distCoeffs1,
+                                    InputOutputArray   cameraMatrix2,
+                                    InputOutputArray   distCoeffs2,
+                                    cv::Size           imageSize,
+                                    InputOutputArray   R,
+                                    InputOutputArray   T,
+                                    OutputArray        E,
+                                    OutputArray        F,
+                                    OutputArray        perViewErrors,
+                                    int                flags = CALIB_FIX_INTRINSIC,
+                                    cv::TermCriteria   criteria = TermCriteria(TermCriteria::COUNT+TermCriteria::EPS, 30, 1e-6) );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").stereoCalibrateExtended( $objectPoints, $imagePoints1, $imagePoints2, $cameraMatrix1, $distCoeffs1, $cameraMatrix2, $distCoeffs2, $imageSize, $R, $T[, $E[, $F[, $perViewErrors[, $flags[, $criteria]]]]] ) -> retval, $cameraMatrix1, $distCoeffs1, $cameraMatrix2, $distCoeffs2, $R, $T, $E, $F, $perViewErrors
@@ -4830,23 +4830,23 @@ AutoIt:
 ### cv::stereoRectify
 
 ```cpp
-void cv::stereoRectify( _InputArray  cameraMatrix1,
-                        _InputArray  distCoeffs1,
-                        _InputArray  cameraMatrix2,
-                        _InputArray  distCoeffs2,
-                        cv::Size     imageSize,
-                        _InputArray  R,
-                        _InputArray  T,
-                        _OutputArray R1,
-                        _OutputArray R2,
-                        _OutputArray P1,
-                        _OutputArray P2,
-                        _OutputArray Q,
-                        int          flags = CALIB_ZERO_DISPARITY,
-                        double       alpha = -1,
-                        cv::Size     newImageSize = Size(),
-                        cv::Rect*    validPixROI1 = 0,
-                        cv::Rect*    validPixROI2 = 0 );
+void cv::stereoRectify( InputArray  cameraMatrix1,
+                        InputArray  distCoeffs1,
+                        InputArray  cameraMatrix2,
+                        InputArray  distCoeffs2,
+                        cv::Size    imageSize,
+                        InputArray  R,
+                        InputArray  T,
+                        OutputArray R1,
+                        OutputArray R2,
+                        OutputArray P1,
+                        OutputArray P2,
+                        OutputArray Q,
+                        int         flags = CALIB_ZERO_DISPARITY,
+                        double      alpha = -1,
+                        cv::Size    newImageSize = Size(),
+                        cv::Rect*   validPixROI1 = 0,
+                        cv::Rect*   validPixROI2 = 0 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").stereoRectify( $cameraMatrix1, $distCoeffs1, $cameraMatrix2, $distCoeffs2, $imageSize, $R, $T[, $R1[, $R2[, $P1[, $P2[, $Q[, $flags[, $alpha[, $newImageSize[, $validPixROI1[, $validPixROI2]]]]]]]]]] ) -> $R1, $R2, $P1, $P2, $Q, $validPixROI1, $validPixROI2
@@ -4855,13 +4855,13 @@ AutoIt:
 ### cv::stereoRectifyUncalibrated
 
 ```cpp
-bool cv::stereoRectifyUncalibrated( _InputArray  points1,
-                                    _InputArray  points2,
-                                    _InputArray  F,
-                                    cv::Size     imgSize,
-                                    _OutputArray H1,
-                                    _OutputArray H2,
-                                    double       threshold = 5 );
+bool cv::stereoRectifyUncalibrated( InputArray  points1,
+                                    InputArray  points2,
+                                    InputArray  F,
+                                    cv::Size    imgSize,
+                                    OutputArray H1,
+                                    OutputArray H2,
+                                    double      threshold = 5 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").stereoRectifyUncalibrated( $points1, $points2, $F, $imgSize[, $H1[, $H2[, $threshold]]] ) -> retval, $H1, $H2
@@ -4870,10 +4870,10 @@ AutoIt:
 ### cv::stylization
 
 ```cpp
-void cv::stylization( _InputArray  src,
-                      _OutputArray dst,
-                      float        sigma_s = 60,
-                      float        sigma_r = 0.45f );
+void cv::stylization( InputArray  src,
+                      OutputArray dst,
+                      float       sigma_s = 60,
+                      float       sigma_r = 0.45f );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").stylization( $src[, $dst[, $sigma_s[, $sigma_r]]] ) -> $dst
@@ -4882,11 +4882,11 @@ AutoIt:
 ### cv::subtract
 
 ```cpp
-void cv::subtract( _InputArray  src1,
-                   _InputArray  src2,
-                   _OutputArray dst,
-                   _InputArray  mask = noArray(),
-                   int          dtype = -1 );
+void cv::subtract( InputArray  src1,
+                   InputArray  src2,
+                   OutputArray dst,
+                   InputArray  mask = noArray(),
+                   int         dtype = -1 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").subtract( $src1, $src2[, $dst[, $mask[, $dtype]]] ) -> $dst
@@ -4895,7 +4895,7 @@ AutoIt:
 ### cv::sumElems
 
 ```cpp
-cv::Scalar cv::sumElems( _InputArray src );
+cv::Scalar cv::sumElems( InputArray src );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").sumElems( $src ) -> retval
@@ -4904,12 +4904,12 @@ AutoIt:
 ### cv::textureFlattening
 
 ```cpp
-void cv::textureFlattening( _InputArray  src,
-                            _InputArray  mask,
-                            _OutputArray dst,
-                            float        low_threshold = 30,
-                            float        high_threshold = 45,
-                            int          kernel_size = 3 );
+void cv::textureFlattening( InputArray  src,
+                            InputArray  mask,
+                            OutputArray dst,
+                            float       low_threshold = 30,
+                            float       high_threshold = 45,
+                            int         kernel_size = 3 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").textureFlattening( $src, $mask[, $dst[, $low_threshold[, $high_threshold[, $kernel_size]]]] ) -> $dst
@@ -4918,11 +4918,11 @@ AutoIt:
 ### cv::threshold
 
 ```cpp
-double cv::threshold( _InputArray  src,
-                      _OutputArray dst,
-                      double       thresh,
-                      double       maxval,
-                      int          type );
+double cv::threshold( InputArray  src,
+                      OutputArray dst,
+                      double      thresh,
+                      double      maxval,
+                      int         type );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").threshold( $src, $thresh, $maxval, $type[, $dst] ) -> retval, $dst
@@ -4931,7 +4931,7 @@ AutoIt:
 ### cv::trace
 
 ```cpp
-cv::Scalar cv::trace( _InputArray mtx );
+cv::Scalar cv::trace( InputArray mtx );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").trace( $mtx ) -> retval
@@ -4940,9 +4940,9 @@ AutoIt:
 ### cv::transform
 
 ```cpp
-void cv::transform( _InputArray  src,
-                    _OutputArray dst,
-                    _InputArray  m );
+void cv::transform( InputArray  src,
+                    OutputArray dst,
+                    InputArray  m );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").transform( $src, $m[, $dst] ) -> $dst
@@ -4951,8 +4951,8 @@ AutoIt:
 ### cv::transpose
 
 ```cpp
-void cv::transpose( _InputArray  src,
-                    _OutputArray dst );
+void cv::transpose( InputArray  src,
+                    OutputArray dst );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").transpose( $src[, $dst] ) -> $dst
@@ -4961,11 +4961,11 @@ AutoIt:
 ### cv::triangulatePoints
 
 ```cpp
-void cv::triangulatePoints( _InputArray  projMatr1,
-                            _InputArray  projMatr2,
-                            _InputArray  projPoints1,
-                            _InputArray  projPoints2,
-                            _OutputArray points4D );
+void cv::triangulatePoints( InputArray  projMatr1,
+                            InputArray  projMatr2,
+                            InputArray  projPoints1,
+                            InputArray  projPoints2,
+                            OutputArray points4D );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").triangulatePoints( $projMatr1, $projMatr2, $projPoints1, $projPoints2[, $points4D] ) -> $points4D
@@ -4974,11 +4974,11 @@ AutoIt:
 ### cv::undistort
 
 ```cpp
-void cv::undistort( _InputArray  src,
-                    _OutputArray dst,
-                    _InputArray  cameraMatrix,
-                    _InputArray  distCoeffs,
-                    _InputArray  newCameraMatrix = noArray() );
+void cv::undistort( InputArray  src,
+                    OutputArray dst,
+                    InputArray  cameraMatrix,
+                    InputArray  distCoeffs,
+                    InputArray  newCameraMatrix = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").undistort( $src, $cameraMatrix, $distCoeffs[, $dst[, $newCameraMatrix]] ) -> $dst
@@ -4987,12 +4987,12 @@ AutoIt:
 ### cv::undistortPoints
 
 ```cpp
-void cv::undistortPoints( _InputArray  src,
-                          _OutputArray dst,
-                          _InputArray  cameraMatrix,
-                          _InputArray  distCoeffs,
-                          _InputArray  R = noArray(),
-                          _InputArray  P = noArray() );
+void cv::undistortPoints( InputArray  src,
+                          OutputArray dst,
+                          InputArray  cameraMatrix,
+                          InputArray  distCoeffs,
+                          InputArray  R = noArray(),
+                          InputArray  P = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").undistortPoints( $src, $cameraMatrix, $distCoeffs[, $dst[, $R[, $P]]] ) -> $dst
@@ -5001,12 +5001,12 @@ AutoIt:
 ### cv::undistortPointsIter
 
 ```cpp
-void cv::undistortPointsIter( _InputArray      src,
-                              _OutputArray     dst,
-                              _InputArray      cameraMatrix,
-                              _InputArray      distCoeffs,
-                              _InputArray      R,
-                              _InputArray      P,
+void cv::undistortPointsIter( InputArray       src,
+                              OutputArray      dst,
+                              InputArray       cameraMatrix,
+                              InputArray       distCoeffs,
+                              InputArray       R,
+                              InputArray       P,
                               cv::TermCriteria criteria );
 
 AutoIt:
@@ -5034,11 +5034,11 @@ AutoIt:
 ### cv::validateDisparity
 
 ```cpp
-void cv::validateDisparity( _InputOutputArray disparity,
-                            _InputArray       cost,
-                            int               minDisparity,
-                            int               numberOfDisparities,
-                            int               disp12MaxDisp = 1 );
+void cv::validateDisparity( InputOutputArray disparity,
+                            InputArray       cost,
+                            int              minDisparity,
+                            int              numberOfDisparities,
+                            int              disp12MaxDisp = 1 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").validateDisparity( $disparity, $cost, $minDisparity, $numberOfDisparities[, $disp12MaxDisp] ) -> $disparity
@@ -5056,8 +5056,8 @@ AutoIt:
 ### cv::vconcat
 
 ```cpp
-void cv::vconcat( _InputArray  src,
-                  _OutputArray dst );
+void cv::vconcat( InputArrayOfArrays src,
+                  OutputArray        dst );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").vconcat( $src[, $dst] ) -> $dst
@@ -5084,9 +5084,9 @@ AutoIt:
 ### cv::warpAffine
 
 ```cpp
-void cv::warpAffine( _InputArray       src,
-                     _OutputArray      dst,
-                     _InputArray       M,
+void cv::warpAffine( InputArray        src,
+                     OutputArray       dst,
+                     InputArray        M,
                      cv::Size          dsize,
                      int               flags = INTER_LINEAR,
                      int               borderMode = BORDER_CONSTANT,
@@ -5099,9 +5099,9 @@ AutoIt:
 ### cv::warpPerspective
 
 ```cpp
-void cv::warpPerspective( _InputArray       src,
-                          _OutputArray      dst,
-                          _InputArray       M,
+void cv::warpPerspective( InputArray        src,
+                          OutputArray       dst,
+                          InputArray        M,
                           cv::Size          dsize,
                           int               flags = INTER_LINEAR,
                           int               borderMode = BORDER_CONSTANT,
@@ -5114,12 +5114,12 @@ AutoIt:
 ### cv::warpPolar
 
 ```cpp
-void cv::warpPolar( _InputArray  src,
-                    _OutputArray dst,
-                    cv::Size     dsize,
-                    cv::Point2f  center,
-                    double       maxRadius,
-                    int          flags );
+void cv::warpPolar( InputArray  src,
+                    OutputArray dst,
+                    cv::Size    dsize,
+                    cv::Point2f center,
+                    double      maxRadius,
+                    int         flags );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").warpPolar( $src, $dsize, $center, $maxRadius, $flags[, $dst] ) -> $dst
@@ -5128,8 +5128,8 @@ AutoIt:
 ### cv::watershed
 
 ```cpp
-void cv::watershed( _InputArray       image,
-                    _InputOutputArray markers );
+void cv::watershed( InputArray       image,
+                    InputOutputArray markers );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").watershed( $image, $markers ) -> $markers
@@ -5139,7 +5139,7 @@ AutoIt:
 
 ```cpp
 bool cv::writeOpticalFlow( const std::string& path,
-                           _InputArray        flow );
+                           InputArray         flow );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").writeOpticalFlow( $path, $flow ) -> retval
@@ -5285,15 +5285,15 @@ AutoIt:
 ### cv::AsyncArray::get
 
 ```cpp
-void cv::AsyncArray::get( _OutputArray dst ) const;
+void cv::AsyncArray::get( OutputArray dst ) const;
 
 AutoIt:
     $oAsyncArray.get( [$dst] ) -> $dst
 ```
 
 ```cpp
-bool cv::AsyncArray::get( _OutputArray dst,
-                          double       timeoutNs ) const;
+bool cv::AsyncArray::get( OutputArray dst,
+                          double      timeoutNs ) const;
 
 AutoIt:
     $oAsyncArray.get( $timeoutNs[, $dst] ) -> retval, $dst
@@ -5414,7 +5414,7 @@ AutoIt:
 ### cv::utils::dumpInputArray
 
 ```cpp
-std::string cv::utils::dumpInputArray( _InputArray argument );
+std::string cv::utils::dumpInputArray( InputArray argument );
 
 AutoIt:
     _OpenCV_ObjCreate("cv.utils").dumpInputArray( $argument ) -> retval
@@ -5423,7 +5423,7 @@ AutoIt:
 ### cv::utils::dumpInputArrayOfArrays
 
 ```cpp
-std::string cv::utils::dumpInputArrayOfArrays( _InputArray argument );
+std::string cv::utils::dumpInputArrayOfArrays( InputArrayOfArrays argument );
 
 AutoIt:
     _OpenCV_ObjCreate("cv.utils").dumpInputArrayOfArrays( $argument ) -> retval
@@ -5432,7 +5432,7 @@ AutoIt:
 ### cv::utils::dumpInputOutputArray
 
 ```cpp
-std::string cv::utils::dumpInputOutputArray( _InputOutputArray argument );
+std::string cv::utils::dumpInputOutputArray( InputOutputArray argument );
 
 AutoIt:
     _OpenCV_ObjCreate("cv.utils").dumpInputOutputArray( $argument ) -> retval, $argument
@@ -5441,7 +5441,7 @@ AutoIt:
 ### cv::utils::dumpInputOutputArrayOfArrays
 
 ```cpp
-std::string cv::utils::dumpInputOutputArrayOfArrays( _InputOutputArray argument );
+std::string cv::utils::dumpInputOutputArrayOfArrays( InputOutputArrayOfArrays argument );
 
 AutoIt:
     _OpenCV_ObjCreate("cv.utils").dumpInputOutputArrayOfArrays( $argument ) -> retval, $argument
@@ -5573,7 +5573,7 @@ AutoIt:
 ### cv::utils::testAsyncArray
 
 ```cpp
-cv::AsyncArray cv::utils::testAsyncArray( _InputArray argument );
+cv::AsyncArray cv::utils::testAsyncArray( InputArray argument );
 
 AutoIt:
     _OpenCV_ObjCreate("cv.utils").testAsyncArray( $argument ) -> retval
@@ -5687,9 +5687,9 @@ AutoIt:
 
 ```cpp
 void cv::detail::computeImageFeatures( const cv::Ptr<cv::Feature2D>&           featuresFinder,
-                                       _InputArray                             images,
+                                       InputArrayOfArrays                      images,
                                        std::vector<cv::detail::ImageFeatures>& features,
-                                       _InputArray                             masks = noArray() );
+                                       InputArrayOfArrays                      masks = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv.detail").computeImageFeatures( $featuresFinder, $images[, $masks[, $features]] ) -> $features
@@ -5699,9 +5699,9 @@ AutoIt:
 
 ```cpp
 void cv::detail::computeImageFeatures2( const cv::Ptr<cv::Feature2D>& featuresFinder,
-                                        _InputArray                   image,
+                                        InputArray                    image,
                                         cv::detail::ImageFeatures&    features,
-                                        _InputArray                   mask = noArray() );
+                                        InputArray                    mask = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv.detail").computeImageFeatures2( $featuresFinder, $image[, $mask[, $features]] ) -> $features
@@ -5710,7 +5710,7 @@ AutoIt:
 ### cv::detail::createLaplacePyr
 
 ```cpp
-void cv::detail::createLaplacePyr( _InputArray            img,
+void cv::detail::createLaplacePyr( InputArray             img,
                                    int                    num_levels,
                                    std::vector<cv::UMat>& pyr );
 
@@ -5721,7 +5721,7 @@ AutoIt:
 ### cv::detail::createLaplacePyrGpu
 
 ```cpp
-void cv::detail::createLaplacePyrGpu( _InputArray            img,
+void cv::detail::createLaplacePyrGpu( InputArray             img,
                                       int                    num_levels,
                                       std::vector<cv::UMat>& pyr );
 
@@ -5732,9 +5732,9 @@ AutoIt:
 ### cv::detail::createWeightMap
 
 ```cpp
-void cv::detail::createWeightMap( _InputArray       mask,
-                                  float             sharpness,
-                                  _InputOutputArray weight );
+void cv::detail::createWeightMap( InputArray       mask,
+                                  float            sharpness,
+                                  InputOutputArray weight );
 
 AutoIt:
     _OpenCV_ObjCreate("cv.detail").createWeightMap( $mask, $sharpness, $weight ) -> $weight
@@ -5778,8 +5778,8 @@ AutoIt:
 ### cv::detail::normalizeUsingWeightMap
 
 ```cpp
-void cv::detail::normalizeUsingWeightMap( _InputArray       weight,
-                                          _InputOutputArray src );
+void cv::detail::normalizeUsingWeightMap( InputArray       weight,
+                                          InputOutputArray src );
 
 AutoIt:
     _OpenCV_ObjCreate("cv.detail").normalizeUsingWeightMap( $weight, $src ) -> $src
@@ -5888,10 +5888,10 @@ AutoIt:
 ### cv::cuda::createContinuous
 
 ```cpp
-void cv::cuda::createContinuous( int          rows,
-                                 int          cols,
-                                 int          type,
-                                 _OutputArray arr );
+void cv::cuda::createContinuous( int         rows,
+                                 int         cols,
+                                 int         type,
+                                 OutputArray arr );
 
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda").createContinuous( $rows, $cols, $type[, $arr] ) -> $arr
@@ -5900,10 +5900,10 @@ AutoIt:
 ### cv::cuda::ensureSizeIsEnough
 
 ```cpp
-void cv::cuda::ensureSizeIsEnough( int          rows,
-                                   int          cols,
-                                   int          type,
-                                   _OutputArray arr );
+void cv::cuda::ensureSizeIsEnough( int         rows,
+                                   int         cols,
+                                   int         type,
+                                   OutputArray arr );
 
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda").ensureSizeIsEnough( $rows, $cols, $type[, $arr] ) -> $arr
@@ -6077,7 +6077,7 @@ AutoIt:
 ```
 
 ```cpp
-static cv::cuda::GpuMat cv::cuda::GpuMat::create( _InputArray                  arr,
+static cv::cuda::GpuMat cv::cuda::GpuMat::create( InputArray                   arr,
                                                   cv::cuda::GpuMat::Allocator* allocator = GpuMat::defaultAllocator() );
 
 AutoIt:
@@ -6170,15 +6170,15 @@ AutoIt:
 ### cv::cuda::GpuMat::convertTo
 
 ```cpp
-void cv::cuda::GpuMat::convertTo( _OutputArray dst,
-                                  int          rtype ) const;
+void cv::cuda::GpuMat::convertTo( OutputArray dst,
+                                  int         rtype ) const;
 
 AutoIt:
     $oGpuMat.convertTo( $rtype[, $dst] ) -> $dst
 ```
 
 ```cpp
-void cv::cuda::GpuMat::convertTo( _OutputArray      dst,
+void cv::cuda::GpuMat::convertTo( OutputArray       dst,
                                   int               rtype,
                                   cv::cuda::Stream& stream ) const;
 
@@ -6187,17 +6187,17 @@ AutoIt:
 ```
 
 ```cpp
-void cv::cuda::GpuMat::convertTo( _OutputArray dst,
-                                  int          rtype,
-                                  double       alpha,
-                                  double       beta = 0.0 ) const;
+void cv::cuda::GpuMat::convertTo( OutputArray dst,
+                                  int         rtype,
+                                  double      alpha,
+                                  double      beta = 0.0 ) const;
 
 AutoIt:
     $oGpuMat.convertTo( $rtype, $alpha[, $dst[, $beta]] ) -> $dst
 ```
 
 ```cpp
-void cv::cuda::GpuMat::convertTo( _OutputArray      dst,
+void cv::cuda::GpuMat::convertTo( OutputArray       dst,
                                   int               rtype,
                                   double            alpha,
                                   cv::cuda::Stream& stream ) const;
@@ -6207,7 +6207,7 @@ AutoIt:
 ```
 
 ```cpp
-void cv::cuda::GpuMat::convertTo( _OutputArray      dst,
+void cv::cuda::GpuMat::convertTo( OutputArray       dst,
                                   int               rtype,
                                   double            alpha,
                                   double            beta,
@@ -6220,14 +6220,14 @@ AutoIt:
 ### cv::cuda::GpuMat::copyTo
 
 ```cpp
-void cv::cuda::GpuMat::copyTo( _OutputArray dst ) const;
+void cv::cuda::GpuMat::copyTo( OutputArray dst ) const;
 
 AutoIt:
     $oGpuMat.copyTo( [$dst] ) -> $dst
 ```
 
 ```cpp
-void cv::cuda::GpuMat::copyTo( _OutputArray      dst,
+void cv::cuda::GpuMat::copyTo( OutputArray       dst,
                                cv::cuda::Stream& stream ) const;
 
 AutoIt:
@@ -6235,16 +6235,16 @@ AutoIt:
 ```
 
 ```cpp
-void cv::cuda::GpuMat::copyTo( _OutputArray dst,
-                               _InputArray  mask ) const;
+void cv::cuda::GpuMat::copyTo( OutputArray dst,
+                               InputArray  mask ) const;
 
 AutoIt:
     $oGpuMat.copyTo( $mask[, $dst] ) -> $dst
 ```
 
 ```cpp
-void cv::cuda::GpuMat::copyTo( _OutputArray      dst,
-                               _InputArray       mask,
+void cv::cuda::GpuMat::copyTo( OutputArray       dst,
+                               InputArray        mask,
                                cv::cuda::Stream& stream ) const;
 
 AutoIt:
@@ -6281,14 +6281,14 @@ AutoIt:
 ### cv::cuda::GpuMat::download
 
 ```cpp
-void cv::cuda::GpuMat::download( _OutputArray dst ) const;
+void cv::cuda::GpuMat::download( OutputArray dst ) const;
 
 AutoIt:
     $oGpuMat.download( [$dst] ) -> $dst
 ```
 
 ```cpp
-void cv::cuda::GpuMat::download( _OutputArray      dst,
+void cv::cuda::GpuMat::download( OutputArray       dst,
                                  cv::cuda::Stream& stream ) const;
 
 AutoIt:
@@ -6404,8 +6404,8 @@ AutoIt:
 ```
 
 ```cpp
-cv::cuda::GpuMat cv::cuda::GpuMat::setTo( cv::Scalar  s,
-                                          _InputArray mask );
+cv::cuda::GpuMat cv::cuda::GpuMat::setTo( cv::Scalar s,
+                                          InputArray mask );
 
 AutoIt:
     $oGpuMat.setTo( $s, $mask ) -> retval
@@ -6413,7 +6413,7 @@ AutoIt:
 
 ```cpp
 cv::cuda::GpuMat cv::cuda::GpuMat::setTo( cv::Scalar        s,
-                                          _InputArray       mask,
+                                          InputArray        mask,
                                           cv::cuda::Stream& stream );
 
 AutoIt:
@@ -6468,14 +6468,14 @@ AutoIt:
 ### cv::cuda::GpuMat::upload
 
 ```cpp
-void cv::cuda::GpuMat::upload( _InputArray arr );
+void cv::cuda::GpuMat::upload( InputArray arr );
 
 AutoIt:
     $oGpuMat.upload( $arr ) -> None
 ```
 
 ```cpp
-void cv::cuda::GpuMat::upload( _InputArray       arr,
+void cv::cuda::GpuMat::upload( InputArray        arr,
                                cv::cuda::Stream& stream );
 
 AutoIt:
@@ -6543,8 +6543,8 @@ AutoIt:
 ```
 
 ```cpp
-static cv::cuda::HostMem cv::cuda::HostMem::create( _InputArray arr,
-                                                    int         alloc_type = HostMem::AllocType::PAGE_LOCKED );
+static cv::cuda::HostMem cv::cuda::HostMem::create( InputArray arr,
+                                                    int        alloc_type = HostMem::AllocType::PAGE_LOCKED );
 
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.HostMem").create( $arr[, $alloc_type] ) -> <cv.cuda.HostMem object>
@@ -9193,10 +9193,10 @@ AutoIt:
 ### cv::Mat::convertTo
 
 ```cpp
-void cv::Mat::convertTo( _OutputArray m,
-                         int          rtype,
-                         double       alpha = 1.0,
-                         double       beta = 0.0 );
+void cv::Mat::convertTo( OutputArray m,
+                         int         rtype,
+                         double      alpha = 1.0,
+                         double      beta = 0.0 );
 
 AutoIt:
     $oMat.convertTo( $rtype[, $m[, $alpha[, $beta]]] ) -> $m
@@ -9233,15 +9233,15 @@ AutoIt:
 ### cv::Mat::copyTo
 
 ```cpp
-void cv::Mat::copyTo( _OutputArray m );
+void cv::Mat::copyTo( OutputArray m );
 
 AutoIt:
     $oMat.copyTo( [$m] ) -> $m
 ```
 
 ```cpp
-void cv::Mat::copyTo( _OutputArray m,
-                      _InputArray  mask );
+void cv::Mat::copyTo( OutputArray m,
+                      InputArray  mask );
 
 AutoIt:
     $oMat.copyTo( $mask[, $m] ) -> $m
@@ -9690,7 +9690,7 @@ AutoIt:
 ### cv::Mat::cross
 
 ```cpp
-cv::Mat cv::Mat::cross( _InputArray m );
+cv::Mat cv::Mat::cross( InputArray m );
 
 AutoIt:
     $oMat.cross( $m ) -> retval
@@ -9717,7 +9717,7 @@ AutoIt:
 ### cv::Mat::dot
 
 ```cpp
-double cv::Mat::dot( _InputArray m );
+double cv::Mat::dot( InputArray m );
 
 AutoIt:
     $oMat.dot( $m ) -> retval
@@ -10128,8 +10128,8 @@ AutoIt:
 ### cv::Mat::setTo
 
 ```cpp
-void cv::Mat::setTo( _InputArray value,
-                     _InputArray mask = noArray() );
+void cv::Mat::setTo( InputArray value,
+                     InputArray mask = noArray() );
 
 AutoIt:
     $oMat.setTo( $value[, $mask] ) -> None
@@ -11616,7 +11616,7 @@ AutoIt:
 ```
 
 ```cpp
-static cv::flann::Index cv::flann::Index::create( _InputArray        features,
+static cv::flann::Index cv::flann::Index::create( InputArray         features,
                                                   const IndexParams& params,
                                                   int                distType = cvflann::FLANN_DIST_L2 );
 
@@ -11627,7 +11627,7 @@ AutoIt:
 ### cv::flann::Index::build
 
 ```cpp
-void cv::flann::Index::build( _InputArray        features,
+void cv::flann::Index::build( InputArray         features,
                               const IndexParams& params,
                               int                distType = cvflann::FLANN_DIST_L2 );
 
@@ -11656,9 +11656,9 @@ AutoIt:
 ### cv::flann::Index::knnSearch
 
 ```cpp
-void cv::flann::Index::knnSearch( _InputArray         query,
-                                  _OutputArray        indices,
-                                  _OutputArray        dists,
+void cv::flann::Index::knnSearch( InputArray          query,
+                                  OutputArray         indices,
+                                  OutputArray         dists,
                                   int                 knn,
                                   const SearchParams& params = SearchParams() );
 
@@ -11669,7 +11669,7 @@ AutoIt:
 ### cv::flann::Index::load
 
 ```cpp
-bool cv::flann::Index::load( _InputArray        features,
+bool cv::flann::Index::load( InputArray         features,
                              const std::string& filename );
 
 AutoIt:
@@ -11679,9 +11679,9 @@ AutoIt:
 ### cv::flann::Index::radiusSearch
 
 ```cpp
-int cv::flann::Index::radiusSearch( _InputArray         query,
-                                    _OutputArray        indices,
-                                    _OutputArray        dists,
+int cv::flann::Index::radiusSearch( InputArray          query,
+                                    OutputArray         indices,
+                                    OutputArray         dists,
                                     double              radius,
                                     int                 maxResults,
                                     const SearchParams& params = SearchParams() );
@@ -11722,20 +11722,20 @@ AutoIt:
 ### cv::GeneralizedHough::detect
 
 ```cpp
-void cv::GeneralizedHough::detect( _InputArray  image,
-                                   _OutputArray positions,
-                                   _OutputArray votes = noArray() );
+void cv::GeneralizedHough::detect( InputArray  image,
+                                   OutputArray positions,
+                                   OutputArray votes = noArray() );
 
 AutoIt:
     $oGeneralizedHough.detect( $image[, $positions[, $votes]] ) -> $positions, $votes
 ```
 
 ```cpp
-void cv::GeneralizedHough::detect( _InputArray  edges,
-                                   _InputArray  dx,
-                                   _InputArray  dy,
-                                   _OutputArray positions,
-                                   _OutputArray votes = noArray() );
+void cv::GeneralizedHough::detect( InputArray  edges,
+                                   InputArray  dx,
+                                   InputArray  dy,
+                                   OutputArray positions,
+                                   OutputArray votes = noArray() );
 
 AutoIt:
     $oGeneralizedHough.detect( $edges, $dx, $dy[, $positions[, $votes]] ) -> $positions, $votes
@@ -11870,18 +11870,18 @@ AutoIt:
 ### cv::GeneralizedHough::setTemplate
 
 ```cpp
-void cv::GeneralizedHough::setTemplate( _InputArray templ,
-                                        cv::Point   templCenter = Point(-1, -1) );
+void cv::GeneralizedHough::setTemplate( InputArray templ,
+                                        cv::Point  templCenter = Point(-1, -1) );
 
 AutoIt:
     $oGeneralizedHough.setTemplate( $templ[, $templCenter] ) -> None
 ```
 
 ```cpp
-void cv::GeneralizedHough::setTemplate( _InputArray edges,
-                                        _InputArray dx,
-                                        _InputArray dy,
-                                        cv::Point   templCenter = Point(-1, -1) );
+void cv::GeneralizedHough::setTemplate( InputArray edges,
+                                        InputArray dx,
+                                        InputArray dy,
+                                        cv::Point  templCenter = Point(-1, -1) );
 
 AutoIt:
     $oGeneralizedHough.setTemplate( $edges, $dx, $dy[, $templCenter] ) -> None
@@ -11911,20 +11911,20 @@ AutoIt:
 ### cv::GeneralizedHoughBallard::detect
 
 ```cpp
-void cv::GeneralizedHoughBallard::detect( _InputArray  image,
-                                          _OutputArray positions,
-                                          _OutputArray votes = noArray() );
+void cv::GeneralizedHoughBallard::detect( InputArray  image,
+                                          OutputArray positions,
+                                          OutputArray votes = noArray() );
 
 AutoIt:
     $oGeneralizedHoughBallard.detect( $image[, $positions[, $votes]] ) -> $positions, $votes
 ```
 
 ```cpp
-void cv::GeneralizedHoughBallard::detect( _InputArray  edges,
-                                          _InputArray  dx,
-                                          _InputArray  dy,
-                                          _OutputArray positions,
-                                          _OutputArray votes = noArray() );
+void cv::GeneralizedHoughBallard::detect( InputArray  edges,
+                                          InputArray  dx,
+                                          InputArray  dy,
+                                          OutputArray positions,
+                                          OutputArray votes = noArray() );
 
 AutoIt:
     $oGeneralizedHoughBallard.detect( $edges, $dx, $dy[, $positions[, $votes]] ) -> $positions, $votes
@@ -12086,18 +12086,18 @@ AutoIt:
 ### cv::GeneralizedHoughBallard::setTemplate
 
 ```cpp
-void cv::GeneralizedHoughBallard::setTemplate( _InputArray templ,
-                                               cv::Point   templCenter = Point(-1, -1) );
+void cv::GeneralizedHoughBallard::setTemplate( InputArray templ,
+                                               cv::Point  templCenter = Point(-1, -1) );
 
 AutoIt:
     $oGeneralizedHoughBallard.setTemplate( $templ[, $templCenter] ) -> None
 ```
 
 ```cpp
-void cv::GeneralizedHoughBallard::setTemplate( _InputArray edges,
-                                               _InputArray dx,
-                                               _InputArray dy,
-                                               cv::Point   templCenter = Point(-1, -1) );
+void cv::GeneralizedHoughBallard::setTemplate( InputArray edges,
+                                               InputArray dx,
+                                               InputArray dy,
+                                               cv::Point  templCenter = Point(-1, -1) );
 
 AutoIt:
     $oGeneralizedHoughBallard.setTemplate( $edges, $dx, $dy[, $templCenter] ) -> None
@@ -12136,20 +12136,20 @@ AutoIt:
 ### cv::GeneralizedHoughGuil::detect
 
 ```cpp
-void cv::GeneralizedHoughGuil::detect( _InputArray  image,
-                                       _OutputArray positions,
-                                       _OutputArray votes = noArray() );
+void cv::GeneralizedHoughGuil::detect( InputArray  image,
+                                       OutputArray positions,
+                                       OutputArray votes = noArray() );
 
 AutoIt:
     $oGeneralizedHoughGuil.detect( $image[, $positions[, $votes]] ) -> $positions, $votes
 ```
 
 ```cpp
-void cv::GeneralizedHoughGuil::detect( _InputArray  edges,
-                                       _InputArray  dx,
-                                       _InputArray  dy,
-                                       _OutputArray positions,
-                                       _OutputArray votes = noArray() );
+void cv::GeneralizedHoughGuil::detect( InputArray  edges,
+                                       InputArray  dx,
+                                       InputArray  dy,
+                                       OutputArray positions,
+                                       OutputArray votes = noArray() );
 
 AutoIt:
     $oGeneralizedHoughGuil.detect( $edges, $dx, $dy[, $positions[, $votes]] ) -> $positions, $votes
@@ -12491,18 +12491,18 @@ AutoIt:
 ### cv::GeneralizedHoughGuil::setTemplate
 
 ```cpp
-void cv::GeneralizedHoughGuil::setTemplate( _InputArray templ,
-                                            cv::Point   templCenter = Point(-1, -1) );
+void cv::GeneralizedHoughGuil::setTemplate( InputArray templ,
+                                            cv::Point  templCenter = Point(-1, -1) );
 
 AutoIt:
     $oGeneralizedHoughGuil.setTemplate( $templ[, $templCenter] ) -> None
 ```
 
 ```cpp
-void cv::GeneralizedHoughGuil::setTemplate( _InputArray edges,
-                                            _InputArray dx,
-                                            _InputArray dy,
-                                            cv::Point   templCenter = Point(-1, -1) );
+void cv::GeneralizedHoughGuil::setTemplate( InputArray edges,
+                                            InputArray dx,
+                                            InputArray dy,
+                                            cv::Point  templCenter = Point(-1, -1) );
 
 AutoIt:
     $oGeneralizedHoughGuil.setTemplate( $edges, $dx, $dy[, $templCenter] ) -> None
@@ -12532,8 +12532,8 @@ AutoIt:
 ### cv::CLAHE::apply
 
 ```cpp
-void cv::CLAHE::apply( _InputArray  src,
-                       _OutputArray dst );
+void cv::CLAHE::apply( InputArray  src,
+                       OutputArray dst );
 
 AutoIt:
     $oCLAHE.apply( $src[, $dst] ) -> $dst
@@ -12823,10 +12823,10 @@ AutoIt:
 ### cv::LineSegmentDetector::compareSegments
 
 ```cpp
-int cv::LineSegmentDetector::compareSegments( const cv::Size&   size,
-                                              _InputArray       lines1,
-                                              _InputArray       lines2,
-                                              _InputOutputArray image = noArray() );
+int cv::LineSegmentDetector::compareSegments( const cv::Size&  size,
+                                              InputArray       lines1,
+                                              InputArray       lines2,
+                                              InputOutputArray image = noArray() );
 
 AutoIt:
     $oLineSegmentDetector.compareSegments( $size, $lines1, $lines2[, $image] ) -> retval, $image
@@ -12835,11 +12835,11 @@ AutoIt:
 ### cv::LineSegmentDetector::detect
 
 ```cpp
-void cv::LineSegmentDetector::detect( _InputArray  image,
-                                      _OutputArray lines,
-                                      _OutputArray width = noArray(),
-                                      _OutputArray prec = noArray(),
-                                      _OutputArray nfa = noArray() );
+void cv::LineSegmentDetector::detect( InputArray  image,
+                                      OutputArray lines,
+                                      OutputArray width = noArray(),
+                                      OutputArray prec = noArray(),
+                                      OutputArray nfa = noArray() );
 
 AutoIt:
     $oLineSegmentDetector.detect( $image[, $lines[, $width[, $prec[, $nfa]]]] ) -> $lines, $width, $prec, $nfa
@@ -12848,8 +12848,8 @@ AutoIt:
 ### cv::LineSegmentDetector::drawSegments
 
 ```cpp
-void cv::LineSegmentDetector::drawSegments( _InputOutputArray image,
-                                            _InputArray       lines );
+void cv::LineSegmentDetector::drawSegments( InputOutputArray image,
+                                            InputArray       lines );
 
 AutoIt:
     $oLineSegmentDetector.drawSegments( $image, $lines ) -> $image
@@ -12915,7 +12915,7 @@ AutoIt:
 ### cv::segmentation::IntelligentScissorsMB::applyImage
 
 ```cpp
-cv::segmentation::IntelligentScissorsMB cv::segmentation::IntelligentScissorsMB::applyImage( _InputArray image );
+cv::segmentation::IntelligentScissorsMB cv::segmentation::IntelligentScissorsMB::applyImage( InputArray image );
 
 AutoIt:
     $oIntelligentScissorsMB.applyImage( $image ) -> retval
@@ -12924,10 +12924,10 @@ AutoIt:
 ### cv::segmentation::IntelligentScissorsMB::applyImageFeatures
 
 ```cpp
-cv::segmentation::IntelligentScissorsMB cv::segmentation::IntelligentScissorsMB::applyImageFeatures( _InputArray non_edge,
-                                                                                                     _InputArray gradient_direction,
-                                                                                                     _InputArray gradient_magnitude,
-                                                                                                     _InputArray image = noArray() );
+cv::segmentation::IntelligentScissorsMB cv::segmentation::IntelligentScissorsMB::applyImageFeatures( InputArray non_edge,
+                                                                                                     InputArray gradient_direction,
+                                                                                                     InputArray gradient_magnitude,
+                                                                                                     InputArray image = noArray() );
 
 AutoIt:
     $oIntelligentScissorsMB.applyImageFeatures( $non_edge, $gradient_direction, $gradient_magnitude[, $image] ) -> retval
@@ -12946,7 +12946,7 @@ AutoIt:
 
 ```cpp
 void cv::segmentation::IntelligentScissorsMB::getContour( const cv::Point& targetPt,
-                                                          _OutputArray     contour,
+                                                          OutputArray      contour,
                                                           bool             backward = false ) const;
 
 AutoIt:
@@ -13012,13 +13012,13 @@ AutoIt:
 ### cv::ml::TrainData::create
 
 ```cpp
-static cv::Ptr<cv::ml::TrainData> cv::ml::TrainData::create( _InputArray samples,
-                                                             int         layout,
-                                                             _InputArray responses,
-                                                             _InputArray varIdx = noArray(),
-                                                             _InputArray sampleIdx = noArray(),
-                                                             _InputArray sampleWeights = noArray(),
-                                                             _InputArray varType = noArray() );
+static cv::Ptr<cv::ml::TrainData> cv::ml::TrainData::create( InputArray samples,
+                                                             int        layout,
+                                                             InputArray responses,
+                                                             InputArray varIdx = noArray(),
+                                                             InputArray sampleIdx = noArray(),
+                                                             InputArray sampleWeights = noArray(),
+                                                             InputArray varType = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.TrainData").create( $samples, $layout, $responses[, $varIdx[, $sampleIdx[, $sampleWeights[, $varType]]]] ) -> retval
@@ -13171,9 +13171,9 @@ AutoIt:
 ### cv::ml::TrainData::getSample
 
 ```cpp
-void cv::ml::TrainData::getSample( _InputArray varIdx,
-                                   int         sidx,
-                                   float*      buf ) const;
+void cv::ml::TrainData::getSample( InputArray varIdx,
+                                   int        sidx,
+                                   float*     buf ) const;
 
 AutoIt:
     $oTrainData.getSample( $varIdx, $sidx[, $buf] ) -> $buf
@@ -13313,9 +13313,9 @@ AutoIt:
 ### cv::ml::TrainData::getValues
 
 ```cpp
-void cv::ml::TrainData::getValues( int         vi,
-                                   _InputArray sidx,
-                                   float*      values ) const;
+void cv::ml::TrainData::getValues( int        vi,
+                                   InputArray sidx,
+                                   float*     values ) const;
 
 AutoIt:
     $oTrainData.getValues( $vi, $sidx[, $values] ) -> $values
@@ -13384,7 +13384,7 @@ AutoIt:
 ```cpp
 float cv::ml::StatModel::calcError( const cv::Ptr<cv::ml::TrainData>& data,
                                     bool                              test,
-                                    _OutputArray                      resp ) const;
+                                    OutputArray                       resp ) const;
 
 AutoIt:
     $oStatModel.calcError( $data, $test[, $resp] ) -> retval, $resp
@@ -13447,9 +13447,9 @@ AutoIt:
 ### cv::ml::StatModel::predict
 
 ```cpp
-float cv::ml::StatModel::predict( _InputArray  samples,
-                                  _OutputArray results = noArray(),
-                                  int          flags = 0 ) const;
+float cv::ml::StatModel::predict( InputArray  samples,
+                                  OutputArray results = noArray(),
+                                  int         flags = 0 ) const;
 
 AutoIt:
     $oStatModel.predict( $samples[, $results[, $flags]] ) -> retval, $results
@@ -13484,9 +13484,9 @@ AutoIt:
 ```
 
 ```cpp
-bool cv::ml::StatModel::train( _InputArray samples,
-                               int         layout,
-                               _InputArray responses );
+bool cv::ml::StatModel::train( InputArray samples,
+                               int        layout,
+                               InputArray responses );
 
 AutoIt:
     $oStatModel.train( $samples, $layout, $responses ) -> retval
@@ -13518,7 +13518,7 @@ AutoIt:
 ```cpp
 float cv::ml::NormalBayesClassifier::calcError( const cv::Ptr<cv::ml::TrainData>& data,
                                                 bool                              test,
-                                                _OutputArray                      resp ) const;
+                                                OutputArray                       resp ) const;
 
 AutoIt:
     $oNormalBayesClassifier.calcError( $data, $test[, $resp] ) -> retval, $resp
@@ -13591,9 +13591,9 @@ AutoIt:
 ### cv::ml::NormalBayesClassifier::predict
 
 ```cpp
-float cv::ml::NormalBayesClassifier::predict( _InputArray  samples,
-                                              _OutputArray results = noArray(),
-                                              int          flags = 0 ) const;
+float cv::ml::NormalBayesClassifier::predict( InputArray  samples,
+                                              OutputArray results = noArray(),
+                                              int         flags = 0 ) const;
 
 AutoIt:
     $oNormalBayesClassifier.predict( $samples[, $results[, $flags]] ) -> retval, $results
@@ -13602,10 +13602,10 @@ AutoIt:
 ### cv::ml::NormalBayesClassifier::predictProb
 
 ```cpp
-float cv::ml::NormalBayesClassifier::predictProb( _InputArray  inputs,
-                                                  _OutputArray outputs,
-                                                  _OutputArray outputProbs,
-                                                  int          flags = 0 ) const;
+float cv::ml::NormalBayesClassifier::predictProb( InputArray  inputs,
+                                                  OutputArray outputs,
+                                                  OutputArray outputProbs,
+                                                  int         flags = 0 ) const;
 
 AutoIt:
     $oNormalBayesClassifier.predictProb( $inputs[, $outputs[, $outputProbs[, $flags]]] ) -> retval, $outputs, $outputProbs
@@ -13640,9 +13640,9 @@ AutoIt:
 ```
 
 ```cpp
-bool cv::ml::NormalBayesClassifier::train( _InputArray samples,
-                                           int         layout,
-                                           _InputArray responses );
+bool cv::ml::NormalBayesClassifier::train( InputArray samples,
+                                           int        layout,
+                                           InputArray responses );
 
 AutoIt:
     $oNormalBayesClassifier.train( $samples, $layout, $responses ) -> retval
@@ -13674,7 +13674,7 @@ AutoIt:
 ```cpp
 float cv::ml::KNearest::calcError( const cv::Ptr<cv::ml::TrainData>& data,
                                    bool                              test,
-                                   _OutputArray                      resp ) const;
+                                   OutputArray                       resp ) const;
 
 AutoIt:
     $oKNearest.calcError( $data, $test[, $resp] ) -> retval, $resp
@@ -13701,11 +13701,11 @@ AutoIt:
 ### cv::ml::KNearest::findNearest
 
 ```cpp
-float cv::ml::KNearest::findNearest( _InputArray  samples,
-                                     int          k,
-                                     _OutputArray results,
-                                     _OutputArray neighborResponses = noArray(),
-                                     _OutputArray dist = noArray() ) const;
+float cv::ml::KNearest::findNearest( InputArray  samples,
+                                     int         k,
+                                     OutputArray results,
+                                     OutputArray neighborResponses = noArray(),
+                                     OutputArray dist = noArray() ) const;
 
 AutoIt:
     $oKNearest.findNearest( $samples, $k[, $results[, $neighborResponses[, $dist]]] ) -> retval, $results, $neighborResponses, $dist
@@ -13795,9 +13795,9 @@ AutoIt:
 ### cv::ml::KNearest::predict
 
 ```cpp
-float cv::ml::KNearest::predict( _InputArray  samples,
-                                 _OutputArray results = noArray(),
-                                 int          flags = 0 ) const;
+float cv::ml::KNearest::predict( InputArray  samples,
+                                 OutputArray results = noArray(),
+                                 int         flags = 0 ) const;
 
 AutoIt:
     $oKNearest.predict( $samples[, $results[, $flags]] ) -> retval, $results
@@ -13868,9 +13868,9 @@ AutoIt:
 ```
 
 ```cpp
-bool cv::ml::KNearest::train( _InputArray samples,
-                              int         layout,
-                              _InputArray responses );
+bool cv::ml::KNearest::train( InputArray samples,
+                              int        layout,
+                              InputArray responses );
 
 AutoIt:
     $oKNearest.train( $samples, $layout, $responses ) -> retval
@@ -13902,7 +13902,7 @@ AutoIt:
 ```cpp
 float cv::ml::SVM::calcError( const cv::Ptr<cv::ml::TrainData>& data,
                               bool                              test,
-                              _OutputArray                      resp ) const;
+                              OutputArray                       resp ) const;
 
 AutoIt:
     $oSVM.calcError( $data, $test[, $resp] ) -> retval, $resp
@@ -13956,9 +13956,9 @@ AutoIt:
 ### cv::ml::SVM::getDecisionFunction
 
 ```cpp
-double cv::ml::SVM::getDecisionFunction( int          i,
-                                         _OutputArray alpha,
-                                         _OutputArray svidx ) const;
+double cv::ml::SVM::getDecisionFunction( int         i,
+                                         OutputArray alpha,
+                                         OutputArray svidx ) const;
 
 AutoIt:
     $oSVM.getDecisionFunction( $i[, $alpha[, $svidx]] ) -> retval, $alpha, $svidx
@@ -14102,9 +14102,9 @@ AutoIt:
 ### cv::ml::SVM::predict
 
 ```cpp
-float cv::ml::SVM::predict( _InputArray  samples,
-                            _OutputArray results = noArray(),
-                            int          flags = 0 ) const;
+float cv::ml::SVM::predict( InputArray  samples,
+                            OutputArray results = noArray(),
+                            int         flags = 0 ) const;
 
 AutoIt:
     $oSVM.predict( $samples[, $results[, $flags]] ) -> retval, $results
@@ -14229,9 +14229,9 @@ AutoIt:
 ```
 
 ```cpp
-bool cv::ml::SVM::train( _InputArray samples,
-                         int         layout,
-                         _InputArray responses );
+bool cv::ml::SVM::train( InputArray samples,
+                         int        layout,
+                         InputArray responses );
 
 AutoIt:
     $oSVM.train( $samples, $layout, $responses ) -> retval
@@ -14240,9 +14240,9 @@ AutoIt:
 ### cv::ml::SVM::trainAuto
 
 ```cpp
-bool cv::ml::SVM::trainAuto( _InputArray                samples,
+bool cv::ml::SVM::trainAuto( InputArray                 samples,
                              int                        layout,
-                             _InputArray                responses,
+                             InputArray                 responses,
                              int                        kFold = 10,
                              cv::Ptr<cv::ml::ParamGrid> Cgrid = SVM::getDefaultGridPtr(SVM::C),
                              cv::Ptr<cv::ml::ParamGrid> gammaGrid = SVM::getDefaultGridPtr(SVM::GAMMA),
@@ -14282,7 +14282,7 @@ AutoIt:
 ```cpp
 float cv::ml::EM::calcError( const cv::Ptr<cv::ml::TrainData>& data,
                              bool                              test,
-                             _OutputArray                      resp ) const;
+                             OutputArray                       resp ) const;
 
 AutoIt:
     $oEM.calcError( $data, $test[, $resp] ) -> retval, $resp
@@ -14409,9 +14409,9 @@ AutoIt:
 ### cv::ml::EM::predict
 
 ```cpp
-float cv::ml::EM::predict( _InputArray  samples,
-                           _OutputArray results = noArray(),
-                           int          flags = 0 ) const;
+float cv::ml::EM::predict( InputArray  samples,
+                           OutputArray results = noArray(),
+                           int         flags = 0 ) const;
 
 AutoIt:
     $oEM.predict( $samples[, $results[, $flags]] ) -> retval, $results
@@ -14420,8 +14420,8 @@ AutoIt:
 ### cv::ml::EM::predict2
 
 ```cpp
-cv::Vec2d cv::ml::EM::predict2( _InputArray  sample,
-                                _OutputArray probs ) const;
+cv::Vec2d cv::ml::EM::predict2( InputArray  sample,
+                                OutputArray probs ) const;
 
 AutoIt:
     $oEM.predict2( $sample[, $probs] ) -> retval, $probs
@@ -14483,9 +14483,9 @@ AutoIt:
 ```
 
 ```cpp
-bool cv::ml::EM::train( _InputArray samples,
-                        int         layout,
-                        _InputArray responses );
+bool cv::ml::EM::train( InputArray samples,
+                        int        layout,
+                        InputArray responses );
 
 AutoIt:
     $oEM.train( $samples, $layout, $responses ) -> retval
@@ -14494,13 +14494,13 @@ AutoIt:
 ### cv::ml::EM::trainE
 
 ```cpp
-bool cv::ml::EM::trainE( _InputArray  samples,
-                         _InputArray  means0,
-                         _InputArray  covs0 = noArray(),
-                         _InputArray  weights0 = noArray(),
-                         _OutputArray logLikelihoods = noArray(),
-                         _OutputArray labels = noArray(),
-                         _OutputArray probs = noArray() );
+bool cv::ml::EM::trainE( InputArray  samples,
+                         InputArray  means0,
+                         InputArray  covs0 = noArray(),
+                         InputArray  weights0 = noArray(),
+                         OutputArray logLikelihoods = noArray(),
+                         OutputArray labels = noArray(),
+                         OutputArray probs = noArray() );
 
 AutoIt:
     $oEM.trainE( $samples, $means0[, $covs0[, $weights0[, $logLikelihoods[, $labels[, $probs]]]]] ) -> retval, $logLikelihoods, $labels, $probs
@@ -14509,10 +14509,10 @@ AutoIt:
 ### cv::ml::EM::trainEM
 
 ```cpp
-bool cv::ml::EM::trainEM( _InputArray  samples,
-                          _OutputArray logLikelihoods = noArray(),
-                          _OutputArray labels = noArray(),
-                          _OutputArray probs = noArray() );
+bool cv::ml::EM::trainEM( InputArray  samples,
+                          OutputArray logLikelihoods = noArray(),
+                          OutputArray labels = noArray(),
+                          OutputArray probs = noArray() );
 
 AutoIt:
     $oEM.trainEM( $samples[, $logLikelihoods[, $labels[, $probs]]] ) -> retval, $logLikelihoods, $labels, $probs
@@ -14521,11 +14521,11 @@ AutoIt:
 ### cv::ml::EM::trainM
 
 ```cpp
-bool cv::ml::EM::trainM( _InputArray  samples,
-                         _InputArray  probs0,
-                         _OutputArray logLikelihoods = noArray(),
-                         _OutputArray labels = noArray(),
-                         _OutputArray probs = noArray() );
+bool cv::ml::EM::trainM( InputArray  samples,
+                         InputArray  probs0,
+                         OutputArray logLikelihoods = noArray(),
+                         OutputArray labels = noArray(),
+                         OutputArray probs = noArray() );
 
 AutoIt:
     $oEM.trainM( $samples, $probs0[, $logLikelihoods[, $labels[, $probs]]] ) -> retval, $logLikelihoods, $labels, $probs
@@ -14557,7 +14557,7 @@ AutoIt:
 ```cpp
 float cv::ml::DTrees::calcError( const cv::Ptr<cv::ml::TrainData>& data,
                                  bool                              test,
-                                 _OutputArray                      resp ) const;
+                                 OutputArray                       resp ) const;
 
 AutoIt:
     $oDTrees.calcError( $data, $test[, $resp] ) -> retval, $resp
@@ -14711,9 +14711,9 @@ AutoIt:
 ### cv::ml::DTrees::predict
 
 ```cpp
-float cv::ml::DTrees::predict( _InputArray  samples,
-                               _OutputArray results = noArray(),
-                               int          flags = 0 ) const;
+float cv::ml::DTrees::predict( InputArray  samples,
+                               OutputArray results = noArray(),
+                               int         flags = 0 ) const;
 
 AutoIt:
     $oDTrees.predict( $samples[, $results[, $flags]] ) -> retval, $results
@@ -14829,9 +14829,9 @@ AutoIt:
 ```
 
 ```cpp
-bool cv::ml::DTrees::train( _InputArray samples,
-                            int         layout,
-                            _InputArray responses );
+bool cv::ml::DTrees::train( InputArray samples,
+                            int        layout,
+                            InputArray responses );
 
 AutoIt:
     $oDTrees.train( $samples, $layout, $responses ) -> retval
@@ -14863,7 +14863,7 @@ AutoIt:
 ```cpp
 float cv::ml::RTrees::calcError( const cv::Ptr<cv::ml::TrainData>& data,
                                  bool                              test,
-                                 _OutputArray                      resp ) const;
+                                 OutputArray                       resp ) const;
 
 AutoIt:
     $oRTrees.calcError( $data, $test[, $resp] ) -> retval, $resp
@@ -15034,9 +15034,9 @@ AutoIt:
 ### cv::ml::RTrees::getVotes
 
 ```cpp
-void cv::ml::RTrees::getVotes( _InputArray  samples,
-                               _OutputArray results,
-                               int          flags ) const;
+void cv::ml::RTrees::getVotes( InputArray  samples,
+                               OutputArray results,
+                               int         flags ) const;
 
 AutoIt:
     $oRTrees.getVotes( $samples, $flags[, $results] ) -> $results
@@ -15073,9 +15073,9 @@ AutoIt:
 ### cv::ml::RTrees::predict
 
 ```cpp
-float cv::ml::RTrees::predict( _InputArray  samples,
-                               _OutputArray results = noArray(),
-                               int          flags = 0 ) const;
+float cv::ml::RTrees::predict( InputArray  samples,
+                               OutputArray results = noArray(),
+                               int         flags = 0 ) const;
 
 AutoIt:
     $oRTrees.predict( $samples[, $results[, $flags]] ) -> retval, $results
@@ -15218,9 +15218,9 @@ AutoIt:
 ```
 
 ```cpp
-bool cv::ml::RTrees::train( _InputArray samples,
-                            int         layout,
-                            _InputArray responses );
+bool cv::ml::RTrees::train( InputArray samples,
+                            int        layout,
+                            InputArray responses );
 
 AutoIt:
     $oRTrees.train( $samples, $layout, $responses ) -> retval
@@ -15252,7 +15252,7 @@ AutoIt:
 ```cpp
 float cv::ml::Boost::calcError( const cv::Ptr<cv::ml::TrainData>& data,
                                 bool                              test,
-                                _OutputArray                      resp ) const;
+                                OutputArray                       resp ) const;
 
 AutoIt:
     $oBoost.calcError( $data, $test[, $resp] ) -> retval, $resp
@@ -15433,9 +15433,9 @@ AutoIt:
 ### cv::ml::Boost::predict
 
 ```cpp
-float cv::ml::Boost::predict( _InputArray  samples,
-                              _OutputArray results = noArray(),
-                              int          flags = 0 ) const;
+float cv::ml::Boost::predict( InputArray  samples,
+                              OutputArray results = noArray(),
+                              int         flags = 0 ) const;
 
 AutoIt:
     $oBoost.predict( $samples[, $results[, $flags]] ) -> retval, $results
@@ -15578,9 +15578,9 @@ AutoIt:
 ```
 
 ```cpp
-bool cv::ml::Boost::train( _InputArray samples,
-                           int         layout,
-                           _InputArray responses );
+bool cv::ml::Boost::train( InputArray samples,
+                           int        layout,
+                           InputArray responses );
 
 AutoIt:
     $oBoost.train( $samples, $layout, $responses ) -> retval
@@ -15612,7 +15612,7 @@ AutoIt:
 ```cpp
 float cv::ml::ANN_MLP::calcError( const cv::Ptr<cv::ml::TrainData>& data,
                                   bool                              test,
-                                  _OutputArray                      resp ) const;
+                                  OutputArray                       resp ) const;
 
 AutoIt:
     $oANN_MLP.calcError( $data, $test[, $resp] ) -> retval, $resp
@@ -15819,9 +15819,9 @@ AutoIt:
 ### cv::ml::ANN_MLP::predict
 
 ```cpp
-float cv::ml::ANN_MLP::predict( _InputArray  samples,
-                                _OutputArray results = noArray(),
-                                int          flags = 0 ) const;
+float cv::ml::ANN_MLP::predict( InputArray  samples,
+                                OutputArray results = noArray(),
+                                int         flags = 0 ) const;
 
 AutoIt:
     $oANN_MLP.predict( $samples[, $results[, $flags]] ) -> retval, $results
@@ -15913,7 +15913,7 @@ AutoIt:
 ### cv::ml::ANN_MLP::setLayerSizes
 
 ```cpp
-void cv::ml::ANN_MLP::setLayerSizes( _InputArray _layer_sizes );
+void cv::ml::ANN_MLP::setLayerSizes( InputArray _layer_sizes );
 
 AutoIt:
     $oANN_MLP.setLayerSizes( $_layer_sizes ) -> None
@@ -15995,9 +15995,9 @@ AutoIt:
 ```
 
 ```cpp
-bool cv::ml::ANN_MLP::train( _InputArray samples,
-                             int         layout,
-                             _InputArray responses );
+bool cv::ml::ANN_MLP::train( InputArray samples,
+                             int        layout,
+                             InputArray responses );
 
 AutoIt:
     $oANN_MLP.train( $samples, $layout, $responses ) -> retval
@@ -16029,7 +16029,7 @@ AutoIt:
 ```cpp
 float cv::ml::LogisticRegression::calcError( const cv::Ptr<cv::ml::TrainData>& data,
                                              bool                              test,
-                                             _OutputArray                      resp ) const;
+                                             OutputArray                       resp ) const;
 
 AutoIt:
     $oLogisticRegression.calcError( $data, $test[, $resp] ) -> retval, $resp
@@ -16165,9 +16165,9 @@ AutoIt:
 ### cv::ml::LogisticRegression::predict
 
 ```cpp
-float cv::ml::LogisticRegression::predict( _InputArray  samples,
-                                           _OutputArray results = noArray(),
-                                           int          flags = 0 ) const;
+float cv::ml::LogisticRegression::predict( InputArray  samples,
+                                           OutputArray results = noArray(),
+                                           int         flags = 0 ) const;
 
 AutoIt:
     $oLogisticRegression.predict( $samples[, $results[, $flags]] ) -> retval, $results
@@ -16256,9 +16256,9 @@ AutoIt:
 ```
 
 ```cpp
-bool cv::ml::LogisticRegression::train( _InputArray samples,
-                                        int         layout,
-                                        _InputArray responses );
+bool cv::ml::LogisticRegression::train( InputArray samples,
+                                        int        layout,
+                                        InputArray responses );
 
 AutoIt:
     $oLogisticRegression.train( $samples, $layout, $responses ) -> retval
@@ -16290,7 +16290,7 @@ AutoIt:
 ```cpp
 float cv::ml::SVMSGD::calcError( const cv::Ptr<cv::ml::TrainData>& data,
                                  bool                              test,
-                                 _OutputArray                      resp ) const;
+                                 OutputArray                       resp ) const;
 
 AutoIt:
     $oSVMSGD.calcError( $data, $test[, $resp] ) -> retval, $resp
@@ -16435,9 +16435,9 @@ AutoIt:
 ### cv::ml::SVMSGD::predict
 
 ```cpp
-float cv::ml::SVMSGD::predict( _InputArray  samples,
-                               _OutputArray results = noArray(),
-                               int          flags = 0 ) const;
+float cv::ml::SVMSGD::predict( InputArray  samples,
+                               OutputArray results = noArray(),
+                               int         flags = 0 ) const;
 
 AutoIt:
     $oSVMSGD.predict( $samples[, $results[, $flags]] ) -> retval, $results
@@ -16536,9 +16536,9 @@ AutoIt:
 ```
 
 ```cpp
-bool cv::ml::SVMSGD::train( _InputArray samples,
-                            int         layout,
-                            _InputArray responses );
+bool cv::ml::SVMSGD::train( InputArray samples,
+                            int        layout,
+                            InputArray responses );
 
 AutoIt:
     $oSVMSGD.train( $samples, $layout, $responses ) -> retval
@@ -16595,8 +16595,8 @@ AutoIt:
 ### cv::Tonemap::process
 
 ```cpp
-void cv::Tonemap::process( _InputArray  src,
-                           _OutputArray dst );
+void cv::Tonemap::process( InputArray  src,
+                           OutputArray dst );
 
 AutoIt:
     $oTonemap.process( $src[, $dst] ) -> $dst
@@ -16698,8 +16698,8 @@ AutoIt:
 ### cv::TonemapDrago::process
 
 ```cpp
-void cv::TonemapDrago::process( _InputArray  src,
-                                _OutputArray dst );
+void cv::TonemapDrago::process( InputArray  src,
+                                OutputArray dst );
 
 AutoIt:
     $oTonemapDrago.process( $src[, $dst] ) -> $dst
@@ -16828,8 +16828,8 @@ AutoIt:
 ### cv::TonemapReinhard::process
 
 ```cpp
-void cv::TonemapReinhard::process( _InputArray  src,
-                                   _OutputArray dst );
+void cv::TonemapReinhard::process( InputArray  src,
+                                   OutputArray dst );
 
 AutoIt:
     $oTonemapReinhard.process( $src[, $dst] ) -> $dst
@@ -16958,8 +16958,8 @@ AutoIt:
 ### cv::TonemapMantiuk::process
 
 ```cpp
-void cv::TonemapMantiuk::process( _InputArray  src,
-                                  _OutputArray dst );
+void cv::TonemapMantiuk::process( InputArray  src,
+                                  OutputArray dst );
 
 AutoIt:
     $oTonemapMantiuk.process( $src[, $dst] ) -> $dst
@@ -17052,10 +17052,10 @@ AutoIt:
 ### cv::AlignExposures::process
 
 ```cpp
-void cv::AlignExposures::process( _InputArray           src,
+void cv::AlignExposures::process( InputArrayOfArrays    src,
                                   std::vector<cv::Mat>& dst,
-                                  _InputArray           times,
-                                  _InputArray           response );
+                                  InputArray            times,
+                                  InputArray            response );
 
 AutoIt:
     $oAlignExposures.process( $src, $dst, $times, $response ) -> None
@@ -17094,8 +17094,8 @@ AutoIt:
 ### cv::AlignMTB::calculateShift
 
 ```cpp
-cv::Point cv::AlignMTB::calculateShift( _InputArray img0,
-                                        _InputArray img1 );
+cv::Point cv::AlignMTB::calculateShift( InputArray img0,
+                                        InputArray img1 );
 
 AutoIt:
     $oAlignMTB.calculateShift( $img0, $img1 ) -> retval
@@ -17113,9 +17113,9 @@ AutoIt:
 ### cv::AlignMTB::computeBitmaps
 
 ```cpp
-void cv::AlignMTB::computeBitmaps( _InputArray  img,
-                                   _OutputArray tb,
-                                   _OutputArray eb );
+void cv::AlignMTB::computeBitmaps( InputArray  img,
+                                   OutputArray tb,
+                                   OutputArray eb );
 
 AutoIt:
     $oAlignMTB.computeBitmaps( $img[, $tb[, $eb]] ) -> $tb, $eb
@@ -17169,17 +17169,17 @@ AutoIt:
 ### cv::AlignMTB::process
 
 ```cpp
-void cv::AlignMTB::process( _InputArray           src,
+void cv::AlignMTB::process( InputArrayOfArrays    src,
                             std::vector<cv::Mat>& dst,
-                            _InputArray           times,
-                            _InputArray           response );
+                            InputArray            times,
+                            InputArray            response );
 
 AutoIt:
     $oAlignMTB.process( $src, $dst, $times, $response ) -> None
 ```
 
 ```cpp
-void cv::AlignMTB::process( _InputArray           src,
+void cv::AlignMTB::process( InputArrayOfArrays    src,
                             std::vector<cv::Mat>& dst );
 
 AutoIt:
@@ -17234,8 +17234,8 @@ AutoIt:
 ### cv::AlignMTB::shiftMat
 
 ```cpp
-void cv::AlignMTB::shiftMat( _InputArray     src,
-                             _OutputArray    dst,
+void cv::AlignMTB::shiftMat( InputArray      src,
+                             OutputArray     dst,
                              const cv::Point shift );
 
 AutoIt:
@@ -17284,9 +17284,9 @@ AutoIt:
 ### cv::CalibrateCRF::process
 
 ```cpp
-void cv::CalibrateCRF::process( _InputArray  src,
-                                _OutputArray dst,
-                                _InputArray  times );
+void cv::CalibrateCRF::process( InputArrayOfArrays src,
+                                OutputArray        dst,
+                                InputArray         times );
 
 AutoIt:
     $oCalibrateCRF.process( $src, $times[, $dst] ) -> $dst
@@ -17379,9 +17379,9 @@ AutoIt:
 ### cv::CalibrateDebevec::process
 
 ```cpp
-void cv::CalibrateDebevec::process( _InputArray  src,
-                                    _OutputArray dst,
-                                    _InputArray  times );
+void cv::CalibrateDebevec::process( InputArrayOfArrays src,
+                                    OutputArray        dst,
+                                    InputArray         times );
 
 AutoIt:
     $oCalibrateDebevec.process( $src, $times[, $dst] ) -> $dst
@@ -17501,9 +17501,9 @@ AutoIt:
 ### cv::CalibrateRobertson::process
 
 ```cpp
-void cv::CalibrateRobertson::process( _InputArray  src,
-                                      _OutputArray dst,
-                                      _InputArray  times );
+void cv::CalibrateRobertson::process( InputArrayOfArrays src,
+                                      OutputArray        dst,
+                                      InputArray         times );
 
 AutoIt:
     $oCalibrateRobertson.process( $src, $times[, $dst] ) -> $dst
@@ -17587,10 +17587,10 @@ AutoIt:
 ### cv::MergeExposures::process
 
 ```cpp
-void cv::MergeExposures::process( _InputArray  src,
-                                  _OutputArray dst,
-                                  _InputArray  times,
-                                  _InputArray  response );
+void cv::MergeExposures::process( InputArrayOfArrays src,
+                                  OutputArray        dst,
+                                  InputArray         times,
+                                  InputArray         response );
 
 AutoIt:
     $oMergeExposures.process( $src, $times, $response[, $dst] ) -> $dst
@@ -17656,19 +17656,19 @@ AutoIt:
 ### cv::MergeDebevec::process
 
 ```cpp
-void cv::MergeDebevec::process( _InputArray  src,
-                                _OutputArray dst,
-                                _InputArray  times,
-                                _InputArray  response );
+void cv::MergeDebevec::process( InputArrayOfArrays src,
+                                OutputArray        dst,
+                                InputArray         times,
+                                InputArray         response );
 
 AutoIt:
     $oMergeDebevec.process( $src, $times, $response[, $dst] ) -> $dst
 ```
 
 ```cpp
-void cv::MergeDebevec::process( _InputArray  src,
-                                _OutputArray dst,
-                                _InputArray  times );
+void cv::MergeDebevec::process( InputArrayOfArrays src,
+                                OutputArray        dst,
+                                InputArray         times );
 
 AutoIt:
     $oMergeDebevec.process( $src, $times[, $dst] ) -> $dst
@@ -17761,18 +17761,18 @@ AutoIt:
 ### cv::MergeMertens::process
 
 ```cpp
-void cv::MergeMertens::process( _InputArray  src,
-                                _OutputArray dst,
-                                _InputArray  times,
-                                _InputArray  response );
+void cv::MergeMertens::process( InputArrayOfArrays src,
+                                OutputArray        dst,
+                                InputArray         times,
+                                InputArray         response );
 
 AutoIt:
     $oMergeMertens.process( $src, $times, $response[, $dst] ) -> $dst
 ```
 
 ```cpp
-void cv::MergeMertens::process( _InputArray  src,
-                                _OutputArray dst );
+void cv::MergeMertens::process( InputArrayOfArrays src,
+                                OutputArray        dst );
 
 AutoIt:
     $oMergeMertens.process( $src[, $dst] ) -> $dst
@@ -17865,19 +17865,19 @@ AutoIt:
 ### cv::MergeRobertson::process
 
 ```cpp
-void cv::MergeRobertson::process( _InputArray  src,
-                                  _OutputArray dst,
-                                  _InputArray  times,
-                                  _InputArray  response );
+void cv::MergeRobertson::process( InputArrayOfArrays src,
+                                  OutputArray        dst,
+                                  InputArray         times,
+                                  InputArray         response );
 
 AutoIt:
     $oMergeRobertson.process( $src, $times, $response[, $dst] ) -> $dst
 ```
 
 ```cpp
-void cv::MergeRobertson::process( _InputArray  src,
-                                  _OutputArray dst,
-                                  _InputArray  times );
+void cv::MergeRobertson::process( InputArrayOfArrays src,
+                                  OutputArray        dst,
+                                  InputArray         times );
 
 AutoIt:
     $oMergeRobertson.process( $src, $times[, $dst] ) -> $dst
@@ -17946,7 +17946,7 @@ AutoIt:
 ### cv::dnn::blobFromImage
 
 ```cpp
-cv::Mat cv::dnn::blobFromImage( _InputArray       image,
+cv::Mat cv::dnn::blobFromImage( InputArray        image,
                                 double            scalefactor = 1.0,
                                 const cv::Size&   size = Size(),
                                 const cv::Scalar& mean = Scalar(),
@@ -17961,13 +17961,13 @@ AutoIt:
 ### cv::dnn::blobFromImages
 
 ```cpp
-cv::Mat cv::dnn::blobFromImages( _InputArray       images,
-                                 double            scalefactor = 1.0,
-                                 cv::Size          size = Size(),
-                                 const cv::Scalar& mean = Scalar(),
-                                 bool              swapRB = false,
-                                 bool              crop = false,
-                                 int               ddepth = CV_32F );
+cv::Mat cv::dnn::blobFromImages( InputArrayOfArrays images,
+                                 double             scalefactor = 1.0,
+                                 cv::Size           size = Size(),
+                                 const cv::Scalar&  mean = Scalar(),
+                                 bool               swapRB = false,
+                                 bool               crop = false,
+                                 int                ddepth = CV_32F );
 
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn").blobFromImages( $images[, $scalefactor[, $size[, $mean[, $swapRB[, $crop[, $ddepth]]]]]] ) -> retval
@@ -17985,8 +17985,8 @@ AutoIt:
 ### cv::dnn::imagesFromBlob
 
 ```cpp
-void cv::dnn::imagesFromBlob( const cv::Mat& blob_,
-                              _OutputArray   images_ );
+void cv::dnn::imagesFromBlob( const cv::Mat&      blob_,
+                              OutputArrayOfArrays images_ );
 
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn").imagesFromBlob( $blob_[, $images_] ) -> $images_
@@ -18270,8 +18270,8 @@ AutoIt:
 ### cv::dnn::Layer::finalize
 
 ```cpp
-void cv::dnn::Layer::finalize( _InputArray  inputs,
-                               _OutputArray outputs );
+void cv::dnn::Layer::finalize( InputArrayOfArrays  inputs,
+                               OutputArrayOfArrays outputs );
 
 AutoIt:
     $oLayer.finalize( $inputs[, $outputs] ) -> $outputs
@@ -18401,15 +18401,15 @@ AutoIt:
 ```
 
 ```cpp
-void cv::dnn::Net::forward( _OutputArray       outputBlobs,
-                            const std::string& outputName = String() );
+void cv::dnn::Net::forward( OutputArrayOfArrays outputBlobs,
+                            const std::string&  outputName = String() );
 
 AutoIt:
     $oNet.forward( [$outputBlobs[, $outputName]] ) -> $outputBlobs
 ```
 
 ```cpp
-void cv::dnn::Net::forward( _OutputArray                    outputBlobs,
+void cv::dnn::Net::forward( OutputArrayOfArrays             outputBlobs,
                             const std::vector<std::string>& outBlobNames );
 
 AutoIt:
@@ -18625,9 +18625,9 @@ AutoIt:
 ### cv::dnn::Net::quantize
 
 ```cpp
-cv::dnn::Net cv::dnn::Net::quantize( _InputArray calibData,
-                                     int         inputsDtype,
-                                     int         outputsDtype );
+cv::dnn::Net cv::dnn::Net::quantize( InputArrayOfArrays calibData,
+                                     int                inputsDtype,
+                                     int                outputsDtype );
 
 AutoIt:
     $oNet.quantize( $calibData, $inputsDtype, $outputsDtype ) -> retval
@@ -18663,7 +18663,7 @@ AutoIt:
 ### cv::dnn::Net::setInput
 
 ```cpp
-void cv::dnn::Net::setInput( _InputArray        blob,
+void cv::dnn::Net::setInput( InputArray         blob,
                              const std::string& name = "",
                              double             scalefactor = 1.0,
                              const cv::Scalar&  mean = Scalar() );
@@ -18742,8 +18742,8 @@ AutoIt:
 ### cv::dnn::Model::predict
 
 ```cpp
-void cv::dnn::Model::predict( _InputArray  frame,
-                              _OutputArray outs ) const;
+void cv::dnn::Model::predict( InputArray          frame,
+                              OutputArrayOfArrays outs ) const;
 
 AutoIt:
     $oModel.predict( $frame[, $outs] ) -> $outs
@@ -18855,9 +18855,9 @@ AutoIt:
 ### cv::dnn::ClassificationModel::classify
 
 ```cpp
-void cv::dnn::ClassificationModel::classify( _InputArray frame,
-                                             int&        classId,
-                                             float&      conf );
+void cv::dnn::ClassificationModel::classify( InputArray frame,
+                                             int&       classId,
+                                             float&     conf );
 
 AutoIt:
     $oClassificationModel.classify( $frame[, $classId[, $conf]] ) -> $classId, $conf
@@ -18866,8 +18866,8 @@ AutoIt:
 ### cv::dnn::ClassificationModel::predict
 
 ```cpp
-void cv::dnn::ClassificationModel::predict( _InputArray  frame,
-                                            _OutputArray outs ) const;
+void cv::dnn::ClassificationModel::predict( InputArray          frame,
+                                            OutputArrayOfArrays outs ) const;
 
 AutoIt:
     $oClassificationModel.predict( $frame[, $outs] ) -> $outs
@@ -18979,8 +18979,8 @@ AutoIt:
 ### cv::dnn::KeypointsModel::estimate
 
 ```cpp
-std::vector<cv::Point2f> cv::dnn::KeypointsModel::estimate( _InputArray frame,
-                                                            float       thresh = 0.5 );
+std::vector<cv::Point2f> cv::dnn::KeypointsModel::estimate( InputArray frame,
+                                                            float      thresh = 0.5 );
 
 AutoIt:
     $oKeypointsModel.estimate( $frame[, $thresh] ) -> retval
@@ -18989,8 +18989,8 @@ AutoIt:
 ### cv::dnn::KeypointsModel::predict
 
 ```cpp
-void cv::dnn::KeypointsModel::predict( _InputArray  frame,
-                                       _OutputArray outs ) const;
+void cv::dnn::KeypointsModel::predict( InputArray          frame,
+                                       OutputArrayOfArrays outs ) const;
 
 AutoIt:
     $oKeypointsModel.predict( $frame[, $outs] ) -> $outs
@@ -19102,8 +19102,8 @@ AutoIt:
 ### cv::dnn::SegmentationModel::predict
 
 ```cpp
-void cv::dnn::SegmentationModel::predict( _InputArray  frame,
-                                          _OutputArray outs ) const;
+void cv::dnn::SegmentationModel::predict( InputArray          frame,
+                                          OutputArrayOfArrays outs ) const;
 
 AutoIt:
     $oSegmentationModel.predict( $frame[, $outs] ) -> $outs
@@ -19112,8 +19112,8 @@ AutoIt:
 ### cv::dnn::SegmentationModel::segment
 
 ```cpp
-void cv::dnn::SegmentationModel::segment( _InputArray  frame,
-                                          _OutputArray mask );
+void cv::dnn::SegmentationModel::segment( InputArray  frame,
+                                          OutputArray mask );
 
 AutoIt:
     $oSegmentationModel.segment( $frame[, $mask] ) -> $mask
@@ -19225,7 +19225,7 @@ AutoIt:
 ### cv::dnn::DetectionModel::detect
 
 ```cpp
-void cv::dnn::DetectionModel::detect( _InputArray            frame,
+void cv::dnn::DetectionModel::detect( InputArray             frame,
                                       std::vector<int>&      classIds,
                                       std::vector<float>&    confidences,
                                       std::vector<cv::Rect>& boxes,
@@ -19248,8 +19248,8 @@ AutoIt:
 ### cv::dnn::DetectionModel::predict
 
 ```cpp
-void cv::dnn::DetectionModel::predict( _InputArray  frame,
-                                       _OutputArray outs ) const;
+void cv::dnn::DetectionModel::predict( InputArray          frame,
+                                       OutputArrayOfArrays outs ) const;
 
 AutoIt:
     $oDetectionModel.predict( $frame[, $outs] ) -> $outs
@@ -19388,8 +19388,8 @@ AutoIt:
 ### cv::dnn::TextRecognitionModel::predict
 
 ```cpp
-void cv::dnn::TextRecognitionModel::predict( _InputArray  frame,
-                                             _OutputArray outs ) const;
+void cv::dnn::TextRecognitionModel::predict( InputArray          frame,
+                                             OutputArrayOfArrays outs ) const;
 
 AutoIt:
     $oTextRecognitionModel.predict( $frame[, $outs] ) -> $outs
@@ -19398,15 +19398,15 @@ AutoIt:
 ### cv::dnn::TextRecognitionModel::recognize
 
 ```cpp
-std::string cv::dnn::TextRecognitionModel::recognize( _InputArray frame ) const;
+std::string cv::dnn::TextRecognitionModel::recognize( InputArray frame ) const;
 
 AutoIt:
     $oTextRecognitionModel.recognize( $frame ) -> retval
 ```
 
 ```cpp
-void cv::dnn::TextRecognitionModel::recognize( _InputArray               frame,
-                                               _InputArray               roiRects,
+void cv::dnn::TextRecognitionModel::recognize( InputArray                frame,
+                                               InputArrayOfArrays        roiRects,
                                                std::vector<std::string>& results ) const;
 
 AutoIt:
@@ -19530,7 +19530,7 @@ AutoIt:
 ### cv::dnn::TextDetectionModel::detect
 
 ```cpp
-void cv::dnn::TextDetectionModel::detect( _InputArray                          frame,
+void cv::dnn::TextDetectionModel::detect( InputArray                           frame,
                                           std::vector<std::vector<cv::Point>>& detections,
                                           std::vector<float>&                  confidences ) const;
 
@@ -19539,7 +19539,7 @@ AutoIt:
 ```
 
 ```cpp
-void cv::dnn::TextDetectionModel::detect( _InputArray                          frame,
+void cv::dnn::TextDetectionModel::detect( InputArray                           frame,
                                           std::vector<std::vector<cv::Point>>& detections ) const;
 
 AutoIt:
@@ -19549,7 +19549,7 @@ AutoIt:
 ### cv::dnn::TextDetectionModel::detectTextRectangles
 
 ```cpp
-void cv::dnn::TextDetectionModel::detectTextRectangles( _InputArray                   frame,
+void cv::dnn::TextDetectionModel::detectTextRectangles( InputArray                    frame,
                                                         std::vector<cv::RotatedRect>& detections,
                                                         std::vector<float>&           confidences ) const;
 
@@ -19558,7 +19558,7 @@ AutoIt:
 ```
 
 ```cpp
-void cv::dnn::TextDetectionModel::detectTextRectangles( _InputArray                   frame,
+void cv::dnn::TextDetectionModel::detectTextRectangles( InputArray                    frame,
                                                         std::vector<cv::RotatedRect>& detections ) const;
 
 AutoIt:
@@ -19568,8 +19568,8 @@ AutoIt:
 ### cv::dnn::TextDetectionModel::predict
 
 ```cpp
-void cv::dnn::TextDetectionModel::predict( _InputArray  frame,
-                                           _OutputArray outs ) const;
+void cv::dnn::TextDetectionModel::predict( InputArray          frame,
+                                           OutputArrayOfArrays outs ) const;
 
 AutoIt:
     $oTextDetectionModel.predict( $frame[, $outs] ) -> $outs
@@ -19681,7 +19681,7 @@ AutoIt:
 ### cv::dnn::TextDetectionModel_EAST::detect
 
 ```cpp
-void cv::dnn::TextDetectionModel_EAST::detect( _InputArray                          frame,
+void cv::dnn::TextDetectionModel_EAST::detect( InputArray                           frame,
                                                std::vector<std::vector<cv::Point>>& detections,
                                                std::vector<float>&                  confidences ) const;
 
@@ -19690,7 +19690,7 @@ AutoIt:
 ```
 
 ```cpp
-void cv::dnn::TextDetectionModel_EAST::detect( _InputArray                          frame,
+void cv::dnn::TextDetectionModel_EAST::detect( InputArray                           frame,
                                                std::vector<std::vector<cv::Point>>& detections ) const;
 
 AutoIt:
@@ -19700,7 +19700,7 @@ AutoIt:
 ### cv::dnn::TextDetectionModel_EAST::detectTextRectangles
 
 ```cpp
-void cv::dnn::TextDetectionModel_EAST::detectTextRectangles( _InputArray                   frame,
+void cv::dnn::TextDetectionModel_EAST::detectTextRectangles( InputArray                    frame,
                                                              std::vector<cv::RotatedRect>& detections,
                                                              std::vector<float>&           confidences ) const;
 
@@ -19709,7 +19709,7 @@ AutoIt:
 ```
 
 ```cpp
-void cv::dnn::TextDetectionModel_EAST::detectTextRectangles( _InputArray                   frame,
+void cv::dnn::TextDetectionModel_EAST::detectTextRectangles( InputArray                    frame,
                                                              std::vector<cv::RotatedRect>& detections ) const;
 
 AutoIt:
@@ -19737,8 +19737,8 @@ AutoIt:
 ### cv::dnn::TextDetectionModel_EAST::predict
 
 ```cpp
-void cv::dnn::TextDetectionModel_EAST::predict( _InputArray  frame,
-                                                _OutputArray outs ) const;
+void cv::dnn::TextDetectionModel_EAST::predict( InputArray          frame,
+                                                OutputArrayOfArrays outs ) const;
 
 AutoIt:
     $oTextDetectionModel_EAST.predict( $frame[, $outs] ) -> $outs
@@ -19868,7 +19868,7 @@ AutoIt:
 ### cv::dnn::TextDetectionModel_DB::detect
 
 ```cpp
-void cv::dnn::TextDetectionModel_DB::detect( _InputArray                          frame,
+void cv::dnn::TextDetectionModel_DB::detect( InputArray                           frame,
                                              std::vector<std::vector<cv::Point>>& detections,
                                              std::vector<float>&                  confidences ) const;
 
@@ -19877,7 +19877,7 @@ AutoIt:
 ```
 
 ```cpp
-void cv::dnn::TextDetectionModel_DB::detect( _InputArray                          frame,
+void cv::dnn::TextDetectionModel_DB::detect( InputArray                           frame,
                                              std::vector<std::vector<cv::Point>>& detections ) const;
 
 AutoIt:
@@ -19887,7 +19887,7 @@ AutoIt:
 ### cv::dnn::TextDetectionModel_DB::detectTextRectangles
 
 ```cpp
-void cv::dnn::TextDetectionModel_DB::detectTextRectangles( _InputArray                   frame,
+void cv::dnn::TextDetectionModel_DB::detectTextRectangles( InputArray                    frame,
                                                            std::vector<cv::RotatedRect>& detections,
                                                            std::vector<float>&           confidences ) const;
 
@@ -19896,7 +19896,7 @@ AutoIt:
 ```
 
 ```cpp
-void cv::dnn::TextDetectionModel_DB::detectTextRectangles( _InputArray                   frame,
+void cv::dnn::TextDetectionModel_DB::detectTextRectangles( InputArray                    frame,
                                                            std::vector<cv::RotatedRect>& detections ) const;
 
 AutoIt:
@@ -19942,8 +19942,8 @@ AutoIt:
 ### cv::dnn::TextDetectionModel_DB::predict
 
 ```cpp
-void cv::dnn::TextDetectionModel_DB::predict( _InputArray  frame,
-                                              _OutputArray outs ) const;
+void cv::dnn::TextDetectionModel_DB::predict( InputArray          frame,
+                                              OutputArrayOfArrays outs ) const;
 
 AutoIt:
     $oTextDetectionModel_DB.predict( $frame[, $outs] ) -> $outs
@@ -20083,18 +20083,18 @@ AutoIt:
 ### cv::Feature2D::compute
 
 ```cpp
-void cv::Feature2D::compute( _InputArray                image,
+void cv::Feature2D::compute( InputArray                 image,
                              std::vector<cv::KeyPoint>& keypoints,
-                             _OutputArray               descriptors );
+                             OutputArray                descriptors );
 
 AutoIt:
     $oFeature2D.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ```cpp
-void cv::Feature2D::compute( _InputArray                             images,
+void cv::Feature2D::compute( InputArrayOfArrays                      images,
                              std::vector<std::vector<cv::KeyPoint>>& keypoints,
-                             _OutputArray                            descriptors );
+                             OutputArrayOfArrays                     descriptors );
 
 AutoIt:
     $oFeature2D.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
@@ -20130,18 +20130,18 @@ AutoIt:
 ### cv::Feature2D::detect
 
 ```cpp
-void cv::Feature2D::detect( _InputArray                image,
+void cv::Feature2D::detect( InputArray                 image,
                             std::vector<cv::KeyPoint>& keypoints,
-                            _InputArray                mask = noArray() );
+                            InputArray                 mask = noArray() );
 
 AutoIt:
     $oFeature2D.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
 ```
 
 ```cpp
-void cv::Feature2D::detect( _InputArray                             images,
+void cv::Feature2D::detect( InputArrayOfArrays                      images,
                             std::vector<std::vector<cv::KeyPoint>>& keypoints,
-                            _InputArray                             masks = noArray() );
+                            InputArrayOfArrays                      masks = noArray() );
 
 AutoIt:
     $oFeature2D.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
@@ -20150,10 +20150,10 @@ AutoIt:
 ### cv::Feature2D::detectAndCompute
 
 ```cpp
-void cv::Feature2D::detectAndCompute( _InputArray                image,
-                                      _InputArray                mask,
+void cv::Feature2D::detectAndCompute( InputArray                 image,
+                                      InputArray                 mask,
                                       std::vector<cv::KeyPoint>& keypoints,
-                                      _OutputArray               descriptors,
+                                      OutputArray                descriptors,
                                       bool                       useProvidedKeypoints = false );
 
 AutoIt:
@@ -20247,18 +20247,18 @@ AutoIt:
 ### cv::AffineFeature::compute
 
 ```cpp
-void cv::AffineFeature::compute( _InputArray                image,
+void cv::AffineFeature::compute( InputArray                 image,
                                  std::vector<cv::KeyPoint>& keypoints,
-                                 _OutputArray               descriptors );
+                                 OutputArray                descriptors );
 
 AutoIt:
     $oAffineFeature.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ```cpp
-void cv::AffineFeature::compute( _InputArray                             images,
+void cv::AffineFeature::compute( InputArrayOfArrays                      images,
                                  std::vector<std::vector<cv::KeyPoint>>& keypoints,
-                                 _OutputArray                            descriptors );
+                                 OutputArrayOfArrays                     descriptors );
 
 AutoIt:
     $oAffineFeature.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
@@ -20294,18 +20294,18 @@ AutoIt:
 ### cv::AffineFeature::detect
 
 ```cpp
-void cv::AffineFeature::detect( _InputArray                image,
+void cv::AffineFeature::detect( InputArray                 image,
                                 std::vector<cv::KeyPoint>& keypoints,
-                                _InputArray                mask = noArray() );
+                                InputArray                 mask = noArray() );
 
 AutoIt:
     $oAffineFeature.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
 ```
 
 ```cpp
-void cv::AffineFeature::detect( _InputArray                             images,
+void cv::AffineFeature::detect( InputArrayOfArrays                      images,
                                 std::vector<std::vector<cv::KeyPoint>>& keypoints,
-                                _InputArray                             masks = noArray() );
+                                InputArrayOfArrays                      masks = noArray() );
 
 AutoIt:
     $oAffineFeature.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
@@ -20314,10 +20314,10 @@ AutoIt:
 ### cv::AffineFeature::detectAndCompute
 
 ```cpp
-void cv::AffineFeature::detectAndCompute( _InputArray                image,
-                                          _InputArray                mask,
+void cv::AffineFeature::detectAndCompute( InputArray                 image,
+                                          InputArray                 mask,
                                           std::vector<cv::KeyPoint>& keypoints,
-                                          _OutputArray               descriptors,
+                                          OutputArray                descriptors,
                                           bool                       useProvidedKeypoints = false );
 
 AutoIt:
@@ -20443,18 +20443,18 @@ AutoIt:
 ### cv::SIFT::compute
 
 ```cpp
-void cv::SIFT::compute( _InputArray                image,
+void cv::SIFT::compute( InputArray                 image,
                         std::vector<cv::KeyPoint>& keypoints,
-                        _OutputArray               descriptors );
+                        OutputArray                descriptors );
 
 AutoIt:
     $oSIFT.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ```cpp
-void cv::SIFT::compute( _InputArray                             images,
+void cv::SIFT::compute( InputArrayOfArrays                      images,
                         std::vector<std::vector<cv::KeyPoint>>& keypoints,
-                        _OutputArray                            descriptors );
+                        OutputArrayOfArrays                     descriptors );
 
 AutoIt:
     $oSIFT.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
@@ -20490,18 +20490,18 @@ AutoIt:
 ### cv::SIFT::detect
 
 ```cpp
-void cv::SIFT::detect( _InputArray                image,
+void cv::SIFT::detect( InputArray                 image,
                        std::vector<cv::KeyPoint>& keypoints,
-                       _InputArray                mask = noArray() );
+                       InputArray                 mask = noArray() );
 
 AutoIt:
     $oSIFT.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
 ```
 
 ```cpp
-void cv::SIFT::detect( _InputArray                             images,
+void cv::SIFT::detect( InputArrayOfArrays                      images,
                        std::vector<std::vector<cv::KeyPoint>>& keypoints,
-                       _InputArray                             masks = noArray() );
+                       InputArrayOfArrays                      masks = noArray() );
 
 AutoIt:
     $oSIFT.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
@@ -20510,10 +20510,10 @@ AutoIt:
 ### cv::SIFT::detectAndCompute
 
 ```cpp
-void cv::SIFT::detectAndCompute( _InputArray                image,
-                                 _InputArray                mask,
+void cv::SIFT::detectAndCompute( InputArray                 image,
+                                 InputArray                 mask,
                                  std::vector<cv::KeyPoint>& keypoints,
-                                 _OutputArray               descriptors,
+                                 OutputArray                descriptors,
                                  bool                       useProvidedKeypoints = false );
 
 AutoIt:
@@ -20629,18 +20629,18 @@ AutoIt:
 ### cv::BRISK::compute
 
 ```cpp
-void cv::BRISK::compute( _InputArray                image,
+void cv::BRISK::compute( InputArray                 image,
                          std::vector<cv::KeyPoint>& keypoints,
-                         _OutputArray               descriptors );
+                         OutputArray                descriptors );
 
 AutoIt:
     $oBRISK.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ```cpp
-void cv::BRISK::compute( _InputArray                             images,
+void cv::BRISK::compute( InputArrayOfArrays                      images,
                          std::vector<std::vector<cv::KeyPoint>>& keypoints,
-                         _OutputArray                            descriptors );
+                         OutputArrayOfArrays                     descriptors );
 
 AutoIt:
     $oBRISK.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
@@ -20676,18 +20676,18 @@ AutoIt:
 ### cv::BRISK::detect
 
 ```cpp
-void cv::BRISK::detect( _InputArray                image,
+void cv::BRISK::detect( InputArray                 image,
                         std::vector<cv::KeyPoint>& keypoints,
-                        _InputArray                mask = noArray() );
+                        InputArray                 mask = noArray() );
 
 AutoIt:
     $oBRISK.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
 ```
 
 ```cpp
-void cv::BRISK::detect( _InputArray                             images,
+void cv::BRISK::detect( InputArrayOfArrays                      images,
                         std::vector<std::vector<cv::KeyPoint>>& keypoints,
-                        _InputArray                             masks = noArray() );
+                        InputArrayOfArrays                      masks = noArray() );
 
 AutoIt:
     $oBRISK.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
@@ -20696,10 +20696,10 @@ AutoIt:
 ### cv::BRISK::detectAndCompute
 
 ```cpp
-void cv::BRISK::detectAndCompute( _InputArray                image,
-                                  _InputArray                mask,
+void cv::BRISK::detectAndCompute( InputArray                 image,
+                                  InputArray                 mask,
                                   std::vector<cv::KeyPoint>& keypoints,
-                                  _OutputArray               descriptors,
+                                  OutputArray                descriptors,
                                   bool                       useProvidedKeypoints = false );
 
 AutoIt:
@@ -20833,18 +20833,18 @@ AutoIt:
 ### cv::ORB::compute
 
 ```cpp
-void cv::ORB::compute( _InputArray                image,
+void cv::ORB::compute( InputArray                 image,
                        std::vector<cv::KeyPoint>& keypoints,
-                       _OutputArray               descriptors );
+                       OutputArray                descriptors );
 
 AutoIt:
     $oORB.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ```cpp
-void cv::ORB::compute( _InputArray                             images,
+void cv::ORB::compute( InputArrayOfArrays                      images,
                        std::vector<std::vector<cv::KeyPoint>>& keypoints,
-                       _OutputArray                            descriptors );
+                       OutputArrayOfArrays                     descriptors );
 
 AutoIt:
     $oORB.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
@@ -20880,18 +20880,18 @@ AutoIt:
 ### cv::ORB::detect
 
 ```cpp
-void cv::ORB::detect( _InputArray                image,
+void cv::ORB::detect( InputArray                 image,
                       std::vector<cv::KeyPoint>& keypoints,
-                      _InputArray                mask = noArray() );
+                      InputArray                 mask = noArray() );
 
 AutoIt:
     $oORB.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
 ```
 
 ```cpp
-void cv::ORB::detect( _InputArray                             images,
+void cv::ORB::detect( InputArrayOfArrays                      images,
                       std::vector<std::vector<cv::KeyPoint>>& keypoints,
-                      _InputArray                             masks = noArray() );
+                      InputArrayOfArrays                      masks = noArray() );
 
 AutoIt:
     $oORB.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
@@ -20900,10 +20900,10 @@ AutoIt:
 ### cv::ORB::detectAndCompute
 
 ```cpp
-void cv::ORB::detectAndCompute( _InputArray                image,
-                                _InputArray                mask,
+void cv::ORB::detectAndCompute( InputArray                 image,
+                                InputArray                 mask,
                                 std::vector<cv::KeyPoint>& keypoints,
-                                _OutputArray               descriptors,
+                                OutputArray                descriptors,
                                 bool                       useProvidedKeypoints = false );
 
 AutoIt:
@@ -21163,18 +21163,18 @@ AutoIt:
 ### cv::MSER::compute
 
 ```cpp
-void cv::MSER::compute( _InputArray                image,
+void cv::MSER::compute( InputArray                 image,
                         std::vector<cv::KeyPoint>& keypoints,
-                        _OutputArray               descriptors );
+                        OutputArray                descriptors );
 
 AutoIt:
     $oMSER.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ```cpp
-void cv::MSER::compute( _InputArray                             images,
+void cv::MSER::compute( InputArrayOfArrays                      images,
                         std::vector<std::vector<cv::KeyPoint>>& keypoints,
-                        _OutputArray                            descriptors );
+                        OutputArrayOfArrays                     descriptors );
 
 AutoIt:
     $oMSER.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
@@ -21210,18 +21210,18 @@ AutoIt:
 ### cv::MSER::detect
 
 ```cpp
-void cv::MSER::detect( _InputArray                image,
+void cv::MSER::detect( InputArray                 image,
                        std::vector<cv::KeyPoint>& keypoints,
-                       _InputArray                mask = noArray() );
+                       InputArray                 mask = noArray() );
 
 AutoIt:
     $oMSER.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
 ```
 
 ```cpp
-void cv::MSER::detect( _InputArray                             images,
+void cv::MSER::detect( InputArrayOfArrays                      images,
                        std::vector<std::vector<cv::KeyPoint>>& keypoints,
-                       _InputArray                             masks = noArray() );
+                       InputArrayOfArrays                      masks = noArray() );
 
 AutoIt:
     $oMSER.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
@@ -21230,10 +21230,10 @@ AutoIt:
 ### cv::MSER::detectAndCompute
 
 ```cpp
-void cv::MSER::detectAndCompute( _InputArray                image,
-                                 _InputArray                mask,
+void cv::MSER::detectAndCompute( InputArray                 image,
+                                 InputArray                 mask,
                                  std::vector<cv::KeyPoint>& keypoints,
-                                 _OutputArray               descriptors,
+                                 OutputArray                descriptors,
                                  bool                       useProvidedKeypoints = false );
 
 AutoIt:
@@ -21243,7 +21243,7 @@ AutoIt:
 ### cv::MSER::detectRegions
 
 ```cpp
-void cv::MSER::detectRegions( _InputArray                          image,
+void cv::MSER::detectRegions( InputArray                           image,
                               std::vector<std::vector<cv::Point>>& msers,
                               std::vector<cv::Rect>&               bboxes );
 
@@ -21408,18 +21408,18 @@ AutoIt:
 ### cv::FastFeatureDetector::compute
 
 ```cpp
-void cv::FastFeatureDetector::compute( _InputArray                image,
+void cv::FastFeatureDetector::compute( InputArray                 image,
                                        std::vector<cv::KeyPoint>& keypoints,
-                                       _OutputArray               descriptors );
+                                       OutputArray                descriptors );
 
 AutoIt:
     $oFastFeatureDetector.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ```cpp
-void cv::FastFeatureDetector::compute( _InputArray                             images,
+void cv::FastFeatureDetector::compute( InputArrayOfArrays                      images,
                                        std::vector<std::vector<cv::KeyPoint>>& keypoints,
-                                       _OutputArray                            descriptors );
+                                       OutputArrayOfArrays                     descriptors );
 
 AutoIt:
     $oFastFeatureDetector.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
@@ -21455,18 +21455,18 @@ AutoIt:
 ### cv::FastFeatureDetector::detect
 
 ```cpp
-void cv::FastFeatureDetector::detect( _InputArray                image,
+void cv::FastFeatureDetector::detect( InputArray                 image,
                                       std::vector<cv::KeyPoint>& keypoints,
-                                      _InputArray                mask = noArray() );
+                                      InputArray                 mask = noArray() );
 
 AutoIt:
     $oFastFeatureDetector.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
 ```
 
 ```cpp
-void cv::FastFeatureDetector::detect( _InputArray                             images,
+void cv::FastFeatureDetector::detect( InputArrayOfArrays                      images,
                                       std::vector<std::vector<cv::KeyPoint>>& keypoints,
-                                      _InputArray                             masks = noArray() );
+                                      InputArrayOfArrays                      masks = noArray() );
 
 AutoIt:
     $oFastFeatureDetector.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
@@ -21475,10 +21475,10 @@ AutoIt:
 ### cv::FastFeatureDetector::detectAndCompute
 
 ```cpp
-void cv::FastFeatureDetector::detectAndCompute( _InputArray                image,
-                                                _InputArray                mask,
+void cv::FastFeatureDetector::detectAndCompute( InputArray                 image,
+                                                InputArray                 mask,
                                                 std::vector<cv::KeyPoint>& keypoints,
-                                                _OutputArray               descriptors,
+                                                OutputArray                descriptors,
                                                 bool                       useProvidedKeypoints = false );
 
 AutoIt:
@@ -21624,18 +21624,18 @@ AutoIt:
 ### cv::AgastFeatureDetector::compute
 
 ```cpp
-void cv::AgastFeatureDetector::compute( _InputArray                image,
+void cv::AgastFeatureDetector::compute( InputArray                 image,
                                         std::vector<cv::KeyPoint>& keypoints,
-                                        _OutputArray               descriptors );
+                                        OutputArray                descriptors );
 
 AutoIt:
     $oAgastFeatureDetector.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ```cpp
-void cv::AgastFeatureDetector::compute( _InputArray                             images,
+void cv::AgastFeatureDetector::compute( InputArrayOfArrays                      images,
                                         std::vector<std::vector<cv::KeyPoint>>& keypoints,
-                                        _OutputArray                            descriptors );
+                                        OutputArrayOfArrays                     descriptors );
 
 AutoIt:
     $oAgastFeatureDetector.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
@@ -21671,18 +21671,18 @@ AutoIt:
 ### cv::AgastFeatureDetector::detect
 
 ```cpp
-void cv::AgastFeatureDetector::detect( _InputArray                image,
+void cv::AgastFeatureDetector::detect( InputArray                 image,
                                        std::vector<cv::KeyPoint>& keypoints,
-                                       _InputArray                mask = noArray() );
+                                       InputArray                 mask = noArray() );
 
 AutoIt:
     $oAgastFeatureDetector.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
 ```
 
 ```cpp
-void cv::AgastFeatureDetector::detect( _InputArray                             images,
+void cv::AgastFeatureDetector::detect( InputArrayOfArrays                      images,
                                        std::vector<std::vector<cv::KeyPoint>>& keypoints,
-                                       _InputArray                             masks = noArray() );
+                                       InputArrayOfArrays                      masks = noArray() );
 
 AutoIt:
     $oAgastFeatureDetector.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
@@ -21691,10 +21691,10 @@ AutoIt:
 ### cv::AgastFeatureDetector::detectAndCompute
 
 ```cpp
-void cv::AgastFeatureDetector::detectAndCompute( _InputArray                image,
-                                                 _InputArray                mask,
+void cv::AgastFeatureDetector::detectAndCompute( InputArray                 image,
+                                                 InputArray                 mask,
                                                  std::vector<cv::KeyPoint>& keypoints,
-                                                 _OutputArray               descriptors,
+                                                 OutputArray                descriptors,
                                                  bool                       useProvidedKeypoints = false );
 
 AutoIt:
@@ -21856,18 +21856,18 @@ AutoIt:
 ### cv::GFTTDetector::compute
 
 ```cpp
-void cv::GFTTDetector::compute( _InputArray                image,
+void cv::GFTTDetector::compute( InputArray                 image,
                                 std::vector<cv::KeyPoint>& keypoints,
-                                _OutputArray               descriptors );
+                                OutputArray                descriptors );
 
 AutoIt:
     $oGFTTDetector.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ```cpp
-void cv::GFTTDetector::compute( _InputArray                             images,
+void cv::GFTTDetector::compute( InputArrayOfArrays                      images,
                                 std::vector<std::vector<cv::KeyPoint>>& keypoints,
-                                _OutputArray                            descriptors );
+                                OutputArrayOfArrays                     descriptors );
 
 AutoIt:
     $oGFTTDetector.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
@@ -21903,18 +21903,18 @@ AutoIt:
 ### cv::GFTTDetector::detect
 
 ```cpp
-void cv::GFTTDetector::detect( _InputArray                image,
+void cv::GFTTDetector::detect( InputArray                 image,
                                std::vector<cv::KeyPoint>& keypoints,
-                               _InputArray                mask = noArray() );
+                               InputArray                 mask = noArray() );
 
 AutoIt:
     $oGFTTDetector.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
 ```
 
 ```cpp
-void cv::GFTTDetector::detect( _InputArray                             images,
+void cv::GFTTDetector::detect( InputArrayOfArrays                      images,
                                std::vector<std::vector<cv::KeyPoint>>& keypoints,
-                               _InputArray                             masks = noArray() );
+                               InputArrayOfArrays                      masks = noArray() );
 
 AutoIt:
     $oGFTTDetector.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
@@ -21923,10 +21923,10 @@ AutoIt:
 ### cv::GFTTDetector::detectAndCompute
 
 ```cpp
-void cv::GFTTDetector::detectAndCompute( _InputArray                image,
-                                         _InputArray                mask,
+void cv::GFTTDetector::detectAndCompute( InputArray                 image,
+                                         InputArray                 mask,
                                          std::vector<cv::KeyPoint>& keypoints,
-                                         _OutputArray               descriptors,
+                                         OutputArray                descriptors,
                                          bool                       useProvidedKeypoints = false );
 
 AutoIt:
@@ -22124,18 +22124,18 @@ AutoIt:
 ### cv::SimpleBlobDetector::compute
 
 ```cpp
-void cv::SimpleBlobDetector::compute( _InputArray                image,
+void cv::SimpleBlobDetector::compute( InputArray                 image,
                                       std::vector<cv::KeyPoint>& keypoints,
-                                      _OutputArray               descriptors );
+                                      OutputArray                descriptors );
 
 AutoIt:
     $oSimpleBlobDetector.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ```cpp
-void cv::SimpleBlobDetector::compute( _InputArray                             images,
+void cv::SimpleBlobDetector::compute( InputArrayOfArrays                      images,
                                       std::vector<std::vector<cv::KeyPoint>>& keypoints,
-                                      _OutputArray                            descriptors );
+                                      OutputArrayOfArrays                     descriptors );
 
 AutoIt:
     $oSimpleBlobDetector.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
@@ -22171,18 +22171,18 @@ AutoIt:
 ### cv::SimpleBlobDetector::detect
 
 ```cpp
-void cv::SimpleBlobDetector::detect( _InputArray                image,
+void cv::SimpleBlobDetector::detect( InputArray                 image,
                                      std::vector<cv::KeyPoint>& keypoints,
-                                     _InputArray                mask = noArray() );
+                                     InputArray                 mask = noArray() );
 
 AutoIt:
     $oSimpleBlobDetector.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
 ```
 
 ```cpp
-void cv::SimpleBlobDetector::detect( _InputArray                             images,
+void cv::SimpleBlobDetector::detect( InputArrayOfArrays                      images,
                                      std::vector<std::vector<cv::KeyPoint>>& keypoints,
-                                     _InputArray                             masks = noArray() );
+                                     InputArrayOfArrays                      masks = noArray() );
 
 AutoIt:
     $oSimpleBlobDetector.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
@@ -22191,10 +22191,10 @@ AutoIt:
 ### cv::SimpleBlobDetector::detectAndCompute
 
 ```cpp
-void cv::SimpleBlobDetector::detectAndCompute( _InputArray                image,
-                                               _InputArray                mask,
+void cv::SimpleBlobDetector::detectAndCompute( InputArray                 image,
+                                               InputArray                 mask,
                                                std::vector<cv::KeyPoint>& keypoints,
-                                               _OutputArray               descriptors,
+                                               OutputArray                descriptors,
                                                bool                       useProvidedKeypoints = false );
 
 AutoIt:
@@ -22300,18 +22300,18 @@ AutoIt:
 ### cv::KAZE::compute
 
 ```cpp
-void cv::KAZE::compute( _InputArray                image,
+void cv::KAZE::compute( InputArray                 image,
                         std::vector<cv::KeyPoint>& keypoints,
-                        _OutputArray               descriptors );
+                        OutputArray                descriptors );
 
 AutoIt:
     $oKAZE.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ```cpp
-void cv::KAZE::compute( _InputArray                             images,
+void cv::KAZE::compute( InputArrayOfArrays                      images,
                         std::vector<std::vector<cv::KeyPoint>>& keypoints,
-                        _OutputArray                            descriptors );
+                        OutputArrayOfArrays                     descriptors );
 
 AutoIt:
     $oKAZE.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
@@ -22347,18 +22347,18 @@ AutoIt:
 ### cv::KAZE::detect
 
 ```cpp
-void cv::KAZE::detect( _InputArray                image,
+void cv::KAZE::detect( InputArray                 image,
                        std::vector<cv::KeyPoint>& keypoints,
-                       _InputArray                mask = noArray() );
+                       InputArray                 mask = noArray() );
 
 AutoIt:
     $oKAZE.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
 ```
 
 ```cpp
-void cv::KAZE::detect( _InputArray                             images,
+void cv::KAZE::detect( InputArrayOfArrays                      images,
                        std::vector<std::vector<cv::KeyPoint>>& keypoints,
-                       _InputArray                             masks = noArray() );
+                       InputArrayOfArrays                      masks = noArray() );
 
 AutoIt:
     $oKAZE.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
@@ -22367,10 +22367,10 @@ AutoIt:
 ### cv::KAZE::detectAndCompute
 
 ```cpp
-void cv::KAZE::detectAndCompute( _InputArray                image,
-                                 _InputArray                mask,
+void cv::KAZE::detectAndCompute( InputArray                 image,
+                                 InputArray                 mask,
                                  std::vector<cv::KeyPoint>& keypoints,
-                                 _OutputArray               descriptors,
+                                 OutputArray                descriptors,
                                  bool                       useProvidedKeypoints = false );
 
 AutoIt:
@@ -22574,18 +22574,18 @@ AutoIt:
 ### cv::AKAZE::compute
 
 ```cpp
-void cv::AKAZE::compute( _InputArray                image,
+void cv::AKAZE::compute( InputArray                 image,
                          std::vector<cv::KeyPoint>& keypoints,
-                         _OutputArray               descriptors );
+                         OutputArray                descriptors );
 
 AutoIt:
     $oAKAZE.compute( $image, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
 ```
 
 ```cpp
-void cv::AKAZE::compute( _InputArray                             images,
+void cv::AKAZE::compute( InputArrayOfArrays                      images,
                          std::vector<std::vector<cv::KeyPoint>>& keypoints,
-                         _OutputArray                            descriptors );
+                         OutputArrayOfArrays                     descriptors );
 
 AutoIt:
     $oAKAZE.compute( $images, $keypoints[, $descriptors] ) -> $keypoints, $descriptors
@@ -22621,18 +22621,18 @@ AutoIt:
 ### cv::AKAZE::detect
 
 ```cpp
-void cv::AKAZE::detect( _InputArray                image,
+void cv::AKAZE::detect( InputArray                 image,
                         std::vector<cv::KeyPoint>& keypoints,
-                        _InputArray                mask = noArray() );
+                        InputArray                 mask = noArray() );
 
 AutoIt:
     $oAKAZE.detect( $image[, $mask[, $keypoints]] ) -> $keypoints
 ```
 
 ```cpp
-void cv::AKAZE::detect( _InputArray                             images,
+void cv::AKAZE::detect( InputArrayOfArrays                      images,
                         std::vector<std::vector<cv::KeyPoint>>& keypoints,
-                        _InputArray                             masks = noArray() );
+                        InputArrayOfArrays                      masks = noArray() );
 
 AutoIt:
     $oAKAZE.detect( $images[, $masks[, $keypoints]] ) -> $keypoints
@@ -22641,10 +22641,10 @@ AutoIt:
 ### cv::AKAZE::detectAndCompute
 
 ```cpp
-void cv::AKAZE::detectAndCompute( _InputArray                image,
-                                  _InputArray                mask,
+void cv::AKAZE::detectAndCompute( InputArray                 image,
+                                  InputArray                 mask,
                                   std::vector<cv::KeyPoint>& keypoints,
-                                  _OutputArray               descriptors,
+                                  OutputArray                descriptors,
                                   bool                       useProvidedKeypoints = false );
 
 AutoIt:
@@ -22858,7 +22858,7 @@ AutoIt:
 ### cv::DescriptorMatcher::add
 
 ```cpp
-void cv::DescriptorMatcher::add( _InputArray descriptors );
+void cv::DescriptorMatcher::add( InputArrayOfArrays descriptors );
 
 AutoIt:
     $oDescriptorMatcher.add( $descriptors ) -> None
@@ -22921,11 +22921,11 @@ AutoIt:
 ### cv::DescriptorMatcher::knnMatch
 
 ```cpp
-void cv::DescriptorMatcher::knnMatch( _InputArray                           queryDescriptors,
-                                      _InputArray                           trainDescriptors,
+void cv::DescriptorMatcher::knnMatch( InputArray                            queryDescriptors,
+                                      InputArray                            trainDescriptors,
                                       std::vector<std::vector<cv::DMatch>>& matches,
                                       int                                   k,
-                                      _InputArray                           mask = noArray(),
+                                      InputArray                            mask = noArray(),
                                       bool                                  compactResult = false ) const;
 
 AutoIt:
@@ -22933,10 +22933,10 @@ AutoIt:
 ```
 
 ```cpp
-void cv::DescriptorMatcher::knnMatch( _InputArray                           queryDescriptors,
+void cv::DescriptorMatcher::knnMatch( InputArray                            queryDescriptors,
                                       std::vector<std::vector<cv::DMatch>>& matches,
                                       int                                   k,
-                                      _InputArray                           masks = noArray(),
+                                      InputArrayOfArrays                    masks = noArray(),
                                       bool                                  compactResult = false );
 
 AutoIt:
@@ -22946,19 +22946,19 @@ AutoIt:
 ### cv::DescriptorMatcher::match
 
 ```cpp
-void cv::DescriptorMatcher::match( _InputArray              queryDescriptors,
-                                   _InputArray              trainDescriptors,
+void cv::DescriptorMatcher::match( InputArray               queryDescriptors,
+                                   InputArray               trainDescriptors,
                                    std::vector<cv::DMatch>& matches,
-                                   _InputArray              mask = noArray() ) const;
+                                   InputArray               mask = noArray() ) const;
 
 AutoIt:
     $oDescriptorMatcher.match( $queryDescriptors, $trainDescriptors[, $mask[, $matches]] ) -> $matches
 ```
 
 ```cpp
-void cv::DescriptorMatcher::match( _InputArray              queryDescriptors,
+void cv::DescriptorMatcher::match( InputArray               queryDescriptors,
                                    std::vector<cv::DMatch>& matches,
-                                   _InputArray              masks = noArray() );
+                                   InputArrayOfArrays       masks = noArray() );
 
 AutoIt:
     $oDescriptorMatcher.match( $queryDescriptors[, $masks[, $matches]] ) -> $matches
@@ -22967,11 +22967,11 @@ AutoIt:
 ### cv::DescriptorMatcher::radiusMatch
 
 ```cpp
-void cv::DescriptorMatcher::radiusMatch( _InputArray                           queryDescriptors,
-                                         _InputArray                           trainDescriptors,
+void cv::DescriptorMatcher::radiusMatch( InputArray                            queryDescriptors,
+                                         InputArray                            trainDescriptors,
                                          std::vector<std::vector<cv::DMatch>>& matches,
                                          float                                 maxDistance,
-                                         _InputArray                           mask = noArray(),
+                                         InputArray                            mask = noArray(),
                                          bool                                  compactResult = false ) const;
 
 AutoIt:
@@ -22979,10 +22979,10 @@ AutoIt:
 ```
 
 ```cpp
-void cv::DescriptorMatcher::radiusMatch( _InputArray                           queryDescriptors,
+void cv::DescriptorMatcher::radiusMatch( InputArray                            queryDescriptors,
                                          std::vector<std::vector<cv::DMatch>>& matches,
                                          float                                 maxDistance,
-                                         _InputArray                           masks = noArray(),
+                                         InputArrayOfArrays                    masks = noArray(),
                                          bool                                  compactResult = false );
 
 AutoIt:
@@ -23063,7 +23063,7 @@ AutoIt:
 ### cv::BFMatcher::add
 
 ```cpp
-void cv::BFMatcher::add( _InputArray descriptors );
+void cv::BFMatcher::add( InputArrayOfArrays descriptors );
 
 AutoIt:
     $oBFMatcher.add( $descriptors ) -> None
@@ -23126,11 +23126,11 @@ AutoIt:
 ### cv::BFMatcher::knnMatch
 
 ```cpp
-void cv::BFMatcher::knnMatch( _InputArray                           queryDescriptors,
-                              _InputArray                           trainDescriptors,
+void cv::BFMatcher::knnMatch( InputArray                            queryDescriptors,
+                              InputArray                            trainDescriptors,
                               std::vector<std::vector<cv::DMatch>>& matches,
                               int                                   k,
-                              _InputArray                           mask = noArray(),
+                              InputArray                            mask = noArray(),
                               bool                                  compactResult = false ) const;
 
 AutoIt:
@@ -23138,10 +23138,10 @@ AutoIt:
 ```
 
 ```cpp
-void cv::BFMatcher::knnMatch( _InputArray                           queryDescriptors,
+void cv::BFMatcher::knnMatch( InputArray                            queryDescriptors,
                               std::vector<std::vector<cv::DMatch>>& matches,
                               int                                   k,
-                              _InputArray                           masks = noArray(),
+                              InputArrayOfArrays                    masks = noArray(),
                               bool                                  compactResult = false );
 
 AutoIt:
@@ -23151,19 +23151,19 @@ AutoIt:
 ### cv::BFMatcher::match
 
 ```cpp
-void cv::BFMatcher::match( _InputArray              queryDescriptors,
-                           _InputArray              trainDescriptors,
+void cv::BFMatcher::match( InputArray               queryDescriptors,
+                           InputArray               trainDescriptors,
                            std::vector<cv::DMatch>& matches,
-                           _InputArray              mask = noArray() ) const;
+                           InputArray               mask = noArray() ) const;
 
 AutoIt:
     $oBFMatcher.match( $queryDescriptors, $trainDescriptors[, $mask[, $matches]] ) -> $matches
 ```
 
 ```cpp
-void cv::BFMatcher::match( _InputArray              queryDescriptors,
+void cv::BFMatcher::match( InputArray               queryDescriptors,
                            std::vector<cv::DMatch>& matches,
-                           _InputArray              masks = noArray() );
+                           InputArrayOfArrays       masks = noArray() );
 
 AutoIt:
     $oBFMatcher.match( $queryDescriptors[, $masks[, $matches]] ) -> $matches
@@ -23172,11 +23172,11 @@ AutoIt:
 ### cv::BFMatcher::radiusMatch
 
 ```cpp
-void cv::BFMatcher::radiusMatch( _InputArray                           queryDescriptors,
-                                 _InputArray                           trainDescriptors,
+void cv::BFMatcher::radiusMatch( InputArray                            queryDescriptors,
+                                 InputArray                            trainDescriptors,
                                  std::vector<std::vector<cv::DMatch>>& matches,
                                  float                                 maxDistance,
-                                 _InputArray                           mask = noArray(),
+                                 InputArray                            mask = noArray(),
                                  bool                                  compactResult = false ) const;
 
 AutoIt:
@@ -23184,10 +23184,10 @@ AutoIt:
 ```
 
 ```cpp
-void cv::BFMatcher::radiusMatch( _InputArray                           queryDescriptors,
+void cv::BFMatcher::radiusMatch( InputArray                            queryDescriptors,
                                  std::vector<std::vector<cv::DMatch>>& matches,
                                  float                                 maxDistance,
-                                 _InputArray                           masks = noArray(),
+                                 InputArrayOfArrays                    masks = noArray(),
                                  bool                                  compactResult = false );
 
 AutoIt:
@@ -23267,7 +23267,7 @@ AutoIt:
 ### cv::FlannBasedMatcher::add
 
 ```cpp
-void cv::FlannBasedMatcher::add( _InputArray descriptors );
+void cv::FlannBasedMatcher::add( InputArrayOfArrays descriptors );
 
 AutoIt:
     $oFlannBasedMatcher.add( $descriptors ) -> None
@@ -23330,11 +23330,11 @@ AutoIt:
 ### cv::FlannBasedMatcher::knnMatch
 
 ```cpp
-void cv::FlannBasedMatcher::knnMatch( _InputArray                           queryDescriptors,
-                                      _InputArray                           trainDescriptors,
+void cv::FlannBasedMatcher::knnMatch( InputArray                            queryDescriptors,
+                                      InputArray                            trainDescriptors,
                                       std::vector<std::vector<cv::DMatch>>& matches,
                                       int                                   k,
-                                      _InputArray                           mask = noArray(),
+                                      InputArray                            mask = noArray(),
                                       bool                                  compactResult = false ) const;
 
 AutoIt:
@@ -23342,10 +23342,10 @@ AutoIt:
 ```
 
 ```cpp
-void cv::FlannBasedMatcher::knnMatch( _InputArray                           queryDescriptors,
+void cv::FlannBasedMatcher::knnMatch( InputArray                            queryDescriptors,
                                       std::vector<std::vector<cv::DMatch>>& matches,
                                       int                                   k,
-                                      _InputArray                           masks = noArray(),
+                                      InputArrayOfArrays                    masks = noArray(),
                                       bool                                  compactResult = false );
 
 AutoIt:
@@ -23355,19 +23355,19 @@ AutoIt:
 ### cv::FlannBasedMatcher::match
 
 ```cpp
-void cv::FlannBasedMatcher::match( _InputArray              queryDescriptors,
-                                   _InputArray              trainDescriptors,
+void cv::FlannBasedMatcher::match( InputArray               queryDescriptors,
+                                   InputArray               trainDescriptors,
                                    std::vector<cv::DMatch>& matches,
-                                   _InputArray              mask = noArray() ) const;
+                                   InputArray               mask = noArray() ) const;
 
 AutoIt:
     $oFlannBasedMatcher.match( $queryDescriptors, $trainDescriptors[, $mask[, $matches]] ) -> $matches
 ```
 
 ```cpp
-void cv::FlannBasedMatcher::match( _InputArray              queryDescriptors,
+void cv::FlannBasedMatcher::match( InputArray               queryDescriptors,
                                    std::vector<cv::DMatch>& matches,
-                                   _InputArray              masks = noArray() );
+                                   InputArrayOfArrays       masks = noArray() );
 
 AutoIt:
     $oFlannBasedMatcher.match( $queryDescriptors[, $masks[, $matches]] ) -> $matches
@@ -23376,11 +23376,11 @@ AutoIt:
 ### cv::FlannBasedMatcher::radiusMatch
 
 ```cpp
-void cv::FlannBasedMatcher::radiusMatch( _InputArray                           queryDescriptors,
-                                         _InputArray                           trainDescriptors,
+void cv::FlannBasedMatcher::radiusMatch( InputArray                            queryDescriptors,
+                                         InputArray                            trainDescriptors,
                                          std::vector<std::vector<cv::DMatch>>& matches,
                                          float                                 maxDistance,
-                                         _InputArray                           mask = noArray(),
+                                         InputArray                            mask = noArray(),
                                          bool                                  compactResult = false ) const;
 
 AutoIt:
@@ -23388,10 +23388,10 @@ AutoIt:
 ```
 
 ```cpp
-void cv::FlannBasedMatcher::radiusMatch( _InputArray                           queryDescriptors,
+void cv::FlannBasedMatcher::radiusMatch( InputArray                            queryDescriptors,
                                          std::vector<std::vector<cv::DMatch>>& matches,
                                          float                                 maxDistance,
-                                         _InputArray                           masks = noArray(),
+                                         InputArrayOfArrays                    masks = noArray(),
                                          bool                                  compactResult = false );
 
 AutoIt:
@@ -23757,7 +23757,7 @@ AutoIt:
 ### cv::VideoCapture::read
 
 ```cpp
-bool cv::VideoCapture::read( _OutputArray image );
+bool cv::VideoCapture::read( OutputArray image );
 
 AutoIt:
     $oVideoCapture.read( [$image] ) -> retval, $image
@@ -23775,8 +23775,8 @@ AutoIt:
 ### cv::VideoCapture::retrieve
 
 ```cpp
-bool cv::VideoCapture::retrieve( _OutputArray image,
-                                 int          flag = 0 );
+bool cv::VideoCapture::retrieve( OutputArray image,
+                                 int         flag = 0 );
 
 AutoIt:
     $oVideoCapture.retrieve( [$image[, $flag]] ) -> retval, $image
@@ -23967,7 +23967,7 @@ AutoIt:
 ### cv::VideoWriter::write
 
 ```cpp
-void cv::VideoWriter::write( _InputArray image );
+void cv::VideoWriter::write( InputArray image );
 
 AutoIt:
     $oVideoWriter.write( $image ) -> None
@@ -24107,9 +24107,9 @@ AutoIt:
 ### cv::StereoMatcher::compute
 
 ```cpp
-void cv::StereoMatcher::compute( _InputArray  left,
-                                 _InputArray  right,
-                                 _OutputArray disparity );
+void cv::StereoMatcher::compute( InputArray  left,
+                                 InputArray  right,
+                                 OutputArray disparity );
 
 AutoIt:
     $oStereoMatcher.compute( $left, $right[, $disparity] ) -> $disparity
@@ -24293,9 +24293,9 @@ AutoIt:
 ### cv::StereoBM::compute
 
 ```cpp
-void cv::StereoBM::compute( _InputArray  left,
-                            _InputArray  right,
-                            _OutputArray disparity );
+void cv::StereoBM::compute( InputArray  left,
+                            InputArray  right,
+                            OutputArray disparity );
 
 AutoIt:
     $oStereoBM.compute( $left, $right[, $disparity] ) -> $disparity
@@ -24632,9 +24632,9 @@ AutoIt:
 ### cv::StereoSGBM::compute
 
 ```cpp
-void cv::StereoSGBM::compute( _InputArray  left,
-                              _InputArray  right,
-                              _OutputArray disparity );
+void cv::StereoSGBM::compute( InputArray  left,
+                              InputArray  right,
+                              OutputArray disparity );
 
 AutoIt:
     $oStereoSGBM.compute( $left, $right[, $disparity] ) -> $disparity
@@ -24889,15 +24889,15 @@ AutoIt:
 ### cv::fisheye::calibrate
 
 ```cpp
-double cv::fisheye::calibrate( _InputArray       objectPoints,
-                               _InputArray       imagePoints,
-                               const cv::Size&   image_size,
-                               _InputOutputArray K,
-                               _InputOutputArray D,
-                               _OutputArray      rvecs,
-                               _OutputArray      tvecs,
-                               int               flags = 0,
-                               cv::TermCriteria  criteria = TermCriteria(TermCriteria::COUNT + TermCriteria::EPS, 100, DBL_EPSILON) );
+double cv::fisheye::calibrate( InputArrayOfArrays  objectPoints,
+                               InputArrayOfArrays  imagePoints,
+                               const cv::Size&     image_size,
+                               InputOutputArray    K,
+                               InputOutputArray    D,
+                               OutputArrayOfArrays rvecs,
+                               OutputArrayOfArrays tvecs,
+                               int                 flags = 0,
+                               cv::TermCriteria    criteria = TermCriteria(TermCriteria::COUNT + TermCriteria::EPS, 100, DBL_EPSILON) );
 
 AutoIt:
     _OpenCV_ObjCreate("cv.fisheye").calibrate( $objectPoints, $imagePoints, $image_size, $K, $D[, $rvecs[, $tvecs[, $flags[, $criteria]]]] ) -> retval, $K, $D, $rvecs, $tvecs
@@ -24906,11 +24906,11 @@ AutoIt:
 ### cv::fisheye::distortPoints
 
 ```cpp
-void cv::fisheye::distortPoints( _InputArray  undistorted,
-                                 _OutputArray distorted,
-                                 _InputArray  K,
-                                 _InputArray  D,
-                                 double       alpha = 0 );
+void cv::fisheye::distortPoints( InputArray  undistorted,
+                                 OutputArray distorted,
+                                 InputArray  K,
+                                 InputArray  D,
+                                 double      alpha = 0 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv.fisheye").distortPoints( $undistorted, $K, $D[, $distorted[, $alpha]] ) -> $distorted
@@ -24919,11 +24919,11 @@ AutoIt:
 ### cv::fisheye::estimateNewCameraMatrixForUndistortRectify
 
 ```cpp
-void cv::fisheye::estimateNewCameraMatrixForUndistortRectify( _InputArray     K,
-                                                              _InputArray     D,
+void cv::fisheye::estimateNewCameraMatrixForUndistortRectify( InputArray      K,
+                                                              InputArray      D,
                                                               const cv::Size& image_size,
-                                                              _InputArray     R,
-                                                              _OutputArray    P,
+                                                              InputArray      R,
+                                                              OutputArray     P,
                                                               double          balance = 0.0,
                                                               const cv::Size& new_size = Size(),
                                                               double          fov_scale = 1.0 );
@@ -24935,14 +24935,14 @@ AutoIt:
 ### cv::fisheye::initUndistortRectifyMap
 
 ```cpp
-void cv::fisheye::initUndistortRectifyMap( _InputArray     K,
-                                           _InputArray     D,
-                                           _InputArray     R,
-                                           _InputArray     P,
+void cv::fisheye::initUndistortRectifyMap( InputArray      K,
+                                           InputArray      D,
+                                           InputArray      R,
+                                           InputArray      P,
                                            const cv::Size& size,
                                            int             m1type,
-                                           _OutputArray    map1,
-                                           _OutputArray    map2 );
+                                           OutputArray     map1,
+                                           OutputArray     map2 );
 
 AutoIt:
     _OpenCV_ObjCreate("cv.fisheye").initUndistortRectifyMap( $K, $D, $R, $P, $size, $m1type[, $map1[, $map2]] ) -> $map1, $map2
@@ -24951,14 +24951,14 @@ AutoIt:
 ### cv::fisheye::projectPoints
 
 ```cpp
-void cv::fisheye::projectPoints( _InputArray  objectPoints,
-                                 _OutputArray imagePoints,
-                                 _InputArray  rvec,
-                                 _InputArray  tvec,
-                                 _InputArray  K,
-                                 _InputArray  D,
-                                 double       alpha = 0,
-                                 _OutputArray jacobian = noArray() );
+void cv::fisheye::projectPoints( InputArray  objectPoints,
+                                 OutputArray imagePoints,
+                                 InputArray  rvec,
+                                 InputArray  tvec,
+                                 InputArray  K,
+                                 InputArray  D,
+                                 double      alpha = 0,
+                                 OutputArray jacobian = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv.fisheye").projectPoints( $objectPoints, $rvec, $tvec, $K, $D[, $imagePoints[, $alpha[, $jacobian]]] ) -> $imagePoints, $jacobian
@@ -24967,18 +24967,18 @@ AutoIt:
 ### cv::fisheye::stereoCalibrate
 
 ```cpp
-double cv::fisheye::stereoCalibrate( _InputArray       objectPoints,
-                                     _InputArray       imagePoints1,
-                                     _InputArray       imagePoints2,
-                                     _InputOutputArray K1,
-                                     _InputOutputArray D1,
-                                     _InputOutputArray K2,
-                                     _InputOutputArray D2,
-                                     cv::Size          imageSize,
-                                     _OutputArray      R,
-                                     _OutputArray      T,
-                                     int               flags = fisheye::CALIB_FIX_INTRINSIC,
-                                     cv::TermCriteria  criteria = TermCriteria(TermCriteria::COUNT + TermCriteria::EPS, 100, DBL_EPSILON) );
+double cv::fisheye::stereoCalibrate( InputArrayOfArrays objectPoints,
+                                     InputArrayOfArrays imagePoints1,
+                                     InputArrayOfArrays imagePoints2,
+                                     InputOutputArray   K1,
+                                     InputOutputArray   D1,
+                                     InputOutputArray   K2,
+                                     InputOutputArray   D2,
+                                     cv::Size           imageSize,
+                                     OutputArray        R,
+                                     OutputArray        T,
+                                     int                flags = fisheye::CALIB_FIX_INTRINSIC,
+                                     cv::TermCriteria   criteria = TermCriteria(TermCriteria::COUNT + TermCriteria::EPS, 100, DBL_EPSILON) );
 
 AutoIt:
     _OpenCV_ObjCreate("cv.fisheye").stereoCalibrate( $objectPoints, $imagePoints1, $imagePoints2, $K1, $D1, $K2, $D2, $imageSize[, $R[, $T[, $flags[, $criteria]]]] ) -> retval, $K1, $D1, $K2, $D2, $R, $T
@@ -24987,18 +24987,18 @@ AutoIt:
 ### cv::fisheye::stereoRectify
 
 ```cpp
-void cv::fisheye::stereoRectify( _InputArray     K1,
-                                 _InputArray     D1,
-                                 _InputArray     K2,
-                                 _InputArray     D2,
+void cv::fisheye::stereoRectify( InputArray      K1,
+                                 InputArray      D1,
+                                 InputArray      K2,
+                                 InputArray      D2,
                                  const cv::Size& imageSize,
-                                 _InputArray     R,
-                                 _InputArray     tvec,
-                                 _OutputArray    R1,
-                                 _OutputArray    R2,
-                                 _OutputArray    P1,
-                                 _OutputArray    P2,
-                                 _OutputArray    Q,
+                                 InputArray      R,
+                                 InputArray      tvec,
+                                 OutputArray     R1,
+                                 OutputArray     R2,
+                                 OutputArray     P1,
+                                 OutputArray     P2,
+                                 OutputArray     Q,
                                  int             flags,
                                  const cv::Size& newImageSize = Size(),
                                  double          balance = 0.0,
@@ -25011,11 +25011,11 @@ AutoIt:
 ### cv::fisheye::undistortImage
 
 ```cpp
-void cv::fisheye::undistortImage( _InputArray     distorted,
-                                  _OutputArray    undistorted,
-                                  _InputArray     K,
-                                  _InputArray     D,
-                                  _InputArray     Knew = cv::noArray(),
+void cv::fisheye::undistortImage( InputArray      distorted,
+                                  OutputArray     undistorted,
+                                  InputArray      K,
+                                  InputArray      D,
+                                  InputArray      Knew = cv::noArray(),
                                   const cv::Size& new_size = Size() );
 
 AutoIt:
@@ -25025,12 +25025,12 @@ AutoIt:
 ### cv::fisheye::undistortPoints
 
 ```cpp
-void cv::fisheye::undistortPoints( _InputArray  distorted,
-                                   _OutputArray undistorted,
-                                   _InputArray  K,
-                                   _InputArray  D,
-                                   _InputArray  R = noArray(),
-                                   _InputArray  P = noArray() );
+void cv::fisheye::undistortPoints( InputArray  distorted,
+                                   OutputArray undistorted,
+                                   InputArray  K,
+                                   InputArray  D,
+                                   InputArray  R = noArray(),
+                                   InputArray  P = noArray() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv.fisheye").undistortPoints( $distorted, $K, $D[, $undistorted[, $R[, $P]]] ) -> $undistorted
@@ -25124,7 +25124,7 @@ AutoIt:
 ### cv::CascadeClassifier::detectMultiScale
 
 ```cpp
-void cv::CascadeClassifier::detectMultiScale( _InputArray            image,
+void cv::CascadeClassifier::detectMultiScale( InputArray             image,
                                               std::vector<cv::Rect>& objects,
                                               double                 scaleFactor = 1.1,
                                               int                    minNeighbors = 3,
@@ -25139,7 +25139,7 @@ AutoIt:
 ### cv::CascadeClassifier::detectMultiScale2
 
 ```cpp
-void cv::CascadeClassifier::detectMultiScale2( _InputArray            image,
+void cv::CascadeClassifier::detectMultiScale2( InputArray             image,
                                                std::vector<cv::Rect>& objects,
                                                std::vector<int>&      numDetections,
                                                double                 scaleFactor = 1.1,
@@ -25155,7 +25155,7 @@ AutoIt:
 ### cv::CascadeClassifier::detectMultiScale3
 
 ```cpp
-void cv::CascadeClassifier::detectMultiScale3( _InputArray            image,
+void cv::CascadeClassifier::detectMultiScale3( InputArray             image,
                                                std::vector<cv::Rect>& objects,
                                                std::vector<int>&      rejectLevels,
                                                std::vector<double>&   levelWeights,
@@ -25272,7 +25272,7 @@ AutoIt:
 ### cv::HOGDescriptor::compute
 
 ```cpp
-void cv::HOGDescriptor::compute( _InputArray                   img,
+void cv::HOGDescriptor::compute( InputArray                    img,
                                  std::vector<float>&           descriptors,
                                  cv::Size                      winStride = Size(),
                                  cv::Size                      padding = Size(),
@@ -25285,11 +25285,11 @@ AutoIt:
 ### cv::HOGDescriptor::computeGradient
 
 ```cpp
-void cv::HOGDescriptor::computeGradient( _InputArray       img,
-                                         _InputOutputArray grad,
-                                         _InputOutputArray angleOfs,
-                                         cv::Size          paddingTL = Size(),
-                                         cv::Size          paddingBR = Size() ) const;
+void cv::HOGDescriptor::computeGradient( InputArray       img,
+                                         InputOutputArray grad,
+                                         InputOutputArray angleOfs,
+                                         cv::Size         paddingTL = Size(),
+                                         cv::Size         paddingBR = Size() ) const;
 
 AutoIt:
     $oHOGDescriptor.computeGradient( $img, $grad, $angleOfs[, $paddingTL[, $paddingBR]] ) -> $grad, $angleOfs
@@ -25298,7 +25298,7 @@ AutoIt:
 ### cv::HOGDescriptor::detect
 
 ```cpp
-void cv::HOGDescriptor::detect( _InputArray                   img,
+void cv::HOGDescriptor::detect( InputArray                    img,
                                 std::vector<cv::Point>&       foundLocations,
                                 std::vector<double>&          weights,
                                 double                        hitThreshold = 0,
@@ -25313,7 +25313,7 @@ AutoIt:
 ### cv::HOGDescriptor::detectMultiScale
 
 ```cpp
-void cv::HOGDescriptor::detectMultiScale( _InputArray            img,
+void cv::HOGDescriptor::detectMultiScale( InputArray             img,
                                           std::vector<cv::Rect>& foundLocations,
                                           std::vector<double>&   foundWeights,
                                           double                 hitThreshold = 0,
@@ -25386,7 +25386,7 @@ AutoIt:
 ### cv::HOGDescriptor::setSVMDetector
 
 ```cpp
-void cv::HOGDescriptor::setSVMDetector( _InputArray svmdetector );
+void cv::HOGDescriptor::setSVMDetector( InputArray svmdetector );
 
 AutoIt:
     $oHOGDescriptor.setSVMDetector( $svmdetector ) -> None
@@ -25407,7 +25407,7 @@ AutoIt:
 
 ```cpp
 void cv::QRCodeEncoder::encode( const std::string& encoded_info,
-                                _OutputArray       qrcode );
+                                OutputArray        qrcode );
 
 AutoIt:
     $oQRCodeEncoder.encode( $encoded_info[, $qrcode] ) -> $qrcode
@@ -25416,8 +25416,8 @@ AutoIt:
 ### cv::QRCodeEncoder::encodeStructuredAppend
 
 ```cpp
-void cv::QRCodeEncoder::encodeStructuredAppend( const std::string& encoded_info,
-                                                _OutputArray       qrcodes );
+void cv::QRCodeEncoder::encodeStructuredAppend( const std::string&  encoded_info,
+                                                OutputArrayOfArrays qrcodes );
 
 AutoIt:
     $oQRCodeEncoder.encodeStructuredAppend( $encoded_info[, $qrcodes] ) -> $qrcodes
@@ -25448,9 +25448,9 @@ AutoIt:
 ### cv::QRCodeDetector::decode
 
 ```cpp
-std::string cv::QRCodeDetector::decode( _InputArray  img,
-                                        _InputArray  points,
-                                        _OutputArray straight_qrcode = noArray() );
+std::string cv::QRCodeDetector::decode( InputArray  img,
+                                        InputArray  points,
+                                        OutputArray straight_qrcode = noArray() );
 
 AutoIt:
     $oQRCodeDetector.decode( $img, $points[, $straight_qrcode] ) -> retval, $straight_qrcode
@@ -25459,9 +25459,9 @@ AutoIt:
 ### cv::QRCodeDetector::decodeCurved
 
 ```cpp
-std::string cv::QRCodeDetector::decodeCurved( _InputArray  img,
-                                              _InputArray  points,
-                                              _OutputArray straight_qrcode = noArray() );
+std::string cv::QRCodeDetector::decodeCurved( InputArray  img,
+                                              InputArray  points,
+                                              OutputArray straight_qrcode = noArray() );
 
 AutoIt:
     $oQRCodeDetector.decodeCurved( $img, $points[, $straight_qrcode] ) -> retval, $straight_qrcode
@@ -25470,10 +25470,10 @@ AutoIt:
 ### cv::QRCodeDetector::decodeMulti
 
 ```cpp
-bool cv::QRCodeDetector::decodeMulti( _InputArray               img,
-                                      _InputArray               points,
+bool cv::QRCodeDetector::decodeMulti( InputArray                img,
+                                      InputArray                points,
                                       std::vector<std::string>& decoded_info,
-                                      _OutputArray              straight_qrcode = noArray() ) const;
+                                      OutputArrayOfArrays       straight_qrcode = noArray() ) const;
 
 AutoIt:
     $oQRCodeDetector.decodeMulti( $img, $points[, $straight_qrcode[, $decoded_info]] ) -> retval, $decoded_info, $straight_qrcode
@@ -25482,8 +25482,8 @@ AutoIt:
 ### cv::QRCodeDetector::detect
 
 ```cpp
-bool cv::QRCodeDetector::detect( _InputArray  img,
-                                 _OutputArray points ) const;
+bool cv::QRCodeDetector::detect( InputArray  img,
+                                 OutputArray points ) const;
 
 AutoIt:
     $oQRCodeDetector.detect( $img[, $points] ) -> retval, $points
@@ -25492,9 +25492,9 @@ AutoIt:
 ### cv::QRCodeDetector::detectAndDecode
 
 ```cpp
-std::string cv::QRCodeDetector::detectAndDecode( _InputArray  img,
-                                                 _OutputArray points = noArray(),
-                                                 _OutputArray straight_qrcode = noArray() );
+std::string cv::QRCodeDetector::detectAndDecode( InputArray  img,
+                                                 OutputArray points = noArray(),
+                                                 OutputArray straight_qrcode = noArray() );
 
 AutoIt:
     $oQRCodeDetector.detectAndDecode( $img[, $points[, $straight_qrcode]] ) -> retval, $points, $straight_qrcode
@@ -25503,9 +25503,9 @@ AutoIt:
 ### cv::QRCodeDetector::detectAndDecodeCurved
 
 ```cpp
-std::string cv::QRCodeDetector::detectAndDecodeCurved( _InputArray  img,
-                                                       _OutputArray points = noArray(),
-                                                       _OutputArray straight_qrcode = noArray() );
+std::string cv::QRCodeDetector::detectAndDecodeCurved( InputArray  img,
+                                                       OutputArray points = noArray(),
+                                                       OutputArray straight_qrcode = noArray() );
 
 AutoIt:
     $oQRCodeDetector.detectAndDecodeCurved( $img[, $points[, $straight_qrcode]] ) -> retval, $points, $straight_qrcode
@@ -25514,10 +25514,10 @@ AutoIt:
 ### cv::QRCodeDetector::detectAndDecodeMulti
 
 ```cpp
-bool cv::QRCodeDetector::detectAndDecodeMulti( _InputArray               img,
+bool cv::QRCodeDetector::detectAndDecodeMulti( InputArray                img,
                                                std::vector<std::string>& decoded_info,
-                                               _OutputArray              points = noArray(),
-                                               _OutputArray              straight_qrcode = noArray() ) const;
+                                               OutputArray               points = noArray(),
+                                               OutputArrayOfArrays       straight_qrcode = noArray() ) const;
 
 AutoIt:
     $oQRCodeDetector.detectAndDecodeMulti( $img[, $points[, $straight_qrcode[, $decoded_info]]] ) -> retval, $decoded_info, $points, $straight_qrcode
@@ -25526,8 +25526,8 @@ AutoIt:
 ### cv::QRCodeDetector::detectMulti
 
 ```cpp
-bool cv::QRCodeDetector::detectMulti( _InputArray  img,
-                                      _OutputArray points ) const;
+bool cv::QRCodeDetector::detectMulti( InputArray  img,
+                                      OutputArray points ) const;
 
 AutoIt:
     $oQRCodeDetector.detectMulti( $img[, $points] ) -> retval, $points
@@ -25572,8 +25572,8 @@ AutoIt:
 ### cv::FaceDetectorYN::detect
 
 ```cpp
-int cv::FaceDetectorYN::detect( _InputArray  image,
-                                _OutputArray faces );
+int cv::FaceDetectorYN::detect( InputArray  image,
+                                OutputArray faces );
 
 AutoIt:
     $oFaceDetectorYN.detect( $image[, $faces] ) -> retval, $faces
@@ -25668,9 +25668,9 @@ AutoIt:
 ### cv::FaceRecognizerSF::alignCrop
 
 ```cpp
-void cv::FaceRecognizerSF::alignCrop( _InputArray  src_img,
-                                      _InputArray  face_box,
-                                      _OutputArray aligned_img ) const;
+void cv::FaceRecognizerSF::alignCrop( InputArray  src_img,
+                                      InputArray  face_box,
+                                      OutputArray aligned_img ) const;
 
 AutoIt:
     $oFaceRecognizerSF.alignCrop( $src_img, $face_box[, $aligned_img] ) -> $aligned_img
@@ -25679,8 +25679,8 @@ AutoIt:
 ### cv::FaceRecognizerSF::feature
 
 ```cpp
-void cv::FaceRecognizerSF::feature( _InputArray  aligned_img,
-                                    _OutputArray face_feature );
+void cv::FaceRecognizerSF::feature( InputArray  aligned_img,
+                                    OutputArray face_feature );
 
 AutoIt:
     $oFaceRecognizerSF.feature( $aligned_img[, $face_feature] ) -> $face_feature
@@ -25689,9 +25689,9 @@ AutoIt:
 ### cv::FaceRecognizerSF::match
 
 ```cpp
-double cv::FaceRecognizerSF::match( _InputArray _face_feature1,
-                                    _InputArray _face_feature2,
-                                    int         dis_type = FaceRecognizerSF::FR_COSINE ) const;
+double cv::FaceRecognizerSF::match( InputArray _face_feature1,
+                                    InputArray _face_feature2,
+                                    int        dis_type = FaceRecognizerSF::FR_COSINE ) const;
 
 AutoIt:
     $oFaceRecognizerSF.match( $_face_feature1, $_face_feature2[, $dis_type] ) -> retval
@@ -25711,15 +25711,15 @@ AutoIt:
 ### cv::Stitcher::composePanorama
 
 ```cpp
-int cv::Stitcher::composePanorama( _OutputArray pano );
+int cv::Stitcher::composePanorama( OutputArray pano );
 
 AutoIt:
     $oStitcher.composePanorama( [$pano] ) -> retval, $pano
 ```
 
 ```cpp
-int cv::Stitcher::composePanorama( _InputArray  images,
-                                   _OutputArray pano );
+int cv::Stitcher::composePanorama( InputArrayOfArrays images,
+                                   OutputArray        pano );
 
 AutoIt:
     $oStitcher.composePanorama( $images[, $pano] ) -> retval, $pano
@@ -25737,8 +25737,8 @@ AutoIt:
 ### cv::Stitcher::estimateTransform
 
 ```cpp
-int cv::Stitcher::estimateTransform( _InputArray images,
-                                     _InputArray masks = noArray() );
+int cv::Stitcher::estimateTransform( InputArrayOfArrays images,
+                                     InputArrayOfArrays masks = noArray() );
 
 AutoIt:
     $oStitcher.estimateTransform( $images[, $masks] ) -> retval
@@ -25837,17 +25837,17 @@ AutoIt:
 ### cv::Stitcher::stitch
 
 ```cpp
-int cv::Stitcher::stitch( _InputArray  images,
-                          _OutputArray pano );
+int cv::Stitcher::stitch( InputArrayOfArrays images,
+                          OutputArray        pano );
 
 AutoIt:
     $oStitcher.stitch( $images[, $pano] ) -> retval, $pano
 ```
 
 ```cpp
-int cv::Stitcher::stitch( _InputArray  images,
-                          _InputArray  masks,
-                          _OutputArray pano );
+int cv::Stitcher::stitch( InputArrayOfArrays images,
+                          InputArrayOfArrays masks,
+                          OutputArray        pano );
 
 AutoIt:
     $oStitcher.stitch( $images, $masks[, $pano] ) -> retval, $pano
@@ -25893,11 +25893,11 @@ AutoIt:
 ### cv::PyRotationWarper::buildMaps
 
 ```cpp
-cv::Rect cv::PyRotationWarper::buildMaps( cv::Size     src_size,
-                                          _InputArray  K,
-                                          _InputArray  R,
-                                          _OutputArray xmap,
-                                          _OutputArray ymap );
+cv::Rect cv::PyRotationWarper::buildMaps( cv::Size    src_size,
+                                          InputArray  K,
+                                          InputArray  R,
+                                          OutputArray xmap,
+                                          OutputArray ymap );
 
 AutoIt:
     $oPyRotationWarper.buildMaps( $src_size, $K, $R[, $xmap[, $ymap]] ) -> retval, $xmap, $ymap
@@ -25924,12 +25924,12 @@ AutoIt:
 ### cv::PyRotationWarper::warp
 
 ```cpp
-cv::Point cv::PyRotationWarper::warp( _InputArray  src,
-                                      _InputArray  K,
-                                      _InputArray  R,
-                                      int          interp_mode,
-                                      int          border_mode,
-                                      _OutputArray dst );
+cv::Point cv::PyRotationWarper::warp( InputArray  src,
+                                      InputArray  K,
+                                      InputArray  R,
+                                      int         interp_mode,
+                                      int         border_mode,
+                                      OutputArray dst );
 
 AutoIt:
     $oPyRotationWarper.warp( $src, $K, $R, $interp_mode, $border_mode[, $dst] ) -> retval, $dst
@@ -25938,13 +25938,13 @@ AutoIt:
 ### cv::PyRotationWarper::warpBackward
 
 ```cpp
-void cv::PyRotationWarper::warpBackward( _InputArray  src,
-                                         _InputArray  K,
-                                         _InputArray  R,
-                                         int          interp_mode,
-                                         int          border_mode,
-                                         cv::Size     dst_size,
-                                         _OutputArray dst );
+void cv::PyRotationWarper::warpBackward( InputArray  src,
+                                         InputArray  K,
+                                         InputArray  R,
+                                         int         interp_mode,
+                                         int         border_mode,
+                                         cv::Size    dst_size,
+                                         OutputArray dst );
 
 AutoIt:
     $oPyRotationWarper.warpBackward( $src, $K, $R, $interp_mode, $border_mode, $dst_size[, $dst] ) -> $dst
@@ -25954,8 +25954,8 @@ AutoIt:
 
 ```cpp
 cv::Point2f cv::PyRotationWarper::warpPoint( const cv::Point2f& pt,
-                                             _InputArray        K,
-                                             _InputArray        R );
+                                             InputArray         K,
+                                             InputArray         R );
 
 AutoIt:
     $oPyRotationWarper.warpPoint( $pt, $K, $R ) -> retval
@@ -25965,8 +25965,8 @@ AutoIt:
 
 ```cpp
 cv::Point2f cv::PyRotationWarper::warpPointBackward( const cv::Point2f& pt,
-                                                     _InputArray        K,
-                                                     _InputArray        R );
+                                                     InputArray         K,
+                                                     InputArray         R );
 
 AutoIt:
     $oPyRotationWarper.warpPointBackward( $pt, $K, $R ) -> retval
@@ -25974,8 +25974,8 @@ AutoIt:
 
 ```cpp
 cv::Point2f cv::PyRotationWarper::warpPointBackward( const cv::Point2f& pt,
-                                                     _InputArray        K,
-                                                     _InputArray        R );
+                                                     InputArray         K,
+                                                     InputArray         R );
 
 AutoIt:
     $oPyRotationWarper.warpPointBackward( $pt, $K, $R ) -> retval
@@ -25984,9 +25984,9 @@ AutoIt:
 ### cv::PyRotationWarper::warpRoi
 
 ```cpp
-cv::Rect cv::PyRotationWarper::warpRoi( cv::Size    src_size,
-                                        _InputArray K,
-                                        _InputArray R );
+cv::Rect cv::PyRotationWarper::warpRoi( cv::Size   src_size,
+                                        InputArray K,
+                                        InputArray R );
 
 AutoIt:
     $oPyRotationWarper.warpRoi( $src_size, $K, $R ) -> retval
@@ -25997,8 +25997,8 @@ AutoIt:
 ### cv::detail::Blender::blend
 
 ```cpp
-void cv::detail::Blender::blend( _InputOutputArray dst,
-                                 _InputOutputArray dst_mask );
+void cv::detail::Blender::blend( InputOutputArray dst,
+                                 InputOutputArray dst_mask );
 
 AutoIt:
     $oBlender.blend( $dst, $dst_mask ) -> $dst, $dst_mask
@@ -26017,9 +26017,9 @@ AutoIt:
 ### cv::detail::Blender::feed
 
 ```cpp
-void cv::detail::Blender::feed( _InputArray img,
-                                _InputArray mask,
-                                cv::Point   tl );
+void cv::detail::Blender::feed( InputArray img,
+                                InputArray mask,
+                                cv::Point  tl );
 
 AutoIt:
     $oBlender.feed( $img, $mask, $tl ) -> None
@@ -26056,8 +26056,8 @@ AutoIt:
 ### cv::detail::FeatherBlender::blend
 
 ```cpp
-void cv::detail::FeatherBlender::blend( _InputOutputArray dst,
-                                        _InputOutputArray dst_mask );
+void cv::detail::FeatherBlender::blend( InputOutputArray dst,
+                                        InputOutputArray dst_mask );
 
 AutoIt:
     $oFeatherBlender.blend( $dst, $dst_mask ) -> $dst, $dst_mask
@@ -26087,9 +26087,9 @@ AutoIt:
 ### cv::detail::FeatherBlender::feed
 
 ```cpp
-void cv::detail::FeatherBlender::feed( _InputArray img,
-                                       _InputArray mask,
-                                       cv::Point   tl );
+void cv::detail::FeatherBlender::feed( InputArray img,
+                                       InputArray mask,
+                                       cv::Point  tl );
 
 AutoIt:
     $oFeatherBlender.feed( $img, $mask, $tl ) -> None
@@ -26146,8 +26146,8 @@ AutoIt:
 ### cv::detail::MultiBandBlender::blend
 
 ```cpp
-void cv::detail::MultiBandBlender::blend( _InputOutputArray dst,
-                                          _InputOutputArray dst_mask );
+void cv::detail::MultiBandBlender::blend( InputOutputArray dst,
+                                          InputOutputArray dst_mask );
 
 AutoIt:
     $oMultiBandBlender.blend( $dst, $dst_mask ) -> $dst, $dst_mask
@@ -26166,9 +26166,9 @@ AutoIt:
 ### cv::detail::MultiBandBlender::feed
 
 ```cpp
-void cv::detail::MultiBandBlender::feed( _InputArray img,
-                                         _InputArray mask,
-                                         cv::Point   tl );
+void cv::detail::MultiBandBlender::feed( InputArray img,
+                                         InputArray mask,
+                                         cv::Point  tl );
 
 AutoIt:
     $oMultiBandBlender.feed( $img, $mask, $tl ) -> None
@@ -26234,10 +26234,10 @@ AutoIt:
 ### cv::detail::ExposureCompensator::apply
 
 ```cpp
-void cv::detail::ExposureCompensator::apply( int               index,
-                                             cv::Point         corner,
-                                             _InputOutputArray image,
-                                             _InputArray       mask );
+void cv::detail::ExposureCompensator::apply( int              index,
+                                             cv::Point        corner,
+                                             InputOutputArray image,
+                                             InputArray       mask );
 
 AutoIt:
     $oExposureCompensator.apply( $index, $corner, $image, $mask ) -> $image
@@ -26304,10 +26304,10 @@ AutoIt:
 ### cv::detail::NoExposureCompensator::apply
 
 ```cpp
-void cv::detail::NoExposureCompensator::apply( int               arg1,
-                                               cv::Point         arg2,
-                                               _InputOutputArray arg3,
-                                               _InputArray       arg4 );
+void cv::detail::NoExposureCompensator::apply( int              arg1,
+                                               cv::Point        arg2,
+                                               InputOutputArray arg3,
+                                               InputArray       arg4 );
 
 AutoIt:
     $oNoExposureCompensator.apply( $arg1, $arg2, $arg3, $arg4 ) -> $arg3
@@ -26390,10 +26390,10 @@ AutoIt:
 ### cv::detail::GainCompensator::apply
 
 ```cpp
-void cv::detail::GainCompensator::apply( int               index,
-                                         cv::Point         corner,
-                                         _InputOutputArray image,
-                                         _InputArray       mask );
+void cv::detail::GainCompensator::apply( int              index,
+                                         cv::Point        corner,
+                                         InputOutputArray image,
+                                         InputArray       mask );
 
 AutoIt:
     $oGainCompensator.apply( $index, $corner, $image, $mask ) -> $image
@@ -26505,10 +26505,10 @@ AutoIt:
 ### cv::detail::ChannelsCompensator::apply
 
 ```cpp
-void cv::detail::ChannelsCompensator::apply( int               index,
-                                             cv::Point         corner,
-                                             _InputOutputArray image,
-                                             _InputArray       mask );
+void cv::detail::ChannelsCompensator::apply( int              index,
+                                             cv::Point        corner,
+                                             InputOutputArray image,
+                                             InputArray       mask );
 
 AutoIt:
     $oChannelsCompensator.apply( $index, $corner, $image, $mask ) -> $image
@@ -26611,10 +26611,10 @@ AutoIt:
 ### cv::detail::BlocksCompensator::apply
 
 ```cpp
-void cv::detail::BlocksCompensator::apply( int               index,
-                                           cv::Point         corner,
-                                           _InputOutputArray image,
-                                           _InputArray       mask );
+void cv::detail::BlocksCompensator::apply( int              index,
+                                           cv::Point        corner,
+                                           InputOutputArray image,
+                                           InputArray       mask );
 
 AutoIt:
     $oBlocksCompensator.apply( $index, $corner, $image, $mask ) -> $image
@@ -26780,10 +26780,10 @@ AutoIt:
 ### cv::detail::BlocksGainCompensator::apply
 
 ```cpp
-void cv::detail::BlocksGainCompensator::apply( int               index,
-                                               cv::Point         corner,
-                                               _InputOutputArray image,
-                                               _InputArray       mask );
+void cv::detail::BlocksGainCompensator::apply( int              index,
+                                               cv::Point        corner,
+                                               InputOutputArray image,
+                                               InputArray       mask );
 
 AutoIt:
     $oBlocksGainCompensator.apply( $index, $corner, $image, $mask ) -> $image
@@ -26941,10 +26941,10 @@ AutoIt:
 ### cv::detail::BlocksChannelsCompensator::apply
 
 ```cpp
-void cv::detail::BlocksChannelsCompensator::apply( int               index,
-                                                   cv::Point         corner,
-                                                   _InputOutputArray image,
-                                                   _InputArray       mask );
+void cv::detail::BlocksChannelsCompensator::apply( int              index,
+                                                   cv::Point        corner,
+                                                   InputOutputArray image,
+                                                   InputArray       mask );
 
 AutoIt:
     $oBlocksChannelsCompensator.apply( $index, $corner, $image, $mask ) -> $image
@@ -28048,9 +28048,9 @@ AutoIt:
 ### cv::detail::Timelapser::process
 
 ```cpp
-void cv::detail::Timelapser::process( _InputArray img,
-                                      _InputArray mask,
-                                      cv::Point   tl );
+void cv::detail::Timelapser::process( InputArray img,
+                                      InputArray mask,
+                                      cv::Point  tl );
 
 AutoIt:
     $oTimelapser.process( $img, $mask, $tl ) -> None
@@ -28089,9 +28089,9 @@ AutoIt:
 ### cv::detail::TimelapserCrop::process
 
 ```cpp
-void cv::detail::TimelapserCrop::process( _InputArray img,
-                                          _InputArray mask,
-                                          cv::Point   tl );
+void cv::detail::TimelapserCrop::process( InputArray img,
+                                          InputArray mask,
+                                          cv::Point  tl );
 
 AutoIt:
     $oTimelapserCrop.process( $img, $mask, $tl ) -> None
@@ -28148,9 +28148,9 @@ AutoIt:
 ### cv::BackgroundSubtractor::apply
 
 ```cpp
-void cv::BackgroundSubtractor::apply( _InputArray  image,
-                                      _OutputArray fgmask,
-                                      double       learningRate = -1 );
+void cv::BackgroundSubtractor::apply( InputArray  image,
+                                      OutputArray fgmask,
+                                      double      learningRate = -1 );
 
 AutoIt:
     $oBackgroundSubtractor.apply( $image[, $fgmask[, $learningRate]] ) -> $fgmask
@@ -28177,7 +28177,7 @@ AutoIt:
 ### cv::BackgroundSubtractor::getBackgroundImage
 
 ```cpp
-void cv::BackgroundSubtractor::getBackgroundImage( _OutputArray backgroundImage ) const;
+void cv::BackgroundSubtractor::getBackgroundImage( OutputArray backgroundImage ) const;
 
 AutoIt:
     $oBackgroundSubtractor.getBackgroundImage( [$backgroundImage] ) -> $backgroundImage
@@ -28225,9 +28225,9 @@ AutoIt:
 ### cv::BackgroundSubtractorMOG2::apply
 
 ```cpp
-void cv::BackgroundSubtractorMOG2::apply( _InputArray  image,
-                                          _OutputArray fgmask,
-                                          double       learningRate = -1 );
+void cv::BackgroundSubtractorMOG2::apply( InputArray  image,
+                                          OutputArray fgmask,
+                                          double      learningRate = -1 );
 
 AutoIt:
     $oBackgroundSubtractorMOG2.apply( $image[, $fgmask[, $learningRate]] ) -> $fgmask
@@ -28254,7 +28254,7 @@ AutoIt:
 ### cv::BackgroundSubtractorMOG2::getBackgroundImage
 
 ```cpp
-void cv::BackgroundSubtractorMOG2::getBackgroundImage( _OutputArray backgroundImage ) const;
+void cv::BackgroundSubtractorMOG2::getBackgroundImage( OutputArray backgroundImage ) const;
 
 AutoIt:
     $oBackgroundSubtractorMOG2.getBackgroundImage( [$backgroundImage] ) -> $backgroundImage
@@ -28518,9 +28518,9 @@ AutoIt:
 ### cv::BackgroundSubtractorKNN::apply
 
 ```cpp
-void cv::BackgroundSubtractorKNN::apply( _InputArray  image,
-                                         _OutputArray fgmask,
-                                         double       learningRate = -1 );
+void cv::BackgroundSubtractorKNN::apply( InputArray  image,
+                                         OutputArray fgmask,
+                                         double      learningRate = -1 );
 
 AutoIt:
     $oBackgroundSubtractorKNN.apply( $image[, $fgmask[, $learningRate]] ) -> $fgmask
@@ -28547,7 +28547,7 @@ AutoIt:
 ### cv::BackgroundSubtractorKNN::getBackgroundImage
 
 ```cpp
-void cv::BackgroundSubtractorKNN::getBackgroundImage( _OutputArray backgroundImage ) const;
+void cv::BackgroundSubtractorKNN::getBackgroundImage( OutputArray backgroundImage ) const;
 
 AutoIt:
     $oBackgroundSubtractorKNN.getBackgroundImage( [$backgroundImage] ) -> $backgroundImage
@@ -28760,9 +28760,9 @@ AutoIt:
 ### cv::DenseOpticalFlow::calc
 
 ```cpp
-void cv::DenseOpticalFlow::calc( _InputArray       I0,
-                                 _InputArray       I1,
-                                 _InputOutputArray flow );
+void cv::DenseOpticalFlow::calc( InputArray       I0,
+                                 InputArray       I1,
+                                 InputOutputArray flow );
 
 AutoIt:
     $oDenseOpticalFlow.calc( $I0, $I1, $flow ) -> $flow
@@ -28837,12 +28837,12 @@ AutoIt:
 ### cv::SparseOpticalFlow::calc
 
 ```cpp
-void cv::SparseOpticalFlow::calc( _InputArray       prevImg,
-                                  _InputArray       nextImg,
-                                  _InputArray       prevPts,
-                                  _InputOutputArray nextPts,
-                                  _OutputArray      status,
-                                  _OutputArray      err = cv::noArray() );
+void cv::SparseOpticalFlow::calc( InputArray       prevImg,
+                                  InputArray       nextImg,
+                                  InputArray       prevPts,
+                                  InputOutputArray nextPts,
+                                  OutputArray      status,
+                                  OutputArray      err = cv::noArray() );
 
 AutoIt:
     $oSparseOpticalFlow.calc( $prevImg, $nextImg, $prevPts, $nextPts[, $status[, $err]] ) -> $nextPts, $status, $err
@@ -28924,9 +28924,9 @@ AutoIt:
 ### cv::FarnebackOpticalFlow::calc
 
 ```cpp
-void cv::FarnebackOpticalFlow::calc( _InputArray       I0,
-                                     _InputArray       I1,
-                                     _InputOutputArray flow );
+void cv::FarnebackOpticalFlow::calc( InputArray       I0,
+                                     InputArray       I1,
+                                     InputOutputArray flow );
 
 AutoIt:
     $oFarnebackOpticalFlow.calc( $I0, $I1, $flow ) -> $flow
@@ -29154,9 +29154,9 @@ AutoIt:
 ### cv::VariationalRefinement::calc
 
 ```cpp
-void cv::VariationalRefinement::calc( _InputArray       I0,
-                                      _InputArray       I1,
-                                      _InputOutputArray flow );
+void cv::VariationalRefinement::calc( InputArray       I0,
+                                      InputArray       I1,
+                                      InputOutputArray flow );
 
 AutoIt:
     $oVariationalRefinement.calc( $I0, $I1, $flow ) -> $flow
@@ -29165,10 +29165,10 @@ AutoIt:
 ### cv::VariationalRefinement::calcUV
 
 ```cpp
-void cv::VariationalRefinement::calcUV( _InputArray       I0,
-                                        _InputArray       I1,
-                                        _InputOutputArray flow_u,
-                                        _InputOutputArray flow_v );
+void cv::VariationalRefinement::calcUV( InputArray       I0,
+                                        InputArray       I1,
+                                        InputOutputArray flow_u,
+                                        InputOutputArray flow_v );
 
 AutoIt:
     $oVariationalRefinement.calcUV( $I0, $I1, $flow_u, $flow_v ) -> $flow_u, $flow_v
@@ -29360,9 +29360,9 @@ AutoIt:
 ### cv::DISOpticalFlow::calc
 
 ```cpp
-void cv::DISOpticalFlow::calc( _InputArray       I0,
-                               _InputArray       I1,
-                               _InputOutputArray flow );
+void cv::DISOpticalFlow::calc( InputArray       I0,
+                               InputArray       I1,
+                               InputOutputArray flow );
 
 AutoIt:
     $oDISOpticalFlow.calc( $I0, $I1, $flow ) -> $flow
@@ -29630,12 +29630,12 @@ AutoIt:
 ### cv::SparsePyrLKOpticalFlow::calc
 
 ```cpp
-void cv::SparsePyrLKOpticalFlow::calc( _InputArray       prevImg,
-                                       _InputArray       nextImg,
-                                       _InputArray       prevPts,
-                                       _InputOutputArray nextPts,
-                                       _OutputArray      status,
-                                       _OutputArray      err = cv::noArray() );
+void cv::SparsePyrLKOpticalFlow::calc( InputArray       prevImg,
+                                       InputArray       nextImg,
+                                       InputArray       prevPts,
+                                       InputOutputArray nextPts,
+                                       OutputArray      status,
+                                       OutputArray      err = cv::noArray() );
 
 AutoIt:
     $oSparsePyrLKOpticalFlow.calc( $prevImg, $nextImg, $prevPts, $nextPts[, $status[, $err]] ) -> $nextPts, $status, $err
@@ -29791,7 +29791,7 @@ AutoIt:
 ### cv::Tracker::init
 
 ```cpp
-void cv::Tracker::init( _InputArray     image,
+void cv::Tracker::init( InputArray      image,
                         const cv::Rect& boundingBox );
 
 AutoIt:
@@ -29801,8 +29801,8 @@ AutoIt:
 ### cv::Tracker::update
 
 ```cpp
-bool cv::Tracker::update( _InputArray image,
-                          cv::Rect&   boundingBox );
+bool cv::Tracker::update( InputArray image,
+                          cv::Rect&  boundingBox );
 
 AutoIt:
     $oTracker.update( $image[, $boundingBox] ) -> retval, $boundingBox
@@ -29822,7 +29822,7 @@ AutoIt:
 ### cv::TrackerMIL::init
 
 ```cpp
-void cv::TrackerMIL::init( _InputArray     image,
+void cv::TrackerMIL::init( InputArray      image,
                            const cv::Rect& boundingBox );
 
 AutoIt:
@@ -29832,8 +29832,8 @@ AutoIt:
 ### cv::TrackerMIL::update
 
 ```cpp
-bool cv::TrackerMIL::update( _InputArray image,
-                             cv::Rect&   boundingBox );
+bool cv::TrackerMIL::update( InputArray image,
+                             cv::Rect&  boundingBox );
 
 AutoIt:
     $oTrackerMIL.update( $image[, $boundingBox] ) -> retval, $boundingBox
@@ -29864,7 +29864,7 @@ AutoIt:
 ### cv::TrackerGOTURN::init
 
 ```cpp
-void cv::TrackerGOTURN::init( _InputArray     image,
+void cv::TrackerGOTURN::init( InputArray      image,
                               const cv::Rect& boundingBox );
 
 AutoIt:
@@ -29874,8 +29874,8 @@ AutoIt:
 ### cv::TrackerGOTURN::update
 
 ```cpp
-bool cv::TrackerGOTURN::update( _InputArray image,
-                                cv::Rect&   boundingBox );
+bool cv::TrackerGOTURN::update( InputArray image,
+                                cv::Rect&  boundingBox );
 
 AutoIt:
     $oTrackerGOTURN.update( $image[, $boundingBox] ) -> retval, $boundingBox
@@ -29915,7 +29915,7 @@ AutoIt:
 ### cv::TrackerDaSiamRPN::init
 
 ```cpp
-void cv::TrackerDaSiamRPN::init( _InputArray     image,
+void cv::TrackerDaSiamRPN::init( InputArray      image,
                                  const cv::Rect& boundingBox );
 
 AutoIt:
@@ -29925,8 +29925,8 @@ AutoIt:
 ### cv::TrackerDaSiamRPN::update
 
 ```cpp
-bool cv::TrackerDaSiamRPN::update( _InputArray image,
-                                   cv::Rect&   boundingBox );
+bool cv::TrackerDaSiamRPN::update( InputArray image,
+                                   cv::Rect&  boundingBox );
 
 AutoIt:
     $oTrackerDaSiamRPN.update( $image[, $boundingBox] ) -> retval, $boundingBox
