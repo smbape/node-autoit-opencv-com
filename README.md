@@ -133,25 +133,31 @@ Example1
 
 ## Running examples
 
+Install [7-zip](https://www.7-zip.org/download.html) and add the 7-zip folder to you system PATH environment variable
+
+Then, in [Git Bash](https://gitforwindows.org/), execute the following commands
+
 ```sh
+# go to the folder of your choice
+# cd ...
+
 # download autoit-opencv-4.5.5-com-v2.0.1.7z
 curl -L 'https://github.com/smbape/node-autoit-opencv-com/releases/download/v2.0.1/autoit-opencv-4.5.5-com-v2.0.1.7z' -o autoit-opencv-4.5.5-com-v2.0.1.7z
 
-# extract autoit-opencv-4.5.5-com-v2.0.1.7z
+# extract the content of autoit-opencv-4.5.5-com-v2.0.1.7z into a folder named autoit-opencv-com
 7z x autoit-opencv-4.5.5-com-v2.0.1.7z -aoa -oautoit-opencv-com
 
 # download opencv-4.5.5-vc14_vc15.exe
 curl -L 'https://github.com/opencv/opencv/releases/download/4.5.5/opencv-4.5.5-vc14_vc15.exe' -o opencv-4.5.5-vc14_vc15.exe
 
-# extract opencv-4.5.5-vc14_vc15.exe 
+# extract the content of opencv-4.5.5-vc14_vc15.exe into a folder named opencv-4.5.5-vc14_vc15
 ./opencv-4.5.5-vc14_vc15.exe -oopencv-4.5.5-vc14_vc15 -y
 
-# download the source files
+# download autoit-opencv-4.5.5-com-v2.0.1-src.zip
 curl -L 'https://github.com/smbape/node-autoit-opencv-com/archive/refs/tags/v2.0.1.zip' -o autoit-opencv-4.5.5-com-v2.0.1-src.zip
 
-# extract autoit-opencv-4.5.5-com-v2.0.1-src.zip
+# extract the autoit-addon and samples folders of autoit-opencv-4.5.5-com-v2.0.1-src.zip
 7z x autoit-opencv-4.5.5-com-v2.0.1-src.zip -aoa 'node-autoit-opencv-com-2.0.1\autoit-addon\*' 'node-autoit-opencv-com-2.0.1\samples\*'
-mkdir -p autoit-opencv-com
 cp -rf node-autoit-opencv-com-2.0.1/* ./
 rm -rf node-autoit-opencv-com-2.0.1
 ```
