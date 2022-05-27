@@ -794,7 +794,7 @@ double cv::calibrateCamera( InputArrayOfArrays  objectPoints,
                             OutputArrayOfArrays rvecs,
                             OutputArrayOfArrays tvecs,
                             int                 flags = 0,
-                            cv::TermCriteria    criteria = TermCriteria( TermCriteria::COUNT + TermCriteria::EPS, 30, DBL_EPSILON) );
+                            cv::TermCriteria    criteria = TermCriteria( TermCriteria::COUNT + TermCriteria::EPS, 100, DBL_EPSILON) );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").calibrateCamera( $objectPoints, $imagePoints, $imageSize, $cameraMatrix, $distCoeffs[, $rvecs[, $tvecs[, $flags[, $criteria]]]] ) -> retval, $cameraMatrix, $distCoeffs, $rvecs, $tvecs
@@ -814,7 +814,7 @@ double cv::calibrateCameraExtended( InputArrayOfArrays  objectPoints,
                                     OutputArray         stdDeviationsExtrinsics,
                                     OutputArray         perViewErrors,
                                     int                 flags = 0,
-                                    cv::TermCriteria    criteria = TermCriteria( TermCriteria::COUNT + TermCriteria::EPS, 30, DBL_EPSILON) );
+                                    cv::TermCriteria    criteria = TermCriteria( TermCriteria::COUNT + TermCriteria::EPS, 100, DBL_EPSILON) );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").calibrateCameraExtended( $objectPoints, $imagePoints, $imageSize, $cameraMatrix, $distCoeffs[, $rvecs[, $tvecs[, $stdDeviationsIntrinsics[, $stdDeviationsExtrinsics[, $perViewErrors[, $flags[, $criteria]]]]]]] ) -> retval, $cameraMatrix, $distCoeffs, $rvecs, $tvecs, $stdDeviationsIntrinsics, $stdDeviationsExtrinsics, $perViewErrors
@@ -833,7 +833,7 @@ double cv::calibrateCameraRO( InputArrayOfArrays  objectPoints,
                               OutputArrayOfArrays tvecs,
                               OutputArray         newObjPoints,
                               int                 flags = 0,
-                              cv::TermCriteria    criteria = TermCriteria( TermCriteria::COUNT + TermCriteria::EPS, 30, DBL_EPSILON) );
+                              cv::TermCriteria    criteria = TermCriteria( TermCriteria::COUNT + TermCriteria::EPS, 100, DBL_EPSILON) );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").calibrateCameraRO( $objectPoints, $imagePoints, $imageSize, $iFixedPoint, $cameraMatrix, $distCoeffs[, $rvecs[, $tvecs[, $newObjPoints[, $flags[, $criteria]]]]] ) -> retval, $cameraMatrix, $distCoeffs, $rvecs, $tvecs, $newObjPoints
@@ -856,42 +856,10 @@ double cv::calibrateCameraROExtended( InputArrayOfArrays  objectPoints,
                                       OutputArray         stdDeviationsObjPoints,
                                       OutputArray         perViewErrors,
                                       int                 flags = 0,
-                                      cv::TermCriteria    criteria = TermCriteria( TermCriteria::COUNT + TermCriteria::EPS, 30, DBL_EPSILON) );
+                                      cv::TermCriteria    criteria = TermCriteria( TermCriteria::COUNT + TermCriteria::EPS, 100, DBL_EPSILON) );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").calibrateCameraROExtended( $objectPoints, $imagePoints, $imageSize, $iFixedPoint, $cameraMatrix, $distCoeffs[, $rvecs[, $tvecs[, $newObjPoints[, $stdDeviationsIntrinsics[, $stdDeviationsExtrinsics[, $stdDeviationsObjPoints[, $perViewErrors[, $flags[, $criteria]]]]]]]]] ) -> retval, $cameraMatrix, $distCoeffs, $rvecs, $tvecs, $newObjPoints, $stdDeviationsIntrinsics, $stdDeviationsExtrinsics, $stdDeviationsObjPoints, $perViewErrors
-```
-
-### cv::calibrateHandEye
-
-```cpp
-void cv::calibrateHandEye( InputArrayOfArrays R_gripper2base,
-                           InputArrayOfArrays t_gripper2base,
-                           InputArrayOfArrays R_target2cam,
-                           InputArrayOfArrays t_target2cam,
-                           OutputArray        R_cam2gripper,
-                           OutputArray        t_cam2gripper,
-                           int                method = CALIB_HAND_EYE_TSAI );
-
-AutoIt:
-    _OpenCV_ObjCreate("cv").calibrateHandEye( $R_gripper2base, $t_gripper2base, $R_target2cam, $t_target2cam[, $R_cam2gripper[, $t_cam2gripper[, $method]]] ) -> $R_cam2gripper, $t_cam2gripper
-```
-
-### cv::calibrateRobotWorldHandEye
-
-```cpp
-void cv::calibrateRobotWorldHandEye( InputArrayOfArrays R_world2cam,
-                                     InputArrayOfArrays t_world2cam,
-                                     InputArrayOfArrays R_base2gripper,
-                                     InputArrayOfArrays t_base2gripper,
-                                     OutputArray        R_base2world,
-                                     OutputArray        t_base2world,
-                                     OutputArray        R_gripper2cam,
-                                     OutputArray        t_gripper2cam,
-                                     int                method = CALIB_ROBOT_WORLD_HAND_EYE_SHAH );
-
-AutoIt:
-    _OpenCV_ObjCreate("cv").calibrateRobotWorldHandEye( $R_world2cam, $t_world2cam, $R_base2gripper, $t_base2gripper[, $R_base2world[, $t_base2world[, $R_gripper2cam[, $t_gripper2cam[, $method]]]]] ) -> $R_base2world, $t_base2world, $R_gripper2cam, $t_gripper2cam
 ```
 
 ### cv::calibrationMatrixValues
@@ -1166,20 +1134,22 @@ AutoIt:
 
 ```cpp
 void cv::convertPointsFromHomogeneous( InputArray  src,
-                                       OutputArray dst );
+                                       OutputArray dst,
+                                       int         dtype = -1 );
 
 AutoIt:
-    _OpenCV_ObjCreate("cv").convertPointsFromHomogeneous( $src[, $dst] ) -> $dst
+    _OpenCV_ObjCreate("cv").convertPointsFromHomogeneous( $src[, $dst[, $dtype]] ) -> $dst
 ```
 
 ### cv::convertPointsToHomogeneous
 
 ```cpp
 void cv::convertPointsToHomogeneous( InputArray  src,
-                                     OutputArray dst );
+                                     OutputArray dst,
+                                     int         dtype = -1 );
 
 AutoIt:
-    _OpenCV_ObjCreate("cv").convertPointsToHomogeneous( $src[, $dst] ) -> $dst
+    _OpenCV_ObjCreate("cv").convertPointsToHomogeneous( $src[, $dst[, $dtype]] ) -> $dst
 ```
 
 ### cv::convertScaleAbs
@@ -1628,6 +1598,30 @@ void cv::denoise_TVL1( const std::vector<cv::Mat>& observations,
 
 AutoIt:
     _OpenCV_ObjCreate("cv").denoise_TVL1( $observations, $result[, $lambda[, $niters]] ) -> None
+```
+
+### cv::depthTo3d
+
+```cpp
+void cv::depthTo3d( InputArray  depth,
+                    InputArray  K,
+                    OutputArray points3d,
+                    InputArray  mask = noArray() );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv").depthTo3d( $depth, $K[, $points3d[, $mask]] ) -> $points3d
+```
+
+### cv::depthTo3dSparse
+
+```cpp
+void cv::depthTo3dSparse( InputArray  depth,
+                          InputArray  in_K,
+                          InputArray  in_points,
+                          OutputArray points3d );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv").depthTo3dSparse( $depth, $in_K, $in_points[, $points3d] ) -> $points3d
 ```
 
 ### cv::destroyAllWindows
@@ -2288,6 +2282,18 @@ AutoIt:
     _OpenCV_ObjCreate("cv").filter2D( $src, $ddepth, $kernel[, $dst[, $anchor[, $delta[, $borderType]]]] ) -> $dst
 ```
 
+### cv::filter2Dp
+
+```cpp
+void cv::filter2Dp( InputArray                src,
+                    OutputArray               dst,
+                    InputArray                kernel,
+                    const cv::Filter2DParams& params = Filter2DParams() );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv").filter2Dp( $src, $kernel[, $dst[, $params]] ) -> $dst
+```
+
 ### cv::filterHomographyDecompByVisibleRefpoints
 
 ```cpp
@@ -2533,6 +2539,25 @@ void cv::findNonZero( InputArray  src,
 
 AutoIt:
     _OpenCV_ObjCreate("cv").findNonZero( $src[, $idx] ) -> $idx
+```
+
+### cv::findPlanes
+
+```cpp
+void cv::findPlanes( InputArray  points3d,
+                     InputArray  normals,
+                     OutputArray mask,
+                     OutputArray plane_coefficients,
+                     int         block_size = 40,
+                     int         min_size = 40*40,
+                     double      threshold = 0.01,
+                     double      sensor_error_a = 0,
+                     double      sensor_error_b = 0,
+                     double      sensor_error_c = 0,
+                     int         method = RGBD_PLANE_METHOD_DEFAULT );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv").findPlanes( $points3d, $normals[, $mask[, $plane_coefficients[, $block_size[, $min_size[, $threshold[, $sensor_error_a[, $sensor_error_b[, $sensor_error_c[, $method]]]]]]]]] ) -> $mask, $plane_coefficients
 ```
 
 ### cv::findTransformECC
@@ -2862,6 +2887,20 @@ cv::Size cv::getTextSize( const std::string& text,
 
 AutoIt:
     _OpenCV_ObjCreate("cv").getTextSize( $text, $fontFace, $fontScale, $thickness[, $baseLine] ) -> retval, $baseLine
+```
+
+```cpp
+cv::Rect cv::getTextSize( cv::Size           imgsize,
+                          const std::string& text,
+                          cv::Point          org,
+                          cv::FontFace&      fface,
+                          int                size,
+                          int                weight = 0,
+                          int                flags = PUT_TEXT_ALIGN_LEFT,
+                          cv::Range          wrap = Range() );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv").getTextSize( $imgsize, $text, $org, $fface, $size[, $weight[, $flags[, $wrap]]] ) -> retval
 ```
 
 ### cv::getThreadNum
@@ -3420,6 +3459,29 @@ AutoIt:
     _OpenCV_ObjCreate("cv").linearPolar( $src, $center, $maxRadius, $flags[, $dst] ) -> $dst
 ```
 
+### cv::loadMesh
+
+```cpp
+void cv::loadMesh( const std::string&  filename,
+                   OutputArray         vertices,
+                   OutputArray         normals,
+                   OutputArrayOfArrays indices );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv").loadMesh( $filename[, $vertices[, $normals[, $indices]]] ) -> $vertices, $normals, $indices
+```
+
+### cv::loadPointCloud
+
+```cpp
+void cv::loadPointCloud( const std::string& filename,
+                         OutputArray        vertices,
+                         OutputArray        normals = noArray() );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv").loadPointCloud( $filename[, $vertices[, $normals]] ) -> $vertices, $normals
+```
+
 ### cv::log
 
 ```cpp
@@ -3904,6 +3966,27 @@ AutoIt:
     _OpenCV_ObjCreate("cv").projectPoints( $objectPoints, $rvec, $tvec, $cameraMatrix, $distCoeffs[, $imagePoints[, $jacobian[, $aspectRatio]]] ) -> $imagePoints, $jacobian
 ```
 
+### cv::projectPointsSepJ
+
+```cpp
+void cv::projectPointsSepJ( InputArray  objectPoints,
+                            InputArray  rvec,
+                            InputArray  tvec,
+                            InputArray  cameraMatrix,
+                            InputArray  distCoeffs,
+                            OutputArray imagePoints,
+                            OutputArray dpdr,
+                            OutputArray dpdt,
+                            OutputArray dpdf = noArray(),
+                            OutputArray dpdc = noArray(),
+                            OutputArray dpdk = noArray(),
+                            OutputArray dpdo = noArray(),
+                            double      aspectRatio = 0. );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv").projectPointsSepJ( $objectPoints, $rvec, $tvec, $cameraMatrix, $distCoeffs[, $imagePoints[, $dpdr[, $dpdt[, $dpdf[, $dpdc[, $dpdk[, $dpdo[, $aspectRatio]]]]]]]] ) -> $imagePoints, $dpdr, $dpdt, $dpdf, $dpdc, $dpdk, $dpdo
+```
+
 ### cv::putText
 
 ```cpp
@@ -3919,6 +4002,21 @@ void cv::putText( InputOutputArray   img,
 
 AutoIt:
     _OpenCV_ObjCreate("cv").putText( $img, $text, $org, $fontFace, $fontScale, $color[, $thickness[, $lineType[, $bottomLeftOrigin]]] ) -> $img
+```
+
+```cpp
+cv::Point cv::putText( InputOutputArray   img,
+                       const std::string& text,
+                       cv::Point          org,
+                       cv::Scalar         color,
+                       cv::FontFace&      fface,
+                       int                size,
+                       int                weight = 0,
+                       int                flags = PUT_TEXT_ALIGN_LEFT,
+                       cv::Range          wrap = Range() );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv").putText( $img, $text, $org, $color, $fface, $size[, $weight[, $flags[, $wrap]]] ) -> retval, $img
 ```
 
 ### cv::pyrDown
@@ -4168,39 +4266,6 @@ AutoIt:
     _OpenCV_ObjCreate("cv").rectangle( $img, $rec, $color[, $thickness[, $lineType[, $shift]]] ) -> $img
 ```
 
-### cv::rectify3Collinear
-
-```cpp
-float cv::rectify3Collinear( InputArray         cameraMatrix1,
-                             InputArray         distCoeffs1,
-                             InputArray         cameraMatrix2,
-                             InputArray         distCoeffs2,
-                             InputArray         cameraMatrix3,
-                             InputArray         distCoeffs3,
-                             InputArrayOfArrays imgpt1,
-                             InputArrayOfArrays imgpt3,
-                             cv::Size           imageSize,
-                             InputArray         R12,
-                             InputArray         T12,
-                             InputArray         R13,
-                             InputArray         T13,
-                             OutputArray        R1,
-                             OutputArray        R2,
-                             OutputArray        R3,
-                             OutputArray        P1,
-                             OutputArray        P2,
-                             OutputArray        P3,
-                             OutputArray        Q,
-                             double             alpha,
-                             cv::Size           newImgSize,
-                             cv::Rect*          roi1,
-                             cv::Rect*          roi2,
-                             int                flags );
-
-AutoIt:
-    _OpenCV_ObjCreate("cv").rectify3Collinear( $cameraMatrix1, $distCoeffs1, $cameraMatrix2, $distCoeffs2, $cameraMatrix3, $distCoeffs3, $imgpt1, $imgpt3, $imageSize, $R12, $T12, $R13, $T13, $alpha, $newImgSize, $flags[, $R1[, $R2[, $R3[, $P1[, $P2[, $P3[, $Q[, $roi1[, $roi2]]]]]]]]] ) -> retval, $R1, $R2, $R3, $P1, $P2, $P3, $Q, $roi1, $roi2
-```
-
 ### cv::reduce
 
 ```cpp
@@ -4236,6 +4301,22 @@ void cv::reduceArgMin( InputArray  src,
 
 AutoIt:
     _OpenCV_ObjCreate("cv").reduceArgMin( $src, $axis[, $dst[, $lastIndex]] ) -> $dst
+```
+
+### cv::registerDepth
+
+```cpp
+void cv::registerDepth( InputArray      unregisteredCameraMatrix,
+                        InputArray      registeredCameraMatrix,
+                        InputArray      registeredDistCoeffs,
+                        InputArray      Rt,
+                        InputArray      unregisteredDepth,
+                        const cv::Size& outputImagePlaneSize,
+                        OutputArray     registeredDepth,
+                        bool            depthDilation = false );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv").registerDepth( $unregisteredCameraMatrix, $registeredCameraMatrix, $registeredDistCoeffs, $Rt, $unregisteredDepth, $outputImagePlaneSize[, $registeredDepth[, $depthDilation]] ) -> $registeredDepth
 ```
 
 ### cv::remap
@@ -4276,6 +4357,18 @@ void cv::reprojectImageTo3D( InputArray  disparity,
 
 AutoIt:
     _OpenCV_ObjCreate("cv").reprojectImageTo3D( $disparity, $Q[, $_3dImage[, $handleMissingValues[, $ddepth]]] ) -> $_3dImage
+```
+
+### cv::rescaleDepth
+
+```cpp
+void cv::rescaleDepth( InputArray  in,
+                       int         type,
+                       OutputArray out,
+                       double      depth_factor = 1000.0 );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv").rescaleDepth( $in, $type[, $out[, $depth_factor]] ) -> $out
 ```
 
 ### cv::resize
@@ -4342,6 +4435,29 @@ double cv::sampsonDistance( InputArray pt1,
 
 AutoIt:
     _OpenCV_ObjCreate("cv").sampsonDistance( $pt1, $pt2, $F ) -> retval
+```
+
+### cv::saveMesh
+
+```cpp
+void cv::saveMesh( const std::string& filename,
+                   InputArray         vertices,
+                   InputArray         normals,
+                   InputArrayOfArrays indices );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv").saveMesh( $filename, $vertices, $normals, $indices ) -> None
+```
+
+### cv::savePointCloud
+
+```cpp
+void cv::savePointCloud( const std::string& filename,
+                         InputArray         vertices,
+                         InputArray         normals = noArray() );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv").savePointCloud( $filename, $vertices[, $normals] ) -> None
 ```
 
 ### cv::scaleAdd
@@ -4798,7 +4914,7 @@ double cv::stereoCalibrate( InputArrayOfArrays objectPoints,
                             OutputArray        E,
                             OutputArray        F,
                             int                flags = CALIB_FIX_INTRINSIC,
-                            cv::TermCriteria   criteria = TermCriteria(TermCriteria::COUNT+TermCriteria::EPS, 30, 1e-6) );
+                            cv::TermCriteria   criteria = TermCriteria(TermCriteria::COUNT+TermCriteria::EPS, 100, 1e-6) );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").stereoCalibrate( $objectPoints, $imagePoints1, $imagePoints2, $cameraMatrix1, $distCoeffs1, $cameraMatrix2, $distCoeffs2, $imageSize[, $R[, $T[, $E[, $F[, $flags[, $criteria]]]]]] ) -> retval, $cameraMatrix1, $distCoeffs1, $cameraMatrix2, $distCoeffs2, $R, $T, $E, $F
@@ -4821,7 +4937,7 @@ double cv::stereoCalibrateExtended( InputArrayOfArrays objectPoints,
                                     OutputArray        F,
                                     OutputArray        perViewErrors,
                                     int                flags = CALIB_FIX_INTRINSIC,
-                                    cv::TermCriteria   criteria = TermCriteria(TermCriteria::COUNT+TermCriteria::EPS, 30, 1e-6) );
+                                    cv::TermCriteria   criteria = TermCriteria(TermCriteria::COUNT+TermCriteria::EPS, 100, 1e-6) );
 
 AutoIt:
     _OpenCV_ObjCreate("cv").stereoCalibrateExtended( $objectPoints, $imagePoints1, $imagePoints2, $cameraMatrix1, $distCoeffs1, $cameraMatrix2, $distCoeffs2, $imageSize, $R, $T[, $E[, $F[, $perViewErrors[, $flags[, $criteria]]]]] ) -> retval, $cameraMatrix1, $distCoeffs1, $cameraMatrix2, $distCoeffs2, $R, $T, $E, $F, $perViewErrors
@@ -4842,7 +4958,7 @@ void cv::stereoRectify( InputArray  cameraMatrix1,
                         OutputArray P1,
                         OutputArray P2,
                         OutputArray Q,
-                        int         flags = CALIB_ZERO_DISPARITY,
+                        int         flags = STEREO_ZERO_DISPARITY,
                         double      alpha = -1,
                         cv::Size    newImageSize = Size(),
                         cv::Rect*   validPixROI1 = 0,
@@ -4958,6 +5074,17 @@ AutoIt:
     _OpenCV_ObjCreate("cv").transpose( $src[, $dst] ) -> $dst
 ```
 
+### cv::transposeND
+
+```cpp
+void cv::transposeND( InputArray              src,
+                      const std::vector<int>& order,
+                      OutputArray             dst );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv").transposeND( $src, $order[, $dst] ) -> $dst
+```
+
 ### cv::triangulatePoints
 
 ```cpp
@@ -4987,30 +5114,16 @@ AutoIt:
 ### cv::undistortPoints
 
 ```cpp
-void cv::undistortPoints( InputArray  src,
-                          OutputArray dst,
-                          InputArray  cameraMatrix,
-                          InputArray  distCoeffs,
-                          InputArray  R = noArray(),
-                          InputArray  P = noArray() );
+void cv::undistortPoints( InputArray       src,
+                          OutputArray      dst,
+                          InputArray       cameraMatrix,
+                          InputArray       distCoeffs,
+                          InputArray       R = noArray(),
+                          InputArray       P = noArray(),
+                          cv::TermCriteria criteria = TermCriteria(TermCriteria::MAX_ITER, 5, 0.01) );
 
 AutoIt:
-    _OpenCV_ObjCreate("cv").undistortPoints( $src, $cameraMatrix, $distCoeffs[, $dst[, $R[, $P]]] ) -> $dst
-```
-
-### cv::undistortPointsIter
-
-```cpp
-void cv::undistortPointsIter( InputArray       src,
-                              OutputArray      dst,
-                              InputArray       cameraMatrix,
-                              InputArray       distCoeffs,
-                              InputArray       R,
-                              InputArray       P,
-                              cv::TermCriteria criteria );
-
-AutoIt:
-    _OpenCV_ObjCreate("cv").undistortPointsIter( $src, $cameraMatrix, $distCoeffs, $R, $P, $criteria[, $dst] ) -> $dst
+    _OpenCV_ObjCreate("cv").undistortPoints( $src, $cameraMatrix, $distCoeffs[, $dst[, $R[, $P[, $criteria]]]] ) -> $dst
 ```
 
 ### cv::useOpenVX
@@ -5094,6 +5207,23 @@ void cv::warpAffine( InputArray        src,
 
 AutoIt:
     _OpenCV_ObjCreate("cv").warpAffine( $src, $M, $dsize[, $dst[, $flags[, $borderMode[, $borderValue]]]] ) -> $dst
+```
+
+### cv::warpFrame
+
+```cpp
+void cv::warpFrame( InputArray  image,
+                    InputArray  depth,
+                    InputArray  mask,
+                    InputArray  Rt,
+                    InputArray  cameraMatrix,
+                    InputArray  distCoeff,
+                    OutputArray warpedImage,
+                    OutputArray warpedDepth = noArray(),
+                    OutputArray warpedMask = noArray() );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv").warpFrame( $image, $depth, $mask, $Rt, $cameraMatrix, $distCoeff[, $warpedImage[, $warpedDepth[, $warpedMask]]] ) -> $warpedImage, $warpedDepth, $warpedMask
 ```
 
 ### cv::warpPerspective
@@ -5658,6 +5788,67 @@ std::vector<cv::RotatedRect> cv::utils::testRotatedRectVector( float x,
 
 AutoIt:
     _OpenCV_ObjCreate("cv.utils").testRotatedRectVector( $x, $y, $w, $h, $angle ) -> retval
+```
+
+## cv::utils::nested
+
+### cv::utils::nested::testEchoBooleanFunction
+
+```cpp
+bool cv::utils::nested::testEchoBooleanFunction( bool flag );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.utils.nested").testEchoBooleanFunction( $flag ) -> retval
+```
+
+## cv::utils::nested::OriginalClassName
+
+### cv::utils::nested::OriginalClassName::create
+
+```cpp
+static cv::Ptr<cv::utils::nested::OriginalClassName> cv::utils::nested::OriginalClassName::create( const cv::utils::nested::OriginalClassName::Params& params = OriginalClassName::Params() );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.utils.nested.OriginalClassName").create( [$params] ) -> retval
+```
+
+### cv::utils::nested::OriginalClassName::getFloatParam
+
+```cpp
+float cv::utils::nested::OriginalClassName::getFloatParam() const;
+
+AutoIt:
+    $oOriginalClassName.getFloatParam() -> retval
+```
+
+### cv::utils::nested::OriginalClassName::getIntParam
+
+```cpp
+int cv::utils::nested::OriginalClassName::getIntParam() const;
+
+AutoIt:
+    $oOriginalClassName.getIntParam() -> retval
+```
+
+### cv::utils::nested::OriginalClassName::originalName
+
+```cpp
+static std::string cv::utils::nested::OriginalClassName::originalName();
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.utils.nested.OriginalClassName").originalName() -> retval
+```
+
+## cv::utils::nested::OriginalClassName::Params
+
+### cv::utils::nested::OriginalClassName::Params::create
+
+```cpp
+static cv::utils::nested::OriginalClassName::Params cv::utils::nested::OriginalClassName::Params::create( int   int_param = 123,
+                                                                                                          float float_param = 3.5f );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.utils.nested.OriginalClassName.Params").create( [$int_param[, $float_param]] ) -> <cv.utils.nested.OriginalClassName.Params object>
 ```
 
 ## cv::utils::fs
@@ -6759,7 +6950,7 @@ AutoIt:
 ### cv::cuda::Event::create
 
 ```cpp
-static cv::cuda::Event cv::cuda::Event::create( int flags = Event::CreateFlags::DEFAULT );
+static cv::cuda::Event cv::cuda::Event::create( const int flags = Event::CreateFlags::DEFAULT );
 
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.Event").create( [$flags] ) -> <cv.cuda.Event object>
@@ -12901,6 +13092,71 @@ AutoIt:
     $oLineSegmentDetector.write( $fs[, $name] ) -> None
 ```
 
+## cv::Filter2DParams
+
+### cv::Filter2DParams::create
+
+```cpp
+static cv::Filter2DParams cv::Filter2DParams::create();
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.Filter2DParams").create() -> <cv.Filter2DParams object>
+```
+
+## cv::FontFace
+
+### cv::FontFace::create
+
+```cpp
+static cv::FontFace cv::FontFace::create();
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.FontFace").create() -> <cv.FontFace object>
+```
+
+```cpp
+static cv::FontFace cv::FontFace::create( const std::string& fontPathOrName );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.FontFace").create( $fontPathOrName ) -> <cv.FontFace object>
+```
+
+### cv::FontFace::getInstance
+
+```cpp
+bool cv::FontFace::getInstance( std::vector<int>& params ) const;
+
+AutoIt:
+    $oFontFace.getInstance( [$params] ) -> retval, $params
+```
+
+### cv::FontFace::getName
+
+```cpp
+std::string cv::FontFace::getName() const;
+
+AutoIt:
+    $oFontFace.getName() -> retval
+```
+
+### cv::FontFace::set
+
+```cpp
+bool cv::FontFace::set( const std::string& fontPathOrName );
+
+AutoIt:
+    $oFontFace.set( $fontPathOrName ) -> retval
+```
+
+### cv::FontFace::setInstance
+
+```cpp
+bool cv::FontFace::setInstance( const std::vector<int>& params );
+
+AutoIt:
+    $oFontFace.setInstance( $params ) -> retval
+```
+
 ## cv::segmentation::IntelligentScissorsMB
 
 ### cv::segmentation::IntelligentScissorsMB::create
@@ -18480,7 +18736,21 @@ AutoIt:
 ### cv::dnn::Net::getLayer
 
 ```cpp
-cv::Ptr<cv::dnn::Layer> cv::dnn::Net::getLayer( cv::dnn::DictValue layerId );
+cv::Ptr<cv::dnn::Layer> cv::dnn::Net::getLayer( int layerId ) const;
+
+AutoIt:
+    $oNet.getLayer( $layerId ) -> retval
+```
+
+```cpp
+cv::Ptr<cv::dnn::Layer> cv::dnn::Net::getLayer( const std::string& layerName ) const;
+
+AutoIt:
+    $oNet.getLayer( $layerName ) -> retval
+```
+
+```cpp
+cv::Ptr<cv::dnn::Layer> cv::dnn::Net::getLayer( const cv::dnn::DictValue& layerId ) const;
 
 AutoIt:
     $oNet.getLayer( $layerId ) -> retval
@@ -18489,7 +18759,7 @@ AutoIt:
 ### cv::dnn::Net::getLayerId
 
 ```cpp
-int cv::dnn::Net::getLayerId( const std::string& layer );
+int cv::dnn::Net::getLayerId( const std::string& layer ) const;
 
 AutoIt:
     $oNet.getLayerId( $layer ) -> retval
@@ -18588,11 +18858,19 @@ AutoIt:
 ### cv::dnn::Net::getParam
 
 ```cpp
-cv::Mat cv::dnn::Net::getParam( cv::dnn::DictValue layer,
-                                int                numParam = 0 );
+cv::Mat cv::dnn::Net::getParam( int layer,
+                                int numParam = 0 ) const;
 
 AutoIt:
     $oNet.getParam( $layer[, $numParam] ) -> retval
+```
+
+```cpp
+cv::Mat cv::dnn::Net::getParam( const std::string& layerName,
+                                int                numParam = 0 ) const;
+
+AutoIt:
+    $oNet.getParam( $layerName[, $numParam] ) -> retval
 ```
 
 ### cv::dnn::Net::getPerfProfile
@@ -18694,12 +18972,21 @@ AutoIt:
 ### cv::dnn::Net::setParam
 
 ```cpp
-void cv::dnn::Net::setParam( cv::dnn::DictValue layer,
+void cv::dnn::Net::setParam( int            layer,
+                             int            numParam,
+                             const cv::Mat& blob );
+
+AutoIt:
+    $oNet.setParam( $layer, $numParam, $blob ) -> None
+```
+
+```cpp
+void cv::dnn::Net::setParam( const std::string& layerName,
                              int                numParam,
                              const cv::Mat&     blob );
 
 AutoIt:
-    $oNet.setParam( $layer, $numParam, $blob ) -> None
+    $oNet.setParam( $layerName, $numParam, $blob ) -> None
 ```
 
 ### cv::dnn::Net::setPreferableBackend
@@ -18863,6 +19150,15 @@ AutoIt:
     $oClassificationModel.classify( $frame[, $classId[, $conf]] ) -> $classId, $conf
 ```
 
+### cv::dnn::ClassificationModel::getEnableSoftmaxPostProcessing
+
+```cpp
+bool cv::dnn::ClassificationModel::getEnableSoftmaxPostProcessing() const;
+
+AutoIt:
+    $oClassificationModel.getEnableSoftmaxPostProcessing() -> retval
+```
+
 ### cv::dnn::ClassificationModel::predict
 
 ```cpp
@@ -18871,6 +19167,15 @@ void cv::dnn::ClassificationModel::predict( InputArray          frame,
 
 AutoIt:
     $oClassificationModel.predict( $frame[, $outs] ) -> $outs
+```
+
+### cv::dnn::ClassificationModel::setEnableSoftmaxPostProcessing
+
+```cpp
+cv::dnn::ClassificationModel cv::dnn::ClassificationModel::setEnableSoftmaxPostProcessing( bool enable );
+
+AutoIt:
+    $oClassificationModel.setEnableSoftmaxPostProcessing( $enable ) -> retval
 ```
 
 ### cv::dnn::ClassificationModel::setInputCrop
@@ -21296,6 +21601,15 @@ AutoIt:
     $oMSER.getMinArea() -> retval
 ```
 
+### cv::MSER::getMinDiversity
+
+```cpp
+double cv::MSER::getMinDiversity() const;
+
+AutoIt:
+    $oMSER.getMinDiversity() -> retval
+```
+
 ### cv::MSER::getPass2Only
 
 ```cpp
@@ -21355,6 +21669,15 @@ void cv::MSER::setMinArea( int minArea );
 
 AutoIt:
     $oMSER.setMinArea( $minArea ) -> None
+```
+
+### cv::MSER::setMinDiversity
+
+```cpp
+void cv::MSER::setMinDiversity( double minDiversity );
+
+AutoIt:
+    $oMSER.setMinDiversity( $minDiversity ) -> None
 ```
 
 ### cv::MSER::setPass2Only
@@ -24082,15 +24405,839 @@ AutoIt:
     _OpenCV_ObjCreate("cv.UsacParams").create() -> <cv.UsacParams object>
 ```
 
-## cv::CirclesGridFinderParameters
+## cv::RgbdNormals
 
-### cv::CirclesGridFinderParameters::create
+### cv::RgbdNormals::create
 
 ```cpp
-static cv::CirclesGridFinderParameters cv::CirclesGridFinderParameters::create();
+static cv::Ptr<cv::RgbdNormals> cv::RgbdNormals::create( int        rows = 0,
+                                                         int        cols = 0,
+                                                         int        depth = 0,
+                                                         InputArray K = noArray(),
+                                                         int        window_size = 5,
+                                                         int        method = RgbdNormals::RgbdNormalsMethod::RGBD_NORMALS_METHOD_FALS );
 
 AutoIt:
-    _OpenCV_ObjCreate("cv.CirclesGridFinderParameters").create() -> <cv.CirclesGridFinderParameters object>
+    _OpenCV_ObjCreate("cv.RgbdNormals").create( [$rows[, $cols[, $depth[, $K[, $window_size[, $method]]]]]] ) -> retval
+```
+
+### cv::RgbdNormals::apply
+
+```cpp
+void cv::RgbdNormals::apply( InputArray  points,
+                             OutputArray normals ) const;
+
+AutoIt:
+    $oRgbdNormals.apply( $points[, $normals] ) -> $normals
+```
+
+### cv::RgbdNormals::cache
+
+```cpp
+void cv::RgbdNormals::cache() const;
+
+AutoIt:
+    $oRgbdNormals.cache() -> None
+```
+
+### cv::RgbdNormals::getCols
+
+```cpp
+int cv::RgbdNormals::getCols() const;
+
+AutoIt:
+    $oRgbdNormals.getCols() -> retval
+```
+
+### cv::RgbdNormals::getDepth
+
+```cpp
+int cv::RgbdNormals::getDepth() const;
+
+AutoIt:
+    $oRgbdNormals.getDepth() -> retval
+```
+
+### cv::RgbdNormals::getK
+
+```cpp
+void cv::RgbdNormals::getK( OutputArray val ) const;
+
+AutoIt:
+    $oRgbdNormals.getK( [$val] ) -> $val
+```
+
+### cv::RgbdNormals::getMethod
+
+```cpp
+int cv::RgbdNormals::getMethod() const;
+
+AutoIt:
+    $oRgbdNormals.getMethod() -> retval
+```
+
+### cv::RgbdNormals::getRows
+
+```cpp
+int cv::RgbdNormals::getRows() const;
+
+AutoIt:
+    $oRgbdNormals.getRows() -> retval
+```
+
+### cv::RgbdNormals::getWindowSize
+
+```cpp
+int cv::RgbdNormals::getWindowSize() const;
+
+AutoIt:
+    $oRgbdNormals.getWindowSize() -> retval
+```
+
+### cv::RgbdNormals::setCols
+
+```cpp
+void cv::RgbdNormals::setCols( int val );
+
+AutoIt:
+    $oRgbdNormals.setCols( $val ) -> None
+```
+
+### cv::RgbdNormals::setK
+
+```cpp
+void cv::RgbdNormals::setK( InputArray val );
+
+AutoIt:
+    $oRgbdNormals.setK( $val ) -> None
+```
+
+### cv::RgbdNormals::setMethod
+
+```cpp
+void cv::RgbdNormals::setMethod( int val );
+
+AutoIt:
+    $oRgbdNormals.setMethod( $val ) -> None
+```
+
+### cv::RgbdNormals::setRows
+
+```cpp
+void cv::RgbdNormals::setRows( int val );
+
+AutoIt:
+    $oRgbdNormals.setRows( $val ) -> None
+```
+
+### cv::RgbdNormals::setWindowSize
+
+```cpp
+void cv::RgbdNormals::setWindowSize( int val );
+
+AutoIt:
+    $oRgbdNormals.setWindowSize( $val ) -> None
+```
+
+## cv::Odometry
+
+### cv::Odometry::create
+
+```cpp
+static cv::Odometry cv::Odometry::create();
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.Odometry").create() -> <cv.Odometry object>
+```
+
+```cpp
+static cv::Odometry cv::Odometry::create( int otype );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.Odometry").create( $otype ) -> <cv.Odometry object>
+```
+
+### cv::Odometry::compute
+
+```cpp
+bool cv::Odometry::compute( InputArray  srcFrame,
+                            InputArray  dstFrame,
+                            OutputArray Rt ) const;
+
+AutoIt:
+    $oOdometry.compute( $srcFrame, $dstFrame[, $Rt] ) -> retval, $Rt
+```
+
+```cpp
+bool cv::Odometry::compute( InputArray  srcDepthFrame,
+                            InputArray  srcRGBFrame,
+                            InputArray  dstDepthFrame,
+                            InputArray  dstRGBFrame,
+                            OutputArray Rt ) const;
+
+AutoIt:
+    $oOdometry.compute( $srcDepthFrame, $srcRGBFrame, $dstDepthFrame, $dstRGBFrame[, $Rt] ) -> retval, $Rt
+```
+
+## cv::BaseCascadeClassifier
+
+### cv::BaseCascadeClassifier::clear
+
+```cpp
+void cv::BaseCascadeClassifier::clear();
+
+AutoIt:
+    $oBaseCascadeClassifier.clear() -> None
+```
+
+### cv::BaseCascadeClassifier::empty
+
+```cpp
+bool cv::BaseCascadeClassifier::empty() const;
+
+AutoIt:
+    $oBaseCascadeClassifier.empty() -> retval
+```
+
+### cv::BaseCascadeClassifier::getDefaultName
+
+```cpp
+std::string cv::BaseCascadeClassifier::getDefaultName() const;
+
+AutoIt:
+    $oBaseCascadeClassifier.getDefaultName() -> retval
+```
+
+### cv::BaseCascadeClassifier::read
+
+```cpp
+void cv::BaseCascadeClassifier::read( const cv::FileNode& fn );
+
+AutoIt:
+    $oBaseCascadeClassifier.read( $fn ) -> None
+```
+
+### cv::BaseCascadeClassifier::save
+
+```cpp
+void cv::BaseCascadeClassifier::save( const std::string& filename ) const;
+
+AutoIt:
+    $oBaseCascadeClassifier.save( $filename ) -> None
+```
+
+### cv::BaseCascadeClassifier::write
+
+```cpp
+void cv::BaseCascadeClassifier::write( const cv::Ptr<cv::FileStorage>& fs,
+                                       const std::string&              name = String() ) const;
+
+AutoIt:
+    $oBaseCascadeClassifier.write( $fs[, $name] ) -> None
+```
+
+## cv::CascadeClassifier
+
+### cv::CascadeClassifier::create
+
+```cpp
+static cv::CascadeClassifier cv::CascadeClassifier::create();
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.CascadeClassifier").create() -> <cv.CascadeClassifier object>
+```
+
+```cpp
+static cv::CascadeClassifier cv::CascadeClassifier::create( const std::string& filename );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.CascadeClassifier").create( $filename ) -> <cv.CascadeClassifier object>
+```
+
+### cv::CascadeClassifier::convert
+
+```cpp
+static bool cv::CascadeClassifier::convert( const std::string& oldcascade,
+                                            const std::string& newcascade );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.CascadeClassifier").convert( $oldcascade, $newcascade ) -> retval
+```
+
+### cv::CascadeClassifier::detectMultiScale
+
+```cpp
+void cv::CascadeClassifier::detectMultiScale( InputArray             image,
+                                              std::vector<cv::Rect>& objects,
+                                              double                 scaleFactor = 1.1,
+                                              int                    minNeighbors = 3,
+                                              int                    flags = 0,
+                                              cv::Size               minSize = Size(),
+                                              cv::Size               maxSize = Size() );
+
+AutoIt:
+    $oCascadeClassifier.detectMultiScale( $image[, $scaleFactor[, $minNeighbors[, $flags[, $minSize[, $maxSize[, $objects]]]]]] ) -> $objects
+```
+
+### cv::CascadeClassifier::detectMultiScale2
+
+```cpp
+void cv::CascadeClassifier::detectMultiScale2( InputArray             image,
+                                               std::vector<cv::Rect>& objects,
+                                               std::vector<int>&      numDetections,
+                                               double                 scaleFactor = 1.1,
+                                               int                    minNeighbors = 3,
+                                               int                    flags = 0,
+                                               cv::Size               minSize = Size(),
+                                               cv::Size               maxSize = Size() );
+
+AutoIt:
+    $oCascadeClassifier.detectMultiScale2( $image[, $scaleFactor[, $minNeighbors[, $flags[, $minSize[, $maxSize[, $objects[, $numDetections]]]]]]] ) -> $objects, $numDetections
+```
+
+### cv::CascadeClassifier::detectMultiScale3
+
+```cpp
+void cv::CascadeClassifier::detectMultiScale3( InputArray             image,
+                                               std::vector<cv::Rect>& objects,
+                                               std::vector<int>&      rejectLevels,
+                                               std::vector<double>&   levelWeights,
+                                               double                 scaleFactor = 1.1,
+                                               int                    minNeighbors = 3,
+                                               int                    flags = 0,
+                                               cv::Size               minSize = Size(),
+                                               cv::Size               maxSize = Size(),
+                                               bool                   outputRejectLevels = false );
+
+AutoIt:
+    $oCascadeClassifier.detectMultiScale3( $image[, $scaleFactor[, $minNeighbors[, $flags[, $minSize[, $maxSize[, $outputRejectLevels[, $objects[, $rejectLevels[, $levelWeights]]]]]]]]] ) -> $objects, $rejectLevels, $levelWeights
+```
+
+### cv::CascadeClassifier::empty
+
+```cpp
+bool cv::CascadeClassifier::empty() const;
+
+AutoIt:
+    $oCascadeClassifier.empty() -> retval
+```
+
+### cv::CascadeClassifier::getFeatureType
+
+```cpp
+int cv::CascadeClassifier::getFeatureType() const;
+
+AutoIt:
+    $oCascadeClassifier.getFeatureType() -> retval
+```
+
+### cv::CascadeClassifier::getOriginalWindowSize
+
+```cpp
+cv::Size cv::CascadeClassifier::getOriginalWindowSize() const;
+
+AutoIt:
+    $oCascadeClassifier.getOriginalWindowSize() -> retval
+```
+
+### cv::CascadeClassifier::isOldFormatCascade
+
+```cpp
+bool cv::CascadeClassifier::isOldFormatCascade() const;
+
+AutoIt:
+    $oCascadeClassifier.isOldFormatCascade() -> retval
+```
+
+### cv::CascadeClassifier::load
+
+```cpp
+bool cv::CascadeClassifier::load( const std::string& filename );
+
+AutoIt:
+    $oCascadeClassifier.load( $filename ) -> retval
+```
+
+### cv::CascadeClassifier::read
+
+```cpp
+bool cv::CascadeClassifier::read( const cv::FileNode& node );
+
+AutoIt:
+    $oCascadeClassifier.read( $node ) -> retval
+```
+
+## cv::HOGDescriptor
+
+### cv::HOGDescriptor::create
+
+```cpp
+static cv::HOGDescriptor cv::HOGDescriptor::create();
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.HOGDescriptor").create() -> <cv.HOGDescriptor object>
+```
+
+```cpp
+static cv::HOGDescriptor cv::HOGDescriptor::create( cv::Size _winSize,
+                                                    cv::Size _blockSize,
+                                                    cv::Size _blockStride,
+                                                    cv::Size _cellSize,
+                                                    int      _nbins,
+                                                    int      _derivAperture = 1,
+                                                    double   _winSigma = -1,
+                                                    int      _histogramNormType = HOGDescriptor::L2Hys,
+                                                    double   _L2HysThreshold = 0.2,
+                                                    bool     _gammaCorrection = false,
+                                                    int      _nlevels = HOGDescriptor::DEFAULT_NLEVELS,
+                                                    bool     _signedGradient = false );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.HOGDescriptor").create( $_winSize, $_blockSize, $_blockStride, $_cellSize, $_nbins[, $_derivAperture[, $_winSigma[, $_histogramNormType[, $_L2HysThreshold[, $_gammaCorrection[, $_nlevels[, $_signedGradient]]]]]]] ) -> <cv.HOGDescriptor object>
+```
+
+```cpp
+static cv::HOGDescriptor cv::HOGDescriptor::create( const std::string& filename );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.HOGDescriptor").create( $filename ) -> <cv.HOGDescriptor object>
+```
+
+### cv::HOGDescriptor::checkDetectorSize
+
+```cpp
+bool cv::HOGDescriptor::checkDetectorSize() const;
+
+AutoIt:
+    $oHOGDescriptor.checkDetectorSize() -> retval
+```
+
+### cv::HOGDescriptor::compute
+
+```cpp
+void cv::HOGDescriptor::compute( InputArray                    img,
+                                 std::vector<float>&           descriptors,
+                                 cv::Size                      winStride = Size(),
+                                 cv::Size                      padding = Size(),
+                                 const std::vector<cv::Point>& locations = std::vector<Point>() ) const;
+
+AutoIt:
+    $oHOGDescriptor.compute( $img[, $winStride[, $padding[, $locations[, $descriptors]]]] ) -> $descriptors
+```
+
+### cv::HOGDescriptor::computeGradient
+
+```cpp
+void cv::HOGDescriptor::computeGradient( InputArray       img,
+                                         InputOutputArray grad,
+                                         InputOutputArray angleOfs,
+                                         cv::Size         paddingTL = Size(),
+                                         cv::Size         paddingBR = Size() ) const;
+
+AutoIt:
+    $oHOGDescriptor.computeGradient( $img, $grad, $angleOfs[, $paddingTL[, $paddingBR]] ) -> $grad, $angleOfs
+```
+
+### cv::HOGDescriptor::detect
+
+```cpp
+void cv::HOGDescriptor::detect( InputArray                    img,
+                                std::vector<cv::Point>&       foundLocations,
+                                std::vector<double>&          weights,
+                                double                        hitThreshold = 0,
+                                cv::Size                      winStride = Size(),
+                                cv::Size                      padding = Size(),
+                                const std::vector<cv::Point>& searchLocations = std::vector<Point>() ) const;
+
+AutoIt:
+    $oHOGDescriptor.detect( $img[, $hitThreshold[, $winStride[, $padding[, $searchLocations[, $foundLocations[, $weights]]]]]] ) -> $foundLocations, $weights
+```
+
+### cv::HOGDescriptor::detectMultiScale
+
+```cpp
+void cv::HOGDescriptor::detectMultiScale( InputArray             img,
+                                          std::vector<cv::Rect>& foundLocations,
+                                          std::vector<double>&   foundWeights,
+                                          double                 hitThreshold = 0,
+                                          cv::Size               winStride = Size(),
+                                          cv::Size               padding = Size(),
+                                          double                 scale = 1.05,
+                                          double                 groupThreshold = 2.0,
+                                          bool                   useMeanshiftGrouping = false ) const;
+
+AutoIt:
+    $oHOGDescriptor.detectMultiScale( $img[, $hitThreshold[, $winStride[, $padding[, $scale[, $groupThreshold[, $useMeanshiftGrouping[, $foundLocations[, $foundWeights]]]]]]]] ) -> $foundLocations, $foundWeights
+```
+
+### cv::HOGDescriptor::getDaimlerPeopleDetector
+
+```cpp
+static std::vector<float> cv::HOGDescriptor::getDaimlerPeopleDetector();
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.HOGDescriptor").getDaimlerPeopleDetector() -> retval
+```
+
+### cv::HOGDescriptor::getDefaultPeopleDetector
+
+```cpp
+static std::vector<float> cv::HOGDescriptor::getDefaultPeopleDetector();
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.HOGDescriptor").getDefaultPeopleDetector() -> retval
+```
+
+### cv::HOGDescriptor::getDescriptorSize
+
+```cpp
+size_t cv::HOGDescriptor::getDescriptorSize() const;
+
+AutoIt:
+    $oHOGDescriptor.getDescriptorSize() -> retval
+```
+
+### cv::HOGDescriptor::getWinSigma
+
+```cpp
+double cv::HOGDescriptor::getWinSigma() const;
+
+AutoIt:
+    $oHOGDescriptor.getWinSigma() -> retval
+```
+
+### cv::HOGDescriptor::load
+
+```cpp
+bool cv::HOGDescriptor::load( const std::string& filename,
+                              const std::string& objname = String() );
+
+AutoIt:
+    $oHOGDescriptor.load( $filename[, $objname] ) -> retval
+```
+
+### cv::HOGDescriptor::save
+
+```cpp
+void cv::HOGDescriptor::save( const std::string& filename,
+                              const std::string& objname = String() ) const;
+
+AutoIt:
+    $oHOGDescriptor.save( $filename[, $objname] ) -> None
+```
+
+### cv::HOGDescriptor::setSVMDetector
+
+```cpp
+void cv::HOGDescriptor::setSVMDetector( InputArray svmdetector );
+
+AutoIt:
+    $oHOGDescriptor.setSVMDetector( $svmdetector ) -> None
+```
+
+## cv::QRCodeEncoder
+
+### cv::QRCodeEncoder::create
+
+```cpp
+static cv::Ptr<cv::QRCodeEncoder> cv::QRCodeEncoder::create( const cv::QRCodeEncoder::Params& parameters = QRCodeEncoder::Params() );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.QRCodeEncoder").create( [$parameters] ) -> retval
+```
+
+### cv::QRCodeEncoder::encode
+
+```cpp
+void cv::QRCodeEncoder::encode( const std::string& encoded_info,
+                                OutputArray        qrcode );
+
+AutoIt:
+    $oQRCodeEncoder.encode( $encoded_info[, $qrcode] ) -> $qrcode
+```
+
+### cv::QRCodeEncoder::encodeStructuredAppend
+
+```cpp
+void cv::QRCodeEncoder::encodeStructuredAppend( const std::string&  encoded_info,
+                                                OutputArrayOfArrays qrcodes );
+
+AutoIt:
+    $oQRCodeEncoder.encodeStructuredAppend( $encoded_info[, $qrcodes] ) -> $qrcodes
+```
+
+## cv::QRCodeEncoder::Params
+
+### cv::QRCodeEncoder::Params::create
+
+```cpp
+static cv::QRCodeEncoder::Params cv::QRCodeEncoder::Params::create();
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.QRCodeEncoder.Params").create() -> <cv.QRCodeEncoder.Params object>
+```
+
+## cv::QRCodeDetector
+
+### cv::QRCodeDetector::create
+
+```cpp
+static cv::QRCodeDetector cv::QRCodeDetector::create();
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.QRCodeDetector").create() -> <cv.QRCodeDetector object>
+```
+
+### cv::QRCodeDetector::decode
+
+```cpp
+std::string cv::QRCodeDetector::decode( InputArray  img,
+                                        InputArray  points,
+                                        OutputArray straight_qrcode = noArray() );
+
+AutoIt:
+    $oQRCodeDetector.decode( $img, $points[, $straight_qrcode] ) -> retval, $straight_qrcode
+```
+
+### cv::QRCodeDetector::decodeCurved
+
+```cpp
+std::string cv::QRCodeDetector::decodeCurved( InputArray  img,
+                                              InputArray  points,
+                                              OutputArray straight_qrcode = noArray() );
+
+AutoIt:
+    $oQRCodeDetector.decodeCurved( $img, $points[, $straight_qrcode] ) -> retval, $straight_qrcode
+```
+
+### cv::QRCodeDetector::decodeMulti
+
+```cpp
+bool cv::QRCodeDetector::decodeMulti( InputArray                img,
+                                      InputArray                points,
+                                      std::vector<std::string>& decoded_info,
+                                      OutputArrayOfArrays       straight_qrcode = noArray() ) const;
+
+AutoIt:
+    $oQRCodeDetector.decodeMulti( $img, $points[, $straight_qrcode[, $decoded_info]] ) -> retval, $decoded_info, $straight_qrcode
+```
+
+### cv::QRCodeDetector::detect
+
+```cpp
+bool cv::QRCodeDetector::detect( InputArray  img,
+                                 OutputArray points ) const;
+
+AutoIt:
+    $oQRCodeDetector.detect( $img[, $points] ) -> retval, $points
+```
+
+### cv::QRCodeDetector::detectAndDecode
+
+```cpp
+std::string cv::QRCodeDetector::detectAndDecode( InputArray  img,
+                                                 OutputArray points = noArray(),
+                                                 OutputArray straight_qrcode = noArray() );
+
+AutoIt:
+    $oQRCodeDetector.detectAndDecode( $img[, $points[, $straight_qrcode]] ) -> retval, $points, $straight_qrcode
+```
+
+### cv::QRCodeDetector::detectAndDecodeCurved
+
+```cpp
+std::string cv::QRCodeDetector::detectAndDecodeCurved( InputArray  img,
+                                                       OutputArray points = noArray(),
+                                                       OutputArray straight_qrcode = noArray() );
+
+AutoIt:
+    $oQRCodeDetector.detectAndDecodeCurved( $img[, $points[, $straight_qrcode]] ) -> retval, $points, $straight_qrcode
+```
+
+### cv::QRCodeDetector::detectAndDecodeMulti
+
+```cpp
+bool cv::QRCodeDetector::detectAndDecodeMulti( InputArray                img,
+                                               std::vector<std::string>& decoded_info,
+                                               OutputArray               points = noArray(),
+                                               OutputArrayOfArrays       straight_qrcode = noArray() ) const;
+
+AutoIt:
+    $oQRCodeDetector.detectAndDecodeMulti( $img[, $points[, $straight_qrcode[, $decoded_info]]] ) -> retval, $decoded_info, $points, $straight_qrcode
+```
+
+### cv::QRCodeDetector::detectMulti
+
+```cpp
+bool cv::QRCodeDetector::detectMulti( InputArray  img,
+                                      OutputArray points ) const;
+
+AutoIt:
+    $oQRCodeDetector.detectMulti( $img[, $points] ) -> retval, $points
+```
+
+### cv::QRCodeDetector::setEpsX
+
+```cpp
+void cv::QRCodeDetector::setEpsX( double epsX );
+
+AutoIt:
+    $oQRCodeDetector.setEpsX( $epsX ) -> None
+```
+
+### cv::QRCodeDetector::setEpsY
+
+```cpp
+void cv::QRCodeDetector::setEpsY( double epsY );
+
+AutoIt:
+    $oQRCodeDetector.setEpsY( $epsY ) -> None
+```
+
+## cv::FaceDetectorYN
+
+### cv::FaceDetectorYN::create
+
+```cpp
+static cv::Ptr<cv::FaceDetectorYN> cv::FaceDetectorYN::create( const std::string& model,
+                                                               const std::string& config,
+                                                               const cv::Size&    input_size,
+                                                               float              score_threshold = 0.9f,
+                                                               float              nms_threshold = 0.3f,
+                                                               int                top_k = 5000,
+                                                               int                backend_id = 0,
+                                                               int                target_id = 0 );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.FaceDetectorYN").create( $model, $config, $input_size[, $score_threshold[, $nms_threshold[, $top_k[, $backend_id[, $target_id]]]]] ) -> retval
+```
+
+### cv::FaceDetectorYN::detect
+
+```cpp
+int cv::FaceDetectorYN::detect( InputArray  image,
+                                OutputArray faces );
+
+AutoIt:
+    $oFaceDetectorYN.detect( $image[, $faces] ) -> retval, $faces
+```
+
+### cv::FaceDetectorYN::getInputSize
+
+```cpp
+cv::Size cv::FaceDetectorYN::getInputSize();
+
+AutoIt:
+    $oFaceDetectorYN.getInputSize() -> retval
+```
+
+### cv::FaceDetectorYN::getNMSThreshold
+
+```cpp
+float cv::FaceDetectorYN::getNMSThreshold();
+
+AutoIt:
+    $oFaceDetectorYN.getNMSThreshold() -> retval
+```
+
+### cv::FaceDetectorYN::getScoreThreshold
+
+```cpp
+float cv::FaceDetectorYN::getScoreThreshold();
+
+AutoIt:
+    $oFaceDetectorYN.getScoreThreshold() -> retval
+```
+
+### cv::FaceDetectorYN::getTopK
+
+```cpp
+int cv::FaceDetectorYN::getTopK();
+
+AutoIt:
+    $oFaceDetectorYN.getTopK() -> retval
+```
+
+### cv::FaceDetectorYN::setInputSize
+
+```cpp
+void cv::FaceDetectorYN::setInputSize( const cv::Size& input_size );
+
+AutoIt:
+    $oFaceDetectorYN.setInputSize( $input_size ) -> None
+```
+
+### cv::FaceDetectorYN::setNMSThreshold
+
+```cpp
+void cv::FaceDetectorYN::setNMSThreshold( float nms_threshold );
+
+AutoIt:
+    $oFaceDetectorYN.setNMSThreshold( $nms_threshold ) -> None
+```
+
+### cv::FaceDetectorYN::setScoreThreshold
+
+```cpp
+void cv::FaceDetectorYN::setScoreThreshold( float score_threshold );
+
+AutoIt:
+    $oFaceDetectorYN.setScoreThreshold( $score_threshold ) -> None
+```
+
+### cv::FaceDetectorYN::setTopK
+
+```cpp
+void cv::FaceDetectorYN::setTopK( int top_k );
+
+AutoIt:
+    $oFaceDetectorYN.setTopK( $top_k ) -> None
+```
+
+## cv::FaceRecognizerSF
+
+### cv::FaceRecognizerSF::create
+
+```cpp
+static cv::Ptr<cv::FaceRecognizerSF> cv::FaceRecognizerSF::create( const std::string& model,
+                                                                   const std::string& config,
+                                                                   int                backend_id = 0,
+                                                                   int                target_id = 0 );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.FaceRecognizerSF").create( $model, $config[, $backend_id[, $target_id]] ) -> retval
+```
+
+### cv::FaceRecognizerSF::alignCrop
+
+```cpp
+void cv::FaceRecognizerSF::alignCrop( InputArray  src_img,
+                                      InputArray  face_box,
+                                      OutputArray aligned_img ) const;
+
+AutoIt:
+    $oFaceRecognizerSF.alignCrop( $src_img, $face_box[, $aligned_img] ) -> $aligned_img
+```
+
+### cv::FaceRecognizerSF::feature
+
+```cpp
+void cv::FaceRecognizerSF::feature( InputArray  aligned_img,
+                                    OutputArray face_feature );
+
+AutoIt:
+    $oFaceRecognizerSF.feature( $aligned_img[, $face_feature] ) -> $face_feature
+```
+
+### cv::FaceRecognizerSF::match
+
+```cpp
+double cv::FaceRecognizerSF::match( InputArray face_feature1,
+                                    InputArray face_feature2,
+                                    int        dis_type = FaceRecognizerSF::FR_COSINE ) const;
+
+AutoIt:
+    $oFaceRecognizerSF.match( $face_feature1, $face_feature2[, $dis_type] ) -> retval
 ```
 
 ## cv::StereoMatcher
@@ -24882,819 +26029,6 @@ void cv::StereoSGBM::write( const cv::Ptr<cv::FileStorage>& fs,
 
 AutoIt:
     $oStereoSGBM.write( $fs[, $name] ) -> None
-```
-
-## cv::fisheye
-
-### cv::fisheye::calibrate
-
-```cpp
-double cv::fisheye::calibrate( InputArrayOfArrays  objectPoints,
-                               InputArrayOfArrays  imagePoints,
-                               const cv::Size&     image_size,
-                               InputOutputArray    K,
-                               InputOutputArray    D,
-                               OutputArrayOfArrays rvecs,
-                               OutputArrayOfArrays tvecs,
-                               int                 flags = 0,
-                               cv::TermCriteria    criteria = TermCriteria(TermCriteria::COUNT + TermCriteria::EPS, 100, DBL_EPSILON) );
-
-AutoIt:
-    _OpenCV_ObjCreate("cv.fisheye").calibrate( $objectPoints, $imagePoints, $image_size, $K, $D[, $rvecs[, $tvecs[, $flags[, $criteria]]]] ) -> retval, $K, $D, $rvecs, $tvecs
-```
-
-### cv::fisheye::distortPoints
-
-```cpp
-void cv::fisheye::distortPoints( InputArray  undistorted,
-                                 OutputArray distorted,
-                                 InputArray  K,
-                                 InputArray  D,
-                                 double      alpha = 0 );
-
-AutoIt:
-    _OpenCV_ObjCreate("cv.fisheye").distortPoints( $undistorted, $K, $D[, $distorted[, $alpha]] ) -> $distorted
-```
-
-### cv::fisheye::estimateNewCameraMatrixForUndistortRectify
-
-```cpp
-void cv::fisheye::estimateNewCameraMatrixForUndistortRectify( InputArray      K,
-                                                              InputArray      D,
-                                                              const cv::Size& image_size,
-                                                              InputArray      R,
-                                                              OutputArray     P,
-                                                              double          balance = 0.0,
-                                                              const cv::Size& new_size = Size(),
-                                                              double          fov_scale = 1.0 );
-
-AutoIt:
-    _OpenCV_ObjCreate("cv.fisheye").estimateNewCameraMatrixForUndistortRectify( $K, $D, $image_size, $R[, $P[, $balance[, $new_size[, $fov_scale]]]] ) -> $P
-```
-
-### cv::fisheye::initUndistortRectifyMap
-
-```cpp
-void cv::fisheye::initUndistortRectifyMap( InputArray      K,
-                                           InputArray      D,
-                                           InputArray      R,
-                                           InputArray      P,
-                                           const cv::Size& size,
-                                           int             m1type,
-                                           OutputArray     map1,
-                                           OutputArray     map2 );
-
-AutoIt:
-    _OpenCV_ObjCreate("cv.fisheye").initUndistortRectifyMap( $K, $D, $R, $P, $size, $m1type[, $map1[, $map2]] ) -> $map1, $map2
-```
-
-### cv::fisheye::projectPoints
-
-```cpp
-void cv::fisheye::projectPoints( InputArray  objectPoints,
-                                 OutputArray imagePoints,
-                                 InputArray  rvec,
-                                 InputArray  tvec,
-                                 InputArray  K,
-                                 InputArray  D,
-                                 double      alpha = 0,
-                                 OutputArray jacobian = noArray() );
-
-AutoIt:
-    _OpenCV_ObjCreate("cv.fisheye").projectPoints( $objectPoints, $rvec, $tvec, $K, $D[, $imagePoints[, $alpha[, $jacobian]]] ) -> $imagePoints, $jacobian
-```
-
-### cv::fisheye::stereoCalibrate
-
-```cpp
-double cv::fisheye::stereoCalibrate( InputArrayOfArrays objectPoints,
-                                     InputArrayOfArrays imagePoints1,
-                                     InputArrayOfArrays imagePoints2,
-                                     InputOutputArray   K1,
-                                     InputOutputArray   D1,
-                                     InputOutputArray   K2,
-                                     InputOutputArray   D2,
-                                     cv::Size           imageSize,
-                                     OutputArray        R,
-                                     OutputArray        T,
-                                     int                flags = fisheye::CALIB_FIX_INTRINSIC,
-                                     cv::TermCriteria   criteria = TermCriteria(TermCriteria::COUNT + TermCriteria::EPS, 100, DBL_EPSILON) );
-
-AutoIt:
-    _OpenCV_ObjCreate("cv.fisheye").stereoCalibrate( $objectPoints, $imagePoints1, $imagePoints2, $K1, $D1, $K2, $D2, $imageSize[, $R[, $T[, $flags[, $criteria]]]] ) -> retval, $K1, $D1, $K2, $D2, $R, $T
-```
-
-### cv::fisheye::stereoRectify
-
-```cpp
-void cv::fisheye::stereoRectify( InputArray      K1,
-                                 InputArray      D1,
-                                 InputArray      K2,
-                                 InputArray      D2,
-                                 const cv::Size& imageSize,
-                                 InputArray      R,
-                                 InputArray      tvec,
-                                 OutputArray     R1,
-                                 OutputArray     R2,
-                                 OutputArray     P1,
-                                 OutputArray     P2,
-                                 OutputArray     Q,
-                                 int             flags,
-                                 const cv::Size& newImageSize = Size(),
-                                 double          balance = 0.0,
-                                 double          fov_scale = 1.0 );
-
-AutoIt:
-    _OpenCV_ObjCreate("cv.fisheye").stereoRectify( $K1, $D1, $K2, $D2, $imageSize, $R, $tvec, $flags[, $R1[, $R2[, $P1[, $P2[, $Q[, $newImageSize[, $balance[, $fov_scale]]]]]]]] ) -> $R1, $R2, $P1, $P2, $Q
-```
-
-### cv::fisheye::undistortImage
-
-```cpp
-void cv::fisheye::undistortImage( InputArray      distorted,
-                                  OutputArray     undistorted,
-                                  InputArray      K,
-                                  InputArray      D,
-                                  InputArray      Knew = cv::noArray(),
-                                  const cv::Size& new_size = Size() );
-
-AutoIt:
-    _OpenCV_ObjCreate("cv.fisheye").undistortImage( $distorted, $K, $D[, $undistorted[, $Knew[, $new_size]]] ) -> $undistorted
-```
-
-### cv::fisheye::undistortPoints
-
-```cpp
-void cv::fisheye::undistortPoints( InputArray  distorted,
-                                   OutputArray undistorted,
-                                   InputArray  K,
-                                   InputArray  D,
-                                   InputArray  R = noArray(),
-                                   InputArray  P = noArray() );
-
-AutoIt:
-    _OpenCV_ObjCreate("cv.fisheye").undistortPoints( $distorted, $K, $D[, $undistorted[, $R[, $P]]] ) -> $undistorted
-```
-
-## cv::BaseCascadeClassifier
-
-### cv::BaseCascadeClassifier::clear
-
-```cpp
-void cv::BaseCascadeClassifier::clear();
-
-AutoIt:
-    $oBaseCascadeClassifier.clear() -> None
-```
-
-### cv::BaseCascadeClassifier::empty
-
-```cpp
-bool cv::BaseCascadeClassifier::empty() const;
-
-AutoIt:
-    $oBaseCascadeClassifier.empty() -> retval
-```
-
-### cv::BaseCascadeClassifier::getDefaultName
-
-```cpp
-std::string cv::BaseCascadeClassifier::getDefaultName() const;
-
-AutoIt:
-    $oBaseCascadeClassifier.getDefaultName() -> retval
-```
-
-### cv::BaseCascadeClassifier::read
-
-```cpp
-void cv::BaseCascadeClassifier::read( const cv::FileNode& fn );
-
-AutoIt:
-    $oBaseCascadeClassifier.read( $fn ) -> None
-```
-
-### cv::BaseCascadeClassifier::save
-
-```cpp
-void cv::BaseCascadeClassifier::save( const std::string& filename ) const;
-
-AutoIt:
-    $oBaseCascadeClassifier.save( $filename ) -> None
-```
-
-### cv::BaseCascadeClassifier::write
-
-```cpp
-void cv::BaseCascadeClassifier::write( const cv::Ptr<cv::FileStorage>& fs,
-                                       const std::string&              name = String() ) const;
-
-AutoIt:
-    $oBaseCascadeClassifier.write( $fs[, $name] ) -> None
-```
-
-## cv::CascadeClassifier
-
-### cv::CascadeClassifier::create
-
-```cpp
-static cv::CascadeClassifier cv::CascadeClassifier::create();
-
-AutoIt:
-    _OpenCV_ObjCreate("cv.CascadeClassifier").create() -> <cv.CascadeClassifier object>
-```
-
-```cpp
-static cv::CascadeClassifier cv::CascadeClassifier::create( const std::string& filename );
-
-AutoIt:
-    _OpenCV_ObjCreate("cv.CascadeClassifier").create( $filename ) -> <cv.CascadeClassifier object>
-```
-
-### cv::CascadeClassifier::convert
-
-```cpp
-static bool cv::CascadeClassifier::convert( const std::string& oldcascade,
-                                            const std::string& newcascade );
-
-AutoIt:
-    _OpenCV_ObjCreate("cv.CascadeClassifier").convert( $oldcascade, $newcascade ) -> retval
-```
-
-### cv::CascadeClassifier::detectMultiScale
-
-```cpp
-void cv::CascadeClassifier::detectMultiScale( InputArray             image,
-                                              std::vector<cv::Rect>& objects,
-                                              double                 scaleFactor = 1.1,
-                                              int                    minNeighbors = 3,
-                                              int                    flags = 0,
-                                              cv::Size               minSize = Size(),
-                                              cv::Size               maxSize = Size() );
-
-AutoIt:
-    $oCascadeClassifier.detectMultiScale( $image[, $scaleFactor[, $minNeighbors[, $flags[, $minSize[, $maxSize[, $objects]]]]]] ) -> $objects
-```
-
-### cv::CascadeClassifier::detectMultiScale2
-
-```cpp
-void cv::CascadeClassifier::detectMultiScale2( InputArray             image,
-                                               std::vector<cv::Rect>& objects,
-                                               std::vector<int>&      numDetections,
-                                               double                 scaleFactor = 1.1,
-                                               int                    minNeighbors = 3,
-                                               int                    flags = 0,
-                                               cv::Size               minSize = Size(),
-                                               cv::Size               maxSize = Size() );
-
-AutoIt:
-    $oCascadeClassifier.detectMultiScale2( $image[, $scaleFactor[, $minNeighbors[, $flags[, $minSize[, $maxSize[, $objects[, $numDetections]]]]]]] ) -> $objects, $numDetections
-```
-
-### cv::CascadeClassifier::detectMultiScale3
-
-```cpp
-void cv::CascadeClassifier::detectMultiScale3( InputArray             image,
-                                               std::vector<cv::Rect>& objects,
-                                               std::vector<int>&      rejectLevels,
-                                               std::vector<double>&   levelWeights,
-                                               double                 scaleFactor = 1.1,
-                                               int                    minNeighbors = 3,
-                                               int                    flags = 0,
-                                               cv::Size               minSize = Size(),
-                                               cv::Size               maxSize = Size(),
-                                               bool                   outputRejectLevels = false );
-
-AutoIt:
-    $oCascadeClassifier.detectMultiScale3( $image[, $scaleFactor[, $minNeighbors[, $flags[, $minSize[, $maxSize[, $outputRejectLevels[, $objects[, $rejectLevels[, $levelWeights]]]]]]]]] ) -> $objects, $rejectLevels, $levelWeights
-```
-
-### cv::CascadeClassifier::empty
-
-```cpp
-bool cv::CascadeClassifier::empty() const;
-
-AutoIt:
-    $oCascadeClassifier.empty() -> retval
-```
-
-### cv::CascadeClassifier::getFeatureType
-
-```cpp
-int cv::CascadeClassifier::getFeatureType() const;
-
-AutoIt:
-    $oCascadeClassifier.getFeatureType() -> retval
-```
-
-### cv::CascadeClassifier::getOriginalWindowSize
-
-```cpp
-cv::Size cv::CascadeClassifier::getOriginalWindowSize() const;
-
-AutoIt:
-    $oCascadeClassifier.getOriginalWindowSize() -> retval
-```
-
-### cv::CascadeClassifier::isOldFormatCascade
-
-```cpp
-bool cv::CascadeClassifier::isOldFormatCascade() const;
-
-AutoIt:
-    $oCascadeClassifier.isOldFormatCascade() -> retval
-```
-
-### cv::CascadeClassifier::load
-
-```cpp
-bool cv::CascadeClassifier::load( const std::string& filename );
-
-AutoIt:
-    $oCascadeClassifier.load( $filename ) -> retval
-```
-
-### cv::CascadeClassifier::read
-
-```cpp
-bool cv::CascadeClassifier::read( const cv::FileNode& node );
-
-AutoIt:
-    $oCascadeClassifier.read( $node ) -> retval
-```
-
-## cv::HOGDescriptor
-
-### cv::HOGDescriptor::create
-
-```cpp
-static cv::HOGDescriptor cv::HOGDescriptor::create();
-
-AutoIt:
-    _OpenCV_ObjCreate("cv.HOGDescriptor").create() -> <cv.HOGDescriptor object>
-```
-
-```cpp
-static cv::HOGDescriptor cv::HOGDescriptor::create( cv::Size _winSize,
-                                                    cv::Size _blockSize,
-                                                    cv::Size _blockStride,
-                                                    cv::Size _cellSize,
-                                                    int      _nbins,
-                                                    int      _derivAperture = 1,
-                                                    double   _winSigma = -1,
-                                                    int      _histogramNormType = HOGDescriptor::L2Hys,
-                                                    double   _L2HysThreshold = 0.2,
-                                                    bool     _gammaCorrection = false,
-                                                    int      _nlevels = HOGDescriptor::DEFAULT_NLEVELS,
-                                                    bool     _signedGradient = false );
-
-AutoIt:
-    _OpenCV_ObjCreate("cv.HOGDescriptor").create( $_winSize, $_blockSize, $_blockStride, $_cellSize, $_nbins[, $_derivAperture[, $_winSigma[, $_histogramNormType[, $_L2HysThreshold[, $_gammaCorrection[, $_nlevels[, $_signedGradient]]]]]]] ) -> <cv.HOGDescriptor object>
-```
-
-```cpp
-static cv::HOGDescriptor cv::HOGDescriptor::create( const std::string& filename );
-
-AutoIt:
-    _OpenCV_ObjCreate("cv.HOGDescriptor").create( $filename ) -> <cv.HOGDescriptor object>
-```
-
-### cv::HOGDescriptor::checkDetectorSize
-
-```cpp
-bool cv::HOGDescriptor::checkDetectorSize() const;
-
-AutoIt:
-    $oHOGDescriptor.checkDetectorSize() -> retval
-```
-
-### cv::HOGDescriptor::compute
-
-```cpp
-void cv::HOGDescriptor::compute( InputArray                    img,
-                                 std::vector<float>&           descriptors,
-                                 cv::Size                      winStride = Size(),
-                                 cv::Size                      padding = Size(),
-                                 const std::vector<cv::Point>& locations = std::vector<Point>() ) const;
-
-AutoIt:
-    $oHOGDescriptor.compute( $img[, $winStride[, $padding[, $locations[, $descriptors]]]] ) -> $descriptors
-```
-
-### cv::HOGDescriptor::computeGradient
-
-```cpp
-void cv::HOGDescriptor::computeGradient( InputArray       img,
-                                         InputOutputArray grad,
-                                         InputOutputArray angleOfs,
-                                         cv::Size         paddingTL = Size(),
-                                         cv::Size         paddingBR = Size() ) const;
-
-AutoIt:
-    $oHOGDescriptor.computeGradient( $img, $grad, $angleOfs[, $paddingTL[, $paddingBR]] ) -> $grad, $angleOfs
-```
-
-### cv::HOGDescriptor::detect
-
-```cpp
-void cv::HOGDescriptor::detect( InputArray                    img,
-                                std::vector<cv::Point>&       foundLocations,
-                                std::vector<double>&          weights,
-                                double                        hitThreshold = 0,
-                                cv::Size                      winStride = Size(),
-                                cv::Size                      padding = Size(),
-                                const std::vector<cv::Point>& searchLocations = std::vector<Point>() ) const;
-
-AutoIt:
-    $oHOGDescriptor.detect( $img[, $hitThreshold[, $winStride[, $padding[, $searchLocations[, $foundLocations[, $weights]]]]]] ) -> $foundLocations, $weights
-```
-
-### cv::HOGDescriptor::detectMultiScale
-
-```cpp
-void cv::HOGDescriptor::detectMultiScale( InputArray             img,
-                                          std::vector<cv::Rect>& foundLocations,
-                                          std::vector<double>&   foundWeights,
-                                          double                 hitThreshold = 0,
-                                          cv::Size               winStride = Size(),
-                                          cv::Size               padding = Size(),
-                                          double                 scale = 1.05,
-                                          double                 finalThreshold = 2.0,
-                                          bool                   useMeanshiftGrouping = false ) const;
-
-AutoIt:
-    $oHOGDescriptor.detectMultiScale( $img[, $hitThreshold[, $winStride[, $padding[, $scale[, $finalThreshold[, $useMeanshiftGrouping[, $foundLocations[, $foundWeights]]]]]]]] ) -> $foundLocations, $foundWeights
-```
-
-### cv::HOGDescriptor::getDaimlerPeopleDetector
-
-```cpp
-static std::vector<float> cv::HOGDescriptor::getDaimlerPeopleDetector();
-
-AutoIt:
-    _OpenCV_ObjCreate("cv.HOGDescriptor").getDaimlerPeopleDetector() -> retval
-```
-
-### cv::HOGDescriptor::getDefaultPeopleDetector
-
-```cpp
-static std::vector<float> cv::HOGDescriptor::getDefaultPeopleDetector();
-
-AutoIt:
-    _OpenCV_ObjCreate("cv.HOGDescriptor").getDefaultPeopleDetector() -> retval
-```
-
-### cv::HOGDescriptor::getDescriptorSize
-
-```cpp
-size_t cv::HOGDescriptor::getDescriptorSize() const;
-
-AutoIt:
-    $oHOGDescriptor.getDescriptorSize() -> retval
-```
-
-### cv::HOGDescriptor::getWinSigma
-
-```cpp
-double cv::HOGDescriptor::getWinSigma() const;
-
-AutoIt:
-    $oHOGDescriptor.getWinSigma() -> retval
-```
-
-### cv::HOGDescriptor::load
-
-```cpp
-bool cv::HOGDescriptor::load( const std::string& filename,
-                              const std::string& objname = String() );
-
-AutoIt:
-    $oHOGDescriptor.load( $filename[, $objname] ) -> retval
-```
-
-### cv::HOGDescriptor::save
-
-```cpp
-void cv::HOGDescriptor::save( const std::string& filename,
-                              const std::string& objname = String() ) const;
-
-AutoIt:
-    $oHOGDescriptor.save( $filename[, $objname] ) -> None
-```
-
-### cv::HOGDescriptor::setSVMDetector
-
-```cpp
-void cv::HOGDescriptor::setSVMDetector( InputArray svmdetector );
-
-AutoIt:
-    $oHOGDescriptor.setSVMDetector( $svmdetector ) -> None
-```
-
-## cv::QRCodeEncoder
-
-### cv::QRCodeEncoder::create
-
-```cpp
-static cv::Ptr<cv::QRCodeEncoder> cv::QRCodeEncoder::create( const cv::QRCodeEncoder::Params& parameters = QRCodeEncoder::Params() );
-
-AutoIt:
-    _OpenCV_ObjCreate("cv.QRCodeEncoder").create( [$parameters] ) -> retval
-```
-
-### cv::QRCodeEncoder::encode
-
-```cpp
-void cv::QRCodeEncoder::encode( const std::string& encoded_info,
-                                OutputArray        qrcode );
-
-AutoIt:
-    $oQRCodeEncoder.encode( $encoded_info[, $qrcode] ) -> $qrcode
-```
-
-### cv::QRCodeEncoder::encodeStructuredAppend
-
-```cpp
-void cv::QRCodeEncoder::encodeStructuredAppend( const std::string&  encoded_info,
-                                                OutputArrayOfArrays qrcodes );
-
-AutoIt:
-    $oQRCodeEncoder.encodeStructuredAppend( $encoded_info[, $qrcodes] ) -> $qrcodes
-```
-
-## cv::QRCodeEncoder::Params
-
-### cv::QRCodeEncoder::Params::create
-
-```cpp
-static cv::QRCodeEncoder::Params cv::QRCodeEncoder::Params::create();
-
-AutoIt:
-    _OpenCV_ObjCreate("cv.QRCodeEncoder.Params").create() -> <cv.QRCodeEncoder.Params object>
-```
-
-## cv::QRCodeDetector
-
-### cv::QRCodeDetector::create
-
-```cpp
-static cv::QRCodeDetector cv::QRCodeDetector::create();
-
-AutoIt:
-    _OpenCV_ObjCreate("cv.QRCodeDetector").create() -> <cv.QRCodeDetector object>
-```
-
-### cv::QRCodeDetector::decode
-
-```cpp
-std::string cv::QRCodeDetector::decode( InputArray  img,
-                                        InputArray  points,
-                                        OutputArray straight_qrcode = noArray() );
-
-AutoIt:
-    $oQRCodeDetector.decode( $img, $points[, $straight_qrcode] ) -> retval, $straight_qrcode
-```
-
-### cv::QRCodeDetector::decodeCurved
-
-```cpp
-std::string cv::QRCodeDetector::decodeCurved( InputArray  img,
-                                              InputArray  points,
-                                              OutputArray straight_qrcode = noArray() );
-
-AutoIt:
-    $oQRCodeDetector.decodeCurved( $img, $points[, $straight_qrcode] ) -> retval, $straight_qrcode
-```
-
-### cv::QRCodeDetector::decodeMulti
-
-```cpp
-bool cv::QRCodeDetector::decodeMulti( InputArray                img,
-                                      InputArray                points,
-                                      std::vector<std::string>& decoded_info,
-                                      OutputArrayOfArrays       straight_qrcode = noArray() ) const;
-
-AutoIt:
-    $oQRCodeDetector.decodeMulti( $img, $points[, $straight_qrcode[, $decoded_info]] ) -> retval, $decoded_info, $straight_qrcode
-```
-
-### cv::QRCodeDetector::detect
-
-```cpp
-bool cv::QRCodeDetector::detect( InputArray  img,
-                                 OutputArray points ) const;
-
-AutoIt:
-    $oQRCodeDetector.detect( $img[, $points] ) -> retval, $points
-```
-
-### cv::QRCodeDetector::detectAndDecode
-
-```cpp
-std::string cv::QRCodeDetector::detectAndDecode( InputArray  img,
-                                                 OutputArray points = noArray(),
-                                                 OutputArray straight_qrcode = noArray() );
-
-AutoIt:
-    $oQRCodeDetector.detectAndDecode( $img[, $points[, $straight_qrcode]] ) -> retval, $points, $straight_qrcode
-```
-
-### cv::QRCodeDetector::detectAndDecodeCurved
-
-```cpp
-std::string cv::QRCodeDetector::detectAndDecodeCurved( InputArray  img,
-                                                       OutputArray points = noArray(),
-                                                       OutputArray straight_qrcode = noArray() );
-
-AutoIt:
-    $oQRCodeDetector.detectAndDecodeCurved( $img[, $points[, $straight_qrcode]] ) -> retval, $points, $straight_qrcode
-```
-
-### cv::QRCodeDetector::detectAndDecodeMulti
-
-```cpp
-bool cv::QRCodeDetector::detectAndDecodeMulti( InputArray                img,
-                                               std::vector<std::string>& decoded_info,
-                                               OutputArray               points = noArray(),
-                                               OutputArrayOfArrays       straight_qrcode = noArray() ) const;
-
-AutoIt:
-    $oQRCodeDetector.detectAndDecodeMulti( $img[, $points[, $straight_qrcode[, $decoded_info]]] ) -> retval, $decoded_info, $points, $straight_qrcode
-```
-
-### cv::QRCodeDetector::detectMulti
-
-```cpp
-bool cv::QRCodeDetector::detectMulti( InputArray  img,
-                                      OutputArray points ) const;
-
-AutoIt:
-    $oQRCodeDetector.detectMulti( $img[, $points] ) -> retval, $points
-```
-
-### cv::QRCodeDetector::setEpsX
-
-```cpp
-void cv::QRCodeDetector::setEpsX( double epsX );
-
-AutoIt:
-    $oQRCodeDetector.setEpsX( $epsX ) -> None
-```
-
-### cv::QRCodeDetector::setEpsY
-
-```cpp
-void cv::QRCodeDetector::setEpsY( double epsY );
-
-AutoIt:
-    $oQRCodeDetector.setEpsY( $epsY ) -> None
-```
-
-## cv::FaceDetectorYN
-
-### cv::FaceDetectorYN::create
-
-```cpp
-static cv::Ptr<cv::FaceDetectorYN> cv::FaceDetectorYN::create( const std::string& model,
-                                                               const std::string& config,
-                                                               const cv::Size&    input_size,
-                                                               float              score_threshold = 0.9f,
-                                                               float              nms_threshold = 0.3f,
-                                                               int                top_k = 5000,
-                                                               int                backend_id = 0,
-                                                               int                target_id = 0 );
-
-AutoIt:
-    _OpenCV_ObjCreate("cv.FaceDetectorYN").create( $model, $config, $input_size[, $score_threshold[, $nms_threshold[, $top_k[, $backend_id[, $target_id]]]]] ) -> retval
-```
-
-### cv::FaceDetectorYN::detect
-
-```cpp
-int cv::FaceDetectorYN::detect( InputArray  image,
-                                OutputArray faces );
-
-AutoIt:
-    $oFaceDetectorYN.detect( $image[, $faces] ) -> retval, $faces
-```
-
-### cv::FaceDetectorYN::getInputSize
-
-```cpp
-cv::Size cv::FaceDetectorYN::getInputSize();
-
-AutoIt:
-    $oFaceDetectorYN.getInputSize() -> retval
-```
-
-### cv::FaceDetectorYN::getNMSThreshold
-
-```cpp
-float cv::FaceDetectorYN::getNMSThreshold();
-
-AutoIt:
-    $oFaceDetectorYN.getNMSThreshold() -> retval
-```
-
-### cv::FaceDetectorYN::getScoreThreshold
-
-```cpp
-float cv::FaceDetectorYN::getScoreThreshold();
-
-AutoIt:
-    $oFaceDetectorYN.getScoreThreshold() -> retval
-```
-
-### cv::FaceDetectorYN::getTopK
-
-```cpp
-int cv::FaceDetectorYN::getTopK();
-
-AutoIt:
-    $oFaceDetectorYN.getTopK() -> retval
-```
-
-### cv::FaceDetectorYN::setInputSize
-
-```cpp
-void cv::FaceDetectorYN::setInputSize( const cv::Size& input_size );
-
-AutoIt:
-    $oFaceDetectorYN.setInputSize( $input_size ) -> None
-```
-
-### cv::FaceDetectorYN::setNMSThreshold
-
-```cpp
-void cv::FaceDetectorYN::setNMSThreshold( float nms_threshold );
-
-AutoIt:
-    $oFaceDetectorYN.setNMSThreshold( $nms_threshold ) -> None
-```
-
-### cv::FaceDetectorYN::setScoreThreshold
-
-```cpp
-void cv::FaceDetectorYN::setScoreThreshold( float score_threshold );
-
-AutoIt:
-    $oFaceDetectorYN.setScoreThreshold( $score_threshold ) -> None
-```
-
-### cv::FaceDetectorYN::setTopK
-
-```cpp
-void cv::FaceDetectorYN::setTopK( int top_k );
-
-AutoIt:
-    $oFaceDetectorYN.setTopK( $top_k ) -> None
-```
-
-## cv::FaceRecognizerSF
-
-### cv::FaceRecognizerSF::create
-
-```cpp
-static cv::Ptr<cv::FaceRecognizerSF> cv::FaceRecognizerSF::create( const std::string& model,
-                                                                   const std::string& config,
-                                                                   int                backend_id = 0,
-                                                                   int                target_id = 0 );
-
-AutoIt:
-    _OpenCV_ObjCreate("cv.FaceRecognizerSF").create( $model, $config[, $backend_id[, $target_id]] ) -> retval
-```
-
-### cv::FaceRecognizerSF::alignCrop
-
-```cpp
-void cv::FaceRecognizerSF::alignCrop( InputArray  src_img,
-                                      InputArray  face_box,
-                                      OutputArray aligned_img ) const;
-
-AutoIt:
-    $oFaceRecognizerSF.alignCrop( $src_img, $face_box[, $aligned_img] ) -> $aligned_img
-```
-
-### cv::FaceRecognizerSF::feature
-
-```cpp
-void cv::FaceRecognizerSF::feature( InputArray  aligned_img,
-                                    OutputArray face_feature );
-
-AutoIt:
-    $oFaceRecognizerSF.feature( $aligned_img[, $face_feature] ) -> $face_feature
-```
-
-### cv::FaceRecognizerSF::match
-
-```cpp
-double cv::FaceRecognizerSF::match( InputArray _face_feature1,
-                                    InputArray _face_feature2,
-                                    int        dis_type = FaceRecognizerSF::FR_COSINE ) const;
-
-AutoIt:
-    $oFaceRecognizerSF.match( $_face_feature1, $_face_feature2[, $dis_type] ) -> retval
 ```
 
 ## cv::Stitcher
@@ -29943,6 +30277,170 @@ AutoIt:
     _OpenCV_ObjCreate("cv.TrackerDaSiamRPN.Params").create() -> <cv.TrackerDaSiamRPN.Params object>
 ```
 
+## cv::CirclesGridFinderParameters
+
+### cv::CirclesGridFinderParameters::create
+
+```cpp
+static cv::CirclesGridFinderParameters cv::CirclesGridFinderParameters::create();
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.CirclesGridFinderParameters").create() -> <cv.CirclesGridFinderParameters object>
+```
+
+## cv::fisheye
+
+### cv::fisheye::calibrate
+
+```cpp
+double cv::fisheye::calibrate( InputArrayOfArrays  objectPoints,
+                               InputArrayOfArrays  imagePoints,
+                               const cv::Size&     image_size,
+                               InputOutputArray    K,
+                               InputOutputArray    D,
+                               OutputArrayOfArrays rvecs,
+                               OutputArrayOfArrays tvecs,
+                               int                 flags = 0,
+                               cv::TermCriteria    criteria = TermCriteria(TermCriteria::COUNT + TermCriteria::EPS, 100, DBL_EPSILON) );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.fisheye").calibrate( $objectPoints, $imagePoints, $image_size, $K, $D[, $rvecs[, $tvecs[, $flags[, $criteria]]]] ) -> retval, $K, $D, $rvecs, $tvecs
+```
+
+### cv::fisheye::distortPoints
+
+```cpp
+void cv::fisheye::distortPoints( InputArray  undistorted,
+                                 OutputArray distorted,
+                                 InputArray  K,
+                                 InputArray  D,
+                                 double      alpha = 0 );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.fisheye").distortPoints( $undistorted, $K, $D[, $distorted[, $alpha]] ) -> $distorted
+```
+
+### cv::fisheye::estimateNewCameraMatrixForUndistortRectify
+
+```cpp
+void cv::fisheye::estimateNewCameraMatrixForUndistortRectify( InputArray      K,
+                                                              InputArray      D,
+                                                              const cv::Size& image_size,
+                                                              InputArray      R,
+                                                              OutputArray     P,
+                                                              double          balance = 0.0,
+                                                              const cv::Size& new_size = Size(),
+                                                              double          fov_scale = 1.0 );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.fisheye").estimateNewCameraMatrixForUndistortRectify( $K, $D, $image_size, $R[, $P[, $balance[, $new_size[, $fov_scale]]]] ) -> $P
+```
+
+### cv::fisheye::initUndistortRectifyMap
+
+```cpp
+void cv::fisheye::initUndistortRectifyMap( InputArray      K,
+                                           InputArray      D,
+                                           InputArray      R,
+                                           InputArray      P,
+                                           const cv::Size& size,
+                                           int             m1type,
+                                           OutputArray     map1,
+                                           OutputArray     map2 );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.fisheye").initUndistortRectifyMap( $K, $D, $R, $P, $size, $m1type[, $map1[, $map2]] ) -> $map1, $map2
+```
+
+### cv::fisheye::projectPoints
+
+```cpp
+void cv::fisheye::projectPoints( InputArray  objectPoints,
+                                 OutputArray imagePoints,
+                                 InputArray  rvec,
+                                 InputArray  tvec,
+                                 InputArray  K,
+                                 InputArray  D,
+                                 double      alpha = 0,
+                                 OutputArray jacobian = noArray() );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.fisheye").projectPoints( $objectPoints, $rvec, $tvec, $K, $D[, $imagePoints[, $alpha[, $jacobian]]] ) -> $imagePoints, $jacobian
+```
+
+### cv::fisheye::stereoCalibrate
+
+```cpp
+double cv::fisheye::stereoCalibrate( InputArrayOfArrays objectPoints,
+                                     InputArrayOfArrays imagePoints1,
+                                     InputArrayOfArrays imagePoints2,
+                                     InputOutputArray   K1,
+                                     InputOutputArray   D1,
+                                     InputOutputArray   K2,
+                                     InputOutputArray   D2,
+                                     cv::Size           imageSize,
+                                     OutputArray        R,
+                                     OutputArray        T,
+                                     int                flags = fisheye::CALIB_FIX_INTRINSIC,
+                                     cv::TermCriteria   criteria = TermCriteria(TermCriteria::COUNT + TermCriteria::EPS, 100, DBL_EPSILON) );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.fisheye").stereoCalibrate( $objectPoints, $imagePoints1, $imagePoints2, $K1, $D1, $K2, $D2, $imageSize[, $R[, $T[, $flags[, $criteria]]]] ) -> retval, $K1, $D1, $K2, $D2, $R, $T
+```
+
+### cv::fisheye::stereoRectify
+
+```cpp
+void cv::fisheye::stereoRectify( InputArray      K1,
+                                 InputArray      D1,
+                                 InputArray      K2,
+                                 InputArray      D2,
+                                 const cv::Size& imageSize,
+                                 InputArray      R,
+                                 InputArray      tvec,
+                                 OutputArray     R1,
+                                 OutputArray     R2,
+                                 OutputArray     P1,
+                                 OutputArray     P2,
+                                 OutputArray     Q,
+                                 int             flags,
+                                 const cv::Size& newImageSize = Size(),
+                                 double          balance = 0.0,
+                                 double          fov_scale = 1.0 );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.fisheye").stereoRectify( $K1, $D1, $K2, $D2, $imageSize, $R, $tvec, $flags[, $R1[, $R2[, $P1[, $P2[, $Q[, $newImageSize[, $balance[, $fov_scale]]]]]]]] ) -> $R1, $R2, $P1, $P2, $Q
+```
+
+### cv::fisheye::undistortImage
+
+```cpp
+void cv::fisheye::undistortImage( InputArray      distorted,
+                                  OutputArray     undistorted,
+                                  InputArray      K,
+                                  InputArray      D,
+                                  InputArray      Knew = cv::noArray(),
+                                  const cv::Size& new_size = Size() );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.fisheye").undistortImage( $distorted, $K, $D[, $undistorted[, $Knew[, $new_size]]] ) -> $undistorted
+```
+
+### cv::fisheye::undistortPoints
+
+```cpp
+void cv::fisheye::undistortPoints( InputArray       distorted,
+                                   OutputArray      undistorted,
+                                   InputArray       K,
+                                   InputArray       D,
+                                   InputArray       R = noArray(),
+                                   InputArray       P = noArray(),
+                                   cv::TermCriteria criteria = TermCriteria(TermCriteria::MAX_ITER + TermCriteria::EPS, 10, 1e-8) );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.fisheye").undistortPoints( $distorted, $K, $D[, $undistorted[, $R[, $P[, $criteria]]]] ) -> $undistorted
+```
+
 ## cv::gapi
 
 ### cv::gapi::BGR2RGB
@@ -30162,7 +30660,7 @@ AutoIt:
 ### cv::gapi::core::cpu::kernels
 
 ```cpp
-cv::gapi::GKernelPackage cv::gapi::core::cpu::kernels();
+cv::GKernelPackage cv::gapi::core::cpu::kernels();
 
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.core.cpu").kernels() -> retval
@@ -30173,7 +30671,7 @@ AutoIt:
 ### cv::gapi::core::fluid::kernels
 
 ```cpp
-cv::gapi::GKernelPackage cv::gapi::core::fluid::kernels();
+cv::GKernelPackage cv::gapi::core::fluid::kernels();
 
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.core.fluid").kernels() -> retval
@@ -30607,13 +31105,24 @@ AutoIt:
 ### cv::gapi::core::ocl::kernels
 
 ```cpp
-cv::gapi::GKernelPackage cv::gapi::core::ocl::kernels();
+cv::GKernelPackage cv::gapi::core::ocl::kernels();
 
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.core.ocl").kernels() -> retval
 ```
 
 ## cv::gapi::wip
+
+### cv::gapi::wip::get_streaming_source
+
+```cpp
+cv::Ptr<cv::gapi::wip::IStreamSource> cv::gapi::wip::get_streaming_source( cv::Ptr<cv::gapi::wip::gst::GStreamerPipeline>& pipeline,
+                                                                           const std::string&                              appsinkName,
+                                                                           const int                                       outputType = GStreamerSource::OutputType::MAT );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.wip").get_streaming_source( $pipeline, $appsinkName[, $outputType] ) -> retval
+```
 
 ### cv::gapi::wip::make_capture_src
 
@@ -30622,6 +31131,16 @@ cv::Ptr<cv::gapi::wip::IStreamSource> cv::gapi::wip::make_capture_src( const std
 
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip").make_capture_src( $path ) -> retval
+```
+
+### cv::gapi::wip::make_gst_src
+
+```cpp
+cv::Ptr<cv::gapi::wip::IStreamSource> cv::gapi::wip::make_gst_src( const std::string& pipeline,
+                                                                   const int          outputType = GStreamerSource::OutputType::MAT );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.wip").make_gst_src( $pipeline[, $outputType] ) -> retval
 ```
 
 ## cv::gapi::wip::draw
@@ -30673,7 +31192,7 @@ AutoIt:
 ### cv::gapi::render::ocv::kernels
 
 ```cpp
-cv::gapi::GKernelPackage cv::gapi::render::ocv::kernels();
+cv::GKernelPackage cv::gapi::render::ocv::kernels();
 
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.render.ocv").kernels() -> retval
@@ -30812,6 +31331,17 @@ static cv::gapi::wip::draw::Poly cv::gapi::wip::draw::Poly::create();
 
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Poly").create() -> <cv.gapi.wip.draw.Poly object>
+```
+
+## cv::gapi::wip::gst::GStreamerPipeline
+
+### cv::gapi::wip::gst::GStreamerPipeline::create
+
+```cpp
+static cv::gapi::wip::gst::GStreamerPipeline cv::gapi::wip::gst::GStreamerPipeline::create( const std::string& pipeline );
+
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.wip.gst.GStreamerPipeline").create( $pipeline ) -> <cv.gapi.wip.gst.GStreamerPipeline object>
 ```
 
 ## cv::wgc

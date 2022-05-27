@@ -32,7 +32,7 @@ add_library(${PROJECT_NAME} SHARED ${project_srcs} ${project_hdrs})
 
 # Library directories
 set(OpenCV_DIR "")
-file(GLOB __OpenCV_ROOT_DIR "../opencv-4.*")
+file(GLOB __OpenCV_ROOT_DIR "../opencv-5.*")
 foreach(f ${__OpenCV_ROOT_DIR})
   get_filename_component(__f "${f}/opencv/build" REALPATH)
   if(EXISTS "${__f}")

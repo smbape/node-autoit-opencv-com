@@ -15,7 +15,7 @@
 ;~     https://docs.opencv.org/4.5.5/de/d70/samples_2cpp_2kalman_8cpp-example.html
 ;~     https://github.com/opencv/opencv/blob/4.5.5/samples/cpp/kalman.cpp
 
-_OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world5*", "opencv-5.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com5*"))
 OnAutoItExitRegister("OnAutoItExit")
 
 Global $g_hSubclassProc = DllCallbackRegister("_SubclassProc", "lresult", "hwnd;uint;wparam;lparam;uint_ptr;dword_ptr")

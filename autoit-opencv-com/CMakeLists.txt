@@ -35,17 +35,17 @@ if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../opencv-4.5.5-vc14_vc15/opencv/sour
 endif()
 
 execute_process(
-    COMMAND patch -p 1 -d ${CMAKE_CURRENT_SOURCE_DIR}/../opencv-4.5.5-vc14_vc15/opencv/sources/ -i "${CMAKE_CURRENT_SOURCE_DIR}/patches/001-opencv-src.patch" -R --dry-run
+    COMMAND patch -p 1 -d ${CMAKE_CURRENT_SOURCE_DIR}/../opencv-5.0.0-vc17/opencv/sources/ -i "${CMAKE_CURRENT_SOURCE_DIR}/patches/001-opencv-src.patch" -R --dry-run
     RESULT_VARIABLE ret
     ERROR_QUIET
 )
 if(NOT ${ret} EQUAL "0")
-    execute_process(COMMAND patch -p 1 -d ${CMAKE_CURRENT_SOURCE_DIR}/../opencv-4.5.5-vc14_vc15/opencv/sources/ -i "${CMAKE_CURRENT_SOURCE_DIR}/patches/001-opencv-src.patch")
+    execute_process(COMMAND patch -p 1 -d ${CMAKE_CURRENT_SOURCE_DIR}/../opencv-5.0.0-vc17/opencv/sources/ -i "${CMAKE_CURRENT_SOURCE_DIR}/patches/001-opencv-src.patch")
 endif()
 
 # Library directories
 set(OpenCV_DIR "")
-file(GLOB __OpenCV_ROOT_DIR "../opencv-4.*")
+file(GLOB __OpenCV_ROOT_DIR "../opencv-5.*")
 foreach(f ${__OpenCV_ROOT_DIR})
   get_filename_component(__f "${f}/opencv/build" REALPATH)
   if(EXISTS "${__f}")
@@ -57,7 +57,7 @@ unset(__f)
 
 find_package(OpenCV REQUIRED)
 
-get_filename_component(OpenCV_BINARY_DIR "${OpenCV_DIR}/x64/vc15/bin" REALPATH)
+get_filename_component(OpenCV_BINARY_DIR "${OpenCV_DIR}/x64/vc17/bin" REALPATH)
 file(TO_NATIVE_PATH "${OpenCV_BINARY_DIR}" OpenCV_BINARY_DIR)
 
 file(GLOB_RECURSE project_source_resources "./src/*.rc" "./src/*.rgs")

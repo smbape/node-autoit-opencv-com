@@ -16,7 +16,7 @@
 ;~     https://docs.opencv.org/4.5.5/de/da9/tutorial_template_matching.html
 ;~     https://github.com/opencv/opencv/blob/4.5.5/samples/tapi/bgfg_segm.cpp
 
-_OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world5*", "opencv-5.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com5*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 

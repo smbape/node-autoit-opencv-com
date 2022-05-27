@@ -32,6 +32,7 @@ const parseArguments = PROJECT_DIR => {
         includes: [sysPath.join(PROJECT_DIR, "src")],
         output: sysPath.join(PROJECT_DIR, "generated"),
         toc: false,
+        noEnumExport: true,
     };
 
     for (const opt of ["iface", "hdr", "impl", "idl", "rgs", "res", "save"]) {
@@ -78,7 +79,7 @@ const PROJECT_DIR = sysPath.resolve(__dirname, "../autoit-opencv-com");
 const SRC_DIR = sysPath.join(PROJECT_DIR, "src");
 
 const candidates = fs.readdirSync(sysPath.join(__dirname, "..")).filter(path => {
-    if (!path.startsWith("opencv-4.")) {
+    if (!path.startsWith("opencv-5.")) {
         return false;
     }
 
