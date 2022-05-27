@@ -87,6 +87,10 @@ exports.CPP_TYPES = new Map([
     ["detail_ExtractMetaCallback", "cv::detail::ExtractMetaCallback"],
 
     ["DeviceInfo_ComputeMode", "cv::cuda::DeviceInfo::ComputeMode"],
+
+    ["RgbdNormals_RgbdNormalsMethod", "cv::RgbdNormals::RgbdNormalsMethod"],
+    ["GStreamerSource_OutputType", "cv::gapi::wip::GStreamerSource::OutputType"],
+    ["OriginalClassName_Params", "cv::utils::nested::OriginalClassName::Params"],
 ]);
 
 exports.ALIASES = new Map([

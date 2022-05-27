@@ -444,7 +444,7 @@ class AutoItGenerator {
                 : [];
 
             const idl_deps = dependencies.filter(dependency => !dependency.noidl).map(dependency => {
-                return `import "${ dependency.iface.filename }";\ncpp_quote("#include \\"${ dependency.iface.filename.replace(".idl", ".h") }\\"") `;
+                return `import "${ dependency.iface.filename }";\ncpp_quote("#include \\"${ dependency.iface.filename.replace(".idl", ".h") }\\"")`;
             });
 
             if (dependencies.length !== 0) {
@@ -987,6 +987,10 @@ class AutoItGenerator {
 
             // known invalid enum
             if (epath.join("::") === "cv::detail::ArgKind::OPAQUE") {
+                continue;
+            }
+
+            if (this.options.noEnumExport) {
                 continue;
             }
 

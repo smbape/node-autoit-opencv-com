@@ -174,18 +174,22 @@ Func _OpenCV_FindDLL($sFile, $sFilter = Default, $sDir = Default, $bReverse = De
 	Local $sBuildType = $_cv_build_type == "Debug" ? "Debug" : "Release"
 	Local $sPostfix = $_cv_build_type == "Debug" ? "d" : ""
 
-	Local $aSearchPaths[10] = [ _
-		9, _
+	Local $aSearchPaths = _OpenCV_Tuple( _
+		0, _
 		".", _
 		"build_x64", _
 		"build_x64\" & $sBuildType, _
 		"build", _
 		"build\x64", _
+		"build\x64\vc17\bin", _
 		"build\x64\vc15\bin", _
+		"build\x64\vc14\bin", _
 		"autoit-opencv-com", _
 		"autoit-opencv-com\build_x64", _
 		"autoit-opencv-com\build_x64\" & $sBuildType _
-	]
+	)
+	$aSearchPaths[0] = UBound($aSearchPaths) - 1
+
 	Return _OpenCV_FindFile($sFile & $sPostfix & ".dll", $sFilter, $sDir, $FLTA_FILES, $aSearchPaths, $bReverse)
 EndFunc   ;==>_OpenCV_FindDLL
 
