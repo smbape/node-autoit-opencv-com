@@ -234,18 +234,10 @@ Object.assign(exports, {
                             ${ set_from_pointer } = true;
                         }`.replace(/^ {24}/mg, "");
 
-                    if (arrtype === "InputArray" && !is_vector) {
-                        cvt_body += ` else if (is_variant_number(${ in_val })) {
-                            double ${ arg_double } = 0.0;
-                            hr = get_variant_number<double>(${ in_val }, ${ arg_double });
-                            if (FAILED(hr)) {
-                                printf("unable to read argument ${ j } of type %hu into ${ cpptype }\\n", V_VT(${ in_val }));
-                                return hr;
-                            }
-                            ${ pointer }.reset(new _${ arrtype }(${ arg_double }));
-                            ${ set_from_pointer } = true;
-                        }`.replace(/^ {24}/mg, "");
-                    }
+                    // do not take numbers as Array because
+                    // it is impossible to call the override with double
+                    // in case there is a function with an override with double and Array
+                    // Ex: method(InputArray input) + method(double precision)
 
                     if (is_vector) {
                         cvt_body += ` else if ((V_VT(${ in_val }) & VT_ARRAY) == VT_ARRAY && (V_VT(${ in_val }) ^ VT_ARRAY) == VT_VARIANT) {

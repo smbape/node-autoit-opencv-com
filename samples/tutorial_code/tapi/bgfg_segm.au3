@@ -191,7 +191,6 @@ Func Main()
 	If Not $cap.isOpened() Then
 		ConsoleWriteError("!>Error: cannot open the " & ($useCamera ? "camera" : "video file") & @CRLF)
 		$cap = Null
-		Return
 	EndIf
 EndFunc   ;==>Main
 

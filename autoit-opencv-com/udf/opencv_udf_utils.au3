@@ -635,7 +635,7 @@ Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = Default, $iMatchMeth
 
 	; $hTimer = TimerInit()
 	If $iMatchMethod == $CV_TM_EXACT Then
-		$matResult = $cv.searchTemplate($matImg, $matTempl, $matTemplMask, $aChannels, $aRanges)
+		$matResult = $cv.searchTemplate($matImg, $matTempl, Default, $matTemplMask, $aChannels, $aRanges)
 	ElseIf $matImg.width * $matImg.height > 500 * 500 Then
 		$matResult = $cv.matchTemplateParallel($matImg, $matTempl, $iMatchMethod, Default, $matTemplMask)
 	Else
@@ -666,7 +666,7 @@ Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = Default, $iMatchMeth
 	Local $minVal, $maxVal, $aMinLoc, $aMaxLoc
 
 	; $hTimer = TimerInit()
-	While $iLimit > 0 ;use infinite loop since ExitLoop will get called
+	While $iLimit > 0 ; guard against infinite loop
 		$iLimit = $iLimit - 1
 
 		$cv.minMaxLoc($matResult, $matResultMask)
@@ -715,16 +715,14 @@ Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = Default, $iMatchMeth
 		Local $x = _Max(0, $aMatchLoc[0] - $tw / 2)
 		Local $y = _Max(0, $aMatchLoc[1] - $th / 2)
 
-		; will template come beyond the mask?:if yes-cut off margin
+		; ensure that the template stays within the mask
 		If $x + $tw > $rw Then $tw = $rw - $x
 		If $y + $th > $rh Then $th = $rh - $y
 
-		Local $aMaskedRect[4] = [$x, $y, $tw, $th]
-		Local $matMasked = $mat.zeros($th, $tw, $CV_8UC1)
-		Local $matMaskedRect = $mat.create($matResultMask, $aMaskedRect)
-
 		; mask the locations that should not be matched again
-		$matMasked.copyTo($matMaskedRect)
+		Local $aMaskedRect[4] = [$x, $y, $tw, $th]
+		Local $matMaskedRect = $mat.create($matResultMask, $aMaskedRect)
+		$matMaskedRect.setTo(_OpenCV_ScalarAll(0))
 	WEnd
 	; ConsoleWrite("minMaxLoc took " & TimerDiff($hTimer) & "ms" & @CRLF)
 
