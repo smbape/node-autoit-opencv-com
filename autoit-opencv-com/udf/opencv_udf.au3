@@ -246,3 +246,180 @@ Func _OpenCV_DllCall($dll, $return_type, $function, $type1 = Default, $param1 = 
 
 	Return $_aResult[0]
 EndFunc   ;==>_OpenCV_DllCall
+
+; Array.from(Array(30).keys()).map(i => `$val${ i } = 0`).join(", ")
+Func _OpenCV_Tuple($val0 = 0, $val1 = 0, $val2 = 0, $val3 = 0, $val4 = 0, $val5 = 0, $val6 = 0, $val7 = 0, $val8 = 0, $val9 = 0, $val10 = 0, $val11 = 0, $val12 = 0, $val13 = 0, $val14 = 0, $val15 = 0, $val16 = 0, $val17 = 0, $val18 = 0, $val19 = 0, $val20 = 0, $val21 = 0, $val22 = 0, $val23 = 0, $val24 = 0, $val25 = 0, $val26 = 0, $val27 = 0, $val28 = 0, $val29 = 0)
+	; console.log(Array.from(Array(30).keys()).map(j => `
+	; Case ${ j + 1 }
+	;     Local $_aResult[@NumParams] = [${ Array.from(Array(j + 1).keys()).map(i => `$val${ i }`).join(", ") }]
+	;     Return $_aResult
+	; `.trim()).join("\n"))
+	Switch @NumParams
+		Case 1
+			Local $_aResult[@NumParams] = [$val0]
+			Return $_aResult
+		Case 2
+			Local $_aResult[@NumParams] = [$val0, $val1]
+			Return $_aResult
+		Case 3
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2]
+			Return $_aResult
+		Case 4
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3]
+			Return $_aResult
+		Case 5
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4]
+			Return $_aResult
+		Case 6
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5]
+			Return $_aResult
+		Case 7
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6]
+			Return $_aResult
+		Case 8
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7]
+			Return $_aResult
+		Case 9
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8]
+			Return $_aResult
+		Case 10
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9]
+			Return $_aResult
+		Case 11
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10]
+			Return $_aResult
+		Case 12
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11]
+			Return $_aResult
+		Case 13
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12]
+			Return $_aResult
+		Case 14
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13]
+			Return $_aResult
+		Case 15
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14]
+			Return $_aResult
+		Case 16
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15]
+			Return $_aResult
+		Case 17
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15, $val16]
+			Return $_aResult
+		Case 18
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15, $val16, $val17]
+			Return $_aResult
+		Case 19
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15, $val16, $val17, $val18]
+			Return $_aResult
+		Case 20
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15, $val16, $val17, $val18, $val19]
+			Return $_aResult
+		Case 21
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15, $val16, $val17, $val18, $val19, $val20]
+			Return $_aResult
+		Case 22
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15, $val16, $val17, $val18, $val19, $val20, $val21]
+			Return $_aResult
+		Case 23
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15, $val16, $val17, $val18, $val19, $val20, $val21, $val22]
+			Return $_aResult
+		Case 24
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15, $val16, $val17, $val18, $val19, $val20, $val21, $val22, $val23]
+			Return $_aResult
+		Case 25
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15, $val16, $val17, $val18, $val19, $val20, $val21, $val22, $val23, $val24]
+			Return $_aResult
+		Case 26
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15, $val16, $val17, $val18, $val19, $val20, $val21, $val22, $val23, $val24, $val25]
+			Return $_aResult
+		Case 27
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15, $val16, $val17, $val18, $val19, $val20, $val21, $val22, $val23, $val24, $val25, $val26]
+			Return $_aResult
+		Case 28
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15, $val16, $val17, $val18, $val19, $val20, $val21, $val22, $val23, $val24, $val25, $val26, $val27]
+			Return $_aResult
+		Case 29
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15, $val16, $val17, $val18, $val19, $val20, $val21, $val22, $val23, $val24, $val25, $val26, $val27, $val28]
+			Return $_aResult
+		Case 30
+			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15, $val16, $val17, $val18, $val19, $val20, $val21, $val22, $val23, $val24, $val25, $val26, $val27, $val28, $val29]
+			Return $_aResult
+		Case Else
+			ConsoleWriteError('!>Error: Invalid number of arguments')
+			Return SetError(1, 0, -1)
+	EndSwitch
+EndFunc   ;==>_OpenCV_Tuple
+
+; Array.from(Array(30).keys()).map(i => `$sKey${ i + 1 } = Default, $vVal${ i + 1 } = Default`).join(", ")
+Func _OpenCV_Params($sKey1 = Default, $vVal1 = Default, $sKey2 = Default, $vVal2 = Default, $sKey3 = Default, $vVal3 = Default, $sKey4 = Default, $vVal4 = Default, $sKey5 = Default, $vVal5 = Default, $sKey6 = Default, $vVal6 = Default, $sKey7 = Default, $vVal7 = Default, $sKey8 = Default, $vVal8 = Default, $sKey9 = Default, $vVal9 = Default, $sKey10 = Default, $vVal10 = Default, $sKey11 = Default, $vVal11 = Default, $sKey12 = Default, $vVal12 = Default, $sKey13 = Default, $vVal13 = Default, $sKey14 = Default, $vVal14 = Default, $sKey15 = Default, $vVal15 = Default, $sKey16 = Default, $vVal16 = Default, $sKey17 = Default, $vVal17 = Default, $sKey18 = Default, $vVal18 = Default, $sKey19 = Default, $vVal19 = Default, $sKey20 = Default, $vVal20 = Default, $sKey21 = Default, $vVal21 = Default, $sKey22 = Default, $vVal22 = Default, $sKey23 = Default, $vVal23 = Default, $sKey24 = Default, $vVal24 = Default, $sKey25 = Default, $vVal25 = Default, $sKey26 = Default, $vVal26 = Default, $sKey27 = Default, $vVal27 = Default, $sKey28 = Default, $vVal28 = Default, $sKey29 = Default, $vVal29 = Default, $sKey30 = Default, $vVal30 = Default)
+	; console.log(Array.from(Array(30).keys()).map(j => `
+	; Case ${ 2 * (j + 1) }
+	;     Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(${ Array.from(Array(j + 1).keys()).map(i => `_OpenCV_Tuple($sKey${ i + 1 }, $vVal${ i + 1 })`).join(", ") }))
+	; `.trim()).join("\n"))
+	Switch @NumParams
+		Case 2
+			Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1)))
+		Case 4
+			Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2)))
+		Case 6
+			Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3)))
+		Case 8
+			Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4)))
+		Case 10
+			Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4), _OpenCV_Tuple($sKey5, $vVal5)))
+		Case 12
+			Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4), _OpenCV_Tuple($sKey5, $vVal5), _OpenCV_Tuple($sKey6, $vVal6)))
+		Case 14
+			Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4), _OpenCV_Tuple($sKey5, $vVal5), _OpenCV_Tuple($sKey6, $vVal6), _OpenCV_Tuple($sKey7, $vVal7)))
+		Case 16
+			Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4), _OpenCV_Tuple($sKey5, $vVal5), _OpenCV_Tuple($sKey6, $vVal6), _OpenCV_Tuple($sKey7, $vVal7), _OpenCV_Tuple($sKey8, $vVal8)))
+		Case 18
+			Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4), _OpenCV_Tuple($sKey5, $vVal5), _OpenCV_Tuple($sKey6, $vVal6), _OpenCV_Tuple($sKey7, $vVal7), _OpenCV_Tuple($sKey8, $vVal8), _OpenCV_Tuple($sKey9, $vVal9)))
+		Case 20
+			Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4), _OpenCV_Tuple($sKey5, $vVal5), _OpenCV_Tuple($sKey6, $vVal6), _OpenCV_Tuple($sKey7, $vVal7), _OpenCV_Tuple($sKey8, $vVal8), _OpenCV_Tuple($sKey9, $vVal9), _OpenCV_Tuple($sKey10, $vVal10)))
+		Case 22
+			Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4), _OpenCV_Tuple($sKey5, $vVal5), _OpenCV_Tuple($sKey6, $vVal6), _OpenCV_Tuple($sKey7, $vVal7), _OpenCV_Tuple($sKey8, $vVal8), _OpenCV_Tuple($sKey9, $vVal9), _OpenCV_Tuple($sKey10, $vVal10), _OpenCV_Tuple($sKey11, $vVal11)))
+		Case 24
+			Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4), _OpenCV_Tuple($sKey5, $vVal5), _OpenCV_Tuple($sKey6, $vVal6), _OpenCV_Tuple($sKey7, $vVal7), _OpenCV_Tuple($sKey8, $vVal8), _OpenCV_Tuple($sKey9, $vVal9), _OpenCV_Tuple($sKey10, $vVal10), _OpenCV_Tuple($sKey11, $vVal11), _OpenCV_Tuple($sKey12, $vVal12)))
+		Case 26
+			Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4), _OpenCV_Tuple($sKey5, $vVal5), _OpenCV_Tuple($sKey6, $vVal6), _OpenCV_Tuple($sKey7, $vVal7), _OpenCV_Tuple($sKey8, $vVal8), _OpenCV_Tuple($sKey9, $vVal9), _OpenCV_Tuple($sKey10, $vVal10), _OpenCV_Tuple($sKey11, $vVal11), _OpenCV_Tuple($sKey12, $vVal12), _OpenCV_Tuple($sKey13, $vVal13)))
+		Case 28
+			Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4), _OpenCV_Tuple($sKey5, $vVal5), _OpenCV_Tuple($sKey6, $vVal6), _OpenCV_Tuple($sKey7, $vVal7), _OpenCV_Tuple($sKey8, $vVal8), _OpenCV_Tuple($sKey9, $vVal9), _OpenCV_Tuple($sKey10, $vVal10), _OpenCV_Tuple($sKey11, $vVal11), _OpenCV_Tuple($sKey12, $vVal12), _OpenCV_Tuple($sKey13, $vVal13), _OpenCV_Tuple($sKey14, $vVal14)))
+		Case 30
+			Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4), _OpenCV_Tuple($sKey5, $vVal5), _OpenCV_Tuple($sKey6, $vVal6), _OpenCV_Tuple($sKey7, $vVal7), _OpenCV_Tuple($sKey8, $vVal8), _OpenCV_Tuple($sKey9, $vVal9), _OpenCV_Tuple($sKey10, $vVal10), _OpenCV_Tuple($sKey11, $vVal11), _OpenCV_Tuple($sKey12, $vVal12), _OpenCV_Tuple($sKey13, $vVal13), _OpenCV_Tuple($sKey14, $vVal14), _OpenCV_Tuple($sKey15, $vVal15)))
+		Case 32
+			Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4), _OpenCV_Tuple($sKey5, $vVal5), _OpenCV_Tuple($sKey6, $vVal6), _OpenCV_Tuple($sKey7, $vVal7), _OpenCV_Tuple($sKey8, $vVal8), _OpenCV_Tuple($sKey9, $vVal9), _OpenCV_Tuple($sKey10, $vVal10), _OpenCV_Tuple($sKey11, $vVal11), _OpenCV_Tuple($sKey12, $vVal12), _OpenCV_Tuple($sKey13, $vVal13), _OpenCV_Tuple($sKey14, $vVal14), _OpenCV_Tuple($sKey15, $vVal15), _OpenCV_Tuple($sKey16, $vVal16)))
+		Case 34
+			Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4), _OpenCV_Tuple($sKey5, $vVal5), _OpenCV_Tuple($sKey6, $vVal6), _OpenCV_Tuple($sKey7, $vVal7), _OpenCV_Tuple($sKey8, $vVal8), _OpenCV_Tuple($sKey9, $vVal9), _OpenCV_Tuple($sKey10, $vVal10), _OpenCV_Tuple($sKey11, $vVal11), _OpenCV_Tuple($sKey12, $vVal12), _OpenCV_Tuple($sKey13, $vVal13), _OpenCV_Tuple($sKey14, $vVal14), _OpenCV_Tuple($sKey15, $vVal15), _OpenCV_Tuple($sKey16, $vVal16), _OpenCV_Tuple($sKey17, $vVal17)))
+		Case 36
+			Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4), _OpenCV_Tuple($sKey5, $vVal5), _OpenCV_Tuple($sKey6, $vVal6), _OpenCV_Tuple($sKey7, $vVal7), _OpenCV_Tuple($sKey8, $vVal8), _OpenCV_Tuple($sKey9, $vVal9), _OpenCV_Tuple($sKey10, $vVal10), _OpenCV_Tuple($sKey11, $vVal11), _OpenCV_Tuple($sKey12, $vVal12), _OpenCV_Tuple($sKey13, $vVal13), _OpenCV_Tuple($sKey14, $vVal14), _OpenCV_Tuple($sKey15, $vVal15), _OpenCV_Tuple($sKey16, $vVal16), _OpenCV_Tuple($sKey17, $vVal17), _OpenCV_Tuple($sKey18, $vVal18)))
+		Case 38
+			Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4), _OpenCV_Tuple($sKey5, $vVal5), _OpenCV_Tuple($sKey6, $vVal6), _OpenCV_Tuple($sKey7, $vVal7), _OpenCV_Tuple($sKey8, $vVal8), _OpenCV_Tuple($sKey9, $vVal9), _OpenCV_Tuple($sKey10, $vVal10), _OpenCV_Tuple($sKey11, $vVal11), _OpenCV_Tuple($sKey12, $vVal12), _OpenCV_Tuple($sKey13, $vVal13), _OpenCV_Tuple($sKey14, $vVal14), _OpenCV_Tuple($sKey15, $vVal15), _OpenCV_Tuple($sKey16, $vVal16), _OpenCV_Tuple($sKey17, $vVal17), _OpenCV_Tuple($sKey18, $vVal18), _OpenCV_Tuple($sKey19, $vVal19)))
+		Case 40
+			Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4), _OpenCV_Tuple($sKey5, $vVal5), _OpenCV_Tuple($sKey6, $vVal6), _OpenCV_Tuple($sKey7, $vVal7), _OpenCV_Tuple($sKey8, $vVal8), _OpenCV_Tuple($sKey9, $vVal9), _OpenCV_Tuple($sKey10, $vVal10), _OpenCV_Tuple($sKey11, $vVal11), _OpenCV_Tuple($sKey12, $vVal12), _OpenCV_Tuple($sKey13, $vVal13), _OpenCV_Tuple($sKey14, $vVal14), _OpenCV_Tuple($sKey15, $vVal15), _OpenCV_Tuple($sKey16, $vVal16), _OpenCV_Tuple($sKey17, $vVal17), _OpenCV_Tuple($sKey18, $vVal18), _OpenCV_Tuple($sKey19, $vVal19), _OpenCV_Tuple($sKey20, $vVal20)))
+		Case 42
+			Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4), _OpenCV_Tuple($sKey5, $vVal5), _OpenCV_Tuple($sKey6, $vVal6), _OpenCV_Tuple($sKey7, $vVal7), _OpenCV_Tuple($sKey8, $vVal8), _OpenCV_Tuple($sKey9, $vVal9), _OpenCV_Tuple($sKey10, $vVal10), _OpenCV_Tuple($sKey11, $vVal11), _OpenCV_Tuple($sKey12, $vVal12), _OpenCV_Tuple($sKey13, $vVal13), _OpenCV_Tuple($sKey14, $vVal14), _OpenCV_Tuple($sKey15, $vVal15), _OpenCV_Tuple($sKey16, $vVal16), _OpenCV_Tuple($sKey17, $vVal17), _OpenCV_Tuple($sKey18, $vVal18), _OpenCV_Tuple($sKey19, $vVal19), _OpenCV_Tuple($sKey20, $vVal20), _OpenCV_Tuple($sKey21, $vVal21)))
+		Case 44
+			Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4), _OpenCV_Tuple($sKey5, $vVal5), _OpenCV_Tuple($sKey6, $vVal6), _OpenCV_Tuple($sKey7, $vVal7), _OpenCV_Tuple($sKey8, $vVal8), _OpenCV_Tuple($sKey9, $vVal9), _OpenCV_Tuple($sKey10, $vVal10), _OpenCV_Tuple($sKey11, $vVal11), _OpenCV_Tuple($sKey12, $vVal12), _OpenCV_Tuple($sKey13, $vVal13), _OpenCV_Tuple($sKey14, $vVal14), _OpenCV_Tuple($sKey15, $vVal15), _OpenCV_Tuple($sKey16, $vVal16), _OpenCV_Tuple($sKey17, $vVal17), _OpenCV_Tuple($sKey18, $vVal18), _OpenCV_Tuple($sKey19, $vVal19), _OpenCV_Tuple($sKey20, $vVal20), _OpenCV_Tuple($sKey21, $vVal21), _OpenCV_Tuple($sKey22, $vVal22)))
+		Case 46
+			Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4), _OpenCV_Tuple($sKey5, $vVal5), _OpenCV_Tuple($sKey6, $vVal6), _OpenCV_Tuple($sKey7, $vVal7), _OpenCV_Tuple($sKey8, $vVal8), _OpenCV_Tuple($sKey9, $vVal9), _OpenCV_Tuple($sKey10, $vVal10), _OpenCV_Tuple($sKey11, $vVal11), _OpenCV_Tuple($sKey12, $vVal12), _OpenCV_Tuple($sKey13, $vVal13), _OpenCV_Tuple($sKey14, $vVal14), _OpenCV_Tuple($sKey15, $vVal15), _OpenCV_Tuple($sKey16, $vVal16), _OpenCV_Tuple($sKey17, $vVal17), _OpenCV_Tuple($sKey18, $vVal18), _OpenCV_Tuple($sKey19, $vVal19), _OpenCV_Tuple($sKey20, $vVal20), _OpenCV_Tuple($sKey21, $vVal21), _OpenCV_Tuple($sKey22, $vVal22), _OpenCV_Tuple($sKey23, $vVal23)))
+		Case 48
+			Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4), _OpenCV_Tuple($sKey5, $vVal5), _OpenCV_Tuple($sKey6, $vVal6), _OpenCV_Tuple($sKey7, $vVal7), _OpenCV_Tuple($sKey8, $vVal8), _OpenCV_Tuple($sKey9, $vVal9), _OpenCV_Tuple($sKey10, $vVal10), _OpenCV_Tuple($sKey11, $vVal11), _OpenCV_Tuple($sKey12, $vVal12), _OpenCV_Tuple($sKey13, $vVal13), _OpenCV_Tuple($sKey14, $vVal14), _OpenCV_Tuple($sKey15, $vVal15), _OpenCV_Tuple($sKey16, $vVal16), _OpenCV_Tuple($sKey17, $vVal17), _OpenCV_Tuple($sKey18, $vVal18), _OpenCV_Tuple($sKey19, $vVal19), _OpenCV_Tuple($sKey20, $vVal20), _OpenCV_Tuple($sKey21, $vVal21), _OpenCV_Tuple($sKey22, $vVal22), _OpenCV_Tuple($sKey23, $vVal23), _OpenCV_Tuple($sKey24, $vVal24)))
+		Case 50
+			Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4), _OpenCV_Tuple($sKey5, $vVal5), _OpenCV_Tuple($sKey6, $vVal6), _OpenCV_Tuple($sKey7, $vVal7), _OpenCV_Tuple($sKey8, $vVal8), _OpenCV_Tuple($sKey9, $vVal9), _OpenCV_Tuple($sKey10, $vVal10), _OpenCV_Tuple($sKey11, $vVal11), _OpenCV_Tuple($sKey12, $vVal12), _OpenCV_Tuple($sKey13, $vVal13), _OpenCV_Tuple($sKey14, $vVal14), _OpenCV_Tuple($sKey15, $vVal15), _OpenCV_Tuple($sKey16, $vVal16), _OpenCV_Tuple($sKey17, $vVal17), _OpenCV_Tuple($sKey18, $vVal18), _OpenCV_Tuple($sKey19, $vVal19), _OpenCV_Tuple($sKey20, $vVal20), _OpenCV_Tuple($sKey21, $vVal21), _OpenCV_Tuple($sKey22, $vVal22), _OpenCV_Tuple($sKey23, $vVal23), _OpenCV_Tuple($sKey24, $vVal24), _OpenCV_Tuple($sKey25, $vVal25)))
+		Case 52
+			Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4), _OpenCV_Tuple($sKey5, $vVal5), _OpenCV_Tuple($sKey6, $vVal6), _OpenCV_Tuple($sKey7, $vVal7), _OpenCV_Tuple($sKey8, $vVal8), _OpenCV_Tuple($sKey9, $vVal9), _OpenCV_Tuple($sKey10, $vVal10), _OpenCV_Tuple($sKey11, $vVal11), _OpenCV_Tuple($sKey12, $vVal12), _OpenCV_Tuple($sKey13, $vVal13), _OpenCV_Tuple($sKey14, $vVal14), _OpenCV_Tuple($sKey15, $vVal15), _OpenCV_Tuple($sKey16, $vVal16), _OpenCV_Tuple($sKey17, $vVal17), _OpenCV_Tuple($sKey18, $vVal18), _OpenCV_Tuple($sKey19, $vVal19), _OpenCV_Tuple($sKey20, $vVal20), _OpenCV_Tuple($sKey21, $vVal21), _OpenCV_Tuple($sKey22, $vVal22), _OpenCV_Tuple($sKey23, $vVal23), _OpenCV_Tuple($sKey24, $vVal24), _OpenCV_Tuple($sKey25, $vVal25), _OpenCV_Tuple($sKey26, $vVal26)))
+		Case 54
+			Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4), _OpenCV_Tuple($sKey5, $vVal5), _OpenCV_Tuple($sKey6, $vVal6), _OpenCV_Tuple($sKey7, $vVal7), _OpenCV_Tuple($sKey8, $vVal8), _OpenCV_Tuple($sKey9, $vVal9), _OpenCV_Tuple($sKey10, $vVal10), _OpenCV_Tuple($sKey11, $vVal11), _OpenCV_Tuple($sKey12, $vVal12), _OpenCV_Tuple($sKey13, $vVal13), _OpenCV_Tuple($sKey14, $vVal14), _OpenCV_Tuple($sKey15, $vVal15), _OpenCV_Tuple($sKey16, $vVal16), _OpenCV_Tuple($sKey17, $vVal17), _OpenCV_Tuple($sKey18, $vVal18), _OpenCV_Tuple($sKey19, $vVal19), _OpenCV_Tuple($sKey20, $vVal20), _OpenCV_Tuple($sKey21, $vVal21), _OpenCV_Tuple($sKey22, $vVal22), _OpenCV_Tuple($sKey23, $vVal23), _OpenCV_Tuple($sKey24, $vVal24), _OpenCV_Tuple($sKey25, $vVal25), _OpenCV_Tuple($sKey26, $vVal26), _OpenCV_Tuple($sKey27, $vVal27)))
+		Case 56
+			Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4), _OpenCV_Tuple($sKey5, $vVal5), _OpenCV_Tuple($sKey6, $vVal6), _OpenCV_Tuple($sKey7, $vVal7), _OpenCV_Tuple($sKey8, $vVal8), _OpenCV_Tuple($sKey9, $vVal9), _OpenCV_Tuple($sKey10, $vVal10), _OpenCV_Tuple($sKey11, $vVal11), _OpenCV_Tuple($sKey12, $vVal12), _OpenCV_Tuple($sKey13, $vVal13), _OpenCV_Tuple($sKey14, $vVal14), _OpenCV_Tuple($sKey15, $vVal15), _OpenCV_Tuple($sKey16, $vVal16), _OpenCV_Tuple($sKey17, $vVal17), _OpenCV_Tuple($sKey18, $vVal18), _OpenCV_Tuple($sKey19, $vVal19), _OpenCV_Tuple($sKey20, $vVal20), _OpenCV_Tuple($sKey21, $vVal21), _OpenCV_Tuple($sKey22, $vVal22), _OpenCV_Tuple($sKey23, $vVal23), _OpenCV_Tuple($sKey24, $vVal24), _OpenCV_Tuple($sKey25, $vVal25), _OpenCV_Tuple($sKey26, $vVal26), _OpenCV_Tuple($sKey27, $vVal27), _OpenCV_Tuple($sKey28, $vVal28)))
+		Case 58
+			Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4), _OpenCV_Tuple($sKey5, $vVal5), _OpenCV_Tuple($sKey6, $vVal6), _OpenCV_Tuple($sKey7, $vVal7), _OpenCV_Tuple($sKey8, $vVal8), _OpenCV_Tuple($sKey9, $vVal9), _OpenCV_Tuple($sKey10, $vVal10), _OpenCV_Tuple($sKey11, $vVal11), _OpenCV_Tuple($sKey12, $vVal12), _OpenCV_Tuple($sKey13, $vVal13), _OpenCV_Tuple($sKey14, $vVal14), _OpenCV_Tuple($sKey15, $vVal15), _OpenCV_Tuple($sKey16, $vVal16), _OpenCV_Tuple($sKey17, $vVal17), _OpenCV_Tuple($sKey18, $vVal18), _OpenCV_Tuple($sKey19, $vVal19), _OpenCV_Tuple($sKey20, $vVal20), _OpenCV_Tuple($sKey21, $vVal21), _OpenCV_Tuple($sKey22, $vVal22), _OpenCV_Tuple($sKey23, $vVal23), _OpenCV_Tuple($sKey24, $vVal24), _OpenCV_Tuple($sKey25, $vVal25), _OpenCV_Tuple($sKey26, $vVal26), _OpenCV_Tuple($sKey27, $vVal27), _OpenCV_Tuple($sKey28, $vVal28), _OpenCV_Tuple($sKey29, $vVal29)))
+		Case 60
+			Return _OpenCV_ObjCreate("MapOfStringAndVariant").create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4), _OpenCV_Tuple($sKey5, $vVal5), _OpenCV_Tuple($sKey6, $vVal6), _OpenCV_Tuple($sKey7, $vVal7), _OpenCV_Tuple($sKey8, $vVal8), _OpenCV_Tuple($sKey9, $vVal9), _OpenCV_Tuple($sKey10, $vVal10), _OpenCV_Tuple($sKey11, $vVal11), _OpenCV_Tuple($sKey12, $vVal12), _OpenCV_Tuple($sKey13, $vVal13), _OpenCV_Tuple($sKey14, $vVal14), _OpenCV_Tuple($sKey15, $vVal15), _OpenCV_Tuple($sKey16, $vVal16), _OpenCV_Tuple($sKey17, $vVal17), _OpenCV_Tuple($sKey18, $vVal18), _OpenCV_Tuple($sKey19, $vVal19), _OpenCV_Tuple($sKey20, $vVal20), _OpenCV_Tuple($sKey21, $vVal21), _OpenCV_Tuple($sKey22, $vVal22), _OpenCV_Tuple($sKey23, $vVal23), _OpenCV_Tuple($sKey24, $vVal24), _OpenCV_Tuple($sKey25, $vVal25), _OpenCV_Tuple($sKey26, $vVal26), _OpenCV_Tuple($sKey27, $vVal27), _OpenCV_Tuple($sKey28, $vVal28), _OpenCV_Tuple($sKey29, $vVal29), _OpenCV_Tuple($sKey30, $vVal30)))
+		Case Else
+			ConsoleWriteError('!>Error: Invalid number of arguments')
+			Return SetError(1, 0, -1)
+	EndSwitch
+EndFunc   ;==>_OpenCV_Params

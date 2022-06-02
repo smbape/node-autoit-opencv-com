@@ -231,6 +231,7 @@ waterfall([
 
                 all_decls += decls
 
+            # parser.print_decls(all_decls)
             print(json.dumps({"decls": all_decls, "namespaces": sorted(parser.namespaces)}, indent=4))
         `.trim().replace(/^ {12}/mg, "");
 

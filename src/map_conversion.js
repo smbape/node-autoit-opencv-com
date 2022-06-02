@@ -55,7 +55,7 @@ exports.declare = (generator, type, parent, options = {}) => {
 
     coclass.addMethod([`${ fqn }.${ coclass.name }`, "", [], [], "", ""]);
 
-    coclass.addMethod([`${ fqn }.create`, `shared_ptr<${ coclass.name }>`, ["/External", "/S"], [
+    coclass.addMethod([`${ fqn }.create`, `std::shared_ptr<${ coclass.name }>`, ["/External", "/S"], [
         [`std::vector<std::pair<${ key_type }, ${ value_type }>>`, "pairs", "", []],
     ], "", ""]);
 
@@ -108,7 +108,7 @@ exports.declare = (generator, type, parent, options = {}) => {
 
     // make map to be recognized as a collection
     const cotype = coclass.getClassName();
-    const _Copy = `autoit::GenericCopy<std::pair<const ${ key_type }, ${ value_type }>>`;
+    const _Copy = `autoit::GenericCopy<std::pair<const ${ coclass.key_type }, ${ coclass.value_type }>>`;
     const CIntEnum = `CComEnumOnSTL<IEnumVARIANT, &IID_IEnumVARIANT, VARIANT, ${ _Copy }, ${ fqn }>`;
     const IIntCollection = `AutoItCollectionEnumOnSTLImpl<I${ cotype }, ${ fqn }, ${ CIntEnum }, AutoItObject<${ fqn }>>`;
 

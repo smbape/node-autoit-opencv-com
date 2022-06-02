@@ -8,7 +8,6 @@ inline const bool common_searchPixel_(Mat& img,
 	const std::vector<int>& ranges,
 	int i, int j)
 {
-
 	for (int row = 0; row < templ.rows; row++) {
 		for (int col = 0; col < templ.cols; col++) {
 			for (int cn = 0; cn < csz; cn++) {
@@ -56,7 +55,7 @@ inline const bool common_searchPixelMask_(Mat& img,
 				T* pimg = img.ptr<T>(row + i, col + j);
 				T* ptempl = templ.ptr<T>(row, col);
 
-				int diff = (int) pimg[k] - (int) ptempl[k];
+				int diff = (int)pimg[k] - (int)ptempl[k];
 				if (diff < low || diff > high) {
 					return false;
 				}
@@ -310,8 +309,10 @@ void cv::searchTemplate(InputArray _img,
 	CV_Assert((depth == CV_8U || depth == CV_32F) && type == _templ.type() && _img.dims() <= 2);
 	CV_Assert(_img.size().height >= _templ.size().height && _img.size().width >= _templ.size().width);
 
-	int rsz = (int)_ranges.size(), csz = (int)_channels.size();
+	int csz = (int)_channels.size();
 	CV_Assert(csz == 0 || csz <= cn && std::none_of(_channels.begin(), _channels.end(), [&](int channel) { return channel < 0 || channel >= cn; }));
+
+	int rsz = (int)_ranges.size();
 	CV_Assert(rsz == 0 || rsz == csz * 2);
 
 	std::vector<int> def_channels(cn);
@@ -320,16 +321,13 @@ void cv::searchTemplate(InputArray _img,
 	if (csz == 0) {
 		for (int i = 0; i < cn; i++) {
 			def_channels[i] = i;
-			def_ranges[i * 2] = 0;
-			def_ranges[i * 2 + 1] = 0;
 		}
 	}
-	else {
-		if (rsz == 0) {
-			for (int i = 0; i < cn; i++) {
-				def_ranges[i * 2] = 0;
-				def_ranges[i * 2 + 1] = 0;
-			}
+
+	if (rsz == 0) {
+		for (int i = 0; i < cn; i++) {
+			def_ranges[i * 2] = 0;
+			def_ranges[i * 2 + 1] = 0;
 		}
 	}
 

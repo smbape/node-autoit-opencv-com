@@ -12,14 +12,17 @@ Object.assign(exports, {
         const varprefix = "pVarArg";
         const is_method_test = is_test && !options.notest.has(`${ fqn }::${ fname }`);
         const attrs = [];
+        const has_docs = !fqn.endsWith("AndVariant");
 
         let maxargc = 0;
         let minopt = Number.POSITIVE_INFINITY;
         const bodies = [];
         const indent = " ".repeat(has_override ? 4 : 0);
-        // const parameterNames = [];
 
-        generator.docs.push(`### ${ fqn }::${ fname }\n`);
+        if (has_docs) {
+            // generate docs header
+            generator.docs.push(`### ${ fqn }::${ fname }\n`);
+        }
 
         for (const decl of overrides) {
             const [, return_value_type, func_modifiers, list_of_arguments] = decl;
@@ -34,6 +37,7 @@ Object.assign(exports, {
             const conditions = new Array(argc);
             const conversions = new Array(argc);
             const callargs = new Array(argc);
+            const optionals = new Array(argc);
             const outputs = new Map();
             const retval = [];
             const cindent = indent + " ".repeat(4);
@@ -44,6 +48,7 @@ Object.assign(exports, {
                 conditions,
                 conversions,
                 callargs,
+                optionals,
                 outputs,
                 retval,
             });
@@ -54,7 +59,7 @@ Object.assign(exports, {
 
             const getArgWeight = j => {
                 if (!in_args[j]) {
-                    // is OutPutArray
+                    // is OutputArray
                     if (out_array_args[j]) {
                         return 2;
                     }
@@ -102,17 +107,14 @@ Object.assign(exports, {
                 return diff === 0 ? a - b : diff;
             });
 
+            bodies[bodies.length - 1].indexes = indexes;
+
             let firstoptarg = argc;
 
             for (let i = 0, is_first_optional = true; i < argc; i++) {
                 const j = indexes[i];
 
                 const [, argname, , arg_modifiers] = list_of_arguments[j];
-                // if (parameterNames[j] !== undefined && parameterNames[j] !== argname) {
-                //     debugger;
-                // } else {
-                //     parameterNames[j] = argname;
-                // }
 
                 let [argtype, , defval] = list_of_arguments[j];
 
@@ -120,6 +122,8 @@ Object.assign(exports, {
                 const is_ptr = argtype.endsWith("*");
                 const is_out = out_args[j];
                 const is_optional = defval !== "" || is_out && !in_args[j];
+
+                optionals[j] = is_optional;
 
                 let is_array = false;
                 let arrtype = "";
@@ -200,7 +204,6 @@ Object.assign(exports, {
                 const placeholder_name = is_array || is_by_ref || is_vector && !has_ptr ? `${ argname }_placeholder` : argname;
                 const pointer = `p_${ placeholder_name }`;
                 const scalar_pointer = `${ pointer }_s`;
-                const arg_double = `${ argname }_d`;
                 const is_scalar_variant = `${ argname }_is_scalar`;
                 const set_from_pointer = `set_${ argname }_from_ptr`;
                 const cvt = [];
@@ -324,11 +327,9 @@ Object.assign(exports, {
                                 }
 
                                 ${ pointer } = obj->__self->get();
-                                hr = S_FALSE;
                             } else if (V_VT(${ in_val }) == VT_UI8) {
                                 const auto& ptr = V_UI8(${ in_val });
                                 ${ pointer } = reinterpret_cast<${ cpptype }*>(ptr);
-                                hr = S_FALSE;
                             } else {
                                 hr = autoit_to(${ in_val }, ${ placeholder_name });
                                 if (FAILED(hr)) {
@@ -337,7 +338,7 @@ Object.assign(exports, {
                                 }
                             }
 
-                            auto& ${ argname } = hr == S_FALSE ? *${ pointer } : *${ placeholder_name }.get();
+                            auto& ${ argname } = ${ pointer } ? *${ pointer } : *${ placeholder_name }.get();
                             hr = S_OK;
                         `.replace(/^ {28}/mg, "").trim().split("\n"));
                     }
@@ -408,6 +409,12 @@ Object.assign(exports, {
                     attrs.push(modifier.slice("/attr=".length));
                 }
             }
+
+            if (!has_docs) {
+                continue;
+            }
+
+            // generate docs body
 
             const argnamelist = indexes.map(j => `$${ list_of_arguments[j][1] }`);
             const proput = id === "DISPID_VALUE" && attrs.includes("propput") ? argnamelist.pop() : false;
@@ -520,7 +527,39 @@ Object.assign(exports, {
             body.push(`using namespace ${ coclass.include.namespace };`);
         }
 
-        body.push(`HRESULT hr = ${ maxargc !== 0 ? "E_INVALIDARG" : "S_OK" };`);
+        const hr = maxargc !== 0 ? "E_INVALIDARG" : "S_OK";
+        const enableNamedParameters = maxargc !== 0 && coclass !== generator.namedParameters && !coclass.is_vector && !coclass.is_stdmap;
+
+        body.push(`HRESULT hr = ${ hr };`);
+
+        const vars = Array.from(new Array(maxargc).keys());
+
+        if (enableNamedParameters) {
+            body.push("");
+            body.push(`
+                _variant_t vtDefault;
+                V_VT(&vtDefault) = VT_ERROR;
+                V_ERROR(&vtDefault) = DISP_E_PARAMNOTFOUND;
+
+                int argc = ${ maxargc };
+                bool has_kwarg = false;
+                NamedParameters kwargs;
+
+                ${ vars.map(j => {
+                    const i = maxargc - 1 - j;
+                    return `
+                        if (!PARAMETER_MISSING(${ varprefix }${ i })) {
+                            HRESULT ohr = autoit_to(${ varprefix }${ i }, kwargs);
+                            has_kwarg = SUCCEEDED(ohr);
+                            argc = ${ i };
+                        }
+                    `.trim().replace(/^ {24}/mg, "");
+                }).join(" else ").split("\n").join(`\n${ " ".repeat(16) }`) }
+            `.replace(/^ {16}/mg, "").trim());
+            body.push("");
+        }
+
+        let kwdone = 0;
 
         for (const {
             decl,
@@ -528,8 +567,10 @@ Object.assign(exports, {
             conditions,
             conversions,
             callargs,
+            optionals,
             outputs,
             retval,
+            indexes,
         } of bodies) {
             const [name, return_value_type, func_modifiers, list_of_arguments] = decl;
 
@@ -542,6 +583,10 @@ Object.assign(exports, {
             const is_entry_test = is_test && !options.notest.has(path.join("::"));
             const cindent = indent + (maxargc !== 0 ? " ".repeat(4) : "");
 
+            for (let j = conditions.length; j < maxargc; j++) {
+                conditions.push(`PARAMETER_NOT_FOUND(${ varprefix }${ j })`);
+            }
+
             body.push("");
 
             if (has_override) {
@@ -552,11 +597,92 @@ Object.assign(exports, {
                 body.push(`${ indent }${ is_entry_test ? "// " : "" }${ options.assert }(this->__self->get() != NULL);`);
             }
 
-            for (let j = conditions.length; j < maxargc; j++) {
-                conditions.push(`PARAMETER_NOT_FOUND(${ varprefix }${ j })`);
+            body.push(...declarations);
+
+            if (enableNamedParameters) {
+                const label = `label${ ++kwdone }`;
+
+                body.push(indent + `
+                HRESULT ohr = S_OK;
+
+                {
+                    int usedkw = 0;
+                    ${ indexes.map(i => {
+                        const in_val = `${ varprefix }${ i }`;
+                        return `VARIANT* _${ in_val } = ${ in_val };`;
+                    }).join(`\n${ " ".repeat(20) }`) }
+
+                    ${ indexes.map(i => {
+                        const j = indexes[i];
+                        const [, argname] = list_of_arguments[j];
+                        const in_val = `${ varprefix }${ i }`;
+
+                        return `
+                            // get argument ${ argname }
+                            if (!has_kwarg || argc > ${ i }) {
+                                // positional parameter
+                                if (!${ conditions[j] }) {
+                                    ohr = E_INVALIDARG;
+                                    goto ${ label };
+                                }
+
+                                // should not be a named parameter
+                                if (has_kwarg && kwargs.contains("${ argname }")) {
+                                    ohr = E_INVALIDARG;
+                                    goto ${ label };
+                                }
+                            } else {
+                                // named parameter
+                                if (kwargs.contains("${ argname }")) {
+                                    auto& kwarg = kwargs.at("${ argname }");
+                                    VARIANT* pkwarg = &kwarg;
+                                    if (${ conditions[j].replaceAll(in_val, "pkwarg") }) {
+                                        _${ in_val } = &kwarg;
+                                        usedkw++;
+                                    } else {
+                                        ohr = E_INVALIDARG;
+                                        goto ${ label };
+                                    }
+                                } else {
+                                    ${ optionals[j] ? `_${ in_val } = &vtDefault` : `ohr = E_INVALIDARG;\n${ " ".repeat(36) }goto ${ label }` };
+                                }
+                            }
+                        `.trim().replace(/^ {28}/mg, "");
+                    }).join("\n\n").split("\n").join(`\n${ " ".repeat(20) }`) }
+
+                    if (has_kwarg) {
+                        if (argc > ${ indexes.length }) {
+                            ohr = E_INVALIDARG;
+                        }
+                    }${ conditions.length <= indexes.length ? "" : ` else ${ conditions.slice(indexes.length).map((condition, i) => {
+                        return `
+                            if (!${ condition }) {
+                                ohr = E_INVALIDARG;
+                            }
+                        `.trim().replace(/^ {28}/mg, "");
+                    }).join(" else ").split("\n").join(`\n${ " ".repeat(20) }`) }` }
+
+                    if (has_kwarg && SUCCEEDED(ohr)) {
+                        // all named parameters should have been used
+                        if (usedkw != kwargs.size()) {
+                            ohr = E_INVALIDARG;
+                        } else {
+                            ${ indexes.map(i => `${ varprefix }${ i } = _${ varprefix }${ i };`).join(`\n${ " ".repeat(28) }`) }
+                        }
+                    }
+                }`.replace(/^ {16}/mg, "").trim().split("\n").join(`\n${ indent }`));
+
+                body.push(`${ indent }${ label }:`);
+                body.push("");
+
+                if (conditions.length !== 0) {
+                    conditions[0] = "SUCCEEDED(ohr)";
+                    conditions.length = 1;
+                } else {
+                    body.push("if FAILED(ohr) return ohr;\n");
+                }
             }
 
-            body.push(...declarations);
             if (conditions.length !== 0) {
                 const start = conditions.length === 1 ? "" : `\n${ indent }    `;
                 const end = conditions.length === 1 ? "" : `\n${ indent }`;
@@ -786,9 +912,7 @@ Object.assign(exports, {
             }
         }
 
-        const indexes = Array.from(new Array(maxargc).keys());
-
-        const idlargs = indexes.map(i => {
+        const idlargs = vars.map(i => {
             const attributes = ["in"];
 
             // if (out_args[i]) {
@@ -802,7 +926,7 @@ Object.assign(exports, {
             return `[${ attributes.join(", ") }] VARIANT* ${ varprefix }${ i }`;
         });
 
-        const implargs = indexes.map(i => `VARIANT* ${ varprefix }${ i }`);
+        const implargs = vars.map(i => `VARIANT* ${ varprefix }${ i }`);
 
         if (returns.length !== 0) {
             const [idltype, argname] = returns;

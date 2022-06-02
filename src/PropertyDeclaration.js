@@ -223,7 +223,7 @@ Object.assign(exports, {
         const obj = `${ is_static ? `${ fqn }::` : "this->__self->get()->" }`;
 
         if (is_static || is_enum || modifiers.includes("/R") || modifiers.includes("/RW") || rname) {
-            const attributes = ["propget", `id(${ id })`].concat(attrs);
+            const attributes = [`id(${ id })`, "propget"].concat(attrs);
             is_private = false;
             iidl.push(`[${ attributes.join(", ") }] HRESULT ${ idlname }([out, retval] ${ propidltype }* pVal);`);
             ipublic.push(`STDMETHOD(get_${ idlname })(${ propidltype }* pVal);`);
@@ -263,7 +263,7 @@ Object.assign(exports, {
         }
 
         if (modifiers.includes("/W") || modifiers.includes("/RW") || wname) {
-            const attributes = ["propput", `id(${ id })`].concat(attrs);
+            const attributes = [`id(${ id })`, "propput"].concat(attrs);
             is_private = false;
             const idltype = propidltype === "VARIANT" ? "VARIANT*" : propidltype;
 

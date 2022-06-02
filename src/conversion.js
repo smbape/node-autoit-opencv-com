@@ -159,6 +159,9 @@ Object.assign(exports, {
                 }
 
                 auto obj = dynamic_cast<C${ cotype }*>(getRealIDispatch(in_val));
+                if (!obj) {
+                    return E_INVALIDARG;
+                }
                 out_val = obj->__self->get();
                 return S_OK;
             }
@@ -169,6 +172,9 @@ Object.assign(exports, {
                 }
 
                 auto obj = dynamic_cast<I${ cotype }*>(getRealIDispatch(in_val));
+                if (!obj) {
+                    return E_INVALIDARG;
+                }
                 *out_val = obj;
                 obj->AddRef();
                 return S_OK;
@@ -228,6 +234,9 @@ Object.assign(exports, {
 
                 if (V_VT(in_val) == VT_${ wtype }) {
                     auto obj = dynamic_cast<C${ cotype }*>(getRealIDispatch(in_val));
+                    if (!obj) {
+                        return E_INVALIDARG;
+                    }
                     out_val = ${ shared_ptr }<${ coclass.fqn }>(${ shared_ptr }<${ coclass.fqn }>{}, obj->__self->get());
                     return S_OK;
                 }
@@ -293,6 +302,9 @@ Object.assign(exports, {
                     }
 
                     auto obj = dynamic_cast<C${ cotype }*>(getRealIDispatch(in_val));
+                    if (!obj) {
+                        return E_INVALIDARG;
+                    }
                     out_val = obj->__self->get();
 
                     return S_OK;
@@ -327,6 +339,9 @@ Object.assign(exports, {
 
                         if (V_VT(in_val) == VT_${ wtype }) {
                             auto obj = dynamic_cast<C${ cotype }*>(getRealIDispatch(in_val));
+                            if (!obj) {
+                                return E_INVALIDARG;
+                            }
                             out_val = *obj->__self->get();
                             return S_OK;
                         }
@@ -357,12 +372,18 @@ Object.assign(exports, {
 
                 const HRESULT autoit_to(I${ cotype }*& in_val, ${ coclass.fqn }& out_val) {
                     auto obj = dynamic_cast<C${ cotype }*>(in_val);
+                    if (!obj) {
+                        return E_INVALIDARG;
+                    }
                     out_val = *obj->__self->get();
                     return S_OK;
                 }
 
                 const HRESULT autoit_to(${ iface }*& in_val, ${ coclass.fqn }& out_val) {
                     auto obj = dynamic_cast<C${ cotype }*>(in_val);
+                    if (!obj) {
+                        return E_INVALIDARG;
+                    }
                     out_val = *obj->__self->get();
                     return S_OK;
                 }

@@ -1059,6 +1059,10 @@
         "iid": "73be64d1-ae71-4892-93f3-711b9e70833b",
         "clsid": "58094424-fc35-41af-8676-730f089b15dc"
     },
+    "MapOfStringAndVariant": {
+        "iid": "0066b35a-afd4-40f7-9293-73db6df5caf7",
+        "clsid": "6a27ca58-4d33-4bed-9caa-f936de42e7d5"
+    },
     "VectorOfMat": {
         "iid": "1b494a93-9600-4c3d-853e-b72cbc64b9ff",
         "clsid": "df709a40-9baa-4dd8-b403-0bd95d086ed7"
@@ -1306,5 +1310,9 @@
     "GArray_Prim": {
         "iid": "d18565ad-1df8-47bd-ae0e-e88452439fae",
         "clsid": "3e0e6512-b21e-4a26-aeb5-4635afc2c6fd"
+    },
+    "VectorOfPairOfStringAndVariant": {
+        "iid": "45dcebe4-ff04-4710-8ebe-230ea893006e",
+        "clsid": "5ff3268b-abab-44b1-b771-c2bb48c409b4"
     }
 }

@@ -23250,8 +23250,8 @@ AutoIt:
 ### cv::FlannBasedMatcher::create
 
 ```cpp
-static cv::FlannBasedMatcher cv::FlannBasedMatcher::create( const cv::Ptr<flann::IndexParams>&  indexParams = makePtr<flann::KDTreeIndexParams>(),
-                                                            const cv::Ptr<flann::SearchParams>& searchParams = makePtr<flann::SearchParams>() );
+static cv::FlannBasedMatcher cv::FlannBasedMatcher::create( const cv::Ptr<cv::flann::IndexParams>&  indexParams = makePtr<flann::KDTreeIndexParams>(),
+                                                            const cv::Ptr<cv::flann::SearchParams>& searchParams = makePtr<flann::SearchParams>() );
 
 AutoIt:
     _OpenCV_ObjCreate("cv.FlannBasedMatcher").create( [$indexParams[, $searchParams]] ) -> <cv.FlannBasedMatcher object>

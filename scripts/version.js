@@ -1,7 +1,6 @@
 const { spawn } = require("child_process");
 const sysPath = require("path");
 const fs = require("fs");
-const eachOfLimit = require("async/eachOfLimit");
 const waterfall = require("async/waterfall");
 const doctoc = require("../src/doctoc");
 
