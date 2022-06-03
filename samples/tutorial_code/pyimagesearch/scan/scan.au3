@@ -88,8 +88,8 @@ Func Main()
 
 	;; threshold the image, then perform a series of erosions +
 	;; dilations to remove any small regions of noise
-	$gray = $cv.erode($gray, Null, Default, Default, 3)
-	$gray = $cv.dilate($gray, Null, Default, Default, 3)
+	$gray = $cv.erode($gray, Null, _OpenCV_Params("iterations", 3))
+	$gray = $cv.dilate($gray, Null, _OpenCV_Params("iterations", 3))
 
 	Local $edged = $cv.Canny($gray, 75, 200)
 
@@ -118,11 +118,11 @@ Func Main()
 
 	;; apply the four point transform to obtain a top-down
 	;; view of the original image
-	Local $warped = _OpenCV_FourPointTransform($orig, $screenCnt.convertTo(-1, Default, $ratio))
+	Local $warped = _OpenCV_FourPointTransform($orig, $screenCnt.convertTo(_OpenCV_Params("alpha", $ratio)))
 
 	;; convert the warped image to grayscale, then threshold it
 	;; to give it that 'black and white' paper effect
-	; $warped = $cv.cvtColor($warped, Default, $CV_COLOR_BGR2GRAY)
+	; $warped = $cv.cvtColor($warped, $CV_COLOR_BGR2GRAY)
 	; T = threshold_local(warped, 11, offset = 10, method = "gaussian")
 	; warped = (warped > T).astype("uint8") * 255
 	; $warped = $cv.inRange($warped, _OpenCV_Scalar(0), _OpenCV_Scalar(127))

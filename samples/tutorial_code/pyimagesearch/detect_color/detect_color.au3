@@ -108,7 +108,7 @@ Func Main()
 
 		;; multiply the contour (x, y)-coordinates by the resize ratio,
 		;; then draw the contours and the name of the shape on the image
-		$tmp[0] = $c.convertTo(-1, Default, $ratio)
+		$tmp[0] = $c.convertTo(_OpenCV_Params("alpha", $ratio))
 		$cv.drawContours($image, $tmp, -1, _OpenCV_Scalar(0, 255, 0), 2)
 		$cv.putText($image, $color & " " & $shape, _OpenCV_Point($cX, $cY), $CV_FONT_HERSHEY_SIMPLEX, 0.5, _OpenCV_Scalar(255, 255, 255), 2)
 	Next
@@ -150,7 +150,7 @@ Func label($image, $c)
 	Local $mask = _OpenCV_ObjCreate("cv.Mat").zeros($image.size, $CV_8UC1)
 	Local $contours[1] = [$c]
 	$cv.drawContours($mask, $contours, -1, 255, -1)
-	$mask = $cv.erode($mask, Null, Default, Default, 2)
+	$mask = $cv.erode($mask, Null, _OpenCV_Params("iterations", 2))
 	Local $mean = $cv.mean($image, $mask)
 
 	;; initialize the minimum distance found thus far

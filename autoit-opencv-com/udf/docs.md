@@ -9202,6 +9202,16 @@ AutoIt:
     $oMat.convertTo( $rtype[, $m[, $alpha[, $beta]]] ) -> $m
 ```
 
+```cpp
+void cv::Mat::convertTo( OutputArray m,
+                         int         rtype = -1,
+                         double      alpha = 1.0,
+                         double      beta = 0.0 );
+
+AutoIt:
+    $oMat.convertTo( [$m[, $rtype[, $alpha[, $beta]]]] ) -> $m
+```
+
 ### cv::Mat::convertToBitmap
 
 ```cpp

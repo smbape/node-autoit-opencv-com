@@ -149,7 +149,7 @@ Func basicLinearTransform()
 	Local $beta = GUICtrlRead($SliderBeta) - 100
 	GUICtrlSetData($LabelBeta, "Beta bias (brightness) : " & $beta)
 
-	Local $res = $img.convertTo(-1, Default, $alpha, $beta)
+	Local $res = $img.convertTo(_OpenCV_Params("alpha", $alpha, "beta", $beta))
 
 	_OpenCV_imshow_ControlPic($res, $FormGUI, $PicLinearTransform)
 EndFunc   ;==>basicLinearTransform

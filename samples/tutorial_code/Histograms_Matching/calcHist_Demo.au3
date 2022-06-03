@@ -101,13 +101,13 @@ Func Main()
 	Local $images[1]
 
 	$images[0] = $bgr_planes[0]
-	$b_hist = $cv.calcHist($images, $channels, Null, $histSize, $histRange, Default, $accumulate)
+	$b_hist = $cv.calcHist($images, $channels, Null, $histSize, $histRange, _OpenCV_Params("accumulate", $accumulate))
 
 	$images[0] = $bgr_planes[1]
-	$g_hist = $cv.calcHist($images, $channels, Null, $histSize, $histRange, Default, $accumulate)
+	$g_hist = $cv.calcHist($images, $channels, Null, $histSize, $histRange, _OpenCV_Params("accumulate", $accumulate))
 
 	$images[0] = $bgr_planes[2]
-	$r_hist = $cv.calcHist($images, $channels, Null, $histSize, $histRange, Default, $accumulate)
+	$r_hist = $cv.calcHist($images, $channels, Null, $histSize, $histRange, _OpenCV_Params("accumulate", $accumulate))
 	;;! [Compute the histograms]
 
 	;;! [Draw the histograms for B, G and R]

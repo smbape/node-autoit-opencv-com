@@ -139,6 +139,12 @@ const declarations = [
         ["double", "alpha", "1.0", []],
         ["double", "beta", "0.0", []],
     ], "", ""],
+    ["cv.Mat.convertTo", "void", [], [
+        ["OutputArray", "m", "", []],
+        ["int", "rtype", "-1", []],
+        ["double", "alpha", "1.0", []],
+        ["double", "beta", "0.0", []],
+    ], "", ""],
     ["cv.Mat.reshape", "cv::Mat", [], [
         ["int", "cn", "", []],
         ["int", "rows", "0", []],

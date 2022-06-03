@@ -176,13 +176,15 @@ Func GradePaper($image, $gray, $docCnt)
 			;; apply the mask to the thresholded image, then
 			;; count the number of non-zero pixels in the
 			;; bubble area
-			$mask = $cv.bitwise_and($thresh, $thresh, Default, $mask)
+			$mask = $cv.bitwise_and($thresh, $thresh, _OpenCV_Params("mask", $mask))
 			$total = $cv.countNonZero($mask)
 
 			;; if the current total has a larger number of total
 			;; non-zero pixels, then we are examining the currently
 			;; bubbled-in answer
-			If $bubbled == Default Or $total > $bubbled[0] Then
+			;; a question is considered if
+			;; there are at least 300 (empirical value) non zero points
+			If $total > 300 And ($bubbled == Default Or $total > $bubbled[0]) Then
 				$bubbled = _OpenCV_Tuple($total, $j)
 			EndIf
 		Next
@@ -193,9 +195,13 @@ Func GradePaper($image, $gray, $docCnt)
 		$k = $ANSWER_KEY[$q]
 
 		;; check to see if the bubbled answer is correct
-		If $k == $bubbled[1] Then
-			$color = _OpenCV_Scalar(0, 255, 0)
-			$correct += 1
+		If $bubbled <> Default Then
+			If $k == $bubbled[1] Then
+				$color = _OpenCV_Scalar(0, 255, 0)
+				$correct += 1
+			Else
+				$cv.drawContours($paper, $cnts, $bubbled[1], _OpenCV_ScalarAll(0), 3)
+			EndIf
 		EndIf
 
 		;; draw the outline of the correct answer on the test
