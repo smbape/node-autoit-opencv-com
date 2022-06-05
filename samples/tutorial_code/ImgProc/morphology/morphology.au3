@@ -103,25 +103,25 @@ While 1
 			EndIf
 
 		Case $InputErosion
-			_CheckNumber($InputErosion, True)
+			_GUICtrlReadNumber($InputErosion, True)
 
 		Case $InputDilation
-			_CheckNumber($InputDilation, True)
+			_GUICtrlReadNumber($InputDilation, True)
 
 		Case $InputOpening
-			_CheckNumber($InputOpening, True)
+			_GUICtrlReadNumber($InputOpening, True)
 
 		Case $InputClosing
-			_CheckNumber($InputClosing, True)
+			_GUICtrlReadNumber($InputClosing, True)
 
 		Case $InputGradient
-			_CheckNumber($InputGradient, True)
+			_GUICtrlReadNumber($InputGradient, True)
 
 		Case $InputTopHat
-			_CheckNumber($InputTopHat, True)
+			_GUICtrlReadNumber($InputTopHat, True)
 
 		Case $InputBlackHat
-			_CheckNumber($InputBlackHat, True)
+			_GUICtrlReadNumber($InputBlackHat, True)
 
 		Case Else
 			$bTransform = False
@@ -187,27 +187,27 @@ Func _Transform()
 	Local $iterations
 	Local $kernel = _OpenCV_ObjCreate("cv.Mat").ones(5, 5, $CV_8UC1)
 
-	$iterations = _CheckNumber($InputErosion)
+	$iterations = _GUICtrlReadNumber($InputErosion)
 	If $iterations > 0 Then $src_displayed = $cv.erode($src_displayed, $kernel, _OpenCV_Params("iterations", $iterations))
 
-	$iterations = _CheckNumber($InputDilation)
+	$iterations = _GUICtrlReadNumber($InputDilation)
 	If $iterations > 0 Then $src_displayed = $cv.dilate($src_displayed, $kernel, _OpenCV_Params("iterations", $iterations))
 
-	$iterations = _CheckNumber($InputOpening)
+	$iterations = _GUICtrlReadNumber($InputOpening)
 	If $iterations > 0 Then $src_displayed = $cv.morphologyEx($src_displayed, $CV_MORPH_OPEN, $kernel, _OpenCV_Params("iterations", $iterations))
 
-	$iterations = _CheckNumber($InputClosing)
+	$iterations = _GUICtrlReadNumber($InputClosing)
 	If $iterations > 0 Then $src_displayed = $cv.morphologyEx($src_displayed, $CV_MORPH_CLOSE, $kernel, _OpenCV_Params("iterations", $iterations))
 
-	$iterations = _CheckNumber($InputGradient)
+	$iterations = _GUICtrlReadNumber($InputGradient)
 	If $iterations > 0 Then $src_displayed = $cv.morphologyEx($src_displayed, $CV_MORPH_GRADIENT, $kernel, _OpenCV_Params("iterations", $iterations))
 
 	$kernel = _OpenCV_ObjCreate("cv.Mat").ones(9, 9, $CV_8UC1)
 
-	$iterations = _CheckNumber($InputTopHat)
+	$iterations = _GUICtrlReadNumber($InputTopHat)
 	If $iterations > 0 Then $src_displayed = $cv.morphologyEx($src_displayed, $CV_MORPH_TOPHAT, $kernel, _OpenCV_Params("iterations", $iterations))
 
-	$iterations = Number(GUICtrlRead($InputBlackHat), $NUMBER_32BIT)
+	$iterations = _GUICtrlReadNumber($InputBlackHat)
 	If $iterations > 0 Then $src_displayed = $cv.morphologyEx($src_displayed, $CV_MORPH_BLACKHAT, $kernel, _OpenCV_Params("iterations", $iterations))
 
 	; View result
@@ -218,15 +218,15 @@ Func _IsChecked($idControlID)
 	Return BitAND(GUICtrlRead($idControlID), $GUI_CHECKED) = $GUI_CHECKED
 EndFunc   ;==>_IsChecked
 
-Func _CheckNumber($idControlID, $bSetData = False)
+Func _GUICtrlReadNumber($idControlID, $bSetData = False)
 	Local $sValue = GUICtrlRead($idControlID)
-	Local $nNumber = Number(GUICtrlRead($idControlID), $NUMBER_32BIT)
+	Local $nNumber = Number($sValue, $NUMBER_32BIT)
 	If $nNumber < 0 Then $nNumber = 0
 	If $bSetData And $sValue <> String($nNumber) Then
 		GUICtrlSetData($idControlID, $nNumber)
 	EndIf
 	Return $nNumber
-EndFunc   ;==>_CheckNumber
+EndFunc   ;==>_GUICtrlReadNumber
 
 Func _OnAutoItExit()
 	_GDIPlus_Shutdown()

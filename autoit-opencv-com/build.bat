@@ -4,10 +4,12 @@ SETLOCAL enabledelayedexpansion
 PUSHD "%~dp0"
 CD /d %CD%
 SET "PATH=%CD%;%PATH%"
+SET "CWD=%CD%"
 
 SET skip_python=0
 SET skip_node=0
 SET skip_build=0
+SET TARGET=ALL_BUILD
 
 SET nparms=20
 :LOOP
@@ -63,6 +65,15 @@ GOTO END
 :MAKE
 SET ERROR=0
 
+:DOWNLOAD_OPENCV
+SET TARGET=opencv
+CALL :MAKE_CONFIG
+SET ERROR=%ERRORLEVEL%
+SET TARGET=ALL_BUILD
+CD /d %CWD%
+IF "%ERROR%" == "0" GOTO GEN_PYTHON
+GOTO END
+
 :GEN_PYTHON
 IF [%skip_python%] == [1] GOTO GEN_SOURCES
 IF EXIST opencv_build_x64\modules\python_bindings_generator\pyopencv_generated_include.h GOTO GEN_SOURCES
@@ -87,14 +98,12 @@ IF "%ERROR%" == "0" GOTO MAKE_CONFIG
 GOTO END
 
 :MAKE_CONFIG
+IF [%skip_config%] == [1] GOTO BUILD
+
 IF NOT EXIST %BUILD_FOLDER% mkdir %BUILD_FOLDER%
 cd %BUILD_FOLDER%
+rem IF EXIST "CMakeCache.txt" del CMakeCache.txt
 
-IF [%skip_config%] == [1] GOTO RUN_CMAKE
-
-IF EXIST "CMakeache.txt" del CMakeCache.txt
-
-:RUN_CMAKE
 %CMAKE% -G %CMAKE_CONF% %GENERAL_CMAKE_CONFIG_FLAGS% ..\
 SET ERROR=%ERRORLEVEL%
 IF "%ERROR%" == "0" GOTO BUILD
@@ -102,7 +111,7 @@ GOTO END
 
 :BUILD
 IF [%skip_build%] == [1] GOTO END
-%CMAKE% --build . --config %CMAKE_BUILD_TYPE% --target ALL_BUILD
+%CMAKE% --build . --config %CMAKE_BUILD_TYPE% --target %TARGET%
 SET ERROR=%ERRORLEVEL%
 
 :END

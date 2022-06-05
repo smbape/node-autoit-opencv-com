@@ -18,30 +18,19 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_compile_options(/MP)
 
-# Tell cmake we will need opencv. These command will pull in opencv.
+set(OPENCV_DOWNLOAD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/..")
+
+# Tell cmake we will need opencv.
 include(ExternalProject)
 ExternalProject_Add(opencv
   URL               https://github.com/opencv/opencv/releases/download/4.5.5/opencv-4.5.5-vc14_vc15.exe
   URL_HASH          SHA256=cac31973cd1c59bfe9dc926acbde815553d23662ea355e0414b5e50d8f8aa5a8
   DOWNLOAD_NO_EXTRACT TRUE
-  DOWNLOAD_DIR      ${CMAKE_CURRENT_SOURCE_DIR}/..
-  CONFIGURE_COMMAND ""
-  BUILD_COMMAND     ""
+  DOWNLOAD_DIR      "${OPENCV_DOWNLOAD_DIR}"
+  CONFIGURE_COMMAND "${OPENCV_DOWNLOAD_DIR}/opencv-4.5.5-vc14_vc15.exe" "-o${OPENCV_DOWNLOAD_DIR}/opencv-4.5.5-vc14_vc15" -y
+  BUILD_COMMAND     patch -p 1 -d "${OPENCV_DOWNLOAD_DIR}/opencv-4.5.5-vc14_vc15/opencv/sources/" -i "${CMAKE_CURRENT_SOURCE_DIR}/patches/001-opencv-src.patch"
   INSTALL_COMMAND   ""
 )
-
-if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../opencv-4.5.5-vc14_vc15/opencv/sources/SECURITY.md")
-  execute_process(COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/../opencv-4.5.5-vc14_vc15.exe -o${CMAKE_CURRENT_SOURCE_DIR}/../opencv-4.5.5-vc14_vc15 -y)
-endif()
-
-execute_process(
-    COMMAND patch -p 1 -d ${CMAKE_CURRENT_SOURCE_DIR}/../opencv-4.5.5-vc14_vc15/opencv/sources/ -i "${CMAKE_CURRENT_SOURCE_DIR}/patches/001-opencv-src.patch" -R --dry-run
-    RESULT_VARIABLE ret
-    ERROR_QUIET
-)
-if(NOT ${ret} EQUAL "0")
-    execute_process(COMMAND patch -p 1 -d ${CMAKE_CURRENT_SOURCE_DIR}/../opencv-4.5.5-vc14_vc15/opencv/sources/ -i "${CMAKE_CURRENT_SOURCE_DIR}/patches/001-opencv-src.patch")
-endif()
 
 # Library directories
 set(OpenCV_DIR "")
@@ -55,7 +44,9 @@ foreach(f ${__OpenCV_ROOT_DIR})
 endforeach()
 unset(__f)
 
-find_package(OpenCV REQUIRED)
+if(EXISTS "${OpenCV_DIR}")
+  find_package(OpenCV REQUIRED)
+endif()
 
 get_filename_component(OpenCV_BINARY_DIR "${OpenCV_DIR}/x64/vc15/bin" REALPATH)
 file(TO_NATIVE_PATH "${OpenCV_BINARY_DIR}" OpenCV_BINARY_DIR)

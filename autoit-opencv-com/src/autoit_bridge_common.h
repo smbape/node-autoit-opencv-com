@@ -341,7 +341,7 @@ autoit_to(VARIANT const* const& in_val, std::tuple<_Ts...>& out_val) {
 	LONG lUpper = vArray.GetUpperBound();
 	vArray.Detach();
 
-	if (lUpper - lLower < I) {
+	if (lUpper - lLower + 1 < I) {
 		return E_INVALIDARG;
 	}
 
