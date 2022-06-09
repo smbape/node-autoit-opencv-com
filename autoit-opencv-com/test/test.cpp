@@ -214,10 +214,12 @@ static void testSpit(cvLib::ICv_ObjectPtr cv, cvLib::ICv_Mat_ObjectPtr mat) {
 	_variant_t splitted;
 	CComSafeArray<VARIANT> extended;
 
-	splitted = cv->split(to_variant_t(mat.GetInterfacePtr()), &vtEmpty);
+	_variant_t vtMissingVar = vtEmpty;
+	splitted = cv->split(to_variant_t(mat.GetInterfacePtr()), &vtMissingVar);
 
-	// it should not modify out parameter if it is not an array nor & vector
-	assert(V_VT(&vtEmpty) == VT_EMPTY);
+	// it should modify out parameter if it is not an array nor & vector
+	assert((V_VT(&vtMissingVar) & VT_ARRAY) == VT_ARRAY);
+	assert((V_VT(&vtMissingVar) ^ VT_ARRAY) == VT_VARIANT);
 
 	// extended should contains only one output value
 	extended.Attach(V_ARRAY(to_variant_t(cv->extended)));
@@ -227,11 +229,12 @@ static void testSpit(cvLib::ICv_ObjectPtr cv, cvLib::ICv_Mat_ObjectPtr mat) {
 
 	assertSplit(splitted);
 
-	splitted = cv->split(to_variant_t(mat.GetInterfacePtr()), &vtDefault);
+	_variant_t vtDefaultVar = vtDefault;
+	splitted = cv->split(to_variant_t(mat.GetInterfacePtr()), &vtDefaultVar);
 
-	// it should not modify out parameter if it is not an array nor & vector
-	assert(V_VT(&vtDefault) == VT_ERROR);
-	assert(V_ERROR(&vtDefault) == DISP_E_PARAMNOTFOUND);
+	// it should modify out parameter if it is not an array nor & vector
+	assert((V_VT(&vtDefaultVar) & VT_ARRAY) == VT_ARRAY);
+	assert((V_VT(&vtDefaultVar) ^ VT_ARRAY) == VT_VARIANT);
 
 	// extended should contains only one output value
 	extended.Attach(V_ARRAY(to_variant_t(cv->extended)));
@@ -277,18 +280,25 @@ static void testSpit(cvLib::ICv_ObjectPtr cv, cvLib::ICv_Mat_ObjectPtr mat) {
 }
 
 static void testAdd(cvLib::ICv_ObjectPtr cv, cvLib::ICv_Mat_ObjectPtr mat) {
+	cvLib::ICv_Mat_ObjectPtr MatPtr;
+	auto hr = MatPtr.CreateInstance(__uuidof(cvLib::Cv_Mat_Object));
+	assert(SUCCEEDED(hr));
+
 	CComSafeArray<VARIANT> scalar(4UL);
 	for (int i = 0; i < 4; i++) {
 		scalar.SetAt(i, _variant_t(1));
 	}
 
 	auto safeArray = scalar.Detach();
-	VARIANT variant = { VT_ARRAY | VT_VARIANT };
-	V_ARRAY(&variant) = safeArray;
+	VARIANT sclarArray = { VT_ARRAY | VT_VARIANT };
+	V_ARRAY(&sclarArray) = safeArray;
 
-	cv->add(to_variant_t(mat->clone().GetInterfacePtr()), &variant);
+	auto scalarMat = MatPtr->create(to_variant_t(1), to_variant_t(1), to_variant_t(CV_64F), &sclarArray);
 
-	VariantClear(&variant);
+	cv->add(to_variant_t(mat->clone().GetInterfacePtr()), to_variant_t(scalarMat.GetInterfacePtr()), &vtDefault, &vtDefault, &vtDefault);
+	VariantClear(&vtDefault);
+
+	VariantClear(&sclarArray);
 }
 
 static void testResize(cvLib::ICv_ObjectPtr cv) {
@@ -307,7 +317,9 @@ static void testResize(cvLib::ICv_ObjectPtr cv) {
 	VARIANT variant = { VT_ARRAY | VT_VARIANT };
 	V_ARRAY(&variant) = dsize.Detach();
 
-	cv->resize(to_variant_t(mat->clone().GetInterfacePtr()), &variant);
+	cv->resize(to_variant_t(mat->clone().GetInterfacePtr()), &variant, &vtDefault, &vtDefault, &vtDefault, &vtDefault);
+	VariantClear(&vtDefault);
+
 	dsize.Attach(V_ARRAY(&variant));
 	V_ARRAY(&variant) = NULL;
 
@@ -365,7 +377,9 @@ static void testAKAZE(cvLib::ICv_ObjectPtr cv) {
 	assert(V_VT(&variant) == VT_DISPATCH);
 	cvLib::ICv_AKAZE_ObjectPtr akaze;
 	akaze.Attach(static_cast<cvLib::ICv_AKAZE_Object*>(V_DISPATCH(to_variant_t(variant.Detach()))));
-	akaze->detectAndCompute(to_variant_t(img1.GetInterfacePtr()), to_variant_t(MatPtr->create().GetInterfacePtr()));
+
+	akaze->detectAndCompute(to_variant_t(img1.GetInterfacePtr()), to_variant_t(MatPtr->create().GetInterfacePtr()), &vtDefault, &vtDefault, &vtDefault);
+	VariantClear(&vtDefault);
 
 	CComSafeArray<VARIANT> extended;
 	extended.Attach(V_ARRAY(to_variant_t(cv->extended)));
@@ -430,8 +444,11 @@ static void testContours(cvLib::ICv_ObjectPtr cv) {
 	string_to_bstr(samples::findFile("pic1.png"), image_path);
 	auto img = cv->imread(to_variant_t(image_path));
 
-	auto gray = cv->cvtColor(to_variant_t(img.GetInterfacePtr()), to_variant_t(COLOR_BGR2GRAY));
-	auto contours = cv->findContours(&gray, to_variant_t(RETR_EXTERNAL), to_variant_t(CHAIN_APPROX_SIMPLE));
+	auto gray = cv->cvtColor(to_variant_t(img.GetInterfacePtr()), to_variant_t(COLOR_BGR2GRAY), &vtDefault, &vtDefault);
+	VariantClear(&vtDefault);
+
+	auto contours = cv->findContours(&gray, to_variant_t(RETR_EXTERNAL), to_variant_t(CHAIN_APPROX_SIMPLE), &vtDefault, &vtDefault, &vtDefault);
+	VariantClear(&vtDefault);
 
 	// cv->contourArea(&contours->at(to_variant_t(0)));
 }
@@ -452,7 +469,9 @@ static void testConvertToShow(cvLib::ICv_ObjectPtr cv) {
 	cout << "height: " << dst->height << endl;
 	cout << "channels: " << dst->channels() << endl;
 
-	auto ret = img->convertToShow(to_variant_t(dst.GetInterfacePtr()));
+	auto ret = img->convertToShow(to_variant_t(dst.GetInterfacePtr()), &vtDefault);
+	VariantClear(&vtDefault);
+
 	assert(img->rows == dst->rows);
 	assert(img->cols == dst->cols);
 	cv->imshow(to_variant_t("img"), to_variant_t(img.GetInterfacePtr()));
@@ -480,11 +499,15 @@ static void testKalman(cvLib::ICv_ObjectPtr cv) {
 
 	_variant_t scalar;
 
-	cv->setIdentity(to_variant_t(KF->measurementMatrix.GetInterfacePtr()));
+	cv->setIdentity(to_variant_t(KF->measurementMatrix.GetInterfacePtr()), &vtDefault);
+	VariantClear(&vtDefault);
+
 	scalar = _OpenCV_ScalarAll(1e-5);
 	cv->setIdentity(to_variant_t(KF->processNoiseCov.GetInterfacePtr()), &scalar);
+
 	scalar = _OpenCV_ScalarAll(1e-1);
 	cv->setIdentity(to_variant_t(KF->measurementNoiseCov.GetInterfacePtr()), &scalar);
+
 	scalar = _OpenCV_ScalarAll(1);
 	cv->setIdentity(to_variant_t(KF->errorCovPost.GetInterfacePtr()), &scalar);
 
@@ -510,7 +533,9 @@ static void testSearchTemplate(cvLib::ICv_ObjectPtr cv) {
 
 	_variant_t channels = _OpenCV_Tuple(0, 1, 2);
 	_variant_t ranges = _OpenCV_Tuple(-200, 200, -200, 200, -200, 200);
-	auto _result = cv->searchTemplate(to_variant_t(img.GetInterfacePtr()), to_variant_t(templ.GetInterfacePtr()), &vtDefault, to_variant_t(mask.GetInterfacePtr()), &channels, &ranges);
+
+	auto _result = cv->searchTemplate(to_variant_t(img.GetInterfacePtr()), to_variant_t(templ.GetInterfacePtr()), &vtDefault, to_variant_t(mask.GetInterfacePtr()), &channels, &ranges, &vtDefault);
+	VariantClear(&vtDefault);
 
 	assert(V_VT(&_result) == VT_DISPATCH);
 	auto result = static_cast<cvLib::ICv_Mat_Object*>(V_DISPATCH(&_result));
@@ -568,6 +593,7 @@ static int perform() {
 
 	VARIANT variant;
 	VariantInit(&variant);
+	auto vtFlipped = vtMissing;
 
 	while (true) {
 		if (waitKey(30) == 27) {
@@ -594,10 +620,10 @@ static int perform() {
 			frame.Attach(static_cast<cvLib::ICv_Mat_Object*>(V_DISPATCH(&variant)));
 			assert(!frame->empty());
 
-			flipped = cv->flip(&vframe, to_variant_t(1), &vtDefault);
+			// retval, in/out version
+			flipped = cv->flip(&vframe, to_variant_t(1), &vtFlipped);
 			assert(!flipped->empty());
-			assert(V_VT(&vtDefault) == VT_ERROR);
-			assert(V_ERROR(&vtDefault) == DISP_E_PARAMNOTFOUND);
+			assert(V_VT(&vtFlipped) == VT_DISPATCH);
 
 			cv->imshow(to_variant_t(L"capture camera"), &vflipped);
 		}
@@ -606,31 +632,81 @@ static int perform() {
 	return 0;
 }
 
-class Test {
+class CoInitializer {
 public:
-	~Test() {
-		std::puts("Test destroyed.");
+	CoInitializer() {
+		m_hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
+		CV_Assert(SUCCEEDED(m_hr));
 	}
+	~CoInitializer() {
+		if (SUCCEEDED(m_hr)) {
+			CoUninitialize();
+		}
+	}
+private:
+	HRESULT m_hr;
+};
+
+class GdiplusInitializer {
+public:
+	GdiplusInitializer() {
+		Gdiplus::GdiplusStartupInput gdiplusStartupInput;
+		m_status = Gdiplus::GdiplusStartup(&m_gdiplusToken, &gdiplusStartupInput, NULL);
+		CV_Assert(m_status == Gdiplus::Ok);
+	}
+
+	~GdiplusInitializer() {
+		if (m_status == Gdiplus::Ok) {
+			Gdiplus::GdiplusShutdown(m_gdiplusToken);
+		}
+	}
+private:
+	Gdiplus::Status m_status;
+	ULONG_PTR m_gdiplusToken;
+};
+
+#ifdef _DEBUG
+#define RELEASE_TYPE "Debug"
+#define DLL_SUFFFIX "d"
+#else
+#define RELEASE_TYPE "Release"
+#define DLL_SUFFFIX ""
+#endif
+
+#define DLL_FILE RELEASE_TYPE "\\autoit_opencv_com455" DLL_SUFFFIX ".dll"
+
+class DllInstallInitializer {
+public:
+	typedef HRESULT(*DllInstall_t)(BOOL bInstall, _In_opt_ LPCWSTR pszCmdLine);
+
+	DllInstallInitializer() {
+		m_lib = LoadLibrary(DLL_FILE);
+		CV_Assert(m_lib != 0);
+
+		m_DllInstall = (DllInstall_t)GetProcAddress(m_lib, "DllInstall");
+		m_hr = m_DllInstall(true, L"user");
+		CV_Assert(SUCCEEDED(m_hr));
+	}
+
+	~DllInstallInitializer() {
+		if (SUCCEEDED(m_hr)) {
+			m_DllInstall(false, L"user");
+		}
+
+		if (m_lib != 0) {
+			FreeLibrary(m_lib);
+		}
+	}
+private:
+	HMODULE m_lib = 0;
+	HRESULT m_hr = E_FAIL;
+	DllInstall_t m_DllInstall;
 };
 
 int main(int argc, char* argv[])
 {
-	using namespace Gdiplus;
-	GdiplusStartupInput gdiplusStartupInput;
-	ULONG_PTR gdiplusToken;
-	auto status = GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
-	CV_Assert(status == Ok);
-
-	HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
-	if (FAILED(hr)) {
-		std::wcout << L"could not initialize COM\n";
-		return 1;
-	}
-
-	int code = perform();
-
-	CoUninitialize();
-	GdiplusShutdown(gdiplusToken);
-
-	return code;
+	CoInitializer coInitializer;
+	GdiplusInitializer gdiplusInitializer;
+	DllInstallInitializer dllInstallInitializer;
+	return perform();
 }

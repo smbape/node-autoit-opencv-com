@@ -43,7 +43,7 @@ STDAPI DllUnregisterServer(void)
 }
 
 // DllInstall - Ajoute/supprime des entrées de la base de registres par utilisateur et par ordinateur.
-STDAPI DllInstall(BOOL bInstall, _In_opt_  LPCWSTR pszCmdLine)
+STDAPI DllInstall(BOOL bInstall, _In_opt_ LPCWSTR pszCmdLine)
 {
 	HRESULT hr = E_FAIL;
 	static const wchar_t szUserSwitch[] = L"user";

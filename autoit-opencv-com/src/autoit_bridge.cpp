@@ -33,11 +33,11 @@ const bool is_variant_scalar(VARIANT const* const& in_val) {
 }
 
 const bool is_array_from(VARIANT const* const& in_val, bool is_optional) {
-	if (V_VT(in_val) == VT_NULL) {
+	if (PARAMETER_NULL(in_val)) {
 		return true;
 	}
 
-	if (PARAMETER_MISSING(in_val)) {
+	if (PARAMETER_NOT_FOUND(in_val)) {
 		return is_optional;
 	}
 
@@ -45,15 +45,15 @@ const bool is_array_from(VARIANT const* const& in_val, bool is_optional) {
 		return is_variant_scalar(in_val);
 	}
 
-	return dynamic_cast<IVariantArray*>(getRealIDispatch(in_val)) ? true : false;
+	return dynamic_cast<IVariantArray*>(getRealIDispatch(in_val)) != NULL;
 }
 
 const bool is_arrays_from(VARIANT const* const& in_val, bool is_optional) {
-	if (V_VT(in_val) == VT_NULL) {
+	if (PARAMETER_NULL(in_val)) {
 		return true;
 	}
 
-	if (PARAMETER_MISSING(in_val)) {
+	if (PARAMETER_NOT_FOUND(in_val)) {
 		return is_optional;
 	}
 
@@ -61,7 +61,7 @@ const bool is_arrays_from(VARIANT const* const& in_val, bool is_optional) {
 		return false;
 	}
 
-	return dynamic_cast<IVariantArrays*>(getRealIDispatch(in_val)) ? true : false;
+	return dynamic_cast<IVariantArrays*>(getRealIDispatch(in_val)) != NULL;
 }
 
 const HRESULT autoit_from(cv::MatExpr& in_val, ICv_Mat_Object**& out_val) {
@@ -170,26 +170,23 @@ const bool is_assignable_from(cv::Ptr<cv::flann::IndexParams>& out_val, VARIANT*
 }
 
 const bool is_assignable_from(cv::flann::IndexParams& out_val, VARIANT*& in_val, bool is_optional) {
-	VARIANT vname = { VT_EMPTY };
-	bool _result = false;
-	HRESULT hr;
-
-	switch (V_VT(in_val)) {
-		case VT_DISPATCH:
-			hr = GetInterfaceName(V_DISPATCH(in_val), &vname);
-			if (FAILED(hr)) {
-				return false;
-			}
-			_result = wcscmp(V_BSTR(&vname), L"IDictionary") == 0;
-			VariantClear(&vname);
-			return _result;
-		case VT_ERROR:
-			return V_ERROR(in_val) == DISP_E_PARAMNOTFOUND && is_optional;
-		case VT_EMPTY:
-			return is_optional;
-		default:
-			return false;
+	if (PARAMETER_MISSING(in_val)) {
+		return true;
 	}
+
+	if (V_VT(in_val) != VT_DISPATCH) {
+		return false;
+	}
+
+	VARIANT vname = { VT_EMPTY };
+	HRESULT hr = GetInterfaceName(V_DISPATCH(in_val), &vname);
+	if (FAILED(hr)) {
+		return false;
+	}
+
+	bool _result = wcscmp(V_BSTR(&vname), L"IDictionary") == 0;
+	VariantClear(&vname);
+	return _result;
 }
 
 const bool is_assignable_from(cv::Ptr<cv::flann::SearchParams>& out_val, VARIANT*& in_val, bool is_optional) {
@@ -198,11 +195,7 @@ const bool is_assignable_from(cv::Ptr<cv::flann::SearchParams>& out_val, VARIANT
 }
 
 const HRESULT autoit_to(VARIANT*& in_val, cv::Ptr<cv::flann::IndexParams>& out_val) {
-	if (V_VT(in_val) == VT_ERROR) {
-		return V_ERROR(in_val) == DISP_E_PARAMNOTFOUND ? S_OK : E_INVALIDARG;
-	}
-
-	if (V_VT(in_val) == VT_EMPTY) {
+	if (PARAMETER_MISSING(in_val)) {
 		return S_OK;
 	}
 

@@ -73,7 +73,7 @@ Global $CheckboxConvex = GUICtrlCreateCheckbox("", 880, 75, 20, 21)
 Global $LabelConvex = GUICtrlCreateLabel("View Convex contour", 900, 78, 140, 21)
 GUICtrlSetColor(-1, 0xFF0000) ; Red
 
-Global $CheckboxConvexCenter = GUICtrlCreateCheckbox("", 880, 105, -1, 0, -1, -1)
+Global $CheckboxConvexCenter = GUICtrlCreateCheckbox("", 880, 105, 20, 21)
 GUICtrlSetState(-1, $GUI_DISABLE)
 GUICtrlSetColor(-1, 0xFF0000) ; Red
 Global $LabelConvexCenter = GUICtrlCreateLabel("Draw Convex center", 900, 108, 140, 21)

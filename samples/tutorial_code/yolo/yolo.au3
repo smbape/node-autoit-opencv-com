@@ -290,7 +290,7 @@ Func postprocess($frame, $outs, $classes)
 
 		ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : AutoIt yolo_postprocess  ' & TimerDiff($hTimer) & ' ms' & @CRLF)
 	Else
-		;;: [doing the loop in a compiled code is way faster than doing it in autoit]
+		;;: [doing the loop in a compiled code is 150 times faster than doing it in autoit]
 		$hTimer = TimerInit()
 		Local $vOuts = _OpenCV_ObjCreate("VectorOfMat").create($outs)
 		_OpenCV_DllCall($addon_dll, "none:cdecl", "yolo_postprocess", _

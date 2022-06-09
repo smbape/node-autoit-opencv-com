@@ -174,7 +174,7 @@ Func _OpenCV_FindDLL($sFile, $sFilter = Default, $sDir = Default, $bReverse = De
 	Local $sBuildType = $_cv_build_type == "Debug" ? "Debug" : "Release"
 	Local $sPostfix = $_cv_build_type == "Debug" ? "d" : ""
 
-	Local $aSearchPaths = _OpenCV_Tuple( _
+	Local $aSearchPaths[] = [ _
 		0, _
 		".", _
 		"build_x64", _
@@ -187,7 +187,7 @@ Func _OpenCV_FindDLL($sFile, $sFilter = Default, $sDir = Default, $bReverse = De
 		"autoit-opencv-com", _
 		"autoit-opencv-com\build_x64", _
 		"autoit-opencv-com\build_x64\" & $sBuildType _
-	)
+	]
 	$aSearchPaths[0] = UBound($aSearchPaths) - 1
 
 	Return _OpenCV_FindFile($sFile & $sPostfix & ".dll", $sFilter, $sDir, $FLTA_FILES, $aSearchPaths, $bReverse)
@@ -815,6 +815,11 @@ Func _OpenCV_ScalarAll($v0 = 0)
 	Return $cvScalar
 EndFunc   ;==>_OpenCV_ScalarAll
 
+Func _OpenCV_ScalarMat($v0 = 0)
+	Local $cvScalar[4] = [$v0, $v0, $v0, $v0]
+	Return _OpenCV_ObjCreate("cv.Mat").create(1, 1, $CV_64F, $cvScalar)
+EndFunc   ;==>_OpenCV_ScalarMat
+
 Func _OpenCV_Point($x = 0, $y = 0)
 	Local $cvSize[2] = [$x, $y]
 	Return $cvSize
@@ -1048,7 +1053,7 @@ Func _OpenCV_OrderPoints($pts)
 		$tr = $r1
 	EndIf
 
-	Local $rect = _OpenCV_Tuple($tl, $tr, $br, $bl)
+	Local $rect[] = [$tl, $tr, $br, $bl]
 	Return _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec2f($rect)
 EndFunc   ;==>_OpenCV_OrderPoints
 

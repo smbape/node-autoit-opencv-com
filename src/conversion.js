@@ -54,23 +54,19 @@ Object.assign(exports, {
         define: (in_type, out_type, {shared_ptr} = {}) => {
             return `
                 const bool is_assignable_from(${ in_type }& out_val, VARIANT const* const& in_val, bool is_optional) {
+                    ${ optional.check.join(`\n${ " ".repeat(20) }`) }
+
                     switch (V_VT(in_val)) {
                         ${ Array.from(numbers).map(([, vt]) => `case VT_${ vt }:`).join(`\n${ " ".repeat(24) }`) }
                             return true;
-                        ${ optional.case.join(`\n${ " ".repeat(24) }`) }
                         default:
                             return false;
                     }
                 }
 
                 const bool is_assignable_from(${ shared_ptr }<${ in_type }>& out_val, VARIANT const* const& in_val, bool is_optional) {
-                    switch (V_VT(in_val)) {
-                        case VT_UI8:
-                            return true;
-                        ${ optional.case.join(`\n${ " ".repeat(24) }`) }
-                        default:
-                            return false;
-                    }
+                    ${ optional.check.join(`\n${ " ".repeat(20) }`) }
+                    return V_VT(in_val) == VT_UI8;
                 }
 
                 const HRESULT autoit_to(VARIANT const* const& in_val, ${ in_type }& out_val) {
@@ -211,16 +207,10 @@ Object.assign(exports, {
 
         impl.push(`
             const bool is_assignable_from(${ shared_ptr }<${ coclass.fqn }>& out_val, VARIANT const* const& in_val, bool is_optional) {
-                switch (V_VT(in_val)) {
-                    case VT_UI8:
-                        return true;
-                    case VT_${ wtype }:
-                        // TODO : find a better way to check instanceof with V_DISPATH
-                        return dynamic_cast<C${ cotype }*>(getRealIDispatch(in_val)) ? true : false;
-                    ${ optional.case.join(`\n${ " ".repeat(20) }`) }
-                    default:
-                        return false;
-                }
+                ${ optional.check.join(`\n${ " ".repeat(16) }`) }
+
+                // TODO : find a better way to check instanceof with V_DISPATH
+                return V_VT(in_val) == VT_UI8 || V_VT(in_val) == VT_${ wtype } && dynamic_cast<C${ cotype }*>(getRealIDispatch(in_val)) != NULL;
             }
 
             const HRESULT autoit_to(VARIANT const* const& in_val, ${ shared_ptr }<${ coclass.fqn }>& out_val) {
@@ -284,14 +274,10 @@ Object.assign(exports, {
             header.push(`extern const HRESULT autoit_to(VARIANT const* const& in_val, ${ coclass.fqn }*& out_val);`);
             impl.push(`
                 const bool is_assignable_from(${ coclass.fqn }*& out_val, VARIANT const* const& in_val, bool is_optional) {
-                    switch (V_VT(in_val)) {
-                        case VT_${ wtype }:
-                            // TODO : find a better way to check instanceof with V_DISPATH
-                            return dynamic_cast<C${ cotype }*>(getRealIDispatch(in_val)) ? true : false;
-                        ${ optional.case.join(`\n${ " ".repeat(24) }`) }
-                        default:
-                            return false;
-                    }
+                    ${ optional.check.join(`\n${ " ".repeat(20) }`) }
+
+                    // TODO : find a better way to check instanceof with V_DISPATH
+                    return V_VT(in_val) == VT_${ wtype } && dynamic_cast<C${ cotype }*>(getRealIDispatch(in_val)) != NULL;
                 }
 
                 const HRESULT autoit_to(VARIANT const* const& in_val, ${ coclass.fqn }*& out_val) {
@@ -319,16 +305,10 @@ Object.assign(exports, {
                 header.push(`extern const bool is_assignable_from(${ coclass.fqn }& out_val, VARIANT const* const& in_val, bool is_optional);`);
                 impl.push(`
                     const bool is_assignable_from(${ coclass.fqn }& out_val, VARIANT const* const& in_val, bool is_optional) {
-                        switch (V_VT(in_val)) {
-                            case VT_UI8:
-                                return true;
-                            case VT_${ wtype }:
-                                // TODO : find a better way to check instanceof with V_DISPATH
-                                return dynamic_cast<C${ cotype }*>(getRealIDispatch(in_val)) ? true : false;
-                            ${ optional.case.join(`\n${ " ".repeat(28) }`) }
-                            default:
-                                return false;
-                        }
+                        ${ optional.check.join(`\n${ " ".repeat(24) }`) }
+
+                        // TODO : find a better way to check instanceof with V_DISPATH
+                        return V_VT(in_val) == VT_UI8 || V_VT(in_val) == VT_${ wtype } && dynamic_cast<C${ cotype }*>(getRealIDispatch(in_val)) != NULL;
                     }
                 `.replace(/^ {20}/mg, "").trim());
 
@@ -367,7 +347,7 @@ Object.assign(exports, {
                 }
 
                 const bool is_assignable_from(${ coclass.fqn }& out_val, ${ iface }*& in_val, bool is_optional) {
-                    return dynamic_cast<C${ cotype }*>(in_val) ? true : false;
+                    return dynamic_cast<C${ cotype }*>(in_val) != NULL;
                 }
 
                 const HRESULT autoit_to(I${ cotype }*& in_val, ${ coclass.fqn }& out_val) {

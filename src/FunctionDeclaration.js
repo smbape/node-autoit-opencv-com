@@ -15,6 +15,7 @@ Object.assign(exports, {
         const has_docs = !fqn.endsWith("AndVariant");
 
         let maxargc = 0;
+        let minout = Number.POSITIVE_INFINITY;
         let minopt = Number.POSITIVE_INFINITY;
         const bodies = [];
         const indent = " ".repeat(has_override ? 4 : 0);
@@ -206,7 +207,7 @@ Object.assign(exports, {
                 const scalar_pointer = `${ pointer }_s`;
                 const is_scalar_variant = `${ argname }_is_scalar`;
                 const set_from_pointer = `set_${ argname }_from_ptr`;
-                const cvt = [];
+                const cvt = [`bool ${ set_from_pointer } = false;`];
                 let is_shared_ptr = false;
 
                 if (is_vector || is_array) {
@@ -215,7 +216,6 @@ Object.assign(exports, {
 
                 if (is_array) {
                     let cvt_body = `
-                        bool ${ set_from_pointer } = false;
                         ${ shared_ptr }<_${ arrtype }> ${ pointer };
                     `.replace(/^ {24}/mg, "");
 
@@ -223,11 +223,18 @@ Object.assign(exports, {
                         cvt_body += `\n${ shared_ptr }<cv::Scalar> ${ scalar_pointer };`;
                     }
 
+                    const dispatchConditions = [`V_VT(${ in_val }) == VT_DISPATCH`];
+                    const dynamicCast = `dynamic_cast<IVariantArray${ is_vector ? "s" : "" }*>(getRealIDispatch(${ in_val }))`;
+
+                    if (is_optional) {
+                        dispatchConditions.push(`${ dynamicCast } != NULL`);
+                    }
+
                     cvt_body += `
-                        if (V_VT(${ in_val }) == VT_NULL) {
+                        if (PARAMETER_NULL(${ in_val })) {
                             // Nothing to do
-                        } else if (V_VT(${ in_val }) == VT_DISPATCH) {
-                            auto obj = dynamic_cast<IVariantArray${ is_vector ? "s" : "" }*>(getRealIDispatch(${ in_val }));
+                        } else if (${ dispatchConditions.join(" && ") }) {
+                            auto obj = ${ dynamicCast };
                             if (!obj) {
                                 printf("unable to read argument ${ j } of type %hu into ${ cpptype }\\n", V_VT(${ in_val }));
                                 return E_INVALIDARG;
@@ -278,17 +285,25 @@ Object.assign(exports, {
 
                     cvt.push(...cvt_body.trim().split("\n"));
                 } else if (is_vector && !has_ptr) {
+                    const dispatchConditions = [`V_VT(${ in_val }) == VT_DISPATCH`];
+                    const dynamicCast = `dynamic_cast<TypeToImplType<${ cpptype }>::type*>(getRealIDispatch(${ in_val }))`;
+
+                    if (is_optional) {
+                        dispatchConditions.push(`${ dynamicCast } != NULL`);
+                    }
+
                     cvt.push(...`
                         auto* ${ pointer } = &${ placeholder_name };
 
-                        if (V_VT(${ in_val }) == VT_DISPATCH) {
-                            const auto& obj = dynamic_cast<TypeToImplType<${ cpptype }>::type*>(getRealIDispatch(${ in_val }));
+                        if (${ dispatchConditions.join(" && ") }) {
+                            const auto& obj = ${ dynamicCast };
                             if (!obj) {
                                 printf("unable to read argument ${ j } of type %hu into ${ cpptype }\\n", V_VT(${ in_val }));
                                 return E_INVALIDARG;
                             }
 
                             ${ pointer } = obj->__self->get();
+                            ${ set_from_pointer } = true;
                             hr = S_OK;
                         } else {
                             hr = autoit_to(${ in_val }, ${ placeholder_name });
@@ -310,7 +325,8 @@ Object.assign(exports, {
                                 printf("unable to read argument ${ j } of type %hu into ${ cpptype }\\n", V_VT(${ in_val }));
                                 return hr;
                             }
-                            auto& ${ argname } = SUCCEEDED(hr) && !PARAMETER_MISSING(${ in_val }) ? *${ pointer }.get() : ${ placeholder_name };
+                            ${ set_from_pointer } = SUCCEEDED(hr) && !PARAMETER_MISSING(${ in_val });
+                            auto& ${ argname } = ${ set_from_pointer } ? *${ pointer }.get() : ${ placeholder_name };
                             hr = S_OK;
                         `.replace(/^ {28}/mg, "").trim().split("\n"));
                     } else {
@@ -327,9 +343,11 @@ Object.assign(exports, {
                                 }
 
                                 ${ pointer } = obj->__self->get();
+                                ${ set_from_pointer } = true;
                             } else if (V_VT(${ in_val }) == VT_UI8) {
                                 const auto& ptr = V_UI8(${ in_val });
                                 ${ pointer } = reinterpret_cast<${ cpptype }*>(ptr);
+                                ${ set_from_pointer } = true;
                             } else {
                                 hr = autoit_to(${ in_val }, ${ placeholder_name });
                                 if (FAILED(hr)) {
@@ -388,9 +406,8 @@ Object.assign(exports, {
                         outputs.set(argname, []);
                     }
 
-                    if (!is_by_ref) {
-                        outputs.get(argname).push(`${ in_val }`); // mark ${ in_val } as an output of argname
-                    }
+                    outputs.get(argname).push(`${ in_val }`); // mark ${ in_val } as an output of argname
+                    minout = Math.min(minout, j);
                 }
 
                 if (is_optional && is_first_optional) {
@@ -817,24 +834,29 @@ Object.assign(exports, {
                     const lines = [];
                     const is_array = argtype.endsWith("Array") || argtype.endsWith("ArrayOfArrays");
                     const is_vector = argtype.startsWith("vector_") || argtype.startsWith("vector<") || argtype.endsWith("OfArrays");
+                    const placeholder_name = `${ argname }_placeholder`;
+                    const pointer = `p_${ placeholder_name }`;
+                    const scalar_pointer = `${ pointer }_s`;
+                    const is_scalar_variant = `${ argname }_is_scalar`;
+                    const set_from_pointer = `set_${ argname }_from_ptr`;
 
-                    let value;
+                    let out_val;
 
                     if (argtype === "VARIANT") {
-                        value = argname;
+                        out_val = argname;
                     } else {
-                        let cvt = argname;
+                        let cvt;
 
                         if (argname === "_retval") {
                             cvt = "autoit_from(*_retval, p_retarr_el)";
                         } else if (is_array) {
-                            cvt = `V_VT(${ in_val }) == VT_DISPATCH ? autoit_out(V_DISPATCH(${ in_val }), p_retarr_el) : `;
+                            cvt = `V_VT(${ in_val }) == VT_DISPATCH && ${ set_from_pointer } ? autoit_out(V_DISPATCH(${ in_val }), p_retarr_el) : `;
 
                             if (!is_vector) {
-                                cvt += `${ argname }_is_scalar ? autoit_from(*p_${ argname }_placeholder_s.get(), p_retarr_el) : `;
+                                cvt += `${ is_scalar_variant } ? autoit_from(*${ scalar_pointer }.get(), p_retarr_el) : `;
                             }
 
-                            cvt += `autoit_from(${ argname }_placeholder, p_retarr_el)`;
+                            cvt += `autoit_from(${ placeholder_name }, p_retarr_el)`;
                         } else {
                             cvt = `autoit_from(${ argname }, p_retarr_el)`;
                         }
@@ -849,11 +871,11 @@ Object.assign(exports, {
                         `.replace(/^ {28}/mg, "").trim().split("\n"));
                         lines.push("");
 
-                        value = "p_retarr_el";
+                        out_val = "p_retarr_el";
                     }
 
                     lines.push(...`
-                        hr = ExtendedHolder::SetAt(${ i }L, *${ value });
+                        hr = ExtendedHolder::SetAt(${ i }L, *${ out_val });
                         if (FAILED(hr)) {
                             printf("unable to set extended ${ i }\\n");
                             return hr;
@@ -863,33 +885,18 @@ Object.assign(exports, {
                     for (const rargname of outputs.has(argname) ? outputs.get(argname) : []) {
                         lines.push("");
                         const out = `
-                            ${ is_entry_test ? "// " : "" }hr = autoit_out(${ value }, ${ rargname });
+                            ${ is_entry_test ? "// " : "" }hr = autoit_out(${ out_val }, ${ rargname });
                             if (FAILED(hr)) {
                                 printf("unable to write extended ${ i } of type ${ idltype } to ${ rargname }\\n");
                                 return hr;
                             }
                         `.replace(/^ {28}/mg, "").trim().split("\n");
 
-                        if (rargname !== "_retval") {
-                            const rconditions = [`!PARAMETER_MISSING(${ rargname })`];
-
-                            if (rargname.startsWith(varprefix) && (is_vector || is_array)) {
-                                rconditions.push(`${ argname }_is_scalar`);
-                            }
-
-                            lines.push(`if (${ rconditions.join(" && ") }) {`);
-
-                            // indent
-                            out.forEach((line, j) => {
-                                out[j] = " ".repeat(4) + line;
-                            });
+                        if (rargname !== "_retval" && rargname.startsWith(varprefix)) {
+                            out.unshift(`VariantClear(${ rargname });`);
                         }
 
                         lines.push(...out);
-
-                        if (rargname !== "_retval") {
-                            lines.push("}");
-                        }
                     }
 
                     return `
@@ -915,9 +922,9 @@ Object.assign(exports, {
         const idlargs = vars.map(i => {
             const attributes = ["in"];
 
-            // if (out_args[i]) {
-            //     attributes.push("out");
-            // }
+            if (i >= minout) {
+                attributes.push("out");
+            }
 
             if (i >= minopt) {
                 attributes.push("optional");

@@ -685,7 +685,8 @@ class AutoItGenerator {
 
         // enums
 
-        const globals = new Set(["$CV_MAT_DEPTH_MASK", "$CV_MAT_TYPE_MASK"]);
+        const globals = options.globals ? new Set(options.globals) : new Set();
+        const constReplacer = options.constReplacer  || new Map();
 
         const getPrefixVariableName = prefix => {
             prefix = prefix.split(".").join("_").replace(/[a-z][A-Z]/g, match => `${ match[0] }_${ match[1] }`).toUpperCase();
@@ -720,6 +721,11 @@ class AutoItGenerator {
                 globals.add(vname);
 
                 value = convertExpression(value, options).replace(expansionRe, getVariableName.bind(null, prefix)).replace(/\b(?<!\$)(?=CV_)/g, "$");
+
+                for (const [substr, newSubstr] of constReplacer) {
+                    value = value.replaceAll(substr, newSubstr);
+                }
+
                 return `Global Const ${ vname } = ${ value }`;
             }).join("\n") }`;
         }).join("\n\n");

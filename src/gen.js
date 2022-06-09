@@ -32,6 +32,8 @@ const parseArguments = PROJECT_DIR => {
         includes: [sysPath.join(PROJECT_DIR, "src")],
         output: sysPath.join(PROJECT_DIR, "generated"),
         toc: false,
+        globals: ["$CV_MAT_DEPTH_MASK", "$CV_MAT_TYPE_MASK"],
+        constReplacer: new Map([["std::numeric_limits<uint8_t>::max()", "0xFF"]]),
     };
 
     for (const opt of ["iface", "hdr", "impl", "idl", "rgs", "res", "save"]) {

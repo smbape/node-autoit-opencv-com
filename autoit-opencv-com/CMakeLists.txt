@@ -51,13 +51,16 @@ endif()
 get_filename_component(OpenCV_BINARY_DIR "${OpenCV_DIR}/x64/vc15/bin" REALPATH)
 file(TO_NATIVE_PATH "${OpenCV_BINARY_DIR}" OpenCV_BINARY_DIR)
 
-file(GLOB_RECURSE project_source_resources "./src/*.rc" "./src/*.rgs")
-file(GLOB_RECURSE project_source_headers "./src/*.h*")
-file(GLOB_RECURSE project_sources_files "./src/*.c" "./src/*.cpp" "./src/*.def")
+get_filename_component(OPENCV_SAMPLES_DATA_PATH "../samples/data" REALPATH)
+file(TO_NATIVE_PATH "${OPENCV_SAMPLES_DATA_PATH}" OPENCV_SAMPLES_DATA_PATH)
 
-file(GLOB_RECURSE project_generated_resources "./generated/*.rc" "./generated/*.rgs")
-file(GLOB_RECURSE project_generated_headers "./generated/*.h*")
-file(GLOB_RECURSE project_generated_files "./generated/*.cpp" "./generated/*_i.c")
+file(GLOB_RECURSE project_source_resources "src/*.rc" "src/*.rgs")
+file(GLOB_RECURSE project_source_headers "src/*.h*")
+file(GLOB_RECURSE project_sources_files "src/*.c" "src/*.cpp" "src/*.def")
+
+file(GLOB_RECURSE project_generated_resources "generated/*.rc" "generated/*.rgs")
+file(GLOB_RECURSE project_generated_headers "generated/*.h*")
+file(GLOB_RECURSE project_generated_files "generated/*.cpp" "generated/*_i.c")
 
 source_group("Source Resources" FILES ${project_source_resources})
 source_group("Source Headers" FILES ${project_source_headers})
@@ -83,7 +86,7 @@ target_precompile_headers(${PROJECT_NAME} PRIVATE
   "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/src/autoit_bridge.h>"
   "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/src/wgc/pch.h>"
 )
-set_source_files_properties(./src/autoit_bridge.cpp PROPERTIES COMPILE_FLAGS "/MP1")
+set_source_files_properties(src/autoit_bridge.cpp PROPERTIES COMPILE_FLAGS "/MP1")
 
 target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS})
 
@@ -113,20 +116,27 @@ if ((MSVC) AND (MSVC_VERSION GREATER_EQUAL 1914))
   target_compile_options(${PROJECT_NAME} PUBLIC "/Zc:__cplusplus")
 endif()
 
+get_filename_component(VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/.." REALPATH)
+file(TO_NATIVE_PATH "${VS_DEBUGGER_WORKING_DIRECTORY}" VS_DEBUGGER_WORKING_DIRECTORY)
+
+set_target_properties(${PROJECT_NAME} PROPERTIES
+  VS_DEBUGGER_COMMAND           "pwsh.exe"
+  VS_DEBUGGER_COMMAND_ARGUMENTS "-ExecutionPolicy UnRestricted -File .\\samples\\samples.ps1"
+  VS_DEBUGGER_WORKING_DIRECTORY "${VS_DEBUGGER_WORKING_DIRECTORY}"
+  VS_DEBUGGER_ENVIRONMENT       "PATH=${OpenCV_BINARY_DIR};%PATH%\nOPENCV_SAMPLES_DATA_PATH=${OPENCV_SAMPLES_DATA_PATH}\nBUILD_TYPE=Debug"
+)
+
 # ===============
 # cpp_test target
 # ===============
-file(GLOB test_files "./test/*.h*" "./test/*.cpp")
+file(GLOB test_files "test/*.h*" "test/*.cpp")
 
-add_executable (cpp_test ${test_files})
-
-get_filename_component(OPENCV_SAMPLES_DATA_PATH "../samples/data" REALPATH)
-file(TO_NATIVE_PATH "${OPENCV_SAMPLES_DATA_PATH}" OPENCV_SAMPLES_DATA_PATH)
+add_executable(cpp_test ${test_files})
 
 target_precompile_headers(cpp_test PRIVATE
   "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/test/test.h>"
 )
-set_source_files_properties(./test/test.cpp PROPERTIES COMPILE_FLAGS "/MP1")
+set_source_files_properties(test/test.cpp PROPERTIES COMPILE_FLAGS "/MP1")
 
 target_link_libraries(cpp_test PRIVATE ${PROJECT_NAME} "windowsapp.lib" "dwmapi.lib")
 set_property(TARGET cpp_test PROPERTY VS_DEBUGGER_ENVIRONMENT "PATH=${OpenCV_BINARY_DIR};%PATH%\nOPENCV_SAMPLES_DATA_PATH=${OPENCV_SAMPLES_DATA_PATH}")
@@ -142,3 +152,21 @@ set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT c
 if ((MSVC) AND (MSVC_VERSION GREATER_EQUAL 1914))
   target_compile_options(cpp_test PUBLIC "/Zc:__cplusplus")
 endif()
+
+# ===============
+# cs_test target
+# ===============
+include(CSharpUtilities)
+enable_language(CSharp)
+file(GLOB test_files "test/*.cs")
+message(STATUS ${test_files})
+add_executable(cs_test ${test_files})
+
+get_filename_component(OPENCV_SAMPLES_DATA_PATH "../samples/data" REALPATH)
+file(TO_NATIVE_PATH "${OPENCV_SAMPLES_DATA_PATH}" OPENCV_SAMPLES_DATA_PATH)
+
+set_target_properties(cs_test PROPERTIES
+  VS_DEBUGGER_ENVIRONMENT "PATH=${OpenCV_BINARY_DIR};%PATH%\nOPENCV_SAMPLES_DATA_PATH=${OPENCV_SAMPLES_DATA_PATH}"
+  VS_DOTNET_REFERENCES "Microsoft.CSharp;System"
+)
+# set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT cs_test)

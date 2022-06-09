@@ -47,8 +47,8 @@ Func _OpenCV_get($vVal = Default)
 	Return $cv
 EndFunc   ;==>_OpenCV_get
 
-Func _OpenCV_Open_And_Register($s_opencv_wolrd_dll = Default, $s_autoit_opencv_com_dll = Default, $bUser = Default)
-	If Not _OpenCV_Open($s_opencv_wolrd_dll, $s_autoit_opencv_com_dll) Then Return False
+Func _OpenCV_Open_And_Register($s_opencv_world_dll = Default, $s_autoit_opencv_com_dll = Default, $bUser = Default)
+	If Not _OpenCV_Open($s_opencv_world_dll, $s_autoit_opencv_com_dll) Then Return False
 	If Not _OpenCV_Register($bUser) Then Return False
 	Return True
 EndFunc   ;==>_OpenCV_Open_And_Register
@@ -59,14 +59,14 @@ Func _OpenCV_Unregister_And_Close($bUser = Default)
 	Return True
 EndFunc   ;==>_OpenCV_Unregister_And_Close
 
-Func _OpenCV_Install($s_opencv_wolrd_dll = Default, $s_autoit_opencv_com_dll = Default, $bUser = Default, $bOpen = True, $bClose = True, $bInstall = False, $bUninstall = False)
-	If $s_opencv_wolrd_dll == Default Then $s_opencv_wolrd_dll = "opencv_world455.dll"
+Func _OpenCV_Install($s_opencv_world_dll = Default, $s_autoit_opencv_com_dll = Default, $bUser = Default, $bOpen = True, $bClose = True, $bInstall = False, $bUninstall = False)
+	If $s_opencv_world_dll == Default Then $s_opencv_world_dll = "opencv_world455.dll"
 	If $s_autoit_opencv_com_dll == Default Then $s_autoit_opencv_com_dll = "autoit_opencv_com455.dll"
 	If $bUser == Default Then $bUser = Not IsAdmin()
 
 	If $bClose And $h_opencv_world_dll <> -1 Then DllClose($h_opencv_world_dll)
 	If $bOpen Then
-		$h_opencv_world_dll = _OpenCV_LoadDLL($s_opencv_wolrd_dll)
+		$h_opencv_world_dll = _OpenCV_LoadDLL($s_opencv_world_dll)
 		If $h_opencv_world_dll == -1 Then Return False
 	EndIf
 
@@ -98,8 +98,8 @@ Func _OpenCV_Install($s_opencv_wolrd_dll = Default, $s_autoit_opencv_com_dll = D
 	Return True
 EndFunc   ;==>_OpenCV_Install
 
-Func _OpenCV_Open($s_opencv_wolrd_dll = Default, $s_autoit_opencv_com_dll = Default)
-	Return _OpenCV_Install($s_opencv_wolrd_dll, $s_autoit_opencv_com_dll)
+Func _OpenCV_Open($s_opencv_world_dll = Default, $s_autoit_opencv_com_dll = Default)
+	Return _OpenCV_Install($s_opencv_world_dll, $s_autoit_opencv_com_dll)
 EndFunc   ;==>_OpenCV_Open
 
 Func _OpenCV_Close()
@@ -255,6 +255,9 @@ Func _OpenCV_Tuple($val0 = 0, $val1 = 0, $val2 = 0, $val3 = 0, $val4 = 0, $val5 
 	;     Return $_aResult
 	; `.trim()).join("\n"))
 	Switch @NumParams
+		Case 0
+			Local $_aResult[0] = []
+			Return $_aResult
 		Case 1
 			Local $_aResult[@NumParams] = [$val0]
 			Return $_aResult

@@ -83,14 +83,11 @@ const variant_t get_variant_in(VARIANT const* const& in_val) {
 }
 
 const bool is_assignable_from(bool& out_val, VARIANT const* const& in_val, bool is_optional) {
-	switch (V_VT(in_val)) {
-	case VT_BOOL:
-		return true;
-	case VT_ERROR:
-		return V_ERROR(in_val) == DISP_E_PARAMNOTFOUND && is_optional;
-	default:
-		return false;
+	if (PARAMETER_MISSING(in_val)) {
+		return is_optional;
 	}
+	
+	return V_VT(in_val) == VT_BOOL;
 }
 
 const HRESULT autoit_to(VARIANT_BOOL& in_val, bool& out_val) {
@@ -99,8 +96,8 @@ const HRESULT autoit_to(VARIANT_BOOL& in_val, bool& out_val) {
 }
 
 const HRESULT autoit_to(VARIANT const* const& in_val, bool& out_val) {
-	if (V_VT(in_val) == VT_ERROR) {
-		return V_ERROR(in_val) == DISP_E_PARAMNOTFOUND ? S_OK : E_INVALIDARG;
+	if (PARAMETER_MISSING(in_val)) {
+		return S_OK;
 	}
 
 	if (V_VT(in_val) != VT_BOOL) {
@@ -121,14 +118,11 @@ const bool is_assignable_from(std::string& out_val, BSTR const& in_val, bool is_
 }
 
 const bool is_assignable_from(std::string& out_val, VARIANT const* const& in_val, bool is_optional) {
-	switch (V_VT(in_val)) {
-	case VT_BSTR:
-		return true;
-	case VT_ERROR:
-		return V_ERROR(in_val) == DISP_E_PARAMNOTFOUND && is_optional;
-	default:
-		return false;
+	if (PARAMETER_MISSING(in_val)) {
+		return is_optional;
 	}
+
+	return V_VT(in_val) == VT_BSTR;
 }
 
 const HRESULT autoit_to(BSTR const& in_val, std::string& out_val) {
@@ -144,8 +138,8 @@ const HRESULT autoit_to(BSTR const& in_val, std::string& out_val) {
 }
 
 const HRESULT autoit_to(VARIANT const* const& in_val, std::string& out_val) {
-	if (V_VT(in_val) == VT_ERROR) {
-		return V_ERROR(in_val) == DISP_E_PARAMNOTFOUND ? S_OK : E_INVALIDARG;
+	if (PARAMETER_MISSING(in_val)) {
+		return S_OK;
 	}
 
 	if (V_VT(in_val) != VT_BSTR) {
@@ -189,14 +183,11 @@ const HRESULT autoit_from(BSTR const& in_val, VARIANT*& out_val) {
 }
 
 const bool is_assignable_from(char*& out_val, VARIANT const* const& in_val, bool is_optional) {
-	switch (V_VT(in_val)) {
-	case VT_BSTR:
-		return true;
-	case VT_ERROR:
-		return V_ERROR(in_val) == DISP_E_PARAMNOTFOUND && is_optional;
-	default:
-		return false;
+	if (PARAMETER_MISSING(in_val)) {
+		return is_optional;
 	}
+
+	return V_VT(in_val) == VT_BSTR;
 }
 
 const HRESULT autoit_to(VARIANT const* const& in_val, char*& out_val) {

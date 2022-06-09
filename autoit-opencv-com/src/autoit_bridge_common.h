@@ -72,7 +72,9 @@ return E_FAIL; } \
 #endif
 
 #define PARAMETER_NOT_FOUND(in_val) (V_VT(in_val) == VT_ERROR && V_ERROR(in_val) == DISP_E_PARAMNOTFOUND)
-#define PARAMETER_MISSING(in_val) (V_VT(in_val) == VT_EMPTY || PARAMETER_NOT_FOUND(in_val))
+#define PARAMETER_EMPTY(in_val) (V_VT(in_val) == VT_EMPTY || V_VT(in_val) == VT_DISPATCH && V_DISPATCH(in_val) == NULL)
+#define PARAMETER_NULL(in_val) (PARAMETER_EMPTY(in_val) || V_VT(in_val) == VT_NULL)
+#define PARAMETER_MISSING(in_val) (PARAMETER_EMPTY(in_val) || PARAMETER_NOT_FOUND(in_val))
 #define PARAMETER_IN(in_val) variant_t variant_##in_val = get_variant_in(in_val); if (V_ISBYREF(in_val)) in_val = &variant_##in_val
 
 template<typename _Tp>
@@ -130,16 +132,12 @@ extern const HRESULT autoit_out(VARIANT const* const& in_val, BSTR*& out_val);
 
 template<typename _Tp>
 const bool is_assignable_from(std::vector<_Tp>& out_val, VARIANT const* const& in_val, bool is_optional) {
-	if (V_VT(in_val) == VT_ERROR) {
-		return V_ERROR(in_val) == DISP_E_PARAMNOTFOUND && is_optional;
-	}
-
-	if (V_VT(in_val) == VT_EMPTY) {
+	if (PARAMETER_MISSING(in_val)) {
 		return is_optional;
 	}
 
 	if (V_VT(in_val) == VT_DISPATCH) {
-		return dynamic_cast<TypeToImplType<std::vector<_Tp>>::type*>(getRealIDispatch(in_val)) ? true : false;
+		return dynamic_cast<TypeToImplType<std::vector<_Tp>>::type*>(getRealIDispatch(in_val)) != NULL;
 	}
 
 	if ((V_VT(in_val) & VT_ARRAY) != VT_ARRAY || (V_VT(in_val) ^ VT_ARRAY) != VT_VARIANT) {
@@ -177,11 +175,7 @@ const bool is_assignable_from(AUTOIT_PTR<std::vector<_Tp>>& out_val, VARIANT con
 
 template<typename _Tp>
 const HRESULT autoit_to(VARIANT const* const& in_val, std::vector<_Tp>& out_val) {
-	if (V_VT(in_val) == VT_ERROR) {
-		return V_ERROR(in_val) == DISP_E_PARAMNOTFOUND ? S_OK : E_INVALIDARG;
-	}
-
-	if (V_VT(in_val) == VT_EMPTY) {
+	if (PARAMETER_MISSING(in_val)) {
 		return S_OK;
 	}
 
@@ -242,7 +236,7 @@ const HRESULT autoit_from(const AUTOIT_PTR<std::vector<_Tp>>& in_val, VARIANT*& 
 
 template<typename _Tp>
 const HRESULT autoit_from(const std::vector<_Tp>& in_val, VARIANT*& out_val) {
-	if (V_VT(out_val) == VT_EMPTY || V_VT(out_val) == VT_ERROR && V_ERROR(out_val) == DISP_E_PARAMNOTFOUND) {
+	if (PARAMETER_NULL(out_val) || PARAMETER_NOT_FOUND(out_val)) {
 		V_VT(out_val) = VT_ARRAY | VT_VARIANT;
 		typename ATL::template CComSafeArray<VARIANT> vArray((ULONG)0);
 		V_ARRAY(out_val) = vArray.Detach();
@@ -279,11 +273,7 @@ const HRESULT autoit_from(const std::vector<_Tp>& in_val, VARIANT*& out_val) {
 
 template<typename ... _Rest>
 const bool is_assignable_from(std::tuple <_Rest...>& out_val, VARIANT const* const& in_val, bool is_optional) {
-	if (V_VT(in_val) == VT_ERROR) {
-		return V_ERROR(in_val) == DISP_E_PARAMNOTFOUND && is_optional;
-	}
-
-	if (V_VT(in_val) == VT_EMPTY) {
+	if (PARAMETER_MISSING(in_val)) {
 		return is_optional;
 	}
 
@@ -323,11 +313,7 @@ const HRESULT _autoit_to(VARIANT const* const& in_val, std::tuple<_Ts...>& out_v
 template<std::size_t I = 0, typename... _Ts>
 typename std::enable_if<I == sizeof...(_Ts) - 1, const HRESULT>::type
 autoit_to(VARIANT const* const& in_val, std::tuple<_Ts...>& out_val) {
-	if (V_VT(in_val) == VT_ERROR) {
-		return V_ERROR(in_val) == DISP_E_PARAMNOTFOUND ? S_OK : E_INVALIDARG;
-	}
-
-	if (V_VT(in_val) == VT_EMPTY) {
+	if (PARAMETER_MISSING(in_val)) {
 		return S_OK;
 	}
 
@@ -351,11 +337,7 @@ autoit_to(VARIANT const* const& in_val, std::tuple<_Ts...>& out_val) {
 template<std::size_t I = 0, typename... _Ts>
 typename std::enable_if<I != sizeof...(_Ts) - 1, const HRESULT>::type
 autoit_to(VARIANT const* const& in_val, std::tuple<_Ts...>& out_val) {
-	if (V_VT(in_val) == VT_ERROR) {
-		return V_ERROR(in_val) == DISP_E_PARAMNOTFOUND ? S_OK : E_INVALIDARG;
-	}
-
-	if (V_VT(in_val) == VT_EMPTY) {
+	if (PARAMETER_MISSING(in_val)) {
 		return S_OK;
 	}
 
@@ -403,11 +385,7 @@ autoit_from(const std::tuple<_Ts...>& in_val, VARIANT*& out_val) {
 
 template<typename _Ty1, typename _Ty2>
 const bool is_assignable_from(std::pair<_Ty1, _Ty2>& out_val, VARIANT const* const& in_val, bool is_optional) {
-	if (V_VT(in_val) == VT_ERROR) {
-		return V_ERROR(in_val) == DISP_E_PARAMNOTFOUND && is_optional;
-	}
-
-	if (V_VT(in_val) == VT_EMPTY) {
+	if (PARAMETER_MISSING(in_val)) {
 		return is_optional;
 	}
 
@@ -489,13 +467,7 @@ HRESULT autoit_from(const std::pair<_Ty1, _Ty2>& in_val, VARIANT*& out_val) {
 
 template<typename _Tp>
 HRESULT get_variant_number(VARIANT const* const& in_val, _Tp& out_val) {
-	if (V_VT(in_val) == VT_ERROR) {
-		return V_ERROR(in_val) == DISP_E_PARAMNOTFOUND ? S_OK : E_INVALIDARG;
-	}
-
 	switch (V_VT(in_val)) {
-	case VT_EMPTY:
-		return S_OK;
 	case VT_I1:
 		out_val = static_cast<_Tp>(V_I1(in_val));
 		return S_OK;
@@ -527,7 +499,7 @@ HRESULT get_variant_number(VARIANT const* const& in_val, _Tp& out_val) {
 		out_val = static_cast<_Tp>(V_UINT(in_val));
 		return S_OK;
 	default:
-		return E_INVALIDARG;
+		return PARAMETER_MISSING(in_val) ? S_OK : E_INVALIDARG;
 	}
 }
 
@@ -540,18 +512,7 @@ extern const HRESULT autoit_to(VARIANT const* const& in_val, _variant_t& out_val
 
 template<typename T>
 inline const bool is_assignable_from_ptr(T& out_val, VARIANT const* const& in_val, bool is_optional) {
-	if (is_variant_number(in_val)) {
-		return true;
-	}
-
-	switch (V_VT(in_val)) {
-	case VT_EMPTY:
-		return true;
-	case VT_ERROR:
-		return V_ERROR(in_val) == DISP_E_PARAMNOTFOUND && is_optional;
-	default:
-		return false;
-	}
+	return is_variant_number(in_val) || (PARAMETER_MISSING(in_val) && is_optional);
 }
 
 template<typename T>

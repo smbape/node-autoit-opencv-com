@@ -1,5 +1,16 @@
+$ErrorActionPreference = "Stop"
+
 function _OpenCV_ObjCreate($sClassname) {
-    New-Object -ComObject "OpenCV.$sClassname"
+    $namespaces = "", "OpenCV.", "OpenCV.cv."
+    foreach ($namespace in $namespaces)
+    {
+        try {
+            New-Object -ComObject "$namespace$sClassname"
+            return
+        } catch {
+            # Ignore error
+        }
+    }
 }
 
 function Example1() {
@@ -17,28 +28,26 @@ function Example2() {
 
     $src = $cv.imread("samples\data\pic1.png")
     $src_gray = $cv.cvtColor($src, $cv.COLOR_BGR2GRAY_)
-    $tmp = $cv.GaussianBlur($src_gray, @(5, 5), 0, 0)
-    $src_gray = $tmp
+    $src_gray = $cv.GaussianBlur($src_gray, @(5, 5), 0)
     $cv.threshold($src_gray, $threshold, 255, $cv.THRESH_BINARY_, $src_gray) | Out-Null
-    
+
     $good_contours = _OpenCV_ObjCreate("VectorOfMat")
     $contours = $cv.findContours($src_gray, $cv.RETR_TREE_, $cv.CHAIN_APPROX_SIMPLE_) # $cv.RETR_LIST_, $cv.RETR_EXTERNAL_, $cv.RETR_TREE_
 
-    for ($i = 0; $i -lt $contours.count; $i++) {
-        $dArea = $cv.contourArea($contours[$i])
+    foreach ($contour in $contours) {
+        $dArea = $cv.contourArea($contour)
         if ($dArea -ge $dCurrentArea) {
-            $good_contours.push_back($contours[$i])
+            $good_contours.push_back($contour)
         }
     }
 
     $src_displayed = $src.Clone()
 
-    $size = $good_contours.size()
-    for ($i = 0; $i -lt $size; $i++) {
-        $cv.drawContours($src_displayed, $good_contours, $i, @(0, 255, 0), 3) | Out-Null
+    foreach ($contour in $good_contours) {
+        $cv.drawContours($src_displayed, @($contour), -1, @(0, 255, 0), 3) | Out-Null
 
         # Draw circle in center of Concave
-        $moments = $cv.moments($good_contours.at($i))
+        $moments = $cv.moments($contour)
         $cx1 = $moments.m10 / $moments.m00
         $cy1 = $moments.m01 / $moments.m00
 
@@ -53,13 +62,13 @@ function Example2() {
 function Example3() {
     $cv = _OpenCV_ObjCreate("cv")
 
-    $cap = (_OpenCV_ObjCreate("cv.VideoCapture")).create("samples\data\vtest.avi")
+    $cap = (_OpenCV_ObjCreate("VideoCapture")).create("samples\data\vtest.avi")
     if (-not $cap.isOpened()) {
         Write-Error '!>Error: cannot open the video file.'
         return
     }
 
-    $frame = _OpenCV_ObjCreate("cv.Mat")
+    $frame = _OpenCV_ObjCreate("Mat")
 
     while ($true) {
         if (-not $cap.read($frame)) {
@@ -78,8 +87,103 @@ function Example3() {
     $cv.destroyAllWindows()
 }
 
-$ErrorActionPreference = "Stop"
+function Example4() {
+    $cv = _OpenCV_ObjCreate("cv")
+    $img = $cv.imread("samples\data\lena.jpg")
+
+    $blurred = $Null
+    $cv.GaussianBlur($img, @(5, 5), 0, [ref] $blurred) | Out-Null
+    $cv.imshow("image", $blurred)
+    $cv.waitKey() | Out-Null
+    $cv.destroyAllWindows()
+}
+
+Add-Type -TypeDefinition @"
+using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+
+public static class AutoItOpenCV
+{
+    [DllImport("kernel32.dll")]
+    private static extern IntPtr LoadLibrary(string dllToLoad);
+
+    [DllImport("kernel32.dll")]
+    private static extern bool FreeLibrary(IntPtr hModule);
+
+    [DllImport("kernel32.dll", CharSet = CharSet.Ansi, SetLastError = true)]
+    private static extern IntPtr GetProcAddress(IntPtr hModule, string name);
+
+    private delegate long DllInstall_api(bool bInstall, [In, MarshalAs(UnmanagedType.LPWStr)] string cmdLine);
+
+    private static IntPtr _h_opencv_world_dll = IntPtr.Zero;
+    private static IntPtr _h_autoit_opencv_com_dll = IntPtr.Zero;
+    private static DllInstall_api DllInstall;
+
+    public static void DllOpen(string opencv_world_dll, string autoit_opencv_com_dll)
+    {
+        _h_opencv_world_dll = LoadLibrary(opencv_world_dll);
+        if (_h_opencv_world_dll == IntPtr.Zero)
+        {
+            throw new Win32Exception("Failed to load opencv library " + opencv_world_dll);
+        }
+
+        _h_autoit_opencv_com_dll = LoadLibrary(autoit_opencv_com_dll);
+        if (_h_autoit_opencv_com_dll == IntPtr.Zero)
+        {
+            throw new Win32Exception("Failed to open autoit com library " + autoit_opencv_com_dll);
+        }
+
+        IntPtr DllInstall_addr = GetProcAddress(_h_autoit_opencv_com_dll, "DllInstall");
+        if (DllInstall_addr == IntPtr.Zero)
+        {
+            throw new Win32Exception();
+        }
+
+        DllInstall = (DllInstall_api)Marshal.GetDelegateForFunctionPointer(DllInstall_addr, typeof(DllInstall_api));
+    }
+
+    public static void DllClose()
+    {
+        FreeLibrary(_h_autoit_opencv_com_dll);
+        FreeLibrary(_h_opencv_world_dll);
+    }
+
+    public static void Register(string cmdLine = "user")
+    {
+        var hr = DllInstall(true, cmdLine);
+        if (hr < 0)
+        {
+            throw new Win32Exception("!>Error: DllInstall " + hr);
+        }
+    }
+
+    public static void Unregister(string cmdLine = "user")
+    {
+        var hr = DllInstall(false, cmdLine);
+        if (hr < 0)
+        {
+            throw new Win32Exception("!>Error: DllInstall " + hr);
+        }
+    }
+}
+"@
+
+$BUILD_TYPE = If ($env:BUILD_TYPE -eq "Debug") { $env:BUILD_TYPE } Else { "Release" }
+$DLL_SUFFFIX = If ($BUILD_TYPE -eq "Debug") { "d" } Else { "" }
+
+[AutoItOpenCV]::DllOpen(
+    "$PSScriptRoot\..\opencv-4.5.5-vc14_vc15\opencv\build\x64\vc15\bin\opencv_world455$($DLL_SUFFFIX).dll",
+    "$PSScriptRoot\..\autoit-opencv-com\build_x64\$($BUILD_TYPE)\autoit_opencv_com455$($DLL_SUFFFIX).dll"
+)
+
+[AutoItOpenCV]::Register()
 
 Example1
 Example2
 Example3
+Example4
+
+[AutoItOpenCV]::Unregister()
+[AutoItOpenCV]::DllClose()

@@ -41,7 +41,7 @@ module.exports = (header = [], impl = [], options = {}) => {
 
             _Tp value;
 
-            for (LONG i = lLower; i <= lUpper && (i - lLower) < cn; i++) {
+            for (LONG i = lLower; i <= lUpper; i++) {
                 auto& v = vArray.GetAt(i);
                 VARIANT *pv = &v;
                 if (!is_assignable_from(value, pv, false)) {
@@ -110,7 +110,7 @@ module.exports = (header = [], impl = [], options = {}) => {
 
             _Tp value;
 
-            for (LONG i = lLower; i <= lUpper && (i - lLower) < cn; i++) {
+            for (LONG i = lLower; i <= lUpper; i++) {
                 auto& v = vArray.GetAt(i);
                 VARIANT *pv = &v;
                 hr = autoit_to(pv, value);

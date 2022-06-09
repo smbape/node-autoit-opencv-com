@@ -20,14 +20,14 @@ module.exports = (header = [], impl = [], options = {}) => {
             LONG lLower = vArray.GetLowerBound();
             LONG lUpper = vArray.GetUpperBound();
 
-            if (lUpper - lLower + 1 > 2) {
+            if (lUpper - lLower >= 2) {
                 vArray.Detach();
                 return false;
             }
 
             _Tp value;
 
-            for (LONG i = lLower; i <= lUpper && (i - lLower) < 4; i++) {
+            for (LONG i = lLower; i <= lUpper; i++) {
                 auto& v = vArray.GetAt(i);
                 VARIANT *pv = &v;
                 if (!is_assignable_from(value, pv, false)) {
@@ -62,14 +62,14 @@ module.exports = (header = [], impl = [], options = {}) => {
             LONG lLower = vArray.GetLowerBound();
             LONG lUpper = vArray.GetUpperBound();
 
-            if (lUpper - lLower + 1 > 2) {
+            if (lUpper - lLower >= 2) {
                 vArray.Detach();
                 return E_INVALIDARG;
             }
 
             _Tp value;
 
-            for (LONG i = lLower; i <= lUpper && (i - lLower) < 4; i++) {
+            for (LONG i = lLower; i <= lUpper; i++) {
                 auto& v = vArray.GetAt(i);
                 VARIANT *pv = &v;
                 hr = autoit_to(pv, value);
