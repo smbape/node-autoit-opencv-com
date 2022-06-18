@@ -513,7 +513,7 @@ Object.assign(exports, {
             generator.docs.push([
                 "```cpp",
                 cppsignature,
-                "",
+                // "",
                 "AutoIt:",
                 " ".repeat(4) + description,
                 "```",

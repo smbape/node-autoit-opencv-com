@@ -175,19 +175,19 @@ Func _OpenCV_FindDLL($sFile, $sFilter = Default, $sDir = Default, $bReverse = De
 	Local $sPostfix = $_cv_build_type == "Debug" ? "d" : ""
 
 	Local $aSearchPaths[] = [ _
-		0, _
-		".", _
-		"build_x64", _
-		"build_x64\" & $sBuildType, _
-		"build", _
-		"build\x64", _
-		"build\x64\vc17\bin", _
-		"build\x64\vc15\bin", _
-		"build\x64\vc14\bin", _
-		"autoit-opencv-com", _
-		"autoit-opencv-com\build_x64", _
-		"autoit-opencv-com\build_x64\" & $sBuildType _
-	]
+			0, _
+			".", _
+			"build_x64", _
+			"build_x64\" & $sBuildType, _
+			"build", _
+			"build\x64", _
+			"build\x64\vc17\bin", _
+			"build\x64\vc15\bin", _
+			"build\x64\vc14\bin", _
+			"autoit-opencv-com", _
+			"autoit-opencv-com\build_x64", _
+			"autoit-opencv-com\build_x64\" & $sBuildType _
+			]
 	$aSearchPaths[0] = UBound($aSearchPaths) - 1
 
 	Return _OpenCV_FindFile($sFile & $sPostfix & ".dll", $sFilter, $sDir, $FLTA_FILES, $aSearchPaths, $bReverse)
@@ -400,8 +400,8 @@ EndFunc   ;==>__OpenCV_HandleScreenBitsMat
 ; Return values .: The result of the callback
 ; Author ........: Stéphane MBAPE
 ; Modified ......:
-; Remarks .......: https://github.com/opencv/opencv/blob/4.5.5/modules/highgui/src/window_w32.cpp#L1407
-;                  https://github.com/opencv/opencv/blob/4.5.5/modules/highgui/src/window_w32.cpp#122
+; Remarks .......: https://github.com/opencv/opencv/blob/4.6.0/modules/highgui/src/window_w32.cpp#L1407
+;                  https://github.com/opencv/opencv/blob/4.6.0/modules/highgui/src/window_w32.cpp#122
 ; ===============================================================================================================================
 Func __OpenCV_GetDesktopScreenCapture(Const ByRef $aRect, Const ByRef $iChannels, Const $sCallback)
 	Local $iLeft = $aRect[0]
@@ -792,11 +792,11 @@ EndFunc   ;==>_OpenCV_RotateBound
 
 Func _OpenCV_ColorGetScalar($iColor)
 	Local $cvScalar[4] = [ _
-		BitAND($iColor, 0xFF), _
-		BitAND(BitShift($iColor, 8), 0xFF), _
-		BitAND(BitShift($iColor, 16), 0xFF), _
-		BitAND(BitShift($iColor, 24), 0xFF) _
-	]
+			BitAND($iColor, 0xFF), _
+			BitAND(BitShift($iColor, 8), 0xFF), _
+			BitAND(BitShift($iColor, 16), 0xFF), _
+			BitAND(BitShift($iColor, 24), 0xFF) _
+			]
 	Return $cvScalar
 EndFunc   ;==>_OpenCV_ColorGetScalar
 
@@ -997,11 +997,11 @@ Func _OpenCV_FourPointTransform($image, $pts)
 	;; in the top-left, top-right, bottom-right, and bottom-left
 	;; order
 	Local $dst = _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec2f(_OpenCV_Tuple( _
-		_OpenCV_Point(0, 0), _
-		_OpenCV_Point($maxWidth - 1, 0), _
-		_OpenCV_Point($maxWidth - 1, $maxHeight - 1), _
-		_OpenCV_Point(0, $maxHeight - 1) _
-	))
+			_OpenCV_Point(0, 0), _
+			_OpenCV_Point($maxWidth - 1, 0), _
+			_OpenCV_Point($maxWidth - 1, $maxHeight - 1), _
+			_OpenCV_Point(0, $maxHeight - 1) _
+			))
 
 	;; compute the perspective transform matrix and then apply it
 	Local $M = $cv.getPerspectiveTransform($rect, $dst)

@@ -174,8 +174,8 @@ $BUILD_TYPE = If ($env:BUILD_TYPE -eq "Debug") { $env:BUILD_TYPE } Else { "Relea
 $DLL_SUFFFIX = If ($BUILD_TYPE -eq "Debug") { "d" } Else { "" }
 
 [AutoItOpenCV]::DllOpen(
-    "$PSScriptRoot\..\opencv-4.5.5-vc14_vc15\opencv\build\x64\vc15\bin\opencv_world455$($DLL_SUFFFIX).dll",
-    "$PSScriptRoot\..\autoit-opencv-com\build_x64\$($BUILD_TYPE)\autoit_opencv_com455$($DLL_SUFFFIX).dll"
+    "$PSScriptRoot\..\opencv-4.6.0-vc14_vc15\opencv\build\x64\vc15\bin\opencv_world460$($DLL_SUFFFIX).dll",
+    "$PSScriptRoot\..\autoit-opencv-com\build_x64\$($BUILD_TYPE)\autoit_opencv_com460$($DLL_SUFFFIX).dll"
 )
 
 [AutoItOpenCV]::Register()

@@ -686,7 +686,7 @@ class AutoItGenerator {
         // enums
 
         const globals = options.globals ? new Set(options.globals) : new Set();
-        const constReplacer = options.constReplacer  || new Map();
+        const constReplacer = options.constReplacer || new Map();
 
         const getPrefixVariableName = prefix => {
             prefix = prefix.split(".").join("_").replace(/[a-z][A-Z]/g, match => `${ match[0] }_${ match[1] }`).toUpperCase();

@@ -89,7 +89,7 @@ exports.CPP_TYPES = new Map([
     ["DeviceInfo_ComputeMode", "cv::cuda::DeviceInfo::ComputeMode"],
 
     ["RgbdNormals_RgbdNormalsMethod", "cv::RgbdNormals::RgbdNormalsMethod"],
-    ["GStreamerSource_OutputType", "cv::gapi::wip::GStreamerSource::OutputType"],
+    ["GStreamerSource_OutputType", "cv::gapi::wip::gst::GStreamerSource::OutputType"],
     ["OriginalClassName_Params", "cv::utils::nested::OriginalClassName::Params"],
 ]);
 

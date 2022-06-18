@@ -23,12 +23,12 @@ set(OPENCV_DOWNLOAD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/..")
 # Tell cmake we will need opencv.
 include(ExternalProject)
 ExternalProject_Add(opencv
-  URL               https://github.com/opencv/opencv/releases/download/4.5.5/opencv-4.5.5-vc14_vc15.exe
-  URL_HASH          SHA256=cac31973cd1c59bfe9dc926acbde815553d23662ea355e0414b5e50d8f8aa5a8
+  URL               https://github.com/opencv/opencv/releases/download/4.6.0/opencv-4.6.0-vc14_vc15.exe
+  URL_HASH          SHA256=3fb046e14dc5b50719a86ea0395b5b1e3299e2343111ebd2e31828aa31d6d477
   DOWNLOAD_NO_EXTRACT TRUE
   DOWNLOAD_DIR      "${OPENCV_DOWNLOAD_DIR}"
-  CONFIGURE_COMMAND "${OPENCV_DOWNLOAD_DIR}/opencv-4.5.5-vc14_vc15.exe" "-o${OPENCV_DOWNLOAD_DIR}/opencv-4.5.5-vc14_vc15" -y
-  BUILD_COMMAND     patch -p 1 -d "${OPENCV_DOWNLOAD_DIR}/opencv-4.5.5-vc14_vc15/opencv/sources/" -i "${CMAKE_CURRENT_SOURCE_DIR}/patches/001-opencv-src.patch"
+  CONFIGURE_COMMAND "${OPENCV_DOWNLOAD_DIR}/opencv-4.6.0-vc14_vc15.exe" "-o${OPENCV_DOWNLOAD_DIR}/opencv-4.6.0-vc14_vc15" -y
+  BUILD_COMMAND     patch -p 1 -d "${OPENCV_DOWNLOAD_DIR}/opencv-4.6.0-vc14_vc15/opencv/sources/" -i "${CMAKE_CURRENT_SOURCE_DIR}/patches/001-opencv-src.patch"
   INSTALL_COMMAND   ""
 )
 
@@ -156,10 +156,11 @@ endif()
 # ===============
 # cs_test target
 # ===============
+if (CMAKE_GENERATOR MATCHES "Visual Studio")
 include(CSharpUtilities)
 enable_language(CSharp)
+
 file(GLOB test_files "test/*.cs")
-message(STATUS ${test_files})
 add_executable(cs_test ${test_files})
 
 get_filename_component(OPENCV_SAMPLES_DATA_PATH "../samples/data" REALPATH)
@@ -170,3 +171,4 @@ set_target_properties(cs_test PROPERTIES
   VS_DOTNET_REFERENCES "Microsoft.CSharp;System"
 )
 # set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT cs_test)
+endif()

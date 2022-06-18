@@ -9,7 +9,6 @@ SET "CWD=%CD%"
 SET skip_python=0
 SET skip_node=0
 SET skip_build=0
-SET TARGET=ALL_BUILD
 
 SET nparms=20
 :LOOP
@@ -26,7 +25,7 @@ GOTO LOOP
 SET BUILD_FOLDER=build_x64
 
 IF NOT DEFINED CMAKE_BUILD_TYPE SET CMAKE_BUILD_TYPE=Release
-SET GENERAL_CMAKE_CONFIG_FLAGS=%GENERAL_CMAKE_CONFIG_FLAGS% -DCMAKE_BUILD_TYPE:STRING="%CMAKE_BUILD_TYPE%" -DCMAKE_INSTALL_PREFIX:STRING=install
+SET EXTRA_CMAKE_OPTIONS=%EXTRA_CMAKE_OPTIONS% -DCMAKE_BUILD_TYPE="%CMAKE_BUILD_TYPE%" -DCMAKE_INSTALL_PREFIX=install
 
 ::Find CMake
 SET CMAKE="cmake.exe"
@@ -34,25 +33,26 @@ IF EXIST "%PROGRAMFILES_DIR_X86%\CMake\bin\cmake.exe" SET CMAKE="%PROGRAMFILES_D
 IF EXIST "%PROGRAMFILES_DIR%\CMake\bin\cmake.exe" SET CMAKE="%PROGRAMFILES_DIR%\CMake\bin\cmake.exe"
 IF EXIST "%PROGRAMW6432%\CMake\bin\cmake.exe" SET CMAKE="%PROGRAMW6432%\CMake\bin\cmake.exe"
 
+
 ::Find Visual Studio
 FOR /F "usebackq tokens=* USEBACKQ" %%F IN (`vswhere.exe -legacy -version [10.0^,^) -property installationVersion -latest`) DO SET VS_VERSION=%%F
 
 FOR /F "usebackq tokens=* USEBACKQ" %%F IN (`vswhere.exe -version [16.0^,^) -property installationPath -latest`) DO (
-    SET CMAKE_CONF="Visual Studio %VS_VERSION:~0,2%" -A x64
+    SET CMAKE_CONFIG="Visual Studio %VS_VERSION:~0,2%" -A x64
     CALL "%%F\VC\Auxiliary\Build\vcvars64.bat"
     GOTO MAKE
     EXIT /b %ERRORLEVEL%
 )
 
 FOR /F "usebackq tokens=* USEBACKQ" %%F IN (`vswhere.exe -version [15.0^,16.0^) -property installationPath -latest`) DO (
-    SET CMAKE_CONF="Visual Studio %VS_VERSION:~0,2% Win64"
+    SET CMAKE_CONFIG="Visual Studio %VS_VERSION:~0,2% Win64"
     CALL "%%F\VC\Auxiliary\Build\vcvars64.bat"
     GOTO MAKE
     EXIT /b %ERRORLEVEL%
 )
 
 FOR /F "usebackq tokens=* USEBACKQ" %%F IN (`vswhere.exe -legacy -version [10.0^,15.0^) -property installationPath -latest`) DO (
-    SET CMAKE_CONF="Visual Studio %VS_VERSION:~0,2% Win64"
+    SET CMAKE_CONFIG="Visual Studio %VS_VERSION:~0,2% Win64"
     CALL "%%F\VC\vcvarsall.bat" x64
     GOTO MAKE
     EXIT /b %ERRORLEVEL%
@@ -69,6 +69,7 @@ SET ERROR=0
 SET TARGET=opencv
 CALL :MAKE_CONFIG
 SET ERROR=%ERRORLEVEL%
+
 SET TARGET=ALL_BUILD
 CD /d %CWD%
 IF "%ERROR%" == "0" GOTO GEN_PYTHON
@@ -84,7 +85,7 @@ PUSHD opencv_build_x64
 SET PYTHON_CONFIG_FLAGS=%PYTHON_CONFIG_FLAGS% -DCMAKE_BUILD_TYPE:STRING="%CMAKE_BUILD_TYPE%"
 SET PYTHON_CONFIG_FLAGS=%PYTHON_CONFIG_FLAGS% -DBUILD_opencv_world=ON -DBUILD_opencv_python3=ON
 
-%CMAKE% -G %CMAKE_CONF% %PYTHON_CONFIG_FLAGS% ..\..\opencv-4.5.5-vc14_vc15\opencv\sources\
+%CMAKE% -G %CMAKE_CONFIG% %PYTHON_CONFIG_FLAGS% ..\..\opencv-4.6.0-vc14_vc15\opencv\sources\
 SET ERROR=%ERRORLEVEL%
 POPD
 IF "%ERROR%" == "0" GOTO GEN_SOURCES
@@ -104,7 +105,7 @@ IF NOT EXIST %BUILD_FOLDER% mkdir %BUILD_FOLDER%
 cd %BUILD_FOLDER%
 rem IF EXIST "CMakeCache.txt" del CMakeCache.txt
 
-%CMAKE% -G %CMAKE_CONF% %GENERAL_CMAKE_CONFIG_FLAGS% ..\
+%CMAKE% -G %CMAKE_CONFIG% %EXTRA_CMAKE_OPTIONS% ..\
 SET ERROR=%ERRORLEVEL%
 IF "%ERROR%" == "0" GOTO BUILD
 GOTO END

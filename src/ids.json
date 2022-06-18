@@ -47,6 +47,18 @@
         "iid": "f79ddbaf-280e-407f-a994-c20608c7320f",
         "clsid": "fbb2ec75-bf2a-484b-bd13-e3ecff394566"
     },
+    "cv::utils::nested": {
+        "iid": "1468fad1-a99e-4f1f-a0d1-b9c9d4c220b6",
+        "clsid": "1dfb65de-6ddc-487a-99de-9d26465c211a"
+    },
+    "cv::utils::nested::OriginalClassName": {
+        "iid": "ee267b82-1682-4d01-9141-7ea480a8ef95",
+        "clsid": "d47382e1-a14c-4875-8e34-5820e9231bdd"
+    },
+    "cv::utils::nested::OriginalClassName::Params": {
+        "iid": "c22a2eba-c1ef-4b25-92bc-abcd61930253",
+        "clsid": "b63ef64c-67ad-40d3-94d0-fbe8cd516734"
+    },
     "cv::utils::fs": {
         "iid": "b8ce0edb-80ff-4a91-903c-225fd982b65a",
         "clsid": "b3ebeb38-d4d3-4c32-a8ac-21687b2f0312"
@@ -819,9 +831,9 @@
         "iid": "e66b152d-ea53-4e10-9064-90d7c25959f4",
         "clsid": "9f02126f-fc8e-47b0-a528-2c2c28d5adde"
     },
-    "cv::gapi::GKernelPackage": {
-        "iid": "140484b2-bdf1-4df4-9fc2-6bab882b7e0e",
-        "clsid": "44af58ff-33cd-4b6b-9a12-36b801e807f1"
+    "cv::GKernelPackage": {
+        "iid": "26acb7ac-7073-4470-9200-3f9f85b9a093",
+        "clsid": "6cb62186-35a0-4845-a090-fa9e998e2843"
     },
     "cv::GMat": {
         "iid": "cd8524ef-edf9-46ce-9e81-0a1970d88da7",
@@ -903,6 +915,34 @@
         "iid": "94f3f3d9-a1dd-4b11-9eaa-b350536a145a",
         "clsid": "8e653a2b-600c-496f-a74f-dcfebba59ec1"
     },
+    "cv::gapi::oak": {
+        "iid": "a3fc3444-3323-41a8-b1da-f24a40ff3407",
+        "clsid": "56f3bfee-c394-47d4-956f-012693fde19a"
+    },
+    "cv::gapi::oak::EncoderConfig": {
+        "iid": "d053d685-d2e6-456c-9af6-91f2fb18d651",
+        "clsid": "cadaf64c-a7e9-4e59-9cac-5549b4038c69"
+    },
+    "cv::gapi::oak::EncoderConfig::RateControlMode": {
+        "iid": "1b1967d6-5ef4-4eb5-bf64-932a6e515d2c",
+        "clsid": "8a79c6db-41e3-4284-951a-1f368d7c0cf7"
+    },
+    "cv::gapi::oak::EncoderConfig::Profile": {
+        "iid": "b15d58c5-27a2-47a9-80fd-fc4af4416e37",
+        "clsid": "9951cf11-ac3f-43aa-b93d-8f6f89ee1d22"
+    },
+    "cv::gapi::oak::ColorCameraParams": {
+        "iid": "e56fbda3-6af7-4b3b-acca-a859191d4443",
+        "clsid": "8fca9b2e-a1ea-4b06-9e6d-39e213ef2966"
+    },
+    "cv::gapi::oak::ColorCameraParams::BoardSocket": {
+        "iid": "b4de2a8f-9c3f-403f-8a3e-2f06cd0e48d1",
+        "clsid": "9a006a35-b05d-49ff-83bb-4d44501a4d41"
+    },
+    "cv::gapi::oak::ColorCameraParams::Resolution": {
+        "iid": "400dfde8-3d20-4ac6-8b09-b580f1e78242",
+        "clsid": "e31333b7-4256-4ccf-af1c-4f25c3d83d6a"
+    },
     "cv::gapi::core::ocl": {
         "iid": "465ff0f6-bd81-455b-9a00-7f5143265a15",
         "clsid": "6425b1d9-011b-47b1-9637-645b9ec02c46"
@@ -978,6 +1018,10 @@
     "cv::gapi::wip::gst": {
         "iid": "66fd1948-0497-42bb-a98f-e27ef189a25f",
         "clsid": "5258710a-6c69-4efa-afbe-e688d8adbc8b"
+    },
+    "cv::gapi::wip::gst::GStreamerPipeline": {
+        "iid": "e7815e54-49f6-41c3-8d2e-0d6eddd8f781",
+        "clsid": "1f279c26-ddb2-4ac0-9a07-512a9cae6109"
     },
     "cv::gapi::wip::gst::GStreamerSource": {
         "iid": "e7c3b167-3b5d-4ad5-9714-03919f9effc3",

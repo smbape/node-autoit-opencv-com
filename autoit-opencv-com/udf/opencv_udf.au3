@@ -60,8 +60,8 @@ Func _OpenCV_Unregister_And_Close($bUser = Default)
 EndFunc   ;==>_OpenCV_Unregister_And_Close
 
 Func _OpenCV_Install($s_opencv_world_dll = Default, $s_autoit_opencv_com_dll = Default, $bUser = Default, $bOpen = True, $bClose = True, $bInstall = False, $bUninstall = False)
-	If $s_opencv_world_dll == Default Then $s_opencv_world_dll = "opencv_world455.dll"
-	If $s_autoit_opencv_com_dll == Default Then $s_autoit_opencv_com_dll = "autoit_opencv_com455.dll"
+	If $s_opencv_world_dll == Default Then $s_opencv_world_dll = "opencv_world460.dll"
+	If $s_autoit_opencv_com_dll == Default Then $s_autoit_opencv_com_dll = "autoit_opencv_com460.dll"
 	If $bUser == Default Then $bUser = Not IsAdmin()
 
 	If $bClose And $h_opencv_world_dll <> -1 Then DllClose($h_opencv_world_dll)

@@ -11,8 +11,8 @@
 #include "..\..\..\autoit-opencv-com\udf\opencv_udf_utils.au3"
 
 ;~ Sources:
-;~     https://docs.opencv.org/4.5.5/de/da9/tutorial_template_matching.html
-;~     https://github.com/opencv/opencv/blob/4.5.5/samples/cpp/tutorial_code/Histograms_Matching/MatchTemplate_Demo.cpp
+;~     https://docs.opencv.org/4.6.0/de/da9/tutorial_template_matching.html
+;~     https://github.com/opencv/opencv/blob/4.6.0/samples/cpp/tutorial_code/Histograms_Matching/MatchTemplate_Demo.cpp
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
 _GDIPlus_Startup()

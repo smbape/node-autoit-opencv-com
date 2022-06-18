@@ -30,10 +30,10 @@ Global Const $CASCADES_PATH = _OpenCV_FindFile("samples\tutorial_code\pyimagesea
 ; initialize a dictionary that maps the name of the haar cascades to
 ; their filenames
 Global $detectors = _OpenCV_Params( _
-	"face", "haarcascade_frontalface_default.xml", _
-	"eyes", "haarcascade_eye.xml", _
-	"smile", "haarcascade_smile.xml" _
-)
+		"face", "haarcascade_frontalface_default.xml", _
+		"eyes", "haarcascade_eye.xml", _
+		"smile", "haarcascade_smile.xml" _
+		)
 
 For $sKey In $detectors.Keys()
 	$detectors($sKey) = _OpenCV_ObjCreate("cv.CascadeClassifier").create($CASCADES_PATH & "\" & $detectors($sKey))
@@ -118,12 +118,12 @@ Func UpdateFrame()
 	Local $gray = $cv.cvtColor($frame, $CV_COLOR_BGR2GRAY)
 
 	; perform face detection using the appropriate haar cascade
-    Local $faceRects = $detectors("face").detectMultiScale($gray, _OpenCV_Params( _
-        "scaleFactor", 1.05, _
-        "minNeighbors", 5, _
-        "minSize", _OpenCV_Size(30, 30), _
-        "flags", $CV_CASCADE_SCALE_IMAGE _
-    ))
+	Local $faceRects = $detectors("face").detectMultiScale($gray, _OpenCV_Params( _
+			"scaleFactor", 1.05, _
+			"minNeighbors", 5, _
+			"minSize", _OpenCV_Size(30, 30), _
+			"flags", $CV_CASCADE_SCALE_IMAGE _
+			))
 
 	Local $faceROI, $eyeRects, $smileRects
 
@@ -133,34 +133,34 @@ Func UpdateFrame()
 		$faceROI = _OpenCV_ObjCreate("cv.Mat").create($gray, $faceRect)
 
 		; apply eyes detection to the face ROI
-        $eyeRects = $detectors("eyes").detectMultiScale($faceROI, _OpenCV_Params( _
-            "scaleFactor", 1.1, _
-            "minNeighbors", 10, _
-            "minSize", _OpenCV_Size(15, 15), _
-            "flags", $CV_CASCADE_SCALE_IMAGE _
-        ))
+		$eyeRects = $detectors("eyes").detectMultiScale($faceROI, _OpenCV_Params( _
+				"scaleFactor", 1.1, _
+				"minNeighbors", 10, _
+				"minSize", _OpenCV_Size(15, 15), _
+				"flags", $CV_CASCADE_SCALE_IMAGE _
+				))
 
 		; apply smile detection to the face ROI
 		$smileRects = $detectors("smile").detectMultiScale($faceROI, _OpenCV_Params( _
-            "scaleFactor", 1.1, _
-            "minNeighbors", 10, _
-            "minSize", _OpenCV_Size(15, 15), _
-            "flags", $CV_CASCADE_SCALE_IMAGE _
-        ))
+				"scaleFactor", 1.1, _
+				"minNeighbors", 10, _
+				"minSize", _OpenCV_Size(15, 15), _
+				"flags", $CV_CASCADE_SCALE_IMAGE _
+				))
 
 		; loop over the eye bounding boxes
 		For $eyeRect In $eyeRects
 			; draw the eye bounding box
-            $eyeRect[0] += $faceRect[0]
-            $eyeRect[1] += $faceRect[1]
+			$eyeRect[0] += $faceRect[0]
+			$eyeRect[1] += $faceRect[1]
 			$cv.rectangle($frame, $eyeRect, _OpenCV_Scalar(0, 0, 255), 2)
 		Next
 
 		; loop over the smile bounding boxes
 		For $smileRect In $smileRects
 			; draw the smile bounding box
-            $smileRect[0] += $faceRect[0]
-            $smileRect[1] += $faceRect[1]
+			$smileRect[0] += $faceRect[0]
+			$smileRect[1] += $faceRect[1]
 			$cv.rectangle($frame, $smileRect, _OpenCV_Scalar(255, 0, 0), 2)
 		Next
 
@@ -326,7 +326,7 @@ Func _StringSize($sText, $iSize = Default, $iWeight = Default, $iAttrib = Defaul
 EndFunc   ;==>_StringSize
 
 Func _OnAutoItExit()
-    If $bHasAddon Then _Addon_DLLClose()
+	If $bHasAddon Then _Addon_DLLClose()
 	DllClose($hUser32DLL)
 	_GDIPlus_Shutdown()
 	_OpenCV_Unregister_And_Close()

@@ -251,7 +251,7 @@ Func postprocess($frame, $outs, $classes)
 		For $i = 0 To UBound($outs) - 1
 			$out = $outs[$i]
 			$data = Ptr($out.data)
-			$step = $out.step
+			$step = $out.Step
 			$cols = $out.cols
 			$sizeof = $step / $cols
 			$detection.cols = $cols
@@ -294,14 +294,14 @@ Func postprocess($frame, $outs, $classes)
 		$hTimer = TimerInit()
 		Local $vOuts = _OpenCV_ObjCreate("VectorOfMat").create($outs)
 		_OpenCV_DllCall($addon_dll, "none:cdecl", "yolo_postprocess", _
-			"ptr", $frame.self, _
-			"ptr", $vOuts.self, _
-			"float", $confThreshold, _
-			"float", $nmsThreshold, _
-			"ptr", $classIds.self, _
-			"ptr", $confidences.self, _
-			"ptr", $boxes.self _
-		)
+				"ptr", $frame.self, _
+				"ptr", $vOuts.self, _
+				"float", $confThreshold, _
+				"float", $nmsThreshold, _
+				"ptr", $classIds.self, _
+				"ptr", $confidences.self, _
+				"ptr", $boxes.self _
+				)
 		ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : DllCall yolo_postprocess ' & TimerDiff($hTimer) & ' ms' & @CRLF)
 		;;: [doing the loop in a compiled code is way faster than doing it in autoit]
 	EndIf
@@ -389,11 +389,11 @@ Func drawPred($classId, $conf, $box, $frame, $classes)
 			$oLabelRect.copyTo($oLabelROI)
 		Else
 			$cv.rectangle( _
-				$frame, _
-				_OpenCV_Rect($left, $top, $width, $height), _
-				_OpenCV_Scalar(0xFF, 0xFF, 0xFF), _
-				$CV_FILLED _
-			)
+					$frame, _
+					_OpenCV_Rect($left, $top, $width, $height), _
+					_OpenCV_Scalar(0xFF, 0xFF, 0xFF), _
+					$CV_FILLED _
+					)
 		EndIf
 
 		;; Display the label in the label background

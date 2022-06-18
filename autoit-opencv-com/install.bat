@@ -39,7 +39,7 @@
 
 :mainmenu
 @SET DLLDIRNAME=
-@SET DLLNAME=autoit_opencv_com455%DEBUG_PREFIX%.dll
+@SET DLLNAME=autoit_opencv_com460%DEBUG_PREFIX%.dll
 
 @IF EXIST "%CD%\build_x64\Release\%DLLNAME%" SET "DLLDIRNAME=%CD%\build_x64\Release\"
 @IF EXIST "%CD%\build_x64\Debug\%DLLNAME%" SET "DLLDIRNAME=%CD%\build_x64\Debug\"

@@ -12,8 +12,8 @@
 #include "..\..\..\autoit-addon\addon.au3"
 
 ;~ Sources:
-;~     https://docs.opencv.org/4.5.5/db/d70/tutorial_akaze_matching.html
-;~     https://github.com/opencv/opencv/blob/4.5.5/samples/cpp/tutorial_code/features2D/AKAZE_match.cpp
+;~     https://docs.opencv.org/4.6.0/db/d70/tutorial_akaze_matching.html
+;~     https://github.com/opencv/opencv/blob/4.6.0/samples/cpp/tutorial_code/features2D/AKAZE_match.cpp
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
 _GDIPlus_Startup()
@@ -193,13 +193,13 @@ Func Detect()
 		;;: [doing the loop in a compiled code is way faster than doing it in autoit]
 		$hTimer = TimerInit()
 		_OpenCV_DllCall($addon_dll, "none:cdecl", "AKAZE_match_ratio_test_filtering", _
-			"ptr", $matched1.self, _
-			"ptr", $kpts1.self, _
-			"ptr", $matched2.self, _
-			"ptr", $kpts2.self, _
-			"ptr", $nn_matches.self, _
-			"float", $nn_match_ratio _
-		)
+				"ptr", $matched1.self, _
+				"ptr", $kpts1.self, _
+				"ptr", $matched2.self, _
+				"ptr", $kpts2.self, _
+				"ptr", $nn_matches.self, _
+				"float", $nn_match_ratio _
+				)
 		ConsoleWrite("DllCall AKAZE_match_ratio_test_filtering " & TimerDiff($hTimer) & "ms" & @CRLF)
 		;;: [doing the loop in a compiled code is way faster than doing it in autoit]
 	EndIf
@@ -237,14 +237,14 @@ Func Detect()
 		;;: [doing the loop in a compiled code is way faster than doing it in autoit]
 		$hTimer = TimerInit()
 		_OpenCV_DllCall($addon_dll, "none:cdecl", "AKAZE_homograpy_check", _
-			"ptr", $homography.self, _
-			"ptr", $matched1.self, _
-			"ptr", $inliers1.self, _
-			"ptr", $matched2.self, _
-			"ptr", $inliers2.self, _
-			"float", $inlier_threshold, _
-			"ptr", $good_matches.self _
-		)
+				"ptr", $homography.self, _
+				"ptr", $matched1.self, _
+				"ptr", $inliers1.self, _
+				"ptr", $matched2.self, _
+				"ptr", $inliers2.self, _
+				"float", $inlier_threshold, _
+				"ptr", $good_matches.self _
+				)
 		ConsoleWrite("DllCall AKAZE_homograpy_check            " & TimerDiff($hTimer) & "ms" & @CRLF)
 		;;: [doing the loop in a compiled code is way faster than doing it in autoit]
 	EndIf

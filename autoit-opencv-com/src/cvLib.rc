@@ -81,11 +81,11 @@ BEGIN
             VALUE "FileVersion", "2.0.1"
             // VALUE "LegalCopyright", "TODO: (c) <Nom de la société>.  Tous droits réservés."
 #ifdef _DEBUG
-            VALUE "InternalName", "opencv_autoit_com455d.dll"
-            VALUE "OriginalFilename", "opencv_autoit_com455d.dll"
+            VALUE "InternalName", "autoit_opencv_com460d.dll"
+            VALUE "OriginalFilename", "autoit_opencv_com460d.dll"
 #else
-            VALUE "InternalName", "opencv_autoit_com455.dll"
-            VALUE "OriginalFilename", "opencv_autoit_com455.dll"
+            VALUE "InternalName", "autoit_opencv_com460.dll"
+            VALUE "OriginalFilename", "autoit_opencv_com460.dll"
 #endif
             VALUE "ProductName", "AutoIt OpenCV COM"
             VALUE "ProductVersion", "2.0.1"

@@ -176,10 +176,10 @@ EndFunc   ;==>label
 
 Func getColors()
 	Local $colors[3][2] = [ _
-		["red", _OpenCV_Tuple(255, 0, 0)], _
-		["green", _OpenCV_Tuple(0, 255, 0)], _
-		["blue", _OpenCV_Tuple(0, 0, 255)] _
-	]
+			["red", _OpenCV_Tuple(255, 0, 0)], _
+			["green", _OpenCV_Tuple(0, 255, 0)], _
+			["blue", _OpenCV_Tuple(0, 0, 255)] _
+			]
 
 	Local $lab = _OpenCV_ObjCreate("cv.Mat").zeros(UBound($colors), 1, $CV_8UC3)
 

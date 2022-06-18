@@ -11,8 +11,8 @@
 #include "..\..\..\autoit-addon\addon.au3"
 
 ;~ Sources:
-;~     https://docs.opencv.org/4.5.5/d8/dbc/tutorial_histogram_calculation.html
-;~     https://github.com/opencv/opencv/blob/4.5.5/samples/cpp/tutorial_code/Histograms_Matching/calcHist_Demo.cpp
+;~     https://docs.opencv.org/4.6.0/d8/dbc/tutorial_histogram_calculation.html
+;~     https://github.com/opencv/opencv/blob/4.6.0/samples/cpp/tutorial_code/Histograms_Matching/calcHist_Demo.cpp
 
 _OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
 _GDIPlus_Startup()
@@ -144,14 +144,14 @@ Func Main()
 		;;: [doing the loop in a compiled code is way faster than doing it in autoit]
 		$hTimer = TimerInit()
 		_OpenCV_DllCall($addon_dll, "none:cdecl", "calcHist_Demo_draw", _
-			"ptr", $histImage.self, _
-			"int", $histSize[0], _
-			"int", $hist_w, _
-			"int", $hist_h, _
-			"ptr", $b_hist.self, _
-			"ptr", $g_hist.self, _
-			"ptr", $r_hist.self _
-		)
+				"ptr", $histImage.self, _
+				"int", $histSize[0], _
+				"int", $hist_w, _
+				"int", $hist_h, _
+				"ptr", $b_hist.self, _
+				"ptr", $g_hist.self, _
+				"ptr", $r_hist.self _
+				)
 		ConsoleWrite("Dll loop " & TimerDiff($hTimer) & "ms" & @CRLF)
 		;;: [doing the loop in a compiled code is way faster than doing it in autoit]
 	EndIf
