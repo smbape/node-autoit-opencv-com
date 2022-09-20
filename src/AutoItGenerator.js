@@ -1,9 +1,9 @@
 /* eslint-disable no-magic-numbers */
 const version = process.env.npm_package_version || require("../package.json").version;
-const fs = require("fs");
-const sysPath = require("path");
-const {spawn} = require("child_process");
-const cpus = require("os").cpus().length;
+const fs = require("node:fs");
+const sysPath = require("node:path");
+const {spawn} = require("node:child_process");
+const cpus = require("node:os").cpus().length;
 const eachOfLimit = require("async/eachOfLimit");
 const series = require("async/series");
 const waterfall = require("async/waterfall");
@@ -59,30 +59,51 @@ class AutoItGenerator {
 
         this.namespace = options.namespace;
 
-        this.options = options;
+        if (options.typedefs) {
+            for (const [fqn, cpptype] of options.typedefs) {
+                this.typedefs.set(fqn, cpptype);
+            }
+        }
 
         for (const namespace of namespaces) {
-            this.namespaces.add(namespace.split(".").join("::"));
+            this.namespaces.add(namespace.replaceAll(".", "::"));
         }
 
         for (const decl of decls) {
             const [name] = decl;
 
             if (name.startsWith("class ") || name.startsWith("struct ")) {
-                this.add_class(decl);
+                this.add_class(decl, options);
             } else if (name.startsWith("enum ")) {
-                this.add_enum(decl);
+                this.add_enum(decl, options);
             } else {
-                this.add_func(decl);
+                this.add_func(decl, options);
             }
         }
 
-        this.add_vector("vector<_variant_t>", {}, options);
-        this.namedParameters = this.classes.get(this.add_map("map<string, _variant_t>", {}, options));
+        this.defineNamedParameters(options);
 
         for (const fqn of IGNORED_CLASSES) {
             if (this.classes.has(fqn)) {
                 this.classes.delete(fqn);
+            }
+        }
+
+        for (const fqn of this.classes.keys()) {
+            const coclass = this.classes.get(fqn);
+            for (const [, overrides] of coclass.methods.entries()) {
+                for (const decl of overrides) {
+                    const [, return_value_type, func_modifiers, list_of_arguments] = decl;
+                    if (return_value_type !== "" && !func_modifiers.includes("/CO")) {
+                        this.setAssignOperator(return_value_type, coclass, options);
+                    }
+
+                    for (const [argtype, , defval] of list_of_arguments) {
+                        if (defval !== "") {
+                            this.setAssignOperator(argtype, coclass, options);
+                        }
+                    }
+                }
             }
         }
 
@@ -111,6 +132,21 @@ class AutoItGenerator {
                 ]);
             }
 
+            const parents = [fqn];
+
+            for (const parent of parents) {
+                if (!this.derives.has(parent)) {
+                    continue;
+                }
+                for (const child of this.derives.get(parent)) {
+                    if (this.classes.has(child)) {
+                        coclass.children.add(this.classes.get(child));
+                        this.addDependency(parent, child);
+                    }
+                    parents.push(child);
+                }
+            }
+
             // inherit methods
             for (const pfqn of coclass.parents) {
                 if (!this.classes.has(pfqn)) {
@@ -121,6 +157,8 @@ class AutoItGenerator {
 
                 for (const fname of parent.methods.keys()) {
                     if (fname === "create") {
+                        // ignore create method because it creates a base type instance
+                        // and not a derived type instance
                         continue;
                     }
 
@@ -149,9 +187,6 @@ class AutoItGenerator {
                 }
             }
 
-            const idnames = new Set();
-
-            let id = 0;
             const iidl = [];
             const iprivate = [];
             const ipublic = [];
@@ -162,20 +197,18 @@ class AutoItGenerator {
             const destructor = [];
 
             if (is_idl_class) {
-                if (idnames.has("self".toLowerCase())) {
-                    throw new Error(`duplicated idl name ${ "self" }`);
-                }
-                idnames.add("self".toLowerCase());
-
-                id++;
-                constructor.push(`this->__self = new ${ shared_ptr }<${ coclass.fqn }>();`);
+                constructor.push(`__self = new ${ shared_ptr }<${ coclass.fqn }>();`);
 
                 if (coclass.has_default_constructor) {
-                    constructor.push(`this->__self->reset(new ${ coclass.fqn }());`);
+                    constructor.push(`__self->reset(new ${ coclass.fqn }());`);
                 }
 
-                destructor.push("delete this->__self;");
-                destructor.push("this->__self = nullptr;");
+                destructor.push("delete __self;");
+                destructor.push("__self = nullptr;");
+
+                coclass.addIDLName("self", "get_self");
+                coclass.addIDLName("self", "put_self");
+                const id = coclass.getIDLNameId("self");
 
                 iidl.push(`[propget, id(${ id })] HRESULT self([out, retval] VARIANT* pVal);`);
                 iidl.push(`[propput, id(${ id })] HRESULT self([in] ULONGLONG ptr);`);
@@ -183,17 +216,17 @@ class AutoItGenerator {
                 ipublic.push("STDMETHOD(put_self)(ULONGLONG ptr);");
                 impl.push(`
                     STDMETHODIMP C${ cotype }::get_self(VARIANT* pVal) {
-                        if (this->__self) {
+                        if (__self) {
                             V_VT(pVal) = VT_UI8;
-                            V_UI8(pVal) = reinterpret_cast<ULONGLONG>(this->__self->get());
+                            V_UI8(pVal) = reinterpret_cast<ULONGLONG>(__self->get());
                             return S_OK;
                         }
                         return E_FAIL;
                     }
 
                     STDMETHODIMP C${ cotype }::put_self(ULONGLONG ptr) {
-                        if (this->__self) {
-                            *this->__self = ${ shared_ptr }<${ coclass.fqn }>(${ shared_ptr }<${ coclass.fqn }>{}, reinterpret_cast<${ coclass.fqn }*>(ptr));
+                        if (__self) {
+                            *__self = ::autoit::reference_internal(reinterpret_cast<${ coclass.fqn }*>(ptr));
                             return S_OK;
                         }
                         return E_FAIL;
@@ -201,15 +234,36 @@ class AutoItGenerator {
                 );
             }
 
+            const has_disid_val = Array.from(coclass.properties.keys()).some(idlname => {
+                const {modifiers} = coclass.properties.get(idlname);
+                for (const modifier of modifiers) {
+                    if (modifier.startsWith("/id=") && modifier.slice("/id=".length) === "DISPID_VALUE") {
+                        return true;
+                    }
+                }
+                return false;
+            }) || Array.from(coclass.methods.keys()).some(fname => {
+                const overrides = coclass.methods.get(fname);
+                for (const decl of overrides) {
+                    const [, , func_modifiers] = decl;
+                    for (const modifier of func_modifiers) {
+                        if (modifier.startsWith("/id=") && modifier.slice("/id=".length) === "DISPID_VALUE") {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            });
+
             Array.from(coclass.properties.keys()).filter(idlname => {
                 const {modifiers} = coclass.properties.get(idlname);
                 return !modifiers.includes("/Enum");
             }).forEach(idlname => {
-                PropertyDeclaration.writeProperty(this, iidl, impl, ipublic, iprivate, idnames, fqn, idlname, ++id, is_test, options);
+                PropertyDeclaration.writeProperty(this, iidl, impl, ipublic, iprivate, fqn, idlname, is_test, options);
             });
 
             // methods
-            for (const fname of Array.from(coclass.methods.keys()).sort((a, b) => {
+            for (let fname of Array.from(coclass.methods.keys()).sort((a, b) => {
                 if (a === "create") {
                     return -1;
                 }
@@ -220,20 +274,58 @@ class AutoItGenerator {
 
                 return a > b ? 1 : a < b ? -1 : 0;
             })) {
-                if (idnames.has(fname.toLowerCase())) {
-                    throw new Error(`duplicated idl name ${ fqn }::${ fname }`);
-                }
-                idnames.add(fname.toLowerCase());
-
+                const idlname = fname;
                 const overrides = coclass.methods.get(fname);
-                FunctionDeclaration.declare(this, coclass, overrides, fname, fname, ++id, iidl, ipublic, impl, is_test, options);
+
+                // set constructor as the default behaviour of the object
+                if (fname === "create" && !has_disid_val && !coclass.methods.has("get_create")) {
+                    let set_dispid_value = true;
+
+                    for (const decl of overrides) {
+                        if (!set_dispid_value) {
+                            break;
+                        }
+
+                        const [, , func_modifiers] = decl;
+                        for (const modifier of func_modifiers) {
+                            if (!set_dispid_value) {
+                                break;
+                            }
+
+                            if (modifier.startsWith("/attr=")) {
+                                set_dispid_value = modifier.slice("/attr=".length) === "propget";
+                            } else if (modifier.startsWith("/id=")) {
+                                set_dispid_value = modifier.slice("/id=".length) === "DISPID_VALUE";
+                            } else if (modifier.startsWith("/idlname=")) {
+                                set_dispid_value = modifier.slice("/idlname=".length) === "create";
+                            } else if (modifier.startsWith("=")) {
+                                set_dispid_value = modifier.slice("=".length) === "get_create";
+                            }
+                        }
+                    }
+
+                    if (set_dispid_value) {
+                        fname = "get_create";
+
+                        for (const decl of overrides) {
+                            if (!set_dispid_value) {
+                                break;
+                            }
+
+                            const [, , func_modifiers] = decl;
+                            func_modifiers.push(...["/attr=propget", "=get_create", "/idlname=create", "/id=DISPID_VALUE"]);
+                        }
+                    }
+                }
+
+                FunctionDeclaration.declare(this, coclass, overrides, fname, idlname, iidl, ipublic, impl, is_test, options);
             }
 
             Array.from(coclass.properties.keys()).filter(idlname => {
                 const {modifiers} = coclass.properties.get(idlname);
                 return modifiers.includes("/Enum");
             }).forEach(idlname => {
-                PropertyDeclaration.writeProperty(this, iidl, impl, ipublic, iprivate, idnames, fqn, idlname, ++id, is_test, options);
+                PropertyDeclaration.writeProperty(this, iidl, impl, ipublic, iprivate, fqn, idlname, is_test, options);
             });
 
             if (is_idl_class) {
@@ -257,10 +349,10 @@ class AutoItGenerator {
             }
 
             // converter
-            conversion.convert(coclass, iglobal, impl, options);
+            conversion.convert(this, coclass, iglobal, impl, options);
 
             if (coclass.generate) {
-                coclass.generate(iglobal, iidl, impl, ipublic, iprivate, idnames, id, is_test, options);
+                coclass.generate(iglobal, iidl, impl, ipublic, iprivate, coclass.idlnames, is_test, options);
             }
 
             const hdr_id = `_${ coclass.getObjectName().toUpperCase() }_OBJECT_`;
@@ -313,10 +405,18 @@ class AutoItGenerator {
 
                 iglobal.unshift(`OBJECT_ENTRY_AUTO(__uuidof(${ cotype }), C${ cotype })`);
 
+                const dispimpl = coclass.dispimpl ? coclass.dispimpl : `I${ cotype }`;
+
                 const bases = [
                     "public CComObjectRootEx<CComSingleThreadModel>",
                     `public CComCoClass<C${ cotype }, &CLSID_${ cotype }>`,
-                    `public IDispatchImpl<I${ coclass.dispimpl ? coclass.dispimpl : cotype }, &IID_I${ cotype }, &LIBID_${ LIBRARY }, /*wMajor =*/ ${ VERSION_MAJOR }, /*wMinor =*/ ${ VERSION_MINOR }>`,
+                    `public ATL::IDispatchImpl<
+                        ${ dispimpl.split("\n").join(`\n${ " ".repeat(24) }`) },
+                        &IID_I${ cotype },
+                        &LIBID_${ LIBRARY },
+                        /*wMajor =*/ ${ VERSION_MAJOR },
+                        /*wMinor =*/ ${ VERSION_MINOR }
+                    >`.replace(/^ {20}/mg, ""),
                 ];
 
                 if (is_idl_class) {
@@ -339,7 +439,7 @@ class AutoItGenerator {
 
                 coclass.iface.header = `
                     class ATL_NO_VTABLE C${ cotype } :
-                        ${ bases.join(`,\n${ " ".repeat(24) }`) }
+                        ${ bases.join(",\n").split("\n").join(`\n${ " ".repeat(24) }`) }
                     {
                     public:
                         C${ cotype }()
@@ -440,12 +540,22 @@ class AutoItGenerator {
                 `.replace(/^ {20}/mg, "").trim().replace(/[^\S\n]+$/mg, "") + LF);
             }
 
+            if (!coclass.is_vector && !coclass.is_stdmap && coclass !== this.namedParameters) {
+                this.addDependency(fqn, this.namedParameters.fqn);
+            }
+
             const dependencies = this.dependencies.has(fqn) ?
                 this.getOrderedDependencies(new Set(this.dependencies.get(fqn).values()))
                 : [];
 
             const idl_deps = dependencies.filter(dependency => !dependency.noidl).map(dependency => {
-                return `import "${ dependency.iface.filename }";\ncpp_quote("#include \\"${ dependency.iface.filename.replace(".idl", ".h") }\\"")`;
+                const { filename, hdr_id: _hdr_id } = dependency.iface;
+                return [
+                    `#ifndef ${ _hdr_id }IDL_FILE_`,
+                    `import "${ filename }";`,
+                    `cpp_quote("#include \\"${ filename.replace(".idl", ".h") }\\"")`,
+                    "#endif\n"
+                ].join("\n");
             });
 
             if (dependencies.length !== 0) {
@@ -464,7 +574,7 @@ class AutoItGenerator {
                 import "ocidl.idl";
                 #endif
 
-                ${ idl_deps.join(`\n${ " ".repeat(16) }`) }
+                ${ idl_deps.join(`\n${ " ".repeat(16) }`).trim() }
 
                 ${ iface.definition.trim().split("\n").join(`\n${ " ".repeat(16) }`) }
                 #endif //  ${ hdr_id }IDL_FILE_
@@ -476,26 +586,7 @@ class AutoItGenerator {
 
             const includes = dependencies.map(dependency => `#include "${ dependency.getClassName() }.h"`);
 
-            if (coclass === this.namedParameters) {
-                includes.push(`\ntypedef ${ this.namedParameters.fqn } NamedParameters;\n`);
-            } else if (!coclass.is_vector && !coclass.is_stdmap) {
-                includes.push(`#include "${ this.namedParameters.getClassName() }.h"`);
-            }
-
             if (options.hdr !== false) {
-                const using = new Set([
-                    "ATL",
-                    this.namespace,
-                ]);
-
-                if (coclass.namespace) {
-                    // using.add(coclass.namespace);
-                }
-
-                if (coclass.include && coclass.include.namespace && coclass.include.namespace !== coclass.namespace) {
-                    // using.add(coclass.include.namespace);
-                }
-
                 coclass.cpp_quotes.unshift(`// C${ cotype }`);
 
                 files.set(sysPath.join(options.output, `${ className }.h`), `
@@ -510,8 +601,6 @@ class AutoItGenerator {
                     #if defined(_WIN32_WCE) && !defined(_CE_DCOM) && !defined(_CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA)
                     #error "Les objets COM monothread ne sont pas correctement pris en charge par les plateformes Windows CE, notamment les plateformes Windows Mobile qui ne prennent pas totalement en charge DCOM. Définissez _CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA pour forcer ATL à prendre en charge la création d'objets COM monothread et permettre l'utilisation de leurs implémentations. Le modèle de thread de votre fichier rgs a été défini sur 'Libre', car il s'agit du seul modèle de thread pris en charge par les plateformes Windows CE non-DCOM."
                     #endif
-
-                    ${ Array.from(using).map(namespace => `using namespace ${ namespace };`).join(`\n${ " ".repeat(20) }`) }
 
                     ${ iface.header.split("\n").join(`\n${ " ".repeat(20) }`).trim() }
 
@@ -532,7 +621,10 @@ class AutoItGenerator {
         const _conversions = custom_conversions.map(fn => fn([], [], options));
 
         if (options.hdr !== false) {
-            files.set(sysPath.join(options.output, "generated_include.h"), generated_include.join("\n").trim().replace(/[^\S\n]+$/mg, "") + LF);
+            files.set(
+                sysPath.join(options.output, "generated_include.h"),
+                `#pragma once\n\n${ generated_include.join("\n").trim().replace(/[^\S\n]+$/mg, "") }${ LF }`
+            );
 
             const bridge_header = [
                 `
@@ -547,6 +639,7 @@ class AutoItGenerator {
                 #endif
 
                 #include "targetver.h"
+                #include "autoit_bridge_common.h"
 
                 #define _ATL_APARTMENT_THREADED
 
@@ -563,54 +656,82 @@ class AutoItGenerator {
                 #include "${ LIBRARY }.h"
                 #include "generated_include.h"
 
-                using namespace ${ this.namespace };
+                ${ Array.from(this.typedefs).map(([fqn, cpptype]) => {
+                    const parts = fqn.split("::");
+                    const last = parts.length - 1;
+                    const begin = new Array(last);
+                    const end = new Array(last);
+                    for (let i = 0; i < last; i++) {
+                        const indent = " ".repeat(4 * i);
+                        begin[i] = `${ indent }namespace ${ parts[i] } {`;
+                        end[last - 1 - i] = `${ indent }}`;
+                    }
 
-                ${ Array.from(this.typedefs).map(([fqn, cpptype]) => `typedef ${ cpptype } ${ fqn };`).join(`\n${ " ".repeat(16) }`) }
+                    const name = parts[last];
+                    const indent = " ".repeat(4 * (last));
+                    return begin.concat(`${ indent }typedef ${ cpptype } ${ name };`, end).join("\n");
+                }).join("\n").split("\n").join(`\n${ " ".repeat(16) }`) }
 
                 `.replace(/^ {16}/mg, ""),
+
                 conversion.number.declare("char", "CHAR", options), "",
-                conversion.number.declare("uchar", "BYTE", options), "",
+                conversion.number.declare("unsigned char", "BYTE", options), "",
                 conversion.number.declare("short", "SHORT", options), "",
-                conversion.number.declare("ushort", "USHORT", options), "",
+                conversion.number.declare("unsigned short", "USHORT", options), "",
                 conversion.number.declare("int", "LONG", options), "",
-                conversion.number.declare("uint", "ULONG", options), "",
+                conversion.number.declare("unsigned int", "ULONG", options), "",
                 conversion.number.declare("long", "LONG", options), "",
                 conversion.number.declare("unsigned long", "ULONG", options), "",
                 conversion.number.declare("float", "float", options), "",
                 conversion.number.declare("double", "double", options), "",
-                conversion.number.declare("int64", "LONGLONG", options), "",
+                conversion.number.declare("int64_t", "LONGLONG", options), "",
                 conversion.number.declare("size_t", "ULONGLONG", options), "",
             ];
 
-            _conversions.forEach(cvt => {
-                bridge_header.push(cvt[0], "");
+            _conversions.forEach(([header]) => {
+                const text = header.trim();
+                if (text.length !== 0) {
+                    bridge_header.push(text, "");
+                }
             });
 
             bridge_header.push("");
 
             files.set(sysPath.join(options.output, "autoit_bridge_generated.h"), bridge_header.join("\n").trim().replace(/[^\S\n]+$/mg, "") + LF);
+
+            const pch_header = [
+                "#pragma once\n",
+                "#include \"autoit_bridge.h\"\n",
+            ];
+            pch_header.push(...Array.from(this.classes.entries()).map(([, coclass]) => {
+                return `#include "${ coclass.getClassName() }.h"`;
+            }).sort());
+
+            files.set(sysPath.join(options.output, "autoit_bridge_generated_pch.h"), pch_header.join("\n").trim().replace(/[^\S\n]+$/mg, "") + LF);
         }
 
         const bridge_impl = [
-            "#pragma once\n",
-            "#include \"autoit_bridge_generated.h\"\n",
+            "#include \"autoit_bridge.h\"", "",
             conversion.number.define("char", "CHAR", options), "",
-            conversion.number.define("uchar", "BYTE", options), "",
+            conversion.number.define("unsigned char", "BYTE", options), "",
             conversion.number.define("short", "SHORT", options), "",
-            conversion.number.define("ushort", "USHORT", options), "",
+            conversion.number.define("unsigned short", "USHORT", options), "",
             conversion.number.define("int", "LONG", options), "",
-            conversion.number.define("uint", "ULONG", options), "",
+            conversion.number.define("unsigned int", "ULONG", options), "",
             conversion.number.define("long", "LONG", options), "",
             conversion.number.define("unsigned long", "ULONG", options), "",
             conversion.number.define("float", "float", options), "",
             conversion.number.define("double", "double", options), "",
-            conversion.number.define("int64", "LONGLONG", options), "",
+            conversion.number.define("int64_t", "LONGLONG", options), "",
             conversion.number.define("size_t", "ULONGLONG", options), "",
             ""
         ];
 
-        _conversions.forEach(cvt => {
-            bridge_impl.push(cvt[1], "");
+        _conversions.forEach(([, impl]) => {
+            const text = impl.trim();
+            if (text.length !== 0) {
+                bridge_impl.push(text, "");
+            }
         });
 
         bridge_impl.push("");
@@ -689,7 +810,7 @@ class AutoItGenerator {
         const constReplacer = options.constReplacer || new Map();
 
         const getPrefixVariableName = prefix => {
-            prefix = prefix.split(".").join("_").replace(/[a-z][A-Z]/g, match => `${ match[0] }_${ match[1] }`).toUpperCase();
+            prefix = prefix.replaceAll(".", "_").replace(/[a-z][A-Z]/g, match => `${ match[0] }_${ match[1] }`).toUpperCase();
             return (options.global_prefix ? options.global_prefix : "") + prefix;
         };
 
@@ -707,7 +828,7 @@ class AutoItGenerator {
 
             ename = path[path.length - 1];
 
-            return `; ${ ename === "<unnamed>" ? "anonymous" : ename }\n${ Array.from(values).map(([name, value]) => {
+            return `; ${ path.slice(0, -1).join("::") }::${ ename === "<unnamed>" ? "anonymous" : ename }\n${ Array.from(values).map(([name, value]) => {
                 const pos = name.lastIndexOf(".");
                 const prefix = name.slice(0, pos);
                 const vkey = name.slice(pos + 1);
@@ -797,7 +918,7 @@ class AutoItGenerator {
                                 doctoc_to_generate.add(filename);
                             }
 
-                            if (!filename.endsWith(".idl")) {
+                            if (!filename.endsWith(".idl") || options.skip.has("idl")) {
                                 next();
                                 return;
                             }
@@ -845,7 +966,7 @@ class AutoItGenerator {
                     const dirname = sysPath.dirname(filename);
                     const basename = sysPath.basename(filename, ".idl");
 
-                    const child = spawn("midl.exe", options.includes.map(path => `/I${ path }`).concat([
+                    const argv = options.includes.map(path => `/I${ path }`).concat([
                         `/I${ dirname }`,
                         "/W1", "/nologo",
                         "/char", "signed",
@@ -854,12 +975,45 @@ class AutoItGenerator {
                         "/iid", `${ basename }_i.c`,
                         "/proxy", `${ basename }_p.c`,
                         "/tlb", `${ basename }.tlb`,
-                        "/target", "NT60",
+                        "/target", "NT100",
                         `/out${ dirname }`,
                         filename
-                    ]), {
-                        stdio: "inherit"
+                    ]);
+
+                    console.log("midl.exe", argv.map(arg => arg.includes(" ") ? `"${ arg }"` : arg).join(" "));
+
+                    const child = spawn("midl.exe", argv);
+
+                    const stdout = [];
+                    let nout = 0;
+                    const stderr = [];
+                    let nerr = 0;
+
+                    child.stdout.on("data", chunk => {
+                        nout += chunk.length;
+                        stdout.push(chunk);
                     });
+
+                    child.stderr.on("data", chunk => {
+                        nerr += chunk.length;
+                        stderr.push(chunk);
+                    });
+
+                    const _next = next;
+
+                    next = (err, ...args) => {
+                        if (err) {
+                            if (nout !== 0) {
+                                process.stdout.write(Buffer.concat(stdout, nout));
+                            }
+
+                            if (nerr !== 0) {
+                                process.stderr.write(Buffer.concat(stderr, nerr));
+                            }
+                        }
+
+                        _next(err, ...args);
+                    };
 
                     child.on("error", next);
                     child.on("close", next);
@@ -896,12 +1050,13 @@ class AutoItGenerator {
         ], cb);
     }
 
-    add_class(decl) {
+    add_class(decl, options = {}) {
         const [name, base, list_of_modifiers, properties] = decl;
+        const parents = base ? base.slice(": ".length).split(", ") : [];
         const path = name.slice(name.indexOf(" ") + 1).split(".");
         const fqn = path.join("::");
 
-        const coclass = this.getCoClass(fqn);
+        const coclass = this.getCoClass(fqn, options);
 
         coclass.is_class = name.startsWith("class ");
         coclass.is_struct = name.startsWith("struct ");
@@ -934,8 +1089,6 @@ class AutoItGenerator {
             coclass.addProperty(property);
         }
 
-        const parents = base ? base.slice(": ".length).split(", ") : [];
-
         this.bases.set(fqn, new Set());
 
         for (const parent of parents) {
@@ -953,9 +1106,13 @@ class AutoItGenerator {
 
             this.derives.get(parent).add(fqn);
         }
+
+        if (typeof options.onClass === "function") {
+            options.onClass(this, coclass, options);
+        }
     }
 
-    add_enum(decl) {
+    add_enum(decl, options = {}) {
         const [name, , , enums] = decl;
 
         let start = 0;
@@ -988,7 +1145,7 @@ class AutoItGenerator {
             this.enums.set(fqn, decl);
         }
 
-        this.getCoClass(path.slice(0, -1).join("::")).addEnum(fqn);
+        this.getCoClass(path.slice(0, -1).join("::"), options).addEnum(fqn);
 
         for (const edecl of enums) {
             const [ename] = edecl;
@@ -1003,7 +1160,7 @@ class AutoItGenerator {
                 continue;
             }
 
-            if (this.options.noEnumExport) {
+            if (options.noEnumExport) {
                 continue;
             }
 
@@ -1020,7 +1177,7 @@ class AutoItGenerator {
             // https://docs.microsoft.com/en-us/windows/win32/com/com-technical-overview
             // https://docs.microsoft.com/it-ch/office/vba/language/reference/user-interface-help/bad-interface-for-implements-method-has-underscore-in-name
             const basename = epath[epath.length - 1];
-            const coclass = this.getCoClass(epath.slice(0, -1).join("::"));
+            const coclass = this.getCoClass(epath.slice(0, -1).join("::"), options);
             coclass.addProperty(["int", `${ basename }_`, `static_cast<int>(${ epath.join("::") })`, ["/R", "/S", "/Enum", `=${ basename }`]]);
         }
     }
@@ -1032,7 +1189,7 @@ class AutoItGenerator {
             return this.classes.get(objectName);
         }
 
-        const coclass = this.getCoClass(objectName);
+        const coclass = this.getCoClass(objectName, options);
         coclass.is_simple = true;
         coclass.is_class = true;
 
@@ -1050,10 +1207,10 @@ class AutoItGenerator {
         return vector_conversion.declare(this, type, parent, options);
     }
 
-    add_func(decl) {
+    add_func(decl, options = {}) {
         const [name, , list_of_modifiers, properties] = decl;
         const path = name.split(".");
-        const coclass = this.getCoClass(path.slice(0, -1).join("::"));
+        const coclass = this.getCoClass(path.slice(0, -1).join("::"), options);
         if (list_of_modifiers.includes("/Properties")) {
             for (const property of properties) {
                 coclass.addProperty(property);
@@ -1063,7 +1220,7 @@ class AutoItGenerator {
         }
     }
 
-    getCoClass(fqn) {
+    getCoClass(fqn, options = {}) {
         if (this.classes.has(fqn)) {
             return this.classes.get(fqn);
         }
@@ -1074,30 +1231,36 @@ class AutoItGenerator {
         for (let i = 0; i < path.length; i++) {
             const prefix = path.slice(0, i + 1).join("::");
 
-            if (!this.classes.has(prefix)) {
-                this.classes.set(prefix, new CoClass(prefix));
+            if (this.classes.has(prefix)) {
+                coclass = this.classes.get(prefix);
+                continue;
+            }
 
-                if (typeof this.options.progid === "function") {
-                    const progid = this.options.progid(this.classes.get(prefix).progid);
-                    if (progid) {
-                        this.classes.get(prefix).progid = progid;
-                    }
-                }
+            coclass = new CoClass(prefix);
+            this.classes.set(prefix, coclass);
 
-                for (let j = i; j >= 0; j--) {
-                    const namespace = path.slice(0, j + 1).join("::");
-                    if (this.namespaces.has(namespace)) {
-                        this.classes.get(prefix).namespace = namespace;
-                        break;
-                    }
-                }
-
-                if (coclass !== null) {
-                    // coclass.addProperty([prefix, path[i], "", ["/R"]]);
+            if (typeof options.progid === "function") {
+                const progid = options.progid(coclass.progid);
+                if (progid) {
+                    coclass.progid = progid;
                 }
             }
 
-            coclass = this.classes.get(prefix);
+            for (let j = i; j >= 0; j--) {
+                const namespace = path.slice(0, j + 1).join("::");
+                if (this.namespaces.has(namespace)) {
+                    coclass.namespace = namespace;
+                    break;
+                }
+            }
+
+            if (coclass !== null) {
+                // coclass.addProperty([prefix, path[i], "", ["/R"]]);
+            }
+
+            if (typeof options.onCoClass === "function") {
+                options.onCoClass(this, coclass, options);
+            }
         }
 
         return coclass;
@@ -1107,7 +1270,7 @@ class AutoItGenerator {
         const shared_ptr = removeNamespaces(options.shared_ptr, options);
         type = PropertyDeclaration.restoreOriginalType(removeNamespaces(type, options), options);
 
-        if (type === "IUnknown*" || type === "IEnumVARIANT*" || type === "VARIANT*" || type === "VARIANT") {
+        if (type === "IUnknown*" || type === "IEnumVARIANT*" || type === "IDispatch*" || type === "VARIANT*" || type === "VARIANT") {
             return type;
         }
 
@@ -1210,7 +1373,14 @@ class AutoItGenerator {
         const type_ = type;
         type = PropertyDeclaration.restoreOriginalType(removeNamespaces(type, options), options);
 
-        if (type === "IUnknown*" || type === "IEnumVARIANT*" || type === "VARIANT*" || type === "VARIANT" || type === "_variant_t") {
+        if (
+            type === "IUnknown*" ||
+            type === "IEnumVARIANT*" ||
+            type === "IDispatch*" ||
+            type === "VARIANT*" ||
+            type === "VARIANT" ||
+            type === "_variant_t"
+        ) {
             return type;
         }
 
@@ -1253,7 +1423,7 @@ class AutoItGenerator {
 
         for (const fqn of this.getTypes(type, include)) {
             if (this.enums.has(fqn)) {
-                return "int";
+                return fqn;
             }
 
             if (options.variantTypeReg && options.variantTypeReg.test(fqn)) {
@@ -1272,22 +1442,92 @@ class AutoItGenerator {
         return options.implicitNamespaceType && options.implicitNamespaceType.test(type) ? `${ this.namespace }::${ type }` : type_;
     }
 
-    castAsEnumIfNeeded(type, value, coclass) {
-        for (const fqn of this.getTypes(type, coclass)) {
-            if (this.enums.has(fqn)) {
-                return `static_cast<${ fqn }>(${ value })`;
+    setAssignOperator(type, coclass, options) {
+        const cpptype = this.getCppType(type, coclass, options);
+
+        if (cpptype.startsWith("std::vector<")) {
+            this.setAssignOperator(type.slice("std::vector<".length, -">".length), coclass, options);
+        } else if (type.startsWith("std::tuple<")) {
+            const types = PropertyDeclaration.getTupleTypes(type.slice("std::tuple<".length, -">".length));
+            for (const ttype of types) {
+                this.setAssignOperator(ttype, coclass, options);
             }
+        } else if (type.startsWith("std::map<")) {
+            const types = PropertyDeclaration.getTupleTypes(type.slice("std::map<".length, -">".length));
+            for (const ttype of types) {
+                this.setAssignOperator(ttype, coclass, options);
+            }
+        } else if (type.startsWith("std::pair<")) {
+            const types = PropertyDeclaration.getTupleTypes(type.slice("std::pair<".length, -">".length));
+            for (const ttype of types) {
+                this.setAssignOperator(ttype, coclass, options);
+            }
+        } else if (this.classes.has(cpptype)) {
+            this.classes.get(cpptype).has_assign_operator = true;
+        }
+    }
+
+    getEnumType(type, coclass, options = {}) {
+        let include = coclass;
+        while (include.include) {
+            include = include.include;
+        }
+
+        for (const fqn of this.getTypes(type, include)) {
+            if (this.enums.has(fqn)) {
+                return fqn;
+            }
+        }
+
+        return null;
+    }
+
+    castAsEnumIfNeeded(type, value, coclass, options = {}) {
+        const fqn = this.getEnumType(type, coclass, options);
+        return fqn === null ? value : `static_cast<${ fqn }>(${ value })`;
+    }
+
+    castFromEnumIfNeeded(type, value, coclass) {
+        let include = coclass;
+        while (include.include) {
+            include = include.include;
+        }
+
+        if (this.getTypes(type, include).some(fqn => this.enums.has(fqn))) {
+            return `static_cast<int>(${ value })`;
         }
 
         return value;
     }
 
-    castFromEnumIfNeeded(type, value, coclass) {
-        if (this.getTypes(type, coclass).some(fqn => this.enums.has(fqn))) {
-            return `static_cast<int>(${ value })`;
-        }
+    as_stl_enum(coclass, iterator) {
+        const {fqn} = coclass;
+        const cotype = coclass.getClassName();
+        const ICollection = `
+            ATL::IAutoItCollectionEnumOnSTLImpl<
+                I${ cotype },
+                ${ fqn },
+                ATL::CComEnumOnSTL<
+                    IEnumVARIANT,
+                    &IID_IEnumVARIANT,
+                    VARIANT,
+                    ::autoit::GenericCopy<${ iterator }>,
+                    ${ fqn }
+                >,
+                AutoItObject<${ fqn }>
+            >
+            `.trim().replace(/^ {12}/mg, "");
 
-        return value;
+        coclass.dispimpl = ICollection;
+
+        coclass.addMethod([`${ fqn }.get__NewEnum`, "IUnknown*", [
+            "/attr=propget",
+            "/attr=restricted",
+            "/id=DISPID_NEWENUM",
+            "/idlname=_NewEnum",
+            "=get__NewEnum",
+            "/IDL"
+        ], [], "", ""]);
     }
 
     setReturn(returns, idltype, argname) {
@@ -1323,6 +1563,23 @@ class AutoItGenerator {
 
         this.dependents.get(dependency).add(dependent);
         this.dependencies.get(dependent).add(dependency);
+    }
+
+    defineNamedParameters(options) {
+        const {key_type, value_type} = this.classes.get(this.add_map("map<string, _variant_t>", {}, options));
+        const coclass = this.classes.get("NamedParameters");
+        coclass.key_type = key_type;
+        coclass.value_type = value_type;
+        const {fqn} = coclass;
+
+        coclass.addMethod([`${ fqn }.create`, `${ options.shared_ptr }<${ coclass.name }>`, ["/External", "/S"], [
+            [`std::vector<std::pair<${ key_type }, ${ value_type }>>`, "pairs", "", []],
+        ], "", ""]);
+
+        // make NamedParameters to be recognized as a collection
+        this.as_stl_enum(coclass, `std::pair<const ${ key_type }, ${ value_type }>`);
+
+        this.namedParameters = coclass;
     }
 
     getSignatures(coclass, options) {

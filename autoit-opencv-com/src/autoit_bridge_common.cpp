@@ -113,6 +113,13 @@ const HRESULT autoit_from(const bool& in_val, VARIANT_BOOL*& out_val) {
 	return S_OK;
 }
 
+const HRESULT autoit_from(const bool& in_val, VARIANT*& out_val) {
+	VariantClear(out_val);
+	V_VT(out_val) = VT_BOOL;
+	V_BOOL(out_val) = in_val ? VARIANT_TRUE : VARIANT_FALSE;
+	return S_OK;
+}
+
 const bool is_assignable_from(std::string& out_val, BSTR const& in_val, bool is_optional) {
 	return true;
 }
@@ -255,6 +262,8 @@ const bool is_variant_number(VARIANT const* const& in_val) {
 	case VT_UI4:
 	case VT_UI8:
 	case VT_UINT:
+	case VT_R4:
+	case VT_R8:
 		return true;
 	default:
 		return false;
@@ -284,7 +293,7 @@ const HRESULT GetInterfaceName(IUnknown* punk, VARIANT* vres) {
 }
 
 const bool is_assignable_from(_variant_t& out_val, VARIANT const* const& in_val, bool is_optional) {
-	return is_optional || !PARAMETER_MISSING(in_val);
+	return true;
 }
 
 const HRESULT autoit_to(VARIANT const* const& in_val, _variant_t& out_val) {

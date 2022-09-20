@@ -24,6 +24,7 @@
 @SET install_user=0
 @SET uninstall_user=0
 @SET DEBUG_PREFIX=
+@SET INT_DIR=Release
 
 @SET nparms=20
 :LOOP
@@ -33,6 +34,7 @@
 @IF [%1] == [/i:user] @SET install_user=1
 @IF [%1] == [/u:user] @SET uninstall_user=1
 @IF [%1] == [/d] @SET DEBUG_PREFIX=d
+@IF [%1] == [/d] @SET INT_DIR=Debug
 @SET /a nparms -=1
 @SHIFT
 @GOTO LOOP
@@ -41,8 +43,8 @@
 @SET DLLDIRNAME=
 @SET DLLNAME=autoit_opencv_com460%DEBUG_PREFIX%.dll
 
-@IF EXIST "%CD%\build_x64\Release\%DLLNAME%" SET "DLLDIRNAME=%CD%\build_x64\Release\"
-@IF EXIST "%CD%\build_x64\Debug\%DLLNAME%" SET "DLLDIRNAME=%CD%\build_x64\Debug\"
+@IF EXIST "%CD%\build_x64\%INT_DIR%\%DLLNAME%" @SET "DLLDIRNAME=%CD%\build_x64\%INT_DIR%\"
+@IF EXIST "%CD%\..\opencv-4.6.0-vc14_vc15\opencv\build\x64\vc15\bin" @SET "PATH=%CD%\..\opencv-4.6.0-vc14_vc15\opencv\build\x64\vc15\bin;%PATH%"
 
 @SET DLLNAME=%DLLDIRNAME%%DLLNAME%
 

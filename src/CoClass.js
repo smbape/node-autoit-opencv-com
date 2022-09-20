@@ -41,6 +41,8 @@ class CoClass {
         this.objectName = CoClass.getObjectName(this.fqn);
         this.idl = `I${ this.className }*`;
         this.parents = new Set();
+        this.children = new Set();
+        this.idlnames = new Map();
         this.properties = new Map();
         this.methods = new Map();
         this.enums = new Set();
@@ -97,7 +99,7 @@ class CoClass {
     }
 
     addMethod(decl) {
-        const [name, return_value_type, list_of_modifiers, list_of_arguments] = decl;
+        const [name, , list_of_modifiers, list_of_arguments] = decl;
         const path = name.split(".");
 
         let fname = path[path.length - 1];
@@ -119,9 +121,6 @@ class CoClass {
 
             if (list_of_arguments.length === 0 || !list_of_arguments.some(([argtype, argname, defval]) => defval === "")) {
                 this.has_default_constructor = true;
-                if (return_value_type === "") {
-                    this.has_assign_operator = true;
-                }
             }
         }
 
@@ -135,7 +134,53 @@ class CoClass {
             this.methods.set(fname, []);
         }
 
-        this.methods.get(fname).push(decl);
+        const signature = JSON.stringify(decl);
+        if (!this.methods.get(fname).some(idecl => JSON.stringify(idecl) === signature)) {
+            this.methods.get(fname).push(decl);
+        }
+    }
+
+    addIDLName(idlname, fname, id) {
+        const lidlname = idlname.toLowerCase();
+
+        if (!this.idlnames.has(lidlname)) {
+            if (id == null) {
+                id = this.idlnames.size + 1;
+            }
+
+            this.idlnames.set(lidlname, [idlname, id, fname]);
+            return id;
+        }
+
+        const [prev_idlname, prev_id, ...fnames] = this.idlnames.get(lidlname);
+
+        if (prev_idlname !== idlname) {
+            throw new Error(`case mismatch idl name for ${ this.fqn } : ${ idlname }( ${ fname } ) != ${ prev_idlname }( ${ fnames.join(", ") } )`);
+        }
+
+        if (!fnames.includes(fname)) {
+            const getter = `get_${ idlname }`;
+            const setter = `put_${ idlname }`;
+            if (fname !== getter && fname !== setter) {
+                throw new Error(`duplicated idl name ${ idlname } = ${ this.fqn }::${ fname }, ${ fnames.join(", ") }`);
+            }
+            this.idlnames.get(lidlname).push(fname);
+        }
+
+        if (id != null && id !== prev_id) {
+            throw new Error(`multiple id for the same idlname [${ id }] ${ idlname } = ${ this.fqn }::${ fname }, ${ fnames.join(", ") }`);
+        }
+
+        return prev_id;
+    }
+
+    getIDLNameId(idlname) {
+        idlname = idlname.toLowerCase();
+        if (!this.idlnames.has(idlname)) {
+            throw new Error(`unknown idl idlname ${ this.fqn }::${ idlname }`);
+        }
+        const [, id] = this.idlnames.get(idlname);
+        return id;
     }
 
     getIDLType() {

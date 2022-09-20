@@ -19,16 +19,17 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 add_compile_options(/MP)
 
 set(OPENCV_DOWNLOAD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/..")
+set(OPENCV_VERSION 4.6.0)
 
 # Tell cmake we will need opencv.
 include(ExternalProject)
 ExternalProject_Add(opencv
-  URL               https://github.com/opencv/opencv/releases/download/4.6.0/opencv-4.6.0-vc14_vc15.exe
+  URL               https://github.com/opencv/opencv/releases/download/${OPENCV_VERSION}/opencv-${OPENCV_VERSION}-vc14_vc15.exe
   URL_HASH          SHA256=3fb046e14dc5b50719a86ea0395b5b1e3299e2343111ebd2e31828aa31d6d477
   DOWNLOAD_NO_EXTRACT TRUE
   DOWNLOAD_DIR      "${OPENCV_DOWNLOAD_DIR}"
-  CONFIGURE_COMMAND "${OPENCV_DOWNLOAD_DIR}/opencv-4.6.0-vc14_vc15.exe" "-o${OPENCV_DOWNLOAD_DIR}/opencv-4.6.0-vc14_vc15" -y
-  BUILD_COMMAND     patch -p 1 -d "${OPENCV_DOWNLOAD_DIR}/opencv-4.6.0-vc14_vc15/opencv/sources/" -i "${CMAKE_CURRENT_SOURCE_DIR}/patches/001-opencv-src.patch"
+  CONFIGURE_COMMAND "${OPENCV_DOWNLOAD_DIR}/opencv-${OPENCV_VERSION}-vc14_vc15.exe" "-o${OPENCV_DOWNLOAD_DIR}/opencv-${OPENCV_VERSION}-vc14_vc15" -y
+  BUILD_COMMAND     patch -p 1 -d "${OPENCV_DOWNLOAD_DIR}/opencv-${OPENCV_VERSION}-vc14_vc15/opencv/sources/" -i "${CMAKE_CURRENT_SOURCE_DIR}/patches/001-opencv-src.patch"
   INSTALL_COMMAND   ""
 )
 
@@ -83,10 +84,8 @@ set(SRC_FILES
 # Build a shared library named as the project
 add_library(${PROJECT_NAME} SHARED ${SRC_FILES})
 target_precompile_headers(${PROJECT_NAME} PRIVATE
-  "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/src/autoit_bridge.h>"
-  "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/src/wgc/pch.h>"
+  "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/generated/autoit_bridge_generated_pch.h>"
 )
-set_source_files_properties(src/autoit_bridge.cpp PROPERTIES COMPILE_FLAGS "/MP1")
 
 target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS})
 
@@ -103,7 +102,6 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 
 target_include_directories(${PROJECT_NAME} PUBLIC "src")
 target_include_directories(${PROJECT_NAME} PUBLIC "generated")
-target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.dir/${CMAKE_CFG_INTDIR}")
 
 # /Zc:__cplusplus is required to make __cplusplus accurate
 # /Zc:__cplusplus is available starting with Visual Studio 2017 version 15.7
@@ -113,8 +111,17 @@ target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_BINARY_DIR}/$
 # CMake's ${MSVC_VERSION} is equivalent to _MSC_VER
 # (according to https://cmake.org/cmake/help/latest/variable/MSVC_VERSION.html#variable:MSVC_VERSION)
 if ((MSVC) AND (MSVC_VERSION GREATER_EQUAL 1914))
-  target_compile_options(${PROJECT_NAME} PUBLIC "/Zc:__cplusplus")
+  target_compile_options(${PROJECT_NAME} PRIVATE "/Zc:__cplusplus")
+  target_compile_options(${PROJECT_NAME} PRIVATE "/bigobj")
 endif()
+
+IF ((WIN32) AND CMAKE_GENERATOR STREQUAL Ninja)
+  target_compile_options(${PROJECT_NAME} PRIVATE "/Zc:__cplusplus")
+  target_compile_options(${PROJECT_NAME} PRIVATE "/bigobj")
+  target_compile_definitions(${PROJECT_NAME} PRIVATE WIN32)
+  target_compile_definitions(${PROJECT_NAME} PRIVATE _WINDOWS)
+  target_compile_definitions(${PROJECT_NAME} PRIVATE _WINDLL)
+ENDIF()
 
 get_filename_component(VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/.." REALPATH)
 file(TO_NATIVE_PATH "${VS_DEBUGGER_WORKING_DIRECTORY}" VS_DEBUGGER_WORKING_DIRECTORY)
@@ -140,7 +147,7 @@ set_source_files_properties(test/test.cpp PROPERTIES COMPILE_FLAGS "/MP1")
 
 target_link_libraries(cpp_test PRIVATE ${PROJECT_NAME} "windowsapp.lib" "dwmapi.lib")
 set_property(TARGET cpp_test PROPERTY VS_DEBUGGER_ENVIRONMENT "PATH=${OpenCV_BINARY_DIR};%PATH%\nOPENCV_SAMPLES_DATA_PATH=${OPENCV_SAMPLES_DATA_PATH}")
-set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT cpp_test)
+set_property(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}" PROPERTY VS_STARTUP_PROJECT cpp_test)
 
 # /Zc:__cplusplus is required to make __cplusplus accurate
 # /Zc:__cplusplus is available starting with Visual Studio 2017 version 15.7
@@ -150,8 +157,13 @@ set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT c
 # CMake's ${MSVC_VERSION} is equivalent to _MSC_VER
 # (according to https://cmake.org/cmake/help/latest/variable/MSVC_VERSION.html#variable:MSVC_VERSION)
 if ((MSVC) AND (MSVC_VERSION GREATER_EQUAL 1914))
-  target_compile_options(cpp_test PUBLIC "/Zc:__cplusplus")
+  target_compile_options(cpp_test PRIVATE "/Zc:__cplusplus")
 endif()
+
+IF ((WIN32) AND CMAKE_GENERATOR STREQUAL Ninja)
+  target_compile_definitions(cpp_test PRIVATE WIN32)
+  target_compile_definitions(cpp_test PRIVATE _WINDOWS)
+ENDIF()
 
 # ===============
 # cs_test target

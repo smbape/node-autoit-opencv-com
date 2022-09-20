@@ -36,12 +36,12 @@ exports.IDL_TYPES = new Map([
 ]);
 
 exports.CPP_TYPES = new Map([
-    ["InputArray", "_InputArray"],
-    ["InputArrayOfArrays", "_InputArray"],
-    ["InputOutputArray", "_InputOutputArray"],
-    ["InputOutputArrayOfArrays", "_InputOutputArray"],
-    ["OutputArray", "_OutputArray"],
-    ["OutputArrayOfArrays", "_OutputArray"],
+    ["InputArray", "cv::_InputArray"],
+    ["InputArrayOfArrays", "cv::_InputArray"],
+    ["InputOutputArray", "cv::_InputOutputArray"],
+    ["InputOutputArrayOfArrays", "cv::_InputOutputArray"],
+    ["OutputArray", "cv::_OutputArray"],
+    ["OutputArrayOfArrays", "cv::_OutputArray"],
 
     ["c_string", "char*"],
     ["dnn_Backend", "cv::dnn::Backend"],
@@ -91,6 +91,8 @@ exports.CPP_TYPES = new Map([
     ["RgbdNormals_RgbdNormalsMethod", "cv::RgbdNormals::RgbdNormalsMethod"],
     ["GStreamerSource_OutputType", "cv::gapi::wip::gst::GStreamerSource::OutputType"],
     ["OriginalClassName_Params", "cv::utils::nested::OriginalClassName::Params"],
+
+    ["GMetaArg", "cv::GMetaArg"],
 ]);
 
 exports.ALIASES = new Map([
@@ -161,13 +163,17 @@ exports.ARRAYS_CLASSES = new Set([
     "VectorOfVectorOfPoint2f", // Array of Array of Array of 2 numbers
 ]);
 
-exports.IGNORED_CLASSES = new Set([
-    "cv::cuda::GpuData"
-]);
+exports.IGNORED_CLASSES = new Set([]);
 
 for (const type of exports.CPP_TYPES.keys()) {
     const cpptype = exports.CPP_TYPES.get(type);
-    if (cpptype[0] !== "_" && !cpptype.includes("<") && !type.includes("string") && !type.includes("String") && !exports.ALIASES.has(cpptype)) {
+    if (cpptype[0] !== "_" &&
+        !cpptype.startsWith("cv::_")
+        && !cpptype.includes("<")
+        && !type.includes("string")
+        && !type.includes("String")
+        && !exports.ALIASES.has(cpptype)
+    ) {
         exports.ALIASES.set(type, cpptype);
     }
 }

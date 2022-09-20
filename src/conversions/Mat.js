@@ -1,4 +1,12 @@
+const Point = "cv::Point";
+
 module.exports = (header = [], impl = [], options = {}) => {
+    impl.push(`
+        #include "Cv_Mat_Object.h"
+    `.trim().replace(/^ {8}/mg, ""));
+
+    impl.push("");
+
     for (const args of [
         [
             ["int", "i0", "", []],
@@ -13,17 +21,16 @@ module.exports = (header = [], impl = [], options = {}) => {
             ["int", "i2", "", []],
         ],
         [
-            ["Point", "pt", "", []],
+            [Point, "pt", "", []],
         ],
     ]) {
-        const argdecl = args.map(([argtype, argname]) => `${ argtype }${ argtype === "Point" ? "&" : "" } ${ argname }`).join(", ");
+        const argdecl = args.map(([argtype, argname]) => `${ argtype }${ argtype === Point ? "&" : "" } ${ argname }`).join(", ");
         const argexpr = args.map(([, argname]) => argname).join(", ");
 
         impl.push(`
-            #include "Cv_Mat_Object.h"
-
-            const Point2d CCv_Mat_Object::Point_at(${ argdecl }, HRESULT& hr) {
-                const auto& m = *this->__self->get();
+            const cv::Point2d CCv_Mat_Object::Point_at(${ argdecl }, HRESULT& hr) {
+                using namespace cv;
+                const auto& m = *__self->get();
 
                 switch (m.depth()) {
                 case CV_8U:
@@ -47,7 +54,7 @@ module.exports = (header = [], impl = [], options = {}) => {
             }
 
             const double CCv_Mat_Object::at(${ argdecl }, HRESULT& hr) {
-                const auto& m = *this->__self->get();
+                const auto& m = *__self->get();
 
                 switch (m.depth()) {
                 case CV_8U:
@@ -71,7 +78,7 @@ module.exports = (header = [], impl = [], options = {}) => {
             }
 
             void CCv_Mat_Object::set_at(${ argdecl }, double value, HRESULT& hr) {
-                auto& m = *this->__self->get();
+                auto& m = *__self->get();
 
                 switch (m.depth()) {
                 case CV_8U:

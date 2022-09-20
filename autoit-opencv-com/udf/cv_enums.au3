@@ -1,13 +1,13 @@
 #include-once
 #include "cv_interface.au3"
 
-; SortFlags
+; cv::SortFlags
 Global Const $CV_SORT_EVERY_ROW = 0
 Global Const $CV_SORT_EVERY_COLUMN = 1
 Global Const $CV_SORT_ASCENDING = 0
 Global Const $CV_SORT_DESCENDING = 16
 
-; CovarFlags
+; cv::CovarFlags
 Global Const $CV_COVAR_SCRAMBLED = 0
 Global Const $CV_COVAR_NORMAL = 1
 Global Const $CV_COVAR_USE_AVG = 2
@@ -15,37 +15,37 @@ Global Const $CV_COVAR_SCALE = 4
 Global Const $CV_COVAR_ROWS = 8
 Global Const $CV_COVAR_COLS = 16
 
-; KmeansFlags
+; cv::KmeansFlags
 Global Const $CV_KMEANS_RANDOM_CENTERS = 0
 Global Const $CV_KMEANS_PP_CENTERS = 2
 Global Const $CV_KMEANS_USE_INITIAL_LABELS = 1
 
-; ReduceTypes
+; cv::ReduceTypes
 Global Const $CV_REDUCE_SUM = 0
 Global Const $CV_REDUCE_AVG = 1
 Global Const $CV_REDUCE_MAX = 2
 Global Const $CV_REDUCE_MIN = 3
 
-; RotateFlags
+; cv::RotateFlags
 Global Const $CV_ROTATE_90_CLOCKWISE = 0
 Global Const $CV_ROTATE_180 = 1
 Global Const $CV_ROTATE_90_COUNTERCLOCKWISE = 2
 
-; Flags
+; cv::PCA::Flags
 Global Const $CV_PCA_DATA_AS_ROW = 0
 Global Const $CV_PCA_DATA_AS_COL = 1
 Global Const $CV_PCA_USE_AVG = 2
 
-; Flags
+; cv::SVD::Flags
 Global Const $CV_SVD_MODIFY_A = 1
 Global Const $CV_SVD_NO_UV = 2
 Global Const $CV_SVD_FULL_UV = 4
 
-; anonymous
+; cv::RNG::anonymous
 Global Const $CV_RNG_UNIFORM = 0
 Global Const $CV_RNG_NORMAL = 1
 
-; FormatType
+; cv::Formatter::FormatType
 Global Const $CV_FORMATTER_FMT_DEFAULT = 0
 Global Const $CV_FORMATTER_FMT_MATLAB = 1
 Global Const $CV_FORMATTER_FMT_CSV = 2
@@ -53,7 +53,7 @@ Global Const $CV_FORMATTER_FMT_PYTHON = 3
 Global Const $CV_FORMATTER_FMT_NUMPY = 4
 Global Const $CV_FORMATTER_FMT_C = 5
 
-; Param
+; cv::Param
 Global Const $CV_PARAM_INT = 0
 Global Const $CV_PARAM_BOOLEAN = 1
 Global Const $CV_PARAM_REAL = 2
@@ -67,7 +67,7 @@ Global Const $CV_PARAM_UINT64 = 9
 Global Const $CV_PARAM_UCHAR = 11
 Global Const $CV_PARAM_SCALAR = 12
 
-; Code
+; cv::Error::Code
 Global Const $CV_ERROR_StsOk = 0
 Global Const $CV_ERROR_StsBackTrace = -1
 Global Const $CV_ERROR_StsError = -2
@@ -124,7 +124,7 @@ Global Const $CV_ERROR_OpenCLDoubleNotSupported = -221
 Global Const $CV_ERROR_OpenCLInitError = -222
 Global Const $CV_ERROR_OpenCLNoAMDBlasFft = -223
 
-; DecompTypes
+; cv::DecompTypes
 Global Const $CV_DECOMP_LU = 0
 Global Const $CV_DECOMP_SVD = 1
 Global Const $CV_DECOMP_EIG = 2
@@ -132,7 +132,7 @@ Global Const $CV_DECOMP_CHOLESKY = 3
 Global Const $CV_DECOMP_QR = 4
 Global Const $CV_DECOMP_NORMAL = 16
 
-; NormTypes
+; cv::NormTypes
 Global Const $CV_NORM_INF = 1
 Global Const $CV_NORM_L1 = 2
 Global Const $CV_NORM_L2 = 4
@@ -143,7 +143,7 @@ Global Const $CV_NORM_TYPE_MASK = 7
 Global Const $CV_NORM_RELATIVE = 8
 Global Const $CV_NORM_MINMAX = 32
 
-; CmpTypes
+; cv::CmpTypes
 Global Const $CV_CMP_EQ = 0
 Global Const $CV_CMP_GT = 1
 Global Const $CV_CMP_GE = 2
@@ -151,12 +151,12 @@ Global Const $CV_CMP_LT = 3
 Global Const $CV_CMP_LE = 4
 Global Const $CV_CMP_NE = 5
 
-; GemmFlags
+; cv::GemmFlags
 Global Const $CV_GEMM_1_T = 1
 Global Const $CV_GEMM_2_T = 2
 Global Const $CV_GEMM_3_T = 4
 
-; DftFlags
+; cv::DftFlags
 Global Const $CV_DFT_INVERSE = 1
 Global Const $CV_DFT_SCALE = 2
 Global Const $CV_DFT_ROWS = 4
@@ -166,7 +166,7 @@ Global Const $CV_DFT_COMPLEX_INPUT = 64
 Global Const $CV_DCT_INVERSE = $CV_DFT_INVERSE
 Global Const $CV_DCT_ROWS = $CV_DFT_ROWS
 
-; BorderTypes
+; cv::BorderTypes
 Global Const $CV_BORDER_CONSTANT = 0
 Global Const $CV_BORDER_REPLICATE = 1
 Global Const $CV_BORDER_REFLECT = 2
@@ -177,7 +177,7 @@ Global Const $CV_BORDER_REFLECT101 = $CV_BORDER_REFLECT_101
 Global Const $CV_BORDER_DEFAULT = $CV_BORDER_REFLECT_101
 Global Const $CV_BORDER_ISOLATED = 16
 
-; TestOp
+; cv::detail::TestOp
 Global Const $CV_DETAIL_TEST_CUSTOM = 0
 Global Const $CV_DETAIL_TEST_EQ = 1
 Global Const $CV_DETAIL_TEST_NE = 2
@@ -186,18 +186,18 @@ Global Const $CV_DETAIL_TEST_LT = 4
 Global Const $CV_DETAIL_TEST_GE = 5
 Global Const $CV_DETAIL_TEST_GT = 6
 
-; AllocType
+; cv::cuda::HostMem::AllocType
 Global Const $CV_CUDA_HOST_MEM_PAGE_LOCKED = 1
 Global Const $CV_CUDA_HOST_MEM_SHARED = 2
 Global Const $CV_CUDA_HOST_MEM_WRITE_COMBINED = 4
 
-; CreateFlags
+; cv::cuda::Event::CreateFlags
 Global Const $CV_CUDA_EVENT_DEFAULT = 0x00
 Global Const $CV_CUDA_EVENT_BLOCKING_SYNC = 0x01
 Global Const $CV_CUDA_EVENT_DISABLE_TIMING = 0x02
 Global Const $CV_CUDA_EVENT_INTERPROCESS = 0x04
 
-; FeatureSet
+; cv::cuda::FeatureSet
 Global Const $CV_CUDA_FEATURE_SET_COMPUTE_10 = 10
 Global Const $CV_CUDA_FEATURE_SET_COMPUTE_11 = 11
 Global Const $CV_CUDA_FEATURE_SET_COMPUTE_12 = 12
@@ -214,20 +214,20 @@ Global Const $CV_CUDA_NATIVE_DOUBLE = $CV_CUDA_FEATURE_SET_COMPUTE_13
 Global Const $CV_CUDA_WARP_SHUFFLE_FUNCTIONS = $CV_CUDA_FEATURE_SET_COMPUTE_30
 Global Const $CV_CUDA_DYNAMIC_PARALLELISM = $CV_CUDA_FEATURE_SET_COMPUTE_35
 
-; ComputeMode
+; cv::cuda::DeviceInfo::ComputeMode
 Global Const $CV_CUDA_DEVICE_INFO_ComputeModeDefault = 0
 Global Const $CV_CUDA_DEVICE_INFO_ComputeModeExclusive = 1
 Global Const $CV_CUDA_DEVICE_INFO_ComputeModeProhibited = 2
 Global Const $CV_CUDA_DEVICE_INFO_ComputeModeExclusiveProcess = 3
 
-; AccessFlag
+; cv::AccessFlag
 Global Const $CV_ACCESS_READ = BitShift(1, -24)
 Global Const $CV_ACCESS_WRITE = BitShift(1, -25)
 Global Const $CV_ACCESS_RW = BitShift(3, -24)
 Global Const $CV_ACCESS_MASK = $CV_ACCESS_RW
 Global Const $CV_ACCESS_FAST = BitShift(1, -26)
 
-; KindFlag
+; cv::_InputArray::KindFlag
 Global Const $CV__INPUT_ARRAY_KIND_SHIFT = 16
 Global Const $CV__INPUT_ARRAY_FIXED_TYPE = BitShift(0x8000, -$CV__INPUT_ARRAY_KIND_SHIFT)
 Global Const $CV__INPUT_ARRAY_FIXED_SIZE = BitShift(0x4000, -$CV__INPUT_ARRAY_KIND_SHIFT)
@@ -249,7 +249,7 @@ Global Const $CV__INPUT_ARRAY_STD_VECTOR_CUDA_GPU_MAT = BitShift(13, -$CV__INPUT
 Global Const $CV__INPUT_ARRAY_STD_ARRAY = BitShift(14, -$CV__INPUT_ARRAY_KIND_SHIFT)
 Global Const $CV__INPUT_ARRAY_STD_ARRAY_MAT = BitShift(15, -$CV__INPUT_ARRAY_KIND_SHIFT)
 
-; DepthMask
+; cv::_OutputArray::DepthMask
 Global Const $CV__OUTPUT_ARRAY_DEPTH_MASK_8U = BitShift(1, -$CV_8U)
 Global Const $CV__OUTPUT_ARRAY_DEPTH_MASK_8S = BitShift(1, -$CV_8S)
 Global Const $CV__OUTPUT_ARRAY_DEPTH_MASK_16U = BitShift(1, -$CV_16U)
@@ -258,19 +258,19 @@ Global Const $CV__OUTPUT_ARRAY_DEPTH_MASK_32S = BitShift(1, -$CV_32S)
 Global Const $CV__OUTPUT_ARRAY_DEPTH_MASK_32F = BitShift(1, -$CV_32F)
 Global Const $CV__OUTPUT_ARRAY_DEPTH_MASK_64F = BitShift(1, -$CV_64F)
 Global Const $CV__OUTPUT_ARRAY_DEPTH_MASK_16F = BitShift(1, -$CV_16F)
-Global Const $CV__OUTPUT_ARRAY_DEPTH_MASK_ALL = (BitShift($CV__OUTPUT_ARRAY_DEPTH_MASK_64F, -1)) - 1
+Global Const $CV__OUTPUT_ARRAY_DEPTH_MASK_ALL = (BitShift($CV__OUTPUT_ARRAY_DEPTH_MASK_64F, -1))-1
 Global Const $CV__OUTPUT_ARRAY_DEPTH_MASK_ALL_BUT_8S = BitAND($CV__OUTPUT_ARRAY_DEPTH_MASK_ALL, BitNOT($CV__OUTPUT_ARRAY_DEPTH_MASK_8S))
-Global Const $CV__OUTPUT_ARRAY_DEPTH_MASK_ALL_16F = (BitShift($CV__OUTPUT_ARRAY_DEPTH_MASK_16F, -1)) - 1
+Global Const $CV__OUTPUT_ARRAY_DEPTH_MASK_ALL_16F = (BitShift($CV__OUTPUT_ARRAY_DEPTH_MASK_16F, -1))-1
 Global Const $CV__OUTPUT_ARRAY_DEPTH_MASK_FLT = $CV__OUTPUT_ARRAY_DEPTH_MASK_32F + $CV__OUTPUT_ARRAY_DEPTH_MASK_64F
 
-; UMatUsageFlags
+; cv::UMatUsageFlags
 Global Const $CV_USAGE_DEFAULT = 0
 Global Const $CV_USAGE_ALLOCATE_HOST_MEMORY = BitShift(1, -0)
 Global Const $CV_USAGE_ALLOCATE_DEVICE_MEMORY = BitShift(1, -1)
 Global Const $CV_USAGE_ALLOCATE_SHARED_MEMORY = BitShift(1, -2)
 Global Const $CV___UMAT_USAGE_FLAGS_32BIT = 0x7fffffff
 
-; MemoryFlag
+; cv::UMatData::MemoryFlag
 Global Const $CV_UMAT_DATA_COPY_ON_MAP = 1
 Global Const $CV_UMAT_DATA_HOST_COPY_OBSOLETE = 2
 Global Const $CV_UMAT_DATA_DEVICE_COPY_OBSOLETE = 4
@@ -280,7 +280,7 @@ Global Const $CV_UMAT_DATA_USER_ALLOCATED = 32
 Global Const $CV_UMAT_DATA_DEVICE_MEM_MAPPED = 64
 Global Const $CV_UMAT_DATA_ASYNC_CLEANUP = 128
 
-; anonymous
+; cv::Mat::anonymous
 Global Const $CV_MAT_MAGIC_VAL = 0x42FF0000
 Global Const $CV_MAT_AUTO_STEP = 0
 Global Const $CV_MAT_CONTINUOUS_FLAG = $CV_MAT_CONT_FLAG
@@ -289,7 +289,7 @@ Global Const $CV_MAT_MAGIC_MASK = 0xFFFF0000
 
 
 
-; anonymous
+; cv::UMat::anonymous
 Global Const $CV_UMAT_MAGIC_VAL = 0x42FF0000
 Global Const $CV_UMAT_AUTO_STEP = 0
 Global Const $CV_UMAT_CONTINUOUS_FLAG = $CV_MAT_CONT_FLAG
@@ -298,13 +298,13 @@ Global Const $CV_UMAT_MAGIC_MASK = 0xFFFF0000
 Global Const $CV_UMAT_TYPE_MASK = 0x00000FFF
 Global Const $CV_UMAT_DEPTH_MASK = 7
 
-; anonymous
+; cv::SparseMat::anonymous
 Global Const $CV_SPARSE_MAT_MAGIC_VAL = 0x42FD0000
 Global Const $CV_SPARSE_MAT_MAX_DIM = 32
 Global Const $CV_SPARSE_MAT_HASH_SCALE = 0x5bd1e995
 Global Const $CV_SPARSE_MAT_HASH_BIT = 0x80000000
 
-; anonymous
+; cv::ocl::Device::anonymous
 Global Const $CV_OCL_DEVICE_TYPE_DEFAULT = (BitShift(1, -0))
 Global Const $CV_OCL_DEVICE_TYPE_CPU = (BitShift(1, -1))
 Global Const $CV_OCL_DEVICE_TYPE_GPU = (BitShift(1, -2))
@@ -333,7 +333,7 @@ Global Const $CV_OCL_DEVICE_VENDOR_AMD = 1
 Global Const $CV_OCL_DEVICE_VENDOR_INTEL = 2
 Global Const $CV_OCL_DEVICE_VENDOR_NVIDIA = 3
 
-; anonymous
+; cv::ocl::KernelArg::anonymous
 Global Const $CV_OCL_KERNEL_ARG_LOCAL = 1
 Global Const $CV_OCL_KERNEL_ARG_READ_ONLY = 2
 Global Const $CV_OCL_KERNEL_ARG_WRITE_ONLY = 4
@@ -342,29 +342,29 @@ Global Const $CV_OCL_KERNEL_ARG_CONSTANT = 8
 Global Const $CV_OCL_KERNEL_ARG_PTR_ONLY = 16
 Global Const $CV_OCL_KERNEL_ARG_NO_SIZE = 256
 
-; OclVectorStrategy
+; cv::ocl::OclVectorStrategy
 Global Const $CV_OCL_OCL_VECTOR_OWN = 0
 Global Const $CV_OCL_OCL_VECTOR_MAX = 1
 Global Const $CV_OCL_OCL_VECTOR_DEFAULT = $CV_OCL_OCL_VECTOR_OWN
 
-; Target
+; cv::ogl::Buffer::Target
 Global Const $CV_OGL_BUFFER_ARRAY_BUFFER = 0x8892
 Global Const $CV_OGL_BUFFER_ELEMENT_ARRAY_BUFFER = 0x8893
 Global Const $CV_OGL_BUFFER_PIXEL_PACK_BUFFER = 0x88EB
 Global Const $CV_OGL_BUFFER_PIXEL_UNPACK_BUFFER = 0x88EC
 
-; Access
+; cv::ogl::Buffer::Access
 Global Const $CV_OGL_BUFFER_READ_ONLY = 0x88B8
 Global Const $CV_OGL_BUFFER_WRITE_ONLY = 0x88B9
 Global Const $CV_OGL_BUFFER_READ_WRITE = 0x88BA
 
-; Format
+; cv::ogl::Texture2D::Format
 Global Const $CV_OGL_TEXTURE2D_NONE = 0
 Global Const $CV_OGL_TEXTURE2D_DEPTH_COMPONENT = 0x1902
 Global Const $CV_OGL_TEXTURE2D_RGB = 0x1907
 Global Const $CV_OGL_TEXTURE2D_RGBA = 0x1908
 
-; RenderModes
+; cv::ogl::RenderModes
 Global Const $CV_OGL_POINTS = 0x0000
 Global Const $CV_OGL_LINES = 0x0001
 Global Const $CV_OGL_LINE_LOOP = 0x0002
@@ -376,13 +376,13 @@ Global Const $CV_OGL_QUADS = 0x0007
 Global Const $CV_OGL_QUAD_STRIP = 0x0008
 Global Const $CV_OGL_POLYGON = 0x0009
 
-; SolveLPResult
+; cv::SolveLPResult
 Global Const $CV_SOLVELP_UNBOUNDED = -2
 Global Const $CV_SOLVELP_UNFEASIBLE = -1
 Global Const $CV_SOLVELP_SINGLE = 0
 Global Const $CV_SOLVELP_MULTI = 1
 
-; Mode
+; cv::FileStorage::Mode
 Global Const $CV_FILE_STORAGE_READ = 0
 Global Const $CV_FILE_STORAGE_WRITE = 1
 Global Const $CV_FILE_STORAGE_APPEND = 2
@@ -395,13 +395,13 @@ Global Const $CV_FILE_STORAGE_FORMAT_JSON = (BitShift(3, -3))
 Global Const $CV_FILE_STORAGE_BASE64 = 64
 Global Const $CV_FILE_STORAGE_WRITE_BASE64 = BitOR($CV_FILE_STORAGE_BASE64, $CV_FILE_STORAGE_WRITE)
 
-; State
+; cv::FileStorage::State
 Global Const $CV_FILE_STORAGE_UNDEFINED = 0
 Global Const $CV_FILE_STORAGE_VALUE_EXPECTED = 1
 Global Const $CV_FILE_STORAGE_NAME_EXPECTED = 2
 Global Const $CV_FILE_STORAGE_INSIDE_MAP = 4
 
-; anonymous
+; cv::FileNode::anonymous
 Global Const $CV_FILE_NODE_NONE = 0
 Global Const $CV_FILE_NODE_INT = 1
 Global Const $CV_FILE_NODE_REAL = 2
@@ -416,11 +416,11 @@ Global Const $CV_FILE_NODE_UNIFORM = 8
 Global Const $CV_FILE_NODE_EMPTY = 16
 Global Const $CV_FILE_NODE_NAMED = 32
 
-; QuatAssumeType
+; cv::QuatAssumeType
 Global Const $CV_QUAT_ASSUME_NOT_UNIT = 0
 Global Const $CV_QUAT_ASSUME_UNIT = 1
 
-; EulerAnglesType
+; cv::QuatEnum::EulerAnglesType
 Global Const $CV_QUAT_ENUM_INT_XYZ = 0
 Global Const $CV_QUAT_ENUM_INT_XZY = 1
 Global Const $CV_QUAT_ENUM_INT_YXZ = 2
@@ -447,12 +447,12 @@ Global Const $CV_QUAT_ENUM_EXT_ZXZ = 22
 Global Const $CV_QUAT_ENUM_EXT_ZYZ = 23
 Global Const $CV_QUAT_ENUM_EULER_ANGLES_MAX_VALUE = 24
 
-; Type
+; cv::TermCriteria::Type
 Global Const $CV_TERM_CRITERIA_COUNT = 1
 Global Const $CV_TERM_CRITERIA_MAX_ITER = $CV_TERM_CRITERIA_COUNT
 Global Const $CV_TERM_CRITERIA_EPS = 2
 
-; FlannIndexType
+; cv::flann::FlannIndexType
 Global Const $CV_FLANN_FLANN_INDEX_TYPE_8U = $CV_8U
 Global Const $CV_FLANN_FLANN_INDEX_TYPE_8S = $CV_8S
 Global Const $CV_FLANN_FLANN_INDEX_TYPE_16U = $CV_16U
@@ -460,15 +460,15 @@ Global Const $CV_FLANN_FLANN_INDEX_TYPE_16S = $CV_16S
 Global Const $CV_FLANN_FLANN_INDEX_TYPE_32S = $CV_32S
 Global Const $CV_FLANN_FLANN_INDEX_TYPE_32F = $CV_32F
 Global Const $CV_FLANN_FLANN_INDEX_TYPE_64F = $CV_64F
-Global Const $CV_FLANN_FLANN_INDEX_TYPE_STRING = $CV_64F + 1
-Global Const $CV_FLANN_FLANN_INDEX_TYPE_BOOL = $CV_64F + 2
-Global Const $CV_FLANN_FLANN_INDEX_TYPE_ALGORITHM = $CV_64F + 3
+Global Const $CV_FLANN_FLANN_INDEX_TYPE_STRING = $CV_64F+1
+Global Const $CV_FLANN_FLANN_INDEX_TYPE_BOOL = $CV_64F+2
+Global Const $CV_FLANN_FLANN_INDEX_TYPE_ALGORITHM = $CV_64F+3
 Global Const $CV_FLANN_LAST_VALUE_FLANN_INDEX_TYPE = $CV_FLANN_FLANN_INDEX_TYPE_ALGORITHM
 
-; SpecialFilter
+; cv::SpecialFilter
 Global Const $CV_FILTER_SCHARR = -1
 
-; MorphTypes
+; cv::MorphTypes
 Global Const $CV_MORPH_ERODE = 0
 Global Const $CV_MORPH_DILATE = 1
 Global Const $CV_MORPH_OPEN = 2
@@ -478,12 +478,12 @@ Global Const $CV_MORPH_TOPHAT = 5
 Global Const $CV_MORPH_BLACKHAT = 6
 Global Const $CV_MORPH_HITMISS = 7
 
-; MorphShapes
+; cv::MorphShapes
 Global Const $CV_MORPH_RECT = 0
 Global Const $CV_MORPH_CROSS = 1
 Global Const $CV_MORPH_ELLIPSE = 2
 
-; InterpolationFlags
+; cv::InterpolationFlags
 Global Const $CV_INTER_NEAREST = 0
 Global Const $CV_INTER_LINEAR = 1
 Global Const $CV_INTER_CUBIC = 2
@@ -495,17 +495,17 @@ Global Const $CV_INTER_MAX = 7
 Global Const $CV_WARP_FILL_OUTLIERS = 8
 Global Const $CV_WARP_INVERSE_MAP = 16
 
-; WarpPolarMode
+; cv::WarpPolarMode
 Global Const $CV_WARP_POLAR_LINEAR = 0
 Global Const $CV_WARP_POLAR_LOG = 256
 
-; InterpolationMasks
+; cv::InterpolationMasks
 Global Const $CV_INTER_BITS = 5
 Global Const $CV_INTER_BITS2 = $CV_INTER_BITS * 2
 Global Const $CV_INTER_TAB_SIZE = BitShift(1, -$CV_INTER_BITS)
 Global Const $CV_INTER_TAB_SIZE2 = $CV_INTER_TAB_SIZE * $CV_INTER_TAB_SIZE
 
-; DistanceTypes
+; cv::DistanceTypes
 Global Const $CV_DIST_USER = -1
 Global Const $CV_DIST_L1 = 1
 Global Const $CV_DIST_L2 = 2
@@ -515,12 +515,12 @@ Global Const $CV_DIST_FAIR = 5
 Global Const $CV_DIST_WELSCH = 6
 Global Const $CV_DIST_HUBER = 7
 
-; DistanceTransformMasks
+; cv::DistanceTransformMasks
 Global Const $CV_DIST_MASK_3 = 3
 Global Const $CV_DIST_MASK_5 = 5
 Global Const $CV_DIST_MASK_PRECISE = 0
 
-; ThresholdTypes
+; cv::ThresholdTypes
 Global Const $CV_THRESH_BINARY = 0
 Global Const $CV_THRESH_BINARY_INV = 1
 Global Const $CV_THRESH_TRUNC = 2
@@ -530,31 +530,31 @@ Global Const $CV_THRESH_MASK = 7
 Global Const $CV_THRESH_OTSU = 8
 Global Const $CV_THRESH_TRIANGLE = 16
 
-; AdaptiveThresholdTypes
+; cv::AdaptiveThresholdTypes
 Global Const $CV_ADAPTIVE_THRESH_MEAN_C = 0
 Global Const $CV_ADAPTIVE_THRESH_GAUSSIAN_C = 1
 
-; GrabCutClasses
+; cv::GrabCutClasses
 Global Const $CV_GC_BGD = 0
 Global Const $CV_GC_FGD = 1
 Global Const $CV_GC_PR_BGD = 2
 Global Const $CV_GC_PR_FGD = 3
 
-; GrabCutModes
+; cv::GrabCutModes
 Global Const $CV_GC_INIT_WITH_RECT = 0
 Global Const $CV_GC_INIT_WITH_MASK = 1
 Global Const $CV_GC_EVAL = 2
 Global Const $CV_GC_EVAL_FREEZE_MODEL = 3
 
-; DistanceTransformLabelTypes
+; cv::DistanceTransformLabelTypes
 Global Const $CV_DIST_LABEL_CCOMP = 0
 Global Const $CV_DIST_LABEL_PIXEL = 1
 
-; FloodFillFlags
+; cv::FloodFillFlags
 Global Const $CV_FLOODFILL_FIXED_RANGE = BitShift(1, -16)
 Global Const $CV_FLOODFILL_MASK_ONLY = BitShift(1, -17)
 
-; ConnectedComponentsTypes
+; cv::ConnectedComponentsTypes
 Global Const $CV_CC_STAT_LEFT = 0
 Global Const $CV_CC_STAT_TOP = 1
 Global Const $CV_CC_STAT_WIDTH = 2
@@ -562,7 +562,7 @@ Global Const $CV_CC_STAT_HEIGHT = 3
 Global Const $CV_CC_STAT_AREA = 4
 Global Const $CV_CC_STAT_MAX = 5
 
-; ConnectedComponentsAlgorithmsTypes
+; cv::ConnectedComponentsAlgorithmsTypes
 Global Const $CV_CCL_DEFAULT = -1
 Global Const $CV_CCL_WU = 0
 Global Const $CV_CCL_GRANA = 1
@@ -571,37 +571,37 @@ Global Const $CV_CCL_SAUF = 3
 Global Const $CV_CCL_BBDT = 4
 Global Const $CV_CCL_SPAGHETTI = 5
 
-; RetrievalModes
+; cv::RetrievalModes
 Global Const $CV_RETR_EXTERNAL = 0
 Global Const $CV_RETR_LIST = 1
 Global Const $CV_RETR_CCOMP = 2
 Global Const $CV_RETR_TREE = 3
 Global Const $CV_RETR_FLOODFILL = 4
 
-; ContourApproximationModes
+; cv::ContourApproximationModes
 Global Const $CV_CHAIN_APPROX_NONE = 1
 Global Const $CV_CHAIN_APPROX_SIMPLE = 2
 Global Const $CV_CHAIN_APPROX_TC89_L1 = 3
 Global Const $CV_CHAIN_APPROX_TC89_KCOS = 4
 
-; ShapeMatchModes
+; cv::ShapeMatchModes
 Global Const $CV_CONTOURS_MATCH_I1 = 1
 Global Const $CV_CONTOURS_MATCH_I2 = 2
 Global Const $CV_CONTOURS_MATCH_I3 = 3
 
-; HoughModes
+; cv::HoughModes
 Global Const $CV_HOUGH_STANDARD = 0
 Global Const $CV_HOUGH_PROBABILISTIC = 1
 Global Const $CV_HOUGH_MULTI_SCALE = 2
 Global Const $CV_HOUGH_GRADIENT = 3
 Global Const $CV_HOUGH_GRADIENT_ALT = 4
 
-; LineSegmentDetectorModes
+; cv::LineSegmentDetectorModes
 Global Const $CV_LSD_REFINE_NONE = 0
 Global Const $CV_LSD_REFINE_STD = 1
 Global Const $CV_LSD_REFINE_ADV = 2
 
-; HistCompMethods
+; cv::HistCompMethods
 Global Const $CV_HISTCMP_CORREL = 0
 Global Const $CV_HISTCMP_CHISQR = 1
 Global Const $CV_HISTCMP_INTERSECT = 2
@@ -610,7 +610,7 @@ Global Const $CV_HISTCMP_HELLINGER = $CV_HISTCMP_BHATTACHARYYA
 Global Const $CV_HISTCMP_CHISQR_ALT = 4
 Global Const $CV_HISTCMP_KL_DIV = 5
 
-; ColorConversionCodes
+; cv::ColorConversionCodes
 Global Const $CV_COLOR_BGR2BGRA = 0
 Global Const $CV_COLOR_RGB2RGBA = $CV_COLOR_BGR2BGRA
 Global Const $CV_COLOR_BGRA2BGR = 1
@@ -854,18 +854,18 @@ Global Const $CV_COLOR_BayerRG2RGBA = $CV_COLOR_BayerBG2BGRA
 Global Const $CV_COLOR_BayerGR2RGBA = $CV_COLOR_BayerGB2BGRA
 Global Const $CV_COLOR_COLORCVT_MAX = 143
 
-; RectanglesIntersectTypes
+; cv::RectanglesIntersectTypes
 Global Const $CV_INTERSECT_NONE = 0
 Global Const $CV_INTERSECT_PARTIAL = 1
 Global Const $CV_INTERSECT_FULL = 2
 
-; LineTypes
+; cv::LineTypes
 Global Const $CV_FILLED = -1
 Global Const $CV_LINE_4 = 4
 Global Const $CV_LINE_8 = 8
 Global Const $CV_LINE_AA = 16
 
-; HersheyFonts
+; cv::HersheyFonts
 Global Const $CV_FONT_HERSHEY_SIMPLEX = 0
 Global Const $CV_FONT_HERSHEY_PLAIN = 1
 Global Const $CV_FONT_HERSHEY_DUPLEX = 2
@@ -876,7 +876,7 @@ Global Const $CV_FONT_HERSHEY_SCRIPT_SIMPLEX = 6
 Global Const $CV_FONT_HERSHEY_SCRIPT_COMPLEX = 7
 Global Const $CV_FONT_ITALIC = 16
 
-; MarkerTypes
+; cv::MarkerTypes
 Global Const $CV_MARKER_CROSS = 0
 Global Const $CV_MARKER_TILTED_CROSS = 1
 Global Const $CV_MARKER_STAR = 2
@@ -885,7 +885,7 @@ Global Const $CV_MARKER_SQUARE = 4
 Global Const $CV_MARKER_TRIANGLE_UP = 5
 Global Const $CV_MARKER_TRIANGLE_DOWN = 6
 
-; anonymous
+; cv::Subdiv2D::anonymous
 Global Const $CV_SUBDIV2D_PTLOC_ERROR = -2
 Global Const $CV_SUBDIV2D_PTLOC_OUTSIDE_RECT = -1
 Global Const $CV_SUBDIV2D_PTLOC_INSIDE = 0
@@ -900,7 +900,7 @@ Global Const $CV_SUBDIV2D_NEXT_AROUND_RIGHT = 0x31
 Global Const $CV_SUBDIV2D_PREV_AROUND_LEFT = 0x20
 Global Const $CV_SUBDIV2D_PREV_AROUND_RIGHT = 0x02
 
-; TemplateMatchModes
+; cv::TemplateMatchModes
 Global Const $CV_TM_SQDIFF = 0
 Global Const $CV_TM_SQDIFF_NORMED = 1
 Global Const $CV_TM_CCORR = 2
@@ -908,7 +908,7 @@ Global Const $CV_TM_CCORR_NORMED = 3
 Global Const $CV_TM_CCOEFF = 4
 Global Const $CV_TM_CCOEFF_NORMED = 5
 
-; ColormapTypes
+; cv::ColormapTypes
 Global Const $CV_COLORMAP_AUTUMN = 0
 Global Const $CV_COLORMAP_BONE = 1
 Global Const $CV_COLORMAP_JET = 2
@@ -932,37 +932,37 @@ Global Const $CV_COLORMAP_TWILIGHT_SHIFTED = 19
 Global Const $CV_COLORMAP_TURBO = 20
 Global Const $CV_COLORMAP_DEEPGREEN = 21
 
-; VariableTypes
+; cv::ml::VariableTypes
 Global Const $CV_ML_VAR_NUMERICAL = 0
 Global Const $CV_ML_VAR_ORDERED = 0
 Global Const $CV_ML_VAR_CATEGORICAL = 1
 
-; ErrorTypes
+; cv::ml::ErrorTypes
 Global Const $CV_ML_TEST_ERROR = 0
 Global Const $CV_ML_TRAIN_ERROR = 1
 
-; SampleTypes
+; cv::ml::SampleTypes
 Global Const $CV_ML_ROW_SAMPLE = 0
 Global Const $CV_ML_COL_SAMPLE = 1
 
-; Flags
+; cv::ml::StatModel::Flags
 Global Const $CV_ML_STAT_MODEL_UPDATE_MODEL = 1
 Global Const $CV_ML_STAT_MODEL_RAW_OUTPUT = 1
 Global Const $CV_ML_STAT_MODEL_COMPRESSED_INPUT = 2
 Global Const $CV_ML_STAT_MODEL_PREPROCESSED_INPUT = 4
 
-; Types
+; cv::ml::KNearest::Types
 Global Const $CV_ML_KNEAREST_BRUTE_FORCE = 1
 Global Const $CV_ML_KNEAREST_KDTREE = 2
 
-; Types
+; cv::ml::SVM::Types
 Global Const $CV_ML_SVM_C_SVC = 100
 Global Const $CV_ML_SVM_NU_SVC = 101
 Global Const $CV_ML_SVM_ONE_CLASS = 102
 Global Const $CV_ML_SVM_EPS_SVR = 103
 Global Const $CV_ML_SVM_NU_SVR = 104
 
-; KernelTypes
+; cv::ml::SVM::KernelTypes
 Global Const $CV_ML_SVM_CUSTOM = -1
 Global Const $CV_ML_SVM_LINEAR = 0
 Global Const $CV_ML_SVM_POLY = 1
@@ -971,7 +971,7 @@ Global Const $CV_ML_SVM_SIGMOID = 3
 Global Const $CV_ML_SVM_CHI2 = 4
 Global Const $CV_ML_SVM_INTER = 5
 
-; ParamTypes
+; cv::ml::SVM::ParamTypes
 Global Const $CV_ML_SVM_C = 0
 Global Const $CV_ML_SVM_GAMMA = 1
 Global Const $CV_ML_SVM_P = 2
@@ -979,66 +979,66 @@ Global Const $CV_ML_SVM_NU = 3
 Global Const $CV_ML_SVM_COEF = 4
 Global Const $CV_ML_SVM_DEGREE = 5
 
-; Types
+; cv::ml::EM::Types
 Global Const $CV_ML_EM_COV_MAT_SPHERICAL = 0
 Global Const $CV_ML_EM_COV_MAT_DIAGONAL = 1
 Global Const $CV_ML_EM_COV_MAT_GENERIC = 2
 Global Const $CV_ML_EM_COV_MAT_DEFAULT = $CV_ML_EM_COV_MAT_DIAGONAL
 
-; anonymous
+; cv::ml::EM::anonymous
 Global Const $CV_ML_EM_DEFAULT_NCLUSTERS = 5
 Global Const $CV_ML_EM_DEFAULT_MAX_ITERS = 100
 Global Const $CV_ML_EM_START_E_STEP = 1
 Global Const $CV_ML_EM_START_M_STEP = 2
 Global Const $CV_ML_EM_START_AUTO_STEP = 0
 
-; Flags
+; cv::ml::DTrees::Flags
 Global Const $CV_ML_DTREES_PREDICT_AUTO = 0
 Global Const $CV_ML_DTREES_PREDICT_SUM = (BitShift(1, -8))
 Global Const $CV_ML_DTREES_PREDICT_MAX_VOTE = (BitShift(2, -8))
 Global Const $CV_ML_DTREES_PREDICT_MASK = (BitShift(3, -8))
 
-; Types
+; cv::ml::Boost::Types
 Global Const $CV_ML_BOOST_DISCRETE = 0
 Global Const $CV_ML_BOOST_REAL = 1
 Global Const $CV_ML_BOOST_LOGIT = 2
 Global Const $CV_ML_BOOST_GENTLE = 3
 
-; TrainingMethods
+; cv::ml::ANN_MLP::TrainingMethods
 Global Const $CV_ML_ANN_MLP_BACKPROP = 0
 Global Const $CV_ML_ANN_MLP_RPROP = 1
 Global Const $CV_ML_ANN_MLP_ANNEAL = 2
 
-; ActivationFunctions
+; cv::ml::ANN_MLP::ActivationFunctions
 Global Const $CV_ML_ANN_MLP_IDENTITY = 0
 Global Const $CV_ML_ANN_MLP_SIGMOID_SYM = 1
 Global Const $CV_ML_ANN_MLP_GAUSSIAN = 2
 Global Const $CV_ML_ANN_MLP_RELU = 3
 Global Const $CV_ML_ANN_MLP_LEAKYRELU = 4
 
-; TrainFlags
+; cv::ml::ANN_MLP::TrainFlags
 Global Const $CV_ML_ANN_MLP_UPDATE_WEIGHTS = 1
 Global Const $CV_ML_ANN_MLP_NO_INPUT_SCALE = 2
 Global Const $CV_ML_ANN_MLP_NO_OUTPUT_SCALE = 4
 
-; RegKinds
+; cv::ml::LogisticRegression::RegKinds
 Global Const $CV_ML_LOGISTIC_REGRESSION_REG_DISABLE = -1
 Global Const $CV_ML_LOGISTIC_REGRESSION_REG_L1 = 0
 Global Const $CV_ML_LOGISTIC_REGRESSION_REG_L2 = 1
 
-; Methods
+; cv::ml::LogisticRegression::Methods
 Global Const $CV_ML_LOGISTIC_REGRESSION_BATCH = 0
 Global Const $CV_ML_LOGISTIC_REGRESSION_MINI_BATCH = 1
 
-; SvmsgdType
+; cv::ml::SVMSGD::SvmsgdType
 Global Const $CV_ML_SVMSGD_SGD = 0
 Global Const $CV_ML_SVMSGD_ASGD = 1
 
-; MarginType
+; cv::ml::SVMSGD::MarginType
 Global Const $CV_ML_SVMSGD_SOFT_MARGIN = 0
 Global Const $CV_ML_SVMSGD_HARD_MARGIN = 1
 
-; anonymous
+; cv::anonymous
 Global Const $CV_INPAINT_NS = 0
 Global Const $CV_INPAINT_TELEA = 1
 Global Const $CV_LDR_SIZE = 256
@@ -1365,69 +1365,69 @@ Global Const $CV_MOTION_EUCLIDEAN = 1
 Global Const $CV_MOTION_AFFINE = 2
 Global Const $CV_MOTION_HOMOGRAPHY = 3
 
-; Backend
+; cv::dnn::Backend
 Global Const $CV_DNN_DNN_BACKEND_DEFAULT = 0
-Global Const $CV_DNN_DNN_BACKEND_HALIDE = 0 + 1
-Global Const $CV_DNN_DNN_BACKEND_INFERENCE_ENGINE = 0 + 2
-Global Const $CV_DNN_DNN_BACKEND_OPENCV = 0 + 3
-Global Const $CV_DNN_DNN_BACKEND_VKCOM = 0 + 4
-Global Const $CV_DNN_DNN_BACKEND_CUDA = 0 + 5
-Global Const $CV_DNN_DNN_BACKEND_WEBNN = 0 + 6
-Global Const $CV_DNN_DNN_BACKEND_TIMVX = 0 + 7
+Global Const $CV_DNN_DNN_BACKEND_HALIDE = 0+1
+Global Const $CV_DNN_DNN_BACKEND_INFERENCE_ENGINE = 0+2
+Global Const $CV_DNN_DNN_BACKEND_OPENCV = 0+3
+Global Const $CV_DNN_DNN_BACKEND_VKCOM = 0+4
+Global Const $CV_DNN_DNN_BACKEND_CUDA = 0+5
+Global Const $CV_DNN_DNN_BACKEND_WEBNN = 0+6
+Global Const $CV_DNN_DNN_BACKEND_TIMVX = 0+7
 
-; Target
+; cv::dnn::Target
 Global Const $CV_DNN_DNN_TARGET_CPU = 0
-Global Const $CV_DNN_DNN_TARGET_OPENCL = 0 + 1
-Global Const $CV_DNN_DNN_TARGET_OPENCL_FP16 = 0 + 2
-Global Const $CV_DNN_DNN_TARGET_MYRIAD = 0 + 3
-Global Const $CV_DNN_DNN_TARGET_VULKAN = 0 + 4
-Global Const $CV_DNN_DNN_TARGET_FPGA = 0 + 5
-Global Const $CV_DNN_DNN_TARGET_CUDA = 0 + 6
-Global Const $CV_DNN_DNN_TARGET_CUDA_FP16 = 0 + 7
-Global Const $CV_DNN_DNN_TARGET_HDDL = 0 + 8
-Global Const $CV_DNN_DNN_TARGET_NPU = 0 + 9
+Global Const $CV_DNN_DNN_TARGET_OPENCL = 0+1
+Global Const $CV_DNN_DNN_TARGET_OPENCL_FP16 = 0+2
+Global Const $CV_DNN_DNN_TARGET_MYRIAD = 0+3
+Global Const $CV_DNN_DNN_TARGET_VULKAN = 0+4
+Global Const $CV_DNN_DNN_TARGET_FPGA = 0+5
+Global Const $CV_DNN_DNN_TARGET_CUDA = 0+6
+Global Const $CV_DNN_DNN_TARGET_CUDA_FP16 = 0+7
+Global Const $CV_DNN_DNN_TARGET_HDDL = 0+8
+Global Const $CV_DNN_DNN_TARGET_NPU = 0+9
 
-; SoftNMSMethod
+; cv::dnn::SoftNMSMethod
 Global Const $CV_DNN_SOFT_NMSMETHOD_SOFTNMS_LINEAR = 1
 Global Const $CV_DNN_SOFT_NMSMETHOD_SOFTNMS_GAUSSIAN = 2
 
-; ScoreType
+; cv::ORB::ScoreType
 Global Const $CV_ORB_HARRIS_SCORE = 0
 Global Const $CV_ORB_FAST_SCORE = 1
 
-; DetectorType
+; cv::FastFeatureDetector::DetectorType
 Global Const $CV_FAST_FEATURE_DETECTOR_TYPE_5_8 = 0
 Global Const $CV_FAST_FEATURE_DETECTOR_TYPE_7_12 = 1
 Global Const $CV_FAST_FEATURE_DETECTOR_TYPE_9_16 = 2
 
-; anonymous
+; cv::FastFeatureDetector::anonymous
 Global Const $CV_FAST_FEATURE_DETECTOR_THRESHOLD = 10000
 Global Const $CV_FAST_FEATURE_DETECTOR_NONMAX_SUPPRESSION = 10001
 Global Const $CV_FAST_FEATURE_DETECTOR_FAST_N = 10002
 
-; DetectorType
+; cv::AgastFeatureDetector::DetectorType
 Global Const $CV_AGAST_FEATURE_DETECTOR_AGAST_5_8 = 0
 Global Const $CV_AGAST_FEATURE_DETECTOR_AGAST_7_12d = 1
 Global Const $CV_AGAST_FEATURE_DETECTOR_AGAST_7_12s = 2
 Global Const $CV_AGAST_FEATURE_DETECTOR_OAST_9_16 = 3
 
-; anonymous
+; cv::AgastFeatureDetector::anonymous
 Global Const $CV_AGAST_FEATURE_DETECTOR_THRESHOLD = 10000
 Global Const $CV_AGAST_FEATURE_DETECTOR_NONMAX_SUPPRESSION = 10001
 
-; DiffusivityType
+; cv::KAZE::DiffusivityType
 Global Const $CV_KAZE_DIFF_PM_G1 = 0
 Global Const $CV_KAZE_DIFF_PM_G2 = 1
 Global Const $CV_KAZE_DIFF_WEICKERT = 2
 Global Const $CV_KAZE_DIFF_CHARBONNIER = 3
 
-; DescriptorType
+; cv::AKAZE::DescriptorType
 Global Const $CV_AKAZE_DESCRIPTOR_KAZE_UPRIGHT = 2
 Global Const $CV_AKAZE_DESCRIPTOR_KAZE = 3
 Global Const $CV_AKAZE_DESCRIPTOR_MLDB_UPRIGHT = 4
 Global Const $CV_AKAZE_DESCRIPTOR_MLDB = 5
 
-; MatcherType
+; cv::DescriptorMatcher::MatcherType
 Global Const $CV_DESCRIPTOR_MATCHER_FLANNBASED = 1
 Global Const $CV_DESCRIPTOR_MATCHER_BRUTEFORCE = 2
 Global Const $CV_DESCRIPTOR_MATCHER_BRUTEFORCE_L1 = 3
@@ -1435,13 +1435,13 @@ Global Const $CV_DESCRIPTOR_MATCHER_BRUTEFORCE_HAMMING = 4
 Global Const $CV_DESCRIPTOR_MATCHER_BRUTEFORCE_HAMMINGLUT = 5
 Global Const $CV_DESCRIPTOR_MATCHER_BRUTEFORCE_SL2 = 6
 
-; DrawMatchesFlags
+; cv::DrawMatchesFlags
 Global Const $CV_DRAW_MATCHES_FLAGS_DEFAULT = 0
 Global Const $CV_DRAW_MATCHES_FLAGS_DRAW_OVER_OUTIMG = 1
 Global Const $CV_DRAW_MATCHES_FLAGS_NOT_DRAW_SINGLE_POINTS = 2
 Global Const $CV_DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS = 4
 
-; ImreadModes
+; cv::ImreadModes
 Global Const $CV_IMREAD_UNCHANGED = -1
 Global Const $CV_IMREAD_GRAYSCALE = 0
 Global Const $CV_IMREAD_COLOR = 1
@@ -1456,7 +1456,7 @@ Global Const $CV_IMREAD_REDUCED_GRAYSCALE_8 = 64
 Global Const $CV_IMREAD_REDUCED_COLOR_8 = 65
 Global Const $CV_IMREAD_IGNORE_ORIENTATION = 128
 
-; ImwriteFlags
+; cv::ImwriteFlags
 Global Const $CV_IMWRITE_JPEG_QUALITY = 1
 Global Const $CV_IMWRITE_JPEG_PROGRESSIVE = 2
 Global Const $CV_IMWRITE_JPEG_OPTIMIZE = 3
@@ -1477,11 +1477,11 @@ Global Const $CV_IMWRITE_TIFF_YDPI = 258
 Global Const $CV_IMWRITE_TIFF_COMPRESSION = 259
 Global Const $CV_IMWRITE_JPEG2000_COMPRESSION_X1000 = 272
 
-; ImwriteEXRTypeFlags
+; cv::ImwriteEXRTypeFlags
 Global Const $CV_IMWRITE_EXR_TYPE_HALF = 1
 Global Const $CV_IMWRITE_EXR_TYPE_FLOAT = 2
 
-; ImwriteEXRCompressionFlags
+; cv::ImwriteEXRCompressionFlags
 Global Const $CV_IMWRITE_EXR_COMPRESSION_NO = 0
 Global Const $CV_IMWRITE_EXR_COMPRESSION_RLE = 1
 Global Const $CV_IMWRITE_EXR_COMPRESSION_ZIPS = 2
@@ -1493,14 +1493,14 @@ Global Const $CV_IMWRITE_EXR_COMPRESSION_B44A = 7
 Global Const $CV_IMWRITE_EXR_COMPRESSION_DWAA = 8
 Global Const $CV_IMWRITE_EXR_COMPRESSION_DWAB = 9
 
-; ImwritePNGFlags
+; cv::ImwritePNGFlags
 Global Const $CV_IMWRITE_PNG_STRATEGY_DEFAULT = 0
 Global Const $CV_IMWRITE_PNG_STRATEGY_FILTERED = 1
 Global Const $CV_IMWRITE_PNG_STRATEGY_HUFFMAN_ONLY = 2
 Global Const $CV_IMWRITE_PNG_STRATEGY_RLE = 3
 Global Const $CV_IMWRITE_PNG_STRATEGY_FIXED = 4
 
-; ImwritePAMFlags
+; cv::ImwritePAMFlags
 Global Const $CV_IMWRITE_PAM_FORMAT_NULL = 0
 Global Const $CV_IMWRITE_PAM_FORMAT_BLACKANDWHITE = 1
 Global Const $CV_IMWRITE_PAM_FORMAT_GRAYSCALE = 2
@@ -1508,7 +1508,7 @@ Global Const $CV_IMWRITE_PAM_FORMAT_GRAYSCALE_ALPHA = 3
 Global Const $CV_IMWRITE_PAM_FORMAT_RGB = 4
 Global Const $CV_IMWRITE_PAM_FORMAT_RGB_ALPHA = 5
 
-; VideoCaptureAPIs
+; cv::VideoCaptureAPIs
 Global Const $CV_CAP_ANY = 0
 Global Const $CV_CAP_VFW = 200
 Global Const $CV_CAP_V4L = 200
@@ -1545,7 +1545,7 @@ Global Const $CV_CAP_INTEL_MFX = 2300
 Global Const $CV_CAP_XINE = 2400
 Global Const $CV_CAP_UEYE = 2500
 
-; VideoCaptureProperties
+; cv::VideoCaptureProperties
 Global Const $CV_CAP_PROP_POS_MSEC = 0
 Global Const $CV_CAP_PROP_POS_FRAMES = 1
 Global Const $CV_CAP_PROP_POS_AVI_RATIO = 2
@@ -1615,7 +1615,7 @@ Global Const $CV_CAP_PROP_AUDIO_SYNCHRONIZE = 66
 Global Const $CV_CAP_PROP_LRF_HAS_KEY_FRAME = 67
 Global Const $CV_CAP_PROP_CODEC_EXTRADATA_INDEX = 68
 
-; VideoWriterProperties
+; cv::VideoWriterProperties
 Global Const $CV_VIDEOWRITER_PROP_QUALITY = 1
 Global Const $CV_VIDEOWRITER_PROP_FRAMEBYTES = 2
 Global Const $CV_VIDEOWRITER_PROP_NSTRIPES = 3
@@ -1625,14 +1625,14 @@ Global Const $CV_VIDEOWRITER_PROP_HW_ACCELERATION = 6
 Global Const $CV_VIDEOWRITER_PROP_HW_DEVICE = 7
 Global Const $CV_VIDEOWRITER_PROP_HW_ACCELERATION_USE_OPENCL = 8
 
-; VideoAccelerationType
+; cv::VideoAccelerationType
 Global Const $CV_VIDEO_ACCELERATION_NONE = 0
 Global Const $CV_VIDEO_ACCELERATION_ANY = 1
 Global Const $CV_VIDEO_ACCELERATION_D3D11 = 2
 Global Const $CV_VIDEO_ACCELERATION_VAAPI = 3
 Global Const $CV_VIDEO_ACCELERATION_MFX = 4
 
-; SolvePnPMethod
+; cv::SolvePnPMethod
 Global Const $CV_SOLVEPNP_ITERATIVE = 0
 Global Const $CV_SOLVEPNP_EPNP = 1
 Global Const $CV_SOLVEPNP_P3P = 2
@@ -1642,66 +1642,66 @@ Global Const $CV_SOLVEPNP_AP3P = 5
 Global Const $CV_SOLVEPNP_IPPE = 6
 Global Const $CV_SOLVEPNP_IPPE_SQUARE = 7
 Global Const $CV_SOLVEPNP_SQPNP = 8
-Global Const $CV_SOLVEPNP_MAX_COUNT = 8 + 1
+Global Const $CV_SOLVEPNP_MAX_COUNT = 8+1
 
-; HandEyeCalibrationMethod
+; cv::HandEyeCalibrationMethod
 Global Const $CV_CALIB_HAND_EYE_TSAI = 0
 Global Const $CV_CALIB_HAND_EYE_PARK = 1
 Global Const $CV_CALIB_HAND_EYE_HORAUD = 2
 Global Const $CV_CALIB_HAND_EYE_ANDREFF = 3
 Global Const $CV_CALIB_HAND_EYE_DANIILIDIS = 4
 
-; RobotWorldHandEyeCalibrationMethod
+; cv::RobotWorldHandEyeCalibrationMethod
 Global Const $CV_CALIB_ROBOT_WORLD_HAND_EYE_SHAH = 0
 Global Const $CV_CALIB_ROBOT_WORLD_HAND_EYE_LI = 1
 
-; SamplingMethod
+; cv::SamplingMethod
 Global Const $CV_SAMPLING_UNIFORM = 0
 Global Const $CV_SAMPLING_PROGRESSIVE_NAPSAC = 1
 Global Const $CV_SAMPLING_NAPSAC = 2
 Global Const $CV_SAMPLING_PROSAC = 3
 
-; LocalOptimMethod
+; cv::LocalOptimMethod
 Global Const $CV_LOCAL_OPTIM_NULL = 0
 Global Const $CV_LOCAL_OPTIM_INNER_LO = 1
 Global Const $CV_LOCAL_OPTIM_INNER_AND_ITER_LO = 2
 Global Const $CV_LOCAL_OPTIM_GC = 3
 Global Const $CV_LOCAL_OPTIM_SIGMA = 4
 
-; ScoreMethod
+; cv::ScoreMethod
 Global Const $CV_SCORE_METHOD_RANSAC = 0
 Global Const $CV_SCORE_METHOD_MSAC = 1
 Global Const $CV_SCORE_METHOD_MAGSAC = 2
 Global Const $CV_SCORE_METHOD_LMEDS = 3
 
-; NeighborSearchMethod
+; cv::NeighborSearchMethod
 Global Const $CV_NEIGH_FLANN_KNN = 0
 Global Const $CV_NEIGH_GRID = 1
 Global Const $CV_NEIGH_FLANN_RADIUS = 2
 
-; GridType
+; cv::CirclesGridFinderParameters::GridType
 Global Const $CV_CIRCLES_GRID_FINDER_PARAMETERS_SYMMETRIC_GRID = 0
 Global Const $CV_CIRCLES_GRID_FINDER_PARAMETERS_ASYMMETRIC_GRID = 1
 
-; anonymous
+; cv::StereoMatcher::anonymous
 Global Const $CV_STEREO_MATCHER_DISP_SHIFT = 4
 Global Const $CV_STEREO_MATCHER_DISP_SCALE = (BitShift(1, -$CV_STEREO_MATCHER_DISP_SHIFT))
 
-; anonymous
+; cv::StereoBM::anonymous
 Global Const $CV_STEREO_BM_PREFILTER_NORMALIZED_RESPONSE = 0
 Global Const $CV_STEREO_BM_PREFILTER_XSOBEL = 1
 
-; anonymous
+; cv::StereoSGBM::anonymous
 Global Const $CV_STEREO_SGBM_MODE_SGBM = 0
 Global Const $CV_STEREO_SGBM_MODE_HH = 1
 Global Const $CV_STEREO_SGBM_MODE_SGBM_3WAY = 2
 Global Const $CV_STEREO_SGBM_MODE_HH4 = 3
 
-; UndistortTypes
+; cv::UndistortTypes
 Global Const $CV_PROJ_SPHERICAL_ORTHO = 0
 Global Const $CV_PROJ_SPHERICAL_EQRECT = 1
 
-; anonymous
+; cv::fisheye::anonymous
 Global Const $CV_FISHEYE_CALIB_USE_INTRINSIC_GUESS = BitShift(1, -0)
 Global Const $CV_FISHEYE_CALIB_RECOMPUTE_EXTRINSIC = BitShift(1, -1)
 Global Const $CV_FISHEYE_CALIB_CHECK_COND = BitShift(1, -2)
@@ -1715,7 +1715,7 @@ Global Const $CV_FISHEYE_CALIB_FIX_PRINCIPAL_POINT = BitShift(1, -9)
 Global Const $CV_FISHEYE_CALIB_ZERO_DISPARITY = BitShift(1, -10)
 Global Const $CV_FISHEYE_CALIB_FIX_FOCAL_LENGTH = BitShift(1, -11)
 
-; WindowFlags
+; cv::WindowFlags
 Global Const $CV_WINDOW_NORMAL = 0x00000000
 Global Const $CV_WINDOW_AUTOSIZE = 0x00000001
 Global Const $CV_WINDOW_OPENGL = 0x00001000
@@ -1725,7 +1725,7 @@ Global Const $CV_WINDOW_KEEPRATIO = 0x00000000
 Global Const $CV_WINDOW_GUI_EXPANDED = 0x00000000
 Global Const $CV_WINDOW_GUI_NORMAL = 0x00000010
 
-; WindowPropertyFlags
+; cv::WindowPropertyFlags
 Global Const $CV_WND_PROP_FULLSCREEN = 0
 Global Const $CV_WND_PROP_AUTOSIZE = 1
 Global Const $CV_WND_PROP_ASPECT_RATIO = 2
@@ -1734,7 +1734,7 @@ Global Const $CV_WND_PROP_VISIBLE = 4
 Global Const $CV_WND_PROP_TOPMOST = 5
 Global Const $CV_WND_PROP_VSYNC = 6
 
-; MouseEventTypes
+; cv::MouseEventTypes
 Global Const $CV_EVENT_MOUSEMOVE = 0
 Global Const $CV_EVENT_LBUTTONDOWN = 1
 Global Const $CV_EVENT_RBUTTONDOWN = 2
@@ -1748,7 +1748,7 @@ Global Const $CV_EVENT_MBUTTONDBLCLK = 9
 Global Const $CV_EVENT_MOUSEWHEEL = 10
 Global Const $CV_EVENT_MOUSEHWHEEL = 11
 
-; MouseEventFlags
+; cv::MouseEventFlags
 Global Const $CV_EVENT_FLAG_LBUTTON = 1
 Global Const $CV_EVENT_FLAG_RBUTTON = 2
 Global Const $CV_EVENT_FLAG_MBUTTON = 4
@@ -1756,35 +1756,35 @@ Global Const $CV_EVENT_FLAG_CTRLKEY = 8
 Global Const $CV_EVENT_FLAG_SHIFTKEY = 16
 Global Const $CV_EVENT_FLAG_ALTKEY = 32
 
-; QtFontWeights
+; cv::QtFontWeights
 Global Const $CV_QT_FONT_LIGHT = 25
 Global Const $CV_QT_FONT_NORMAL = 50
 Global Const $CV_QT_FONT_DEMIBOLD = 63
 Global Const $CV_QT_FONT_BOLD = 75
 Global Const $CV_QT_FONT_BLACK = 87
 
-; QtFontStyles
+; cv::QtFontStyles
 Global Const $CV_QT_STYLE_NORMAL = 0
 Global Const $CV_QT_STYLE_ITALIC = 1
 Global Const $CV_QT_STYLE_OBLIQUE = 2
 
-; QtButtonTypes
+; cv::QtButtonTypes
 Global Const $CV_QT_PUSH_BUTTON = 0
 Global Const $CV_QT_CHECKBOX = 1
 Global Const $CV_QT_RADIOBOX = 2
 Global Const $CV_QT_NEW_BUTTONBAR = 1024
 
-; HistogramNormType
+; cv::HOGDescriptor::HistogramNormType
 Global Const $CV_HOGDESCRIPTOR_L2Hys = 0
 
-; anonymous
+; cv::HOGDescriptor::anonymous
 Global Const $CV_HOGDESCRIPTOR_DEFAULT_NLEVELS = 64
 
-; DescriptorStorageFormat
+; cv::HOGDescriptor::DescriptorStorageFormat
 Global Const $CV_HOGDESCRIPTOR_DESCR_FORMAT_COL_BY_COL = 0
 Global Const $CV_HOGDESCRIPTOR_DESCR_FORMAT_ROW_BY_ROW = 1
 
-; EncodeMode
+; cv::QRCodeEncoder::EncodeMode
 Global Const $CV_QRCODE_ENCODER_MODE_AUTO = -1
 Global Const $CV_QRCODE_ENCODER_MODE_NUMERIC = 1
 Global Const $CV_QRCODE_ENCODER_MODE_ALPHANUMERIC = 2
@@ -1793,81 +1793,81 @@ Global Const $CV_QRCODE_ENCODER_MODE_ECI = 7
 Global Const $CV_QRCODE_ENCODER_MODE_KANJI = 8
 Global Const $CV_QRCODE_ENCODER_MODE_STRUCTURED_APPEND = 3
 
-; CorrectionLevel
+; cv::QRCodeEncoder::CorrectionLevel
 Global Const $CV_QRCODE_ENCODER_CORRECT_LEVEL_L = 0
 Global Const $CV_QRCODE_ENCODER_CORRECT_LEVEL_M = 1
 Global Const $CV_QRCODE_ENCODER_CORRECT_LEVEL_Q = 2
 Global Const $CV_QRCODE_ENCODER_CORRECT_LEVEL_H = 3
 
-; ECIEncodings
+; cv::QRCodeEncoder::ECIEncodings
 Global Const $CV_QRCODE_ENCODER_ECI_UTF8 = 26
 
-; DisType
+; cv::FaceRecognizerSF::DisType
 Global Const $CV_FACE_RECOGNIZER_SF_FR_COSINE = 0
 Global Const $CV_FACE_RECOGNIZER_SF_FR_NORM_L2 = 1
 
-; Status
+; cv::Stitcher::Status
 Global Const $CV_STITCHER_OK = 0
 Global Const $CV_STITCHER_ERR_NEED_MORE_IMGS = 1
 Global Const $CV_STITCHER_ERR_HOMOGRAPHY_EST_FAIL = 2
 Global Const $CV_STITCHER_ERR_CAMERA_PARAMS_ADJUST_FAIL = 3
 
-; Mode
+; cv::Stitcher::Mode
 Global Const $CV_STITCHER_PANORAMA = 0
 Global Const $CV_STITCHER_SCANS = 1
 
-; anonymous
+; cv::detail::Blender::anonymous
 Global Const $CV_DETAIL_BLENDER_NO = 0
 Global Const $CV_DETAIL_BLENDER_FEATHER = 1
 Global Const $CV_DETAIL_BLENDER_MULTI_BAND = 2
 
-; anonymous
+; cv::detail::ExposureCompensator::anonymous
 Global Const $CV_DETAIL_EXPOSURE_COMPENSATOR_NO = 0
 Global Const $CV_DETAIL_EXPOSURE_COMPENSATOR_GAIN = 1
 Global Const $CV_DETAIL_EXPOSURE_COMPENSATOR_GAIN_BLOCKS = 2
 Global Const $CV_DETAIL_EXPOSURE_COMPENSATOR_CHANNELS = 3
 Global Const $CV_DETAIL_EXPOSURE_COMPENSATOR_CHANNELS_BLOCKS = 4
 
-; WaveCorrectKind
+; cv::detail::WaveCorrectKind
 Global Const $CV_DETAIL_WAVE_CORRECT_HORIZ = 0
 Global Const $CV_DETAIL_WAVE_CORRECT_VERT = 1
 Global Const $CV_DETAIL_WAVE_CORRECT_AUTO = 2
 
-; anonymous
+; cv::detail::SeamFinder::anonymous
 Global Const $CV_DETAIL_SEAM_FINDER_NO = 0
 Global Const $CV_DETAIL_SEAM_FINDER_VORONOI_SEAM = 1
 Global Const $CV_DETAIL_SEAM_FINDER_DP_SEAM = 2
 
-; CostFunction
+; cv::detail::DpSeamFinder::CostFunction
 Global Const $CV_DETAIL_DP_SEAM_FINDER_COLOR = 0
 Global Const $CV_DETAIL_DP_SEAM_FINDER_COLOR_GRAD = 1
 
-; CostType
+; cv::detail::GraphCutSeamFinderBase::CostType
 Global Const $CV_DETAIL_GRAPH_CUT_SEAM_FINDER_BASE_COST_COLOR = 0
 Global Const $CV_DETAIL_GRAPH_CUT_SEAM_FINDER_BASE_COST_COLOR_GRAD = 1
 
-; anonymous
+; cv::detail::Timelapser::anonymous
 Global Const $CV_DETAIL_TIMELAPSER_AS_IS = 0
 Global Const $CV_DETAIL_TIMELAPSER_CROP = 1
 
-; anonymous
+; cv::DISOpticalFlow::anonymous
 Global Const $CV_DISOPTICAL_FLOW_PRESET_ULTRAFAST = 0
 Global Const $CV_DISOPTICAL_FLOW_PRESET_FAST = 1
 Global Const $CV_DISOPTICAL_FLOW_PRESET_MEDIUM = 2
 
-; MODE
+; cv::detail::TrackerSamplerCSC::MODE
 Global Const $CV_DETAIL_TRACKER_SAMPLER_CSC_MODE_INIT_POS = 1
 Global Const $CV_DETAIL_TRACKER_SAMPLER_CSC_MODE_INIT_NEG = 2
 Global Const $CV_DETAIL_TRACKER_SAMPLER_CSC_MODE_TRACK_POS = 3
 Global Const $CV_DETAIL_TRACKER_SAMPLER_CSC_MODE_TRACK_NEG = 4
 Global Const $CV_DETAIL_TRACKER_SAMPLER_CSC_MODE_DETECT = 5
 
-; Kind
+; cv::GFluidKernel::Kind
 Global Const $CV_GFLUID_KERNEL_KIND_Filter = 0
 Global Const $CV_GFLUID_KERNEL_KIND_Resize = 1
 Global Const $CV_GFLUID_KERNEL_KIND_YUV420toRGB = 2
 
-; OpaqueKind
+; cv::detail::OpaqueKind
 Global Const $CV_DETAIL_OPAQUE_KIND_CV_UNKNOWN = 0
 Global Const $CV_DETAIL_OPAQUE_KIND_CV_BOOL = 1
 Global Const $CV_DETAIL_OPAQUE_KIND_CV_INT = 2
@@ -1884,72 +1884,72 @@ Global Const $CV_DETAIL_OPAQUE_KIND_CV_SCALAR = 12
 Global Const $CV_DETAIL_OPAQUE_KIND_CV_MAT = 13
 Global Const $CV_DETAIL_OPAQUE_KIND_CV_DRAW_PRIM = 14
 
-; GShape
+; cv::GShape
 Global Const $CV_GSHAPE_GMAT = 0
 Global Const $CV_GSHAPE_GSCALAR = 1
 Global Const $CV_GSHAPE_GARRAY = 2
 Global Const $CV_GSHAPE_GOPAQUE = 3
 Global Const $CV_GSHAPE_GFRAME = 4
 
-; MediaFormat
+; cv::MediaFormat
 Global Const $CV_MEDIA_FORMAT_BGR = 0
-Global Const $CV_MEDIA_FORMAT_NV12 = 0 + 1
-Global Const $CV_MEDIA_FORMAT_GRAY = 0 + 2
+Global Const $CV_MEDIA_FORMAT_NV12 = 0+1
+Global Const $CV_MEDIA_FORMAT_GRAY = 0+2
 
-; ArgKind
+; cv::detail::ArgKind
 Global Const $CV_DETAIL_ARG_KIND_OPAQUE_VAL = 0
 Global Const $CV_DETAIL_ARG_KIND_OPAQUE = $CV_DETAIL_ARG_KIND_OPAQUE_VAL
-Global Const $CV_DETAIL_ARG_KIND_GOBJREF = $CV_DETAIL_ARG_KIND_OPAQUE_VAL + 1
-Global Const $CV_DETAIL_ARG_KIND_GMAT = $CV_DETAIL_ARG_KIND_OPAQUE_VAL + 2
-Global Const $CV_DETAIL_ARG_KIND_GMATP = $CV_DETAIL_ARG_KIND_OPAQUE_VAL + 3
-Global Const $CV_DETAIL_ARG_KIND_GFRAME = $CV_DETAIL_ARG_KIND_OPAQUE_VAL + 4
-Global Const $CV_DETAIL_ARG_KIND_GSCALAR = $CV_DETAIL_ARG_KIND_OPAQUE_VAL + 5
-Global Const $CV_DETAIL_ARG_KIND_GARRAY = $CV_DETAIL_ARG_KIND_OPAQUE_VAL + 6
-Global Const $CV_DETAIL_ARG_KIND_GOPAQUE = $CV_DETAIL_ARG_KIND_OPAQUE_VAL + 7
+Global Const $CV_DETAIL_ARG_KIND_GOBJREF = $CV_DETAIL_ARG_KIND_OPAQUE_VAL+1
+Global Const $CV_DETAIL_ARG_KIND_GMAT = $CV_DETAIL_ARG_KIND_OPAQUE_VAL+2
+Global Const $CV_DETAIL_ARG_KIND_GMATP = $CV_DETAIL_ARG_KIND_OPAQUE_VAL+3
+Global Const $CV_DETAIL_ARG_KIND_GFRAME = $CV_DETAIL_ARG_KIND_OPAQUE_VAL+4
+Global Const $CV_DETAIL_ARG_KIND_GSCALAR = $CV_DETAIL_ARG_KIND_OPAQUE_VAL+5
+Global Const $CV_DETAIL_ARG_KIND_GARRAY = $CV_DETAIL_ARG_KIND_OPAQUE_VAL+6
+Global Const $CV_DETAIL_ARG_KIND_GOPAQUE = $CV_DETAIL_ARG_KIND_OPAQUE_VAL+7
 
-; TraitAs
+; cv::gapi::ie::TraitAs
 Global Const $CV_GAPI_IE_TRAIT_AS_TENSOR = 0
 Global Const $CV_GAPI_IE_TRAIT_AS_IMAGE = 1
 
-; Kind
+; cv::gapi::ie::detail::ParamDesc::Kind
 Global Const $CV_GAPI_IE_DETAIL_PARAM_DESC_KIND_Load = 0
 Global Const $CV_GAPI_IE_DETAIL_PARAM_DESC_KIND_Import = 1
 
-; TraitAs
+; cv::gapi::onnx::TraitAs
 Global Const $CV_GAPI_ONNX_TRAIT_AS_TENSOR = 0
 Global Const $CV_GAPI_ONNX_TRAIT_AS_IMAGE = 1
 
-; Access
+; cv::MediaFrame::Access
 Global Const $CV_MEDIA_FRAME_ACCESS_R = 0
 Global Const $CV_MEDIA_FRAME_ACCESS_W = 1
 
-; RateControlMode
+; cv::gapi::oak::EncoderConfig::RateControlMode
 Global Const $CV_GAPI_OAK_ENCODER_CONFIG_RATE_CONTROL_MODE_CBR = 0
 Global Const $CV_GAPI_OAK_ENCODER_CONFIG_RATE_CONTROL_MODE_VBR = 1
 
-; Profile
+; cv::gapi::oak::EncoderConfig::Profile
 Global Const $CV_GAPI_OAK_ENCODER_CONFIG_PROFILE_H264_BASELINE = 0
 Global Const $CV_GAPI_OAK_ENCODER_CONFIG_PROFILE_H264_HIGH = 1
 Global Const $CV_GAPI_OAK_ENCODER_CONFIG_PROFILE_H264_MAIN = 2
 Global Const $CV_GAPI_OAK_ENCODER_CONFIG_PROFILE_H265_MAIN = 3
 Global Const $CV_GAPI_OAK_ENCODER_CONFIG_PROFILE_MJPEG = 4
 
-; BoardSocket
+; cv::gapi::oak::ColorCameraParams::BoardSocket
 Global Const $CV_GAPI_OAK_COLOR_CAMERA_PARAMS_BOARD_SOCKET_RGB = 0
 Global Const $CV_GAPI_OAK_COLOR_CAMERA_PARAMS_BOARD_SOCKET_BGR = 1
 
-; Resolution
+; cv::gapi::oak::ColorCameraParams::Resolution
 Global Const $CV_GAPI_OAK_COLOR_CAMERA_PARAMS_RESOLUTION_THE_1080_P = 0
 
-; anonymous
+; cv::gapi::own::detail::MatHeader::anonymous
 Global Const $CV_GAPI_OWN_DETAIL_MAT_HEADER_AUTO_STEP = 0
 Global Const $CV_GAPI_OWN_DETAIL_MAT_HEADER_TYPE_MASK = 0x00000FFF
 
-; Access
+; cv::RMat::Access
 Global Const $CV_RMAT_ACCESS_R = 0
 Global Const $CV_RMAT_ACCESS_W = 1
 
-; StereoOutputFormat
+; cv::gapi::StereoOutputFormat
 Global Const $CV_GAPI_STEREO_OUTPUT_FORMAT_DEPTH_FLOAT16 = 0
 Global Const $CV_GAPI_STEREO_OUTPUT_FORMAT_DEPTH_FLOAT32 = 1
 Global Const $CV_GAPI_STEREO_OUTPUT_FORMAT_DISPARITY_FIXED16_11_5 = 2
@@ -1959,25 +1959,25 @@ Global Const $CV_GAPI_STEREO_OUTPUT_FORMAT_DEPTH_32F = $CV_GAPI_STEREO_OUTPUT_FO
 Global Const $CV_GAPI_STEREO_OUTPUT_FORMAT_DISPARITY_16Q_10_5 = $CV_GAPI_STEREO_OUTPUT_FORMAT_DISPARITY_FIXED16_11_5
 Global Const $CV_GAPI_STEREO_OUTPUT_FORMAT_DISPARITY_16Q_11_4 = $CV_GAPI_STEREO_OUTPUT_FORMAT_DISPARITY_FIXED16_12_4
 
-; OutputType
+; cv::gapi::wip::gst::GStreamerSource::OutputType
 Global Const $CV_GAPI_WIP_GST_GSTREAMER_SOURCE_OUTPUT_TYPE_FRAME = 0
 Global Const $CV_GAPI_WIP_GST_GSTREAMER_SOURCE_OUTPUT_TYPE_MAT = 1
 
-; AccelType
+; cv::gapi::wip::onevpl::AccelType
 Global Const $CV_GAPI_WIP_ONEVPL_ACCEL_TYPE_HOST = 0
 Global Const $CV_GAPI_WIP_ONEVPL_ACCEL_TYPE_DX11 = 1
 Global Const $CV_GAPI_WIP_ONEVPL_ACCEL_TYPE_VAAPI = 2
 Global Const $CV_GAPI_WIP_ONEVPL_ACCEL_TYPE_LAST_VALUE = 0xFF
 
-; sync_policy
+; cv::gapi::streaming::sync_policy
 Global Const $CV_GAPI_STREAMING_SYNC_POLICY_dont_sync = 0
 Global Const $CV_GAPI_STREAMING_SYNC_POLICY_drop = 1
 
-; BackgroundSubtractorType
+; cv::gapi::video::BackgroundSubtractorType
 Global Const $CV_GAPI_VIDEO_TYPE_BS_MOG2 = 0
 Global Const $CV_GAPI_VIDEO_TYPE_BS_KNN = 1
 
-; flann_algorithm_t
+; cvflann::flann_algorithm_t
 Global Const $CVFLANN_FLANN_INDEX_LINEAR = 0
 Global Const $CVFLANN_FLANN_INDEX_KDTREE = 1
 Global Const $CVFLANN_FLANN_INDEX_KMEANS = 2
@@ -1995,7 +1995,7 @@ Global Const $CVFLANN_KDTREE_SINGLE = 4
 Global Const $CVFLANN_SAVED = 254
 Global Const $CVFLANN_AUTOTUNED = 255
 
-; flann_centers_init_t
+; cvflann::flann_centers_init_t
 Global Const $CVFLANN_FLANN_CENTERS_RANDOM = 0
 Global Const $CVFLANN_FLANN_CENTERS_GONZALES = 1
 Global Const $CVFLANN_FLANN_CENTERS_KMEANSPP = 2
@@ -2004,14 +2004,14 @@ Global Const $CVFLANN_CENTERS_RANDOM = 0
 Global Const $CVFLANN_CENTERS_GONZALES = 1
 Global Const $CVFLANN_CENTERS_KMEANSPP = 2
 
-; flann_log_level_t
+; cvflann::flann_log_level_t
 Global Const $CVFLANN_FLANN_LOG_NONE = 0
 Global Const $CVFLANN_FLANN_LOG_FATAL = 1
 Global Const $CVFLANN_FLANN_LOG_ERROR = 2
 Global Const $CVFLANN_FLANN_LOG_WARN = 3
 Global Const $CVFLANN_FLANN_LOG_INFO = 4
 
-; flann_distance_t
+; cvflann::flann_distance_t
 Global Const $CVFLANN_FLANN_DIST_EUCLIDEAN = 1
 Global Const $CVFLANN_FLANN_DIST_L2 = 1
 Global Const $CVFLANN_FLANN_DIST_MANHATTAN = 2
@@ -2036,7 +2036,7 @@ Global Const $CVFLANN_CS = 7
 Global Const $CVFLANN_KL = 8
 Global Const $CVFLANN_KULLBACK_LEIBLER = 8
 
-; flann_datatype_t
+; cvflann::flann_datatype_t
 Global Const $CVFLANN_FLANN_INT8 = 0
 Global Const $CVFLANN_FLANN_INT16 = 1
 Global Const $CVFLANN_FLANN_INT32 = 2
@@ -2048,6 +2048,6 @@ Global Const $CVFLANN_FLANN_UINT64 = 7
 Global Const $CVFLANN_FLANN_FLOAT32 = 8
 Global Const $CVFLANN_FLANN_FLOAT64 = 9
 
-; anonymous
+; cvflann::anonymous
 Global Const $CVFLANN_FLANN_CHECKS_UNLIMITED = -1
 Global Const $CVFLANN_FLANN_CHECKS_AUTOTUNED = -2

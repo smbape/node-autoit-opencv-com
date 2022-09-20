@@ -1,5 +1,5 @@
-const fs = require("fs");
-const sysPath = require("path");
+const fs = require("node:fs");
+const sysPath = require("node:path");
 
 const files = fs.readdirSync(sysPath.join(__dirname, "conversions"));
 

@@ -13,14 +13,6 @@
 #include "Cv_Gapi_Wip_Draw_Mosaic_Object.h"
 #include "Cv_Gapi_Wip_Draw_Image_Object.h"
 
-// import the .TLB that's compiled in scrrun.dll
-#import "C:\Windows\System32\scrrun.dll" \
-	rename("CopyFile", "CopyFile2") \
-	rename("DeleteFile", "DeleteFile2") \
-	rename("FreeSpace", "FreeSpace2") \
-	rename("MoveFile", "MoveFile2") \
-	// avoid name collision with Windows SDK's macros, this is specific to scrrun.dll
-
 PTR_BRIDGE_IMPL(cv::wgc::WGCFrameCallback)
 
 const bool is_variant_scalar(VARIANT const* const& in_val) {
@@ -114,38 +106,40 @@ const HRESULT autoit_to(VARIANT const* const& in_val, cv::GMetaArg& out_val) {
 	return hr;
 }
 
-const HRESULT autoit_from(const GMetaArg& in_val, VARIANT*& out_val) {
+const HRESULT autoit_from(const cv::GMetaArg& in_val, VARIANT*& out_val) {
+	using namespace cv;
 	switch (in_val.index()) {
-		case cv::GMetaArg::index_of<cv::GMatDesc>():
-			return autoit_from(util::get<cv::GMatDesc>(in_val), out_val);
+		case GMetaArg::index_of<GMatDesc>():
+			return autoit_from(util::get<GMatDesc>(in_val), out_val);
 
-		case cv::GMetaArg::index_of<cv::GScalarDesc>():
-			return autoit_from(util::get<cv::GScalarDesc>(in_val), out_val);
+		case GMetaArg::index_of<GScalarDesc>():
+			return autoit_from(util::get<GScalarDesc>(in_val), out_val);
 
-		case cv::GMetaArg::index_of<cv::GOpaqueDesc>():
-			return autoit_from(util::get<cv::GOpaqueDesc>(in_val), out_val);
+		case GMetaArg::index_of<GOpaqueDesc>():
+			return autoit_from(util::get<GOpaqueDesc>(in_val), out_val);
 
-		case cv::GMetaArg::index_of<cv::GArrayDesc>():
-			return autoit_from(util::get<cv::GArrayDesc>(in_val), out_val);
+		case GMetaArg::index_of<GArrayDesc>():
+			return autoit_from(util::get<GArrayDesc>(in_val), out_val);
 
 		default:
 			return E_INVALIDARG;
 	}
 }
 
-const HRESULT autoit_from(const GOptRunArg& in_val, VARIANT*& out_val) {
+const HRESULT autoit_from(const cv::GOptRunArg& in_val, VARIANT*& out_val) {
+	using namespace cv;
 	switch (in_val.index()) {
-		case GOptRunArg::index_of<cv::optional<cv::Mat>>():
-			return autoit_from(util::get<cv::optional<cv::Mat>>(in_val), out_val);
+		case GOptRunArg::index_of<optional<Mat>>():
+			return autoit_from(util::get<optional<Mat>>(in_val), out_val);
 
-		case GOptRunArg::index_of<cv::optional<cv::Scalar>>():
-			return autoit_from(util::get<cv::optional<cv::Scalar>>(in_val), out_val);
+		case GOptRunArg::index_of<optional<Scalar>>():
+			return autoit_from(util::get<optional<Scalar>>(in_val), out_val);
 
-		case GOptRunArg::index_of<optional<cv::detail::VectorRef>>():
-			return autoit_from(util::get<optional<cv::detail::VectorRef>>(in_val), out_val);
+		case GOptRunArg::index_of<optional<detail::VectorRef>>():
+			return autoit_from(util::get<optional<detail::VectorRef>>(in_val), out_val);
 
-		case GOptRunArg::index_of<optional<cv::detail::OpaqueRef>>():
-			return autoit_from(util::get<optional<cv::detail::OpaqueRef>>(in_val), out_val);
+		case GOptRunArg::index_of<optional<detail::OpaqueRef>>():
+			return autoit_from(util::get<optional<detail::OpaqueRef>>(in_val), out_val);
 
 		default:
 			return E_INVALIDARG;
@@ -153,12 +147,13 @@ const HRESULT autoit_from(const GOptRunArg& in_val, VARIANT*& out_val) {
 }
 
 const HRESULT autoit_from(const cv::util::variant<cv::GRunArgs, cv::GOptRunArgs>& in_val, VARIANT*& out_val) {
-	using RunArgs = cv::util::variant<cv::GRunArgs, cv::GOptRunArgs>;
+	using namespace cv;
+	using RunArgs = util::variant<GRunArgs, GOptRunArgs>;
 	switch (in_val.index()) {
-		case RunArgs::index_of<cv::GRunArgs>():
-			return autoit_from(util::get<cv::GRunArgs>(in_val), out_val);
-		case RunArgs::index_of<cv::GOptRunArgs>():
-			return autoit_from(util::get<cv::GOptRunArgs>(in_val), out_val);
+		case RunArgs::index_of<GRunArgs>():
+			return autoit_from(util::get<GRunArgs>(in_val), out_val);
+		case RunArgs::index_of<GOptRunArgs>():
+			return autoit_from(util::get<GOptRunArgs>(in_val), out_val);
 		default:
 			return E_INVALIDARG;
 	}
@@ -171,7 +166,7 @@ const bool is_assignable_from(cv::Ptr<cv::flann::IndexParams>& out_val, VARIANT*
 
 const bool is_assignable_from(cv::flann::IndexParams& out_val, VARIANT*& in_val, bool is_optional) {
 	if (PARAMETER_MISSING(in_val)) {
-		return true;
+		return is_optional;
 	}
 
 	if (V_VT(in_val) != VT_DISPATCH) {
@@ -325,6 +320,8 @@ const HRESULT autoit_to(VARIANT const* const& in_val, cv::flann::IndexParams& ou
 			}
 		}
 	}
+
+	keys.Detach();
 
 	return hr;
 }

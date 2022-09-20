@@ -16,3 +16,9 @@ STDMETHODIMP CCv_Object::get_extended(VARIANT* _retval) {
 const _variant_t CCv_Object::variant(void* ptr, HRESULT& hr) {
 	return _variant_t(static_cast<VARIANT*>(ptr));
 }
+
+const std::string CCv_Object::format(cv::InputArray& mtx, cv::Formatter::FormatType fmt, HRESULT& hr) {
+	std::string ouput;
+	ouput << cv::format(mtx, fmt);
+	return ouput;
+}

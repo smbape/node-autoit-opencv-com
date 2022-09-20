@@ -3,8 +3,10 @@ const {
     PTR,
 } = require("./constants");
 
+const {makeExpansion, useNamespaces} = require("./alias");
+
 Object.assign(exports, {
-    declare: (generator, coclass, overrides, fname, idlname, id, iidl, ipublic, impl, is_test, options = {}) => {
+    declare: (generator, coclass, overrides, fname, idlname, iidl, ipublic, impl, is_test, options = {}) => {
         const {shared_ptr} = options;
         const fqn = coclass.fqn;
         const cotype = coclass.getClassName();
@@ -17,6 +19,7 @@ Object.assign(exports, {
         let maxargc = 0;
         let minout = Number.POSITIVE_INFINITY;
         let minopt = Number.POSITIVE_INFINITY;
+        let idl_only = false;
         const bodies = [];
         const indent = " ".repeat(has_override ? 4 : 0);
 
@@ -123,6 +126,7 @@ Object.assign(exports, {
                 const is_ptr = argtype.endsWith("*");
                 const is_out = out_args[j];
                 const is_optional = defval !== "" || is_out && !in_args[j];
+                const is_input_array = argtype === "InputArray";
 
                 optionals[j] = is_optional;
 
@@ -187,7 +191,7 @@ Object.assign(exports, {
                     if (modifier.startsWith("/Cast=")) {
                         callarg = `${ modifier.slice("/Cast=".length) }(${ callarg })`;
                     } else if (modifier.startsWith("/Expr=")) {
-                        callarg = modifier.slice("/Expr=".length).replace(/\$(?:0\b|\{0\})/g, callarg);
+                        callarg = makeExpansion(modifier.slice("/Expr=".length), callarg);
                     } else if (modifier.startsWith("/default=")) {
                         other_default = modifier.slice("/default=".length);
                     }
@@ -197,7 +201,7 @@ Object.assign(exports, {
                     callarg = `std::move(${ callarg })`;
                 }
 
-                callargs[j] = generator.castAsEnumIfNeeded(argtype, callarg, coclass);
+                callargs[j] = callarg;
 
                 const is_vector = argtype.startsWith("vector_") || argtype.startsWith("vector<") || argtype.startsWith("VectorOf");
                 const has_ptr = is_ptr || cpptype.startsWith(`${ shared_ptr }<`);
@@ -207,6 +211,7 @@ Object.assign(exports, {
                 const scalar_pointer = `${ pointer }_s`;
                 const is_scalar_variant = `${ argname }_is_scalar`;
                 const set_from_pointer = `set_${ argname }_from_ptr`;
+                const argname_double = `${ argname }_double`;
                 const cvt = [`bool ${ set_from_pointer } = false;`];
                 let is_shared_ptr = false;
 
@@ -216,7 +221,7 @@ Object.assign(exports, {
 
                 if (is_array) {
                     let cvt_body = `
-                        ${ shared_ptr }<_${ arrtype }> ${ pointer };
+                        ${ shared_ptr }<cv::_${ arrtype }> ${ pointer };
                     `.replace(/^ {24}/mg, "");
 
                     if (!is_vector) {
@@ -235,13 +240,16 @@ Object.assign(exports, {
                             // Nothing to do
                         } else if (${ dispatchConditions.join(" && ") }) {
                             auto obj = ${ dynamicCast };
-                            if (!obj) {
-                                printf("unable to read argument ${ j } of type %hu into ${ cpptype }\\n", V_VT(${ in_val }));
-                                return E_INVALIDARG;
+                            if (obj) {
+                                ${ pointer }.reset(obj->create${ arrtype }());
+                                ${ set_from_pointer } = true;
+                            } else {
+                                hr = autoit_to(${ in_val }, ${ placeholder_name });
+                                if (FAILED(hr)) {
+                                    printf("unable to read argument ${ j } of type %hu into ${ cpptype }\\n", V_VT(${ in_val }));
+                                    return hr;
+                                }
                             }
-
-                            ${ pointer }.reset(obj->create${ arrtype }());
-                            ${ set_from_pointer } = true;
                         }`.replace(/^ {24}/mg, "");
 
                     // do not take numbers as Array because
@@ -267,20 +275,41 @@ Object.assign(exports, {
                                 return hr;
                             }
                             ${ is_scalar_variant } = true;
-                            ${ pointer }.reset(new _${ arrtype }(*${ scalar_pointer }.get()));
+                            ${ pointer }.reset(new cv::_${ arrtype }(*${ scalar_pointer }.get()));
                             ${ set_from_pointer } = true;
                         }`.replace(/^ {24}/mg, "");
+
+                        if (is_input_array) {
+                            cvt_body += ` else if (V_VT(${ in_val }) == VT_R4 || V_VT(${ in_val }) == VT_R8) {
+                                double ${ argname_double } = 0.0;
+                                hr = get_variant_number(${ in_val }, ${ argname_double });
+                                if (FAILED(hr)) {
+                                    printf("unable to read argument ${ j } of type %hu into ${ cpptype }\\n", V_VT(${ in_val }));
+                                    return hr;
+                                }
+                                ${ pointer }.reset(new cv::_${ arrtype }(${ argname_double }));
+                                ${ set_from_pointer } = true;
+                            }`.replace(/^ {28}/mg, "");
+                        }
                     }
 
+                    cvt_body += ` else if (!PARAMETER_MISSING(${ in_val })) {
+                        hr = autoit_to(${ in_val }, ${ placeholder_name });
+                        if (FAILED(hr)) {
+                            printf("unable to read argument ${ j } of type %hu into ${ cpptype }\\n", V_VT(${ in_val }));
+                            return hr;
+                        }
+                    }`.replace(/^ {20}/mg, "");
+
                     if (!is_optional) {
-                        cvt_body += ` else if (PARAMETER_MISSING(${ in_val })) {
+                        cvt_body += ` else {
                             printf("unable to read argument ${ j } of type %hu into ${ cpptype }\\n", V_VT(${ in_val }));
                             return E_INVALIDARG;
                         }`.replace(/^ {24}/mg, "");
                     }
 
                     cvt_body += "\n";
-                    cvt_body += `\n_${ arrtype } _${ placeholder_name }(${ placeholder_name });`;
+                    cvt_body += `\ncv::_${ arrtype } _${ placeholder_name }(${ placeholder_name });`;
                     cvt_body += `\nauto& ${ argname } = ${ set_from_pointer } ? *${ pointer }.get() : _${ placeholder_name };`;
 
                     cvt.push(...cvt_body.trim().split("\n"));
@@ -333,20 +362,19 @@ Object.assign(exports, {
                         is_shared_ptr = true;
 
                         cvt.push(...`
-                            ${ cpptype }* ${ pointer } = NULL;
+                            ${ shared_ptr }<${ cpptype }> ${ pointer };
 
                             if (V_VT(${ in_val }) == VT_DISPATCH) {
-                                const auto& obj = dynamic_cast<TypeToImplType<${ cpptype }>::type*>(getRealIDispatch(${ in_val }));
-                                if (!obj) {
+                                ${ pointer } = ::autoit::cast<${ cpptype }>(getRealIDispatch(${ in_val }));
+                                if (!${ pointer }) {
                                     printf("unable to read argument ${ j } of type %hu into ${ cpptype }\\n", V_VT(${ in_val }));
                                     return E_INVALIDARG;
                                 }
 
-                                ${ pointer } = obj->__self->get();
                                 ${ set_from_pointer } = true;
                             } else if (V_VT(${ in_val }) == VT_UI8) {
                                 const auto& ptr = V_UI8(${ in_val });
-                                ${ pointer } = reinterpret_cast<${ cpptype }*>(ptr);
+                                ${ pointer } = ::autoit::reference_internal(reinterpret_cast<${ cpptype }*>(ptr));
                                 ${ set_from_pointer } = true;
                             } else {
                                 hr = autoit_to(${ in_val }, ${ placeholder_name });
@@ -356,7 +384,7 @@ Object.assign(exports, {
                                 }
                             }
 
-                            auto& ${ argname } = ${ pointer } ? *${ pointer } : *${ placeholder_name }.get();
+                            auto& ${ argname } = ${ pointer } ? *${ pointer }.get() : *${ placeholder_name }.get();
                             hr = S_OK;
                         `.replace(/^ {28}/mg, "").trim().split("\n"));
                     }
@@ -377,8 +405,17 @@ Object.assign(exports, {
                 if (argtype === "_variant_t" || argtype === "VARIANT*") {
                     conditions[j] = is_optional ? "true" : `!PARAMETER_MISSING(${ in_val })`;
                 } else if (is_array) {
-                    conditions[j] = `(is_array${ is_vector ? "s" : "" }_from(${ in_val }, ${ is_optional }) `;
-                    conditions[j] += `|| is_assignable_from(${ placeholder_name }, ${ in_val }, ${ is_optional }))`;
+                    const iconditions = [
+                        `is_array${ is_vector ? "s" : "" }_from(${ in_val }, ${ is_optional })`,
+                        `is_assignable_from(${ placeholder_name }, ${ in_val }, ${ is_optional })`,
+                    ];
+
+                    if (is_input_array) {
+                        iconditions.push(`V_VT(${ in_val }) == VT_R4`);
+                        iconditions.push(`V_VT(${ in_val }) == VT_R8`);
+                    }
+
+                    conditions[j] = `(${ iconditions.join(" || ") })`;
                 } else {
                     conditions[j] = `is_assignable_from(${ placeholder_name }, ${ in_val }, ${ is_optional })`;
                 }
@@ -388,7 +425,7 @@ Object.assign(exports, {
                 } else {
                     declarations[j] = `${ indent }${ cpptype } ${ placeholder_name }`;
                     if (defval !== "") {
-                        declarations[j] += ` = ${ generator.castFromEnumIfNeeded(argtype, defval, coclass) }`;
+                        declarations[j] += ` = ${ defval }`;
                     }
                     declarations[j] += ";";
                 }
@@ -417,15 +454,31 @@ Object.assign(exports, {
                 }
             }
 
+            let has_idlname_changed = false;
+            let id = null;
+
             for (const modifier of func_modifiers) {
                 if (modifier.startsWith("/idlname=")) {
-                    idlname = modifier.slice("/idlname=".length);
+                    const new_idlname = modifier.slice("/idlname=".length);
+                    if (!has_idlname_changed) {
+                        idlname = new_idlname;
+                        has_idlname_changed = true;
+                    } else if (idlname !== new_idlname) {
+                        throw new Error(`different idlnames for ${ fname } : ${ idlname } != ${ new_idlname }`);
+                    }
                 } else if (modifier.startsWith("/id=")) {
-                    id = modifier.slice("/id=".length);
+                    const new_id = modifier.slice("/id=".length);
+                    if (id === null) {
+                        id = new_id;
+                    } else if (id !== new_id) {
+                        throw new Error(`different ids for function ${ fname } : ${ id } != ${ new_id }`);
+                    }
                 } else if (modifier.startsWith("/attr=")) {
                     attrs.push(modifier.slice("/attr=".length));
                 }
             }
+
+            id = coclass.addIDLName(idlname, fname, id);
 
             if (!has_docs) {
                 continue;
@@ -446,7 +499,7 @@ Object.assign(exports, {
             let outstr;
 
             if (is_constructor) {
-                outstr = `<${ fqn.split("::").join(".") } object>`;
+                outstr = `<${ fqn.replaceAll("::", ".") } object>`;
             } else if (outlist.length !== 0) {
                 outstr = outlist.join(", ");
             } else {
@@ -465,7 +518,7 @@ Object.assign(exports, {
             }
 
             if (id === "DISPID_VALUE" && attrs.includes("propget")) {
-                description += `\n    ${ coclass.progid }( ${ argstr } ) -> ${ outstr }`;
+                description += `\n    ${ caller }( ${ argstr } ) -> ${ outstr }`;
             }
 
             let cppsignature = `${ generator.getCppType(return_value_type, coclass, options) } ${ fqn }::${ fname }`;
@@ -532,17 +585,22 @@ Object.assign(exports, {
             body.push(`PARAMETER_IN(${ varprefix }${ i });`);
         }
 
+        if (attrs.includes("propput") && maxargc >= 2) {
+            // setted value is the last parameter
+            // however its expected position is maxargc - 2
+            // if only maxargc - 1 parameters has been given
+            body.push(`
+                if (PARAMETER_NOT_FOUND(${ varprefix }${ maxargc - 2 })) {
+                    std::swap(${ varprefix }${ maxargc - 2 }, ${ varprefix }${ maxargc - 1 });
+                }
+            `.trim().replace(/^ {16}/mg, ""));
+        }
+
         if (maxargc !== 0) {
             body.push("");
         }
 
-        if (coclass.namespace) {
-            body.push(`using namespace ${ coclass.namespace };`);
-        }
-
-        if (coclass.include && coclass.include.namespace && coclass.include.namespace !== coclass.namespace) {
-            body.push(`using namespace ${ coclass.include.namespace };`);
-        }
+        useNamespaces(body, "push", generator, coclass);
 
         const hr = maxargc !== 0 ? "E_INVALIDARG" : "S_OK";
         const enableNamedParameters = maxargc !== 0 && coclass !== generator.namedParameters && !coclass.is_vector && !coclass.is_stdmap;
@@ -566,9 +624,11 @@ Object.assign(exports, {
                     const i = maxargc - 1 - j;
                     return `
                         if (!PARAMETER_MISSING(${ varprefix }${ i })) {
-                            HRESULT ohr = autoit_to(${ varprefix }${ i }, kwargs);
-                            has_kwarg = SUCCEEDED(ohr);
-                            argc = ${ i };
+                            if (V_VT(${ varprefix }${ i }) != VT_UI8) {
+                                HRESULT ohr = autoit_to(${ varprefix }${ i }, kwargs);
+                                has_kwarg = SUCCEEDED(ohr);
+                                argc = ${ i };
+                            }
                         }
                     `.trim().replace(/^ {24}/mg, "");
                 }).join(" else ").split("\n").join(`\n${ " ".repeat(16) }`) }
@@ -591,9 +651,17 @@ Object.assign(exports, {
         } of bodies) {
             const [name, return_value_type, func_modifiers, list_of_arguments] = decl;
 
+            // Add dependency to return_value_type
+            generator.getIDLType(return_value_type, coclass, options);
+
             const is_constructor = func_modifiers.includes("/CO");
             const no_external_decl = func_modifiers.includes("/ExternalNoDecl");
             const is_external = no_external_decl || func_modifiers.includes("/External");
+            if (!idl_only) {
+                idl_only = func_modifiers.includes("/IDL");
+            } else if (!func_modifiers.includes("/IDL")) {
+                throw new Error(`${ fqn }::${ fname } is declared as idl only but has a body`);
+            }
 
             const path = name.split(is_constructor ? "::" : ".");
             const is_static = !coclass.is_class && !coclass.is_struct || func_modifiers.includes("/S");
@@ -607,11 +675,9 @@ Object.assign(exports, {
             body.push("");
 
             if (has_override) {
-                body.push("{");
-            }
-
-            if (!is_static) {
-                body.push(`${ indent }${ is_entry_test ? "// " : "" }${ options.assert }(this->__self->get() != NULL);`);
+                body.push(`${ is_static ? "" : "if (__self->get() != NULL) " }{`);
+            } else if (!is_static) {
+                body.push(`${ indent }${ is_entry_test ? "// " : "" }${ options.assert }(__self->get() != NULL);`);
             }
 
             body.push(...declarations);
@@ -644,13 +710,13 @@ Object.assign(exports, {
                                 }
 
                                 // should not be a named parameter
-                                if (has_kwarg && kwargs.contains("${ argname }")) {
+                                if (has_kwarg && kwargs.count("${ argname }")) {
                                     ohr = E_INVALIDARG;
                                     goto ${ label };
                                 }
                             } else {
                                 // named parameter
-                                if (kwargs.contains("${ argname }")) {
+                                if (kwargs.count("${ argname }")) {
                                     auto& kwarg = kwargs.at("${ argname }");
                                     VARIANT* pkwarg = &kwarg;
                                     if (${ conditions[j].replaceAll(in_val, "pkwarg") }) {
@@ -719,16 +785,19 @@ Object.assign(exports, {
             } else if (is_static) {
                 callee = path.join("::");
             } else {
-                callee = "this->__self->get()";
+                callee = "__self->get()";
 
                 for (const modifier of func_modifiers) {
                     if (modifier.startsWith("/Cast=")) {
                         callee = `${ modifier.slice("/Cast=".length) }(${ callee })`;
+                    } else if (modifier.startsWith("/Prop=")) {
+                        callee = `${ callee }->${ modifier.slice("/Prop=".length) }`;
                     }
                 }
 
-                if (!is_external && callargs.length === 1 && /^operator(?:[/*+-]=?|\+\+)$/.test(path[path.length - 1])) {
-                    const operator = path[path.length - 1].slice("operator".length);
+                // [+\-*/%\^&|!=<>]=?|[~,]|(?:<<|>>)=?|&&|\|\||\+\+|--|->\*?
+                if (!is_external && callargs.length === 1 && /^operator\s*(?:[/*+<>-]=?|\+\+|[!=]=)$/.test(path[path.length - 1])) {
+                    const operator = path[path.length - 1].slice("operator".length).trim();
                     callee = `(*${ callee }) ${ operator } `;
                 } else {
                     callee = `${ callee }->${ path[path.length - 1] }`;
@@ -739,9 +808,9 @@ Object.assign(exports, {
 
             for (const modifier of func_modifiers) {
                 if (modifier.startsWith("/Expr=")) {
-                    expr = modifier.slice("/Expr=".length).replace(/\$(?:0\b|\{0\})/g, expr);
+                    expr = makeExpansion(modifier.slice("/Expr=".length), expr);
                 } else if (modifier.startsWith("/Call=")) {
-                    callee = modifier.slice("/Call=".length).replace(/\$(?:0\b|\{0\})/g, callee);
+                    callee = makeExpansion(modifier.slice("/Call=".length), callee);
                 }
             }
 
@@ -757,23 +826,53 @@ Object.assign(exports, {
                 }
             }
 
+            for (const modifier of func_modifiers) {
+                if (modifier.startsWith("/Output=")) {
+                    callee = makeExpansion(modifier.slice("/Output=".length), callee);
+                }
+            }
+
             if (is_external && !no_external_decl) {
-                const type = [generator.getCppType(return_value_type === "" ? "void" : return_value_type, coclass, options)];
+                let ext_type = generator.getCppType(return_value_type === "" ? "void" : return_value_type, coclass, options);
 
                 if (is_constructor) {
-                    type[0] = `${ shared_ptr }<${ type[0] }>`;
+                    ext_type = `${ shared_ptr }<${ ext_type }>`;
                 }
 
                 ipublic.push(`${ [
                     is_static ? "static" : null,
-                    return_value_type !== "" && return_value_type !== "void" ? "const" : null,
-                    type.join(""),
+                    ext_type !== "" && ext_type !== "void" ? "const" : null,
+                    ext_type,
                     path[path.length - 1]
-                ].filter(text => text !== null).join(" ") }(${ list_of_arguments.map(([argtype, argname]) => {
+                ].filter(text => text !== null).join(" ") }(${ list_of_arguments.map(([argtype, argname, , arg_modifiers]) => {
                     const idltype = generator.getIDLType(argtype, coclass, options);
                     const cpptype = generator.getCppType(argtype, coclass, options);
-                    const byref = !PTR.has(cpptype) && (idltype === "VARIANT" || idltype[0] === "I");
-                    return `${ cpptype }${ byref ? "&" : "" } ${ argname }`;
+                    const enumtype = generator.getEnumType(argtype, coclass, options);
+
+                    let str = "";
+
+                    if (arg_modifiers.includes("/C")) {
+                        str += "const ";
+                    }
+
+                    const is_in_array = /^Input(?:Output)?Array(?:OfArrays)?$/.test(argtype);
+                    const is_out_array = /^(?:Input)?OutputArray(?:OfArrays)?$/.test(argtype);
+
+                    if (is_in_array || is_out_array) {
+                        str += `cv::${ argtype }`;
+                    } else if (enumtype !== null) {
+                        str += enumtype;
+                    } else {
+                        str += cpptype;
+                    }
+
+                    if (arg_modifiers.includes("/Ref") || !PTR.has(cpptype) && (idltype === "VARIANT" || idltype[0] === "I")) {
+                        str += "&";
+                    } else if (arg_modifiers.includes("/RRef")) {
+                        str += "&&";
+                    }
+
+                    return `${ str } ${ argname }`;
                 }).concat(["HRESULT& hr"]).join(", ") });`);
             }
 
@@ -781,6 +880,8 @@ Object.assign(exports, {
                 if (PTR.has(generator.getCppType(return_value_type, coclass, options))) {
                     callee = `reinterpret_cast<ULONGLONG>(${ callee })`;
                 }
+
+                const autoit_from = `autoit_from(${ generator.castFromEnumIfNeeded(return_value_type, "$1", coclass) }, $2)`;
 
                 if (is_external) {
                     const idltype = generator.getIDLType(return_value_type, coclass, options);
@@ -793,12 +894,12 @@ Object.assign(exports, {
                             if (FAILED(hr)) {
                                 return hr;
                             }
-                            hr = autoit_from(tmp, _retval);
+                            hr = ${ makeExpansion(autoit_from, "tmp", "_retval") };
                         }
                     `.replace(/^ {24}/mg, "").trim().split("\n").map(line => `${ is_entry_test ? "// " : "" }${ line }`).join(`\n${ cindent }`);
                     body.push(ebody);
                 } else {
-                    body.push(`${ cindent }${ is_entry_test ? "// " : "" }hr = autoit_from(${ callee }, _retval);`);
+                    body.push(`${ cindent }${ is_entry_test ? "// " : "" }hr = ${ makeExpansion(autoit_from, callee, "_retval") };`);
                 }
             } else {
                 body.push(`${ cindent }${ is_entry_test ? "// " : "" }${ callee };`);
@@ -919,6 +1020,8 @@ Object.assign(exports, {
             }
         }
 
+        const is_propput = attrs.includes("propput");
+
         const idlargs = vars.map(i => {
             const attributes = ["in"];
 
@@ -926,7 +1029,13 @@ Object.assign(exports, {
                 attributes.push("out");
             }
 
-            if (i >= minopt) {
+            if (
+                // NamedParameters can be the only parameter of the function
+                (minopt === 0 || i > 0)
+
+                // proput last parameter cannot be optional
+                && (!is_propput || i !== maxargc - 1)
+            ) {
                 attributes.push("optional");
             }
 
@@ -941,20 +1050,23 @@ Object.assign(exports, {
             implargs.push(`${ idltype }* ${ argname }`);
         }
 
+        const id = coclass.getIDLNameId(idlname);
         attrs.unshift(`id(${ id })`);
 
         iidl.push(`[${ Array.from(new Set(attrs)).join(", ") }] HRESULT ${ idlname }(${ idlargs.join(", ") });`);
 
-        ipublic.push(`STDMETHOD(${ fname })(${ implargs.join(", ") });`);
+        if (!idl_only) {
+            ipublic.push(`STDMETHOD(${ fname })(${ implargs.join(", ") });`);
 
-        if (bodies.length !== 0) {
-            impl.push(`
-                STDMETHODIMP C${ cotype }::${ fname }(${ implargs.join(", ") }) {
-                    ${ body.join("\n").replace(/argument (\d+)/g, (match, j) => `argument ${ j }`).trim().split("\n").join(`\n${ " ".repeat(20) }`) }
-                    ${ maxargc !== 0 ? "fprintf(stderr, \"Overload resolution failed: in %s, file %s, line %d\\n\", AutoIt_Func, __FILE__, __LINE__); fflush(stdout); fflush(stderr);" : "" }
-                    return hr;
-                }`.replace(/^ {16}/mg, "")
-            );
+            if (bodies.length !== 0) {
+                impl.push(`
+                    STDMETHODIMP C${ cotype }::${ fname }(${ implargs.join(", ") }) {
+                        ${ body.join("\n").replace(/argument (\d+)/g, (match, j) => `argument ${ j }`).trim().split("\n").join(`\n${ " ".repeat(24) }`) }
+                        ${ maxargc !== 0 ? "fprintf(stderr, \"Overload resolution failed: in %s, file %s, line %d\\n\", AutoIt_Func, __FILE__, __LINE__); fflush(stdout); fflush(stderr);" : "" }
+                        return hr;
+                    }`.replace(/^ {20}/mg, "")
+                );
+            }
         }
     }
 });

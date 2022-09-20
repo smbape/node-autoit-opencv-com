@@ -145,7 +145,7 @@ module.exports = (header = [], impl = [], options = {}) => {
                     break;
                 }
 
-                vArray.SetAt(i, value);
+                AUTOIT_ASSERT_THROW(SUCCEEDED(vArray.SetAt(i, value)), "Failed to set value a index " << i);
                 VariantClear(&value);
             }
 

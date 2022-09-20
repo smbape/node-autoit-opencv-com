@@ -79,6 +79,10 @@
         "iid": "3c22244b-6feb-4548-b31c-4037397f1a32",
         "clsid": "2150de62-1960-4bf7-a8e2-9d8f030c7b7d"
     },
+    "cv::cuda::GpuData": {
+        "iid": "eea8a0f3-4876-4ea8-b060-c4a0e658dd9e",
+        "clsid": "ac47dc93-4dad-42a7-ae91-75e6b5e3c545"
+    },
     "cv::cuda::GpuMatND": {
         "iid": "4216828f-2ded-450c-94c9-344d9b1619b3",
         "clsid": "ac25fa40-2dc2-4a1a-a36f-2179ffce48c2"
@@ -1047,6 +1051,10 @@
         "iid": "bdb4ceab-7d99-402c-b3e2-e707a90b645f",
         "clsid": "368aca91-595a-4913-90b3-75111f84410b"
     },
+    "NamedParameters": {
+        "iid": "4dbe6b82-9391-4cb5-8698-d23092e38eb4",
+        "clsid": "842f3005-b81b-47c5-b7e1-b48932e56330"
+    },
     "cv::wgc": {
         "iid": "e1c74eb4-de4d-4d5d-943d-7cea6daeb990",
         "clsid": "a63a65b7-9c48-49ab-b4ab-31a63c45e6c4"
@@ -1099,13 +1107,21 @@
         "iid": "89149d06-fe44-4a5a-a6c0-abc296163db9",
         "clsid": "b9414f22-7b13-44f1-ae8d-0a733005d8ed"
     },
-    "VectorOfVariant": {
-        "iid": "73be64d1-ae71-4892-93f3-711b9e70833b",
-        "clsid": "58094424-fc35-41af-8676-730f089b15dc"
-    },
     "MapOfStringAndVariant": {
         "iid": "0066b35a-afd4-40f7-9293-73db6df5caf7",
         "clsid": "6a27ca58-4d33-4bed-9caa-f936de42e7d5"
+    },
+    "VectorOfPairOfStringAndVariant": {
+        "iid": "45dcebe4-ff04-4710-8ebe-230ea893006e",
+        "clsid": "5ff3268b-abab-44b1-b771-c2bb48c409b4"
+    },
+    "VectorOfString": {
+        "iid": "2db07441-cff6-4ede-91d9-5f2d7c6afde5",
+        "clsid": "eddb16f7-dc76-42ca-bcba-6ec2ca1d7aab"
+    },
+    "VectorOfVariant": {
+        "iid": "73be64d1-ae71-4892-93f3-711b9e70833b",
+        "clsid": "58094424-fc35-41af-8676-730f089b15dc"
     },
     "VectorOfMat": {
         "iid": "1b494a93-9600-4c3d-853e-b72cbc64b9ff",
@@ -1159,21 +1175,17 @@
         "iid": "f7a24b12-8ed1-481c-9116-9d8a5b41dff1",
         "clsid": "06f9b7c3-b3d2-4646-a004-34aedd784339"
     },
-    "VectorOfImageFeatures": {
-        "iid": "3717afd5-d5e1-45cb-809a-44c65f3b80b9",
-        "clsid": "00c3f1d1-d5b3-4110-a580-6915ddd739b7"
+    "VectorOfDetail_ImageFeatures": {
+        "iid": "d42e59d4-332a-4cf8-9018-086b3a039f63",
+        "clsid": "c8e2a20d-6aa0-457a-912c-eead30ee81c4"
     },
     "VectorOfUMat": {
         "iid": "597b2502-4e10-4893-b7e3-54a3d86dd697",
         "clsid": "24b923fe-328a-4a87-9109-d438bd154a69"
     },
-    "VectorOfMatchesInfo": {
-        "iid": "e035442d-c006-4382-a99d-08c10efab315",
-        "clsid": "934c2218-71e7-4ef5-bf86-8a0fd46f4102"
-    },
-    "VectorOfString": {
-        "iid": "2db07441-cff6-4ede-91d9-5f2d7c6afde5",
-        "clsid": "eddb16f7-dc76-42ca-bcba-6ec2ca1d7aab"
+    "VectorOfDetail_MatchesInfo": {
+        "iid": "443d482e-70e8-4d0d-8ba8-69ec383e5e63",
+        "clsid": "fb3b5ace-a540-4df0-9ef1-5dc5618b8beb"
     },
     "VectorOfSize": {
         "iid": "f1c158f4-42fa-4be7-befe-8459c7340d2f",
@@ -1279,6 +1291,10 @@
         "iid": "d830ff30-3834-4f59-a119-bc8c0e07bc08",
         "clsid": "53a639a0-e413-44e8-8501-8677b399d261"
     },
+    "VectorOfDnn_Target": {
+        "iid": "89694289-3178-4432-bde5-eb95402f8f15",
+        "clsid": "57def150-ee76-47da-b28a-5ad808558a30"
+    },
     "VectorOfVectorOfMat": {
         "iid": "6a4b47d3-ef51-4c05-a16f-ae752886c178",
         "clsid": "6245f71d-0f42-48c9-b4f5-a8065e0190c4"
@@ -1299,9 +1315,13 @@
         "iid": "2601c8bf-88ef-4489-b4ea-6471eb1cfaa5",
         "clsid": "0134fd86-8a11-4d32-9bb1-5e619f0d8664"
     },
-    "VectorOfCameraParams": {
-        "iid": "e67b2cff-7ec9-4a2d-bd11-a210011ae349",
-        "clsid": "951cd9ba-c2a6-40bb-a722-b3cdb56c67cd"
+    "VectorOfVideoCaptureAPIs": {
+        "iid": "7fc29c56-5dc8-465b-847e-90263f9432e7",
+        "clsid": "f3621604-31c2-4ae7-aa36-96bd2e2c06a1"
+    },
+    "VectorOfDetail_CameraParams": {
+        "iid": "f0ae62d7-e6bf-4587-82c9-b718564d7cd3",
+        "clsid": "c6bed19d-32bb-4f75-b2a2-50be2b1d5b87"
     },
     "GArray_Point2i": {
         "iid": "045f4549-2cea-41cd-829c-29924ce603d5",
@@ -1343,20 +1363,16 @@
         "iid": "90887d38-96ae-495e-9af0-eee7565d448f",
         "clsid": "f8f73360-407c-44a4-ae5e-e3cda1fa9121"
     },
-    "VectorOfGNetParam": {
-        "iid": "7766f164-750b-4407-93db-503d3ec9d096",
-        "clsid": "4947440d-9801-4f52-ade0-c9c31627a045"
+    "VectorOfGapi_GNetParam": {
+        "iid": "02befad3-6db5-4e08-a0d5-3ab9764340f7",
+        "clsid": "c8dad999-cab1-48db-8e20-bda0fc0050cf"
     },
-    "VectorOfPrim": {
-        "iid": "7567f19a-e845-4661-a839-0a41aff0467d",
-        "clsid": "f6c89d90-b853-4727-9263-2755635434dd"
+    "VectorOfGapi_wip_draw_Prim": {
+        "iid": "fe4a13e6-6f67-4799-aae8-dad5cc09fa10",
+        "clsid": "2fad52cd-73b0-4346-b26d-1d4b855834e5"
     },
     "GArray_Prim": {
         "iid": "d18565ad-1df8-47bd-ae0e-e88452439fae",
         "clsid": "3e0e6512-b21e-4a26-aeb5-4635afc2c6fd"
-    },
-    "VectorOfPairOfStringAndVariant": {
-        "iid": "45dcebe4-ff04-4710-8ebe-230ea893006e",
-        "clsid": "5ff3268b-abab-44b1-b771-c2bb48c409b4"
     }
 }

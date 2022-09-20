@@ -1,47 +1,21 @@
-const FunctionDeclaration = require("./FunctionDeclaration");
+const {getTypeDef} = require("./alias");
 const PropertyDeclaration = require("./PropertyDeclaration");
-
-const _generate = function(generator, iglobal, iidl, impl, ipublic, iprivate, idnames, id, is_test, options) {
-    const coclass = this; // eslint-disable-line no-invalid-this
-    const {key_type, value_type} = coclass;
-
-    FunctionDeclaration.declare(generator, coclass, [
-        [`${ coclass.fqn }.at`, value_type, ["/attr=propget", "=get_Item"], [
-            [key_type, "vKey", "", []],
-        ], "", ""]
-    ], "get_Item", "Item", "DISPID_VALUE", iidl, ipublic, impl, is_test, options);
-
-    FunctionDeclaration.declare(generator, coclass, [
-        [`${ coclass.fqn }.insert_or_assign`, "void", ["/attr=propput", "=put_Item"], [
-            [key_type, "vKey", "", []],
-            [value_type, "vItem", "", []],
-        ], "", ""]
-    ], "put_Item", "Item", "DISPID_VALUE", iidl, ipublic, impl, is_test, options);
-
-    iidl.push(`
-        [propget, restricted, id(DISPID_NEWENUM)] HRESULT _NewEnum([out, retval] IUnknown** ppUnk);
-    `.replace(/^ {8}/mg, "").trim());
-};
 
 exports.declare = (generator, type, parent, options = {}) => {
     const cpptype = generator.getCppType(type, parent, options);
 
-    const fqn = cpptype
-        .replace(/std::map/g, "MapOf")
-        .replace(/std::pair/g, "PairOf")
-        .replace(/std::vector/g, "VectorOf")
-        .replace(/\b_variant_t\b/g, "Variant")
-        .replace(/\w+::/g, "")
-        .replace(/\b[a-z]/g, m => m.toUpperCase())
-        .replace(/, /g, "And")
-        .replace(/[<>]/g, "");
+    const fqn = getTypeDef(cpptype, options);
 
     if (generator.classes.has(fqn)) {
         return fqn;
     }
 
     const [key_type, value_type] = PropertyDeclaration.getTupleTypes(type.slice("map<".length, -">".length));
-    const coclass = generator.getCoClass(fqn);
+    const coclass = generator.getCoClass(fqn, options);
+
+    generator.add_vector(`std::vector<std::pair<${ key_type }, ${ value_type }>>`, parent, options);
+    generator.add_vector(`std::vector<${ key_type }>`, parent, options);
+    generator.add_vector(`std::vector<${ value_type }>`, parent, options);
     generator.typedefs.set(fqn, cpptype);
 
     coclass.is_simple = true;
@@ -55,12 +29,12 @@ exports.declare = (generator, type, parent, options = {}) => {
 
     coclass.addMethod([`${ fqn }.${ coclass.name }`, "", [], [], "", ""]);
 
-    coclass.addMethod([`${ fqn }.create`, `std::shared_ptr<${ coclass.name }>`, ["/External", "/S"], [
+    coclass.addMethod([`${ fqn }.create`, `${ options.shared_ptr }<${ coclass.name }>`, ["/External", "/S"], [
         [`std::vector<std::pair<${ key_type }, ${ value_type }>>`, "pairs", "", []],
     ], "", ""]);
 
     // Element access
-    coclass.addMethod([`${ fqn }.at`, value_type, ["=Get"], [
+    coclass.addMethod([`${ fqn }.at`, value_type, ["=Get", "/External"], [
         [key_type, "key", "", []],
     ], "", ""]);
 
@@ -98,36 +72,38 @@ exports.declare = (generator, type, parent, options = {}) => {
         [key_type, "key", "", []],
     ], "", ""]);
 
-    coclass.addMethod([`${ fqn }.contains`, "bool", [], [
+    coclass.addMethod([`${ fqn }.count`, "bool", ["=contains", "/Output=($0 != 0)"], [
         [key_type, "key", "", []],
     ], "", ""]);
 
-    coclass.addMethod([`${ fqn }.contains`, "bool", ["=has"], [
+    coclass.addMethod([`${ fqn }.count`, "bool", ["=has", "/Output=($0 != 0)"], [
         [key_type, "key", "", []],
+    ], "", ""]);
+
+    coclass.addMethod([`${ fqn }.at`, value_type, ["/attr=propget", "/idlname=Item", "=get_Item", "/id=DISPID_VALUE", "/ExternalNoDecl"], [
+        [key_type, "key", "", []],
+    ], "", ""]);
+
+    coclass.addMethod([`${ fqn }.insert_or_assign`, "void", ["/attr=propput", "/idlname=Item", "=put_Item", "/id=DISPID_VALUE"], [
+        [key_type, "key", "", []],
+        [value_type, "item", "", []],
     ], "", ""]);
 
     // make map to be recognized as a collection
-    const cotype = coclass.getClassName();
-    const _Copy = `autoit::GenericCopy<std::pair<const ${ coclass.key_type }, ${ coclass.value_type }>>`;
-    const CIntEnum = `CComEnumOnSTL<IEnumVARIANT, &IID_IEnumVARIANT, VARIANT, ${ _Copy }, ${ fqn }>`;
-    const IIntCollection = `AutoItCollectionEnumOnSTLImpl<I${ cotype }, ${ fqn }, ${ CIntEnum }, AutoItObject<${ fqn }>>`;
-
-    coclass.dispimpl = IIntCollection;
-    coclass.generate = _generate.bind(coclass, generator);
+    generator.as_stl_enum(coclass, `std::pair<const ${ coclass.key_type }, ${ coclass.value_type }>`);
 
     return fqn;
 };
 
-exports.generate = (coclass, header, impl, options = {}) => {
+exports.convert = (coclass, header, impl, { shared_ptr, make_shared } = {}) => {
     const cotype = coclass.getClassName();
-    const { key_type, value_type } = coclass;
+    const { fqn, key_type, value_type } = coclass;
     const pair_type = `${ key_type }, ${ value_type }`;
-    const map_type = `std::map<${ pair_type }>`;
 
     impl.push(`
-        const std::shared_ptr<${ map_type }> C${ cotype }::create(std::vector<std::pair<${ pair_type }>>& pairs, HRESULT& hr) {
+        const ${ shared_ptr }<${ fqn }> C${ cotype }::create(std::vector<std::pair<${ pair_type }>>& pairs, HRESULT& hr) {
             hr = S_OK;
-            auto sp = std::make_shared<${ map_type }>();
+            auto sp = ${ make_shared }<${ fqn }>();
             for (const auto& pair_ : pairs) {
                 sp->insert_or_assign(pair_.first, pair_.second);
             }
@@ -136,7 +112,7 @@ exports.generate = (coclass, header, impl, options = {}) => {
 
         const std::vector<${ key_type }> C${ cotype }::Keys(HRESULT& hr) {
             hr = S_OK;
-            auto& map = *this->__self->get();
+            auto& map = *__self->get();
 
             std::vector<${ key_type }> keys;
 
@@ -147,9 +123,20 @@ exports.generate = (coclass, header, impl, options = {}) => {
             return keys;
         }
 
+        const ${ value_type } C${ cotype }::at(${ key_type } key, HRESULT& hr) {
+            hr = S_OK;
+            auto& map = *__self->get();
+            if (!map.count(key)) {
+                AUTOIT_ERROR("the container does not have an element with the specified key '" << key << "'");
+                hr = E_INVALIDARG;
+                return ${ value_type }();
+            }
+            return map.at(key);
+        }
+
         const std::vector<${ value_type }> C${ cotype }::Items(HRESULT& hr) {
             hr = S_OK;
-            auto& map = *this->__self->get();
+            auto& map = *__self->get();
 
             std::vector<${ value_type }> keys;
 

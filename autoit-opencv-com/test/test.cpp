@@ -364,7 +364,7 @@ static void testAKAZE(cvLib::ICv_ObjectPtr cv) {
 	hr = MatPtr.CreateInstance(__uuidof(cvLib::Cv_Mat_Object));
 	assert(SUCCEEDED(hr));
 
-	auto variant = AKAZEPtr->create();
+	auto variant = AKAZEPtr->Getcreate();
 
 	_bstr_t image_path;
 
@@ -488,7 +488,7 @@ static void testKalman(cvLib::ICv_ObjectPtr cv) {
 	hr = MatPtr.CreateInstance(__uuidof(cvLib::Cv_Mat_Object));
 	assert(SUCCEEDED(hr));
 
-	auto KF = Cv_KalmanFilter_ObjectPtr->create(to_variant_t(2), to_variant_t(1), to_variant_t(0));
+	auto KF = Cv_KalmanFilter_ObjectPtr->Getcreate(to_variant_t(2), to_variant_t(1), to_variant_t(0));
 
 	KF->transitionMatrix = MatPtr->create(to_variant_t(2), to_variant_t(2), to_variant_t(CV_32F));
 
@@ -578,7 +578,7 @@ static int perform() {
 	assert(SUCCEEDED(hr));
 
 	_variant_t camId(0);
-	auto cap = VideoCapturePtr->create(&camId);
+	auto cap = VideoCapturePtr->Getcreate(&camId);
 	if (cap->isOpened() == VARIANT_FALSE) {
 		std::wcout << L"Error: cannot open the camera.\n";
 		return 1;
@@ -673,7 +673,7 @@ private:
 #define DLL_SUFFFIX ""
 #endif
 
-#define DLL_FILE RELEASE_TYPE "\\autoit_opencv_com455" DLL_SUFFFIX ".dll"
+#define DLL_FILE RELEASE_TYPE "\\autoit_opencv_com460" DLL_SUFFFIX ".dll"
 
 class DllInstallInitializer {
 public:

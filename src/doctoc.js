@@ -1,5 +1,5 @@
-const fs = require("fs");
-const cpus = require("os").cpus().length;
+const fs = require("node:fs");
+const cpus = require("node:os").cpus().length;
 const transform = require("doctoc/lib/transform");
 const eachOfLimit = require("async/eachOfLimit");
 const waterfall = require("async/waterfall");

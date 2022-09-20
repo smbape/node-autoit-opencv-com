@@ -1,5 +1,7 @@
 #include "imgproc_extra.h"
 
+using namespace cv;
+
 template<typename T>
 inline const bool common_searchPixel_(Mat& img,
 	Mat& templ,
@@ -164,75 +166,77 @@ inline void common_searchTemplateMask_(Mat& img,
 	}
 }
 
-static void common_searchTemplate(Mat& img,
-	Mat& templ,
-	Mat& result,
-	int depth,
-	const std::vector<int>& channels,
-	const std::vector<int>& ranges,
-	const bool parallel)
-{
-	if (depth == CV_8U) {
-		common_searchTemplate_<uchar>(img, templ, result, channels, ranges, parallel);
-	}
-	else {
-		common_searchTemplate_<float>(img, templ, result, channels, ranges, parallel);
-	}
-}
-
-static void common_searchTemplateMask(Mat& img,
-	Mat& templ,
-	Mat& result,
-	Mat& mask,
-	int depth,
-	const std::vector<int>& channels,
-	const std::vector<int>& ranges,
-	const bool parallel)
-{
-	if (depth == CV_8U) {
-		common_searchTemplateMask_<uchar>(img, templ, result, mask, channels, ranges, parallel);
-	}
-	else {
-		common_searchTemplateMask_<float>(img, templ, result, mask, channels, ranges, parallel);
-	}
-}
-
-static void searchTemplateMask(InputArray _img,
-	InputArray _templ,
-	OutputArray _result,
-	InputArray _mask,
-	const std::vector<int>& channels,
-	const std::vector<int>& ranges,
-	const bool parallel)
-{
-	CV_Assert(_mask.depth() == CV_8U || _mask.depth() == CV_32F);
-	CV_Assert(_mask.channels() == _templ.channels() || _mask.channels() == 1);
-	CV_Assert(_templ.size() == _mask.size());
-
-	Mat img = _img.getMat(), templ = _templ.getMat(), mask = _mask.getMat();
-
-	if (mask.depth() == CV_8U)
+namespace {
+	void common_searchTemplate(Mat& img,
+		Mat& templ,
+		Mat& result,
+		int depth,
+		const std::vector<int>& channels,
+		const std::vector<int>& ranges,
+		const bool parallel)
 	{
-		// To keep compatibility to other masks in OpenCV: CV_8U masks are binary masks
-		threshold(mask, mask, 0/*threshold*/, 1.0/*maxVal*/, THRESH_BINARY);
-		mask.convertTo(mask, CV_32F);
+		if (depth == CV_8U) {
+			common_searchTemplate_<uchar>(img, templ, result, channels, ranges, parallel);
+		}
+		else {
+			common_searchTemplate_<float>(img, templ, result, channels, ranges, parallel);
+		}
 	}
 
-	Size corrSize(img.cols - templ.cols + 1, img.rows - templ.rows + 1);
-	_result.create(corrSize, CV_32F);
-	Mat result = _result.getMat();
-	result.setTo(0);
-
-	// If mask has only one channel, we repeat it for every image/template channel
-	if (templ.channels() != mask.channels())
+	void common_searchTemplateMask(Mat& img,
+		Mat& templ,
+		Mat& result,
+		Mat& mask,
+		int depth,
+		const std::vector<int>& channels,
+		const std::vector<int>& ranges,
+		const bool parallel)
 	{
-		// Assertions above ensured, that depth is the same and only number of channel differ
-		std::vector<Mat> maskChannels(templ.channels(), mask);
-		merge(maskChannels.data(), templ.channels(), mask);
+		if (depth == CV_8U) {
+			common_searchTemplateMask_<uchar>(img, templ, result, mask, channels, ranges, parallel);
+		}
+		else {
+			common_searchTemplateMask_<float>(img, templ, result, mask, channels, ranges, parallel);
+		}
 	}
 
-	int type = _img.type(), depth = CV_MAT_DEPTH(type);
-	common_searchTemplateMask(img, templ, result, mask, depth, channels, ranges, parallel);
+	void searchTemplateMask(InputArray _img,
+		InputArray _templ,
+		OutputArray _result,
+		InputArray _mask,
+		const std::vector<int>& channels,
+		const std::vector<int>& ranges,
+		const bool parallel)
+	{
+		CV_Assert(_mask.depth() == CV_8U || _mask.depth() == CV_32F);
+		CV_Assert(_mask.channels() == _templ.channels() || _mask.channels() == 1);
+		CV_Assert(_templ.size() == _mask.size());
+
+		Mat img = _img.getMat(), templ = _templ.getMat(), mask = _mask.getMat();
+
+		if (mask.depth() == CV_8U)
+		{
+			// To keep compatibility to other masks in OpenCV: CV_8U masks are binary masks
+			threshold(mask, mask, 0/*threshold*/, 1.0/*maxVal*/, THRESH_BINARY);
+			mask.convertTo(mask, CV_32F);
+		}
+
+		Size corrSize(img.cols - templ.cols + 1, img.rows - templ.rows + 1);
+		_result.create(corrSize, CV_32F);
+		Mat result = _result.getMat();
+		result.setTo(0);
+
+		// If mask has only one channel, we repeat it for every image/template channel
+		if (templ.channels() != mask.channels())
+		{
+			// Assertions above ensured, that depth is the same and only number of channel differ
+			std::vector<Mat> maskChannels(templ.channels(), mask);
+			merge(maskChannels.data(), templ.channels(), mask);
+		}
+
+		int type = _img.type(), depth = CV_MAT_DEPTH(type);
+		common_searchTemplateMask(img, templ, result, mask, depth, channels, ranges, parallel);
+	}
 }
 
 void cv::matchTemplateParallel(InputArray _img, InputArray _templ, OutputArray _result, int method, InputArray _mask)

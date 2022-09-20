@@ -1,9 +1,9 @@
 /* eslint-disable no-magic-numbers */
 
-const fs = require("fs");
-const fsPromises = require("fs/promises");
-const sysPath = require("path");
-const {spawn} = require("child_process");
+const fs = require("node:fs");
+const fsPromises = require("node:fs/promises");
+const sysPath = require("node:path");
+const {spawn} = require("node:child_process");
 
 const mkdirp = require("mkdirp");
 const waterfall = require("async/waterfall");
@@ -31,9 +31,38 @@ const parseArguments = PROJECT_DIR => {
         make: sysPath.join(PROJECT_DIR, "build.bat"),
         includes: [sysPath.join(PROJECT_DIR, "src")],
         output: sysPath.join(PROJECT_DIR, "generated"),
-        toc: false,
+        toc: true, // the limit of 1000KB is exeeded even without toc
         globals: ["$CV_MAT_DEPTH_MASK", "$CV_MAT_TYPE_MASK"],
         constReplacer: new Map([["std::numeric_limits<uint8_t>::max()", "0xFF"]]),
+        onClass: (generator, coclass, opts) => {
+            const {fqn, name} = coclass;
+
+            if (fqn === "cv::cuda::GpuData") {
+                // assign operator has been deleted
+                // avoir setting a conversion for this class
+                coclass.is_class = true;
+                coclass.is_struct = false;
+            }
+
+            // https://github.com/MicrosoftDocs/win32/blob/docs/desktop-src/Midl/compiler-errors.md#user-content-midl2379
+            // until a way around MIDL limitation of 64 KB is found
+            // keep the code
+            const has_MIDL2379 = true;
+            if (has_MIDL2379) {
+                return;
+            }
+
+            if (fqn === "cv::Moments" || !fqn.startsWith("cv::") || fqn.split("::").length !== 2) {
+                return;
+            }
+
+            // expose a ${ name } property like in mediapipe python
+            const parts = fqn.split("::");
+            parts[parts.length - 1] = "";
+            generator.add_func([parts.join("."), "", ["/Properties"], [
+                [fqn, name, "", ["/R", "=this"]],
+            ], "", ""]);
+        },
     };
 
     for (const opt of ["iface", "hdr", "impl", "idl", "rgs", "res", "save"]) {

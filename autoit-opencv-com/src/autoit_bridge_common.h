@@ -8,15 +8,29 @@
 #include <atlsafe.h>
 #include <comutil.h>
 #include <iostream>
+#include <map>
 #include <memory>
+#include <numeric>
 #include <OleAuto.h>
+#include <sstream>
 #include <string>
 #include <tuple>
 #include <type_traits>
+#include <typeindex>
+#include <typeinfo>
 #include <utility>
 #include <vector>
 
 #include "autoit_def.h"
+
+// import the .TLB that's compiled in scrrun.dll
+// needed to use ScriptingDictionary
+#import "C:\Windows\System32\scrrun.dll" \
+	rename("CopyFile", "CopyFile2") \
+	rename("DeleteFile", "DeleteFile2") \
+	rename("FreeSpace", "FreeSpace2") \
+	rename("MoveFile", "MoveFile2") \
+	// avoid name collision with Windows SDK's macros, this is specific to scrrun.dll
 
 #ifdef AutoIt_Func
 // keep current value (through OpenCV port file)
@@ -43,6 +57,43 @@
 #endif
 #ifndef AUTOIT_QUOTE_STRING
 #define AUTOIT_QUOTE_STRING(x) AUTOIT_QUOTE_STRING2(x)
+#endif
+
+#ifndef AUTOIT_INFO
+#define AUTOIT_INFO( _message ) do { \
+	std::ostringstream _out; _out << _message;	\
+	fflush(stdout); fflush(stderr);         \
+	fprintf(stderr, AUTOIT_QUOTE_STRING(AUTOIT_LIB_NAME) "(%s) Info: %s (%s) in %s, file %s, line %d\n", AUTOIT_QUOTE_STRING(AUTOIT_LIB_VERSION), _out.str().c_str(), "", AutoIt_Func, __FILE__, __LINE__); \
+	fflush(stdout); fflush(stderr);         \
+} while(0)
+#endif
+
+#ifndef AUTOIT_WARN
+#define AUTOIT_WARN( _message ) do { \
+	std::ostringstream _out; _out << _message;	\
+	fflush(stdout); fflush(stderr);         \
+	fprintf(stderr, AUTOIT_QUOTE_STRING(AUTOIT_LIB_NAME) "(%s) Warning: %s (%s) in %s, file %s, line %d\n", AUTOIT_QUOTE_STRING(AUTOIT_LIB_VERSION), _out.str().c_str(), "", AutoIt_Func, __FILE__, __LINE__); \
+	fflush(stdout); fflush(stderr);         \
+} while(0)
+#endif
+
+#ifndef AUTOIT_ERROR
+#define AUTOIT_ERROR( _message ) do { \
+	std::ostringstream _out; _out << _message;	\
+	fflush(stdout); fflush(stderr);         \
+	fprintf(stderr, AUTOIT_QUOTE_STRING(AUTOIT_LIB_NAME) "(%s) Error: %s (%s) in %s, file %s, line %d\n", AUTOIT_QUOTE_STRING(AUTOIT_LIB_VERSION), _out.str().c_str(), "", AutoIt_Func, __FILE__, __LINE__); \
+	fflush(stdout); fflush(stderr);         \
+} while(0)
+#endif
+
+#ifndef AUTOIT_THROW
+#define AUTOIT_THROW( _message ) do { \
+	std::ostringstream _out; _out << _message;	\
+	fflush(stdout); fflush(stderr);         \
+	fprintf(stderr, AUTOIT_QUOTE_STRING(AUTOIT_LIB_NAME) "(%s) Error: %s (%s) in %s, file %s, line %d\n", AUTOIT_QUOTE_STRING(AUTOIT_LIB_VERSION), _out.str().c_str(), "", AutoIt_Func, __FILE__, __LINE__); \
+	fflush(stdout); fflush(stderr);           \
+	throw std::exception(_out.str().c_str()); \
+} while(0)
 #endif
 
 #ifndef AUTOIT_ASSERT_THROW
@@ -101,6 +152,7 @@ extern const bool is_assignable_from(bool& out_val, VARIANT const* const& in_val
 extern const HRESULT autoit_to(VARIANT const* const& in_val, bool& out_val);
 extern const HRESULT autoit_to(VARIANT_BOOL& in_val, bool& out_val);
 extern const HRESULT autoit_from(const bool& in_val, VARIANT_BOOL*& out_val);
+extern const HRESULT autoit_from(const bool& in_val, VARIANT*& out_val);
 
 extern const bool is_assignable_from(std::string& out_val, BSTR const& in_val, bool is_optional);
 extern const bool is_assignable_from(std::string& out_val, VARIANT const* const& in_val, bool is_optional);
@@ -114,10 +166,10 @@ extern const HRESULT autoit_from(BSTR const& in_val, VARIANT*& out_val);
 extern const bool is_assignable_from(char*& out_val, VARIANT const* const& in_val, bool is_optional);
 extern const HRESULT autoit_to(VARIANT const* const& in_val, char*& out_val);
 
-#define PTR_BRIDGE_DECL(T) \
-extern const bool is_assignable_from(T& out_val, VARIANT const* const& in_val, bool is_optional); \
-extern const HRESULT autoit_to(VARIANT const* const& in_val, T& out_val); \
-extern const HRESULT autoit_from(T const& in_val, VARIANT*& out_val);
+#define PTR_BRIDGE_DECL(_Tp) \
+extern const bool is_assignable_from(_Tp& out_val, VARIANT const* const& in_val, bool is_optional); \
+extern const HRESULT autoit_to(VARIANT const* const& in_val, _Tp& out_val); \
+extern const HRESULT autoit_from(_Tp const& in_val, VARIANT*& out_val);
 
 PTR_BRIDGE_DECL(void*)
 PTR_BRIDGE_DECL(unsigned char*)
@@ -225,7 +277,7 @@ const HRESULT autoit_to(VARIANT const* const& in_val, std::vector<_Tp>& out_val)
 
 template<typename _Tp>
 const HRESULT autoit_to(VARIANT const* const& in_val, AUTOIT_PTR<std::vector<_Tp>>& out_val) {
-	out_val = std::make_shared<std::vector<_Tp>>();
+	out_val = AUTOIT_MAKE_PTR<std::vector<_Tp>>();
 	return autoit_to(in_val, *out_val.get());
 }
 
@@ -261,7 +313,7 @@ const HRESULT autoit_from(const std::vector<_Tp>& in_val, VARIANT*& out_val) {
 		hr = autoit_from(in_val[i], pvalue);
 
 		if (SUCCEEDED(hr)) {
-			vArray.SetAt(i, value);
+			AUTOIT_ASSERT_THROW(SUCCEEDED(vArray.SetAt(i, value)), "Failed to set value a index " << i);
 		}
 
 		VariantClear(&value);
@@ -292,8 +344,8 @@ const HRESULT _autoit_to(VARIANT const* const& in_val, std::tuple<_Ts...>& out_v
 	auto& v = vArray.GetAt(I);
 	auto* pv = &v;
 
-	using _Tuple = std::tuple<_Ts...>;
-	using _Type = std::tuple_element<I, _Tuple>::type;
+	using _Tuple = typename std::tuple<_Ts...>;
+	using _Type = typename std::tuple_element<I, _Tuple>::type;
 	_Type value;
 
 	HRESULT hr = is_assignable_from(value, pv, false);
@@ -374,7 +426,7 @@ autoit_from(const std::tuple<_Ts...>& in_val, VARIANT*& out_val) {
 	hr = autoit_from(std::get<I>(in_val), pvalue);
 
 	if (SUCCEEDED(hr)) {
-		vArray.SetAt(I, value);
+		AUTOIT_ASSERT_THROW(SUCCEEDED(vArray.SetAt(I, value)), "Failed to set value a index " << I);
 	}
 
 	VariantClear(&value);
@@ -393,18 +445,23 @@ const bool is_assignable_from(std::pair<_Ty1, _Ty2>& out_val, VARIANT const* con
 		return false;
 	}
 
-	HRESULT hr;
-
 	typename ATL::template CComSafeArray<VARIANT> vArray;
 	vArray.Attach(V_ARRAY(in_val));
 
+	if (vArray.GetCount() != 2) {
+		vArray.Detach();
+		return false;
+	}
+
 	auto& vfirst = vArray.GetAt(0);
 	auto* pvfirst = &vfirst;
-	hr = is_assignable_from(out_val.first, pvfirst, false);
+
+	auto& vsecond = vArray.GetAt(1);
+	auto* pvsecond = &vsecond;
+
+	HRESULT hr = is_assignable_from(out_val.first, pvfirst, false);
 
 	if (SUCCEEDED(hr)) {
-		auto& vsecond = vArray.GetAt(1);
-		auto* pvsecond = &vsecond;
 		hr = is_assignable_from(out_val.second, pvsecond, false);
 	}
 
@@ -415,23 +472,40 @@ const bool is_assignable_from(std::pair<_Ty1, _Ty2>& out_val, VARIANT const* con
 
 template<typename _Ty1, typename _Ty2>
 HRESULT autoit_to(VARIANT const* const& in_val, std::pair<_Ty1, _Ty2>& out_val) {
+	if (PARAMETER_MISSING(in_val)) {
+		return S_OK;
+	}
+
+	if ((V_VT(in_val) & VT_ARRAY) != VT_ARRAY || (V_VT(in_val) ^ VT_ARRAY) != VT_VARIANT) {
+		return E_INVALIDARG;
+	}
+
 	typename ATL::template CComSafeArray<VARIANT> vArray;
 	vArray.Attach(V_ARRAY(in_val));
 
-	HRESULT hr;
+	if (vArray.GetCount() != 2) {
+		vArray.Detach();
+		return E_INVALIDARG;
+	}
 
 	auto& vfirst = vArray.GetAt(0);
 	auto* pvfirst = &vfirst;
-	hr = is_assignable_from(out_val.first, pvfirst, false);
-	if (SUCCEEDED(hr)) {
-		auto& vsecond = vArray.GetAt(1);
-		auto* pvsecond = &vsecond;
-		hr = is_assignable_from(out_val.second, pvsecond, false);
 
-		if (SUCCEEDED(hr)) {
-			autoit_to(pvfirst, out_val.first);
-			autoit_to(pvsecond, out_val.second);
-		}
+	auto& vsecond = vArray.GetAt(1);
+	auto* pvsecond = &vsecond;
+
+	HRESULT hr = is_assignable_from(out_val.first, pvfirst, false);
+
+	if (SUCCEEDED(hr)) {
+		hr = is_assignable_from(out_val.second, pvsecond, false);
+	}
+
+	if (SUCCEEDED(hr)) {
+		hr = autoit_to(pvfirst, out_val.first);
+	}
+
+	if (SUCCEEDED(hr)) {
+		hr = autoit_to(pvsecond, out_val.second);
 	}
 
 	vArray.Detach();
@@ -444,22 +518,24 @@ HRESULT autoit_from(const std::pair<_Ty1, _Ty2>& in_val, VARIANT*& out_val) {
 
 	HRESULT hr;
 
-	VARIANT value = { VT_EMPTY };
+	VARIANT value;
+	VariantInit(&value);
 	auto* pvalue = &value;
 
 	hr = autoit_from(in_val.first, pvalue);
 	if (SUCCEEDED(hr)) {
-		vArray.SetAt(0, value);
+		AUTOIT_ASSERT_THROW(SUCCEEDED(vArray.SetAt(0, value)), "Failed to set value a index " << 0);
 
 		VariantClear(&value);
 		hr = autoit_from(in_val.second, pvalue);
 		if (SUCCEEDED(hr)) {
-			vArray.SetAt(1, value);
+			AUTOIT_ASSERT_THROW(SUCCEEDED(vArray.SetAt(1, value)), "Failed to set value a index " << 1);
 		}
 	}
 
 	VariantClear(&value);
 
+	VariantInit(out_val);
 	V_VT(out_val) = VT_ARRAY | VT_VARIANT;
 	V_ARRAY(out_val) = vArray.Detach();
 	return S_OK;
@@ -498,6 +574,12 @@ HRESULT get_variant_number(VARIANT const* const& in_val, _Tp& out_val) {
 	case VT_UINT:
 		out_val = static_cast<_Tp>(V_UINT(in_val));
 		return S_OK;
+	case VT_R4:
+		out_val = static_cast<_Tp>(V_R4(in_val));
+		return S_OK;
+	case VT_R8:
+		out_val = static_cast<_Tp>(V_R8(in_val));
+		return S_OK;
 	default:
 		return PARAMETER_MISSING(in_val) ? S_OK : E_INVALIDARG;
 	}
@@ -510,69 +592,120 @@ extern const HRESULT GetInterfaceName(IUnknown* punk, VARIANT* vres);
 extern const bool is_assignable_from(_variant_t& out_val, VARIANT const* const& in_val, bool is_optional);
 extern const HRESULT autoit_to(VARIANT const* const& in_val, _variant_t& out_val);
 
-template<typename T>
-inline const bool is_assignable_from_ptr(T& out_val, VARIANT const* const& in_val, bool is_optional) {
+template<typename _Tp>
+inline const bool is_assignable_from_ptr(_Tp& out_val, VARIANT const* const& in_val, bool is_optional) {
 	return is_variant_number(in_val) || (PARAMETER_MISSING(in_val) && is_optional);
 }
 
-template<typename T>
-inline const HRESULT autoit_to_ptr(VARIANT const* const& in_val, T& out_val) {
+template<typename _Tp>
+inline const HRESULT autoit_to_ptr(VARIANT const* const& in_val, _Tp& out_val) {
 	ULONGLONG _out_val = 0;
 	HRESULT hr = get_variant_number<ULONGLONG>(in_val, _out_val);
 	if (FAILED(hr) || PARAMETER_MISSING(in_val)) {
 		return hr;
 	}
 
-	out_val = reinterpret_cast<T>(_out_val);
+	out_val = reinterpret_cast<_Tp>(_out_val);
 	return hr;
 }
 
-template<typename T>
-inline const HRESULT autoit_from_ptr(T const& in_val, VARIANT*& out_val) {
+template<typename _Tp>
+inline const HRESULT autoit_from_ptr(_Tp const& in_val, VARIANT*& out_val) {
 	V_VT(out_val) = VT_UI8;
 	V_UI8(out_val) = reinterpret_cast<ULONGLONG>(in_val);
 	return S_OK;
 }
 
-#define PTR_BRIDGE_IMPL(T) \
+#define PTR_BRIDGE_IMPL(_Tp) \
 \
-const bool is_assignable_from(T& out_val, VARIANT const* const& in_val, bool is_optional) { \
+const bool is_assignable_from(_Tp& out_val, VARIANT const* const& in_val, bool is_optional) { \
 	return is_assignable_from_ptr(out_val, in_val, is_optional); \
 } \
 \
-const HRESULT autoit_to(VARIANT const* const& in_val, T& out_val) { \
+const HRESULT autoit_to(VARIANT const* const& in_val, _Tp& out_val) { \
 	return autoit_to_ptr(in_val, out_val); \
 } \
 \
-const HRESULT autoit_from(T const& in_val, VARIANT*& out_val) { \
+const HRESULT autoit_from(_Tp const& in_val, VARIANT*& out_val) { \
 	return autoit_from_ptr(in_val, out_val); \
 }
 
-template<typename T>
-extern const bool is_assignable_from(T& out_val, T const& in_val, bool is_optional) {
+template<typename _Tp>
+extern const bool is_assignable_from(_Tp& out_val, _Tp const& in_val, bool is_optional) {
 	return is_optional;
 }
 
-template<typename T>
-extern const HRESULT autoit_to(T const& in_val, T& out_val) {
+template<typename _Tp>
+extern const HRESULT autoit_to(_Tp const& in_val, _Tp& out_val) {
 	out_val = in_val;
 	return S_OK;
 }
 
-template<typename T>
-extern const HRESULT autoit_from(T const& in_val, T*& out_val) {
+template<typename _Tp>
+extern const HRESULT autoit_from(_Tp const& in_val, _Tp*& out_val) {
 	*out_val = in_val;
 	return S_OK;
 }
 
-namespace autoit
-{
+#define MapOfStringAndVariant std::map<std::string, _variant_t>
+#pragma push_macro("CV_EXPORTS_W_SIMPLE")
+
+#ifdef CV_EXPORTS_W_SIMPLE
+#undef CV_EXPORTS_W_SIMPLE
+#endif
+#define CV_EXPORTS_W_SIMPLE
+
+class CV_EXPORTS_W_SIMPLE NamedParameters : public MapOfStringAndVariant {};
+
+#pragma pop_macro("CV_EXPORTS_W_SIMPLE")
+#undef MapOfStringAndVariant
+
+namespace autoit {
+	template <typename _Tp>
+	AUTOIT_PTR<typename _Tp> cast(IDispatch* element);
+
+	template <typename _Tp>
+	const AUTOIT_PTR<typename _Tp> cast(const IDispatch* element);
+
+	template<typename _Tp>
+	_Tp cast(VARIANT const* const& in_val) {
+		_Tp value;
+		AUTOIT_ASSERT_THROW(SUCCEEDED(autoit_to(in_val, value)), "Invalid argument");
+		return value;
+	}
+
+	template <typename _Tp>
+	const AUTOIT_PTR<typename _Tp> reference_internal(_Tp* element) {
+		return AUTOIT_PTR<_Tp>(AUTOIT_PTR<_Tp>{}, element);
+	}
+
+	template <typename _Tp>
+	const AUTOIT_PTR<typename _Tp> reference_internal(const _Tp* element) {
+		return AUTOIT_PTR<_Tp>(AUTOIT_PTR<_Tp>{}, const_cast<_Tp*>(element));
+	}
+
+	template <typename _Tp>
+	const AUTOIT_PTR<typename _Tp> reference_internal(_Tp& element) {
+		return AUTOIT_PTR<_Tp>(AUTOIT_PTR<_Tp>{}, & element);
+	}
+
+	template <typename _Tp>
+	const AUTOIT_PTR<typename _Tp> reference_internal(const _Tp& element) {
+		return AUTOIT_PTR<_Tp>(AUTOIT_PTR<_Tp>{}, const_cast<_Tp*>(&element));
+	}
 
 	template<typename destination_type, typename source_type>
 	struct _GenericCopy {
 		inline static HRESULT copy(destination_type* pTo, const source_type* pFrom) {
-			AUTOIT_PTR<source_type> sp = AUTOIT_PTR<source_type>(AUTOIT_PTR<source_type>{}, const_cast<source_type*>(pFrom));
+			AUTOIT_PTR<source_type> sp = ::autoit::reference_internal(pFrom);
 			return autoit_from(sp, pTo);
+		}
+	};
+
+	template<typename destination_type, typename source_type>
+	struct _GenericCopy<destination_type, AUTOIT_PTR<source_type>> {
+		inline static HRESULT copy(destination_type* pTo, const AUTOIT_PTR<source_type>* pFrom) {
+			return autoit_from(&pFrom, pTo);
 		}
 	};
 
@@ -609,8 +742,11 @@ namespace autoit
 	NATIVE_TYPE_GENERIC_COPY(UINT);
 	NATIVE_TYPE_GENERIC_COPY(long);
 	NATIVE_TYPE_GENERIC_COPY(ULONG);
-	NATIVE_TYPE_GENERIC_COPY(LONGLONG);
-	NATIVE_TYPE_GENERIC_COPY(ULONGLONG);
+	NATIVE_TYPE_GENERIC_COPY(int64_t);
+	NATIVE_TYPE_GENERIC_COPY(uint64_t);
+	NATIVE_TYPE_GENERIC_COPY(double);
+	NATIVE_TYPE_GENERIC_COPY(float);
+	NATIVE_TYPE_GENERIC_COPY(bool);
 	NATIVE_TYPE_GENERIC_COPY(std::string);
 
 	template<typename SourceType>
@@ -633,42 +769,43 @@ namespace autoit
 			return _GenericCopy<destination_type, source_type>::copy(pTo, pFrom);
 		}
 	};
-
 }
 
-template<typename T, typename CollType, typename EnumType, typename AutoItType = AutoItObject<CollType>>
-class IAutoItCollectionEnumOnSTLImpl :
-	public T,
-	public AutoItType
-{
-public:
-	STDMETHOD(get__NewEnum)(_Outptr_ IUnknown** ppUnk)
+namespace ATL {
+	template<typename _Tp, typename CollType, typename EnumType, typename AutoItType = AutoItObject<CollType>>
+	class IAutoItCollectionEnumOnSTLImpl :
+		public _Tp,
+		public AutoItType
 	{
-		auto& m_coll = *this->__self->get();
-		if (ppUnk == NULL)
-			return E_POINTER;
-		*ppUnk = NULL;
-		HRESULT hRes = S_OK;
-		CComObject<EnumType>* p;
-		hRes = CComObject<EnumType>::CreateInstance(&p);
-		if (SUCCEEDED(hRes))
+	public:
+		STDMETHOD(get__NewEnum)(_Outptr_ IUnknown** ppUnk)
 		{
-			hRes = p->Init(this, m_coll);
-			if (hRes == S_OK)
-				hRes = p->QueryInterface(__uuidof(IUnknown), (void**)ppUnk);
+			auto& m_coll = *this->__self->get();
+			if (ppUnk == NULL)
+				return E_POINTER;
+			*ppUnk = NULL;
+			HRESULT hRes = S_OK;
+			CComObject<EnumType>* p;
+			hRes = CComObject<EnumType>::CreateInstance(&p);
+			if (SUCCEEDED(hRes))
+			{
+				hRes = p->Init(this, m_coll);
+				if (hRes == S_OK)
+					hRes = p->QueryInterface(__uuidof(IUnknown), (void**)ppUnk);
+			}
+			if (hRes != S_OK)
+				delete p;
+			return hRes;
 		}
-		if (hRes != S_OK)
-			delete p;
-		return hRes;
-	}
-};
+	};
+}
 
-template <class Base, const IID* piid, class T>
-class ATL_NO_VTABLE IEnumOnSTLImpl<Base, piid, T, autoit::GenericCopy<bool>, std::vector<bool>> :
+template <class Base, const IID* piid, class _Tp>
+class ATL_NO_VTABLE IEnumOnSTLImpl<Base, piid, _Tp, ::autoit::GenericCopy<bool>, std::vector<bool>> :
 	public Base
 {
 public:
-	typedef autoit::GenericCopy<bool> Copy;
+	typedef ::autoit::GenericCopy<bool> Copy;
 	typedef std::vector<bool> CollType;
 
 	HRESULT Init(
@@ -682,7 +819,7 @@ public:
 	}
 	STDMETHOD(Next)(
 		_In_ ULONG celt,
-		_Out_writes_to_(celt, *pceltFetched) T* rgelt,
+		_Out_writes_to_(celt, *pceltFetched) _Tp* rgelt,
 		_Out_opt_ ULONG* pceltFetched);
 	STDMETHOD(Skip)(_In_ ULONG celt);
 	STDMETHOD(Reset)(void)
@@ -699,10 +836,10 @@ public:
 	typename CollType::const_iterator m_iter;
 };
 
-template <class Base, const IID* piid, class T>
-COM_DECLSPEC_NOTHROW STDMETHODIMP IEnumOnSTLImpl<Base, piid, T, autoit::GenericCopy<bool>, std::vector<bool>>::Next(
+template <class Base, const IID* piid, class _Tp>
+COM_DECLSPEC_NOTHROW STDMETHODIMP IEnumOnSTLImpl<Base, piid, _Tp, ::autoit::GenericCopy<bool>, std::vector<bool>>::Next(
 	_In_ ULONG celt,
-	_Out_writes_to_(celt, *pceltFetched) T* rgelt,
+	_Out_writes_to_(celt, *pceltFetched) _Tp* rgelt,
 	_Out_opt_ ULONG* pceltFetched)
 {
 	if (rgelt == NULL || (celt > 1 && pceltFetched == NULL))
@@ -714,7 +851,7 @@ COM_DECLSPEC_NOTHROW STDMETHODIMP IEnumOnSTLImpl<Base, piid, T, autoit::GenericC
 
 	ULONG nActual = 0;
 	HRESULT hr = S_OK;
-	T* pelt = rgelt;
+	_Tp* pelt = rgelt;
 	while (SUCCEEDED(hr) && m_iter != m_pcollection->end() && nActual < celt)
 	{
 		hr = autoit_from(*m_iter, pelt);
@@ -741,8 +878,8 @@ COM_DECLSPEC_NOTHROW STDMETHODIMP IEnumOnSTLImpl<Base, piid, T, autoit::GenericC
 	return hr;
 }
 
-template <class Base, const IID* piid, class T>
-COM_DECLSPEC_NOTHROW STDMETHODIMP IEnumOnSTLImpl<Base, piid, T, autoit::GenericCopy<bool>, std::vector<bool>>::Skip(_In_ ULONG celt)
+template <class Base, const IID* piid, class _Tp>
+COM_DECLSPEC_NOTHROW STDMETHODIMP IEnumOnSTLImpl<Base, piid, _Tp, ::autoit::GenericCopy<bool>, std::vector<bool>>::Skip(_In_ ULONG celt)
 {
 	HRESULT hr = S_OK;
 	while (celt--)
@@ -758,11 +895,11 @@ COM_DECLSPEC_NOTHROW STDMETHODIMP IEnumOnSTLImpl<Base, piid, T, autoit::GenericC
 	return hr;
 }
 
-template <class Base, const IID* piid, class T>
-COM_DECLSPEC_NOTHROW STDMETHODIMP IEnumOnSTLImpl<Base, piid, T, autoit::GenericCopy<bool>, std::vector<bool>>::Clone(
+template <class Base, const IID* piid, class _Tp>
+COM_DECLSPEC_NOTHROW STDMETHODIMP IEnumOnSTLImpl<Base, piid, _Tp, ::autoit::GenericCopy<bool>, std::vector<bool>>::Clone(
 	_Outptr_ Base** ppEnum)
 {
-	typedef CComObject<CComEnumOnSTL<Base, piid, T, Copy, CollType> > _class;
+	typedef CComObject<CComEnumOnSTL<Base, piid, _Tp, Copy, CollType> > _class;
 	HRESULT hRes = E_POINTER;
 	if (ppEnum != NULL)
 	{

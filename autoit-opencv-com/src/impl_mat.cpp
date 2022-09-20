@@ -1,9 +1,14 @@
-#include "Cv_Object.h"
-#include "cvextra.h"
 #include <array>
 #include <cstdint>
-#include <numeric>
 #include <gdiplus.h>
+#include <numeric>
+#include <windows.h>
+
+#include <opencv2/imgproc.hpp>
+#include "Cv_Object.h"
+#include "cvextra.h"
+#include "autoit_bridge.h"
+
 #pragma comment(lib, "gdiplus.lib")
 
 namespace Gdiplus {
@@ -116,7 +121,8 @@ namespace Gdiplus {
  * @param copy   use the same data when possible, otherwise, make a copy
  * @see https://github.com/emgucv/emgucv/blob/4.5.4/Emgu.CV.Platform/Emgu.CV.Bitmap/BitmapExtension.cs#L300
  */
-inline void createMatFromBitmap_(Gdiplus::Bitmap& bitmap, Mat& mat, bool copy) {
+inline void createMatFromBitmap_(Gdiplus::Bitmap& bitmap, cv::Mat& mat, bool copy) {
+	using namespace cv;
 	using namespace Gdiplus;
 
 	auto width = bitmap.GetWidth();
@@ -129,7 +135,7 @@ inline void createMatFromBitmap_(Gdiplus::Bitmap& bitmap, Mat& mat, bool copy) {
 	BitmapData& data = lock.data;
 
 	if (format == PixelFormat32bppARGB) {
-		cv::Mat tmp(height, width, CV_8UC4, data.Scan0, data.Stride);
+		Mat tmp(height, width, CV_8UC4, data.Scan0, data.Stride);
 		if (copy) {
 			tmp.copyTo(mat);
 		}
@@ -138,11 +144,11 @@ inline void createMatFromBitmap_(Gdiplus::Bitmap& bitmap, Mat& mat, bool copy) {
 		}
 	}
 	else if (format == PixelFormat32bppRGB) {
-		cv::Mat tmp(height, width, CV_8UC4, data.Scan0, data.Stride);
+		Mat tmp(height, width, CV_8UC4, data.Scan0, data.Stride);
 		mixChannels(tmp, mat, { 0, 0, 1, 1, 2, 2 });
 	}
 	else if (format == PixelFormat24bppRGB) {
-		cv::Mat tmp(height, width, CV_8UC3, data.Scan0, data.Stride);
+		Mat tmp(height, width, CV_8UC3, data.Scan0, data.Stride);
 		if (copy) {
 			tmp.copyTo(mat);
 		}
@@ -211,12 +217,14 @@ cv::Mat cv::createMatFromBitmap(void* ptr, bool copy) {
  * @param dst
  * @see https://github.com/opencv/opencv/blob/4.5.4/modules/highgui/src/precomp.hpp#L152
  */
-const Mat CCv_Mat_Object::convertToShow(Mat& dst, bool toRGB, HRESULT& hr) {
-	auto& src = *this->__self->get();
+const cv::Mat CCv_Mat_Object::convertToShow(cv::Mat& dst, bool toRGB, HRESULT& hr) {
+	using namespace cv;
+
+	auto& src = *__self->get();
 
 	double scale = 1.0, shift = 0.0;
 	double minVal = 0, maxVal = 0;
-	cv::Point minLoc, maxLoc;
+	Point minLoc, maxLoc;
 
 	const int src_depth = src.depth();
 	CV_Assert(src_depth != CV_16F && src_depth != CV_32S);
@@ -259,128 +267,128 @@ const Mat CCv_Mat_Object::convertToShow(Mat& dst, bool toRGB, HRESULT& hr) {
 	return dst;
 }
 
-static Gdiplus::ColorPalette* GenerateGrayscalePalette() {
-	using namespace Gdiplus;
+namespace {
+	Gdiplus::ColorPalette* GenerateGrayscalePalette() {
+		using namespace Gdiplus;
 
-	static Gdiplus::ColorPalette* palette = NULL;
-	if (palette) {
+		static Gdiplus::ColorPalette* palette = NULL;
+		if (palette) {
+			return palette;
+		}
+
+		Bitmap image(1, 1, PixelFormat8bppIndexed);
+		int palsize = image.GetPaletteSize();
+		palette = reinterpret_cast<Gdiplus::ColorPalette*>(new BYTE[palsize]);
+		image.GetPalette(palette, palsize);
+
+		for (int i = 0; i < 256; i++) {
+			palette->Entries[i] = Gdiplus::Color(i, i, i).GetValue();
+		}
+
 		return palette;
 	}
 
-	Bitmap image(1, 1, PixelFormat8bppIndexed);
-	int palsize = image.GetPaletteSize();
-	palette = reinterpret_cast<Gdiplus::ColorPalette*>(new BYTE[palsize]);
-	image.GetPalette(palette, palsize);
+	void RawDataToBitmap(uchar* scan0, size_t step, cv::Size size, int dstColorType, int channels, int srcDepth, Gdiplus::CvBitmap& dst) {
+		using namespace Gdiplus;
 
-	for (int i = 0; i < 256; i++) {
-		palette->Entries[i] = Gdiplus::Color(i, i, i).GetValue();
-	}
+		if (dstColorType == CV_8UC1 && srcDepth == CV_8U) {
+			CvBitmap bmpGray(
+				size.width,
+				size.height,
+				step,
+				PixelFormat8bppIndexed,
+				scan0
+			);
 
-	return palette;
-}
+			CV_Assert(bmpGray.GetLastStatus() == Ok);
 
-// static Gdiplus::ColorPalette* GrayscalePalette = GenerateGrayscalePalette();
+			bmpGray.SetPalette(GenerateGrayscalePalette());
 
-static void RawDataToBitmap(uchar* scan0, size_t step, cv::Size size, int dstColorType, int channels, int srcDepth, Gdiplus::CvBitmap& dst) {
-	using namespace Gdiplus;
-
-	if (dstColorType == CV_8UC1 && srcDepth == CV_8U) {
-		CvBitmap bmpGray(
-			size.width,
-			size.height,
-			step,
-			PixelFormat8bppIndexed,
-			scan0
-		);
-
-		CV_Assert(bmpGray.GetLastStatus() == Ok);
-
-		bmpGray.SetPalette(GenerateGrayscalePalette());
-
-		dst.Attach(bmpGray.Detach());
-		return;
-	}
-	else if (dstColorType == CV_8UC3 && srcDepth == CV_8U) {
-		CvBitmap bmp(
-			size.width,
-			size.height,
-			step,
-			PixelFormat24bppRGB,
-			scan0
-		);
-		CV_Assert(bmp.GetLastStatus() == Ok);
-		dst.Attach(bmp.Detach());
-		return;
-	}
-	else if (dstColorType == CV_8UC4 && srcDepth == CV_8U) {
-		CvBitmap bmp(
-			size.width,
-			size.height,
-			step,
-			PixelFormat32bppARGB,
-			scan0
-		);
-		CV_Assert(bmp.GetLastStatus() == Ok);
-		dst.Attach(bmp.Detach());
-		return;
-	}
-
-	PixelFormat format;
-
-	if (dstColorType == CV_8UC1) { // if this is a gray scale image
-		format = PixelFormat8bppIndexed;
-	}
-	else if (dstColorType == CV_8UC4) { // if this is Bgra image
-		format = PixelFormat32bppARGB;
-	}
-	else if (dstColorType == CV_8UC3) { // if this is a Bgr image
-		format = PixelFormat24bppRGB;
-	}
-	else { // convert to a 3 channels matrix
-		cv::Mat m(size.height, size.width, CV_MAKETYPE(srcDepth, channels), scan0, step);
-		cv::Mat m2;
-		cv::cvtColor(m, m2, dstColorType, CV_8UC3);
-		RawDataToBitmap(m2.ptr(), m2.step1(), m2.size(), CV_8UC3, 3, srcDepth, dst);
-		return;
-	}
-
-	CvBitmap bmp(size.width, size.height, format);
-	CV_Assert(bmp.GetLastStatus() == Ok);
-
-	{
-		// Block to ensure unlocks before detach
-		auto rect = Gdiplus::Rect(0, 0, size.width, size.height);
-		BitmapLock lock(bmp, &rect, ImageLockModeWrite, format);
-		BitmapData& data = lock.data;
-		cv::Mat bmpMat(size.height, size.width, CV_MAKETYPE(CV_8U, channels), data.Scan0, data.Stride);
-		Mat srcMat(size.height, size.width, CV_MAKETYPE(srcDepth, channels), scan0, step);
-
-		if (srcDepth == CV_8U) {
-			srcMat.copyTo(bmpMat);
+			dst.Attach(bmpGray.Detach());
+			return;
 		}
-		else {
-			double scale = 1.0, shift = 0.0;
-			double minVal = 0, maxVal = 0;
-			cv::Point minLoc, maxLoc;
-			if (channels == 1) {
-				minMaxLoc(srcMat, &minVal, &maxVal, &minLoc, &maxLoc);
+		else if (dstColorType == CV_8UC3 && srcDepth == CV_8U) {
+			CvBitmap bmp(
+				size.width,
+				size.height,
+				step,
+				PixelFormat24bppRGB,
+				scan0
+			);
+			CV_Assert(bmp.GetLastStatus() == Ok);
+			dst.Attach(bmp.Detach());
+			return;
+		}
+		else if (dstColorType == CV_8UC4 && srcDepth == CV_8U) {
+			CvBitmap bmp(
+				size.width,
+				size.height,
+				step,
+				PixelFormat32bppARGB,
+				scan0
+			);
+			CV_Assert(bmp.GetLastStatus() == Ok);
+			dst.Attach(bmp.Detach());
+			return;
+		}
+
+		PixelFormat format;
+
+		if (dstColorType == CV_8UC1) { // if this is a gray scale image
+			format = PixelFormat8bppIndexed;
+		}
+		else if (dstColorType == CV_8UC4) { // if this is Bgra image
+			format = PixelFormat32bppARGB;
+		}
+		else if (dstColorType == CV_8UC3) { // if this is a Bgr image
+			format = PixelFormat24bppRGB;
+		}
+		else { // convert to a 3 channels matrix
+			cv::Mat m(size.height, size.width, CV_MAKETYPE(srcDepth, channels), scan0, step);
+			cv::Mat m2;
+			cv::cvtColor(m, m2, dstColorType, CV_8UC3);
+			RawDataToBitmap(m2.ptr(), m2.step1(), m2.size(), CV_8UC3, 3, srcDepth, dst);
+			return;
+		}
+
+		CvBitmap bmp(size.width, size.height, format);
+		CV_Assert(bmp.GetLastStatus() == Ok);
+
+		{
+			// Block to ensure unlocks before detach
+			auto rect = Gdiplus::Rect(0, 0, size.width, size.height);
+			BitmapLock lock(bmp, &rect, ImageLockModeWrite, format);
+			BitmapData& data = lock.data;
+			cv::Mat bmpMat(size.height, size.width, CV_MAKETYPE(CV_8U, channels), data.Scan0, data.Stride);
+			cv::Mat srcMat(size.height, size.width, CV_MAKETYPE(srcDepth, channels), scan0, step);
+
+			if (srcDepth == CV_8U) {
+				srcMat.copyTo(bmpMat);
 			}
 			else {
-				minMaxLoc(srcMat.reshape(1), &minVal, &maxVal, &minLoc, &maxLoc);
+				double scale = 1.0, shift = 0.0;
+				double minVal = 0, maxVal = 0;
+				cv::Point minLoc, maxLoc;
+				if (channels == 1) {
+					minMaxLoc(srcMat, &minVal, &maxVal, &minLoc, &maxLoc);
+				}
+				else {
+					minMaxLoc(srcMat.reshape(1), &minVal, &maxVal, &minLoc, &maxLoc);
+				}
+
+				scale = (float)maxVal == (float)minVal ? 0.0 : 255.0 / (maxVal - minVal);
+				shift = scale == 0 ? minVal : -minVal * scale;
+
+				srcMat.convertTo(bmpMat, CV_8U, scale, shift);
 			}
-
-			scale = (float)maxVal == (float)minVal ? 0.0 : 255.0 / (maxVal - minVal);
-			shift = scale == 0 ? minVal : -minVal * scale;
-
-			srcMat.convertTo(bmpMat, CV_8U, scale, shift);
 		}
-	}
 
-	if (format == PixelFormat8bppIndexed) {
-		bmp.SetPalette(GenerateGrayscalePalette());
-	}
+		if (format == PixelFormat8bppIndexed) {
+			bmp.SetPalette(GenerateGrayscalePalette());
+		}
 
-	dst.Attach(bmp.Detach());
+		dst.Attach(bmp.Detach());
+	}
 }
 
 /**
@@ -392,7 +400,7 @@ static void RawDataToBitmap(uchar* scan0, size_t step, cv::Size size, int dstCol
  */
 const void* CCv_Mat_Object::convertToBitmap(bool copy, HRESULT& hr) {
 	using namespace Gdiplus;
-	auto& src = *this->__self->get();
+	auto& src = *__self->get();
 
 	if (src.dims > 3 || src.empty()) {
 		return NULL;
@@ -428,7 +436,7 @@ const void* CCv_Mat_Object::convertToBitmap(bool copy, HRESULT& hr) {
 	return copy ? dst.CloneNativeImage() : dst.Detach();
 }
 
-const Mat CCv_Mat_Object::GdiplusResize(float newWidth, float newHeight, int interpolation, HRESULT& hr) {
+const cv::Mat CCv_Mat_Object::GdiplusResize(float newWidth, float newHeight, int interpolation, HRESULT& hr) {
 	using namespace Gdiplus;
 
 	GpBitmap* nativeBitmap = static_cast<GpBitmap*>(const_cast<void*>(convertToBitmap(true, hr)));
@@ -444,13 +452,451 @@ const Mat CCv_Mat_Object::GdiplusResize(float newWidth, float newHeight, int int
 	CV_Assert(hBmpCtxt.SetInterpolationMode(static_cast<Gdiplus::InterpolationMode>(interpolation)) == Ok);
 	CV_Assert(hBmpCtxt.DrawImage(&bitmap, 0.0, 0.0, newWidth, newHeight) == Ok);
 
-	Mat mat; createMatFromBitmap_(hBitmap, mat, true);
+	cv::Mat mat; createMatFromBitmap_(hBitmap, mat, true);
 
 	return mat.clone();
 }
 
+template<typename _Tp>
+static const std::string join(_Tp* elements, size_t size, const std::string& separator = ",") {
+	std::ostringstream o;
+	for (size_t i = 0; i < size; i++) {
+		if (i != 0) {
+			o << separator;
+		}
+		o << elements[i];
+	}
+	return o.str();
+}
+
+static int _inferDepth(ATL::CComSafeArray<VARIANT>& vArray, HRESULT& hr) {
+	const UINT uDims = vArray.GetDimensions();
+	LONG* lSizes = new LONG[uDims * 3];
+	LONG size = 1;
+
+	for (UINT uDim = 0; uDim < uDims; uDim++) {
+		auto lLower = vArray.GetLowerBound(uDim);
+		auto lUpper = vArray.GetUpperBound(uDim);
+		auto count = lUpper - lLower + 1;
+
+		lSizes[uDim * 3] = count;
+		lSizes[uDim * 3 + 1] = lLower;
+		lSizes[uDim * 3 + 2] = size;
+
+		size *= count;
+	}
+
+	LONG* aIndex = new LONG[uDims];
+	LONGLONG minVal = 0;
+	ULONGLONG maxVal = 0;
+	VARIANT v;
+	VariantInit(&v);
+
+	bool has_char = false;
+	bool has_byte = false;
+	bool has_short = false;
+	bool has_ushort = false;
+	bool has_int = false;
+	bool has_uint = false;
+	bool has_long = false;
+	bool has_ulong = false;
+	bool has_int64 = false;
+	bool has_uint64 = false;
+	bool has_float = false;
+	bool has_double = false;
+
+	for (LONG i = 0; !has_double && i < size; i++) {
+		LONG index = i;
+
+		for (UINT uDim = 0; uDim < uDims; uDim++) {
+			auto usDim = uDims - uDim - 1;
+			auto d = lSizes[3 * usDim + 2];
+			auto r = index % d;
+			auto q = (index - r) / d;
+
+			aIndex[usDim] = q;
+			index -= q * d;
+		}
+
+		AUTOIT_ASSERT_THROW(SUCCEEDED(vArray.MultiDimGetAt(aIndex, v)), "Failed get element at [" << join(aIndex, uDims, "][") << "]");
+
+		switch (V_VT(&v)) {
+		case VT_I1:
+			has_char = true;
+			minVal = minVal > V_I1(&v) ? V_I1(&v) : minVal;
+			maxVal = V_I1(&v) > 0 && maxVal < V_I1(&v) ? V_I1(&v) : maxVal;
+			break;
+		case VT_I2:
+			has_short = true;
+			minVal = minVal > V_I2(&v) ? V_I2(&v) : minVal;
+			maxVal = V_I2(&v) > 0 && maxVal < V_I2(&v) ? V_I2(&v) : maxVal;
+			break;
+		case VT_INT:
+			has_int = true;
+			minVal = minVal > V_INT(&v) ? V_INT(&v) : minVal;
+			maxVal = V_INT(&v) > 0 && maxVal < V_INT(&v) ? V_INT(&v) : maxVal;
+			break;
+		case VT_I4:
+			has_long = true;
+			minVal = minVal > V_I4(&v) ? V_I4(&v) : minVal;
+			maxVal = V_I4(&v) > 0 && maxVal < V_I4(&v) ? V_I4(&v) : maxVal;
+			break;
+		case VT_I8:
+			has_int64 = true;
+			minVal = minVal > V_I8(&v) ? V_I8(&v) : minVal;
+			maxVal = V_I8(&v) > 0 && maxVal < V_I8(&v) ? V_I8(&v) : maxVal;
+			break;
+		case VT_UI1:
+			has_byte = true;
+			maxVal = maxVal < V_UI1(&v) ? V_UI1(&v) : maxVal;
+			break;
+		case VT_UI2:
+			has_ushort = true;
+			maxVal = maxVal < V_UI2(&v) ? V_UI2(&v) : maxVal;
+			break;
+		case VT_UINT:
+			has_uint = true;
+			maxVal = maxVal < V_UINT(&v) ? V_UINT(&v) : maxVal;
+			break;
+		case VT_UI4:
+			has_ulong = true;
+			maxVal = maxVal < V_UI4(&v) ? V_UI4(&v) : maxVal;
+			break;
+		case VT_UI8:
+			has_uint64 = true;
+			maxVal = maxVal < V_UI8(&v) ? V_UI8(&v) : maxVal;
+			break;
+		case VT_R4:
+			has_float = true;
+			break;
+		case VT_R8:
+			has_double = true;
+			break;
+		default:
+			hr = E_INVALIDARG;
+			i = size - 1;
+		}
+	}
+
+	delete[] aIndex;
+
+	if (has_double || has_int64 || has_uint64) {
+		return CV_64F;
+	}
+
+	if (has_float || (has_int && has_uint && maxVal > ((1 << 31) - 1)) || (has_long && has_ulong && maxVal > ((1 << 31) - 1))) {
+		return CV_32F;
+	}
+
+	if (has_int || has_long || has_ushort) {
+		return CV_32S;
+	}
+
+	if (has_short) {
+		return CV_16S;
+	}
+
+	if (has_byte) {
+		return CV_8U;
+	}
+
+	return CV_8S;
+}
+
+template<typename _Tp>
+const void _createFromArray(ATL::CComSafeArray<VARIANT>& vArray, int depth, HRESULT& hr, cv::Mat& result) {
+	const UINT uDims = vArray.GetDimensions();
+	_Tp value;
+
+	if (uDims == 3) {
+		LONG rowsLower = vArray.GetLowerBound(2);
+		LONG rowsUpper = vArray.GetUpperBound(2);
+		auto rows = rowsUpper - rowsLower + 1;
+
+		LONG colsLower = vArray.GetLowerBound(1);
+		LONG colsUpper = vArray.GetUpperBound(1);
+		auto cols = colsUpper - colsLower + 1;
+
+		LONG channelsLower = vArray.GetLowerBound(0);
+		LONG channelsUpper = vArray.GetUpperBound(0);
+		auto channels = channelsUpper - channelsLower + 1;
+
+		result = cv::Mat(rows, cols, CV_MAKETYPE(depth, channels));
+
+		LONG aIndex[3];
+		VARIANT v;
+		VariantInit(&v);
+
+		for (LONG i = 0; i < rows; i++) {
+			aIndex[2] = i + rowsLower;
+			for (LONG j = 0; j < cols; j++) {
+				aIndex[1] = j + colsLower;
+				for (LONG k = 0; k < channels; k++) {
+					aIndex[0] = k + channelsLower;
+					AUTOIT_ASSERT_THROW(SUCCEEDED(vArray.MultiDimGetAt(aIndex, v)), "Failed get element at [" << join(aIndex, uDims, "][") << "]");
+					VARIANT* pv = &v;
+
+					hr = autoit_to(pv, value);
+					if (FAILED(hr)) {
+						AUTOIT_ERROR("element at [" << i << "][" << j << "][" << k << "] is not of type " << typeid(_Tp).name());
+						return;
+					}
+
+					result.ptr<_Tp>(i, j)[k] = value;
+				}
+			}
+		}
+	}
+	else if (uDims == 2) {
+		LONG rowsLower = vArray.GetLowerBound(1);
+		LONG rowsUpper = vArray.GetUpperBound(1);
+		auto rows = rowsUpper - rowsLower + 1;
+
+		LONG colsLower = vArray.GetLowerBound(0);
+		LONG colsUpper = vArray.GetUpperBound(0);
+		auto cols = colsUpper - colsLower + 1;
+
+		result = cv::Mat(rows, cols, CV_MAKETYPE(depth, 1));
+
+		LONG aIndex[2];
+		VARIANT v;
+		VariantInit(&v);
+
+		for (LONG i = 0; i < rows; i++) {
+			aIndex[1] = i + rowsLower;
+			for (LONG j = 0; j < cols; j++) {
+				aIndex[0] = j + colsLower;
+				AUTOIT_ASSERT_THROW(SUCCEEDED(vArray.MultiDimGetAt(aIndex, v)), "Failed get element at [" << join(aIndex, uDims, "][") << "]");
+				VARIANT* pv = &v;
+
+				hr = autoit_to(pv, value);
+				if (FAILED(hr)) {
+					AUTOIT_ERROR("element at [" << i << "][" << j << "] is not of type " << typeid(_Tp).name() << "; type = " << V_VT(pv));
+					return;
+				}
+
+				result.at<_Tp>(i, j) = value;
+			}
+		}
+	}
+	else if (uDims == 1) {
+		LONG colsLower = vArray.GetLowerBound();
+		LONG colsUpper = vArray.GetUpperBound();
+		auto cols = colsUpper - colsLower + 1;
+
+		result = cv::Mat(1, cols, CV_MAKETYPE(depth, 1));
+
+		for (LONG i = 0; i < cols; i++) {
+			auto& v = vArray.GetAt(i + colsLower);
+			VARIANT* pv = &v;
+
+			hr = autoit_to(pv, value);
+			if (FAILED(hr)) {
+				AUTOIT_ERROR("element at [" << i << "] is not of type " << typeid(_Tp).name());
+				return;
+			}
+
+			result.at<_Tp>(i) = value;
+		}
+	}
+	else {
+		hr = E_INVALIDARG;
+	}
+}
+
+const cv::Mat CCv_Mat_Object::createFromArray(_variant_t& array, int depth, HRESULT& hr) {
+	VARIANT* in_val = &array;
+	cv::Mat result;
+
+	if ((V_VT(in_val) & VT_ARRAY) != VT_ARRAY || (V_VT(in_val) ^ VT_ARRAY) != VT_VARIANT) {
+		hr = E_INVALIDARG;
+		return result;
+	}
+
+	ATL::CComSafeArray<VARIANT> vArray;
+	vArray.Attach(V_ARRAY(in_val));
+
+	if (vArray.GetDimensions() > 3) {
+		vArray.Detach();
+		hr = E_INVALIDARG;
+		return result;
+	}
+
+	if (depth == -1) {
+		depth = _inferDepth(vArray, hr);
+		if (FAILED(hr)) {
+			vArray.Detach();
+			return result;
+		}
+	}
+
+	switch (depth) {
+	case CV_8U:
+		_createFromArray<byte>(vArray, depth, hr, result);
+		break;
+	case CV_8S:
+		_createFromArray<char>(vArray, depth, hr, result);
+		break;
+	case CV_16U:
+		_createFromArray<ushort>(vArray, depth, hr, result);
+		break;
+	case CV_16S:
+		_createFromArray<short>(vArray, depth, hr, result);
+		break;
+	case CV_32S:
+		_createFromArray<int>(vArray, depth, hr, result);
+		break;
+	case CV_32F:
+		_createFromArray<float>(vArray, depth, hr, result);
+		break;
+	case CV_64F:
+		_createFromArray<double>(vArray, depth, hr, result);
+		break;
+	default:
+		AUTOIT_ERROR("depth must be one of CV_8U CV_8S CV_16U CV_16S CV_32S CV_32F CV_64F");
+		hr = E_INVALIDARG;
+		break;
+	}
+
+	vArray.Detach();
+
+	return result;
+}
+
+template<typename _Tp>
+static LPSAFEARRAY _asArray(const cv::Mat& mat) {
+	auto rows = mat.rows;
+	auto cols = mat.cols;
+	auto channels = mat.channels();
+
+	UINT uDims;
+	if (channels == 1) {
+		uDims = cols == 1 ? 1 : 2;
+	} else if (cols == 1) {
+		uDims = 2;
+	} else {
+		uDims = 3;
+	}
+
+	// Define the array bound structure
+	CComSafeArrayBound* bound = new CComSafeArrayBound[uDims];
+
+	if (uDims == 1) {
+		bound[0].SetCount(rows * cols * channels);
+		bound[0].SetLowerBound(0);
+	} else if (uDims == 2) {
+		bound[1].SetCount(rows);
+		bound[1].SetLowerBound(0);
+		bound[0].SetCount(cols * channels);
+		bound[0].SetLowerBound(0);
+	} else if (uDims == 3) {
+		bound[2].SetCount(rows);
+		bound[2].SetLowerBound(0);
+		bound[1].SetCount(cols);
+		bound[1].SetLowerBound(0);
+		bound[0].SetCount(channels);
+		bound[0].SetLowerBound(0);
+	}
+
+	ATL::CComSafeArray<VARIANT> vArray(bound, uDims);
+	LONG* aIndex = new LONG[uDims];
+	VARIANT v;
+	VARIANT* pv = &v;
+	VariantInit(pv);
+
+	if (uDims == 3) {
+		for (LONG i = 0; i < rows; i++) {
+			aIndex[2] = i;
+			for (LONG j = 0; j < cols; j++) {
+				aIndex[1] = j;
+				for (LONG k = 0; k < channels; k++) {
+					aIndex[0] = k;
+					AUTOIT_ASSERT_THROW(SUCCEEDED(autoit_from(mat.ptr<_Tp>(i, j)[k], pv)), "Failed get element at [" << join(aIndex, uDims, "][") << "]");
+					AUTOIT_ASSERT_THROW(SUCCEEDED(vArray.MultiDimSetAt(aIndex, v)), "Failed set element at [" << join(aIndex, uDims, "][") << "]");
+					VariantClear(pv);
+				}
+			}
+		}
+	} else if (uDims == 2) {
+		for (LONG i = 0; i < rows; i++) {
+			aIndex[1] = i;
+			for (LONG j = 0; j < cols; j++) {
+				for (LONG k = 0; k < channels; k++) {
+					aIndex[0] = j * channels + k;
+					AUTOIT_ASSERT_THROW(SUCCEEDED(autoit_from(mat.ptr<_Tp>(i, j)[k], pv)), "Failed get element at [" << join(aIndex, uDims, "][") << "]");
+					AUTOIT_ASSERT_THROW(SUCCEEDED(vArray.MultiDimSetAt(aIndex, v)), "Failed set element at [" << join(aIndex, uDims, "][") << "]");
+					VariantClear(pv);
+				}
+			}
+		}
+	} else {
+		for (LONG i = 0; i < rows; i++) {
+			for (LONG j = 0; j < cols; j++) {
+				for (LONG k = 0; k < channels; k++) {
+					AUTOIT_ASSERT_THROW(SUCCEEDED(autoit_from(mat.ptr<_Tp>(i, j)[k], pv)), "Failed get element at [" << join(aIndex, uDims, "][") << "]");
+					AUTOIT_ASSERT_THROW(SUCCEEDED(vArray.SetAt((i * cols + j) * channels + k, v)), "Failed set element at [" << join(aIndex, uDims, "][") << "]");
+					VariantClear(pv);
+				}
+			}
+		}
+	}
+
+	delete [] bound;
+	delete [] aIndex;
+
+	return vArray.Detach();
+}
+
+const _variant_t CCv_Mat_Object::asArray(HRESULT& hr) {
+	_variant_t res;
+	VariantInit(&res);
+	VARIANT* out_val = &res;
+
+	const auto& mat = *__self->get();
+
+	if (mat.dims > 2) {
+		AUTOIT_ERROR("mat dimension must be at most 2");
+		hr = E_INVALIDARG;
+		return res;
+	}
+
+	V_VT(out_val) = VT_ARRAY | VT_VARIANT;
+
+	switch (mat.depth()) {
+	case CV_8U:
+		V_ARRAY(out_val) = _asArray<byte>(mat);
+		break;
+	case CV_8S:
+		V_ARRAY(out_val) = _asArray<char>(mat);
+		break;
+	case CV_16U:
+		V_ARRAY(out_val) = _asArray<ushort>(mat);
+		break;
+	case CV_16S:
+		V_ARRAY(out_val) = _asArray<short>(mat);
+		break;
+	case CV_32S:
+		V_ARRAY(out_val) = _asArray<int>(mat);
+		break;
+	case CV_32F:
+		V_ARRAY(out_val) = _asArray<float>(mat);
+		break;
+	case CV_64F:
+		V_ARRAY(out_val) = _asArray<double>(mat);
+		break;
+	default:
+		AUTOIT_ERROR("depth must be one of CV_8U CV_8S CV_16U CV_16S CV_32S CV_32F CV_64F");
+		hr = E_INVALIDARG;
+		break;
+	}
+
+	return res;
+}
+
 const _variant_t CCv_Mat_Object::PixelSearch(cv::Scalar& color, int left, int top, int right, int bottom, uchar shade_variation, int step, HRESULT& hr) {
-	auto& src = *this->__self->get();
+	using namespace cv;
+
+	auto& src = *__self->get();
 
 	// accept only char type matrices
 	CV_Assert(src.depth() == CV_8U);
@@ -534,7 +980,7 @@ const _variant_t CCv_Mat_Object::PixelSearch(cv::Scalar& color, cv::Rect& rect, 
 
 const std::uint_fast32_t MOD_ADLER = 65521;
 
-const std::uint_fast32_t adler32(Mat& src, const int left, const int top, const int right, const int bottom, const int hstep, const int vstep) {
+const std::uint_fast32_t adler32(cv::Mat& src, const int left, const int top, const int right, const int bottom, const int hstep, const int vstep) {
 	std::uint_fast32_t a = 1, b = 0;
 
 	int channels = src.channels();
@@ -580,7 +1026,7 @@ std::array<std::uint_fast32_t, 256> generate_crc_lookup_table() noexcept {
 	return table;
 }
 
-const std::uint_fast32_t crc32(Mat& src, const int left, const int top, const int right, const int bottom, const int hstep, const int vstep) {
+const std::uint_fast32_t crc32(cv::Mat& src, const int left, const int top, const int right, const int bottom, const int hstep, const int vstep) {
 	// Generate lookup table only on first use then cache it - this is thread-safe.
 	static auto const table = generate_crc_lookup_table();
 
@@ -602,7 +1048,7 @@ const std::uint_fast32_t crc32(Mat& src, const int left, const int top, const in
 }
 
 const size_t CCv_Mat_Object::PixelChecksum(int left, int top, int right, int bottom, int step, int mode, HRESULT& hr) {
-	auto& src = *this->__self->get();
+	auto& src = *__self->get();
 
 	// accept only char type matrices
 	CV_Assert(src.depth() == CV_8U);

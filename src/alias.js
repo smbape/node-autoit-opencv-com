@@ -63,49 +63,48 @@ exports.removeNamespaces = (str, options = {}) => {
         return str;
     }
 
-    const reg = new RegExp(`\\b(?:${ Array.from(options.namespaces).join("|") })::`, "g");
+    const reg = new RegExp(`\\b(?:${ Array.from(options.namespaces).sort((a, b) => b.length - a.length).join("|") })::`, "g");
 
     return str.replace(reg, "");
 };
 
-// const options = {
-//     shared_ptr: "std::shared_ptr",
-//     namespaces: new Set([
-//         "cv",
-//         "std",
-//         "dlib"
-//     ])
-// };
+const EXPANSION_REG = [...Array(11).keys()].map(i => new RegExp(`\\$(?:${ i }\\b|\\{${ i }\\})`, "g"));
 
-// ["dense_vect", "SpaceVector"],
-// ["sample_type", "SpaceVector"],
-// ["matrix_double_0_1", "SpaceVector"],
-// ["matrix_double", "Matrix"],
-// ["sparse_vect", "vector_pair_ULONG_and_double"],
-// ["ranges", "vector_pair_ULONG_and_ULONG"],
-// ["simple_object_detector", "fhog_object_detector"],
+exports.makeExpansion = (str, ...args) => {
+    str = str.replace(EXPANSION_REG[0], args.join(", "));
+    for (let i = 0; i < args.length && i + 1 < EXPANSION_REG.length; i++) {
+        str = str.replace(EXPANSION_REG[i + 1], args[i]);
+    }
+    return str;
+};
 
-// console.log(exports.replaceAliases("shared_ptr_sparse_vect", options));
-// console.log(exports.replaceAliases("sparse_vect", options));
-// console.log(exports.replaceAliases("sparse_vector", options));
-// console.log(exports.replaceAliases("sparse_vect ", options));
-// console.log(exports.replaceAliases("sparse_vector ", options));
-// console.log(exports.replaceAliases(" sparse_vect", options));
-// console.log(exports.replaceAliases(" sparse_vector", options));
-// console.log(exports.replaceAliases(" sparse_vect_and_", options));
-// console.log(exports.replaceAliases("Mat_to_vector_sparse_vect_and_", options));
-// console.log(exports.replaceAliases("vector_sparse_vect_and_", options));
-// console.log(exports.replaceAliases("vector_sparse_vect", options));
-// console.log(exports.replaceAliases("tuple_sparse_vect", options));
-// console.log(exports.replaceAliases("tuple_sparse_vect_and_int", options));
-// console.log(exports.replaceAliases("tuple_int_and_sparse_vect", options));
-// console.log(exports.replaceAliases("tuple_int_and_sparse_vect_and_uint", options));
-// console.log(exports.replaceAliases(" tuple_sparse_vect", options));
-// console.log(exports.replaceAliases(" tuple_sparse_vect_and_int", options));
-// console.log(exports.replaceAliases(" tuple_int_and_sparse_vect", options));
-// console.log(exports.replaceAliases(" tuple_int_and_sparse_vect_and_uint", options));
-// console.log(exports.replaceAliases("tuple_sparse_vect ", options));
-// console.log(exports.replaceAliases("tuple_sparse_vect_and_int ", options));
-// console.log(exports.replaceAliases("tuple_int_and_sparse_vect ", options));
-// console.log(exports.replaceAliases("tuple_int_and_sparse_vect_and_uint ", options));
-// console.log(exports.replaceAliases("_make_sparse_vector ", options));
+exports.useNamespaces = (body, method, coclass, generator) => {
+    const namespaces = new Set();
+
+    if (generator.namespace) {
+        namespaces.add(`using namespace ${ generator.namespace };`);
+    }
+
+    if (coclass.namespace) {
+        namespaces.add(`using namespace ${ coclass.namespace };`);
+    }
+
+    if (coclass.include && coclass.include.namespace && coclass.include.namespace !== coclass.namespace) {
+        namespaces.add(`using namespace ${ coclass.include.namespace };`);
+    }
+
+    body[method](...namespaces);
+};
+
+exports.getTypeDef = (type, options) => {
+    type = type
+        .replace(/std::map/g, "MapOf")
+        .replace(/std::pair/g, "PairOf")
+        .replace(/std::vector/g, "VectorOf");
+    return exports.removeNamespaces(type, options)
+        .replace(/\b_variant_t\b/g, "Variant")
+        .replace(/::/g, "_")
+        .replace(/\b[a-z]/g, m => m.toUpperCase())
+        .replace(/, /g, "And")
+        .replace(/[<>]/g, "");
+};

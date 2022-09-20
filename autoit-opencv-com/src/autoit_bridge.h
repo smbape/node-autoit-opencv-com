@@ -1,6 +1,5 @@
 #pragma once
 
-#include "autoit_bridge_common.h"
 #include "autoit_bridge_generated.h"
 
 class IVariantArray {
@@ -61,8 +60,8 @@ extern const HRESULT autoit_from(cv::MatExpr& in_val, ICv_Mat_Object**& out_val)
 extern const bool is_assignable_from(cv::GMetaArg& out_val, VARIANT const* const& in_val, bool is_optional);
 extern const HRESULT autoit_to(VARIANT const* const& in_val, cv::GMetaArg& out_val);
 
-extern const HRESULT autoit_from(const GMetaArg& in_val, VARIANT*& out_val);
-extern const HRESULT autoit_from(const GOptRunArg& in_val, VARIANT*& out_val);
+extern const HRESULT autoit_from(const cv::GMetaArg& in_val, VARIANT*& out_val);
+extern const HRESULT autoit_from(const cv::GOptRunArg& in_val, VARIANT*& out_val);
 extern const HRESULT autoit_from(const cv::util::variant<cv::GRunArgs, cv::GOptRunArgs>& in_val, VARIANT*& out_val);
 
 extern const bool is_assignable_from(cv::Ptr<cv::flann::IndexParams>& out_val, VARIANT*& in_val, bool is_optional);

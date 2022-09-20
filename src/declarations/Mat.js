@@ -53,6 +53,19 @@ const declarations = [
         ["Rect", "roi", "", []]
     ], "", ""],
 
+    ["cv.Mat.Mat", "", ["/Expr=$0, true"], [
+        ["std::vector<double>", "vec", "", []],
+    ], "", ""],
+
+    ["cv.Mat.Mat", "", ["/Expr=$0, true"], [
+        ["std::vector<int>", "vec", "", []],
+    ], "", ""],
+
+    ["cv.Mat.createFromArray", "cv::Mat", ["/External", "/S"], [
+        ["_variant_t", "array", "", []],
+        ["int", "depth", "-1", []],
+    ], "", ""],
+
     ["cv.Mat.row", "cv::Mat", [], [
         ["int", "y", "", []],
     ], "", ""],
@@ -114,6 +127,10 @@ const declarations = [
     ], "", ""],
 
     ["cv.Mat.size", "Size", [], [], "", ""],
+    ["cv.Mat.shape", "std::tuple<int, int, int>", [
+        "/Output=std::tuple<int, int, int>(__self->get()->rows, __self->get()->cols, __self->get()->channels())"
+    ], [], "", ""],
+
     ["cv.Mat.pop_back", "void", [], [
         ["size_t", "value", "", []]
     ], "", ""],
@@ -164,7 +181,7 @@ const declarations = [
         ["bool", "copy", "true", []],
     ], "", ""],
     ["cv.Mat.convertToShow", "cv::Mat", ["/External"], [
-        ["Mat", "dst", "Mat::zeros(this->__self->get()->rows, this->__self->get()->cols, CV_8UC3)", ["/IO"]],
+        ["Mat", "dst", "Mat::zeros(__self->get()->rows, __self->get()->cols, CV_8UC3)", ["/IO"]],
         ["bool", "toRGB", "false", []],
     ], "", ""],
     ["cv.Mat.GdiplusResize", "cv::Mat", ["/External"], [
@@ -173,19 +190,21 @@ const declarations = [
         ["int", "interpolation", "7", []],
     ], "", ""],
 
+    ["cv.Mat.asArray", "_variant_t", ["/External"], [], "", ""],
+
     ["cv.Mat.PixelSearch", "_variant_t", ["/External"], [
         ["Scalar", "color", "", []],
         ["int", "left", "0", []],
         ["int", "top", "0", []],
-        ["int", "right", "this->__self->get()->cols - 1", []],
-        ["int", "bottom", "this->__self->get()->rows - 1", []],
+        ["int", "right", "__self->get()->cols - 1", []],
+        ["int", "bottom", "__self->get()->rows - 1", []],
         ["uchar", "shade_variation", "0", []],
         ["int", "step", "1", []],
     ], "", ""],
 
     ["cv.Mat.PixelSearch", "_variant_t", ["/External"], [
         ["Scalar", "color", "", []],
-        ["Rect", "rect", "Rect(0, 0, this->__self->get()->cols, this->__self->get()->rows)", []],
+        ["Rect", "rect", "Rect(0, 0, __self->get()->cols, __self->get()->rows)", []],
         ["uchar", "shade_variation", "0", []],
         ["int", "step", "1", []],
     ], "", ""],
@@ -193,14 +212,14 @@ const declarations = [
     ["cv.Mat.PixelChecksum", "size_t", ["/External"], [
         ["int", "left", "0", []],
         ["int", "top", "0", []],
-        ["int", "right", "this->__self->get()->cols - 1", []],
-        ["int", "bottom", "this->__self->get()->rows - 1", []],
+        ["int", "right", "__self->get()->cols - 1", []],
+        ["int", "bottom", "__self->get()->rows - 1", []],
         ["int", "step", "1", []],
         ["int", "mode", "0", []],
     ], "", ""],
 
     ["cv.Mat.PixelChecksum", "size_t", ["/External"], [
-        ["Rect", "rect", "Rect(0, 0, this->__self->get()->cols, this->__self->get()->rows)", []],
+        ["Rect", "rect", "Rect(0, 0, __self->get()->cols, __self->get()->rows)", []],
         ["int", "step", "1", []],
         ["int", "mode", "0", []],
     ], "", ""],
@@ -211,9 +230,29 @@ const declarations = [
         ["int", "type", "", []],
     ], "", ""],
 
+    ["cv.Mat.eye", "cv::Mat", ["/S", "/Expr=rows, rows, type"], [
+        ["int", "rows", "", []],
+        ["int", "type", "", []],
+    ], "", ""],
+
+    ["cv.Mat.eye", "cv::Mat", ["/S", "/Expr=cols, cols, type"], [
+        ["int", "cols", "", []],
+        ["int", "type", "", []],
+    ], "", ""],
+
     ["cv.Mat.zeros", "cv::Mat", ["/S"], [
         ["int", "rows", "", []],
         ["int", "cols", "", []],
+        ["int", "type", "", []],
+    ], "", ""],
+
+    ["cv.Mat.zeros", "cv::Mat", ["/S", "/Expr=1, cols, type"], [
+        ["int", "cols", "", []],
+        ["int", "type", "", []],
+    ], "", ""],
+
+    ["cv.Mat.zeros", "cv::Mat", ["/S", "/Expr=rows, 1, type"], [
+        ["int", "rows", "", []],
         ["int", "type", "", []],
     ], "", ""],
 
@@ -225,6 +264,16 @@ const declarations = [
     ["cv.Mat.ones", "cv::Mat", ["/S"], [
         ["int", "rows", "", []],
         ["int", "cols", "", []],
+        ["int", "type", "", []],
+    ], "", ""],
+
+    ["cv.Mat.ones", "cv::Mat", ["/S", "/Expr=1, cols, type"], [
+        ["int", "cols", "", []],
+        ["int", "type", "", []],
+    ], "", ""],
+
+    ["cv.Mat.ones", "cv::Mat", ["/S", "/Expr=rows, 1, type"], [
+        ["int", "rows", "", []],
         ["int", "type", "", []],
     ], "", ""],
 
@@ -256,16 +305,14 @@ for (const _Tp of ["f", "d"]) {
 
 for (const type of types) {
     if (type.startsWith("Vec")) {
-        declarations.push(["cv.Mat.Mat", "", [`=createFrom${ type }`], [
+        declarations.push(["cv.Mat.Mat", "", [`=createFrom${ type }`, "/Expr=$0, true"], [
             [type, "vec", "", []],
-            ["bool", "copyData", "true", []],
-        ], "", ""]);
-
-        declarations.push(["cv.Mat.Mat", "", [`=createFromVectorOf${ type }`], [
-            [`vector_${ type }`, "vec", "", []],
-            ["bool", "copyData", "true", []],
         ], "", ""]);
     }
+
+    declarations.push(["cv.Mat.Mat", "", [`=createFromVectorOf${ type[0].toUpperCase() }${ type.slice(1) }`, "/Expr=$0, true"], [
+        [`vector_${ type }`, "vec", "", []],
+    ], "", ""]);
 }
 
 for (const args of [
@@ -290,6 +337,7 @@ for (const args of [
         ["cv.Mat.at", "double", ["/External"], args, "", ""],
         ["cv.Mat.set_at", "void", ["/External"], args.concat([["double", "value", "", []]]), "", ""],
         ["cv.Mat.at", "double", ["/ExternalNoDecl", "/attr=propget", "=get_Item", "/idlname=Item", "/id=DISPID_VALUE"], args, "", ""],
+        ["cv.Mat.set_at", "void", ["/ExternalNoDecl", "/attr=propput", "=put_Item", "/idlname=Item", "/id=DISPID_VALUE"], args.concat([["double", "value", "", []]]), "", ""],
     ]);
 
     const argexpr = args.map(([, argname]) => argname).join(", ");

@@ -124,7 +124,7 @@ Func _OpenCV_FindFile($sFile, $sFilter = Default, $sDir = Default, $iFlag = Defa
 	If $sDir == Default Then $sDir = @ScriptDir
 	If $aSearchPaths == Default Then $aSearchPaths = _OpenCV_Tuple(1, ".")
 
-	_OpenCV_DebugMsg("_OpenCV_FindFile('" & $sFile & "', '" & $sDir & "') " & VarGetType($aSearchPaths))
+	_OpenCV_DebugMsg("_OpenCV_FindFile('" & $sFile & "', '" & $sFilter & "', '" & $sDir & "') " & VarGetType($aSearchPaths))
 
 	Local $sFound = "", $sPath, $aFileList
 	Local $sDrive = "", $sFileName = "", $sExtension = ""
@@ -171,7 +171,7 @@ Func _OpenCV_FindFile($sFile, $sFilter = Default, $sDir = Default, $iFlag = Defa
 EndFunc   ;==>_OpenCV_FindFile
 
 Func _OpenCV_FindDLL($sFile, $sFilter = Default, $sDir = Default, $bReverse = Default)
-	Local $sBuildType = $_cv_build_type == "Debug" ? "Debug" : "Release"
+	Local $sBuildType = $_cv_build_type == "Debug" ? "Debug" : "RelWithDebInfo"
 	Local $sPostfix = $_cv_build_type == "Debug" ? "d" : ""
 
 	Local $aSearchPaths[] = [ _
@@ -188,6 +188,12 @@ Func _OpenCV_FindDLL($sFile, $sFilter = Default, $sDir = Default, $bReverse = De
 			"autoit-opencv-com\build_x64", _
 			"autoit-opencv-com\build_x64\" & $sBuildType _
 			]
+
+	If $_cv_build_type <> "Debug" Then
+		_ArrayAdd($aSearchPaths, "build_x64\Release")
+		_ArrayAdd($aSearchPaths, "autoit-dlib-com\build_x64\Release")
+	EndIf
+
 	$aSearchPaths[0] = UBound($aSearchPaths) - 1
 
 	Return _OpenCV_FindFile($sFile & $sPostfix & ".dll", $sFilter, $sDir, $FLTA_FILES, $aSearchPaths, $bReverse)

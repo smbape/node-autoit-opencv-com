@@ -55,8 +55,8 @@ In fact, the dll being a [Component Object Model (COM)](https://docs.microsoft.c
 #include "autoit-opencv-com\udf\opencv_udf_utils.au3"
 
 _OpenCV_Open_And_Register("opencv-4.6.0-vc14_vc15\opencv\build\x64\vc15\bin\opencv_world460.dll", "autoit-opencv-com\autoit_opencv_com460.dll")
+OnAutoItExitRegister("_OnAutoItExit")
 Example()
-_OpenCV_Unregister_And_Close()
 
 Func Example()
   Local $cv = _OpenCV_get()
@@ -67,6 +67,10 @@ Func Example()
   $cv.waitKey()
   $cv.destroyAllWindows()
 EndFunc   ;==>Example
+
+Func _OnAutoItExit()
+  _OpenCV_Unregister_And_Close()
+EndFunc   ;==>_OnAutoItExit
 ```
 
 ```autoit
@@ -81,8 +85,8 @@ EndFunc   ;==>Example
 #include <GUIConstantsEx.au3>
 
 _OpenCV_Open_And_Register("opencv-4.6.0-vc14_vc15\opencv\build\x64\vc15\bin\opencv_world460.dll", "autoit-opencv-com\autoit_opencv_com460.dll")
+OnAutoItExitRegister("_OnAutoItExit")
 Example()
-_OpenCV_Unregister_And_Close()
 
 Func Example()
   Local $cv = _OpenCV_get()
@@ -109,6 +113,10 @@ Func Example()
 
   $cv.destroyAllWindows()
 EndFunc   ;==>Example
+
+Func _OnAutoItExit()
+  _OpenCV_Unregister_And_Close()
+EndFunc   ;==>_OnAutoItExit
 ```
 
 ### PowerShell

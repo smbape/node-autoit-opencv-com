@@ -48,4 +48,9 @@ module.exports = [
         ["DMatch", "value", "", ["/O"]],
         ["DMatch", "default_value", "", []],
     ], "", ""],
+
+    ["cv.format", "string", ["/External"], [
+        ["InputArray", "mtx", "", []],
+        ["Formatter::FormatType", "fmt", "Formatter::FMT_NUMPY", []],
+    ], "", ""],
 ];

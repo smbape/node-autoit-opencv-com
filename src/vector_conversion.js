@@ -1,53 +1,23 @@
-const FunctionDeclaration = require("./FunctionDeclaration");
-
-const _generate = function(generator, iglobal, iidl, impl, ipublic, iprivate, idnames, id, is_test, options) {
-    const coclass = this; // eslint-disable-line no-invalid-this
-    const { cpptype } = coclass;
-
-    FunctionDeclaration.declare(generator, coclass, [
-        [`${ coclass.fqn }.at`, cpptype, ["/attr=propget", "=get_Item"], [
-            ["size_t", "vIndex", "", []],
-        ], "", ""]
-    ], "get_Item", "Item", "DISPID_VALUE", iidl, ipublic, impl, is_test, options);
-
-    FunctionDeclaration.declare(generator, coclass, [
-        [`${ coclass.fqn }.at`, "void", ["/attr=propput", "=put_Item", "/ExternalNoDecl"], [
-            ["size_t", "vIndex", "", []],
-            [cpptype, "vItem", "", []],
-        ], "", ""]
-    ], "put_Item", "Item", "DISPID_VALUE", iidl, ipublic, impl, is_test, options);
-
-    iidl.push(`
-        [propget, restricted, id(DISPID_NEWENUM)] HRESULT _NewEnum([out, retval] IUnknown** ppUnk);
-    `.replace(/^ {8}/mg, "").trim());
-};
+const {getTypeDef} = require("./alias");
 
 exports.declare = (generator, type, parent, options = {}) => {
     const cpptype = generator.getCppType(type, parent, options);
 
-    const fqn = cpptype
-        .replace(/std::map/g, "MapOf")
-        .replace(/std::pair/g, "PairOf")
-        .replace(/std::vector/g, "VectorOf")
-        .replace(/\b_variant_t\b/g, "Variant")
-        .replace(/\w+::/g, "")
-        .replace(/\b[a-z]/g, m => m.toUpperCase())
-        .replace(/, /g, "And")
-        .replace(/[<>]/g, "");
+    const fqn = getTypeDef(cpptype, options);
 
     if (generator.classes.has(fqn)) {
         return fqn;
     }
 
-    const vtype = type.slice("vector<".length, -">".length);
-    const coclass = generator.getCoClass(fqn);
+    const vtype = cpptype.slice("std::vector<".length, -">".length);
+    const coclass = generator.getCoClass(fqn, options);
     generator.typedefs.set(fqn, cpptype);
 
     coclass.include = parent;
     coclass.is_simple = true;
     coclass.is_class = true;
     coclass.is_vector = true;
-    coclass.cpptype = cpptype.slice("std::vector<".length, -">".length);
+    coclass.cpptype = vtype;
     coclass.idltype = generator.getIDLType(vtype, coclass, options);
 
     coclass.addProperty(["size_t", "Count", "", ["/R", "=size()"]]);
@@ -63,7 +33,7 @@ exports.declare = (generator, type, parent, options = {}) => {
     ], "", ""]);
 
     coclass.addMethod([`${ fqn }.Keys`, "vector_int", ["/External"], [], "", ""]);
-    coclass.addMethod([`${ fqn }.Items`, fqn, ["/Call=", "/Expr=*this->__self->get()"], [], "", ""]);
+    coclass.addMethod([`${ fqn }.Items`, fqn, ["/Call=", "/Expr=*__self->get()"], [], "", ""]);
 
     coclass.addMethod([`${ fqn }.push_back`, "void", [], [
         [vtype, "value", "", []],
@@ -73,17 +43,30 @@ exports.declare = (generator, type, parent, options = {}) => {
         [vtype, "value", "", []],
     ], "", ""]);
 
-    coclass.addMethod([`${ fqn }.erase`, "void", ["=Remove"], [
-        ["size_t", "index", "", ["/Expr=std::next(this->__self->get()->begin() + index)"]],
+    coclass.addMethod([`${ fqn }.push_back`, "void", ["=append"], [
+        [vtype, "value", "", []],
     ], "", ""]);
 
-    coclass.addMethod([`${ fqn }.at`, vtype, [], [
+    coclass.addMethod([`${ fqn }.erase`, "void", ["=Remove"], [
+        ["size_t", "index", "", ["/Expr=std::next(__self->get()->begin() + index)"]],
+    ], "", ""]);
+
+    coclass.addMethod([`${ fqn }.at`, vtype, ["/External"], [
         ["size_t", "index", "", []],
     ], "", ""]);
 
     coclass.addMethod([`${ fqn }.at`, "void", ["/External"], [
         ["size_t", "index", "", []],
         [vtype, "value", "", []],
+    ], "", ""]);
+
+    coclass.addMethod([`${ fqn }.at`, vtype, ["/attr=propget", "/idlname=Item", "=get_Item", "/id=DISPID_VALUE", "/ExternalNoDecl"], [
+        ["size_t", "index", "", []],
+    ], "", ""]);
+
+    coclass.addMethod([`${ fqn }.at`, "void", ["/attr=propput", "/idlname=Item", "=put_Item", "/id=DISPID_VALUE", "/ExternalNoDecl"], [
+        ["size_t", "index", "", []],
+        [vtype, "item", "", []],
     ], "", ""]);
 
     coclass.addMethod([`${ fqn }.size`, "size_t", [], [], "", ""]);
@@ -102,48 +85,42 @@ exports.declare = (generator, type, parent, options = {}) => {
 
     coclass.addMethod([`${ fqn }.slice`, fqn, ["/External"], [
         ["size_t", "start", "0", []],
-        ["size_t", "count", "this->__self->get()->size()", []],
+        ["size_t", "count", "__self->get()->size()", []],
     ], "", ""]);
 
     coclass.addMethod([`${ fqn }.sort`, "void", ["/External"], [
         ["void*", "comparator", "", []],
         ["size_t", "start", "0", []],
-        ["size_t", "count", "this->__self->get()->size()", []],
+        ["size_t", "count", "__self->get()->size()", []],
     ], "", ""]);
 
     coclass.addMethod([`${ fqn }.sort_variant`, "void", ["/External"], [
         ["void*", "comparator", "", []],
         ["size_t", "start", "0", []],
-        ["size_t", "count", "this->__self->get()->size()", []],
+        ["size_t", "count", "__self->get()->size()", []],
     ], "", ""]);
 
     coclass.addMethod([`${ fqn }.start`, "void*", ["/External"], [], "", ""]);
     coclass.addMethod([`${ fqn }.end`, "void*", ["/External"], [], "", ""]);
 
     // make vector to be recognized as a collection
-    const cotype = coclass.getClassName();
-    const _Copy = `autoit::GenericCopy<${ coclass.cpptype }>`;
-    const CIntEnum = `CComEnumOnSTL<IEnumVARIANT, &IID_IEnumVARIANT, VARIANT, ${ _Copy }, ${ fqn }>`;
-    const IIntCollection = `AutoItCollectionEnumOnSTLImpl<I${ cotype }, ${ fqn }, ${ CIntEnum }, AutoItObject<${ fqn }>>`;
-
-    coclass.dispimpl = IIntCollection;
-    coclass.generate = _generate.bind(coclass, generator);
+    generator.as_stl_enum(coclass, vtype);
 
     return fqn;
 };
 
-exports.generate = (coclass, header, impl, {shared_ptr} = {}) => {
+exports.convert_sort = (coclass, header, impl, options = {}) => {
     const cotype = coclass.getClassName();
-    const comparator = `${ coclass.fqn }Comparator`;
-    const ptr_comparator = `${ coclass.fqn }PtrComparator`;
-    const { cpptype } = coclass;
+    const comparator = `${ coclass.fqn.replaceAll("::", "_") }Comparator`;
+    const ptr_comparator = `${ coclass.fqn.replaceAll("::", "_") }PtrComparator`;
+    const { cpptype: vtype } = coclass;
     const idltype = coclass.idltype === "VARIANT" || coclass.idltype[0] === "I" ? "VARIANT" : coclass.idltype;
     const to_variant = idltype === "VARIANT";
     const default_value = to_variant ? "{ VT_EMPTY }" : "NULL";
-    const ptrtype = to_variant ? idltype : cpptype;
-    const byref = cpptype !== "void*" && cpptype !== "uchar*" && (idltype === "VARIANT" || idltype[0] === "I");
+    const ptrtype = to_variant ? idltype : vtype;
+    const byref = vtype !== "void*" && vtype !== "uchar*" && (idltype === "VARIANT" || idltype[0] === "I");
 
-    const cvt = (to_variant || idltype[0] === "I" ? `
+    const cmp = (to_variant || idltype[0] === "I" ? `
         ${ to_variant ? "_variant_t" : idltype } va = ${ default_value };
         ${ to_variant ? "_variant_t" : idltype } vb = ${ default_value };
 
@@ -159,7 +136,7 @@ exports.generate = (coclass, header, impl, {shared_ptr} = {}) => {
     `).replace(/^ {8}/mg, "").trim().split("\n");
 
     header.push(`
-        typedef bool (*${ comparator })(${ cpptype }${ byref ? "&" : "" } a, ${ cpptype }${ byref ? "&" : "" } b);
+        typedef bool (*${ comparator })(${ vtype }${ byref ? "&" : "" } a, ${ vtype }${ byref ? "&" : "" } b);
         typedef bool (*${ ptr_comparator })(${ ptrtype }* a, ${ ptrtype }* b);
         typedef struct _${ comparator }Proxy  ${ comparator }Proxy;
     `.replace(/^ {8}/mg, ""));
@@ -167,69 +144,98 @@ exports.generate = (coclass, header, impl, {shared_ptr} = {}) => {
     impl.push(`
         typedef struct _${ comparator }Proxy {
             ${ ptr_comparator } cmp;
-            bool operator() (${ cpptype }${ byref ? "&" : "" } a, ${ cpptype }${ byref ? "&" : "" } b) {
-                ${ cvt.join(`\n${ " ".repeat(16) }`) }
+            bool operator() (${ vtype }${ byref ? "&" : "" } a, ${ vtype }${ byref ? "&" : "" } b) {
+                ${ cmp.join(`\n${ " ".repeat(16) }`) }
             }
         } ${ comparator }Proxy;
 
-        const std::vector<int> C${ cotype }::Keys(HRESULT& hr) {
-            const auto& v = *this->__self->get();
-            std::vector<int> keys(v.size());
-            std::iota(keys.begin(), keys.end(), 0);
-            return keys;
-        }
-
-        void C${ cotype }::at(size_t i, ${ cpptype }${ byref ? "&" : "" } value, HRESULT& hr) {
-            hr = S_OK;
-            (*this->__self->get())[i] = value;
-        }
-
-        void C${ cotype }::push_vector(${ coclass.fqn }& other, HRESULT& hr) {
-            hr = S_OK;
-            auto& v = *this->__self->get();
-            v.insert(std::end(v), std::begin(other), std::end(other));
-        }
-
-        void C${ cotype }::push_vector(${ coclass.fqn }& other, size_t count, size_t start, HRESULT& hr) {
-            hr = S_OK;
-            auto& v = *this->__self->get();
-            auto begin = std::begin(other) + start;
-            v.insert(std::end(v), begin, begin + count);
-        }
-
-        const ${ coclass.fqn } C${ cotype }::slice(size_t start, size_t count, HRESULT& hr) {
-            hr = S_OK;
-            auto& v = *this->__self->get();
-            auto begin = std::begin(v) + start;
-            return ${ coclass.fqn }(begin, begin + count);
-        }
-
         void C${ cotype }::sort(void* comparator, size_t start, size_t count, HRESULT& hr) {
             hr = S_OK;
-            auto& v = *this->__self->get();
+            auto& v = *__self->get();
             auto begin = std::begin(v) + start;
             std::sort(begin, begin + count, reinterpret_cast<${ comparator }>(comparator));
         }
 
         void C${ cotype }::sort_variant(void* comparator, size_t start, size_t count, HRESULT& hr) {
             hr = S_OK;
-            auto& v = *this->__self->get();
+            auto& v = *__self->get();
             auto begin = std::begin(v) + start;
             ${ comparator }Proxy cmp = { reinterpret_cast<${ ptr_comparator }>(comparator) };
             std::sort(begin, begin + count, cmp);
         }
+        `.replace(/^ {8}/mg, "")
+    );
+};
+
+exports.convert = (coclass, header, impl, options = {}) => {
+    exports.convert_sort(coclass, header, impl, options);
+
+    const cotype = coclass.getClassName();
+    const { cpptype: vtype } = coclass;
+    const idltype = coclass.idltype === "VARIANT" || coclass.idltype[0] === "I" ? "VARIANT" : coclass.idltype;
+    const byref = vtype !== "void*" && vtype !== "uchar*" && (idltype === "VARIANT" || idltype[0] === "I");
+
+    impl.push(`
+        const std::vector<int> C${ cotype }::Keys(HRESULT& hr) {
+            const auto& v = *__self->get();
+            std::vector<int> keys(v.size());
+            std::iota(keys.begin(), keys.end(), 0);
+            return keys;
+        }
+
+        const ${ vtype } C${ cotype }::at(size_t i, HRESULT& hr) {
+            auto& v = *__self->get();
+            if (i >= v.size()) {
+                hr = E_INVALIDARG;
+                AUTOIT_ERROR("index " << i << " is out of range");
+                return ${ vtype }();
+            }
+            hr = S_OK;
+            return v.at(i);
+        }
+
+        void C${ cotype }::at(size_t i, ${ vtype }${ byref ? "&" : "" } value, HRESULT& hr) {
+            auto& v = *__self->get();
+            if (i >= v.size()) {
+                hr = E_INVALIDARG;
+                AUTOIT_ERROR("index " << i << " is out of range");
+                return;
+            }
+            hr = S_OK;
+            v[i] = value;
+        }
+
+        void C${ cotype }::push_vector(${ coclass.fqn }& other, HRESULT& hr) {
+            hr = S_OK;
+            auto& v = *__self->get();
+            v.insert(std::end(v), std::begin(other), std::end(other));
+        }
+
+        void C${ cotype }::push_vector(${ coclass.fqn }& other, size_t count, size_t start, HRESULT& hr) {
+            hr = S_OK;
+            auto& v = *__self->get();
+            auto begin = std::begin(other) + start;
+            v.insert(std::end(v), begin, begin + count);
+        }
+
+        const ${ coclass.fqn } C${ cotype }::slice(size_t start, size_t count, HRESULT& hr) {
+            hr = S_OK;
+            auto& v = *__self->get();
+            auto begin = std::begin(v) + start;
+            return ${ coclass.fqn }(begin, begin + count);
+        }
 
         const void* C${ cotype }::start(HRESULT& hr) {
             hr = S_OK;
-            auto& v = *this->__self->get();
-            ${ cpptype === "bool" ? "void*" : "auto" } _result = ${ cpptype === "bool" ? "NULL" : "v.empty() ? NULL : static_cast<const void*>(&v[0])" };
+            auto& v = *__self->get();
+            ${ vtype === "bool" ? "void*" : "auto" } _result = ${ vtype === "bool" ? "NULL" : "v.empty() ? NULL : static_cast<const void*>(&v[0])" };
             return _result;
         }
 
         const void* C${ cotype }::end(HRESULT& hr) {
             hr = S_OK;
-            auto& v = *this->__self->get();
-            ${ cpptype === "bool" ? "void*" : "auto" } _result = ${ cpptype === "bool" ? "NULL" : "v.empty() ? NULL : static_cast<const void*>(&v[v.size()])" };
+            auto& v = *__self->get();
+            ${ vtype === "bool" ? "void*" : "auto" } _result = ${ vtype === "bool" ? "NULL" : "v.empty() ? NULL : static_cast<const void*>(&v[v.size()])" };
             return _result;
         }
 

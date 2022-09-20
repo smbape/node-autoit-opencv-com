@@ -13,9 +13,9 @@ const files = [
     [project, "udf/*.md"],
     [sysPath.join(project, "generated"), "cvLib.tlb"],
     [sysPath.join(project, "build_x64", "Debug"), "autoit*"],
-    [sysPath.join(project, "build_x64", "Release"), "autoit*"],
+    [sysPath.join(project, "build_x64", "RelWithDebInfo"), "autoit*"],
     [sysPath.join(sources, "autoit-addon", "build_x64", "Debug"), "autoit*"],
-    [sysPath.join(sources, "autoit-addon", "build_x64", "Release"), "autoit*"],
+    [sysPath.join(sources, "autoit-addon", "build_x64", "RelWithDebInfo"), "autoit*"],
 ];
 
 eachOfLimit(files, 1, ([cwd, file], i, next) => {

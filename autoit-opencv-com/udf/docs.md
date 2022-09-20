@@ -1,5 +1,4135 @@
 # AutoIt OpenCV UDF
 
+## Table Of Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [cv](#cv)
+  - [cv::CamShift](#cvcamshift)
+  - [cv::Canny](#cvcanny)
+  - [cv::EMD](#cvemd)
+  - [cv::GaussianBlur](#cvgaussianblur)
+  - [cv::HoughCircles](#cvhoughcircles)
+  - [cv::HoughLines](#cvhoughlines)
+  - [cv::HoughLinesP](#cvhoughlinesp)
+  - [cv::HoughLinesPointSet](#cvhoughlinespointset)
+  - [cv::HoughLinesWithAccumulator](#cvhoughlineswithaccumulator)
+  - [cv::HuMoments](#cvhumoments)
+  - [cv::LUT](#cvlut)
+  - [cv::Laplacian](#cvlaplacian)
+  - [cv::Mahalanobis](#cvmahalanobis)
+  - [cv::PCABackProject](#cvpcabackproject)
+  - [cv::PCACompute](#cvpcacompute)
+  - [cv::PCACompute2](#cvpcacompute2)
+  - [cv::PCAProject](#cvpcaproject)
+  - [cv::PSNR](#cvpsnr)
+  - [cv::RQDecomp3x3](#cvrqdecomp3x3)
+  - [cv::Rodrigues](#cvrodrigues)
+  - [cv::SVBackSubst](#cvsvbacksubst)
+  - [cv::SVDecomp](#cvsvdecomp)
+  - [cv::Scharr](#cvscharr)
+  - [cv::Sobel](#cvsobel)
+  - [cv::absdiff](#cvabsdiff)
+  - [cv::accumulate](#cvaccumulate)
+  - [cv::accumulateProduct](#cvaccumulateproduct)
+  - [cv::accumulateSquare](#cvaccumulatesquare)
+  - [cv::accumulateWeighted](#cvaccumulateweighted)
+  - [cv::adaptiveThreshold](#cvadaptivethreshold)
+  - [cv::add](#cvadd)
+  - [cv::addText](#cvaddtext)
+  - [cv::addWeighted](#cvaddweighted)
+  - [cv::applyColorMap](#cvapplycolormap)
+  - [cv::approxPolyDP](#cvapproxpolydp)
+  - [cv::arcLength](#cvarclength)
+  - [cv::arrowedLine](#cvarrowedline)
+  - [cv::batchDistance](#cvbatchdistance)
+  - [cv::bilateralFilter](#cvbilateralfilter)
+  - [cv::bitwise_and](#cvbitwise_and)
+  - [cv::bitwise_not](#cvbitwise_not)
+  - [cv::bitwise_or](#cvbitwise_or)
+  - [cv::bitwise_xor](#cvbitwise_xor)
+  - [cv::blendLinear](#cvblendlinear)
+  - [cv::blur](#cvblur)
+  - [cv::borderInterpolate](#cvborderinterpolate)
+  - [cv::boundingRect](#cvboundingrect)
+  - [cv::boxFilter](#cvboxfilter)
+  - [cv::boxPoints](#cvboxpoints)
+  - [cv::buildOpticalFlowPyramid](#cvbuildopticalflowpyramid)
+  - [cv::calcBackProject](#cvcalcbackproject)
+  - [cv::calcCovarMatrix](#cvcalccovarmatrix)
+  - [cv::calcHist](#cvcalchist)
+  - [cv::calcOpticalFlowFarneback](#cvcalcopticalflowfarneback)
+  - [cv::calcOpticalFlowPyrLK](#cvcalcopticalflowpyrlk)
+  - [cv::calibrateCamera](#cvcalibratecamera)
+  - [cv::calibrateCameraExtended](#cvcalibratecameraextended)
+  - [cv::calibrateCameraRO](#cvcalibratecameraro)
+  - [cv::calibrateCameraROExtended](#cvcalibratecameraroextended)
+  - [cv::calibrateHandEye](#cvcalibratehandeye)
+  - [cv::calibrateRobotWorldHandEye](#cvcalibraterobotworldhandeye)
+  - [cv::calibrationMatrixValues](#cvcalibrationmatrixvalues)
+  - [cv::cartToPolar](#cvcarttopolar)
+  - [cv::checkChessboard](#cvcheckchessboard)
+  - [cv::checkHardwareSupport](#cvcheckhardwaresupport)
+  - [cv::checkRange](#cvcheckrange)
+  - [cv::circle](#cvcircle)
+  - [cv::clipLine](#cvclipline)
+  - [cv::colorChange](#cvcolorchange)
+  - [cv::compare](#cvcompare)
+  - [cv::compareHist](#cvcomparehist)
+  - [cv::completeSymm](#cvcompletesymm)
+  - [cv::composeRT](#cvcomposert)
+  - [cv::computeCorrespondEpilines](#cvcomputecorrespondepilines)
+  - [cv::computeECC](#cvcomputeecc)
+  - [cv::connectedComponents](#cvconnectedcomponents)
+  - [cv::connectedComponentsWithAlgorithm](#cvconnectedcomponentswithalgorithm)
+  - [cv::connectedComponentsWithStats](#cvconnectedcomponentswithstats)
+  - [cv::connectedComponentsWithStatsWithAlgorithm](#cvconnectedcomponentswithstatswithalgorithm)
+  - [cv::contourArea](#cvcontourarea)
+  - [cv::convertFp16](#cvconvertfp16)
+  - [cv::convertMaps](#cvconvertmaps)
+  - [cv::convertPointsFromHomogeneous](#cvconvertpointsfromhomogeneous)
+  - [cv::convertPointsToHomogeneous](#cvconvertpointstohomogeneous)
+  - [cv::convertScaleAbs](#cvconvertscaleabs)
+  - [cv::convexHull](#cvconvexhull)
+  - [cv::convexityDefects](#cvconvexitydefects)
+  - [cv::copyMakeBorder](#cvcopymakeborder)
+  - [cv::copyTo](#cvcopyto)
+  - [cv::cornerEigenValsAndVecs](#cvcornereigenvalsandvecs)
+  - [cv::cornerHarris](#cvcornerharris)
+  - [cv::cornerMinEigenVal](#cvcornermineigenval)
+  - [cv::cornerSubPix](#cvcornersubpix)
+  - [cv::correctMatches](#cvcorrectmatches)
+  - [cv::countNonZero](#cvcountnonzero)
+  - [cv::createAlignMTB](#cvcreatealignmtb)
+  - [cv::createBackgroundSubtractorKNN](#cvcreatebackgroundsubtractorknn)
+  - [cv::createBackgroundSubtractorMOG2](#cvcreatebackgroundsubtractormog2)
+  - [cv::createCLAHE](#cvcreateclahe)
+  - [cv::createCalibrateDebevec](#cvcreatecalibratedebevec)
+  - [cv::createCalibrateRobertson](#cvcreatecalibraterobertson)
+  - [cv::createGeneralizedHoughBallard](#cvcreategeneralizedhoughballard)
+  - [cv::createGeneralizedHoughGuil](#cvcreategeneralizedhoughguil)
+  - [cv::createHanningWindow](#cvcreatehanningwindow)
+  - [cv::createLineSegmentDetector](#cvcreatelinesegmentdetector)
+  - [cv::createMatFromBitmap](#cvcreatematfrombitmap)
+  - [cv::createMergeDebevec](#cvcreatemergedebevec)
+  - [cv::createMergeMertens](#cvcreatemergemertens)
+  - [cv::createMergeRobertson](#cvcreatemergerobertson)
+  - [cv::createTonemap](#cvcreatetonemap)
+  - [cv::createTonemapDrago](#cvcreatetonemapdrago)
+  - [cv::createTonemapMantiuk](#cvcreatetonemapmantiuk)
+  - [cv::createTonemapReinhard](#cvcreatetonemapreinhard)
+  - [cv::cubeRoot](#cvcuberoot)
+  - [cv::cvtColor](#cvcvtcolor)
+  - [cv::cvtColorTwoPlane](#cvcvtcolortwoplane)
+  - [cv::dct](#cvdct)
+  - [cv::decolor](#cvdecolor)
+  - [cv::decomposeEssentialMat](#cvdecomposeessentialmat)
+  - [cv::decomposeHomographyMat](#cvdecomposehomographymat)
+  - [cv::decomposeProjectionMatrix](#cvdecomposeprojectionmatrix)
+  - [cv::demosaicing](#cvdemosaicing)
+  - [cv::denoise_TVL1](#cvdenoise_tvl1)
+  - [cv::destroyAllWindows](#cvdestroyallwindows)
+  - [cv::destroyWindow](#cvdestroywindow)
+  - [cv::detailEnhance](#cvdetailenhance)
+  - [cv::determinant](#cvdeterminant)
+  - [cv::dft](#cvdft)
+  - [cv::dilate](#cvdilate)
+  - [cv::displayOverlay](#cvdisplayoverlay)
+  - [cv::displayStatusBar](#cvdisplaystatusbar)
+  - [cv::distanceTransform](#cvdistancetransform)
+  - [cv::distanceTransformWithLabels](#cvdistancetransformwithlabels)
+  - [cv::divSpectrums](#cvdivspectrums)
+  - [cv::divide](#cvdivide)
+  - [cv::drawChessboardCorners](#cvdrawchessboardcorners)
+  - [cv::drawContours](#cvdrawcontours)
+  - [cv::drawFrameAxes](#cvdrawframeaxes)
+  - [cv::drawKeypoints](#cvdrawkeypoints)
+  - [cv::drawMarker](#cvdrawmarker)
+  - [cv::drawMatches](#cvdrawmatches)
+  - [cv::drawMatchesKnn](#cvdrawmatchesknn)
+  - [cv::edgePreservingFilter](#cvedgepreservingfilter)
+  - [cv::eigen](#cveigen)
+  - [cv::eigenNonSymmetric](#cveigennonsymmetric)
+  - [cv::ellipse](#cvellipse)
+  - [cv::ellipse2Poly](#cvellipse2poly)
+  - [cv::empty_array_desc](#cvempty_array_desc)
+  - [cv::empty_gopaque_desc](#cvempty_gopaque_desc)
+  - [cv::empty_scalar_desc](#cvempty_scalar_desc)
+  - [cv::equalizeHist](#cvequalizehist)
+  - [cv::erode](#cverode)
+  - [cv::estimateAffine2D](#cvestimateaffine2d)
+  - [cv::estimateAffine3D](#cvestimateaffine3d)
+  - [cv::estimateAffinePartial2D](#cvestimateaffinepartial2d)
+  - [cv::estimateChessboardSharpness](#cvestimatechessboardsharpness)
+  - [cv::estimateTranslation3D](#cvestimatetranslation3d)
+  - [cv::exp](#cvexp)
+  - [cv::extractChannel](#cvextractchannel)
+  - [cv::fastAtan2](#cvfastatan2)
+  - [cv::fastNlMeansDenoising](#cvfastnlmeansdenoising)
+  - [cv::fastNlMeansDenoisingColored](#cvfastnlmeansdenoisingcolored)
+  - [cv::fastNlMeansDenoisingColoredMulti](#cvfastnlmeansdenoisingcoloredmulti)
+  - [cv::fastNlMeansDenoisingMulti](#cvfastnlmeansdenoisingmulti)
+  - [cv::fillConvexPoly](#cvfillconvexpoly)
+  - [cv::fillPoly](#cvfillpoly)
+  - [cv::filter2D](#cvfilter2d)
+  - [cv::filterHomographyDecompByVisibleRefpoints](#cvfilterhomographydecompbyvisiblerefpoints)
+  - [cv::filterSpeckles](#cvfilterspeckles)
+  - [cv::find4QuadCornerSubpix](#cvfind4quadcornersubpix)
+  - [cv::findChessboardCorners](#cvfindchessboardcorners)
+  - [cv::findChessboardCornersSB](#cvfindchessboardcornerssb)
+  - [cv::findChessboardCornersSBWithMeta](#cvfindchessboardcornerssbwithmeta)
+  - [cv::findCirclesGrid](#cvfindcirclesgrid)
+  - [cv::findContours](#cvfindcontours)
+  - [cv::findEssentialMat](#cvfindessentialmat)
+  - [cv::findFundamentalMat](#cvfindfundamentalmat)
+  - [cv::findHomography](#cvfindhomography)
+  - [cv::findNonZero](#cvfindnonzero)
+  - [cv::findTransformECC](#cvfindtransformecc)
+  - [cv::fitEllipse](#cvfitellipse)
+  - [cv::fitEllipseAMS](#cvfitellipseams)
+  - [cv::fitEllipseDirect](#cvfitellipsedirect)
+  - [cv::fitLine](#cvfitline)
+  - [cv::flip](#cvflip)
+  - [cv::floodFill](#cvfloodfill)
+  - [cv::format](#cvformat)
+  - [cv::gemm](#cvgemm)
+  - [cv::getAffineTransform](#cvgetaffinetransform)
+  - [cv::getBuildInformation](#cvgetbuildinformation)
+  - [cv::getCPUFeaturesLine](#cvgetcpufeaturesline)
+  - [cv::getCPUTickCount](#cvgetcputickcount)
+  - [cv::getDefaultNewCameraMatrix](#cvgetdefaultnewcameramatrix)
+  - [cv::getDerivKernels](#cvgetderivkernels)
+  - [cv::getFontScaleFromHeight](#cvgetfontscalefromheight)
+  - [cv::getGaborKernel](#cvgetgaborkernel)
+  - [cv::getGaussianKernel](#cvgetgaussiankernel)
+  - [cv::getHardwareFeatureName](#cvgethardwarefeaturename)
+  - [cv::getLogLevel](#cvgetloglevel)
+  - [cv::getNumThreads](#cvgetnumthreads)
+  - [cv::getNumberOfCPUs](#cvgetnumberofcpus)
+  - [cv::getOptimalDFTSize](#cvgetoptimaldftsize)
+  - [cv::getOptimalNewCameraMatrix](#cvgetoptimalnewcameramatrix)
+  - [cv::getPerspectiveTransform](#cvgetperspectivetransform)
+  - [cv::getRectSubPix](#cvgetrectsubpix)
+  - [cv::getRotationMatrix2D](#cvgetrotationmatrix2d)
+  - [cv::getStructuringElement](#cvgetstructuringelement)
+  - [cv::getTextSize](#cvgettextsize)
+  - [cv::getThreadNum](#cvgetthreadnum)
+  - [cv::getTickCount](#cvgettickcount)
+  - [cv::getTickFrequency](#cvgettickfrequency)
+  - [cv::getTrackbarPos](#cvgettrackbarpos)
+  - [cv::getValidDisparityROI](#cvgetvaliddisparityroi)
+  - [cv::getVersionMajor](#cvgetversionmajor)
+  - [cv::getVersionMinor](#cvgetversionminor)
+  - [cv::getVersionRevision](#cvgetversionrevision)
+  - [cv::getVersionString](#cvgetversionstring)
+  - [cv::getWindowImageRect](#cvgetwindowimagerect)
+  - [cv::getWindowProperty](#cvgetwindowproperty)
+  - [cv::goodFeaturesToTrack](#cvgoodfeaturestotrack)
+  - [cv::goodFeaturesToTrackWithQuality](#cvgoodfeaturestotrackwithquality)
+  - [cv::grabCut](#cvgrabcut)
+  - [cv::groupRectangles](#cvgrouprectangles)
+  - [cv::haveImageReader](#cvhaveimagereader)
+  - [cv::haveImageWriter](#cvhaveimagewriter)
+  - [cv::haveOpenVX](#cvhaveopenvx)
+  - [cv::hconcat](#cvhconcat)
+  - [cv::idct](#cvidct)
+  - [cv::idft](#cvidft)
+  - [cv::illuminationChange](#cvilluminationchange)
+  - [cv::imcount](#cvimcount)
+  - [cv::imdecode](#cvimdecode)
+  - [cv::imencode](#cvimencode)
+  - [cv::imread](#cvimread)
+  - [cv::imreadmulti](#cvimreadmulti)
+  - [cv::imshow](#cvimshow)
+  - [cv::imwrite](#cvimwrite)
+  - [cv::imwritemulti](#cvimwritemulti)
+  - [cv::inRange](#cvinrange)
+  - [cv::initCameraMatrix2D](#cvinitcameramatrix2d)
+  - [cv::initInverseRectificationMap](#cvinitinverserectificationmap)
+  - [cv::initUndistortRectifyMap](#cvinitundistortrectifymap)
+  - [cv::inpaint](#cvinpaint)
+  - [cv::insertChannel](#cvinsertchannel)
+  - [cv::integral](#cvintegral)
+  - [cv::integral2](#cvintegral2)
+  - [cv::integral3](#cvintegral3)
+  - [cv::intersectConvexConvex](#cvintersectconvexconvex)
+  - [cv::invert](#cvinvert)
+  - [cv::invertAffineTransform](#cvinvertaffinetransform)
+  - [cv::isContourConvex](#cviscontourconvex)
+  - [cv::kmeans](#cvkmeans)
+  - [cv::line](#cvline)
+  - [cv::linearPolar](#cvlinearpolar)
+  - [cv::log](#cvlog)
+  - [cv::logPolar](#cvlogpolar)
+  - [cv::magnitude](#cvmagnitude)
+  - [cv::matMulDeriv](#cvmatmulderiv)
+  - [cv::matchShapes](#cvmatchshapes)
+  - [cv::matchTemplate](#cvmatchtemplate)
+  - [cv::matchTemplateParallel](#cvmatchtemplateparallel)
+  - [cv::max](#cvmax)
+  - [cv::mean](#cvmean)
+  - [cv::meanShift](#cvmeanshift)
+  - [cv::meanStdDev](#cvmeanstddev)
+  - [cv::medianBlur](#cvmedianblur)
+  - [cv::merge](#cvmerge)
+  - [cv::min](#cvmin)
+  - [cv::minAreaRect](#cvminarearect)
+  - [cv::minEnclosingCircle](#cvminenclosingcircle)
+  - [cv::minEnclosingTriangle](#cvminenclosingtriangle)
+  - [cv::minMaxLoc](#cvminmaxloc)
+  - [cv::mixChannels](#cvmixchannels)
+  - [cv::moments](#cvmoments)
+  - [cv::morphologyEx](#cvmorphologyex)
+  - [cv::moveWindow](#cvmovewindow)
+  - [cv::mulSpectrums](#cvmulspectrums)
+  - [cv::mulTransposed](#cvmultransposed)
+  - [cv::multiply](#cvmultiply)
+  - [cv::namedWindow](#cvnamedwindow)
+  - [cv::norm](#cvnorm)
+  - [cv::normalize](#cvnormalize)
+  - [cv::patchNaNs](#cvpatchnans)
+  - [cv::pencilSketch](#cvpencilsketch)
+  - [cv::perspectiveTransform](#cvperspectivetransform)
+  - [cv::phase](#cvphase)
+  - [cv::phaseCorrelate](#cvphasecorrelate)
+  - [cv::pointPolygonTest](#cvpointpolygontest)
+  - [cv::polarToCart](#cvpolartocart)
+  - [cv::pollKey](#cvpollkey)
+  - [cv::polylines](#cvpolylines)
+  - [cv::pow](#cvpow)
+  - [cv::preCornerDetect](#cvprecornerdetect)
+  - [cv::projectPoints](#cvprojectpoints)
+  - [cv::putText](#cvputtext)
+  - [cv::pyrDown](#cvpyrdown)
+  - [cv::pyrMeanShiftFiltering](#cvpyrmeanshiftfiltering)
+  - [cv::pyrUp](#cvpyrup)
+  - [cv::randShuffle](#cvrandshuffle)
+  - [cv::randn](#cvrandn)
+  - [cv::randu](#cvrandu)
+  - [cv::readDMatch](#cvreaddmatch)
+  - [cv::readDouble](#cvreaddouble)
+  - [cv::readFloat](#cvreadfloat)
+  - [cv::readInt](#cvreadint)
+  - [cv::readKeyPoint](#cvreadkeypoint)
+  - [cv::readMat](#cvreadmat)
+  - [cv::readOpticalFlow](#cvreadopticalflow)
+  - [cv::readString](#cvreadstring)
+  - [cv::recoverPose](#cvrecoverpose)
+  - [cv::rectangle](#cvrectangle)
+  - [cv::rectify3Collinear](#cvrectify3collinear)
+  - [cv::reduce](#cvreduce)
+  - [cv::reduceArgMax](#cvreduceargmax)
+  - [cv::reduceArgMin](#cvreduceargmin)
+  - [cv::remap](#cvremap)
+  - [cv::repeat](#cvrepeat)
+  - [cv::reprojectImageTo3D](#cvreprojectimageto3d)
+  - [cv::resize](#cvresize)
+  - [cv::resizeWindow](#cvresizewindow)
+  - [cv::rotate](#cvrotate)
+  - [cv::rotatedRectangleIntersection](#cvrotatedrectangleintersection)
+  - [cv::sampsonDistance](#cvsampsondistance)
+  - [cv::scaleAdd](#cvscaleadd)
+  - [cv::seamlessClone](#cvseamlessclone)
+  - [cv::searchTemplate](#cvsearchtemplate)
+  - [cv::selectROI](#cvselectroi)
+  - [cv::selectROIs](#cvselectrois)
+  - [cv::sepFilter2D](#cvsepfilter2d)
+  - [cv::setIdentity](#cvsetidentity)
+  - [cv::setLogLevel](#cvsetloglevel)
+  - [cv::setNumThreads](#cvsetnumthreads)
+  - [cv::setRNGSeed](#cvsetrngseed)
+  - [cv::setTrackbarMax](#cvsettrackbarmax)
+  - [cv::setTrackbarMin](#cvsettrackbarmin)
+  - [cv::setTrackbarPos](#cvsettrackbarpos)
+  - [cv::setUseOpenVX](#cvsetuseopenvx)
+  - [cv::setUseOptimized](#cvsetuseoptimized)
+  - [cv::setWindowProperty](#cvsetwindowproperty)
+  - [cv::setWindowTitle](#cvsetwindowtitle)
+  - [cv::solve](#cvsolve)
+  - [cv::solveCubic](#cvsolvecubic)
+  - [cv::solveLP](#cvsolvelp)
+  - [cv::solveP3P](#cvsolvep3p)
+  - [cv::solvePnP](#cvsolvepnp)
+  - [cv::solvePnPGeneric](#cvsolvepnpgeneric)
+  - [cv::solvePnPRansac](#cvsolvepnpransac)
+  - [cv::solvePnPRefineLM](#cvsolvepnprefinelm)
+  - [cv::solvePnPRefineVVS](#cvsolvepnprefinevvs)
+  - [cv::solvePoly](#cvsolvepoly)
+  - [cv::sort](#cvsort)
+  - [cv::sortIdx](#cvsortidx)
+  - [cv::spatialGradient](#cvspatialgradient)
+  - [cv::split](#cvsplit)
+  - [cv::sqrBoxFilter](#cvsqrboxfilter)
+  - [cv::sqrt](#cvsqrt)
+  - [cv::startWindowThread](#cvstartwindowthread)
+  - [cv::stereoCalibrate](#cvstereocalibrate)
+  - [cv::stereoCalibrateExtended](#cvstereocalibrateextended)
+  - [cv::stereoRectify](#cvstereorectify)
+  - [cv::stereoRectifyUncalibrated](#cvstereorectifyuncalibrated)
+  - [cv::stylization](#cvstylization)
+  - [cv::subtract](#cvsubtract)
+  - [cv::sumElems](#cvsumelems)
+  - [cv::textureFlattening](#cvtextureflattening)
+  - [cv::threshold](#cvthreshold)
+  - [cv::trace](#cvtrace)
+  - [cv::transform](#cvtransform)
+  - [cv::transpose](#cvtranspose)
+  - [cv::transposeND](#cvtransposend)
+  - [cv::triangulatePoints](#cvtriangulatepoints)
+  - [cv::undistort](#cvundistort)
+  - [cv::undistortImagePoints](#cvundistortimagepoints)
+  - [cv::undistortPoints](#cvundistortpoints)
+  - [cv::undistortPointsIter](#cvundistortpointsiter)
+  - [cv::useOpenVX](#cvuseopenvx)
+  - [cv::useOptimized](#cvuseoptimized)
+  - [cv::validateDisparity](#cvvalidatedisparity)
+  - [cv::variant](#cvvariant)
+  - [cv::vconcat](#cvvconcat)
+  - [cv::waitKey](#cvwaitkey)
+  - [cv::waitKeyEx](#cvwaitkeyex)
+  - [cv::warpAffine](#cvwarpaffine)
+  - [cv::warpPerspective](#cvwarpperspective)
+  - [cv::warpPolar](#cvwarppolar)
+  - [cv::watershed](#cvwatershed)
+  - [cv::writeOpticalFlow](#cvwriteopticalflow)
+- [cv::parallel](#cvparallel)
+  - [cv::parallel::setParallelForBackend](#cvparallelsetparallelforbackend)
+- [cv::RNG](#cvrng)
+  - [cv::RNG::get_create](#cvrngget_create)
+  - [cv::RNG::next](#cvrngnext)
+  - [cv::RNG::uniform_double](#cvrnguniform_double)
+  - [cv::RNG::uniform_float](#cvrnguniform_float)
+  - [cv::RNG::uniform_int](#cvrnguniform_int)
+- [cv::Algorithm](#cvalgorithm)
+  - [cv::Algorithm::clear](#cvalgorithmclear)
+  - [cv::Algorithm::empty](#cvalgorithmempty)
+  - [cv::Algorithm::getDefaultName](#cvalgorithmgetdefaultname)
+  - [cv::Algorithm::read](#cvalgorithmread)
+  - [cv::Algorithm::save](#cvalgorithmsave)
+  - [cv::Algorithm::write](#cvalgorithmwrite)
+- [cv::AsyncArray](#cvasyncarray)
+  - [cv::AsyncArray::get_create](#cvasyncarrayget_create)
+  - [cv::AsyncArray::get](#cvasyncarrayget)
+  - [cv::AsyncArray::release](#cvasyncarrayrelease)
+  - [cv::AsyncArray::valid](#cvasyncarrayvalid)
+  - [cv::AsyncArray::wait_for](#cvasyncarraywait_for)
+- [cv::ipp](#cvipp)
+  - [cv::ipp::getIppVersion](#cvippgetippversion)
+  - [cv::ipp::setUseIPP](#cvippsetuseipp)
+  - [cv::ipp::setUseIPP_NotExact](#cvippsetuseipp_notexact)
+  - [cv::ipp::useIPP](#cvippuseipp)
+  - [cv::ipp::useIPP_NotExact](#cvippuseipp_notexact)
+- [cv::utils](#cvutils)
+  - [cv::utils::dumpBool](#cvutilsdumpbool)
+  - [cv::utils::dumpCString](#cvutilsdumpcstring)
+  - [cv::utils::dumpDouble](#cvutilsdumpdouble)
+  - [cv::utils::dumpFloat](#cvutilsdumpfloat)
+  - [cv::utils::dumpInputArray](#cvutilsdumpinputarray)
+  - [cv::utils::dumpInputArrayOfArrays](#cvutilsdumpinputarrayofarrays)
+  - [cv::utils::dumpInputOutputArray](#cvutilsdumpinputoutputarray)
+  - [cv::utils::dumpInputOutputArrayOfArrays](#cvutilsdumpinputoutputarrayofarrays)
+  - [cv::utils::dumpInt](#cvutilsdumpint)
+  - [cv::utils::dumpRange](#cvutilsdumprange)
+  - [cv::utils::dumpRect](#cvutilsdumprect)
+  - [cv::utils::dumpRotatedRect](#cvutilsdumprotatedrect)
+  - [cv::utils::dumpSizeT](#cvutilsdumpsizet)
+  - [cv::utils::dumpString](#cvutilsdumpstring)
+  - [cv::utils::dumpTermCriteria](#cvutilsdumptermcriteria)
+  - [cv::utils::dumpVectorOfDouble](#cvutilsdumpvectorofdouble)
+  - [cv::utils::dumpVectorOfInt](#cvutilsdumpvectorofint)
+  - [cv::utils::dumpVectorOfRect](#cvutilsdumpvectorofrect)
+  - [cv::utils::generateVectorOfInt](#cvutilsgeneratevectorofint)
+  - [cv::utils::generateVectorOfMat](#cvutilsgeneratevectorofmat)
+  - [cv::utils::generateVectorOfRect](#cvutilsgeneratevectorofrect)
+  - [cv::utils::testAsyncArray](#cvutilstestasyncarray)
+  - [cv::utils::testAsyncException](#cvutilstestasyncexception)
+  - [cv::utils::testOverloadResolution](#cvutilstestoverloadresolution)
+  - [cv::utils::testOverwriteNativeMethod](#cvutilstestoverwritenativemethod)
+  - [cv::utils::testRaiseGeneralException](#cvutilstestraisegeneralexception)
+  - [cv::utils::testReservedKeywordConversion](#cvutilstestreservedkeywordconversion)
+  - [cv::utils::testRotatedRect](#cvutilstestrotatedrect)
+  - [cv::utils::testRotatedRectVector](#cvutilstestrotatedrectvector)
+- [cv::utils::nested](#cvutilsnested)
+  - [cv::utils::nested::testEchoBooleanFunction](#cvutilsnestedtestechobooleanfunction)
+- [cv::utils::nested::OriginalClassName](#cvutilsnestedoriginalclassname)
+  - [cv::utils::nested::OriginalClassName::get_create](#cvutilsnestedoriginalclassnameget_create)
+  - [cv::utils::nested::OriginalClassName::getFloatParam](#cvutilsnestedoriginalclassnamegetfloatparam)
+  - [cv::utils::nested::OriginalClassName::getIntParam](#cvutilsnestedoriginalclassnamegetintparam)
+  - [cv::utils::nested::OriginalClassName::originalName](#cvutilsnestedoriginalclassnameoriginalname)
+- [cv::utils::nested::OriginalClassName::Params](#cvutilsnestedoriginalclassnameparams)
+  - [cv::utils::nested::OriginalClassName::Params::get_create](#cvutilsnestedoriginalclassnameparamsget_create)
+- [cv::utils::fs](#cvutilsfs)
+  - [cv::utils::fs::getCacheDirectoryForDownloads](#cvutilsfsgetcachedirectoryfordownloads)
+- [cv::detail](#cvdetail)
+  - [cv::detail::calibrateRotatingCamera](#cvdetailcalibraterotatingcamera)
+  - [cv::detail::computeImageFeatures](#cvdetailcomputeimagefeatures)
+  - [cv::detail::computeImageFeatures2](#cvdetailcomputeimagefeatures2)
+  - [cv::detail::createLaplacePyr](#cvdetailcreatelaplacepyr)
+  - [cv::detail::createLaplacePyrGpu](#cvdetailcreatelaplacepyrgpu)
+  - [cv::detail::createWeightMap](#cvdetailcreateweightmap)
+  - [cv::detail::focalsFromHomography](#cvdetailfocalsfromhomography)
+  - [cv::detail::leaveBiggestComponent](#cvdetailleavebiggestcomponent)
+  - [cv::detail::matchesGraphAsString](#cvdetailmatchesgraphasstring)
+  - [cv::detail::normalizeUsingWeightMap](#cvdetailnormalizeusingweightmap)
+  - [cv::detail::overlapRoi](#cvdetailoverlaproi)
+  - [cv::detail::restoreImageFromLaplacePyr](#cvdetailrestoreimagefromlaplacepyr)
+  - [cv::detail::restoreImageFromLaplacePyrGpu](#cvdetailrestoreimagefromlaplacepyrgpu)
+  - [cv::detail::resultRoi](#cvdetailresultroi)
+  - [cv::detail::resultRoiIntersection](#cvdetailresultroiintersection)
+  - [cv::detail::resultTl](#cvdetailresulttl)
+  - [cv::detail::selectRandomSubset](#cvdetailselectrandomsubset)
+  - [cv::detail::stitchingLogLevel](#cvdetailstitchingloglevel)
+  - [cv::detail::waveCorrect](#cvdetailwavecorrect)
+- [cv::cuda](#cvcuda)
+  - [cv::cuda::createContinuous](#cvcudacreatecontinuous)
+  - [cv::cuda::ensureSizeIsEnough](#cvcudaensuresizeisenough)
+  - [cv::cuda::getCudaEnabledDeviceCount](#cvcudagetcudaenableddevicecount)
+  - [cv::cuda::getDevice](#cvcudagetdevice)
+  - [cv::cuda::printCudaDeviceInfo](#cvcudaprintcudadeviceinfo)
+  - [cv::cuda::printShortCudaDeviceInfo](#cvcudaprintshortcudadeviceinfo)
+  - [cv::cuda::registerPageLocked](#cvcudaregisterpagelocked)
+  - [cv::cuda::resetDevice](#cvcudaresetdevice)
+  - [cv::cuda::setBufferPoolConfig](#cvcudasetbufferpoolconfig)
+  - [cv::cuda::setBufferPoolUsage](#cvcudasetbufferpoolusage)
+  - [cv::cuda::setDevice](#cvcudasetdevice)
+  - [cv::cuda::unregisterPageLocked](#cvcudaunregisterpagelocked)
+- [cv::cuda::GpuMat](#cvcudagpumat)
+  - [cv::cuda::GpuMat::get_create](#cvcudagpumatget_create)
+  - [cv::cuda::GpuMat::adjustROI](#cvcudagpumatadjustroi)
+  - [cv::cuda::GpuMat::assignTo](#cvcudagpumatassignto)
+  - [cv::cuda::GpuMat::channels](#cvcudagpumatchannels)
+  - [cv::cuda::GpuMat::clone](#cvcudagpumatclone)
+  - [cv::cuda::GpuMat::col](#cvcudagpumatcol)
+  - [cv::cuda::GpuMat::colRange](#cvcudagpumatcolrange)
+  - [cv::cuda::GpuMat::convertTo](#cvcudagpumatconvertto)
+  - [cv::cuda::GpuMat::copyTo](#cvcudagpumatcopyto)
+  - [cv::cuda::GpuMat::cudaPtr](#cvcudagpumatcudaptr)
+  - [cv::cuda::GpuMat::defaultAllocator](#cvcudagpumatdefaultallocator)
+  - [cv::cuda::GpuMat::depth](#cvcudagpumatdepth)
+  - [cv::cuda::GpuMat::download](#cvcudagpumatdownload)
+  - [cv::cuda::GpuMat::elemSize](#cvcudagpumatelemsize)
+  - [cv::cuda::GpuMat::elemSize1](#cvcudagpumatelemsize1)
+  - [cv::cuda::GpuMat::empty](#cvcudagpumatempty)
+  - [cv::cuda::GpuMat::isContinuous](#cvcudagpumatiscontinuous)
+  - [cv::cuda::GpuMat::locateROI](#cvcudagpumatlocateroi)
+  - [cv::cuda::GpuMat::release](#cvcudagpumatrelease)
+  - [cv::cuda::GpuMat::reshape](#cvcudagpumatreshape)
+  - [cv::cuda::GpuMat::row](#cvcudagpumatrow)
+  - [cv::cuda::GpuMat::rowRange](#cvcudagpumatrowrange)
+  - [cv::cuda::GpuMat::setDefaultAllocator](#cvcudagpumatsetdefaultallocator)
+  - [cv::cuda::GpuMat::setTo](#cvcudagpumatsetto)
+  - [cv::cuda::GpuMat::size](#cvcudagpumatsize)
+  - [cv::cuda::GpuMat::step1](#cvcudagpumatstep1)
+  - [cv::cuda::GpuMat::swap](#cvcudagpumatswap)
+  - [cv::cuda::GpuMat::type](#cvcudagpumattype)
+  - [cv::cuda::GpuMat::updateContinuityFlag](#cvcudagpumatupdatecontinuityflag)
+  - [cv::cuda::GpuMat::upload](#cvcudagpumatupload)
+- [cv::cuda::BufferPool](#cvcudabufferpool)
+  - [cv::cuda::BufferPool::get_create](#cvcudabufferpoolget_create)
+  - [cv::cuda::BufferPool::getAllocator](#cvcudabufferpoolgetallocator)
+  - [cv::cuda::BufferPool::getBuffer](#cvcudabufferpoolgetbuffer)
+- [cv::cuda::HostMem](#cvcudahostmem)
+  - [cv::cuda::HostMem::get_create](#cvcudahostmemget_create)
+  - [cv::cuda::HostMem::channels](#cvcudahostmemchannels)
+  - [cv::cuda::HostMem::clone](#cvcudahostmemclone)
+  - [cv::cuda::HostMem::createMatHeader](#cvcudahostmemcreatematheader)
+  - [cv::cuda::HostMem::depth](#cvcudahostmemdepth)
+  - [cv::cuda::HostMem::elemSize](#cvcudahostmemelemsize)
+  - [cv::cuda::HostMem::elemSize1](#cvcudahostmemelemsize1)
+  - [cv::cuda::HostMem::empty](#cvcudahostmemempty)
+  - [cv::cuda::HostMem::isContinuous](#cvcudahostmemiscontinuous)
+  - [cv::cuda::HostMem::reshape](#cvcudahostmemreshape)
+  - [cv::cuda::HostMem::size](#cvcudahostmemsize)
+  - [cv::cuda::HostMem::step1](#cvcudahostmemstep1)
+  - [cv::cuda::HostMem::swap](#cvcudahostmemswap)
+  - [cv::cuda::HostMem::type](#cvcudahostmemtype)
+- [cv::cuda::Stream](#cvcudastream)
+  - [cv::cuda::Stream::get_create](#cvcudastreamget_create)
+  - [cv::cuda::Stream::Null](#cvcudastreamnull)
+  - [cv::cuda::Stream::cudaPtr](#cvcudastreamcudaptr)
+  - [cv::cuda::Stream::queryIfComplete](#cvcudastreamqueryifcomplete)
+  - [cv::cuda::Stream::waitEvent](#cvcudastreamwaitevent)
+  - [cv::cuda::Stream::waitForCompletion](#cvcudastreamwaitforcompletion)
+- [cv::cuda::Event](#cvcudaevent)
+  - [cv::cuda::Event::get_create](#cvcudaeventget_create)
+  - [cv::cuda::Event::elapsedTime](#cvcudaeventelapsedtime)
+  - [cv::cuda::Event::queryIfComplete](#cvcudaeventqueryifcomplete)
+  - [cv::cuda::Event::record](#cvcudaeventrecord)
+  - [cv::cuda::Event::waitForCompletion](#cvcudaeventwaitforcompletion)
+- [cv::cuda::TargetArchs](#cvcudatargetarchs)
+  - [cv::cuda::TargetArchs::has](#cvcudatargetarchshas)
+  - [cv::cuda::TargetArchs::hasBin](#cvcudatargetarchshasbin)
+  - [cv::cuda::TargetArchs::hasEqualOrGreater](#cvcudatargetarchshasequalorgreater)
+  - [cv::cuda::TargetArchs::hasEqualOrGreaterBin](#cvcudatargetarchshasequalorgreaterbin)
+  - [cv::cuda::TargetArchs::hasEqualOrGreaterPtx](#cvcudatargetarchshasequalorgreaterptx)
+  - [cv::cuda::TargetArchs::hasEqualOrLessPtx](#cvcudatargetarchshasequalorlessptx)
+  - [cv::cuda::TargetArchs::hasPtx](#cvcudatargetarchshasptx)
+- [cv::cuda::DeviceInfo](#cvcudadeviceinfo)
+  - [cv::cuda::DeviceInfo::get_create](#cvcudadeviceinfoget_create)
+  - [cv::cuda::DeviceInfo::ECCEnabled](#cvcudadeviceinfoeccenabled)
+  - [cv::cuda::DeviceInfo::asyncEngineCount](#cvcudadeviceinfoasyncenginecount)
+  - [cv::cuda::DeviceInfo::canMapHostMemory](#cvcudadeviceinfocanmaphostmemory)
+  - [cv::cuda::DeviceInfo::clockRate](#cvcudadeviceinfoclockrate)
+  - [cv::cuda::DeviceInfo::computeMode](#cvcudadeviceinfocomputemode)
+  - [cv::cuda::DeviceInfo::concurrentKernels](#cvcudadeviceinfoconcurrentkernels)
+  - [cv::cuda::DeviceInfo::deviceID](#cvcudadeviceinfodeviceid)
+  - [cv::cuda::DeviceInfo::freeMemory](#cvcudadeviceinfofreememory)
+  - [cv::cuda::DeviceInfo::integrated](#cvcudadeviceinfointegrated)
+  - [cv::cuda::DeviceInfo::isCompatible](#cvcudadeviceinfoiscompatible)
+  - [cv::cuda::DeviceInfo::kernelExecTimeoutEnabled](#cvcudadeviceinfokernelexectimeoutenabled)
+  - [cv::cuda::DeviceInfo::l2CacheSize](#cvcudadeviceinfol2cachesize)
+  - [cv::cuda::DeviceInfo::majorVersion](#cvcudadeviceinfomajorversion)
+  - [cv::cuda::DeviceInfo::maxGridSize](#cvcudadeviceinfomaxgridsize)
+  - [cv::cuda::DeviceInfo::maxSurface1D](#cvcudadeviceinfomaxsurface1d)
+  - [cv::cuda::DeviceInfo::maxSurface1DLayered](#cvcudadeviceinfomaxsurface1dlayered)
+  - [cv::cuda::DeviceInfo::maxSurface2D](#cvcudadeviceinfomaxsurface2d)
+  - [cv::cuda::DeviceInfo::maxSurface2DLayered](#cvcudadeviceinfomaxsurface2dlayered)
+  - [cv::cuda::DeviceInfo::maxSurface3D](#cvcudadeviceinfomaxsurface3d)
+  - [cv::cuda::DeviceInfo::maxSurfaceCubemap](#cvcudadeviceinfomaxsurfacecubemap)
+  - [cv::cuda::DeviceInfo::maxSurfaceCubemapLayered](#cvcudadeviceinfomaxsurfacecubemaplayered)
+  - [cv::cuda::DeviceInfo::maxTexture1D](#cvcudadeviceinfomaxtexture1d)
+  - [cv::cuda::DeviceInfo::maxTexture1DLayered](#cvcudadeviceinfomaxtexture1dlayered)
+  - [cv::cuda::DeviceInfo::maxTexture1DLinear](#cvcudadeviceinfomaxtexture1dlinear)
+  - [cv::cuda::DeviceInfo::maxTexture1DMipmap](#cvcudadeviceinfomaxtexture1dmipmap)
+  - [cv::cuda::DeviceInfo::maxTexture2D](#cvcudadeviceinfomaxtexture2d)
+  - [cv::cuda::DeviceInfo::maxTexture2DGather](#cvcudadeviceinfomaxtexture2dgather)
+  - [cv::cuda::DeviceInfo::maxTexture2DLayered](#cvcudadeviceinfomaxtexture2dlayered)
+  - [cv::cuda::DeviceInfo::maxTexture2DLinear](#cvcudadeviceinfomaxtexture2dlinear)
+  - [cv::cuda::DeviceInfo::maxTexture2DMipmap](#cvcudadeviceinfomaxtexture2dmipmap)
+  - [cv::cuda::DeviceInfo::maxTexture3D](#cvcudadeviceinfomaxtexture3d)
+  - [cv::cuda::DeviceInfo::maxTextureCubemap](#cvcudadeviceinfomaxtexturecubemap)
+  - [cv::cuda::DeviceInfo::maxTextureCubemapLayered](#cvcudadeviceinfomaxtexturecubemaplayered)
+  - [cv::cuda::DeviceInfo::maxThreadsDim](#cvcudadeviceinfomaxthreadsdim)
+  - [cv::cuda::DeviceInfo::maxThreadsPerBlock](#cvcudadeviceinfomaxthreadsperblock)
+  - [cv::cuda::DeviceInfo::maxThreadsPerMultiProcessor](#cvcudadeviceinfomaxthreadspermultiprocessor)
+  - [cv::cuda::DeviceInfo::memPitch](#cvcudadeviceinfomempitch)
+  - [cv::cuda::DeviceInfo::memoryBusWidth](#cvcudadeviceinfomemorybuswidth)
+  - [cv::cuda::DeviceInfo::memoryClockRate](#cvcudadeviceinfomemoryclockrate)
+  - [cv::cuda::DeviceInfo::minorVersion](#cvcudadeviceinfominorversion)
+  - [cv::cuda::DeviceInfo::multiProcessorCount](#cvcudadeviceinfomultiprocessorcount)
+  - [cv::cuda::DeviceInfo::pciBusID](#cvcudadeviceinfopcibusid)
+  - [cv::cuda::DeviceInfo::pciDeviceID](#cvcudadeviceinfopcideviceid)
+  - [cv::cuda::DeviceInfo::pciDomainID](#cvcudadeviceinfopcidomainid)
+  - [cv::cuda::DeviceInfo::queryMemory](#cvcudadeviceinfoquerymemory)
+  - [cv::cuda::DeviceInfo::regsPerBlock](#cvcudadeviceinforegsperblock)
+  - [cv::cuda::DeviceInfo::sharedMemPerBlock](#cvcudadeviceinfosharedmemperblock)
+  - [cv::cuda::DeviceInfo::surfaceAlignment](#cvcudadeviceinfosurfacealignment)
+  - [cv::cuda::DeviceInfo::tccDriver](#cvcudadeviceinfotccdriver)
+  - [cv::cuda::DeviceInfo::textureAlignment](#cvcudadeviceinfotexturealignment)
+  - [cv::cuda::DeviceInfo::texturePitchAlignment](#cvcudadeviceinfotexturepitchalignment)
+  - [cv::cuda::DeviceInfo::totalConstMem](#cvcudadeviceinfototalconstmem)
+  - [cv::cuda::DeviceInfo::totalGlobalMem](#cvcudadeviceinfototalglobalmem)
+  - [cv::cuda::DeviceInfo::totalMemory](#cvcudadeviceinfototalmemory)
+  - [cv::cuda::DeviceInfo::unifiedAddressing](#cvcudadeviceinfounifiedaddressing)
+  - [cv::cuda::DeviceInfo::warpSize](#cvcudadeviceinfowarpsize)
+- [cv::Mat](#cvmat)
+  - [cv::Mat::create](#cvmatcreate)
+  - [cv::Mat::GdiplusResize](#cvmatgdiplusresize)
+  - [cv::Mat::PixelChecksum](#cvmatpixelchecksum)
+  - [cv::Mat::PixelSearch](#cvmatpixelsearch)
+  - [cv::Mat::Point_at](#cvmatpoint_at)
+  - [cv::Mat::Vec2b_at](#cvmatvec2b_at)
+  - [cv::Mat::Vec2b_set_at](#cvmatvec2b_set_at)
+  - [cv::Mat::Vec2d_at](#cvmatvec2d_at)
+  - [cv::Mat::Vec2d_set_at](#cvmatvec2d_set_at)
+  - [cv::Mat::Vec2f_at](#cvmatvec2f_at)
+  - [cv::Mat::Vec2f_set_at](#cvmatvec2f_set_at)
+  - [cv::Mat::Vec2i_at](#cvmatvec2i_at)
+  - [cv::Mat::Vec2i_set_at](#cvmatvec2i_set_at)
+  - [cv::Mat::Vec2s_at](#cvmatvec2s_at)
+  - [cv::Mat::Vec2s_set_at](#cvmatvec2s_set_at)
+  - [cv::Mat::Vec2w_at](#cvmatvec2w_at)
+  - [cv::Mat::Vec2w_set_at](#cvmatvec2w_set_at)
+  - [cv::Mat::Vec3b_at](#cvmatvec3b_at)
+  - [cv::Mat::Vec3b_set_at](#cvmatvec3b_set_at)
+  - [cv::Mat::Vec3d_at](#cvmatvec3d_at)
+  - [cv::Mat::Vec3d_set_at](#cvmatvec3d_set_at)
+  - [cv::Mat::Vec3f_at](#cvmatvec3f_at)
+  - [cv::Mat::Vec3f_set_at](#cvmatvec3f_set_at)
+  - [cv::Mat::Vec3i_at](#cvmatvec3i_at)
+  - [cv::Mat::Vec3i_set_at](#cvmatvec3i_set_at)
+  - [cv::Mat::Vec3s_at](#cvmatvec3s_at)
+  - [cv::Mat::Vec3s_set_at](#cvmatvec3s_set_at)
+  - [cv::Mat::Vec3w_at](#cvmatvec3w_at)
+  - [cv::Mat::Vec3w_set_at](#cvmatvec3w_set_at)
+  - [cv::Mat::Vec4b_at](#cvmatvec4b_at)
+  - [cv::Mat::Vec4b_set_at](#cvmatvec4b_set_at)
+  - [cv::Mat::Vec4d_at](#cvmatvec4d_at)
+  - [cv::Mat::Vec4d_set_at](#cvmatvec4d_set_at)
+  - [cv::Mat::Vec4f_at](#cvmatvec4f_at)
+  - [cv::Mat::Vec4f_set_at](#cvmatvec4f_set_at)
+  - [cv::Mat::Vec4i_at](#cvmatvec4i_at)
+  - [cv::Mat::Vec4i_set_at](#cvmatvec4i_set_at)
+  - [cv::Mat::Vec4s_at](#cvmatvec4s_at)
+  - [cv::Mat::Vec4s_set_at](#cvmatvec4s_set_at)
+  - [cv::Mat::Vec4w_at](#cvmatvec4w_at)
+  - [cv::Mat::Vec4w_set_at](#cvmatvec4w_set_at)
+  - [cv::Mat::Vec6d_at](#cvmatvec6d_at)
+  - [cv::Mat::Vec6d_set_at](#cvmatvec6d_set_at)
+  - [cv::Mat::Vec6f_at](#cvmatvec6f_at)
+  - [cv::Mat::Vec6f_set_at](#cvmatvec6f_set_at)
+  - [cv::Mat::Vec6i_at](#cvmatvec6i_at)
+  - [cv::Mat::Vec6i_set_at](#cvmatvec6i_set_at)
+  - [cv::Mat::Vec8i_at](#cvmatvec8i_at)
+  - [cv::Mat::Vec8i_set_at](#cvmatvec8i_set_at)
+  - [cv::Mat::asArray](#cvmatasarray)
+  - [cv::Mat::at](#cvmatat)
+  - [cv::Mat::channels](#cvmatchannels)
+  - [cv::Mat::checkVector](#cvmatcheckvector)
+  - [cv::Mat::clone](#cvmatclone)
+  - [cv::Mat::col](#cvmatcol)
+  - [cv::Mat::colRange](#cvmatcolrange)
+  - [cv::Mat::convertTo](#cvmatconvertto)
+  - [cv::Mat::convertToBitmap](#cvmatconverttobitmap)
+  - [cv::Mat::convertToShow](#cvmatconverttoshow)
+  - [cv::Mat::copy](#cvmatcopy)
+  - [cv::Mat::copyTo](#cvmatcopyto)
+  - [cv::Mat::createFromArray](#cvmatcreatefromarray)
+  - [cv::Mat::createFromVec2b](#cvmatcreatefromvec2b)
+  - [cv::Mat::createFromVec2d](#cvmatcreatefromvec2d)
+  - [cv::Mat::createFromVec2f](#cvmatcreatefromvec2f)
+  - [cv::Mat::createFromVec2i](#cvmatcreatefromvec2i)
+  - [cv::Mat::createFromVec2s](#cvmatcreatefromvec2s)
+  - [cv::Mat::createFromVec2w](#cvmatcreatefromvec2w)
+  - [cv::Mat::createFromVec3b](#cvmatcreatefromvec3b)
+  - [cv::Mat::createFromVec3d](#cvmatcreatefromvec3d)
+  - [cv::Mat::createFromVec3f](#cvmatcreatefromvec3f)
+  - [cv::Mat::createFromVec3i](#cvmatcreatefromvec3i)
+  - [cv::Mat::createFromVec3s](#cvmatcreatefromvec3s)
+  - [cv::Mat::createFromVec3w](#cvmatcreatefromvec3w)
+  - [cv::Mat::createFromVec4b](#cvmatcreatefromvec4b)
+  - [cv::Mat::createFromVec4d](#cvmatcreatefromvec4d)
+  - [cv::Mat::createFromVec4f](#cvmatcreatefromvec4f)
+  - [cv::Mat::createFromVec4i](#cvmatcreatefromvec4i)
+  - [cv::Mat::createFromVec4s](#cvmatcreatefromvec4s)
+  - [cv::Mat::createFromVec4w](#cvmatcreatefromvec4w)
+  - [cv::Mat::createFromVec6d](#cvmatcreatefromvec6d)
+  - [cv::Mat::createFromVec6f](#cvmatcreatefromvec6f)
+  - [cv::Mat::createFromVec6i](#cvmatcreatefromvec6i)
+  - [cv::Mat::createFromVec8i](#cvmatcreatefromvec8i)
+  - [cv::Mat::createFromVectorOfDouble](#cvmatcreatefromvectorofdouble)
+  - [cv::Mat::createFromVectorOfFloat](#cvmatcreatefromvectoroffloat)
+  - [cv::Mat::createFromVectorOfInt](#cvmatcreatefromvectorofint)
+  - [cv::Mat::createFromVectorOfVec2b](#cvmatcreatefromvectorofvec2b)
+  - [cv::Mat::createFromVectorOfVec2d](#cvmatcreatefromvectorofvec2d)
+  - [cv::Mat::createFromVectorOfVec2f](#cvmatcreatefromvectorofvec2f)
+  - [cv::Mat::createFromVectorOfVec2i](#cvmatcreatefromvectorofvec2i)
+  - [cv::Mat::createFromVectorOfVec2s](#cvmatcreatefromvectorofvec2s)
+  - [cv::Mat::createFromVectorOfVec2w](#cvmatcreatefromvectorofvec2w)
+  - [cv::Mat::createFromVectorOfVec3b](#cvmatcreatefromvectorofvec3b)
+  - [cv::Mat::createFromVectorOfVec3d](#cvmatcreatefromvectorofvec3d)
+  - [cv::Mat::createFromVectorOfVec3f](#cvmatcreatefromvectorofvec3f)
+  - [cv::Mat::createFromVectorOfVec3i](#cvmatcreatefromvectorofvec3i)
+  - [cv::Mat::createFromVectorOfVec3s](#cvmatcreatefromvectorofvec3s)
+  - [cv::Mat::createFromVectorOfVec3w](#cvmatcreatefromvectorofvec3w)
+  - [cv::Mat::createFromVectorOfVec4b](#cvmatcreatefromvectorofvec4b)
+  - [cv::Mat::createFromVectorOfVec4d](#cvmatcreatefromvectorofvec4d)
+  - [cv::Mat::createFromVectorOfVec4f](#cvmatcreatefromvectorofvec4f)
+  - [cv::Mat::createFromVectorOfVec4i](#cvmatcreatefromvectorofvec4i)
+  - [cv::Mat::createFromVectorOfVec4s](#cvmatcreatefromvectorofvec4s)
+  - [cv::Mat::createFromVectorOfVec4w](#cvmatcreatefromvectorofvec4w)
+  - [cv::Mat::createFromVectorOfVec6d](#cvmatcreatefromvectorofvec6d)
+  - [cv::Mat::createFromVectorOfVec6f](#cvmatcreatefromvectorofvec6f)
+  - [cv::Mat::createFromVectorOfVec6i](#cvmatcreatefromvectorofvec6i)
+  - [cv::Mat::createFromVectorOfVec8i](#cvmatcreatefromvectorofvec8i)
+  - [cv::Mat::cross](#cvmatcross)
+  - [cv::Mat::depth](#cvmatdepth)
+  - [cv::Mat::diag](#cvmatdiag)
+  - [cv::Mat::dot](#cvmatdot)
+  - [cv::Mat::double_at](#cvmatdouble_at)
+  - [cv::Mat::double_set_at](#cvmatdouble_set_at)
+  - [cv::Mat::elemSize](#cvmatelemsize)
+  - [cv::Mat::elemSize1](#cvmatelemsize1)
+  - [cv::Mat::empty](#cvmatempty)
+  - [cv::Mat::eye](#cvmateye)
+  - [cv::Mat::float_at](#cvmatfloat_at)
+  - [cv::Mat::float_set_at](#cvmatfloat_set_at)
+  - [cv::Mat::get_Item](#cvmatget_item)
+  - [cv::Mat::int_at](#cvmatint_at)
+  - [cv::Mat::int_set_at](#cvmatint_set_at)
+  - [cv::Mat::isContinuous](#cvmatiscontinuous)
+  - [cv::Mat::isSubmatrix](#cvmatissubmatrix)
+  - [cv::Mat::ones](#cvmatones)
+  - [cv::Mat::pop_back](#cvmatpop_back)
+  - [cv::Mat::ptr](#cvmatptr)
+  - [cv::Mat::push_back](#cvmatpush_back)
+  - [cv::Mat::put_Item](#cvmatput_item)
+  - [cv::Mat::reshape](#cvmatreshape)
+  - [cv::Mat::row](#cvmatrow)
+  - [cv::Mat::rowRange](#cvmatrowrange)
+  - [cv::Mat::setTo](#cvmatsetto)
+  - [cv::Mat::set_at](#cvmatset_at)
+  - [cv::Mat::shape](#cvmatshape)
+  - [cv::Mat::size](#cvmatsize)
+  - [cv::Mat::step1](#cvmatstep1)
+  - [cv::Mat::t](#cvmatt)
+  - [cv::Mat::total](#cvmattotal)
+  - [cv::Mat::type](#cvmattype)
+  - [cv::Mat::zeros](#cvmatzeros)
+- [cv::UMat](#cvumat)
+  - [cv::UMat::get_create](#cvumatget_create)
+  - [cv::UMat::getMat](#cvumatgetmat)
+- [cv::ocl](#cvocl)
+  - [cv::ocl::finish](#cvoclfinish)
+  - [cv::ocl::haveAmdBlas](#cvoclhaveamdblas)
+  - [cv::ocl::haveAmdFft](#cvoclhaveamdfft)
+  - [cv::ocl::haveOpenCL](#cvoclhaveopencl)
+  - [cv::ocl::setUseOpenCL](#cvoclsetuseopencl)
+  - [cv::ocl::useOpenCL](#cvocluseopencl)
+- [cv::ocl::Device](#cvocldevice)
+  - [cv::ocl::Device::get_create](#cvocldeviceget_create)
+  - [cv::ocl::Device::OpenCLVersion](#cvocldeviceopenclversion)
+  - [cv::ocl::Device::OpenCL_C_Version](#cvocldeviceopencl_c_version)
+  - [cv::ocl::Device::addressBits](#cvocldeviceaddressbits)
+  - [cv::ocl::Device::available](#cvocldeviceavailable)
+  - [cv::ocl::Device::compilerAvailable](#cvocldevicecompileravailable)
+  - [cv::ocl::Device::deviceVersionMajor](#cvocldevicedeviceversionmajor)
+  - [cv::ocl::Device::deviceVersionMinor](#cvocldevicedeviceversionminor)
+  - [cv::ocl::Device::doubleFPConfig](#cvocldevicedoublefpconfig)
+  - [cv::ocl::Device::driverVersion](#cvocldevicedriverversion)
+  - [cv::ocl::Device::endianLittle](#cvocldeviceendianlittle)
+  - [cv::ocl::Device::errorCorrectionSupport](#cvocldeviceerrorcorrectionsupport)
+  - [cv::ocl::Device::executionCapabilities](#cvocldeviceexecutioncapabilities)
+  - [cv::ocl::Device::extensions](#cvocldeviceextensions)
+  - [cv::ocl::Device::getDefault](#cvocldevicegetdefault)
+  - [cv::ocl::Device::globalMemCacheLineSize](#cvocldeviceglobalmemcachelinesize)
+  - [cv::ocl::Device::globalMemCacheSize](#cvocldeviceglobalmemcachesize)
+  - [cv::ocl::Device::globalMemCacheType](#cvocldeviceglobalmemcachetype)
+  - [cv::ocl::Device::globalMemSize](#cvocldeviceglobalmemsize)
+  - [cv::ocl::Device::halfFPConfig](#cvocldevicehalffpconfig)
+  - [cv::ocl::Device::hostUnifiedMemory](#cvocldevicehostunifiedmemory)
+  - [cv::ocl::Device::image2DMaxHeight](#cvocldeviceimage2dmaxheight)
+  - [cv::ocl::Device::image2DMaxWidth](#cvocldeviceimage2dmaxwidth)
+  - [cv::ocl::Device::image3DMaxDepth](#cvocldeviceimage3dmaxdepth)
+  - [cv::ocl::Device::image3DMaxHeight](#cvocldeviceimage3dmaxheight)
+  - [cv::ocl::Device::image3DMaxWidth](#cvocldeviceimage3dmaxwidth)
+  - [cv::ocl::Device::imageFromBufferSupport](#cvocldeviceimagefrombuffersupport)
+  - [cv::ocl::Device::imageMaxArraySize](#cvocldeviceimagemaxarraysize)
+  - [cv::ocl::Device::imageMaxBufferSize](#cvocldeviceimagemaxbuffersize)
+  - [cv::ocl::Device::imageSupport](#cvocldeviceimagesupport)
+  - [cv::ocl::Device::intelSubgroupsSupport](#cvocldeviceintelsubgroupssupport)
+  - [cv::ocl::Device::isAMD](#cvocldeviceisamd)
+  - [cv::ocl::Device::isExtensionSupported](#cvocldeviceisextensionsupported)
+  - [cv::ocl::Device::isIntel](#cvocldeviceisintel)
+  - [cv::ocl::Device::isNVidia](#cvocldeviceisnvidia)
+  - [cv::ocl::Device::linkerAvailable](#cvocldevicelinkeravailable)
+  - [cv::ocl::Device::localMemSize](#cvocldevicelocalmemsize)
+  - [cv::ocl::Device::localMemType](#cvocldevicelocalmemtype)
+  - [cv::ocl::Device::maxClockFrequency](#cvocldevicemaxclockfrequency)
+  - [cv::ocl::Device::maxComputeUnits](#cvocldevicemaxcomputeunits)
+  - [cv::ocl::Device::maxConstantArgs](#cvocldevicemaxconstantargs)
+  - [cv::ocl::Device::maxConstantBufferSize](#cvocldevicemaxconstantbuffersize)
+  - [cv::ocl::Device::maxMemAllocSize](#cvocldevicemaxmemallocsize)
+  - [cv::ocl::Device::maxParameterSize](#cvocldevicemaxparametersize)
+  - [cv::ocl::Device::maxReadImageArgs](#cvocldevicemaxreadimageargs)
+  - [cv::ocl::Device::maxSamplers](#cvocldevicemaxsamplers)
+  - [cv::ocl::Device::maxWorkGroupSize](#cvocldevicemaxworkgroupsize)
+  - [cv::ocl::Device::maxWorkItemDims](#cvocldevicemaxworkitemdims)
+  - [cv::ocl::Device::maxWriteImageArgs](#cvocldevicemaxwriteimageargs)
+  - [cv::ocl::Device::memBaseAddrAlign](#cvocldevicemembaseaddralign)
+  - [cv::ocl::Device::name](#cvocldevicename)
+  - [cv::ocl::Device::nativeVectorWidthChar](#cvocldevicenativevectorwidthchar)
+  - [cv::ocl::Device::nativeVectorWidthDouble](#cvocldevicenativevectorwidthdouble)
+  - [cv::ocl::Device::nativeVectorWidthFloat](#cvocldevicenativevectorwidthfloat)
+  - [cv::ocl::Device::nativeVectorWidthHalf](#cvocldevicenativevectorwidthhalf)
+  - [cv::ocl::Device::nativeVectorWidthInt](#cvocldevicenativevectorwidthint)
+  - [cv::ocl::Device::nativeVectorWidthLong](#cvocldevicenativevectorwidthlong)
+  - [cv::ocl::Device::nativeVectorWidthShort](#cvocldevicenativevectorwidthshort)
+  - [cv::ocl::Device::preferredVectorWidthChar](#cvocldevicepreferredvectorwidthchar)
+  - [cv::ocl::Device::preferredVectorWidthDouble](#cvocldevicepreferredvectorwidthdouble)
+  - [cv::ocl::Device::preferredVectorWidthFloat](#cvocldevicepreferredvectorwidthfloat)
+  - [cv::ocl::Device::preferredVectorWidthHalf](#cvocldevicepreferredvectorwidthhalf)
+  - [cv::ocl::Device::preferredVectorWidthInt](#cvocldevicepreferredvectorwidthint)
+  - [cv::ocl::Device::preferredVectorWidthLong](#cvocldevicepreferredvectorwidthlong)
+  - [cv::ocl::Device::preferredVectorWidthShort](#cvocldevicepreferredvectorwidthshort)
+  - [cv::ocl::Device::printfBufferSize](#cvocldeviceprintfbuffersize)
+  - [cv::ocl::Device::profilingTimerResolution](#cvocldeviceprofilingtimerresolution)
+  - [cv::ocl::Device::singleFPConfig](#cvocldevicesinglefpconfig)
+  - [cv::ocl::Device::type](#cvocldevicetype)
+  - [cv::ocl::Device::vendorID](#cvocldevicevendorid)
+  - [cv::ocl::Device::vendorName](#cvocldevicevendorname)
+  - [cv::ocl::Device::version](#cvocldeviceversion)
+- [cv::FileStorage](#cvfilestorage)
+  - [cv::FileStorage::get_create](#cvfilestorageget_create)
+  - [cv::FileStorage::endWriteStruct](#cvfilestorageendwritestruct)
+  - [cv::FileStorage::getFirstTopLevelNode](#cvfilestoragegetfirsttoplevelnode)
+  - [cv::FileStorage::getFormat](#cvfilestoragegetformat)
+  - [cv::FileStorage::getNode](#cvfilestoragegetnode)
+  - [cv::FileStorage::isOpened](#cvfilestorageisopened)
+  - [cv::FileStorage::open](#cvfilestorageopen)
+  - [cv::FileStorage::release](#cvfilestoragerelease)
+  - [cv::FileStorage::releaseAndGetString](#cvfilestoragereleaseandgetstring)
+  - [cv::FileStorage::root](#cvfilestorageroot)
+  - [cv::FileStorage::startWriteStruct](#cvfilestoragestartwritestruct)
+  - [cv::FileStorage::write](#cvfilestoragewrite)
+  - [cv::FileStorage::writeComment](#cvfilestoragewritecomment)
+- [cv::FileNode](#cvfilenode)
+  - [cv::FileNode::get_create](#cvfilenodeget_create)
+  - [cv::FileNode::at](#cvfilenodeat)
+  - [cv::FileNode::empty](#cvfilenodeempty)
+  - [cv::FileNode::getNode](#cvfilenodegetnode)
+  - [cv::FileNode::isInt](#cvfilenodeisint)
+  - [cv::FileNode::isMap](#cvfilenodeismap)
+  - [cv::FileNode::isNamed](#cvfilenodeisnamed)
+  - [cv::FileNode::isNone](#cvfilenodeisnone)
+  - [cv::FileNode::isReal](#cvfilenodeisreal)
+  - [cv::FileNode::isSeq](#cvfilenodeisseq)
+  - [cv::FileNode::isString](#cvfilenodeisstring)
+  - [cv::FileNode::keys](#cvfilenodekeys)
+  - [cv::FileNode::mat](#cvfilenodemat)
+  - [cv::FileNode::name](#cvfilenodename)
+  - [cv::FileNode::rawSize](#cvfilenoderawsize)
+  - [cv::FileNode::real](#cvfilenodereal)
+  - [cv::FileNode::size](#cvfilenodesize)
+  - [cv::FileNode::string](#cvfilenodestring)
+  - [cv::FileNode::type](#cvfilenodetype)
+- [cv::KeyPoint](#cvkeypoint)
+  - [cv::KeyPoint::get_create](#cvkeypointget_create)
+  - [cv::KeyPoint::convert](#cvkeypointconvert)
+  - [cv::KeyPoint::overlap](#cvkeypointoverlap)
+- [cv::DMatch](#cvdmatch)
+  - [cv::DMatch::get_create](#cvdmatchget_create)
+- [cv::TermCriteria](#cvtermcriteria)
+  - [cv::TermCriteria::get_create](#cvtermcriteriaget_create)
+- [cv::Moments](#cvmoments)
+  - [cv::Moments::get_create](#cvmomentsget_create)
+- [cv::TickMeter](#cvtickmeter)
+  - [cv::TickMeter::get_create](#cvtickmeterget_create)
+  - [cv::TickMeter::getAvgTimeMilli](#cvtickmetergetavgtimemilli)
+  - [cv::TickMeter::getAvgTimeSec](#cvtickmetergetavgtimesec)
+  - [cv::TickMeter::getCounter](#cvtickmetergetcounter)
+  - [cv::TickMeter::getFPS](#cvtickmetergetfps)
+  - [cv::TickMeter::getTimeMicro](#cvtickmetergettimemicro)
+  - [cv::TickMeter::getTimeMilli](#cvtickmetergettimemilli)
+  - [cv::TickMeter::getTimeSec](#cvtickmetergettimesec)
+  - [cv::TickMeter::getTimeTicks](#cvtickmetergettimeticks)
+  - [cv::TickMeter::reset](#cvtickmeterreset)
+  - [cv::TickMeter::start](#cvtickmeterstart)
+  - [cv::TickMeter::stop](#cvtickmeterstop)
+- [cv::samples](#cvsamples)
+  - [cv::samples::addSamplesDataSearchPath](#cvsamplesaddsamplesdatasearchpath)
+  - [cv::samples::addSamplesDataSearchSubDirectory](#cvsamplesaddsamplesdatasearchsubdirectory)
+  - [cv::samples::findFile](#cvsamplesfindfile)
+  - [cv::samples::findFileOrKeep](#cvsamplesfindfileorkeep)
+- [cv::flann::Index](#cvflannindex)
+  - [cv::flann::Index::get_create](#cvflannindexget_create)
+  - [cv::flann::Index::build](#cvflannindexbuild)
+  - [cv::flann::Index::getAlgorithm](#cvflannindexgetalgorithm)
+  - [cv::flann::Index::getDistance](#cvflannindexgetdistance)
+  - [cv::flann::Index::knnSearch](#cvflannindexknnsearch)
+  - [cv::flann::Index::load](#cvflannindexload)
+  - [cv::flann::Index::radiusSearch](#cvflannindexradiussearch)
+  - [cv::flann::Index::release](#cvflannindexrelease)
+  - [cv::flann::Index::save](#cvflannindexsave)
+- [cv::GeneralizedHough](#cvgeneralizedhough)
+  - [cv::GeneralizedHough::clear](#cvgeneralizedhoughclear)
+  - [cv::GeneralizedHough::detect](#cvgeneralizedhoughdetect)
+  - [cv::GeneralizedHough::empty](#cvgeneralizedhoughempty)
+  - [cv::GeneralizedHough::getCannyHighThresh](#cvgeneralizedhoughgetcannyhighthresh)
+  - [cv::GeneralizedHough::getCannyLowThresh](#cvgeneralizedhoughgetcannylowthresh)
+  - [cv::GeneralizedHough::getDefaultName](#cvgeneralizedhoughgetdefaultname)
+  - [cv::GeneralizedHough::getDp](#cvgeneralizedhoughgetdp)
+  - [cv::GeneralizedHough::getMaxBufferSize](#cvgeneralizedhoughgetmaxbuffersize)
+  - [cv::GeneralizedHough::getMinDist](#cvgeneralizedhoughgetmindist)
+  - [cv::GeneralizedHough::read](#cvgeneralizedhoughread)
+  - [cv::GeneralizedHough::save](#cvgeneralizedhoughsave)
+  - [cv::GeneralizedHough::setCannyHighThresh](#cvgeneralizedhoughsetcannyhighthresh)
+  - [cv::GeneralizedHough::setCannyLowThresh](#cvgeneralizedhoughsetcannylowthresh)
+  - [cv::GeneralizedHough::setDp](#cvgeneralizedhoughsetdp)
+  - [cv::GeneralizedHough::setMaxBufferSize](#cvgeneralizedhoughsetmaxbuffersize)
+  - [cv::GeneralizedHough::setMinDist](#cvgeneralizedhoughsetmindist)
+  - [cv::GeneralizedHough::setTemplate](#cvgeneralizedhoughsettemplate)
+  - [cv::GeneralizedHough::write](#cvgeneralizedhoughwrite)
+- [cv::GeneralizedHoughBallard](#cvgeneralizedhoughballard)
+  - [cv::GeneralizedHoughBallard::clear](#cvgeneralizedhoughballardclear)
+  - [cv::GeneralizedHoughBallard::detect](#cvgeneralizedhoughballarddetect)
+  - [cv::GeneralizedHoughBallard::empty](#cvgeneralizedhoughballardempty)
+  - [cv::GeneralizedHoughBallard::getCannyHighThresh](#cvgeneralizedhoughballardgetcannyhighthresh)
+  - [cv::GeneralizedHoughBallard::getCannyLowThresh](#cvgeneralizedhoughballardgetcannylowthresh)
+  - [cv::GeneralizedHoughBallard::getDefaultName](#cvgeneralizedhoughballardgetdefaultname)
+  - [cv::GeneralizedHoughBallard::getDp](#cvgeneralizedhoughballardgetdp)
+  - [cv::GeneralizedHoughBallard::getLevels](#cvgeneralizedhoughballardgetlevels)
+  - [cv::GeneralizedHoughBallard::getMaxBufferSize](#cvgeneralizedhoughballardgetmaxbuffersize)
+  - [cv::GeneralizedHoughBallard::getMinDist](#cvgeneralizedhoughballardgetmindist)
+  - [cv::GeneralizedHoughBallard::getVotesThreshold](#cvgeneralizedhoughballardgetvotesthreshold)
+  - [cv::GeneralizedHoughBallard::read](#cvgeneralizedhoughballardread)
+  - [cv::GeneralizedHoughBallard::save](#cvgeneralizedhoughballardsave)
+  - [cv::GeneralizedHoughBallard::setCannyHighThresh](#cvgeneralizedhoughballardsetcannyhighthresh)
+  - [cv::GeneralizedHoughBallard::setCannyLowThresh](#cvgeneralizedhoughballardsetcannylowthresh)
+  - [cv::GeneralizedHoughBallard::setDp](#cvgeneralizedhoughballardsetdp)
+  - [cv::GeneralizedHoughBallard::setLevels](#cvgeneralizedhoughballardsetlevels)
+  - [cv::GeneralizedHoughBallard::setMaxBufferSize](#cvgeneralizedhoughballardsetmaxbuffersize)
+  - [cv::GeneralizedHoughBallard::setMinDist](#cvgeneralizedhoughballardsetmindist)
+  - [cv::GeneralizedHoughBallard::setTemplate](#cvgeneralizedhoughballardsettemplate)
+  - [cv::GeneralizedHoughBallard::setVotesThreshold](#cvgeneralizedhoughballardsetvotesthreshold)
+  - [cv::GeneralizedHoughBallard::write](#cvgeneralizedhoughballardwrite)
+- [cv::GeneralizedHoughGuil](#cvgeneralizedhoughguil)
+  - [cv::GeneralizedHoughGuil::clear](#cvgeneralizedhoughguilclear)
+  - [cv::GeneralizedHoughGuil::detect](#cvgeneralizedhoughguildetect)
+  - [cv::GeneralizedHoughGuil::empty](#cvgeneralizedhoughguilempty)
+  - [cv::GeneralizedHoughGuil::getAngleEpsilon](#cvgeneralizedhoughguilgetangleepsilon)
+  - [cv::GeneralizedHoughGuil::getAngleStep](#cvgeneralizedhoughguilgetanglestep)
+  - [cv::GeneralizedHoughGuil::getAngleThresh](#cvgeneralizedhoughguilgetanglethresh)
+  - [cv::GeneralizedHoughGuil::getCannyHighThresh](#cvgeneralizedhoughguilgetcannyhighthresh)
+  - [cv::GeneralizedHoughGuil::getCannyLowThresh](#cvgeneralizedhoughguilgetcannylowthresh)
+  - [cv::GeneralizedHoughGuil::getDefaultName](#cvgeneralizedhoughguilgetdefaultname)
+  - [cv::GeneralizedHoughGuil::getDp](#cvgeneralizedhoughguilgetdp)
+  - [cv::GeneralizedHoughGuil::getLevels](#cvgeneralizedhoughguilgetlevels)
+  - [cv::GeneralizedHoughGuil::getMaxAngle](#cvgeneralizedhoughguilgetmaxangle)
+  - [cv::GeneralizedHoughGuil::getMaxBufferSize](#cvgeneralizedhoughguilgetmaxbuffersize)
+  - [cv::GeneralizedHoughGuil::getMaxScale](#cvgeneralizedhoughguilgetmaxscale)
+  - [cv::GeneralizedHoughGuil::getMinAngle](#cvgeneralizedhoughguilgetminangle)
+  - [cv::GeneralizedHoughGuil::getMinDist](#cvgeneralizedhoughguilgetmindist)
+  - [cv::GeneralizedHoughGuil::getMinScale](#cvgeneralizedhoughguilgetminscale)
+  - [cv::GeneralizedHoughGuil::getPosThresh](#cvgeneralizedhoughguilgetposthresh)
+  - [cv::GeneralizedHoughGuil::getScaleStep](#cvgeneralizedhoughguilgetscalestep)
+  - [cv::GeneralizedHoughGuil::getScaleThresh](#cvgeneralizedhoughguilgetscalethresh)
+  - [cv::GeneralizedHoughGuil::getXi](#cvgeneralizedhoughguilgetxi)
+  - [cv::GeneralizedHoughGuil::read](#cvgeneralizedhoughguilread)
+  - [cv::GeneralizedHoughGuil::save](#cvgeneralizedhoughguilsave)
+  - [cv::GeneralizedHoughGuil::setAngleEpsilon](#cvgeneralizedhoughguilsetangleepsilon)
+  - [cv::GeneralizedHoughGuil::setAngleStep](#cvgeneralizedhoughguilsetanglestep)
+  - [cv::GeneralizedHoughGuil::setAngleThresh](#cvgeneralizedhoughguilsetanglethresh)
+  - [cv::GeneralizedHoughGuil::setCannyHighThresh](#cvgeneralizedhoughguilsetcannyhighthresh)
+  - [cv::GeneralizedHoughGuil::setCannyLowThresh](#cvgeneralizedhoughguilsetcannylowthresh)
+  - [cv::GeneralizedHoughGuil::setDp](#cvgeneralizedhoughguilsetdp)
+  - [cv::GeneralizedHoughGuil::setLevels](#cvgeneralizedhoughguilsetlevels)
+  - [cv::GeneralizedHoughGuil::setMaxAngle](#cvgeneralizedhoughguilsetmaxangle)
+  - [cv::GeneralizedHoughGuil::setMaxBufferSize](#cvgeneralizedhoughguilsetmaxbuffersize)
+  - [cv::GeneralizedHoughGuil::setMaxScale](#cvgeneralizedhoughguilsetmaxscale)
+  - [cv::GeneralizedHoughGuil::setMinAngle](#cvgeneralizedhoughguilsetminangle)
+  - [cv::GeneralizedHoughGuil::setMinDist](#cvgeneralizedhoughguilsetmindist)
+  - [cv::GeneralizedHoughGuil::setMinScale](#cvgeneralizedhoughguilsetminscale)
+  - [cv::GeneralizedHoughGuil::setPosThresh](#cvgeneralizedhoughguilsetposthresh)
+  - [cv::GeneralizedHoughGuil::setScaleStep](#cvgeneralizedhoughguilsetscalestep)
+  - [cv::GeneralizedHoughGuil::setScaleThresh](#cvgeneralizedhoughguilsetscalethresh)
+  - [cv::GeneralizedHoughGuil::setTemplate](#cvgeneralizedhoughguilsettemplate)
+  - [cv::GeneralizedHoughGuil::setXi](#cvgeneralizedhoughguilsetxi)
+  - [cv::GeneralizedHoughGuil::write](#cvgeneralizedhoughguilwrite)
+- [cv::CLAHE](#cvclahe)
+  - [cv::CLAHE::apply](#cvclaheapply)
+  - [cv::CLAHE::clear](#cvclaheclear)
+  - [cv::CLAHE::collectGarbage](#cvclahecollectgarbage)
+  - [cv::CLAHE::empty](#cvclaheempty)
+  - [cv::CLAHE::getClipLimit](#cvclahegetcliplimit)
+  - [cv::CLAHE::getDefaultName](#cvclahegetdefaultname)
+  - [cv::CLAHE::getTilesGridSize](#cvclahegettilesgridsize)
+  - [cv::CLAHE::read](#cvclaheread)
+  - [cv::CLAHE::save](#cvclahesave)
+  - [cv::CLAHE::setClipLimit](#cvclahesetcliplimit)
+  - [cv::CLAHE::setTilesGridSize](#cvclahesettilesgridsize)
+  - [cv::CLAHE::write](#cvclahewrite)
+- [cv::Subdiv2D](#cvsubdiv2d)
+  - [cv::Subdiv2D::get_create](#cvsubdiv2dget_create)
+  - [cv::Subdiv2D::edgeDst](#cvsubdiv2dedgedst)
+  - [cv::Subdiv2D::edgeOrg](#cvsubdiv2dedgeorg)
+  - [cv::Subdiv2D::findNearest](#cvsubdiv2dfindnearest)
+  - [cv::Subdiv2D::getEdge](#cvsubdiv2dgetedge)
+  - [cv::Subdiv2D::getEdgeList](#cvsubdiv2dgetedgelist)
+  - [cv::Subdiv2D::getLeadingEdgeList](#cvsubdiv2dgetleadingedgelist)
+  - [cv::Subdiv2D::getTriangleList](#cvsubdiv2dgettrianglelist)
+  - [cv::Subdiv2D::getVertex](#cvsubdiv2dgetvertex)
+  - [cv::Subdiv2D::getVoronoiFacetList](#cvsubdiv2dgetvoronoifacetlist)
+  - [cv::Subdiv2D::initDelaunay](#cvsubdiv2dinitdelaunay)
+  - [cv::Subdiv2D::insert](#cvsubdiv2dinsert)
+  - [cv::Subdiv2D::locate](#cvsubdiv2dlocate)
+  - [cv::Subdiv2D::nextEdge](#cvsubdiv2dnextedge)
+  - [cv::Subdiv2D::rotateEdge](#cvsubdiv2drotateedge)
+  - [cv::Subdiv2D::symEdge](#cvsubdiv2dsymedge)
+- [cv::LineSegmentDetector](#cvlinesegmentdetector)
+  - [cv::LineSegmentDetector::clear](#cvlinesegmentdetectorclear)
+  - [cv::LineSegmentDetector::compareSegments](#cvlinesegmentdetectorcomparesegments)
+  - [cv::LineSegmentDetector::detect](#cvlinesegmentdetectordetect)
+  - [cv::LineSegmentDetector::drawSegments](#cvlinesegmentdetectordrawsegments)
+  - [cv::LineSegmentDetector::empty](#cvlinesegmentdetectorempty)
+  - [cv::LineSegmentDetector::getDefaultName](#cvlinesegmentdetectorgetdefaultname)
+  - [cv::LineSegmentDetector::read](#cvlinesegmentdetectorread)
+  - [cv::LineSegmentDetector::save](#cvlinesegmentdetectorsave)
+  - [cv::LineSegmentDetector::write](#cvlinesegmentdetectorwrite)
+- [cv::segmentation::IntelligentScissorsMB](#cvsegmentationintelligentscissorsmb)
+  - [cv::segmentation::IntelligentScissorsMB::get_create](#cvsegmentationintelligentscissorsmbget_create)
+  - [cv::segmentation::IntelligentScissorsMB::applyImage](#cvsegmentationintelligentscissorsmbapplyimage)
+  - [cv::segmentation::IntelligentScissorsMB::applyImageFeatures](#cvsegmentationintelligentscissorsmbapplyimagefeatures)
+  - [cv::segmentation::IntelligentScissorsMB::buildMap](#cvsegmentationintelligentscissorsmbbuildmap)
+  - [cv::segmentation::IntelligentScissorsMB::getContour](#cvsegmentationintelligentscissorsmbgetcontour)
+  - [cv::segmentation::IntelligentScissorsMB::setEdgeFeatureCannyParameters](#cvsegmentationintelligentscissorsmbsetedgefeaturecannyparameters)
+  - [cv::segmentation::IntelligentScissorsMB::setEdgeFeatureZeroCrossingParameters](#cvsegmentationintelligentscissorsmbsetedgefeaturezerocrossingparameters)
+  - [cv::segmentation::IntelligentScissorsMB::setGradientMagnitudeMaxLimit](#cvsegmentationintelligentscissorsmbsetgradientmagnitudemaxlimit)
+  - [cv::segmentation::IntelligentScissorsMB::setWeights](#cvsegmentationintelligentscissorsmbsetweights)
+- [cv::ml::ParamGrid](#cvmlparamgrid)
+  - [cv::ml::ParamGrid::get_create](#cvmlparamgridget_create)
+- [cv::ml::TrainData](#cvmltraindata)
+  - [cv::ml::TrainData::get_create](#cvmltraindataget_create)
+  - [cv::ml::TrainData::getCatCount](#cvmltraindatagetcatcount)
+  - [cv::ml::TrainData::getCatMap](#cvmltraindatagetcatmap)
+  - [cv::ml::TrainData::getCatOfs](#cvmltraindatagetcatofs)
+  - [cv::ml::TrainData::getClassLabels](#cvmltraindatagetclasslabels)
+  - [cv::ml::TrainData::getDefaultSubstValues](#cvmltraindatagetdefaultsubstvalues)
+  - [cv::ml::TrainData::getLayout](#cvmltraindatagetlayout)
+  - [cv::ml::TrainData::getMissing](#cvmltraindatagetmissing)
+  - [cv::ml::TrainData::getNAllVars](#cvmltraindatagetnallvars)
+  - [cv::ml::TrainData::getNSamples](#cvmltraindatagetnsamples)
+  - [cv::ml::TrainData::getNTestSamples](#cvmltraindatagetntestsamples)
+  - [cv::ml::TrainData::getNTrainSamples](#cvmltraindatagetntrainsamples)
+  - [cv::ml::TrainData::getNVars](#cvmltraindatagetnvars)
+  - [cv::ml::TrainData::getNames](#cvmltraindatagetnames)
+  - [cv::ml::TrainData::getNormCatResponses](#cvmltraindatagetnormcatresponses)
+  - [cv::ml::TrainData::getResponseType](#cvmltraindatagetresponsetype)
+  - [cv::ml::TrainData::getResponses](#cvmltraindatagetresponses)
+  - [cv::ml::TrainData::getSample](#cvmltraindatagetsample)
+  - [cv::ml::TrainData::getSampleWeights](#cvmltraindatagetsampleweights)
+  - [cv::ml::TrainData::getSamples](#cvmltraindatagetsamples)
+  - [cv::ml::TrainData::getSubMatrix](#cvmltraindatagetsubmatrix)
+  - [cv::ml::TrainData::getSubVector](#cvmltraindatagetsubvector)
+  - [cv::ml::TrainData::getTestNormCatResponses](#cvmltraindatagettestnormcatresponses)
+  - [cv::ml::TrainData::getTestResponses](#cvmltraindatagettestresponses)
+  - [cv::ml::TrainData::getTestSampleIdx](#cvmltraindatagettestsampleidx)
+  - [cv::ml::TrainData::getTestSampleWeights](#cvmltraindatagettestsampleweights)
+  - [cv::ml::TrainData::getTestSamples](#cvmltraindatagettestsamples)
+  - [cv::ml::TrainData::getTrainNormCatResponses](#cvmltraindatagettrainnormcatresponses)
+  - [cv::ml::TrainData::getTrainResponses](#cvmltraindatagettrainresponses)
+  - [cv::ml::TrainData::getTrainSampleIdx](#cvmltraindatagettrainsampleidx)
+  - [cv::ml::TrainData::getTrainSampleWeights](#cvmltraindatagettrainsampleweights)
+  - [cv::ml::TrainData::getTrainSamples](#cvmltraindatagettrainsamples)
+  - [cv::ml::TrainData::getValues](#cvmltraindatagetvalues)
+  - [cv::ml::TrainData::getVarIdx](#cvmltraindatagetvaridx)
+  - [cv::ml::TrainData::getVarSymbolFlags](#cvmltraindatagetvarsymbolflags)
+  - [cv::ml::TrainData::getVarType](#cvmltraindatagetvartype)
+  - [cv::ml::TrainData::setTrainTestSplit](#cvmltraindatasettraintestsplit)
+  - [cv::ml::TrainData::setTrainTestSplitRatio](#cvmltraindatasettraintestsplitratio)
+  - [cv::ml::TrainData::shuffleTrainTest](#cvmltraindatashuffletraintest)
+- [cv::ml::StatModel](#cvmlstatmodel)
+  - [cv::ml::StatModel::calcError](#cvmlstatmodelcalcerror)
+  - [cv::ml::StatModel::clear](#cvmlstatmodelclear)
+  - [cv::ml::StatModel::empty](#cvmlstatmodelempty)
+  - [cv::ml::StatModel::getDefaultName](#cvmlstatmodelgetdefaultname)
+  - [cv::ml::StatModel::getVarCount](#cvmlstatmodelgetvarcount)
+  - [cv::ml::StatModel::isClassifier](#cvmlstatmodelisclassifier)
+  - [cv::ml::StatModel::isTrained](#cvmlstatmodelistrained)
+  - [cv::ml::StatModel::predict](#cvmlstatmodelpredict)
+  - [cv::ml::StatModel::read](#cvmlstatmodelread)
+  - [cv::ml::StatModel::save](#cvmlstatmodelsave)
+  - [cv::ml::StatModel::train](#cvmlstatmodeltrain)
+  - [cv::ml::StatModel::write](#cvmlstatmodelwrite)
+- [cv::ml::NormalBayesClassifier](#cvmlnormalbayesclassifier)
+  - [cv::ml::NormalBayesClassifier::get_create](#cvmlnormalbayesclassifierget_create)
+  - [cv::ml::NormalBayesClassifier::calcError](#cvmlnormalbayesclassifiercalcerror)
+  - [cv::ml::NormalBayesClassifier::clear](#cvmlnormalbayesclassifierclear)
+  - [cv::ml::NormalBayesClassifier::empty](#cvmlnormalbayesclassifierempty)
+  - [cv::ml::NormalBayesClassifier::getDefaultName](#cvmlnormalbayesclassifiergetdefaultname)
+  - [cv::ml::NormalBayesClassifier::getVarCount](#cvmlnormalbayesclassifiergetvarcount)
+  - [cv::ml::NormalBayesClassifier::isClassifier](#cvmlnormalbayesclassifierisclassifier)
+  - [cv::ml::NormalBayesClassifier::isTrained](#cvmlnormalbayesclassifieristrained)
+  - [cv::ml::NormalBayesClassifier::load](#cvmlnormalbayesclassifierload)
+  - [cv::ml::NormalBayesClassifier::predict](#cvmlnormalbayesclassifierpredict)
+  - [cv::ml::NormalBayesClassifier::predictProb](#cvmlnormalbayesclassifierpredictprob)
+  - [cv::ml::NormalBayesClassifier::read](#cvmlnormalbayesclassifierread)
+  - [cv::ml::NormalBayesClassifier::save](#cvmlnormalbayesclassifiersave)
+  - [cv::ml::NormalBayesClassifier::train](#cvmlnormalbayesclassifiertrain)
+  - [cv::ml::NormalBayesClassifier::write](#cvmlnormalbayesclassifierwrite)
+- [cv::ml::KNearest](#cvmlknearest)
+  - [cv::ml::KNearest::get_create](#cvmlknearestget_create)
+  - [cv::ml::KNearest::calcError](#cvmlknearestcalcerror)
+  - [cv::ml::KNearest::clear](#cvmlknearestclear)
+  - [cv::ml::KNearest::empty](#cvmlknearestempty)
+  - [cv::ml::KNearest::findNearest](#cvmlknearestfindnearest)
+  - [cv::ml::KNearest::getAlgorithmType](#cvmlknearestgetalgorithmtype)
+  - [cv::ml::KNearest::getDefaultK](#cvmlknearestgetdefaultk)
+  - [cv::ml::KNearest::getDefaultName](#cvmlknearestgetdefaultname)
+  - [cv::ml::KNearest::getEmax](#cvmlknearestgetemax)
+  - [cv::ml::KNearest::getIsClassifier](#cvmlknearestgetisclassifier)
+  - [cv::ml::KNearest::getVarCount](#cvmlknearestgetvarcount)
+  - [cv::ml::KNearest::isClassifier](#cvmlknearestisclassifier)
+  - [cv::ml::KNearest::isTrained](#cvmlknearestistrained)
+  - [cv::ml::KNearest::load](#cvmlknearestload)
+  - [cv::ml::KNearest::predict](#cvmlknearestpredict)
+  - [cv::ml::KNearest::read](#cvmlknearestread)
+  - [cv::ml::KNearest::save](#cvmlknearestsave)
+  - [cv::ml::KNearest::setAlgorithmType](#cvmlknearestsetalgorithmtype)
+  - [cv::ml::KNearest::setDefaultK](#cvmlknearestsetdefaultk)
+  - [cv::ml::KNearest::setEmax](#cvmlknearestsetemax)
+  - [cv::ml::KNearest::setIsClassifier](#cvmlknearestsetisclassifier)
+  - [cv::ml::KNearest::train](#cvmlknearesttrain)
+  - [cv::ml::KNearest::write](#cvmlknearestwrite)
+- [cv::ml::SVM](#cvmlsvm)
+  - [cv::ml::SVM::get_create](#cvmlsvmget_create)
+  - [cv::ml::SVM::calcError](#cvmlsvmcalcerror)
+  - [cv::ml::SVM::clear](#cvmlsvmclear)
+  - [cv::ml::SVM::empty](#cvmlsvmempty)
+  - [cv::ml::SVM::getC](#cvmlsvmgetc)
+  - [cv::ml::SVM::getClassWeights](#cvmlsvmgetclassweights)
+  - [cv::ml::SVM::getCoef0](#cvmlsvmgetcoef0)
+  - [cv::ml::SVM::getDecisionFunction](#cvmlsvmgetdecisionfunction)
+  - [cv::ml::SVM::getDefaultGridPtr](#cvmlsvmgetdefaultgridptr)
+  - [cv::ml::SVM::getDefaultName](#cvmlsvmgetdefaultname)
+  - [cv::ml::SVM::getDegree](#cvmlsvmgetdegree)
+  - [cv::ml::SVM::getGamma](#cvmlsvmgetgamma)
+  - [cv::ml::SVM::getKernelType](#cvmlsvmgetkerneltype)
+  - [cv::ml::SVM::getNu](#cvmlsvmgetnu)
+  - [cv::ml::SVM::getP](#cvmlsvmgetp)
+  - [cv::ml::SVM::getSupportVectors](#cvmlsvmgetsupportvectors)
+  - [cv::ml::SVM::getTermCriteria](#cvmlsvmgettermcriteria)
+  - [cv::ml::SVM::getType](#cvmlsvmgettype)
+  - [cv::ml::SVM::getUncompressedSupportVectors](#cvmlsvmgetuncompressedsupportvectors)
+  - [cv::ml::SVM::getVarCount](#cvmlsvmgetvarcount)
+  - [cv::ml::SVM::isClassifier](#cvmlsvmisclassifier)
+  - [cv::ml::SVM::isTrained](#cvmlsvmistrained)
+  - [cv::ml::SVM::load](#cvmlsvmload)
+  - [cv::ml::SVM::predict](#cvmlsvmpredict)
+  - [cv::ml::SVM::read](#cvmlsvmread)
+  - [cv::ml::SVM::save](#cvmlsvmsave)
+  - [cv::ml::SVM::setC](#cvmlsvmsetc)
+  - [cv::ml::SVM::setClassWeights](#cvmlsvmsetclassweights)
+  - [cv::ml::SVM::setCoef0](#cvmlsvmsetcoef0)
+  - [cv::ml::SVM::setDegree](#cvmlsvmsetdegree)
+  - [cv::ml::SVM::setGamma](#cvmlsvmsetgamma)
+  - [cv::ml::SVM::setKernel](#cvmlsvmsetkernel)
+  - [cv::ml::SVM::setNu](#cvmlsvmsetnu)
+  - [cv::ml::SVM::setP](#cvmlsvmsetp)
+  - [cv::ml::SVM::setTermCriteria](#cvmlsvmsettermcriteria)
+  - [cv::ml::SVM::setType](#cvmlsvmsettype)
+  - [cv::ml::SVM::train](#cvmlsvmtrain)
+  - [cv::ml::SVM::trainAuto](#cvmlsvmtrainauto)
+  - [cv::ml::SVM::write](#cvmlsvmwrite)
+- [cv::ml::EM](#cvmlem)
+  - [cv::ml::EM::get_create](#cvmlemget_create)
+  - [cv::ml::EM::calcError](#cvmlemcalcerror)
+  - [cv::ml::EM::clear](#cvmlemclear)
+  - [cv::ml::EM::empty](#cvmlemempty)
+  - [cv::ml::EM::getClustersNumber](#cvmlemgetclustersnumber)
+  - [cv::ml::EM::getCovarianceMatrixType](#cvmlemgetcovariancematrixtype)
+  - [cv::ml::EM::getCovs](#cvmlemgetcovs)
+  - [cv::ml::EM::getDefaultName](#cvmlemgetdefaultname)
+  - [cv::ml::EM::getMeans](#cvmlemgetmeans)
+  - [cv::ml::EM::getTermCriteria](#cvmlemgettermcriteria)
+  - [cv::ml::EM::getVarCount](#cvmlemgetvarcount)
+  - [cv::ml::EM::getWeights](#cvmlemgetweights)
+  - [cv::ml::EM::isClassifier](#cvmlemisclassifier)
+  - [cv::ml::EM::isTrained](#cvmlemistrained)
+  - [cv::ml::EM::load](#cvmlemload)
+  - [cv::ml::EM::predict](#cvmlempredict)
+  - [cv::ml::EM::predict2](#cvmlempredict2)
+  - [cv::ml::EM::read](#cvmlemread)
+  - [cv::ml::EM::save](#cvmlemsave)
+  - [cv::ml::EM::setClustersNumber](#cvmlemsetclustersnumber)
+  - [cv::ml::EM::setCovarianceMatrixType](#cvmlemsetcovariancematrixtype)
+  - [cv::ml::EM::setTermCriteria](#cvmlemsettermcriteria)
+  - [cv::ml::EM::train](#cvmlemtrain)
+  - [cv::ml::EM::trainE](#cvmlemtraine)
+  - [cv::ml::EM::trainEM](#cvmlemtrainem)
+  - [cv::ml::EM::trainM](#cvmlemtrainm)
+  - [cv::ml::EM::write](#cvmlemwrite)
+- [cv::ml::DTrees](#cvmldtrees)
+  - [cv::ml::DTrees::get_create](#cvmldtreesget_create)
+  - [cv::ml::DTrees::calcError](#cvmldtreescalcerror)
+  - [cv::ml::DTrees::clear](#cvmldtreesclear)
+  - [cv::ml::DTrees::empty](#cvmldtreesempty)
+  - [cv::ml::DTrees::getCVFolds](#cvmldtreesgetcvfolds)
+  - [cv::ml::DTrees::getDefaultName](#cvmldtreesgetdefaultname)
+  - [cv::ml::DTrees::getMaxCategories](#cvmldtreesgetmaxcategories)
+  - [cv::ml::DTrees::getMaxDepth](#cvmldtreesgetmaxdepth)
+  - [cv::ml::DTrees::getMinSampleCount](#cvmldtreesgetminsamplecount)
+  - [cv::ml::DTrees::getPriors](#cvmldtreesgetpriors)
+  - [cv::ml::DTrees::getRegressionAccuracy](#cvmldtreesgetregressionaccuracy)
+  - [cv::ml::DTrees::getTruncatePrunedTree](#cvmldtreesgettruncateprunedtree)
+  - [cv::ml::DTrees::getUse1SERule](#cvmldtreesgetuse1serule)
+  - [cv::ml::DTrees::getUseSurrogates](#cvmldtreesgetusesurrogates)
+  - [cv::ml::DTrees::getVarCount](#cvmldtreesgetvarcount)
+  - [cv::ml::DTrees::isClassifier](#cvmldtreesisclassifier)
+  - [cv::ml::DTrees::isTrained](#cvmldtreesistrained)
+  - [cv::ml::DTrees::load](#cvmldtreesload)
+  - [cv::ml::DTrees::predict](#cvmldtreespredict)
+  - [cv::ml::DTrees::read](#cvmldtreesread)
+  - [cv::ml::DTrees::save](#cvmldtreessave)
+  - [cv::ml::DTrees::setCVFolds](#cvmldtreessetcvfolds)
+  - [cv::ml::DTrees::setMaxCategories](#cvmldtreessetmaxcategories)
+  - [cv::ml::DTrees::setMaxDepth](#cvmldtreessetmaxdepth)
+  - [cv::ml::DTrees::setMinSampleCount](#cvmldtreessetminsamplecount)
+  - [cv::ml::DTrees::setPriors](#cvmldtreessetpriors)
+  - [cv::ml::DTrees::setRegressionAccuracy](#cvmldtreessetregressionaccuracy)
+  - [cv::ml::DTrees::setTruncatePrunedTree](#cvmldtreessettruncateprunedtree)
+  - [cv::ml::DTrees::setUse1SERule](#cvmldtreessetuse1serule)
+  - [cv::ml::DTrees::setUseSurrogates](#cvmldtreessetusesurrogates)
+  - [cv::ml::DTrees::train](#cvmldtreestrain)
+  - [cv::ml::DTrees::write](#cvmldtreeswrite)
+- [cv::ml::RTrees](#cvmlrtrees)
+  - [cv::ml::RTrees::get_create](#cvmlrtreesget_create)
+  - [cv::ml::RTrees::calcError](#cvmlrtreescalcerror)
+  - [cv::ml::RTrees::clear](#cvmlrtreesclear)
+  - [cv::ml::RTrees::empty](#cvmlrtreesempty)
+  - [cv::ml::RTrees::getActiveVarCount](#cvmlrtreesgetactivevarcount)
+  - [cv::ml::RTrees::getCVFolds](#cvmlrtreesgetcvfolds)
+  - [cv::ml::RTrees::getCalculateVarImportance](#cvmlrtreesgetcalculatevarimportance)
+  - [cv::ml::RTrees::getDefaultName](#cvmlrtreesgetdefaultname)
+  - [cv::ml::RTrees::getMaxCategories](#cvmlrtreesgetmaxcategories)
+  - [cv::ml::RTrees::getMaxDepth](#cvmlrtreesgetmaxdepth)
+  - [cv::ml::RTrees::getMinSampleCount](#cvmlrtreesgetminsamplecount)
+  - [cv::ml::RTrees::getOOBError](#cvmlrtreesgetooberror)
+  - [cv::ml::RTrees::getPriors](#cvmlrtreesgetpriors)
+  - [cv::ml::RTrees::getRegressionAccuracy](#cvmlrtreesgetregressionaccuracy)
+  - [cv::ml::RTrees::getTermCriteria](#cvmlrtreesgettermcriteria)
+  - [cv::ml::RTrees::getTruncatePrunedTree](#cvmlrtreesgettruncateprunedtree)
+  - [cv::ml::RTrees::getUse1SERule](#cvmlrtreesgetuse1serule)
+  - [cv::ml::RTrees::getUseSurrogates](#cvmlrtreesgetusesurrogates)
+  - [cv::ml::RTrees::getVarCount](#cvmlrtreesgetvarcount)
+  - [cv::ml::RTrees::getVarImportance](#cvmlrtreesgetvarimportance)
+  - [cv::ml::RTrees::getVotes](#cvmlrtreesgetvotes)
+  - [cv::ml::RTrees::isClassifier](#cvmlrtreesisclassifier)
+  - [cv::ml::RTrees::isTrained](#cvmlrtreesistrained)
+  - [cv::ml::RTrees::load](#cvmlrtreesload)
+  - [cv::ml::RTrees::predict](#cvmlrtreespredict)
+  - [cv::ml::RTrees::read](#cvmlrtreesread)
+  - [cv::ml::RTrees::save](#cvmlrtreessave)
+  - [cv::ml::RTrees::setActiveVarCount](#cvmlrtreessetactivevarcount)
+  - [cv::ml::RTrees::setCVFolds](#cvmlrtreessetcvfolds)
+  - [cv::ml::RTrees::setCalculateVarImportance](#cvmlrtreessetcalculatevarimportance)
+  - [cv::ml::RTrees::setMaxCategories](#cvmlrtreessetmaxcategories)
+  - [cv::ml::RTrees::setMaxDepth](#cvmlrtreessetmaxdepth)
+  - [cv::ml::RTrees::setMinSampleCount](#cvmlrtreessetminsamplecount)
+  - [cv::ml::RTrees::setPriors](#cvmlrtreessetpriors)
+  - [cv::ml::RTrees::setRegressionAccuracy](#cvmlrtreessetregressionaccuracy)
+  - [cv::ml::RTrees::setTermCriteria](#cvmlrtreessettermcriteria)
+  - [cv::ml::RTrees::setTruncatePrunedTree](#cvmlrtreessettruncateprunedtree)
+  - [cv::ml::RTrees::setUse1SERule](#cvmlrtreessetuse1serule)
+  - [cv::ml::RTrees::setUseSurrogates](#cvmlrtreessetusesurrogates)
+  - [cv::ml::RTrees::train](#cvmlrtreestrain)
+  - [cv::ml::RTrees::write](#cvmlrtreeswrite)
+- [cv::ml::Boost](#cvmlboost)
+  - [cv::ml::Boost::get_create](#cvmlboostget_create)
+  - [cv::ml::Boost::calcError](#cvmlboostcalcerror)
+  - [cv::ml::Boost::clear](#cvmlboostclear)
+  - [cv::ml::Boost::empty](#cvmlboostempty)
+  - [cv::ml::Boost::getBoostType](#cvmlboostgetboosttype)
+  - [cv::ml::Boost::getCVFolds](#cvmlboostgetcvfolds)
+  - [cv::ml::Boost::getDefaultName](#cvmlboostgetdefaultname)
+  - [cv::ml::Boost::getMaxCategories](#cvmlboostgetmaxcategories)
+  - [cv::ml::Boost::getMaxDepth](#cvmlboostgetmaxdepth)
+  - [cv::ml::Boost::getMinSampleCount](#cvmlboostgetminsamplecount)
+  - [cv::ml::Boost::getPriors](#cvmlboostgetpriors)
+  - [cv::ml::Boost::getRegressionAccuracy](#cvmlboostgetregressionaccuracy)
+  - [cv::ml::Boost::getTruncatePrunedTree](#cvmlboostgettruncateprunedtree)
+  - [cv::ml::Boost::getUse1SERule](#cvmlboostgetuse1serule)
+  - [cv::ml::Boost::getUseSurrogates](#cvmlboostgetusesurrogates)
+  - [cv::ml::Boost::getVarCount](#cvmlboostgetvarcount)
+  - [cv::ml::Boost::getWeakCount](#cvmlboostgetweakcount)
+  - [cv::ml::Boost::getWeightTrimRate](#cvmlboostgetweighttrimrate)
+  - [cv::ml::Boost::isClassifier](#cvmlboostisclassifier)
+  - [cv::ml::Boost::isTrained](#cvmlboostistrained)
+  - [cv::ml::Boost::load](#cvmlboostload)
+  - [cv::ml::Boost::predict](#cvmlboostpredict)
+  - [cv::ml::Boost::read](#cvmlboostread)
+  - [cv::ml::Boost::save](#cvmlboostsave)
+  - [cv::ml::Boost::setBoostType](#cvmlboostsetboosttype)
+  - [cv::ml::Boost::setCVFolds](#cvmlboostsetcvfolds)
+  - [cv::ml::Boost::setMaxCategories](#cvmlboostsetmaxcategories)
+  - [cv::ml::Boost::setMaxDepth](#cvmlboostsetmaxdepth)
+  - [cv::ml::Boost::setMinSampleCount](#cvmlboostsetminsamplecount)
+  - [cv::ml::Boost::setPriors](#cvmlboostsetpriors)
+  - [cv::ml::Boost::setRegressionAccuracy](#cvmlboostsetregressionaccuracy)
+  - [cv::ml::Boost::setTruncatePrunedTree](#cvmlboostsettruncateprunedtree)
+  - [cv::ml::Boost::setUse1SERule](#cvmlboostsetuse1serule)
+  - [cv::ml::Boost::setUseSurrogates](#cvmlboostsetusesurrogates)
+  - [cv::ml::Boost::setWeakCount](#cvmlboostsetweakcount)
+  - [cv::ml::Boost::setWeightTrimRate](#cvmlboostsetweighttrimrate)
+  - [cv::ml::Boost::train](#cvmlboosttrain)
+  - [cv::ml::Boost::write](#cvmlboostwrite)
+- [cv::ml::ANN_MLP](#cvmlann_mlp)
+  - [cv::ml::ANN_MLP::get_create](#cvmlann_mlpget_create)
+  - [cv::ml::ANN_MLP::calcError](#cvmlann_mlpcalcerror)
+  - [cv::ml::ANN_MLP::clear](#cvmlann_mlpclear)
+  - [cv::ml::ANN_MLP::empty](#cvmlann_mlpempty)
+  - [cv::ml::ANN_MLP::getAnnealCoolingRatio](#cvmlann_mlpgetannealcoolingratio)
+  - [cv::ml::ANN_MLP::getAnnealFinalT](#cvmlann_mlpgetannealfinalt)
+  - [cv::ml::ANN_MLP::getAnnealInitialT](#cvmlann_mlpgetannealinitialt)
+  - [cv::ml::ANN_MLP::getAnnealItePerStep](#cvmlann_mlpgetannealiteperstep)
+  - [cv::ml::ANN_MLP::getBackpropMomentumScale](#cvmlann_mlpgetbackpropmomentumscale)
+  - [cv::ml::ANN_MLP::getBackpropWeightScale](#cvmlann_mlpgetbackpropweightscale)
+  - [cv::ml::ANN_MLP::getDefaultName](#cvmlann_mlpgetdefaultname)
+  - [cv::ml::ANN_MLP::getLayerSizes](#cvmlann_mlpgetlayersizes)
+  - [cv::ml::ANN_MLP::getRpropDW0](#cvmlann_mlpgetrpropdw0)
+  - [cv::ml::ANN_MLP::getRpropDWMax](#cvmlann_mlpgetrpropdwmax)
+  - [cv::ml::ANN_MLP::getRpropDWMin](#cvmlann_mlpgetrpropdwmin)
+  - [cv::ml::ANN_MLP::getRpropDWMinus](#cvmlann_mlpgetrpropdwminus)
+  - [cv::ml::ANN_MLP::getRpropDWPlus](#cvmlann_mlpgetrpropdwplus)
+  - [cv::ml::ANN_MLP::getTermCriteria](#cvmlann_mlpgettermcriteria)
+  - [cv::ml::ANN_MLP::getTrainMethod](#cvmlann_mlpgettrainmethod)
+  - [cv::ml::ANN_MLP::getVarCount](#cvmlann_mlpgetvarcount)
+  - [cv::ml::ANN_MLP::getWeights](#cvmlann_mlpgetweights)
+  - [cv::ml::ANN_MLP::isClassifier](#cvmlann_mlpisclassifier)
+  - [cv::ml::ANN_MLP::isTrained](#cvmlann_mlpistrained)
+  - [cv::ml::ANN_MLP::load](#cvmlann_mlpload)
+  - [cv::ml::ANN_MLP::predict](#cvmlann_mlppredict)
+  - [cv::ml::ANN_MLP::read](#cvmlann_mlpread)
+  - [cv::ml::ANN_MLP::save](#cvmlann_mlpsave)
+  - [cv::ml::ANN_MLP::setActivationFunction](#cvmlann_mlpsetactivationfunction)
+  - [cv::ml::ANN_MLP::setAnnealCoolingRatio](#cvmlann_mlpsetannealcoolingratio)
+  - [cv::ml::ANN_MLP::setAnnealFinalT](#cvmlann_mlpsetannealfinalt)
+  - [cv::ml::ANN_MLP::setAnnealInitialT](#cvmlann_mlpsetannealinitialt)
+  - [cv::ml::ANN_MLP::setAnnealItePerStep](#cvmlann_mlpsetannealiteperstep)
+  - [cv::ml::ANN_MLP::setBackpropMomentumScale](#cvmlann_mlpsetbackpropmomentumscale)
+  - [cv::ml::ANN_MLP::setBackpropWeightScale](#cvmlann_mlpsetbackpropweightscale)
+  - [cv::ml::ANN_MLP::setLayerSizes](#cvmlann_mlpsetlayersizes)
+  - [cv::ml::ANN_MLP::setRpropDW0](#cvmlann_mlpsetrpropdw0)
+  - [cv::ml::ANN_MLP::setRpropDWMax](#cvmlann_mlpsetrpropdwmax)
+  - [cv::ml::ANN_MLP::setRpropDWMin](#cvmlann_mlpsetrpropdwmin)
+  - [cv::ml::ANN_MLP::setRpropDWMinus](#cvmlann_mlpsetrpropdwminus)
+  - [cv::ml::ANN_MLP::setRpropDWPlus](#cvmlann_mlpsetrpropdwplus)
+  - [cv::ml::ANN_MLP::setTermCriteria](#cvmlann_mlpsettermcriteria)
+  - [cv::ml::ANN_MLP::setTrainMethod](#cvmlann_mlpsettrainmethod)
+  - [cv::ml::ANN_MLP::train](#cvmlann_mlptrain)
+  - [cv::ml::ANN_MLP::write](#cvmlann_mlpwrite)
+- [cv::ml::LogisticRegression](#cvmllogisticregression)
+  - [cv::ml::LogisticRegression::get_create](#cvmllogisticregressionget_create)
+  - [cv::ml::LogisticRegression::calcError](#cvmllogisticregressioncalcerror)
+  - [cv::ml::LogisticRegression::clear](#cvmllogisticregressionclear)
+  - [cv::ml::LogisticRegression::empty](#cvmllogisticregressionempty)
+  - [cv::ml::LogisticRegression::getDefaultName](#cvmllogisticregressiongetdefaultname)
+  - [cv::ml::LogisticRegression::getIterations](#cvmllogisticregressiongetiterations)
+  - [cv::ml::LogisticRegression::getLearningRate](#cvmllogisticregressiongetlearningrate)
+  - [cv::ml::LogisticRegression::getMiniBatchSize](#cvmllogisticregressiongetminibatchsize)
+  - [cv::ml::LogisticRegression::getRegularization](#cvmllogisticregressiongetregularization)
+  - [cv::ml::LogisticRegression::getTermCriteria](#cvmllogisticregressiongettermcriteria)
+  - [cv::ml::LogisticRegression::getTrainMethod](#cvmllogisticregressiongettrainmethod)
+  - [cv::ml::LogisticRegression::getVarCount](#cvmllogisticregressiongetvarcount)
+  - [cv::ml::LogisticRegression::get_learnt_thetas](#cvmllogisticregressionget_learnt_thetas)
+  - [cv::ml::LogisticRegression::isClassifier](#cvmllogisticregressionisclassifier)
+  - [cv::ml::LogisticRegression::isTrained](#cvmllogisticregressionistrained)
+  - [cv::ml::LogisticRegression::load](#cvmllogisticregressionload)
+  - [cv::ml::LogisticRegression::predict](#cvmllogisticregressionpredict)
+  - [cv::ml::LogisticRegression::read](#cvmllogisticregressionread)
+  - [cv::ml::LogisticRegression::save](#cvmllogisticregressionsave)
+  - [cv::ml::LogisticRegression::setIterations](#cvmllogisticregressionsetiterations)
+  - [cv::ml::LogisticRegression::setLearningRate](#cvmllogisticregressionsetlearningrate)
+  - [cv::ml::LogisticRegression::setMiniBatchSize](#cvmllogisticregressionsetminibatchsize)
+  - [cv::ml::LogisticRegression::setRegularization](#cvmllogisticregressionsetregularization)
+  - [cv::ml::LogisticRegression::setTermCriteria](#cvmllogisticregressionsettermcriteria)
+  - [cv::ml::LogisticRegression::setTrainMethod](#cvmllogisticregressionsettrainmethod)
+  - [cv::ml::LogisticRegression::train](#cvmllogisticregressiontrain)
+  - [cv::ml::LogisticRegression::write](#cvmllogisticregressionwrite)
+- [cv::ml::SVMSGD](#cvmlsvmsgd)
+  - [cv::ml::SVMSGD::get_create](#cvmlsvmsgdget_create)
+  - [cv::ml::SVMSGD::calcError](#cvmlsvmsgdcalcerror)
+  - [cv::ml::SVMSGD::clear](#cvmlsvmsgdclear)
+  - [cv::ml::SVMSGD::empty](#cvmlsvmsgdempty)
+  - [cv::ml::SVMSGD::getDefaultName](#cvmlsvmsgdgetdefaultname)
+  - [cv::ml::SVMSGD::getInitialStepSize](#cvmlsvmsgdgetinitialstepsize)
+  - [cv::ml::SVMSGD::getMarginRegularization](#cvmlsvmsgdgetmarginregularization)
+  - [cv::ml::SVMSGD::getMarginType](#cvmlsvmsgdgetmargintype)
+  - [cv::ml::SVMSGD::getShift](#cvmlsvmsgdgetshift)
+  - [cv::ml::SVMSGD::getStepDecreasingPower](#cvmlsvmsgdgetstepdecreasingpower)
+  - [cv::ml::SVMSGD::getSvmsgdType](#cvmlsvmsgdgetsvmsgdtype)
+  - [cv::ml::SVMSGD::getTermCriteria](#cvmlsvmsgdgettermcriteria)
+  - [cv::ml::SVMSGD::getVarCount](#cvmlsvmsgdgetvarcount)
+  - [cv::ml::SVMSGD::getWeights](#cvmlsvmsgdgetweights)
+  - [cv::ml::SVMSGD::isClassifier](#cvmlsvmsgdisclassifier)
+  - [cv::ml::SVMSGD::isTrained](#cvmlsvmsgdistrained)
+  - [cv::ml::SVMSGD::load](#cvmlsvmsgdload)
+  - [cv::ml::SVMSGD::predict](#cvmlsvmsgdpredict)
+  - [cv::ml::SVMSGD::read](#cvmlsvmsgdread)
+  - [cv::ml::SVMSGD::save](#cvmlsvmsgdsave)
+  - [cv::ml::SVMSGD::setInitialStepSize](#cvmlsvmsgdsetinitialstepsize)
+  - [cv::ml::SVMSGD::setMarginRegularization](#cvmlsvmsgdsetmarginregularization)
+  - [cv::ml::SVMSGD::setMarginType](#cvmlsvmsgdsetmargintype)
+  - [cv::ml::SVMSGD::setOptimalParameters](#cvmlsvmsgdsetoptimalparameters)
+  - [cv::ml::SVMSGD::setStepDecreasingPower](#cvmlsvmsgdsetstepdecreasingpower)
+  - [cv::ml::SVMSGD::setSvmsgdType](#cvmlsvmsgdsetsvmsgdtype)
+  - [cv::ml::SVMSGD::setTermCriteria](#cvmlsvmsgdsettermcriteria)
+  - [cv::ml::SVMSGD::train](#cvmlsvmsgdtrain)
+  - [cv::ml::SVMSGD::write](#cvmlsvmsgdwrite)
+- [cv::Tonemap](#cvtonemap)
+  - [cv::Tonemap::clear](#cvtonemapclear)
+  - [cv::Tonemap::empty](#cvtonemapempty)
+  - [cv::Tonemap::getDefaultName](#cvtonemapgetdefaultname)
+  - [cv::Tonemap::getGamma](#cvtonemapgetgamma)
+  - [cv::Tonemap::process](#cvtonemapprocess)
+  - [cv::Tonemap::read](#cvtonemapread)
+  - [cv::Tonemap::save](#cvtonemapsave)
+  - [cv::Tonemap::setGamma](#cvtonemapsetgamma)
+  - [cv::Tonemap::write](#cvtonemapwrite)
+- [cv::TonemapDrago](#cvtonemapdrago)
+  - [cv::TonemapDrago::clear](#cvtonemapdragoclear)
+  - [cv::TonemapDrago::empty](#cvtonemapdragoempty)
+  - [cv::TonemapDrago::getBias](#cvtonemapdragogetbias)
+  - [cv::TonemapDrago::getDefaultName](#cvtonemapdragogetdefaultname)
+  - [cv::TonemapDrago::getGamma](#cvtonemapdragogetgamma)
+  - [cv::TonemapDrago::getSaturation](#cvtonemapdragogetsaturation)
+  - [cv::TonemapDrago::process](#cvtonemapdragoprocess)
+  - [cv::TonemapDrago::read](#cvtonemapdragoread)
+  - [cv::TonemapDrago::save](#cvtonemapdragosave)
+  - [cv::TonemapDrago::setBias](#cvtonemapdragosetbias)
+  - [cv::TonemapDrago::setGamma](#cvtonemapdragosetgamma)
+  - [cv::TonemapDrago::setSaturation](#cvtonemapdragosetsaturation)
+  - [cv::TonemapDrago::write](#cvtonemapdragowrite)
+- [cv::TonemapReinhard](#cvtonemapreinhard)
+  - [cv::TonemapReinhard::clear](#cvtonemapreinhardclear)
+  - [cv::TonemapReinhard::empty](#cvtonemapreinhardempty)
+  - [cv::TonemapReinhard::getColorAdaptation](#cvtonemapreinhardgetcoloradaptation)
+  - [cv::TonemapReinhard::getDefaultName](#cvtonemapreinhardgetdefaultname)
+  - [cv::TonemapReinhard::getGamma](#cvtonemapreinhardgetgamma)
+  - [cv::TonemapReinhard::getIntensity](#cvtonemapreinhardgetintensity)
+  - [cv::TonemapReinhard::getLightAdaptation](#cvtonemapreinhardgetlightadaptation)
+  - [cv::TonemapReinhard::process](#cvtonemapreinhardprocess)
+  - [cv::TonemapReinhard::read](#cvtonemapreinhardread)
+  - [cv::TonemapReinhard::save](#cvtonemapreinhardsave)
+  - [cv::TonemapReinhard::setColorAdaptation](#cvtonemapreinhardsetcoloradaptation)
+  - [cv::TonemapReinhard::setGamma](#cvtonemapreinhardsetgamma)
+  - [cv::TonemapReinhard::setIntensity](#cvtonemapreinhardsetintensity)
+  - [cv::TonemapReinhard::setLightAdaptation](#cvtonemapreinhardsetlightadaptation)
+  - [cv::TonemapReinhard::write](#cvtonemapreinhardwrite)
+- [cv::TonemapMantiuk](#cvtonemapmantiuk)
+  - [cv::TonemapMantiuk::clear](#cvtonemapmantiukclear)
+  - [cv::TonemapMantiuk::empty](#cvtonemapmantiukempty)
+  - [cv::TonemapMantiuk::getDefaultName](#cvtonemapmantiukgetdefaultname)
+  - [cv::TonemapMantiuk::getGamma](#cvtonemapmantiukgetgamma)
+  - [cv::TonemapMantiuk::getSaturation](#cvtonemapmantiukgetsaturation)
+  - [cv::TonemapMantiuk::getScale](#cvtonemapmantiukgetscale)
+  - [cv::TonemapMantiuk::process](#cvtonemapmantiukprocess)
+  - [cv::TonemapMantiuk::read](#cvtonemapmantiukread)
+  - [cv::TonemapMantiuk::save](#cvtonemapmantiuksave)
+  - [cv::TonemapMantiuk::setGamma](#cvtonemapmantiuksetgamma)
+  - [cv::TonemapMantiuk::setSaturation](#cvtonemapmantiuksetsaturation)
+  - [cv::TonemapMantiuk::setScale](#cvtonemapmantiuksetscale)
+  - [cv::TonemapMantiuk::write](#cvtonemapmantiukwrite)
+- [cv::AlignExposures](#cvalignexposures)
+  - [cv::AlignExposures::clear](#cvalignexposuresclear)
+  - [cv::AlignExposures::empty](#cvalignexposuresempty)
+  - [cv::AlignExposures::getDefaultName](#cvalignexposuresgetdefaultname)
+  - [cv::AlignExposures::process](#cvalignexposuresprocess)
+  - [cv::AlignExposures::read](#cvalignexposuresread)
+  - [cv::AlignExposures::save](#cvalignexposuressave)
+  - [cv::AlignExposures::write](#cvalignexposureswrite)
+- [cv::AlignMTB](#cvalignmtb)
+  - [cv::AlignMTB::calculateShift](#cvalignmtbcalculateshift)
+  - [cv::AlignMTB::clear](#cvalignmtbclear)
+  - [cv::AlignMTB::computeBitmaps](#cvalignmtbcomputebitmaps)
+  - [cv::AlignMTB::empty](#cvalignmtbempty)
+  - [cv::AlignMTB::getCut](#cvalignmtbgetcut)
+  - [cv::AlignMTB::getDefaultName](#cvalignmtbgetdefaultname)
+  - [cv::AlignMTB::getExcludeRange](#cvalignmtbgetexcluderange)
+  - [cv::AlignMTB::getMaxBits](#cvalignmtbgetmaxbits)
+  - [cv::AlignMTB::process](#cvalignmtbprocess)
+  - [cv::AlignMTB::read](#cvalignmtbread)
+  - [cv::AlignMTB::save](#cvalignmtbsave)
+  - [cv::AlignMTB::setCut](#cvalignmtbsetcut)
+  - [cv::AlignMTB::setExcludeRange](#cvalignmtbsetexcluderange)
+  - [cv::AlignMTB::setMaxBits](#cvalignmtbsetmaxbits)
+  - [cv::AlignMTB::shiftMat](#cvalignmtbshiftmat)
+  - [cv::AlignMTB::write](#cvalignmtbwrite)
+- [cv::CalibrateCRF](#cvcalibratecrf)
+  - [cv::CalibrateCRF::clear](#cvcalibratecrfclear)
+  - [cv::CalibrateCRF::empty](#cvcalibratecrfempty)
+  - [cv::CalibrateCRF::getDefaultName](#cvcalibratecrfgetdefaultname)
+  - [cv::CalibrateCRF::process](#cvcalibratecrfprocess)
+  - [cv::CalibrateCRF::read](#cvcalibratecrfread)
+  - [cv::CalibrateCRF::save](#cvcalibratecrfsave)
+  - [cv::CalibrateCRF::write](#cvcalibratecrfwrite)
+- [cv::CalibrateDebevec](#cvcalibratedebevec)
+  - [cv::CalibrateDebevec::clear](#cvcalibratedebevecclear)
+  - [cv::CalibrateDebevec::empty](#cvcalibratedebevecempty)
+  - [cv::CalibrateDebevec::getDefaultName](#cvcalibratedebevecgetdefaultname)
+  - [cv::CalibrateDebevec::getLambda](#cvcalibratedebevecgetlambda)
+  - [cv::CalibrateDebevec::getRandom](#cvcalibratedebevecgetrandom)
+  - [cv::CalibrateDebevec::getSamples](#cvcalibratedebevecgetsamples)
+  - [cv::CalibrateDebevec::process](#cvcalibratedebevecprocess)
+  - [cv::CalibrateDebevec::read](#cvcalibratedebevecread)
+  - [cv::CalibrateDebevec::save](#cvcalibratedebevecsave)
+  - [cv::CalibrateDebevec::setLambda](#cvcalibratedebevecsetlambda)
+  - [cv::CalibrateDebevec::setRandom](#cvcalibratedebevecsetrandom)
+  - [cv::CalibrateDebevec::setSamples](#cvcalibratedebevecsetsamples)
+  - [cv::CalibrateDebevec::write](#cvcalibratedebevecwrite)
+- [cv::CalibrateRobertson](#cvcalibraterobertson)
+  - [cv::CalibrateRobertson::clear](#cvcalibraterobertsonclear)
+  - [cv::CalibrateRobertson::empty](#cvcalibraterobertsonempty)
+  - [cv::CalibrateRobertson::getDefaultName](#cvcalibraterobertsongetdefaultname)
+  - [cv::CalibrateRobertson::getMaxIter](#cvcalibraterobertsongetmaxiter)
+  - [cv::CalibrateRobertson::getRadiance](#cvcalibraterobertsongetradiance)
+  - [cv::CalibrateRobertson::getThreshold](#cvcalibraterobertsongetthreshold)
+  - [cv::CalibrateRobertson::process](#cvcalibraterobertsonprocess)
+  - [cv::CalibrateRobertson::read](#cvcalibraterobertsonread)
+  - [cv::CalibrateRobertson::save](#cvcalibraterobertsonsave)
+  - [cv::CalibrateRobertson::setMaxIter](#cvcalibraterobertsonsetmaxiter)
+  - [cv::CalibrateRobertson::setThreshold](#cvcalibraterobertsonsetthreshold)
+  - [cv::CalibrateRobertson::write](#cvcalibraterobertsonwrite)
+- [cv::MergeExposures](#cvmergeexposures)
+  - [cv::MergeExposures::clear](#cvmergeexposuresclear)
+  - [cv::MergeExposures::empty](#cvmergeexposuresempty)
+  - [cv::MergeExposures::getDefaultName](#cvmergeexposuresgetdefaultname)
+  - [cv::MergeExposures::process](#cvmergeexposuresprocess)
+  - [cv::MergeExposures::read](#cvmergeexposuresread)
+  - [cv::MergeExposures::save](#cvmergeexposuressave)
+  - [cv::MergeExposures::write](#cvmergeexposureswrite)
+- [cv::MergeDebevec](#cvmergedebevec)
+  - [cv::MergeDebevec::clear](#cvmergedebevecclear)
+  - [cv::MergeDebevec::empty](#cvmergedebevecempty)
+  - [cv::MergeDebevec::getDefaultName](#cvmergedebevecgetdefaultname)
+  - [cv::MergeDebevec::process](#cvmergedebevecprocess)
+  - [cv::MergeDebevec::read](#cvmergedebevecread)
+  - [cv::MergeDebevec::save](#cvmergedebevecsave)
+  - [cv::MergeDebevec::write](#cvmergedebevecwrite)
+- [cv::MergeMertens](#cvmergemertens)
+  - [cv::MergeMertens::clear](#cvmergemertensclear)
+  - [cv::MergeMertens::empty](#cvmergemertensempty)
+  - [cv::MergeMertens::getContrastWeight](#cvmergemertensgetcontrastweight)
+  - [cv::MergeMertens::getDefaultName](#cvmergemertensgetdefaultname)
+  - [cv::MergeMertens::getExposureWeight](#cvmergemertensgetexposureweight)
+  - [cv::MergeMertens::getSaturationWeight](#cvmergemertensgetsaturationweight)
+  - [cv::MergeMertens::process](#cvmergemertensprocess)
+  - [cv::MergeMertens::read](#cvmergemertensread)
+  - [cv::MergeMertens::save](#cvmergemertenssave)
+  - [cv::MergeMertens::setContrastWeight](#cvmergemertenssetcontrastweight)
+  - [cv::MergeMertens::setExposureWeight](#cvmergemertenssetexposureweight)
+  - [cv::MergeMertens::setSaturationWeight](#cvmergemertenssetsaturationweight)
+  - [cv::MergeMertens::write](#cvmergemertenswrite)
+- [cv::MergeRobertson](#cvmergerobertson)
+  - [cv::MergeRobertson::clear](#cvmergerobertsonclear)
+  - [cv::MergeRobertson::empty](#cvmergerobertsonempty)
+  - [cv::MergeRobertson::getDefaultName](#cvmergerobertsongetdefaultname)
+  - [cv::MergeRobertson::process](#cvmergerobertsonprocess)
+  - [cv::MergeRobertson::read](#cvmergerobertsonread)
+  - [cv::MergeRobertson::save](#cvmergerobertsonsave)
+  - [cv::MergeRobertson::write](#cvmergerobertsonwrite)
+- [cv::dnn](#cvdnn)
+  - [cv::dnn::NMSBoxes](#cvdnnnmsboxes)
+  - [cv::dnn::NMSBoxesRotated](#cvdnnnmsboxesrotated)
+  - [cv::dnn::blobFromImage](#cvdnnblobfromimage)
+  - [cv::dnn::blobFromImages](#cvdnnblobfromimages)
+  - [cv::dnn::getAvailableTargets](#cvdnngetavailabletargets)
+  - [cv::dnn::imagesFromBlob](#cvdnnimagesfromblob)
+  - [cv::dnn::readNet](#cvdnnreadnet)
+  - [cv::dnn::readNetFromCaffe](#cvdnnreadnetfromcaffe)
+  - [cv::dnn::readNetFromDarknet](#cvdnnreadnetfromdarknet)
+  - [cv::dnn::readNetFromModelOptimizer](#cvdnnreadnetfrommodeloptimizer)
+  - [cv::dnn::readNetFromONNX](#cvdnnreadnetfromonnx)
+  - [cv::dnn::readNetFromTensorflow](#cvdnnreadnetfromtensorflow)
+  - [cv::dnn::readNetFromTorch](#cvdnnreadnetfromtorch)
+  - [cv::dnn::readTensorFromONNX](#cvdnnreadtensorfromonnx)
+  - [cv::dnn::readTorchBlob](#cvdnnreadtorchblob)
+  - [cv::dnn::shrinkCaffeModel](#cvdnnshrinkcaffemodel)
+  - [cv::dnn::softNMSBoxes](#cvdnnsoftnmsboxes)
+  - [cv::dnn::writeTextGraph](#cvdnnwritetextgraph)
+- [cv::dnn::DictValue](#cvdnndictvalue)
+  - [cv::dnn::DictValue::get_create](#cvdnndictvalueget_create)
+  - [cv::dnn::DictValue::getIntValue](#cvdnndictvaluegetintvalue)
+  - [cv::dnn::DictValue::getRealValue](#cvdnndictvaluegetrealvalue)
+  - [cv::dnn::DictValue::getStringValue](#cvdnndictvaluegetstringvalue)
+  - [cv::dnn::DictValue::isInt](#cvdnndictvalueisint)
+  - [cv::dnn::DictValue::isReal](#cvdnndictvalueisreal)
+  - [cv::dnn::DictValue::isString](#cvdnndictvalueisstring)
+- [cv::dnn::Layer](#cvdnnlayer)
+  - [cv::dnn::Layer::clear](#cvdnnlayerclear)
+  - [cv::dnn::Layer::empty](#cvdnnlayerempty)
+  - [cv::dnn::Layer::finalize](#cvdnnlayerfinalize)
+  - [cv::dnn::Layer::getDefaultName](#cvdnnlayergetdefaultname)
+  - [cv::dnn::Layer::outputNameToIndex](#cvdnnlayeroutputnametoindex)
+  - [cv::dnn::Layer::read](#cvdnnlayerread)
+  - [cv::dnn::Layer::run](#cvdnnlayerrun)
+  - [cv::dnn::Layer::save](#cvdnnlayersave)
+  - [cv::dnn::Layer::write](#cvdnnlayerwrite)
+- [cv::dnn::Net](#cvdnnnet)
+  - [cv::dnn::Net::get_create](#cvdnnnetget_create)
+  - [cv::dnn::Net::connect](#cvdnnnetconnect)
+  - [cv::dnn::Net::dump](#cvdnnnetdump)
+  - [cv::dnn::Net::dumpToFile](#cvdnnnetdumptofile)
+  - [cv::dnn::Net::empty](#cvdnnnetempty)
+  - [cv::dnn::Net::enableFusion](#cvdnnnetenablefusion)
+  - [cv::dnn::Net::forward](#cvdnnnetforward)
+  - [cv::dnn::Net::forwardAndRetrieve](#cvdnnnetforwardandretrieve)
+  - [cv::dnn::Net::forwardAsync](#cvdnnnetforwardasync)
+  - [cv::dnn::Net::getFLOPS](#cvdnnnetgetflops)
+  - [cv::dnn::Net::getInputDetails](#cvdnnnetgetinputdetails)
+  - [cv::dnn::Net::getLayer](#cvdnnnetgetlayer)
+  - [cv::dnn::Net::getLayerId](#cvdnnnetgetlayerid)
+  - [cv::dnn::Net::getLayerNames](#cvdnnnetgetlayernames)
+  - [cv::dnn::Net::getLayerTypes](#cvdnnnetgetlayertypes)
+  - [cv::dnn::Net::getLayersCount](#cvdnnnetgetlayerscount)
+  - [cv::dnn::Net::getLayersShapes](#cvdnnnetgetlayersshapes)
+  - [cv::dnn::Net::getMemoryConsumption](#cvdnnnetgetmemoryconsumption)
+  - [cv::dnn::Net::getOutputDetails](#cvdnnnetgetoutputdetails)
+  - [cv::dnn::Net::getParam](#cvdnnnetgetparam)
+  - [cv::dnn::Net::getPerfProfile](#cvdnnnetgetperfprofile)
+  - [cv::dnn::Net::getUnconnectedOutLayers](#cvdnnnetgetunconnectedoutlayers)
+  - [cv::dnn::Net::getUnconnectedOutLayersNames](#cvdnnnetgetunconnectedoutlayersnames)
+  - [cv::dnn::Net::quantize](#cvdnnnetquantize)
+  - [cv::dnn::Net::readFromModelOptimizer](#cvdnnnetreadfrommodeloptimizer)
+  - [cv::dnn::Net::setHalideScheduler](#cvdnnnetsethalidescheduler)
+  - [cv::dnn::Net::setInput](#cvdnnnetsetinput)
+  - [cv::dnn::Net::setInputShape](#cvdnnnetsetinputshape)
+  - [cv::dnn::Net::setInputsNames](#cvdnnnetsetinputsnames)
+  - [cv::dnn::Net::setParam](#cvdnnnetsetparam)
+  - [cv::dnn::Net::setPreferableBackend](#cvdnnnetsetpreferablebackend)
+  - [cv::dnn::Net::setPreferableTarget](#cvdnnnetsetpreferabletarget)
+- [cv::dnn::Model](#cvdnnmodel)
+  - [cv::dnn::Model::get_create](#cvdnnmodelget_create)
+  - [cv::dnn::Model::predict](#cvdnnmodelpredict)
+  - [cv::dnn::Model::setInputCrop](#cvdnnmodelsetinputcrop)
+  - [cv::dnn::Model::setInputMean](#cvdnnmodelsetinputmean)
+  - [cv::dnn::Model::setInputParams](#cvdnnmodelsetinputparams)
+  - [cv::dnn::Model::setInputScale](#cvdnnmodelsetinputscale)
+  - [cv::dnn::Model::setInputSize](#cvdnnmodelsetinputsize)
+  - [cv::dnn::Model::setInputSwapRB](#cvdnnmodelsetinputswaprb)
+  - [cv::dnn::Model::setPreferableBackend](#cvdnnmodelsetpreferablebackend)
+  - [cv::dnn::Model::setPreferableTarget](#cvdnnmodelsetpreferabletarget)
+- [cv::dnn::ClassificationModel](#cvdnnclassificationmodel)
+  - [cv::dnn::ClassificationModel::get_create](#cvdnnclassificationmodelget_create)
+  - [cv::dnn::ClassificationModel::classify](#cvdnnclassificationmodelclassify)
+  - [cv::dnn::ClassificationModel::getEnableSoftmaxPostProcessing](#cvdnnclassificationmodelgetenablesoftmaxpostprocessing)
+  - [cv::dnn::ClassificationModel::predict](#cvdnnclassificationmodelpredict)
+  - [cv::dnn::ClassificationModel::setEnableSoftmaxPostProcessing](#cvdnnclassificationmodelsetenablesoftmaxpostprocessing)
+  - [cv::dnn::ClassificationModel::setInputCrop](#cvdnnclassificationmodelsetinputcrop)
+  - [cv::dnn::ClassificationModel::setInputMean](#cvdnnclassificationmodelsetinputmean)
+  - [cv::dnn::ClassificationModel::setInputParams](#cvdnnclassificationmodelsetinputparams)
+  - [cv::dnn::ClassificationModel::setInputScale](#cvdnnclassificationmodelsetinputscale)
+  - [cv::dnn::ClassificationModel::setInputSize](#cvdnnclassificationmodelsetinputsize)
+  - [cv::dnn::ClassificationModel::setInputSwapRB](#cvdnnclassificationmodelsetinputswaprb)
+  - [cv::dnn::ClassificationModel::setPreferableBackend](#cvdnnclassificationmodelsetpreferablebackend)
+  - [cv::dnn::ClassificationModel::setPreferableTarget](#cvdnnclassificationmodelsetpreferabletarget)
+- [cv::dnn::KeypointsModel](#cvdnnkeypointsmodel)
+  - [cv::dnn::KeypointsModel::get_create](#cvdnnkeypointsmodelget_create)
+  - [cv::dnn::KeypointsModel::estimate](#cvdnnkeypointsmodelestimate)
+  - [cv::dnn::KeypointsModel::predict](#cvdnnkeypointsmodelpredict)
+  - [cv::dnn::KeypointsModel::setInputCrop](#cvdnnkeypointsmodelsetinputcrop)
+  - [cv::dnn::KeypointsModel::setInputMean](#cvdnnkeypointsmodelsetinputmean)
+  - [cv::dnn::KeypointsModel::setInputParams](#cvdnnkeypointsmodelsetinputparams)
+  - [cv::dnn::KeypointsModel::setInputScale](#cvdnnkeypointsmodelsetinputscale)
+  - [cv::dnn::KeypointsModel::setInputSize](#cvdnnkeypointsmodelsetinputsize)
+  - [cv::dnn::KeypointsModel::setInputSwapRB](#cvdnnkeypointsmodelsetinputswaprb)
+  - [cv::dnn::KeypointsModel::setPreferableBackend](#cvdnnkeypointsmodelsetpreferablebackend)
+  - [cv::dnn::KeypointsModel::setPreferableTarget](#cvdnnkeypointsmodelsetpreferabletarget)
+- [cv::dnn::SegmentationModel](#cvdnnsegmentationmodel)
+  - [cv::dnn::SegmentationModel::get_create](#cvdnnsegmentationmodelget_create)
+  - [cv::dnn::SegmentationModel::predict](#cvdnnsegmentationmodelpredict)
+  - [cv::dnn::SegmentationModel::segment](#cvdnnsegmentationmodelsegment)
+  - [cv::dnn::SegmentationModel::setInputCrop](#cvdnnsegmentationmodelsetinputcrop)
+  - [cv::dnn::SegmentationModel::setInputMean](#cvdnnsegmentationmodelsetinputmean)
+  - [cv::dnn::SegmentationModel::setInputParams](#cvdnnsegmentationmodelsetinputparams)
+  - [cv::dnn::SegmentationModel::setInputScale](#cvdnnsegmentationmodelsetinputscale)
+  - [cv::dnn::SegmentationModel::setInputSize](#cvdnnsegmentationmodelsetinputsize)
+  - [cv::dnn::SegmentationModel::setInputSwapRB](#cvdnnsegmentationmodelsetinputswaprb)
+  - [cv::dnn::SegmentationModel::setPreferableBackend](#cvdnnsegmentationmodelsetpreferablebackend)
+  - [cv::dnn::SegmentationModel::setPreferableTarget](#cvdnnsegmentationmodelsetpreferabletarget)
+- [cv::dnn::DetectionModel](#cvdnndetectionmodel)
+  - [cv::dnn::DetectionModel::get_create](#cvdnndetectionmodelget_create)
+  - [cv::dnn::DetectionModel::detect](#cvdnndetectionmodeldetect)
+  - [cv::dnn::DetectionModel::getNmsAcrossClasses](#cvdnndetectionmodelgetnmsacrossclasses)
+  - [cv::dnn::DetectionModel::predict](#cvdnndetectionmodelpredict)
+  - [cv::dnn::DetectionModel::setInputCrop](#cvdnndetectionmodelsetinputcrop)
+  - [cv::dnn::DetectionModel::setInputMean](#cvdnndetectionmodelsetinputmean)
+  - [cv::dnn::DetectionModel::setInputParams](#cvdnndetectionmodelsetinputparams)
+  - [cv::dnn::DetectionModel::setInputScale](#cvdnndetectionmodelsetinputscale)
+  - [cv::dnn::DetectionModel::setInputSize](#cvdnndetectionmodelsetinputsize)
+  - [cv::dnn::DetectionModel::setInputSwapRB](#cvdnndetectionmodelsetinputswaprb)
+  - [cv::dnn::DetectionModel::setNmsAcrossClasses](#cvdnndetectionmodelsetnmsacrossclasses)
+  - [cv::dnn::DetectionModel::setPreferableBackend](#cvdnndetectionmodelsetpreferablebackend)
+  - [cv::dnn::DetectionModel::setPreferableTarget](#cvdnndetectionmodelsetpreferabletarget)
+- [cv::dnn::TextRecognitionModel](#cvdnntextrecognitionmodel)
+  - [cv::dnn::TextRecognitionModel::get_create](#cvdnntextrecognitionmodelget_create)
+  - [cv::dnn::TextRecognitionModel::getDecodeType](#cvdnntextrecognitionmodelgetdecodetype)
+  - [cv::dnn::TextRecognitionModel::getVocabulary](#cvdnntextrecognitionmodelgetvocabulary)
+  - [cv::dnn::TextRecognitionModel::predict](#cvdnntextrecognitionmodelpredict)
+  - [cv::dnn::TextRecognitionModel::recognize](#cvdnntextrecognitionmodelrecognize)
+  - [cv::dnn::TextRecognitionModel::setDecodeOptsCTCPrefixBeamSearch](#cvdnntextrecognitionmodelsetdecodeoptsctcprefixbeamsearch)
+  - [cv::dnn::TextRecognitionModel::setDecodeType](#cvdnntextrecognitionmodelsetdecodetype)
+  - [cv::dnn::TextRecognitionModel::setInputCrop](#cvdnntextrecognitionmodelsetinputcrop)
+  - [cv::dnn::TextRecognitionModel::setInputMean](#cvdnntextrecognitionmodelsetinputmean)
+  - [cv::dnn::TextRecognitionModel::setInputParams](#cvdnntextrecognitionmodelsetinputparams)
+  - [cv::dnn::TextRecognitionModel::setInputScale](#cvdnntextrecognitionmodelsetinputscale)
+  - [cv::dnn::TextRecognitionModel::setInputSize](#cvdnntextrecognitionmodelsetinputsize)
+  - [cv::dnn::TextRecognitionModel::setInputSwapRB](#cvdnntextrecognitionmodelsetinputswaprb)
+  - [cv::dnn::TextRecognitionModel::setPreferableBackend](#cvdnntextrecognitionmodelsetpreferablebackend)
+  - [cv::dnn::TextRecognitionModel::setPreferableTarget](#cvdnntextrecognitionmodelsetpreferabletarget)
+  - [cv::dnn::TextRecognitionModel::setVocabulary](#cvdnntextrecognitionmodelsetvocabulary)
+- [cv::dnn::TextDetectionModel](#cvdnntextdetectionmodel)
+  - [cv::dnn::TextDetectionModel::detect](#cvdnntextdetectionmodeldetect)
+  - [cv::dnn::TextDetectionModel::detectTextRectangles](#cvdnntextdetectionmodeldetecttextrectangles)
+  - [cv::dnn::TextDetectionModel::predict](#cvdnntextdetectionmodelpredict)
+  - [cv::dnn::TextDetectionModel::setInputCrop](#cvdnntextdetectionmodelsetinputcrop)
+  - [cv::dnn::TextDetectionModel::setInputMean](#cvdnntextdetectionmodelsetinputmean)
+  - [cv::dnn::TextDetectionModel::setInputParams](#cvdnntextdetectionmodelsetinputparams)
+  - [cv::dnn::TextDetectionModel::setInputScale](#cvdnntextdetectionmodelsetinputscale)
+  - [cv::dnn::TextDetectionModel::setInputSize](#cvdnntextdetectionmodelsetinputsize)
+  - [cv::dnn::TextDetectionModel::setInputSwapRB](#cvdnntextdetectionmodelsetinputswaprb)
+  - [cv::dnn::TextDetectionModel::setPreferableBackend](#cvdnntextdetectionmodelsetpreferablebackend)
+  - [cv::dnn::TextDetectionModel::setPreferableTarget](#cvdnntextdetectionmodelsetpreferabletarget)
+- [cv::dnn::TextDetectionModel_EAST](#cvdnntextdetectionmodel_east)
+  - [cv::dnn::TextDetectionModel_EAST::get_create](#cvdnntextdetectionmodel_eastget_create)
+  - [cv::dnn::TextDetectionModel_EAST::detect](#cvdnntextdetectionmodel_eastdetect)
+  - [cv::dnn::TextDetectionModel_EAST::detectTextRectangles](#cvdnntextdetectionmodel_eastdetecttextrectangles)
+  - [cv::dnn::TextDetectionModel_EAST::getConfidenceThreshold](#cvdnntextdetectionmodel_eastgetconfidencethreshold)
+  - [cv::dnn::TextDetectionModel_EAST::getNMSThreshold](#cvdnntextdetectionmodel_eastgetnmsthreshold)
+  - [cv::dnn::TextDetectionModel_EAST::predict](#cvdnntextdetectionmodel_eastpredict)
+  - [cv::dnn::TextDetectionModel_EAST::setConfidenceThreshold](#cvdnntextdetectionmodel_eastsetconfidencethreshold)
+  - [cv::dnn::TextDetectionModel_EAST::setInputCrop](#cvdnntextdetectionmodel_eastsetinputcrop)
+  - [cv::dnn::TextDetectionModel_EAST::setInputMean](#cvdnntextdetectionmodel_eastsetinputmean)
+  - [cv::dnn::TextDetectionModel_EAST::setInputParams](#cvdnntextdetectionmodel_eastsetinputparams)
+  - [cv::dnn::TextDetectionModel_EAST::setInputScale](#cvdnntextdetectionmodel_eastsetinputscale)
+  - [cv::dnn::TextDetectionModel_EAST::setInputSize](#cvdnntextdetectionmodel_eastsetinputsize)
+  - [cv::dnn::TextDetectionModel_EAST::setInputSwapRB](#cvdnntextdetectionmodel_eastsetinputswaprb)
+  - [cv::dnn::TextDetectionModel_EAST::setNMSThreshold](#cvdnntextdetectionmodel_eastsetnmsthreshold)
+  - [cv::dnn::TextDetectionModel_EAST::setPreferableBackend](#cvdnntextdetectionmodel_eastsetpreferablebackend)
+  - [cv::dnn::TextDetectionModel_EAST::setPreferableTarget](#cvdnntextdetectionmodel_eastsetpreferabletarget)
+- [cv::dnn::TextDetectionModel_DB](#cvdnntextdetectionmodel_db)
+  - [cv::dnn::TextDetectionModel_DB::get_create](#cvdnntextdetectionmodel_dbget_create)
+  - [cv::dnn::TextDetectionModel_DB::detect](#cvdnntextdetectionmodel_dbdetect)
+  - [cv::dnn::TextDetectionModel_DB::detectTextRectangles](#cvdnntextdetectionmodel_dbdetecttextrectangles)
+  - [cv::dnn::TextDetectionModel_DB::getBinaryThreshold](#cvdnntextdetectionmodel_dbgetbinarythreshold)
+  - [cv::dnn::TextDetectionModel_DB::getMaxCandidates](#cvdnntextdetectionmodel_dbgetmaxcandidates)
+  - [cv::dnn::TextDetectionModel_DB::getPolygonThreshold](#cvdnntextdetectionmodel_dbgetpolygonthreshold)
+  - [cv::dnn::TextDetectionModel_DB::getUnclipRatio](#cvdnntextdetectionmodel_dbgetunclipratio)
+  - [cv::dnn::TextDetectionModel_DB::predict](#cvdnntextdetectionmodel_dbpredict)
+  - [cv::dnn::TextDetectionModel_DB::setBinaryThreshold](#cvdnntextdetectionmodel_dbsetbinarythreshold)
+  - [cv::dnn::TextDetectionModel_DB::setInputCrop](#cvdnntextdetectionmodel_dbsetinputcrop)
+  - [cv::dnn::TextDetectionModel_DB::setInputMean](#cvdnntextdetectionmodel_dbsetinputmean)
+  - [cv::dnn::TextDetectionModel_DB::setInputParams](#cvdnntextdetectionmodel_dbsetinputparams)
+  - [cv::dnn::TextDetectionModel_DB::setInputScale](#cvdnntextdetectionmodel_dbsetinputscale)
+  - [cv::dnn::TextDetectionModel_DB::setInputSize](#cvdnntextdetectionmodel_dbsetinputsize)
+  - [cv::dnn::TextDetectionModel_DB::setInputSwapRB](#cvdnntextdetectionmodel_dbsetinputswaprb)
+  - [cv::dnn::TextDetectionModel_DB::setMaxCandidates](#cvdnntextdetectionmodel_dbsetmaxcandidates)
+  - [cv::dnn::TextDetectionModel_DB::setPolygonThreshold](#cvdnntextdetectionmodel_dbsetpolygonthreshold)
+  - [cv::dnn::TextDetectionModel_DB::setPreferableBackend](#cvdnntextdetectionmodel_dbsetpreferablebackend)
+  - [cv::dnn::TextDetectionModel_DB::setPreferableTarget](#cvdnntextdetectionmodel_dbsetpreferabletarget)
+  - [cv::dnn::TextDetectionModel_DB::setUnclipRatio](#cvdnntextdetectionmodel_dbsetunclipratio)
+- [cv::Feature2D](#cvfeature2d)
+  - [cv::Feature2D::clear](#cvfeature2dclear)
+  - [cv::Feature2D::compute](#cvfeature2dcompute)
+  - [cv::Feature2D::defaultNorm](#cvfeature2ddefaultnorm)
+  - [cv::Feature2D::descriptorSize](#cvfeature2ddescriptorsize)
+  - [cv::Feature2D::descriptorType](#cvfeature2ddescriptortype)
+  - [cv::Feature2D::detect](#cvfeature2ddetect)
+  - [cv::Feature2D::detectAndCompute](#cvfeature2ddetectandcompute)
+  - [cv::Feature2D::empty](#cvfeature2dempty)
+  - [cv::Feature2D::getDefaultName](#cvfeature2dgetdefaultname)
+  - [cv::Feature2D::read](#cvfeature2dread)
+  - [cv::Feature2D::save](#cvfeature2dsave)
+  - [cv::Feature2D::write](#cvfeature2dwrite)
+- [cv::AffineFeature](#cvaffinefeature)
+  - [cv::AffineFeature::get_create](#cvaffinefeatureget_create)
+  - [cv::AffineFeature::clear](#cvaffinefeatureclear)
+  - [cv::AffineFeature::compute](#cvaffinefeaturecompute)
+  - [cv::AffineFeature::defaultNorm](#cvaffinefeaturedefaultnorm)
+  - [cv::AffineFeature::descriptorSize](#cvaffinefeaturedescriptorsize)
+  - [cv::AffineFeature::descriptorType](#cvaffinefeaturedescriptortype)
+  - [cv::AffineFeature::detect](#cvaffinefeaturedetect)
+  - [cv::AffineFeature::detectAndCompute](#cvaffinefeaturedetectandcompute)
+  - [cv::AffineFeature::empty](#cvaffinefeatureempty)
+  - [cv::AffineFeature::getDefaultName](#cvaffinefeaturegetdefaultname)
+  - [cv::AffineFeature::getViewParams](#cvaffinefeaturegetviewparams)
+  - [cv::AffineFeature::read](#cvaffinefeatureread)
+  - [cv::AffineFeature::save](#cvaffinefeaturesave)
+  - [cv::AffineFeature::setViewParams](#cvaffinefeaturesetviewparams)
+  - [cv::AffineFeature::write](#cvaffinefeaturewrite)
+- [cv::SIFT](#cvsift)
+  - [cv::SIFT::get_create](#cvsiftget_create)
+  - [cv::SIFT::clear](#cvsiftclear)
+  - [cv::SIFT::compute](#cvsiftcompute)
+  - [cv::SIFT::defaultNorm](#cvsiftdefaultnorm)
+  - [cv::SIFT::descriptorSize](#cvsiftdescriptorsize)
+  - [cv::SIFT::descriptorType](#cvsiftdescriptortype)
+  - [cv::SIFT::detect](#cvsiftdetect)
+  - [cv::SIFT::detectAndCompute](#cvsiftdetectandcompute)
+  - [cv::SIFT::empty](#cvsiftempty)
+  - [cv::SIFT::getDefaultName](#cvsiftgetdefaultname)
+  - [cv::SIFT::read](#cvsiftread)
+  - [cv::SIFT::save](#cvsiftsave)
+  - [cv::SIFT::write](#cvsiftwrite)
+- [cv::BRISK](#cvbrisk)
+  - [cv::BRISK::get_create](#cvbriskget_create)
+  - [cv::BRISK::clear](#cvbriskclear)
+  - [cv::BRISK::compute](#cvbriskcompute)
+  - [cv::BRISK::defaultNorm](#cvbriskdefaultnorm)
+  - [cv::BRISK::descriptorSize](#cvbriskdescriptorsize)
+  - [cv::BRISK::descriptorType](#cvbriskdescriptortype)
+  - [cv::BRISK::detect](#cvbriskdetect)
+  - [cv::BRISK::detectAndCompute](#cvbriskdetectandcompute)
+  - [cv::BRISK::empty](#cvbriskempty)
+  - [cv::BRISK::getDefaultName](#cvbriskgetdefaultname)
+  - [cv::BRISK::getOctaves](#cvbriskgetoctaves)
+  - [cv::BRISK::getThreshold](#cvbriskgetthreshold)
+  - [cv::BRISK::read](#cvbriskread)
+  - [cv::BRISK::save](#cvbrisksave)
+  - [cv::BRISK::setOctaves](#cvbrisksetoctaves)
+  - [cv::BRISK::setThreshold](#cvbrisksetthreshold)
+  - [cv::BRISK::write](#cvbriskwrite)
+- [cv::ORB](#cvorb)
+  - [cv::ORB::get_create](#cvorbget_create)
+  - [cv::ORB::clear](#cvorbclear)
+  - [cv::ORB::compute](#cvorbcompute)
+  - [cv::ORB::defaultNorm](#cvorbdefaultnorm)
+  - [cv::ORB::descriptorSize](#cvorbdescriptorsize)
+  - [cv::ORB::descriptorType](#cvorbdescriptortype)
+  - [cv::ORB::detect](#cvorbdetect)
+  - [cv::ORB::detectAndCompute](#cvorbdetectandcompute)
+  - [cv::ORB::empty](#cvorbempty)
+  - [cv::ORB::getDefaultName](#cvorbgetdefaultname)
+  - [cv::ORB::getEdgeThreshold](#cvorbgetedgethreshold)
+  - [cv::ORB::getFastThreshold](#cvorbgetfastthreshold)
+  - [cv::ORB::getFirstLevel](#cvorbgetfirstlevel)
+  - [cv::ORB::getMaxFeatures](#cvorbgetmaxfeatures)
+  - [cv::ORB::getNLevels](#cvorbgetnlevels)
+  - [cv::ORB::getPatchSize](#cvorbgetpatchsize)
+  - [cv::ORB::getScaleFactor](#cvorbgetscalefactor)
+  - [cv::ORB::getScoreType](#cvorbgetscoretype)
+  - [cv::ORB::getWTA_K](#cvorbgetwta_k)
+  - [cv::ORB::read](#cvorbread)
+  - [cv::ORB::save](#cvorbsave)
+  - [cv::ORB::setEdgeThreshold](#cvorbsetedgethreshold)
+  - [cv::ORB::setFastThreshold](#cvorbsetfastthreshold)
+  - [cv::ORB::setFirstLevel](#cvorbsetfirstlevel)
+  - [cv::ORB::setMaxFeatures](#cvorbsetmaxfeatures)
+  - [cv::ORB::setNLevels](#cvorbsetnlevels)
+  - [cv::ORB::setPatchSize](#cvorbsetpatchsize)
+  - [cv::ORB::setScaleFactor](#cvorbsetscalefactor)
+  - [cv::ORB::setScoreType](#cvorbsetscoretype)
+  - [cv::ORB::setWTA_K](#cvorbsetwta_k)
+  - [cv::ORB::write](#cvorbwrite)
+- [cv::MSER](#cvmser)
+  - [cv::MSER::get_create](#cvmserget_create)
+  - [cv::MSER::clear](#cvmserclear)
+  - [cv::MSER::compute](#cvmsercompute)
+  - [cv::MSER::defaultNorm](#cvmserdefaultnorm)
+  - [cv::MSER::descriptorSize](#cvmserdescriptorsize)
+  - [cv::MSER::descriptorType](#cvmserdescriptortype)
+  - [cv::MSER::detect](#cvmserdetect)
+  - [cv::MSER::detectAndCompute](#cvmserdetectandcompute)
+  - [cv::MSER::detectRegions](#cvmserdetectregions)
+  - [cv::MSER::empty](#cvmserempty)
+  - [cv::MSER::getDefaultName](#cvmsergetdefaultname)
+  - [cv::MSER::getDelta](#cvmsergetdelta)
+  - [cv::MSER::getMaxArea](#cvmsergetmaxarea)
+  - [cv::MSER::getMinArea](#cvmsergetminarea)
+  - [cv::MSER::getPass2Only](#cvmsergetpass2only)
+  - [cv::MSER::read](#cvmserread)
+  - [cv::MSER::save](#cvmsersave)
+  - [cv::MSER::setDelta](#cvmsersetdelta)
+  - [cv::MSER::setMaxArea](#cvmsersetmaxarea)
+  - [cv::MSER::setMinArea](#cvmsersetminarea)
+  - [cv::MSER::setPass2Only](#cvmsersetpass2only)
+  - [cv::MSER::write](#cvmserwrite)
+- [cv::FastFeatureDetector](#cvfastfeaturedetector)
+  - [cv::FastFeatureDetector::get_create](#cvfastfeaturedetectorget_create)
+  - [cv::FastFeatureDetector::clear](#cvfastfeaturedetectorclear)
+  - [cv::FastFeatureDetector::compute](#cvfastfeaturedetectorcompute)
+  - [cv::FastFeatureDetector::defaultNorm](#cvfastfeaturedetectordefaultnorm)
+  - [cv::FastFeatureDetector::descriptorSize](#cvfastfeaturedetectordescriptorsize)
+  - [cv::FastFeatureDetector::descriptorType](#cvfastfeaturedetectordescriptortype)
+  - [cv::FastFeatureDetector::detect](#cvfastfeaturedetectordetect)
+  - [cv::FastFeatureDetector::detectAndCompute](#cvfastfeaturedetectordetectandcompute)
+  - [cv::FastFeatureDetector::empty](#cvfastfeaturedetectorempty)
+  - [cv::FastFeatureDetector::getDefaultName](#cvfastfeaturedetectorgetdefaultname)
+  - [cv::FastFeatureDetector::getNonmaxSuppression](#cvfastfeaturedetectorgetnonmaxsuppression)
+  - [cv::FastFeatureDetector::getThreshold](#cvfastfeaturedetectorgetthreshold)
+  - [cv::FastFeatureDetector::getType](#cvfastfeaturedetectorgettype)
+  - [cv::FastFeatureDetector::read](#cvfastfeaturedetectorread)
+  - [cv::FastFeatureDetector::save](#cvfastfeaturedetectorsave)
+  - [cv::FastFeatureDetector::setNonmaxSuppression](#cvfastfeaturedetectorsetnonmaxsuppression)
+  - [cv::FastFeatureDetector::setThreshold](#cvfastfeaturedetectorsetthreshold)
+  - [cv::FastFeatureDetector::setType](#cvfastfeaturedetectorsettype)
+  - [cv::FastFeatureDetector::write](#cvfastfeaturedetectorwrite)
+- [cv::AgastFeatureDetector](#cvagastfeaturedetector)
+  - [cv::AgastFeatureDetector::get_create](#cvagastfeaturedetectorget_create)
+  - [cv::AgastFeatureDetector::clear](#cvagastfeaturedetectorclear)
+  - [cv::AgastFeatureDetector::compute](#cvagastfeaturedetectorcompute)
+  - [cv::AgastFeatureDetector::defaultNorm](#cvagastfeaturedetectordefaultnorm)
+  - [cv::AgastFeatureDetector::descriptorSize](#cvagastfeaturedetectordescriptorsize)
+  - [cv::AgastFeatureDetector::descriptorType](#cvagastfeaturedetectordescriptortype)
+  - [cv::AgastFeatureDetector::detect](#cvagastfeaturedetectordetect)
+  - [cv::AgastFeatureDetector::detectAndCompute](#cvagastfeaturedetectordetectandcompute)
+  - [cv::AgastFeatureDetector::empty](#cvagastfeaturedetectorempty)
+  - [cv::AgastFeatureDetector::getDefaultName](#cvagastfeaturedetectorgetdefaultname)
+  - [cv::AgastFeatureDetector::getNonmaxSuppression](#cvagastfeaturedetectorgetnonmaxsuppression)
+  - [cv::AgastFeatureDetector::getThreshold](#cvagastfeaturedetectorgetthreshold)
+  - [cv::AgastFeatureDetector::getType](#cvagastfeaturedetectorgettype)
+  - [cv::AgastFeatureDetector::read](#cvagastfeaturedetectorread)
+  - [cv::AgastFeatureDetector::save](#cvagastfeaturedetectorsave)
+  - [cv::AgastFeatureDetector::setNonmaxSuppression](#cvagastfeaturedetectorsetnonmaxsuppression)
+  - [cv::AgastFeatureDetector::setThreshold](#cvagastfeaturedetectorsetthreshold)
+  - [cv::AgastFeatureDetector::setType](#cvagastfeaturedetectorsettype)
+  - [cv::AgastFeatureDetector::write](#cvagastfeaturedetectorwrite)
+- [cv::GFTTDetector](#cvgfttdetector)
+  - [cv::GFTTDetector::get_create](#cvgfttdetectorget_create)
+  - [cv::GFTTDetector::clear](#cvgfttdetectorclear)
+  - [cv::GFTTDetector::compute](#cvgfttdetectorcompute)
+  - [cv::GFTTDetector::defaultNorm](#cvgfttdetectordefaultnorm)
+  - [cv::GFTTDetector::descriptorSize](#cvgfttdetectordescriptorsize)
+  - [cv::GFTTDetector::descriptorType](#cvgfttdetectordescriptortype)
+  - [cv::GFTTDetector::detect](#cvgfttdetectordetect)
+  - [cv::GFTTDetector::detectAndCompute](#cvgfttdetectordetectandcompute)
+  - [cv::GFTTDetector::empty](#cvgfttdetectorempty)
+  - [cv::GFTTDetector::getBlockSize](#cvgfttdetectorgetblocksize)
+  - [cv::GFTTDetector::getDefaultName](#cvgfttdetectorgetdefaultname)
+  - [cv::GFTTDetector::getHarrisDetector](#cvgfttdetectorgetharrisdetector)
+  - [cv::GFTTDetector::getK](#cvgfttdetectorgetk)
+  - [cv::GFTTDetector::getMaxFeatures](#cvgfttdetectorgetmaxfeatures)
+  - [cv::GFTTDetector::getMinDistance](#cvgfttdetectorgetmindistance)
+  - [cv::GFTTDetector::getQualityLevel](#cvgfttdetectorgetqualitylevel)
+  - [cv::GFTTDetector::read](#cvgfttdetectorread)
+  - [cv::GFTTDetector::save](#cvgfttdetectorsave)
+  - [cv::GFTTDetector::setBlockSize](#cvgfttdetectorsetblocksize)
+  - [cv::GFTTDetector::setHarrisDetector](#cvgfttdetectorsetharrisdetector)
+  - [cv::GFTTDetector::setK](#cvgfttdetectorsetk)
+  - [cv::GFTTDetector::setMaxFeatures](#cvgfttdetectorsetmaxfeatures)
+  - [cv::GFTTDetector::setMinDistance](#cvgfttdetectorsetmindistance)
+  - [cv::GFTTDetector::setQualityLevel](#cvgfttdetectorsetqualitylevel)
+  - [cv::GFTTDetector::write](#cvgfttdetectorwrite)
+- [cv::SimpleBlobDetector](#cvsimpleblobdetector)
+  - [cv::SimpleBlobDetector::get_create](#cvsimpleblobdetectorget_create)
+  - [cv::SimpleBlobDetector::clear](#cvsimpleblobdetectorclear)
+  - [cv::SimpleBlobDetector::compute](#cvsimpleblobdetectorcompute)
+  - [cv::SimpleBlobDetector::defaultNorm](#cvsimpleblobdetectordefaultnorm)
+  - [cv::SimpleBlobDetector::descriptorSize](#cvsimpleblobdetectordescriptorsize)
+  - [cv::SimpleBlobDetector::descriptorType](#cvsimpleblobdetectordescriptortype)
+  - [cv::SimpleBlobDetector::detect](#cvsimpleblobdetectordetect)
+  - [cv::SimpleBlobDetector::detectAndCompute](#cvsimpleblobdetectordetectandcompute)
+  - [cv::SimpleBlobDetector::empty](#cvsimpleblobdetectorempty)
+  - [cv::SimpleBlobDetector::getDefaultName](#cvsimpleblobdetectorgetdefaultname)
+  - [cv::SimpleBlobDetector::read](#cvsimpleblobdetectorread)
+  - [cv::SimpleBlobDetector::save](#cvsimpleblobdetectorsave)
+  - [cv::SimpleBlobDetector::write](#cvsimpleblobdetectorwrite)
+- [cv::SimpleBlobDetector::Params](#cvsimpleblobdetectorparams)
+  - [cv::SimpleBlobDetector::Params::get_create](#cvsimpleblobdetectorparamsget_create)
+- [cv::KAZE](#cvkaze)
+  - [cv::KAZE::get_create](#cvkazeget_create)
+  - [cv::KAZE::clear](#cvkazeclear)
+  - [cv::KAZE::compute](#cvkazecompute)
+  - [cv::KAZE::defaultNorm](#cvkazedefaultnorm)
+  - [cv::KAZE::descriptorSize](#cvkazedescriptorsize)
+  - [cv::KAZE::descriptorType](#cvkazedescriptortype)
+  - [cv::KAZE::detect](#cvkazedetect)
+  - [cv::KAZE::detectAndCompute](#cvkazedetectandcompute)
+  - [cv::KAZE::empty](#cvkazeempty)
+  - [cv::KAZE::getDefaultName](#cvkazegetdefaultname)
+  - [cv::KAZE::getDiffusivity](#cvkazegetdiffusivity)
+  - [cv::KAZE::getExtended](#cvkazegetextended)
+  - [cv::KAZE::getNOctaveLayers](#cvkazegetnoctavelayers)
+  - [cv::KAZE::getNOctaves](#cvkazegetnoctaves)
+  - [cv::KAZE::getThreshold](#cvkazegetthreshold)
+  - [cv::KAZE::getUpright](#cvkazegetupright)
+  - [cv::KAZE::read](#cvkazeread)
+  - [cv::KAZE::save](#cvkazesave)
+  - [cv::KAZE::setDiffusivity](#cvkazesetdiffusivity)
+  - [cv::KAZE::setExtended](#cvkazesetextended)
+  - [cv::KAZE::setNOctaveLayers](#cvkazesetnoctavelayers)
+  - [cv::KAZE::setNOctaves](#cvkazesetnoctaves)
+  - [cv::KAZE::setThreshold](#cvkazesetthreshold)
+  - [cv::KAZE::setUpright](#cvkazesetupright)
+  - [cv::KAZE::write](#cvkazewrite)
+- [cv::AKAZE](#cvakaze)
+  - [cv::AKAZE::get_create](#cvakazeget_create)
+  - [cv::AKAZE::clear](#cvakazeclear)
+  - [cv::AKAZE::compute](#cvakazecompute)
+  - [cv::AKAZE::defaultNorm](#cvakazedefaultnorm)
+  - [cv::AKAZE::descriptorSize](#cvakazedescriptorsize)
+  - [cv::AKAZE::descriptorType](#cvakazedescriptortype)
+  - [cv::AKAZE::detect](#cvakazedetect)
+  - [cv::AKAZE::detectAndCompute](#cvakazedetectandcompute)
+  - [cv::AKAZE::empty](#cvakazeempty)
+  - [cv::AKAZE::getDefaultName](#cvakazegetdefaultname)
+  - [cv::AKAZE::getDescriptorChannels](#cvakazegetdescriptorchannels)
+  - [cv::AKAZE::getDescriptorSize](#cvakazegetdescriptorsize)
+  - [cv::AKAZE::getDescriptorType](#cvakazegetdescriptortype)
+  - [cv::AKAZE::getDiffusivity](#cvakazegetdiffusivity)
+  - [cv::AKAZE::getNOctaveLayers](#cvakazegetnoctavelayers)
+  - [cv::AKAZE::getNOctaves](#cvakazegetnoctaves)
+  - [cv::AKAZE::getThreshold](#cvakazegetthreshold)
+  - [cv::AKAZE::read](#cvakazeread)
+  - [cv::AKAZE::save](#cvakazesave)
+  - [cv::AKAZE::setDescriptorChannels](#cvakazesetdescriptorchannels)
+  - [cv::AKAZE::setDescriptorSize](#cvakazesetdescriptorsize)
+  - [cv::AKAZE::setDescriptorType](#cvakazesetdescriptortype)
+  - [cv::AKAZE::setDiffusivity](#cvakazesetdiffusivity)
+  - [cv::AKAZE::setNOctaveLayers](#cvakazesetnoctavelayers)
+  - [cv::AKAZE::setNOctaves](#cvakazesetnoctaves)
+  - [cv::AKAZE::setThreshold](#cvakazesetthreshold)
+  - [cv::AKAZE::write](#cvakazewrite)
+- [cv::DescriptorMatcher](#cvdescriptormatcher)
+  - [cv::DescriptorMatcher::get_create](#cvdescriptormatcherget_create)
+  - [cv::DescriptorMatcher::add](#cvdescriptormatcheradd)
+  - [cv::DescriptorMatcher::clear](#cvdescriptormatcherclear)
+  - [cv::DescriptorMatcher::clone](#cvdescriptormatcherclone)
+  - [cv::DescriptorMatcher::empty](#cvdescriptormatcherempty)
+  - [cv::DescriptorMatcher::getDefaultName](#cvdescriptormatchergetdefaultname)
+  - [cv::DescriptorMatcher::getTrainDescriptors](#cvdescriptormatchergettraindescriptors)
+  - [cv::DescriptorMatcher::isMaskSupported](#cvdescriptormatcherismasksupported)
+  - [cv::DescriptorMatcher::knnMatch](#cvdescriptormatcherknnmatch)
+  - [cv::DescriptorMatcher::match](#cvdescriptormatchermatch)
+  - [cv::DescriptorMatcher::radiusMatch](#cvdescriptormatcherradiusmatch)
+  - [cv::DescriptorMatcher::read](#cvdescriptormatcherread)
+  - [cv::DescriptorMatcher::save](#cvdescriptormatchersave)
+  - [cv::DescriptorMatcher::train](#cvdescriptormatchertrain)
+  - [cv::DescriptorMatcher::write](#cvdescriptormatcherwrite)
+- [cv::BFMatcher](#cvbfmatcher)
+  - [cv::BFMatcher::get_create](#cvbfmatcherget_create)
+  - [cv::BFMatcher::add](#cvbfmatcheradd)
+  - [cv::BFMatcher::clear](#cvbfmatcherclear)
+  - [cv::BFMatcher::clone](#cvbfmatcherclone)
+  - [cv::BFMatcher::empty](#cvbfmatcherempty)
+  - [cv::BFMatcher::getDefaultName](#cvbfmatchergetdefaultname)
+  - [cv::BFMatcher::getTrainDescriptors](#cvbfmatchergettraindescriptors)
+  - [cv::BFMatcher::isMaskSupported](#cvbfmatcherismasksupported)
+  - [cv::BFMatcher::knnMatch](#cvbfmatcherknnmatch)
+  - [cv::BFMatcher::match](#cvbfmatchermatch)
+  - [cv::BFMatcher::radiusMatch](#cvbfmatcherradiusmatch)
+  - [cv::BFMatcher::read](#cvbfmatcherread)
+  - [cv::BFMatcher::save](#cvbfmatchersave)
+  - [cv::BFMatcher::train](#cvbfmatchertrain)
+  - [cv::BFMatcher::write](#cvbfmatcherwrite)
+- [cv::FlannBasedMatcher](#cvflannbasedmatcher)
+  - [cv::FlannBasedMatcher::get_create](#cvflannbasedmatcherget_create)
+  - [cv::FlannBasedMatcher::add](#cvflannbasedmatcheradd)
+  - [cv::FlannBasedMatcher::clear](#cvflannbasedmatcherclear)
+  - [cv::FlannBasedMatcher::clone](#cvflannbasedmatcherclone)
+  - [cv::FlannBasedMatcher::empty](#cvflannbasedmatcherempty)
+  - [cv::FlannBasedMatcher::getDefaultName](#cvflannbasedmatchergetdefaultname)
+  - [cv::FlannBasedMatcher::getTrainDescriptors](#cvflannbasedmatchergettraindescriptors)
+  - [cv::FlannBasedMatcher::isMaskSupported](#cvflannbasedmatcherismasksupported)
+  - [cv::FlannBasedMatcher::knnMatch](#cvflannbasedmatcherknnmatch)
+  - [cv::FlannBasedMatcher::match](#cvflannbasedmatchermatch)
+  - [cv::FlannBasedMatcher::radiusMatch](#cvflannbasedmatcherradiusmatch)
+  - [cv::FlannBasedMatcher::read](#cvflannbasedmatcherread)
+  - [cv::FlannBasedMatcher::save](#cvflannbasedmatchersave)
+  - [cv::FlannBasedMatcher::train](#cvflannbasedmatchertrain)
+  - [cv::FlannBasedMatcher::write](#cvflannbasedmatcherwrite)
+- [cv::BOWTrainer](#cvbowtrainer)
+  - [cv::BOWTrainer::add](#cvbowtraineradd)
+  - [cv::BOWTrainer::clear](#cvbowtrainerclear)
+  - [cv::BOWTrainer::cluster](#cvbowtrainercluster)
+  - [cv::BOWTrainer::descriptorsCount](#cvbowtrainerdescriptorscount)
+  - [cv::BOWTrainer::getDescriptors](#cvbowtrainergetdescriptors)
+- [cv::BOWKMeansTrainer](#cvbowkmeanstrainer)
+  - [cv::BOWKMeansTrainer::get_create](#cvbowkmeanstrainerget_create)
+  - [cv::BOWKMeansTrainer::add](#cvbowkmeanstraineradd)
+  - [cv::BOWKMeansTrainer::clear](#cvbowkmeanstrainerclear)
+  - [cv::BOWKMeansTrainer::cluster](#cvbowkmeanstrainercluster)
+  - [cv::BOWKMeansTrainer::descriptorsCount](#cvbowkmeanstrainerdescriptorscount)
+  - [cv::BOWKMeansTrainer::getDescriptors](#cvbowkmeanstrainergetdescriptors)
+- [cv::BOWImgDescriptorExtractor](#cvbowimgdescriptorextractor)
+  - [cv::BOWImgDescriptorExtractor::get_create](#cvbowimgdescriptorextractorget_create)
+  - [cv::BOWImgDescriptorExtractor::compute](#cvbowimgdescriptorextractorcompute)
+  - [cv::BOWImgDescriptorExtractor::descriptorSize](#cvbowimgdescriptorextractordescriptorsize)
+  - [cv::BOWImgDescriptorExtractor::descriptorType](#cvbowimgdescriptorextractordescriptortype)
+  - [cv::BOWImgDescriptorExtractor::getVocabulary](#cvbowimgdescriptorextractorgetvocabulary)
+  - [cv::BOWImgDescriptorExtractor::setVocabulary](#cvbowimgdescriptorextractorsetvocabulary)
+- [cv::VideoCapture](#cvvideocapture)
+  - [cv::VideoCapture::get_create](#cvvideocaptureget_create)
+  - [cv::VideoCapture::get](#cvvideocaptureget)
+  - [cv::VideoCapture::getBackendName](#cvvideocapturegetbackendname)
+  - [cv::VideoCapture::getExceptionMode](#cvvideocapturegetexceptionmode)
+  - [cv::VideoCapture::grab](#cvvideocapturegrab)
+  - [cv::VideoCapture::isOpened](#cvvideocaptureisopened)
+  - [cv::VideoCapture::open](#cvvideocaptureopen)
+  - [cv::VideoCapture::read](#cvvideocaptureread)
+  - [cv::VideoCapture::release](#cvvideocapturerelease)
+  - [cv::VideoCapture::retrieve](#cvvideocaptureretrieve)
+  - [cv::VideoCapture::set](#cvvideocaptureset)
+  - [cv::VideoCapture::setExceptionMode](#cvvideocapturesetexceptionmode)
+- [cv::VideoWriter](#cvvideowriter)
+  - [cv::VideoWriter::get_create](#cvvideowriterget_create)
+  - [cv::VideoWriter::fourcc](#cvvideowriterfourcc)
+  - [cv::VideoWriter::get](#cvvideowriterget)
+  - [cv::VideoWriter::getBackendName](#cvvideowritergetbackendname)
+  - [cv::VideoWriter::isOpened](#cvvideowriterisopened)
+  - [cv::VideoWriter::open](#cvvideowriteropen)
+  - [cv::VideoWriter::release](#cvvideowriterrelease)
+  - [cv::VideoWriter::set](#cvvideowriterset)
+  - [cv::VideoWriter::write](#cvvideowriterwrite)
+- [cv::videoio_registry](#cvvideoio_registry)
+  - [cv::videoio_registry::getBackendName](#cvvideoio_registrygetbackendname)
+  - [cv::videoio_registry::getBackends](#cvvideoio_registrygetbackends)
+  - [cv::videoio_registry::getCameraBackendPluginVersion](#cvvideoio_registrygetcamerabackendpluginversion)
+  - [cv::videoio_registry::getCameraBackends](#cvvideoio_registrygetcamerabackends)
+  - [cv::videoio_registry::getStreamBackendPluginVersion](#cvvideoio_registrygetstreambackendpluginversion)
+  - [cv::videoio_registry::getStreamBackends](#cvvideoio_registrygetstreambackends)
+  - [cv::videoio_registry::getWriterBackendPluginVersion](#cvvideoio_registrygetwriterbackendpluginversion)
+  - [cv::videoio_registry::getWriterBackends](#cvvideoio_registrygetwriterbackends)
+  - [cv::videoio_registry::hasBackend](#cvvideoio_registryhasbackend)
+  - [cv::videoio_registry::isBackendBuiltIn](#cvvideoio_registryisbackendbuiltin)
+- [cv::UsacParams](#cvusacparams)
+  - [cv::UsacParams::get_create](#cvusacparamsget_create)
+- [cv::CirclesGridFinderParameters](#cvcirclesgridfinderparameters)
+  - [cv::CirclesGridFinderParameters::get_create](#cvcirclesgridfinderparametersget_create)
+- [cv::StereoMatcher](#cvstereomatcher)
+  - [cv::StereoMatcher::clear](#cvstereomatcherclear)
+  - [cv::StereoMatcher::compute](#cvstereomatchercompute)
+  - [cv::StereoMatcher::empty](#cvstereomatcherempty)
+  - [cv::StereoMatcher::getBlockSize](#cvstereomatchergetblocksize)
+  - [cv::StereoMatcher::getDefaultName](#cvstereomatchergetdefaultname)
+  - [cv::StereoMatcher::getDisp12MaxDiff](#cvstereomatchergetdisp12maxdiff)
+  - [cv::StereoMatcher::getMinDisparity](#cvstereomatchergetmindisparity)
+  - [cv::StereoMatcher::getNumDisparities](#cvstereomatchergetnumdisparities)
+  - [cv::StereoMatcher::getSpeckleRange](#cvstereomatchergetspecklerange)
+  - [cv::StereoMatcher::getSpeckleWindowSize](#cvstereomatchergetspecklewindowsize)
+  - [cv::StereoMatcher::read](#cvstereomatcherread)
+  - [cv::StereoMatcher::save](#cvstereomatchersave)
+  - [cv::StereoMatcher::setBlockSize](#cvstereomatchersetblocksize)
+  - [cv::StereoMatcher::setDisp12MaxDiff](#cvstereomatchersetdisp12maxdiff)
+  - [cv::StereoMatcher::setMinDisparity](#cvstereomatchersetmindisparity)
+  - [cv::StereoMatcher::setNumDisparities](#cvstereomatchersetnumdisparities)
+  - [cv::StereoMatcher::setSpeckleRange](#cvstereomatchersetspecklerange)
+  - [cv::StereoMatcher::setSpeckleWindowSize](#cvstereomatchersetspecklewindowsize)
+  - [cv::StereoMatcher::write](#cvstereomatcherwrite)
+- [cv::StereoBM](#cvstereobm)
+  - [cv::StereoBM::get_create](#cvstereobmget_create)
+  - [cv::StereoBM::clear](#cvstereobmclear)
+  - [cv::StereoBM::compute](#cvstereobmcompute)
+  - [cv::StereoBM::empty](#cvstereobmempty)
+  - [cv::StereoBM::getBlockSize](#cvstereobmgetblocksize)
+  - [cv::StereoBM::getDefaultName](#cvstereobmgetdefaultname)
+  - [cv::StereoBM::getDisp12MaxDiff](#cvstereobmgetdisp12maxdiff)
+  - [cv::StereoBM::getMinDisparity](#cvstereobmgetmindisparity)
+  - [cv::StereoBM::getNumDisparities](#cvstereobmgetnumdisparities)
+  - [cv::StereoBM::getPreFilterCap](#cvstereobmgetprefiltercap)
+  - [cv::StereoBM::getPreFilterSize](#cvstereobmgetprefiltersize)
+  - [cv::StereoBM::getPreFilterType](#cvstereobmgetprefiltertype)
+  - [cv::StereoBM::getROI1](#cvstereobmgetroi1)
+  - [cv::StereoBM::getROI2](#cvstereobmgetroi2)
+  - [cv::StereoBM::getSmallerBlockSize](#cvstereobmgetsmallerblocksize)
+  - [cv::StereoBM::getSpeckleRange](#cvstereobmgetspecklerange)
+  - [cv::StereoBM::getSpeckleWindowSize](#cvstereobmgetspecklewindowsize)
+  - [cv::StereoBM::getTextureThreshold](#cvstereobmgettexturethreshold)
+  - [cv::StereoBM::getUniquenessRatio](#cvstereobmgetuniquenessratio)
+  - [cv::StereoBM::read](#cvstereobmread)
+  - [cv::StereoBM::save](#cvstereobmsave)
+  - [cv::StereoBM::setBlockSize](#cvstereobmsetblocksize)
+  - [cv::StereoBM::setDisp12MaxDiff](#cvstereobmsetdisp12maxdiff)
+  - [cv::StereoBM::setMinDisparity](#cvstereobmsetmindisparity)
+  - [cv::StereoBM::setNumDisparities](#cvstereobmsetnumdisparities)
+  - [cv::StereoBM::setPreFilterCap](#cvstereobmsetprefiltercap)
+  - [cv::StereoBM::setPreFilterSize](#cvstereobmsetprefiltersize)
+  - [cv::StereoBM::setPreFilterType](#cvstereobmsetprefiltertype)
+  - [cv::StereoBM::setROI1](#cvstereobmsetroi1)
+  - [cv::StereoBM::setROI2](#cvstereobmsetroi2)
+  - [cv::StereoBM::setSmallerBlockSize](#cvstereobmsetsmallerblocksize)
+  - [cv::StereoBM::setSpeckleRange](#cvstereobmsetspecklerange)
+  - [cv::StereoBM::setSpeckleWindowSize](#cvstereobmsetspecklewindowsize)
+  - [cv::StereoBM::setTextureThreshold](#cvstereobmsettexturethreshold)
+  - [cv::StereoBM::setUniquenessRatio](#cvstereobmsetuniquenessratio)
+  - [cv::StereoBM::write](#cvstereobmwrite)
+- [cv::StereoSGBM](#cvstereosgbm)
+  - [cv::StereoSGBM::get_create](#cvstereosgbmget_create)
+  - [cv::StereoSGBM::clear](#cvstereosgbmclear)
+  - [cv::StereoSGBM::compute](#cvstereosgbmcompute)
+  - [cv::StereoSGBM::empty](#cvstereosgbmempty)
+  - [cv::StereoSGBM::getBlockSize](#cvstereosgbmgetblocksize)
+  - [cv::StereoSGBM::getDefaultName](#cvstereosgbmgetdefaultname)
+  - [cv::StereoSGBM::getDisp12MaxDiff](#cvstereosgbmgetdisp12maxdiff)
+  - [cv::StereoSGBM::getMinDisparity](#cvstereosgbmgetmindisparity)
+  - [cv::StereoSGBM::getMode](#cvstereosgbmgetmode)
+  - [cv::StereoSGBM::getNumDisparities](#cvstereosgbmgetnumdisparities)
+  - [cv::StereoSGBM::getP1](#cvstereosgbmgetp1)
+  - [cv::StereoSGBM::getP2](#cvstereosgbmgetp2)
+  - [cv::StereoSGBM::getPreFilterCap](#cvstereosgbmgetprefiltercap)
+  - [cv::StereoSGBM::getSpeckleRange](#cvstereosgbmgetspecklerange)
+  - [cv::StereoSGBM::getSpeckleWindowSize](#cvstereosgbmgetspecklewindowsize)
+  - [cv::StereoSGBM::getUniquenessRatio](#cvstereosgbmgetuniquenessratio)
+  - [cv::StereoSGBM::read](#cvstereosgbmread)
+  - [cv::StereoSGBM::save](#cvstereosgbmsave)
+  - [cv::StereoSGBM::setBlockSize](#cvstereosgbmsetblocksize)
+  - [cv::StereoSGBM::setDisp12MaxDiff](#cvstereosgbmsetdisp12maxdiff)
+  - [cv::StereoSGBM::setMinDisparity](#cvstereosgbmsetmindisparity)
+  - [cv::StereoSGBM::setMode](#cvstereosgbmsetmode)
+  - [cv::StereoSGBM::setNumDisparities](#cvstereosgbmsetnumdisparities)
+  - [cv::StereoSGBM::setP1](#cvstereosgbmsetp1)
+  - [cv::StereoSGBM::setP2](#cvstereosgbmsetp2)
+  - [cv::StereoSGBM::setPreFilterCap](#cvstereosgbmsetprefiltercap)
+  - [cv::StereoSGBM::setSpeckleRange](#cvstereosgbmsetspecklerange)
+  - [cv::StereoSGBM::setSpeckleWindowSize](#cvstereosgbmsetspecklewindowsize)
+  - [cv::StereoSGBM::setUniquenessRatio](#cvstereosgbmsetuniquenessratio)
+  - [cv::StereoSGBM::write](#cvstereosgbmwrite)
+- [cv::fisheye](#cvfisheye)
+  - [cv::fisheye::calibrate](#cvfisheyecalibrate)
+  - [cv::fisheye::distortPoints](#cvfisheyedistortpoints)
+  - [cv::fisheye::estimateNewCameraMatrixForUndistortRectify](#cvfisheyeestimatenewcameramatrixforundistortrectify)
+  - [cv::fisheye::initUndistortRectifyMap](#cvfisheyeinitundistortrectifymap)
+  - [cv::fisheye::projectPoints](#cvfisheyeprojectpoints)
+  - [cv::fisheye::stereoCalibrate](#cvfisheyestereocalibrate)
+  - [cv::fisheye::stereoRectify](#cvfisheyestereorectify)
+  - [cv::fisheye::undistortImage](#cvfisheyeundistortimage)
+  - [cv::fisheye::undistortPoints](#cvfisheyeundistortpoints)
+- [cv::BaseCascadeClassifier](#cvbasecascadeclassifier)
+  - [cv::BaseCascadeClassifier::clear](#cvbasecascadeclassifierclear)
+  - [cv::BaseCascadeClassifier::empty](#cvbasecascadeclassifierempty)
+  - [cv::BaseCascadeClassifier::getDefaultName](#cvbasecascadeclassifiergetdefaultname)
+  - [cv::BaseCascadeClassifier::read](#cvbasecascadeclassifierread)
+  - [cv::BaseCascadeClassifier::save](#cvbasecascadeclassifiersave)
+  - [cv::BaseCascadeClassifier::write](#cvbasecascadeclassifierwrite)
+- [cv::CascadeClassifier](#cvcascadeclassifier)
+  - [cv::CascadeClassifier::get_create](#cvcascadeclassifierget_create)
+  - [cv::CascadeClassifier::convert](#cvcascadeclassifierconvert)
+  - [cv::CascadeClassifier::detectMultiScale](#cvcascadeclassifierdetectmultiscale)
+  - [cv::CascadeClassifier::detectMultiScale2](#cvcascadeclassifierdetectmultiscale2)
+  - [cv::CascadeClassifier::detectMultiScale3](#cvcascadeclassifierdetectmultiscale3)
+  - [cv::CascadeClassifier::empty](#cvcascadeclassifierempty)
+  - [cv::CascadeClassifier::getFeatureType](#cvcascadeclassifiergetfeaturetype)
+  - [cv::CascadeClassifier::getOriginalWindowSize](#cvcascadeclassifiergetoriginalwindowsize)
+  - [cv::CascadeClassifier::isOldFormatCascade](#cvcascadeclassifierisoldformatcascade)
+  - [cv::CascadeClassifier::load](#cvcascadeclassifierload)
+  - [cv::CascadeClassifier::read](#cvcascadeclassifierread)
+- [cv::HOGDescriptor](#cvhogdescriptor)
+  - [cv::HOGDescriptor::get_create](#cvhogdescriptorget_create)
+  - [cv::HOGDescriptor::checkDetectorSize](#cvhogdescriptorcheckdetectorsize)
+  - [cv::HOGDescriptor::compute](#cvhogdescriptorcompute)
+  - [cv::HOGDescriptor::computeGradient](#cvhogdescriptorcomputegradient)
+  - [cv::HOGDescriptor::detect](#cvhogdescriptordetect)
+  - [cv::HOGDescriptor::detectMultiScale](#cvhogdescriptordetectmultiscale)
+  - [cv::HOGDescriptor::getDaimlerPeopleDetector](#cvhogdescriptorgetdaimlerpeopledetector)
+  - [cv::HOGDescriptor::getDefaultPeopleDetector](#cvhogdescriptorgetdefaultpeopledetector)
+  - [cv::HOGDescriptor::getDescriptorSize](#cvhogdescriptorgetdescriptorsize)
+  - [cv::HOGDescriptor::getWinSigma](#cvhogdescriptorgetwinsigma)
+  - [cv::HOGDescriptor::load](#cvhogdescriptorload)
+  - [cv::HOGDescriptor::save](#cvhogdescriptorsave)
+  - [cv::HOGDescriptor::setSVMDetector](#cvhogdescriptorsetsvmdetector)
+- [cv::QRCodeEncoder](#cvqrcodeencoder)
+  - [cv::QRCodeEncoder::get_create](#cvqrcodeencoderget_create)
+  - [cv::QRCodeEncoder::encode](#cvqrcodeencoderencode)
+  - [cv::QRCodeEncoder::encodeStructuredAppend](#cvqrcodeencoderencodestructuredappend)
+- [cv::QRCodeEncoder::Params](#cvqrcodeencoderparams)
+  - [cv::QRCodeEncoder::Params::get_create](#cvqrcodeencoderparamsget_create)
+- [cv::QRCodeDetector](#cvqrcodedetector)
+  - [cv::QRCodeDetector::get_create](#cvqrcodedetectorget_create)
+  - [cv::QRCodeDetector::decode](#cvqrcodedetectordecode)
+  - [cv::QRCodeDetector::decodeCurved](#cvqrcodedetectordecodecurved)
+  - [cv::QRCodeDetector::decodeMulti](#cvqrcodedetectordecodemulti)
+  - [cv::QRCodeDetector::detect](#cvqrcodedetectordetect)
+  - [cv::QRCodeDetector::detectAndDecode](#cvqrcodedetectordetectanddecode)
+  - [cv::QRCodeDetector::detectAndDecodeCurved](#cvqrcodedetectordetectanddecodecurved)
+  - [cv::QRCodeDetector::detectAndDecodeMulti](#cvqrcodedetectordetectanddecodemulti)
+  - [cv::QRCodeDetector::detectMulti](#cvqrcodedetectordetectmulti)
+  - [cv::QRCodeDetector::setEpsX](#cvqrcodedetectorsetepsx)
+  - [cv::QRCodeDetector::setEpsY](#cvqrcodedetectorsetepsy)
+- [cv::FaceDetectorYN](#cvfacedetectoryn)
+  - [cv::FaceDetectorYN::get_create](#cvfacedetectorynget_create)
+  - [cv::FaceDetectorYN::detect](#cvfacedetectoryndetect)
+  - [cv::FaceDetectorYN::getInputSize](#cvfacedetectoryngetinputsize)
+  - [cv::FaceDetectorYN::getNMSThreshold](#cvfacedetectoryngetnmsthreshold)
+  - [cv::FaceDetectorYN::getScoreThreshold](#cvfacedetectoryngetscorethreshold)
+  - [cv::FaceDetectorYN::getTopK](#cvfacedetectoryngettopk)
+  - [cv::FaceDetectorYN::setInputSize](#cvfacedetectorynsetinputsize)
+  - [cv::FaceDetectorYN::setNMSThreshold](#cvfacedetectorynsetnmsthreshold)
+  - [cv::FaceDetectorYN::setScoreThreshold](#cvfacedetectorynsetscorethreshold)
+  - [cv::FaceDetectorYN::setTopK](#cvfacedetectorynsettopk)
+- [cv::FaceRecognizerSF](#cvfacerecognizersf)
+  - [cv::FaceRecognizerSF::get_create](#cvfacerecognizersfget_create)
+  - [cv::FaceRecognizerSF::alignCrop](#cvfacerecognizersfaligncrop)
+  - [cv::FaceRecognizerSF::feature](#cvfacerecognizersffeature)
+  - [cv::FaceRecognizerSF::match](#cvfacerecognizersfmatch)
+- [cv::Stitcher](#cvstitcher)
+  - [cv::Stitcher::get_create](#cvstitcherget_create)
+  - [cv::Stitcher::composePanorama](#cvstitchercomposepanorama)
+  - [cv::Stitcher::compositingResol](#cvstitchercompositingresol)
+  - [cv::Stitcher::estimateTransform](#cvstitcherestimatetransform)
+  - [cv::Stitcher::interpolationFlags](#cvstitcherinterpolationflags)
+  - [cv::Stitcher::panoConfidenceThresh](#cvstitcherpanoconfidencethresh)
+  - [cv::Stitcher::registrationResol](#cvstitcherregistrationresol)
+  - [cv::Stitcher::seamEstimationResol](#cvstitcherseamestimationresol)
+  - [cv::Stitcher::setCompositingResol](#cvstitchersetcompositingresol)
+  - [cv::Stitcher::setInterpolationFlags](#cvstitchersetinterpolationflags)
+  - [cv::Stitcher::setPanoConfidenceThresh](#cvstitchersetpanoconfidencethresh)
+  - [cv::Stitcher::setRegistrationResol](#cvstitchersetregistrationresol)
+  - [cv::Stitcher::setSeamEstimationResol](#cvstitchersetseamestimationresol)
+  - [cv::Stitcher::setWaveCorrection](#cvstitchersetwavecorrection)
+  - [cv::Stitcher::stitch](#cvstitcherstitch)
+  - [cv::Stitcher::waveCorrection](#cvstitcherwavecorrection)
+  - [cv::Stitcher::workScale](#cvstitcherworkscale)
+- [cv::PyRotationWarper](#cvpyrotationwarper)
+  - [cv::PyRotationWarper::get_create](#cvpyrotationwarperget_create)
+  - [cv::PyRotationWarper::buildMaps](#cvpyrotationwarperbuildmaps)
+  - [cv::PyRotationWarper::getScale](#cvpyrotationwarpergetscale)
+  - [cv::PyRotationWarper::setScale](#cvpyrotationwarpersetscale)
+  - [cv::PyRotationWarper::warp](#cvpyrotationwarperwarp)
+  - [cv::PyRotationWarper::warpBackward](#cvpyrotationwarperwarpbackward)
+  - [cv::PyRotationWarper::warpPoint](#cvpyrotationwarperwarppoint)
+  - [cv::PyRotationWarper::warpPointBackward](#cvpyrotationwarperwarppointbackward)
+  - [cv::PyRotationWarper::warpRoi](#cvpyrotationwarperwarproi)
+- [cv::detail::Blender](#cvdetailblender)
+  - [cv::detail::Blender::blend](#cvdetailblenderblend)
+  - [cv::detail::Blender::createDefault](#cvdetailblendercreatedefault)
+  - [cv::detail::Blender::feed](#cvdetailblenderfeed)
+  - [cv::detail::Blender::prepare](#cvdetailblenderprepare)
+- [cv::detail::FeatherBlender](#cvdetailfeatherblender)
+  - [cv::detail::FeatherBlender::get_create](#cvdetailfeatherblenderget_create)
+  - [cv::detail::FeatherBlender::blend](#cvdetailfeatherblenderblend)
+  - [cv::detail::FeatherBlender::createDefault](#cvdetailfeatherblendercreatedefault)
+  - [cv::detail::FeatherBlender::createWeightMaps](#cvdetailfeatherblendercreateweightmaps)
+  - [cv::detail::FeatherBlender::feed](#cvdetailfeatherblenderfeed)
+  - [cv::detail::FeatherBlender::prepare](#cvdetailfeatherblenderprepare)
+  - [cv::detail::FeatherBlender::setSharpness](#cvdetailfeatherblendersetsharpness)
+  - [cv::detail::FeatherBlender::sharpness](#cvdetailfeatherblendersharpness)
+- [cv::detail::MultiBandBlender](#cvdetailmultibandblender)
+  - [cv::detail::MultiBandBlender::get_create](#cvdetailmultibandblenderget_create)
+  - [cv::detail::MultiBandBlender::blend](#cvdetailmultibandblenderblend)
+  - [cv::detail::MultiBandBlender::createDefault](#cvdetailmultibandblendercreatedefault)
+  - [cv::detail::MultiBandBlender::feed](#cvdetailmultibandblenderfeed)
+  - [cv::detail::MultiBandBlender::numBands](#cvdetailmultibandblendernumbands)
+  - [cv::detail::MultiBandBlender::prepare](#cvdetailmultibandblenderprepare)
+  - [cv::detail::MultiBandBlender::setNumBands](#cvdetailmultibandblendersetnumbands)
+- [cv::detail::CameraParams](#cvdetailcameraparams)
+  - [cv::detail::CameraParams::get_create](#cvdetailcameraparamsget_create)
+  - [cv::detail::CameraParams::K](#cvdetailcameraparamsk)
+- [cv::detail::ExposureCompensator](#cvdetailexposurecompensator)
+  - [cv::detail::ExposureCompensator::apply](#cvdetailexposurecompensatorapply)
+  - [cv::detail::ExposureCompensator::createDefault](#cvdetailexposurecompensatorcreatedefault)
+  - [cv::detail::ExposureCompensator::feed](#cvdetailexposurecompensatorfeed)
+  - [cv::detail::ExposureCompensator::getMatGains](#cvdetailexposurecompensatorgetmatgains)
+  - [cv::detail::ExposureCompensator::getUpdateGain](#cvdetailexposurecompensatorgetupdategain)
+  - [cv::detail::ExposureCompensator::setMatGains](#cvdetailexposurecompensatorsetmatgains)
+  - [cv::detail::ExposureCompensator::setUpdateGain](#cvdetailexposurecompensatorsetupdategain)
+- [cv::detail::NoExposureCompensator](#cvdetailnoexposurecompensator)
+  - [cv::detail::NoExposureCompensator::apply](#cvdetailnoexposurecompensatorapply)
+  - [cv::detail::NoExposureCompensator::createDefault](#cvdetailnoexposurecompensatorcreatedefault)
+  - [cv::detail::NoExposureCompensator::feed](#cvdetailnoexposurecompensatorfeed)
+  - [cv::detail::NoExposureCompensator::getMatGains](#cvdetailnoexposurecompensatorgetmatgains)
+  - [cv::detail::NoExposureCompensator::getUpdateGain](#cvdetailnoexposurecompensatorgetupdategain)
+  - [cv::detail::NoExposureCompensator::setMatGains](#cvdetailnoexposurecompensatorsetmatgains)
+  - [cv::detail::NoExposureCompensator::setUpdateGain](#cvdetailnoexposurecompensatorsetupdategain)
+- [cv::detail::GainCompensator](#cvdetailgaincompensator)
+  - [cv::detail::GainCompensator::get_create](#cvdetailgaincompensatorget_create)
+  - [cv::detail::GainCompensator::apply](#cvdetailgaincompensatorapply)
+  - [cv::detail::GainCompensator::createDefault](#cvdetailgaincompensatorcreatedefault)
+  - [cv::detail::GainCompensator::feed](#cvdetailgaincompensatorfeed)
+  - [cv::detail::GainCompensator::getMatGains](#cvdetailgaincompensatorgetmatgains)
+  - [cv::detail::GainCompensator::getNrFeeds](#cvdetailgaincompensatorgetnrfeeds)
+  - [cv::detail::GainCompensator::getSimilarityThreshold](#cvdetailgaincompensatorgetsimilaritythreshold)
+  - [cv::detail::GainCompensator::getUpdateGain](#cvdetailgaincompensatorgetupdategain)
+  - [cv::detail::GainCompensator::setMatGains](#cvdetailgaincompensatorsetmatgains)
+  - [cv::detail::GainCompensator::setNrFeeds](#cvdetailgaincompensatorsetnrfeeds)
+  - [cv::detail::GainCompensator::setSimilarityThreshold](#cvdetailgaincompensatorsetsimilaritythreshold)
+  - [cv::detail::GainCompensator::setUpdateGain](#cvdetailgaincompensatorsetupdategain)
+- [cv::detail::ChannelsCompensator](#cvdetailchannelscompensator)
+  - [cv::detail::ChannelsCompensator::get_create](#cvdetailchannelscompensatorget_create)
+  - [cv::detail::ChannelsCompensator::apply](#cvdetailchannelscompensatorapply)
+  - [cv::detail::ChannelsCompensator::createDefault](#cvdetailchannelscompensatorcreatedefault)
+  - [cv::detail::ChannelsCompensator::feed](#cvdetailchannelscompensatorfeed)
+  - [cv::detail::ChannelsCompensator::getMatGains](#cvdetailchannelscompensatorgetmatgains)
+  - [cv::detail::ChannelsCompensator::getNrFeeds](#cvdetailchannelscompensatorgetnrfeeds)
+  - [cv::detail::ChannelsCompensator::getSimilarityThreshold](#cvdetailchannelscompensatorgetsimilaritythreshold)
+  - [cv::detail::ChannelsCompensator::getUpdateGain](#cvdetailchannelscompensatorgetupdategain)
+  - [cv::detail::ChannelsCompensator::setMatGains](#cvdetailchannelscompensatorsetmatgains)
+  - [cv::detail::ChannelsCompensator::setNrFeeds](#cvdetailchannelscompensatorsetnrfeeds)
+  - [cv::detail::ChannelsCompensator::setSimilarityThreshold](#cvdetailchannelscompensatorsetsimilaritythreshold)
+  - [cv::detail::ChannelsCompensator::setUpdateGain](#cvdetailchannelscompensatorsetupdategain)
+- [cv::detail::BlocksCompensator](#cvdetailblockscompensator)
+  - [cv::detail::BlocksCompensator::apply](#cvdetailblockscompensatorapply)
+  - [cv::detail::BlocksCompensator::createDefault](#cvdetailblockscompensatorcreatedefault)
+  - [cv::detail::BlocksCompensator::feed](#cvdetailblockscompensatorfeed)
+  - [cv::detail::BlocksCompensator::getBlockSize](#cvdetailblockscompensatorgetblocksize)
+  - [cv::detail::BlocksCompensator::getMatGains](#cvdetailblockscompensatorgetmatgains)
+  - [cv::detail::BlocksCompensator::getNrFeeds](#cvdetailblockscompensatorgetnrfeeds)
+  - [cv::detail::BlocksCompensator::getNrGainsFilteringIterations](#cvdetailblockscompensatorgetnrgainsfilteringiterations)
+  - [cv::detail::BlocksCompensator::getSimilarityThreshold](#cvdetailblockscompensatorgetsimilaritythreshold)
+  - [cv::detail::BlocksCompensator::getUpdateGain](#cvdetailblockscompensatorgetupdategain)
+  - [cv::detail::BlocksCompensator::setBlockSize](#cvdetailblockscompensatorsetblocksize)
+  - [cv::detail::BlocksCompensator::setMatGains](#cvdetailblockscompensatorsetmatgains)
+  - [cv::detail::BlocksCompensator::setNrFeeds](#cvdetailblockscompensatorsetnrfeeds)
+  - [cv::detail::BlocksCompensator::setNrGainsFilteringIterations](#cvdetailblockscompensatorsetnrgainsfilteringiterations)
+  - [cv::detail::BlocksCompensator::setSimilarityThreshold](#cvdetailblockscompensatorsetsimilaritythreshold)
+  - [cv::detail::BlocksCompensator::setUpdateGain](#cvdetailblockscompensatorsetupdategain)
+- [cv::detail::BlocksGainCompensator](#cvdetailblocksgaincompensator)
+  - [cv::detail::BlocksGainCompensator::get_create](#cvdetailblocksgaincompensatorget_create)
+  - [cv::detail::BlocksGainCompensator::apply](#cvdetailblocksgaincompensatorapply)
+  - [cv::detail::BlocksGainCompensator::createDefault](#cvdetailblocksgaincompensatorcreatedefault)
+  - [cv::detail::BlocksGainCompensator::feed](#cvdetailblocksgaincompensatorfeed)
+  - [cv::detail::BlocksGainCompensator::getBlockSize](#cvdetailblocksgaincompensatorgetblocksize)
+  - [cv::detail::BlocksGainCompensator::getMatGains](#cvdetailblocksgaincompensatorgetmatgains)
+  - [cv::detail::BlocksGainCompensator::getNrFeeds](#cvdetailblocksgaincompensatorgetnrfeeds)
+  - [cv::detail::BlocksGainCompensator::getNrGainsFilteringIterations](#cvdetailblocksgaincompensatorgetnrgainsfilteringiterations)
+  - [cv::detail::BlocksGainCompensator::getSimilarityThreshold](#cvdetailblocksgaincompensatorgetsimilaritythreshold)
+  - [cv::detail::BlocksGainCompensator::getUpdateGain](#cvdetailblocksgaincompensatorgetupdategain)
+  - [cv::detail::BlocksGainCompensator::setBlockSize](#cvdetailblocksgaincompensatorsetblocksize)
+  - [cv::detail::BlocksGainCompensator::setMatGains](#cvdetailblocksgaincompensatorsetmatgains)
+  - [cv::detail::BlocksGainCompensator::setNrFeeds](#cvdetailblocksgaincompensatorsetnrfeeds)
+  - [cv::detail::BlocksGainCompensator::setNrGainsFilteringIterations](#cvdetailblocksgaincompensatorsetnrgainsfilteringiterations)
+  - [cv::detail::BlocksGainCompensator::setSimilarityThreshold](#cvdetailblocksgaincompensatorsetsimilaritythreshold)
+  - [cv::detail::BlocksGainCompensator::setUpdateGain](#cvdetailblocksgaincompensatorsetupdategain)
+- [cv::detail::BlocksChannelsCompensator](#cvdetailblockschannelscompensator)
+  - [cv::detail::BlocksChannelsCompensator::get_create](#cvdetailblockschannelscompensatorget_create)
+  - [cv::detail::BlocksChannelsCompensator::apply](#cvdetailblockschannelscompensatorapply)
+  - [cv::detail::BlocksChannelsCompensator::createDefault](#cvdetailblockschannelscompensatorcreatedefault)
+  - [cv::detail::BlocksChannelsCompensator::feed](#cvdetailblockschannelscompensatorfeed)
+  - [cv::detail::BlocksChannelsCompensator::getBlockSize](#cvdetailblockschannelscompensatorgetblocksize)
+  - [cv::detail::BlocksChannelsCompensator::getMatGains](#cvdetailblockschannelscompensatorgetmatgains)
+  - [cv::detail::BlocksChannelsCompensator::getNrFeeds](#cvdetailblockschannelscompensatorgetnrfeeds)
+  - [cv::detail::BlocksChannelsCompensator::getNrGainsFilteringIterations](#cvdetailblockschannelscompensatorgetnrgainsfilteringiterations)
+  - [cv::detail::BlocksChannelsCompensator::getSimilarityThreshold](#cvdetailblockschannelscompensatorgetsimilaritythreshold)
+  - [cv::detail::BlocksChannelsCompensator::getUpdateGain](#cvdetailblockschannelscompensatorgetupdategain)
+  - [cv::detail::BlocksChannelsCompensator::setBlockSize](#cvdetailblockschannelscompensatorsetblocksize)
+  - [cv::detail::BlocksChannelsCompensator::setMatGains](#cvdetailblockschannelscompensatorsetmatgains)
+  - [cv::detail::BlocksChannelsCompensator::setNrFeeds](#cvdetailblockschannelscompensatorsetnrfeeds)
+  - [cv::detail::BlocksChannelsCompensator::setNrGainsFilteringIterations](#cvdetailblockschannelscompensatorsetnrgainsfilteringiterations)
+  - [cv::detail::BlocksChannelsCompensator::setSimilarityThreshold](#cvdetailblockschannelscompensatorsetsimilaritythreshold)
+  - [cv::detail::BlocksChannelsCompensator::setUpdateGain](#cvdetailblockschannelscompensatorsetupdategain)
+- [cv::detail::ImageFeatures](#cvdetailimagefeatures)
+  - [cv::detail::ImageFeatures::get_create](#cvdetailimagefeaturesget_create)
+  - [cv::detail::ImageFeatures::getKeypoints](#cvdetailimagefeaturesgetkeypoints)
+- [cv::detail::MatchesInfo](#cvdetailmatchesinfo)
+  - [cv::detail::MatchesInfo::get_create](#cvdetailmatchesinfoget_create)
+  - [cv::detail::MatchesInfo::getInliers](#cvdetailmatchesinfogetinliers)
+  - [cv::detail::MatchesInfo::getMatches](#cvdetailmatchesinfogetmatches)
+- [cv::detail::FeaturesMatcher](#cvdetailfeaturesmatcher)
+  - [cv::detail::FeaturesMatcher::apply](#cvdetailfeaturesmatcherapply)
+  - [cv::detail::FeaturesMatcher::apply2](#cvdetailfeaturesmatcherapply2)
+  - [cv::detail::FeaturesMatcher::collectGarbage](#cvdetailfeaturesmatchercollectgarbage)
+  - [cv::detail::FeaturesMatcher::isThreadSafe](#cvdetailfeaturesmatcheristhreadsafe)
+- [cv::detail::BestOf2NearestMatcher](#cvdetailbestof2nearestmatcher)
+  - [cv::detail::BestOf2NearestMatcher::get_create](#cvdetailbestof2nearestmatcherget_create)
+  - [cv::detail::BestOf2NearestMatcher::apply](#cvdetailbestof2nearestmatcherapply)
+  - [cv::detail::BestOf2NearestMatcher::apply2](#cvdetailbestof2nearestmatcherapply2)
+  - [cv::detail::BestOf2NearestMatcher::collectGarbage](#cvdetailbestof2nearestmatchercollectgarbage)
+  - [cv::detail::BestOf2NearestMatcher::isThreadSafe](#cvdetailbestof2nearestmatcheristhreadsafe)
+- [cv::detail::BestOf2NearestRangeMatcher](#cvdetailbestof2nearestrangematcher)
+  - [cv::detail::BestOf2NearestRangeMatcher::get_create](#cvdetailbestof2nearestrangematcherget_create)
+  - [cv::detail::BestOf2NearestRangeMatcher::apply](#cvdetailbestof2nearestrangematcherapply)
+  - [cv::detail::BestOf2NearestRangeMatcher::apply2](#cvdetailbestof2nearestrangematcherapply2)
+  - [cv::detail::BestOf2NearestRangeMatcher::collectGarbage](#cvdetailbestof2nearestrangematchercollectgarbage)
+  - [cv::detail::BestOf2NearestRangeMatcher::isThreadSafe](#cvdetailbestof2nearestrangematcheristhreadsafe)
+- [cv::detail::AffineBestOf2NearestMatcher](#cvdetailaffinebestof2nearestmatcher)
+  - [cv::detail::AffineBestOf2NearestMatcher::get_create](#cvdetailaffinebestof2nearestmatcherget_create)
+  - [cv::detail::AffineBestOf2NearestMatcher::apply](#cvdetailaffinebestof2nearestmatcherapply)
+  - [cv::detail::AffineBestOf2NearestMatcher::apply2](#cvdetailaffinebestof2nearestmatcherapply2)
+  - [cv::detail::AffineBestOf2NearestMatcher::collectGarbage](#cvdetailaffinebestof2nearestmatchercollectgarbage)
+  - [cv::detail::AffineBestOf2NearestMatcher::isThreadSafe](#cvdetailaffinebestof2nearestmatcheristhreadsafe)
+- [cv::detail::Estimator](#cvdetailestimator)
+  - [cv::detail::Estimator::apply](#cvdetailestimatorapply)
+- [cv::detail::HomographyBasedEstimator](#cvdetailhomographybasedestimator)
+  - [cv::detail::HomographyBasedEstimator::get_create](#cvdetailhomographybasedestimatorget_create)
+  - [cv::detail::HomographyBasedEstimator::apply](#cvdetailhomographybasedestimatorapply)
+- [cv::detail::AffineBasedEstimator](#cvdetailaffinebasedestimator)
+  - [cv::detail::AffineBasedEstimator::get_create](#cvdetailaffinebasedestimatorget_create)
+  - [cv::detail::AffineBasedEstimator::apply](#cvdetailaffinebasedestimatorapply)
+- [cv::detail::BundleAdjusterBase](#cvdetailbundleadjusterbase)
+  - [cv::detail::BundleAdjusterBase::apply](#cvdetailbundleadjusterbaseapply)
+  - [cv::detail::BundleAdjusterBase::confThresh](#cvdetailbundleadjusterbaseconfthresh)
+  - [cv::detail::BundleAdjusterBase::refinementMask](#cvdetailbundleadjusterbaserefinementmask)
+  - [cv::detail::BundleAdjusterBase::setConfThresh](#cvdetailbundleadjusterbasesetconfthresh)
+  - [cv::detail::BundleAdjusterBase::setRefinementMask](#cvdetailbundleadjusterbasesetrefinementmask)
+  - [cv::detail::BundleAdjusterBase::setTermCriteria](#cvdetailbundleadjusterbasesettermcriteria)
+  - [cv::detail::BundleAdjusterBase::termCriteria](#cvdetailbundleadjusterbasetermcriteria)
+- [cv::detail::NoBundleAdjuster](#cvdetailnobundleadjuster)
+  - [cv::detail::NoBundleAdjuster::get_create](#cvdetailnobundleadjusterget_create)
+  - [cv::detail::NoBundleAdjuster::apply](#cvdetailnobundleadjusterapply)
+  - [cv::detail::NoBundleAdjuster::confThresh](#cvdetailnobundleadjusterconfthresh)
+  - [cv::detail::NoBundleAdjuster::refinementMask](#cvdetailnobundleadjusterrefinementmask)
+  - [cv::detail::NoBundleAdjuster::setConfThresh](#cvdetailnobundleadjustersetconfthresh)
+  - [cv::detail::NoBundleAdjuster::setRefinementMask](#cvdetailnobundleadjustersetrefinementmask)
+  - [cv::detail::NoBundleAdjuster::setTermCriteria](#cvdetailnobundleadjustersettermcriteria)
+  - [cv::detail::NoBundleAdjuster::termCriteria](#cvdetailnobundleadjustertermcriteria)
+- [cv::detail::BundleAdjusterReproj](#cvdetailbundleadjusterreproj)
+  - [cv::detail::BundleAdjusterReproj::get_create](#cvdetailbundleadjusterreprojget_create)
+  - [cv::detail::BundleAdjusterReproj::apply](#cvdetailbundleadjusterreprojapply)
+  - [cv::detail::BundleAdjusterReproj::confThresh](#cvdetailbundleadjusterreprojconfthresh)
+  - [cv::detail::BundleAdjusterReproj::refinementMask](#cvdetailbundleadjusterreprojrefinementmask)
+  - [cv::detail::BundleAdjusterReproj::setConfThresh](#cvdetailbundleadjusterreprojsetconfthresh)
+  - [cv::detail::BundleAdjusterReproj::setRefinementMask](#cvdetailbundleadjusterreprojsetrefinementmask)
+  - [cv::detail::BundleAdjusterReproj::setTermCriteria](#cvdetailbundleadjusterreprojsettermcriteria)
+  - [cv::detail::BundleAdjusterReproj::termCriteria](#cvdetailbundleadjusterreprojtermcriteria)
+- [cv::detail::BundleAdjusterRay](#cvdetailbundleadjusterray)
+  - [cv::detail::BundleAdjusterRay::get_create](#cvdetailbundleadjusterrayget_create)
+  - [cv::detail::BundleAdjusterRay::apply](#cvdetailbundleadjusterrayapply)
+  - [cv::detail::BundleAdjusterRay::confThresh](#cvdetailbundleadjusterrayconfthresh)
+  - [cv::detail::BundleAdjusterRay::refinementMask](#cvdetailbundleadjusterrayrefinementmask)
+  - [cv::detail::BundleAdjusterRay::setConfThresh](#cvdetailbundleadjusterraysetconfthresh)
+  - [cv::detail::BundleAdjusterRay::setRefinementMask](#cvdetailbundleadjusterraysetrefinementmask)
+  - [cv::detail::BundleAdjusterRay::setTermCriteria](#cvdetailbundleadjusterraysettermcriteria)
+  - [cv::detail::BundleAdjusterRay::termCriteria](#cvdetailbundleadjusterraytermcriteria)
+- [cv::detail::BundleAdjusterAffine](#cvdetailbundleadjusteraffine)
+  - [cv::detail::BundleAdjusterAffine::get_create](#cvdetailbundleadjusteraffineget_create)
+  - [cv::detail::BundleAdjusterAffine::apply](#cvdetailbundleadjusteraffineapply)
+  - [cv::detail::BundleAdjusterAffine::confThresh](#cvdetailbundleadjusteraffineconfthresh)
+  - [cv::detail::BundleAdjusterAffine::refinementMask](#cvdetailbundleadjusteraffinerefinementmask)
+  - [cv::detail::BundleAdjusterAffine::setConfThresh](#cvdetailbundleadjusteraffinesetconfthresh)
+  - [cv::detail::BundleAdjusterAffine::setRefinementMask](#cvdetailbundleadjusteraffinesetrefinementmask)
+  - [cv::detail::BundleAdjusterAffine::setTermCriteria](#cvdetailbundleadjusteraffinesettermcriteria)
+  - [cv::detail::BundleAdjusterAffine::termCriteria](#cvdetailbundleadjusteraffinetermcriteria)
+- [cv::detail::BundleAdjusterAffinePartial](#cvdetailbundleadjusteraffinepartial)
+  - [cv::detail::BundleAdjusterAffinePartial::get_create](#cvdetailbundleadjusteraffinepartialget_create)
+  - [cv::detail::BundleAdjusterAffinePartial::apply](#cvdetailbundleadjusteraffinepartialapply)
+  - [cv::detail::BundleAdjusterAffinePartial::confThresh](#cvdetailbundleadjusteraffinepartialconfthresh)
+  - [cv::detail::BundleAdjusterAffinePartial::refinementMask](#cvdetailbundleadjusteraffinepartialrefinementmask)
+  - [cv::detail::BundleAdjusterAffinePartial::setConfThresh](#cvdetailbundleadjusteraffinepartialsetconfthresh)
+  - [cv::detail::BundleAdjusterAffinePartial::setRefinementMask](#cvdetailbundleadjusteraffinepartialsetrefinementmask)
+  - [cv::detail::BundleAdjusterAffinePartial::setTermCriteria](#cvdetailbundleadjusteraffinepartialsettermcriteria)
+  - [cv::detail::BundleAdjusterAffinePartial::termCriteria](#cvdetailbundleadjusteraffinepartialtermcriteria)
+- [cv::detail::SeamFinder](#cvdetailseamfinder)
+  - [cv::detail::SeamFinder::createDefault](#cvdetailseamfindercreatedefault)
+  - [cv::detail::SeamFinder::find](#cvdetailseamfinderfind)
+- [cv::detail::NoSeamFinder](#cvdetailnoseamfinder)
+  - [cv::detail::NoSeamFinder::createDefault](#cvdetailnoseamfindercreatedefault)
+  - [cv::detail::NoSeamFinder::find](#cvdetailnoseamfinderfind)
+- [cv::detail::PairwiseSeamFinder](#cvdetailpairwiseseamfinder)
+  - [cv::detail::PairwiseSeamFinder::createDefault](#cvdetailpairwiseseamfindercreatedefault)
+  - [cv::detail::PairwiseSeamFinder::find](#cvdetailpairwiseseamfinderfind)
+- [cv::detail::VoronoiSeamFinder](#cvdetailvoronoiseamfinder)
+  - [cv::detail::VoronoiSeamFinder::createDefault](#cvdetailvoronoiseamfindercreatedefault)
+  - [cv::detail::VoronoiSeamFinder::find](#cvdetailvoronoiseamfinderfind)
+- [cv::detail::DpSeamFinder](#cvdetaildpseamfinder)
+  - [cv::detail::DpSeamFinder::get_create](#cvdetaildpseamfinderget_create)
+  - [cv::detail::DpSeamFinder::createDefault](#cvdetaildpseamfindercreatedefault)
+  - [cv::detail::DpSeamFinder::find](#cvdetaildpseamfinderfind)
+  - [cv::detail::DpSeamFinder::setCostFunction](#cvdetaildpseamfindersetcostfunction)
+- [cv::detail::GraphCutSeamFinder](#cvdetailgraphcutseamfinder)
+  - [cv::detail::GraphCutSeamFinder::get_create](#cvdetailgraphcutseamfinderget_create)
+  - [cv::detail::GraphCutSeamFinder::createDefault](#cvdetailgraphcutseamfindercreatedefault)
+  - [cv::detail::GraphCutSeamFinder::find](#cvdetailgraphcutseamfinderfind)
+- [cv::detail::Timelapser](#cvdetailtimelapser)
+  - [cv::detail::Timelapser::createDefault](#cvdetailtimelapsercreatedefault)
+  - [cv::detail::Timelapser::getDst](#cvdetailtimelapsergetdst)
+  - [cv::detail::Timelapser::initialize](#cvdetailtimelapserinitialize)
+  - [cv::detail::Timelapser::process](#cvdetailtimelapserprocess)
+- [cv::detail::TimelapserCrop](#cvdetailtimelapsercrop)
+  - [cv::detail::TimelapserCrop::createDefault](#cvdetailtimelapsercropcreatedefault)
+  - [cv::detail::TimelapserCrop::getDst](#cvdetailtimelapsercropgetdst)
+  - [cv::detail::TimelapserCrop::initialize](#cvdetailtimelapsercropinitialize)
+  - [cv::detail::TimelapserCrop::process](#cvdetailtimelapsercropprocess)
+- [cv::detail::ProjectorBase](#cvdetailprojectorbase)
+  - [cv::detail::ProjectorBase::get_create](#cvdetailprojectorbaseget_create)
+- [cv::detail::SphericalProjector](#cvdetailsphericalprojector)
+  - [cv::detail::SphericalProjector::get_create](#cvdetailsphericalprojectorget_create)
+  - [cv::detail::SphericalProjector::mapBackward](#cvdetailsphericalprojectormapbackward)
+  - [cv::detail::SphericalProjector::mapForward](#cvdetailsphericalprojectormapforward)
+- [cv::BackgroundSubtractor](#cvbackgroundsubtractor)
+  - [cv::BackgroundSubtractor::apply](#cvbackgroundsubtractorapply)
+  - [cv::BackgroundSubtractor::clear](#cvbackgroundsubtractorclear)
+  - [cv::BackgroundSubtractor::empty](#cvbackgroundsubtractorempty)
+  - [cv::BackgroundSubtractor::getBackgroundImage](#cvbackgroundsubtractorgetbackgroundimage)
+  - [cv::BackgroundSubtractor::getDefaultName](#cvbackgroundsubtractorgetdefaultname)
+  - [cv::BackgroundSubtractor::read](#cvbackgroundsubtractorread)
+  - [cv::BackgroundSubtractor::save](#cvbackgroundsubtractorsave)
+  - [cv::BackgroundSubtractor::write](#cvbackgroundsubtractorwrite)
+- [cv::BackgroundSubtractorMOG2](#cvbackgroundsubtractormog2)
+  - [cv::BackgroundSubtractorMOG2::apply](#cvbackgroundsubtractormog2apply)
+  - [cv::BackgroundSubtractorMOG2::clear](#cvbackgroundsubtractormog2clear)
+  - [cv::BackgroundSubtractorMOG2::empty](#cvbackgroundsubtractormog2empty)
+  - [cv::BackgroundSubtractorMOG2::getBackgroundImage](#cvbackgroundsubtractormog2getbackgroundimage)
+  - [cv::BackgroundSubtractorMOG2::getBackgroundRatio](#cvbackgroundsubtractormog2getbackgroundratio)
+  - [cv::BackgroundSubtractorMOG2::getComplexityReductionThreshold](#cvbackgroundsubtractormog2getcomplexityreductionthreshold)
+  - [cv::BackgroundSubtractorMOG2::getDefaultName](#cvbackgroundsubtractormog2getdefaultname)
+  - [cv::BackgroundSubtractorMOG2::getDetectShadows](#cvbackgroundsubtractormog2getdetectshadows)
+  - [cv::BackgroundSubtractorMOG2::getHistory](#cvbackgroundsubtractormog2gethistory)
+  - [cv::BackgroundSubtractorMOG2::getNMixtures](#cvbackgroundsubtractormog2getnmixtures)
+  - [cv::BackgroundSubtractorMOG2::getShadowThreshold](#cvbackgroundsubtractormog2getshadowthreshold)
+  - [cv::BackgroundSubtractorMOG2::getShadowValue](#cvbackgroundsubtractormog2getshadowvalue)
+  - [cv::BackgroundSubtractorMOG2::getVarInit](#cvbackgroundsubtractormog2getvarinit)
+  - [cv::BackgroundSubtractorMOG2::getVarMax](#cvbackgroundsubtractormog2getvarmax)
+  - [cv::BackgroundSubtractorMOG2::getVarMin](#cvbackgroundsubtractormog2getvarmin)
+  - [cv::BackgroundSubtractorMOG2::getVarThreshold](#cvbackgroundsubtractormog2getvarthreshold)
+  - [cv::BackgroundSubtractorMOG2::getVarThresholdGen](#cvbackgroundsubtractormog2getvarthresholdgen)
+  - [cv::BackgroundSubtractorMOG2::read](#cvbackgroundsubtractormog2read)
+  - [cv::BackgroundSubtractorMOG2::save](#cvbackgroundsubtractormog2save)
+  - [cv::BackgroundSubtractorMOG2::setBackgroundRatio](#cvbackgroundsubtractormog2setbackgroundratio)
+  - [cv::BackgroundSubtractorMOG2::setComplexityReductionThreshold](#cvbackgroundsubtractormog2setcomplexityreductionthreshold)
+  - [cv::BackgroundSubtractorMOG2::setDetectShadows](#cvbackgroundsubtractormog2setdetectshadows)
+  - [cv::BackgroundSubtractorMOG2::setHistory](#cvbackgroundsubtractormog2sethistory)
+  - [cv::BackgroundSubtractorMOG2::setNMixtures](#cvbackgroundsubtractormog2setnmixtures)
+  - [cv::BackgroundSubtractorMOG2::setShadowThreshold](#cvbackgroundsubtractormog2setshadowthreshold)
+  - [cv::BackgroundSubtractorMOG2::setShadowValue](#cvbackgroundsubtractormog2setshadowvalue)
+  - [cv::BackgroundSubtractorMOG2::setVarInit](#cvbackgroundsubtractormog2setvarinit)
+  - [cv::BackgroundSubtractorMOG2::setVarMax](#cvbackgroundsubtractormog2setvarmax)
+  - [cv::BackgroundSubtractorMOG2::setVarMin](#cvbackgroundsubtractormog2setvarmin)
+  - [cv::BackgroundSubtractorMOG2::setVarThreshold](#cvbackgroundsubtractormog2setvarthreshold)
+  - [cv::BackgroundSubtractorMOG2::setVarThresholdGen](#cvbackgroundsubtractormog2setvarthresholdgen)
+  - [cv::BackgroundSubtractorMOG2::write](#cvbackgroundsubtractormog2write)
+- [cv::BackgroundSubtractorKNN](#cvbackgroundsubtractorknn)
+  - [cv::BackgroundSubtractorKNN::apply](#cvbackgroundsubtractorknnapply)
+  - [cv::BackgroundSubtractorKNN::clear](#cvbackgroundsubtractorknnclear)
+  - [cv::BackgroundSubtractorKNN::empty](#cvbackgroundsubtractorknnempty)
+  - [cv::BackgroundSubtractorKNN::getBackgroundImage](#cvbackgroundsubtractorknngetbackgroundimage)
+  - [cv::BackgroundSubtractorKNN::getDefaultName](#cvbackgroundsubtractorknngetdefaultname)
+  - [cv::BackgroundSubtractorKNN::getDetectShadows](#cvbackgroundsubtractorknngetdetectshadows)
+  - [cv::BackgroundSubtractorKNN::getDist2Threshold](#cvbackgroundsubtractorknngetdist2threshold)
+  - [cv::BackgroundSubtractorKNN::getHistory](#cvbackgroundsubtractorknngethistory)
+  - [cv::BackgroundSubtractorKNN::getNSamples](#cvbackgroundsubtractorknngetnsamples)
+  - [cv::BackgroundSubtractorKNN::getShadowThreshold](#cvbackgroundsubtractorknngetshadowthreshold)
+  - [cv::BackgroundSubtractorKNN::getShadowValue](#cvbackgroundsubtractorknngetshadowvalue)
+  - [cv::BackgroundSubtractorKNN::getkNNSamples](#cvbackgroundsubtractorknngetknnsamples)
+  - [cv::BackgroundSubtractorKNN::read](#cvbackgroundsubtractorknnread)
+  - [cv::BackgroundSubtractorKNN::save](#cvbackgroundsubtractorknnsave)
+  - [cv::BackgroundSubtractorKNN::setDetectShadows](#cvbackgroundsubtractorknnsetdetectshadows)
+  - [cv::BackgroundSubtractorKNN::setDist2Threshold](#cvbackgroundsubtractorknnsetdist2threshold)
+  - [cv::BackgroundSubtractorKNN::setHistory](#cvbackgroundsubtractorknnsethistory)
+  - [cv::BackgroundSubtractorKNN::setNSamples](#cvbackgroundsubtractorknnsetnsamples)
+  - [cv::BackgroundSubtractorKNN::setShadowThreshold](#cvbackgroundsubtractorknnsetshadowthreshold)
+  - [cv::BackgroundSubtractorKNN::setShadowValue](#cvbackgroundsubtractorknnsetshadowvalue)
+  - [cv::BackgroundSubtractorKNN::setkNNSamples](#cvbackgroundsubtractorknnsetknnsamples)
+  - [cv::BackgroundSubtractorKNN::write](#cvbackgroundsubtractorknnwrite)
+- [cv::KalmanFilter](#cvkalmanfilter)
+  - [cv::KalmanFilter::get_create](#cvkalmanfilterget_create)
+  - [cv::KalmanFilter::correct](#cvkalmanfiltercorrect)
+  - [cv::KalmanFilter::predict](#cvkalmanfilterpredict)
+- [cv::DenseOpticalFlow](#cvdenseopticalflow)
+  - [cv::DenseOpticalFlow::calc](#cvdenseopticalflowcalc)
+  - [cv::DenseOpticalFlow::clear](#cvdenseopticalflowclear)
+  - [cv::DenseOpticalFlow::collectGarbage](#cvdenseopticalflowcollectgarbage)
+  - [cv::DenseOpticalFlow::empty](#cvdenseopticalflowempty)
+  - [cv::DenseOpticalFlow::getDefaultName](#cvdenseopticalflowgetdefaultname)
+  - [cv::DenseOpticalFlow::read](#cvdenseopticalflowread)
+  - [cv::DenseOpticalFlow::save](#cvdenseopticalflowsave)
+  - [cv::DenseOpticalFlow::write](#cvdenseopticalflowwrite)
+- [cv::SparseOpticalFlow](#cvsparseopticalflow)
+  - [cv::SparseOpticalFlow::calc](#cvsparseopticalflowcalc)
+  - [cv::SparseOpticalFlow::clear](#cvsparseopticalflowclear)
+  - [cv::SparseOpticalFlow::empty](#cvsparseopticalflowempty)
+  - [cv::SparseOpticalFlow::getDefaultName](#cvsparseopticalflowgetdefaultname)
+  - [cv::SparseOpticalFlow::read](#cvsparseopticalflowread)
+  - [cv::SparseOpticalFlow::save](#cvsparseopticalflowsave)
+  - [cv::SparseOpticalFlow::write](#cvsparseopticalflowwrite)
+- [cv::FarnebackOpticalFlow](#cvfarnebackopticalflow)
+  - [cv::FarnebackOpticalFlow::get_create](#cvfarnebackopticalflowget_create)
+  - [cv::FarnebackOpticalFlow::calc](#cvfarnebackopticalflowcalc)
+  - [cv::FarnebackOpticalFlow::clear](#cvfarnebackopticalflowclear)
+  - [cv::FarnebackOpticalFlow::collectGarbage](#cvfarnebackopticalflowcollectgarbage)
+  - [cv::FarnebackOpticalFlow::empty](#cvfarnebackopticalflowempty)
+  - [cv::FarnebackOpticalFlow::getDefaultName](#cvfarnebackopticalflowgetdefaultname)
+  - [cv::FarnebackOpticalFlow::getFastPyramids](#cvfarnebackopticalflowgetfastpyramids)
+  - [cv::FarnebackOpticalFlow::getFlags](#cvfarnebackopticalflowgetflags)
+  - [cv::FarnebackOpticalFlow::getNumIters](#cvfarnebackopticalflowgetnumiters)
+  - [cv::FarnebackOpticalFlow::getNumLevels](#cvfarnebackopticalflowgetnumlevels)
+  - [cv::FarnebackOpticalFlow::getPolyN](#cvfarnebackopticalflowgetpolyn)
+  - [cv::FarnebackOpticalFlow::getPolySigma](#cvfarnebackopticalflowgetpolysigma)
+  - [cv::FarnebackOpticalFlow::getPyrScale](#cvfarnebackopticalflowgetpyrscale)
+  - [cv::FarnebackOpticalFlow::getWinSize](#cvfarnebackopticalflowgetwinsize)
+  - [cv::FarnebackOpticalFlow::read](#cvfarnebackopticalflowread)
+  - [cv::FarnebackOpticalFlow::save](#cvfarnebackopticalflowsave)
+  - [cv::FarnebackOpticalFlow::setFastPyramids](#cvfarnebackopticalflowsetfastpyramids)
+  - [cv::FarnebackOpticalFlow::setFlags](#cvfarnebackopticalflowsetflags)
+  - [cv::FarnebackOpticalFlow::setNumIters](#cvfarnebackopticalflowsetnumiters)
+  - [cv::FarnebackOpticalFlow::setNumLevels](#cvfarnebackopticalflowsetnumlevels)
+  - [cv::FarnebackOpticalFlow::setPolyN](#cvfarnebackopticalflowsetpolyn)
+  - [cv::FarnebackOpticalFlow::setPolySigma](#cvfarnebackopticalflowsetpolysigma)
+  - [cv::FarnebackOpticalFlow::setPyrScale](#cvfarnebackopticalflowsetpyrscale)
+  - [cv::FarnebackOpticalFlow::setWinSize](#cvfarnebackopticalflowsetwinsize)
+  - [cv::FarnebackOpticalFlow::write](#cvfarnebackopticalflowwrite)
+- [cv::VariationalRefinement](#cvvariationalrefinement)
+  - [cv::VariationalRefinement::get_create](#cvvariationalrefinementget_create)
+  - [cv::VariationalRefinement::calc](#cvvariationalrefinementcalc)
+  - [cv::VariationalRefinement::calcUV](#cvvariationalrefinementcalcuv)
+  - [cv::VariationalRefinement::clear](#cvvariationalrefinementclear)
+  - [cv::VariationalRefinement::collectGarbage](#cvvariationalrefinementcollectgarbage)
+  - [cv::VariationalRefinement::empty](#cvvariationalrefinementempty)
+  - [cv::VariationalRefinement::getAlpha](#cvvariationalrefinementgetalpha)
+  - [cv::VariationalRefinement::getDefaultName](#cvvariationalrefinementgetdefaultname)
+  - [cv::VariationalRefinement::getDelta](#cvvariationalrefinementgetdelta)
+  - [cv::VariationalRefinement::getFixedPointIterations](#cvvariationalrefinementgetfixedpointiterations)
+  - [cv::VariationalRefinement::getGamma](#cvvariationalrefinementgetgamma)
+  - [cv::VariationalRefinement::getOmega](#cvvariationalrefinementgetomega)
+  - [cv::VariationalRefinement::getSorIterations](#cvvariationalrefinementgetsoriterations)
+  - [cv::VariationalRefinement::read](#cvvariationalrefinementread)
+  - [cv::VariationalRefinement::save](#cvvariationalrefinementsave)
+  - [cv::VariationalRefinement::setAlpha](#cvvariationalrefinementsetalpha)
+  - [cv::VariationalRefinement::setDelta](#cvvariationalrefinementsetdelta)
+  - [cv::VariationalRefinement::setFixedPointIterations](#cvvariationalrefinementsetfixedpointiterations)
+  - [cv::VariationalRefinement::setGamma](#cvvariationalrefinementsetgamma)
+  - [cv::VariationalRefinement::setOmega](#cvvariationalrefinementsetomega)
+  - [cv::VariationalRefinement::setSorIterations](#cvvariationalrefinementsetsoriterations)
+  - [cv::VariationalRefinement::write](#cvvariationalrefinementwrite)
+- [cv::DISOpticalFlow](#cvdisopticalflow)
+  - [cv::DISOpticalFlow::get_create](#cvdisopticalflowget_create)
+  - [cv::DISOpticalFlow::calc](#cvdisopticalflowcalc)
+  - [cv::DISOpticalFlow::clear](#cvdisopticalflowclear)
+  - [cv::DISOpticalFlow::collectGarbage](#cvdisopticalflowcollectgarbage)
+  - [cv::DISOpticalFlow::empty](#cvdisopticalflowempty)
+  - [cv::DISOpticalFlow::getDefaultName](#cvdisopticalflowgetdefaultname)
+  - [cv::DISOpticalFlow::getFinestScale](#cvdisopticalflowgetfinestscale)
+  - [cv::DISOpticalFlow::getGradientDescentIterations](#cvdisopticalflowgetgradientdescentiterations)
+  - [cv::DISOpticalFlow::getPatchSize](#cvdisopticalflowgetpatchsize)
+  - [cv::DISOpticalFlow::getPatchStride](#cvdisopticalflowgetpatchstride)
+  - [cv::DISOpticalFlow::getUseMeanNormalization](#cvdisopticalflowgetusemeannormalization)
+  - [cv::DISOpticalFlow::getUseSpatialPropagation](#cvdisopticalflowgetusespatialpropagation)
+  - [cv::DISOpticalFlow::getVariationalRefinementAlpha](#cvdisopticalflowgetvariationalrefinementalpha)
+  - [cv::DISOpticalFlow::getVariationalRefinementDelta](#cvdisopticalflowgetvariationalrefinementdelta)
+  - [cv::DISOpticalFlow::getVariationalRefinementGamma](#cvdisopticalflowgetvariationalrefinementgamma)
+  - [cv::DISOpticalFlow::getVariationalRefinementIterations](#cvdisopticalflowgetvariationalrefinementiterations)
+  - [cv::DISOpticalFlow::read](#cvdisopticalflowread)
+  - [cv::DISOpticalFlow::save](#cvdisopticalflowsave)
+  - [cv::DISOpticalFlow::setFinestScale](#cvdisopticalflowsetfinestscale)
+  - [cv::DISOpticalFlow::setGradientDescentIterations](#cvdisopticalflowsetgradientdescentiterations)
+  - [cv::DISOpticalFlow::setPatchSize](#cvdisopticalflowsetpatchsize)
+  - [cv::DISOpticalFlow::setPatchStride](#cvdisopticalflowsetpatchstride)
+  - [cv::DISOpticalFlow::setUseMeanNormalization](#cvdisopticalflowsetusemeannormalization)
+  - [cv::DISOpticalFlow::setUseSpatialPropagation](#cvdisopticalflowsetusespatialpropagation)
+  - [cv::DISOpticalFlow::setVariationalRefinementAlpha](#cvdisopticalflowsetvariationalrefinementalpha)
+  - [cv::DISOpticalFlow::setVariationalRefinementDelta](#cvdisopticalflowsetvariationalrefinementdelta)
+  - [cv::DISOpticalFlow::setVariationalRefinementGamma](#cvdisopticalflowsetvariationalrefinementgamma)
+  - [cv::DISOpticalFlow::setVariationalRefinementIterations](#cvdisopticalflowsetvariationalrefinementiterations)
+  - [cv::DISOpticalFlow::write](#cvdisopticalflowwrite)
+- [cv::SparsePyrLKOpticalFlow](#cvsparsepyrlkopticalflow)
+  - [cv::SparsePyrLKOpticalFlow::get_create](#cvsparsepyrlkopticalflowget_create)
+  - [cv::SparsePyrLKOpticalFlow::calc](#cvsparsepyrlkopticalflowcalc)
+  - [cv::SparsePyrLKOpticalFlow::clear](#cvsparsepyrlkopticalflowclear)
+  - [cv::SparsePyrLKOpticalFlow::empty](#cvsparsepyrlkopticalflowempty)
+  - [cv::SparsePyrLKOpticalFlow::getDefaultName](#cvsparsepyrlkopticalflowgetdefaultname)
+  - [cv::SparsePyrLKOpticalFlow::getFlags](#cvsparsepyrlkopticalflowgetflags)
+  - [cv::SparsePyrLKOpticalFlow::getMaxLevel](#cvsparsepyrlkopticalflowgetmaxlevel)
+  - [cv::SparsePyrLKOpticalFlow::getMinEigThreshold](#cvsparsepyrlkopticalflowgetmineigthreshold)
+  - [cv::SparsePyrLKOpticalFlow::getTermCriteria](#cvsparsepyrlkopticalflowgettermcriteria)
+  - [cv::SparsePyrLKOpticalFlow::getWinSize](#cvsparsepyrlkopticalflowgetwinsize)
+  - [cv::SparsePyrLKOpticalFlow::read](#cvsparsepyrlkopticalflowread)
+  - [cv::SparsePyrLKOpticalFlow::save](#cvsparsepyrlkopticalflowsave)
+  - [cv::SparsePyrLKOpticalFlow::setFlags](#cvsparsepyrlkopticalflowsetflags)
+  - [cv::SparsePyrLKOpticalFlow::setMaxLevel](#cvsparsepyrlkopticalflowsetmaxlevel)
+  - [cv::SparsePyrLKOpticalFlow::setMinEigThreshold](#cvsparsepyrlkopticalflowsetmineigthreshold)
+  - [cv::SparsePyrLKOpticalFlow::setTermCriteria](#cvsparsepyrlkopticalflowsettermcriteria)
+  - [cv::SparsePyrLKOpticalFlow::setWinSize](#cvsparsepyrlkopticalflowsetwinsize)
+  - [cv::SparsePyrLKOpticalFlow::write](#cvsparsepyrlkopticalflowwrite)
+- [cv::Tracker](#cvtracker)
+  - [cv::Tracker::init](#cvtrackerinit)
+  - [cv::Tracker::update](#cvtrackerupdate)
+- [cv::TrackerMIL](#cvtrackermil)
+  - [cv::TrackerMIL::get_create](#cvtrackermilget_create)
+  - [cv::TrackerMIL::init](#cvtrackermilinit)
+  - [cv::TrackerMIL::update](#cvtrackermilupdate)
+- [cv::TrackerMIL::Params](#cvtrackermilparams)
+  - [cv::TrackerMIL::Params::get_create](#cvtrackermilparamsget_create)
+- [cv::TrackerGOTURN](#cvtrackergoturn)
+  - [cv::TrackerGOTURN::get_create](#cvtrackergoturnget_create)
+  - [cv::TrackerGOTURN::init](#cvtrackergoturninit)
+  - [cv::TrackerGOTURN::update](#cvtrackergoturnupdate)
+- [cv::TrackerGOTURN::Params](#cvtrackergoturnparams)
+  - [cv::TrackerGOTURN::Params::get_create](#cvtrackergoturnparamsget_create)
+- [cv::TrackerDaSiamRPN](#cvtrackerdasiamrpn)
+  - [cv::TrackerDaSiamRPN::get_create](#cvtrackerdasiamrpnget_create)
+  - [cv::TrackerDaSiamRPN::getTrackingScore](#cvtrackerdasiamrpngettrackingscore)
+  - [cv::TrackerDaSiamRPN::init](#cvtrackerdasiamrpninit)
+  - [cv::TrackerDaSiamRPN::update](#cvtrackerdasiamrpnupdate)
+- [cv::TrackerDaSiamRPN::Params](#cvtrackerdasiamrpnparams)
+  - [cv::TrackerDaSiamRPN::Params::get_create](#cvtrackerdasiamrpnparamsget_create)
+- [cv::gapi](#cvgapi)
+  - [cv::gapi::BGR2RGB](#cvgapibgr2rgb)
+  - [cv::gapi::RGB2Gray](#cvgapirgb2gray)
+  - [cv::gapi::add](#cvgapiadd)
+  - [cv::gapi::addC](#cvgapiaddc)
+  - [cv::gapi::boundingRect](#cvgapiboundingrect)
+  - [cv::gapi::copy](#cvgapicopy)
+  - [cv::gapi::goodFeaturesToTrack](#cvgapigoodfeaturestotrack)
+  - [cv::gapi::kmeans](#cvgapikmeans)
+  - [cv::gapi::mean](#cvgapimean)
+  - [cv::gapi::medianBlur](#cvgapimedianblur)
+  - [cv::gapi::parseSSD](#cvgapiparsessd)
+  - [cv::gapi::parseYolo](#cvgapiparseyolo)
+  - [cv::gapi::resize](#cvgapiresize)
+  - [cv::gapi::split3](#cvgapisplit3)
+  - [cv::gapi::threshold](#cvgapithreshold)
+- [cv::gapi::streaming](#cvgapistreaming)
+  - [cv::gapi::streaming::size](#cvgapistreamingsize)
+- [cv::gapi::core::cpu](#cvgapicorecpu)
+  - [cv::gapi::core::cpu::kernels](#cvgapicorecpukernels)
+- [cv::gapi::core::fluid](#cvgapicorefluid)
+  - [cv::gapi::core::fluid::kernels](#cvgapicorefluidkernels)
+- [cv::GArrayDesc](#cvgarraydesc)
+  - [cv::GArrayDesc::get_create](#cvgarraydescget_create)
+- [cv::GComputation](#cvgcomputation)
+  - [cv::GComputation::get_create](#cvgcomputationget_create)
+  - [cv::GComputation::apply](#cvgcomputationapply)
+  - [cv::GComputation::compileStreaming](#cvgcomputationcompilestreaming)
+- [cv::GFrame](#cvgframe)
+  - [cv::GFrame::get_create](#cvgframeget_create)
+- [cv::GMat](#cvgmat)
+  - [cv::GMat::get_create](#cvgmatget_create)
+- [cv::GMatDesc](#cvgmatdesc)
+  - [cv::GMatDesc::get_create](#cvgmatdescget_create)
+  - [cv::GMatDesc::asInterleaved](#cvgmatdescasinterleaved)
+  - [cv::GMatDesc::asPlanar](#cvgmatdescasplanar)
+  - [cv::GMatDesc::withDepth](#cvgmatdescwithdepth)
+  - [cv::GMatDesc::withSize](#cvgmatdescwithsize)
+  - [cv::GMatDesc::withSizeDelta](#cvgmatdescwithsizedelta)
+  - [cv::GMatDesc::withType](#cvgmatdescwithtype)
+- [cv::GOpaqueDesc](#cvgopaquedesc)
+  - [cv::GOpaqueDesc::get_create](#cvgopaquedescget_create)
+- [cv::GScalar](#cvgscalar)
+  - [cv::GScalar::get_create](#cvgscalarget_create)
+- [cv::GScalarDesc](#cvgscalardesc)
+  - [cv::GScalarDesc::get_create](#cvgscalardescget_create)
+- [cv::GStreamingCompiled](#cvgstreamingcompiled)
+  - [cv::GStreamingCompiled::get_create](#cvgstreamingcompiledget_create)
+  - [cv::GStreamingCompiled::pull](#cvgstreamingcompiledpull)
+  - [cv::GStreamingCompiled::running](#cvgstreamingcompiledrunning)
+  - [cv::GStreamingCompiled::setSource](#cvgstreamingcompiledsetsource)
+  - [cv::GStreamingCompiled::start](#cvgstreamingcompiledstart)
+  - [cv::GStreamingCompiled::stop](#cvgstreamingcompiledstop)
+- [cv::gapi::streaming::queue_capacity](#cvgapistreamingqueue_capacity)
+  - [cv::gapi::streaming::queue_capacity::get_create](#cvgapistreamingqueue_capacityget_create)
+- [cv::gapi::GNetParam](#cvgapignetparam)
+  - [cv::gapi::GNetParam::get_create](#cvgapignetparamget_create)
+- [cv::gapi::GNetPackage](#cvgapignetpackage)
+  - [cv::gapi::GNetPackage::get_create](#cvgapignetpackageget_create)
+- [cv::gapi::ie](#cvgapiie)
+  - [cv::gapi::ie::params](#cvgapiieparams)
+- [cv::gapi::ie::PyParams](#cvgapiiepyparams)
+  - [cv::gapi::ie::PyParams::get_create](#cvgapiiepyparamsget_create)
+  - [cv::gapi::ie::PyParams::cfgBatchSize](#cvgapiiepyparamscfgbatchsize)
+  - [cv::gapi::ie::PyParams::cfgNumRequests](#cvgapiiepyparamscfgnumrequests)
+  - [cv::gapi::ie::PyParams::constInput](#cvgapiiepyparamsconstinput)
+- [cv::gapi::core::ocl](#cvgapicoreocl)
+  - [cv::gapi::core::ocl::kernels](#cvgapicoreoclkernels)
+- [cv::gapi::wip](#cvgapiwip)
+  - [cv::gapi::wip::get_streaming_source](#cvgapiwipget_streaming_source)
+  - [cv::gapi::wip::make_capture_src](#cvgapiwipmake_capture_src)
+  - [cv::gapi::wip::make_gst_src](#cvgapiwipmake_gst_src)
+- [cv::gapi::wip::draw](#cvgapiwipdraw)
+  - [cv::gapi::wip::draw::render](#cvgapiwipdrawrender)
+  - [cv::gapi::wip::draw::render3ch](#cvgapiwipdrawrender3ch)
+  - [cv::gapi::wip::draw::renderNV12](#cvgapiwipdrawrendernv12)
+- [cv::gapi::render::ocv](#cvgapirenderocv)
+  - [cv::gapi::render::ocv::kernels](#cvgapirenderocvkernels)
+- [cv::gapi::wip::draw::Text](#cvgapiwipdrawtext)
+  - [cv::gapi::wip::draw::Text::get_create](#cvgapiwipdrawtextget_create)
+- [cv::gapi::wip::draw::Rect](#cvgapiwipdrawrect)
+  - [cv::gapi::wip::draw::Rect::get_create](#cvgapiwipdrawrectget_create)
+- [cv::gapi::wip::draw::Circle](#cvgapiwipdrawcircle)
+  - [cv::gapi::wip::draw::Circle::get_create](#cvgapiwipdrawcircleget_create)
+- [cv::gapi::wip::draw::Line](#cvgapiwipdrawline)
+  - [cv::gapi::wip::draw::Line::get_create](#cvgapiwipdrawlineget_create)
+- [cv::gapi::wip::draw::Mosaic](#cvgapiwipdrawmosaic)
+  - [cv::gapi::wip::draw::Mosaic::get_create](#cvgapiwipdrawmosaicget_create)
+- [cv::gapi::wip::draw::Image](#cvgapiwipdrawimage)
+  - [cv::gapi::wip::draw::Image::get_create](#cvgapiwipdrawimageget_create)
+- [cv::gapi::wip::draw::Poly](#cvgapiwipdrawpoly)
+  - [cv::gapi::wip::draw::Poly::get_create](#cvgapiwipdrawpolyget_create)
+- [cv::gapi::wip::gst::GStreamerPipeline](#cvgapiwipgstgstreamerpipeline)
+  - [cv::gapi::wip::gst::GStreamerPipeline::get_create](#cvgapiwipgstgstreamerpipelineget_create)
+- [NamedParameters](#namedparameters)
+  - [NamedParameters::create](#namedparameterscreate)
+  - [NamedParameters::Add](#namedparametersadd)
+  - [NamedParameters::Get](#namedparametersget)
+  - [NamedParameters::Items](#namedparametersitems)
+  - [NamedParameters::Keys](#namedparameterskeys)
+  - [NamedParameters::Remove](#namedparametersremove)
+  - [NamedParameters::clear](#namedparametersclear)
+  - [NamedParameters::contains](#namedparameterscontains)
+  - [NamedParameters::count](#namedparameterscount)
+  - [NamedParameters::empty](#namedparametersempty)
+  - [NamedParameters::erase](#namedparameterserase)
+  - [NamedParameters::get_Item](#namedparametersget_item)
+  - [NamedParameters::get__NewEnum](#namedparametersget__newenum)
+  - [NamedParameters::has](#namedparametershas)
+  - [NamedParameters::max_size](#namedparametersmax_size)
+  - [NamedParameters::merge](#namedparametersmerge)
+  - [NamedParameters::put_Item](#namedparametersput_item)
+  - [NamedParameters::size](#namedparameterssize)
+- [cv::wgc](#cvwgc)
+  - [cv::wgc::BitBltCapture](#cvwgcbitbltcapture)
+  - [cv::wgc::createSimpleCapture](#cvwgccreatesimplecapture)
+  - [cv::wgc::isWGCSupported](#cvwgciswgcsupported)
+- [cv::wgc::SimpleCapture](#cvwgcsimplecapture)
+  - [cv::wgc::SimpleCapture::Pause](#cvwgcsimplecapturepause)
+  - [cv::wgc::SimpleCapture::Paused](#cvwgcsimplecapturepaused)
+  - [cv::wgc::SimpleCapture::Resume](#cvwgcsimplecaptureresume)
+  - [cv::wgc::SimpleCapture::Start](#cvwgcsimplecapturestart)
+  - [cv::wgc::SimpleCapture::Stop](#cvwgcsimplecapturestop)
+  - [cv::wgc::SimpleCapture::setHandle](#cvwgcsimplecapturesethandle)
+- [cv::Range](#cvrange)
+  - [cv::Range::get_create](#cvrangeget_create)
+  - [cv::Range::all](#cvrangeall)
+  - [cv::Range::empty](#cvrangeempty)
+  - [cv::Range::size](#cvrangesize)
+- [cv::RotatedRect](#cvrotatedrect)
+  - [cv::RotatedRect::get_create](#cvrotatedrectget_create)
+  - [cv::RotatedRect::boundingRect](#cvrotatedrectboundingrect)
+- [cv::GCompileArg](#cvgcompilearg)
+  - [cv::GCompileArg::get_create](#cvgcompileargget_create)
+- [cv::GRunArg](#cvgrunarg)
+  - [cv::GRunArg::get_create](#cvgrunargget_create)
+- [cv::gapi::wip::draw::Prim](#cvgapiwipdrawprim)
+  - [cv::gapi::wip::draw::Prim::get_create](#cvgapiwipdrawprimget_create)
+- [VectorOfString](#vectorofstring)
+  - [VectorOfString::create](#vectorofstringcreate)
+  - [VectorOfString::Add](#vectorofstringadd)
+  - [VectorOfString::Items](#vectorofstringitems)
+  - [VectorOfString::Keys](#vectorofstringkeys)
+  - [VectorOfString::Remove](#vectorofstringremove)
+  - [VectorOfString::append](#vectorofstringappend)
+  - [VectorOfString::at](#vectorofstringat)
+  - [VectorOfString::clear](#vectorofstringclear)
+  - [VectorOfString::empty](#vectorofstringempty)
+  - [VectorOfString::end](#vectorofstringend)
+  - [VectorOfString::get_Item](#vectorofstringget_item)
+  - [VectorOfString::get__NewEnum](#vectorofstringget__newenum)
+  - [VectorOfString::push_back](#vectorofstringpush_back)
+  - [VectorOfString::push_vector](#vectorofstringpush_vector)
+  - [VectorOfString::put_Item](#vectorofstringput_item)
+  - [VectorOfString::size](#vectorofstringsize)
+  - [VectorOfString::slice](#vectorofstringslice)
+  - [VectorOfString::sort](#vectorofstringsort)
+  - [VectorOfString::sort_variant](#vectorofstringsort_variant)
+  - [VectorOfString::start](#vectorofstringstart)
+- [VectorOfVariant](#vectorofvariant)
+  - [VectorOfVariant::create](#vectorofvariantcreate)
+  - [VectorOfVariant::Add](#vectorofvariantadd)
+  - [VectorOfVariant::Items](#vectorofvariantitems)
+  - [VectorOfVariant::Keys](#vectorofvariantkeys)
+  - [VectorOfVariant::Remove](#vectorofvariantremove)
+  - [VectorOfVariant::append](#vectorofvariantappend)
+  - [VectorOfVariant::at](#vectorofvariantat)
+  - [VectorOfVariant::clear](#vectorofvariantclear)
+  - [VectorOfVariant::empty](#vectorofvariantempty)
+  - [VectorOfVariant::end](#vectorofvariantend)
+  - [VectorOfVariant::get_Item](#vectorofvariantget_item)
+  - [VectorOfVariant::get__NewEnum](#vectorofvariantget__newenum)
+  - [VectorOfVariant::push_back](#vectorofvariantpush_back)
+  - [VectorOfVariant::push_vector](#vectorofvariantpush_vector)
+  - [VectorOfVariant::put_Item](#vectorofvariantput_item)
+  - [VectorOfVariant::size](#vectorofvariantsize)
+  - [VectorOfVariant::slice](#vectorofvariantslice)
+  - [VectorOfVariant::sort](#vectorofvariantsort)
+  - [VectorOfVariant::sort_variant](#vectorofvariantsort_variant)
+  - [VectorOfVariant::start](#vectorofvariantstart)
+- [VectorOfMat](#vectorofmat)
+  - [VectorOfMat::create](#vectorofmatcreate)
+  - [VectorOfMat::Add](#vectorofmatadd)
+  - [VectorOfMat::Items](#vectorofmatitems)
+  - [VectorOfMat::Keys](#vectorofmatkeys)
+  - [VectorOfMat::Remove](#vectorofmatremove)
+  - [VectorOfMat::append](#vectorofmatappend)
+  - [VectorOfMat::at](#vectorofmatat)
+  - [VectorOfMat::clear](#vectorofmatclear)
+  - [VectorOfMat::empty](#vectorofmatempty)
+  - [VectorOfMat::end](#vectorofmatend)
+  - [VectorOfMat::get_Item](#vectorofmatget_item)
+  - [VectorOfMat::get__NewEnum](#vectorofmatget__newenum)
+  - [VectorOfMat::push_back](#vectorofmatpush_back)
+  - [VectorOfMat::push_vector](#vectorofmatpush_vector)
+  - [VectorOfMat::put_Item](#vectorofmatput_item)
+  - [VectorOfMat::size](#vectorofmatsize)
+  - [VectorOfMat::slice](#vectorofmatslice)
+  - [VectorOfMat::sort](#vectorofmatsort)
+  - [VectorOfMat::sort_variant](#vectorofmatsort_variant)
+  - [VectorOfMat::start](#vectorofmatstart)
+- [VectorOfInt](#vectorofint)
+  - [VectorOfInt::create](#vectorofintcreate)
+  - [VectorOfInt::Add](#vectorofintadd)
+  - [VectorOfInt::Items](#vectorofintitems)
+  - [VectorOfInt::Keys](#vectorofintkeys)
+  - [VectorOfInt::Remove](#vectorofintremove)
+  - [VectorOfInt::append](#vectorofintappend)
+  - [VectorOfInt::at](#vectorofintat)
+  - [VectorOfInt::clear](#vectorofintclear)
+  - [VectorOfInt::empty](#vectorofintempty)
+  - [VectorOfInt::end](#vectorofintend)
+  - [VectorOfInt::get_Item](#vectorofintget_item)
+  - [VectorOfInt::get__NewEnum](#vectorofintget__newenum)
+  - [VectorOfInt::push_back](#vectorofintpush_back)
+  - [VectorOfInt::push_vector](#vectorofintpush_vector)
+  - [VectorOfInt::put_Item](#vectorofintput_item)
+  - [VectorOfInt::size](#vectorofintsize)
+  - [VectorOfInt::slice](#vectorofintslice)
+  - [VectorOfInt::sort](#vectorofintsort)
+  - [VectorOfInt::sort_variant](#vectorofintsort_variant)
+  - [VectorOfInt::start](#vectorofintstart)
+- [VectorOfFloat](#vectoroffloat)
+  - [VectorOfFloat::create](#vectoroffloatcreate)
+  - [VectorOfFloat::Add](#vectoroffloatadd)
+  - [VectorOfFloat::Items](#vectoroffloatitems)
+  - [VectorOfFloat::Keys](#vectoroffloatkeys)
+  - [VectorOfFloat::Remove](#vectoroffloatremove)
+  - [VectorOfFloat::append](#vectoroffloatappend)
+  - [VectorOfFloat::at](#vectoroffloatat)
+  - [VectorOfFloat::clear](#vectoroffloatclear)
+  - [VectorOfFloat::empty](#vectoroffloatempty)
+  - [VectorOfFloat::end](#vectoroffloatend)
+  - [VectorOfFloat::get_Item](#vectoroffloatget_item)
+  - [VectorOfFloat::get__NewEnum](#vectoroffloatget__newenum)
+  - [VectorOfFloat::push_back](#vectoroffloatpush_back)
+  - [VectorOfFloat::push_vector](#vectoroffloatpush_vector)
+  - [VectorOfFloat::put_Item](#vectoroffloatput_item)
+  - [VectorOfFloat::size](#vectoroffloatsize)
+  - [VectorOfFloat::slice](#vectoroffloatslice)
+  - [VectorOfFloat::sort](#vectoroffloatsort)
+  - [VectorOfFloat::sort_variant](#vectoroffloatsort_variant)
+  - [VectorOfFloat::start](#vectoroffloatstart)
+- [VectorOfKeyPoint](#vectorofkeypoint)
+  - [VectorOfKeyPoint::create](#vectorofkeypointcreate)
+  - [VectorOfKeyPoint::Add](#vectorofkeypointadd)
+  - [VectorOfKeyPoint::Items](#vectorofkeypointitems)
+  - [VectorOfKeyPoint::Keys](#vectorofkeypointkeys)
+  - [VectorOfKeyPoint::Remove](#vectorofkeypointremove)
+  - [VectorOfKeyPoint::append](#vectorofkeypointappend)
+  - [VectorOfKeyPoint::at](#vectorofkeypointat)
+  - [VectorOfKeyPoint::clear](#vectorofkeypointclear)
+  - [VectorOfKeyPoint::empty](#vectorofkeypointempty)
+  - [VectorOfKeyPoint::end](#vectorofkeypointend)
+  - [VectorOfKeyPoint::get_Item](#vectorofkeypointget_item)
+  - [VectorOfKeyPoint::get__NewEnum](#vectorofkeypointget__newenum)
+  - [VectorOfKeyPoint::push_back](#vectorofkeypointpush_back)
+  - [VectorOfKeyPoint::push_vector](#vectorofkeypointpush_vector)
+  - [VectorOfKeyPoint::put_Item](#vectorofkeypointput_item)
+  - [VectorOfKeyPoint::size](#vectorofkeypointsize)
+  - [VectorOfKeyPoint::slice](#vectorofkeypointslice)
+  - [VectorOfKeyPoint::sort](#vectorofkeypointsort)
+  - [VectorOfKeyPoint::sort_variant](#vectorofkeypointsort_variant)
+  - [VectorOfKeyPoint::start](#vectorofkeypointstart)
+- [VectorOfDMatch](#vectorofdmatch)
+  - [VectorOfDMatch::create](#vectorofdmatchcreate)
+  - [VectorOfDMatch::Add](#vectorofdmatchadd)
+  - [VectorOfDMatch::Items](#vectorofdmatchitems)
+  - [VectorOfDMatch::Keys](#vectorofdmatchkeys)
+  - [VectorOfDMatch::Remove](#vectorofdmatchremove)
+  - [VectorOfDMatch::append](#vectorofdmatchappend)
+  - [VectorOfDMatch::at](#vectorofdmatchat)
+  - [VectorOfDMatch::clear](#vectorofdmatchclear)
+  - [VectorOfDMatch::empty](#vectorofdmatchempty)
+  - [VectorOfDMatch::end](#vectorofdmatchend)
+  - [VectorOfDMatch::get_Item](#vectorofdmatchget_item)
+  - [VectorOfDMatch::get__NewEnum](#vectorofdmatchget__newenum)
+  - [VectorOfDMatch::push_back](#vectorofdmatchpush_back)
+  - [VectorOfDMatch::push_vector](#vectorofdmatchpush_vector)
+  - [VectorOfDMatch::put_Item](#vectorofdmatchput_item)
+  - [VectorOfDMatch::size](#vectorofdmatchsize)
+  - [VectorOfDMatch::slice](#vectorofdmatchslice)
+  - [VectorOfDMatch::sort](#vectorofdmatchsort)
+  - [VectorOfDMatch::sort_variant](#vectorofdmatchsort_variant)
+  - [VectorOfDMatch::start](#vectorofdmatchstart)
+- [VectorOfChar](#vectorofchar)
+  - [VectorOfChar::create](#vectorofcharcreate)
+  - [VectorOfChar::Add](#vectorofcharadd)
+  - [VectorOfChar::Items](#vectorofcharitems)
+  - [VectorOfChar::Keys](#vectorofcharkeys)
+  - [VectorOfChar::Remove](#vectorofcharremove)
+  - [VectorOfChar::append](#vectorofcharappend)
+  - [VectorOfChar::at](#vectorofcharat)
+  - [VectorOfChar::clear](#vectorofcharclear)
+  - [VectorOfChar::empty](#vectorofcharempty)
+  - [VectorOfChar::end](#vectorofcharend)
+  - [VectorOfChar::get_Item](#vectorofcharget_item)
+  - [VectorOfChar::get__NewEnum](#vectorofcharget__newenum)
+  - [VectorOfChar::push_back](#vectorofcharpush_back)
+  - [VectorOfChar::push_vector](#vectorofcharpush_vector)
+  - [VectorOfChar::put_Item](#vectorofcharput_item)
+  - [VectorOfChar::size](#vectorofcharsize)
+  - [VectorOfChar::slice](#vectorofcharslice)
+  - [VectorOfChar::sort](#vectorofcharsort)
+  - [VectorOfChar::sort_variant](#vectorofcharsort_variant)
+  - [VectorOfChar::start](#vectorofcharstart)
+- [VectorOfVectorOfDMatch](#vectorofvectorofdmatch)
+  - [VectorOfVectorOfDMatch::create](#vectorofvectorofdmatchcreate)
+  - [VectorOfVectorOfDMatch::Add](#vectorofvectorofdmatchadd)
+  - [VectorOfVectorOfDMatch::Items](#vectorofvectorofdmatchitems)
+  - [VectorOfVectorOfDMatch::Keys](#vectorofvectorofdmatchkeys)
+  - [VectorOfVectorOfDMatch::Remove](#vectorofvectorofdmatchremove)
+  - [VectorOfVectorOfDMatch::append](#vectorofvectorofdmatchappend)
+  - [VectorOfVectorOfDMatch::at](#vectorofvectorofdmatchat)
+  - [VectorOfVectorOfDMatch::clear](#vectorofvectorofdmatchclear)
+  - [VectorOfVectorOfDMatch::empty](#vectorofvectorofdmatchempty)
+  - [VectorOfVectorOfDMatch::end](#vectorofvectorofdmatchend)
+  - [VectorOfVectorOfDMatch::get_Item](#vectorofvectorofdmatchget_item)
+  - [VectorOfVectorOfDMatch::get__NewEnum](#vectorofvectorofdmatchget__newenum)
+  - [VectorOfVectorOfDMatch::push_back](#vectorofvectorofdmatchpush_back)
+  - [VectorOfVectorOfDMatch::push_vector](#vectorofvectorofdmatchpush_vector)
+  - [VectorOfVectorOfDMatch::put_Item](#vectorofvectorofdmatchput_item)
+  - [VectorOfVectorOfDMatch::size](#vectorofvectorofdmatchsize)
+  - [VectorOfVectorOfDMatch::slice](#vectorofvectorofdmatchslice)
+  - [VectorOfVectorOfDMatch::sort](#vectorofvectorofdmatchsort)
+  - [VectorOfVectorOfDMatch::sort_variant](#vectorofvectorofdmatchsort_variant)
+  - [VectorOfVectorOfDMatch::start](#vectorofvectorofdmatchstart)
+- [VectorOfVectorOfChar](#vectorofvectorofchar)
+  - [VectorOfVectorOfChar::create](#vectorofvectorofcharcreate)
+  - [VectorOfVectorOfChar::Add](#vectorofvectorofcharadd)
+  - [VectorOfVectorOfChar::Items](#vectorofvectorofcharitems)
+  - [VectorOfVectorOfChar::Keys](#vectorofvectorofcharkeys)
+  - [VectorOfVectorOfChar::Remove](#vectorofvectorofcharremove)
+  - [VectorOfVectorOfChar::append](#vectorofvectorofcharappend)
+  - [VectorOfVectorOfChar::at](#vectorofvectorofcharat)
+  - [VectorOfVectorOfChar::clear](#vectorofvectorofcharclear)
+  - [VectorOfVectorOfChar::empty](#vectorofvectorofcharempty)
+  - [VectorOfVectorOfChar::end](#vectorofvectorofcharend)
+  - [VectorOfVectorOfChar::get_Item](#vectorofvectorofcharget_item)
+  - [VectorOfVectorOfChar::get__NewEnum](#vectorofvectorofcharget__newenum)
+  - [VectorOfVectorOfChar::push_back](#vectorofvectorofcharpush_back)
+  - [VectorOfVectorOfChar::push_vector](#vectorofvectorofcharpush_vector)
+  - [VectorOfVectorOfChar::put_Item](#vectorofvectorofcharput_item)
+  - [VectorOfVectorOfChar::size](#vectorofvectorofcharsize)
+  - [VectorOfVectorOfChar::slice](#vectorofvectorofcharslice)
+  - [VectorOfVectorOfChar::sort](#vectorofvectorofcharsort)
+  - [VectorOfVectorOfChar::sort_variant](#vectorofvectorofcharsort_variant)
+  - [VectorOfVectorOfChar::start](#vectorofvectorofcharstart)
+- [VectorOfPoint](#vectorofpoint)
+  - [VectorOfPoint::create](#vectorofpointcreate)
+  - [VectorOfPoint::Add](#vectorofpointadd)
+  - [VectorOfPoint::Items](#vectorofpointitems)
+  - [VectorOfPoint::Keys](#vectorofpointkeys)
+  - [VectorOfPoint::Remove](#vectorofpointremove)
+  - [VectorOfPoint::append](#vectorofpointappend)
+  - [VectorOfPoint::at](#vectorofpointat)
+  - [VectorOfPoint::clear](#vectorofpointclear)
+  - [VectorOfPoint::empty](#vectorofpointempty)
+  - [VectorOfPoint::end](#vectorofpointend)
+  - [VectorOfPoint::get_Item](#vectorofpointget_item)
+  - [VectorOfPoint::get__NewEnum](#vectorofpointget__newenum)
+  - [VectorOfPoint::push_back](#vectorofpointpush_back)
+  - [VectorOfPoint::push_vector](#vectorofpointpush_vector)
+  - [VectorOfPoint::put_Item](#vectorofpointput_item)
+  - [VectorOfPoint::size](#vectorofpointsize)
+  - [VectorOfPoint::slice](#vectorofpointslice)
+  - [VectorOfPoint::sort](#vectorofpointsort)
+  - [VectorOfPoint::sort_variant](#vectorofpointsort_variant)
+  - [VectorOfPoint::start](#vectorofpointstart)
+- [VectorOfRect](#vectorofrect)
+  - [VectorOfRect::create](#vectorofrectcreate)
+  - [VectorOfRect::Add](#vectorofrectadd)
+  - [VectorOfRect::Items](#vectorofrectitems)
+  - [VectorOfRect::Keys](#vectorofrectkeys)
+  - [VectorOfRect::Remove](#vectorofrectremove)
+  - [VectorOfRect::append](#vectorofrectappend)
+  - [VectorOfRect::at](#vectorofrectat)
+  - [VectorOfRect::clear](#vectorofrectclear)
+  - [VectorOfRect::empty](#vectorofrectempty)
+  - [VectorOfRect::end](#vectorofrectend)
+  - [VectorOfRect::get_Item](#vectorofrectget_item)
+  - [VectorOfRect::get__NewEnum](#vectorofrectget__newenum)
+  - [VectorOfRect::push_back](#vectorofrectpush_back)
+  - [VectorOfRect::push_vector](#vectorofrectpush_vector)
+  - [VectorOfRect::put_Item](#vectorofrectput_item)
+  - [VectorOfRect::size](#vectorofrectsize)
+  - [VectorOfRect::slice](#vectorofrectslice)
+  - [VectorOfRect::sort](#vectorofrectsort)
+  - [VectorOfRect::sort_variant](#vectorofrectsort_variant)
+  - [VectorOfRect::start](#vectorofrectstart)
+- [VectorOfUchar](#vectorofuchar)
+  - [VectorOfUchar::create](#vectorofucharcreate)
+  - [VectorOfUchar::Add](#vectorofucharadd)
+  - [VectorOfUchar::Items](#vectorofucharitems)
+  - [VectorOfUchar::Keys](#vectorofucharkeys)
+  - [VectorOfUchar::Remove](#vectorofucharremove)
+  - [VectorOfUchar::append](#vectorofucharappend)
+  - [VectorOfUchar::at](#vectorofucharat)
+  - [VectorOfUchar::clear](#vectorofucharclear)
+  - [VectorOfUchar::empty](#vectorofucharempty)
+  - [VectorOfUchar::end](#vectorofucharend)
+  - [VectorOfUchar::get_Item](#vectorofucharget_item)
+  - [VectorOfUchar::get__NewEnum](#vectorofucharget__newenum)
+  - [VectorOfUchar::push_back](#vectorofucharpush_back)
+  - [VectorOfUchar::push_vector](#vectorofucharpush_vector)
+  - [VectorOfUchar::put_Item](#vectorofucharput_item)
+  - [VectorOfUchar::size](#vectorofucharsize)
+  - [VectorOfUchar::slice](#vectorofucharslice)
+  - [VectorOfUchar::sort](#vectorofucharsort)
+  - [VectorOfUchar::sort_variant](#vectorofucharsort_variant)
+  - [VectorOfUchar::start](#vectorofucharstart)
+- [VectorOfDouble](#vectorofdouble)
+  - [VectorOfDouble::create](#vectorofdoublecreate)
+  - [VectorOfDouble::Add](#vectorofdoubleadd)
+  - [VectorOfDouble::Items](#vectorofdoubleitems)
+  - [VectorOfDouble::Keys](#vectorofdoublekeys)
+  - [VectorOfDouble::Remove](#vectorofdoubleremove)
+  - [VectorOfDouble::append](#vectorofdoubleappend)
+  - [VectorOfDouble::at](#vectorofdoubleat)
+  - [VectorOfDouble::clear](#vectorofdoubleclear)
+  - [VectorOfDouble::empty](#vectorofdoubleempty)
+  - [VectorOfDouble::end](#vectorofdoubleend)
+  - [VectorOfDouble::get_Item](#vectorofdoubleget_item)
+  - [VectorOfDouble::get__NewEnum](#vectorofdoubleget__newenum)
+  - [VectorOfDouble::push_back](#vectorofdoublepush_back)
+  - [VectorOfDouble::push_vector](#vectorofdoublepush_vector)
+  - [VectorOfDouble::put_Item](#vectorofdoubleput_item)
+  - [VectorOfDouble::size](#vectorofdoublesize)
+  - [VectorOfDouble::slice](#vectorofdoubleslice)
+  - [VectorOfDouble::sort](#vectorofdoublesort)
+  - [VectorOfDouble::sort_variant](#vectorofdoublesort_variant)
+  - [VectorOfDouble::start](#vectorofdoublestart)
+- [VectorOfRotatedRect](#vectorofrotatedrect)
+  - [VectorOfRotatedRect::create](#vectorofrotatedrectcreate)
+  - [VectorOfRotatedRect::Add](#vectorofrotatedrectadd)
+  - [VectorOfRotatedRect::Items](#vectorofrotatedrectitems)
+  - [VectorOfRotatedRect::Keys](#vectorofrotatedrectkeys)
+  - [VectorOfRotatedRect::Remove](#vectorofrotatedrectremove)
+  - [VectorOfRotatedRect::append](#vectorofrotatedrectappend)
+  - [VectorOfRotatedRect::at](#vectorofrotatedrectat)
+  - [VectorOfRotatedRect::clear](#vectorofrotatedrectclear)
+  - [VectorOfRotatedRect::empty](#vectorofrotatedrectempty)
+  - [VectorOfRotatedRect::end](#vectorofrotatedrectend)
+  - [VectorOfRotatedRect::get_Item](#vectorofrotatedrectget_item)
+  - [VectorOfRotatedRect::get__NewEnum](#vectorofrotatedrectget__newenum)
+  - [VectorOfRotatedRect::push_back](#vectorofrotatedrectpush_back)
+  - [VectorOfRotatedRect::push_vector](#vectorofrotatedrectpush_vector)
+  - [VectorOfRotatedRect::put_Item](#vectorofrotatedrectput_item)
+  - [VectorOfRotatedRect::size](#vectorofrotatedrectsize)
+  - [VectorOfRotatedRect::slice](#vectorofrotatedrectslice)
+  - [VectorOfRotatedRect::sort](#vectorofrotatedrectsort)
+  - [VectorOfRotatedRect::sort_variant](#vectorofrotatedrectsort_variant)
+  - [VectorOfRotatedRect::start](#vectorofrotatedrectstart)
+- [VectorOfDetail_ImageFeatures](#vectorofdetail_imagefeatures)
+  - [VectorOfDetail_ImageFeatures::create](#vectorofdetail_imagefeaturescreate)
+  - [VectorOfDetail_ImageFeatures::Add](#vectorofdetail_imagefeaturesadd)
+  - [VectorOfDetail_ImageFeatures::Items](#vectorofdetail_imagefeaturesitems)
+  - [VectorOfDetail_ImageFeatures::Keys](#vectorofdetail_imagefeatureskeys)
+  - [VectorOfDetail_ImageFeatures::Remove](#vectorofdetail_imagefeaturesremove)
+  - [VectorOfDetail_ImageFeatures::append](#vectorofdetail_imagefeaturesappend)
+  - [VectorOfDetail_ImageFeatures::at](#vectorofdetail_imagefeaturesat)
+  - [VectorOfDetail_ImageFeatures::clear](#vectorofdetail_imagefeaturesclear)
+  - [VectorOfDetail_ImageFeatures::empty](#vectorofdetail_imagefeaturesempty)
+  - [VectorOfDetail_ImageFeatures::end](#vectorofdetail_imagefeaturesend)
+  - [VectorOfDetail_ImageFeatures::get_Item](#vectorofdetail_imagefeaturesget_item)
+  - [VectorOfDetail_ImageFeatures::get__NewEnum](#vectorofdetail_imagefeaturesget__newenum)
+  - [VectorOfDetail_ImageFeatures::push_back](#vectorofdetail_imagefeaturespush_back)
+  - [VectorOfDetail_ImageFeatures::push_vector](#vectorofdetail_imagefeaturespush_vector)
+  - [VectorOfDetail_ImageFeatures::put_Item](#vectorofdetail_imagefeaturesput_item)
+  - [VectorOfDetail_ImageFeatures::size](#vectorofdetail_imagefeaturessize)
+  - [VectorOfDetail_ImageFeatures::slice](#vectorofdetail_imagefeaturesslice)
+  - [VectorOfDetail_ImageFeatures::sort](#vectorofdetail_imagefeaturessort)
+  - [VectorOfDetail_ImageFeatures::sort_variant](#vectorofdetail_imagefeaturessort_variant)
+  - [VectorOfDetail_ImageFeatures::start](#vectorofdetail_imagefeaturesstart)
+- [VectorOfUMat](#vectorofumat)
+  - [VectorOfUMat::create](#vectorofumatcreate)
+  - [VectorOfUMat::Add](#vectorofumatadd)
+  - [VectorOfUMat::Items](#vectorofumatitems)
+  - [VectorOfUMat::Keys](#vectorofumatkeys)
+  - [VectorOfUMat::Remove](#vectorofumatremove)
+  - [VectorOfUMat::append](#vectorofumatappend)
+  - [VectorOfUMat::at](#vectorofumatat)
+  - [VectorOfUMat::clear](#vectorofumatclear)
+  - [VectorOfUMat::empty](#vectorofumatempty)
+  - [VectorOfUMat::end](#vectorofumatend)
+  - [VectorOfUMat::get_Item](#vectorofumatget_item)
+  - [VectorOfUMat::get__NewEnum](#vectorofumatget__newenum)
+  - [VectorOfUMat::push_back](#vectorofumatpush_back)
+  - [VectorOfUMat::push_vector](#vectorofumatpush_vector)
+  - [VectorOfUMat::put_Item](#vectorofumatput_item)
+  - [VectorOfUMat::size](#vectorofumatsize)
+  - [VectorOfUMat::slice](#vectorofumatslice)
+  - [VectorOfUMat::sort](#vectorofumatsort)
+  - [VectorOfUMat::sort_variant](#vectorofumatsort_variant)
+  - [VectorOfUMat::start](#vectorofumatstart)
+- [VectorOfDetail_MatchesInfo](#vectorofdetail_matchesinfo)
+  - [VectorOfDetail_MatchesInfo::create](#vectorofdetail_matchesinfocreate)
+  - [VectorOfDetail_MatchesInfo::Add](#vectorofdetail_matchesinfoadd)
+  - [VectorOfDetail_MatchesInfo::Items](#vectorofdetail_matchesinfoitems)
+  - [VectorOfDetail_MatchesInfo::Keys](#vectorofdetail_matchesinfokeys)
+  - [VectorOfDetail_MatchesInfo::Remove](#vectorofdetail_matchesinforemove)
+  - [VectorOfDetail_MatchesInfo::append](#vectorofdetail_matchesinfoappend)
+  - [VectorOfDetail_MatchesInfo::at](#vectorofdetail_matchesinfoat)
+  - [VectorOfDetail_MatchesInfo::clear](#vectorofdetail_matchesinfoclear)
+  - [VectorOfDetail_MatchesInfo::empty](#vectorofdetail_matchesinfoempty)
+  - [VectorOfDetail_MatchesInfo::end](#vectorofdetail_matchesinfoend)
+  - [VectorOfDetail_MatchesInfo::get_Item](#vectorofdetail_matchesinfoget_item)
+  - [VectorOfDetail_MatchesInfo::get__NewEnum](#vectorofdetail_matchesinfoget__newenum)
+  - [VectorOfDetail_MatchesInfo::push_back](#vectorofdetail_matchesinfopush_back)
+  - [VectorOfDetail_MatchesInfo::push_vector](#vectorofdetail_matchesinfopush_vector)
+  - [VectorOfDetail_MatchesInfo::put_Item](#vectorofdetail_matchesinfoput_item)
+  - [VectorOfDetail_MatchesInfo::size](#vectorofdetail_matchesinfosize)
+  - [VectorOfDetail_MatchesInfo::slice](#vectorofdetail_matchesinfoslice)
+  - [VectorOfDetail_MatchesInfo::sort](#vectorofdetail_matchesinfosort)
+  - [VectorOfDetail_MatchesInfo::sort_variant](#vectorofdetail_matchesinfosort_variant)
+  - [VectorOfDetail_MatchesInfo::start](#vectorofdetail_matchesinfostart)
+- [VectorOfSize](#vectorofsize)
+  - [VectorOfSize::create](#vectorofsizecreate)
+  - [VectorOfSize::Add](#vectorofsizeadd)
+  - [VectorOfSize::Items](#vectorofsizeitems)
+  - [VectorOfSize::Keys](#vectorofsizekeys)
+  - [VectorOfSize::Remove](#vectorofsizeremove)
+  - [VectorOfSize::append](#vectorofsizeappend)
+  - [VectorOfSize::at](#vectorofsizeat)
+  - [VectorOfSize::clear](#vectorofsizeclear)
+  - [VectorOfSize::empty](#vectorofsizeempty)
+  - [VectorOfSize::end](#vectorofsizeend)
+  - [VectorOfSize::get_Item](#vectorofsizeget_item)
+  - [VectorOfSize::get__NewEnum](#vectorofsizeget__newenum)
+  - [VectorOfSize::push_back](#vectorofsizepush_back)
+  - [VectorOfSize::push_vector](#vectorofsizepush_vector)
+  - [VectorOfSize::put_Item](#vectorofsizeput_item)
+  - [VectorOfSize::size](#vectorofsizesize)
+  - [VectorOfSize::slice](#vectorofsizeslice)
+  - [VectorOfSize::sort](#vectorofsizesort)
+  - [VectorOfSize::sort_variant](#vectorofsizesort_variant)
+  - [VectorOfSize::start](#vectorofsizestart)
+- [VectorOfVec2b](#vectorofvec2b)
+  - [VectorOfVec2b::create](#vectorofvec2bcreate)
+  - [VectorOfVec2b::Add](#vectorofvec2badd)
+  - [VectorOfVec2b::Items](#vectorofvec2bitems)
+  - [VectorOfVec2b::Keys](#vectorofvec2bkeys)
+  - [VectorOfVec2b::Remove](#vectorofvec2bremove)
+  - [VectorOfVec2b::append](#vectorofvec2bappend)
+  - [VectorOfVec2b::at](#vectorofvec2bat)
+  - [VectorOfVec2b::clear](#vectorofvec2bclear)
+  - [VectorOfVec2b::empty](#vectorofvec2bempty)
+  - [VectorOfVec2b::end](#vectorofvec2bend)
+  - [VectorOfVec2b::get_Item](#vectorofvec2bget_item)
+  - [VectorOfVec2b::get__NewEnum](#vectorofvec2bget__newenum)
+  - [VectorOfVec2b::push_back](#vectorofvec2bpush_back)
+  - [VectorOfVec2b::push_vector](#vectorofvec2bpush_vector)
+  - [VectorOfVec2b::put_Item](#vectorofvec2bput_item)
+  - [VectorOfVec2b::size](#vectorofvec2bsize)
+  - [VectorOfVec2b::slice](#vectorofvec2bslice)
+  - [VectorOfVec2b::sort](#vectorofvec2bsort)
+  - [VectorOfVec2b::sort_variant](#vectorofvec2bsort_variant)
+  - [VectorOfVec2b::start](#vectorofvec2bstart)
+- [VectorOfVec2d](#vectorofvec2d)
+  - [VectorOfVec2d::create](#vectorofvec2dcreate)
+  - [VectorOfVec2d::Add](#vectorofvec2dadd)
+  - [VectorOfVec2d::Items](#vectorofvec2ditems)
+  - [VectorOfVec2d::Keys](#vectorofvec2dkeys)
+  - [VectorOfVec2d::Remove](#vectorofvec2dremove)
+  - [VectorOfVec2d::append](#vectorofvec2dappend)
+  - [VectorOfVec2d::at](#vectorofvec2dat)
+  - [VectorOfVec2d::clear](#vectorofvec2dclear)
+  - [VectorOfVec2d::empty](#vectorofvec2dempty)
+  - [VectorOfVec2d::end](#vectorofvec2dend)
+  - [VectorOfVec2d::get_Item](#vectorofvec2dget_item)
+  - [VectorOfVec2d::get__NewEnum](#vectorofvec2dget__newenum)
+  - [VectorOfVec2d::push_back](#vectorofvec2dpush_back)
+  - [VectorOfVec2d::push_vector](#vectorofvec2dpush_vector)
+  - [VectorOfVec2d::put_Item](#vectorofvec2dput_item)
+  - [VectorOfVec2d::size](#vectorofvec2dsize)
+  - [VectorOfVec2d::slice](#vectorofvec2dslice)
+  - [VectorOfVec2d::sort](#vectorofvec2dsort)
+  - [VectorOfVec2d::sort_variant](#vectorofvec2dsort_variant)
+  - [VectorOfVec2d::start](#vectorofvec2dstart)
+- [VectorOfVec2f](#vectorofvec2f)
+  - [VectorOfVec2f::create](#vectorofvec2fcreate)
+  - [VectorOfVec2f::Add](#vectorofvec2fadd)
+  - [VectorOfVec2f::Items](#vectorofvec2fitems)
+  - [VectorOfVec2f::Keys](#vectorofvec2fkeys)
+  - [VectorOfVec2f::Remove](#vectorofvec2fremove)
+  - [VectorOfVec2f::append](#vectorofvec2fappend)
+  - [VectorOfVec2f::at](#vectorofvec2fat)
+  - [VectorOfVec2f::clear](#vectorofvec2fclear)
+  - [VectorOfVec2f::empty](#vectorofvec2fempty)
+  - [VectorOfVec2f::end](#vectorofvec2fend)
+  - [VectorOfVec2f::get_Item](#vectorofvec2fget_item)
+  - [VectorOfVec2f::get__NewEnum](#vectorofvec2fget__newenum)
+  - [VectorOfVec2f::push_back](#vectorofvec2fpush_back)
+  - [VectorOfVec2f::push_vector](#vectorofvec2fpush_vector)
+  - [VectorOfVec2f::put_Item](#vectorofvec2fput_item)
+  - [VectorOfVec2f::size](#vectorofvec2fsize)
+  - [VectorOfVec2f::slice](#vectorofvec2fslice)
+  - [VectorOfVec2f::sort](#vectorofvec2fsort)
+  - [VectorOfVec2f::sort_variant](#vectorofvec2fsort_variant)
+  - [VectorOfVec2f::start](#vectorofvec2fstart)
+- [VectorOfVec2i](#vectorofvec2i)
+  - [VectorOfVec2i::create](#vectorofvec2icreate)
+  - [VectorOfVec2i::Add](#vectorofvec2iadd)
+  - [VectorOfVec2i::Items](#vectorofvec2iitems)
+  - [VectorOfVec2i::Keys](#vectorofvec2ikeys)
+  - [VectorOfVec2i::Remove](#vectorofvec2iremove)
+  - [VectorOfVec2i::append](#vectorofvec2iappend)
+  - [VectorOfVec2i::at](#vectorofvec2iat)
+  - [VectorOfVec2i::clear](#vectorofvec2iclear)
+  - [VectorOfVec2i::empty](#vectorofvec2iempty)
+  - [VectorOfVec2i::end](#vectorofvec2iend)
+  - [VectorOfVec2i::get_Item](#vectorofvec2iget_item)
+  - [VectorOfVec2i::get__NewEnum](#vectorofvec2iget__newenum)
+  - [VectorOfVec2i::push_back](#vectorofvec2ipush_back)
+  - [VectorOfVec2i::push_vector](#vectorofvec2ipush_vector)
+  - [VectorOfVec2i::put_Item](#vectorofvec2iput_item)
+  - [VectorOfVec2i::size](#vectorofvec2isize)
+  - [VectorOfVec2i::slice](#vectorofvec2islice)
+  - [VectorOfVec2i::sort](#vectorofvec2isort)
+  - [VectorOfVec2i::sort_variant](#vectorofvec2isort_variant)
+  - [VectorOfVec2i::start](#vectorofvec2istart)
+- [VectorOfVec2s](#vectorofvec2s)
+  - [VectorOfVec2s::create](#vectorofvec2screate)
+  - [VectorOfVec2s::Add](#vectorofvec2sadd)
+  - [VectorOfVec2s::Items](#vectorofvec2sitems)
+  - [VectorOfVec2s::Keys](#vectorofvec2skeys)
+  - [VectorOfVec2s::Remove](#vectorofvec2sremove)
+  - [VectorOfVec2s::append](#vectorofvec2sappend)
+  - [VectorOfVec2s::at](#vectorofvec2sat)
+  - [VectorOfVec2s::clear](#vectorofvec2sclear)
+  - [VectorOfVec2s::empty](#vectorofvec2sempty)
+  - [VectorOfVec2s::end](#vectorofvec2send)
+  - [VectorOfVec2s::get_Item](#vectorofvec2sget_item)
+  - [VectorOfVec2s::get__NewEnum](#vectorofvec2sget__newenum)
+  - [VectorOfVec2s::push_back](#vectorofvec2spush_back)
+  - [VectorOfVec2s::push_vector](#vectorofvec2spush_vector)
+  - [VectorOfVec2s::put_Item](#vectorofvec2sput_item)
+  - [VectorOfVec2s::size](#vectorofvec2ssize)
+  - [VectorOfVec2s::slice](#vectorofvec2sslice)
+  - [VectorOfVec2s::sort](#vectorofvec2ssort)
+  - [VectorOfVec2s::sort_variant](#vectorofvec2ssort_variant)
+  - [VectorOfVec2s::start](#vectorofvec2sstart)
+- [VectorOfVec2w](#vectorofvec2w)
+  - [VectorOfVec2w::create](#vectorofvec2wcreate)
+  - [VectorOfVec2w::Add](#vectorofvec2wadd)
+  - [VectorOfVec2w::Items](#vectorofvec2witems)
+  - [VectorOfVec2w::Keys](#vectorofvec2wkeys)
+  - [VectorOfVec2w::Remove](#vectorofvec2wremove)
+  - [VectorOfVec2w::append](#vectorofvec2wappend)
+  - [VectorOfVec2w::at](#vectorofvec2wat)
+  - [VectorOfVec2w::clear](#vectorofvec2wclear)
+  - [VectorOfVec2w::empty](#vectorofvec2wempty)
+  - [VectorOfVec2w::end](#vectorofvec2wend)
+  - [VectorOfVec2w::get_Item](#vectorofvec2wget_item)
+  - [VectorOfVec2w::get__NewEnum](#vectorofvec2wget__newenum)
+  - [VectorOfVec2w::push_back](#vectorofvec2wpush_back)
+  - [VectorOfVec2w::push_vector](#vectorofvec2wpush_vector)
+  - [VectorOfVec2w::put_Item](#vectorofvec2wput_item)
+  - [VectorOfVec2w::size](#vectorofvec2wsize)
+  - [VectorOfVec2w::slice](#vectorofvec2wslice)
+  - [VectorOfVec2w::sort](#vectorofvec2wsort)
+  - [VectorOfVec2w::sort_variant](#vectorofvec2wsort_variant)
+  - [VectorOfVec2w::start](#vectorofvec2wstart)
+- [VectorOfVec3b](#vectorofvec3b)
+  - [VectorOfVec3b::create](#vectorofvec3bcreate)
+  - [VectorOfVec3b::Add](#vectorofvec3badd)
+  - [VectorOfVec3b::Items](#vectorofvec3bitems)
+  - [VectorOfVec3b::Keys](#vectorofvec3bkeys)
+  - [VectorOfVec3b::Remove](#vectorofvec3bremove)
+  - [VectorOfVec3b::append](#vectorofvec3bappend)
+  - [VectorOfVec3b::at](#vectorofvec3bat)
+  - [VectorOfVec3b::clear](#vectorofvec3bclear)
+  - [VectorOfVec3b::empty](#vectorofvec3bempty)
+  - [VectorOfVec3b::end](#vectorofvec3bend)
+  - [VectorOfVec3b::get_Item](#vectorofvec3bget_item)
+  - [VectorOfVec3b::get__NewEnum](#vectorofvec3bget__newenum)
+  - [VectorOfVec3b::push_back](#vectorofvec3bpush_back)
+  - [VectorOfVec3b::push_vector](#vectorofvec3bpush_vector)
+  - [VectorOfVec3b::put_Item](#vectorofvec3bput_item)
+  - [VectorOfVec3b::size](#vectorofvec3bsize)
+  - [VectorOfVec3b::slice](#vectorofvec3bslice)
+  - [VectorOfVec3b::sort](#vectorofvec3bsort)
+  - [VectorOfVec3b::sort_variant](#vectorofvec3bsort_variant)
+  - [VectorOfVec3b::start](#vectorofvec3bstart)
+- [VectorOfVec3d](#vectorofvec3d)
+  - [VectorOfVec3d::create](#vectorofvec3dcreate)
+  - [VectorOfVec3d::Add](#vectorofvec3dadd)
+  - [VectorOfVec3d::Items](#vectorofvec3ditems)
+  - [VectorOfVec3d::Keys](#vectorofvec3dkeys)
+  - [VectorOfVec3d::Remove](#vectorofvec3dremove)
+  - [VectorOfVec3d::append](#vectorofvec3dappend)
+  - [VectorOfVec3d::at](#vectorofvec3dat)
+  - [VectorOfVec3d::clear](#vectorofvec3dclear)
+  - [VectorOfVec3d::empty](#vectorofvec3dempty)
+  - [VectorOfVec3d::end](#vectorofvec3dend)
+  - [VectorOfVec3d::get_Item](#vectorofvec3dget_item)
+  - [VectorOfVec3d::get__NewEnum](#vectorofvec3dget__newenum)
+  - [VectorOfVec3d::push_back](#vectorofvec3dpush_back)
+  - [VectorOfVec3d::push_vector](#vectorofvec3dpush_vector)
+  - [VectorOfVec3d::put_Item](#vectorofvec3dput_item)
+  - [VectorOfVec3d::size](#vectorofvec3dsize)
+  - [VectorOfVec3d::slice](#vectorofvec3dslice)
+  - [VectorOfVec3d::sort](#vectorofvec3dsort)
+  - [VectorOfVec3d::sort_variant](#vectorofvec3dsort_variant)
+  - [VectorOfVec3d::start](#vectorofvec3dstart)
+- [VectorOfVec3f](#vectorofvec3f)
+  - [VectorOfVec3f::create](#vectorofvec3fcreate)
+  - [VectorOfVec3f::Add](#vectorofvec3fadd)
+  - [VectorOfVec3f::Items](#vectorofvec3fitems)
+  - [VectorOfVec3f::Keys](#vectorofvec3fkeys)
+  - [VectorOfVec3f::Remove](#vectorofvec3fremove)
+  - [VectorOfVec3f::append](#vectorofvec3fappend)
+  - [VectorOfVec3f::at](#vectorofvec3fat)
+  - [VectorOfVec3f::clear](#vectorofvec3fclear)
+  - [VectorOfVec3f::empty](#vectorofvec3fempty)
+  - [VectorOfVec3f::end](#vectorofvec3fend)
+  - [VectorOfVec3f::get_Item](#vectorofvec3fget_item)
+  - [VectorOfVec3f::get__NewEnum](#vectorofvec3fget__newenum)
+  - [VectorOfVec3f::push_back](#vectorofvec3fpush_back)
+  - [VectorOfVec3f::push_vector](#vectorofvec3fpush_vector)
+  - [VectorOfVec3f::put_Item](#vectorofvec3fput_item)
+  - [VectorOfVec3f::size](#vectorofvec3fsize)
+  - [VectorOfVec3f::slice](#vectorofvec3fslice)
+  - [VectorOfVec3f::sort](#vectorofvec3fsort)
+  - [VectorOfVec3f::sort_variant](#vectorofvec3fsort_variant)
+  - [VectorOfVec3f::start](#vectorofvec3fstart)
+- [VectorOfVec3i](#vectorofvec3i)
+  - [VectorOfVec3i::create](#vectorofvec3icreate)
+  - [VectorOfVec3i::Add](#vectorofvec3iadd)
+  - [VectorOfVec3i::Items](#vectorofvec3iitems)
+  - [VectorOfVec3i::Keys](#vectorofvec3ikeys)
+  - [VectorOfVec3i::Remove](#vectorofvec3iremove)
+  - [VectorOfVec3i::append](#vectorofvec3iappend)
+  - [VectorOfVec3i::at](#vectorofvec3iat)
+  - [VectorOfVec3i::clear](#vectorofvec3iclear)
+  - [VectorOfVec3i::empty](#vectorofvec3iempty)
+  - [VectorOfVec3i::end](#vectorofvec3iend)
+  - [VectorOfVec3i::get_Item](#vectorofvec3iget_item)
+  - [VectorOfVec3i::get__NewEnum](#vectorofvec3iget__newenum)
+  - [VectorOfVec3i::push_back](#vectorofvec3ipush_back)
+  - [VectorOfVec3i::push_vector](#vectorofvec3ipush_vector)
+  - [VectorOfVec3i::put_Item](#vectorofvec3iput_item)
+  - [VectorOfVec3i::size](#vectorofvec3isize)
+  - [VectorOfVec3i::slice](#vectorofvec3islice)
+  - [VectorOfVec3i::sort](#vectorofvec3isort)
+  - [VectorOfVec3i::sort_variant](#vectorofvec3isort_variant)
+  - [VectorOfVec3i::start](#vectorofvec3istart)
+- [VectorOfVec3s](#vectorofvec3s)
+  - [VectorOfVec3s::create](#vectorofvec3screate)
+  - [VectorOfVec3s::Add](#vectorofvec3sadd)
+  - [VectorOfVec3s::Items](#vectorofvec3sitems)
+  - [VectorOfVec3s::Keys](#vectorofvec3skeys)
+  - [VectorOfVec3s::Remove](#vectorofvec3sremove)
+  - [VectorOfVec3s::append](#vectorofvec3sappend)
+  - [VectorOfVec3s::at](#vectorofvec3sat)
+  - [VectorOfVec3s::clear](#vectorofvec3sclear)
+  - [VectorOfVec3s::empty](#vectorofvec3sempty)
+  - [VectorOfVec3s::end](#vectorofvec3send)
+  - [VectorOfVec3s::get_Item](#vectorofvec3sget_item)
+  - [VectorOfVec3s::get__NewEnum](#vectorofvec3sget__newenum)
+  - [VectorOfVec3s::push_back](#vectorofvec3spush_back)
+  - [VectorOfVec3s::push_vector](#vectorofvec3spush_vector)
+  - [VectorOfVec3s::put_Item](#vectorofvec3sput_item)
+  - [VectorOfVec3s::size](#vectorofvec3ssize)
+  - [VectorOfVec3s::slice](#vectorofvec3sslice)
+  - [VectorOfVec3s::sort](#vectorofvec3ssort)
+  - [VectorOfVec3s::sort_variant](#vectorofvec3ssort_variant)
+  - [VectorOfVec3s::start](#vectorofvec3sstart)
+- [VectorOfVec3w](#vectorofvec3w)
+  - [VectorOfVec3w::create](#vectorofvec3wcreate)
+  - [VectorOfVec3w::Add](#vectorofvec3wadd)
+  - [VectorOfVec3w::Items](#vectorofvec3witems)
+  - [VectorOfVec3w::Keys](#vectorofvec3wkeys)
+  - [VectorOfVec3w::Remove](#vectorofvec3wremove)
+  - [VectorOfVec3w::append](#vectorofvec3wappend)
+  - [VectorOfVec3w::at](#vectorofvec3wat)
+  - [VectorOfVec3w::clear](#vectorofvec3wclear)
+  - [VectorOfVec3w::empty](#vectorofvec3wempty)
+  - [VectorOfVec3w::end](#vectorofvec3wend)
+  - [VectorOfVec3w::get_Item](#vectorofvec3wget_item)
+  - [VectorOfVec3w::get__NewEnum](#vectorofvec3wget__newenum)
+  - [VectorOfVec3w::push_back](#vectorofvec3wpush_back)
+  - [VectorOfVec3w::push_vector](#vectorofvec3wpush_vector)
+  - [VectorOfVec3w::put_Item](#vectorofvec3wput_item)
+  - [VectorOfVec3w::size](#vectorofvec3wsize)
+  - [VectorOfVec3w::slice](#vectorofvec3wslice)
+  - [VectorOfVec3w::sort](#vectorofvec3wsort)
+  - [VectorOfVec3w::sort_variant](#vectorofvec3wsort_variant)
+  - [VectorOfVec3w::start](#vectorofvec3wstart)
+- [VectorOfVec4b](#vectorofvec4b)
+  - [VectorOfVec4b::create](#vectorofvec4bcreate)
+  - [VectorOfVec4b::Add](#vectorofvec4badd)
+  - [VectorOfVec4b::Items](#vectorofvec4bitems)
+  - [VectorOfVec4b::Keys](#vectorofvec4bkeys)
+  - [VectorOfVec4b::Remove](#vectorofvec4bremove)
+  - [VectorOfVec4b::append](#vectorofvec4bappend)
+  - [VectorOfVec4b::at](#vectorofvec4bat)
+  - [VectorOfVec4b::clear](#vectorofvec4bclear)
+  - [VectorOfVec4b::empty](#vectorofvec4bempty)
+  - [VectorOfVec4b::end](#vectorofvec4bend)
+  - [VectorOfVec4b::get_Item](#vectorofvec4bget_item)
+  - [VectorOfVec4b::get__NewEnum](#vectorofvec4bget__newenum)
+  - [VectorOfVec4b::push_back](#vectorofvec4bpush_back)
+  - [VectorOfVec4b::push_vector](#vectorofvec4bpush_vector)
+  - [VectorOfVec4b::put_Item](#vectorofvec4bput_item)
+  - [VectorOfVec4b::size](#vectorofvec4bsize)
+  - [VectorOfVec4b::slice](#vectorofvec4bslice)
+  - [VectorOfVec4b::sort](#vectorofvec4bsort)
+  - [VectorOfVec4b::sort_variant](#vectorofvec4bsort_variant)
+  - [VectorOfVec4b::start](#vectorofvec4bstart)
+- [VectorOfVec4d](#vectorofvec4d)
+  - [VectorOfVec4d::create](#vectorofvec4dcreate)
+  - [VectorOfVec4d::Add](#vectorofvec4dadd)
+  - [VectorOfVec4d::Items](#vectorofvec4ditems)
+  - [VectorOfVec4d::Keys](#vectorofvec4dkeys)
+  - [VectorOfVec4d::Remove](#vectorofvec4dremove)
+  - [VectorOfVec4d::append](#vectorofvec4dappend)
+  - [VectorOfVec4d::at](#vectorofvec4dat)
+  - [VectorOfVec4d::clear](#vectorofvec4dclear)
+  - [VectorOfVec4d::empty](#vectorofvec4dempty)
+  - [VectorOfVec4d::end](#vectorofvec4dend)
+  - [VectorOfVec4d::get_Item](#vectorofvec4dget_item)
+  - [VectorOfVec4d::get__NewEnum](#vectorofvec4dget__newenum)
+  - [VectorOfVec4d::push_back](#vectorofvec4dpush_back)
+  - [VectorOfVec4d::push_vector](#vectorofvec4dpush_vector)
+  - [VectorOfVec4d::put_Item](#vectorofvec4dput_item)
+  - [VectorOfVec4d::size](#vectorofvec4dsize)
+  - [VectorOfVec4d::slice](#vectorofvec4dslice)
+  - [VectorOfVec4d::sort](#vectorofvec4dsort)
+  - [VectorOfVec4d::sort_variant](#vectorofvec4dsort_variant)
+  - [VectorOfVec4d::start](#vectorofvec4dstart)
+- [VectorOfVec4f](#vectorofvec4f)
+  - [VectorOfVec4f::create](#vectorofvec4fcreate)
+  - [VectorOfVec4f::Add](#vectorofvec4fadd)
+  - [VectorOfVec4f::Items](#vectorofvec4fitems)
+  - [VectorOfVec4f::Keys](#vectorofvec4fkeys)
+  - [VectorOfVec4f::Remove](#vectorofvec4fremove)
+  - [VectorOfVec4f::append](#vectorofvec4fappend)
+  - [VectorOfVec4f::at](#vectorofvec4fat)
+  - [VectorOfVec4f::clear](#vectorofvec4fclear)
+  - [VectorOfVec4f::empty](#vectorofvec4fempty)
+  - [VectorOfVec4f::end](#vectorofvec4fend)
+  - [VectorOfVec4f::get_Item](#vectorofvec4fget_item)
+  - [VectorOfVec4f::get__NewEnum](#vectorofvec4fget__newenum)
+  - [VectorOfVec4f::push_back](#vectorofvec4fpush_back)
+  - [VectorOfVec4f::push_vector](#vectorofvec4fpush_vector)
+  - [VectorOfVec4f::put_Item](#vectorofvec4fput_item)
+  - [VectorOfVec4f::size](#vectorofvec4fsize)
+  - [VectorOfVec4f::slice](#vectorofvec4fslice)
+  - [VectorOfVec4f::sort](#vectorofvec4fsort)
+  - [VectorOfVec4f::sort_variant](#vectorofvec4fsort_variant)
+  - [VectorOfVec4f::start](#vectorofvec4fstart)
+- [VectorOfVec4i](#vectorofvec4i)
+  - [VectorOfVec4i::create](#vectorofvec4icreate)
+  - [VectorOfVec4i::Add](#vectorofvec4iadd)
+  - [VectorOfVec4i::Items](#vectorofvec4iitems)
+  - [VectorOfVec4i::Keys](#vectorofvec4ikeys)
+  - [VectorOfVec4i::Remove](#vectorofvec4iremove)
+  - [VectorOfVec4i::append](#vectorofvec4iappend)
+  - [VectorOfVec4i::at](#vectorofvec4iat)
+  - [VectorOfVec4i::clear](#vectorofvec4iclear)
+  - [VectorOfVec4i::empty](#vectorofvec4iempty)
+  - [VectorOfVec4i::end](#vectorofvec4iend)
+  - [VectorOfVec4i::get_Item](#vectorofvec4iget_item)
+  - [VectorOfVec4i::get__NewEnum](#vectorofvec4iget__newenum)
+  - [VectorOfVec4i::push_back](#vectorofvec4ipush_back)
+  - [VectorOfVec4i::push_vector](#vectorofvec4ipush_vector)
+  - [VectorOfVec4i::put_Item](#vectorofvec4iput_item)
+  - [VectorOfVec4i::size](#vectorofvec4isize)
+  - [VectorOfVec4i::slice](#vectorofvec4islice)
+  - [VectorOfVec4i::sort](#vectorofvec4isort)
+  - [VectorOfVec4i::sort_variant](#vectorofvec4isort_variant)
+  - [VectorOfVec4i::start](#vectorofvec4istart)
+- [VectorOfVec4s](#vectorofvec4s)
+  - [VectorOfVec4s::create](#vectorofvec4screate)
+  - [VectorOfVec4s::Add](#vectorofvec4sadd)
+  - [VectorOfVec4s::Items](#vectorofvec4sitems)
+  - [VectorOfVec4s::Keys](#vectorofvec4skeys)
+  - [VectorOfVec4s::Remove](#vectorofvec4sremove)
+  - [VectorOfVec4s::append](#vectorofvec4sappend)
+  - [VectorOfVec4s::at](#vectorofvec4sat)
+  - [VectorOfVec4s::clear](#vectorofvec4sclear)
+  - [VectorOfVec4s::empty](#vectorofvec4sempty)
+  - [VectorOfVec4s::end](#vectorofvec4send)
+  - [VectorOfVec4s::get_Item](#vectorofvec4sget_item)
+  - [VectorOfVec4s::get__NewEnum](#vectorofvec4sget__newenum)
+  - [VectorOfVec4s::push_back](#vectorofvec4spush_back)
+  - [VectorOfVec4s::push_vector](#vectorofvec4spush_vector)
+  - [VectorOfVec4s::put_Item](#vectorofvec4sput_item)
+  - [VectorOfVec4s::size](#vectorofvec4ssize)
+  - [VectorOfVec4s::slice](#vectorofvec4sslice)
+  - [VectorOfVec4s::sort](#vectorofvec4ssort)
+  - [VectorOfVec4s::sort_variant](#vectorofvec4ssort_variant)
+  - [VectorOfVec4s::start](#vectorofvec4sstart)
+- [VectorOfVec4w](#vectorofvec4w)
+  - [VectorOfVec4w::create](#vectorofvec4wcreate)
+  - [VectorOfVec4w::Add](#vectorofvec4wadd)
+  - [VectorOfVec4w::Items](#vectorofvec4witems)
+  - [VectorOfVec4w::Keys](#vectorofvec4wkeys)
+  - [VectorOfVec4w::Remove](#vectorofvec4wremove)
+  - [VectorOfVec4w::append](#vectorofvec4wappend)
+  - [VectorOfVec4w::at](#vectorofvec4wat)
+  - [VectorOfVec4w::clear](#vectorofvec4wclear)
+  - [VectorOfVec4w::empty](#vectorofvec4wempty)
+  - [VectorOfVec4w::end](#vectorofvec4wend)
+  - [VectorOfVec4w::get_Item](#vectorofvec4wget_item)
+  - [VectorOfVec4w::get__NewEnum](#vectorofvec4wget__newenum)
+  - [VectorOfVec4w::push_back](#vectorofvec4wpush_back)
+  - [VectorOfVec4w::push_vector](#vectorofvec4wpush_vector)
+  - [VectorOfVec4w::put_Item](#vectorofvec4wput_item)
+  - [VectorOfVec4w::size](#vectorofvec4wsize)
+  - [VectorOfVec4w::slice](#vectorofvec4wslice)
+  - [VectorOfVec4w::sort](#vectorofvec4wsort)
+  - [VectorOfVec4w::sort_variant](#vectorofvec4wsort_variant)
+  - [VectorOfVec4w::start](#vectorofvec4wstart)
+- [VectorOfVec6d](#vectorofvec6d)
+  - [VectorOfVec6d::create](#vectorofvec6dcreate)
+  - [VectorOfVec6d::Add](#vectorofvec6dadd)
+  - [VectorOfVec6d::Items](#vectorofvec6ditems)
+  - [VectorOfVec6d::Keys](#vectorofvec6dkeys)
+  - [VectorOfVec6d::Remove](#vectorofvec6dremove)
+  - [VectorOfVec6d::append](#vectorofvec6dappend)
+  - [VectorOfVec6d::at](#vectorofvec6dat)
+  - [VectorOfVec6d::clear](#vectorofvec6dclear)
+  - [VectorOfVec6d::empty](#vectorofvec6dempty)
+  - [VectorOfVec6d::end](#vectorofvec6dend)
+  - [VectorOfVec6d::get_Item](#vectorofvec6dget_item)
+  - [VectorOfVec6d::get__NewEnum](#vectorofvec6dget__newenum)
+  - [VectorOfVec6d::push_back](#vectorofvec6dpush_back)
+  - [VectorOfVec6d::push_vector](#vectorofvec6dpush_vector)
+  - [VectorOfVec6d::put_Item](#vectorofvec6dput_item)
+  - [VectorOfVec6d::size](#vectorofvec6dsize)
+  - [VectorOfVec6d::slice](#vectorofvec6dslice)
+  - [VectorOfVec6d::sort](#vectorofvec6dsort)
+  - [VectorOfVec6d::sort_variant](#vectorofvec6dsort_variant)
+  - [VectorOfVec6d::start](#vectorofvec6dstart)
+- [VectorOfVec6f](#vectorofvec6f)
+  - [VectorOfVec6f::create](#vectorofvec6fcreate)
+  - [VectorOfVec6f::Add](#vectorofvec6fadd)
+  - [VectorOfVec6f::Items](#vectorofvec6fitems)
+  - [VectorOfVec6f::Keys](#vectorofvec6fkeys)
+  - [VectorOfVec6f::Remove](#vectorofvec6fremove)
+  - [VectorOfVec6f::append](#vectorofvec6fappend)
+  - [VectorOfVec6f::at](#vectorofvec6fat)
+  - [VectorOfVec6f::clear](#vectorofvec6fclear)
+  - [VectorOfVec6f::empty](#vectorofvec6fempty)
+  - [VectorOfVec6f::end](#vectorofvec6fend)
+  - [VectorOfVec6f::get_Item](#vectorofvec6fget_item)
+  - [VectorOfVec6f::get__NewEnum](#vectorofvec6fget__newenum)
+  - [VectorOfVec6f::push_back](#vectorofvec6fpush_back)
+  - [VectorOfVec6f::push_vector](#vectorofvec6fpush_vector)
+  - [VectorOfVec6f::put_Item](#vectorofvec6fput_item)
+  - [VectorOfVec6f::size](#vectorofvec6fsize)
+  - [VectorOfVec6f::slice](#vectorofvec6fslice)
+  - [VectorOfVec6f::sort](#vectorofvec6fsort)
+  - [VectorOfVec6f::sort_variant](#vectorofvec6fsort_variant)
+  - [VectorOfVec6f::start](#vectorofvec6fstart)
+- [VectorOfVec6i](#vectorofvec6i)
+  - [VectorOfVec6i::create](#vectorofvec6icreate)
+  - [VectorOfVec6i::Add](#vectorofvec6iadd)
+  - [VectorOfVec6i::Items](#vectorofvec6iitems)
+  - [VectorOfVec6i::Keys](#vectorofvec6ikeys)
+  - [VectorOfVec6i::Remove](#vectorofvec6iremove)
+  - [VectorOfVec6i::append](#vectorofvec6iappend)
+  - [VectorOfVec6i::at](#vectorofvec6iat)
+  - [VectorOfVec6i::clear](#vectorofvec6iclear)
+  - [VectorOfVec6i::empty](#vectorofvec6iempty)
+  - [VectorOfVec6i::end](#vectorofvec6iend)
+  - [VectorOfVec6i::get_Item](#vectorofvec6iget_item)
+  - [VectorOfVec6i::get__NewEnum](#vectorofvec6iget__newenum)
+  - [VectorOfVec6i::push_back](#vectorofvec6ipush_back)
+  - [VectorOfVec6i::push_vector](#vectorofvec6ipush_vector)
+  - [VectorOfVec6i::put_Item](#vectorofvec6iput_item)
+  - [VectorOfVec6i::size](#vectorofvec6isize)
+  - [VectorOfVec6i::slice](#vectorofvec6islice)
+  - [VectorOfVec6i::sort](#vectorofvec6isort)
+  - [VectorOfVec6i::sort_variant](#vectorofvec6isort_variant)
+  - [VectorOfVec6i::start](#vectorofvec6istart)
+- [VectorOfVec8i](#vectorofvec8i)
+  - [VectorOfVec8i::create](#vectorofvec8icreate)
+  - [VectorOfVec8i::Add](#vectorofvec8iadd)
+  - [VectorOfVec8i::Items](#vectorofvec8iitems)
+  - [VectorOfVec8i::Keys](#vectorofvec8ikeys)
+  - [VectorOfVec8i::Remove](#vectorofvec8iremove)
+  - [VectorOfVec8i::append](#vectorofvec8iappend)
+  - [VectorOfVec8i::at](#vectorofvec8iat)
+  - [VectorOfVec8i::clear](#vectorofvec8iclear)
+  - [VectorOfVec8i::empty](#vectorofvec8iempty)
+  - [VectorOfVec8i::end](#vectorofvec8iend)
+  - [VectorOfVec8i::get_Item](#vectorofvec8iget_item)
+  - [VectorOfVec8i::get__NewEnum](#vectorofvec8iget__newenum)
+  - [VectorOfVec8i::push_back](#vectorofvec8ipush_back)
+  - [VectorOfVec8i::push_vector](#vectorofvec8ipush_vector)
+  - [VectorOfVec8i::put_Item](#vectorofvec8iput_item)
+  - [VectorOfVec8i::size](#vectorofvec8isize)
+  - [VectorOfVec8i::slice](#vectorofvec8islice)
+  - [VectorOfVec8i::sort](#vectorofvec8isort)
+  - [VectorOfVec8i::sort_variant](#vectorofvec8isort_variant)
+  - [VectorOfVec8i::start](#vectorofvec8istart)
+- [VectorOfPoint2f](#vectorofpoint2f)
+  - [VectorOfPoint2f::create](#vectorofpoint2fcreate)
+  - [VectorOfPoint2f::Add](#vectorofpoint2fadd)
+  - [VectorOfPoint2f::Items](#vectorofpoint2fitems)
+  - [VectorOfPoint2f::Keys](#vectorofpoint2fkeys)
+  - [VectorOfPoint2f::Remove](#vectorofpoint2fremove)
+  - [VectorOfPoint2f::append](#vectorofpoint2fappend)
+  - [VectorOfPoint2f::at](#vectorofpoint2fat)
+  - [VectorOfPoint2f::clear](#vectorofpoint2fclear)
+  - [VectorOfPoint2f::empty](#vectorofpoint2fempty)
+  - [VectorOfPoint2f::end](#vectorofpoint2fend)
+  - [VectorOfPoint2f::get_Item](#vectorofpoint2fget_item)
+  - [VectorOfPoint2f::get__NewEnum](#vectorofpoint2fget__newenum)
+  - [VectorOfPoint2f::push_back](#vectorofpoint2fpush_back)
+  - [VectorOfPoint2f::push_vector](#vectorofpoint2fpush_vector)
+  - [VectorOfPoint2f::put_Item](#vectorofpoint2fput_item)
+  - [VectorOfPoint2f::size](#vectorofpoint2fsize)
+  - [VectorOfPoint2f::slice](#vectorofpoint2fslice)
+  - [VectorOfPoint2f::sort](#vectorofpoint2fsort)
+  - [VectorOfPoint2f::sort_variant](#vectorofpoint2fsort_variant)
+  - [VectorOfPoint2f::start](#vectorofpoint2fstart)
+- [VectorOfVectorOfPoint2f](#vectorofvectorofpoint2f)
+  - [VectorOfVectorOfPoint2f::create](#vectorofvectorofpoint2fcreate)
+  - [VectorOfVectorOfPoint2f::Add](#vectorofvectorofpoint2fadd)
+  - [VectorOfVectorOfPoint2f::Items](#vectorofvectorofpoint2fitems)
+  - [VectorOfVectorOfPoint2f::Keys](#vectorofvectorofpoint2fkeys)
+  - [VectorOfVectorOfPoint2f::Remove](#vectorofvectorofpoint2fremove)
+  - [VectorOfVectorOfPoint2f::append](#vectorofvectorofpoint2fappend)
+  - [VectorOfVectorOfPoint2f::at](#vectorofvectorofpoint2fat)
+  - [VectorOfVectorOfPoint2f::clear](#vectorofvectorofpoint2fclear)
+  - [VectorOfVectorOfPoint2f::empty](#vectorofvectorofpoint2fempty)
+  - [VectorOfVectorOfPoint2f::end](#vectorofvectorofpoint2fend)
+  - [VectorOfVectorOfPoint2f::get_Item](#vectorofvectorofpoint2fget_item)
+  - [VectorOfVectorOfPoint2f::get__NewEnum](#vectorofvectorofpoint2fget__newenum)
+  - [VectorOfVectorOfPoint2f::push_back](#vectorofvectorofpoint2fpush_back)
+  - [VectorOfVectorOfPoint2f::push_vector](#vectorofvectorofpoint2fpush_vector)
+  - [VectorOfVectorOfPoint2f::put_Item](#vectorofvectorofpoint2fput_item)
+  - [VectorOfVectorOfPoint2f::size](#vectorofvectorofpoint2fsize)
+  - [VectorOfVectorOfPoint2f::slice](#vectorofvectorofpoint2fslice)
+  - [VectorOfVectorOfPoint2f::sort](#vectorofvectorofpoint2fsort)
+  - [VectorOfVectorOfPoint2f::sort_variant](#vectorofvectorofpoint2fsort_variant)
+  - [VectorOfVectorOfPoint2f::start](#vectorofvectorofpoint2fstart)
+- [VectorOfRect2d](#vectorofrect2d)
+  - [VectorOfRect2d::create](#vectorofrect2dcreate)
+  - [VectorOfRect2d::Add](#vectorofrect2dadd)
+  - [VectorOfRect2d::Items](#vectorofrect2ditems)
+  - [VectorOfRect2d::Keys](#vectorofrect2dkeys)
+  - [VectorOfRect2d::Remove](#vectorofrect2dremove)
+  - [VectorOfRect2d::append](#vectorofrect2dappend)
+  - [VectorOfRect2d::at](#vectorofrect2dat)
+  - [VectorOfRect2d::clear](#vectorofrect2dclear)
+  - [VectorOfRect2d::empty](#vectorofrect2dempty)
+  - [VectorOfRect2d::end](#vectorofrect2dend)
+  - [VectorOfRect2d::get_Item](#vectorofrect2dget_item)
+  - [VectorOfRect2d::get__NewEnum](#vectorofrect2dget__newenum)
+  - [VectorOfRect2d::push_back](#vectorofrect2dpush_back)
+  - [VectorOfRect2d::push_vector](#vectorofrect2dpush_vector)
+  - [VectorOfRect2d::put_Item](#vectorofrect2dput_item)
+  - [VectorOfRect2d::size](#vectorofrect2dsize)
+  - [VectorOfRect2d::slice](#vectorofrect2dslice)
+  - [VectorOfRect2d::sort](#vectorofrect2dsort)
+  - [VectorOfRect2d::sort_variant](#vectorofrect2dsort_variant)
+  - [VectorOfRect2d::start](#vectorofrect2dstart)
+- [VectorOfDnn_Target](#vectorofdnn_target)
+  - [VectorOfDnn_Target::create](#vectorofdnn_targetcreate)
+  - [VectorOfDnn_Target::Add](#vectorofdnn_targetadd)
+  - [VectorOfDnn_Target::Items](#vectorofdnn_targetitems)
+  - [VectorOfDnn_Target::Keys](#vectorofdnn_targetkeys)
+  - [VectorOfDnn_Target::Remove](#vectorofdnn_targetremove)
+  - [VectorOfDnn_Target::append](#vectorofdnn_targetappend)
+  - [VectorOfDnn_Target::at](#vectorofdnn_targetat)
+  - [VectorOfDnn_Target::clear](#vectorofdnn_targetclear)
+  - [VectorOfDnn_Target::empty](#vectorofdnn_targetempty)
+  - [VectorOfDnn_Target::end](#vectorofdnn_targetend)
+  - [VectorOfDnn_Target::get_Item](#vectorofdnn_targetget_item)
+  - [VectorOfDnn_Target::get__NewEnum](#vectorofdnn_targetget__newenum)
+  - [VectorOfDnn_Target::push_back](#vectorofdnn_targetpush_back)
+  - [VectorOfDnn_Target::push_vector](#vectorofdnn_targetpush_vector)
+  - [VectorOfDnn_Target::put_Item](#vectorofdnn_targetput_item)
+  - [VectorOfDnn_Target::size](#vectorofdnn_targetsize)
+  - [VectorOfDnn_Target::slice](#vectorofdnn_targetslice)
+  - [VectorOfDnn_Target::sort](#vectorofdnn_targetsort)
+  - [VectorOfDnn_Target::sort_variant](#vectorofdnn_targetsort_variant)
+  - [VectorOfDnn_Target::start](#vectorofdnn_targetstart)
+- [VectorOfVectorOfMat](#vectorofvectorofmat)
+  - [VectorOfVectorOfMat::create](#vectorofvectorofmatcreate)
+  - [VectorOfVectorOfMat::Add](#vectorofvectorofmatadd)
+  - [VectorOfVectorOfMat::Items](#vectorofvectorofmatitems)
+  - [VectorOfVectorOfMat::Keys](#vectorofvectorofmatkeys)
+  - [VectorOfVectorOfMat::Remove](#vectorofvectorofmatremove)
+  - [VectorOfVectorOfMat::append](#vectorofvectorofmatappend)
+  - [VectorOfVectorOfMat::at](#vectorofvectorofmatat)
+  - [VectorOfVectorOfMat::clear](#vectorofvectorofmatclear)
+  - [VectorOfVectorOfMat::empty](#vectorofvectorofmatempty)
+  - [VectorOfVectorOfMat::end](#vectorofvectorofmatend)
+  - [VectorOfVectorOfMat::get_Item](#vectorofvectorofmatget_item)
+  - [VectorOfVectorOfMat::get__NewEnum](#vectorofvectorofmatget__newenum)
+  - [VectorOfVectorOfMat::push_back](#vectorofvectorofmatpush_back)
+  - [VectorOfVectorOfMat::push_vector](#vectorofvectorofmatpush_vector)
+  - [VectorOfVectorOfMat::put_Item](#vectorofvectorofmatput_item)
+  - [VectorOfVectorOfMat::size](#vectorofvectorofmatsize)
+  - [VectorOfVectorOfMat::slice](#vectorofvectorofmatslice)
+  - [VectorOfVectorOfMat::sort](#vectorofvectorofmatsort)
+  - [VectorOfVectorOfMat::sort_variant](#vectorofvectorofmatsort_variant)
+  - [VectorOfVectorOfMat::start](#vectorofvectorofmatstart)
+- [VectorOfVectorOfInt](#vectorofvectorofint)
+  - [VectorOfVectorOfInt::create](#vectorofvectorofintcreate)
+  - [VectorOfVectorOfInt::Add](#vectorofvectorofintadd)
+  - [VectorOfVectorOfInt::Items](#vectorofvectorofintitems)
+  - [VectorOfVectorOfInt::Keys](#vectorofvectorofintkeys)
+  - [VectorOfVectorOfInt::Remove](#vectorofvectorofintremove)
+  - [VectorOfVectorOfInt::append](#vectorofvectorofintappend)
+  - [VectorOfVectorOfInt::at](#vectorofvectorofintat)
+  - [VectorOfVectorOfInt::clear](#vectorofvectorofintclear)
+  - [VectorOfVectorOfInt::empty](#vectorofvectorofintempty)
+  - [VectorOfVectorOfInt::end](#vectorofvectorofintend)
+  - [VectorOfVectorOfInt::get_Item](#vectorofvectorofintget_item)
+  - [VectorOfVectorOfInt::get__NewEnum](#vectorofvectorofintget__newenum)
+  - [VectorOfVectorOfInt::push_back](#vectorofvectorofintpush_back)
+  - [VectorOfVectorOfInt::push_vector](#vectorofvectorofintpush_vector)
+  - [VectorOfVectorOfInt::put_Item](#vectorofvectorofintput_item)
+  - [VectorOfVectorOfInt::size](#vectorofvectorofintsize)
+  - [VectorOfVectorOfInt::slice](#vectorofvectorofintslice)
+  - [VectorOfVectorOfInt::sort](#vectorofvectorofintsort)
+  - [VectorOfVectorOfInt::sort_variant](#vectorofvectorofintsort_variant)
+  - [VectorOfVectorOfInt::start](#vectorofvectorofintstart)
+- [VectorOfVectorOfVectorOfInt](#vectorofvectorofvectorofint)
+  - [VectorOfVectorOfVectorOfInt::create](#vectorofvectorofvectorofintcreate)
+  - [VectorOfVectorOfVectorOfInt::Add](#vectorofvectorofvectorofintadd)
+  - [VectorOfVectorOfVectorOfInt::Items](#vectorofvectorofvectorofintitems)
+  - [VectorOfVectorOfVectorOfInt::Keys](#vectorofvectorofvectorofintkeys)
+  - [VectorOfVectorOfVectorOfInt::Remove](#vectorofvectorofvectorofintremove)
+  - [VectorOfVectorOfVectorOfInt::append](#vectorofvectorofvectorofintappend)
+  - [VectorOfVectorOfVectorOfInt::at](#vectorofvectorofvectorofintat)
+  - [VectorOfVectorOfVectorOfInt::clear](#vectorofvectorofvectorofintclear)
+  - [VectorOfVectorOfVectorOfInt::empty](#vectorofvectorofvectorofintempty)
+  - [VectorOfVectorOfVectorOfInt::end](#vectorofvectorofvectorofintend)
+  - [VectorOfVectorOfVectorOfInt::get_Item](#vectorofvectorofvectorofintget_item)
+  - [VectorOfVectorOfVectorOfInt::get__NewEnum](#vectorofvectorofvectorofintget__newenum)
+  - [VectorOfVectorOfVectorOfInt::push_back](#vectorofvectorofvectorofintpush_back)
+  - [VectorOfVectorOfVectorOfInt::push_vector](#vectorofvectorofvectorofintpush_vector)
+  - [VectorOfVectorOfVectorOfInt::put_Item](#vectorofvectorofvectorofintput_item)
+  - [VectorOfVectorOfVectorOfInt::size](#vectorofvectorofvectorofintsize)
+  - [VectorOfVectorOfVectorOfInt::slice](#vectorofvectorofvectorofintslice)
+  - [VectorOfVectorOfVectorOfInt::sort](#vectorofvectorofvectorofintsort)
+  - [VectorOfVectorOfVectorOfInt::sort_variant](#vectorofvectorofvectorofintsort_variant)
+  - [VectorOfVectorOfVectorOfInt::start](#vectorofvectorofvectorofintstart)
+- [VectorOfVectorOfPoint](#vectorofvectorofpoint)
+  - [VectorOfVectorOfPoint::create](#vectorofvectorofpointcreate)
+  - [VectorOfVectorOfPoint::Add](#vectorofvectorofpointadd)
+  - [VectorOfVectorOfPoint::Items](#vectorofvectorofpointitems)
+  - [VectorOfVectorOfPoint::Keys](#vectorofvectorofpointkeys)
+  - [VectorOfVectorOfPoint::Remove](#vectorofvectorofpointremove)
+  - [VectorOfVectorOfPoint::append](#vectorofvectorofpointappend)
+  - [VectorOfVectorOfPoint::at](#vectorofvectorofpointat)
+  - [VectorOfVectorOfPoint::clear](#vectorofvectorofpointclear)
+  - [VectorOfVectorOfPoint::empty](#vectorofvectorofpointempty)
+  - [VectorOfVectorOfPoint::end](#vectorofvectorofpointend)
+  - [VectorOfVectorOfPoint::get_Item](#vectorofvectorofpointget_item)
+  - [VectorOfVectorOfPoint::get__NewEnum](#vectorofvectorofpointget__newenum)
+  - [VectorOfVectorOfPoint::push_back](#vectorofvectorofpointpush_back)
+  - [VectorOfVectorOfPoint::push_vector](#vectorofvectorofpointpush_vector)
+  - [VectorOfVectorOfPoint::put_Item](#vectorofvectorofpointput_item)
+  - [VectorOfVectorOfPoint::size](#vectorofvectorofpointsize)
+  - [VectorOfVectorOfPoint::slice](#vectorofvectorofpointslice)
+  - [VectorOfVectorOfPoint::sort](#vectorofvectorofpointsort)
+  - [VectorOfVectorOfPoint::sort_variant](#vectorofvectorofpointsort_variant)
+  - [VectorOfVectorOfPoint::start](#vectorofvectorofpointstart)
+- [VectorOfVectorOfKeyPoint](#vectorofvectorofkeypoint)
+  - [VectorOfVectorOfKeyPoint::create](#vectorofvectorofkeypointcreate)
+  - [VectorOfVectorOfKeyPoint::Add](#vectorofvectorofkeypointadd)
+  - [VectorOfVectorOfKeyPoint::Items](#vectorofvectorofkeypointitems)
+  - [VectorOfVectorOfKeyPoint::Keys](#vectorofvectorofkeypointkeys)
+  - [VectorOfVectorOfKeyPoint::Remove](#vectorofvectorofkeypointremove)
+  - [VectorOfVectorOfKeyPoint::append](#vectorofvectorofkeypointappend)
+  - [VectorOfVectorOfKeyPoint::at](#vectorofvectorofkeypointat)
+  - [VectorOfVectorOfKeyPoint::clear](#vectorofvectorofkeypointclear)
+  - [VectorOfVectorOfKeyPoint::empty](#vectorofvectorofkeypointempty)
+  - [VectorOfVectorOfKeyPoint::end](#vectorofvectorofkeypointend)
+  - [VectorOfVectorOfKeyPoint::get_Item](#vectorofvectorofkeypointget_item)
+  - [VectorOfVectorOfKeyPoint::get__NewEnum](#vectorofvectorofkeypointget__newenum)
+  - [VectorOfVectorOfKeyPoint::push_back](#vectorofvectorofkeypointpush_back)
+  - [VectorOfVectorOfKeyPoint::push_vector](#vectorofvectorofkeypointpush_vector)
+  - [VectorOfVectorOfKeyPoint::put_Item](#vectorofvectorofkeypointput_item)
+  - [VectorOfVectorOfKeyPoint::size](#vectorofvectorofkeypointsize)
+  - [VectorOfVectorOfKeyPoint::slice](#vectorofvectorofkeypointslice)
+  - [VectorOfVectorOfKeyPoint::sort](#vectorofvectorofkeypointsort)
+  - [VectorOfVectorOfKeyPoint::sort_variant](#vectorofvectorofkeypointsort_variant)
+  - [VectorOfVectorOfKeyPoint::start](#vectorofvectorofkeypointstart)
+- [VectorOfVideoCaptureAPIs](#vectorofvideocaptureapis)
+  - [VectorOfVideoCaptureAPIs::create](#vectorofvideocaptureapiscreate)
+  - [VectorOfVideoCaptureAPIs::Add](#vectorofvideocaptureapisadd)
+  - [VectorOfVideoCaptureAPIs::Items](#vectorofvideocaptureapisitems)
+  - [VectorOfVideoCaptureAPIs::Keys](#vectorofvideocaptureapiskeys)
+  - [VectorOfVideoCaptureAPIs::Remove](#vectorofvideocaptureapisremove)
+  - [VectorOfVideoCaptureAPIs::append](#vectorofvideocaptureapisappend)
+  - [VectorOfVideoCaptureAPIs::at](#vectorofvideocaptureapisat)
+  - [VectorOfVideoCaptureAPIs::clear](#vectorofvideocaptureapisclear)
+  - [VectorOfVideoCaptureAPIs::empty](#vectorofvideocaptureapisempty)
+  - [VectorOfVideoCaptureAPIs::end](#vectorofvideocaptureapisend)
+  - [VectorOfVideoCaptureAPIs::get_Item](#vectorofvideocaptureapisget_item)
+  - [VectorOfVideoCaptureAPIs::get__NewEnum](#vectorofvideocaptureapisget__newenum)
+  - [VectorOfVideoCaptureAPIs::push_back](#vectorofvideocaptureapispush_back)
+  - [VectorOfVideoCaptureAPIs::push_vector](#vectorofvideocaptureapispush_vector)
+  - [VectorOfVideoCaptureAPIs::put_Item](#vectorofvideocaptureapisput_item)
+  - [VectorOfVideoCaptureAPIs::size](#vectorofvideocaptureapissize)
+  - [VectorOfVideoCaptureAPIs::slice](#vectorofvideocaptureapisslice)
+  - [VectorOfVideoCaptureAPIs::sort](#vectorofvideocaptureapissort)
+  - [VectorOfVideoCaptureAPIs::sort_variant](#vectorofvideocaptureapissort_variant)
+  - [VectorOfVideoCaptureAPIs::start](#vectorofvideocaptureapisstart)
+- [VectorOfDetail_CameraParams](#vectorofdetail_cameraparams)
+  - [VectorOfDetail_CameraParams::create](#vectorofdetail_cameraparamscreate)
+  - [VectorOfDetail_CameraParams::Add](#vectorofdetail_cameraparamsadd)
+  - [VectorOfDetail_CameraParams::Items](#vectorofdetail_cameraparamsitems)
+  - [VectorOfDetail_CameraParams::Keys](#vectorofdetail_cameraparamskeys)
+  - [VectorOfDetail_CameraParams::Remove](#vectorofdetail_cameraparamsremove)
+  - [VectorOfDetail_CameraParams::append](#vectorofdetail_cameraparamsappend)
+  - [VectorOfDetail_CameraParams::at](#vectorofdetail_cameraparamsat)
+  - [VectorOfDetail_CameraParams::clear](#vectorofdetail_cameraparamsclear)
+  - [VectorOfDetail_CameraParams::empty](#vectorofdetail_cameraparamsempty)
+  - [VectorOfDetail_CameraParams::end](#vectorofdetail_cameraparamsend)
+  - [VectorOfDetail_CameraParams::get_Item](#vectorofdetail_cameraparamsget_item)
+  - [VectorOfDetail_CameraParams::get__NewEnum](#vectorofdetail_cameraparamsget__newenum)
+  - [VectorOfDetail_CameraParams::push_back](#vectorofdetail_cameraparamspush_back)
+  - [VectorOfDetail_CameraParams::push_vector](#vectorofdetail_cameraparamspush_vector)
+  - [VectorOfDetail_CameraParams::put_Item](#vectorofdetail_cameraparamsput_item)
+  - [VectorOfDetail_CameraParams::size](#vectorofdetail_cameraparamssize)
+  - [VectorOfDetail_CameraParams::slice](#vectorofdetail_cameraparamsslice)
+  - [VectorOfDetail_CameraParams::sort](#vectorofdetail_cameraparamssort)
+  - [VectorOfDetail_CameraParams::sort_variant](#vectorofdetail_cameraparamssort_variant)
+  - [VectorOfDetail_CameraParams::start](#vectorofdetail_cameraparamsstart)
+- [VectorOfGCompileArg](#vectorofgcompilearg)
+  - [VectorOfGCompileArg::create](#vectorofgcompileargcreate)
+  - [VectorOfGCompileArg::Add](#vectorofgcompileargadd)
+  - [VectorOfGCompileArg::Items](#vectorofgcompileargitems)
+  - [VectorOfGCompileArg::Keys](#vectorofgcompileargkeys)
+  - [VectorOfGCompileArg::Remove](#vectorofgcompileargremove)
+  - [VectorOfGCompileArg::append](#vectorofgcompileargappend)
+  - [VectorOfGCompileArg::at](#vectorofgcompileargat)
+  - [VectorOfGCompileArg::clear](#vectorofgcompileargclear)
+  - [VectorOfGCompileArg::empty](#vectorofgcompileargempty)
+  - [VectorOfGCompileArg::end](#vectorofgcompileargend)
+  - [VectorOfGCompileArg::get_Item](#vectorofgcompileargget_item)
+  - [VectorOfGCompileArg::get__NewEnum](#vectorofgcompileargget__newenum)
+  - [VectorOfGCompileArg::push_back](#vectorofgcompileargpush_back)
+  - [VectorOfGCompileArg::push_vector](#vectorofgcompileargpush_vector)
+  - [VectorOfGCompileArg::put_Item](#vectorofgcompileargput_item)
+  - [VectorOfGCompileArg::size](#vectorofgcompileargsize)
+  - [VectorOfGCompileArg::slice](#vectorofgcompileargslice)
+  - [VectorOfGCompileArg::sort](#vectorofgcompileargsort)
+  - [VectorOfGCompileArg::sort_variant](#vectorofgcompileargsort_variant)
+  - [VectorOfGCompileArg::start](#vectorofgcompileargstart)
+- [VectorOfGRunArg](#vectorofgrunarg)
+  - [VectorOfGRunArg::create](#vectorofgrunargcreate)
+  - [VectorOfGRunArg::Add](#vectorofgrunargadd)
+  - [VectorOfGRunArg::Items](#vectorofgrunargitems)
+  - [VectorOfGRunArg::Keys](#vectorofgrunargkeys)
+  - [VectorOfGRunArg::Remove](#vectorofgrunargremove)
+  - [VectorOfGRunArg::append](#vectorofgrunargappend)
+  - [VectorOfGRunArg::at](#vectorofgrunargat)
+  - [VectorOfGRunArg::clear](#vectorofgrunargclear)
+  - [VectorOfGRunArg::empty](#vectorofgrunargempty)
+  - [VectorOfGRunArg::end](#vectorofgrunargend)
+  - [VectorOfGRunArg::get_Item](#vectorofgrunargget_item)
+  - [VectorOfGRunArg::get__NewEnum](#vectorofgrunargget__newenum)
+  - [VectorOfGRunArg::push_back](#vectorofgrunargpush_back)
+  - [VectorOfGRunArg::push_vector](#vectorofgrunargpush_vector)
+  - [VectorOfGRunArg::put_Item](#vectorofgrunargput_item)
+  - [VectorOfGRunArg::size](#vectorofgrunargsize)
+  - [VectorOfGRunArg::slice](#vectorofgrunargslice)
+  - [VectorOfGRunArg::sort](#vectorofgrunargsort)
+  - [VectorOfGRunArg::sort_variant](#vectorofgrunargsort_variant)
+  - [VectorOfGRunArg::start](#vectorofgrunargstart)
+- [VectorOfGMetaArg](#vectorofgmetaarg)
+  - [VectorOfGMetaArg::create](#vectorofgmetaargcreate)
+  - [VectorOfGMetaArg::Add](#vectorofgmetaargadd)
+  - [VectorOfGMetaArg::Items](#vectorofgmetaargitems)
+  - [VectorOfGMetaArg::Keys](#vectorofgmetaargkeys)
+  - [VectorOfGMetaArg::Remove](#vectorofgmetaargremove)
+  - [VectorOfGMetaArg::append](#vectorofgmetaargappend)
+  - [VectorOfGMetaArg::at](#vectorofgmetaargat)
+  - [VectorOfGMetaArg::clear](#vectorofgmetaargclear)
+  - [VectorOfGMetaArg::empty](#vectorofgmetaargempty)
+  - [VectorOfGMetaArg::end](#vectorofgmetaargend)
+  - [VectorOfGMetaArg::get_Item](#vectorofgmetaargget_item)
+  - [VectorOfGMetaArg::get__NewEnum](#vectorofgmetaargget__newenum)
+  - [VectorOfGMetaArg::push_back](#vectorofgmetaargpush_back)
+  - [VectorOfGMetaArg::push_vector](#vectorofgmetaargpush_vector)
+  - [VectorOfGMetaArg::put_Item](#vectorofgmetaargput_item)
+  - [VectorOfGMetaArg::size](#vectorofgmetaargsize)
+  - [VectorOfGMetaArg::slice](#vectorofgmetaargslice)
+  - [VectorOfGMetaArg::sort](#vectorofgmetaargsort)
+  - [VectorOfGMetaArg::sort_variant](#vectorofgmetaargsort_variant)
+  - [VectorOfGMetaArg::start](#vectorofgmetaargstart)
+- [VectorOfGapi_GNetParam](#vectorofgapi_gnetparam)
+  - [VectorOfGapi_GNetParam::create](#vectorofgapi_gnetparamcreate)
+  - [VectorOfGapi_GNetParam::Add](#vectorofgapi_gnetparamadd)
+  - [VectorOfGapi_GNetParam::Items](#vectorofgapi_gnetparamitems)
+  - [VectorOfGapi_GNetParam::Keys](#vectorofgapi_gnetparamkeys)
+  - [VectorOfGapi_GNetParam::Remove](#vectorofgapi_gnetparamremove)
+  - [VectorOfGapi_GNetParam::append](#vectorofgapi_gnetparamappend)
+  - [VectorOfGapi_GNetParam::at](#vectorofgapi_gnetparamat)
+  - [VectorOfGapi_GNetParam::clear](#vectorofgapi_gnetparamclear)
+  - [VectorOfGapi_GNetParam::empty](#vectorofgapi_gnetparamempty)
+  - [VectorOfGapi_GNetParam::end](#vectorofgapi_gnetparamend)
+  - [VectorOfGapi_GNetParam::get_Item](#vectorofgapi_gnetparamget_item)
+  - [VectorOfGapi_GNetParam::get__NewEnum](#vectorofgapi_gnetparamget__newenum)
+  - [VectorOfGapi_GNetParam::push_back](#vectorofgapi_gnetparampush_back)
+  - [VectorOfGapi_GNetParam::push_vector](#vectorofgapi_gnetparampush_vector)
+  - [VectorOfGapi_GNetParam::put_Item](#vectorofgapi_gnetparamput_item)
+  - [VectorOfGapi_GNetParam::size](#vectorofgapi_gnetparamsize)
+  - [VectorOfGapi_GNetParam::slice](#vectorofgapi_gnetparamslice)
+  - [VectorOfGapi_GNetParam::sort](#vectorofgapi_gnetparamsort)
+  - [VectorOfGapi_GNetParam::sort_variant](#vectorofgapi_gnetparamsort_variant)
+  - [VectorOfGapi_GNetParam::start](#vectorofgapi_gnetparamstart)
+- [VectorOfGapi_wip_draw_Prim](#vectorofgapi_wip_draw_prim)
+  - [VectorOfGapi_wip_draw_Prim::create](#vectorofgapi_wip_draw_primcreate)
+  - [VectorOfGapi_wip_draw_Prim::Add](#vectorofgapi_wip_draw_primadd)
+  - [VectorOfGapi_wip_draw_Prim::Items](#vectorofgapi_wip_draw_primitems)
+  - [VectorOfGapi_wip_draw_Prim::Keys](#vectorofgapi_wip_draw_primkeys)
+  - [VectorOfGapi_wip_draw_Prim::Remove](#vectorofgapi_wip_draw_primremove)
+  - [VectorOfGapi_wip_draw_Prim::append](#vectorofgapi_wip_draw_primappend)
+  - [VectorOfGapi_wip_draw_Prim::at](#vectorofgapi_wip_draw_primat)
+  - [VectorOfGapi_wip_draw_Prim::clear](#vectorofgapi_wip_draw_primclear)
+  - [VectorOfGapi_wip_draw_Prim::empty](#vectorofgapi_wip_draw_primempty)
+  - [VectorOfGapi_wip_draw_Prim::end](#vectorofgapi_wip_draw_primend)
+  - [VectorOfGapi_wip_draw_Prim::get_Item](#vectorofgapi_wip_draw_primget_item)
+  - [VectorOfGapi_wip_draw_Prim::get__NewEnum](#vectorofgapi_wip_draw_primget__newenum)
+  - [VectorOfGapi_wip_draw_Prim::push_back](#vectorofgapi_wip_draw_primpush_back)
+  - [VectorOfGapi_wip_draw_Prim::push_vector](#vectorofgapi_wip_draw_primpush_vector)
+  - [VectorOfGapi_wip_draw_Prim::put_Item](#vectorofgapi_wip_draw_primput_item)
+  - [VectorOfGapi_wip_draw_Prim::size](#vectorofgapi_wip_draw_primsize)
+  - [VectorOfGapi_wip_draw_Prim::slice](#vectorofgapi_wip_draw_primslice)
+  - [VectorOfGapi_wip_draw_Prim::sort](#vectorofgapi_wip_draw_primsort)
+  - [VectorOfGapi_wip_draw_Prim::sort_variant](#vectorofgapi_wip_draw_primsort_variant)
+  - [VectorOfGapi_wip_draw_Prim::start](#vectorofgapi_wip_draw_primstart)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## cv
 
 ### cv::CamShift
@@ -802,13 +4932,13 @@ AutoIt:
 ### cv::calibrateHandEye
 
 ```cpp
-void cv::calibrateHandEye( InputArrayOfArrays R_gripper2base,
-                           InputArrayOfArrays t_gripper2base,
-                           InputArrayOfArrays R_target2cam,
-                           InputArrayOfArrays t_target2cam,
-                           OutputArray        R_cam2gripper,
-                           OutputArray        t_cam2gripper,
-                           int                method = CALIB_HAND_EYE_TSAI );
+void cv::calibrateHandEye( InputArrayOfArrays           R_gripper2base,
+                           InputArrayOfArrays           t_gripper2base,
+                           InputArrayOfArrays           R_target2cam,
+                           InputArrayOfArrays           t_target2cam,
+                           OutputArray                  R_cam2gripper,
+                           OutputArray                  t_cam2gripper,
+                           cv::HandEyeCalibrationMethod method = CALIB_HAND_EYE_TSAI );
 AutoIt:
     _OpenCV_ObjCreate("cv").calibrateHandEye( $R_gripper2base, $t_gripper2base, $R_target2cam, $t_target2cam[, $R_cam2gripper[, $t_cam2gripper[, $method]]] ) -> $R_cam2gripper, $t_cam2gripper
 ```
@@ -816,15 +4946,15 @@ AutoIt:
 ### cv::calibrateRobotWorldHandEye
 
 ```cpp
-void cv::calibrateRobotWorldHandEye( InputArrayOfArrays R_world2cam,
-                                     InputArrayOfArrays t_world2cam,
-                                     InputArrayOfArrays R_base2gripper,
-                                     InputArrayOfArrays t_base2gripper,
-                                     OutputArray        R_base2world,
-                                     OutputArray        t_base2world,
-                                     OutputArray        R_gripper2cam,
-                                     OutputArray        t_gripper2cam,
-                                     int                method = CALIB_ROBOT_WORLD_HAND_EYE_SHAH );
+void cv::calibrateRobotWorldHandEye( InputArrayOfArrays                     R_world2cam,
+                                     InputArrayOfArrays                     t_world2cam,
+                                     InputArrayOfArrays                     R_base2gripper,
+                                     InputArrayOfArrays                     t_base2gripper,
+                                     OutputArray                            R_base2world,
+                                     OutputArray                            t_base2world,
+                                     OutputArray                            R_gripper2cam,
+                                     OutputArray                            t_gripper2cam,
+                                     cv::RobotWorldHandEyeCalibrationMethod method = CALIB_ROBOT_WORLD_HAND_EYE_SHAH );
 AutoIt:
     _OpenCV_ObjCreate("cv").calibrateRobotWorldHandEye( $R_world2cam, $t_world2cam, $R_base2gripper, $t_base2gripper[, $R_base2world[, $t_base2world[, $R_gripper2cam[, $t_gripper2cam[, $method]]]]] ) -> $R_base2world, $t_base2world, $R_gripper2cam, $t_gripper2cam
 ```
@@ -1689,7 +5819,7 @@ void cv::drawKeypoints( InputArray                       image,
                         const std::vector<cv::KeyPoint>& keypoints,
                         InputOutputArray                 outImage,
                         const cv::Scalar&                color = Scalar::all(-1),
-                        int                              flags = DrawMatchesFlags::DEFAULT );
+                        cv::DrawMatchesFlags             flags = DrawMatchesFlags::DEFAULT );
 AutoIt:
     _OpenCV_ObjCreate("cv").drawKeypoints( $image, $keypoints, $outImage[, $color[, $flags]] ) -> $outImage
 ```
@@ -1720,7 +5850,7 @@ void cv::drawMatches( InputArray                       img1,
                       const cv::Scalar&                matchColor = Scalar::all(-1),
                       const cv::Scalar&                singlePointColor = Scalar::all(-1),
                       const std::vector<char>&         matchesMask = std::vector<char>(),
-                      int                              flags = DrawMatchesFlags::DEFAULT );
+                      cv::DrawMatchesFlags             flags = DrawMatchesFlags::DEFAULT );
 AutoIt:
     _OpenCV_ObjCreate("cv").drawMatches( $img1, $keypoints1, $img2, $keypoints2, $matches1to2, $outImg[, $matchColor[, $singlePointColor[, $matchesMask[, $flags]]]] ) -> $outImg
 ```
@@ -1736,7 +5866,7 @@ void cv::drawMatches( InputArray                       img1,
                       const cv::Scalar&                matchColor = Scalar::all(-1),
                       const cv::Scalar&                singlePointColor = Scalar::all(-1),
                       const std::vector<char>&         matchesMask = std::vector<char>(),
-                      int                              flags = DrawMatchesFlags::DEFAULT );
+                      cv::DrawMatchesFlags             flags = DrawMatchesFlags::DEFAULT );
 AutoIt:
     _OpenCV_ObjCreate("cv").drawMatches( $img1, $keypoints1, $img2, $keypoints2, $matches1to2, $outImg, $matchesThickness[, $matchColor[, $singlePointColor[, $matchesMask[, $flags]]]] ) -> $outImg
 ```
@@ -1753,7 +5883,7 @@ void cv::drawMatchesKnn( InputArray                                  img1,
                          const cv::Scalar&                           matchColor = Scalar::all(-1),
                          const cv::Scalar&                           singlePointColor = Scalar::all(-1),
                          const std::vector<std::vector<char>>&       matchesMask = std::vector<std::vector<char> >(),
-                         int                                         flags = DrawMatchesFlags::DEFAULT );
+                         cv::DrawMatchesFlags                        flags = DrawMatchesFlags::DEFAULT );
 AutoIt:
     _OpenCV_ObjCreate("cv").drawMatchesKnn( $img1, $keypoints1, $img2, $keypoints2, $matches1to2, $outImg[, $matchColor[, $singlePointColor[, $matchesMask[, $flags]]]] ) -> $outImg
 ```
@@ -2423,6 +6553,15 @@ int cv::floodFill( InputOutputArray image,
                    int              flags = 4 );
 AutoIt:
     _OpenCV_ObjCreate("cv").floodFill( $image, $mask, $seedPoint, $newVal[, $loDiff[, $upDiff[, $flags[, $rect]]]] ) -> retval, $image, $mask, $rect
+```
+
+### cv::format
+
+```cpp
+std::string cv::format( InputArray                mtx,
+                        cv::Formatter::FormatType fmt = Formatter::FMT_NUMPY );
+AutoIt:
+    _OpenCV_ObjCreate("cv").format( $mtx[, $fmt] ) -> retval
 ```
 
 ### cv::gemm
@@ -4246,7 +8385,7 @@ int cv::solvePnPGeneric( InputArray          objectPoints,
                          OutputArrayOfArrays rvecs,
                          OutputArrayOfArrays tvecs,
                          bool                useExtrinsicGuess = false,
-                         int                 flags = SOLVEPNP_ITERATIVE,
+                         cv::SolvePnPMethod  flags = SOLVEPNP_ITERATIVE,
                          InputArray          rvec = noArray(),
                          InputArray          tvec = noArray(),
                          OutputArray         reprojectionError = noArray() );
@@ -4767,18 +8906,20 @@ AutoIt:
 
 ## cv::RNG
 
-### cv::RNG::create
+### cv::RNG::get_create
 
 ```cpp
-static cv::RNG cv::RNG::create();
+static cv::RNG cv::RNG::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.RNG").create() -> <cv.RNG object>
+    _OpenCV_ObjCreate("cv.RNG")() -> <cv.RNG object>
 ```
 
 ```cpp
-static cv::RNG cv::RNG::create( uint64 state );
+static cv::RNG cv::RNG::get_create( uint64 state );
 AutoIt:
     _OpenCV_ObjCreate("cv.RNG").create( $state ) -> <cv.RNG object>
+    _OpenCV_ObjCreate("cv.RNG")( $state ) -> <cv.RNG object>
 ```
 
 ### cv::RNG::next
@@ -4869,12 +9010,13 @@ AutoIt:
 
 ## cv::AsyncArray
 
-### cv::AsyncArray::create
+### cv::AsyncArray::get_create
 
 ```cpp
-static cv::AsyncArray cv::AsyncArray::create();
+static cv::AsyncArray cv::AsyncArray::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.AsyncArray").create() -> <cv.AsyncArray object>
+    _OpenCV_ObjCreate("cv.AsyncArray")() -> <cv.AsyncArray object>
 ```
 
 ### cv::AsyncArray::get
@@ -5227,12 +9369,13 @@ AutoIt:
 
 ## cv::utils::nested::OriginalClassName
 
-### cv::utils::nested::OriginalClassName::create
+### cv::utils::nested::OriginalClassName::get_create
 
 ```cpp
-static cv::Ptr<cv::utils::nested::OriginalClassName> cv::utils::nested::OriginalClassName::create( const cv::utils::nested::OriginalClassName::Params& params = OriginalClassName::Params() );
+static cv::Ptr<cv::utils::nested::OriginalClassName> cv::utils::nested::OriginalClassName::get_create( const cv::utils::nested::OriginalClassName::Params& params = OriginalClassName::Params() );
 AutoIt:
     _OpenCV_ObjCreate("cv.utils.nested.OriginalClassName").create( [$params] ) -> retval
+    _OpenCV_ObjCreate("cv.utils.nested.OriginalClassName")( [$params] ) -> retval
 ```
 
 ### cv::utils::nested::OriginalClassName::getFloatParam
@@ -5261,13 +9404,14 @@ AutoIt:
 
 ## cv::utils::nested::OriginalClassName::Params
 
-### cv::utils::nested::OriginalClassName::Params::create
+### cv::utils::nested::OriginalClassName::Params::get_create
 
 ```cpp
-static cv::utils::nested::OriginalClassName::Params cv::utils::nested::OriginalClassName::Params::create( int   int_param = 123,
-                                                                                                          float float_param = 3.5f );
+static cv::utils::nested::OriginalClassName::Params cv::utils::nested::OriginalClassName::Params::get_create( int   int_param = 123,
+                                                                                                              float float_param = 3.5f );
 AutoIt:
     _OpenCV_ObjCreate("cv.utils.nested.OriginalClassName.Params").create( [$int_param[, $float_param]] ) -> <cv.utils.nested.OriginalClassName.Params object>
+    _OpenCV_ObjCreate("cv.utils.nested.OriginalClassName.Params")( [$int_param[, $float_param]] ) -> <cv.utils.nested.OriginalClassName.Params object>
 ```
 
 ## cv::utils::fs
@@ -5466,8 +9610,8 @@ AutoIt:
 ### cv::detail::waveCorrect
 
 ```cpp
-void cv::detail::waveCorrect( std::vector<cv::Mat>& rmats,
-                              int                   kind );
+void cv::detail::waveCorrect( std::vector<cv::Mat>&       rmats,
+                              cv::detail::WaveCorrectKind kind );
 AutoIt:
     _OpenCV_ObjCreate("cv.detail").waveCorrect( $rmats, $kind ) -> $rmats
 ```
@@ -5580,91 +9724,102 @@ AutoIt:
 
 ## cv::cuda::GpuMat
 
-### cv::cuda::GpuMat::create
+### cv::cuda::GpuMat::get_create
 
 ```cpp
-static cv::cuda::GpuMat cv::cuda::GpuMat::create( cv::cuda::GpuMat::Allocator* allocator = GpuMat::defaultAllocator() );
+static cv::cuda::GpuMat cv::cuda::GpuMat::get_create( cv::cuda::GpuMat::Allocator* allocator = GpuMat::defaultAllocator() );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.GpuMat").create( [$allocator] ) -> <cv.cuda.GpuMat object>
+    _OpenCV_ObjCreate("cv.cuda.GpuMat")( [$allocator] ) -> <cv.cuda.GpuMat object>
 ```
 
 ```cpp
-static cv::cuda::GpuMat cv::cuda::GpuMat::create( int                          rows,
-                                                  int                          cols,
-                                                  int                          type,
-                                                  cv::cuda::GpuMat::Allocator* allocator = GpuMat::defaultAllocator() );
+static cv::cuda::GpuMat cv::cuda::GpuMat::get_create( int                          rows,
+                                                      int                          cols,
+                                                      int                          type,
+                                                      cv::cuda::GpuMat::Allocator* allocator = GpuMat::defaultAllocator() );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.GpuMat").create( $rows, $cols, $type[, $allocator] ) -> <cv.cuda.GpuMat object>
+    _OpenCV_ObjCreate("cv.cuda.GpuMat")( $rows, $cols, $type[, $allocator] ) -> <cv.cuda.GpuMat object>
 ```
 
 ```cpp
-static cv::cuda::GpuMat cv::cuda::GpuMat::create( cv::Size                     size,
-                                                  int                          type,
-                                                  cv::cuda::GpuMat::Allocator* allocator = GpuMat::defaultAllocator() );
+static cv::cuda::GpuMat cv::cuda::GpuMat::get_create( cv::Size                     size,
+                                                      int                          type,
+                                                      cv::cuda::GpuMat::Allocator* allocator = GpuMat::defaultAllocator() );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.GpuMat").create( $size, $type[, $allocator] ) -> <cv.cuda.GpuMat object>
+    _OpenCV_ObjCreate("cv.cuda.GpuMat")( $size, $type[, $allocator] ) -> <cv.cuda.GpuMat object>
 ```
 
 ```cpp
-static cv::cuda::GpuMat cv::cuda::GpuMat::create( int                          rows,
-                                                  int                          cols,
-                                                  int                          type,
-                                                  cv::Scalar                   s,
-                                                  cv::cuda::GpuMat::Allocator* allocator = GpuMat::defaultAllocator() );
+static cv::cuda::GpuMat cv::cuda::GpuMat::get_create( int                          rows,
+                                                      int                          cols,
+                                                      int                          type,
+                                                      cv::Scalar                   s,
+                                                      cv::cuda::GpuMat::Allocator* allocator = GpuMat::defaultAllocator() );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.GpuMat").create( $rows, $cols, $type, $s[, $allocator] ) -> <cv.cuda.GpuMat object>
+    _OpenCV_ObjCreate("cv.cuda.GpuMat")( $rows, $cols, $type, $s[, $allocator] ) -> <cv.cuda.GpuMat object>
 ```
 
 ```cpp
-static cv::cuda::GpuMat cv::cuda::GpuMat::create( cv::Size                     size,
-                                                  int                          type,
-                                                  cv::Scalar                   s,
-                                                  cv::cuda::GpuMat::Allocator* allocator = GpuMat::defaultAllocator() );
+static cv::cuda::GpuMat cv::cuda::GpuMat::get_create( cv::Size                     size,
+                                                      int                          type,
+                                                      cv::Scalar                   s,
+                                                      cv::cuda::GpuMat::Allocator* allocator = GpuMat::defaultAllocator() );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.GpuMat").create( $size, $type, $s[, $allocator] ) -> <cv.cuda.GpuMat object>
+    _OpenCV_ObjCreate("cv.cuda.GpuMat")( $size, $type, $s[, $allocator] ) -> <cv.cuda.GpuMat object>
 ```
 
 ```cpp
-static cv::cuda::GpuMat cv::cuda::GpuMat::create( const cv::cuda::GpuMat& m );
+static cv::cuda::GpuMat cv::cuda::GpuMat::get_create( const cv::cuda::GpuMat& m );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.GpuMat").create( $m ) -> <cv.cuda.GpuMat object>
+    _OpenCV_ObjCreate("cv.cuda.GpuMat")( $m ) -> <cv.cuda.GpuMat object>
 ```
 
 ```cpp
-static cv::cuda::GpuMat cv::cuda::GpuMat::create( const cv::cuda::GpuMat& m,
-                                                  cv::Range               rowRange,
-                                                  cv::Range               colRange );
+static cv::cuda::GpuMat cv::cuda::GpuMat::get_create( const cv::cuda::GpuMat& m,
+                                                      cv::Range               rowRange,
+                                                      cv::Range               colRange );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.GpuMat").create( $m, $rowRange, $colRange ) -> <cv.cuda.GpuMat object>
+    _OpenCV_ObjCreate("cv.cuda.GpuMat")( $m, $rowRange, $colRange ) -> <cv.cuda.GpuMat object>
 ```
 
 ```cpp
-static cv::cuda::GpuMat cv::cuda::GpuMat::create( const cv::cuda::GpuMat& m,
-                                                  cv::Rect                roi );
+static cv::cuda::GpuMat cv::cuda::GpuMat::get_create( const cv::cuda::GpuMat& m,
+                                                      cv::Rect                roi );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.GpuMat").create( $m, $roi ) -> <cv.cuda.GpuMat object>
+    _OpenCV_ObjCreate("cv.cuda.GpuMat")( $m, $roi ) -> <cv.cuda.GpuMat object>
 ```
 
 ```cpp
-static cv::cuda::GpuMat cv::cuda::GpuMat::create( InputArray                   arr,
-                                                  cv::cuda::GpuMat::Allocator* allocator = GpuMat::defaultAllocator() );
+static cv::cuda::GpuMat cv::cuda::GpuMat::get_create( InputArray                   arr,
+                                                      cv::cuda::GpuMat::Allocator* allocator = GpuMat::defaultAllocator() );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.GpuMat").create( $arr[, $allocator] ) -> <cv.cuda.GpuMat object>
+    _OpenCV_ObjCreate("cv.cuda.GpuMat")( $arr[, $allocator] ) -> <cv.cuda.GpuMat object>
 ```
 
 ```cpp
-void cv::cuda::GpuMat::create( int rows,
-                               int cols,
-                               int type );
+void cv::cuda::GpuMat::get_create( int rows,
+                                   int cols,
+                                   int type );
 AutoIt:
     $oGpuMat.create( $rows, $cols, $type ) -> None
+    $oGpuMat( $rows, $cols, $type ) -> None
 ```
 
 ```cpp
-void cv::cuda::GpuMat::create( cv::Size size,
-                               int      type );
+void cv::cuda::GpuMat::get_create( cv::Size size,
+                                   int      type );
 AutoIt:
     $oGpuMat.create( $size, $type ) -> None
+    $oGpuMat( $size, $type ) -> None
 ```
 
 ### cv::cuda::GpuMat::adjustROI
@@ -6016,12 +10171,13 @@ AutoIt:
 
 ## cv::cuda::BufferPool
 
-### cv::cuda::BufferPool::create
+### cv::cuda::BufferPool::get_create
 
 ```cpp
-static cv::cuda::BufferPool cv::cuda::BufferPool::create( cv::cuda::Stream& stream );
+static cv::cuda::BufferPool cv::cuda::BufferPool::get_create( cv::cuda::Stream& stream );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.BufferPool").create( $stream ) -> <cv.cuda.BufferPool object>
+    _OpenCV_ObjCreate("cv.cuda.BufferPool")( $stream ) -> <cv.cuda.BufferPool object>
 ```
 
 ### cv::cuda::BufferPool::getAllocator
@@ -6051,50 +10207,56 @@ AutoIt:
 
 ## cv::cuda::HostMem
 
-### cv::cuda::HostMem::create
+### cv::cuda::HostMem::get_create
 
 ```cpp
-static cv::cuda::HostMem cv::cuda::HostMem::create( int alloc_type = HostMem::AllocType::PAGE_LOCKED );
+static cv::cuda::HostMem cv::cuda::HostMem::get_create( cv::cuda::HostMem::AllocType alloc_type = HostMem::AllocType::PAGE_LOCKED );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.HostMem").create( [$alloc_type] ) -> <cv.cuda.HostMem object>
+    _OpenCV_ObjCreate("cv.cuda.HostMem")( [$alloc_type] ) -> <cv.cuda.HostMem object>
 ```
 
 ```cpp
-static cv::cuda::HostMem cv::cuda::HostMem::create( int rows,
-                                                    int cols,
-                                                    int type,
-                                                    int alloc_type = HostMem::AllocType::PAGE_LOCKED );
+static cv::cuda::HostMem cv::cuda::HostMem::get_create( int                          rows,
+                                                        int                          cols,
+                                                        int                          type,
+                                                        cv::cuda::HostMem::AllocType alloc_type = HostMem::AllocType::PAGE_LOCKED );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.HostMem").create( $rows, $cols, $type[, $alloc_type] ) -> <cv.cuda.HostMem object>
+    _OpenCV_ObjCreate("cv.cuda.HostMem")( $rows, $cols, $type[, $alloc_type] ) -> <cv.cuda.HostMem object>
 ```
 
 ```cpp
-static cv::cuda::HostMem cv::cuda::HostMem::create( cv::Size size,
-                                                    int      type,
-                                                    int      alloc_type = HostMem::AllocType::PAGE_LOCKED );
+static cv::cuda::HostMem cv::cuda::HostMem::get_create( cv::Size                     size,
+                                                        int                          type,
+                                                        cv::cuda::HostMem::AllocType alloc_type = HostMem::AllocType::PAGE_LOCKED );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.HostMem").create( $size, $type[, $alloc_type] ) -> <cv.cuda.HostMem object>
+    _OpenCV_ObjCreate("cv.cuda.HostMem")( $size, $type[, $alloc_type] ) -> <cv.cuda.HostMem object>
 ```
 
 ```cpp
-static cv::cuda::HostMem cv::cuda::HostMem::create( InputArray arr,
-                                                    int        alloc_type = HostMem::AllocType::PAGE_LOCKED );
+static cv::cuda::HostMem cv::cuda::HostMem::get_create( InputArray                   arr,
+                                                        cv::cuda::HostMem::AllocType alloc_type = HostMem::AllocType::PAGE_LOCKED );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.HostMem").create( $arr[, $alloc_type] ) -> <cv.cuda.HostMem object>
+    _OpenCV_ObjCreate("cv.cuda.HostMem")( $arr[, $alloc_type] ) -> <cv.cuda.HostMem object>
 ```
 
 ```cpp
-void cv::cuda::HostMem::create( int rows,
-                                int cols,
-                                int type );
+void cv::cuda::HostMem::get_create( int rows,
+                                    int cols,
+                                    int type );
 AutoIt:
     $oHostMem.create( $rows, $cols, $type ) -> None
+    $oHostMem( $rows, $cols, $type ) -> None
 ```
 
 ```cpp
-static cv::cuda::HostMem cv::cuda::HostMem::create( cv::cuda::HostMem m );
+static cv::cuda::HostMem cv::cuda::HostMem::get_create( cv::cuda::HostMem m );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.HostMem").create( $m ) -> <cv.cuda.HostMem object>
+    _OpenCV_ObjCreate("cv.cuda.HostMem")( $m ) -> <cv.cuda.HostMem object>
 ```
 
 ### cv::cuda::HostMem::channels
@@ -6204,24 +10366,27 @@ AutoIt:
 
 ## cv::cuda::Stream
 
-### cv::cuda::Stream::create
+### cv::cuda::Stream::get_create
 
 ```cpp
-static cv::cuda::Stream cv::cuda::Stream::create();
+static cv::cuda::Stream cv::cuda::Stream::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.Stream").create() -> <cv.cuda.Stream object>
+    _OpenCV_ObjCreate("cv.cuda.Stream")() -> <cv.cuda.Stream object>
 ```
 
 ```cpp
-static cv::cuda::Stream cv::cuda::Stream::create( const cv::Ptr<cv::cuda::GpuMat::Allocator>& allocator );
+static cv::cuda::Stream cv::cuda::Stream::get_create( const cv::Ptr<cv::cuda::GpuMat::Allocator>& allocator );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.Stream").create( $allocator ) -> <cv.cuda.Stream object>
+    _OpenCV_ObjCreate("cv.cuda.Stream")( $allocator ) -> <cv.cuda.Stream object>
 ```
 
 ```cpp
-static cv::cuda::Stream cv::cuda::Stream::create( const size_t cudaFlags );
+static cv::cuda::Stream cv::cuda::Stream::get_create( const size_t cudaFlags );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.Stream").create( $cudaFlags ) -> <cv.cuda.Stream object>
+    _OpenCV_ObjCreate("cv.cuda.Stream")( $cudaFlags ) -> <cv.cuda.Stream object>
 ```
 
 ### cv::cuda::Stream::Null
@@ -6266,12 +10431,13 @@ AutoIt:
 
 ## cv::cuda::Event
 
-### cv::cuda::Event::create
+### cv::cuda::Event::get_create
 
 ```cpp
-static cv::cuda::Event cv::cuda::Event::create( const int flags = Event::CreateFlags::DEFAULT );
+static cv::cuda::Event cv::cuda::Event::get_create( const cv::cuda::Event::CreateFlags flags = Event::CreateFlags::DEFAULT );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.Event").create( [$flags] ) -> <cv.cuda.Event object>
+    _OpenCV_ObjCreate("cv.cuda.Event")( [$flags] ) -> <cv.cuda.Event object>
 ```
 
 ### cv::cuda::Event::elapsedTime
@@ -6374,18 +10540,20 @@ AutoIt:
 
 ## cv::cuda::DeviceInfo
 
-### cv::cuda::DeviceInfo::create
+### cv::cuda::DeviceInfo::get_create
 
 ```cpp
-static cv::cuda::DeviceInfo cv::cuda::DeviceInfo::create();
+static cv::cuda::DeviceInfo cv::cuda::DeviceInfo::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.DeviceInfo").create() -> <cv.cuda.DeviceInfo object>
+    _OpenCV_ObjCreate("cv.cuda.DeviceInfo")() -> <cv.cuda.DeviceInfo object>
 ```
 
 ```cpp
-static cv::cuda::DeviceInfo cv::cuda::DeviceInfo::create( int device_id );
+static cv::cuda::DeviceInfo cv::cuda::DeviceInfo::get_create( int device_id );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.DeviceInfo").create( $device_id ) -> <cv.cuda.DeviceInfo object>
+    _OpenCV_ObjCreate("cv.cuda.DeviceInfo")( $device_id ) -> <cv.cuda.DeviceInfo object>
 ```
 
 ### cv::cuda::DeviceInfo::ECCEnabled
@@ -6423,7 +10591,7 @@ AutoIt:
 ### cv::cuda::DeviceInfo::computeMode
 
 ```cpp
-int cv::cuda::DeviceInfo::computeMode() const;
+cv::cuda::DeviceInfo::ComputeMode cv::cuda::DeviceInfo::computeMode() const;
 AutoIt:
     $oDeviceInfo.computeMode() -> retval
 ```
@@ -6902,6 +11070,18 @@ AutoIt:
     _OpenCV_ObjCreate("cv.Mat").create( $src, $roi ) -> <cv.Mat object>
 ```
 
+```cpp
+static cv::Mat cv::Mat::create( std::vector<double> vec );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Mat").create( $vec ) -> <cv.Mat object>
+```
+
+```cpp
+static cv::Mat cv::Mat::create( std::vector<int> vec );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Mat").create( $vec ) -> <cv.Mat object>
+```
+
 ### cv::Mat::GdiplusResize
 
 ```cpp
@@ -6917,8 +11097,8 @@ AutoIt:
 ```cpp
 size_t cv::Mat::PixelChecksum( int left = 0,
                                int top = 0,
-                               int right = this->__self->get()->cols - 1,
-                               int bottom = this->__self->get()->rows - 1,
+                               int right = __self->get()->cols - 1,
+                               int bottom = __self->get()->rows - 1,
                                int step = 1,
                                int mode = 0 );
 AutoIt:
@@ -6926,7 +11106,7 @@ AutoIt:
 ```
 
 ```cpp
-size_t cv::Mat::PixelChecksum( cv::Rect rect = Rect(0, 0, this->__self->get()->cols, this->__self->get()->rows),
+size_t cv::Mat::PixelChecksum( cv::Rect rect = Rect(0, 0, __self->get()->cols, __self->get()->rows),
                                int      step = 1,
                                int      mode = 0 );
 AutoIt:
@@ -6939,8 +11119,8 @@ AutoIt:
 _variant_t cv::Mat::PixelSearch( cv::Scalar color,
                                  int        left = 0,
                                  int        top = 0,
-                                 int        right = this->__self->get()->cols - 1,
-                                 int        bottom = this->__self->get()->rows - 1,
+                                 int        right = __self->get()->cols - 1,
+                                 int        bottom = __self->get()->rows - 1,
                                  uchar      shade_variation = 0,
                                  int        step = 1 );
 AutoIt:
@@ -6949,7 +11129,7 @@ AutoIt:
 
 ```cpp
 _variant_t cv::Mat::PixelSearch( cv::Scalar color,
-                                 cv::Rect   rect = Rect(0, 0, this->__self->get()->cols, this->__self->get()->rows),
+                                 cv::Rect   rect = Rect(0, 0, __self->get()->cols, __self->get()->rows),
                                  uchar      shade_variation = 0,
                                  int        step = 1 );
 AutoIt:
@@ -8349,6 +12529,14 @@ AutoIt:
     $oMat.Vec8i_set_at( $pt, $value ) -> None
 ```
 
+### cv::Mat::asArray
+
+```cpp
+_variant_t cv::Mat::asArray();
+AutoIt:
+    $oMat.asArray() -> retval
+```
+
 ### cv::Mat::at
 
 ```cpp
@@ -8458,7 +12646,7 @@ AutoIt:
 ### cv::Mat::convertToShow
 
 ```cpp
-cv::Mat cv::Mat::convertToShow( cv::Mat dst = Mat::zeros(this->__self->get()->rows, this->__self->get()->cols, CV_8UC3),
+cv::Mat cv::Mat::convertToShow( cv::Mat dst = Mat::zeros(__self->get()->rows, __self->get()->cols, CV_8UC3),
                                 bool    toRGB = false );
 AutoIt:
     $oMat.convertToShow( [$dst[, $toRGB]] ) -> retval, $dst
@@ -8487,400 +12675,389 @@ AutoIt:
     $oMat.copyTo( $mask[, $m] ) -> $m
 ```
 
+### cv::Mat::createFromArray
+
+```cpp
+static cv::Mat cv::Mat::createFromArray( _variant_t array,
+                                         int        depth = -1 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Mat").createFromArray( $array[, $depth] ) -> retval
+```
+
 ### cv::Mat::createFromVec2b
 
 ```cpp
-static cv::Mat cv::Mat::createFromVec2b( cv::Vec2b vec,
-                                         bool      copyData = true );
+static cv::Mat cv::Mat::createFromVec2b( cv::Vec2b vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVec2b( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVec2b( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVec2d
 
 ```cpp
-static cv::Mat cv::Mat::createFromVec2d( cv::Vec2d vec,
-                                         bool      copyData = true );
+static cv::Mat cv::Mat::createFromVec2d( cv::Vec2d vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVec2d( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVec2d( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVec2f
 
 ```cpp
-static cv::Mat cv::Mat::createFromVec2f( cv::Vec2f vec,
-                                         bool      copyData = true );
+static cv::Mat cv::Mat::createFromVec2f( cv::Vec2f vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVec2f( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVec2f( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVec2i
 
 ```cpp
-static cv::Mat cv::Mat::createFromVec2i( cv::Vec2i vec,
-                                         bool      copyData = true );
+static cv::Mat cv::Mat::createFromVec2i( cv::Vec2i vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVec2i( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVec2i( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVec2s
 
 ```cpp
-static cv::Mat cv::Mat::createFromVec2s( cv::Vec2s vec,
-                                         bool      copyData = true );
+static cv::Mat cv::Mat::createFromVec2s( cv::Vec2s vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVec2s( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVec2s( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVec2w
 
 ```cpp
-static cv::Mat cv::Mat::createFromVec2w( cv::Vec2w vec,
-                                         bool      copyData = true );
+static cv::Mat cv::Mat::createFromVec2w( cv::Vec2w vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVec2w( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVec2w( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVec3b
 
 ```cpp
-static cv::Mat cv::Mat::createFromVec3b( cv::Vec3b vec,
-                                         bool      copyData = true );
+static cv::Mat cv::Mat::createFromVec3b( cv::Vec3b vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVec3b( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVec3b( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVec3d
 
 ```cpp
-static cv::Mat cv::Mat::createFromVec3d( cv::Vec3d vec,
-                                         bool      copyData = true );
+static cv::Mat cv::Mat::createFromVec3d( cv::Vec3d vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVec3d( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVec3d( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVec3f
 
 ```cpp
-static cv::Mat cv::Mat::createFromVec3f( cv::Vec3f vec,
-                                         bool      copyData = true );
+static cv::Mat cv::Mat::createFromVec3f( cv::Vec3f vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVec3f( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVec3f( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVec3i
 
 ```cpp
-static cv::Mat cv::Mat::createFromVec3i( cv::Vec3i vec,
-                                         bool      copyData = true );
+static cv::Mat cv::Mat::createFromVec3i( cv::Vec3i vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVec3i( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVec3i( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVec3s
 
 ```cpp
-static cv::Mat cv::Mat::createFromVec3s( cv::Vec3s vec,
-                                         bool      copyData = true );
+static cv::Mat cv::Mat::createFromVec3s( cv::Vec3s vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVec3s( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVec3s( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVec3w
 
 ```cpp
-static cv::Mat cv::Mat::createFromVec3w( cv::Vec3w vec,
-                                         bool      copyData = true );
+static cv::Mat cv::Mat::createFromVec3w( cv::Vec3w vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVec3w( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVec3w( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVec4b
 
 ```cpp
-static cv::Mat cv::Mat::createFromVec4b( cv::Vec4b vec,
-                                         bool      copyData = true );
+static cv::Mat cv::Mat::createFromVec4b( cv::Vec4b vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVec4b( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVec4b( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVec4d
 
 ```cpp
-static cv::Mat cv::Mat::createFromVec4d( cv::Vec4d vec,
-                                         bool      copyData = true );
+static cv::Mat cv::Mat::createFromVec4d( cv::Vec4d vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVec4d( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVec4d( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVec4f
 
 ```cpp
-static cv::Mat cv::Mat::createFromVec4f( cv::Vec4f vec,
-                                         bool      copyData = true );
+static cv::Mat cv::Mat::createFromVec4f( cv::Vec4f vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVec4f( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVec4f( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVec4i
 
 ```cpp
-static cv::Mat cv::Mat::createFromVec4i( cv::Vec4i vec,
-                                         bool      copyData = true );
+static cv::Mat cv::Mat::createFromVec4i( cv::Vec4i vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVec4i( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVec4i( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVec4s
 
 ```cpp
-static cv::Mat cv::Mat::createFromVec4s( cv::Vec4s vec,
-                                         bool      copyData = true );
+static cv::Mat cv::Mat::createFromVec4s( cv::Vec4s vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVec4s( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVec4s( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVec4w
 
 ```cpp
-static cv::Mat cv::Mat::createFromVec4w( cv::Vec4w vec,
-                                         bool      copyData = true );
+static cv::Mat cv::Mat::createFromVec4w( cv::Vec4w vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVec4w( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVec4w( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVec6d
 
 ```cpp
-static cv::Mat cv::Mat::createFromVec6d( cv::Vec6d vec,
-                                         bool      copyData = true );
+static cv::Mat cv::Mat::createFromVec6d( cv::Vec6d vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVec6d( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVec6d( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVec6f
 
 ```cpp
-static cv::Mat cv::Mat::createFromVec6f( cv::Vec6f vec,
-                                         bool      copyData = true );
+static cv::Mat cv::Mat::createFromVec6f( cv::Vec6f vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVec6f( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVec6f( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVec6i
 
 ```cpp
-static cv::Mat cv::Mat::createFromVec6i( cv::Vec6i vec,
-                                         bool      copyData = true );
+static cv::Mat cv::Mat::createFromVec6i( cv::Vec6i vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVec6i( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVec6i( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVec8i
 
 ```cpp
-static cv::Mat cv::Mat::createFromVec8i( cv::Vec8i vec,
-                                         bool      copyData = true );
+static cv::Mat cv::Mat::createFromVec8i( cv::Vec8i vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVec8i( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVec8i( $vec ) -> <cv.Mat object>
+```
+
+### cv::Mat::createFromVectorOfDouble
+
+```cpp
+static cv::Mat cv::Mat::createFromVectorOfDouble( std::vector<double> vec );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfDouble( $vec ) -> <cv.Mat object>
+```
+
+### cv::Mat::createFromVectorOfFloat
+
+```cpp
+static cv::Mat cv::Mat::createFromVectorOfFloat( std::vector<float> vec );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfFloat( $vec ) -> <cv.Mat object>
+```
+
+### cv::Mat::createFromVectorOfInt
+
+```cpp
+static cv::Mat cv::Mat::createFromVectorOfInt( std::vector<int> vec );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfInt( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVectorOfVec2b
 
 ```cpp
-static cv::Mat cv::Mat::createFromVectorOfVec2b( std::vector<cv::Vec2b> vec,
-                                                 bool                   copyData = true );
+static cv::Mat cv::Mat::createFromVectorOfVec2b( std::vector<cv::Vec2b> vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec2b( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec2b( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVectorOfVec2d
 
 ```cpp
-static cv::Mat cv::Mat::createFromVectorOfVec2d( std::vector<cv::Vec2d> vec,
-                                                 bool                   copyData = true );
+static cv::Mat cv::Mat::createFromVectorOfVec2d( std::vector<cv::Vec2d> vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec2d( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec2d( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVectorOfVec2f
 
 ```cpp
-static cv::Mat cv::Mat::createFromVectorOfVec2f( std::vector<cv::Vec2f> vec,
-                                                 bool                   copyData = true );
+static cv::Mat cv::Mat::createFromVectorOfVec2f( std::vector<cv::Vec2f> vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec2f( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec2f( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVectorOfVec2i
 
 ```cpp
-static cv::Mat cv::Mat::createFromVectorOfVec2i( std::vector<cv::Vec2i> vec,
-                                                 bool                   copyData = true );
+static cv::Mat cv::Mat::createFromVectorOfVec2i( std::vector<cv::Vec2i> vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec2i( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec2i( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVectorOfVec2s
 
 ```cpp
-static cv::Mat cv::Mat::createFromVectorOfVec2s( std::vector<cv::Vec2s> vec,
-                                                 bool                   copyData = true );
+static cv::Mat cv::Mat::createFromVectorOfVec2s( std::vector<cv::Vec2s> vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec2s( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec2s( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVectorOfVec2w
 
 ```cpp
-static cv::Mat cv::Mat::createFromVectorOfVec2w( std::vector<cv::Vec2w> vec,
-                                                 bool                   copyData = true );
+static cv::Mat cv::Mat::createFromVectorOfVec2w( std::vector<cv::Vec2w> vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec2w( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec2w( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVectorOfVec3b
 
 ```cpp
-static cv::Mat cv::Mat::createFromVectorOfVec3b( std::vector<cv::Vec3b> vec,
-                                                 bool                   copyData = true );
+static cv::Mat cv::Mat::createFromVectorOfVec3b( std::vector<cv::Vec3b> vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec3b( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec3b( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVectorOfVec3d
 
 ```cpp
-static cv::Mat cv::Mat::createFromVectorOfVec3d( std::vector<cv::Vec3d> vec,
-                                                 bool                   copyData = true );
+static cv::Mat cv::Mat::createFromVectorOfVec3d( std::vector<cv::Vec3d> vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec3d( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec3d( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVectorOfVec3f
 
 ```cpp
-static cv::Mat cv::Mat::createFromVectorOfVec3f( std::vector<cv::Vec3f> vec,
-                                                 bool                   copyData = true );
+static cv::Mat cv::Mat::createFromVectorOfVec3f( std::vector<cv::Vec3f> vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec3f( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec3f( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVectorOfVec3i
 
 ```cpp
-static cv::Mat cv::Mat::createFromVectorOfVec3i( std::vector<cv::Vec3i> vec,
-                                                 bool                   copyData = true );
+static cv::Mat cv::Mat::createFromVectorOfVec3i( std::vector<cv::Vec3i> vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec3i( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec3i( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVectorOfVec3s
 
 ```cpp
-static cv::Mat cv::Mat::createFromVectorOfVec3s( std::vector<cv::Vec3s> vec,
-                                                 bool                   copyData = true );
+static cv::Mat cv::Mat::createFromVectorOfVec3s( std::vector<cv::Vec3s> vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec3s( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec3s( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVectorOfVec3w
 
 ```cpp
-static cv::Mat cv::Mat::createFromVectorOfVec3w( std::vector<cv::Vec3w> vec,
-                                                 bool                   copyData = true );
+static cv::Mat cv::Mat::createFromVectorOfVec3w( std::vector<cv::Vec3w> vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec3w( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec3w( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVectorOfVec4b
 
 ```cpp
-static cv::Mat cv::Mat::createFromVectorOfVec4b( std::vector<cv::Vec4b> vec,
-                                                 bool                   copyData = true );
+static cv::Mat cv::Mat::createFromVectorOfVec4b( std::vector<cv::Vec4b> vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec4b( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec4b( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVectorOfVec4d
 
 ```cpp
-static cv::Mat cv::Mat::createFromVectorOfVec4d( std::vector<cv::Vec4d> vec,
-                                                 bool                   copyData = true );
+static cv::Mat cv::Mat::createFromVectorOfVec4d( std::vector<cv::Vec4d> vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec4d( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec4d( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVectorOfVec4f
 
 ```cpp
-static cv::Mat cv::Mat::createFromVectorOfVec4f( std::vector<cv::Vec4f> vec,
-                                                 bool                   copyData = true );
+static cv::Mat cv::Mat::createFromVectorOfVec4f( std::vector<cv::Vec4f> vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec4f( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec4f( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVectorOfVec4i
 
 ```cpp
-static cv::Mat cv::Mat::createFromVectorOfVec4i( std::vector<cv::Vec4i> vec,
-                                                 bool                   copyData = true );
+static cv::Mat cv::Mat::createFromVectorOfVec4i( std::vector<cv::Vec4i> vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec4i( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec4i( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVectorOfVec4s
 
 ```cpp
-static cv::Mat cv::Mat::createFromVectorOfVec4s( std::vector<cv::Vec4s> vec,
-                                                 bool                   copyData = true );
+static cv::Mat cv::Mat::createFromVectorOfVec4s( std::vector<cv::Vec4s> vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec4s( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec4s( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVectorOfVec4w
 
 ```cpp
-static cv::Mat cv::Mat::createFromVectorOfVec4w( std::vector<cv::Vec4w> vec,
-                                                 bool                   copyData = true );
+static cv::Mat cv::Mat::createFromVectorOfVec4w( std::vector<cv::Vec4w> vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec4w( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec4w( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVectorOfVec6d
 
 ```cpp
-static cv::Mat cv::Mat::createFromVectorOfVec6d( std::vector<cv::Vec6d> vec,
-                                                 bool                   copyData = true );
+static cv::Mat cv::Mat::createFromVectorOfVec6d( std::vector<cv::Vec6d> vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec6d( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec6d( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVectorOfVec6f
 
 ```cpp
-static cv::Mat cv::Mat::createFromVectorOfVec6f( std::vector<cv::Vec6f> vec,
-                                                 bool                   copyData = true );
+static cv::Mat cv::Mat::createFromVectorOfVec6f( std::vector<cv::Vec6f> vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec6f( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec6f( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVectorOfVec6i
 
 ```cpp
-static cv::Mat cv::Mat::createFromVectorOfVec6i( std::vector<cv::Vec6i> vec,
-                                                 bool                   copyData = true );
+static cv::Mat cv::Mat::createFromVectorOfVec6i( std::vector<cv::Vec6i> vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec6i( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec6i( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::createFromVectorOfVec8i
 
 ```cpp
-static cv::Mat cv::Mat::createFromVectorOfVec8i( std::vector<cv::Vec8i> vec,
-                                                 bool                   copyData = true );
+static cv::Mat cv::Mat::createFromVectorOfVec8i( std::vector<cv::Vec8i> vec );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec8i( $vec[, $copyData] ) -> <cv.Mat object>
+    _OpenCV_ObjCreate("cv.Mat").createFromVectorOfVec8i( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::cross
@@ -9011,6 +13188,20 @@ AutoIt:
     _OpenCV_ObjCreate("cv.Mat").eye( $rows, $cols, $type ) -> retval
 ```
 
+```cpp
+static cv::Mat cv::Mat::eye( int rows,
+                             int type );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Mat").eye( $rows, $type ) -> retval
+```
+
+```cpp
+static cv::Mat cv::Mat::eye( int cols,
+                             int type );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Mat").eye( $cols, $type ) -> retval
+```
+
 ### cv::Mat::float_at
 
 ```cpp
@@ -9079,7 +13270,7 @@ AutoIt:
 double cv::Mat::get_Item( int i0 );
 AutoIt:
     $oMat.Item( $i0 ) -> retval
-    cv.Mat( $i0 ) -> retval
+    $oMat( $i0 ) -> retval
 ```
 
 ```cpp
@@ -9087,7 +13278,7 @@ double cv::Mat::get_Item( int row,
                           int col );
 AutoIt:
     $oMat.Item( $row, $col ) -> retval
-    cv.Mat( $row, $col ) -> retval
+    $oMat( $row, $col ) -> retval
 ```
 
 ```cpp
@@ -9096,14 +13287,14 @@ double cv::Mat::get_Item( int i0,
                           int i2 );
 AutoIt:
     $oMat.Item( $i0, $i1, $i2 ) -> retval
-    cv.Mat( $i0, $i1, $i2 ) -> retval
+    $oMat( $i0, $i1, $i2 ) -> retval
 ```
 
 ```cpp
 double cv::Mat::get_Item( cv::Point pt );
 AutoIt:
     $oMat.Item( $pt ) -> retval
-    cv.Mat( $pt ) -> retval
+    $oMat( $pt ) -> retval
 ```
 
 ### cv::Mat::int_at
@@ -9195,6 +13386,20 @@ AutoIt:
 ```
 
 ```cpp
+static cv::Mat cv::Mat::ones( int cols,
+                              int type );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Mat").ones( $cols, $type ) -> retval
+```
+
+```cpp
+static cv::Mat cv::Mat::ones( int rows,
+                              int type );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Mat").ones( $rows, $type ) -> retval
+```
+
+```cpp
 static cv::Mat cv::Mat::ones( cv::Size size,
                               int      type );
 AutoIt:
@@ -9238,6 +13443,39 @@ AutoIt:
 void cv::Mat::push_back( cv::Mat value );
 AutoIt:
     $oMat.push_back( $value ) -> None
+```
+
+### cv::Mat::put_Item
+
+```cpp
+void cv::Mat::put_Item( int    i0,
+                        double value );
+AutoIt:
+    $oMat.Item( $i0 ) = $value
+```
+
+```cpp
+void cv::Mat::put_Item( int    row,
+                        int    col,
+                        double value );
+AutoIt:
+    $oMat.Item( $row, $col ) = $value
+```
+
+```cpp
+void cv::Mat::put_Item( int    i0,
+                        int    i1,
+                        int    i2,
+                        double value );
+AutoIt:
+    $oMat.Item( $i0, $i1, $i2 ) = $value
+```
+
+```cpp
+void cv::Mat::put_Item( cv::Point pt,
+                        double    value );
+AutoIt:
+    $oMat.Item( $pt ) = $value
 ```
 
 ### cv::Mat::reshape
@@ -9314,6 +13552,14 @@ AutoIt:
     $oMat.set_at( $pt, $value ) -> None
 ```
 
+### cv::Mat::shape
+
+```cpp
+std::tuple<int, int, int> cv::Mat::shape();
+AutoIt:
+    $oMat.shape() -> retval
+```
+
 ### cv::Mat::size
 
 ```cpp
@@ -9372,6 +13618,20 @@ AutoIt:
 ```
 
 ```cpp
+static cv::Mat cv::Mat::zeros( int cols,
+                               int type );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Mat").zeros( $cols, $type ) -> retval
+```
+
+```cpp
+static cv::Mat cv::Mat::zeros( int rows,
+                               int type );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Mat").zeros( $rows, $type ) -> retval
+```
+
+```cpp
 static cv::Mat cv::Mat::zeros( cv::Size size,
                                int      type );
 AutoIt:
@@ -9380,43 +13640,48 @@ AutoIt:
 
 ## cv::UMat
 
-### cv::UMat::create
+### cv::UMat::get_create
 
 ```cpp
-static cv::UMat cv::UMat::create();
+static cv::UMat cv::UMat::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.UMat").create() -> <cv.UMat object>
+    _OpenCV_ObjCreate("cv.UMat")() -> <cv.UMat object>
 ```
 
 ```cpp
-static cv::UMat cv::UMat::create( cv::UMat m );
+static cv::UMat cv::UMat::get_create( cv::UMat m );
 AutoIt:
     _OpenCV_ObjCreate("cv.UMat").create( $m ) -> <cv.UMat object>
+    _OpenCV_ObjCreate("cv.UMat")( $m ) -> <cv.UMat object>
 ```
 
 ```cpp
-static cv::UMat cv::UMat::create( int usageFlags = cv::USAGE_DEFAULT );
+static cv::UMat cv::UMat::get_create( cv::UMatUsageFlags usageFlags = cv::USAGE_DEFAULT );
 AutoIt:
     _OpenCV_ObjCreate("cv.UMat").create( [$usageFlags] ) -> <cv.UMat object>
+    _OpenCV_ObjCreate("cv.UMat")( [$usageFlags] ) -> <cv.UMat object>
 ```
 
 ```cpp
-static cv::UMat cv::UMat::create( int rows,
-                                  int cols,
-                                  int type,
-                                  int usageFlags = cv::USAGE_DEFAULT );
+static cv::UMat cv::UMat::get_create( int                rows,
+                                      int                cols,
+                                      int                type,
+                                      cv::UMatUsageFlags usageFlags = cv::USAGE_DEFAULT );
 AutoIt:
     _OpenCV_ObjCreate("cv.UMat").create( $rows, $cols, $type[, $usageFlags] ) -> <cv.UMat object>
+    _OpenCV_ObjCreate("cv.UMat")( $rows, $cols, $type[, $usageFlags] ) -> <cv.UMat object>
 ```
 
 ```cpp
-static cv::UMat cv::UMat::create( int        rows,
-                                  int        cols,
-                                  int        type,
-                                  cv::Scalar s,
-                                  int        usageFlags = cv::USAGE_DEFAULT );
+static cv::UMat cv::UMat::get_create( int                rows,
+                                      int                cols,
+                                      int                type,
+                                      cv::Scalar         s,
+                                      cv::UMatUsageFlags usageFlags = cv::USAGE_DEFAULT );
 AutoIt:
     _OpenCV_ObjCreate("cv.UMat").create( $rows, $cols, $type, $s[, $usageFlags] ) -> <cv.UMat object>
+    _OpenCV_ObjCreate("cv.UMat")( $rows, $cols, $type, $s[, $usageFlags] ) -> <cv.UMat object>
 ```
 
 ### cv::UMat::getMat
@@ -9479,12 +13744,13 @@ AutoIt:
 
 ## cv::ocl::Device
 
-### cv::ocl::Device::create
+### cv::ocl::Device::get_create
 
 ```cpp
-static cv::ocl::Device cv::ocl::Device::create();
+static cv::ocl::Device cv::ocl::Device::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ocl.Device").create() -> <cv.ocl.Device object>
+    _OpenCV_ObjCreate("cv.ocl.Device")() -> <cv.ocl.Device object>
 ```
 
 ### cv::ocl::Device::OpenCLVersion
@@ -10057,20 +14323,22 @@ AutoIt:
 
 ## cv::FileStorage
 
-### cv::FileStorage::create
+### cv::FileStorage::get_create
 
 ```cpp
-static cv::FileStorage cv::FileStorage::create();
+static cv::FileStorage cv::FileStorage::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.FileStorage").create() -> <cv.FileStorage object>
+    _OpenCV_ObjCreate("cv.FileStorage")() -> <cv.FileStorage object>
 ```
 
 ```cpp
-static cv::FileStorage cv::FileStorage::create( const std::string& filename,
-                                                int                flags,
-                                                const std::string& encoding = String() );
+static cv::FileStorage cv::FileStorage::get_create( const std::string& filename,
+                                                    int                flags,
+                                                    const std::string& encoding = String() );
 AutoIt:
     _OpenCV_ObjCreate("cv.FileStorage").create( $filename, $flags[, $encoding] ) -> <cv.FileStorage object>
+    _OpenCV_ObjCreate("cv.FileStorage")( $filename, $flags[, $encoding] ) -> <cv.FileStorage object>
 ```
 
 ### cv::FileStorage::endWriteStruct
@@ -10205,12 +14473,13 @@ AutoIt:
 
 ## cv::FileNode
 
-### cv::FileNode::create
+### cv::FileNode::get_create
 
 ```cpp
-static cv::FileNode cv::FileNode::create();
+static cv::FileNode cv::FileNode::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.FileNode").create() -> <cv.FileNode object>
+    _OpenCV_ObjCreate("cv.FileNode")() -> <cv.FileNode object>
 ```
 
 ### cv::FileNode::at
@@ -10359,24 +14628,26 @@ AutoIt:
 
 ## cv::KeyPoint
 
-### cv::KeyPoint::create
+### cv::KeyPoint::get_create
 
 ```cpp
-static cv::KeyPoint cv::KeyPoint::create();
+static cv::KeyPoint cv::KeyPoint::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.KeyPoint").create() -> <cv.KeyPoint object>
+    _OpenCV_ObjCreate("cv.KeyPoint")() -> <cv.KeyPoint object>
 ```
 
 ```cpp
-static cv::KeyPoint cv::KeyPoint::create( float x,
-                                          float y,
-                                          float size,
-                                          float angle = -1,
-                                          float response = 0,
-                                          int   octave = 0,
-                                          int   class_id = -1 );
+static cv::KeyPoint cv::KeyPoint::get_create( float x,
+                                              float y,
+                                              float size,
+                                              float angle = -1,
+                                              float response = 0,
+                                              int   octave = 0,
+                                              int   class_id = -1 );
 AutoIt:
     _OpenCV_ObjCreate("cv.KeyPoint").create( $x, $y, $size[, $angle[, $response[, $octave[, $class_id]]]] ) -> <cv.KeyPoint object>
+    _OpenCV_ObjCreate("cv.KeyPoint")( $x, $y, $size[, $angle[, $response[, $octave[, $class_id]]]] ) -> <cv.KeyPoint object>
 ```
 
 ### cv::KeyPoint::convert
@@ -10411,59 +14682,65 @@ AutoIt:
 
 ## cv::DMatch
 
-### cv::DMatch::create
+### cv::DMatch::get_create
 
 ```cpp
-static cv::DMatch cv::DMatch::create();
+static cv::DMatch cv::DMatch::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.DMatch").create() -> <cv.DMatch object>
+    _OpenCV_ObjCreate("cv.DMatch")() -> <cv.DMatch object>
 ```
 
 ```cpp
-static cv::DMatch cv::DMatch::create( int   _queryIdx,
-                                      int   _trainIdx,
-                                      float _distance );
+static cv::DMatch cv::DMatch::get_create( int   _queryIdx,
+                                          int   _trainIdx,
+                                          float _distance );
 AutoIt:
     _OpenCV_ObjCreate("cv.DMatch").create( $_queryIdx, $_trainIdx, $_distance ) -> <cv.DMatch object>
+    _OpenCV_ObjCreate("cv.DMatch")( $_queryIdx, $_trainIdx, $_distance ) -> <cv.DMatch object>
 ```
 
 ```cpp
-static cv::DMatch cv::DMatch::create( int   _queryIdx,
-                                      int   _trainIdx,
-                                      int   _imgIdx,
-                                      float _distance );
+static cv::DMatch cv::DMatch::get_create( int   _queryIdx,
+                                          int   _trainIdx,
+                                          int   _imgIdx,
+                                          float _distance );
 AutoIt:
     _OpenCV_ObjCreate("cv.DMatch").create( $_queryIdx, $_trainIdx, $_imgIdx, $_distance ) -> <cv.DMatch object>
+    _OpenCV_ObjCreate("cv.DMatch")( $_queryIdx, $_trainIdx, $_imgIdx, $_distance ) -> <cv.DMatch object>
 ```
 
 ## cv::TermCriteria
 
-### cv::TermCriteria::create
+### cv::TermCriteria::get_create
 
 ```cpp
-static cv::TermCriteria cv::TermCriteria::create();
+static cv::TermCriteria cv::TermCriteria::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.TermCriteria").create() -> <cv.TermCriteria object>
+    _OpenCV_ObjCreate("cv.TermCriteria")() -> <cv.TermCriteria object>
 ```
 
 ## cv::Moments
 
-### cv::Moments::create
+### cv::Moments::get_create
 
 ```cpp
-static cv::Moments cv::Moments::create();
+static cv::Moments cv::Moments::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Moments").create() -> <cv.Moments object>
+    _OpenCV_ObjCreate("cv.Moments")() -> <cv.Moments object>
 ```
 
 ## cv::TickMeter
 
-### cv::TickMeter::create
+### cv::TickMeter::get_create
 
 ```cpp
-static cv::TickMeter cv::TickMeter::create();
+static cv::TickMeter cv::TickMeter::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.TickMeter").create() -> <cv.TickMeter object>
+    _OpenCV_ObjCreate("cv.TickMeter")() -> <cv.TickMeter object>
 ```
 
 ### cv::TickMeter::getAvgTimeMilli
@@ -10593,28 +14870,30 @@ AutoIt:
 
 ## cv::flann::Index
 
-### cv::flann::Index::create
+### cv::flann::Index::get_create
 
 ```cpp
-static cv::flann::Index cv::flann::Index::create();
+static cv::flann::Index cv::flann::Index::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.flann.Index").create() -> <cv.flann.Index object>
+    _OpenCV_ObjCreate("cv.flann.Index")() -> <cv.flann.Index object>
 ```
 
 ```cpp
-static cv::flann::Index cv::flann::Index::create( InputArray         features,
-                                                  const IndexParams& params,
-                                                  int                distType = cvflann::FLANN_DIST_L2 );
+static cv::flann::Index cv::flann::Index::get_create( InputArray                features,
+                                                      const IndexParams&        params,
+                                                      cvflann::flann_distance_t distType = cvflann::FLANN_DIST_L2 );
 AutoIt:
     _OpenCV_ObjCreate("cv.flann.Index").create( $features, $params[, $distType] ) -> <cv.flann.Index object>
+    _OpenCV_ObjCreate("cv.flann.Index")( $features, $params[, $distType] ) -> <cv.flann.Index object>
 ```
 
 ### cv::flann::Index::build
 
 ```cpp
-void cv::flann::Index::build( InputArray         features,
-                              const IndexParams& params,
-                              int                distType = cvflann::FLANN_DIST_L2 );
+void cv::flann::Index::build( InputArray                features,
+                              const IndexParams&        params,
+                              cvflann::flann_distance_t distType = cvflann::FLANN_DIST_L2 );
 AutoIt:
     $oIndex.build( $features, $params[, $distType] ) -> None
 ```
@@ -10622,7 +14901,7 @@ AutoIt:
 ### cv::flann::Index::getAlgorithm
 
 ```cpp
-int cv::flann::Index::getAlgorithm() const;
+cvflann::flann_algorithm_t cv::flann::Index::getAlgorithm() const;
 AutoIt:
     $oIndex.getAlgorithm() -> retval
 ```
@@ -10630,7 +14909,7 @@ AutoIt:
 ### cv::flann::Index::getDistance
 
 ```cpp
-int cv::flann::Index::getDistance() const;
+cvflann::flann_distance_t cv::flann::Index::getDistance() const;
 AutoIt:
     $oIndex.getDistance() -> retval
 ```
@@ -11518,18 +15797,20 @@ AutoIt:
 
 ## cv::Subdiv2D
 
-### cv::Subdiv2D::create
+### cv::Subdiv2D::get_create
 
 ```cpp
-static cv::Subdiv2D cv::Subdiv2D::create();
+static cv::Subdiv2D cv::Subdiv2D::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Subdiv2D").create() -> <cv.Subdiv2D object>
+    _OpenCV_ObjCreate("cv.Subdiv2D")() -> <cv.Subdiv2D object>
 ```
 
 ```cpp
-static cv::Subdiv2D cv::Subdiv2D::create( cv::Rect rect );
+static cv::Subdiv2D cv::Subdiv2D::get_create( cv::Rect rect );
 AutoIt:
     _OpenCV_ObjCreate("cv.Subdiv2D").create( $rect ) -> <cv.Subdiv2D object>
+    _OpenCV_ObjCreate("cv.Subdiv2D")( $rect ) -> <cv.Subdiv2D object>
 ```
 
 ### cv::Subdiv2D::edgeDst
@@ -11753,12 +16034,13 @@ AutoIt:
 
 ## cv::segmentation::IntelligentScissorsMB
 
-### cv::segmentation::IntelligentScissorsMB::create
+### cv::segmentation::IntelligentScissorsMB::get_create
 
 ```cpp
-static cv::segmentation::IntelligentScissorsMB cv::segmentation::IntelligentScissorsMB::create();
+static cv::segmentation::IntelligentScissorsMB cv::segmentation::IntelligentScissorsMB::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.segmentation.IntelligentScissorsMB").create() -> <cv.segmentation.IntelligentScissorsMB object>
+    _OpenCV_ObjCreate("cv.segmentation.IntelligentScissorsMB")() -> <cv.segmentation.IntelligentScissorsMB object>
 ```
 
 ### cv::segmentation::IntelligentScissorsMB::applyImage
@@ -11837,30 +16119,32 @@ AutoIt:
 
 ## cv::ml::ParamGrid
 
-### cv::ml::ParamGrid::create
+### cv::ml::ParamGrid::get_create
 
 ```cpp
-static cv::Ptr<cv::ml::ParamGrid> cv::ml::ParamGrid::create( double minVal = 0.,
-                                                             double maxVal = 0.,
-                                                             double logstep = 1. );
+static cv::Ptr<cv::ml::ParamGrid> cv::ml::ParamGrid::get_create( double minVal = 0.,
+                                                                 double maxVal = 0.,
+                                                                 double logstep = 1. );
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.ParamGrid").create( [$minVal[, $maxVal[, $logstep]]] ) -> retval
+    _OpenCV_ObjCreate("cv.ml.ParamGrid")( [$minVal[, $maxVal[, $logstep]]] ) -> retval
 ```
 
 ## cv::ml::TrainData
 
-### cv::ml::TrainData::create
+### cv::ml::TrainData::get_create
 
 ```cpp
-static cv::Ptr<cv::ml::TrainData> cv::ml::TrainData::create( InputArray samples,
-                                                             int        layout,
-                                                             InputArray responses,
-                                                             InputArray varIdx = noArray(),
-                                                             InputArray sampleIdx = noArray(),
-                                                             InputArray sampleWeights = noArray(),
-                                                             InputArray varType = noArray() );
+static cv::Ptr<cv::ml::TrainData> cv::ml::TrainData::get_create( InputArray samples,
+                                                                 int        layout,
+                                                                 InputArray responses,
+                                                                 InputArray varIdx = noArray(),
+                                                                 InputArray sampleIdx = noArray(),
+                                                                 InputArray sampleWeights = noArray(),
+                                                                 InputArray varType = noArray() );
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.TrainData").create( $samples, $layout, $responses[, $varIdx[, $sampleIdx[, $sampleWeights[, $varType]]]] ) -> retval
+    _OpenCV_ObjCreate("cv.ml.TrainData")( $samples, $layout, $responses[, $varIdx[, $sampleIdx[, $sampleWeights[, $varType]]]] ) -> retval
 ```
 
 ### cv::ml::TrainData::getCatCount
@@ -12292,12 +16576,13 @@ AutoIt:
 
 ## cv::ml::NormalBayesClassifier
 
-### cv::ml::NormalBayesClassifier::create
+### cv::ml::NormalBayesClassifier::get_create
 
 ```cpp
-static cv::Ptr<cv::ml::NormalBayesClassifier> cv::ml::NormalBayesClassifier::create();
+static cv::Ptr<cv::ml::NormalBayesClassifier> cv::ml::NormalBayesClassifier::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.NormalBayesClassifier").create() -> retval
+    _OpenCV_ObjCreate("cv.ml.NormalBayesClassifier")() -> retval
 ```
 
 ### cv::ml::NormalBayesClassifier::calcError
@@ -12432,12 +16717,13 @@ AutoIt:
 
 ## cv::ml::KNearest
 
-### cv::ml::KNearest::create
+### cv::ml::KNearest::get_create
 
 ```cpp
-static cv::Ptr<cv::ml::KNearest> cv::ml::KNearest::create();
+static cv::Ptr<cv::ml::KNearest> cv::ml::KNearest::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.KNearest").create() -> retval
+    _OpenCV_ObjCreate("cv.ml.KNearest")() -> retval
 ```
 
 ### cv::ml::KNearest::calcError
@@ -12636,12 +16922,13 @@ AutoIt:
 
 ## cv::ml::SVM
 
-### cv::ml::SVM::create
+### cv::ml::SVM::get_create
 
 ```cpp
-static cv::Ptr<cv::ml::SVM> cv::ml::SVM::create();
+static cv::Ptr<cv::ml::SVM> cv::ml::SVM::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.SVM").create() -> retval
+    _OpenCV_ObjCreate("cv.ml.SVM")() -> retval
 ```
 
 ### cv::ml::SVM::calcError
@@ -12976,12 +17263,13 @@ AutoIt:
 
 ## cv::ml::EM
 
-### cv::ml::EM::create
+### cv::ml::EM::get_create
 
 ```cpp
-static cv::Ptr<cv::ml::EM> cv::ml::EM::create();
+static cv::Ptr<cv::ml::EM> cv::ml::EM::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.EM").create() -> retval
+    _OpenCV_ObjCreate("cv.ml.EM")() -> retval
 ```
 
 ### cv::ml::EM::calcError
@@ -13223,12 +17511,13 @@ AutoIt:
 
 ## cv::ml::DTrees
 
-### cv::ml::DTrees::create
+### cv::ml::DTrees::get_create
 
 ```cpp
-static cv::Ptr<cv::ml::DTrees> cv::ml::DTrees::create();
+static cv::Ptr<cv::ml::DTrees> cv::ml::DTrees::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.DTrees").create() -> retval
+    _OpenCV_ObjCreate("cv.ml.DTrees")() -> retval
 ```
 
 ### cv::ml::DTrees::calcError
@@ -13496,12 +17785,13 @@ AutoIt:
 
 ## cv::ml::RTrees
 
-### cv::ml::RTrees::create
+### cv::ml::RTrees::get_create
 
 ```cpp
-static cv::Ptr<cv::ml::RTrees> cv::ml::RTrees::create();
+static cv::Ptr<cv::ml::RTrees> cv::ml::RTrees::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.RTrees").create() -> retval
+    _OpenCV_ObjCreate("cv.ml.RTrees")() -> retval
 ```
 
 ### cv::ml::RTrees::calcError
@@ -13843,12 +18133,13 @@ AutoIt:
 
 ## cv::ml::Boost
 
-### cv::ml::Boost::create
+### cv::ml::Boost::get_create
 
 ```cpp
-static cv::Ptr<cv::ml::Boost> cv::ml::Boost::create();
+static cv::Ptr<cv::ml::Boost> cv::ml::Boost::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.Boost").create() -> retval
+    _OpenCV_ObjCreate("cv.ml.Boost")() -> retval
 ```
 
 ### cv::ml::Boost::calcError
@@ -14164,12 +18455,13 @@ AutoIt:
 
 ## cv::ml::ANN_MLP
 
-### cv::ml::ANN_MLP::create
+### cv::ml::ANN_MLP::get_create
 
 ```cpp
-static cv::Ptr<cv::ml::ANN_MLP> cv::ml::ANN_MLP::create();
+static cv::Ptr<cv::ml::ANN_MLP> cv::ml::ANN_MLP::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.ANN_MLP").create() -> retval
+    _OpenCV_ObjCreate("cv.ml.ANN_MLP")() -> retval
 ```
 
 ### cv::ml::ANN_MLP::calcError
@@ -14536,12 +18828,13 @@ AutoIt:
 
 ## cv::ml::LogisticRegression
 
-### cv::ml::LogisticRegression::create
+### cv::ml::LogisticRegression::get_create
 
 ```cpp
-static cv::Ptr<cv::ml::LogisticRegression> cv::ml::LogisticRegression::create();
+static cv::Ptr<cv::ml::LogisticRegression> cv::ml::LogisticRegression::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.LogisticRegression").create() -> retval
+    _OpenCV_ObjCreate("cv.ml.LogisticRegression")() -> retval
 ```
 
 ### cv::ml::LogisticRegression::calcError
@@ -14769,12 +19062,13 @@ AutoIt:
 
 ## cv::ml::SVMSGD
 
-### cv::ml::SVMSGD::create
+### cv::ml::SVMSGD::get_create
 
 ```cpp
-static cv::Ptr<cv::ml::SVMSGD> cv::ml::SVMSGD::create();
+static cv::Ptr<cv::ml::SVMSGD> cv::ml::SVMSGD::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.SVMSGD").create() -> retval
+    _OpenCV_ObjCreate("cv.ml.SVMSGD")() -> retval
 ```
 
 ### cv::ml::SVMSGD::calcError
@@ -16292,7 +20586,7 @@ AutoIt:
 ### cv::dnn::getAvailableTargets
 
 ```cpp
-std::vector<int> cv::dnn::getAvailableTargets( int be );
+std::vector<cv::dnn::Target> cv::dnn::getAvailableTargets( cv::dnn::Backend be );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn").getAvailableTargets( $be ) -> retval
 ```
@@ -16450,7 +20744,7 @@ void cv::dnn::softNMSBoxes( const std::vector<cv::Rect>& bboxes,
                             std::vector<int>&            indices,
                             size_t                       top_k = 0,
                             const float                  sigma = 0.5,
-                            int                          method = SoftNMSMethod::SOFTNMS_GAUSSIAN );
+                            cv::dnn::SoftNMSMethod       method = SoftNMSMethod::SOFTNMS_GAUSSIAN );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn").softNMSBoxes( $bboxes, $scores, $score_threshold, $nms_threshold[, $top_k[, $sigma[, $method[, $updated_scores[, $indices]]]]] ) -> $updated_scores, $indices
 ```
@@ -16466,24 +20760,27 @@ AutoIt:
 
 ## cv::dnn::DictValue
 
-### cv::dnn::DictValue::create
+### cv::dnn::DictValue::get_create
 
 ```cpp
-static cv::dnn::DictValue cv::dnn::DictValue::create( int i );
+static cv::dnn::DictValue cv::dnn::DictValue::get_create( int i );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.DictValue").create( $i ) -> <cv.dnn.DictValue object>
+    _OpenCV_ObjCreate("cv.dnn.DictValue")( $i ) -> <cv.dnn.DictValue object>
 ```
 
 ```cpp
-static cv::dnn::DictValue cv::dnn::DictValue::create( double p );
+static cv::dnn::DictValue cv::dnn::DictValue::get_create( double p );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.DictValue").create( $p ) -> <cv.dnn.DictValue object>
+    _OpenCV_ObjCreate("cv.dnn.DictValue")( $p ) -> <cv.dnn.DictValue object>
 ```
 
 ```cpp
-static cv::dnn::DictValue cv::dnn::DictValue::create( const std::string& s );
+static cv::dnn::DictValue cv::dnn::DictValue::get_create( const std::string& s );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.DictValue").create( $s ) -> <cv.dnn.DictValue object>
+    _OpenCV_ObjCreate("cv.dnn.DictValue")( $s ) -> <cv.dnn.DictValue object>
 ```
 
 ### cv::dnn::DictValue::getIntValue
@@ -16614,12 +20911,13 @@ AutoIt:
 
 ## cv::dnn::Net
 
-### cv::dnn::Net::create
+### cv::dnn::Net::get_create
 
 ```cpp
-static cv::dnn::Net cv::dnn::Net::create();
+static cv::dnn::Net cv::dnn::Net::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.Net").create() -> <cv.dnn.Net object>
+    _OpenCV_ObjCreate("cv.dnn.Net")() -> <cv.dnn.Net object>
 ```
 
 ### cv::dnn::Net::connect
@@ -16986,19 +21284,21 @@ AutoIt:
 
 ## cv::dnn::Model
 
-### cv::dnn::Model::create
+### cv::dnn::Model::get_create
 
 ```cpp
-static cv::dnn::Model cv::dnn::Model::create( const std::string& model,
-                                              const std::string& config = "" );
+static cv::dnn::Model cv::dnn::Model::get_create( const std::string& model,
+                                                  const std::string& config = "" );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.Model").create( $model[, $config] ) -> <cv.dnn.Model object>
+    _OpenCV_ObjCreate("cv.dnn.Model")( $model[, $config] ) -> <cv.dnn.Model object>
 ```
 
 ```cpp
-static cv::dnn::Model cv::dnn::Model::create( const cv::dnn::Net& network );
+static cv::dnn::Model cv::dnn::Model::get_create( const cv::dnn::Net& network );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.Model").create( $network ) -> <cv.dnn.Model object>
+    _OpenCV_ObjCreate("cv.dnn.Model")( $network ) -> <cv.dnn.Model object>
 ```
 
 ### cv::dnn::Model::predict
@@ -17072,7 +21372,7 @@ AutoIt:
 ### cv::dnn::Model::setPreferableBackend
 
 ```cpp
-cv::dnn::Model cv::dnn::Model::setPreferableBackend( int backendId );
+cv::dnn::Model cv::dnn::Model::setPreferableBackend( cv::dnn::Backend backendId );
 AutoIt:
     $oModel.setPreferableBackend( $backendId ) -> retval
 ```
@@ -17080,26 +21380,28 @@ AutoIt:
 ### cv::dnn::Model::setPreferableTarget
 
 ```cpp
-cv::dnn::Model cv::dnn::Model::setPreferableTarget( int targetId );
+cv::dnn::Model cv::dnn::Model::setPreferableTarget( cv::dnn::Target targetId );
 AutoIt:
     $oModel.setPreferableTarget( $targetId ) -> retval
 ```
 
 ## cv::dnn::ClassificationModel
 
-### cv::dnn::ClassificationModel::create
+### cv::dnn::ClassificationModel::get_create
 
 ```cpp
-static cv::dnn::ClassificationModel cv::dnn::ClassificationModel::create( const std::string& model,
-                                                                          const std::string& config = "" );
+static cv::dnn::ClassificationModel cv::dnn::ClassificationModel::get_create( const std::string& model,
+                                                                              const std::string& config = "" );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.ClassificationModel").create( $model[, $config] ) -> <cv.dnn.ClassificationModel object>
+    _OpenCV_ObjCreate("cv.dnn.ClassificationModel")( $model[, $config] ) -> <cv.dnn.ClassificationModel object>
 ```
 
 ```cpp
-static cv::dnn::ClassificationModel cv::dnn::ClassificationModel::create( const cv::dnn::Net& network );
+static cv::dnn::ClassificationModel cv::dnn::ClassificationModel::get_create( const cv::dnn::Net& network );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.ClassificationModel").create( $network ) -> <cv.dnn.ClassificationModel object>
+    _OpenCV_ObjCreate("cv.dnn.ClassificationModel")( $network ) -> <cv.dnn.ClassificationModel object>
 ```
 
 ### cv::dnn::ClassificationModel::classify
@@ -17199,7 +21501,7 @@ AutoIt:
 ### cv::dnn::ClassificationModel::setPreferableBackend
 
 ```cpp
-cv::dnn::Model cv::dnn::ClassificationModel::setPreferableBackend( int backendId );
+cv::dnn::Model cv::dnn::ClassificationModel::setPreferableBackend( cv::dnn::Backend backendId );
 AutoIt:
     $oClassificationModel.setPreferableBackend( $backendId ) -> retval
 ```
@@ -17207,26 +21509,28 @@ AutoIt:
 ### cv::dnn::ClassificationModel::setPreferableTarget
 
 ```cpp
-cv::dnn::Model cv::dnn::ClassificationModel::setPreferableTarget( int targetId );
+cv::dnn::Model cv::dnn::ClassificationModel::setPreferableTarget( cv::dnn::Target targetId );
 AutoIt:
     $oClassificationModel.setPreferableTarget( $targetId ) -> retval
 ```
 
 ## cv::dnn::KeypointsModel
 
-### cv::dnn::KeypointsModel::create
+### cv::dnn::KeypointsModel::get_create
 
 ```cpp
-static cv::dnn::KeypointsModel cv::dnn::KeypointsModel::create( const std::string& model,
-                                                                const std::string& config = "" );
+static cv::dnn::KeypointsModel cv::dnn::KeypointsModel::get_create( const std::string& model,
+                                                                    const std::string& config = "" );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.KeypointsModel").create( $model[, $config] ) -> <cv.dnn.KeypointsModel object>
+    _OpenCV_ObjCreate("cv.dnn.KeypointsModel")( $model[, $config] ) -> <cv.dnn.KeypointsModel object>
 ```
 
 ```cpp
-static cv::dnn::KeypointsModel cv::dnn::KeypointsModel::create( const cv::dnn::Net& network );
+static cv::dnn::KeypointsModel cv::dnn::KeypointsModel::get_create( const cv::dnn::Net& network );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.KeypointsModel").create( $network ) -> <cv.dnn.KeypointsModel object>
+    _OpenCV_ObjCreate("cv.dnn.KeypointsModel")( $network ) -> <cv.dnn.KeypointsModel object>
 ```
 
 ### cv::dnn::KeypointsModel::estimate
@@ -17309,7 +21613,7 @@ AutoIt:
 ### cv::dnn::KeypointsModel::setPreferableBackend
 
 ```cpp
-cv::dnn::Model cv::dnn::KeypointsModel::setPreferableBackend( int backendId );
+cv::dnn::Model cv::dnn::KeypointsModel::setPreferableBackend( cv::dnn::Backend backendId );
 AutoIt:
     $oKeypointsModel.setPreferableBackend( $backendId ) -> retval
 ```
@@ -17317,26 +21621,28 @@ AutoIt:
 ### cv::dnn::KeypointsModel::setPreferableTarget
 
 ```cpp
-cv::dnn::Model cv::dnn::KeypointsModel::setPreferableTarget( int targetId );
+cv::dnn::Model cv::dnn::KeypointsModel::setPreferableTarget( cv::dnn::Target targetId );
 AutoIt:
     $oKeypointsModel.setPreferableTarget( $targetId ) -> retval
 ```
 
 ## cv::dnn::SegmentationModel
 
-### cv::dnn::SegmentationModel::create
+### cv::dnn::SegmentationModel::get_create
 
 ```cpp
-static cv::dnn::SegmentationModel cv::dnn::SegmentationModel::create( const std::string& model,
-                                                                      const std::string& config = "" );
+static cv::dnn::SegmentationModel cv::dnn::SegmentationModel::get_create( const std::string& model,
+                                                                          const std::string& config = "" );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.SegmentationModel").create( $model[, $config] ) -> <cv.dnn.SegmentationModel object>
+    _OpenCV_ObjCreate("cv.dnn.SegmentationModel")( $model[, $config] ) -> <cv.dnn.SegmentationModel object>
 ```
 
 ```cpp
-static cv::dnn::SegmentationModel cv::dnn::SegmentationModel::create( const cv::dnn::Net& network );
+static cv::dnn::SegmentationModel cv::dnn::SegmentationModel::get_create( const cv::dnn::Net& network );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.SegmentationModel").create( $network ) -> <cv.dnn.SegmentationModel object>
+    _OpenCV_ObjCreate("cv.dnn.SegmentationModel")( $network ) -> <cv.dnn.SegmentationModel object>
 ```
 
 ### cv::dnn::SegmentationModel::predict
@@ -17419,7 +21725,7 @@ AutoIt:
 ### cv::dnn::SegmentationModel::setPreferableBackend
 
 ```cpp
-cv::dnn::Model cv::dnn::SegmentationModel::setPreferableBackend( int backendId );
+cv::dnn::Model cv::dnn::SegmentationModel::setPreferableBackend( cv::dnn::Backend backendId );
 AutoIt:
     $oSegmentationModel.setPreferableBackend( $backendId ) -> retval
 ```
@@ -17427,26 +21733,28 @@ AutoIt:
 ### cv::dnn::SegmentationModel::setPreferableTarget
 
 ```cpp
-cv::dnn::Model cv::dnn::SegmentationModel::setPreferableTarget( int targetId );
+cv::dnn::Model cv::dnn::SegmentationModel::setPreferableTarget( cv::dnn::Target targetId );
 AutoIt:
     $oSegmentationModel.setPreferableTarget( $targetId ) -> retval
 ```
 
 ## cv::dnn::DetectionModel
 
-### cv::dnn::DetectionModel::create
+### cv::dnn::DetectionModel::get_create
 
 ```cpp
-static cv::dnn::DetectionModel cv::dnn::DetectionModel::create( const std::string& model,
-                                                                const std::string& config = "" );
+static cv::dnn::DetectionModel cv::dnn::DetectionModel::get_create( const std::string& model,
+                                                                    const std::string& config = "" );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.DetectionModel").create( $model[, $config] ) -> <cv.dnn.DetectionModel object>
+    _OpenCV_ObjCreate("cv.dnn.DetectionModel")( $model[, $config] ) -> <cv.dnn.DetectionModel object>
 ```
 
 ```cpp
-static cv::dnn::DetectionModel cv::dnn::DetectionModel::create( const cv::dnn::Net& network );
+static cv::dnn::DetectionModel cv::dnn::DetectionModel::get_create( const cv::dnn::Net& network );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.DetectionModel").create( $network ) -> <cv.dnn.DetectionModel object>
+    _OpenCV_ObjCreate("cv.dnn.DetectionModel")( $network ) -> <cv.dnn.DetectionModel object>
 ```
 
 ### cv::dnn::DetectionModel::detect
@@ -17549,7 +21857,7 @@ AutoIt:
 ### cv::dnn::DetectionModel::setPreferableBackend
 
 ```cpp
-cv::dnn::Model cv::dnn::DetectionModel::setPreferableBackend( int backendId );
+cv::dnn::Model cv::dnn::DetectionModel::setPreferableBackend( cv::dnn::Backend backendId );
 AutoIt:
     $oDetectionModel.setPreferableBackend( $backendId ) -> retval
 ```
@@ -17557,26 +21865,28 @@ AutoIt:
 ### cv::dnn::DetectionModel::setPreferableTarget
 
 ```cpp
-cv::dnn::Model cv::dnn::DetectionModel::setPreferableTarget( int targetId );
+cv::dnn::Model cv::dnn::DetectionModel::setPreferableTarget( cv::dnn::Target targetId );
 AutoIt:
     $oDetectionModel.setPreferableTarget( $targetId ) -> retval
 ```
 
 ## cv::dnn::TextRecognitionModel
 
-### cv::dnn::TextRecognitionModel::create
+### cv::dnn::TextRecognitionModel::get_create
 
 ```cpp
-static cv::dnn::TextRecognitionModel cv::dnn::TextRecognitionModel::create( const cv::dnn::Net& network );
+static cv::dnn::TextRecognitionModel cv::dnn::TextRecognitionModel::get_create( const cv::dnn::Net& network );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.TextRecognitionModel").create( $network ) -> <cv.dnn.TextRecognitionModel object>
+    _OpenCV_ObjCreate("cv.dnn.TextRecognitionModel")( $network ) -> <cv.dnn.TextRecognitionModel object>
 ```
 
 ```cpp
-static cv::dnn::TextRecognitionModel cv::dnn::TextRecognitionModel::create( const std::string& model,
-                                                                            const std::string& config = "" );
+static cv::dnn::TextRecognitionModel cv::dnn::TextRecognitionModel::get_create( const std::string& model,
+                                                                                const std::string& config = "" );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.TextRecognitionModel").create( $model[, $config] ) -> <cv.dnn.TextRecognitionModel object>
+    _OpenCV_ObjCreate("cv.dnn.TextRecognitionModel")( $model[, $config] ) -> <cv.dnn.TextRecognitionModel object>
 ```
 
 ### cv::dnn::TextRecognitionModel::getDecodeType
@@ -17699,7 +22009,7 @@ AutoIt:
 ### cv::dnn::TextRecognitionModel::setPreferableBackend
 
 ```cpp
-cv::dnn::Model cv::dnn::TextRecognitionModel::setPreferableBackend( int backendId );
+cv::dnn::Model cv::dnn::TextRecognitionModel::setPreferableBackend( cv::dnn::Backend backendId );
 AutoIt:
     $oTextRecognitionModel.setPreferableBackend( $backendId ) -> retval
 ```
@@ -17707,7 +22017,7 @@ AutoIt:
 ### cv::dnn::TextRecognitionModel::setPreferableTarget
 
 ```cpp
-cv::dnn::Model cv::dnn::TextRecognitionModel::setPreferableTarget( int targetId );
+cv::dnn::Model cv::dnn::TextRecognitionModel::setPreferableTarget( cv::dnn::Target targetId );
 AutoIt:
     $oTextRecognitionModel.setPreferableTarget( $targetId ) -> retval
 ```
@@ -17827,7 +22137,7 @@ AutoIt:
 ### cv::dnn::TextDetectionModel::setPreferableBackend
 
 ```cpp
-cv::dnn::Model cv::dnn::TextDetectionModel::setPreferableBackend( int backendId );
+cv::dnn::Model cv::dnn::TextDetectionModel::setPreferableBackend( cv::dnn::Backend backendId );
 AutoIt:
     $oTextDetectionModel.setPreferableBackend( $backendId ) -> retval
 ```
@@ -17835,26 +22145,28 @@ AutoIt:
 ### cv::dnn::TextDetectionModel::setPreferableTarget
 
 ```cpp
-cv::dnn::Model cv::dnn::TextDetectionModel::setPreferableTarget( int targetId );
+cv::dnn::Model cv::dnn::TextDetectionModel::setPreferableTarget( cv::dnn::Target targetId );
 AutoIt:
     $oTextDetectionModel.setPreferableTarget( $targetId ) -> retval
 ```
 
 ## cv::dnn::TextDetectionModel_EAST
 
-### cv::dnn::TextDetectionModel_EAST::create
+### cv::dnn::TextDetectionModel_EAST::get_create
 
 ```cpp
-static cv::dnn::TextDetectionModel_EAST cv::dnn::TextDetectionModel_EAST::create( const cv::dnn::Net& network );
+static cv::dnn::TextDetectionModel_EAST cv::dnn::TextDetectionModel_EAST::get_create( const cv::dnn::Net& network );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.TextDetectionModel_EAST").create( $network ) -> <cv.dnn.TextDetectionModel_EAST object>
+    _OpenCV_ObjCreate("cv.dnn.TextDetectionModel_EAST")( $network ) -> <cv.dnn.TextDetectionModel_EAST object>
 ```
 
 ```cpp
-static cv::dnn::TextDetectionModel_EAST cv::dnn::TextDetectionModel_EAST::create( const std::string& model,
-                                                                                  const std::string& config = "" );
+static cv::dnn::TextDetectionModel_EAST cv::dnn::TextDetectionModel_EAST::get_create( const std::string& model,
+                                                                                      const std::string& config = "" );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.TextDetectionModel_EAST").create( $model[, $config] ) -> <cv.dnn.TextDetectionModel_EAST object>
+    _OpenCV_ObjCreate("cv.dnn.TextDetectionModel_EAST")( $model[, $config] ) -> <cv.dnn.TextDetectionModel_EAST object>
 ```
 
 ### cv::dnn::TextDetectionModel_EAST::detect
@@ -17994,7 +22306,7 @@ AutoIt:
 ### cv::dnn::TextDetectionModel_EAST::setPreferableBackend
 
 ```cpp
-cv::dnn::Model cv::dnn::TextDetectionModel_EAST::setPreferableBackend( int backendId );
+cv::dnn::Model cv::dnn::TextDetectionModel_EAST::setPreferableBackend( cv::dnn::Backend backendId );
 AutoIt:
     $oTextDetectionModel_EAST.setPreferableBackend( $backendId ) -> retval
 ```
@@ -18002,26 +22314,28 @@ AutoIt:
 ### cv::dnn::TextDetectionModel_EAST::setPreferableTarget
 
 ```cpp
-cv::dnn::Model cv::dnn::TextDetectionModel_EAST::setPreferableTarget( int targetId );
+cv::dnn::Model cv::dnn::TextDetectionModel_EAST::setPreferableTarget( cv::dnn::Target targetId );
 AutoIt:
     $oTextDetectionModel_EAST.setPreferableTarget( $targetId ) -> retval
 ```
 
 ## cv::dnn::TextDetectionModel_DB
 
-### cv::dnn::TextDetectionModel_DB::create
+### cv::dnn::TextDetectionModel_DB::get_create
 
 ```cpp
-static cv::dnn::TextDetectionModel_DB cv::dnn::TextDetectionModel_DB::create( const cv::dnn::Net& network );
+static cv::dnn::TextDetectionModel_DB cv::dnn::TextDetectionModel_DB::get_create( const cv::dnn::Net& network );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.TextDetectionModel_DB").create( $network ) -> <cv.dnn.TextDetectionModel_DB object>
+    _OpenCV_ObjCreate("cv.dnn.TextDetectionModel_DB")( $network ) -> <cv.dnn.TextDetectionModel_DB object>
 ```
 
 ```cpp
-static cv::dnn::TextDetectionModel_DB cv::dnn::TextDetectionModel_DB::create( const std::string& model,
-                                                                              const std::string& config = "" );
+static cv::dnn::TextDetectionModel_DB cv::dnn::TextDetectionModel_DB::get_create( const std::string& model,
+                                                                                  const std::string& config = "" );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.TextDetectionModel_DB").create( $model[, $config] ) -> <cv.dnn.TextDetectionModel_DB object>
+    _OpenCV_ObjCreate("cv.dnn.TextDetectionModel_DB")( $model[, $config] ) -> <cv.dnn.TextDetectionModel_DB object>
 ```
 
 ### cv::dnn::TextDetectionModel_DB::detect
@@ -18185,7 +22499,7 @@ AutoIt:
 ### cv::dnn::TextDetectionModel_DB::setPreferableBackend
 
 ```cpp
-cv::dnn::Model cv::dnn::TextDetectionModel_DB::setPreferableBackend( int backendId );
+cv::dnn::Model cv::dnn::TextDetectionModel_DB::setPreferableBackend( cv::dnn::Backend backendId );
 AutoIt:
     $oTextDetectionModel_DB.setPreferableBackend( $backendId ) -> retval
 ```
@@ -18193,7 +22507,7 @@ AutoIt:
 ### cv::dnn::TextDetectionModel_DB::setPreferableTarget
 
 ```cpp
-cv::dnn::Model cv::dnn::TextDetectionModel_DB::setPreferableTarget( int targetId );
+cv::dnn::Model cv::dnn::TextDetectionModel_DB::setPreferableTarget( cv::dnn::Target targetId );
 AutoIt:
     $oTextDetectionModel_DB.setPreferableTarget( $targetId ) -> retval
 ```
@@ -18343,16 +22657,17 @@ AutoIt:
 
 ## cv::AffineFeature
 
-### cv::AffineFeature::create
+### cv::AffineFeature::get_create
 
 ```cpp
-static cv::Ptr<cv::AffineFeature> cv::AffineFeature::create( const cv::Ptr<cv::Feature2D>& backend,
-                                                             int                           maxTilt = 5,
-                                                             int                           minTilt = 0,
-                                                             float                         tiltStep = 1.4142135623730951f,
-                                                             float                         rotateStepBase = 72 );
+static cv::Ptr<cv::AffineFeature> cv::AffineFeature::get_create( const cv::Ptr<cv::Feature2D>& backend,
+                                                                 int                           maxTilt = 5,
+                                                                 int                           minTilt = 0,
+                                                                 float                         tiltStep = 1.4142135623730951f,
+                                                                 float                         rotateStepBase = 72 );
 AutoIt:
     _OpenCV_ObjCreate("cv.AffineFeature").create( $backend[, $maxTilt[, $minTilt[, $tiltStep[, $rotateStepBase]]]] ) -> retval
+    _OpenCV_ObjCreate("cv.AffineFeature")( $backend[, $maxTilt[, $minTilt[, $tiltStep[, $rotateStepBase]]]] ) -> retval
 ```
 
 ### cv::AffineFeature::clear
@@ -18508,27 +22823,29 @@ AutoIt:
 
 ## cv::SIFT
 
-### cv::SIFT::create
+### cv::SIFT::get_create
 
 ```cpp
-static cv::Ptr<cv::SIFT> cv::SIFT::create( int    nfeatures = 0,
-                                           int    nOctaveLayers = 3,
-                                           double contrastThreshold = 0.04,
-                                           double edgeThreshold = 10,
-                                           double sigma = 1.6 );
+static cv::Ptr<cv::SIFT> cv::SIFT::get_create( int    nfeatures = 0,
+                                               int    nOctaveLayers = 3,
+                                               double contrastThreshold = 0.04,
+                                               double edgeThreshold = 10,
+                                               double sigma = 1.6 );
 AutoIt:
     _OpenCV_ObjCreate("cv.SIFT").create( [$nfeatures[, $nOctaveLayers[, $contrastThreshold[, $edgeThreshold[, $sigma]]]]] ) -> retval
+    _OpenCV_ObjCreate("cv.SIFT")( [$nfeatures[, $nOctaveLayers[, $contrastThreshold[, $edgeThreshold[, $sigma]]]]] ) -> retval
 ```
 
 ```cpp
-static cv::Ptr<cv::SIFT> cv::SIFT::create( int    nfeatures,
-                                           int    nOctaveLayers,
-                                           double contrastThreshold,
-                                           double edgeThreshold,
-                                           double sigma,
-                                           int    descriptorType );
+static cv::Ptr<cv::SIFT> cv::SIFT::get_create( int    nfeatures,
+                                               int    nOctaveLayers,
+                                               double contrastThreshold,
+                                               double edgeThreshold,
+                                               double sigma,
+                                               int    descriptorType );
 AutoIt:
     _OpenCV_ObjCreate("cv.SIFT").create( $nfeatures, $nOctaveLayers, $contrastThreshold, $edgeThreshold, $sigma, $descriptorType ) -> retval
+    _OpenCV_ObjCreate("cv.SIFT")( $nfeatures, $nOctaveLayers, $contrastThreshold, $edgeThreshold, $sigma, $descriptorType ) -> retval
 ```
 
 ### cv::SIFT::clear
@@ -18666,36 +22983,39 @@ AutoIt:
 
 ## cv::BRISK
 
-### cv::BRISK::create
+### cv::BRISK::get_create
 
 ```cpp
-static cv::Ptr<cv::BRISK> cv::BRISK::create( int   thresh = 30,
-                                             int   octaves = 3,
-                                             float patternScale = 1.0f );
+static cv::Ptr<cv::BRISK> cv::BRISK::get_create( int   thresh = 30,
+                                                 int   octaves = 3,
+                                                 float patternScale = 1.0f );
 AutoIt:
     _OpenCV_ObjCreate("cv.BRISK").create( [$thresh[, $octaves[, $patternScale]]] ) -> retval
+    _OpenCV_ObjCreate("cv.BRISK")( [$thresh[, $octaves[, $patternScale]]] ) -> retval
 ```
 
 ```cpp
-static cv::Ptr<cv::BRISK> cv::BRISK::create( const std::vector<float>& radiusList,
-                                             const std::vector<int>&   numberList,
-                                             float                     dMax = 5.85f,
-                                             float                     dMin = 8.2f,
-                                             const std::vector<int>&   indexChange = std::vector<int>() );
+static cv::Ptr<cv::BRISK> cv::BRISK::get_create( const std::vector<float>& radiusList,
+                                                 const std::vector<int>&   numberList,
+                                                 float                     dMax = 5.85f,
+                                                 float                     dMin = 8.2f,
+                                                 const std::vector<int>&   indexChange = std::vector<int>() );
 AutoIt:
     _OpenCV_ObjCreate("cv.BRISK").create( $radiusList, $numberList[, $dMax[, $dMin[, $indexChange]]] ) -> retval
+    _OpenCV_ObjCreate("cv.BRISK")( $radiusList, $numberList[, $dMax[, $dMin[, $indexChange]]] ) -> retval
 ```
 
 ```cpp
-static cv::Ptr<cv::BRISK> cv::BRISK::create( int                       thresh,
-                                             int                       octaves,
-                                             const std::vector<float>& radiusList,
-                                             const std::vector<int>&   numberList,
-                                             float                     dMax = 5.85f,
-                                             float                     dMin = 8.2f,
-                                             const std::vector<int>&   indexChange = std::vector<int>() );
+static cv::Ptr<cv::BRISK> cv::BRISK::get_create( int                       thresh,
+                                                 int                       octaves,
+                                                 const std::vector<float>& radiusList,
+                                                 const std::vector<int>&   numberList,
+                                                 float                     dMax = 5.85f,
+                                                 float                     dMin = 8.2f,
+                                                 const std::vector<int>&   indexChange = std::vector<int>() );
 AutoIt:
     _OpenCV_ObjCreate("cv.BRISK").create( $thresh, $octaves, $radiusList, $numberList[, $dMax[, $dMin[, $indexChange]]] ) -> retval
+    _OpenCV_ObjCreate("cv.BRISK")( $thresh, $octaves, $radiusList, $numberList[, $dMax[, $dMin[, $indexChange]]] ) -> retval
 ```
 
 ### cv::BRISK::clear
@@ -18865,20 +23185,21 @@ AutoIt:
 
 ## cv::ORB
 
-### cv::ORB::create
+### cv::ORB::get_create
 
 ```cpp
-static cv::Ptr<cv::ORB> cv::ORB::create( int   nfeatures = 500,
-                                         float scaleFactor = 1.2f,
-                                         int   nlevels = 8,
-                                         int   edgeThreshold = 31,
-                                         int   firstLevel = 0,
-                                         int   WTA_K = 2,
-                                         int   scoreType = ORB::HARRIS_SCORE,
-                                         int   patchSize = 31,
-                                         int   fastThreshold = 20 );
+static cv::Ptr<cv::ORB> cv::ORB::get_create( int                nfeatures = 500,
+                                             float              scaleFactor = 1.2f,
+                                             int                nlevels = 8,
+                                             int                edgeThreshold = 31,
+                                             int                firstLevel = 0,
+                                             int                WTA_K = 2,
+                                             cv::ORB::ScoreType scoreType = ORB::HARRIS_SCORE,
+                                             int                patchSize = 31,
+                                             int                fastThreshold = 20 );
 AutoIt:
     _OpenCV_ObjCreate("cv.ORB").create( [$nfeatures[, $scaleFactor[, $nlevels[, $edgeThreshold[, $firstLevel[, $WTA_K[, $scoreType[, $patchSize[, $fastThreshold]]]]]]]]] ) -> retval
+    _OpenCV_ObjCreate("cv.ORB")( [$nfeatures[, $scaleFactor[, $nlevels[, $edgeThreshold[, $firstLevel[, $WTA_K[, $scoreType[, $patchSize[, $fastThreshold]]]]]]]]] ) -> retval
 ```
 
 ### cv::ORB::clear
@@ -19036,7 +23357,7 @@ AutoIt:
 ### cv::ORB::getScoreType
 
 ```cpp
-int cv::ORB::getScoreType() const;
+cv::ORB::ScoreType cv::ORB::getScoreType() const;
 AutoIt:
     $oORB.getScoreType() -> retval
 ```
@@ -19130,7 +23451,7 @@ AutoIt:
 ### cv::ORB::setScoreType
 
 ```cpp
-void cv::ORB::setScoreType( int scoreType );
+void cv::ORB::setScoreType( cv::ORB::ScoreType scoreType );
 AutoIt:
     $oORB.setScoreType( $scoreType ) -> None
 ```
@@ -19160,20 +23481,21 @@ AutoIt:
 
 ## cv::MSER
 
-### cv::MSER::create
+### cv::MSER::get_create
 
 ```cpp
-static cv::Ptr<cv::MSER> cv::MSER::create( int    delta = 5,
-                                           int    min_area = 60,
-                                           int    max_area = 14400,
-                                           double max_variation = 0.25,
-                                           double min_diversity = .2,
-                                           int    max_evolution = 200,
-                                           double area_threshold = 1.01,
-                                           double min_margin = 0.003,
-                                           int    edge_blur_size = 5 );
+static cv::Ptr<cv::MSER> cv::MSER::get_create( int    delta = 5,
+                                               int    min_area = 60,
+                                               int    max_area = 14400,
+                                               double max_variation = 0.25,
+                                               double min_diversity = .2,
+                                               int    max_evolution = 200,
+                                               double area_threshold = 1.01,
+                                               double min_margin = 0.003,
+                                               int    edge_blur_size = 5 );
 AutoIt:
     _OpenCV_ObjCreate("cv.MSER").create( [$delta[, $min_area[, $max_area[, $max_variation[, $min_diversity[, $max_evolution[, $area_threshold[, $min_margin[, $edge_blur_size]]]]]]]]] ) -> retval
+    _OpenCV_ObjCreate("cv.MSER")( [$delta[, $min_area[, $max_area[, $max_variation[, $min_diversity[, $max_evolution[, $area_threshold[, $min_margin[, $edge_blur_size]]]]]]]]] ) -> retval
 ```
 
 ### cv::MSER::clear
@@ -19385,14 +23707,15 @@ AutoIt:
 
 ## cv::FastFeatureDetector
 
-### cv::FastFeatureDetector::create
+### cv::FastFeatureDetector::get_create
 
 ```cpp
-static cv::Ptr<cv::FastFeatureDetector> cv::FastFeatureDetector::create( int  threshold = 10,
-                                                                         bool nonmaxSuppression = true,
-                                                                         int  type = FastFeatureDetector::TYPE_9_16 );
+static cv::Ptr<cv::FastFeatureDetector> cv::FastFeatureDetector::get_create( int                                   threshold = 10,
+                                                                             bool                                  nonmaxSuppression = true,
+                                                                             cv::FastFeatureDetector::DetectorType type = FastFeatureDetector::TYPE_9_16 );
 AutoIt:
     _OpenCV_ObjCreate("cv.FastFeatureDetector").create( [$threshold[, $nonmaxSuppression[, $type]]] ) -> retval
+    _OpenCV_ObjCreate("cv.FastFeatureDetector")( [$threshold[, $nonmaxSuppression[, $type]]] ) -> retval
 ```
 
 ### cv::FastFeatureDetector::clear
@@ -19510,7 +23833,7 @@ AutoIt:
 ### cv::FastFeatureDetector::getType
 
 ```cpp
-int cv::FastFeatureDetector::getType() const;
+cv::FastFeatureDetector::DetectorType cv::FastFeatureDetector::getType() const;
 AutoIt:
     $oFastFeatureDetector.getType() -> retval
 ```
@@ -19556,7 +23879,7 @@ AutoIt:
 ### cv::FastFeatureDetector::setType
 
 ```cpp
-void cv::FastFeatureDetector::setType( int type );
+void cv::FastFeatureDetector::setType( cv::FastFeatureDetector::DetectorType type );
 AutoIt:
     $oFastFeatureDetector.setType( $type ) -> None
 ```
@@ -19578,14 +23901,15 @@ AutoIt:
 
 ## cv::AgastFeatureDetector
 
-### cv::AgastFeatureDetector::create
+### cv::AgastFeatureDetector::get_create
 
 ```cpp
-static cv::Ptr<cv::AgastFeatureDetector> cv::AgastFeatureDetector::create( int  threshold = 10,
-                                                                           bool nonmaxSuppression = true,
-                                                                           int  type = AgastFeatureDetector::OAST_9_16 );
+static cv::Ptr<cv::AgastFeatureDetector> cv::AgastFeatureDetector::get_create( int                                    threshold = 10,
+                                                                               bool                                   nonmaxSuppression = true,
+                                                                               cv::AgastFeatureDetector::DetectorType type = AgastFeatureDetector::OAST_9_16 );
 AutoIt:
     _OpenCV_ObjCreate("cv.AgastFeatureDetector").create( [$threshold[, $nonmaxSuppression[, $type]]] ) -> retval
+    _OpenCV_ObjCreate("cv.AgastFeatureDetector")( [$threshold[, $nonmaxSuppression[, $type]]] ) -> retval
 ```
 
 ### cv::AgastFeatureDetector::clear
@@ -19703,7 +24027,7 @@ AutoIt:
 ### cv::AgastFeatureDetector::getType
 
 ```cpp
-int cv::AgastFeatureDetector::getType() const;
+cv::AgastFeatureDetector::DetectorType cv::AgastFeatureDetector::getType() const;
 AutoIt:
     $oAgastFeatureDetector.getType() -> retval
 ```
@@ -19749,7 +24073,7 @@ AutoIt:
 ### cv::AgastFeatureDetector::setType
 
 ```cpp
-void cv::AgastFeatureDetector::setType( int type );
+void cv::AgastFeatureDetector::setType( cv::AgastFeatureDetector::DetectorType type );
 AutoIt:
     $oAgastFeatureDetector.setType( $type ) -> None
 ```
@@ -19771,29 +24095,31 @@ AutoIt:
 
 ## cv::GFTTDetector
 
-### cv::GFTTDetector::create
+### cv::GFTTDetector::get_create
 
 ```cpp
-static cv::Ptr<cv::GFTTDetector> cv::GFTTDetector::create( int    maxCorners = 1000,
-                                                           double qualityLevel = 0.01,
-                                                           double minDistance = 1,
-                                                           int    blockSize = 3,
-                                                           bool   useHarrisDetector = false,
-                                                           double k = 0.04 );
+static cv::Ptr<cv::GFTTDetector> cv::GFTTDetector::get_create( int    maxCorners = 1000,
+                                                               double qualityLevel = 0.01,
+                                                               double minDistance = 1,
+                                                               int    blockSize = 3,
+                                                               bool   useHarrisDetector = false,
+                                                               double k = 0.04 );
 AutoIt:
     _OpenCV_ObjCreate("cv.GFTTDetector").create( [$maxCorners[, $qualityLevel[, $minDistance[, $blockSize[, $useHarrisDetector[, $k]]]]]] ) -> retval
+    _OpenCV_ObjCreate("cv.GFTTDetector")( [$maxCorners[, $qualityLevel[, $minDistance[, $blockSize[, $useHarrisDetector[, $k]]]]]] ) -> retval
 ```
 
 ```cpp
-static cv::Ptr<cv::GFTTDetector> cv::GFTTDetector::create( int    maxCorners,
-                                                           double qualityLevel,
-                                                           double minDistance,
-                                                           int    blockSize,
-                                                           int    gradiantSize,
-                                                           bool   useHarrisDetector = false,
-                                                           double k = 0.04 );
+static cv::Ptr<cv::GFTTDetector> cv::GFTTDetector::get_create( int    maxCorners,
+                                                               double qualityLevel,
+                                                               double minDistance,
+                                                               int    blockSize,
+                                                               int    gradiantSize,
+                                                               bool   useHarrisDetector = false,
+                                                               double k = 0.04 );
 AutoIt:
     _OpenCV_ObjCreate("cv.GFTTDetector").create( $maxCorners, $qualityLevel, $minDistance, $blockSize, $gradiantSize[, $useHarrisDetector[, $k]] ) -> retval
+    _OpenCV_ObjCreate("cv.GFTTDetector")( $maxCorners, $qualityLevel, $minDistance, $blockSize, $gradiantSize[, $useHarrisDetector[, $k]] ) -> retval
 ```
 
 ### cv::GFTTDetector::clear
@@ -20027,12 +24353,13 @@ AutoIt:
 
 ## cv::SimpleBlobDetector
 
-### cv::SimpleBlobDetector::create
+### cv::SimpleBlobDetector::get_create
 
 ```cpp
-static cv::Ptr<cv::SimpleBlobDetector> cv::SimpleBlobDetector::create( const cv::SimpleBlobDetector::Params& parameters = SimpleBlobDetector::Params() );
+static cv::Ptr<cv::SimpleBlobDetector> cv::SimpleBlobDetector::get_create( const cv::SimpleBlobDetector::Params& parameters = SimpleBlobDetector::Params() );
 AutoIt:
     _OpenCV_ObjCreate("cv.SimpleBlobDetector").create( [$parameters] ) -> retval
+    _OpenCV_ObjCreate("cv.SimpleBlobDetector")( [$parameters] ) -> retval
 ```
 
 ### cv::SimpleBlobDetector::clear
@@ -20170,27 +24497,29 @@ AutoIt:
 
 ## cv::SimpleBlobDetector::Params
 
-### cv::SimpleBlobDetector::Params::create
+### cv::SimpleBlobDetector::Params::get_create
 
 ```cpp
-static cv::SimpleBlobDetector::Params cv::SimpleBlobDetector::Params::create();
+static cv::SimpleBlobDetector::Params cv::SimpleBlobDetector::Params::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.SimpleBlobDetector.Params").create() -> <cv.SimpleBlobDetector.Params object>
+    _OpenCV_ObjCreate("cv.SimpleBlobDetector.Params")() -> <cv.SimpleBlobDetector.Params object>
 ```
 
 ## cv::KAZE
 
-### cv::KAZE::create
+### cv::KAZE::get_create
 
 ```cpp
-static cv::Ptr<cv::KAZE> cv::KAZE::create( bool  extended = false,
-                                           bool  upright = false,
-                                           float threshold = 0.001f,
-                                           int   nOctaves = 4,
-                                           int   nOctaveLayers = 4,
-                                           int   diffusivity = KAZE::DIFF_PM_G2 );
+static cv::Ptr<cv::KAZE> cv::KAZE::get_create( bool                      extended = false,
+                                               bool                      upright = false,
+                                               float                     threshold = 0.001f,
+                                               int                       nOctaves = 4,
+                                               int                       nOctaveLayers = 4,
+                                               cv::KAZE::DiffusivityType diffusivity = KAZE::DIFF_PM_G2 );
 AutoIt:
     _OpenCV_ObjCreate("cv.KAZE").create( [$extended[, $upright[, $threshold[, $nOctaves[, $nOctaveLayers[, $diffusivity]]]]]] ) -> retval
+    _OpenCV_ObjCreate("cv.KAZE")( [$extended[, $upright[, $threshold[, $nOctaves[, $nOctaveLayers[, $diffusivity]]]]]] ) -> retval
 ```
 
 ### cv::KAZE::clear
@@ -20292,7 +24621,7 @@ AutoIt:
 ### cv::KAZE::getDiffusivity
 
 ```cpp
-int cv::KAZE::getDiffusivity() const;
+cv::KAZE::DiffusivityType cv::KAZE::getDiffusivity() const;
 AutoIt:
     $oKAZE.getDiffusivity() -> retval
 ```
@@ -20362,7 +24691,7 @@ AutoIt:
 ### cv::KAZE::setDiffusivity
 
 ```cpp
-void cv::KAZE::setDiffusivity( int diff );
+void cv::KAZE::setDiffusivity( cv::KAZE::DiffusivityType diff );
 AutoIt:
     $oKAZE.setDiffusivity( $diff ) -> None
 ```
@@ -20424,18 +24753,19 @@ AutoIt:
 
 ## cv::AKAZE
 
-### cv::AKAZE::create
+### cv::AKAZE::get_create
 
 ```cpp
-static cv::Ptr<cv::AKAZE> cv::AKAZE::create( int   descriptor_type = AKAZE::DESCRIPTOR_MLDB,
-                                             int   descriptor_size = 0,
-                                             int   descriptor_channels = 3,
-                                             float threshold = 0.001f,
-                                             int   nOctaves = 4,
-                                             int   nOctaveLayers = 4,
-                                             int   diffusivity = KAZE::DIFF_PM_G2 );
+static cv::Ptr<cv::AKAZE> cv::AKAZE::get_create( cv::AKAZE::DescriptorType descriptor_type = AKAZE::DESCRIPTOR_MLDB,
+                                                 int                       descriptor_size = 0,
+                                                 int                       descriptor_channels = 3,
+                                                 float                     threshold = 0.001f,
+                                                 int                       nOctaves = 4,
+                                                 int                       nOctaveLayers = 4,
+                                                 cv::KAZE::DiffusivityType diffusivity = KAZE::DIFF_PM_G2 );
 AutoIt:
     _OpenCV_ObjCreate("cv.AKAZE").create( [$descriptor_type[, $descriptor_size[, $descriptor_channels[, $threshold[, $nOctaves[, $nOctaveLayers[, $diffusivity]]]]]]] ) -> retval
+    _OpenCV_ObjCreate("cv.AKAZE")( [$descriptor_type[, $descriptor_size[, $descriptor_channels[, $threshold[, $nOctaves[, $nOctaveLayers[, $diffusivity]]]]]]] ) -> retval
 ```
 
 ### cv::AKAZE::clear
@@ -20553,7 +24883,7 @@ AutoIt:
 ### cv::AKAZE::getDescriptorType
 
 ```cpp
-int cv::AKAZE::getDescriptorType() const;
+cv::AKAZE::DescriptorType cv::AKAZE::getDescriptorType() const;
 AutoIt:
     $oAKAZE.getDescriptorType() -> retval
 ```
@@ -20561,7 +24891,7 @@ AutoIt:
 ### cv::AKAZE::getDiffusivity
 
 ```cpp
-int cv::AKAZE::getDiffusivity() const;
+cv::KAZE::DiffusivityType cv::AKAZE::getDiffusivity() const;
 AutoIt:
     $oAKAZE.getDiffusivity() -> retval
 ```
@@ -20631,7 +24961,7 @@ AutoIt:
 ### cv::AKAZE::setDescriptorType
 
 ```cpp
-void cv::AKAZE::setDescriptorType( int dtype );
+void cv::AKAZE::setDescriptorType( cv::AKAZE::DescriptorType dtype );
 AutoIt:
     $oAKAZE.setDescriptorType( $dtype ) -> None
 ```
@@ -20639,7 +24969,7 @@ AutoIt:
 ### cv::AKAZE::setDiffusivity
 
 ```cpp
-void cv::AKAZE::setDiffusivity( int diff );
+void cv::AKAZE::setDiffusivity( cv::KAZE::DiffusivityType diff );
 AutoIt:
     $oAKAZE.setDiffusivity( $diff ) -> None
 ```
@@ -20685,18 +25015,20 @@ AutoIt:
 
 ## cv::DescriptorMatcher
 
-### cv::DescriptorMatcher::create
+### cv::DescriptorMatcher::get_create
 
 ```cpp
-static cv::Ptr<cv::DescriptorMatcher> cv::DescriptorMatcher::create( const std::string& descriptorMatcherType );
+static cv::Ptr<cv::DescriptorMatcher> cv::DescriptorMatcher::get_create( const std::string& descriptorMatcherType );
 AutoIt:
     _OpenCV_ObjCreate("cv.DescriptorMatcher").create( $descriptorMatcherType ) -> retval
+    _OpenCV_ObjCreate("cv.DescriptorMatcher")( $descriptorMatcherType ) -> retval
 ```
 
 ```cpp
-static cv::Ptr<cv::DescriptorMatcher> cv::DescriptorMatcher::create( const int& matcherType );
+static cv::Ptr<cv::DescriptorMatcher> cv::DescriptorMatcher::get_create( const cv::DescriptorMatcher::MatcherType& matcherType );
 AutoIt:
     _OpenCV_ObjCreate("cv.DescriptorMatcher").create( $matcherType ) -> retval
+    _OpenCV_ObjCreate("cv.DescriptorMatcher")( $matcherType ) -> retval
 ```
 
 ### cv::DescriptorMatcher::add
@@ -20867,20 +25199,22 @@ AutoIt:
 
 ## cv::BFMatcher
 
-### cv::BFMatcher::create
+### cv::BFMatcher::get_create
 
 ```cpp
-static cv::BFMatcher cv::BFMatcher::create( int  normType = NORM_L2,
-                                            bool crossCheck = false );
+static cv::BFMatcher cv::BFMatcher::get_create( int  normType = NORM_L2,
+                                                bool crossCheck = false );
 AutoIt:
     _OpenCV_ObjCreate("cv.BFMatcher").create( [$normType[, $crossCheck]] ) -> <cv.BFMatcher object>
+    _OpenCV_ObjCreate("cv.BFMatcher")( [$normType[, $crossCheck]] ) -> <cv.BFMatcher object>
 ```
 
 ```cpp
-static cv::Ptr<cv::BFMatcher> cv::BFMatcher::create( int  normType = NORM_L2,
-                                                     bool crossCheck = false );
+static cv::Ptr<cv::BFMatcher> cv::BFMatcher::get_create( int  normType = NORM_L2,
+                                                         bool crossCheck = false );
 AutoIt:
     _OpenCV_ObjCreate("cv.BFMatcher").create( [$normType[, $crossCheck]] ) -> retval
+    _OpenCV_ObjCreate("cv.BFMatcher")( [$normType[, $crossCheck]] ) -> retval
 ```
 
 ### cv::BFMatcher::add
@@ -21051,19 +25385,21 @@ AutoIt:
 
 ## cv::FlannBasedMatcher
 
-### cv::FlannBasedMatcher::create
+### cv::FlannBasedMatcher::get_create
 
 ```cpp
-static cv::FlannBasedMatcher cv::FlannBasedMatcher::create( const cv::Ptr<cv::flann::IndexParams>&  indexParams = makePtr<flann::KDTreeIndexParams>(),
-                                                            const cv::Ptr<cv::flann::SearchParams>& searchParams = makePtr<flann::SearchParams>() );
+static cv::FlannBasedMatcher cv::FlannBasedMatcher::get_create( const cv::Ptr<cv::flann::IndexParams>&  indexParams = makePtr<flann::KDTreeIndexParams>(),
+                                                                const cv::Ptr<cv::flann::SearchParams>& searchParams = makePtr<flann::SearchParams>() );
 AutoIt:
     _OpenCV_ObjCreate("cv.FlannBasedMatcher").create( [$indexParams[, $searchParams]] ) -> <cv.FlannBasedMatcher object>
+    _OpenCV_ObjCreate("cv.FlannBasedMatcher")( [$indexParams[, $searchParams]] ) -> <cv.FlannBasedMatcher object>
 ```
 
 ```cpp
-static cv::Ptr<cv::FlannBasedMatcher> cv::FlannBasedMatcher::create();
+static cv::Ptr<cv::FlannBasedMatcher> cv::FlannBasedMatcher::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.FlannBasedMatcher").create() -> retval
+    _OpenCV_ObjCreate("cv.FlannBasedMatcher")() -> retval
 ```
 
 ### cv::FlannBasedMatcher::add
@@ -21282,15 +25618,16 @@ AutoIt:
 
 ## cv::BOWKMeansTrainer
 
-### cv::BOWKMeansTrainer::create
+### cv::BOWKMeansTrainer::get_create
 
 ```cpp
-static cv::BOWKMeansTrainer cv::BOWKMeansTrainer::create( int                     clusterCount,
-                                                          const cv::TermCriteria& termcrit = TermCriteria(),
-                                                          int                     attempts = 3,
-                                                          int                     flags = KMEANS_PP_CENTERS );
+static cv::BOWKMeansTrainer cv::BOWKMeansTrainer::get_create( int                     clusterCount,
+                                                              const cv::TermCriteria& termcrit = TermCriteria(),
+                                                              int                     attempts = 3,
+                                                              int                     flags = KMEANS_PP_CENTERS );
 AutoIt:
     _OpenCV_ObjCreate("cv.BOWKMeansTrainer").create( $clusterCount[, $termcrit[, $attempts[, $flags]]] ) -> <cv.BOWKMeansTrainer object>
+    _OpenCV_ObjCreate("cv.BOWKMeansTrainer")( $clusterCount[, $termcrit[, $attempts[, $flags]]] ) -> <cv.BOWKMeansTrainer object>
 ```
 
 ### cv::BOWKMeansTrainer::add
@@ -21341,13 +25678,14 @@ AutoIt:
 
 ## cv::BOWImgDescriptorExtractor
 
-### cv::BOWImgDescriptorExtractor::create
+### cv::BOWImgDescriptorExtractor::get_create
 
 ```cpp
-static cv::BOWImgDescriptorExtractor cv::BOWImgDescriptorExtractor::create( const cv::Ptr<cv::Feature2D>&         dextractor,
-                                                                            const cv::Ptr<cv::DescriptorMatcher>& dmatcher );
+static cv::BOWImgDescriptorExtractor cv::BOWImgDescriptorExtractor::get_create( const cv::Ptr<cv::Feature2D>&         dextractor,
+                                                                                const cv::Ptr<cv::DescriptorMatcher>& dmatcher );
 AutoIt:
     _OpenCV_ObjCreate("cv.BOWImgDescriptorExtractor").create( $dextractor, $dmatcher ) -> <cv.BOWImgDescriptorExtractor object>
+    _OpenCV_ObjCreate("cv.BOWImgDescriptorExtractor")( $dextractor, $dmatcher ) -> <cv.BOWImgDescriptorExtractor object>
 ```
 
 ### cv::BOWImgDescriptorExtractor::compute
@@ -21394,42 +25732,47 @@ AutoIt:
 
 ## cv::VideoCapture
 
-### cv::VideoCapture::create
+### cv::VideoCapture::get_create
 
 ```cpp
-static cv::VideoCapture cv::VideoCapture::create();
+static cv::VideoCapture cv::VideoCapture::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.VideoCapture").create() -> <cv.VideoCapture object>
+    _OpenCV_ObjCreate("cv.VideoCapture")() -> <cv.VideoCapture object>
 ```
 
 ```cpp
-static cv::VideoCapture cv::VideoCapture::create( const std::string& filename,
-                                                  int                apiPreference = CAP_ANY );
+static cv::VideoCapture cv::VideoCapture::get_create( const std::string& filename,
+                                                      int                apiPreference = CAP_ANY );
 AutoIt:
     _OpenCV_ObjCreate("cv.VideoCapture").create( $filename[, $apiPreference] ) -> <cv.VideoCapture object>
+    _OpenCV_ObjCreate("cv.VideoCapture")( $filename[, $apiPreference] ) -> <cv.VideoCapture object>
 ```
 
 ```cpp
-static cv::VideoCapture cv::VideoCapture::create( const std::string&      filename,
-                                                  int                     apiPreference,
-                                                  const std::vector<int>& params );
+static cv::VideoCapture cv::VideoCapture::get_create( const std::string&      filename,
+                                                      int                     apiPreference,
+                                                      const std::vector<int>& params );
 AutoIt:
     _OpenCV_ObjCreate("cv.VideoCapture").create( $filename, $apiPreference, $params ) -> <cv.VideoCapture object>
+    _OpenCV_ObjCreate("cv.VideoCapture")( $filename, $apiPreference, $params ) -> <cv.VideoCapture object>
 ```
 
 ```cpp
-static cv::VideoCapture cv::VideoCapture::create( int index,
-                                                  int apiPreference = CAP_ANY );
+static cv::VideoCapture cv::VideoCapture::get_create( int index,
+                                                      int apiPreference = CAP_ANY );
 AutoIt:
     _OpenCV_ObjCreate("cv.VideoCapture").create( $index[, $apiPreference] ) -> <cv.VideoCapture object>
+    _OpenCV_ObjCreate("cv.VideoCapture")( $index[, $apiPreference] ) -> <cv.VideoCapture object>
 ```
 
 ```cpp
-static cv::VideoCapture cv::VideoCapture::create( int                     index,
-                                                  int                     apiPreference,
-                                                  const std::vector<int>& params );
+static cv::VideoCapture cv::VideoCapture::get_create( int                     index,
+                                                      int                     apiPreference,
+                                                      const std::vector<int>& params );
 AutoIt:
     _OpenCV_ObjCreate("cv.VideoCapture").create( $index, $apiPreference, $params ) -> <cv.VideoCapture object>
+    _OpenCV_ObjCreate("cv.VideoCapture")( $index, $apiPreference, $params ) -> <cv.VideoCapture object>
 ```
 
 ### cv::VideoCapture::get
@@ -21548,54 +25891,59 @@ AutoIt:
 
 ## cv::VideoWriter
 
-### cv::VideoWriter::create
+### cv::VideoWriter::get_create
 
 ```cpp
-static cv::VideoWriter cv::VideoWriter::create();
+static cv::VideoWriter cv::VideoWriter::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.VideoWriter").create() -> <cv.VideoWriter object>
+    _OpenCV_ObjCreate("cv.VideoWriter")() -> <cv.VideoWriter object>
 ```
 
 ```cpp
-static cv::VideoWriter cv::VideoWriter::create( const std::string& filename,
-                                                int                fourcc,
-                                                double             fps,
-                                                cv::Size           frameSize,
-                                                bool               isColor = true );
+static cv::VideoWriter cv::VideoWriter::get_create( const std::string& filename,
+                                                    int                fourcc,
+                                                    double             fps,
+                                                    cv::Size           frameSize,
+                                                    bool               isColor = true );
 AutoIt:
     _OpenCV_ObjCreate("cv.VideoWriter").create( $filename, $fourcc, $fps, $frameSize[, $isColor] ) -> <cv.VideoWriter object>
+    _OpenCV_ObjCreate("cv.VideoWriter")( $filename, $fourcc, $fps, $frameSize[, $isColor] ) -> <cv.VideoWriter object>
 ```
 
 ```cpp
-static cv::VideoWriter cv::VideoWriter::create( const std::string& filename,
-                                                int                apiPreference,
-                                                int                fourcc,
-                                                double             fps,
-                                                cv::Size           frameSize,
-                                                bool               isColor = true );
+static cv::VideoWriter cv::VideoWriter::get_create( const std::string& filename,
+                                                    int                apiPreference,
+                                                    int                fourcc,
+                                                    double             fps,
+                                                    cv::Size           frameSize,
+                                                    bool               isColor = true );
 AutoIt:
     _OpenCV_ObjCreate("cv.VideoWriter").create( $filename, $apiPreference, $fourcc, $fps, $frameSize[, $isColor] ) -> <cv.VideoWriter object>
+    _OpenCV_ObjCreate("cv.VideoWriter")( $filename, $apiPreference, $fourcc, $fps, $frameSize[, $isColor] ) -> <cv.VideoWriter object>
 ```
 
 ```cpp
-static cv::VideoWriter cv::VideoWriter::create( const std::string&      filename,
-                                                int                     fourcc,
-                                                double                  fps,
-                                                const cv::Size&         frameSize,
-                                                const std::vector<int>& params );
+static cv::VideoWriter cv::VideoWriter::get_create( const std::string&      filename,
+                                                    int                     fourcc,
+                                                    double                  fps,
+                                                    const cv::Size&         frameSize,
+                                                    const std::vector<int>& params );
 AutoIt:
     _OpenCV_ObjCreate("cv.VideoWriter").create( $filename, $fourcc, $fps, $frameSize, $params ) -> <cv.VideoWriter object>
+    _OpenCV_ObjCreate("cv.VideoWriter")( $filename, $fourcc, $fps, $frameSize, $params ) -> <cv.VideoWriter object>
 ```
 
 ```cpp
-static cv::VideoWriter cv::VideoWriter::create( const std::string&      filename,
-                                                int                     apiPreference,
-                                                int                     fourcc,
-                                                double                  fps,
-                                                const cv::Size&         frameSize,
-                                                const std::vector<int>& params );
+static cv::VideoWriter cv::VideoWriter::get_create( const std::string&      filename,
+                                                    int                     apiPreference,
+                                                    int                     fourcc,
+                                                    double                  fps,
+                                                    const cv::Size&         frameSize,
+                                                    const std::vector<int>& params );
 AutoIt:
     _OpenCV_ObjCreate("cv.VideoWriter").create( $filename, $apiPreference, $fourcc, $fps, $frameSize, $params ) -> <cv.VideoWriter object>
+    _OpenCV_ObjCreate("cv.VideoWriter")( $filename, $apiPreference, $fourcc, $fps, $frameSize, $params ) -> <cv.VideoWriter object>
 ```
 
 ### cv::VideoWriter::fourcc
@@ -21707,7 +26055,7 @@ AutoIt:
 ### cv::videoio_registry::getBackendName
 
 ```cpp
-std::string cv::videoio_registry::getBackendName( int api );
+std::string cv::videoio_registry::getBackendName( cv::VideoCaptureAPIs api );
 AutoIt:
     _OpenCV_ObjCreate("cv.videoio_registry").getBackendName( $api ) -> retval
 ```
@@ -21715,7 +26063,7 @@ AutoIt:
 ### cv::videoio_registry::getBackends
 
 ```cpp
-std::vector<int> cv::videoio_registry::getBackends();
+std::vector<cv::VideoCaptureAPIs> cv::videoio_registry::getBackends();
 AutoIt:
     _OpenCV_ObjCreate("cv.videoio_registry").getBackends() -> retval
 ```
@@ -21723,9 +26071,9 @@ AutoIt:
 ### cv::videoio_registry::getCameraBackendPluginVersion
 
 ```cpp
-std::string cv::videoio_registry::getCameraBackendPluginVersion( int  api,
-                                                                 int& version_ABI,
-                                                                 int& version_API );
+std::string cv::videoio_registry::getCameraBackendPluginVersion( cv::VideoCaptureAPIs api,
+                                                                 int&                 version_ABI,
+                                                                 int&                 version_API );
 AutoIt:
     _OpenCV_ObjCreate("cv.videoio_registry").getCameraBackendPluginVersion( $api[, $version_ABI[, $version_API]] ) -> retval, $version_ABI, $version_API
 ```
@@ -21733,7 +26081,7 @@ AutoIt:
 ### cv::videoio_registry::getCameraBackends
 
 ```cpp
-std::vector<int> cv::videoio_registry::getCameraBackends();
+std::vector<cv::VideoCaptureAPIs> cv::videoio_registry::getCameraBackends();
 AutoIt:
     _OpenCV_ObjCreate("cv.videoio_registry").getCameraBackends() -> retval
 ```
@@ -21741,9 +26089,9 @@ AutoIt:
 ### cv::videoio_registry::getStreamBackendPluginVersion
 
 ```cpp
-std::string cv::videoio_registry::getStreamBackendPluginVersion( int  api,
-                                                                 int& version_ABI,
-                                                                 int& version_API );
+std::string cv::videoio_registry::getStreamBackendPluginVersion( cv::VideoCaptureAPIs api,
+                                                                 int&                 version_ABI,
+                                                                 int&                 version_API );
 AutoIt:
     _OpenCV_ObjCreate("cv.videoio_registry").getStreamBackendPluginVersion( $api[, $version_ABI[, $version_API]] ) -> retval, $version_ABI, $version_API
 ```
@@ -21751,7 +26099,7 @@ AutoIt:
 ### cv::videoio_registry::getStreamBackends
 
 ```cpp
-std::vector<int> cv::videoio_registry::getStreamBackends();
+std::vector<cv::VideoCaptureAPIs> cv::videoio_registry::getStreamBackends();
 AutoIt:
     _OpenCV_ObjCreate("cv.videoio_registry").getStreamBackends() -> retval
 ```
@@ -21759,9 +26107,9 @@ AutoIt:
 ### cv::videoio_registry::getWriterBackendPluginVersion
 
 ```cpp
-std::string cv::videoio_registry::getWriterBackendPluginVersion( int  api,
-                                                                 int& version_ABI,
-                                                                 int& version_API );
+std::string cv::videoio_registry::getWriterBackendPluginVersion( cv::VideoCaptureAPIs api,
+                                                                 int&                 version_ABI,
+                                                                 int&                 version_API );
 AutoIt:
     _OpenCV_ObjCreate("cv.videoio_registry").getWriterBackendPluginVersion( $api[, $version_ABI[, $version_API]] ) -> retval, $version_ABI, $version_API
 ```
@@ -21769,7 +26117,7 @@ AutoIt:
 ### cv::videoio_registry::getWriterBackends
 
 ```cpp
-std::vector<int> cv::videoio_registry::getWriterBackends();
+std::vector<cv::VideoCaptureAPIs> cv::videoio_registry::getWriterBackends();
 AutoIt:
     _OpenCV_ObjCreate("cv.videoio_registry").getWriterBackends() -> retval
 ```
@@ -21777,7 +26125,7 @@ AutoIt:
 ### cv::videoio_registry::hasBackend
 
 ```cpp
-bool cv::videoio_registry::hasBackend( int api );
+bool cv::videoio_registry::hasBackend( cv::VideoCaptureAPIs api );
 AutoIt:
     _OpenCV_ObjCreate("cv.videoio_registry").hasBackend( $api ) -> retval
 ```
@@ -21785,29 +26133,31 @@ AutoIt:
 ### cv::videoio_registry::isBackendBuiltIn
 
 ```cpp
-bool cv::videoio_registry::isBackendBuiltIn( int api );
+bool cv::videoio_registry::isBackendBuiltIn( cv::VideoCaptureAPIs api );
 AutoIt:
     _OpenCV_ObjCreate("cv.videoio_registry").isBackendBuiltIn( $api ) -> retval
 ```
 
 ## cv::UsacParams
 
-### cv::UsacParams::create
+### cv::UsacParams::get_create
 
 ```cpp
-static cv::UsacParams cv::UsacParams::create();
+static cv::UsacParams cv::UsacParams::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.UsacParams").create() -> <cv.UsacParams object>
+    _OpenCV_ObjCreate("cv.UsacParams")() -> <cv.UsacParams object>
 ```
 
 ## cv::CirclesGridFinderParameters
 
-### cv::CirclesGridFinderParameters::create
+### cv::CirclesGridFinderParameters::get_create
 
 ```cpp
-static cv::CirclesGridFinderParameters cv::CirclesGridFinderParameters::create();
+static cv::CirclesGridFinderParameters cv::CirclesGridFinderParameters::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.CirclesGridFinderParameters").create() -> <cv.CirclesGridFinderParameters object>
+    _OpenCV_ObjCreate("cv.CirclesGridFinderParameters")() -> <cv.CirclesGridFinderParameters object>
 ```
 
 ## cv::StereoMatcher
@@ -21969,13 +26319,14 @@ AutoIt:
 
 ## cv::StereoBM
 
-### cv::StereoBM::create
+### cv::StereoBM::get_create
 
 ```cpp
-static cv::Ptr<cv::StereoBM> cv::StereoBM::create( int numDisparities = 0,
-                                                   int blockSize = 21 );
+static cv::Ptr<cv::StereoBM> cv::StereoBM::get_create( int numDisparities = 0,
+                                                       int blockSize = 21 );
 AutoIt:
     _OpenCV_ObjCreate("cv.StereoBM").create( [$numDisparities[, $blockSize]] ) -> retval
+    _OpenCV_ObjCreate("cv.StereoBM")( [$numDisparities[, $blockSize]] ) -> retval
 ```
 
 ### cv::StereoBM::clear
@@ -22263,22 +26614,23 @@ AutoIt:
 
 ## cv::StereoSGBM
 
-### cv::StereoSGBM::create
+### cv::StereoSGBM::get_create
 
 ```cpp
-static cv::Ptr<cv::StereoSGBM> cv::StereoSGBM::create( int minDisparity = 0,
-                                                       int numDisparities = 16,
-                                                       int blockSize = 3,
-                                                       int P1 = 0,
-                                                       int P2 = 0,
-                                                       int disp12MaxDiff = 0,
-                                                       int preFilterCap = 0,
-                                                       int uniquenessRatio = 0,
-                                                       int speckleWindowSize = 0,
-                                                       int speckleRange = 0,
-                                                       int mode = StereoSGBM::MODE_SGBM );
+static cv::Ptr<cv::StereoSGBM> cv::StereoSGBM::get_create( int minDisparity = 0,
+                                                           int numDisparities = 16,
+                                                           int blockSize = 3,
+                                                           int P1 = 0,
+                                                           int P2 = 0,
+                                                           int disp12MaxDiff = 0,
+                                                           int preFilterCap = 0,
+                                                           int uniquenessRatio = 0,
+                                                           int speckleWindowSize = 0,
+                                                           int speckleRange = 0,
+                                                           int mode = StereoSGBM::MODE_SGBM );
 AutoIt:
     _OpenCV_ObjCreate("cv.StereoSGBM").create( [$minDisparity[, $numDisparities[, $blockSize[, $P1[, $P2[, $disp12MaxDiff[, $preFilterCap[, $uniquenessRatio[, $speckleWindowSize[, $speckleRange[, $mode]]]]]]]]]]] ) -> retval
+    _OpenCV_ObjCreate("cv.StereoSGBM")( [$minDisparity[, $numDisparities[, $blockSize[, $P1[, $P2[, $disp12MaxDiff[, $preFilterCap[, $uniquenessRatio[, $speckleWindowSize[, $speckleRange[, $mode]]]]]]]]]]] ) -> retval
 ```
 
 ### cv::StereoSGBM::clear
@@ -22713,18 +27065,20 @@ AutoIt:
 
 ## cv::CascadeClassifier
 
-### cv::CascadeClassifier::create
+### cv::CascadeClassifier::get_create
 
 ```cpp
-static cv::CascadeClassifier cv::CascadeClassifier::create();
+static cv::CascadeClassifier cv::CascadeClassifier::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.CascadeClassifier").create() -> <cv.CascadeClassifier object>
+    _OpenCV_ObjCreate("cv.CascadeClassifier")() -> <cv.CascadeClassifier object>
 ```
 
 ```cpp
-static cv::CascadeClassifier cv::CascadeClassifier::create( const std::string& filename );
+static cv::CascadeClassifier cv::CascadeClassifier::get_create( const std::string& filename );
 AutoIt:
     _OpenCV_ObjCreate("cv.CascadeClassifier").create( $filename ) -> <cv.CascadeClassifier object>
+    _OpenCV_ObjCreate("cv.CascadeClassifier")( $filename ) -> <cv.CascadeClassifier object>
 ```
 
 ### cv::CascadeClassifier::convert
@@ -22832,35 +27186,38 @@ AutoIt:
 
 ## cv::HOGDescriptor
 
-### cv::HOGDescriptor::create
+### cv::HOGDescriptor::get_create
 
 ```cpp
-static cv::HOGDescriptor cv::HOGDescriptor::create();
+static cv::HOGDescriptor cv::HOGDescriptor::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.HOGDescriptor").create() -> <cv.HOGDescriptor object>
+    _OpenCV_ObjCreate("cv.HOGDescriptor")() -> <cv.HOGDescriptor object>
 ```
 
 ```cpp
-static cv::HOGDescriptor cv::HOGDescriptor::create( cv::Size _winSize,
-                                                    cv::Size _blockSize,
-                                                    cv::Size _blockStride,
-                                                    cv::Size _cellSize,
-                                                    int      _nbins,
-                                                    int      _derivAperture = 1,
-                                                    double   _winSigma = -1,
-                                                    int      _histogramNormType = HOGDescriptor::L2Hys,
-                                                    double   _L2HysThreshold = 0.2,
-                                                    bool     _gammaCorrection = false,
-                                                    int      _nlevels = HOGDescriptor::DEFAULT_NLEVELS,
-                                                    bool     _signedGradient = false );
+static cv::HOGDescriptor cv::HOGDescriptor::get_create( cv::Size                             _winSize,
+                                                        cv::Size                             _blockSize,
+                                                        cv::Size                             _blockStride,
+                                                        cv::Size                             _cellSize,
+                                                        int                                  _nbins,
+                                                        int                                  _derivAperture = 1,
+                                                        double                               _winSigma = -1,
+                                                        cv::HOGDescriptor::HistogramNormType _histogramNormType = HOGDescriptor::L2Hys,
+                                                        double                               _L2HysThreshold = 0.2,
+                                                        bool                                 _gammaCorrection = false,
+                                                        int                                  _nlevels = HOGDescriptor::DEFAULT_NLEVELS,
+                                                        bool                                 _signedGradient = false );
 AutoIt:
     _OpenCV_ObjCreate("cv.HOGDescriptor").create( $_winSize, $_blockSize, $_blockStride, $_cellSize, $_nbins[, $_derivAperture[, $_winSigma[, $_histogramNormType[, $_L2HysThreshold[, $_gammaCorrection[, $_nlevels[, $_signedGradient]]]]]]] ) -> <cv.HOGDescriptor object>
+    _OpenCV_ObjCreate("cv.HOGDescriptor")( $_winSize, $_blockSize, $_blockStride, $_cellSize, $_nbins[, $_derivAperture[, $_winSigma[, $_histogramNormType[, $_L2HysThreshold[, $_gammaCorrection[, $_nlevels[, $_signedGradient]]]]]]] ) -> <cv.HOGDescriptor object>
 ```
 
 ```cpp
-static cv::HOGDescriptor cv::HOGDescriptor::create( const std::string& filename );
+static cv::HOGDescriptor cv::HOGDescriptor::get_create( const std::string& filename );
 AutoIt:
     _OpenCV_ObjCreate("cv.HOGDescriptor").create( $filename ) -> <cv.HOGDescriptor object>
+    _OpenCV_ObjCreate("cv.HOGDescriptor")( $filename ) -> <cv.HOGDescriptor object>
 ```
 
 ### cv::HOGDescriptor::checkDetectorSize
@@ -22985,12 +27342,13 @@ AutoIt:
 
 ## cv::QRCodeEncoder
 
-### cv::QRCodeEncoder::create
+### cv::QRCodeEncoder::get_create
 
 ```cpp
-static cv::Ptr<cv::QRCodeEncoder> cv::QRCodeEncoder::create( const cv::QRCodeEncoder::Params& parameters = QRCodeEncoder::Params() );
+static cv::Ptr<cv::QRCodeEncoder> cv::QRCodeEncoder::get_create( const cv::QRCodeEncoder::Params& parameters = QRCodeEncoder::Params() );
 AutoIt:
     _OpenCV_ObjCreate("cv.QRCodeEncoder").create( [$parameters] ) -> retval
+    _OpenCV_ObjCreate("cv.QRCodeEncoder")( [$parameters] ) -> retval
 ```
 
 ### cv::QRCodeEncoder::encode
@@ -23013,22 +27371,24 @@ AutoIt:
 
 ## cv::QRCodeEncoder::Params
 
-### cv::QRCodeEncoder::Params::create
+### cv::QRCodeEncoder::Params::get_create
 
 ```cpp
-static cv::QRCodeEncoder::Params cv::QRCodeEncoder::Params::create();
+static cv::QRCodeEncoder::Params cv::QRCodeEncoder::Params::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.QRCodeEncoder.Params").create() -> <cv.QRCodeEncoder.Params object>
+    _OpenCV_ObjCreate("cv.QRCodeEncoder.Params")() -> <cv.QRCodeEncoder.Params object>
 ```
 
 ## cv::QRCodeDetector
 
-### cv::QRCodeDetector::create
+### cv::QRCodeDetector::get_create
 
 ```cpp
-static cv::QRCodeDetector cv::QRCodeDetector::create();
+static cv::QRCodeDetector cv::QRCodeDetector::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.QRCodeDetector").create() -> <cv.QRCodeDetector object>
+    _OpenCV_ObjCreate("cv.QRCodeDetector")() -> <cv.QRCodeDetector object>
 ```
 
 ### cv::QRCodeDetector::decode
@@ -23129,19 +27489,20 @@ AutoIt:
 
 ## cv::FaceDetectorYN
 
-### cv::FaceDetectorYN::create
+### cv::FaceDetectorYN::get_create
 
 ```cpp
-static cv::Ptr<cv::FaceDetectorYN> cv::FaceDetectorYN::create( const std::string& model,
-                                                               const std::string& config,
-                                                               const cv::Size&    input_size,
-                                                               float              score_threshold = 0.9f,
-                                                               float              nms_threshold = 0.3f,
-                                                               int                top_k = 5000,
-                                                               int                backend_id = 0,
-                                                               int                target_id = 0 );
+static cv::Ptr<cv::FaceDetectorYN> cv::FaceDetectorYN::get_create( const std::string& model,
+                                                                   const std::string& config,
+                                                                   const cv::Size&    input_size,
+                                                                   float              score_threshold = 0.9f,
+                                                                   float              nms_threshold = 0.3f,
+                                                                   int                top_k = 5000,
+                                                                   int                backend_id = 0,
+                                                                   int                target_id = 0 );
 AutoIt:
     _OpenCV_ObjCreate("cv.FaceDetectorYN").create( $model, $config, $input_size[, $score_threshold[, $nms_threshold[, $top_k[, $backend_id[, $target_id]]]]] ) -> retval
+    _OpenCV_ObjCreate("cv.FaceDetectorYN")( $model, $config, $input_size[, $score_threshold[, $nms_threshold[, $top_k[, $backend_id[, $target_id]]]]] ) -> retval
 ```
 
 ### cv::FaceDetectorYN::detect
@@ -23219,15 +27580,16 @@ AutoIt:
 
 ## cv::FaceRecognizerSF
 
-### cv::FaceRecognizerSF::create
+### cv::FaceRecognizerSF::get_create
 
 ```cpp
-static cv::Ptr<cv::FaceRecognizerSF> cv::FaceRecognizerSF::create( const std::string& model,
-                                                                   const std::string& config,
-                                                                   int                backend_id = 0,
-                                                                   int                target_id = 0 );
+static cv::Ptr<cv::FaceRecognizerSF> cv::FaceRecognizerSF::get_create( const std::string& model,
+                                                                       const std::string& config,
+                                                                       int                backend_id = 0,
+                                                                       int                target_id = 0 );
 AutoIt:
     _OpenCV_ObjCreate("cv.FaceRecognizerSF").create( $model, $config[, $backend_id[, $target_id]] ) -> retval
+    _OpenCV_ObjCreate("cv.FaceRecognizerSF")( $model, $config[, $backend_id[, $target_id]] ) -> retval
 ```
 
 ### cv::FaceRecognizerSF::alignCrop
@@ -23261,25 +27623,26 @@ AutoIt:
 
 ## cv::Stitcher
 
-### cv::Stitcher::create
+### cv::Stitcher::get_create
 
 ```cpp
-static cv::Ptr<cv::Stitcher> cv::Stitcher::create( int mode = Stitcher::PANORAMA );
+static cv::Ptr<cv::Stitcher> cv::Stitcher::get_create( cv::Stitcher::Mode mode = Stitcher::PANORAMA );
 AutoIt:
     _OpenCV_ObjCreate("cv.Stitcher").create( [$mode] ) -> retval
+    _OpenCV_ObjCreate("cv.Stitcher")( [$mode] ) -> retval
 ```
 
 ### cv::Stitcher::composePanorama
 
 ```cpp
-int cv::Stitcher::composePanorama( OutputArray pano );
+cv::Stitcher::Status cv::Stitcher::composePanorama( OutputArray pano );
 AutoIt:
     $oStitcher.composePanorama( [$pano] ) -> retval, $pano
 ```
 
 ```cpp
-int cv::Stitcher::composePanorama( InputArrayOfArrays images,
-                                   OutputArray        pano );
+cv::Stitcher::Status cv::Stitcher::composePanorama( InputArrayOfArrays images,
+                                                    OutputArray        pano );
 AutoIt:
     $oStitcher.composePanorama( $images[, $pano] ) -> retval, $pano
 ```
@@ -23295,8 +27658,8 @@ AutoIt:
 ### cv::Stitcher::estimateTransform
 
 ```cpp
-int cv::Stitcher::estimateTransform( InputArrayOfArrays images,
-                                     InputArrayOfArrays masks = noArray() );
+cv::Stitcher::Status cv::Stitcher::estimateTransform( InputArrayOfArrays images,
+                                                      InputArrayOfArrays masks = noArray() );
 AutoIt:
     $oStitcher.estimateTransform( $images[, $masks] ) -> retval
 ```
@@ -23304,7 +27667,7 @@ AutoIt:
 ### cv::Stitcher::interpolationFlags
 
 ```cpp
-int cv::Stitcher::interpolationFlags() const;
+cv::InterpolationFlags cv::Stitcher::interpolationFlags() const;
 AutoIt:
     $oStitcher.interpolationFlags() -> retval
 ```
@@ -23344,7 +27707,7 @@ AutoIt:
 ### cv::Stitcher::setInterpolationFlags
 
 ```cpp
-void cv::Stitcher::setInterpolationFlags( int interp_flags );
+void cv::Stitcher::setInterpolationFlags( cv::InterpolationFlags interp_flags );
 AutoIt:
     $oStitcher.setInterpolationFlags( $interp_flags ) -> None
 ```
@@ -23384,16 +27747,16 @@ AutoIt:
 ### cv::Stitcher::stitch
 
 ```cpp
-int cv::Stitcher::stitch( InputArrayOfArrays images,
-                          OutputArray        pano );
+cv::Stitcher::Status cv::Stitcher::stitch( InputArrayOfArrays images,
+                                           OutputArray        pano );
 AutoIt:
     $oStitcher.stitch( $images[, $pano] ) -> retval, $pano
 ```
 
 ```cpp
-int cv::Stitcher::stitch( InputArrayOfArrays images,
-                          InputArrayOfArrays masks,
-                          OutputArray        pano );
+cv::Stitcher::Status cv::Stitcher::stitch( InputArrayOfArrays images,
+                                           InputArrayOfArrays masks,
+                                           OutputArray        pano );
 AutoIt:
     $oStitcher.stitch( $images, $masks[, $pano] ) -> retval, $pano
 ```
@@ -23416,19 +27779,21 @@ AutoIt:
 
 ## cv::PyRotationWarper
 
-### cv::PyRotationWarper::create
+### cv::PyRotationWarper::get_create
 
 ```cpp
-static cv::PyRotationWarper cv::PyRotationWarper::create( std::string type,
-                                                          float       scale );
+static cv::PyRotationWarper cv::PyRotationWarper::get_create( std::string type,
+                                                              float       scale );
 AutoIt:
     _OpenCV_ObjCreate("cv.PyRotationWarper").create( $type, $scale ) -> <cv.PyRotationWarper object>
+    _OpenCV_ObjCreate("cv.PyRotationWarper")( $type, $scale ) -> <cv.PyRotationWarper object>
 ```
 
 ```cpp
-static cv::PyRotationWarper cv::PyRotationWarper::create();
+static cv::PyRotationWarper cv::PyRotationWarper::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.PyRotationWarper").create() -> <cv.PyRotationWarper object>
+    _OpenCV_ObjCreate("cv.PyRotationWarper")() -> <cv.PyRotationWarper object>
 ```
 
 ### cv::PyRotationWarper::buildMaps
@@ -23571,12 +27936,13 @@ AutoIt:
 
 ## cv::detail::FeatherBlender
 
-### cv::detail::FeatherBlender::create
+### cv::detail::FeatherBlender::get_create
 
 ```cpp
-static cv::detail::FeatherBlender cv::detail::FeatherBlender::create( float sharpness = 0.02f );
+static cv::detail::FeatherBlender cv::detail::FeatherBlender::get_create( float sharpness = 0.02f );
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.FeatherBlender").create( [$sharpness] ) -> <cv.detail.FeatherBlender object>
+    _OpenCV_ObjCreate("cv.detail.FeatherBlender")( [$sharpness] ) -> <cv.detail.FeatherBlender object>
 ```
 
 ### cv::detail::FeatherBlender::blend
@@ -23650,14 +28016,15 @@ AutoIt:
 
 ## cv::detail::MultiBandBlender
 
-### cv::detail::MultiBandBlender::create
+### cv::detail::MultiBandBlender::get_create
 
 ```cpp
-static cv::detail::MultiBandBlender cv::detail::MultiBandBlender::create( int try_gpu = false,
-                                                                          int num_bands = 5,
-                                                                          int weight_type = CV_32F );
+static cv::detail::MultiBandBlender cv::detail::MultiBandBlender::get_create( int try_gpu = false,
+                                                                              int num_bands = 5,
+                                                                              int weight_type = CV_32F );
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.MultiBandBlender").create( [$try_gpu[, $num_bands[, $weight_type]]] ) -> <cv.detail.MultiBandBlender object>
+    _OpenCV_ObjCreate("cv.detail.MultiBandBlender")( [$try_gpu[, $num_bands[, $weight_type]]] ) -> <cv.detail.MultiBandBlender object>
 ```
 
 ### cv::detail::MultiBandBlender::blend
@@ -23721,12 +28088,13 @@ AutoIt:
 
 ## cv::detail::CameraParams
 
-### cv::detail::CameraParams::create
+### cv::detail::CameraParams::get_create
 
 ```cpp
-static cv::detail::CameraParams cv::detail::CameraParams::create();
+static cv::detail::CameraParams cv::detail::CameraParams::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.CameraParams").create() -> <cv.detail.CameraParams object>
+    _OpenCV_ObjCreate("cv.detail.CameraParams")() -> <cv.detail.CameraParams object>
 ```
 
 ### cv::detail::CameraParams::K
@@ -23865,18 +28233,20 @@ AutoIt:
 
 ## cv::detail::GainCompensator
 
-### cv::detail::GainCompensator::create
+### cv::detail::GainCompensator::get_create
 
 ```cpp
-static cv::detail::GainCompensator cv::detail::GainCompensator::create();
+static cv::detail::GainCompensator cv::detail::GainCompensator::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.GainCompensator").create() -> <cv.detail.GainCompensator object>
+    _OpenCV_ObjCreate("cv.detail.GainCompensator")() -> <cv.detail.GainCompensator object>
 ```
 
 ```cpp
-static cv::detail::GainCompensator cv::detail::GainCompensator::create( int nr_feeds );
+static cv::detail::GainCompensator cv::detail::GainCompensator::get_create( int nr_feeds );
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.GainCompensator").create( $nr_feeds ) -> <cv.detail.GainCompensator object>
+    _OpenCV_ObjCreate("cv.detail.GainCompensator")( $nr_feeds ) -> <cv.detail.GainCompensator object>
 ```
 
 ### cv::detail::GainCompensator::apply
@@ -23974,12 +28344,13 @@ AutoIt:
 
 ## cv::detail::ChannelsCompensator
 
-### cv::detail::ChannelsCompensator::create
+### cv::detail::ChannelsCompensator::get_create
 
 ```cpp
-static cv::detail::ChannelsCompensator cv::detail::ChannelsCompensator::create( int nr_feeds = 1 );
+static cv::detail::ChannelsCompensator cv::detail::ChannelsCompensator::get_create( int nr_feeds = 1 );
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.ChannelsCompensator").create( [$nr_feeds] ) -> <cv.detail.ChannelsCompensator object>
+    _OpenCV_ObjCreate("cv.detail.ChannelsCompensator")( [$nr_feeds] ) -> <cv.detail.ChannelsCompensator object>
 ```
 
 ### cv::detail::ChannelsCompensator::apply
@@ -24211,21 +28582,23 @@ AutoIt:
 
 ## cv::detail::BlocksGainCompensator
 
-### cv::detail::BlocksGainCompensator::create
+### cv::detail::BlocksGainCompensator::get_create
 
 ```cpp
-static cv::detail::BlocksGainCompensator cv::detail::BlocksGainCompensator::create( int bl_width = 32,
-                                                                                    int bl_height = 32 );
+static cv::detail::BlocksGainCompensator cv::detail::BlocksGainCompensator::get_create( int bl_width = 32,
+                                                                                        int bl_height = 32 );
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.BlocksGainCompensator").create( [$bl_width[, $bl_height]] ) -> <cv.detail.BlocksGainCompensator object>
+    _OpenCV_ObjCreate("cv.detail.BlocksGainCompensator")( [$bl_width[, $bl_height]] ) -> <cv.detail.BlocksGainCompensator object>
 ```
 
 ```cpp
-static cv::detail::BlocksGainCompensator cv::detail::BlocksGainCompensator::create( int bl_width,
-                                                                                    int bl_height,
-                                                                                    int nr_feeds );
+static cv::detail::BlocksGainCompensator cv::detail::BlocksGainCompensator::get_create( int bl_width,
+                                                                                        int bl_height,
+                                                                                        int nr_feeds );
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.BlocksGainCompensator").create( $bl_width, $bl_height, $nr_feeds ) -> <cv.detail.BlocksGainCompensator object>
+    _OpenCV_ObjCreate("cv.detail.BlocksGainCompensator")( $bl_width, $bl_height, $nr_feeds ) -> <cv.detail.BlocksGainCompensator object>
 ```
 
 ### cv::detail::BlocksGainCompensator::apply
@@ -24362,14 +28735,15 @@ AutoIt:
 
 ## cv::detail::BlocksChannelsCompensator
 
-### cv::detail::BlocksChannelsCompensator::create
+### cv::detail::BlocksChannelsCompensator::get_create
 
 ```cpp
-static cv::detail::BlocksChannelsCompensator cv::detail::BlocksChannelsCompensator::create( int bl_width = 32,
-                                                                                            int bl_height = 32,
-                                                                                            int nr_feeds = 1 );
+static cv::detail::BlocksChannelsCompensator cv::detail::BlocksChannelsCompensator::get_create( int bl_width = 32,
+                                                                                                int bl_height = 32,
+                                                                                                int nr_feeds = 1 );
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.BlocksChannelsCompensator").create( [$bl_width[, $bl_height[, $nr_feeds]]] ) -> <cv.detail.BlocksChannelsCompensator object>
+    _OpenCV_ObjCreate("cv.detail.BlocksChannelsCompensator")( [$bl_width[, $bl_height[, $nr_feeds]]] ) -> <cv.detail.BlocksChannelsCompensator object>
 ```
 
 ### cv::detail::BlocksChannelsCompensator::apply
@@ -24506,12 +28880,13 @@ AutoIt:
 
 ## cv::detail::ImageFeatures
 
-### cv::detail::ImageFeatures::create
+### cv::detail::ImageFeatures::get_create
 
 ```cpp
-static cv::detail::ImageFeatures cv::detail::ImageFeatures::create();
+static cv::detail::ImageFeatures cv::detail::ImageFeatures::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.ImageFeatures").create() -> <cv.detail.ImageFeatures object>
+    _OpenCV_ObjCreate("cv.detail.ImageFeatures")() -> <cv.detail.ImageFeatures object>
 ```
 
 ### cv::detail::ImageFeatures::getKeypoints
@@ -24524,12 +28899,13 @@ AutoIt:
 
 ## cv::detail::MatchesInfo
 
-### cv::detail::MatchesInfo::create
+### cv::detail::MatchesInfo::get_create
 
 ```cpp
-static cv::detail::MatchesInfo cv::detail::MatchesInfo::create();
+static cv::detail::MatchesInfo cv::detail::MatchesInfo::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.MatchesInfo").create() -> <cv.detail.MatchesInfo object>
+    _OpenCV_ObjCreate("cv.detail.MatchesInfo")() -> <cv.detail.MatchesInfo object>
 ```
 
 ### cv::detail::MatchesInfo::getInliers
@@ -24588,24 +28964,26 @@ AutoIt:
 
 ## cv::detail::BestOf2NearestMatcher
 
-### cv::detail::BestOf2NearestMatcher::create
+### cv::detail::BestOf2NearestMatcher::get_create
 
 ```cpp
-static cv::detail::BestOf2NearestMatcher cv::detail::BestOf2NearestMatcher::create( bool  try_use_gpu = false,
-                                                                                    float match_conf = 0.3f,
-                                                                                    int   num_matches_thresh1 = 6,
-                                                                                    int   num_matches_thresh2 = 6 );
+static cv::detail::BestOf2NearestMatcher cv::detail::BestOf2NearestMatcher::get_create( bool  try_use_gpu = false,
+                                                                                        float match_conf = 0.3f,
+                                                                                        int   num_matches_thresh1 = 6,
+                                                                                        int   num_matches_thresh2 = 6 );
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.BestOf2NearestMatcher").create( [$try_use_gpu[, $match_conf[, $num_matches_thresh1[, $num_matches_thresh2]]]] ) -> <cv.detail.BestOf2NearestMatcher object>
+    _OpenCV_ObjCreate("cv.detail.BestOf2NearestMatcher")( [$try_use_gpu[, $match_conf[, $num_matches_thresh1[, $num_matches_thresh2]]]] ) -> <cv.detail.BestOf2NearestMatcher object>
 ```
 
 ```cpp
-static cv::Ptr<cv::detail::BestOf2NearestMatcher> cv::detail::BestOf2NearestMatcher::create( bool  try_use_gpu = false,
-                                                                                             float match_conf = 0.3f,
-                                                                                             int   num_matches_thresh1 = 6,
-                                                                                             int   num_matches_thresh2 = 6 );
+static cv::Ptr<cv::detail::BestOf2NearestMatcher> cv::detail::BestOf2NearestMatcher::get_create( bool  try_use_gpu = false,
+                                                                                                 float match_conf = 0.3f,
+                                                                                                 int   num_matches_thresh1 = 6,
+                                                                                                 int   num_matches_thresh2 = 6 );
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.BestOf2NearestMatcher").create( [$try_use_gpu[, $match_conf[, $num_matches_thresh1[, $num_matches_thresh2]]]] ) -> retval
+    _OpenCV_ObjCreate("cv.detail.BestOf2NearestMatcher")( [$try_use_gpu[, $match_conf[, $num_matches_thresh1[, $num_matches_thresh2]]]] ) -> retval
 ```
 
 ### cv::detail::BestOf2NearestMatcher::apply
@@ -24646,16 +29024,17 @@ AutoIt:
 
 ## cv::detail::BestOf2NearestRangeMatcher
 
-### cv::detail::BestOf2NearestRangeMatcher::create
+### cv::detail::BestOf2NearestRangeMatcher::get_create
 
 ```cpp
-static cv::detail::BestOf2NearestRangeMatcher cv::detail::BestOf2NearestRangeMatcher::create( int   range_width = 5,
-                                                                                              bool  try_use_gpu = false,
-                                                                                              float match_conf = 0.3f,
-                                                                                              int   num_matches_thresh1 = 6,
-                                                                                              int   num_matches_thresh2 = 6 );
+static cv::detail::BestOf2NearestRangeMatcher cv::detail::BestOf2NearestRangeMatcher::get_create( int   range_width = 5,
+                                                                                                  bool  try_use_gpu = false,
+                                                                                                  float match_conf = 0.3f,
+                                                                                                  int   num_matches_thresh1 = 6,
+                                                                                                  int   num_matches_thresh2 = 6 );
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.BestOf2NearestRangeMatcher").create( [$range_width[, $try_use_gpu[, $match_conf[, $num_matches_thresh1[, $num_matches_thresh2]]]]] ) -> <cv.detail.BestOf2NearestRangeMatcher object>
+    _OpenCV_ObjCreate("cv.detail.BestOf2NearestRangeMatcher")( [$range_width[, $try_use_gpu[, $match_conf[, $num_matches_thresh1[, $num_matches_thresh2]]]]] ) -> <cv.detail.BestOf2NearestRangeMatcher object>
 ```
 
 ### cv::detail::BestOf2NearestRangeMatcher::apply
@@ -24696,15 +29075,16 @@ AutoIt:
 
 ## cv::detail::AffineBestOf2NearestMatcher
 
-### cv::detail::AffineBestOf2NearestMatcher::create
+### cv::detail::AffineBestOf2NearestMatcher::get_create
 
 ```cpp
-static cv::detail::AffineBestOf2NearestMatcher cv::detail::AffineBestOf2NearestMatcher::create( bool  full_affine = false,
-                                                                                                bool  try_use_gpu = false,
-                                                                                                float match_conf = 0.3f,
-                                                                                                int   num_matches_thresh1 = 6 );
+static cv::detail::AffineBestOf2NearestMatcher cv::detail::AffineBestOf2NearestMatcher::get_create( bool  full_affine = false,
+                                                                                                    bool  try_use_gpu = false,
+                                                                                                    float match_conf = 0.3f,
+                                                                                                    int   num_matches_thresh1 = 6 );
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.AffineBestOf2NearestMatcher").create( [$full_affine[, $try_use_gpu[, $match_conf[, $num_matches_thresh1]]]] ) -> <cv.detail.AffineBestOf2NearestMatcher object>
+    _OpenCV_ObjCreate("cv.detail.AffineBestOf2NearestMatcher")( [$full_affine[, $try_use_gpu[, $match_conf[, $num_matches_thresh1]]]] ) -> <cv.detail.AffineBestOf2NearestMatcher object>
 ```
 
 ### cv::detail::AffineBestOf2NearestMatcher::apply
@@ -24757,12 +29137,13 @@ AutoIt:
 
 ## cv::detail::HomographyBasedEstimator
 
-### cv::detail::HomographyBasedEstimator::create
+### cv::detail::HomographyBasedEstimator::get_create
 
 ```cpp
-static cv::detail::HomographyBasedEstimator cv::detail::HomographyBasedEstimator::create( bool is_focals_estimated = false );
+static cv::detail::HomographyBasedEstimator cv::detail::HomographyBasedEstimator::get_create( bool is_focals_estimated = false );
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.HomographyBasedEstimator").create( [$is_focals_estimated] ) -> <cv.detail.HomographyBasedEstimator object>
+    _OpenCV_ObjCreate("cv.detail.HomographyBasedEstimator")( [$is_focals_estimated] ) -> <cv.detail.HomographyBasedEstimator object>
 ```
 
 ### cv::detail::HomographyBasedEstimator::apply
@@ -24777,12 +29158,13 @@ AutoIt:
 
 ## cv::detail::AffineBasedEstimator
 
-### cv::detail::AffineBasedEstimator::create
+### cv::detail::AffineBasedEstimator::get_create
 
 ```cpp
-static cv::detail::AffineBasedEstimator cv::detail::AffineBasedEstimator::create();
+static cv::detail::AffineBasedEstimator cv::detail::AffineBasedEstimator::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.AffineBasedEstimator").create() -> <cv.detail.AffineBasedEstimator object>
+    _OpenCV_ObjCreate("cv.detail.AffineBasedEstimator")() -> <cv.detail.AffineBasedEstimator object>
 ```
 
 ### cv::detail::AffineBasedEstimator::apply
@@ -24857,12 +29239,13 @@ AutoIt:
 
 ## cv::detail::NoBundleAdjuster
 
-### cv::detail::NoBundleAdjuster::create
+### cv::detail::NoBundleAdjuster::get_create
 
 ```cpp
-static cv::detail::NoBundleAdjuster cv::detail::NoBundleAdjuster::create();
+static cv::detail::NoBundleAdjuster cv::detail::NoBundleAdjuster::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.NoBundleAdjuster").create() -> <cv.detail.NoBundleAdjuster object>
+    _OpenCV_ObjCreate("cv.detail.NoBundleAdjuster")() -> <cv.detail.NoBundleAdjuster object>
 ```
 
 ### cv::detail::NoBundleAdjuster::apply
@@ -24925,12 +29308,13 @@ AutoIt:
 
 ## cv::detail::BundleAdjusterReproj
 
-### cv::detail::BundleAdjusterReproj::create
+### cv::detail::BundleAdjusterReproj::get_create
 
 ```cpp
-static cv::detail::BundleAdjusterReproj cv::detail::BundleAdjusterReproj::create();
+static cv::detail::BundleAdjusterReproj cv::detail::BundleAdjusterReproj::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.BundleAdjusterReproj").create() -> <cv.detail.BundleAdjusterReproj object>
+    _OpenCV_ObjCreate("cv.detail.BundleAdjusterReproj")() -> <cv.detail.BundleAdjusterReproj object>
 ```
 
 ### cv::detail::BundleAdjusterReproj::apply
@@ -24993,12 +29377,13 @@ AutoIt:
 
 ## cv::detail::BundleAdjusterRay
 
-### cv::detail::BundleAdjusterRay::create
+### cv::detail::BundleAdjusterRay::get_create
 
 ```cpp
-static cv::detail::BundleAdjusterRay cv::detail::BundleAdjusterRay::create();
+static cv::detail::BundleAdjusterRay cv::detail::BundleAdjusterRay::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.BundleAdjusterRay").create() -> <cv.detail.BundleAdjusterRay object>
+    _OpenCV_ObjCreate("cv.detail.BundleAdjusterRay")() -> <cv.detail.BundleAdjusterRay object>
 ```
 
 ### cv::detail::BundleAdjusterRay::apply
@@ -25061,12 +29446,13 @@ AutoIt:
 
 ## cv::detail::BundleAdjusterAffine
 
-### cv::detail::BundleAdjusterAffine::create
+### cv::detail::BundleAdjusterAffine::get_create
 
 ```cpp
-static cv::detail::BundleAdjusterAffine cv::detail::BundleAdjusterAffine::create();
+static cv::detail::BundleAdjusterAffine cv::detail::BundleAdjusterAffine::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.BundleAdjusterAffine").create() -> <cv.detail.BundleAdjusterAffine object>
+    _OpenCV_ObjCreate("cv.detail.BundleAdjusterAffine")() -> <cv.detail.BundleAdjusterAffine object>
 ```
 
 ### cv::detail::BundleAdjusterAffine::apply
@@ -25129,12 +29515,13 @@ AutoIt:
 
 ## cv::detail::BundleAdjusterAffinePartial
 
-### cv::detail::BundleAdjusterAffinePartial::create
+### cv::detail::BundleAdjusterAffinePartial::get_create
 
 ```cpp
-static cv::detail::BundleAdjusterAffinePartial cv::detail::BundleAdjusterAffinePartial::create();
+static cv::detail::BundleAdjusterAffinePartial cv::detail::BundleAdjusterAffinePartial::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.BundleAdjusterAffinePartial").create() -> <cv.detail.BundleAdjusterAffinePartial object>
+    _OpenCV_ObjCreate("cv.detail.BundleAdjusterAffinePartial")() -> <cv.detail.BundleAdjusterAffinePartial object>
 ```
 
 ### cv::detail::BundleAdjusterAffinePartial::apply
@@ -25277,12 +29664,13 @@ AutoIt:
 
 ## cv::detail::DpSeamFinder
 
-### cv::detail::DpSeamFinder::create
+### cv::detail::DpSeamFinder::get_create
 
 ```cpp
-static cv::detail::DpSeamFinder cv::detail::DpSeamFinder::create( std::string costFunc );
+static cv::detail::DpSeamFinder cv::detail::DpSeamFinder::get_create( std::string costFunc );
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.DpSeamFinder").create( $costFunc ) -> <cv.detail.DpSeamFinder object>
+    _OpenCV_ObjCreate("cv.detail.DpSeamFinder")( $costFunc ) -> <cv.detail.DpSeamFinder object>
 ```
 
 ### cv::detail::DpSeamFinder::createDefault
@@ -25313,14 +29701,15 @@ AutoIt:
 
 ## cv::detail::GraphCutSeamFinder
 
-### cv::detail::GraphCutSeamFinder::create
+### cv::detail::GraphCutSeamFinder::get_create
 
 ```cpp
-static cv::detail::GraphCutSeamFinder cv::detail::GraphCutSeamFinder::create( std::string cost_type,
-                                                                              float       terminal_cost = 10000.f,
-                                                                              float       bad_region_penalty = 1000.f );
+static cv::detail::GraphCutSeamFinder cv::detail::GraphCutSeamFinder::get_create( std::string cost_type,
+                                                                                  float       terminal_cost = 10000.f,
+                                                                                  float       bad_region_penalty = 1000.f );
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.GraphCutSeamFinder").create( $cost_type[, $terminal_cost[, $bad_region_penalty]] ) -> <cv.detail.GraphCutSeamFinder object>
+    _OpenCV_ObjCreate("cv.detail.GraphCutSeamFinder")( $cost_type[, $terminal_cost[, $bad_region_penalty]] ) -> <cv.detail.GraphCutSeamFinder object>
 ```
 
 ### cv::detail::GraphCutSeamFinder::createDefault
@@ -25417,22 +29806,24 @@ AutoIt:
 
 ## cv::detail::ProjectorBase
 
-### cv::detail::ProjectorBase::create
+### cv::detail::ProjectorBase::get_create
 
 ```cpp
-static cv::detail::ProjectorBase cv::detail::ProjectorBase::create();
+static cv::detail::ProjectorBase cv::detail::ProjectorBase::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.ProjectorBase").create() -> <cv.detail.ProjectorBase object>
+    _OpenCV_ObjCreate("cv.detail.ProjectorBase")() -> <cv.detail.ProjectorBase object>
 ```
 
 ## cv::detail::SphericalProjector
 
-### cv::detail::SphericalProjector::create
+### cv::detail::SphericalProjector::get_create
 
 ```cpp
-static cv::detail::SphericalProjector cv::detail::SphericalProjector::create();
+static cv::detail::SphericalProjector cv::detail::SphericalProjector::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.SphericalProjector").create() -> <cv.detail.SphericalProjector object>
+    _OpenCV_ObjCreate("cv.detail.SphericalProjector")() -> <cv.detail.SphericalProjector object>
 ```
 
 ### cv::detail::SphericalProjector::mapBackward
@@ -25970,21 +30361,23 @@ AutoIt:
 
 ## cv::KalmanFilter
 
-### cv::KalmanFilter::create
+### cv::KalmanFilter::get_create
 
 ```cpp
-static cv::KalmanFilter cv::KalmanFilter::create();
+static cv::KalmanFilter cv::KalmanFilter::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.KalmanFilter").create() -> <cv.KalmanFilter object>
+    _OpenCV_ObjCreate("cv.KalmanFilter")() -> <cv.KalmanFilter object>
 ```
 
 ```cpp
-static cv::KalmanFilter cv::KalmanFilter::create( int dynamParams,
-                                                  int measureParams,
-                                                  int controlParams = 0,
-                                                  int type = CV_32F );
+static cv::KalmanFilter cv::KalmanFilter::get_create( int dynamParams,
+                                                      int measureParams,
+                                                      int controlParams = 0,
+                                                      int type = CV_32F );
 AutoIt:
     _OpenCV_ObjCreate("cv.KalmanFilter").create( $dynamParams, $measureParams[, $controlParams[, $type]] ) -> <cv.KalmanFilter object>
+    _OpenCV_ObjCreate("cv.KalmanFilter")( $dynamParams, $measureParams[, $controlParams[, $type]] ) -> <cv.KalmanFilter object>
 ```
 
 ### cv::KalmanFilter::correct
@@ -26138,19 +30531,20 @@ AutoIt:
 
 ## cv::FarnebackOpticalFlow
 
-### cv::FarnebackOpticalFlow::create
+### cv::FarnebackOpticalFlow::get_create
 
 ```cpp
-static cv::Ptr<cv::FarnebackOpticalFlow> cv::FarnebackOpticalFlow::create( int    numLevels = 5,
-                                                                           double pyrScale = 0.5,
-                                                                           bool   fastPyramids = false,
-                                                                           int    winSize = 13,
-                                                                           int    numIters = 10,
-                                                                           int    polyN = 5,
-                                                                           double polySigma = 1.1,
-                                                                           int    flags = 0 );
+static cv::Ptr<cv::FarnebackOpticalFlow> cv::FarnebackOpticalFlow::get_create( int    numLevels = 5,
+                                                                               double pyrScale = 0.5,
+                                                                               bool   fastPyramids = false,
+                                                                               int    winSize = 13,
+                                                                               int    numIters = 10,
+                                                                               int    polyN = 5,
+                                                                               double polySigma = 1.1,
+                                                                               int    flags = 0 );
 AutoIt:
     _OpenCV_ObjCreate("cv.FarnebackOpticalFlow").create( [$numLevels[, $pyrScale[, $fastPyramids[, $winSize[, $numIters[, $polyN[, $polySigma[, $flags]]]]]]]] ) -> retval
+    _OpenCV_ObjCreate("cv.FarnebackOpticalFlow")( [$numLevels[, $pyrScale[, $fastPyramids[, $winSize[, $numIters[, $polyN[, $polySigma[, $flags]]]]]]]] ) -> retval
 ```
 
 ### cv::FarnebackOpticalFlow::calc
@@ -26350,12 +30744,13 @@ AutoIt:
 
 ## cv::VariationalRefinement
 
-### cv::VariationalRefinement::create
+### cv::VariationalRefinement::get_create
 
 ```cpp
-static cv::Ptr<cv::VariationalRefinement> cv::VariationalRefinement::create();
+static cv::Ptr<cv::VariationalRefinement> cv::VariationalRefinement::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.VariationalRefinement").create() -> retval
+    _OpenCV_ObjCreate("cv.VariationalRefinement")() -> retval
 ```
 
 ### cv::VariationalRefinement::calc
@@ -26534,12 +30929,13 @@ AutoIt:
 
 ## cv::DISOpticalFlow
 
-### cv::DISOpticalFlow::create
+### cv::DISOpticalFlow::get_create
 
 ```cpp
-static cv::Ptr<cv::DISOpticalFlow> cv::DISOpticalFlow::create( int preset = DISOpticalFlow::PRESET_FAST );
+static cv::Ptr<cv::DISOpticalFlow> cv::DISOpticalFlow::get_create( int preset = DISOpticalFlow::PRESET_FAST );
 AutoIt:
     _OpenCV_ObjCreate("cv.DISOpticalFlow").create( [$preset] ) -> retval
+    _OpenCV_ObjCreate("cv.DISOpticalFlow")( [$preset] ) -> retval
 ```
 
 ### cv::DISOpticalFlow::calc
@@ -26771,16 +31167,17 @@ AutoIt:
 
 ## cv::SparsePyrLKOpticalFlow
 
-### cv::SparsePyrLKOpticalFlow::create
+### cv::SparsePyrLKOpticalFlow::get_create
 
 ```cpp
-static cv::Ptr<cv::SparsePyrLKOpticalFlow> cv::SparsePyrLKOpticalFlow::create( cv::Size         winSize = Size(21, 21),
-                                                                               int              maxLevel = 3,
-                                                                               cv::TermCriteria crit = TermCriteria(TermCriteria::COUNT+TermCriteria::EPS, 30, 0.01),
-                                                                               int              flags = 0,
-                                                                               double           minEigThreshold = 1e-4 );
+static cv::Ptr<cv::SparsePyrLKOpticalFlow> cv::SparsePyrLKOpticalFlow::get_create( cv::Size         winSize = Size(21, 21),
+                                                                                   int              maxLevel = 3,
+                                                                                   cv::TermCriteria crit = TermCriteria(TermCriteria::COUNT+TermCriteria::EPS, 30, 0.01),
+                                                                                   int              flags = 0,
+                                                                                   double           minEigThreshold = 1e-4 );
 AutoIt:
     _OpenCV_ObjCreate("cv.SparsePyrLKOpticalFlow").create( [$winSize[, $maxLevel[, $crit[, $flags[, $minEigThreshold]]]]] ) -> retval
+    _OpenCV_ObjCreate("cv.SparsePyrLKOpticalFlow")( [$winSize[, $maxLevel[, $crit[, $flags[, $minEigThreshold]]]]] ) -> retval
 ```
 
 ### cv::SparsePyrLKOpticalFlow::calc
@@ -26947,12 +31344,13 @@ AutoIt:
 
 ## cv::TrackerMIL
 
-### cv::TrackerMIL::create
+### cv::TrackerMIL::get_create
 
 ```cpp
-static cv::Ptr<cv::TrackerMIL> cv::TrackerMIL::create( const cv::TrackerMIL::Params& parameters = TrackerMIL::Params() );
+static cv::Ptr<cv::TrackerMIL> cv::TrackerMIL::get_create( const cv::TrackerMIL::Params& parameters = TrackerMIL::Params() );
 AutoIt:
     _OpenCV_ObjCreate("cv.TrackerMIL").create( [$parameters] ) -> retval
+    _OpenCV_ObjCreate("cv.TrackerMIL")( [$parameters] ) -> retval
 ```
 
 ### cv::TrackerMIL::init
@@ -26975,22 +31373,24 @@ AutoIt:
 
 ## cv::TrackerMIL::Params
 
-### cv::TrackerMIL::Params::create
+### cv::TrackerMIL::Params::get_create
 
 ```cpp
-static cv::TrackerMIL::Params cv::TrackerMIL::Params::create();
+static cv::TrackerMIL::Params cv::TrackerMIL::Params::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.TrackerMIL.Params").create() -> <cv.TrackerMIL.Params object>
+    _OpenCV_ObjCreate("cv.TrackerMIL.Params")() -> <cv.TrackerMIL.Params object>
 ```
 
 ## cv::TrackerGOTURN
 
-### cv::TrackerGOTURN::create
+### cv::TrackerGOTURN::get_create
 
 ```cpp
-static cv::Ptr<cv::TrackerGOTURN> cv::TrackerGOTURN::create( const cv::TrackerGOTURN::Params& parameters = TrackerGOTURN::Params() );
+static cv::Ptr<cv::TrackerGOTURN> cv::TrackerGOTURN::get_create( const cv::TrackerGOTURN::Params& parameters = TrackerGOTURN::Params() );
 AutoIt:
     _OpenCV_ObjCreate("cv.TrackerGOTURN").create( [$parameters] ) -> retval
+    _OpenCV_ObjCreate("cv.TrackerGOTURN")( [$parameters] ) -> retval
 ```
 
 ### cv::TrackerGOTURN::init
@@ -27013,22 +31413,24 @@ AutoIt:
 
 ## cv::TrackerGOTURN::Params
 
-### cv::TrackerGOTURN::Params::create
+### cv::TrackerGOTURN::Params::get_create
 
 ```cpp
-static cv::TrackerGOTURN::Params cv::TrackerGOTURN::Params::create();
+static cv::TrackerGOTURN::Params cv::TrackerGOTURN::Params::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.TrackerGOTURN.Params").create() -> <cv.TrackerGOTURN.Params object>
+    _OpenCV_ObjCreate("cv.TrackerGOTURN.Params")() -> <cv.TrackerGOTURN.Params object>
 ```
 
 ## cv::TrackerDaSiamRPN
 
-### cv::TrackerDaSiamRPN::create
+### cv::TrackerDaSiamRPN::get_create
 
 ```cpp
-static cv::Ptr<cv::TrackerDaSiamRPN> cv::TrackerDaSiamRPN::create( const cv::TrackerDaSiamRPN::Params& parameters = TrackerDaSiamRPN::Params() );
+static cv::Ptr<cv::TrackerDaSiamRPN> cv::TrackerDaSiamRPN::get_create( const cv::TrackerDaSiamRPN::Params& parameters = TrackerDaSiamRPN::Params() );
 AutoIt:
     _OpenCV_ObjCreate("cv.TrackerDaSiamRPN").create( [$parameters] ) -> retval
+    _OpenCV_ObjCreate("cv.TrackerDaSiamRPN")( [$parameters] ) -> retval
 ```
 
 ### cv::TrackerDaSiamRPN::getTrackingScore
@@ -27059,12 +31461,13 @@ AutoIt:
 
 ## cv::TrackerDaSiamRPN::Params
 
-### cv::TrackerDaSiamRPN::Params::create
+### cv::TrackerDaSiamRPN::Params::get_create
 
 ```cpp
-static cv::TrackerDaSiamRPN::Params cv::TrackerDaSiamRPN::Params::create();
+static cv::TrackerDaSiamRPN::Params cv::TrackerDaSiamRPN::Params::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.TrackerDaSiamRPN.Params").create() -> <cv.TrackerDaSiamRPN.Params object>
+    _OpenCV_ObjCreate("cv.TrackerDaSiamRPN.Params")() -> <cv.TrackerDaSiamRPN.Params object>
 ```
 
 ## cv::gapi
@@ -27149,7 +31552,7 @@ std::tuple<cv::GOpaque<double>, cv::GMat, cv::GMat> cv::gapi::kmeans( const cv::
                                                                       const int               K,
                                                                       const cv::TermCriteria& criteria,
                                                                       const int               attempts,
-                                                                      const int               flags );
+                                                                      const cv::KmeansFlags   flags );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi").kmeans( $data, $K, $criteria, $attempts, $flags ) -> retval
 ```
@@ -27160,7 +31563,7 @@ std::tuple<cv::GOpaque<double>, cv::GArray<int>, cv::GArray<cv::Point2f>> cv::ga
                                                                                             const cv::GArray<int>&         bestLabels,
                                                                                             const cv::TermCriteria&        criteria,
                                                                                             const int                      attempts,
-                                                                                            const int                      flags );
+                                                                                            const cv::KmeansFlags          flags );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi").kmeans( $data, $K, $bestLabels, $criteria, $attempts, $flags ) -> retval
 ```
@@ -27283,45 +31686,50 @@ AutoIt:
 
 ## cv::GArrayDesc
 
-### cv::GArrayDesc::create
+### cv::GArrayDesc::get_create
 
 ```cpp
-static cv::GArrayDesc cv::GArrayDesc::create();
+static cv::GArrayDesc cv::GArrayDesc::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.GArrayDesc").create() -> <cv.GArrayDesc object>
+    _OpenCV_ObjCreate("cv.GArrayDesc")() -> <cv.GArrayDesc object>
 ```
 
 ## cv::GComputation
 
-### cv::GComputation::create
+### cv::GComputation::get_create
 
 ```cpp
-static cv::GComputation cv::GComputation::create( cv::GProtoInputArgs&&  ins,
-                                                  cv::GProtoOutputArgs&& outs );
+static cv::GComputation cv::GComputation::get_create( cv::GProtoInputArgs&&  ins,
+                                                      cv::GProtoOutputArgs&& outs );
 AutoIt:
     _OpenCV_ObjCreate("cv.GComputation").create( $ins, $outs ) -> <cv.GComputation object>
+    _OpenCV_ObjCreate("cv.GComputation")( $ins, $outs ) -> <cv.GComputation object>
 ```
 
 ```cpp
-static cv::GComputation cv::GComputation::create( cv::GMat in,
-                                                  cv::GMat out );
+static cv::GComputation cv::GComputation::get_create( cv::GMat in,
+                                                      cv::GMat out );
 AutoIt:
     _OpenCV_ObjCreate("cv.GComputation").create( $in, $out ) -> <cv.GComputation object>
+    _OpenCV_ObjCreate("cv.GComputation")( $in, $out ) -> <cv.GComputation object>
 ```
 
 ```cpp
-static cv::GComputation cv::GComputation::create( cv::GMat    in,
-                                                  cv::GScalar out );
+static cv::GComputation cv::GComputation::get_create( cv::GMat    in,
+                                                      cv::GScalar out );
 AutoIt:
     _OpenCV_ObjCreate("cv.GComputation").create( $in, $out ) -> <cv.GComputation object>
+    _OpenCV_ObjCreate("cv.GComputation")( $in, $out ) -> <cv.GComputation object>
 ```
 
 ```cpp
-static cv::GComputation cv::GComputation::create( cv::GMat in1,
-                                                  cv::GMat in2,
-                                                  cv::GMat out );
+static cv::GComputation cv::GComputation::get_create( cv::GMat in1,
+                                                      cv::GMat in2,
+                                                      cv::GMat out );
 AutoIt:
     _OpenCV_ObjCreate("cv.GComputation").create( $in1, $in2, $out ) -> <cv.GComputation object>
+    _OpenCV_ObjCreate("cv.GComputation")( $in1, $in2, $out ) -> <cv.GComputation object>
 ```
 
 ### cv::GComputation::apply
@@ -27336,7 +31744,7 @@ AutoIt:
 ### cv::GComputation::compileStreaming
 
 ```cpp
-cv::GStreamingCompiled cv::GComputation::compileStreaming( std::vector<GMetaArg>&&        in_metas,
+cv::GStreamingCompiled cv::GComputation::compileStreaming( std::vector<cv::GMetaArg>&&    in_metas,
                                                            std::vector<cv::GCompileArg>&& args = {} );
 AutoIt:
     $oGComputation.compileStreaming( $in_metas[, $args] ) -> retval
@@ -27357,55 +31765,61 @@ AutoIt:
 
 ## cv::GFrame
 
-### cv::GFrame::create
+### cv::GFrame::get_create
 
 ```cpp
-static cv::GFrame cv::GFrame::create();
+static cv::GFrame cv::GFrame::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.GFrame").create() -> <cv.GFrame object>
+    _OpenCV_ObjCreate("cv.GFrame")() -> <cv.GFrame object>
 ```
 
 ## cv::GMat
 
-### cv::GMat::create
+### cv::GMat::get_create
 
 ```cpp
-static cv::GMat cv::GMat::create();
+static cv::GMat cv::GMat::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.GMat").create() -> <cv.GMat object>
+    _OpenCV_ObjCreate("cv.GMat")() -> <cv.GMat object>
 ```
 
 ## cv::GMatDesc
 
-### cv::GMatDesc::create
+### cv::GMatDesc::get_create
 
 ```cpp
-static cv::GMatDesc cv::GMatDesc::create( int      d,
-                                          int      c,
-                                          cv::Size s,
-                                          bool     p = false );
+static cv::GMatDesc cv::GMatDesc::get_create( int      d,
+                                              int      c,
+                                              cv::Size s,
+                                              bool     p = false );
 AutoIt:
     _OpenCV_ObjCreate("cv.GMatDesc").create( $d, $c, $s[, $p] ) -> <cv.GMatDesc object>
+    _OpenCV_ObjCreate("cv.GMatDesc")( $d, $c, $s[, $p] ) -> <cv.GMatDesc object>
 ```
 
 ```cpp
-static cv::GMatDesc cv::GMatDesc::create( int                     d,
-                                          const std::vector<int>& dd );
+static cv::GMatDesc cv::GMatDesc::get_create( int                     d,
+                                              const std::vector<int>& dd );
 AutoIt:
     _OpenCV_ObjCreate("cv.GMatDesc").create( $d, $dd ) -> <cv.GMatDesc object>
+    _OpenCV_ObjCreate("cv.GMatDesc")( $d, $dd ) -> <cv.GMatDesc object>
 ```
 
 ```cpp
-static cv::GMatDesc cv::GMatDesc::create( int                d,
-                                          std::vector<int>&& dd );
+static cv::GMatDesc cv::GMatDesc::get_create( int                d,
+                                              std::vector<int>&& dd );
 AutoIt:
     _OpenCV_ObjCreate("cv.GMatDesc").create( $d, $dd ) -> <cv.GMatDesc object>
+    _OpenCV_ObjCreate("cv.GMatDesc")( $d, $dd ) -> <cv.GMatDesc object>
 ```
 
 ```cpp
-static cv::GMatDesc cv::GMatDesc::create();
+static cv::GMatDesc cv::GMatDesc::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.GMatDesc").create() -> <cv.GMatDesc object>
+    _OpenCV_ObjCreate("cv.GMatDesc")() -> <cv.GMatDesc object>
 ```
 
 ### cv::GMatDesc::asInterleaved
@@ -27472,42 +31886,46 @@ AutoIt:
 
 ## cv::GOpaqueDesc
 
-### cv::GOpaqueDesc::create
+### cv::GOpaqueDesc::get_create
 
 ```cpp
-static cv::GOpaqueDesc cv::GOpaqueDesc::create();
+static cv::GOpaqueDesc cv::GOpaqueDesc::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.GOpaqueDesc").create() -> <cv.GOpaqueDesc object>
+    _OpenCV_ObjCreate("cv.GOpaqueDesc")() -> <cv.GOpaqueDesc object>
 ```
 
 ## cv::GScalar
 
-### cv::GScalar::create
+### cv::GScalar::get_create
 
 ```cpp
-static cv::GScalar cv::GScalar::create();
+static cv::GScalar cv::GScalar::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.GScalar").create() -> <cv.GScalar object>
+    _OpenCV_ObjCreate("cv.GScalar")() -> <cv.GScalar object>
 ```
 
 ## cv::GScalarDesc
 
-### cv::GScalarDesc::create
+### cv::GScalarDesc::get_create
 
 ```cpp
-static cv::GScalarDesc cv::GScalarDesc::create();
+static cv::GScalarDesc cv::GScalarDesc::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.GScalarDesc").create() -> <cv.GScalarDesc object>
+    _OpenCV_ObjCreate("cv.GScalarDesc")() -> <cv.GScalarDesc object>
 ```
 
 ## cv::GStreamingCompiled
 
-### cv::GStreamingCompiled::create
+### cv::GStreamingCompiled::get_create
 
 ```cpp
-static cv::GStreamingCompiled cv::GStreamingCompiled::create();
+static cv::GStreamingCompiled cv::GStreamingCompiled::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.GStreamingCompiled").create() -> <cv.GStreamingCompiled object>
+    _OpenCV_ObjCreate("cv.GStreamingCompiled")() -> <cv.GStreamingCompiled object>
 ```
 
 ### cv::GStreamingCompiled::pull
@@ -27552,38 +31970,42 @@ AutoIt:
 
 ## cv::gapi::streaming::queue_capacity
 
-### cv::gapi::streaming::queue_capacity::create
+### cv::gapi::streaming::queue_capacity::get_create
 
 ```cpp
-static cv::gapi::streaming::queue_capacity cv::gapi::streaming::queue_capacity::create( size_t cap = 1 );
+static cv::gapi::streaming::queue_capacity cv::gapi::streaming::queue_capacity::get_create( size_t cap = 1 );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.streaming.queue_capacity").create( [$cap] ) -> <cv.gapi.streaming.queue_capacity object>
+    _OpenCV_ObjCreate("cv.gapi.streaming.queue_capacity")( [$cap] ) -> <cv.gapi.streaming.queue_capacity object>
 ```
 
 ## cv::gapi::GNetParam
 
-### cv::gapi::GNetParam::create
+### cv::gapi::GNetParam::get_create
 
 ```cpp
-static cv::gapi::GNetParam cv::gapi::GNetParam::create();
+static cv::gapi::GNetParam cv::gapi::GNetParam::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.GNetParam").create() -> <cv.gapi.GNetParam object>
+    _OpenCV_ObjCreate("cv.gapi.GNetParam")() -> <cv.gapi.GNetParam object>
 ```
 
 ## cv::gapi::GNetPackage
 
-### cv::gapi::GNetPackage::create
+### cv::gapi::GNetPackage::get_create
 
 ```cpp
-static cv::gapi::GNetPackage cv::gapi::GNetPackage::create();
+static cv::gapi::GNetPackage cv::gapi::GNetPackage::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.GNetPackage").create() -> <cv.gapi.GNetPackage object>
+    _OpenCV_ObjCreate("cv.gapi.GNetPackage")() -> <cv.gapi.GNetPackage object>
 ```
 
 ```cpp
-static cv::gapi::GNetPackage cv::gapi::GNetPackage::create( std::vector<cv::gapi::GNetParam> nets );
+static cv::gapi::GNetPackage cv::gapi::GNetPackage::get_create( std::vector<cv::gapi::GNetParam> nets );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.GNetPackage").create( $nets ) -> <cv.gapi.GNetPackage object>
+    _OpenCV_ObjCreate("cv.gapi.GNetPackage")( $nets ) -> <cv.gapi.GNetPackage object>
 ```
 
 ## cv::gapi::ie
@@ -27609,29 +32031,32 @@ AutoIt:
 
 ## cv::gapi::ie::PyParams
 
-### cv::gapi::ie::PyParams::create
+### cv::gapi::ie::PyParams::get_create
 
 ```cpp
-static cv::gapi::ie::PyParams cv::gapi::ie::PyParams::create();
+static cv::gapi::ie::PyParams cv::gapi::ie::PyParams::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.ie.PyParams").create() -> <cv.gapi.ie.PyParams object>
+    _OpenCV_ObjCreate("cv.gapi.ie.PyParams")() -> <cv.gapi.ie.PyParams object>
 ```
 
 ```cpp
-static cv::gapi::ie::PyParams cv::gapi::ie::PyParams::create( const std::string& tag,
-                                                              const std::string& model,
-                                                              const std::string& weights,
-                                                              const std::string& device );
+static cv::gapi::ie::PyParams cv::gapi::ie::PyParams::get_create( const std::string& tag,
+                                                                  const std::string& model,
+                                                                  const std::string& weights,
+                                                                  const std::string& device );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.ie.PyParams").create( $tag, $model, $weights, $device ) -> <cv.gapi.ie.PyParams object>
+    _OpenCV_ObjCreate("cv.gapi.ie.PyParams")( $tag, $model, $weights, $device ) -> <cv.gapi.ie.PyParams object>
 ```
 
 ```cpp
-static cv::gapi::ie::PyParams cv::gapi::ie::PyParams::create( const std::string& tag,
-                                                              const std::string& model,
-                                                              const std::string& device );
+static cv::gapi::ie::PyParams cv::gapi::ie::PyParams::get_create( const std::string& tag,
+                                                                  const std::string& model,
+                                                                  const std::string& device );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.ie.PyParams").create( $tag, $model, $device ) -> <cv.gapi.ie.PyParams object>
+    _OpenCV_ObjCreate("cv.gapi.ie.PyParams")( $tag, $model, $device ) -> <cv.gapi.ie.PyParams object>
 ```
 
 ### cv::gapi::ie::PyParams::cfgBatchSize
@@ -27653,9 +32078,9 @@ AutoIt:
 ### cv::gapi::ie::PyParams::constInput
 
 ```cpp
-cv::gapi::ie::PyParams cv::gapi::ie::PyParams::constInput( const std::string& layer_name,
-                                                           const cv::Mat&     data,
-                                                           int                hint = TraitAs::TENSOR );
+cv::gapi::ie::PyParams cv::gapi::ie::PyParams::constInput( const std::string&    layer_name,
+                                                           const cv::Mat&        data,
+                                                           cv::gapi::ie::TraitAs hint = TraitAs::TENSOR );
 AutoIt:
     $oPyParams.constInput( $layer_name, $data[, $hint] ) -> retval
 ```
@@ -27675,9 +32100,9 @@ AutoIt:
 ### cv::gapi::wip::get_streaming_source
 
 ```cpp
-cv::Ptr<cv::gapi::wip::IStreamSource> cv::gapi::wip::get_streaming_source( cv::Ptr<cv::gapi::wip::gst::GStreamerPipeline>& pipeline,
-                                                                           const std::string&                              appsinkName,
-                                                                           const int                                       outputType = GStreamerSource::OutputType::MAT );
+cv::Ptr<cv::gapi::wip::IStreamSource> cv::gapi::wip::get_streaming_source( cv::Ptr<cv::gapi::wip::gst::GStreamerPipeline>&       pipeline,
+                                                                           const std::string&                                    appsinkName,
+                                                                           const cv::gapi::wip::gst::GStreamerSource::OutputType outputType = GStreamerSource::OutputType::MAT );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip").get_streaming_source( $pipeline, $appsinkName[, $outputType] ) -> retval
 ```
@@ -27699,8 +32124,8 @@ AutoIt:
 ### cv::gapi::wip::make_gst_src
 
 ```cpp
-cv::Ptr<cv::gapi::wip::IStreamSource> cv::gapi::wip::make_gst_src( const std::string& pipeline,
-                                                                   const int          outputType = GStreamerSource::OutputType::MAT );
+cv::Ptr<cv::gapi::wip::IStreamSource> cv::gapi::wip::make_gst_src( const std::string&                                    pipeline,
+                                                                   const cv::gapi::wip::gst::GStreamerSource::OutputType outputType = GStreamerSource::OutputType::MAT );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip").make_gst_src( $pipeline[, $outputType] ) -> retval
 ```
@@ -27757,135 +32182,297 @@ AutoIt:
 
 ## cv::gapi::wip::draw::Text
 
-### cv::gapi::wip::draw::Text::create
+### cv::gapi::wip::draw::Text::get_create
 
 ```cpp
-static cv::gapi::wip::draw::Text cv::gapi::wip::draw::Text::create( const std::string& text_,
-                                                                    const cv::Point&   org_,
-                                                                    int                ff_,
-                                                                    double             fs_,
-                                                                    const cv::Scalar&  color_,
-                                                                    int                thick_ = 1,
-                                                                    int                lt_ = 8,
-                                                                    bool               bottom_left_origin_ = false );
+static cv::gapi::wip::draw::Text cv::gapi::wip::draw::Text::get_create( const std::string& text_,
+                                                                        const cv::Point&   org_,
+                                                                        int                ff_,
+                                                                        double             fs_,
+                                                                        const cv::Scalar&  color_,
+                                                                        int                thick_ = 1,
+                                                                        int                lt_ = 8,
+                                                                        bool               bottom_left_origin_ = false );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Text").create( $text_, $org_, $ff_, $fs_, $color_[, $thick_[, $lt_[, $bottom_left_origin_]]] ) -> <cv.gapi.wip.draw.Text object>
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Text")( $text_, $org_, $ff_, $fs_, $color_[, $thick_[, $lt_[, $bottom_left_origin_]]] ) -> <cv.gapi.wip.draw.Text object>
 ```
 
 ```cpp
-static cv::gapi::wip::draw::Text cv::gapi::wip::draw::Text::create();
+static cv::gapi::wip::draw::Text cv::gapi::wip::draw::Text::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Text").create() -> <cv.gapi.wip.draw.Text object>
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Text")() -> <cv.gapi.wip.draw.Text object>
 ```
 
 ## cv::gapi::wip::draw::Rect
 
-### cv::gapi::wip::draw::Rect::create
+### cv::gapi::wip::draw::Rect::get_create
 
 ```cpp
-static cv::gapi::wip::draw::Rect cv::gapi::wip::draw::Rect::create();
+static cv::gapi::wip::draw::Rect cv::gapi::wip::draw::Rect::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Rect").create() -> <cv.gapi.wip.draw.Rect object>
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Rect")() -> <cv.gapi.wip.draw.Rect object>
 ```
 
 ## cv::gapi::wip::draw::Circle
 
-### cv::gapi::wip::draw::Circle::create
+### cv::gapi::wip::draw::Circle::get_create
 
 ```cpp
-static cv::gapi::wip::draw::Circle cv::gapi::wip::draw::Circle::create( const cv::Point&  center_,
-                                                                        int               radius_,
+static cv::gapi::wip::draw::Circle cv::gapi::wip::draw::Circle::get_create( const cv::Point&  center_,
+                                                                            int               radius_,
+                                                                            const cv::Scalar& color_,
+                                                                            int               thick_ = 1,
+                                                                            int               lt_ = 8,
+                                                                            int               shift_ = 0 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Circle").create( $center_, $radius_, $color_[, $thick_[, $lt_[, $shift_]]] ) -> <cv.gapi.wip.draw.Circle object>
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Circle")( $center_, $radius_, $color_[, $thick_[, $lt_[, $shift_]]] ) -> <cv.gapi.wip.draw.Circle object>
+```
+
+```cpp
+static cv::gapi::wip::draw::Circle cv::gapi::wip::draw::Circle::get_create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Circle").create() -> <cv.gapi.wip.draw.Circle object>
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Circle")() -> <cv.gapi.wip.draw.Circle object>
+```
+
+## cv::gapi::wip::draw::Line
+
+### cv::gapi::wip::draw::Line::get_create
+
+```cpp
+static cv::gapi::wip::draw::Line cv::gapi::wip::draw::Line::get_create( const cv::Point&  pt1_,
+                                                                        const cv::Point&  pt2_,
                                                                         const cv::Scalar& color_,
                                                                         int               thick_ = 1,
                                                                         int               lt_ = 8,
                                                                         int               shift_ = 0 );
 AutoIt:
-    _OpenCV_ObjCreate("cv.gapi.wip.draw.Circle").create( $center_, $radius_, $color_[, $thick_[, $lt_[, $shift_]]] ) -> <cv.gapi.wip.draw.Circle object>
-```
-
-```cpp
-static cv::gapi::wip::draw::Circle cv::gapi::wip::draw::Circle::create();
-AutoIt:
-    _OpenCV_ObjCreate("cv.gapi.wip.draw.Circle").create() -> <cv.gapi.wip.draw.Circle object>
-```
-
-## cv::gapi::wip::draw::Line
-
-### cv::gapi::wip::draw::Line::create
-
-```cpp
-static cv::gapi::wip::draw::Line cv::gapi::wip::draw::Line::create( const cv::Point&  pt1_,
-                                                                    const cv::Point&  pt2_,
-                                                                    const cv::Scalar& color_,
-                                                                    int               thick_ = 1,
-                                                                    int               lt_ = 8,
-                                                                    int               shift_ = 0 );
-AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Line").create( $pt1_, $pt2_, $color_[, $thick_[, $lt_[, $shift_]]] ) -> <cv.gapi.wip.draw.Line object>
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Line")( $pt1_, $pt2_, $color_[, $thick_[, $lt_[, $shift_]]] ) -> <cv.gapi.wip.draw.Line object>
 ```
 
 ```cpp
-static cv::gapi::wip::draw::Line cv::gapi::wip::draw::Line::create();
+static cv::gapi::wip::draw::Line cv::gapi::wip::draw::Line::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Line").create() -> <cv.gapi.wip.draw.Line object>
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Line")() -> <cv.gapi.wip.draw.Line object>
 ```
 
 ## cv::gapi::wip::draw::Mosaic
 
-### cv::gapi::wip::draw::Mosaic::create
+### cv::gapi::wip::draw::Mosaic::get_create
 
 ```cpp
-static cv::gapi::wip::draw::Mosaic cv::gapi::wip::draw::Mosaic::create();
+static cv::gapi::wip::draw::Mosaic cv::gapi::wip::draw::Mosaic::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Mosaic").create() -> <cv.gapi.wip.draw.Mosaic object>
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Mosaic")() -> <cv.gapi.wip.draw.Mosaic object>
 ```
 
 ## cv::gapi::wip::draw::Image
 
-### cv::gapi::wip::draw::Image::create
+### cv::gapi::wip::draw::Image::get_create
 
 ```cpp
-static cv::gapi::wip::draw::Image cv::gapi::wip::draw::Image::create( const cv::Point& org_,
-                                                                      const cv::Mat&   img_,
-                                                                      const cv::Mat&   alpha_ );
+static cv::gapi::wip::draw::Image cv::gapi::wip::draw::Image::get_create( const cv::Point& org_,
+                                                                          const cv::Mat&   img_,
+                                                                          const cv::Mat&   alpha_ );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Image").create( $org_, $img_, $alpha_ ) -> <cv.gapi.wip.draw.Image object>
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Image")( $org_, $img_, $alpha_ ) -> <cv.gapi.wip.draw.Image object>
 ```
 
 ```cpp
-static cv::gapi::wip::draw::Image cv::gapi::wip::draw::Image::create();
+static cv::gapi::wip::draw::Image cv::gapi::wip::draw::Image::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Image").create() -> <cv.gapi.wip.draw.Image object>
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Image")() -> <cv.gapi.wip.draw.Image object>
 ```
 
 ## cv::gapi::wip::draw::Poly
 
-### cv::gapi::wip::draw::Poly::create
+### cv::gapi::wip::draw::Poly::get_create
 
 ```cpp
-static cv::gapi::wip::draw::Poly cv::gapi::wip::draw::Poly::create( const std::vector<cv::Point>& points_,
-                                                                    const cv::Scalar&             color_,
-                                                                    int                           thick_ = 1,
-                                                                    int                           lt_ = 8,
-                                                                    int                           shift_ = 0 );
+static cv::gapi::wip::draw::Poly cv::gapi::wip::draw::Poly::get_create( const std::vector<cv::Point>& points_,
+                                                                        const cv::Scalar&             color_,
+                                                                        int                           thick_ = 1,
+                                                                        int                           lt_ = 8,
+                                                                        int                           shift_ = 0 );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Poly").create( $points_, $color_[, $thick_[, $lt_[, $shift_]]] ) -> <cv.gapi.wip.draw.Poly object>
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Poly")( $points_, $color_[, $thick_[, $lt_[, $shift_]]] ) -> <cv.gapi.wip.draw.Poly object>
 ```
 
 ```cpp
-static cv::gapi::wip::draw::Poly cv::gapi::wip::draw::Poly::create();
+static cv::gapi::wip::draw::Poly cv::gapi::wip::draw::Poly::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Poly").create() -> <cv.gapi.wip.draw.Poly object>
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Poly")() -> <cv.gapi.wip.draw.Poly object>
 ```
 
 ## cv::gapi::wip::gst::GStreamerPipeline
 
-### cv::gapi::wip::gst::GStreamerPipeline::create
+### cv::gapi::wip::gst::GStreamerPipeline::get_create
 
 ```cpp
-static cv::gapi::wip::gst::GStreamerPipeline cv::gapi::wip::gst::GStreamerPipeline::create( const std::string& pipeline );
+static cv::gapi::wip::gst::GStreamerPipeline cv::gapi::wip::gst::GStreamerPipeline::get_create( const std::string& pipeline );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.gst.GStreamerPipeline").create( $pipeline ) -> <cv.gapi.wip.gst.GStreamerPipeline object>
+    _OpenCV_ObjCreate("cv.gapi.wip.gst.GStreamerPipeline")( $pipeline ) -> <cv.gapi.wip.gst.GStreamerPipeline object>
+```
+
+## NamedParameters
+
+### NamedParameters::create
+
+```cpp
+static cv::Ptr<NamedParameters> NamedParameters::create( std::vector<std::pair<std::string, _variant_t>> pairs );
+AutoIt:
+    _OpenCV_ObjCreate("NamedParameters").create( $pairs ) -> retval
+```
+
+### NamedParameters::Add
+
+```cpp
+void NamedParameters::Add( std::string key,
+                           _variant_t  value );
+AutoIt:
+    $oNamedParameters.Add( $key, $value ) -> None
+```
+
+### NamedParameters::Get
+
+```cpp
+_variant_t NamedParameters::Get( std::string key );
+AutoIt:
+    $oNamedParameters.Get( $key ) -> retval
+```
+
+### NamedParameters::Items
+
+```cpp
+std::vector<_variant_t> NamedParameters::Items();
+AutoIt:
+    $oNamedParameters.Items() -> retval
+```
+
+### NamedParameters::Keys
+
+```cpp
+std::vector<std::string> NamedParameters::Keys();
+AutoIt:
+    $oNamedParameters.Keys() -> retval
+```
+
+### NamedParameters::Remove
+
+```cpp
+size_t NamedParameters::Remove( std::string key );
+AutoIt:
+    $oNamedParameters.Remove( $key ) -> retval
+```
+
+### NamedParameters::clear
+
+```cpp
+void NamedParameters::clear();
+AutoIt:
+    $oNamedParameters.clear() -> None
+```
+
+### NamedParameters::contains
+
+```cpp
+bool NamedParameters::contains( std::string key );
+AutoIt:
+    $oNamedParameters.contains( $key ) -> retval
+```
+
+### NamedParameters::count
+
+```cpp
+size_t NamedParameters::count( std::string key );
+AutoIt:
+    $oNamedParameters.count( $key ) -> retval
+```
+
+### NamedParameters::empty
+
+```cpp
+bool NamedParameters::empty();
+AutoIt:
+    $oNamedParameters.empty() -> retval
+```
+
+### NamedParameters::erase
+
+```cpp
+size_t NamedParameters::erase( std::string key );
+AutoIt:
+    $oNamedParameters.erase( $key ) -> retval
+```
+
+### NamedParameters::get_Item
+
+```cpp
+_variant_t NamedParameters::get_Item( std::string key );
+AutoIt:
+    $oNamedParameters.Item( $key ) -> retval
+    $oNamedParameters( $key ) -> retval
+```
+
+### NamedParameters::get__NewEnum
+
+```cpp
+IUnknown* NamedParameters::get__NewEnum();
+AutoIt:
+    $oNamedParameters._NewEnum() -> retval
+```
+
+### NamedParameters::has
+
+```cpp
+bool NamedParameters::has( std::string key );
+AutoIt:
+    $oNamedParameters.has( $key ) -> retval
+```
+
+### NamedParameters::max_size
+
+```cpp
+size_t NamedParameters::max_size();
+AutoIt:
+    $oNamedParameters.max_size() -> retval
+```
+
+### NamedParameters::merge
+
+```cpp
+void NamedParameters::merge( MapOfStringAndVariant other );
+AutoIt:
+    $oNamedParameters.merge( $other ) -> None
+```
+
+### NamedParameters::put_Item
+
+```cpp
+void NamedParameters::put_Item( std::string key,
+                                _variant_t  item );
+AutoIt:
+    $oNamedParameters.Item( $key ) = $item
+```
+
+### NamedParameters::size
+
+```cpp
+size_t NamedParameters::size();
+AutoIt:
+    $oNamedParameters.size() -> retval
 ```
 
 ## cv::wgc
@@ -27975,19 +32562,21 @@ AutoIt:
 
 ## cv::Range
 
-### cv::Range::create
+### cv::Range::get_create
 
 ```cpp
-static cv::Range cv::Range::create();
+static cv::Range cv::Range::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Range").create() -> <cv.Range object>
+    _OpenCV_ObjCreate("cv.Range")() -> <cv.Range object>
 ```
 
 ```cpp
-static cv::Range cv::Range::create( int start,
-                                    int end );
+static cv::Range cv::Range::get_create( int start,
+                                        int end );
 AutoIt:
     _OpenCV_ObjCreate("cv.Range").create( $start, $end ) -> <cv.Range object>
+    _OpenCV_ObjCreate("cv.Range")( $start, $end ) -> <cv.Range object>
 ```
 
 ### cv::Range::all
@@ -28016,28 +32605,31 @@ AutoIt:
 
 ## cv::RotatedRect
 
-### cv::RotatedRect::create
+### cv::RotatedRect::get_create
 
 ```cpp
-static cv::RotatedRect cv::RotatedRect::create();
+static cv::RotatedRect cv::RotatedRect::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.RotatedRect").create() -> <cv.RotatedRect object>
+    _OpenCV_ObjCreate("cv.RotatedRect")() -> <cv.RotatedRect object>
 ```
 
 ```cpp
-static cv::RotatedRect cv::RotatedRect::create( cv::Point2f center,
-                                                cv::Size2f  size,
-                                                float       angle );
+static cv::RotatedRect cv::RotatedRect::get_create( cv::Point2f center,
+                                                    cv::Size2f  size,
+                                                    float       angle );
 AutoIt:
     _OpenCV_ObjCreate("cv.RotatedRect").create( $center, $size, $angle ) -> <cv.RotatedRect object>
+    _OpenCV_ObjCreate("cv.RotatedRect")( $center, $size, $angle ) -> <cv.RotatedRect object>
 ```
 
 ```cpp
-static cv::RotatedRect cv::RotatedRect::create( cv::Point2f point1,
-                                                cv::Point2f point2,
-                                                cv::Point2f point3 );
+static cv::RotatedRect cv::RotatedRect::get_create( cv::Point2f point1,
+                                                    cv::Point2f point2,
+                                                    cv::Point2f point3 );
 AutoIt:
     _OpenCV_ObjCreate("cv.RotatedRect").create( $point1, $point2, $point3 ) -> <cv.RotatedRect object>
+    _OpenCV_ObjCreate("cv.RotatedRect")( $point1, $point2, $point3 ) -> <cv.RotatedRect object>
 ```
 
 ### cv::RotatedRect::boundingRect
@@ -28050,3092 +32642,35 @@ AutoIt:
 
 ## cv::GCompileArg
 
-### cv::GCompileArg::create
+### cv::GCompileArg::get_create
 
 ```cpp
-static cv::GCompileArg cv::GCompileArg::create();
+static cv::GCompileArg cv::GCompileArg::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.GCompileArg").create() -> <cv.GCompileArg object>
+    _OpenCV_ObjCreate("cv.GCompileArg")() -> <cv.GCompileArg object>
 ```
 
 ## cv::GRunArg
 
-### cv::GRunArg::create
+### cv::GRunArg::get_create
 
 ```cpp
-static cv::GRunArg cv::GRunArg::create();
+static cv::GRunArg cv::GRunArg::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.GRunArg").create() -> <cv.GRunArg object>
+    _OpenCV_ObjCreate("cv.GRunArg")() -> <cv.GRunArg object>
 ```
 
 ## cv::gapi::wip::draw::Prim
 
-### cv::gapi::wip::draw::Prim::create
+### cv::gapi::wip::draw::Prim::get_create
 
 ```cpp
-static cv::gapi::wip::draw::Prim cv::gapi::wip::draw::Prim::create();
+static cv::gapi::wip::draw::Prim cv::gapi::wip::draw::Prim::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Prim").create() -> <cv.gapi.wip.draw.Prim object>
-```
-
-## VectorOfVariant
-
-### VectorOfVariant::create
-
-```cpp
-static VectorOfVariant VectorOfVariant::create();
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfVariant").create() -> <VectorOfVariant object>
-```
-
-```cpp
-static VectorOfVariant VectorOfVariant::create( size_t size );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfVariant").create( $size ) -> <VectorOfVariant object>
-```
-
-```cpp
-static VectorOfVariant VectorOfVariant::create( VectorOfVariant other );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfVariant").create( $other ) -> <VectorOfVariant object>
-```
-
-### VectorOfVariant::Add
-
-```cpp
-void VectorOfVariant::Add( _variant_t value );
-AutoIt:
-    $oVectorOfVariant.Add( $value ) -> None
-```
-
-### VectorOfVariant::Items
-
-```cpp
-VectorOfVariant VectorOfVariant::Items();
-AutoIt:
-    $oVectorOfVariant.Items() -> retval
-```
-
-### VectorOfVariant::Keys
-
-```cpp
-std::vector<int> VectorOfVariant::Keys();
-AutoIt:
-    $oVectorOfVariant.Keys() -> retval
-```
-
-### VectorOfVariant::Remove
-
-```cpp
-void VectorOfVariant::Remove( size_t index );
-AutoIt:
-    $oVectorOfVariant.Remove( $index ) -> None
-```
-
-### VectorOfVariant::at
-
-```cpp
-_variant_t VectorOfVariant::at( size_t index );
-AutoIt:
-    $oVectorOfVariant.at( $index ) -> retval
-```
-
-```cpp
-void VectorOfVariant::at( size_t     index,
-                          _variant_t value );
-AutoIt:
-    $oVectorOfVariant.at( $index, $value ) -> None
-```
-
-### VectorOfVariant::clear
-
-```cpp
-void VectorOfVariant::clear();
-AutoIt:
-    $oVectorOfVariant.clear() -> None
-```
-
-### VectorOfVariant::empty
-
-```cpp
-bool VectorOfVariant::empty();
-AutoIt:
-    $oVectorOfVariant.empty() -> retval
-```
-
-### VectorOfVariant::end
-
-```cpp
-void* VectorOfVariant::end();
-AutoIt:
-    $oVectorOfVariant.end() -> retval
-```
-
-### VectorOfVariant::push_back
-
-```cpp
-void VectorOfVariant::push_back( _variant_t value );
-AutoIt:
-    $oVectorOfVariant.push_back( $value ) -> None
-```
-
-### VectorOfVariant::push_vector
-
-```cpp
-void VectorOfVariant::push_vector( VectorOfVariant other );
-AutoIt:
-    $oVectorOfVariant.push_vector( $other ) -> None
-```
-
-```cpp
-void VectorOfVariant::push_vector( VectorOfVariant other,
-                                   size_t          count,
-                                   size_t          start = 0 );
-AutoIt:
-    $oVectorOfVariant.push_vector( $other, $count[, $start] ) -> None
-```
-
-### VectorOfVariant::size
-
-```cpp
-size_t VectorOfVariant::size();
-AutoIt:
-    $oVectorOfVariant.size() -> retval
-```
-
-### VectorOfVariant::slice
-
-```cpp
-VectorOfVariant VectorOfVariant::slice( size_t start = 0,
-                                        size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfVariant.slice( [$start[, $count]] ) -> retval
-```
-
-### VectorOfVariant::sort
-
-```cpp
-void VectorOfVariant::sort( void*  comparator,
-                            size_t start = 0,
-                            size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfVariant.sort( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfVariant::sort_variant
-
-```cpp
-void VectorOfVariant::sort_variant( void*  comparator,
-                                    size_t start = 0,
-                                    size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfVariant.sort_variant( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfVariant::start
-
-```cpp
-void* VectorOfVariant::start();
-AutoIt:
-    $oVectorOfVariant.start() -> retval
-```
-
-### VectorOfVariant::get_Item
-
-```cpp
-_variant_t VectorOfVariant::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfVariant.Item( $vIndex ) -> retval
-    VectorOfVariant( $vIndex ) -> retval
-```
-
-### VectorOfVariant::put_Item
-
-```cpp
-void VectorOfVariant::put_Item( size_t     vIndex,
-                                _variant_t vItem );
-AutoIt:
-    $oVectorOfVariant.Item( $vIndex ) = $vItem
-```
-
-## VectorOfMat
-
-### VectorOfMat::create
-
-```cpp
-static VectorOfMat VectorOfMat::create();
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfMat").create() -> <VectorOfMat object>
-```
-
-```cpp
-static VectorOfMat VectorOfMat::create( size_t size );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfMat").create( $size ) -> <VectorOfMat object>
-```
-
-```cpp
-static VectorOfMat VectorOfMat::create( VectorOfMat other );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfMat").create( $other ) -> <VectorOfMat object>
-```
-
-### VectorOfMat::Add
-
-```cpp
-void VectorOfMat::Add( cv::Mat value );
-AutoIt:
-    $oVectorOfMat.Add( $value ) -> None
-```
-
-### VectorOfMat::Items
-
-```cpp
-VectorOfMat VectorOfMat::Items();
-AutoIt:
-    $oVectorOfMat.Items() -> retval
-```
-
-### VectorOfMat::Keys
-
-```cpp
-std::vector<int> VectorOfMat::Keys();
-AutoIt:
-    $oVectorOfMat.Keys() -> retval
-```
-
-### VectorOfMat::Remove
-
-```cpp
-void VectorOfMat::Remove( size_t index );
-AutoIt:
-    $oVectorOfMat.Remove( $index ) -> None
-```
-
-### VectorOfMat::at
-
-```cpp
-cv::Mat VectorOfMat::at( size_t index );
-AutoIt:
-    $oVectorOfMat.at( $index ) -> retval
-```
-
-```cpp
-void VectorOfMat::at( size_t  index,
-                      cv::Mat value );
-AutoIt:
-    $oVectorOfMat.at( $index, $value ) -> None
-```
-
-### VectorOfMat::clear
-
-```cpp
-void VectorOfMat::clear();
-AutoIt:
-    $oVectorOfMat.clear() -> None
-```
-
-### VectorOfMat::empty
-
-```cpp
-bool VectorOfMat::empty();
-AutoIt:
-    $oVectorOfMat.empty() -> retval
-```
-
-### VectorOfMat::end
-
-```cpp
-void* VectorOfMat::end();
-AutoIt:
-    $oVectorOfMat.end() -> retval
-```
-
-### VectorOfMat::push_back
-
-```cpp
-void VectorOfMat::push_back( cv::Mat value );
-AutoIt:
-    $oVectorOfMat.push_back( $value ) -> None
-```
-
-### VectorOfMat::push_vector
-
-```cpp
-void VectorOfMat::push_vector( VectorOfMat other );
-AutoIt:
-    $oVectorOfMat.push_vector( $other ) -> None
-```
-
-```cpp
-void VectorOfMat::push_vector( VectorOfMat other,
-                               size_t      count,
-                               size_t      start = 0 );
-AutoIt:
-    $oVectorOfMat.push_vector( $other, $count[, $start] ) -> None
-```
-
-### VectorOfMat::size
-
-```cpp
-size_t VectorOfMat::size();
-AutoIt:
-    $oVectorOfMat.size() -> retval
-```
-
-### VectorOfMat::slice
-
-```cpp
-VectorOfMat VectorOfMat::slice( size_t start = 0,
-                                size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfMat.slice( [$start[, $count]] ) -> retval
-```
-
-### VectorOfMat::sort
-
-```cpp
-void VectorOfMat::sort( void*  comparator,
-                        size_t start = 0,
-                        size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfMat.sort( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfMat::sort_variant
-
-```cpp
-void VectorOfMat::sort_variant( void*  comparator,
-                                size_t start = 0,
-                                size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfMat.sort_variant( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfMat::start
-
-```cpp
-void* VectorOfMat::start();
-AutoIt:
-    $oVectorOfMat.start() -> retval
-```
-
-### VectorOfMat::get_Item
-
-```cpp
-cv::Mat VectorOfMat::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfMat.Item( $vIndex ) -> retval
-    VectorOfMat( $vIndex ) -> retval
-```
-
-### VectorOfMat::put_Item
-
-```cpp
-void VectorOfMat::put_Item( size_t  vIndex,
-                            cv::Mat vItem );
-AutoIt:
-    $oVectorOfMat.Item( $vIndex ) = $vItem
-```
-
-## VectorOfInt
-
-### VectorOfInt::create
-
-```cpp
-static VectorOfInt VectorOfInt::create();
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfInt").create() -> <VectorOfInt object>
-```
-
-```cpp
-static VectorOfInt VectorOfInt::create( size_t size );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfInt").create( $size ) -> <VectorOfInt object>
-```
-
-```cpp
-static VectorOfInt VectorOfInt::create( VectorOfInt other );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfInt").create( $other ) -> <VectorOfInt object>
-```
-
-### VectorOfInt::Add
-
-```cpp
-void VectorOfInt::Add( int value );
-AutoIt:
-    $oVectorOfInt.Add( $value ) -> None
-```
-
-### VectorOfInt::Items
-
-```cpp
-VectorOfInt VectorOfInt::Items();
-AutoIt:
-    $oVectorOfInt.Items() -> retval
-```
-
-### VectorOfInt::Keys
-
-```cpp
-std::vector<int> VectorOfInt::Keys();
-AutoIt:
-    $oVectorOfInt.Keys() -> retval
-```
-
-### VectorOfInt::Remove
-
-```cpp
-void VectorOfInt::Remove( size_t index );
-AutoIt:
-    $oVectorOfInt.Remove( $index ) -> None
-```
-
-### VectorOfInt::at
-
-```cpp
-int VectorOfInt::at( size_t index );
-AutoIt:
-    $oVectorOfInt.at( $index ) -> retval
-```
-
-```cpp
-void VectorOfInt::at( size_t index,
-                      int    value );
-AutoIt:
-    $oVectorOfInt.at( $index, $value ) -> None
-```
-
-### VectorOfInt::clear
-
-```cpp
-void VectorOfInt::clear();
-AutoIt:
-    $oVectorOfInt.clear() -> None
-```
-
-### VectorOfInt::empty
-
-```cpp
-bool VectorOfInt::empty();
-AutoIt:
-    $oVectorOfInt.empty() -> retval
-```
-
-### VectorOfInt::end
-
-```cpp
-void* VectorOfInt::end();
-AutoIt:
-    $oVectorOfInt.end() -> retval
-```
-
-### VectorOfInt::push_back
-
-```cpp
-void VectorOfInt::push_back( int value );
-AutoIt:
-    $oVectorOfInt.push_back( $value ) -> None
-```
-
-### VectorOfInt::push_vector
-
-```cpp
-void VectorOfInt::push_vector( VectorOfInt other );
-AutoIt:
-    $oVectorOfInt.push_vector( $other ) -> None
-```
-
-```cpp
-void VectorOfInt::push_vector( VectorOfInt other,
-                               size_t      count,
-                               size_t      start = 0 );
-AutoIt:
-    $oVectorOfInt.push_vector( $other, $count[, $start] ) -> None
-```
-
-### VectorOfInt::size
-
-```cpp
-size_t VectorOfInt::size();
-AutoIt:
-    $oVectorOfInt.size() -> retval
-```
-
-### VectorOfInt::slice
-
-```cpp
-VectorOfInt VectorOfInt::slice( size_t start = 0,
-                                size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfInt.slice( [$start[, $count]] ) -> retval
-```
-
-### VectorOfInt::sort
-
-```cpp
-void VectorOfInt::sort( void*  comparator,
-                        size_t start = 0,
-                        size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfInt.sort( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfInt::sort_variant
-
-```cpp
-void VectorOfInt::sort_variant( void*  comparator,
-                                size_t start = 0,
-                                size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfInt.sort_variant( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfInt::start
-
-```cpp
-void* VectorOfInt::start();
-AutoIt:
-    $oVectorOfInt.start() -> retval
-```
-
-### VectorOfInt::get_Item
-
-```cpp
-int VectorOfInt::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfInt.Item( $vIndex ) -> retval
-    VectorOfInt( $vIndex ) -> retval
-```
-
-### VectorOfInt::put_Item
-
-```cpp
-void VectorOfInt::put_Item( size_t vIndex,
-                            int    vItem );
-AutoIt:
-    $oVectorOfInt.Item( $vIndex ) = $vItem
-```
-
-## VectorOfFloat
-
-### VectorOfFloat::create
-
-```cpp
-static VectorOfFloat VectorOfFloat::create();
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfFloat").create() -> <VectorOfFloat object>
-```
-
-```cpp
-static VectorOfFloat VectorOfFloat::create( size_t size );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfFloat").create( $size ) -> <VectorOfFloat object>
-```
-
-```cpp
-static VectorOfFloat VectorOfFloat::create( VectorOfFloat other );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfFloat").create( $other ) -> <VectorOfFloat object>
-```
-
-### VectorOfFloat::Add
-
-```cpp
-void VectorOfFloat::Add( float value );
-AutoIt:
-    $oVectorOfFloat.Add( $value ) -> None
-```
-
-### VectorOfFloat::Items
-
-```cpp
-VectorOfFloat VectorOfFloat::Items();
-AutoIt:
-    $oVectorOfFloat.Items() -> retval
-```
-
-### VectorOfFloat::Keys
-
-```cpp
-std::vector<int> VectorOfFloat::Keys();
-AutoIt:
-    $oVectorOfFloat.Keys() -> retval
-```
-
-### VectorOfFloat::Remove
-
-```cpp
-void VectorOfFloat::Remove( size_t index );
-AutoIt:
-    $oVectorOfFloat.Remove( $index ) -> None
-```
-
-### VectorOfFloat::at
-
-```cpp
-float VectorOfFloat::at( size_t index );
-AutoIt:
-    $oVectorOfFloat.at( $index ) -> retval
-```
-
-```cpp
-void VectorOfFloat::at( size_t index,
-                        float  value );
-AutoIt:
-    $oVectorOfFloat.at( $index, $value ) -> None
-```
-
-### VectorOfFloat::clear
-
-```cpp
-void VectorOfFloat::clear();
-AutoIt:
-    $oVectorOfFloat.clear() -> None
-```
-
-### VectorOfFloat::empty
-
-```cpp
-bool VectorOfFloat::empty();
-AutoIt:
-    $oVectorOfFloat.empty() -> retval
-```
-
-### VectorOfFloat::end
-
-```cpp
-void* VectorOfFloat::end();
-AutoIt:
-    $oVectorOfFloat.end() -> retval
-```
-
-### VectorOfFloat::push_back
-
-```cpp
-void VectorOfFloat::push_back( float value );
-AutoIt:
-    $oVectorOfFloat.push_back( $value ) -> None
-```
-
-### VectorOfFloat::push_vector
-
-```cpp
-void VectorOfFloat::push_vector( VectorOfFloat other );
-AutoIt:
-    $oVectorOfFloat.push_vector( $other ) -> None
-```
-
-```cpp
-void VectorOfFloat::push_vector( VectorOfFloat other,
-                                 size_t        count,
-                                 size_t        start = 0 );
-AutoIt:
-    $oVectorOfFloat.push_vector( $other, $count[, $start] ) -> None
-```
-
-### VectorOfFloat::size
-
-```cpp
-size_t VectorOfFloat::size();
-AutoIt:
-    $oVectorOfFloat.size() -> retval
-```
-
-### VectorOfFloat::slice
-
-```cpp
-VectorOfFloat VectorOfFloat::slice( size_t start = 0,
-                                    size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfFloat.slice( [$start[, $count]] ) -> retval
-```
-
-### VectorOfFloat::sort
-
-```cpp
-void VectorOfFloat::sort( void*  comparator,
-                          size_t start = 0,
-                          size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfFloat.sort( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfFloat::sort_variant
-
-```cpp
-void VectorOfFloat::sort_variant( void*  comparator,
-                                  size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfFloat.sort_variant( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfFloat::start
-
-```cpp
-void* VectorOfFloat::start();
-AutoIt:
-    $oVectorOfFloat.start() -> retval
-```
-
-### VectorOfFloat::get_Item
-
-```cpp
-float VectorOfFloat::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfFloat.Item( $vIndex ) -> retval
-    VectorOfFloat( $vIndex ) -> retval
-```
-
-### VectorOfFloat::put_Item
-
-```cpp
-void VectorOfFloat::put_Item( size_t vIndex,
-                              float  vItem );
-AutoIt:
-    $oVectorOfFloat.Item( $vIndex ) = $vItem
-```
-
-## VectorOfKeyPoint
-
-### VectorOfKeyPoint::create
-
-```cpp
-static VectorOfKeyPoint VectorOfKeyPoint::create();
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfKeyPoint").create() -> <VectorOfKeyPoint object>
-```
-
-```cpp
-static VectorOfKeyPoint VectorOfKeyPoint::create( size_t size );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfKeyPoint").create( $size ) -> <VectorOfKeyPoint object>
-```
-
-```cpp
-static VectorOfKeyPoint VectorOfKeyPoint::create( VectorOfKeyPoint other );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfKeyPoint").create( $other ) -> <VectorOfKeyPoint object>
-```
-
-### VectorOfKeyPoint::Add
-
-```cpp
-void VectorOfKeyPoint::Add( cv::KeyPoint value );
-AutoIt:
-    $oVectorOfKeyPoint.Add( $value ) -> None
-```
-
-### VectorOfKeyPoint::Items
-
-```cpp
-VectorOfKeyPoint VectorOfKeyPoint::Items();
-AutoIt:
-    $oVectorOfKeyPoint.Items() -> retval
-```
-
-### VectorOfKeyPoint::Keys
-
-```cpp
-std::vector<int> VectorOfKeyPoint::Keys();
-AutoIt:
-    $oVectorOfKeyPoint.Keys() -> retval
-```
-
-### VectorOfKeyPoint::Remove
-
-```cpp
-void VectorOfKeyPoint::Remove( size_t index );
-AutoIt:
-    $oVectorOfKeyPoint.Remove( $index ) -> None
-```
-
-### VectorOfKeyPoint::at
-
-```cpp
-cv::KeyPoint VectorOfKeyPoint::at( size_t index );
-AutoIt:
-    $oVectorOfKeyPoint.at( $index ) -> retval
-```
-
-```cpp
-void VectorOfKeyPoint::at( size_t       index,
-                           cv::KeyPoint value );
-AutoIt:
-    $oVectorOfKeyPoint.at( $index, $value ) -> None
-```
-
-### VectorOfKeyPoint::clear
-
-```cpp
-void VectorOfKeyPoint::clear();
-AutoIt:
-    $oVectorOfKeyPoint.clear() -> None
-```
-
-### VectorOfKeyPoint::empty
-
-```cpp
-bool VectorOfKeyPoint::empty();
-AutoIt:
-    $oVectorOfKeyPoint.empty() -> retval
-```
-
-### VectorOfKeyPoint::end
-
-```cpp
-void* VectorOfKeyPoint::end();
-AutoIt:
-    $oVectorOfKeyPoint.end() -> retval
-```
-
-### VectorOfKeyPoint::push_back
-
-```cpp
-void VectorOfKeyPoint::push_back( cv::KeyPoint value );
-AutoIt:
-    $oVectorOfKeyPoint.push_back( $value ) -> None
-```
-
-### VectorOfKeyPoint::push_vector
-
-```cpp
-void VectorOfKeyPoint::push_vector( VectorOfKeyPoint other );
-AutoIt:
-    $oVectorOfKeyPoint.push_vector( $other ) -> None
-```
-
-```cpp
-void VectorOfKeyPoint::push_vector( VectorOfKeyPoint other,
-                                    size_t           count,
-                                    size_t           start = 0 );
-AutoIt:
-    $oVectorOfKeyPoint.push_vector( $other, $count[, $start] ) -> None
-```
-
-### VectorOfKeyPoint::size
-
-```cpp
-size_t VectorOfKeyPoint::size();
-AutoIt:
-    $oVectorOfKeyPoint.size() -> retval
-```
-
-### VectorOfKeyPoint::slice
-
-```cpp
-VectorOfKeyPoint VectorOfKeyPoint::slice( size_t start = 0,
-                                          size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfKeyPoint.slice( [$start[, $count]] ) -> retval
-```
-
-### VectorOfKeyPoint::sort
-
-```cpp
-void VectorOfKeyPoint::sort( void*  comparator,
-                             size_t start = 0,
-                             size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfKeyPoint.sort( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfKeyPoint::sort_variant
-
-```cpp
-void VectorOfKeyPoint::sort_variant( void*  comparator,
-                                     size_t start = 0,
-                                     size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfKeyPoint.sort_variant( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfKeyPoint::start
-
-```cpp
-void* VectorOfKeyPoint::start();
-AutoIt:
-    $oVectorOfKeyPoint.start() -> retval
-```
-
-### VectorOfKeyPoint::get_Item
-
-```cpp
-cv::KeyPoint VectorOfKeyPoint::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfKeyPoint.Item( $vIndex ) -> retval
-    VectorOfKeyPoint( $vIndex ) -> retval
-```
-
-### VectorOfKeyPoint::put_Item
-
-```cpp
-void VectorOfKeyPoint::put_Item( size_t       vIndex,
-                                 cv::KeyPoint vItem );
-AutoIt:
-    $oVectorOfKeyPoint.Item( $vIndex ) = $vItem
-```
-
-## VectorOfDMatch
-
-### VectorOfDMatch::create
-
-```cpp
-static VectorOfDMatch VectorOfDMatch::create();
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfDMatch").create() -> <VectorOfDMatch object>
-```
-
-```cpp
-static VectorOfDMatch VectorOfDMatch::create( size_t size );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfDMatch").create( $size ) -> <VectorOfDMatch object>
-```
-
-```cpp
-static VectorOfDMatch VectorOfDMatch::create( VectorOfDMatch other );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfDMatch").create( $other ) -> <VectorOfDMatch object>
-```
-
-### VectorOfDMatch::Add
-
-```cpp
-void VectorOfDMatch::Add( cv::DMatch value );
-AutoIt:
-    $oVectorOfDMatch.Add( $value ) -> None
-```
-
-### VectorOfDMatch::Items
-
-```cpp
-VectorOfDMatch VectorOfDMatch::Items();
-AutoIt:
-    $oVectorOfDMatch.Items() -> retval
-```
-
-### VectorOfDMatch::Keys
-
-```cpp
-std::vector<int> VectorOfDMatch::Keys();
-AutoIt:
-    $oVectorOfDMatch.Keys() -> retval
-```
-
-### VectorOfDMatch::Remove
-
-```cpp
-void VectorOfDMatch::Remove( size_t index );
-AutoIt:
-    $oVectorOfDMatch.Remove( $index ) -> None
-```
-
-### VectorOfDMatch::at
-
-```cpp
-cv::DMatch VectorOfDMatch::at( size_t index );
-AutoIt:
-    $oVectorOfDMatch.at( $index ) -> retval
-```
-
-```cpp
-void VectorOfDMatch::at( size_t     index,
-                         cv::DMatch value );
-AutoIt:
-    $oVectorOfDMatch.at( $index, $value ) -> None
-```
-
-### VectorOfDMatch::clear
-
-```cpp
-void VectorOfDMatch::clear();
-AutoIt:
-    $oVectorOfDMatch.clear() -> None
-```
-
-### VectorOfDMatch::empty
-
-```cpp
-bool VectorOfDMatch::empty();
-AutoIt:
-    $oVectorOfDMatch.empty() -> retval
-```
-
-### VectorOfDMatch::end
-
-```cpp
-void* VectorOfDMatch::end();
-AutoIt:
-    $oVectorOfDMatch.end() -> retval
-```
-
-### VectorOfDMatch::push_back
-
-```cpp
-void VectorOfDMatch::push_back( cv::DMatch value );
-AutoIt:
-    $oVectorOfDMatch.push_back( $value ) -> None
-```
-
-### VectorOfDMatch::push_vector
-
-```cpp
-void VectorOfDMatch::push_vector( VectorOfDMatch other );
-AutoIt:
-    $oVectorOfDMatch.push_vector( $other ) -> None
-```
-
-```cpp
-void VectorOfDMatch::push_vector( VectorOfDMatch other,
-                                  size_t         count,
-                                  size_t         start = 0 );
-AutoIt:
-    $oVectorOfDMatch.push_vector( $other, $count[, $start] ) -> None
-```
-
-### VectorOfDMatch::size
-
-```cpp
-size_t VectorOfDMatch::size();
-AutoIt:
-    $oVectorOfDMatch.size() -> retval
-```
-
-### VectorOfDMatch::slice
-
-```cpp
-VectorOfDMatch VectorOfDMatch::slice( size_t start = 0,
-                                      size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfDMatch.slice( [$start[, $count]] ) -> retval
-```
-
-### VectorOfDMatch::sort
-
-```cpp
-void VectorOfDMatch::sort( void*  comparator,
-                           size_t start = 0,
-                           size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfDMatch.sort( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfDMatch::sort_variant
-
-```cpp
-void VectorOfDMatch::sort_variant( void*  comparator,
-                                   size_t start = 0,
-                                   size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfDMatch.sort_variant( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfDMatch::start
-
-```cpp
-void* VectorOfDMatch::start();
-AutoIt:
-    $oVectorOfDMatch.start() -> retval
-```
-
-### VectorOfDMatch::get_Item
-
-```cpp
-cv::DMatch VectorOfDMatch::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfDMatch.Item( $vIndex ) -> retval
-    VectorOfDMatch( $vIndex ) -> retval
-```
-
-### VectorOfDMatch::put_Item
-
-```cpp
-void VectorOfDMatch::put_Item( size_t     vIndex,
-                               cv::DMatch vItem );
-AutoIt:
-    $oVectorOfDMatch.Item( $vIndex ) = $vItem
-```
-
-## VectorOfChar
-
-### VectorOfChar::create
-
-```cpp
-static VectorOfChar VectorOfChar::create();
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfChar").create() -> <VectorOfChar object>
-```
-
-```cpp
-static VectorOfChar VectorOfChar::create( size_t size );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfChar").create( $size ) -> <VectorOfChar object>
-```
-
-```cpp
-static VectorOfChar VectorOfChar::create( VectorOfChar other );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfChar").create( $other ) -> <VectorOfChar object>
-```
-
-### VectorOfChar::Add
-
-```cpp
-void VectorOfChar::Add( char value );
-AutoIt:
-    $oVectorOfChar.Add( $value ) -> None
-```
-
-### VectorOfChar::Items
-
-```cpp
-VectorOfChar VectorOfChar::Items();
-AutoIt:
-    $oVectorOfChar.Items() -> retval
-```
-
-### VectorOfChar::Keys
-
-```cpp
-std::vector<int> VectorOfChar::Keys();
-AutoIt:
-    $oVectorOfChar.Keys() -> retval
-```
-
-### VectorOfChar::Remove
-
-```cpp
-void VectorOfChar::Remove( size_t index );
-AutoIt:
-    $oVectorOfChar.Remove( $index ) -> None
-```
-
-### VectorOfChar::at
-
-```cpp
-char VectorOfChar::at( size_t index );
-AutoIt:
-    $oVectorOfChar.at( $index ) -> retval
-```
-
-```cpp
-void VectorOfChar::at( size_t index,
-                       char   value );
-AutoIt:
-    $oVectorOfChar.at( $index, $value ) -> None
-```
-
-### VectorOfChar::clear
-
-```cpp
-void VectorOfChar::clear();
-AutoIt:
-    $oVectorOfChar.clear() -> None
-```
-
-### VectorOfChar::empty
-
-```cpp
-bool VectorOfChar::empty();
-AutoIt:
-    $oVectorOfChar.empty() -> retval
-```
-
-### VectorOfChar::end
-
-```cpp
-void* VectorOfChar::end();
-AutoIt:
-    $oVectorOfChar.end() -> retval
-```
-
-### VectorOfChar::push_back
-
-```cpp
-void VectorOfChar::push_back( char value );
-AutoIt:
-    $oVectorOfChar.push_back( $value ) -> None
-```
-
-### VectorOfChar::push_vector
-
-```cpp
-void VectorOfChar::push_vector( VectorOfChar other );
-AutoIt:
-    $oVectorOfChar.push_vector( $other ) -> None
-```
-
-```cpp
-void VectorOfChar::push_vector( VectorOfChar other,
-                                size_t       count,
-                                size_t       start = 0 );
-AutoIt:
-    $oVectorOfChar.push_vector( $other, $count[, $start] ) -> None
-```
-
-### VectorOfChar::size
-
-```cpp
-size_t VectorOfChar::size();
-AutoIt:
-    $oVectorOfChar.size() -> retval
-```
-
-### VectorOfChar::slice
-
-```cpp
-VectorOfChar VectorOfChar::slice( size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfChar.slice( [$start[, $count]] ) -> retval
-```
-
-### VectorOfChar::sort
-
-```cpp
-void VectorOfChar::sort( void*  comparator,
-                         size_t start = 0,
-                         size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfChar.sort( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfChar::sort_variant
-
-```cpp
-void VectorOfChar::sort_variant( void*  comparator,
-                                 size_t start = 0,
-                                 size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfChar.sort_variant( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfChar::start
-
-```cpp
-void* VectorOfChar::start();
-AutoIt:
-    $oVectorOfChar.start() -> retval
-```
-
-### VectorOfChar::get_Item
-
-```cpp
-char VectorOfChar::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfChar.Item( $vIndex ) -> retval
-    VectorOfChar( $vIndex ) -> retval
-```
-
-### VectorOfChar::put_Item
-
-```cpp
-void VectorOfChar::put_Item( size_t vIndex,
-                             char   vItem );
-AutoIt:
-    $oVectorOfChar.Item( $vIndex ) = $vItem
-```
-
-## VectorOfVectorOfDMatch
-
-### VectorOfVectorOfDMatch::create
-
-```cpp
-static VectorOfVectorOfDMatch VectorOfVectorOfDMatch::create();
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfVectorOfDMatch").create() -> <VectorOfVectorOfDMatch object>
-```
-
-```cpp
-static VectorOfVectorOfDMatch VectorOfVectorOfDMatch::create( size_t size );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfVectorOfDMatch").create( $size ) -> <VectorOfVectorOfDMatch object>
-```
-
-```cpp
-static VectorOfVectorOfDMatch VectorOfVectorOfDMatch::create( VectorOfVectorOfDMatch other );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfVectorOfDMatch").create( $other ) -> <VectorOfVectorOfDMatch object>
-```
-
-### VectorOfVectorOfDMatch::Add
-
-```cpp
-void VectorOfVectorOfDMatch::Add( std::vector<cv::DMatch> value );
-AutoIt:
-    $oVectorOfVectorOfDMatch.Add( $value ) -> None
-```
-
-### VectorOfVectorOfDMatch::Items
-
-```cpp
-VectorOfVectorOfDMatch VectorOfVectorOfDMatch::Items();
-AutoIt:
-    $oVectorOfVectorOfDMatch.Items() -> retval
-```
-
-### VectorOfVectorOfDMatch::Keys
-
-```cpp
-std::vector<int> VectorOfVectorOfDMatch::Keys();
-AutoIt:
-    $oVectorOfVectorOfDMatch.Keys() -> retval
-```
-
-### VectorOfVectorOfDMatch::Remove
-
-```cpp
-void VectorOfVectorOfDMatch::Remove( size_t index );
-AutoIt:
-    $oVectorOfVectorOfDMatch.Remove( $index ) -> None
-```
-
-### VectorOfVectorOfDMatch::at
-
-```cpp
-std::vector<cv::DMatch> VectorOfVectorOfDMatch::at( size_t index );
-AutoIt:
-    $oVectorOfVectorOfDMatch.at( $index ) -> retval
-```
-
-```cpp
-void VectorOfVectorOfDMatch::at( size_t                  index,
-                                 std::vector<cv::DMatch> value );
-AutoIt:
-    $oVectorOfVectorOfDMatch.at( $index, $value ) -> None
-```
-
-### VectorOfVectorOfDMatch::clear
-
-```cpp
-void VectorOfVectorOfDMatch::clear();
-AutoIt:
-    $oVectorOfVectorOfDMatch.clear() -> None
-```
-
-### VectorOfVectorOfDMatch::empty
-
-```cpp
-bool VectorOfVectorOfDMatch::empty();
-AutoIt:
-    $oVectorOfVectorOfDMatch.empty() -> retval
-```
-
-### VectorOfVectorOfDMatch::end
-
-```cpp
-void* VectorOfVectorOfDMatch::end();
-AutoIt:
-    $oVectorOfVectorOfDMatch.end() -> retval
-```
-
-### VectorOfVectorOfDMatch::push_back
-
-```cpp
-void VectorOfVectorOfDMatch::push_back( std::vector<cv::DMatch> value );
-AutoIt:
-    $oVectorOfVectorOfDMatch.push_back( $value ) -> None
-```
-
-### VectorOfVectorOfDMatch::push_vector
-
-```cpp
-void VectorOfVectorOfDMatch::push_vector( VectorOfVectorOfDMatch other );
-AutoIt:
-    $oVectorOfVectorOfDMatch.push_vector( $other ) -> None
-```
-
-```cpp
-void VectorOfVectorOfDMatch::push_vector( VectorOfVectorOfDMatch other,
-                                          size_t                 count,
-                                          size_t                 start = 0 );
-AutoIt:
-    $oVectorOfVectorOfDMatch.push_vector( $other, $count[, $start] ) -> None
-```
-
-### VectorOfVectorOfDMatch::size
-
-```cpp
-size_t VectorOfVectorOfDMatch::size();
-AutoIt:
-    $oVectorOfVectorOfDMatch.size() -> retval
-```
-
-### VectorOfVectorOfDMatch::slice
-
-```cpp
-VectorOfVectorOfDMatch VectorOfVectorOfDMatch::slice( size_t start = 0,
-                                                      size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfVectorOfDMatch.slice( [$start[, $count]] ) -> retval
-```
-
-### VectorOfVectorOfDMatch::sort
-
-```cpp
-void VectorOfVectorOfDMatch::sort( void*  comparator,
-                                   size_t start = 0,
-                                   size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfVectorOfDMatch.sort( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfVectorOfDMatch::sort_variant
-
-```cpp
-void VectorOfVectorOfDMatch::sort_variant( void*  comparator,
-                                           size_t start = 0,
-                                           size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfVectorOfDMatch.sort_variant( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfVectorOfDMatch::start
-
-```cpp
-void* VectorOfVectorOfDMatch::start();
-AutoIt:
-    $oVectorOfVectorOfDMatch.start() -> retval
-```
-
-### VectorOfVectorOfDMatch::get_Item
-
-```cpp
-std::vector<cv::DMatch> VectorOfVectorOfDMatch::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfVectorOfDMatch.Item( $vIndex ) -> retval
-    VectorOfVectorOfDMatch( $vIndex ) -> retval
-```
-
-### VectorOfVectorOfDMatch::put_Item
-
-```cpp
-void VectorOfVectorOfDMatch::put_Item( size_t                  vIndex,
-                                       std::vector<cv::DMatch> vItem );
-AutoIt:
-    $oVectorOfVectorOfDMatch.Item( $vIndex ) = $vItem
-```
-
-## VectorOfVectorOfChar
-
-### VectorOfVectorOfChar::create
-
-```cpp
-static VectorOfVectorOfChar VectorOfVectorOfChar::create();
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfVectorOfChar").create() -> <VectorOfVectorOfChar object>
-```
-
-```cpp
-static VectorOfVectorOfChar VectorOfVectorOfChar::create( size_t size );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfVectorOfChar").create( $size ) -> <VectorOfVectorOfChar object>
-```
-
-```cpp
-static VectorOfVectorOfChar VectorOfVectorOfChar::create( VectorOfVectorOfChar other );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfVectorOfChar").create( $other ) -> <VectorOfVectorOfChar object>
-```
-
-### VectorOfVectorOfChar::Add
-
-```cpp
-void VectorOfVectorOfChar::Add( std::vector<char> value );
-AutoIt:
-    $oVectorOfVectorOfChar.Add( $value ) -> None
-```
-
-### VectorOfVectorOfChar::Items
-
-```cpp
-VectorOfVectorOfChar VectorOfVectorOfChar::Items();
-AutoIt:
-    $oVectorOfVectorOfChar.Items() -> retval
-```
-
-### VectorOfVectorOfChar::Keys
-
-```cpp
-std::vector<int> VectorOfVectorOfChar::Keys();
-AutoIt:
-    $oVectorOfVectorOfChar.Keys() -> retval
-```
-
-### VectorOfVectorOfChar::Remove
-
-```cpp
-void VectorOfVectorOfChar::Remove( size_t index );
-AutoIt:
-    $oVectorOfVectorOfChar.Remove( $index ) -> None
-```
-
-### VectorOfVectorOfChar::at
-
-```cpp
-std::vector<char> VectorOfVectorOfChar::at( size_t index );
-AutoIt:
-    $oVectorOfVectorOfChar.at( $index ) -> retval
-```
-
-```cpp
-void VectorOfVectorOfChar::at( size_t            index,
-                               std::vector<char> value );
-AutoIt:
-    $oVectorOfVectorOfChar.at( $index, $value ) -> None
-```
-
-### VectorOfVectorOfChar::clear
-
-```cpp
-void VectorOfVectorOfChar::clear();
-AutoIt:
-    $oVectorOfVectorOfChar.clear() -> None
-```
-
-### VectorOfVectorOfChar::empty
-
-```cpp
-bool VectorOfVectorOfChar::empty();
-AutoIt:
-    $oVectorOfVectorOfChar.empty() -> retval
-```
-
-### VectorOfVectorOfChar::end
-
-```cpp
-void* VectorOfVectorOfChar::end();
-AutoIt:
-    $oVectorOfVectorOfChar.end() -> retval
-```
-
-### VectorOfVectorOfChar::push_back
-
-```cpp
-void VectorOfVectorOfChar::push_back( std::vector<char> value );
-AutoIt:
-    $oVectorOfVectorOfChar.push_back( $value ) -> None
-```
-
-### VectorOfVectorOfChar::push_vector
-
-```cpp
-void VectorOfVectorOfChar::push_vector( VectorOfVectorOfChar other );
-AutoIt:
-    $oVectorOfVectorOfChar.push_vector( $other ) -> None
-```
-
-```cpp
-void VectorOfVectorOfChar::push_vector( VectorOfVectorOfChar other,
-                                        size_t               count,
-                                        size_t               start = 0 );
-AutoIt:
-    $oVectorOfVectorOfChar.push_vector( $other, $count[, $start] ) -> None
-```
-
-### VectorOfVectorOfChar::size
-
-```cpp
-size_t VectorOfVectorOfChar::size();
-AutoIt:
-    $oVectorOfVectorOfChar.size() -> retval
-```
-
-### VectorOfVectorOfChar::slice
-
-```cpp
-VectorOfVectorOfChar VectorOfVectorOfChar::slice( size_t start = 0,
-                                                  size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfVectorOfChar.slice( [$start[, $count]] ) -> retval
-```
-
-### VectorOfVectorOfChar::sort
-
-```cpp
-void VectorOfVectorOfChar::sort( void*  comparator,
-                                 size_t start = 0,
-                                 size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfVectorOfChar.sort( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfVectorOfChar::sort_variant
-
-```cpp
-void VectorOfVectorOfChar::sort_variant( void*  comparator,
-                                         size_t start = 0,
-                                         size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfVectorOfChar.sort_variant( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfVectorOfChar::start
-
-```cpp
-void* VectorOfVectorOfChar::start();
-AutoIt:
-    $oVectorOfVectorOfChar.start() -> retval
-```
-
-### VectorOfVectorOfChar::get_Item
-
-```cpp
-std::vector<char> VectorOfVectorOfChar::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfVectorOfChar.Item( $vIndex ) -> retval
-    VectorOfVectorOfChar( $vIndex ) -> retval
-```
-
-### VectorOfVectorOfChar::put_Item
-
-```cpp
-void VectorOfVectorOfChar::put_Item( size_t            vIndex,
-                                     std::vector<char> vItem );
-AutoIt:
-    $oVectorOfVectorOfChar.Item( $vIndex ) = $vItem
-```
-
-## VectorOfPoint
-
-### VectorOfPoint::create
-
-```cpp
-static VectorOfPoint VectorOfPoint::create();
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfPoint").create() -> <VectorOfPoint object>
-```
-
-```cpp
-static VectorOfPoint VectorOfPoint::create( size_t size );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfPoint").create( $size ) -> <VectorOfPoint object>
-```
-
-```cpp
-static VectorOfPoint VectorOfPoint::create( VectorOfPoint other );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfPoint").create( $other ) -> <VectorOfPoint object>
-```
-
-### VectorOfPoint::Add
-
-```cpp
-void VectorOfPoint::Add( cv::Point value );
-AutoIt:
-    $oVectorOfPoint.Add( $value ) -> None
-```
-
-### VectorOfPoint::Items
-
-```cpp
-VectorOfPoint VectorOfPoint::Items();
-AutoIt:
-    $oVectorOfPoint.Items() -> retval
-```
-
-### VectorOfPoint::Keys
-
-```cpp
-std::vector<int> VectorOfPoint::Keys();
-AutoIt:
-    $oVectorOfPoint.Keys() -> retval
-```
-
-### VectorOfPoint::Remove
-
-```cpp
-void VectorOfPoint::Remove( size_t index );
-AutoIt:
-    $oVectorOfPoint.Remove( $index ) -> None
-```
-
-### VectorOfPoint::at
-
-```cpp
-cv::Point VectorOfPoint::at( size_t index );
-AutoIt:
-    $oVectorOfPoint.at( $index ) -> retval
-```
-
-```cpp
-void VectorOfPoint::at( size_t    index,
-                        cv::Point value );
-AutoIt:
-    $oVectorOfPoint.at( $index, $value ) -> None
-```
-
-### VectorOfPoint::clear
-
-```cpp
-void VectorOfPoint::clear();
-AutoIt:
-    $oVectorOfPoint.clear() -> None
-```
-
-### VectorOfPoint::empty
-
-```cpp
-bool VectorOfPoint::empty();
-AutoIt:
-    $oVectorOfPoint.empty() -> retval
-```
-
-### VectorOfPoint::end
-
-```cpp
-void* VectorOfPoint::end();
-AutoIt:
-    $oVectorOfPoint.end() -> retval
-```
-
-### VectorOfPoint::push_back
-
-```cpp
-void VectorOfPoint::push_back( cv::Point value );
-AutoIt:
-    $oVectorOfPoint.push_back( $value ) -> None
-```
-
-### VectorOfPoint::push_vector
-
-```cpp
-void VectorOfPoint::push_vector( VectorOfPoint other );
-AutoIt:
-    $oVectorOfPoint.push_vector( $other ) -> None
-```
-
-```cpp
-void VectorOfPoint::push_vector( VectorOfPoint other,
-                                 size_t        count,
-                                 size_t        start = 0 );
-AutoIt:
-    $oVectorOfPoint.push_vector( $other, $count[, $start] ) -> None
-```
-
-### VectorOfPoint::size
-
-```cpp
-size_t VectorOfPoint::size();
-AutoIt:
-    $oVectorOfPoint.size() -> retval
-```
-
-### VectorOfPoint::slice
-
-```cpp
-VectorOfPoint VectorOfPoint::slice( size_t start = 0,
-                                    size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfPoint.slice( [$start[, $count]] ) -> retval
-```
-
-### VectorOfPoint::sort
-
-```cpp
-void VectorOfPoint::sort( void*  comparator,
-                          size_t start = 0,
-                          size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfPoint.sort( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfPoint::sort_variant
-
-```cpp
-void VectorOfPoint::sort_variant( void*  comparator,
-                                  size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfPoint.sort_variant( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfPoint::start
-
-```cpp
-void* VectorOfPoint::start();
-AutoIt:
-    $oVectorOfPoint.start() -> retval
-```
-
-### VectorOfPoint::get_Item
-
-```cpp
-cv::Point VectorOfPoint::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfPoint.Item( $vIndex ) -> retval
-    VectorOfPoint( $vIndex ) -> retval
-```
-
-### VectorOfPoint::put_Item
-
-```cpp
-void VectorOfPoint::put_Item( size_t    vIndex,
-                              cv::Point vItem );
-AutoIt:
-    $oVectorOfPoint.Item( $vIndex ) = $vItem
-```
-
-## VectorOfRect
-
-### VectorOfRect::create
-
-```cpp
-static VectorOfRect VectorOfRect::create();
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfRect").create() -> <VectorOfRect object>
-```
-
-```cpp
-static VectorOfRect VectorOfRect::create( size_t size );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfRect").create( $size ) -> <VectorOfRect object>
-```
-
-```cpp
-static VectorOfRect VectorOfRect::create( VectorOfRect other );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfRect").create( $other ) -> <VectorOfRect object>
-```
-
-### VectorOfRect::Add
-
-```cpp
-void VectorOfRect::Add( cv::Rect value );
-AutoIt:
-    $oVectorOfRect.Add( $value ) -> None
-```
-
-### VectorOfRect::Items
-
-```cpp
-VectorOfRect VectorOfRect::Items();
-AutoIt:
-    $oVectorOfRect.Items() -> retval
-```
-
-### VectorOfRect::Keys
-
-```cpp
-std::vector<int> VectorOfRect::Keys();
-AutoIt:
-    $oVectorOfRect.Keys() -> retval
-```
-
-### VectorOfRect::Remove
-
-```cpp
-void VectorOfRect::Remove( size_t index );
-AutoIt:
-    $oVectorOfRect.Remove( $index ) -> None
-```
-
-### VectorOfRect::at
-
-```cpp
-cv::Rect VectorOfRect::at( size_t index );
-AutoIt:
-    $oVectorOfRect.at( $index ) -> retval
-```
-
-```cpp
-void VectorOfRect::at( size_t   index,
-                       cv::Rect value );
-AutoIt:
-    $oVectorOfRect.at( $index, $value ) -> None
-```
-
-### VectorOfRect::clear
-
-```cpp
-void VectorOfRect::clear();
-AutoIt:
-    $oVectorOfRect.clear() -> None
-```
-
-### VectorOfRect::empty
-
-```cpp
-bool VectorOfRect::empty();
-AutoIt:
-    $oVectorOfRect.empty() -> retval
-```
-
-### VectorOfRect::end
-
-```cpp
-void* VectorOfRect::end();
-AutoIt:
-    $oVectorOfRect.end() -> retval
-```
-
-### VectorOfRect::push_back
-
-```cpp
-void VectorOfRect::push_back( cv::Rect value );
-AutoIt:
-    $oVectorOfRect.push_back( $value ) -> None
-```
-
-### VectorOfRect::push_vector
-
-```cpp
-void VectorOfRect::push_vector( VectorOfRect other );
-AutoIt:
-    $oVectorOfRect.push_vector( $other ) -> None
-```
-
-```cpp
-void VectorOfRect::push_vector( VectorOfRect other,
-                                size_t       count,
-                                size_t       start = 0 );
-AutoIt:
-    $oVectorOfRect.push_vector( $other, $count[, $start] ) -> None
-```
-
-### VectorOfRect::size
-
-```cpp
-size_t VectorOfRect::size();
-AutoIt:
-    $oVectorOfRect.size() -> retval
-```
-
-### VectorOfRect::slice
-
-```cpp
-VectorOfRect VectorOfRect::slice( size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfRect.slice( [$start[, $count]] ) -> retval
-```
-
-### VectorOfRect::sort
-
-```cpp
-void VectorOfRect::sort( void*  comparator,
-                         size_t start = 0,
-                         size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfRect.sort( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfRect::sort_variant
-
-```cpp
-void VectorOfRect::sort_variant( void*  comparator,
-                                 size_t start = 0,
-                                 size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfRect.sort_variant( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfRect::start
-
-```cpp
-void* VectorOfRect::start();
-AutoIt:
-    $oVectorOfRect.start() -> retval
-```
-
-### VectorOfRect::get_Item
-
-```cpp
-cv::Rect VectorOfRect::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfRect.Item( $vIndex ) -> retval
-    VectorOfRect( $vIndex ) -> retval
-```
-
-### VectorOfRect::put_Item
-
-```cpp
-void VectorOfRect::put_Item( size_t   vIndex,
-                             cv::Rect vItem );
-AutoIt:
-    $oVectorOfRect.Item( $vIndex ) = $vItem
-```
-
-## VectorOfUchar
-
-### VectorOfUchar::create
-
-```cpp
-static VectorOfUchar VectorOfUchar::create();
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfUchar").create() -> <VectorOfUchar object>
-```
-
-```cpp
-static VectorOfUchar VectorOfUchar::create( size_t size );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfUchar").create( $size ) -> <VectorOfUchar object>
-```
-
-```cpp
-static VectorOfUchar VectorOfUchar::create( VectorOfUchar other );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfUchar").create( $other ) -> <VectorOfUchar object>
-```
-
-### VectorOfUchar::Add
-
-```cpp
-void VectorOfUchar::Add( uchar value );
-AutoIt:
-    $oVectorOfUchar.Add( $value ) -> None
-```
-
-### VectorOfUchar::Items
-
-```cpp
-VectorOfUchar VectorOfUchar::Items();
-AutoIt:
-    $oVectorOfUchar.Items() -> retval
-```
-
-### VectorOfUchar::Keys
-
-```cpp
-std::vector<int> VectorOfUchar::Keys();
-AutoIt:
-    $oVectorOfUchar.Keys() -> retval
-```
-
-### VectorOfUchar::Remove
-
-```cpp
-void VectorOfUchar::Remove( size_t index );
-AutoIt:
-    $oVectorOfUchar.Remove( $index ) -> None
-```
-
-### VectorOfUchar::at
-
-```cpp
-uchar VectorOfUchar::at( size_t index );
-AutoIt:
-    $oVectorOfUchar.at( $index ) -> retval
-```
-
-```cpp
-void VectorOfUchar::at( size_t index,
-                        uchar  value );
-AutoIt:
-    $oVectorOfUchar.at( $index, $value ) -> None
-```
-
-### VectorOfUchar::clear
-
-```cpp
-void VectorOfUchar::clear();
-AutoIt:
-    $oVectorOfUchar.clear() -> None
-```
-
-### VectorOfUchar::empty
-
-```cpp
-bool VectorOfUchar::empty();
-AutoIt:
-    $oVectorOfUchar.empty() -> retval
-```
-
-### VectorOfUchar::end
-
-```cpp
-void* VectorOfUchar::end();
-AutoIt:
-    $oVectorOfUchar.end() -> retval
-```
-
-### VectorOfUchar::push_back
-
-```cpp
-void VectorOfUchar::push_back( uchar value );
-AutoIt:
-    $oVectorOfUchar.push_back( $value ) -> None
-```
-
-### VectorOfUchar::push_vector
-
-```cpp
-void VectorOfUchar::push_vector( VectorOfUchar other );
-AutoIt:
-    $oVectorOfUchar.push_vector( $other ) -> None
-```
-
-```cpp
-void VectorOfUchar::push_vector( VectorOfUchar other,
-                                 size_t        count,
-                                 size_t        start = 0 );
-AutoIt:
-    $oVectorOfUchar.push_vector( $other, $count[, $start] ) -> None
-```
-
-### VectorOfUchar::size
-
-```cpp
-size_t VectorOfUchar::size();
-AutoIt:
-    $oVectorOfUchar.size() -> retval
-```
-
-### VectorOfUchar::slice
-
-```cpp
-VectorOfUchar VectorOfUchar::slice( size_t start = 0,
-                                    size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfUchar.slice( [$start[, $count]] ) -> retval
-```
-
-### VectorOfUchar::sort
-
-```cpp
-void VectorOfUchar::sort( void*  comparator,
-                          size_t start = 0,
-                          size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfUchar.sort( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfUchar::sort_variant
-
-```cpp
-void VectorOfUchar::sort_variant( void*  comparator,
-                                  size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfUchar.sort_variant( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfUchar::start
-
-```cpp
-void* VectorOfUchar::start();
-AutoIt:
-    $oVectorOfUchar.start() -> retval
-```
-
-### VectorOfUchar::get_Item
-
-```cpp
-uchar VectorOfUchar::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfUchar.Item( $vIndex ) -> retval
-    VectorOfUchar( $vIndex ) -> retval
-```
-
-### VectorOfUchar::put_Item
-
-```cpp
-void VectorOfUchar::put_Item( size_t vIndex,
-                              uchar  vItem );
-AutoIt:
-    $oVectorOfUchar.Item( $vIndex ) = $vItem
-```
-
-## VectorOfDouble
-
-### VectorOfDouble::create
-
-```cpp
-static VectorOfDouble VectorOfDouble::create();
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfDouble").create() -> <VectorOfDouble object>
-```
-
-```cpp
-static VectorOfDouble VectorOfDouble::create( size_t size );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfDouble").create( $size ) -> <VectorOfDouble object>
-```
-
-```cpp
-static VectorOfDouble VectorOfDouble::create( VectorOfDouble other );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfDouble").create( $other ) -> <VectorOfDouble object>
-```
-
-### VectorOfDouble::Add
-
-```cpp
-void VectorOfDouble::Add( double value );
-AutoIt:
-    $oVectorOfDouble.Add( $value ) -> None
-```
-
-### VectorOfDouble::Items
-
-```cpp
-VectorOfDouble VectorOfDouble::Items();
-AutoIt:
-    $oVectorOfDouble.Items() -> retval
-```
-
-### VectorOfDouble::Keys
-
-```cpp
-std::vector<int> VectorOfDouble::Keys();
-AutoIt:
-    $oVectorOfDouble.Keys() -> retval
-```
-
-### VectorOfDouble::Remove
-
-```cpp
-void VectorOfDouble::Remove( size_t index );
-AutoIt:
-    $oVectorOfDouble.Remove( $index ) -> None
-```
-
-### VectorOfDouble::at
-
-```cpp
-double VectorOfDouble::at( size_t index );
-AutoIt:
-    $oVectorOfDouble.at( $index ) -> retval
-```
-
-```cpp
-void VectorOfDouble::at( size_t index,
-                         double value );
-AutoIt:
-    $oVectorOfDouble.at( $index, $value ) -> None
-```
-
-### VectorOfDouble::clear
-
-```cpp
-void VectorOfDouble::clear();
-AutoIt:
-    $oVectorOfDouble.clear() -> None
-```
-
-### VectorOfDouble::empty
-
-```cpp
-bool VectorOfDouble::empty();
-AutoIt:
-    $oVectorOfDouble.empty() -> retval
-```
-
-### VectorOfDouble::end
-
-```cpp
-void* VectorOfDouble::end();
-AutoIt:
-    $oVectorOfDouble.end() -> retval
-```
-
-### VectorOfDouble::push_back
-
-```cpp
-void VectorOfDouble::push_back( double value );
-AutoIt:
-    $oVectorOfDouble.push_back( $value ) -> None
-```
-
-### VectorOfDouble::push_vector
-
-```cpp
-void VectorOfDouble::push_vector( VectorOfDouble other );
-AutoIt:
-    $oVectorOfDouble.push_vector( $other ) -> None
-```
-
-```cpp
-void VectorOfDouble::push_vector( VectorOfDouble other,
-                                  size_t         count,
-                                  size_t         start = 0 );
-AutoIt:
-    $oVectorOfDouble.push_vector( $other, $count[, $start] ) -> None
-```
-
-### VectorOfDouble::size
-
-```cpp
-size_t VectorOfDouble::size();
-AutoIt:
-    $oVectorOfDouble.size() -> retval
-```
-
-### VectorOfDouble::slice
-
-```cpp
-VectorOfDouble VectorOfDouble::slice( size_t start = 0,
-                                      size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfDouble.slice( [$start[, $count]] ) -> retval
-```
-
-### VectorOfDouble::sort
-
-```cpp
-void VectorOfDouble::sort( void*  comparator,
-                           size_t start = 0,
-                           size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfDouble.sort( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfDouble::sort_variant
-
-```cpp
-void VectorOfDouble::sort_variant( void*  comparator,
-                                   size_t start = 0,
-                                   size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfDouble.sort_variant( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfDouble::start
-
-```cpp
-void* VectorOfDouble::start();
-AutoIt:
-    $oVectorOfDouble.start() -> retval
-```
-
-### VectorOfDouble::get_Item
-
-```cpp
-double VectorOfDouble::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfDouble.Item( $vIndex ) -> retval
-    VectorOfDouble( $vIndex ) -> retval
-```
-
-### VectorOfDouble::put_Item
-
-```cpp
-void VectorOfDouble::put_Item( size_t vIndex,
-                               double vItem );
-AutoIt:
-    $oVectorOfDouble.Item( $vIndex ) = $vItem
-```
-
-## VectorOfRotatedRect
-
-### VectorOfRotatedRect::create
-
-```cpp
-static VectorOfRotatedRect VectorOfRotatedRect::create();
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfRotatedRect").create() -> <VectorOfRotatedRect object>
-```
-
-```cpp
-static VectorOfRotatedRect VectorOfRotatedRect::create( size_t size );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfRotatedRect").create( $size ) -> <VectorOfRotatedRect object>
-```
-
-```cpp
-static VectorOfRotatedRect VectorOfRotatedRect::create( VectorOfRotatedRect other );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfRotatedRect").create( $other ) -> <VectorOfRotatedRect object>
-```
-
-### VectorOfRotatedRect::Add
-
-```cpp
-void VectorOfRotatedRect::Add( cv::RotatedRect value );
-AutoIt:
-    $oVectorOfRotatedRect.Add( $value ) -> None
-```
-
-### VectorOfRotatedRect::Items
-
-```cpp
-VectorOfRotatedRect VectorOfRotatedRect::Items();
-AutoIt:
-    $oVectorOfRotatedRect.Items() -> retval
-```
-
-### VectorOfRotatedRect::Keys
-
-```cpp
-std::vector<int> VectorOfRotatedRect::Keys();
-AutoIt:
-    $oVectorOfRotatedRect.Keys() -> retval
-```
-
-### VectorOfRotatedRect::Remove
-
-```cpp
-void VectorOfRotatedRect::Remove( size_t index );
-AutoIt:
-    $oVectorOfRotatedRect.Remove( $index ) -> None
-```
-
-### VectorOfRotatedRect::at
-
-```cpp
-cv::RotatedRect VectorOfRotatedRect::at( size_t index );
-AutoIt:
-    $oVectorOfRotatedRect.at( $index ) -> retval
-```
-
-```cpp
-void VectorOfRotatedRect::at( size_t          index,
-                              cv::RotatedRect value );
-AutoIt:
-    $oVectorOfRotatedRect.at( $index, $value ) -> None
-```
-
-### VectorOfRotatedRect::clear
-
-```cpp
-void VectorOfRotatedRect::clear();
-AutoIt:
-    $oVectorOfRotatedRect.clear() -> None
-```
-
-### VectorOfRotatedRect::empty
-
-```cpp
-bool VectorOfRotatedRect::empty();
-AutoIt:
-    $oVectorOfRotatedRect.empty() -> retval
-```
-
-### VectorOfRotatedRect::end
-
-```cpp
-void* VectorOfRotatedRect::end();
-AutoIt:
-    $oVectorOfRotatedRect.end() -> retval
-```
-
-### VectorOfRotatedRect::push_back
-
-```cpp
-void VectorOfRotatedRect::push_back( cv::RotatedRect value );
-AutoIt:
-    $oVectorOfRotatedRect.push_back( $value ) -> None
-```
-
-### VectorOfRotatedRect::push_vector
-
-```cpp
-void VectorOfRotatedRect::push_vector( VectorOfRotatedRect other );
-AutoIt:
-    $oVectorOfRotatedRect.push_vector( $other ) -> None
-```
-
-```cpp
-void VectorOfRotatedRect::push_vector( VectorOfRotatedRect other,
-                                       size_t              count,
-                                       size_t              start = 0 );
-AutoIt:
-    $oVectorOfRotatedRect.push_vector( $other, $count[, $start] ) -> None
-```
-
-### VectorOfRotatedRect::size
-
-```cpp
-size_t VectorOfRotatedRect::size();
-AutoIt:
-    $oVectorOfRotatedRect.size() -> retval
-```
-
-### VectorOfRotatedRect::slice
-
-```cpp
-VectorOfRotatedRect VectorOfRotatedRect::slice( size_t start = 0,
-                                                size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfRotatedRect.slice( [$start[, $count]] ) -> retval
-```
-
-### VectorOfRotatedRect::sort
-
-```cpp
-void VectorOfRotatedRect::sort( void*  comparator,
-                                size_t start = 0,
-                                size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfRotatedRect.sort( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfRotatedRect::sort_variant
-
-```cpp
-void VectorOfRotatedRect::sort_variant( void*  comparator,
-                                        size_t start = 0,
-                                        size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfRotatedRect.sort_variant( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfRotatedRect::start
-
-```cpp
-void* VectorOfRotatedRect::start();
-AutoIt:
-    $oVectorOfRotatedRect.start() -> retval
-```
-
-### VectorOfRotatedRect::get_Item
-
-```cpp
-cv::RotatedRect VectorOfRotatedRect::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfRotatedRect.Item( $vIndex ) -> retval
-    VectorOfRotatedRect( $vIndex ) -> retval
-```
-
-### VectorOfRotatedRect::put_Item
-
-```cpp
-void VectorOfRotatedRect::put_Item( size_t          vIndex,
-                                    cv::RotatedRect vItem );
-AutoIt:
-    $oVectorOfRotatedRect.Item( $vIndex ) = $vItem
-```
-
-## VectorOfImageFeatures
-
-### VectorOfImageFeatures::create
-
-```cpp
-static VectorOfImageFeatures VectorOfImageFeatures::create();
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfImageFeatures").create() -> <VectorOfImageFeatures object>
-```
-
-```cpp
-static VectorOfImageFeatures VectorOfImageFeatures::create( size_t size );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfImageFeatures").create( $size ) -> <VectorOfImageFeatures object>
-```
-
-```cpp
-static VectorOfImageFeatures VectorOfImageFeatures::create( VectorOfImageFeatures other );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfImageFeatures").create( $other ) -> <VectorOfImageFeatures object>
-```
-
-### VectorOfImageFeatures::Add
-
-```cpp
-void VectorOfImageFeatures::Add( cv::detail::ImageFeatures value );
-AutoIt:
-    $oVectorOfImageFeatures.Add( $value ) -> None
-```
-
-### VectorOfImageFeatures::Items
-
-```cpp
-VectorOfImageFeatures VectorOfImageFeatures::Items();
-AutoIt:
-    $oVectorOfImageFeatures.Items() -> retval
-```
-
-### VectorOfImageFeatures::Keys
-
-```cpp
-std::vector<int> VectorOfImageFeatures::Keys();
-AutoIt:
-    $oVectorOfImageFeatures.Keys() -> retval
-```
-
-### VectorOfImageFeatures::Remove
-
-```cpp
-void VectorOfImageFeatures::Remove( size_t index );
-AutoIt:
-    $oVectorOfImageFeatures.Remove( $index ) -> None
-```
-
-### VectorOfImageFeatures::at
-
-```cpp
-cv::detail::ImageFeatures VectorOfImageFeatures::at( size_t index );
-AutoIt:
-    $oVectorOfImageFeatures.at( $index ) -> retval
-```
-
-```cpp
-void VectorOfImageFeatures::at( size_t                    index,
-                                cv::detail::ImageFeatures value );
-AutoIt:
-    $oVectorOfImageFeatures.at( $index, $value ) -> None
-```
-
-### VectorOfImageFeatures::clear
-
-```cpp
-void VectorOfImageFeatures::clear();
-AutoIt:
-    $oVectorOfImageFeatures.clear() -> None
-```
-
-### VectorOfImageFeatures::empty
-
-```cpp
-bool VectorOfImageFeatures::empty();
-AutoIt:
-    $oVectorOfImageFeatures.empty() -> retval
-```
-
-### VectorOfImageFeatures::end
-
-```cpp
-void* VectorOfImageFeatures::end();
-AutoIt:
-    $oVectorOfImageFeatures.end() -> retval
-```
-
-### VectorOfImageFeatures::push_back
-
-```cpp
-void VectorOfImageFeatures::push_back( cv::detail::ImageFeatures value );
-AutoIt:
-    $oVectorOfImageFeatures.push_back( $value ) -> None
-```
-
-### VectorOfImageFeatures::push_vector
-
-```cpp
-void VectorOfImageFeatures::push_vector( VectorOfImageFeatures other );
-AutoIt:
-    $oVectorOfImageFeatures.push_vector( $other ) -> None
-```
-
-```cpp
-void VectorOfImageFeatures::push_vector( VectorOfImageFeatures other,
-                                         size_t                count,
-                                         size_t                start = 0 );
-AutoIt:
-    $oVectorOfImageFeatures.push_vector( $other, $count[, $start] ) -> None
-```
-
-### VectorOfImageFeatures::size
-
-```cpp
-size_t VectorOfImageFeatures::size();
-AutoIt:
-    $oVectorOfImageFeatures.size() -> retval
-```
-
-### VectorOfImageFeatures::slice
-
-```cpp
-VectorOfImageFeatures VectorOfImageFeatures::slice( size_t start = 0,
-                                                    size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfImageFeatures.slice( [$start[, $count]] ) -> retval
-```
-
-### VectorOfImageFeatures::sort
-
-```cpp
-void VectorOfImageFeatures::sort( void*  comparator,
-                                  size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfImageFeatures.sort( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfImageFeatures::sort_variant
-
-```cpp
-void VectorOfImageFeatures::sort_variant( void*  comparator,
-                                          size_t start = 0,
-                                          size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfImageFeatures.sort_variant( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfImageFeatures::start
-
-```cpp
-void* VectorOfImageFeatures::start();
-AutoIt:
-    $oVectorOfImageFeatures.start() -> retval
-```
-
-### VectorOfImageFeatures::get_Item
-
-```cpp
-cv::detail::ImageFeatures VectorOfImageFeatures::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfImageFeatures.Item( $vIndex ) -> retval
-    VectorOfImageFeatures( $vIndex ) -> retval
-```
-
-### VectorOfImageFeatures::put_Item
-
-```cpp
-void VectorOfImageFeatures::put_Item( size_t                    vIndex,
-                                      cv::detail::ImageFeatures vItem );
-AutoIt:
-    $oVectorOfImageFeatures.Item( $vIndex ) = $vItem
-```
-
-## VectorOfUMat
-
-### VectorOfUMat::create
-
-```cpp
-static VectorOfUMat VectorOfUMat::create();
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfUMat").create() -> <VectorOfUMat object>
-```
-
-```cpp
-static VectorOfUMat VectorOfUMat::create( size_t size );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfUMat").create( $size ) -> <VectorOfUMat object>
-```
-
-```cpp
-static VectorOfUMat VectorOfUMat::create( VectorOfUMat other );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfUMat").create( $other ) -> <VectorOfUMat object>
-```
-
-### VectorOfUMat::Add
-
-```cpp
-void VectorOfUMat::Add( cv::UMat value );
-AutoIt:
-    $oVectorOfUMat.Add( $value ) -> None
-```
-
-### VectorOfUMat::Items
-
-```cpp
-VectorOfUMat VectorOfUMat::Items();
-AutoIt:
-    $oVectorOfUMat.Items() -> retval
-```
-
-### VectorOfUMat::Keys
-
-```cpp
-std::vector<int> VectorOfUMat::Keys();
-AutoIt:
-    $oVectorOfUMat.Keys() -> retval
-```
-
-### VectorOfUMat::Remove
-
-```cpp
-void VectorOfUMat::Remove( size_t index );
-AutoIt:
-    $oVectorOfUMat.Remove( $index ) -> None
-```
-
-### VectorOfUMat::at
-
-```cpp
-cv::UMat VectorOfUMat::at( size_t index );
-AutoIt:
-    $oVectorOfUMat.at( $index ) -> retval
-```
-
-```cpp
-void VectorOfUMat::at( size_t   index,
-                       cv::UMat value );
-AutoIt:
-    $oVectorOfUMat.at( $index, $value ) -> None
-```
-
-### VectorOfUMat::clear
-
-```cpp
-void VectorOfUMat::clear();
-AutoIt:
-    $oVectorOfUMat.clear() -> None
-```
-
-### VectorOfUMat::empty
-
-```cpp
-bool VectorOfUMat::empty();
-AutoIt:
-    $oVectorOfUMat.empty() -> retval
-```
-
-### VectorOfUMat::end
-
-```cpp
-void* VectorOfUMat::end();
-AutoIt:
-    $oVectorOfUMat.end() -> retval
-```
-
-### VectorOfUMat::push_back
-
-```cpp
-void VectorOfUMat::push_back( cv::UMat value );
-AutoIt:
-    $oVectorOfUMat.push_back( $value ) -> None
-```
-
-### VectorOfUMat::push_vector
-
-```cpp
-void VectorOfUMat::push_vector( VectorOfUMat other );
-AutoIt:
-    $oVectorOfUMat.push_vector( $other ) -> None
-```
-
-```cpp
-void VectorOfUMat::push_vector( VectorOfUMat other,
-                                size_t       count,
-                                size_t       start = 0 );
-AutoIt:
-    $oVectorOfUMat.push_vector( $other, $count[, $start] ) -> None
-```
-
-### VectorOfUMat::size
-
-```cpp
-size_t VectorOfUMat::size();
-AutoIt:
-    $oVectorOfUMat.size() -> retval
-```
-
-### VectorOfUMat::slice
-
-```cpp
-VectorOfUMat VectorOfUMat::slice( size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfUMat.slice( [$start[, $count]] ) -> retval
-```
-
-### VectorOfUMat::sort
-
-```cpp
-void VectorOfUMat::sort( void*  comparator,
-                         size_t start = 0,
-                         size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfUMat.sort( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfUMat::sort_variant
-
-```cpp
-void VectorOfUMat::sort_variant( void*  comparator,
-                                 size_t start = 0,
-                                 size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfUMat.sort_variant( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfUMat::start
-
-```cpp
-void* VectorOfUMat::start();
-AutoIt:
-    $oVectorOfUMat.start() -> retval
-```
-
-### VectorOfUMat::get_Item
-
-```cpp
-cv::UMat VectorOfUMat::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfUMat.Item( $vIndex ) -> retval
-    VectorOfUMat( $vIndex ) -> retval
-```
-
-### VectorOfUMat::put_Item
-
-```cpp
-void VectorOfUMat::put_Item( size_t   vIndex,
-                             cv::UMat vItem );
-AutoIt:
-    $oVectorOfUMat.Item( $vIndex ) = $vItem
-```
-
-## VectorOfMatchesInfo
-
-### VectorOfMatchesInfo::create
-
-```cpp
-static VectorOfMatchesInfo VectorOfMatchesInfo::create();
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfMatchesInfo").create() -> <VectorOfMatchesInfo object>
-```
-
-```cpp
-static VectorOfMatchesInfo VectorOfMatchesInfo::create( size_t size );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfMatchesInfo").create( $size ) -> <VectorOfMatchesInfo object>
-```
-
-```cpp
-static VectorOfMatchesInfo VectorOfMatchesInfo::create( VectorOfMatchesInfo other );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfMatchesInfo").create( $other ) -> <VectorOfMatchesInfo object>
-```
-
-### VectorOfMatchesInfo::Add
-
-```cpp
-void VectorOfMatchesInfo::Add( cv::detail::MatchesInfo value );
-AutoIt:
-    $oVectorOfMatchesInfo.Add( $value ) -> None
-```
-
-### VectorOfMatchesInfo::Items
-
-```cpp
-VectorOfMatchesInfo VectorOfMatchesInfo::Items();
-AutoIt:
-    $oVectorOfMatchesInfo.Items() -> retval
-```
-
-### VectorOfMatchesInfo::Keys
-
-```cpp
-std::vector<int> VectorOfMatchesInfo::Keys();
-AutoIt:
-    $oVectorOfMatchesInfo.Keys() -> retval
-```
-
-### VectorOfMatchesInfo::Remove
-
-```cpp
-void VectorOfMatchesInfo::Remove( size_t index );
-AutoIt:
-    $oVectorOfMatchesInfo.Remove( $index ) -> None
-```
-
-### VectorOfMatchesInfo::at
-
-```cpp
-cv::detail::MatchesInfo VectorOfMatchesInfo::at( size_t index );
-AutoIt:
-    $oVectorOfMatchesInfo.at( $index ) -> retval
-```
-
-```cpp
-void VectorOfMatchesInfo::at( size_t                  index,
-                              cv::detail::MatchesInfo value );
-AutoIt:
-    $oVectorOfMatchesInfo.at( $index, $value ) -> None
-```
-
-### VectorOfMatchesInfo::clear
-
-```cpp
-void VectorOfMatchesInfo::clear();
-AutoIt:
-    $oVectorOfMatchesInfo.clear() -> None
-```
-
-### VectorOfMatchesInfo::empty
-
-```cpp
-bool VectorOfMatchesInfo::empty();
-AutoIt:
-    $oVectorOfMatchesInfo.empty() -> retval
-```
-
-### VectorOfMatchesInfo::end
-
-```cpp
-void* VectorOfMatchesInfo::end();
-AutoIt:
-    $oVectorOfMatchesInfo.end() -> retval
-```
-
-### VectorOfMatchesInfo::push_back
-
-```cpp
-void VectorOfMatchesInfo::push_back( cv::detail::MatchesInfo value );
-AutoIt:
-    $oVectorOfMatchesInfo.push_back( $value ) -> None
-```
-
-### VectorOfMatchesInfo::push_vector
-
-```cpp
-void VectorOfMatchesInfo::push_vector( VectorOfMatchesInfo other );
-AutoIt:
-    $oVectorOfMatchesInfo.push_vector( $other ) -> None
-```
-
-```cpp
-void VectorOfMatchesInfo::push_vector( VectorOfMatchesInfo other,
-                                       size_t              count,
-                                       size_t              start = 0 );
-AutoIt:
-    $oVectorOfMatchesInfo.push_vector( $other, $count[, $start] ) -> None
-```
-
-### VectorOfMatchesInfo::size
-
-```cpp
-size_t VectorOfMatchesInfo::size();
-AutoIt:
-    $oVectorOfMatchesInfo.size() -> retval
-```
-
-### VectorOfMatchesInfo::slice
-
-```cpp
-VectorOfMatchesInfo VectorOfMatchesInfo::slice( size_t start = 0,
-                                                size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfMatchesInfo.slice( [$start[, $count]] ) -> retval
-```
-
-### VectorOfMatchesInfo::sort
-
-```cpp
-void VectorOfMatchesInfo::sort( void*  comparator,
-                                size_t start = 0,
-                                size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfMatchesInfo.sort( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfMatchesInfo::sort_variant
-
-```cpp
-void VectorOfMatchesInfo::sort_variant( void*  comparator,
-                                        size_t start = 0,
-                                        size_t count = this->__self->get()->size() );
-AutoIt:
-    $oVectorOfMatchesInfo.sort_variant( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfMatchesInfo::start
-
-```cpp
-void* VectorOfMatchesInfo::start();
-AutoIt:
-    $oVectorOfMatchesInfo.start() -> retval
-```
-
-### VectorOfMatchesInfo::get_Item
-
-```cpp
-cv::detail::MatchesInfo VectorOfMatchesInfo::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfMatchesInfo.Item( $vIndex ) -> retval
-    VectorOfMatchesInfo( $vIndex ) -> retval
-```
-
-### VectorOfMatchesInfo::put_Item
-
-```cpp
-void VectorOfMatchesInfo::put_Item( size_t                  vIndex,
-                                    cv::detail::MatchesInfo vItem );
-AutoIt:
-    $oVectorOfMatchesInfo.Item( $vIndex ) = $vItem
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Prim")() -> <cv.gapi.wip.draw.Prim object>
 ```
 
 ## VectorOfString
@@ -31192,6 +32727,14 @@ AutoIt:
     $oVectorOfString.Remove( $index ) -> None
 ```
 
+### VectorOfString::append
+
+```cpp
+void VectorOfString::append( std::string value );
+AutoIt:
+    $oVectorOfString.append( $value ) -> None
+```
+
 ### VectorOfString::at
 
 ```cpp
@@ -31231,6 +32774,23 @@ AutoIt:
     $oVectorOfString.end() -> retval
 ```
 
+### VectorOfString::get_Item
+
+```cpp
+std::string VectorOfString::get_Item( size_t index );
+AutoIt:
+    $oVectorOfString.Item( $index ) -> retval
+    $oVectorOfString( $index ) -> retval
+```
+
+### VectorOfString::get__NewEnum
+
+```cpp
+IUnknown* VectorOfString::get__NewEnum();
+AutoIt:
+    $oVectorOfString._NewEnum() -> retval
+```
+
 ### VectorOfString::push_back
 
 ```cpp
@@ -31255,6 +32815,15 @@ AutoIt:
     $oVectorOfString.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfString::put_Item
+
+```cpp
+void VectorOfString::put_Item( size_t      index,
+                               std::string item );
+AutoIt:
+    $oVectorOfString.Item( $index ) = $item
+```
+
 ### VectorOfString::size
 
 ```cpp
@@ -31267,7 +32836,7 @@ AutoIt:
 
 ```cpp
 VectorOfString VectorOfString::slice( size_t start = 0,
-                                      size_t count = this->__self->get()->size() );
+                                      size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfString.slice( [$start[, $count]] ) -> retval
 ```
@@ -31277,7 +32846,7 @@ AutoIt:
 ```cpp
 void VectorOfString::sort( void*  comparator,
                            size_t start = 0,
-                           size_t count = this->__self->get()->size() );
+                           size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfString.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -31287,7 +32856,7 @@ AutoIt:
 ```cpp
 void VectorOfString::sort_variant( void*  comparator,
                                    size_t start = 0,
-                                   size_t count = this->__self->get()->size() );
+                                   size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfString.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -31300,22 +32869,3336 @@ AutoIt:
     $oVectorOfString.start() -> retval
 ```
 
-### VectorOfString::get_Item
+## VectorOfVariant
+
+### VectorOfVariant::create
 
 ```cpp
-std::string VectorOfString::get_Item( size_t vIndex );
+static VectorOfVariant VectorOfVariant::create();
 AutoIt:
-    $oVectorOfString.Item( $vIndex ) -> retval
-    VectorOfString( $vIndex ) -> retval
+    _OpenCV_ObjCreate("VectorOfVariant").create() -> <VectorOfVariant object>
 ```
 
-### VectorOfString::put_Item
+```cpp
+static VectorOfVariant VectorOfVariant::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVariant").create( $size ) -> <VectorOfVariant object>
+```
 
 ```cpp
-void VectorOfString::put_Item( size_t      vIndex,
-                               std::string vItem );
+static VectorOfVariant VectorOfVariant::create( VectorOfVariant other );
 AutoIt:
-    $oVectorOfString.Item( $vIndex ) = $vItem
+    _OpenCV_ObjCreate("VectorOfVariant").create( $other ) -> <VectorOfVariant object>
+```
+
+### VectorOfVariant::Add
+
+```cpp
+void VectorOfVariant::Add( _variant_t value );
+AutoIt:
+    $oVectorOfVariant.Add( $value ) -> None
+```
+
+### VectorOfVariant::Items
+
+```cpp
+VectorOfVariant VectorOfVariant::Items();
+AutoIt:
+    $oVectorOfVariant.Items() -> retval
+```
+
+### VectorOfVariant::Keys
+
+```cpp
+std::vector<int> VectorOfVariant::Keys();
+AutoIt:
+    $oVectorOfVariant.Keys() -> retval
+```
+
+### VectorOfVariant::Remove
+
+```cpp
+void VectorOfVariant::Remove( size_t index );
+AutoIt:
+    $oVectorOfVariant.Remove( $index ) -> None
+```
+
+### VectorOfVariant::append
+
+```cpp
+void VectorOfVariant::append( _variant_t value );
+AutoIt:
+    $oVectorOfVariant.append( $value ) -> None
+```
+
+### VectorOfVariant::at
+
+```cpp
+_variant_t VectorOfVariant::at( size_t index );
+AutoIt:
+    $oVectorOfVariant.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfVariant::at( size_t     index,
+                          _variant_t value );
+AutoIt:
+    $oVectorOfVariant.at( $index, $value ) -> None
+```
+
+### VectorOfVariant::clear
+
+```cpp
+void VectorOfVariant::clear();
+AutoIt:
+    $oVectorOfVariant.clear() -> None
+```
+
+### VectorOfVariant::empty
+
+```cpp
+bool VectorOfVariant::empty();
+AutoIt:
+    $oVectorOfVariant.empty() -> retval
+```
+
+### VectorOfVariant::end
+
+```cpp
+void* VectorOfVariant::end();
+AutoIt:
+    $oVectorOfVariant.end() -> retval
+```
+
+### VectorOfVariant::get_Item
+
+```cpp
+_variant_t VectorOfVariant::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVariant.Item( $index ) -> retval
+    $oVectorOfVariant( $index ) -> retval
+```
+
+### VectorOfVariant::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVariant::get__NewEnum();
+AutoIt:
+    $oVectorOfVariant._NewEnum() -> retval
+```
+
+### VectorOfVariant::push_back
+
+```cpp
+void VectorOfVariant::push_back( _variant_t value );
+AutoIt:
+    $oVectorOfVariant.push_back( $value ) -> None
+```
+
+### VectorOfVariant::push_vector
+
+```cpp
+void VectorOfVariant::push_vector( VectorOfVariant other );
+AutoIt:
+    $oVectorOfVariant.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfVariant::push_vector( VectorOfVariant other,
+                                   size_t          count,
+                                   size_t          start = 0 );
+AutoIt:
+    $oVectorOfVariant.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfVariant::put_Item
+
+```cpp
+void VectorOfVariant::put_Item( size_t     index,
+                                _variant_t item );
+AutoIt:
+    $oVectorOfVariant.Item( $index ) = $item
+```
+
+### VectorOfVariant::size
+
+```cpp
+size_t VectorOfVariant::size();
+AutoIt:
+    $oVectorOfVariant.size() -> retval
+```
+
+### VectorOfVariant::slice
+
+```cpp
+VectorOfVariant VectorOfVariant::slice( size_t start = 0,
+                                        size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfVariant.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfVariant::sort
+
+```cpp
+void VectorOfVariant::sort( void*  comparator,
+                            size_t start = 0,
+                            size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfVariant.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfVariant::sort_variant
+
+```cpp
+void VectorOfVariant::sort_variant( void*  comparator,
+                                    size_t start = 0,
+                                    size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfVariant.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfVariant::start
+
+```cpp
+void* VectorOfVariant::start();
+AutoIt:
+    $oVectorOfVariant.start() -> retval
+```
+
+## VectorOfMat
+
+### VectorOfMat::create
+
+```cpp
+static VectorOfMat VectorOfMat::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfMat").create() -> <VectorOfMat object>
+```
+
+```cpp
+static VectorOfMat VectorOfMat::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfMat").create( $size ) -> <VectorOfMat object>
+```
+
+```cpp
+static VectorOfMat VectorOfMat::create( VectorOfMat other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfMat").create( $other ) -> <VectorOfMat object>
+```
+
+### VectorOfMat::Add
+
+```cpp
+void VectorOfMat::Add( cv::Mat value );
+AutoIt:
+    $oVectorOfMat.Add( $value ) -> None
+```
+
+### VectorOfMat::Items
+
+```cpp
+VectorOfMat VectorOfMat::Items();
+AutoIt:
+    $oVectorOfMat.Items() -> retval
+```
+
+### VectorOfMat::Keys
+
+```cpp
+std::vector<int> VectorOfMat::Keys();
+AutoIt:
+    $oVectorOfMat.Keys() -> retval
+```
+
+### VectorOfMat::Remove
+
+```cpp
+void VectorOfMat::Remove( size_t index );
+AutoIt:
+    $oVectorOfMat.Remove( $index ) -> None
+```
+
+### VectorOfMat::append
+
+```cpp
+void VectorOfMat::append( cv::Mat value );
+AutoIt:
+    $oVectorOfMat.append( $value ) -> None
+```
+
+### VectorOfMat::at
+
+```cpp
+cv::Mat VectorOfMat::at( size_t index );
+AutoIt:
+    $oVectorOfMat.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfMat::at( size_t  index,
+                      cv::Mat value );
+AutoIt:
+    $oVectorOfMat.at( $index, $value ) -> None
+```
+
+### VectorOfMat::clear
+
+```cpp
+void VectorOfMat::clear();
+AutoIt:
+    $oVectorOfMat.clear() -> None
+```
+
+### VectorOfMat::empty
+
+```cpp
+bool VectorOfMat::empty();
+AutoIt:
+    $oVectorOfMat.empty() -> retval
+```
+
+### VectorOfMat::end
+
+```cpp
+void* VectorOfMat::end();
+AutoIt:
+    $oVectorOfMat.end() -> retval
+```
+
+### VectorOfMat::get_Item
+
+```cpp
+cv::Mat VectorOfMat::get_Item( size_t index );
+AutoIt:
+    $oVectorOfMat.Item( $index ) -> retval
+    $oVectorOfMat( $index ) -> retval
+```
+
+### VectorOfMat::get__NewEnum
+
+```cpp
+IUnknown* VectorOfMat::get__NewEnum();
+AutoIt:
+    $oVectorOfMat._NewEnum() -> retval
+```
+
+### VectorOfMat::push_back
+
+```cpp
+void VectorOfMat::push_back( cv::Mat value );
+AutoIt:
+    $oVectorOfMat.push_back( $value ) -> None
+```
+
+### VectorOfMat::push_vector
+
+```cpp
+void VectorOfMat::push_vector( VectorOfMat other );
+AutoIt:
+    $oVectorOfMat.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfMat::push_vector( VectorOfMat other,
+                               size_t      count,
+                               size_t      start = 0 );
+AutoIt:
+    $oVectorOfMat.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfMat::put_Item
+
+```cpp
+void VectorOfMat::put_Item( size_t  index,
+                            cv::Mat item );
+AutoIt:
+    $oVectorOfMat.Item( $index ) = $item
+```
+
+### VectorOfMat::size
+
+```cpp
+size_t VectorOfMat::size();
+AutoIt:
+    $oVectorOfMat.size() -> retval
+```
+
+### VectorOfMat::slice
+
+```cpp
+VectorOfMat VectorOfMat::slice( size_t start = 0,
+                                size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfMat.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfMat::sort
+
+```cpp
+void VectorOfMat::sort( void*  comparator,
+                        size_t start = 0,
+                        size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfMat.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfMat::sort_variant
+
+```cpp
+void VectorOfMat::sort_variant( void*  comparator,
+                                size_t start = 0,
+                                size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfMat.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfMat::start
+
+```cpp
+void* VectorOfMat::start();
+AutoIt:
+    $oVectorOfMat.start() -> retval
+```
+
+## VectorOfInt
+
+### VectorOfInt::create
+
+```cpp
+static VectorOfInt VectorOfInt::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfInt").create() -> <VectorOfInt object>
+```
+
+```cpp
+static VectorOfInt VectorOfInt::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfInt").create( $size ) -> <VectorOfInt object>
+```
+
+```cpp
+static VectorOfInt VectorOfInt::create( VectorOfInt other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfInt").create( $other ) -> <VectorOfInt object>
+```
+
+### VectorOfInt::Add
+
+```cpp
+void VectorOfInt::Add( int value );
+AutoIt:
+    $oVectorOfInt.Add( $value ) -> None
+```
+
+### VectorOfInt::Items
+
+```cpp
+VectorOfInt VectorOfInt::Items();
+AutoIt:
+    $oVectorOfInt.Items() -> retval
+```
+
+### VectorOfInt::Keys
+
+```cpp
+std::vector<int> VectorOfInt::Keys();
+AutoIt:
+    $oVectorOfInt.Keys() -> retval
+```
+
+### VectorOfInt::Remove
+
+```cpp
+void VectorOfInt::Remove( size_t index );
+AutoIt:
+    $oVectorOfInt.Remove( $index ) -> None
+```
+
+### VectorOfInt::append
+
+```cpp
+void VectorOfInt::append( int value );
+AutoIt:
+    $oVectorOfInt.append( $value ) -> None
+```
+
+### VectorOfInt::at
+
+```cpp
+int VectorOfInt::at( size_t index );
+AutoIt:
+    $oVectorOfInt.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfInt::at( size_t index,
+                      int    value );
+AutoIt:
+    $oVectorOfInt.at( $index, $value ) -> None
+```
+
+### VectorOfInt::clear
+
+```cpp
+void VectorOfInt::clear();
+AutoIt:
+    $oVectorOfInt.clear() -> None
+```
+
+### VectorOfInt::empty
+
+```cpp
+bool VectorOfInt::empty();
+AutoIt:
+    $oVectorOfInt.empty() -> retval
+```
+
+### VectorOfInt::end
+
+```cpp
+void* VectorOfInt::end();
+AutoIt:
+    $oVectorOfInt.end() -> retval
+```
+
+### VectorOfInt::get_Item
+
+```cpp
+int VectorOfInt::get_Item( size_t index );
+AutoIt:
+    $oVectorOfInt.Item( $index ) -> retval
+    $oVectorOfInt( $index ) -> retval
+```
+
+### VectorOfInt::get__NewEnum
+
+```cpp
+IUnknown* VectorOfInt::get__NewEnum();
+AutoIt:
+    $oVectorOfInt._NewEnum() -> retval
+```
+
+### VectorOfInt::push_back
+
+```cpp
+void VectorOfInt::push_back( int value );
+AutoIt:
+    $oVectorOfInt.push_back( $value ) -> None
+```
+
+### VectorOfInt::push_vector
+
+```cpp
+void VectorOfInt::push_vector( VectorOfInt other );
+AutoIt:
+    $oVectorOfInt.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfInt::push_vector( VectorOfInt other,
+                               size_t      count,
+                               size_t      start = 0 );
+AutoIt:
+    $oVectorOfInt.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfInt::put_Item
+
+```cpp
+void VectorOfInt::put_Item( size_t index,
+                            int    item );
+AutoIt:
+    $oVectorOfInt.Item( $index ) = $item
+```
+
+### VectorOfInt::size
+
+```cpp
+size_t VectorOfInt::size();
+AutoIt:
+    $oVectorOfInt.size() -> retval
+```
+
+### VectorOfInt::slice
+
+```cpp
+VectorOfInt VectorOfInt::slice( size_t start = 0,
+                                size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfInt.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfInt::sort
+
+```cpp
+void VectorOfInt::sort( void*  comparator,
+                        size_t start = 0,
+                        size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfInt.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfInt::sort_variant
+
+```cpp
+void VectorOfInt::sort_variant( void*  comparator,
+                                size_t start = 0,
+                                size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfInt.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfInt::start
+
+```cpp
+void* VectorOfInt::start();
+AutoIt:
+    $oVectorOfInt.start() -> retval
+```
+
+## VectorOfFloat
+
+### VectorOfFloat::create
+
+```cpp
+static VectorOfFloat VectorOfFloat::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfFloat").create() -> <VectorOfFloat object>
+```
+
+```cpp
+static VectorOfFloat VectorOfFloat::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfFloat").create( $size ) -> <VectorOfFloat object>
+```
+
+```cpp
+static VectorOfFloat VectorOfFloat::create( VectorOfFloat other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfFloat").create( $other ) -> <VectorOfFloat object>
+```
+
+### VectorOfFloat::Add
+
+```cpp
+void VectorOfFloat::Add( float value );
+AutoIt:
+    $oVectorOfFloat.Add( $value ) -> None
+```
+
+### VectorOfFloat::Items
+
+```cpp
+VectorOfFloat VectorOfFloat::Items();
+AutoIt:
+    $oVectorOfFloat.Items() -> retval
+```
+
+### VectorOfFloat::Keys
+
+```cpp
+std::vector<int> VectorOfFloat::Keys();
+AutoIt:
+    $oVectorOfFloat.Keys() -> retval
+```
+
+### VectorOfFloat::Remove
+
+```cpp
+void VectorOfFloat::Remove( size_t index );
+AutoIt:
+    $oVectorOfFloat.Remove( $index ) -> None
+```
+
+### VectorOfFloat::append
+
+```cpp
+void VectorOfFloat::append( float value );
+AutoIt:
+    $oVectorOfFloat.append( $value ) -> None
+```
+
+### VectorOfFloat::at
+
+```cpp
+float VectorOfFloat::at( size_t index );
+AutoIt:
+    $oVectorOfFloat.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfFloat::at( size_t index,
+                        float  value );
+AutoIt:
+    $oVectorOfFloat.at( $index, $value ) -> None
+```
+
+### VectorOfFloat::clear
+
+```cpp
+void VectorOfFloat::clear();
+AutoIt:
+    $oVectorOfFloat.clear() -> None
+```
+
+### VectorOfFloat::empty
+
+```cpp
+bool VectorOfFloat::empty();
+AutoIt:
+    $oVectorOfFloat.empty() -> retval
+```
+
+### VectorOfFloat::end
+
+```cpp
+void* VectorOfFloat::end();
+AutoIt:
+    $oVectorOfFloat.end() -> retval
+```
+
+### VectorOfFloat::get_Item
+
+```cpp
+float VectorOfFloat::get_Item( size_t index );
+AutoIt:
+    $oVectorOfFloat.Item( $index ) -> retval
+    $oVectorOfFloat( $index ) -> retval
+```
+
+### VectorOfFloat::get__NewEnum
+
+```cpp
+IUnknown* VectorOfFloat::get__NewEnum();
+AutoIt:
+    $oVectorOfFloat._NewEnum() -> retval
+```
+
+### VectorOfFloat::push_back
+
+```cpp
+void VectorOfFloat::push_back( float value );
+AutoIt:
+    $oVectorOfFloat.push_back( $value ) -> None
+```
+
+### VectorOfFloat::push_vector
+
+```cpp
+void VectorOfFloat::push_vector( VectorOfFloat other );
+AutoIt:
+    $oVectorOfFloat.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfFloat::push_vector( VectorOfFloat other,
+                                 size_t        count,
+                                 size_t        start = 0 );
+AutoIt:
+    $oVectorOfFloat.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfFloat::put_Item
+
+```cpp
+void VectorOfFloat::put_Item( size_t index,
+                              float  item );
+AutoIt:
+    $oVectorOfFloat.Item( $index ) = $item
+```
+
+### VectorOfFloat::size
+
+```cpp
+size_t VectorOfFloat::size();
+AutoIt:
+    $oVectorOfFloat.size() -> retval
+```
+
+### VectorOfFloat::slice
+
+```cpp
+VectorOfFloat VectorOfFloat::slice( size_t start = 0,
+                                    size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfFloat.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfFloat::sort
+
+```cpp
+void VectorOfFloat::sort( void*  comparator,
+                          size_t start = 0,
+                          size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfFloat.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfFloat::sort_variant
+
+```cpp
+void VectorOfFloat::sort_variant( void*  comparator,
+                                  size_t start = 0,
+                                  size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfFloat.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfFloat::start
+
+```cpp
+void* VectorOfFloat::start();
+AutoIt:
+    $oVectorOfFloat.start() -> retval
+```
+
+## VectorOfKeyPoint
+
+### VectorOfKeyPoint::create
+
+```cpp
+static VectorOfKeyPoint VectorOfKeyPoint::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfKeyPoint").create() -> <VectorOfKeyPoint object>
+```
+
+```cpp
+static VectorOfKeyPoint VectorOfKeyPoint::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfKeyPoint").create( $size ) -> <VectorOfKeyPoint object>
+```
+
+```cpp
+static VectorOfKeyPoint VectorOfKeyPoint::create( VectorOfKeyPoint other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfKeyPoint").create( $other ) -> <VectorOfKeyPoint object>
+```
+
+### VectorOfKeyPoint::Add
+
+```cpp
+void VectorOfKeyPoint::Add( cv::KeyPoint value );
+AutoIt:
+    $oVectorOfKeyPoint.Add( $value ) -> None
+```
+
+### VectorOfKeyPoint::Items
+
+```cpp
+VectorOfKeyPoint VectorOfKeyPoint::Items();
+AutoIt:
+    $oVectorOfKeyPoint.Items() -> retval
+```
+
+### VectorOfKeyPoint::Keys
+
+```cpp
+std::vector<int> VectorOfKeyPoint::Keys();
+AutoIt:
+    $oVectorOfKeyPoint.Keys() -> retval
+```
+
+### VectorOfKeyPoint::Remove
+
+```cpp
+void VectorOfKeyPoint::Remove( size_t index );
+AutoIt:
+    $oVectorOfKeyPoint.Remove( $index ) -> None
+```
+
+### VectorOfKeyPoint::append
+
+```cpp
+void VectorOfKeyPoint::append( cv::KeyPoint value );
+AutoIt:
+    $oVectorOfKeyPoint.append( $value ) -> None
+```
+
+### VectorOfKeyPoint::at
+
+```cpp
+cv::KeyPoint VectorOfKeyPoint::at( size_t index );
+AutoIt:
+    $oVectorOfKeyPoint.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfKeyPoint::at( size_t       index,
+                           cv::KeyPoint value );
+AutoIt:
+    $oVectorOfKeyPoint.at( $index, $value ) -> None
+```
+
+### VectorOfKeyPoint::clear
+
+```cpp
+void VectorOfKeyPoint::clear();
+AutoIt:
+    $oVectorOfKeyPoint.clear() -> None
+```
+
+### VectorOfKeyPoint::empty
+
+```cpp
+bool VectorOfKeyPoint::empty();
+AutoIt:
+    $oVectorOfKeyPoint.empty() -> retval
+```
+
+### VectorOfKeyPoint::end
+
+```cpp
+void* VectorOfKeyPoint::end();
+AutoIt:
+    $oVectorOfKeyPoint.end() -> retval
+```
+
+### VectorOfKeyPoint::get_Item
+
+```cpp
+cv::KeyPoint VectorOfKeyPoint::get_Item( size_t index );
+AutoIt:
+    $oVectorOfKeyPoint.Item( $index ) -> retval
+    $oVectorOfKeyPoint( $index ) -> retval
+```
+
+### VectorOfKeyPoint::get__NewEnum
+
+```cpp
+IUnknown* VectorOfKeyPoint::get__NewEnum();
+AutoIt:
+    $oVectorOfKeyPoint._NewEnum() -> retval
+```
+
+### VectorOfKeyPoint::push_back
+
+```cpp
+void VectorOfKeyPoint::push_back( cv::KeyPoint value );
+AutoIt:
+    $oVectorOfKeyPoint.push_back( $value ) -> None
+```
+
+### VectorOfKeyPoint::push_vector
+
+```cpp
+void VectorOfKeyPoint::push_vector( VectorOfKeyPoint other );
+AutoIt:
+    $oVectorOfKeyPoint.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfKeyPoint::push_vector( VectorOfKeyPoint other,
+                                    size_t           count,
+                                    size_t           start = 0 );
+AutoIt:
+    $oVectorOfKeyPoint.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfKeyPoint::put_Item
+
+```cpp
+void VectorOfKeyPoint::put_Item( size_t       index,
+                                 cv::KeyPoint item );
+AutoIt:
+    $oVectorOfKeyPoint.Item( $index ) = $item
+```
+
+### VectorOfKeyPoint::size
+
+```cpp
+size_t VectorOfKeyPoint::size();
+AutoIt:
+    $oVectorOfKeyPoint.size() -> retval
+```
+
+### VectorOfKeyPoint::slice
+
+```cpp
+VectorOfKeyPoint VectorOfKeyPoint::slice( size_t start = 0,
+                                          size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfKeyPoint.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfKeyPoint::sort
+
+```cpp
+void VectorOfKeyPoint::sort( void*  comparator,
+                             size_t start = 0,
+                             size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfKeyPoint.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfKeyPoint::sort_variant
+
+```cpp
+void VectorOfKeyPoint::sort_variant( void*  comparator,
+                                     size_t start = 0,
+                                     size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfKeyPoint.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfKeyPoint::start
+
+```cpp
+void* VectorOfKeyPoint::start();
+AutoIt:
+    $oVectorOfKeyPoint.start() -> retval
+```
+
+## VectorOfDMatch
+
+### VectorOfDMatch::create
+
+```cpp
+static VectorOfDMatch VectorOfDMatch::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfDMatch").create() -> <VectorOfDMatch object>
+```
+
+```cpp
+static VectorOfDMatch VectorOfDMatch::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfDMatch").create( $size ) -> <VectorOfDMatch object>
+```
+
+```cpp
+static VectorOfDMatch VectorOfDMatch::create( VectorOfDMatch other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfDMatch").create( $other ) -> <VectorOfDMatch object>
+```
+
+### VectorOfDMatch::Add
+
+```cpp
+void VectorOfDMatch::Add( cv::DMatch value );
+AutoIt:
+    $oVectorOfDMatch.Add( $value ) -> None
+```
+
+### VectorOfDMatch::Items
+
+```cpp
+VectorOfDMatch VectorOfDMatch::Items();
+AutoIt:
+    $oVectorOfDMatch.Items() -> retval
+```
+
+### VectorOfDMatch::Keys
+
+```cpp
+std::vector<int> VectorOfDMatch::Keys();
+AutoIt:
+    $oVectorOfDMatch.Keys() -> retval
+```
+
+### VectorOfDMatch::Remove
+
+```cpp
+void VectorOfDMatch::Remove( size_t index );
+AutoIt:
+    $oVectorOfDMatch.Remove( $index ) -> None
+```
+
+### VectorOfDMatch::append
+
+```cpp
+void VectorOfDMatch::append( cv::DMatch value );
+AutoIt:
+    $oVectorOfDMatch.append( $value ) -> None
+```
+
+### VectorOfDMatch::at
+
+```cpp
+cv::DMatch VectorOfDMatch::at( size_t index );
+AutoIt:
+    $oVectorOfDMatch.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfDMatch::at( size_t     index,
+                         cv::DMatch value );
+AutoIt:
+    $oVectorOfDMatch.at( $index, $value ) -> None
+```
+
+### VectorOfDMatch::clear
+
+```cpp
+void VectorOfDMatch::clear();
+AutoIt:
+    $oVectorOfDMatch.clear() -> None
+```
+
+### VectorOfDMatch::empty
+
+```cpp
+bool VectorOfDMatch::empty();
+AutoIt:
+    $oVectorOfDMatch.empty() -> retval
+```
+
+### VectorOfDMatch::end
+
+```cpp
+void* VectorOfDMatch::end();
+AutoIt:
+    $oVectorOfDMatch.end() -> retval
+```
+
+### VectorOfDMatch::get_Item
+
+```cpp
+cv::DMatch VectorOfDMatch::get_Item( size_t index );
+AutoIt:
+    $oVectorOfDMatch.Item( $index ) -> retval
+    $oVectorOfDMatch( $index ) -> retval
+```
+
+### VectorOfDMatch::get__NewEnum
+
+```cpp
+IUnknown* VectorOfDMatch::get__NewEnum();
+AutoIt:
+    $oVectorOfDMatch._NewEnum() -> retval
+```
+
+### VectorOfDMatch::push_back
+
+```cpp
+void VectorOfDMatch::push_back( cv::DMatch value );
+AutoIt:
+    $oVectorOfDMatch.push_back( $value ) -> None
+```
+
+### VectorOfDMatch::push_vector
+
+```cpp
+void VectorOfDMatch::push_vector( VectorOfDMatch other );
+AutoIt:
+    $oVectorOfDMatch.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfDMatch::push_vector( VectorOfDMatch other,
+                                  size_t         count,
+                                  size_t         start = 0 );
+AutoIt:
+    $oVectorOfDMatch.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfDMatch::put_Item
+
+```cpp
+void VectorOfDMatch::put_Item( size_t     index,
+                               cv::DMatch item );
+AutoIt:
+    $oVectorOfDMatch.Item( $index ) = $item
+```
+
+### VectorOfDMatch::size
+
+```cpp
+size_t VectorOfDMatch::size();
+AutoIt:
+    $oVectorOfDMatch.size() -> retval
+```
+
+### VectorOfDMatch::slice
+
+```cpp
+VectorOfDMatch VectorOfDMatch::slice( size_t start = 0,
+                                      size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfDMatch.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfDMatch::sort
+
+```cpp
+void VectorOfDMatch::sort( void*  comparator,
+                           size_t start = 0,
+                           size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfDMatch.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfDMatch::sort_variant
+
+```cpp
+void VectorOfDMatch::sort_variant( void*  comparator,
+                                   size_t start = 0,
+                                   size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfDMatch.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfDMatch::start
+
+```cpp
+void* VectorOfDMatch::start();
+AutoIt:
+    $oVectorOfDMatch.start() -> retval
+```
+
+## VectorOfChar
+
+### VectorOfChar::create
+
+```cpp
+static VectorOfChar VectorOfChar::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfChar").create() -> <VectorOfChar object>
+```
+
+```cpp
+static VectorOfChar VectorOfChar::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfChar").create( $size ) -> <VectorOfChar object>
+```
+
+```cpp
+static VectorOfChar VectorOfChar::create( VectorOfChar other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfChar").create( $other ) -> <VectorOfChar object>
+```
+
+### VectorOfChar::Add
+
+```cpp
+void VectorOfChar::Add( char value );
+AutoIt:
+    $oVectorOfChar.Add( $value ) -> None
+```
+
+### VectorOfChar::Items
+
+```cpp
+VectorOfChar VectorOfChar::Items();
+AutoIt:
+    $oVectorOfChar.Items() -> retval
+```
+
+### VectorOfChar::Keys
+
+```cpp
+std::vector<int> VectorOfChar::Keys();
+AutoIt:
+    $oVectorOfChar.Keys() -> retval
+```
+
+### VectorOfChar::Remove
+
+```cpp
+void VectorOfChar::Remove( size_t index );
+AutoIt:
+    $oVectorOfChar.Remove( $index ) -> None
+```
+
+### VectorOfChar::append
+
+```cpp
+void VectorOfChar::append( char value );
+AutoIt:
+    $oVectorOfChar.append( $value ) -> None
+```
+
+### VectorOfChar::at
+
+```cpp
+char VectorOfChar::at( size_t index );
+AutoIt:
+    $oVectorOfChar.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfChar::at( size_t index,
+                       char   value );
+AutoIt:
+    $oVectorOfChar.at( $index, $value ) -> None
+```
+
+### VectorOfChar::clear
+
+```cpp
+void VectorOfChar::clear();
+AutoIt:
+    $oVectorOfChar.clear() -> None
+```
+
+### VectorOfChar::empty
+
+```cpp
+bool VectorOfChar::empty();
+AutoIt:
+    $oVectorOfChar.empty() -> retval
+```
+
+### VectorOfChar::end
+
+```cpp
+void* VectorOfChar::end();
+AutoIt:
+    $oVectorOfChar.end() -> retval
+```
+
+### VectorOfChar::get_Item
+
+```cpp
+char VectorOfChar::get_Item( size_t index );
+AutoIt:
+    $oVectorOfChar.Item( $index ) -> retval
+    $oVectorOfChar( $index ) -> retval
+```
+
+### VectorOfChar::get__NewEnum
+
+```cpp
+IUnknown* VectorOfChar::get__NewEnum();
+AutoIt:
+    $oVectorOfChar._NewEnum() -> retval
+```
+
+### VectorOfChar::push_back
+
+```cpp
+void VectorOfChar::push_back( char value );
+AutoIt:
+    $oVectorOfChar.push_back( $value ) -> None
+```
+
+### VectorOfChar::push_vector
+
+```cpp
+void VectorOfChar::push_vector( VectorOfChar other );
+AutoIt:
+    $oVectorOfChar.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfChar::push_vector( VectorOfChar other,
+                                size_t       count,
+                                size_t       start = 0 );
+AutoIt:
+    $oVectorOfChar.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfChar::put_Item
+
+```cpp
+void VectorOfChar::put_Item( size_t index,
+                             char   item );
+AutoIt:
+    $oVectorOfChar.Item( $index ) = $item
+```
+
+### VectorOfChar::size
+
+```cpp
+size_t VectorOfChar::size();
+AutoIt:
+    $oVectorOfChar.size() -> retval
+```
+
+### VectorOfChar::slice
+
+```cpp
+VectorOfChar VectorOfChar::slice( size_t start = 0,
+                                  size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfChar.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfChar::sort
+
+```cpp
+void VectorOfChar::sort( void*  comparator,
+                         size_t start = 0,
+                         size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfChar.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfChar::sort_variant
+
+```cpp
+void VectorOfChar::sort_variant( void*  comparator,
+                                 size_t start = 0,
+                                 size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfChar.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfChar::start
+
+```cpp
+void* VectorOfChar::start();
+AutoIt:
+    $oVectorOfChar.start() -> retval
+```
+
+## VectorOfVectorOfDMatch
+
+### VectorOfVectorOfDMatch::create
+
+```cpp
+static VectorOfVectorOfDMatch VectorOfVectorOfDMatch::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfDMatch").create() -> <VectorOfVectorOfDMatch object>
+```
+
+```cpp
+static VectorOfVectorOfDMatch VectorOfVectorOfDMatch::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfDMatch").create( $size ) -> <VectorOfVectorOfDMatch object>
+```
+
+```cpp
+static VectorOfVectorOfDMatch VectorOfVectorOfDMatch::create( VectorOfVectorOfDMatch other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfDMatch").create( $other ) -> <VectorOfVectorOfDMatch object>
+```
+
+### VectorOfVectorOfDMatch::Add
+
+```cpp
+void VectorOfVectorOfDMatch::Add( std::vector<cv::DMatch> value );
+AutoIt:
+    $oVectorOfVectorOfDMatch.Add( $value ) -> None
+```
+
+### VectorOfVectorOfDMatch::Items
+
+```cpp
+VectorOfVectorOfDMatch VectorOfVectorOfDMatch::Items();
+AutoIt:
+    $oVectorOfVectorOfDMatch.Items() -> retval
+```
+
+### VectorOfVectorOfDMatch::Keys
+
+```cpp
+std::vector<int> VectorOfVectorOfDMatch::Keys();
+AutoIt:
+    $oVectorOfVectorOfDMatch.Keys() -> retval
+```
+
+### VectorOfVectorOfDMatch::Remove
+
+```cpp
+void VectorOfVectorOfDMatch::Remove( size_t index );
+AutoIt:
+    $oVectorOfVectorOfDMatch.Remove( $index ) -> None
+```
+
+### VectorOfVectorOfDMatch::append
+
+```cpp
+void VectorOfVectorOfDMatch::append( std::vector<cv::DMatch> value );
+AutoIt:
+    $oVectorOfVectorOfDMatch.append( $value ) -> None
+```
+
+### VectorOfVectorOfDMatch::at
+
+```cpp
+std::vector<cv::DMatch> VectorOfVectorOfDMatch::at( size_t index );
+AutoIt:
+    $oVectorOfVectorOfDMatch.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfVectorOfDMatch::at( size_t                  index,
+                                 std::vector<cv::DMatch> value );
+AutoIt:
+    $oVectorOfVectorOfDMatch.at( $index, $value ) -> None
+```
+
+### VectorOfVectorOfDMatch::clear
+
+```cpp
+void VectorOfVectorOfDMatch::clear();
+AutoIt:
+    $oVectorOfVectorOfDMatch.clear() -> None
+```
+
+### VectorOfVectorOfDMatch::empty
+
+```cpp
+bool VectorOfVectorOfDMatch::empty();
+AutoIt:
+    $oVectorOfVectorOfDMatch.empty() -> retval
+```
+
+### VectorOfVectorOfDMatch::end
+
+```cpp
+void* VectorOfVectorOfDMatch::end();
+AutoIt:
+    $oVectorOfVectorOfDMatch.end() -> retval
+```
+
+### VectorOfVectorOfDMatch::get_Item
+
+```cpp
+std::vector<cv::DMatch> VectorOfVectorOfDMatch::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVectorOfDMatch.Item( $index ) -> retval
+    $oVectorOfVectorOfDMatch( $index ) -> retval
+```
+
+### VectorOfVectorOfDMatch::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVectorOfDMatch::get__NewEnum();
+AutoIt:
+    $oVectorOfVectorOfDMatch._NewEnum() -> retval
+```
+
+### VectorOfVectorOfDMatch::push_back
+
+```cpp
+void VectorOfVectorOfDMatch::push_back( std::vector<cv::DMatch> value );
+AutoIt:
+    $oVectorOfVectorOfDMatch.push_back( $value ) -> None
+```
+
+### VectorOfVectorOfDMatch::push_vector
+
+```cpp
+void VectorOfVectorOfDMatch::push_vector( VectorOfVectorOfDMatch other );
+AutoIt:
+    $oVectorOfVectorOfDMatch.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfVectorOfDMatch::push_vector( VectorOfVectorOfDMatch other,
+                                          size_t                 count,
+                                          size_t                 start = 0 );
+AutoIt:
+    $oVectorOfVectorOfDMatch.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfVectorOfDMatch::put_Item
+
+```cpp
+void VectorOfVectorOfDMatch::put_Item( size_t                  index,
+                                       std::vector<cv::DMatch> item );
+AutoIt:
+    $oVectorOfVectorOfDMatch.Item( $index ) = $item
+```
+
+### VectorOfVectorOfDMatch::size
+
+```cpp
+size_t VectorOfVectorOfDMatch::size();
+AutoIt:
+    $oVectorOfVectorOfDMatch.size() -> retval
+```
+
+### VectorOfVectorOfDMatch::slice
+
+```cpp
+VectorOfVectorOfDMatch VectorOfVectorOfDMatch::slice( size_t start = 0,
+                                                      size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfVectorOfDMatch.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfVectorOfDMatch::sort
+
+```cpp
+void VectorOfVectorOfDMatch::sort( void*  comparator,
+                                   size_t start = 0,
+                                   size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfVectorOfDMatch.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfVectorOfDMatch::sort_variant
+
+```cpp
+void VectorOfVectorOfDMatch::sort_variant( void*  comparator,
+                                           size_t start = 0,
+                                           size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfVectorOfDMatch.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfVectorOfDMatch::start
+
+```cpp
+void* VectorOfVectorOfDMatch::start();
+AutoIt:
+    $oVectorOfVectorOfDMatch.start() -> retval
+```
+
+## VectorOfVectorOfChar
+
+### VectorOfVectorOfChar::create
+
+```cpp
+static VectorOfVectorOfChar VectorOfVectorOfChar::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfChar").create() -> <VectorOfVectorOfChar object>
+```
+
+```cpp
+static VectorOfVectorOfChar VectorOfVectorOfChar::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfChar").create( $size ) -> <VectorOfVectorOfChar object>
+```
+
+```cpp
+static VectorOfVectorOfChar VectorOfVectorOfChar::create( VectorOfVectorOfChar other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfChar").create( $other ) -> <VectorOfVectorOfChar object>
+```
+
+### VectorOfVectorOfChar::Add
+
+```cpp
+void VectorOfVectorOfChar::Add( std::vector<char> value );
+AutoIt:
+    $oVectorOfVectorOfChar.Add( $value ) -> None
+```
+
+### VectorOfVectorOfChar::Items
+
+```cpp
+VectorOfVectorOfChar VectorOfVectorOfChar::Items();
+AutoIt:
+    $oVectorOfVectorOfChar.Items() -> retval
+```
+
+### VectorOfVectorOfChar::Keys
+
+```cpp
+std::vector<int> VectorOfVectorOfChar::Keys();
+AutoIt:
+    $oVectorOfVectorOfChar.Keys() -> retval
+```
+
+### VectorOfVectorOfChar::Remove
+
+```cpp
+void VectorOfVectorOfChar::Remove( size_t index );
+AutoIt:
+    $oVectorOfVectorOfChar.Remove( $index ) -> None
+```
+
+### VectorOfVectorOfChar::append
+
+```cpp
+void VectorOfVectorOfChar::append( std::vector<char> value );
+AutoIt:
+    $oVectorOfVectorOfChar.append( $value ) -> None
+```
+
+### VectorOfVectorOfChar::at
+
+```cpp
+std::vector<char> VectorOfVectorOfChar::at( size_t index );
+AutoIt:
+    $oVectorOfVectorOfChar.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfVectorOfChar::at( size_t            index,
+                               std::vector<char> value );
+AutoIt:
+    $oVectorOfVectorOfChar.at( $index, $value ) -> None
+```
+
+### VectorOfVectorOfChar::clear
+
+```cpp
+void VectorOfVectorOfChar::clear();
+AutoIt:
+    $oVectorOfVectorOfChar.clear() -> None
+```
+
+### VectorOfVectorOfChar::empty
+
+```cpp
+bool VectorOfVectorOfChar::empty();
+AutoIt:
+    $oVectorOfVectorOfChar.empty() -> retval
+```
+
+### VectorOfVectorOfChar::end
+
+```cpp
+void* VectorOfVectorOfChar::end();
+AutoIt:
+    $oVectorOfVectorOfChar.end() -> retval
+```
+
+### VectorOfVectorOfChar::get_Item
+
+```cpp
+std::vector<char> VectorOfVectorOfChar::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVectorOfChar.Item( $index ) -> retval
+    $oVectorOfVectorOfChar( $index ) -> retval
+```
+
+### VectorOfVectorOfChar::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVectorOfChar::get__NewEnum();
+AutoIt:
+    $oVectorOfVectorOfChar._NewEnum() -> retval
+```
+
+### VectorOfVectorOfChar::push_back
+
+```cpp
+void VectorOfVectorOfChar::push_back( std::vector<char> value );
+AutoIt:
+    $oVectorOfVectorOfChar.push_back( $value ) -> None
+```
+
+### VectorOfVectorOfChar::push_vector
+
+```cpp
+void VectorOfVectorOfChar::push_vector( VectorOfVectorOfChar other );
+AutoIt:
+    $oVectorOfVectorOfChar.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfVectorOfChar::push_vector( VectorOfVectorOfChar other,
+                                        size_t               count,
+                                        size_t               start = 0 );
+AutoIt:
+    $oVectorOfVectorOfChar.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfVectorOfChar::put_Item
+
+```cpp
+void VectorOfVectorOfChar::put_Item( size_t            index,
+                                     std::vector<char> item );
+AutoIt:
+    $oVectorOfVectorOfChar.Item( $index ) = $item
+```
+
+### VectorOfVectorOfChar::size
+
+```cpp
+size_t VectorOfVectorOfChar::size();
+AutoIt:
+    $oVectorOfVectorOfChar.size() -> retval
+```
+
+### VectorOfVectorOfChar::slice
+
+```cpp
+VectorOfVectorOfChar VectorOfVectorOfChar::slice( size_t start = 0,
+                                                  size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfVectorOfChar.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfVectorOfChar::sort
+
+```cpp
+void VectorOfVectorOfChar::sort( void*  comparator,
+                                 size_t start = 0,
+                                 size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfVectorOfChar.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfVectorOfChar::sort_variant
+
+```cpp
+void VectorOfVectorOfChar::sort_variant( void*  comparator,
+                                         size_t start = 0,
+                                         size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfVectorOfChar.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfVectorOfChar::start
+
+```cpp
+void* VectorOfVectorOfChar::start();
+AutoIt:
+    $oVectorOfVectorOfChar.start() -> retval
+```
+
+## VectorOfPoint
+
+### VectorOfPoint::create
+
+```cpp
+static VectorOfPoint VectorOfPoint::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPoint").create() -> <VectorOfPoint object>
+```
+
+```cpp
+static VectorOfPoint VectorOfPoint::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPoint").create( $size ) -> <VectorOfPoint object>
+```
+
+```cpp
+static VectorOfPoint VectorOfPoint::create( VectorOfPoint other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPoint").create( $other ) -> <VectorOfPoint object>
+```
+
+### VectorOfPoint::Add
+
+```cpp
+void VectorOfPoint::Add( cv::Point value );
+AutoIt:
+    $oVectorOfPoint.Add( $value ) -> None
+```
+
+### VectorOfPoint::Items
+
+```cpp
+VectorOfPoint VectorOfPoint::Items();
+AutoIt:
+    $oVectorOfPoint.Items() -> retval
+```
+
+### VectorOfPoint::Keys
+
+```cpp
+std::vector<int> VectorOfPoint::Keys();
+AutoIt:
+    $oVectorOfPoint.Keys() -> retval
+```
+
+### VectorOfPoint::Remove
+
+```cpp
+void VectorOfPoint::Remove( size_t index );
+AutoIt:
+    $oVectorOfPoint.Remove( $index ) -> None
+```
+
+### VectorOfPoint::append
+
+```cpp
+void VectorOfPoint::append( cv::Point value );
+AutoIt:
+    $oVectorOfPoint.append( $value ) -> None
+```
+
+### VectorOfPoint::at
+
+```cpp
+cv::Point VectorOfPoint::at( size_t index );
+AutoIt:
+    $oVectorOfPoint.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfPoint::at( size_t    index,
+                        cv::Point value );
+AutoIt:
+    $oVectorOfPoint.at( $index, $value ) -> None
+```
+
+### VectorOfPoint::clear
+
+```cpp
+void VectorOfPoint::clear();
+AutoIt:
+    $oVectorOfPoint.clear() -> None
+```
+
+### VectorOfPoint::empty
+
+```cpp
+bool VectorOfPoint::empty();
+AutoIt:
+    $oVectorOfPoint.empty() -> retval
+```
+
+### VectorOfPoint::end
+
+```cpp
+void* VectorOfPoint::end();
+AutoIt:
+    $oVectorOfPoint.end() -> retval
+```
+
+### VectorOfPoint::get_Item
+
+```cpp
+cv::Point VectorOfPoint::get_Item( size_t index );
+AutoIt:
+    $oVectorOfPoint.Item( $index ) -> retval
+    $oVectorOfPoint( $index ) -> retval
+```
+
+### VectorOfPoint::get__NewEnum
+
+```cpp
+IUnknown* VectorOfPoint::get__NewEnum();
+AutoIt:
+    $oVectorOfPoint._NewEnum() -> retval
+```
+
+### VectorOfPoint::push_back
+
+```cpp
+void VectorOfPoint::push_back( cv::Point value );
+AutoIt:
+    $oVectorOfPoint.push_back( $value ) -> None
+```
+
+### VectorOfPoint::push_vector
+
+```cpp
+void VectorOfPoint::push_vector( VectorOfPoint other );
+AutoIt:
+    $oVectorOfPoint.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfPoint::push_vector( VectorOfPoint other,
+                                 size_t        count,
+                                 size_t        start = 0 );
+AutoIt:
+    $oVectorOfPoint.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfPoint::put_Item
+
+```cpp
+void VectorOfPoint::put_Item( size_t    index,
+                              cv::Point item );
+AutoIt:
+    $oVectorOfPoint.Item( $index ) = $item
+```
+
+### VectorOfPoint::size
+
+```cpp
+size_t VectorOfPoint::size();
+AutoIt:
+    $oVectorOfPoint.size() -> retval
+```
+
+### VectorOfPoint::slice
+
+```cpp
+VectorOfPoint VectorOfPoint::slice( size_t start = 0,
+                                    size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfPoint.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfPoint::sort
+
+```cpp
+void VectorOfPoint::sort( void*  comparator,
+                          size_t start = 0,
+                          size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfPoint.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfPoint::sort_variant
+
+```cpp
+void VectorOfPoint::sort_variant( void*  comparator,
+                                  size_t start = 0,
+                                  size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfPoint.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfPoint::start
+
+```cpp
+void* VectorOfPoint::start();
+AutoIt:
+    $oVectorOfPoint.start() -> retval
+```
+
+## VectorOfRect
+
+### VectorOfRect::create
+
+```cpp
+static VectorOfRect VectorOfRect::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfRect").create() -> <VectorOfRect object>
+```
+
+```cpp
+static VectorOfRect VectorOfRect::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfRect").create( $size ) -> <VectorOfRect object>
+```
+
+```cpp
+static VectorOfRect VectorOfRect::create( VectorOfRect other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfRect").create( $other ) -> <VectorOfRect object>
+```
+
+### VectorOfRect::Add
+
+```cpp
+void VectorOfRect::Add( cv::Rect value );
+AutoIt:
+    $oVectorOfRect.Add( $value ) -> None
+```
+
+### VectorOfRect::Items
+
+```cpp
+VectorOfRect VectorOfRect::Items();
+AutoIt:
+    $oVectorOfRect.Items() -> retval
+```
+
+### VectorOfRect::Keys
+
+```cpp
+std::vector<int> VectorOfRect::Keys();
+AutoIt:
+    $oVectorOfRect.Keys() -> retval
+```
+
+### VectorOfRect::Remove
+
+```cpp
+void VectorOfRect::Remove( size_t index );
+AutoIt:
+    $oVectorOfRect.Remove( $index ) -> None
+```
+
+### VectorOfRect::append
+
+```cpp
+void VectorOfRect::append( cv::Rect value );
+AutoIt:
+    $oVectorOfRect.append( $value ) -> None
+```
+
+### VectorOfRect::at
+
+```cpp
+cv::Rect VectorOfRect::at( size_t index );
+AutoIt:
+    $oVectorOfRect.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfRect::at( size_t   index,
+                       cv::Rect value );
+AutoIt:
+    $oVectorOfRect.at( $index, $value ) -> None
+```
+
+### VectorOfRect::clear
+
+```cpp
+void VectorOfRect::clear();
+AutoIt:
+    $oVectorOfRect.clear() -> None
+```
+
+### VectorOfRect::empty
+
+```cpp
+bool VectorOfRect::empty();
+AutoIt:
+    $oVectorOfRect.empty() -> retval
+```
+
+### VectorOfRect::end
+
+```cpp
+void* VectorOfRect::end();
+AutoIt:
+    $oVectorOfRect.end() -> retval
+```
+
+### VectorOfRect::get_Item
+
+```cpp
+cv::Rect VectorOfRect::get_Item( size_t index );
+AutoIt:
+    $oVectorOfRect.Item( $index ) -> retval
+    $oVectorOfRect( $index ) -> retval
+```
+
+### VectorOfRect::get__NewEnum
+
+```cpp
+IUnknown* VectorOfRect::get__NewEnum();
+AutoIt:
+    $oVectorOfRect._NewEnum() -> retval
+```
+
+### VectorOfRect::push_back
+
+```cpp
+void VectorOfRect::push_back( cv::Rect value );
+AutoIt:
+    $oVectorOfRect.push_back( $value ) -> None
+```
+
+### VectorOfRect::push_vector
+
+```cpp
+void VectorOfRect::push_vector( VectorOfRect other );
+AutoIt:
+    $oVectorOfRect.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfRect::push_vector( VectorOfRect other,
+                                size_t       count,
+                                size_t       start = 0 );
+AutoIt:
+    $oVectorOfRect.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfRect::put_Item
+
+```cpp
+void VectorOfRect::put_Item( size_t   index,
+                             cv::Rect item );
+AutoIt:
+    $oVectorOfRect.Item( $index ) = $item
+```
+
+### VectorOfRect::size
+
+```cpp
+size_t VectorOfRect::size();
+AutoIt:
+    $oVectorOfRect.size() -> retval
+```
+
+### VectorOfRect::slice
+
+```cpp
+VectorOfRect VectorOfRect::slice( size_t start = 0,
+                                  size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfRect.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfRect::sort
+
+```cpp
+void VectorOfRect::sort( void*  comparator,
+                         size_t start = 0,
+                         size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfRect.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfRect::sort_variant
+
+```cpp
+void VectorOfRect::sort_variant( void*  comparator,
+                                 size_t start = 0,
+                                 size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfRect.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfRect::start
+
+```cpp
+void* VectorOfRect::start();
+AutoIt:
+    $oVectorOfRect.start() -> retval
+```
+
+## VectorOfUchar
+
+### VectorOfUchar::create
+
+```cpp
+static VectorOfUchar VectorOfUchar::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfUchar").create() -> <VectorOfUchar object>
+```
+
+```cpp
+static VectorOfUchar VectorOfUchar::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfUchar").create( $size ) -> <VectorOfUchar object>
+```
+
+```cpp
+static VectorOfUchar VectorOfUchar::create( VectorOfUchar other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfUchar").create( $other ) -> <VectorOfUchar object>
+```
+
+### VectorOfUchar::Add
+
+```cpp
+void VectorOfUchar::Add( uchar value );
+AutoIt:
+    $oVectorOfUchar.Add( $value ) -> None
+```
+
+### VectorOfUchar::Items
+
+```cpp
+VectorOfUchar VectorOfUchar::Items();
+AutoIt:
+    $oVectorOfUchar.Items() -> retval
+```
+
+### VectorOfUchar::Keys
+
+```cpp
+std::vector<int> VectorOfUchar::Keys();
+AutoIt:
+    $oVectorOfUchar.Keys() -> retval
+```
+
+### VectorOfUchar::Remove
+
+```cpp
+void VectorOfUchar::Remove( size_t index );
+AutoIt:
+    $oVectorOfUchar.Remove( $index ) -> None
+```
+
+### VectorOfUchar::append
+
+```cpp
+void VectorOfUchar::append( uchar value );
+AutoIt:
+    $oVectorOfUchar.append( $value ) -> None
+```
+
+### VectorOfUchar::at
+
+```cpp
+uchar VectorOfUchar::at( size_t index );
+AutoIt:
+    $oVectorOfUchar.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfUchar::at( size_t index,
+                        uchar  value );
+AutoIt:
+    $oVectorOfUchar.at( $index, $value ) -> None
+```
+
+### VectorOfUchar::clear
+
+```cpp
+void VectorOfUchar::clear();
+AutoIt:
+    $oVectorOfUchar.clear() -> None
+```
+
+### VectorOfUchar::empty
+
+```cpp
+bool VectorOfUchar::empty();
+AutoIt:
+    $oVectorOfUchar.empty() -> retval
+```
+
+### VectorOfUchar::end
+
+```cpp
+void* VectorOfUchar::end();
+AutoIt:
+    $oVectorOfUchar.end() -> retval
+```
+
+### VectorOfUchar::get_Item
+
+```cpp
+uchar VectorOfUchar::get_Item( size_t index );
+AutoIt:
+    $oVectorOfUchar.Item( $index ) -> retval
+    $oVectorOfUchar( $index ) -> retval
+```
+
+### VectorOfUchar::get__NewEnum
+
+```cpp
+IUnknown* VectorOfUchar::get__NewEnum();
+AutoIt:
+    $oVectorOfUchar._NewEnum() -> retval
+```
+
+### VectorOfUchar::push_back
+
+```cpp
+void VectorOfUchar::push_back( uchar value );
+AutoIt:
+    $oVectorOfUchar.push_back( $value ) -> None
+```
+
+### VectorOfUchar::push_vector
+
+```cpp
+void VectorOfUchar::push_vector( VectorOfUchar other );
+AutoIt:
+    $oVectorOfUchar.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfUchar::push_vector( VectorOfUchar other,
+                                 size_t        count,
+                                 size_t        start = 0 );
+AutoIt:
+    $oVectorOfUchar.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfUchar::put_Item
+
+```cpp
+void VectorOfUchar::put_Item( size_t index,
+                              uchar  item );
+AutoIt:
+    $oVectorOfUchar.Item( $index ) = $item
+```
+
+### VectorOfUchar::size
+
+```cpp
+size_t VectorOfUchar::size();
+AutoIt:
+    $oVectorOfUchar.size() -> retval
+```
+
+### VectorOfUchar::slice
+
+```cpp
+VectorOfUchar VectorOfUchar::slice( size_t start = 0,
+                                    size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfUchar.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfUchar::sort
+
+```cpp
+void VectorOfUchar::sort( void*  comparator,
+                          size_t start = 0,
+                          size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfUchar.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfUchar::sort_variant
+
+```cpp
+void VectorOfUchar::sort_variant( void*  comparator,
+                                  size_t start = 0,
+                                  size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfUchar.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfUchar::start
+
+```cpp
+void* VectorOfUchar::start();
+AutoIt:
+    $oVectorOfUchar.start() -> retval
+```
+
+## VectorOfDouble
+
+### VectorOfDouble::create
+
+```cpp
+static VectorOfDouble VectorOfDouble::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfDouble").create() -> <VectorOfDouble object>
+```
+
+```cpp
+static VectorOfDouble VectorOfDouble::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfDouble").create( $size ) -> <VectorOfDouble object>
+```
+
+```cpp
+static VectorOfDouble VectorOfDouble::create( VectorOfDouble other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfDouble").create( $other ) -> <VectorOfDouble object>
+```
+
+### VectorOfDouble::Add
+
+```cpp
+void VectorOfDouble::Add( double value );
+AutoIt:
+    $oVectorOfDouble.Add( $value ) -> None
+```
+
+### VectorOfDouble::Items
+
+```cpp
+VectorOfDouble VectorOfDouble::Items();
+AutoIt:
+    $oVectorOfDouble.Items() -> retval
+```
+
+### VectorOfDouble::Keys
+
+```cpp
+std::vector<int> VectorOfDouble::Keys();
+AutoIt:
+    $oVectorOfDouble.Keys() -> retval
+```
+
+### VectorOfDouble::Remove
+
+```cpp
+void VectorOfDouble::Remove( size_t index );
+AutoIt:
+    $oVectorOfDouble.Remove( $index ) -> None
+```
+
+### VectorOfDouble::append
+
+```cpp
+void VectorOfDouble::append( double value );
+AutoIt:
+    $oVectorOfDouble.append( $value ) -> None
+```
+
+### VectorOfDouble::at
+
+```cpp
+double VectorOfDouble::at( size_t index );
+AutoIt:
+    $oVectorOfDouble.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfDouble::at( size_t index,
+                         double value );
+AutoIt:
+    $oVectorOfDouble.at( $index, $value ) -> None
+```
+
+### VectorOfDouble::clear
+
+```cpp
+void VectorOfDouble::clear();
+AutoIt:
+    $oVectorOfDouble.clear() -> None
+```
+
+### VectorOfDouble::empty
+
+```cpp
+bool VectorOfDouble::empty();
+AutoIt:
+    $oVectorOfDouble.empty() -> retval
+```
+
+### VectorOfDouble::end
+
+```cpp
+void* VectorOfDouble::end();
+AutoIt:
+    $oVectorOfDouble.end() -> retval
+```
+
+### VectorOfDouble::get_Item
+
+```cpp
+double VectorOfDouble::get_Item( size_t index );
+AutoIt:
+    $oVectorOfDouble.Item( $index ) -> retval
+    $oVectorOfDouble( $index ) -> retval
+```
+
+### VectorOfDouble::get__NewEnum
+
+```cpp
+IUnknown* VectorOfDouble::get__NewEnum();
+AutoIt:
+    $oVectorOfDouble._NewEnum() -> retval
+```
+
+### VectorOfDouble::push_back
+
+```cpp
+void VectorOfDouble::push_back( double value );
+AutoIt:
+    $oVectorOfDouble.push_back( $value ) -> None
+```
+
+### VectorOfDouble::push_vector
+
+```cpp
+void VectorOfDouble::push_vector( VectorOfDouble other );
+AutoIt:
+    $oVectorOfDouble.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfDouble::push_vector( VectorOfDouble other,
+                                  size_t         count,
+                                  size_t         start = 0 );
+AutoIt:
+    $oVectorOfDouble.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfDouble::put_Item
+
+```cpp
+void VectorOfDouble::put_Item( size_t index,
+                               double item );
+AutoIt:
+    $oVectorOfDouble.Item( $index ) = $item
+```
+
+### VectorOfDouble::size
+
+```cpp
+size_t VectorOfDouble::size();
+AutoIt:
+    $oVectorOfDouble.size() -> retval
+```
+
+### VectorOfDouble::slice
+
+```cpp
+VectorOfDouble VectorOfDouble::slice( size_t start = 0,
+                                      size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfDouble.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfDouble::sort
+
+```cpp
+void VectorOfDouble::sort( void*  comparator,
+                           size_t start = 0,
+                           size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfDouble.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfDouble::sort_variant
+
+```cpp
+void VectorOfDouble::sort_variant( void*  comparator,
+                                   size_t start = 0,
+                                   size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfDouble.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfDouble::start
+
+```cpp
+void* VectorOfDouble::start();
+AutoIt:
+    $oVectorOfDouble.start() -> retval
+```
+
+## VectorOfRotatedRect
+
+### VectorOfRotatedRect::create
+
+```cpp
+static VectorOfRotatedRect VectorOfRotatedRect::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfRotatedRect").create() -> <VectorOfRotatedRect object>
+```
+
+```cpp
+static VectorOfRotatedRect VectorOfRotatedRect::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfRotatedRect").create( $size ) -> <VectorOfRotatedRect object>
+```
+
+```cpp
+static VectorOfRotatedRect VectorOfRotatedRect::create( VectorOfRotatedRect other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfRotatedRect").create( $other ) -> <VectorOfRotatedRect object>
+```
+
+### VectorOfRotatedRect::Add
+
+```cpp
+void VectorOfRotatedRect::Add( cv::RotatedRect value );
+AutoIt:
+    $oVectorOfRotatedRect.Add( $value ) -> None
+```
+
+### VectorOfRotatedRect::Items
+
+```cpp
+VectorOfRotatedRect VectorOfRotatedRect::Items();
+AutoIt:
+    $oVectorOfRotatedRect.Items() -> retval
+```
+
+### VectorOfRotatedRect::Keys
+
+```cpp
+std::vector<int> VectorOfRotatedRect::Keys();
+AutoIt:
+    $oVectorOfRotatedRect.Keys() -> retval
+```
+
+### VectorOfRotatedRect::Remove
+
+```cpp
+void VectorOfRotatedRect::Remove( size_t index );
+AutoIt:
+    $oVectorOfRotatedRect.Remove( $index ) -> None
+```
+
+### VectorOfRotatedRect::append
+
+```cpp
+void VectorOfRotatedRect::append( cv::RotatedRect value );
+AutoIt:
+    $oVectorOfRotatedRect.append( $value ) -> None
+```
+
+### VectorOfRotatedRect::at
+
+```cpp
+cv::RotatedRect VectorOfRotatedRect::at( size_t index );
+AutoIt:
+    $oVectorOfRotatedRect.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfRotatedRect::at( size_t          index,
+                              cv::RotatedRect value );
+AutoIt:
+    $oVectorOfRotatedRect.at( $index, $value ) -> None
+```
+
+### VectorOfRotatedRect::clear
+
+```cpp
+void VectorOfRotatedRect::clear();
+AutoIt:
+    $oVectorOfRotatedRect.clear() -> None
+```
+
+### VectorOfRotatedRect::empty
+
+```cpp
+bool VectorOfRotatedRect::empty();
+AutoIt:
+    $oVectorOfRotatedRect.empty() -> retval
+```
+
+### VectorOfRotatedRect::end
+
+```cpp
+void* VectorOfRotatedRect::end();
+AutoIt:
+    $oVectorOfRotatedRect.end() -> retval
+```
+
+### VectorOfRotatedRect::get_Item
+
+```cpp
+cv::RotatedRect VectorOfRotatedRect::get_Item( size_t index );
+AutoIt:
+    $oVectorOfRotatedRect.Item( $index ) -> retval
+    $oVectorOfRotatedRect( $index ) -> retval
+```
+
+### VectorOfRotatedRect::get__NewEnum
+
+```cpp
+IUnknown* VectorOfRotatedRect::get__NewEnum();
+AutoIt:
+    $oVectorOfRotatedRect._NewEnum() -> retval
+```
+
+### VectorOfRotatedRect::push_back
+
+```cpp
+void VectorOfRotatedRect::push_back( cv::RotatedRect value );
+AutoIt:
+    $oVectorOfRotatedRect.push_back( $value ) -> None
+```
+
+### VectorOfRotatedRect::push_vector
+
+```cpp
+void VectorOfRotatedRect::push_vector( VectorOfRotatedRect other );
+AutoIt:
+    $oVectorOfRotatedRect.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfRotatedRect::push_vector( VectorOfRotatedRect other,
+                                       size_t              count,
+                                       size_t              start = 0 );
+AutoIt:
+    $oVectorOfRotatedRect.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfRotatedRect::put_Item
+
+```cpp
+void VectorOfRotatedRect::put_Item( size_t          index,
+                                    cv::RotatedRect item );
+AutoIt:
+    $oVectorOfRotatedRect.Item( $index ) = $item
+```
+
+### VectorOfRotatedRect::size
+
+```cpp
+size_t VectorOfRotatedRect::size();
+AutoIt:
+    $oVectorOfRotatedRect.size() -> retval
+```
+
+### VectorOfRotatedRect::slice
+
+```cpp
+VectorOfRotatedRect VectorOfRotatedRect::slice( size_t start = 0,
+                                                size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfRotatedRect.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfRotatedRect::sort
+
+```cpp
+void VectorOfRotatedRect::sort( void*  comparator,
+                                size_t start = 0,
+                                size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfRotatedRect.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfRotatedRect::sort_variant
+
+```cpp
+void VectorOfRotatedRect::sort_variant( void*  comparator,
+                                        size_t start = 0,
+                                        size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfRotatedRect.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfRotatedRect::start
+
+```cpp
+void* VectorOfRotatedRect::start();
+AutoIt:
+    $oVectorOfRotatedRect.start() -> retval
+```
+
+## VectorOfDetail_ImageFeatures
+
+### VectorOfDetail_ImageFeatures::create
+
+```cpp
+static VectorOfDetail_ImageFeatures VectorOfDetail_ImageFeatures::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfDetail_ImageFeatures").create() -> <VectorOfDetail_ImageFeatures object>
+```
+
+```cpp
+static VectorOfDetail_ImageFeatures VectorOfDetail_ImageFeatures::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfDetail_ImageFeatures").create( $size ) -> <VectorOfDetail_ImageFeatures object>
+```
+
+```cpp
+static VectorOfDetail_ImageFeatures VectorOfDetail_ImageFeatures::create( VectorOfDetail_ImageFeatures other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfDetail_ImageFeatures").create( $other ) -> <VectorOfDetail_ImageFeatures object>
+```
+
+### VectorOfDetail_ImageFeatures::Add
+
+```cpp
+void VectorOfDetail_ImageFeatures::Add( cv::detail::ImageFeatures value );
+AutoIt:
+    $oVectorOfDetail_ImageFeatures.Add( $value ) -> None
+```
+
+### VectorOfDetail_ImageFeatures::Items
+
+```cpp
+VectorOfDetail_ImageFeatures VectorOfDetail_ImageFeatures::Items();
+AutoIt:
+    $oVectorOfDetail_ImageFeatures.Items() -> retval
+```
+
+### VectorOfDetail_ImageFeatures::Keys
+
+```cpp
+std::vector<int> VectorOfDetail_ImageFeatures::Keys();
+AutoIt:
+    $oVectorOfDetail_ImageFeatures.Keys() -> retval
+```
+
+### VectorOfDetail_ImageFeatures::Remove
+
+```cpp
+void VectorOfDetail_ImageFeatures::Remove( size_t index );
+AutoIt:
+    $oVectorOfDetail_ImageFeatures.Remove( $index ) -> None
+```
+
+### VectorOfDetail_ImageFeatures::append
+
+```cpp
+void VectorOfDetail_ImageFeatures::append( cv::detail::ImageFeatures value );
+AutoIt:
+    $oVectorOfDetail_ImageFeatures.append( $value ) -> None
+```
+
+### VectorOfDetail_ImageFeatures::at
+
+```cpp
+cv::detail::ImageFeatures VectorOfDetail_ImageFeatures::at( size_t index );
+AutoIt:
+    $oVectorOfDetail_ImageFeatures.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfDetail_ImageFeatures::at( size_t                    index,
+                                       cv::detail::ImageFeatures value );
+AutoIt:
+    $oVectorOfDetail_ImageFeatures.at( $index, $value ) -> None
+```
+
+### VectorOfDetail_ImageFeatures::clear
+
+```cpp
+void VectorOfDetail_ImageFeatures::clear();
+AutoIt:
+    $oVectorOfDetail_ImageFeatures.clear() -> None
+```
+
+### VectorOfDetail_ImageFeatures::empty
+
+```cpp
+bool VectorOfDetail_ImageFeatures::empty();
+AutoIt:
+    $oVectorOfDetail_ImageFeatures.empty() -> retval
+```
+
+### VectorOfDetail_ImageFeatures::end
+
+```cpp
+void* VectorOfDetail_ImageFeatures::end();
+AutoIt:
+    $oVectorOfDetail_ImageFeatures.end() -> retval
+```
+
+### VectorOfDetail_ImageFeatures::get_Item
+
+```cpp
+cv::detail::ImageFeatures VectorOfDetail_ImageFeatures::get_Item( size_t index );
+AutoIt:
+    $oVectorOfDetail_ImageFeatures.Item( $index ) -> retval
+    $oVectorOfDetail_ImageFeatures( $index ) -> retval
+```
+
+### VectorOfDetail_ImageFeatures::get__NewEnum
+
+```cpp
+IUnknown* VectorOfDetail_ImageFeatures::get__NewEnum();
+AutoIt:
+    $oVectorOfDetail_ImageFeatures._NewEnum() -> retval
+```
+
+### VectorOfDetail_ImageFeatures::push_back
+
+```cpp
+void VectorOfDetail_ImageFeatures::push_back( cv::detail::ImageFeatures value );
+AutoIt:
+    $oVectorOfDetail_ImageFeatures.push_back( $value ) -> None
+```
+
+### VectorOfDetail_ImageFeatures::push_vector
+
+```cpp
+void VectorOfDetail_ImageFeatures::push_vector( VectorOfDetail_ImageFeatures other );
+AutoIt:
+    $oVectorOfDetail_ImageFeatures.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfDetail_ImageFeatures::push_vector( VectorOfDetail_ImageFeatures other,
+                                                size_t                       count,
+                                                size_t                       start = 0 );
+AutoIt:
+    $oVectorOfDetail_ImageFeatures.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfDetail_ImageFeatures::put_Item
+
+```cpp
+void VectorOfDetail_ImageFeatures::put_Item( size_t                    index,
+                                             cv::detail::ImageFeatures item );
+AutoIt:
+    $oVectorOfDetail_ImageFeatures.Item( $index ) = $item
+```
+
+### VectorOfDetail_ImageFeatures::size
+
+```cpp
+size_t VectorOfDetail_ImageFeatures::size();
+AutoIt:
+    $oVectorOfDetail_ImageFeatures.size() -> retval
+```
+
+### VectorOfDetail_ImageFeatures::slice
+
+```cpp
+VectorOfDetail_ImageFeatures VectorOfDetail_ImageFeatures::slice( size_t start = 0,
+                                                                  size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfDetail_ImageFeatures.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfDetail_ImageFeatures::sort
+
+```cpp
+void VectorOfDetail_ImageFeatures::sort( void*  comparator,
+                                         size_t start = 0,
+                                         size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfDetail_ImageFeatures.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfDetail_ImageFeatures::sort_variant
+
+```cpp
+void VectorOfDetail_ImageFeatures::sort_variant( void*  comparator,
+                                                 size_t start = 0,
+                                                 size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfDetail_ImageFeatures.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfDetail_ImageFeatures::start
+
+```cpp
+void* VectorOfDetail_ImageFeatures::start();
+AutoIt:
+    $oVectorOfDetail_ImageFeatures.start() -> retval
+```
+
+## VectorOfUMat
+
+### VectorOfUMat::create
+
+```cpp
+static VectorOfUMat VectorOfUMat::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfUMat").create() -> <VectorOfUMat object>
+```
+
+```cpp
+static VectorOfUMat VectorOfUMat::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfUMat").create( $size ) -> <VectorOfUMat object>
+```
+
+```cpp
+static VectorOfUMat VectorOfUMat::create( VectorOfUMat other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfUMat").create( $other ) -> <VectorOfUMat object>
+```
+
+### VectorOfUMat::Add
+
+```cpp
+void VectorOfUMat::Add( cv::UMat value );
+AutoIt:
+    $oVectorOfUMat.Add( $value ) -> None
+```
+
+### VectorOfUMat::Items
+
+```cpp
+VectorOfUMat VectorOfUMat::Items();
+AutoIt:
+    $oVectorOfUMat.Items() -> retval
+```
+
+### VectorOfUMat::Keys
+
+```cpp
+std::vector<int> VectorOfUMat::Keys();
+AutoIt:
+    $oVectorOfUMat.Keys() -> retval
+```
+
+### VectorOfUMat::Remove
+
+```cpp
+void VectorOfUMat::Remove( size_t index );
+AutoIt:
+    $oVectorOfUMat.Remove( $index ) -> None
+```
+
+### VectorOfUMat::append
+
+```cpp
+void VectorOfUMat::append( cv::UMat value );
+AutoIt:
+    $oVectorOfUMat.append( $value ) -> None
+```
+
+### VectorOfUMat::at
+
+```cpp
+cv::UMat VectorOfUMat::at( size_t index );
+AutoIt:
+    $oVectorOfUMat.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfUMat::at( size_t   index,
+                       cv::UMat value );
+AutoIt:
+    $oVectorOfUMat.at( $index, $value ) -> None
+```
+
+### VectorOfUMat::clear
+
+```cpp
+void VectorOfUMat::clear();
+AutoIt:
+    $oVectorOfUMat.clear() -> None
+```
+
+### VectorOfUMat::empty
+
+```cpp
+bool VectorOfUMat::empty();
+AutoIt:
+    $oVectorOfUMat.empty() -> retval
+```
+
+### VectorOfUMat::end
+
+```cpp
+void* VectorOfUMat::end();
+AutoIt:
+    $oVectorOfUMat.end() -> retval
+```
+
+### VectorOfUMat::get_Item
+
+```cpp
+cv::UMat VectorOfUMat::get_Item( size_t index );
+AutoIt:
+    $oVectorOfUMat.Item( $index ) -> retval
+    $oVectorOfUMat( $index ) -> retval
+```
+
+### VectorOfUMat::get__NewEnum
+
+```cpp
+IUnknown* VectorOfUMat::get__NewEnum();
+AutoIt:
+    $oVectorOfUMat._NewEnum() -> retval
+```
+
+### VectorOfUMat::push_back
+
+```cpp
+void VectorOfUMat::push_back( cv::UMat value );
+AutoIt:
+    $oVectorOfUMat.push_back( $value ) -> None
+```
+
+### VectorOfUMat::push_vector
+
+```cpp
+void VectorOfUMat::push_vector( VectorOfUMat other );
+AutoIt:
+    $oVectorOfUMat.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfUMat::push_vector( VectorOfUMat other,
+                                size_t       count,
+                                size_t       start = 0 );
+AutoIt:
+    $oVectorOfUMat.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfUMat::put_Item
+
+```cpp
+void VectorOfUMat::put_Item( size_t   index,
+                             cv::UMat item );
+AutoIt:
+    $oVectorOfUMat.Item( $index ) = $item
+```
+
+### VectorOfUMat::size
+
+```cpp
+size_t VectorOfUMat::size();
+AutoIt:
+    $oVectorOfUMat.size() -> retval
+```
+
+### VectorOfUMat::slice
+
+```cpp
+VectorOfUMat VectorOfUMat::slice( size_t start = 0,
+                                  size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfUMat.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfUMat::sort
+
+```cpp
+void VectorOfUMat::sort( void*  comparator,
+                         size_t start = 0,
+                         size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfUMat.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfUMat::sort_variant
+
+```cpp
+void VectorOfUMat::sort_variant( void*  comparator,
+                                 size_t start = 0,
+                                 size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfUMat.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfUMat::start
+
+```cpp
+void* VectorOfUMat::start();
+AutoIt:
+    $oVectorOfUMat.start() -> retval
+```
+
+## VectorOfDetail_MatchesInfo
+
+### VectorOfDetail_MatchesInfo::create
+
+```cpp
+static VectorOfDetail_MatchesInfo VectorOfDetail_MatchesInfo::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfDetail_MatchesInfo").create() -> <VectorOfDetail_MatchesInfo object>
+```
+
+```cpp
+static VectorOfDetail_MatchesInfo VectorOfDetail_MatchesInfo::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfDetail_MatchesInfo").create( $size ) -> <VectorOfDetail_MatchesInfo object>
+```
+
+```cpp
+static VectorOfDetail_MatchesInfo VectorOfDetail_MatchesInfo::create( VectorOfDetail_MatchesInfo other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfDetail_MatchesInfo").create( $other ) -> <VectorOfDetail_MatchesInfo object>
+```
+
+### VectorOfDetail_MatchesInfo::Add
+
+```cpp
+void VectorOfDetail_MatchesInfo::Add( cv::detail::MatchesInfo value );
+AutoIt:
+    $oVectorOfDetail_MatchesInfo.Add( $value ) -> None
+```
+
+### VectorOfDetail_MatchesInfo::Items
+
+```cpp
+VectorOfDetail_MatchesInfo VectorOfDetail_MatchesInfo::Items();
+AutoIt:
+    $oVectorOfDetail_MatchesInfo.Items() -> retval
+```
+
+### VectorOfDetail_MatchesInfo::Keys
+
+```cpp
+std::vector<int> VectorOfDetail_MatchesInfo::Keys();
+AutoIt:
+    $oVectorOfDetail_MatchesInfo.Keys() -> retval
+```
+
+### VectorOfDetail_MatchesInfo::Remove
+
+```cpp
+void VectorOfDetail_MatchesInfo::Remove( size_t index );
+AutoIt:
+    $oVectorOfDetail_MatchesInfo.Remove( $index ) -> None
+```
+
+### VectorOfDetail_MatchesInfo::append
+
+```cpp
+void VectorOfDetail_MatchesInfo::append( cv::detail::MatchesInfo value );
+AutoIt:
+    $oVectorOfDetail_MatchesInfo.append( $value ) -> None
+```
+
+### VectorOfDetail_MatchesInfo::at
+
+```cpp
+cv::detail::MatchesInfo VectorOfDetail_MatchesInfo::at( size_t index );
+AutoIt:
+    $oVectorOfDetail_MatchesInfo.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfDetail_MatchesInfo::at( size_t                  index,
+                                     cv::detail::MatchesInfo value );
+AutoIt:
+    $oVectorOfDetail_MatchesInfo.at( $index, $value ) -> None
+```
+
+### VectorOfDetail_MatchesInfo::clear
+
+```cpp
+void VectorOfDetail_MatchesInfo::clear();
+AutoIt:
+    $oVectorOfDetail_MatchesInfo.clear() -> None
+```
+
+### VectorOfDetail_MatchesInfo::empty
+
+```cpp
+bool VectorOfDetail_MatchesInfo::empty();
+AutoIt:
+    $oVectorOfDetail_MatchesInfo.empty() -> retval
+```
+
+### VectorOfDetail_MatchesInfo::end
+
+```cpp
+void* VectorOfDetail_MatchesInfo::end();
+AutoIt:
+    $oVectorOfDetail_MatchesInfo.end() -> retval
+```
+
+### VectorOfDetail_MatchesInfo::get_Item
+
+```cpp
+cv::detail::MatchesInfo VectorOfDetail_MatchesInfo::get_Item( size_t index );
+AutoIt:
+    $oVectorOfDetail_MatchesInfo.Item( $index ) -> retval
+    $oVectorOfDetail_MatchesInfo( $index ) -> retval
+```
+
+### VectorOfDetail_MatchesInfo::get__NewEnum
+
+```cpp
+IUnknown* VectorOfDetail_MatchesInfo::get__NewEnum();
+AutoIt:
+    $oVectorOfDetail_MatchesInfo._NewEnum() -> retval
+```
+
+### VectorOfDetail_MatchesInfo::push_back
+
+```cpp
+void VectorOfDetail_MatchesInfo::push_back( cv::detail::MatchesInfo value );
+AutoIt:
+    $oVectorOfDetail_MatchesInfo.push_back( $value ) -> None
+```
+
+### VectorOfDetail_MatchesInfo::push_vector
+
+```cpp
+void VectorOfDetail_MatchesInfo::push_vector( VectorOfDetail_MatchesInfo other );
+AutoIt:
+    $oVectorOfDetail_MatchesInfo.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfDetail_MatchesInfo::push_vector( VectorOfDetail_MatchesInfo other,
+                                              size_t                     count,
+                                              size_t                     start = 0 );
+AutoIt:
+    $oVectorOfDetail_MatchesInfo.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfDetail_MatchesInfo::put_Item
+
+```cpp
+void VectorOfDetail_MatchesInfo::put_Item( size_t                  index,
+                                           cv::detail::MatchesInfo item );
+AutoIt:
+    $oVectorOfDetail_MatchesInfo.Item( $index ) = $item
+```
+
+### VectorOfDetail_MatchesInfo::size
+
+```cpp
+size_t VectorOfDetail_MatchesInfo::size();
+AutoIt:
+    $oVectorOfDetail_MatchesInfo.size() -> retval
+```
+
+### VectorOfDetail_MatchesInfo::slice
+
+```cpp
+VectorOfDetail_MatchesInfo VectorOfDetail_MatchesInfo::slice( size_t start = 0,
+                                                              size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfDetail_MatchesInfo.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfDetail_MatchesInfo::sort
+
+```cpp
+void VectorOfDetail_MatchesInfo::sort( void*  comparator,
+                                       size_t start = 0,
+                                       size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfDetail_MatchesInfo.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfDetail_MatchesInfo::sort_variant
+
+```cpp
+void VectorOfDetail_MatchesInfo::sort_variant( void*  comparator,
+                                               size_t start = 0,
+                                               size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfDetail_MatchesInfo.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfDetail_MatchesInfo::start
+
+```cpp
+void* VectorOfDetail_MatchesInfo::start();
+AutoIt:
+    $oVectorOfDetail_MatchesInfo.start() -> retval
 ```
 
 ## VectorOfSize
@@ -31372,6 +36255,14 @@ AutoIt:
     $oVectorOfSize.Remove( $index ) -> None
 ```
 
+### VectorOfSize::append
+
+```cpp
+void VectorOfSize::append( cv::Size value );
+AutoIt:
+    $oVectorOfSize.append( $value ) -> None
+```
+
 ### VectorOfSize::at
 
 ```cpp
@@ -31411,6 +36302,23 @@ AutoIt:
     $oVectorOfSize.end() -> retval
 ```
 
+### VectorOfSize::get_Item
+
+```cpp
+cv::Size VectorOfSize::get_Item( size_t index );
+AutoIt:
+    $oVectorOfSize.Item( $index ) -> retval
+    $oVectorOfSize( $index ) -> retval
+```
+
+### VectorOfSize::get__NewEnum
+
+```cpp
+IUnknown* VectorOfSize::get__NewEnum();
+AutoIt:
+    $oVectorOfSize._NewEnum() -> retval
+```
+
 ### VectorOfSize::push_back
 
 ```cpp
@@ -31435,6 +36343,15 @@ AutoIt:
     $oVectorOfSize.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfSize::put_Item
+
+```cpp
+void VectorOfSize::put_Item( size_t   index,
+                             cv::Size item );
+AutoIt:
+    $oVectorOfSize.Item( $index ) = $item
+```
+
 ### VectorOfSize::size
 
 ```cpp
@@ -31447,7 +36364,7 @@ AutoIt:
 
 ```cpp
 VectorOfSize VectorOfSize::slice( size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
+                                  size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfSize.slice( [$start[, $count]] ) -> retval
 ```
@@ -31457,7 +36374,7 @@ AutoIt:
 ```cpp
 void VectorOfSize::sort( void*  comparator,
                          size_t start = 0,
-                         size_t count = this->__self->get()->size() );
+                         size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfSize.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -31467,7 +36384,7 @@ AutoIt:
 ```cpp
 void VectorOfSize::sort_variant( void*  comparator,
                                  size_t start = 0,
-                                 size_t count = this->__self->get()->size() );
+                                 size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfSize.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -31478,24 +36395,6 @@ AutoIt:
 void* VectorOfSize::start();
 AutoIt:
     $oVectorOfSize.start() -> retval
-```
-
-### VectorOfSize::get_Item
-
-```cpp
-cv::Size VectorOfSize::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfSize.Item( $vIndex ) -> retval
-    VectorOfSize( $vIndex ) -> retval
-```
-
-### VectorOfSize::put_Item
-
-```cpp
-void VectorOfSize::put_Item( size_t   vIndex,
-                             cv::Size vItem );
-AutoIt:
-    $oVectorOfSize.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec2b
@@ -31552,6 +36451,14 @@ AutoIt:
     $oVectorOfVec2b.Remove( $index ) -> None
 ```
 
+### VectorOfVec2b::append
+
+```cpp
+void VectorOfVec2b::append( cv::Vec2b value );
+AutoIt:
+    $oVectorOfVec2b.append( $value ) -> None
+```
+
 ### VectorOfVec2b::at
 
 ```cpp
@@ -31591,6 +36498,23 @@ AutoIt:
     $oVectorOfVec2b.end() -> retval
 ```
 
+### VectorOfVec2b::get_Item
+
+```cpp
+cv::Vec2b VectorOfVec2b::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVec2b.Item( $index ) -> retval
+    $oVectorOfVec2b( $index ) -> retval
+```
+
+### VectorOfVec2b::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVec2b::get__NewEnum();
+AutoIt:
+    $oVectorOfVec2b._NewEnum() -> retval
+```
+
 ### VectorOfVec2b::push_back
 
 ```cpp
@@ -31615,6 +36539,15 @@ AutoIt:
     $oVectorOfVec2b.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfVec2b::put_Item
+
+```cpp
+void VectorOfVec2b::put_Item( size_t    index,
+                              cv::Vec2b item );
+AutoIt:
+    $oVectorOfVec2b.Item( $index ) = $item
+```
+
 ### VectorOfVec2b::size
 
 ```cpp
@@ -31627,7 +36560,7 @@ AutoIt:
 
 ```cpp
 VectorOfVec2b VectorOfVec2b::slice( size_t start = 0,
-                                    size_t count = this->__self->get()->size() );
+                                    size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec2b.slice( [$start[, $count]] ) -> retval
 ```
@@ -31637,7 +36570,7 @@ AutoIt:
 ```cpp
 void VectorOfVec2b::sort( void*  comparator,
                           size_t start = 0,
-                          size_t count = this->__self->get()->size() );
+                          size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec2b.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -31647,7 +36580,7 @@ AutoIt:
 ```cpp
 void VectorOfVec2b::sort_variant( void*  comparator,
                                   size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
+                                  size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec2b.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -31658,24 +36591,6 @@ AutoIt:
 void* VectorOfVec2b::start();
 AutoIt:
     $oVectorOfVec2b.start() -> retval
-```
-
-### VectorOfVec2b::get_Item
-
-```cpp
-cv::Vec2b VectorOfVec2b::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfVec2b.Item( $vIndex ) -> retval
-    VectorOfVec2b( $vIndex ) -> retval
-```
-
-### VectorOfVec2b::put_Item
-
-```cpp
-void VectorOfVec2b::put_Item( size_t    vIndex,
-                              cv::Vec2b vItem );
-AutoIt:
-    $oVectorOfVec2b.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec2d
@@ -31732,6 +36647,14 @@ AutoIt:
     $oVectorOfVec2d.Remove( $index ) -> None
 ```
 
+### VectorOfVec2d::append
+
+```cpp
+void VectorOfVec2d::append( cv::Vec2d value );
+AutoIt:
+    $oVectorOfVec2d.append( $value ) -> None
+```
+
 ### VectorOfVec2d::at
 
 ```cpp
@@ -31771,6 +36694,23 @@ AutoIt:
     $oVectorOfVec2d.end() -> retval
 ```
 
+### VectorOfVec2d::get_Item
+
+```cpp
+cv::Vec2d VectorOfVec2d::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVec2d.Item( $index ) -> retval
+    $oVectorOfVec2d( $index ) -> retval
+```
+
+### VectorOfVec2d::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVec2d::get__NewEnum();
+AutoIt:
+    $oVectorOfVec2d._NewEnum() -> retval
+```
+
 ### VectorOfVec2d::push_back
 
 ```cpp
@@ -31795,6 +36735,15 @@ AutoIt:
     $oVectorOfVec2d.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfVec2d::put_Item
+
+```cpp
+void VectorOfVec2d::put_Item( size_t    index,
+                              cv::Vec2d item );
+AutoIt:
+    $oVectorOfVec2d.Item( $index ) = $item
+```
+
 ### VectorOfVec2d::size
 
 ```cpp
@@ -31807,7 +36756,7 @@ AutoIt:
 
 ```cpp
 VectorOfVec2d VectorOfVec2d::slice( size_t start = 0,
-                                    size_t count = this->__self->get()->size() );
+                                    size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec2d.slice( [$start[, $count]] ) -> retval
 ```
@@ -31817,7 +36766,7 @@ AutoIt:
 ```cpp
 void VectorOfVec2d::sort( void*  comparator,
                           size_t start = 0,
-                          size_t count = this->__self->get()->size() );
+                          size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec2d.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -31827,7 +36776,7 @@ AutoIt:
 ```cpp
 void VectorOfVec2d::sort_variant( void*  comparator,
                                   size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
+                                  size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec2d.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -31838,24 +36787,6 @@ AutoIt:
 void* VectorOfVec2d::start();
 AutoIt:
     $oVectorOfVec2d.start() -> retval
-```
-
-### VectorOfVec2d::get_Item
-
-```cpp
-cv::Vec2d VectorOfVec2d::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfVec2d.Item( $vIndex ) -> retval
-    VectorOfVec2d( $vIndex ) -> retval
-```
-
-### VectorOfVec2d::put_Item
-
-```cpp
-void VectorOfVec2d::put_Item( size_t    vIndex,
-                              cv::Vec2d vItem );
-AutoIt:
-    $oVectorOfVec2d.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec2f
@@ -31912,6 +36843,14 @@ AutoIt:
     $oVectorOfVec2f.Remove( $index ) -> None
 ```
 
+### VectorOfVec2f::append
+
+```cpp
+void VectorOfVec2f::append( cv::Vec2f value );
+AutoIt:
+    $oVectorOfVec2f.append( $value ) -> None
+```
+
 ### VectorOfVec2f::at
 
 ```cpp
@@ -31951,6 +36890,23 @@ AutoIt:
     $oVectorOfVec2f.end() -> retval
 ```
 
+### VectorOfVec2f::get_Item
+
+```cpp
+cv::Vec2f VectorOfVec2f::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVec2f.Item( $index ) -> retval
+    $oVectorOfVec2f( $index ) -> retval
+```
+
+### VectorOfVec2f::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVec2f::get__NewEnum();
+AutoIt:
+    $oVectorOfVec2f._NewEnum() -> retval
+```
+
 ### VectorOfVec2f::push_back
 
 ```cpp
@@ -31975,6 +36931,15 @@ AutoIt:
     $oVectorOfVec2f.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfVec2f::put_Item
+
+```cpp
+void VectorOfVec2f::put_Item( size_t    index,
+                              cv::Vec2f item );
+AutoIt:
+    $oVectorOfVec2f.Item( $index ) = $item
+```
+
 ### VectorOfVec2f::size
 
 ```cpp
@@ -31987,7 +36952,7 @@ AutoIt:
 
 ```cpp
 VectorOfVec2f VectorOfVec2f::slice( size_t start = 0,
-                                    size_t count = this->__self->get()->size() );
+                                    size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec2f.slice( [$start[, $count]] ) -> retval
 ```
@@ -31997,7 +36962,7 @@ AutoIt:
 ```cpp
 void VectorOfVec2f::sort( void*  comparator,
                           size_t start = 0,
-                          size_t count = this->__self->get()->size() );
+                          size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec2f.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -32007,7 +36972,7 @@ AutoIt:
 ```cpp
 void VectorOfVec2f::sort_variant( void*  comparator,
                                   size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
+                                  size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec2f.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -32018,24 +36983,6 @@ AutoIt:
 void* VectorOfVec2f::start();
 AutoIt:
     $oVectorOfVec2f.start() -> retval
-```
-
-### VectorOfVec2f::get_Item
-
-```cpp
-cv::Vec2f VectorOfVec2f::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfVec2f.Item( $vIndex ) -> retval
-    VectorOfVec2f( $vIndex ) -> retval
-```
-
-### VectorOfVec2f::put_Item
-
-```cpp
-void VectorOfVec2f::put_Item( size_t    vIndex,
-                              cv::Vec2f vItem );
-AutoIt:
-    $oVectorOfVec2f.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec2i
@@ -32092,6 +37039,14 @@ AutoIt:
     $oVectorOfVec2i.Remove( $index ) -> None
 ```
 
+### VectorOfVec2i::append
+
+```cpp
+void VectorOfVec2i::append( cv::Vec2i value );
+AutoIt:
+    $oVectorOfVec2i.append( $value ) -> None
+```
+
 ### VectorOfVec2i::at
 
 ```cpp
@@ -32131,6 +37086,23 @@ AutoIt:
     $oVectorOfVec2i.end() -> retval
 ```
 
+### VectorOfVec2i::get_Item
+
+```cpp
+cv::Vec2i VectorOfVec2i::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVec2i.Item( $index ) -> retval
+    $oVectorOfVec2i( $index ) -> retval
+```
+
+### VectorOfVec2i::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVec2i::get__NewEnum();
+AutoIt:
+    $oVectorOfVec2i._NewEnum() -> retval
+```
+
 ### VectorOfVec2i::push_back
 
 ```cpp
@@ -32155,6 +37127,15 @@ AutoIt:
     $oVectorOfVec2i.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfVec2i::put_Item
+
+```cpp
+void VectorOfVec2i::put_Item( size_t    index,
+                              cv::Vec2i item );
+AutoIt:
+    $oVectorOfVec2i.Item( $index ) = $item
+```
+
 ### VectorOfVec2i::size
 
 ```cpp
@@ -32167,7 +37148,7 @@ AutoIt:
 
 ```cpp
 VectorOfVec2i VectorOfVec2i::slice( size_t start = 0,
-                                    size_t count = this->__self->get()->size() );
+                                    size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec2i.slice( [$start[, $count]] ) -> retval
 ```
@@ -32177,7 +37158,7 @@ AutoIt:
 ```cpp
 void VectorOfVec2i::sort( void*  comparator,
                           size_t start = 0,
-                          size_t count = this->__self->get()->size() );
+                          size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec2i.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -32187,7 +37168,7 @@ AutoIt:
 ```cpp
 void VectorOfVec2i::sort_variant( void*  comparator,
                                   size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
+                                  size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec2i.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -32198,24 +37179,6 @@ AutoIt:
 void* VectorOfVec2i::start();
 AutoIt:
     $oVectorOfVec2i.start() -> retval
-```
-
-### VectorOfVec2i::get_Item
-
-```cpp
-cv::Vec2i VectorOfVec2i::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfVec2i.Item( $vIndex ) -> retval
-    VectorOfVec2i( $vIndex ) -> retval
-```
-
-### VectorOfVec2i::put_Item
-
-```cpp
-void VectorOfVec2i::put_Item( size_t    vIndex,
-                              cv::Vec2i vItem );
-AutoIt:
-    $oVectorOfVec2i.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec2s
@@ -32272,6 +37235,14 @@ AutoIt:
     $oVectorOfVec2s.Remove( $index ) -> None
 ```
 
+### VectorOfVec2s::append
+
+```cpp
+void VectorOfVec2s::append( cv::Vec2s value );
+AutoIt:
+    $oVectorOfVec2s.append( $value ) -> None
+```
+
 ### VectorOfVec2s::at
 
 ```cpp
@@ -32311,6 +37282,23 @@ AutoIt:
     $oVectorOfVec2s.end() -> retval
 ```
 
+### VectorOfVec2s::get_Item
+
+```cpp
+cv::Vec2s VectorOfVec2s::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVec2s.Item( $index ) -> retval
+    $oVectorOfVec2s( $index ) -> retval
+```
+
+### VectorOfVec2s::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVec2s::get__NewEnum();
+AutoIt:
+    $oVectorOfVec2s._NewEnum() -> retval
+```
+
 ### VectorOfVec2s::push_back
 
 ```cpp
@@ -32335,6 +37323,15 @@ AutoIt:
     $oVectorOfVec2s.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfVec2s::put_Item
+
+```cpp
+void VectorOfVec2s::put_Item( size_t    index,
+                              cv::Vec2s item );
+AutoIt:
+    $oVectorOfVec2s.Item( $index ) = $item
+```
+
 ### VectorOfVec2s::size
 
 ```cpp
@@ -32347,7 +37344,7 @@ AutoIt:
 
 ```cpp
 VectorOfVec2s VectorOfVec2s::slice( size_t start = 0,
-                                    size_t count = this->__self->get()->size() );
+                                    size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec2s.slice( [$start[, $count]] ) -> retval
 ```
@@ -32357,7 +37354,7 @@ AutoIt:
 ```cpp
 void VectorOfVec2s::sort( void*  comparator,
                           size_t start = 0,
-                          size_t count = this->__self->get()->size() );
+                          size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec2s.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -32367,7 +37364,7 @@ AutoIt:
 ```cpp
 void VectorOfVec2s::sort_variant( void*  comparator,
                                   size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
+                                  size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec2s.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -32378,24 +37375,6 @@ AutoIt:
 void* VectorOfVec2s::start();
 AutoIt:
     $oVectorOfVec2s.start() -> retval
-```
-
-### VectorOfVec2s::get_Item
-
-```cpp
-cv::Vec2s VectorOfVec2s::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfVec2s.Item( $vIndex ) -> retval
-    VectorOfVec2s( $vIndex ) -> retval
-```
-
-### VectorOfVec2s::put_Item
-
-```cpp
-void VectorOfVec2s::put_Item( size_t    vIndex,
-                              cv::Vec2s vItem );
-AutoIt:
-    $oVectorOfVec2s.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec2w
@@ -32452,6 +37431,14 @@ AutoIt:
     $oVectorOfVec2w.Remove( $index ) -> None
 ```
 
+### VectorOfVec2w::append
+
+```cpp
+void VectorOfVec2w::append( cv::Vec2w value );
+AutoIt:
+    $oVectorOfVec2w.append( $value ) -> None
+```
+
 ### VectorOfVec2w::at
 
 ```cpp
@@ -32491,6 +37478,23 @@ AutoIt:
     $oVectorOfVec2w.end() -> retval
 ```
 
+### VectorOfVec2w::get_Item
+
+```cpp
+cv::Vec2w VectorOfVec2w::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVec2w.Item( $index ) -> retval
+    $oVectorOfVec2w( $index ) -> retval
+```
+
+### VectorOfVec2w::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVec2w::get__NewEnum();
+AutoIt:
+    $oVectorOfVec2w._NewEnum() -> retval
+```
+
 ### VectorOfVec2w::push_back
 
 ```cpp
@@ -32515,6 +37519,15 @@ AutoIt:
     $oVectorOfVec2w.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfVec2w::put_Item
+
+```cpp
+void VectorOfVec2w::put_Item( size_t    index,
+                              cv::Vec2w item );
+AutoIt:
+    $oVectorOfVec2w.Item( $index ) = $item
+```
+
 ### VectorOfVec2w::size
 
 ```cpp
@@ -32527,7 +37540,7 @@ AutoIt:
 
 ```cpp
 VectorOfVec2w VectorOfVec2w::slice( size_t start = 0,
-                                    size_t count = this->__self->get()->size() );
+                                    size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec2w.slice( [$start[, $count]] ) -> retval
 ```
@@ -32537,7 +37550,7 @@ AutoIt:
 ```cpp
 void VectorOfVec2w::sort( void*  comparator,
                           size_t start = 0,
-                          size_t count = this->__self->get()->size() );
+                          size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec2w.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -32547,7 +37560,7 @@ AutoIt:
 ```cpp
 void VectorOfVec2w::sort_variant( void*  comparator,
                                   size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
+                                  size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec2w.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -32558,24 +37571,6 @@ AutoIt:
 void* VectorOfVec2w::start();
 AutoIt:
     $oVectorOfVec2w.start() -> retval
-```
-
-### VectorOfVec2w::get_Item
-
-```cpp
-cv::Vec2w VectorOfVec2w::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfVec2w.Item( $vIndex ) -> retval
-    VectorOfVec2w( $vIndex ) -> retval
-```
-
-### VectorOfVec2w::put_Item
-
-```cpp
-void VectorOfVec2w::put_Item( size_t    vIndex,
-                              cv::Vec2w vItem );
-AutoIt:
-    $oVectorOfVec2w.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec3b
@@ -32632,6 +37627,14 @@ AutoIt:
     $oVectorOfVec3b.Remove( $index ) -> None
 ```
 
+### VectorOfVec3b::append
+
+```cpp
+void VectorOfVec3b::append( cv::Vec3b value );
+AutoIt:
+    $oVectorOfVec3b.append( $value ) -> None
+```
+
 ### VectorOfVec3b::at
 
 ```cpp
@@ -32671,6 +37674,23 @@ AutoIt:
     $oVectorOfVec3b.end() -> retval
 ```
 
+### VectorOfVec3b::get_Item
+
+```cpp
+cv::Vec3b VectorOfVec3b::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVec3b.Item( $index ) -> retval
+    $oVectorOfVec3b( $index ) -> retval
+```
+
+### VectorOfVec3b::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVec3b::get__NewEnum();
+AutoIt:
+    $oVectorOfVec3b._NewEnum() -> retval
+```
+
 ### VectorOfVec3b::push_back
 
 ```cpp
@@ -32695,6 +37715,15 @@ AutoIt:
     $oVectorOfVec3b.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfVec3b::put_Item
+
+```cpp
+void VectorOfVec3b::put_Item( size_t    index,
+                              cv::Vec3b item );
+AutoIt:
+    $oVectorOfVec3b.Item( $index ) = $item
+```
+
 ### VectorOfVec3b::size
 
 ```cpp
@@ -32707,7 +37736,7 @@ AutoIt:
 
 ```cpp
 VectorOfVec3b VectorOfVec3b::slice( size_t start = 0,
-                                    size_t count = this->__self->get()->size() );
+                                    size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec3b.slice( [$start[, $count]] ) -> retval
 ```
@@ -32717,7 +37746,7 @@ AutoIt:
 ```cpp
 void VectorOfVec3b::sort( void*  comparator,
                           size_t start = 0,
-                          size_t count = this->__self->get()->size() );
+                          size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec3b.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -32727,7 +37756,7 @@ AutoIt:
 ```cpp
 void VectorOfVec3b::sort_variant( void*  comparator,
                                   size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
+                                  size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec3b.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -32738,24 +37767,6 @@ AutoIt:
 void* VectorOfVec3b::start();
 AutoIt:
     $oVectorOfVec3b.start() -> retval
-```
-
-### VectorOfVec3b::get_Item
-
-```cpp
-cv::Vec3b VectorOfVec3b::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfVec3b.Item( $vIndex ) -> retval
-    VectorOfVec3b( $vIndex ) -> retval
-```
-
-### VectorOfVec3b::put_Item
-
-```cpp
-void VectorOfVec3b::put_Item( size_t    vIndex,
-                              cv::Vec3b vItem );
-AutoIt:
-    $oVectorOfVec3b.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec3d
@@ -32812,6 +37823,14 @@ AutoIt:
     $oVectorOfVec3d.Remove( $index ) -> None
 ```
 
+### VectorOfVec3d::append
+
+```cpp
+void VectorOfVec3d::append( cv::Vec3d value );
+AutoIt:
+    $oVectorOfVec3d.append( $value ) -> None
+```
+
 ### VectorOfVec3d::at
 
 ```cpp
@@ -32851,6 +37870,23 @@ AutoIt:
     $oVectorOfVec3d.end() -> retval
 ```
 
+### VectorOfVec3d::get_Item
+
+```cpp
+cv::Vec3d VectorOfVec3d::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVec3d.Item( $index ) -> retval
+    $oVectorOfVec3d( $index ) -> retval
+```
+
+### VectorOfVec3d::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVec3d::get__NewEnum();
+AutoIt:
+    $oVectorOfVec3d._NewEnum() -> retval
+```
+
 ### VectorOfVec3d::push_back
 
 ```cpp
@@ -32875,6 +37911,15 @@ AutoIt:
     $oVectorOfVec3d.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfVec3d::put_Item
+
+```cpp
+void VectorOfVec3d::put_Item( size_t    index,
+                              cv::Vec3d item );
+AutoIt:
+    $oVectorOfVec3d.Item( $index ) = $item
+```
+
 ### VectorOfVec3d::size
 
 ```cpp
@@ -32887,7 +37932,7 @@ AutoIt:
 
 ```cpp
 VectorOfVec3d VectorOfVec3d::slice( size_t start = 0,
-                                    size_t count = this->__self->get()->size() );
+                                    size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec3d.slice( [$start[, $count]] ) -> retval
 ```
@@ -32897,7 +37942,7 @@ AutoIt:
 ```cpp
 void VectorOfVec3d::sort( void*  comparator,
                           size_t start = 0,
-                          size_t count = this->__self->get()->size() );
+                          size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec3d.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -32907,7 +37952,7 @@ AutoIt:
 ```cpp
 void VectorOfVec3d::sort_variant( void*  comparator,
                                   size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
+                                  size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec3d.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -32918,24 +37963,6 @@ AutoIt:
 void* VectorOfVec3d::start();
 AutoIt:
     $oVectorOfVec3d.start() -> retval
-```
-
-### VectorOfVec3d::get_Item
-
-```cpp
-cv::Vec3d VectorOfVec3d::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfVec3d.Item( $vIndex ) -> retval
-    VectorOfVec3d( $vIndex ) -> retval
-```
-
-### VectorOfVec3d::put_Item
-
-```cpp
-void VectorOfVec3d::put_Item( size_t    vIndex,
-                              cv::Vec3d vItem );
-AutoIt:
-    $oVectorOfVec3d.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec3f
@@ -32992,6 +38019,14 @@ AutoIt:
     $oVectorOfVec3f.Remove( $index ) -> None
 ```
 
+### VectorOfVec3f::append
+
+```cpp
+void VectorOfVec3f::append( cv::Vec3f value );
+AutoIt:
+    $oVectorOfVec3f.append( $value ) -> None
+```
+
 ### VectorOfVec3f::at
 
 ```cpp
@@ -33031,6 +38066,23 @@ AutoIt:
     $oVectorOfVec3f.end() -> retval
 ```
 
+### VectorOfVec3f::get_Item
+
+```cpp
+cv::Vec3f VectorOfVec3f::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVec3f.Item( $index ) -> retval
+    $oVectorOfVec3f( $index ) -> retval
+```
+
+### VectorOfVec3f::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVec3f::get__NewEnum();
+AutoIt:
+    $oVectorOfVec3f._NewEnum() -> retval
+```
+
 ### VectorOfVec3f::push_back
 
 ```cpp
@@ -33055,6 +38107,15 @@ AutoIt:
     $oVectorOfVec3f.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfVec3f::put_Item
+
+```cpp
+void VectorOfVec3f::put_Item( size_t    index,
+                              cv::Vec3f item );
+AutoIt:
+    $oVectorOfVec3f.Item( $index ) = $item
+```
+
 ### VectorOfVec3f::size
 
 ```cpp
@@ -33067,7 +38128,7 @@ AutoIt:
 
 ```cpp
 VectorOfVec3f VectorOfVec3f::slice( size_t start = 0,
-                                    size_t count = this->__self->get()->size() );
+                                    size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec3f.slice( [$start[, $count]] ) -> retval
 ```
@@ -33077,7 +38138,7 @@ AutoIt:
 ```cpp
 void VectorOfVec3f::sort( void*  comparator,
                           size_t start = 0,
-                          size_t count = this->__self->get()->size() );
+                          size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec3f.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -33087,7 +38148,7 @@ AutoIt:
 ```cpp
 void VectorOfVec3f::sort_variant( void*  comparator,
                                   size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
+                                  size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec3f.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -33098,24 +38159,6 @@ AutoIt:
 void* VectorOfVec3f::start();
 AutoIt:
     $oVectorOfVec3f.start() -> retval
-```
-
-### VectorOfVec3f::get_Item
-
-```cpp
-cv::Vec3f VectorOfVec3f::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfVec3f.Item( $vIndex ) -> retval
-    VectorOfVec3f( $vIndex ) -> retval
-```
-
-### VectorOfVec3f::put_Item
-
-```cpp
-void VectorOfVec3f::put_Item( size_t    vIndex,
-                              cv::Vec3f vItem );
-AutoIt:
-    $oVectorOfVec3f.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec3i
@@ -33172,6 +38215,14 @@ AutoIt:
     $oVectorOfVec3i.Remove( $index ) -> None
 ```
 
+### VectorOfVec3i::append
+
+```cpp
+void VectorOfVec3i::append( cv::Vec3i value );
+AutoIt:
+    $oVectorOfVec3i.append( $value ) -> None
+```
+
 ### VectorOfVec3i::at
 
 ```cpp
@@ -33211,6 +38262,23 @@ AutoIt:
     $oVectorOfVec3i.end() -> retval
 ```
 
+### VectorOfVec3i::get_Item
+
+```cpp
+cv::Vec3i VectorOfVec3i::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVec3i.Item( $index ) -> retval
+    $oVectorOfVec3i( $index ) -> retval
+```
+
+### VectorOfVec3i::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVec3i::get__NewEnum();
+AutoIt:
+    $oVectorOfVec3i._NewEnum() -> retval
+```
+
 ### VectorOfVec3i::push_back
 
 ```cpp
@@ -33235,6 +38303,15 @@ AutoIt:
     $oVectorOfVec3i.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfVec3i::put_Item
+
+```cpp
+void VectorOfVec3i::put_Item( size_t    index,
+                              cv::Vec3i item );
+AutoIt:
+    $oVectorOfVec3i.Item( $index ) = $item
+```
+
 ### VectorOfVec3i::size
 
 ```cpp
@@ -33247,7 +38324,7 @@ AutoIt:
 
 ```cpp
 VectorOfVec3i VectorOfVec3i::slice( size_t start = 0,
-                                    size_t count = this->__self->get()->size() );
+                                    size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec3i.slice( [$start[, $count]] ) -> retval
 ```
@@ -33257,7 +38334,7 @@ AutoIt:
 ```cpp
 void VectorOfVec3i::sort( void*  comparator,
                           size_t start = 0,
-                          size_t count = this->__self->get()->size() );
+                          size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec3i.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -33267,7 +38344,7 @@ AutoIt:
 ```cpp
 void VectorOfVec3i::sort_variant( void*  comparator,
                                   size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
+                                  size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec3i.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -33278,24 +38355,6 @@ AutoIt:
 void* VectorOfVec3i::start();
 AutoIt:
     $oVectorOfVec3i.start() -> retval
-```
-
-### VectorOfVec3i::get_Item
-
-```cpp
-cv::Vec3i VectorOfVec3i::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfVec3i.Item( $vIndex ) -> retval
-    VectorOfVec3i( $vIndex ) -> retval
-```
-
-### VectorOfVec3i::put_Item
-
-```cpp
-void VectorOfVec3i::put_Item( size_t    vIndex,
-                              cv::Vec3i vItem );
-AutoIt:
-    $oVectorOfVec3i.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec3s
@@ -33352,6 +38411,14 @@ AutoIt:
     $oVectorOfVec3s.Remove( $index ) -> None
 ```
 
+### VectorOfVec3s::append
+
+```cpp
+void VectorOfVec3s::append( cv::Vec3s value );
+AutoIt:
+    $oVectorOfVec3s.append( $value ) -> None
+```
+
 ### VectorOfVec3s::at
 
 ```cpp
@@ -33391,6 +38458,23 @@ AutoIt:
     $oVectorOfVec3s.end() -> retval
 ```
 
+### VectorOfVec3s::get_Item
+
+```cpp
+cv::Vec3s VectorOfVec3s::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVec3s.Item( $index ) -> retval
+    $oVectorOfVec3s( $index ) -> retval
+```
+
+### VectorOfVec3s::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVec3s::get__NewEnum();
+AutoIt:
+    $oVectorOfVec3s._NewEnum() -> retval
+```
+
 ### VectorOfVec3s::push_back
 
 ```cpp
@@ -33415,6 +38499,15 @@ AutoIt:
     $oVectorOfVec3s.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfVec3s::put_Item
+
+```cpp
+void VectorOfVec3s::put_Item( size_t    index,
+                              cv::Vec3s item );
+AutoIt:
+    $oVectorOfVec3s.Item( $index ) = $item
+```
+
 ### VectorOfVec3s::size
 
 ```cpp
@@ -33427,7 +38520,7 @@ AutoIt:
 
 ```cpp
 VectorOfVec3s VectorOfVec3s::slice( size_t start = 0,
-                                    size_t count = this->__self->get()->size() );
+                                    size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec3s.slice( [$start[, $count]] ) -> retval
 ```
@@ -33437,7 +38530,7 @@ AutoIt:
 ```cpp
 void VectorOfVec3s::sort( void*  comparator,
                           size_t start = 0,
-                          size_t count = this->__self->get()->size() );
+                          size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec3s.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -33447,7 +38540,7 @@ AutoIt:
 ```cpp
 void VectorOfVec3s::sort_variant( void*  comparator,
                                   size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
+                                  size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec3s.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -33458,24 +38551,6 @@ AutoIt:
 void* VectorOfVec3s::start();
 AutoIt:
     $oVectorOfVec3s.start() -> retval
-```
-
-### VectorOfVec3s::get_Item
-
-```cpp
-cv::Vec3s VectorOfVec3s::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfVec3s.Item( $vIndex ) -> retval
-    VectorOfVec3s( $vIndex ) -> retval
-```
-
-### VectorOfVec3s::put_Item
-
-```cpp
-void VectorOfVec3s::put_Item( size_t    vIndex,
-                              cv::Vec3s vItem );
-AutoIt:
-    $oVectorOfVec3s.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec3w
@@ -33532,6 +38607,14 @@ AutoIt:
     $oVectorOfVec3w.Remove( $index ) -> None
 ```
 
+### VectorOfVec3w::append
+
+```cpp
+void VectorOfVec3w::append( cv::Vec3w value );
+AutoIt:
+    $oVectorOfVec3w.append( $value ) -> None
+```
+
 ### VectorOfVec3w::at
 
 ```cpp
@@ -33571,6 +38654,23 @@ AutoIt:
     $oVectorOfVec3w.end() -> retval
 ```
 
+### VectorOfVec3w::get_Item
+
+```cpp
+cv::Vec3w VectorOfVec3w::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVec3w.Item( $index ) -> retval
+    $oVectorOfVec3w( $index ) -> retval
+```
+
+### VectorOfVec3w::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVec3w::get__NewEnum();
+AutoIt:
+    $oVectorOfVec3w._NewEnum() -> retval
+```
+
 ### VectorOfVec3w::push_back
 
 ```cpp
@@ -33595,6 +38695,15 @@ AutoIt:
     $oVectorOfVec3w.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfVec3w::put_Item
+
+```cpp
+void VectorOfVec3w::put_Item( size_t    index,
+                              cv::Vec3w item );
+AutoIt:
+    $oVectorOfVec3w.Item( $index ) = $item
+```
+
 ### VectorOfVec3w::size
 
 ```cpp
@@ -33607,7 +38716,7 @@ AutoIt:
 
 ```cpp
 VectorOfVec3w VectorOfVec3w::slice( size_t start = 0,
-                                    size_t count = this->__self->get()->size() );
+                                    size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec3w.slice( [$start[, $count]] ) -> retval
 ```
@@ -33617,7 +38726,7 @@ AutoIt:
 ```cpp
 void VectorOfVec3w::sort( void*  comparator,
                           size_t start = 0,
-                          size_t count = this->__self->get()->size() );
+                          size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec3w.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -33627,7 +38736,7 @@ AutoIt:
 ```cpp
 void VectorOfVec3w::sort_variant( void*  comparator,
                                   size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
+                                  size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec3w.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -33638,24 +38747,6 @@ AutoIt:
 void* VectorOfVec3w::start();
 AutoIt:
     $oVectorOfVec3w.start() -> retval
-```
-
-### VectorOfVec3w::get_Item
-
-```cpp
-cv::Vec3w VectorOfVec3w::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfVec3w.Item( $vIndex ) -> retval
-    VectorOfVec3w( $vIndex ) -> retval
-```
-
-### VectorOfVec3w::put_Item
-
-```cpp
-void VectorOfVec3w::put_Item( size_t    vIndex,
-                              cv::Vec3w vItem );
-AutoIt:
-    $oVectorOfVec3w.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec4b
@@ -33712,6 +38803,14 @@ AutoIt:
     $oVectorOfVec4b.Remove( $index ) -> None
 ```
 
+### VectorOfVec4b::append
+
+```cpp
+void VectorOfVec4b::append( cv::Vec4b value );
+AutoIt:
+    $oVectorOfVec4b.append( $value ) -> None
+```
+
 ### VectorOfVec4b::at
 
 ```cpp
@@ -33751,6 +38850,23 @@ AutoIt:
     $oVectorOfVec4b.end() -> retval
 ```
 
+### VectorOfVec4b::get_Item
+
+```cpp
+cv::Vec4b VectorOfVec4b::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVec4b.Item( $index ) -> retval
+    $oVectorOfVec4b( $index ) -> retval
+```
+
+### VectorOfVec4b::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVec4b::get__NewEnum();
+AutoIt:
+    $oVectorOfVec4b._NewEnum() -> retval
+```
+
 ### VectorOfVec4b::push_back
 
 ```cpp
@@ -33775,6 +38891,15 @@ AutoIt:
     $oVectorOfVec4b.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfVec4b::put_Item
+
+```cpp
+void VectorOfVec4b::put_Item( size_t    index,
+                              cv::Vec4b item );
+AutoIt:
+    $oVectorOfVec4b.Item( $index ) = $item
+```
+
 ### VectorOfVec4b::size
 
 ```cpp
@@ -33787,7 +38912,7 @@ AutoIt:
 
 ```cpp
 VectorOfVec4b VectorOfVec4b::slice( size_t start = 0,
-                                    size_t count = this->__self->get()->size() );
+                                    size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec4b.slice( [$start[, $count]] ) -> retval
 ```
@@ -33797,7 +38922,7 @@ AutoIt:
 ```cpp
 void VectorOfVec4b::sort( void*  comparator,
                           size_t start = 0,
-                          size_t count = this->__self->get()->size() );
+                          size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec4b.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -33807,7 +38932,7 @@ AutoIt:
 ```cpp
 void VectorOfVec4b::sort_variant( void*  comparator,
                                   size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
+                                  size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec4b.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -33818,24 +38943,6 @@ AutoIt:
 void* VectorOfVec4b::start();
 AutoIt:
     $oVectorOfVec4b.start() -> retval
-```
-
-### VectorOfVec4b::get_Item
-
-```cpp
-cv::Vec4b VectorOfVec4b::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfVec4b.Item( $vIndex ) -> retval
-    VectorOfVec4b( $vIndex ) -> retval
-```
-
-### VectorOfVec4b::put_Item
-
-```cpp
-void VectorOfVec4b::put_Item( size_t    vIndex,
-                              cv::Vec4b vItem );
-AutoIt:
-    $oVectorOfVec4b.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec4d
@@ -33892,6 +38999,14 @@ AutoIt:
     $oVectorOfVec4d.Remove( $index ) -> None
 ```
 
+### VectorOfVec4d::append
+
+```cpp
+void VectorOfVec4d::append( cv::Vec4d value );
+AutoIt:
+    $oVectorOfVec4d.append( $value ) -> None
+```
+
 ### VectorOfVec4d::at
 
 ```cpp
@@ -33931,6 +39046,23 @@ AutoIt:
     $oVectorOfVec4d.end() -> retval
 ```
 
+### VectorOfVec4d::get_Item
+
+```cpp
+cv::Vec4d VectorOfVec4d::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVec4d.Item( $index ) -> retval
+    $oVectorOfVec4d( $index ) -> retval
+```
+
+### VectorOfVec4d::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVec4d::get__NewEnum();
+AutoIt:
+    $oVectorOfVec4d._NewEnum() -> retval
+```
+
 ### VectorOfVec4d::push_back
 
 ```cpp
@@ -33955,6 +39087,15 @@ AutoIt:
     $oVectorOfVec4d.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfVec4d::put_Item
+
+```cpp
+void VectorOfVec4d::put_Item( size_t    index,
+                              cv::Vec4d item );
+AutoIt:
+    $oVectorOfVec4d.Item( $index ) = $item
+```
+
 ### VectorOfVec4d::size
 
 ```cpp
@@ -33967,7 +39108,7 @@ AutoIt:
 
 ```cpp
 VectorOfVec4d VectorOfVec4d::slice( size_t start = 0,
-                                    size_t count = this->__self->get()->size() );
+                                    size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec4d.slice( [$start[, $count]] ) -> retval
 ```
@@ -33977,7 +39118,7 @@ AutoIt:
 ```cpp
 void VectorOfVec4d::sort( void*  comparator,
                           size_t start = 0,
-                          size_t count = this->__self->get()->size() );
+                          size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec4d.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -33987,7 +39128,7 @@ AutoIt:
 ```cpp
 void VectorOfVec4d::sort_variant( void*  comparator,
                                   size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
+                                  size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec4d.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -33998,24 +39139,6 @@ AutoIt:
 void* VectorOfVec4d::start();
 AutoIt:
     $oVectorOfVec4d.start() -> retval
-```
-
-### VectorOfVec4d::get_Item
-
-```cpp
-cv::Vec4d VectorOfVec4d::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfVec4d.Item( $vIndex ) -> retval
-    VectorOfVec4d( $vIndex ) -> retval
-```
-
-### VectorOfVec4d::put_Item
-
-```cpp
-void VectorOfVec4d::put_Item( size_t    vIndex,
-                              cv::Vec4d vItem );
-AutoIt:
-    $oVectorOfVec4d.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec4f
@@ -34072,6 +39195,14 @@ AutoIt:
     $oVectorOfVec4f.Remove( $index ) -> None
 ```
 
+### VectorOfVec4f::append
+
+```cpp
+void VectorOfVec4f::append( cv::Vec4f value );
+AutoIt:
+    $oVectorOfVec4f.append( $value ) -> None
+```
+
 ### VectorOfVec4f::at
 
 ```cpp
@@ -34111,6 +39242,23 @@ AutoIt:
     $oVectorOfVec4f.end() -> retval
 ```
 
+### VectorOfVec4f::get_Item
+
+```cpp
+cv::Vec4f VectorOfVec4f::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVec4f.Item( $index ) -> retval
+    $oVectorOfVec4f( $index ) -> retval
+```
+
+### VectorOfVec4f::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVec4f::get__NewEnum();
+AutoIt:
+    $oVectorOfVec4f._NewEnum() -> retval
+```
+
 ### VectorOfVec4f::push_back
 
 ```cpp
@@ -34135,6 +39283,15 @@ AutoIt:
     $oVectorOfVec4f.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfVec4f::put_Item
+
+```cpp
+void VectorOfVec4f::put_Item( size_t    index,
+                              cv::Vec4f item );
+AutoIt:
+    $oVectorOfVec4f.Item( $index ) = $item
+```
+
 ### VectorOfVec4f::size
 
 ```cpp
@@ -34147,7 +39304,7 @@ AutoIt:
 
 ```cpp
 VectorOfVec4f VectorOfVec4f::slice( size_t start = 0,
-                                    size_t count = this->__self->get()->size() );
+                                    size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec4f.slice( [$start[, $count]] ) -> retval
 ```
@@ -34157,7 +39314,7 @@ AutoIt:
 ```cpp
 void VectorOfVec4f::sort( void*  comparator,
                           size_t start = 0,
-                          size_t count = this->__self->get()->size() );
+                          size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec4f.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -34167,7 +39324,7 @@ AutoIt:
 ```cpp
 void VectorOfVec4f::sort_variant( void*  comparator,
                                   size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
+                                  size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec4f.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -34178,24 +39335,6 @@ AutoIt:
 void* VectorOfVec4f::start();
 AutoIt:
     $oVectorOfVec4f.start() -> retval
-```
-
-### VectorOfVec4f::get_Item
-
-```cpp
-cv::Vec4f VectorOfVec4f::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfVec4f.Item( $vIndex ) -> retval
-    VectorOfVec4f( $vIndex ) -> retval
-```
-
-### VectorOfVec4f::put_Item
-
-```cpp
-void VectorOfVec4f::put_Item( size_t    vIndex,
-                              cv::Vec4f vItem );
-AutoIt:
-    $oVectorOfVec4f.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec4i
@@ -34252,6 +39391,14 @@ AutoIt:
     $oVectorOfVec4i.Remove( $index ) -> None
 ```
 
+### VectorOfVec4i::append
+
+```cpp
+void VectorOfVec4i::append( cv::Vec4i value );
+AutoIt:
+    $oVectorOfVec4i.append( $value ) -> None
+```
+
 ### VectorOfVec4i::at
 
 ```cpp
@@ -34291,6 +39438,23 @@ AutoIt:
     $oVectorOfVec4i.end() -> retval
 ```
 
+### VectorOfVec4i::get_Item
+
+```cpp
+cv::Vec4i VectorOfVec4i::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVec4i.Item( $index ) -> retval
+    $oVectorOfVec4i( $index ) -> retval
+```
+
+### VectorOfVec4i::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVec4i::get__NewEnum();
+AutoIt:
+    $oVectorOfVec4i._NewEnum() -> retval
+```
+
 ### VectorOfVec4i::push_back
 
 ```cpp
@@ -34315,6 +39479,15 @@ AutoIt:
     $oVectorOfVec4i.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfVec4i::put_Item
+
+```cpp
+void VectorOfVec4i::put_Item( size_t    index,
+                              cv::Vec4i item );
+AutoIt:
+    $oVectorOfVec4i.Item( $index ) = $item
+```
+
 ### VectorOfVec4i::size
 
 ```cpp
@@ -34327,7 +39500,7 @@ AutoIt:
 
 ```cpp
 VectorOfVec4i VectorOfVec4i::slice( size_t start = 0,
-                                    size_t count = this->__self->get()->size() );
+                                    size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec4i.slice( [$start[, $count]] ) -> retval
 ```
@@ -34337,7 +39510,7 @@ AutoIt:
 ```cpp
 void VectorOfVec4i::sort( void*  comparator,
                           size_t start = 0,
-                          size_t count = this->__self->get()->size() );
+                          size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec4i.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -34347,7 +39520,7 @@ AutoIt:
 ```cpp
 void VectorOfVec4i::sort_variant( void*  comparator,
                                   size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
+                                  size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec4i.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -34358,24 +39531,6 @@ AutoIt:
 void* VectorOfVec4i::start();
 AutoIt:
     $oVectorOfVec4i.start() -> retval
-```
-
-### VectorOfVec4i::get_Item
-
-```cpp
-cv::Vec4i VectorOfVec4i::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfVec4i.Item( $vIndex ) -> retval
-    VectorOfVec4i( $vIndex ) -> retval
-```
-
-### VectorOfVec4i::put_Item
-
-```cpp
-void VectorOfVec4i::put_Item( size_t    vIndex,
-                              cv::Vec4i vItem );
-AutoIt:
-    $oVectorOfVec4i.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec4s
@@ -34432,6 +39587,14 @@ AutoIt:
     $oVectorOfVec4s.Remove( $index ) -> None
 ```
 
+### VectorOfVec4s::append
+
+```cpp
+void VectorOfVec4s::append( cv::Vec4s value );
+AutoIt:
+    $oVectorOfVec4s.append( $value ) -> None
+```
+
 ### VectorOfVec4s::at
 
 ```cpp
@@ -34471,6 +39634,23 @@ AutoIt:
     $oVectorOfVec4s.end() -> retval
 ```
 
+### VectorOfVec4s::get_Item
+
+```cpp
+cv::Vec4s VectorOfVec4s::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVec4s.Item( $index ) -> retval
+    $oVectorOfVec4s( $index ) -> retval
+```
+
+### VectorOfVec4s::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVec4s::get__NewEnum();
+AutoIt:
+    $oVectorOfVec4s._NewEnum() -> retval
+```
+
 ### VectorOfVec4s::push_back
 
 ```cpp
@@ -34495,6 +39675,15 @@ AutoIt:
     $oVectorOfVec4s.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfVec4s::put_Item
+
+```cpp
+void VectorOfVec4s::put_Item( size_t    index,
+                              cv::Vec4s item );
+AutoIt:
+    $oVectorOfVec4s.Item( $index ) = $item
+```
+
 ### VectorOfVec4s::size
 
 ```cpp
@@ -34507,7 +39696,7 @@ AutoIt:
 
 ```cpp
 VectorOfVec4s VectorOfVec4s::slice( size_t start = 0,
-                                    size_t count = this->__self->get()->size() );
+                                    size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec4s.slice( [$start[, $count]] ) -> retval
 ```
@@ -34517,7 +39706,7 @@ AutoIt:
 ```cpp
 void VectorOfVec4s::sort( void*  comparator,
                           size_t start = 0,
-                          size_t count = this->__self->get()->size() );
+                          size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec4s.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -34527,7 +39716,7 @@ AutoIt:
 ```cpp
 void VectorOfVec4s::sort_variant( void*  comparator,
                                   size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
+                                  size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec4s.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -34538,24 +39727,6 @@ AutoIt:
 void* VectorOfVec4s::start();
 AutoIt:
     $oVectorOfVec4s.start() -> retval
-```
-
-### VectorOfVec4s::get_Item
-
-```cpp
-cv::Vec4s VectorOfVec4s::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfVec4s.Item( $vIndex ) -> retval
-    VectorOfVec4s( $vIndex ) -> retval
-```
-
-### VectorOfVec4s::put_Item
-
-```cpp
-void VectorOfVec4s::put_Item( size_t    vIndex,
-                              cv::Vec4s vItem );
-AutoIt:
-    $oVectorOfVec4s.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec4w
@@ -34612,6 +39783,14 @@ AutoIt:
     $oVectorOfVec4w.Remove( $index ) -> None
 ```
 
+### VectorOfVec4w::append
+
+```cpp
+void VectorOfVec4w::append( cv::Vec4w value );
+AutoIt:
+    $oVectorOfVec4w.append( $value ) -> None
+```
+
 ### VectorOfVec4w::at
 
 ```cpp
@@ -34651,6 +39830,23 @@ AutoIt:
     $oVectorOfVec4w.end() -> retval
 ```
 
+### VectorOfVec4w::get_Item
+
+```cpp
+cv::Vec4w VectorOfVec4w::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVec4w.Item( $index ) -> retval
+    $oVectorOfVec4w( $index ) -> retval
+```
+
+### VectorOfVec4w::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVec4w::get__NewEnum();
+AutoIt:
+    $oVectorOfVec4w._NewEnum() -> retval
+```
+
 ### VectorOfVec4w::push_back
 
 ```cpp
@@ -34675,6 +39871,15 @@ AutoIt:
     $oVectorOfVec4w.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfVec4w::put_Item
+
+```cpp
+void VectorOfVec4w::put_Item( size_t    index,
+                              cv::Vec4w item );
+AutoIt:
+    $oVectorOfVec4w.Item( $index ) = $item
+```
+
 ### VectorOfVec4w::size
 
 ```cpp
@@ -34687,7 +39892,7 @@ AutoIt:
 
 ```cpp
 VectorOfVec4w VectorOfVec4w::slice( size_t start = 0,
-                                    size_t count = this->__self->get()->size() );
+                                    size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec4w.slice( [$start[, $count]] ) -> retval
 ```
@@ -34697,7 +39902,7 @@ AutoIt:
 ```cpp
 void VectorOfVec4w::sort( void*  comparator,
                           size_t start = 0,
-                          size_t count = this->__self->get()->size() );
+                          size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec4w.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -34707,7 +39912,7 @@ AutoIt:
 ```cpp
 void VectorOfVec4w::sort_variant( void*  comparator,
                                   size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
+                                  size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec4w.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -34718,24 +39923,6 @@ AutoIt:
 void* VectorOfVec4w::start();
 AutoIt:
     $oVectorOfVec4w.start() -> retval
-```
-
-### VectorOfVec4w::get_Item
-
-```cpp
-cv::Vec4w VectorOfVec4w::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfVec4w.Item( $vIndex ) -> retval
-    VectorOfVec4w( $vIndex ) -> retval
-```
-
-### VectorOfVec4w::put_Item
-
-```cpp
-void VectorOfVec4w::put_Item( size_t    vIndex,
-                              cv::Vec4w vItem );
-AutoIt:
-    $oVectorOfVec4w.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec6d
@@ -34792,6 +39979,14 @@ AutoIt:
     $oVectorOfVec6d.Remove( $index ) -> None
 ```
 
+### VectorOfVec6d::append
+
+```cpp
+void VectorOfVec6d::append( cv::Vec6d value );
+AutoIt:
+    $oVectorOfVec6d.append( $value ) -> None
+```
+
 ### VectorOfVec6d::at
 
 ```cpp
@@ -34831,6 +40026,23 @@ AutoIt:
     $oVectorOfVec6d.end() -> retval
 ```
 
+### VectorOfVec6d::get_Item
+
+```cpp
+cv::Vec6d VectorOfVec6d::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVec6d.Item( $index ) -> retval
+    $oVectorOfVec6d( $index ) -> retval
+```
+
+### VectorOfVec6d::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVec6d::get__NewEnum();
+AutoIt:
+    $oVectorOfVec6d._NewEnum() -> retval
+```
+
 ### VectorOfVec6d::push_back
 
 ```cpp
@@ -34855,6 +40067,15 @@ AutoIt:
     $oVectorOfVec6d.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfVec6d::put_Item
+
+```cpp
+void VectorOfVec6d::put_Item( size_t    index,
+                              cv::Vec6d item );
+AutoIt:
+    $oVectorOfVec6d.Item( $index ) = $item
+```
+
 ### VectorOfVec6d::size
 
 ```cpp
@@ -34867,7 +40088,7 @@ AutoIt:
 
 ```cpp
 VectorOfVec6d VectorOfVec6d::slice( size_t start = 0,
-                                    size_t count = this->__self->get()->size() );
+                                    size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec6d.slice( [$start[, $count]] ) -> retval
 ```
@@ -34877,7 +40098,7 @@ AutoIt:
 ```cpp
 void VectorOfVec6d::sort( void*  comparator,
                           size_t start = 0,
-                          size_t count = this->__self->get()->size() );
+                          size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec6d.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -34887,7 +40108,7 @@ AutoIt:
 ```cpp
 void VectorOfVec6d::sort_variant( void*  comparator,
                                   size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
+                                  size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec6d.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -34898,24 +40119,6 @@ AutoIt:
 void* VectorOfVec6d::start();
 AutoIt:
     $oVectorOfVec6d.start() -> retval
-```
-
-### VectorOfVec6d::get_Item
-
-```cpp
-cv::Vec6d VectorOfVec6d::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfVec6d.Item( $vIndex ) -> retval
-    VectorOfVec6d( $vIndex ) -> retval
-```
-
-### VectorOfVec6d::put_Item
-
-```cpp
-void VectorOfVec6d::put_Item( size_t    vIndex,
-                              cv::Vec6d vItem );
-AutoIt:
-    $oVectorOfVec6d.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec6f
@@ -34972,6 +40175,14 @@ AutoIt:
     $oVectorOfVec6f.Remove( $index ) -> None
 ```
 
+### VectorOfVec6f::append
+
+```cpp
+void VectorOfVec6f::append( cv::Vec6f value );
+AutoIt:
+    $oVectorOfVec6f.append( $value ) -> None
+```
+
 ### VectorOfVec6f::at
 
 ```cpp
@@ -35011,6 +40222,23 @@ AutoIt:
     $oVectorOfVec6f.end() -> retval
 ```
 
+### VectorOfVec6f::get_Item
+
+```cpp
+cv::Vec6f VectorOfVec6f::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVec6f.Item( $index ) -> retval
+    $oVectorOfVec6f( $index ) -> retval
+```
+
+### VectorOfVec6f::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVec6f::get__NewEnum();
+AutoIt:
+    $oVectorOfVec6f._NewEnum() -> retval
+```
+
 ### VectorOfVec6f::push_back
 
 ```cpp
@@ -35035,6 +40263,15 @@ AutoIt:
     $oVectorOfVec6f.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfVec6f::put_Item
+
+```cpp
+void VectorOfVec6f::put_Item( size_t    index,
+                              cv::Vec6f item );
+AutoIt:
+    $oVectorOfVec6f.Item( $index ) = $item
+```
+
 ### VectorOfVec6f::size
 
 ```cpp
@@ -35047,7 +40284,7 @@ AutoIt:
 
 ```cpp
 VectorOfVec6f VectorOfVec6f::slice( size_t start = 0,
-                                    size_t count = this->__self->get()->size() );
+                                    size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec6f.slice( [$start[, $count]] ) -> retval
 ```
@@ -35057,7 +40294,7 @@ AutoIt:
 ```cpp
 void VectorOfVec6f::sort( void*  comparator,
                           size_t start = 0,
-                          size_t count = this->__self->get()->size() );
+                          size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec6f.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -35067,7 +40304,7 @@ AutoIt:
 ```cpp
 void VectorOfVec6f::sort_variant( void*  comparator,
                                   size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
+                                  size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec6f.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -35078,24 +40315,6 @@ AutoIt:
 void* VectorOfVec6f::start();
 AutoIt:
     $oVectorOfVec6f.start() -> retval
-```
-
-### VectorOfVec6f::get_Item
-
-```cpp
-cv::Vec6f VectorOfVec6f::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfVec6f.Item( $vIndex ) -> retval
-    VectorOfVec6f( $vIndex ) -> retval
-```
-
-### VectorOfVec6f::put_Item
-
-```cpp
-void VectorOfVec6f::put_Item( size_t    vIndex,
-                              cv::Vec6f vItem );
-AutoIt:
-    $oVectorOfVec6f.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec6i
@@ -35152,6 +40371,14 @@ AutoIt:
     $oVectorOfVec6i.Remove( $index ) -> None
 ```
 
+### VectorOfVec6i::append
+
+```cpp
+void VectorOfVec6i::append( cv::Vec6i value );
+AutoIt:
+    $oVectorOfVec6i.append( $value ) -> None
+```
+
 ### VectorOfVec6i::at
 
 ```cpp
@@ -35191,6 +40418,23 @@ AutoIt:
     $oVectorOfVec6i.end() -> retval
 ```
 
+### VectorOfVec6i::get_Item
+
+```cpp
+cv::Vec6i VectorOfVec6i::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVec6i.Item( $index ) -> retval
+    $oVectorOfVec6i( $index ) -> retval
+```
+
+### VectorOfVec6i::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVec6i::get__NewEnum();
+AutoIt:
+    $oVectorOfVec6i._NewEnum() -> retval
+```
+
 ### VectorOfVec6i::push_back
 
 ```cpp
@@ -35215,6 +40459,15 @@ AutoIt:
     $oVectorOfVec6i.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfVec6i::put_Item
+
+```cpp
+void VectorOfVec6i::put_Item( size_t    index,
+                              cv::Vec6i item );
+AutoIt:
+    $oVectorOfVec6i.Item( $index ) = $item
+```
+
 ### VectorOfVec6i::size
 
 ```cpp
@@ -35227,7 +40480,7 @@ AutoIt:
 
 ```cpp
 VectorOfVec6i VectorOfVec6i::slice( size_t start = 0,
-                                    size_t count = this->__self->get()->size() );
+                                    size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec6i.slice( [$start[, $count]] ) -> retval
 ```
@@ -35237,7 +40490,7 @@ AutoIt:
 ```cpp
 void VectorOfVec6i::sort( void*  comparator,
                           size_t start = 0,
-                          size_t count = this->__self->get()->size() );
+                          size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec6i.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -35247,7 +40500,7 @@ AutoIt:
 ```cpp
 void VectorOfVec6i::sort_variant( void*  comparator,
                                   size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
+                                  size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec6i.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -35258,24 +40511,6 @@ AutoIt:
 void* VectorOfVec6i::start();
 AutoIt:
     $oVectorOfVec6i.start() -> retval
-```
-
-### VectorOfVec6i::get_Item
-
-```cpp
-cv::Vec6i VectorOfVec6i::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfVec6i.Item( $vIndex ) -> retval
-    VectorOfVec6i( $vIndex ) -> retval
-```
-
-### VectorOfVec6i::put_Item
-
-```cpp
-void VectorOfVec6i::put_Item( size_t    vIndex,
-                              cv::Vec6i vItem );
-AutoIt:
-    $oVectorOfVec6i.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVec8i
@@ -35332,6 +40567,14 @@ AutoIt:
     $oVectorOfVec8i.Remove( $index ) -> None
 ```
 
+### VectorOfVec8i::append
+
+```cpp
+void VectorOfVec8i::append( cv::Vec8i value );
+AutoIt:
+    $oVectorOfVec8i.append( $value ) -> None
+```
+
 ### VectorOfVec8i::at
 
 ```cpp
@@ -35371,6 +40614,23 @@ AutoIt:
     $oVectorOfVec8i.end() -> retval
 ```
 
+### VectorOfVec8i::get_Item
+
+```cpp
+cv::Vec8i VectorOfVec8i::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVec8i.Item( $index ) -> retval
+    $oVectorOfVec8i( $index ) -> retval
+```
+
+### VectorOfVec8i::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVec8i::get__NewEnum();
+AutoIt:
+    $oVectorOfVec8i._NewEnum() -> retval
+```
+
 ### VectorOfVec8i::push_back
 
 ```cpp
@@ -35395,6 +40655,15 @@ AutoIt:
     $oVectorOfVec8i.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfVec8i::put_Item
+
+```cpp
+void VectorOfVec8i::put_Item( size_t    index,
+                              cv::Vec8i item );
+AutoIt:
+    $oVectorOfVec8i.Item( $index ) = $item
+```
+
 ### VectorOfVec8i::size
 
 ```cpp
@@ -35407,7 +40676,7 @@ AutoIt:
 
 ```cpp
 VectorOfVec8i VectorOfVec8i::slice( size_t start = 0,
-                                    size_t count = this->__self->get()->size() );
+                                    size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec8i.slice( [$start[, $count]] ) -> retval
 ```
@@ -35417,7 +40686,7 @@ AutoIt:
 ```cpp
 void VectorOfVec8i::sort( void*  comparator,
                           size_t start = 0,
-                          size_t count = this->__self->get()->size() );
+                          size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec8i.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -35427,7 +40696,7 @@ AutoIt:
 ```cpp
 void VectorOfVec8i::sort_variant( void*  comparator,
                                   size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
+                                  size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec8i.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -35438,24 +40707,6 @@ AutoIt:
 void* VectorOfVec8i::start();
 AutoIt:
     $oVectorOfVec8i.start() -> retval
-```
-
-### VectorOfVec8i::get_Item
-
-```cpp
-cv::Vec8i VectorOfVec8i::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfVec8i.Item( $vIndex ) -> retval
-    VectorOfVec8i( $vIndex ) -> retval
-```
-
-### VectorOfVec8i::put_Item
-
-```cpp
-void VectorOfVec8i::put_Item( size_t    vIndex,
-                              cv::Vec8i vItem );
-AutoIt:
-    $oVectorOfVec8i.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfPoint2f
@@ -35512,6 +40763,14 @@ AutoIt:
     $oVectorOfPoint2f.Remove( $index ) -> None
 ```
 
+### VectorOfPoint2f::append
+
+```cpp
+void VectorOfPoint2f::append( cv::Point2f value );
+AutoIt:
+    $oVectorOfPoint2f.append( $value ) -> None
+```
+
 ### VectorOfPoint2f::at
 
 ```cpp
@@ -35551,6 +40810,23 @@ AutoIt:
     $oVectorOfPoint2f.end() -> retval
 ```
 
+### VectorOfPoint2f::get_Item
+
+```cpp
+cv::Point2f VectorOfPoint2f::get_Item( size_t index );
+AutoIt:
+    $oVectorOfPoint2f.Item( $index ) -> retval
+    $oVectorOfPoint2f( $index ) -> retval
+```
+
+### VectorOfPoint2f::get__NewEnum
+
+```cpp
+IUnknown* VectorOfPoint2f::get__NewEnum();
+AutoIt:
+    $oVectorOfPoint2f._NewEnum() -> retval
+```
+
 ### VectorOfPoint2f::push_back
 
 ```cpp
@@ -35575,6 +40851,15 @@ AutoIt:
     $oVectorOfPoint2f.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfPoint2f::put_Item
+
+```cpp
+void VectorOfPoint2f::put_Item( size_t      index,
+                                cv::Point2f item );
+AutoIt:
+    $oVectorOfPoint2f.Item( $index ) = $item
+```
+
 ### VectorOfPoint2f::size
 
 ```cpp
@@ -35587,7 +40872,7 @@ AutoIt:
 
 ```cpp
 VectorOfPoint2f VectorOfPoint2f::slice( size_t start = 0,
-                                        size_t count = this->__self->get()->size() );
+                                        size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfPoint2f.slice( [$start[, $count]] ) -> retval
 ```
@@ -35597,7 +40882,7 @@ AutoIt:
 ```cpp
 void VectorOfPoint2f::sort( void*  comparator,
                             size_t start = 0,
-                            size_t count = this->__self->get()->size() );
+                            size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfPoint2f.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -35607,7 +40892,7 @@ AutoIt:
 ```cpp
 void VectorOfPoint2f::sort_variant( void*  comparator,
                                     size_t start = 0,
-                                    size_t count = this->__self->get()->size() );
+                                    size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfPoint2f.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -35618,24 +40903,6 @@ AutoIt:
 void* VectorOfPoint2f::start();
 AutoIt:
     $oVectorOfPoint2f.start() -> retval
-```
-
-### VectorOfPoint2f::get_Item
-
-```cpp
-cv::Point2f VectorOfPoint2f::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfPoint2f.Item( $vIndex ) -> retval
-    VectorOfPoint2f( $vIndex ) -> retval
-```
-
-### VectorOfPoint2f::put_Item
-
-```cpp
-void VectorOfPoint2f::put_Item( size_t      vIndex,
-                                cv::Point2f vItem );
-AutoIt:
-    $oVectorOfPoint2f.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVectorOfPoint2f
@@ -35692,6 +40959,14 @@ AutoIt:
     $oVectorOfVectorOfPoint2f.Remove( $index ) -> None
 ```
 
+### VectorOfVectorOfPoint2f::append
+
+```cpp
+void VectorOfVectorOfPoint2f::append( std::vector<cv::Point2f> value );
+AutoIt:
+    $oVectorOfVectorOfPoint2f.append( $value ) -> None
+```
+
 ### VectorOfVectorOfPoint2f::at
 
 ```cpp
@@ -35731,6 +41006,23 @@ AutoIt:
     $oVectorOfVectorOfPoint2f.end() -> retval
 ```
 
+### VectorOfVectorOfPoint2f::get_Item
+
+```cpp
+std::vector<cv::Point2f> VectorOfVectorOfPoint2f::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVectorOfPoint2f.Item( $index ) -> retval
+    $oVectorOfVectorOfPoint2f( $index ) -> retval
+```
+
+### VectorOfVectorOfPoint2f::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVectorOfPoint2f::get__NewEnum();
+AutoIt:
+    $oVectorOfVectorOfPoint2f._NewEnum() -> retval
+```
+
 ### VectorOfVectorOfPoint2f::push_back
 
 ```cpp
@@ -35755,6 +41047,15 @@ AutoIt:
     $oVectorOfVectorOfPoint2f.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfVectorOfPoint2f::put_Item
+
+```cpp
+void VectorOfVectorOfPoint2f::put_Item( size_t                   index,
+                                        std::vector<cv::Point2f> item );
+AutoIt:
+    $oVectorOfVectorOfPoint2f.Item( $index ) = $item
+```
+
 ### VectorOfVectorOfPoint2f::size
 
 ```cpp
@@ -35767,7 +41068,7 @@ AutoIt:
 
 ```cpp
 VectorOfVectorOfPoint2f VectorOfVectorOfPoint2f::slice( size_t start = 0,
-                                                        size_t count = this->__self->get()->size() );
+                                                        size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVectorOfPoint2f.slice( [$start[, $count]] ) -> retval
 ```
@@ -35777,7 +41078,7 @@ AutoIt:
 ```cpp
 void VectorOfVectorOfPoint2f::sort( void*  comparator,
                                     size_t start = 0,
-                                    size_t count = this->__self->get()->size() );
+                                    size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVectorOfPoint2f.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -35787,7 +41088,7 @@ AutoIt:
 ```cpp
 void VectorOfVectorOfPoint2f::sort_variant( void*  comparator,
                                             size_t start = 0,
-                                            size_t count = this->__self->get()->size() );
+                                            size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVectorOfPoint2f.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -35798,24 +41099,6 @@ AutoIt:
 void* VectorOfVectorOfPoint2f::start();
 AutoIt:
     $oVectorOfVectorOfPoint2f.start() -> retval
-```
-
-### VectorOfVectorOfPoint2f::get_Item
-
-```cpp
-std::vector<cv::Point2f> VectorOfVectorOfPoint2f::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfVectorOfPoint2f.Item( $vIndex ) -> retval
-    VectorOfVectorOfPoint2f( $vIndex ) -> retval
-```
-
-### VectorOfVectorOfPoint2f::put_Item
-
-```cpp
-void VectorOfVectorOfPoint2f::put_Item( size_t                   vIndex,
-                                        std::vector<cv::Point2f> vItem );
-AutoIt:
-    $oVectorOfVectorOfPoint2f.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfRect2d
@@ -35872,6 +41155,14 @@ AutoIt:
     $oVectorOfRect2d.Remove( $index ) -> None
 ```
 
+### VectorOfRect2d::append
+
+```cpp
+void VectorOfRect2d::append( cv::Rect2d value );
+AutoIt:
+    $oVectorOfRect2d.append( $value ) -> None
+```
+
 ### VectorOfRect2d::at
 
 ```cpp
@@ -35911,6 +41202,23 @@ AutoIt:
     $oVectorOfRect2d.end() -> retval
 ```
 
+### VectorOfRect2d::get_Item
+
+```cpp
+cv::Rect2d VectorOfRect2d::get_Item( size_t index );
+AutoIt:
+    $oVectorOfRect2d.Item( $index ) -> retval
+    $oVectorOfRect2d( $index ) -> retval
+```
+
+### VectorOfRect2d::get__NewEnum
+
+```cpp
+IUnknown* VectorOfRect2d::get__NewEnum();
+AutoIt:
+    $oVectorOfRect2d._NewEnum() -> retval
+```
+
 ### VectorOfRect2d::push_back
 
 ```cpp
@@ -35935,6 +41243,15 @@ AutoIt:
     $oVectorOfRect2d.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfRect2d::put_Item
+
+```cpp
+void VectorOfRect2d::put_Item( size_t     index,
+                               cv::Rect2d item );
+AutoIt:
+    $oVectorOfRect2d.Item( $index ) = $item
+```
+
 ### VectorOfRect2d::size
 
 ```cpp
@@ -35947,7 +41264,7 @@ AutoIt:
 
 ```cpp
 VectorOfRect2d VectorOfRect2d::slice( size_t start = 0,
-                                      size_t count = this->__self->get()->size() );
+                                      size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfRect2d.slice( [$start[, $count]] ) -> retval
 ```
@@ -35957,7 +41274,7 @@ AutoIt:
 ```cpp
 void VectorOfRect2d::sort( void*  comparator,
                            size_t start = 0,
-                           size_t count = this->__self->get()->size() );
+                           size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfRect2d.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -35967,7 +41284,7 @@ AutoIt:
 ```cpp
 void VectorOfRect2d::sort_variant( void*  comparator,
                                    size_t start = 0,
-                                   size_t count = this->__self->get()->size() );
+                                   size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfRect2d.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -35980,22 +41297,200 @@ AutoIt:
     $oVectorOfRect2d.start() -> retval
 ```
 
-### VectorOfRect2d::get_Item
+## VectorOfDnn_Target
+
+### VectorOfDnn_Target::create
 
 ```cpp
-cv::Rect2d VectorOfRect2d::get_Item( size_t vIndex );
+static VectorOfDnn_Target VectorOfDnn_Target::create();
 AutoIt:
-    $oVectorOfRect2d.Item( $vIndex ) -> retval
-    VectorOfRect2d( $vIndex ) -> retval
+    _OpenCV_ObjCreate("VectorOfDnn_Target").create() -> <VectorOfDnn_Target object>
 ```
 
-### VectorOfRect2d::put_Item
+```cpp
+static VectorOfDnn_Target VectorOfDnn_Target::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfDnn_Target").create( $size ) -> <VectorOfDnn_Target object>
+```
 
 ```cpp
-void VectorOfRect2d::put_Item( size_t     vIndex,
-                               cv::Rect2d vItem );
+static VectorOfDnn_Target VectorOfDnn_Target::create( VectorOfDnn_Target other );
 AutoIt:
-    $oVectorOfRect2d.Item( $vIndex ) = $vItem
+    _OpenCV_ObjCreate("VectorOfDnn_Target").create( $other ) -> <VectorOfDnn_Target object>
+```
+
+### VectorOfDnn_Target::Add
+
+```cpp
+void VectorOfDnn_Target::Add( cv::dnn::Target value );
+AutoIt:
+    $oVectorOfDnn_Target.Add( $value ) -> None
+```
+
+### VectorOfDnn_Target::Items
+
+```cpp
+VectorOfDnn_Target VectorOfDnn_Target::Items();
+AutoIt:
+    $oVectorOfDnn_Target.Items() -> retval
+```
+
+### VectorOfDnn_Target::Keys
+
+```cpp
+std::vector<int> VectorOfDnn_Target::Keys();
+AutoIt:
+    $oVectorOfDnn_Target.Keys() -> retval
+```
+
+### VectorOfDnn_Target::Remove
+
+```cpp
+void VectorOfDnn_Target::Remove( size_t index );
+AutoIt:
+    $oVectorOfDnn_Target.Remove( $index ) -> None
+```
+
+### VectorOfDnn_Target::append
+
+```cpp
+void VectorOfDnn_Target::append( cv::dnn::Target value );
+AutoIt:
+    $oVectorOfDnn_Target.append( $value ) -> None
+```
+
+### VectorOfDnn_Target::at
+
+```cpp
+cv::dnn::Target VectorOfDnn_Target::at( size_t index );
+AutoIt:
+    $oVectorOfDnn_Target.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfDnn_Target::at( size_t          index,
+                             cv::dnn::Target value );
+AutoIt:
+    $oVectorOfDnn_Target.at( $index, $value ) -> None
+```
+
+### VectorOfDnn_Target::clear
+
+```cpp
+void VectorOfDnn_Target::clear();
+AutoIt:
+    $oVectorOfDnn_Target.clear() -> None
+```
+
+### VectorOfDnn_Target::empty
+
+```cpp
+bool VectorOfDnn_Target::empty();
+AutoIt:
+    $oVectorOfDnn_Target.empty() -> retval
+```
+
+### VectorOfDnn_Target::end
+
+```cpp
+void* VectorOfDnn_Target::end();
+AutoIt:
+    $oVectorOfDnn_Target.end() -> retval
+```
+
+### VectorOfDnn_Target::get_Item
+
+```cpp
+cv::dnn::Target VectorOfDnn_Target::get_Item( size_t index );
+AutoIt:
+    $oVectorOfDnn_Target.Item( $index ) -> retval
+    $oVectorOfDnn_Target( $index ) -> retval
+```
+
+### VectorOfDnn_Target::get__NewEnum
+
+```cpp
+IUnknown* VectorOfDnn_Target::get__NewEnum();
+AutoIt:
+    $oVectorOfDnn_Target._NewEnum() -> retval
+```
+
+### VectorOfDnn_Target::push_back
+
+```cpp
+void VectorOfDnn_Target::push_back( cv::dnn::Target value );
+AutoIt:
+    $oVectorOfDnn_Target.push_back( $value ) -> None
+```
+
+### VectorOfDnn_Target::push_vector
+
+```cpp
+void VectorOfDnn_Target::push_vector( VectorOfDnn_Target other );
+AutoIt:
+    $oVectorOfDnn_Target.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfDnn_Target::push_vector( VectorOfDnn_Target other,
+                                      size_t             count,
+                                      size_t             start = 0 );
+AutoIt:
+    $oVectorOfDnn_Target.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfDnn_Target::put_Item
+
+```cpp
+void VectorOfDnn_Target::put_Item( size_t          index,
+                                   cv::dnn::Target item );
+AutoIt:
+    $oVectorOfDnn_Target.Item( $index ) = $item
+```
+
+### VectorOfDnn_Target::size
+
+```cpp
+size_t VectorOfDnn_Target::size();
+AutoIt:
+    $oVectorOfDnn_Target.size() -> retval
+```
+
+### VectorOfDnn_Target::slice
+
+```cpp
+VectorOfDnn_Target VectorOfDnn_Target::slice( size_t start = 0,
+                                              size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfDnn_Target.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfDnn_Target::sort
+
+```cpp
+void VectorOfDnn_Target::sort( void*  comparator,
+                               size_t start = 0,
+                               size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfDnn_Target.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfDnn_Target::sort_variant
+
+```cpp
+void VectorOfDnn_Target::sort_variant( void*  comparator,
+                                       size_t start = 0,
+                                       size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfDnn_Target.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfDnn_Target::start
+
+```cpp
+void* VectorOfDnn_Target::start();
+AutoIt:
+    $oVectorOfDnn_Target.start() -> retval
 ```
 
 ## VectorOfVectorOfMat
@@ -36052,6 +41547,14 @@ AutoIt:
     $oVectorOfVectorOfMat.Remove( $index ) -> None
 ```
 
+### VectorOfVectorOfMat::append
+
+```cpp
+void VectorOfVectorOfMat::append( std::vector<cv::Mat> value );
+AutoIt:
+    $oVectorOfVectorOfMat.append( $value ) -> None
+```
+
 ### VectorOfVectorOfMat::at
 
 ```cpp
@@ -36091,6 +41594,23 @@ AutoIt:
     $oVectorOfVectorOfMat.end() -> retval
 ```
 
+### VectorOfVectorOfMat::get_Item
+
+```cpp
+std::vector<cv::Mat> VectorOfVectorOfMat::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVectorOfMat.Item( $index ) -> retval
+    $oVectorOfVectorOfMat( $index ) -> retval
+```
+
+### VectorOfVectorOfMat::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVectorOfMat::get__NewEnum();
+AutoIt:
+    $oVectorOfVectorOfMat._NewEnum() -> retval
+```
+
 ### VectorOfVectorOfMat::push_back
 
 ```cpp
@@ -36115,6 +41635,15 @@ AutoIt:
     $oVectorOfVectorOfMat.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfVectorOfMat::put_Item
+
+```cpp
+void VectorOfVectorOfMat::put_Item( size_t               index,
+                                    std::vector<cv::Mat> item );
+AutoIt:
+    $oVectorOfVectorOfMat.Item( $index ) = $item
+```
+
 ### VectorOfVectorOfMat::size
 
 ```cpp
@@ -36127,7 +41656,7 @@ AutoIt:
 
 ```cpp
 VectorOfVectorOfMat VectorOfVectorOfMat::slice( size_t start = 0,
-                                                size_t count = this->__self->get()->size() );
+                                                size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVectorOfMat.slice( [$start[, $count]] ) -> retval
 ```
@@ -36137,7 +41666,7 @@ AutoIt:
 ```cpp
 void VectorOfVectorOfMat::sort( void*  comparator,
                                 size_t start = 0,
-                                size_t count = this->__self->get()->size() );
+                                size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVectorOfMat.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -36147,7 +41676,7 @@ AutoIt:
 ```cpp
 void VectorOfVectorOfMat::sort_variant( void*  comparator,
                                         size_t start = 0,
-                                        size_t count = this->__self->get()->size() );
+                                        size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVectorOfMat.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -36158,24 +41687,6 @@ AutoIt:
 void* VectorOfVectorOfMat::start();
 AutoIt:
     $oVectorOfVectorOfMat.start() -> retval
-```
-
-### VectorOfVectorOfMat::get_Item
-
-```cpp
-std::vector<cv::Mat> VectorOfVectorOfMat::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfVectorOfMat.Item( $vIndex ) -> retval
-    VectorOfVectorOfMat( $vIndex ) -> retval
-```
-
-### VectorOfVectorOfMat::put_Item
-
-```cpp
-void VectorOfVectorOfMat::put_Item( size_t               vIndex,
-                                    std::vector<cv::Mat> vItem );
-AutoIt:
-    $oVectorOfVectorOfMat.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVectorOfInt
@@ -36232,6 +41743,14 @@ AutoIt:
     $oVectorOfVectorOfInt.Remove( $index ) -> None
 ```
 
+### VectorOfVectorOfInt::append
+
+```cpp
+void VectorOfVectorOfInt::append( std::vector<int> value );
+AutoIt:
+    $oVectorOfVectorOfInt.append( $value ) -> None
+```
+
 ### VectorOfVectorOfInt::at
 
 ```cpp
@@ -36271,6 +41790,23 @@ AutoIt:
     $oVectorOfVectorOfInt.end() -> retval
 ```
 
+### VectorOfVectorOfInt::get_Item
+
+```cpp
+std::vector<int> VectorOfVectorOfInt::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVectorOfInt.Item( $index ) -> retval
+    $oVectorOfVectorOfInt( $index ) -> retval
+```
+
+### VectorOfVectorOfInt::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVectorOfInt::get__NewEnum();
+AutoIt:
+    $oVectorOfVectorOfInt._NewEnum() -> retval
+```
+
 ### VectorOfVectorOfInt::push_back
 
 ```cpp
@@ -36295,6 +41831,15 @@ AutoIt:
     $oVectorOfVectorOfInt.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfVectorOfInt::put_Item
+
+```cpp
+void VectorOfVectorOfInt::put_Item( size_t           index,
+                                    std::vector<int> item );
+AutoIt:
+    $oVectorOfVectorOfInt.Item( $index ) = $item
+```
+
 ### VectorOfVectorOfInt::size
 
 ```cpp
@@ -36307,7 +41852,7 @@ AutoIt:
 
 ```cpp
 VectorOfVectorOfInt VectorOfVectorOfInt::slice( size_t start = 0,
-                                                size_t count = this->__self->get()->size() );
+                                                size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVectorOfInt.slice( [$start[, $count]] ) -> retval
 ```
@@ -36317,7 +41862,7 @@ AutoIt:
 ```cpp
 void VectorOfVectorOfInt::sort( void*  comparator,
                                 size_t start = 0,
-                                size_t count = this->__self->get()->size() );
+                                size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVectorOfInt.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -36327,7 +41872,7 @@ AutoIt:
 ```cpp
 void VectorOfVectorOfInt::sort_variant( void*  comparator,
                                         size_t start = 0,
-                                        size_t count = this->__self->get()->size() );
+                                        size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVectorOfInt.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -36338,24 +41883,6 @@ AutoIt:
 void* VectorOfVectorOfInt::start();
 AutoIt:
     $oVectorOfVectorOfInt.start() -> retval
-```
-
-### VectorOfVectorOfInt::get_Item
-
-```cpp
-std::vector<int> VectorOfVectorOfInt::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfVectorOfInt.Item( $vIndex ) -> retval
-    VectorOfVectorOfInt( $vIndex ) -> retval
-```
-
-### VectorOfVectorOfInt::put_Item
-
-```cpp
-void VectorOfVectorOfInt::put_Item( size_t           vIndex,
-                                    std::vector<int> vItem );
-AutoIt:
-    $oVectorOfVectorOfInt.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVectorOfVectorOfInt
@@ -36412,6 +41939,14 @@ AutoIt:
     $oVectorOfVectorOfVectorOfInt.Remove( $index ) -> None
 ```
 
+### VectorOfVectorOfVectorOfInt::append
+
+```cpp
+void VectorOfVectorOfVectorOfInt::append( std::vector<std::vector<int>> value );
+AutoIt:
+    $oVectorOfVectorOfVectorOfInt.append( $value ) -> None
+```
+
 ### VectorOfVectorOfVectorOfInt::at
 
 ```cpp
@@ -36451,6 +41986,23 @@ AutoIt:
     $oVectorOfVectorOfVectorOfInt.end() -> retval
 ```
 
+### VectorOfVectorOfVectorOfInt::get_Item
+
+```cpp
+std::vector<std::vector<int>> VectorOfVectorOfVectorOfInt::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVectorOfVectorOfInt.Item( $index ) -> retval
+    $oVectorOfVectorOfVectorOfInt( $index ) -> retval
+```
+
+### VectorOfVectorOfVectorOfInt::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVectorOfVectorOfInt::get__NewEnum();
+AutoIt:
+    $oVectorOfVectorOfVectorOfInt._NewEnum() -> retval
+```
+
 ### VectorOfVectorOfVectorOfInt::push_back
 
 ```cpp
@@ -36475,6 +42027,15 @@ AutoIt:
     $oVectorOfVectorOfVectorOfInt.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfVectorOfVectorOfInt::put_Item
+
+```cpp
+void VectorOfVectorOfVectorOfInt::put_Item( size_t                        index,
+                                            std::vector<std::vector<int>> item );
+AutoIt:
+    $oVectorOfVectorOfVectorOfInt.Item( $index ) = $item
+```
+
 ### VectorOfVectorOfVectorOfInt::size
 
 ```cpp
@@ -36487,7 +42048,7 @@ AutoIt:
 
 ```cpp
 VectorOfVectorOfVectorOfInt VectorOfVectorOfVectorOfInt::slice( size_t start = 0,
-                                                                size_t count = this->__self->get()->size() );
+                                                                size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVectorOfVectorOfInt.slice( [$start[, $count]] ) -> retval
 ```
@@ -36497,7 +42058,7 @@ AutoIt:
 ```cpp
 void VectorOfVectorOfVectorOfInt::sort( void*  comparator,
                                         size_t start = 0,
-                                        size_t count = this->__self->get()->size() );
+                                        size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVectorOfVectorOfInt.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -36507,7 +42068,7 @@ AutoIt:
 ```cpp
 void VectorOfVectorOfVectorOfInt::sort_variant( void*  comparator,
                                                 size_t start = 0,
-                                                size_t count = this->__self->get()->size() );
+                                                size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVectorOfVectorOfInt.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -36518,24 +42079,6 @@ AutoIt:
 void* VectorOfVectorOfVectorOfInt::start();
 AutoIt:
     $oVectorOfVectorOfVectorOfInt.start() -> retval
-```
-
-### VectorOfVectorOfVectorOfInt::get_Item
-
-```cpp
-std::vector<std::vector<int>> VectorOfVectorOfVectorOfInt::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfVectorOfVectorOfInt.Item( $vIndex ) -> retval
-    VectorOfVectorOfVectorOfInt( $vIndex ) -> retval
-```
-
-### VectorOfVectorOfVectorOfInt::put_Item
-
-```cpp
-void VectorOfVectorOfVectorOfInt::put_Item( size_t                        vIndex,
-                                            std::vector<std::vector<int>> vItem );
-AutoIt:
-    $oVectorOfVectorOfVectorOfInt.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVectorOfPoint
@@ -36592,6 +42135,14 @@ AutoIt:
     $oVectorOfVectorOfPoint.Remove( $index ) -> None
 ```
 
+### VectorOfVectorOfPoint::append
+
+```cpp
+void VectorOfVectorOfPoint::append( std::vector<cv::Point> value );
+AutoIt:
+    $oVectorOfVectorOfPoint.append( $value ) -> None
+```
+
 ### VectorOfVectorOfPoint::at
 
 ```cpp
@@ -36631,6 +42182,23 @@ AutoIt:
     $oVectorOfVectorOfPoint.end() -> retval
 ```
 
+### VectorOfVectorOfPoint::get_Item
+
+```cpp
+std::vector<cv::Point> VectorOfVectorOfPoint::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVectorOfPoint.Item( $index ) -> retval
+    $oVectorOfVectorOfPoint( $index ) -> retval
+```
+
+### VectorOfVectorOfPoint::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVectorOfPoint::get__NewEnum();
+AutoIt:
+    $oVectorOfVectorOfPoint._NewEnum() -> retval
+```
+
 ### VectorOfVectorOfPoint::push_back
 
 ```cpp
@@ -36655,6 +42223,15 @@ AutoIt:
     $oVectorOfVectorOfPoint.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfVectorOfPoint::put_Item
+
+```cpp
+void VectorOfVectorOfPoint::put_Item( size_t                 index,
+                                      std::vector<cv::Point> item );
+AutoIt:
+    $oVectorOfVectorOfPoint.Item( $index ) = $item
+```
+
 ### VectorOfVectorOfPoint::size
 
 ```cpp
@@ -36667,7 +42244,7 @@ AutoIt:
 
 ```cpp
 VectorOfVectorOfPoint VectorOfVectorOfPoint::slice( size_t start = 0,
-                                                    size_t count = this->__self->get()->size() );
+                                                    size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVectorOfPoint.slice( [$start[, $count]] ) -> retval
 ```
@@ -36677,7 +42254,7 @@ AutoIt:
 ```cpp
 void VectorOfVectorOfPoint::sort( void*  comparator,
                                   size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
+                                  size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVectorOfPoint.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -36687,7 +42264,7 @@ AutoIt:
 ```cpp
 void VectorOfVectorOfPoint::sort_variant( void*  comparator,
                                           size_t start = 0,
-                                          size_t count = this->__self->get()->size() );
+                                          size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVectorOfPoint.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -36698,24 +42275,6 @@ AutoIt:
 void* VectorOfVectorOfPoint::start();
 AutoIt:
     $oVectorOfVectorOfPoint.start() -> retval
-```
-
-### VectorOfVectorOfPoint::get_Item
-
-```cpp
-std::vector<cv::Point> VectorOfVectorOfPoint::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfVectorOfPoint.Item( $vIndex ) -> retval
-    VectorOfVectorOfPoint( $vIndex ) -> retval
-```
-
-### VectorOfVectorOfPoint::put_Item
-
-```cpp
-void VectorOfVectorOfPoint::put_Item( size_t                 vIndex,
-                                      std::vector<cv::Point> vItem );
-AutoIt:
-    $oVectorOfVectorOfPoint.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfVectorOfKeyPoint
@@ -36772,6 +42331,14 @@ AutoIt:
     $oVectorOfVectorOfKeyPoint.Remove( $index ) -> None
 ```
 
+### VectorOfVectorOfKeyPoint::append
+
+```cpp
+void VectorOfVectorOfKeyPoint::append( std::vector<cv::KeyPoint> value );
+AutoIt:
+    $oVectorOfVectorOfKeyPoint.append( $value ) -> None
+```
+
 ### VectorOfVectorOfKeyPoint::at
 
 ```cpp
@@ -36811,6 +42378,23 @@ AutoIt:
     $oVectorOfVectorOfKeyPoint.end() -> retval
 ```
 
+### VectorOfVectorOfKeyPoint::get_Item
+
+```cpp
+std::vector<cv::KeyPoint> VectorOfVectorOfKeyPoint::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVectorOfKeyPoint.Item( $index ) -> retval
+    $oVectorOfVectorOfKeyPoint( $index ) -> retval
+```
+
+### VectorOfVectorOfKeyPoint::get__NewEnum
+
+```cpp
+IUnknown* VectorOfVectorOfKeyPoint::get__NewEnum();
+AutoIt:
+    $oVectorOfVectorOfKeyPoint._NewEnum() -> retval
+```
+
 ### VectorOfVectorOfKeyPoint::push_back
 
 ```cpp
@@ -36835,6 +42419,15 @@ AutoIt:
     $oVectorOfVectorOfKeyPoint.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfVectorOfKeyPoint::put_Item
+
+```cpp
+void VectorOfVectorOfKeyPoint::put_Item( size_t                    index,
+                                         std::vector<cv::KeyPoint> item );
+AutoIt:
+    $oVectorOfVectorOfKeyPoint.Item( $index ) = $item
+```
+
 ### VectorOfVectorOfKeyPoint::size
 
 ```cpp
@@ -36847,7 +42440,7 @@ AutoIt:
 
 ```cpp
 VectorOfVectorOfKeyPoint VectorOfVectorOfKeyPoint::slice( size_t start = 0,
-                                                          size_t count = this->__self->get()->size() );
+                                                          size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVectorOfKeyPoint.slice( [$start[, $count]] ) -> retval
 ```
@@ -36857,7 +42450,7 @@ AutoIt:
 ```cpp
 void VectorOfVectorOfKeyPoint::sort( void*  comparator,
                                      size_t start = 0,
-                                     size_t count = this->__self->get()->size() );
+                                     size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVectorOfKeyPoint.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -36867,7 +42460,7 @@ AutoIt:
 ```cpp
 void VectorOfVectorOfKeyPoint::sort_variant( void*  comparator,
                                              size_t start = 0,
-                                             size_t count = this->__self->get()->size() );
+                                             size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVectorOfKeyPoint.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -36880,202 +42473,396 @@ AutoIt:
     $oVectorOfVectorOfKeyPoint.start() -> retval
 ```
 
-### VectorOfVectorOfKeyPoint::get_Item
+## VectorOfVideoCaptureAPIs
+
+### VectorOfVideoCaptureAPIs::create
 
 ```cpp
-std::vector<cv::KeyPoint> VectorOfVectorOfKeyPoint::get_Item( size_t vIndex );
+static VectorOfVideoCaptureAPIs VectorOfVideoCaptureAPIs::create();
 AutoIt:
-    $oVectorOfVectorOfKeyPoint.Item( $vIndex ) -> retval
-    VectorOfVectorOfKeyPoint( $vIndex ) -> retval
-```
-
-### VectorOfVectorOfKeyPoint::put_Item
-
-```cpp
-void VectorOfVectorOfKeyPoint::put_Item( size_t                    vIndex,
-                                         std::vector<cv::KeyPoint> vItem );
-AutoIt:
-    $oVectorOfVectorOfKeyPoint.Item( $vIndex ) = $vItem
-```
-
-## VectorOfCameraParams
-
-### VectorOfCameraParams::create
-
-```cpp
-static VectorOfCameraParams VectorOfCameraParams::create();
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfCameraParams").create() -> <VectorOfCameraParams object>
+    _OpenCV_ObjCreate("VectorOfVideoCaptureAPIs").create() -> <VectorOfVideoCaptureAPIs object>
 ```
 
 ```cpp
-static VectorOfCameraParams VectorOfCameraParams::create( size_t size );
+static VectorOfVideoCaptureAPIs VectorOfVideoCaptureAPIs::create( size_t size );
 AutoIt:
-    _OpenCV_ObjCreate("VectorOfCameraParams").create( $size ) -> <VectorOfCameraParams object>
+    _OpenCV_ObjCreate("VectorOfVideoCaptureAPIs").create( $size ) -> <VectorOfVideoCaptureAPIs object>
 ```
 
 ```cpp
-static VectorOfCameraParams VectorOfCameraParams::create( VectorOfCameraParams other );
+static VectorOfVideoCaptureAPIs VectorOfVideoCaptureAPIs::create( VectorOfVideoCaptureAPIs other );
 AutoIt:
-    _OpenCV_ObjCreate("VectorOfCameraParams").create( $other ) -> <VectorOfCameraParams object>
+    _OpenCV_ObjCreate("VectorOfVideoCaptureAPIs").create( $other ) -> <VectorOfVideoCaptureAPIs object>
 ```
 
-### VectorOfCameraParams::Add
+### VectorOfVideoCaptureAPIs::Add
 
 ```cpp
-void VectorOfCameraParams::Add( cv::detail::CameraParams value );
+void VectorOfVideoCaptureAPIs::Add( cv::VideoCaptureAPIs value );
 AutoIt:
-    $oVectorOfCameraParams.Add( $value ) -> None
+    $oVectorOfVideoCaptureAPIs.Add( $value ) -> None
 ```
 
-### VectorOfCameraParams::Items
+### VectorOfVideoCaptureAPIs::Items
 
 ```cpp
-VectorOfCameraParams VectorOfCameraParams::Items();
+VectorOfVideoCaptureAPIs VectorOfVideoCaptureAPIs::Items();
 AutoIt:
-    $oVectorOfCameraParams.Items() -> retval
+    $oVectorOfVideoCaptureAPIs.Items() -> retval
 ```
 
-### VectorOfCameraParams::Keys
+### VectorOfVideoCaptureAPIs::Keys
 
 ```cpp
-std::vector<int> VectorOfCameraParams::Keys();
+std::vector<int> VectorOfVideoCaptureAPIs::Keys();
 AutoIt:
-    $oVectorOfCameraParams.Keys() -> retval
+    $oVectorOfVideoCaptureAPIs.Keys() -> retval
 ```
 
-### VectorOfCameraParams::Remove
+### VectorOfVideoCaptureAPIs::Remove
 
 ```cpp
-void VectorOfCameraParams::Remove( size_t index );
+void VectorOfVideoCaptureAPIs::Remove( size_t index );
 AutoIt:
-    $oVectorOfCameraParams.Remove( $index ) -> None
+    $oVectorOfVideoCaptureAPIs.Remove( $index ) -> None
 ```
 
-### VectorOfCameraParams::at
+### VectorOfVideoCaptureAPIs::append
 
 ```cpp
-cv::detail::CameraParams VectorOfCameraParams::at( size_t index );
+void VectorOfVideoCaptureAPIs::append( cv::VideoCaptureAPIs value );
 AutoIt:
-    $oVectorOfCameraParams.at( $index ) -> retval
+    $oVectorOfVideoCaptureAPIs.append( $value ) -> None
 ```
 
-```cpp
-void VectorOfCameraParams::at( size_t                   index,
-                               cv::detail::CameraParams value );
-AutoIt:
-    $oVectorOfCameraParams.at( $index, $value ) -> None
-```
-
-### VectorOfCameraParams::clear
+### VectorOfVideoCaptureAPIs::at
 
 ```cpp
-void VectorOfCameraParams::clear();
+cv::VideoCaptureAPIs VectorOfVideoCaptureAPIs::at( size_t index );
 AutoIt:
-    $oVectorOfCameraParams.clear() -> None
-```
-
-### VectorOfCameraParams::empty
-
-```cpp
-bool VectorOfCameraParams::empty();
-AutoIt:
-    $oVectorOfCameraParams.empty() -> retval
-```
-
-### VectorOfCameraParams::end
-
-```cpp
-void* VectorOfCameraParams::end();
-AutoIt:
-    $oVectorOfCameraParams.end() -> retval
-```
-
-### VectorOfCameraParams::push_back
-
-```cpp
-void VectorOfCameraParams::push_back( cv::detail::CameraParams value );
-AutoIt:
-    $oVectorOfCameraParams.push_back( $value ) -> None
-```
-
-### VectorOfCameraParams::push_vector
-
-```cpp
-void VectorOfCameraParams::push_vector( VectorOfCameraParams other );
-AutoIt:
-    $oVectorOfCameraParams.push_vector( $other ) -> None
+    $oVectorOfVideoCaptureAPIs.at( $index ) -> retval
 ```
 
 ```cpp
-void VectorOfCameraParams::push_vector( VectorOfCameraParams other,
-                                        size_t               count,
-                                        size_t               start = 0 );
+void VectorOfVideoCaptureAPIs::at( size_t               index,
+                                   cv::VideoCaptureAPIs value );
 AutoIt:
-    $oVectorOfCameraParams.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfVideoCaptureAPIs.at( $index, $value ) -> None
 ```
 
-### VectorOfCameraParams::size
+### VectorOfVideoCaptureAPIs::clear
 
 ```cpp
-size_t VectorOfCameraParams::size();
+void VectorOfVideoCaptureAPIs::clear();
 AutoIt:
-    $oVectorOfCameraParams.size() -> retval
+    $oVectorOfVideoCaptureAPIs.clear() -> None
 ```
 
-### VectorOfCameraParams::slice
+### VectorOfVideoCaptureAPIs::empty
 
 ```cpp
-VectorOfCameraParams VectorOfCameraParams::slice( size_t start = 0,
-                                                  size_t count = this->__self->get()->size() );
+bool VectorOfVideoCaptureAPIs::empty();
 AutoIt:
-    $oVectorOfCameraParams.slice( [$start[, $count]] ) -> retval
+    $oVectorOfVideoCaptureAPIs.empty() -> retval
 ```
 
-### VectorOfCameraParams::sort
+### VectorOfVideoCaptureAPIs::end
 
 ```cpp
-void VectorOfCameraParams::sort( void*  comparator,
-                                 size_t start = 0,
-                                 size_t count = this->__self->get()->size() );
+void* VectorOfVideoCaptureAPIs::end();
 AutoIt:
-    $oVectorOfCameraParams.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVideoCaptureAPIs.end() -> retval
 ```
 
-### VectorOfCameraParams::sort_variant
+### VectorOfVideoCaptureAPIs::get_Item
 
 ```cpp
-void VectorOfCameraParams::sort_variant( void*  comparator,
-                                         size_t start = 0,
-                                         size_t count = this->__self->get()->size() );
+cv::VideoCaptureAPIs VectorOfVideoCaptureAPIs::get_Item( size_t index );
 AutoIt:
-    $oVectorOfCameraParams.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfVideoCaptureAPIs.Item( $index ) -> retval
+    $oVectorOfVideoCaptureAPIs( $index ) -> retval
 ```
 
-### VectorOfCameraParams::start
+### VectorOfVideoCaptureAPIs::get__NewEnum
 
 ```cpp
-void* VectorOfCameraParams::start();
+IUnknown* VectorOfVideoCaptureAPIs::get__NewEnum();
 AutoIt:
-    $oVectorOfCameraParams.start() -> retval
+    $oVectorOfVideoCaptureAPIs._NewEnum() -> retval
 ```
 
-### VectorOfCameraParams::get_Item
+### VectorOfVideoCaptureAPIs::push_back
 
 ```cpp
-cv::detail::CameraParams VectorOfCameraParams::get_Item( size_t vIndex );
+void VectorOfVideoCaptureAPIs::push_back( cv::VideoCaptureAPIs value );
 AutoIt:
-    $oVectorOfCameraParams.Item( $vIndex ) -> retval
-    VectorOfCameraParams( $vIndex ) -> retval
+    $oVectorOfVideoCaptureAPIs.push_back( $value ) -> None
 ```
 
-### VectorOfCameraParams::put_Item
+### VectorOfVideoCaptureAPIs::push_vector
 
 ```cpp
-void VectorOfCameraParams::put_Item( size_t                   vIndex,
-                                     cv::detail::CameraParams vItem );
+void VectorOfVideoCaptureAPIs::push_vector( VectorOfVideoCaptureAPIs other );
 AutoIt:
-    $oVectorOfCameraParams.Item( $vIndex ) = $vItem
+    $oVectorOfVideoCaptureAPIs.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfVideoCaptureAPIs::push_vector( VectorOfVideoCaptureAPIs other,
+                                            size_t                   count,
+                                            size_t                   start = 0 );
+AutoIt:
+    $oVectorOfVideoCaptureAPIs.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfVideoCaptureAPIs::put_Item
+
+```cpp
+void VectorOfVideoCaptureAPIs::put_Item( size_t               index,
+                                         cv::VideoCaptureAPIs item );
+AutoIt:
+    $oVectorOfVideoCaptureAPIs.Item( $index ) = $item
+```
+
+### VectorOfVideoCaptureAPIs::size
+
+```cpp
+size_t VectorOfVideoCaptureAPIs::size();
+AutoIt:
+    $oVectorOfVideoCaptureAPIs.size() -> retval
+```
+
+### VectorOfVideoCaptureAPIs::slice
+
+```cpp
+VectorOfVideoCaptureAPIs VectorOfVideoCaptureAPIs::slice( size_t start = 0,
+                                                          size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfVideoCaptureAPIs.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfVideoCaptureAPIs::sort
+
+```cpp
+void VectorOfVideoCaptureAPIs::sort( void*  comparator,
+                                     size_t start = 0,
+                                     size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfVideoCaptureAPIs.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfVideoCaptureAPIs::sort_variant
+
+```cpp
+void VectorOfVideoCaptureAPIs::sort_variant( void*  comparator,
+                                             size_t start = 0,
+                                             size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfVideoCaptureAPIs.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfVideoCaptureAPIs::start
+
+```cpp
+void* VectorOfVideoCaptureAPIs::start();
+AutoIt:
+    $oVectorOfVideoCaptureAPIs.start() -> retval
+```
+
+## VectorOfDetail_CameraParams
+
+### VectorOfDetail_CameraParams::create
+
+```cpp
+static VectorOfDetail_CameraParams VectorOfDetail_CameraParams::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfDetail_CameraParams").create() -> <VectorOfDetail_CameraParams object>
+```
+
+```cpp
+static VectorOfDetail_CameraParams VectorOfDetail_CameraParams::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfDetail_CameraParams").create( $size ) -> <VectorOfDetail_CameraParams object>
+```
+
+```cpp
+static VectorOfDetail_CameraParams VectorOfDetail_CameraParams::create( VectorOfDetail_CameraParams other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfDetail_CameraParams").create( $other ) -> <VectorOfDetail_CameraParams object>
+```
+
+### VectorOfDetail_CameraParams::Add
+
+```cpp
+void VectorOfDetail_CameraParams::Add( cv::detail::CameraParams value );
+AutoIt:
+    $oVectorOfDetail_CameraParams.Add( $value ) -> None
+```
+
+### VectorOfDetail_CameraParams::Items
+
+```cpp
+VectorOfDetail_CameraParams VectorOfDetail_CameraParams::Items();
+AutoIt:
+    $oVectorOfDetail_CameraParams.Items() -> retval
+```
+
+### VectorOfDetail_CameraParams::Keys
+
+```cpp
+std::vector<int> VectorOfDetail_CameraParams::Keys();
+AutoIt:
+    $oVectorOfDetail_CameraParams.Keys() -> retval
+```
+
+### VectorOfDetail_CameraParams::Remove
+
+```cpp
+void VectorOfDetail_CameraParams::Remove( size_t index );
+AutoIt:
+    $oVectorOfDetail_CameraParams.Remove( $index ) -> None
+```
+
+### VectorOfDetail_CameraParams::append
+
+```cpp
+void VectorOfDetail_CameraParams::append( cv::detail::CameraParams value );
+AutoIt:
+    $oVectorOfDetail_CameraParams.append( $value ) -> None
+```
+
+### VectorOfDetail_CameraParams::at
+
+```cpp
+cv::detail::CameraParams VectorOfDetail_CameraParams::at( size_t index );
+AutoIt:
+    $oVectorOfDetail_CameraParams.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfDetail_CameraParams::at( size_t                   index,
+                                      cv::detail::CameraParams value );
+AutoIt:
+    $oVectorOfDetail_CameraParams.at( $index, $value ) -> None
+```
+
+### VectorOfDetail_CameraParams::clear
+
+```cpp
+void VectorOfDetail_CameraParams::clear();
+AutoIt:
+    $oVectorOfDetail_CameraParams.clear() -> None
+```
+
+### VectorOfDetail_CameraParams::empty
+
+```cpp
+bool VectorOfDetail_CameraParams::empty();
+AutoIt:
+    $oVectorOfDetail_CameraParams.empty() -> retval
+```
+
+### VectorOfDetail_CameraParams::end
+
+```cpp
+void* VectorOfDetail_CameraParams::end();
+AutoIt:
+    $oVectorOfDetail_CameraParams.end() -> retval
+```
+
+### VectorOfDetail_CameraParams::get_Item
+
+```cpp
+cv::detail::CameraParams VectorOfDetail_CameraParams::get_Item( size_t index );
+AutoIt:
+    $oVectorOfDetail_CameraParams.Item( $index ) -> retval
+    $oVectorOfDetail_CameraParams( $index ) -> retval
+```
+
+### VectorOfDetail_CameraParams::get__NewEnum
+
+```cpp
+IUnknown* VectorOfDetail_CameraParams::get__NewEnum();
+AutoIt:
+    $oVectorOfDetail_CameraParams._NewEnum() -> retval
+```
+
+### VectorOfDetail_CameraParams::push_back
+
+```cpp
+void VectorOfDetail_CameraParams::push_back( cv::detail::CameraParams value );
+AutoIt:
+    $oVectorOfDetail_CameraParams.push_back( $value ) -> None
+```
+
+### VectorOfDetail_CameraParams::push_vector
+
+```cpp
+void VectorOfDetail_CameraParams::push_vector( VectorOfDetail_CameraParams other );
+AutoIt:
+    $oVectorOfDetail_CameraParams.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfDetail_CameraParams::push_vector( VectorOfDetail_CameraParams other,
+                                               size_t                      count,
+                                               size_t                      start = 0 );
+AutoIt:
+    $oVectorOfDetail_CameraParams.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfDetail_CameraParams::put_Item
+
+```cpp
+void VectorOfDetail_CameraParams::put_Item( size_t                   index,
+                                            cv::detail::CameraParams item );
+AutoIt:
+    $oVectorOfDetail_CameraParams.Item( $index ) = $item
+```
+
+### VectorOfDetail_CameraParams::size
+
+```cpp
+size_t VectorOfDetail_CameraParams::size();
+AutoIt:
+    $oVectorOfDetail_CameraParams.size() -> retval
+```
+
+### VectorOfDetail_CameraParams::slice
+
+```cpp
+VectorOfDetail_CameraParams VectorOfDetail_CameraParams::slice( size_t start = 0,
+                                                                size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfDetail_CameraParams.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfDetail_CameraParams::sort
+
+```cpp
+void VectorOfDetail_CameraParams::sort( void*  comparator,
+                                        size_t start = 0,
+                                        size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfDetail_CameraParams.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfDetail_CameraParams::sort_variant
+
+```cpp
+void VectorOfDetail_CameraParams::sort_variant( void*  comparator,
+                                                size_t start = 0,
+                                                size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfDetail_CameraParams.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfDetail_CameraParams::start
+
+```cpp
+void* VectorOfDetail_CameraParams::start();
+AutoIt:
+    $oVectorOfDetail_CameraParams.start() -> retval
 ```
 
 ## VectorOfGCompileArg
@@ -37132,6 +42919,14 @@ AutoIt:
     $oVectorOfGCompileArg.Remove( $index ) -> None
 ```
 
+### VectorOfGCompileArg::append
+
+```cpp
+void VectorOfGCompileArg::append( cv::GCompileArg value );
+AutoIt:
+    $oVectorOfGCompileArg.append( $value ) -> None
+```
+
 ### VectorOfGCompileArg::at
 
 ```cpp
@@ -37171,6 +42966,23 @@ AutoIt:
     $oVectorOfGCompileArg.end() -> retval
 ```
 
+### VectorOfGCompileArg::get_Item
+
+```cpp
+cv::GCompileArg VectorOfGCompileArg::get_Item( size_t index );
+AutoIt:
+    $oVectorOfGCompileArg.Item( $index ) -> retval
+    $oVectorOfGCompileArg( $index ) -> retval
+```
+
+### VectorOfGCompileArg::get__NewEnum
+
+```cpp
+IUnknown* VectorOfGCompileArg::get__NewEnum();
+AutoIt:
+    $oVectorOfGCompileArg._NewEnum() -> retval
+```
+
 ### VectorOfGCompileArg::push_back
 
 ```cpp
@@ -37195,6 +43007,15 @@ AutoIt:
     $oVectorOfGCompileArg.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfGCompileArg::put_Item
+
+```cpp
+void VectorOfGCompileArg::put_Item( size_t          index,
+                                    cv::GCompileArg item );
+AutoIt:
+    $oVectorOfGCompileArg.Item( $index ) = $item
+```
+
 ### VectorOfGCompileArg::size
 
 ```cpp
@@ -37207,7 +43028,7 @@ AutoIt:
 
 ```cpp
 VectorOfGCompileArg VectorOfGCompileArg::slice( size_t start = 0,
-                                                size_t count = this->__self->get()->size() );
+                                                size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfGCompileArg.slice( [$start[, $count]] ) -> retval
 ```
@@ -37217,7 +43038,7 @@ AutoIt:
 ```cpp
 void VectorOfGCompileArg::sort( void*  comparator,
                                 size_t start = 0,
-                                size_t count = this->__self->get()->size() );
+                                size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfGCompileArg.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -37227,7 +43048,7 @@ AutoIt:
 ```cpp
 void VectorOfGCompileArg::sort_variant( void*  comparator,
                                         size_t start = 0,
-                                        size_t count = this->__self->get()->size() );
+                                        size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfGCompileArg.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -37238,24 +43059,6 @@ AutoIt:
 void* VectorOfGCompileArg::start();
 AutoIt:
     $oVectorOfGCompileArg.start() -> retval
-```
-
-### VectorOfGCompileArg::get_Item
-
-```cpp
-cv::GCompileArg VectorOfGCompileArg::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfGCompileArg.Item( $vIndex ) -> retval
-    VectorOfGCompileArg( $vIndex ) -> retval
-```
-
-### VectorOfGCompileArg::put_Item
-
-```cpp
-void VectorOfGCompileArg::put_Item( size_t          vIndex,
-                                    cv::GCompileArg vItem );
-AutoIt:
-    $oVectorOfGCompileArg.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfGRunArg
@@ -37312,6 +43115,14 @@ AutoIt:
     $oVectorOfGRunArg.Remove( $index ) -> None
 ```
 
+### VectorOfGRunArg::append
+
+```cpp
+void VectorOfGRunArg::append( cv::GRunArg value );
+AutoIt:
+    $oVectorOfGRunArg.append( $value ) -> None
+```
+
 ### VectorOfGRunArg::at
 
 ```cpp
@@ -37351,6 +43162,23 @@ AutoIt:
     $oVectorOfGRunArg.end() -> retval
 ```
 
+### VectorOfGRunArg::get_Item
+
+```cpp
+cv::GRunArg VectorOfGRunArg::get_Item( size_t index );
+AutoIt:
+    $oVectorOfGRunArg.Item( $index ) -> retval
+    $oVectorOfGRunArg( $index ) -> retval
+```
+
+### VectorOfGRunArg::get__NewEnum
+
+```cpp
+IUnknown* VectorOfGRunArg::get__NewEnum();
+AutoIt:
+    $oVectorOfGRunArg._NewEnum() -> retval
+```
+
 ### VectorOfGRunArg::push_back
 
 ```cpp
@@ -37375,6 +43203,15 @@ AutoIt:
     $oVectorOfGRunArg.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfGRunArg::put_Item
+
+```cpp
+void VectorOfGRunArg::put_Item( size_t      index,
+                                cv::GRunArg item );
+AutoIt:
+    $oVectorOfGRunArg.Item( $index ) = $item
+```
+
 ### VectorOfGRunArg::size
 
 ```cpp
@@ -37387,7 +43224,7 @@ AutoIt:
 
 ```cpp
 VectorOfGRunArg VectorOfGRunArg::slice( size_t start = 0,
-                                        size_t count = this->__self->get()->size() );
+                                        size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfGRunArg.slice( [$start[, $count]] ) -> retval
 ```
@@ -37397,7 +43234,7 @@ AutoIt:
 ```cpp
 void VectorOfGRunArg::sort( void*  comparator,
                             size_t start = 0,
-                            size_t count = this->__self->get()->size() );
+                            size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfGRunArg.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -37407,7 +43244,7 @@ AutoIt:
 ```cpp
 void VectorOfGRunArg::sort_variant( void*  comparator,
                                     size_t start = 0,
-                                    size_t count = this->__self->get()->size() );
+                                    size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfGRunArg.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -37418,24 +43255,6 @@ AutoIt:
 void* VectorOfGRunArg::start();
 AutoIt:
     $oVectorOfGRunArg.start() -> retval
-```
-
-### VectorOfGRunArg::get_Item
-
-```cpp
-cv::GRunArg VectorOfGRunArg::get_Item( size_t vIndex );
-AutoIt:
-    $oVectorOfGRunArg.Item( $vIndex ) -> retval
-    VectorOfGRunArg( $vIndex ) -> retval
-```
-
-### VectorOfGRunArg::put_Item
-
-```cpp
-void VectorOfGRunArg::put_Item( size_t      vIndex,
-                                cv::GRunArg vItem );
-AutoIt:
-    $oVectorOfGRunArg.Item( $vIndex ) = $vItem
 ```
 
 ## VectorOfGMetaArg
@@ -37463,7 +43282,7 @@ AutoIt:
 ### VectorOfGMetaArg::Add
 
 ```cpp
-void VectorOfGMetaArg::Add( GMetaArg value );
+void VectorOfGMetaArg::Add( cv::GMetaArg value );
 AutoIt:
     $oVectorOfGMetaArg.Add( $value ) -> None
 ```
@@ -37492,17 +43311,25 @@ AutoIt:
     $oVectorOfGMetaArg.Remove( $index ) -> None
 ```
 
+### VectorOfGMetaArg::append
+
+```cpp
+void VectorOfGMetaArg::append( cv::GMetaArg value );
+AutoIt:
+    $oVectorOfGMetaArg.append( $value ) -> None
+```
+
 ### VectorOfGMetaArg::at
 
 ```cpp
-GMetaArg VectorOfGMetaArg::at( size_t index );
+cv::GMetaArg VectorOfGMetaArg::at( size_t index );
 AutoIt:
     $oVectorOfGMetaArg.at( $index ) -> retval
 ```
 
 ```cpp
-void VectorOfGMetaArg::at( size_t   index,
-                           GMetaArg value );
+void VectorOfGMetaArg::at( size_t       index,
+                           cv::GMetaArg value );
 AutoIt:
     $oVectorOfGMetaArg.at( $index, $value ) -> None
 ```
@@ -37531,10 +43358,27 @@ AutoIt:
     $oVectorOfGMetaArg.end() -> retval
 ```
 
+### VectorOfGMetaArg::get_Item
+
+```cpp
+cv::GMetaArg VectorOfGMetaArg::get_Item( size_t index );
+AutoIt:
+    $oVectorOfGMetaArg.Item( $index ) -> retval
+    $oVectorOfGMetaArg( $index ) -> retval
+```
+
+### VectorOfGMetaArg::get__NewEnum
+
+```cpp
+IUnknown* VectorOfGMetaArg::get__NewEnum();
+AutoIt:
+    $oVectorOfGMetaArg._NewEnum() -> retval
+```
+
 ### VectorOfGMetaArg::push_back
 
 ```cpp
-void VectorOfGMetaArg::push_back( GMetaArg value );
+void VectorOfGMetaArg::push_back( cv::GMetaArg value );
 AutoIt:
     $oVectorOfGMetaArg.push_back( $value ) -> None
 ```
@@ -37555,6 +43399,15 @@ AutoIt:
     $oVectorOfGMetaArg.push_vector( $other, $count[, $start] ) -> None
 ```
 
+### VectorOfGMetaArg::put_Item
+
+```cpp
+void VectorOfGMetaArg::put_Item( size_t       index,
+                                 cv::GMetaArg item );
+AutoIt:
+    $oVectorOfGMetaArg.Item( $index ) = $item
+```
+
 ### VectorOfGMetaArg::size
 
 ```cpp
@@ -37567,7 +43420,7 @@ AutoIt:
 
 ```cpp
 VectorOfGMetaArg VectorOfGMetaArg::slice( size_t start = 0,
-                                          size_t count = this->__self->get()->size() );
+                                          size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfGMetaArg.slice( [$start[, $count]] ) -> retval
 ```
@@ -37577,7 +43430,7 @@ AutoIt:
 ```cpp
 void VectorOfGMetaArg::sort( void*  comparator,
                              size_t start = 0,
-                             size_t count = this->__self->get()->size() );
+                             size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfGMetaArg.sort( $comparator[, $start[, $count]] ) -> None
 ```
@@ -37587,7 +43440,7 @@ AutoIt:
 ```cpp
 void VectorOfGMetaArg::sort_variant( void*  comparator,
                                      size_t start = 0,
-                                     size_t count = this->__self->get()->size() );
+                                     size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfGMetaArg.sort_variant( $comparator[, $start[, $count]] ) -> None
 ```
@@ -37600,380 +43453,394 @@ AutoIt:
     $oVectorOfGMetaArg.start() -> retval
 ```
 
-### VectorOfGMetaArg::get_Item
+## VectorOfGapi_GNetParam
+
+### VectorOfGapi_GNetParam::create
 
 ```cpp
-GMetaArg VectorOfGMetaArg::get_Item( size_t vIndex );
+static VectorOfGapi_GNetParam VectorOfGapi_GNetParam::create();
 AutoIt:
-    $oVectorOfGMetaArg.Item( $vIndex ) -> retval
-    VectorOfGMetaArg( $vIndex ) -> retval
-```
-
-### VectorOfGMetaArg::put_Item
-
-```cpp
-void VectorOfGMetaArg::put_Item( size_t   vIndex,
-                                 GMetaArg vItem );
-AutoIt:
-    $oVectorOfGMetaArg.Item( $vIndex ) = $vItem
-```
-
-## VectorOfGNetParam
-
-### VectorOfGNetParam::create
-
-```cpp
-static VectorOfGNetParam VectorOfGNetParam::create();
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfGNetParam").create() -> <VectorOfGNetParam object>
+    _OpenCV_ObjCreate("VectorOfGapi_GNetParam").create() -> <VectorOfGapi_GNetParam object>
 ```
 
 ```cpp
-static VectorOfGNetParam VectorOfGNetParam::create( size_t size );
+static VectorOfGapi_GNetParam VectorOfGapi_GNetParam::create( size_t size );
 AutoIt:
-    _OpenCV_ObjCreate("VectorOfGNetParam").create( $size ) -> <VectorOfGNetParam object>
+    _OpenCV_ObjCreate("VectorOfGapi_GNetParam").create( $size ) -> <VectorOfGapi_GNetParam object>
 ```
 
 ```cpp
-static VectorOfGNetParam VectorOfGNetParam::create( VectorOfGNetParam other );
+static VectorOfGapi_GNetParam VectorOfGapi_GNetParam::create( VectorOfGapi_GNetParam other );
 AutoIt:
-    _OpenCV_ObjCreate("VectorOfGNetParam").create( $other ) -> <VectorOfGNetParam object>
+    _OpenCV_ObjCreate("VectorOfGapi_GNetParam").create( $other ) -> <VectorOfGapi_GNetParam object>
 ```
 
-### VectorOfGNetParam::Add
+### VectorOfGapi_GNetParam::Add
 
 ```cpp
-void VectorOfGNetParam::Add( cv::gapi::GNetParam value );
+void VectorOfGapi_GNetParam::Add( cv::gapi::GNetParam value );
 AutoIt:
-    $oVectorOfGNetParam.Add( $value ) -> None
+    $oVectorOfGapi_GNetParam.Add( $value ) -> None
 ```
 
-### VectorOfGNetParam::Items
+### VectorOfGapi_GNetParam::Items
 
 ```cpp
-VectorOfGNetParam VectorOfGNetParam::Items();
+VectorOfGapi_GNetParam VectorOfGapi_GNetParam::Items();
 AutoIt:
-    $oVectorOfGNetParam.Items() -> retval
+    $oVectorOfGapi_GNetParam.Items() -> retval
 ```
 
-### VectorOfGNetParam::Keys
+### VectorOfGapi_GNetParam::Keys
 
 ```cpp
-std::vector<int> VectorOfGNetParam::Keys();
+std::vector<int> VectorOfGapi_GNetParam::Keys();
 AutoIt:
-    $oVectorOfGNetParam.Keys() -> retval
+    $oVectorOfGapi_GNetParam.Keys() -> retval
 ```
 
-### VectorOfGNetParam::Remove
+### VectorOfGapi_GNetParam::Remove
 
 ```cpp
-void VectorOfGNetParam::Remove( size_t index );
+void VectorOfGapi_GNetParam::Remove( size_t index );
 AutoIt:
-    $oVectorOfGNetParam.Remove( $index ) -> None
+    $oVectorOfGapi_GNetParam.Remove( $index ) -> None
 ```
 
-### VectorOfGNetParam::at
+### VectorOfGapi_GNetParam::append
 
 ```cpp
-cv::gapi::GNetParam VectorOfGNetParam::at( size_t index );
+void VectorOfGapi_GNetParam::append( cv::gapi::GNetParam value );
 AutoIt:
-    $oVectorOfGNetParam.at( $index ) -> retval
+    $oVectorOfGapi_GNetParam.append( $value ) -> None
 ```
 
-```cpp
-void VectorOfGNetParam::at( size_t              index,
-                            cv::gapi::GNetParam value );
-AutoIt:
-    $oVectorOfGNetParam.at( $index, $value ) -> None
-```
-
-### VectorOfGNetParam::clear
+### VectorOfGapi_GNetParam::at
 
 ```cpp
-void VectorOfGNetParam::clear();
+cv::gapi::GNetParam VectorOfGapi_GNetParam::at( size_t index );
 AutoIt:
-    $oVectorOfGNetParam.clear() -> None
-```
-
-### VectorOfGNetParam::empty
-
-```cpp
-bool VectorOfGNetParam::empty();
-AutoIt:
-    $oVectorOfGNetParam.empty() -> retval
-```
-
-### VectorOfGNetParam::end
-
-```cpp
-void* VectorOfGNetParam::end();
-AutoIt:
-    $oVectorOfGNetParam.end() -> retval
-```
-
-### VectorOfGNetParam::push_back
-
-```cpp
-void VectorOfGNetParam::push_back( cv::gapi::GNetParam value );
-AutoIt:
-    $oVectorOfGNetParam.push_back( $value ) -> None
-```
-
-### VectorOfGNetParam::push_vector
-
-```cpp
-void VectorOfGNetParam::push_vector( VectorOfGNetParam other );
-AutoIt:
-    $oVectorOfGNetParam.push_vector( $other ) -> None
+    $oVectorOfGapi_GNetParam.at( $index ) -> retval
 ```
 
 ```cpp
-void VectorOfGNetParam::push_vector( VectorOfGNetParam other,
-                                     size_t            count,
-                                     size_t            start = 0 );
+void VectorOfGapi_GNetParam::at( size_t              index,
+                                 cv::gapi::GNetParam value );
 AutoIt:
-    $oVectorOfGNetParam.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfGapi_GNetParam.at( $index, $value ) -> None
 ```
 
-### VectorOfGNetParam::size
+### VectorOfGapi_GNetParam::clear
 
 ```cpp
-size_t VectorOfGNetParam::size();
+void VectorOfGapi_GNetParam::clear();
 AutoIt:
-    $oVectorOfGNetParam.size() -> retval
+    $oVectorOfGapi_GNetParam.clear() -> None
 ```
 
-### VectorOfGNetParam::slice
+### VectorOfGapi_GNetParam::empty
 
 ```cpp
-VectorOfGNetParam VectorOfGNetParam::slice( size_t start = 0,
-                                            size_t count = this->__self->get()->size() );
+bool VectorOfGapi_GNetParam::empty();
 AutoIt:
-    $oVectorOfGNetParam.slice( [$start[, $count]] ) -> retval
+    $oVectorOfGapi_GNetParam.empty() -> retval
 ```
 
-### VectorOfGNetParam::sort
+### VectorOfGapi_GNetParam::end
 
 ```cpp
-void VectorOfGNetParam::sort( void*  comparator,
-                              size_t start = 0,
-                              size_t count = this->__self->get()->size() );
+void* VectorOfGapi_GNetParam::end();
 AutoIt:
-    $oVectorOfGNetParam.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfGapi_GNetParam.end() -> retval
 ```
 
-### VectorOfGNetParam::sort_variant
+### VectorOfGapi_GNetParam::get_Item
 
 ```cpp
-void VectorOfGNetParam::sort_variant( void*  comparator,
-                                      size_t start = 0,
-                                      size_t count = this->__self->get()->size() );
+cv::gapi::GNetParam VectorOfGapi_GNetParam::get_Item( size_t index );
 AutoIt:
-    $oVectorOfGNetParam.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfGapi_GNetParam.Item( $index ) -> retval
+    $oVectorOfGapi_GNetParam( $index ) -> retval
 ```
 
-### VectorOfGNetParam::start
+### VectorOfGapi_GNetParam::get__NewEnum
 
 ```cpp
-void* VectorOfGNetParam::start();
+IUnknown* VectorOfGapi_GNetParam::get__NewEnum();
 AutoIt:
-    $oVectorOfGNetParam.start() -> retval
+    $oVectorOfGapi_GNetParam._NewEnum() -> retval
 ```
 
-### VectorOfGNetParam::get_Item
+### VectorOfGapi_GNetParam::push_back
 
 ```cpp
-cv::gapi::GNetParam VectorOfGNetParam::get_Item( size_t vIndex );
+void VectorOfGapi_GNetParam::push_back( cv::gapi::GNetParam value );
 AutoIt:
-    $oVectorOfGNetParam.Item( $vIndex ) -> retval
-    VectorOfGNetParam( $vIndex ) -> retval
+    $oVectorOfGapi_GNetParam.push_back( $value ) -> None
 ```
 
-### VectorOfGNetParam::put_Item
+### VectorOfGapi_GNetParam::push_vector
 
 ```cpp
-void VectorOfGNetParam::put_Item( size_t              vIndex,
-                                  cv::gapi::GNetParam vItem );
+void VectorOfGapi_GNetParam::push_vector( VectorOfGapi_GNetParam other );
 AutoIt:
-    $oVectorOfGNetParam.Item( $vIndex ) = $vItem
-```
-
-## VectorOfPrim
-
-### VectorOfPrim::create
-
-```cpp
-static VectorOfPrim VectorOfPrim::create();
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfPrim").create() -> <VectorOfPrim object>
+    $oVectorOfGapi_GNetParam.push_vector( $other ) -> None
 ```
 
 ```cpp
-static VectorOfPrim VectorOfPrim::create( size_t size );
+void VectorOfGapi_GNetParam::push_vector( VectorOfGapi_GNetParam other,
+                                          size_t                 count,
+                                          size_t                 start = 0 );
 AutoIt:
-    _OpenCV_ObjCreate("VectorOfPrim").create( $size ) -> <VectorOfPrim object>
+    $oVectorOfGapi_GNetParam.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfGapi_GNetParam::put_Item
+
+```cpp
+void VectorOfGapi_GNetParam::put_Item( size_t              index,
+                                       cv::gapi::GNetParam item );
+AutoIt:
+    $oVectorOfGapi_GNetParam.Item( $index ) = $item
+```
+
+### VectorOfGapi_GNetParam::size
+
+```cpp
+size_t VectorOfGapi_GNetParam::size();
+AutoIt:
+    $oVectorOfGapi_GNetParam.size() -> retval
+```
+
+### VectorOfGapi_GNetParam::slice
+
+```cpp
+VectorOfGapi_GNetParam VectorOfGapi_GNetParam::slice( size_t start = 0,
+                                                      size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfGapi_GNetParam.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfGapi_GNetParam::sort
+
+```cpp
+void VectorOfGapi_GNetParam::sort( void*  comparator,
+                                   size_t start = 0,
+                                   size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfGapi_GNetParam.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfGapi_GNetParam::sort_variant
+
+```cpp
+void VectorOfGapi_GNetParam::sort_variant( void*  comparator,
+                                           size_t start = 0,
+                                           size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfGapi_GNetParam.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfGapi_GNetParam::start
+
+```cpp
+void* VectorOfGapi_GNetParam::start();
+AutoIt:
+    $oVectorOfGapi_GNetParam.start() -> retval
+```
+
+## VectorOfGapi_wip_draw_Prim
+
+### VectorOfGapi_wip_draw_Prim::create
+
+```cpp
+static VectorOfGapi_wip_draw_Prim VectorOfGapi_wip_draw_Prim::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfGapi_wip_draw_Prim").create() -> <VectorOfGapi_wip_draw_Prim object>
 ```
 
 ```cpp
-static VectorOfPrim VectorOfPrim::create( VectorOfPrim other );
+static VectorOfGapi_wip_draw_Prim VectorOfGapi_wip_draw_Prim::create( size_t size );
 AutoIt:
-    _OpenCV_ObjCreate("VectorOfPrim").create( $other ) -> <VectorOfPrim object>
-```
-
-### VectorOfPrim::Add
-
-```cpp
-void VectorOfPrim::Add( cv::gapi::wip::draw::Prim value );
-AutoIt:
-    $oVectorOfPrim.Add( $value ) -> None
-```
-
-### VectorOfPrim::Items
-
-```cpp
-VectorOfPrim VectorOfPrim::Items();
-AutoIt:
-    $oVectorOfPrim.Items() -> retval
-```
-
-### VectorOfPrim::Keys
-
-```cpp
-std::vector<int> VectorOfPrim::Keys();
-AutoIt:
-    $oVectorOfPrim.Keys() -> retval
-```
-
-### VectorOfPrim::Remove
-
-```cpp
-void VectorOfPrim::Remove( size_t index );
-AutoIt:
-    $oVectorOfPrim.Remove( $index ) -> None
-```
-
-### VectorOfPrim::at
-
-```cpp
-cv::gapi::wip::draw::Prim VectorOfPrim::at( size_t index );
-AutoIt:
-    $oVectorOfPrim.at( $index ) -> retval
+    _OpenCV_ObjCreate("VectorOfGapi_wip_draw_Prim").create( $size ) -> <VectorOfGapi_wip_draw_Prim object>
 ```
 
 ```cpp
-void VectorOfPrim::at( size_t                    index,
-                       cv::gapi::wip::draw::Prim value );
+static VectorOfGapi_wip_draw_Prim VectorOfGapi_wip_draw_Prim::create( VectorOfGapi_wip_draw_Prim other );
 AutoIt:
-    $oVectorOfPrim.at( $index, $value ) -> None
+    _OpenCV_ObjCreate("VectorOfGapi_wip_draw_Prim").create( $other ) -> <VectorOfGapi_wip_draw_Prim object>
 ```
 
-### VectorOfPrim::clear
+### VectorOfGapi_wip_draw_Prim::Add
 
 ```cpp
-void VectorOfPrim::clear();
+void VectorOfGapi_wip_draw_Prim::Add( cv::gapi::wip::draw::Prim value );
 AutoIt:
-    $oVectorOfPrim.clear() -> None
+    $oVectorOfGapi_wip_draw_Prim.Add( $value ) -> None
 ```
 
-### VectorOfPrim::empty
+### VectorOfGapi_wip_draw_Prim::Items
 
 ```cpp
-bool VectorOfPrim::empty();
+VectorOfGapi_wip_draw_Prim VectorOfGapi_wip_draw_Prim::Items();
 AutoIt:
-    $oVectorOfPrim.empty() -> retval
+    $oVectorOfGapi_wip_draw_Prim.Items() -> retval
 ```
 
-### VectorOfPrim::end
+### VectorOfGapi_wip_draw_Prim::Keys
 
 ```cpp
-void* VectorOfPrim::end();
+std::vector<int> VectorOfGapi_wip_draw_Prim::Keys();
 AutoIt:
-    $oVectorOfPrim.end() -> retval
+    $oVectorOfGapi_wip_draw_Prim.Keys() -> retval
 ```
 
-### VectorOfPrim::push_back
+### VectorOfGapi_wip_draw_Prim::Remove
 
 ```cpp
-void VectorOfPrim::push_back( cv::gapi::wip::draw::Prim value );
+void VectorOfGapi_wip_draw_Prim::Remove( size_t index );
 AutoIt:
-    $oVectorOfPrim.push_back( $value ) -> None
+    $oVectorOfGapi_wip_draw_Prim.Remove( $index ) -> None
 ```
 
-### VectorOfPrim::push_vector
+### VectorOfGapi_wip_draw_Prim::append
 
 ```cpp
-void VectorOfPrim::push_vector( VectorOfPrim other );
+void VectorOfGapi_wip_draw_Prim::append( cv::gapi::wip::draw::Prim value );
 AutoIt:
-    $oVectorOfPrim.push_vector( $other ) -> None
+    $oVectorOfGapi_wip_draw_Prim.append( $value ) -> None
+```
+
+### VectorOfGapi_wip_draw_Prim::at
+
+```cpp
+cv::gapi::wip::draw::Prim VectorOfGapi_wip_draw_Prim::at( size_t index );
+AutoIt:
+    $oVectorOfGapi_wip_draw_Prim.at( $index ) -> retval
 ```
 
 ```cpp
-void VectorOfPrim::push_vector( VectorOfPrim other,
-                                size_t       count,
-                                size_t       start = 0 );
+void VectorOfGapi_wip_draw_Prim::at( size_t                    index,
+                                     cv::gapi::wip::draw::Prim value );
 AutoIt:
-    $oVectorOfPrim.push_vector( $other, $count[, $start] ) -> None
+    $oVectorOfGapi_wip_draw_Prim.at( $index, $value ) -> None
 ```
 
-### VectorOfPrim::size
+### VectorOfGapi_wip_draw_Prim::clear
 
 ```cpp
-size_t VectorOfPrim::size();
+void VectorOfGapi_wip_draw_Prim::clear();
 AutoIt:
-    $oVectorOfPrim.size() -> retval
+    $oVectorOfGapi_wip_draw_Prim.clear() -> None
 ```
 
-### VectorOfPrim::slice
+### VectorOfGapi_wip_draw_Prim::empty
 
 ```cpp
-VectorOfPrim VectorOfPrim::slice( size_t start = 0,
-                                  size_t count = this->__self->get()->size() );
+bool VectorOfGapi_wip_draw_Prim::empty();
 AutoIt:
-    $oVectorOfPrim.slice( [$start[, $count]] ) -> retval
+    $oVectorOfGapi_wip_draw_Prim.empty() -> retval
 ```
 
-### VectorOfPrim::sort
+### VectorOfGapi_wip_draw_Prim::end
 
 ```cpp
-void VectorOfPrim::sort( void*  comparator,
-                         size_t start = 0,
-                         size_t count = this->__self->get()->size() );
+void* VectorOfGapi_wip_draw_Prim::end();
 AutoIt:
-    $oVectorOfPrim.sort( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfGapi_wip_draw_Prim.end() -> retval
 ```
 
-### VectorOfPrim::sort_variant
+### VectorOfGapi_wip_draw_Prim::get_Item
 
 ```cpp
-void VectorOfPrim::sort_variant( void*  comparator,
-                                 size_t start = 0,
-                                 size_t count = this->__self->get()->size() );
+cv::gapi::wip::draw::Prim VectorOfGapi_wip_draw_Prim::get_Item( size_t index );
 AutoIt:
-    $oVectorOfPrim.sort_variant( $comparator[, $start[, $count]] ) -> None
+    $oVectorOfGapi_wip_draw_Prim.Item( $index ) -> retval
+    $oVectorOfGapi_wip_draw_Prim( $index ) -> retval
 ```
 
-### VectorOfPrim::start
+### VectorOfGapi_wip_draw_Prim::get__NewEnum
 
 ```cpp
-void* VectorOfPrim::start();
+IUnknown* VectorOfGapi_wip_draw_Prim::get__NewEnum();
 AutoIt:
-    $oVectorOfPrim.start() -> retval
+    $oVectorOfGapi_wip_draw_Prim._NewEnum() -> retval
 ```
 
-### VectorOfPrim::get_Item
+### VectorOfGapi_wip_draw_Prim::push_back
 
 ```cpp
-cv::gapi::wip::draw::Prim VectorOfPrim::get_Item( size_t vIndex );
+void VectorOfGapi_wip_draw_Prim::push_back( cv::gapi::wip::draw::Prim value );
 AutoIt:
-    $oVectorOfPrim.Item( $vIndex ) -> retval
-    VectorOfPrim( $vIndex ) -> retval
+    $oVectorOfGapi_wip_draw_Prim.push_back( $value ) -> None
 ```
 
-### VectorOfPrim::put_Item
+### VectorOfGapi_wip_draw_Prim::push_vector
 
 ```cpp
-void VectorOfPrim::put_Item( size_t                    vIndex,
-                             cv::gapi::wip::draw::Prim vItem );
+void VectorOfGapi_wip_draw_Prim::push_vector( VectorOfGapi_wip_draw_Prim other );
 AutoIt:
-    $oVectorOfPrim.Item( $vIndex ) = $vItem
+    $oVectorOfGapi_wip_draw_Prim.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfGapi_wip_draw_Prim::push_vector( VectorOfGapi_wip_draw_Prim other,
+                                              size_t                     count,
+                                              size_t                     start = 0 );
+AutoIt:
+    $oVectorOfGapi_wip_draw_Prim.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfGapi_wip_draw_Prim::put_Item
+
+```cpp
+void VectorOfGapi_wip_draw_Prim::put_Item( size_t                    index,
+                                           cv::gapi::wip::draw::Prim item );
+AutoIt:
+    $oVectorOfGapi_wip_draw_Prim.Item( $index ) = $item
+```
+
+### VectorOfGapi_wip_draw_Prim::size
+
+```cpp
+size_t VectorOfGapi_wip_draw_Prim::size();
+AutoIt:
+    $oVectorOfGapi_wip_draw_Prim.size() -> retval
+```
+
+### VectorOfGapi_wip_draw_Prim::slice
+
+```cpp
+VectorOfGapi_wip_draw_Prim VectorOfGapi_wip_draw_Prim::slice( size_t start = 0,
+                                                              size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfGapi_wip_draw_Prim.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfGapi_wip_draw_Prim::sort
+
+```cpp
+void VectorOfGapi_wip_draw_Prim::sort( void*  comparator,
+                                       size_t start = 0,
+                                       size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfGapi_wip_draw_Prim.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfGapi_wip_draw_Prim::sort_variant
+
+```cpp
+void VectorOfGapi_wip_draw_Prim::sort_variant( void*  comparator,
+                                               size_t start = 0,
+                                               size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfGapi_wip_draw_Prim.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfGapi_wip_draw_Prim::start
+
+```cpp
+void* VectorOfGapi_wip_draw_Prim::start();
+AutoIt:
+    $oVectorOfGapi_wip_draw_Prim.start() -> retval
 ```
