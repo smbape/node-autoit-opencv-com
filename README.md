@@ -180,7 +180,7 @@ Look at `samples\tutorial_code\Histograms_Matching\calcHist_Demo.au3` for an exa
 
 #### Prerequisite
 
-  - Install [CMAKE >= 3.16](https://cmake.org/download/)
+  - Install [CMAKE >= 3.19](https://cmake.org/download/)
   - Install [visual studio >= 10](https://visualstudio.microsoft.com/vs/community/)
 
 #### Building
@@ -363,7 +363,7 @@ $_ = $cv.extended[1]
 
 ### Prerequisites
 
-  - Install [CMAKE >= 3.16](https://cmake.org/download/)
+  - Install [CMAKE >= 3.19](https://cmake.org/download/)
   - Install [visual studio >= 2017](https://visualstudio.microsoft.com/vs/community/)
   - Install [Git for Windows](https://gitforwindows.org/)
   - Install [nodejs](https://nodejs.org/en/download/)

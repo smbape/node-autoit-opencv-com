@@ -6,10 +6,8 @@ CD /d %CD%
 SET "PATH=%CD%;%PATH%"
 SET "CWD=%CD%"
 
-SET skip_python=0
-SET skip_node=0
 SET skip_build=0
-SET build_target=ALL_BUILD
+SET TARGET=ALL_BUILD
 SET has_generator=0
 SET CMAKE_GENERATOR=
 
@@ -17,16 +15,14 @@ SET nparms=20
 
 :GET_OPTS
 IF %nparms% == 0 GOTO :MAIN
-IF [%1] == [nopy] SET skip_python=1
-IF [%1] == [nojs] SET skip_node=1
 IF [%1] == [-g] SET skip_build=1
 IF [%1] == [--target] (
-    SET build_target=%2
+    SET TARGET=%2
     SHIFT
     IF %nparms% == 0 GOTO :MAIN
 )
 IF [%1] == [-G] (
-    IF [%2-%build_target%] == [Ninja-ALL_BUILD] SET build_target=all
+    IF [%2-%TARGET%] == [Ninja-ALL_BUILD] SET TARGET=all
     SET CMAKE_GENERATOR=%2
     SET has_generator=1
     SET /a nparms -=1
@@ -89,42 +85,6 @@ GOTO END
 
 :MAKE
 SET ERROR=0
-
-rem IF EXIST "%BUILD_FOLDER%\CMakeCache.txt" DEL "%BUILD_FOLDER%\CMakeCache.txt"
-
-:DOWNLOAD_OPENCV
-SET TARGET=opencv
-CALL :MAKE_CONFIG
-SET ERROR=%ERRORLEVEL%
-
-SET TARGET=%build_target%
-CD /d %CWD%
-IF [%ERROR%] == [0] GOTO GEN_PYTHON
-GOTO END
-
-:GEN_PYTHON
-IF [%skip_python%] == [1] GOTO GEN_SOURCES
-IF EXIST opencv_build_x64\modules\python_bindings_generator\pyopencv_generated_include.h GOTO GEN_SOURCES
-
-IF NOT EXIST opencv_build_x64 MKDIR opencv_build_x64
-PUSHD opencv_build_x64
-IF EXIST CMakeCache.txt DEL CMakeCache.txt
-
-SET PYTHON_CONFIG_FLAGS=%PYTHON_CONFIG_FLAGS% "-DCMAKE_BUILD_TYPE:STRING=%CMAKE_BUILD_TYPE%"
-SET PYTHON_CONFIG_FLAGS=%PYTHON_CONFIG_FLAGS% -DBUILD_opencv_world=ON -DBUILD_opencv_python3=ON
-
-%CMAKE% -G %CMAKE_GENERATOR% %PYTHON_CONFIG_FLAGS% ..\..\opencv-4.6.0-vc14_vc15\opencv\sources\
-SET ERROR=%ERRORLEVEL%
-POPD
-IF [%ERROR%] == [0] GOTO GEN_SOURCES
-GOTO END
-
-:GEN_SOURCES
-IF [%skip_node%] == [1] GOTO MAKE_CONFIG
-node --unhandled-rejections=strict --trace-uncaught --trace-warnings ..\src\gen.js --skip=vs
-SET ERROR=%ERRORLEVEL%
-IF [%ERROR%] == [0] GOTO MAKE_CONFIG
-GOTO END
 
 :MAKE_CONFIG
 IF [%skip_config%] == [1] GOTO BUILD

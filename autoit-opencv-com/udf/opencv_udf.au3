@@ -2,8 +2,8 @@
 #include "cv_interface.au3"
 #include "cv_enums.au3"
 
-Global $_cv_build_type = "Release"
-Global $_cv_debug = 0
+Global $_cv_build_type = EnvGet("OPENCV_BUILD_TYPE")
+Global $_cv_debug = Number(EnvGet("OPENCV_DEBUG"))
 
 Global $h_opencv_world_dll = -1
 Global $h_opencv_ffmpeg_dll = -1
@@ -68,7 +68,7 @@ Func _OpenCV_Install($s_opencv_world_dll = Default, $s_autoit_opencv_com_dll = D
 	If $bClose And $h_opencv_world_dll <> -1 Then DllClose($h_opencv_world_dll)
 	If $bOpen Then
 		$h_opencv_world_dll = _OpenCV_LoadDLL($s_opencv_world_dll)
-		If $h_opencv_world_dll == -1 Then Return False
+		If $h_opencv_world_dll == -1 Then Return SetError(@error, 0, False)
 	EndIf
 
 	; ffmpeg is looked on PATH when loaded in debug mode, not relatively to opencv_world460d.dll
@@ -76,13 +76,13 @@ Func _OpenCV_Install($s_opencv_world_dll = Default, $s_autoit_opencv_com_dll = D
 	If $bClose And $h_opencv_ffmpeg_dll <> -1 Then DllClose($h_opencv_ffmpeg_dll)
 	If $bOpen And $_cv_build_type == "Debug" Then
 		$h_opencv_ffmpeg_dll = _OpenCV_LoadDLL(StringReplace($s_opencv_world_dll, "opencv_world460d.dll", "opencv_videoio_ffmpeg460_64.dll"))
-		If $h_opencv_ffmpeg_dll == -1 Then Return False
+		If $h_opencv_ffmpeg_dll == -1 Then Return SetError(@error, 0, False)
 	EndIf
 
 	If $bClose And $h_autoit_opencv_com_dll <> -1 Then DllClose($h_autoit_opencv_com_dll)
 	If $bOpen Then
 		$h_autoit_opencv_com_dll = _OpenCV_LoadDLL($s_autoit_opencv_com_dll)
-		If $h_autoit_opencv_com_dll == -1 Then Return False
+		If $h_autoit_opencv_com_dll == -1 Then Return SetError(@error, 0, False)
 		_OpenCV_ObjCreate("cv", $s_autoit_opencv_com_dll)
 	EndIf
 
@@ -92,7 +92,7 @@ Func _OpenCV_Install($s_opencv_world_dll = Default, $s_autoit_opencv_com_dll = D
 		$hresult = _OpenCV_DllCall($h_autoit_opencv_com_dll, "long", "DllInstall", "bool", False, "wstr", $bUser ? "user" : "")
 		If $hresult < 0 Then
 			ConsoleWriteError('!>Error: DllInstall(false, "' & ($bUser ? "user" : "") & '") 0x' & Hex($hresult) & @CRLF)
-			Return False
+			Return SetError(1, 0, False)
 		EndIf
 	EndIf
 
@@ -100,7 +100,7 @@ Func _OpenCV_Install($s_opencv_world_dll = Default, $s_autoit_opencv_com_dll = D
 		$hresult = _OpenCV_DllCall($h_autoit_opencv_com_dll, "long", "DllInstall", "bool", True, "wstr", $bUser ? "user" : "")
 		If $hresult < 0 Then
 			ConsoleWriteError('!>Error: DllInstall(true, "' & ($bUser ? "user" : "") & '") 0x' & Hex($hresult) & @CRLF)
-			Return False
+			Return SetError(1, 0, False)
 		EndIf
 	EndIf
 
@@ -141,7 +141,7 @@ Func _OpenCV_LoadDLL($dll)
 		ConsoleWriteError('!>Error: unable to load ' & $dll & @CRLF)
 	EndIf
 	_OpenCV_DebugMsg('Loaded ' & $dll)
-	Return $result
+	Return SetError($result == -1 ? 1 : 0, 0, $result)
 EndFunc   ;==>_OpenCV_LoadDLL
 
 Func _OpenCV_PrintDLLError($error, $sFunction = "function")
@@ -240,7 +240,7 @@ Func _OpenCV_DllCall($dll, $return_type, $function, $type1 = Default, $param1 = 
 		Case 63
 			$_aResult = Call("DllCall", $dll, $return_type, $function, $type1, $param1, $type2, $param2, $type3, $param3, $type4, $param4, $type5, $param5, $type6, $param6, $type7, $param7, $type8, $param8, $type9, $param9, $type10, $param10, $type11, $param11, $type12, $param12, $type13, $param13, $type14, $param14, $type15, $param15, $type16, $param16, $type17, $param17, $type18, $param18, $type19, $param19, $type20, $param20, $type21, $param21, $type22, $param22, $type23, $param23, $type24, $param24, $type25, $param25, $type26, $param26, $type27, $param27, $type28, $param28, $type29, $param29, $type30, $param30)
 		Case Else
-			ConsoleWriteError('!>Error: Invalid number of arguments for ' & $function)
+			ConsoleWriteError('!>Error: Invalid number of arguments for ' & $function & @CRLF)
 			Return SetError(1, 0, -1)
 	EndSwitch
 
@@ -358,7 +358,7 @@ Func _OpenCV_Tuple($val0 = 0, $val1 = 0, $val2 = 0, $val3 = 0, $val4 = 0, $val5 
 			Local $_aResult[@NumParams] = [$val0, $val1, $val2, $val3, $val4, $val5, $val6, $val7, $val8, $val9, $val10, $val11, $val12, $val13, $val14, $val15, $val16, $val17, $val18, $val19, $val20, $val21, $val22, $val23, $val24, $val25, $val26, $val27, $val28, $val29]
 			Return $_aResult
 		Case Else
-			ConsoleWriteError('!>Error: Invalid number of arguments')
+			ConsoleWriteError('!>Error: Invalid number of arguments' & @CRLF)
 			Return SetError(1, 0, -1)
 	EndSwitch
 EndFunc   ;==>_OpenCV_Tuple
@@ -432,7 +432,7 @@ Func _OpenCV_Params($sKey1 = Default, $vVal1 = Default, $sKey2 = Default, $vVal2
 		Case 60
 			Return $NamedParameters.create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4), _OpenCV_Tuple($sKey5, $vVal5), _OpenCV_Tuple($sKey6, $vVal6), _OpenCV_Tuple($sKey7, $vVal7), _OpenCV_Tuple($sKey8, $vVal8), _OpenCV_Tuple($sKey9, $vVal9), _OpenCV_Tuple($sKey10, $vVal10), _OpenCV_Tuple($sKey11, $vVal11), _OpenCV_Tuple($sKey12, $vVal12), _OpenCV_Tuple($sKey13, $vVal13), _OpenCV_Tuple($sKey14, $vVal14), _OpenCV_Tuple($sKey15, $vVal15), _OpenCV_Tuple($sKey16, $vVal16), _OpenCV_Tuple($sKey17, $vVal17), _OpenCV_Tuple($sKey18, $vVal18), _OpenCV_Tuple($sKey19, $vVal19), _OpenCV_Tuple($sKey20, $vVal20), _OpenCV_Tuple($sKey21, $vVal21), _OpenCV_Tuple($sKey22, $vVal22), _OpenCV_Tuple($sKey23, $vVal23), _OpenCV_Tuple($sKey24, $vVal24), _OpenCV_Tuple($sKey25, $vVal25), _OpenCV_Tuple($sKey26, $vVal26), _OpenCV_Tuple($sKey27, $vVal27), _OpenCV_Tuple($sKey28, $vVal28), _OpenCV_Tuple($sKey29, $vVal29), _OpenCV_Tuple($sKey30, $vVal30)))
 		Case Else
-			ConsoleWriteError('!>Error: Invalid number of arguments')
+			ConsoleWriteError('!>Error: Invalid number of arguments' & @CRLF)
 			Return SetError(1, 0, -1)
 	EndSwitch
 EndFunc   ;==>_OpenCV_Params
@@ -504,9 +504,9 @@ Func _OpenCV_Map($sKeyType, $sValueType, $sKey1 = Default, $vVal1 = Default, $sK
 		Case 60
 			Return $MapType.create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4), _OpenCV_Tuple($sKey5, $vVal5), _OpenCV_Tuple($sKey6, $vVal6), _OpenCV_Tuple($sKey7, $vVal7), _OpenCV_Tuple($sKey8, $vVal8), _OpenCV_Tuple($sKey9, $vVal9), _OpenCV_Tuple($sKey10, $vVal10), _OpenCV_Tuple($sKey11, $vVal11), _OpenCV_Tuple($sKey12, $vVal12), _OpenCV_Tuple($sKey13, $vVal13), _OpenCV_Tuple($sKey14, $vVal14), _OpenCV_Tuple($sKey15, $vVal15), _OpenCV_Tuple($sKey16, $vVal16), _OpenCV_Tuple($sKey17, $vVal17), _OpenCV_Tuple($sKey18, $vVal18), _OpenCV_Tuple($sKey19, $vVal19), _OpenCV_Tuple($sKey20, $vVal20), _OpenCV_Tuple($sKey21, $vVal21), _OpenCV_Tuple($sKey22, $vVal22), _OpenCV_Tuple($sKey23, $vVal23), _OpenCV_Tuple($sKey24, $vVal24), _OpenCV_Tuple($sKey25, $vVal25), _OpenCV_Tuple($sKey26, $vVal26), _OpenCV_Tuple($sKey27, $vVal27), _OpenCV_Tuple($sKey28, $vVal28), _OpenCV_Tuple($sKey29, $vVal29)))
 		Case 62
-	Return $MapType.create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4), _OpenCV_Tuple($sKey5, $vVal5), _OpenCV_Tuple($sKey6, $vVal6), _OpenCV_Tuple($sKey7, $vVal7), _OpenCV_Tuple($sKey8, $vVal8), _OpenCV_Tuple($sKey9, $vVal9), _OpenCV_Tuple($sKey10, $vVal10), _OpenCV_Tuple($sKey11, $vVal11), _OpenCV_Tuple($sKey12, $vVal12), _OpenCV_Tuple($sKey13, $vVal13), _OpenCV_Tuple($sKey14, $vVal14), _OpenCV_Tuple($sKey15, $vVal15), _OpenCV_Tuple($sKey16, $vVal16), _OpenCV_Tuple($sKey17, $vVal17), _OpenCV_Tuple($sKey18, $vVal18), _OpenCV_Tuple($sKey19, $vVal19), _OpenCV_Tuple($sKey20, $vVal20), _OpenCV_Tuple($sKey21, $vVal21), _OpenCV_Tuple($sKey22, $vVal22), _OpenCV_Tuple($sKey23, $vVal23), _OpenCV_Tuple($sKey24, $vVal24), _OpenCV_Tuple($sKey25, $vVal25), _OpenCV_Tuple($sKey26, $vVal26), _OpenCV_Tuple($sKey27, $vVal27), _OpenCV_Tuple($sKey28, $vVal28), _OpenCV_Tuple($sKey29, $vVal29), _OpenCV_Tuple($sKey30, $vVal30)))
+			Return $MapType.create(_OpenCV_Tuple(_OpenCV_Tuple($sKey1, $vVal1), _OpenCV_Tuple($sKey2, $vVal2), _OpenCV_Tuple($sKey3, $vVal3), _OpenCV_Tuple($sKey4, $vVal4), _OpenCV_Tuple($sKey5, $vVal5), _OpenCV_Tuple($sKey6, $vVal6), _OpenCV_Tuple($sKey7, $vVal7), _OpenCV_Tuple($sKey8, $vVal8), _OpenCV_Tuple($sKey9, $vVal9), _OpenCV_Tuple($sKey10, $vVal10), _OpenCV_Tuple($sKey11, $vVal11), _OpenCV_Tuple($sKey12, $vVal12), _OpenCV_Tuple($sKey13, $vVal13), _OpenCV_Tuple($sKey14, $vVal14), _OpenCV_Tuple($sKey15, $vVal15), _OpenCV_Tuple($sKey16, $vVal16), _OpenCV_Tuple($sKey17, $vVal17), _OpenCV_Tuple($sKey18, $vVal18), _OpenCV_Tuple($sKey19, $vVal19), _OpenCV_Tuple($sKey20, $vVal20), _OpenCV_Tuple($sKey21, $vVal21), _OpenCV_Tuple($sKey22, $vVal22), _OpenCV_Tuple($sKey23, $vVal23), _OpenCV_Tuple($sKey24, $vVal24), _OpenCV_Tuple($sKey25, $vVal25), _OpenCV_Tuple($sKey26, $vVal26), _OpenCV_Tuple($sKey27, $vVal27), _OpenCV_Tuple($sKey28, $vVal28), _OpenCV_Tuple($sKey29, $vVal29), _OpenCV_Tuple($sKey30, $vVal30)))
 		Case Else
-			ConsoleWriteError('!>Error: Invalid number of arguments')
+			ConsoleWriteError('!>Error: Invalid number of arguments' & @CRLF)
 			Return SetError(1, 0, -1)
 	EndSwitch
 EndFunc   ;==>_OpenCV_Map

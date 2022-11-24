@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.19)
 
 # Name of the project (will be the name of the plugin)
 project(autoit_opencv_com)
@@ -18,42 +18,87 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_compile_options(/MP)
 
-set(OPENCV_DOWNLOAD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/..")
-set(OPENCV_VERSION 4.6.0)
+# https://github.com/scivision/cmake-patch-file/blob/main/cmake/PatchFile.cmake
+if(WIN32)
+  # prioritize Git Patch on Windows as other Patches may be very old and incompatible.
+  find_package(Git)
+  if(Git_FOUND)
+    get_filename_component(GIT_DIR ${GIT_EXECUTABLE} DIRECTORY)
+    get_filename_component(GIT_DIR ${GIT_DIR} DIRECTORY)
+  endif()
+endif()
 
-# Tell cmake we will need opencv.
-include(ExternalProject)
-ExternalProject_Add(opencv
-  URL               https://github.com/opencv/opencv/releases/download/${OPENCV_VERSION}/opencv-${OPENCV_VERSION}-vc14_vc15.exe
-  URL_HASH          SHA256=3fb046e14dc5b50719a86ea0395b5b1e3299e2343111ebd2e31828aa31d6d477
-  DOWNLOAD_NO_EXTRACT TRUE
-  DOWNLOAD_DIR      "${OPENCV_DOWNLOAD_DIR}"
-  CONFIGURE_COMMAND "${OPENCV_DOWNLOAD_DIR}/opencv-${OPENCV_VERSION}-vc14_vc15.exe" "-o${OPENCV_DOWNLOAD_DIR}/opencv-${OPENCV_VERSION}-vc14_vc15" -y
-  BUILD_COMMAND     patch -p 1 -d "${OPENCV_DOWNLOAD_DIR}/opencv-${OPENCV_VERSION}-vc14_vc15/opencv/sources/" -i "${CMAKE_CURRENT_SOURCE_DIR}/patches/001-opencv-src.patch"
-  INSTALL_COMMAND   ""
+find_program(PATCH
+  NAMES patch
+  HINTS ${GIT_DIR}
+  PATH_SUFFIXES usr/bin
 )
 
-# Library directories
-set(OpenCV_DIR "")
-file(GLOB __OpenCV_ROOT_DIR "../opencv-4.*")
-foreach(f ${__OpenCV_ROOT_DIR})
-  get_filename_component(__f "${f}/opencv/build" REALPATH)
-  if(EXISTS "${__f}")
-    set(OpenCV_DIR "${__f}")
-    break()
-  endif()
-endforeach()
-unset(__f)
-
-if(EXISTS "${OpenCV_DIR}")
-  find_package(OpenCV REQUIRED)
+if(NOT PATCH)
+  message(FATAL_ERROR "Did not find GNU Patch")
 endif()
+
+# Tell cmake that we will need opencv.
+get_filename_component(OPENCV_DOWNLOAD_DIR "${CMAKE_CURRENT_SOURCE_DIR}" DIRECTORY)
+set(OPENCV_VERSION 4.6.0)
+set(OPENCV_DOWNLOAD_NAME  opencv-${OPENCV_VERSION}-vc14_vc15.exe)
+set(OPENCV_URL            https://github.com/opencv/opencv/releases/download/${OPENCV_VERSION}/${OPENCV_DOWNLOAD_NAME})
+set(OPENCV_URL_HASH       SHA256=3fb046e14dc5b50719a86ea0395b5b1e3299e2343111ebd2e31828aa31d6d477)
+
+include(FetchContent)
+FetchContent_Declare(opencv
+  URL                 ${OPENCV_URL}
+  URL_HASH            ${OPENCV_URL_HASH}
+  DOWNLOAD_NO_EXTRACT TRUE
+  DOWNLOAD_DIR        "${OPENCV_DOWNLOAD_DIR}"
+  SOURCE_DIR          "${OPENCV_DOWNLOAD_DIR}"
+  PATCH_COMMAND       "<DOWNLOAD_DIR>/${OPENCV_DOWNLOAD_NAME}" "-o<DOWNLOAD_DIR>/opencv-${OPENCV_VERSION}-vc14_vc15" -y
+)
+
+include(FetchContent)
+FetchContent_Declare(opencv-patch
+  URL                 ${OPENCV_URL}
+  URL_HASH            ${OPENCV_URL_HASH}
+  DOWNLOAD_NO_EXTRACT TRUE
+  DOWNLOAD_DIR        "${OPENCV_DOWNLOAD_DIR}"
+  SOURCE_DIR          "${OPENCV_DOWNLOAD_DIR}"
+  PATCH_COMMAND       "${PATCH}" -p 1 -d "<DOWNLOAD_DIR>/opencv-${OPENCV_VERSION}-vc14_vc15/opencv/sources/"
+                        -i "${CMAKE_CURRENT_SOURCE_DIR}/patches/001-opencv-src.patch"
+)
+
+FetchContent_Populate(opencv)
+FetchContent_Populate(opencv-patch)
+
+get_filename_component(OpenCV_DIR "${opencv_SOURCE_DIR}/opencv-${OPENCV_VERSION}-vc14_vc15/opencv/build" REALPATH)
+set(opencv_SOURCE_DIR "${opencv_SOURCE_DIR}/opencv-${OPENCV_VERSION}-vc14_vc15/opencv/sources")
 
 get_filename_component(OpenCV_BINARY_DIR "${OpenCV_DIR}/x64/vc15/bin" REALPATH)
 file(TO_NATIVE_PATH "${OpenCV_BINARY_DIR}" OpenCV_BINARY_DIR)
 
 get_filename_component(OPENCV_SAMPLES_DATA_PATH "../samples/data" REALPATH)
 file(TO_NATIVE_PATH "${OPENCV_SAMPLES_DATA_PATH}" OPENCV_SAMPLES_DATA_PATH)
+
+find_package(OpenCV REQUIRED)
+
+# generate source files
+if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/opencv_build_x64/modules/python_bindings_generator/pyopencv_generated_include.h")
+  file(MAKE_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/opencv_build_x64")
+  execute_process(
+    COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" "-DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}"
+      -DBUILD_opencv_world=ON -DBUILD_opencv_python3=ON
+      "${opencv_SOURCE_DIR}"
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/opencv_build_x64"
+    COMMAND_ECHO STDERR
+    COMMAND_ERROR_IS_FATAL ANY
+  )
+endif()
+
+execute_process(
+  COMMAND node --unhandled-rejections=strict --trace-uncaught --trace-warnings src/gen.js --skip=vs
+  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/.."
+  COMMAND_ECHO STDERR
+  COMMAND_ERROR_IS_FATAL ANY
+)
 
 file(GLOB_RECURSE project_source_resources "src/*.rc" "src/*.rgs")
 file(GLOB_RECURSE project_source_headers "src/*.h*")

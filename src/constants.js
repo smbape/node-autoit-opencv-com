@@ -21,8 +21,11 @@ exports.IDL_TYPES = new Map([
     ["String", "BSTR"],
     ["string", "BSTR"],
     ["uchar", "BYTE"],
+    ["cv::String", "BSTR"],
+    ["std::string", "BSTR"],
 
     ["GMetaArg", "VARIANT"],
+    ["cv::GMetaArg", "VARIANT"],
     ["MatShape", "VARIANT"],
     ["cv::flann::IndexParams", "IDispatch*"],
     ["cv::flann::SearchParams", "IDispatch*"],

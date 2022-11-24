@@ -9,9 +9,9 @@
 #include <WindowsConstants.au3>
 #include <WinAPI.au3>
 
+Global $_cv_gdi_resize = Number(EnvGet("OPENCV_GDI_RESIZE"))
 Global Const $OPENCV_UDF_SORT_ASC = 1
 Global Const $OPENCV_UDF_SORT_DESC = -1
-Global $_cv_gdi_resize = 0
 Global Const $CV_TM_EXACT = -1
 
 Func _OpenCV_FindFiles($aParts, $sDir = Default, $iFlag = Default, $bReturnPath = Default, $bReverse = Default)
@@ -205,7 +205,7 @@ Func _OpenCV_imread_and_check($fileName, $flags = Default)
 	If $img.empty() Then
 		ConsoleWriteError("!>Error: The image " & $fileName & " could not be loaded." & @CRLF)
 	EndIf
-	Return $img
+	Return SetError($img.empty() ? 1 : 0, 0, $img)
 EndFunc   ;==>_OpenCV_imread_and_check
 
 Func _OpenCV_computeResizeParams($iWidth, $iHeight, $iHintWidth = Default, $iHintHeight = Default, $bEnlarge = False)
@@ -260,6 +260,7 @@ Func _OpenCV_resizeAndCenter($src, $iDstWidth = Default, $iDstHeight = Default, 
 
 	If $iDstWidth == Default Then $iDstWidth = $iWidth
 	If $iDstHeight == Default Then $iDstHeight = $iHeight
+	Local $bHighQuality = $iDstWidth > $src.width Or $iDstHeight > $src.height ? $interpolation == $CV_INTER_CUBIC : $interpolation == $CV_INTER_AREA
 
 	Local Const $cv = _OpenCV_get()
 	; Local $hTimer
@@ -272,9 +273,9 @@ Func _OpenCV_resizeAndCenter($src, $iDstWidth = Default, $iDstHeight = Default, 
 				Case $CV_INTER_LINEAR
 					$interpolation = $GDIP_INTERPOLATIONMODE_BILINEAR
 				Case $CV_INTER_CUBIC
-					$interpolation = $GDIP_INTERPOLATIONMODE_BICUBIC
+					$interpolation = $bHighQuality ? $GDIP_INTERPOLATIONMODE_HIGHQUALITYBICUBIC : $GDIP_INTERPOLATIONMODE_BICUBIC
 				Case $CV_INTER_AREA
-					$interpolation = $GDIP_INTERPOLATIONMODE_HIGHQUALITYBICUBIC
+					$interpolation = $bHighQuality ? $GDIP_INTERPOLATIONMODE_HIGHQUALITYBICUBIC : $GDIP_INTERPOLATIONMODE_BICUBIC
 				Case $CV_INTER_LANCZOS4
 					$interpolation = $GDIP_INTERPOLATIONMODE_NEARESTNEIGHBOR
 				Case $CV_INTER_LINEAR_EXACT
@@ -291,6 +292,8 @@ Func _OpenCV_resizeAndCenter($src, $iDstWidth = Default, $iDstHeight = Default, 
 			$src = $src.GdiplusResize($iWidth, $iHeight, $interpolation)
 			; ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : Mat.GdiplusResize ' & TimerDiff($hTimer) & ' ms' & @CRLF) ;### Debug Console
 		Else
+			If $interpolation == Default Then $interpolation = ($iDstWidth > $src.width Or $iDstHeight > $src.height) ? $CV_INTER_CUBIC : $CV_INTER_AREA
+
 			; $hTimer = TimerInit()
 			$src = $cv.resize($src, _OpenCV_Size($iWidth, $iHeight), Default, 0, 0, $interpolation)
 			; ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : cv.resize ' & TimerDiff($hTimer) & ' ms' & @CRLF) ;### Debug Console
@@ -298,15 +301,16 @@ Func _OpenCV_resizeAndCenter($src, $iDstWidth = Default, $iDstHeight = Default, 
 	EndIf
 
 	If $bCenter And ($iPadWidth > 0 Or $iPadHeight > 0) Then
-		Local $padded = _OpenCV_ObjCreate("cv.Mat").create($iDstHeight, $iDstWidth, $src.depth())
-		$cv.copyMakeBorder($src, $iPadHeight, $iPadHeight, $iPadWidth, $iPadWidth, $CV_BORDER_CONSTANT, $padded, $aBackgroundColor)
+		Local $Mat = _OpenCV_ObjCreate("cv.Mat")
+		Local $padded = $Mat.create($iDstHeight, $iDstWidth, CV_MAKETYPE($src.depth(), $src.channels()), $aBackgroundColor)
+		$src.copyTo($Mat.create($padded, _OpenCV_Rect($iPadWidth, $iPadHeight, $src.width, $src.height)))
 		$src = $padded
 	EndIf
 
 	Return $src
 EndFunc   ;==>_OpenCV_resizeAndCenter
 
-Func _OpenCV_SetControlPic($controlID, $src, $iDstWidth = Default, $iDstHeight = Default, $aBackgroundColor = Default, $bResize = False, $bEnlarge = False, $bCenter = False, $interpolation = $CV_INTER_AREA)
+Func _OpenCV_SetControlPic($controlID, $src, $iDstWidth = Default, $iDstHeight = Default, $aBackgroundColor = Default, $bResize = False, $bEnlarge = False, $bCenter = False, $interpolation = Default)
 	$src = _OpenCV_resizeAndCenter($src.convertToShow(), $iDstWidth, $iDstHeight, $aBackgroundColor, $bResize, $bEnlarge, $bCenter, $interpolation)
 
 	; https://devblogs.microsoft.com/oldnewthing/20140219-00/?p=1713
@@ -344,10 +348,16 @@ Func _OpenCV_GetHBITMAP($img, $iChannels = Default)
 	Return $hDIB
 EndFunc   ;==>_OpenCV_GetHBITMAP
 
-Func _OpenCV_imshow_ControlPic($mat, $hWnd, $controlID, $aBackgroundColor = Default, $bResize = True, $bEnlarge = Default, $bCenter = True, $interpolation = Default)
+Func _OpenCV_imshow_ControlPic($oMat, $hWnd, $controlID, $aBackgroundColor = Default, $bResize = True, $bEnlarge = Default, $bCenter = True, $interpolation = Default)
 	Local $aPicPos = ControlGetPos($hWnd, "", $controlID)
-	_OpenCV_SetControlPic($controlID, $mat, $aPicPos[2], $aPicPos[3], $aBackgroundColor, $bResize, $bEnlarge, $bCenter, $interpolation)
+	_OpenCV_SetControlPic($controlID, $oMat, $aPicPos[2], $aPicPos[3], $aBackgroundColor, $bResize, $bEnlarge, $bCenter, $interpolation)
 EndFunc   ;==>_OpenCV_imshow_ControlPic
+
+Func _OpenCV_resizeRatio_ControlPic($src, $hWnd, $controlID, $bEnlarge = Default)
+	Local $aPicPos = ControlGetPos($hWnd, "", $controlID)
+	Local $aParams = _OpenCV_computeResizeParams($src.width, $src.height, $aPicPos[2], $aPicPos[3], $bEnlarge)
+	Return $aParams[0] / $src.width
+EndFunc   ;==>_OpenCV_resizeRatio_ControlPic
 
 ; #FUNCTION# ====================================================================================================================
 ; Name ..........: _OpenCV_GetDesktopScreenBits
@@ -629,7 +639,7 @@ Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = Default, $iMatchMeth
 		Return $aResult
 	EndIf
 
-	Local $mat = _OpenCV_ObjCreate("cv.Mat")
+	Local $Mat = _OpenCV_ObjCreate("cv.Mat")
 	Local $matResult ; = $Mat.create($rh, $rw, $CV_32FC1)
 
 	Local $bMethodAcceptsMask = $iMatchMethod == $CV_TM_EXACT Or $CV_TM_SQDIFF == $iMatchMethod Or $iMatchMethod == $CV_TM_CCORR_NORMED
@@ -668,7 +678,7 @@ Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = Default, $iMatchMeth
 
 	; there are $rh rows and $rw cols in the result matrix
 	; create a mask with the same number of rows and cols
-	Local $matResultMask = $mat.ones($rh, $rw, $CV_8UC1)
+	Local $matResultMask = $Mat.ones($rh, $rw, $CV_8UC1)
 	Local $minVal, $maxVal, $aMinLoc, $aMaxLoc
 
 	; $hTimer = TimerInit()
@@ -695,7 +705,7 @@ Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = Default, $iMatchMeth
 			$aMatchRect[0] = $aMatchLoc[0]
 			$aMatchRect[1] = $aMatchLoc[1]
 
-			Local $matImgMatch = $mat.create($matImg, $aMatchRect)
+			Local $matImgMatch = $Mat.create($matImg, $aMatchRect)
 			If $matTemplMask <> Default And $matTemplMask.channels() <> 1 Then $matTemplMask = Default
 			$fHistScore = _OpenCV_CompareMatHist($matImgMatch, $matTempl, $matTemplMask, $aChannels, $aHistSize, $aRanges, $iCompareMethod, $bAccumulate)
 			; ConsoleWrite("$fHistScore: " & $fHistScore & @CRLF)
@@ -727,7 +737,7 @@ Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = Default, $iMatchMeth
 
 		; mask the locations that should not be matched again
 		Local $aMaskedRect[4] = [$x, $y, $tw, $th]
-		Local $matMaskedRect = $mat.create($matResultMask, $aMaskedRect)
+		Local $matMaskedRect = $Mat.create($matResultMask, $aMaskedRect)
 		$matMaskedRect.setTo(_OpenCV_ScalarAll(0))
 	WEnd
 	; ConsoleWrite("minMaxLoc took " & TimerDiff($hTimer) & "ms" & @CRLF)

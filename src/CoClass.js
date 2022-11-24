@@ -83,15 +83,21 @@ class CoClass {
             argname = argname.slice(0, pos).trim();
         }
 
-        if (this.properties.has(argname)) {
-            console.log(`duplicate property '${ argname }' of '${ this.fqn }'`);
-        }
-
-        this.properties.set(argname, {
+        const descriptor = {
             type: argtype,
             value: defval,
             modifiers: list_of_modifiers
-        });
+        };
+
+        if (this.properties.has(argname)) {
+            // poor man object comparison
+            if (JSON.stringify(this.properties.get(argname)) === JSON.stringify(descriptor)) {
+                return;
+            }
+            console.log(`duplicate property '${ argname }' of '${ this.fqn }'`);
+        }
+
+        this.properties.set(argname, descriptor);
     }
 
     addEnum(fqn) {

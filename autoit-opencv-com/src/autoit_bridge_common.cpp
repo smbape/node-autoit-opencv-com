@@ -86,7 +86,7 @@ const bool is_assignable_from(bool& out_val, VARIANT const* const& in_val, bool 
 	if (PARAMETER_MISSING(in_val)) {
 		return is_optional;
 	}
-	
+
 	return V_VT(in_val) == VT_BOOL;
 }
 

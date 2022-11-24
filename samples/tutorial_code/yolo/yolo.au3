@@ -105,7 +105,7 @@ While 1
 			EndIf
 		Case $BtnModelWeights
 			$sModelWeights = ControlGetText($FormGUI, "", $InputModelWeights)
-			$sModelWeights = FileOpenDialog("Select a model weights", $OPENCV_SAMPLES_DATA_PATH, "Model weights (*.weights)", $FD_FILEMUSTEXIST, $sModelWeights)
+			$sModelWeights = FileOpenDialog("Select a model weights", $OPENCV_SAMPLES_DATA_PATH, "Model weights (*.onnx;*.weights)", $FD_FILEMUSTEXIST, $sModelWeights)
 			If @error Then
 				$sModelWeights = ""
 			Else
@@ -124,10 +124,8 @@ Func Main()
 	If $sModelNames == "" Then Return
 
 	$sModelConfiguration = ControlGetText($FormGUI, "", $InputModelConfiguration)
-	If $sModelConfiguration == "" Then Return
 
 	$sModelWeights = ControlGetText($FormGUI, "", $InputModelWeights)
-	If $sModelWeights == "" Then Return
 
 	$_cv_gdi_resize = _IsChecked($CheckboxUseGDI)
 
@@ -147,7 +145,12 @@ Func Main()
 	; Local $net = $dnn.readNetFromDarknet($sModelConfiguration, $sModelWeights)
 
 	$hTimer = TimerInit()
-	Local $net = $dnn.readNet($sModelWeights, $sModelConfiguration)
+	Local $net
+	If $sModelConfiguration == "" Then
+		$net = $dnn.readNet($sModelWeights)
+	Else
+		$net = $dnn.readNet($sModelWeights, $sModelConfiguration)
+	EndIf
 	ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : $dnn.readNet    ' & TimerDiff($hTimer) & ' ms' & @CRLF)
 
 	; $net.setPreferableBackend($CV_DNN_DNN_BACKEND_OPENCV)
@@ -183,7 +186,7 @@ Func ProcessFrame($net, $classes, $frame)
 
 	;; Runs the forward pass to get output of the output layers
 	$hTimer = TimerInit()
-	Local $outs = $net.forward(getOutputsNames($net))
+	Local $outs = $net.forward($net.getUnconnectedOutLayersNames())
 	ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : forward         ' & TimerDiff($hTimer) & ' ms' & @CRLF)
 
 	;; Remove the bounding boxes with low confidence
@@ -200,26 +203,6 @@ Func ProcessFrame($net, $classes, $frame)
 
 	_OpenCV_imshow_ControlPic($frame, $FormGUI, $PicResult)
 EndFunc   ;==>ProcessFrame
-
-;; Get the names of the output layers
-Func getOutputsNames($net)
-	;; Get the indices of the output layers, i.e. the layers with unconnected outputs
-	Local $outLayers = $net.getUnconnectedOutLayers()
-
-	;; Get the names of all the layers in the network
-	Local $layersNames = $net.getLayerNames()
-
-	;; Get the names of the output layers in names
-	Local $names[UBound($outLayers)]
-	; Local $names = _OpenCV_ObjCreate("VectorOfString").create(UBound($outLayers))
-
-	For $i = 0 To UBound($outLayers) - 1
-		$names[$i] = $layersNames[$outLayers[$i] - 1]
-		; $names.at($i, $layersNames[$outLayers[$i] - 1])
-	Next
-
-	Return $names
-EndFunc   ;==>getOutputsNames
 
 ;; Remove the bounding boxes with low confidence using non-maxima suppression
 Func postprocess($frame, $outs, $classes)
