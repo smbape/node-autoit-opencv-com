@@ -1,15 +1,13 @@
 #include "Cv_Object.h"
 
 STDMETHODIMP CCv_Object::get_extended(VARIANT* _retval) {
-	auto pArray = ExtendedHolder::extended.Detach();
-	V_VT(_retval) = VT_ARRAY | VT_VARIANT;
-	V_ARRAY(_retval) = pArray;
-	PVOID pDataToRelease;
-	HRESULT hr = SafeArrayAddRef(pArray, &pDataToRelease);
-	if (pDataToRelease) {
-		SafeArrayReleaseData(pDataToRelease);
-	}
-	ExtendedHolder::extended.Attach(pArray);
+	VARIANT out_val = { 0 };
+	V_VT(&out_val) = VT_ARRAY | VT_VARIANT;
+	V_ARRAY(&out_val) = ExtendedHolder::extended.Detach();
+
+	VariantInit(_retval);
+	HRESULT hr = VariantCopy(_retval, &out_val);
+	ExtendedHolder::extended.Attach(V_ARRAY(&out_val));
 	return hr;
 }
 

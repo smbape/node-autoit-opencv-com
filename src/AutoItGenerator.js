@@ -1573,15 +1573,21 @@ class AutoItGenerator {
     defineNamedParameters(options) {
         const {key_type, value_type} = this.classes.get(this.add_map("map<string, _variant_t>", {}, options));
         const coclass = this.classes.get("NamedParameters");
-        coclass.key_type = key_type;
-        coclass.value_type = value_type;
         const {fqn} = coclass;
+
+        // allow NamedParameters simple creation
+        coclass.is_simple = true;
+        coclass.is_class = true;
+        coclass.is_stdmap = true;
+        coclass.addMethod([`${ fqn }.${ coclass.name }`, "", [], [], "", ""]);
 
         coclass.addMethod([`${ fqn }.create`, `${ options.shared_ptr }<${ coclass.name }>`, ["/External", "/S"], [
             [`std::vector<std::pair<${ key_type }, ${ value_type }>>`, "pairs", "", []],
         ], "", ""]);
 
         // make NamedParameters to be recognized as a collection
+        coclass.key_type = key_type;
+        coclass.value_type = value_type;
         this.as_stl_enum(coclass, `std::pair<const ${ key_type }, ${ value_type }>`);
 
         this.namedParameters = coclass;

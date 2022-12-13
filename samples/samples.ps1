@@ -1,3 +1,7 @@
+param (
+    [string]$BuildType = $Env:BuildType
+)
+
 $ErrorActionPreference = "Stop"
 
 function _OpenCV_ObjCreate($sClassname) {
@@ -15,7 +19,7 @@ function _OpenCV_ObjCreate($sClassname) {
 
 function Example1() {
     $cv = _OpenCV_ObjCreate("cv")
-    $img = $cv.imread("samples\data\lena.jpg")
+    $img = $cv.imread("$PSScriptRoot\data\lena.jpg")
     $cv.imshow("image", $img)
     $cv.waitKey() | Out-Null
     $cv.destroyAllWindows()
@@ -26,7 +30,7 @@ function Example2() {
     $threshold = 180
     $dCurrentArea = 1000
 
-    $src = $cv.imread("samples\data\pic1.png")
+    $src = $cv.imread("$PSScriptRoot\data\pic1.png")
     $src_gray = $cv.cvtColor($src, $cv.COLOR_BGR2GRAY_)
     $src_gray = $cv.GaussianBlur($src_gray, @(5, 5), 0)
     $cv.threshold($src_gray, $threshold, 255, $cv.THRESH_BINARY_, $src_gray) | Out-Null
@@ -62,7 +66,7 @@ function Example2() {
 function Example3() {
     $cv = _OpenCV_ObjCreate("cv")
 
-    $cap = (_OpenCV_ObjCreate("VideoCapture")).create("samples\data\vtest.avi")
+    $cap = (_OpenCV_ObjCreate("VideoCapture")).create("$PSScriptRoot\data\vtest.avi")
     if (-not $cap.isOpened()) {
         Write-Error '!>Error: cannot open the video file.'
         return
@@ -89,7 +93,7 @@ function Example3() {
 
 function Example4() {
     $cv = _OpenCV_ObjCreate("cv")
-    $img = $cv.imread("samples\data\lena.jpg")
+    $img = $cv.imread("$PSScriptRoot\data\lena.jpg")
 
     $blurred = $Null
     $cv.GaussianBlur($img, @(5, 5), 0, [ref] $blurred) | Out-Null
@@ -118,6 +122,7 @@ public static class AutoItOpenCV
     private delegate long DllInstall_api(bool bInstall, [In, MarshalAs(UnmanagedType.LPWStr)] string cmdLine);
 
     private static IntPtr _h_opencv_world_dll = IntPtr.Zero;
+    private static IntPtr _h_opencv_ffmpeg_dll = IntPtr.Zero;
     private static IntPtr _h_autoit_opencv_com_dll = IntPtr.Zero;
     private static DllInstall_api DllInstall;
 
@@ -127,6 +132,17 @@ public static class AutoItOpenCV
         if (_h_opencv_world_dll == IntPtr.Zero)
         {
             throw new Win32Exception("Failed to load opencv library " + opencv_world_dll);
+        }
+
+        string opencv_ffmpeg_dll = opencv_world_dll
+            .Replace("opencv_world460.dll", "opencv_videoio_ffmpeg460_64.dll")
+            .Replace("opencv_world460d.dll", "opencv_videoio_ffmpeg460_64.dll")
+            ;
+
+        _h_opencv_ffmpeg_dll = LoadLibrary(opencv_ffmpeg_dll);
+        if (_h_opencv_ffmpeg_dll == IntPtr.Zero)
+        {
+            throw new Win32Exception("Failed to load ffmpeg library " + opencv_ffmpeg_dll);
         }
 
         _h_autoit_opencv_com_dll = LoadLibrary(autoit_opencv_com_dll);
@@ -148,6 +164,7 @@ public static class AutoItOpenCV
     {
         FreeLibrary(_h_autoit_opencv_com_dll);
         FreeLibrary(_h_opencv_world_dll);
+        FreeLibrary(_h_opencv_ffmpeg_dll);
     }
 
     public static void Register(string cmdLine = "user")
@@ -170,12 +187,12 @@ public static class AutoItOpenCV
 }
 "@
 
-$BUILD_TYPE = If ($env:BUILD_TYPE -eq "Debug") { $env:BUILD_TYPE } Else { "Release" }
-$DLL_SUFFFIX = If ($BUILD_TYPE -eq "Debug") { "d" } Else { "" }
+$BuildType = If ($BuildType -eq "Debug") { $BuildType } Else { "RelWithDebInfo" }
+$PostSuffix = If ($BuildType -eq "Debug") { "d" } Else { "" }
 
 [AutoItOpenCV]::DllOpen(
-    "$PSScriptRoot\..\opencv-4.6.0-vc14_vc15\opencv\build\x64\vc15\bin\opencv_world460$($DLL_SUFFFIX).dll",
-    "$PSScriptRoot\..\autoit-opencv-com\build_x64\$($BUILD_TYPE)\autoit_opencv_com460$($DLL_SUFFFIX).dll"
+    "$PSScriptRoot\..\opencv-4.6.0-vc14_vc15\opencv\build\x64\vc15\bin\opencv_world460$($PostSuffix).dll",
+    "$PSScriptRoot\..\autoit-opencv-com\build_x64\$($BuildType)\autoit_opencv_com460$($PostSuffix).dll"
 )
 
 [AutoItOpenCV]::Register()

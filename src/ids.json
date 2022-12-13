@@ -1055,6 +1055,10 @@
         "iid": "4dbe6b82-9391-4cb5-8698-d23092e38eb4",
         "clsid": "842f3005-b81b-47c5-b7e1-b48932e56330"
     },
+    "autoit": {
+        "iid": "1437048f-aff9-44b7-8750-a590647ef03b",
+        "clsid": "a98c001f-3bbe-4ab8-94a3-80b2ba2ddc69"
+    },
     "cv::wgc": {
         "iid": "e1c74eb4-de4d-4d5d-943d-7cea6daeb990",
         "clsid": "a63a65b7-9c48-49ab-b4ab-31a63c45e6c4"
@@ -1066,6 +1070,10 @@
     "cvflann": {
         "iid": "03039095-0715-4769-b585-ed6156b43c78",
         "clsid": "ff713175-575a-4a9c-92cd-947af8ea58e6"
+    },
+    "cv::core": {
+        "iid": "1d1133d7-3dd6-45b3-b563-807f04337d0f",
+        "clsid": "d0ebecec-38e7-423f-bc57-4e7e23ce772b"
     },
     "cv::Range": {
         "iid": "ee4fec59-415b-407b-a1eb-c53272bacd49",

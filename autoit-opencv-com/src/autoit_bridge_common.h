@@ -647,18 +647,27 @@ extern const HRESULT autoit_from(_Tp const& in_val, _Tp*& out_val) {
 	return S_OK;
 }
 
-#define MapOfStringAndVariant std::map<std::string, _variant_t>
 #pragma push_macro("CV_EXPORTS_W_SIMPLE")
+#pragma push_macro("CV_EXPORTS_W")
+#pragma push_macro("CV_OUT")
+#define MapOfStringAndVariant std::map<std::string, _variant_t>
 
 #ifdef CV_EXPORTS_W_SIMPLE
 #undef CV_EXPORTS_W_SIMPLE
 #endif
 #define CV_EXPORTS_W_SIMPLE
 
-class CV_EXPORTS_W_SIMPLE NamedParameters : public MapOfStringAndVariant {};
+#ifdef CV_EXPORTS_W
+#undef CV_EXPORTS_W
+#endif
+#define CV_EXPORTS_W
 
-#pragma pop_macro("CV_EXPORTS_W_SIMPLE")
-#undef MapOfStringAndVariant
+#ifdef CV_OUT
+#undef CV_OUT
+#endif
+#define CV_OUT
+
+class CV_EXPORTS_W_SIMPLE NamedParameters : public MapOfStringAndVariant {};
 
 namespace autoit {
 	template <typename _Tp>
@@ -769,7 +778,31 @@ namespace autoit {
 			return _GenericCopy<destination_type, source_type>::copy(pTo, pFrom);
 		}
 	};
+
+	const int FLTA_FILES = 1 << 0;
+	const int FLTA_FOLDERS = 1 << 1;
+	const int FLTA_FILESFOLDERS = FLTA_FILES | FLTA_FOLDERS;
+
+	CV_EXPORTS_W void findFiles(
+		CV_OUT std::vector<std::string>& matches,
+		const std::string& path,
+		const std::string& directory,
+		int flags = FLTA_FILESFOLDERS,
+		bool relative = true
+	);
+
+	CV_EXPORTS_W std::string findFile(
+		const std::string& path,
+		const std::string& directory,
+		const std::string& filter = "",
+		const std::vector<std::string>& hints = std::vector<std::string>(1, ".")
+	);
 }
+
+#pragma pop_macro("CV_EXPORTS_W_SIMPLE")
+#pragma pop_macro("CV_EXPORTS_W")
+#pragma pop_macro("CV_OUT")
+#undef MapOfStringAndVariant
 
 namespace ATL {
 	template<typename _Tp, typename CollType, typename EnumType, typename AutoItType = AutoItObject<CollType>>

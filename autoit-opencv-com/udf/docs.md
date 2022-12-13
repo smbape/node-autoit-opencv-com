@@ -8,6 +8,7 @@
 
 - [cv](#cv)
   - [cv.extended](#cvextended)
+  - [cv.core](#cvcore)
   - [cv::CamShift](#cvcamshift)
   - [cv::Canny](#cvcanny)
   - [cv::EMD](#cvemd)
@@ -4778,6 +4779,9 @@
   - [NamedParameters::merge](#namedparametersmerge)
   - [NamedParameters::put\_Item](#namedparametersput%5C_item)
   - [NamedParameters::size](#namedparameterssize)
+- [autoit](#autoit)
+  - [autoit::findFile](#autoitfindfile)
+  - [autoit::findFiles](#autoitfindfiles)
 - [cv::wgc](#cvwgc)
   - [cv::wgc::BitBltCapture](#cvwgcbitbltcapture)
   - [cv::wgc::createSimpleCapture](#cvwgccreatesimplecapture)
@@ -4854,6 +4858,59 @@
   - [cvflann.FLANN\_FLOAT64\_](#cvflannflann%5C_float64%5C_)
   - [cvflann.FLANN\_CHECKS\_UNLIMITED\_](#cvflannflann%5C_checks%5C_unlimited%5C_)
   - [cvflann.FLANN\_CHECKS\_AUTOTUNED\_](#cvflannflann%5C_checks%5C_autotuned%5C_)
+- [cv::core](#cvcore)
+  - [core.cv\_8U](#corecv%5C_8u)
+  - [core.cv\_8S](#corecv%5C_8s)
+  - [core.cv\_16U](#corecv%5C_16u)
+  - [core.cv\_16S](#corecv%5C_16s)
+  - [core.cv\_32S](#corecv%5C_32s)
+  - [core.cv\_32F](#corecv%5C_32f)
+  - [core.cv\_64F](#corecv%5C_64f)
+  - [core.cv\_16F](#corecv%5C_16f)
+  - [core.cv\_MAT\_DEPTH\_MASK](#corecv%5C_mat%5C_depth%5C_mask)
+  - [core.cv\_8UC1](#corecv%5C_8uc1)
+  - [core.cv\_8UC2](#corecv%5C_8uc2)
+  - [core.cv\_8UC3](#corecv%5C_8uc3)
+  - [core.cv\_8UC4](#corecv%5C_8uc4)
+  - [core.cv\_8SC1](#corecv%5C_8sc1)
+  - [core.cv\_8SC2](#corecv%5C_8sc2)
+  - [core.cv\_8SC3](#corecv%5C_8sc3)
+  - [core.cv\_8SC4](#corecv%5C_8sc4)
+  - [core.cv\_16UC1](#corecv%5C_16uc1)
+  - [core.cv\_16UC2](#corecv%5C_16uc2)
+  - [core.cv\_16UC3](#corecv%5C_16uc3)
+  - [core.cv\_16UC4](#corecv%5C_16uc4)
+  - [core.cv\_16SC1](#corecv%5C_16sc1)
+  - [core.cv\_16SC2](#corecv%5C_16sc2)
+  - [core.cv\_16SC3](#corecv%5C_16sc3)
+  - [core.cv\_16SC4](#corecv%5C_16sc4)
+  - [core.cv\_32SC1](#corecv%5C_32sc1)
+  - [core.cv\_32SC2](#corecv%5C_32sc2)
+  - [core.cv\_32SC3](#corecv%5C_32sc3)
+  - [core.cv\_32SC4](#corecv%5C_32sc4)
+  - [core.cv\_32FC1](#corecv%5C_32fc1)
+  - [core.cv\_32FC2](#corecv%5C_32fc2)
+  - [core.cv\_32FC3](#corecv%5C_32fc3)
+  - [core.cv\_32FC4](#corecv%5C_32fc4)
+  - [core.cv\_64FC1](#corecv%5C_64fc1)
+  - [core.cv\_64FC2](#corecv%5C_64fc2)
+  - [core.cv\_64FC3](#corecv%5C_64fc3)
+  - [core.cv\_64FC4](#corecv%5C_64fc4)
+  - [core.cv\_16FC1](#corecv%5C_16fc1)
+  - [core.cv\_16FC2](#corecv%5C_16fc2)
+  - [core.cv\_16FC3](#corecv%5C_16fc3)
+  - [core.cv\_16FC4](#corecv%5C_16fc4)
+  - [cv::core::cv\_16FC](#cvcorecv%5C_16fc)
+  - [cv::core::cv\_16SC](#cvcorecv%5C_16sc)
+  - [cv::core::cv\_16UC](#cvcorecv%5C_16uc)
+  - [cv::core::cv\_32FC](#cvcorecv%5C_32fc)
+  - [cv::core::cv\_32SC](#cvcorecv%5C_32sc)
+  - [cv::core::cv\_64FC](#cvcorecv%5C_64fc)
+  - [cv::core::cv\_8SC](#cvcorecv%5C_8sc)
+  - [cv::core::cv\_8UC](#cvcorecv%5C_8uc)
+  - [cv::core::cv\_MAKETYPE](#cvcorecv%5C_maketype)
+  - [cv::core::cv\_MAKE\_TYPE](#cvcorecv%5C_make%5C_type)
+  - [cv::core::cv\_MAT\_DEPTH](#cvcorecv%5C_mat%5C_depth)
 - [cv::Range](#cvrange)
   - [Range.start](#rangestart)
   - [Range.end](#rangeend)
@@ -6138,6 +6195,14 @@
 static _variant_t cv::extended
 AutoIt:
     [propget] $ocv.extended
+```
+
+### cv.core
+
+```cpp
+static cv::core cv::this
+AutoIt:
+    [propget] $ocv.core
 ```
 
 ### cv::CamShift
@@ -49075,6 +49140,12 @@ AutoIt:
 ### NamedParameters::create
 
 ```cpp
+static NamedParameters NamedParameters::create();
+AutoIt:
+    _OpenCV_ObjCreate("NamedParameters").create() -> <NamedParameters object>
+```
+
+```cpp
 static cv::Ptr<NamedParameters> NamedParameters::create( std::vector<std::pair<std::string, _variant_t>> pairs );
 AutoIt:
     _OpenCV_ObjCreate("NamedParameters").create( $pairs ) -> retval
@@ -49217,6 +49288,31 @@ AutoIt:
 size_t NamedParameters::size();
 AutoIt:
     $oNamedParameters.size() -> retval
+```
+
+## autoit
+
+### autoit::findFile
+
+```cpp
+std::string autoit::findFile( const std::string&              path,
+                              const std::string&              directory,
+                              const std::string&              filter = "",
+                              const std::vector<std::string>& hints = std::vector<std::string>(1, "." ) );
+AutoIt:
+    _OpenCV_ObjCreate("autoit").findFile( $path, $directory[, $filter[, $hints]] ) -> retval
+```
+
+### autoit::findFiles
+
+```cpp
+void autoit::findFiles( std::vector<std::string>& matches,
+                        const std::string&        path,
+                        const std::string&        directory,
+                        int                       flags = FLTA_FILESFOLDERS,
+                        bool                      relative = true );
+AutoIt:
+    _OpenCV_ObjCreate("autoit").findFiles( $path, $directory[, $flags[, $relative[, $matches]]] ) -> $matches
 ```
 
 ## cv::wgc
@@ -49816,6 +49912,426 @@ AutoIt:
 static int cvflann::FLANN_CHECKS_AUTOTUNED
 AutoIt:
     [propget] $ocvflann.FLANN_CHECKS_AUTOTUNED_
+```
+
+## cv::core
+
+### core.cv\_8U
+
+```cpp
+static int cv::core::cv_8U
+AutoIt:
+    [propget] $ocore.cv_8U
+```
+
+### core.cv\_8S
+
+```cpp
+static int cv::core::cv_8S
+AutoIt:
+    [propget] $ocore.cv_8S
+```
+
+### core.cv\_16U
+
+```cpp
+static int cv::core::cv_16U
+AutoIt:
+    [propget] $ocore.cv_16U
+```
+
+### core.cv\_16S
+
+```cpp
+static int cv::core::cv_16S
+AutoIt:
+    [propget] $ocore.cv_16S
+```
+
+### core.cv\_32S
+
+```cpp
+static int cv::core::cv_32S
+AutoIt:
+    [propget] $ocore.cv_32S
+```
+
+### core.cv\_32F
+
+```cpp
+static int cv::core::cv_32F
+AutoIt:
+    [propget] $ocore.cv_32F
+```
+
+### core.cv\_64F
+
+```cpp
+static int cv::core::cv_64F
+AutoIt:
+    [propget] $ocore.cv_64F
+```
+
+### core.cv\_16F
+
+```cpp
+static int cv::core::cv_16F
+AutoIt:
+    [propget] $ocore.cv_16F
+```
+
+### core.cv\_MAT\_DEPTH\_MASK
+
+```cpp
+static int cv::core::cv_MAT_DEPTH_MASK
+AutoIt:
+    [propget] $ocore.cv_MAT_DEPTH_MASK
+```
+
+### core.cv\_8UC1
+
+```cpp
+static int cv::core::cv_8UC1
+AutoIt:
+    [propget] $ocore.cv_8UC1
+```
+
+### core.cv\_8UC2
+
+```cpp
+static int cv::core::cv_8UC2
+AutoIt:
+    [propget] $ocore.cv_8UC2
+```
+
+### core.cv\_8UC3
+
+```cpp
+static int cv::core::cv_8UC3
+AutoIt:
+    [propget] $ocore.cv_8UC3
+```
+
+### core.cv\_8UC4
+
+```cpp
+static int cv::core::cv_8UC4
+AutoIt:
+    [propget] $ocore.cv_8UC4
+```
+
+### core.cv\_8SC1
+
+```cpp
+static int cv::core::cv_8SC1
+AutoIt:
+    [propget] $ocore.cv_8SC1
+```
+
+### core.cv\_8SC2
+
+```cpp
+static int cv::core::cv_8SC2
+AutoIt:
+    [propget] $ocore.cv_8SC2
+```
+
+### core.cv\_8SC3
+
+```cpp
+static int cv::core::cv_8SC3
+AutoIt:
+    [propget] $ocore.cv_8SC3
+```
+
+### core.cv\_8SC4
+
+```cpp
+static int cv::core::cv_8SC4
+AutoIt:
+    [propget] $ocore.cv_8SC4
+```
+
+### core.cv\_16UC1
+
+```cpp
+static int cv::core::cv_16UC1
+AutoIt:
+    [propget] $ocore.cv_16UC1
+```
+
+### core.cv\_16UC2
+
+```cpp
+static int cv::core::cv_16UC2
+AutoIt:
+    [propget] $ocore.cv_16UC2
+```
+
+### core.cv\_16UC3
+
+```cpp
+static int cv::core::cv_16UC3
+AutoIt:
+    [propget] $ocore.cv_16UC3
+```
+
+### core.cv\_16UC4
+
+```cpp
+static int cv::core::cv_16UC4
+AutoIt:
+    [propget] $ocore.cv_16UC4
+```
+
+### core.cv\_16SC1
+
+```cpp
+static int cv::core::cv_16SC1
+AutoIt:
+    [propget] $ocore.cv_16SC1
+```
+
+### core.cv\_16SC2
+
+```cpp
+static int cv::core::cv_16SC2
+AutoIt:
+    [propget] $ocore.cv_16SC2
+```
+
+### core.cv\_16SC3
+
+```cpp
+static int cv::core::cv_16SC3
+AutoIt:
+    [propget] $ocore.cv_16SC3
+```
+
+### core.cv\_16SC4
+
+```cpp
+static int cv::core::cv_16SC4
+AutoIt:
+    [propget] $ocore.cv_16SC4
+```
+
+### core.cv\_32SC1
+
+```cpp
+static int cv::core::cv_32SC1
+AutoIt:
+    [propget] $ocore.cv_32SC1
+```
+
+### core.cv\_32SC2
+
+```cpp
+static int cv::core::cv_32SC2
+AutoIt:
+    [propget] $ocore.cv_32SC2
+```
+
+### core.cv\_32SC3
+
+```cpp
+static int cv::core::cv_32SC3
+AutoIt:
+    [propget] $ocore.cv_32SC3
+```
+
+### core.cv\_32SC4
+
+```cpp
+static int cv::core::cv_32SC4
+AutoIt:
+    [propget] $ocore.cv_32SC4
+```
+
+### core.cv\_32FC1
+
+```cpp
+static int cv::core::cv_32FC1
+AutoIt:
+    [propget] $ocore.cv_32FC1
+```
+
+### core.cv\_32FC2
+
+```cpp
+static int cv::core::cv_32FC2
+AutoIt:
+    [propget] $ocore.cv_32FC2
+```
+
+### core.cv\_32FC3
+
+```cpp
+static int cv::core::cv_32FC3
+AutoIt:
+    [propget] $ocore.cv_32FC3
+```
+
+### core.cv\_32FC4
+
+```cpp
+static int cv::core::cv_32FC4
+AutoIt:
+    [propget] $ocore.cv_32FC4
+```
+
+### core.cv\_64FC1
+
+```cpp
+static int cv::core::cv_64FC1
+AutoIt:
+    [propget] $ocore.cv_64FC1
+```
+
+### core.cv\_64FC2
+
+```cpp
+static int cv::core::cv_64FC2
+AutoIt:
+    [propget] $ocore.cv_64FC2
+```
+
+### core.cv\_64FC3
+
+```cpp
+static int cv::core::cv_64FC3
+AutoIt:
+    [propget] $ocore.cv_64FC3
+```
+
+### core.cv\_64FC4
+
+```cpp
+static int cv::core::cv_64FC4
+AutoIt:
+    [propget] $ocore.cv_64FC4
+```
+
+### core.cv\_16FC1
+
+```cpp
+static int cv::core::cv_16FC1
+AutoIt:
+    [propget] $ocore.cv_16FC1
+```
+
+### core.cv\_16FC2
+
+```cpp
+static int cv::core::cv_16FC2
+AutoIt:
+    [propget] $ocore.cv_16FC2
+```
+
+### core.cv\_16FC3
+
+```cpp
+static int cv::core::cv_16FC3
+AutoIt:
+    [propget] $ocore.cv_16FC3
+```
+
+### core.cv\_16FC4
+
+```cpp
+static int cv::core::cv_16FC4
+AutoIt:
+    [propget] $ocore.cv_16FC4
+```
+
+### cv::core::cv\_16FC
+
+```cpp
+int cv::core::cv_16FC( int cn );
+AutoIt:
+    _OpenCV_ObjCreate("cv.core").cv_16FC( $cn ) -> retval
+```
+
+### cv::core::cv\_16SC
+
+```cpp
+int cv::core::cv_16SC( int cn );
+AutoIt:
+    _OpenCV_ObjCreate("cv.core").cv_16SC( $cn ) -> retval
+```
+
+### cv::core::cv\_16UC
+
+```cpp
+int cv::core::cv_16UC( int cn );
+AutoIt:
+    _OpenCV_ObjCreate("cv.core").cv_16UC( $cn ) -> retval
+```
+
+### cv::core::cv\_32FC
+
+```cpp
+int cv::core::cv_32FC( int cn );
+AutoIt:
+    _OpenCV_ObjCreate("cv.core").cv_32FC( $cn ) -> retval
+```
+
+### cv::core::cv\_32SC
+
+```cpp
+int cv::core::cv_32SC( int cn );
+AutoIt:
+    _OpenCV_ObjCreate("cv.core").cv_32SC( $cn ) -> retval
+```
+
+### cv::core::cv\_64FC
+
+```cpp
+int cv::core::cv_64FC( int cn );
+AutoIt:
+    _OpenCV_ObjCreate("cv.core").cv_64FC( $cn ) -> retval
+```
+
+### cv::core::cv\_8SC
+
+```cpp
+int cv::core::cv_8SC( int cn );
+AutoIt:
+    _OpenCV_ObjCreate("cv.core").cv_8SC( $cn ) -> retval
+```
+
+### cv::core::cv\_8UC
+
+```cpp
+int cv::core::cv_8UC( int cn );
+AutoIt:
+    _OpenCV_ObjCreate("cv.core").cv_8UC( $cn ) -> retval
+```
+
+### cv::core::cv\_MAKETYPE
+
+```cpp
+int cv::core::cv_MAKETYPE( int depth,
+                           int cn );
+AutoIt:
+    _OpenCV_ObjCreate("cv.core").cv_MAKETYPE( $depth, $cn ) -> retval
+```
+
+### cv::core::cv\_MAKE\_TYPE
+
+```cpp
+int cv::core::cv_MAKE_TYPE( int depth,
+                            int cn );
+AutoIt:
+    _OpenCV_ObjCreate("cv.core").cv_MAKE_TYPE( $depth, $cn ) -> retval
+```
+
+### cv::core::cv\_MAT\_DEPTH
+
+```cpp
+int cv::core::cv_MAT_DEPTH( int flags );
+AutoIt:
+    _OpenCV_ObjCreate("cv.core").cv_MAT_DEPTH( $flags ) -> retval
 ```
 
 ## cv::Range

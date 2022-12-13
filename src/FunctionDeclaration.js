@@ -784,7 +784,7 @@ Object.assign(exports, {
             if (is_external) {
                 callee = (is_static ? `C${ cotype }::` : "this->") + path[path.length - 1];
             } else if (is_static) {
-                callee = path.join("::");
+                callee = `::${ path.join("::") }`;
             } else {
                 callee = "__self->get()";
 
