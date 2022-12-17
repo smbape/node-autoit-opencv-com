@@ -1,17 +1,13 @@
 #requires -version 5.0
 
+[CmdletBinding()]
+param (
+    [Parameter(Position=0)][string] $BuildType = $Env:BUILD_TYPE
+)
+
 $ErrorActionPreference = "Stop"
 Set-StrictMode -Version 3.0
 # trap { throw $Error[0] }
-
-$refAssemblies = ,'Microsoft.CSharp'
-
-# https://github.com/PowerShell/PowerShell/issues/9599
-$refFolder = Join-Path ( Split-Path ([PSObject].Assembly.Location) ) "ref"
-if ($(Test-Path -Path $refFolder)) {
-    $refAssemblies += Get-ChildItem -Path $refFolder -Filter "*.dll" | Select-Object -Expand FullName   
-}
-Add-Type -Path ( Join-Path $PSScriptRoot "OpenCvComInterop.cs" ) -ReferencedAssemblies $refAssemblies
 
 <#
 .Synopsis
@@ -74,9 +70,8 @@ function _OpenCV_FindFiles(
         $Path = $Path -split {$_ -eq "/" -or $_ -eq "\"}
     }
 
-    $iParts = $Path.Length
     $iDirPrefixLen = $Directory.Length + 1
-    $iLastPart = $iParts - 1
+    $iLastPart = $Path.Length - 1
     $iCursor = 0
     $iNextFound = 0
     [boolean] $bFound = $false
@@ -113,8 +108,8 @@ function _OpenCV_FindFiles(
             !($sPart.Contains("*"))
         ) {
             $sPath = Join-Path $Directory $sPart
-            _OpenCV_DebugMsg "Looking for $Directory"
-            $bFound = Test-Path -Path $Directory
+            _OpenCV_DebugMsg "Looking for $sPath"
+            $bFound = Test-Path -Path $sPath
             if (!$bFound) {
                 break
             }
@@ -125,11 +120,11 @@ function _OpenCV_FindFiles(
         _OpenCV_DebugMsg "Listing $(Join-Path $Directory $sPart)"
 
         $aFileList = Get-ChildItem @Parameters
-        if (($null -eq $aFileList) -or ($aFileList.Length -eq 0)) {
+        if ($null -eq $aFileList) {
             break
         }
 
-        if ($aFileList -is [System.IO.FileInfo]) {
+        if (-not ($aFileList -is [array])) {
             $aFileList = ,$aFileList
         }
 
@@ -140,6 +135,8 @@ function _OpenCV_FindFiles(
                 if (!$ReturnPath) {
                     $sPath = $sPath.Substring($iDirPrefixLen)
                 }
+
+                _OpenCV_DebugMsg "Found $sPath"
                 $aMatches[$j] = $sPath
             }
             break
@@ -262,3 +259,5 @@ function _OpenCV_FindDLL(
     _OpenCV_FindFile -Path "$Path$PostSuffix.dll" -Filter $Filter -Directory $Directory -SearchPaths $aSearchPaths
 }
 Export-ModuleMember -Function _OpenCV_FindDLL
+
+Add-Type -Path ( _OpenCV_FindDLL -Path "dotnet\interop.opencv-4*" -BuildType $BuildType )

@@ -122,21 +122,27 @@ EndFunc   ;==>_OnAutoItExit
 ### PowerShell
 
 ```powershell
-# Opencv bin dir must be in your path and you must have registered the autoit_opencv_com460.dll dll
+#requires -version 5.0
 
-function _OpenCV_ObjCreate($sClassname) {
-    New-Object -ComObject "OpenCV.$sClassname"
-}
+Import-Module .\autoit-opencv-com\dotnet\opencv_utils.psm1
 
-function Example1() {
-    $cv = _OpenCV_ObjCreate("cv")
-    $img = $cv.imread("samples\data\lena.jpg")
-    $cv.imshow("image", $img)
+function Example() {
+    $cv = [OpenCvComInterop]::ObjCreate("cv")
+    $img = $cv.imread(( _OpenCV_FindFile "samples\data\lena.jpg" ))
+    $cv.imshow("Image", $img)
     $cv.waitKey() | Out-Null
     $cv.destroyAllWindows()
 }
 
-Example1
+[OpenCvComInterop]::DllOpen("opencv-4.6.0-vc14_vc15\opencv\build\x64\vc15\bin\opencv_world460.dll", "autoit-opencv-com\autoit_opencv_com460.dll")
+
+[OpenCvComInterop]::Register()
+
+Example
+
+[OpenCvComInterop]::Unregister()
+
+[OpenCvComInterop]::DllClose()
 ```
 
 ## Running examples

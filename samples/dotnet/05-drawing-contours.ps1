@@ -15,13 +15,13 @@ $ErrorActionPreference = "Stop"
 Set-StrictMode -Version 3.0
 trap { throw $Error[0] }
 
-Import-Module "$PSScriptRoot\opencv_utils.psm1"
+Import-Module "$PSScriptRoot\opencv_utils.psm1" -ArgumentList $BuildType
 
 $BuildType = if ($BuildType -eq "Debug") { "Debug" } else { "RelWithDebInfo" }
 
-$OpenCVWorldDll = if ([string]::IsNullOrEmpty($OpenCVWorldDll)) { _OpenCV_FindDLL "opencv_world4*" "opencv-4.*\opencv" -BuildType $BuildType } else { $OpenCVWorldDll }
-$OpenCVComDll = if ([string]::IsNullOrEmpty($OpenCVComDll)) { _OpenCV_FindDLL "autoit_opencv_com4*" -BuildType $BuildType } else { $OpenCVComDll }
-$Image = if ([string]::IsNullOrEmpty($Image)) { _OpenCV_FindFile "samples\data\pic1.png" } else { $Image }
+$OpenCVWorldDll = if ([string]::IsNullOrEmpty($OpenCVWorldDll)) { _OpenCV_FindDLL -Path "opencv_world4*" -Filter "opencv-4.*\opencv" -BuildType $BuildType } else { $OpenCVWorldDll }
+$OpenCVComDll = if ([string]::IsNullOrEmpty($OpenCVComDll)) { _OpenCV_FindDLL -Path "autoit_opencv_com4*" -BuildType $BuildType } else { $OpenCVComDll }
+$Image = if ([string]::IsNullOrEmpty($Image)) { _OpenCV_FindFile -Path "samples\data\pic1.png" } else { $Image }
 
 function Example() {
     $cv = [OpenCvComInterop]::ObjCreate("cv")

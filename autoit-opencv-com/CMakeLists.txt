@@ -135,13 +135,13 @@ target_precompile_headers(${PROJECT_NAME} PRIVATE
 target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS})
 
 set(OpenCV_DLLVERSION "${OpenCV_VERSION_MAJOR}${OpenCV_VERSION_MINOR}${OpenCV_VERSION_PATCH}")
-set(OpenCV_DEBUG_POSTFIX d)
+set(DEBUG_POSTFIX d)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
   OUTPUT_NAME "${PROJECT_NAME}${OpenCV_DLLVERSION}"
-  DEBUG_POSTFIX "${OpenCV_DEBUG_POSTFIX}"
+  DEBUG_POSTFIX "${DEBUG_POSTFIX}"
   COMPILE_PDB_NAME "${PROJECT_NAME}${OpenCV_DLLVERSION}"
-  COMPILE_PDB_NAME_DEBUG "${PROJECT_NAME}${OpenCV_DLLVERSION}${OpenCV_DEBUG_POSTFIX}"
+  COMPILE_PDB_NAME_DEBUG "${PROJECT_NAME}${OpenCV_DLLVERSION}${DEBUG_POSTFIX}"
   VS_DEBUGGER_ENVIRONMENT "PATH=${OpenCV_BINARY_DIR};%PATH%"
 )
 
@@ -210,15 +210,36 @@ IF ((WIN32) AND CMAKE_GENERATOR STREQUAL Ninja)
   target_compile_definitions(cpp_test PRIVATE _WINDOWS)
 ENDIF()
 
+if (CMAKE_GENERATOR MATCHES "Visual Studio")
+# ===============
+# C# Interop target
+# ===============
+include(CSharpUtilities)
+enable_language(CSharp)
+
+file(GLOB cs_files "dotnet/*.cs")
+add_library(interop_opencv SHARED ${cs_files})
+
+set_target_properties(interop_opencv PROPERTIES
+  OUTPUT_NAME "interop.opencv-${OpenCV_VERSION_MAJOR}"
+  DEBUG_POSTFIX "${DEBUG_POSTFIX}"
+  VS_DOTNET_REFERENCES "Microsoft.CSharp;System"
+)
+
+foreach( BUILD_TYPE ${CMAKE_CONFIGURATION_TYPES} )
+  string( TOUPPER ${BUILD_TYPE} BUILD_TYPE_UPPER )
+  set_target_properties(interop_opencv PROPERTIES RUNTIME_OUTPUT_DIRECTORY_${BUILD_TYPE_UPPER} "${CMAKE_BINARY_DIR}/${BUILD_TYPE}/dotnet")
+endforeach()
+
 # ===============
 # cs_test target
 # ===============
-if (CMAKE_GENERATOR MATCHES "Visual Studio")
 include(CSharpUtilities)
 enable_language(CSharp)
 
 file(GLOB test_files "test/*.cs")
 add_executable(cs_test ${test_files})
+target_link_libraries(cs_test interop_opencv)
 
 get_filename_component(OPENCV_SAMPLES_DATA_PATH "../samples/data" REALPATH)
 file(TO_NATIVE_PATH "${OPENCV_SAMPLES_DATA_PATH}" OPENCV_SAMPLES_DATA_PATH)
@@ -228,4 +249,5 @@ set_target_properties(cs_test PROPERTIES
   VS_DOTNET_REFERENCES "Microsoft.CSharp;System"
 )
 # set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT cs_test)
+
 endif()
