@@ -24,7 +24,7 @@
 @SET install_user=0
 @SET uninstall_user=0
 @SET DEBUG_PREFIX=
-@SET INT_DIR=Release
+@SET INT_DIR=RelWithDebInfo
 
 @SET nparms=20
 :LOOP

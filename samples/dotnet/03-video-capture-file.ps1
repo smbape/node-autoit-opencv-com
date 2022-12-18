@@ -2,13 +2,14 @@
 
 [CmdletBinding()]
 param (
-    [string] $Video = $null,
+    [Parameter(Position=0)][string] $Video = $null,
     [string] $BuildType = $Env:BUILD_TYPE,
     [string] $OpenCVWorldDll = $null,
     [string] $OpenCVComDll = $null,
     [switch] $Register,
     [switch] $Unregister
 )
+# "powershell.exe -ExecutionPolicy UnRestricted -File $PSCommandPath"
 # "pwsh.exe -ExecutionPolicy UnRestricted -File $PSCommandPath"
 
 $ErrorActionPreference = "Stop"
@@ -25,7 +26,8 @@ $Video = if ([string]::IsNullOrEmpty($Video)) { _OpenCV_FindFile -Path "samples\
 
 function Example() {
     $cv = [OpenCvComInterop]::ObjCreate("cv")
-    $cap = [OpenCvComInterop]::ObjCreate("cv.VideoCapture").create($Video)
+    $VideoCapture = [OpenCvComInterop]::ObjCreate("cv.VideoCapture")
+    $cap = $VideoCapture.create($Video)
     if (!$cap.isOpened()) {
         Write-Error "!>Error: cannot open the video file $Video."
         return
@@ -45,6 +47,12 @@ function Example() {
             break
         }
     }
+
+    # Mimic what is done in c#
+    [System.Runtime.InteropServices.Marshal]::ReleaseComObject($frame) | Out-Null
+    [System.Runtime.InteropServices.Marshal]::ReleaseComObject($cap) | Out-Null
+    [System.Runtime.InteropServices.Marshal]::ReleaseComObject($VideoCapture) | Out-Null
+    [System.Runtime.InteropServices.Marshal]::ReleaseComObject($cv) | Out-Null
 }
 
 [OpenCvComInterop]::DllOpen($OpenCVWorldDll, $OpenCVComDll)

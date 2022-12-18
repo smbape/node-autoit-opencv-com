@@ -237,9 +237,8 @@ endforeach()
 include(CSharpUtilities)
 enable_language(CSharp)
 
-file(GLOB test_files "test/*.cs")
+file(GLOB test_files "test/*.cs" "dotnet/*.cs")
 add_executable(cs_test ${test_files})
-target_link_libraries(cs_test interop_opencv)
 
 get_filename_component(OPENCV_SAMPLES_DATA_PATH "../samples/data" REALPATH)
 file(TO_NATIVE_PATH "${OPENCV_SAMPLES_DATA_PATH}" OPENCV_SAMPLES_DATA_PATH)
@@ -248,6 +247,5 @@ set_target_properties(cs_test PROPERTIES
   VS_DEBUGGER_ENVIRONMENT "PATH=${OpenCV_BINARY_DIR};%PATH%\nOPENCV_SAMPLES_DATA_PATH=${OPENCV_SAMPLES_DATA_PATH}"
   VS_DOTNET_REFERENCES "Microsoft.CSharp;System"
 )
-# set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT cs_test)
 
 endif()

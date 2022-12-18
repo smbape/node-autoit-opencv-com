@@ -6,34 +6,20 @@ using System.Runtime.InteropServices;
 
 public static class Test
 {
-    private static void Example1()
+    private static void Example(String image)
     {
         var cv = OpenCvComInterop.ObjCreate("cv");
-        if (Object.ReferenceEquals(cv, null))
-        {
-            throw new Win32Exception("Failed to create cv com");
-        }
+        var img = cv.imread(image);
+        var img_grey = cv.cvtColor(img, cv.COLOR_BGR2GRAY_);
+        cv.threshold(img_grey, 100, 255, cv.THRESH_BINARY_);
+        var thresh = cv.extended[1];
+        var contours = cv.findContours(thresh, cv.RETR_TREE_, cv.CHAIN_APPROX_SIMPLE_);
 
-        var img = cv.imread(OpenCvComInterop.FindFile("samples\\data\\lena.jpg"));
-        cv.imshow("image", img);
-        cv.waitKey();
-        cv.destroyAllWindows();
-    }
+        Console.WriteLine($"Found ({contours.Length}) contours");
 
-    private static void Example2()
-    {
-        var cv = OpenCvComInterop.ObjCreate("cv");
-        if (Object.ReferenceEquals(cv, null))
-        {
-            throw new Win32Exception("Failed to create cv com");
-        }
-
-        dynamic[] ksize = { 5, 5 };
-        dynamic blurred = null;
-
-        var img = cv.imread(OpenCvComInterop.FindFile("samples\\data\\lena.jpg"));
-        cv.GaussianBlur(img, ksize, 0, ref blurred);
-        cv.imshow("image", blurred);
+        dynamic[] color = {0, 0, 255};
+        cv.drawContours(img, contours, -1, color, 2);
+        cv.imshow("Image", img);
         cv.waitKey();
         cv.destroyAllWindows();
     }
@@ -45,11 +31,21 @@ public static class Test
         var register = false;
         var unregister = false;
         String buildType = null;
+        String image = OpenCvComInterop.FindFile("samples\\data\\pic1.png");
 
         for (int i = 0; i < args.Length; i += 1)
         {
             switch (args[i])
             {
+
+                case "--image":
+                    if (i + 1 == args.Length)
+                    {
+                        throw new ArgumentException("Unexpected argument " + args[i]);
+                    }
+                    image = args[i + 1];
+                    i += 1;
+                    break;
 
                 case "--opencv-world-dll":
                     if (i + 1 == args.Length)
@@ -102,8 +98,7 @@ public static class Test
 
         try
         {
-            Example1();
-            Example2();
+            Example(image);
         }
         finally
         {

@@ -3,6 +3,7 @@
 /node_modules
 /opencv-*-vc*
 /samples/tutorial_code/yolo/yolov3.weights
+/samples/dotnet/*.exe
 /*.sublime-workspace
 BackUp
 generated

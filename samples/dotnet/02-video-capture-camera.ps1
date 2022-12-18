@@ -2,13 +2,14 @@
 
 [CmdletBinding()]
 param (
-    [int] $Camera = 0,
+    [Parameter(Position=0)][int] $Camera = 0,
     [string] $BuildType = $Env:BUILD_TYPE,
     [string] $OpenCVWorldDll = $null,
     [string] $OpenCVComDll = $null,
     [switch] $Register,
     [switch] $Unregister
 )
+# "powershell.exe -ExecutionPolicy UnRestricted -File $PSCommandPath"
 # "pwsh.exe -ExecutionPolicy UnRestricted -File $PSCommandPath"
 
 $ErrorActionPreference = "Stop"
@@ -24,7 +25,8 @@ $OpenCVComDll = if ([string]::IsNullOrEmpty($OpenCVComDll)) { _OpenCV_FindDLL -P
 
 function Example() {
     $cv = [OpenCvComInterop]::ObjCreate("cv")
-    $cap = [OpenCvComInterop]::ObjCreate("cv.VideoCapture").create($Camera)
+    $VideoCapture = [OpenCvComInterop]::ObjCreate("cv.VideoCapture")
+    $cap = $VideoCapture.create($Camera)
     if (!$cap.isOpened()) {
         Write-Error "!>Error: cannot open the camera $Camera."
         return
@@ -35,8 +37,12 @@ function Example() {
     while ($true) {
         if ($cap.read($frame)) {
             # Flip the image horizontally to give the mirror impression
+            $oldframe = $frame
             $frame = $cv.flip($frame, 1)
             $cv.imshow("capture camera", $frame)
+
+            # Memory leak without this
+            [System.Runtime.InteropServices.Marshal]::ReleaseComObject($oldframe) | Out-Null
         } else {
             Write-Error "!>Error: cannot read the camera $Camera."
         }
@@ -46,6 +52,12 @@ function Example() {
             break
         }
     }
+
+    # Mimic what is done in c#
+    [System.Runtime.InteropServices.Marshal]::ReleaseComObject($frame) | Out-Null
+    [System.Runtime.InteropServices.Marshal]::ReleaseComObject($cap) | Out-Null
+    [System.Runtime.InteropServices.Marshal]::ReleaseComObject($VideoCapture) | Out-Null
+    [System.Runtime.InteropServices.Marshal]::ReleaseComObject($cv) | Out-Null
 }
 
 [OpenCvComInterop]::DllOpen($OpenCVWorldDll, $OpenCVComDll)

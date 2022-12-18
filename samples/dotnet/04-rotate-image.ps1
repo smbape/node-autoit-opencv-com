@@ -2,13 +2,14 @@
 
 [CmdletBinding()]
 param (
-    [string] $Image = $null,
+    [Parameter(Position=0)][string] $Image = $null,
     [string] $BuildType = $Env:BUILD_TYPE,
     [string] $OpenCVWorldDll = $null,
     [string] $OpenCVComDll = $null,
     [switch] $Register,
     [switch] $Unregister
 )
+# "powershell.exe -ExecutionPolicy UnRestricted -File $PSCommandPath"
 # "pwsh.exe -ExecutionPolicy UnRestricted -File $PSCommandPath"
 
 $ErrorActionPreference = "Stop"

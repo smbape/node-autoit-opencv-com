@@ -145,8 +145,51 @@ Example
 [OpenCvComInterop]::DllClose()
 ```
 
+#csharp
+
+`csc file.cs autoit-opencv-com\dotnet\OpenCvComInterop.cs`
+
+```cs
+using System;
+using System.ComponentModel;
+using System.IO;
+using System.Reflection;
+using System.Runtime.InteropServices;
+
+public static class Test
+{
+    private static void Example()
+    {
+        var cv = OpenCvComInterop.ObjCreate("cv");
+        if (Object.ReferenceEquals(cv, null))
+        {
+            throw new Win32Exception("Failed to create cv object");
+        }
+
+        var img = cv.imread(OpenCvComInterop.FindFile("samples\\data\\lena.jpg"));
+        cv.imshow("image", img);
+        cv.waitKey();
+        cv.destroyAllWindows();
+    }
+
+    static void Main(String[] args)
+    {
+        OpenCvComInterop.DllOpen(
+            "opencv-4.6.0-vc14_vc15\\opencv\\build\\x64\\vc15\\bin\\opencv_world460.dll",
+            "autoit-opencv-com\\autoit_opencv_com460.dll"
+        );
+
+        OpenCvComInterop.Register();
+        Example();
+        OpenCvComInterop.Unregister();
+        OpenCvComInterop.DllClose();
+    }
+}
+```
+
 ## Running examples
 
+### Prerequisite
 Install [7-zip](https://www.7-zip.org/download.html) and add the 7-zip folder to you system PATH environment variable
 
 Then, in [Git Bash](https://gitforwindows.org/), execute the following commands
@@ -176,7 +219,26 @@ cp -rf node-autoit-opencv-com-2.2.2/* ./
 rm -rf node-autoit-opencv-com-2.2.2
 ```
 
-Now you can run any file in the `samples\tutorial_code` folder.
+### autoit
+
+Now you can run any `.au3` file in the `samples` folder.
+
+### powershell
+
+To run a `.ps1` file in the `samples\dotnet` use the following command
+
+```sh
+powershell.exe -ExecutionPolicy UnRestricted -File <path to the .ps1 file>
+```
+
+### csharp
+
+To run a `.cs` file in the `samples\dotnet` use the following command
+
+```sh
+# samples\dotnet\csrun.bat <path to the .cs file> <arguments>
+samples\dotnet\csrun.bat 01-show-image.cs --register --unregister
+```
 
 ### \[optional\] Build the addon dll
 
