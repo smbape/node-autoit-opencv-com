@@ -1,3 +1,5 @@
+const semver = require("semver");
+
 exports.SIMPLE_ARGTYPE_DEFAULTS = new Map([
     ["bool", "0"],
     ["size_t", "0"],
@@ -14,6 +16,7 @@ exports.IDL_TYPES = new Map([
     ["int64", "LONGLONG"],
     ["int", "LONG"],
     ["uint", "ULONG"],
+    ["unsigned", "ULONG"],
     ["long", "LONG"],
     ["ulong", "ULONG"],
     ["size_t", "ULONGLONG"],
@@ -107,6 +110,30 @@ exports.ALIASES = new Map([
     ["GRunArgs", "vector_GRunArg"],
     ["MatShape", "vector_int"],
     ["Prims", "vector_Prim"],
+    ["Pose3DPtr", "Ptr_Pose3D"],
+    ["PoseCluster3DPtr", "Ptr_PoseCluster3D"],
+    ["kinfu_VolumeType", "kinfu::VolumeType"],
+    ["kinfu_Params", "kinfu::Params"],
+    ["legacy_Tracker", "legacy::Tracker"],
+    ["dnn_Net", "dnn::Net"],
+    ["HistogramPhaseUnwrapping_Params", "HistogramPhaseUnwrapping::Params"],
+    ["ml_SVM", "ml::SVM"],
+    ["SinusoidalPattern_Params", "SinusoidalPattern::Params"],
+    ["text_decoder_mode", "text::decoder_mode"],
+    ["ERFilter_Callback", "ERFilter::Callback"],
+    ["OCRBeamSearchDecoder_ClassifierCallback", "OCRBeamSearchDecoder::ClassifierCallback"],
+    ["TrackerCSRT_Params", "TrackerCSRT::Params"],
+    ["TrackerKCF_Params", "TrackerKCF::Params"],
+    ["TrackerNano_Params", "TrackerNano::Params"],
+    ["DAISY_NormalizationType", "DAISY::NormalizationType"],
+    ["OCRHMMDecoder_ClassifierCallback", "OCRHMMDecoder::ClassifierCallback"],
+    ["EdgeDrawing_Params", "EdgeDrawing::Params"],
+    ["cv.createChiHistogramCostExtractor", "cv.createChiHistogramCostExtractor"],
+    ["cv.createThinPlateSplineShapeTransformer", "cv.createThinPlateSplineShapeTransformer"],
+    ["cv::createChiHistogramCostExtractor", "cv::createChiHistogramCostExtractor"],
+    ["cv::createThinPlateSplineShapeTransformer", "cv::createThinPlateSplineShapeTransformer"],
+    ["createChiHistogramCostExtractor", "cv::createChiHistogramCostExtractor"],
+    ["createThinPlateSplineShapeTransformer", "cv::createThinPlateSplineShapeTransformer"],
 ]);
 
 exports.CLASS_PTR = new Set([
@@ -122,13 +149,25 @@ exports.PTR = new Set([
 ]);
 
 exports.CUSTOM_CLASSES = [
-    ["cv.detail.ExtractArgsCallback", ["/Simple"]],
-    ["cv.detail.ExtractMetaCallback", ["/Simple"]],
     ["cv.gapi.wip.draw.Prim", ["/Simple", "/DC"]],
     ["cv.gapi.wip.IStreamSource", []],
     ["cv.GProtoInputArgs", ["/Simple"]],
     ["cv.GProtoOutputArgs", ["/Simple"]],
 ];
+
+if (semver.gt(global.OpenCV_VERSION.slice("opencv-".length), "4.5.0")) {
+    exports.CUSTOM_CLASSES.push(...[
+        ["cv.detail.ExtractArgsCallback", ["/Simple"]],
+        ["cv.detail.ExtractMetaCallback", ["/Simple"]],
+    ]);
+} else {
+    exports.CUSTOM_CLASSES.push(...[
+        ["cv.GMatDesc", ["/Simple"]],
+        ["cv.GScalarDesc", ["/Simple"]],
+        ["cv.GArrayDesc", ["/Simple"]],
+        ["cv.GOpaqueDesc", ["/Simple"]],
+    ]);
+}
 
 exports.ARRAY_CLASSES = new Set([
     // Array types

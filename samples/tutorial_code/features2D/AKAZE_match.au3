@@ -12,10 +12,10 @@
 #include "..\..\..\autoit-addon\addon.au3"
 
 ;~ Sources:
-;~     https://docs.opencv.org/4.6.0/db/d70/tutorial_akaze_matching.html
-;~     https://github.com/opencv/opencv/blob/4.6.0/samples/cpp/tutorial_code/features2D/AKAZE_match.cpp
+;~     https://docs.opencv.org/4.7.0/db/d70/tutorial_akaze_matching.html
+;~     https://github.com/opencv/opencv/blob/4.7.0/samples/cpp/tutorial_code/features2D/AKAZE_match.cpp
 
-_OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world470*"), _OpenCV_FindDLL("autoit_opencv_com470*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 
@@ -110,7 +110,7 @@ Func Main()
 
 	If StringCompare($sHomography, ControlGetText($FormGUI, "", $InputHomography), $STR_NOCASESENSE) <> 0 Then
 		$sHomography = ControlGetText($FormGUI, "", $InputHomography)
-		Local $fs = _OpenCV_ObjCreate("cv.FileStorage").create($sHomography, $CV_FILE_STORAGE_READ)
+		Local $fs = $cv.FileStorage($sHomography, $CV_FILE_STORAGE_READ)
 		$homography = $fs.getFirstTopLevelNode().mat()
 
 		If $homography.empty() Then
@@ -149,7 +149,7 @@ Func Detect()
 
 	;;! [AKAZE]
 	$hTimer = TimerInit()
-	Local $akaze = _OpenCV_ObjCreate("cv.AKAZE").create()
+	Local $akaze = $cv.AKAZE.create()
 
 	Local $kpts1 = _OpenCV_ObjCreate("VectorOfKeyPoint")
 	Local $desc1 = _OpenCV_ObjCreate("cv.Mat")
@@ -164,7 +164,7 @@ Func Detect()
 
 	;;! [2-nn matching]
 	$hTimer = TimerInit()
-	Local $matcher = _OpenCV_ObjCreate("cv.BFMatcher").create($CV_NORM_HAMMING)
+	Local $matcher = $cv.BFMatcher($CV_NORM_HAMMING)
 	Local $nn_matches = _OpenCV_ObjCreate("VectorOfVectorOfDMatch")
 	$matcher.knnMatch($desc1, $desc2, 2, Default, Default, $nn_matches)
 	ConsoleWrite("knnMatch                                 " & TimerDiff($hTimer) & "ms" & @CRLF)
@@ -214,7 +214,7 @@ Func Detect()
 		; Slower
 		$hTimer = TimerInit()
 		For $i = 0 To $matched1.size() - 1
-			Local $col = _OpenCV_ObjCreate("cv.Mat").ones(3, 1, $CV_64F)
+			Local $col = $cv.Mat.ones(3, 1, $CV_64F)
 			$col.double_set_at(0, $matched1.at($i).pt[0])
 			$col.double_set_at(1, $matched1.at($i).pt[1])
 
@@ -228,7 +228,7 @@ Func Detect()
 				Local $new_i = $inliers1.size()
 				$inliers1.push_back($matched1.at($i))
 				$inliers2.push_back($matched2.at($i))
-				$good_matches.push_back(_OpenCV_ObjCreate("cv.DMatch").create($new_i, $new_i, 0))
+				$good_matches.push_back($cv.DMatch($new_i, $new_i, 0))
 			EndIf
 		Next
 
@@ -270,5 +270,5 @@ EndFunc   ;==>Detect
 
 Func _OnAutoItExit()
 	_GDIPlus_Shutdown()
-	_OpenCV_Unregister_And_Close()
+	_OpenCV_Close()
 EndFunc   ;==>_OnAutoItExit

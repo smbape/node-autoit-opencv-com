@@ -1,4 +1,5 @@
 #pragma once
+
 #pragma comment(lib, "strmiids")
 #pragma comment(lib, "gdiplus")
 
@@ -25,3 +26,5 @@
 #include <string>
 #include <gdiplus.h>
 #include "generated_include.h"
+
+#import "cvLib.tlb"

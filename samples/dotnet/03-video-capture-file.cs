@@ -1,12 +1,45 @@
 using System;
 using System.ComponentModel;
-using System.IO;
-using System.Reflection;
 using System.Runtime.InteropServices;
+using OpenCV.InteropServices;
 
 public static class Test
 {
-    private static void Example(String video)
+    private static void CompiletimeExample(String video)
+    {
+        ICv_Object cv = new Cv_Object();
+
+        var cap = cv.VideoCapture[video];
+        if (!cap.isOpened())
+        {
+            throw new Win32Exception($"!>Error: cannot open the video file {video}.");
+        }
+
+        var frame = new Cv_Mat_Object();
+
+        while (true)
+        {
+            if (!cap.read(frame))
+            {
+                Console.WriteLine("!>Error: cannot read the video or end of the video.");
+                break;
+            }
+
+            cv.imshow("capture video file", frame);
+            var key = cv.waitKey(30);
+            if (key == 27 || key == 'q' || key == 'Q')
+            {
+                break;
+            }
+        }
+
+        // The program does not terminate without this
+        Marshal.ReleaseComObject(frame);
+        Marshal.ReleaseComObject(cap);
+        Marshal.ReleaseComObject(cv);
+    }
+
+    private static void RuntimeExample(String video)
     {
         var cv = OpenCvComInterop.ObjCreate("cv");
         if (Object.ReferenceEquals(cv, null))
@@ -110,8 +143,8 @@ public static class Test
         }
 
         OpenCvComInterop.DllOpen(
-            String.IsNullOrWhiteSpace(opencv_world_dll) ? OpenCvComInterop.FindDLL("opencv_world4*", "opencv-4.*\\opencv", null, buildType) : opencv_world_dll,
-            String.IsNullOrWhiteSpace(opencv_com_dll) ? OpenCvComInterop.FindDLL("autoit_opencv_com4*", null, null, buildType) : opencv_com_dll
+            String.IsNullOrWhiteSpace(opencv_world_dll) ? OpenCvComInterop.FindDLL("opencv_world470*", null, null, buildType) : opencv_world_dll,
+            String.IsNullOrWhiteSpace(opencv_com_dll) ? OpenCvComInterop.FindDLL("autoit_opencv_com470*", null, null, buildType) : opencv_com_dll
         );
 
         if (register)
@@ -119,9 +152,18 @@ public static class Test
             OpenCvComInterop.Register();
         }
 
+        OpenCvComInterop.DLLActivateActCtx();
+        try {
+            CompiletimeExample(video);
+        }
+        finally
+        {
+            OpenCvComInterop.DLLDeactivateActCtx();
+        }
+
         try
         {
-            Example(video);
+            RuntimeExample(video);
         }
         finally
         {

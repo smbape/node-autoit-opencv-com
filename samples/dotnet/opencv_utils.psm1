@@ -34,7 +34,7 @@ function _OpenCV_NormalizePath([Parameter(Mandatory, Position=0)] $Path) {
         }
 
         if ($sPart -eq '..') {
-            $end = [math]::Max(0, $end - 1)
+            $end = [Math]::Max(0, $end - 1)
             continue
         }
 
@@ -234,27 +234,17 @@ function _OpenCV_FindDLL(
     [Parameter(Position=2)] [string] $Directory = $PSScriptRoot,
     [Parameter(Position=3)] [string] $BuildType = $Env:BUILD_TYPE
 ) {
-    $BuildType = if ($BuildType -eq "Debug") { "Debug" } else { "RelWithDebInfo" }
+    $BuildType = if ($BuildType -eq "Debug") { "Debug" } else { "Release" }
     $PostSuffix = if ($BuildType -eq "Debug") { "d" } else { "" }
 
     $aSearchPaths = @(
         "."
-        "build_x64"
-        "build_x64\$BuildType"
-        "build"
-        "build\x64"
-        "build\x64\vc17\bin"
-        "build\x64\vc15\bin"
-        "build\x64\vc14\bin"
         "autoit-opencv-com"
-        "autoit-opencv-com\build_x64"
-        "autoit-opencv-com\build_x64\$BuildType"
+        "autoit-opencv-com\build_x64\bin\$BuildType"
+        "opencv\build\x64\vc*\bin"
+        "opencv-4.7.0-*\build\x64\vc*\bin"
+        "opencv-4.7.0-*\opencv\build\x64\vc*\bin"
     )
-
-    if ($BuildType -ne "Debug") {
-        $aSearchPaths += "build_x64\Release"
-        $aSearchPaths += "autoit-opencv-com\build_x64\Release"
-    }
 
     _OpenCV_FindFile -Path "$Path$PostSuffix.dll" -Filter $Filter -Directory $Directory -SearchPaths $aSearchPaths
 }

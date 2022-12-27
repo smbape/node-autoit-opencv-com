@@ -17,13 +17,12 @@
 ;~     https://www.autoitscript.com/forum/topic/202987-real-time-object-detection-using-yolov3-wrapper/
 ;~     https://learnopencv.com/deep-learning-based-object-detection-using-yolov3-with-opencv-python-c/
 
-_OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world470*"), _OpenCV_FindDLL("autoit_opencv_com470*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 
 Global $cv = _OpenCV_get()
 Global $addon_dll = _Addon_FindDLL()
-Global $dnn = _OpenCV_ObjCreate("cv.dnn")
 
 Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
 
@@ -142,16 +141,16 @@ Func Main()
 		ConsoleWriteError("!>Error: Unable to read model names " & $sModelNames & @CRLF)
 	EndIf
 
-	; Local $net = $dnn.readNetFromDarknet($sModelConfiguration, $sModelWeights)
+	; Local $net = $cv.dnn.readNetFromDarknet($sModelConfiguration, $sModelWeights)
 
 	$hTimer = TimerInit()
 	Local $net
 	If $sModelConfiguration == "" Then
-		$net = $dnn.readNet($sModelWeights)
+		$net = $cv.dnn.readNet($sModelWeights)
 	Else
-		$net = $dnn.readNet($sModelWeights, $sModelConfiguration)
+		$net = $cv.dnn.readNet($sModelWeights, $sModelConfiguration)
 	EndIf
-	ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : $dnn.readNet    ' & TimerDiff($hTimer) & ' ms' & @CRLF)
+	ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : $cv.dnn.readNet    ' & TimerDiff($hTimer) & ' ms' & @CRLF)
 
 	; $net.setPreferableBackend($CV_DNN_DNN_BACKEND_OPENCV)
 	; $net.setPreferableTarget($CV_DNN_DNN_TARGET_CPU)
@@ -179,7 +178,7 @@ Func ProcessFrame($net, $classes, $frame)
 	$frame = _OpenCV_resizeAndCenter($frame, $iDstWidth, $iDstHeight)
 
 	;; Create a 4D blob from a frame.
-	Local $blob = $dnn.blobFromImage($frame, 1 / 255, _OpenCV_Size($inpWidth, $inpHeight), _OpenCV_Scalar(0, 0, 0), True, False)
+	Local $blob = $cv.dnn.blobFromImage($frame, 1 / 255, _OpenCV_Size($inpWidth, $inpHeight), _OpenCV_Scalar(0, 0, 0), True, False)
 
 	;; Sets the input to the network
 	$net.setInput($blob)
@@ -214,7 +213,6 @@ Func postprocess($frame, $outs, $classes)
 	Local $classIds = _OpenCV_ObjCreate("VectorOfInt")
 	Local $confidences = _OpenCV_ObjCreate("VectorOfFloat")
 	Local $boxes = _OpenCV_ObjCreate("VectorOfRect2d")
-	Local $Mat = _OpenCV_ObjCreate("cv.Mat")
 
 	Local $hTimer
 
@@ -224,8 +222,8 @@ Func postprocess($frame, $outs, $classes)
 		; Slower
 		$hTimer = TimerInit()
 
-		Local $detection = $Mat.create(1, 0, $CV_32F)
-		Local $scores = $Mat.create(1, 0, $CV_32F)
+		Local $detection = $cv.Mat.create(1, 0, $CV_32F)
+		Local $scores = $cv.Mat.create(1, 0, $CV_32F)
 
 		Local $out, $data, $step, $cols, $sizeof
 		Local $confidence, $classIdPoint
@@ -291,7 +289,7 @@ Func postprocess($frame, $outs, $classes)
 
 	;; Perform non maximum suppression to eliminate redundant overlapping boxes with
 	;; lower confidences.
-	Local $indices = $dnn.NMSBoxes($boxes, $confidences, $confThreshold, $nmsThreshold)
+	Local $indices = $cv.dnn.NMSBoxes($boxes, $confidences, $confThreshold, $nmsThreshold)
 	Local $idx, $box
 	For $i = 0 To UBound($indices) - 1
 		$idx = $indices[$i]
@@ -365,10 +363,10 @@ Func drawPred($classId, $conf, $box, $frame, $classes)
 			$height = _Min($top + $height, $frame.height) - $top
 
 			Local $aLabelBox = _OpenCV_Rect($left, $top, $width, $height)
-			Local $oLabelRect = _OpenCV_ObjCreate("cv.Mat").create($height, $width, $CV_8UC3, _OpenCV_Scalar(0xFF, 0xFF, 0xFF))
-			Local $oLabelROI = _OpenCV_ObjCreate("cv.Mat").create($frame, $aLabelBox)
+			Local $oLabelRect = $cv.Mat.create($height, $width, $CV_8UC3, _OpenCV_Scalar(0xFF, 0xFF, 0xFF))
+			Local $oLabelROI = $cv.Mat.create($frame, $aLabelBox)
 
-			$oLabelRect = $cv.addWeighted($oLabelRect, $fLabelBackgroundOpacity, _OpenCV_ObjCreate("cv.Mat").create($frame, $aLabelBox), 1 - $fLabelBackgroundOpacity, 0)
+			$oLabelRect = $cv.addWeighted($oLabelRect, $fLabelBackgroundOpacity, $cv.Mat.create($frame, $aLabelBox), 1 - $fLabelBackgroundOpacity, 0)
 			$oLabelRect.copyTo($oLabelROI)
 		Else
 			$cv.rectangle( _
@@ -403,5 +401,5 @@ EndFunc   ;==>_IsChecked
 
 Func _OnAutoItExit()
 	_GDIPlus_Shutdown()
-	_OpenCV_Unregister_And_Close()
+	_OpenCV_Close()
 EndFunc   ;==>_OnAutoItExit

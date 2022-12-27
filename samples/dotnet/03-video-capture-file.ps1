@@ -18,16 +18,15 @@ trap { throw $Error[0] }
 
 Import-Module "$PSScriptRoot\opencv_utils.psm1" -ArgumentList $BuildType
 
-$BuildType = if ($BuildType -eq "Debug") { "Debug" } else { "RelWithDebInfo" }
+$BuildType = if ($BuildType -eq "Debug") { "Debug" } else { "Release" }
 
-$OpenCVWorldDll = if ([string]::IsNullOrEmpty($OpenCVWorldDll)) { _OpenCV_FindDLL -Path "opencv_world4*" -Filter "opencv-4.*\opencv" -BuildType $BuildType } else { $OpenCVWorldDll }
-$OpenCVComDll = if ([string]::IsNullOrEmpty($OpenCVComDll)) { _OpenCV_FindDLL -Path "autoit_opencv_com4*" -BuildType $BuildType } else { $OpenCVComDll }
+$OpenCVWorldDll = if ([string]::IsNullOrEmpty($OpenCVWorldDll)) { _OpenCV_FindDLL -Path "opencv_world470*" -BuildType $BuildType } else { $OpenCVWorldDll }
+$OpenCVComDll = if ([string]::IsNullOrEmpty($OpenCVComDll)) { _OpenCV_FindDLL -Path "autoit_opencv_com470*" -BuildType $BuildType } else { $OpenCVComDll }
 $Video = if ([string]::IsNullOrEmpty($Video)) { _OpenCV_FindFile -Path "samples\data\vtest.avi" } else { $Video }
 
 function Example() {
     $cv = [OpenCvComInterop]::ObjCreate("cv")
-    $VideoCapture = [OpenCvComInterop]::ObjCreate("cv.VideoCapture")
-    $cap = $VideoCapture.create($Video)
+    $cap = $cv.VideoCapture($Video)
     if (!$cap.isOpened()) {
         Write-Error "!>Error: cannot open the video file $Video."
         return
@@ -51,7 +50,6 @@ function Example() {
     # Mimic what is done in c#
     [System.Runtime.InteropServices.Marshal]::ReleaseComObject($frame) | Out-Null
     [System.Runtime.InteropServices.Marshal]::ReleaseComObject($cap) | Out-Null
-    [System.Runtime.InteropServices.Marshal]::ReleaseComObject($VideoCapture) | Out-Null
     [System.Runtime.InteropServices.Marshal]::ReleaseComObject($cv) | Out-Null
 }
 

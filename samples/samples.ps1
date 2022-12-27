@@ -31,12 +31,12 @@ function Example2() {
     $dCurrentArea = 1000
 
     $src = $cv.imread("$PSScriptRoot\data\pic1.png")
-    $src_gray = $cv.cvtColor($src, $cv.COLOR_BGR2GRAY_)
+    $src_gray = $cv.cvtColor($src, $cv.enums.COLOR_BGR2GRAY)
     $src_gray = $cv.GaussianBlur($src_gray, @(5, 5), 0)
-    $cv.threshold($src_gray, $threshold, 255, $cv.THRESH_BINARY_, $src_gray) | Out-Null
+    $cv.threshold($src_gray, $threshold, 255, $cv.enums.THRESH_BINARY, $src_gray) | Out-Null
 
     $good_contours = _OpenCV_ObjCreate("VectorOfMat")
-    $contours = $cv.findContours($src_gray, $cv.RETR_TREE_, $cv.CHAIN_APPROX_SIMPLE_) # $cv.RETR_LIST_, $cv.RETR_EXTERNAL_, $cv.RETR_TREE_
+    $contours = $cv.findContours($src_gray, $cv.enums.RETR_TREE, $cv.enums.CHAIN_APPROX_SIMPLE) # $cv.enums.RETR_LIST, $cv.enums.RETR_EXTERNAL, $cv.enums.RETR_TREE
 
     foreach ($contour in $contours) {
         $dArea = $cv.contourArea($contour)
@@ -135,8 +135,8 @@ public static class AutoItOpenCV
         }
 
         string opencv_ffmpeg_dll = opencv_world_dll
-            .Replace("opencv_world460.dll", "opencv_videoio_ffmpeg460_64.dll")
-            .Replace("opencv_world460d.dll", "opencv_videoio_ffmpeg460_64.dll")
+            .Replace("opencv_world470.dll", "opencv_videoio_ffmpeg470_64.dll")
+            .Replace("opencv_world470d.dll", "opencv_videoio_ffmpeg470_64.dll")
             ;
 
         _h_opencv_ffmpeg_dll = LoadLibrary(opencv_ffmpeg_dll);
@@ -187,12 +187,12 @@ public static class AutoItOpenCV
 }
 "@
 
-$BuildType = If ($BuildType -eq "Debug") { $BuildType } Else { "RelWithDebInfo" }
+$BuildType = If ($BuildType -eq "Debug") { $BuildType } Else { "Release" }
 $PostSuffix = If ($BuildType -eq "Debug") { "d" } Else { "" }
 
 [AutoItOpenCV]::DllOpen(
-    "$PSScriptRoot\..\opencv-4.6.0-vc14_vc15\opencv\build\x64\vc15\bin\opencv_world460$($PostSuffix).dll",
-    "$PSScriptRoot\..\autoit-opencv-com\build_x64\$($BuildType)\autoit_opencv_com460$($PostSuffix).dll"
+    "$PSScriptRoot\..\opencv-4.7.0-windows\opencv\build\x64\vc15\bin\opencv_world470$($PostSuffix).dll",
+    "$PSScriptRoot\..\autoit-opencv-com\build_x64\$($BuildType)\autoit_opencv_com470$($PostSuffix).dll"
 )
 
 [AutoItOpenCV]::Register()

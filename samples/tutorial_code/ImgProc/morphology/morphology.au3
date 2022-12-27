@@ -11,10 +11,10 @@
 #include "..\..\..\..\autoit-opencv-com\udf\opencv_udf_utils.au3"
 
 ;~ Sources:
-;~     https://docs.opencv.org/4.6.0/dd/d49/tutorial_py_contour_features.html
-;~     https://github.com/opencv/opencv/blob/4.6.0/samples/python/tutorial_code/imgProc/erosion_dilatation/morphology_1.py
+;~     https://docs.opencv.org/4.7.0/dd/d49/tutorial_py_contour_features.html
+;~     https://github.com/opencv/opencv/blob/4.7.0/samples/python/tutorial_code/imgProc/erosion_dilatation/morphology_1.py
 
-_OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world470*"), _OpenCV_FindDLL("autoit_opencv_com470*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 
@@ -185,7 +185,7 @@ Func _Transform()
 
 	Local $src_displayed = $src.clone()
 	Local $iterations
-	Local $kernel = _OpenCV_ObjCreate("cv.Mat").ones(5, 5, $CV_8UC1)
+	Local $kernel = $cv.Mat.ones(5, 5, $CV_8UC1)
 
 	$iterations = _GUICtrlReadNumber($InputErosion)
 	If $iterations > 0 Then $src_displayed = $cv.erode($src_displayed, $kernel, _OpenCV_Params("iterations", $iterations))
@@ -202,7 +202,7 @@ Func _Transform()
 	$iterations = _GUICtrlReadNumber($InputGradient)
 	If $iterations > 0 Then $src_displayed = $cv.morphologyEx($src_displayed, $CV_MORPH_GRADIENT, $kernel, _OpenCV_Params("iterations", $iterations))
 
-	$kernel = _OpenCV_ObjCreate("cv.Mat").ones(9, 9, $CV_8UC1)
+	$kernel = $cv.Mat.ones(9, 9, $CV_8UC1)
 
 	$iterations = _GUICtrlReadNumber($InputTopHat)
 	If $iterations > 0 Then $src_displayed = $cv.morphologyEx($src_displayed, $CV_MORPH_TOPHAT, $kernel, _OpenCV_Params("iterations", $iterations))
@@ -230,5 +230,5 @@ EndFunc   ;==>_GUICtrlReadNumber
 
 Func _OnAutoItExit()
 	_GDIPlus_Shutdown()
-	_OpenCV_Unregister_And_Close()
+	_OpenCV_Close()
 EndFunc   ;==>_OnAutoItExit

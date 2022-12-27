@@ -11,10 +11,10 @@
 #include "..\..\..\autoit-addon\addon.au3"
 
 ;~ Sources:
-;~     https://docs.opencv.org/4.6.0/d8/dbc/tutorial_histogram_calculation.html
-;~     https://github.com/opencv/opencv/blob/4.6.0/samples/cpp/tutorial_code/Histograms_Matching/calcHist_Demo.cpp
+;~     https://docs.opencv.org/4.7.0/d8/dbc/tutorial_histogram_calculation.html
+;~     https://github.com/opencv/opencv/blob/4.7.0/samples/cpp/tutorial_code/Histograms_Matching/calcHist_Demo.cpp
 
-_OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world470*"), _OpenCV_FindDLL("autoit_opencv_com470*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 
@@ -114,7 +114,7 @@ Func Main()
 	Local $hist_w = 512, $hist_h = 400 ;
 	Local $bin_w = Round($hist_w / $histSize[0]) ;
 
-	Local $histImage = _OpenCV_ObjCreate("cv.Mat").create($hist_h, $hist_w, $CV_8UC3, _OpenCV_Scalar(0, 0, 0))
+	Local $histImage = $cv.Mat.create($hist_h, $hist_w, $CV_8UC3, _OpenCV_Scalar(0, 0, 0))
 	;;! [Draw the histograms for B, G and R]
 
 	;;! [Normalize the result to ( 0, histImage.rows )]
@@ -165,5 +165,5 @@ EndFunc   ;==>Main
 
 Func _OnAutoItExit()
 	_GDIPlus_Shutdown()
-	_OpenCV_Unregister_And_Close()
+	_OpenCV_Close()
 EndFunc   ;==>_OnAutoItExit

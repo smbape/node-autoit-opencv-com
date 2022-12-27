@@ -16,6 +16,7 @@
     "fs-explorer": "^1.4.2",
     "mkdirp": "^1.0.4",
     "node-autoit-binding-utils": "git+ssh://git@github.com:smbape/node-autoit-binding-utils.git",
+    "semver": "^7.3.8",
     "uuid": "^8.3.2"
   },
   "description": ""

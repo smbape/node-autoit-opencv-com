@@ -1,19 +1,36 @@
 using System;
 using System.ComponentModel;
-using System.IO;
-using System.Reflection;
 using System.Runtime.InteropServices;
+using OpenCV.InteropServices;
 
 public static class Test
 {
-    private static void Example(String image)
+    private static void CompiletimeExample(String image)
+    {
+        ICv_Object cv = new Cv_Object();
+        var img = cv.imread(image);
+        var img_grey = cv.cvtColor(img, cv.enums.COLOR_BGR2GRAY);
+        cv.threshold(img_grey, 100, 255, cv.enums.THRESH_BINARY);
+        var thresh = cv.extended[1];
+        var contours = cv.findContours(thresh, cv.enums.RETR_TREE, cv.enums.CHAIN_APPROX_SIMPLE);
+
+        Console.WriteLine($"Found ({contours.Length}) contours");
+
+        dynamic[] color = {0, 0, 255};
+        cv.drawContours(img, contours, -1, color, 2);
+        cv.imshow("Image", img);
+        cv.waitKey();
+        cv.destroyAllWindows();
+    }
+
+    private static void RuntimeExample(String image)
     {
         var cv = OpenCvComInterop.ObjCreate("cv");
         var img = cv.imread(image);
-        var img_grey = cv.cvtColor(img, cv.COLOR_BGR2GRAY_);
-        cv.threshold(img_grey, 100, 255, cv.THRESH_BINARY_);
+        var img_grey = cv.cvtColor(img, cv.enums.COLOR_BGR2GRAY);
+        cv.threshold(img_grey, 100, 255, cv.enums.THRESH_BINARY);
         var thresh = cv.extended[1];
-        var contours = cv.findContours(thresh, cv.RETR_TREE_, cv.CHAIN_APPROX_SIMPLE_);
+        var contours = cv.findContours(thresh, cv.enums.RETR_TREE, cv.enums.CHAIN_APPROX_SIMPLE);
 
         Console.WriteLine($"Found ({contours.Length}) contours");
 
@@ -88,17 +105,26 @@ public static class Test
         }
 
         OpenCvComInterop.DllOpen(
-            String.IsNullOrWhiteSpace(opencv_world_dll) ? OpenCvComInterop.FindDLL("opencv_world4*", "opencv-4.*\\opencv", null, buildType) : opencv_world_dll,
-            String.IsNullOrWhiteSpace(opencv_com_dll) ? OpenCvComInterop.FindDLL("autoit_opencv_com4*", null, null, buildType) : opencv_com_dll
+            String.IsNullOrWhiteSpace(opencv_world_dll) ? OpenCvComInterop.FindDLL("opencv_world470*", null, null, buildType) : opencv_world_dll,
+            String.IsNullOrWhiteSpace(opencv_com_dll) ? OpenCvComInterop.FindDLL("autoit_opencv_com470*", null, null, buildType) : opencv_com_dll
         );
 
         if (register) {
             OpenCvComInterop.Register();
         }
 
+        OpenCvComInterop.DLLActivateActCtx();
+        try {
+            CompiletimeExample(image);
+        }
+        finally
+        {
+            OpenCvComInterop.DLLDeactivateActCtx();
+        }
+
         try
         {
-            Example(image);
+            RuntimeExample(image);
         }
         finally
         {

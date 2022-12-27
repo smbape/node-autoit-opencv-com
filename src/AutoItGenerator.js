@@ -2,12 +2,6 @@
 const version = process.env.npm_package_version || require("../package.json").version;
 const fs = require("node:fs");
 const sysPath = require("node:path");
-const {spawn} = require("node:child_process");
-const cpus = require("node:os").cpus().length;
-const eachOfLimit = require("async/eachOfLimit");
-const series = require("async/series");
-const waterfall = require("async/waterfall");
-const eol = require("eol");
 const { convertExpression } = require("node-autoit-binding-utils/src/autoit-expression-converter");
 
 const [VERSION_MAJOR, VERSION_MINOR] = version.split(".");
@@ -22,7 +16,7 @@ const map_conversion = require("./map_conversion");
 const vector_conversion = require("./vector_conversion");
 const FunctionDeclaration = require("./FunctionDeclaration");
 const PropertyDeclaration = require("./PropertyDeclaration");
-const doctoc = require("./doctoc");
+const FileUtils = require("./FileUtils");
 
 const {
     IDL_TYPES,
@@ -35,6 +29,15 @@ const {
 
 const CoClass = require("./CoClass");
 const {orderDependencies} = require("./dependencies");
+
+const escapeHTML = str => {
+    return str
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll("\"", "&quot;")
+        .replaceAll("'", "&#039;");
+};
 
 class AutoItGenerator {
     constructor() {
@@ -210,12 +213,14 @@ class AutoItGenerator {
                 coclass.addIDLName("self", "put_self");
                 const id = coclass.getIDLNameId("self");
 
-                iidl.push(`[propget, id(${ id })] HRESULT self([out, retval] VARIANT* pVal);`);
-                iidl.push(`[propput, id(${ id })] HRESULT self([in] ULONGLONG ptr);`);
+                iidl.push(`[id(${ id }), propget] HRESULT self([out, retval] VARIANT* pVal);`);
+                iidl.push(`[id(${ id }), propput] HRESULT self([in] ULONGLONG ptr);`);
                 ipublic.push("STDMETHOD(get_self)(VARIANT* pVal);");
                 ipublic.push("STDMETHOD(put_self)(ULONGLONG ptr);");
                 impl.push(`
                     STDMETHODIMP C${ cotype }::get_self(VARIANT* pVal) {
+                        CActCtxActivator ScopedContext(ExtendedHolder::_ActCtx);
+
                         if (__self) {
                             V_VT(pVal) = VT_UI8;
                             V_UI8(pVal) = reinterpret_cast<ULONGLONG>(__self->get());
@@ -225,6 +230,8 @@ class AutoItGenerator {
                     }
 
                     STDMETHODIMP C${ cotype }::put_self(ULONGLONG ptr) {
+                        CActCtxActivator ScopedContext(ExtendedHolder::_ActCtx);
+
                         if (__self) {
                             *__self = ::autoit::reference_internal(reinterpret_cast<${ coclass.fqn }*>(ptr));
                             return S_OK;
@@ -334,7 +341,7 @@ class AutoItGenerator {
                 iglobal.push(`
                     template<>
                     struct TypeToImplType<${ cpptype }> {
-                        typedef C${ cotype } type;
+                        using type = C${ cotype };
                     };
                 `.replace(/^ {20}/mg, "").trim());
 
@@ -357,6 +364,13 @@ class AutoItGenerator {
 
             const hdr_id = `_${ coclass.getObjectName().toUpperCase() }_OBJECT_`;
 
+            // sort iidl by id
+            iidl.sort((a, b) => {
+                a = CoClass.getDispId(a);
+                b = CoClass.getDispId(b);
+                return a - b;
+            });
+
             const definition = `
                 [
                     object,
@@ -376,7 +390,7 @@ class AutoItGenerator {
                 cotype,
                 hdr_id,
                 filename: `i${ coclass.getObjectName() }.idl`,
-                definition
+                definition: options.idl !== false && !coclass.noidl ? definition : null,
             };
 
             if (coclass.noidl) {
@@ -445,6 +459,38 @@ class AutoItGenerator {
                         C${ cotype }()
                         {
                         }
+                        STDMETHOD(GetTypeInfo)(
+                            UINT itinfo,
+                            LCID lcid,
+                            _Outptr_result_maybenull_ ITypeInfo** pptinfo)
+                        {
+                            CActCtxActivator ScopedContext(ExtendedHolder::_ActCtx);
+                            return _tih.GetTypeInfo(itinfo, lcid, pptinfo);
+                        }
+                        STDMETHOD(GetIDsOfNames)(
+                            _In_ REFIID riid,
+                            _In_reads_(cNames) _Deref_pre_z_ LPOLESTR* rgszNames,
+                            _In_range_(0,16384) UINT cNames,
+                            LCID lcid,
+                            _Out_ DISPID* rgdispid)
+                        {
+                            CActCtxActivator ScopedContext(ExtendedHolder::_ActCtx);
+                            return _tih.GetIDsOfNames(riid, rgszNames, cNames, lcid, rgdispid);
+                        }
+                        STDMETHOD(Invoke)(
+                            _In_ DISPID dispidMember,
+                            _In_ REFIID riid,
+                            _In_ LCID lcid,
+                            _In_ WORD wFlags,
+                            _In_ DISPPARAMS* pdispparams,
+                            _Out_opt_ VARIANT* pvarResult,
+                            _Out_opt_ EXCEPINFO* pexcepinfo,
+                            _Out_opt_ UINT* puArgErr)
+                        {
+                            CActCtxActivator ScopedContext(ExtendedHolder::_ActCtx);
+                            return _tih.Invoke((IDispatch*)this, dispidMember, riid, lcid,
+                            wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr);
+                        }
 
                     DECLARE_REGISTRY_RESOURCEID(IDR_${ cotype.toUpperCase() })
 
@@ -492,38 +538,64 @@ class AutoItGenerator {
             coclass.iface.impl = impl.join("\n");
 
             if (docid !== this.docs.length) {
-                this.docs.splice(docid, 0, `## ${ fqn }\n`.replaceAll("_", "\\_"));
+                this.docs.splice(docid, 0, `## ${ fqn.replaceAll("_", "\\_") }\n`);
             }
         }
 
         const rgs = [];
         const objects = [];
+        const comClasses = [];
+        const comInterfaceExternalProxyStubs = [];
 
         for (const fqn of this.classes.keys()) {
             const coclass = this.classes.get(fqn);
             const { iface } = coclass;
             const { cotype, hdr_id } = iface;
             const className = coclass.getClassName();
+            const description = `${ this.typedefs.has(fqn) ? this.typedefs.get(fqn) : fqn } ${ coclass.is_class ? "class" : coclass.is_struct ? "struct" : "namespace" }`;
 
             objects.push(`#include "${ className }.h"`);
 
             if (options.rgs !== false && !coclass.noidl) {
+                const progid = `${ APP_NAME }.${ coclass.progid }.${ VERSION_MAJOR }`;
+                const versionIndependentProgID = `${ APP_NAME }.${ coclass.progid }`;
+
                 rgs.push(`IDR_${ cotype.toUpperCase().padEnd(44, " ") } REGISTRY    "${ cotype }.rgs"`);
+
+                comClasses.push(`
+                    <comClass
+                        description="${ escapeHTML(description) }"
+                        clsid="{${ coclass.clsid }}"
+                        threadingModel="Apartment"
+                        progid="${ progid }"
+                        tlbid="{${ LIB_UID }}" >
+                        <progid>${ versionIndependentProgID }</progid>
+                    </comClass>
+                `.replace(/^ {20}/mg, "").trim());
+
+                comInterfaceExternalProxyStubs.push(`
+                    <comInterfaceExternalProxyStub
+                        name="I${ cotype }"
+                        iid="{${ coclass.iid }}"
+                        proxyStubClsid32="{00020424-0000-0000-C000-000000000046}"
+                        baseInterface="{00000000-0000-0000-C000-000000000046}"
+                        tlbid="{${ LIB_UID }}" />
+                `.replace(/^ {20}/mg, "").trim());
 
                 files.set(sysPath.join(options.output, `${ cotype }.rgs`), `
                     HKCR
                     {
-                        ${ APP_NAME }.${ coclass.progid }.${ VERSION_MAJOR } = s '${ cotype } class'
+                        ${ APP_NAME }.${ coclass.progid }.${ VERSION_MAJOR } = s '${ description }'
                         {
                             CLSID = s '{${ coclass.clsid }}'
                         }
-                        ${ APP_NAME }.${ coclass.progid } = s '${ cotype } class'
+                        ${ APP_NAME }.${ coclass.progid } = s '${ description }'
                         {       
                             CurVer = s '${ APP_NAME }.${ coclass.progid }.${ VERSION_MAJOR }'
                         }
                         NoRemove CLSID
                         {
-                            ForceRemove {${ coclass.clsid }} = s '${ cotype } class'
+                            ForceRemove {${ coclass.clsid }} = s '${ description }'
                             {
                                 ProgID = s '${ APP_NAME }.${ coclass.progid }.${ VERSION_MAJOR }'
                                 VersionIndependentProgID = s '${ APP_NAME }.${ coclass.progid }'
@@ -563,24 +635,24 @@ class AutoItGenerator {
                 idl_deps.unshift(...dependencies.map(dependency => `interface I${ dependency.iface.cotype };`));
             }
 
-            const content = `
-                // ${ fqn }
-                #ifndef ${ hdr_id }IDL_FILE_
-                #define ${ hdr_id }IDL_FILE_
-
-                #ifndef _OAI_IDL_
-                #define _OAI_IDL_
-                import "oaidl.idl";
-                import "ocidl.idl";
-                #endif
-
-                ${ idl_deps.join(`\n${ " ".repeat(16) }`).trim() }
-
-                ${ iface.definition.trim().split("\n").join(`\n${ " ".repeat(16) }`) }
-                #endif //  ${ hdr_id }IDL_FILE_
-            `.replace(/^ {16}/mg, "");
-
             if (options.idl !== false && !coclass.noidl) {
+                const content = `
+                    // ${ fqn }
+                    #ifndef ${ hdr_id }IDL_FILE_
+                    #define ${ hdr_id }IDL_FILE_
+
+                    #ifndef _OAI_IDL_
+                    #define _OAI_IDL_
+                    import "oaidl.idl";
+                    import "ocidl.idl";
+                    #endif
+
+                    ${ idl_deps.join(`\n${ " ".repeat(20) }`).trim() }
+
+                    ${ iface.definition.trim().split("\n").join(`\n${ " ".repeat(20) }`) }
+                    #endif //  ${ hdr_id }IDL_FILE_
+                `.replace(/^ {20}/mg, "");
+
                 files.set(sysPath.join(options.output, `${ iface.filename }`), content.trim().replace(/[^\S\n]+$/mg, "") + LF);
             }
 
@@ -669,7 +741,7 @@ class AutoItGenerator {
 
                     const name = parts[last];
                     const indent = " ".repeat(4 * (last));
-                    return begin.concat(`${ indent }typedef ${ cpptype } ${ name };`, end).join("\n");
+                    return begin.concat(`${ indent }using ${ name } = ${ cpptype };`, end).join("\n");
                 }).join("\n").split("\n").join(`\n${ " ".repeat(16) }`) }
 
                 `.replace(/^ {16}/mg, ""),
@@ -740,6 +812,12 @@ class AutoItGenerator {
 
         if (options.rgs !== false) {
             files.set(sysPath.join(options.output, "registries.rgs"), rgs.join("\n").trim().replace(/[^\S\n]+$/mg, "") + LF);
+        }
+
+        if (options.manifest !== false) {
+            const {OUTPUT_NAME, OUTPUT_DIRECTORY_DEBUG, OUTPUT_DIRECTORY_RELEASE} = options;
+            files.set(sysPath.join(OUTPUT_DIRECTORY_DEBUG, `${ OUTPUT_NAME }d.sxs.manifest`), this.genManifest(comClasses, comInterfaceExternalProxyStubs, "d", options));
+            files.set(sysPath.join(OUTPUT_DIRECTORY_RELEASE, `${ OUTPUT_NAME }.sxs.manifest`), this.genManifest(comClasses, comInterfaceExternalProxyStubs, "", options));
         }
 
         for (const fqn of Object.keys(knwon_ids)) {
@@ -860,12 +938,23 @@ class AutoItGenerator {
 
         if (options.toc !== false) {
             this.docs.unshift("");
-            this.docs.unshift(`
-                ## Table Of Contents
 
-                <!-- START doctoc -->
-                <!-- END doctoc -->
-            `.replace(/^ {16}/mg, "").trim());
+            const docs = sysPath.resolve(options.output, "..", "udf", "docs.md");
+
+            try {
+                fs.accessSync(docs, fs.constants.R_OK);
+                const content = fs.readFileSync(docs).toString();
+                const start = content.indexOf("<!-- START doctoc ");
+                const endpos = content.indexOf("<!-- END doctoc ", start + 1);
+                const prev_doctoc = content.slice(start, content.indexOf(" -->", endpos + 1) + " -->".length);
+                this.docs.unshift(prev_doctoc);
+            } catch (err) {
+                this.docs.unshift("<!-- END doctoc -->");
+                this.docs.unshift("<!-- START doctoc -->");
+            }
+
+            this.docs.unshift("");
+            this.docs.unshift("## Table Of Contents");
         }
 
         this.docs.unshift("");
@@ -875,179 +964,7 @@ class AutoItGenerator {
 
         files.set(sysPath.resolve(options.output, "..", "udf", "docs.md"), this.docs.join("\n"));
 
-        let vs_generate = false;
-        const idls_to_generate = new Set();
-        const doctoc_to_generate = new Set();
-
-        series([
-            next => {
-                // write files
-                eachOfLimit(files.keys(), cpus, (filename, i, next) => {
-                    if (options.save === false) {
-                        next();
-                        return;
-                    }
-
-                    waterfall([
-                        next => {
-                            fs.readFile(filename, (err, buffer) => {
-                                if (err && err.code === "ENOENT") {
-                                    vs_generate = true;
-                                    err = null;
-                                    buffer = Buffer.from([]);
-                                }
-                                next(err, buffer);
-                            });
-                        },
-
-                        (buffer, next) => {
-                            const content = eol.crlf(files.get(filename));
-                            const str = buffer.toString();
-
-                            if (content === str) {
-                                next();
-                                return;
-                            }
-
-                            console.log("write file", options.output, sysPath.relative(options.output, filename));
-                            fs.writeFile(filename, content, next);
-                        },
-
-                        next => {
-                            if (options.toc !== false && filename.endsWith(".md")) {
-                                doctoc_to_generate.add(filename);
-                            }
-
-                            if (!filename.endsWith(".idl") || options.skip.has("idl")) {
-                                next();
-                                return;
-                            }
-
-                            fs.stat(filename, (err, stats) => {
-                                if (err) {
-                                    next(err);
-                                    return;
-                                }
-
-                                const dirname = sysPath.dirname(filename);
-                                const basename = sysPath.basename(filename, ".idl");
-                                const header = sysPath.join(dirname, `${ basename }.h`);
-
-                                fs.stat(header, (err, hstats) => {
-                                    if (err && err.code === "ENOENT") {
-                                        err = null;
-                                    }
-
-                                    if (options.build.has("idl") || !hstats || hstats.mtime < stats.mtime) {
-                                        idls_to_generate.add(filename);
-
-                                        // tlb must be regenerated on any idl change
-                                        idls_to_generate.add(sysPath.join(options.output, `${ LIBRARY }.idl`));
-                                    }
-
-                                    next(err);
-                                });
-                            });
-                        },
-                    ], next);
-                }, next);
-            },
-
-            next => {
-                // generate doctoc
-                doctoc.transformAndSave(doctoc_to_generate, next);
-            },
-
-            next => {
-                // compile idls
-                // manual compilation is necessary because
-                // vs will loop indefinetely due to circular dependencies
-                eachOfLimit(idls_to_generate, cpus, (filename, i, next) => {
-                    const dirname = sysPath.dirname(filename);
-                    const basename = sysPath.basename(filename, ".idl");
-
-                    const argv = options.includes.map(path => `/I${ path }`).concat([
-                        `/I${ dirname }`,
-                        "/W1", "/nologo",
-                        "/char", "signed",
-                        "/env", "x64",
-                        "/h", `${ basename }.h`,
-                        "/iid", `${ basename }_i.c`,
-                        "/proxy", `${ basename }_p.c`,
-                        "/tlb", `${ basename }.tlb`,
-                        "/target", "NT100",
-                        `/out${ dirname }`,
-                        filename
-                    ]);
-
-                    console.log("midl.exe", argv.map(arg => (arg.includes(" ") ? `"${ arg }"` : arg)).join(" "));
-
-                    const child = spawn("midl.exe", argv);
-
-                    const stdout = [];
-                    let nout = 0;
-                    const stderr = [];
-                    let nerr = 0;
-
-                    child.stdout.on("data", chunk => {
-                        nout += chunk.length;
-                        stdout.push(chunk);
-                    });
-
-                    child.stderr.on("data", chunk => {
-                        nerr += chunk.length;
-                        stderr.push(chunk);
-                    });
-
-                    const _next = next;
-
-                    next = (err, ...args) => {
-                        if (err) {
-                            if (nout !== 0) {
-                                process.stdout.write(Buffer.concat(stdout, nout));
-                            }
-
-                            if (nerr !== 0) {
-                                process.stderr.write(Buffer.concat(stderr, nerr));
-                            }
-                        }
-
-                        _next(err, ...args);
-                    };
-
-                    child.on("error", next);
-                    child.on("close", next);
-                }, next);
-            },
-
-            next => {
-                // generate visual studio solution
-                if (!vs_generate || options.skip.has("vs")) {
-                    next();
-                    return;
-                }
-
-                const child = spawn("cmd.exe", ["/c", options.make, "-g"], {
-                    stdio: [0, "pipe", "pipe"]
-                });
-
-                child.stdout.on("data", chunk => {
-                    process.stdout.write(chunk);
-                });
-
-                child.stderr.on("data", chunk => {
-                    process.stderr.write(chunk);
-                });
-
-                child.on("close", code => {
-                    if (code !== 0) {
-                        console.log(`build exited with code ${ code }`);
-                        process.exit(code);
-                    }
-                    next();
-                });
-            }
-        ], cb);
+        FileUtils.writeFiles(files, options, cb);
     }
 
     add_class(decl, options = {}) {
@@ -1180,9 +1097,16 @@ class AutoItGenerator {
             // There is no name conflict with enum class properties
             const basename = epath[epath.length - 1];
             const propname = epath.slice(0, -1).join("::") === fqn ? basename : `${ basename }_`;
+            let added = false;
 
-            const coclass = this.getCoClass(epath.slice(0, -1).join("::"), options);
-            coclass.addProperty(["int", propname, `static_cast<int>(${ epath.join("::") })`, ["/R", "/S", "/Enum", `=${ basename }`]]);
+            if (options.addEnum) {
+                added = options.addEnum(this, epath, options);
+            }
+
+            if (!added) {
+                const coclass = this.getCoClass(epath.slice(0, -1).join("::"), options);
+                coclass.addProperty(["int", propname, `static_cast<int>(${ epath.join("::") })`, ["/R", "/S", "/Enum", `=${ basename }`]]);
+            }
         }
     }
 
@@ -1508,7 +1432,10 @@ class AutoItGenerator {
     as_stl_enum(coclass, iterator) {
         const {fqn} = coclass;
         const cotype = coclass.getClassName();
-        const ICollection = `
+
+        coclass.stl_enum = true;
+
+        coclass.dispimpl = `
             ATL::IAutoItCollectionEnumOnSTLImpl<
                 I${ cotype },
                 ${ fqn },
@@ -1522,8 +1449,6 @@ class AutoItGenerator {
                 AutoItObject<${ fqn }>
             >
             `.trim().replace(/^ {12}/mg, "");
-
-        coclass.dispimpl = ICollection;
 
         coclass.addMethod([`${ fqn }.get__NewEnum`, "IUnknown*", [
             "/attr=propget",
@@ -1645,6 +1570,30 @@ class AutoItGenerator {
         }
 
         return Array.from(types);
+    }
+
+    genManifest(comClasses, comInterfaceExternalProxyStubs, debugPostFix, options) {
+        const { LIB_UID, OUTPUT_NAME } = options;
+
+        return `
+            <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+            <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+                <assemblyIdentity
+                    type="win32"
+                    name="${ OUTPUT_NAME }${ debugPostFix }.sxs"
+                    version="${ version }.0" />
+
+                <file xmlns="urn:schemas-microsoft-com:asm.v1" name="${ OUTPUT_NAME }${ debugPostFix }.dll">
+                    ${ comClasses.map(comClass => comClass.split("\n").join(`\n${ " ".repeat(20) }`)).join(`\n\n${ " ".repeat(20) }`) }
+
+                    <typelib tlbid="{${ LIB_UID }}"
+                        version="${ VERSION_MAJOR }.${ VERSION_MINOR }"
+                        helpdir="." />
+                </file>
+
+                ${ comInterfaceExternalProxyStubs.map(comClass => comClass.split("\n").join(`\n${ " ".repeat(16) }`)).join(`\n\n${ " ".repeat(16) }`) }
+            </assembly>
+        `.replace(/^ {12}/mg, "").trim();
     }
 
     getOrderedDependencies(dependencies = null) {

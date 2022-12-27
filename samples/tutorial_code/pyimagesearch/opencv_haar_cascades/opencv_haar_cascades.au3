@@ -15,7 +15,7 @@
 ;~ Sources:
 ;~     https://pyimagesearch.com/2021/04/12/opencv-haar-cascades/
 
-_OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world470*"), _OpenCV_FindDLL("autoit_opencv_com470*"))
 _GDIPlus_Startup()
 Global $hUser32DLL = DllOpen("user32.dll")
 Global $bHasAddon = _Addon_DLLOpen(_Addon_FindDLL())
@@ -36,7 +36,7 @@ Global $detectors = _OpenCV_Params( _
 		)
 
 For $sKey In $detectors.Keys()
-	$detectors($sKey) = _OpenCV_ObjCreate("cv.CascadeClassifier").create($CASCADES_PATH & "\" & $detectors($sKey))
+	$detectors($sKey) = $cv.CascadeClassifier($CASCADES_PATH & "\" & $detectors($sKey))
 Next
 
 Global $tPtr = DllStructCreate("ptr value")
@@ -66,6 +66,10 @@ GUISetState(@SW_SHOW)
 Global $nMsg
 
 While 1
+	If _IsPressed(Hex(Asc("Q")), $hUser32DLL) Then
+		ExitLoop
+	EndIf
+
 	$nMsg = GUIGetMsg()
 
 	Switch $nMsg
@@ -84,11 +88,6 @@ While 1
 	EndIf
 
 	UpdateFrame()
-
-	If _IsPressed(Hex(Asc("Q")), $hUser32DLL) Then
-		ExitLoop
-	EndIf
-
 	Sleep(10) ; Sleep to reduce CPU usage
 WEnd
 #EndRegion ### START GUI Event Loop section ###
@@ -97,7 +96,7 @@ Func Main()
 	If $cap <> Null And $cap.isOpened() Then $cap.release()
 
 	Local $iCamId = _Max(0, _GUICtrlComboBox_GetCurSel($ComboCamera))
-	$cap = _OpenCV_ObjCreate("cv.VideoCapture").create($iCamId)
+	$cap = $cv.VideoCapture($iCamId)
 
 	If Not $cap.isOpened() Then
 		ConsoleWriteError("!>Error: cannot open the camera" & @CRLF)
@@ -115,6 +114,9 @@ Func UpdateFrame()
 		Return
 	EndIf
 
+	; flip to git the mirror impression
+	$frame = $cv.flip($frame, 1)
+
 	Local $gray = $cv.cvtColor($frame, $CV_COLOR_BGR2GRAY)
 
 	; perform face detection using the appropriate haar cascade
@@ -130,7 +132,7 @@ Func UpdateFrame()
 	; loop over the face bounding boxes
 	For $faceRect In $faceRects
 		; extract the face ROI
-		$faceROI = _OpenCV_ObjCreate("cv.Mat").create($gray, $faceRect)
+		$faceROI = $cv.Mat.create($gray, $faceRect)
 
 		; apply eyes detection to the face ROI
 		$eyeRects = $detectors("eyes").detectMultiScale($faceROI, _OpenCV_Params( _
@@ -329,5 +331,5 @@ Func _OnAutoItExit()
 	If $bHasAddon Then _Addon_DLLClose()
 	DllClose($hUser32DLL)
 	_GDIPlus_Shutdown()
-	_OpenCV_Unregister_And_Close()
+	_OpenCV_Close()
 EndFunc   ;==>_OnAutoItExit

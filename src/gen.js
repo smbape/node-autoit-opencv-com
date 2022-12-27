@@ -9,11 +9,17 @@ const mkdirp = require("mkdirp");
 const waterfall = require("async/waterfall");
 const {explore} = require("fs-explorer");
 
+const OpenCV_VERSION = "opencv-4.7.0";
+const OpenCV_DLLVERSION = OpenCV_VERSION.slice("opencv-".length).replaceAll(".", "");
+
 const parseArguments = PROJECT_DIR => {
     const options = {
         APP_NAME: "OpenCV",
         LIB_UID: "fc210206-673e-4ec8-82d5-1a6ac561f3de",
         LIBRARY: "cvLib",
+        OUTPUT_NAME: `autoit_opencv_com${ OpenCV_DLLVERSION }`,
+        OUTPUT_DIRECTORY_DEBUG: `${ PROJECT_DIR }/build_x64/bin/Debug`,
+        OUTPUT_DIRECTORY_RELEASE: `${ PROJECT_DIR }/build_x64/bin/Release`,
         namespace: "cv",
         shared_ptr: "cv::Ptr",
         make_shared: "std::make_shared",
@@ -28,44 +34,51 @@ const parseArguments = PROJECT_DIR => {
         build: new Set(),
         notest: new Set(),
         skip: new Set(),
-        make: sysPath.join(PROJECT_DIR, "build.bat"),
         includes: [sysPath.join(PROJECT_DIR, "src")],
         output: sysPath.join(PROJECT_DIR, "generated"),
         toc: true, // the limit of 1000KB is exeeded even without toc
         globals: ["$CV_MAT_DEPTH_MASK", "$CV_MAT_TYPE_MASK"],
         constReplacer: new Map([["std::numeric_limits<uint8_t>::max()", "0xFF"]]),
         onClass: (generator, coclass, opts) => {
-            const {fqn, name} = coclass;
+            const {fqn} = coclass;
 
             if (fqn === "cv::cuda::GpuData") {
                 // assign operator has been deleted
-                // avoir setting a conversion for this class
+                // avoid setting a conversion for this class
                 coclass.is_class = true;
                 coclass.is_struct = false;
             }
+        },
 
-            // https://github.com/MicrosoftDocs/win32/blob/docs/desktop-src/Midl/compiler-errors.md#user-content-midl2379
-            // until a way around MIDL limitation of 64 KB is found
-            // keep the code
-            const has_MIDL2379 = true;
-            if (has_MIDL2379) {
+        onCoClass: (generator, coclass, opts) => {
+            const {fqn} = coclass;
+
+            if (fqn === "cv::Moments") {
                 return;
             }
 
-            if (fqn === "cv::Moments" || !fqn.startsWith("cv::") || fqn.split("::").length !== 2) {
-                return;
-            }
-
-            // expose a ${ name } property like in mediapipe python
             const parts = fqn.split("::");
-            parts[parts.length - 1] = "";
-            generator.add_func([parts.join("."), "", ["/Properties"], [
-                [fqn, name, "", ["/R", "=this"]],
-            ], "", ""]);
+
+            for (let i = 1; i < parts.length; i++) {
+                generator.add_func([`${ parts.slice(0, i).join(".") }.`, "", ["/Properties"], [
+                    [parts.slice(0, i + 1).join("::"), parts[i], "", ["/R", "/S", "=this"]],
+                ], "", ""]);
+            }
+        },
+
+        addEnum: (generator, epath, opts) => {
+            if (epath.length !== 2 || epath[0] !== "cv") {
+                return false;
+            }
+
+            const basename = epath[epath.length - 1];
+            const coclass = generator.getCoClass("cv::enums", opts);
+            coclass.addProperty(["int", basename, "", [`/RExpr=${ epath.join("::") }`, "/S"]]);
+            return true;
         },
     };
 
-    for (const opt of ["iface", "hdr", "impl", "idl", "rgs", "res", "save"]) {
+    for (const opt of ["iface", "hdr", "impl", "idl", "manifest", "rgs", "res", "save"]) {
         options[opt] = !process.argv.includes(`--no-${ opt }`);
     }
 
@@ -96,35 +109,24 @@ const parseArguments = PROJECT_DIR => {
     return options;
 };
 
+global.OpenCV_VERSION = OpenCV_VERSION;
 const {
     CUSTOM_CLASSES,
 } = require("./constants");
 
 const {replaceAliases} = require("./alias");
-
+const {findFile} = require("./FileUtils");
 const custom_declarations = require("./custom_declarations");
 const AutoItGenerator = require("./AutoItGenerator");
 
 const PROJECT_DIR = sysPath.resolve(__dirname, "../autoit-opencv-com");
 const SRC_DIR = sysPath.join(PROJECT_DIR, "src");
+const opencv_SOURCE_DIR = findFile(`${ OpenCV_VERSION }-*/opencv/sources`, sysPath.resolve(__dirname, "..")); // sysPath.join(PROJECT_DIR, "..", "opencv", "opencv");
 
-const candidates = fs.readdirSync(sysPath.join(__dirname, "..")).filter(path => {
-    if (!path.startsWith("opencv-4.")) {
-        return false;
-    }
-
-    try {
-        fs.accessSync(sysPath.join(__dirname, "..", path, "opencv"), fs.constants.R_OK);
-        return true;
-    } catch (err) {
-        return false;
-    }
-});
-
-const python_generator = sysPath.join(PROJECT_DIR, "opencv_build_x64", "modules", "python_bindings_generator");
-const src2 = sysPath.resolve(__dirname, "..", candidates[0], "opencv/sources/modules/python/src2");
-const headers = sysPath.join(python_generator, "headers.txt");
-const pyopencv_generated_include = sysPath.join(python_generator, "pyopencv_generated_include.h");
+const python_bindings_generator = sysPath.join(PROJECT_DIR, `${ OpenCV_VERSION }-build_x64`, "modules", "python_bindings_generator");
+const src2 = sysPath.resolve(opencv_SOURCE_DIR, "modules/python/src2");
+const headers = sysPath.join(python_bindings_generator, "headers.txt");
+const pyopencv_generated_include = sysPath.join(python_bindings_generator, "pyopencv_generated_include.h");
 
 const hdr_parser = fs.readFileSync(sysPath.join(src2, "hdr_parser.py")).toString();
 const hdr_parser_start = hdr_parser.indexOf("class CppHeaderParser");
@@ -144,7 +146,7 @@ waterfall([
 
         console.log("generating", pyopencv_generated_include);
 
-        const child = spawn("python", [sysPath.join(src2, "gen2.py"), python_generator, headers], {
+        const child = spawn("python", [sysPath.join(src2, "gen2.py"), python_bindings_generator, headers], {
             stdio: [0, "pipe", "pipe"]
         });
 
@@ -186,7 +188,7 @@ waterfall([
             const generated_include = (await fsPromises.readFile(pyopencv_generated_include))
                 .toString()
                 .split("\n")
-                .filter(include => include.indexOf("python_bridge") === -1)
+                .filter(content => !content.includes("python_bridge"))
                 .concat(srcfiles.map(path => `#include "${ path.slice(SRC_DIR.length + 1).replace("\\", "/") }"`));
 
             next(err, srcfiles, generated_include);
@@ -194,7 +196,7 @@ waterfall([
     },
 
     (srcfiles, generated_include, next) => {
-        srcfiles.push(sysPath.resolve(__dirname, "..", candidates[0], "opencv/sources/modules/flann/include/opencv2/flann/defines.h"));
+        srcfiles.push(sysPath.resolve(opencv_SOURCE_DIR, "modules/flann/include/opencv2/flann/defines.h"));
 
         const buffers = [];
         let nlen = 0;

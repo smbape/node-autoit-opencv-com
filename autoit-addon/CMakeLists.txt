@@ -12,6 +12,17 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
 endif()
 
+set(OpenCV_VERSION 4.7.0 CACHE STRING "Choose the OpenCV version.")
+file(CREATE_LINK "${CMAKE_CURRENT_SOURCE_DIR}/../autoit-opencv-com/cmake" "${CMAKE_CURRENT_SOURCE_DIR}/cmake" SYMBOLIC)
+file(CREATE_LINK "${CMAKE_CURRENT_SOURCE_DIR}/../autoit-opencv-com/patches" "${CMAKE_CURRENT_SOURCE_DIR}/patches" SYMBOLIC)
+include(cmake/RequireOpenCV.cmake)
+include(cmake/vcpkg_regex_replace_string.cmake)
+
+vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/addon_utils.au3" "autoit_addon[0-9]+" "autoit_addon${OpenCV_DLLVERSION}")
+
+set(EXECUTABLE_OUTPUT_PATH "${CMAKE_BINARY_DIR}/bin" CACHE PATH "Output directory for applications")
+set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib" CACHE PATH "Output directory for libraries")
+
 add_definitions(-DAUTOIT_MODULE_NAME=${PROJECT_NAME})
 add_definitions(-DAUTOITAPI_EXPORTS)
 
@@ -29,34 +40,22 @@ source_group("Src" FILES ${project_srcs})
 
 # Build a shared library named as the project
 add_library(${PROJECT_NAME} SHARED ${project_srcs} ${project_hdrs})
-
-# Library directories
-set(OpenCV_DIR "")
-file(GLOB __OpenCV_ROOT_DIR "../opencv-4.*")
-foreach(f ${__OpenCV_ROOT_DIR})
-  get_filename_component(__f "${f}/opencv/build" REALPATH)
-  if(EXISTS "${__f}")
-    set(OpenCV_DIR "${__f}")
-    break()
-  endif()
-endforeach()
-unset(__f)
-
-find_package(OpenCV REQUIRED)
-
 target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS})
-
-set(OpenCV_DLLVERSION "${OpenCV_VERSION_MAJOR}${OpenCV_VERSION_MINOR}${OpenCV_VERSION_PATCH}")
-set(OpenCV_DEBUG_POSTFIX d)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
   OUTPUT_NAME "${PROJECT_NAME}${OpenCV_DLLVERSION}"
   DEBUG_POSTFIX "${OpenCV_DEBUG_POSTFIX}"
   COMPILE_PDB_NAME "${PROJECT_NAME}${OpenCV_DLLVERSION}"
   COMPILE_PDB_NAME_DEBUG "${PROJECT_NAME}${OpenCV_DLLVERSION}${OpenCV_DEBUG_POSTFIX}"
+  ARCHIVE_OUTPUT_DIRECTORY "${LIBRARY_OUTPUT_PATH}"
+  COMPILE_PDB_OUTPUT_DIRECTORY "${LIBRARY_OUTPUT_PATH}"
+  LIBRARY_OUTPUT_DIRECTORY "${LIBRARY_OUTPUT_PATH}"
+  RUNTIME_OUTPUT_DIRECTORY "${EXECUTABLE_OUTPUT_PATH}"
 )
 
-get_filename_component(OpenCV_BINARY_DIR "${OpenCV_DIR}/x64/vc15/bin" REALPATH)
-file(TO_NATIVE_PATH "${OpenCV_BINARY_DIR}" OpenCV_BINARY_DIR)
+# Always generate debug files
+if(MSVC AND NOT "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+  set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "/DEBUG")
+endif()
 
 set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DEBUGGER_ENVIRONMENT "PATH=${OpenCV_BINARY_DIR};%PATH%")

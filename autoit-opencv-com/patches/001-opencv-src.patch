@@ -1,5 +1,5 @@
 diff --git a/modules/python/src2/hdr_parser.py b/modules/python/src2/hdr_parser.py
-index a31713f353..337e364bed 100755
+index ebe13f05c7..e7a60ed58d 100755
 --- a/modules/python/src2/hdr_parser.py
 +++ b/modules/python/src2/hdr_parser.py
 @@ -412,11 +412,25 @@ class CppHeaderParser(object):

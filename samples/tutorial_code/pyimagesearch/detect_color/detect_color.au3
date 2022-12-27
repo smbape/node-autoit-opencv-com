@@ -13,7 +13,7 @@
 ;~ Sources:
 ;~     https://www.pyimagesearch.com/2016/02/15/determining-object-color-with-opencv/
 
-_OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world470*"), _OpenCV_FindDLL("autoit_opencv_com470*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 
@@ -147,7 +147,7 @@ EndFunc   ;==>detect
 Func label($image, $c)
 	;; construct a mask for the contour, then compute the
 	;; average L*a*b* value for the masked region
-	Local $mask = _OpenCV_ObjCreate("cv.Mat").zeros($image.size, $CV_8UC1)
+	Local $mask = $cv.Mat.zeros($image.size, $CV_8UC1)
 	Local $contours[1] = [$c]
 	$cv.drawContours($mask, $contours, -1, 255, -1)
 	$mask = $cv.erode($mask, Null, _OpenCV_Params("iterations", 2))
@@ -181,7 +181,7 @@ Func getColors()
 			["blue", _OpenCV_Tuple(0, 0, 255)] _
 			]
 
-	Local $lab = _OpenCV_ObjCreate("cv.Mat").zeros(UBound($colors), 1, $CV_8UC3)
+	Local $lab = $cv.Mat.zeros(UBound($colors), 1, $CV_8UC3)
 
 	For $i = 0 To UBound($colors) - 1
 		$lab.Vec3b_set_at($i, $colors[$i][1])
@@ -198,5 +198,5 @@ EndFunc   ;==>getColors
 
 Func _OnAutoItExit()
 	_GDIPlus_Shutdown()
-	_OpenCV_Unregister_And_Close()
+	_OpenCV_Close()
 EndFunc   ;==>_OnAutoItExit

@@ -10,10 +10,10 @@
 #include "..\..\..\..\autoit-opencv-com\udf\opencv_udf_utils.au3"
 
 ;~ Sources:
-;~     https://docs.opencv.org/4.6.0/d8/d01/tutorial_discrete_fourier_transform.html
-;~     https://github.com/opencv/opencv/blob/4.6.0/samples/cpp/tutorial_code/core/discrete_fourier_transform/discrete_fourier_transform.cpp
+;~     https://docs.opencv.org/4.7.0/d8/d01/tutorial_discrete_fourier_transform.html
+;~     https://github.com/opencv/opencv/blob/4.7.0/samples/cpp/tutorial_code/core/discrete_fourier_transform/discrete_fourier_transform.cpp
 
-_OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world470*"), _OpenCV_FindDLL("autoit_opencv_com470*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 
@@ -87,7 +87,7 @@ Func Main()
 	;;! [complex_and_real]
 	Local $planes[2]
 	$planes[0] = $padded.convertTo($CV_32F, Default, 1.0, 0.0)
-	$planes[1] = _OpenCV_ObjCreate("cv.Mat").zeros($padded.rows, $padded.cols, $CV_32F)
+	$planes[1] = $cv.Mat.zeros($padded.rows, $padded.cols, $CV_32F)
 	Local $complexI = $cv.merge($planes) ;         ; Add to the expanded another plane with zeros
 	;;! [complex_and_real]
 
@@ -110,16 +110,16 @@ Func Main()
 
 	;;! [crop_rearrange]
 	; crop the spectrum, if it has an odd number of rows or columns
-	$magI = _OpenCV_ObjCreate("cv.Mat").create($magI, _OpenCV_Rect(0, 0, BitAND($magI.cols, -2), BitAND($magI.rows, -2)))
+	$magI = $cv.Mat.create($magI, _OpenCV_Rect(0, 0, BitAND($magI.cols, -2), BitAND($magI.rows, -2)))
 
 	; rearrange the quadrants of Fourier image  so that the origin is at the image center
 	Local $cx = $magI.cols / 2 ;
 	Local $cy = $magI.rows / 2 ;
 
-	Local $q0 = _OpenCV_ObjCreate("cv.Mat").create($magI, _OpenCV_Rect(0, 0, $cx, $cy)) ;     ; Top-Left - Create a ROI per quadrant
-	Local $q1 = _OpenCV_ObjCreate("cv.Mat").create($magI, _OpenCV_Rect($cx, 0, $cx, $cy)) ;   ; Top-Right
-	Local $q2 = _OpenCV_ObjCreate("cv.Mat").create($magI, _OpenCV_Rect(0, $cy, $cx, $cy)) ;   ; Bottom-Left
-	Local $q3 = _OpenCV_ObjCreate("cv.Mat").create($magI, _OpenCV_Rect($cx, $cy, $cx, $cy)) ; ; Bottom-Right
+	Local $q0 = $cv.Mat.create($magI, _OpenCV_Rect(0, 0, $cx, $cy)) ;     ; Top-Left - Create a ROI per quadrant
+	Local $q1 = $cv.Mat.create($magI, _OpenCV_Rect($cx, 0, $cx, $cy)) ;   ; Top-Right
+	Local $q2 = $cv.Mat.create($magI, _OpenCV_Rect(0, $cy, $cx, $cy)) ;   ; Bottom-Left
+	Local $q3 = $cv.Mat.create($magI, _OpenCV_Rect($cx, $cy, $cx, $cy)) ; ; Bottom-Right
 
 	Local $tmp = _OpenCV_ObjCreate("cv.Mat") ; swap quadrants (Top-Left with Bottom-Right)
 	$q0.copyTo($tmp)
@@ -144,5 +144,5 @@ EndFunc   ;==>Main
 
 Func _OnAutoItExit()
 	_GDIPlus_Shutdown()
-	_OpenCV_Unregister_And_Close()
+	_OpenCV_Close()
 EndFunc   ;==>_OnAutoItExit

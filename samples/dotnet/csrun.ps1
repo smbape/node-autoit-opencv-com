@@ -22,14 +22,26 @@ $Env:Path = 'C:\Program Files\Microsoft Visual Studio\2019\Enterprise\MSBuild\Cu
 $Env:Path = 'C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\bin\Roslyn;' + $Env:Path
 $Env:Path = 'C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\bin\Roslyn;' + $Env:Path
 
-csc.exe "$File" "$( _OpenCV_FindFile -Path "dotnet\OpenCvComInterop.cs" -SearchPaths @(
+$OpenCvComInterop = _OpenCV_FindFile -Path "dotnet\OpenCvComInterop.cs" -SearchPaths @(
     "."
     "autoit-opencv-com"
-) )" "-out:$ExeFile"
+)
 
-if ($lastexitcode -ne 0) {
-    exit $lastexitcode
+$OpenCVInteropServices = _OpenCV_FindFile -Path "OpenCV.InteropServices.dll" -SearchPaths @(
+    "."
+    "autoit-opencv-com"
+    "autoit-opencv-com\generated"
+)
+
+csc.exe @(
+    "/link:$OpenCVInteropServices"
+    "/out:$ExeFile"
+    "$OpenCvComInterop"
+    "$File"
+)
+
+if ($lastexitcode -eq 0) {
+    & "$ExeFile" --build-type `"$BuildType`" @argv
 }
 
-& "$ExeFile" --build-type `"$BuildType`" @argv
 exit $lastexitcode

@@ -14,10 +14,10 @@
 #include "..\..\..\autoit-addon\addon.au3"
 
 ;~ Sources:
-;~     https://docs.opencv.org/4.6.0/da/d97/tutorial_threshold_inRange.html
-;~     https://github.com/opencv/opencv/blob/4.6.0/samples/cpp/tutorial_code/ImgProc/Threshold_inRange.cpp
+;~     https://docs.opencv.org/4.7.0/da/d97/tutorial_threshold_inRange.html
+;~     https://github.com/opencv/opencv/blob/4.7.0/samples/cpp/tutorial_code/ImgProc/Threshold_inRange.cpp
 
-_OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world470*"), _OpenCV_FindDLL("autoit_opencv_com470*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 
@@ -117,6 +117,10 @@ Global $hUser32DLL = DllOpen("user32.dll")
 Global $nMsg
 
 While 1
+	If _IsPressed(Hex(Asc("Q")), $hUser32DLL) Then
+		ExitLoop
+	EndIf
+
 	$nMsg = GUIGetMsg()
 
 	Switch $nMsg
@@ -171,10 +175,6 @@ While 1
 	EndIf
 
 	UpdateFrame()
-
-	If _IsPressed(Hex(Asc("Q")), $hUser32DLL) Then
-		ExitLoop
-	EndIf
 
 	Sleep(30) ; Sleep to reduce CPU usage
 WEnd
@@ -241,7 +241,7 @@ Func Main()
 	on_high_V_thresh_trackbar()
 
 	Local $iCamId = _Max(0, _GUICtrlComboBox_GetCurSel($ComboCamera))
-	$cap = _OpenCV_ObjCreate("cv.VideoCapture").create($iCamId)
+	$cap = $cv.VideoCapture($iCamId)
 	If Not $cap.isOpened() Then
 		ConsoleWriteError("!>Error: cannot open the camera." & @CRLF)
 		$cap = Null
@@ -428,5 +428,5 @@ EndFunc   ;==>_StringSize
 
 Func _OnAutoItExit()
 	_GDIPlus_Shutdown()
-	_OpenCV_Unregister_And_Close()
+	_OpenCV_Close()
 EndFunc   ;==>_OnAutoItExit

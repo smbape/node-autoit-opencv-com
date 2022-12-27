@@ -5,96 +5,73 @@ project(autoit_opencv_com)
 
 set(DEFAULT_BUILD_TYPE "Release")
 
-if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+if(NOT DEFINED CMAKE_BUILD_TYPE)
   message(STATUS "Setting build type to '${DEFAULT_BUILD_TYPE}' as none was specified.")
-  set(CMAKE_BUILD_TYPE "${DEFAULT_BUILD_TYPE}" CACHE STRING "Choose the type of build." FORCE)
-  # Set the possible values of build type for cmake-gui
-  set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
+  set(CMAKE_BUILD_TYPE "${DEFAULT_BUILD_TYPE}" CACHE STRING "Choose the type of build.")
 endif()
+
+# Set the possible values of build type for cmake-gui
+set(CMAKE_CONFIGURATION_TYPES "Debug;Release;MinSizeRel;RelWithDebInfo" CACHE STRING "Configs" FORCE)
+set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "${CMAKE_CONFIGURATION_TYPES}")
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-add_compile_options(/MP)
-
-# https://github.com/scivision/cmake-patch-file/blob/main/cmake/PatchFile.cmake
-if(WIN32)
-  # prioritize Git Patch on Windows as other Patches may be very old and incompatible.
-  find_package(Git)
-  if(Git_FOUND)
-    get_filename_component(GIT_DIR ${GIT_EXECUTABLE} DIRECTORY)
-    get_filename_component(GIT_DIR ${GIT_DIR} DIRECTORY)
-  endif()
+if(WIN32 AND MSVC)
+  add_compile_options(/MP)
 endif()
 
-find_program(PATCH
-  NAMES patch
-  HINTS ${GIT_DIR}
-  PATH_SUFFIXES usr/bin
-)
+include(cmake/RequireOpenCV.cmake)
+include(cmake/vcpkg_regex_replace_string.cmake)
 
-if(NOT PATCH)
-  message(FATAL_ERROR "Did not find GNU Patch")
-endif()
+# update version in files
+vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/install.bat" "(opencv_world|autoit_opencv_com|opencv_videoio_ffmpeg)[0-9]+" "\\1${OpenCV_DLLVERSION}")
+vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/install.bat" "opencv-[0-9]+\\.[0-9]+\\.[0-9]+-(vc14_vc15|windows)\\.(exe|zip)" "${OpenCV_DOWNLOAD_NAME}")
+vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/install.bat" "opencv-[0-9]+\\.[0-9]+\\.[0-9]+-(vc14_vc15|windows)" "${OpenCV_OUTPUT_DIR}")
+vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/install.bat" "opencv-[0-9]+\\.[0-9]+\\.[0-9]+" "opencv-${OpenCV_VERSION}")
+vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/dotnet/OpenCvComInterop.cs" "(opencv_world|autoit_opencv_com|opencv_videoio_ffmpeg)[0-9]+" "opencv_videoio_ffmpeg${OpenCV_DLLVERSION}")
+vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/src/cvLib.rc" "(opencv_world|autoit_opencv_com|opencv_videoio_ffmpeg)[0-9]+" "\\1${OpenCV_DLLVERSION}")
+vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/test/test.cpp" "(opencv_world|autoit_opencv_com|opencv_videoio_ffmpeg)[0-9]+" "\\1${OpenCV_DLLVERSION}")
+vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/test/test.cs" "(opencv_world|autoit_opencv_com|opencv_videoio_ffmpeg)[0-9]+" "\\1${OpenCV_DLLVERSION}")
+vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/udf/opencv_udf.au3" "(opencv_world|autoit_opencv_com|opencv_videoio_ffmpeg)[0-9]+" "\\1${OpenCV_DLLVERSION}")
+vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/udf/opencv_udf_utils.au3" "opencv-[0-9]+\\.[0-9]+\\.[0-9]+" "opencv-${OpenCV_VERSION}")
+vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/../scripts/build.js" "opencv-[0-9]+\\.[0-9]+\\.[0-9]+" "opencv-${OpenCV_VERSION}")
+vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/../src/gen.js" "opencv-[0-9]+\\.[0-9]+\\.[0-9]+" "opencv-${OpenCV_VERSION}")
+vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/../README.md" "(opencv_world|autoit_opencv_com|opencv_videoio_ffmpeg)[0-9]+" "\\1${OpenCV_DLLVERSION}")
+vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/../README.md" "opencv-[0-9]+\\.[0-9]+\\.[0-9]+-(vc14_vc15|windows)\\.(exe|zip)" "${OpenCV_DOWNLOAD_NAME}")
+vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/../README.md" "opencv-[0-9]+\\.[0-9]+\\.[0-9]+-(vc14_vc15|windows)" "${OpenCV_OUTPUT_DIR}")
+vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/../README.md" "opencv-[0-9]+\\.[0-9]+\\.[0-9]+" "opencv-${OpenCV_VERSION}")
+vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/../README.md" "/[0-9]+\\.[0-9]+\\.[0-9]+/" "/${OpenCV_VERSION}/")
+vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/../autoit-addon/CMakeLists.txt" "OpenCV_VERSION [0-9]+\\.[0-9]+\\.[0-9]+" "OpenCV_VERSION ${OpenCV_VERSION}")
 
-# Tell cmake that we will need opencv.
-get_filename_component(OPENCV_DOWNLOAD_DIR "${CMAKE_CURRENT_SOURCE_DIR}" DIRECTORY)
-set(OPENCV_VERSION 4.6.0)
-set(OPENCV_DOWNLOAD_NAME  opencv-${OPENCV_VERSION}-vc14_vc15.exe)
-set(OPENCV_URL            https://github.com/opencv/opencv/releases/download/${OPENCV_VERSION}/${OPENCV_DOWNLOAD_NAME})
-set(OPENCV_URL_HASH       SHA256=3fb046e14dc5b50719a86ea0395b5b1e3299e2343111ebd2e31828aa31d6d477)
+file(GLOB_RECURSE files_to_change "../samples/*.au3" "../samples/*.cs" "../samples/*.ps1")
+foreach(item ${files_to_change})
+  vcpkg_regex_replace_string("${item}" "(https://docs\\.opencv\\.org/|https://github\\.com/opencv/opencv/blob/|opencv-)[0-9]+\\.[0-9]+\\.[0-9]+/" "\\1${OpenCV_VERSION}/")
+  vcpkg_regex_replace_string("${item}" "opencv-[0-9]+\\.[0-9]+\\.[0-9]+-(vc14_vc15|windows)\\.(exe|zip)" "${OpenCV_DOWNLOAD_NAME}")
+  vcpkg_regex_replace_string("${item}" "opencv-[0-9]+\\.[0-9]+\\.[0-9]+-(vc14_vc15|windows)" "${OpenCV_OUTPUT_DIR}")
+  vcpkg_regex_replace_string("${item}" "(opencv_world|autoit_opencv_com|opencv_videoio_ffmpeg)[0-9]+" "\\1${OpenCV_DLLVERSION}")
+endforeach()
 
-include(FetchContent)
-FetchContent_Declare(opencv
-  URL                 ${OPENCV_URL}
-  URL_HASH            ${OPENCV_URL_HASH}
-  DOWNLOAD_NO_EXTRACT TRUE
-  DOWNLOAD_DIR        "${OPENCV_DOWNLOAD_DIR}"
-  SOURCE_DIR          "${OPENCV_DOWNLOAD_DIR}"
-  PATCH_COMMAND       "<DOWNLOAD_DIR>/${OPENCV_DOWNLOAD_NAME}" "-o<DOWNLOAD_DIR>/opencv-${OPENCV_VERSION}-vc14_vc15" -y
-)
-
-include(FetchContent)
-FetchContent_Declare(opencv-patch
-  URL                 ${OPENCV_URL}
-  URL_HASH            ${OPENCV_URL_HASH}
-  DOWNLOAD_NO_EXTRACT TRUE
-  DOWNLOAD_DIR        "${OPENCV_DOWNLOAD_DIR}"
-  SOURCE_DIR          "${OPENCV_DOWNLOAD_DIR}"
-  PATCH_COMMAND       "${PATCH}" -p 1 -d "<DOWNLOAD_DIR>/opencv-${OPENCV_VERSION}-vc14_vc15/opencv/sources/"
-                        -i "${CMAKE_CURRENT_SOURCE_DIR}/patches/001-opencv-src.patch"
-)
-
-FetchContent_Populate(opencv)
-FetchContent_Populate(opencv-patch)
-
-get_filename_component(OpenCV_DIR "${opencv_SOURCE_DIR}/opencv-${OPENCV_VERSION}-vc14_vc15/opencv/build" REALPATH)
-set(opencv_SOURCE_DIR "${opencv_SOURCE_DIR}/opencv-${OPENCV_VERSION}-vc14_vc15/opencv/sources")
-
-get_filename_component(OpenCV_BINARY_DIR "${OpenCV_DIR}/x64/vc15/bin" REALPATH)
-file(TO_NATIVE_PATH "${OpenCV_BINARY_DIR}" OpenCV_BINARY_DIR)
+set(EXECUTABLE_OUTPUT_PATH "${CMAKE_BINARY_DIR}/bin" CACHE PATH "Output directory for applications")
+set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib" CACHE PATH "Output directory for libraries")
 
 get_filename_component(OPENCV_SAMPLES_DATA_PATH "../samples/data" REALPATH)
 file(TO_NATIVE_PATH "${OPENCV_SAMPLES_DATA_PATH}" OPENCV_SAMPLES_DATA_PATH)
 
-find_package(OpenCV REQUIRED)
-
-# generate source files
-if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/opencv_build_x64/modules/python_bindings_generator/pyopencv_generated_include.h")
-  file(MAKE_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/opencv_build_x64")
+# generate python headers
+if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/opencv-${OpenCV_VERSION}-build_x64/modules/python_bindings_generator/headers.txt")
+  file(MAKE_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/opencv-${OpenCV_VERSION}-build_x64")
   execute_process(
-    COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" "-DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}"
-      -DBUILD_opencv_world=ON -DBUILD_opencv_python3=ON
-      "${opencv_SOURCE_DIR}"
-    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/opencv_build_x64"
+    COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" -DBUILD_opencv_world=ON -DBUILD_opencv_python_bindings_generator=ON "${opencv_SOURCE_DIR}"
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/opencv-${OpenCV_VERSION}-build_x64"
     COMMAND_ECHO STDERR
-    COMMAND_ERROR_IS_FATAL ANY
   )
 endif()
 
+# generate source files
 execute_process(
-  COMMAND node --unhandled-rejections=strict --trace-uncaught --trace-warnings src/gen.js --skip=vs
+  COMMAND node --unhandled-rejections=strict --trace-uncaught --trace-warnings src/gen.js
   WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/.."
   COMMAND_ECHO STDERR
   COMMAND_ERROR_IS_FATAL ANY
@@ -107,6 +84,9 @@ file(GLOB_RECURSE project_sources_files "src/*.c" "src/*.cpp" "src/*.def")
 file(GLOB_RECURSE project_generated_resources "generated/*.rc" "generated/*.rgs")
 file(GLOB_RECURSE project_generated_headers "generated/*.h*")
 file(GLOB_RECURSE project_generated_files "generated/*.cpp" "generated/*_i.c")
+
+list(APPEND project_generated_resources "$<$<CONFIG:Debug>:${EXECUTABLE_OUTPUT_PATH}/Debug/autoit_opencv_com${OpenCV_DLLVERSION}d.sxs.manifest>")
+list(APPEND project_generated_resources "$<$<NOT:$<CONFIG:Debug>>:${EXECUTABLE_OUTPUT_PATH}/Release/autoit_opencv_com${OpenCV_DLLVERSION}.sxs.manifest>")
 
 source_group("Source Resources" FILES ${project_source_resources})
 source_group("Source Headers" FILES ${project_source_headers})
@@ -131,19 +111,28 @@ add_library(${PROJECT_NAME} SHARED ${SRC_FILES})
 target_precompile_headers(${PROJECT_NAME} PRIVATE
   "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/generated/autoit_bridge_generated_pch.h>"
 )
+target_compile_definitions(${PROJECT_NAME}
+  PRIVATE ISOLATION_AWARE_ENABLED
+  PRIVATE _WIN32_FUSION=0x0100
+)
 
-target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS})
-
-set(OpenCV_DLLVERSION "${OpenCV_VERSION_MAJOR}${OpenCV_VERSION_MINOR}${OpenCV_VERSION_PATCH}")
-set(DEBUG_POSTFIX d)
+target_link_libraries(${PROJECT_NAME} PRIVATE ${OpenCV_LIBS})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
   OUTPUT_NAME "${PROJECT_NAME}${OpenCV_DLLVERSION}"
-  DEBUG_POSTFIX "${DEBUG_POSTFIX}"
+  DEBUG_POSTFIX "${OpenCV_DEBUG_POSTFIX}"
   COMPILE_PDB_NAME "${PROJECT_NAME}${OpenCV_DLLVERSION}"
-  COMPILE_PDB_NAME_DEBUG "${PROJECT_NAME}${OpenCV_DLLVERSION}${DEBUG_POSTFIX}"
-  VS_DEBUGGER_ENVIRONMENT "PATH=${OpenCV_BINARY_DIR};%PATH%"
+  COMPILE_PDB_NAME_DEBUG "${PROJECT_NAME}${OpenCV_DLLVERSION}${OpenCV_DEBUG_POSTFIX}"
+  ARCHIVE_OUTPUT_DIRECTORY "${LIBRARY_OUTPUT_PATH}"
+  COMPILE_PDB_OUTPUT_DIRECTORY "${LIBRARY_OUTPUT_PATH}"
+  LIBRARY_OUTPUT_DIRECTORY "${LIBRARY_OUTPUT_PATH}"
+  RUNTIME_OUTPUT_DIRECTORY "${EXECUTABLE_OUTPUT_PATH}"
 )
+
+# Always generate debug files
+if(MSVC AND NOT "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+  set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "/DEBUG")
+endif()
 
 target_include_directories(${PROJECT_NAME} PUBLIC "src")
 target_include_directories(${PROJECT_NAME} PUBLIC "generated")
@@ -188,10 +177,12 @@ add_executable(cpp_test ${test_files})
 target_precompile_headers(cpp_test PRIVATE
   "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/test/test.h>"
 )
-set_source_files_properties(test/test.cpp PROPERTIES COMPILE_FLAGS "/MP1")
 
-target_link_libraries(cpp_test PRIVATE ${PROJECT_NAME} "windowsapp.lib" "dwmapi.lib")
-set_property(TARGET cpp_test PROPERTY VS_DEBUGGER_ENVIRONMENT "PATH=${OpenCV_BINARY_DIR};%PATH%\nOPENCV_SAMPLES_DATA_PATH=${OPENCV_SAMPLES_DATA_PATH}")
+target_link_libraries(cpp_test PRIVATE ${PROJECT_NAME} "windowsapp.lib" "dwmapi.lib" ${OpenCV_LIBS})
+set_target_properties(cpp_test PROPERTIES
+  VS_DEBUGGER_ENVIRONMENT "PATH=${OpenCV_BINARY_DIR};%PATH%\nOPENCV_SAMPLES_DATA_PATH=${OPENCV_SAMPLES_DATA_PATH}"
+  RUNTIME_OUTPUT_DIRECTORY "${EXECUTABLE_OUTPUT_PATH}"
+)
 set_property(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}" PROPERTY VS_STARTUP_PROJECT cpp_test)
 
 # /Zc:__cplusplus is required to make __cplusplus accurate
@@ -210,6 +201,11 @@ IF ((WIN32) AND CMAKE_GENERATOR STREQUAL Ninja)
   target_compile_definitions(cpp_test PRIVATE _WINDOWS)
 ENDIF()
 
+# Always generate debug files
+if(MSVC AND NOT "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+  set_target_properties(cpp_test PROPERTIES LINK_FLAGS "/DEBUG")
+endif()
+
 if (CMAKE_GENERATOR MATCHES "Visual Studio")
 # ===============
 # C# Interop target
@@ -217,19 +213,45 @@ if (CMAKE_GENERATOR MATCHES "Visual Studio")
 include(CSharpUtilities)
 enable_language(CSharp)
 
-file(GLOB cs_files "dotnet/*.cs")
+file(GLOB_RECURSE cs_files "dotnet/*.cs")
 add_library(interop_opencv SHARED ${cs_files})
 
 set_target_properties(interop_opencv PROPERTIES
   OUTPUT_NAME "interop.opencv-${OpenCV_VERSION_MAJOR}"
-  DEBUG_POSTFIX "${DEBUG_POSTFIX}"
-  VS_DOTNET_REFERENCES "Microsoft.CSharp;System"
+  DEBUG_POSTFIX "${OpenCV_DEBUG_POSTFIX}"
+  VS_DOTNET_REFERENCES "CustomMarshalers;Microsoft.CSharp;System"
 )
 
 foreach( BUILD_TYPE ${CMAKE_CONFIGURATION_TYPES} )
   string( TOUPPER ${BUILD_TYPE} BUILD_TYPE_UPPER )
-  set_target_properties(interop_opencv PROPERTIES RUNTIME_OUTPUT_DIRECTORY_${BUILD_TYPE_UPPER} "${CMAKE_BINARY_DIR}/${BUILD_TYPE}/dotnet")
+  set_target_properties(interop_opencv PROPERTIES RUNTIME_OUTPUT_DIRECTORY_${BUILD_TYPE_UPPER} "${EXECUTABLE_OUTPUT_PATH}/${BUILD_TYPE}/dotnet")
 endforeach()
+
+# Always generate debug files
+if(MSVC AND NOT "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+  target_compile_options(interop_opencv PRIVATE "-debug:pdbonly")
+endif()
+
+# ===============
+# C# Assembly target
+# ===============
+set(ASSEMBLY_DLL "generated/OpenCV.InteropServices.dll")
+file(TO_NATIVE_PATH "${ASSEMBLY_DLL}" ASSEMBLY_DLL_NATIVE_PATH)
+file(TO_NATIVE_PATH "generated/cvLib.tlb" TYPELIB)
+add_custom_command(OUTPUT "${ASSEMBLY_DLL}"
+  COMMAND           tlbimp.exe
+                    "/out:${ASSEMBLY_DLL_NATIVE_PATH}"
+                    /VariantBoolFieldToBool
+                    /strictref
+                    # /noclassmembers
+                    /machine:X64
+                    "${TYPELIB}"
+  # COMMAND           cmake -E touch "${ASSEMBLY_DLL}"
+  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+  DEPENDS           "${TYPELIB}"
+  VERBATIM
+)
+add_custom_target(cs_assembly DEPENDS "${ASSEMBLY_DLL}")
 
 # ===============
 # cs_test target
@@ -237,15 +259,25 @@ endforeach()
 include(CSharpUtilities)
 enable_language(CSharp)
 
-file(GLOB test_files "test/*.cs" "dotnet/*.cs")
+file(GLOB_RECURSE test_files "test/*.cs" "dotnet/*.cs")
 add_executable(cs_test ${test_files})
 
 get_filename_component(OPENCV_SAMPLES_DATA_PATH "../samples/data" REALPATH)
 file(TO_NATIVE_PATH "${OPENCV_SAMPLES_DATA_PATH}" OPENCV_SAMPLES_DATA_PATH)
 
 set_target_properties(cs_test PROPERTIES
+  RUNTIME_OUTPUT_DIRECTORY "${EXECUTABLE_OUTPUT_PATH}"
   VS_DEBUGGER_ENVIRONMENT "PATH=${OpenCV_BINARY_DIR};%PATH%\nOPENCV_SAMPLES_DATA_PATH=${OPENCV_SAMPLES_DATA_PATH}"
-  VS_DOTNET_REFERENCES "Microsoft.CSharp;System"
+  VS_DOTNET_REFERENCES "Microsoft.CSharp;System;System.Core"
+  VS_DOTNET_REFERENCE_OpenCV "${ASSEMBLY_DLL}"
+  VS_DOTNET_REFERENCEPROP_OpenCV_TAG_EmbedInteropTypes "True"
 )
+
+add_dependencies(cs_test cs_assembly)
+
+# Always generate debug files
+if(MSVC AND NOT "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+  target_compile_options(cs_test PRIVATE "-debug:pdbonly")
+endif()
 
 endif()

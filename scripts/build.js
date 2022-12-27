@@ -3,8 +3,12 @@ const sysPath = require("path");
 const eachOfLimit = require("async/eachOfLimit");
 
 const version = process.env.npm_package_version || require("../package.json").version;
+
+const OpenCV_VERSION = "opencv-4.7.0";
+const OpenCV_DLLVERSION = OpenCV_VERSION.slice("opencv-".length).replaceAll(".", "");
+
 const sources = sysPath.resolve(__dirname, "..");
-const archive = sysPath.join(sources, `autoit-opencv-4.6.0-com-v${ version }.7z`);
+const archive = sysPath.join(sources, `autoit-${ OpenCV_VERSION }-com-v${ version }.7z`);
 const project = sysPath.join(sources, "autoit-opencv-com");
 
 const files = [
@@ -13,11 +17,11 @@ const files = [
     [project, "udf/*.md"],
     [project, "dotnet/*.cs"],
     [sysPath.join(sources, "samples"), "dotnet/*.psm1"],
-    [sysPath.join(project, "generated"), "*.tlb"],
-    [sysPath.join(project, "build_x64", "Debug"), "autoit*", "dotnet/*"],
-    [sysPath.join(project, "build_x64", "RelWithDebInfo"), "autoit*", "dotnet/*"],
-    [sysPath.join(sources, "autoit-addon", "build_x64", "Debug"), "autoit*", "dotnet/*"],
-    [sysPath.join(sources, "autoit-addon", "build_x64", "RelWithDebInfo"), "autoit*", "dotnet/*"],
+    [sysPath.join(project, "generated"), "*.tlb", "*.dll"],
+    [sysPath.join(project, "build_x64", "bin", "Debug"), `autoit*${ OpenCV_DLLVERSION }*`, "dotnet/*", "opencv_*"],
+    [sysPath.join(project, "build_x64", "bin", "Release"), `autoit*${ OpenCV_DLLVERSION }*`, "dotnet/*", "opencv_*"],
+    [sysPath.join(sources, "autoit-addon", "build_x64", "bin", "Debug"), `autoit*${ OpenCV_DLLVERSION }*`],
+    [sysPath.join(sources, "autoit-addon", "build_x64", "bin", "Release"), `autoit*${ OpenCV_DLLVERSION }*`],
 ];
 
 eachOfLimit(files, 1, ([cwd, ...args], i, next) => {

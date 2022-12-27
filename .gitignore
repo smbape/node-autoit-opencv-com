@@ -1,7 +1,13 @@
 /autoit-opencv-*-com-v*.7z
 /diff
 /node_modules
-/opencv-*-vc*
+/opencv/__build__
+/opencv/build
+/opencv/download
+/opencv/install
+/opencv/opencv
+/opencv/opencv_contrib
+/opencv-*
 /samples/tutorial_code/yolo/yolov3.weights
 /samples/dotnet/*.exe
 /*.sublime-workspace
@@ -9,3 +15,5 @@ BackUp
 generated
 *build_x64
 Windows.UI.Composition-Win32-Samples-*
+/autoit-addon/cmake
+/autoit-addon/patches

@@ -11,34 +11,19 @@ Global Const $tagAddonDeviceInfo = _
 		"ulong_ptr DevicePathLen;"
 
 Func _Addon_FindDLL($sFile = Default, $sFilter = Default, $sDir = Default)
-	Local $sBuildType = $_cv_build_type == "Debug" ? "Debug" : "RelWithDebInfo"
-	Local $sPostfix = $_cv_build_type == "Debug" ? "d" : ""
+	Local $sBuildType = EnvGet("OPENCV_BUILD_TYPE") == "Debug" ? "Debug" : "Release"
+	Local $sPostfix = EnvGet("OPENCV_BUILD_TYPE") == "Debug" ? "d" : ""
 
 	If $sFile == Default Then
-		$sFile = "autoit_addon*" & $sPostfix & ".dll"
+		$sFile = "autoit_addon470*" & $sPostfix & ".dll"
 	EndIf
 
 	Local $aSearchPaths[] = [ _
-			0, _
 			".", _
-			$sBuildType, _
-			"build_x64\" & $sBuildType, _
 			"autoit-addon", _
-			"autoit-addon\" & $sBuildType, _
-			"autoit-addon\build_x64\", _
-			"autoit-addon\build_x64\" & $sBuildType, _
 			"autoit-opencv-com", _
-			"autoit-opencv-com\" & $sBuildType, _
-			"autoit-opencv-com\build_x64\", _
-			"autoit-opencv-com\build_x64\" & $sBuildType _
+			"autoit-addon\build_x64\bin\" & $sBuildType _
 			]
-
-	If $_cv_build_type <> "Debug" Then
-		_ArrayAdd($aSearchPaths, "build_x64\Release")
-		_ArrayAdd($aSearchPaths, "autoit-dlib-com\build_x64\Release")
-	EndIf
-
-	$aSearchPaths[0] = UBound($aSearchPaths) - 1
 
 	Return _OpenCV_FindFile($sFile, $sFilter, $sDir, $FLTA_FILES, $aSearchPaths)
 EndFunc   ;==>_Addon_FindDLL

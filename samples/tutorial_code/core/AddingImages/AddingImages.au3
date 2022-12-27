@@ -14,10 +14,10 @@ Opt("GUIOnEventMode", 1)
 #include "..\..\..\..\autoit-opencv-com\udf\opencv_udf_utils.au3"
 
 ;~ Sources:
-;~     https://docs.opencv.org/4.6.0/d5/dc4/tutorial_adding_images.html
-;~     https://github.com/opencv/opencv/blob/4.6.0/samples/cpp/tutorial_code/core/AddingImages/AddingImages.cpp
+;~     https://docs.opencv.org/4.7.0/d5/dc4/tutorial_adding_images.html
+;~     https://github.com/opencv/opencv/blob/4.7.0/samples/cpp/tutorial_code/core/AddingImages/AddingImages.cpp
 
-_OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world470*"), _OpenCV_FindDLL("autoit_opencv_com470*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 
@@ -169,5 +169,5 @@ EndFunc   ;==>_cleanExit
 
 Func _OnAutoItExit()
 	_GDIPlus_Shutdown()
-	_OpenCV_Unregister_And_Close()
+	_OpenCV_Close()
 EndFunc   ;==>_OnAutoItExit

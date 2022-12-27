@@ -137,12 +137,43 @@ public:
 	AUTOIT_PTR<_Tp>* __self = nullptr;
 };
 
+/**
+ * https://learn.microsoft.com/en-us/windows/win32/sbscs/isolating-components
+ */
+class CActivationContext
+{
+public:
+	CActivationContext();
+	void Set(HANDLE hActCtx);
+	~CActivationContext();
+	bool Activate(ULONG_PTR& ulpCookie);
+	bool Deactivate(ULONG_PTR& ulpCookie);
+private:
+	HANDLE m_hActCtx;
+};
+
+/**
+ * https://learn.microsoft.com/en-us/windows/win32/sbscs/isolating-components
+ */
+class CActCtxActivator
+{
+public:
+	CActCtxActivator(CActivationContext& src, bool fActivate = true);
+	~CActCtxActivator();
+private:
+	CActivationContext& m_ActCtx;
+	ULONG_PTR m_Cookie;
+	bool m_Activated;
+};
+
 class ExtendedHolder {
 public:
 	static typename ATL::template CComSafeArray<VARIANT> extended;
 	static HRESULT SetLength(ULONG len);
 	static HRESULT SetAt(LONG i, const VARIANT& value, bool copy = true);
 	static HMODULE hModule;
+	static void CreateActivationContext(HINSTANCE hInstance);
+	static CActivationContext _ActCtx;
 };
 
 extern IDispatch* getRealIDispatch(VARIANT const* const& in_val);
@@ -758,24 +789,21 @@ namespace autoit {
 	NATIVE_TYPE_GENERIC_COPY(bool);
 	NATIVE_TYPE_GENERIC_COPY(std::string);
 
-	template<typename SourceType>
+	template<typename source_type>
 	class GenericCopy
 	{
 	public:
-		typedef VARIANT destination_type;
-		typedef SourceType      source_type;
-
-		static void init(destination_type* p)
+		static void init(VARIANT* p)
 		{
-			_Copy<destination_type>::init(p);
+			_Copy<VARIANT>::init(p);
 		}
-		static void destroy(destination_type* p)
+		static void destroy(VARIANT* p)
 		{
-			_Copy<destination_type>::destroy(p);
+			_Copy<VARIANT>::destroy(p);
 		}
-		static HRESULT copy(destination_type* pTo, const source_type* pFrom)
+		static HRESULT copy(VARIANT* pTo, const source_type* pFrom)
 		{
-			return _GenericCopy<destination_type, source_type>::copy(pTo, pFrom);
+			return _GenericCopy<VARIANT, source_type>::copy(pTo, pFrom);
 		}
 	};
 
@@ -805,14 +833,16 @@ namespace autoit {
 #undef MapOfStringAndVariant
 
 namespace ATL {
-	template<typename _Tp, typename CollType, typename EnumType, typename AutoItType = AutoItObject<CollType>>
+	template<typename T, typename CollType, typename EnumType, typename AutoItType = AutoItObject<CollType>>
 	class IAutoItCollectionEnumOnSTLImpl :
-		public _Tp,
+		public T,
 		public AutoItType
 	{
 	public:
 		STDMETHOD(get__NewEnum)(_Outptr_ IUnknown** ppUnk)
 		{
+			CActCtxActivator ScopedContext(ExtendedHolder::_ActCtx);
+
 			auto& m_coll = *this->__self->get();
 			if (ppUnk == NULL)
 				return E_POINTER;
@@ -833,13 +863,15 @@ namespace ATL {
 	};
 }
 
-template <class Base, const IID* piid, class _Tp>
-class ATL_NO_VTABLE IEnumOnSTLImpl<Base, piid, _Tp, ::autoit::GenericCopy<bool>, std::vector<bool>> :
+#define Base IEnumVARIANT
+#define T VARIANT
+#define piid &IID_IEnumVARIANT
+
+template <class Copy, class CollType>
+class ATL_NO_VTABLE IEnumOnSTLImpl<Base, piid, T, Copy, CollType> :
 	public Base
 {
 public:
-	typedef ::autoit::GenericCopy<bool> Copy;
-	typedef std::vector<bool> CollType;
 
 	HRESULT Init(
 		_In_ IUnknown* pUnkForRelease,
@@ -852,7 +884,7 @@ public:
 	}
 	STDMETHOD(Next)(
 		_In_ ULONG celt,
-		_Out_writes_to_(celt, *pceltFetched) _Tp* rgelt,
+		_Out_writes_to_(celt, *pceltFetched) T* rgelt,
 		_Out_opt_ ULONG* pceltFetched);
 	STDMETHOD(Skip)(_In_ ULONG celt);
 	STDMETHOD(Reset)(void)
@@ -869,12 +901,14 @@ public:
 	typename CollType::const_iterator m_iter;
 };
 
-template <class Base, const IID* piid, class _Tp>
-COM_DECLSPEC_NOTHROW STDMETHODIMP IEnumOnSTLImpl<Base, piid, _Tp, ::autoit::GenericCopy<bool>, std::vector<bool>>::Next(
+template <class Copy, class CollType>
+COM_DECLSPEC_NOTHROW STDMETHODIMP IEnumOnSTLImpl<Base, piid, T, Copy, CollType>::Next(
 	_In_ ULONG celt,
-	_Out_writes_to_(celt, *pceltFetched) _Tp* rgelt,
+	_Out_writes_to_(celt, *pceltFetched) T* rgelt,
 	_Out_opt_ ULONG* pceltFetched)
 {
+	CActCtxActivator ScopedContext(ExtendedHolder::_ActCtx);
+
 	if (rgelt == NULL || (celt > 1 && pceltFetched == NULL))
 		return E_POINTER;
 	if (pceltFetched != NULL)
@@ -884,10 +918,16 @@ COM_DECLSPEC_NOTHROW STDMETHODIMP IEnumOnSTLImpl<Base, piid, _Tp, ::autoit::Gene
 
 	ULONG nActual = 0;
 	HRESULT hr = S_OK;
-	_Tp* pelt = rgelt;
+	T* pelt = rgelt;
 	while (SUCCEEDED(hr) && m_iter != m_pcollection->end() && nActual < celt)
 	{
-		hr = autoit_from(*m_iter, pelt);
+		if constexpr (std::is_same<CollType, std::vector<bool>>::value) {
+			auto value = *m_iter;
+			hr = Copy::copy(pelt, &value);
+		}
+		else {
+			hr = Copy::copy(pelt, &*m_iter);
+		}
 		if (FAILED(hr))
 		{
 			while (rgelt < pelt)
@@ -911,9 +951,11 @@ COM_DECLSPEC_NOTHROW STDMETHODIMP IEnumOnSTLImpl<Base, piid, _Tp, ::autoit::Gene
 	return hr;
 }
 
-template <class Base, const IID* piid, class _Tp>
-COM_DECLSPEC_NOTHROW STDMETHODIMP IEnumOnSTLImpl<Base, piid, _Tp, ::autoit::GenericCopy<bool>, std::vector<bool>>::Skip(_In_ ULONG celt)
+template <class Copy, class CollType>
+COM_DECLSPEC_NOTHROW STDMETHODIMP IEnumOnSTLImpl<Base, piid, T, Copy, CollType>::Skip(_In_ ULONG celt)
 {
+	CActCtxActivator ScopedContext(ExtendedHolder::_ActCtx);
+
 	HRESULT hr = S_OK;
 	while (celt--)
 	{
@@ -928,11 +970,13 @@ COM_DECLSPEC_NOTHROW STDMETHODIMP IEnumOnSTLImpl<Base, piid, _Tp, ::autoit::Gene
 	return hr;
 }
 
-template <class Base, const IID* piid, class _Tp>
-COM_DECLSPEC_NOTHROW STDMETHODIMP IEnumOnSTLImpl<Base, piid, _Tp, ::autoit::GenericCopy<bool>, std::vector<bool>>::Clone(
+template <class Copy, class CollType>
+COM_DECLSPEC_NOTHROW STDMETHODIMP IEnumOnSTLImpl<Base, piid, T, Copy, CollType>::Clone(
 	_Outptr_ Base** ppEnum)
 {
-	typedef CComObject<CComEnumOnSTL<Base, piid, _Tp, Copy, CollType> > _class;
+	CActCtxActivator ScopedContext(ExtendedHolder::_ActCtx);
+
+	typedef CComObject<CComEnumOnSTL<Base, piid, T, Copy, CollType> > _class;
 	HRESULT hRes = E_POINTER;
 	if (ppEnum != NULL)
 	{
@@ -953,3 +997,7 @@ COM_DECLSPEC_NOTHROW STDMETHODIMP IEnumOnSTLImpl<Base, piid, _Tp, ::autoit::Gene
 	}
 	return hRes;
 }
+
+#undef Base
+#undef T
+#undef piid

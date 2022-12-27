@@ -13,10 +13,10 @@
 #include "..\..\..\autoit-addon\addon.au3"
 
 ;~ Sources:
-;~     https://docs.opencv.org/4.6.0/de/da9/tutorial_template_matching.html
-;~     https://github.com/opencv/opencv/blob/4.6.0/samples/tapi/bgfg_segm.cpp
+;~     https://docs.opencv.org/4.7.0/de/da9/tutorial_template_matching.html
+;~     https://github.com/opencv/opencv/blob/4.7.0/samples/tapi/bgfg_segm.cpp
 
-_OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world470*"), _OpenCV_FindDLL("autoit_opencv_com470*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 
@@ -81,9 +81,7 @@ GUISetState(@SW_SHOW)
 
 Global $bHasAddon = _Addon_DLLOpen(_Addon_FindDLL())
 
-Global $ocl = _OpenCV_ObjCreate("cv.ocl")
-
-If $ocl.useOpenCL() Then
+If $cv.ocl.useOpenCL() Then
 	GUICtrlSetState($RadioOpenCL, $GUI_CHECKED)
 Else
 	GUICtrlSetState($RadioCPU, $GUI_CHECKED)
@@ -182,10 +180,10 @@ Func Main()
 
 	If $useCamera Then
 		Local $iCamId = _Max(0, _GUICtrlComboBox_GetCurSel($ComboCamera))
-		$cap = _OpenCV_ObjCreate("cv.VideoCapture").create($iCamId)
+		$cap = $cv.VideoCapture($iCamId)
 	Else
 		$sInputFile = ControlGetText($FormGUI, "", $InputFile)
-		$cap = _OpenCV_ObjCreate("cv.VideoCapture").create($sInputFile)
+		$cap = $cv.VideoCapture($sInputFile)
 	EndIf
 
 	If Not $cap.isOpened() Then
@@ -213,8 +211,8 @@ Func UpdateState()
 
 	Local $useOpenCL = _IsChecked($RadioOpenCL)
 
-	If $ocl.useOpenCL() <> $useOpenCL Then
-		$ocl.setUseOpenCL($useOpenCL)
+	If $cv.ocl.useOpenCL() <> $useOpenCL Then
+		$cv.ocl.setUseOpenCL($useOpenCL)
 
 		If $useOpenCL Then
 			$mode = "OpenCL enabled"
@@ -426,5 +424,5 @@ EndFunc   ;==>_StringSize
 
 Func _OnAutoItExit()
 	_GDIPlus_Shutdown()
-	_OpenCV_Unregister_And_Close()
+	_OpenCV_Close()
 EndFunc   ;==>_OnAutoItExit

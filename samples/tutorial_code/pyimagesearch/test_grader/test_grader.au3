@@ -13,7 +13,7 @@
 ;~ Sources:
 ;~     https://www.pyimagesearch.com/2016/10/03/bubble-sheet-multiple-choice-scanner-and-test-grader-using-omr-python-and-opencv/
 
-_OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world470*"), _OpenCV_FindDLL("autoit_opencv_com470*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 
@@ -170,7 +170,7 @@ Func GradePaper($image, $gray, $docCnt)
 
 			;; construct a mask that reveals only the current
 			;; "bubble" for the question
-			$mask = _OpenCV_ObjCreate("cv.Mat").zeros($thresh.size(), $CV_8U)
+			$mask = $cv.Mat.zeros($thresh.size(), $CV_8U)
 			$cv.drawContours($mask, _OpenCV_Tuple($c), -1, 255, -1)
 
 			;; apply the mask to the thresholded image, then
@@ -234,5 +234,5 @@ EndFunc   ;==>_LeftToRightComparator
 
 Func _OnAutoItExit()
 	_GDIPlus_Shutdown()
-	_OpenCV_Unregister_And_Close()
+	_OpenCV_Close()
 EndFunc   ;==>_OnAutoItExit

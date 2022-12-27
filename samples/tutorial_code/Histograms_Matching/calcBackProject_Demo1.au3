@@ -13,10 +13,10 @@ Opt("GUIOnEventMode", 1)
 #include "..\..\..\autoit-opencv-com\udf\opencv_udf_utils.au3"
 
 ;~ Sources:
-;~     https://docs.opencv.org/4.6.0/da/d7f/tutorial_back_projection.html
-;~     https://github.com/opencv/opencv/blob/4.6.0/samples/cpp/tutorial_code/Histograms_Matching/calcBackProject_Demo1.cpp
+;~     https://docs.opencv.org/4.7.0/da/d7f/tutorial_back_projection.html
+;~     https://github.com/opencv/opencv/blob/4.7.0/samples/cpp/tutorial_code/Histograms_Matching/calcBackProject_Demo1.cpp
 
-_OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world470*"), _OpenCV_FindDLL("autoit_opencv_com470*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 
@@ -98,7 +98,7 @@ Func Main()
 	;;! [Transform it to HSV]
 
 	;;! [Use only the Hue value]
-	$hue = _OpenCV_ObjCreate("cv.Mat").create($hsv.rows, $hsv.cols, $hsv.depth())
+	$hue = $cv.Mat.create($hsv.rows, $hsv.cols, $hsv.depth())
 	Local $ahsv[1] = [$hsv]
 	Local $ahue[1] = [$hue]
 	Local $ch[2] = [0, 0]
@@ -158,7 +158,7 @@ Func Hist_and_Backproj()
 	;;! [Draw the histogram]
 	Local $w = 400, $h = 400
 	Local $bin_w = Round($w / $histSize[0])
-	Local $histImg = _OpenCV_ObjCreate("cv.Mat").zeros($h, $w, $CV_8UC3)
+	Local $histImg = $cv.Mat.zeros($h, $w, $CV_8UC3)
 
 	For $i = 0 To $bins - 1
 		$cv.rectangle($histImg, _OpenCV_Point($i * $bin_w, $h), _OpenCV_Point(($i + 1) * $bin_w, $h - Round($hist.float_at($i) * $h / 255.0)), _
@@ -177,5 +177,5 @@ EndFunc   ;==>_cleanExit
 
 Func _OnAutoItExit()
 	_GDIPlus_Shutdown()
-	_OpenCV_Unregister_And_Close()
+	_OpenCV_Close()
 EndFunc   ;==>_OnAutoItExit

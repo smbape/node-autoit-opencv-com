@@ -1,8 +1,6 @@
 #include "test.h"
 #include <semaphore>
 
-#import "cvLib.tlb"
-
 template<typename T>
 inline auto to_variant_t(const T& in_val) {
 	return cv::Ptr<_variant_t>(new _variant_t(in_val));
@@ -536,6 +534,8 @@ static void testSearchTemplate(cvLib::ICv_ObjectPtr cv) {
 
 	auto _result = cv->searchTemplate(to_variant_t(img.GetInterfacePtr()), to_variant_t(templ.GetInterfacePtr()), &vtDefault, to_variant_t(mask.GetInterfacePtr()), &channels, &ranges, &vtDefault);
 	VariantClear(&vtDefault);
+	V_VT(&vtDefault) = VT_ERROR;
+	V_ERROR(&vtDefault) = DISP_E_PARAMNOTFOUND;
 
 	assert(V_VT(&_result) == VT_DISPATCH);
 	auto result = static_cast<cvLib::ICv_Mat_Object*>(V_DISPATCH(&_result));
@@ -584,6 +584,13 @@ static int perform() {
 		return 1;
 	}
 
+	const auto CAP_FPS = 60;
+	const auto CAP_SPF = int(1000 / CAP_FPS);
+
+	cap->set(to_variant_t(cv::CAP_PROP_FRAME_WIDTH), to_variant_t(1280));
+	cap->set(to_variant_t(cv::CAP_PROP_FRAME_HEIGHT), to_variant_t(720));
+	cap->set(to_variant_t(cv::CAP_PROP_FPS), to_variant_t(CAP_FPS));
+
 	auto frame = MatPtr->create();
 	auto vframe = _variant_t(frame.GetInterfacePtr());
 	auto flipped = MatPtr->create();
@@ -600,33 +607,53 @@ static int perform() {
 			break;
 		}
 
-		if (cap->read(to_variant_t(frame.GetInterfacePtr())) == VARIANT_TRUE) {
-			extended.Attach(V_ARRAY(to_variant_t(cv->extended)));
-			VariantInit(&variant);
-			hr = extended.GetAt(1).Detach(&variant);
-			assert(SUCCEEDED(hr));
-			extended.Detach();
-
-			// in/out version
-			assert(!frame->empty());
-
-			cv->flip(&vframe, to_variant_t(1), &vflipped);
-			assert(!flipped->empty());
-
-			cv->imshow(to_variant_t(L"capture camera"), &vflipped);
-
-			// extended version
-			assert(V_VT(&variant) == VT_DISPATCH);
-			frame.Attach(static_cast<cvLib::ICv_Mat_Object*>(V_DISPATCH(&variant)));
-			assert(!frame->empty());
-
-			// retval, in/out version
-			flipped = cv->flip(&vframe, to_variant_t(1), &vtFlipped);
-			assert(!flipped->empty());
-			assert(V_VT(&vtFlipped) == VT_DISPATCH);
-
-			cv->imshow(to_variant_t(L"capture camera"), &vflipped);
+		auto start = cv->getTickCount();
+		if (cap->read(to_variant_t(frame.GetInterfacePtr())) == VARIANT_FALSE) {
+			continue;
 		}
+
+		extended.Attach(V_ARRAY(to_variant_t(cv->extended)));
+		VariantInit(&variant);
+		hr = extended.GetAt(1).Detach(&variant);
+		assert(SUCCEEDED(hr));
+		extended.Detach();
+
+		auto fps = cv->getTickFrequency() / (cv->getTickCount() - start);
+
+		// in/out version
+		assert(!frame->empty());
+
+		cv->flip(&vframe, to_variant_t(1), &vflipped);
+		assert(!flipped->empty());
+
+		cv->imshow(to_variant_t(L"capture camera"), &vflipped);
+
+		// extended version
+		assert(V_VT(&variant) == VT_DISPATCH);
+		frame.Attach(static_cast<cvLib::ICv_Mat_Object*>(V_DISPATCH(&variant)));
+		assert(!frame->empty());
+
+		// retval, in/out version
+		flipped = cv->flip(&vframe, to_variant_t(1), &vtFlipped);
+		assert(!flipped->empty());
+		assert(V_VT(&vtFlipped) == VT_DISPATCH);
+
+		auto point = _OpenCV_Tuple(10, 30);
+		auto color = _OpenCV_Tuple(255, 0, 255);
+		_bstr_t label;
+		string_to_bstr("FPS : " + std::to_string(int(fps)), label);
+		cv->putText(
+			&vflipped,
+			to_variant_t(label),
+			&point,
+			to_variant_t(cv::FONT_HERSHEY_PLAIN),
+			to_variant_t(2),
+			&color,
+			to_variant_t(3),
+			&vtDefault,
+			&vtDefault
+		);
+		cv->imshow(to_variant_t(L"capture camera"), &vflipped);
 	}
 
 	return 0;
@@ -666,31 +693,32 @@ private:
 };
 
 #ifdef _DEBUG
-#define RELEASE_TYPE "Debug"
-#define DLL_SUFFFIX "d"
+#define BUILD_TYPE "Debug"
+#define DEBUG_POSTFIX "d"
 #else
-#define RELEASE_TYPE "Release"
-#define DLL_SUFFFIX ""
+#define BUILD_TYPE "Release"
+#define DEBUG_POSTFIX ""
 #endif
 
-#define DLL_FILE RELEASE_TYPE "\\autoit_opencv_com460" DLL_SUFFFIX ".dll"
-
-class DllInstallInitializer {
+class ActCtxInitializer {
 public:
-	typedef HRESULT(*DllInstall_t)(BOOL bInstall, _In_opt_ LPCWSTR pszCmdLine);
+	typedef BOOL(*DLLActivateActCtx_t)();
+	typedef BOOL(*DLLDeactivateActCtx_t)();
 
-	DllInstallInitializer() {
-		m_lib = LoadLibrary(DLL_FILE);
+	ActCtxInitializer() {
+		m_lib = LoadLibrary("bin\\" BUILD_TYPE "\\autoit_opencv_com470" DEBUG_POSTFIX ".dll");
 		CV_Assert(m_lib != 0);
 
-		m_DllInstall = (DllInstall_t)GetProcAddress(m_lib, "DllInstall");
-		m_hr = m_DllInstall(true, L"user");
-		CV_Assert(SUCCEEDED(m_hr));
+		m_DLLActivateActCtx = (DLLActivateActCtx_t)GetProcAddress(m_lib, "DLLActivateActCtx");
+		m_Activated = m_DLLActivateActCtx();
+		CV_Assert(m_Activated);
+
+		m_DLLDeactivateActCtx = (DLLDeactivateActCtx_t)GetProcAddress(m_lib, "DLLDeactivateActCtx");
 	}
 
-	~DllInstallInitializer() {
-		if (SUCCEEDED(m_hr)) {
-			m_DllInstall(false, L"user");
+	~ActCtxInitializer() {
+		if (m_Activated) {
+			CV_Assert(m_DLLDeactivateActCtx());
 		}
 
 		if (m_lib != 0) {
@@ -699,14 +727,15 @@ public:
 	}
 private:
 	HMODULE m_lib = 0;
-	HRESULT m_hr = E_FAIL;
-	DllInstall_t m_DllInstall;
+	BOOL m_Activated = false;
+	DLLActivateActCtx_t m_DLLActivateActCtx;
+	DLLDeactivateActCtx_t m_DLLDeactivateActCtx;
 };
 
 int main(int argc, char* argv[])
 {
 	CoInitializer coInitializer;
 	GdiplusInitializer gdiplusInitializer;
-	DllInstallInitializer dllInstallInitializer;
+	ActCtxInitializer ActCtxInitializer;
 	return perform();
 }

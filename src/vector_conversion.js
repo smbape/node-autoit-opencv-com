@@ -106,6 +106,8 @@ exports.declare = (generator, type, parent, options = {}) => {
     // make vector to be recognized as a collection
     generator.as_stl_enum(coclass, vtype);
 
+    generator.setAssignOperator(vtype, coclass, options);
+
     return fqn;
 };
 
@@ -136,8 +138,8 @@ exports.convert_sort = (coclass, header, impl, options = {}) => {
     `).replace(/^ {8}/mg, "").trim().split("\n");
 
     header.push(`
-        typedef bool (*${ comparator })(${ vtype }${ byref ? "&" : "" } a, ${ vtype }${ byref ? "&" : "" } b);
-        typedef bool (*${ ptr_comparator })(${ ptrtype }* a, ${ ptrtype }* b);
+        using ${ comparator } = bool (*)(${ vtype }${ byref ? "&" : "" } a, ${ vtype }${ byref ? "&" : "" } b);
+        using ${ ptr_comparator } = bool (*)(${ ptrtype }* a, ${ ptrtype }* b);
         typedef struct _${ comparator }Proxy  ${ comparator }Proxy;
     `.replace(/^ {8}/mg, ""));
 

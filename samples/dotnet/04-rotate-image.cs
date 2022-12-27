@@ -1,12 +1,28 @@
 using System;
 using System.ComponentModel;
-using System.IO;
-using System.Reflection;
 using System.Runtime.InteropServices;
+using OpenCV.InteropServices;
 
 public static class Test
 {
-    private static void Example(String image)
+    private static void CompiletimeExample(String image)
+    {
+        ICv_Object cv = new Cv_Object();
+        var img = cv.imread(image);
+        var angle = 20;
+        var scale = 1;
+
+        dynamic[] size = {img.width, img.height};
+        dynamic[] center = {img.width / 2, img.height / 2};
+        var M = cv.getRotationMatrix2D(center, -angle, scale);
+        var rotated = cv.warpAffine(img, M, size);
+
+        cv.imshow("Rotation", rotated);
+        cv.waitKey();
+        cv.destroyAllWindows();
+    }
+
+    private static void RuntimeExample(String image)
     {
         var cv = OpenCvComInterop.ObjCreate("cv");
         var img = cv.imread(image);
@@ -87,17 +103,26 @@ public static class Test
         }
 
         OpenCvComInterop.DllOpen(
-            String.IsNullOrWhiteSpace(opencv_world_dll) ? OpenCvComInterop.FindDLL("opencv_world4*", "opencv-4.*\\opencv", null, buildType) : opencv_world_dll,
-            String.IsNullOrWhiteSpace(opencv_com_dll) ? OpenCvComInterop.FindDLL("autoit_opencv_com4*", null, null, buildType) : opencv_com_dll
+            String.IsNullOrWhiteSpace(opencv_world_dll) ? OpenCvComInterop.FindDLL("opencv_world470*", null, null, buildType) : opencv_world_dll,
+            String.IsNullOrWhiteSpace(opencv_com_dll) ? OpenCvComInterop.FindDLL("autoit_opencv_com470*", null, null, buildType) : opencv_com_dll
         );
 
         if (register) {
             OpenCvComInterop.Register();
         }
 
+        OpenCvComInterop.DLLActivateActCtx();
+        try {
+            CompiletimeExample(image);
+        }
+        finally
+        {
+            OpenCvComInterop.DLLDeactivateActCtx();
+        }
+
         try
         {
-            Example(image);
+            RuntimeExample(image);
         }
         finally
         {

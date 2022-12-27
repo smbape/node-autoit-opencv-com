@@ -6,3 +6,5 @@ EXPORTS
     DllRegisterServer                   PRIVATE
     DllUnregisterServer                 PRIVATE
     DllInstall                          PRIVATE
+    DLLActivateActCtx                   PRIVATE
+    DLLDeactivateActCtx                 PRIVATE

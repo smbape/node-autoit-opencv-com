@@ -1,36 +1,39 @@
 using System;
 using System.ComponentModel;
-using System.IO;
-using System.Reflection;
 using System.Runtime.InteropServices;
+using OpenCV.InteropServices;
 
 public static class Test
 {
-    private static void Example(int cameraId)
+    private static void CompiletimeExample(int cameraId)
     {
-        var cv = OpenCvComInterop.ObjCreate("cv");
-        if (Object.ReferenceEquals(cv, null))
-        {
-            throw new Win32Exception("Failed to create cv object");
-        }
+        ICv_Object cv = new Cv_Object();
 
-        var VideoCapture = OpenCvComInterop.ObjCreate("cv.VideoCapture");
-        var cap = VideoCapture.create(cameraId);
+        var cap = cv.VideoCapture[cameraId];
         if (!cap.isOpened())
         {
             throw new Win32Exception("!>Error: cannot open the camera " + cameraId);
         }
 
-        var frame = OpenCvComInterop.ObjCreate("cv.Mat");
+        var CAP_FPS = 60;
+        var CAP_SPF = 1000 / CAP_FPS;
+
+        cap.set(cv.enums.CAP_PROP_FRAME_WIDTH, 1280);
+        cap.set(cv.enums.CAP_PROP_FRAME_HEIGHT, 720);
+        cap.set(cv.enums.CAP_PROP_FPS, CAP_FPS);
+
+        var frame = new Cv_Mat_Object();
+        dynamic[] point = {10, 30};
+        dynamic[] color = {255, 0, 255};
 
         while (true)
         {
+            var start = cv.getTickCount();
             if (cap.read(frame))
             {
                 // Flip the image horizontally to give the mirror impression
                 var oldframe = frame;
                 frame = cv.flip(frame, 1);
-                cv.imshow("capture camera", frame);
 
                 // Memory leak without this
                 Marshal.ReleaseComObject(oldframe);
@@ -39,6 +42,10 @@ public static class Test
             {
                 throw new Win32Exception("!>Error: cannot read the camera " + cameraId);
             }
+            var fps = cv.getTickFrequency() / (cv.getTickCount() - start);
+
+            cv.putText(frame, "FPS : " + Math.Round(fps), point, cv.enums.FONT_HERSHEY_PLAIN, 2, color, 3);
+            cv.imshow("capture camera", frame);
 
             var key = cv.waitKey(30);
             if (key == 27 || key == 'q' || key == 'Q')
@@ -50,7 +57,65 @@ public static class Test
         // The program does not terminate without this
         Marshal.ReleaseComObject(frame);
         Marshal.ReleaseComObject(cap);
-        Marshal.ReleaseComObject(VideoCapture);
+        Marshal.ReleaseComObject(cv);
+    }
+
+    private static void RuntimeExample(int cameraId)
+    {
+        var cv = OpenCvComInterop.ObjCreate("cv");
+        if (Object.ReferenceEquals(cv, null))
+        {
+            throw new Win32Exception("Failed to create cv object");
+        }
+
+        var cap = cv.VideoCapture(cameraId);
+        if (!cap.isOpened())
+        {
+            throw new Win32Exception("!>Error: cannot open the camera " + cameraId);
+        }
+
+        var CAP_FPS = 60;
+        var CAP_SPF = 1000 / CAP_FPS;
+
+        cap.set(cv.enums.CAP_PROP_FRAME_WIDTH, 1280);
+        cap.set(cv.enums.CAP_PROP_FRAME_HEIGHT, 720);
+        cap.set(cv.enums.CAP_PROP_FPS, CAP_FPS);
+
+        var frame = OpenCvComInterop.ObjCreate("cv.Mat");
+        dynamic[] point = {10, 30};
+        dynamic[] color = {255, 0, 255};
+
+        while (true)
+        {
+            var start = cv.getTickCount();
+            if (cap.read(frame))
+            {
+                // Flip the image horizontally to give the mirror impression
+                var oldframe = frame;
+                frame = cv.flip(frame, 1);
+
+                // Memory leak without this
+                Marshal.ReleaseComObject(oldframe);
+            }
+            else
+            {
+                throw new Win32Exception("!>Error: cannot read the camera " + cameraId);
+            }
+            var fps = cv.getTickFrequency() / (cv.getTickCount() - start);
+
+            cv.putText(frame, "FPS : " + Math.Round(fps), point, cv.enums.FONT_HERSHEY_PLAIN, 2, color, 3);
+            cv.imshow("capture camera", frame);
+
+            var key = cv.waitKey(30);
+            if (key == 27 || key == 'q' || key == 'Q')
+            {
+                break;
+            }
+        }
+
+        // The program does not terminate without this
+        Marshal.ReleaseComObject(frame);
+        Marshal.ReleaseComObject(cap);
         Marshal.ReleaseComObject(cv);
     }
 
@@ -118,8 +183,8 @@ public static class Test
         }
 
         OpenCvComInterop.DllOpen(
-            String.IsNullOrWhiteSpace(opencv_world_dll) ? OpenCvComInterop.FindDLL("opencv_world4*", "opencv-4.*\\opencv", null, buildType) : opencv_world_dll,
-            String.IsNullOrWhiteSpace(opencv_com_dll) ? OpenCvComInterop.FindDLL("autoit_opencv_com4*", null, null, buildType) : opencv_com_dll
+            String.IsNullOrWhiteSpace(opencv_world_dll) ? OpenCvComInterop.FindDLL("opencv_world470*", null, null, buildType) : opencv_world_dll,
+            String.IsNullOrWhiteSpace(opencv_com_dll) ? OpenCvComInterop.FindDLL("autoit_opencv_com470*", null, null, buildType) : opencv_com_dll
         );
 
         if (register)
@@ -127,9 +192,18 @@ public static class Test
             OpenCvComInterop.Register();
         }
 
+        OpenCvComInterop.DLLActivateActCtx();
+        try {
+            CompiletimeExample(cameraId);
+        }
+        finally
+        {
+            OpenCvComInterop.DLLDeactivateActCtx();
+        }
+
         try
         {
-            Example(cameraId);
+            RuntimeExample(cameraId);
         }
         finally
         {

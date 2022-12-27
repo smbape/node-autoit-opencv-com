@@ -5,13 +5,6 @@
 #include "Cv_GScalarDesc_Object.h"
 #include "Cv_GArrayDesc_Object.h"
 #include "Cv_GOpaqueDesc_Object.h"
-#include "Cv_Gapi_Wip_Draw_Rect_Object.h"
-#include "Cv_Gapi_Wip_Draw_Text_Object.h"
-#include "Cv_Gapi_Wip_Draw_Circle_Object.h"
-#include "Cv_Gapi_Wip_Draw_Line_Object.h"
-#include "Cv_Gapi_Wip_Draw_Poly_Object.h"
-#include "Cv_Gapi_Wip_Draw_Mosaic_Object.h"
-#include "Cv_Gapi_Wip_Draw_Image_Object.h"
 
 PTR_BRIDGE_IMPL(cv::wgc::WGCFrameCallback)
 
@@ -65,10 +58,11 @@ const bool is_assignable_from(cv::GMetaArg& out_val, VARIANT const* const& in_va
 	cv::GScalarDesc value_GScalarDesc;
 	cv::GArrayDesc value_GArrayDesc;
 	cv::GOpaqueDesc value_GOpaqueDesc;
-	return is_assignable_from(value_GMatDesc, in_val, is_optional)
-		|| is_assignable_from(value_GScalarDesc, in_val, is_optional)
-		|| is_assignable_from(value_GArrayDesc, in_val, is_optional)
-		|| is_assignable_from(value_GOpaqueDesc, in_val, is_optional)
+	return
+		is_assignable_from(value_GMatDesc, in_val, is_optional) ||
+		is_assignable_from(value_GScalarDesc, in_val, is_optional) ||
+		is_assignable_from(value_GArrayDesc, in_val, is_optional) ||
+		is_assignable_from(value_GOpaqueDesc, in_val, is_optional)
 		;
 }
 
@@ -126,6 +120,7 @@ const HRESULT autoit_from(const cv::GMetaArg& in_val, VARIANT*& out_val) {
 	}
 }
 
+#if (CV_VERSION_MAJOR > 4) || CV_VERSION_MAJOR == 4 && (CV_VERSION_MINOR > 5 || CV_VERSION_MINOR == 5 && CV_VERSION_REVISION > 0)
 const HRESULT autoit_from(const cv::GOptRunArg& in_val, VARIANT*& out_val) {
 	using namespace cv;
 	switch (in_val.index()) {
@@ -158,6 +153,7 @@ const HRESULT autoit_from(const cv::util::variant<cv::GRunArgs, cv::GOptRunArgs>
 			return E_INVALIDARG;
 	}
 }
+#endif
 
 const bool is_assignable_from(cv::Ptr<cv::flann::IndexParams>& out_val, VARIANT*& in_val, bool is_optional) {
 	cv::flann::IndexParams obj;

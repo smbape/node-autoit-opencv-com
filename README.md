@@ -10,13 +10,18 @@ In fact, the dll being a [Component Object Model (COM)](https://docs.microsoft.c
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Prerequisites](#prerequisites)
 - [Usage](#usage)
   - [AutoIt](#autoit)
   - [PowerShell](#powershell)
 - [Running examples](#running-examples)
+  - [Prerequisite](#prerequisite)
+  - [autoit](#autoit)
+  - [powershell](#powershell)
+  - [csharp](#csharp)
   - [\[optional\] Build the addon dll](#%5Coptional%5C-build-the-addon-dll)
-    - [Prerequisite](#prerequisite)
+    - [Prerequisite](#prerequisite-1)
     - [Building](#building)
 - [How to translate python/c++ code to the UDF](#how-to-translate-pythonc-code-to-the-udf)
   - [Finding the functions/constants names](#finding-the-functionsconstants-names)
@@ -37,8 +42,8 @@ In fact, the dll being a [Component Object Model (COM)](https://docs.microsoft.c
 
 ## Prerequisites
 
-  - Download and extract [opencv-4.6.0-vc14_vc15.exe](https://sourceforge.net/projects/opencvlibrary/files/4.6.0/opencv-4.6.0-vc14_vc15.exe/download) into a folder
-  - Download and extract [autoit-opencv-4.6.0-com-v2.2.2.7z](https://github.com/smbape/node-autoit-opencv-com/releases/download/v2.2.2/autoit-opencv-4.6.0-com-v2.2.2.7z) into a folder
+  - Download and extract [opencv-4.7.0-windows.zip](https://sourceforge.net/projects/opencvlibrary/files/4.7.0/opencv-4.7.0-windows.zip/download) into a folder
+  - Download and extract [autoit-opencv-4.7.0-com-v2.2.2.7z](https://github.com/smbape/node-autoit-opencv-com/releases/download/v2.2.2/autoit-opencv-4.7.0-com-v2.2.2.7z) into a folder
 
 ## Usage
 
@@ -54,7 +59,7 @@ In fact, the dll being a [Component Object Model (COM)](https://docs.microsoft.c
 
 #include "autoit-opencv-com\udf\opencv_udf_utils.au3"
 
-_OpenCV_Open_And_Register("opencv-4.6.0-vc14_vc15\opencv\build\x64\vc15\bin\opencv_world460.dll", "autoit-opencv-com\autoit_opencv_com460.dll")
+_OpenCV_Open_And_Register("opencv-4.7.0-windows\opencv\build\x64\vc15\bin\opencv_world470.dll", "autoit-opencv-com\autoit_opencv_com470.dll")
 OnAutoItExitRegister("_OnAutoItExit")
 Example()
 
@@ -84,7 +89,7 @@ EndFunc   ;==>_OnAutoItExit
 #include "autoit-opencv-com\udf\opencv_udf_utils.au3"
 #include <GUIConstantsEx.au3>
 
-_OpenCV_Open_And_Register("opencv-4.6.0-vc14_vc15\opencv\build\x64\vc15\bin\opencv_world460.dll", "autoit-opencv-com\autoit_opencv_com460.dll")
+_OpenCV_Open_And_Register("opencv-4.7.0-windows\opencv\build\x64\vc15\bin\opencv_world470.dll", "autoit-opencv-com\autoit_opencv_com470.dll")
 OnAutoItExitRegister("_OnAutoItExit")
 Example()
 
@@ -134,7 +139,7 @@ function Example() {
     $cv.destroyAllWindows()
 }
 
-[OpenCvComInterop]::DllOpen("opencv-4.6.0-vc14_vc15\opencv\build\x64\vc15\bin\opencv_world460.dll", "autoit-opencv-com\autoit_opencv_com460.dll")
+[OpenCvComInterop]::DllOpen("opencv-4.7.0-windows\opencv\build\x64\vc15\bin\opencv_world470.dll", "autoit-opencv-com\autoit_opencv_com470.dll")
 
 [OpenCvComInterop]::Register()
 
@@ -175,8 +180,8 @@ public static class Test
     static void Main(String[] args)
     {
         OpenCvComInterop.DllOpen(
-            "opencv-4.6.0-vc14_vc15\\opencv\\build\\x64\\vc15\\bin\\opencv_world460.dll",
-            "autoit-opencv-com\\autoit_opencv_com460.dll"
+            "opencv-4.7.0-windows\\opencv\\build\\x64\\vc15\\bin\\opencv_world470.dll",
+            "autoit-opencv-com\\autoit_opencv_com470.dll"
         );
 
         OpenCvComInterop.Register();
@@ -198,23 +203,25 @@ Then, in [Git Bash](https://gitforwindows.org/), execute the following commands
 # go to the folder of your choice
 # cd ...
 
-# download autoit-opencv-4.6.0-com-v2.2.2.7z
-curl -L 'https://github.com/smbape/node-autoit-opencv-com/releases/download/v2.2.2/autoit-opencv-4.6.0-com-v2.2.2.7z' -o autoit-opencv-4.6.0-com-v2.2.2.7z
+# download autoit-opencv-4.7.0-com-v2.2.2.7z
+curl -L 'https://github.com/smbape/node-autoit-opencv-com/releases/download/v2.2.2/autoit-opencv-4.7.0-com-v2.2.2.7z' -o autoit-opencv-4.7.0-com-v2.2.2.7z
 
-# extract the content of autoit-opencv-4.6.0-com-v2.2.2.7z into a folder named autoit-opencv-com
-7z x autoit-opencv-4.6.0-com-v2.2.2.7z -aoa -oautoit-opencv-com
+# extract the content of autoit-opencv-4.7.0-com-v2.2.2.7z into a folder named autoit-opencv-com
+7z x autoit-opencv-4.7.0-com-v2.2.2.7z -aoa -oautoit-opencv-com
 
-# download opencv-4.6.0-vc14_vc15.exe
-curl -L 'https://github.com/opencv/opencv/releases/download/4.6.0/opencv-4.6.0-vc14_vc15.exe' -o opencv-4.6.0-vc14_vc15.exe
+# download opencv-4.7.0-windows.zip
+curl -L 'https://github.com/opencv/opencv/releases/download/4.7.0/opencv-4.7.0-windows.zip' -o opencv-4.7.0-windows.zip
 
-# extract the content of opencv-4.6.0-vc14_vc15.exe into a folder named opencv-4.6.0-vc14_vc15
-./opencv-4.6.0-vc14_vc15.exe -oopencv-4.6.0-vc14_vc15 -y
+# extract the content of opencv-4.7.0-windows.zip into a folder named opencv-4.7.0-windows
+7z x opencv-4.7.0-windows.zip
+distrib.7z.exe -oopencv-4.7.0-windows -y
+rm distrib.7z.exe
 
-# download autoit-opencv-4.6.0-com-v2.2.2-src.zip
-curl -L 'https://github.com/smbape/node-autoit-opencv-com/archive/refs/tags/v2.2.2.zip' -o autoit-opencv-4.6.0-com-v2.2.2-src.zip
+# download autoit-opencv-4.7.0-com-v2.2.2-src.zip
+curl -L 'https://github.com/smbape/node-autoit-opencv-com/archive/refs/tags/v2.2.2.zip' -o autoit-opencv-4.7.0-com-v2.2.2-src.zip
 
-# extract the autoit-addon and samples folders of autoit-opencv-4.6.0-com-v2.2.2-src.zip
-7z x autoit-opencv-4.6.0-com-v2.2.2-src.zip -aoa 'node-autoit-opencv-com-2.2.2\autoit-addon\*' 'node-autoit-opencv-com-2.2.2\samples\*'
+# extract the autoit-addon and samples folders of autoit-opencv-4.7.0-com-v2.2.2-src.zip
+7z x autoit-opencv-4.7.0-com-v2.2.2-src.zip -aoa 'node-autoit-opencv-com-2.2.2\autoit-addon\*' 'node-autoit-opencv-com-2.2.2\samples\*'
 cp -rf node-autoit-opencv-com-2.2.2/* ./
 rm -rf node-autoit-opencv-com-2.2.2
 ```
@@ -262,7 +269,7 @@ The transformation will usually be straight from python.
 The translation usually involves 2 steps:
 
   - Finding the functions/constants names.
-  - Transform the parameter types according to the UDF parameter. This step might involve looking at the [opencv documentation](https://docs.opencv.org/4.6.0/index.html).
+  - Transform the parameter types according to the UDF parameter. This step might involve looking at the [opencv documentation](https://docs.opencv.org/4.7.0/index.html).
 
 ### Finding the functions/constants names
 
@@ -305,7 +312,7 @@ cnts, _ = cv2.findContours(thresh_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPL
 blurred = cv2.GaussianBlur(image, (3, 3), 0)
 ```
 
-The [GaussianBlur](https://docs.opencv.org/4.6.0/d4/d86/group__imgproc__filter.html#gaabe8c836e97159a9193fb0b11ac52cf1) documentation gives the following information
+The [GaussianBlur](https://docs.opencv.org/4.7.0/d4/d86/group__imgproc__filter.html#gaabe8c836e97159a9193fb0b11ac52cf1) documentation gives the following information
 ```txt
 void cv::GaussianBlur   (   InputArray    src,
     OutputArray   dst,
@@ -338,7 +345,7 @@ $blurred = $cv.GaussianBlur($image, _OpenCV_Size(3, 3), 0)
 T, thresh_img = cv2.threshold(blurred, 215, 255, cv2.THRESH_BINARY)
 ```
 
-The [threshold](https://docs.opencv.org/4.6.0/d7/d1b/group__imgproc__misc.html#gae8a4a146d1ca78c626a53577199e9c57) documentation gives the following information
+The [threshold](https://docs.opencv.org/4.7.0/d7/d1b/group__imgproc__misc.html#gae8a4a146d1ca78c626a53577199e9c57) documentation gives the following information
 ```txt
 double cv::threshold  (   InputArray    src,
     OutputArray   dst,
@@ -382,7 +389,7 @@ $thresh_img = $cv.extended[1]
 cnts, _ = cv2.findContours(thresh_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 ```
 
-The [findContours](https://docs.opencv.org/4.6.0/d3/dc0/group__imgproc__shape.html#gadf1ad6a0b82947fa1fe3c3d497f260e0) documentation gives the following information
+The [findContours](https://docs.opencv.org/4.7.0/d3/dc0/group__imgproc__shape.html#gadf1ad6a0b82947fa1fe3c3d497f260e0) documentation gives the following information
 ```txt
 void cv::findContours   (   InputArray    image,
     OutputArrayOfArrays   contours,

@@ -7,6 +7,10 @@
         "iid": "a6671d17-6efa-494d-88c1-f05a63fd550d",
         "clsid": "c5192351-c426-4739-91ef-bc48bd7085c0"
     },
+    "cv::enums": {
+        "iid": "4331681c-cc64-4dc5-8f13-10fb62084c6b",
+        "clsid": "136e1f92-c0cc-4c06-9ec2-9eff73b1b4b5"
+    },
     "cv::PCA": {
         "iid": "322b15df-1434-48ce-a942-78242d76d800",
         "clsid": "9e639bd5-481b-4184-accf-ac7b70301023"
@@ -46,6 +50,10 @@
     "cv::utils": {
         "iid": "f79ddbaf-280e-407f-a994-c20608c7320f",
         "clsid": "fbb2ec75-bf2a-484b-bd13-e3ecff394566"
+    },
+    "cv::utils::ClassWithKeywordProperties": {
+        "iid": "75622eac-ee14-4af4-8300-ff0f994b3f9f",
+        "clsid": "05562a9e-6c2b-4ec3-8772-301486408b30"
     },
     "cv::utils::nested": {
         "iid": "1468fad1-a99e-4f1f-a0d1-b9c9d4c220b6",
@@ -543,6 +551,46 @@
         "iid": "cb5605d1-acb6-4b92-ad88-87b6354766e9",
         "clsid": "2044fa43-8cf7-4c0b-814c-9d031671ad8d"
     },
+    "cv::aruco": {
+        "iid": "8f9f869b-cdbf-47a8-b622-19f7d63fa32a",
+        "clsid": "516050f3-a501-45c6-89a3-abb6981480da"
+    },
+    "cv::aruco::Board": {
+        "iid": "445df469-580e-4372-a72c-5f642bca2d0b",
+        "clsid": "0b8a8d35-3a4d-48e6-9b11-c9bc095cb140"
+    },
+    "cv::aruco::GridBoard": {
+        "iid": "f96afc1d-ec72-4c3c-a323-8fc42e002539",
+        "clsid": "30e04566-f347-40be-9ac3-75f0688a760e"
+    },
+    "cv::aruco::CharucoBoard": {
+        "iid": "35b9852a-0fbf-4807-a93a-f63c375d9b78",
+        "clsid": "9edab40a-8b3a-4e94-9379-04f75c6bcc7f"
+    },
+    "cv::aruco::DetectorParameters": {
+        "iid": "2b13a5c1-782c-4b27-8267-cea439ba59be",
+        "clsid": "66c989e8-939a-46f3-be49-443f166ce67d"
+    },
+    "cv::aruco::RefineParameters": {
+        "iid": "5c3b1df0-2a69-444a-97d7-30a04a27936f",
+        "clsid": "bc192616-c645-4206-b52a-5bc58af355ae"
+    },
+    "cv::aruco::ArucoDetector": {
+        "iid": "cab56835-2577-4c81-8edb-5b731d4c8362",
+        "clsid": "700a22b7-c78c-4c96-bc86-cb3392ee8bea"
+    },
+    "cv::aruco::Dictionary": {
+        "iid": "61e82430-c4c6-488d-aef3-44964922d45b",
+        "clsid": "601c7ced-7368-4ac4-bbf8-bc7ef0be1069"
+    },
+    "cv::aruco::CharucoParameters": {
+        "iid": "b66a6c5b-dfb8-426d-ad09-43ad6ca9129e",
+        "clsid": "a6afb65c-a962-4ed6-9ad1-9751833b87b6"
+    },
+    "cv::aruco::CharucoDetector": {
+        "iid": "b0daeb78-d4ed-4436-86b6-6ec767dc09e0",
+        "clsid": "b7829573-c1ac-4298-b9d0-a6c658f9410b"
+    },
     "cv::FaceDetectorYN": {
         "iid": "1c651eda-d576-4279-a690-f97d93bdb046",
         "clsid": "4e218cc8-2355-405c-8b65-c1afb14ec205"
@@ -779,6 +827,14 @@
         "iid": "5e54a992-4d46-4b6b-a7cf-0b1781f76b27",
         "clsid": "0bc59bcf-c94b-4c02-88da-258de2c04da9"
     },
+    "cv::TrackerNano": {
+        "iid": "9bfd565f-cf24-4dfe-b3e1-94753675d3d8",
+        "clsid": "c620a1d5-6260-4f0a-93fc-8a61fa6c908c"
+    },
+    "cv::TrackerNano::Params": {
+        "iid": "e9684959-589b-46be-a5e2-291da0b2b7cf",
+        "clsid": "3f9cdda3-7f13-4c76-9afc-0dd239daa566"
+    },
     "cv::detail::TrackerSamplerCSC": {
         "iid": "6d4ab02a-7037-4c2e-b455-27f9b240416b",
         "clsid": "fe0ce83e-cdf1-4b07-aa48-3992ab2132aa"
@@ -887,6 +943,14 @@
         "iid": "150e8d7c-280d-4458-bff3-c953ef56f2de",
         "clsid": "5572bdfe-a12c-4c30-b667-353c06e97b4c"
     },
+    "cv::gapi::onnx": {
+        "iid": "c948488d-8aef-4906-bdf4-e73afcbfae63",
+        "clsid": "19159fe3-d7ca-45fd-b5c3-660e2708d965"
+    },
+    "cv::gapi::onnx::PyParams": {
+        "iid": "5614628e-f716-4946-af5f-9a8a4bb206a5",
+        "clsid": "c7e70621-ebbf-494d-811f-3ac12920d067"
+    },
     "cv::gapi::ie::TraitAs": {
         "iid": "27c70e44-314a-4840-ab41-57c2dc4d9ccf",
         "clsid": "b81f7488-9f21-4ebd-9090-92456611a04d"
@@ -902,10 +966,6 @@
     "cv::gapi::ie::detail::ParamDesc::Kind": {
         "iid": "de608346-f0f6-4fb6-8dd8-ba588d3cb7ea",
         "clsid": "a76b3a5e-393c-45bb-a81f-d3d44c6ad169"
-    },
-    "cv::gapi::onnx": {
-        "iid": "c948488d-8aef-4906-bdf4-e73afcbfae63",
-        "clsid": "19159fe3-d7ca-45fd-b5c3-660e2708d965"
     },
     "cv::gapi::onnx::TraitAs": {
         "iid": "deeb3c77-d7bd-4198-b131-cf0c811e51a3",
@@ -1075,6 +1135,22 @@
         "iid": "1d1133d7-3dd6-45b3-b563-807f04337d0f",
         "clsid": "d0ebecec-38e7-423f-bc57-4e7e23ce772b"
     },
+    "cv::Matx33f": {
+        "iid": "a6203334-ab44-4225-b039-a16870b4bb3e",
+        "clsid": "c5dbce5f-5704-413c-a5fc-a4439bc1423d"
+    },
+    "cv::Matx33d": {
+        "iid": "4515797c-9757-460f-870c-020fc3f3a978",
+        "clsid": "9a8a6974-aa85-439c-8eb1-ec78168e18d2"
+    },
+    "cv::Matx44f": {
+        "iid": "c50ef021-0071-4034-a32b-9448c5aad1c9",
+        "clsid": "161cd3c2-91df-4309-9a68-0f8b1b1cac08"
+    },
+    "cv::Matx44d": {
+        "iid": "c8fe53d0-2839-4677-9090-e5936e71a9d0",
+        "clsid": "cf60d47b-9830-4f76-8271-f7622857fba6"
+    },
     "cv::Range": {
         "iid": "ee4fec59-415b-407b-a1eb-c53272bacd49",
         "clsid": "aaaeecf4-c81d-41a9-8335-2aa9b537c3c0"
@@ -1091,14 +1167,6 @@
         "iid": "63600afb-ebe0-4d64-b19c-bab7c5352580",
         "clsid": "2120afd2-f44b-41fd-8bbc-00934a515442"
     },
-    "cv::detail::ExtractArgsCallback": {
-        "iid": "f5852a3f-33fa-421b-a1b1-f73ec6f4b207",
-        "clsid": "89bd14df-1783-4663-9636-d2d349add18a"
-    },
-    "cv::detail::ExtractMetaCallback": {
-        "iid": "dcc96313-a09d-43b4-bb46-2a1393608fff",
-        "clsid": "da6a1fcd-640b-4524-b4db-d7e24ff7f180"
-    },
     "cv::gapi::wip::draw::Prim": {
         "iid": "5011e1bc-50f2-4034-bd05-8d0c2fcdecf4",
         "clsid": "b501fe89-1d68-48ce-ad68-e633d73bd0d0"
@@ -1114,6 +1182,14 @@
     "cv::GProtoOutputArgs": {
         "iid": "89149d06-fe44-4a5a-a6c0-abc296163db9",
         "clsid": "b9414f22-7b13-44f1-ae8d-0a733005d8ed"
+    },
+    "cv::detail::ExtractArgsCallback": {
+        "iid": "f5852a3f-33fa-421b-a1b1-f73ec6f4b207",
+        "clsid": "89bd14df-1783-4663-9636-d2d349add18a"
+    },
+    "cv::detail::ExtractMetaCallback": {
+        "iid": "dcc96313-a09d-43b4-bb46-2a1393608fff",
+        "clsid": "da6a1fcd-640b-4524-b4db-d7e24ff7f180"
     },
     "MapOfStringAndVariant": {
         "iid": "0066b35a-afd4-40f7-9293-73db6df5caf7",
@@ -1323,9 +1399,21 @@
         "iid": "2601c8bf-88ef-4489-b4ea-6471eb1cfaa5",
         "clsid": "0134fd86-8a11-4d32-9bb1-5e619f0d8664"
     },
+    "VectorOfVideoCapture": {
+        "iid": "2cfa2781-e630-4f73-8d4d-74cdbfa86e30",
+        "clsid": "b058d3a0-9d61-4784-8b1f-cd1bc84d0ba7"
+    },
     "VectorOfVideoCaptureAPIs": {
         "iid": "7fc29c56-5dc8-465b-847e-90263f9432e7",
         "clsid": "f3621604-31c2-4ae7-aa36-96bd2e2c06a1"
+    },
+    "VectorOfPoint3f": {
+        "iid": "efa2e8a7-a63c-416c-9bdf-b5fed7aa2529",
+        "clsid": "db16f4f4-e256-4759-abd2-9d627033f7b0"
+    },
+    "VectorOfVectorOfPoint3f": {
+        "iid": "b2768f05-a176-4a3a-8828-3dd6badfd8aa",
+        "clsid": "193ce3f9-bcef-4da3-8f51-412a6199b91f"
     },
     "VectorOfDetail_CameraParams": {
         "iid": "f0ae62d7-e6bf-4587-82c9-b718564d7cd3",
@@ -1335,17 +1423,29 @@
         "iid": "045f4549-2cea-41cd-829c-29924ce603d5",
         "clsid": "849f2a28-80cb-4086-8ad3-cf0eda0b00db"
     },
-    "GOpaque_Rect": {
-        "iid": "10562eb9-34c7-4910-97ff-031f4d507b63",
-        "clsid": "1e4af5ef-0a8a-441d-bf28-dd9fca960882"
-    },
     "GArray_Point2f": {
         "iid": "05ede438-b22a-43c9-84d1-973fb804a60c",
         "clsid": "a4c07867-a920-4c8e-bf99-58fc6ff8f7c5"
     },
+    "GOpaque_Rect": {
+        "iid": "10562eb9-34c7-4910-97ff-031f4d507b63",
+        "clsid": "1e4af5ef-0a8a-441d-bf28-dd9fca960882"
+    },
+    "VectorOfGMat": {
+        "iid": "002c8fcb-33c7-4689-b9fd-f9bbf88b778d",
+        "clsid": "b63464cf-c1f5-4e43-b9fb-974b0ffe0e28"
+    },
+    "GOpaque_int": {
+        "iid": "812a2ec6-286c-47b4-b67e-806c6c5dbeb8",
+        "clsid": "3136fd10-c5f0-4bf0-9e81-f4714b2444ef"
+    },
     "GArray_int": {
         "iid": "fa8fc2aa-a079-4808-b93c-d89d5d5f761e",
         "clsid": "86c23d56-95ac-4b00-acfb-1a2c350c3459"
+    },
+    "GArray_Point3f": {
+        "iid": "58afc4b6-939c-471b-824a-58edd1af78f1",
+        "clsid": "d9063f6c-3b16-4aea-ad5c-ce9df84d9f89"
     },
     "GOpaque_double": {
         "iid": "175868e0-28ba-4111-a68d-7178f7020c60",

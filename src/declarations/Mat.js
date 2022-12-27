@@ -281,8 +281,6 @@ const declarations = [
     ], "", ""],
 ];
 
-// ["/ExternalNoDecl", "/attr=propput", "=put_Item", "/idlname=Item", "/id=DISPID_VALUE"]
-
 const types = new Set(["int", "float", "double"]);
 
 for (const _Tp of ["b", "s", "w"]) {

@@ -12,10 +12,10 @@
 #include <WindowsConstants.au3>
 
 ;~ Sources:
-;~     https://docs.opencv.org/4.6.0/de/d70/samples_2cpp_2kalman_8cpp-example.html
-;~     https://github.com/opencv/opencv/blob/4.6.0/samples/cpp/kalman.cpp
+;~     https://docs.opencv.org/4.7.0/de/d70/samples_2cpp_2kalman_8cpp-example.html
+;~     https://github.com/opencv/opencv/blob/4.7.0/samples/cpp/kalman.cpp
 
-_OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world470*"), _OpenCV_FindDLL("autoit_opencv_com470*"))
 OnAutoItExitRegister("OnAutoItExit")
 
 Global $g_hSubclassProc = DllCallbackRegister("_SubclassProc", "lresult", "hwnd;uint;wparam;lparam;uint_ptr;dword_ptr")
@@ -41,11 +41,11 @@ _WinAPI_SetWindowSubclass(GUICtrlGetHandle($PicResult), DllCallbackGetPtr($g_hSu
 Global $nMsg
 Global $keyCode
 
-Global $img = _OpenCV_ObjCreate("cv.Mat").create(500, 500, $CV_8UC3)
-Global $KF = _OpenCV_ObjCreate("cv.KalmanFilter").create(2, 1, 0)
-Global $state = _OpenCV_ObjCreate("cv.Mat").create(2, 1, $CV_32F) ; /* (phi, delta_phi) */
-Global $processNoise = _OpenCV_ObjCreate("cv.Mat").create(2, 1, $CV_32F)
-Global $measurement = _OpenCV_ObjCreate("cv.Mat").zeros(1, 1, $CV_32F)
+Global $img = $cv.Mat.create(500, 500, $CV_8UC3)
+Global $KF = $cv.KalmanFilter(2, 1, 0)
+Global $state = $cv.Mat.create(2, 1, $CV_32F) ; /* (phi, delta_phi) */
+Global $processNoise = $cv.Mat.create(2, 1, $CV_32F)
+Global $measurement = $cv.Mat.zeros(1, 1, $CV_32F)
 
 While 1
 	Main()
@@ -62,7 +62,7 @@ Func Main()
 
 	$state.set_at(0, 0)
 	$state.set_at(1, 2 * $CV_PI / 6)
-	$KF.transitionMatrix = _OpenCV_ObjCreate("cv.Mat").create(2, 2, $CV_32F)
+	$KF.transitionMatrix = $cv.Mat.create(2, 2, $CV_32F)
 	$KF.transitionMatrix.set_at(0, 0, 1)
 	$KF.transitionMatrix.set_at(0, 1, 1)
 	$KF.transitionMatrix.set_at(1, 0, 0)
@@ -157,5 +157,5 @@ Func OnAutoItExit()
 	_WinAPI_RemoveWindowSubclass(GUICtrlGetHandle($GroupResult), DllCallbackGetPtr($g_hSubclassProc), 1000)
 	_WinAPI_RemoveWindowSubclass($FormGUI, DllCallbackGetPtr($g_hSubclassProc), 1000)
 	DllCallbackFree($g_hSubclassProc)
-	_OpenCV_Unregister_And_Close()
+	_OpenCV_Close()
 EndFunc   ;==>OnAutoItExit

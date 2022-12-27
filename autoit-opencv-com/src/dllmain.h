@@ -10,3 +10,6 @@ public:
 };
 
 extern class CCvModule _AtlModule;
+
+STDAPI_(BOOL) DLLActivateActCtx();
+STDAPI_(BOOL) DLLDeactivateActCtx();

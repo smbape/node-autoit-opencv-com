@@ -2,38 +2,28 @@
 #include "cv_interface.au3"
 #include "cv_enums.au3"
 
-Global $_cv_build_type = EnvGet("OPENCV_BUILD_TYPE")
-Global $_cv_debug = Number(EnvGet("OPENCV_DEBUG"))
-
 Global $h_opencv_world_dll = -1
 Global $h_opencv_ffmpeg_dll = -1
 Global $h_autoit_opencv_com_dll = -1
 
-Func _OpenCV_ObjCreate($sClassname, $sFilename = Default)
-	Local Static $s_autoit_opencv_com_dll = ""
-	If $s_autoit_opencv_com_dll == "" Or $sFilename <> Default Then $s_autoit_opencv_com_dll = $sFilename
-	If $sFilename == Default Then $sFilename = $s_autoit_opencv_com_dll
+Func _OpenCV_ObjCreate($sClassname)
+	_OpenCV_ActivateActCtx()
 
-	Local Const $namespaces[] = ["", "OpenCV.", "OpenCV.cv."]
+	Local Static $namespaces[] = ["", "OpenCV.", "OpenCV.cv."]
 	Local $siClassname, $oObj
 
 	For $i = 0 To UBound($namespaces) - 1
 		$siClassname = $namespaces[$i] & $sClassname
 		_OpenCV_DebugMsg("Try ObjCreate " & $siClassname)
 
-		$oObj = ObjGet($s_autoit_opencv_com_dll, $siClassname)
-		If IsObj($oObj) Then
-			_OpenCV_DebugMsg("ObjCreate " & $siClassname)
-			Return $oObj
-		EndIf
-
 		$oObj = ObjCreate($siClassname)
 		If IsObj($oObj) Then
 			_OpenCV_DebugMsg("ObjCreate " & $siClassname)
-			Return $oObj
+			ExitLoop
 		EndIf
 	Next
 
+	_OpenCV_DeactivateActCtx()
 	Return $oObj
 EndFunc   ;==>_OpenCV_ObjCreate
 
@@ -61,8 +51,8 @@ Func _OpenCV_Unregister_And_Close($bUser = Default)
 EndFunc   ;==>_OpenCV_Unregister_And_Close
 
 Func _OpenCV_Install($s_opencv_world_dll = Default, $s_autoit_opencv_com_dll = Default, $bUser = Default, $bOpen = True, $bClose = True, $bInstall = False, $bUninstall = False)
-	If $s_opencv_world_dll == Default Then $s_opencv_world_dll = "opencv_world460.dll"
-	If $s_autoit_opencv_com_dll == Default Then $s_autoit_opencv_com_dll = "autoit_opencv_com460.dll"
+	If $s_opencv_world_dll == Default Then $s_opencv_world_dll = "opencv_world470.dll"
+	If $s_autoit_opencv_com_dll == Default Then $s_autoit_opencv_com_dll = "autoit_opencv_com470.dll"
 	If $bUser == Default Then $bUser = Not IsAdmin()
 
 	If $bClose And $h_opencv_world_dll <> -1 Then DllClose($h_opencv_world_dll)
@@ -71,19 +61,24 @@ Func _OpenCV_Install($s_opencv_world_dll = Default, $s_autoit_opencv_com_dll = D
 		If $h_opencv_world_dll == -1 Then Return SetError(@error, 0, False)
 	EndIf
 
-	; ffmpeg is looked on PATH when loaded in debug mode, not relatively to opencv_world460d.dll
-	; this is a work around to load ffmpeg relatively to opencv_world460d.dll
+	; ffmpeg is looked on PATH when loaded in debug mode, not relatively to opencv_world470d.dll
+	; this is a work around to load ffmpeg relatively to opencv_world470d.dll
 	If $bClose And $h_opencv_ffmpeg_dll <> -1 Then DllClose($h_opencv_ffmpeg_dll)
-	If $bOpen And $_cv_build_type == "Debug" Then
-		$h_opencv_ffmpeg_dll = _OpenCV_LoadDLL(StringReplace($s_opencv_world_dll, "opencv_world460d.dll", "opencv_videoio_ffmpeg460_64.dll"))
+	If $bOpen And EnvGet("OPENCV_BUILD_TYPE") == "Debug" Then
+		$h_opencv_ffmpeg_dll = _OpenCV_LoadDLL(StringReplace($s_opencv_world_dll, "opencv_world470d.dll", "opencv_videoio_ffmpeg470_64.dll"))
 		If $h_opencv_ffmpeg_dll == -1 Then Return SetError(@error, 0, False)
 	EndIf
 
-	If $bClose And $h_autoit_opencv_com_dll <> -1 Then DllClose($h_autoit_opencv_com_dll)
+	If $bClose Then
+		If $h_autoit_opencv_com_dll <> -1 Then
+			DllClose($h_autoit_opencv_com_dll)
+			$h_autoit_opencv_com_dll = -1
+		EndIf
+	EndIf
+
 	If $bOpen Then
 		$h_autoit_opencv_com_dll = _OpenCV_LoadDLL($s_autoit_opencv_com_dll)
 		If $h_autoit_opencv_com_dll == -1 Then Return SetError(@error, 0, False)
-		_OpenCV_ObjCreate("cv", $s_autoit_opencv_com_dll)
 	EndIf
 
 	Local $hresult
@@ -113,7 +108,6 @@ EndFunc   ;==>_OpenCV_Open
 
 Func _OpenCV_Close()
 	_OpenCV_get(0)
-	_OpenCV_ObjCreate("cv", "")
 	Return _OpenCV_Install(Default, Default, Default, False)
 EndFunc   ;==>_OpenCV_Close
 
@@ -125,7 +119,16 @@ Func _OpenCV_Unregister($bUser = Default)
 	Return _OpenCV_Install(Default, Default, $bUser, False, False, False, True)
 EndFunc   ;==>_OpenCV_Unregister
 
+Func _OpenCV_ActivateActCtx()
+	Return _OpenCV_DllCall($h_autoit_opencv_com_dll, "BOOL", "DLLActivateActCtx")
+EndFunc   ;==>_OpenCV_ActivateActCtx
+
+Func _OpenCV_DeactivateActCtx()
+	Return _OpenCV_DllCall($h_autoit_opencv_com_dll, "BOOL", "DLLDeactivateActCtx")
+EndFunc   ;==>_OpenCV_DeactivateActCtx
+
 Func _OpenCV_DebugMsg($msg)
+	Local $_cv_debug = Number(EnvGet("OPENCV_DEBUG"))
 	If BitAND($_cv_debug, 1) Then
 		ConsoleWrite($msg & @CRLF)
 	EndIf
@@ -245,12 +248,13 @@ Func _OpenCV_DllCall($dll, $return_type, $function, $type1 = Default, $param1 = 
 	EndSwitch
 
 	Local $error = @error
+	Local $extended = @extended
 
 	_OpenCV_DebugMsg('Called ' & $function)
 
 	If $error Then
 		_OpenCV_PrintDLLError($error, $function)
-		Return -1
+		Return SetError($error, $extended, -1)
 	EndIf
 
 	Return $_aResult[0]

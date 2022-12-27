@@ -3,8 +3,61 @@
 
 namespace fs = std::filesystem;
 
+CActivationContext::CActivationContext() : m_hActCtx(INVALID_HANDLE_VALUE)
+{
+}
+
+void CActivationContext::Set(HANDLE hActCtx)
+{
+	if (hActCtx != INVALID_HANDLE_VALUE) {
+		AddRefActCtx(hActCtx);
+	}
+
+	if (m_hActCtx != INVALID_HANDLE_VALUE) {
+		ReleaseActCtx(m_hActCtx);
+	}
+
+	m_hActCtx = hActCtx;
+}
+
+CActivationContext::~CActivationContext()
+{
+	if (m_hActCtx != INVALID_HANDLE_VALUE) {
+		ReleaseActCtx(m_hActCtx);
+	}
+}
+
+bool CActivationContext::Activate(ULONG_PTR& ulpCookie)
+{
+	return m_hActCtx != INVALID_HANDLE_VALUE && ActivateActCtx(m_hActCtx, &ulpCookie);
+}
+
+bool CActivationContext::Deactivate(ULONG_PTR& ulpCookie)
+{
+	if (m_hActCtx == INVALID_HANDLE_VALUE || !DeactivateActCtx(0, ulpCookie)) {
+		return false;
+	}
+	ulpCookie = 0;
+	return true;
+}
+
+CActCtxActivator::CActCtxActivator(CActivationContext& src, bool fActivate)
+	: m_ActCtx(src), m_Cookie(0)
+{
+	m_Activated = fActivate && src.Activate(m_Cookie);
+}
+
+CActCtxActivator::~CActCtxActivator()
+{
+	if (m_Activated) {
+		m_ActCtx.Deactivate(m_Cookie);
+		m_Activated = false;
+	}
+}
+
 ATL::CComSafeArray<VARIANT> ExtendedHolder::extended((ULONG)0);
 HMODULE ExtendedHolder::hModule = GetModuleHandle(NULL);
+CActivationContext ExtendedHolder::_ActCtx;
 
 HRESULT ExtendedHolder::SetLength(ULONG len) {
 	return extended.Resize(len);
@@ -12,6 +65,70 @@ HRESULT ExtendedHolder::SetLength(ULONG len) {
 
 HRESULT ExtendedHolder::SetAt(LONG i, const VARIANT& value, bool copy) {
 	return extended.SetAt(i, value, copy);
+}
+
+#ifdef UNICODE
+#define _char_t WCHAR
+#define _string_t wstring
+#define C_STR L
+#else
+#define _char_t CHAR
+#define _string_t string
+#define C_STR
+#endif
+
+void ExtendedHolder::CreateActivationContext(HINSTANCE hInstance) {
+	// GetModuleFileName
+	std::vector<_char_t> sourceBuffer;
+
+	DWORD nSize = 0;
+	do {
+		sourceBuffer.resize(sourceBuffer.size() + MAX_PATH);
+		nSize = GetModuleFileName(hInstance, &sourceBuffer.at(0), sourceBuffer.size());
+	} while (GetLastError() == ERROR_INSUFFICIENT_BUFFER);
+
+	if (GetLastError() != 0) {
+		return;
+	}
+
+	sourceBuffer.resize(nSize);
+
+	//First try ID 2 and then ID 1 - this is to consider also a.dll.manifest file
+	//for dlls, which ID 2 ignores.
+	ACTCTX actCtx;
+	memset((void*)&actCtx, 0, sizeof(ACTCTX));
+	actCtx.cbSize = sizeof(ACTCTX);
+
+	actCtx.dwFlags = ACTCTX_FLAG_RESOURCE_NAME_VALID | ACTCTX_FLAG_HMODULE_VALID;
+	actCtx.lpSource = &sourceBuffer.at(0);
+	actCtx.lpResourceName = ISOLATIONAWARE_MANIFEST_RESOURCE_ID;
+	actCtx.hModule = hInstance;
+
+	HANDLE hActCtx = ::CreateActCtx(&actCtx);
+	if (hActCtx == INVALID_HANDLE_VALUE)
+	{
+		actCtx.lpResourceName = ISOLATIONAWARE_NOSTATICIMPORT_MANIFEST_RESOURCE_ID;
+		hActCtx = ::CreateActCtx(&actCtx);
+	}
+
+	if (hActCtx == INVALID_HANDLE_VALUE)
+	{
+		actCtx.lpResourceName = CREATEPROCESS_MANIFEST_RESOURCE_ID;
+		hActCtx = ::CreateActCtx(&actCtx);
+	}
+
+	if (hActCtx == INVALID_HANDLE_VALUE)
+	{
+		memset((void*)&actCtx, 0, sizeof(ACTCTX));
+		std::_string_t manifest(sourceBuffer.begin(), sourceBuffer.end());
+		const std::_string_t what = C_STR".dll";
+		const std::_string_t with = C_STR".sxs.manifest";
+		manifest.replace(manifest.length() - what.length(), what.length(), with.data(), with.length());
+		actCtx.lpSource = manifest.c_str();
+	}
+
+	_ActCtx.Set(hActCtx);
+	ReleaseActCtx(hActCtx);
 }
 
 IDispatch* getRealIDispatch(VARIANT const* const& in_val) {
@@ -425,7 +542,7 @@ namespace {
 			if (
 				(i != last_part || (flags & ::autoit::FLTA_FOLDERS) == ::autoit::FLTA_FOLDERS) &&
 				part.find("?") == std::string::npos && part.find("*") == std::string::npos
-			) {
+				) {
 				dir = dir / part;
 				found = fs::exists(dir);
 				if (!found) {

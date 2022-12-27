@@ -5,10 +5,143 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [cv](#cv)
+  - [cv.parallel](#cvparallel)
+  - [cv.enums](#cvenums)
+  - [cv.PCA](#cvpca)
+  - [cv.SVD](#cvsvd)
+  - [cv.RNG](#cvrng)
+  - [cv.Formatter](#cvformatter)
+  - [cv.Algorithm](#cvalgorithm)
+  - [cv.Param](#cvparam)
+  - [cv.AsyncArray](#cvasyncarray)
+  - [cv.Error](#cverror)
+  - [cv.ipp](#cvipp)
+  - [cv.utils](#cvutils)
+  - [cv.detail](#cvdetail)
+  - [cv.cuda](#cvcuda)
+  - [cv.\_InputArray](#cv%5C_inputarray)
+  - [cv.\_OutputArray](#cv%5C_outputarray)
+  - [cv.UMatData](#cvumatdata)
+  - [cv.Mat](#cvmat)
+  - [cv.UMat](#cvumat)
+  - [cv.SparseMat](#cvsparsemat)
+  - [cv.ocl](#cvocl)
+  - [cv.ogl](#cvogl)
+  - [cv.FileStorage](#cvfilestorage)
+  - [cv.FileNode](#cvfilenode)
+  - [cv.QuatEnum](#cvquatenum)
+  - [cv.KeyPoint](#cvkeypoint)
+  - [cv.DMatch](#cvdmatch)
+  - [cv.TermCriteria](#cvtermcriteria)
+  - [cv.TickMeter](#cvtickmeter)
+  - [cv.samples](#cvsamples)
+  - [cv.flann](#cvflann)
+  - [cv.GeneralizedHough](#cvgeneralizedhough)
+  - [cv.GeneralizedHoughBallard](#cvgeneralizedhoughballard)
+  - [cv.GeneralizedHoughGuil](#cvgeneralizedhoughguil)
+  - [cv.CLAHE](#cvclahe)
+  - [cv.Subdiv2D](#cvsubdiv2d)
+  - [cv.LineSegmentDetector](#cvlinesegmentdetector)
+  - [cv.segmentation](#cvsegmentation)
+  - [cv.ml](#cvml)
+  - [cv.Tonemap](#cvtonemap)
+  - [cv.TonemapDrago](#cvtonemapdrago)
+  - [cv.TonemapReinhard](#cvtonemapreinhard)
+  - [cv.TonemapMantiuk](#cvtonemapmantiuk)
+  - [cv.AlignExposures](#cvalignexposures)
+  - [cv.AlignMTB](#cvalignmtb)
+  - [cv.CalibrateCRF](#cvcalibratecrf)
+  - [cv.CalibrateDebevec](#cvcalibratedebevec)
+  - [cv.CalibrateRobertson](#cvcalibraterobertson)
+  - [cv.MergeExposures](#cvmergeexposures)
+  - [cv.MergeDebevec](#cvmergedebevec)
+  - [cv.MergeMertens](#cvmergemertens)
+  - [cv.MergeRobertson](#cvmergerobertson)
+  - [cv.dnn](#cvdnn)
+  - [cv.Feature2D](#cvfeature2d)
+  - [cv.AffineFeature](#cvaffinefeature)
+  - [cv.SIFT](#cvsift)
+  - [cv.BRISK](#cvbrisk)
+  - [cv.ORB](#cvorb)
+  - [cv.MSER](#cvmser)
+  - [cv.FastFeatureDetector](#cvfastfeaturedetector)
+  - [cv.AgastFeatureDetector](#cvagastfeaturedetector)
+  - [cv.GFTTDetector](#cvgfttdetector)
+  - [cv.SimpleBlobDetector](#cvsimpleblobdetector)
+  - [cv.KAZE](#cvkaze)
+  - [cv.AKAZE](#cvakaze)
+  - [cv.DescriptorMatcher](#cvdescriptormatcher)
+  - [cv.BFMatcher](#cvbfmatcher)
+  - [cv.FlannBasedMatcher](#cvflannbasedmatcher)
+  - [cv.DrawMatchesFlags](#cvdrawmatchesflags)
+  - [cv.BOWTrainer](#cvbowtrainer)
+  - [cv.BOWKMeansTrainer](#cvbowkmeanstrainer)
+  - [cv.BOWImgDescriptorExtractor](#cvbowimgdescriptorextractor)
+  - [cv.VideoCapture](#cvvideocapture)
+  - [cv.VideoWriter](#cvvideowriter)
+  - [cv.videoio\_registry](#cvvideoio%5C_registry)
+  - [cv.UsacParams](#cvusacparams)
+  - [cv.CirclesGridFinderParameters](#cvcirclesgridfinderparameters)
+  - [cv.StereoMatcher](#cvstereomatcher)
+  - [cv.StereoBM](#cvstereobm)
+  - [cv.StereoSGBM](#cvstereosgbm)
+  - [cv.fisheye](#cvfisheye)
+  - [cv.BaseCascadeClassifier](#cvbasecascadeclassifier)
+  - [cv.CascadeClassifier](#cvcascadeclassifier)
+  - [cv.HOGDescriptor](#cvhogdescriptor)
+  - [cv.QRCodeEncoder](#cvqrcodeencoder)
+  - [cv.QRCodeDetector](#cvqrcodedetector)
+  - [cv.aruco](#cvaruco)
+  - [cv.FaceDetectorYN](#cvfacedetectoryn)
+  - [cv.FaceRecognizerSF](#cvfacerecognizersf)
+  - [cv.Stitcher](#cvstitcher)
+  - [cv.PyRotationWarper](#cvpyrotationwarper)
+  - [cv.WarperCreator](#cvwarpercreator)
+  - [cv.BackgroundSubtractor](#cvbackgroundsubtractor)
+  - [cv.BackgroundSubtractorMOG2](#cvbackgroundsubtractormog2)
+  - [cv.BackgroundSubtractorKNN](#cvbackgroundsubtractorknn)
+  - [cv.KalmanFilter](#cvkalmanfilter)
+  - [cv.DenseOpticalFlow](#cvdenseopticalflow)
+  - [cv.SparseOpticalFlow](#cvsparseopticalflow)
+  - [cv.FarnebackOpticalFlow](#cvfarnebackopticalflow)
+  - [cv.VariationalRefinement](#cvvariationalrefinement)
+  - [cv.DISOpticalFlow](#cvdisopticalflow)
+  - [cv.SparsePyrLKOpticalFlow](#cvsparsepyrlkopticalflow)
+  - [cv.Tracker](#cvtracker)
+  - [cv.TrackerMIL](#cvtrackermil)
+  - [cv.TrackerGOTURN](#cvtrackergoturn)
+  - [cv.TrackerDaSiamRPN](#cvtrackerdasiamrpn)
+  - [cv.TrackerNano](#cvtrackernano)
+  - [cv.gapi](#cvgapi)
+  - [cv.GFluidKernel](#cvgfluidkernel)
+  - [cv.GArrayDesc](#cvgarraydesc)
+  - [cv.GShape](#cvgshape)
+  - [cv.GComputation](#cvgcomputation)
+  - [cv.GFrame](#cvgframe)
+  - [cv.MediaFormat](#cvmediaformat)
+  - [cv.GKernelPackage](#cvgkernelpackage)
+  - [cv.GMat](#cvgmat)
+  - [cv.GMatDesc](#cvgmatdesc)
+  - [cv.GOpaqueDesc](#cvgopaquedesc)
+  - [cv.GScalar](#cvgscalar)
+  - [cv.GScalarDesc](#cvgscalardesc)
+  - [cv.GStreamingCompiled](#cvgstreamingcompiled)
+  - [cv.MediaFrame](#cvmediaframe)
+  - [cv.RMat](#cvrmat)
+  - [cv.wgc](#cvwgc)
   - [cv.extended](#cvextended)
   - [cv.core](#cvcore)
+  - [cv.Matx33f](#cvmatx33f)
+  - [cv.Matx33d](#cvmatx33d)
+  - [cv.Matx44f](#cvmatx44f)
+  - [cv.Matx44d](#cvmatx44d)
+  - [cv.Range](#cvrange)
+  - [cv.RotatedRect](#cvrotatedrect)
+  - [cv.GCompileArg](#cvgcompilearg)
+  - [cv.GRunArg](#cvgrunarg)
+  - [cv.GProtoInputArgs](#cvgprotoinputargs)
+  - [cv.GProtoOutputArgs](#cvgprotooutputargs)
   - [cv::CamShift](#cvcamshift)
   - [cv::Canny](#cvcanny)
   - [cv::EMD](#cvemd)
@@ -194,6 +327,7 @@
   - [cv::fitEllipseDirect](#cvfitellipsedirect)
   - [cv::fitLine](#cvfitline)
   - [cv::flip](#cvflip)
+  - [cv::flipND](#cvflipnd)
   - [cv::floodFill](#cvfloodfill)
   - [cv::format](#cvformat)
   - [cv::gemm](#cvgemm)
@@ -241,6 +375,7 @@
   - [cv::illuminationChange](#cvilluminationchange)
   - [cv::imcount](#cvimcount)
   - [cv::imdecode](#cvimdecode)
+  - [cv::imdecodemulti](#cvimdecodemulti)
   - [cv::imencode](#cvimencode)
   - [cv::imread](#cvimread)
   - [cv::imreadmulti](#cvimreadmulti)
@@ -320,6 +455,7 @@
   - [cv::readString](#cvreadstring)
   - [cv::recoverPose](#cvrecoverpose)
   - [cv::rectangle](#cvrectangle)
+  - [cv::rectangleIntersectionArea](#cvrectangleintersectionarea)
   - [cv::rectify3Collinear](#cvrectify3collinear)
   - [cv::reduce](#cvreduce)
   - [cv::reduceArgMax](#cvreduceargmax)
@@ -365,6 +501,7 @@
   - [cv::split](#cvsplit)
   - [cv::sqrBoxFilter](#cvsqrboxfilter)
   - [cv::sqrt](#cvsqrt)
+  - [cv::stackBlur](#cvstackblur)
   - [cv::startWindowThread](#cvstartwindowthread)
   - [cv::stereoCalibrate](#cvstereocalibrate)
   - [cv::stereoCalibrateExtended](#cvstereocalibrateextended)
@@ -396,1055 +533,1080 @@
   - [cv::warpPolar](#cvwarppolar)
   - [cv::watershed](#cvwatershed)
   - [cv::writeOpticalFlow](#cvwriteopticalflow)
-  - [cv.SORT\_EVERY\_ROW\_](#cvsort%5C_every%5C_row%5C_)
-  - [cv.SORT\_EVERY\_COLUMN\_](#cvsort%5C_every%5C_column%5C_)
-  - [cv.SORT\_ASCENDING\_](#cvsort%5C_ascending%5C_)
-  - [cv.SORT\_DESCENDING\_](#cvsort%5C_descending%5C_)
-  - [cv.COVAR\_SCRAMBLED\_](#cvcovar%5C_scrambled%5C_)
-  - [cv.COVAR\_NORMAL\_](#cvcovar%5C_normal%5C_)
-  - [cv.COVAR\_USE\_AVG\_](#cvcovar%5C_use%5C_avg%5C_)
-  - [cv.COVAR\_SCALE\_](#cvcovar%5C_scale%5C_)
-  - [cv.COVAR\_ROWS\_](#cvcovar%5C_rows%5C_)
-  - [cv.COVAR\_COLS\_](#cvcovar%5C_cols%5C_)
-  - [cv.KMEANS\_RANDOM\_CENTERS\_](#cvkmeans%5C_random%5C_centers%5C_)
-  - [cv.KMEANS\_PP\_CENTERS\_](#cvkmeans%5C_pp%5C_centers%5C_)
-  - [cv.KMEANS\_USE\_INITIAL\_LABELS\_](#cvkmeans%5C_use%5C_initial%5C_labels%5C_)
-  - [cv.REDUCE\_SUM\_](#cvreduce%5C_sum%5C_)
-  - [cv.REDUCE\_AVG\_](#cvreduce%5C_avg%5C_)
-  - [cv.REDUCE\_MAX\_](#cvreduce%5C_max%5C_)
-  - [cv.REDUCE\_MIN\_](#cvreduce%5C_min%5C_)
-  - [cv.ROTATE\_90\_CLOCKWISE\_](#cvrotate%5C_90%5C_clockwise%5C_)
-  - [cv.ROTATE\_180\_](#cvrotate%5C_180%5C_)
-  - [cv.ROTATE\_90\_COUNTERCLOCKWISE\_](#cvrotate%5C_90%5C_counterclockwise%5C_)
-  - [cv.DECOMP\_LU\_](#cvdecomp%5C_lu%5C_)
-  - [cv.DECOMP\_SVD\_](#cvdecomp%5C_svd%5C_)
-  - [cv.DECOMP\_EIG\_](#cvdecomp%5C_eig%5C_)
-  - [cv.DECOMP\_CHOLESKY\_](#cvdecomp%5C_cholesky%5C_)
-  - [cv.DECOMP\_QR\_](#cvdecomp%5C_qr%5C_)
-  - [cv.DECOMP\_NORMAL\_](#cvdecomp%5C_normal%5C_)
-  - [cv.NORM\_INF\_](#cvnorm%5C_inf%5C_)
-  - [cv.NORM\_L1\_](#cvnorm%5C_l1%5C_)
-  - [cv.NORM\_L2\_](#cvnorm%5C_l2%5C_)
-  - [cv.NORM\_L2SQR\_](#cvnorm%5C_l2sqr%5C_)
-  - [cv.NORM\_HAMMING\_](#cvnorm%5C_hamming%5C_)
-  - [cv.NORM\_HAMMING2\_](#cvnorm%5C_hamming2%5C_)
-  - [cv.NORM\_TYPE\_MASK\_](#cvnorm%5C_type%5C_mask%5C_)
-  - [cv.NORM\_RELATIVE\_](#cvnorm%5C_relative%5C_)
-  - [cv.NORM\_MINMAX\_](#cvnorm%5C_minmax%5C_)
-  - [cv.CMP\_EQ\_](#cvcmp%5C_eq%5C_)
-  - [cv.CMP\_GT\_](#cvcmp%5C_gt%5C_)
-  - [cv.CMP\_GE\_](#cvcmp%5C_ge%5C_)
-  - [cv.CMP\_LT\_](#cvcmp%5C_lt%5C_)
-  - [cv.CMP\_LE\_](#cvcmp%5C_le%5C_)
-  - [cv.CMP\_NE\_](#cvcmp%5C_ne%5C_)
-  - [cv.GEMM\_1\_T\_](#cvgemm%5C_1%5C_t%5C_)
-  - [cv.GEMM\_2\_T\_](#cvgemm%5C_2%5C_t%5C_)
-  - [cv.GEMM\_3\_T\_](#cvgemm%5C_3%5C_t%5C_)
-  - [cv.DFT\_INVERSE\_](#cvdft%5C_inverse%5C_)
-  - [cv.DFT\_SCALE\_](#cvdft%5C_scale%5C_)
-  - [cv.DFT\_ROWS\_](#cvdft%5C_rows%5C_)
-  - [cv.DFT\_COMPLEX\_OUTPUT\_](#cvdft%5C_complex%5C_output%5C_)
-  - [cv.DFT\_REAL\_OUTPUT\_](#cvdft%5C_real%5C_output%5C_)
-  - [cv.DFT\_COMPLEX\_INPUT\_](#cvdft%5C_complex%5C_input%5C_)
-  - [cv.DCT\_INVERSE\_](#cvdct%5C_inverse%5C_)
-  - [cv.DCT\_ROWS\_](#cvdct%5C_rows%5C_)
-  - [cv.BORDER\_CONSTANT\_](#cvborder%5C_constant%5C_)
-  - [cv.BORDER\_REPLICATE\_](#cvborder%5C_replicate%5C_)
-  - [cv.BORDER\_REFLECT\_](#cvborder%5C_reflect%5C_)
-  - [cv.BORDER\_WRAP\_](#cvborder%5C_wrap%5C_)
-  - [cv.BORDER\_REFLECT\_101\_](#cvborder%5C_reflect%5C_101%5C_)
-  - [cv.BORDER\_TRANSPARENT\_](#cvborder%5C_transparent%5C_)
-  - [cv.BORDER\_REFLECT101\_](#cvborder%5C_reflect101%5C_)
-  - [cv.BORDER\_DEFAULT\_](#cvborder%5C_default%5C_)
-  - [cv.BORDER\_ISOLATED\_](#cvborder%5C_isolated%5C_)
-  - [cv.ACCESS\_READ\_](#cvaccess%5C_read%5C_)
-  - [cv.ACCESS\_WRITE\_](#cvaccess%5C_write%5C_)
-  - [cv.ACCESS\_RW\_](#cvaccess%5C_rw%5C_)
-  - [cv.ACCESS\_MASK\_](#cvaccess%5C_mask%5C_)
-  - [cv.ACCESS\_FAST\_](#cvaccess%5C_fast%5C_)
-  - [cv.USAGE\_DEFAULT\_](#cvusage%5C_default%5C_)
-  - [cv.USAGE\_ALLOCATE\_HOST\_MEMORY\_](#cvusage%5C_allocate%5C_host%5C_memory%5C_)
-  - [cv.USAGE\_ALLOCATE\_DEVICE\_MEMORY\_](#cvusage%5C_allocate%5C_device%5C_memory%5C_)
-  - [cv.USAGE\_ALLOCATE\_SHARED\_MEMORY\_](#cvusage%5C_allocate%5C_shared%5C_memory%5C_)
-  - [cv.\_\_UMAT\_USAGE\_FLAGS\_32BIT\_](#cv%5C_%5C_umat%5C_usage%5C_flags%5C_32bit%5C_)
-  - [cv.SOLVELP\_UNBOUNDED\_](#cvsolvelp%5C_unbounded%5C_)
-  - [cv.SOLVELP\_UNFEASIBLE\_](#cvsolvelp%5C_unfeasible%5C_)
-  - [cv.SOLVELP\_SINGLE\_](#cvsolvelp%5C_single%5C_)
-  - [cv.SOLVELP\_MULTI\_](#cvsolvelp%5C_multi%5C_)
-  - [cv.QUAT\_ASSUME\_NOT\_UNIT\_](#cvquat%5C_assume%5C_not%5C_unit%5C_)
-  - [cv.QUAT\_ASSUME\_UNIT\_](#cvquat%5C_assume%5C_unit%5C_)
-  - [cv.FILTER\_SCHARR\_](#cvfilter%5C_scharr%5C_)
-  - [cv.MORPH\_ERODE\_](#cvmorph%5C_erode%5C_)
-  - [cv.MORPH\_DILATE\_](#cvmorph%5C_dilate%5C_)
-  - [cv.MORPH\_OPEN\_](#cvmorph%5C_open%5C_)
-  - [cv.MORPH\_CLOSE\_](#cvmorph%5C_close%5C_)
-  - [cv.MORPH\_GRADIENT\_](#cvmorph%5C_gradient%5C_)
-  - [cv.MORPH\_TOPHAT\_](#cvmorph%5C_tophat%5C_)
-  - [cv.MORPH\_BLACKHAT\_](#cvmorph%5C_blackhat%5C_)
-  - [cv.MORPH\_HITMISS\_](#cvmorph%5C_hitmiss%5C_)
-  - [cv.MORPH\_RECT\_](#cvmorph%5C_rect%5C_)
-  - [cv.MORPH\_CROSS\_](#cvmorph%5C_cross%5C_)
-  - [cv.MORPH\_ELLIPSE\_](#cvmorph%5C_ellipse%5C_)
-  - [cv.INTER\_NEAREST\_](#cvinter%5C_nearest%5C_)
-  - [cv.INTER\_LINEAR\_](#cvinter%5C_linear%5C_)
-  - [cv.INTER\_CUBIC\_](#cvinter%5C_cubic%5C_)
-  - [cv.INTER\_AREA\_](#cvinter%5C_area%5C_)
-  - [cv.INTER\_LANCZOS4\_](#cvinter%5C_lanczos4%5C_)
-  - [cv.INTER\_LINEAR\_EXACT\_](#cvinter%5C_linear%5C_exact%5C_)
-  - [cv.INTER\_NEAREST\_EXACT\_](#cvinter%5C_nearest%5C_exact%5C_)
-  - [cv.INTER\_MAX\_](#cvinter%5C_max%5C_)
-  - [cv.WARP\_FILL\_OUTLIERS\_](#cvwarp%5C_fill%5C_outliers%5C_)
-  - [cv.WARP\_INVERSE\_MAP\_](#cvwarp%5C_inverse%5C_map%5C_)
-  - [cv.WARP\_POLAR\_LINEAR\_](#cvwarp%5C_polar%5C_linear%5C_)
-  - [cv.WARP\_POLAR\_LOG\_](#cvwarp%5C_polar%5C_log%5C_)
-  - [cv.INTER\_BITS\_](#cvinter%5C_bits%5C_)
-  - [cv.INTER\_BITS2\_](#cvinter%5C_bits2%5C_)
-  - [cv.INTER\_TAB\_SIZE\_](#cvinter%5C_tab%5C_size%5C_)
-  - [cv.INTER\_TAB\_SIZE2\_](#cvinter%5C_tab%5C_size2%5C_)
-  - [cv.DIST\_USER\_](#cvdist%5C_user%5C_)
-  - [cv.DIST\_L1\_](#cvdist%5C_l1%5C_)
-  - [cv.DIST\_L2\_](#cvdist%5C_l2%5C_)
-  - [cv.DIST\_C\_](#cvdist%5C_c%5C_)
-  - [cv.DIST\_L12\_](#cvdist%5C_l12%5C_)
-  - [cv.DIST\_FAIR\_](#cvdist%5C_fair%5C_)
-  - [cv.DIST\_WELSCH\_](#cvdist%5C_welsch%5C_)
-  - [cv.DIST\_HUBER\_](#cvdist%5C_huber%5C_)
-  - [cv.DIST\_MASK\_3\_](#cvdist%5C_mask%5C_3%5C_)
-  - [cv.DIST\_MASK\_5\_](#cvdist%5C_mask%5C_5%5C_)
-  - [cv.DIST\_MASK\_PRECISE\_](#cvdist%5C_mask%5C_precise%5C_)
-  - [cv.THRESH\_BINARY\_](#cvthresh%5C_binary%5C_)
-  - [cv.THRESH\_BINARY\_INV\_](#cvthresh%5C_binary%5C_inv%5C_)
-  - [cv.THRESH\_TRUNC\_](#cvthresh%5C_trunc%5C_)
-  - [cv.THRESH\_TOZERO\_](#cvthresh%5C_tozero%5C_)
-  - [cv.THRESH\_TOZERO\_INV\_](#cvthresh%5C_tozero%5C_inv%5C_)
-  - [cv.THRESH\_MASK\_](#cvthresh%5C_mask%5C_)
-  - [cv.THRESH\_OTSU\_](#cvthresh%5C_otsu%5C_)
-  - [cv.THRESH\_TRIANGLE\_](#cvthresh%5C_triangle%5C_)
-  - [cv.ADAPTIVE\_THRESH\_MEAN\_C\_](#cvadaptive%5C_thresh%5C_mean%5C_c%5C_)
-  - [cv.ADAPTIVE\_THRESH\_GAUSSIAN\_C\_](#cvadaptive%5C_thresh%5C_gaussian%5C_c%5C_)
-  - [cv.GC\_BGD\_](#cvgc%5C_bgd%5C_)
-  - [cv.GC\_FGD\_](#cvgc%5C_fgd%5C_)
-  - [cv.GC\_PR\_BGD\_](#cvgc%5C_pr%5C_bgd%5C_)
-  - [cv.GC\_PR\_FGD\_](#cvgc%5C_pr%5C_fgd%5C_)
-  - [cv.GC\_INIT\_WITH\_RECT\_](#cvgc%5C_init%5C_with%5C_rect%5C_)
-  - [cv.GC\_INIT\_WITH\_MASK\_](#cvgc%5C_init%5C_with%5C_mask%5C_)
-  - [cv.GC\_EVAL\_](#cvgc%5C_eval%5C_)
-  - [cv.GC\_EVAL\_FREEZE\_MODEL\_](#cvgc%5C_eval%5C_freeze%5C_model%5C_)
-  - [cv.DIST\_LABEL\_CCOMP\_](#cvdist%5C_label%5C_ccomp%5C_)
-  - [cv.DIST\_LABEL\_PIXEL\_](#cvdist%5C_label%5C_pixel%5C_)
-  - [cv.FLOODFILL\_FIXED\_RANGE\_](#cvfloodfill%5C_fixed%5C_range%5C_)
-  - [cv.FLOODFILL\_MASK\_ONLY\_](#cvfloodfill%5C_mask%5C_only%5C_)
-  - [cv.CC\_STAT\_LEFT\_](#cvcc%5C_stat%5C_left%5C_)
-  - [cv.CC\_STAT\_TOP\_](#cvcc%5C_stat%5C_top%5C_)
-  - [cv.CC\_STAT\_WIDTH\_](#cvcc%5C_stat%5C_width%5C_)
-  - [cv.CC\_STAT\_HEIGHT\_](#cvcc%5C_stat%5C_height%5C_)
-  - [cv.CC\_STAT\_AREA\_](#cvcc%5C_stat%5C_area%5C_)
-  - [cv.CC\_STAT\_MAX\_](#cvcc%5C_stat%5C_max%5C_)
-  - [cv.CCL\_DEFAULT\_](#cvccl%5C_default%5C_)
-  - [cv.CCL\_WU\_](#cvccl%5C_wu%5C_)
-  - [cv.CCL\_GRANA\_](#cvccl%5C_grana%5C_)
-  - [cv.CCL\_BOLELLI\_](#cvccl%5C_bolelli%5C_)
-  - [cv.CCL\_SAUF\_](#cvccl%5C_sauf%5C_)
-  - [cv.CCL\_BBDT\_](#cvccl%5C_bbdt%5C_)
-  - [cv.CCL\_SPAGHETTI\_](#cvccl%5C_spaghetti%5C_)
-  - [cv.RETR\_EXTERNAL\_](#cvretr%5C_external%5C_)
-  - [cv.RETR\_LIST\_](#cvretr%5C_list%5C_)
-  - [cv.RETR\_CCOMP\_](#cvretr%5C_ccomp%5C_)
-  - [cv.RETR\_TREE\_](#cvretr%5C_tree%5C_)
-  - [cv.RETR\_FLOODFILL\_](#cvretr%5C_floodfill%5C_)
-  - [cv.CHAIN\_APPROX\_NONE\_](#cvchain%5C_approx%5C_none%5C_)
-  - [cv.CHAIN\_APPROX\_SIMPLE\_](#cvchain%5C_approx%5C_simple%5C_)
-  - [cv.CHAIN\_APPROX\_TC89\_L1\_](#cvchain%5C_approx%5C_tc89%5C_l1%5C_)
-  - [cv.CHAIN\_APPROX\_TC89\_KCOS\_](#cvchain%5C_approx%5C_tc89%5C_kcos%5C_)
-  - [cv.CONTOURS\_MATCH\_I1\_](#cvcontours%5C_match%5C_i1%5C_)
-  - [cv.CONTOURS\_MATCH\_I2\_](#cvcontours%5C_match%5C_i2%5C_)
-  - [cv.CONTOURS\_MATCH\_I3\_](#cvcontours%5C_match%5C_i3%5C_)
-  - [cv.HOUGH\_STANDARD\_](#cvhough%5C_standard%5C_)
-  - [cv.HOUGH\_PROBABILISTIC\_](#cvhough%5C_probabilistic%5C_)
-  - [cv.HOUGH\_MULTI\_SCALE\_](#cvhough%5C_multi%5C_scale%5C_)
-  - [cv.HOUGH\_GRADIENT\_](#cvhough%5C_gradient%5C_)
-  - [cv.HOUGH\_GRADIENT\_ALT\_](#cvhough%5C_gradient%5C_alt%5C_)
-  - [cv.LSD\_REFINE\_NONE\_](#cvlsd%5C_refine%5C_none%5C_)
-  - [cv.LSD\_REFINE\_STD\_](#cvlsd%5C_refine%5C_std%5C_)
-  - [cv.LSD\_REFINE\_ADV\_](#cvlsd%5C_refine%5C_adv%5C_)
-  - [cv.HISTCMP\_CORREL\_](#cvhistcmp%5C_correl%5C_)
-  - [cv.HISTCMP\_CHISQR\_](#cvhistcmp%5C_chisqr%5C_)
-  - [cv.HISTCMP\_INTERSECT\_](#cvhistcmp%5C_intersect%5C_)
-  - [cv.HISTCMP\_BHATTACHARYYA\_](#cvhistcmp%5C_bhattacharyya%5C_)
-  - [cv.HISTCMP\_HELLINGER\_](#cvhistcmp%5C_hellinger%5C_)
-  - [cv.HISTCMP\_CHISQR\_ALT\_](#cvhistcmp%5C_chisqr%5C_alt%5C_)
-  - [cv.HISTCMP\_KL\_DIV\_](#cvhistcmp%5C_kl%5C_div%5C_)
-  - [cv.COLOR\_BGR2BGRA\_](#cvcolor%5C_bgr2bgra%5C_)
-  - [cv.COLOR\_RGB2RGBA\_](#cvcolor%5C_rgb2rgba%5C_)
-  - [cv.COLOR\_BGRA2BGR\_](#cvcolor%5C_bgra2bgr%5C_)
-  - [cv.COLOR\_RGBA2RGB\_](#cvcolor%5C_rgba2rgb%5C_)
-  - [cv.COLOR\_BGR2RGBA\_](#cvcolor%5C_bgr2rgba%5C_)
-  - [cv.COLOR\_RGB2BGRA\_](#cvcolor%5C_rgb2bgra%5C_)
-  - [cv.COLOR\_RGBA2BGR\_](#cvcolor%5C_rgba2bgr%5C_)
-  - [cv.COLOR\_BGRA2RGB\_](#cvcolor%5C_bgra2rgb%5C_)
-  - [cv.COLOR\_BGR2RGB\_](#cvcolor%5C_bgr2rgb%5C_)
-  - [cv.COLOR\_RGB2BGR\_](#cvcolor%5C_rgb2bgr%5C_)
-  - [cv.COLOR\_BGRA2RGBA\_](#cvcolor%5C_bgra2rgba%5C_)
-  - [cv.COLOR\_RGBA2BGRA\_](#cvcolor%5C_rgba2bgra%5C_)
-  - [cv.COLOR\_BGR2GRAY\_](#cvcolor%5C_bgr2gray%5C_)
-  - [cv.COLOR\_RGB2GRAY\_](#cvcolor%5C_rgb2gray%5C_)
-  - [cv.COLOR\_GRAY2BGR\_](#cvcolor%5C_gray2bgr%5C_)
-  - [cv.COLOR\_GRAY2RGB\_](#cvcolor%5C_gray2rgb%5C_)
-  - [cv.COLOR\_GRAY2BGRA\_](#cvcolor%5C_gray2bgra%5C_)
-  - [cv.COLOR\_GRAY2RGBA\_](#cvcolor%5C_gray2rgba%5C_)
-  - [cv.COLOR\_BGRA2GRAY\_](#cvcolor%5C_bgra2gray%5C_)
-  - [cv.COLOR\_RGBA2GRAY\_](#cvcolor%5C_rgba2gray%5C_)
-  - [cv.COLOR\_BGR2BGR565\_](#cvcolor%5C_bgr2bgr565%5C_)
-  - [cv.COLOR\_RGB2BGR565\_](#cvcolor%5C_rgb2bgr565%5C_)
-  - [cv.COLOR\_BGR5652BGR\_](#cvcolor%5C_bgr5652bgr%5C_)
-  - [cv.COLOR\_BGR5652RGB\_](#cvcolor%5C_bgr5652rgb%5C_)
-  - [cv.COLOR\_BGRA2BGR565\_](#cvcolor%5C_bgra2bgr565%5C_)
-  - [cv.COLOR\_RGBA2BGR565\_](#cvcolor%5C_rgba2bgr565%5C_)
-  - [cv.COLOR\_BGR5652BGRA\_](#cvcolor%5C_bgr5652bgra%5C_)
-  - [cv.COLOR\_BGR5652RGBA\_](#cvcolor%5C_bgr5652rgba%5C_)
-  - [cv.COLOR\_GRAY2BGR565\_](#cvcolor%5C_gray2bgr565%5C_)
-  - [cv.COLOR\_BGR5652GRAY\_](#cvcolor%5C_bgr5652gray%5C_)
-  - [cv.COLOR\_BGR2BGR555\_](#cvcolor%5C_bgr2bgr555%5C_)
-  - [cv.COLOR\_RGB2BGR555\_](#cvcolor%5C_rgb2bgr555%5C_)
-  - [cv.COLOR\_BGR5552BGR\_](#cvcolor%5C_bgr5552bgr%5C_)
-  - [cv.COLOR\_BGR5552RGB\_](#cvcolor%5C_bgr5552rgb%5C_)
-  - [cv.COLOR\_BGRA2BGR555\_](#cvcolor%5C_bgra2bgr555%5C_)
-  - [cv.COLOR\_RGBA2BGR555\_](#cvcolor%5C_rgba2bgr555%5C_)
-  - [cv.COLOR\_BGR5552BGRA\_](#cvcolor%5C_bgr5552bgra%5C_)
-  - [cv.COLOR\_BGR5552RGBA\_](#cvcolor%5C_bgr5552rgba%5C_)
-  - [cv.COLOR\_GRAY2BGR555\_](#cvcolor%5C_gray2bgr555%5C_)
-  - [cv.COLOR\_BGR5552GRAY\_](#cvcolor%5C_bgr5552gray%5C_)
-  - [cv.COLOR\_BGR2XYZ\_](#cvcolor%5C_bgr2xyz%5C_)
-  - [cv.COLOR\_RGB2XYZ\_](#cvcolor%5C_rgb2xyz%5C_)
-  - [cv.COLOR\_XYZ2BGR\_](#cvcolor%5C_xyz2bgr%5C_)
-  - [cv.COLOR\_XYZ2RGB\_](#cvcolor%5C_xyz2rgb%5C_)
-  - [cv.COLOR\_BGR2YCrCb\_](#cvcolor%5C_bgr2ycrcb%5C_)
-  - [cv.COLOR\_RGB2YCrCb\_](#cvcolor%5C_rgb2ycrcb%5C_)
-  - [cv.COLOR\_YCrCb2BGR\_](#cvcolor%5C_ycrcb2bgr%5C_)
-  - [cv.COLOR\_YCrCb2RGB\_](#cvcolor%5C_ycrcb2rgb%5C_)
-  - [cv.COLOR\_BGR2HSV\_](#cvcolor%5C_bgr2hsv%5C_)
-  - [cv.COLOR\_RGB2HSV\_](#cvcolor%5C_rgb2hsv%5C_)
-  - [cv.COLOR\_BGR2Lab\_](#cvcolor%5C_bgr2lab%5C_)
-  - [cv.COLOR\_RGB2Lab\_](#cvcolor%5C_rgb2lab%5C_)
-  - [cv.COLOR\_BGR2Luv\_](#cvcolor%5C_bgr2luv%5C_)
-  - [cv.COLOR\_RGB2Luv\_](#cvcolor%5C_rgb2luv%5C_)
-  - [cv.COLOR\_BGR2HLS\_](#cvcolor%5C_bgr2hls%5C_)
-  - [cv.COLOR\_RGB2HLS\_](#cvcolor%5C_rgb2hls%5C_)
-  - [cv.COLOR\_HSV2BGR\_](#cvcolor%5C_hsv2bgr%5C_)
-  - [cv.COLOR\_HSV2RGB\_](#cvcolor%5C_hsv2rgb%5C_)
-  - [cv.COLOR\_Lab2BGR\_](#cvcolor%5C_lab2bgr%5C_)
-  - [cv.COLOR\_Lab2RGB\_](#cvcolor%5C_lab2rgb%5C_)
-  - [cv.COLOR\_Luv2BGR\_](#cvcolor%5C_luv2bgr%5C_)
-  - [cv.COLOR\_Luv2RGB\_](#cvcolor%5C_luv2rgb%5C_)
-  - [cv.COLOR\_HLS2BGR\_](#cvcolor%5C_hls2bgr%5C_)
-  - [cv.COLOR\_HLS2RGB\_](#cvcolor%5C_hls2rgb%5C_)
-  - [cv.COLOR\_BGR2HSV\_FULL\_](#cvcolor%5C_bgr2hsv%5C_full%5C_)
-  - [cv.COLOR\_RGB2HSV\_FULL\_](#cvcolor%5C_rgb2hsv%5C_full%5C_)
-  - [cv.COLOR\_BGR2HLS\_FULL\_](#cvcolor%5C_bgr2hls%5C_full%5C_)
-  - [cv.COLOR\_RGB2HLS\_FULL\_](#cvcolor%5C_rgb2hls%5C_full%5C_)
-  - [cv.COLOR\_HSV2BGR\_FULL\_](#cvcolor%5C_hsv2bgr%5C_full%5C_)
-  - [cv.COLOR\_HSV2RGB\_FULL\_](#cvcolor%5C_hsv2rgb%5C_full%5C_)
-  - [cv.COLOR\_HLS2BGR\_FULL\_](#cvcolor%5C_hls2bgr%5C_full%5C_)
-  - [cv.COLOR\_HLS2RGB\_FULL\_](#cvcolor%5C_hls2rgb%5C_full%5C_)
-  - [cv.COLOR\_LBGR2Lab\_](#cvcolor%5C_lbgr2lab%5C_)
-  - [cv.COLOR\_LRGB2Lab\_](#cvcolor%5C_lrgb2lab%5C_)
-  - [cv.COLOR\_LBGR2Luv\_](#cvcolor%5C_lbgr2luv%5C_)
-  - [cv.COLOR\_LRGB2Luv\_](#cvcolor%5C_lrgb2luv%5C_)
-  - [cv.COLOR\_Lab2LBGR\_](#cvcolor%5C_lab2lbgr%5C_)
-  - [cv.COLOR\_Lab2LRGB\_](#cvcolor%5C_lab2lrgb%5C_)
-  - [cv.COLOR\_Luv2LBGR\_](#cvcolor%5C_luv2lbgr%5C_)
-  - [cv.COLOR\_Luv2LRGB\_](#cvcolor%5C_luv2lrgb%5C_)
-  - [cv.COLOR\_BGR2YUV\_](#cvcolor%5C_bgr2yuv%5C_)
-  - [cv.COLOR\_RGB2YUV\_](#cvcolor%5C_rgb2yuv%5C_)
-  - [cv.COLOR\_YUV2BGR\_](#cvcolor%5C_yuv2bgr%5C_)
-  - [cv.COLOR\_YUV2RGB\_](#cvcolor%5C_yuv2rgb%5C_)
-  - [cv.COLOR\_YUV2RGB\_NV12\_](#cvcolor%5C_yuv2rgb%5C_nv12%5C_)
-  - [cv.COLOR\_YUV2BGR\_NV12\_](#cvcolor%5C_yuv2bgr%5C_nv12%5C_)
-  - [cv.COLOR\_YUV2RGB\_NV21\_](#cvcolor%5C_yuv2rgb%5C_nv21%5C_)
-  - [cv.COLOR\_YUV2BGR\_NV21\_](#cvcolor%5C_yuv2bgr%5C_nv21%5C_)
-  - [cv.COLOR\_YUV420sp2RGB\_](#cvcolor%5C_yuv420sp2rgb%5C_)
-  - [cv.COLOR\_YUV420sp2BGR\_](#cvcolor%5C_yuv420sp2bgr%5C_)
-  - [cv.COLOR\_YUV2RGBA\_NV12\_](#cvcolor%5C_yuv2rgba%5C_nv12%5C_)
-  - [cv.COLOR\_YUV2BGRA\_NV12\_](#cvcolor%5C_yuv2bgra%5C_nv12%5C_)
-  - [cv.COLOR\_YUV2RGBA\_NV21\_](#cvcolor%5C_yuv2rgba%5C_nv21%5C_)
-  - [cv.COLOR\_YUV2BGRA\_NV21\_](#cvcolor%5C_yuv2bgra%5C_nv21%5C_)
-  - [cv.COLOR\_YUV420sp2RGBA\_](#cvcolor%5C_yuv420sp2rgba%5C_)
-  - [cv.COLOR\_YUV420sp2BGRA\_](#cvcolor%5C_yuv420sp2bgra%5C_)
-  - [cv.COLOR\_YUV2RGB\_YV12\_](#cvcolor%5C_yuv2rgb%5C_yv12%5C_)
-  - [cv.COLOR\_YUV2BGR\_YV12\_](#cvcolor%5C_yuv2bgr%5C_yv12%5C_)
-  - [cv.COLOR\_YUV2RGB\_IYUV\_](#cvcolor%5C_yuv2rgb%5C_iyuv%5C_)
-  - [cv.COLOR\_YUV2BGR\_IYUV\_](#cvcolor%5C_yuv2bgr%5C_iyuv%5C_)
-  - [cv.COLOR\_YUV2RGB\_I420\_](#cvcolor%5C_yuv2rgb%5C_i420%5C_)
-  - [cv.COLOR\_YUV2BGR\_I420\_](#cvcolor%5C_yuv2bgr%5C_i420%5C_)
-  - [cv.COLOR\_YUV420p2RGB\_](#cvcolor%5C_yuv420p2rgb%5C_)
-  - [cv.COLOR\_YUV420p2BGR\_](#cvcolor%5C_yuv420p2bgr%5C_)
-  - [cv.COLOR\_YUV2RGBA\_YV12\_](#cvcolor%5C_yuv2rgba%5C_yv12%5C_)
-  - [cv.COLOR\_YUV2BGRA\_YV12\_](#cvcolor%5C_yuv2bgra%5C_yv12%5C_)
-  - [cv.COLOR\_YUV2RGBA\_IYUV\_](#cvcolor%5C_yuv2rgba%5C_iyuv%5C_)
-  - [cv.COLOR\_YUV2BGRA\_IYUV\_](#cvcolor%5C_yuv2bgra%5C_iyuv%5C_)
-  - [cv.COLOR\_YUV2RGBA\_I420\_](#cvcolor%5C_yuv2rgba%5C_i420%5C_)
-  - [cv.COLOR\_YUV2BGRA\_I420\_](#cvcolor%5C_yuv2bgra%5C_i420%5C_)
-  - [cv.COLOR\_YUV420p2RGBA\_](#cvcolor%5C_yuv420p2rgba%5C_)
-  - [cv.COLOR\_YUV420p2BGRA\_](#cvcolor%5C_yuv420p2bgra%5C_)
-  - [cv.COLOR\_YUV2GRAY\_420\_](#cvcolor%5C_yuv2gray%5C_420%5C_)
-  - [cv.COLOR\_YUV2GRAY\_NV21\_](#cvcolor%5C_yuv2gray%5C_nv21%5C_)
-  - [cv.COLOR\_YUV2GRAY\_NV12\_](#cvcolor%5C_yuv2gray%5C_nv12%5C_)
-  - [cv.COLOR\_YUV2GRAY\_YV12\_](#cvcolor%5C_yuv2gray%5C_yv12%5C_)
-  - [cv.COLOR\_YUV2GRAY\_IYUV\_](#cvcolor%5C_yuv2gray%5C_iyuv%5C_)
-  - [cv.COLOR\_YUV2GRAY\_I420\_](#cvcolor%5C_yuv2gray%5C_i420%5C_)
-  - [cv.COLOR\_YUV420sp2GRAY\_](#cvcolor%5C_yuv420sp2gray%5C_)
-  - [cv.COLOR\_YUV420p2GRAY\_](#cvcolor%5C_yuv420p2gray%5C_)
-  - [cv.COLOR\_YUV2RGB\_UYVY\_](#cvcolor%5C_yuv2rgb%5C_uyvy%5C_)
-  - [cv.COLOR\_YUV2BGR\_UYVY\_](#cvcolor%5C_yuv2bgr%5C_uyvy%5C_)
-  - [cv.COLOR\_YUV2RGB\_Y422\_](#cvcolor%5C_yuv2rgb%5C_y422%5C_)
-  - [cv.COLOR\_YUV2BGR\_Y422\_](#cvcolor%5C_yuv2bgr%5C_y422%5C_)
-  - [cv.COLOR\_YUV2RGB\_UYNV\_](#cvcolor%5C_yuv2rgb%5C_uynv%5C_)
-  - [cv.COLOR\_YUV2BGR\_UYNV\_](#cvcolor%5C_yuv2bgr%5C_uynv%5C_)
-  - [cv.COLOR\_YUV2RGBA\_UYVY\_](#cvcolor%5C_yuv2rgba%5C_uyvy%5C_)
-  - [cv.COLOR\_YUV2BGRA\_UYVY\_](#cvcolor%5C_yuv2bgra%5C_uyvy%5C_)
-  - [cv.COLOR\_YUV2RGBA\_Y422\_](#cvcolor%5C_yuv2rgba%5C_y422%5C_)
-  - [cv.COLOR\_YUV2BGRA\_Y422\_](#cvcolor%5C_yuv2bgra%5C_y422%5C_)
-  - [cv.COLOR\_YUV2RGBA\_UYNV\_](#cvcolor%5C_yuv2rgba%5C_uynv%5C_)
-  - [cv.COLOR\_YUV2BGRA\_UYNV\_](#cvcolor%5C_yuv2bgra%5C_uynv%5C_)
-  - [cv.COLOR\_YUV2RGB\_YUY2\_](#cvcolor%5C_yuv2rgb%5C_yuy2%5C_)
-  - [cv.COLOR\_YUV2BGR\_YUY2\_](#cvcolor%5C_yuv2bgr%5C_yuy2%5C_)
-  - [cv.COLOR\_YUV2RGB\_YVYU\_](#cvcolor%5C_yuv2rgb%5C_yvyu%5C_)
-  - [cv.COLOR\_YUV2BGR\_YVYU\_](#cvcolor%5C_yuv2bgr%5C_yvyu%5C_)
-  - [cv.COLOR\_YUV2RGB\_YUYV\_](#cvcolor%5C_yuv2rgb%5C_yuyv%5C_)
-  - [cv.COLOR\_YUV2BGR\_YUYV\_](#cvcolor%5C_yuv2bgr%5C_yuyv%5C_)
-  - [cv.COLOR\_YUV2RGB\_YUNV\_](#cvcolor%5C_yuv2rgb%5C_yunv%5C_)
-  - [cv.COLOR\_YUV2BGR\_YUNV\_](#cvcolor%5C_yuv2bgr%5C_yunv%5C_)
-  - [cv.COLOR\_YUV2RGBA\_YUY2\_](#cvcolor%5C_yuv2rgba%5C_yuy2%5C_)
-  - [cv.COLOR\_YUV2BGRA\_YUY2\_](#cvcolor%5C_yuv2bgra%5C_yuy2%5C_)
-  - [cv.COLOR\_YUV2RGBA\_YVYU\_](#cvcolor%5C_yuv2rgba%5C_yvyu%5C_)
-  - [cv.COLOR\_YUV2BGRA\_YVYU\_](#cvcolor%5C_yuv2bgra%5C_yvyu%5C_)
-  - [cv.COLOR\_YUV2RGBA\_YUYV\_](#cvcolor%5C_yuv2rgba%5C_yuyv%5C_)
-  - [cv.COLOR\_YUV2BGRA\_YUYV\_](#cvcolor%5C_yuv2bgra%5C_yuyv%5C_)
-  - [cv.COLOR\_YUV2RGBA\_YUNV\_](#cvcolor%5C_yuv2rgba%5C_yunv%5C_)
-  - [cv.COLOR\_YUV2BGRA\_YUNV\_](#cvcolor%5C_yuv2bgra%5C_yunv%5C_)
-  - [cv.COLOR\_YUV2GRAY\_UYVY\_](#cvcolor%5C_yuv2gray%5C_uyvy%5C_)
-  - [cv.COLOR\_YUV2GRAY\_YUY2\_](#cvcolor%5C_yuv2gray%5C_yuy2%5C_)
-  - [cv.COLOR\_YUV2GRAY\_Y422\_](#cvcolor%5C_yuv2gray%5C_y422%5C_)
-  - [cv.COLOR\_YUV2GRAY\_UYNV\_](#cvcolor%5C_yuv2gray%5C_uynv%5C_)
-  - [cv.COLOR\_YUV2GRAY\_YVYU\_](#cvcolor%5C_yuv2gray%5C_yvyu%5C_)
-  - [cv.COLOR\_YUV2GRAY\_YUYV\_](#cvcolor%5C_yuv2gray%5C_yuyv%5C_)
-  - [cv.COLOR\_YUV2GRAY\_YUNV\_](#cvcolor%5C_yuv2gray%5C_yunv%5C_)
-  - [cv.COLOR\_RGBA2mRGBA\_](#cvcolor%5C_rgba2mrgba%5C_)
-  - [cv.COLOR\_mRGBA2RGBA\_](#cvcolor%5C_mrgba2rgba%5C_)
-  - [cv.COLOR\_RGB2YUV\_I420\_](#cvcolor%5C_rgb2yuv%5C_i420%5C_)
-  - [cv.COLOR\_BGR2YUV\_I420\_](#cvcolor%5C_bgr2yuv%5C_i420%5C_)
-  - [cv.COLOR\_RGB2YUV\_IYUV\_](#cvcolor%5C_rgb2yuv%5C_iyuv%5C_)
-  - [cv.COLOR\_BGR2YUV\_IYUV\_](#cvcolor%5C_bgr2yuv%5C_iyuv%5C_)
-  - [cv.COLOR\_RGBA2YUV\_I420\_](#cvcolor%5C_rgba2yuv%5C_i420%5C_)
-  - [cv.COLOR\_BGRA2YUV\_I420\_](#cvcolor%5C_bgra2yuv%5C_i420%5C_)
-  - [cv.COLOR\_RGBA2YUV\_IYUV\_](#cvcolor%5C_rgba2yuv%5C_iyuv%5C_)
-  - [cv.COLOR\_BGRA2YUV\_IYUV\_](#cvcolor%5C_bgra2yuv%5C_iyuv%5C_)
-  - [cv.COLOR\_RGB2YUV\_YV12\_](#cvcolor%5C_rgb2yuv%5C_yv12%5C_)
-  - [cv.COLOR\_BGR2YUV\_YV12\_](#cvcolor%5C_bgr2yuv%5C_yv12%5C_)
-  - [cv.COLOR\_RGBA2YUV\_YV12\_](#cvcolor%5C_rgba2yuv%5C_yv12%5C_)
-  - [cv.COLOR\_BGRA2YUV\_YV12\_](#cvcolor%5C_bgra2yuv%5C_yv12%5C_)
-  - [cv.COLOR\_BayerBG2BGR\_](#cvcolor%5C_bayerbg2bgr%5C_)
-  - [cv.COLOR\_BayerGB2BGR\_](#cvcolor%5C_bayergb2bgr%5C_)
-  - [cv.COLOR\_BayerRG2BGR\_](#cvcolor%5C_bayerrg2bgr%5C_)
-  - [cv.COLOR\_BayerGR2BGR\_](#cvcolor%5C_bayergr2bgr%5C_)
-  - [cv.COLOR\_BayerRGGB2BGR\_](#cvcolor%5C_bayerrggb2bgr%5C_)
-  - [cv.COLOR\_BayerGRBG2BGR\_](#cvcolor%5C_bayergrbg2bgr%5C_)
-  - [cv.COLOR\_BayerBGGR2BGR\_](#cvcolor%5C_bayerbggr2bgr%5C_)
-  - [cv.COLOR\_BayerGBRG2BGR\_](#cvcolor%5C_bayergbrg2bgr%5C_)
-  - [cv.COLOR\_BayerRGGB2RGB\_](#cvcolor%5C_bayerrggb2rgb%5C_)
-  - [cv.COLOR\_BayerGRBG2RGB\_](#cvcolor%5C_bayergrbg2rgb%5C_)
-  - [cv.COLOR\_BayerBGGR2RGB\_](#cvcolor%5C_bayerbggr2rgb%5C_)
-  - [cv.COLOR\_BayerGBRG2RGB\_](#cvcolor%5C_bayergbrg2rgb%5C_)
-  - [cv.COLOR\_BayerBG2RGB\_](#cvcolor%5C_bayerbg2rgb%5C_)
-  - [cv.COLOR\_BayerGB2RGB\_](#cvcolor%5C_bayergb2rgb%5C_)
-  - [cv.COLOR\_BayerRG2RGB\_](#cvcolor%5C_bayerrg2rgb%5C_)
-  - [cv.COLOR\_BayerGR2RGB\_](#cvcolor%5C_bayergr2rgb%5C_)
-  - [cv.COLOR\_BayerBG2GRAY\_](#cvcolor%5C_bayerbg2gray%5C_)
-  - [cv.COLOR\_BayerGB2GRAY\_](#cvcolor%5C_bayergb2gray%5C_)
-  - [cv.COLOR\_BayerRG2GRAY\_](#cvcolor%5C_bayerrg2gray%5C_)
-  - [cv.COLOR\_BayerGR2GRAY\_](#cvcolor%5C_bayergr2gray%5C_)
-  - [cv.COLOR\_BayerRGGB2GRAY\_](#cvcolor%5C_bayerrggb2gray%5C_)
-  - [cv.COLOR\_BayerGRBG2GRAY\_](#cvcolor%5C_bayergrbg2gray%5C_)
-  - [cv.COLOR\_BayerBGGR2GRAY\_](#cvcolor%5C_bayerbggr2gray%5C_)
-  - [cv.COLOR\_BayerGBRG2GRAY\_](#cvcolor%5C_bayergbrg2gray%5C_)
-  - [cv.COLOR\_BayerBG2BGR\_VNG\_](#cvcolor%5C_bayerbg2bgr%5C_vng%5C_)
-  - [cv.COLOR\_BayerGB2BGR\_VNG\_](#cvcolor%5C_bayergb2bgr%5C_vng%5C_)
-  - [cv.COLOR\_BayerRG2BGR\_VNG\_](#cvcolor%5C_bayerrg2bgr%5C_vng%5C_)
-  - [cv.COLOR\_BayerGR2BGR\_VNG\_](#cvcolor%5C_bayergr2bgr%5C_vng%5C_)
-  - [cv.COLOR\_BayerRGGB2BGR\_VNG\_](#cvcolor%5C_bayerrggb2bgr%5C_vng%5C_)
-  - [cv.COLOR\_BayerGRBG2BGR\_VNG\_](#cvcolor%5C_bayergrbg2bgr%5C_vng%5C_)
-  - [cv.COLOR\_BayerBGGR2BGR\_VNG\_](#cvcolor%5C_bayerbggr2bgr%5C_vng%5C_)
-  - [cv.COLOR\_BayerGBRG2BGR\_VNG\_](#cvcolor%5C_bayergbrg2bgr%5C_vng%5C_)
-  - [cv.COLOR\_BayerRGGB2RGB\_VNG\_](#cvcolor%5C_bayerrggb2rgb%5C_vng%5C_)
-  - [cv.COLOR\_BayerGRBG2RGB\_VNG\_](#cvcolor%5C_bayergrbg2rgb%5C_vng%5C_)
-  - [cv.COLOR\_BayerBGGR2RGB\_VNG\_](#cvcolor%5C_bayerbggr2rgb%5C_vng%5C_)
-  - [cv.COLOR\_BayerGBRG2RGB\_VNG\_](#cvcolor%5C_bayergbrg2rgb%5C_vng%5C_)
-  - [cv.COLOR\_BayerBG2RGB\_VNG\_](#cvcolor%5C_bayerbg2rgb%5C_vng%5C_)
-  - [cv.COLOR\_BayerGB2RGB\_VNG\_](#cvcolor%5C_bayergb2rgb%5C_vng%5C_)
-  - [cv.COLOR\_BayerRG2RGB\_VNG\_](#cvcolor%5C_bayerrg2rgb%5C_vng%5C_)
-  - [cv.COLOR\_BayerGR2RGB\_VNG\_](#cvcolor%5C_bayergr2rgb%5C_vng%5C_)
-  - [cv.COLOR\_BayerBG2BGR\_EA\_](#cvcolor%5C_bayerbg2bgr%5C_ea%5C_)
-  - [cv.COLOR\_BayerGB2BGR\_EA\_](#cvcolor%5C_bayergb2bgr%5C_ea%5C_)
-  - [cv.COLOR\_BayerRG2BGR\_EA\_](#cvcolor%5C_bayerrg2bgr%5C_ea%5C_)
-  - [cv.COLOR\_BayerGR2BGR\_EA\_](#cvcolor%5C_bayergr2bgr%5C_ea%5C_)
-  - [cv.COLOR\_BayerRGGB2BGR\_EA\_](#cvcolor%5C_bayerrggb2bgr%5C_ea%5C_)
-  - [cv.COLOR\_BayerGRBG2BGR\_EA\_](#cvcolor%5C_bayergrbg2bgr%5C_ea%5C_)
-  - [cv.COLOR\_BayerBGGR2BGR\_EA\_](#cvcolor%5C_bayerbggr2bgr%5C_ea%5C_)
-  - [cv.COLOR\_BayerGBRG2BGR\_EA\_](#cvcolor%5C_bayergbrg2bgr%5C_ea%5C_)
-  - [cv.COLOR\_BayerRGGB2RGB\_EA\_](#cvcolor%5C_bayerrggb2rgb%5C_ea%5C_)
-  - [cv.COLOR\_BayerGRBG2RGB\_EA\_](#cvcolor%5C_bayergrbg2rgb%5C_ea%5C_)
-  - [cv.COLOR\_BayerBGGR2RGB\_EA\_](#cvcolor%5C_bayerbggr2rgb%5C_ea%5C_)
-  - [cv.COLOR\_BayerGBRG2RGB\_EA\_](#cvcolor%5C_bayergbrg2rgb%5C_ea%5C_)
-  - [cv.COLOR\_BayerBG2RGB\_EA\_](#cvcolor%5C_bayerbg2rgb%5C_ea%5C_)
-  - [cv.COLOR\_BayerGB2RGB\_EA\_](#cvcolor%5C_bayergb2rgb%5C_ea%5C_)
-  - [cv.COLOR\_BayerRG2RGB\_EA\_](#cvcolor%5C_bayerrg2rgb%5C_ea%5C_)
-  - [cv.COLOR\_BayerGR2RGB\_EA\_](#cvcolor%5C_bayergr2rgb%5C_ea%5C_)
-  - [cv.COLOR\_BayerBG2BGRA\_](#cvcolor%5C_bayerbg2bgra%5C_)
-  - [cv.COLOR\_BayerGB2BGRA\_](#cvcolor%5C_bayergb2bgra%5C_)
-  - [cv.COLOR\_BayerRG2BGRA\_](#cvcolor%5C_bayerrg2bgra%5C_)
-  - [cv.COLOR\_BayerGR2BGRA\_](#cvcolor%5C_bayergr2bgra%5C_)
-  - [cv.COLOR\_BayerRGGB2BGRA\_](#cvcolor%5C_bayerrggb2bgra%5C_)
-  - [cv.COLOR\_BayerGRBG2BGRA\_](#cvcolor%5C_bayergrbg2bgra%5C_)
-  - [cv.COLOR\_BayerBGGR2BGRA\_](#cvcolor%5C_bayerbggr2bgra%5C_)
-  - [cv.COLOR\_BayerGBRG2BGRA\_](#cvcolor%5C_bayergbrg2bgra%5C_)
-  - [cv.COLOR\_BayerRGGB2RGBA\_](#cvcolor%5C_bayerrggb2rgba%5C_)
-  - [cv.COLOR\_BayerGRBG2RGBA\_](#cvcolor%5C_bayergrbg2rgba%5C_)
-  - [cv.COLOR\_BayerBGGR2RGBA\_](#cvcolor%5C_bayerbggr2rgba%5C_)
-  - [cv.COLOR\_BayerGBRG2RGBA\_](#cvcolor%5C_bayergbrg2rgba%5C_)
-  - [cv.COLOR\_BayerBG2RGBA\_](#cvcolor%5C_bayerbg2rgba%5C_)
-  - [cv.COLOR\_BayerGB2RGBA\_](#cvcolor%5C_bayergb2rgba%5C_)
-  - [cv.COLOR\_BayerRG2RGBA\_](#cvcolor%5C_bayerrg2rgba%5C_)
-  - [cv.COLOR\_BayerGR2RGBA\_](#cvcolor%5C_bayergr2rgba%5C_)
-  - [cv.COLOR\_COLORCVT\_MAX\_](#cvcolor%5C_colorcvt%5C_max%5C_)
-  - [cv.INTERSECT\_NONE\_](#cvintersect%5C_none%5C_)
-  - [cv.INTERSECT\_PARTIAL\_](#cvintersect%5C_partial%5C_)
-  - [cv.INTERSECT\_FULL\_](#cvintersect%5C_full%5C_)
-  - [cv.FILLED\_](#cvfilled%5C_)
-  - [cv.LINE\_4\_](#cvline%5C_4%5C_)
-  - [cv.LINE\_8\_](#cvline%5C_8%5C_)
-  - [cv.LINE\_AA\_](#cvline%5C_aa%5C_)
-  - [cv.FONT\_HERSHEY\_SIMPLEX\_](#cvfont%5C_hershey%5C_simplex%5C_)
-  - [cv.FONT\_HERSHEY\_PLAIN\_](#cvfont%5C_hershey%5C_plain%5C_)
-  - [cv.FONT\_HERSHEY\_DUPLEX\_](#cvfont%5C_hershey%5C_duplex%5C_)
-  - [cv.FONT\_HERSHEY\_COMPLEX\_](#cvfont%5C_hershey%5C_complex%5C_)
-  - [cv.FONT\_HERSHEY\_TRIPLEX\_](#cvfont%5C_hershey%5C_triplex%5C_)
-  - [cv.FONT\_HERSHEY\_COMPLEX\_SMALL\_](#cvfont%5C_hershey%5C_complex%5C_small%5C_)
-  - [cv.FONT\_HERSHEY\_SCRIPT\_SIMPLEX\_](#cvfont%5C_hershey%5C_script%5C_simplex%5C_)
-  - [cv.FONT\_HERSHEY\_SCRIPT\_COMPLEX\_](#cvfont%5C_hershey%5C_script%5C_complex%5C_)
-  - [cv.FONT\_ITALIC\_](#cvfont%5C_italic%5C_)
-  - [cv.MARKER\_CROSS\_](#cvmarker%5C_cross%5C_)
-  - [cv.MARKER\_TILTED\_CROSS\_](#cvmarker%5C_tilted%5C_cross%5C_)
-  - [cv.MARKER\_STAR\_](#cvmarker%5C_star%5C_)
-  - [cv.MARKER\_DIAMOND\_](#cvmarker%5C_diamond%5C_)
-  - [cv.MARKER\_SQUARE\_](#cvmarker%5C_square%5C_)
-  - [cv.MARKER\_TRIANGLE\_UP\_](#cvmarker%5C_triangle%5C_up%5C_)
-  - [cv.MARKER\_TRIANGLE\_DOWN\_](#cvmarker%5C_triangle%5C_down%5C_)
-  - [cv.TM\_SQDIFF\_](#cvtm%5C_sqdiff%5C_)
-  - [cv.TM\_SQDIFF\_NORMED\_](#cvtm%5C_sqdiff%5C_normed%5C_)
-  - [cv.TM\_CCORR\_](#cvtm%5C_ccorr%5C_)
-  - [cv.TM\_CCORR\_NORMED\_](#cvtm%5C_ccorr%5C_normed%5C_)
-  - [cv.TM\_CCOEFF\_](#cvtm%5C_ccoeff%5C_)
-  - [cv.TM\_CCOEFF\_NORMED\_](#cvtm%5C_ccoeff%5C_normed%5C_)
-  - [cv.COLORMAP\_AUTUMN\_](#cvcolormap%5C_autumn%5C_)
-  - [cv.COLORMAP\_BONE\_](#cvcolormap%5C_bone%5C_)
-  - [cv.COLORMAP\_JET\_](#cvcolormap%5C_jet%5C_)
-  - [cv.COLORMAP\_WINTER\_](#cvcolormap%5C_winter%5C_)
-  - [cv.COLORMAP\_RAINBOW\_](#cvcolormap%5C_rainbow%5C_)
-  - [cv.COLORMAP\_OCEAN\_](#cvcolormap%5C_ocean%5C_)
-  - [cv.COLORMAP\_SUMMER\_](#cvcolormap%5C_summer%5C_)
-  - [cv.COLORMAP\_SPRING\_](#cvcolormap%5C_spring%5C_)
-  - [cv.COLORMAP\_COOL\_](#cvcolormap%5C_cool%5C_)
-  - [cv.COLORMAP\_HSV\_](#cvcolormap%5C_hsv%5C_)
-  - [cv.COLORMAP\_PINK\_](#cvcolormap%5C_pink%5C_)
-  - [cv.COLORMAP\_HOT\_](#cvcolormap%5C_hot%5C_)
-  - [cv.COLORMAP\_PARULA\_](#cvcolormap%5C_parula%5C_)
-  - [cv.COLORMAP\_MAGMA\_](#cvcolormap%5C_magma%5C_)
-  - [cv.COLORMAP\_INFERNO\_](#cvcolormap%5C_inferno%5C_)
-  - [cv.COLORMAP\_PLASMA\_](#cvcolormap%5C_plasma%5C_)
-  - [cv.COLORMAP\_VIRIDIS\_](#cvcolormap%5C_viridis%5C_)
-  - [cv.COLORMAP\_CIVIDIS\_](#cvcolormap%5C_cividis%5C_)
-  - [cv.COLORMAP\_TWILIGHT\_](#cvcolormap%5C_twilight%5C_)
-  - [cv.COLORMAP\_TWILIGHT\_SHIFTED\_](#cvcolormap%5C_twilight%5C_shifted%5C_)
-  - [cv.COLORMAP\_TURBO\_](#cvcolormap%5C_turbo%5C_)
-  - [cv.COLORMAP\_DEEPGREEN\_](#cvcolormap%5C_deepgreen%5C_)
-  - [cv.INPAINT\_NS\_](#cvinpaint%5C_ns%5C_)
-  - [cv.INPAINT\_TELEA\_](#cvinpaint%5C_telea%5C_)
-  - [cv.LDR\_SIZE\_](#cvldr%5C_size%5C_)
-  - [cv.NORMAL\_CLONE\_](#cvnormal%5C_clone%5C_)
-  - [cv.MIXED\_CLONE\_](#cvmixed%5C_clone%5C_)
-  - [cv.MONOCHROME\_TRANSFER\_](#cvmonochrome%5C_transfer%5C_)
-  - [cv.RECURS\_FILTER\_](#cvrecurs%5C_filter%5C_)
-  - [cv.NORMCONV\_FILTER\_](#cvnormconv%5C_filter%5C_)
-  - [cv.IMREAD\_UNCHANGED\_](#cvimread%5C_unchanged%5C_)
-  - [cv.IMREAD\_GRAYSCALE\_](#cvimread%5C_grayscale%5C_)
-  - [cv.IMREAD\_COLOR\_](#cvimread%5C_color%5C_)
-  - [cv.IMREAD\_ANYDEPTH\_](#cvimread%5C_anydepth%5C_)
-  - [cv.IMREAD\_ANYCOLOR\_](#cvimread%5C_anycolor%5C_)
-  - [cv.IMREAD\_LOAD\_GDAL\_](#cvimread%5C_load%5C_gdal%5C_)
-  - [cv.IMREAD\_REDUCED\_GRAYSCALE\_2\_](#cvimread%5C_reduced%5C_grayscale%5C_2%5C_)
-  - [cv.IMREAD\_REDUCED\_COLOR\_2\_](#cvimread%5C_reduced%5C_color%5C_2%5C_)
-  - [cv.IMREAD\_REDUCED\_GRAYSCALE\_4\_](#cvimread%5C_reduced%5C_grayscale%5C_4%5C_)
-  - [cv.IMREAD\_REDUCED\_COLOR\_4\_](#cvimread%5C_reduced%5C_color%5C_4%5C_)
-  - [cv.IMREAD\_REDUCED\_GRAYSCALE\_8\_](#cvimread%5C_reduced%5C_grayscale%5C_8%5C_)
-  - [cv.IMREAD\_REDUCED\_COLOR\_8\_](#cvimread%5C_reduced%5C_color%5C_8%5C_)
-  - [cv.IMREAD\_IGNORE\_ORIENTATION\_](#cvimread%5C_ignore%5C_orientation%5C_)
-  - [cv.IMWRITE\_JPEG\_QUALITY\_](#cvimwrite%5C_jpeg%5C_quality%5C_)
-  - [cv.IMWRITE\_JPEG\_PROGRESSIVE\_](#cvimwrite%5C_jpeg%5C_progressive%5C_)
-  - [cv.IMWRITE\_JPEG\_OPTIMIZE\_](#cvimwrite%5C_jpeg%5C_optimize%5C_)
-  - [cv.IMWRITE\_JPEG\_RST\_INTERVAL\_](#cvimwrite%5C_jpeg%5C_rst%5C_interval%5C_)
-  - [cv.IMWRITE\_JPEG\_LUMA\_QUALITY\_](#cvimwrite%5C_jpeg%5C_luma%5C_quality%5C_)
-  - [cv.IMWRITE\_JPEG\_CHROMA\_QUALITY\_](#cvimwrite%5C_jpeg%5C_chroma%5C_quality%5C_)
-  - [cv.IMWRITE\_PNG\_COMPRESSION\_](#cvimwrite%5C_png%5C_compression%5C_)
-  - [cv.IMWRITE\_PNG\_STRATEGY\_](#cvimwrite%5C_png%5C_strategy%5C_)
-  - [cv.IMWRITE\_PNG\_BILEVEL\_](#cvimwrite%5C_png%5C_bilevel%5C_)
-  - [cv.IMWRITE\_PXM\_BINARY\_](#cvimwrite%5C_pxm%5C_binary%5C_)
-  - [cv.IMWRITE\_EXR\_TYPE\_](#cvimwrite%5C_exr%5C_type%5C_)
-  - [cv.IMWRITE\_EXR\_COMPRESSION\_](#cvimwrite%5C_exr%5C_compression%5C_)
-  - [cv.IMWRITE\_WEBP\_QUALITY\_](#cvimwrite%5C_webp%5C_quality%5C_)
-  - [cv.IMWRITE\_PAM\_TUPLETYPE\_](#cvimwrite%5C_pam%5C_tupletype%5C_)
-  - [cv.IMWRITE\_TIFF\_RESUNIT\_](#cvimwrite%5C_tiff%5C_resunit%5C_)
-  - [cv.IMWRITE\_TIFF\_XDPI\_](#cvimwrite%5C_tiff%5C_xdpi%5C_)
-  - [cv.IMWRITE\_TIFF\_YDPI\_](#cvimwrite%5C_tiff%5C_ydpi%5C_)
-  - [cv.IMWRITE\_TIFF\_COMPRESSION\_](#cvimwrite%5C_tiff%5C_compression%5C_)
-  - [cv.IMWRITE\_JPEG2000\_COMPRESSION\_X1000\_](#cvimwrite%5C_jpeg2000%5C_compression%5C_x1000%5C_)
-  - [cv.IMWRITE\_EXR\_TYPE\_HALF\_](#cvimwrite%5C_exr%5C_type%5C_half%5C_)
-  - [cv.IMWRITE\_EXR\_TYPE\_FLOAT\_](#cvimwrite%5C_exr%5C_type%5C_float%5C_)
-  - [cv.IMWRITE\_EXR\_COMPRESSION\_NO\_](#cvimwrite%5C_exr%5C_compression%5C_no%5C_)
-  - [cv.IMWRITE\_EXR\_COMPRESSION\_RLE\_](#cvimwrite%5C_exr%5C_compression%5C_rle%5C_)
-  - [cv.IMWRITE\_EXR\_COMPRESSION\_ZIPS\_](#cvimwrite%5C_exr%5C_compression%5C_zips%5C_)
-  - [cv.IMWRITE\_EXR\_COMPRESSION\_ZIP\_](#cvimwrite%5C_exr%5C_compression%5C_zip%5C_)
-  - [cv.IMWRITE\_EXR\_COMPRESSION\_PIZ\_](#cvimwrite%5C_exr%5C_compression%5C_piz%5C_)
-  - [cv.IMWRITE\_EXR\_COMPRESSION\_PXR24\_](#cvimwrite%5C_exr%5C_compression%5C_pxr24%5C_)
-  - [cv.IMWRITE\_EXR\_COMPRESSION\_B44\_](#cvimwrite%5C_exr%5C_compression%5C_b44%5C_)
-  - [cv.IMWRITE\_EXR\_COMPRESSION\_B44A\_](#cvimwrite%5C_exr%5C_compression%5C_b44a%5C_)
-  - [cv.IMWRITE\_EXR\_COMPRESSION\_DWAA\_](#cvimwrite%5C_exr%5C_compression%5C_dwaa%5C_)
-  - [cv.IMWRITE\_EXR\_COMPRESSION\_DWAB\_](#cvimwrite%5C_exr%5C_compression%5C_dwab%5C_)
-  - [cv.IMWRITE\_PNG\_STRATEGY\_DEFAULT\_](#cvimwrite%5C_png%5C_strategy%5C_default%5C_)
-  - [cv.IMWRITE\_PNG\_STRATEGY\_FILTERED\_](#cvimwrite%5C_png%5C_strategy%5C_filtered%5C_)
-  - [cv.IMWRITE\_PNG\_STRATEGY\_HUFFMAN\_ONLY\_](#cvimwrite%5C_png%5C_strategy%5C_huffman%5C_only%5C_)
-  - [cv.IMWRITE\_PNG\_STRATEGY\_RLE\_](#cvimwrite%5C_png%5C_strategy%5C_rle%5C_)
-  - [cv.IMWRITE\_PNG\_STRATEGY\_FIXED\_](#cvimwrite%5C_png%5C_strategy%5C_fixed%5C_)
-  - [cv.IMWRITE\_PAM\_FORMAT\_NULL\_](#cvimwrite%5C_pam%5C_format%5C_null%5C_)
-  - [cv.IMWRITE\_PAM\_FORMAT\_BLACKANDWHITE\_](#cvimwrite%5C_pam%5C_format%5C_blackandwhite%5C_)
-  - [cv.IMWRITE\_PAM\_FORMAT\_GRAYSCALE\_](#cvimwrite%5C_pam%5C_format%5C_grayscale%5C_)
-  - [cv.IMWRITE\_PAM\_FORMAT\_GRAYSCALE\_ALPHA\_](#cvimwrite%5C_pam%5C_format%5C_grayscale%5C_alpha%5C_)
-  - [cv.IMWRITE\_PAM\_FORMAT\_RGB\_](#cvimwrite%5C_pam%5C_format%5C_rgb%5C_)
-  - [cv.IMWRITE\_PAM\_FORMAT\_RGB\_ALPHA\_](#cvimwrite%5C_pam%5C_format%5C_rgb%5C_alpha%5C_)
-  - [cv.CAP\_ANY\_](#cvcap%5C_any%5C_)
-  - [cv.CAP\_VFW\_](#cvcap%5C_vfw%5C_)
-  - [cv.CAP\_V4L\_](#cvcap%5C_v4l%5C_)
-  - [cv.CAP\_V4L2\_](#cvcap%5C_v4l2%5C_)
-  - [cv.CAP\_FIREWIRE\_](#cvcap%5C_firewire%5C_)
-  - [cv.CAP\_FIREWARE\_](#cvcap%5C_fireware%5C_)
-  - [cv.CAP\_IEEE1394\_](#cvcap%5C_ieee1394%5C_)
-  - [cv.CAP\_DC1394\_](#cvcap%5C_dc1394%5C_)
-  - [cv.CAP\_CMU1394\_](#cvcap%5C_cmu1394%5C_)
-  - [cv.CAP\_QT\_](#cvcap%5C_qt%5C_)
-  - [cv.CAP\_UNICAP\_](#cvcap%5C_unicap%5C_)
-  - [cv.CAP\_DSHOW\_](#cvcap%5C_dshow%5C_)
-  - [cv.CAP\_PVAPI\_](#cvcap%5C_pvapi%5C_)
-  - [cv.CAP\_OPENNI\_](#cvcap%5C_openni%5C_)
-  - [cv.CAP\_OPENNI\_ASUS\_](#cvcap%5C_openni%5C_asus%5C_)
-  - [cv.CAP\_ANDROID\_](#cvcap%5C_android%5C_)
-  - [cv.CAP\_XIAPI\_](#cvcap%5C_xiapi%5C_)
-  - [cv.CAP\_AVFOUNDATION\_](#cvcap%5C_avfoundation%5C_)
-  - [cv.CAP\_GIGANETIX\_](#cvcap%5C_giganetix%5C_)
-  - [cv.CAP\_MSMF\_](#cvcap%5C_msmf%5C_)
-  - [cv.CAP\_WINRT\_](#cvcap%5C_winrt%5C_)
-  - [cv.CAP\_INTELPERC\_](#cvcap%5C_intelperc%5C_)
-  - [cv.CAP\_REALSENSE\_](#cvcap%5C_realsense%5C_)
-  - [cv.CAP\_OPENNI2\_](#cvcap%5C_openni2%5C_)
-  - [cv.CAP\_OPENNI2\_ASUS\_](#cvcap%5C_openni2%5C_asus%5C_)
-  - [cv.CAP\_OPENNI2\_ASTRA\_](#cvcap%5C_openni2%5C_astra%5C_)
-  - [cv.CAP\_GPHOTO2\_](#cvcap%5C_gphoto2%5C_)
-  - [cv.CAP\_GSTREAMER\_](#cvcap%5C_gstreamer%5C_)
-  - [cv.CAP\_FFMPEG\_](#cvcap%5C_ffmpeg%5C_)
-  - [cv.CAP\_IMAGES\_](#cvcap%5C_images%5C_)
-  - [cv.CAP\_ARAVIS\_](#cvcap%5C_aravis%5C_)
-  - [cv.CAP\_OPENCV\_MJPEG\_](#cvcap%5C_opencv%5C_mjpeg%5C_)
-  - [cv.CAP\_INTEL\_MFX\_](#cvcap%5C_intel%5C_mfx%5C_)
-  - [cv.CAP\_XINE\_](#cvcap%5C_xine%5C_)
-  - [cv.CAP\_UEYE\_](#cvcap%5C_ueye%5C_)
-  - [cv.CAP\_PROP\_POS\_MSEC\_](#cvcap%5C_prop%5C_pos%5C_msec%5C_)
-  - [cv.CAP\_PROP\_POS\_FRAMES\_](#cvcap%5C_prop%5C_pos%5C_frames%5C_)
-  - [cv.CAP\_PROP\_POS\_AVI\_RATIO\_](#cvcap%5C_prop%5C_pos%5C_avi%5C_ratio%5C_)
-  - [cv.CAP\_PROP\_FRAME\_WIDTH\_](#cvcap%5C_prop%5C_frame%5C_width%5C_)
-  - [cv.CAP\_PROP\_FRAME\_HEIGHT\_](#cvcap%5C_prop%5C_frame%5C_height%5C_)
-  - [cv.CAP\_PROP\_FPS\_](#cvcap%5C_prop%5C_fps%5C_)
-  - [cv.CAP\_PROP\_FOURCC\_](#cvcap%5C_prop%5C_fourcc%5C_)
-  - [cv.CAP\_PROP\_FRAME\_COUNT\_](#cvcap%5C_prop%5C_frame%5C_count%5C_)
-  - [cv.CAP\_PROP\_FORMAT\_](#cvcap%5C_prop%5C_format%5C_)
-  - [cv.CAP\_PROP\_MODE\_](#cvcap%5C_prop%5C_mode%5C_)
-  - [cv.CAP\_PROP\_BRIGHTNESS\_](#cvcap%5C_prop%5C_brightness%5C_)
-  - [cv.CAP\_PROP\_CONTRAST\_](#cvcap%5C_prop%5C_contrast%5C_)
-  - [cv.CAP\_PROP\_SATURATION\_](#cvcap%5C_prop%5C_saturation%5C_)
-  - [cv.CAP\_PROP\_HUE\_](#cvcap%5C_prop%5C_hue%5C_)
-  - [cv.CAP\_PROP\_GAIN\_](#cvcap%5C_prop%5C_gain%5C_)
-  - [cv.CAP\_PROP\_EXPOSURE\_](#cvcap%5C_prop%5C_exposure%5C_)
-  - [cv.CAP\_PROP\_CONVERT\_RGB\_](#cvcap%5C_prop%5C_convert%5C_rgb%5C_)
-  - [cv.CAP\_PROP\_WHITE\_BALANCE\_BLUE\_U\_](#cvcap%5C_prop%5C_white%5C_balance%5C_blue%5C_u%5C_)
-  - [cv.CAP\_PROP\_RECTIFICATION\_](#cvcap%5C_prop%5C_rectification%5C_)
-  - [cv.CAP\_PROP\_MONOCHROME\_](#cvcap%5C_prop%5C_monochrome%5C_)
-  - [cv.CAP\_PROP\_SHARPNESS\_](#cvcap%5C_prop%5C_sharpness%5C_)
-  - [cv.CAP\_PROP\_AUTO\_EXPOSURE\_](#cvcap%5C_prop%5C_auto%5C_exposure%5C_)
-  - [cv.CAP\_PROP\_GAMMA\_](#cvcap%5C_prop%5C_gamma%5C_)
-  - [cv.CAP\_PROP\_TEMPERATURE\_](#cvcap%5C_prop%5C_temperature%5C_)
-  - [cv.CAP\_PROP\_TRIGGER\_](#cvcap%5C_prop%5C_trigger%5C_)
-  - [cv.CAP\_PROP\_TRIGGER\_DELAY\_](#cvcap%5C_prop%5C_trigger%5C_delay%5C_)
-  - [cv.CAP\_PROP\_WHITE\_BALANCE\_RED\_V\_](#cvcap%5C_prop%5C_white%5C_balance%5C_red%5C_v%5C_)
-  - [cv.CAP\_PROP\_ZOOM\_](#cvcap%5C_prop%5C_zoom%5C_)
-  - [cv.CAP\_PROP\_FOCUS\_](#cvcap%5C_prop%5C_focus%5C_)
-  - [cv.CAP\_PROP\_GUID\_](#cvcap%5C_prop%5C_guid%5C_)
-  - [cv.CAP\_PROP\_ISO\_SPEED\_](#cvcap%5C_prop%5C_iso%5C_speed%5C_)
-  - [cv.CAP\_PROP\_BACKLIGHT\_](#cvcap%5C_prop%5C_backlight%5C_)
-  - [cv.CAP\_PROP\_PAN\_](#cvcap%5C_prop%5C_pan%5C_)
-  - [cv.CAP\_PROP\_TILT\_](#cvcap%5C_prop%5C_tilt%5C_)
-  - [cv.CAP\_PROP\_ROLL\_](#cvcap%5C_prop%5C_roll%5C_)
-  - [cv.CAP\_PROP\_IRIS\_](#cvcap%5C_prop%5C_iris%5C_)
-  - [cv.CAP\_PROP\_SETTINGS\_](#cvcap%5C_prop%5C_settings%5C_)
-  - [cv.CAP\_PROP\_BUFFERSIZE\_](#cvcap%5C_prop%5C_buffersize%5C_)
-  - [cv.CAP\_PROP\_AUTOFOCUS\_](#cvcap%5C_prop%5C_autofocus%5C_)
-  - [cv.CAP\_PROP\_SAR\_NUM\_](#cvcap%5C_prop%5C_sar%5C_num%5C_)
-  - [cv.CAP\_PROP\_SAR\_DEN\_](#cvcap%5C_prop%5C_sar%5C_den%5C_)
-  - [cv.CAP\_PROP\_BACKEND\_](#cvcap%5C_prop%5C_backend%5C_)
-  - [cv.CAP\_PROP\_CHANNEL\_](#cvcap%5C_prop%5C_channel%5C_)
-  - [cv.CAP\_PROP\_AUTO\_WB\_](#cvcap%5C_prop%5C_auto%5C_wb%5C_)
-  - [cv.CAP\_PROP\_WB\_TEMPERATURE\_](#cvcap%5C_prop%5C_wb%5C_temperature%5C_)
-  - [cv.CAP\_PROP\_CODEC\_PIXEL\_FORMAT\_](#cvcap%5C_prop%5C_codec%5C_pixel%5C_format%5C_)
-  - [cv.CAP\_PROP\_BITRATE\_](#cvcap%5C_prop%5C_bitrate%5C_)
-  - [cv.CAP\_PROP\_ORIENTATION\_META\_](#cvcap%5C_prop%5C_orientation%5C_meta%5C_)
-  - [cv.CAP\_PROP\_ORIENTATION\_AUTO\_](#cvcap%5C_prop%5C_orientation%5C_auto%5C_)
-  - [cv.CAP\_PROP\_HW\_ACCELERATION\_](#cvcap%5C_prop%5C_hw%5C_acceleration%5C_)
-  - [cv.CAP\_PROP\_HW\_DEVICE\_](#cvcap%5C_prop%5C_hw%5C_device%5C_)
-  - [cv.CAP\_PROP\_HW\_ACCELERATION\_USE\_OPENCL\_](#cvcap%5C_prop%5C_hw%5C_acceleration%5C_use%5C_opencl%5C_)
-  - [cv.CAP\_PROP\_OPEN\_TIMEOUT\_MSEC\_](#cvcap%5C_prop%5C_open%5C_timeout%5C_msec%5C_)
-  - [cv.CAP\_PROP\_READ\_TIMEOUT\_MSEC\_](#cvcap%5C_prop%5C_read%5C_timeout%5C_msec%5C_)
-  - [cv.CAP\_PROP\_STREAM\_OPEN\_TIME\_USEC\_](#cvcap%5C_prop%5C_stream%5C_open%5C_time%5C_usec%5C_)
-  - [cv.CAP\_PROP\_VIDEO\_TOTAL\_CHANNELS\_](#cvcap%5C_prop%5C_video%5C_total%5C_channels%5C_)
-  - [cv.CAP\_PROP\_VIDEO\_STREAM\_](#cvcap%5C_prop%5C_video%5C_stream%5C_)
-  - [cv.CAP\_PROP\_AUDIO\_STREAM\_](#cvcap%5C_prop%5C_audio%5C_stream%5C_)
-  - [cv.CAP\_PROP\_AUDIO\_POS\_](#cvcap%5C_prop%5C_audio%5C_pos%5C_)
-  - [cv.CAP\_PROP\_AUDIO\_SHIFT\_NSEC\_](#cvcap%5C_prop%5C_audio%5C_shift%5C_nsec%5C_)
-  - [cv.CAP\_PROP\_AUDIO\_DATA\_DEPTH\_](#cvcap%5C_prop%5C_audio%5C_data%5C_depth%5C_)
-  - [cv.CAP\_PROP\_AUDIO\_SAMPLES\_PER\_SECOND\_](#cvcap%5C_prop%5C_audio%5C_samples%5C_per%5C_second%5C_)
-  - [cv.CAP\_PROP\_AUDIO\_BASE\_INDEX\_](#cvcap%5C_prop%5C_audio%5C_base%5C_index%5C_)
-  - [cv.CAP\_PROP\_AUDIO\_TOTAL\_CHANNELS\_](#cvcap%5C_prop%5C_audio%5C_total%5C_channels%5C_)
-  - [cv.CAP\_PROP\_AUDIO\_TOTAL\_STREAMS\_](#cvcap%5C_prop%5C_audio%5C_total%5C_streams%5C_)
-  - [cv.CAP\_PROP\_AUDIO\_SYNCHRONIZE\_](#cvcap%5C_prop%5C_audio%5C_synchronize%5C_)
-  - [cv.CAP\_PROP\_LRF\_HAS\_KEY\_FRAME\_](#cvcap%5C_prop%5C_lrf%5C_has%5C_key%5C_frame%5C_)
-  - [cv.CAP\_PROP\_CODEC\_EXTRADATA\_INDEX\_](#cvcap%5C_prop%5C_codec%5C_extradata%5C_index%5C_)
-  - [cv.VIDEOWRITER\_PROP\_QUALITY\_](#cvvideowriter%5C_prop%5C_quality%5C_)
-  - [cv.VIDEOWRITER\_PROP\_FRAMEBYTES\_](#cvvideowriter%5C_prop%5C_framebytes%5C_)
-  - [cv.VIDEOWRITER\_PROP\_NSTRIPES\_](#cvvideowriter%5C_prop%5C_nstripes%5C_)
-  - [cv.VIDEOWRITER\_PROP\_IS\_COLOR\_](#cvvideowriter%5C_prop%5C_is%5C_color%5C_)
-  - [cv.VIDEOWRITER\_PROP\_DEPTH\_](#cvvideowriter%5C_prop%5C_depth%5C_)
-  - [cv.VIDEOWRITER\_PROP\_HW\_ACCELERATION\_](#cvvideowriter%5C_prop%5C_hw%5C_acceleration%5C_)
-  - [cv.VIDEOWRITER\_PROP\_HW\_DEVICE\_](#cvvideowriter%5C_prop%5C_hw%5C_device%5C_)
-  - [cv.VIDEOWRITER\_PROP\_HW\_ACCELERATION\_USE\_OPENCL\_](#cvvideowriter%5C_prop%5C_hw%5C_acceleration%5C_use%5C_opencl%5C_)
-  - [cv.VIDEO\_ACCELERATION\_NONE\_](#cvvideo%5C_acceleration%5C_none%5C_)
-  - [cv.VIDEO\_ACCELERATION\_ANY\_](#cvvideo%5C_acceleration%5C_any%5C_)
-  - [cv.VIDEO\_ACCELERATION\_D3D11\_](#cvvideo%5C_acceleration%5C_d3d11%5C_)
-  - [cv.VIDEO\_ACCELERATION\_VAAPI\_](#cvvideo%5C_acceleration%5C_vaapi%5C_)
-  - [cv.VIDEO\_ACCELERATION\_MFX\_](#cvvideo%5C_acceleration%5C_mfx%5C_)
-  - [cv.CAP\_PROP\_DC1394\_OFF\_](#cvcap%5C_prop%5C_dc1394%5C_off%5C_)
-  - [cv.CAP\_PROP\_DC1394\_MODE\_MANUAL\_](#cvcap%5C_prop%5C_dc1394%5C_mode%5C_manual%5C_)
-  - [cv.CAP\_PROP\_DC1394\_MODE\_AUTO\_](#cvcap%5C_prop%5C_dc1394%5C_mode%5C_auto%5C_)
-  - [cv.CAP\_PROP\_DC1394\_MODE\_ONE\_PUSH\_AUTO\_](#cvcap%5C_prop%5C_dc1394%5C_mode%5C_one%5C_push%5C_auto%5C_)
-  - [cv.CAP\_PROP\_DC1394\_MAX\_](#cvcap%5C_prop%5C_dc1394%5C_max%5C_)
-  - [cv.CAP\_OPENNI\_DEPTH\_GENERATOR\_](#cvcap%5C_openni%5C_depth%5C_generator%5C_)
-  - [cv.CAP\_OPENNI\_IMAGE\_GENERATOR\_](#cvcap%5C_openni%5C_image%5C_generator%5C_)
-  - [cv.CAP\_OPENNI\_IR\_GENERATOR\_](#cvcap%5C_openni%5C_ir%5C_generator%5C_)
-  - [cv.CAP\_OPENNI\_GENERATORS\_MASK\_](#cvcap%5C_openni%5C_generators%5C_mask%5C_)
-  - [cv.CAP\_PROP\_OPENNI\_OUTPUT\_MODE\_](#cvcap%5C_prop%5C_openni%5C_output%5C_mode%5C_)
-  - [cv.CAP\_PROP\_OPENNI\_FRAME\_MAX\_DEPTH\_](#cvcap%5C_prop%5C_openni%5C_frame%5C_max%5C_depth%5C_)
-  - [cv.CAP\_PROP\_OPENNI\_BASELINE\_](#cvcap%5C_prop%5C_openni%5C_baseline%5C_)
-  - [cv.CAP\_PROP\_OPENNI\_FOCAL\_LENGTH\_](#cvcap%5C_prop%5C_openni%5C_focal%5C_length%5C_)
-  - [cv.CAP\_PROP\_OPENNI\_REGISTRATION\_](#cvcap%5C_prop%5C_openni%5C_registration%5C_)
-  - [cv.CAP\_PROP\_OPENNI\_REGISTRATION\_ON\_](#cvcap%5C_prop%5C_openni%5C_registration%5C_on%5C_)
-  - [cv.CAP\_PROP\_OPENNI\_APPROX\_FRAME\_SYNC\_](#cvcap%5C_prop%5C_openni%5C_approx%5C_frame%5C_sync%5C_)
-  - [cv.CAP\_PROP\_OPENNI\_MAX\_BUFFER\_SIZE\_](#cvcap%5C_prop%5C_openni%5C_max%5C_buffer%5C_size%5C_)
-  - [cv.CAP\_PROP\_OPENNI\_CIRCLE\_BUFFER\_](#cvcap%5C_prop%5C_openni%5C_circle%5C_buffer%5C_)
-  - [cv.CAP\_PROP\_OPENNI\_MAX\_TIME\_DURATION\_](#cvcap%5C_prop%5C_openni%5C_max%5C_time%5C_duration%5C_)
-  - [cv.CAP\_PROP\_OPENNI\_GENERATOR\_PRESENT\_](#cvcap%5C_prop%5C_openni%5C_generator%5C_present%5C_)
-  - [cv.CAP\_PROP\_OPENNI2\_SYNC\_](#cvcap%5C_prop%5C_openni2%5C_sync%5C_)
-  - [cv.CAP\_PROP\_OPENNI2\_MIRROR\_](#cvcap%5C_prop%5C_openni2%5C_mirror%5C_)
-  - [cv.CAP\_OPENNI\_IMAGE\_GENERATOR\_PRESENT\_](#cvcap%5C_openni%5C_image%5C_generator%5C_present%5C_)
-  - [cv.CAP\_OPENNI\_IMAGE\_GENERATOR\_OUTPUT\_MODE\_](#cvcap%5C_openni%5C_image%5C_generator%5C_output%5C_mode%5C_)
-  - [cv.CAP\_OPENNI\_DEPTH\_GENERATOR\_PRESENT\_](#cvcap%5C_openni%5C_depth%5C_generator%5C_present%5C_)
-  - [cv.CAP\_OPENNI\_DEPTH\_GENERATOR\_BASELINE\_](#cvcap%5C_openni%5C_depth%5C_generator%5C_baseline%5C_)
-  - [cv.CAP\_OPENNI\_DEPTH\_GENERATOR\_FOCAL\_LENGTH\_](#cvcap%5C_openni%5C_depth%5C_generator%5C_focal%5C_length%5C_)
-  - [cv.CAP\_OPENNI\_DEPTH\_GENERATOR\_REGISTRATION\_](#cvcap%5C_openni%5C_depth%5C_generator%5C_registration%5C_)
-  - [cv.CAP\_OPENNI\_DEPTH\_GENERATOR\_REGISTRATION\_ON\_](#cvcap%5C_openni%5C_depth%5C_generator%5C_registration%5C_on%5C_)
-  - [cv.CAP\_OPENNI\_IR\_GENERATOR\_PRESENT\_](#cvcap%5C_openni%5C_ir%5C_generator%5C_present%5C_)
-  - [cv.CAP\_OPENNI\_DEPTH\_MAP\_](#cvcap%5C_openni%5C_depth%5C_map%5C_)
-  - [cv.CAP\_OPENNI\_POINT\_CLOUD\_MAP\_](#cvcap%5C_openni%5C_point%5C_cloud%5C_map%5C_)
-  - [cv.CAP\_OPENNI\_DISPARITY\_MAP\_](#cvcap%5C_openni%5C_disparity%5C_map%5C_)
-  - [cv.CAP\_OPENNI\_DISPARITY\_MAP\_32F\_](#cvcap%5C_openni%5C_disparity%5C_map%5C_32f%5C_)
-  - [cv.CAP\_OPENNI\_VALID\_DEPTH\_MASK\_](#cvcap%5C_openni%5C_valid%5C_depth%5C_mask%5C_)
-  - [cv.CAP\_OPENNI\_BGR\_IMAGE\_](#cvcap%5C_openni%5C_bgr%5C_image%5C_)
-  - [cv.CAP\_OPENNI\_GRAY\_IMAGE\_](#cvcap%5C_openni%5C_gray%5C_image%5C_)
-  - [cv.CAP\_OPENNI\_IR\_IMAGE\_](#cvcap%5C_openni%5C_ir%5C_image%5C_)
-  - [cv.CAP\_OPENNI\_VGA\_30HZ\_](#cvcap%5C_openni%5C_vga%5C_30hz%5C_)
-  - [cv.CAP\_OPENNI\_SXGA\_15HZ\_](#cvcap%5C_openni%5C_sxga%5C_15hz%5C_)
-  - [cv.CAP\_OPENNI\_SXGA\_30HZ\_](#cvcap%5C_openni%5C_sxga%5C_30hz%5C_)
-  - [cv.CAP\_OPENNI\_QVGA\_30HZ\_](#cvcap%5C_openni%5C_qvga%5C_30hz%5C_)
-  - [cv.CAP\_OPENNI\_QVGA\_60HZ\_](#cvcap%5C_openni%5C_qvga%5C_60hz%5C_)
-  - [cv.CAP\_PROP\_GSTREAMER\_QUEUE\_LENGTH\_](#cvcap%5C_prop%5C_gstreamer%5C_queue%5C_length%5C_)
-  - [cv.CAP\_PROP\_PVAPI\_MULTICASTIP\_](#cvcap%5C_prop%5C_pvapi%5C_multicastip%5C_)
-  - [cv.CAP\_PROP\_PVAPI\_FRAMESTARTTRIGGERMODE\_](#cvcap%5C_prop%5C_pvapi%5C_framestarttriggermode%5C_)
-  - [cv.CAP\_PROP\_PVAPI\_DECIMATIONHORIZONTAL\_](#cvcap%5C_prop%5C_pvapi%5C_decimationhorizontal%5C_)
-  - [cv.CAP\_PROP\_PVAPI\_DECIMATIONVERTICAL\_](#cvcap%5C_prop%5C_pvapi%5C_decimationvertical%5C_)
-  - [cv.CAP\_PROP\_PVAPI\_BINNINGX\_](#cvcap%5C_prop%5C_pvapi%5C_binningx%5C_)
-  - [cv.CAP\_PROP\_PVAPI\_BINNINGY\_](#cvcap%5C_prop%5C_pvapi%5C_binningy%5C_)
-  - [cv.CAP\_PROP\_PVAPI\_PIXELFORMAT\_](#cvcap%5C_prop%5C_pvapi%5C_pixelformat%5C_)
-  - [cv.CAP\_PVAPI\_FSTRIGMODE\_FREERUN\_](#cvcap%5C_pvapi%5C_fstrigmode%5C_freerun%5C_)
-  - [cv.CAP\_PVAPI\_FSTRIGMODE\_SYNCIN1\_](#cvcap%5C_pvapi%5C_fstrigmode%5C_syncin1%5C_)
-  - [cv.CAP\_PVAPI\_FSTRIGMODE\_SYNCIN2\_](#cvcap%5C_pvapi%5C_fstrigmode%5C_syncin2%5C_)
-  - [cv.CAP\_PVAPI\_FSTRIGMODE\_FIXEDRATE\_](#cvcap%5C_pvapi%5C_fstrigmode%5C_fixedrate%5C_)
-  - [cv.CAP\_PVAPI\_FSTRIGMODE\_SOFTWARE\_](#cvcap%5C_pvapi%5C_fstrigmode%5C_software%5C_)
-  - [cv.CAP\_PVAPI\_DECIMATION\_OFF\_](#cvcap%5C_pvapi%5C_decimation%5C_off%5C_)
-  - [cv.CAP\_PVAPI\_DECIMATION\_2OUTOF4\_](#cvcap%5C_pvapi%5C_decimation%5C_2outof4%5C_)
-  - [cv.CAP\_PVAPI\_DECIMATION\_2OUTOF8\_](#cvcap%5C_pvapi%5C_decimation%5C_2outof8%5C_)
-  - [cv.CAP\_PVAPI\_DECIMATION\_2OUTOF16\_](#cvcap%5C_pvapi%5C_decimation%5C_2outof16%5C_)
-  - [cv.CAP\_PVAPI\_PIXELFORMAT\_MONO8\_](#cvcap%5C_pvapi%5C_pixelformat%5C_mono8%5C_)
-  - [cv.CAP\_PVAPI\_PIXELFORMAT\_MONO16\_](#cvcap%5C_pvapi%5C_pixelformat%5C_mono16%5C_)
-  - [cv.CAP\_PVAPI\_PIXELFORMAT\_BAYER8\_](#cvcap%5C_pvapi%5C_pixelformat%5C_bayer8%5C_)
-  - [cv.CAP\_PVAPI\_PIXELFORMAT\_BAYER16\_](#cvcap%5C_pvapi%5C_pixelformat%5C_bayer16%5C_)
-  - [cv.CAP\_PVAPI\_PIXELFORMAT\_RGB24\_](#cvcap%5C_pvapi%5C_pixelformat%5C_rgb24%5C_)
-  - [cv.CAP\_PVAPI\_PIXELFORMAT\_BGR24\_](#cvcap%5C_pvapi%5C_pixelformat%5C_bgr24%5C_)
-  - [cv.CAP\_PVAPI\_PIXELFORMAT\_RGBA32\_](#cvcap%5C_pvapi%5C_pixelformat%5C_rgba32%5C_)
-  - [cv.CAP\_PVAPI\_PIXELFORMAT\_BGRA32\_](#cvcap%5C_pvapi%5C_pixelformat%5C_bgra32%5C_)
-  - [cv.CAP\_PROP\_XI\_DOWNSAMPLING\_](#cvcap%5C_prop%5C_xi%5C_downsampling%5C_)
-  - [cv.CAP\_PROP\_XI\_DATA\_FORMAT\_](#cvcap%5C_prop%5C_xi%5C_data%5C_format%5C_)
-  - [cv.CAP\_PROP\_XI\_OFFSET\_X\_](#cvcap%5C_prop%5C_xi%5C_offset%5C_x%5C_)
-  - [cv.CAP\_PROP\_XI\_OFFSET\_Y\_](#cvcap%5C_prop%5C_xi%5C_offset%5C_y%5C_)
-  - [cv.CAP\_PROP\_XI\_TRG\_SOURCE\_](#cvcap%5C_prop%5C_xi%5C_trg%5C_source%5C_)
-  - [cv.CAP\_PROP\_XI\_TRG\_SOFTWARE\_](#cvcap%5C_prop%5C_xi%5C_trg%5C_software%5C_)
-  - [cv.CAP\_PROP\_XI\_GPI\_SELECTOR\_](#cvcap%5C_prop%5C_xi%5C_gpi%5C_selector%5C_)
-  - [cv.CAP\_PROP\_XI\_GPI\_MODE\_](#cvcap%5C_prop%5C_xi%5C_gpi%5C_mode%5C_)
-  - [cv.CAP\_PROP\_XI\_GPI\_LEVEL\_](#cvcap%5C_prop%5C_xi%5C_gpi%5C_level%5C_)
-  - [cv.CAP\_PROP\_XI\_GPO\_SELECTOR\_](#cvcap%5C_prop%5C_xi%5C_gpo%5C_selector%5C_)
-  - [cv.CAP\_PROP\_XI\_GPO\_MODE\_](#cvcap%5C_prop%5C_xi%5C_gpo%5C_mode%5C_)
-  - [cv.CAP\_PROP\_XI\_LED\_SELECTOR\_](#cvcap%5C_prop%5C_xi%5C_led%5C_selector%5C_)
-  - [cv.CAP\_PROP\_XI\_LED\_MODE\_](#cvcap%5C_prop%5C_xi%5C_led%5C_mode%5C_)
-  - [cv.CAP\_PROP\_XI\_MANUAL\_WB\_](#cvcap%5C_prop%5C_xi%5C_manual%5C_wb%5C_)
-  - [cv.CAP\_PROP\_XI\_AUTO\_WB\_](#cvcap%5C_prop%5C_xi%5C_auto%5C_wb%5C_)
-  - [cv.CAP\_PROP\_XI\_AEAG\_](#cvcap%5C_prop%5C_xi%5C_aeag%5C_)
-  - [cv.CAP\_PROP\_XI\_EXP\_PRIORITY\_](#cvcap%5C_prop%5C_xi%5C_exp%5C_priority%5C_)
-  - [cv.CAP\_PROP\_XI\_AE\_MAX\_LIMIT\_](#cvcap%5C_prop%5C_xi%5C_ae%5C_max%5C_limit%5C_)
-  - [cv.CAP\_PROP\_XI\_AG\_MAX\_LIMIT\_](#cvcap%5C_prop%5C_xi%5C_ag%5C_max%5C_limit%5C_)
-  - [cv.CAP\_PROP\_XI\_AEAG\_LEVEL\_](#cvcap%5C_prop%5C_xi%5C_aeag%5C_level%5C_)
-  - [cv.CAP\_PROP\_XI\_TIMEOUT\_](#cvcap%5C_prop%5C_xi%5C_timeout%5C_)
-  - [cv.CAP\_PROP\_XI\_EXPOSURE\_](#cvcap%5C_prop%5C_xi%5C_exposure%5C_)
-  - [cv.CAP\_PROP\_XI\_EXPOSURE\_BURST\_COUNT\_](#cvcap%5C_prop%5C_xi%5C_exposure%5C_burst%5C_count%5C_)
-  - [cv.CAP\_PROP\_XI\_GAIN\_SELECTOR\_](#cvcap%5C_prop%5C_xi%5C_gain%5C_selector%5C_)
-  - [cv.CAP\_PROP\_XI\_GAIN\_](#cvcap%5C_prop%5C_xi%5C_gain%5C_)
-  - [cv.CAP\_PROP\_XI\_DOWNSAMPLING\_TYPE\_](#cvcap%5C_prop%5C_xi%5C_downsampling%5C_type%5C_)
-  - [cv.CAP\_PROP\_XI\_BINNING\_SELECTOR\_](#cvcap%5C_prop%5C_xi%5C_binning%5C_selector%5C_)
-  - [cv.CAP\_PROP\_XI\_BINNING\_VERTICAL\_](#cvcap%5C_prop%5C_xi%5C_binning%5C_vertical%5C_)
-  - [cv.CAP\_PROP\_XI\_BINNING\_HORIZONTAL\_](#cvcap%5C_prop%5C_xi%5C_binning%5C_horizontal%5C_)
-  - [cv.CAP\_PROP\_XI\_BINNING\_PATTERN\_](#cvcap%5C_prop%5C_xi%5C_binning%5C_pattern%5C_)
-  - [cv.CAP\_PROP\_XI\_DECIMATION\_SELECTOR\_](#cvcap%5C_prop%5C_xi%5C_decimation%5C_selector%5C_)
-  - [cv.CAP\_PROP\_XI\_DECIMATION\_VERTICAL\_](#cvcap%5C_prop%5C_xi%5C_decimation%5C_vertical%5C_)
-  - [cv.CAP\_PROP\_XI\_DECIMATION\_HORIZONTAL\_](#cvcap%5C_prop%5C_xi%5C_decimation%5C_horizontal%5C_)
-  - [cv.CAP\_PROP\_XI\_DECIMATION\_PATTERN\_](#cvcap%5C_prop%5C_xi%5C_decimation%5C_pattern%5C_)
-  - [cv.CAP\_PROP\_XI\_TEST\_PATTERN\_GENERATOR\_SELECTOR\_](#cvcap%5C_prop%5C_xi%5C_test%5C_pattern%5C_generator%5C_selector%5C_)
-  - [cv.CAP\_PROP\_XI\_TEST\_PATTERN\_](#cvcap%5C_prop%5C_xi%5C_test%5C_pattern%5C_)
-  - [cv.CAP\_PROP\_XI\_IMAGE\_DATA\_FORMAT\_](#cvcap%5C_prop%5C_xi%5C_image%5C_data%5C_format%5C_)
-  - [cv.CAP\_PROP\_XI\_SHUTTER\_TYPE\_](#cvcap%5C_prop%5C_xi%5C_shutter%5C_type%5C_)
-  - [cv.CAP\_PROP\_XI\_SENSOR\_TAPS\_](#cvcap%5C_prop%5C_xi%5C_sensor%5C_taps%5C_)
-  - [cv.CAP\_PROP\_XI\_AEAG\_ROI\_OFFSET\_X\_](#cvcap%5C_prop%5C_xi%5C_aeag%5C_roi%5C_offset%5C_x%5C_)
-  - [cv.CAP\_PROP\_XI\_AEAG\_ROI\_OFFSET\_Y\_](#cvcap%5C_prop%5C_xi%5C_aeag%5C_roi%5C_offset%5C_y%5C_)
-  - [cv.CAP\_PROP\_XI\_AEAG\_ROI\_WIDTH\_](#cvcap%5C_prop%5C_xi%5C_aeag%5C_roi%5C_width%5C_)
-  - [cv.CAP\_PROP\_XI\_AEAG\_ROI\_HEIGHT\_](#cvcap%5C_prop%5C_xi%5C_aeag%5C_roi%5C_height%5C_)
-  - [cv.CAP\_PROP\_XI\_BPC\_](#cvcap%5C_prop%5C_xi%5C_bpc%5C_)
-  - [cv.CAP\_PROP\_XI\_WB\_KR\_](#cvcap%5C_prop%5C_xi%5C_wb%5C_kr%5C_)
-  - [cv.CAP\_PROP\_XI\_WB\_KG\_](#cvcap%5C_prop%5C_xi%5C_wb%5C_kg%5C_)
-  - [cv.CAP\_PROP\_XI\_WB\_KB\_](#cvcap%5C_prop%5C_xi%5C_wb%5C_kb%5C_)
-  - [cv.CAP\_PROP\_XI\_WIDTH\_](#cvcap%5C_prop%5C_xi%5C_width%5C_)
-  - [cv.CAP\_PROP\_XI\_HEIGHT\_](#cvcap%5C_prop%5C_xi%5C_height%5C_)
-  - [cv.CAP\_PROP\_XI\_REGION\_SELECTOR\_](#cvcap%5C_prop%5C_xi%5C_region%5C_selector%5C_)
-  - [cv.CAP\_PROP\_XI\_REGION\_MODE\_](#cvcap%5C_prop%5C_xi%5C_region%5C_mode%5C_)
-  - [cv.CAP\_PROP\_XI\_LIMIT\_BANDWIDTH\_](#cvcap%5C_prop%5C_xi%5C_limit%5C_bandwidth%5C_)
-  - [cv.CAP\_PROP\_XI\_SENSOR\_DATA\_BIT\_DEPTH\_](#cvcap%5C_prop%5C_xi%5C_sensor%5C_data%5C_bit%5C_depth%5C_)
-  - [cv.CAP\_PROP\_XI\_OUTPUT\_DATA\_BIT\_DEPTH\_](#cvcap%5C_prop%5C_xi%5C_output%5C_data%5C_bit%5C_depth%5C_)
-  - [cv.CAP\_PROP\_XI\_IMAGE\_DATA\_BIT\_DEPTH\_](#cvcap%5C_prop%5C_xi%5C_image%5C_data%5C_bit%5C_depth%5C_)
-  - [cv.CAP\_PROP\_XI\_OUTPUT\_DATA\_PACKING\_](#cvcap%5C_prop%5C_xi%5C_output%5C_data%5C_packing%5C_)
-  - [cv.CAP\_PROP\_XI\_OUTPUT\_DATA\_PACKING\_TYPE\_](#cvcap%5C_prop%5C_xi%5C_output%5C_data%5C_packing%5C_type%5C_)
-  - [cv.CAP\_PROP\_XI\_IS\_COOLED\_](#cvcap%5C_prop%5C_xi%5C_is%5C_cooled%5C_)
-  - [cv.CAP\_PROP\_XI\_COOLING\_](#cvcap%5C_prop%5C_xi%5C_cooling%5C_)
-  - [cv.CAP\_PROP\_XI\_TARGET\_TEMP\_](#cvcap%5C_prop%5C_xi%5C_target%5C_temp%5C_)
-  - [cv.CAP\_PROP\_XI\_CHIP\_TEMP\_](#cvcap%5C_prop%5C_xi%5C_chip%5C_temp%5C_)
-  - [cv.CAP\_PROP\_XI\_HOUS\_TEMP\_](#cvcap%5C_prop%5C_xi%5C_hous%5C_temp%5C_)
-  - [cv.CAP\_PROP\_XI\_HOUS\_BACK\_SIDE\_TEMP\_](#cvcap%5C_prop%5C_xi%5C_hous%5C_back%5C_side%5C_temp%5C_)
-  - [cv.CAP\_PROP\_XI\_SENSOR\_BOARD\_TEMP\_](#cvcap%5C_prop%5C_xi%5C_sensor%5C_board%5C_temp%5C_)
-  - [cv.CAP\_PROP\_XI\_CMS\_](#cvcap%5C_prop%5C_xi%5C_cms%5C_)
-  - [cv.CAP\_PROP\_XI\_APPLY\_CMS\_](#cvcap%5C_prop%5C_xi%5C_apply%5C_cms%5C_)
-  - [cv.CAP\_PROP\_XI\_IMAGE\_IS\_COLOR\_](#cvcap%5C_prop%5C_xi%5C_image%5C_is%5C_color%5C_)
-  - [cv.CAP\_PROP\_XI\_COLOR\_FILTER\_ARRAY\_](#cvcap%5C_prop%5C_xi%5C_color%5C_filter%5C_array%5C_)
-  - [cv.CAP\_PROP\_XI\_GAMMAY\_](#cvcap%5C_prop%5C_xi%5C_gammay%5C_)
-  - [cv.CAP\_PROP\_XI\_GAMMAC\_](#cvcap%5C_prop%5C_xi%5C_gammac%5C_)
-  - [cv.CAP\_PROP\_XI\_SHARPNESS\_](#cvcap%5C_prop%5C_xi%5C_sharpness%5C_)
-  - [cv.CAP\_PROP\_XI\_CC\_MATRIX\_00\_](#cvcap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_00%5C_)
-  - [cv.CAP\_PROP\_XI\_CC\_MATRIX\_01\_](#cvcap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_01%5C_)
-  - [cv.CAP\_PROP\_XI\_CC\_MATRIX\_02\_](#cvcap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_02%5C_)
-  - [cv.CAP\_PROP\_XI\_CC\_MATRIX\_03\_](#cvcap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_03%5C_)
-  - [cv.CAP\_PROP\_XI\_CC\_MATRIX\_10\_](#cvcap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_10%5C_)
-  - [cv.CAP\_PROP\_XI\_CC\_MATRIX\_11\_](#cvcap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_11%5C_)
-  - [cv.CAP\_PROP\_XI\_CC\_MATRIX\_12\_](#cvcap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_12%5C_)
-  - [cv.CAP\_PROP\_XI\_CC\_MATRIX\_13\_](#cvcap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_13%5C_)
-  - [cv.CAP\_PROP\_XI\_CC\_MATRIX\_20\_](#cvcap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_20%5C_)
-  - [cv.CAP\_PROP\_XI\_CC\_MATRIX\_21\_](#cvcap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_21%5C_)
-  - [cv.CAP\_PROP\_XI\_CC\_MATRIX\_22\_](#cvcap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_22%5C_)
-  - [cv.CAP\_PROP\_XI\_CC\_MATRIX\_23\_](#cvcap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_23%5C_)
-  - [cv.CAP\_PROP\_XI\_CC\_MATRIX\_30\_](#cvcap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_30%5C_)
-  - [cv.CAP\_PROP\_XI\_CC\_MATRIX\_31\_](#cvcap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_31%5C_)
-  - [cv.CAP\_PROP\_XI\_CC\_MATRIX\_32\_](#cvcap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_32%5C_)
-  - [cv.CAP\_PROP\_XI\_CC\_MATRIX\_33\_](#cvcap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_33%5C_)
-  - [cv.CAP\_PROP\_XI\_DEFAULT\_CC\_MATRIX\_](#cvcap%5C_prop%5C_xi%5C_default%5C_cc%5C_matrix%5C_)
-  - [cv.CAP\_PROP\_XI\_TRG\_SELECTOR\_](#cvcap%5C_prop%5C_xi%5C_trg%5C_selector%5C_)
-  - [cv.CAP\_PROP\_XI\_ACQ\_FRAME\_BURST\_COUNT\_](#cvcap%5C_prop%5C_xi%5C_acq%5C_frame%5C_burst%5C_count%5C_)
-  - [cv.CAP\_PROP\_XI\_DEBOUNCE\_EN\_](#cvcap%5C_prop%5C_xi%5C_debounce%5C_en%5C_)
-  - [cv.CAP\_PROP\_XI\_DEBOUNCE\_T0\_](#cvcap%5C_prop%5C_xi%5C_debounce%5C_t0%5C_)
-  - [cv.CAP\_PROP\_XI\_DEBOUNCE\_T1\_](#cvcap%5C_prop%5C_xi%5C_debounce%5C_t1%5C_)
-  - [cv.CAP\_PROP\_XI\_DEBOUNCE\_POL\_](#cvcap%5C_prop%5C_xi%5C_debounce%5C_pol%5C_)
-  - [cv.CAP\_PROP\_XI\_LENS\_MODE\_](#cvcap%5C_prop%5C_xi%5C_lens%5C_mode%5C_)
-  - [cv.CAP\_PROP\_XI\_LENS\_APERTURE\_VALUE\_](#cvcap%5C_prop%5C_xi%5C_lens%5C_aperture%5C_value%5C_)
-  - [cv.CAP\_PROP\_XI\_LENS\_FOCUS\_MOVEMENT\_VALUE\_](#cvcap%5C_prop%5C_xi%5C_lens%5C_focus%5C_movement%5C_value%5C_)
-  - [cv.CAP\_PROP\_XI\_LENS\_FOCUS\_MOVE\_](#cvcap%5C_prop%5C_xi%5C_lens%5C_focus%5C_move%5C_)
-  - [cv.CAP\_PROP\_XI\_LENS\_FOCUS\_DISTANCE\_](#cvcap%5C_prop%5C_xi%5C_lens%5C_focus%5C_distance%5C_)
-  - [cv.CAP\_PROP\_XI\_LENS\_FOCAL\_LENGTH\_](#cvcap%5C_prop%5C_xi%5C_lens%5C_focal%5C_length%5C_)
-  - [cv.CAP\_PROP\_XI\_LENS\_FEATURE\_SELECTOR\_](#cvcap%5C_prop%5C_xi%5C_lens%5C_feature%5C_selector%5C_)
-  - [cv.CAP\_PROP\_XI\_LENS\_FEATURE\_](#cvcap%5C_prop%5C_xi%5C_lens%5C_feature%5C_)
-  - [cv.CAP\_PROP\_XI\_DEVICE\_MODEL\_ID\_](#cvcap%5C_prop%5C_xi%5C_device%5C_model%5C_id%5C_)
-  - [cv.CAP\_PROP\_XI\_DEVICE\_SN\_](#cvcap%5C_prop%5C_xi%5C_device%5C_sn%5C_)
-  - [cv.CAP\_PROP\_XI\_IMAGE\_DATA\_FORMAT\_RGB32\_ALPHA\_](#cvcap%5C_prop%5C_xi%5C_image%5C_data%5C_format%5C_rgb32%5C_alpha%5C_)
-  - [cv.CAP\_PROP\_XI\_IMAGE\_PAYLOAD\_SIZE\_](#cvcap%5C_prop%5C_xi%5C_image%5C_payload%5C_size%5C_)
-  - [cv.CAP\_PROP\_XI\_TRANSPORT\_PIXEL\_FORMAT\_](#cvcap%5C_prop%5C_xi%5C_transport%5C_pixel%5C_format%5C_)
-  - [cv.CAP\_PROP\_XI\_SENSOR\_CLOCK\_FREQ\_HZ\_](#cvcap%5C_prop%5C_xi%5C_sensor%5C_clock%5C_freq%5C_hz%5C_)
-  - [cv.CAP\_PROP\_XI\_SENSOR\_CLOCK\_FREQ\_INDEX\_](#cvcap%5C_prop%5C_xi%5C_sensor%5C_clock%5C_freq%5C_index%5C_)
-  - [cv.CAP\_PROP\_XI\_SENSOR\_OUTPUT\_CHANNEL\_COUNT\_](#cvcap%5C_prop%5C_xi%5C_sensor%5C_output%5C_channel%5C_count%5C_)
-  - [cv.CAP\_PROP\_XI\_FRAMERATE\_](#cvcap%5C_prop%5C_xi%5C_framerate%5C_)
-  - [cv.CAP\_PROP\_XI\_COUNTER\_SELECTOR\_](#cvcap%5C_prop%5C_xi%5C_counter%5C_selector%5C_)
-  - [cv.CAP\_PROP\_XI\_COUNTER\_VALUE\_](#cvcap%5C_prop%5C_xi%5C_counter%5C_value%5C_)
-  - [cv.CAP\_PROP\_XI\_ACQ\_TIMING\_MODE\_](#cvcap%5C_prop%5C_xi%5C_acq%5C_timing%5C_mode%5C_)
-  - [cv.CAP\_PROP\_XI\_AVAILABLE\_BANDWIDTH\_](#cvcap%5C_prop%5C_xi%5C_available%5C_bandwidth%5C_)
-  - [cv.CAP\_PROP\_XI\_BUFFER\_POLICY\_](#cvcap%5C_prop%5C_xi%5C_buffer%5C_policy%5C_)
-  - [cv.CAP\_PROP\_XI\_LUT\_EN\_](#cvcap%5C_prop%5C_xi%5C_lut%5C_en%5C_)
-  - [cv.CAP\_PROP\_XI\_LUT\_INDEX\_](#cvcap%5C_prop%5C_xi%5C_lut%5C_index%5C_)
-  - [cv.CAP\_PROP\_XI\_LUT\_VALUE\_](#cvcap%5C_prop%5C_xi%5C_lut%5C_value%5C_)
-  - [cv.CAP\_PROP\_XI\_TRG\_DELAY\_](#cvcap%5C_prop%5C_xi%5C_trg%5C_delay%5C_)
-  - [cv.CAP\_PROP\_XI\_TS\_RST\_MODE\_](#cvcap%5C_prop%5C_xi%5C_ts%5C_rst%5C_mode%5C_)
-  - [cv.CAP\_PROP\_XI\_TS\_RST\_SOURCE\_](#cvcap%5C_prop%5C_xi%5C_ts%5C_rst%5C_source%5C_)
-  - [cv.CAP\_PROP\_XI\_IS\_DEVICE\_EXIST\_](#cvcap%5C_prop%5C_xi%5C_is%5C_device%5C_exist%5C_)
-  - [cv.CAP\_PROP\_XI\_ACQ\_BUFFER\_SIZE\_](#cvcap%5C_prop%5C_xi%5C_acq%5C_buffer%5C_size%5C_)
-  - [cv.CAP\_PROP\_XI\_ACQ\_BUFFER\_SIZE\_UNIT\_](#cvcap%5C_prop%5C_xi%5C_acq%5C_buffer%5C_size%5C_unit%5C_)
-  - [cv.CAP\_PROP\_XI\_ACQ\_TRANSPORT\_BUFFER\_SIZE\_](#cvcap%5C_prop%5C_xi%5C_acq%5C_transport%5C_buffer%5C_size%5C_)
-  - [cv.CAP\_PROP\_XI\_BUFFERS\_QUEUE\_SIZE\_](#cvcap%5C_prop%5C_xi%5C_buffers%5C_queue%5C_size%5C_)
-  - [cv.CAP\_PROP\_XI\_ACQ\_TRANSPORT\_BUFFER\_COMMIT\_](#cvcap%5C_prop%5C_xi%5C_acq%5C_transport%5C_buffer%5C_commit%5C_)
-  - [cv.CAP\_PROP\_XI\_RECENT\_FRAME\_](#cvcap%5C_prop%5C_xi%5C_recent%5C_frame%5C_)
-  - [cv.CAP\_PROP\_XI\_DEVICE\_RESET\_](#cvcap%5C_prop%5C_xi%5C_device%5C_reset%5C_)
-  - [cv.CAP\_PROP\_XI\_COLUMN\_FPN\_CORRECTION\_](#cvcap%5C_prop%5C_xi%5C_column%5C_fpn%5C_correction%5C_)
-  - [cv.CAP\_PROP\_XI\_ROW\_FPN\_CORRECTION\_](#cvcap%5C_prop%5C_xi%5C_row%5C_fpn%5C_correction%5C_)
-  - [cv.CAP\_PROP\_XI\_SENSOR\_MODE\_](#cvcap%5C_prop%5C_xi%5C_sensor%5C_mode%5C_)
-  - [cv.CAP\_PROP\_XI\_HDR\_](#cvcap%5C_prop%5C_xi%5C_hdr%5C_)
-  - [cv.CAP\_PROP\_XI\_HDR\_KNEEPOINT\_COUNT\_](#cvcap%5C_prop%5C_xi%5C_hdr%5C_kneepoint%5C_count%5C_)
-  - [cv.CAP\_PROP\_XI\_HDR\_T1\_](#cvcap%5C_prop%5C_xi%5C_hdr%5C_t1%5C_)
-  - [cv.CAP\_PROP\_XI\_HDR\_T2\_](#cvcap%5C_prop%5C_xi%5C_hdr%5C_t2%5C_)
-  - [cv.CAP\_PROP\_XI\_KNEEPOINT1\_](#cvcap%5C_prop%5C_xi%5C_kneepoint1%5C_)
-  - [cv.CAP\_PROP\_XI\_KNEEPOINT2\_](#cvcap%5C_prop%5C_xi%5C_kneepoint2%5C_)
-  - [cv.CAP\_PROP\_XI\_IMAGE\_BLACK\_LEVEL\_](#cvcap%5C_prop%5C_xi%5C_image%5C_black%5C_level%5C_)
-  - [cv.CAP\_PROP\_XI\_HW\_REVISION\_](#cvcap%5C_prop%5C_xi%5C_hw%5C_revision%5C_)
-  - [cv.CAP\_PROP\_XI\_DEBUG\_LEVEL\_](#cvcap%5C_prop%5C_xi%5C_debug%5C_level%5C_)
-  - [cv.CAP\_PROP\_XI\_AUTO\_BANDWIDTH\_CALCULATION\_](#cvcap%5C_prop%5C_xi%5C_auto%5C_bandwidth%5C_calculation%5C_)
-  - [cv.CAP\_PROP\_XI\_FFS\_FILE\_ID\_](#cvcap%5C_prop%5C_xi%5C_ffs%5C_file%5C_id%5C_)
-  - [cv.CAP\_PROP\_XI\_FFS\_FILE\_SIZE\_](#cvcap%5C_prop%5C_xi%5C_ffs%5C_file%5C_size%5C_)
-  - [cv.CAP\_PROP\_XI\_FREE\_FFS\_SIZE\_](#cvcap%5C_prop%5C_xi%5C_free%5C_ffs%5C_size%5C_)
-  - [cv.CAP\_PROP\_XI\_USED\_FFS\_SIZE\_](#cvcap%5C_prop%5C_xi%5C_used%5C_ffs%5C_size%5C_)
-  - [cv.CAP\_PROP\_XI\_FFS\_ACCESS\_KEY\_](#cvcap%5C_prop%5C_xi%5C_ffs%5C_access%5C_key%5C_)
-  - [cv.CAP\_PROP\_XI\_SENSOR\_FEATURE\_SELECTOR\_](#cvcap%5C_prop%5C_xi%5C_sensor%5C_feature%5C_selector%5C_)
-  - [cv.CAP\_PROP\_XI\_SENSOR\_FEATURE\_VALUE\_](#cvcap%5C_prop%5C_xi%5C_sensor%5C_feature%5C_value%5C_)
-  - [cv.CAP\_PROP\_ARAVIS\_AUTOTRIGGER\_](#cvcap%5C_prop%5C_aravis%5C_autotrigger%5C_)
-  - [cv.CAP\_PROP\_IOS\_DEVICE\_FOCUS\_](#cvcap%5C_prop%5C_ios%5C_device%5C_focus%5C_)
-  - [cv.CAP\_PROP\_IOS\_DEVICE\_EXPOSURE\_](#cvcap%5C_prop%5C_ios%5C_device%5C_exposure%5C_)
-  - [cv.CAP\_PROP\_IOS\_DEVICE\_FLASH\_](#cvcap%5C_prop%5C_ios%5C_device%5C_flash%5C_)
-  - [cv.CAP\_PROP\_IOS\_DEVICE\_WHITEBALANCE\_](#cvcap%5C_prop%5C_ios%5C_device%5C_whitebalance%5C_)
-  - [cv.CAP\_PROP\_IOS\_DEVICE\_TORCH\_](#cvcap%5C_prop%5C_ios%5C_device%5C_torch%5C_)
-  - [cv.CAP\_PROP\_GIGA\_FRAME\_OFFSET\_X\_](#cvcap%5C_prop%5C_giga%5C_frame%5C_offset%5C_x%5C_)
-  - [cv.CAP\_PROP\_GIGA\_FRAME\_OFFSET\_Y\_](#cvcap%5C_prop%5C_giga%5C_frame%5C_offset%5C_y%5C_)
-  - [cv.CAP\_PROP\_GIGA\_FRAME\_WIDTH\_MAX\_](#cvcap%5C_prop%5C_giga%5C_frame%5C_width%5C_max%5C_)
-  - [cv.CAP\_PROP\_GIGA\_FRAME\_HEIGH\_MAX\_](#cvcap%5C_prop%5C_giga%5C_frame%5C_heigh%5C_max%5C_)
-  - [cv.CAP\_PROP\_GIGA\_FRAME\_SENS\_WIDTH\_](#cvcap%5C_prop%5C_giga%5C_frame%5C_sens%5C_width%5C_)
-  - [cv.CAP\_PROP\_GIGA\_FRAME\_SENS\_HEIGH\_](#cvcap%5C_prop%5C_giga%5C_frame%5C_sens%5C_heigh%5C_)
-  - [cv.CAP\_PROP\_INTELPERC\_PROFILE\_COUNT\_](#cvcap%5C_prop%5C_intelperc%5C_profile%5C_count%5C_)
-  - [cv.CAP\_PROP\_INTELPERC\_PROFILE\_IDX\_](#cvcap%5C_prop%5C_intelperc%5C_profile%5C_idx%5C_)
-  - [cv.CAP\_PROP\_INTELPERC\_DEPTH\_LOW\_CONFIDENCE\_VALUE\_](#cvcap%5C_prop%5C_intelperc%5C_depth%5C_low%5C_confidence%5C_value%5C_)
-  - [cv.CAP\_PROP\_INTELPERC\_DEPTH\_SATURATION\_VALUE\_](#cvcap%5C_prop%5C_intelperc%5C_depth%5C_saturation%5C_value%5C_)
-  - [cv.CAP\_PROP\_INTELPERC\_DEPTH\_CONFIDENCE\_THRESHOLD\_](#cvcap%5C_prop%5C_intelperc%5C_depth%5C_confidence%5C_threshold%5C_)
-  - [cv.CAP\_PROP\_INTELPERC\_DEPTH\_FOCAL\_LENGTH\_HORZ\_](#cvcap%5C_prop%5C_intelperc%5C_depth%5C_focal%5C_length%5C_horz%5C_)
-  - [cv.CAP\_PROP\_INTELPERC\_DEPTH\_FOCAL\_LENGTH\_VERT\_](#cvcap%5C_prop%5C_intelperc%5C_depth%5C_focal%5C_length%5C_vert%5C_)
-  - [cv.CAP\_INTELPERC\_DEPTH\_GENERATOR\_](#cvcap%5C_intelperc%5C_depth%5C_generator%5C_)
-  - [cv.CAP\_INTELPERC\_IMAGE\_GENERATOR\_](#cvcap%5C_intelperc%5C_image%5C_generator%5C_)
-  - [cv.CAP\_INTELPERC\_IR\_GENERATOR\_](#cvcap%5C_intelperc%5C_ir%5C_generator%5C_)
-  - [cv.CAP\_INTELPERC\_GENERATORS\_MASK\_](#cvcap%5C_intelperc%5C_generators%5C_mask%5C_)
-  - [cv.CAP\_INTELPERC\_DEPTH\_MAP\_](#cvcap%5C_intelperc%5C_depth%5C_map%5C_)
-  - [cv.CAP\_INTELPERC\_UVDEPTH\_MAP\_](#cvcap%5C_intelperc%5C_uvdepth%5C_map%5C_)
-  - [cv.CAP\_INTELPERC\_IR\_MAP\_](#cvcap%5C_intelperc%5C_ir%5C_map%5C_)
-  - [cv.CAP\_INTELPERC\_IMAGE\_](#cvcap%5C_intelperc%5C_image%5C_)
-  - [cv.CAP\_PROP\_GPHOTO2\_PREVIEW\_](#cvcap%5C_prop%5C_gphoto2%5C_preview%5C_)
-  - [cv.CAP\_PROP\_GPHOTO2\_WIDGET\_ENUMERATE\_](#cvcap%5C_prop%5C_gphoto2%5C_widget%5C_enumerate%5C_)
-  - [cv.CAP\_PROP\_GPHOTO2\_RELOAD\_CONFIG\_](#cvcap%5C_prop%5C_gphoto2%5C_reload%5C_config%5C_)
-  - [cv.CAP\_PROP\_GPHOTO2\_RELOAD\_ON\_CHANGE\_](#cvcap%5C_prop%5C_gphoto2%5C_reload%5C_on%5C_change%5C_)
-  - [cv.CAP\_PROP\_GPHOTO2\_COLLECT\_MSGS\_](#cvcap%5C_prop%5C_gphoto2%5C_collect%5C_msgs%5C_)
-  - [cv.CAP\_PROP\_GPHOTO2\_FLUSH\_MSGS\_](#cvcap%5C_prop%5C_gphoto2%5C_flush%5C_msgs%5C_)
-  - [cv.CAP\_PROP\_SPEED\_](#cvcap%5C_prop%5C_speed%5C_)
-  - [cv.CAP\_PROP\_APERTURE\_](#cvcap%5C_prop%5C_aperture%5C_)
-  - [cv.CAP\_PROP\_EXPOSUREPROGRAM\_](#cvcap%5C_prop%5C_exposureprogram%5C_)
-  - [cv.CAP\_PROP\_VIEWFINDER\_](#cvcap%5C_prop%5C_viewfinder%5C_)
-  - [cv.CAP\_PROP\_IMAGES\_BASE\_](#cvcap%5C_prop%5C_images%5C_base%5C_)
-  - [cv.CAP\_PROP\_IMAGES\_LAST\_](#cvcap%5C_prop%5C_images%5C_last%5C_)
-  - [cv.LMEDS\_](#cvlmeds%5C_)
-  - [cv.RANSAC\_](#cvransac%5C_)
-  - [cv.RHO\_](#cvrho%5C_)
-  - [cv.USAC\_DEFAULT\_](#cvusac%5C_default%5C_)
-  - [cv.USAC\_PARALLEL\_](#cvusac%5C_parallel%5C_)
-  - [cv.USAC\_FM\_8PTS\_](#cvusac%5C_fm%5C_8pts%5C_)
-  - [cv.USAC\_FAST\_](#cvusac%5C_fast%5C_)
-  - [cv.USAC\_ACCURATE\_](#cvusac%5C_accurate%5C_)
-  - [cv.USAC\_PROSAC\_](#cvusac%5C_prosac%5C_)
-  - [cv.USAC\_MAGSAC\_](#cvusac%5C_magsac%5C_)
-  - [cv.SOLVEPNP\_ITERATIVE\_](#cvsolvepnp%5C_iterative%5C_)
-  - [cv.SOLVEPNP\_EPNP\_](#cvsolvepnp%5C_epnp%5C_)
-  - [cv.SOLVEPNP\_P3P\_](#cvsolvepnp%5C_p3p%5C_)
-  - [cv.SOLVEPNP\_DLS\_](#cvsolvepnp%5C_dls%5C_)
-  - [cv.SOLVEPNP\_UPNP\_](#cvsolvepnp%5C_upnp%5C_)
-  - [cv.SOLVEPNP\_AP3P\_](#cvsolvepnp%5C_ap3p%5C_)
-  - [cv.SOLVEPNP\_IPPE\_](#cvsolvepnp%5C_ippe%5C_)
-  - [cv.SOLVEPNP\_IPPE\_SQUARE\_](#cvsolvepnp%5C_ippe%5C_square%5C_)
-  - [cv.SOLVEPNP\_SQPNP\_](#cvsolvepnp%5C_sqpnp%5C_)
-  - [cv.SOLVEPNP\_MAX\_COUNT\_](#cvsolvepnp%5C_max%5C_count%5C_)
-  - [cv.CALIB\_CB\_ADAPTIVE\_THRESH\_](#cvcalib%5C_cb%5C_adaptive%5C_thresh%5C_)
-  - [cv.CALIB\_CB\_NORMALIZE\_IMAGE\_](#cvcalib%5C_cb%5C_normalize%5C_image%5C_)
-  - [cv.CALIB\_CB\_FILTER\_QUADS\_](#cvcalib%5C_cb%5C_filter%5C_quads%5C_)
-  - [cv.CALIB\_CB\_FAST\_CHECK\_](#cvcalib%5C_cb%5C_fast%5C_check%5C_)
-  - [cv.CALIB\_CB\_EXHAUSTIVE\_](#cvcalib%5C_cb%5C_exhaustive%5C_)
-  - [cv.CALIB\_CB\_ACCURACY\_](#cvcalib%5C_cb%5C_accuracy%5C_)
-  - [cv.CALIB\_CB\_LARGER\_](#cvcalib%5C_cb%5C_larger%5C_)
-  - [cv.CALIB\_CB\_MARKER\_](#cvcalib%5C_cb%5C_marker%5C_)
-  - [cv.CALIB\_CB\_SYMMETRIC\_GRID\_](#cvcalib%5C_cb%5C_symmetric%5C_grid%5C_)
-  - [cv.CALIB\_CB\_ASYMMETRIC\_GRID\_](#cvcalib%5C_cb%5C_asymmetric%5C_grid%5C_)
-  - [cv.CALIB\_CB\_CLUSTERING\_](#cvcalib%5C_cb%5C_clustering%5C_)
-  - [cv.CALIB\_NINTRINSIC\_](#cvcalib%5C_nintrinsic%5C_)
-  - [cv.CALIB\_USE\_INTRINSIC\_GUESS\_](#cvcalib%5C_use%5C_intrinsic%5C_guess%5C_)
-  - [cv.CALIB\_FIX\_ASPECT\_RATIO\_](#cvcalib%5C_fix%5C_aspect%5C_ratio%5C_)
-  - [cv.CALIB\_FIX\_PRINCIPAL\_POINT\_](#cvcalib%5C_fix%5C_principal%5C_point%5C_)
-  - [cv.CALIB\_ZERO\_TANGENT\_DIST\_](#cvcalib%5C_zero%5C_tangent%5C_dist%5C_)
-  - [cv.CALIB\_FIX\_FOCAL\_LENGTH\_](#cvcalib%5C_fix%5C_focal%5C_length%5C_)
-  - [cv.CALIB\_FIX\_K1\_](#cvcalib%5C_fix%5C_k1%5C_)
-  - [cv.CALIB\_FIX\_K2\_](#cvcalib%5C_fix%5C_k2%5C_)
-  - [cv.CALIB\_FIX\_K3\_](#cvcalib%5C_fix%5C_k3%5C_)
-  - [cv.CALIB\_FIX\_K4\_](#cvcalib%5C_fix%5C_k4%5C_)
-  - [cv.CALIB\_FIX\_K5\_](#cvcalib%5C_fix%5C_k5%5C_)
-  - [cv.CALIB\_FIX\_K6\_](#cvcalib%5C_fix%5C_k6%5C_)
-  - [cv.CALIB\_RATIONAL\_MODEL\_](#cvcalib%5C_rational%5C_model%5C_)
-  - [cv.CALIB\_THIN\_PRISM\_MODEL\_](#cvcalib%5C_thin%5C_prism%5C_model%5C_)
-  - [cv.CALIB\_FIX\_S1\_S2\_S3\_S4\_](#cvcalib%5C_fix%5C_s1%5C_s2%5C_s3%5C_s4%5C_)
-  - [cv.CALIB\_TILTED\_MODEL\_](#cvcalib%5C_tilted%5C_model%5C_)
-  - [cv.CALIB\_FIX\_TAUX\_TAUY\_](#cvcalib%5C_fix%5C_taux%5C_tauy%5C_)
-  - [cv.CALIB\_USE\_QR\_](#cvcalib%5C_use%5C_qr%5C_)
-  - [cv.CALIB\_FIX\_TANGENT\_DIST\_](#cvcalib%5C_fix%5C_tangent%5C_dist%5C_)
-  - [cv.CALIB\_FIX\_INTRINSIC\_](#cvcalib%5C_fix%5C_intrinsic%5C_)
-  - [cv.CALIB\_SAME\_FOCAL\_LENGTH\_](#cvcalib%5C_same%5C_focal%5C_length%5C_)
-  - [cv.CALIB\_ZERO\_DISPARITY\_](#cvcalib%5C_zero%5C_disparity%5C_)
-  - [cv.CALIB\_USE\_LU\_](#cvcalib%5C_use%5C_lu%5C_)
-  - [cv.CALIB\_USE\_EXTRINSIC\_GUESS\_](#cvcalib%5C_use%5C_extrinsic%5C_guess%5C_)
-  - [cv.FM\_7POINT\_](#cvfm%5C_7point%5C_)
-  - [cv.FM\_8POINT\_](#cvfm%5C_8point%5C_)
-  - [cv.FM\_LMEDS\_](#cvfm%5C_lmeds%5C_)
-  - [cv.FM\_RANSAC\_](#cvfm%5C_ransac%5C_)
-  - [cv.CALIB\_HAND\_EYE\_TSAI\_](#cvcalib%5C_hand%5C_eye%5C_tsai%5C_)
-  - [cv.CALIB\_HAND\_EYE\_PARK\_](#cvcalib%5C_hand%5C_eye%5C_park%5C_)
-  - [cv.CALIB\_HAND\_EYE\_HORAUD\_](#cvcalib%5C_hand%5C_eye%5C_horaud%5C_)
-  - [cv.CALIB\_HAND\_EYE\_ANDREFF\_](#cvcalib%5C_hand%5C_eye%5C_andreff%5C_)
-  - [cv.CALIB\_HAND\_EYE\_DANIILIDIS\_](#cvcalib%5C_hand%5C_eye%5C_daniilidis%5C_)
-  - [cv.CALIB\_ROBOT\_WORLD\_HAND\_EYE\_SHAH\_](#cvcalib%5C_robot%5C_world%5C_hand%5C_eye%5C_shah%5C_)
-  - [cv.CALIB\_ROBOT\_WORLD\_HAND\_EYE\_LI\_](#cvcalib%5C_robot%5C_world%5C_hand%5C_eye%5C_li%5C_)
-  - [cv.SAMPLING\_UNIFORM\_](#cvsampling%5C_uniform%5C_)
-  - [cv.SAMPLING\_PROGRESSIVE\_NAPSAC\_](#cvsampling%5C_progressive%5C_napsac%5C_)
-  - [cv.SAMPLING\_NAPSAC\_](#cvsampling%5C_napsac%5C_)
-  - [cv.SAMPLING\_PROSAC\_](#cvsampling%5C_prosac%5C_)
-  - [cv.LOCAL\_OPTIM\_NULL\_](#cvlocal%5C_optim%5C_null%5C_)
-  - [cv.LOCAL\_OPTIM\_INNER\_LO\_](#cvlocal%5C_optim%5C_inner%5C_lo%5C_)
-  - [cv.LOCAL\_OPTIM\_INNER\_AND\_ITER\_LO\_](#cvlocal%5C_optim%5C_inner%5C_and%5C_iter%5C_lo%5C_)
-  - [cv.LOCAL\_OPTIM\_GC\_](#cvlocal%5C_optim%5C_gc%5C_)
-  - [cv.LOCAL\_OPTIM\_SIGMA\_](#cvlocal%5C_optim%5C_sigma%5C_)
-  - [cv.SCORE\_METHOD\_RANSAC\_](#cvscore%5C_method%5C_ransac%5C_)
-  - [cv.SCORE\_METHOD\_MSAC\_](#cvscore%5C_method%5C_msac%5C_)
-  - [cv.SCORE\_METHOD\_MAGSAC\_](#cvscore%5C_method%5C_magsac%5C_)
-  - [cv.SCORE\_METHOD\_LMEDS\_](#cvscore%5C_method%5C_lmeds%5C_)
-  - [cv.NEIGH\_FLANN\_KNN\_](#cvneigh%5C_flann%5C_knn%5C_)
-  - [cv.NEIGH\_GRID\_](#cvneigh%5C_grid%5C_)
-  - [cv.NEIGH\_FLANN\_RADIUS\_](#cvneigh%5C_flann%5C_radius%5C_)
-  - [cv.PROJ\_SPHERICAL\_ORTHO\_](#cvproj%5C_spherical%5C_ortho%5C_)
-  - [cv.PROJ\_SPHERICAL\_EQRECT\_](#cvproj%5C_spherical%5C_eqrect%5C_)
-  - [cv.WINDOW\_NORMAL\_](#cvwindow%5C_normal%5C_)
-  - [cv.WINDOW\_AUTOSIZE\_](#cvwindow%5C_autosize%5C_)
-  - [cv.WINDOW\_OPENGL\_](#cvwindow%5C_opengl%5C_)
-  - [cv.WINDOW\_FULLSCREEN\_](#cvwindow%5C_fullscreen%5C_)
-  - [cv.WINDOW\_FREERATIO\_](#cvwindow%5C_freeratio%5C_)
-  - [cv.WINDOW\_KEEPRATIO\_](#cvwindow%5C_keepratio%5C_)
-  - [cv.WINDOW\_GUI\_EXPANDED\_](#cvwindow%5C_gui%5C_expanded%5C_)
-  - [cv.WINDOW\_GUI\_NORMAL\_](#cvwindow%5C_gui%5C_normal%5C_)
-  - [cv.WND\_PROP\_FULLSCREEN\_](#cvwnd%5C_prop%5C_fullscreen%5C_)
-  - [cv.WND\_PROP\_AUTOSIZE\_](#cvwnd%5C_prop%5C_autosize%5C_)
-  - [cv.WND\_PROP\_ASPECT\_RATIO\_](#cvwnd%5C_prop%5C_aspect%5C_ratio%5C_)
-  - [cv.WND\_PROP\_OPENGL\_](#cvwnd%5C_prop%5C_opengl%5C_)
-  - [cv.WND\_PROP\_VISIBLE\_](#cvwnd%5C_prop%5C_visible%5C_)
-  - [cv.WND\_PROP\_TOPMOST\_](#cvwnd%5C_prop%5C_topmost%5C_)
-  - [cv.WND\_PROP\_VSYNC\_](#cvwnd%5C_prop%5C_vsync%5C_)
-  - [cv.EVENT\_MOUSEMOVE\_](#cvevent%5C_mousemove%5C_)
-  - [cv.EVENT\_LBUTTONDOWN\_](#cvevent%5C_lbuttondown%5C_)
-  - [cv.EVENT\_RBUTTONDOWN\_](#cvevent%5C_rbuttondown%5C_)
-  - [cv.EVENT\_MBUTTONDOWN\_](#cvevent%5C_mbuttondown%5C_)
-  - [cv.EVENT\_LBUTTONUP\_](#cvevent%5C_lbuttonup%5C_)
-  - [cv.EVENT\_RBUTTONUP\_](#cvevent%5C_rbuttonup%5C_)
-  - [cv.EVENT\_MBUTTONUP\_](#cvevent%5C_mbuttonup%5C_)
-  - [cv.EVENT\_LBUTTONDBLCLK\_](#cvevent%5C_lbuttondblclk%5C_)
-  - [cv.EVENT\_RBUTTONDBLCLK\_](#cvevent%5C_rbuttondblclk%5C_)
-  - [cv.EVENT\_MBUTTONDBLCLK\_](#cvevent%5C_mbuttondblclk%5C_)
-  - [cv.EVENT\_MOUSEWHEEL\_](#cvevent%5C_mousewheel%5C_)
-  - [cv.EVENT\_MOUSEHWHEEL\_](#cvevent%5C_mousehwheel%5C_)
-  - [cv.EVENT\_FLAG\_LBUTTON\_](#cvevent%5C_flag%5C_lbutton%5C_)
-  - [cv.EVENT\_FLAG\_RBUTTON\_](#cvevent%5C_flag%5C_rbutton%5C_)
-  - [cv.EVENT\_FLAG\_MBUTTON\_](#cvevent%5C_flag%5C_mbutton%5C_)
-  - [cv.EVENT\_FLAG\_CTRLKEY\_](#cvevent%5C_flag%5C_ctrlkey%5C_)
-  - [cv.EVENT\_FLAG\_SHIFTKEY\_](#cvevent%5C_flag%5C_shiftkey%5C_)
-  - [cv.EVENT\_FLAG\_ALTKEY\_](#cvevent%5C_flag%5C_altkey%5C_)
-  - [cv.QT\_FONT\_LIGHT\_](#cvqt%5C_font%5C_light%5C_)
-  - [cv.QT\_FONT\_NORMAL\_](#cvqt%5C_font%5C_normal%5C_)
-  - [cv.QT\_FONT\_DEMIBOLD\_](#cvqt%5C_font%5C_demibold%5C_)
-  - [cv.QT\_FONT\_BOLD\_](#cvqt%5C_font%5C_bold%5C_)
-  - [cv.QT\_FONT\_BLACK\_](#cvqt%5C_font%5C_black%5C_)
-  - [cv.QT\_STYLE\_NORMAL\_](#cvqt%5C_style%5C_normal%5C_)
-  - [cv.QT\_STYLE\_ITALIC\_](#cvqt%5C_style%5C_italic%5C_)
-  - [cv.QT\_STYLE\_OBLIQUE\_](#cvqt%5C_style%5C_oblique%5C_)
-  - [cv.QT\_PUSH\_BUTTON\_](#cvqt%5C_push%5C_button%5C_)
-  - [cv.QT\_CHECKBOX\_](#cvqt%5C_checkbox%5C_)
-  - [cv.QT\_RADIOBOX\_](#cvqt%5C_radiobox%5C_)
-  - [cv.QT\_NEW\_BUTTONBAR\_](#cvqt%5C_new%5C_buttonbar%5C_)
-  - [cv.CASCADE\_DO\_CANNY\_PRUNING\_](#cvcascade%5C_do%5C_canny%5C_pruning%5C_)
-  - [cv.CASCADE\_SCALE\_IMAGE\_](#cvcascade%5C_scale%5C_image%5C_)
-  - [cv.CASCADE\_FIND\_BIGGEST\_OBJECT\_](#cvcascade%5C_find%5C_biggest%5C_object%5C_)
-  - [cv.CASCADE\_DO\_ROUGH\_SEARCH\_](#cvcascade%5C_do%5C_rough%5C_search%5C_)
-  - [cv.OPTFLOW\_USE\_INITIAL\_FLOW\_](#cvoptflow%5C_use%5C_initial%5C_flow%5C_)
-  - [cv.OPTFLOW\_LK\_GET\_MIN\_EIGENVALS\_](#cvoptflow%5C_lk%5C_get%5C_min%5C_eigenvals%5C_)
-  - [cv.OPTFLOW\_FARNEBACK\_GAUSSIAN\_](#cvoptflow%5C_farneback%5C_gaussian%5C_)
-  - [cv.MOTION\_TRANSLATION\_](#cvmotion%5C_translation%5C_)
-  - [cv.MOTION\_EUCLIDEAN\_](#cvmotion%5C_euclidean%5C_)
-  - [cv.MOTION\_AFFINE\_](#cvmotion%5C_affine%5C_)
-  - [cv.MOTION\_HOMOGRAPHY\_](#cvmotion%5C_homography%5C_)
 - [cv::parallel](#cvparallel)
   - [cv::parallel::setParallelForBackend](#cvparallelsetparallelforbackend)
+- [cv::enums](#cvenums)
+  - [enums.SORT\_EVERY\_ROW](#enumssort%5C_every%5C_row)
+  - [enums.SORT\_EVERY\_COLUMN](#enumssort%5C_every%5C_column)
+  - [enums.SORT\_ASCENDING](#enumssort%5C_ascending)
+  - [enums.SORT\_DESCENDING](#enumssort%5C_descending)
+  - [enums.COVAR\_SCRAMBLED](#enumscovar%5C_scrambled)
+  - [enums.COVAR\_NORMAL](#enumscovar%5C_normal)
+  - [enums.COVAR\_USE\_AVG](#enumscovar%5C_use%5C_avg)
+  - [enums.COVAR\_SCALE](#enumscovar%5C_scale)
+  - [enums.COVAR\_ROWS](#enumscovar%5C_rows)
+  - [enums.COVAR\_COLS](#enumscovar%5C_cols)
+  - [enums.KMEANS\_RANDOM\_CENTERS](#enumskmeans%5C_random%5C_centers)
+  - [enums.KMEANS\_PP\_CENTERS](#enumskmeans%5C_pp%5C_centers)
+  - [enums.KMEANS\_USE\_INITIAL\_LABELS](#enumskmeans%5C_use%5C_initial%5C_labels)
+  - [enums.REDUCE\_SUM](#enumsreduce%5C_sum)
+  - [enums.REDUCE\_AVG](#enumsreduce%5C_avg)
+  - [enums.REDUCE\_MAX](#enumsreduce%5C_max)
+  - [enums.REDUCE\_MIN](#enumsreduce%5C_min)
+  - [enums.ROTATE\_90\_CLOCKWISE](#enumsrotate%5C_90%5C_clockwise)
+  - [enums.ROTATE\_180](#enumsrotate%5C_180)
+  - [enums.ROTATE\_90\_COUNTERCLOCKWISE](#enumsrotate%5C_90%5C_counterclockwise)
+  - [enums.DECOMP\_LU](#enumsdecomp%5C_lu)
+  - [enums.DECOMP\_SVD](#enumsdecomp%5C_svd)
+  - [enums.DECOMP\_EIG](#enumsdecomp%5C_eig)
+  - [enums.DECOMP\_CHOLESKY](#enumsdecomp%5C_cholesky)
+  - [enums.DECOMP\_QR](#enumsdecomp%5C_qr)
+  - [enums.DECOMP\_NORMAL](#enumsdecomp%5C_normal)
+  - [enums.NORM\_INF](#enumsnorm%5C_inf)
+  - [enums.NORM\_L1](#enumsnorm%5C_l1)
+  - [enums.NORM\_L2](#enumsnorm%5C_l2)
+  - [enums.NORM\_L2SQR](#enumsnorm%5C_l2sqr)
+  - [enums.NORM\_HAMMING](#enumsnorm%5C_hamming)
+  - [enums.NORM\_HAMMING2](#enumsnorm%5C_hamming2)
+  - [enums.NORM\_TYPE\_MASK](#enumsnorm%5C_type%5C_mask)
+  - [enums.NORM\_RELATIVE](#enumsnorm%5C_relative)
+  - [enums.NORM\_MINMAX](#enumsnorm%5C_minmax)
+  - [enums.CMP\_EQ](#enumscmp%5C_eq)
+  - [enums.CMP\_GT](#enumscmp%5C_gt)
+  - [enums.CMP\_GE](#enumscmp%5C_ge)
+  - [enums.CMP\_LT](#enumscmp%5C_lt)
+  - [enums.CMP\_LE](#enumscmp%5C_le)
+  - [enums.CMP\_NE](#enumscmp%5C_ne)
+  - [enums.GEMM\_1\_T](#enumsgemm%5C_1%5C_t)
+  - [enums.GEMM\_2\_T](#enumsgemm%5C_2%5C_t)
+  - [enums.GEMM\_3\_T](#enumsgemm%5C_3%5C_t)
+  - [enums.DFT\_INVERSE](#enumsdft%5C_inverse)
+  - [enums.DFT\_SCALE](#enumsdft%5C_scale)
+  - [enums.DFT\_ROWS](#enumsdft%5C_rows)
+  - [enums.DFT\_COMPLEX\_OUTPUT](#enumsdft%5C_complex%5C_output)
+  - [enums.DFT\_REAL\_OUTPUT](#enumsdft%5C_real%5C_output)
+  - [enums.DFT\_COMPLEX\_INPUT](#enumsdft%5C_complex%5C_input)
+  - [enums.DCT\_INVERSE](#enumsdct%5C_inverse)
+  - [enums.DCT\_ROWS](#enumsdct%5C_rows)
+  - [enums.BORDER\_CONSTANT](#enumsborder%5C_constant)
+  - [enums.BORDER\_REPLICATE](#enumsborder%5C_replicate)
+  - [enums.BORDER\_REFLECT](#enumsborder%5C_reflect)
+  - [enums.BORDER\_WRAP](#enumsborder%5C_wrap)
+  - [enums.BORDER\_REFLECT\_101](#enumsborder%5C_reflect%5C_101)
+  - [enums.BORDER\_TRANSPARENT](#enumsborder%5C_transparent)
+  - [enums.BORDER\_REFLECT101](#enumsborder%5C_reflect101)
+  - [enums.BORDER\_DEFAULT](#enumsborder%5C_default)
+  - [enums.BORDER\_ISOLATED](#enumsborder%5C_isolated)
+  - [enums.ACCESS\_READ](#enumsaccess%5C_read)
+  - [enums.ACCESS\_WRITE](#enumsaccess%5C_write)
+  - [enums.ACCESS\_RW](#enumsaccess%5C_rw)
+  - [enums.ACCESS\_MASK](#enumsaccess%5C_mask)
+  - [enums.ACCESS\_FAST](#enumsaccess%5C_fast)
+  - [enums.USAGE\_DEFAULT](#enumsusage%5C_default)
+  - [enums.USAGE\_ALLOCATE\_HOST\_MEMORY](#enumsusage%5C_allocate%5C_host%5C_memory)
+  - [enums.USAGE\_ALLOCATE\_DEVICE\_MEMORY](#enumsusage%5C_allocate%5C_device%5C_memory)
+  - [enums.USAGE\_ALLOCATE\_SHARED\_MEMORY](#enumsusage%5C_allocate%5C_shared%5C_memory)
+  - [enums.\_\_UMAT\_USAGE\_FLAGS\_32BIT](#enums%5C_%5C_umat%5C_usage%5C_flags%5C_32bit)
+  - [enums.SOLVELP\_UNBOUNDED](#enumssolvelp%5C_unbounded)
+  - [enums.SOLVELP\_UNFEASIBLE](#enumssolvelp%5C_unfeasible)
+  - [enums.SOLVELP\_SINGLE](#enumssolvelp%5C_single)
+  - [enums.SOLVELP\_MULTI](#enumssolvelp%5C_multi)
+  - [enums.QUAT\_ASSUME\_NOT\_UNIT](#enumsquat%5C_assume%5C_not%5C_unit)
+  - [enums.QUAT\_ASSUME\_UNIT](#enumsquat%5C_assume%5C_unit)
+  - [enums.FILTER\_SCHARR](#enumsfilter%5C_scharr)
+  - [enums.MORPH\_ERODE](#enumsmorph%5C_erode)
+  - [enums.MORPH\_DILATE](#enumsmorph%5C_dilate)
+  - [enums.MORPH\_OPEN](#enumsmorph%5C_open)
+  - [enums.MORPH\_CLOSE](#enumsmorph%5C_close)
+  - [enums.MORPH\_GRADIENT](#enumsmorph%5C_gradient)
+  - [enums.MORPH\_TOPHAT](#enumsmorph%5C_tophat)
+  - [enums.MORPH\_BLACKHAT](#enumsmorph%5C_blackhat)
+  - [enums.MORPH\_HITMISS](#enumsmorph%5C_hitmiss)
+  - [enums.MORPH\_RECT](#enumsmorph%5C_rect)
+  - [enums.MORPH\_CROSS](#enumsmorph%5C_cross)
+  - [enums.MORPH\_ELLIPSE](#enumsmorph%5C_ellipse)
+  - [enums.INTER\_NEAREST](#enumsinter%5C_nearest)
+  - [enums.INTER\_LINEAR](#enumsinter%5C_linear)
+  - [enums.INTER\_CUBIC](#enumsinter%5C_cubic)
+  - [enums.INTER\_AREA](#enumsinter%5C_area)
+  - [enums.INTER\_LANCZOS4](#enumsinter%5C_lanczos4)
+  - [enums.INTER\_LINEAR\_EXACT](#enumsinter%5C_linear%5C_exact)
+  - [enums.INTER\_NEAREST\_EXACT](#enumsinter%5C_nearest%5C_exact)
+  - [enums.INTER\_MAX](#enumsinter%5C_max)
+  - [enums.WARP\_FILL\_OUTLIERS](#enumswarp%5C_fill%5C_outliers)
+  - [enums.WARP\_INVERSE\_MAP](#enumswarp%5C_inverse%5C_map)
+  - [enums.WARP\_POLAR\_LINEAR](#enumswarp%5C_polar%5C_linear)
+  - [enums.WARP\_POLAR\_LOG](#enumswarp%5C_polar%5C_log)
+  - [enums.INTER\_BITS](#enumsinter%5C_bits)
+  - [enums.INTER\_BITS2](#enumsinter%5C_bits2)
+  - [enums.INTER\_TAB\_SIZE](#enumsinter%5C_tab%5C_size)
+  - [enums.INTER\_TAB\_SIZE2](#enumsinter%5C_tab%5C_size2)
+  - [enums.DIST\_USER](#enumsdist%5C_user)
+  - [enums.DIST\_L1](#enumsdist%5C_l1)
+  - [enums.DIST\_L2](#enumsdist%5C_l2)
+  - [enums.DIST\_C](#enumsdist%5C_c)
+  - [enums.DIST\_L12](#enumsdist%5C_l12)
+  - [enums.DIST\_FAIR](#enumsdist%5C_fair)
+  - [enums.DIST\_WELSCH](#enumsdist%5C_welsch)
+  - [enums.DIST\_HUBER](#enumsdist%5C_huber)
+  - [enums.DIST\_MASK\_3](#enumsdist%5C_mask%5C_3)
+  - [enums.DIST\_MASK\_5](#enumsdist%5C_mask%5C_5)
+  - [enums.DIST\_MASK\_PRECISE](#enumsdist%5C_mask%5C_precise)
+  - [enums.THRESH\_BINARY](#enumsthresh%5C_binary)
+  - [enums.THRESH\_BINARY\_INV](#enumsthresh%5C_binary%5C_inv)
+  - [enums.THRESH\_TRUNC](#enumsthresh%5C_trunc)
+  - [enums.THRESH\_TOZERO](#enumsthresh%5C_tozero)
+  - [enums.THRESH\_TOZERO\_INV](#enumsthresh%5C_tozero%5C_inv)
+  - [enums.THRESH\_MASK](#enumsthresh%5C_mask)
+  - [enums.THRESH\_OTSU](#enumsthresh%5C_otsu)
+  - [enums.THRESH\_TRIANGLE](#enumsthresh%5C_triangle)
+  - [enums.ADAPTIVE\_THRESH\_MEAN\_C](#enumsadaptive%5C_thresh%5C_mean%5C_c)
+  - [enums.ADAPTIVE\_THRESH\_GAUSSIAN\_C](#enumsadaptive%5C_thresh%5C_gaussian%5C_c)
+  - [enums.GC\_BGD](#enumsgc%5C_bgd)
+  - [enums.GC\_FGD](#enumsgc%5C_fgd)
+  - [enums.GC\_PR\_BGD](#enumsgc%5C_pr%5C_bgd)
+  - [enums.GC\_PR\_FGD](#enumsgc%5C_pr%5C_fgd)
+  - [enums.GC\_INIT\_WITH\_RECT](#enumsgc%5C_init%5C_with%5C_rect)
+  - [enums.GC\_INIT\_WITH\_MASK](#enumsgc%5C_init%5C_with%5C_mask)
+  - [enums.GC\_EVAL](#enumsgc%5C_eval)
+  - [enums.GC\_EVAL\_FREEZE\_MODEL](#enumsgc%5C_eval%5C_freeze%5C_model)
+  - [enums.DIST\_LABEL\_CCOMP](#enumsdist%5C_label%5C_ccomp)
+  - [enums.DIST\_LABEL\_PIXEL](#enumsdist%5C_label%5C_pixel)
+  - [enums.FLOODFILL\_FIXED\_RANGE](#enumsfloodfill%5C_fixed%5C_range)
+  - [enums.FLOODFILL\_MASK\_ONLY](#enumsfloodfill%5C_mask%5C_only)
+  - [enums.CC\_STAT\_LEFT](#enumscc%5C_stat%5C_left)
+  - [enums.CC\_STAT\_TOP](#enumscc%5C_stat%5C_top)
+  - [enums.CC\_STAT\_WIDTH](#enumscc%5C_stat%5C_width)
+  - [enums.CC\_STAT\_HEIGHT](#enumscc%5C_stat%5C_height)
+  - [enums.CC\_STAT\_AREA](#enumscc%5C_stat%5C_area)
+  - [enums.CC\_STAT\_MAX](#enumscc%5C_stat%5C_max)
+  - [enums.CCL\_DEFAULT](#enumsccl%5C_default)
+  - [enums.CCL\_WU](#enumsccl%5C_wu)
+  - [enums.CCL\_GRANA](#enumsccl%5C_grana)
+  - [enums.CCL\_BOLELLI](#enumsccl%5C_bolelli)
+  - [enums.CCL\_SAUF](#enumsccl%5C_sauf)
+  - [enums.CCL\_BBDT](#enumsccl%5C_bbdt)
+  - [enums.CCL\_SPAGHETTI](#enumsccl%5C_spaghetti)
+  - [enums.RETR\_EXTERNAL](#enumsretr%5C_external)
+  - [enums.RETR\_LIST](#enumsretr%5C_list)
+  - [enums.RETR\_CCOMP](#enumsretr%5C_ccomp)
+  - [enums.RETR\_TREE](#enumsretr%5C_tree)
+  - [enums.RETR\_FLOODFILL](#enumsretr%5C_floodfill)
+  - [enums.CHAIN\_APPROX\_NONE](#enumschain%5C_approx%5C_none)
+  - [enums.CHAIN\_APPROX\_SIMPLE](#enumschain%5C_approx%5C_simple)
+  - [enums.CHAIN\_APPROX\_TC89\_L1](#enumschain%5C_approx%5C_tc89%5C_l1)
+  - [enums.CHAIN\_APPROX\_TC89\_KCOS](#enumschain%5C_approx%5C_tc89%5C_kcos)
+  - [enums.CONTOURS\_MATCH\_I1](#enumscontours%5C_match%5C_i1)
+  - [enums.CONTOURS\_MATCH\_I2](#enumscontours%5C_match%5C_i2)
+  - [enums.CONTOURS\_MATCH\_I3](#enumscontours%5C_match%5C_i3)
+  - [enums.HOUGH\_STANDARD](#enumshough%5C_standard)
+  - [enums.HOUGH\_PROBABILISTIC](#enumshough%5C_probabilistic)
+  - [enums.HOUGH\_MULTI\_SCALE](#enumshough%5C_multi%5C_scale)
+  - [enums.HOUGH\_GRADIENT](#enumshough%5C_gradient)
+  - [enums.HOUGH\_GRADIENT\_ALT](#enumshough%5C_gradient%5C_alt)
+  - [enums.LSD\_REFINE\_NONE](#enumslsd%5C_refine%5C_none)
+  - [enums.LSD\_REFINE\_STD](#enumslsd%5C_refine%5C_std)
+  - [enums.LSD\_REFINE\_ADV](#enumslsd%5C_refine%5C_adv)
+  - [enums.HISTCMP\_CORREL](#enumshistcmp%5C_correl)
+  - [enums.HISTCMP\_CHISQR](#enumshistcmp%5C_chisqr)
+  - [enums.HISTCMP\_INTERSECT](#enumshistcmp%5C_intersect)
+  - [enums.HISTCMP\_BHATTACHARYYA](#enumshistcmp%5C_bhattacharyya)
+  - [enums.HISTCMP\_HELLINGER](#enumshistcmp%5C_hellinger)
+  - [enums.HISTCMP\_CHISQR\_ALT](#enumshistcmp%5C_chisqr%5C_alt)
+  - [enums.HISTCMP\_KL\_DIV](#enumshistcmp%5C_kl%5C_div)
+  - [enums.COLOR\_BGR2BGRA](#enumscolor%5C_bgr2bgra)
+  - [enums.COLOR\_RGB2RGBA](#enumscolor%5C_rgb2rgba)
+  - [enums.COLOR\_BGRA2BGR](#enumscolor%5C_bgra2bgr)
+  - [enums.COLOR\_RGBA2RGB](#enumscolor%5C_rgba2rgb)
+  - [enums.COLOR\_BGR2RGBA](#enumscolor%5C_bgr2rgba)
+  - [enums.COLOR\_RGB2BGRA](#enumscolor%5C_rgb2bgra)
+  - [enums.COLOR\_RGBA2BGR](#enumscolor%5C_rgba2bgr)
+  - [enums.COLOR\_BGRA2RGB](#enumscolor%5C_bgra2rgb)
+  - [enums.COLOR\_BGR2RGB](#enumscolor%5C_bgr2rgb)
+  - [enums.COLOR\_RGB2BGR](#enumscolor%5C_rgb2bgr)
+  - [enums.COLOR\_BGRA2RGBA](#enumscolor%5C_bgra2rgba)
+  - [enums.COLOR\_RGBA2BGRA](#enumscolor%5C_rgba2bgra)
+  - [enums.COLOR\_BGR2GRAY](#enumscolor%5C_bgr2gray)
+  - [enums.COLOR\_RGB2GRAY](#enumscolor%5C_rgb2gray)
+  - [enums.COLOR\_GRAY2BGR](#enumscolor%5C_gray2bgr)
+  - [enums.COLOR\_GRAY2RGB](#enumscolor%5C_gray2rgb)
+  - [enums.COLOR\_GRAY2BGRA](#enumscolor%5C_gray2bgra)
+  - [enums.COLOR\_GRAY2RGBA](#enumscolor%5C_gray2rgba)
+  - [enums.COLOR\_BGRA2GRAY](#enumscolor%5C_bgra2gray)
+  - [enums.COLOR\_RGBA2GRAY](#enumscolor%5C_rgba2gray)
+  - [enums.COLOR\_BGR2BGR565](#enumscolor%5C_bgr2bgr565)
+  - [enums.COLOR\_RGB2BGR565](#enumscolor%5C_rgb2bgr565)
+  - [enums.COLOR\_BGR5652BGR](#enumscolor%5C_bgr5652bgr)
+  - [enums.COLOR\_BGR5652RGB](#enumscolor%5C_bgr5652rgb)
+  - [enums.COLOR\_BGRA2BGR565](#enumscolor%5C_bgra2bgr565)
+  - [enums.COLOR\_RGBA2BGR565](#enumscolor%5C_rgba2bgr565)
+  - [enums.COLOR\_BGR5652BGRA](#enumscolor%5C_bgr5652bgra)
+  - [enums.COLOR\_BGR5652RGBA](#enumscolor%5C_bgr5652rgba)
+  - [enums.COLOR\_GRAY2BGR565](#enumscolor%5C_gray2bgr565)
+  - [enums.COLOR\_BGR5652GRAY](#enumscolor%5C_bgr5652gray)
+  - [enums.COLOR\_BGR2BGR555](#enumscolor%5C_bgr2bgr555)
+  - [enums.COLOR\_RGB2BGR555](#enumscolor%5C_rgb2bgr555)
+  - [enums.COLOR\_BGR5552BGR](#enumscolor%5C_bgr5552bgr)
+  - [enums.COLOR\_BGR5552RGB](#enumscolor%5C_bgr5552rgb)
+  - [enums.COLOR\_BGRA2BGR555](#enumscolor%5C_bgra2bgr555)
+  - [enums.COLOR\_RGBA2BGR555](#enumscolor%5C_rgba2bgr555)
+  - [enums.COLOR\_BGR5552BGRA](#enumscolor%5C_bgr5552bgra)
+  - [enums.COLOR\_BGR5552RGBA](#enumscolor%5C_bgr5552rgba)
+  - [enums.COLOR\_GRAY2BGR555](#enumscolor%5C_gray2bgr555)
+  - [enums.COLOR\_BGR5552GRAY](#enumscolor%5C_bgr5552gray)
+  - [enums.COLOR\_BGR2XYZ](#enumscolor%5C_bgr2xyz)
+  - [enums.COLOR\_RGB2XYZ](#enumscolor%5C_rgb2xyz)
+  - [enums.COLOR\_XYZ2BGR](#enumscolor%5C_xyz2bgr)
+  - [enums.COLOR\_XYZ2RGB](#enumscolor%5C_xyz2rgb)
+  - [enums.COLOR\_BGR2YCrCb](#enumscolor%5C_bgr2ycrcb)
+  - [enums.COLOR\_RGB2YCrCb](#enumscolor%5C_rgb2ycrcb)
+  - [enums.COLOR\_YCrCb2BGR](#enumscolor%5C_ycrcb2bgr)
+  - [enums.COLOR\_YCrCb2RGB](#enumscolor%5C_ycrcb2rgb)
+  - [enums.COLOR\_BGR2HSV](#enumscolor%5C_bgr2hsv)
+  - [enums.COLOR\_RGB2HSV](#enumscolor%5C_rgb2hsv)
+  - [enums.COLOR\_BGR2Lab](#enumscolor%5C_bgr2lab)
+  - [enums.COLOR\_RGB2Lab](#enumscolor%5C_rgb2lab)
+  - [enums.COLOR\_BGR2Luv](#enumscolor%5C_bgr2luv)
+  - [enums.COLOR\_RGB2Luv](#enumscolor%5C_rgb2luv)
+  - [enums.COLOR\_BGR2HLS](#enumscolor%5C_bgr2hls)
+  - [enums.COLOR\_RGB2HLS](#enumscolor%5C_rgb2hls)
+  - [enums.COLOR\_HSV2BGR](#enumscolor%5C_hsv2bgr)
+  - [enums.COLOR\_HSV2RGB](#enumscolor%5C_hsv2rgb)
+  - [enums.COLOR\_Lab2BGR](#enumscolor%5C_lab2bgr)
+  - [enums.COLOR\_Lab2RGB](#enumscolor%5C_lab2rgb)
+  - [enums.COLOR\_Luv2BGR](#enumscolor%5C_luv2bgr)
+  - [enums.COLOR\_Luv2RGB](#enumscolor%5C_luv2rgb)
+  - [enums.COLOR\_HLS2BGR](#enumscolor%5C_hls2bgr)
+  - [enums.COLOR\_HLS2RGB](#enumscolor%5C_hls2rgb)
+  - [enums.COLOR\_BGR2HSV\_FULL](#enumscolor%5C_bgr2hsv%5C_full)
+  - [enums.COLOR\_RGB2HSV\_FULL](#enumscolor%5C_rgb2hsv%5C_full)
+  - [enums.COLOR\_BGR2HLS\_FULL](#enumscolor%5C_bgr2hls%5C_full)
+  - [enums.COLOR\_RGB2HLS\_FULL](#enumscolor%5C_rgb2hls%5C_full)
+  - [enums.COLOR\_HSV2BGR\_FULL](#enumscolor%5C_hsv2bgr%5C_full)
+  - [enums.COLOR\_HSV2RGB\_FULL](#enumscolor%5C_hsv2rgb%5C_full)
+  - [enums.COLOR\_HLS2BGR\_FULL](#enumscolor%5C_hls2bgr%5C_full)
+  - [enums.COLOR\_HLS2RGB\_FULL](#enumscolor%5C_hls2rgb%5C_full)
+  - [enums.COLOR\_LBGR2Lab](#enumscolor%5C_lbgr2lab)
+  - [enums.COLOR\_LRGB2Lab](#enumscolor%5C_lrgb2lab)
+  - [enums.COLOR\_LBGR2Luv](#enumscolor%5C_lbgr2luv)
+  - [enums.COLOR\_LRGB2Luv](#enumscolor%5C_lrgb2luv)
+  - [enums.COLOR\_Lab2LBGR](#enumscolor%5C_lab2lbgr)
+  - [enums.COLOR\_Lab2LRGB](#enumscolor%5C_lab2lrgb)
+  - [enums.COLOR\_Luv2LBGR](#enumscolor%5C_luv2lbgr)
+  - [enums.COLOR\_Luv2LRGB](#enumscolor%5C_luv2lrgb)
+  - [enums.COLOR\_BGR2YUV](#enumscolor%5C_bgr2yuv)
+  - [enums.COLOR\_RGB2YUV](#enumscolor%5C_rgb2yuv)
+  - [enums.COLOR\_YUV2BGR](#enumscolor%5C_yuv2bgr)
+  - [enums.COLOR\_YUV2RGB](#enumscolor%5C_yuv2rgb)
+  - [enums.COLOR\_YUV2RGB\_NV12](#enumscolor%5C_yuv2rgb%5C_nv12)
+  - [enums.COLOR\_YUV2BGR\_NV12](#enumscolor%5C_yuv2bgr%5C_nv12)
+  - [enums.COLOR\_YUV2RGB\_NV21](#enumscolor%5C_yuv2rgb%5C_nv21)
+  - [enums.COLOR\_YUV2BGR\_NV21](#enumscolor%5C_yuv2bgr%5C_nv21)
+  - [enums.COLOR\_YUV420sp2RGB](#enumscolor%5C_yuv420sp2rgb)
+  - [enums.COLOR\_YUV420sp2BGR](#enumscolor%5C_yuv420sp2bgr)
+  - [enums.COLOR\_YUV2RGBA\_NV12](#enumscolor%5C_yuv2rgba%5C_nv12)
+  - [enums.COLOR\_YUV2BGRA\_NV12](#enumscolor%5C_yuv2bgra%5C_nv12)
+  - [enums.COLOR\_YUV2RGBA\_NV21](#enumscolor%5C_yuv2rgba%5C_nv21)
+  - [enums.COLOR\_YUV2BGRA\_NV21](#enumscolor%5C_yuv2bgra%5C_nv21)
+  - [enums.COLOR\_YUV420sp2RGBA](#enumscolor%5C_yuv420sp2rgba)
+  - [enums.COLOR\_YUV420sp2BGRA](#enumscolor%5C_yuv420sp2bgra)
+  - [enums.COLOR\_YUV2RGB\_YV12](#enumscolor%5C_yuv2rgb%5C_yv12)
+  - [enums.COLOR\_YUV2BGR\_YV12](#enumscolor%5C_yuv2bgr%5C_yv12)
+  - [enums.COLOR\_YUV2RGB\_IYUV](#enumscolor%5C_yuv2rgb%5C_iyuv)
+  - [enums.COLOR\_YUV2BGR\_IYUV](#enumscolor%5C_yuv2bgr%5C_iyuv)
+  - [enums.COLOR\_YUV2RGB\_I420](#enumscolor%5C_yuv2rgb%5C_i420)
+  - [enums.COLOR\_YUV2BGR\_I420](#enumscolor%5C_yuv2bgr%5C_i420)
+  - [enums.COLOR\_YUV420p2RGB](#enumscolor%5C_yuv420p2rgb)
+  - [enums.COLOR\_YUV420p2BGR](#enumscolor%5C_yuv420p2bgr)
+  - [enums.COLOR\_YUV2RGBA\_YV12](#enumscolor%5C_yuv2rgba%5C_yv12)
+  - [enums.COLOR\_YUV2BGRA\_YV12](#enumscolor%5C_yuv2bgra%5C_yv12)
+  - [enums.COLOR\_YUV2RGBA\_IYUV](#enumscolor%5C_yuv2rgba%5C_iyuv)
+  - [enums.COLOR\_YUV2BGRA\_IYUV](#enumscolor%5C_yuv2bgra%5C_iyuv)
+  - [enums.COLOR\_YUV2RGBA\_I420](#enumscolor%5C_yuv2rgba%5C_i420)
+  - [enums.COLOR\_YUV2BGRA\_I420](#enumscolor%5C_yuv2bgra%5C_i420)
+  - [enums.COLOR\_YUV420p2RGBA](#enumscolor%5C_yuv420p2rgba)
+  - [enums.COLOR\_YUV420p2BGRA](#enumscolor%5C_yuv420p2bgra)
+  - [enums.COLOR\_YUV2GRAY\_420](#enumscolor%5C_yuv2gray%5C_420)
+  - [enums.COLOR\_YUV2GRAY\_NV21](#enumscolor%5C_yuv2gray%5C_nv21)
+  - [enums.COLOR\_YUV2GRAY\_NV12](#enumscolor%5C_yuv2gray%5C_nv12)
+  - [enums.COLOR\_YUV2GRAY\_YV12](#enumscolor%5C_yuv2gray%5C_yv12)
+  - [enums.COLOR\_YUV2GRAY\_IYUV](#enumscolor%5C_yuv2gray%5C_iyuv)
+  - [enums.COLOR\_YUV2GRAY\_I420](#enumscolor%5C_yuv2gray%5C_i420)
+  - [enums.COLOR\_YUV420sp2GRAY](#enumscolor%5C_yuv420sp2gray)
+  - [enums.COLOR\_YUV420p2GRAY](#enumscolor%5C_yuv420p2gray)
+  - [enums.COLOR\_YUV2RGB\_UYVY](#enumscolor%5C_yuv2rgb%5C_uyvy)
+  - [enums.COLOR\_YUV2BGR\_UYVY](#enumscolor%5C_yuv2bgr%5C_uyvy)
+  - [enums.COLOR\_YUV2RGB\_Y422](#enumscolor%5C_yuv2rgb%5C_y422)
+  - [enums.COLOR\_YUV2BGR\_Y422](#enumscolor%5C_yuv2bgr%5C_y422)
+  - [enums.COLOR\_YUV2RGB\_UYNV](#enumscolor%5C_yuv2rgb%5C_uynv)
+  - [enums.COLOR\_YUV2BGR\_UYNV](#enumscolor%5C_yuv2bgr%5C_uynv)
+  - [enums.COLOR\_YUV2RGBA\_UYVY](#enumscolor%5C_yuv2rgba%5C_uyvy)
+  - [enums.COLOR\_YUV2BGRA\_UYVY](#enumscolor%5C_yuv2bgra%5C_uyvy)
+  - [enums.COLOR\_YUV2RGBA\_Y422](#enumscolor%5C_yuv2rgba%5C_y422)
+  - [enums.COLOR\_YUV2BGRA\_Y422](#enumscolor%5C_yuv2bgra%5C_y422)
+  - [enums.COLOR\_YUV2RGBA\_UYNV](#enumscolor%5C_yuv2rgba%5C_uynv)
+  - [enums.COLOR\_YUV2BGRA\_UYNV](#enumscolor%5C_yuv2bgra%5C_uynv)
+  - [enums.COLOR\_YUV2RGB\_YUY2](#enumscolor%5C_yuv2rgb%5C_yuy2)
+  - [enums.COLOR\_YUV2BGR\_YUY2](#enumscolor%5C_yuv2bgr%5C_yuy2)
+  - [enums.COLOR\_YUV2RGB\_YVYU](#enumscolor%5C_yuv2rgb%5C_yvyu)
+  - [enums.COLOR\_YUV2BGR\_YVYU](#enumscolor%5C_yuv2bgr%5C_yvyu)
+  - [enums.COLOR\_YUV2RGB\_YUYV](#enumscolor%5C_yuv2rgb%5C_yuyv)
+  - [enums.COLOR\_YUV2BGR\_YUYV](#enumscolor%5C_yuv2bgr%5C_yuyv)
+  - [enums.COLOR\_YUV2RGB\_YUNV](#enumscolor%5C_yuv2rgb%5C_yunv)
+  - [enums.COLOR\_YUV2BGR\_YUNV](#enumscolor%5C_yuv2bgr%5C_yunv)
+  - [enums.COLOR\_YUV2RGBA\_YUY2](#enumscolor%5C_yuv2rgba%5C_yuy2)
+  - [enums.COLOR\_YUV2BGRA\_YUY2](#enumscolor%5C_yuv2bgra%5C_yuy2)
+  - [enums.COLOR\_YUV2RGBA\_YVYU](#enumscolor%5C_yuv2rgba%5C_yvyu)
+  - [enums.COLOR\_YUV2BGRA\_YVYU](#enumscolor%5C_yuv2bgra%5C_yvyu)
+  - [enums.COLOR\_YUV2RGBA\_YUYV](#enumscolor%5C_yuv2rgba%5C_yuyv)
+  - [enums.COLOR\_YUV2BGRA\_YUYV](#enumscolor%5C_yuv2bgra%5C_yuyv)
+  - [enums.COLOR\_YUV2RGBA\_YUNV](#enumscolor%5C_yuv2rgba%5C_yunv)
+  - [enums.COLOR\_YUV2BGRA\_YUNV](#enumscolor%5C_yuv2bgra%5C_yunv)
+  - [enums.COLOR\_YUV2GRAY\_UYVY](#enumscolor%5C_yuv2gray%5C_uyvy)
+  - [enums.COLOR\_YUV2GRAY\_YUY2](#enumscolor%5C_yuv2gray%5C_yuy2)
+  - [enums.COLOR\_YUV2GRAY\_Y422](#enumscolor%5C_yuv2gray%5C_y422)
+  - [enums.COLOR\_YUV2GRAY\_UYNV](#enumscolor%5C_yuv2gray%5C_uynv)
+  - [enums.COLOR\_YUV2GRAY\_YVYU](#enumscolor%5C_yuv2gray%5C_yvyu)
+  - [enums.COLOR\_YUV2GRAY\_YUYV](#enumscolor%5C_yuv2gray%5C_yuyv)
+  - [enums.COLOR\_YUV2GRAY\_YUNV](#enumscolor%5C_yuv2gray%5C_yunv)
+  - [enums.COLOR\_RGBA2mRGBA](#enumscolor%5C_rgba2mrgba)
+  - [enums.COLOR\_mRGBA2RGBA](#enumscolor%5C_mrgba2rgba)
+  - [enums.COLOR\_RGB2YUV\_I420](#enumscolor%5C_rgb2yuv%5C_i420)
+  - [enums.COLOR\_BGR2YUV\_I420](#enumscolor%5C_bgr2yuv%5C_i420)
+  - [enums.COLOR\_RGB2YUV\_IYUV](#enumscolor%5C_rgb2yuv%5C_iyuv)
+  - [enums.COLOR\_BGR2YUV\_IYUV](#enumscolor%5C_bgr2yuv%5C_iyuv)
+  - [enums.COLOR\_RGBA2YUV\_I420](#enumscolor%5C_rgba2yuv%5C_i420)
+  - [enums.COLOR\_BGRA2YUV\_I420](#enumscolor%5C_bgra2yuv%5C_i420)
+  - [enums.COLOR\_RGBA2YUV\_IYUV](#enumscolor%5C_rgba2yuv%5C_iyuv)
+  - [enums.COLOR\_BGRA2YUV\_IYUV](#enumscolor%5C_bgra2yuv%5C_iyuv)
+  - [enums.COLOR\_RGB2YUV\_YV12](#enumscolor%5C_rgb2yuv%5C_yv12)
+  - [enums.COLOR\_BGR2YUV\_YV12](#enumscolor%5C_bgr2yuv%5C_yv12)
+  - [enums.COLOR\_RGBA2YUV\_YV12](#enumscolor%5C_rgba2yuv%5C_yv12)
+  - [enums.COLOR\_BGRA2YUV\_YV12](#enumscolor%5C_bgra2yuv%5C_yv12)
+  - [enums.COLOR\_BayerBG2BGR](#enumscolor%5C_bayerbg2bgr)
+  - [enums.COLOR\_BayerGB2BGR](#enumscolor%5C_bayergb2bgr)
+  - [enums.COLOR\_BayerRG2BGR](#enumscolor%5C_bayerrg2bgr)
+  - [enums.COLOR\_BayerGR2BGR](#enumscolor%5C_bayergr2bgr)
+  - [enums.COLOR\_BayerRGGB2BGR](#enumscolor%5C_bayerrggb2bgr)
+  - [enums.COLOR\_BayerGRBG2BGR](#enumscolor%5C_bayergrbg2bgr)
+  - [enums.COLOR\_BayerBGGR2BGR](#enumscolor%5C_bayerbggr2bgr)
+  - [enums.COLOR\_BayerGBRG2BGR](#enumscolor%5C_bayergbrg2bgr)
+  - [enums.COLOR\_BayerRGGB2RGB](#enumscolor%5C_bayerrggb2rgb)
+  - [enums.COLOR\_BayerGRBG2RGB](#enumscolor%5C_bayergrbg2rgb)
+  - [enums.COLOR\_BayerBGGR2RGB](#enumscolor%5C_bayerbggr2rgb)
+  - [enums.COLOR\_BayerGBRG2RGB](#enumscolor%5C_bayergbrg2rgb)
+  - [enums.COLOR\_BayerBG2RGB](#enumscolor%5C_bayerbg2rgb)
+  - [enums.COLOR\_BayerGB2RGB](#enumscolor%5C_bayergb2rgb)
+  - [enums.COLOR\_BayerRG2RGB](#enumscolor%5C_bayerrg2rgb)
+  - [enums.COLOR\_BayerGR2RGB](#enumscolor%5C_bayergr2rgb)
+  - [enums.COLOR\_BayerBG2GRAY](#enumscolor%5C_bayerbg2gray)
+  - [enums.COLOR\_BayerGB2GRAY](#enumscolor%5C_bayergb2gray)
+  - [enums.COLOR\_BayerRG2GRAY](#enumscolor%5C_bayerrg2gray)
+  - [enums.COLOR\_BayerGR2GRAY](#enumscolor%5C_bayergr2gray)
+  - [enums.COLOR\_BayerRGGB2GRAY](#enumscolor%5C_bayerrggb2gray)
+  - [enums.COLOR\_BayerGRBG2GRAY](#enumscolor%5C_bayergrbg2gray)
+  - [enums.COLOR\_BayerBGGR2GRAY](#enumscolor%5C_bayerbggr2gray)
+  - [enums.COLOR\_BayerGBRG2GRAY](#enumscolor%5C_bayergbrg2gray)
+  - [enums.COLOR\_BayerBG2BGR\_VNG](#enumscolor%5C_bayerbg2bgr%5C_vng)
+  - [enums.COLOR\_BayerGB2BGR\_VNG](#enumscolor%5C_bayergb2bgr%5C_vng)
+  - [enums.COLOR\_BayerRG2BGR\_VNG](#enumscolor%5C_bayerrg2bgr%5C_vng)
+  - [enums.COLOR\_BayerGR2BGR\_VNG](#enumscolor%5C_bayergr2bgr%5C_vng)
+  - [enums.COLOR\_BayerRGGB2BGR\_VNG](#enumscolor%5C_bayerrggb2bgr%5C_vng)
+  - [enums.COLOR\_BayerGRBG2BGR\_VNG](#enumscolor%5C_bayergrbg2bgr%5C_vng)
+  - [enums.COLOR\_BayerBGGR2BGR\_VNG](#enumscolor%5C_bayerbggr2bgr%5C_vng)
+  - [enums.COLOR\_BayerGBRG2BGR\_VNG](#enumscolor%5C_bayergbrg2bgr%5C_vng)
+  - [enums.COLOR\_BayerRGGB2RGB\_VNG](#enumscolor%5C_bayerrggb2rgb%5C_vng)
+  - [enums.COLOR\_BayerGRBG2RGB\_VNG](#enumscolor%5C_bayergrbg2rgb%5C_vng)
+  - [enums.COLOR\_BayerBGGR2RGB\_VNG](#enumscolor%5C_bayerbggr2rgb%5C_vng)
+  - [enums.COLOR\_BayerGBRG2RGB\_VNG](#enumscolor%5C_bayergbrg2rgb%5C_vng)
+  - [enums.COLOR\_BayerBG2RGB\_VNG](#enumscolor%5C_bayerbg2rgb%5C_vng)
+  - [enums.COLOR\_BayerGB2RGB\_VNG](#enumscolor%5C_bayergb2rgb%5C_vng)
+  - [enums.COLOR\_BayerRG2RGB\_VNG](#enumscolor%5C_bayerrg2rgb%5C_vng)
+  - [enums.COLOR\_BayerGR2RGB\_VNG](#enumscolor%5C_bayergr2rgb%5C_vng)
+  - [enums.COLOR\_BayerBG2BGR\_EA](#enumscolor%5C_bayerbg2bgr%5C_ea)
+  - [enums.COLOR\_BayerGB2BGR\_EA](#enumscolor%5C_bayergb2bgr%5C_ea)
+  - [enums.COLOR\_BayerRG2BGR\_EA](#enumscolor%5C_bayerrg2bgr%5C_ea)
+  - [enums.COLOR\_BayerGR2BGR\_EA](#enumscolor%5C_bayergr2bgr%5C_ea)
+  - [enums.COLOR\_BayerRGGB2BGR\_EA](#enumscolor%5C_bayerrggb2bgr%5C_ea)
+  - [enums.COLOR\_BayerGRBG2BGR\_EA](#enumscolor%5C_bayergrbg2bgr%5C_ea)
+  - [enums.COLOR\_BayerBGGR2BGR\_EA](#enumscolor%5C_bayerbggr2bgr%5C_ea)
+  - [enums.COLOR\_BayerGBRG2BGR\_EA](#enumscolor%5C_bayergbrg2bgr%5C_ea)
+  - [enums.COLOR\_BayerRGGB2RGB\_EA](#enumscolor%5C_bayerrggb2rgb%5C_ea)
+  - [enums.COLOR\_BayerGRBG2RGB\_EA](#enumscolor%5C_bayergrbg2rgb%5C_ea)
+  - [enums.COLOR\_BayerBGGR2RGB\_EA](#enumscolor%5C_bayerbggr2rgb%5C_ea)
+  - [enums.COLOR\_BayerGBRG2RGB\_EA](#enumscolor%5C_bayergbrg2rgb%5C_ea)
+  - [enums.COLOR\_BayerBG2RGB\_EA](#enumscolor%5C_bayerbg2rgb%5C_ea)
+  - [enums.COLOR\_BayerGB2RGB\_EA](#enumscolor%5C_bayergb2rgb%5C_ea)
+  - [enums.COLOR\_BayerRG2RGB\_EA](#enumscolor%5C_bayerrg2rgb%5C_ea)
+  - [enums.COLOR\_BayerGR2RGB\_EA](#enumscolor%5C_bayergr2rgb%5C_ea)
+  - [enums.COLOR\_BayerBG2BGRA](#enumscolor%5C_bayerbg2bgra)
+  - [enums.COLOR\_BayerGB2BGRA](#enumscolor%5C_bayergb2bgra)
+  - [enums.COLOR\_BayerRG2BGRA](#enumscolor%5C_bayerrg2bgra)
+  - [enums.COLOR\_BayerGR2BGRA](#enumscolor%5C_bayergr2bgra)
+  - [enums.COLOR\_BayerRGGB2BGRA](#enumscolor%5C_bayerrggb2bgra)
+  - [enums.COLOR\_BayerGRBG2BGRA](#enumscolor%5C_bayergrbg2bgra)
+  - [enums.COLOR\_BayerBGGR2BGRA](#enumscolor%5C_bayerbggr2bgra)
+  - [enums.COLOR\_BayerGBRG2BGRA](#enumscolor%5C_bayergbrg2bgra)
+  - [enums.COLOR\_BayerRGGB2RGBA](#enumscolor%5C_bayerrggb2rgba)
+  - [enums.COLOR\_BayerGRBG2RGBA](#enumscolor%5C_bayergrbg2rgba)
+  - [enums.COLOR\_BayerBGGR2RGBA](#enumscolor%5C_bayerbggr2rgba)
+  - [enums.COLOR\_BayerGBRG2RGBA](#enumscolor%5C_bayergbrg2rgba)
+  - [enums.COLOR\_BayerBG2RGBA](#enumscolor%5C_bayerbg2rgba)
+  - [enums.COLOR\_BayerGB2RGBA](#enumscolor%5C_bayergb2rgba)
+  - [enums.COLOR\_BayerRG2RGBA](#enumscolor%5C_bayerrg2rgba)
+  - [enums.COLOR\_BayerGR2RGBA](#enumscolor%5C_bayergr2rgba)
+  - [enums.COLOR\_COLORCVT\_MAX](#enumscolor%5C_colorcvt%5C_max)
+  - [enums.INTERSECT\_NONE](#enumsintersect%5C_none)
+  - [enums.INTERSECT\_PARTIAL](#enumsintersect%5C_partial)
+  - [enums.INTERSECT\_FULL](#enumsintersect%5C_full)
+  - [enums.FILLED](#enumsfilled)
+  - [enums.LINE\_4](#enumsline%5C_4)
+  - [enums.LINE\_8](#enumsline%5C_8)
+  - [enums.LINE\_AA](#enumsline%5C_aa)
+  - [enums.FONT\_HERSHEY\_SIMPLEX](#enumsfont%5C_hershey%5C_simplex)
+  - [enums.FONT\_HERSHEY\_PLAIN](#enumsfont%5C_hershey%5C_plain)
+  - [enums.FONT\_HERSHEY\_DUPLEX](#enumsfont%5C_hershey%5C_duplex)
+  - [enums.FONT\_HERSHEY\_COMPLEX](#enumsfont%5C_hershey%5C_complex)
+  - [enums.FONT\_HERSHEY\_TRIPLEX](#enumsfont%5C_hershey%5C_triplex)
+  - [enums.FONT\_HERSHEY\_COMPLEX\_SMALL](#enumsfont%5C_hershey%5C_complex%5C_small)
+  - [enums.FONT\_HERSHEY\_SCRIPT\_SIMPLEX](#enumsfont%5C_hershey%5C_script%5C_simplex)
+  - [enums.FONT\_HERSHEY\_SCRIPT\_COMPLEX](#enumsfont%5C_hershey%5C_script%5C_complex)
+  - [enums.FONT\_ITALIC](#enumsfont%5C_italic)
+  - [enums.MARKER\_CROSS](#enumsmarker%5C_cross)
+  - [enums.MARKER\_TILTED\_CROSS](#enumsmarker%5C_tilted%5C_cross)
+  - [enums.MARKER\_STAR](#enumsmarker%5C_star)
+  - [enums.MARKER\_DIAMOND](#enumsmarker%5C_diamond)
+  - [enums.MARKER\_SQUARE](#enumsmarker%5C_square)
+  - [enums.MARKER\_TRIANGLE\_UP](#enumsmarker%5C_triangle%5C_up)
+  - [enums.MARKER\_TRIANGLE\_DOWN](#enumsmarker%5C_triangle%5C_down)
+  - [enums.TM\_SQDIFF](#enumstm%5C_sqdiff)
+  - [enums.TM\_SQDIFF\_NORMED](#enumstm%5C_sqdiff%5C_normed)
+  - [enums.TM\_CCORR](#enumstm%5C_ccorr)
+  - [enums.TM\_CCORR\_NORMED](#enumstm%5C_ccorr%5C_normed)
+  - [enums.TM\_CCOEFF](#enumstm%5C_ccoeff)
+  - [enums.TM\_CCOEFF\_NORMED](#enumstm%5C_ccoeff%5C_normed)
+  - [enums.COLORMAP\_AUTUMN](#enumscolormap%5C_autumn)
+  - [enums.COLORMAP\_BONE](#enumscolormap%5C_bone)
+  - [enums.COLORMAP\_JET](#enumscolormap%5C_jet)
+  - [enums.COLORMAP\_WINTER](#enumscolormap%5C_winter)
+  - [enums.COLORMAP\_RAINBOW](#enumscolormap%5C_rainbow)
+  - [enums.COLORMAP\_OCEAN](#enumscolormap%5C_ocean)
+  - [enums.COLORMAP\_SUMMER](#enumscolormap%5C_summer)
+  - [enums.COLORMAP\_SPRING](#enumscolormap%5C_spring)
+  - [enums.COLORMAP\_COOL](#enumscolormap%5C_cool)
+  - [enums.COLORMAP\_HSV](#enumscolormap%5C_hsv)
+  - [enums.COLORMAP\_PINK](#enumscolormap%5C_pink)
+  - [enums.COLORMAP\_HOT](#enumscolormap%5C_hot)
+  - [enums.COLORMAP\_PARULA](#enumscolormap%5C_parula)
+  - [enums.COLORMAP\_MAGMA](#enumscolormap%5C_magma)
+  - [enums.COLORMAP\_INFERNO](#enumscolormap%5C_inferno)
+  - [enums.COLORMAP\_PLASMA](#enumscolormap%5C_plasma)
+  - [enums.COLORMAP\_VIRIDIS](#enumscolormap%5C_viridis)
+  - [enums.COLORMAP\_CIVIDIS](#enumscolormap%5C_cividis)
+  - [enums.COLORMAP\_TWILIGHT](#enumscolormap%5C_twilight)
+  - [enums.COLORMAP\_TWILIGHT\_SHIFTED](#enumscolormap%5C_twilight%5C_shifted)
+  - [enums.COLORMAP\_TURBO](#enumscolormap%5C_turbo)
+  - [enums.COLORMAP\_DEEPGREEN](#enumscolormap%5C_deepgreen)
+  - [enums.INPAINT\_NS](#enumsinpaint%5C_ns)
+  - [enums.INPAINT\_TELEA](#enumsinpaint%5C_telea)
+  - [enums.LDR\_SIZE](#enumsldr%5C_size)
+  - [enums.NORMAL\_CLONE](#enumsnormal%5C_clone)
+  - [enums.MIXED\_CLONE](#enumsmixed%5C_clone)
+  - [enums.MONOCHROME\_TRANSFER](#enumsmonochrome%5C_transfer)
+  - [enums.RECURS\_FILTER](#enumsrecurs%5C_filter)
+  - [enums.NORMCONV\_FILTER](#enumsnormconv%5C_filter)
+  - [enums.IMREAD\_UNCHANGED](#enumsimread%5C_unchanged)
+  - [enums.IMREAD\_GRAYSCALE](#enumsimread%5C_grayscale)
+  - [enums.IMREAD\_COLOR](#enumsimread%5C_color)
+  - [enums.IMREAD\_ANYDEPTH](#enumsimread%5C_anydepth)
+  - [enums.IMREAD\_ANYCOLOR](#enumsimread%5C_anycolor)
+  - [enums.IMREAD\_LOAD\_GDAL](#enumsimread%5C_load%5C_gdal)
+  - [enums.IMREAD\_REDUCED\_GRAYSCALE\_2](#enumsimread%5C_reduced%5C_grayscale%5C_2)
+  - [enums.IMREAD\_REDUCED\_COLOR\_2](#enumsimread%5C_reduced%5C_color%5C_2)
+  - [enums.IMREAD\_REDUCED\_GRAYSCALE\_4](#enumsimread%5C_reduced%5C_grayscale%5C_4)
+  - [enums.IMREAD\_REDUCED\_COLOR\_4](#enumsimread%5C_reduced%5C_color%5C_4)
+  - [enums.IMREAD\_REDUCED\_GRAYSCALE\_8](#enumsimread%5C_reduced%5C_grayscale%5C_8)
+  - [enums.IMREAD\_REDUCED\_COLOR\_8](#enumsimread%5C_reduced%5C_color%5C_8)
+  - [enums.IMREAD\_IGNORE\_ORIENTATION](#enumsimread%5C_ignore%5C_orientation)
+  - [enums.IMWRITE\_JPEG\_QUALITY](#enumsimwrite%5C_jpeg%5C_quality)
+  - [enums.IMWRITE\_JPEG\_PROGRESSIVE](#enumsimwrite%5C_jpeg%5C_progressive)
+  - [enums.IMWRITE\_JPEG\_OPTIMIZE](#enumsimwrite%5C_jpeg%5C_optimize)
+  - [enums.IMWRITE\_JPEG\_RST\_INTERVAL](#enumsimwrite%5C_jpeg%5C_rst%5C_interval)
+  - [enums.IMWRITE\_JPEG\_LUMA\_QUALITY](#enumsimwrite%5C_jpeg%5C_luma%5C_quality)
+  - [enums.IMWRITE\_JPEG\_CHROMA\_QUALITY](#enumsimwrite%5C_jpeg%5C_chroma%5C_quality)
+  - [enums.IMWRITE\_JPEG\_SAMPLING\_FACTOR](#enumsimwrite%5C_jpeg%5C_sampling%5C_factor)
+  - [enums.IMWRITE\_PNG\_COMPRESSION](#enumsimwrite%5C_png%5C_compression)
+  - [enums.IMWRITE\_PNG\_STRATEGY](#enumsimwrite%5C_png%5C_strategy)
+  - [enums.IMWRITE\_PNG\_BILEVEL](#enumsimwrite%5C_png%5C_bilevel)
+  - [enums.IMWRITE\_PXM\_BINARY](#enumsimwrite%5C_pxm%5C_binary)
+  - [enums.IMWRITE\_EXR\_TYPE](#enumsimwrite%5C_exr%5C_type)
+  - [enums.IMWRITE\_EXR\_COMPRESSION](#enumsimwrite%5C_exr%5C_compression)
+  - [enums.IMWRITE\_EXR\_DWA\_COMPRESSION\_LEVEL](#enumsimwrite%5C_exr%5C_dwa%5C_compression%5C_level)
+  - [enums.IMWRITE\_WEBP\_QUALITY](#enumsimwrite%5C_webp%5C_quality)
+  - [enums.IMWRITE\_HDR\_COMPRESSION](#enumsimwrite%5C_hdr%5C_compression)
+  - [enums.IMWRITE\_PAM\_TUPLETYPE](#enumsimwrite%5C_pam%5C_tupletype)
+  - [enums.IMWRITE\_TIFF\_RESUNIT](#enumsimwrite%5C_tiff%5C_resunit)
+  - [enums.IMWRITE\_TIFF\_XDPI](#enumsimwrite%5C_tiff%5C_xdpi)
+  - [enums.IMWRITE\_TIFF\_YDPI](#enumsimwrite%5C_tiff%5C_ydpi)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION](#enumsimwrite%5C_tiff%5C_compression)
+  - [enums.IMWRITE\_JPEG2000\_COMPRESSION\_X1000](#enumsimwrite%5C_jpeg2000%5C_compression%5C_x1000)
+  - [enums.IMWRITE\_JPEG\_SAMPLING\_FACTOR\_411](#enumsimwrite%5C_jpeg%5C_sampling%5C_factor%5C_411)
+  - [enums.IMWRITE\_JPEG\_SAMPLING\_FACTOR\_420](#enumsimwrite%5C_jpeg%5C_sampling%5C_factor%5C_420)
+  - [enums.IMWRITE\_JPEG\_SAMPLING\_FACTOR\_422](#enumsimwrite%5C_jpeg%5C_sampling%5C_factor%5C_422)
+  - [enums.IMWRITE\_JPEG\_SAMPLING\_FACTOR\_440](#enumsimwrite%5C_jpeg%5C_sampling%5C_factor%5C_440)
+  - [enums.IMWRITE\_JPEG\_SAMPLING\_FACTOR\_444](#enumsimwrite%5C_jpeg%5C_sampling%5C_factor%5C_444)
+  - [enums.IMWRITE\_EXR\_TYPE\_HALF](#enumsimwrite%5C_exr%5C_type%5C_half)
+  - [enums.IMWRITE\_EXR\_TYPE\_FLOAT](#enumsimwrite%5C_exr%5C_type%5C_float)
+  - [enums.IMWRITE\_EXR\_COMPRESSION\_NO](#enumsimwrite%5C_exr%5C_compression%5C_no)
+  - [enums.IMWRITE\_EXR\_COMPRESSION\_RLE](#enumsimwrite%5C_exr%5C_compression%5C_rle)
+  - [enums.IMWRITE\_EXR\_COMPRESSION\_ZIPS](#enumsimwrite%5C_exr%5C_compression%5C_zips)
+  - [enums.IMWRITE\_EXR\_COMPRESSION\_ZIP](#enumsimwrite%5C_exr%5C_compression%5C_zip)
+  - [enums.IMWRITE\_EXR\_COMPRESSION\_PIZ](#enumsimwrite%5C_exr%5C_compression%5C_piz)
+  - [enums.IMWRITE\_EXR\_COMPRESSION\_PXR24](#enumsimwrite%5C_exr%5C_compression%5C_pxr24)
+  - [enums.IMWRITE\_EXR\_COMPRESSION\_B44](#enumsimwrite%5C_exr%5C_compression%5C_b44)
+  - [enums.IMWRITE\_EXR\_COMPRESSION\_B44A](#enumsimwrite%5C_exr%5C_compression%5C_b44a)
+  - [enums.IMWRITE\_EXR\_COMPRESSION\_DWAA](#enumsimwrite%5C_exr%5C_compression%5C_dwaa)
+  - [enums.IMWRITE\_EXR\_COMPRESSION\_DWAB](#enumsimwrite%5C_exr%5C_compression%5C_dwab)
+  - [enums.IMWRITE\_PNG\_STRATEGY\_DEFAULT](#enumsimwrite%5C_png%5C_strategy%5C_default)
+  - [enums.IMWRITE\_PNG\_STRATEGY\_FILTERED](#enumsimwrite%5C_png%5C_strategy%5C_filtered)
+  - [enums.IMWRITE\_PNG\_STRATEGY\_HUFFMAN\_ONLY](#enumsimwrite%5C_png%5C_strategy%5C_huffman%5C_only)
+  - [enums.IMWRITE\_PNG\_STRATEGY\_RLE](#enumsimwrite%5C_png%5C_strategy%5C_rle)
+  - [enums.IMWRITE\_PNG\_STRATEGY\_FIXED](#enumsimwrite%5C_png%5C_strategy%5C_fixed)
+  - [enums.IMWRITE\_PAM\_FORMAT\_NULL](#enumsimwrite%5C_pam%5C_format%5C_null)
+  - [enums.IMWRITE\_PAM\_FORMAT\_BLACKANDWHITE](#enumsimwrite%5C_pam%5C_format%5C_blackandwhite)
+  - [enums.IMWRITE\_PAM\_FORMAT\_GRAYSCALE](#enumsimwrite%5C_pam%5C_format%5C_grayscale)
+  - [enums.IMWRITE\_PAM\_FORMAT\_GRAYSCALE\_ALPHA](#enumsimwrite%5C_pam%5C_format%5C_grayscale%5C_alpha)
+  - [enums.IMWRITE\_PAM\_FORMAT\_RGB](#enumsimwrite%5C_pam%5C_format%5C_rgb)
+  - [enums.IMWRITE\_PAM\_FORMAT\_RGB\_ALPHA](#enumsimwrite%5C_pam%5C_format%5C_rgb%5C_alpha)
+  - [enums.IMWRITE\_HDR\_COMPRESSION\_NONE](#enumsimwrite%5C_hdr%5C_compression%5C_none)
+  - [enums.IMWRITE\_HDR\_COMPRESSION\_RLE](#enumsimwrite%5C_hdr%5C_compression%5C_rle)
+  - [enums.CAP\_ANY](#enumscap%5C_any)
+  - [enums.CAP\_VFW](#enumscap%5C_vfw)
+  - [enums.CAP\_V4L](#enumscap%5C_v4l)
+  - [enums.CAP\_V4L2](#enumscap%5C_v4l2)
+  - [enums.CAP\_FIREWIRE](#enumscap%5C_firewire)
+  - [enums.CAP\_FIREWARE](#enumscap%5C_fireware)
+  - [enums.CAP\_IEEE1394](#enumscap%5C_ieee1394)
+  - [enums.CAP\_DC1394](#enumscap%5C_dc1394)
+  - [enums.CAP\_CMU1394](#enumscap%5C_cmu1394)
+  - [enums.CAP\_QT](#enumscap%5C_qt)
+  - [enums.CAP\_UNICAP](#enumscap%5C_unicap)
+  - [enums.CAP\_DSHOW](#enumscap%5C_dshow)
+  - [enums.CAP\_PVAPI](#enumscap%5C_pvapi)
+  - [enums.CAP\_OPENNI](#enumscap%5C_openni)
+  - [enums.CAP\_OPENNI\_ASUS](#enumscap%5C_openni%5C_asus)
+  - [enums.CAP\_ANDROID](#enumscap%5C_android)
+  - [enums.CAP\_XIAPI](#enumscap%5C_xiapi)
+  - [enums.CAP\_AVFOUNDATION](#enumscap%5C_avfoundation)
+  - [enums.CAP\_GIGANETIX](#enumscap%5C_giganetix)
+  - [enums.CAP\_MSMF](#enumscap%5C_msmf)
+  - [enums.CAP\_WINRT](#enumscap%5C_winrt)
+  - [enums.CAP\_INTELPERC](#enumscap%5C_intelperc)
+  - [enums.CAP\_REALSENSE](#enumscap%5C_realsense)
+  - [enums.CAP\_OPENNI2](#enumscap%5C_openni2)
+  - [enums.CAP\_OPENNI2\_ASUS](#enumscap%5C_openni2%5C_asus)
+  - [enums.CAP\_OPENNI2\_ASTRA](#enumscap%5C_openni2%5C_astra)
+  - [enums.CAP\_GPHOTO2](#enumscap%5C_gphoto2)
+  - [enums.CAP\_GSTREAMER](#enumscap%5C_gstreamer)
+  - [enums.CAP\_FFMPEG](#enumscap%5C_ffmpeg)
+  - [enums.CAP\_IMAGES](#enumscap%5C_images)
+  - [enums.CAP\_ARAVIS](#enumscap%5C_aravis)
+  - [enums.CAP\_OPENCV\_MJPEG](#enumscap%5C_opencv%5C_mjpeg)
+  - [enums.CAP\_INTEL\_MFX](#enumscap%5C_intel%5C_mfx)
+  - [enums.CAP\_XINE](#enumscap%5C_xine)
+  - [enums.CAP\_UEYE](#enumscap%5C_ueye)
+  - [enums.CAP\_OBSENSOR](#enumscap%5C_obsensor)
+  - [enums.CAP\_PROP\_POS\_MSEC](#enumscap%5C_prop%5C_pos%5C_msec)
+  - [enums.CAP\_PROP\_POS\_FRAMES](#enumscap%5C_prop%5C_pos%5C_frames)
+  - [enums.CAP\_PROP\_POS\_AVI\_RATIO](#enumscap%5C_prop%5C_pos%5C_avi%5C_ratio)
+  - [enums.CAP\_PROP\_FRAME\_WIDTH](#enumscap%5C_prop%5C_frame%5C_width)
+  - [enums.CAP\_PROP\_FRAME\_HEIGHT](#enumscap%5C_prop%5C_frame%5C_height)
+  - [enums.CAP\_PROP\_FPS](#enumscap%5C_prop%5C_fps)
+  - [enums.CAP\_PROP\_FOURCC](#enumscap%5C_prop%5C_fourcc)
+  - [enums.CAP\_PROP\_FRAME\_COUNT](#enumscap%5C_prop%5C_frame%5C_count)
+  - [enums.CAP\_PROP\_FORMAT](#enumscap%5C_prop%5C_format)
+  - [enums.CAP\_PROP\_MODE](#enumscap%5C_prop%5C_mode)
+  - [enums.CAP\_PROP\_BRIGHTNESS](#enumscap%5C_prop%5C_brightness)
+  - [enums.CAP\_PROP\_CONTRAST](#enumscap%5C_prop%5C_contrast)
+  - [enums.CAP\_PROP\_SATURATION](#enumscap%5C_prop%5C_saturation)
+  - [enums.CAP\_PROP\_HUE](#enumscap%5C_prop%5C_hue)
+  - [enums.CAP\_PROP\_GAIN](#enumscap%5C_prop%5C_gain)
+  - [enums.CAP\_PROP\_EXPOSURE](#enumscap%5C_prop%5C_exposure)
+  - [enums.CAP\_PROP\_CONVERT\_RGB](#enumscap%5C_prop%5C_convert%5C_rgb)
+  - [enums.CAP\_PROP\_WHITE\_BALANCE\_BLUE\_U](#enumscap%5C_prop%5C_white%5C_balance%5C_blue%5C_u)
+  - [enums.CAP\_PROP\_RECTIFICATION](#enumscap%5C_prop%5C_rectification)
+  - [enums.CAP\_PROP\_MONOCHROME](#enumscap%5C_prop%5C_monochrome)
+  - [enums.CAP\_PROP\_SHARPNESS](#enumscap%5C_prop%5C_sharpness)
+  - [enums.CAP\_PROP\_AUTO\_EXPOSURE](#enumscap%5C_prop%5C_auto%5C_exposure)
+  - [enums.CAP\_PROP\_GAMMA](#enumscap%5C_prop%5C_gamma)
+  - [enums.CAP\_PROP\_TEMPERATURE](#enumscap%5C_prop%5C_temperature)
+  - [enums.CAP\_PROP\_TRIGGER](#enumscap%5C_prop%5C_trigger)
+  - [enums.CAP\_PROP\_TRIGGER\_DELAY](#enumscap%5C_prop%5C_trigger%5C_delay)
+  - [enums.CAP\_PROP\_WHITE\_BALANCE\_RED\_V](#enumscap%5C_prop%5C_white%5C_balance%5C_red%5C_v)
+  - [enums.CAP\_PROP\_ZOOM](#enumscap%5C_prop%5C_zoom)
+  - [enums.CAP\_PROP\_FOCUS](#enumscap%5C_prop%5C_focus)
+  - [enums.CAP\_PROP\_GUID](#enumscap%5C_prop%5C_guid)
+  - [enums.CAP\_PROP\_ISO\_SPEED](#enumscap%5C_prop%5C_iso%5C_speed)
+  - [enums.CAP\_PROP\_BACKLIGHT](#enumscap%5C_prop%5C_backlight)
+  - [enums.CAP\_PROP\_PAN](#enumscap%5C_prop%5C_pan)
+  - [enums.CAP\_PROP\_TILT](#enumscap%5C_prop%5C_tilt)
+  - [enums.CAP\_PROP\_ROLL](#enumscap%5C_prop%5C_roll)
+  - [enums.CAP\_PROP\_IRIS](#enumscap%5C_prop%5C_iris)
+  - [enums.CAP\_PROP\_SETTINGS](#enumscap%5C_prop%5C_settings)
+  - [enums.CAP\_PROP\_BUFFERSIZE](#enumscap%5C_prop%5C_buffersize)
+  - [enums.CAP\_PROP\_AUTOFOCUS](#enumscap%5C_prop%5C_autofocus)
+  - [enums.CAP\_PROP\_SAR\_NUM](#enumscap%5C_prop%5C_sar%5C_num)
+  - [enums.CAP\_PROP\_SAR\_DEN](#enumscap%5C_prop%5C_sar%5C_den)
+  - [enums.CAP\_PROP\_BACKEND](#enumscap%5C_prop%5C_backend)
+  - [enums.CAP\_PROP\_CHANNEL](#enumscap%5C_prop%5C_channel)
+  - [enums.CAP\_PROP\_AUTO\_WB](#enumscap%5C_prop%5C_auto%5C_wb)
+  - [enums.CAP\_PROP\_WB\_TEMPERATURE](#enumscap%5C_prop%5C_wb%5C_temperature)
+  - [enums.CAP\_PROP\_CODEC\_PIXEL\_FORMAT](#enumscap%5C_prop%5C_codec%5C_pixel%5C_format)
+  - [enums.CAP\_PROP\_BITRATE](#enumscap%5C_prop%5C_bitrate)
+  - [enums.CAP\_PROP\_ORIENTATION\_META](#enumscap%5C_prop%5C_orientation%5C_meta)
+  - [enums.CAP\_PROP\_ORIENTATION\_AUTO](#enumscap%5C_prop%5C_orientation%5C_auto)
+  - [enums.CAP\_PROP\_HW\_ACCELERATION](#enumscap%5C_prop%5C_hw%5C_acceleration)
+  - [enums.CAP\_PROP\_HW\_DEVICE](#enumscap%5C_prop%5C_hw%5C_device)
+  - [enums.CAP\_PROP\_HW\_ACCELERATION\_USE\_OPENCL](#enumscap%5C_prop%5C_hw%5C_acceleration%5C_use%5C_opencl)
+  - [enums.CAP\_PROP\_OPEN\_TIMEOUT\_MSEC](#enumscap%5C_prop%5C_open%5C_timeout%5C_msec)
+  - [enums.CAP\_PROP\_READ\_TIMEOUT\_MSEC](#enumscap%5C_prop%5C_read%5C_timeout%5C_msec)
+  - [enums.CAP\_PROP\_STREAM\_OPEN\_TIME\_USEC](#enumscap%5C_prop%5C_stream%5C_open%5C_time%5C_usec)
+  - [enums.CAP\_PROP\_VIDEO\_TOTAL\_CHANNELS](#enumscap%5C_prop%5C_video%5C_total%5C_channels)
+  - [enums.CAP\_PROP\_VIDEO\_STREAM](#enumscap%5C_prop%5C_video%5C_stream)
+  - [enums.CAP\_PROP\_AUDIO\_STREAM](#enumscap%5C_prop%5C_audio%5C_stream)
+  - [enums.CAP\_PROP\_AUDIO\_POS](#enumscap%5C_prop%5C_audio%5C_pos)
+  - [enums.CAP\_PROP\_AUDIO\_SHIFT\_NSEC](#enumscap%5C_prop%5C_audio%5C_shift%5C_nsec)
+  - [enums.CAP\_PROP\_AUDIO\_DATA\_DEPTH](#enumscap%5C_prop%5C_audio%5C_data%5C_depth)
+  - [enums.CAP\_PROP\_AUDIO\_SAMPLES\_PER\_SECOND](#enumscap%5C_prop%5C_audio%5C_samples%5C_per%5C_second)
+  - [enums.CAP\_PROP\_AUDIO\_BASE\_INDEX](#enumscap%5C_prop%5C_audio%5C_base%5C_index)
+  - [enums.CAP\_PROP\_AUDIO\_TOTAL\_CHANNELS](#enumscap%5C_prop%5C_audio%5C_total%5C_channels)
+  - [enums.CAP\_PROP\_AUDIO\_TOTAL\_STREAMS](#enumscap%5C_prop%5C_audio%5C_total%5C_streams)
+  - [enums.CAP\_PROP\_AUDIO\_SYNCHRONIZE](#enumscap%5C_prop%5C_audio%5C_synchronize)
+  - [enums.CAP\_PROP\_LRF\_HAS\_KEY\_FRAME](#enumscap%5C_prop%5C_lrf%5C_has%5C_key%5C_frame)
+  - [enums.CAP\_PROP\_CODEC\_EXTRADATA\_INDEX](#enumscap%5C_prop%5C_codec%5C_extradata%5C_index)
+  - [enums.CAP\_PROP\_FRAME\_TYPE](#enumscap%5C_prop%5C_frame%5C_type)
+  - [enums.CAP\_PROP\_N\_THREADS](#enumscap%5C_prop%5C_n%5C_threads)
+  - [enums.VIDEOWRITER\_PROP\_QUALITY](#enumsvideowriter%5C_prop%5C_quality)
+  - [enums.VIDEOWRITER\_PROP\_FRAMEBYTES](#enumsvideowriter%5C_prop%5C_framebytes)
+  - [enums.VIDEOWRITER\_PROP\_NSTRIPES](#enumsvideowriter%5C_prop%5C_nstripes)
+  - [enums.VIDEOWRITER\_PROP\_IS\_COLOR](#enumsvideowriter%5C_prop%5C_is%5C_color)
+  - [enums.VIDEOWRITER\_PROP\_DEPTH](#enumsvideowriter%5C_prop%5C_depth)
+  - [enums.VIDEOWRITER\_PROP\_HW\_ACCELERATION](#enumsvideowriter%5C_prop%5C_hw%5C_acceleration)
+  - [enums.VIDEOWRITER\_PROP\_HW\_DEVICE](#enumsvideowriter%5C_prop%5C_hw%5C_device)
+  - [enums.VIDEOWRITER\_PROP\_HW\_ACCELERATION\_USE\_OPENCL](#enumsvideowriter%5C_prop%5C_hw%5C_acceleration%5C_use%5C_opencl)
+  - [enums.VIDEO\_ACCELERATION\_NONE](#enumsvideo%5C_acceleration%5C_none)
+  - [enums.VIDEO\_ACCELERATION\_ANY](#enumsvideo%5C_acceleration%5C_any)
+  - [enums.VIDEO\_ACCELERATION\_D3D11](#enumsvideo%5C_acceleration%5C_d3d11)
+  - [enums.VIDEO\_ACCELERATION\_VAAPI](#enumsvideo%5C_acceleration%5C_vaapi)
+  - [enums.VIDEO\_ACCELERATION\_MFX](#enumsvideo%5C_acceleration%5C_mfx)
+  - [enums.CAP\_PROP\_DC1394\_OFF](#enumscap%5C_prop%5C_dc1394%5C_off)
+  - [enums.CAP\_PROP\_DC1394\_MODE\_MANUAL](#enumscap%5C_prop%5C_dc1394%5C_mode%5C_manual)
+  - [enums.CAP\_PROP\_DC1394\_MODE\_AUTO](#enumscap%5C_prop%5C_dc1394%5C_mode%5C_auto)
+  - [enums.CAP\_PROP\_DC1394\_MODE\_ONE\_PUSH\_AUTO](#enumscap%5C_prop%5C_dc1394%5C_mode%5C_one%5C_push%5C_auto)
+  - [enums.CAP\_PROP\_DC1394\_MAX](#enumscap%5C_prop%5C_dc1394%5C_max)
+  - [enums.CAP\_OPENNI\_DEPTH\_GENERATOR](#enumscap%5C_openni%5C_depth%5C_generator)
+  - [enums.CAP\_OPENNI\_IMAGE\_GENERATOR](#enumscap%5C_openni%5C_image%5C_generator)
+  - [enums.CAP\_OPENNI\_IR\_GENERATOR](#enumscap%5C_openni%5C_ir%5C_generator)
+  - [enums.CAP\_OPENNI\_GENERATORS\_MASK](#enumscap%5C_openni%5C_generators%5C_mask)
+  - [enums.CAP\_PROP\_OPENNI\_OUTPUT\_MODE](#enumscap%5C_prop%5C_openni%5C_output%5C_mode)
+  - [enums.CAP\_PROP\_OPENNI\_FRAME\_MAX\_DEPTH](#enumscap%5C_prop%5C_openni%5C_frame%5C_max%5C_depth)
+  - [enums.CAP\_PROP\_OPENNI\_BASELINE](#enumscap%5C_prop%5C_openni%5C_baseline)
+  - [enums.CAP\_PROP\_OPENNI\_FOCAL\_LENGTH](#enumscap%5C_prop%5C_openni%5C_focal%5C_length)
+  - [enums.CAP\_PROP\_OPENNI\_REGISTRATION](#enumscap%5C_prop%5C_openni%5C_registration)
+  - [enums.CAP\_PROP\_OPENNI\_REGISTRATION\_ON](#enumscap%5C_prop%5C_openni%5C_registration%5C_on)
+  - [enums.CAP\_PROP\_OPENNI\_APPROX\_FRAME\_SYNC](#enumscap%5C_prop%5C_openni%5C_approx%5C_frame%5C_sync)
+  - [enums.CAP\_PROP\_OPENNI\_MAX\_BUFFER\_SIZE](#enumscap%5C_prop%5C_openni%5C_max%5C_buffer%5C_size)
+  - [enums.CAP\_PROP\_OPENNI\_CIRCLE\_BUFFER](#enumscap%5C_prop%5C_openni%5C_circle%5C_buffer)
+  - [enums.CAP\_PROP\_OPENNI\_MAX\_TIME\_DURATION](#enumscap%5C_prop%5C_openni%5C_max%5C_time%5C_duration)
+  - [enums.CAP\_PROP\_OPENNI\_GENERATOR\_PRESENT](#enumscap%5C_prop%5C_openni%5C_generator%5C_present)
+  - [enums.CAP\_PROP\_OPENNI2\_SYNC](#enumscap%5C_prop%5C_openni2%5C_sync)
+  - [enums.CAP\_PROP\_OPENNI2\_MIRROR](#enumscap%5C_prop%5C_openni2%5C_mirror)
+  - [enums.CAP\_OPENNI\_IMAGE\_GENERATOR\_PRESENT](#enumscap%5C_openni%5C_image%5C_generator%5C_present)
+  - [enums.CAP\_OPENNI\_IMAGE\_GENERATOR\_OUTPUT\_MODE](#enumscap%5C_openni%5C_image%5C_generator%5C_output%5C_mode)
+  - [enums.CAP\_OPENNI\_DEPTH\_GENERATOR\_PRESENT](#enumscap%5C_openni%5C_depth%5C_generator%5C_present)
+  - [enums.CAP\_OPENNI\_DEPTH\_GENERATOR\_BASELINE](#enumscap%5C_openni%5C_depth%5C_generator%5C_baseline)
+  - [enums.CAP\_OPENNI\_DEPTH\_GENERATOR\_FOCAL\_LENGTH](#enumscap%5C_openni%5C_depth%5C_generator%5C_focal%5C_length)
+  - [enums.CAP\_OPENNI\_DEPTH\_GENERATOR\_REGISTRATION](#enumscap%5C_openni%5C_depth%5C_generator%5C_registration)
+  - [enums.CAP\_OPENNI\_DEPTH\_GENERATOR\_REGISTRATION\_ON](#enumscap%5C_openni%5C_depth%5C_generator%5C_registration%5C_on)
+  - [enums.CAP\_OPENNI\_IR\_GENERATOR\_PRESENT](#enumscap%5C_openni%5C_ir%5C_generator%5C_present)
+  - [enums.CAP\_OPENNI\_DEPTH\_MAP](#enumscap%5C_openni%5C_depth%5C_map)
+  - [enums.CAP\_OPENNI\_POINT\_CLOUD\_MAP](#enumscap%5C_openni%5C_point%5C_cloud%5C_map)
+  - [enums.CAP\_OPENNI\_DISPARITY\_MAP](#enumscap%5C_openni%5C_disparity%5C_map)
+  - [enums.CAP\_OPENNI\_DISPARITY\_MAP\_32F](#enumscap%5C_openni%5C_disparity%5C_map%5C_32f)
+  - [enums.CAP\_OPENNI\_VALID\_DEPTH\_MASK](#enumscap%5C_openni%5C_valid%5C_depth%5C_mask)
+  - [enums.CAP\_OPENNI\_BGR\_IMAGE](#enumscap%5C_openni%5C_bgr%5C_image)
+  - [enums.CAP\_OPENNI\_GRAY\_IMAGE](#enumscap%5C_openni%5C_gray%5C_image)
+  - [enums.CAP\_OPENNI\_IR\_IMAGE](#enumscap%5C_openni%5C_ir%5C_image)
+  - [enums.CAP\_OPENNI\_VGA\_30HZ](#enumscap%5C_openni%5C_vga%5C_30hz)
+  - [enums.CAP\_OPENNI\_SXGA\_15HZ](#enumscap%5C_openni%5C_sxga%5C_15hz)
+  - [enums.CAP\_OPENNI\_SXGA\_30HZ](#enumscap%5C_openni%5C_sxga%5C_30hz)
+  - [enums.CAP\_OPENNI\_QVGA\_30HZ](#enumscap%5C_openni%5C_qvga%5C_30hz)
+  - [enums.CAP\_OPENNI\_QVGA\_60HZ](#enumscap%5C_openni%5C_qvga%5C_60hz)
+  - [enums.CAP\_PROP\_GSTREAMER\_QUEUE\_LENGTH](#enumscap%5C_prop%5C_gstreamer%5C_queue%5C_length)
+  - [enums.CAP\_PROP\_PVAPI\_MULTICASTIP](#enumscap%5C_prop%5C_pvapi%5C_multicastip)
+  - [enums.CAP\_PROP\_PVAPI\_FRAMESTARTTRIGGERMODE](#enumscap%5C_prop%5C_pvapi%5C_framestarttriggermode)
+  - [enums.CAP\_PROP\_PVAPI\_DECIMATIONHORIZONTAL](#enumscap%5C_prop%5C_pvapi%5C_decimationhorizontal)
+  - [enums.CAP\_PROP\_PVAPI\_DECIMATIONVERTICAL](#enumscap%5C_prop%5C_pvapi%5C_decimationvertical)
+  - [enums.CAP\_PROP\_PVAPI\_BINNINGX](#enumscap%5C_prop%5C_pvapi%5C_binningx)
+  - [enums.CAP\_PROP\_PVAPI\_BINNINGY](#enumscap%5C_prop%5C_pvapi%5C_binningy)
+  - [enums.CAP\_PROP\_PVAPI\_PIXELFORMAT](#enumscap%5C_prop%5C_pvapi%5C_pixelformat)
+  - [enums.CAP\_PVAPI\_FSTRIGMODE\_FREERUN](#enumscap%5C_pvapi%5C_fstrigmode%5C_freerun)
+  - [enums.CAP\_PVAPI\_FSTRIGMODE\_SYNCIN1](#enumscap%5C_pvapi%5C_fstrigmode%5C_syncin1)
+  - [enums.CAP\_PVAPI\_FSTRIGMODE\_SYNCIN2](#enumscap%5C_pvapi%5C_fstrigmode%5C_syncin2)
+  - [enums.CAP\_PVAPI\_FSTRIGMODE\_FIXEDRATE](#enumscap%5C_pvapi%5C_fstrigmode%5C_fixedrate)
+  - [enums.CAP\_PVAPI\_FSTRIGMODE\_SOFTWARE](#enumscap%5C_pvapi%5C_fstrigmode%5C_software)
+  - [enums.CAP\_PVAPI\_DECIMATION\_OFF](#enumscap%5C_pvapi%5C_decimation%5C_off)
+  - [enums.CAP\_PVAPI\_DECIMATION\_2OUTOF4](#enumscap%5C_pvapi%5C_decimation%5C_2outof4)
+  - [enums.CAP\_PVAPI\_DECIMATION\_2OUTOF8](#enumscap%5C_pvapi%5C_decimation%5C_2outof8)
+  - [enums.CAP\_PVAPI\_DECIMATION\_2OUTOF16](#enumscap%5C_pvapi%5C_decimation%5C_2outof16)
+  - [enums.CAP\_PVAPI\_PIXELFORMAT\_MONO8](#enumscap%5C_pvapi%5C_pixelformat%5C_mono8)
+  - [enums.CAP\_PVAPI\_PIXELFORMAT\_MONO16](#enumscap%5C_pvapi%5C_pixelformat%5C_mono16)
+  - [enums.CAP\_PVAPI\_PIXELFORMAT\_BAYER8](#enumscap%5C_pvapi%5C_pixelformat%5C_bayer8)
+  - [enums.CAP\_PVAPI\_PIXELFORMAT\_BAYER16](#enumscap%5C_pvapi%5C_pixelformat%5C_bayer16)
+  - [enums.CAP\_PVAPI\_PIXELFORMAT\_RGB24](#enumscap%5C_pvapi%5C_pixelformat%5C_rgb24)
+  - [enums.CAP\_PVAPI\_PIXELFORMAT\_BGR24](#enumscap%5C_pvapi%5C_pixelformat%5C_bgr24)
+  - [enums.CAP\_PVAPI\_PIXELFORMAT\_RGBA32](#enumscap%5C_pvapi%5C_pixelformat%5C_rgba32)
+  - [enums.CAP\_PVAPI\_PIXELFORMAT\_BGRA32](#enumscap%5C_pvapi%5C_pixelformat%5C_bgra32)
+  - [enums.CAP\_PROP\_XI\_DOWNSAMPLING](#enumscap%5C_prop%5C_xi%5C_downsampling)
+  - [enums.CAP\_PROP\_XI\_DATA\_FORMAT](#enumscap%5C_prop%5C_xi%5C_data%5C_format)
+  - [enums.CAP\_PROP\_XI\_OFFSET\_X](#enumscap%5C_prop%5C_xi%5C_offset%5C_x)
+  - [enums.CAP\_PROP\_XI\_OFFSET\_Y](#enumscap%5C_prop%5C_xi%5C_offset%5C_y)
+  - [enums.CAP\_PROP\_XI\_TRG\_SOURCE](#enumscap%5C_prop%5C_xi%5C_trg%5C_source)
+  - [enums.CAP\_PROP\_XI\_TRG\_SOFTWARE](#enumscap%5C_prop%5C_xi%5C_trg%5C_software)
+  - [enums.CAP\_PROP\_XI\_GPI\_SELECTOR](#enumscap%5C_prop%5C_xi%5C_gpi%5C_selector)
+  - [enums.CAP\_PROP\_XI\_GPI\_MODE](#enumscap%5C_prop%5C_xi%5C_gpi%5C_mode)
+  - [enums.CAP\_PROP\_XI\_GPI\_LEVEL](#enumscap%5C_prop%5C_xi%5C_gpi%5C_level)
+  - [enums.CAP\_PROP\_XI\_GPO\_SELECTOR](#enumscap%5C_prop%5C_xi%5C_gpo%5C_selector)
+  - [enums.CAP\_PROP\_XI\_GPO\_MODE](#enumscap%5C_prop%5C_xi%5C_gpo%5C_mode)
+  - [enums.CAP\_PROP\_XI\_LED\_SELECTOR](#enumscap%5C_prop%5C_xi%5C_led%5C_selector)
+  - [enums.CAP\_PROP\_XI\_LED\_MODE](#enumscap%5C_prop%5C_xi%5C_led%5C_mode)
+  - [enums.CAP\_PROP\_XI\_MANUAL\_WB](#enumscap%5C_prop%5C_xi%5C_manual%5C_wb)
+  - [enums.CAP\_PROP\_XI\_AUTO\_WB](#enumscap%5C_prop%5C_xi%5C_auto%5C_wb)
+  - [enums.CAP\_PROP\_XI\_AEAG](#enumscap%5C_prop%5C_xi%5C_aeag)
+  - [enums.CAP\_PROP\_XI\_EXP\_PRIORITY](#enumscap%5C_prop%5C_xi%5C_exp%5C_priority)
+  - [enums.CAP\_PROP\_XI\_AE\_MAX\_LIMIT](#enumscap%5C_prop%5C_xi%5C_ae%5C_max%5C_limit)
+  - [enums.CAP\_PROP\_XI\_AG\_MAX\_LIMIT](#enumscap%5C_prop%5C_xi%5C_ag%5C_max%5C_limit)
+  - [enums.CAP\_PROP\_XI\_AEAG\_LEVEL](#enumscap%5C_prop%5C_xi%5C_aeag%5C_level)
+  - [enums.CAP\_PROP\_XI\_TIMEOUT](#enumscap%5C_prop%5C_xi%5C_timeout)
+  - [enums.CAP\_PROP\_XI\_EXPOSURE](#enumscap%5C_prop%5C_xi%5C_exposure)
+  - [enums.CAP\_PROP\_XI\_EXPOSURE\_BURST\_COUNT](#enumscap%5C_prop%5C_xi%5C_exposure%5C_burst%5C_count)
+  - [enums.CAP\_PROP\_XI\_GAIN\_SELECTOR](#enumscap%5C_prop%5C_xi%5C_gain%5C_selector)
+  - [enums.CAP\_PROP\_XI\_GAIN](#enumscap%5C_prop%5C_xi%5C_gain)
+  - [enums.CAP\_PROP\_XI\_DOWNSAMPLING\_TYPE](#enumscap%5C_prop%5C_xi%5C_downsampling%5C_type)
+  - [enums.CAP\_PROP\_XI\_BINNING\_SELECTOR](#enumscap%5C_prop%5C_xi%5C_binning%5C_selector)
+  - [enums.CAP\_PROP\_XI\_BINNING\_VERTICAL](#enumscap%5C_prop%5C_xi%5C_binning%5C_vertical)
+  - [enums.CAP\_PROP\_XI\_BINNING\_HORIZONTAL](#enumscap%5C_prop%5C_xi%5C_binning%5C_horizontal)
+  - [enums.CAP\_PROP\_XI\_BINNING\_PATTERN](#enumscap%5C_prop%5C_xi%5C_binning%5C_pattern)
+  - [enums.CAP\_PROP\_XI\_DECIMATION\_SELECTOR](#enumscap%5C_prop%5C_xi%5C_decimation%5C_selector)
+  - [enums.CAP\_PROP\_XI\_DECIMATION\_VERTICAL](#enumscap%5C_prop%5C_xi%5C_decimation%5C_vertical)
+  - [enums.CAP\_PROP\_XI\_DECIMATION\_HORIZONTAL](#enumscap%5C_prop%5C_xi%5C_decimation%5C_horizontal)
+  - [enums.CAP\_PROP\_XI\_DECIMATION\_PATTERN](#enumscap%5C_prop%5C_xi%5C_decimation%5C_pattern)
+  - [enums.CAP\_PROP\_XI\_TEST\_PATTERN\_GENERATOR\_SELECTOR](#enumscap%5C_prop%5C_xi%5C_test%5C_pattern%5C_generator%5C_selector)
+  - [enums.CAP\_PROP\_XI\_TEST\_PATTERN](#enumscap%5C_prop%5C_xi%5C_test%5C_pattern)
+  - [enums.CAP\_PROP\_XI\_IMAGE\_DATA\_FORMAT](#enumscap%5C_prop%5C_xi%5C_image%5C_data%5C_format)
+  - [enums.CAP\_PROP\_XI\_SHUTTER\_TYPE](#enumscap%5C_prop%5C_xi%5C_shutter%5C_type)
+  - [enums.CAP\_PROP\_XI\_SENSOR\_TAPS](#enumscap%5C_prop%5C_xi%5C_sensor%5C_taps)
+  - [enums.CAP\_PROP\_XI\_AEAG\_ROI\_OFFSET\_X](#enumscap%5C_prop%5C_xi%5C_aeag%5C_roi%5C_offset%5C_x)
+  - [enums.CAP\_PROP\_XI\_AEAG\_ROI\_OFFSET\_Y](#enumscap%5C_prop%5C_xi%5C_aeag%5C_roi%5C_offset%5C_y)
+  - [enums.CAP\_PROP\_XI\_AEAG\_ROI\_WIDTH](#enumscap%5C_prop%5C_xi%5C_aeag%5C_roi%5C_width)
+  - [enums.CAP\_PROP\_XI\_AEAG\_ROI\_HEIGHT](#enumscap%5C_prop%5C_xi%5C_aeag%5C_roi%5C_height)
+  - [enums.CAP\_PROP\_XI\_BPC](#enumscap%5C_prop%5C_xi%5C_bpc)
+  - [enums.CAP\_PROP\_XI\_WB\_KR](#enumscap%5C_prop%5C_xi%5C_wb%5C_kr)
+  - [enums.CAP\_PROP\_XI\_WB\_KG](#enumscap%5C_prop%5C_xi%5C_wb%5C_kg)
+  - [enums.CAP\_PROP\_XI\_WB\_KB](#enumscap%5C_prop%5C_xi%5C_wb%5C_kb)
+  - [enums.CAP\_PROP\_XI\_WIDTH](#enumscap%5C_prop%5C_xi%5C_width)
+  - [enums.CAP\_PROP\_XI\_HEIGHT](#enumscap%5C_prop%5C_xi%5C_height)
+  - [enums.CAP\_PROP\_XI\_REGION\_SELECTOR](#enumscap%5C_prop%5C_xi%5C_region%5C_selector)
+  - [enums.CAP\_PROP\_XI\_REGION\_MODE](#enumscap%5C_prop%5C_xi%5C_region%5C_mode)
+  - [enums.CAP\_PROP\_XI\_LIMIT\_BANDWIDTH](#enumscap%5C_prop%5C_xi%5C_limit%5C_bandwidth)
+  - [enums.CAP\_PROP\_XI\_SENSOR\_DATA\_BIT\_DEPTH](#enumscap%5C_prop%5C_xi%5C_sensor%5C_data%5C_bit%5C_depth)
+  - [enums.CAP\_PROP\_XI\_OUTPUT\_DATA\_BIT\_DEPTH](#enumscap%5C_prop%5C_xi%5C_output%5C_data%5C_bit%5C_depth)
+  - [enums.CAP\_PROP\_XI\_IMAGE\_DATA\_BIT\_DEPTH](#enumscap%5C_prop%5C_xi%5C_image%5C_data%5C_bit%5C_depth)
+  - [enums.CAP\_PROP\_XI\_OUTPUT\_DATA\_PACKING](#enumscap%5C_prop%5C_xi%5C_output%5C_data%5C_packing)
+  - [enums.CAP\_PROP\_XI\_OUTPUT\_DATA\_PACKING\_TYPE](#enumscap%5C_prop%5C_xi%5C_output%5C_data%5C_packing%5C_type)
+  - [enums.CAP\_PROP\_XI\_IS\_COOLED](#enumscap%5C_prop%5C_xi%5C_is%5C_cooled)
+  - [enums.CAP\_PROP\_XI\_COOLING](#enumscap%5C_prop%5C_xi%5C_cooling)
+  - [enums.CAP\_PROP\_XI\_TARGET\_TEMP](#enumscap%5C_prop%5C_xi%5C_target%5C_temp)
+  - [enums.CAP\_PROP\_XI\_CHIP\_TEMP](#enumscap%5C_prop%5C_xi%5C_chip%5C_temp)
+  - [enums.CAP\_PROP\_XI\_HOUS\_TEMP](#enumscap%5C_prop%5C_xi%5C_hous%5C_temp)
+  - [enums.CAP\_PROP\_XI\_HOUS\_BACK\_SIDE\_TEMP](#enumscap%5C_prop%5C_xi%5C_hous%5C_back%5C_side%5C_temp)
+  - [enums.CAP\_PROP\_XI\_SENSOR\_BOARD\_TEMP](#enumscap%5C_prop%5C_xi%5C_sensor%5C_board%5C_temp)
+  - [enums.CAP\_PROP\_XI\_CMS](#enumscap%5C_prop%5C_xi%5C_cms)
+  - [enums.CAP\_PROP\_XI\_APPLY\_CMS](#enumscap%5C_prop%5C_xi%5C_apply%5C_cms)
+  - [enums.CAP\_PROP\_XI\_IMAGE\_IS\_COLOR](#enumscap%5C_prop%5C_xi%5C_image%5C_is%5C_color)
+  - [enums.CAP\_PROP\_XI\_COLOR\_FILTER\_ARRAY](#enumscap%5C_prop%5C_xi%5C_color%5C_filter%5C_array)
+  - [enums.CAP\_PROP\_XI\_GAMMAY](#enumscap%5C_prop%5C_xi%5C_gammay)
+  - [enums.CAP\_PROP\_XI\_GAMMAC](#enumscap%5C_prop%5C_xi%5C_gammac)
+  - [enums.CAP\_PROP\_XI\_SHARPNESS](#enumscap%5C_prop%5C_xi%5C_sharpness)
+  - [enums.CAP\_PROP\_XI\_CC\_MATRIX\_00](#enumscap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_00)
+  - [enums.CAP\_PROP\_XI\_CC\_MATRIX\_01](#enumscap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_01)
+  - [enums.CAP\_PROP\_XI\_CC\_MATRIX\_02](#enumscap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_02)
+  - [enums.CAP\_PROP\_XI\_CC\_MATRIX\_03](#enumscap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_03)
+  - [enums.CAP\_PROP\_XI\_CC\_MATRIX\_10](#enumscap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_10)
+  - [enums.CAP\_PROP\_XI\_CC\_MATRIX\_11](#enumscap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_11)
+  - [enums.CAP\_PROP\_XI\_CC\_MATRIX\_12](#enumscap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_12)
+  - [enums.CAP\_PROP\_XI\_CC\_MATRIX\_13](#enumscap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_13)
+  - [enums.CAP\_PROP\_XI\_CC\_MATRIX\_20](#enumscap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_20)
+  - [enums.CAP\_PROP\_XI\_CC\_MATRIX\_21](#enumscap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_21)
+  - [enums.CAP\_PROP\_XI\_CC\_MATRIX\_22](#enumscap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_22)
+  - [enums.CAP\_PROP\_XI\_CC\_MATRIX\_23](#enumscap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_23)
+  - [enums.CAP\_PROP\_XI\_CC\_MATRIX\_30](#enumscap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_30)
+  - [enums.CAP\_PROP\_XI\_CC\_MATRIX\_31](#enumscap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_31)
+  - [enums.CAP\_PROP\_XI\_CC\_MATRIX\_32](#enumscap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_32)
+  - [enums.CAP\_PROP\_XI\_CC\_MATRIX\_33](#enumscap%5C_prop%5C_xi%5C_cc%5C_matrix%5C_33)
+  - [enums.CAP\_PROP\_XI\_DEFAULT\_CC\_MATRIX](#enumscap%5C_prop%5C_xi%5C_default%5C_cc%5C_matrix)
+  - [enums.CAP\_PROP\_XI\_TRG\_SELECTOR](#enumscap%5C_prop%5C_xi%5C_trg%5C_selector)
+  - [enums.CAP\_PROP\_XI\_ACQ\_FRAME\_BURST\_COUNT](#enumscap%5C_prop%5C_xi%5C_acq%5C_frame%5C_burst%5C_count)
+  - [enums.CAP\_PROP\_XI\_DEBOUNCE\_EN](#enumscap%5C_prop%5C_xi%5C_debounce%5C_en)
+  - [enums.CAP\_PROP\_XI\_DEBOUNCE\_T0](#enumscap%5C_prop%5C_xi%5C_debounce%5C_t0)
+  - [enums.CAP\_PROP\_XI\_DEBOUNCE\_T1](#enumscap%5C_prop%5C_xi%5C_debounce%5C_t1)
+  - [enums.CAP\_PROP\_XI\_DEBOUNCE\_POL](#enumscap%5C_prop%5C_xi%5C_debounce%5C_pol)
+  - [enums.CAP\_PROP\_XI\_LENS\_MODE](#enumscap%5C_prop%5C_xi%5C_lens%5C_mode)
+  - [enums.CAP\_PROP\_XI\_LENS\_APERTURE\_VALUE](#enumscap%5C_prop%5C_xi%5C_lens%5C_aperture%5C_value)
+  - [enums.CAP\_PROP\_XI\_LENS\_FOCUS\_MOVEMENT\_VALUE](#enumscap%5C_prop%5C_xi%5C_lens%5C_focus%5C_movement%5C_value)
+  - [enums.CAP\_PROP\_XI\_LENS\_FOCUS\_MOVE](#enumscap%5C_prop%5C_xi%5C_lens%5C_focus%5C_move)
+  - [enums.CAP\_PROP\_XI\_LENS\_FOCUS\_DISTANCE](#enumscap%5C_prop%5C_xi%5C_lens%5C_focus%5C_distance)
+  - [enums.CAP\_PROP\_XI\_LENS\_FOCAL\_LENGTH](#enumscap%5C_prop%5C_xi%5C_lens%5C_focal%5C_length)
+  - [enums.CAP\_PROP\_XI\_LENS\_FEATURE\_SELECTOR](#enumscap%5C_prop%5C_xi%5C_lens%5C_feature%5C_selector)
+  - [enums.CAP\_PROP\_XI\_LENS\_FEATURE](#enumscap%5C_prop%5C_xi%5C_lens%5C_feature)
+  - [enums.CAP\_PROP\_XI\_DEVICE\_MODEL\_ID](#enumscap%5C_prop%5C_xi%5C_device%5C_model%5C_id)
+  - [enums.CAP\_PROP\_XI\_DEVICE\_SN](#enumscap%5C_prop%5C_xi%5C_device%5C_sn)
+  - [enums.CAP\_PROP\_XI\_IMAGE\_DATA\_FORMAT\_RGB32\_ALPHA](#enumscap%5C_prop%5C_xi%5C_image%5C_data%5C_format%5C_rgb32%5C_alpha)
+  - [enums.CAP\_PROP\_XI\_IMAGE\_PAYLOAD\_SIZE](#enumscap%5C_prop%5C_xi%5C_image%5C_payload%5C_size)
+  - [enums.CAP\_PROP\_XI\_TRANSPORT\_PIXEL\_FORMAT](#enumscap%5C_prop%5C_xi%5C_transport%5C_pixel%5C_format)
+  - [enums.CAP\_PROP\_XI\_SENSOR\_CLOCK\_FREQ\_HZ](#enumscap%5C_prop%5C_xi%5C_sensor%5C_clock%5C_freq%5C_hz)
+  - [enums.CAP\_PROP\_XI\_SENSOR\_CLOCK\_FREQ\_INDEX](#enumscap%5C_prop%5C_xi%5C_sensor%5C_clock%5C_freq%5C_index)
+  - [enums.CAP\_PROP\_XI\_SENSOR\_OUTPUT\_CHANNEL\_COUNT](#enumscap%5C_prop%5C_xi%5C_sensor%5C_output%5C_channel%5C_count)
+  - [enums.CAP\_PROP\_XI\_FRAMERATE](#enumscap%5C_prop%5C_xi%5C_framerate)
+  - [enums.CAP\_PROP\_XI\_COUNTER\_SELECTOR](#enumscap%5C_prop%5C_xi%5C_counter%5C_selector)
+  - [enums.CAP\_PROP\_XI\_COUNTER\_VALUE](#enumscap%5C_prop%5C_xi%5C_counter%5C_value)
+  - [enums.CAP\_PROP\_XI\_ACQ\_TIMING\_MODE](#enumscap%5C_prop%5C_xi%5C_acq%5C_timing%5C_mode)
+  - [enums.CAP\_PROP\_XI\_AVAILABLE\_BANDWIDTH](#enumscap%5C_prop%5C_xi%5C_available%5C_bandwidth)
+  - [enums.CAP\_PROP\_XI\_BUFFER\_POLICY](#enumscap%5C_prop%5C_xi%5C_buffer%5C_policy)
+  - [enums.CAP\_PROP\_XI\_LUT\_EN](#enumscap%5C_prop%5C_xi%5C_lut%5C_en)
+  - [enums.CAP\_PROP\_XI\_LUT\_INDEX](#enumscap%5C_prop%5C_xi%5C_lut%5C_index)
+  - [enums.CAP\_PROP\_XI\_LUT\_VALUE](#enumscap%5C_prop%5C_xi%5C_lut%5C_value)
+  - [enums.CAP\_PROP\_XI\_TRG\_DELAY](#enumscap%5C_prop%5C_xi%5C_trg%5C_delay)
+  - [enums.CAP\_PROP\_XI\_TS\_RST\_MODE](#enumscap%5C_prop%5C_xi%5C_ts%5C_rst%5C_mode)
+  - [enums.CAP\_PROP\_XI\_TS\_RST\_SOURCE](#enumscap%5C_prop%5C_xi%5C_ts%5C_rst%5C_source)
+  - [enums.CAP\_PROP\_XI\_IS\_DEVICE\_EXIST](#enumscap%5C_prop%5C_xi%5C_is%5C_device%5C_exist)
+  - [enums.CAP\_PROP\_XI\_ACQ\_BUFFER\_SIZE](#enumscap%5C_prop%5C_xi%5C_acq%5C_buffer%5C_size)
+  - [enums.CAP\_PROP\_XI\_ACQ\_BUFFER\_SIZE\_UNIT](#enumscap%5C_prop%5C_xi%5C_acq%5C_buffer%5C_size%5C_unit)
+  - [enums.CAP\_PROP\_XI\_ACQ\_TRANSPORT\_BUFFER\_SIZE](#enumscap%5C_prop%5C_xi%5C_acq%5C_transport%5C_buffer%5C_size)
+  - [enums.CAP\_PROP\_XI\_BUFFERS\_QUEUE\_SIZE](#enumscap%5C_prop%5C_xi%5C_buffers%5C_queue%5C_size)
+  - [enums.CAP\_PROP\_XI\_ACQ\_TRANSPORT\_BUFFER\_COMMIT](#enumscap%5C_prop%5C_xi%5C_acq%5C_transport%5C_buffer%5C_commit)
+  - [enums.CAP\_PROP\_XI\_RECENT\_FRAME](#enumscap%5C_prop%5C_xi%5C_recent%5C_frame)
+  - [enums.CAP\_PROP\_XI\_DEVICE\_RESET](#enumscap%5C_prop%5C_xi%5C_device%5C_reset)
+  - [enums.CAP\_PROP\_XI\_COLUMN\_FPN\_CORRECTION](#enumscap%5C_prop%5C_xi%5C_column%5C_fpn%5C_correction)
+  - [enums.CAP\_PROP\_XI\_ROW\_FPN\_CORRECTION](#enumscap%5C_prop%5C_xi%5C_row%5C_fpn%5C_correction)
+  - [enums.CAP\_PROP\_XI\_SENSOR\_MODE](#enumscap%5C_prop%5C_xi%5C_sensor%5C_mode)
+  - [enums.CAP\_PROP\_XI\_HDR](#enumscap%5C_prop%5C_xi%5C_hdr)
+  - [enums.CAP\_PROP\_XI\_HDR\_KNEEPOINT\_COUNT](#enumscap%5C_prop%5C_xi%5C_hdr%5C_kneepoint%5C_count)
+  - [enums.CAP\_PROP\_XI\_HDR\_T1](#enumscap%5C_prop%5C_xi%5C_hdr%5C_t1)
+  - [enums.CAP\_PROP\_XI\_HDR\_T2](#enumscap%5C_prop%5C_xi%5C_hdr%5C_t2)
+  - [enums.CAP\_PROP\_XI\_KNEEPOINT1](#enumscap%5C_prop%5C_xi%5C_kneepoint1)
+  - [enums.CAP\_PROP\_XI\_KNEEPOINT2](#enumscap%5C_prop%5C_xi%5C_kneepoint2)
+  - [enums.CAP\_PROP\_XI\_IMAGE\_BLACK\_LEVEL](#enumscap%5C_prop%5C_xi%5C_image%5C_black%5C_level)
+  - [enums.CAP\_PROP\_XI\_HW\_REVISION](#enumscap%5C_prop%5C_xi%5C_hw%5C_revision)
+  - [enums.CAP\_PROP\_XI\_DEBUG\_LEVEL](#enumscap%5C_prop%5C_xi%5C_debug%5C_level)
+  - [enums.CAP\_PROP\_XI\_AUTO\_BANDWIDTH\_CALCULATION](#enumscap%5C_prop%5C_xi%5C_auto%5C_bandwidth%5C_calculation)
+  - [enums.CAP\_PROP\_XI\_FFS\_FILE\_ID](#enumscap%5C_prop%5C_xi%5C_ffs%5C_file%5C_id)
+  - [enums.CAP\_PROP\_XI\_FFS\_FILE\_SIZE](#enumscap%5C_prop%5C_xi%5C_ffs%5C_file%5C_size)
+  - [enums.CAP\_PROP\_XI\_FREE\_FFS\_SIZE](#enumscap%5C_prop%5C_xi%5C_free%5C_ffs%5C_size)
+  - [enums.CAP\_PROP\_XI\_USED\_FFS\_SIZE](#enumscap%5C_prop%5C_xi%5C_used%5C_ffs%5C_size)
+  - [enums.CAP\_PROP\_XI\_FFS\_ACCESS\_KEY](#enumscap%5C_prop%5C_xi%5C_ffs%5C_access%5C_key)
+  - [enums.CAP\_PROP\_XI\_SENSOR\_FEATURE\_SELECTOR](#enumscap%5C_prop%5C_xi%5C_sensor%5C_feature%5C_selector)
+  - [enums.CAP\_PROP\_XI\_SENSOR\_FEATURE\_VALUE](#enumscap%5C_prop%5C_xi%5C_sensor%5C_feature%5C_value)
+  - [enums.CAP\_PROP\_ARAVIS\_AUTOTRIGGER](#enumscap%5C_prop%5C_aravis%5C_autotrigger)
+  - [enums.CAP\_PROP\_IOS\_DEVICE\_FOCUS](#enumscap%5C_prop%5C_ios%5C_device%5C_focus)
+  - [enums.CAP\_PROP\_IOS\_DEVICE\_EXPOSURE](#enumscap%5C_prop%5C_ios%5C_device%5C_exposure)
+  - [enums.CAP\_PROP\_IOS\_DEVICE\_FLASH](#enumscap%5C_prop%5C_ios%5C_device%5C_flash)
+  - [enums.CAP\_PROP\_IOS\_DEVICE\_WHITEBALANCE](#enumscap%5C_prop%5C_ios%5C_device%5C_whitebalance)
+  - [enums.CAP\_PROP\_IOS\_DEVICE\_TORCH](#enumscap%5C_prop%5C_ios%5C_device%5C_torch)
+  - [enums.CAP\_PROP\_GIGA\_FRAME\_OFFSET\_X](#enumscap%5C_prop%5C_giga%5C_frame%5C_offset%5C_x)
+  - [enums.CAP\_PROP\_GIGA\_FRAME\_OFFSET\_Y](#enumscap%5C_prop%5C_giga%5C_frame%5C_offset%5C_y)
+  - [enums.CAP\_PROP\_GIGA\_FRAME\_WIDTH\_MAX](#enumscap%5C_prop%5C_giga%5C_frame%5C_width%5C_max)
+  - [enums.CAP\_PROP\_GIGA\_FRAME\_HEIGH\_MAX](#enumscap%5C_prop%5C_giga%5C_frame%5C_heigh%5C_max)
+  - [enums.CAP\_PROP\_GIGA\_FRAME\_SENS\_WIDTH](#enumscap%5C_prop%5C_giga%5C_frame%5C_sens%5C_width)
+  - [enums.CAP\_PROP\_GIGA\_FRAME\_SENS\_HEIGH](#enumscap%5C_prop%5C_giga%5C_frame%5C_sens%5C_heigh)
+  - [enums.CAP\_PROP\_INTELPERC\_PROFILE\_COUNT](#enumscap%5C_prop%5C_intelperc%5C_profile%5C_count)
+  - [enums.CAP\_PROP\_INTELPERC\_PROFILE\_IDX](#enumscap%5C_prop%5C_intelperc%5C_profile%5C_idx)
+  - [enums.CAP\_PROP\_INTELPERC\_DEPTH\_LOW\_CONFIDENCE\_VALUE](#enumscap%5C_prop%5C_intelperc%5C_depth%5C_low%5C_confidence%5C_value)
+  - [enums.CAP\_PROP\_INTELPERC\_DEPTH\_SATURATION\_VALUE](#enumscap%5C_prop%5C_intelperc%5C_depth%5C_saturation%5C_value)
+  - [enums.CAP\_PROP\_INTELPERC\_DEPTH\_CONFIDENCE\_THRESHOLD](#enumscap%5C_prop%5C_intelperc%5C_depth%5C_confidence%5C_threshold)
+  - [enums.CAP\_PROP\_INTELPERC\_DEPTH\_FOCAL\_LENGTH\_HORZ](#enumscap%5C_prop%5C_intelperc%5C_depth%5C_focal%5C_length%5C_horz)
+  - [enums.CAP\_PROP\_INTELPERC\_DEPTH\_FOCAL\_LENGTH\_VERT](#enumscap%5C_prop%5C_intelperc%5C_depth%5C_focal%5C_length%5C_vert)
+  - [enums.CAP\_INTELPERC\_DEPTH\_GENERATOR](#enumscap%5C_intelperc%5C_depth%5C_generator)
+  - [enums.CAP\_INTELPERC\_IMAGE\_GENERATOR](#enumscap%5C_intelperc%5C_image%5C_generator)
+  - [enums.CAP\_INTELPERC\_IR\_GENERATOR](#enumscap%5C_intelperc%5C_ir%5C_generator)
+  - [enums.CAP\_INTELPERC\_GENERATORS\_MASK](#enumscap%5C_intelperc%5C_generators%5C_mask)
+  - [enums.CAP\_INTELPERC\_DEPTH\_MAP](#enumscap%5C_intelperc%5C_depth%5C_map)
+  - [enums.CAP\_INTELPERC\_UVDEPTH\_MAP](#enumscap%5C_intelperc%5C_uvdepth%5C_map)
+  - [enums.CAP\_INTELPERC\_IR\_MAP](#enumscap%5C_intelperc%5C_ir%5C_map)
+  - [enums.CAP\_INTELPERC\_IMAGE](#enumscap%5C_intelperc%5C_image)
+  - [enums.CAP\_PROP\_GPHOTO2\_PREVIEW](#enumscap%5C_prop%5C_gphoto2%5C_preview)
+  - [enums.CAP\_PROP\_GPHOTO2\_WIDGET\_ENUMERATE](#enumscap%5C_prop%5C_gphoto2%5C_widget%5C_enumerate)
+  - [enums.CAP\_PROP\_GPHOTO2\_RELOAD\_CONFIG](#enumscap%5C_prop%5C_gphoto2%5C_reload%5C_config)
+  - [enums.CAP\_PROP\_GPHOTO2\_RELOAD\_ON\_CHANGE](#enumscap%5C_prop%5C_gphoto2%5C_reload%5C_on%5C_change)
+  - [enums.CAP\_PROP\_GPHOTO2\_COLLECT\_MSGS](#enumscap%5C_prop%5C_gphoto2%5C_collect%5C_msgs)
+  - [enums.CAP\_PROP\_GPHOTO2\_FLUSH\_MSGS](#enumscap%5C_prop%5C_gphoto2%5C_flush%5C_msgs)
+  - [enums.CAP\_PROP\_SPEED](#enumscap%5C_prop%5C_speed)
+  - [enums.CAP\_PROP\_APERTURE](#enumscap%5C_prop%5C_aperture)
+  - [enums.CAP\_PROP\_EXPOSUREPROGRAM](#enumscap%5C_prop%5C_exposureprogram)
+  - [enums.CAP\_PROP\_VIEWFINDER](#enumscap%5C_prop%5C_viewfinder)
+  - [enums.CAP\_PROP\_IMAGES\_BASE](#enumscap%5C_prop%5C_images%5C_base)
+  - [enums.CAP\_PROP\_IMAGES\_LAST](#enumscap%5C_prop%5C_images%5C_last)
+  - [enums.CAP\_OBSENSOR\_DEPTH\_MAP](#enumscap%5C_obsensor%5C_depth%5C_map)
+  - [enums.CAP\_OBSENSOR\_BGR\_IMAGE](#enumscap%5C_obsensor%5C_bgr%5C_image)
+  - [enums.CAP\_OBSENSOR\_IR\_IMAGE](#enumscap%5C_obsensor%5C_ir%5C_image)
+  - [enums.CAP\_OBSENSOR\_DEPTH\_GENERATOR](#enumscap%5C_obsensor%5C_depth%5C_generator)
+  - [enums.CAP\_OBSENSOR\_IMAGE\_GENERATOR](#enumscap%5C_obsensor%5C_image%5C_generator)
+  - [enums.CAP\_OBSENSOR\_IR\_GENERATOR](#enumscap%5C_obsensor%5C_ir%5C_generator)
+  - [enums.CAP\_OBSENSOR\_GENERATORS\_MASK](#enumscap%5C_obsensor%5C_generators%5C_mask)
+  - [enums.CAP\_PROP\_OBSENSOR\_INTRINSIC\_FX](#enumscap%5C_prop%5C_obsensor%5C_intrinsic%5C_fx)
+  - [enums.CAP\_PROP\_OBSENSOR\_INTRINSIC\_FY](#enumscap%5C_prop%5C_obsensor%5C_intrinsic%5C_fy)
+  - [enums.CAP\_PROP\_OBSENSOR\_INTRINSIC\_CX](#enumscap%5C_prop%5C_obsensor%5C_intrinsic%5C_cx)
+  - [enums.CAP\_PROP\_OBSENSOR\_INTRINSIC\_CY](#enumscap%5C_prop%5C_obsensor%5C_intrinsic%5C_cy)
+  - [enums.LMEDS](#enumslmeds)
+  - [enums.RANSAC](#enumsransac)
+  - [enums.RHO](#enumsrho)
+  - [enums.USAC\_DEFAULT](#enumsusac%5C_default)
+  - [enums.USAC\_PARALLEL](#enumsusac%5C_parallel)
+  - [enums.USAC\_FM\_8PTS](#enumsusac%5C_fm%5C_8pts)
+  - [enums.USAC\_FAST](#enumsusac%5C_fast)
+  - [enums.USAC\_ACCURATE](#enumsusac%5C_accurate)
+  - [enums.USAC\_PROSAC](#enumsusac%5C_prosac)
+  - [enums.USAC\_MAGSAC](#enumsusac%5C_magsac)
+  - [enums.SOLVEPNP\_ITERATIVE](#enumssolvepnp%5C_iterative)
+  - [enums.SOLVEPNP\_EPNP](#enumssolvepnp%5C_epnp)
+  - [enums.SOLVEPNP\_P3P](#enumssolvepnp%5C_p3p)
+  - [enums.SOLVEPNP\_DLS](#enumssolvepnp%5C_dls)
+  - [enums.SOLVEPNP\_UPNP](#enumssolvepnp%5C_upnp)
+  - [enums.SOLVEPNP\_AP3P](#enumssolvepnp%5C_ap3p)
+  - [enums.SOLVEPNP\_IPPE](#enumssolvepnp%5C_ippe)
+  - [enums.SOLVEPNP\_IPPE\_SQUARE](#enumssolvepnp%5C_ippe%5C_square)
+  - [enums.SOLVEPNP\_SQPNP](#enumssolvepnp%5C_sqpnp)
+  - [enums.SOLVEPNP\_MAX\_COUNT](#enumssolvepnp%5C_max%5C_count)
+  - [enums.CALIB\_CB\_ADAPTIVE\_THRESH](#enumscalib%5C_cb%5C_adaptive%5C_thresh)
+  - [enums.CALIB\_CB\_NORMALIZE\_IMAGE](#enumscalib%5C_cb%5C_normalize%5C_image)
+  - [enums.CALIB\_CB\_FILTER\_QUADS](#enumscalib%5C_cb%5C_filter%5C_quads)
+  - [enums.CALIB\_CB\_FAST\_CHECK](#enumscalib%5C_cb%5C_fast%5C_check)
+  - [enums.CALIB\_CB\_EXHAUSTIVE](#enumscalib%5C_cb%5C_exhaustive)
+  - [enums.CALIB\_CB\_ACCURACY](#enumscalib%5C_cb%5C_accuracy)
+  - [enums.CALIB\_CB\_LARGER](#enumscalib%5C_cb%5C_larger)
+  - [enums.CALIB\_CB\_MARKER](#enumscalib%5C_cb%5C_marker)
+  - [enums.CALIB\_CB\_SYMMETRIC\_GRID](#enumscalib%5C_cb%5C_symmetric%5C_grid)
+  - [enums.CALIB\_CB\_ASYMMETRIC\_GRID](#enumscalib%5C_cb%5C_asymmetric%5C_grid)
+  - [enums.CALIB\_CB\_CLUSTERING](#enumscalib%5C_cb%5C_clustering)
+  - [enums.CALIB\_NINTRINSIC](#enumscalib%5C_nintrinsic)
+  - [enums.CALIB\_USE\_INTRINSIC\_GUESS](#enumscalib%5C_use%5C_intrinsic%5C_guess)
+  - [enums.CALIB\_FIX\_ASPECT\_RATIO](#enumscalib%5C_fix%5C_aspect%5C_ratio)
+  - [enums.CALIB\_FIX\_PRINCIPAL\_POINT](#enumscalib%5C_fix%5C_principal%5C_point)
+  - [enums.CALIB\_ZERO\_TANGENT\_DIST](#enumscalib%5C_zero%5C_tangent%5C_dist)
+  - [enums.CALIB\_FIX\_FOCAL\_LENGTH](#enumscalib%5C_fix%5C_focal%5C_length)
+  - [enums.CALIB\_FIX\_K1](#enumscalib%5C_fix%5C_k1)
+  - [enums.CALIB\_FIX\_K2](#enumscalib%5C_fix%5C_k2)
+  - [enums.CALIB\_FIX\_K3](#enumscalib%5C_fix%5C_k3)
+  - [enums.CALIB\_FIX\_K4](#enumscalib%5C_fix%5C_k4)
+  - [enums.CALIB\_FIX\_K5](#enumscalib%5C_fix%5C_k5)
+  - [enums.CALIB\_FIX\_K6](#enumscalib%5C_fix%5C_k6)
+  - [enums.CALIB\_RATIONAL\_MODEL](#enumscalib%5C_rational%5C_model)
+  - [enums.CALIB\_THIN\_PRISM\_MODEL](#enumscalib%5C_thin%5C_prism%5C_model)
+  - [enums.CALIB\_FIX\_S1\_S2\_S3\_S4](#enumscalib%5C_fix%5C_s1%5C_s2%5C_s3%5C_s4)
+  - [enums.CALIB\_TILTED\_MODEL](#enumscalib%5C_tilted%5C_model)
+  - [enums.CALIB\_FIX\_TAUX\_TAUY](#enumscalib%5C_fix%5C_taux%5C_tauy)
+  - [enums.CALIB\_USE\_QR](#enumscalib%5C_use%5C_qr)
+  - [enums.CALIB\_FIX\_TANGENT\_DIST](#enumscalib%5C_fix%5C_tangent%5C_dist)
+  - [enums.CALIB\_FIX\_INTRINSIC](#enumscalib%5C_fix%5C_intrinsic)
+  - [enums.CALIB\_SAME\_FOCAL\_LENGTH](#enumscalib%5C_same%5C_focal%5C_length)
+  - [enums.CALIB\_ZERO\_DISPARITY](#enumscalib%5C_zero%5C_disparity)
+  - [enums.CALIB\_USE\_LU](#enumscalib%5C_use%5C_lu)
+  - [enums.CALIB\_USE\_EXTRINSIC\_GUESS](#enumscalib%5C_use%5C_extrinsic%5C_guess)
+  - [enums.FM\_7POINT](#enumsfm%5C_7point)
+  - [enums.FM\_8POINT](#enumsfm%5C_8point)
+  - [enums.FM\_LMEDS](#enumsfm%5C_lmeds)
+  - [enums.FM\_RANSAC](#enumsfm%5C_ransac)
+  - [enums.CALIB\_HAND\_EYE\_TSAI](#enumscalib%5C_hand%5C_eye%5C_tsai)
+  - [enums.CALIB\_HAND\_EYE\_PARK](#enumscalib%5C_hand%5C_eye%5C_park)
+  - [enums.CALIB\_HAND\_EYE\_HORAUD](#enumscalib%5C_hand%5C_eye%5C_horaud)
+  - [enums.CALIB\_HAND\_EYE\_ANDREFF](#enumscalib%5C_hand%5C_eye%5C_andreff)
+  - [enums.CALIB\_HAND\_EYE\_DANIILIDIS](#enumscalib%5C_hand%5C_eye%5C_daniilidis)
+  - [enums.CALIB\_ROBOT\_WORLD\_HAND\_EYE\_SHAH](#enumscalib%5C_robot%5C_world%5C_hand%5C_eye%5C_shah)
+  - [enums.CALIB\_ROBOT\_WORLD\_HAND\_EYE\_LI](#enumscalib%5C_robot%5C_world%5C_hand%5C_eye%5C_li)
+  - [enums.SAMPLING\_UNIFORM](#enumssampling%5C_uniform)
+  - [enums.SAMPLING\_PROGRESSIVE\_NAPSAC](#enumssampling%5C_progressive%5C_napsac)
+  - [enums.SAMPLING\_NAPSAC](#enumssampling%5C_napsac)
+  - [enums.SAMPLING\_PROSAC](#enumssampling%5C_prosac)
+  - [enums.LOCAL\_OPTIM\_NULL](#enumslocal%5C_optim%5C_null)
+  - [enums.LOCAL\_OPTIM\_INNER\_LO](#enumslocal%5C_optim%5C_inner%5C_lo)
+  - [enums.LOCAL\_OPTIM\_INNER\_AND\_ITER\_LO](#enumslocal%5C_optim%5C_inner%5C_and%5C_iter%5C_lo)
+  - [enums.LOCAL\_OPTIM\_GC](#enumslocal%5C_optim%5C_gc)
+  - [enums.LOCAL\_OPTIM\_SIGMA](#enumslocal%5C_optim%5C_sigma)
+  - [enums.SCORE\_METHOD\_RANSAC](#enumsscore%5C_method%5C_ransac)
+  - [enums.SCORE\_METHOD\_MSAC](#enumsscore%5C_method%5C_msac)
+  - [enums.SCORE\_METHOD\_MAGSAC](#enumsscore%5C_method%5C_magsac)
+  - [enums.SCORE\_METHOD\_LMEDS](#enumsscore%5C_method%5C_lmeds)
+  - [enums.NEIGH\_FLANN\_KNN](#enumsneigh%5C_flann%5C_knn)
+  - [enums.NEIGH\_GRID](#enumsneigh%5C_grid)
+  - [enums.NEIGH\_FLANN\_RADIUS](#enumsneigh%5C_flann%5C_radius)
+  - [enums.PROJ\_SPHERICAL\_ORTHO](#enumsproj%5C_spherical%5C_ortho)
+  - [enums.PROJ\_SPHERICAL\_EQRECT](#enumsproj%5C_spherical%5C_eqrect)
+  - [enums.WINDOW\_NORMAL](#enumswindow%5C_normal)
+  - [enums.WINDOW\_AUTOSIZE](#enumswindow%5C_autosize)
+  - [enums.WINDOW\_OPENGL](#enumswindow%5C_opengl)
+  - [enums.WINDOW\_FULLSCREEN](#enumswindow%5C_fullscreen)
+  - [enums.WINDOW\_FREERATIO](#enumswindow%5C_freeratio)
+  - [enums.WINDOW\_KEEPRATIO](#enumswindow%5C_keepratio)
+  - [enums.WINDOW\_GUI\_EXPANDED](#enumswindow%5C_gui%5C_expanded)
+  - [enums.WINDOW\_GUI\_NORMAL](#enumswindow%5C_gui%5C_normal)
+  - [enums.WND\_PROP\_FULLSCREEN](#enumswnd%5C_prop%5C_fullscreen)
+  - [enums.WND\_PROP\_AUTOSIZE](#enumswnd%5C_prop%5C_autosize)
+  - [enums.WND\_PROP\_ASPECT\_RATIO](#enumswnd%5C_prop%5C_aspect%5C_ratio)
+  - [enums.WND\_PROP\_OPENGL](#enumswnd%5C_prop%5C_opengl)
+  - [enums.WND\_PROP\_VISIBLE](#enumswnd%5C_prop%5C_visible)
+  - [enums.WND\_PROP\_TOPMOST](#enumswnd%5C_prop%5C_topmost)
+  - [enums.WND\_PROP\_VSYNC](#enumswnd%5C_prop%5C_vsync)
+  - [enums.EVENT\_MOUSEMOVE](#enumsevent%5C_mousemove)
+  - [enums.EVENT\_LBUTTONDOWN](#enumsevent%5C_lbuttondown)
+  - [enums.EVENT\_RBUTTONDOWN](#enumsevent%5C_rbuttondown)
+  - [enums.EVENT\_MBUTTONDOWN](#enumsevent%5C_mbuttondown)
+  - [enums.EVENT\_LBUTTONUP](#enumsevent%5C_lbuttonup)
+  - [enums.EVENT\_RBUTTONUP](#enumsevent%5C_rbuttonup)
+  - [enums.EVENT\_MBUTTONUP](#enumsevent%5C_mbuttonup)
+  - [enums.EVENT\_LBUTTONDBLCLK](#enumsevent%5C_lbuttondblclk)
+  - [enums.EVENT\_RBUTTONDBLCLK](#enumsevent%5C_rbuttondblclk)
+  - [enums.EVENT\_MBUTTONDBLCLK](#enumsevent%5C_mbuttondblclk)
+  - [enums.EVENT\_MOUSEWHEEL](#enumsevent%5C_mousewheel)
+  - [enums.EVENT\_MOUSEHWHEEL](#enumsevent%5C_mousehwheel)
+  - [enums.EVENT\_FLAG\_LBUTTON](#enumsevent%5C_flag%5C_lbutton)
+  - [enums.EVENT\_FLAG\_RBUTTON](#enumsevent%5C_flag%5C_rbutton)
+  - [enums.EVENT\_FLAG\_MBUTTON](#enumsevent%5C_flag%5C_mbutton)
+  - [enums.EVENT\_FLAG\_CTRLKEY](#enumsevent%5C_flag%5C_ctrlkey)
+  - [enums.EVENT\_FLAG\_SHIFTKEY](#enumsevent%5C_flag%5C_shiftkey)
+  - [enums.EVENT\_FLAG\_ALTKEY](#enumsevent%5C_flag%5C_altkey)
+  - [enums.QT\_FONT\_LIGHT](#enumsqt%5C_font%5C_light)
+  - [enums.QT\_FONT\_NORMAL](#enumsqt%5C_font%5C_normal)
+  - [enums.QT\_FONT\_DEMIBOLD](#enumsqt%5C_font%5C_demibold)
+  - [enums.QT\_FONT\_BOLD](#enumsqt%5C_font%5C_bold)
+  - [enums.QT\_FONT\_BLACK](#enumsqt%5C_font%5C_black)
+  - [enums.QT\_STYLE\_NORMAL](#enumsqt%5C_style%5C_normal)
+  - [enums.QT\_STYLE\_ITALIC](#enumsqt%5C_style%5C_italic)
+  - [enums.QT\_STYLE\_OBLIQUE](#enumsqt%5C_style%5C_oblique)
+  - [enums.QT\_PUSH\_BUTTON](#enumsqt%5C_push%5C_button)
+  - [enums.QT\_CHECKBOX](#enumsqt%5C_checkbox)
+  - [enums.QT\_RADIOBOX](#enumsqt%5C_radiobox)
+  - [enums.QT\_NEW\_BUTTONBAR](#enumsqt%5C_new%5C_buttonbar)
+  - [enums.CASCADE\_DO\_CANNY\_PRUNING](#enumscascade%5C_do%5C_canny%5C_pruning)
+  - [enums.CASCADE\_SCALE\_IMAGE](#enumscascade%5C_scale%5C_image)
+  - [enums.CASCADE\_FIND\_BIGGEST\_OBJECT](#enumscascade%5C_find%5C_biggest%5C_object)
+  - [enums.CASCADE\_DO\_ROUGH\_SEARCH](#enumscascade%5C_do%5C_rough%5C_search)
+  - [enums.OPTFLOW\_USE\_INITIAL\_FLOW](#enumsoptflow%5C_use%5C_initial%5C_flow)
+  - [enums.OPTFLOW\_LK\_GET\_MIN\_EIGENVALS](#enumsoptflow%5C_lk%5C_get%5C_min%5C_eigenvals)
+  - [enums.OPTFLOW\_FARNEBACK\_GAUSSIAN](#enumsoptflow%5C_farneback%5C_gaussian)
+  - [enums.MOTION\_TRANSLATION](#enumsmotion%5C_translation)
+  - [enums.MOTION\_EUCLIDEAN](#enumsmotion%5C_euclidean)
+  - [enums.MOTION\_AFFINE](#enumsmotion%5C_affine)
+  - [enums.MOTION\_HOMOGRAPHY](#enumsmotion%5C_homography)
 - [cv::PCA](#cvpca)
   - [PCA.DATA\_AS\_ROW\_](#pcadata%5C_as%5C_row%5C_)
   - [PCA.DATA\_AS\_COL\_](#pcadata%5C_as%5C_col%5C_)
@@ -1557,6 +1719,9 @@
   - [cv::ipp::useIPP](#cvippuseipp)
   - [cv::ipp::useIPP\_NotExact](#cvippuseipp%5C_notexact)
 - [cv::utils](#cvutils)
+  - [utils.ClassWithKeywordProperties](#utilsclasswithkeywordproperties)
+  - [utils.nested](#utilsnested)
+  - [utils.fs](#utilsfs)
   - [cv::utils::dumpBool](#cvutilsdumpbool)
   - [cv::utils::dumpCString](#cvutilsdumpcstring)
   - [cv::utils::dumpDouble](#cvutilsdumpdouble)
@@ -1566,12 +1731,14 @@
   - [cv::utils::dumpInputOutputArray](#cvutilsdumpinputoutputarray)
   - [cv::utils::dumpInputOutputArrayOfArrays](#cvutilsdumpinputoutputarrayofarrays)
   - [cv::utils::dumpInt](#cvutilsdumpint)
+  - [cv::utils::dumpInt64](#cvutilsdumpint64)
   - [cv::utils::dumpRange](#cvutilsdumprange)
   - [cv::utils::dumpRect](#cvutilsdumprect)
   - [cv::utils::dumpRotatedRect](#cvutilsdumprotatedrect)
   - [cv::utils::dumpSizeT](#cvutilsdumpsizet)
   - [cv::utils::dumpString](#cvutilsdumpstring)
   - [cv::utils::dumpTermCriteria](#cvutilsdumptermcriteria)
+  - [cv::utils::dumpVec2i](#cvutilsdumpvec2i)
   - [cv::utils::dumpVectorOfDouble](#cvutilsdumpvectorofdouble)
   - [cv::utils::dumpVectorOfInt](#cvutilsdumpvectorofint)
   - [cv::utils::dumpVectorOfRect](#cvutilsdumpvectorofrect)
@@ -1586,9 +1753,15 @@
   - [cv::utils::testReservedKeywordConversion](#cvutilstestreservedkeywordconversion)
   - [cv::utils::testRotatedRect](#cvutilstestrotatedrect)
   - [cv::utils::testRotatedRectVector](#cvutilstestrotatedrectvector)
+- [cv::utils::ClassWithKeywordProperties](#cvutilsclasswithkeywordproperties)
+  - [ClassWithKeywordProperties.lambda](#classwithkeywordpropertieslambda)
+  - [ClassWithKeywordProperties.except](#classwithkeywordpropertiesexcept)
+  - [cv::utils::ClassWithKeywordProperties::get\_create](#cvutilsclasswithkeywordpropertiesget%5C_create)
 - [cv::utils::nested](#cvutilsnested)
+  - [nested.OriginalClassName](#nestedoriginalclassname)
   - [cv::utils::nested::testEchoBooleanFunction](#cvutilsnestedtestechobooleanfunction)
 - [cv::utils::nested::OriginalClassName](#cvutilsnestedoriginalclassname)
+  - [OriginalClassName.Params](#originalclassnameparams)
   - [cv::utils::nested::OriginalClassName::get\_create](#cvutilsnestedoriginalclassnameget%5C_create)
   - [cv::utils::nested::OriginalClassName::getFloatParam](#cvutilsnestedoriginalclassnamegetfloatparam)
   - [cv::utils::nested::OriginalClassName::getIntParam](#cvutilsnestedoriginalclassnamegetintparam)
@@ -1600,6 +1773,48 @@
 - [cv::utils::fs](#cvutilsfs)
   - [cv::utils::fs::getCacheDirectoryForDownloads](#cvutilsfsgetcachedirectoryfordownloads)
 - [cv::detail](#cvdetail)
+  - [detail.Blender](#detailblender)
+  - [detail.FeatherBlender](#detailfeatherblender)
+  - [detail.MultiBandBlender](#detailmultibandblender)
+  - [detail.CameraParams](#detailcameraparams)
+  - [detail.ExposureCompensator](#detailexposurecompensator)
+  - [detail.NoExposureCompensator](#detailnoexposurecompensator)
+  - [detail.GainCompensator](#detailgaincompensator)
+  - [detail.ChannelsCompensator](#detailchannelscompensator)
+  - [detail.BlocksCompensator](#detailblockscompensator)
+  - [detail.BlocksGainCompensator](#detailblocksgaincompensator)
+  - [detail.BlocksChannelsCompensator](#detailblockschannelscompensator)
+  - [detail.ImageFeatures](#detailimagefeatures)
+  - [detail.MatchesInfo](#detailmatchesinfo)
+  - [detail.FeaturesMatcher](#detailfeaturesmatcher)
+  - [detail.BestOf2NearestMatcher](#detailbestof2nearestmatcher)
+  - [detail.BestOf2NearestRangeMatcher](#detailbestof2nearestrangematcher)
+  - [detail.AffineBestOf2NearestMatcher](#detailaffinebestof2nearestmatcher)
+  - [detail.Estimator](#detailestimator)
+  - [detail.HomographyBasedEstimator](#detailhomographybasedestimator)
+  - [detail.AffineBasedEstimator](#detailaffinebasedestimator)
+  - [detail.BundleAdjusterBase](#detailbundleadjusterbase)
+  - [detail.NoBundleAdjuster](#detailnobundleadjuster)
+  - [detail.BundleAdjusterReproj](#detailbundleadjusterreproj)
+  - [detail.BundleAdjusterRay](#detailbundleadjusterray)
+  - [detail.BundleAdjusterAffine](#detailbundleadjusteraffine)
+  - [detail.BundleAdjusterAffinePartial](#detailbundleadjusteraffinepartial)
+  - [detail.SeamFinder](#detailseamfinder)
+  - [detail.NoSeamFinder](#detailnoseamfinder)
+  - [detail.PairwiseSeamFinder](#detailpairwiseseamfinder)
+  - [detail.VoronoiSeamFinder](#detailvoronoiseamfinder)
+  - [detail.DpSeamFinder](#detaildpseamfinder)
+  - [detail.GraphCutSeamFinderBase](#detailgraphcutseamfinderbase)
+  - [detail.GraphCutSeamFinder](#detailgraphcutseamfinder)
+  - [detail.Timelapser](#detailtimelapser)
+  - [detail.TimelapserCrop](#detailtimelapsercrop)
+  - [detail.ProjectorBase](#detailprojectorbase)
+  - [detail.SphericalProjector](#detailsphericalprojector)
+  - [detail.TrackerSamplerCSC](#detailtrackersamplercsc)
+  - [detail.OpaqueKind](#detailopaquekind)
+  - [detail.ArgKind](#detailargkind)
+  - [detail.ExtractArgsCallback](#detailextractargscallback)
+  - [detail.ExtractMetaCallback](#detailextractmetacallback)
   - [cv::detail::calibrateRotatingCamera](#cvdetailcalibraterotatingcamera)
   - [cv::detail::computeImageFeatures](#cvdetailcomputeimagefeatures)
   - [cv::detail::computeImageFeatures2](#cvdetailcomputeimagefeatures2)
@@ -1630,10 +1845,22 @@
   - [detail.WAVE\_CORRECT\_VERT\_](#detailwave%5C_correct%5C_vert%5C_)
   - [detail.WAVE\_CORRECT\_AUTO\_](#detailwave%5C_correct%5C_auto%5C_)
 - [cv::cuda](#cvcuda)
+  - [cuda.GpuMat](#cudagpumat)
+  - [cuda.GpuData](#cudagpudata)
+  - [cuda.GpuMatND](#cudagpumatnd)
+  - [cuda.BufferPool](#cudabufferpool)
+  - [cuda.HostMem](#cudahostmem)
+  - [cuda.Stream](#cudastream)
+  - [cuda.Event](#cudaevent)
+  - [cuda.TargetArchs](#cudatargetarchs)
+  - [cuda.DeviceInfo](#cudadeviceinfo)
   - [cv::cuda::createContinuous](#cvcudacreatecontinuous)
   - [cv::cuda::ensureSizeIsEnough](#cvcudaensuresizeisenough)
+  - [cv::cuda::fastNlMeansDenoising](#cvcudafastnlmeansdenoising)
+  - [cv::cuda::fastNlMeansDenoisingColored](#cvcudafastnlmeansdenoisingcolored)
   - [cv::cuda::getCudaEnabledDeviceCount](#cvcudagetcudaenableddevicecount)
   - [cv::cuda::getDevice](#cvcudagetdevice)
+  - [cv::cuda::nonLocalMeans](#cvcudanonlocalmeans)
   - [cv::cuda::printCudaDeviceInfo](#cvcudaprintcudadeviceinfo)
   - [cv::cuda::printShortCudaDeviceInfo](#cvcudaprintshortcudadeviceinfo)
   - [cv::cuda::registerPageLocked](#cvcudaregisterpagelocked)
@@ -1659,6 +1886,7 @@
   - [cuda.DYNAMIC\_PARALLELISM\_](#cudadynamic%5C_parallelism%5C_)
 - [cv::cuda::GpuMat](#cvcudagpumat)
   - [GpuMat.step](#gpumatstep)
+  - [GpuMat.Allocator](#gpumatallocator)
   - [cv::cuda::GpuMat::get\_create](#cvcudagpumatget%5C_create)
   - [cv::cuda::GpuMat::adjustROI](#cvcudagpumatadjustroi)
   - [cv::cuda::GpuMat::assignTo](#cvcudagpumatassignto)
@@ -2023,6 +2251,9 @@
   - [SparseMat.HASH\_SCALE\_](#sparsemathash%5C_scale%5C_)
   - [SparseMat.HASH\_BIT\_](#sparsemathash%5C_bit%5C_)
 - [cv::ocl](#cvocl)
+  - [ocl.Device](#ocldevice)
+  - [ocl.KernelArg](#oclkernelarg)
+  - [ocl.OpenCLExecutionContext](#oclopenclexecutioncontext)
   - [cv::ocl::finish](#cvoclfinish)
   - [cv::ocl::haveAmdBlas](#cvoclhaveamdblas)
   - [cv::ocl::haveAmdFft](#cvoclhaveamdfft)
@@ -2141,6 +2372,8 @@
   - [KernelArg.PTR\_ONLY\_](#kernelargptr%5C_only%5C_)
   - [KernelArg.NO\_SIZE\_](#kernelargno%5C_size%5C_)
 - [cv::ogl](#cvogl)
+  - [ogl.Buffer](#oglbuffer)
+  - [ogl.Texture2D](#ogltexture2d)
   - [ogl.POINTS\_](#oglpoints%5C_)
   - [ogl.LINES\_](#ogllines%5C_)
   - [ogl.LINE\_LOOP\_](#oglline%5C_loop%5C_)
@@ -2321,6 +2554,7 @@
   - [cv::samples::findFile](#cvsamplesfindfile)
   - [cv::samples::findFileOrKeep](#cvsamplesfindfileorkeep)
 - [cv::flann](#cvflann)
+  - [flann.Index](#flannindex)
   - [flann.FLANN\_INDEX\_TYPE\_8U\_](#flannflann%5C_index%5C_type%5C_8u%5C_)
   - [flann.FLANN\_INDEX\_TYPE\_8S\_](#flannflann%5C_index%5C_type%5C_8s%5C_)
   - [flann.FLANN\_INDEX\_TYPE\_16U\_](#flannflann%5C_index%5C_type%5C_16u%5C_)
@@ -2480,6 +2714,8 @@
   - [cv::LineSegmentDetector::read](#cvlinesegmentdetectorread)
   - [cv::LineSegmentDetector::save](#cvlinesegmentdetectorsave)
   - [cv::LineSegmentDetector::write](#cvlinesegmentdetectorwrite)
+- [cv::segmentation](#cvsegmentation)
+  - [segmentation.IntelligentScissorsMB](#segmentationintelligentscissorsmb)
 - [cv::segmentation::IntelligentScissorsMB](#cvsegmentationintelligentscissorsmb)
   - [cv::segmentation::IntelligentScissorsMB::get\_create](#cvsegmentationintelligentscissorsmbget%5C_create)
   - [cv::segmentation::IntelligentScissorsMB::applyImage](#cvsegmentationintelligentscissorsmbapplyimage)
@@ -2491,6 +2727,19 @@
   - [cv::segmentation::IntelligentScissorsMB::setGradientMagnitudeMaxLimit](#cvsegmentationintelligentscissorsmbsetgradientmagnitudemaxlimit)
   - [cv::segmentation::IntelligentScissorsMB::setWeights](#cvsegmentationintelligentscissorsmbsetweights)
 - [cv::ml](#cvml)
+  - [ml.ParamGrid](#mlparamgrid)
+  - [ml.TrainData](#mltraindata)
+  - [ml.StatModel](#mlstatmodel)
+  - [ml.NormalBayesClassifier](#mlnormalbayesclassifier)
+  - [ml.KNearest](#mlknearest)
+  - [ml.SVM](#mlsvm)
+  - [ml.EM](#mlem)
+  - [ml.DTrees](#mldtrees)
+  - [ml.RTrees](#mlrtrees)
+  - [ml.Boost](#mlboost)
+  - [ml.ANN\_MLP](#mlann%5C_mlp)
+  - [ml.LogisticRegression](#mllogisticregression)
+  - [ml.SVMSGD](#mlsvmsgd)
   - [ml.VAR\_NUMERICAL\_](#mlvar%5C_numerical%5C_)
   - [ml.VAR\_ORDERED\_](#mlvar%5C_ordered%5C_)
   - [ml.VAR\_CATEGORICAL\_](#mlvar%5C_categorical%5C_)
@@ -3095,7 +3344,21 @@
   - [cv::MergeRobertson::save](#cvmergerobertsonsave)
   - [cv::MergeRobertson::write](#cvmergerobertsonwrite)
 - [cv::dnn](#cvdnn)
+  - [dnn.DictValue](#dnndictvalue)
+  - [dnn.Layer](#dnnlayer)
+  - [dnn.Net](#dnnnet)
+  - [dnn.SoftNMSMethod](#dnnsoftnmsmethod)
+  - [dnn.Model](#dnnmodel)
+  - [dnn.ClassificationModel](#dnnclassificationmodel)
+  - [dnn.KeypointsModel](#dnnkeypointsmodel)
+  - [dnn.SegmentationModel](#dnnsegmentationmodel)
+  - [dnn.DetectionModel](#dnndetectionmodel)
+  - [dnn.TextRecognitionModel](#dnntextrecognitionmodel)
+  - [dnn.TextDetectionModel](#dnntextdetectionmodel)
+  - [dnn.TextDetectionModel\_EAST](#dnntextdetectionmodel%5C_east)
+  - [dnn.TextDetectionModel\_DB](#dnntextdetectionmodel%5C_db)
   - [cv::dnn::NMSBoxes](#cvdnnnmsboxes)
+  - [cv::dnn::NMSBoxesBatched](#cvdnnnmsboxesbatched)
   - [cv::dnn::NMSBoxesRotated](#cvdnnnmsboxesrotated)
   - [cv::dnn::blobFromImage](#cvdnnblobfromimage)
   - [cv::dnn::blobFromImages](#cvdnnblobfromimages)
@@ -3121,6 +3384,7 @@
   - [dnn.DNN\_BACKEND\_CUDA\_](#dnndnn%5C_backend%5C_cuda%5C_)
   - [dnn.DNN\_BACKEND\_WEBNN\_](#dnndnn%5C_backend%5C_webnn%5C_)
   - [dnn.DNN\_BACKEND\_TIMVX\_](#dnndnn%5C_backend%5C_timvx%5C_)
+  - [dnn.DNN\_BACKEND\_CANN\_](#dnndnn%5C_backend%5C_cann%5C_)
   - [dnn.DNN\_TARGET\_CPU\_](#dnndnn%5C_target%5C_cpu%5C_)
   - [dnn.DNN\_TARGET\_OPENCL\_](#dnndnn%5C_target%5C_opencl%5C_)
   - [dnn.DNN\_TARGET\_OPENCL\_FP16\_](#dnndnn%5C_target%5C_opencl%5C_fp16%5C_)
@@ -3160,6 +3424,7 @@
   - [cv::dnn::Net::dumpToFile](#cvdnnnetdumptofile)
   - [cv::dnn::Net::empty](#cvdnnnetempty)
   - [cv::dnn::Net::enableFusion](#cvdnnnetenablefusion)
+  - [cv::dnn::Net::enableWinograd](#cvdnnnetenablewinograd)
   - [cv::dnn::Net::forward](#cvdnnnetforward)
   - [cv::dnn::Net::forwardAndRetrieve](#cvdnnnetforwardandretrieve)
   - [cv::dnn::Net::forwardAsync](#cvdnnnetforwardasync)
@@ -3358,9 +3623,19 @@
   - [cv::SIFT::detect](#cvsiftdetect)
   - [cv::SIFT::detectAndCompute](#cvsiftdetectandcompute)
   - [cv::SIFT::empty](#cvsiftempty)
+  - [cv::SIFT::getContrastThreshold](#cvsiftgetcontrastthreshold)
   - [cv::SIFT::getDefaultName](#cvsiftgetdefaultname)
+  - [cv::SIFT::getEdgeThreshold](#cvsiftgetedgethreshold)
+  - [cv::SIFT::getNFeatures](#cvsiftgetnfeatures)
+  - [cv::SIFT::getNOctaveLayers](#cvsiftgetnoctavelayers)
+  - [cv::SIFT::getSigma](#cvsiftgetsigma)
   - [cv::SIFT::read](#cvsiftread)
   - [cv::SIFT::save](#cvsiftsave)
+  - [cv::SIFT::setContrastThreshold](#cvsiftsetcontrastthreshold)
+  - [cv::SIFT::setEdgeThreshold](#cvsiftsetedgethreshold)
+  - [cv::SIFT::setNFeatures](#cvsiftsetnfeatures)
+  - [cv::SIFT::setNOctaveLayers](#cvsiftsetnoctavelayers)
+  - [cv::SIFT::setSigma](#cvsiftsetsigma)
   - [cv::SIFT::write](#cvsiftwrite)
 - [cv::BRISK](#cvbrisk)
   - [cv::BRISK::get\_create](#cvbriskget%5C_create)
@@ -3374,10 +3649,12 @@
   - [cv::BRISK::empty](#cvbriskempty)
   - [cv::BRISK::getDefaultName](#cvbriskgetdefaultname)
   - [cv::BRISK::getOctaves](#cvbriskgetoctaves)
+  - [cv::BRISK::getPatternScale](#cvbriskgetpatternscale)
   - [cv::BRISK::getThreshold](#cvbriskgetthreshold)
   - [cv::BRISK::read](#cvbriskread)
   - [cv::BRISK::save](#cvbrisksave)
   - [cv::BRISK::setOctaves](#cvbrisksetoctaves)
+  - [cv::BRISK::setPatternScale](#cvbrisksetpatternscale)
   - [cv::BRISK::setThreshold](#cvbrisksetthreshold)
   - [cv::BRISK::write](#cvbriskwrite)
 - [cv::ORB](#cvorb)
@@ -3425,16 +3702,28 @@
   - [cv::MSER::detectAndCompute](#cvmserdetectandcompute)
   - [cv::MSER::detectRegions](#cvmserdetectregions)
   - [cv::MSER::empty](#cvmserempty)
+  - [cv::MSER::getAreaThreshold](#cvmsergetareathreshold)
   - [cv::MSER::getDefaultName](#cvmsergetdefaultname)
   - [cv::MSER::getDelta](#cvmsergetdelta)
+  - [cv::MSER::getEdgeBlurSize](#cvmsergetedgeblursize)
   - [cv::MSER::getMaxArea](#cvmsergetmaxarea)
+  - [cv::MSER::getMaxEvolution](#cvmsergetmaxevolution)
+  - [cv::MSER::getMaxVariation](#cvmsergetmaxvariation)
   - [cv::MSER::getMinArea](#cvmsergetminarea)
+  - [cv::MSER::getMinDiversity](#cvmsergetmindiversity)
+  - [cv::MSER::getMinMargin](#cvmsergetminmargin)
   - [cv::MSER::getPass2Only](#cvmsergetpass2only)
   - [cv::MSER::read](#cvmserread)
   - [cv::MSER::save](#cvmsersave)
+  - [cv::MSER::setAreaThreshold](#cvmsersetareathreshold)
   - [cv::MSER::setDelta](#cvmsersetdelta)
+  - [cv::MSER::setEdgeBlurSize](#cvmsersetedgeblursize)
   - [cv::MSER::setMaxArea](#cvmsersetmaxarea)
+  - [cv::MSER::setMaxEvolution](#cvmsersetmaxevolution)
+  - [cv::MSER::setMaxVariation](#cvmsersetmaxvariation)
   - [cv::MSER::setMinArea](#cvmsersetminarea)
+  - [cv::MSER::setMinDiversity](#cvmsersetmindiversity)
+  - [cv::MSER::setMinMargin](#cvmsersetminmargin)
   - [cv::MSER::setPass2Only](#cvmsersetpass2only)
   - [cv::MSER::write](#cvmserwrite)
 - [cv::FastFeatureDetector](#cvfastfeaturedetector)
@@ -3501,6 +3790,7 @@
   - [cv::GFTTDetector::empty](#cvgfttdetectorempty)
   - [cv::GFTTDetector::getBlockSize](#cvgfttdetectorgetblocksize)
   - [cv::GFTTDetector::getDefaultName](#cvgfttdetectorgetdefaultname)
+  - [cv::GFTTDetector::getGradientSize](#cvgfttdetectorgetgradientsize)
   - [cv::GFTTDetector::getHarrisDetector](#cvgfttdetectorgetharrisdetector)
   - [cv::GFTTDetector::getK](#cvgfttdetectorgetk)
   - [cv::GFTTDetector::getMaxFeatures](#cvgfttdetectorgetmaxfeatures)
@@ -3509,6 +3799,7 @@
   - [cv::GFTTDetector::read](#cvgfttdetectorread)
   - [cv::GFTTDetector::save](#cvgfttdetectorsave)
   - [cv::GFTTDetector::setBlockSize](#cvgfttdetectorsetblocksize)
+  - [cv::GFTTDetector::setGradientSize](#cvgfttdetectorsetgradientsize)
   - [cv::GFTTDetector::setHarrisDetector](#cvgfttdetectorsetharrisdetector)
   - [cv::GFTTDetector::setK](#cvgfttdetectorsetk)
   - [cv::GFTTDetector::setMaxFeatures](#cvgfttdetectorsetmaxfeatures)
@@ -3516,6 +3807,7 @@
   - [cv::GFTTDetector::setQualityLevel](#cvgfttdetectorsetqualitylevel)
   - [cv::GFTTDetector::write](#cvgfttdetectorwrite)
 - [cv::SimpleBlobDetector](#cvsimpleblobdetector)
+  - [SimpleBlobDetector.Params](#simpleblobdetectorparams)
   - [cv::SimpleBlobDetector::get\_create](#cvsimpleblobdetectorget%5C_create)
   - [cv::SimpleBlobDetector::clear](#cvsimpleblobdetectorclear)
   - [cv::SimpleBlobDetector::compute](#cvsimpleblobdetectorcompute)
@@ -3525,9 +3817,12 @@
   - [cv::SimpleBlobDetector::detect](#cvsimpleblobdetectordetect)
   - [cv::SimpleBlobDetector::detectAndCompute](#cvsimpleblobdetectordetectandcompute)
   - [cv::SimpleBlobDetector::empty](#cvsimpleblobdetectorempty)
+  - [cv::SimpleBlobDetector::getBlobContours](#cvsimpleblobdetectorgetblobcontours)
   - [cv::SimpleBlobDetector::getDefaultName](#cvsimpleblobdetectorgetdefaultname)
+  - [cv::SimpleBlobDetector::getParams](#cvsimpleblobdetectorgetparams)
   - [cv::SimpleBlobDetector::read](#cvsimpleblobdetectorread)
   - [cv::SimpleBlobDetector::save](#cvsimpleblobdetectorsave)
+  - [cv::SimpleBlobDetector::setParams](#cvsimpleblobdetectorsetparams)
   - [cv::SimpleBlobDetector::write](#cvsimpleblobdetectorwrite)
 - [cv::SimpleBlobDetector::Params](#cvsimpleblobdetectorparams)
   - [Params.thresholdStep](#paramsthresholdstep)
@@ -3549,6 +3844,7 @@
   - [Params.filterByConvexity](#paramsfilterbyconvexity)
   - [Params.minConvexity](#paramsminconvexity)
   - [Params.maxConvexity](#paramsmaxconvexity)
+  - [Params.collectContours](#paramscollectcontours)
   - [cv::SimpleBlobDetector::Params::get\_create](#cvsimpleblobdetectorparamsget%5C_create)
 - [cv::KAZE](#cvkaze)
   - [cv::KAZE::get\_create](#cvkazeget%5C_create)
@@ -3704,6 +4000,7 @@
   - [cv::VideoCapture::retrieve](#cvvideocaptureretrieve)
   - [cv::VideoCapture::set](#cvvideocaptureset)
   - [cv::VideoCapture::setExceptionMode](#cvvideocapturesetexceptionmode)
+  - [cv::VideoCapture::waitAny](#cvvideocapturewaitany)
 - [cv::VideoWriter](#cvvideowriter)
   - [cv::VideoWriter::get\_create](#cvvideowriterget%5C_create)
   - [cv::VideoWriter::fourcc](#cvvideowriterfourcc)
@@ -3926,6 +4223,7 @@
   - [HOGDescriptor.DESCR\_FORMAT\_COL\_BY\_COL\_](#hogdescriptordescr%5C_format%5C_col%5C_by%5C_col%5C_)
   - [HOGDescriptor.DESCR\_FORMAT\_ROW\_BY\_ROW\_](#hogdescriptordescr%5C_format%5C_row%5C_by%5C_row%5C_)
 - [cv::QRCodeEncoder](#cvqrcodeencoder)
+  - [QRCodeEncoder.Params](#qrcodeencoderparams)
   - [cv::QRCodeEncoder::get\_create](#cvqrcodeencoderget%5C_create)
   - [cv::QRCodeEncoder::encode](#cvqrcodeencoderencode)
   - [cv::QRCodeEncoder::encodeStructuredAppend](#cvqrcodeencoderencodestructuredappend)
@@ -3959,6 +4257,175 @@
   - [cv::QRCodeDetector::detectMulti](#cvqrcodedetectordetectmulti)
   - [cv::QRCodeDetector::setEpsX](#cvqrcodedetectorsetepsx)
   - [cv::QRCodeDetector::setEpsY](#cvqrcodedetectorsetepsy)
+  - [cv::QRCodeDetector::setUseAlignmentMarkers](#cvqrcodedetectorsetusealignmentmarkers)
+- [cv::aruco](#cvaruco)
+  - [aruco.Board](#arucoboard)
+  - [aruco.GridBoard](#arucogridboard)
+  - [aruco.CharucoBoard](#arucocharucoboard)
+  - [aruco.DetectorParameters](#arucodetectorparameters)
+  - [aruco.RefineParameters](#arucorefineparameters)
+  - [aruco.ArucoDetector](#arucoarucodetector)
+  - [aruco.Dictionary](#arucodictionary)
+  - [aruco.CharucoParameters](#arucocharucoparameters)
+  - [aruco.CharucoDetector](#arucocharucodetector)
+  - [cv::aruco::drawDetectedCornersCharuco](#cvarucodrawdetectedcornerscharuco)
+  - [cv::aruco::drawDetectedDiamonds](#cvarucodrawdetecteddiamonds)
+  - [cv::aruco::drawDetectedMarkers](#cvarucodrawdetectedmarkers)
+  - [cv::aruco::extendDictionary](#cvarucoextenddictionary)
+  - [cv::aruco::generateImageMarker](#cvarucogenerateimagemarker)
+  - [cv::aruco::getPredefinedDictionary](#cvarucogetpredefineddictionary)
+  - [aruco.CORNER\_REFINE\_NONE\_](#arucocorner%5C_refine%5C_none%5C_)
+  - [aruco.CORNER\_REFINE\_SUBPIX\_](#arucocorner%5C_refine%5C_subpix%5C_)
+  - [aruco.CORNER\_REFINE\_CONTOUR\_](#arucocorner%5C_refine%5C_contour%5C_)
+  - [aruco.CORNER\_REFINE\_APRILTAG\_](#arucocorner%5C_refine%5C_apriltag%5C_)
+  - [aruco.DICT\_4X4\_50\_](#arucodict%5C_4x4%5C_50%5C_)
+  - [aruco.DICT\_4X4\_100\_](#arucodict%5C_4x4%5C_100%5C_)
+  - [aruco.DICT\_4X4\_250\_](#arucodict%5C_4x4%5C_250%5C_)
+  - [aruco.DICT\_4X4\_1000\_](#arucodict%5C_4x4%5C_1000%5C_)
+  - [aruco.DICT\_5X5\_50\_](#arucodict%5C_5x5%5C_50%5C_)
+  - [aruco.DICT\_5X5\_100\_](#arucodict%5C_5x5%5C_100%5C_)
+  - [aruco.DICT\_5X5\_250\_](#arucodict%5C_5x5%5C_250%5C_)
+  - [aruco.DICT\_5X5\_1000\_](#arucodict%5C_5x5%5C_1000%5C_)
+  - [aruco.DICT\_6X6\_50\_](#arucodict%5C_6x6%5C_50%5C_)
+  - [aruco.DICT\_6X6\_100\_](#arucodict%5C_6x6%5C_100%5C_)
+  - [aruco.DICT\_6X6\_250\_](#arucodict%5C_6x6%5C_250%5C_)
+  - [aruco.DICT\_6X6\_1000\_](#arucodict%5C_6x6%5C_1000%5C_)
+  - [aruco.DICT\_7X7\_50\_](#arucodict%5C_7x7%5C_50%5C_)
+  - [aruco.DICT\_7X7\_100\_](#arucodict%5C_7x7%5C_100%5C_)
+  - [aruco.DICT\_7X7\_250\_](#arucodict%5C_7x7%5C_250%5C_)
+  - [aruco.DICT\_7X7\_1000\_](#arucodict%5C_7x7%5C_1000%5C_)
+  - [aruco.DICT\_ARUCO\_ORIGINAL\_](#arucodict%5C_aruco%5C_original%5C_)
+  - [aruco.DICT\_APRILTAG\_16h5\_](#arucodict%5C_apriltag%5C_16h5%5C_)
+  - [aruco.DICT\_APRILTAG\_25h9\_](#arucodict%5C_apriltag%5C_25h9%5C_)
+  - [aruco.DICT\_APRILTAG\_36h10\_](#arucodict%5C_apriltag%5C_36h10%5C_)
+  - [aruco.DICT\_APRILTAG\_36h11\_](#arucodict%5C_apriltag%5C_36h11%5C_)
+- [cv::aruco::Board](#cvarucoboard)
+  - [cv::aruco::Board::get\_create](#cvarucoboardget%5C_create)
+  - [cv::aruco::Board::generateImage](#cvarucoboardgenerateimage)
+  - [cv::aruco::Board::getDictionary](#cvarucoboardgetdictionary)
+  - [cv::aruco::Board::getIds](#cvarucoboardgetids)
+  - [cv::aruco::Board::getObjPoints](#cvarucoboardgetobjpoints)
+  - [cv::aruco::Board::getRightBottomCorner](#cvarucoboardgetrightbottomcorner)
+  - [cv::aruco::Board::matchImagePoints](#cvarucoboardmatchimagepoints)
+- [cv::aruco::GridBoard](#cvarucogridboard)
+  - [cv::aruco::GridBoard::get\_create](#cvarucogridboardget%5C_create)
+  - [cv::aruco::GridBoard::generateImage](#cvarucogridboardgenerateimage)
+  - [cv::aruco::GridBoard::getDictionary](#cvarucogridboardgetdictionary)
+  - [cv::aruco::GridBoard::getGridSize](#cvarucogridboardgetgridsize)
+  - [cv::aruco::GridBoard::getIds](#cvarucogridboardgetids)
+  - [cv::aruco::GridBoard::getMarkerLength](#cvarucogridboardgetmarkerlength)
+  - [cv::aruco::GridBoard::getMarkerSeparation](#cvarucogridboardgetmarkerseparation)
+  - [cv::aruco::GridBoard::getObjPoints](#cvarucogridboardgetobjpoints)
+  - [cv::aruco::GridBoard::getRightBottomCorner](#cvarucogridboardgetrightbottomcorner)
+  - [cv::aruco::GridBoard::matchImagePoints](#cvarucogridboardmatchimagepoints)
+- [cv::aruco::CharucoBoard](#cvarucocharucoboard)
+  - [cv::aruco::CharucoBoard::get\_create](#cvarucocharucoboardget%5C_create)
+  - [cv::aruco::CharucoBoard::checkCharucoCornersCollinear](#cvarucocharucoboardcheckcharucocornerscollinear)
+  - [cv::aruco::CharucoBoard::generateImage](#cvarucocharucoboardgenerateimage)
+  - [cv::aruco::CharucoBoard::getChessboardCorners](#cvarucocharucoboardgetchessboardcorners)
+  - [cv::aruco::CharucoBoard::getChessboardSize](#cvarucocharucoboardgetchessboardsize)
+  - [cv::aruco::CharucoBoard::getDictionary](#cvarucocharucoboardgetdictionary)
+  - [cv::aruco::CharucoBoard::getIds](#cvarucocharucoboardgetids)
+  - [cv::aruco::CharucoBoard::getMarkerLength](#cvarucocharucoboardgetmarkerlength)
+  - [cv::aruco::CharucoBoard::getObjPoints](#cvarucocharucoboardgetobjpoints)
+  - [cv::aruco::CharucoBoard::getRightBottomCorner](#cvarucocharucoboardgetrightbottomcorner)
+  - [cv::aruco::CharucoBoard::getSquareLength](#cvarucocharucoboardgetsquarelength)
+  - [cv::aruco::CharucoBoard::matchImagePoints](#cvarucocharucoboardmatchimagepoints)
+- [cv::aruco::DetectorParameters](#cvarucodetectorparameters)
+  - [DetectorParameters.adaptiveThreshWinSizeMin](#detectorparametersadaptivethreshwinsizemin)
+  - [DetectorParameters.adaptiveThreshWinSizeMax](#detectorparametersadaptivethreshwinsizemax)
+  - [DetectorParameters.adaptiveThreshWinSizeStep](#detectorparametersadaptivethreshwinsizestep)
+  - [DetectorParameters.adaptiveThreshConstant](#detectorparametersadaptivethreshconstant)
+  - [DetectorParameters.minMarkerPerimeterRate](#detectorparametersminmarkerperimeterrate)
+  - [DetectorParameters.maxMarkerPerimeterRate](#detectorparametersmaxmarkerperimeterrate)
+  - [DetectorParameters.polygonalApproxAccuracyRate](#detectorparameterspolygonalapproxaccuracyrate)
+  - [DetectorParameters.minCornerDistanceRate](#detectorparametersmincornerdistancerate)
+  - [DetectorParameters.minDistanceToBorder](#detectorparametersmindistancetoborder)
+  - [DetectorParameters.minMarkerDistanceRate](#detectorparametersminmarkerdistancerate)
+  - [DetectorParameters.cornerRefinementMethod](#detectorparameterscornerrefinementmethod)
+  - [DetectorParameters.cornerRefinementWinSize](#detectorparameterscornerrefinementwinsize)
+  - [DetectorParameters.cornerRefinementMaxIterations](#detectorparameterscornerrefinementmaxiterations)
+  - [DetectorParameters.cornerRefinementMinAccuracy](#detectorparameterscornerrefinementminaccuracy)
+  - [DetectorParameters.markerBorderBits](#detectorparametersmarkerborderbits)
+  - [DetectorParameters.perspectiveRemovePixelPerCell](#detectorparametersperspectiveremovepixelpercell)
+  - [DetectorParameters.perspectiveRemoveIgnoredMarginPerCell](#detectorparametersperspectiveremoveignoredmarginpercell)
+  - [DetectorParameters.maxErroneousBitsInBorderRate](#detectorparametersmaxerroneousbitsinborderrate)
+  - [DetectorParameters.minOtsuStdDev](#detectorparametersminotsustddev)
+  - [DetectorParameters.errorCorrectionRate](#detectorparameterserrorcorrectionrate)
+  - [DetectorParameters.aprilTagQuadDecimate](#detectorparametersapriltagquaddecimate)
+  - [DetectorParameters.aprilTagQuadSigma](#detectorparametersapriltagquadsigma)
+  - [DetectorParameters.aprilTagMinClusterPixels](#detectorparametersapriltagminclusterpixels)
+  - [DetectorParameters.aprilTagMaxNmaxima](#detectorparametersapriltagmaxnmaxima)
+  - [DetectorParameters.aprilTagCriticalRad](#detectorparametersapriltagcriticalrad)
+  - [DetectorParameters.aprilTagMaxLineFitMse](#detectorparametersapriltagmaxlinefitmse)
+  - [DetectorParameters.aprilTagMinWhiteBlackDiff](#detectorparametersapriltagminwhiteblackdiff)
+  - [DetectorParameters.aprilTagDeglitch](#detectorparametersapriltagdeglitch)
+  - [DetectorParameters.detectInvertedMarker](#detectorparametersdetectinvertedmarker)
+  - [DetectorParameters.useAruco3Detection](#detectorparametersusearuco3detection)
+  - [DetectorParameters.minSideLengthCanonicalImg](#detectorparametersminsidelengthcanonicalimg)
+  - [DetectorParameters.minMarkerLengthRatioOriginalImg](#detectorparametersminmarkerlengthratiooriginalimg)
+  - [cv::aruco::DetectorParameters::get\_create](#cvarucodetectorparametersget%5C_create)
+  - [cv::aruco::DetectorParameters::readDetectorParameters](#cvarucodetectorparametersreaddetectorparameters)
+  - [cv::aruco::DetectorParameters::writeDetectorParameters](#cvarucodetectorparameterswritedetectorparameters)
+- [cv::aruco::RefineParameters](#cvarucorefineparameters)
+  - [RefineParameters.minRepDistance](#refineparametersminrepdistance)
+  - [RefineParameters.errorCorrectionRate](#refineparameterserrorcorrectionrate)
+  - [RefineParameters.checkAllOrders](#refineparameterscheckallorders)
+  - [cv::aruco::RefineParameters::get\_create](#cvarucorefineparametersget%5C_create)
+  - [cv::aruco::RefineParameters::readRefineParameters](#cvarucorefineparametersreadrefineparameters)
+  - [cv::aruco::RefineParameters::writeRefineParameters](#cvarucorefineparameterswriterefineparameters)
+- [cv::aruco::ArucoDetector](#cvarucoarucodetector)
+  - [cv::aruco::ArucoDetector::get\_create](#cvarucoarucodetectorget%5C_create)
+  - [cv::aruco::ArucoDetector::clear](#cvarucoarucodetectorclear)
+  - [cv::aruco::ArucoDetector::detectMarkers](#cvarucoarucodetectordetectmarkers)
+  - [cv::aruco::ArucoDetector::empty](#cvarucoarucodetectorempty)
+  - [cv::aruco::ArucoDetector::getDefaultName](#cvarucoarucodetectorgetdefaultname)
+  - [cv::aruco::ArucoDetector::getDetectorParameters](#cvarucoarucodetectorgetdetectorparameters)
+  - [cv::aruco::ArucoDetector::getDictionary](#cvarucoarucodetectorgetdictionary)
+  - [cv::aruco::ArucoDetector::getRefineParameters](#cvarucoarucodetectorgetrefineparameters)
+  - [cv::aruco::ArucoDetector::read](#cvarucoarucodetectorread)
+  - [cv::aruco::ArucoDetector::refineDetectedMarkers](#cvarucoarucodetectorrefinedetectedmarkers)
+  - [cv::aruco::ArucoDetector::save](#cvarucoarucodetectorsave)
+  - [cv::aruco::ArucoDetector::setDetectorParameters](#cvarucoarucodetectorsetdetectorparameters)
+  - [cv::aruco::ArucoDetector::setDictionary](#cvarucoarucodetectorsetdictionary)
+  - [cv::aruco::ArucoDetector::setRefineParameters](#cvarucoarucodetectorsetrefineparameters)
+  - [cv::aruco::ArucoDetector::write](#cvarucoarucodetectorwrite)
+- [cv::aruco::Dictionary](#cvarucodictionary)
+  - [Dictionary.bytesList](#dictionarybyteslist)
+  - [Dictionary.markerSize](#dictionarymarkersize)
+  - [Dictionary.maxCorrectionBits](#dictionarymaxcorrectionbits)
+  - [cv::aruco::Dictionary::get\_create](#cvarucodictionaryget%5C_create)
+  - [cv::aruco::Dictionary::generateImageMarker](#cvarucodictionarygenerateimagemarker)
+  - [cv::aruco::Dictionary::getBitsFromByteList](#cvarucodictionarygetbitsfrombytelist)
+  - [cv::aruco::Dictionary::getByteListFromBits](#cvarucodictionarygetbytelistfrombits)
+  - [cv::aruco::Dictionary::getDistanceToId](#cvarucodictionarygetdistancetoid)
+  - [cv::aruco::Dictionary::identify](#cvarucodictionaryidentify)
+  - [cv::aruco::Dictionary::readDictionary](#cvarucodictionaryreaddictionary)
+  - [cv::aruco::Dictionary::writeDictionary](#cvarucodictionarywritedictionary)
+- [cv::aruco::CharucoParameters](#cvarucocharucoparameters)
+  - [CharucoParameters.cameraMatrix](#charucoparameterscameramatrix)
+  - [CharucoParameters.distCoeffs](#charucoparametersdistcoeffs)
+  - [CharucoParameters.minMarkers](#charucoparametersminmarkers)
+  - [CharucoParameters.tryRefineMarkers](#charucoparameterstryrefinemarkers)
+  - [cv::aruco::CharucoParameters::get\_create](#cvarucocharucoparametersget%5C_create)
+- [cv::aruco::CharucoDetector](#cvarucocharucodetector)
+  - [cv::aruco::CharucoDetector::get\_create](#cvarucocharucodetectorget%5C_create)
+  - [cv::aruco::CharucoDetector::clear](#cvarucocharucodetectorclear)
+  - [cv::aruco::CharucoDetector::detectBoard](#cvarucocharucodetectordetectboard)
+  - [cv::aruco::CharucoDetector::detectDiamonds](#cvarucocharucodetectordetectdiamonds)
+  - [cv::aruco::CharucoDetector::empty](#cvarucocharucodetectorempty)
+  - [cv::aruco::CharucoDetector::getBoard](#cvarucocharucodetectorgetboard)
+  - [cv::aruco::CharucoDetector::getCharucoParameters](#cvarucocharucodetectorgetcharucoparameters)
+  - [cv::aruco::CharucoDetector::getDefaultName](#cvarucocharucodetectorgetdefaultname)
+  - [cv::aruco::CharucoDetector::getDetectorParameters](#cvarucocharucodetectorgetdetectorparameters)
+  - [cv::aruco::CharucoDetector::getRefineParameters](#cvarucocharucodetectorgetrefineparameters)
+  - [cv::aruco::CharucoDetector::read](#cvarucocharucodetectorread)
+  - [cv::aruco::CharucoDetector::save](#cvarucocharucodetectorsave)
+  - [cv::aruco::CharucoDetector::setBoard](#cvarucocharucodetectorsetboard)
+  - [cv::aruco::CharucoDetector::setCharucoParameters](#cvarucocharucodetectorsetcharucoparameters)
+  - [cv::aruco::CharucoDetector::setDetectorParameters](#cvarucocharucodetectorsetdetectorparameters)
+  - [cv::aruco::CharucoDetector::setRefineParameters](#cvarucocharucodetectorsetrefineparameters)
+  - [cv::aruco::CharucoDetector::write](#cvarucocharucodetectorwrite)
 - [cv::FaceDetectorYN](#cvfacedetectoryn)
   - [cv::FaceDetectorYN::get\_create](#cvfacedetectorynget%5C_create)
   - [cv::FaceDetectorYN::detect](#cvfacedetectoryndetect)
@@ -4492,6 +4959,7 @@
   - [cv::Tracker::init](#cvtrackerinit)
   - [cv::Tracker::update](#cvtrackerupdate)
 - [cv::TrackerMIL](#cvtrackermil)
+  - [TrackerMIL.Params](#trackermilparams)
   - [cv::TrackerMIL::get\_create](#cvtrackermilget%5C_create)
   - [cv::TrackerMIL::init](#cvtrackermilinit)
   - [cv::TrackerMIL::update](#cvtrackermilupdate)
@@ -4505,6 +4973,7 @@
   - [Params.featureSetNumFeatures](#paramsfeaturesetnumfeatures)
   - [cv::TrackerMIL::Params::get\_create](#cvtrackermilparamsget%5C_create)
 - [cv::TrackerGOTURN](#cvtrackergoturn)
+  - [TrackerGOTURN.Params](#trackergoturnparams)
   - [cv::TrackerGOTURN::get\_create](#cvtrackergoturnget%5C_create)
   - [cv::TrackerGOTURN::init](#cvtrackergoturninit)
   - [cv::TrackerGOTURN::update](#cvtrackergoturnupdate)
@@ -4513,6 +4982,7 @@
   - [Params.modelBin](#paramsmodelbin)
   - [cv::TrackerGOTURN::Params::get\_create](#cvtrackergoturnparamsget%5C_create)
 - [cv::TrackerDaSiamRPN](#cvtrackerdasiamrpn)
+  - [TrackerDaSiamRPN.Params](#trackerdasiamrpnparams)
   - [cv::TrackerDaSiamRPN::get\_create](#cvtrackerdasiamrpnget%5C_create)
   - [cv::TrackerDaSiamRPN::getTrackingScore](#cvtrackerdasiamrpngettrackingscore)
   - [cv::TrackerDaSiamRPN::init](#cvtrackerdasiamrpninit)
@@ -4524,6 +4994,18 @@
   - [Params.backend](#paramsbackend)
   - [Params.target](#paramstarget)
   - [cv::TrackerDaSiamRPN::Params::get\_create](#cvtrackerdasiamrpnparamsget%5C_create)
+- [cv::TrackerNano](#cvtrackernano)
+  - [TrackerNano.Params](#trackernanoparams)
+  - [cv::TrackerNano::get\_create](#cvtrackernanoget%5C_create)
+  - [cv::TrackerNano::getTrackingScore](#cvtrackernanogettrackingscore)
+  - [cv::TrackerNano::init](#cvtrackernanoinit)
+  - [cv::TrackerNano::update](#cvtrackernanoupdate)
+- [cv::TrackerNano::Params](#cvtrackernanoparams)
+  - [Params.backbone](#paramsbackbone)
+  - [Params.neckhead](#paramsneckhead)
+  - [Params.backend](#paramsbackend-1)
+  - [Params.target](#paramstarget-1)
+  - [cv::TrackerNano::Params::get\_create](#cvtrackernanoparamsget%5C_create)
 - [cv::detail::TrackerSamplerCSC](#cvdetailtrackersamplercsc)
   - [TrackerSamplerCSC.MODE\_INIT\_POS\_](#trackersamplercscmode%5C_init%5C_pos%5C_)
   - [TrackerSamplerCSC.MODE\_INIT\_NEG\_](#trackersamplercscmode%5C_init%5C_neg%5C_)
@@ -4531,27 +5013,131 @@
   - [TrackerSamplerCSC.MODE\_TRACK\_NEG\_](#trackersamplercscmode%5C_track%5C_neg%5C_)
   - [TrackerSamplerCSC.MODE\_DETECT\_](#trackersamplercscmode%5C_detect%5C_)
 - [cv::gapi](#cvgapi)
+  - [gapi.streaming](#gapistreaming)
+  - [gapi.core](#gapicore)
+  - [gapi.GNetParam](#gapignetparam)
+  - [gapi.GNetPackage](#gapignetpackage)
+  - [gapi.ie](#gapiie)
+  - [gapi.onnx](#gapionnx)
+  - [gapi.oak](#gapioak)
+  - [gapi.own](#gapiown)
+  - [gapi.wip](#gapiwip)
+  - [gapi.render](#gapirender)
+  - [gapi.StereoOutputFormat](#gapistereooutputformat)
+  - [gapi.video](#gapivideo)
+  - [cv::gapi::BGR2Gray](#cvgapibgr2gray)
+  - [cv::gapi::BGR2I420](#cvgapibgr2i420)
+  - [cv::gapi::BGR2LUV](#cvgapibgr2luv)
   - [cv::gapi::BGR2RGB](#cvgapibgr2rgb)
+  - [cv::gapi::BGR2YUV](#cvgapibgr2yuv)
+  - [cv::gapi::BayerGR2RGB](#cvgapibayergr2rgb)
+  - [cv::gapi::Canny](#cvgapicanny)
+  - [cv::gapi::I4202BGR](#cvgapii4202bgr)
+  - [cv::gapi::I4202RGB](#cvgapii4202rgb)
+  - [cv::gapi::LUT](#cvgapilut)
+  - [cv::gapi::LUV2BGR](#cvgapiluv2bgr)
+  - [cv::gapi::Laplacian](#cvgapilaplacian)
+  - [cv::gapi::NV12toBGR](#cvgapinv12tobgr)
+  - [cv::gapi::NV12toGray](#cvgapinv12togray)
+  - [cv::gapi::NV12toRGB](#cvgapinv12torgb)
   - [cv::gapi::RGB2Gray](#cvgapirgb2gray)
+  - [cv::gapi::RGB2HSV](#cvgapirgb2hsv)
+  - [cv::gapi::RGB2I420](#cvgapirgb2i420)
+  - [cv::gapi::RGB2Lab](#cvgapirgb2lab)
+  - [cv::gapi::RGB2YUV](#cvgapirgb2yuv)
+  - [cv::gapi::RGB2YUV422](#cvgapirgb2yuv422)
+  - [cv::gapi::Sobel](#cvgapisobel)
+  - [cv::gapi::SobelXY](#cvgapisobelxy)
+  - [cv::gapi::YUV2BGR](#cvgapiyuv2bgr)
+  - [cv::gapi::YUV2RGB](#cvgapiyuv2rgb)
+  - [cv::gapi::absDiff](#cvgapiabsdiff)
+  - [cv::gapi::absDiffC](#cvgapiabsdiffc)
   - [cv::gapi::add](#cvgapiadd)
   - [cv::gapi::addC](#cvgapiaddc)
+  - [cv::gapi::addWeighted](#cvgapiaddweighted)
+  - [cv::gapi::bilateralFilter](#cvgapibilateralfilter)
+  - [cv::gapi::bitwise\_and](#cvgapibitwise%5C_and)
+  - [cv::gapi::bitwise\_not](#cvgapibitwise%5C_not)
+  - [cv::gapi::bitwise\_or](#cvgapibitwise%5C_or)
+  - [cv::gapi::bitwise\_xor](#cvgapibitwise%5C_xor)
+  - [cv::gapi::blur](#cvgapiblur)
   - [cv::gapi::boundingRect](#cvgapiboundingrect)
+  - [cv::gapi::boxFilter](#cvgapiboxfilter)
+  - [cv::gapi::cartToPolar](#cvgapicarttopolar)
+  - [cv::gapi::cmpEQ](#cvgapicmpeq)
+  - [cv::gapi::cmpGE](#cvgapicmpge)
+  - [cv::gapi::cmpGT](#cvgapicmpgt)
+  - [cv::gapi::cmpLE](#cvgapicmple)
+  - [cv::gapi::cmpLT](#cvgapicmplt)
+  - [cv::gapi::cmpNE](#cvgapicmpne)
+  - [cv::gapi::concatHor](#cvgapiconcathor)
+  - [cv::gapi::concatVert](#cvgapiconcatvert)
+  - [cv::gapi::convertTo](#cvgapiconvertto)
   - [cv::gapi::copy](#cvgapicopy)
+  - [cv::gapi::countNonZero](#cvgapicountnonzero)
+  - [cv::gapi::crop](#cvgapicrop)
+  - [cv::gapi::dilate](#cvgapidilate)
+  - [cv::gapi::dilate3x3](#cvgapidilate3x3)
+  - [cv::gapi::div](#cvgapidiv)
+  - [cv::gapi::divC](#cvgapidivc)
+  - [cv::gapi::divRC](#cvgapidivrc)
+  - [cv::gapi::equalizeHist](#cvgapiequalizehist)
+  - [cv::gapi::erode](#cvgapierode)
+  - [cv::gapi::erode3x3](#cvgapierode3x3)
+  - [cv::gapi::filter2D](#cvgapifilter2d)
+  - [cv::gapi::flip](#cvgapiflip)
+  - [cv::gapi::gaussianBlur](#cvgapigaussianblur)
   - [cv::gapi::goodFeaturesToTrack](#cvgapigoodfeaturestotrack)
+  - [cv::gapi::inRange](#cvgapiinrange)
+  - [cv::gapi::integral](#cvgapiintegral)
   - [cv::gapi::kmeans](#cvgapikmeans)
+  - [cv::gapi::mask](#cvgapimask)
+  - [cv::gapi::max](#cvgapimax)
   - [cv::gapi::mean](#cvgapimean)
   - [cv::gapi::medianBlur](#cvgapimedianblur)
+  - [cv::gapi::merge3](#cvgapimerge3)
+  - [cv::gapi::merge4](#cvgapimerge4)
+  - [cv::gapi::min](#cvgapimin)
+  - [cv::gapi::morphologyEx](#cvgapimorphologyex)
+  - [cv::gapi::mul](#cvgapimul)
+  - [cv::gapi::mulC](#cvgapimulc)
+  - [cv::gapi::normInf](#cvgapinorminf)
+  - [cv::gapi::normL1](#cvgapinorml1)
+  - [cv::gapi::normL2](#cvgapinorml2)
+  - [cv::gapi::normalize](#cvgapinormalize)
   - [cv::gapi::parseSSD](#cvgapiparsessd)
   - [cv::gapi::parseYolo](#cvgapiparseyolo)
+  - [cv::gapi::phase](#cvgapiphase)
+  - [cv::gapi::polarToCart](#cvgapipolartocart)
+  - [cv::gapi::remap](#cvgapiremap)
   - [cv::gapi::resize](#cvgapiresize)
+  - [cv::gapi::select](#cvgapiselect)
+  - [cv::gapi::sepFilter](#cvgapisepfilter)
   - [cv::gapi::split3](#cvgapisplit3)
+  - [cv::gapi::split4](#cvgapisplit4)
+  - [cv::gapi::sqrt](#cvgapisqrt)
+  - [cv::gapi::sub](#cvgapisub)
+  - [cv::gapi::subC](#cvgapisubc)
+  - [cv::gapi::subRC](#cvgapisubrc)
+  - [cv::gapi::sum](#cvgapisum)
   - [cv::gapi::threshold](#cvgapithreshold)
+  - [cv::gapi::transpose](#cvgapitranspose)
+  - [cv::gapi::warpAffine](#cvgapiwarpaffine)
+  - [cv::gapi::warpPerspective](#cvgapiwarpperspective)
 - [cv::gapi::streaming](#cvgapistreaming)
+  - [streaming.queue\_capacity](#streamingqueue%5C_capacity)
+  - [streaming.sync\_policy](#streamingsync%5C_policy)
   - [cv::gapi::streaming::size](#cvgapistreamingsize)
+- [cv::gapi::core](#cvgapicore)
+  - [core.cpu](#corecpu)
+  - [core.fluid](#corefluid)
+  - [core.ocl](#coreocl)
 - [cv::gapi::core::cpu](#cvgapicorecpu)
   - [cv::gapi::core::cpu::kernels](#cvgapicorecpukernels)
 - [cv::gapi::core::fluid](#cvgapicorefluid)
   - [cv::gapi::core::fluid::kernels](#cvgapicorefluidkernels)
+- [cv::GFluidKernel](#cvgfluidkernel)
+  - [GFluidKernel.Kind](#gfluidkernelkind)
 - [cv::GFluidKernel::Kind](#cvgfluidkernelkind)
   - [Kind.Filter](#kindfilter)
   - [Kind.Resize](#kindresize)
@@ -4569,6 +5155,7 @@
   - [OpaqueKind.CV\_STRING](#opaquekindcv%5C_string)
   - [OpaqueKind.CV\_POINT](#opaquekindcv%5C_point)
   - [OpaqueKind.CV\_POINT2F](#opaquekindcv%5C_point2f)
+  - [OpaqueKind.CV\_POINT3F](#opaquekindcv%5C_point3f)
   - [OpaqueKind.CV\_SIZE](#opaquekindcv%5C_size)
   - [OpaqueKind.CV\_RECT](#opaquekindcv%5C_rect)
   - [OpaqueKind.CV\_SCALAR](#opaquekindcv%5C_scalar)
@@ -4635,24 +5222,47 @@
 - [cv::gapi::GNetPackage](#cvgapignetpackage)
   - [cv::gapi::GNetPackage::get\_create](#cvgapignetpackageget%5C_create)
 - [cv::gapi::ie](#cvgapiie)
+  - [ie.PyParams](#iepyparams)
+  - [ie.TraitAs](#ietraitas)
+  - [ie.detail](#iedetail)
   - [cv::gapi::ie::params](#cvgapiieparams)
+  - [ie.Sync\_](#iesync%5C_)
+  - [ie.Async\_](#ieasync%5C_)
 - [cv::gapi::ie::PyParams](#cvgapiiepyparams)
   - [cv::gapi::ie::PyParams::get\_create](#cvgapiiepyparamsget%5C_create)
   - [cv::gapi::ie::PyParams::cfgBatchSize](#cvgapiiepyparamscfgbatchsize)
   - [cv::gapi::ie::PyParams::cfgNumRequests](#cvgapiiepyparamscfgnumrequests)
   - [cv::gapi::ie::PyParams::constInput](#cvgapiiepyparamsconstinput)
+- [cv::gapi::onnx](#cvgapionnx)
+  - [onnx.PyParams](#onnxpyparams)
+  - [onnx.TraitAs](#onnxtraitas)
+  - [cv::gapi::onnx::params](#cvgapionnxparams)
+- [cv::gapi::onnx::PyParams](#cvgapionnxpyparams)
+  - [cv::gapi::onnx::PyParams::get\_create](#cvgapionnxpyparamsget%5C_create)
 - [cv::gapi::ie::TraitAs](#cvgapiietraitas)
   - [TraitAs.TENSOR](#traitastensor)
   - [TraitAs.IMAGE](#traitasimage)
+- [cv::gapi::ie::detail](#cvgapiiedetail)
+  - [detail.ParamDesc](#detailparamdesc)
+- [cv::gapi::ie::detail::ParamDesc](#cvgapiiedetailparamdesc)
+  - [ParamDesc.Kind](#paramdesckind)
 - [cv::gapi::ie::detail::ParamDesc::Kind](#cvgapiiedetailparamdesckind)
   - [Kind.Load](#kindload)
   - [Kind.Import](#kindimport)
 - [cv::gapi::onnx::TraitAs](#cvgapionnxtraitas)
   - [TraitAs.TENSOR](#traitastensor-1)
   - [TraitAs.IMAGE](#traitasimage-1)
+- [cv::MediaFrame](#cvmediaframe)
+  - [MediaFrame.Access](#mediaframeaccess)
 - [cv::MediaFrame::Access](#cvmediaframeaccess)
   - [Access.R](#accessr)
   - [Access.W](#accessw)
+- [cv::gapi::oak](#cvgapioak)
+  - [oak.EncoderConfig](#oakencoderconfig)
+  - [oak.ColorCameraParams](#oakcolorcameraparams)
+- [cv::gapi::oak::EncoderConfig](#cvgapioakencoderconfig)
+  - [EncoderConfig.RateControlMode](#encoderconfigratecontrolmode)
+  - [EncoderConfig.Profile](#encoderconfigprofile)
 - [cv::gapi::oak::EncoderConfig::RateControlMode](#cvgapioakencoderconfigratecontrolmode)
   - [RateControlMode.CBR](#ratecontrolmodecbr)
   - [RateControlMode.VBR](#ratecontrolmodevbr)
@@ -4662,6 +5272,9 @@
   - [Profile.H264\_MAIN](#profileh264%5C_main)
   - [Profile.H265\_MAIN](#profileh265%5C_main)
   - [Profile.MJPEG](#profilemjpeg)
+- [cv::gapi::oak::ColorCameraParams](#cvgapioakcolorcameraparams)
+  - [ColorCameraParams.BoardSocket](#colorcameraparamsboardsocket)
+  - [ColorCameraParams.Resolution](#colorcameraparamsresolution)
 - [cv::gapi::oak::ColorCameraParams::BoardSocket](#cvgapioakcolorcameraparamsboardsocket)
   - [BoardSocket.RGB](#boardsocketrgb)
   - [BoardSocket.BGR](#boardsocketbgr)
@@ -4669,17 +5282,35 @@
   - [Resolution.THE\_1080\_P](#resolutionthe%5C_1080%5C_p)
 - [cv::gapi::core::ocl](#cvgapicoreocl)
   - [cv::gapi::core::ocl::kernels](#cvgapicoreoclkernels)
+- [cv::gapi::own](#cvgapiown)
+  - [own.detail](#owndetail)
+- [cv::gapi::own::detail](#cvgapiowndetail)
+  - [detail.MatHeader](#detailmatheader)
 - [cv::gapi::own::detail::MatHeader](#cvgapiowndetailmatheader)
   - [MatHeader.AUTO\_STEP\_](#matheaderauto%5C_step%5C_)
   - [MatHeader.TYPE\_MASK\_](#matheadertype%5C_mask%5C_)
 - [cv::gapi::wip](#cvgapiwip)
+  - [wip.draw](#wipdraw)
+  - [wip.gst](#wipgst)
+  - [wip.onevpl](#wiponevpl)
+  - [wip.IStreamSource](#wipistreamsource)
   - [cv::gapi::wip::get\_streaming\_source](#cvgapiwipget%5C_streaming%5C_source)
   - [cv::gapi::wip::make\_capture\_src](#cvgapiwipmake%5C_capture%5C_src)
   - [cv::gapi::wip::make\_gst\_src](#cvgapiwipmake%5C_gst%5C_src)
 - [cv::gapi::wip::draw](#cvgapiwipdraw)
+  - [draw.Text](#drawtext)
+  - [draw.Rect](#drawrect)
+  - [draw.Circle](#drawcircle)
+  - [draw.Line](#drawline)
+  - [draw.Mosaic](#drawmosaic)
+  - [draw.Image](#drawimage)
+  - [draw.Poly](#drawpoly)
+  - [draw.Prim](#drawprim)
   - [cv::gapi::wip::draw::render](#cvgapiwipdrawrender)
   - [cv::gapi::wip::draw::render3ch](#cvgapiwipdrawrender3ch)
   - [cv::gapi::wip::draw::renderNV12](#cvgapiwipdrawrendernv12)
+- [cv::gapi::render](#cvgapirender)
+  - [render.ocv](#renderocv)
 - [cv::gapi::render::ocv](#cvgapirenderocv)
   - [cv::gapi::render::ocv::kernels](#cvgapirenderocvkernels)
 - [cv::gapi::wip::draw::Text](#cvgapiwipdrawtext)
@@ -4732,6 +5363,8 @@
   - [Poly.lt](#polylt)
   - [Poly.shift](#polyshift)
   - [cv::gapi::wip::draw::Poly::get\_create](#cvgapiwipdrawpolyget%5C_create)
+- [cv::RMat](#cvrmat)
+  - [RMat.Access](#rmataccess)
 - [cv::RMat::Access](#cvrmataccess)
   - [Access.R](#accessr-1)
   - [Access.W](#accessw-1)
@@ -4744,11 +5377,18 @@
   - [StereoOutputFormat.DEPTH\_32F](#stereooutputformatdepth%5C_32f)
   - [StereoOutputFormat.DISPARITY\_16Q\_10\_5](#stereooutputformatdisparity%5C_16q%5C_10%5C_5)
   - [StereoOutputFormat.DISPARITY\_16Q\_11\_4](#stereooutputformatdisparity%5C_16q%5C_11%5C_4)
+- [cv::gapi::wip::gst](#cvgapiwipgst)
+  - [gst.GStreamerPipeline](#gstgstreamerpipeline)
+  - [gst.GStreamerSource](#gstgstreamersource)
 - [cv::gapi::wip::gst::GStreamerPipeline](#cvgapiwipgstgstreamerpipeline)
   - [cv::gapi::wip::gst::GStreamerPipeline::get\_create](#cvgapiwipgstgstreamerpipelineget%5C_create)
+- [cv::gapi::wip::gst::GStreamerSource](#cvgapiwipgstgstreamersource)
+  - [GStreamerSource.OutputType](#gstreamersourceoutputtype)
 - [cv::gapi::wip::gst::GStreamerSource::OutputType](#cvgapiwipgstgstreamersourceoutputtype)
   - [OutputType.FRAME](#outputtypeframe)
   - [OutputType.MAT](#outputtypemat)
+- [cv::gapi::wip::onevpl](#cvgapiwiponevpl)
+  - [onevpl.AccelType](#onevplacceltype)
 - [cv::gapi::wip::onevpl::AccelType](#cvgapiwiponevplacceltype)
   - [AccelType.HOST](#acceltypehost)
   - [AccelType.DX11](#acceltypedx11)
@@ -4783,6 +5423,7 @@
   - [autoit::findFile](#autoitfindfile)
   - [autoit::findFiles](#autoitfindfiles)
 - [cv::wgc](#cvwgc)
+  - [wgc.SimpleCapture](#wgcsimplecapture)
   - [cv::wgc::BitBltCapture](#cvwgcbitbltcapture)
   - [cv::wgc::createSimpleCapture](#cvwgccreatesimplecapture)
   - [cv::wgc::isWGCSupported](#cvwgciswgcsupported)
@@ -4911,6 +5552,78 @@
   - [cv::core::cv\_MAKETYPE](#cvcorecv%5C_maketype)
   - [cv::core::cv\_MAKE\_TYPE](#cvcorecv%5C_make%5C_type)
   - [cv::core::cv\_MAT\_DEPTH](#cvcorecv%5C_mat%5C_depth)
+- [cv::Matx33f](#cvmatx33f)
+  - [Matx33f.rows](#matx33frows)
+  - [Matx33f.cols](#matx33fcols)
+  - [Matx33f.channels](#matx33fchannels)
+  - [Matx33f.shortdim](#matx33fshortdim)
+  - [cv::Matx33f::create](#cvmatx33fcreate)
+  - [cv::Matx33f::all](#cvmatx33fall)
+  - [cv::Matx33f::ddot](#cvmatx33fddot)
+  - [cv::Matx33f::div](#cvmatx33fdiv)
+  - [cv::Matx33f::dot](#cvmatx33fdot)
+  - [cv::Matx33f::eye](#cvmatx33feye)
+  - [cv::Matx33f::get\_Item](#cvmatx33fget%5C_item)
+  - [cv::Matx33f::mul](#cvmatx33fmul)
+  - [cv::Matx33f::ones](#cvmatx33fones)
+  - [cv::Matx33f::put\_Item](#cvmatx33fput%5C_item)
+  - [cv::Matx33f::randn](#cvmatx33frandn)
+  - [cv::Matx33f::randu](#cvmatx33frandu)
+  - [cv::Matx33f::zeros](#cvmatx33fzeros)
+- [cv::Matx33d](#cvmatx33d)
+  - [Matx33d.rows](#matx33drows)
+  - [Matx33d.cols](#matx33dcols)
+  - [Matx33d.channels](#matx33dchannels)
+  - [Matx33d.shortdim](#matx33dshortdim)
+  - [cv::Matx33d::create](#cvmatx33dcreate)
+  - [cv::Matx33d::all](#cvmatx33dall)
+  - [cv::Matx33d::ddot](#cvmatx33dddot)
+  - [cv::Matx33d::div](#cvmatx33ddiv)
+  - [cv::Matx33d::dot](#cvmatx33ddot)
+  - [cv::Matx33d::eye](#cvmatx33deye)
+  - [cv::Matx33d::get\_Item](#cvmatx33dget%5C_item)
+  - [cv::Matx33d::mul](#cvmatx33dmul)
+  - [cv::Matx33d::ones](#cvmatx33dones)
+  - [cv::Matx33d::put\_Item](#cvmatx33dput%5C_item)
+  - [cv::Matx33d::randn](#cvmatx33drandn)
+  - [cv::Matx33d::randu](#cvmatx33drandu)
+  - [cv::Matx33d::zeros](#cvmatx33dzeros)
+- [cv::Matx44f](#cvmatx44f)
+  - [Matx44f.rows](#matx44frows)
+  - [Matx44f.cols](#matx44fcols)
+  - [Matx44f.channels](#matx44fchannels)
+  - [Matx44f.shortdim](#matx44fshortdim)
+  - [cv::Matx44f::create](#cvmatx44fcreate)
+  - [cv::Matx44f::all](#cvmatx44fall)
+  - [cv::Matx44f::ddot](#cvmatx44fddot)
+  - [cv::Matx44f::div](#cvmatx44fdiv)
+  - [cv::Matx44f::dot](#cvmatx44fdot)
+  - [cv::Matx44f::eye](#cvmatx44feye)
+  - [cv::Matx44f::get\_Item](#cvmatx44fget%5C_item)
+  - [cv::Matx44f::mul](#cvmatx44fmul)
+  - [cv::Matx44f::ones](#cvmatx44fones)
+  - [cv::Matx44f::put\_Item](#cvmatx44fput%5C_item)
+  - [cv::Matx44f::randn](#cvmatx44frandn)
+  - [cv::Matx44f::randu](#cvmatx44frandu)
+  - [cv::Matx44f::zeros](#cvmatx44fzeros)
+- [cv::Matx44d](#cvmatx44d)
+  - [Matx44d.rows](#matx44drows)
+  - [Matx44d.cols](#matx44dcols)
+  - [Matx44d.channels](#matx44dchannels)
+  - [Matx44d.shortdim](#matx44dshortdim)
+  - [cv::Matx44d::create](#cvmatx44dcreate)
+  - [cv::Matx44d::all](#cvmatx44dall)
+  - [cv::Matx44d::ddot](#cvmatx44dddot)
+  - [cv::Matx44d::div](#cvmatx44ddiv)
+  - [cv::Matx44d::dot](#cvmatx44ddot)
+  - [cv::Matx44d::eye](#cvmatx44deye)
+  - [cv::Matx44d::get\_Item](#cvmatx44dget%5C_item)
+  - [cv::Matx44d::mul](#cvmatx44dmul)
+  - [cv::Matx44d::ones](#cvmatx44dones)
+  - [cv::Matx44d::put\_Item](#cvmatx44dput%5C_item)
+  - [cv::Matx44d::randn](#cvmatx44drandn)
+  - [cv::Matx44d::randu](#cvmatx44drandu)
+  - [cv::Matx44d::zeros](#cvmatx44dzeros)
 - [cv::Range](#cvrange)
   - [Range.start](#rangestart)
   - [Range.end](#rangeend)
@@ -6030,6 +6743,28 @@
   - [VectorOfVectorOfKeyPoint::sort](#vectorofvectorofkeypointsort)
   - [VectorOfVectorOfKeyPoint::sort\_variant](#vectorofvectorofkeypointsort%5C_variant)
   - [VectorOfVectorOfKeyPoint::start](#vectorofvectorofkeypointstart)
+- [VectorOfVideoCapture](#vectorofvideocapture)
+  - [VectorOfVideoCapture.Count](#vectorofvideocapturecount)
+  - [VectorOfVideoCapture::create](#vectorofvideocapturecreate)
+  - [VectorOfVideoCapture::Add](#vectorofvideocaptureadd)
+  - [VectorOfVideoCapture::Items](#vectorofvideocaptureitems)
+  - [VectorOfVideoCapture::Keys](#vectorofvideocapturekeys)
+  - [VectorOfVideoCapture::Remove](#vectorofvideocaptureremove)
+  - [VectorOfVideoCapture::append](#vectorofvideocaptureappend)
+  - [VectorOfVideoCapture::at](#vectorofvideocaptureat)
+  - [VectorOfVideoCapture::clear](#vectorofvideocaptureclear)
+  - [VectorOfVideoCapture::empty](#vectorofvideocaptureempty)
+  - [VectorOfVideoCapture::end](#vectorofvideocaptureend)
+  - [VectorOfVideoCapture::get\_Item](#vectorofvideocaptureget%5C_item)
+  - [VectorOfVideoCapture::get\_\_NewEnum](#vectorofvideocaptureget%5C_%5C_newenum)
+  - [VectorOfVideoCapture::push\_back](#vectorofvideocapturepush%5C_back)
+  - [VectorOfVideoCapture::push\_vector](#vectorofvideocapturepush%5C_vector)
+  - [VectorOfVideoCapture::put\_Item](#vectorofvideocaptureput%5C_item)
+  - [VectorOfVideoCapture::size](#vectorofvideocapturesize)
+  - [VectorOfVideoCapture::slice](#vectorofvideocaptureslice)
+  - [VectorOfVideoCapture::sort](#vectorofvideocapturesort)
+  - [VectorOfVideoCapture::sort\_variant](#vectorofvideocapturesort%5C_variant)
+  - [VectorOfVideoCapture::start](#vectorofvideocapturestart)
 - [VectorOfVideoCaptureAPIs](#vectorofvideocaptureapis)
   - [VectorOfVideoCaptureAPIs.Count](#vectorofvideocaptureapiscount)
   - [VectorOfVideoCaptureAPIs::create](#vectorofvideocaptureapiscreate)
@@ -6052,6 +6787,50 @@
   - [VectorOfVideoCaptureAPIs::sort](#vectorofvideocaptureapissort)
   - [VectorOfVideoCaptureAPIs::sort\_variant](#vectorofvideocaptureapissort%5C_variant)
   - [VectorOfVideoCaptureAPIs::start](#vectorofvideocaptureapisstart)
+- [VectorOfPoint3f](#vectorofpoint3f)
+  - [VectorOfPoint3f.Count](#vectorofpoint3fcount)
+  - [VectorOfPoint3f::create](#vectorofpoint3fcreate)
+  - [VectorOfPoint3f::Add](#vectorofpoint3fadd)
+  - [VectorOfPoint3f::Items](#vectorofpoint3fitems)
+  - [VectorOfPoint3f::Keys](#vectorofpoint3fkeys)
+  - [VectorOfPoint3f::Remove](#vectorofpoint3fremove)
+  - [VectorOfPoint3f::append](#vectorofpoint3fappend)
+  - [VectorOfPoint3f::at](#vectorofpoint3fat)
+  - [VectorOfPoint3f::clear](#vectorofpoint3fclear)
+  - [VectorOfPoint3f::empty](#vectorofpoint3fempty)
+  - [VectorOfPoint3f::end](#vectorofpoint3fend)
+  - [VectorOfPoint3f::get\_Item](#vectorofpoint3fget%5C_item)
+  - [VectorOfPoint3f::get\_\_NewEnum](#vectorofpoint3fget%5C_%5C_newenum)
+  - [VectorOfPoint3f::push\_back](#vectorofpoint3fpush%5C_back)
+  - [VectorOfPoint3f::push\_vector](#vectorofpoint3fpush%5C_vector)
+  - [VectorOfPoint3f::put\_Item](#vectorofpoint3fput%5C_item)
+  - [VectorOfPoint3f::size](#vectorofpoint3fsize)
+  - [VectorOfPoint3f::slice](#vectorofpoint3fslice)
+  - [VectorOfPoint3f::sort](#vectorofpoint3fsort)
+  - [VectorOfPoint3f::sort\_variant](#vectorofpoint3fsort%5C_variant)
+  - [VectorOfPoint3f::start](#vectorofpoint3fstart)
+- [VectorOfVectorOfPoint3f](#vectorofvectorofpoint3f)
+  - [VectorOfVectorOfPoint3f.Count](#vectorofvectorofpoint3fcount)
+  - [VectorOfVectorOfPoint3f::create](#vectorofvectorofpoint3fcreate)
+  - [VectorOfVectorOfPoint3f::Add](#vectorofvectorofpoint3fadd)
+  - [VectorOfVectorOfPoint3f::Items](#vectorofvectorofpoint3fitems)
+  - [VectorOfVectorOfPoint3f::Keys](#vectorofvectorofpoint3fkeys)
+  - [VectorOfVectorOfPoint3f::Remove](#vectorofvectorofpoint3fremove)
+  - [VectorOfVectorOfPoint3f::append](#vectorofvectorofpoint3fappend)
+  - [VectorOfVectorOfPoint3f::at](#vectorofvectorofpoint3fat)
+  - [VectorOfVectorOfPoint3f::clear](#vectorofvectorofpoint3fclear)
+  - [VectorOfVectorOfPoint3f::empty](#vectorofvectorofpoint3fempty)
+  - [VectorOfVectorOfPoint3f::end](#vectorofvectorofpoint3fend)
+  - [VectorOfVectorOfPoint3f::get\_Item](#vectorofvectorofpoint3fget%5C_item)
+  - [VectorOfVectorOfPoint3f::get\_\_NewEnum](#vectorofvectorofpoint3fget%5C_%5C_newenum)
+  - [VectorOfVectorOfPoint3f::push\_back](#vectorofvectorofpoint3fpush%5C_back)
+  - [VectorOfVectorOfPoint3f::push\_vector](#vectorofvectorofpoint3fpush%5C_vector)
+  - [VectorOfVectorOfPoint3f::put\_Item](#vectorofvectorofpoint3fput%5C_item)
+  - [VectorOfVectorOfPoint3f::size](#vectorofvectorofpoint3fsize)
+  - [VectorOfVectorOfPoint3f::slice](#vectorofvectorofpoint3fslice)
+  - [VectorOfVectorOfPoint3f::sort](#vectorofvectorofpoint3fsort)
+  - [VectorOfVectorOfPoint3f::sort\_variant](#vectorofvectorofpoint3fsort%5C_variant)
+  - [VectorOfVectorOfPoint3f::start](#vectorofvectorofpoint3fstart)
 - [VectorOfDetail\_CameraParams](#vectorofdetail%5C_cameraparams)
   - [VectorOfDetail\_CameraParams.Count](#vectorofdetail%5C_cameraparamscount)
   - [VectorOfDetail\_CameraParams::create](#vectorofdetail%5C_cameraparamscreate)
@@ -6074,6 +6853,28 @@
   - [VectorOfDetail\_CameraParams::sort](#vectorofdetail%5C_cameraparamssort)
   - [VectorOfDetail\_CameraParams::sort\_variant](#vectorofdetail%5C_cameraparamssort%5C_variant)
   - [VectorOfDetail\_CameraParams::start](#vectorofdetail%5C_cameraparamsstart)
+- [VectorOfGMat](#vectorofgmat)
+  - [VectorOfGMat.Count](#vectorofgmatcount)
+  - [VectorOfGMat::create](#vectorofgmatcreate)
+  - [VectorOfGMat::Add](#vectorofgmatadd)
+  - [VectorOfGMat::Items](#vectorofgmatitems)
+  - [VectorOfGMat::Keys](#vectorofgmatkeys)
+  - [VectorOfGMat::Remove](#vectorofgmatremove)
+  - [VectorOfGMat::append](#vectorofgmatappend)
+  - [VectorOfGMat::at](#vectorofgmatat)
+  - [VectorOfGMat::clear](#vectorofgmatclear)
+  - [VectorOfGMat::empty](#vectorofgmatempty)
+  - [VectorOfGMat::end](#vectorofgmatend)
+  - [VectorOfGMat::get\_Item](#vectorofgmatget%5C_item)
+  - [VectorOfGMat::get\_\_NewEnum](#vectorofgmatget%5C_%5C_newenum)
+  - [VectorOfGMat::push\_back](#vectorofgmatpush%5C_back)
+  - [VectorOfGMat::push\_vector](#vectorofgmatpush%5C_vector)
+  - [VectorOfGMat::put\_Item](#vectorofgmatput%5C_item)
+  - [VectorOfGMat::size](#vectorofgmatsize)
+  - [VectorOfGMat::slice](#vectorofgmatslice)
+  - [VectorOfGMat::sort](#vectorofgmatsort)
+  - [VectorOfGMat::sort\_variant](#vectorofgmatsort%5C_variant)
+  - [VectorOfGMat::start](#vectorofgmatstart)
 - [VectorOfGCompileArg](#vectorofgcompilearg)
   - [VectorOfGCompileArg.Count](#vectorofgcompileargcount)
   - [VectorOfGCompileArg::create](#vectorofgcompileargcreate)
@@ -6189,6 +6990,998 @@
 
 ## cv
 
+### cv.parallel
+
+```cpp
+static cv::parallel
+AutoIt:
+    [propget] $ocv.parallel
+```
+
+### cv.enums
+
+```cpp
+static cv::enums
+AutoIt:
+    [propget] $ocv.enums
+```
+
+### cv.PCA
+
+```cpp
+static cv::PCA
+AutoIt:
+    [propget] $ocv.PCA
+```
+
+### cv.SVD
+
+```cpp
+static cv::SVD
+AutoIt:
+    [propget] $ocv.SVD
+```
+
+### cv.RNG
+
+```cpp
+static cv::RNG
+AutoIt:
+    [propget] $ocv.RNG
+```
+
+### cv.Formatter
+
+```cpp
+static cv::Formatter
+AutoIt:
+    [propget] $ocv.Formatter
+```
+
+### cv.Algorithm
+
+```cpp
+static cv::Algorithm
+AutoIt:
+    [propget] $ocv.Algorithm
+```
+
+### cv.Param
+
+```cpp
+static cv::Param
+AutoIt:
+    [propget] $ocv.Param
+```
+
+### cv.AsyncArray
+
+```cpp
+static cv::AsyncArray
+AutoIt:
+    [propget] $ocv.AsyncArray
+```
+
+### cv.Error
+
+```cpp
+static cv::Error
+AutoIt:
+    [propget] $ocv.Error
+```
+
+### cv.ipp
+
+```cpp
+static cv::ipp
+AutoIt:
+    [propget] $ocv.ipp
+```
+
+### cv.utils
+
+```cpp
+static cv::utils
+AutoIt:
+    [propget] $ocv.utils
+```
+
+### cv.detail
+
+```cpp
+static cv::detail
+AutoIt:
+    [propget] $ocv.detail
+```
+
+### cv.cuda
+
+```cpp
+static cv::cuda
+AutoIt:
+    [propget] $ocv.cuda
+```
+
+### cv.\_InputArray
+
+```cpp
+static cv::_InputArray
+AutoIt:
+    [propget] $ocv._InputArray
+```
+
+### cv.\_OutputArray
+
+```cpp
+static cv::_OutputArray
+AutoIt:
+    [propget] $ocv._OutputArray
+```
+
+### cv.UMatData
+
+```cpp
+static cv::UMatData
+AutoIt:
+    [propget] $ocv.UMatData
+```
+
+### cv.Mat
+
+```cpp
+static cv::Mat
+AutoIt:
+    [propget] $ocv.Mat
+```
+
+### cv.UMat
+
+```cpp
+static cv::UMat
+AutoIt:
+    [propget] $ocv.UMat
+```
+
+### cv.SparseMat
+
+```cpp
+static cv::SparseMat
+AutoIt:
+    [propget] $ocv.SparseMat
+```
+
+### cv.ocl
+
+```cpp
+static cv::ocl
+AutoIt:
+    [propget] $ocv.ocl
+```
+
+### cv.ogl
+
+```cpp
+static cv::ogl
+AutoIt:
+    [propget] $ocv.ogl
+```
+
+### cv.FileStorage
+
+```cpp
+static cv::FileStorage
+AutoIt:
+    [propget] $ocv.FileStorage
+```
+
+### cv.FileNode
+
+```cpp
+static cv::FileNode
+AutoIt:
+    [propget] $ocv.FileNode
+```
+
+### cv.QuatEnum
+
+```cpp
+static cv::QuatEnum
+AutoIt:
+    [propget] $ocv.QuatEnum
+```
+
+### cv.KeyPoint
+
+```cpp
+static cv::KeyPoint
+AutoIt:
+    [propget] $ocv.KeyPoint
+```
+
+### cv.DMatch
+
+```cpp
+static cv::DMatch
+AutoIt:
+    [propget] $ocv.DMatch
+```
+
+### cv.TermCriteria
+
+```cpp
+static cv::TermCriteria
+AutoIt:
+    [propget] $ocv.TermCriteria
+```
+
+### cv.TickMeter
+
+```cpp
+static cv::TickMeter
+AutoIt:
+    [propget] $ocv.TickMeter
+```
+
+### cv.samples
+
+```cpp
+static cv::samples
+AutoIt:
+    [propget] $ocv.samples
+```
+
+### cv.flann
+
+```cpp
+static cv::flann
+AutoIt:
+    [propget] $ocv.flann
+```
+
+### cv.GeneralizedHough
+
+```cpp
+static cv::GeneralizedHough
+AutoIt:
+    [propget] $ocv.GeneralizedHough
+```
+
+### cv.GeneralizedHoughBallard
+
+```cpp
+static cv::GeneralizedHoughBallard
+AutoIt:
+    [propget] $ocv.GeneralizedHoughBallard
+```
+
+### cv.GeneralizedHoughGuil
+
+```cpp
+static cv::GeneralizedHoughGuil
+AutoIt:
+    [propget] $ocv.GeneralizedHoughGuil
+```
+
+### cv.CLAHE
+
+```cpp
+static cv::CLAHE
+AutoIt:
+    [propget] $ocv.CLAHE
+```
+
+### cv.Subdiv2D
+
+```cpp
+static cv::Subdiv2D
+AutoIt:
+    [propget] $ocv.Subdiv2D
+```
+
+### cv.LineSegmentDetector
+
+```cpp
+static cv::LineSegmentDetector
+AutoIt:
+    [propget] $ocv.LineSegmentDetector
+```
+
+### cv.segmentation
+
+```cpp
+static cv::segmentation
+AutoIt:
+    [propget] $ocv.segmentation
+```
+
+### cv.ml
+
+```cpp
+static cv::ml
+AutoIt:
+    [propget] $ocv.ml
+```
+
+### cv.Tonemap
+
+```cpp
+static cv::Tonemap
+AutoIt:
+    [propget] $ocv.Tonemap
+```
+
+### cv.TonemapDrago
+
+```cpp
+static cv::TonemapDrago
+AutoIt:
+    [propget] $ocv.TonemapDrago
+```
+
+### cv.TonemapReinhard
+
+```cpp
+static cv::TonemapReinhard
+AutoIt:
+    [propget] $ocv.TonemapReinhard
+```
+
+### cv.TonemapMantiuk
+
+```cpp
+static cv::TonemapMantiuk
+AutoIt:
+    [propget] $ocv.TonemapMantiuk
+```
+
+### cv.AlignExposures
+
+```cpp
+static cv::AlignExposures
+AutoIt:
+    [propget] $ocv.AlignExposures
+```
+
+### cv.AlignMTB
+
+```cpp
+static cv::AlignMTB
+AutoIt:
+    [propget] $ocv.AlignMTB
+```
+
+### cv.CalibrateCRF
+
+```cpp
+static cv::CalibrateCRF
+AutoIt:
+    [propget] $ocv.CalibrateCRF
+```
+
+### cv.CalibrateDebevec
+
+```cpp
+static cv::CalibrateDebevec
+AutoIt:
+    [propget] $ocv.CalibrateDebevec
+```
+
+### cv.CalibrateRobertson
+
+```cpp
+static cv::CalibrateRobertson
+AutoIt:
+    [propget] $ocv.CalibrateRobertson
+```
+
+### cv.MergeExposures
+
+```cpp
+static cv::MergeExposures
+AutoIt:
+    [propget] $ocv.MergeExposures
+```
+
+### cv.MergeDebevec
+
+```cpp
+static cv::MergeDebevec
+AutoIt:
+    [propget] $ocv.MergeDebevec
+```
+
+### cv.MergeMertens
+
+```cpp
+static cv::MergeMertens
+AutoIt:
+    [propget] $ocv.MergeMertens
+```
+
+### cv.MergeRobertson
+
+```cpp
+static cv::MergeRobertson
+AutoIt:
+    [propget] $ocv.MergeRobertson
+```
+
+### cv.dnn
+
+```cpp
+static cv::dnn
+AutoIt:
+    [propget] $ocv.dnn
+```
+
+### cv.Feature2D
+
+```cpp
+static cv::Feature2D
+AutoIt:
+    [propget] $ocv.Feature2D
+```
+
+### cv.AffineFeature
+
+```cpp
+static cv::AffineFeature
+AutoIt:
+    [propget] $ocv.AffineFeature
+```
+
+### cv.SIFT
+
+```cpp
+static cv::SIFT
+AutoIt:
+    [propget] $ocv.SIFT
+```
+
+### cv.BRISK
+
+```cpp
+static cv::BRISK
+AutoIt:
+    [propget] $ocv.BRISK
+```
+
+### cv.ORB
+
+```cpp
+static cv::ORB
+AutoIt:
+    [propget] $ocv.ORB
+```
+
+### cv.MSER
+
+```cpp
+static cv::MSER
+AutoIt:
+    [propget] $ocv.MSER
+```
+
+### cv.FastFeatureDetector
+
+```cpp
+static cv::FastFeatureDetector
+AutoIt:
+    [propget] $ocv.FastFeatureDetector
+```
+
+### cv.AgastFeatureDetector
+
+```cpp
+static cv::AgastFeatureDetector
+AutoIt:
+    [propget] $ocv.AgastFeatureDetector
+```
+
+### cv.GFTTDetector
+
+```cpp
+static cv::GFTTDetector
+AutoIt:
+    [propget] $ocv.GFTTDetector
+```
+
+### cv.SimpleBlobDetector
+
+```cpp
+static cv::SimpleBlobDetector
+AutoIt:
+    [propget] $ocv.SimpleBlobDetector
+```
+
+### cv.KAZE
+
+```cpp
+static cv::KAZE
+AutoIt:
+    [propget] $ocv.KAZE
+```
+
+### cv.AKAZE
+
+```cpp
+static cv::AKAZE
+AutoIt:
+    [propget] $ocv.AKAZE
+```
+
+### cv.DescriptorMatcher
+
+```cpp
+static cv::DescriptorMatcher
+AutoIt:
+    [propget] $ocv.DescriptorMatcher
+```
+
+### cv.BFMatcher
+
+```cpp
+static cv::BFMatcher
+AutoIt:
+    [propget] $ocv.BFMatcher
+```
+
+### cv.FlannBasedMatcher
+
+```cpp
+static cv::FlannBasedMatcher
+AutoIt:
+    [propget] $ocv.FlannBasedMatcher
+```
+
+### cv.DrawMatchesFlags
+
+```cpp
+static cv::DrawMatchesFlags
+AutoIt:
+    [propget] $ocv.DrawMatchesFlags
+```
+
+### cv.BOWTrainer
+
+```cpp
+static cv::BOWTrainer
+AutoIt:
+    [propget] $ocv.BOWTrainer
+```
+
+### cv.BOWKMeansTrainer
+
+```cpp
+static cv::BOWKMeansTrainer
+AutoIt:
+    [propget] $ocv.BOWKMeansTrainer
+```
+
+### cv.BOWImgDescriptorExtractor
+
+```cpp
+static cv::BOWImgDescriptorExtractor
+AutoIt:
+    [propget] $ocv.BOWImgDescriptorExtractor
+```
+
+### cv.VideoCapture
+
+```cpp
+static cv::VideoCapture
+AutoIt:
+    [propget] $ocv.VideoCapture
+```
+
+### cv.VideoWriter
+
+```cpp
+static cv::VideoWriter
+AutoIt:
+    [propget] $ocv.VideoWriter
+```
+
+### cv.videoio\_registry
+
+```cpp
+static cv::videoio_registry
+AutoIt:
+    [propget] $ocv.videoio_registry
+```
+
+### cv.UsacParams
+
+```cpp
+static cv::UsacParams
+AutoIt:
+    [propget] $ocv.UsacParams
+```
+
+### cv.CirclesGridFinderParameters
+
+```cpp
+static cv::CirclesGridFinderParameters
+AutoIt:
+    [propget] $ocv.CirclesGridFinderParameters
+```
+
+### cv.StereoMatcher
+
+```cpp
+static cv::StereoMatcher
+AutoIt:
+    [propget] $ocv.StereoMatcher
+```
+
+### cv.StereoBM
+
+```cpp
+static cv::StereoBM
+AutoIt:
+    [propget] $ocv.StereoBM
+```
+
+### cv.StereoSGBM
+
+```cpp
+static cv::StereoSGBM
+AutoIt:
+    [propget] $ocv.StereoSGBM
+```
+
+### cv.fisheye
+
+```cpp
+static cv::fisheye
+AutoIt:
+    [propget] $ocv.fisheye
+```
+
+### cv.BaseCascadeClassifier
+
+```cpp
+static cv::BaseCascadeClassifier
+AutoIt:
+    [propget] $ocv.BaseCascadeClassifier
+```
+
+### cv.CascadeClassifier
+
+```cpp
+static cv::CascadeClassifier
+AutoIt:
+    [propget] $ocv.CascadeClassifier
+```
+
+### cv.HOGDescriptor
+
+```cpp
+static cv::HOGDescriptor
+AutoIt:
+    [propget] $ocv.HOGDescriptor
+```
+
+### cv.QRCodeEncoder
+
+```cpp
+static cv::QRCodeEncoder
+AutoIt:
+    [propget] $ocv.QRCodeEncoder
+```
+
+### cv.QRCodeDetector
+
+```cpp
+static cv::QRCodeDetector
+AutoIt:
+    [propget] $ocv.QRCodeDetector
+```
+
+### cv.aruco
+
+```cpp
+static cv::aruco
+AutoIt:
+    [propget] $ocv.aruco
+```
+
+### cv.FaceDetectorYN
+
+```cpp
+static cv::FaceDetectorYN
+AutoIt:
+    [propget] $ocv.FaceDetectorYN
+```
+
+### cv.FaceRecognizerSF
+
+```cpp
+static cv::FaceRecognizerSF
+AutoIt:
+    [propget] $ocv.FaceRecognizerSF
+```
+
+### cv.Stitcher
+
+```cpp
+static cv::Stitcher
+AutoIt:
+    [propget] $ocv.Stitcher
+```
+
+### cv.PyRotationWarper
+
+```cpp
+static cv::PyRotationWarper
+AutoIt:
+    [propget] $ocv.PyRotationWarper
+```
+
+### cv.WarperCreator
+
+```cpp
+static cv::WarperCreator
+AutoIt:
+    [propget] $ocv.WarperCreator
+```
+
+### cv.BackgroundSubtractor
+
+```cpp
+static cv::BackgroundSubtractor
+AutoIt:
+    [propget] $ocv.BackgroundSubtractor
+```
+
+### cv.BackgroundSubtractorMOG2
+
+```cpp
+static cv::BackgroundSubtractorMOG2
+AutoIt:
+    [propget] $ocv.BackgroundSubtractorMOG2
+```
+
+### cv.BackgroundSubtractorKNN
+
+```cpp
+static cv::BackgroundSubtractorKNN
+AutoIt:
+    [propget] $ocv.BackgroundSubtractorKNN
+```
+
+### cv.KalmanFilter
+
+```cpp
+static cv::KalmanFilter
+AutoIt:
+    [propget] $ocv.KalmanFilter
+```
+
+### cv.DenseOpticalFlow
+
+```cpp
+static cv::DenseOpticalFlow
+AutoIt:
+    [propget] $ocv.DenseOpticalFlow
+```
+
+### cv.SparseOpticalFlow
+
+```cpp
+static cv::SparseOpticalFlow
+AutoIt:
+    [propget] $ocv.SparseOpticalFlow
+```
+
+### cv.FarnebackOpticalFlow
+
+```cpp
+static cv::FarnebackOpticalFlow
+AutoIt:
+    [propget] $ocv.FarnebackOpticalFlow
+```
+
+### cv.VariationalRefinement
+
+```cpp
+static cv::VariationalRefinement
+AutoIt:
+    [propget] $ocv.VariationalRefinement
+```
+
+### cv.DISOpticalFlow
+
+```cpp
+static cv::DISOpticalFlow
+AutoIt:
+    [propget] $ocv.DISOpticalFlow
+```
+
+### cv.SparsePyrLKOpticalFlow
+
+```cpp
+static cv::SparsePyrLKOpticalFlow
+AutoIt:
+    [propget] $ocv.SparsePyrLKOpticalFlow
+```
+
+### cv.Tracker
+
+```cpp
+static cv::Tracker
+AutoIt:
+    [propget] $ocv.Tracker
+```
+
+### cv.TrackerMIL
+
+```cpp
+static cv::TrackerMIL
+AutoIt:
+    [propget] $ocv.TrackerMIL
+```
+
+### cv.TrackerGOTURN
+
+```cpp
+static cv::TrackerGOTURN
+AutoIt:
+    [propget] $ocv.TrackerGOTURN
+```
+
+### cv.TrackerDaSiamRPN
+
+```cpp
+static cv::TrackerDaSiamRPN
+AutoIt:
+    [propget] $ocv.TrackerDaSiamRPN
+```
+
+### cv.TrackerNano
+
+```cpp
+static cv::TrackerNano
+AutoIt:
+    [propget] $ocv.TrackerNano
+```
+
+### cv.gapi
+
+```cpp
+static cv::gapi
+AutoIt:
+    [propget] $ocv.gapi
+```
+
+### cv.GFluidKernel
+
+```cpp
+static cv::GFluidKernel
+AutoIt:
+    [propget] $ocv.GFluidKernel
+```
+
+### cv.GArrayDesc
+
+```cpp
+static cv::GArrayDesc
+AutoIt:
+    [propget] $ocv.GArrayDesc
+```
+
+### cv.GShape
+
+```cpp
+static cv::GShape
+AutoIt:
+    [propget] $ocv.GShape
+```
+
+### cv.GComputation
+
+```cpp
+static cv::GComputation
+AutoIt:
+    [propget] $ocv.GComputation
+```
+
+### cv.GFrame
+
+```cpp
+static cv::GFrame
+AutoIt:
+    [propget] $ocv.GFrame
+```
+
+### cv.MediaFormat
+
+```cpp
+static cv::MediaFormat
+AutoIt:
+    [propget] $ocv.MediaFormat
+```
+
+### cv.GKernelPackage
+
+```cpp
+static cv::GKernelPackage
+AutoIt:
+    [propget] $ocv.GKernelPackage
+```
+
+### cv.GMat
+
+```cpp
+static cv::GMat
+AutoIt:
+    [propget] $ocv.GMat
+```
+
+### cv.GMatDesc
+
+```cpp
+static cv::GMatDesc
+AutoIt:
+    [propget] $ocv.GMatDesc
+```
+
+### cv.GOpaqueDesc
+
+```cpp
+static cv::GOpaqueDesc
+AutoIt:
+    [propget] $ocv.GOpaqueDesc
+```
+
+### cv.GScalar
+
+```cpp
+static cv::GScalar
+AutoIt:
+    [propget] $ocv.GScalar
+```
+
+### cv.GScalarDesc
+
+```cpp
+static cv::GScalarDesc
+AutoIt:
+    [propget] $ocv.GScalarDesc
+```
+
+### cv.GStreamingCompiled
+
+```cpp
+static cv::GStreamingCompiled
+AutoIt:
+    [propget] $ocv.GStreamingCompiled
+```
+
+### cv.MediaFrame
+
+```cpp
+static cv::MediaFrame
+AutoIt:
+    [propget] $ocv.MediaFrame
+```
+
+### cv.RMat
+
+```cpp
+static cv::RMat
+AutoIt:
+    [propget] $ocv.RMat
+```
+
+### cv.wgc
+
+```cpp
+static cv::wgc
+AutoIt:
+    [propget] $ocv.wgc
+```
+
 ### cv.extended
 
 ```cpp
@@ -6200,9 +7993,89 @@ AutoIt:
 ### cv.core
 
 ```cpp
-static cv::core cv::this
+static cv::core
 AutoIt:
     [propget] $ocv.core
+```
+
+### cv.Matx33f
+
+```cpp
+static cv::Matx33f
+AutoIt:
+    [propget] $ocv.Matx33f
+```
+
+### cv.Matx33d
+
+```cpp
+static cv::Matx33d
+AutoIt:
+    [propget] $ocv.Matx33d
+```
+
+### cv.Matx44f
+
+```cpp
+static cv::Matx44f
+AutoIt:
+    [propget] $ocv.Matx44f
+```
+
+### cv.Matx44d
+
+```cpp
+static cv::Matx44d
+AutoIt:
+    [propget] $ocv.Matx44d
+```
+
+### cv.Range
+
+```cpp
+static cv::Range
+AutoIt:
+    [propget] $ocv.Range
+```
+
+### cv.RotatedRect
+
+```cpp
+static cv::RotatedRect
+AutoIt:
+    [propget] $ocv.RotatedRect
+```
+
+### cv.GCompileArg
+
+```cpp
+static cv::GCompileArg
+AutoIt:
+    [propget] $ocv.GCompileArg
+```
+
+### cv.GRunArg
+
+```cpp
+static cv::GRunArg
+AutoIt:
+    [propget] $ocv.GRunArg
+```
+
+### cv.GProtoInputArgs
+
+```cpp
+static cv::GProtoInputArgs
+AutoIt:
+    [propget] $ocv.GProtoInputArgs
+```
+
+### cv.GProtoOutputArgs
+
+```cpp
+static cv::GProtoOutputArgs
+AutoIt:
+    [propget] $ocv.GProtoOutputArgs
 ```
 
 ### cv::CamShift
@@ -8613,6 +10486,16 @@ AutoIt:
     _OpenCV_ObjCreate("cv").flip( $src, $flipCode[, $dst] ) -> $dst
 ```
 
+### cv::flipND
+
+```cpp
+void cv::flipND( InputArray  src,
+                 OutputArray dst,
+                 int         axis );
+AutoIt:
+    _OpenCV_ObjCreate("cv").flipND( $src, $axis[, $dst] ) -> $dst
+```
+
 ### cv::floodFill
 
 ```cpp
@@ -9100,6 +10983,16 @@ cv::Mat cv::imdecode( InputArray buf,
                       int        flags );
 AutoIt:
     _OpenCV_ObjCreate("cv").imdecode( $buf, $flags ) -> retval
+```
+
+### cv::imdecodemulti
+
+```cpp
+bool cv::imdecodemulti( InputArray            buf,
+                        int                   flags,
+                        std::vector<cv::Mat>& mats );
+AutoIt:
+    _OpenCV_ObjCreate("cv").imdecodemulti( $buf, $flags[, $mats] ) -> retval, $mats
 ```
 
 ### cv::imencode
@@ -10044,6 +11937,15 @@ AutoIt:
     _OpenCV_ObjCreate("cv").rectangle( $img, $rec, $color[, $thickness[, $lineType[, $shift]]] ) -> $img
 ```
 
+### cv::rectangleIntersectionArea
+
+```cpp
+double cv::rectangleIntersectionArea( const cv::Rect2d& a,
+                                      const cv::Rect2d& b );
+AutoIt:
+    _OpenCV_ObjCreate("cv").rectangleIntersectionArea( $a, $b ) -> retval
+```
+
 ### cv::rectify3Collinear
 
 ```cpp
@@ -10601,6 +12503,16 @@ AutoIt:
     _OpenCV_ObjCreate("cv").sqrt( $src[, $dst] ) -> $dst
 ```
 
+### cv::stackBlur
+
+```cpp
+void cv::stackBlur( InputArray  src,
+                    OutputArray dst,
+                    cv::Size    ksize );
+AutoIt:
+    _OpenCV_ObjCreate("cv").stackBlur( $src, $ksize[, $dst] ) -> $dst
+```
+
 ### cv::startWindowThread
 
 ```cpp
@@ -10630,26 +12542,48 @@ AutoIt:
     _OpenCV_ObjCreate("cv").stereoCalibrate( $objectPoints, $imagePoints1, $imagePoints2, $cameraMatrix1, $distCoeffs1, $cameraMatrix2, $distCoeffs2, $imageSize[, $R[, $T[, $E[, $F[, $flags[, $criteria]]]]]] ) -> retval, $cameraMatrix1, $distCoeffs1, $cameraMatrix2, $distCoeffs2, $R, $T, $E, $F
 ```
 
+```cpp
+double cv::stereoCalibrate( InputArrayOfArrays objectPoints,
+                            InputArrayOfArrays imagePoints1,
+                            InputArrayOfArrays imagePoints2,
+                            InputOutputArray   cameraMatrix1,
+                            InputOutputArray   distCoeffs1,
+                            InputOutputArray   cameraMatrix2,
+                            InputOutputArray   distCoeffs2,
+                            cv::Size           imageSize,
+                            InputOutputArray   R,
+                            InputOutputArray   T,
+                            OutputArray        E,
+                            OutputArray        F,
+                            OutputArray        perViewErrors,
+                            int                flags = CALIB_FIX_INTRINSIC,
+                            cv::TermCriteria   criteria = TermCriteria(TermCriteria::COUNT+TermCriteria::EPS, 30, 1e-6) );
+AutoIt:
+    _OpenCV_ObjCreate("cv").stereoCalibrate( $objectPoints, $imagePoints1, $imagePoints2, $cameraMatrix1, $distCoeffs1, $cameraMatrix2, $distCoeffs2, $imageSize, $R, $T[, $E[, $F[, $perViewErrors[, $flags[, $criteria]]]]] ) -> retval, $cameraMatrix1, $distCoeffs1, $cameraMatrix2, $distCoeffs2, $R, $T, $E, $F, $perViewErrors
+```
+
 ### cv::stereoCalibrateExtended
 
 ```cpp
-double cv::stereoCalibrateExtended( InputArrayOfArrays objectPoints,
-                                    InputArrayOfArrays imagePoints1,
-                                    InputArrayOfArrays imagePoints2,
-                                    InputOutputArray   cameraMatrix1,
-                                    InputOutputArray   distCoeffs1,
-                                    InputOutputArray   cameraMatrix2,
-                                    InputOutputArray   distCoeffs2,
-                                    cv::Size           imageSize,
-                                    InputOutputArray   R,
-                                    InputOutputArray   T,
-                                    OutputArray        E,
-                                    OutputArray        F,
-                                    OutputArray        perViewErrors,
-                                    int                flags = CALIB_FIX_INTRINSIC,
-                                    cv::TermCriteria   criteria = TermCriteria(TermCriteria::COUNT+TermCriteria::EPS, 30, 1e-6) );
+double cv::stereoCalibrateExtended( InputArrayOfArrays  objectPoints,
+                                    InputArrayOfArrays  imagePoints1,
+                                    InputArrayOfArrays  imagePoints2,
+                                    InputOutputArray    cameraMatrix1,
+                                    InputOutputArray    distCoeffs1,
+                                    InputOutputArray    cameraMatrix2,
+                                    InputOutputArray    distCoeffs2,
+                                    cv::Size            imageSize,
+                                    InputOutputArray    R,
+                                    InputOutputArray    T,
+                                    OutputArray         E,
+                                    OutputArray         F,
+                                    OutputArrayOfArrays rvecs,
+                                    OutputArrayOfArrays tvecs,
+                                    OutputArray         perViewErrors,
+                                    int                 flags = CALIB_FIX_INTRINSIC,
+                                    cv::TermCriteria    criteria = TermCriteria(TermCriteria::COUNT+TermCriteria::EPS, 30, 1e-6) );
 AutoIt:
-    _OpenCV_ObjCreate("cv").stereoCalibrateExtended( $objectPoints, $imagePoints1, $imagePoints2, $cameraMatrix1, $distCoeffs1, $cameraMatrix2, $distCoeffs2, $imageSize, $R, $T[, $E[, $F[, $perViewErrors[, $flags[, $criteria]]]]] ) -> retval, $cameraMatrix1, $distCoeffs1, $cameraMatrix2, $distCoeffs2, $R, $T, $E, $F, $perViewErrors
+    _OpenCV_ObjCreate("cv").stereoCalibrateExtended( $objectPoints, $imagePoints1, $imagePoints2, $cameraMatrix1, $distCoeffs1, $cameraMatrix2, $distCoeffs2, $imageSize, $R, $T[, $E[, $F[, $rvecs[, $tvecs[, $perViewErrors[, $flags[, $criteria]]]]]]] ) -> retval, $cameraMatrix1, $distCoeffs1, $cameraMatrix2, $distCoeffs2, $R, $T, $E, $F, $rvecs, $tvecs, $perViewErrors
 ```
 
 ### cv::stereoRectify
@@ -10966,8382 +12900,6 @@ AutoIt:
     _OpenCV_ObjCreate("cv").writeOpticalFlow( $path, $flow ) -> retval
 ```
 
-### cv.SORT\_EVERY\_ROW\_
-
-```cpp
-static int cv::SORT_EVERY_ROW
-AutoIt:
-    [propget] $ocv.SORT_EVERY_ROW_
-```
-
-### cv.SORT\_EVERY\_COLUMN\_
-
-```cpp
-static int cv::SORT_EVERY_COLUMN
-AutoIt:
-    [propget] $ocv.SORT_EVERY_COLUMN_
-```
-
-### cv.SORT\_ASCENDING\_
-
-```cpp
-static int cv::SORT_ASCENDING
-AutoIt:
-    [propget] $ocv.SORT_ASCENDING_
-```
-
-### cv.SORT\_DESCENDING\_
-
-```cpp
-static int cv::SORT_DESCENDING
-AutoIt:
-    [propget] $ocv.SORT_DESCENDING_
-```
-
-### cv.COVAR\_SCRAMBLED\_
-
-```cpp
-static int cv::COVAR_SCRAMBLED
-AutoIt:
-    [propget] $ocv.COVAR_SCRAMBLED_
-```
-
-### cv.COVAR\_NORMAL\_
-
-```cpp
-static int cv::COVAR_NORMAL
-AutoIt:
-    [propget] $ocv.COVAR_NORMAL_
-```
-
-### cv.COVAR\_USE\_AVG\_
-
-```cpp
-static int cv::COVAR_USE_AVG
-AutoIt:
-    [propget] $ocv.COVAR_USE_AVG_
-```
-
-### cv.COVAR\_SCALE\_
-
-```cpp
-static int cv::COVAR_SCALE
-AutoIt:
-    [propget] $ocv.COVAR_SCALE_
-```
-
-### cv.COVAR\_ROWS\_
-
-```cpp
-static int cv::COVAR_ROWS
-AutoIt:
-    [propget] $ocv.COVAR_ROWS_
-```
-
-### cv.COVAR\_COLS\_
-
-```cpp
-static int cv::COVAR_COLS
-AutoIt:
-    [propget] $ocv.COVAR_COLS_
-```
-
-### cv.KMEANS\_RANDOM\_CENTERS\_
-
-```cpp
-static int cv::KMEANS_RANDOM_CENTERS
-AutoIt:
-    [propget] $ocv.KMEANS_RANDOM_CENTERS_
-```
-
-### cv.KMEANS\_PP\_CENTERS\_
-
-```cpp
-static int cv::KMEANS_PP_CENTERS
-AutoIt:
-    [propget] $ocv.KMEANS_PP_CENTERS_
-```
-
-### cv.KMEANS\_USE\_INITIAL\_LABELS\_
-
-```cpp
-static int cv::KMEANS_USE_INITIAL_LABELS
-AutoIt:
-    [propget] $ocv.KMEANS_USE_INITIAL_LABELS_
-```
-
-### cv.REDUCE\_SUM\_
-
-```cpp
-static int cv::REDUCE_SUM
-AutoIt:
-    [propget] $ocv.REDUCE_SUM_
-```
-
-### cv.REDUCE\_AVG\_
-
-```cpp
-static int cv::REDUCE_AVG
-AutoIt:
-    [propget] $ocv.REDUCE_AVG_
-```
-
-### cv.REDUCE\_MAX\_
-
-```cpp
-static int cv::REDUCE_MAX
-AutoIt:
-    [propget] $ocv.REDUCE_MAX_
-```
-
-### cv.REDUCE\_MIN\_
-
-```cpp
-static int cv::REDUCE_MIN
-AutoIt:
-    [propget] $ocv.REDUCE_MIN_
-```
-
-### cv.ROTATE\_90\_CLOCKWISE\_
-
-```cpp
-static int cv::ROTATE_90_CLOCKWISE
-AutoIt:
-    [propget] $ocv.ROTATE_90_CLOCKWISE_
-```
-
-### cv.ROTATE\_180\_
-
-```cpp
-static int cv::ROTATE_180
-AutoIt:
-    [propget] $ocv.ROTATE_180_
-```
-
-### cv.ROTATE\_90\_COUNTERCLOCKWISE\_
-
-```cpp
-static int cv::ROTATE_90_COUNTERCLOCKWISE
-AutoIt:
-    [propget] $ocv.ROTATE_90_COUNTERCLOCKWISE_
-```
-
-### cv.DECOMP\_LU\_
-
-```cpp
-static int cv::DECOMP_LU
-AutoIt:
-    [propget] $ocv.DECOMP_LU_
-```
-
-### cv.DECOMP\_SVD\_
-
-```cpp
-static int cv::DECOMP_SVD
-AutoIt:
-    [propget] $ocv.DECOMP_SVD_
-```
-
-### cv.DECOMP\_EIG\_
-
-```cpp
-static int cv::DECOMP_EIG
-AutoIt:
-    [propget] $ocv.DECOMP_EIG_
-```
-
-### cv.DECOMP\_CHOLESKY\_
-
-```cpp
-static int cv::DECOMP_CHOLESKY
-AutoIt:
-    [propget] $ocv.DECOMP_CHOLESKY_
-```
-
-### cv.DECOMP\_QR\_
-
-```cpp
-static int cv::DECOMP_QR
-AutoIt:
-    [propget] $ocv.DECOMP_QR_
-```
-
-### cv.DECOMP\_NORMAL\_
-
-```cpp
-static int cv::DECOMP_NORMAL
-AutoIt:
-    [propget] $ocv.DECOMP_NORMAL_
-```
-
-### cv.NORM\_INF\_
-
-```cpp
-static int cv::NORM_INF
-AutoIt:
-    [propget] $ocv.NORM_INF_
-```
-
-### cv.NORM\_L1\_
-
-```cpp
-static int cv::NORM_L1
-AutoIt:
-    [propget] $ocv.NORM_L1_
-```
-
-### cv.NORM\_L2\_
-
-```cpp
-static int cv::NORM_L2
-AutoIt:
-    [propget] $ocv.NORM_L2_
-```
-
-### cv.NORM\_L2SQR\_
-
-```cpp
-static int cv::NORM_L2SQR
-AutoIt:
-    [propget] $ocv.NORM_L2SQR_
-```
-
-### cv.NORM\_HAMMING\_
-
-```cpp
-static int cv::NORM_HAMMING
-AutoIt:
-    [propget] $ocv.NORM_HAMMING_
-```
-
-### cv.NORM\_HAMMING2\_
-
-```cpp
-static int cv::NORM_HAMMING2
-AutoIt:
-    [propget] $ocv.NORM_HAMMING2_
-```
-
-### cv.NORM\_TYPE\_MASK\_
-
-```cpp
-static int cv::NORM_TYPE_MASK
-AutoIt:
-    [propget] $ocv.NORM_TYPE_MASK_
-```
-
-### cv.NORM\_RELATIVE\_
-
-```cpp
-static int cv::NORM_RELATIVE
-AutoIt:
-    [propget] $ocv.NORM_RELATIVE_
-```
-
-### cv.NORM\_MINMAX\_
-
-```cpp
-static int cv::NORM_MINMAX
-AutoIt:
-    [propget] $ocv.NORM_MINMAX_
-```
-
-### cv.CMP\_EQ\_
-
-```cpp
-static int cv::CMP_EQ
-AutoIt:
-    [propget] $ocv.CMP_EQ_
-```
-
-### cv.CMP\_GT\_
-
-```cpp
-static int cv::CMP_GT
-AutoIt:
-    [propget] $ocv.CMP_GT_
-```
-
-### cv.CMP\_GE\_
-
-```cpp
-static int cv::CMP_GE
-AutoIt:
-    [propget] $ocv.CMP_GE_
-```
-
-### cv.CMP\_LT\_
-
-```cpp
-static int cv::CMP_LT
-AutoIt:
-    [propget] $ocv.CMP_LT_
-```
-
-### cv.CMP\_LE\_
-
-```cpp
-static int cv::CMP_LE
-AutoIt:
-    [propget] $ocv.CMP_LE_
-```
-
-### cv.CMP\_NE\_
-
-```cpp
-static int cv::CMP_NE
-AutoIt:
-    [propget] $ocv.CMP_NE_
-```
-
-### cv.GEMM\_1\_T\_
-
-```cpp
-static int cv::GEMM_1_T
-AutoIt:
-    [propget] $ocv.GEMM_1_T_
-```
-
-### cv.GEMM\_2\_T\_
-
-```cpp
-static int cv::GEMM_2_T
-AutoIt:
-    [propget] $ocv.GEMM_2_T_
-```
-
-### cv.GEMM\_3\_T\_
-
-```cpp
-static int cv::GEMM_3_T
-AutoIt:
-    [propget] $ocv.GEMM_3_T_
-```
-
-### cv.DFT\_INVERSE\_
-
-```cpp
-static int cv::DFT_INVERSE
-AutoIt:
-    [propget] $ocv.DFT_INVERSE_
-```
-
-### cv.DFT\_SCALE\_
-
-```cpp
-static int cv::DFT_SCALE
-AutoIt:
-    [propget] $ocv.DFT_SCALE_
-```
-
-### cv.DFT\_ROWS\_
-
-```cpp
-static int cv::DFT_ROWS
-AutoIt:
-    [propget] $ocv.DFT_ROWS_
-```
-
-### cv.DFT\_COMPLEX\_OUTPUT\_
-
-```cpp
-static int cv::DFT_COMPLEX_OUTPUT
-AutoIt:
-    [propget] $ocv.DFT_COMPLEX_OUTPUT_
-```
-
-### cv.DFT\_REAL\_OUTPUT\_
-
-```cpp
-static int cv::DFT_REAL_OUTPUT
-AutoIt:
-    [propget] $ocv.DFT_REAL_OUTPUT_
-```
-
-### cv.DFT\_COMPLEX\_INPUT\_
-
-```cpp
-static int cv::DFT_COMPLEX_INPUT
-AutoIt:
-    [propget] $ocv.DFT_COMPLEX_INPUT_
-```
-
-### cv.DCT\_INVERSE\_
-
-```cpp
-static int cv::DCT_INVERSE
-AutoIt:
-    [propget] $ocv.DCT_INVERSE_
-```
-
-### cv.DCT\_ROWS\_
-
-```cpp
-static int cv::DCT_ROWS
-AutoIt:
-    [propget] $ocv.DCT_ROWS_
-```
-
-### cv.BORDER\_CONSTANT\_
-
-```cpp
-static int cv::BORDER_CONSTANT
-AutoIt:
-    [propget] $ocv.BORDER_CONSTANT_
-```
-
-### cv.BORDER\_REPLICATE\_
-
-```cpp
-static int cv::BORDER_REPLICATE
-AutoIt:
-    [propget] $ocv.BORDER_REPLICATE_
-```
-
-### cv.BORDER\_REFLECT\_
-
-```cpp
-static int cv::BORDER_REFLECT
-AutoIt:
-    [propget] $ocv.BORDER_REFLECT_
-```
-
-### cv.BORDER\_WRAP\_
-
-```cpp
-static int cv::BORDER_WRAP
-AutoIt:
-    [propget] $ocv.BORDER_WRAP_
-```
-
-### cv.BORDER\_REFLECT\_101\_
-
-```cpp
-static int cv::BORDER_REFLECT_101
-AutoIt:
-    [propget] $ocv.BORDER_REFLECT_101_
-```
-
-### cv.BORDER\_TRANSPARENT\_
-
-```cpp
-static int cv::BORDER_TRANSPARENT
-AutoIt:
-    [propget] $ocv.BORDER_TRANSPARENT_
-```
-
-### cv.BORDER\_REFLECT101\_
-
-```cpp
-static int cv::BORDER_REFLECT101
-AutoIt:
-    [propget] $ocv.BORDER_REFLECT101_
-```
-
-### cv.BORDER\_DEFAULT\_
-
-```cpp
-static int cv::BORDER_DEFAULT
-AutoIt:
-    [propget] $ocv.BORDER_DEFAULT_
-```
-
-### cv.BORDER\_ISOLATED\_
-
-```cpp
-static int cv::BORDER_ISOLATED
-AutoIt:
-    [propget] $ocv.BORDER_ISOLATED_
-```
-
-### cv.ACCESS\_READ\_
-
-```cpp
-static int cv::ACCESS_READ
-AutoIt:
-    [propget] $ocv.ACCESS_READ_
-```
-
-### cv.ACCESS\_WRITE\_
-
-```cpp
-static int cv::ACCESS_WRITE
-AutoIt:
-    [propget] $ocv.ACCESS_WRITE_
-```
-
-### cv.ACCESS\_RW\_
-
-```cpp
-static int cv::ACCESS_RW
-AutoIt:
-    [propget] $ocv.ACCESS_RW_
-```
-
-### cv.ACCESS\_MASK\_
-
-```cpp
-static int cv::ACCESS_MASK
-AutoIt:
-    [propget] $ocv.ACCESS_MASK_
-```
-
-### cv.ACCESS\_FAST\_
-
-```cpp
-static int cv::ACCESS_FAST
-AutoIt:
-    [propget] $ocv.ACCESS_FAST_
-```
-
-### cv.USAGE\_DEFAULT\_
-
-```cpp
-static int cv::USAGE_DEFAULT
-AutoIt:
-    [propget] $ocv.USAGE_DEFAULT_
-```
-
-### cv.USAGE\_ALLOCATE\_HOST\_MEMORY\_
-
-```cpp
-static int cv::USAGE_ALLOCATE_HOST_MEMORY
-AutoIt:
-    [propget] $ocv.USAGE_ALLOCATE_HOST_MEMORY_
-```
-
-### cv.USAGE\_ALLOCATE\_DEVICE\_MEMORY\_
-
-```cpp
-static int cv::USAGE_ALLOCATE_DEVICE_MEMORY
-AutoIt:
-    [propget] $ocv.USAGE_ALLOCATE_DEVICE_MEMORY_
-```
-
-### cv.USAGE\_ALLOCATE\_SHARED\_MEMORY\_
-
-```cpp
-static int cv::USAGE_ALLOCATE_SHARED_MEMORY
-AutoIt:
-    [propget] $ocv.USAGE_ALLOCATE_SHARED_MEMORY_
-```
-
-### cv.\_\_UMAT\_USAGE\_FLAGS\_32BIT\_
-
-```cpp
-static int cv::__UMAT_USAGE_FLAGS_32BIT
-AutoIt:
-    [propget] $ocv.__UMAT_USAGE_FLAGS_32BIT_
-```
-
-### cv.SOLVELP\_UNBOUNDED\_
-
-```cpp
-static int cv::SOLVELP_UNBOUNDED
-AutoIt:
-    [propget] $ocv.SOLVELP_UNBOUNDED_
-```
-
-### cv.SOLVELP\_UNFEASIBLE\_
-
-```cpp
-static int cv::SOLVELP_UNFEASIBLE
-AutoIt:
-    [propget] $ocv.SOLVELP_UNFEASIBLE_
-```
-
-### cv.SOLVELP\_SINGLE\_
-
-```cpp
-static int cv::SOLVELP_SINGLE
-AutoIt:
-    [propget] $ocv.SOLVELP_SINGLE_
-```
-
-### cv.SOLVELP\_MULTI\_
-
-```cpp
-static int cv::SOLVELP_MULTI
-AutoIt:
-    [propget] $ocv.SOLVELP_MULTI_
-```
-
-### cv.QUAT\_ASSUME\_NOT\_UNIT\_
-
-```cpp
-static int cv::QUAT_ASSUME_NOT_UNIT
-AutoIt:
-    [propget] $ocv.QUAT_ASSUME_NOT_UNIT_
-```
-
-### cv.QUAT\_ASSUME\_UNIT\_
-
-```cpp
-static int cv::QUAT_ASSUME_UNIT
-AutoIt:
-    [propget] $ocv.QUAT_ASSUME_UNIT_
-```
-
-### cv.FILTER\_SCHARR\_
-
-```cpp
-static int cv::FILTER_SCHARR
-AutoIt:
-    [propget] $ocv.FILTER_SCHARR_
-```
-
-### cv.MORPH\_ERODE\_
-
-```cpp
-static int cv::MORPH_ERODE
-AutoIt:
-    [propget] $ocv.MORPH_ERODE_
-```
-
-### cv.MORPH\_DILATE\_
-
-```cpp
-static int cv::MORPH_DILATE
-AutoIt:
-    [propget] $ocv.MORPH_DILATE_
-```
-
-### cv.MORPH\_OPEN\_
-
-```cpp
-static int cv::MORPH_OPEN
-AutoIt:
-    [propget] $ocv.MORPH_OPEN_
-```
-
-### cv.MORPH\_CLOSE\_
-
-```cpp
-static int cv::MORPH_CLOSE
-AutoIt:
-    [propget] $ocv.MORPH_CLOSE_
-```
-
-### cv.MORPH\_GRADIENT\_
-
-```cpp
-static int cv::MORPH_GRADIENT
-AutoIt:
-    [propget] $ocv.MORPH_GRADIENT_
-```
-
-### cv.MORPH\_TOPHAT\_
-
-```cpp
-static int cv::MORPH_TOPHAT
-AutoIt:
-    [propget] $ocv.MORPH_TOPHAT_
-```
-
-### cv.MORPH\_BLACKHAT\_
-
-```cpp
-static int cv::MORPH_BLACKHAT
-AutoIt:
-    [propget] $ocv.MORPH_BLACKHAT_
-```
-
-### cv.MORPH\_HITMISS\_
-
-```cpp
-static int cv::MORPH_HITMISS
-AutoIt:
-    [propget] $ocv.MORPH_HITMISS_
-```
-
-### cv.MORPH\_RECT\_
-
-```cpp
-static int cv::MORPH_RECT
-AutoIt:
-    [propget] $ocv.MORPH_RECT_
-```
-
-### cv.MORPH\_CROSS\_
-
-```cpp
-static int cv::MORPH_CROSS
-AutoIt:
-    [propget] $ocv.MORPH_CROSS_
-```
-
-### cv.MORPH\_ELLIPSE\_
-
-```cpp
-static int cv::MORPH_ELLIPSE
-AutoIt:
-    [propget] $ocv.MORPH_ELLIPSE_
-```
-
-### cv.INTER\_NEAREST\_
-
-```cpp
-static int cv::INTER_NEAREST
-AutoIt:
-    [propget] $ocv.INTER_NEAREST_
-```
-
-### cv.INTER\_LINEAR\_
-
-```cpp
-static int cv::INTER_LINEAR
-AutoIt:
-    [propget] $ocv.INTER_LINEAR_
-```
-
-### cv.INTER\_CUBIC\_
-
-```cpp
-static int cv::INTER_CUBIC
-AutoIt:
-    [propget] $ocv.INTER_CUBIC_
-```
-
-### cv.INTER\_AREA\_
-
-```cpp
-static int cv::INTER_AREA
-AutoIt:
-    [propget] $ocv.INTER_AREA_
-```
-
-### cv.INTER\_LANCZOS4\_
-
-```cpp
-static int cv::INTER_LANCZOS4
-AutoIt:
-    [propget] $ocv.INTER_LANCZOS4_
-```
-
-### cv.INTER\_LINEAR\_EXACT\_
-
-```cpp
-static int cv::INTER_LINEAR_EXACT
-AutoIt:
-    [propget] $ocv.INTER_LINEAR_EXACT_
-```
-
-### cv.INTER\_NEAREST\_EXACT\_
-
-```cpp
-static int cv::INTER_NEAREST_EXACT
-AutoIt:
-    [propget] $ocv.INTER_NEAREST_EXACT_
-```
-
-### cv.INTER\_MAX\_
-
-```cpp
-static int cv::INTER_MAX
-AutoIt:
-    [propget] $ocv.INTER_MAX_
-```
-
-### cv.WARP\_FILL\_OUTLIERS\_
-
-```cpp
-static int cv::WARP_FILL_OUTLIERS
-AutoIt:
-    [propget] $ocv.WARP_FILL_OUTLIERS_
-```
-
-### cv.WARP\_INVERSE\_MAP\_
-
-```cpp
-static int cv::WARP_INVERSE_MAP
-AutoIt:
-    [propget] $ocv.WARP_INVERSE_MAP_
-```
-
-### cv.WARP\_POLAR\_LINEAR\_
-
-```cpp
-static int cv::WARP_POLAR_LINEAR
-AutoIt:
-    [propget] $ocv.WARP_POLAR_LINEAR_
-```
-
-### cv.WARP\_POLAR\_LOG\_
-
-```cpp
-static int cv::WARP_POLAR_LOG
-AutoIt:
-    [propget] $ocv.WARP_POLAR_LOG_
-```
-
-### cv.INTER\_BITS\_
-
-```cpp
-static int cv::INTER_BITS
-AutoIt:
-    [propget] $ocv.INTER_BITS_
-```
-
-### cv.INTER\_BITS2\_
-
-```cpp
-static int cv::INTER_BITS2
-AutoIt:
-    [propget] $ocv.INTER_BITS2_
-```
-
-### cv.INTER\_TAB\_SIZE\_
-
-```cpp
-static int cv::INTER_TAB_SIZE
-AutoIt:
-    [propget] $ocv.INTER_TAB_SIZE_
-```
-
-### cv.INTER\_TAB\_SIZE2\_
-
-```cpp
-static int cv::INTER_TAB_SIZE2
-AutoIt:
-    [propget] $ocv.INTER_TAB_SIZE2_
-```
-
-### cv.DIST\_USER\_
-
-```cpp
-static int cv::DIST_USER
-AutoIt:
-    [propget] $ocv.DIST_USER_
-```
-
-### cv.DIST\_L1\_
-
-```cpp
-static int cv::DIST_L1
-AutoIt:
-    [propget] $ocv.DIST_L1_
-```
-
-### cv.DIST\_L2\_
-
-```cpp
-static int cv::DIST_L2
-AutoIt:
-    [propget] $ocv.DIST_L2_
-```
-
-### cv.DIST\_C\_
-
-```cpp
-static int cv::DIST_C
-AutoIt:
-    [propget] $ocv.DIST_C_
-```
-
-### cv.DIST\_L12\_
-
-```cpp
-static int cv::DIST_L12
-AutoIt:
-    [propget] $ocv.DIST_L12_
-```
-
-### cv.DIST\_FAIR\_
-
-```cpp
-static int cv::DIST_FAIR
-AutoIt:
-    [propget] $ocv.DIST_FAIR_
-```
-
-### cv.DIST\_WELSCH\_
-
-```cpp
-static int cv::DIST_WELSCH
-AutoIt:
-    [propget] $ocv.DIST_WELSCH_
-```
-
-### cv.DIST\_HUBER\_
-
-```cpp
-static int cv::DIST_HUBER
-AutoIt:
-    [propget] $ocv.DIST_HUBER_
-```
-
-### cv.DIST\_MASK\_3\_
-
-```cpp
-static int cv::DIST_MASK_3
-AutoIt:
-    [propget] $ocv.DIST_MASK_3_
-```
-
-### cv.DIST\_MASK\_5\_
-
-```cpp
-static int cv::DIST_MASK_5
-AutoIt:
-    [propget] $ocv.DIST_MASK_5_
-```
-
-### cv.DIST\_MASK\_PRECISE\_
-
-```cpp
-static int cv::DIST_MASK_PRECISE
-AutoIt:
-    [propget] $ocv.DIST_MASK_PRECISE_
-```
-
-### cv.THRESH\_BINARY\_
-
-```cpp
-static int cv::THRESH_BINARY
-AutoIt:
-    [propget] $ocv.THRESH_BINARY_
-```
-
-### cv.THRESH\_BINARY\_INV\_
-
-```cpp
-static int cv::THRESH_BINARY_INV
-AutoIt:
-    [propget] $ocv.THRESH_BINARY_INV_
-```
-
-### cv.THRESH\_TRUNC\_
-
-```cpp
-static int cv::THRESH_TRUNC
-AutoIt:
-    [propget] $ocv.THRESH_TRUNC_
-```
-
-### cv.THRESH\_TOZERO\_
-
-```cpp
-static int cv::THRESH_TOZERO
-AutoIt:
-    [propget] $ocv.THRESH_TOZERO_
-```
-
-### cv.THRESH\_TOZERO\_INV\_
-
-```cpp
-static int cv::THRESH_TOZERO_INV
-AutoIt:
-    [propget] $ocv.THRESH_TOZERO_INV_
-```
-
-### cv.THRESH\_MASK\_
-
-```cpp
-static int cv::THRESH_MASK
-AutoIt:
-    [propget] $ocv.THRESH_MASK_
-```
-
-### cv.THRESH\_OTSU\_
-
-```cpp
-static int cv::THRESH_OTSU
-AutoIt:
-    [propget] $ocv.THRESH_OTSU_
-```
-
-### cv.THRESH\_TRIANGLE\_
-
-```cpp
-static int cv::THRESH_TRIANGLE
-AutoIt:
-    [propget] $ocv.THRESH_TRIANGLE_
-```
-
-### cv.ADAPTIVE\_THRESH\_MEAN\_C\_
-
-```cpp
-static int cv::ADAPTIVE_THRESH_MEAN_C
-AutoIt:
-    [propget] $ocv.ADAPTIVE_THRESH_MEAN_C_
-```
-
-### cv.ADAPTIVE\_THRESH\_GAUSSIAN\_C\_
-
-```cpp
-static int cv::ADAPTIVE_THRESH_GAUSSIAN_C
-AutoIt:
-    [propget] $ocv.ADAPTIVE_THRESH_GAUSSIAN_C_
-```
-
-### cv.GC\_BGD\_
-
-```cpp
-static int cv::GC_BGD
-AutoIt:
-    [propget] $ocv.GC_BGD_
-```
-
-### cv.GC\_FGD\_
-
-```cpp
-static int cv::GC_FGD
-AutoIt:
-    [propget] $ocv.GC_FGD_
-```
-
-### cv.GC\_PR\_BGD\_
-
-```cpp
-static int cv::GC_PR_BGD
-AutoIt:
-    [propget] $ocv.GC_PR_BGD_
-```
-
-### cv.GC\_PR\_FGD\_
-
-```cpp
-static int cv::GC_PR_FGD
-AutoIt:
-    [propget] $ocv.GC_PR_FGD_
-```
-
-### cv.GC\_INIT\_WITH\_RECT\_
-
-```cpp
-static int cv::GC_INIT_WITH_RECT
-AutoIt:
-    [propget] $ocv.GC_INIT_WITH_RECT_
-```
-
-### cv.GC\_INIT\_WITH\_MASK\_
-
-```cpp
-static int cv::GC_INIT_WITH_MASK
-AutoIt:
-    [propget] $ocv.GC_INIT_WITH_MASK_
-```
-
-### cv.GC\_EVAL\_
-
-```cpp
-static int cv::GC_EVAL
-AutoIt:
-    [propget] $ocv.GC_EVAL_
-```
-
-### cv.GC\_EVAL\_FREEZE\_MODEL\_
-
-```cpp
-static int cv::GC_EVAL_FREEZE_MODEL
-AutoIt:
-    [propget] $ocv.GC_EVAL_FREEZE_MODEL_
-```
-
-### cv.DIST\_LABEL\_CCOMP\_
-
-```cpp
-static int cv::DIST_LABEL_CCOMP
-AutoIt:
-    [propget] $ocv.DIST_LABEL_CCOMP_
-```
-
-### cv.DIST\_LABEL\_PIXEL\_
-
-```cpp
-static int cv::DIST_LABEL_PIXEL
-AutoIt:
-    [propget] $ocv.DIST_LABEL_PIXEL_
-```
-
-### cv.FLOODFILL\_FIXED\_RANGE\_
-
-```cpp
-static int cv::FLOODFILL_FIXED_RANGE
-AutoIt:
-    [propget] $ocv.FLOODFILL_FIXED_RANGE_
-```
-
-### cv.FLOODFILL\_MASK\_ONLY\_
-
-```cpp
-static int cv::FLOODFILL_MASK_ONLY
-AutoIt:
-    [propget] $ocv.FLOODFILL_MASK_ONLY_
-```
-
-### cv.CC\_STAT\_LEFT\_
-
-```cpp
-static int cv::CC_STAT_LEFT
-AutoIt:
-    [propget] $ocv.CC_STAT_LEFT_
-```
-
-### cv.CC\_STAT\_TOP\_
-
-```cpp
-static int cv::CC_STAT_TOP
-AutoIt:
-    [propget] $ocv.CC_STAT_TOP_
-```
-
-### cv.CC\_STAT\_WIDTH\_
-
-```cpp
-static int cv::CC_STAT_WIDTH
-AutoIt:
-    [propget] $ocv.CC_STAT_WIDTH_
-```
-
-### cv.CC\_STAT\_HEIGHT\_
-
-```cpp
-static int cv::CC_STAT_HEIGHT
-AutoIt:
-    [propget] $ocv.CC_STAT_HEIGHT_
-```
-
-### cv.CC\_STAT\_AREA\_
-
-```cpp
-static int cv::CC_STAT_AREA
-AutoIt:
-    [propget] $ocv.CC_STAT_AREA_
-```
-
-### cv.CC\_STAT\_MAX\_
-
-```cpp
-static int cv::CC_STAT_MAX
-AutoIt:
-    [propget] $ocv.CC_STAT_MAX_
-```
-
-### cv.CCL\_DEFAULT\_
-
-```cpp
-static int cv::CCL_DEFAULT
-AutoIt:
-    [propget] $ocv.CCL_DEFAULT_
-```
-
-### cv.CCL\_WU\_
-
-```cpp
-static int cv::CCL_WU
-AutoIt:
-    [propget] $ocv.CCL_WU_
-```
-
-### cv.CCL\_GRANA\_
-
-```cpp
-static int cv::CCL_GRANA
-AutoIt:
-    [propget] $ocv.CCL_GRANA_
-```
-
-### cv.CCL\_BOLELLI\_
-
-```cpp
-static int cv::CCL_BOLELLI
-AutoIt:
-    [propget] $ocv.CCL_BOLELLI_
-```
-
-### cv.CCL\_SAUF\_
-
-```cpp
-static int cv::CCL_SAUF
-AutoIt:
-    [propget] $ocv.CCL_SAUF_
-```
-
-### cv.CCL\_BBDT\_
-
-```cpp
-static int cv::CCL_BBDT
-AutoIt:
-    [propget] $ocv.CCL_BBDT_
-```
-
-### cv.CCL\_SPAGHETTI\_
-
-```cpp
-static int cv::CCL_SPAGHETTI
-AutoIt:
-    [propget] $ocv.CCL_SPAGHETTI_
-```
-
-### cv.RETR\_EXTERNAL\_
-
-```cpp
-static int cv::RETR_EXTERNAL
-AutoIt:
-    [propget] $ocv.RETR_EXTERNAL_
-```
-
-### cv.RETR\_LIST\_
-
-```cpp
-static int cv::RETR_LIST
-AutoIt:
-    [propget] $ocv.RETR_LIST_
-```
-
-### cv.RETR\_CCOMP\_
-
-```cpp
-static int cv::RETR_CCOMP
-AutoIt:
-    [propget] $ocv.RETR_CCOMP_
-```
-
-### cv.RETR\_TREE\_
-
-```cpp
-static int cv::RETR_TREE
-AutoIt:
-    [propget] $ocv.RETR_TREE_
-```
-
-### cv.RETR\_FLOODFILL\_
-
-```cpp
-static int cv::RETR_FLOODFILL
-AutoIt:
-    [propget] $ocv.RETR_FLOODFILL_
-```
-
-### cv.CHAIN\_APPROX\_NONE\_
-
-```cpp
-static int cv::CHAIN_APPROX_NONE
-AutoIt:
-    [propget] $ocv.CHAIN_APPROX_NONE_
-```
-
-### cv.CHAIN\_APPROX\_SIMPLE\_
-
-```cpp
-static int cv::CHAIN_APPROX_SIMPLE
-AutoIt:
-    [propget] $ocv.CHAIN_APPROX_SIMPLE_
-```
-
-### cv.CHAIN\_APPROX\_TC89\_L1\_
-
-```cpp
-static int cv::CHAIN_APPROX_TC89_L1
-AutoIt:
-    [propget] $ocv.CHAIN_APPROX_TC89_L1_
-```
-
-### cv.CHAIN\_APPROX\_TC89\_KCOS\_
-
-```cpp
-static int cv::CHAIN_APPROX_TC89_KCOS
-AutoIt:
-    [propget] $ocv.CHAIN_APPROX_TC89_KCOS_
-```
-
-### cv.CONTOURS\_MATCH\_I1\_
-
-```cpp
-static int cv::CONTOURS_MATCH_I1
-AutoIt:
-    [propget] $ocv.CONTOURS_MATCH_I1_
-```
-
-### cv.CONTOURS\_MATCH\_I2\_
-
-```cpp
-static int cv::CONTOURS_MATCH_I2
-AutoIt:
-    [propget] $ocv.CONTOURS_MATCH_I2_
-```
-
-### cv.CONTOURS\_MATCH\_I3\_
-
-```cpp
-static int cv::CONTOURS_MATCH_I3
-AutoIt:
-    [propget] $ocv.CONTOURS_MATCH_I3_
-```
-
-### cv.HOUGH\_STANDARD\_
-
-```cpp
-static int cv::HOUGH_STANDARD
-AutoIt:
-    [propget] $ocv.HOUGH_STANDARD_
-```
-
-### cv.HOUGH\_PROBABILISTIC\_
-
-```cpp
-static int cv::HOUGH_PROBABILISTIC
-AutoIt:
-    [propget] $ocv.HOUGH_PROBABILISTIC_
-```
-
-### cv.HOUGH\_MULTI\_SCALE\_
-
-```cpp
-static int cv::HOUGH_MULTI_SCALE
-AutoIt:
-    [propget] $ocv.HOUGH_MULTI_SCALE_
-```
-
-### cv.HOUGH\_GRADIENT\_
-
-```cpp
-static int cv::HOUGH_GRADIENT
-AutoIt:
-    [propget] $ocv.HOUGH_GRADIENT_
-```
-
-### cv.HOUGH\_GRADIENT\_ALT\_
-
-```cpp
-static int cv::HOUGH_GRADIENT_ALT
-AutoIt:
-    [propget] $ocv.HOUGH_GRADIENT_ALT_
-```
-
-### cv.LSD\_REFINE\_NONE\_
-
-```cpp
-static int cv::LSD_REFINE_NONE
-AutoIt:
-    [propget] $ocv.LSD_REFINE_NONE_
-```
-
-### cv.LSD\_REFINE\_STD\_
-
-```cpp
-static int cv::LSD_REFINE_STD
-AutoIt:
-    [propget] $ocv.LSD_REFINE_STD_
-```
-
-### cv.LSD\_REFINE\_ADV\_
-
-```cpp
-static int cv::LSD_REFINE_ADV
-AutoIt:
-    [propget] $ocv.LSD_REFINE_ADV_
-```
-
-### cv.HISTCMP\_CORREL\_
-
-```cpp
-static int cv::HISTCMP_CORREL
-AutoIt:
-    [propget] $ocv.HISTCMP_CORREL_
-```
-
-### cv.HISTCMP\_CHISQR\_
-
-```cpp
-static int cv::HISTCMP_CHISQR
-AutoIt:
-    [propget] $ocv.HISTCMP_CHISQR_
-```
-
-### cv.HISTCMP\_INTERSECT\_
-
-```cpp
-static int cv::HISTCMP_INTERSECT
-AutoIt:
-    [propget] $ocv.HISTCMP_INTERSECT_
-```
-
-### cv.HISTCMP\_BHATTACHARYYA\_
-
-```cpp
-static int cv::HISTCMP_BHATTACHARYYA
-AutoIt:
-    [propget] $ocv.HISTCMP_BHATTACHARYYA_
-```
-
-### cv.HISTCMP\_HELLINGER\_
-
-```cpp
-static int cv::HISTCMP_HELLINGER
-AutoIt:
-    [propget] $ocv.HISTCMP_HELLINGER_
-```
-
-### cv.HISTCMP\_CHISQR\_ALT\_
-
-```cpp
-static int cv::HISTCMP_CHISQR_ALT
-AutoIt:
-    [propget] $ocv.HISTCMP_CHISQR_ALT_
-```
-
-### cv.HISTCMP\_KL\_DIV\_
-
-```cpp
-static int cv::HISTCMP_KL_DIV
-AutoIt:
-    [propget] $ocv.HISTCMP_KL_DIV_
-```
-
-### cv.COLOR\_BGR2BGRA\_
-
-```cpp
-static int cv::COLOR_BGR2BGRA
-AutoIt:
-    [propget] $ocv.COLOR_BGR2BGRA_
-```
-
-### cv.COLOR\_RGB2RGBA\_
-
-```cpp
-static int cv::COLOR_RGB2RGBA
-AutoIt:
-    [propget] $ocv.COLOR_RGB2RGBA_
-```
-
-### cv.COLOR\_BGRA2BGR\_
-
-```cpp
-static int cv::COLOR_BGRA2BGR
-AutoIt:
-    [propget] $ocv.COLOR_BGRA2BGR_
-```
-
-### cv.COLOR\_RGBA2RGB\_
-
-```cpp
-static int cv::COLOR_RGBA2RGB
-AutoIt:
-    [propget] $ocv.COLOR_RGBA2RGB_
-```
-
-### cv.COLOR\_BGR2RGBA\_
-
-```cpp
-static int cv::COLOR_BGR2RGBA
-AutoIt:
-    [propget] $ocv.COLOR_BGR2RGBA_
-```
-
-### cv.COLOR\_RGB2BGRA\_
-
-```cpp
-static int cv::COLOR_RGB2BGRA
-AutoIt:
-    [propget] $ocv.COLOR_RGB2BGRA_
-```
-
-### cv.COLOR\_RGBA2BGR\_
-
-```cpp
-static int cv::COLOR_RGBA2BGR
-AutoIt:
-    [propget] $ocv.COLOR_RGBA2BGR_
-```
-
-### cv.COLOR\_BGRA2RGB\_
-
-```cpp
-static int cv::COLOR_BGRA2RGB
-AutoIt:
-    [propget] $ocv.COLOR_BGRA2RGB_
-```
-
-### cv.COLOR\_BGR2RGB\_
-
-```cpp
-static int cv::COLOR_BGR2RGB
-AutoIt:
-    [propget] $ocv.COLOR_BGR2RGB_
-```
-
-### cv.COLOR\_RGB2BGR\_
-
-```cpp
-static int cv::COLOR_RGB2BGR
-AutoIt:
-    [propget] $ocv.COLOR_RGB2BGR_
-```
-
-### cv.COLOR\_BGRA2RGBA\_
-
-```cpp
-static int cv::COLOR_BGRA2RGBA
-AutoIt:
-    [propget] $ocv.COLOR_BGRA2RGBA_
-```
-
-### cv.COLOR\_RGBA2BGRA\_
-
-```cpp
-static int cv::COLOR_RGBA2BGRA
-AutoIt:
-    [propget] $ocv.COLOR_RGBA2BGRA_
-```
-
-### cv.COLOR\_BGR2GRAY\_
-
-```cpp
-static int cv::COLOR_BGR2GRAY
-AutoIt:
-    [propget] $ocv.COLOR_BGR2GRAY_
-```
-
-### cv.COLOR\_RGB2GRAY\_
-
-```cpp
-static int cv::COLOR_RGB2GRAY
-AutoIt:
-    [propget] $ocv.COLOR_RGB2GRAY_
-```
-
-### cv.COLOR\_GRAY2BGR\_
-
-```cpp
-static int cv::COLOR_GRAY2BGR
-AutoIt:
-    [propget] $ocv.COLOR_GRAY2BGR_
-```
-
-### cv.COLOR\_GRAY2RGB\_
-
-```cpp
-static int cv::COLOR_GRAY2RGB
-AutoIt:
-    [propget] $ocv.COLOR_GRAY2RGB_
-```
-
-### cv.COLOR\_GRAY2BGRA\_
-
-```cpp
-static int cv::COLOR_GRAY2BGRA
-AutoIt:
-    [propget] $ocv.COLOR_GRAY2BGRA_
-```
-
-### cv.COLOR\_GRAY2RGBA\_
-
-```cpp
-static int cv::COLOR_GRAY2RGBA
-AutoIt:
-    [propget] $ocv.COLOR_GRAY2RGBA_
-```
-
-### cv.COLOR\_BGRA2GRAY\_
-
-```cpp
-static int cv::COLOR_BGRA2GRAY
-AutoIt:
-    [propget] $ocv.COLOR_BGRA2GRAY_
-```
-
-### cv.COLOR\_RGBA2GRAY\_
-
-```cpp
-static int cv::COLOR_RGBA2GRAY
-AutoIt:
-    [propget] $ocv.COLOR_RGBA2GRAY_
-```
-
-### cv.COLOR\_BGR2BGR565\_
-
-```cpp
-static int cv::COLOR_BGR2BGR565
-AutoIt:
-    [propget] $ocv.COLOR_BGR2BGR565_
-```
-
-### cv.COLOR\_RGB2BGR565\_
-
-```cpp
-static int cv::COLOR_RGB2BGR565
-AutoIt:
-    [propget] $ocv.COLOR_RGB2BGR565_
-```
-
-### cv.COLOR\_BGR5652BGR\_
-
-```cpp
-static int cv::COLOR_BGR5652BGR
-AutoIt:
-    [propget] $ocv.COLOR_BGR5652BGR_
-```
-
-### cv.COLOR\_BGR5652RGB\_
-
-```cpp
-static int cv::COLOR_BGR5652RGB
-AutoIt:
-    [propget] $ocv.COLOR_BGR5652RGB_
-```
-
-### cv.COLOR\_BGRA2BGR565\_
-
-```cpp
-static int cv::COLOR_BGRA2BGR565
-AutoIt:
-    [propget] $ocv.COLOR_BGRA2BGR565_
-```
-
-### cv.COLOR\_RGBA2BGR565\_
-
-```cpp
-static int cv::COLOR_RGBA2BGR565
-AutoIt:
-    [propget] $ocv.COLOR_RGBA2BGR565_
-```
-
-### cv.COLOR\_BGR5652BGRA\_
-
-```cpp
-static int cv::COLOR_BGR5652BGRA
-AutoIt:
-    [propget] $ocv.COLOR_BGR5652BGRA_
-```
-
-### cv.COLOR\_BGR5652RGBA\_
-
-```cpp
-static int cv::COLOR_BGR5652RGBA
-AutoIt:
-    [propget] $ocv.COLOR_BGR5652RGBA_
-```
-
-### cv.COLOR\_GRAY2BGR565\_
-
-```cpp
-static int cv::COLOR_GRAY2BGR565
-AutoIt:
-    [propget] $ocv.COLOR_GRAY2BGR565_
-```
-
-### cv.COLOR\_BGR5652GRAY\_
-
-```cpp
-static int cv::COLOR_BGR5652GRAY
-AutoIt:
-    [propget] $ocv.COLOR_BGR5652GRAY_
-```
-
-### cv.COLOR\_BGR2BGR555\_
-
-```cpp
-static int cv::COLOR_BGR2BGR555
-AutoIt:
-    [propget] $ocv.COLOR_BGR2BGR555_
-```
-
-### cv.COLOR\_RGB2BGR555\_
-
-```cpp
-static int cv::COLOR_RGB2BGR555
-AutoIt:
-    [propget] $ocv.COLOR_RGB2BGR555_
-```
-
-### cv.COLOR\_BGR5552BGR\_
-
-```cpp
-static int cv::COLOR_BGR5552BGR
-AutoIt:
-    [propget] $ocv.COLOR_BGR5552BGR_
-```
-
-### cv.COLOR\_BGR5552RGB\_
-
-```cpp
-static int cv::COLOR_BGR5552RGB
-AutoIt:
-    [propget] $ocv.COLOR_BGR5552RGB_
-```
-
-### cv.COLOR\_BGRA2BGR555\_
-
-```cpp
-static int cv::COLOR_BGRA2BGR555
-AutoIt:
-    [propget] $ocv.COLOR_BGRA2BGR555_
-```
-
-### cv.COLOR\_RGBA2BGR555\_
-
-```cpp
-static int cv::COLOR_RGBA2BGR555
-AutoIt:
-    [propget] $ocv.COLOR_RGBA2BGR555_
-```
-
-### cv.COLOR\_BGR5552BGRA\_
-
-```cpp
-static int cv::COLOR_BGR5552BGRA
-AutoIt:
-    [propget] $ocv.COLOR_BGR5552BGRA_
-```
-
-### cv.COLOR\_BGR5552RGBA\_
-
-```cpp
-static int cv::COLOR_BGR5552RGBA
-AutoIt:
-    [propget] $ocv.COLOR_BGR5552RGBA_
-```
-
-### cv.COLOR\_GRAY2BGR555\_
-
-```cpp
-static int cv::COLOR_GRAY2BGR555
-AutoIt:
-    [propget] $ocv.COLOR_GRAY2BGR555_
-```
-
-### cv.COLOR\_BGR5552GRAY\_
-
-```cpp
-static int cv::COLOR_BGR5552GRAY
-AutoIt:
-    [propget] $ocv.COLOR_BGR5552GRAY_
-```
-
-### cv.COLOR\_BGR2XYZ\_
-
-```cpp
-static int cv::COLOR_BGR2XYZ
-AutoIt:
-    [propget] $ocv.COLOR_BGR2XYZ_
-```
-
-### cv.COLOR\_RGB2XYZ\_
-
-```cpp
-static int cv::COLOR_RGB2XYZ
-AutoIt:
-    [propget] $ocv.COLOR_RGB2XYZ_
-```
-
-### cv.COLOR\_XYZ2BGR\_
-
-```cpp
-static int cv::COLOR_XYZ2BGR
-AutoIt:
-    [propget] $ocv.COLOR_XYZ2BGR_
-```
-
-### cv.COLOR\_XYZ2RGB\_
-
-```cpp
-static int cv::COLOR_XYZ2RGB
-AutoIt:
-    [propget] $ocv.COLOR_XYZ2RGB_
-```
-
-### cv.COLOR\_BGR2YCrCb\_
-
-```cpp
-static int cv::COLOR_BGR2YCrCb
-AutoIt:
-    [propget] $ocv.COLOR_BGR2YCrCb_
-```
-
-### cv.COLOR\_RGB2YCrCb\_
-
-```cpp
-static int cv::COLOR_RGB2YCrCb
-AutoIt:
-    [propget] $ocv.COLOR_RGB2YCrCb_
-```
-
-### cv.COLOR\_YCrCb2BGR\_
-
-```cpp
-static int cv::COLOR_YCrCb2BGR
-AutoIt:
-    [propget] $ocv.COLOR_YCrCb2BGR_
-```
-
-### cv.COLOR\_YCrCb2RGB\_
-
-```cpp
-static int cv::COLOR_YCrCb2RGB
-AutoIt:
-    [propget] $ocv.COLOR_YCrCb2RGB_
-```
-
-### cv.COLOR\_BGR2HSV\_
-
-```cpp
-static int cv::COLOR_BGR2HSV
-AutoIt:
-    [propget] $ocv.COLOR_BGR2HSV_
-```
-
-### cv.COLOR\_RGB2HSV\_
-
-```cpp
-static int cv::COLOR_RGB2HSV
-AutoIt:
-    [propget] $ocv.COLOR_RGB2HSV_
-```
-
-### cv.COLOR\_BGR2Lab\_
-
-```cpp
-static int cv::COLOR_BGR2Lab
-AutoIt:
-    [propget] $ocv.COLOR_BGR2Lab_
-```
-
-### cv.COLOR\_RGB2Lab\_
-
-```cpp
-static int cv::COLOR_RGB2Lab
-AutoIt:
-    [propget] $ocv.COLOR_RGB2Lab_
-```
-
-### cv.COLOR\_BGR2Luv\_
-
-```cpp
-static int cv::COLOR_BGR2Luv
-AutoIt:
-    [propget] $ocv.COLOR_BGR2Luv_
-```
-
-### cv.COLOR\_RGB2Luv\_
-
-```cpp
-static int cv::COLOR_RGB2Luv
-AutoIt:
-    [propget] $ocv.COLOR_RGB2Luv_
-```
-
-### cv.COLOR\_BGR2HLS\_
-
-```cpp
-static int cv::COLOR_BGR2HLS
-AutoIt:
-    [propget] $ocv.COLOR_BGR2HLS_
-```
-
-### cv.COLOR\_RGB2HLS\_
-
-```cpp
-static int cv::COLOR_RGB2HLS
-AutoIt:
-    [propget] $ocv.COLOR_RGB2HLS_
-```
-
-### cv.COLOR\_HSV2BGR\_
-
-```cpp
-static int cv::COLOR_HSV2BGR
-AutoIt:
-    [propget] $ocv.COLOR_HSV2BGR_
-```
-
-### cv.COLOR\_HSV2RGB\_
-
-```cpp
-static int cv::COLOR_HSV2RGB
-AutoIt:
-    [propget] $ocv.COLOR_HSV2RGB_
-```
-
-### cv.COLOR\_Lab2BGR\_
-
-```cpp
-static int cv::COLOR_Lab2BGR
-AutoIt:
-    [propget] $ocv.COLOR_Lab2BGR_
-```
-
-### cv.COLOR\_Lab2RGB\_
-
-```cpp
-static int cv::COLOR_Lab2RGB
-AutoIt:
-    [propget] $ocv.COLOR_Lab2RGB_
-```
-
-### cv.COLOR\_Luv2BGR\_
-
-```cpp
-static int cv::COLOR_Luv2BGR
-AutoIt:
-    [propget] $ocv.COLOR_Luv2BGR_
-```
-
-### cv.COLOR\_Luv2RGB\_
-
-```cpp
-static int cv::COLOR_Luv2RGB
-AutoIt:
-    [propget] $ocv.COLOR_Luv2RGB_
-```
-
-### cv.COLOR\_HLS2BGR\_
-
-```cpp
-static int cv::COLOR_HLS2BGR
-AutoIt:
-    [propget] $ocv.COLOR_HLS2BGR_
-```
-
-### cv.COLOR\_HLS2RGB\_
-
-```cpp
-static int cv::COLOR_HLS2RGB
-AutoIt:
-    [propget] $ocv.COLOR_HLS2RGB_
-```
-
-### cv.COLOR\_BGR2HSV\_FULL\_
-
-```cpp
-static int cv::COLOR_BGR2HSV_FULL
-AutoIt:
-    [propget] $ocv.COLOR_BGR2HSV_FULL_
-```
-
-### cv.COLOR\_RGB2HSV\_FULL\_
-
-```cpp
-static int cv::COLOR_RGB2HSV_FULL
-AutoIt:
-    [propget] $ocv.COLOR_RGB2HSV_FULL_
-```
-
-### cv.COLOR\_BGR2HLS\_FULL\_
-
-```cpp
-static int cv::COLOR_BGR2HLS_FULL
-AutoIt:
-    [propget] $ocv.COLOR_BGR2HLS_FULL_
-```
-
-### cv.COLOR\_RGB2HLS\_FULL\_
-
-```cpp
-static int cv::COLOR_RGB2HLS_FULL
-AutoIt:
-    [propget] $ocv.COLOR_RGB2HLS_FULL_
-```
-
-### cv.COLOR\_HSV2BGR\_FULL\_
-
-```cpp
-static int cv::COLOR_HSV2BGR_FULL
-AutoIt:
-    [propget] $ocv.COLOR_HSV2BGR_FULL_
-```
-
-### cv.COLOR\_HSV2RGB\_FULL\_
-
-```cpp
-static int cv::COLOR_HSV2RGB_FULL
-AutoIt:
-    [propget] $ocv.COLOR_HSV2RGB_FULL_
-```
-
-### cv.COLOR\_HLS2BGR\_FULL\_
-
-```cpp
-static int cv::COLOR_HLS2BGR_FULL
-AutoIt:
-    [propget] $ocv.COLOR_HLS2BGR_FULL_
-```
-
-### cv.COLOR\_HLS2RGB\_FULL\_
-
-```cpp
-static int cv::COLOR_HLS2RGB_FULL
-AutoIt:
-    [propget] $ocv.COLOR_HLS2RGB_FULL_
-```
-
-### cv.COLOR\_LBGR2Lab\_
-
-```cpp
-static int cv::COLOR_LBGR2Lab
-AutoIt:
-    [propget] $ocv.COLOR_LBGR2Lab_
-```
-
-### cv.COLOR\_LRGB2Lab\_
-
-```cpp
-static int cv::COLOR_LRGB2Lab
-AutoIt:
-    [propget] $ocv.COLOR_LRGB2Lab_
-```
-
-### cv.COLOR\_LBGR2Luv\_
-
-```cpp
-static int cv::COLOR_LBGR2Luv
-AutoIt:
-    [propget] $ocv.COLOR_LBGR2Luv_
-```
-
-### cv.COLOR\_LRGB2Luv\_
-
-```cpp
-static int cv::COLOR_LRGB2Luv
-AutoIt:
-    [propget] $ocv.COLOR_LRGB2Luv_
-```
-
-### cv.COLOR\_Lab2LBGR\_
-
-```cpp
-static int cv::COLOR_Lab2LBGR
-AutoIt:
-    [propget] $ocv.COLOR_Lab2LBGR_
-```
-
-### cv.COLOR\_Lab2LRGB\_
-
-```cpp
-static int cv::COLOR_Lab2LRGB
-AutoIt:
-    [propget] $ocv.COLOR_Lab2LRGB_
-```
-
-### cv.COLOR\_Luv2LBGR\_
-
-```cpp
-static int cv::COLOR_Luv2LBGR
-AutoIt:
-    [propget] $ocv.COLOR_Luv2LBGR_
-```
-
-### cv.COLOR\_Luv2LRGB\_
-
-```cpp
-static int cv::COLOR_Luv2LRGB
-AutoIt:
-    [propget] $ocv.COLOR_Luv2LRGB_
-```
-
-### cv.COLOR\_BGR2YUV\_
-
-```cpp
-static int cv::COLOR_BGR2YUV
-AutoIt:
-    [propget] $ocv.COLOR_BGR2YUV_
-```
-
-### cv.COLOR\_RGB2YUV\_
-
-```cpp
-static int cv::COLOR_RGB2YUV
-AutoIt:
-    [propget] $ocv.COLOR_RGB2YUV_
-```
-
-### cv.COLOR\_YUV2BGR\_
-
-```cpp
-static int cv::COLOR_YUV2BGR
-AutoIt:
-    [propget] $ocv.COLOR_YUV2BGR_
-```
-
-### cv.COLOR\_YUV2RGB\_
-
-```cpp
-static int cv::COLOR_YUV2RGB
-AutoIt:
-    [propget] $ocv.COLOR_YUV2RGB_
-```
-
-### cv.COLOR\_YUV2RGB\_NV12\_
-
-```cpp
-static int cv::COLOR_YUV2RGB_NV12
-AutoIt:
-    [propget] $ocv.COLOR_YUV2RGB_NV12_
-```
-
-### cv.COLOR\_YUV2BGR\_NV12\_
-
-```cpp
-static int cv::COLOR_YUV2BGR_NV12
-AutoIt:
-    [propget] $ocv.COLOR_YUV2BGR_NV12_
-```
-
-### cv.COLOR\_YUV2RGB\_NV21\_
-
-```cpp
-static int cv::COLOR_YUV2RGB_NV21
-AutoIt:
-    [propget] $ocv.COLOR_YUV2RGB_NV21_
-```
-
-### cv.COLOR\_YUV2BGR\_NV21\_
-
-```cpp
-static int cv::COLOR_YUV2BGR_NV21
-AutoIt:
-    [propget] $ocv.COLOR_YUV2BGR_NV21_
-```
-
-### cv.COLOR\_YUV420sp2RGB\_
-
-```cpp
-static int cv::COLOR_YUV420sp2RGB
-AutoIt:
-    [propget] $ocv.COLOR_YUV420sp2RGB_
-```
-
-### cv.COLOR\_YUV420sp2BGR\_
-
-```cpp
-static int cv::COLOR_YUV420sp2BGR
-AutoIt:
-    [propget] $ocv.COLOR_YUV420sp2BGR_
-```
-
-### cv.COLOR\_YUV2RGBA\_NV12\_
-
-```cpp
-static int cv::COLOR_YUV2RGBA_NV12
-AutoIt:
-    [propget] $ocv.COLOR_YUV2RGBA_NV12_
-```
-
-### cv.COLOR\_YUV2BGRA\_NV12\_
-
-```cpp
-static int cv::COLOR_YUV2BGRA_NV12
-AutoIt:
-    [propget] $ocv.COLOR_YUV2BGRA_NV12_
-```
-
-### cv.COLOR\_YUV2RGBA\_NV21\_
-
-```cpp
-static int cv::COLOR_YUV2RGBA_NV21
-AutoIt:
-    [propget] $ocv.COLOR_YUV2RGBA_NV21_
-```
-
-### cv.COLOR\_YUV2BGRA\_NV21\_
-
-```cpp
-static int cv::COLOR_YUV2BGRA_NV21
-AutoIt:
-    [propget] $ocv.COLOR_YUV2BGRA_NV21_
-```
-
-### cv.COLOR\_YUV420sp2RGBA\_
-
-```cpp
-static int cv::COLOR_YUV420sp2RGBA
-AutoIt:
-    [propget] $ocv.COLOR_YUV420sp2RGBA_
-```
-
-### cv.COLOR\_YUV420sp2BGRA\_
-
-```cpp
-static int cv::COLOR_YUV420sp2BGRA
-AutoIt:
-    [propget] $ocv.COLOR_YUV420sp2BGRA_
-```
-
-### cv.COLOR\_YUV2RGB\_YV12\_
-
-```cpp
-static int cv::COLOR_YUV2RGB_YV12
-AutoIt:
-    [propget] $ocv.COLOR_YUV2RGB_YV12_
-```
-
-### cv.COLOR\_YUV2BGR\_YV12\_
-
-```cpp
-static int cv::COLOR_YUV2BGR_YV12
-AutoIt:
-    [propget] $ocv.COLOR_YUV2BGR_YV12_
-```
-
-### cv.COLOR\_YUV2RGB\_IYUV\_
-
-```cpp
-static int cv::COLOR_YUV2RGB_IYUV
-AutoIt:
-    [propget] $ocv.COLOR_YUV2RGB_IYUV_
-```
-
-### cv.COLOR\_YUV2BGR\_IYUV\_
-
-```cpp
-static int cv::COLOR_YUV2BGR_IYUV
-AutoIt:
-    [propget] $ocv.COLOR_YUV2BGR_IYUV_
-```
-
-### cv.COLOR\_YUV2RGB\_I420\_
-
-```cpp
-static int cv::COLOR_YUV2RGB_I420
-AutoIt:
-    [propget] $ocv.COLOR_YUV2RGB_I420_
-```
-
-### cv.COLOR\_YUV2BGR\_I420\_
-
-```cpp
-static int cv::COLOR_YUV2BGR_I420
-AutoIt:
-    [propget] $ocv.COLOR_YUV2BGR_I420_
-```
-
-### cv.COLOR\_YUV420p2RGB\_
-
-```cpp
-static int cv::COLOR_YUV420p2RGB
-AutoIt:
-    [propget] $ocv.COLOR_YUV420p2RGB_
-```
-
-### cv.COLOR\_YUV420p2BGR\_
-
-```cpp
-static int cv::COLOR_YUV420p2BGR
-AutoIt:
-    [propget] $ocv.COLOR_YUV420p2BGR_
-```
-
-### cv.COLOR\_YUV2RGBA\_YV12\_
-
-```cpp
-static int cv::COLOR_YUV2RGBA_YV12
-AutoIt:
-    [propget] $ocv.COLOR_YUV2RGBA_YV12_
-```
-
-### cv.COLOR\_YUV2BGRA\_YV12\_
-
-```cpp
-static int cv::COLOR_YUV2BGRA_YV12
-AutoIt:
-    [propget] $ocv.COLOR_YUV2BGRA_YV12_
-```
-
-### cv.COLOR\_YUV2RGBA\_IYUV\_
-
-```cpp
-static int cv::COLOR_YUV2RGBA_IYUV
-AutoIt:
-    [propget] $ocv.COLOR_YUV2RGBA_IYUV_
-```
-
-### cv.COLOR\_YUV2BGRA\_IYUV\_
-
-```cpp
-static int cv::COLOR_YUV2BGRA_IYUV
-AutoIt:
-    [propget] $ocv.COLOR_YUV2BGRA_IYUV_
-```
-
-### cv.COLOR\_YUV2RGBA\_I420\_
-
-```cpp
-static int cv::COLOR_YUV2RGBA_I420
-AutoIt:
-    [propget] $ocv.COLOR_YUV2RGBA_I420_
-```
-
-### cv.COLOR\_YUV2BGRA\_I420\_
-
-```cpp
-static int cv::COLOR_YUV2BGRA_I420
-AutoIt:
-    [propget] $ocv.COLOR_YUV2BGRA_I420_
-```
-
-### cv.COLOR\_YUV420p2RGBA\_
-
-```cpp
-static int cv::COLOR_YUV420p2RGBA
-AutoIt:
-    [propget] $ocv.COLOR_YUV420p2RGBA_
-```
-
-### cv.COLOR\_YUV420p2BGRA\_
-
-```cpp
-static int cv::COLOR_YUV420p2BGRA
-AutoIt:
-    [propget] $ocv.COLOR_YUV420p2BGRA_
-```
-
-### cv.COLOR\_YUV2GRAY\_420\_
-
-```cpp
-static int cv::COLOR_YUV2GRAY_420
-AutoIt:
-    [propget] $ocv.COLOR_YUV2GRAY_420_
-```
-
-### cv.COLOR\_YUV2GRAY\_NV21\_
-
-```cpp
-static int cv::COLOR_YUV2GRAY_NV21
-AutoIt:
-    [propget] $ocv.COLOR_YUV2GRAY_NV21_
-```
-
-### cv.COLOR\_YUV2GRAY\_NV12\_
-
-```cpp
-static int cv::COLOR_YUV2GRAY_NV12
-AutoIt:
-    [propget] $ocv.COLOR_YUV2GRAY_NV12_
-```
-
-### cv.COLOR\_YUV2GRAY\_YV12\_
-
-```cpp
-static int cv::COLOR_YUV2GRAY_YV12
-AutoIt:
-    [propget] $ocv.COLOR_YUV2GRAY_YV12_
-```
-
-### cv.COLOR\_YUV2GRAY\_IYUV\_
-
-```cpp
-static int cv::COLOR_YUV2GRAY_IYUV
-AutoIt:
-    [propget] $ocv.COLOR_YUV2GRAY_IYUV_
-```
-
-### cv.COLOR\_YUV2GRAY\_I420\_
-
-```cpp
-static int cv::COLOR_YUV2GRAY_I420
-AutoIt:
-    [propget] $ocv.COLOR_YUV2GRAY_I420_
-```
-
-### cv.COLOR\_YUV420sp2GRAY\_
-
-```cpp
-static int cv::COLOR_YUV420sp2GRAY
-AutoIt:
-    [propget] $ocv.COLOR_YUV420sp2GRAY_
-```
-
-### cv.COLOR\_YUV420p2GRAY\_
-
-```cpp
-static int cv::COLOR_YUV420p2GRAY
-AutoIt:
-    [propget] $ocv.COLOR_YUV420p2GRAY_
-```
-
-### cv.COLOR\_YUV2RGB\_UYVY\_
-
-```cpp
-static int cv::COLOR_YUV2RGB_UYVY
-AutoIt:
-    [propget] $ocv.COLOR_YUV2RGB_UYVY_
-```
-
-### cv.COLOR\_YUV2BGR\_UYVY\_
-
-```cpp
-static int cv::COLOR_YUV2BGR_UYVY
-AutoIt:
-    [propget] $ocv.COLOR_YUV2BGR_UYVY_
-```
-
-### cv.COLOR\_YUV2RGB\_Y422\_
-
-```cpp
-static int cv::COLOR_YUV2RGB_Y422
-AutoIt:
-    [propget] $ocv.COLOR_YUV2RGB_Y422_
-```
-
-### cv.COLOR\_YUV2BGR\_Y422\_
-
-```cpp
-static int cv::COLOR_YUV2BGR_Y422
-AutoIt:
-    [propget] $ocv.COLOR_YUV2BGR_Y422_
-```
-
-### cv.COLOR\_YUV2RGB\_UYNV\_
-
-```cpp
-static int cv::COLOR_YUV2RGB_UYNV
-AutoIt:
-    [propget] $ocv.COLOR_YUV2RGB_UYNV_
-```
-
-### cv.COLOR\_YUV2BGR\_UYNV\_
-
-```cpp
-static int cv::COLOR_YUV2BGR_UYNV
-AutoIt:
-    [propget] $ocv.COLOR_YUV2BGR_UYNV_
-```
-
-### cv.COLOR\_YUV2RGBA\_UYVY\_
-
-```cpp
-static int cv::COLOR_YUV2RGBA_UYVY
-AutoIt:
-    [propget] $ocv.COLOR_YUV2RGBA_UYVY_
-```
-
-### cv.COLOR\_YUV2BGRA\_UYVY\_
-
-```cpp
-static int cv::COLOR_YUV2BGRA_UYVY
-AutoIt:
-    [propget] $ocv.COLOR_YUV2BGRA_UYVY_
-```
-
-### cv.COLOR\_YUV2RGBA\_Y422\_
-
-```cpp
-static int cv::COLOR_YUV2RGBA_Y422
-AutoIt:
-    [propget] $ocv.COLOR_YUV2RGBA_Y422_
-```
-
-### cv.COLOR\_YUV2BGRA\_Y422\_
-
-```cpp
-static int cv::COLOR_YUV2BGRA_Y422
-AutoIt:
-    [propget] $ocv.COLOR_YUV2BGRA_Y422_
-```
-
-### cv.COLOR\_YUV2RGBA\_UYNV\_
-
-```cpp
-static int cv::COLOR_YUV2RGBA_UYNV
-AutoIt:
-    [propget] $ocv.COLOR_YUV2RGBA_UYNV_
-```
-
-### cv.COLOR\_YUV2BGRA\_UYNV\_
-
-```cpp
-static int cv::COLOR_YUV2BGRA_UYNV
-AutoIt:
-    [propget] $ocv.COLOR_YUV2BGRA_UYNV_
-```
-
-### cv.COLOR\_YUV2RGB\_YUY2\_
-
-```cpp
-static int cv::COLOR_YUV2RGB_YUY2
-AutoIt:
-    [propget] $ocv.COLOR_YUV2RGB_YUY2_
-```
-
-### cv.COLOR\_YUV2BGR\_YUY2\_
-
-```cpp
-static int cv::COLOR_YUV2BGR_YUY2
-AutoIt:
-    [propget] $ocv.COLOR_YUV2BGR_YUY2_
-```
-
-### cv.COLOR\_YUV2RGB\_YVYU\_
-
-```cpp
-static int cv::COLOR_YUV2RGB_YVYU
-AutoIt:
-    [propget] $ocv.COLOR_YUV2RGB_YVYU_
-```
-
-### cv.COLOR\_YUV2BGR\_YVYU\_
-
-```cpp
-static int cv::COLOR_YUV2BGR_YVYU
-AutoIt:
-    [propget] $ocv.COLOR_YUV2BGR_YVYU_
-```
-
-### cv.COLOR\_YUV2RGB\_YUYV\_
-
-```cpp
-static int cv::COLOR_YUV2RGB_YUYV
-AutoIt:
-    [propget] $ocv.COLOR_YUV2RGB_YUYV_
-```
-
-### cv.COLOR\_YUV2BGR\_YUYV\_
-
-```cpp
-static int cv::COLOR_YUV2BGR_YUYV
-AutoIt:
-    [propget] $ocv.COLOR_YUV2BGR_YUYV_
-```
-
-### cv.COLOR\_YUV2RGB\_YUNV\_
-
-```cpp
-static int cv::COLOR_YUV2RGB_YUNV
-AutoIt:
-    [propget] $ocv.COLOR_YUV2RGB_YUNV_
-```
-
-### cv.COLOR\_YUV2BGR\_YUNV\_
-
-```cpp
-static int cv::COLOR_YUV2BGR_YUNV
-AutoIt:
-    [propget] $ocv.COLOR_YUV2BGR_YUNV_
-```
-
-### cv.COLOR\_YUV2RGBA\_YUY2\_
-
-```cpp
-static int cv::COLOR_YUV2RGBA_YUY2
-AutoIt:
-    [propget] $ocv.COLOR_YUV2RGBA_YUY2_
-```
-
-### cv.COLOR\_YUV2BGRA\_YUY2\_
-
-```cpp
-static int cv::COLOR_YUV2BGRA_YUY2
-AutoIt:
-    [propget] $ocv.COLOR_YUV2BGRA_YUY2_
-```
-
-### cv.COLOR\_YUV2RGBA\_YVYU\_
-
-```cpp
-static int cv::COLOR_YUV2RGBA_YVYU
-AutoIt:
-    [propget] $ocv.COLOR_YUV2RGBA_YVYU_
-```
-
-### cv.COLOR\_YUV2BGRA\_YVYU\_
-
-```cpp
-static int cv::COLOR_YUV2BGRA_YVYU
-AutoIt:
-    [propget] $ocv.COLOR_YUV2BGRA_YVYU_
-```
-
-### cv.COLOR\_YUV2RGBA\_YUYV\_
-
-```cpp
-static int cv::COLOR_YUV2RGBA_YUYV
-AutoIt:
-    [propget] $ocv.COLOR_YUV2RGBA_YUYV_
-```
-
-### cv.COLOR\_YUV2BGRA\_YUYV\_
-
-```cpp
-static int cv::COLOR_YUV2BGRA_YUYV
-AutoIt:
-    [propget] $ocv.COLOR_YUV2BGRA_YUYV_
-```
-
-### cv.COLOR\_YUV2RGBA\_YUNV\_
-
-```cpp
-static int cv::COLOR_YUV2RGBA_YUNV
-AutoIt:
-    [propget] $ocv.COLOR_YUV2RGBA_YUNV_
-```
-
-### cv.COLOR\_YUV2BGRA\_YUNV\_
-
-```cpp
-static int cv::COLOR_YUV2BGRA_YUNV
-AutoIt:
-    [propget] $ocv.COLOR_YUV2BGRA_YUNV_
-```
-
-### cv.COLOR\_YUV2GRAY\_UYVY\_
-
-```cpp
-static int cv::COLOR_YUV2GRAY_UYVY
-AutoIt:
-    [propget] $ocv.COLOR_YUV2GRAY_UYVY_
-```
-
-### cv.COLOR\_YUV2GRAY\_YUY2\_
-
-```cpp
-static int cv::COLOR_YUV2GRAY_YUY2
-AutoIt:
-    [propget] $ocv.COLOR_YUV2GRAY_YUY2_
-```
-
-### cv.COLOR\_YUV2GRAY\_Y422\_
-
-```cpp
-static int cv::COLOR_YUV2GRAY_Y422
-AutoIt:
-    [propget] $ocv.COLOR_YUV2GRAY_Y422_
-```
-
-### cv.COLOR\_YUV2GRAY\_UYNV\_
-
-```cpp
-static int cv::COLOR_YUV2GRAY_UYNV
-AutoIt:
-    [propget] $ocv.COLOR_YUV2GRAY_UYNV_
-```
-
-### cv.COLOR\_YUV2GRAY\_YVYU\_
-
-```cpp
-static int cv::COLOR_YUV2GRAY_YVYU
-AutoIt:
-    [propget] $ocv.COLOR_YUV2GRAY_YVYU_
-```
-
-### cv.COLOR\_YUV2GRAY\_YUYV\_
-
-```cpp
-static int cv::COLOR_YUV2GRAY_YUYV
-AutoIt:
-    [propget] $ocv.COLOR_YUV2GRAY_YUYV_
-```
-
-### cv.COLOR\_YUV2GRAY\_YUNV\_
-
-```cpp
-static int cv::COLOR_YUV2GRAY_YUNV
-AutoIt:
-    [propget] $ocv.COLOR_YUV2GRAY_YUNV_
-```
-
-### cv.COLOR\_RGBA2mRGBA\_
-
-```cpp
-static int cv::COLOR_RGBA2mRGBA
-AutoIt:
-    [propget] $ocv.COLOR_RGBA2mRGBA_
-```
-
-### cv.COLOR\_mRGBA2RGBA\_
-
-```cpp
-static int cv::COLOR_mRGBA2RGBA
-AutoIt:
-    [propget] $ocv.COLOR_mRGBA2RGBA_
-```
-
-### cv.COLOR\_RGB2YUV\_I420\_
-
-```cpp
-static int cv::COLOR_RGB2YUV_I420
-AutoIt:
-    [propget] $ocv.COLOR_RGB2YUV_I420_
-```
-
-### cv.COLOR\_BGR2YUV\_I420\_
-
-```cpp
-static int cv::COLOR_BGR2YUV_I420
-AutoIt:
-    [propget] $ocv.COLOR_BGR2YUV_I420_
-```
-
-### cv.COLOR\_RGB2YUV\_IYUV\_
-
-```cpp
-static int cv::COLOR_RGB2YUV_IYUV
-AutoIt:
-    [propget] $ocv.COLOR_RGB2YUV_IYUV_
-```
-
-### cv.COLOR\_BGR2YUV\_IYUV\_
-
-```cpp
-static int cv::COLOR_BGR2YUV_IYUV
-AutoIt:
-    [propget] $ocv.COLOR_BGR2YUV_IYUV_
-```
-
-### cv.COLOR\_RGBA2YUV\_I420\_
-
-```cpp
-static int cv::COLOR_RGBA2YUV_I420
-AutoIt:
-    [propget] $ocv.COLOR_RGBA2YUV_I420_
-```
-
-### cv.COLOR\_BGRA2YUV\_I420\_
-
-```cpp
-static int cv::COLOR_BGRA2YUV_I420
-AutoIt:
-    [propget] $ocv.COLOR_BGRA2YUV_I420_
-```
-
-### cv.COLOR\_RGBA2YUV\_IYUV\_
-
-```cpp
-static int cv::COLOR_RGBA2YUV_IYUV
-AutoIt:
-    [propget] $ocv.COLOR_RGBA2YUV_IYUV_
-```
-
-### cv.COLOR\_BGRA2YUV\_IYUV\_
-
-```cpp
-static int cv::COLOR_BGRA2YUV_IYUV
-AutoIt:
-    [propget] $ocv.COLOR_BGRA2YUV_IYUV_
-```
-
-### cv.COLOR\_RGB2YUV\_YV12\_
-
-```cpp
-static int cv::COLOR_RGB2YUV_YV12
-AutoIt:
-    [propget] $ocv.COLOR_RGB2YUV_YV12_
-```
-
-### cv.COLOR\_BGR2YUV\_YV12\_
-
-```cpp
-static int cv::COLOR_BGR2YUV_YV12
-AutoIt:
-    [propget] $ocv.COLOR_BGR2YUV_YV12_
-```
-
-### cv.COLOR\_RGBA2YUV\_YV12\_
-
-```cpp
-static int cv::COLOR_RGBA2YUV_YV12
-AutoIt:
-    [propget] $ocv.COLOR_RGBA2YUV_YV12_
-```
-
-### cv.COLOR\_BGRA2YUV\_YV12\_
-
-```cpp
-static int cv::COLOR_BGRA2YUV_YV12
-AutoIt:
-    [propget] $ocv.COLOR_BGRA2YUV_YV12_
-```
-
-### cv.COLOR\_BayerBG2BGR\_
-
-```cpp
-static int cv::COLOR_BayerBG2BGR
-AutoIt:
-    [propget] $ocv.COLOR_BayerBG2BGR_
-```
-
-### cv.COLOR\_BayerGB2BGR\_
-
-```cpp
-static int cv::COLOR_BayerGB2BGR
-AutoIt:
-    [propget] $ocv.COLOR_BayerGB2BGR_
-```
-
-### cv.COLOR\_BayerRG2BGR\_
-
-```cpp
-static int cv::COLOR_BayerRG2BGR
-AutoIt:
-    [propget] $ocv.COLOR_BayerRG2BGR_
-```
-
-### cv.COLOR\_BayerGR2BGR\_
-
-```cpp
-static int cv::COLOR_BayerGR2BGR
-AutoIt:
-    [propget] $ocv.COLOR_BayerGR2BGR_
-```
-
-### cv.COLOR\_BayerRGGB2BGR\_
-
-```cpp
-static int cv::COLOR_BayerRGGB2BGR
-AutoIt:
-    [propget] $ocv.COLOR_BayerRGGB2BGR_
-```
-
-### cv.COLOR\_BayerGRBG2BGR\_
-
-```cpp
-static int cv::COLOR_BayerGRBG2BGR
-AutoIt:
-    [propget] $ocv.COLOR_BayerGRBG2BGR_
-```
-
-### cv.COLOR\_BayerBGGR2BGR\_
-
-```cpp
-static int cv::COLOR_BayerBGGR2BGR
-AutoIt:
-    [propget] $ocv.COLOR_BayerBGGR2BGR_
-```
-
-### cv.COLOR\_BayerGBRG2BGR\_
-
-```cpp
-static int cv::COLOR_BayerGBRG2BGR
-AutoIt:
-    [propget] $ocv.COLOR_BayerGBRG2BGR_
-```
-
-### cv.COLOR\_BayerRGGB2RGB\_
-
-```cpp
-static int cv::COLOR_BayerRGGB2RGB
-AutoIt:
-    [propget] $ocv.COLOR_BayerRGGB2RGB_
-```
-
-### cv.COLOR\_BayerGRBG2RGB\_
-
-```cpp
-static int cv::COLOR_BayerGRBG2RGB
-AutoIt:
-    [propget] $ocv.COLOR_BayerGRBG2RGB_
-```
-
-### cv.COLOR\_BayerBGGR2RGB\_
-
-```cpp
-static int cv::COLOR_BayerBGGR2RGB
-AutoIt:
-    [propget] $ocv.COLOR_BayerBGGR2RGB_
-```
-
-### cv.COLOR\_BayerGBRG2RGB\_
-
-```cpp
-static int cv::COLOR_BayerGBRG2RGB
-AutoIt:
-    [propget] $ocv.COLOR_BayerGBRG2RGB_
-```
-
-### cv.COLOR\_BayerBG2RGB\_
-
-```cpp
-static int cv::COLOR_BayerBG2RGB
-AutoIt:
-    [propget] $ocv.COLOR_BayerBG2RGB_
-```
-
-### cv.COLOR\_BayerGB2RGB\_
-
-```cpp
-static int cv::COLOR_BayerGB2RGB
-AutoIt:
-    [propget] $ocv.COLOR_BayerGB2RGB_
-```
-
-### cv.COLOR\_BayerRG2RGB\_
-
-```cpp
-static int cv::COLOR_BayerRG2RGB
-AutoIt:
-    [propget] $ocv.COLOR_BayerRG2RGB_
-```
-
-### cv.COLOR\_BayerGR2RGB\_
-
-```cpp
-static int cv::COLOR_BayerGR2RGB
-AutoIt:
-    [propget] $ocv.COLOR_BayerGR2RGB_
-```
-
-### cv.COLOR\_BayerBG2GRAY\_
-
-```cpp
-static int cv::COLOR_BayerBG2GRAY
-AutoIt:
-    [propget] $ocv.COLOR_BayerBG2GRAY_
-```
-
-### cv.COLOR\_BayerGB2GRAY\_
-
-```cpp
-static int cv::COLOR_BayerGB2GRAY
-AutoIt:
-    [propget] $ocv.COLOR_BayerGB2GRAY_
-```
-
-### cv.COLOR\_BayerRG2GRAY\_
-
-```cpp
-static int cv::COLOR_BayerRG2GRAY
-AutoIt:
-    [propget] $ocv.COLOR_BayerRG2GRAY_
-```
-
-### cv.COLOR\_BayerGR2GRAY\_
-
-```cpp
-static int cv::COLOR_BayerGR2GRAY
-AutoIt:
-    [propget] $ocv.COLOR_BayerGR2GRAY_
-```
-
-### cv.COLOR\_BayerRGGB2GRAY\_
-
-```cpp
-static int cv::COLOR_BayerRGGB2GRAY
-AutoIt:
-    [propget] $ocv.COLOR_BayerRGGB2GRAY_
-```
-
-### cv.COLOR\_BayerGRBG2GRAY\_
-
-```cpp
-static int cv::COLOR_BayerGRBG2GRAY
-AutoIt:
-    [propget] $ocv.COLOR_BayerGRBG2GRAY_
-```
-
-### cv.COLOR\_BayerBGGR2GRAY\_
-
-```cpp
-static int cv::COLOR_BayerBGGR2GRAY
-AutoIt:
-    [propget] $ocv.COLOR_BayerBGGR2GRAY_
-```
-
-### cv.COLOR\_BayerGBRG2GRAY\_
-
-```cpp
-static int cv::COLOR_BayerGBRG2GRAY
-AutoIt:
-    [propget] $ocv.COLOR_BayerGBRG2GRAY_
-```
-
-### cv.COLOR\_BayerBG2BGR\_VNG\_
-
-```cpp
-static int cv::COLOR_BayerBG2BGR_VNG
-AutoIt:
-    [propget] $ocv.COLOR_BayerBG2BGR_VNG_
-```
-
-### cv.COLOR\_BayerGB2BGR\_VNG\_
-
-```cpp
-static int cv::COLOR_BayerGB2BGR_VNG
-AutoIt:
-    [propget] $ocv.COLOR_BayerGB2BGR_VNG_
-```
-
-### cv.COLOR\_BayerRG2BGR\_VNG\_
-
-```cpp
-static int cv::COLOR_BayerRG2BGR_VNG
-AutoIt:
-    [propget] $ocv.COLOR_BayerRG2BGR_VNG_
-```
-
-### cv.COLOR\_BayerGR2BGR\_VNG\_
-
-```cpp
-static int cv::COLOR_BayerGR2BGR_VNG
-AutoIt:
-    [propget] $ocv.COLOR_BayerGR2BGR_VNG_
-```
-
-### cv.COLOR\_BayerRGGB2BGR\_VNG\_
-
-```cpp
-static int cv::COLOR_BayerRGGB2BGR_VNG
-AutoIt:
-    [propget] $ocv.COLOR_BayerRGGB2BGR_VNG_
-```
-
-### cv.COLOR\_BayerGRBG2BGR\_VNG\_
-
-```cpp
-static int cv::COLOR_BayerGRBG2BGR_VNG
-AutoIt:
-    [propget] $ocv.COLOR_BayerGRBG2BGR_VNG_
-```
-
-### cv.COLOR\_BayerBGGR2BGR\_VNG\_
-
-```cpp
-static int cv::COLOR_BayerBGGR2BGR_VNG
-AutoIt:
-    [propget] $ocv.COLOR_BayerBGGR2BGR_VNG_
-```
-
-### cv.COLOR\_BayerGBRG2BGR\_VNG\_
-
-```cpp
-static int cv::COLOR_BayerGBRG2BGR_VNG
-AutoIt:
-    [propget] $ocv.COLOR_BayerGBRG2BGR_VNG_
-```
-
-### cv.COLOR\_BayerRGGB2RGB\_VNG\_
-
-```cpp
-static int cv::COLOR_BayerRGGB2RGB_VNG
-AutoIt:
-    [propget] $ocv.COLOR_BayerRGGB2RGB_VNG_
-```
-
-### cv.COLOR\_BayerGRBG2RGB\_VNG\_
-
-```cpp
-static int cv::COLOR_BayerGRBG2RGB_VNG
-AutoIt:
-    [propget] $ocv.COLOR_BayerGRBG2RGB_VNG_
-```
-
-### cv.COLOR\_BayerBGGR2RGB\_VNG\_
-
-```cpp
-static int cv::COLOR_BayerBGGR2RGB_VNG
-AutoIt:
-    [propget] $ocv.COLOR_BayerBGGR2RGB_VNG_
-```
-
-### cv.COLOR\_BayerGBRG2RGB\_VNG\_
-
-```cpp
-static int cv::COLOR_BayerGBRG2RGB_VNG
-AutoIt:
-    [propget] $ocv.COLOR_BayerGBRG2RGB_VNG_
-```
-
-### cv.COLOR\_BayerBG2RGB\_VNG\_
-
-```cpp
-static int cv::COLOR_BayerBG2RGB_VNG
-AutoIt:
-    [propget] $ocv.COLOR_BayerBG2RGB_VNG_
-```
-
-### cv.COLOR\_BayerGB2RGB\_VNG\_
-
-```cpp
-static int cv::COLOR_BayerGB2RGB_VNG
-AutoIt:
-    [propget] $ocv.COLOR_BayerGB2RGB_VNG_
-```
-
-### cv.COLOR\_BayerRG2RGB\_VNG\_
-
-```cpp
-static int cv::COLOR_BayerRG2RGB_VNG
-AutoIt:
-    [propget] $ocv.COLOR_BayerRG2RGB_VNG_
-```
-
-### cv.COLOR\_BayerGR2RGB\_VNG\_
-
-```cpp
-static int cv::COLOR_BayerGR2RGB_VNG
-AutoIt:
-    [propget] $ocv.COLOR_BayerGR2RGB_VNG_
-```
-
-### cv.COLOR\_BayerBG2BGR\_EA\_
-
-```cpp
-static int cv::COLOR_BayerBG2BGR_EA
-AutoIt:
-    [propget] $ocv.COLOR_BayerBG2BGR_EA_
-```
-
-### cv.COLOR\_BayerGB2BGR\_EA\_
-
-```cpp
-static int cv::COLOR_BayerGB2BGR_EA
-AutoIt:
-    [propget] $ocv.COLOR_BayerGB2BGR_EA_
-```
-
-### cv.COLOR\_BayerRG2BGR\_EA\_
-
-```cpp
-static int cv::COLOR_BayerRG2BGR_EA
-AutoIt:
-    [propget] $ocv.COLOR_BayerRG2BGR_EA_
-```
-
-### cv.COLOR\_BayerGR2BGR\_EA\_
-
-```cpp
-static int cv::COLOR_BayerGR2BGR_EA
-AutoIt:
-    [propget] $ocv.COLOR_BayerGR2BGR_EA_
-```
-
-### cv.COLOR\_BayerRGGB2BGR\_EA\_
-
-```cpp
-static int cv::COLOR_BayerRGGB2BGR_EA
-AutoIt:
-    [propget] $ocv.COLOR_BayerRGGB2BGR_EA_
-```
-
-### cv.COLOR\_BayerGRBG2BGR\_EA\_
-
-```cpp
-static int cv::COLOR_BayerGRBG2BGR_EA
-AutoIt:
-    [propget] $ocv.COLOR_BayerGRBG2BGR_EA_
-```
-
-### cv.COLOR\_BayerBGGR2BGR\_EA\_
-
-```cpp
-static int cv::COLOR_BayerBGGR2BGR_EA
-AutoIt:
-    [propget] $ocv.COLOR_BayerBGGR2BGR_EA_
-```
-
-### cv.COLOR\_BayerGBRG2BGR\_EA\_
-
-```cpp
-static int cv::COLOR_BayerGBRG2BGR_EA
-AutoIt:
-    [propget] $ocv.COLOR_BayerGBRG2BGR_EA_
-```
-
-### cv.COLOR\_BayerRGGB2RGB\_EA\_
-
-```cpp
-static int cv::COLOR_BayerRGGB2RGB_EA
-AutoIt:
-    [propget] $ocv.COLOR_BayerRGGB2RGB_EA_
-```
-
-### cv.COLOR\_BayerGRBG2RGB\_EA\_
-
-```cpp
-static int cv::COLOR_BayerGRBG2RGB_EA
-AutoIt:
-    [propget] $ocv.COLOR_BayerGRBG2RGB_EA_
-```
-
-### cv.COLOR\_BayerBGGR2RGB\_EA\_
-
-```cpp
-static int cv::COLOR_BayerBGGR2RGB_EA
-AutoIt:
-    [propget] $ocv.COLOR_BayerBGGR2RGB_EA_
-```
-
-### cv.COLOR\_BayerGBRG2RGB\_EA\_
-
-```cpp
-static int cv::COLOR_BayerGBRG2RGB_EA
-AutoIt:
-    [propget] $ocv.COLOR_BayerGBRG2RGB_EA_
-```
-
-### cv.COLOR\_BayerBG2RGB\_EA\_
-
-```cpp
-static int cv::COLOR_BayerBG2RGB_EA
-AutoIt:
-    [propget] $ocv.COLOR_BayerBG2RGB_EA_
-```
-
-### cv.COLOR\_BayerGB2RGB\_EA\_
-
-```cpp
-static int cv::COLOR_BayerGB2RGB_EA
-AutoIt:
-    [propget] $ocv.COLOR_BayerGB2RGB_EA_
-```
-
-### cv.COLOR\_BayerRG2RGB\_EA\_
-
-```cpp
-static int cv::COLOR_BayerRG2RGB_EA
-AutoIt:
-    [propget] $ocv.COLOR_BayerRG2RGB_EA_
-```
-
-### cv.COLOR\_BayerGR2RGB\_EA\_
-
-```cpp
-static int cv::COLOR_BayerGR2RGB_EA
-AutoIt:
-    [propget] $ocv.COLOR_BayerGR2RGB_EA_
-```
-
-### cv.COLOR\_BayerBG2BGRA\_
-
-```cpp
-static int cv::COLOR_BayerBG2BGRA
-AutoIt:
-    [propget] $ocv.COLOR_BayerBG2BGRA_
-```
-
-### cv.COLOR\_BayerGB2BGRA\_
-
-```cpp
-static int cv::COLOR_BayerGB2BGRA
-AutoIt:
-    [propget] $ocv.COLOR_BayerGB2BGRA_
-```
-
-### cv.COLOR\_BayerRG2BGRA\_
-
-```cpp
-static int cv::COLOR_BayerRG2BGRA
-AutoIt:
-    [propget] $ocv.COLOR_BayerRG2BGRA_
-```
-
-### cv.COLOR\_BayerGR2BGRA\_
-
-```cpp
-static int cv::COLOR_BayerGR2BGRA
-AutoIt:
-    [propget] $ocv.COLOR_BayerGR2BGRA_
-```
-
-### cv.COLOR\_BayerRGGB2BGRA\_
-
-```cpp
-static int cv::COLOR_BayerRGGB2BGRA
-AutoIt:
-    [propget] $ocv.COLOR_BayerRGGB2BGRA_
-```
-
-### cv.COLOR\_BayerGRBG2BGRA\_
-
-```cpp
-static int cv::COLOR_BayerGRBG2BGRA
-AutoIt:
-    [propget] $ocv.COLOR_BayerGRBG2BGRA_
-```
-
-### cv.COLOR\_BayerBGGR2BGRA\_
-
-```cpp
-static int cv::COLOR_BayerBGGR2BGRA
-AutoIt:
-    [propget] $ocv.COLOR_BayerBGGR2BGRA_
-```
-
-### cv.COLOR\_BayerGBRG2BGRA\_
-
-```cpp
-static int cv::COLOR_BayerGBRG2BGRA
-AutoIt:
-    [propget] $ocv.COLOR_BayerGBRG2BGRA_
-```
-
-### cv.COLOR\_BayerRGGB2RGBA\_
-
-```cpp
-static int cv::COLOR_BayerRGGB2RGBA
-AutoIt:
-    [propget] $ocv.COLOR_BayerRGGB2RGBA_
-```
-
-### cv.COLOR\_BayerGRBG2RGBA\_
-
-```cpp
-static int cv::COLOR_BayerGRBG2RGBA
-AutoIt:
-    [propget] $ocv.COLOR_BayerGRBG2RGBA_
-```
-
-### cv.COLOR\_BayerBGGR2RGBA\_
-
-```cpp
-static int cv::COLOR_BayerBGGR2RGBA
-AutoIt:
-    [propget] $ocv.COLOR_BayerBGGR2RGBA_
-```
-
-### cv.COLOR\_BayerGBRG2RGBA\_
-
-```cpp
-static int cv::COLOR_BayerGBRG2RGBA
-AutoIt:
-    [propget] $ocv.COLOR_BayerGBRG2RGBA_
-```
-
-### cv.COLOR\_BayerBG2RGBA\_
-
-```cpp
-static int cv::COLOR_BayerBG2RGBA
-AutoIt:
-    [propget] $ocv.COLOR_BayerBG2RGBA_
-```
-
-### cv.COLOR\_BayerGB2RGBA\_
-
-```cpp
-static int cv::COLOR_BayerGB2RGBA
-AutoIt:
-    [propget] $ocv.COLOR_BayerGB2RGBA_
-```
-
-### cv.COLOR\_BayerRG2RGBA\_
-
-```cpp
-static int cv::COLOR_BayerRG2RGBA
-AutoIt:
-    [propget] $ocv.COLOR_BayerRG2RGBA_
-```
-
-### cv.COLOR\_BayerGR2RGBA\_
-
-```cpp
-static int cv::COLOR_BayerGR2RGBA
-AutoIt:
-    [propget] $ocv.COLOR_BayerGR2RGBA_
-```
-
-### cv.COLOR\_COLORCVT\_MAX\_
-
-```cpp
-static int cv::COLOR_COLORCVT_MAX
-AutoIt:
-    [propget] $ocv.COLOR_COLORCVT_MAX_
-```
-
-### cv.INTERSECT\_NONE\_
-
-```cpp
-static int cv::INTERSECT_NONE
-AutoIt:
-    [propget] $ocv.INTERSECT_NONE_
-```
-
-### cv.INTERSECT\_PARTIAL\_
-
-```cpp
-static int cv::INTERSECT_PARTIAL
-AutoIt:
-    [propget] $ocv.INTERSECT_PARTIAL_
-```
-
-### cv.INTERSECT\_FULL\_
-
-```cpp
-static int cv::INTERSECT_FULL
-AutoIt:
-    [propget] $ocv.INTERSECT_FULL_
-```
-
-### cv.FILLED\_
-
-```cpp
-static int cv::FILLED
-AutoIt:
-    [propget] $ocv.FILLED_
-```
-
-### cv.LINE\_4\_
-
-```cpp
-static int cv::LINE_4
-AutoIt:
-    [propget] $ocv.LINE_4_
-```
-
-### cv.LINE\_8\_
-
-```cpp
-static int cv::LINE_8
-AutoIt:
-    [propget] $ocv.LINE_8_
-```
-
-### cv.LINE\_AA\_
-
-```cpp
-static int cv::LINE_AA
-AutoIt:
-    [propget] $ocv.LINE_AA_
-```
-
-### cv.FONT\_HERSHEY\_SIMPLEX\_
-
-```cpp
-static int cv::FONT_HERSHEY_SIMPLEX
-AutoIt:
-    [propget] $ocv.FONT_HERSHEY_SIMPLEX_
-```
-
-### cv.FONT\_HERSHEY\_PLAIN\_
-
-```cpp
-static int cv::FONT_HERSHEY_PLAIN
-AutoIt:
-    [propget] $ocv.FONT_HERSHEY_PLAIN_
-```
-
-### cv.FONT\_HERSHEY\_DUPLEX\_
-
-```cpp
-static int cv::FONT_HERSHEY_DUPLEX
-AutoIt:
-    [propget] $ocv.FONT_HERSHEY_DUPLEX_
-```
-
-### cv.FONT\_HERSHEY\_COMPLEX\_
-
-```cpp
-static int cv::FONT_HERSHEY_COMPLEX
-AutoIt:
-    [propget] $ocv.FONT_HERSHEY_COMPLEX_
-```
-
-### cv.FONT\_HERSHEY\_TRIPLEX\_
-
-```cpp
-static int cv::FONT_HERSHEY_TRIPLEX
-AutoIt:
-    [propget] $ocv.FONT_HERSHEY_TRIPLEX_
-```
-
-### cv.FONT\_HERSHEY\_COMPLEX\_SMALL\_
-
-```cpp
-static int cv::FONT_HERSHEY_COMPLEX_SMALL
-AutoIt:
-    [propget] $ocv.FONT_HERSHEY_COMPLEX_SMALL_
-```
-
-### cv.FONT\_HERSHEY\_SCRIPT\_SIMPLEX\_
-
-```cpp
-static int cv::FONT_HERSHEY_SCRIPT_SIMPLEX
-AutoIt:
-    [propget] $ocv.FONT_HERSHEY_SCRIPT_SIMPLEX_
-```
-
-### cv.FONT\_HERSHEY\_SCRIPT\_COMPLEX\_
-
-```cpp
-static int cv::FONT_HERSHEY_SCRIPT_COMPLEX
-AutoIt:
-    [propget] $ocv.FONT_HERSHEY_SCRIPT_COMPLEX_
-```
-
-### cv.FONT\_ITALIC\_
-
-```cpp
-static int cv::FONT_ITALIC
-AutoIt:
-    [propget] $ocv.FONT_ITALIC_
-```
-
-### cv.MARKER\_CROSS\_
-
-```cpp
-static int cv::MARKER_CROSS
-AutoIt:
-    [propget] $ocv.MARKER_CROSS_
-```
-
-### cv.MARKER\_TILTED\_CROSS\_
-
-```cpp
-static int cv::MARKER_TILTED_CROSS
-AutoIt:
-    [propget] $ocv.MARKER_TILTED_CROSS_
-```
-
-### cv.MARKER\_STAR\_
-
-```cpp
-static int cv::MARKER_STAR
-AutoIt:
-    [propget] $ocv.MARKER_STAR_
-```
-
-### cv.MARKER\_DIAMOND\_
-
-```cpp
-static int cv::MARKER_DIAMOND
-AutoIt:
-    [propget] $ocv.MARKER_DIAMOND_
-```
-
-### cv.MARKER\_SQUARE\_
-
-```cpp
-static int cv::MARKER_SQUARE
-AutoIt:
-    [propget] $ocv.MARKER_SQUARE_
-```
-
-### cv.MARKER\_TRIANGLE\_UP\_
-
-```cpp
-static int cv::MARKER_TRIANGLE_UP
-AutoIt:
-    [propget] $ocv.MARKER_TRIANGLE_UP_
-```
-
-### cv.MARKER\_TRIANGLE\_DOWN\_
-
-```cpp
-static int cv::MARKER_TRIANGLE_DOWN
-AutoIt:
-    [propget] $ocv.MARKER_TRIANGLE_DOWN_
-```
-
-### cv.TM\_SQDIFF\_
-
-```cpp
-static int cv::TM_SQDIFF
-AutoIt:
-    [propget] $ocv.TM_SQDIFF_
-```
-
-### cv.TM\_SQDIFF\_NORMED\_
-
-```cpp
-static int cv::TM_SQDIFF_NORMED
-AutoIt:
-    [propget] $ocv.TM_SQDIFF_NORMED_
-```
-
-### cv.TM\_CCORR\_
-
-```cpp
-static int cv::TM_CCORR
-AutoIt:
-    [propget] $ocv.TM_CCORR_
-```
-
-### cv.TM\_CCORR\_NORMED\_
-
-```cpp
-static int cv::TM_CCORR_NORMED
-AutoIt:
-    [propget] $ocv.TM_CCORR_NORMED_
-```
-
-### cv.TM\_CCOEFF\_
-
-```cpp
-static int cv::TM_CCOEFF
-AutoIt:
-    [propget] $ocv.TM_CCOEFF_
-```
-
-### cv.TM\_CCOEFF\_NORMED\_
-
-```cpp
-static int cv::TM_CCOEFF_NORMED
-AutoIt:
-    [propget] $ocv.TM_CCOEFF_NORMED_
-```
-
-### cv.COLORMAP\_AUTUMN\_
-
-```cpp
-static int cv::COLORMAP_AUTUMN
-AutoIt:
-    [propget] $ocv.COLORMAP_AUTUMN_
-```
-
-### cv.COLORMAP\_BONE\_
-
-```cpp
-static int cv::COLORMAP_BONE
-AutoIt:
-    [propget] $ocv.COLORMAP_BONE_
-```
-
-### cv.COLORMAP\_JET\_
-
-```cpp
-static int cv::COLORMAP_JET
-AutoIt:
-    [propget] $ocv.COLORMAP_JET_
-```
-
-### cv.COLORMAP\_WINTER\_
-
-```cpp
-static int cv::COLORMAP_WINTER
-AutoIt:
-    [propget] $ocv.COLORMAP_WINTER_
-```
-
-### cv.COLORMAP\_RAINBOW\_
-
-```cpp
-static int cv::COLORMAP_RAINBOW
-AutoIt:
-    [propget] $ocv.COLORMAP_RAINBOW_
-```
-
-### cv.COLORMAP\_OCEAN\_
-
-```cpp
-static int cv::COLORMAP_OCEAN
-AutoIt:
-    [propget] $ocv.COLORMAP_OCEAN_
-```
-
-### cv.COLORMAP\_SUMMER\_
-
-```cpp
-static int cv::COLORMAP_SUMMER
-AutoIt:
-    [propget] $ocv.COLORMAP_SUMMER_
-```
-
-### cv.COLORMAP\_SPRING\_
-
-```cpp
-static int cv::COLORMAP_SPRING
-AutoIt:
-    [propget] $ocv.COLORMAP_SPRING_
-```
-
-### cv.COLORMAP\_COOL\_
-
-```cpp
-static int cv::COLORMAP_COOL
-AutoIt:
-    [propget] $ocv.COLORMAP_COOL_
-```
-
-### cv.COLORMAP\_HSV\_
-
-```cpp
-static int cv::COLORMAP_HSV
-AutoIt:
-    [propget] $ocv.COLORMAP_HSV_
-```
-
-### cv.COLORMAP\_PINK\_
-
-```cpp
-static int cv::COLORMAP_PINK
-AutoIt:
-    [propget] $ocv.COLORMAP_PINK_
-```
-
-### cv.COLORMAP\_HOT\_
-
-```cpp
-static int cv::COLORMAP_HOT
-AutoIt:
-    [propget] $ocv.COLORMAP_HOT_
-```
-
-### cv.COLORMAP\_PARULA\_
-
-```cpp
-static int cv::COLORMAP_PARULA
-AutoIt:
-    [propget] $ocv.COLORMAP_PARULA_
-```
-
-### cv.COLORMAP\_MAGMA\_
-
-```cpp
-static int cv::COLORMAP_MAGMA
-AutoIt:
-    [propget] $ocv.COLORMAP_MAGMA_
-```
-
-### cv.COLORMAP\_INFERNO\_
-
-```cpp
-static int cv::COLORMAP_INFERNO
-AutoIt:
-    [propget] $ocv.COLORMAP_INFERNO_
-```
-
-### cv.COLORMAP\_PLASMA\_
-
-```cpp
-static int cv::COLORMAP_PLASMA
-AutoIt:
-    [propget] $ocv.COLORMAP_PLASMA_
-```
-
-### cv.COLORMAP\_VIRIDIS\_
-
-```cpp
-static int cv::COLORMAP_VIRIDIS
-AutoIt:
-    [propget] $ocv.COLORMAP_VIRIDIS_
-```
-
-### cv.COLORMAP\_CIVIDIS\_
-
-```cpp
-static int cv::COLORMAP_CIVIDIS
-AutoIt:
-    [propget] $ocv.COLORMAP_CIVIDIS_
-```
-
-### cv.COLORMAP\_TWILIGHT\_
-
-```cpp
-static int cv::COLORMAP_TWILIGHT
-AutoIt:
-    [propget] $ocv.COLORMAP_TWILIGHT_
-```
-
-### cv.COLORMAP\_TWILIGHT\_SHIFTED\_
-
-```cpp
-static int cv::COLORMAP_TWILIGHT_SHIFTED
-AutoIt:
-    [propget] $ocv.COLORMAP_TWILIGHT_SHIFTED_
-```
-
-### cv.COLORMAP\_TURBO\_
-
-```cpp
-static int cv::COLORMAP_TURBO
-AutoIt:
-    [propget] $ocv.COLORMAP_TURBO_
-```
-
-### cv.COLORMAP\_DEEPGREEN\_
-
-```cpp
-static int cv::COLORMAP_DEEPGREEN
-AutoIt:
-    [propget] $ocv.COLORMAP_DEEPGREEN_
-```
-
-### cv.INPAINT\_NS\_
-
-```cpp
-static int cv::INPAINT_NS
-AutoIt:
-    [propget] $ocv.INPAINT_NS_
-```
-
-### cv.INPAINT\_TELEA\_
-
-```cpp
-static int cv::INPAINT_TELEA
-AutoIt:
-    [propget] $ocv.INPAINT_TELEA_
-```
-
-### cv.LDR\_SIZE\_
-
-```cpp
-static int cv::LDR_SIZE
-AutoIt:
-    [propget] $ocv.LDR_SIZE_
-```
-
-### cv.NORMAL\_CLONE\_
-
-```cpp
-static int cv::NORMAL_CLONE
-AutoIt:
-    [propget] $ocv.NORMAL_CLONE_
-```
-
-### cv.MIXED\_CLONE\_
-
-```cpp
-static int cv::MIXED_CLONE
-AutoIt:
-    [propget] $ocv.MIXED_CLONE_
-```
-
-### cv.MONOCHROME\_TRANSFER\_
-
-```cpp
-static int cv::MONOCHROME_TRANSFER
-AutoIt:
-    [propget] $ocv.MONOCHROME_TRANSFER_
-```
-
-### cv.RECURS\_FILTER\_
-
-```cpp
-static int cv::RECURS_FILTER
-AutoIt:
-    [propget] $ocv.RECURS_FILTER_
-```
-
-### cv.NORMCONV\_FILTER\_
-
-```cpp
-static int cv::NORMCONV_FILTER
-AutoIt:
-    [propget] $ocv.NORMCONV_FILTER_
-```
-
-### cv.IMREAD\_UNCHANGED\_
-
-```cpp
-static int cv::IMREAD_UNCHANGED
-AutoIt:
-    [propget] $ocv.IMREAD_UNCHANGED_
-```
-
-### cv.IMREAD\_GRAYSCALE\_
-
-```cpp
-static int cv::IMREAD_GRAYSCALE
-AutoIt:
-    [propget] $ocv.IMREAD_GRAYSCALE_
-```
-
-### cv.IMREAD\_COLOR\_
-
-```cpp
-static int cv::IMREAD_COLOR
-AutoIt:
-    [propget] $ocv.IMREAD_COLOR_
-```
-
-### cv.IMREAD\_ANYDEPTH\_
-
-```cpp
-static int cv::IMREAD_ANYDEPTH
-AutoIt:
-    [propget] $ocv.IMREAD_ANYDEPTH_
-```
-
-### cv.IMREAD\_ANYCOLOR\_
-
-```cpp
-static int cv::IMREAD_ANYCOLOR
-AutoIt:
-    [propget] $ocv.IMREAD_ANYCOLOR_
-```
-
-### cv.IMREAD\_LOAD\_GDAL\_
-
-```cpp
-static int cv::IMREAD_LOAD_GDAL
-AutoIt:
-    [propget] $ocv.IMREAD_LOAD_GDAL_
-```
-
-### cv.IMREAD\_REDUCED\_GRAYSCALE\_2\_
-
-```cpp
-static int cv::IMREAD_REDUCED_GRAYSCALE_2
-AutoIt:
-    [propget] $ocv.IMREAD_REDUCED_GRAYSCALE_2_
-```
-
-### cv.IMREAD\_REDUCED\_COLOR\_2\_
-
-```cpp
-static int cv::IMREAD_REDUCED_COLOR_2
-AutoIt:
-    [propget] $ocv.IMREAD_REDUCED_COLOR_2_
-```
-
-### cv.IMREAD\_REDUCED\_GRAYSCALE\_4\_
-
-```cpp
-static int cv::IMREAD_REDUCED_GRAYSCALE_4
-AutoIt:
-    [propget] $ocv.IMREAD_REDUCED_GRAYSCALE_4_
-```
-
-### cv.IMREAD\_REDUCED\_COLOR\_4\_
-
-```cpp
-static int cv::IMREAD_REDUCED_COLOR_4
-AutoIt:
-    [propget] $ocv.IMREAD_REDUCED_COLOR_4_
-```
-
-### cv.IMREAD\_REDUCED\_GRAYSCALE\_8\_
-
-```cpp
-static int cv::IMREAD_REDUCED_GRAYSCALE_8
-AutoIt:
-    [propget] $ocv.IMREAD_REDUCED_GRAYSCALE_8_
-```
-
-### cv.IMREAD\_REDUCED\_COLOR\_8\_
-
-```cpp
-static int cv::IMREAD_REDUCED_COLOR_8
-AutoIt:
-    [propget] $ocv.IMREAD_REDUCED_COLOR_8_
-```
-
-### cv.IMREAD\_IGNORE\_ORIENTATION\_
-
-```cpp
-static int cv::IMREAD_IGNORE_ORIENTATION
-AutoIt:
-    [propget] $ocv.IMREAD_IGNORE_ORIENTATION_
-```
-
-### cv.IMWRITE\_JPEG\_QUALITY\_
-
-```cpp
-static int cv::IMWRITE_JPEG_QUALITY
-AutoIt:
-    [propget] $ocv.IMWRITE_JPEG_QUALITY_
-```
-
-### cv.IMWRITE\_JPEG\_PROGRESSIVE\_
-
-```cpp
-static int cv::IMWRITE_JPEG_PROGRESSIVE
-AutoIt:
-    [propget] $ocv.IMWRITE_JPEG_PROGRESSIVE_
-```
-
-### cv.IMWRITE\_JPEG\_OPTIMIZE\_
-
-```cpp
-static int cv::IMWRITE_JPEG_OPTIMIZE
-AutoIt:
-    [propget] $ocv.IMWRITE_JPEG_OPTIMIZE_
-```
-
-### cv.IMWRITE\_JPEG\_RST\_INTERVAL\_
-
-```cpp
-static int cv::IMWRITE_JPEG_RST_INTERVAL
-AutoIt:
-    [propget] $ocv.IMWRITE_JPEG_RST_INTERVAL_
-```
-
-### cv.IMWRITE\_JPEG\_LUMA\_QUALITY\_
-
-```cpp
-static int cv::IMWRITE_JPEG_LUMA_QUALITY
-AutoIt:
-    [propget] $ocv.IMWRITE_JPEG_LUMA_QUALITY_
-```
-
-### cv.IMWRITE\_JPEG\_CHROMA\_QUALITY\_
-
-```cpp
-static int cv::IMWRITE_JPEG_CHROMA_QUALITY
-AutoIt:
-    [propget] $ocv.IMWRITE_JPEG_CHROMA_QUALITY_
-```
-
-### cv.IMWRITE\_PNG\_COMPRESSION\_
-
-```cpp
-static int cv::IMWRITE_PNG_COMPRESSION
-AutoIt:
-    [propget] $ocv.IMWRITE_PNG_COMPRESSION_
-```
-
-### cv.IMWRITE\_PNG\_STRATEGY\_
-
-```cpp
-static int cv::IMWRITE_PNG_STRATEGY
-AutoIt:
-    [propget] $ocv.IMWRITE_PNG_STRATEGY_
-```
-
-### cv.IMWRITE\_PNG\_BILEVEL\_
-
-```cpp
-static int cv::IMWRITE_PNG_BILEVEL
-AutoIt:
-    [propget] $ocv.IMWRITE_PNG_BILEVEL_
-```
-
-### cv.IMWRITE\_PXM\_BINARY\_
-
-```cpp
-static int cv::IMWRITE_PXM_BINARY
-AutoIt:
-    [propget] $ocv.IMWRITE_PXM_BINARY_
-```
-
-### cv.IMWRITE\_EXR\_TYPE\_
-
-```cpp
-static int cv::IMWRITE_EXR_TYPE
-AutoIt:
-    [propget] $ocv.IMWRITE_EXR_TYPE_
-```
-
-### cv.IMWRITE\_EXR\_COMPRESSION\_
-
-```cpp
-static int cv::IMWRITE_EXR_COMPRESSION
-AutoIt:
-    [propget] $ocv.IMWRITE_EXR_COMPRESSION_
-```
-
-### cv.IMWRITE\_WEBP\_QUALITY\_
-
-```cpp
-static int cv::IMWRITE_WEBP_QUALITY
-AutoIt:
-    [propget] $ocv.IMWRITE_WEBP_QUALITY_
-```
-
-### cv.IMWRITE\_PAM\_TUPLETYPE\_
-
-```cpp
-static int cv::IMWRITE_PAM_TUPLETYPE
-AutoIt:
-    [propget] $ocv.IMWRITE_PAM_TUPLETYPE_
-```
-
-### cv.IMWRITE\_TIFF\_RESUNIT\_
-
-```cpp
-static int cv::IMWRITE_TIFF_RESUNIT
-AutoIt:
-    [propget] $ocv.IMWRITE_TIFF_RESUNIT_
-```
-
-### cv.IMWRITE\_TIFF\_XDPI\_
-
-```cpp
-static int cv::IMWRITE_TIFF_XDPI
-AutoIt:
-    [propget] $ocv.IMWRITE_TIFF_XDPI_
-```
-
-### cv.IMWRITE\_TIFF\_YDPI\_
-
-```cpp
-static int cv::IMWRITE_TIFF_YDPI
-AutoIt:
-    [propget] $ocv.IMWRITE_TIFF_YDPI_
-```
-
-### cv.IMWRITE\_TIFF\_COMPRESSION\_
-
-```cpp
-static int cv::IMWRITE_TIFF_COMPRESSION
-AutoIt:
-    [propget] $ocv.IMWRITE_TIFF_COMPRESSION_
-```
-
-### cv.IMWRITE\_JPEG2000\_COMPRESSION\_X1000\_
-
-```cpp
-static int cv::IMWRITE_JPEG2000_COMPRESSION_X1000
-AutoIt:
-    [propget] $ocv.IMWRITE_JPEG2000_COMPRESSION_X1000_
-```
-
-### cv.IMWRITE\_EXR\_TYPE\_HALF\_
-
-```cpp
-static int cv::IMWRITE_EXR_TYPE_HALF
-AutoIt:
-    [propget] $ocv.IMWRITE_EXR_TYPE_HALF_
-```
-
-### cv.IMWRITE\_EXR\_TYPE\_FLOAT\_
-
-```cpp
-static int cv::IMWRITE_EXR_TYPE_FLOAT
-AutoIt:
-    [propget] $ocv.IMWRITE_EXR_TYPE_FLOAT_
-```
-
-### cv.IMWRITE\_EXR\_COMPRESSION\_NO\_
-
-```cpp
-static int cv::IMWRITE_EXR_COMPRESSION_NO
-AutoIt:
-    [propget] $ocv.IMWRITE_EXR_COMPRESSION_NO_
-```
-
-### cv.IMWRITE\_EXR\_COMPRESSION\_RLE\_
-
-```cpp
-static int cv::IMWRITE_EXR_COMPRESSION_RLE
-AutoIt:
-    [propget] $ocv.IMWRITE_EXR_COMPRESSION_RLE_
-```
-
-### cv.IMWRITE\_EXR\_COMPRESSION\_ZIPS\_
-
-```cpp
-static int cv::IMWRITE_EXR_COMPRESSION_ZIPS
-AutoIt:
-    [propget] $ocv.IMWRITE_EXR_COMPRESSION_ZIPS_
-```
-
-### cv.IMWRITE\_EXR\_COMPRESSION\_ZIP\_
-
-```cpp
-static int cv::IMWRITE_EXR_COMPRESSION_ZIP
-AutoIt:
-    [propget] $ocv.IMWRITE_EXR_COMPRESSION_ZIP_
-```
-
-### cv.IMWRITE\_EXR\_COMPRESSION\_PIZ\_
-
-```cpp
-static int cv::IMWRITE_EXR_COMPRESSION_PIZ
-AutoIt:
-    [propget] $ocv.IMWRITE_EXR_COMPRESSION_PIZ_
-```
-
-### cv.IMWRITE\_EXR\_COMPRESSION\_PXR24\_
-
-```cpp
-static int cv::IMWRITE_EXR_COMPRESSION_PXR24
-AutoIt:
-    [propget] $ocv.IMWRITE_EXR_COMPRESSION_PXR24_
-```
-
-### cv.IMWRITE\_EXR\_COMPRESSION\_B44\_
-
-```cpp
-static int cv::IMWRITE_EXR_COMPRESSION_B44
-AutoIt:
-    [propget] $ocv.IMWRITE_EXR_COMPRESSION_B44_
-```
-
-### cv.IMWRITE\_EXR\_COMPRESSION\_B44A\_
-
-```cpp
-static int cv::IMWRITE_EXR_COMPRESSION_B44A
-AutoIt:
-    [propget] $ocv.IMWRITE_EXR_COMPRESSION_B44A_
-```
-
-### cv.IMWRITE\_EXR\_COMPRESSION\_DWAA\_
-
-```cpp
-static int cv::IMWRITE_EXR_COMPRESSION_DWAA
-AutoIt:
-    [propget] $ocv.IMWRITE_EXR_COMPRESSION_DWAA_
-```
-
-### cv.IMWRITE\_EXR\_COMPRESSION\_DWAB\_
-
-```cpp
-static int cv::IMWRITE_EXR_COMPRESSION_DWAB
-AutoIt:
-    [propget] $ocv.IMWRITE_EXR_COMPRESSION_DWAB_
-```
-
-### cv.IMWRITE\_PNG\_STRATEGY\_DEFAULT\_
-
-```cpp
-static int cv::IMWRITE_PNG_STRATEGY_DEFAULT
-AutoIt:
-    [propget] $ocv.IMWRITE_PNG_STRATEGY_DEFAULT_
-```
-
-### cv.IMWRITE\_PNG\_STRATEGY\_FILTERED\_
-
-```cpp
-static int cv::IMWRITE_PNG_STRATEGY_FILTERED
-AutoIt:
-    [propget] $ocv.IMWRITE_PNG_STRATEGY_FILTERED_
-```
-
-### cv.IMWRITE\_PNG\_STRATEGY\_HUFFMAN\_ONLY\_
-
-```cpp
-static int cv::IMWRITE_PNG_STRATEGY_HUFFMAN_ONLY
-AutoIt:
-    [propget] $ocv.IMWRITE_PNG_STRATEGY_HUFFMAN_ONLY_
-```
-
-### cv.IMWRITE\_PNG\_STRATEGY\_RLE\_
-
-```cpp
-static int cv::IMWRITE_PNG_STRATEGY_RLE
-AutoIt:
-    [propget] $ocv.IMWRITE_PNG_STRATEGY_RLE_
-```
-
-### cv.IMWRITE\_PNG\_STRATEGY\_FIXED\_
-
-```cpp
-static int cv::IMWRITE_PNG_STRATEGY_FIXED
-AutoIt:
-    [propget] $ocv.IMWRITE_PNG_STRATEGY_FIXED_
-```
-
-### cv.IMWRITE\_PAM\_FORMAT\_NULL\_
-
-```cpp
-static int cv::IMWRITE_PAM_FORMAT_NULL
-AutoIt:
-    [propget] $ocv.IMWRITE_PAM_FORMAT_NULL_
-```
-
-### cv.IMWRITE\_PAM\_FORMAT\_BLACKANDWHITE\_
-
-```cpp
-static int cv::IMWRITE_PAM_FORMAT_BLACKANDWHITE
-AutoIt:
-    [propget] $ocv.IMWRITE_PAM_FORMAT_BLACKANDWHITE_
-```
-
-### cv.IMWRITE\_PAM\_FORMAT\_GRAYSCALE\_
-
-```cpp
-static int cv::IMWRITE_PAM_FORMAT_GRAYSCALE
-AutoIt:
-    [propget] $ocv.IMWRITE_PAM_FORMAT_GRAYSCALE_
-```
-
-### cv.IMWRITE\_PAM\_FORMAT\_GRAYSCALE\_ALPHA\_
-
-```cpp
-static int cv::IMWRITE_PAM_FORMAT_GRAYSCALE_ALPHA
-AutoIt:
-    [propget] $ocv.IMWRITE_PAM_FORMAT_GRAYSCALE_ALPHA_
-```
-
-### cv.IMWRITE\_PAM\_FORMAT\_RGB\_
-
-```cpp
-static int cv::IMWRITE_PAM_FORMAT_RGB
-AutoIt:
-    [propget] $ocv.IMWRITE_PAM_FORMAT_RGB_
-```
-
-### cv.IMWRITE\_PAM\_FORMAT\_RGB\_ALPHA\_
-
-```cpp
-static int cv::IMWRITE_PAM_FORMAT_RGB_ALPHA
-AutoIt:
-    [propget] $ocv.IMWRITE_PAM_FORMAT_RGB_ALPHA_
-```
-
-### cv.CAP\_ANY\_
-
-```cpp
-static int cv::CAP_ANY
-AutoIt:
-    [propget] $ocv.CAP_ANY_
-```
-
-### cv.CAP\_VFW\_
-
-```cpp
-static int cv::CAP_VFW
-AutoIt:
-    [propget] $ocv.CAP_VFW_
-```
-
-### cv.CAP\_V4L\_
-
-```cpp
-static int cv::CAP_V4L
-AutoIt:
-    [propget] $ocv.CAP_V4L_
-```
-
-### cv.CAP\_V4L2\_
-
-```cpp
-static int cv::CAP_V4L2
-AutoIt:
-    [propget] $ocv.CAP_V4L2_
-```
-
-### cv.CAP\_FIREWIRE\_
-
-```cpp
-static int cv::CAP_FIREWIRE
-AutoIt:
-    [propget] $ocv.CAP_FIREWIRE_
-```
-
-### cv.CAP\_FIREWARE\_
-
-```cpp
-static int cv::CAP_FIREWARE
-AutoIt:
-    [propget] $ocv.CAP_FIREWARE_
-```
-
-### cv.CAP\_IEEE1394\_
-
-```cpp
-static int cv::CAP_IEEE1394
-AutoIt:
-    [propget] $ocv.CAP_IEEE1394_
-```
-
-### cv.CAP\_DC1394\_
-
-```cpp
-static int cv::CAP_DC1394
-AutoIt:
-    [propget] $ocv.CAP_DC1394_
-```
-
-### cv.CAP\_CMU1394\_
-
-```cpp
-static int cv::CAP_CMU1394
-AutoIt:
-    [propget] $ocv.CAP_CMU1394_
-```
-
-### cv.CAP\_QT\_
-
-```cpp
-static int cv::CAP_QT
-AutoIt:
-    [propget] $ocv.CAP_QT_
-```
-
-### cv.CAP\_UNICAP\_
-
-```cpp
-static int cv::CAP_UNICAP
-AutoIt:
-    [propget] $ocv.CAP_UNICAP_
-```
-
-### cv.CAP\_DSHOW\_
-
-```cpp
-static int cv::CAP_DSHOW
-AutoIt:
-    [propget] $ocv.CAP_DSHOW_
-```
-
-### cv.CAP\_PVAPI\_
-
-```cpp
-static int cv::CAP_PVAPI
-AutoIt:
-    [propget] $ocv.CAP_PVAPI_
-```
-
-### cv.CAP\_OPENNI\_
-
-```cpp
-static int cv::CAP_OPENNI
-AutoIt:
-    [propget] $ocv.CAP_OPENNI_
-```
-
-### cv.CAP\_OPENNI\_ASUS\_
-
-```cpp
-static int cv::CAP_OPENNI_ASUS
-AutoIt:
-    [propget] $ocv.CAP_OPENNI_ASUS_
-```
-
-### cv.CAP\_ANDROID\_
-
-```cpp
-static int cv::CAP_ANDROID
-AutoIt:
-    [propget] $ocv.CAP_ANDROID_
-```
-
-### cv.CAP\_XIAPI\_
-
-```cpp
-static int cv::CAP_XIAPI
-AutoIt:
-    [propget] $ocv.CAP_XIAPI_
-```
-
-### cv.CAP\_AVFOUNDATION\_
-
-```cpp
-static int cv::CAP_AVFOUNDATION
-AutoIt:
-    [propget] $ocv.CAP_AVFOUNDATION_
-```
-
-### cv.CAP\_GIGANETIX\_
-
-```cpp
-static int cv::CAP_GIGANETIX
-AutoIt:
-    [propget] $ocv.CAP_GIGANETIX_
-```
-
-### cv.CAP\_MSMF\_
-
-```cpp
-static int cv::CAP_MSMF
-AutoIt:
-    [propget] $ocv.CAP_MSMF_
-```
-
-### cv.CAP\_WINRT\_
-
-```cpp
-static int cv::CAP_WINRT
-AutoIt:
-    [propget] $ocv.CAP_WINRT_
-```
-
-### cv.CAP\_INTELPERC\_
-
-```cpp
-static int cv::CAP_INTELPERC
-AutoIt:
-    [propget] $ocv.CAP_INTELPERC_
-```
-
-### cv.CAP\_REALSENSE\_
-
-```cpp
-static int cv::CAP_REALSENSE
-AutoIt:
-    [propget] $ocv.CAP_REALSENSE_
-```
-
-### cv.CAP\_OPENNI2\_
-
-```cpp
-static int cv::CAP_OPENNI2
-AutoIt:
-    [propget] $ocv.CAP_OPENNI2_
-```
-
-### cv.CAP\_OPENNI2\_ASUS\_
-
-```cpp
-static int cv::CAP_OPENNI2_ASUS
-AutoIt:
-    [propget] $ocv.CAP_OPENNI2_ASUS_
-```
-
-### cv.CAP\_OPENNI2\_ASTRA\_
-
-```cpp
-static int cv::CAP_OPENNI2_ASTRA
-AutoIt:
-    [propget] $ocv.CAP_OPENNI2_ASTRA_
-```
-
-### cv.CAP\_GPHOTO2\_
-
-```cpp
-static int cv::CAP_GPHOTO2
-AutoIt:
-    [propget] $ocv.CAP_GPHOTO2_
-```
-
-### cv.CAP\_GSTREAMER\_
-
-```cpp
-static int cv::CAP_GSTREAMER
-AutoIt:
-    [propget] $ocv.CAP_GSTREAMER_
-```
-
-### cv.CAP\_FFMPEG\_
-
-```cpp
-static int cv::CAP_FFMPEG
-AutoIt:
-    [propget] $ocv.CAP_FFMPEG_
-```
-
-### cv.CAP\_IMAGES\_
-
-```cpp
-static int cv::CAP_IMAGES
-AutoIt:
-    [propget] $ocv.CAP_IMAGES_
-```
-
-### cv.CAP\_ARAVIS\_
-
-```cpp
-static int cv::CAP_ARAVIS
-AutoIt:
-    [propget] $ocv.CAP_ARAVIS_
-```
-
-### cv.CAP\_OPENCV\_MJPEG\_
-
-```cpp
-static int cv::CAP_OPENCV_MJPEG
-AutoIt:
-    [propget] $ocv.CAP_OPENCV_MJPEG_
-```
-
-### cv.CAP\_INTEL\_MFX\_
-
-```cpp
-static int cv::CAP_INTEL_MFX
-AutoIt:
-    [propget] $ocv.CAP_INTEL_MFX_
-```
-
-### cv.CAP\_XINE\_
-
-```cpp
-static int cv::CAP_XINE
-AutoIt:
-    [propget] $ocv.CAP_XINE_
-```
-
-### cv.CAP\_UEYE\_
-
-```cpp
-static int cv::CAP_UEYE
-AutoIt:
-    [propget] $ocv.CAP_UEYE_
-```
-
-### cv.CAP\_PROP\_POS\_MSEC\_
-
-```cpp
-static int cv::CAP_PROP_POS_MSEC
-AutoIt:
-    [propget] $ocv.CAP_PROP_POS_MSEC_
-```
-
-### cv.CAP\_PROP\_POS\_FRAMES\_
-
-```cpp
-static int cv::CAP_PROP_POS_FRAMES
-AutoIt:
-    [propget] $ocv.CAP_PROP_POS_FRAMES_
-```
-
-### cv.CAP\_PROP\_POS\_AVI\_RATIO\_
-
-```cpp
-static int cv::CAP_PROP_POS_AVI_RATIO
-AutoIt:
-    [propget] $ocv.CAP_PROP_POS_AVI_RATIO_
-```
-
-### cv.CAP\_PROP\_FRAME\_WIDTH\_
-
-```cpp
-static int cv::CAP_PROP_FRAME_WIDTH
-AutoIt:
-    [propget] $ocv.CAP_PROP_FRAME_WIDTH_
-```
-
-### cv.CAP\_PROP\_FRAME\_HEIGHT\_
-
-```cpp
-static int cv::CAP_PROP_FRAME_HEIGHT
-AutoIt:
-    [propget] $ocv.CAP_PROP_FRAME_HEIGHT_
-```
-
-### cv.CAP\_PROP\_FPS\_
-
-```cpp
-static int cv::CAP_PROP_FPS
-AutoIt:
-    [propget] $ocv.CAP_PROP_FPS_
-```
-
-### cv.CAP\_PROP\_FOURCC\_
-
-```cpp
-static int cv::CAP_PROP_FOURCC
-AutoIt:
-    [propget] $ocv.CAP_PROP_FOURCC_
-```
-
-### cv.CAP\_PROP\_FRAME\_COUNT\_
-
-```cpp
-static int cv::CAP_PROP_FRAME_COUNT
-AutoIt:
-    [propget] $ocv.CAP_PROP_FRAME_COUNT_
-```
-
-### cv.CAP\_PROP\_FORMAT\_
-
-```cpp
-static int cv::CAP_PROP_FORMAT
-AutoIt:
-    [propget] $ocv.CAP_PROP_FORMAT_
-```
-
-### cv.CAP\_PROP\_MODE\_
-
-```cpp
-static int cv::CAP_PROP_MODE
-AutoIt:
-    [propget] $ocv.CAP_PROP_MODE_
-```
-
-### cv.CAP\_PROP\_BRIGHTNESS\_
-
-```cpp
-static int cv::CAP_PROP_BRIGHTNESS
-AutoIt:
-    [propget] $ocv.CAP_PROP_BRIGHTNESS_
-```
-
-### cv.CAP\_PROP\_CONTRAST\_
-
-```cpp
-static int cv::CAP_PROP_CONTRAST
-AutoIt:
-    [propget] $ocv.CAP_PROP_CONTRAST_
-```
-
-### cv.CAP\_PROP\_SATURATION\_
-
-```cpp
-static int cv::CAP_PROP_SATURATION
-AutoIt:
-    [propget] $ocv.CAP_PROP_SATURATION_
-```
-
-### cv.CAP\_PROP\_HUE\_
-
-```cpp
-static int cv::CAP_PROP_HUE
-AutoIt:
-    [propget] $ocv.CAP_PROP_HUE_
-```
-
-### cv.CAP\_PROP\_GAIN\_
-
-```cpp
-static int cv::CAP_PROP_GAIN
-AutoIt:
-    [propget] $ocv.CAP_PROP_GAIN_
-```
-
-### cv.CAP\_PROP\_EXPOSURE\_
-
-```cpp
-static int cv::CAP_PROP_EXPOSURE
-AutoIt:
-    [propget] $ocv.CAP_PROP_EXPOSURE_
-```
-
-### cv.CAP\_PROP\_CONVERT\_RGB\_
-
-```cpp
-static int cv::CAP_PROP_CONVERT_RGB
-AutoIt:
-    [propget] $ocv.CAP_PROP_CONVERT_RGB_
-```
-
-### cv.CAP\_PROP\_WHITE\_BALANCE\_BLUE\_U\_
-
-```cpp
-static int cv::CAP_PROP_WHITE_BALANCE_BLUE_U
-AutoIt:
-    [propget] $ocv.CAP_PROP_WHITE_BALANCE_BLUE_U_
-```
-
-### cv.CAP\_PROP\_RECTIFICATION\_
-
-```cpp
-static int cv::CAP_PROP_RECTIFICATION
-AutoIt:
-    [propget] $ocv.CAP_PROP_RECTIFICATION_
-```
-
-### cv.CAP\_PROP\_MONOCHROME\_
-
-```cpp
-static int cv::CAP_PROP_MONOCHROME
-AutoIt:
-    [propget] $ocv.CAP_PROP_MONOCHROME_
-```
-
-### cv.CAP\_PROP\_SHARPNESS\_
-
-```cpp
-static int cv::CAP_PROP_SHARPNESS
-AutoIt:
-    [propget] $ocv.CAP_PROP_SHARPNESS_
-```
-
-### cv.CAP\_PROP\_AUTO\_EXPOSURE\_
-
-```cpp
-static int cv::CAP_PROP_AUTO_EXPOSURE
-AutoIt:
-    [propget] $ocv.CAP_PROP_AUTO_EXPOSURE_
-```
-
-### cv.CAP\_PROP\_GAMMA\_
-
-```cpp
-static int cv::CAP_PROP_GAMMA
-AutoIt:
-    [propget] $ocv.CAP_PROP_GAMMA_
-```
-
-### cv.CAP\_PROP\_TEMPERATURE\_
-
-```cpp
-static int cv::CAP_PROP_TEMPERATURE
-AutoIt:
-    [propget] $ocv.CAP_PROP_TEMPERATURE_
-```
-
-### cv.CAP\_PROP\_TRIGGER\_
-
-```cpp
-static int cv::CAP_PROP_TRIGGER
-AutoIt:
-    [propget] $ocv.CAP_PROP_TRIGGER_
-```
-
-### cv.CAP\_PROP\_TRIGGER\_DELAY\_
-
-```cpp
-static int cv::CAP_PROP_TRIGGER_DELAY
-AutoIt:
-    [propget] $ocv.CAP_PROP_TRIGGER_DELAY_
-```
-
-### cv.CAP\_PROP\_WHITE\_BALANCE\_RED\_V\_
-
-```cpp
-static int cv::CAP_PROP_WHITE_BALANCE_RED_V
-AutoIt:
-    [propget] $ocv.CAP_PROP_WHITE_BALANCE_RED_V_
-```
-
-### cv.CAP\_PROP\_ZOOM\_
-
-```cpp
-static int cv::CAP_PROP_ZOOM
-AutoIt:
-    [propget] $ocv.CAP_PROP_ZOOM_
-```
-
-### cv.CAP\_PROP\_FOCUS\_
-
-```cpp
-static int cv::CAP_PROP_FOCUS
-AutoIt:
-    [propget] $ocv.CAP_PROP_FOCUS_
-```
-
-### cv.CAP\_PROP\_GUID\_
-
-```cpp
-static int cv::CAP_PROP_GUID
-AutoIt:
-    [propget] $ocv.CAP_PROP_GUID_
-```
-
-### cv.CAP\_PROP\_ISO\_SPEED\_
-
-```cpp
-static int cv::CAP_PROP_ISO_SPEED
-AutoIt:
-    [propget] $ocv.CAP_PROP_ISO_SPEED_
-```
-
-### cv.CAP\_PROP\_BACKLIGHT\_
-
-```cpp
-static int cv::CAP_PROP_BACKLIGHT
-AutoIt:
-    [propget] $ocv.CAP_PROP_BACKLIGHT_
-```
-
-### cv.CAP\_PROP\_PAN\_
-
-```cpp
-static int cv::CAP_PROP_PAN
-AutoIt:
-    [propget] $ocv.CAP_PROP_PAN_
-```
-
-### cv.CAP\_PROP\_TILT\_
-
-```cpp
-static int cv::CAP_PROP_TILT
-AutoIt:
-    [propget] $ocv.CAP_PROP_TILT_
-```
-
-### cv.CAP\_PROP\_ROLL\_
-
-```cpp
-static int cv::CAP_PROP_ROLL
-AutoIt:
-    [propget] $ocv.CAP_PROP_ROLL_
-```
-
-### cv.CAP\_PROP\_IRIS\_
-
-```cpp
-static int cv::CAP_PROP_IRIS
-AutoIt:
-    [propget] $ocv.CAP_PROP_IRIS_
-```
-
-### cv.CAP\_PROP\_SETTINGS\_
-
-```cpp
-static int cv::CAP_PROP_SETTINGS
-AutoIt:
-    [propget] $ocv.CAP_PROP_SETTINGS_
-```
-
-### cv.CAP\_PROP\_BUFFERSIZE\_
-
-```cpp
-static int cv::CAP_PROP_BUFFERSIZE
-AutoIt:
-    [propget] $ocv.CAP_PROP_BUFFERSIZE_
-```
-
-### cv.CAP\_PROP\_AUTOFOCUS\_
-
-```cpp
-static int cv::CAP_PROP_AUTOFOCUS
-AutoIt:
-    [propget] $ocv.CAP_PROP_AUTOFOCUS_
-```
-
-### cv.CAP\_PROP\_SAR\_NUM\_
-
-```cpp
-static int cv::CAP_PROP_SAR_NUM
-AutoIt:
-    [propget] $ocv.CAP_PROP_SAR_NUM_
-```
-
-### cv.CAP\_PROP\_SAR\_DEN\_
-
-```cpp
-static int cv::CAP_PROP_SAR_DEN
-AutoIt:
-    [propget] $ocv.CAP_PROP_SAR_DEN_
-```
-
-### cv.CAP\_PROP\_BACKEND\_
-
-```cpp
-static int cv::CAP_PROP_BACKEND
-AutoIt:
-    [propget] $ocv.CAP_PROP_BACKEND_
-```
-
-### cv.CAP\_PROP\_CHANNEL\_
-
-```cpp
-static int cv::CAP_PROP_CHANNEL
-AutoIt:
-    [propget] $ocv.CAP_PROP_CHANNEL_
-```
-
-### cv.CAP\_PROP\_AUTO\_WB\_
-
-```cpp
-static int cv::CAP_PROP_AUTO_WB
-AutoIt:
-    [propget] $ocv.CAP_PROP_AUTO_WB_
-```
-
-### cv.CAP\_PROP\_WB\_TEMPERATURE\_
-
-```cpp
-static int cv::CAP_PROP_WB_TEMPERATURE
-AutoIt:
-    [propget] $ocv.CAP_PROP_WB_TEMPERATURE_
-```
-
-### cv.CAP\_PROP\_CODEC\_PIXEL\_FORMAT\_
-
-```cpp
-static int cv::CAP_PROP_CODEC_PIXEL_FORMAT
-AutoIt:
-    [propget] $ocv.CAP_PROP_CODEC_PIXEL_FORMAT_
-```
-
-### cv.CAP\_PROP\_BITRATE\_
-
-```cpp
-static int cv::CAP_PROP_BITRATE
-AutoIt:
-    [propget] $ocv.CAP_PROP_BITRATE_
-```
-
-### cv.CAP\_PROP\_ORIENTATION\_META\_
-
-```cpp
-static int cv::CAP_PROP_ORIENTATION_META
-AutoIt:
-    [propget] $ocv.CAP_PROP_ORIENTATION_META_
-```
-
-### cv.CAP\_PROP\_ORIENTATION\_AUTO\_
-
-```cpp
-static int cv::CAP_PROP_ORIENTATION_AUTO
-AutoIt:
-    [propget] $ocv.CAP_PROP_ORIENTATION_AUTO_
-```
-
-### cv.CAP\_PROP\_HW\_ACCELERATION\_
-
-```cpp
-static int cv::CAP_PROP_HW_ACCELERATION
-AutoIt:
-    [propget] $ocv.CAP_PROP_HW_ACCELERATION_
-```
-
-### cv.CAP\_PROP\_HW\_DEVICE\_
-
-```cpp
-static int cv::CAP_PROP_HW_DEVICE
-AutoIt:
-    [propget] $ocv.CAP_PROP_HW_DEVICE_
-```
-
-### cv.CAP\_PROP\_HW\_ACCELERATION\_USE\_OPENCL\_
-
-```cpp
-static int cv::CAP_PROP_HW_ACCELERATION_USE_OPENCL
-AutoIt:
-    [propget] $ocv.CAP_PROP_HW_ACCELERATION_USE_OPENCL_
-```
-
-### cv.CAP\_PROP\_OPEN\_TIMEOUT\_MSEC\_
-
-```cpp
-static int cv::CAP_PROP_OPEN_TIMEOUT_MSEC
-AutoIt:
-    [propget] $ocv.CAP_PROP_OPEN_TIMEOUT_MSEC_
-```
-
-### cv.CAP\_PROP\_READ\_TIMEOUT\_MSEC\_
-
-```cpp
-static int cv::CAP_PROP_READ_TIMEOUT_MSEC
-AutoIt:
-    [propget] $ocv.CAP_PROP_READ_TIMEOUT_MSEC_
-```
-
-### cv.CAP\_PROP\_STREAM\_OPEN\_TIME\_USEC\_
-
-```cpp
-static int cv::CAP_PROP_STREAM_OPEN_TIME_USEC
-AutoIt:
-    [propget] $ocv.CAP_PROP_STREAM_OPEN_TIME_USEC_
-```
-
-### cv.CAP\_PROP\_VIDEO\_TOTAL\_CHANNELS\_
-
-```cpp
-static int cv::CAP_PROP_VIDEO_TOTAL_CHANNELS
-AutoIt:
-    [propget] $ocv.CAP_PROP_VIDEO_TOTAL_CHANNELS_
-```
-
-### cv.CAP\_PROP\_VIDEO\_STREAM\_
-
-```cpp
-static int cv::CAP_PROP_VIDEO_STREAM
-AutoIt:
-    [propget] $ocv.CAP_PROP_VIDEO_STREAM_
-```
-
-### cv.CAP\_PROP\_AUDIO\_STREAM\_
-
-```cpp
-static int cv::CAP_PROP_AUDIO_STREAM
-AutoIt:
-    [propget] $ocv.CAP_PROP_AUDIO_STREAM_
-```
-
-### cv.CAP\_PROP\_AUDIO\_POS\_
-
-```cpp
-static int cv::CAP_PROP_AUDIO_POS
-AutoIt:
-    [propget] $ocv.CAP_PROP_AUDIO_POS_
-```
-
-### cv.CAP\_PROP\_AUDIO\_SHIFT\_NSEC\_
-
-```cpp
-static int cv::CAP_PROP_AUDIO_SHIFT_NSEC
-AutoIt:
-    [propget] $ocv.CAP_PROP_AUDIO_SHIFT_NSEC_
-```
-
-### cv.CAP\_PROP\_AUDIO\_DATA\_DEPTH\_
-
-```cpp
-static int cv::CAP_PROP_AUDIO_DATA_DEPTH
-AutoIt:
-    [propget] $ocv.CAP_PROP_AUDIO_DATA_DEPTH_
-```
-
-### cv.CAP\_PROP\_AUDIO\_SAMPLES\_PER\_SECOND\_
-
-```cpp
-static int cv::CAP_PROP_AUDIO_SAMPLES_PER_SECOND
-AutoIt:
-    [propget] $ocv.CAP_PROP_AUDIO_SAMPLES_PER_SECOND_
-```
-
-### cv.CAP\_PROP\_AUDIO\_BASE\_INDEX\_
-
-```cpp
-static int cv::CAP_PROP_AUDIO_BASE_INDEX
-AutoIt:
-    [propget] $ocv.CAP_PROP_AUDIO_BASE_INDEX_
-```
-
-### cv.CAP\_PROP\_AUDIO\_TOTAL\_CHANNELS\_
-
-```cpp
-static int cv::CAP_PROP_AUDIO_TOTAL_CHANNELS
-AutoIt:
-    [propget] $ocv.CAP_PROP_AUDIO_TOTAL_CHANNELS_
-```
-
-### cv.CAP\_PROP\_AUDIO\_TOTAL\_STREAMS\_
-
-```cpp
-static int cv::CAP_PROP_AUDIO_TOTAL_STREAMS
-AutoIt:
-    [propget] $ocv.CAP_PROP_AUDIO_TOTAL_STREAMS_
-```
-
-### cv.CAP\_PROP\_AUDIO\_SYNCHRONIZE\_
-
-```cpp
-static int cv::CAP_PROP_AUDIO_SYNCHRONIZE
-AutoIt:
-    [propget] $ocv.CAP_PROP_AUDIO_SYNCHRONIZE_
-```
-
-### cv.CAP\_PROP\_LRF\_HAS\_KEY\_FRAME\_
-
-```cpp
-static int cv::CAP_PROP_LRF_HAS_KEY_FRAME
-AutoIt:
-    [propget] $ocv.CAP_PROP_LRF_HAS_KEY_FRAME_
-```
-
-### cv.CAP\_PROP\_CODEC\_EXTRADATA\_INDEX\_
-
-```cpp
-static int cv::CAP_PROP_CODEC_EXTRADATA_INDEX
-AutoIt:
-    [propget] $ocv.CAP_PROP_CODEC_EXTRADATA_INDEX_
-```
-
-### cv.VIDEOWRITER\_PROP\_QUALITY\_
-
-```cpp
-static int cv::VIDEOWRITER_PROP_QUALITY
-AutoIt:
-    [propget] $ocv.VIDEOWRITER_PROP_QUALITY_
-```
-
-### cv.VIDEOWRITER\_PROP\_FRAMEBYTES\_
-
-```cpp
-static int cv::VIDEOWRITER_PROP_FRAMEBYTES
-AutoIt:
-    [propget] $ocv.VIDEOWRITER_PROP_FRAMEBYTES_
-```
-
-### cv.VIDEOWRITER\_PROP\_NSTRIPES\_
-
-```cpp
-static int cv::VIDEOWRITER_PROP_NSTRIPES
-AutoIt:
-    [propget] $ocv.VIDEOWRITER_PROP_NSTRIPES_
-```
-
-### cv.VIDEOWRITER\_PROP\_IS\_COLOR\_
-
-```cpp
-static int cv::VIDEOWRITER_PROP_IS_COLOR
-AutoIt:
-    [propget] $ocv.VIDEOWRITER_PROP_IS_COLOR_
-```
-
-### cv.VIDEOWRITER\_PROP\_DEPTH\_
-
-```cpp
-static int cv::VIDEOWRITER_PROP_DEPTH
-AutoIt:
-    [propget] $ocv.VIDEOWRITER_PROP_DEPTH_
-```
-
-### cv.VIDEOWRITER\_PROP\_HW\_ACCELERATION\_
-
-```cpp
-static int cv::VIDEOWRITER_PROP_HW_ACCELERATION
-AutoIt:
-    [propget] $ocv.VIDEOWRITER_PROP_HW_ACCELERATION_
-```
-
-### cv.VIDEOWRITER\_PROP\_HW\_DEVICE\_
-
-```cpp
-static int cv::VIDEOWRITER_PROP_HW_DEVICE
-AutoIt:
-    [propget] $ocv.VIDEOWRITER_PROP_HW_DEVICE_
-```
-
-### cv.VIDEOWRITER\_PROP\_HW\_ACCELERATION\_USE\_OPENCL\_
-
-```cpp
-static int cv::VIDEOWRITER_PROP_HW_ACCELERATION_USE_OPENCL
-AutoIt:
-    [propget] $ocv.VIDEOWRITER_PROP_HW_ACCELERATION_USE_OPENCL_
-```
-
-### cv.VIDEO\_ACCELERATION\_NONE\_
-
-```cpp
-static int cv::VIDEO_ACCELERATION_NONE
-AutoIt:
-    [propget] $ocv.VIDEO_ACCELERATION_NONE_
-```
-
-### cv.VIDEO\_ACCELERATION\_ANY\_
-
-```cpp
-static int cv::VIDEO_ACCELERATION_ANY
-AutoIt:
-    [propget] $ocv.VIDEO_ACCELERATION_ANY_
-```
-
-### cv.VIDEO\_ACCELERATION\_D3D11\_
-
-```cpp
-static int cv::VIDEO_ACCELERATION_D3D11
-AutoIt:
-    [propget] $ocv.VIDEO_ACCELERATION_D3D11_
-```
-
-### cv.VIDEO\_ACCELERATION\_VAAPI\_
-
-```cpp
-static int cv::VIDEO_ACCELERATION_VAAPI
-AutoIt:
-    [propget] $ocv.VIDEO_ACCELERATION_VAAPI_
-```
-
-### cv.VIDEO\_ACCELERATION\_MFX\_
-
-```cpp
-static int cv::VIDEO_ACCELERATION_MFX
-AutoIt:
-    [propget] $ocv.VIDEO_ACCELERATION_MFX_
-```
-
-### cv.CAP\_PROP\_DC1394\_OFF\_
-
-```cpp
-static int cv::CAP_PROP_DC1394_OFF
-AutoIt:
-    [propget] $ocv.CAP_PROP_DC1394_OFF_
-```
-
-### cv.CAP\_PROP\_DC1394\_MODE\_MANUAL\_
-
-```cpp
-static int cv::CAP_PROP_DC1394_MODE_MANUAL
-AutoIt:
-    [propget] $ocv.CAP_PROP_DC1394_MODE_MANUAL_
-```
-
-### cv.CAP\_PROP\_DC1394\_MODE\_AUTO\_
-
-```cpp
-static int cv::CAP_PROP_DC1394_MODE_AUTO
-AutoIt:
-    [propget] $ocv.CAP_PROP_DC1394_MODE_AUTO_
-```
-
-### cv.CAP\_PROP\_DC1394\_MODE\_ONE\_PUSH\_AUTO\_
-
-```cpp
-static int cv::CAP_PROP_DC1394_MODE_ONE_PUSH_AUTO
-AutoIt:
-    [propget] $ocv.CAP_PROP_DC1394_MODE_ONE_PUSH_AUTO_
-```
-
-### cv.CAP\_PROP\_DC1394\_MAX\_
-
-```cpp
-static int cv::CAP_PROP_DC1394_MAX
-AutoIt:
-    [propget] $ocv.CAP_PROP_DC1394_MAX_
-```
-
-### cv.CAP\_OPENNI\_DEPTH\_GENERATOR\_
-
-```cpp
-static int cv::CAP_OPENNI_DEPTH_GENERATOR
-AutoIt:
-    [propget] $ocv.CAP_OPENNI_DEPTH_GENERATOR_
-```
-
-### cv.CAP\_OPENNI\_IMAGE\_GENERATOR\_
-
-```cpp
-static int cv::CAP_OPENNI_IMAGE_GENERATOR
-AutoIt:
-    [propget] $ocv.CAP_OPENNI_IMAGE_GENERATOR_
-```
-
-### cv.CAP\_OPENNI\_IR\_GENERATOR\_
-
-```cpp
-static int cv::CAP_OPENNI_IR_GENERATOR
-AutoIt:
-    [propget] $ocv.CAP_OPENNI_IR_GENERATOR_
-```
-
-### cv.CAP\_OPENNI\_GENERATORS\_MASK\_
-
-```cpp
-static int cv::CAP_OPENNI_GENERATORS_MASK
-AutoIt:
-    [propget] $ocv.CAP_OPENNI_GENERATORS_MASK_
-```
-
-### cv.CAP\_PROP\_OPENNI\_OUTPUT\_MODE\_
-
-```cpp
-static int cv::CAP_PROP_OPENNI_OUTPUT_MODE
-AutoIt:
-    [propget] $ocv.CAP_PROP_OPENNI_OUTPUT_MODE_
-```
-
-### cv.CAP\_PROP\_OPENNI\_FRAME\_MAX\_DEPTH\_
-
-```cpp
-static int cv::CAP_PROP_OPENNI_FRAME_MAX_DEPTH
-AutoIt:
-    [propget] $ocv.CAP_PROP_OPENNI_FRAME_MAX_DEPTH_
-```
-
-### cv.CAP\_PROP\_OPENNI\_BASELINE\_
-
-```cpp
-static int cv::CAP_PROP_OPENNI_BASELINE
-AutoIt:
-    [propget] $ocv.CAP_PROP_OPENNI_BASELINE_
-```
-
-### cv.CAP\_PROP\_OPENNI\_FOCAL\_LENGTH\_
-
-```cpp
-static int cv::CAP_PROP_OPENNI_FOCAL_LENGTH
-AutoIt:
-    [propget] $ocv.CAP_PROP_OPENNI_FOCAL_LENGTH_
-```
-
-### cv.CAP\_PROP\_OPENNI\_REGISTRATION\_
-
-```cpp
-static int cv::CAP_PROP_OPENNI_REGISTRATION
-AutoIt:
-    [propget] $ocv.CAP_PROP_OPENNI_REGISTRATION_
-```
-
-### cv.CAP\_PROP\_OPENNI\_REGISTRATION\_ON\_
-
-```cpp
-static int cv::CAP_PROP_OPENNI_REGISTRATION_ON
-AutoIt:
-    [propget] $ocv.CAP_PROP_OPENNI_REGISTRATION_ON_
-```
-
-### cv.CAP\_PROP\_OPENNI\_APPROX\_FRAME\_SYNC\_
-
-```cpp
-static int cv::CAP_PROP_OPENNI_APPROX_FRAME_SYNC
-AutoIt:
-    [propget] $ocv.CAP_PROP_OPENNI_APPROX_FRAME_SYNC_
-```
-
-### cv.CAP\_PROP\_OPENNI\_MAX\_BUFFER\_SIZE\_
-
-```cpp
-static int cv::CAP_PROP_OPENNI_MAX_BUFFER_SIZE
-AutoIt:
-    [propget] $ocv.CAP_PROP_OPENNI_MAX_BUFFER_SIZE_
-```
-
-### cv.CAP\_PROP\_OPENNI\_CIRCLE\_BUFFER\_
-
-```cpp
-static int cv::CAP_PROP_OPENNI_CIRCLE_BUFFER
-AutoIt:
-    [propget] $ocv.CAP_PROP_OPENNI_CIRCLE_BUFFER_
-```
-
-### cv.CAP\_PROP\_OPENNI\_MAX\_TIME\_DURATION\_
-
-```cpp
-static int cv::CAP_PROP_OPENNI_MAX_TIME_DURATION
-AutoIt:
-    [propget] $ocv.CAP_PROP_OPENNI_MAX_TIME_DURATION_
-```
-
-### cv.CAP\_PROP\_OPENNI\_GENERATOR\_PRESENT\_
-
-```cpp
-static int cv::CAP_PROP_OPENNI_GENERATOR_PRESENT
-AutoIt:
-    [propget] $ocv.CAP_PROP_OPENNI_GENERATOR_PRESENT_
-```
-
-### cv.CAP\_PROP\_OPENNI2\_SYNC\_
-
-```cpp
-static int cv::CAP_PROP_OPENNI2_SYNC
-AutoIt:
-    [propget] $ocv.CAP_PROP_OPENNI2_SYNC_
-```
-
-### cv.CAP\_PROP\_OPENNI2\_MIRROR\_
-
-```cpp
-static int cv::CAP_PROP_OPENNI2_MIRROR
-AutoIt:
-    [propget] $ocv.CAP_PROP_OPENNI2_MIRROR_
-```
-
-### cv.CAP\_OPENNI\_IMAGE\_GENERATOR\_PRESENT\_
-
-```cpp
-static int cv::CAP_OPENNI_IMAGE_GENERATOR_PRESENT
-AutoIt:
-    [propget] $ocv.CAP_OPENNI_IMAGE_GENERATOR_PRESENT_
-```
-
-### cv.CAP\_OPENNI\_IMAGE\_GENERATOR\_OUTPUT\_MODE\_
-
-```cpp
-static int cv::CAP_OPENNI_IMAGE_GENERATOR_OUTPUT_MODE
-AutoIt:
-    [propget] $ocv.CAP_OPENNI_IMAGE_GENERATOR_OUTPUT_MODE_
-```
-
-### cv.CAP\_OPENNI\_DEPTH\_GENERATOR\_PRESENT\_
-
-```cpp
-static int cv::CAP_OPENNI_DEPTH_GENERATOR_PRESENT
-AutoIt:
-    [propget] $ocv.CAP_OPENNI_DEPTH_GENERATOR_PRESENT_
-```
-
-### cv.CAP\_OPENNI\_DEPTH\_GENERATOR\_BASELINE\_
-
-```cpp
-static int cv::CAP_OPENNI_DEPTH_GENERATOR_BASELINE
-AutoIt:
-    [propget] $ocv.CAP_OPENNI_DEPTH_GENERATOR_BASELINE_
-```
-
-### cv.CAP\_OPENNI\_DEPTH\_GENERATOR\_FOCAL\_LENGTH\_
-
-```cpp
-static int cv::CAP_OPENNI_DEPTH_GENERATOR_FOCAL_LENGTH
-AutoIt:
-    [propget] $ocv.CAP_OPENNI_DEPTH_GENERATOR_FOCAL_LENGTH_
-```
-
-### cv.CAP\_OPENNI\_DEPTH\_GENERATOR\_REGISTRATION\_
-
-```cpp
-static int cv::CAP_OPENNI_DEPTH_GENERATOR_REGISTRATION
-AutoIt:
-    [propget] $ocv.CAP_OPENNI_DEPTH_GENERATOR_REGISTRATION_
-```
-
-### cv.CAP\_OPENNI\_DEPTH\_GENERATOR\_REGISTRATION\_ON\_
-
-```cpp
-static int cv::CAP_OPENNI_DEPTH_GENERATOR_REGISTRATION_ON
-AutoIt:
-    [propget] $ocv.CAP_OPENNI_DEPTH_GENERATOR_REGISTRATION_ON_
-```
-
-### cv.CAP\_OPENNI\_IR\_GENERATOR\_PRESENT\_
-
-```cpp
-static int cv::CAP_OPENNI_IR_GENERATOR_PRESENT
-AutoIt:
-    [propget] $ocv.CAP_OPENNI_IR_GENERATOR_PRESENT_
-```
-
-### cv.CAP\_OPENNI\_DEPTH\_MAP\_
-
-```cpp
-static int cv::CAP_OPENNI_DEPTH_MAP
-AutoIt:
-    [propget] $ocv.CAP_OPENNI_DEPTH_MAP_
-```
-
-### cv.CAP\_OPENNI\_POINT\_CLOUD\_MAP\_
-
-```cpp
-static int cv::CAP_OPENNI_POINT_CLOUD_MAP
-AutoIt:
-    [propget] $ocv.CAP_OPENNI_POINT_CLOUD_MAP_
-```
-
-### cv.CAP\_OPENNI\_DISPARITY\_MAP\_
-
-```cpp
-static int cv::CAP_OPENNI_DISPARITY_MAP
-AutoIt:
-    [propget] $ocv.CAP_OPENNI_DISPARITY_MAP_
-```
-
-### cv.CAP\_OPENNI\_DISPARITY\_MAP\_32F\_
-
-```cpp
-static int cv::CAP_OPENNI_DISPARITY_MAP_32F
-AutoIt:
-    [propget] $ocv.CAP_OPENNI_DISPARITY_MAP_32F_
-```
-
-### cv.CAP\_OPENNI\_VALID\_DEPTH\_MASK\_
-
-```cpp
-static int cv::CAP_OPENNI_VALID_DEPTH_MASK
-AutoIt:
-    [propget] $ocv.CAP_OPENNI_VALID_DEPTH_MASK_
-```
-
-### cv.CAP\_OPENNI\_BGR\_IMAGE\_
-
-```cpp
-static int cv::CAP_OPENNI_BGR_IMAGE
-AutoIt:
-    [propget] $ocv.CAP_OPENNI_BGR_IMAGE_
-```
-
-### cv.CAP\_OPENNI\_GRAY\_IMAGE\_
-
-```cpp
-static int cv::CAP_OPENNI_GRAY_IMAGE
-AutoIt:
-    [propget] $ocv.CAP_OPENNI_GRAY_IMAGE_
-```
-
-### cv.CAP\_OPENNI\_IR\_IMAGE\_
-
-```cpp
-static int cv::CAP_OPENNI_IR_IMAGE
-AutoIt:
-    [propget] $ocv.CAP_OPENNI_IR_IMAGE_
-```
-
-### cv.CAP\_OPENNI\_VGA\_30HZ\_
-
-```cpp
-static int cv::CAP_OPENNI_VGA_30HZ
-AutoIt:
-    [propget] $ocv.CAP_OPENNI_VGA_30HZ_
-```
-
-### cv.CAP\_OPENNI\_SXGA\_15HZ\_
-
-```cpp
-static int cv::CAP_OPENNI_SXGA_15HZ
-AutoIt:
-    [propget] $ocv.CAP_OPENNI_SXGA_15HZ_
-```
-
-### cv.CAP\_OPENNI\_SXGA\_30HZ\_
-
-```cpp
-static int cv::CAP_OPENNI_SXGA_30HZ
-AutoIt:
-    [propget] $ocv.CAP_OPENNI_SXGA_30HZ_
-```
-
-### cv.CAP\_OPENNI\_QVGA\_30HZ\_
-
-```cpp
-static int cv::CAP_OPENNI_QVGA_30HZ
-AutoIt:
-    [propget] $ocv.CAP_OPENNI_QVGA_30HZ_
-```
-
-### cv.CAP\_OPENNI\_QVGA\_60HZ\_
-
-```cpp
-static int cv::CAP_OPENNI_QVGA_60HZ
-AutoIt:
-    [propget] $ocv.CAP_OPENNI_QVGA_60HZ_
-```
-
-### cv.CAP\_PROP\_GSTREAMER\_QUEUE\_LENGTH\_
-
-```cpp
-static int cv::CAP_PROP_GSTREAMER_QUEUE_LENGTH
-AutoIt:
-    [propget] $ocv.CAP_PROP_GSTREAMER_QUEUE_LENGTH_
-```
-
-### cv.CAP\_PROP\_PVAPI\_MULTICASTIP\_
-
-```cpp
-static int cv::CAP_PROP_PVAPI_MULTICASTIP
-AutoIt:
-    [propget] $ocv.CAP_PROP_PVAPI_MULTICASTIP_
-```
-
-### cv.CAP\_PROP\_PVAPI\_FRAMESTARTTRIGGERMODE\_
-
-```cpp
-static int cv::CAP_PROP_PVAPI_FRAMESTARTTRIGGERMODE
-AutoIt:
-    [propget] $ocv.CAP_PROP_PVAPI_FRAMESTARTTRIGGERMODE_
-```
-
-### cv.CAP\_PROP\_PVAPI\_DECIMATIONHORIZONTAL\_
-
-```cpp
-static int cv::CAP_PROP_PVAPI_DECIMATIONHORIZONTAL
-AutoIt:
-    [propget] $ocv.CAP_PROP_PVAPI_DECIMATIONHORIZONTAL_
-```
-
-### cv.CAP\_PROP\_PVAPI\_DECIMATIONVERTICAL\_
-
-```cpp
-static int cv::CAP_PROP_PVAPI_DECIMATIONVERTICAL
-AutoIt:
-    [propget] $ocv.CAP_PROP_PVAPI_DECIMATIONVERTICAL_
-```
-
-### cv.CAP\_PROP\_PVAPI\_BINNINGX\_
-
-```cpp
-static int cv::CAP_PROP_PVAPI_BINNINGX
-AutoIt:
-    [propget] $ocv.CAP_PROP_PVAPI_BINNINGX_
-```
-
-### cv.CAP\_PROP\_PVAPI\_BINNINGY\_
-
-```cpp
-static int cv::CAP_PROP_PVAPI_BINNINGY
-AutoIt:
-    [propget] $ocv.CAP_PROP_PVAPI_BINNINGY_
-```
-
-### cv.CAP\_PROP\_PVAPI\_PIXELFORMAT\_
-
-```cpp
-static int cv::CAP_PROP_PVAPI_PIXELFORMAT
-AutoIt:
-    [propget] $ocv.CAP_PROP_PVAPI_PIXELFORMAT_
-```
-
-### cv.CAP\_PVAPI\_FSTRIGMODE\_FREERUN\_
-
-```cpp
-static int cv::CAP_PVAPI_FSTRIGMODE_FREERUN
-AutoIt:
-    [propget] $ocv.CAP_PVAPI_FSTRIGMODE_FREERUN_
-```
-
-### cv.CAP\_PVAPI\_FSTRIGMODE\_SYNCIN1\_
-
-```cpp
-static int cv::CAP_PVAPI_FSTRIGMODE_SYNCIN1
-AutoIt:
-    [propget] $ocv.CAP_PVAPI_FSTRIGMODE_SYNCIN1_
-```
-
-### cv.CAP\_PVAPI\_FSTRIGMODE\_SYNCIN2\_
-
-```cpp
-static int cv::CAP_PVAPI_FSTRIGMODE_SYNCIN2
-AutoIt:
-    [propget] $ocv.CAP_PVAPI_FSTRIGMODE_SYNCIN2_
-```
-
-### cv.CAP\_PVAPI\_FSTRIGMODE\_FIXEDRATE\_
-
-```cpp
-static int cv::CAP_PVAPI_FSTRIGMODE_FIXEDRATE
-AutoIt:
-    [propget] $ocv.CAP_PVAPI_FSTRIGMODE_FIXEDRATE_
-```
-
-### cv.CAP\_PVAPI\_FSTRIGMODE\_SOFTWARE\_
-
-```cpp
-static int cv::CAP_PVAPI_FSTRIGMODE_SOFTWARE
-AutoIt:
-    [propget] $ocv.CAP_PVAPI_FSTRIGMODE_SOFTWARE_
-```
-
-### cv.CAP\_PVAPI\_DECIMATION\_OFF\_
-
-```cpp
-static int cv::CAP_PVAPI_DECIMATION_OFF
-AutoIt:
-    [propget] $ocv.CAP_PVAPI_DECIMATION_OFF_
-```
-
-### cv.CAP\_PVAPI\_DECIMATION\_2OUTOF4\_
-
-```cpp
-static int cv::CAP_PVAPI_DECIMATION_2OUTOF4
-AutoIt:
-    [propget] $ocv.CAP_PVAPI_DECIMATION_2OUTOF4_
-```
-
-### cv.CAP\_PVAPI\_DECIMATION\_2OUTOF8\_
-
-```cpp
-static int cv::CAP_PVAPI_DECIMATION_2OUTOF8
-AutoIt:
-    [propget] $ocv.CAP_PVAPI_DECIMATION_2OUTOF8_
-```
-
-### cv.CAP\_PVAPI\_DECIMATION\_2OUTOF16\_
-
-```cpp
-static int cv::CAP_PVAPI_DECIMATION_2OUTOF16
-AutoIt:
-    [propget] $ocv.CAP_PVAPI_DECIMATION_2OUTOF16_
-```
-
-### cv.CAP\_PVAPI\_PIXELFORMAT\_MONO8\_
-
-```cpp
-static int cv::CAP_PVAPI_PIXELFORMAT_MONO8
-AutoIt:
-    [propget] $ocv.CAP_PVAPI_PIXELFORMAT_MONO8_
-```
-
-### cv.CAP\_PVAPI\_PIXELFORMAT\_MONO16\_
-
-```cpp
-static int cv::CAP_PVAPI_PIXELFORMAT_MONO16
-AutoIt:
-    [propget] $ocv.CAP_PVAPI_PIXELFORMAT_MONO16_
-```
-
-### cv.CAP\_PVAPI\_PIXELFORMAT\_BAYER8\_
-
-```cpp
-static int cv::CAP_PVAPI_PIXELFORMAT_BAYER8
-AutoIt:
-    [propget] $ocv.CAP_PVAPI_PIXELFORMAT_BAYER8_
-```
-
-### cv.CAP\_PVAPI\_PIXELFORMAT\_BAYER16\_
-
-```cpp
-static int cv::CAP_PVAPI_PIXELFORMAT_BAYER16
-AutoIt:
-    [propget] $ocv.CAP_PVAPI_PIXELFORMAT_BAYER16_
-```
-
-### cv.CAP\_PVAPI\_PIXELFORMAT\_RGB24\_
-
-```cpp
-static int cv::CAP_PVAPI_PIXELFORMAT_RGB24
-AutoIt:
-    [propget] $ocv.CAP_PVAPI_PIXELFORMAT_RGB24_
-```
-
-### cv.CAP\_PVAPI\_PIXELFORMAT\_BGR24\_
-
-```cpp
-static int cv::CAP_PVAPI_PIXELFORMAT_BGR24
-AutoIt:
-    [propget] $ocv.CAP_PVAPI_PIXELFORMAT_BGR24_
-```
-
-### cv.CAP\_PVAPI\_PIXELFORMAT\_RGBA32\_
-
-```cpp
-static int cv::CAP_PVAPI_PIXELFORMAT_RGBA32
-AutoIt:
-    [propget] $ocv.CAP_PVAPI_PIXELFORMAT_RGBA32_
-```
-
-### cv.CAP\_PVAPI\_PIXELFORMAT\_BGRA32\_
-
-```cpp
-static int cv::CAP_PVAPI_PIXELFORMAT_BGRA32
-AutoIt:
-    [propget] $ocv.CAP_PVAPI_PIXELFORMAT_BGRA32_
-```
-
-### cv.CAP\_PROP\_XI\_DOWNSAMPLING\_
-
-```cpp
-static int cv::CAP_PROP_XI_DOWNSAMPLING
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_DOWNSAMPLING_
-```
-
-### cv.CAP\_PROP\_XI\_DATA\_FORMAT\_
-
-```cpp
-static int cv::CAP_PROP_XI_DATA_FORMAT
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_DATA_FORMAT_
-```
-
-### cv.CAP\_PROP\_XI\_OFFSET\_X\_
-
-```cpp
-static int cv::CAP_PROP_XI_OFFSET_X
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_OFFSET_X_
-```
-
-### cv.CAP\_PROP\_XI\_OFFSET\_Y\_
-
-```cpp
-static int cv::CAP_PROP_XI_OFFSET_Y
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_OFFSET_Y_
-```
-
-### cv.CAP\_PROP\_XI\_TRG\_SOURCE\_
-
-```cpp
-static int cv::CAP_PROP_XI_TRG_SOURCE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_TRG_SOURCE_
-```
-
-### cv.CAP\_PROP\_XI\_TRG\_SOFTWARE\_
-
-```cpp
-static int cv::CAP_PROP_XI_TRG_SOFTWARE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_TRG_SOFTWARE_
-```
-
-### cv.CAP\_PROP\_XI\_GPI\_SELECTOR\_
-
-```cpp
-static int cv::CAP_PROP_XI_GPI_SELECTOR
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_GPI_SELECTOR_
-```
-
-### cv.CAP\_PROP\_XI\_GPI\_MODE\_
-
-```cpp
-static int cv::CAP_PROP_XI_GPI_MODE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_GPI_MODE_
-```
-
-### cv.CAP\_PROP\_XI\_GPI\_LEVEL\_
-
-```cpp
-static int cv::CAP_PROP_XI_GPI_LEVEL
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_GPI_LEVEL_
-```
-
-### cv.CAP\_PROP\_XI\_GPO\_SELECTOR\_
-
-```cpp
-static int cv::CAP_PROP_XI_GPO_SELECTOR
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_GPO_SELECTOR_
-```
-
-### cv.CAP\_PROP\_XI\_GPO\_MODE\_
-
-```cpp
-static int cv::CAP_PROP_XI_GPO_MODE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_GPO_MODE_
-```
-
-### cv.CAP\_PROP\_XI\_LED\_SELECTOR\_
-
-```cpp
-static int cv::CAP_PROP_XI_LED_SELECTOR
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_LED_SELECTOR_
-```
-
-### cv.CAP\_PROP\_XI\_LED\_MODE\_
-
-```cpp
-static int cv::CAP_PROP_XI_LED_MODE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_LED_MODE_
-```
-
-### cv.CAP\_PROP\_XI\_MANUAL\_WB\_
-
-```cpp
-static int cv::CAP_PROP_XI_MANUAL_WB
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_MANUAL_WB_
-```
-
-### cv.CAP\_PROP\_XI\_AUTO\_WB\_
-
-```cpp
-static int cv::CAP_PROP_XI_AUTO_WB
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_AUTO_WB_
-```
-
-### cv.CAP\_PROP\_XI\_AEAG\_
-
-```cpp
-static int cv::CAP_PROP_XI_AEAG
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_AEAG_
-```
-
-### cv.CAP\_PROP\_XI\_EXP\_PRIORITY\_
-
-```cpp
-static int cv::CAP_PROP_XI_EXP_PRIORITY
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_EXP_PRIORITY_
-```
-
-### cv.CAP\_PROP\_XI\_AE\_MAX\_LIMIT\_
-
-```cpp
-static int cv::CAP_PROP_XI_AE_MAX_LIMIT
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_AE_MAX_LIMIT_
-```
-
-### cv.CAP\_PROP\_XI\_AG\_MAX\_LIMIT\_
-
-```cpp
-static int cv::CAP_PROP_XI_AG_MAX_LIMIT
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_AG_MAX_LIMIT_
-```
-
-### cv.CAP\_PROP\_XI\_AEAG\_LEVEL\_
-
-```cpp
-static int cv::CAP_PROP_XI_AEAG_LEVEL
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_AEAG_LEVEL_
-```
-
-### cv.CAP\_PROP\_XI\_TIMEOUT\_
-
-```cpp
-static int cv::CAP_PROP_XI_TIMEOUT
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_TIMEOUT_
-```
-
-### cv.CAP\_PROP\_XI\_EXPOSURE\_
-
-```cpp
-static int cv::CAP_PROP_XI_EXPOSURE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_EXPOSURE_
-```
-
-### cv.CAP\_PROP\_XI\_EXPOSURE\_BURST\_COUNT\_
-
-```cpp
-static int cv::CAP_PROP_XI_EXPOSURE_BURST_COUNT
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_EXPOSURE_BURST_COUNT_
-```
-
-### cv.CAP\_PROP\_XI\_GAIN\_SELECTOR\_
-
-```cpp
-static int cv::CAP_PROP_XI_GAIN_SELECTOR
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_GAIN_SELECTOR_
-```
-
-### cv.CAP\_PROP\_XI\_GAIN\_
-
-```cpp
-static int cv::CAP_PROP_XI_GAIN
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_GAIN_
-```
-
-### cv.CAP\_PROP\_XI\_DOWNSAMPLING\_TYPE\_
-
-```cpp
-static int cv::CAP_PROP_XI_DOWNSAMPLING_TYPE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_DOWNSAMPLING_TYPE_
-```
-
-### cv.CAP\_PROP\_XI\_BINNING\_SELECTOR\_
-
-```cpp
-static int cv::CAP_PROP_XI_BINNING_SELECTOR
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_BINNING_SELECTOR_
-```
-
-### cv.CAP\_PROP\_XI\_BINNING\_VERTICAL\_
-
-```cpp
-static int cv::CAP_PROP_XI_BINNING_VERTICAL
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_BINNING_VERTICAL_
-```
-
-### cv.CAP\_PROP\_XI\_BINNING\_HORIZONTAL\_
-
-```cpp
-static int cv::CAP_PROP_XI_BINNING_HORIZONTAL
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_BINNING_HORIZONTAL_
-```
-
-### cv.CAP\_PROP\_XI\_BINNING\_PATTERN\_
-
-```cpp
-static int cv::CAP_PROP_XI_BINNING_PATTERN
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_BINNING_PATTERN_
-```
-
-### cv.CAP\_PROP\_XI\_DECIMATION\_SELECTOR\_
-
-```cpp
-static int cv::CAP_PROP_XI_DECIMATION_SELECTOR
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_DECIMATION_SELECTOR_
-```
-
-### cv.CAP\_PROP\_XI\_DECIMATION\_VERTICAL\_
-
-```cpp
-static int cv::CAP_PROP_XI_DECIMATION_VERTICAL
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_DECIMATION_VERTICAL_
-```
-
-### cv.CAP\_PROP\_XI\_DECIMATION\_HORIZONTAL\_
-
-```cpp
-static int cv::CAP_PROP_XI_DECIMATION_HORIZONTAL
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_DECIMATION_HORIZONTAL_
-```
-
-### cv.CAP\_PROP\_XI\_DECIMATION\_PATTERN\_
-
-```cpp
-static int cv::CAP_PROP_XI_DECIMATION_PATTERN
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_DECIMATION_PATTERN_
-```
-
-### cv.CAP\_PROP\_XI\_TEST\_PATTERN\_GENERATOR\_SELECTOR\_
-
-```cpp
-static int cv::CAP_PROP_XI_TEST_PATTERN_GENERATOR_SELECTOR
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_TEST_PATTERN_GENERATOR_SELECTOR_
-```
-
-### cv.CAP\_PROP\_XI\_TEST\_PATTERN\_
-
-```cpp
-static int cv::CAP_PROP_XI_TEST_PATTERN
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_TEST_PATTERN_
-```
-
-### cv.CAP\_PROP\_XI\_IMAGE\_DATA\_FORMAT\_
-
-```cpp
-static int cv::CAP_PROP_XI_IMAGE_DATA_FORMAT
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_IMAGE_DATA_FORMAT_
-```
-
-### cv.CAP\_PROP\_XI\_SHUTTER\_TYPE\_
-
-```cpp
-static int cv::CAP_PROP_XI_SHUTTER_TYPE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_SHUTTER_TYPE_
-```
-
-### cv.CAP\_PROP\_XI\_SENSOR\_TAPS\_
-
-```cpp
-static int cv::CAP_PROP_XI_SENSOR_TAPS
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_SENSOR_TAPS_
-```
-
-### cv.CAP\_PROP\_XI\_AEAG\_ROI\_OFFSET\_X\_
-
-```cpp
-static int cv::CAP_PROP_XI_AEAG_ROI_OFFSET_X
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_AEAG_ROI_OFFSET_X_
-```
-
-### cv.CAP\_PROP\_XI\_AEAG\_ROI\_OFFSET\_Y\_
-
-```cpp
-static int cv::CAP_PROP_XI_AEAG_ROI_OFFSET_Y
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_AEAG_ROI_OFFSET_Y_
-```
-
-### cv.CAP\_PROP\_XI\_AEAG\_ROI\_WIDTH\_
-
-```cpp
-static int cv::CAP_PROP_XI_AEAG_ROI_WIDTH
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_AEAG_ROI_WIDTH_
-```
-
-### cv.CAP\_PROP\_XI\_AEAG\_ROI\_HEIGHT\_
-
-```cpp
-static int cv::CAP_PROP_XI_AEAG_ROI_HEIGHT
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_AEAG_ROI_HEIGHT_
-```
-
-### cv.CAP\_PROP\_XI\_BPC\_
-
-```cpp
-static int cv::CAP_PROP_XI_BPC
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_BPC_
-```
-
-### cv.CAP\_PROP\_XI\_WB\_KR\_
-
-```cpp
-static int cv::CAP_PROP_XI_WB_KR
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_WB_KR_
-```
-
-### cv.CAP\_PROP\_XI\_WB\_KG\_
-
-```cpp
-static int cv::CAP_PROP_XI_WB_KG
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_WB_KG_
-```
-
-### cv.CAP\_PROP\_XI\_WB\_KB\_
-
-```cpp
-static int cv::CAP_PROP_XI_WB_KB
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_WB_KB_
-```
-
-### cv.CAP\_PROP\_XI\_WIDTH\_
-
-```cpp
-static int cv::CAP_PROP_XI_WIDTH
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_WIDTH_
-```
-
-### cv.CAP\_PROP\_XI\_HEIGHT\_
-
-```cpp
-static int cv::CAP_PROP_XI_HEIGHT
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_HEIGHT_
-```
-
-### cv.CAP\_PROP\_XI\_REGION\_SELECTOR\_
-
-```cpp
-static int cv::CAP_PROP_XI_REGION_SELECTOR
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_REGION_SELECTOR_
-```
-
-### cv.CAP\_PROP\_XI\_REGION\_MODE\_
-
-```cpp
-static int cv::CAP_PROP_XI_REGION_MODE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_REGION_MODE_
-```
-
-### cv.CAP\_PROP\_XI\_LIMIT\_BANDWIDTH\_
-
-```cpp
-static int cv::CAP_PROP_XI_LIMIT_BANDWIDTH
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_LIMIT_BANDWIDTH_
-```
-
-### cv.CAP\_PROP\_XI\_SENSOR\_DATA\_BIT\_DEPTH\_
-
-```cpp
-static int cv::CAP_PROP_XI_SENSOR_DATA_BIT_DEPTH
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_SENSOR_DATA_BIT_DEPTH_
-```
-
-### cv.CAP\_PROP\_XI\_OUTPUT\_DATA\_BIT\_DEPTH\_
-
-```cpp
-static int cv::CAP_PROP_XI_OUTPUT_DATA_BIT_DEPTH
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_OUTPUT_DATA_BIT_DEPTH_
-```
-
-### cv.CAP\_PROP\_XI\_IMAGE\_DATA\_BIT\_DEPTH\_
-
-```cpp
-static int cv::CAP_PROP_XI_IMAGE_DATA_BIT_DEPTH
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_IMAGE_DATA_BIT_DEPTH_
-```
-
-### cv.CAP\_PROP\_XI\_OUTPUT\_DATA\_PACKING\_
-
-```cpp
-static int cv::CAP_PROP_XI_OUTPUT_DATA_PACKING
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_OUTPUT_DATA_PACKING_
-```
-
-### cv.CAP\_PROP\_XI\_OUTPUT\_DATA\_PACKING\_TYPE\_
-
-```cpp
-static int cv::CAP_PROP_XI_OUTPUT_DATA_PACKING_TYPE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_OUTPUT_DATA_PACKING_TYPE_
-```
-
-### cv.CAP\_PROP\_XI\_IS\_COOLED\_
-
-```cpp
-static int cv::CAP_PROP_XI_IS_COOLED
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_IS_COOLED_
-```
-
-### cv.CAP\_PROP\_XI\_COOLING\_
-
-```cpp
-static int cv::CAP_PROP_XI_COOLING
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_COOLING_
-```
-
-### cv.CAP\_PROP\_XI\_TARGET\_TEMP\_
-
-```cpp
-static int cv::CAP_PROP_XI_TARGET_TEMP
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_TARGET_TEMP_
-```
-
-### cv.CAP\_PROP\_XI\_CHIP\_TEMP\_
-
-```cpp
-static int cv::CAP_PROP_XI_CHIP_TEMP
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_CHIP_TEMP_
-```
-
-### cv.CAP\_PROP\_XI\_HOUS\_TEMP\_
-
-```cpp
-static int cv::CAP_PROP_XI_HOUS_TEMP
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_HOUS_TEMP_
-```
-
-### cv.CAP\_PROP\_XI\_HOUS\_BACK\_SIDE\_TEMP\_
-
-```cpp
-static int cv::CAP_PROP_XI_HOUS_BACK_SIDE_TEMP
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_HOUS_BACK_SIDE_TEMP_
-```
-
-### cv.CAP\_PROP\_XI\_SENSOR\_BOARD\_TEMP\_
-
-```cpp
-static int cv::CAP_PROP_XI_SENSOR_BOARD_TEMP
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_SENSOR_BOARD_TEMP_
-```
-
-### cv.CAP\_PROP\_XI\_CMS\_
-
-```cpp
-static int cv::CAP_PROP_XI_CMS
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_CMS_
-```
-
-### cv.CAP\_PROP\_XI\_APPLY\_CMS\_
-
-```cpp
-static int cv::CAP_PROP_XI_APPLY_CMS
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_APPLY_CMS_
-```
-
-### cv.CAP\_PROP\_XI\_IMAGE\_IS\_COLOR\_
-
-```cpp
-static int cv::CAP_PROP_XI_IMAGE_IS_COLOR
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_IMAGE_IS_COLOR_
-```
-
-### cv.CAP\_PROP\_XI\_COLOR\_FILTER\_ARRAY\_
-
-```cpp
-static int cv::CAP_PROP_XI_COLOR_FILTER_ARRAY
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_COLOR_FILTER_ARRAY_
-```
-
-### cv.CAP\_PROP\_XI\_GAMMAY\_
-
-```cpp
-static int cv::CAP_PROP_XI_GAMMAY
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_GAMMAY_
-```
-
-### cv.CAP\_PROP\_XI\_GAMMAC\_
-
-```cpp
-static int cv::CAP_PROP_XI_GAMMAC
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_GAMMAC_
-```
-
-### cv.CAP\_PROP\_XI\_SHARPNESS\_
-
-```cpp
-static int cv::CAP_PROP_XI_SHARPNESS
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_SHARPNESS_
-```
-
-### cv.CAP\_PROP\_XI\_CC\_MATRIX\_00\_
-
-```cpp
-static int cv::CAP_PROP_XI_CC_MATRIX_00
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_CC_MATRIX_00_
-```
-
-### cv.CAP\_PROP\_XI\_CC\_MATRIX\_01\_
-
-```cpp
-static int cv::CAP_PROP_XI_CC_MATRIX_01
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_CC_MATRIX_01_
-```
-
-### cv.CAP\_PROP\_XI\_CC\_MATRIX\_02\_
-
-```cpp
-static int cv::CAP_PROP_XI_CC_MATRIX_02
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_CC_MATRIX_02_
-```
-
-### cv.CAP\_PROP\_XI\_CC\_MATRIX\_03\_
-
-```cpp
-static int cv::CAP_PROP_XI_CC_MATRIX_03
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_CC_MATRIX_03_
-```
-
-### cv.CAP\_PROP\_XI\_CC\_MATRIX\_10\_
-
-```cpp
-static int cv::CAP_PROP_XI_CC_MATRIX_10
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_CC_MATRIX_10_
-```
-
-### cv.CAP\_PROP\_XI\_CC\_MATRIX\_11\_
-
-```cpp
-static int cv::CAP_PROP_XI_CC_MATRIX_11
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_CC_MATRIX_11_
-```
-
-### cv.CAP\_PROP\_XI\_CC\_MATRIX\_12\_
-
-```cpp
-static int cv::CAP_PROP_XI_CC_MATRIX_12
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_CC_MATRIX_12_
-```
-
-### cv.CAP\_PROP\_XI\_CC\_MATRIX\_13\_
-
-```cpp
-static int cv::CAP_PROP_XI_CC_MATRIX_13
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_CC_MATRIX_13_
-```
-
-### cv.CAP\_PROP\_XI\_CC\_MATRIX\_20\_
-
-```cpp
-static int cv::CAP_PROP_XI_CC_MATRIX_20
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_CC_MATRIX_20_
-```
-
-### cv.CAP\_PROP\_XI\_CC\_MATRIX\_21\_
-
-```cpp
-static int cv::CAP_PROP_XI_CC_MATRIX_21
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_CC_MATRIX_21_
-```
-
-### cv.CAP\_PROP\_XI\_CC\_MATRIX\_22\_
-
-```cpp
-static int cv::CAP_PROP_XI_CC_MATRIX_22
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_CC_MATRIX_22_
-```
-
-### cv.CAP\_PROP\_XI\_CC\_MATRIX\_23\_
-
-```cpp
-static int cv::CAP_PROP_XI_CC_MATRIX_23
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_CC_MATRIX_23_
-```
-
-### cv.CAP\_PROP\_XI\_CC\_MATRIX\_30\_
-
-```cpp
-static int cv::CAP_PROP_XI_CC_MATRIX_30
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_CC_MATRIX_30_
-```
-
-### cv.CAP\_PROP\_XI\_CC\_MATRIX\_31\_
-
-```cpp
-static int cv::CAP_PROP_XI_CC_MATRIX_31
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_CC_MATRIX_31_
-```
-
-### cv.CAP\_PROP\_XI\_CC\_MATRIX\_32\_
-
-```cpp
-static int cv::CAP_PROP_XI_CC_MATRIX_32
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_CC_MATRIX_32_
-```
-
-### cv.CAP\_PROP\_XI\_CC\_MATRIX\_33\_
-
-```cpp
-static int cv::CAP_PROP_XI_CC_MATRIX_33
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_CC_MATRIX_33_
-```
-
-### cv.CAP\_PROP\_XI\_DEFAULT\_CC\_MATRIX\_
-
-```cpp
-static int cv::CAP_PROP_XI_DEFAULT_CC_MATRIX
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_DEFAULT_CC_MATRIX_
-```
-
-### cv.CAP\_PROP\_XI\_TRG\_SELECTOR\_
-
-```cpp
-static int cv::CAP_PROP_XI_TRG_SELECTOR
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_TRG_SELECTOR_
-```
-
-### cv.CAP\_PROP\_XI\_ACQ\_FRAME\_BURST\_COUNT\_
-
-```cpp
-static int cv::CAP_PROP_XI_ACQ_FRAME_BURST_COUNT
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_ACQ_FRAME_BURST_COUNT_
-```
-
-### cv.CAP\_PROP\_XI\_DEBOUNCE\_EN\_
-
-```cpp
-static int cv::CAP_PROP_XI_DEBOUNCE_EN
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_DEBOUNCE_EN_
-```
-
-### cv.CAP\_PROP\_XI\_DEBOUNCE\_T0\_
-
-```cpp
-static int cv::CAP_PROP_XI_DEBOUNCE_T0
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_DEBOUNCE_T0_
-```
-
-### cv.CAP\_PROP\_XI\_DEBOUNCE\_T1\_
-
-```cpp
-static int cv::CAP_PROP_XI_DEBOUNCE_T1
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_DEBOUNCE_T1_
-```
-
-### cv.CAP\_PROP\_XI\_DEBOUNCE\_POL\_
-
-```cpp
-static int cv::CAP_PROP_XI_DEBOUNCE_POL
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_DEBOUNCE_POL_
-```
-
-### cv.CAP\_PROP\_XI\_LENS\_MODE\_
-
-```cpp
-static int cv::CAP_PROP_XI_LENS_MODE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_LENS_MODE_
-```
-
-### cv.CAP\_PROP\_XI\_LENS\_APERTURE\_VALUE\_
-
-```cpp
-static int cv::CAP_PROP_XI_LENS_APERTURE_VALUE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_LENS_APERTURE_VALUE_
-```
-
-### cv.CAP\_PROP\_XI\_LENS\_FOCUS\_MOVEMENT\_VALUE\_
-
-```cpp
-static int cv::CAP_PROP_XI_LENS_FOCUS_MOVEMENT_VALUE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_LENS_FOCUS_MOVEMENT_VALUE_
-```
-
-### cv.CAP\_PROP\_XI\_LENS\_FOCUS\_MOVE\_
-
-```cpp
-static int cv::CAP_PROP_XI_LENS_FOCUS_MOVE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_LENS_FOCUS_MOVE_
-```
-
-### cv.CAP\_PROP\_XI\_LENS\_FOCUS\_DISTANCE\_
-
-```cpp
-static int cv::CAP_PROP_XI_LENS_FOCUS_DISTANCE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_LENS_FOCUS_DISTANCE_
-```
-
-### cv.CAP\_PROP\_XI\_LENS\_FOCAL\_LENGTH\_
-
-```cpp
-static int cv::CAP_PROP_XI_LENS_FOCAL_LENGTH
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_LENS_FOCAL_LENGTH_
-```
-
-### cv.CAP\_PROP\_XI\_LENS\_FEATURE\_SELECTOR\_
-
-```cpp
-static int cv::CAP_PROP_XI_LENS_FEATURE_SELECTOR
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_LENS_FEATURE_SELECTOR_
-```
-
-### cv.CAP\_PROP\_XI\_LENS\_FEATURE\_
-
-```cpp
-static int cv::CAP_PROP_XI_LENS_FEATURE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_LENS_FEATURE_
-```
-
-### cv.CAP\_PROP\_XI\_DEVICE\_MODEL\_ID\_
-
-```cpp
-static int cv::CAP_PROP_XI_DEVICE_MODEL_ID
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_DEVICE_MODEL_ID_
-```
-
-### cv.CAP\_PROP\_XI\_DEVICE\_SN\_
-
-```cpp
-static int cv::CAP_PROP_XI_DEVICE_SN
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_DEVICE_SN_
-```
-
-### cv.CAP\_PROP\_XI\_IMAGE\_DATA\_FORMAT\_RGB32\_ALPHA\_
-
-```cpp
-static int cv::CAP_PROP_XI_IMAGE_DATA_FORMAT_RGB32_ALPHA
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_IMAGE_DATA_FORMAT_RGB32_ALPHA_
-```
-
-### cv.CAP\_PROP\_XI\_IMAGE\_PAYLOAD\_SIZE\_
-
-```cpp
-static int cv::CAP_PROP_XI_IMAGE_PAYLOAD_SIZE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_IMAGE_PAYLOAD_SIZE_
-```
-
-### cv.CAP\_PROP\_XI\_TRANSPORT\_PIXEL\_FORMAT\_
-
-```cpp
-static int cv::CAP_PROP_XI_TRANSPORT_PIXEL_FORMAT
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_TRANSPORT_PIXEL_FORMAT_
-```
-
-### cv.CAP\_PROP\_XI\_SENSOR\_CLOCK\_FREQ\_HZ\_
-
-```cpp
-static int cv::CAP_PROP_XI_SENSOR_CLOCK_FREQ_HZ
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_SENSOR_CLOCK_FREQ_HZ_
-```
-
-### cv.CAP\_PROP\_XI\_SENSOR\_CLOCK\_FREQ\_INDEX\_
-
-```cpp
-static int cv::CAP_PROP_XI_SENSOR_CLOCK_FREQ_INDEX
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_SENSOR_CLOCK_FREQ_INDEX_
-```
-
-### cv.CAP\_PROP\_XI\_SENSOR\_OUTPUT\_CHANNEL\_COUNT\_
-
-```cpp
-static int cv::CAP_PROP_XI_SENSOR_OUTPUT_CHANNEL_COUNT
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_SENSOR_OUTPUT_CHANNEL_COUNT_
-```
-
-### cv.CAP\_PROP\_XI\_FRAMERATE\_
-
-```cpp
-static int cv::CAP_PROP_XI_FRAMERATE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_FRAMERATE_
-```
-
-### cv.CAP\_PROP\_XI\_COUNTER\_SELECTOR\_
-
-```cpp
-static int cv::CAP_PROP_XI_COUNTER_SELECTOR
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_COUNTER_SELECTOR_
-```
-
-### cv.CAP\_PROP\_XI\_COUNTER\_VALUE\_
-
-```cpp
-static int cv::CAP_PROP_XI_COUNTER_VALUE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_COUNTER_VALUE_
-```
-
-### cv.CAP\_PROP\_XI\_ACQ\_TIMING\_MODE\_
-
-```cpp
-static int cv::CAP_PROP_XI_ACQ_TIMING_MODE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_ACQ_TIMING_MODE_
-```
-
-### cv.CAP\_PROP\_XI\_AVAILABLE\_BANDWIDTH\_
-
-```cpp
-static int cv::CAP_PROP_XI_AVAILABLE_BANDWIDTH
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_AVAILABLE_BANDWIDTH_
-```
-
-### cv.CAP\_PROP\_XI\_BUFFER\_POLICY\_
-
-```cpp
-static int cv::CAP_PROP_XI_BUFFER_POLICY
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_BUFFER_POLICY_
-```
-
-### cv.CAP\_PROP\_XI\_LUT\_EN\_
-
-```cpp
-static int cv::CAP_PROP_XI_LUT_EN
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_LUT_EN_
-```
-
-### cv.CAP\_PROP\_XI\_LUT\_INDEX\_
-
-```cpp
-static int cv::CAP_PROP_XI_LUT_INDEX
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_LUT_INDEX_
-```
-
-### cv.CAP\_PROP\_XI\_LUT\_VALUE\_
-
-```cpp
-static int cv::CAP_PROP_XI_LUT_VALUE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_LUT_VALUE_
-```
-
-### cv.CAP\_PROP\_XI\_TRG\_DELAY\_
-
-```cpp
-static int cv::CAP_PROP_XI_TRG_DELAY
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_TRG_DELAY_
-```
-
-### cv.CAP\_PROP\_XI\_TS\_RST\_MODE\_
-
-```cpp
-static int cv::CAP_PROP_XI_TS_RST_MODE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_TS_RST_MODE_
-```
-
-### cv.CAP\_PROP\_XI\_TS\_RST\_SOURCE\_
-
-```cpp
-static int cv::CAP_PROP_XI_TS_RST_SOURCE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_TS_RST_SOURCE_
-```
-
-### cv.CAP\_PROP\_XI\_IS\_DEVICE\_EXIST\_
-
-```cpp
-static int cv::CAP_PROP_XI_IS_DEVICE_EXIST
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_IS_DEVICE_EXIST_
-```
-
-### cv.CAP\_PROP\_XI\_ACQ\_BUFFER\_SIZE\_
-
-```cpp
-static int cv::CAP_PROP_XI_ACQ_BUFFER_SIZE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_ACQ_BUFFER_SIZE_
-```
-
-### cv.CAP\_PROP\_XI\_ACQ\_BUFFER\_SIZE\_UNIT\_
-
-```cpp
-static int cv::CAP_PROP_XI_ACQ_BUFFER_SIZE_UNIT
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_ACQ_BUFFER_SIZE_UNIT_
-```
-
-### cv.CAP\_PROP\_XI\_ACQ\_TRANSPORT\_BUFFER\_SIZE\_
-
-```cpp
-static int cv::CAP_PROP_XI_ACQ_TRANSPORT_BUFFER_SIZE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_ACQ_TRANSPORT_BUFFER_SIZE_
-```
-
-### cv.CAP\_PROP\_XI\_BUFFERS\_QUEUE\_SIZE\_
-
-```cpp
-static int cv::CAP_PROP_XI_BUFFERS_QUEUE_SIZE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_BUFFERS_QUEUE_SIZE_
-```
-
-### cv.CAP\_PROP\_XI\_ACQ\_TRANSPORT\_BUFFER\_COMMIT\_
-
-```cpp
-static int cv::CAP_PROP_XI_ACQ_TRANSPORT_BUFFER_COMMIT
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_ACQ_TRANSPORT_BUFFER_COMMIT_
-```
-
-### cv.CAP\_PROP\_XI\_RECENT\_FRAME\_
-
-```cpp
-static int cv::CAP_PROP_XI_RECENT_FRAME
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_RECENT_FRAME_
-```
-
-### cv.CAP\_PROP\_XI\_DEVICE\_RESET\_
-
-```cpp
-static int cv::CAP_PROP_XI_DEVICE_RESET
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_DEVICE_RESET_
-```
-
-### cv.CAP\_PROP\_XI\_COLUMN\_FPN\_CORRECTION\_
-
-```cpp
-static int cv::CAP_PROP_XI_COLUMN_FPN_CORRECTION
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_COLUMN_FPN_CORRECTION_
-```
-
-### cv.CAP\_PROP\_XI\_ROW\_FPN\_CORRECTION\_
-
-```cpp
-static int cv::CAP_PROP_XI_ROW_FPN_CORRECTION
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_ROW_FPN_CORRECTION_
-```
-
-### cv.CAP\_PROP\_XI\_SENSOR\_MODE\_
-
-```cpp
-static int cv::CAP_PROP_XI_SENSOR_MODE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_SENSOR_MODE_
-```
-
-### cv.CAP\_PROP\_XI\_HDR\_
-
-```cpp
-static int cv::CAP_PROP_XI_HDR
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_HDR_
-```
-
-### cv.CAP\_PROP\_XI\_HDR\_KNEEPOINT\_COUNT\_
-
-```cpp
-static int cv::CAP_PROP_XI_HDR_KNEEPOINT_COUNT
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_HDR_KNEEPOINT_COUNT_
-```
-
-### cv.CAP\_PROP\_XI\_HDR\_T1\_
-
-```cpp
-static int cv::CAP_PROP_XI_HDR_T1
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_HDR_T1_
-```
-
-### cv.CAP\_PROP\_XI\_HDR\_T2\_
-
-```cpp
-static int cv::CAP_PROP_XI_HDR_T2
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_HDR_T2_
-```
-
-### cv.CAP\_PROP\_XI\_KNEEPOINT1\_
-
-```cpp
-static int cv::CAP_PROP_XI_KNEEPOINT1
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_KNEEPOINT1_
-```
-
-### cv.CAP\_PROP\_XI\_KNEEPOINT2\_
-
-```cpp
-static int cv::CAP_PROP_XI_KNEEPOINT2
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_KNEEPOINT2_
-```
-
-### cv.CAP\_PROP\_XI\_IMAGE\_BLACK\_LEVEL\_
-
-```cpp
-static int cv::CAP_PROP_XI_IMAGE_BLACK_LEVEL
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_IMAGE_BLACK_LEVEL_
-```
-
-### cv.CAP\_PROP\_XI\_HW\_REVISION\_
-
-```cpp
-static int cv::CAP_PROP_XI_HW_REVISION
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_HW_REVISION_
-```
-
-### cv.CAP\_PROP\_XI\_DEBUG\_LEVEL\_
-
-```cpp
-static int cv::CAP_PROP_XI_DEBUG_LEVEL
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_DEBUG_LEVEL_
-```
-
-### cv.CAP\_PROP\_XI\_AUTO\_BANDWIDTH\_CALCULATION\_
-
-```cpp
-static int cv::CAP_PROP_XI_AUTO_BANDWIDTH_CALCULATION
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_AUTO_BANDWIDTH_CALCULATION_
-```
-
-### cv.CAP\_PROP\_XI\_FFS\_FILE\_ID\_
-
-```cpp
-static int cv::CAP_PROP_XI_FFS_FILE_ID
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_FFS_FILE_ID_
-```
-
-### cv.CAP\_PROP\_XI\_FFS\_FILE\_SIZE\_
-
-```cpp
-static int cv::CAP_PROP_XI_FFS_FILE_SIZE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_FFS_FILE_SIZE_
-```
-
-### cv.CAP\_PROP\_XI\_FREE\_FFS\_SIZE\_
-
-```cpp
-static int cv::CAP_PROP_XI_FREE_FFS_SIZE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_FREE_FFS_SIZE_
-```
-
-### cv.CAP\_PROP\_XI\_USED\_FFS\_SIZE\_
-
-```cpp
-static int cv::CAP_PROP_XI_USED_FFS_SIZE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_USED_FFS_SIZE_
-```
-
-### cv.CAP\_PROP\_XI\_FFS\_ACCESS\_KEY\_
-
-```cpp
-static int cv::CAP_PROP_XI_FFS_ACCESS_KEY
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_FFS_ACCESS_KEY_
-```
-
-### cv.CAP\_PROP\_XI\_SENSOR\_FEATURE\_SELECTOR\_
-
-```cpp
-static int cv::CAP_PROP_XI_SENSOR_FEATURE_SELECTOR
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_SENSOR_FEATURE_SELECTOR_
-```
-
-### cv.CAP\_PROP\_XI\_SENSOR\_FEATURE\_VALUE\_
-
-```cpp
-static int cv::CAP_PROP_XI_SENSOR_FEATURE_VALUE
-AutoIt:
-    [propget] $ocv.CAP_PROP_XI_SENSOR_FEATURE_VALUE_
-```
-
-### cv.CAP\_PROP\_ARAVIS\_AUTOTRIGGER\_
-
-```cpp
-static int cv::CAP_PROP_ARAVIS_AUTOTRIGGER
-AutoIt:
-    [propget] $ocv.CAP_PROP_ARAVIS_AUTOTRIGGER_
-```
-
-### cv.CAP\_PROP\_IOS\_DEVICE\_FOCUS\_
-
-```cpp
-static int cv::CAP_PROP_IOS_DEVICE_FOCUS
-AutoIt:
-    [propget] $ocv.CAP_PROP_IOS_DEVICE_FOCUS_
-```
-
-### cv.CAP\_PROP\_IOS\_DEVICE\_EXPOSURE\_
-
-```cpp
-static int cv::CAP_PROP_IOS_DEVICE_EXPOSURE
-AutoIt:
-    [propget] $ocv.CAP_PROP_IOS_DEVICE_EXPOSURE_
-```
-
-### cv.CAP\_PROP\_IOS\_DEVICE\_FLASH\_
-
-```cpp
-static int cv::CAP_PROP_IOS_DEVICE_FLASH
-AutoIt:
-    [propget] $ocv.CAP_PROP_IOS_DEVICE_FLASH_
-```
-
-### cv.CAP\_PROP\_IOS\_DEVICE\_WHITEBALANCE\_
-
-```cpp
-static int cv::CAP_PROP_IOS_DEVICE_WHITEBALANCE
-AutoIt:
-    [propget] $ocv.CAP_PROP_IOS_DEVICE_WHITEBALANCE_
-```
-
-### cv.CAP\_PROP\_IOS\_DEVICE\_TORCH\_
-
-```cpp
-static int cv::CAP_PROP_IOS_DEVICE_TORCH
-AutoIt:
-    [propget] $ocv.CAP_PROP_IOS_DEVICE_TORCH_
-```
-
-### cv.CAP\_PROP\_GIGA\_FRAME\_OFFSET\_X\_
-
-```cpp
-static int cv::CAP_PROP_GIGA_FRAME_OFFSET_X
-AutoIt:
-    [propget] $ocv.CAP_PROP_GIGA_FRAME_OFFSET_X_
-```
-
-### cv.CAP\_PROP\_GIGA\_FRAME\_OFFSET\_Y\_
-
-```cpp
-static int cv::CAP_PROP_GIGA_FRAME_OFFSET_Y
-AutoIt:
-    [propget] $ocv.CAP_PROP_GIGA_FRAME_OFFSET_Y_
-```
-
-### cv.CAP\_PROP\_GIGA\_FRAME\_WIDTH\_MAX\_
-
-```cpp
-static int cv::CAP_PROP_GIGA_FRAME_WIDTH_MAX
-AutoIt:
-    [propget] $ocv.CAP_PROP_GIGA_FRAME_WIDTH_MAX_
-```
-
-### cv.CAP\_PROP\_GIGA\_FRAME\_HEIGH\_MAX\_
-
-```cpp
-static int cv::CAP_PROP_GIGA_FRAME_HEIGH_MAX
-AutoIt:
-    [propget] $ocv.CAP_PROP_GIGA_FRAME_HEIGH_MAX_
-```
-
-### cv.CAP\_PROP\_GIGA\_FRAME\_SENS\_WIDTH\_
-
-```cpp
-static int cv::CAP_PROP_GIGA_FRAME_SENS_WIDTH
-AutoIt:
-    [propget] $ocv.CAP_PROP_GIGA_FRAME_SENS_WIDTH_
-```
-
-### cv.CAP\_PROP\_GIGA\_FRAME\_SENS\_HEIGH\_
-
-```cpp
-static int cv::CAP_PROP_GIGA_FRAME_SENS_HEIGH
-AutoIt:
-    [propget] $ocv.CAP_PROP_GIGA_FRAME_SENS_HEIGH_
-```
-
-### cv.CAP\_PROP\_INTELPERC\_PROFILE\_COUNT\_
-
-```cpp
-static int cv::CAP_PROP_INTELPERC_PROFILE_COUNT
-AutoIt:
-    [propget] $ocv.CAP_PROP_INTELPERC_PROFILE_COUNT_
-```
-
-### cv.CAP\_PROP\_INTELPERC\_PROFILE\_IDX\_
-
-```cpp
-static int cv::CAP_PROP_INTELPERC_PROFILE_IDX
-AutoIt:
-    [propget] $ocv.CAP_PROP_INTELPERC_PROFILE_IDX_
-```
-
-### cv.CAP\_PROP\_INTELPERC\_DEPTH\_LOW\_CONFIDENCE\_VALUE\_
-
-```cpp
-static int cv::CAP_PROP_INTELPERC_DEPTH_LOW_CONFIDENCE_VALUE
-AutoIt:
-    [propget] $ocv.CAP_PROP_INTELPERC_DEPTH_LOW_CONFIDENCE_VALUE_
-```
-
-### cv.CAP\_PROP\_INTELPERC\_DEPTH\_SATURATION\_VALUE\_
-
-```cpp
-static int cv::CAP_PROP_INTELPERC_DEPTH_SATURATION_VALUE
-AutoIt:
-    [propget] $ocv.CAP_PROP_INTELPERC_DEPTH_SATURATION_VALUE_
-```
-
-### cv.CAP\_PROP\_INTELPERC\_DEPTH\_CONFIDENCE\_THRESHOLD\_
-
-```cpp
-static int cv::CAP_PROP_INTELPERC_DEPTH_CONFIDENCE_THRESHOLD
-AutoIt:
-    [propget] $ocv.CAP_PROP_INTELPERC_DEPTH_CONFIDENCE_THRESHOLD_
-```
-
-### cv.CAP\_PROP\_INTELPERC\_DEPTH\_FOCAL\_LENGTH\_HORZ\_
-
-```cpp
-static int cv::CAP_PROP_INTELPERC_DEPTH_FOCAL_LENGTH_HORZ
-AutoIt:
-    [propget] $ocv.CAP_PROP_INTELPERC_DEPTH_FOCAL_LENGTH_HORZ_
-```
-
-### cv.CAP\_PROP\_INTELPERC\_DEPTH\_FOCAL\_LENGTH\_VERT\_
-
-```cpp
-static int cv::CAP_PROP_INTELPERC_DEPTH_FOCAL_LENGTH_VERT
-AutoIt:
-    [propget] $ocv.CAP_PROP_INTELPERC_DEPTH_FOCAL_LENGTH_VERT_
-```
-
-### cv.CAP\_INTELPERC\_DEPTH\_GENERATOR\_
-
-```cpp
-static int cv::CAP_INTELPERC_DEPTH_GENERATOR
-AutoIt:
-    [propget] $ocv.CAP_INTELPERC_DEPTH_GENERATOR_
-```
-
-### cv.CAP\_INTELPERC\_IMAGE\_GENERATOR\_
-
-```cpp
-static int cv::CAP_INTELPERC_IMAGE_GENERATOR
-AutoIt:
-    [propget] $ocv.CAP_INTELPERC_IMAGE_GENERATOR_
-```
-
-### cv.CAP\_INTELPERC\_IR\_GENERATOR\_
-
-```cpp
-static int cv::CAP_INTELPERC_IR_GENERATOR
-AutoIt:
-    [propget] $ocv.CAP_INTELPERC_IR_GENERATOR_
-```
-
-### cv.CAP\_INTELPERC\_GENERATORS\_MASK\_
-
-```cpp
-static int cv::CAP_INTELPERC_GENERATORS_MASK
-AutoIt:
-    [propget] $ocv.CAP_INTELPERC_GENERATORS_MASK_
-```
-
-### cv.CAP\_INTELPERC\_DEPTH\_MAP\_
-
-```cpp
-static int cv::CAP_INTELPERC_DEPTH_MAP
-AutoIt:
-    [propget] $ocv.CAP_INTELPERC_DEPTH_MAP_
-```
-
-### cv.CAP\_INTELPERC\_UVDEPTH\_MAP\_
-
-```cpp
-static int cv::CAP_INTELPERC_UVDEPTH_MAP
-AutoIt:
-    [propget] $ocv.CAP_INTELPERC_UVDEPTH_MAP_
-```
-
-### cv.CAP\_INTELPERC\_IR\_MAP\_
-
-```cpp
-static int cv::CAP_INTELPERC_IR_MAP
-AutoIt:
-    [propget] $ocv.CAP_INTELPERC_IR_MAP_
-```
-
-### cv.CAP\_INTELPERC\_IMAGE\_
-
-```cpp
-static int cv::CAP_INTELPERC_IMAGE
-AutoIt:
-    [propget] $ocv.CAP_INTELPERC_IMAGE_
-```
-
-### cv.CAP\_PROP\_GPHOTO2\_PREVIEW\_
-
-```cpp
-static int cv::CAP_PROP_GPHOTO2_PREVIEW
-AutoIt:
-    [propget] $ocv.CAP_PROP_GPHOTO2_PREVIEW_
-```
-
-### cv.CAP\_PROP\_GPHOTO2\_WIDGET\_ENUMERATE\_
-
-```cpp
-static int cv::CAP_PROP_GPHOTO2_WIDGET_ENUMERATE
-AutoIt:
-    [propget] $ocv.CAP_PROP_GPHOTO2_WIDGET_ENUMERATE_
-```
-
-### cv.CAP\_PROP\_GPHOTO2\_RELOAD\_CONFIG\_
-
-```cpp
-static int cv::CAP_PROP_GPHOTO2_RELOAD_CONFIG
-AutoIt:
-    [propget] $ocv.CAP_PROP_GPHOTO2_RELOAD_CONFIG_
-```
-
-### cv.CAP\_PROP\_GPHOTO2\_RELOAD\_ON\_CHANGE\_
-
-```cpp
-static int cv::CAP_PROP_GPHOTO2_RELOAD_ON_CHANGE
-AutoIt:
-    [propget] $ocv.CAP_PROP_GPHOTO2_RELOAD_ON_CHANGE_
-```
-
-### cv.CAP\_PROP\_GPHOTO2\_COLLECT\_MSGS\_
-
-```cpp
-static int cv::CAP_PROP_GPHOTO2_COLLECT_MSGS
-AutoIt:
-    [propget] $ocv.CAP_PROP_GPHOTO2_COLLECT_MSGS_
-```
-
-### cv.CAP\_PROP\_GPHOTO2\_FLUSH\_MSGS\_
-
-```cpp
-static int cv::CAP_PROP_GPHOTO2_FLUSH_MSGS
-AutoIt:
-    [propget] $ocv.CAP_PROP_GPHOTO2_FLUSH_MSGS_
-```
-
-### cv.CAP\_PROP\_SPEED\_
-
-```cpp
-static int cv::CAP_PROP_SPEED
-AutoIt:
-    [propget] $ocv.CAP_PROP_SPEED_
-```
-
-### cv.CAP\_PROP\_APERTURE\_
-
-```cpp
-static int cv::CAP_PROP_APERTURE
-AutoIt:
-    [propget] $ocv.CAP_PROP_APERTURE_
-```
-
-### cv.CAP\_PROP\_EXPOSUREPROGRAM\_
-
-```cpp
-static int cv::CAP_PROP_EXPOSUREPROGRAM
-AutoIt:
-    [propget] $ocv.CAP_PROP_EXPOSUREPROGRAM_
-```
-
-### cv.CAP\_PROP\_VIEWFINDER\_
-
-```cpp
-static int cv::CAP_PROP_VIEWFINDER
-AutoIt:
-    [propget] $ocv.CAP_PROP_VIEWFINDER_
-```
-
-### cv.CAP\_PROP\_IMAGES\_BASE\_
-
-```cpp
-static int cv::CAP_PROP_IMAGES_BASE
-AutoIt:
-    [propget] $ocv.CAP_PROP_IMAGES_BASE_
-```
-
-### cv.CAP\_PROP\_IMAGES\_LAST\_
-
-```cpp
-static int cv::CAP_PROP_IMAGES_LAST
-AutoIt:
-    [propget] $ocv.CAP_PROP_IMAGES_LAST_
-```
-
-### cv.LMEDS\_
-
-```cpp
-static int cv::LMEDS
-AutoIt:
-    [propget] $ocv.LMEDS_
-```
-
-### cv.RANSAC\_
-
-```cpp
-static int cv::RANSAC
-AutoIt:
-    [propget] $ocv.RANSAC_
-```
-
-### cv.RHO\_
-
-```cpp
-static int cv::RHO
-AutoIt:
-    [propget] $ocv.RHO_
-```
-
-### cv.USAC\_DEFAULT\_
-
-```cpp
-static int cv::USAC_DEFAULT
-AutoIt:
-    [propget] $ocv.USAC_DEFAULT_
-```
-
-### cv.USAC\_PARALLEL\_
-
-```cpp
-static int cv::USAC_PARALLEL
-AutoIt:
-    [propget] $ocv.USAC_PARALLEL_
-```
-
-### cv.USAC\_FM\_8PTS\_
-
-```cpp
-static int cv::USAC_FM_8PTS
-AutoIt:
-    [propget] $ocv.USAC_FM_8PTS_
-```
-
-### cv.USAC\_FAST\_
-
-```cpp
-static int cv::USAC_FAST
-AutoIt:
-    [propget] $ocv.USAC_FAST_
-```
-
-### cv.USAC\_ACCURATE\_
-
-```cpp
-static int cv::USAC_ACCURATE
-AutoIt:
-    [propget] $ocv.USAC_ACCURATE_
-```
-
-### cv.USAC\_PROSAC\_
-
-```cpp
-static int cv::USAC_PROSAC
-AutoIt:
-    [propget] $ocv.USAC_PROSAC_
-```
-
-### cv.USAC\_MAGSAC\_
-
-```cpp
-static int cv::USAC_MAGSAC
-AutoIt:
-    [propget] $ocv.USAC_MAGSAC_
-```
-
-### cv.SOLVEPNP\_ITERATIVE\_
-
-```cpp
-static int cv::SOLVEPNP_ITERATIVE
-AutoIt:
-    [propget] $ocv.SOLVEPNP_ITERATIVE_
-```
-
-### cv.SOLVEPNP\_EPNP\_
-
-```cpp
-static int cv::SOLVEPNP_EPNP
-AutoIt:
-    [propget] $ocv.SOLVEPNP_EPNP_
-```
-
-### cv.SOLVEPNP\_P3P\_
-
-```cpp
-static int cv::SOLVEPNP_P3P
-AutoIt:
-    [propget] $ocv.SOLVEPNP_P3P_
-```
-
-### cv.SOLVEPNP\_DLS\_
-
-```cpp
-static int cv::SOLVEPNP_DLS
-AutoIt:
-    [propget] $ocv.SOLVEPNP_DLS_
-```
-
-### cv.SOLVEPNP\_UPNP\_
-
-```cpp
-static int cv::SOLVEPNP_UPNP
-AutoIt:
-    [propget] $ocv.SOLVEPNP_UPNP_
-```
-
-### cv.SOLVEPNP\_AP3P\_
-
-```cpp
-static int cv::SOLVEPNP_AP3P
-AutoIt:
-    [propget] $ocv.SOLVEPNP_AP3P_
-```
-
-### cv.SOLVEPNP\_IPPE\_
-
-```cpp
-static int cv::SOLVEPNP_IPPE
-AutoIt:
-    [propget] $ocv.SOLVEPNP_IPPE_
-```
-
-### cv.SOLVEPNP\_IPPE\_SQUARE\_
-
-```cpp
-static int cv::SOLVEPNP_IPPE_SQUARE
-AutoIt:
-    [propget] $ocv.SOLVEPNP_IPPE_SQUARE_
-```
-
-### cv.SOLVEPNP\_SQPNP\_
-
-```cpp
-static int cv::SOLVEPNP_SQPNP
-AutoIt:
-    [propget] $ocv.SOLVEPNP_SQPNP_
-```
-
-### cv.SOLVEPNP\_MAX\_COUNT\_
-
-```cpp
-static int cv::SOLVEPNP_MAX_COUNT
-AutoIt:
-    [propget] $ocv.SOLVEPNP_MAX_COUNT_
-```
-
-### cv.CALIB\_CB\_ADAPTIVE\_THRESH\_
-
-```cpp
-static int cv::CALIB_CB_ADAPTIVE_THRESH
-AutoIt:
-    [propget] $ocv.CALIB_CB_ADAPTIVE_THRESH_
-```
-
-### cv.CALIB\_CB\_NORMALIZE\_IMAGE\_
-
-```cpp
-static int cv::CALIB_CB_NORMALIZE_IMAGE
-AutoIt:
-    [propget] $ocv.CALIB_CB_NORMALIZE_IMAGE_
-```
-
-### cv.CALIB\_CB\_FILTER\_QUADS\_
-
-```cpp
-static int cv::CALIB_CB_FILTER_QUADS
-AutoIt:
-    [propget] $ocv.CALIB_CB_FILTER_QUADS_
-```
-
-### cv.CALIB\_CB\_FAST\_CHECK\_
-
-```cpp
-static int cv::CALIB_CB_FAST_CHECK
-AutoIt:
-    [propget] $ocv.CALIB_CB_FAST_CHECK_
-```
-
-### cv.CALIB\_CB\_EXHAUSTIVE\_
-
-```cpp
-static int cv::CALIB_CB_EXHAUSTIVE
-AutoIt:
-    [propget] $ocv.CALIB_CB_EXHAUSTIVE_
-```
-
-### cv.CALIB\_CB\_ACCURACY\_
-
-```cpp
-static int cv::CALIB_CB_ACCURACY
-AutoIt:
-    [propget] $ocv.CALIB_CB_ACCURACY_
-```
-
-### cv.CALIB\_CB\_LARGER\_
-
-```cpp
-static int cv::CALIB_CB_LARGER
-AutoIt:
-    [propget] $ocv.CALIB_CB_LARGER_
-```
-
-### cv.CALIB\_CB\_MARKER\_
-
-```cpp
-static int cv::CALIB_CB_MARKER
-AutoIt:
-    [propget] $ocv.CALIB_CB_MARKER_
-```
-
-### cv.CALIB\_CB\_SYMMETRIC\_GRID\_
-
-```cpp
-static int cv::CALIB_CB_SYMMETRIC_GRID
-AutoIt:
-    [propget] $ocv.CALIB_CB_SYMMETRIC_GRID_
-```
-
-### cv.CALIB\_CB\_ASYMMETRIC\_GRID\_
-
-```cpp
-static int cv::CALIB_CB_ASYMMETRIC_GRID
-AutoIt:
-    [propget] $ocv.CALIB_CB_ASYMMETRIC_GRID_
-```
-
-### cv.CALIB\_CB\_CLUSTERING\_
-
-```cpp
-static int cv::CALIB_CB_CLUSTERING
-AutoIt:
-    [propget] $ocv.CALIB_CB_CLUSTERING_
-```
-
-### cv.CALIB\_NINTRINSIC\_
-
-```cpp
-static int cv::CALIB_NINTRINSIC
-AutoIt:
-    [propget] $ocv.CALIB_NINTRINSIC_
-```
-
-### cv.CALIB\_USE\_INTRINSIC\_GUESS\_
-
-```cpp
-static int cv::CALIB_USE_INTRINSIC_GUESS
-AutoIt:
-    [propget] $ocv.CALIB_USE_INTRINSIC_GUESS_
-```
-
-### cv.CALIB\_FIX\_ASPECT\_RATIO\_
-
-```cpp
-static int cv::CALIB_FIX_ASPECT_RATIO
-AutoIt:
-    [propget] $ocv.CALIB_FIX_ASPECT_RATIO_
-```
-
-### cv.CALIB\_FIX\_PRINCIPAL\_POINT\_
-
-```cpp
-static int cv::CALIB_FIX_PRINCIPAL_POINT
-AutoIt:
-    [propget] $ocv.CALIB_FIX_PRINCIPAL_POINT_
-```
-
-### cv.CALIB\_ZERO\_TANGENT\_DIST\_
-
-```cpp
-static int cv::CALIB_ZERO_TANGENT_DIST
-AutoIt:
-    [propget] $ocv.CALIB_ZERO_TANGENT_DIST_
-```
-
-### cv.CALIB\_FIX\_FOCAL\_LENGTH\_
-
-```cpp
-static int cv::CALIB_FIX_FOCAL_LENGTH
-AutoIt:
-    [propget] $ocv.CALIB_FIX_FOCAL_LENGTH_
-```
-
-### cv.CALIB\_FIX\_K1\_
-
-```cpp
-static int cv::CALIB_FIX_K1
-AutoIt:
-    [propget] $ocv.CALIB_FIX_K1_
-```
-
-### cv.CALIB\_FIX\_K2\_
-
-```cpp
-static int cv::CALIB_FIX_K2
-AutoIt:
-    [propget] $ocv.CALIB_FIX_K2_
-```
-
-### cv.CALIB\_FIX\_K3\_
-
-```cpp
-static int cv::CALIB_FIX_K3
-AutoIt:
-    [propget] $ocv.CALIB_FIX_K3_
-```
-
-### cv.CALIB\_FIX\_K4\_
-
-```cpp
-static int cv::CALIB_FIX_K4
-AutoIt:
-    [propget] $ocv.CALIB_FIX_K4_
-```
-
-### cv.CALIB\_FIX\_K5\_
-
-```cpp
-static int cv::CALIB_FIX_K5
-AutoIt:
-    [propget] $ocv.CALIB_FIX_K5_
-```
-
-### cv.CALIB\_FIX\_K6\_
-
-```cpp
-static int cv::CALIB_FIX_K6
-AutoIt:
-    [propget] $ocv.CALIB_FIX_K6_
-```
-
-### cv.CALIB\_RATIONAL\_MODEL\_
-
-```cpp
-static int cv::CALIB_RATIONAL_MODEL
-AutoIt:
-    [propget] $ocv.CALIB_RATIONAL_MODEL_
-```
-
-### cv.CALIB\_THIN\_PRISM\_MODEL\_
-
-```cpp
-static int cv::CALIB_THIN_PRISM_MODEL
-AutoIt:
-    [propget] $ocv.CALIB_THIN_PRISM_MODEL_
-```
-
-### cv.CALIB\_FIX\_S1\_S2\_S3\_S4\_
-
-```cpp
-static int cv::CALIB_FIX_S1_S2_S3_S4
-AutoIt:
-    [propget] $ocv.CALIB_FIX_S1_S2_S3_S4_
-```
-
-### cv.CALIB\_TILTED\_MODEL\_
-
-```cpp
-static int cv::CALIB_TILTED_MODEL
-AutoIt:
-    [propget] $ocv.CALIB_TILTED_MODEL_
-```
-
-### cv.CALIB\_FIX\_TAUX\_TAUY\_
-
-```cpp
-static int cv::CALIB_FIX_TAUX_TAUY
-AutoIt:
-    [propget] $ocv.CALIB_FIX_TAUX_TAUY_
-```
-
-### cv.CALIB\_USE\_QR\_
-
-```cpp
-static int cv::CALIB_USE_QR
-AutoIt:
-    [propget] $ocv.CALIB_USE_QR_
-```
-
-### cv.CALIB\_FIX\_TANGENT\_DIST\_
-
-```cpp
-static int cv::CALIB_FIX_TANGENT_DIST
-AutoIt:
-    [propget] $ocv.CALIB_FIX_TANGENT_DIST_
-```
-
-### cv.CALIB\_FIX\_INTRINSIC\_
-
-```cpp
-static int cv::CALIB_FIX_INTRINSIC
-AutoIt:
-    [propget] $ocv.CALIB_FIX_INTRINSIC_
-```
-
-### cv.CALIB\_SAME\_FOCAL\_LENGTH\_
-
-```cpp
-static int cv::CALIB_SAME_FOCAL_LENGTH
-AutoIt:
-    [propget] $ocv.CALIB_SAME_FOCAL_LENGTH_
-```
-
-### cv.CALIB\_ZERO\_DISPARITY\_
-
-```cpp
-static int cv::CALIB_ZERO_DISPARITY
-AutoIt:
-    [propget] $ocv.CALIB_ZERO_DISPARITY_
-```
-
-### cv.CALIB\_USE\_LU\_
-
-```cpp
-static int cv::CALIB_USE_LU
-AutoIt:
-    [propget] $ocv.CALIB_USE_LU_
-```
-
-### cv.CALIB\_USE\_EXTRINSIC\_GUESS\_
-
-```cpp
-static int cv::CALIB_USE_EXTRINSIC_GUESS
-AutoIt:
-    [propget] $ocv.CALIB_USE_EXTRINSIC_GUESS_
-```
-
-### cv.FM\_7POINT\_
-
-```cpp
-static int cv::FM_7POINT
-AutoIt:
-    [propget] $ocv.FM_7POINT_
-```
-
-### cv.FM\_8POINT\_
-
-```cpp
-static int cv::FM_8POINT
-AutoIt:
-    [propget] $ocv.FM_8POINT_
-```
-
-### cv.FM\_LMEDS\_
-
-```cpp
-static int cv::FM_LMEDS
-AutoIt:
-    [propget] $ocv.FM_LMEDS_
-```
-
-### cv.FM\_RANSAC\_
-
-```cpp
-static int cv::FM_RANSAC
-AutoIt:
-    [propget] $ocv.FM_RANSAC_
-```
-
-### cv.CALIB\_HAND\_EYE\_TSAI\_
-
-```cpp
-static int cv::CALIB_HAND_EYE_TSAI
-AutoIt:
-    [propget] $ocv.CALIB_HAND_EYE_TSAI_
-```
-
-### cv.CALIB\_HAND\_EYE\_PARK\_
-
-```cpp
-static int cv::CALIB_HAND_EYE_PARK
-AutoIt:
-    [propget] $ocv.CALIB_HAND_EYE_PARK_
-```
-
-### cv.CALIB\_HAND\_EYE\_HORAUD\_
-
-```cpp
-static int cv::CALIB_HAND_EYE_HORAUD
-AutoIt:
-    [propget] $ocv.CALIB_HAND_EYE_HORAUD_
-```
-
-### cv.CALIB\_HAND\_EYE\_ANDREFF\_
-
-```cpp
-static int cv::CALIB_HAND_EYE_ANDREFF
-AutoIt:
-    [propget] $ocv.CALIB_HAND_EYE_ANDREFF_
-```
-
-### cv.CALIB\_HAND\_EYE\_DANIILIDIS\_
-
-```cpp
-static int cv::CALIB_HAND_EYE_DANIILIDIS
-AutoIt:
-    [propget] $ocv.CALIB_HAND_EYE_DANIILIDIS_
-```
-
-### cv.CALIB\_ROBOT\_WORLD\_HAND\_EYE\_SHAH\_
-
-```cpp
-static int cv::CALIB_ROBOT_WORLD_HAND_EYE_SHAH
-AutoIt:
-    [propget] $ocv.CALIB_ROBOT_WORLD_HAND_EYE_SHAH_
-```
-
-### cv.CALIB\_ROBOT\_WORLD\_HAND\_EYE\_LI\_
-
-```cpp
-static int cv::CALIB_ROBOT_WORLD_HAND_EYE_LI
-AutoIt:
-    [propget] $ocv.CALIB_ROBOT_WORLD_HAND_EYE_LI_
-```
-
-### cv.SAMPLING\_UNIFORM\_
-
-```cpp
-static int cv::SAMPLING_UNIFORM
-AutoIt:
-    [propget] $ocv.SAMPLING_UNIFORM_
-```
-
-### cv.SAMPLING\_PROGRESSIVE\_NAPSAC\_
-
-```cpp
-static int cv::SAMPLING_PROGRESSIVE_NAPSAC
-AutoIt:
-    [propget] $ocv.SAMPLING_PROGRESSIVE_NAPSAC_
-```
-
-### cv.SAMPLING\_NAPSAC\_
-
-```cpp
-static int cv::SAMPLING_NAPSAC
-AutoIt:
-    [propget] $ocv.SAMPLING_NAPSAC_
-```
-
-### cv.SAMPLING\_PROSAC\_
-
-```cpp
-static int cv::SAMPLING_PROSAC
-AutoIt:
-    [propget] $ocv.SAMPLING_PROSAC_
-```
-
-### cv.LOCAL\_OPTIM\_NULL\_
-
-```cpp
-static int cv::LOCAL_OPTIM_NULL
-AutoIt:
-    [propget] $ocv.LOCAL_OPTIM_NULL_
-```
-
-### cv.LOCAL\_OPTIM\_INNER\_LO\_
-
-```cpp
-static int cv::LOCAL_OPTIM_INNER_LO
-AutoIt:
-    [propget] $ocv.LOCAL_OPTIM_INNER_LO_
-```
-
-### cv.LOCAL\_OPTIM\_INNER\_AND\_ITER\_LO\_
-
-```cpp
-static int cv::LOCAL_OPTIM_INNER_AND_ITER_LO
-AutoIt:
-    [propget] $ocv.LOCAL_OPTIM_INNER_AND_ITER_LO_
-```
-
-### cv.LOCAL\_OPTIM\_GC\_
-
-```cpp
-static int cv::LOCAL_OPTIM_GC
-AutoIt:
-    [propget] $ocv.LOCAL_OPTIM_GC_
-```
-
-### cv.LOCAL\_OPTIM\_SIGMA\_
-
-```cpp
-static int cv::LOCAL_OPTIM_SIGMA
-AutoIt:
-    [propget] $ocv.LOCAL_OPTIM_SIGMA_
-```
-
-### cv.SCORE\_METHOD\_RANSAC\_
-
-```cpp
-static int cv::SCORE_METHOD_RANSAC
-AutoIt:
-    [propget] $ocv.SCORE_METHOD_RANSAC_
-```
-
-### cv.SCORE\_METHOD\_MSAC\_
-
-```cpp
-static int cv::SCORE_METHOD_MSAC
-AutoIt:
-    [propget] $ocv.SCORE_METHOD_MSAC_
-```
-
-### cv.SCORE\_METHOD\_MAGSAC\_
-
-```cpp
-static int cv::SCORE_METHOD_MAGSAC
-AutoIt:
-    [propget] $ocv.SCORE_METHOD_MAGSAC_
-```
-
-### cv.SCORE\_METHOD\_LMEDS\_
-
-```cpp
-static int cv::SCORE_METHOD_LMEDS
-AutoIt:
-    [propget] $ocv.SCORE_METHOD_LMEDS_
-```
-
-### cv.NEIGH\_FLANN\_KNN\_
-
-```cpp
-static int cv::NEIGH_FLANN_KNN
-AutoIt:
-    [propget] $ocv.NEIGH_FLANN_KNN_
-```
-
-### cv.NEIGH\_GRID\_
-
-```cpp
-static int cv::NEIGH_GRID
-AutoIt:
-    [propget] $ocv.NEIGH_GRID_
-```
-
-### cv.NEIGH\_FLANN\_RADIUS\_
-
-```cpp
-static int cv::NEIGH_FLANN_RADIUS
-AutoIt:
-    [propget] $ocv.NEIGH_FLANN_RADIUS_
-```
-
-### cv.PROJ\_SPHERICAL\_ORTHO\_
-
-```cpp
-static int cv::PROJ_SPHERICAL_ORTHO
-AutoIt:
-    [propget] $ocv.PROJ_SPHERICAL_ORTHO_
-```
-
-### cv.PROJ\_SPHERICAL\_EQRECT\_
-
-```cpp
-static int cv::PROJ_SPHERICAL_EQRECT
-AutoIt:
-    [propget] $ocv.PROJ_SPHERICAL_EQRECT_
-```
-
-### cv.WINDOW\_NORMAL\_
-
-```cpp
-static int cv::WINDOW_NORMAL
-AutoIt:
-    [propget] $ocv.WINDOW_NORMAL_
-```
-
-### cv.WINDOW\_AUTOSIZE\_
-
-```cpp
-static int cv::WINDOW_AUTOSIZE
-AutoIt:
-    [propget] $ocv.WINDOW_AUTOSIZE_
-```
-
-### cv.WINDOW\_OPENGL\_
-
-```cpp
-static int cv::WINDOW_OPENGL
-AutoIt:
-    [propget] $ocv.WINDOW_OPENGL_
-```
-
-### cv.WINDOW\_FULLSCREEN\_
-
-```cpp
-static int cv::WINDOW_FULLSCREEN
-AutoIt:
-    [propget] $ocv.WINDOW_FULLSCREEN_
-```
-
-### cv.WINDOW\_FREERATIO\_
-
-```cpp
-static int cv::WINDOW_FREERATIO
-AutoIt:
-    [propget] $ocv.WINDOW_FREERATIO_
-```
-
-### cv.WINDOW\_KEEPRATIO\_
-
-```cpp
-static int cv::WINDOW_KEEPRATIO
-AutoIt:
-    [propget] $ocv.WINDOW_KEEPRATIO_
-```
-
-### cv.WINDOW\_GUI\_EXPANDED\_
-
-```cpp
-static int cv::WINDOW_GUI_EXPANDED
-AutoIt:
-    [propget] $ocv.WINDOW_GUI_EXPANDED_
-```
-
-### cv.WINDOW\_GUI\_NORMAL\_
-
-```cpp
-static int cv::WINDOW_GUI_NORMAL
-AutoIt:
-    [propget] $ocv.WINDOW_GUI_NORMAL_
-```
-
-### cv.WND\_PROP\_FULLSCREEN\_
-
-```cpp
-static int cv::WND_PROP_FULLSCREEN
-AutoIt:
-    [propget] $ocv.WND_PROP_FULLSCREEN_
-```
-
-### cv.WND\_PROP\_AUTOSIZE\_
-
-```cpp
-static int cv::WND_PROP_AUTOSIZE
-AutoIt:
-    [propget] $ocv.WND_PROP_AUTOSIZE_
-```
-
-### cv.WND\_PROP\_ASPECT\_RATIO\_
-
-```cpp
-static int cv::WND_PROP_ASPECT_RATIO
-AutoIt:
-    [propget] $ocv.WND_PROP_ASPECT_RATIO_
-```
-
-### cv.WND\_PROP\_OPENGL\_
-
-```cpp
-static int cv::WND_PROP_OPENGL
-AutoIt:
-    [propget] $ocv.WND_PROP_OPENGL_
-```
-
-### cv.WND\_PROP\_VISIBLE\_
-
-```cpp
-static int cv::WND_PROP_VISIBLE
-AutoIt:
-    [propget] $ocv.WND_PROP_VISIBLE_
-```
-
-### cv.WND\_PROP\_TOPMOST\_
-
-```cpp
-static int cv::WND_PROP_TOPMOST
-AutoIt:
-    [propget] $ocv.WND_PROP_TOPMOST_
-```
-
-### cv.WND\_PROP\_VSYNC\_
-
-```cpp
-static int cv::WND_PROP_VSYNC
-AutoIt:
-    [propget] $ocv.WND_PROP_VSYNC_
-```
-
-### cv.EVENT\_MOUSEMOVE\_
-
-```cpp
-static int cv::EVENT_MOUSEMOVE
-AutoIt:
-    [propget] $ocv.EVENT_MOUSEMOVE_
-```
-
-### cv.EVENT\_LBUTTONDOWN\_
-
-```cpp
-static int cv::EVENT_LBUTTONDOWN
-AutoIt:
-    [propget] $ocv.EVENT_LBUTTONDOWN_
-```
-
-### cv.EVENT\_RBUTTONDOWN\_
-
-```cpp
-static int cv::EVENT_RBUTTONDOWN
-AutoIt:
-    [propget] $ocv.EVENT_RBUTTONDOWN_
-```
-
-### cv.EVENT\_MBUTTONDOWN\_
-
-```cpp
-static int cv::EVENT_MBUTTONDOWN
-AutoIt:
-    [propget] $ocv.EVENT_MBUTTONDOWN_
-```
-
-### cv.EVENT\_LBUTTONUP\_
-
-```cpp
-static int cv::EVENT_LBUTTONUP
-AutoIt:
-    [propget] $ocv.EVENT_LBUTTONUP_
-```
-
-### cv.EVENT\_RBUTTONUP\_
-
-```cpp
-static int cv::EVENT_RBUTTONUP
-AutoIt:
-    [propget] $ocv.EVENT_RBUTTONUP_
-```
-
-### cv.EVENT\_MBUTTONUP\_
-
-```cpp
-static int cv::EVENT_MBUTTONUP
-AutoIt:
-    [propget] $ocv.EVENT_MBUTTONUP_
-```
-
-### cv.EVENT\_LBUTTONDBLCLK\_
-
-```cpp
-static int cv::EVENT_LBUTTONDBLCLK
-AutoIt:
-    [propget] $ocv.EVENT_LBUTTONDBLCLK_
-```
-
-### cv.EVENT\_RBUTTONDBLCLK\_
-
-```cpp
-static int cv::EVENT_RBUTTONDBLCLK
-AutoIt:
-    [propget] $ocv.EVENT_RBUTTONDBLCLK_
-```
-
-### cv.EVENT\_MBUTTONDBLCLK\_
-
-```cpp
-static int cv::EVENT_MBUTTONDBLCLK
-AutoIt:
-    [propget] $ocv.EVENT_MBUTTONDBLCLK_
-```
-
-### cv.EVENT\_MOUSEWHEEL\_
-
-```cpp
-static int cv::EVENT_MOUSEWHEEL
-AutoIt:
-    [propget] $ocv.EVENT_MOUSEWHEEL_
-```
-
-### cv.EVENT\_MOUSEHWHEEL\_
-
-```cpp
-static int cv::EVENT_MOUSEHWHEEL
-AutoIt:
-    [propget] $ocv.EVENT_MOUSEHWHEEL_
-```
-
-### cv.EVENT\_FLAG\_LBUTTON\_
-
-```cpp
-static int cv::EVENT_FLAG_LBUTTON
-AutoIt:
-    [propget] $ocv.EVENT_FLAG_LBUTTON_
-```
-
-### cv.EVENT\_FLAG\_RBUTTON\_
-
-```cpp
-static int cv::EVENT_FLAG_RBUTTON
-AutoIt:
-    [propget] $ocv.EVENT_FLAG_RBUTTON_
-```
-
-### cv.EVENT\_FLAG\_MBUTTON\_
-
-```cpp
-static int cv::EVENT_FLAG_MBUTTON
-AutoIt:
-    [propget] $ocv.EVENT_FLAG_MBUTTON_
-```
-
-### cv.EVENT\_FLAG\_CTRLKEY\_
-
-```cpp
-static int cv::EVENT_FLAG_CTRLKEY
-AutoIt:
-    [propget] $ocv.EVENT_FLAG_CTRLKEY_
-```
-
-### cv.EVENT\_FLAG\_SHIFTKEY\_
-
-```cpp
-static int cv::EVENT_FLAG_SHIFTKEY
-AutoIt:
-    [propget] $ocv.EVENT_FLAG_SHIFTKEY_
-```
-
-### cv.EVENT\_FLAG\_ALTKEY\_
-
-```cpp
-static int cv::EVENT_FLAG_ALTKEY
-AutoIt:
-    [propget] $ocv.EVENT_FLAG_ALTKEY_
-```
-
-### cv.QT\_FONT\_LIGHT\_
-
-```cpp
-static int cv::QT_FONT_LIGHT
-AutoIt:
-    [propget] $ocv.QT_FONT_LIGHT_
-```
-
-### cv.QT\_FONT\_NORMAL\_
-
-```cpp
-static int cv::QT_FONT_NORMAL
-AutoIt:
-    [propget] $ocv.QT_FONT_NORMAL_
-```
-
-### cv.QT\_FONT\_DEMIBOLD\_
-
-```cpp
-static int cv::QT_FONT_DEMIBOLD
-AutoIt:
-    [propget] $ocv.QT_FONT_DEMIBOLD_
-```
-
-### cv.QT\_FONT\_BOLD\_
-
-```cpp
-static int cv::QT_FONT_BOLD
-AutoIt:
-    [propget] $ocv.QT_FONT_BOLD_
-```
-
-### cv.QT\_FONT\_BLACK\_
-
-```cpp
-static int cv::QT_FONT_BLACK
-AutoIt:
-    [propget] $ocv.QT_FONT_BLACK_
-```
-
-### cv.QT\_STYLE\_NORMAL\_
-
-```cpp
-static int cv::QT_STYLE_NORMAL
-AutoIt:
-    [propget] $ocv.QT_STYLE_NORMAL_
-```
-
-### cv.QT\_STYLE\_ITALIC\_
-
-```cpp
-static int cv::QT_STYLE_ITALIC
-AutoIt:
-    [propget] $ocv.QT_STYLE_ITALIC_
-```
-
-### cv.QT\_STYLE\_OBLIQUE\_
-
-```cpp
-static int cv::QT_STYLE_OBLIQUE
-AutoIt:
-    [propget] $ocv.QT_STYLE_OBLIQUE_
-```
-
-### cv.QT\_PUSH\_BUTTON\_
-
-```cpp
-static int cv::QT_PUSH_BUTTON
-AutoIt:
-    [propget] $ocv.QT_PUSH_BUTTON_
-```
-
-### cv.QT\_CHECKBOX\_
-
-```cpp
-static int cv::QT_CHECKBOX
-AutoIt:
-    [propget] $ocv.QT_CHECKBOX_
-```
-
-### cv.QT\_RADIOBOX\_
-
-```cpp
-static int cv::QT_RADIOBOX
-AutoIt:
-    [propget] $ocv.QT_RADIOBOX_
-```
-
-### cv.QT\_NEW\_BUTTONBAR\_
-
-```cpp
-static int cv::QT_NEW_BUTTONBAR
-AutoIt:
-    [propget] $ocv.QT_NEW_BUTTONBAR_
-```
-
-### cv.CASCADE\_DO\_CANNY\_PRUNING\_
-
-```cpp
-static int cv::CASCADE_DO_CANNY_PRUNING
-AutoIt:
-    [propget] $ocv.CASCADE_DO_CANNY_PRUNING_
-```
-
-### cv.CASCADE\_SCALE\_IMAGE\_
-
-```cpp
-static int cv::CASCADE_SCALE_IMAGE
-AutoIt:
-    [propget] $ocv.CASCADE_SCALE_IMAGE_
-```
-
-### cv.CASCADE\_FIND\_BIGGEST\_OBJECT\_
-
-```cpp
-static int cv::CASCADE_FIND_BIGGEST_OBJECT
-AutoIt:
-    [propget] $ocv.CASCADE_FIND_BIGGEST_OBJECT_
-```
-
-### cv.CASCADE\_DO\_ROUGH\_SEARCH\_
-
-```cpp
-static int cv::CASCADE_DO_ROUGH_SEARCH
-AutoIt:
-    [propget] $ocv.CASCADE_DO_ROUGH_SEARCH_
-```
-
-### cv.OPTFLOW\_USE\_INITIAL\_FLOW\_
-
-```cpp
-static int cv::OPTFLOW_USE_INITIAL_FLOW
-AutoIt:
-    [propget] $ocv.OPTFLOW_USE_INITIAL_FLOW_
-```
-
-### cv.OPTFLOW\_LK\_GET\_MIN\_EIGENVALS\_
-
-```cpp
-static int cv::OPTFLOW_LK_GET_MIN_EIGENVALS
-AutoIt:
-    [propget] $ocv.OPTFLOW_LK_GET_MIN_EIGENVALS_
-```
-
-### cv.OPTFLOW\_FARNEBACK\_GAUSSIAN\_
-
-```cpp
-static int cv::OPTFLOW_FARNEBACK_GAUSSIAN
-AutoIt:
-    [propget] $ocv.OPTFLOW_FARNEBACK_GAUSSIAN_
-```
-
-### cv.MOTION\_TRANSLATION\_
-
-```cpp
-static int cv::MOTION_TRANSLATION
-AutoIt:
-    [propget] $ocv.MOTION_TRANSLATION_
-```
-
-### cv.MOTION\_EUCLIDEAN\_
-
-```cpp
-static int cv::MOTION_EUCLIDEAN
-AutoIt:
-    [propget] $ocv.MOTION_EUCLIDEAN_
-```
-
-### cv.MOTION\_AFFINE\_
-
-```cpp
-static int cv::MOTION_AFFINE
-AutoIt:
-    [propget] $ocv.MOTION_AFFINE_
-```
-
-### cv.MOTION\_HOMOGRAPHY\_
-
-```cpp
-static int cv::MOTION_HOMOGRAPHY
-AutoIt:
-    [propget] $ocv.MOTION_HOMOGRAPHY_
-```
-
 ## cv::parallel
 
 ### cv::parallel::setParallelForBackend
@@ -19351,6 +12909,8576 @@ bool cv::parallel::setParallelForBackend( const std::string& backendName,
                                           bool               propagateNumThreads = true );
 AutoIt:
     _OpenCV_ObjCreate("cv.parallel").setParallelForBackend( $backendName[, $propagateNumThreads] ) -> retval
+```
+
+## cv::enums
+
+### enums.SORT\_EVERY\_ROW
+
+```cpp
+static int cv::enums::SORT_EVERY_ROW
+AutoIt:
+    [propget] $oenums.SORT_EVERY_ROW
+```
+
+### enums.SORT\_EVERY\_COLUMN
+
+```cpp
+static int cv::enums::SORT_EVERY_COLUMN
+AutoIt:
+    [propget] $oenums.SORT_EVERY_COLUMN
+```
+
+### enums.SORT\_ASCENDING
+
+```cpp
+static int cv::enums::SORT_ASCENDING
+AutoIt:
+    [propget] $oenums.SORT_ASCENDING
+```
+
+### enums.SORT\_DESCENDING
+
+```cpp
+static int cv::enums::SORT_DESCENDING
+AutoIt:
+    [propget] $oenums.SORT_DESCENDING
+```
+
+### enums.COVAR\_SCRAMBLED
+
+```cpp
+static int cv::enums::COVAR_SCRAMBLED
+AutoIt:
+    [propget] $oenums.COVAR_SCRAMBLED
+```
+
+### enums.COVAR\_NORMAL
+
+```cpp
+static int cv::enums::COVAR_NORMAL
+AutoIt:
+    [propget] $oenums.COVAR_NORMAL
+```
+
+### enums.COVAR\_USE\_AVG
+
+```cpp
+static int cv::enums::COVAR_USE_AVG
+AutoIt:
+    [propget] $oenums.COVAR_USE_AVG
+```
+
+### enums.COVAR\_SCALE
+
+```cpp
+static int cv::enums::COVAR_SCALE
+AutoIt:
+    [propget] $oenums.COVAR_SCALE
+```
+
+### enums.COVAR\_ROWS
+
+```cpp
+static int cv::enums::COVAR_ROWS
+AutoIt:
+    [propget] $oenums.COVAR_ROWS
+```
+
+### enums.COVAR\_COLS
+
+```cpp
+static int cv::enums::COVAR_COLS
+AutoIt:
+    [propget] $oenums.COVAR_COLS
+```
+
+### enums.KMEANS\_RANDOM\_CENTERS
+
+```cpp
+static int cv::enums::KMEANS_RANDOM_CENTERS
+AutoIt:
+    [propget] $oenums.KMEANS_RANDOM_CENTERS
+```
+
+### enums.KMEANS\_PP\_CENTERS
+
+```cpp
+static int cv::enums::KMEANS_PP_CENTERS
+AutoIt:
+    [propget] $oenums.KMEANS_PP_CENTERS
+```
+
+### enums.KMEANS\_USE\_INITIAL\_LABELS
+
+```cpp
+static int cv::enums::KMEANS_USE_INITIAL_LABELS
+AutoIt:
+    [propget] $oenums.KMEANS_USE_INITIAL_LABELS
+```
+
+### enums.REDUCE\_SUM
+
+```cpp
+static int cv::enums::REDUCE_SUM
+AutoIt:
+    [propget] $oenums.REDUCE_SUM
+```
+
+### enums.REDUCE\_AVG
+
+```cpp
+static int cv::enums::REDUCE_AVG
+AutoIt:
+    [propget] $oenums.REDUCE_AVG
+```
+
+### enums.REDUCE\_MAX
+
+```cpp
+static int cv::enums::REDUCE_MAX
+AutoIt:
+    [propget] $oenums.REDUCE_MAX
+```
+
+### enums.REDUCE\_MIN
+
+```cpp
+static int cv::enums::REDUCE_MIN
+AutoIt:
+    [propget] $oenums.REDUCE_MIN
+```
+
+### enums.ROTATE\_90\_CLOCKWISE
+
+```cpp
+static int cv::enums::ROTATE_90_CLOCKWISE
+AutoIt:
+    [propget] $oenums.ROTATE_90_CLOCKWISE
+```
+
+### enums.ROTATE\_180
+
+```cpp
+static int cv::enums::ROTATE_180
+AutoIt:
+    [propget] $oenums.ROTATE_180
+```
+
+### enums.ROTATE\_90\_COUNTERCLOCKWISE
+
+```cpp
+static int cv::enums::ROTATE_90_COUNTERCLOCKWISE
+AutoIt:
+    [propget] $oenums.ROTATE_90_COUNTERCLOCKWISE
+```
+
+### enums.DECOMP\_LU
+
+```cpp
+static int cv::enums::DECOMP_LU
+AutoIt:
+    [propget] $oenums.DECOMP_LU
+```
+
+### enums.DECOMP\_SVD
+
+```cpp
+static int cv::enums::DECOMP_SVD
+AutoIt:
+    [propget] $oenums.DECOMP_SVD
+```
+
+### enums.DECOMP\_EIG
+
+```cpp
+static int cv::enums::DECOMP_EIG
+AutoIt:
+    [propget] $oenums.DECOMP_EIG
+```
+
+### enums.DECOMP\_CHOLESKY
+
+```cpp
+static int cv::enums::DECOMP_CHOLESKY
+AutoIt:
+    [propget] $oenums.DECOMP_CHOLESKY
+```
+
+### enums.DECOMP\_QR
+
+```cpp
+static int cv::enums::DECOMP_QR
+AutoIt:
+    [propget] $oenums.DECOMP_QR
+```
+
+### enums.DECOMP\_NORMAL
+
+```cpp
+static int cv::enums::DECOMP_NORMAL
+AutoIt:
+    [propget] $oenums.DECOMP_NORMAL
+```
+
+### enums.NORM\_INF
+
+```cpp
+static int cv::enums::NORM_INF
+AutoIt:
+    [propget] $oenums.NORM_INF
+```
+
+### enums.NORM\_L1
+
+```cpp
+static int cv::enums::NORM_L1
+AutoIt:
+    [propget] $oenums.NORM_L1
+```
+
+### enums.NORM\_L2
+
+```cpp
+static int cv::enums::NORM_L2
+AutoIt:
+    [propget] $oenums.NORM_L2
+```
+
+### enums.NORM\_L2SQR
+
+```cpp
+static int cv::enums::NORM_L2SQR
+AutoIt:
+    [propget] $oenums.NORM_L2SQR
+```
+
+### enums.NORM\_HAMMING
+
+```cpp
+static int cv::enums::NORM_HAMMING
+AutoIt:
+    [propget] $oenums.NORM_HAMMING
+```
+
+### enums.NORM\_HAMMING2
+
+```cpp
+static int cv::enums::NORM_HAMMING2
+AutoIt:
+    [propget] $oenums.NORM_HAMMING2
+```
+
+### enums.NORM\_TYPE\_MASK
+
+```cpp
+static int cv::enums::NORM_TYPE_MASK
+AutoIt:
+    [propget] $oenums.NORM_TYPE_MASK
+```
+
+### enums.NORM\_RELATIVE
+
+```cpp
+static int cv::enums::NORM_RELATIVE
+AutoIt:
+    [propget] $oenums.NORM_RELATIVE
+```
+
+### enums.NORM\_MINMAX
+
+```cpp
+static int cv::enums::NORM_MINMAX
+AutoIt:
+    [propget] $oenums.NORM_MINMAX
+```
+
+### enums.CMP\_EQ
+
+```cpp
+static int cv::enums::CMP_EQ
+AutoIt:
+    [propget] $oenums.CMP_EQ
+```
+
+### enums.CMP\_GT
+
+```cpp
+static int cv::enums::CMP_GT
+AutoIt:
+    [propget] $oenums.CMP_GT
+```
+
+### enums.CMP\_GE
+
+```cpp
+static int cv::enums::CMP_GE
+AutoIt:
+    [propget] $oenums.CMP_GE
+```
+
+### enums.CMP\_LT
+
+```cpp
+static int cv::enums::CMP_LT
+AutoIt:
+    [propget] $oenums.CMP_LT
+```
+
+### enums.CMP\_LE
+
+```cpp
+static int cv::enums::CMP_LE
+AutoIt:
+    [propget] $oenums.CMP_LE
+```
+
+### enums.CMP\_NE
+
+```cpp
+static int cv::enums::CMP_NE
+AutoIt:
+    [propget] $oenums.CMP_NE
+```
+
+### enums.GEMM\_1\_T
+
+```cpp
+static int cv::enums::GEMM_1_T
+AutoIt:
+    [propget] $oenums.GEMM_1_T
+```
+
+### enums.GEMM\_2\_T
+
+```cpp
+static int cv::enums::GEMM_2_T
+AutoIt:
+    [propget] $oenums.GEMM_2_T
+```
+
+### enums.GEMM\_3\_T
+
+```cpp
+static int cv::enums::GEMM_3_T
+AutoIt:
+    [propget] $oenums.GEMM_3_T
+```
+
+### enums.DFT\_INVERSE
+
+```cpp
+static int cv::enums::DFT_INVERSE
+AutoIt:
+    [propget] $oenums.DFT_INVERSE
+```
+
+### enums.DFT\_SCALE
+
+```cpp
+static int cv::enums::DFT_SCALE
+AutoIt:
+    [propget] $oenums.DFT_SCALE
+```
+
+### enums.DFT\_ROWS
+
+```cpp
+static int cv::enums::DFT_ROWS
+AutoIt:
+    [propget] $oenums.DFT_ROWS
+```
+
+### enums.DFT\_COMPLEX\_OUTPUT
+
+```cpp
+static int cv::enums::DFT_COMPLEX_OUTPUT
+AutoIt:
+    [propget] $oenums.DFT_COMPLEX_OUTPUT
+```
+
+### enums.DFT\_REAL\_OUTPUT
+
+```cpp
+static int cv::enums::DFT_REAL_OUTPUT
+AutoIt:
+    [propget] $oenums.DFT_REAL_OUTPUT
+```
+
+### enums.DFT\_COMPLEX\_INPUT
+
+```cpp
+static int cv::enums::DFT_COMPLEX_INPUT
+AutoIt:
+    [propget] $oenums.DFT_COMPLEX_INPUT
+```
+
+### enums.DCT\_INVERSE
+
+```cpp
+static int cv::enums::DCT_INVERSE
+AutoIt:
+    [propget] $oenums.DCT_INVERSE
+```
+
+### enums.DCT\_ROWS
+
+```cpp
+static int cv::enums::DCT_ROWS
+AutoIt:
+    [propget] $oenums.DCT_ROWS
+```
+
+### enums.BORDER\_CONSTANT
+
+```cpp
+static int cv::enums::BORDER_CONSTANT
+AutoIt:
+    [propget] $oenums.BORDER_CONSTANT
+```
+
+### enums.BORDER\_REPLICATE
+
+```cpp
+static int cv::enums::BORDER_REPLICATE
+AutoIt:
+    [propget] $oenums.BORDER_REPLICATE
+```
+
+### enums.BORDER\_REFLECT
+
+```cpp
+static int cv::enums::BORDER_REFLECT
+AutoIt:
+    [propget] $oenums.BORDER_REFLECT
+```
+
+### enums.BORDER\_WRAP
+
+```cpp
+static int cv::enums::BORDER_WRAP
+AutoIt:
+    [propget] $oenums.BORDER_WRAP
+```
+
+### enums.BORDER\_REFLECT\_101
+
+```cpp
+static int cv::enums::BORDER_REFLECT_101
+AutoIt:
+    [propget] $oenums.BORDER_REFLECT_101
+```
+
+### enums.BORDER\_TRANSPARENT
+
+```cpp
+static int cv::enums::BORDER_TRANSPARENT
+AutoIt:
+    [propget] $oenums.BORDER_TRANSPARENT
+```
+
+### enums.BORDER\_REFLECT101
+
+```cpp
+static int cv::enums::BORDER_REFLECT101
+AutoIt:
+    [propget] $oenums.BORDER_REFLECT101
+```
+
+### enums.BORDER\_DEFAULT
+
+```cpp
+static int cv::enums::BORDER_DEFAULT
+AutoIt:
+    [propget] $oenums.BORDER_DEFAULT
+```
+
+### enums.BORDER\_ISOLATED
+
+```cpp
+static int cv::enums::BORDER_ISOLATED
+AutoIt:
+    [propget] $oenums.BORDER_ISOLATED
+```
+
+### enums.ACCESS\_READ
+
+```cpp
+static int cv::enums::ACCESS_READ
+AutoIt:
+    [propget] $oenums.ACCESS_READ
+```
+
+### enums.ACCESS\_WRITE
+
+```cpp
+static int cv::enums::ACCESS_WRITE
+AutoIt:
+    [propget] $oenums.ACCESS_WRITE
+```
+
+### enums.ACCESS\_RW
+
+```cpp
+static int cv::enums::ACCESS_RW
+AutoIt:
+    [propget] $oenums.ACCESS_RW
+```
+
+### enums.ACCESS\_MASK
+
+```cpp
+static int cv::enums::ACCESS_MASK
+AutoIt:
+    [propget] $oenums.ACCESS_MASK
+```
+
+### enums.ACCESS\_FAST
+
+```cpp
+static int cv::enums::ACCESS_FAST
+AutoIt:
+    [propget] $oenums.ACCESS_FAST
+```
+
+### enums.USAGE\_DEFAULT
+
+```cpp
+static int cv::enums::USAGE_DEFAULT
+AutoIt:
+    [propget] $oenums.USAGE_DEFAULT
+```
+
+### enums.USAGE\_ALLOCATE\_HOST\_MEMORY
+
+```cpp
+static int cv::enums::USAGE_ALLOCATE_HOST_MEMORY
+AutoIt:
+    [propget] $oenums.USAGE_ALLOCATE_HOST_MEMORY
+```
+
+### enums.USAGE\_ALLOCATE\_DEVICE\_MEMORY
+
+```cpp
+static int cv::enums::USAGE_ALLOCATE_DEVICE_MEMORY
+AutoIt:
+    [propget] $oenums.USAGE_ALLOCATE_DEVICE_MEMORY
+```
+
+### enums.USAGE\_ALLOCATE\_SHARED\_MEMORY
+
+```cpp
+static int cv::enums::USAGE_ALLOCATE_SHARED_MEMORY
+AutoIt:
+    [propget] $oenums.USAGE_ALLOCATE_SHARED_MEMORY
+```
+
+### enums.\_\_UMAT\_USAGE\_FLAGS\_32BIT
+
+```cpp
+static int cv::enums::__UMAT_USAGE_FLAGS_32BIT
+AutoIt:
+    [propget] $oenums.__UMAT_USAGE_FLAGS_32BIT
+```
+
+### enums.SOLVELP\_UNBOUNDED
+
+```cpp
+static int cv::enums::SOLVELP_UNBOUNDED
+AutoIt:
+    [propget] $oenums.SOLVELP_UNBOUNDED
+```
+
+### enums.SOLVELP\_UNFEASIBLE
+
+```cpp
+static int cv::enums::SOLVELP_UNFEASIBLE
+AutoIt:
+    [propget] $oenums.SOLVELP_UNFEASIBLE
+```
+
+### enums.SOLVELP\_SINGLE
+
+```cpp
+static int cv::enums::SOLVELP_SINGLE
+AutoIt:
+    [propget] $oenums.SOLVELP_SINGLE
+```
+
+### enums.SOLVELP\_MULTI
+
+```cpp
+static int cv::enums::SOLVELP_MULTI
+AutoIt:
+    [propget] $oenums.SOLVELP_MULTI
+```
+
+### enums.QUAT\_ASSUME\_NOT\_UNIT
+
+```cpp
+static int cv::enums::QUAT_ASSUME_NOT_UNIT
+AutoIt:
+    [propget] $oenums.QUAT_ASSUME_NOT_UNIT
+```
+
+### enums.QUAT\_ASSUME\_UNIT
+
+```cpp
+static int cv::enums::QUAT_ASSUME_UNIT
+AutoIt:
+    [propget] $oenums.QUAT_ASSUME_UNIT
+```
+
+### enums.FILTER\_SCHARR
+
+```cpp
+static int cv::enums::FILTER_SCHARR
+AutoIt:
+    [propget] $oenums.FILTER_SCHARR
+```
+
+### enums.MORPH\_ERODE
+
+```cpp
+static int cv::enums::MORPH_ERODE
+AutoIt:
+    [propget] $oenums.MORPH_ERODE
+```
+
+### enums.MORPH\_DILATE
+
+```cpp
+static int cv::enums::MORPH_DILATE
+AutoIt:
+    [propget] $oenums.MORPH_DILATE
+```
+
+### enums.MORPH\_OPEN
+
+```cpp
+static int cv::enums::MORPH_OPEN
+AutoIt:
+    [propget] $oenums.MORPH_OPEN
+```
+
+### enums.MORPH\_CLOSE
+
+```cpp
+static int cv::enums::MORPH_CLOSE
+AutoIt:
+    [propget] $oenums.MORPH_CLOSE
+```
+
+### enums.MORPH\_GRADIENT
+
+```cpp
+static int cv::enums::MORPH_GRADIENT
+AutoIt:
+    [propget] $oenums.MORPH_GRADIENT
+```
+
+### enums.MORPH\_TOPHAT
+
+```cpp
+static int cv::enums::MORPH_TOPHAT
+AutoIt:
+    [propget] $oenums.MORPH_TOPHAT
+```
+
+### enums.MORPH\_BLACKHAT
+
+```cpp
+static int cv::enums::MORPH_BLACKHAT
+AutoIt:
+    [propget] $oenums.MORPH_BLACKHAT
+```
+
+### enums.MORPH\_HITMISS
+
+```cpp
+static int cv::enums::MORPH_HITMISS
+AutoIt:
+    [propget] $oenums.MORPH_HITMISS
+```
+
+### enums.MORPH\_RECT
+
+```cpp
+static int cv::enums::MORPH_RECT
+AutoIt:
+    [propget] $oenums.MORPH_RECT
+```
+
+### enums.MORPH\_CROSS
+
+```cpp
+static int cv::enums::MORPH_CROSS
+AutoIt:
+    [propget] $oenums.MORPH_CROSS
+```
+
+### enums.MORPH\_ELLIPSE
+
+```cpp
+static int cv::enums::MORPH_ELLIPSE
+AutoIt:
+    [propget] $oenums.MORPH_ELLIPSE
+```
+
+### enums.INTER\_NEAREST
+
+```cpp
+static int cv::enums::INTER_NEAREST
+AutoIt:
+    [propget] $oenums.INTER_NEAREST
+```
+
+### enums.INTER\_LINEAR
+
+```cpp
+static int cv::enums::INTER_LINEAR
+AutoIt:
+    [propget] $oenums.INTER_LINEAR
+```
+
+### enums.INTER\_CUBIC
+
+```cpp
+static int cv::enums::INTER_CUBIC
+AutoIt:
+    [propget] $oenums.INTER_CUBIC
+```
+
+### enums.INTER\_AREA
+
+```cpp
+static int cv::enums::INTER_AREA
+AutoIt:
+    [propget] $oenums.INTER_AREA
+```
+
+### enums.INTER\_LANCZOS4
+
+```cpp
+static int cv::enums::INTER_LANCZOS4
+AutoIt:
+    [propget] $oenums.INTER_LANCZOS4
+```
+
+### enums.INTER\_LINEAR\_EXACT
+
+```cpp
+static int cv::enums::INTER_LINEAR_EXACT
+AutoIt:
+    [propget] $oenums.INTER_LINEAR_EXACT
+```
+
+### enums.INTER\_NEAREST\_EXACT
+
+```cpp
+static int cv::enums::INTER_NEAREST_EXACT
+AutoIt:
+    [propget] $oenums.INTER_NEAREST_EXACT
+```
+
+### enums.INTER\_MAX
+
+```cpp
+static int cv::enums::INTER_MAX
+AutoIt:
+    [propget] $oenums.INTER_MAX
+```
+
+### enums.WARP\_FILL\_OUTLIERS
+
+```cpp
+static int cv::enums::WARP_FILL_OUTLIERS
+AutoIt:
+    [propget] $oenums.WARP_FILL_OUTLIERS
+```
+
+### enums.WARP\_INVERSE\_MAP
+
+```cpp
+static int cv::enums::WARP_INVERSE_MAP
+AutoIt:
+    [propget] $oenums.WARP_INVERSE_MAP
+```
+
+### enums.WARP\_POLAR\_LINEAR
+
+```cpp
+static int cv::enums::WARP_POLAR_LINEAR
+AutoIt:
+    [propget] $oenums.WARP_POLAR_LINEAR
+```
+
+### enums.WARP\_POLAR\_LOG
+
+```cpp
+static int cv::enums::WARP_POLAR_LOG
+AutoIt:
+    [propget] $oenums.WARP_POLAR_LOG
+```
+
+### enums.INTER\_BITS
+
+```cpp
+static int cv::enums::INTER_BITS
+AutoIt:
+    [propget] $oenums.INTER_BITS
+```
+
+### enums.INTER\_BITS2
+
+```cpp
+static int cv::enums::INTER_BITS2
+AutoIt:
+    [propget] $oenums.INTER_BITS2
+```
+
+### enums.INTER\_TAB\_SIZE
+
+```cpp
+static int cv::enums::INTER_TAB_SIZE
+AutoIt:
+    [propget] $oenums.INTER_TAB_SIZE
+```
+
+### enums.INTER\_TAB\_SIZE2
+
+```cpp
+static int cv::enums::INTER_TAB_SIZE2
+AutoIt:
+    [propget] $oenums.INTER_TAB_SIZE2
+```
+
+### enums.DIST\_USER
+
+```cpp
+static int cv::enums::DIST_USER
+AutoIt:
+    [propget] $oenums.DIST_USER
+```
+
+### enums.DIST\_L1
+
+```cpp
+static int cv::enums::DIST_L1
+AutoIt:
+    [propget] $oenums.DIST_L1
+```
+
+### enums.DIST\_L2
+
+```cpp
+static int cv::enums::DIST_L2
+AutoIt:
+    [propget] $oenums.DIST_L2
+```
+
+### enums.DIST\_C
+
+```cpp
+static int cv::enums::DIST_C
+AutoIt:
+    [propget] $oenums.DIST_C
+```
+
+### enums.DIST\_L12
+
+```cpp
+static int cv::enums::DIST_L12
+AutoIt:
+    [propget] $oenums.DIST_L12
+```
+
+### enums.DIST\_FAIR
+
+```cpp
+static int cv::enums::DIST_FAIR
+AutoIt:
+    [propget] $oenums.DIST_FAIR
+```
+
+### enums.DIST\_WELSCH
+
+```cpp
+static int cv::enums::DIST_WELSCH
+AutoIt:
+    [propget] $oenums.DIST_WELSCH
+```
+
+### enums.DIST\_HUBER
+
+```cpp
+static int cv::enums::DIST_HUBER
+AutoIt:
+    [propget] $oenums.DIST_HUBER
+```
+
+### enums.DIST\_MASK\_3
+
+```cpp
+static int cv::enums::DIST_MASK_3
+AutoIt:
+    [propget] $oenums.DIST_MASK_3
+```
+
+### enums.DIST\_MASK\_5
+
+```cpp
+static int cv::enums::DIST_MASK_5
+AutoIt:
+    [propget] $oenums.DIST_MASK_5
+```
+
+### enums.DIST\_MASK\_PRECISE
+
+```cpp
+static int cv::enums::DIST_MASK_PRECISE
+AutoIt:
+    [propget] $oenums.DIST_MASK_PRECISE
+```
+
+### enums.THRESH\_BINARY
+
+```cpp
+static int cv::enums::THRESH_BINARY
+AutoIt:
+    [propget] $oenums.THRESH_BINARY
+```
+
+### enums.THRESH\_BINARY\_INV
+
+```cpp
+static int cv::enums::THRESH_BINARY_INV
+AutoIt:
+    [propget] $oenums.THRESH_BINARY_INV
+```
+
+### enums.THRESH\_TRUNC
+
+```cpp
+static int cv::enums::THRESH_TRUNC
+AutoIt:
+    [propget] $oenums.THRESH_TRUNC
+```
+
+### enums.THRESH\_TOZERO
+
+```cpp
+static int cv::enums::THRESH_TOZERO
+AutoIt:
+    [propget] $oenums.THRESH_TOZERO
+```
+
+### enums.THRESH\_TOZERO\_INV
+
+```cpp
+static int cv::enums::THRESH_TOZERO_INV
+AutoIt:
+    [propget] $oenums.THRESH_TOZERO_INV
+```
+
+### enums.THRESH\_MASK
+
+```cpp
+static int cv::enums::THRESH_MASK
+AutoIt:
+    [propget] $oenums.THRESH_MASK
+```
+
+### enums.THRESH\_OTSU
+
+```cpp
+static int cv::enums::THRESH_OTSU
+AutoIt:
+    [propget] $oenums.THRESH_OTSU
+```
+
+### enums.THRESH\_TRIANGLE
+
+```cpp
+static int cv::enums::THRESH_TRIANGLE
+AutoIt:
+    [propget] $oenums.THRESH_TRIANGLE
+```
+
+### enums.ADAPTIVE\_THRESH\_MEAN\_C
+
+```cpp
+static int cv::enums::ADAPTIVE_THRESH_MEAN_C
+AutoIt:
+    [propget] $oenums.ADAPTIVE_THRESH_MEAN_C
+```
+
+### enums.ADAPTIVE\_THRESH\_GAUSSIAN\_C
+
+```cpp
+static int cv::enums::ADAPTIVE_THRESH_GAUSSIAN_C
+AutoIt:
+    [propget] $oenums.ADAPTIVE_THRESH_GAUSSIAN_C
+```
+
+### enums.GC\_BGD
+
+```cpp
+static int cv::enums::GC_BGD
+AutoIt:
+    [propget] $oenums.GC_BGD
+```
+
+### enums.GC\_FGD
+
+```cpp
+static int cv::enums::GC_FGD
+AutoIt:
+    [propget] $oenums.GC_FGD
+```
+
+### enums.GC\_PR\_BGD
+
+```cpp
+static int cv::enums::GC_PR_BGD
+AutoIt:
+    [propget] $oenums.GC_PR_BGD
+```
+
+### enums.GC\_PR\_FGD
+
+```cpp
+static int cv::enums::GC_PR_FGD
+AutoIt:
+    [propget] $oenums.GC_PR_FGD
+```
+
+### enums.GC\_INIT\_WITH\_RECT
+
+```cpp
+static int cv::enums::GC_INIT_WITH_RECT
+AutoIt:
+    [propget] $oenums.GC_INIT_WITH_RECT
+```
+
+### enums.GC\_INIT\_WITH\_MASK
+
+```cpp
+static int cv::enums::GC_INIT_WITH_MASK
+AutoIt:
+    [propget] $oenums.GC_INIT_WITH_MASK
+```
+
+### enums.GC\_EVAL
+
+```cpp
+static int cv::enums::GC_EVAL
+AutoIt:
+    [propget] $oenums.GC_EVAL
+```
+
+### enums.GC\_EVAL\_FREEZE\_MODEL
+
+```cpp
+static int cv::enums::GC_EVAL_FREEZE_MODEL
+AutoIt:
+    [propget] $oenums.GC_EVAL_FREEZE_MODEL
+```
+
+### enums.DIST\_LABEL\_CCOMP
+
+```cpp
+static int cv::enums::DIST_LABEL_CCOMP
+AutoIt:
+    [propget] $oenums.DIST_LABEL_CCOMP
+```
+
+### enums.DIST\_LABEL\_PIXEL
+
+```cpp
+static int cv::enums::DIST_LABEL_PIXEL
+AutoIt:
+    [propget] $oenums.DIST_LABEL_PIXEL
+```
+
+### enums.FLOODFILL\_FIXED\_RANGE
+
+```cpp
+static int cv::enums::FLOODFILL_FIXED_RANGE
+AutoIt:
+    [propget] $oenums.FLOODFILL_FIXED_RANGE
+```
+
+### enums.FLOODFILL\_MASK\_ONLY
+
+```cpp
+static int cv::enums::FLOODFILL_MASK_ONLY
+AutoIt:
+    [propget] $oenums.FLOODFILL_MASK_ONLY
+```
+
+### enums.CC\_STAT\_LEFT
+
+```cpp
+static int cv::enums::CC_STAT_LEFT
+AutoIt:
+    [propget] $oenums.CC_STAT_LEFT
+```
+
+### enums.CC\_STAT\_TOP
+
+```cpp
+static int cv::enums::CC_STAT_TOP
+AutoIt:
+    [propget] $oenums.CC_STAT_TOP
+```
+
+### enums.CC\_STAT\_WIDTH
+
+```cpp
+static int cv::enums::CC_STAT_WIDTH
+AutoIt:
+    [propget] $oenums.CC_STAT_WIDTH
+```
+
+### enums.CC\_STAT\_HEIGHT
+
+```cpp
+static int cv::enums::CC_STAT_HEIGHT
+AutoIt:
+    [propget] $oenums.CC_STAT_HEIGHT
+```
+
+### enums.CC\_STAT\_AREA
+
+```cpp
+static int cv::enums::CC_STAT_AREA
+AutoIt:
+    [propget] $oenums.CC_STAT_AREA
+```
+
+### enums.CC\_STAT\_MAX
+
+```cpp
+static int cv::enums::CC_STAT_MAX
+AutoIt:
+    [propget] $oenums.CC_STAT_MAX
+```
+
+### enums.CCL\_DEFAULT
+
+```cpp
+static int cv::enums::CCL_DEFAULT
+AutoIt:
+    [propget] $oenums.CCL_DEFAULT
+```
+
+### enums.CCL\_WU
+
+```cpp
+static int cv::enums::CCL_WU
+AutoIt:
+    [propget] $oenums.CCL_WU
+```
+
+### enums.CCL\_GRANA
+
+```cpp
+static int cv::enums::CCL_GRANA
+AutoIt:
+    [propget] $oenums.CCL_GRANA
+```
+
+### enums.CCL\_BOLELLI
+
+```cpp
+static int cv::enums::CCL_BOLELLI
+AutoIt:
+    [propget] $oenums.CCL_BOLELLI
+```
+
+### enums.CCL\_SAUF
+
+```cpp
+static int cv::enums::CCL_SAUF
+AutoIt:
+    [propget] $oenums.CCL_SAUF
+```
+
+### enums.CCL\_BBDT
+
+```cpp
+static int cv::enums::CCL_BBDT
+AutoIt:
+    [propget] $oenums.CCL_BBDT
+```
+
+### enums.CCL\_SPAGHETTI
+
+```cpp
+static int cv::enums::CCL_SPAGHETTI
+AutoIt:
+    [propget] $oenums.CCL_SPAGHETTI
+```
+
+### enums.RETR\_EXTERNAL
+
+```cpp
+static int cv::enums::RETR_EXTERNAL
+AutoIt:
+    [propget] $oenums.RETR_EXTERNAL
+```
+
+### enums.RETR\_LIST
+
+```cpp
+static int cv::enums::RETR_LIST
+AutoIt:
+    [propget] $oenums.RETR_LIST
+```
+
+### enums.RETR\_CCOMP
+
+```cpp
+static int cv::enums::RETR_CCOMP
+AutoIt:
+    [propget] $oenums.RETR_CCOMP
+```
+
+### enums.RETR\_TREE
+
+```cpp
+static int cv::enums::RETR_TREE
+AutoIt:
+    [propget] $oenums.RETR_TREE
+```
+
+### enums.RETR\_FLOODFILL
+
+```cpp
+static int cv::enums::RETR_FLOODFILL
+AutoIt:
+    [propget] $oenums.RETR_FLOODFILL
+```
+
+### enums.CHAIN\_APPROX\_NONE
+
+```cpp
+static int cv::enums::CHAIN_APPROX_NONE
+AutoIt:
+    [propget] $oenums.CHAIN_APPROX_NONE
+```
+
+### enums.CHAIN\_APPROX\_SIMPLE
+
+```cpp
+static int cv::enums::CHAIN_APPROX_SIMPLE
+AutoIt:
+    [propget] $oenums.CHAIN_APPROX_SIMPLE
+```
+
+### enums.CHAIN\_APPROX\_TC89\_L1
+
+```cpp
+static int cv::enums::CHAIN_APPROX_TC89_L1
+AutoIt:
+    [propget] $oenums.CHAIN_APPROX_TC89_L1
+```
+
+### enums.CHAIN\_APPROX\_TC89\_KCOS
+
+```cpp
+static int cv::enums::CHAIN_APPROX_TC89_KCOS
+AutoIt:
+    [propget] $oenums.CHAIN_APPROX_TC89_KCOS
+```
+
+### enums.CONTOURS\_MATCH\_I1
+
+```cpp
+static int cv::enums::CONTOURS_MATCH_I1
+AutoIt:
+    [propget] $oenums.CONTOURS_MATCH_I1
+```
+
+### enums.CONTOURS\_MATCH\_I2
+
+```cpp
+static int cv::enums::CONTOURS_MATCH_I2
+AutoIt:
+    [propget] $oenums.CONTOURS_MATCH_I2
+```
+
+### enums.CONTOURS\_MATCH\_I3
+
+```cpp
+static int cv::enums::CONTOURS_MATCH_I3
+AutoIt:
+    [propget] $oenums.CONTOURS_MATCH_I3
+```
+
+### enums.HOUGH\_STANDARD
+
+```cpp
+static int cv::enums::HOUGH_STANDARD
+AutoIt:
+    [propget] $oenums.HOUGH_STANDARD
+```
+
+### enums.HOUGH\_PROBABILISTIC
+
+```cpp
+static int cv::enums::HOUGH_PROBABILISTIC
+AutoIt:
+    [propget] $oenums.HOUGH_PROBABILISTIC
+```
+
+### enums.HOUGH\_MULTI\_SCALE
+
+```cpp
+static int cv::enums::HOUGH_MULTI_SCALE
+AutoIt:
+    [propget] $oenums.HOUGH_MULTI_SCALE
+```
+
+### enums.HOUGH\_GRADIENT
+
+```cpp
+static int cv::enums::HOUGH_GRADIENT
+AutoIt:
+    [propget] $oenums.HOUGH_GRADIENT
+```
+
+### enums.HOUGH\_GRADIENT\_ALT
+
+```cpp
+static int cv::enums::HOUGH_GRADIENT_ALT
+AutoIt:
+    [propget] $oenums.HOUGH_GRADIENT_ALT
+```
+
+### enums.LSD\_REFINE\_NONE
+
+```cpp
+static int cv::enums::LSD_REFINE_NONE
+AutoIt:
+    [propget] $oenums.LSD_REFINE_NONE
+```
+
+### enums.LSD\_REFINE\_STD
+
+```cpp
+static int cv::enums::LSD_REFINE_STD
+AutoIt:
+    [propget] $oenums.LSD_REFINE_STD
+```
+
+### enums.LSD\_REFINE\_ADV
+
+```cpp
+static int cv::enums::LSD_REFINE_ADV
+AutoIt:
+    [propget] $oenums.LSD_REFINE_ADV
+```
+
+### enums.HISTCMP\_CORREL
+
+```cpp
+static int cv::enums::HISTCMP_CORREL
+AutoIt:
+    [propget] $oenums.HISTCMP_CORREL
+```
+
+### enums.HISTCMP\_CHISQR
+
+```cpp
+static int cv::enums::HISTCMP_CHISQR
+AutoIt:
+    [propget] $oenums.HISTCMP_CHISQR
+```
+
+### enums.HISTCMP\_INTERSECT
+
+```cpp
+static int cv::enums::HISTCMP_INTERSECT
+AutoIt:
+    [propget] $oenums.HISTCMP_INTERSECT
+```
+
+### enums.HISTCMP\_BHATTACHARYYA
+
+```cpp
+static int cv::enums::HISTCMP_BHATTACHARYYA
+AutoIt:
+    [propget] $oenums.HISTCMP_BHATTACHARYYA
+```
+
+### enums.HISTCMP\_HELLINGER
+
+```cpp
+static int cv::enums::HISTCMP_HELLINGER
+AutoIt:
+    [propget] $oenums.HISTCMP_HELLINGER
+```
+
+### enums.HISTCMP\_CHISQR\_ALT
+
+```cpp
+static int cv::enums::HISTCMP_CHISQR_ALT
+AutoIt:
+    [propget] $oenums.HISTCMP_CHISQR_ALT
+```
+
+### enums.HISTCMP\_KL\_DIV
+
+```cpp
+static int cv::enums::HISTCMP_KL_DIV
+AutoIt:
+    [propget] $oenums.HISTCMP_KL_DIV
+```
+
+### enums.COLOR\_BGR2BGRA
+
+```cpp
+static int cv::enums::COLOR_BGR2BGRA
+AutoIt:
+    [propget] $oenums.COLOR_BGR2BGRA
+```
+
+### enums.COLOR\_RGB2RGBA
+
+```cpp
+static int cv::enums::COLOR_RGB2RGBA
+AutoIt:
+    [propget] $oenums.COLOR_RGB2RGBA
+```
+
+### enums.COLOR\_BGRA2BGR
+
+```cpp
+static int cv::enums::COLOR_BGRA2BGR
+AutoIt:
+    [propget] $oenums.COLOR_BGRA2BGR
+```
+
+### enums.COLOR\_RGBA2RGB
+
+```cpp
+static int cv::enums::COLOR_RGBA2RGB
+AutoIt:
+    [propget] $oenums.COLOR_RGBA2RGB
+```
+
+### enums.COLOR\_BGR2RGBA
+
+```cpp
+static int cv::enums::COLOR_BGR2RGBA
+AutoIt:
+    [propget] $oenums.COLOR_BGR2RGBA
+```
+
+### enums.COLOR\_RGB2BGRA
+
+```cpp
+static int cv::enums::COLOR_RGB2BGRA
+AutoIt:
+    [propget] $oenums.COLOR_RGB2BGRA
+```
+
+### enums.COLOR\_RGBA2BGR
+
+```cpp
+static int cv::enums::COLOR_RGBA2BGR
+AutoIt:
+    [propget] $oenums.COLOR_RGBA2BGR
+```
+
+### enums.COLOR\_BGRA2RGB
+
+```cpp
+static int cv::enums::COLOR_BGRA2RGB
+AutoIt:
+    [propget] $oenums.COLOR_BGRA2RGB
+```
+
+### enums.COLOR\_BGR2RGB
+
+```cpp
+static int cv::enums::COLOR_BGR2RGB
+AutoIt:
+    [propget] $oenums.COLOR_BGR2RGB
+```
+
+### enums.COLOR\_RGB2BGR
+
+```cpp
+static int cv::enums::COLOR_RGB2BGR
+AutoIt:
+    [propget] $oenums.COLOR_RGB2BGR
+```
+
+### enums.COLOR\_BGRA2RGBA
+
+```cpp
+static int cv::enums::COLOR_BGRA2RGBA
+AutoIt:
+    [propget] $oenums.COLOR_BGRA2RGBA
+```
+
+### enums.COLOR\_RGBA2BGRA
+
+```cpp
+static int cv::enums::COLOR_RGBA2BGRA
+AutoIt:
+    [propget] $oenums.COLOR_RGBA2BGRA
+```
+
+### enums.COLOR\_BGR2GRAY
+
+```cpp
+static int cv::enums::COLOR_BGR2GRAY
+AutoIt:
+    [propget] $oenums.COLOR_BGR2GRAY
+```
+
+### enums.COLOR\_RGB2GRAY
+
+```cpp
+static int cv::enums::COLOR_RGB2GRAY
+AutoIt:
+    [propget] $oenums.COLOR_RGB2GRAY
+```
+
+### enums.COLOR\_GRAY2BGR
+
+```cpp
+static int cv::enums::COLOR_GRAY2BGR
+AutoIt:
+    [propget] $oenums.COLOR_GRAY2BGR
+```
+
+### enums.COLOR\_GRAY2RGB
+
+```cpp
+static int cv::enums::COLOR_GRAY2RGB
+AutoIt:
+    [propget] $oenums.COLOR_GRAY2RGB
+```
+
+### enums.COLOR\_GRAY2BGRA
+
+```cpp
+static int cv::enums::COLOR_GRAY2BGRA
+AutoIt:
+    [propget] $oenums.COLOR_GRAY2BGRA
+```
+
+### enums.COLOR\_GRAY2RGBA
+
+```cpp
+static int cv::enums::COLOR_GRAY2RGBA
+AutoIt:
+    [propget] $oenums.COLOR_GRAY2RGBA
+```
+
+### enums.COLOR\_BGRA2GRAY
+
+```cpp
+static int cv::enums::COLOR_BGRA2GRAY
+AutoIt:
+    [propget] $oenums.COLOR_BGRA2GRAY
+```
+
+### enums.COLOR\_RGBA2GRAY
+
+```cpp
+static int cv::enums::COLOR_RGBA2GRAY
+AutoIt:
+    [propget] $oenums.COLOR_RGBA2GRAY
+```
+
+### enums.COLOR\_BGR2BGR565
+
+```cpp
+static int cv::enums::COLOR_BGR2BGR565
+AutoIt:
+    [propget] $oenums.COLOR_BGR2BGR565
+```
+
+### enums.COLOR\_RGB2BGR565
+
+```cpp
+static int cv::enums::COLOR_RGB2BGR565
+AutoIt:
+    [propget] $oenums.COLOR_RGB2BGR565
+```
+
+### enums.COLOR\_BGR5652BGR
+
+```cpp
+static int cv::enums::COLOR_BGR5652BGR
+AutoIt:
+    [propget] $oenums.COLOR_BGR5652BGR
+```
+
+### enums.COLOR\_BGR5652RGB
+
+```cpp
+static int cv::enums::COLOR_BGR5652RGB
+AutoIt:
+    [propget] $oenums.COLOR_BGR5652RGB
+```
+
+### enums.COLOR\_BGRA2BGR565
+
+```cpp
+static int cv::enums::COLOR_BGRA2BGR565
+AutoIt:
+    [propget] $oenums.COLOR_BGRA2BGR565
+```
+
+### enums.COLOR\_RGBA2BGR565
+
+```cpp
+static int cv::enums::COLOR_RGBA2BGR565
+AutoIt:
+    [propget] $oenums.COLOR_RGBA2BGR565
+```
+
+### enums.COLOR\_BGR5652BGRA
+
+```cpp
+static int cv::enums::COLOR_BGR5652BGRA
+AutoIt:
+    [propget] $oenums.COLOR_BGR5652BGRA
+```
+
+### enums.COLOR\_BGR5652RGBA
+
+```cpp
+static int cv::enums::COLOR_BGR5652RGBA
+AutoIt:
+    [propget] $oenums.COLOR_BGR5652RGBA
+```
+
+### enums.COLOR\_GRAY2BGR565
+
+```cpp
+static int cv::enums::COLOR_GRAY2BGR565
+AutoIt:
+    [propget] $oenums.COLOR_GRAY2BGR565
+```
+
+### enums.COLOR\_BGR5652GRAY
+
+```cpp
+static int cv::enums::COLOR_BGR5652GRAY
+AutoIt:
+    [propget] $oenums.COLOR_BGR5652GRAY
+```
+
+### enums.COLOR\_BGR2BGR555
+
+```cpp
+static int cv::enums::COLOR_BGR2BGR555
+AutoIt:
+    [propget] $oenums.COLOR_BGR2BGR555
+```
+
+### enums.COLOR\_RGB2BGR555
+
+```cpp
+static int cv::enums::COLOR_RGB2BGR555
+AutoIt:
+    [propget] $oenums.COLOR_RGB2BGR555
+```
+
+### enums.COLOR\_BGR5552BGR
+
+```cpp
+static int cv::enums::COLOR_BGR5552BGR
+AutoIt:
+    [propget] $oenums.COLOR_BGR5552BGR
+```
+
+### enums.COLOR\_BGR5552RGB
+
+```cpp
+static int cv::enums::COLOR_BGR5552RGB
+AutoIt:
+    [propget] $oenums.COLOR_BGR5552RGB
+```
+
+### enums.COLOR\_BGRA2BGR555
+
+```cpp
+static int cv::enums::COLOR_BGRA2BGR555
+AutoIt:
+    [propget] $oenums.COLOR_BGRA2BGR555
+```
+
+### enums.COLOR\_RGBA2BGR555
+
+```cpp
+static int cv::enums::COLOR_RGBA2BGR555
+AutoIt:
+    [propget] $oenums.COLOR_RGBA2BGR555
+```
+
+### enums.COLOR\_BGR5552BGRA
+
+```cpp
+static int cv::enums::COLOR_BGR5552BGRA
+AutoIt:
+    [propget] $oenums.COLOR_BGR5552BGRA
+```
+
+### enums.COLOR\_BGR5552RGBA
+
+```cpp
+static int cv::enums::COLOR_BGR5552RGBA
+AutoIt:
+    [propget] $oenums.COLOR_BGR5552RGBA
+```
+
+### enums.COLOR\_GRAY2BGR555
+
+```cpp
+static int cv::enums::COLOR_GRAY2BGR555
+AutoIt:
+    [propget] $oenums.COLOR_GRAY2BGR555
+```
+
+### enums.COLOR\_BGR5552GRAY
+
+```cpp
+static int cv::enums::COLOR_BGR5552GRAY
+AutoIt:
+    [propget] $oenums.COLOR_BGR5552GRAY
+```
+
+### enums.COLOR\_BGR2XYZ
+
+```cpp
+static int cv::enums::COLOR_BGR2XYZ
+AutoIt:
+    [propget] $oenums.COLOR_BGR2XYZ
+```
+
+### enums.COLOR\_RGB2XYZ
+
+```cpp
+static int cv::enums::COLOR_RGB2XYZ
+AutoIt:
+    [propget] $oenums.COLOR_RGB2XYZ
+```
+
+### enums.COLOR\_XYZ2BGR
+
+```cpp
+static int cv::enums::COLOR_XYZ2BGR
+AutoIt:
+    [propget] $oenums.COLOR_XYZ2BGR
+```
+
+### enums.COLOR\_XYZ2RGB
+
+```cpp
+static int cv::enums::COLOR_XYZ2RGB
+AutoIt:
+    [propget] $oenums.COLOR_XYZ2RGB
+```
+
+### enums.COLOR\_BGR2YCrCb
+
+```cpp
+static int cv::enums::COLOR_BGR2YCrCb
+AutoIt:
+    [propget] $oenums.COLOR_BGR2YCrCb
+```
+
+### enums.COLOR\_RGB2YCrCb
+
+```cpp
+static int cv::enums::COLOR_RGB2YCrCb
+AutoIt:
+    [propget] $oenums.COLOR_RGB2YCrCb
+```
+
+### enums.COLOR\_YCrCb2BGR
+
+```cpp
+static int cv::enums::COLOR_YCrCb2BGR
+AutoIt:
+    [propget] $oenums.COLOR_YCrCb2BGR
+```
+
+### enums.COLOR\_YCrCb2RGB
+
+```cpp
+static int cv::enums::COLOR_YCrCb2RGB
+AutoIt:
+    [propget] $oenums.COLOR_YCrCb2RGB
+```
+
+### enums.COLOR\_BGR2HSV
+
+```cpp
+static int cv::enums::COLOR_BGR2HSV
+AutoIt:
+    [propget] $oenums.COLOR_BGR2HSV
+```
+
+### enums.COLOR\_RGB2HSV
+
+```cpp
+static int cv::enums::COLOR_RGB2HSV
+AutoIt:
+    [propget] $oenums.COLOR_RGB2HSV
+```
+
+### enums.COLOR\_BGR2Lab
+
+```cpp
+static int cv::enums::COLOR_BGR2Lab
+AutoIt:
+    [propget] $oenums.COLOR_BGR2Lab
+```
+
+### enums.COLOR\_RGB2Lab
+
+```cpp
+static int cv::enums::COLOR_RGB2Lab
+AutoIt:
+    [propget] $oenums.COLOR_RGB2Lab
+```
+
+### enums.COLOR\_BGR2Luv
+
+```cpp
+static int cv::enums::COLOR_BGR2Luv
+AutoIt:
+    [propget] $oenums.COLOR_BGR2Luv
+```
+
+### enums.COLOR\_RGB2Luv
+
+```cpp
+static int cv::enums::COLOR_RGB2Luv
+AutoIt:
+    [propget] $oenums.COLOR_RGB2Luv
+```
+
+### enums.COLOR\_BGR2HLS
+
+```cpp
+static int cv::enums::COLOR_BGR2HLS
+AutoIt:
+    [propget] $oenums.COLOR_BGR2HLS
+```
+
+### enums.COLOR\_RGB2HLS
+
+```cpp
+static int cv::enums::COLOR_RGB2HLS
+AutoIt:
+    [propget] $oenums.COLOR_RGB2HLS
+```
+
+### enums.COLOR\_HSV2BGR
+
+```cpp
+static int cv::enums::COLOR_HSV2BGR
+AutoIt:
+    [propget] $oenums.COLOR_HSV2BGR
+```
+
+### enums.COLOR\_HSV2RGB
+
+```cpp
+static int cv::enums::COLOR_HSV2RGB
+AutoIt:
+    [propget] $oenums.COLOR_HSV2RGB
+```
+
+### enums.COLOR\_Lab2BGR
+
+```cpp
+static int cv::enums::COLOR_Lab2BGR
+AutoIt:
+    [propget] $oenums.COLOR_Lab2BGR
+```
+
+### enums.COLOR\_Lab2RGB
+
+```cpp
+static int cv::enums::COLOR_Lab2RGB
+AutoIt:
+    [propget] $oenums.COLOR_Lab2RGB
+```
+
+### enums.COLOR\_Luv2BGR
+
+```cpp
+static int cv::enums::COLOR_Luv2BGR
+AutoIt:
+    [propget] $oenums.COLOR_Luv2BGR
+```
+
+### enums.COLOR\_Luv2RGB
+
+```cpp
+static int cv::enums::COLOR_Luv2RGB
+AutoIt:
+    [propget] $oenums.COLOR_Luv2RGB
+```
+
+### enums.COLOR\_HLS2BGR
+
+```cpp
+static int cv::enums::COLOR_HLS2BGR
+AutoIt:
+    [propget] $oenums.COLOR_HLS2BGR
+```
+
+### enums.COLOR\_HLS2RGB
+
+```cpp
+static int cv::enums::COLOR_HLS2RGB
+AutoIt:
+    [propget] $oenums.COLOR_HLS2RGB
+```
+
+### enums.COLOR\_BGR2HSV\_FULL
+
+```cpp
+static int cv::enums::COLOR_BGR2HSV_FULL
+AutoIt:
+    [propget] $oenums.COLOR_BGR2HSV_FULL
+```
+
+### enums.COLOR\_RGB2HSV\_FULL
+
+```cpp
+static int cv::enums::COLOR_RGB2HSV_FULL
+AutoIt:
+    [propget] $oenums.COLOR_RGB2HSV_FULL
+```
+
+### enums.COLOR\_BGR2HLS\_FULL
+
+```cpp
+static int cv::enums::COLOR_BGR2HLS_FULL
+AutoIt:
+    [propget] $oenums.COLOR_BGR2HLS_FULL
+```
+
+### enums.COLOR\_RGB2HLS\_FULL
+
+```cpp
+static int cv::enums::COLOR_RGB2HLS_FULL
+AutoIt:
+    [propget] $oenums.COLOR_RGB2HLS_FULL
+```
+
+### enums.COLOR\_HSV2BGR\_FULL
+
+```cpp
+static int cv::enums::COLOR_HSV2BGR_FULL
+AutoIt:
+    [propget] $oenums.COLOR_HSV2BGR_FULL
+```
+
+### enums.COLOR\_HSV2RGB\_FULL
+
+```cpp
+static int cv::enums::COLOR_HSV2RGB_FULL
+AutoIt:
+    [propget] $oenums.COLOR_HSV2RGB_FULL
+```
+
+### enums.COLOR\_HLS2BGR\_FULL
+
+```cpp
+static int cv::enums::COLOR_HLS2BGR_FULL
+AutoIt:
+    [propget] $oenums.COLOR_HLS2BGR_FULL
+```
+
+### enums.COLOR\_HLS2RGB\_FULL
+
+```cpp
+static int cv::enums::COLOR_HLS2RGB_FULL
+AutoIt:
+    [propget] $oenums.COLOR_HLS2RGB_FULL
+```
+
+### enums.COLOR\_LBGR2Lab
+
+```cpp
+static int cv::enums::COLOR_LBGR2Lab
+AutoIt:
+    [propget] $oenums.COLOR_LBGR2Lab
+```
+
+### enums.COLOR\_LRGB2Lab
+
+```cpp
+static int cv::enums::COLOR_LRGB2Lab
+AutoIt:
+    [propget] $oenums.COLOR_LRGB2Lab
+```
+
+### enums.COLOR\_LBGR2Luv
+
+```cpp
+static int cv::enums::COLOR_LBGR2Luv
+AutoIt:
+    [propget] $oenums.COLOR_LBGR2Luv
+```
+
+### enums.COLOR\_LRGB2Luv
+
+```cpp
+static int cv::enums::COLOR_LRGB2Luv
+AutoIt:
+    [propget] $oenums.COLOR_LRGB2Luv
+```
+
+### enums.COLOR\_Lab2LBGR
+
+```cpp
+static int cv::enums::COLOR_Lab2LBGR
+AutoIt:
+    [propget] $oenums.COLOR_Lab2LBGR
+```
+
+### enums.COLOR\_Lab2LRGB
+
+```cpp
+static int cv::enums::COLOR_Lab2LRGB
+AutoIt:
+    [propget] $oenums.COLOR_Lab2LRGB
+```
+
+### enums.COLOR\_Luv2LBGR
+
+```cpp
+static int cv::enums::COLOR_Luv2LBGR
+AutoIt:
+    [propget] $oenums.COLOR_Luv2LBGR
+```
+
+### enums.COLOR\_Luv2LRGB
+
+```cpp
+static int cv::enums::COLOR_Luv2LRGB
+AutoIt:
+    [propget] $oenums.COLOR_Luv2LRGB
+```
+
+### enums.COLOR\_BGR2YUV
+
+```cpp
+static int cv::enums::COLOR_BGR2YUV
+AutoIt:
+    [propget] $oenums.COLOR_BGR2YUV
+```
+
+### enums.COLOR\_RGB2YUV
+
+```cpp
+static int cv::enums::COLOR_RGB2YUV
+AutoIt:
+    [propget] $oenums.COLOR_RGB2YUV
+```
+
+### enums.COLOR\_YUV2BGR
+
+```cpp
+static int cv::enums::COLOR_YUV2BGR
+AutoIt:
+    [propget] $oenums.COLOR_YUV2BGR
+```
+
+### enums.COLOR\_YUV2RGB
+
+```cpp
+static int cv::enums::COLOR_YUV2RGB
+AutoIt:
+    [propget] $oenums.COLOR_YUV2RGB
+```
+
+### enums.COLOR\_YUV2RGB\_NV12
+
+```cpp
+static int cv::enums::COLOR_YUV2RGB_NV12
+AutoIt:
+    [propget] $oenums.COLOR_YUV2RGB_NV12
+```
+
+### enums.COLOR\_YUV2BGR\_NV12
+
+```cpp
+static int cv::enums::COLOR_YUV2BGR_NV12
+AutoIt:
+    [propget] $oenums.COLOR_YUV2BGR_NV12
+```
+
+### enums.COLOR\_YUV2RGB\_NV21
+
+```cpp
+static int cv::enums::COLOR_YUV2RGB_NV21
+AutoIt:
+    [propget] $oenums.COLOR_YUV2RGB_NV21
+```
+
+### enums.COLOR\_YUV2BGR\_NV21
+
+```cpp
+static int cv::enums::COLOR_YUV2BGR_NV21
+AutoIt:
+    [propget] $oenums.COLOR_YUV2BGR_NV21
+```
+
+### enums.COLOR\_YUV420sp2RGB
+
+```cpp
+static int cv::enums::COLOR_YUV420sp2RGB
+AutoIt:
+    [propget] $oenums.COLOR_YUV420sp2RGB
+```
+
+### enums.COLOR\_YUV420sp2BGR
+
+```cpp
+static int cv::enums::COLOR_YUV420sp2BGR
+AutoIt:
+    [propget] $oenums.COLOR_YUV420sp2BGR
+```
+
+### enums.COLOR\_YUV2RGBA\_NV12
+
+```cpp
+static int cv::enums::COLOR_YUV2RGBA_NV12
+AutoIt:
+    [propget] $oenums.COLOR_YUV2RGBA_NV12
+```
+
+### enums.COLOR\_YUV2BGRA\_NV12
+
+```cpp
+static int cv::enums::COLOR_YUV2BGRA_NV12
+AutoIt:
+    [propget] $oenums.COLOR_YUV2BGRA_NV12
+```
+
+### enums.COLOR\_YUV2RGBA\_NV21
+
+```cpp
+static int cv::enums::COLOR_YUV2RGBA_NV21
+AutoIt:
+    [propget] $oenums.COLOR_YUV2RGBA_NV21
+```
+
+### enums.COLOR\_YUV2BGRA\_NV21
+
+```cpp
+static int cv::enums::COLOR_YUV2BGRA_NV21
+AutoIt:
+    [propget] $oenums.COLOR_YUV2BGRA_NV21
+```
+
+### enums.COLOR\_YUV420sp2RGBA
+
+```cpp
+static int cv::enums::COLOR_YUV420sp2RGBA
+AutoIt:
+    [propget] $oenums.COLOR_YUV420sp2RGBA
+```
+
+### enums.COLOR\_YUV420sp2BGRA
+
+```cpp
+static int cv::enums::COLOR_YUV420sp2BGRA
+AutoIt:
+    [propget] $oenums.COLOR_YUV420sp2BGRA
+```
+
+### enums.COLOR\_YUV2RGB\_YV12
+
+```cpp
+static int cv::enums::COLOR_YUV2RGB_YV12
+AutoIt:
+    [propget] $oenums.COLOR_YUV2RGB_YV12
+```
+
+### enums.COLOR\_YUV2BGR\_YV12
+
+```cpp
+static int cv::enums::COLOR_YUV2BGR_YV12
+AutoIt:
+    [propget] $oenums.COLOR_YUV2BGR_YV12
+```
+
+### enums.COLOR\_YUV2RGB\_IYUV
+
+```cpp
+static int cv::enums::COLOR_YUV2RGB_IYUV
+AutoIt:
+    [propget] $oenums.COLOR_YUV2RGB_IYUV
+```
+
+### enums.COLOR\_YUV2BGR\_IYUV
+
+```cpp
+static int cv::enums::COLOR_YUV2BGR_IYUV
+AutoIt:
+    [propget] $oenums.COLOR_YUV2BGR_IYUV
+```
+
+### enums.COLOR\_YUV2RGB\_I420
+
+```cpp
+static int cv::enums::COLOR_YUV2RGB_I420
+AutoIt:
+    [propget] $oenums.COLOR_YUV2RGB_I420
+```
+
+### enums.COLOR\_YUV2BGR\_I420
+
+```cpp
+static int cv::enums::COLOR_YUV2BGR_I420
+AutoIt:
+    [propget] $oenums.COLOR_YUV2BGR_I420
+```
+
+### enums.COLOR\_YUV420p2RGB
+
+```cpp
+static int cv::enums::COLOR_YUV420p2RGB
+AutoIt:
+    [propget] $oenums.COLOR_YUV420p2RGB
+```
+
+### enums.COLOR\_YUV420p2BGR
+
+```cpp
+static int cv::enums::COLOR_YUV420p2BGR
+AutoIt:
+    [propget] $oenums.COLOR_YUV420p2BGR
+```
+
+### enums.COLOR\_YUV2RGBA\_YV12
+
+```cpp
+static int cv::enums::COLOR_YUV2RGBA_YV12
+AutoIt:
+    [propget] $oenums.COLOR_YUV2RGBA_YV12
+```
+
+### enums.COLOR\_YUV2BGRA\_YV12
+
+```cpp
+static int cv::enums::COLOR_YUV2BGRA_YV12
+AutoIt:
+    [propget] $oenums.COLOR_YUV2BGRA_YV12
+```
+
+### enums.COLOR\_YUV2RGBA\_IYUV
+
+```cpp
+static int cv::enums::COLOR_YUV2RGBA_IYUV
+AutoIt:
+    [propget] $oenums.COLOR_YUV2RGBA_IYUV
+```
+
+### enums.COLOR\_YUV2BGRA\_IYUV
+
+```cpp
+static int cv::enums::COLOR_YUV2BGRA_IYUV
+AutoIt:
+    [propget] $oenums.COLOR_YUV2BGRA_IYUV
+```
+
+### enums.COLOR\_YUV2RGBA\_I420
+
+```cpp
+static int cv::enums::COLOR_YUV2RGBA_I420
+AutoIt:
+    [propget] $oenums.COLOR_YUV2RGBA_I420
+```
+
+### enums.COLOR\_YUV2BGRA\_I420
+
+```cpp
+static int cv::enums::COLOR_YUV2BGRA_I420
+AutoIt:
+    [propget] $oenums.COLOR_YUV2BGRA_I420
+```
+
+### enums.COLOR\_YUV420p2RGBA
+
+```cpp
+static int cv::enums::COLOR_YUV420p2RGBA
+AutoIt:
+    [propget] $oenums.COLOR_YUV420p2RGBA
+```
+
+### enums.COLOR\_YUV420p2BGRA
+
+```cpp
+static int cv::enums::COLOR_YUV420p2BGRA
+AutoIt:
+    [propget] $oenums.COLOR_YUV420p2BGRA
+```
+
+### enums.COLOR\_YUV2GRAY\_420
+
+```cpp
+static int cv::enums::COLOR_YUV2GRAY_420
+AutoIt:
+    [propget] $oenums.COLOR_YUV2GRAY_420
+```
+
+### enums.COLOR\_YUV2GRAY\_NV21
+
+```cpp
+static int cv::enums::COLOR_YUV2GRAY_NV21
+AutoIt:
+    [propget] $oenums.COLOR_YUV2GRAY_NV21
+```
+
+### enums.COLOR\_YUV2GRAY\_NV12
+
+```cpp
+static int cv::enums::COLOR_YUV2GRAY_NV12
+AutoIt:
+    [propget] $oenums.COLOR_YUV2GRAY_NV12
+```
+
+### enums.COLOR\_YUV2GRAY\_YV12
+
+```cpp
+static int cv::enums::COLOR_YUV2GRAY_YV12
+AutoIt:
+    [propget] $oenums.COLOR_YUV2GRAY_YV12
+```
+
+### enums.COLOR\_YUV2GRAY\_IYUV
+
+```cpp
+static int cv::enums::COLOR_YUV2GRAY_IYUV
+AutoIt:
+    [propget] $oenums.COLOR_YUV2GRAY_IYUV
+```
+
+### enums.COLOR\_YUV2GRAY\_I420
+
+```cpp
+static int cv::enums::COLOR_YUV2GRAY_I420
+AutoIt:
+    [propget] $oenums.COLOR_YUV2GRAY_I420
+```
+
+### enums.COLOR\_YUV420sp2GRAY
+
+```cpp
+static int cv::enums::COLOR_YUV420sp2GRAY
+AutoIt:
+    [propget] $oenums.COLOR_YUV420sp2GRAY
+```
+
+### enums.COLOR\_YUV420p2GRAY
+
+```cpp
+static int cv::enums::COLOR_YUV420p2GRAY
+AutoIt:
+    [propget] $oenums.COLOR_YUV420p2GRAY
+```
+
+### enums.COLOR\_YUV2RGB\_UYVY
+
+```cpp
+static int cv::enums::COLOR_YUV2RGB_UYVY
+AutoIt:
+    [propget] $oenums.COLOR_YUV2RGB_UYVY
+```
+
+### enums.COLOR\_YUV2BGR\_UYVY
+
+```cpp
+static int cv::enums::COLOR_YUV2BGR_UYVY
+AutoIt:
+    [propget] $oenums.COLOR_YUV2BGR_UYVY
+```
+
+### enums.COLOR\_YUV2RGB\_Y422
+
+```cpp
+static int cv::enums::COLOR_YUV2RGB_Y422
+AutoIt:
+    [propget] $oenums.COLOR_YUV2RGB_Y422
+```
+
+### enums.COLOR\_YUV2BGR\_Y422
+
+```cpp
+static int cv::enums::COLOR_YUV2BGR_Y422
+AutoIt:
+    [propget] $oenums.COLOR_YUV2BGR_Y422
+```
+
+### enums.COLOR\_YUV2RGB\_UYNV
+
+```cpp
+static int cv::enums::COLOR_YUV2RGB_UYNV
+AutoIt:
+    [propget] $oenums.COLOR_YUV2RGB_UYNV
+```
+
+### enums.COLOR\_YUV2BGR\_UYNV
+
+```cpp
+static int cv::enums::COLOR_YUV2BGR_UYNV
+AutoIt:
+    [propget] $oenums.COLOR_YUV2BGR_UYNV
+```
+
+### enums.COLOR\_YUV2RGBA\_UYVY
+
+```cpp
+static int cv::enums::COLOR_YUV2RGBA_UYVY
+AutoIt:
+    [propget] $oenums.COLOR_YUV2RGBA_UYVY
+```
+
+### enums.COLOR\_YUV2BGRA\_UYVY
+
+```cpp
+static int cv::enums::COLOR_YUV2BGRA_UYVY
+AutoIt:
+    [propget] $oenums.COLOR_YUV2BGRA_UYVY
+```
+
+### enums.COLOR\_YUV2RGBA\_Y422
+
+```cpp
+static int cv::enums::COLOR_YUV2RGBA_Y422
+AutoIt:
+    [propget] $oenums.COLOR_YUV2RGBA_Y422
+```
+
+### enums.COLOR\_YUV2BGRA\_Y422
+
+```cpp
+static int cv::enums::COLOR_YUV2BGRA_Y422
+AutoIt:
+    [propget] $oenums.COLOR_YUV2BGRA_Y422
+```
+
+### enums.COLOR\_YUV2RGBA\_UYNV
+
+```cpp
+static int cv::enums::COLOR_YUV2RGBA_UYNV
+AutoIt:
+    [propget] $oenums.COLOR_YUV2RGBA_UYNV
+```
+
+### enums.COLOR\_YUV2BGRA\_UYNV
+
+```cpp
+static int cv::enums::COLOR_YUV2BGRA_UYNV
+AutoIt:
+    [propget] $oenums.COLOR_YUV2BGRA_UYNV
+```
+
+### enums.COLOR\_YUV2RGB\_YUY2
+
+```cpp
+static int cv::enums::COLOR_YUV2RGB_YUY2
+AutoIt:
+    [propget] $oenums.COLOR_YUV2RGB_YUY2
+```
+
+### enums.COLOR\_YUV2BGR\_YUY2
+
+```cpp
+static int cv::enums::COLOR_YUV2BGR_YUY2
+AutoIt:
+    [propget] $oenums.COLOR_YUV2BGR_YUY2
+```
+
+### enums.COLOR\_YUV2RGB\_YVYU
+
+```cpp
+static int cv::enums::COLOR_YUV2RGB_YVYU
+AutoIt:
+    [propget] $oenums.COLOR_YUV2RGB_YVYU
+```
+
+### enums.COLOR\_YUV2BGR\_YVYU
+
+```cpp
+static int cv::enums::COLOR_YUV2BGR_YVYU
+AutoIt:
+    [propget] $oenums.COLOR_YUV2BGR_YVYU
+```
+
+### enums.COLOR\_YUV2RGB\_YUYV
+
+```cpp
+static int cv::enums::COLOR_YUV2RGB_YUYV
+AutoIt:
+    [propget] $oenums.COLOR_YUV2RGB_YUYV
+```
+
+### enums.COLOR\_YUV2BGR\_YUYV
+
+```cpp
+static int cv::enums::COLOR_YUV2BGR_YUYV
+AutoIt:
+    [propget] $oenums.COLOR_YUV2BGR_YUYV
+```
+
+### enums.COLOR\_YUV2RGB\_YUNV
+
+```cpp
+static int cv::enums::COLOR_YUV2RGB_YUNV
+AutoIt:
+    [propget] $oenums.COLOR_YUV2RGB_YUNV
+```
+
+### enums.COLOR\_YUV2BGR\_YUNV
+
+```cpp
+static int cv::enums::COLOR_YUV2BGR_YUNV
+AutoIt:
+    [propget] $oenums.COLOR_YUV2BGR_YUNV
+```
+
+### enums.COLOR\_YUV2RGBA\_YUY2
+
+```cpp
+static int cv::enums::COLOR_YUV2RGBA_YUY2
+AutoIt:
+    [propget] $oenums.COLOR_YUV2RGBA_YUY2
+```
+
+### enums.COLOR\_YUV2BGRA\_YUY2
+
+```cpp
+static int cv::enums::COLOR_YUV2BGRA_YUY2
+AutoIt:
+    [propget] $oenums.COLOR_YUV2BGRA_YUY2
+```
+
+### enums.COLOR\_YUV2RGBA\_YVYU
+
+```cpp
+static int cv::enums::COLOR_YUV2RGBA_YVYU
+AutoIt:
+    [propget] $oenums.COLOR_YUV2RGBA_YVYU
+```
+
+### enums.COLOR\_YUV2BGRA\_YVYU
+
+```cpp
+static int cv::enums::COLOR_YUV2BGRA_YVYU
+AutoIt:
+    [propget] $oenums.COLOR_YUV2BGRA_YVYU
+```
+
+### enums.COLOR\_YUV2RGBA\_YUYV
+
+```cpp
+static int cv::enums::COLOR_YUV2RGBA_YUYV
+AutoIt:
+    [propget] $oenums.COLOR_YUV2RGBA_YUYV
+```
+
+### enums.COLOR\_YUV2BGRA\_YUYV
+
+```cpp
+static int cv::enums::COLOR_YUV2BGRA_YUYV
+AutoIt:
+    [propget] $oenums.COLOR_YUV2BGRA_YUYV
+```
+
+### enums.COLOR\_YUV2RGBA\_YUNV
+
+```cpp
+static int cv::enums::COLOR_YUV2RGBA_YUNV
+AutoIt:
+    [propget] $oenums.COLOR_YUV2RGBA_YUNV
+```
+
+### enums.COLOR\_YUV2BGRA\_YUNV
+
+```cpp
+static int cv::enums::COLOR_YUV2BGRA_YUNV
+AutoIt:
+    [propget] $oenums.COLOR_YUV2BGRA_YUNV
+```
+
+### enums.COLOR\_YUV2GRAY\_UYVY
+
+```cpp
+static int cv::enums::COLOR_YUV2GRAY_UYVY
+AutoIt:
+    [propget] $oenums.COLOR_YUV2GRAY_UYVY
+```
+
+### enums.COLOR\_YUV2GRAY\_YUY2
+
+```cpp
+static int cv::enums::COLOR_YUV2GRAY_YUY2
+AutoIt:
+    [propget] $oenums.COLOR_YUV2GRAY_YUY2
+```
+
+### enums.COLOR\_YUV2GRAY\_Y422
+
+```cpp
+static int cv::enums::COLOR_YUV2GRAY_Y422
+AutoIt:
+    [propget] $oenums.COLOR_YUV2GRAY_Y422
+```
+
+### enums.COLOR\_YUV2GRAY\_UYNV
+
+```cpp
+static int cv::enums::COLOR_YUV2GRAY_UYNV
+AutoIt:
+    [propget] $oenums.COLOR_YUV2GRAY_UYNV
+```
+
+### enums.COLOR\_YUV2GRAY\_YVYU
+
+```cpp
+static int cv::enums::COLOR_YUV2GRAY_YVYU
+AutoIt:
+    [propget] $oenums.COLOR_YUV2GRAY_YVYU
+```
+
+### enums.COLOR\_YUV2GRAY\_YUYV
+
+```cpp
+static int cv::enums::COLOR_YUV2GRAY_YUYV
+AutoIt:
+    [propget] $oenums.COLOR_YUV2GRAY_YUYV
+```
+
+### enums.COLOR\_YUV2GRAY\_YUNV
+
+```cpp
+static int cv::enums::COLOR_YUV2GRAY_YUNV
+AutoIt:
+    [propget] $oenums.COLOR_YUV2GRAY_YUNV
+```
+
+### enums.COLOR\_RGBA2mRGBA
+
+```cpp
+static int cv::enums::COLOR_RGBA2mRGBA
+AutoIt:
+    [propget] $oenums.COLOR_RGBA2mRGBA
+```
+
+### enums.COLOR\_mRGBA2RGBA
+
+```cpp
+static int cv::enums::COLOR_mRGBA2RGBA
+AutoIt:
+    [propget] $oenums.COLOR_mRGBA2RGBA
+```
+
+### enums.COLOR\_RGB2YUV\_I420
+
+```cpp
+static int cv::enums::COLOR_RGB2YUV_I420
+AutoIt:
+    [propget] $oenums.COLOR_RGB2YUV_I420
+```
+
+### enums.COLOR\_BGR2YUV\_I420
+
+```cpp
+static int cv::enums::COLOR_BGR2YUV_I420
+AutoIt:
+    [propget] $oenums.COLOR_BGR2YUV_I420
+```
+
+### enums.COLOR\_RGB2YUV\_IYUV
+
+```cpp
+static int cv::enums::COLOR_RGB2YUV_IYUV
+AutoIt:
+    [propget] $oenums.COLOR_RGB2YUV_IYUV
+```
+
+### enums.COLOR\_BGR2YUV\_IYUV
+
+```cpp
+static int cv::enums::COLOR_BGR2YUV_IYUV
+AutoIt:
+    [propget] $oenums.COLOR_BGR2YUV_IYUV
+```
+
+### enums.COLOR\_RGBA2YUV\_I420
+
+```cpp
+static int cv::enums::COLOR_RGBA2YUV_I420
+AutoIt:
+    [propget] $oenums.COLOR_RGBA2YUV_I420
+```
+
+### enums.COLOR\_BGRA2YUV\_I420
+
+```cpp
+static int cv::enums::COLOR_BGRA2YUV_I420
+AutoIt:
+    [propget] $oenums.COLOR_BGRA2YUV_I420
+```
+
+### enums.COLOR\_RGBA2YUV\_IYUV
+
+```cpp
+static int cv::enums::COLOR_RGBA2YUV_IYUV
+AutoIt:
+    [propget] $oenums.COLOR_RGBA2YUV_IYUV
+```
+
+### enums.COLOR\_BGRA2YUV\_IYUV
+
+```cpp
+static int cv::enums::COLOR_BGRA2YUV_IYUV
+AutoIt:
+    [propget] $oenums.COLOR_BGRA2YUV_IYUV
+```
+
+### enums.COLOR\_RGB2YUV\_YV12
+
+```cpp
+static int cv::enums::COLOR_RGB2YUV_YV12
+AutoIt:
+    [propget] $oenums.COLOR_RGB2YUV_YV12
+```
+
+### enums.COLOR\_BGR2YUV\_YV12
+
+```cpp
+static int cv::enums::COLOR_BGR2YUV_YV12
+AutoIt:
+    [propget] $oenums.COLOR_BGR2YUV_YV12
+```
+
+### enums.COLOR\_RGBA2YUV\_YV12
+
+```cpp
+static int cv::enums::COLOR_RGBA2YUV_YV12
+AutoIt:
+    [propget] $oenums.COLOR_RGBA2YUV_YV12
+```
+
+### enums.COLOR\_BGRA2YUV\_YV12
+
+```cpp
+static int cv::enums::COLOR_BGRA2YUV_YV12
+AutoIt:
+    [propget] $oenums.COLOR_BGRA2YUV_YV12
+```
+
+### enums.COLOR\_BayerBG2BGR
+
+```cpp
+static int cv::enums::COLOR_BayerBG2BGR
+AutoIt:
+    [propget] $oenums.COLOR_BayerBG2BGR
+```
+
+### enums.COLOR\_BayerGB2BGR
+
+```cpp
+static int cv::enums::COLOR_BayerGB2BGR
+AutoIt:
+    [propget] $oenums.COLOR_BayerGB2BGR
+```
+
+### enums.COLOR\_BayerRG2BGR
+
+```cpp
+static int cv::enums::COLOR_BayerRG2BGR
+AutoIt:
+    [propget] $oenums.COLOR_BayerRG2BGR
+```
+
+### enums.COLOR\_BayerGR2BGR
+
+```cpp
+static int cv::enums::COLOR_BayerGR2BGR
+AutoIt:
+    [propget] $oenums.COLOR_BayerGR2BGR
+```
+
+### enums.COLOR\_BayerRGGB2BGR
+
+```cpp
+static int cv::enums::COLOR_BayerRGGB2BGR
+AutoIt:
+    [propget] $oenums.COLOR_BayerRGGB2BGR
+```
+
+### enums.COLOR\_BayerGRBG2BGR
+
+```cpp
+static int cv::enums::COLOR_BayerGRBG2BGR
+AutoIt:
+    [propget] $oenums.COLOR_BayerGRBG2BGR
+```
+
+### enums.COLOR\_BayerBGGR2BGR
+
+```cpp
+static int cv::enums::COLOR_BayerBGGR2BGR
+AutoIt:
+    [propget] $oenums.COLOR_BayerBGGR2BGR
+```
+
+### enums.COLOR\_BayerGBRG2BGR
+
+```cpp
+static int cv::enums::COLOR_BayerGBRG2BGR
+AutoIt:
+    [propget] $oenums.COLOR_BayerGBRG2BGR
+```
+
+### enums.COLOR\_BayerRGGB2RGB
+
+```cpp
+static int cv::enums::COLOR_BayerRGGB2RGB
+AutoIt:
+    [propget] $oenums.COLOR_BayerRGGB2RGB
+```
+
+### enums.COLOR\_BayerGRBG2RGB
+
+```cpp
+static int cv::enums::COLOR_BayerGRBG2RGB
+AutoIt:
+    [propget] $oenums.COLOR_BayerGRBG2RGB
+```
+
+### enums.COLOR\_BayerBGGR2RGB
+
+```cpp
+static int cv::enums::COLOR_BayerBGGR2RGB
+AutoIt:
+    [propget] $oenums.COLOR_BayerBGGR2RGB
+```
+
+### enums.COLOR\_BayerGBRG2RGB
+
+```cpp
+static int cv::enums::COLOR_BayerGBRG2RGB
+AutoIt:
+    [propget] $oenums.COLOR_BayerGBRG2RGB
+```
+
+### enums.COLOR\_BayerBG2RGB
+
+```cpp
+static int cv::enums::COLOR_BayerBG2RGB
+AutoIt:
+    [propget] $oenums.COLOR_BayerBG2RGB
+```
+
+### enums.COLOR\_BayerGB2RGB
+
+```cpp
+static int cv::enums::COLOR_BayerGB2RGB
+AutoIt:
+    [propget] $oenums.COLOR_BayerGB2RGB
+```
+
+### enums.COLOR\_BayerRG2RGB
+
+```cpp
+static int cv::enums::COLOR_BayerRG2RGB
+AutoIt:
+    [propget] $oenums.COLOR_BayerRG2RGB
+```
+
+### enums.COLOR\_BayerGR2RGB
+
+```cpp
+static int cv::enums::COLOR_BayerGR2RGB
+AutoIt:
+    [propget] $oenums.COLOR_BayerGR2RGB
+```
+
+### enums.COLOR\_BayerBG2GRAY
+
+```cpp
+static int cv::enums::COLOR_BayerBG2GRAY
+AutoIt:
+    [propget] $oenums.COLOR_BayerBG2GRAY
+```
+
+### enums.COLOR\_BayerGB2GRAY
+
+```cpp
+static int cv::enums::COLOR_BayerGB2GRAY
+AutoIt:
+    [propget] $oenums.COLOR_BayerGB2GRAY
+```
+
+### enums.COLOR\_BayerRG2GRAY
+
+```cpp
+static int cv::enums::COLOR_BayerRG2GRAY
+AutoIt:
+    [propget] $oenums.COLOR_BayerRG2GRAY
+```
+
+### enums.COLOR\_BayerGR2GRAY
+
+```cpp
+static int cv::enums::COLOR_BayerGR2GRAY
+AutoIt:
+    [propget] $oenums.COLOR_BayerGR2GRAY
+```
+
+### enums.COLOR\_BayerRGGB2GRAY
+
+```cpp
+static int cv::enums::COLOR_BayerRGGB2GRAY
+AutoIt:
+    [propget] $oenums.COLOR_BayerRGGB2GRAY
+```
+
+### enums.COLOR\_BayerGRBG2GRAY
+
+```cpp
+static int cv::enums::COLOR_BayerGRBG2GRAY
+AutoIt:
+    [propget] $oenums.COLOR_BayerGRBG2GRAY
+```
+
+### enums.COLOR\_BayerBGGR2GRAY
+
+```cpp
+static int cv::enums::COLOR_BayerBGGR2GRAY
+AutoIt:
+    [propget] $oenums.COLOR_BayerBGGR2GRAY
+```
+
+### enums.COLOR\_BayerGBRG2GRAY
+
+```cpp
+static int cv::enums::COLOR_BayerGBRG2GRAY
+AutoIt:
+    [propget] $oenums.COLOR_BayerGBRG2GRAY
+```
+
+### enums.COLOR\_BayerBG2BGR\_VNG
+
+```cpp
+static int cv::enums::COLOR_BayerBG2BGR_VNG
+AutoIt:
+    [propget] $oenums.COLOR_BayerBG2BGR_VNG
+```
+
+### enums.COLOR\_BayerGB2BGR\_VNG
+
+```cpp
+static int cv::enums::COLOR_BayerGB2BGR_VNG
+AutoIt:
+    [propget] $oenums.COLOR_BayerGB2BGR_VNG
+```
+
+### enums.COLOR\_BayerRG2BGR\_VNG
+
+```cpp
+static int cv::enums::COLOR_BayerRG2BGR_VNG
+AutoIt:
+    [propget] $oenums.COLOR_BayerRG2BGR_VNG
+```
+
+### enums.COLOR\_BayerGR2BGR\_VNG
+
+```cpp
+static int cv::enums::COLOR_BayerGR2BGR_VNG
+AutoIt:
+    [propget] $oenums.COLOR_BayerGR2BGR_VNG
+```
+
+### enums.COLOR\_BayerRGGB2BGR\_VNG
+
+```cpp
+static int cv::enums::COLOR_BayerRGGB2BGR_VNG
+AutoIt:
+    [propget] $oenums.COLOR_BayerRGGB2BGR_VNG
+```
+
+### enums.COLOR\_BayerGRBG2BGR\_VNG
+
+```cpp
+static int cv::enums::COLOR_BayerGRBG2BGR_VNG
+AutoIt:
+    [propget] $oenums.COLOR_BayerGRBG2BGR_VNG
+```
+
+### enums.COLOR\_BayerBGGR2BGR\_VNG
+
+```cpp
+static int cv::enums::COLOR_BayerBGGR2BGR_VNG
+AutoIt:
+    [propget] $oenums.COLOR_BayerBGGR2BGR_VNG
+```
+
+### enums.COLOR\_BayerGBRG2BGR\_VNG
+
+```cpp
+static int cv::enums::COLOR_BayerGBRG2BGR_VNG
+AutoIt:
+    [propget] $oenums.COLOR_BayerGBRG2BGR_VNG
+```
+
+### enums.COLOR\_BayerRGGB2RGB\_VNG
+
+```cpp
+static int cv::enums::COLOR_BayerRGGB2RGB_VNG
+AutoIt:
+    [propget] $oenums.COLOR_BayerRGGB2RGB_VNG
+```
+
+### enums.COLOR\_BayerGRBG2RGB\_VNG
+
+```cpp
+static int cv::enums::COLOR_BayerGRBG2RGB_VNG
+AutoIt:
+    [propget] $oenums.COLOR_BayerGRBG2RGB_VNG
+```
+
+### enums.COLOR\_BayerBGGR2RGB\_VNG
+
+```cpp
+static int cv::enums::COLOR_BayerBGGR2RGB_VNG
+AutoIt:
+    [propget] $oenums.COLOR_BayerBGGR2RGB_VNG
+```
+
+### enums.COLOR\_BayerGBRG2RGB\_VNG
+
+```cpp
+static int cv::enums::COLOR_BayerGBRG2RGB_VNG
+AutoIt:
+    [propget] $oenums.COLOR_BayerGBRG2RGB_VNG
+```
+
+### enums.COLOR\_BayerBG2RGB\_VNG
+
+```cpp
+static int cv::enums::COLOR_BayerBG2RGB_VNG
+AutoIt:
+    [propget] $oenums.COLOR_BayerBG2RGB_VNG
+```
+
+### enums.COLOR\_BayerGB2RGB\_VNG
+
+```cpp
+static int cv::enums::COLOR_BayerGB2RGB_VNG
+AutoIt:
+    [propget] $oenums.COLOR_BayerGB2RGB_VNG
+```
+
+### enums.COLOR\_BayerRG2RGB\_VNG
+
+```cpp
+static int cv::enums::COLOR_BayerRG2RGB_VNG
+AutoIt:
+    [propget] $oenums.COLOR_BayerRG2RGB_VNG
+```
+
+### enums.COLOR\_BayerGR2RGB\_VNG
+
+```cpp
+static int cv::enums::COLOR_BayerGR2RGB_VNG
+AutoIt:
+    [propget] $oenums.COLOR_BayerGR2RGB_VNG
+```
+
+### enums.COLOR\_BayerBG2BGR\_EA
+
+```cpp
+static int cv::enums::COLOR_BayerBG2BGR_EA
+AutoIt:
+    [propget] $oenums.COLOR_BayerBG2BGR_EA
+```
+
+### enums.COLOR\_BayerGB2BGR\_EA
+
+```cpp
+static int cv::enums::COLOR_BayerGB2BGR_EA
+AutoIt:
+    [propget] $oenums.COLOR_BayerGB2BGR_EA
+```
+
+### enums.COLOR\_BayerRG2BGR\_EA
+
+```cpp
+static int cv::enums::COLOR_BayerRG2BGR_EA
+AutoIt:
+    [propget] $oenums.COLOR_BayerRG2BGR_EA
+```
+
+### enums.COLOR\_BayerGR2BGR\_EA
+
+```cpp
+static int cv::enums::COLOR_BayerGR2BGR_EA
+AutoIt:
+    [propget] $oenums.COLOR_BayerGR2BGR_EA
+```
+
+### enums.COLOR\_BayerRGGB2BGR\_EA
+
+```cpp
+static int cv::enums::COLOR_BayerRGGB2BGR_EA
+AutoIt:
+    [propget] $oenums.COLOR_BayerRGGB2BGR_EA
+```
+
+### enums.COLOR\_BayerGRBG2BGR\_EA
+
+```cpp
+static int cv::enums::COLOR_BayerGRBG2BGR_EA
+AutoIt:
+    [propget] $oenums.COLOR_BayerGRBG2BGR_EA
+```
+
+### enums.COLOR\_BayerBGGR2BGR\_EA
+
+```cpp
+static int cv::enums::COLOR_BayerBGGR2BGR_EA
+AutoIt:
+    [propget] $oenums.COLOR_BayerBGGR2BGR_EA
+```
+
+### enums.COLOR\_BayerGBRG2BGR\_EA
+
+```cpp
+static int cv::enums::COLOR_BayerGBRG2BGR_EA
+AutoIt:
+    [propget] $oenums.COLOR_BayerGBRG2BGR_EA
+```
+
+### enums.COLOR\_BayerRGGB2RGB\_EA
+
+```cpp
+static int cv::enums::COLOR_BayerRGGB2RGB_EA
+AutoIt:
+    [propget] $oenums.COLOR_BayerRGGB2RGB_EA
+```
+
+### enums.COLOR\_BayerGRBG2RGB\_EA
+
+```cpp
+static int cv::enums::COLOR_BayerGRBG2RGB_EA
+AutoIt:
+    [propget] $oenums.COLOR_BayerGRBG2RGB_EA
+```
+
+### enums.COLOR\_BayerBGGR2RGB\_EA
+
+```cpp
+static int cv::enums::COLOR_BayerBGGR2RGB_EA
+AutoIt:
+    [propget] $oenums.COLOR_BayerBGGR2RGB_EA
+```
+
+### enums.COLOR\_BayerGBRG2RGB\_EA
+
+```cpp
+static int cv::enums::COLOR_BayerGBRG2RGB_EA
+AutoIt:
+    [propget] $oenums.COLOR_BayerGBRG2RGB_EA
+```
+
+### enums.COLOR\_BayerBG2RGB\_EA
+
+```cpp
+static int cv::enums::COLOR_BayerBG2RGB_EA
+AutoIt:
+    [propget] $oenums.COLOR_BayerBG2RGB_EA
+```
+
+### enums.COLOR\_BayerGB2RGB\_EA
+
+```cpp
+static int cv::enums::COLOR_BayerGB2RGB_EA
+AutoIt:
+    [propget] $oenums.COLOR_BayerGB2RGB_EA
+```
+
+### enums.COLOR\_BayerRG2RGB\_EA
+
+```cpp
+static int cv::enums::COLOR_BayerRG2RGB_EA
+AutoIt:
+    [propget] $oenums.COLOR_BayerRG2RGB_EA
+```
+
+### enums.COLOR\_BayerGR2RGB\_EA
+
+```cpp
+static int cv::enums::COLOR_BayerGR2RGB_EA
+AutoIt:
+    [propget] $oenums.COLOR_BayerGR2RGB_EA
+```
+
+### enums.COLOR\_BayerBG2BGRA
+
+```cpp
+static int cv::enums::COLOR_BayerBG2BGRA
+AutoIt:
+    [propget] $oenums.COLOR_BayerBG2BGRA
+```
+
+### enums.COLOR\_BayerGB2BGRA
+
+```cpp
+static int cv::enums::COLOR_BayerGB2BGRA
+AutoIt:
+    [propget] $oenums.COLOR_BayerGB2BGRA
+```
+
+### enums.COLOR\_BayerRG2BGRA
+
+```cpp
+static int cv::enums::COLOR_BayerRG2BGRA
+AutoIt:
+    [propget] $oenums.COLOR_BayerRG2BGRA
+```
+
+### enums.COLOR\_BayerGR2BGRA
+
+```cpp
+static int cv::enums::COLOR_BayerGR2BGRA
+AutoIt:
+    [propget] $oenums.COLOR_BayerGR2BGRA
+```
+
+### enums.COLOR\_BayerRGGB2BGRA
+
+```cpp
+static int cv::enums::COLOR_BayerRGGB2BGRA
+AutoIt:
+    [propget] $oenums.COLOR_BayerRGGB2BGRA
+```
+
+### enums.COLOR\_BayerGRBG2BGRA
+
+```cpp
+static int cv::enums::COLOR_BayerGRBG2BGRA
+AutoIt:
+    [propget] $oenums.COLOR_BayerGRBG2BGRA
+```
+
+### enums.COLOR\_BayerBGGR2BGRA
+
+```cpp
+static int cv::enums::COLOR_BayerBGGR2BGRA
+AutoIt:
+    [propget] $oenums.COLOR_BayerBGGR2BGRA
+```
+
+### enums.COLOR\_BayerGBRG2BGRA
+
+```cpp
+static int cv::enums::COLOR_BayerGBRG2BGRA
+AutoIt:
+    [propget] $oenums.COLOR_BayerGBRG2BGRA
+```
+
+### enums.COLOR\_BayerRGGB2RGBA
+
+```cpp
+static int cv::enums::COLOR_BayerRGGB2RGBA
+AutoIt:
+    [propget] $oenums.COLOR_BayerRGGB2RGBA
+```
+
+### enums.COLOR\_BayerGRBG2RGBA
+
+```cpp
+static int cv::enums::COLOR_BayerGRBG2RGBA
+AutoIt:
+    [propget] $oenums.COLOR_BayerGRBG2RGBA
+```
+
+### enums.COLOR\_BayerBGGR2RGBA
+
+```cpp
+static int cv::enums::COLOR_BayerBGGR2RGBA
+AutoIt:
+    [propget] $oenums.COLOR_BayerBGGR2RGBA
+```
+
+### enums.COLOR\_BayerGBRG2RGBA
+
+```cpp
+static int cv::enums::COLOR_BayerGBRG2RGBA
+AutoIt:
+    [propget] $oenums.COLOR_BayerGBRG2RGBA
+```
+
+### enums.COLOR\_BayerBG2RGBA
+
+```cpp
+static int cv::enums::COLOR_BayerBG2RGBA
+AutoIt:
+    [propget] $oenums.COLOR_BayerBG2RGBA
+```
+
+### enums.COLOR\_BayerGB2RGBA
+
+```cpp
+static int cv::enums::COLOR_BayerGB2RGBA
+AutoIt:
+    [propget] $oenums.COLOR_BayerGB2RGBA
+```
+
+### enums.COLOR\_BayerRG2RGBA
+
+```cpp
+static int cv::enums::COLOR_BayerRG2RGBA
+AutoIt:
+    [propget] $oenums.COLOR_BayerRG2RGBA
+```
+
+### enums.COLOR\_BayerGR2RGBA
+
+```cpp
+static int cv::enums::COLOR_BayerGR2RGBA
+AutoIt:
+    [propget] $oenums.COLOR_BayerGR2RGBA
+```
+
+### enums.COLOR\_COLORCVT\_MAX
+
+```cpp
+static int cv::enums::COLOR_COLORCVT_MAX
+AutoIt:
+    [propget] $oenums.COLOR_COLORCVT_MAX
+```
+
+### enums.INTERSECT\_NONE
+
+```cpp
+static int cv::enums::INTERSECT_NONE
+AutoIt:
+    [propget] $oenums.INTERSECT_NONE
+```
+
+### enums.INTERSECT\_PARTIAL
+
+```cpp
+static int cv::enums::INTERSECT_PARTIAL
+AutoIt:
+    [propget] $oenums.INTERSECT_PARTIAL
+```
+
+### enums.INTERSECT\_FULL
+
+```cpp
+static int cv::enums::INTERSECT_FULL
+AutoIt:
+    [propget] $oenums.INTERSECT_FULL
+```
+
+### enums.FILLED
+
+```cpp
+static int cv::enums::FILLED
+AutoIt:
+    [propget] $oenums.FILLED
+```
+
+### enums.LINE\_4
+
+```cpp
+static int cv::enums::LINE_4
+AutoIt:
+    [propget] $oenums.LINE_4
+```
+
+### enums.LINE\_8
+
+```cpp
+static int cv::enums::LINE_8
+AutoIt:
+    [propget] $oenums.LINE_8
+```
+
+### enums.LINE\_AA
+
+```cpp
+static int cv::enums::LINE_AA
+AutoIt:
+    [propget] $oenums.LINE_AA
+```
+
+### enums.FONT\_HERSHEY\_SIMPLEX
+
+```cpp
+static int cv::enums::FONT_HERSHEY_SIMPLEX
+AutoIt:
+    [propget] $oenums.FONT_HERSHEY_SIMPLEX
+```
+
+### enums.FONT\_HERSHEY\_PLAIN
+
+```cpp
+static int cv::enums::FONT_HERSHEY_PLAIN
+AutoIt:
+    [propget] $oenums.FONT_HERSHEY_PLAIN
+```
+
+### enums.FONT\_HERSHEY\_DUPLEX
+
+```cpp
+static int cv::enums::FONT_HERSHEY_DUPLEX
+AutoIt:
+    [propget] $oenums.FONT_HERSHEY_DUPLEX
+```
+
+### enums.FONT\_HERSHEY\_COMPLEX
+
+```cpp
+static int cv::enums::FONT_HERSHEY_COMPLEX
+AutoIt:
+    [propget] $oenums.FONT_HERSHEY_COMPLEX
+```
+
+### enums.FONT\_HERSHEY\_TRIPLEX
+
+```cpp
+static int cv::enums::FONT_HERSHEY_TRIPLEX
+AutoIt:
+    [propget] $oenums.FONT_HERSHEY_TRIPLEX
+```
+
+### enums.FONT\_HERSHEY\_COMPLEX\_SMALL
+
+```cpp
+static int cv::enums::FONT_HERSHEY_COMPLEX_SMALL
+AutoIt:
+    [propget] $oenums.FONT_HERSHEY_COMPLEX_SMALL
+```
+
+### enums.FONT\_HERSHEY\_SCRIPT\_SIMPLEX
+
+```cpp
+static int cv::enums::FONT_HERSHEY_SCRIPT_SIMPLEX
+AutoIt:
+    [propget] $oenums.FONT_HERSHEY_SCRIPT_SIMPLEX
+```
+
+### enums.FONT\_HERSHEY\_SCRIPT\_COMPLEX
+
+```cpp
+static int cv::enums::FONT_HERSHEY_SCRIPT_COMPLEX
+AutoIt:
+    [propget] $oenums.FONT_HERSHEY_SCRIPT_COMPLEX
+```
+
+### enums.FONT\_ITALIC
+
+```cpp
+static int cv::enums::FONT_ITALIC
+AutoIt:
+    [propget] $oenums.FONT_ITALIC
+```
+
+### enums.MARKER\_CROSS
+
+```cpp
+static int cv::enums::MARKER_CROSS
+AutoIt:
+    [propget] $oenums.MARKER_CROSS
+```
+
+### enums.MARKER\_TILTED\_CROSS
+
+```cpp
+static int cv::enums::MARKER_TILTED_CROSS
+AutoIt:
+    [propget] $oenums.MARKER_TILTED_CROSS
+```
+
+### enums.MARKER\_STAR
+
+```cpp
+static int cv::enums::MARKER_STAR
+AutoIt:
+    [propget] $oenums.MARKER_STAR
+```
+
+### enums.MARKER\_DIAMOND
+
+```cpp
+static int cv::enums::MARKER_DIAMOND
+AutoIt:
+    [propget] $oenums.MARKER_DIAMOND
+```
+
+### enums.MARKER\_SQUARE
+
+```cpp
+static int cv::enums::MARKER_SQUARE
+AutoIt:
+    [propget] $oenums.MARKER_SQUARE
+```
+
+### enums.MARKER\_TRIANGLE\_UP
+
+```cpp
+static int cv::enums::MARKER_TRIANGLE_UP
+AutoIt:
+    [propget] $oenums.MARKER_TRIANGLE_UP
+```
+
+### enums.MARKER\_TRIANGLE\_DOWN
+
+```cpp
+static int cv::enums::MARKER_TRIANGLE_DOWN
+AutoIt:
+    [propget] $oenums.MARKER_TRIANGLE_DOWN
+```
+
+### enums.TM\_SQDIFF
+
+```cpp
+static int cv::enums::TM_SQDIFF
+AutoIt:
+    [propget] $oenums.TM_SQDIFF
+```
+
+### enums.TM\_SQDIFF\_NORMED
+
+```cpp
+static int cv::enums::TM_SQDIFF_NORMED
+AutoIt:
+    [propget] $oenums.TM_SQDIFF_NORMED
+```
+
+### enums.TM\_CCORR
+
+```cpp
+static int cv::enums::TM_CCORR
+AutoIt:
+    [propget] $oenums.TM_CCORR
+```
+
+### enums.TM\_CCORR\_NORMED
+
+```cpp
+static int cv::enums::TM_CCORR_NORMED
+AutoIt:
+    [propget] $oenums.TM_CCORR_NORMED
+```
+
+### enums.TM\_CCOEFF
+
+```cpp
+static int cv::enums::TM_CCOEFF
+AutoIt:
+    [propget] $oenums.TM_CCOEFF
+```
+
+### enums.TM\_CCOEFF\_NORMED
+
+```cpp
+static int cv::enums::TM_CCOEFF_NORMED
+AutoIt:
+    [propget] $oenums.TM_CCOEFF_NORMED
+```
+
+### enums.COLORMAP\_AUTUMN
+
+```cpp
+static int cv::enums::COLORMAP_AUTUMN
+AutoIt:
+    [propget] $oenums.COLORMAP_AUTUMN
+```
+
+### enums.COLORMAP\_BONE
+
+```cpp
+static int cv::enums::COLORMAP_BONE
+AutoIt:
+    [propget] $oenums.COLORMAP_BONE
+```
+
+### enums.COLORMAP\_JET
+
+```cpp
+static int cv::enums::COLORMAP_JET
+AutoIt:
+    [propget] $oenums.COLORMAP_JET
+```
+
+### enums.COLORMAP\_WINTER
+
+```cpp
+static int cv::enums::COLORMAP_WINTER
+AutoIt:
+    [propget] $oenums.COLORMAP_WINTER
+```
+
+### enums.COLORMAP\_RAINBOW
+
+```cpp
+static int cv::enums::COLORMAP_RAINBOW
+AutoIt:
+    [propget] $oenums.COLORMAP_RAINBOW
+```
+
+### enums.COLORMAP\_OCEAN
+
+```cpp
+static int cv::enums::COLORMAP_OCEAN
+AutoIt:
+    [propget] $oenums.COLORMAP_OCEAN
+```
+
+### enums.COLORMAP\_SUMMER
+
+```cpp
+static int cv::enums::COLORMAP_SUMMER
+AutoIt:
+    [propget] $oenums.COLORMAP_SUMMER
+```
+
+### enums.COLORMAP\_SPRING
+
+```cpp
+static int cv::enums::COLORMAP_SPRING
+AutoIt:
+    [propget] $oenums.COLORMAP_SPRING
+```
+
+### enums.COLORMAP\_COOL
+
+```cpp
+static int cv::enums::COLORMAP_COOL
+AutoIt:
+    [propget] $oenums.COLORMAP_COOL
+```
+
+### enums.COLORMAP\_HSV
+
+```cpp
+static int cv::enums::COLORMAP_HSV
+AutoIt:
+    [propget] $oenums.COLORMAP_HSV
+```
+
+### enums.COLORMAP\_PINK
+
+```cpp
+static int cv::enums::COLORMAP_PINK
+AutoIt:
+    [propget] $oenums.COLORMAP_PINK
+```
+
+### enums.COLORMAP\_HOT
+
+```cpp
+static int cv::enums::COLORMAP_HOT
+AutoIt:
+    [propget] $oenums.COLORMAP_HOT
+```
+
+### enums.COLORMAP\_PARULA
+
+```cpp
+static int cv::enums::COLORMAP_PARULA
+AutoIt:
+    [propget] $oenums.COLORMAP_PARULA
+```
+
+### enums.COLORMAP\_MAGMA
+
+```cpp
+static int cv::enums::COLORMAP_MAGMA
+AutoIt:
+    [propget] $oenums.COLORMAP_MAGMA
+```
+
+### enums.COLORMAP\_INFERNO
+
+```cpp
+static int cv::enums::COLORMAP_INFERNO
+AutoIt:
+    [propget] $oenums.COLORMAP_INFERNO
+```
+
+### enums.COLORMAP\_PLASMA
+
+```cpp
+static int cv::enums::COLORMAP_PLASMA
+AutoIt:
+    [propget] $oenums.COLORMAP_PLASMA
+```
+
+### enums.COLORMAP\_VIRIDIS
+
+```cpp
+static int cv::enums::COLORMAP_VIRIDIS
+AutoIt:
+    [propget] $oenums.COLORMAP_VIRIDIS
+```
+
+### enums.COLORMAP\_CIVIDIS
+
+```cpp
+static int cv::enums::COLORMAP_CIVIDIS
+AutoIt:
+    [propget] $oenums.COLORMAP_CIVIDIS
+```
+
+### enums.COLORMAP\_TWILIGHT
+
+```cpp
+static int cv::enums::COLORMAP_TWILIGHT
+AutoIt:
+    [propget] $oenums.COLORMAP_TWILIGHT
+```
+
+### enums.COLORMAP\_TWILIGHT\_SHIFTED
+
+```cpp
+static int cv::enums::COLORMAP_TWILIGHT_SHIFTED
+AutoIt:
+    [propget] $oenums.COLORMAP_TWILIGHT_SHIFTED
+```
+
+### enums.COLORMAP\_TURBO
+
+```cpp
+static int cv::enums::COLORMAP_TURBO
+AutoIt:
+    [propget] $oenums.COLORMAP_TURBO
+```
+
+### enums.COLORMAP\_DEEPGREEN
+
+```cpp
+static int cv::enums::COLORMAP_DEEPGREEN
+AutoIt:
+    [propget] $oenums.COLORMAP_DEEPGREEN
+```
+
+### enums.INPAINT\_NS
+
+```cpp
+static int cv::enums::INPAINT_NS
+AutoIt:
+    [propget] $oenums.INPAINT_NS
+```
+
+### enums.INPAINT\_TELEA
+
+```cpp
+static int cv::enums::INPAINT_TELEA
+AutoIt:
+    [propget] $oenums.INPAINT_TELEA
+```
+
+### enums.LDR\_SIZE
+
+```cpp
+static int cv::enums::LDR_SIZE
+AutoIt:
+    [propget] $oenums.LDR_SIZE
+```
+
+### enums.NORMAL\_CLONE
+
+```cpp
+static int cv::enums::NORMAL_CLONE
+AutoIt:
+    [propget] $oenums.NORMAL_CLONE
+```
+
+### enums.MIXED\_CLONE
+
+```cpp
+static int cv::enums::MIXED_CLONE
+AutoIt:
+    [propget] $oenums.MIXED_CLONE
+```
+
+### enums.MONOCHROME\_TRANSFER
+
+```cpp
+static int cv::enums::MONOCHROME_TRANSFER
+AutoIt:
+    [propget] $oenums.MONOCHROME_TRANSFER
+```
+
+### enums.RECURS\_FILTER
+
+```cpp
+static int cv::enums::RECURS_FILTER
+AutoIt:
+    [propget] $oenums.RECURS_FILTER
+```
+
+### enums.NORMCONV\_FILTER
+
+```cpp
+static int cv::enums::NORMCONV_FILTER
+AutoIt:
+    [propget] $oenums.NORMCONV_FILTER
+```
+
+### enums.IMREAD\_UNCHANGED
+
+```cpp
+static int cv::enums::IMREAD_UNCHANGED
+AutoIt:
+    [propget] $oenums.IMREAD_UNCHANGED
+```
+
+### enums.IMREAD\_GRAYSCALE
+
+```cpp
+static int cv::enums::IMREAD_GRAYSCALE
+AutoIt:
+    [propget] $oenums.IMREAD_GRAYSCALE
+```
+
+### enums.IMREAD\_COLOR
+
+```cpp
+static int cv::enums::IMREAD_COLOR
+AutoIt:
+    [propget] $oenums.IMREAD_COLOR
+```
+
+### enums.IMREAD\_ANYDEPTH
+
+```cpp
+static int cv::enums::IMREAD_ANYDEPTH
+AutoIt:
+    [propget] $oenums.IMREAD_ANYDEPTH
+```
+
+### enums.IMREAD\_ANYCOLOR
+
+```cpp
+static int cv::enums::IMREAD_ANYCOLOR
+AutoIt:
+    [propget] $oenums.IMREAD_ANYCOLOR
+```
+
+### enums.IMREAD\_LOAD\_GDAL
+
+```cpp
+static int cv::enums::IMREAD_LOAD_GDAL
+AutoIt:
+    [propget] $oenums.IMREAD_LOAD_GDAL
+```
+
+### enums.IMREAD\_REDUCED\_GRAYSCALE\_2
+
+```cpp
+static int cv::enums::IMREAD_REDUCED_GRAYSCALE_2
+AutoIt:
+    [propget] $oenums.IMREAD_REDUCED_GRAYSCALE_2
+```
+
+### enums.IMREAD\_REDUCED\_COLOR\_2
+
+```cpp
+static int cv::enums::IMREAD_REDUCED_COLOR_2
+AutoIt:
+    [propget] $oenums.IMREAD_REDUCED_COLOR_2
+```
+
+### enums.IMREAD\_REDUCED\_GRAYSCALE\_4
+
+```cpp
+static int cv::enums::IMREAD_REDUCED_GRAYSCALE_4
+AutoIt:
+    [propget] $oenums.IMREAD_REDUCED_GRAYSCALE_4
+```
+
+### enums.IMREAD\_REDUCED\_COLOR\_4
+
+```cpp
+static int cv::enums::IMREAD_REDUCED_COLOR_4
+AutoIt:
+    [propget] $oenums.IMREAD_REDUCED_COLOR_4
+```
+
+### enums.IMREAD\_REDUCED\_GRAYSCALE\_8
+
+```cpp
+static int cv::enums::IMREAD_REDUCED_GRAYSCALE_8
+AutoIt:
+    [propget] $oenums.IMREAD_REDUCED_GRAYSCALE_8
+```
+
+### enums.IMREAD\_REDUCED\_COLOR\_8
+
+```cpp
+static int cv::enums::IMREAD_REDUCED_COLOR_8
+AutoIt:
+    [propget] $oenums.IMREAD_REDUCED_COLOR_8
+```
+
+### enums.IMREAD\_IGNORE\_ORIENTATION
+
+```cpp
+static int cv::enums::IMREAD_IGNORE_ORIENTATION
+AutoIt:
+    [propget] $oenums.IMREAD_IGNORE_ORIENTATION
+```
+
+### enums.IMWRITE\_JPEG\_QUALITY
+
+```cpp
+static int cv::enums::IMWRITE_JPEG_QUALITY
+AutoIt:
+    [propget] $oenums.IMWRITE_JPEG_QUALITY
+```
+
+### enums.IMWRITE\_JPEG\_PROGRESSIVE
+
+```cpp
+static int cv::enums::IMWRITE_JPEG_PROGRESSIVE
+AutoIt:
+    [propget] $oenums.IMWRITE_JPEG_PROGRESSIVE
+```
+
+### enums.IMWRITE\_JPEG\_OPTIMIZE
+
+```cpp
+static int cv::enums::IMWRITE_JPEG_OPTIMIZE
+AutoIt:
+    [propget] $oenums.IMWRITE_JPEG_OPTIMIZE
+```
+
+### enums.IMWRITE\_JPEG\_RST\_INTERVAL
+
+```cpp
+static int cv::enums::IMWRITE_JPEG_RST_INTERVAL
+AutoIt:
+    [propget] $oenums.IMWRITE_JPEG_RST_INTERVAL
+```
+
+### enums.IMWRITE\_JPEG\_LUMA\_QUALITY
+
+```cpp
+static int cv::enums::IMWRITE_JPEG_LUMA_QUALITY
+AutoIt:
+    [propget] $oenums.IMWRITE_JPEG_LUMA_QUALITY
+```
+
+### enums.IMWRITE\_JPEG\_CHROMA\_QUALITY
+
+```cpp
+static int cv::enums::IMWRITE_JPEG_CHROMA_QUALITY
+AutoIt:
+    [propget] $oenums.IMWRITE_JPEG_CHROMA_QUALITY
+```
+
+### enums.IMWRITE\_JPEG\_SAMPLING\_FACTOR
+
+```cpp
+static int cv::enums::IMWRITE_JPEG_SAMPLING_FACTOR
+AutoIt:
+    [propget] $oenums.IMWRITE_JPEG_SAMPLING_FACTOR
+```
+
+### enums.IMWRITE\_PNG\_COMPRESSION
+
+```cpp
+static int cv::enums::IMWRITE_PNG_COMPRESSION
+AutoIt:
+    [propget] $oenums.IMWRITE_PNG_COMPRESSION
+```
+
+### enums.IMWRITE\_PNG\_STRATEGY
+
+```cpp
+static int cv::enums::IMWRITE_PNG_STRATEGY
+AutoIt:
+    [propget] $oenums.IMWRITE_PNG_STRATEGY
+```
+
+### enums.IMWRITE\_PNG\_BILEVEL
+
+```cpp
+static int cv::enums::IMWRITE_PNG_BILEVEL
+AutoIt:
+    [propget] $oenums.IMWRITE_PNG_BILEVEL
+```
+
+### enums.IMWRITE\_PXM\_BINARY
+
+```cpp
+static int cv::enums::IMWRITE_PXM_BINARY
+AutoIt:
+    [propget] $oenums.IMWRITE_PXM_BINARY
+```
+
+### enums.IMWRITE\_EXR\_TYPE
+
+```cpp
+static int cv::enums::IMWRITE_EXR_TYPE
+AutoIt:
+    [propget] $oenums.IMWRITE_EXR_TYPE
+```
+
+### enums.IMWRITE\_EXR\_COMPRESSION
+
+```cpp
+static int cv::enums::IMWRITE_EXR_COMPRESSION
+AutoIt:
+    [propget] $oenums.IMWRITE_EXR_COMPRESSION
+```
+
+### enums.IMWRITE\_EXR\_DWA\_COMPRESSION\_LEVEL
+
+```cpp
+static int cv::enums::IMWRITE_EXR_DWA_COMPRESSION_LEVEL
+AutoIt:
+    [propget] $oenums.IMWRITE_EXR_DWA_COMPRESSION_LEVEL
+```
+
+### enums.IMWRITE\_WEBP\_QUALITY
+
+```cpp
+static int cv::enums::IMWRITE_WEBP_QUALITY
+AutoIt:
+    [propget] $oenums.IMWRITE_WEBP_QUALITY
+```
+
+### enums.IMWRITE\_HDR\_COMPRESSION
+
+```cpp
+static int cv::enums::IMWRITE_HDR_COMPRESSION
+AutoIt:
+    [propget] $oenums.IMWRITE_HDR_COMPRESSION
+```
+
+### enums.IMWRITE\_PAM\_TUPLETYPE
+
+```cpp
+static int cv::enums::IMWRITE_PAM_TUPLETYPE
+AutoIt:
+    [propget] $oenums.IMWRITE_PAM_TUPLETYPE
+```
+
+### enums.IMWRITE\_TIFF\_RESUNIT
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_RESUNIT
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_RESUNIT
+```
+
+### enums.IMWRITE\_TIFF\_XDPI
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_XDPI
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_XDPI
+```
+
+### enums.IMWRITE\_TIFF\_YDPI
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_YDPI
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_YDPI
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION
+```
+
+### enums.IMWRITE\_JPEG2000\_COMPRESSION\_X1000
+
+```cpp
+static int cv::enums::IMWRITE_JPEG2000_COMPRESSION_X1000
+AutoIt:
+    [propget] $oenums.IMWRITE_JPEG2000_COMPRESSION_X1000
+```
+
+### enums.IMWRITE\_JPEG\_SAMPLING\_FACTOR\_411
+
+```cpp
+static int cv::enums::IMWRITE_JPEG_SAMPLING_FACTOR_411
+AutoIt:
+    [propget] $oenums.IMWRITE_JPEG_SAMPLING_FACTOR_411
+```
+
+### enums.IMWRITE\_JPEG\_SAMPLING\_FACTOR\_420
+
+```cpp
+static int cv::enums::IMWRITE_JPEG_SAMPLING_FACTOR_420
+AutoIt:
+    [propget] $oenums.IMWRITE_JPEG_SAMPLING_FACTOR_420
+```
+
+### enums.IMWRITE\_JPEG\_SAMPLING\_FACTOR\_422
+
+```cpp
+static int cv::enums::IMWRITE_JPEG_SAMPLING_FACTOR_422
+AutoIt:
+    [propget] $oenums.IMWRITE_JPEG_SAMPLING_FACTOR_422
+```
+
+### enums.IMWRITE\_JPEG\_SAMPLING\_FACTOR\_440
+
+```cpp
+static int cv::enums::IMWRITE_JPEG_SAMPLING_FACTOR_440
+AutoIt:
+    [propget] $oenums.IMWRITE_JPEG_SAMPLING_FACTOR_440
+```
+
+### enums.IMWRITE\_JPEG\_SAMPLING\_FACTOR\_444
+
+```cpp
+static int cv::enums::IMWRITE_JPEG_SAMPLING_FACTOR_444
+AutoIt:
+    [propget] $oenums.IMWRITE_JPEG_SAMPLING_FACTOR_444
+```
+
+### enums.IMWRITE\_EXR\_TYPE\_HALF
+
+```cpp
+static int cv::enums::IMWRITE_EXR_TYPE_HALF
+AutoIt:
+    [propget] $oenums.IMWRITE_EXR_TYPE_HALF
+```
+
+### enums.IMWRITE\_EXR\_TYPE\_FLOAT
+
+```cpp
+static int cv::enums::IMWRITE_EXR_TYPE_FLOAT
+AutoIt:
+    [propget] $oenums.IMWRITE_EXR_TYPE_FLOAT
+```
+
+### enums.IMWRITE\_EXR\_COMPRESSION\_NO
+
+```cpp
+static int cv::enums::IMWRITE_EXR_COMPRESSION_NO
+AutoIt:
+    [propget] $oenums.IMWRITE_EXR_COMPRESSION_NO
+```
+
+### enums.IMWRITE\_EXR\_COMPRESSION\_RLE
+
+```cpp
+static int cv::enums::IMWRITE_EXR_COMPRESSION_RLE
+AutoIt:
+    [propget] $oenums.IMWRITE_EXR_COMPRESSION_RLE
+```
+
+### enums.IMWRITE\_EXR\_COMPRESSION\_ZIPS
+
+```cpp
+static int cv::enums::IMWRITE_EXR_COMPRESSION_ZIPS
+AutoIt:
+    [propget] $oenums.IMWRITE_EXR_COMPRESSION_ZIPS
+```
+
+### enums.IMWRITE\_EXR\_COMPRESSION\_ZIP
+
+```cpp
+static int cv::enums::IMWRITE_EXR_COMPRESSION_ZIP
+AutoIt:
+    [propget] $oenums.IMWRITE_EXR_COMPRESSION_ZIP
+```
+
+### enums.IMWRITE\_EXR\_COMPRESSION\_PIZ
+
+```cpp
+static int cv::enums::IMWRITE_EXR_COMPRESSION_PIZ
+AutoIt:
+    [propget] $oenums.IMWRITE_EXR_COMPRESSION_PIZ
+```
+
+### enums.IMWRITE\_EXR\_COMPRESSION\_PXR24
+
+```cpp
+static int cv::enums::IMWRITE_EXR_COMPRESSION_PXR24
+AutoIt:
+    [propget] $oenums.IMWRITE_EXR_COMPRESSION_PXR24
+```
+
+### enums.IMWRITE\_EXR\_COMPRESSION\_B44
+
+```cpp
+static int cv::enums::IMWRITE_EXR_COMPRESSION_B44
+AutoIt:
+    [propget] $oenums.IMWRITE_EXR_COMPRESSION_B44
+```
+
+### enums.IMWRITE\_EXR\_COMPRESSION\_B44A
+
+```cpp
+static int cv::enums::IMWRITE_EXR_COMPRESSION_B44A
+AutoIt:
+    [propget] $oenums.IMWRITE_EXR_COMPRESSION_B44A
+```
+
+### enums.IMWRITE\_EXR\_COMPRESSION\_DWAA
+
+```cpp
+static int cv::enums::IMWRITE_EXR_COMPRESSION_DWAA
+AutoIt:
+    [propget] $oenums.IMWRITE_EXR_COMPRESSION_DWAA
+```
+
+### enums.IMWRITE\_EXR\_COMPRESSION\_DWAB
+
+```cpp
+static int cv::enums::IMWRITE_EXR_COMPRESSION_DWAB
+AutoIt:
+    [propget] $oenums.IMWRITE_EXR_COMPRESSION_DWAB
+```
+
+### enums.IMWRITE\_PNG\_STRATEGY\_DEFAULT
+
+```cpp
+static int cv::enums::IMWRITE_PNG_STRATEGY_DEFAULT
+AutoIt:
+    [propget] $oenums.IMWRITE_PNG_STRATEGY_DEFAULT
+```
+
+### enums.IMWRITE\_PNG\_STRATEGY\_FILTERED
+
+```cpp
+static int cv::enums::IMWRITE_PNG_STRATEGY_FILTERED
+AutoIt:
+    [propget] $oenums.IMWRITE_PNG_STRATEGY_FILTERED
+```
+
+### enums.IMWRITE\_PNG\_STRATEGY\_HUFFMAN\_ONLY
+
+```cpp
+static int cv::enums::IMWRITE_PNG_STRATEGY_HUFFMAN_ONLY
+AutoIt:
+    [propget] $oenums.IMWRITE_PNG_STRATEGY_HUFFMAN_ONLY
+```
+
+### enums.IMWRITE\_PNG\_STRATEGY\_RLE
+
+```cpp
+static int cv::enums::IMWRITE_PNG_STRATEGY_RLE
+AutoIt:
+    [propget] $oenums.IMWRITE_PNG_STRATEGY_RLE
+```
+
+### enums.IMWRITE\_PNG\_STRATEGY\_FIXED
+
+```cpp
+static int cv::enums::IMWRITE_PNG_STRATEGY_FIXED
+AutoIt:
+    [propget] $oenums.IMWRITE_PNG_STRATEGY_FIXED
+```
+
+### enums.IMWRITE\_PAM\_FORMAT\_NULL
+
+```cpp
+static int cv::enums::IMWRITE_PAM_FORMAT_NULL
+AutoIt:
+    [propget] $oenums.IMWRITE_PAM_FORMAT_NULL
+```
+
+### enums.IMWRITE\_PAM\_FORMAT\_BLACKANDWHITE
+
+```cpp
+static int cv::enums::IMWRITE_PAM_FORMAT_BLACKANDWHITE
+AutoIt:
+    [propget] $oenums.IMWRITE_PAM_FORMAT_BLACKANDWHITE
+```
+
+### enums.IMWRITE\_PAM\_FORMAT\_GRAYSCALE
+
+```cpp
+static int cv::enums::IMWRITE_PAM_FORMAT_GRAYSCALE
+AutoIt:
+    [propget] $oenums.IMWRITE_PAM_FORMAT_GRAYSCALE
+```
+
+### enums.IMWRITE\_PAM\_FORMAT\_GRAYSCALE\_ALPHA
+
+```cpp
+static int cv::enums::IMWRITE_PAM_FORMAT_GRAYSCALE_ALPHA
+AutoIt:
+    [propget] $oenums.IMWRITE_PAM_FORMAT_GRAYSCALE_ALPHA
+```
+
+### enums.IMWRITE\_PAM\_FORMAT\_RGB
+
+```cpp
+static int cv::enums::IMWRITE_PAM_FORMAT_RGB
+AutoIt:
+    [propget] $oenums.IMWRITE_PAM_FORMAT_RGB
+```
+
+### enums.IMWRITE\_PAM\_FORMAT\_RGB\_ALPHA
+
+```cpp
+static int cv::enums::IMWRITE_PAM_FORMAT_RGB_ALPHA
+AutoIt:
+    [propget] $oenums.IMWRITE_PAM_FORMAT_RGB_ALPHA
+```
+
+### enums.IMWRITE\_HDR\_COMPRESSION\_NONE
+
+```cpp
+static int cv::enums::IMWRITE_HDR_COMPRESSION_NONE
+AutoIt:
+    [propget] $oenums.IMWRITE_HDR_COMPRESSION_NONE
+```
+
+### enums.IMWRITE\_HDR\_COMPRESSION\_RLE
+
+```cpp
+static int cv::enums::IMWRITE_HDR_COMPRESSION_RLE
+AutoIt:
+    [propget] $oenums.IMWRITE_HDR_COMPRESSION_RLE
+```
+
+### enums.CAP\_ANY
+
+```cpp
+static int cv::enums::CAP_ANY
+AutoIt:
+    [propget] $oenums.CAP_ANY
+```
+
+### enums.CAP\_VFW
+
+```cpp
+static int cv::enums::CAP_VFW
+AutoIt:
+    [propget] $oenums.CAP_VFW
+```
+
+### enums.CAP\_V4L
+
+```cpp
+static int cv::enums::CAP_V4L
+AutoIt:
+    [propget] $oenums.CAP_V4L
+```
+
+### enums.CAP\_V4L2
+
+```cpp
+static int cv::enums::CAP_V4L2
+AutoIt:
+    [propget] $oenums.CAP_V4L2
+```
+
+### enums.CAP\_FIREWIRE
+
+```cpp
+static int cv::enums::CAP_FIREWIRE
+AutoIt:
+    [propget] $oenums.CAP_FIREWIRE
+```
+
+### enums.CAP\_FIREWARE
+
+```cpp
+static int cv::enums::CAP_FIREWARE
+AutoIt:
+    [propget] $oenums.CAP_FIREWARE
+```
+
+### enums.CAP\_IEEE1394
+
+```cpp
+static int cv::enums::CAP_IEEE1394
+AutoIt:
+    [propget] $oenums.CAP_IEEE1394
+```
+
+### enums.CAP\_DC1394
+
+```cpp
+static int cv::enums::CAP_DC1394
+AutoIt:
+    [propget] $oenums.CAP_DC1394
+```
+
+### enums.CAP\_CMU1394
+
+```cpp
+static int cv::enums::CAP_CMU1394
+AutoIt:
+    [propget] $oenums.CAP_CMU1394
+```
+
+### enums.CAP\_QT
+
+```cpp
+static int cv::enums::CAP_QT
+AutoIt:
+    [propget] $oenums.CAP_QT
+```
+
+### enums.CAP\_UNICAP
+
+```cpp
+static int cv::enums::CAP_UNICAP
+AutoIt:
+    [propget] $oenums.CAP_UNICAP
+```
+
+### enums.CAP\_DSHOW
+
+```cpp
+static int cv::enums::CAP_DSHOW
+AutoIt:
+    [propget] $oenums.CAP_DSHOW
+```
+
+### enums.CAP\_PVAPI
+
+```cpp
+static int cv::enums::CAP_PVAPI
+AutoIt:
+    [propget] $oenums.CAP_PVAPI
+```
+
+### enums.CAP\_OPENNI
+
+```cpp
+static int cv::enums::CAP_OPENNI
+AutoIt:
+    [propget] $oenums.CAP_OPENNI
+```
+
+### enums.CAP\_OPENNI\_ASUS
+
+```cpp
+static int cv::enums::CAP_OPENNI_ASUS
+AutoIt:
+    [propget] $oenums.CAP_OPENNI_ASUS
+```
+
+### enums.CAP\_ANDROID
+
+```cpp
+static int cv::enums::CAP_ANDROID
+AutoIt:
+    [propget] $oenums.CAP_ANDROID
+```
+
+### enums.CAP\_XIAPI
+
+```cpp
+static int cv::enums::CAP_XIAPI
+AutoIt:
+    [propget] $oenums.CAP_XIAPI
+```
+
+### enums.CAP\_AVFOUNDATION
+
+```cpp
+static int cv::enums::CAP_AVFOUNDATION
+AutoIt:
+    [propget] $oenums.CAP_AVFOUNDATION
+```
+
+### enums.CAP\_GIGANETIX
+
+```cpp
+static int cv::enums::CAP_GIGANETIX
+AutoIt:
+    [propget] $oenums.CAP_GIGANETIX
+```
+
+### enums.CAP\_MSMF
+
+```cpp
+static int cv::enums::CAP_MSMF
+AutoIt:
+    [propget] $oenums.CAP_MSMF
+```
+
+### enums.CAP\_WINRT
+
+```cpp
+static int cv::enums::CAP_WINRT
+AutoIt:
+    [propget] $oenums.CAP_WINRT
+```
+
+### enums.CAP\_INTELPERC
+
+```cpp
+static int cv::enums::CAP_INTELPERC
+AutoIt:
+    [propget] $oenums.CAP_INTELPERC
+```
+
+### enums.CAP\_REALSENSE
+
+```cpp
+static int cv::enums::CAP_REALSENSE
+AutoIt:
+    [propget] $oenums.CAP_REALSENSE
+```
+
+### enums.CAP\_OPENNI2
+
+```cpp
+static int cv::enums::CAP_OPENNI2
+AutoIt:
+    [propget] $oenums.CAP_OPENNI2
+```
+
+### enums.CAP\_OPENNI2\_ASUS
+
+```cpp
+static int cv::enums::CAP_OPENNI2_ASUS
+AutoIt:
+    [propget] $oenums.CAP_OPENNI2_ASUS
+```
+
+### enums.CAP\_OPENNI2\_ASTRA
+
+```cpp
+static int cv::enums::CAP_OPENNI2_ASTRA
+AutoIt:
+    [propget] $oenums.CAP_OPENNI2_ASTRA
+```
+
+### enums.CAP\_GPHOTO2
+
+```cpp
+static int cv::enums::CAP_GPHOTO2
+AutoIt:
+    [propget] $oenums.CAP_GPHOTO2
+```
+
+### enums.CAP\_GSTREAMER
+
+```cpp
+static int cv::enums::CAP_GSTREAMER
+AutoIt:
+    [propget] $oenums.CAP_GSTREAMER
+```
+
+### enums.CAP\_FFMPEG
+
+```cpp
+static int cv::enums::CAP_FFMPEG
+AutoIt:
+    [propget] $oenums.CAP_FFMPEG
+```
+
+### enums.CAP\_IMAGES
+
+```cpp
+static int cv::enums::CAP_IMAGES
+AutoIt:
+    [propget] $oenums.CAP_IMAGES
+```
+
+### enums.CAP\_ARAVIS
+
+```cpp
+static int cv::enums::CAP_ARAVIS
+AutoIt:
+    [propget] $oenums.CAP_ARAVIS
+```
+
+### enums.CAP\_OPENCV\_MJPEG
+
+```cpp
+static int cv::enums::CAP_OPENCV_MJPEG
+AutoIt:
+    [propget] $oenums.CAP_OPENCV_MJPEG
+```
+
+### enums.CAP\_INTEL\_MFX
+
+```cpp
+static int cv::enums::CAP_INTEL_MFX
+AutoIt:
+    [propget] $oenums.CAP_INTEL_MFX
+```
+
+### enums.CAP\_XINE
+
+```cpp
+static int cv::enums::CAP_XINE
+AutoIt:
+    [propget] $oenums.CAP_XINE
+```
+
+### enums.CAP\_UEYE
+
+```cpp
+static int cv::enums::CAP_UEYE
+AutoIt:
+    [propget] $oenums.CAP_UEYE
+```
+
+### enums.CAP\_OBSENSOR
+
+```cpp
+static int cv::enums::CAP_OBSENSOR
+AutoIt:
+    [propget] $oenums.CAP_OBSENSOR
+```
+
+### enums.CAP\_PROP\_POS\_MSEC
+
+```cpp
+static int cv::enums::CAP_PROP_POS_MSEC
+AutoIt:
+    [propget] $oenums.CAP_PROP_POS_MSEC
+```
+
+### enums.CAP\_PROP\_POS\_FRAMES
+
+```cpp
+static int cv::enums::CAP_PROP_POS_FRAMES
+AutoIt:
+    [propget] $oenums.CAP_PROP_POS_FRAMES
+```
+
+### enums.CAP\_PROP\_POS\_AVI\_RATIO
+
+```cpp
+static int cv::enums::CAP_PROP_POS_AVI_RATIO
+AutoIt:
+    [propget] $oenums.CAP_PROP_POS_AVI_RATIO
+```
+
+### enums.CAP\_PROP\_FRAME\_WIDTH
+
+```cpp
+static int cv::enums::CAP_PROP_FRAME_WIDTH
+AutoIt:
+    [propget] $oenums.CAP_PROP_FRAME_WIDTH
+```
+
+### enums.CAP\_PROP\_FRAME\_HEIGHT
+
+```cpp
+static int cv::enums::CAP_PROP_FRAME_HEIGHT
+AutoIt:
+    [propget] $oenums.CAP_PROP_FRAME_HEIGHT
+```
+
+### enums.CAP\_PROP\_FPS
+
+```cpp
+static int cv::enums::CAP_PROP_FPS
+AutoIt:
+    [propget] $oenums.CAP_PROP_FPS
+```
+
+### enums.CAP\_PROP\_FOURCC
+
+```cpp
+static int cv::enums::CAP_PROP_FOURCC
+AutoIt:
+    [propget] $oenums.CAP_PROP_FOURCC
+```
+
+### enums.CAP\_PROP\_FRAME\_COUNT
+
+```cpp
+static int cv::enums::CAP_PROP_FRAME_COUNT
+AutoIt:
+    [propget] $oenums.CAP_PROP_FRAME_COUNT
+```
+
+### enums.CAP\_PROP\_FORMAT
+
+```cpp
+static int cv::enums::CAP_PROP_FORMAT
+AutoIt:
+    [propget] $oenums.CAP_PROP_FORMAT
+```
+
+### enums.CAP\_PROP\_MODE
+
+```cpp
+static int cv::enums::CAP_PROP_MODE
+AutoIt:
+    [propget] $oenums.CAP_PROP_MODE
+```
+
+### enums.CAP\_PROP\_BRIGHTNESS
+
+```cpp
+static int cv::enums::CAP_PROP_BRIGHTNESS
+AutoIt:
+    [propget] $oenums.CAP_PROP_BRIGHTNESS
+```
+
+### enums.CAP\_PROP\_CONTRAST
+
+```cpp
+static int cv::enums::CAP_PROP_CONTRAST
+AutoIt:
+    [propget] $oenums.CAP_PROP_CONTRAST
+```
+
+### enums.CAP\_PROP\_SATURATION
+
+```cpp
+static int cv::enums::CAP_PROP_SATURATION
+AutoIt:
+    [propget] $oenums.CAP_PROP_SATURATION
+```
+
+### enums.CAP\_PROP\_HUE
+
+```cpp
+static int cv::enums::CAP_PROP_HUE
+AutoIt:
+    [propget] $oenums.CAP_PROP_HUE
+```
+
+### enums.CAP\_PROP\_GAIN
+
+```cpp
+static int cv::enums::CAP_PROP_GAIN
+AutoIt:
+    [propget] $oenums.CAP_PROP_GAIN
+```
+
+### enums.CAP\_PROP\_EXPOSURE
+
+```cpp
+static int cv::enums::CAP_PROP_EXPOSURE
+AutoIt:
+    [propget] $oenums.CAP_PROP_EXPOSURE
+```
+
+### enums.CAP\_PROP\_CONVERT\_RGB
+
+```cpp
+static int cv::enums::CAP_PROP_CONVERT_RGB
+AutoIt:
+    [propget] $oenums.CAP_PROP_CONVERT_RGB
+```
+
+### enums.CAP\_PROP\_WHITE\_BALANCE\_BLUE\_U
+
+```cpp
+static int cv::enums::CAP_PROP_WHITE_BALANCE_BLUE_U
+AutoIt:
+    [propget] $oenums.CAP_PROP_WHITE_BALANCE_BLUE_U
+```
+
+### enums.CAP\_PROP\_RECTIFICATION
+
+```cpp
+static int cv::enums::CAP_PROP_RECTIFICATION
+AutoIt:
+    [propget] $oenums.CAP_PROP_RECTIFICATION
+```
+
+### enums.CAP\_PROP\_MONOCHROME
+
+```cpp
+static int cv::enums::CAP_PROP_MONOCHROME
+AutoIt:
+    [propget] $oenums.CAP_PROP_MONOCHROME
+```
+
+### enums.CAP\_PROP\_SHARPNESS
+
+```cpp
+static int cv::enums::CAP_PROP_SHARPNESS
+AutoIt:
+    [propget] $oenums.CAP_PROP_SHARPNESS
+```
+
+### enums.CAP\_PROP\_AUTO\_EXPOSURE
+
+```cpp
+static int cv::enums::CAP_PROP_AUTO_EXPOSURE
+AutoIt:
+    [propget] $oenums.CAP_PROP_AUTO_EXPOSURE
+```
+
+### enums.CAP\_PROP\_GAMMA
+
+```cpp
+static int cv::enums::CAP_PROP_GAMMA
+AutoIt:
+    [propget] $oenums.CAP_PROP_GAMMA
+```
+
+### enums.CAP\_PROP\_TEMPERATURE
+
+```cpp
+static int cv::enums::CAP_PROP_TEMPERATURE
+AutoIt:
+    [propget] $oenums.CAP_PROP_TEMPERATURE
+```
+
+### enums.CAP\_PROP\_TRIGGER
+
+```cpp
+static int cv::enums::CAP_PROP_TRIGGER
+AutoIt:
+    [propget] $oenums.CAP_PROP_TRIGGER
+```
+
+### enums.CAP\_PROP\_TRIGGER\_DELAY
+
+```cpp
+static int cv::enums::CAP_PROP_TRIGGER_DELAY
+AutoIt:
+    [propget] $oenums.CAP_PROP_TRIGGER_DELAY
+```
+
+### enums.CAP\_PROP\_WHITE\_BALANCE\_RED\_V
+
+```cpp
+static int cv::enums::CAP_PROP_WHITE_BALANCE_RED_V
+AutoIt:
+    [propget] $oenums.CAP_PROP_WHITE_BALANCE_RED_V
+```
+
+### enums.CAP\_PROP\_ZOOM
+
+```cpp
+static int cv::enums::CAP_PROP_ZOOM
+AutoIt:
+    [propget] $oenums.CAP_PROP_ZOOM
+```
+
+### enums.CAP\_PROP\_FOCUS
+
+```cpp
+static int cv::enums::CAP_PROP_FOCUS
+AutoIt:
+    [propget] $oenums.CAP_PROP_FOCUS
+```
+
+### enums.CAP\_PROP\_GUID
+
+```cpp
+static int cv::enums::CAP_PROP_GUID
+AutoIt:
+    [propget] $oenums.CAP_PROP_GUID
+```
+
+### enums.CAP\_PROP\_ISO\_SPEED
+
+```cpp
+static int cv::enums::CAP_PROP_ISO_SPEED
+AutoIt:
+    [propget] $oenums.CAP_PROP_ISO_SPEED
+```
+
+### enums.CAP\_PROP\_BACKLIGHT
+
+```cpp
+static int cv::enums::CAP_PROP_BACKLIGHT
+AutoIt:
+    [propget] $oenums.CAP_PROP_BACKLIGHT
+```
+
+### enums.CAP\_PROP\_PAN
+
+```cpp
+static int cv::enums::CAP_PROP_PAN
+AutoIt:
+    [propget] $oenums.CAP_PROP_PAN
+```
+
+### enums.CAP\_PROP\_TILT
+
+```cpp
+static int cv::enums::CAP_PROP_TILT
+AutoIt:
+    [propget] $oenums.CAP_PROP_TILT
+```
+
+### enums.CAP\_PROP\_ROLL
+
+```cpp
+static int cv::enums::CAP_PROP_ROLL
+AutoIt:
+    [propget] $oenums.CAP_PROP_ROLL
+```
+
+### enums.CAP\_PROP\_IRIS
+
+```cpp
+static int cv::enums::CAP_PROP_IRIS
+AutoIt:
+    [propget] $oenums.CAP_PROP_IRIS
+```
+
+### enums.CAP\_PROP\_SETTINGS
+
+```cpp
+static int cv::enums::CAP_PROP_SETTINGS
+AutoIt:
+    [propget] $oenums.CAP_PROP_SETTINGS
+```
+
+### enums.CAP\_PROP\_BUFFERSIZE
+
+```cpp
+static int cv::enums::CAP_PROP_BUFFERSIZE
+AutoIt:
+    [propget] $oenums.CAP_PROP_BUFFERSIZE
+```
+
+### enums.CAP\_PROP\_AUTOFOCUS
+
+```cpp
+static int cv::enums::CAP_PROP_AUTOFOCUS
+AutoIt:
+    [propget] $oenums.CAP_PROP_AUTOFOCUS
+```
+
+### enums.CAP\_PROP\_SAR\_NUM
+
+```cpp
+static int cv::enums::CAP_PROP_SAR_NUM
+AutoIt:
+    [propget] $oenums.CAP_PROP_SAR_NUM
+```
+
+### enums.CAP\_PROP\_SAR\_DEN
+
+```cpp
+static int cv::enums::CAP_PROP_SAR_DEN
+AutoIt:
+    [propget] $oenums.CAP_PROP_SAR_DEN
+```
+
+### enums.CAP\_PROP\_BACKEND
+
+```cpp
+static int cv::enums::CAP_PROP_BACKEND
+AutoIt:
+    [propget] $oenums.CAP_PROP_BACKEND
+```
+
+### enums.CAP\_PROP\_CHANNEL
+
+```cpp
+static int cv::enums::CAP_PROP_CHANNEL
+AutoIt:
+    [propget] $oenums.CAP_PROP_CHANNEL
+```
+
+### enums.CAP\_PROP\_AUTO\_WB
+
+```cpp
+static int cv::enums::CAP_PROP_AUTO_WB
+AutoIt:
+    [propget] $oenums.CAP_PROP_AUTO_WB
+```
+
+### enums.CAP\_PROP\_WB\_TEMPERATURE
+
+```cpp
+static int cv::enums::CAP_PROP_WB_TEMPERATURE
+AutoIt:
+    [propget] $oenums.CAP_PROP_WB_TEMPERATURE
+```
+
+### enums.CAP\_PROP\_CODEC\_PIXEL\_FORMAT
+
+```cpp
+static int cv::enums::CAP_PROP_CODEC_PIXEL_FORMAT
+AutoIt:
+    [propget] $oenums.CAP_PROP_CODEC_PIXEL_FORMAT
+```
+
+### enums.CAP\_PROP\_BITRATE
+
+```cpp
+static int cv::enums::CAP_PROP_BITRATE
+AutoIt:
+    [propget] $oenums.CAP_PROP_BITRATE
+```
+
+### enums.CAP\_PROP\_ORIENTATION\_META
+
+```cpp
+static int cv::enums::CAP_PROP_ORIENTATION_META
+AutoIt:
+    [propget] $oenums.CAP_PROP_ORIENTATION_META
+```
+
+### enums.CAP\_PROP\_ORIENTATION\_AUTO
+
+```cpp
+static int cv::enums::CAP_PROP_ORIENTATION_AUTO
+AutoIt:
+    [propget] $oenums.CAP_PROP_ORIENTATION_AUTO
+```
+
+### enums.CAP\_PROP\_HW\_ACCELERATION
+
+```cpp
+static int cv::enums::CAP_PROP_HW_ACCELERATION
+AutoIt:
+    [propget] $oenums.CAP_PROP_HW_ACCELERATION
+```
+
+### enums.CAP\_PROP\_HW\_DEVICE
+
+```cpp
+static int cv::enums::CAP_PROP_HW_DEVICE
+AutoIt:
+    [propget] $oenums.CAP_PROP_HW_DEVICE
+```
+
+### enums.CAP\_PROP\_HW\_ACCELERATION\_USE\_OPENCL
+
+```cpp
+static int cv::enums::CAP_PROP_HW_ACCELERATION_USE_OPENCL
+AutoIt:
+    [propget] $oenums.CAP_PROP_HW_ACCELERATION_USE_OPENCL
+```
+
+### enums.CAP\_PROP\_OPEN\_TIMEOUT\_MSEC
+
+```cpp
+static int cv::enums::CAP_PROP_OPEN_TIMEOUT_MSEC
+AutoIt:
+    [propget] $oenums.CAP_PROP_OPEN_TIMEOUT_MSEC
+```
+
+### enums.CAP\_PROP\_READ\_TIMEOUT\_MSEC
+
+```cpp
+static int cv::enums::CAP_PROP_READ_TIMEOUT_MSEC
+AutoIt:
+    [propget] $oenums.CAP_PROP_READ_TIMEOUT_MSEC
+```
+
+### enums.CAP\_PROP\_STREAM\_OPEN\_TIME\_USEC
+
+```cpp
+static int cv::enums::CAP_PROP_STREAM_OPEN_TIME_USEC
+AutoIt:
+    [propget] $oenums.CAP_PROP_STREAM_OPEN_TIME_USEC
+```
+
+### enums.CAP\_PROP\_VIDEO\_TOTAL\_CHANNELS
+
+```cpp
+static int cv::enums::CAP_PROP_VIDEO_TOTAL_CHANNELS
+AutoIt:
+    [propget] $oenums.CAP_PROP_VIDEO_TOTAL_CHANNELS
+```
+
+### enums.CAP\_PROP\_VIDEO\_STREAM
+
+```cpp
+static int cv::enums::CAP_PROP_VIDEO_STREAM
+AutoIt:
+    [propget] $oenums.CAP_PROP_VIDEO_STREAM
+```
+
+### enums.CAP\_PROP\_AUDIO\_STREAM
+
+```cpp
+static int cv::enums::CAP_PROP_AUDIO_STREAM
+AutoIt:
+    [propget] $oenums.CAP_PROP_AUDIO_STREAM
+```
+
+### enums.CAP\_PROP\_AUDIO\_POS
+
+```cpp
+static int cv::enums::CAP_PROP_AUDIO_POS
+AutoIt:
+    [propget] $oenums.CAP_PROP_AUDIO_POS
+```
+
+### enums.CAP\_PROP\_AUDIO\_SHIFT\_NSEC
+
+```cpp
+static int cv::enums::CAP_PROP_AUDIO_SHIFT_NSEC
+AutoIt:
+    [propget] $oenums.CAP_PROP_AUDIO_SHIFT_NSEC
+```
+
+### enums.CAP\_PROP\_AUDIO\_DATA\_DEPTH
+
+```cpp
+static int cv::enums::CAP_PROP_AUDIO_DATA_DEPTH
+AutoIt:
+    [propget] $oenums.CAP_PROP_AUDIO_DATA_DEPTH
+```
+
+### enums.CAP\_PROP\_AUDIO\_SAMPLES\_PER\_SECOND
+
+```cpp
+static int cv::enums::CAP_PROP_AUDIO_SAMPLES_PER_SECOND
+AutoIt:
+    [propget] $oenums.CAP_PROP_AUDIO_SAMPLES_PER_SECOND
+```
+
+### enums.CAP\_PROP\_AUDIO\_BASE\_INDEX
+
+```cpp
+static int cv::enums::CAP_PROP_AUDIO_BASE_INDEX
+AutoIt:
+    [propget] $oenums.CAP_PROP_AUDIO_BASE_INDEX
+```
+
+### enums.CAP\_PROP\_AUDIO\_TOTAL\_CHANNELS
+
+```cpp
+static int cv::enums::CAP_PROP_AUDIO_TOTAL_CHANNELS
+AutoIt:
+    [propget] $oenums.CAP_PROP_AUDIO_TOTAL_CHANNELS
+```
+
+### enums.CAP\_PROP\_AUDIO\_TOTAL\_STREAMS
+
+```cpp
+static int cv::enums::CAP_PROP_AUDIO_TOTAL_STREAMS
+AutoIt:
+    [propget] $oenums.CAP_PROP_AUDIO_TOTAL_STREAMS
+```
+
+### enums.CAP\_PROP\_AUDIO\_SYNCHRONIZE
+
+```cpp
+static int cv::enums::CAP_PROP_AUDIO_SYNCHRONIZE
+AutoIt:
+    [propget] $oenums.CAP_PROP_AUDIO_SYNCHRONIZE
+```
+
+### enums.CAP\_PROP\_LRF\_HAS\_KEY\_FRAME
+
+```cpp
+static int cv::enums::CAP_PROP_LRF_HAS_KEY_FRAME
+AutoIt:
+    [propget] $oenums.CAP_PROP_LRF_HAS_KEY_FRAME
+```
+
+### enums.CAP\_PROP\_CODEC\_EXTRADATA\_INDEX
+
+```cpp
+static int cv::enums::CAP_PROP_CODEC_EXTRADATA_INDEX
+AutoIt:
+    [propget] $oenums.CAP_PROP_CODEC_EXTRADATA_INDEX
+```
+
+### enums.CAP\_PROP\_FRAME\_TYPE
+
+```cpp
+static int cv::enums::CAP_PROP_FRAME_TYPE
+AutoIt:
+    [propget] $oenums.CAP_PROP_FRAME_TYPE
+```
+
+### enums.CAP\_PROP\_N\_THREADS
+
+```cpp
+static int cv::enums::CAP_PROP_N_THREADS
+AutoIt:
+    [propget] $oenums.CAP_PROP_N_THREADS
+```
+
+### enums.VIDEOWRITER\_PROP\_QUALITY
+
+```cpp
+static int cv::enums::VIDEOWRITER_PROP_QUALITY
+AutoIt:
+    [propget] $oenums.VIDEOWRITER_PROP_QUALITY
+```
+
+### enums.VIDEOWRITER\_PROP\_FRAMEBYTES
+
+```cpp
+static int cv::enums::VIDEOWRITER_PROP_FRAMEBYTES
+AutoIt:
+    [propget] $oenums.VIDEOWRITER_PROP_FRAMEBYTES
+```
+
+### enums.VIDEOWRITER\_PROP\_NSTRIPES
+
+```cpp
+static int cv::enums::VIDEOWRITER_PROP_NSTRIPES
+AutoIt:
+    [propget] $oenums.VIDEOWRITER_PROP_NSTRIPES
+```
+
+### enums.VIDEOWRITER\_PROP\_IS\_COLOR
+
+```cpp
+static int cv::enums::VIDEOWRITER_PROP_IS_COLOR
+AutoIt:
+    [propget] $oenums.VIDEOWRITER_PROP_IS_COLOR
+```
+
+### enums.VIDEOWRITER\_PROP\_DEPTH
+
+```cpp
+static int cv::enums::VIDEOWRITER_PROP_DEPTH
+AutoIt:
+    [propget] $oenums.VIDEOWRITER_PROP_DEPTH
+```
+
+### enums.VIDEOWRITER\_PROP\_HW\_ACCELERATION
+
+```cpp
+static int cv::enums::VIDEOWRITER_PROP_HW_ACCELERATION
+AutoIt:
+    [propget] $oenums.VIDEOWRITER_PROP_HW_ACCELERATION
+```
+
+### enums.VIDEOWRITER\_PROP\_HW\_DEVICE
+
+```cpp
+static int cv::enums::VIDEOWRITER_PROP_HW_DEVICE
+AutoIt:
+    [propget] $oenums.VIDEOWRITER_PROP_HW_DEVICE
+```
+
+### enums.VIDEOWRITER\_PROP\_HW\_ACCELERATION\_USE\_OPENCL
+
+```cpp
+static int cv::enums::VIDEOWRITER_PROP_HW_ACCELERATION_USE_OPENCL
+AutoIt:
+    [propget] $oenums.VIDEOWRITER_PROP_HW_ACCELERATION_USE_OPENCL
+```
+
+### enums.VIDEO\_ACCELERATION\_NONE
+
+```cpp
+static int cv::enums::VIDEO_ACCELERATION_NONE
+AutoIt:
+    [propget] $oenums.VIDEO_ACCELERATION_NONE
+```
+
+### enums.VIDEO\_ACCELERATION\_ANY
+
+```cpp
+static int cv::enums::VIDEO_ACCELERATION_ANY
+AutoIt:
+    [propget] $oenums.VIDEO_ACCELERATION_ANY
+```
+
+### enums.VIDEO\_ACCELERATION\_D3D11
+
+```cpp
+static int cv::enums::VIDEO_ACCELERATION_D3D11
+AutoIt:
+    [propget] $oenums.VIDEO_ACCELERATION_D3D11
+```
+
+### enums.VIDEO\_ACCELERATION\_VAAPI
+
+```cpp
+static int cv::enums::VIDEO_ACCELERATION_VAAPI
+AutoIt:
+    [propget] $oenums.VIDEO_ACCELERATION_VAAPI
+```
+
+### enums.VIDEO\_ACCELERATION\_MFX
+
+```cpp
+static int cv::enums::VIDEO_ACCELERATION_MFX
+AutoIt:
+    [propget] $oenums.VIDEO_ACCELERATION_MFX
+```
+
+### enums.CAP\_PROP\_DC1394\_OFF
+
+```cpp
+static int cv::enums::CAP_PROP_DC1394_OFF
+AutoIt:
+    [propget] $oenums.CAP_PROP_DC1394_OFF
+```
+
+### enums.CAP\_PROP\_DC1394\_MODE\_MANUAL
+
+```cpp
+static int cv::enums::CAP_PROP_DC1394_MODE_MANUAL
+AutoIt:
+    [propget] $oenums.CAP_PROP_DC1394_MODE_MANUAL
+```
+
+### enums.CAP\_PROP\_DC1394\_MODE\_AUTO
+
+```cpp
+static int cv::enums::CAP_PROP_DC1394_MODE_AUTO
+AutoIt:
+    [propget] $oenums.CAP_PROP_DC1394_MODE_AUTO
+```
+
+### enums.CAP\_PROP\_DC1394\_MODE\_ONE\_PUSH\_AUTO
+
+```cpp
+static int cv::enums::CAP_PROP_DC1394_MODE_ONE_PUSH_AUTO
+AutoIt:
+    [propget] $oenums.CAP_PROP_DC1394_MODE_ONE_PUSH_AUTO
+```
+
+### enums.CAP\_PROP\_DC1394\_MAX
+
+```cpp
+static int cv::enums::CAP_PROP_DC1394_MAX
+AutoIt:
+    [propget] $oenums.CAP_PROP_DC1394_MAX
+```
+
+### enums.CAP\_OPENNI\_DEPTH\_GENERATOR
+
+```cpp
+static int cv::enums::CAP_OPENNI_DEPTH_GENERATOR
+AutoIt:
+    [propget] $oenums.CAP_OPENNI_DEPTH_GENERATOR
+```
+
+### enums.CAP\_OPENNI\_IMAGE\_GENERATOR
+
+```cpp
+static int cv::enums::CAP_OPENNI_IMAGE_GENERATOR
+AutoIt:
+    [propget] $oenums.CAP_OPENNI_IMAGE_GENERATOR
+```
+
+### enums.CAP\_OPENNI\_IR\_GENERATOR
+
+```cpp
+static int cv::enums::CAP_OPENNI_IR_GENERATOR
+AutoIt:
+    [propget] $oenums.CAP_OPENNI_IR_GENERATOR
+```
+
+### enums.CAP\_OPENNI\_GENERATORS\_MASK
+
+```cpp
+static int cv::enums::CAP_OPENNI_GENERATORS_MASK
+AutoIt:
+    [propget] $oenums.CAP_OPENNI_GENERATORS_MASK
+```
+
+### enums.CAP\_PROP\_OPENNI\_OUTPUT\_MODE
+
+```cpp
+static int cv::enums::CAP_PROP_OPENNI_OUTPUT_MODE
+AutoIt:
+    [propget] $oenums.CAP_PROP_OPENNI_OUTPUT_MODE
+```
+
+### enums.CAP\_PROP\_OPENNI\_FRAME\_MAX\_DEPTH
+
+```cpp
+static int cv::enums::CAP_PROP_OPENNI_FRAME_MAX_DEPTH
+AutoIt:
+    [propget] $oenums.CAP_PROP_OPENNI_FRAME_MAX_DEPTH
+```
+
+### enums.CAP\_PROP\_OPENNI\_BASELINE
+
+```cpp
+static int cv::enums::CAP_PROP_OPENNI_BASELINE
+AutoIt:
+    [propget] $oenums.CAP_PROP_OPENNI_BASELINE
+```
+
+### enums.CAP\_PROP\_OPENNI\_FOCAL\_LENGTH
+
+```cpp
+static int cv::enums::CAP_PROP_OPENNI_FOCAL_LENGTH
+AutoIt:
+    [propget] $oenums.CAP_PROP_OPENNI_FOCAL_LENGTH
+```
+
+### enums.CAP\_PROP\_OPENNI\_REGISTRATION
+
+```cpp
+static int cv::enums::CAP_PROP_OPENNI_REGISTRATION
+AutoIt:
+    [propget] $oenums.CAP_PROP_OPENNI_REGISTRATION
+```
+
+### enums.CAP\_PROP\_OPENNI\_REGISTRATION\_ON
+
+```cpp
+static int cv::enums::CAP_PROP_OPENNI_REGISTRATION_ON
+AutoIt:
+    [propget] $oenums.CAP_PROP_OPENNI_REGISTRATION_ON
+```
+
+### enums.CAP\_PROP\_OPENNI\_APPROX\_FRAME\_SYNC
+
+```cpp
+static int cv::enums::CAP_PROP_OPENNI_APPROX_FRAME_SYNC
+AutoIt:
+    [propget] $oenums.CAP_PROP_OPENNI_APPROX_FRAME_SYNC
+```
+
+### enums.CAP\_PROP\_OPENNI\_MAX\_BUFFER\_SIZE
+
+```cpp
+static int cv::enums::CAP_PROP_OPENNI_MAX_BUFFER_SIZE
+AutoIt:
+    [propget] $oenums.CAP_PROP_OPENNI_MAX_BUFFER_SIZE
+```
+
+### enums.CAP\_PROP\_OPENNI\_CIRCLE\_BUFFER
+
+```cpp
+static int cv::enums::CAP_PROP_OPENNI_CIRCLE_BUFFER
+AutoIt:
+    [propget] $oenums.CAP_PROP_OPENNI_CIRCLE_BUFFER
+```
+
+### enums.CAP\_PROP\_OPENNI\_MAX\_TIME\_DURATION
+
+```cpp
+static int cv::enums::CAP_PROP_OPENNI_MAX_TIME_DURATION
+AutoIt:
+    [propget] $oenums.CAP_PROP_OPENNI_MAX_TIME_DURATION
+```
+
+### enums.CAP\_PROP\_OPENNI\_GENERATOR\_PRESENT
+
+```cpp
+static int cv::enums::CAP_PROP_OPENNI_GENERATOR_PRESENT
+AutoIt:
+    [propget] $oenums.CAP_PROP_OPENNI_GENERATOR_PRESENT
+```
+
+### enums.CAP\_PROP\_OPENNI2\_SYNC
+
+```cpp
+static int cv::enums::CAP_PROP_OPENNI2_SYNC
+AutoIt:
+    [propget] $oenums.CAP_PROP_OPENNI2_SYNC
+```
+
+### enums.CAP\_PROP\_OPENNI2\_MIRROR
+
+```cpp
+static int cv::enums::CAP_PROP_OPENNI2_MIRROR
+AutoIt:
+    [propget] $oenums.CAP_PROP_OPENNI2_MIRROR
+```
+
+### enums.CAP\_OPENNI\_IMAGE\_GENERATOR\_PRESENT
+
+```cpp
+static int cv::enums::CAP_OPENNI_IMAGE_GENERATOR_PRESENT
+AutoIt:
+    [propget] $oenums.CAP_OPENNI_IMAGE_GENERATOR_PRESENT
+```
+
+### enums.CAP\_OPENNI\_IMAGE\_GENERATOR\_OUTPUT\_MODE
+
+```cpp
+static int cv::enums::CAP_OPENNI_IMAGE_GENERATOR_OUTPUT_MODE
+AutoIt:
+    [propget] $oenums.CAP_OPENNI_IMAGE_GENERATOR_OUTPUT_MODE
+```
+
+### enums.CAP\_OPENNI\_DEPTH\_GENERATOR\_PRESENT
+
+```cpp
+static int cv::enums::CAP_OPENNI_DEPTH_GENERATOR_PRESENT
+AutoIt:
+    [propget] $oenums.CAP_OPENNI_DEPTH_GENERATOR_PRESENT
+```
+
+### enums.CAP\_OPENNI\_DEPTH\_GENERATOR\_BASELINE
+
+```cpp
+static int cv::enums::CAP_OPENNI_DEPTH_GENERATOR_BASELINE
+AutoIt:
+    [propget] $oenums.CAP_OPENNI_DEPTH_GENERATOR_BASELINE
+```
+
+### enums.CAP\_OPENNI\_DEPTH\_GENERATOR\_FOCAL\_LENGTH
+
+```cpp
+static int cv::enums::CAP_OPENNI_DEPTH_GENERATOR_FOCAL_LENGTH
+AutoIt:
+    [propget] $oenums.CAP_OPENNI_DEPTH_GENERATOR_FOCAL_LENGTH
+```
+
+### enums.CAP\_OPENNI\_DEPTH\_GENERATOR\_REGISTRATION
+
+```cpp
+static int cv::enums::CAP_OPENNI_DEPTH_GENERATOR_REGISTRATION
+AutoIt:
+    [propget] $oenums.CAP_OPENNI_DEPTH_GENERATOR_REGISTRATION
+```
+
+### enums.CAP\_OPENNI\_DEPTH\_GENERATOR\_REGISTRATION\_ON
+
+```cpp
+static int cv::enums::CAP_OPENNI_DEPTH_GENERATOR_REGISTRATION_ON
+AutoIt:
+    [propget] $oenums.CAP_OPENNI_DEPTH_GENERATOR_REGISTRATION_ON
+```
+
+### enums.CAP\_OPENNI\_IR\_GENERATOR\_PRESENT
+
+```cpp
+static int cv::enums::CAP_OPENNI_IR_GENERATOR_PRESENT
+AutoIt:
+    [propget] $oenums.CAP_OPENNI_IR_GENERATOR_PRESENT
+```
+
+### enums.CAP\_OPENNI\_DEPTH\_MAP
+
+```cpp
+static int cv::enums::CAP_OPENNI_DEPTH_MAP
+AutoIt:
+    [propget] $oenums.CAP_OPENNI_DEPTH_MAP
+```
+
+### enums.CAP\_OPENNI\_POINT\_CLOUD\_MAP
+
+```cpp
+static int cv::enums::CAP_OPENNI_POINT_CLOUD_MAP
+AutoIt:
+    [propget] $oenums.CAP_OPENNI_POINT_CLOUD_MAP
+```
+
+### enums.CAP\_OPENNI\_DISPARITY\_MAP
+
+```cpp
+static int cv::enums::CAP_OPENNI_DISPARITY_MAP
+AutoIt:
+    [propget] $oenums.CAP_OPENNI_DISPARITY_MAP
+```
+
+### enums.CAP\_OPENNI\_DISPARITY\_MAP\_32F
+
+```cpp
+static int cv::enums::CAP_OPENNI_DISPARITY_MAP_32F
+AutoIt:
+    [propget] $oenums.CAP_OPENNI_DISPARITY_MAP_32F
+```
+
+### enums.CAP\_OPENNI\_VALID\_DEPTH\_MASK
+
+```cpp
+static int cv::enums::CAP_OPENNI_VALID_DEPTH_MASK
+AutoIt:
+    [propget] $oenums.CAP_OPENNI_VALID_DEPTH_MASK
+```
+
+### enums.CAP\_OPENNI\_BGR\_IMAGE
+
+```cpp
+static int cv::enums::CAP_OPENNI_BGR_IMAGE
+AutoIt:
+    [propget] $oenums.CAP_OPENNI_BGR_IMAGE
+```
+
+### enums.CAP\_OPENNI\_GRAY\_IMAGE
+
+```cpp
+static int cv::enums::CAP_OPENNI_GRAY_IMAGE
+AutoIt:
+    [propget] $oenums.CAP_OPENNI_GRAY_IMAGE
+```
+
+### enums.CAP\_OPENNI\_IR\_IMAGE
+
+```cpp
+static int cv::enums::CAP_OPENNI_IR_IMAGE
+AutoIt:
+    [propget] $oenums.CAP_OPENNI_IR_IMAGE
+```
+
+### enums.CAP\_OPENNI\_VGA\_30HZ
+
+```cpp
+static int cv::enums::CAP_OPENNI_VGA_30HZ
+AutoIt:
+    [propget] $oenums.CAP_OPENNI_VGA_30HZ
+```
+
+### enums.CAP\_OPENNI\_SXGA\_15HZ
+
+```cpp
+static int cv::enums::CAP_OPENNI_SXGA_15HZ
+AutoIt:
+    [propget] $oenums.CAP_OPENNI_SXGA_15HZ
+```
+
+### enums.CAP\_OPENNI\_SXGA\_30HZ
+
+```cpp
+static int cv::enums::CAP_OPENNI_SXGA_30HZ
+AutoIt:
+    [propget] $oenums.CAP_OPENNI_SXGA_30HZ
+```
+
+### enums.CAP\_OPENNI\_QVGA\_30HZ
+
+```cpp
+static int cv::enums::CAP_OPENNI_QVGA_30HZ
+AutoIt:
+    [propget] $oenums.CAP_OPENNI_QVGA_30HZ
+```
+
+### enums.CAP\_OPENNI\_QVGA\_60HZ
+
+```cpp
+static int cv::enums::CAP_OPENNI_QVGA_60HZ
+AutoIt:
+    [propget] $oenums.CAP_OPENNI_QVGA_60HZ
+```
+
+### enums.CAP\_PROP\_GSTREAMER\_QUEUE\_LENGTH
+
+```cpp
+static int cv::enums::CAP_PROP_GSTREAMER_QUEUE_LENGTH
+AutoIt:
+    [propget] $oenums.CAP_PROP_GSTREAMER_QUEUE_LENGTH
+```
+
+### enums.CAP\_PROP\_PVAPI\_MULTICASTIP
+
+```cpp
+static int cv::enums::CAP_PROP_PVAPI_MULTICASTIP
+AutoIt:
+    [propget] $oenums.CAP_PROP_PVAPI_MULTICASTIP
+```
+
+### enums.CAP\_PROP\_PVAPI\_FRAMESTARTTRIGGERMODE
+
+```cpp
+static int cv::enums::CAP_PROP_PVAPI_FRAMESTARTTRIGGERMODE
+AutoIt:
+    [propget] $oenums.CAP_PROP_PVAPI_FRAMESTARTTRIGGERMODE
+```
+
+### enums.CAP\_PROP\_PVAPI\_DECIMATIONHORIZONTAL
+
+```cpp
+static int cv::enums::CAP_PROP_PVAPI_DECIMATIONHORIZONTAL
+AutoIt:
+    [propget] $oenums.CAP_PROP_PVAPI_DECIMATIONHORIZONTAL
+```
+
+### enums.CAP\_PROP\_PVAPI\_DECIMATIONVERTICAL
+
+```cpp
+static int cv::enums::CAP_PROP_PVAPI_DECIMATIONVERTICAL
+AutoIt:
+    [propget] $oenums.CAP_PROP_PVAPI_DECIMATIONVERTICAL
+```
+
+### enums.CAP\_PROP\_PVAPI\_BINNINGX
+
+```cpp
+static int cv::enums::CAP_PROP_PVAPI_BINNINGX
+AutoIt:
+    [propget] $oenums.CAP_PROP_PVAPI_BINNINGX
+```
+
+### enums.CAP\_PROP\_PVAPI\_BINNINGY
+
+```cpp
+static int cv::enums::CAP_PROP_PVAPI_BINNINGY
+AutoIt:
+    [propget] $oenums.CAP_PROP_PVAPI_BINNINGY
+```
+
+### enums.CAP\_PROP\_PVAPI\_PIXELFORMAT
+
+```cpp
+static int cv::enums::CAP_PROP_PVAPI_PIXELFORMAT
+AutoIt:
+    [propget] $oenums.CAP_PROP_PVAPI_PIXELFORMAT
+```
+
+### enums.CAP\_PVAPI\_FSTRIGMODE\_FREERUN
+
+```cpp
+static int cv::enums::CAP_PVAPI_FSTRIGMODE_FREERUN
+AutoIt:
+    [propget] $oenums.CAP_PVAPI_FSTRIGMODE_FREERUN
+```
+
+### enums.CAP\_PVAPI\_FSTRIGMODE\_SYNCIN1
+
+```cpp
+static int cv::enums::CAP_PVAPI_FSTRIGMODE_SYNCIN1
+AutoIt:
+    [propget] $oenums.CAP_PVAPI_FSTRIGMODE_SYNCIN1
+```
+
+### enums.CAP\_PVAPI\_FSTRIGMODE\_SYNCIN2
+
+```cpp
+static int cv::enums::CAP_PVAPI_FSTRIGMODE_SYNCIN2
+AutoIt:
+    [propget] $oenums.CAP_PVAPI_FSTRIGMODE_SYNCIN2
+```
+
+### enums.CAP\_PVAPI\_FSTRIGMODE\_FIXEDRATE
+
+```cpp
+static int cv::enums::CAP_PVAPI_FSTRIGMODE_FIXEDRATE
+AutoIt:
+    [propget] $oenums.CAP_PVAPI_FSTRIGMODE_FIXEDRATE
+```
+
+### enums.CAP\_PVAPI\_FSTRIGMODE\_SOFTWARE
+
+```cpp
+static int cv::enums::CAP_PVAPI_FSTRIGMODE_SOFTWARE
+AutoIt:
+    [propget] $oenums.CAP_PVAPI_FSTRIGMODE_SOFTWARE
+```
+
+### enums.CAP\_PVAPI\_DECIMATION\_OFF
+
+```cpp
+static int cv::enums::CAP_PVAPI_DECIMATION_OFF
+AutoIt:
+    [propget] $oenums.CAP_PVAPI_DECIMATION_OFF
+```
+
+### enums.CAP\_PVAPI\_DECIMATION\_2OUTOF4
+
+```cpp
+static int cv::enums::CAP_PVAPI_DECIMATION_2OUTOF4
+AutoIt:
+    [propget] $oenums.CAP_PVAPI_DECIMATION_2OUTOF4
+```
+
+### enums.CAP\_PVAPI\_DECIMATION\_2OUTOF8
+
+```cpp
+static int cv::enums::CAP_PVAPI_DECIMATION_2OUTOF8
+AutoIt:
+    [propget] $oenums.CAP_PVAPI_DECIMATION_2OUTOF8
+```
+
+### enums.CAP\_PVAPI\_DECIMATION\_2OUTOF16
+
+```cpp
+static int cv::enums::CAP_PVAPI_DECIMATION_2OUTOF16
+AutoIt:
+    [propget] $oenums.CAP_PVAPI_DECIMATION_2OUTOF16
+```
+
+### enums.CAP\_PVAPI\_PIXELFORMAT\_MONO8
+
+```cpp
+static int cv::enums::CAP_PVAPI_PIXELFORMAT_MONO8
+AutoIt:
+    [propget] $oenums.CAP_PVAPI_PIXELFORMAT_MONO8
+```
+
+### enums.CAP\_PVAPI\_PIXELFORMAT\_MONO16
+
+```cpp
+static int cv::enums::CAP_PVAPI_PIXELFORMAT_MONO16
+AutoIt:
+    [propget] $oenums.CAP_PVAPI_PIXELFORMAT_MONO16
+```
+
+### enums.CAP\_PVAPI\_PIXELFORMAT\_BAYER8
+
+```cpp
+static int cv::enums::CAP_PVAPI_PIXELFORMAT_BAYER8
+AutoIt:
+    [propget] $oenums.CAP_PVAPI_PIXELFORMAT_BAYER8
+```
+
+### enums.CAP\_PVAPI\_PIXELFORMAT\_BAYER16
+
+```cpp
+static int cv::enums::CAP_PVAPI_PIXELFORMAT_BAYER16
+AutoIt:
+    [propget] $oenums.CAP_PVAPI_PIXELFORMAT_BAYER16
+```
+
+### enums.CAP\_PVAPI\_PIXELFORMAT\_RGB24
+
+```cpp
+static int cv::enums::CAP_PVAPI_PIXELFORMAT_RGB24
+AutoIt:
+    [propget] $oenums.CAP_PVAPI_PIXELFORMAT_RGB24
+```
+
+### enums.CAP\_PVAPI\_PIXELFORMAT\_BGR24
+
+```cpp
+static int cv::enums::CAP_PVAPI_PIXELFORMAT_BGR24
+AutoIt:
+    [propget] $oenums.CAP_PVAPI_PIXELFORMAT_BGR24
+```
+
+### enums.CAP\_PVAPI\_PIXELFORMAT\_RGBA32
+
+```cpp
+static int cv::enums::CAP_PVAPI_PIXELFORMAT_RGBA32
+AutoIt:
+    [propget] $oenums.CAP_PVAPI_PIXELFORMAT_RGBA32
+```
+
+### enums.CAP\_PVAPI\_PIXELFORMAT\_BGRA32
+
+```cpp
+static int cv::enums::CAP_PVAPI_PIXELFORMAT_BGRA32
+AutoIt:
+    [propget] $oenums.CAP_PVAPI_PIXELFORMAT_BGRA32
+```
+
+### enums.CAP\_PROP\_XI\_DOWNSAMPLING
+
+```cpp
+static int cv::enums::CAP_PROP_XI_DOWNSAMPLING
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_DOWNSAMPLING
+```
+
+### enums.CAP\_PROP\_XI\_DATA\_FORMAT
+
+```cpp
+static int cv::enums::CAP_PROP_XI_DATA_FORMAT
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_DATA_FORMAT
+```
+
+### enums.CAP\_PROP\_XI\_OFFSET\_X
+
+```cpp
+static int cv::enums::CAP_PROP_XI_OFFSET_X
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_OFFSET_X
+```
+
+### enums.CAP\_PROP\_XI\_OFFSET\_Y
+
+```cpp
+static int cv::enums::CAP_PROP_XI_OFFSET_Y
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_OFFSET_Y
+```
+
+### enums.CAP\_PROP\_XI\_TRG\_SOURCE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_TRG_SOURCE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_TRG_SOURCE
+```
+
+### enums.CAP\_PROP\_XI\_TRG\_SOFTWARE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_TRG_SOFTWARE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_TRG_SOFTWARE
+```
+
+### enums.CAP\_PROP\_XI\_GPI\_SELECTOR
+
+```cpp
+static int cv::enums::CAP_PROP_XI_GPI_SELECTOR
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_GPI_SELECTOR
+```
+
+### enums.CAP\_PROP\_XI\_GPI\_MODE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_GPI_MODE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_GPI_MODE
+```
+
+### enums.CAP\_PROP\_XI\_GPI\_LEVEL
+
+```cpp
+static int cv::enums::CAP_PROP_XI_GPI_LEVEL
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_GPI_LEVEL
+```
+
+### enums.CAP\_PROP\_XI\_GPO\_SELECTOR
+
+```cpp
+static int cv::enums::CAP_PROP_XI_GPO_SELECTOR
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_GPO_SELECTOR
+```
+
+### enums.CAP\_PROP\_XI\_GPO\_MODE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_GPO_MODE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_GPO_MODE
+```
+
+### enums.CAP\_PROP\_XI\_LED\_SELECTOR
+
+```cpp
+static int cv::enums::CAP_PROP_XI_LED_SELECTOR
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_LED_SELECTOR
+```
+
+### enums.CAP\_PROP\_XI\_LED\_MODE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_LED_MODE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_LED_MODE
+```
+
+### enums.CAP\_PROP\_XI\_MANUAL\_WB
+
+```cpp
+static int cv::enums::CAP_PROP_XI_MANUAL_WB
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_MANUAL_WB
+```
+
+### enums.CAP\_PROP\_XI\_AUTO\_WB
+
+```cpp
+static int cv::enums::CAP_PROP_XI_AUTO_WB
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_AUTO_WB
+```
+
+### enums.CAP\_PROP\_XI\_AEAG
+
+```cpp
+static int cv::enums::CAP_PROP_XI_AEAG
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_AEAG
+```
+
+### enums.CAP\_PROP\_XI\_EXP\_PRIORITY
+
+```cpp
+static int cv::enums::CAP_PROP_XI_EXP_PRIORITY
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_EXP_PRIORITY
+```
+
+### enums.CAP\_PROP\_XI\_AE\_MAX\_LIMIT
+
+```cpp
+static int cv::enums::CAP_PROP_XI_AE_MAX_LIMIT
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_AE_MAX_LIMIT
+```
+
+### enums.CAP\_PROP\_XI\_AG\_MAX\_LIMIT
+
+```cpp
+static int cv::enums::CAP_PROP_XI_AG_MAX_LIMIT
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_AG_MAX_LIMIT
+```
+
+### enums.CAP\_PROP\_XI\_AEAG\_LEVEL
+
+```cpp
+static int cv::enums::CAP_PROP_XI_AEAG_LEVEL
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_AEAG_LEVEL
+```
+
+### enums.CAP\_PROP\_XI\_TIMEOUT
+
+```cpp
+static int cv::enums::CAP_PROP_XI_TIMEOUT
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_TIMEOUT
+```
+
+### enums.CAP\_PROP\_XI\_EXPOSURE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_EXPOSURE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_EXPOSURE
+```
+
+### enums.CAP\_PROP\_XI\_EXPOSURE\_BURST\_COUNT
+
+```cpp
+static int cv::enums::CAP_PROP_XI_EXPOSURE_BURST_COUNT
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_EXPOSURE_BURST_COUNT
+```
+
+### enums.CAP\_PROP\_XI\_GAIN\_SELECTOR
+
+```cpp
+static int cv::enums::CAP_PROP_XI_GAIN_SELECTOR
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_GAIN_SELECTOR
+```
+
+### enums.CAP\_PROP\_XI\_GAIN
+
+```cpp
+static int cv::enums::CAP_PROP_XI_GAIN
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_GAIN
+```
+
+### enums.CAP\_PROP\_XI\_DOWNSAMPLING\_TYPE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_DOWNSAMPLING_TYPE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_DOWNSAMPLING_TYPE
+```
+
+### enums.CAP\_PROP\_XI\_BINNING\_SELECTOR
+
+```cpp
+static int cv::enums::CAP_PROP_XI_BINNING_SELECTOR
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_BINNING_SELECTOR
+```
+
+### enums.CAP\_PROP\_XI\_BINNING\_VERTICAL
+
+```cpp
+static int cv::enums::CAP_PROP_XI_BINNING_VERTICAL
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_BINNING_VERTICAL
+```
+
+### enums.CAP\_PROP\_XI\_BINNING\_HORIZONTAL
+
+```cpp
+static int cv::enums::CAP_PROP_XI_BINNING_HORIZONTAL
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_BINNING_HORIZONTAL
+```
+
+### enums.CAP\_PROP\_XI\_BINNING\_PATTERN
+
+```cpp
+static int cv::enums::CAP_PROP_XI_BINNING_PATTERN
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_BINNING_PATTERN
+```
+
+### enums.CAP\_PROP\_XI\_DECIMATION\_SELECTOR
+
+```cpp
+static int cv::enums::CAP_PROP_XI_DECIMATION_SELECTOR
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_DECIMATION_SELECTOR
+```
+
+### enums.CAP\_PROP\_XI\_DECIMATION\_VERTICAL
+
+```cpp
+static int cv::enums::CAP_PROP_XI_DECIMATION_VERTICAL
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_DECIMATION_VERTICAL
+```
+
+### enums.CAP\_PROP\_XI\_DECIMATION\_HORIZONTAL
+
+```cpp
+static int cv::enums::CAP_PROP_XI_DECIMATION_HORIZONTAL
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_DECIMATION_HORIZONTAL
+```
+
+### enums.CAP\_PROP\_XI\_DECIMATION\_PATTERN
+
+```cpp
+static int cv::enums::CAP_PROP_XI_DECIMATION_PATTERN
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_DECIMATION_PATTERN
+```
+
+### enums.CAP\_PROP\_XI\_TEST\_PATTERN\_GENERATOR\_SELECTOR
+
+```cpp
+static int cv::enums::CAP_PROP_XI_TEST_PATTERN_GENERATOR_SELECTOR
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_TEST_PATTERN_GENERATOR_SELECTOR
+```
+
+### enums.CAP\_PROP\_XI\_TEST\_PATTERN
+
+```cpp
+static int cv::enums::CAP_PROP_XI_TEST_PATTERN
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_TEST_PATTERN
+```
+
+### enums.CAP\_PROP\_XI\_IMAGE\_DATA\_FORMAT
+
+```cpp
+static int cv::enums::CAP_PROP_XI_IMAGE_DATA_FORMAT
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_IMAGE_DATA_FORMAT
+```
+
+### enums.CAP\_PROP\_XI\_SHUTTER\_TYPE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_SHUTTER_TYPE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_SHUTTER_TYPE
+```
+
+### enums.CAP\_PROP\_XI\_SENSOR\_TAPS
+
+```cpp
+static int cv::enums::CAP_PROP_XI_SENSOR_TAPS
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_SENSOR_TAPS
+```
+
+### enums.CAP\_PROP\_XI\_AEAG\_ROI\_OFFSET\_X
+
+```cpp
+static int cv::enums::CAP_PROP_XI_AEAG_ROI_OFFSET_X
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_AEAG_ROI_OFFSET_X
+```
+
+### enums.CAP\_PROP\_XI\_AEAG\_ROI\_OFFSET\_Y
+
+```cpp
+static int cv::enums::CAP_PROP_XI_AEAG_ROI_OFFSET_Y
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_AEAG_ROI_OFFSET_Y
+```
+
+### enums.CAP\_PROP\_XI\_AEAG\_ROI\_WIDTH
+
+```cpp
+static int cv::enums::CAP_PROP_XI_AEAG_ROI_WIDTH
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_AEAG_ROI_WIDTH
+```
+
+### enums.CAP\_PROP\_XI\_AEAG\_ROI\_HEIGHT
+
+```cpp
+static int cv::enums::CAP_PROP_XI_AEAG_ROI_HEIGHT
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_AEAG_ROI_HEIGHT
+```
+
+### enums.CAP\_PROP\_XI\_BPC
+
+```cpp
+static int cv::enums::CAP_PROP_XI_BPC
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_BPC
+```
+
+### enums.CAP\_PROP\_XI\_WB\_KR
+
+```cpp
+static int cv::enums::CAP_PROP_XI_WB_KR
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_WB_KR
+```
+
+### enums.CAP\_PROP\_XI\_WB\_KG
+
+```cpp
+static int cv::enums::CAP_PROP_XI_WB_KG
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_WB_KG
+```
+
+### enums.CAP\_PROP\_XI\_WB\_KB
+
+```cpp
+static int cv::enums::CAP_PROP_XI_WB_KB
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_WB_KB
+```
+
+### enums.CAP\_PROP\_XI\_WIDTH
+
+```cpp
+static int cv::enums::CAP_PROP_XI_WIDTH
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_WIDTH
+```
+
+### enums.CAP\_PROP\_XI\_HEIGHT
+
+```cpp
+static int cv::enums::CAP_PROP_XI_HEIGHT
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_HEIGHT
+```
+
+### enums.CAP\_PROP\_XI\_REGION\_SELECTOR
+
+```cpp
+static int cv::enums::CAP_PROP_XI_REGION_SELECTOR
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_REGION_SELECTOR
+```
+
+### enums.CAP\_PROP\_XI\_REGION\_MODE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_REGION_MODE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_REGION_MODE
+```
+
+### enums.CAP\_PROP\_XI\_LIMIT\_BANDWIDTH
+
+```cpp
+static int cv::enums::CAP_PROP_XI_LIMIT_BANDWIDTH
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_LIMIT_BANDWIDTH
+```
+
+### enums.CAP\_PROP\_XI\_SENSOR\_DATA\_BIT\_DEPTH
+
+```cpp
+static int cv::enums::CAP_PROP_XI_SENSOR_DATA_BIT_DEPTH
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_SENSOR_DATA_BIT_DEPTH
+```
+
+### enums.CAP\_PROP\_XI\_OUTPUT\_DATA\_BIT\_DEPTH
+
+```cpp
+static int cv::enums::CAP_PROP_XI_OUTPUT_DATA_BIT_DEPTH
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_OUTPUT_DATA_BIT_DEPTH
+```
+
+### enums.CAP\_PROP\_XI\_IMAGE\_DATA\_BIT\_DEPTH
+
+```cpp
+static int cv::enums::CAP_PROP_XI_IMAGE_DATA_BIT_DEPTH
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_IMAGE_DATA_BIT_DEPTH
+```
+
+### enums.CAP\_PROP\_XI\_OUTPUT\_DATA\_PACKING
+
+```cpp
+static int cv::enums::CAP_PROP_XI_OUTPUT_DATA_PACKING
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_OUTPUT_DATA_PACKING
+```
+
+### enums.CAP\_PROP\_XI\_OUTPUT\_DATA\_PACKING\_TYPE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_OUTPUT_DATA_PACKING_TYPE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_OUTPUT_DATA_PACKING_TYPE
+```
+
+### enums.CAP\_PROP\_XI\_IS\_COOLED
+
+```cpp
+static int cv::enums::CAP_PROP_XI_IS_COOLED
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_IS_COOLED
+```
+
+### enums.CAP\_PROP\_XI\_COOLING
+
+```cpp
+static int cv::enums::CAP_PROP_XI_COOLING
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_COOLING
+```
+
+### enums.CAP\_PROP\_XI\_TARGET\_TEMP
+
+```cpp
+static int cv::enums::CAP_PROP_XI_TARGET_TEMP
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_TARGET_TEMP
+```
+
+### enums.CAP\_PROP\_XI\_CHIP\_TEMP
+
+```cpp
+static int cv::enums::CAP_PROP_XI_CHIP_TEMP
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_CHIP_TEMP
+```
+
+### enums.CAP\_PROP\_XI\_HOUS\_TEMP
+
+```cpp
+static int cv::enums::CAP_PROP_XI_HOUS_TEMP
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_HOUS_TEMP
+```
+
+### enums.CAP\_PROP\_XI\_HOUS\_BACK\_SIDE\_TEMP
+
+```cpp
+static int cv::enums::CAP_PROP_XI_HOUS_BACK_SIDE_TEMP
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_HOUS_BACK_SIDE_TEMP
+```
+
+### enums.CAP\_PROP\_XI\_SENSOR\_BOARD\_TEMP
+
+```cpp
+static int cv::enums::CAP_PROP_XI_SENSOR_BOARD_TEMP
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_SENSOR_BOARD_TEMP
+```
+
+### enums.CAP\_PROP\_XI\_CMS
+
+```cpp
+static int cv::enums::CAP_PROP_XI_CMS
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_CMS
+```
+
+### enums.CAP\_PROP\_XI\_APPLY\_CMS
+
+```cpp
+static int cv::enums::CAP_PROP_XI_APPLY_CMS
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_APPLY_CMS
+```
+
+### enums.CAP\_PROP\_XI\_IMAGE\_IS\_COLOR
+
+```cpp
+static int cv::enums::CAP_PROP_XI_IMAGE_IS_COLOR
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_IMAGE_IS_COLOR
+```
+
+### enums.CAP\_PROP\_XI\_COLOR\_FILTER\_ARRAY
+
+```cpp
+static int cv::enums::CAP_PROP_XI_COLOR_FILTER_ARRAY
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_COLOR_FILTER_ARRAY
+```
+
+### enums.CAP\_PROP\_XI\_GAMMAY
+
+```cpp
+static int cv::enums::CAP_PROP_XI_GAMMAY
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_GAMMAY
+```
+
+### enums.CAP\_PROP\_XI\_GAMMAC
+
+```cpp
+static int cv::enums::CAP_PROP_XI_GAMMAC
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_GAMMAC
+```
+
+### enums.CAP\_PROP\_XI\_SHARPNESS
+
+```cpp
+static int cv::enums::CAP_PROP_XI_SHARPNESS
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_SHARPNESS
+```
+
+### enums.CAP\_PROP\_XI\_CC\_MATRIX\_00
+
+```cpp
+static int cv::enums::CAP_PROP_XI_CC_MATRIX_00
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_CC_MATRIX_00
+```
+
+### enums.CAP\_PROP\_XI\_CC\_MATRIX\_01
+
+```cpp
+static int cv::enums::CAP_PROP_XI_CC_MATRIX_01
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_CC_MATRIX_01
+```
+
+### enums.CAP\_PROP\_XI\_CC\_MATRIX\_02
+
+```cpp
+static int cv::enums::CAP_PROP_XI_CC_MATRIX_02
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_CC_MATRIX_02
+```
+
+### enums.CAP\_PROP\_XI\_CC\_MATRIX\_03
+
+```cpp
+static int cv::enums::CAP_PROP_XI_CC_MATRIX_03
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_CC_MATRIX_03
+```
+
+### enums.CAP\_PROP\_XI\_CC\_MATRIX\_10
+
+```cpp
+static int cv::enums::CAP_PROP_XI_CC_MATRIX_10
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_CC_MATRIX_10
+```
+
+### enums.CAP\_PROP\_XI\_CC\_MATRIX\_11
+
+```cpp
+static int cv::enums::CAP_PROP_XI_CC_MATRIX_11
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_CC_MATRIX_11
+```
+
+### enums.CAP\_PROP\_XI\_CC\_MATRIX\_12
+
+```cpp
+static int cv::enums::CAP_PROP_XI_CC_MATRIX_12
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_CC_MATRIX_12
+```
+
+### enums.CAP\_PROP\_XI\_CC\_MATRIX\_13
+
+```cpp
+static int cv::enums::CAP_PROP_XI_CC_MATRIX_13
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_CC_MATRIX_13
+```
+
+### enums.CAP\_PROP\_XI\_CC\_MATRIX\_20
+
+```cpp
+static int cv::enums::CAP_PROP_XI_CC_MATRIX_20
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_CC_MATRIX_20
+```
+
+### enums.CAP\_PROP\_XI\_CC\_MATRIX\_21
+
+```cpp
+static int cv::enums::CAP_PROP_XI_CC_MATRIX_21
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_CC_MATRIX_21
+```
+
+### enums.CAP\_PROP\_XI\_CC\_MATRIX\_22
+
+```cpp
+static int cv::enums::CAP_PROP_XI_CC_MATRIX_22
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_CC_MATRIX_22
+```
+
+### enums.CAP\_PROP\_XI\_CC\_MATRIX\_23
+
+```cpp
+static int cv::enums::CAP_PROP_XI_CC_MATRIX_23
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_CC_MATRIX_23
+```
+
+### enums.CAP\_PROP\_XI\_CC\_MATRIX\_30
+
+```cpp
+static int cv::enums::CAP_PROP_XI_CC_MATRIX_30
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_CC_MATRIX_30
+```
+
+### enums.CAP\_PROP\_XI\_CC\_MATRIX\_31
+
+```cpp
+static int cv::enums::CAP_PROP_XI_CC_MATRIX_31
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_CC_MATRIX_31
+```
+
+### enums.CAP\_PROP\_XI\_CC\_MATRIX\_32
+
+```cpp
+static int cv::enums::CAP_PROP_XI_CC_MATRIX_32
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_CC_MATRIX_32
+```
+
+### enums.CAP\_PROP\_XI\_CC\_MATRIX\_33
+
+```cpp
+static int cv::enums::CAP_PROP_XI_CC_MATRIX_33
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_CC_MATRIX_33
+```
+
+### enums.CAP\_PROP\_XI\_DEFAULT\_CC\_MATRIX
+
+```cpp
+static int cv::enums::CAP_PROP_XI_DEFAULT_CC_MATRIX
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_DEFAULT_CC_MATRIX
+```
+
+### enums.CAP\_PROP\_XI\_TRG\_SELECTOR
+
+```cpp
+static int cv::enums::CAP_PROP_XI_TRG_SELECTOR
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_TRG_SELECTOR
+```
+
+### enums.CAP\_PROP\_XI\_ACQ\_FRAME\_BURST\_COUNT
+
+```cpp
+static int cv::enums::CAP_PROP_XI_ACQ_FRAME_BURST_COUNT
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_ACQ_FRAME_BURST_COUNT
+```
+
+### enums.CAP\_PROP\_XI\_DEBOUNCE\_EN
+
+```cpp
+static int cv::enums::CAP_PROP_XI_DEBOUNCE_EN
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_DEBOUNCE_EN
+```
+
+### enums.CAP\_PROP\_XI\_DEBOUNCE\_T0
+
+```cpp
+static int cv::enums::CAP_PROP_XI_DEBOUNCE_T0
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_DEBOUNCE_T0
+```
+
+### enums.CAP\_PROP\_XI\_DEBOUNCE\_T1
+
+```cpp
+static int cv::enums::CAP_PROP_XI_DEBOUNCE_T1
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_DEBOUNCE_T1
+```
+
+### enums.CAP\_PROP\_XI\_DEBOUNCE\_POL
+
+```cpp
+static int cv::enums::CAP_PROP_XI_DEBOUNCE_POL
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_DEBOUNCE_POL
+```
+
+### enums.CAP\_PROP\_XI\_LENS\_MODE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_LENS_MODE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_LENS_MODE
+```
+
+### enums.CAP\_PROP\_XI\_LENS\_APERTURE\_VALUE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_LENS_APERTURE_VALUE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_LENS_APERTURE_VALUE
+```
+
+### enums.CAP\_PROP\_XI\_LENS\_FOCUS\_MOVEMENT\_VALUE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_LENS_FOCUS_MOVEMENT_VALUE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_LENS_FOCUS_MOVEMENT_VALUE
+```
+
+### enums.CAP\_PROP\_XI\_LENS\_FOCUS\_MOVE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_LENS_FOCUS_MOVE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_LENS_FOCUS_MOVE
+```
+
+### enums.CAP\_PROP\_XI\_LENS\_FOCUS\_DISTANCE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_LENS_FOCUS_DISTANCE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_LENS_FOCUS_DISTANCE
+```
+
+### enums.CAP\_PROP\_XI\_LENS\_FOCAL\_LENGTH
+
+```cpp
+static int cv::enums::CAP_PROP_XI_LENS_FOCAL_LENGTH
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_LENS_FOCAL_LENGTH
+```
+
+### enums.CAP\_PROP\_XI\_LENS\_FEATURE\_SELECTOR
+
+```cpp
+static int cv::enums::CAP_PROP_XI_LENS_FEATURE_SELECTOR
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_LENS_FEATURE_SELECTOR
+```
+
+### enums.CAP\_PROP\_XI\_LENS\_FEATURE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_LENS_FEATURE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_LENS_FEATURE
+```
+
+### enums.CAP\_PROP\_XI\_DEVICE\_MODEL\_ID
+
+```cpp
+static int cv::enums::CAP_PROP_XI_DEVICE_MODEL_ID
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_DEVICE_MODEL_ID
+```
+
+### enums.CAP\_PROP\_XI\_DEVICE\_SN
+
+```cpp
+static int cv::enums::CAP_PROP_XI_DEVICE_SN
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_DEVICE_SN
+```
+
+### enums.CAP\_PROP\_XI\_IMAGE\_DATA\_FORMAT\_RGB32\_ALPHA
+
+```cpp
+static int cv::enums::CAP_PROP_XI_IMAGE_DATA_FORMAT_RGB32_ALPHA
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_IMAGE_DATA_FORMAT_RGB32_ALPHA
+```
+
+### enums.CAP\_PROP\_XI\_IMAGE\_PAYLOAD\_SIZE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_IMAGE_PAYLOAD_SIZE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_IMAGE_PAYLOAD_SIZE
+```
+
+### enums.CAP\_PROP\_XI\_TRANSPORT\_PIXEL\_FORMAT
+
+```cpp
+static int cv::enums::CAP_PROP_XI_TRANSPORT_PIXEL_FORMAT
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_TRANSPORT_PIXEL_FORMAT
+```
+
+### enums.CAP\_PROP\_XI\_SENSOR\_CLOCK\_FREQ\_HZ
+
+```cpp
+static int cv::enums::CAP_PROP_XI_SENSOR_CLOCK_FREQ_HZ
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_SENSOR_CLOCK_FREQ_HZ
+```
+
+### enums.CAP\_PROP\_XI\_SENSOR\_CLOCK\_FREQ\_INDEX
+
+```cpp
+static int cv::enums::CAP_PROP_XI_SENSOR_CLOCK_FREQ_INDEX
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_SENSOR_CLOCK_FREQ_INDEX
+```
+
+### enums.CAP\_PROP\_XI\_SENSOR\_OUTPUT\_CHANNEL\_COUNT
+
+```cpp
+static int cv::enums::CAP_PROP_XI_SENSOR_OUTPUT_CHANNEL_COUNT
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_SENSOR_OUTPUT_CHANNEL_COUNT
+```
+
+### enums.CAP\_PROP\_XI\_FRAMERATE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_FRAMERATE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_FRAMERATE
+```
+
+### enums.CAP\_PROP\_XI\_COUNTER\_SELECTOR
+
+```cpp
+static int cv::enums::CAP_PROP_XI_COUNTER_SELECTOR
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_COUNTER_SELECTOR
+```
+
+### enums.CAP\_PROP\_XI\_COUNTER\_VALUE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_COUNTER_VALUE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_COUNTER_VALUE
+```
+
+### enums.CAP\_PROP\_XI\_ACQ\_TIMING\_MODE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_ACQ_TIMING_MODE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_ACQ_TIMING_MODE
+```
+
+### enums.CAP\_PROP\_XI\_AVAILABLE\_BANDWIDTH
+
+```cpp
+static int cv::enums::CAP_PROP_XI_AVAILABLE_BANDWIDTH
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_AVAILABLE_BANDWIDTH
+```
+
+### enums.CAP\_PROP\_XI\_BUFFER\_POLICY
+
+```cpp
+static int cv::enums::CAP_PROP_XI_BUFFER_POLICY
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_BUFFER_POLICY
+```
+
+### enums.CAP\_PROP\_XI\_LUT\_EN
+
+```cpp
+static int cv::enums::CAP_PROP_XI_LUT_EN
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_LUT_EN
+```
+
+### enums.CAP\_PROP\_XI\_LUT\_INDEX
+
+```cpp
+static int cv::enums::CAP_PROP_XI_LUT_INDEX
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_LUT_INDEX
+```
+
+### enums.CAP\_PROP\_XI\_LUT\_VALUE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_LUT_VALUE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_LUT_VALUE
+```
+
+### enums.CAP\_PROP\_XI\_TRG\_DELAY
+
+```cpp
+static int cv::enums::CAP_PROP_XI_TRG_DELAY
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_TRG_DELAY
+```
+
+### enums.CAP\_PROP\_XI\_TS\_RST\_MODE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_TS_RST_MODE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_TS_RST_MODE
+```
+
+### enums.CAP\_PROP\_XI\_TS\_RST\_SOURCE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_TS_RST_SOURCE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_TS_RST_SOURCE
+```
+
+### enums.CAP\_PROP\_XI\_IS\_DEVICE\_EXIST
+
+```cpp
+static int cv::enums::CAP_PROP_XI_IS_DEVICE_EXIST
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_IS_DEVICE_EXIST
+```
+
+### enums.CAP\_PROP\_XI\_ACQ\_BUFFER\_SIZE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_ACQ_BUFFER_SIZE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_ACQ_BUFFER_SIZE
+```
+
+### enums.CAP\_PROP\_XI\_ACQ\_BUFFER\_SIZE\_UNIT
+
+```cpp
+static int cv::enums::CAP_PROP_XI_ACQ_BUFFER_SIZE_UNIT
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_ACQ_BUFFER_SIZE_UNIT
+```
+
+### enums.CAP\_PROP\_XI\_ACQ\_TRANSPORT\_BUFFER\_SIZE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_ACQ_TRANSPORT_BUFFER_SIZE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_ACQ_TRANSPORT_BUFFER_SIZE
+```
+
+### enums.CAP\_PROP\_XI\_BUFFERS\_QUEUE\_SIZE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_BUFFERS_QUEUE_SIZE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_BUFFERS_QUEUE_SIZE
+```
+
+### enums.CAP\_PROP\_XI\_ACQ\_TRANSPORT\_BUFFER\_COMMIT
+
+```cpp
+static int cv::enums::CAP_PROP_XI_ACQ_TRANSPORT_BUFFER_COMMIT
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_ACQ_TRANSPORT_BUFFER_COMMIT
+```
+
+### enums.CAP\_PROP\_XI\_RECENT\_FRAME
+
+```cpp
+static int cv::enums::CAP_PROP_XI_RECENT_FRAME
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_RECENT_FRAME
+```
+
+### enums.CAP\_PROP\_XI\_DEVICE\_RESET
+
+```cpp
+static int cv::enums::CAP_PROP_XI_DEVICE_RESET
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_DEVICE_RESET
+```
+
+### enums.CAP\_PROP\_XI\_COLUMN\_FPN\_CORRECTION
+
+```cpp
+static int cv::enums::CAP_PROP_XI_COLUMN_FPN_CORRECTION
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_COLUMN_FPN_CORRECTION
+```
+
+### enums.CAP\_PROP\_XI\_ROW\_FPN\_CORRECTION
+
+```cpp
+static int cv::enums::CAP_PROP_XI_ROW_FPN_CORRECTION
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_ROW_FPN_CORRECTION
+```
+
+### enums.CAP\_PROP\_XI\_SENSOR\_MODE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_SENSOR_MODE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_SENSOR_MODE
+```
+
+### enums.CAP\_PROP\_XI\_HDR
+
+```cpp
+static int cv::enums::CAP_PROP_XI_HDR
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_HDR
+```
+
+### enums.CAP\_PROP\_XI\_HDR\_KNEEPOINT\_COUNT
+
+```cpp
+static int cv::enums::CAP_PROP_XI_HDR_KNEEPOINT_COUNT
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_HDR_KNEEPOINT_COUNT
+```
+
+### enums.CAP\_PROP\_XI\_HDR\_T1
+
+```cpp
+static int cv::enums::CAP_PROP_XI_HDR_T1
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_HDR_T1
+```
+
+### enums.CAP\_PROP\_XI\_HDR\_T2
+
+```cpp
+static int cv::enums::CAP_PROP_XI_HDR_T2
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_HDR_T2
+```
+
+### enums.CAP\_PROP\_XI\_KNEEPOINT1
+
+```cpp
+static int cv::enums::CAP_PROP_XI_KNEEPOINT1
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_KNEEPOINT1
+```
+
+### enums.CAP\_PROP\_XI\_KNEEPOINT2
+
+```cpp
+static int cv::enums::CAP_PROP_XI_KNEEPOINT2
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_KNEEPOINT2
+```
+
+### enums.CAP\_PROP\_XI\_IMAGE\_BLACK\_LEVEL
+
+```cpp
+static int cv::enums::CAP_PROP_XI_IMAGE_BLACK_LEVEL
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_IMAGE_BLACK_LEVEL
+```
+
+### enums.CAP\_PROP\_XI\_HW\_REVISION
+
+```cpp
+static int cv::enums::CAP_PROP_XI_HW_REVISION
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_HW_REVISION
+```
+
+### enums.CAP\_PROP\_XI\_DEBUG\_LEVEL
+
+```cpp
+static int cv::enums::CAP_PROP_XI_DEBUG_LEVEL
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_DEBUG_LEVEL
+```
+
+### enums.CAP\_PROP\_XI\_AUTO\_BANDWIDTH\_CALCULATION
+
+```cpp
+static int cv::enums::CAP_PROP_XI_AUTO_BANDWIDTH_CALCULATION
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_AUTO_BANDWIDTH_CALCULATION
+```
+
+### enums.CAP\_PROP\_XI\_FFS\_FILE\_ID
+
+```cpp
+static int cv::enums::CAP_PROP_XI_FFS_FILE_ID
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_FFS_FILE_ID
+```
+
+### enums.CAP\_PROP\_XI\_FFS\_FILE\_SIZE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_FFS_FILE_SIZE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_FFS_FILE_SIZE
+```
+
+### enums.CAP\_PROP\_XI\_FREE\_FFS\_SIZE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_FREE_FFS_SIZE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_FREE_FFS_SIZE
+```
+
+### enums.CAP\_PROP\_XI\_USED\_FFS\_SIZE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_USED_FFS_SIZE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_USED_FFS_SIZE
+```
+
+### enums.CAP\_PROP\_XI\_FFS\_ACCESS\_KEY
+
+```cpp
+static int cv::enums::CAP_PROP_XI_FFS_ACCESS_KEY
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_FFS_ACCESS_KEY
+```
+
+### enums.CAP\_PROP\_XI\_SENSOR\_FEATURE\_SELECTOR
+
+```cpp
+static int cv::enums::CAP_PROP_XI_SENSOR_FEATURE_SELECTOR
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_SENSOR_FEATURE_SELECTOR
+```
+
+### enums.CAP\_PROP\_XI\_SENSOR\_FEATURE\_VALUE
+
+```cpp
+static int cv::enums::CAP_PROP_XI_SENSOR_FEATURE_VALUE
+AutoIt:
+    [propget] $oenums.CAP_PROP_XI_SENSOR_FEATURE_VALUE
+```
+
+### enums.CAP\_PROP\_ARAVIS\_AUTOTRIGGER
+
+```cpp
+static int cv::enums::CAP_PROP_ARAVIS_AUTOTRIGGER
+AutoIt:
+    [propget] $oenums.CAP_PROP_ARAVIS_AUTOTRIGGER
+```
+
+### enums.CAP\_PROP\_IOS\_DEVICE\_FOCUS
+
+```cpp
+static int cv::enums::CAP_PROP_IOS_DEVICE_FOCUS
+AutoIt:
+    [propget] $oenums.CAP_PROP_IOS_DEVICE_FOCUS
+```
+
+### enums.CAP\_PROP\_IOS\_DEVICE\_EXPOSURE
+
+```cpp
+static int cv::enums::CAP_PROP_IOS_DEVICE_EXPOSURE
+AutoIt:
+    [propget] $oenums.CAP_PROP_IOS_DEVICE_EXPOSURE
+```
+
+### enums.CAP\_PROP\_IOS\_DEVICE\_FLASH
+
+```cpp
+static int cv::enums::CAP_PROP_IOS_DEVICE_FLASH
+AutoIt:
+    [propget] $oenums.CAP_PROP_IOS_DEVICE_FLASH
+```
+
+### enums.CAP\_PROP\_IOS\_DEVICE\_WHITEBALANCE
+
+```cpp
+static int cv::enums::CAP_PROP_IOS_DEVICE_WHITEBALANCE
+AutoIt:
+    [propget] $oenums.CAP_PROP_IOS_DEVICE_WHITEBALANCE
+```
+
+### enums.CAP\_PROP\_IOS\_DEVICE\_TORCH
+
+```cpp
+static int cv::enums::CAP_PROP_IOS_DEVICE_TORCH
+AutoIt:
+    [propget] $oenums.CAP_PROP_IOS_DEVICE_TORCH
+```
+
+### enums.CAP\_PROP\_GIGA\_FRAME\_OFFSET\_X
+
+```cpp
+static int cv::enums::CAP_PROP_GIGA_FRAME_OFFSET_X
+AutoIt:
+    [propget] $oenums.CAP_PROP_GIGA_FRAME_OFFSET_X
+```
+
+### enums.CAP\_PROP\_GIGA\_FRAME\_OFFSET\_Y
+
+```cpp
+static int cv::enums::CAP_PROP_GIGA_FRAME_OFFSET_Y
+AutoIt:
+    [propget] $oenums.CAP_PROP_GIGA_FRAME_OFFSET_Y
+```
+
+### enums.CAP\_PROP\_GIGA\_FRAME\_WIDTH\_MAX
+
+```cpp
+static int cv::enums::CAP_PROP_GIGA_FRAME_WIDTH_MAX
+AutoIt:
+    [propget] $oenums.CAP_PROP_GIGA_FRAME_WIDTH_MAX
+```
+
+### enums.CAP\_PROP\_GIGA\_FRAME\_HEIGH\_MAX
+
+```cpp
+static int cv::enums::CAP_PROP_GIGA_FRAME_HEIGH_MAX
+AutoIt:
+    [propget] $oenums.CAP_PROP_GIGA_FRAME_HEIGH_MAX
+```
+
+### enums.CAP\_PROP\_GIGA\_FRAME\_SENS\_WIDTH
+
+```cpp
+static int cv::enums::CAP_PROP_GIGA_FRAME_SENS_WIDTH
+AutoIt:
+    [propget] $oenums.CAP_PROP_GIGA_FRAME_SENS_WIDTH
+```
+
+### enums.CAP\_PROP\_GIGA\_FRAME\_SENS\_HEIGH
+
+```cpp
+static int cv::enums::CAP_PROP_GIGA_FRAME_SENS_HEIGH
+AutoIt:
+    [propget] $oenums.CAP_PROP_GIGA_FRAME_SENS_HEIGH
+```
+
+### enums.CAP\_PROP\_INTELPERC\_PROFILE\_COUNT
+
+```cpp
+static int cv::enums::CAP_PROP_INTELPERC_PROFILE_COUNT
+AutoIt:
+    [propget] $oenums.CAP_PROP_INTELPERC_PROFILE_COUNT
+```
+
+### enums.CAP\_PROP\_INTELPERC\_PROFILE\_IDX
+
+```cpp
+static int cv::enums::CAP_PROP_INTELPERC_PROFILE_IDX
+AutoIt:
+    [propget] $oenums.CAP_PROP_INTELPERC_PROFILE_IDX
+```
+
+### enums.CAP\_PROP\_INTELPERC\_DEPTH\_LOW\_CONFIDENCE\_VALUE
+
+```cpp
+static int cv::enums::CAP_PROP_INTELPERC_DEPTH_LOW_CONFIDENCE_VALUE
+AutoIt:
+    [propget] $oenums.CAP_PROP_INTELPERC_DEPTH_LOW_CONFIDENCE_VALUE
+```
+
+### enums.CAP\_PROP\_INTELPERC\_DEPTH\_SATURATION\_VALUE
+
+```cpp
+static int cv::enums::CAP_PROP_INTELPERC_DEPTH_SATURATION_VALUE
+AutoIt:
+    [propget] $oenums.CAP_PROP_INTELPERC_DEPTH_SATURATION_VALUE
+```
+
+### enums.CAP\_PROP\_INTELPERC\_DEPTH\_CONFIDENCE\_THRESHOLD
+
+```cpp
+static int cv::enums::CAP_PROP_INTELPERC_DEPTH_CONFIDENCE_THRESHOLD
+AutoIt:
+    [propget] $oenums.CAP_PROP_INTELPERC_DEPTH_CONFIDENCE_THRESHOLD
+```
+
+### enums.CAP\_PROP\_INTELPERC\_DEPTH\_FOCAL\_LENGTH\_HORZ
+
+```cpp
+static int cv::enums::CAP_PROP_INTELPERC_DEPTH_FOCAL_LENGTH_HORZ
+AutoIt:
+    [propget] $oenums.CAP_PROP_INTELPERC_DEPTH_FOCAL_LENGTH_HORZ
+```
+
+### enums.CAP\_PROP\_INTELPERC\_DEPTH\_FOCAL\_LENGTH\_VERT
+
+```cpp
+static int cv::enums::CAP_PROP_INTELPERC_DEPTH_FOCAL_LENGTH_VERT
+AutoIt:
+    [propget] $oenums.CAP_PROP_INTELPERC_DEPTH_FOCAL_LENGTH_VERT
+```
+
+### enums.CAP\_INTELPERC\_DEPTH\_GENERATOR
+
+```cpp
+static int cv::enums::CAP_INTELPERC_DEPTH_GENERATOR
+AutoIt:
+    [propget] $oenums.CAP_INTELPERC_DEPTH_GENERATOR
+```
+
+### enums.CAP\_INTELPERC\_IMAGE\_GENERATOR
+
+```cpp
+static int cv::enums::CAP_INTELPERC_IMAGE_GENERATOR
+AutoIt:
+    [propget] $oenums.CAP_INTELPERC_IMAGE_GENERATOR
+```
+
+### enums.CAP\_INTELPERC\_IR\_GENERATOR
+
+```cpp
+static int cv::enums::CAP_INTELPERC_IR_GENERATOR
+AutoIt:
+    [propget] $oenums.CAP_INTELPERC_IR_GENERATOR
+```
+
+### enums.CAP\_INTELPERC\_GENERATORS\_MASK
+
+```cpp
+static int cv::enums::CAP_INTELPERC_GENERATORS_MASK
+AutoIt:
+    [propget] $oenums.CAP_INTELPERC_GENERATORS_MASK
+```
+
+### enums.CAP\_INTELPERC\_DEPTH\_MAP
+
+```cpp
+static int cv::enums::CAP_INTELPERC_DEPTH_MAP
+AutoIt:
+    [propget] $oenums.CAP_INTELPERC_DEPTH_MAP
+```
+
+### enums.CAP\_INTELPERC\_UVDEPTH\_MAP
+
+```cpp
+static int cv::enums::CAP_INTELPERC_UVDEPTH_MAP
+AutoIt:
+    [propget] $oenums.CAP_INTELPERC_UVDEPTH_MAP
+```
+
+### enums.CAP\_INTELPERC\_IR\_MAP
+
+```cpp
+static int cv::enums::CAP_INTELPERC_IR_MAP
+AutoIt:
+    [propget] $oenums.CAP_INTELPERC_IR_MAP
+```
+
+### enums.CAP\_INTELPERC\_IMAGE
+
+```cpp
+static int cv::enums::CAP_INTELPERC_IMAGE
+AutoIt:
+    [propget] $oenums.CAP_INTELPERC_IMAGE
+```
+
+### enums.CAP\_PROP\_GPHOTO2\_PREVIEW
+
+```cpp
+static int cv::enums::CAP_PROP_GPHOTO2_PREVIEW
+AutoIt:
+    [propget] $oenums.CAP_PROP_GPHOTO2_PREVIEW
+```
+
+### enums.CAP\_PROP\_GPHOTO2\_WIDGET\_ENUMERATE
+
+```cpp
+static int cv::enums::CAP_PROP_GPHOTO2_WIDGET_ENUMERATE
+AutoIt:
+    [propget] $oenums.CAP_PROP_GPHOTO2_WIDGET_ENUMERATE
+```
+
+### enums.CAP\_PROP\_GPHOTO2\_RELOAD\_CONFIG
+
+```cpp
+static int cv::enums::CAP_PROP_GPHOTO2_RELOAD_CONFIG
+AutoIt:
+    [propget] $oenums.CAP_PROP_GPHOTO2_RELOAD_CONFIG
+```
+
+### enums.CAP\_PROP\_GPHOTO2\_RELOAD\_ON\_CHANGE
+
+```cpp
+static int cv::enums::CAP_PROP_GPHOTO2_RELOAD_ON_CHANGE
+AutoIt:
+    [propget] $oenums.CAP_PROP_GPHOTO2_RELOAD_ON_CHANGE
+```
+
+### enums.CAP\_PROP\_GPHOTO2\_COLLECT\_MSGS
+
+```cpp
+static int cv::enums::CAP_PROP_GPHOTO2_COLLECT_MSGS
+AutoIt:
+    [propget] $oenums.CAP_PROP_GPHOTO2_COLLECT_MSGS
+```
+
+### enums.CAP\_PROP\_GPHOTO2\_FLUSH\_MSGS
+
+```cpp
+static int cv::enums::CAP_PROP_GPHOTO2_FLUSH_MSGS
+AutoIt:
+    [propget] $oenums.CAP_PROP_GPHOTO2_FLUSH_MSGS
+```
+
+### enums.CAP\_PROP\_SPEED
+
+```cpp
+static int cv::enums::CAP_PROP_SPEED
+AutoIt:
+    [propget] $oenums.CAP_PROP_SPEED
+```
+
+### enums.CAP\_PROP\_APERTURE
+
+```cpp
+static int cv::enums::CAP_PROP_APERTURE
+AutoIt:
+    [propget] $oenums.CAP_PROP_APERTURE
+```
+
+### enums.CAP\_PROP\_EXPOSUREPROGRAM
+
+```cpp
+static int cv::enums::CAP_PROP_EXPOSUREPROGRAM
+AutoIt:
+    [propget] $oenums.CAP_PROP_EXPOSUREPROGRAM
+```
+
+### enums.CAP\_PROP\_VIEWFINDER
+
+```cpp
+static int cv::enums::CAP_PROP_VIEWFINDER
+AutoIt:
+    [propget] $oenums.CAP_PROP_VIEWFINDER
+```
+
+### enums.CAP\_PROP\_IMAGES\_BASE
+
+```cpp
+static int cv::enums::CAP_PROP_IMAGES_BASE
+AutoIt:
+    [propget] $oenums.CAP_PROP_IMAGES_BASE
+```
+
+### enums.CAP\_PROP\_IMAGES\_LAST
+
+```cpp
+static int cv::enums::CAP_PROP_IMAGES_LAST
+AutoIt:
+    [propget] $oenums.CAP_PROP_IMAGES_LAST
+```
+
+### enums.CAP\_OBSENSOR\_DEPTH\_MAP
+
+```cpp
+static int cv::enums::CAP_OBSENSOR_DEPTH_MAP
+AutoIt:
+    [propget] $oenums.CAP_OBSENSOR_DEPTH_MAP
+```
+
+### enums.CAP\_OBSENSOR\_BGR\_IMAGE
+
+```cpp
+static int cv::enums::CAP_OBSENSOR_BGR_IMAGE
+AutoIt:
+    [propget] $oenums.CAP_OBSENSOR_BGR_IMAGE
+```
+
+### enums.CAP\_OBSENSOR\_IR\_IMAGE
+
+```cpp
+static int cv::enums::CAP_OBSENSOR_IR_IMAGE
+AutoIt:
+    [propget] $oenums.CAP_OBSENSOR_IR_IMAGE
+```
+
+### enums.CAP\_OBSENSOR\_DEPTH\_GENERATOR
+
+```cpp
+static int cv::enums::CAP_OBSENSOR_DEPTH_GENERATOR
+AutoIt:
+    [propget] $oenums.CAP_OBSENSOR_DEPTH_GENERATOR
+```
+
+### enums.CAP\_OBSENSOR\_IMAGE\_GENERATOR
+
+```cpp
+static int cv::enums::CAP_OBSENSOR_IMAGE_GENERATOR
+AutoIt:
+    [propget] $oenums.CAP_OBSENSOR_IMAGE_GENERATOR
+```
+
+### enums.CAP\_OBSENSOR\_IR\_GENERATOR
+
+```cpp
+static int cv::enums::CAP_OBSENSOR_IR_GENERATOR
+AutoIt:
+    [propget] $oenums.CAP_OBSENSOR_IR_GENERATOR
+```
+
+### enums.CAP\_OBSENSOR\_GENERATORS\_MASK
+
+```cpp
+static int cv::enums::CAP_OBSENSOR_GENERATORS_MASK
+AutoIt:
+    [propget] $oenums.CAP_OBSENSOR_GENERATORS_MASK
+```
+
+### enums.CAP\_PROP\_OBSENSOR\_INTRINSIC\_FX
+
+```cpp
+static int cv::enums::CAP_PROP_OBSENSOR_INTRINSIC_FX
+AutoIt:
+    [propget] $oenums.CAP_PROP_OBSENSOR_INTRINSIC_FX
+```
+
+### enums.CAP\_PROP\_OBSENSOR\_INTRINSIC\_FY
+
+```cpp
+static int cv::enums::CAP_PROP_OBSENSOR_INTRINSIC_FY
+AutoIt:
+    [propget] $oenums.CAP_PROP_OBSENSOR_INTRINSIC_FY
+```
+
+### enums.CAP\_PROP\_OBSENSOR\_INTRINSIC\_CX
+
+```cpp
+static int cv::enums::CAP_PROP_OBSENSOR_INTRINSIC_CX
+AutoIt:
+    [propget] $oenums.CAP_PROP_OBSENSOR_INTRINSIC_CX
+```
+
+### enums.CAP\_PROP\_OBSENSOR\_INTRINSIC\_CY
+
+```cpp
+static int cv::enums::CAP_PROP_OBSENSOR_INTRINSIC_CY
+AutoIt:
+    [propget] $oenums.CAP_PROP_OBSENSOR_INTRINSIC_CY
+```
+
+### enums.LMEDS
+
+```cpp
+static int cv::enums::LMEDS
+AutoIt:
+    [propget] $oenums.LMEDS
+```
+
+### enums.RANSAC
+
+```cpp
+static int cv::enums::RANSAC
+AutoIt:
+    [propget] $oenums.RANSAC
+```
+
+### enums.RHO
+
+```cpp
+static int cv::enums::RHO
+AutoIt:
+    [propget] $oenums.RHO
+```
+
+### enums.USAC\_DEFAULT
+
+```cpp
+static int cv::enums::USAC_DEFAULT
+AutoIt:
+    [propget] $oenums.USAC_DEFAULT
+```
+
+### enums.USAC\_PARALLEL
+
+```cpp
+static int cv::enums::USAC_PARALLEL
+AutoIt:
+    [propget] $oenums.USAC_PARALLEL
+```
+
+### enums.USAC\_FM\_8PTS
+
+```cpp
+static int cv::enums::USAC_FM_8PTS
+AutoIt:
+    [propget] $oenums.USAC_FM_8PTS
+```
+
+### enums.USAC\_FAST
+
+```cpp
+static int cv::enums::USAC_FAST
+AutoIt:
+    [propget] $oenums.USAC_FAST
+```
+
+### enums.USAC\_ACCURATE
+
+```cpp
+static int cv::enums::USAC_ACCURATE
+AutoIt:
+    [propget] $oenums.USAC_ACCURATE
+```
+
+### enums.USAC\_PROSAC
+
+```cpp
+static int cv::enums::USAC_PROSAC
+AutoIt:
+    [propget] $oenums.USAC_PROSAC
+```
+
+### enums.USAC\_MAGSAC
+
+```cpp
+static int cv::enums::USAC_MAGSAC
+AutoIt:
+    [propget] $oenums.USAC_MAGSAC
+```
+
+### enums.SOLVEPNP\_ITERATIVE
+
+```cpp
+static int cv::enums::SOLVEPNP_ITERATIVE
+AutoIt:
+    [propget] $oenums.SOLVEPNP_ITERATIVE
+```
+
+### enums.SOLVEPNP\_EPNP
+
+```cpp
+static int cv::enums::SOLVEPNP_EPNP
+AutoIt:
+    [propget] $oenums.SOLVEPNP_EPNP
+```
+
+### enums.SOLVEPNP\_P3P
+
+```cpp
+static int cv::enums::SOLVEPNP_P3P
+AutoIt:
+    [propget] $oenums.SOLVEPNP_P3P
+```
+
+### enums.SOLVEPNP\_DLS
+
+```cpp
+static int cv::enums::SOLVEPNP_DLS
+AutoIt:
+    [propget] $oenums.SOLVEPNP_DLS
+```
+
+### enums.SOLVEPNP\_UPNP
+
+```cpp
+static int cv::enums::SOLVEPNP_UPNP
+AutoIt:
+    [propget] $oenums.SOLVEPNP_UPNP
+```
+
+### enums.SOLVEPNP\_AP3P
+
+```cpp
+static int cv::enums::SOLVEPNP_AP3P
+AutoIt:
+    [propget] $oenums.SOLVEPNP_AP3P
+```
+
+### enums.SOLVEPNP\_IPPE
+
+```cpp
+static int cv::enums::SOLVEPNP_IPPE
+AutoIt:
+    [propget] $oenums.SOLVEPNP_IPPE
+```
+
+### enums.SOLVEPNP\_IPPE\_SQUARE
+
+```cpp
+static int cv::enums::SOLVEPNP_IPPE_SQUARE
+AutoIt:
+    [propget] $oenums.SOLVEPNP_IPPE_SQUARE
+```
+
+### enums.SOLVEPNP\_SQPNP
+
+```cpp
+static int cv::enums::SOLVEPNP_SQPNP
+AutoIt:
+    [propget] $oenums.SOLVEPNP_SQPNP
+```
+
+### enums.SOLVEPNP\_MAX\_COUNT
+
+```cpp
+static int cv::enums::SOLVEPNP_MAX_COUNT
+AutoIt:
+    [propget] $oenums.SOLVEPNP_MAX_COUNT
+```
+
+### enums.CALIB\_CB\_ADAPTIVE\_THRESH
+
+```cpp
+static int cv::enums::CALIB_CB_ADAPTIVE_THRESH
+AutoIt:
+    [propget] $oenums.CALIB_CB_ADAPTIVE_THRESH
+```
+
+### enums.CALIB\_CB\_NORMALIZE\_IMAGE
+
+```cpp
+static int cv::enums::CALIB_CB_NORMALIZE_IMAGE
+AutoIt:
+    [propget] $oenums.CALIB_CB_NORMALIZE_IMAGE
+```
+
+### enums.CALIB\_CB\_FILTER\_QUADS
+
+```cpp
+static int cv::enums::CALIB_CB_FILTER_QUADS
+AutoIt:
+    [propget] $oenums.CALIB_CB_FILTER_QUADS
+```
+
+### enums.CALIB\_CB\_FAST\_CHECK
+
+```cpp
+static int cv::enums::CALIB_CB_FAST_CHECK
+AutoIt:
+    [propget] $oenums.CALIB_CB_FAST_CHECK
+```
+
+### enums.CALIB\_CB\_EXHAUSTIVE
+
+```cpp
+static int cv::enums::CALIB_CB_EXHAUSTIVE
+AutoIt:
+    [propget] $oenums.CALIB_CB_EXHAUSTIVE
+```
+
+### enums.CALIB\_CB\_ACCURACY
+
+```cpp
+static int cv::enums::CALIB_CB_ACCURACY
+AutoIt:
+    [propget] $oenums.CALIB_CB_ACCURACY
+```
+
+### enums.CALIB\_CB\_LARGER
+
+```cpp
+static int cv::enums::CALIB_CB_LARGER
+AutoIt:
+    [propget] $oenums.CALIB_CB_LARGER
+```
+
+### enums.CALIB\_CB\_MARKER
+
+```cpp
+static int cv::enums::CALIB_CB_MARKER
+AutoIt:
+    [propget] $oenums.CALIB_CB_MARKER
+```
+
+### enums.CALIB\_CB\_SYMMETRIC\_GRID
+
+```cpp
+static int cv::enums::CALIB_CB_SYMMETRIC_GRID
+AutoIt:
+    [propget] $oenums.CALIB_CB_SYMMETRIC_GRID
+```
+
+### enums.CALIB\_CB\_ASYMMETRIC\_GRID
+
+```cpp
+static int cv::enums::CALIB_CB_ASYMMETRIC_GRID
+AutoIt:
+    [propget] $oenums.CALIB_CB_ASYMMETRIC_GRID
+```
+
+### enums.CALIB\_CB\_CLUSTERING
+
+```cpp
+static int cv::enums::CALIB_CB_CLUSTERING
+AutoIt:
+    [propget] $oenums.CALIB_CB_CLUSTERING
+```
+
+### enums.CALIB\_NINTRINSIC
+
+```cpp
+static int cv::enums::CALIB_NINTRINSIC
+AutoIt:
+    [propget] $oenums.CALIB_NINTRINSIC
+```
+
+### enums.CALIB\_USE\_INTRINSIC\_GUESS
+
+```cpp
+static int cv::enums::CALIB_USE_INTRINSIC_GUESS
+AutoIt:
+    [propget] $oenums.CALIB_USE_INTRINSIC_GUESS
+```
+
+### enums.CALIB\_FIX\_ASPECT\_RATIO
+
+```cpp
+static int cv::enums::CALIB_FIX_ASPECT_RATIO
+AutoIt:
+    [propget] $oenums.CALIB_FIX_ASPECT_RATIO
+```
+
+### enums.CALIB\_FIX\_PRINCIPAL\_POINT
+
+```cpp
+static int cv::enums::CALIB_FIX_PRINCIPAL_POINT
+AutoIt:
+    [propget] $oenums.CALIB_FIX_PRINCIPAL_POINT
+```
+
+### enums.CALIB\_ZERO\_TANGENT\_DIST
+
+```cpp
+static int cv::enums::CALIB_ZERO_TANGENT_DIST
+AutoIt:
+    [propget] $oenums.CALIB_ZERO_TANGENT_DIST
+```
+
+### enums.CALIB\_FIX\_FOCAL\_LENGTH
+
+```cpp
+static int cv::enums::CALIB_FIX_FOCAL_LENGTH
+AutoIt:
+    [propget] $oenums.CALIB_FIX_FOCAL_LENGTH
+```
+
+### enums.CALIB\_FIX\_K1
+
+```cpp
+static int cv::enums::CALIB_FIX_K1
+AutoIt:
+    [propget] $oenums.CALIB_FIX_K1
+```
+
+### enums.CALIB\_FIX\_K2
+
+```cpp
+static int cv::enums::CALIB_FIX_K2
+AutoIt:
+    [propget] $oenums.CALIB_FIX_K2
+```
+
+### enums.CALIB\_FIX\_K3
+
+```cpp
+static int cv::enums::CALIB_FIX_K3
+AutoIt:
+    [propget] $oenums.CALIB_FIX_K3
+```
+
+### enums.CALIB\_FIX\_K4
+
+```cpp
+static int cv::enums::CALIB_FIX_K4
+AutoIt:
+    [propget] $oenums.CALIB_FIX_K4
+```
+
+### enums.CALIB\_FIX\_K5
+
+```cpp
+static int cv::enums::CALIB_FIX_K5
+AutoIt:
+    [propget] $oenums.CALIB_FIX_K5
+```
+
+### enums.CALIB\_FIX\_K6
+
+```cpp
+static int cv::enums::CALIB_FIX_K6
+AutoIt:
+    [propget] $oenums.CALIB_FIX_K6
+```
+
+### enums.CALIB\_RATIONAL\_MODEL
+
+```cpp
+static int cv::enums::CALIB_RATIONAL_MODEL
+AutoIt:
+    [propget] $oenums.CALIB_RATIONAL_MODEL
+```
+
+### enums.CALIB\_THIN\_PRISM\_MODEL
+
+```cpp
+static int cv::enums::CALIB_THIN_PRISM_MODEL
+AutoIt:
+    [propget] $oenums.CALIB_THIN_PRISM_MODEL
+```
+
+### enums.CALIB\_FIX\_S1\_S2\_S3\_S4
+
+```cpp
+static int cv::enums::CALIB_FIX_S1_S2_S3_S4
+AutoIt:
+    [propget] $oenums.CALIB_FIX_S1_S2_S3_S4
+```
+
+### enums.CALIB\_TILTED\_MODEL
+
+```cpp
+static int cv::enums::CALIB_TILTED_MODEL
+AutoIt:
+    [propget] $oenums.CALIB_TILTED_MODEL
+```
+
+### enums.CALIB\_FIX\_TAUX\_TAUY
+
+```cpp
+static int cv::enums::CALIB_FIX_TAUX_TAUY
+AutoIt:
+    [propget] $oenums.CALIB_FIX_TAUX_TAUY
+```
+
+### enums.CALIB\_USE\_QR
+
+```cpp
+static int cv::enums::CALIB_USE_QR
+AutoIt:
+    [propget] $oenums.CALIB_USE_QR
+```
+
+### enums.CALIB\_FIX\_TANGENT\_DIST
+
+```cpp
+static int cv::enums::CALIB_FIX_TANGENT_DIST
+AutoIt:
+    [propget] $oenums.CALIB_FIX_TANGENT_DIST
+```
+
+### enums.CALIB\_FIX\_INTRINSIC
+
+```cpp
+static int cv::enums::CALIB_FIX_INTRINSIC
+AutoIt:
+    [propget] $oenums.CALIB_FIX_INTRINSIC
+```
+
+### enums.CALIB\_SAME\_FOCAL\_LENGTH
+
+```cpp
+static int cv::enums::CALIB_SAME_FOCAL_LENGTH
+AutoIt:
+    [propget] $oenums.CALIB_SAME_FOCAL_LENGTH
+```
+
+### enums.CALIB\_ZERO\_DISPARITY
+
+```cpp
+static int cv::enums::CALIB_ZERO_DISPARITY
+AutoIt:
+    [propget] $oenums.CALIB_ZERO_DISPARITY
+```
+
+### enums.CALIB\_USE\_LU
+
+```cpp
+static int cv::enums::CALIB_USE_LU
+AutoIt:
+    [propget] $oenums.CALIB_USE_LU
+```
+
+### enums.CALIB\_USE\_EXTRINSIC\_GUESS
+
+```cpp
+static int cv::enums::CALIB_USE_EXTRINSIC_GUESS
+AutoIt:
+    [propget] $oenums.CALIB_USE_EXTRINSIC_GUESS
+```
+
+### enums.FM\_7POINT
+
+```cpp
+static int cv::enums::FM_7POINT
+AutoIt:
+    [propget] $oenums.FM_7POINT
+```
+
+### enums.FM\_8POINT
+
+```cpp
+static int cv::enums::FM_8POINT
+AutoIt:
+    [propget] $oenums.FM_8POINT
+```
+
+### enums.FM\_LMEDS
+
+```cpp
+static int cv::enums::FM_LMEDS
+AutoIt:
+    [propget] $oenums.FM_LMEDS
+```
+
+### enums.FM\_RANSAC
+
+```cpp
+static int cv::enums::FM_RANSAC
+AutoIt:
+    [propget] $oenums.FM_RANSAC
+```
+
+### enums.CALIB\_HAND\_EYE\_TSAI
+
+```cpp
+static int cv::enums::CALIB_HAND_EYE_TSAI
+AutoIt:
+    [propget] $oenums.CALIB_HAND_EYE_TSAI
+```
+
+### enums.CALIB\_HAND\_EYE\_PARK
+
+```cpp
+static int cv::enums::CALIB_HAND_EYE_PARK
+AutoIt:
+    [propget] $oenums.CALIB_HAND_EYE_PARK
+```
+
+### enums.CALIB\_HAND\_EYE\_HORAUD
+
+```cpp
+static int cv::enums::CALIB_HAND_EYE_HORAUD
+AutoIt:
+    [propget] $oenums.CALIB_HAND_EYE_HORAUD
+```
+
+### enums.CALIB\_HAND\_EYE\_ANDREFF
+
+```cpp
+static int cv::enums::CALIB_HAND_EYE_ANDREFF
+AutoIt:
+    [propget] $oenums.CALIB_HAND_EYE_ANDREFF
+```
+
+### enums.CALIB\_HAND\_EYE\_DANIILIDIS
+
+```cpp
+static int cv::enums::CALIB_HAND_EYE_DANIILIDIS
+AutoIt:
+    [propget] $oenums.CALIB_HAND_EYE_DANIILIDIS
+```
+
+### enums.CALIB\_ROBOT\_WORLD\_HAND\_EYE\_SHAH
+
+```cpp
+static int cv::enums::CALIB_ROBOT_WORLD_HAND_EYE_SHAH
+AutoIt:
+    [propget] $oenums.CALIB_ROBOT_WORLD_HAND_EYE_SHAH
+```
+
+### enums.CALIB\_ROBOT\_WORLD\_HAND\_EYE\_LI
+
+```cpp
+static int cv::enums::CALIB_ROBOT_WORLD_HAND_EYE_LI
+AutoIt:
+    [propget] $oenums.CALIB_ROBOT_WORLD_HAND_EYE_LI
+```
+
+### enums.SAMPLING\_UNIFORM
+
+```cpp
+static int cv::enums::SAMPLING_UNIFORM
+AutoIt:
+    [propget] $oenums.SAMPLING_UNIFORM
+```
+
+### enums.SAMPLING\_PROGRESSIVE\_NAPSAC
+
+```cpp
+static int cv::enums::SAMPLING_PROGRESSIVE_NAPSAC
+AutoIt:
+    [propget] $oenums.SAMPLING_PROGRESSIVE_NAPSAC
+```
+
+### enums.SAMPLING\_NAPSAC
+
+```cpp
+static int cv::enums::SAMPLING_NAPSAC
+AutoIt:
+    [propget] $oenums.SAMPLING_NAPSAC
+```
+
+### enums.SAMPLING\_PROSAC
+
+```cpp
+static int cv::enums::SAMPLING_PROSAC
+AutoIt:
+    [propget] $oenums.SAMPLING_PROSAC
+```
+
+### enums.LOCAL\_OPTIM\_NULL
+
+```cpp
+static int cv::enums::LOCAL_OPTIM_NULL
+AutoIt:
+    [propget] $oenums.LOCAL_OPTIM_NULL
+```
+
+### enums.LOCAL\_OPTIM\_INNER\_LO
+
+```cpp
+static int cv::enums::LOCAL_OPTIM_INNER_LO
+AutoIt:
+    [propget] $oenums.LOCAL_OPTIM_INNER_LO
+```
+
+### enums.LOCAL\_OPTIM\_INNER\_AND\_ITER\_LO
+
+```cpp
+static int cv::enums::LOCAL_OPTIM_INNER_AND_ITER_LO
+AutoIt:
+    [propget] $oenums.LOCAL_OPTIM_INNER_AND_ITER_LO
+```
+
+### enums.LOCAL\_OPTIM\_GC
+
+```cpp
+static int cv::enums::LOCAL_OPTIM_GC
+AutoIt:
+    [propget] $oenums.LOCAL_OPTIM_GC
+```
+
+### enums.LOCAL\_OPTIM\_SIGMA
+
+```cpp
+static int cv::enums::LOCAL_OPTIM_SIGMA
+AutoIt:
+    [propget] $oenums.LOCAL_OPTIM_SIGMA
+```
+
+### enums.SCORE\_METHOD\_RANSAC
+
+```cpp
+static int cv::enums::SCORE_METHOD_RANSAC
+AutoIt:
+    [propget] $oenums.SCORE_METHOD_RANSAC
+```
+
+### enums.SCORE\_METHOD\_MSAC
+
+```cpp
+static int cv::enums::SCORE_METHOD_MSAC
+AutoIt:
+    [propget] $oenums.SCORE_METHOD_MSAC
+```
+
+### enums.SCORE\_METHOD\_MAGSAC
+
+```cpp
+static int cv::enums::SCORE_METHOD_MAGSAC
+AutoIt:
+    [propget] $oenums.SCORE_METHOD_MAGSAC
+```
+
+### enums.SCORE\_METHOD\_LMEDS
+
+```cpp
+static int cv::enums::SCORE_METHOD_LMEDS
+AutoIt:
+    [propget] $oenums.SCORE_METHOD_LMEDS
+```
+
+### enums.NEIGH\_FLANN\_KNN
+
+```cpp
+static int cv::enums::NEIGH_FLANN_KNN
+AutoIt:
+    [propget] $oenums.NEIGH_FLANN_KNN
+```
+
+### enums.NEIGH\_GRID
+
+```cpp
+static int cv::enums::NEIGH_GRID
+AutoIt:
+    [propget] $oenums.NEIGH_GRID
+```
+
+### enums.NEIGH\_FLANN\_RADIUS
+
+```cpp
+static int cv::enums::NEIGH_FLANN_RADIUS
+AutoIt:
+    [propget] $oenums.NEIGH_FLANN_RADIUS
+```
+
+### enums.PROJ\_SPHERICAL\_ORTHO
+
+```cpp
+static int cv::enums::PROJ_SPHERICAL_ORTHO
+AutoIt:
+    [propget] $oenums.PROJ_SPHERICAL_ORTHO
+```
+
+### enums.PROJ\_SPHERICAL\_EQRECT
+
+```cpp
+static int cv::enums::PROJ_SPHERICAL_EQRECT
+AutoIt:
+    [propget] $oenums.PROJ_SPHERICAL_EQRECT
+```
+
+### enums.WINDOW\_NORMAL
+
+```cpp
+static int cv::enums::WINDOW_NORMAL
+AutoIt:
+    [propget] $oenums.WINDOW_NORMAL
+```
+
+### enums.WINDOW\_AUTOSIZE
+
+```cpp
+static int cv::enums::WINDOW_AUTOSIZE
+AutoIt:
+    [propget] $oenums.WINDOW_AUTOSIZE
+```
+
+### enums.WINDOW\_OPENGL
+
+```cpp
+static int cv::enums::WINDOW_OPENGL
+AutoIt:
+    [propget] $oenums.WINDOW_OPENGL
+```
+
+### enums.WINDOW\_FULLSCREEN
+
+```cpp
+static int cv::enums::WINDOW_FULLSCREEN
+AutoIt:
+    [propget] $oenums.WINDOW_FULLSCREEN
+```
+
+### enums.WINDOW\_FREERATIO
+
+```cpp
+static int cv::enums::WINDOW_FREERATIO
+AutoIt:
+    [propget] $oenums.WINDOW_FREERATIO
+```
+
+### enums.WINDOW\_KEEPRATIO
+
+```cpp
+static int cv::enums::WINDOW_KEEPRATIO
+AutoIt:
+    [propget] $oenums.WINDOW_KEEPRATIO
+```
+
+### enums.WINDOW\_GUI\_EXPANDED
+
+```cpp
+static int cv::enums::WINDOW_GUI_EXPANDED
+AutoIt:
+    [propget] $oenums.WINDOW_GUI_EXPANDED
+```
+
+### enums.WINDOW\_GUI\_NORMAL
+
+```cpp
+static int cv::enums::WINDOW_GUI_NORMAL
+AutoIt:
+    [propget] $oenums.WINDOW_GUI_NORMAL
+```
+
+### enums.WND\_PROP\_FULLSCREEN
+
+```cpp
+static int cv::enums::WND_PROP_FULLSCREEN
+AutoIt:
+    [propget] $oenums.WND_PROP_FULLSCREEN
+```
+
+### enums.WND\_PROP\_AUTOSIZE
+
+```cpp
+static int cv::enums::WND_PROP_AUTOSIZE
+AutoIt:
+    [propget] $oenums.WND_PROP_AUTOSIZE
+```
+
+### enums.WND\_PROP\_ASPECT\_RATIO
+
+```cpp
+static int cv::enums::WND_PROP_ASPECT_RATIO
+AutoIt:
+    [propget] $oenums.WND_PROP_ASPECT_RATIO
+```
+
+### enums.WND\_PROP\_OPENGL
+
+```cpp
+static int cv::enums::WND_PROP_OPENGL
+AutoIt:
+    [propget] $oenums.WND_PROP_OPENGL
+```
+
+### enums.WND\_PROP\_VISIBLE
+
+```cpp
+static int cv::enums::WND_PROP_VISIBLE
+AutoIt:
+    [propget] $oenums.WND_PROP_VISIBLE
+```
+
+### enums.WND\_PROP\_TOPMOST
+
+```cpp
+static int cv::enums::WND_PROP_TOPMOST
+AutoIt:
+    [propget] $oenums.WND_PROP_TOPMOST
+```
+
+### enums.WND\_PROP\_VSYNC
+
+```cpp
+static int cv::enums::WND_PROP_VSYNC
+AutoIt:
+    [propget] $oenums.WND_PROP_VSYNC
+```
+
+### enums.EVENT\_MOUSEMOVE
+
+```cpp
+static int cv::enums::EVENT_MOUSEMOVE
+AutoIt:
+    [propget] $oenums.EVENT_MOUSEMOVE
+```
+
+### enums.EVENT\_LBUTTONDOWN
+
+```cpp
+static int cv::enums::EVENT_LBUTTONDOWN
+AutoIt:
+    [propget] $oenums.EVENT_LBUTTONDOWN
+```
+
+### enums.EVENT\_RBUTTONDOWN
+
+```cpp
+static int cv::enums::EVENT_RBUTTONDOWN
+AutoIt:
+    [propget] $oenums.EVENT_RBUTTONDOWN
+```
+
+### enums.EVENT\_MBUTTONDOWN
+
+```cpp
+static int cv::enums::EVENT_MBUTTONDOWN
+AutoIt:
+    [propget] $oenums.EVENT_MBUTTONDOWN
+```
+
+### enums.EVENT\_LBUTTONUP
+
+```cpp
+static int cv::enums::EVENT_LBUTTONUP
+AutoIt:
+    [propget] $oenums.EVENT_LBUTTONUP
+```
+
+### enums.EVENT\_RBUTTONUP
+
+```cpp
+static int cv::enums::EVENT_RBUTTONUP
+AutoIt:
+    [propget] $oenums.EVENT_RBUTTONUP
+```
+
+### enums.EVENT\_MBUTTONUP
+
+```cpp
+static int cv::enums::EVENT_MBUTTONUP
+AutoIt:
+    [propget] $oenums.EVENT_MBUTTONUP
+```
+
+### enums.EVENT\_LBUTTONDBLCLK
+
+```cpp
+static int cv::enums::EVENT_LBUTTONDBLCLK
+AutoIt:
+    [propget] $oenums.EVENT_LBUTTONDBLCLK
+```
+
+### enums.EVENT\_RBUTTONDBLCLK
+
+```cpp
+static int cv::enums::EVENT_RBUTTONDBLCLK
+AutoIt:
+    [propget] $oenums.EVENT_RBUTTONDBLCLK
+```
+
+### enums.EVENT\_MBUTTONDBLCLK
+
+```cpp
+static int cv::enums::EVENT_MBUTTONDBLCLK
+AutoIt:
+    [propget] $oenums.EVENT_MBUTTONDBLCLK
+```
+
+### enums.EVENT\_MOUSEWHEEL
+
+```cpp
+static int cv::enums::EVENT_MOUSEWHEEL
+AutoIt:
+    [propget] $oenums.EVENT_MOUSEWHEEL
+```
+
+### enums.EVENT\_MOUSEHWHEEL
+
+```cpp
+static int cv::enums::EVENT_MOUSEHWHEEL
+AutoIt:
+    [propget] $oenums.EVENT_MOUSEHWHEEL
+```
+
+### enums.EVENT\_FLAG\_LBUTTON
+
+```cpp
+static int cv::enums::EVENT_FLAG_LBUTTON
+AutoIt:
+    [propget] $oenums.EVENT_FLAG_LBUTTON
+```
+
+### enums.EVENT\_FLAG\_RBUTTON
+
+```cpp
+static int cv::enums::EVENT_FLAG_RBUTTON
+AutoIt:
+    [propget] $oenums.EVENT_FLAG_RBUTTON
+```
+
+### enums.EVENT\_FLAG\_MBUTTON
+
+```cpp
+static int cv::enums::EVENT_FLAG_MBUTTON
+AutoIt:
+    [propget] $oenums.EVENT_FLAG_MBUTTON
+```
+
+### enums.EVENT\_FLAG\_CTRLKEY
+
+```cpp
+static int cv::enums::EVENT_FLAG_CTRLKEY
+AutoIt:
+    [propget] $oenums.EVENT_FLAG_CTRLKEY
+```
+
+### enums.EVENT\_FLAG\_SHIFTKEY
+
+```cpp
+static int cv::enums::EVENT_FLAG_SHIFTKEY
+AutoIt:
+    [propget] $oenums.EVENT_FLAG_SHIFTKEY
+```
+
+### enums.EVENT\_FLAG\_ALTKEY
+
+```cpp
+static int cv::enums::EVENT_FLAG_ALTKEY
+AutoIt:
+    [propget] $oenums.EVENT_FLAG_ALTKEY
+```
+
+### enums.QT\_FONT\_LIGHT
+
+```cpp
+static int cv::enums::QT_FONT_LIGHT
+AutoIt:
+    [propget] $oenums.QT_FONT_LIGHT
+```
+
+### enums.QT\_FONT\_NORMAL
+
+```cpp
+static int cv::enums::QT_FONT_NORMAL
+AutoIt:
+    [propget] $oenums.QT_FONT_NORMAL
+```
+
+### enums.QT\_FONT\_DEMIBOLD
+
+```cpp
+static int cv::enums::QT_FONT_DEMIBOLD
+AutoIt:
+    [propget] $oenums.QT_FONT_DEMIBOLD
+```
+
+### enums.QT\_FONT\_BOLD
+
+```cpp
+static int cv::enums::QT_FONT_BOLD
+AutoIt:
+    [propget] $oenums.QT_FONT_BOLD
+```
+
+### enums.QT\_FONT\_BLACK
+
+```cpp
+static int cv::enums::QT_FONT_BLACK
+AutoIt:
+    [propget] $oenums.QT_FONT_BLACK
+```
+
+### enums.QT\_STYLE\_NORMAL
+
+```cpp
+static int cv::enums::QT_STYLE_NORMAL
+AutoIt:
+    [propget] $oenums.QT_STYLE_NORMAL
+```
+
+### enums.QT\_STYLE\_ITALIC
+
+```cpp
+static int cv::enums::QT_STYLE_ITALIC
+AutoIt:
+    [propget] $oenums.QT_STYLE_ITALIC
+```
+
+### enums.QT\_STYLE\_OBLIQUE
+
+```cpp
+static int cv::enums::QT_STYLE_OBLIQUE
+AutoIt:
+    [propget] $oenums.QT_STYLE_OBLIQUE
+```
+
+### enums.QT\_PUSH\_BUTTON
+
+```cpp
+static int cv::enums::QT_PUSH_BUTTON
+AutoIt:
+    [propget] $oenums.QT_PUSH_BUTTON
+```
+
+### enums.QT\_CHECKBOX
+
+```cpp
+static int cv::enums::QT_CHECKBOX
+AutoIt:
+    [propget] $oenums.QT_CHECKBOX
+```
+
+### enums.QT\_RADIOBOX
+
+```cpp
+static int cv::enums::QT_RADIOBOX
+AutoIt:
+    [propget] $oenums.QT_RADIOBOX
+```
+
+### enums.QT\_NEW\_BUTTONBAR
+
+```cpp
+static int cv::enums::QT_NEW_BUTTONBAR
+AutoIt:
+    [propget] $oenums.QT_NEW_BUTTONBAR
+```
+
+### enums.CASCADE\_DO\_CANNY\_PRUNING
+
+```cpp
+static int cv::enums::CASCADE_DO_CANNY_PRUNING
+AutoIt:
+    [propget] $oenums.CASCADE_DO_CANNY_PRUNING
+```
+
+### enums.CASCADE\_SCALE\_IMAGE
+
+```cpp
+static int cv::enums::CASCADE_SCALE_IMAGE
+AutoIt:
+    [propget] $oenums.CASCADE_SCALE_IMAGE
+```
+
+### enums.CASCADE\_FIND\_BIGGEST\_OBJECT
+
+```cpp
+static int cv::enums::CASCADE_FIND_BIGGEST_OBJECT
+AutoIt:
+    [propget] $oenums.CASCADE_FIND_BIGGEST_OBJECT
+```
+
+### enums.CASCADE\_DO\_ROUGH\_SEARCH
+
+```cpp
+static int cv::enums::CASCADE_DO_ROUGH_SEARCH
+AutoIt:
+    [propget] $oenums.CASCADE_DO_ROUGH_SEARCH
+```
+
+### enums.OPTFLOW\_USE\_INITIAL\_FLOW
+
+```cpp
+static int cv::enums::OPTFLOW_USE_INITIAL_FLOW
+AutoIt:
+    [propget] $oenums.OPTFLOW_USE_INITIAL_FLOW
+```
+
+### enums.OPTFLOW\_LK\_GET\_MIN\_EIGENVALS
+
+```cpp
+static int cv::enums::OPTFLOW_LK_GET_MIN_EIGENVALS
+AutoIt:
+    [propget] $oenums.OPTFLOW_LK_GET_MIN_EIGENVALS
+```
+
+### enums.OPTFLOW\_FARNEBACK\_GAUSSIAN
+
+```cpp
+static int cv::enums::OPTFLOW_FARNEBACK_GAUSSIAN
+AutoIt:
+    [propget] $oenums.OPTFLOW_FARNEBACK_GAUSSIAN
+```
+
+### enums.MOTION\_TRANSLATION
+
+```cpp
+static int cv::enums::MOTION_TRANSLATION
+AutoIt:
+    [propget] $oenums.MOTION_TRANSLATION
+```
+
+### enums.MOTION\_EUCLIDEAN
+
+```cpp
+static int cv::enums::MOTION_EUCLIDEAN
+AutoIt:
+    [propget] $oenums.MOTION_EUCLIDEAN
+```
+
+### enums.MOTION\_AFFINE
+
+```cpp
+static int cv::enums::MOTION_AFFINE
+AutoIt:
+    [propget] $oenums.MOTION_AFFINE
+```
+
+### enums.MOTION\_HOMOGRAPHY
+
+```cpp
+static int cv::enums::MOTION_HOMOGRAPHY
+AutoIt:
+    [propget] $oenums.MOTION_HOMOGRAPHY
 ```
 
 ## cv::PCA
@@ -19413,14 +21541,13 @@ AutoIt:
 static cv::RNG cv::RNG::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.RNG").create() -> <cv.RNG object>
-    _OpenCV_ObjCreate("cv.RNG")() -> <cv.RNG object>
 ```
 
 ```cpp
 static cv::RNG cv::RNG::get_create( uint64 state );
 AutoIt:
     _OpenCV_ObjCreate("cv.RNG").create( $state ) -> <cv.RNG object>
-    _OpenCV_ObjCreate("cv.RNG")( $state ) -> <cv.RNG object>
+    $oRNG( $state ) -> <cv.RNG object>
 ```
 
 ### cv::RNG::next
@@ -19569,10 +21696,16 @@ AutoIt:
 ### cv::Algorithm::write
 
 ```cpp
-void cv::Algorithm::write( const cv::Ptr<cv::FileStorage>& fs,
-                           const std::string&              name = String() ) const;
+void cv::Algorithm::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oAlgorithm.write( $fs[, $name] ) -> None
+    $oAlgorithm.write( $fs ) -> None
+```
+
+```cpp
+void cv::Algorithm::write( cv::FileStorage&   fs,
+                           const std::string& name ) const;
+AutoIt:
+    $oAlgorithm.write( $fs, $name ) -> None
 ```
 
 ## cv::Param
@@ -19681,7 +21814,6 @@ AutoIt:
 static cv::AsyncArray cv::AsyncArray::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.AsyncArray").create() -> <cv.AsyncArray object>
-    _OpenCV_ObjCreate("cv.AsyncArray")() -> <cv.AsyncArray object>
 ```
 
 ### cv::AsyncArray::get
@@ -20209,6 +22341,30 @@ AutoIt:
 
 ## cv::utils
 
+### utils.ClassWithKeywordProperties
+
+```cpp
+static cv::utils::ClassWithKeywordProperties
+AutoIt:
+    [propget] $outils.ClassWithKeywordProperties
+```
+
+### utils.nested
+
+```cpp
+static cv::utils::nested
+AutoIt:
+    [propget] $outils.nested
+```
+
+### utils.fs
+
+```cpp
+static cv::utils::fs
+AutoIt:
+    [propget] $outils.fs
+```
+
 ### cv::utils::dumpBool
 
 ```cpp
@@ -20281,6 +22437,14 @@ AutoIt:
     _OpenCV_ObjCreate("cv.utils").dumpInt( $argument ) -> retval
 ```
 
+### cv::utils::dumpInt64
+
+```cpp
+std::string cv::utils::dumpInt64( int64 argument );
+AutoIt:
+    _OpenCV_ObjCreate("cv.utils").dumpInt64( $argument ) -> retval
+```
+
 ### cv::utils::dumpRange
 
 ```cpp
@@ -20327,6 +22491,14 @@ AutoIt:
 std::string cv::utils::dumpTermCriteria( const cv::TermCriteria& argument );
 AutoIt:
     _OpenCV_ObjCreate("cv.utils").dumpTermCriteria( $argument ) -> retval
+```
+
+### cv::utils::dumpVec2i
+
+```cpp
+std::string cv::utils::dumpVec2i( const cv::Vec2i value = cv::Vec2i(42, 24) );
+AutoIt:
+    _OpenCV_ObjCreate("cv.utils").dumpVec2i( [$value] ) -> retval
 ```
 
 ### cv::utils::dumpVectorOfDouble
@@ -20464,7 +22636,43 @@ AutoIt:
     _OpenCV_ObjCreate("cv.utils").testRotatedRectVector( $x, $y, $w, $h, $angle ) -> retval
 ```
 
+## cv::utils::ClassWithKeywordProperties
+
+### ClassWithKeywordProperties.lambda
+
+```cpp
+int cv::utils::ClassWithKeywordProperties::lambda
+AutoIt:
+    [propget, propput] $oClassWithKeywordProperties.lambda
+```
+
+### ClassWithKeywordProperties.except
+
+```cpp
+int cv::utils::ClassWithKeywordProperties::except
+AutoIt:
+    [propget] $oClassWithKeywordProperties.except
+```
+
+### cv::utils::ClassWithKeywordProperties::get\_create
+
+```cpp
+static cv::utils::ClassWithKeywordProperties cv::utils::ClassWithKeywordProperties::get_create( int lambda_arg = 24,
+                                                                                                int except_arg = 42 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.utils.ClassWithKeywordProperties").create( [$lambda_arg[, $except_arg]] ) -> <cv.utils.ClassWithKeywordProperties object>
+    $oClassWithKeywordProperties( [$lambda_arg[, $except_arg]] ) -> <cv.utils.ClassWithKeywordProperties object>
+```
+
 ## cv::utils::nested
+
+### nested.OriginalClassName
+
+```cpp
+static cv::utils::nested::OriginalClassName
+AutoIt:
+    [propget] $onested.OriginalClassName
+```
 
 ### cv::utils::nested::testEchoBooleanFunction
 
@@ -20476,13 +22684,21 @@ AutoIt:
 
 ## cv::utils::nested::OriginalClassName
 
+### OriginalClassName.Params
+
+```cpp
+static cv::utils::nested::OriginalClassName::Params
+AutoIt:
+    [propget] $oOriginalClassName.Params
+```
+
 ### cv::utils::nested::OriginalClassName::get\_create
 
 ```cpp
 static cv::Ptr<cv::utils::nested::OriginalClassName> cv::utils::nested::OriginalClassName::get_create( const cv::utils::nested::OriginalClassName::Params& params = OriginalClassName::Params() );
 AutoIt:
     _OpenCV_ObjCreate("cv.utils.nested.OriginalClassName").create( [$params] ) -> retval
-    _OpenCV_ObjCreate("cv.utils.nested.OriginalClassName")( [$params] ) -> retval
+    $oOriginalClassName( [$params] ) -> retval
 ```
 
 ### cv::utils::nested::OriginalClassName::getFloatParam
@@ -20516,7 +22732,7 @@ AutoIt:
 ```cpp
 int cv::utils::nested::OriginalClassName::Params::int_value
 AutoIt:
-    [propget propput] $oParams.int_value
+    [propget, propput] $oParams.int_value
 ```
 
 ### Params.float\_value
@@ -20524,7 +22740,7 @@ AutoIt:
 ```cpp
 float cv::utils::nested::OriginalClassName::Params::float_value
 AutoIt:
-    [propget propput] $oParams.float_value
+    [propget, propput] $oParams.float_value
 ```
 
 ### cv::utils::nested::OriginalClassName::Params::get\_create
@@ -20534,7 +22750,7 @@ static cv::utils::nested::OriginalClassName::Params cv::utils::nested::OriginalC
                                                                                                               float float_param = 3.5f );
 AutoIt:
     _OpenCV_ObjCreate("cv.utils.nested.OriginalClassName.Params").create( [$int_param[, $float_param]] ) -> <cv.utils.nested.OriginalClassName.Params object>
-    _OpenCV_ObjCreate("cv.utils.nested.OriginalClassName.Params")( [$int_param[, $float_param]] ) -> <cv.utils.nested.OriginalClassName.Params object>
+    $oParams( [$int_param[, $float_param]] ) -> <cv.utils.nested.OriginalClassName.Params object>
 ```
 
 ## cv::utils::fs
@@ -20548,6 +22764,342 @@ AutoIt:
 ```
 
 ## cv::detail
+
+### detail.Blender
+
+```cpp
+static cv::detail::Blender
+AutoIt:
+    [propget] $odetail.Blender
+```
+
+### detail.FeatherBlender
+
+```cpp
+static cv::detail::FeatherBlender
+AutoIt:
+    [propget] $odetail.FeatherBlender
+```
+
+### detail.MultiBandBlender
+
+```cpp
+static cv::detail::MultiBandBlender
+AutoIt:
+    [propget] $odetail.MultiBandBlender
+```
+
+### detail.CameraParams
+
+```cpp
+static cv::detail::CameraParams
+AutoIt:
+    [propget] $odetail.CameraParams
+```
+
+### detail.ExposureCompensator
+
+```cpp
+static cv::detail::ExposureCompensator
+AutoIt:
+    [propget] $odetail.ExposureCompensator
+```
+
+### detail.NoExposureCompensator
+
+```cpp
+static cv::detail::NoExposureCompensator
+AutoIt:
+    [propget] $odetail.NoExposureCompensator
+```
+
+### detail.GainCompensator
+
+```cpp
+static cv::detail::GainCompensator
+AutoIt:
+    [propget] $odetail.GainCompensator
+```
+
+### detail.ChannelsCompensator
+
+```cpp
+static cv::detail::ChannelsCompensator
+AutoIt:
+    [propget] $odetail.ChannelsCompensator
+```
+
+### detail.BlocksCompensator
+
+```cpp
+static cv::detail::BlocksCompensator
+AutoIt:
+    [propget] $odetail.BlocksCompensator
+```
+
+### detail.BlocksGainCompensator
+
+```cpp
+static cv::detail::BlocksGainCompensator
+AutoIt:
+    [propget] $odetail.BlocksGainCompensator
+```
+
+### detail.BlocksChannelsCompensator
+
+```cpp
+static cv::detail::BlocksChannelsCompensator
+AutoIt:
+    [propget] $odetail.BlocksChannelsCompensator
+```
+
+### detail.ImageFeatures
+
+```cpp
+static cv::detail::ImageFeatures
+AutoIt:
+    [propget] $odetail.ImageFeatures
+```
+
+### detail.MatchesInfo
+
+```cpp
+static cv::detail::MatchesInfo
+AutoIt:
+    [propget] $odetail.MatchesInfo
+```
+
+### detail.FeaturesMatcher
+
+```cpp
+static cv::detail::FeaturesMatcher
+AutoIt:
+    [propget] $odetail.FeaturesMatcher
+```
+
+### detail.BestOf2NearestMatcher
+
+```cpp
+static cv::detail::BestOf2NearestMatcher
+AutoIt:
+    [propget] $odetail.BestOf2NearestMatcher
+```
+
+### detail.BestOf2NearestRangeMatcher
+
+```cpp
+static cv::detail::BestOf2NearestRangeMatcher
+AutoIt:
+    [propget] $odetail.BestOf2NearestRangeMatcher
+```
+
+### detail.AffineBestOf2NearestMatcher
+
+```cpp
+static cv::detail::AffineBestOf2NearestMatcher
+AutoIt:
+    [propget] $odetail.AffineBestOf2NearestMatcher
+```
+
+### detail.Estimator
+
+```cpp
+static cv::detail::Estimator
+AutoIt:
+    [propget] $odetail.Estimator
+```
+
+### detail.HomographyBasedEstimator
+
+```cpp
+static cv::detail::HomographyBasedEstimator
+AutoIt:
+    [propget] $odetail.HomographyBasedEstimator
+```
+
+### detail.AffineBasedEstimator
+
+```cpp
+static cv::detail::AffineBasedEstimator
+AutoIt:
+    [propget] $odetail.AffineBasedEstimator
+```
+
+### detail.BundleAdjusterBase
+
+```cpp
+static cv::detail::BundleAdjusterBase
+AutoIt:
+    [propget] $odetail.BundleAdjusterBase
+```
+
+### detail.NoBundleAdjuster
+
+```cpp
+static cv::detail::NoBundleAdjuster
+AutoIt:
+    [propget] $odetail.NoBundleAdjuster
+```
+
+### detail.BundleAdjusterReproj
+
+```cpp
+static cv::detail::BundleAdjusterReproj
+AutoIt:
+    [propget] $odetail.BundleAdjusterReproj
+```
+
+### detail.BundleAdjusterRay
+
+```cpp
+static cv::detail::BundleAdjusterRay
+AutoIt:
+    [propget] $odetail.BundleAdjusterRay
+```
+
+### detail.BundleAdjusterAffine
+
+```cpp
+static cv::detail::BundleAdjusterAffine
+AutoIt:
+    [propget] $odetail.BundleAdjusterAffine
+```
+
+### detail.BundleAdjusterAffinePartial
+
+```cpp
+static cv::detail::BundleAdjusterAffinePartial
+AutoIt:
+    [propget] $odetail.BundleAdjusterAffinePartial
+```
+
+### detail.SeamFinder
+
+```cpp
+static cv::detail::SeamFinder
+AutoIt:
+    [propget] $odetail.SeamFinder
+```
+
+### detail.NoSeamFinder
+
+```cpp
+static cv::detail::NoSeamFinder
+AutoIt:
+    [propget] $odetail.NoSeamFinder
+```
+
+### detail.PairwiseSeamFinder
+
+```cpp
+static cv::detail::PairwiseSeamFinder
+AutoIt:
+    [propget] $odetail.PairwiseSeamFinder
+```
+
+### detail.VoronoiSeamFinder
+
+```cpp
+static cv::detail::VoronoiSeamFinder
+AutoIt:
+    [propget] $odetail.VoronoiSeamFinder
+```
+
+### detail.DpSeamFinder
+
+```cpp
+static cv::detail::DpSeamFinder
+AutoIt:
+    [propget] $odetail.DpSeamFinder
+```
+
+### detail.GraphCutSeamFinderBase
+
+```cpp
+static cv::detail::GraphCutSeamFinderBase
+AutoIt:
+    [propget] $odetail.GraphCutSeamFinderBase
+```
+
+### detail.GraphCutSeamFinder
+
+```cpp
+static cv::detail::GraphCutSeamFinder
+AutoIt:
+    [propget] $odetail.GraphCutSeamFinder
+```
+
+### detail.Timelapser
+
+```cpp
+static cv::detail::Timelapser
+AutoIt:
+    [propget] $odetail.Timelapser
+```
+
+### detail.TimelapserCrop
+
+```cpp
+static cv::detail::TimelapserCrop
+AutoIt:
+    [propget] $odetail.TimelapserCrop
+```
+
+### detail.ProjectorBase
+
+```cpp
+static cv::detail::ProjectorBase
+AutoIt:
+    [propget] $odetail.ProjectorBase
+```
+
+### detail.SphericalProjector
+
+```cpp
+static cv::detail::SphericalProjector
+AutoIt:
+    [propget] $odetail.SphericalProjector
+```
+
+### detail.TrackerSamplerCSC
+
+```cpp
+static cv::detail::TrackerSamplerCSC
+AutoIt:
+    [propget] $odetail.TrackerSamplerCSC
+```
+
+### detail.OpaqueKind
+
+```cpp
+static cv::detail::OpaqueKind
+AutoIt:
+    [propget] $odetail.OpaqueKind
+```
+
+### detail.ArgKind
+
+```cpp
+static cv::detail::ArgKind
+AutoIt:
+    [propget] $odetail.ArgKind
+```
+
+### detail.ExtractArgsCallback
+
+```cpp
+static cv::detail::ExtractArgsCallback
+AutoIt:
+    [propget] $odetail.ExtractArgsCallback
+```
+
+### detail.ExtractMetaCallback
+
+```cpp
+static cv::detail::ExtractMetaCallback
+AutoIt:
+    [propget] $odetail.ExtractMetaCallback
+```
 
 ### cv::detail::calibrateRotatingCamera
 
@@ -20821,6 +23373,78 @@ AutoIt:
 
 ## cv::cuda
 
+### cuda.GpuMat
+
+```cpp
+static cv::cuda::GpuMat
+AutoIt:
+    [propget] $ocuda.GpuMat
+```
+
+### cuda.GpuData
+
+```cpp
+static cv::cuda::GpuData
+AutoIt:
+    [propget] $ocuda.GpuData
+```
+
+### cuda.GpuMatND
+
+```cpp
+static cv::cuda::GpuMatND
+AutoIt:
+    [propget] $ocuda.GpuMatND
+```
+
+### cuda.BufferPool
+
+```cpp
+static cv::cuda::BufferPool
+AutoIt:
+    [propget] $ocuda.BufferPool
+```
+
+### cuda.HostMem
+
+```cpp
+static cv::cuda::HostMem
+AutoIt:
+    [propget] $ocuda.HostMem
+```
+
+### cuda.Stream
+
+```cpp
+static cv::cuda::Stream
+AutoIt:
+    [propget] $ocuda.Stream
+```
+
+### cuda.Event
+
+```cpp
+static cv::cuda::Event
+AutoIt:
+    [propget] $ocuda.Event
+```
+
+### cuda.TargetArchs
+
+```cpp
+static cv::cuda::TargetArchs
+AutoIt:
+    [propget] $ocuda.TargetArchs
+```
+
+### cuda.DeviceInfo
+
+```cpp
+static cv::cuda::DeviceInfo
+AutoIt:
+    [propget] $ocuda.DeviceInfo
+```
+
 ### cv::cuda::createContinuous
 
 ```cpp
@@ -20843,6 +23467,33 @@ AutoIt:
     _OpenCV_ObjCreate("cv.cuda").ensureSizeIsEnough( $rows, $cols, $type[, $arr] ) -> $arr
 ```
 
+### cv::cuda::fastNlMeansDenoising
+
+```cpp
+void cv::cuda::fastNlMeansDenoising( const cv::cuda::GpuMat& src,
+                                     cv::cuda::GpuMat&       dst,
+                                     float                   h,
+                                     int                     search_window = 21,
+                                     int                     block_size = 7,
+                                     cv::cuda::Stream&       stream = Stream::Null() );
+AutoIt:
+    _OpenCV_ObjCreate("cv.cuda").fastNlMeansDenoising( $src, $h[, $search_window[, $block_size[, $stream[, $dst]]]] ) -> $dst
+```
+
+### cv::cuda::fastNlMeansDenoisingColored
+
+```cpp
+void cv::cuda::fastNlMeansDenoisingColored( const cv::cuda::GpuMat& src,
+                                            cv::cuda::GpuMat&       dst,
+                                            float                   h_luminance,
+                                            float                   photo_render,
+                                            int                     search_window = 21,
+                                            int                     block_size = 7,
+                                            cv::cuda::Stream&       stream = Stream::Null() );
+AutoIt:
+    _OpenCV_ObjCreate("cv.cuda").fastNlMeansDenoisingColored( $src, $h_luminance, $photo_render[, $search_window[, $block_size[, $stream[, $dst]]]] ) -> $dst
+```
+
 ### cv::cuda::getCudaEnabledDeviceCount
 
 ```cpp
@@ -20857,6 +23508,20 @@ AutoIt:
 int cv::cuda::getDevice();
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda").getDevice() -> retval
+```
+
+### cv::cuda::nonLocalMeans
+
+```cpp
+void cv::cuda::nonLocalMeans( const cv::cuda::GpuMat& src,
+                              cv::cuda::GpuMat&       dst,
+                              float                   h,
+                              int                     search_window = 21,
+                              int                     block_size = 7,
+                              int                     borderMode = BORDER_DEFAULT,
+                              cv::cuda::Stream&       stream = Stream::Null() );
+AutoIt:
+    _OpenCV_ObjCreate("cv.cuda").nonLocalMeans( $src, $h[, $search_window[, $block_size[, $borderMode[, $stream[, $dst]]]]] ) -> $dst
 ```
 
 ### cv::cuda::printCudaDeviceInfo
@@ -21055,13 +23720,21 @@ AutoIt:
     [propget] $oGpuMat.step
 ```
 
+### GpuMat.Allocator
+
+```cpp
+static cv::cuda::GpuMat::Allocator
+AutoIt:
+    [propget] $oGpuMat.Allocator
+```
+
 ### cv::cuda::GpuMat::get\_create
 
 ```cpp
 static cv::cuda::GpuMat cv::cuda::GpuMat::get_create( cv::cuda::GpuMat::Allocator* allocator = GpuMat::defaultAllocator() );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.GpuMat").create( [$allocator] ) -> <cv.cuda.GpuMat object>
-    _OpenCV_ObjCreate("cv.cuda.GpuMat")( [$allocator] ) -> <cv.cuda.GpuMat object>
+    $oGpuMat( [$allocator] ) -> <cv.cuda.GpuMat object>
 ```
 
 ```cpp
@@ -21071,7 +23744,7 @@ static cv::cuda::GpuMat cv::cuda::GpuMat::get_create( int                       
                                                       cv::cuda::GpuMat::Allocator* allocator = GpuMat::defaultAllocator() );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.GpuMat").create( $rows, $cols, $type[, $allocator] ) -> <cv.cuda.GpuMat object>
-    _OpenCV_ObjCreate("cv.cuda.GpuMat")( $rows, $cols, $type[, $allocator] ) -> <cv.cuda.GpuMat object>
+    $oGpuMat( $rows, $cols, $type[, $allocator] ) -> <cv.cuda.GpuMat object>
 ```
 
 ```cpp
@@ -21080,7 +23753,7 @@ static cv::cuda::GpuMat cv::cuda::GpuMat::get_create( cv::Size                  
                                                       cv::cuda::GpuMat::Allocator* allocator = GpuMat::defaultAllocator() );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.GpuMat").create( $size, $type[, $allocator] ) -> <cv.cuda.GpuMat object>
-    _OpenCV_ObjCreate("cv.cuda.GpuMat")( $size, $type[, $allocator] ) -> <cv.cuda.GpuMat object>
+    $oGpuMat( $size, $type[, $allocator] ) -> <cv.cuda.GpuMat object>
 ```
 
 ```cpp
@@ -21091,7 +23764,7 @@ static cv::cuda::GpuMat cv::cuda::GpuMat::get_create( int                       
                                                       cv::cuda::GpuMat::Allocator* allocator = GpuMat::defaultAllocator() );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.GpuMat").create( $rows, $cols, $type, $s[, $allocator] ) -> <cv.cuda.GpuMat object>
-    _OpenCV_ObjCreate("cv.cuda.GpuMat")( $rows, $cols, $type, $s[, $allocator] ) -> <cv.cuda.GpuMat object>
+    $oGpuMat( $rows, $cols, $type, $s[, $allocator] ) -> <cv.cuda.GpuMat object>
 ```
 
 ```cpp
@@ -21101,14 +23774,14 @@ static cv::cuda::GpuMat cv::cuda::GpuMat::get_create( cv::Size                  
                                                       cv::cuda::GpuMat::Allocator* allocator = GpuMat::defaultAllocator() );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.GpuMat").create( $size, $type, $s[, $allocator] ) -> <cv.cuda.GpuMat object>
-    _OpenCV_ObjCreate("cv.cuda.GpuMat")( $size, $type, $s[, $allocator] ) -> <cv.cuda.GpuMat object>
+    $oGpuMat( $size, $type, $s[, $allocator] ) -> <cv.cuda.GpuMat object>
 ```
 
 ```cpp
 static cv::cuda::GpuMat cv::cuda::GpuMat::get_create( const cv::cuda::GpuMat& m );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.GpuMat").create( $m ) -> <cv.cuda.GpuMat object>
-    _OpenCV_ObjCreate("cv.cuda.GpuMat")( $m ) -> <cv.cuda.GpuMat object>
+    $oGpuMat( $m ) -> <cv.cuda.GpuMat object>
 ```
 
 ```cpp
@@ -21117,7 +23790,7 @@ static cv::cuda::GpuMat cv::cuda::GpuMat::get_create( const cv::cuda::GpuMat& m,
                                                       cv::Range               colRange );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.GpuMat").create( $m, $rowRange, $colRange ) -> <cv.cuda.GpuMat object>
-    _OpenCV_ObjCreate("cv.cuda.GpuMat")( $m, $rowRange, $colRange ) -> <cv.cuda.GpuMat object>
+    $oGpuMat( $m, $rowRange, $colRange ) -> <cv.cuda.GpuMat object>
 ```
 
 ```cpp
@@ -21125,7 +23798,7 @@ static cv::cuda::GpuMat cv::cuda::GpuMat::get_create( const cv::cuda::GpuMat& m,
                                                       cv::Rect                roi );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.GpuMat").create( $m, $roi ) -> <cv.cuda.GpuMat object>
-    _OpenCV_ObjCreate("cv.cuda.GpuMat")( $m, $roi ) -> <cv.cuda.GpuMat object>
+    $oGpuMat( $m, $roi ) -> <cv.cuda.GpuMat object>
 ```
 
 ```cpp
@@ -21133,7 +23806,7 @@ static cv::cuda::GpuMat cv::cuda::GpuMat::get_create( InputArray                
                                                       cv::cuda::GpuMat::Allocator* allocator = GpuMat::defaultAllocator() );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.GpuMat").create( $arr[, $allocator] ) -> <cv.cuda.GpuMat object>
-    _OpenCV_ObjCreate("cv.cuda.GpuMat")( $arr[, $allocator] ) -> <cv.cuda.GpuMat object>
+    $oGpuMat( $arr[, $allocator] ) -> <cv.cuda.GpuMat object>
 ```
 
 ```cpp
@@ -21508,7 +24181,7 @@ AutoIt:
 static cv::cuda::BufferPool cv::cuda::BufferPool::get_create( cv::cuda::Stream& stream );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.BufferPool").create( $stream ) -> <cv.cuda.BufferPool object>
-    _OpenCV_ObjCreate("cv.cuda.BufferPool")( $stream ) -> <cv.cuda.BufferPool object>
+    $oBufferPool( $stream ) -> <cv.cuda.BufferPool object>
 ```
 
 ### cv::cuda::BufferPool::getAllocator
@@ -21552,7 +24225,7 @@ AutoIt:
 static cv::cuda::HostMem cv::cuda::HostMem::get_create( cv::cuda::HostMem::AllocType alloc_type = HostMem::AllocType::PAGE_LOCKED );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.HostMem").create( [$alloc_type] ) -> <cv.cuda.HostMem object>
-    _OpenCV_ObjCreate("cv.cuda.HostMem")( [$alloc_type] ) -> <cv.cuda.HostMem object>
+    $oHostMem( [$alloc_type] ) -> <cv.cuda.HostMem object>
 ```
 
 ```cpp
@@ -21562,7 +24235,7 @@ static cv::cuda::HostMem cv::cuda::HostMem::get_create( int                     
                                                         cv::cuda::HostMem::AllocType alloc_type = HostMem::AllocType::PAGE_LOCKED );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.HostMem").create( $rows, $cols, $type[, $alloc_type] ) -> <cv.cuda.HostMem object>
-    _OpenCV_ObjCreate("cv.cuda.HostMem")( $rows, $cols, $type[, $alloc_type] ) -> <cv.cuda.HostMem object>
+    $oHostMem( $rows, $cols, $type[, $alloc_type] ) -> <cv.cuda.HostMem object>
 ```
 
 ```cpp
@@ -21571,7 +24244,7 @@ static cv::cuda::HostMem cv::cuda::HostMem::get_create( cv::Size                
                                                         cv::cuda::HostMem::AllocType alloc_type = HostMem::AllocType::PAGE_LOCKED );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.HostMem").create( $size, $type[, $alloc_type] ) -> <cv.cuda.HostMem object>
-    _OpenCV_ObjCreate("cv.cuda.HostMem")( $size, $type[, $alloc_type] ) -> <cv.cuda.HostMem object>
+    $oHostMem( $size, $type[, $alloc_type] ) -> <cv.cuda.HostMem object>
 ```
 
 ```cpp
@@ -21579,7 +24252,7 @@ static cv::cuda::HostMem cv::cuda::HostMem::get_create( InputArray              
                                                         cv::cuda::HostMem::AllocType alloc_type = HostMem::AllocType::PAGE_LOCKED );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.HostMem").create( $arr[, $alloc_type] ) -> <cv.cuda.HostMem object>
-    _OpenCV_ObjCreate("cv.cuda.HostMem")( $arr[, $alloc_type] ) -> <cv.cuda.HostMem object>
+    $oHostMem( $arr[, $alloc_type] ) -> <cv.cuda.HostMem object>
 ```
 
 ```cpp
@@ -21595,7 +24268,7 @@ AutoIt:
 static cv::cuda::HostMem cv::cuda::HostMem::get_create( cv::cuda::HostMem m );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.HostMem").create( $m ) -> <cv.cuda.HostMem object>
-    _OpenCV_ObjCreate("cv.cuda.HostMem")( $m ) -> <cv.cuda.HostMem object>
+    $oHostMem( $m ) -> <cv.cuda.HostMem object>
 ```
 
 ### cv::cuda::HostMem::channels
@@ -21735,21 +24408,20 @@ AutoIt:
 static cv::cuda::Stream cv::cuda::Stream::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.Stream").create() -> <cv.cuda.Stream object>
-    _OpenCV_ObjCreate("cv.cuda.Stream")() -> <cv.cuda.Stream object>
 ```
 
 ```cpp
 static cv::cuda::Stream cv::cuda::Stream::get_create( const cv::Ptr<cv::cuda::GpuMat::Allocator>& allocator );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.Stream").create( $allocator ) -> <cv.cuda.Stream object>
-    _OpenCV_ObjCreate("cv.cuda.Stream")( $allocator ) -> <cv.cuda.Stream object>
+    $oStream( $allocator ) -> <cv.cuda.Stream object>
 ```
 
 ```cpp
 static cv::cuda::Stream cv::cuda::Stream::get_create( const size_t cudaFlags );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.Stream").create( $cudaFlags ) -> <cv.cuda.Stream object>
-    _OpenCV_ObjCreate("cv.cuda.Stream")( $cudaFlags ) -> <cv.cuda.Stream object>
+    $oStream( $cudaFlags ) -> <cv.cuda.Stream object>
 ```
 
 ### cv::cuda::Stream::Null
@@ -21800,7 +24472,7 @@ AutoIt:
 static cv::cuda::Event cv::cuda::Event::get_create( const cv::cuda::Event::CreateFlags flags = Event::CreateFlags::DEFAULT );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.Event").create( [$flags] ) -> <cv.cuda.Event object>
-    _OpenCV_ObjCreate("cv.cuda.Event")( [$flags] ) -> <cv.cuda.Event object>
+    $oEvent( [$flags] ) -> <cv.cuda.Event object>
 ```
 
 ### cv::cuda::Event::elapsedTime
@@ -21941,14 +24613,13 @@ AutoIt:
 static cv::cuda::DeviceInfo cv::cuda::DeviceInfo::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.DeviceInfo").create() -> <cv.cuda.DeviceInfo object>
-    _OpenCV_ObjCreate("cv.cuda.DeviceInfo")() -> <cv.cuda.DeviceInfo object>
 ```
 
 ```cpp
 static cv::cuda::DeviceInfo cv::cuda::DeviceInfo::get_create( int device_id );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.DeviceInfo").create( $device_id ) -> <cv.cuda.DeviceInfo object>
-    _OpenCV_ObjCreate("cv.cuda.DeviceInfo")( $device_id ) -> <cv.cuda.DeviceInfo object>
+    $oDeviceInfo( $device_id ) -> <cv.cuda.DeviceInfo object>
 ```
 
 ### cv::cuda::DeviceInfo::ECCEnabled
@@ -22765,7 +25436,7 @@ AutoIt:
 ```cpp
 int cv::Mat::flags
 AutoIt:
-    [propget propput] $oMat.flags
+    [propget, propput] $oMat.flags
 ```
 
 ### Mat.dims
@@ -22773,7 +25444,7 @@ AutoIt:
 ```cpp
 int cv::Mat::dims
 AutoIt:
-    [propget propput] $oMat.dims
+    [propget, propput] $oMat.dims
 ```
 
 ### Mat.rows
@@ -22781,7 +25452,7 @@ AutoIt:
 ```cpp
 int cv::Mat::rows
 AutoIt:
-    [propget propput] $oMat.rows
+    [propget, propput] $oMat.rows
 ```
 
 ### Mat.cols
@@ -22789,7 +25460,7 @@ AutoIt:
 ```cpp
 int cv::Mat::cols
 AutoIt:
-    [propget propput] $oMat.cols
+    [propget, propput] $oMat.cols
 ```
 
 ### Mat.data
@@ -22797,7 +25468,7 @@ AutoIt:
 ```cpp
 uchar* cv::Mat::data
 AutoIt:
-    [propget propput] $oMat.data
+    [propget, propput] $oMat.data
 ```
 
 ### Mat.step
@@ -22805,7 +25476,7 @@ AutoIt:
 ```cpp
 size_t cv::Mat::step
 AutoIt:
-    [propget propput] $oMat.step
+    [propget, propput] $oMat.step
 ```
 
 ### Mat.width
@@ -22813,7 +25484,7 @@ AutoIt:
 ```cpp
 int cv::Mat::cols
 AutoIt:
-    [propget propput] $oMat.width
+    [propget, propput] $oMat.width
 ```
 
 ### Mat.height
@@ -22821,7 +25492,7 @@ AutoIt:
 ```cpp
 int cv::Mat::rows
 AutoIt:
-    [propget propput] $oMat.height
+    [propget, propput] $oMat.height
 ```
 
 ### Mat.shape
@@ -25518,7 +28189,7 @@ AutoIt:
 ```cpp
 int cv::UMat::rows
 AutoIt:
-    [propget propput] $oUMat.rows
+    [propget, propput] $oUMat.rows
 ```
 
 ### UMat.cols
@@ -25526,7 +28197,7 @@ AutoIt:
 ```cpp
 int cv::UMat::cols
 AutoIt:
-    [propget propput] $oUMat.cols
+    [propget, propput] $oUMat.cols
 ```
 
 ### UMat.dims
@@ -25534,7 +28205,7 @@ AutoIt:
 ```cpp
 int cv::UMat::dims
 AutoIt:
-    [propget propput] $oUMat.dims
+    [propget, propput] $oUMat.dims
 ```
 
 ### UMat.step
@@ -25542,7 +28213,7 @@ AutoIt:
 ```cpp
 size_t cv::UMat::step
 AutoIt:
-    [propget propput] $oUMat.step
+    [propget, propput] $oUMat.step
 ```
 
 ### UMat.width
@@ -25550,7 +28221,7 @@ AutoIt:
 ```cpp
 int cv::UMat::cols
 AutoIt:
-    [propget propput] $oUMat.width
+    [propget, propput] $oUMat.width
 ```
 
 ### UMat.height
@@ -25558,7 +28229,7 @@ AutoIt:
 ```cpp
 int cv::UMat::rows
 AutoIt:
-    [propget propput] $oUMat.height
+    [propget, propput] $oUMat.height
 ```
 
 ### cv::UMat::get\_create
@@ -25567,21 +28238,20 @@ AutoIt:
 static cv::UMat cv::UMat::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.UMat").create() -> <cv.UMat object>
-    _OpenCV_ObjCreate("cv.UMat")() -> <cv.UMat object>
 ```
 
 ```cpp
 static cv::UMat cv::UMat::get_create( cv::UMat m );
 AutoIt:
     _OpenCV_ObjCreate("cv.UMat").create( $m ) -> <cv.UMat object>
-    _OpenCV_ObjCreate("cv.UMat")( $m ) -> <cv.UMat object>
+    $oUMat( $m ) -> <cv.UMat object>
 ```
 
 ```cpp
 static cv::UMat cv::UMat::get_create( cv::UMatUsageFlags usageFlags = cv::USAGE_DEFAULT );
 AutoIt:
     _OpenCV_ObjCreate("cv.UMat").create( [$usageFlags] ) -> <cv.UMat object>
-    _OpenCV_ObjCreate("cv.UMat")( [$usageFlags] ) -> <cv.UMat object>
+    $oUMat( [$usageFlags] ) -> <cv.UMat object>
 ```
 
 ```cpp
@@ -25591,7 +28261,7 @@ static cv::UMat cv::UMat::get_create( int                rows,
                                       cv::UMatUsageFlags usageFlags = cv::USAGE_DEFAULT );
 AutoIt:
     _OpenCV_ObjCreate("cv.UMat").create( $rows, $cols, $type[, $usageFlags] ) -> <cv.UMat object>
-    _OpenCV_ObjCreate("cv.UMat")( $rows, $cols, $type[, $usageFlags] ) -> <cv.UMat object>
+    $oUMat( $rows, $cols, $type[, $usageFlags] ) -> <cv.UMat object>
 ```
 
 ```cpp
@@ -25602,7 +28272,7 @@ static cv::UMat cv::UMat::get_create( int                rows,
                                       cv::UMatUsageFlags usageFlags = cv::USAGE_DEFAULT );
 AutoIt:
     _OpenCV_ObjCreate("cv.UMat").create( $rows, $cols, $type, $s[, $usageFlags] ) -> <cv.UMat object>
-    _OpenCV_ObjCreate("cv.UMat")( $rows, $cols, $type, $s[, $usageFlags] ) -> <cv.UMat object>
+    $oUMat( $rows, $cols, $type, $s[, $usageFlags] ) -> <cv.UMat object>
 ```
 
 ### cv::UMat::getMat
@@ -25705,6 +28375,30 @@ AutoIt:
 
 ## cv::ocl
 
+### ocl.Device
+
+```cpp
+static cv::ocl::Device
+AutoIt:
+    [propget] $oocl.Device
+```
+
+### ocl.KernelArg
+
+```cpp
+static cv::ocl::KernelArg
+AutoIt:
+    [propget] $oocl.KernelArg
+```
+
+### ocl.OpenCLExecutionContext
+
+```cpp
+static cv::ocl::OpenCLExecutionContext
+AutoIt:
+    [propget] $oocl.OpenCLExecutionContext
+```
+
 ### cv::ocl::finish
 
 ```cpp
@@ -25785,7 +28479,6 @@ AutoIt:
 static cv::ocl::Device cv::ocl::Device::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ocl.Device").create() -> <cv.ocl.Device object>
-    _OpenCV_ObjCreate("cv.ocl.Device")() -> <cv.ocl.Device object>
 ```
 
 ### cv::ocl::Device::OpenCLVersion
@@ -26632,6 +29325,22 @@ AutoIt:
 
 ## cv::ogl
 
+### ogl.Buffer
+
+```cpp
+static cv::ogl::Buffer
+AutoIt:
+    [propget] $oogl.Buffer
+```
+
+### ogl.Texture2D
+
+```cpp
+static cv::ogl::Texture2D
+AutoIt:
+    [propget] $oogl.Texture2D
+```
+
 ### ogl.POINTS\_
 
 ```cpp
@@ -26812,7 +29521,6 @@ AutoIt:
 static cv::FileStorage cv::FileStorage::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.FileStorage").create() -> <cv.FileStorage object>
-    _OpenCV_ObjCreate("cv.FileStorage")() -> <cv.FileStorage object>
 ```
 
 ```cpp
@@ -26821,7 +29529,7 @@ static cv::FileStorage cv::FileStorage::get_create( const std::string& filename,
                                                     const std::string& encoding = String() );
 AutoIt:
     _OpenCV_ObjCreate("cv.FileStorage").create( $filename, $flags[, $encoding] ) -> <cv.FileStorage object>
-    _OpenCV_ObjCreate("cv.FileStorage")( $filename, $flags[, $encoding] ) -> <cv.FileStorage object>
+    $oFileStorage( $filename, $flags[, $encoding] ) -> <cv.FileStorage object>
 ```
 
 ### cv::FileStorage::endWriteStruct
@@ -27082,7 +29790,6 @@ AutoIt:
 static cv::FileNode cv::FileNode::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.FileNode").create() -> <cv.FileNode object>
-    _OpenCV_ObjCreate("cv.FileNode")() -> <cv.FileNode object>
 ```
 
 ### cv::FileNode::at
@@ -27542,7 +30249,7 @@ AutoIt:
 ```cpp
 cv::Point2f cv::KeyPoint::pt
 AutoIt:
-    [propget propput] $oKeyPoint.pt
+    [propget, propput] $oKeyPoint.pt
 ```
 
 ### KeyPoint.size
@@ -27550,7 +30257,7 @@ AutoIt:
 ```cpp
 float cv::KeyPoint::size
 AutoIt:
-    [propget propput] $oKeyPoint.size
+    [propget, propput] $oKeyPoint.size
 ```
 
 ### KeyPoint.angle
@@ -27558,7 +30265,7 @@ AutoIt:
 ```cpp
 float cv::KeyPoint::angle
 AutoIt:
-    [propget propput] $oKeyPoint.angle
+    [propget, propput] $oKeyPoint.angle
 ```
 
 ### KeyPoint.response
@@ -27566,7 +30273,7 @@ AutoIt:
 ```cpp
 float cv::KeyPoint::response
 AutoIt:
-    [propget propput] $oKeyPoint.response
+    [propget, propput] $oKeyPoint.response
 ```
 
 ### KeyPoint.octave
@@ -27574,7 +30281,7 @@ AutoIt:
 ```cpp
 int cv::KeyPoint::octave
 AutoIt:
-    [propget propput] $oKeyPoint.octave
+    [propget, propput] $oKeyPoint.octave
 ```
 
 ### KeyPoint.class\_id
@@ -27582,7 +30289,7 @@ AutoIt:
 ```cpp
 int cv::KeyPoint::class_id
 AutoIt:
-    [propget propput] $oKeyPoint.class_id
+    [propget, propput] $oKeyPoint.class_id
 ```
 
 ### cv::KeyPoint::get\_create
@@ -27591,7 +30298,6 @@ AutoIt:
 static cv::KeyPoint cv::KeyPoint::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.KeyPoint").create() -> <cv.KeyPoint object>
-    _OpenCV_ObjCreate("cv.KeyPoint")() -> <cv.KeyPoint object>
 ```
 
 ```cpp
@@ -27604,7 +30310,7 @@ static cv::KeyPoint cv::KeyPoint::get_create( float x,
                                               int   class_id = -1 );
 AutoIt:
     _OpenCV_ObjCreate("cv.KeyPoint").create( $x, $y, $size[, $angle[, $response[, $octave[, $class_id]]]] ) -> <cv.KeyPoint object>
-    _OpenCV_ObjCreate("cv.KeyPoint")( $x, $y, $size[, $angle[, $response[, $octave[, $class_id]]]] ) -> <cv.KeyPoint object>
+    $oKeyPoint( $x, $y, $size[, $angle[, $response[, $octave[, $class_id]]]] ) -> <cv.KeyPoint object>
 ```
 
 ### cv::KeyPoint::convert
@@ -27644,7 +30350,7 @@ AutoIt:
 ```cpp
 int cv::DMatch::queryIdx
 AutoIt:
-    [propget propput] $oDMatch.queryIdx
+    [propget, propput] $oDMatch.queryIdx
 ```
 
 ### DMatch.trainIdx
@@ -27652,7 +30358,7 @@ AutoIt:
 ```cpp
 int cv::DMatch::trainIdx
 AutoIt:
-    [propget propput] $oDMatch.trainIdx
+    [propget, propput] $oDMatch.trainIdx
 ```
 
 ### DMatch.imgIdx
@@ -27660,7 +30366,7 @@ AutoIt:
 ```cpp
 int cv::DMatch::imgIdx
 AutoIt:
-    [propget propput] $oDMatch.imgIdx
+    [propget, propput] $oDMatch.imgIdx
 ```
 
 ### DMatch.distance
@@ -27668,7 +30374,7 @@ AutoIt:
 ```cpp
 float cv::DMatch::distance
 AutoIt:
-    [propget propput] $oDMatch.distance
+    [propget, propput] $oDMatch.distance
 ```
 
 ### cv::DMatch::get\_create
@@ -27677,7 +30383,6 @@ AutoIt:
 static cv::DMatch cv::DMatch::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.DMatch").create() -> <cv.DMatch object>
-    _OpenCV_ObjCreate("cv.DMatch")() -> <cv.DMatch object>
 ```
 
 ```cpp
@@ -27686,7 +30391,7 @@ static cv::DMatch cv::DMatch::get_create( int   _queryIdx,
                                           float _distance );
 AutoIt:
     _OpenCV_ObjCreate("cv.DMatch").create( $_queryIdx, $_trainIdx, $_distance ) -> <cv.DMatch object>
-    _OpenCV_ObjCreate("cv.DMatch")( $_queryIdx, $_trainIdx, $_distance ) -> <cv.DMatch object>
+    $oDMatch( $_queryIdx, $_trainIdx, $_distance ) -> <cv.DMatch object>
 ```
 
 ```cpp
@@ -27696,7 +30401,7 @@ static cv::DMatch cv::DMatch::get_create( int   _queryIdx,
                                           float _distance );
 AutoIt:
     _OpenCV_ObjCreate("cv.DMatch").create( $_queryIdx, $_trainIdx, $_imgIdx, $_distance ) -> <cv.DMatch object>
-    _OpenCV_ObjCreate("cv.DMatch")( $_queryIdx, $_trainIdx, $_imgIdx, $_distance ) -> <cv.DMatch object>
+    $oDMatch( $_queryIdx, $_trainIdx, $_imgIdx, $_distance ) -> <cv.DMatch object>
 ```
 
 ## cv::TermCriteria
@@ -27706,7 +30411,7 @@ AutoIt:
 ```cpp
 int cv::TermCriteria::type
 AutoIt:
-    [propget propput] $oTermCriteria.type
+    [propget, propput] $oTermCriteria.type
 ```
 
 ### TermCriteria.maxCount
@@ -27714,7 +30419,7 @@ AutoIt:
 ```cpp
 int cv::TermCriteria::maxCount
 AutoIt:
-    [propget propput] $oTermCriteria.maxCount
+    [propget, propput] $oTermCriteria.maxCount
 ```
 
 ### TermCriteria.epsilon
@@ -27722,7 +30427,7 @@ AutoIt:
 ```cpp
 double cv::TermCriteria::epsilon
 AutoIt:
-    [propget propput] $oTermCriteria.epsilon
+    [propget, propput] $oTermCriteria.epsilon
 ```
 
 ### cv::TermCriteria::get\_create
@@ -27731,7 +30436,6 @@ AutoIt:
 static cv::TermCriteria cv::TermCriteria::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.TermCriteria").create() -> <cv.TermCriteria object>
-    _OpenCV_ObjCreate("cv.TermCriteria")() -> <cv.TermCriteria object>
 ```
 
 ### TermCriteria.COUNT\_
@@ -27765,7 +30469,7 @@ AutoIt:
 ```cpp
 double cv::Moments::m00
 AutoIt:
-    [propget propput] $oMoments.m00
+    [propget, propput] $oMoments.m00
 ```
 
 ### Moments.m10
@@ -27773,7 +30477,7 @@ AutoIt:
 ```cpp
 double cv::Moments::m10
 AutoIt:
-    [propget propput] $oMoments.m10
+    [propget, propput] $oMoments.m10
 ```
 
 ### Moments.m01
@@ -27781,7 +30485,7 @@ AutoIt:
 ```cpp
 double cv::Moments::m01
 AutoIt:
-    [propget propput] $oMoments.m01
+    [propget, propput] $oMoments.m01
 ```
 
 ### Moments.m20
@@ -27789,7 +30493,7 @@ AutoIt:
 ```cpp
 double cv::Moments::m20
 AutoIt:
-    [propget propput] $oMoments.m20
+    [propget, propput] $oMoments.m20
 ```
 
 ### Moments.m11
@@ -27797,7 +30501,7 @@ AutoIt:
 ```cpp
 double cv::Moments::m11
 AutoIt:
-    [propget propput] $oMoments.m11
+    [propget, propput] $oMoments.m11
 ```
 
 ### Moments.m02
@@ -27805,7 +30509,7 @@ AutoIt:
 ```cpp
 double cv::Moments::m02
 AutoIt:
-    [propget propput] $oMoments.m02
+    [propget, propput] $oMoments.m02
 ```
 
 ### Moments.m30
@@ -27813,7 +30517,7 @@ AutoIt:
 ```cpp
 double cv::Moments::m30
 AutoIt:
-    [propget propput] $oMoments.m30
+    [propget, propput] $oMoments.m30
 ```
 
 ### Moments.m21
@@ -27821,7 +30525,7 @@ AutoIt:
 ```cpp
 double cv::Moments::m21
 AutoIt:
-    [propget propput] $oMoments.m21
+    [propget, propput] $oMoments.m21
 ```
 
 ### Moments.m12
@@ -27829,7 +30533,7 @@ AutoIt:
 ```cpp
 double cv::Moments::m12
 AutoIt:
-    [propget propput] $oMoments.m12
+    [propget, propput] $oMoments.m12
 ```
 
 ### Moments.m03
@@ -27837,7 +30541,7 @@ AutoIt:
 ```cpp
 double cv::Moments::m03
 AutoIt:
-    [propget propput] $oMoments.m03
+    [propget, propput] $oMoments.m03
 ```
 
 ### Moments.mu20
@@ -27845,7 +30549,7 @@ AutoIt:
 ```cpp
 double cv::Moments::mu20
 AutoIt:
-    [propget propput] $oMoments.mu20
+    [propget, propput] $oMoments.mu20
 ```
 
 ### Moments.mu11
@@ -27853,7 +30557,7 @@ AutoIt:
 ```cpp
 double cv::Moments::mu11
 AutoIt:
-    [propget propput] $oMoments.mu11
+    [propget, propput] $oMoments.mu11
 ```
 
 ### Moments.mu02
@@ -27861,7 +30565,7 @@ AutoIt:
 ```cpp
 double cv::Moments::mu02
 AutoIt:
-    [propget propput] $oMoments.mu02
+    [propget, propput] $oMoments.mu02
 ```
 
 ### Moments.mu30
@@ -27869,7 +30573,7 @@ AutoIt:
 ```cpp
 double cv::Moments::mu30
 AutoIt:
-    [propget propput] $oMoments.mu30
+    [propget, propput] $oMoments.mu30
 ```
 
 ### Moments.mu21
@@ -27877,7 +30581,7 @@ AutoIt:
 ```cpp
 double cv::Moments::mu21
 AutoIt:
-    [propget propput] $oMoments.mu21
+    [propget, propput] $oMoments.mu21
 ```
 
 ### Moments.mu12
@@ -27885,7 +30589,7 @@ AutoIt:
 ```cpp
 double cv::Moments::mu12
 AutoIt:
-    [propget propput] $oMoments.mu12
+    [propget, propput] $oMoments.mu12
 ```
 
 ### Moments.mu03
@@ -27893,7 +30597,7 @@ AutoIt:
 ```cpp
 double cv::Moments::mu03
 AutoIt:
-    [propget propput] $oMoments.mu03
+    [propget, propput] $oMoments.mu03
 ```
 
 ### Moments.nu20
@@ -27901,7 +30605,7 @@ AutoIt:
 ```cpp
 double cv::Moments::nu20
 AutoIt:
-    [propget propput] $oMoments.nu20
+    [propget, propput] $oMoments.nu20
 ```
 
 ### Moments.nu11
@@ -27909,7 +30613,7 @@ AutoIt:
 ```cpp
 double cv::Moments::nu11
 AutoIt:
-    [propget propput] $oMoments.nu11
+    [propget, propput] $oMoments.nu11
 ```
 
 ### Moments.nu02
@@ -27917,7 +30621,7 @@ AutoIt:
 ```cpp
 double cv::Moments::nu02
 AutoIt:
-    [propget propput] $oMoments.nu02
+    [propget, propput] $oMoments.nu02
 ```
 
 ### Moments.nu30
@@ -27925,7 +30629,7 @@ AutoIt:
 ```cpp
 double cv::Moments::nu30
 AutoIt:
-    [propget propput] $oMoments.nu30
+    [propget, propput] $oMoments.nu30
 ```
 
 ### Moments.nu21
@@ -27933,7 +30637,7 @@ AutoIt:
 ```cpp
 double cv::Moments::nu21
 AutoIt:
-    [propget propput] $oMoments.nu21
+    [propget, propput] $oMoments.nu21
 ```
 
 ### Moments.nu12
@@ -27941,7 +30645,7 @@ AutoIt:
 ```cpp
 double cv::Moments::nu12
 AutoIt:
-    [propget propput] $oMoments.nu12
+    [propget, propput] $oMoments.nu12
 ```
 
 ### Moments.nu03
@@ -27949,7 +30653,7 @@ AutoIt:
 ```cpp
 double cv::Moments::nu03
 AutoIt:
-    [propget propput] $oMoments.nu03
+    [propget, propput] $oMoments.nu03
 ```
 
 ### cv::Moments::get\_create
@@ -27958,7 +30662,6 @@ AutoIt:
 static cv::Moments cv::Moments::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Moments").create() -> <cv.Moments object>
-    _OpenCV_ObjCreate("cv.Moments")() -> <cv.Moments object>
 ```
 
 ## cv::TickMeter
@@ -27969,7 +30672,6 @@ AutoIt:
 static cv::TickMeter cv::TickMeter::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.TickMeter").create() -> <cv.TickMeter object>
-    _OpenCV_ObjCreate("cv.TickMeter")() -> <cv.TickMeter object>
 ```
 
 ### cv::TickMeter::getAvgTimeMilli
@@ -28099,6 +30801,14 @@ AutoIt:
 
 ## cv::flann
 
+### flann.Index
+
+```cpp
+static cv::flann::Index
+AutoIt:
+    [propget] $oflann.Index
+```
+
 ### flann.FLANN\_INDEX\_TYPE\_8U\_
 
 ```cpp
@@ -28195,7 +30905,6 @@ AutoIt:
 static cv::flann::Index cv::flann::Index::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.flann.Index").create() -> <cv.flann.Index object>
-    _OpenCV_ObjCreate("cv.flann.Index")() -> <cv.flann.Index object>
 ```
 
 ```cpp
@@ -28204,7 +30913,7 @@ static cv::flann::Index cv::flann::Index::get_create( InputArray                
                                                       cvflann::flann_distance_t distType = cvflann::FLANN_DIST_L2 );
 AutoIt:
     _OpenCV_ObjCreate("cv.flann.Index").create( $features, $params[, $distType] ) -> <cv.flann.Index object>
-    _OpenCV_ObjCreate("cv.flann.Index")( $features, $params[, $distType] ) -> <cv.flann.Index object>
+    $oIndex( $features, $params[, $distType] ) -> <cv.flann.Index object>
 ```
 
 ### cv::flann::Index::build
@@ -28446,10 +31155,16 @@ AutoIt:
 ### cv::GeneralizedHough::write
 
 ```cpp
-void cv::GeneralizedHough::write( const cv::Ptr<cv::FileStorage>& fs,
-                                  const std::string&              name = String() ) const;
+void cv::GeneralizedHough::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oGeneralizedHough.write( $fs[, $name] ) -> None
+    $oGeneralizedHough.write( $fs ) -> None
+```
+
+```cpp
+void cv::GeneralizedHough::write( cv::FileStorage&   fs,
+                                  const std::string& name ) const;
+AutoIt:
+    $oGeneralizedHough.write( $fs, $name ) -> None
 ```
 
 ## cv::GeneralizedHoughBallard
@@ -28647,10 +31362,16 @@ AutoIt:
 ### cv::GeneralizedHoughBallard::write
 
 ```cpp
-void cv::GeneralizedHoughBallard::write( const cv::Ptr<cv::FileStorage>& fs,
-                                         const std::string&              name = String() ) const;
+void cv::GeneralizedHoughBallard::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oGeneralizedHoughBallard.write( $fs[, $name] ) -> None
+    $oGeneralizedHoughBallard.write( $fs ) -> None
+```
+
+```cpp
+void cv::GeneralizedHoughBallard::write( cv::FileStorage&   fs,
+                                         const std::string& name ) const;
+AutoIt:
+    $oGeneralizedHoughBallard.write( $fs, $name ) -> None
 ```
 
 ## cv::GeneralizedHoughGuil
@@ -29008,10 +31729,16 @@ AutoIt:
 ### cv::GeneralizedHoughGuil::write
 
 ```cpp
-void cv::GeneralizedHoughGuil::write( const cv::Ptr<cv::FileStorage>& fs,
-                                      const std::string&              name = String() ) const;
+void cv::GeneralizedHoughGuil::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oGeneralizedHoughGuil.write( $fs[, $name] ) -> None
+    $oGeneralizedHoughGuil.write( $fs ) -> None
+```
+
+```cpp
+void cv::GeneralizedHoughGuil::write( cv::FileStorage&   fs,
+                                      const std::string& name ) const;
+AutoIt:
+    $oGeneralizedHoughGuil.write( $fs, $name ) -> None
 ```
 
 ## cv::CLAHE
@@ -29108,10 +31835,16 @@ AutoIt:
 ### cv::CLAHE::write
 
 ```cpp
-void cv::CLAHE::write( const cv::Ptr<cv::FileStorage>& fs,
-                       const std::string&              name = String() ) const;
+void cv::CLAHE::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oCLAHE.write( $fs[, $name] ) -> None
+    $oCLAHE.write( $fs ) -> None
+```
+
+```cpp
+void cv::CLAHE::write( cv::FileStorage&   fs,
+                       const std::string& name ) const;
+AutoIt:
+    $oCLAHE.write( $fs, $name ) -> None
 ```
 
 ## cv::Subdiv2D
@@ -29122,14 +31855,13 @@ AutoIt:
 static cv::Subdiv2D cv::Subdiv2D::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Subdiv2D").create() -> <cv.Subdiv2D object>
-    _OpenCV_ObjCreate("cv.Subdiv2D")() -> <cv.Subdiv2D object>
 ```
 
 ```cpp
 static cv::Subdiv2D cv::Subdiv2D::get_create( cv::Rect rect );
 AutoIt:
     _OpenCV_ObjCreate("cv.Subdiv2D").create( $rect ) -> <cv.Subdiv2D object>
-    _OpenCV_ObjCreate("cv.Subdiv2D")( $rect ) -> <cv.Subdiv2D object>
+    $oSubdiv2D( $rect ) -> <cv.Subdiv2D object>
 ```
 
 ### cv::Subdiv2D::edgeDst
@@ -29449,10 +32181,26 @@ AutoIt:
 ### cv::LineSegmentDetector::write
 
 ```cpp
-void cv::LineSegmentDetector::write( const cv::Ptr<cv::FileStorage>& fs,
-                                     const std::string&              name = String() ) const;
+void cv::LineSegmentDetector::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oLineSegmentDetector.write( $fs[, $name] ) -> None
+    $oLineSegmentDetector.write( $fs ) -> None
+```
+
+```cpp
+void cv::LineSegmentDetector::write( cv::FileStorage&   fs,
+                                     const std::string& name ) const;
+AutoIt:
+    $oLineSegmentDetector.write( $fs, $name ) -> None
+```
+
+## cv::segmentation
+
+### segmentation.IntelligentScissorsMB
+
+```cpp
+static cv::segmentation::IntelligentScissorsMB
+AutoIt:
+    [propget] $osegmentation.IntelligentScissorsMB
 ```
 
 ## cv::segmentation::IntelligentScissorsMB
@@ -29463,7 +32211,6 @@ AutoIt:
 static cv::segmentation::IntelligentScissorsMB cv::segmentation::IntelligentScissorsMB::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.segmentation.IntelligentScissorsMB").create() -> <cv.segmentation.IntelligentScissorsMB object>
-    _OpenCV_ObjCreate("cv.segmentation.IntelligentScissorsMB")() -> <cv.segmentation.IntelligentScissorsMB object>
 ```
 
 ### cv::segmentation::IntelligentScissorsMB::applyImage
@@ -29542,6 +32289,110 @@ AutoIt:
 
 ## cv::ml
 
+### ml.ParamGrid
+
+```cpp
+static cv::ml::ParamGrid
+AutoIt:
+    [propget] $oml.ParamGrid
+```
+
+### ml.TrainData
+
+```cpp
+static cv::ml::TrainData
+AutoIt:
+    [propget] $oml.TrainData
+```
+
+### ml.StatModel
+
+```cpp
+static cv::ml::StatModel
+AutoIt:
+    [propget] $oml.StatModel
+```
+
+### ml.NormalBayesClassifier
+
+```cpp
+static cv::ml::NormalBayesClassifier
+AutoIt:
+    [propget] $oml.NormalBayesClassifier
+```
+
+### ml.KNearest
+
+```cpp
+static cv::ml::KNearest
+AutoIt:
+    [propget] $oml.KNearest
+```
+
+### ml.SVM
+
+```cpp
+static cv::ml::SVM
+AutoIt:
+    [propget] $oml.SVM
+```
+
+### ml.EM
+
+```cpp
+static cv::ml::EM
+AutoIt:
+    [propget] $oml.EM
+```
+
+### ml.DTrees
+
+```cpp
+static cv::ml::DTrees
+AutoIt:
+    [propget] $oml.DTrees
+```
+
+### ml.RTrees
+
+```cpp
+static cv::ml::RTrees
+AutoIt:
+    [propget] $oml.RTrees
+```
+
+### ml.Boost
+
+```cpp
+static cv::ml::Boost
+AutoIt:
+    [propget] $oml.Boost
+```
+
+### ml.ANN\_MLP
+
+```cpp
+static cv::ml::ANN_MLP
+AutoIt:
+    [propget] $oml.ANN_MLP
+```
+
+### ml.LogisticRegression
+
+```cpp
+static cv::ml::LogisticRegression
+AutoIt:
+    [propget] $oml.LogisticRegression
+```
+
+### ml.SVMSGD
+
+```cpp
+static cv::ml::SVMSGD
+AutoIt:
+    [propget] $oml.SVMSGD
+```
+
 ### ml.VAR\_NUMERICAL\_
 
 ```cpp
@@ -29605,7 +32456,7 @@ AutoIt:
 ```cpp
 double cv::ml::ParamGrid::minVal
 AutoIt:
-    [propget propput] $oParamGrid.minVal
+    [propget, propput] $oParamGrid.minVal
 ```
 
 ### ParamGrid.maxVal
@@ -29613,7 +32464,7 @@ AutoIt:
 ```cpp
 double cv::ml::ParamGrid::maxVal
 AutoIt:
-    [propget propput] $oParamGrid.maxVal
+    [propget, propput] $oParamGrid.maxVal
 ```
 
 ### ParamGrid.logStep
@@ -29621,7 +32472,7 @@ AutoIt:
 ```cpp
 double cv::ml::ParamGrid::logStep
 AutoIt:
-    [propget propput] $oParamGrid.logStep
+    [propget, propput] $oParamGrid.logStep
 ```
 
 ### cv::ml::ParamGrid::get\_create
@@ -29632,7 +32483,7 @@ static cv::Ptr<cv::ml::ParamGrid> cv::ml::ParamGrid::get_create( double minVal =
                                                                  double logstep = 1. );
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.ParamGrid").create( [$minVal[, $maxVal[, $logstep]]] ) -> retval
-    _OpenCV_ObjCreate("cv.ml.ParamGrid")( [$minVal[, $maxVal[, $logstep]]] ) -> retval
+    $oParamGrid( [$minVal[, $maxVal[, $logstep]]] ) -> retval
 ```
 
 ## cv::ml::TrainData
@@ -29649,7 +32500,7 @@ static cv::Ptr<cv::ml::TrainData> cv::ml::TrainData::get_create( InputArray samp
                                                                  InputArray varType = noArray() );
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.TrainData").create( $samples, $layout, $responses[, $varIdx[, $sampleIdx[, $sampleWeights[, $varType]]]] ) -> retval
-    _OpenCV_ObjCreate("cv.ml.TrainData")( $samples, $layout, $responses[, $varIdx[, $sampleIdx[, $sampleWeights[, $varType]]]] ) -> retval
+    $oTrainData( $samples, $layout, $responses[, $varIdx[, $sampleIdx[, $sampleWeights[, $varType]]]] ) -> retval
 ```
 
 ### cv::ml::TrainData::getCatCount
@@ -30073,10 +32924,16 @@ AutoIt:
 ### cv::ml::StatModel::write
 
 ```cpp
-void cv::ml::StatModel::write( const cv::Ptr<cv::FileStorage>& fs,
-                               const std::string&              name = String() ) const;
+void cv::ml::StatModel::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oStatModel.write( $fs[, $name] ) -> None
+    $oStatModel.write( $fs ) -> None
+```
+
+```cpp
+void cv::ml::StatModel::write( cv::FileStorage&   fs,
+                               const std::string& name ) const;
+AutoIt:
+    $oStatModel.write( $fs, $name ) -> None
 ```
 
 ### StatModel.UPDATE\_MODEL\_
@@ -30119,7 +32976,6 @@ AutoIt:
 static cv::Ptr<cv::ml::NormalBayesClassifier> cv::ml::NormalBayesClassifier::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.NormalBayesClassifier").create() -> retval
-    _OpenCV_ObjCreate("cv.ml.NormalBayesClassifier")() -> retval
 ```
 
 ### cv::ml::NormalBayesClassifier::calcError
@@ -30246,10 +33102,16 @@ AutoIt:
 ### cv::ml::NormalBayesClassifier::write
 
 ```cpp
-void cv::ml::NormalBayesClassifier::write( const cv::Ptr<cv::FileStorage>& fs,
-                                           const std::string&              name = String() ) const;
+void cv::ml::NormalBayesClassifier::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oNormalBayesClassifier.write( $fs[, $name] ) -> None
+    $oNormalBayesClassifier.write( $fs ) -> None
+```
+
+```cpp
+void cv::ml::NormalBayesClassifier::write( cv::FileStorage&   fs,
+                                           const std::string& name ) const;
+AutoIt:
+    $oNormalBayesClassifier.write( $fs, $name ) -> None
 ```
 
 ## cv::ml::KNearest
@@ -30260,7 +33122,6 @@ AutoIt:
 static cv::Ptr<cv::ml::KNearest> cv::ml::KNearest::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.KNearest").create() -> retval
-    _OpenCV_ObjCreate("cv.ml.KNearest")() -> retval
 ```
 
 ### cv::ml::KNearest::calcError
@@ -30451,10 +33312,16 @@ AutoIt:
 ### cv::ml::KNearest::write
 
 ```cpp
-void cv::ml::KNearest::write( const cv::Ptr<cv::FileStorage>& fs,
-                              const std::string&              name = String() ) const;
+void cv::ml::KNearest::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oKNearest.write( $fs[, $name] ) -> None
+    $oKNearest.write( $fs ) -> None
+```
+
+```cpp
+void cv::ml::KNearest::write( cv::FileStorage&   fs,
+                              const std::string& name ) const;
+AutoIt:
+    $oKNearest.write( $fs, $name ) -> None
 ```
 
 ### KNearest.BRUTE\_FORCE\_
@@ -30481,7 +33348,6 @@ AutoIt:
 static cv::Ptr<cv::ml::SVM> cv::ml::SVM::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.SVM").create() -> retval
-    _OpenCV_ObjCreate("cv.ml.SVM")() -> retval
 ```
 
 ### cv::ml::SVM::calcError
@@ -30808,10 +33674,16 @@ AutoIt:
 ### cv::ml::SVM::write
 
 ```cpp
-void cv::ml::SVM::write( const cv::Ptr<cv::FileStorage>& fs,
-                         const std::string&              name = String() ) const;
+void cv::ml::SVM::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oSVM.write( $fs[, $name] ) -> None
+    $oSVM.write( $fs ) -> None
+```
+
+```cpp
+void cv::ml::SVM::write( cv::FileStorage&   fs,
+                         const std::string& name ) const;
+AutoIt:
+    $oSVM.write( $fs, $name ) -> None
 ```
 
 ### SVM.C\_SVC\_
@@ -30966,7 +33838,6 @@ AutoIt:
 static cv::Ptr<cv::ml::EM> cv::ml::EM::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.EM").create() -> retval
-    _OpenCV_ObjCreate("cv.ml.EM")() -> retval
 ```
 
 ### cv::ml::EM::calcError
@@ -31200,10 +34071,16 @@ AutoIt:
 ### cv::ml::EM::write
 
 ```cpp
-void cv::ml::EM::write( const cv::Ptr<cv::FileStorage>& fs,
-                        const std::string&              name = String() ) const;
+void cv::ml::EM::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oEM.write( $fs[, $name] ) -> None
+    $oEM.write( $fs ) -> None
+```
+
+```cpp
+void cv::ml::EM::write( cv::FileStorage&   fs,
+                        const std::string& name ) const;
+AutoIt:
+    $oEM.write( $fs, $name ) -> None
 ```
 
 ### EM.COV\_MAT\_SPHERICAL\_
@@ -31286,7 +34163,6 @@ AutoIt:
 static cv::Ptr<cv::ml::DTrees> cv::ml::DTrees::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.DTrees").create() -> retval
-    _OpenCV_ObjCreate("cv.ml.DTrees")() -> retval
 ```
 
 ### cv::ml::DTrees::calcError
@@ -31546,10 +34422,16 @@ AutoIt:
 ### cv::ml::DTrees::write
 
 ```cpp
-void cv::ml::DTrees::write( const cv::Ptr<cv::FileStorage>& fs,
-                            const std::string&              name = String() ) const;
+void cv::ml::DTrees::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oDTrees.write( $fs[, $name] ) -> None
+    $oDTrees.write( $fs ) -> None
+```
+
+```cpp
+void cv::ml::DTrees::write( cv::FileStorage&   fs,
+                            const std::string& name ) const;
+AutoIt:
+    $oDTrees.write( $fs, $name ) -> None
 ```
 
 ### DTrees.PREDICT\_AUTO\_
@@ -31592,7 +34474,6 @@ AutoIt:
 static cv::Ptr<cv::ml::RTrees> cv::ml::RTrees::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.RTrees").create() -> retval
-    _OpenCV_ObjCreate("cv.ml.RTrees")() -> retval
 ```
 
 ### cv::ml::RTrees::calcError
@@ -31926,10 +34807,16 @@ AutoIt:
 ### cv::ml::RTrees::write
 
 ```cpp
-void cv::ml::RTrees::write( const cv::Ptr<cv::FileStorage>& fs,
-                            const std::string&              name = String() ) const;
+void cv::ml::RTrees::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oRTrees.write( $fs[, $name] ) -> None
+    $oRTrees.write( $fs ) -> None
+```
+
+```cpp
+void cv::ml::RTrees::write( cv::FileStorage&   fs,
+                            const std::string& name ) const;
+AutoIt:
+    $oRTrees.write( $fs, $name ) -> None
 ```
 
 ## cv::ml::Boost
@@ -31940,7 +34827,6 @@ AutoIt:
 static cv::Ptr<cv::ml::Boost> cv::ml::Boost::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.Boost").create() -> retval
-    _OpenCV_ObjCreate("cv.ml.Boost")() -> retval
 ```
 
 ### cv::ml::Boost::calcError
@@ -32248,10 +35134,16 @@ AutoIt:
 ### cv::ml::Boost::write
 
 ```cpp
-void cv::ml::Boost::write( const cv::Ptr<cv::FileStorage>& fs,
-                           const std::string&              name = String() ) const;
+void cv::ml::Boost::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oBoost.write( $fs[, $name] ) -> None
+    $oBoost.write( $fs ) -> None
+```
+
+```cpp
+void cv::ml::Boost::write( cv::FileStorage&   fs,
+                           const std::string& name ) const;
+AutoIt:
+    $oBoost.write( $fs, $name ) -> None
 ```
 
 ### Boost.DISCRETE\_
@@ -32294,7 +35186,6 @@ AutoIt:
 static cv::Ptr<cv::ml::ANN_MLP> cv::ml::ANN_MLP::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.ANN_MLP").create() -> retval
-    _OpenCV_ObjCreate("cv.ml.ANN_MLP")() -> retval
 ```
 
 ### cv::ml::ANN\_MLP::calcError
@@ -32653,10 +35544,16 @@ AutoIt:
 ### cv::ml::ANN\_MLP::write
 
 ```cpp
-void cv::ml::ANN_MLP::write( const cv::Ptr<cv::FileStorage>& fs,
-                             const std::string&              name = String() ) const;
+void cv::ml::ANN_MLP::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oANN_MLP.write( $fs[, $name] ) -> None
+    $oANN_MLP.write( $fs ) -> None
+```
+
+```cpp
+void cv::ml::ANN_MLP::write( cv::FileStorage&   fs,
+                             const std::string& name ) const;
+AutoIt:
+    $oANN_MLP.write( $fs, $name ) -> None
 ```
 
 ### ANN\_MLP.BACKPROP\_
@@ -32755,7 +35652,6 @@ AutoIt:
 static cv::Ptr<cv::ml::LogisticRegression> cv::ml::LogisticRegression::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.LogisticRegression").create() -> retval
-    _OpenCV_ObjCreate("cv.ml.LogisticRegression")() -> retval
 ```
 
 ### cv::ml::LogisticRegression::calcError
@@ -32975,10 +35871,16 @@ AutoIt:
 ### cv::ml::LogisticRegression::write
 
 ```cpp
-void cv::ml::LogisticRegression::write( const cv::Ptr<cv::FileStorage>& fs,
-                                        const std::string&              name = String() ) const;
+void cv::ml::LogisticRegression::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oLogisticRegression.write( $fs[, $name] ) -> None
+    $oLogisticRegression.write( $fs ) -> None
+```
+
+```cpp
+void cv::ml::LogisticRegression::write( cv::FileStorage&   fs,
+                                        const std::string& name ) const;
+AutoIt:
+    $oLogisticRegression.write( $fs, $name ) -> None
 ```
 
 ### LogisticRegression.REG\_DISABLE\_
@@ -33029,7 +35931,6 @@ AutoIt:
 static cv::Ptr<cv::ml::SVMSGD> cv::ml::SVMSGD::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.SVMSGD").create() -> retval
-    _OpenCV_ObjCreate("cv.ml.SVMSGD")() -> retval
 ```
 
 ### cv::ml::SVMSGD::calcError
@@ -33266,10 +36167,16 @@ AutoIt:
 ### cv::ml::SVMSGD::write
 
 ```cpp
-void cv::ml::SVMSGD::write( const cv::Ptr<cv::FileStorage>& fs,
-                            const std::string&              name = String() ) const;
+void cv::ml::SVMSGD::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oSVMSGD.write( $fs[, $name] ) -> None
+    $oSVMSGD.write( $fs ) -> None
+```
+
+```cpp
+void cv::ml::SVMSGD::write( cv::FileStorage&   fs,
+                            const std::string& name ) const;
+AutoIt:
+    $oSVMSGD.write( $fs, $name ) -> None
 ```
 
 ### SVMSGD.SGD\_
@@ -33374,10 +36281,16 @@ AutoIt:
 ### cv::Tonemap::write
 
 ```cpp
-void cv::Tonemap::write( const cv::Ptr<cv::FileStorage>& fs,
-                         const std::string&              name = String() ) const;
+void cv::Tonemap::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oTonemap.write( $fs[, $name] ) -> None
+    $oTonemap.write( $fs ) -> None
+```
+
+```cpp
+void cv::Tonemap::write( cv::FileStorage&   fs,
+                         const std::string& name ) const;
+AutoIt:
+    $oTonemap.write( $fs, $name ) -> None
 ```
 
 ## cv::TonemapDrago
@@ -33482,10 +36395,16 @@ AutoIt:
 ### cv::TonemapDrago::write
 
 ```cpp
-void cv::TonemapDrago::write( const cv::Ptr<cv::FileStorage>& fs,
-                              const std::string&              name = String() ) const;
+void cv::TonemapDrago::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oTonemapDrago.write( $fs[, $name] ) -> None
+    $oTonemapDrago.write( $fs ) -> None
+```
+
+```cpp
+void cv::TonemapDrago::write( cv::FileStorage&   fs,
+                              const std::string& name ) const;
+AutoIt:
+    $oTonemapDrago.write( $fs, $name ) -> None
 ```
 
 ## cv::TonemapReinhard
@@ -33606,10 +36525,16 @@ AutoIt:
 ### cv::TonemapReinhard::write
 
 ```cpp
-void cv::TonemapReinhard::write( const cv::Ptr<cv::FileStorage>& fs,
-                                 const std::string&              name = String() ) const;
+void cv::TonemapReinhard::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oTonemapReinhard.write( $fs[, $name] ) -> None
+    $oTonemapReinhard.write( $fs ) -> None
+```
+
+```cpp
+void cv::TonemapReinhard::write( cv::FileStorage&   fs,
+                                 const std::string& name ) const;
+AutoIt:
+    $oTonemapReinhard.write( $fs, $name ) -> None
 ```
 
 ## cv::TonemapMantiuk
@@ -33714,10 +36639,16 @@ AutoIt:
 ### cv::TonemapMantiuk::write
 
 ```cpp
-void cv::TonemapMantiuk::write( const cv::Ptr<cv::FileStorage>& fs,
-                                const std::string&              name = String() ) const;
+void cv::TonemapMantiuk::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oTonemapMantiuk.write( $fs[, $name] ) -> None
+    $oTonemapMantiuk.write( $fs ) -> None
+```
+
+```cpp
+void cv::TonemapMantiuk::write( cv::FileStorage&   fs,
+                                const std::string& name ) const;
+AutoIt:
+    $oTonemapMantiuk.write( $fs, $name ) -> None
 ```
 
 ## cv::AlignExposures
@@ -33776,10 +36707,16 @@ AutoIt:
 ### cv::AlignExposures::write
 
 ```cpp
-void cv::AlignExposures::write( const cv::Ptr<cv::FileStorage>& fs,
-                                const std::string&              name = String() ) const;
+void cv::AlignExposures::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oAlignExposures.write( $fs[, $name] ) -> None
+    $oAlignExposures.write( $fs ) -> None
+```
+
+```cpp
+void cv::AlignExposures::write( cv::FileStorage&   fs,
+                                const std::string& name ) const;
+AutoIt:
+    $oAlignExposures.write( $fs, $name ) -> None
 ```
 
 ## cv::AlignMTB
@@ -33922,10 +36859,16 @@ AutoIt:
 ### cv::AlignMTB::write
 
 ```cpp
-void cv::AlignMTB::write( const cv::Ptr<cv::FileStorage>& fs,
-                          const std::string&              name = String() ) const;
+void cv::AlignMTB::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oAlignMTB.write( $fs[, $name] ) -> None
+    $oAlignMTB.write( $fs ) -> None
+```
+
+```cpp
+void cv::AlignMTB::write( cv::FileStorage&   fs,
+                          const std::string& name ) const;
+AutoIt:
+    $oAlignMTB.write( $fs, $name ) -> None
 ```
 
 ## cv::CalibrateCRF
@@ -33983,10 +36926,16 @@ AutoIt:
 ### cv::CalibrateCRF::write
 
 ```cpp
-void cv::CalibrateCRF::write( const cv::Ptr<cv::FileStorage>& fs,
-                              const std::string&              name = String() ) const;
+void cv::CalibrateCRF::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oCalibrateCRF.write( $fs[, $name] ) -> None
+    $oCalibrateCRF.write( $fs ) -> None
+```
+
+```cpp
+void cv::CalibrateCRF::write( cv::FileStorage&   fs,
+                              const std::string& name ) const;
+AutoIt:
+    $oCalibrateCRF.write( $fs, $name ) -> None
 ```
 
 ## cv::CalibrateDebevec
@@ -34092,10 +37041,16 @@ AutoIt:
 ### cv::CalibrateDebevec::write
 
 ```cpp
-void cv::CalibrateDebevec::write( const cv::Ptr<cv::FileStorage>& fs,
-                                  const std::string&              name = String() ) const;
+void cv::CalibrateDebevec::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oCalibrateDebevec.write( $fs[, $name] ) -> None
+    $oCalibrateDebevec.write( $fs ) -> None
+```
+
+```cpp
+void cv::CalibrateDebevec::write( cv::FileStorage&   fs,
+                                  const std::string& name ) const;
+AutoIt:
+    $oCalibrateDebevec.write( $fs, $name ) -> None
 ```
 
 ## cv::CalibrateRobertson
@@ -34193,10 +37148,16 @@ AutoIt:
 ### cv::CalibrateRobertson::write
 
 ```cpp
-void cv::CalibrateRobertson::write( const cv::Ptr<cv::FileStorage>& fs,
-                                    const std::string&              name = String() ) const;
+void cv::CalibrateRobertson::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oCalibrateRobertson.write( $fs[, $name] ) -> None
+    $oCalibrateRobertson.write( $fs ) -> None
+```
+
+```cpp
+void cv::CalibrateRobertson::write( cv::FileStorage&   fs,
+                                    const std::string& name ) const;
+AutoIt:
+    $oCalibrateRobertson.write( $fs, $name ) -> None
 ```
 
 ## cv::MergeExposures
@@ -34255,10 +37216,16 @@ AutoIt:
 ### cv::MergeExposures::write
 
 ```cpp
-void cv::MergeExposures::write( const cv::Ptr<cv::FileStorage>& fs,
-                                const std::string&              name = String() ) const;
+void cv::MergeExposures::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oMergeExposures.write( $fs[, $name] ) -> None
+    $oMergeExposures.write( $fs ) -> None
+```
+
+```cpp
+void cv::MergeExposures::write( cv::FileStorage&   fs,
+                                const std::string& name ) const;
+AutoIt:
+    $oMergeExposures.write( $fs, $name ) -> None
 ```
 
 ## cv::MergeDebevec
@@ -34325,10 +37292,16 @@ AutoIt:
 ### cv::MergeDebevec::write
 
 ```cpp
-void cv::MergeDebevec::write( const cv::Ptr<cv::FileStorage>& fs,
-                              const std::string&              name = String() ) const;
+void cv::MergeDebevec::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oMergeDebevec.write( $fs[, $name] ) -> None
+    $oMergeDebevec.write( $fs ) -> None
+```
+
+```cpp
+void cv::MergeDebevec::write( cv::FileStorage&   fs,
+                              const std::string& name ) const;
+AutoIt:
+    $oMergeDebevec.write( $fs, $name ) -> None
 ```
 
 ## cv::MergeMertens
@@ -34442,10 +37415,16 @@ AutoIt:
 ### cv::MergeMertens::write
 
 ```cpp
-void cv::MergeMertens::write( const cv::Ptr<cv::FileStorage>& fs,
-                              const std::string&              name = String() ) const;
+void cv::MergeMertens::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oMergeMertens.write( $fs[, $name] ) -> None
+    $oMergeMertens.write( $fs ) -> None
+```
+
+```cpp
+void cv::MergeMertens::write( cv::FileStorage&   fs,
+                              const std::string& name ) const;
+AutoIt:
+    $oMergeMertens.write( $fs, $name ) -> None
 ```
 
 ## cv::MergeRobertson
@@ -34512,13 +37491,123 @@ AutoIt:
 ### cv::MergeRobertson::write
 
 ```cpp
-void cv::MergeRobertson::write( const cv::Ptr<cv::FileStorage>& fs,
-                                const std::string&              name = String() ) const;
+void cv::MergeRobertson::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oMergeRobertson.write( $fs[, $name] ) -> None
+    $oMergeRobertson.write( $fs ) -> None
+```
+
+```cpp
+void cv::MergeRobertson::write( cv::FileStorage&   fs,
+                                const std::string& name ) const;
+AutoIt:
+    $oMergeRobertson.write( $fs, $name ) -> None
 ```
 
 ## cv::dnn
+
+### dnn.DictValue
+
+```cpp
+static cv::dnn::DictValue
+AutoIt:
+    [propget] $odnn.DictValue
+```
+
+### dnn.Layer
+
+```cpp
+static cv::dnn::Layer
+AutoIt:
+    [propget] $odnn.Layer
+```
+
+### dnn.Net
+
+```cpp
+static cv::dnn::Net
+AutoIt:
+    [propget] $odnn.Net
+```
+
+### dnn.SoftNMSMethod
+
+```cpp
+static cv::dnn::SoftNMSMethod
+AutoIt:
+    [propget] $odnn.SoftNMSMethod
+```
+
+### dnn.Model
+
+```cpp
+static cv::dnn::Model
+AutoIt:
+    [propget] $odnn.Model
+```
+
+### dnn.ClassificationModel
+
+```cpp
+static cv::dnn::ClassificationModel
+AutoIt:
+    [propget] $odnn.ClassificationModel
+```
+
+### dnn.KeypointsModel
+
+```cpp
+static cv::dnn::KeypointsModel
+AutoIt:
+    [propget] $odnn.KeypointsModel
+```
+
+### dnn.SegmentationModel
+
+```cpp
+static cv::dnn::SegmentationModel
+AutoIt:
+    [propget] $odnn.SegmentationModel
+```
+
+### dnn.DetectionModel
+
+```cpp
+static cv::dnn::DetectionModel
+AutoIt:
+    [propget] $odnn.DetectionModel
+```
+
+### dnn.TextRecognitionModel
+
+```cpp
+static cv::dnn::TextRecognitionModel
+AutoIt:
+    [propget] $odnn.TextRecognitionModel
+```
+
+### dnn.TextDetectionModel
+
+```cpp
+static cv::dnn::TextDetectionModel
+AutoIt:
+    [propget] $odnn.TextDetectionModel
+```
+
+### dnn.TextDetectionModel\_EAST
+
+```cpp
+static cv::dnn::TextDetectionModel_EAST
+AutoIt:
+    [propget] $odnn.TextDetectionModel_EAST
+```
+
+### dnn.TextDetectionModel\_DB
+
+```cpp
+static cv::dnn::TextDetectionModel_DB
+AutoIt:
+    [propget] $odnn.TextDetectionModel_DB
+```
 
 ### cv::dnn::NMSBoxes
 
@@ -34532,6 +37621,21 @@ void cv::dnn::NMSBoxes( const std::vector<cv::Rect2d>& bboxes,
                         const int                      top_k = 0 );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn").NMSBoxes( $bboxes, $scores, $score_threshold, $nms_threshold[, $eta[, $top_k[, $indices]]] ) -> $indices
+```
+
+### cv::dnn::NMSBoxesBatched
+
+```cpp
+void cv::dnn::NMSBoxesBatched( const std::vector<cv::Rect2d>& bboxes,
+                               const std::vector<float>&      scores,
+                               const std::vector<int>&        class_ids,
+                               const float                    score_threshold,
+                               const float                    nms_threshold,
+                               std::vector<int>&              indices,
+                               const float                    eta = 1.f,
+                               const int                      top_k = 0 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn").NMSBoxesBatched( $bboxes, $scores, $class_ids, $score_threshold, $nms_threshold[, $eta[, $top_k[, $indices]]] ) -> $indices
 ```
 
 ### cv::dnn::NMSBoxesRotated
@@ -34815,6 +37919,14 @@ AutoIt:
     [propget] $odnn.DNN_BACKEND_TIMVX_
 ```
 
+### dnn.DNN\_BACKEND\_CANN\_
+
+```cpp
+static int cv::dnn::DNN_BACKEND_CANN
+AutoIt:
+    [propget] $odnn.DNN_BACKEND_CANN_
+```
+
 ### dnn.DNN\_TARGET\_CPU\_
 
 ```cpp
@@ -34903,21 +38015,21 @@ AutoIt:
 static cv::dnn::DictValue cv::dnn::DictValue::get_create( int i );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.DictValue").create( $i ) -> <cv.dnn.DictValue object>
-    _OpenCV_ObjCreate("cv.dnn.DictValue")( $i ) -> <cv.dnn.DictValue object>
+    $oDictValue( $i ) -> <cv.dnn.DictValue object>
 ```
 
 ```cpp
 static cv::dnn::DictValue cv::dnn::DictValue::get_create( double p );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.DictValue").create( $p ) -> <cv.dnn.DictValue object>
-    _OpenCV_ObjCreate("cv.dnn.DictValue")( $p ) -> <cv.dnn.DictValue object>
+    $oDictValue( $p ) -> <cv.dnn.DictValue object>
 ```
 
 ```cpp
 static cv::dnn::DictValue cv::dnn::DictValue::get_create( const std::string& s );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.DictValue").create( $s ) -> <cv.dnn.DictValue object>
-    _OpenCV_ObjCreate("cv.dnn.DictValue")( $s ) -> <cv.dnn.DictValue object>
+    $oDictValue( $s ) -> <cv.dnn.DictValue object>
 ```
 
 ### cv::dnn::DictValue::getIntValue
@@ -34975,7 +38087,7 @@ AutoIt:
 ```cpp
 std::vector<cv::Mat> cv::dnn::Layer::blobs
 AutoIt:
-    [propget propput] $oLayer.blobs
+    [propget, propput] $oLayer.blobs
 ```
 
 ### Layer.name
@@ -35072,10 +38184,16 @@ AutoIt:
 ### cv::dnn::Layer::write
 
 ```cpp
-void cv::dnn::Layer::write( const cv::Ptr<cv::FileStorage>& fs,
-                            const std::string&              name = String() ) const;
+void cv::dnn::Layer::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oLayer.write( $fs[, $name] ) -> None
+    $oLayer.write( $fs ) -> None
+```
+
+```cpp
+void cv::dnn::Layer::write( cv::FileStorage&   fs,
+                            const std::string& name ) const;
+AutoIt:
+    $oLayer.write( $fs, $name ) -> None
 ```
 
 ## cv::dnn::Net
@@ -35086,7 +38204,6 @@ AutoIt:
 static cv::dnn::Net cv::dnn::Net::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.Net").create() -> <cv.dnn.Net object>
-    _OpenCV_ObjCreate("cv.dnn.Net")() -> <cv.dnn.Net object>
 ```
 
 ### cv::dnn::Net::connect
@@ -35128,6 +38245,14 @@ AutoIt:
 void cv::dnn::Net::enableFusion( bool fusion );
 AutoIt:
     $oNet.enableFusion( $fusion ) -> None
+```
+
+### cv::dnn::Net::enableWinograd
+
+```cpp
+void cv::dnn::Net::enableWinograd( bool useWinograd );
+AutoIt:
+    $oNet.enableWinograd( $useWinograd ) -> None
 ```
 
 ### cv::dnn::Net::forward
@@ -35360,9 +38485,10 @@ AutoIt:
 ```cpp
 cv::dnn::Net cv::dnn::Net::quantize( InputArrayOfArrays calibData,
                                      int                inputsDtype,
-                                     int                outputsDtype );
+                                     int                outputsDtype,
+                                     bool               perChannel = true );
 AutoIt:
-    $oNet.quantize( $calibData, $inputsDtype, $outputsDtype ) -> retval
+    $oNet.quantize( $calibData, $inputsDtype, $outputsDtype[, $perChannel] ) -> retval
 ```
 
 ### cv::dnn::Net::readFromModelOptimizer
@@ -35478,14 +38604,14 @@ static cv::dnn::Model cv::dnn::Model::get_create( const std::string& model,
                                                   const std::string& config = "" );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.Model").create( $model[, $config] ) -> <cv.dnn.Model object>
-    _OpenCV_ObjCreate("cv.dnn.Model")( $model[, $config] ) -> <cv.dnn.Model object>
+    $oModel( $model[, $config] ) -> <cv.dnn.Model object>
 ```
 
 ```cpp
 static cv::dnn::Model cv::dnn::Model::get_create( const cv::dnn::Net& network );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.Model").create( $network ) -> <cv.dnn.Model object>
-    _OpenCV_ObjCreate("cv.dnn.Model")( $network ) -> <cv.dnn.Model object>
+    $oModel( $network ) -> <cv.dnn.Model object>
 ```
 
 ### cv::dnn::Model::predict
@@ -35581,14 +38707,14 @@ static cv::dnn::ClassificationModel cv::dnn::ClassificationModel::get_create( co
                                                                               const std::string& config = "" );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.ClassificationModel").create( $model[, $config] ) -> <cv.dnn.ClassificationModel object>
-    _OpenCV_ObjCreate("cv.dnn.ClassificationModel")( $model[, $config] ) -> <cv.dnn.ClassificationModel object>
+    $oClassificationModel( $model[, $config] ) -> <cv.dnn.ClassificationModel object>
 ```
 
 ```cpp
 static cv::dnn::ClassificationModel cv::dnn::ClassificationModel::get_create( const cv::dnn::Net& network );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.ClassificationModel").create( $network ) -> <cv.dnn.ClassificationModel object>
-    _OpenCV_ObjCreate("cv.dnn.ClassificationModel")( $network ) -> <cv.dnn.ClassificationModel object>
+    $oClassificationModel( $network ) -> <cv.dnn.ClassificationModel object>
 ```
 
 ### cv::dnn::ClassificationModel::classify
@@ -35710,14 +38836,14 @@ static cv::dnn::KeypointsModel cv::dnn::KeypointsModel::get_create( const std::s
                                                                     const std::string& config = "" );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.KeypointsModel").create( $model[, $config] ) -> <cv.dnn.KeypointsModel object>
-    _OpenCV_ObjCreate("cv.dnn.KeypointsModel")( $model[, $config] ) -> <cv.dnn.KeypointsModel object>
+    $oKeypointsModel( $model[, $config] ) -> <cv.dnn.KeypointsModel object>
 ```
 
 ```cpp
 static cv::dnn::KeypointsModel cv::dnn::KeypointsModel::get_create( const cv::dnn::Net& network );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.KeypointsModel").create( $network ) -> <cv.dnn.KeypointsModel object>
-    _OpenCV_ObjCreate("cv.dnn.KeypointsModel")( $network ) -> <cv.dnn.KeypointsModel object>
+    $oKeypointsModel( $network ) -> <cv.dnn.KeypointsModel object>
 ```
 
 ### cv::dnn::KeypointsModel::estimate
@@ -35822,14 +38948,14 @@ static cv::dnn::SegmentationModel cv::dnn::SegmentationModel::get_create( const 
                                                                           const std::string& config = "" );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.SegmentationModel").create( $model[, $config] ) -> <cv.dnn.SegmentationModel object>
-    _OpenCV_ObjCreate("cv.dnn.SegmentationModel")( $model[, $config] ) -> <cv.dnn.SegmentationModel object>
+    $oSegmentationModel( $model[, $config] ) -> <cv.dnn.SegmentationModel object>
 ```
 
 ```cpp
 static cv::dnn::SegmentationModel cv::dnn::SegmentationModel::get_create( const cv::dnn::Net& network );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.SegmentationModel").create( $network ) -> <cv.dnn.SegmentationModel object>
-    _OpenCV_ObjCreate("cv.dnn.SegmentationModel")( $network ) -> <cv.dnn.SegmentationModel object>
+    $oSegmentationModel( $network ) -> <cv.dnn.SegmentationModel object>
 ```
 
 ### cv::dnn::SegmentationModel::predict
@@ -35934,14 +39060,14 @@ static cv::dnn::DetectionModel cv::dnn::DetectionModel::get_create( const std::s
                                                                     const std::string& config = "" );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.DetectionModel").create( $model[, $config] ) -> <cv.dnn.DetectionModel object>
-    _OpenCV_ObjCreate("cv.dnn.DetectionModel")( $model[, $config] ) -> <cv.dnn.DetectionModel object>
+    $oDetectionModel( $model[, $config] ) -> <cv.dnn.DetectionModel object>
 ```
 
 ```cpp
 static cv::dnn::DetectionModel cv::dnn::DetectionModel::get_create( const cv::dnn::Net& network );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.DetectionModel").create( $network ) -> <cv.dnn.DetectionModel object>
-    _OpenCV_ObjCreate("cv.dnn.DetectionModel")( $network ) -> <cv.dnn.DetectionModel object>
+    $oDetectionModel( $network ) -> <cv.dnn.DetectionModel object>
 ```
 
 ### cv::dnn::DetectionModel::detect
@@ -36065,7 +39191,7 @@ AutoIt:
 static cv::dnn::TextRecognitionModel cv::dnn::TextRecognitionModel::get_create( const cv::dnn::Net& network );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.TextRecognitionModel").create( $network ) -> <cv.dnn.TextRecognitionModel object>
-    _OpenCV_ObjCreate("cv.dnn.TextRecognitionModel")( $network ) -> <cv.dnn.TextRecognitionModel object>
+    $oTextRecognitionModel( $network ) -> <cv.dnn.TextRecognitionModel object>
 ```
 
 ```cpp
@@ -36073,7 +39199,7 @@ static cv::dnn::TextRecognitionModel cv::dnn::TextRecognitionModel::get_create( 
                                                                                 const std::string& config = "" );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.TextRecognitionModel").create( $model[, $config] ) -> <cv.dnn.TextRecognitionModel object>
-    _OpenCV_ObjCreate("cv.dnn.TextRecognitionModel")( $model[, $config] ) -> <cv.dnn.TextRecognitionModel object>
+    $oTextRecognitionModel( $model[, $config] ) -> <cv.dnn.TextRecognitionModel object>
 ```
 
 ### cv::dnn::TextRecognitionModel::getDecodeType
@@ -36345,7 +39471,7 @@ AutoIt:
 static cv::dnn::TextDetectionModel_EAST cv::dnn::TextDetectionModel_EAST::get_create( const cv::dnn::Net& network );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.TextDetectionModel_EAST").create( $network ) -> <cv.dnn.TextDetectionModel_EAST object>
-    _OpenCV_ObjCreate("cv.dnn.TextDetectionModel_EAST")( $network ) -> <cv.dnn.TextDetectionModel_EAST object>
+    $oTextDetectionModel_EAST( $network ) -> <cv.dnn.TextDetectionModel_EAST object>
 ```
 
 ```cpp
@@ -36353,7 +39479,7 @@ static cv::dnn::TextDetectionModel_EAST cv::dnn::TextDetectionModel_EAST::get_cr
                                                                                       const std::string& config = "" );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.TextDetectionModel_EAST").create( $model[, $config] ) -> <cv.dnn.TextDetectionModel_EAST object>
-    _OpenCV_ObjCreate("cv.dnn.TextDetectionModel_EAST")( $model[, $config] ) -> <cv.dnn.TextDetectionModel_EAST object>
+    $oTextDetectionModel_EAST( $model[, $config] ) -> <cv.dnn.TextDetectionModel_EAST object>
 ```
 
 ### cv::dnn::TextDetectionModel\_EAST::detect
@@ -36514,7 +39640,7 @@ AutoIt:
 static cv::dnn::TextDetectionModel_DB cv::dnn::TextDetectionModel_DB::get_create( const cv::dnn::Net& network );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.TextDetectionModel_DB").create( $network ) -> <cv.dnn.TextDetectionModel_DB object>
-    _OpenCV_ObjCreate("cv.dnn.TextDetectionModel_DB")( $network ) -> <cv.dnn.TextDetectionModel_DB object>
+    $oTextDetectionModel_DB( $network ) -> <cv.dnn.TextDetectionModel_DB object>
 ```
 
 ```cpp
@@ -36522,7 +39648,7 @@ static cv::dnn::TextDetectionModel_DB cv::dnn::TextDetectionModel_DB::get_create
                                                                                   const std::string& config = "" );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.TextDetectionModel_DB").create( $model[, $config] ) -> <cv.dnn.TextDetectionModel_DB object>
-    _OpenCV_ObjCreate("cv.dnn.TextDetectionModel_DB")( $model[, $config] ) -> <cv.dnn.TextDetectionModel_DB object>
+    $oTextDetectionModel_DB( $model[, $config] ) -> <cv.dnn.TextDetectionModel_DB object>
 ```
 
 ### cv::dnn::TextDetectionModel\_DB::detect
@@ -36836,10 +39962,16 @@ AutoIt:
 ```
 
 ```cpp
-void cv::Feature2D::write( const cv::Ptr<cv::FileStorage>& fs,
-                           const std::string&              name = String() ) const;
+void cv::Feature2D::write( cv::FileStorage&   fs,
+                           const std::string& name ) const;
 AutoIt:
-    $oFeature2D.write( $fs[, $name] ) -> None
+    $oFeature2D.write( $fs, $name ) -> None
+```
+
+```cpp
+void cv::Feature2D::write( cv::FileStorage& fs ) const;
+AutoIt:
+    $oFeature2D.write( $fs ) -> None
 ```
 
 ## cv::AffineFeature
@@ -36854,7 +39986,7 @@ static cv::Ptr<cv::AffineFeature> cv::AffineFeature::get_create( const cv::Ptr<c
                                                                  float                         rotateStepBase = 72 );
 AutoIt:
     _OpenCV_ObjCreate("cv.AffineFeature").create( $backend[, $maxTilt[, $minTilt[, $tiltStep[, $rotateStepBase]]]] ) -> retval
-    _OpenCV_ObjCreate("cv.AffineFeature")( $backend[, $maxTilt[, $minTilt[, $tiltStep[, $rotateStepBase]]]] ) -> retval
+    $oAffineFeature( $backend[, $maxTilt[, $minTilt[, $tiltStep[, $rotateStepBase]]]] ) -> retval
 ```
 
 ### cv::AffineFeature::clear
@@ -37002,10 +40134,16 @@ AutoIt:
 ```
 
 ```cpp
-void cv::AffineFeature::write( const cv::Ptr<cv::FileStorage>& fs,
-                               const std::string&              name = String() ) const;
+void cv::AffineFeature::write( cv::FileStorage&   fs,
+                               const std::string& name ) const;
 AutoIt:
-    $oAffineFeature.write( $fs[, $name] ) -> None
+    $oAffineFeature.write( $fs, $name ) -> None
+```
+
+```cpp
+void cv::AffineFeature::write( cv::FileStorage& fs ) const;
+AutoIt:
+    $oAffineFeature.write( $fs ) -> None
 ```
 
 ## cv::SIFT
@@ -37020,7 +40158,7 @@ static cv::Ptr<cv::SIFT> cv::SIFT::get_create( int    nfeatures = 0,
                                                double sigma = 1.6 );
 AutoIt:
     _OpenCV_ObjCreate("cv.SIFT").create( [$nfeatures[, $nOctaveLayers[, $contrastThreshold[, $edgeThreshold[, $sigma]]]]] ) -> retval
-    _OpenCV_ObjCreate("cv.SIFT")( [$nfeatures[, $nOctaveLayers[, $contrastThreshold[, $edgeThreshold[, $sigma]]]]] ) -> retval
+    $oSIFT( [$nfeatures[, $nOctaveLayers[, $contrastThreshold[, $edgeThreshold[, $sigma]]]]] ) -> retval
 ```
 
 ```cpp
@@ -37032,7 +40170,7 @@ static cv::Ptr<cv::SIFT> cv::SIFT::get_create( int    nfeatures,
                                                int    descriptorType );
 AutoIt:
     _OpenCV_ObjCreate("cv.SIFT").create( $nfeatures, $nOctaveLayers, $contrastThreshold, $edgeThreshold, $sigma, $descriptorType ) -> retval
-    _OpenCV_ObjCreate("cv.SIFT")( $nfeatures, $nOctaveLayers, $contrastThreshold, $edgeThreshold, $sigma, $descriptorType ) -> retval
+    $oSIFT( $nfeatures, $nOctaveLayers, $contrastThreshold, $edgeThreshold, $sigma, $descriptorType ) -> retval
 ```
 
 ### cv::SIFT::clear
@@ -37123,12 +40261,52 @@ AutoIt:
     $oSIFT.empty() -> retval
 ```
 
+### cv::SIFT::getContrastThreshold
+
+```cpp
+double cv::SIFT::getContrastThreshold() const;
+AutoIt:
+    $oSIFT.getContrastThreshold() -> retval
+```
+
 ### cv::SIFT::getDefaultName
 
 ```cpp
 std::string cv::SIFT::getDefaultName() const;
 AutoIt:
     $oSIFT.getDefaultName() -> retval
+```
+
+### cv::SIFT::getEdgeThreshold
+
+```cpp
+double cv::SIFT::getEdgeThreshold() const;
+AutoIt:
+    $oSIFT.getEdgeThreshold() -> retval
+```
+
+### cv::SIFT::getNFeatures
+
+```cpp
+int cv::SIFT::getNFeatures() const;
+AutoIt:
+    $oSIFT.getNFeatures() -> retval
+```
+
+### cv::SIFT::getNOctaveLayers
+
+```cpp
+int cv::SIFT::getNOctaveLayers() const;
+AutoIt:
+    $oSIFT.getNOctaveLayers() -> retval
+```
+
+### cv::SIFT::getSigma
+
+```cpp
+double cv::SIFT::getSigma() const;
+AutoIt:
+    $oSIFT.getSigma() -> retval
 ```
 
 ### cv::SIFT::read
@@ -37153,6 +40331,46 @@ AutoIt:
     $oSIFT.save( $filename ) -> None
 ```
 
+### cv::SIFT::setContrastThreshold
+
+```cpp
+void cv::SIFT::setContrastThreshold( double contrastThreshold );
+AutoIt:
+    $oSIFT.setContrastThreshold( $contrastThreshold ) -> None
+```
+
+### cv::SIFT::setEdgeThreshold
+
+```cpp
+void cv::SIFT::setEdgeThreshold( double edgeThreshold );
+AutoIt:
+    $oSIFT.setEdgeThreshold( $edgeThreshold ) -> None
+```
+
+### cv::SIFT::setNFeatures
+
+```cpp
+void cv::SIFT::setNFeatures( int maxFeatures );
+AutoIt:
+    $oSIFT.setNFeatures( $maxFeatures ) -> None
+```
+
+### cv::SIFT::setNOctaveLayers
+
+```cpp
+void cv::SIFT::setNOctaveLayers( int nOctaveLayers );
+AutoIt:
+    $oSIFT.setNOctaveLayers( $nOctaveLayers ) -> None
+```
+
+### cv::SIFT::setSigma
+
+```cpp
+void cv::SIFT::setSigma( double sigma );
+AutoIt:
+    $oSIFT.setSigma( $sigma ) -> None
+```
+
 ### cv::SIFT::write
 
 ```cpp
@@ -37162,10 +40380,16 @@ AutoIt:
 ```
 
 ```cpp
-void cv::SIFT::write( const cv::Ptr<cv::FileStorage>& fs,
-                      const std::string&              name = String() ) const;
+void cv::SIFT::write( cv::FileStorage&   fs,
+                      const std::string& name ) const;
 AutoIt:
-    $oSIFT.write( $fs[, $name] ) -> None
+    $oSIFT.write( $fs, $name ) -> None
+```
+
+```cpp
+void cv::SIFT::write( cv::FileStorage& fs ) const;
+AutoIt:
+    $oSIFT.write( $fs ) -> None
 ```
 
 ## cv::BRISK
@@ -37178,7 +40402,7 @@ static cv::Ptr<cv::BRISK> cv::BRISK::get_create( int   thresh = 30,
                                                  float patternScale = 1.0f );
 AutoIt:
     _OpenCV_ObjCreate("cv.BRISK").create( [$thresh[, $octaves[, $patternScale]]] ) -> retval
-    _OpenCV_ObjCreate("cv.BRISK")( [$thresh[, $octaves[, $patternScale]]] ) -> retval
+    $oBRISK( [$thresh[, $octaves[, $patternScale]]] ) -> retval
 ```
 
 ```cpp
@@ -37189,7 +40413,7 @@ static cv::Ptr<cv::BRISK> cv::BRISK::get_create( const std::vector<float>& radiu
                                                  const std::vector<int>&   indexChange = std::vector<int>() );
 AutoIt:
     _OpenCV_ObjCreate("cv.BRISK").create( $radiusList, $numberList[, $dMax[, $dMin[, $indexChange]]] ) -> retval
-    _OpenCV_ObjCreate("cv.BRISK")( $radiusList, $numberList[, $dMax[, $dMin[, $indexChange]]] ) -> retval
+    $oBRISK( $radiusList, $numberList[, $dMax[, $dMin[, $indexChange]]] ) -> retval
 ```
 
 ```cpp
@@ -37202,7 +40426,7 @@ static cv::Ptr<cv::BRISK> cv::BRISK::get_create( int                       thres
                                                  const std::vector<int>&   indexChange = std::vector<int>() );
 AutoIt:
     _OpenCV_ObjCreate("cv.BRISK").create( $thresh, $octaves, $radiusList, $numberList[, $dMax[, $dMin[, $indexChange]]] ) -> retval
-    _OpenCV_ObjCreate("cv.BRISK")( $thresh, $octaves, $radiusList, $numberList[, $dMax[, $dMin[, $indexChange]]] ) -> retval
+    $oBRISK( $thresh, $octaves, $radiusList, $numberList[, $dMax[, $dMin[, $indexChange]]] ) -> retval
 ```
 
 ### cv::BRISK::clear
@@ -37309,6 +40533,14 @@ AutoIt:
     $oBRISK.getOctaves() -> retval
 ```
 
+### cv::BRISK::getPatternScale
+
+```cpp
+float cv::BRISK::getPatternScale() const;
+AutoIt:
+    $oBRISK.getPatternScale() -> retval
+```
+
 ### cv::BRISK::getThreshold
 
 ```cpp
@@ -37347,6 +40579,14 @@ AutoIt:
     $oBRISK.setOctaves( $octaves ) -> None
 ```
 
+### cv::BRISK::setPatternScale
+
+```cpp
+void cv::BRISK::setPatternScale( float patternScale );
+AutoIt:
+    $oBRISK.setPatternScale( $patternScale ) -> None
+```
+
 ### cv::BRISK::setThreshold
 
 ```cpp
@@ -37364,10 +40604,16 @@ AutoIt:
 ```
 
 ```cpp
-void cv::BRISK::write( const cv::Ptr<cv::FileStorage>& fs,
-                       const std::string&              name = String() ) const;
+void cv::BRISK::write( cv::FileStorage&   fs,
+                       const std::string& name ) const;
 AutoIt:
-    $oBRISK.write( $fs[, $name] ) -> None
+    $oBRISK.write( $fs, $name ) -> None
+```
+
+```cpp
+void cv::BRISK::write( cv::FileStorage& fs ) const;
+AutoIt:
+    $oBRISK.write( $fs ) -> None
 ```
 
 ## cv::ORB
@@ -37386,7 +40632,7 @@ static cv::Ptr<cv::ORB> cv::ORB::get_create( int                nfeatures = 500,
                                              int                fastThreshold = 20 );
 AutoIt:
     _OpenCV_ObjCreate("cv.ORB").create( [$nfeatures[, $scaleFactor[, $nlevels[, $edgeThreshold[, $firstLevel[, $WTA_K[, $scoreType[, $patchSize[, $fastThreshold]]]]]]]]] ) -> retval
-    _OpenCV_ObjCreate("cv.ORB")( [$nfeatures[, $scaleFactor[, $nlevels[, $edgeThreshold[, $firstLevel[, $WTA_K[, $scoreType[, $patchSize[, $fastThreshold]]]]]]]]] ) -> retval
+    $oORB( [$nfeatures[, $scaleFactor[, $nlevels[, $edgeThreshold[, $firstLevel[, $WTA_K[, $scoreType[, $patchSize[, $fastThreshold]]]]]]]]] ) -> retval
 ```
 
 ### cv::ORB::clear
@@ -37660,10 +40906,16 @@ AutoIt:
 ```
 
 ```cpp
-void cv::ORB::write( const cv::Ptr<cv::FileStorage>& fs,
-                     const std::string&              name = String() ) const;
+void cv::ORB::write( cv::FileStorage&   fs,
+                     const std::string& name ) const;
 AutoIt:
-    $oORB.write( $fs[, $name] ) -> None
+    $oORB.write( $fs, $name ) -> None
+```
+
+```cpp
+void cv::ORB::write( cv::FileStorage& fs ) const;
+AutoIt:
+    $oORB.write( $fs ) -> None
 ```
 
 ### ORB.HARRIS\_SCORE\_
@@ -37698,7 +40950,7 @@ static cv::Ptr<cv::MSER> cv::MSER::get_create( int    delta = 5,
                                                int    edge_blur_size = 5 );
 AutoIt:
     _OpenCV_ObjCreate("cv.MSER").create( [$delta[, $min_area[, $max_area[, $max_variation[, $min_diversity[, $max_evolution[, $area_threshold[, $min_margin[, $edge_blur_size]]]]]]]]] ) -> retval
-    _OpenCV_ObjCreate("cv.MSER")( [$delta[, $min_area[, $max_area[, $max_variation[, $min_diversity[, $max_evolution[, $area_threshold[, $min_margin[, $edge_blur_size]]]]]]]]] ) -> retval
+    $oMSER( [$delta[, $min_area[, $max_area[, $max_variation[, $min_diversity[, $max_evolution[, $area_threshold[, $min_margin[, $edge_blur_size]]]]]]]]] ) -> retval
 ```
 
 ### cv::MSER::clear
@@ -37799,6 +41051,14 @@ AutoIt:
     $oMSER.empty() -> retval
 ```
 
+### cv::MSER::getAreaThreshold
+
+```cpp
+double cv::MSER::getAreaThreshold() const;
+AutoIt:
+    $oMSER.getAreaThreshold() -> retval
+```
+
 ### cv::MSER::getDefaultName
 
 ```cpp
@@ -37815,6 +41075,14 @@ AutoIt:
     $oMSER.getDelta() -> retval
 ```
 
+### cv::MSER::getEdgeBlurSize
+
+```cpp
+int cv::MSER::getEdgeBlurSize() const;
+AutoIt:
+    $oMSER.getEdgeBlurSize() -> retval
+```
+
 ### cv::MSER::getMaxArea
 
 ```cpp
@@ -37823,12 +41091,44 @@ AutoIt:
     $oMSER.getMaxArea() -> retval
 ```
 
+### cv::MSER::getMaxEvolution
+
+```cpp
+int cv::MSER::getMaxEvolution() const;
+AutoIt:
+    $oMSER.getMaxEvolution() -> retval
+```
+
+### cv::MSER::getMaxVariation
+
+```cpp
+double cv::MSER::getMaxVariation() const;
+AutoIt:
+    $oMSER.getMaxVariation() -> retval
+```
+
 ### cv::MSER::getMinArea
 
 ```cpp
 int cv::MSER::getMinArea() const;
 AutoIt:
     $oMSER.getMinArea() -> retval
+```
+
+### cv::MSER::getMinDiversity
+
+```cpp
+double cv::MSER::getMinDiversity() const;
+AutoIt:
+    $oMSER.getMinDiversity() -> retval
+```
+
+### cv::MSER::getMinMargin
+
+```cpp
+double cv::MSER::getMinMargin() const;
+AutoIt:
+    $oMSER.getMinMargin() -> retval
 ```
 
 ### cv::MSER::getPass2Only
@@ -37861,12 +41161,28 @@ AutoIt:
     $oMSER.save( $filename ) -> None
 ```
 
+### cv::MSER::setAreaThreshold
+
+```cpp
+void cv::MSER::setAreaThreshold( double areaThreshold );
+AutoIt:
+    $oMSER.setAreaThreshold( $areaThreshold ) -> None
+```
+
 ### cv::MSER::setDelta
 
 ```cpp
 void cv::MSER::setDelta( int delta );
 AutoIt:
     $oMSER.setDelta( $delta ) -> None
+```
+
+### cv::MSER::setEdgeBlurSize
+
+```cpp
+void cv::MSER::setEdgeBlurSize( int edge_blur_size );
+AutoIt:
+    $oMSER.setEdgeBlurSize( $edge_blur_size ) -> None
 ```
 
 ### cv::MSER::setMaxArea
@@ -37877,12 +41193,44 @@ AutoIt:
     $oMSER.setMaxArea( $maxArea ) -> None
 ```
 
+### cv::MSER::setMaxEvolution
+
+```cpp
+void cv::MSER::setMaxEvolution( int maxEvolution );
+AutoIt:
+    $oMSER.setMaxEvolution( $maxEvolution ) -> None
+```
+
+### cv::MSER::setMaxVariation
+
+```cpp
+void cv::MSER::setMaxVariation( double maxVariation );
+AutoIt:
+    $oMSER.setMaxVariation( $maxVariation ) -> None
+```
+
 ### cv::MSER::setMinArea
 
 ```cpp
 void cv::MSER::setMinArea( int minArea );
 AutoIt:
     $oMSER.setMinArea( $minArea ) -> None
+```
+
+### cv::MSER::setMinDiversity
+
+```cpp
+void cv::MSER::setMinDiversity( double minDiversity );
+AutoIt:
+    $oMSER.setMinDiversity( $minDiversity ) -> None
+```
+
+### cv::MSER::setMinMargin
+
+```cpp
+void cv::MSER::setMinMargin( double min_margin );
+AutoIt:
+    $oMSER.setMinMargin( $min_margin ) -> None
 ```
 
 ### cv::MSER::setPass2Only
@@ -37902,10 +41250,16 @@ AutoIt:
 ```
 
 ```cpp
-void cv::MSER::write( const cv::Ptr<cv::FileStorage>& fs,
-                      const std::string&              name = String() ) const;
+void cv::MSER::write( cv::FileStorage&   fs,
+                      const std::string& name ) const;
 AutoIt:
-    $oMSER.write( $fs[, $name] ) -> None
+    $oMSER.write( $fs, $name ) -> None
+```
+
+```cpp
+void cv::MSER::write( cv::FileStorage& fs ) const;
+AutoIt:
+    $oMSER.write( $fs ) -> None
 ```
 
 ## cv::FastFeatureDetector
@@ -37918,7 +41272,7 @@ static cv::Ptr<cv::FastFeatureDetector> cv::FastFeatureDetector::get_create( int
                                                                              cv::FastFeatureDetector::DetectorType type = FastFeatureDetector::TYPE_9_16 );
 AutoIt:
     _OpenCV_ObjCreate("cv.FastFeatureDetector").create( [$threshold[, $nonmaxSuppression[, $type]]] ) -> retval
-    _OpenCV_ObjCreate("cv.FastFeatureDetector")( [$threshold[, $nonmaxSuppression[, $type]]] ) -> retval
+    $oFastFeatureDetector( [$threshold[, $nonmaxSuppression[, $type]]] ) -> retval
 ```
 
 ### cv::FastFeatureDetector::clear
@@ -38096,10 +41450,16 @@ AutoIt:
 ```
 
 ```cpp
-void cv::FastFeatureDetector::write( const cv::Ptr<cv::FileStorage>& fs,
-                                     const std::string&              name = String() ) const;
+void cv::FastFeatureDetector::write( cv::FileStorage&   fs,
+                                     const std::string& name ) const;
 AutoIt:
-    $oFastFeatureDetector.write( $fs[, $name] ) -> None
+    $oFastFeatureDetector.write( $fs, $name ) -> None
+```
+
+```cpp
+void cv::FastFeatureDetector::write( cv::FileStorage& fs ) const;
+AutoIt:
+    $oFastFeatureDetector.write( $fs ) -> None
 ```
 
 ### FastFeatureDetector.TYPE\_5\_8\_
@@ -38160,7 +41520,7 @@ static cv::Ptr<cv::AgastFeatureDetector> cv::AgastFeatureDetector::get_create( i
                                                                                cv::AgastFeatureDetector::DetectorType type = AgastFeatureDetector::OAST_9_16 );
 AutoIt:
     _OpenCV_ObjCreate("cv.AgastFeatureDetector").create( [$threshold[, $nonmaxSuppression[, $type]]] ) -> retval
-    _OpenCV_ObjCreate("cv.AgastFeatureDetector")( [$threshold[, $nonmaxSuppression[, $type]]] ) -> retval
+    $oAgastFeatureDetector( [$threshold[, $nonmaxSuppression[, $type]]] ) -> retval
 ```
 
 ### cv::AgastFeatureDetector::clear
@@ -38338,10 +41698,16 @@ AutoIt:
 ```
 
 ```cpp
-void cv::AgastFeatureDetector::write( const cv::Ptr<cv::FileStorage>& fs,
-                                      const std::string&              name = String() ) const;
+void cv::AgastFeatureDetector::write( cv::FileStorage&   fs,
+                                      const std::string& name ) const;
 AutoIt:
-    $oAgastFeatureDetector.write( $fs[, $name] ) -> None
+    $oAgastFeatureDetector.write( $fs, $name ) -> None
+```
+
+```cpp
+void cv::AgastFeatureDetector::write( cv::FileStorage& fs ) const;
+AutoIt:
+    $oAgastFeatureDetector.write( $fs ) -> None
 ```
 
 ### AgastFeatureDetector.AGAST\_5\_8\_
@@ -38405,7 +41771,7 @@ static cv::Ptr<cv::GFTTDetector> cv::GFTTDetector::get_create( int    maxCorners
                                                                double k = 0.04 );
 AutoIt:
     _OpenCV_ObjCreate("cv.GFTTDetector").create( [$maxCorners[, $qualityLevel[, $minDistance[, $blockSize[, $useHarrisDetector[, $k]]]]]] ) -> retval
-    _OpenCV_ObjCreate("cv.GFTTDetector")( [$maxCorners[, $qualityLevel[, $minDistance[, $blockSize[, $useHarrisDetector[, $k]]]]]] ) -> retval
+    $oGFTTDetector( [$maxCorners[, $qualityLevel[, $minDistance[, $blockSize[, $useHarrisDetector[, $k]]]]]] ) -> retval
 ```
 
 ```cpp
@@ -38418,7 +41784,7 @@ static cv::Ptr<cv::GFTTDetector> cv::GFTTDetector::get_create( int    maxCorners
                                                                double k = 0.04 );
 AutoIt:
     _OpenCV_ObjCreate("cv.GFTTDetector").create( $maxCorners, $qualityLevel, $minDistance, $blockSize, $gradiantSize[, $useHarrisDetector[, $k]] ) -> retval
-    _OpenCV_ObjCreate("cv.GFTTDetector")( $maxCorners, $qualityLevel, $minDistance, $blockSize, $gradiantSize[, $useHarrisDetector[, $k]] ) -> retval
+    $oGFTTDetector( $maxCorners, $qualityLevel, $minDistance, $blockSize, $gradiantSize[, $useHarrisDetector[, $k]] ) -> retval
 ```
 
 ### cv::GFTTDetector::clear
@@ -38525,6 +41891,14 @@ AutoIt:
     $oGFTTDetector.getDefaultName() -> retval
 ```
 
+### cv::GFTTDetector::getGradientSize
+
+```cpp
+int cv::GFTTDetector::getGradientSize();
+AutoIt:
+    $oGFTTDetector.getGradientSize() -> retval
+```
+
 ### cv::GFTTDetector::getHarrisDetector
 
 ```cpp
@@ -38595,6 +41969,14 @@ AutoIt:
     $oGFTTDetector.setBlockSize( $blockSize ) -> None
 ```
 
+### cv::GFTTDetector::setGradientSize
+
+```cpp
+void cv::GFTTDetector::setGradientSize( int gradientSize_ );
+AutoIt:
+    $oGFTTDetector.setGradientSize( $gradientSize_ ) -> None
+```
+
 ### cv::GFTTDetector::setHarrisDetector
 
 ```cpp
@@ -38644,13 +42026,27 @@ AutoIt:
 ```
 
 ```cpp
-void cv::GFTTDetector::write( const cv::Ptr<cv::FileStorage>& fs,
-                              const std::string&              name = String() ) const;
+void cv::GFTTDetector::write( cv::FileStorage&   fs,
+                              const std::string& name ) const;
 AutoIt:
-    $oGFTTDetector.write( $fs[, $name] ) -> None
+    $oGFTTDetector.write( $fs, $name ) -> None
+```
+
+```cpp
+void cv::GFTTDetector::write( cv::FileStorage& fs ) const;
+AutoIt:
+    $oGFTTDetector.write( $fs ) -> None
 ```
 
 ## cv::SimpleBlobDetector
+
+### SimpleBlobDetector.Params
+
+```cpp
+static cv::SimpleBlobDetector::Params
+AutoIt:
+    [propget] $oSimpleBlobDetector.Params
+```
 
 ### cv::SimpleBlobDetector::get\_create
 
@@ -38658,7 +42054,7 @@ AutoIt:
 static cv::Ptr<cv::SimpleBlobDetector> cv::SimpleBlobDetector::get_create( const cv::SimpleBlobDetector::Params& parameters = SimpleBlobDetector::Params() );
 AutoIt:
     _OpenCV_ObjCreate("cv.SimpleBlobDetector").create( [$parameters] ) -> retval
-    _OpenCV_ObjCreate("cv.SimpleBlobDetector")( [$parameters] ) -> retval
+    $oSimpleBlobDetector( [$parameters] ) -> retval
 ```
 
 ### cv::SimpleBlobDetector::clear
@@ -38749,12 +42145,28 @@ AutoIt:
     $oSimpleBlobDetector.empty() -> retval
 ```
 
+### cv::SimpleBlobDetector::getBlobContours
+
+```cpp
+std::vector<std::vector<cv::Point>> cv::SimpleBlobDetector::getBlobContours() const;
+AutoIt:
+    $oSimpleBlobDetector.getBlobContours() -> retval
+```
+
 ### cv::SimpleBlobDetector::getDefaultName
 
 ```cpp
 std::string cv::SimpleBlobDetector::getDefaultName() const;
 AutoIt:
     $oSimpleBlobDetector.getDefaultName() -> retval
+```
+
+### cv::SimpleBlobDetector::getParams
+
+```cpp
+cv::SimpleBlobDetector::Params cv::SimpleBlobDetector::getParams() const;
+AutoIt:
+    $oSimpleBlobDetector.getParams() -> retval
 ```
 
 ### cv::SimpleBlobDetector::read
@@ -38779,6 +42191,14 @@ AutoIt:
     $oSimpleBlobDetector.save( $filename ) -> None
 ```
 
+### cv::SimpleBlobDetector::setParams
+
+```cpp
+void cv::SimpleBlobDetector::setParams( const cv::SimpleBlobDetector::Params& params );
+AutoIt:
+    $oSimpleBlobDetector.setParams( $params ) -> None
+```
+
 ### cv::SimpleBlobDetector::write
 
 ```cpp
@@ -38788,10 +42208,16 @@ AutoIt:
 ```
 
 ```cpp
-void cv::SimpleBlobDetector::write( const cv::Ptr<cv::FileStorage>& fs,
-                                    const std::string&              name = String() ) const;
+void cv::SimpleBlobDetector::write( cv::FileStorage&   fs,
+                                    const std::string& name ) const;
 AutoIt:
-    $oSimpleBlobDetector.write( $fs[, $name] ) -> None
+    $oSimpleBlobDetector.write( $fs, $name ) -> None
+```
+
+```cpp
+void cv::SimpleBlobDetector::write( cv::FileStorage& fs ) const;
+AutoIt:
+    $oSimpleBlobDetector.write( $fs ) -> None
 ```
 
 ## cv::SimpleBlobDetector::Params
@@ -38801,7 +42227,7 @@ AutoIt:
 ```cpp
 float cv::SimpleBlobDetector::Params::thresholdStep
 AutoIt:
-    [propget propput] $oParams.thresholdStep
+    [propget, propput] $oParams.thresholdStep
 ```
 
 ### Params.minThreshold
@@ -38809,7 +42235,7 @@ AutoIt:
 ```cpp
 float cv::SimpleBlobDetector::Params::minThreshold
 AutoIt:
-    [propget propput] $oParams.minThreshold
+    [propget, propput] $oParams.minThreshold
 ```
 
 ### Params.maxThreshold
@@ -38817,7 +42243,7 @@ AutoIt:
 ```cpp
 float cv::SimpleBlobDetector::Params::maxThreshold
 AutoIt:
-    [propget propput] $oParams.maxThreshold
+    [propget, propput] $oParams.maxThreshold
 ```
 
 ### Params.minRepeatability
@@ -38825,7 +42251,7 @@ AutoIt:
 ```cpp
 size_t cv::SimpleBlobDetector::Params::minRepeatability
 AutoIt:
-    [propget propput] $oParams.minRepeatability
+    [propget, propput] $oParams.minRepeatability
 ```
 
 ### Params.minDistBetweenBlobs
@@ -38833,7 +42259,7 @@ AutoIt:
 ```cpp
 float cv::SimpleBlobDetector::Params::minDistBetweenBlobs
 AutoIt:
-    [propget propput] $oParams.minDistBetweenBlobs
+    [propget, propput] $oParams.minDistBetweenBlobs
 ```
 
 ### Params.filterByColor
@@ -38841,7 +42267,7 @@ AutoIt:
 ```cpp
 bool cv::SimpleBlobDetector::Params::filterByColor
 AutoIt:
-    [propget propput] $oParams.filterByColor
+    [propget, propput] $oParams.filterByColor
 ```
 
 ### Params.blobColor
@@ -38849,7 +42275,7 @@ AutoIt:
 ```cpp
 uchar cv::SimpleBlobDetector::Params::blobColor
 AutoIt:
-    [propget propput] $oParams.blobColor
+    [propget, propput] $oParams.blobColor
 ```
 
 ### Params.filterByArea
@@ -38857,7 +42283,7 @@ AutoIt:
 ```cpp
 bool cv::SimpleBlobDetector::Params::filterByArea
 AutoIt:
-    [propget propput] $oParams.filterByArea
+    [propget, propput] $oParams.filterByArea
 ```
 
 ### Params.minArea
@@ -38865,7 +42291,7 @@ AutoIt:
 ```cpp
 float cv::SimpleBlobDetector::Params::minArea
 AutoIt:
-    [propget propput] $oParams.minArea
+    [propget, propput] $oParams.minArea
 ```
 
 ### Params.maxArea
@@ -38873,7 +42299,7 @@ AutoIt:
 ```cpp
 float cv::SimpleBlobDetector::Params::maxArea
 AutoIt:
-    [propget propput] $oParams.maxArea
+    [propget, propput] $oParams.maxArea
 ```
 
 ### Params.filterByCircularity
@@ -38881,7 +42307,7 @@ AutoIt:
 ```cpp
 bool cv::SimpleBlobDetector::Params::filterByCircularity
 AutoIt:
-    [propget propput] $oParams.filterByCircularity
+    [propget, propput] $oParams.filterByCircularity
 ```
 
 ### Params.minCircularity
@@ -38889,7 +42315,7 @@ AutoIt:
 ```cpp
 float cv::SimpleBlobDetector::Params::minCircularity
 AutoIt:
-    [propget propput] $oParams.minCircularity
+    [propget, propput] $oParams.minCircularity
 ```
 
 ### Params.maxCircularity
@@ -38897,7 +42323,7 @@ AutoIt:
 ```cpp
 float cv::SimpleBlobDetector::Params::maxCircularity
 AutoIt:
-    [propget propput] $oParams.maxCircularity
+    [propget, propput] $oParams.maxCircularity
 ```
 
 ### Params.filterByInertia
@@ -38905,7 +42331,7 @@ AutoIt:
 ```cpp
 bool cv::SimpleBlobDetector::Params::filterByInertia
 AutoIt:
-    [propget propput] $oParams.filterByInertia
+    [propget, propput] $oParams.filterByInertia
 ```
 
 ### Params.minInertiaRatio
@@ -38913,7 +42339,7 @@ AutoIt:
 ```cpp
 float cv::SimpleBlobDetector::Params::minInertiaRatio
 AutoIt:
-    [propget propput] $oParams.minInertiaRatio
+    [propget, propput] $oParams.minInertiaRatio
 ```
 
 ### Params.maxInertiaRatio
@@ -38921,7 +42347,7 @@ AutoIt:
 ```cpp
 float cv::SimpleBlobDetector::Params::maxInertiaRatio
 AutoIt:
-    [propget propput] $oParams.maxInertiaRatio
+    [propget, propput] $oParams.maxInertiaRatio
 ```
 
 ### Params.filterByConvexity
@@ -38929,7 +42355,7 @@ AutoIt:
 ```cpp
 bool cv::SimpleBlobDetector::Params::filterByConvexity
 AutoIt:
-    [propget propput] $oParams.filterByConvexity
+    [propget, propput] $oParams.filterByConvexity
 ```
 
 ### Params.minConvexity
@@ -38937,7 +42363,7 @@ AutoIt:
 ```cpp
 float cv::SimpleBlobDetector::Params::minConvexity
 AutoIt:
-    [propget propput] $oParams.minConvexity
+    [propget, propput] $oParams.minConvexity
 ```
 
 ### Params.maxConvexity
@@ -38945,7 +42371,15 @@ AutoIt:
 ```cpp
 float cv::SimpleBlobDetector::Params::maxConvexity
 AutoIt:
-    [propget propput] $oParams.maxConvexity
+    [propget, propput] $oParams.maxConvexity
+```
+
+### Params.collectContours
+
+```cpp
+bool cv::SimpleBlobDetector::Params::collectContours
+AutoIt:
+    [propget, propput] $oParams.collectContours
 ```
 
 ### cv::SimpleBlobDetector::Params::get\_create
@@ -38954,7 +42388,6 @@ AutoIt:
 static cv::SimpleBlobDetector::Params cv::SimpleBlobDetector::Params::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.SimpleBlobDetector.Params").create() -> <cv.SimpleBlobDetector.Params object>
-    _OpenCV_ObjCreate("cv.SimpleBlobDetector.Params")() -> <cv.SimpleBlobDetector.Params object>
 ```
 
 ## cv::KAZE
@@ -38970,7 +42403,7 @@ static cv::Ptr<cv::KAZE> cv::KAZE::get_create( bool                      extende
                                                cv::KAZE::DiffusivityType diffusivity = KAZE::DIFF_PM_G2 );
 AutoIt:
     _OpenCV_ObjCreate("cv.KAZE").create( [$extended[, $upright[, $threshold[, $nOctaves[, $nOctaveLayers[, $diffusivity]]]]]] ) -> retval
-    _OpenCV_ObjCreate("cv.KAZE")( [$extended[, $upright[, $threshold[, $nOctaves[, $nOctaveLayers[, $diffusivity]]]]]] ) -> retval
+    $oKAZE( [$extended[, $upright[, $threshold[, $nOctaves[, $nOctaveLayers[, $diffusivity]]]]]] ) -> retval
 ```
 
 ### cv::KAZE::clear
@@ -39196,10 +42629,16 @@ AutoIt:
 ```
 
 ```cpp
-void cv::KAZE::write( const cv::Ptr<cv::FileStorage>& fs,
-                      const std::string&              name = String() ) const;
+void cv::KAZE::write( cv::FileStorage&   fs,
+                      const std::string& name ) const;
 AutoIt:
-    $oKAZE.write( $fs[, $name] ) -> None
+    $oKAZE.write( $fs, $name ) -> None
+```
+
+```cpp
+void cv::KAZE::write( cv::FileStorage& fs ) const;
+AutoIt:
+    $oKAZE.write( $fs ) -> None
 ```
 
 ### KAZE.DIFF\_PM\_G1\_
@@ -39248,7 +42687,7 @@ static cv::Ptr<cv::AKAZE> cv::AKAZE::get_create( cv::AKAZE::DescriptorType descr
                                                  cv::KAZE::DiffusivityType diffusivity = KAZE::DIFF_PM_G2 );
 AutoIt:
     _OpenCV_ObjCreate("cv.AKAZE").create( [$descriptor_type[, $descriptor_size[, $descriptor_channels[, $threshold[, $nOctaves[, $nOctaveLayers[, $diffusivity]]]]]]] ) -> retval
-    _OpenCV_ObjCreate("cv.AKAZE")( [$descriptor_type[, $descriptor_size[, $descriptor_channels[, $threshold[, $nOctaves[, $nOctaveLayers[, $diffusivity]]]]]]] ) -> retval
+    $oAKAZE( [$descriptor_type[, $descriptor_size[, $descriptor_channels[, $threshold[, $nOctaves[, $nOctaveLayers[, $diffusivity]]]]]]] ) -> retval
 ```
 
 ### cv::AKAZE::clear
@@ -39490,10 +42929,16 @@ AutoIt:
 ```
 
 ```cpp
-void cv::AKAZE::write( const cv::Ptr<cv::FileStorage>& fs,
-                       const std::string&              name = String() ) const;
+void cv::AKAZE::write( cv::FileStorage&   fs,
+                       const std::string& name ) const;
 AutoIt:
-    $oAKAZE.write( $fs[, $name] ) -> None
+    $oAKAZE.write( $fs, $name ) -> None
+```
+
+```cpp
+void cv::AKAZE::write( cv::FileStorage& fs ) const;
+AutoIt:
+    $oAKAZE.write( $fs ) -> None
 ```
 
 ### AKAZE.DESCRIPTOR\_KAZE\_UPRIGHT\_
@@ -39536,14 +42981,14 @@ AutoIt:
 static cv::Ptr<cv::DescriptorMatcher> cv::DescriptorMatcher::get_create( const std::string& descriptorMatcherType );
 AutoIt:
     _OpenCV_ObjCreate("cv.DescriptorMatcher").create( $descriptorMatcherType ) -> retval
-    _OpenCV_ObjCreate("cv.DescriptorMatcher")( $descriptorMatcherType ) -> retval
+    $oDescriptorMatcher( $descriptorMatcherType ) -> retval
 ```
 
 ```cpp
 static cv::Ptr<cv::DescriptorMatcher> cv::DescriptorMatcher::get_create( const cv::DescriptorMatcher::MatcherType& matcherType );
 AutoIt:
     _OpenCV_ObjCreate("cv.DescriptorMatcher").create( $matcherType ) -> retval
-    _OpenCV_ObjCreate("cv.DescriptorMatcher")( $matcherType ) -> retval
+    $oDescriptorMatcher( $matcherType ) -> retval
 ```
 
 ### cv::DescriptorMatcher::add
@@ -39706,10 +43151,16 @@ AutoIt:
 ```
 
 ```cpp
-void cv::DescriptorMatcher::write( const cv::Ptr<cv::FileStorage>& fs,
-                                   const std::string&              name = String() ) const;
+void cv::DescriptorMatcher::write( cv::FileStorage&   fs,
+                                   const std::string& name ) const;
 AutoIt:
-    $oDescriptorMatcher.write( $fs[, $name] ) -> None
+    $oDescriptorMatcher.write( $fs, $name ) -> None
+```
+
+```cpp
+void cv::DescriptorMatcher::write( cv::FileStorage& fs ) const;
+AutoIt:
+    $oDescriptorMatcher.write( $fs ) -> None
 ```
 
 ### DescriptorMatcher.FLANNBASED\_
@@ -39769,7 +43220,7 @@ static cv::BFMatcher cv::BFMatcher::get_create( int  normType = NORM_L2,
                                                 bool crossCheck = false );
 AutoIt:
     _OpenCV_ObjCreate("cv.BFMatcher").create( [$normType[, $crossCheck]] ) -> <cv.BFMatcher object>
-    _OpenCV_ObjCreate("cv.BFMatcher")( [$normType[, $crossCheck]] ) -> <cv.BFMatcher object>
+    $oBFMatcher( [$normType[, $crossCheck]] ) -> <cv.BFMatcher object>
 ```
 
 ```cpp
@@ -39777,7 +43228,7 @@ static cv::Ptr<cv::BFMatcher> cv::BFMatcher::get_create( int  normType = NORM_L2
                                                          bool crossCheck = false );
 AutoIt:
     _OpenCV_ObjCreate("cv.BFMatcher").create( [$normType[, $crossCheck]] ) -> retval
-    _OpenCV_ObjCreate("cv.BFMatcher")( [$normType[, $crossCheck]] ) -> retval
+    $oBFMatcher( [$normType[, $crossCheck]] ) -> retval
 ```
 
 ### cv::BFMatcher::add
@@ -39940,10 +43391,16 @@ AutoIt:
 ```
 
 ```cpp
-void cv::BFMatcher::write( const cv::Ptr<cv::FileStorage>& fs,
-                           const std::string&              name = String() ) const;
+void cv::BFMatcher::write( cv::FileStorage&   fs,
+                           const std::string& name ) const;
 AutoIt:
-    $oBFMatcher.write( $fs[, $name] ) -> None
+    $oBFMatcher.write( $fs, $name ) -> None
+```
+
+```cpp
+void cv::BFMatcher::write( cv::FileStorage& fs ) const;
+AutoIt:
+    $oBFMatcher.write( $fs ) -> None
 ```
 
 ## cv::FlannBasedMatcher
@@ -39955,14 +43412,13 @@ static cv::FlannBasedMatcher cv::FlannBasedMatcher::get_create( const cv::Ptr<cv
                                                                 const cv::Ptr<cv::flann::SearchParams>& searchParams = makePtr<flann::SearchParams>() );
 AutoIt:
     _OpenCV_ObjCreate("cv.FlannBasedMatcher").create( [$indexParams[, $searchParams]] ) -> <cv.FlannBasedMatcher object>
-    _OpenCV_ObjCreate("cv.FlannBasedMatcher")( [$indexParams[, $searchParams]] ) -> <cv.FlannBasedMatcher object>
+    $oFlannBasedMatcher( [$indexParams[, $searchParams]] ) -> <cv.FlannBasedMatcher object>
 ```
 
 ```cpp
 static cv::Ptr<cv::FlannBasedMatcher> cv::FlannBasedMatcher::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.FlannBasedMatcher").create() -> retval
-    _OpenCV_ObjCreate("cv.FlannBasedMatcher")() -> retval
 ```
 
 ### cv::FlannBasedMatcher::add
@@ -40125,10 +43581,16 @@ AutoIt:
 ```
 
 ```cpp
-void cv::FlannBasedMatcher::write( const cv::Ptr<cv::FileStorage>& fs,
-                                   const std::string&              name = String() ) const;
+void cv::FlannBasedMatcher::write( cv::FileStorage&   fs,
+                                   const std::string& name ) const;
 AutoIt:
-    $oFlannBasedMatcher.write( $fs[, $name] ) -> None
+    $oFlannBasedMatcher.write( $fs, $name ) -> None
+```
+
+```cpp
+void cv::FlannBasedMatcher::write( cv::FileStorage& fs ) const;
+AutoIt:
+    $oFlannBasedMatcher.write( $fs ) -> None
 ```
 
 ## cv::DrawMatchesFlags
@@ -40224,7 +43686,7 @@ static cv::BOWKMeansTrainer cv::BOWKMeansTrainer::get_create( int               
                                                               int                     flags = KMEANS_PP_CENTERS );
 AutoIt:
     _OpenCV_ObjCreate("cv.BOWKMeansTrainer").create( $clusterCount[, $termcrit[, $attempts[, $flags]]] ) -> <cv.BOWKMeansTrainer object>
-    _OpenCV_ObjCreate("cv.BOWKMeansTrainer")( $clusterCount[, $termcrit[, $attempts[, $flags]]] ) -> <cv.BOWKMeansTrainer object>
+    $oBOWKMeansTrainer( $clusterCount[, $termcrit[, $attempts[, $flags]]] ) -> <cv.BOWKMeansTrainer object>
 ```
 
 ### cv::BOWKMeansTrainer::add
@@ -40282,7 +43744,7 @@ static cv::BOWImgDescriptorExtractor cv::BOWImgDescriptorExtractor::get_create( 
                                                                                 const cv::Ptr<cv::DescriptorMatcher>& dmatcher );
 AutoIt:
     _OpenCV_ObjCreate("cv.BOWImgDescriptorExtractor").create( $dextractor, $dmatcher ) -> <cv.BOWImgDescriptorExtractor object>
-    _OpenCV_ObjCreate("cv.BOWImgDescriptorExtractor")( $dextractor, $dmatcher ) -> <cv.BOWImgDescriptorExtractor object>
+    $oBOWImgDescriptorExtractor( $dextractor, $dmatcher ) -> <cv.BOWImgDescriptorExtractor object>
 ```
 
 ### cv::BOWImgDescriptorExtractor::compute
@@ -40335,7 +43797,6 @@ AutoIt:
 static cv::VideoCapture cv::VideoCapture::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.VideoCapture").create() -> <cv.VideoCapture object>
-    _OpenCV_ObjCreate("cv.VideoCapture")() -> <cv.VideoCapture object>
 ```
 
 ```cpp
@@ -40343,7 +43804,7 @@ static cv::VideoCapture cv::VideoCapture::get_create( const std::string& filenam
                                                       int                apiPreference = CAP_ANY );
 AutoIt:
     _OpenCV_ObjCreate("cv.VideoCapture").create( $filename[, $apiPreference] ) -> <cv.VideoCapture object>
-    _OpenCV_ObjCreate("cv.VideoCapture")( $filename[, $apiPreference] ) -> <cv.VideoCapture object>
+    $oVideoCapture( $filename[, $apiPreference] ) -> <cv.VideoCapture object>
 ```
 
 ```cpp
@@ -40352,7 +43813,7 @@ static cv::VideoCapture cv::VideoCapture::get_create( const std::string&      fi
                                                       const std::vector<int>& params );
 AutoIt:
     _OpenCV_ObjCreate("cv.VideoCapture").create( $filename, $apiPreference, $params ) -> <cv.VideoCapture object>
-    _OpenCV_ObjCreate("cv.VideoCapture")( $filename, $apiPreference, $params ) -> <cv.VideoCapture object>
+    $oVideoCapture( $filename, $apiPreference, $params ) -> <cv.VideoCapture object>
 ```
 
 ```cpp
@@ -40360,7 +43821,7 @@ static cv::VideoCapture cv::VideoCapture::get_create( int index,
                                                       int apiPreference = CAP_ANY );
 AutoIt:
     _OpenCV_ObjCreate("cv.VideoCapture").create( $index[, $apiPreference] ) -> <cv.VideoCapture object>
-    _OpenCV_ObjCreate("cv.VideoCapture")( $index[, $apiPreference] ) -> <cv.VideoCapture object>
+    $oVideoCapture( $index[, $apiPreference] ) -> <cv.VideoCapture object>
 ```
 
 ```cpp
@@ -40369,7 +43830,7 @@ static cv::VideoCapture cv::VideoCapture::get_create( int                     in
                                                       const std::vector<int>& params );
 AutoIt:
     _OpenCV_ObjCreate("cv.VideoCapture").create( $index, $apiPreference, $params ) -> <cv.VideoCapture object>
-    _OpenCV_ObjCreate("cv.VideoCapture")( $index, $apiPreference, $params ) -> <cv.VideoCapture object>
+    $oVideoCapture( $index, $apiPreference, $params ) -> <cv.VideoCapture object>
 ```
 
 ### cv::VideoCapture::get
@@ -40486,6 +43947,16 @@ AutoIt:
     $oVideoCapture.setExceptionMode( $enable ) -> None
 ```
 
+### cv::VideoCapture::waitAny
+
+```cpp
+static bool cv::VideoCapture::waitAny( const std::vector<cv::VideoCapture>& streams,
+                                       std::vector<int>&                    readyIndex,
+                                       int64                                timeoutNs = 0 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.VideoCapture").waitAny( $streams[, $timeoutNs[, $readyIndex]] ) -> retval, $readyIndex
+```
+
 ## cv::VideoWriter
 
 ### cv::VideoWriter::get\_create
@@ -40494,7 +43965,6 @@ AutoIt:
 static cv::VideoWriter cv::VideoWriter::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.VideoWriter").create() -> <cv.VideoWriter object>
-    _OpenCV_ObjCreate("cv.VideoWriter")() -> <cv.VideoWriter object>
 ```
 
 ```cpp
@@ -40505,7 +43975,7 @@ static cv::VideoWriter cv::VideoWriter::get_create( const std::string& filename,
                                                     bool               isColor = true );
 AutoIt:
     _OpenCV_ObjCreate("cv.VideoWriter").create( $filename, $fourcc, $fps, $frameSize[, $isColor] ) -> <cv.VideoWriter object>
-    _OpenCV_ObjCreate("cv.VideoWriter")( $filename, $fourcc, $fps, $frameSize[, $isColor] ) -> <cv.VideoWriter object>
+    $oVideoWriter( $filename, $fourcc, $fps, $frameSize[, $isColor] ) -> <cv.VideoWriter object>
 ```
 
 ```cpp
@@ -40517,7 +43987,7 @@ static cv::VideoWriter cv::VideoWriter::get_create( const std::string& filename,
                                                     bool               isColor = true );
 AutoIt:
     _OpenCV_ObjCreate("cv.VideoWriter").create( $filename, $apiPreference, $fourcc, $fps, $frameSize[, $isColor] ) -> <cv.VideoWriter object>
-    _OpenCV_ObjCreate("cv.VideoWriter")( $filename, $apiPreference, $fourcc, $fps, $frameSize[, $isColor] ) -> <cv.VideoWriter object>
+    $oVideoWriter( $filename, $apiPreference, $fourcc, $fps, $frameSize[, $isColor] ) -> <cv.VideoWriter object>
 ```
 
 ```cpp
@@ -40528,7 +43998,7 @@ static cv::VideoWriter cv::VideoWriter::get_create( const std::string&      file
                                                     const std::vector<int>& params );
 AutoIt:
     _OpenCV_ObjCreate("cv.VideoWriter").create( $filename, $fourcc, $fps, $frameSize, $params ) -> <cv.VideoWriter object>
-    _OpenCV_ObjCreate("cv.VideoWriter")( $filename, $fourcc, $fps, $frameSize, $params ) -> <cv.VideoWriter object>
+    $oVideoWriter( $filename, $fourcc, $fps, $frameSize, $params ) -> <cv.VideoWriter object>
 ```
 
 ```cpp
@@ -40540,7 +44010,7 @@ static cv::VideoWriter cv::VideoWriter::get_create( const std::string&      file
                                                     const std::vector<int>& params );
 AutoIt:
     _OpenCV_ObjCreate("cv.VideoWriter").create( $filename, $apiPreference, $fourcc, $fps, $frameSize, $params ) -> <cv.VideoWriter object>
-    _OpenCV_ObjCreate("cv.VideoWriter")( $filename, $apiPreference, $fourcc, $fps, $frameSize, $params ) -> <cv.VideoWriter object>
+    $oVideoWriter( $filename, $apiPreference, $fourcc, $fps, $frameSize, $params ) -> <cv.VideoWriter object>
 ```
 
 ### cv::VideoWriter::fourcc
@@ -40742,7 +44212,7 @@ AutoIt:
 ```cpp
 double cv::UsacParams::confidence
 AutoIt:
-    [propget propput] $oUsacParams.confidence
+    [propget, propput] $oUsacParams.confidence
 ```
 
 ### UsacParams.isParallel
@@ -40750,7 +44220,7 @@ AutoIt:
 ```cpp
 bool cv::UsacParams::isParallel
 AutoIt:
-    [propget propput] $oUsacParams.isParallel
+    [propget, propput] $oUsacParams.isParallel
 ```
 
 ### UsacParams.loIterations
@@ -40758,7 +44228,7 @@ AutoIt:
 ```cpp
 int cv::UsacParams::loIterations
 AutoIt:
-    [propget propput] $oUsacParams.loIterations
+    [propget, propput] $oUsacParams.loIterations
 ```
 
 ### UsacParams.loMethod
@@ -40766,7 +44236,7 @@ AutoIt:
 ```cpp
 cv::LocalOptimMethod cv::UsacParams::loMethod
 AutoIt:
-    [propget propput] $oUsacParams.loMethod
+    [propget, propput] $oUsacParams.loMethod
 ```
 
 ### UsacParams.loSampleSize
@@ -40774,7 +44244,7 @@ AutoIt:
 ```cpp
 int cv::UsacParams::loSampleSize
 AutoIt:
-    [propget propput] $oUsacParams.loSampleSize
+    [propget, propput] $oUsacParams.loSampleSize
 ```
 
 ### UsacParams.maxIterations
@@ -40782,7 +44252,7 @@ AutoIt:
 ```cpp
 int cv::UsacParams::maxIterations
 AutoIt:
-    [propget propput] $oUsacParams.maxIterations
+    [propget, propput] $oUsacParams.maxIterations
 ```
 
 ### UsacParams.neighborsSearch
@@ -40790,7 +44260,7 @@ AutoIt:
 ```cpp
 cv::NeighborSearchMethod cv::UsacParams::neighborsSearch
 AutoIt:
-    [propget propput] $oUsacParams.neighborsSearch
+    [propget, propput] $oUsacParams.neighborsSearch
 ```
 
 ### UsacParams.randomGeneratorState
@@ -40798,7 +44268,7 @@ AutoIt:
 ```cpp
 int cv::UsacParams::randomGeneratorState
 AutoIt:
-    [propget propput] $oUsacParams.randomGeneratorState
+    [propget, propput] $oUsacParams.randomGeneratorState
 ```
 
 ### UsacParams.sampler
@@ -40806,7 +44276,7 @@ AutoIt:
 ```cpp
 cv::SamplingMethod cv::UsacParams::sampler
 AutoIt:
-    [propget propput] $oUsacParams.sampler
+    [propget, propput] $oUsacParams.sampler
 ```
 
 ### UsacParams.score
@@ -40814,7 +44284,7 @@ AutoIt:
 ```cpp
 cv::ScoreMethod cv::UsacParams::score
 AutoIt:
-    [propget propput] $oUsacParams.score
+    [propget, propput] $oUsacParams.score
 ```
 
 ### UsacParams.threshold
@@ -40822,7 +44292,7 @@ AutoIt:
 ```cpp
 double cv::UsacParams::threshold
 AutoIt:
-    [propget propput] $oUsacParams.threshold
+    [propget, propput] $oUsacParams.threshold
 ```
 
 ### cv::UsacParams::get\_create
@@ -40831,7 +44301,6 @@ AutoIt:
 static cv::UsacParams cv::UsacParams::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.UsacParams").create() -> <cv.UsacParams object>
-    _OpenCV_ObjCreate("cv.UsacParams")() -> <cv.UsacParams object>
 ```
 
 ## cv::CirclesGridFinderParameters
@@ -40841,7 +44310,7 @@ AutoIt:
 ```cpp
 cv::Size2f cv::CirclesGridFinderParameters::densityNeighborhoodSize
 AutoIt:
-    [propget propput] $oCirclesGridFinderParameters.densityNeighborhoodSize
+    [propget, propput] $oCirclesGridFinderParameters.densityNeighborhoodSize
 ```
 
 ### CirclesGridFinderParameters.minDensity
@@ -40849,7 +44318,7 @@ AutoIt:
 ```cpp
 float cv::CirclesGridFinderParameters::minDensity
 AutoIt:
-    [propget propput] $oCirclesGridFinderParameters.minDensity
+    [propget, propput] $oCirclesGridFinderParameters.minDensity
 ```
 
 ### CirclesGridFinderParameters.kmeansAttempts
@@ -40857,7 +44326,7 @@ AutoIt:
 ```cpp
 int cv::CirclesGridFinderParameters::kmeansAttempts
 AutoIt:
-    [propget propput] $oCirclesGridFinderParameters.kmeansAttempts
+    [propget, propput] $oCirclesGridFinderParameters.kmeansAttempts
 ```
 
 ### CirclesGridFinderParameters.minDistanceToAddKeypoint
@@ -40865,7 +44334,7 @@ AutoIt:
 ```cpp
 int cv::CirclesGridFinderParameters::minDistanceToAddKeypoint
 AutoIt:
-    [propget propput] $oCirclesGridFinderParameters.minDistanceToAddKeypoint
+    [propget, propput] $oCirclesGridFinderParameters.minDistanceToAddKeypoint
 ```
 
 ### CirclesGridFinderParameters.keypointScale
@@ -40873,7 +44342,7 @@ AutoIt:
 ```cpp
 int cv::CirclesGridFinderParameters::keypointScale
 AutoIt:
-    [propget propput] $oCirclesGridFinderParameters.keypointScale
+    [propget, propput] $oCirclesGridFinderParameters.keypointScale
 ```
 
 ### CirclesGridFinderParameters.minGraphConfidence
@@ -40881,7 +44350,7 @@ AutoIt:
 ```cpp
 float cv::CirclesGridFinderParameters::minGraphConfidence
 AutoIt:
-    [propget propput] $oCirclesGridFinderParameters.minGraphConfidence
+    [propget, propput] $oCirclesGridFinderParameters.minGraphConfidence
 ```
 
 ### CirclesGridFinderParameters.vertexGain
@@ -40889,7 +44358,7 @@ AutoIt:
 ```cpp
 float cv::CirclesGridFinderParameters::vertexGain
 AutoIt:
-    [propget propput] $oCirclesGridFinderParameters.vertexGain
+    [propget, propput] $oCirclesGridFinderParameters.vertexGain
 ```
 
 ### CirclesGridFinderParameters.vertexPenalty
@@ -40897,7 +44366,7 @@ AutoIt:
 ```cpp
 float cv::CirclesGridFinderParameters::vertexPenalty
 AutoIt:
-    [propget propput] $oCirclesGridFinderParameters.vertexPenalty
+    [propget, propput] $oCirclesGridFinderParameters.vertexPenalty
 ```
 
 ### CirclesGridFinderParameters.existingVertexGain
@@ -40905,7 +44374,7 @@ AutoIt:
 ```cpp
 float cv::CirclesGridFinderParameters::existingVertexGain
 AutoIt:
-    [propget propput] $oCirclesGridFinderParameters.existingVertexGain
+    [propget, propput] $oCirclesGridFinderParameters.existingVertexGain
 ```
 
 ### CirclesGridFinderParameters.edgeGain
@@ -40913,7 +44382,7 @@ AutoIt:
 ```cpp
 float cv::CirclesGridFinderParameters::edgeGain
 AutoIt:
-    [propget propput] $oCirclesGridFinderParameters.edgeGain
+    [propget, propput] $oCirclesGridFinderParameters.edgeGain
 ```
 
 ### CirclesGridFinderParameters.edgePenalty
@@ -40921,7 +44390,7 @@ AutoIt:
 ```cpp
 float cv::CirclesGridFinderParameters::edgePenalty
 AutoIt:
-    [propget propput] $oCirclesGridFinderParameters.edgePenalty
+    [propget, propput] $oCirclesGridFinderParameters.edgePenalty
 ```
 
 ### CirclesGridFinderParameters.convexHullFactor
@@ -40929,7 +44398,7 @@ AutoIt:
 ```cpp
 float cv::CirclesGridFinderParameters::convexHullFactor
 AutoIt:
-    [propget propput] $oCirclesGridFinderParameters.convexHullFactor
+    [propget, propput] $oCirclesGridFinderParameters.convexHullFactor
 ```
 
 ### CirclesGridFinderParameters.minRNGEdgeSwitchDist
@@ -40937,7 +44406,7 @@ AutoIt:
 ```cpp
 float cv::CirclesGridFinderParameters::minRNGEdgeSwitchDist
 AutoIt:
-    [propget propput] $oCirclesGridFinderParameters.minRNGEdgeSwitchDist
+    [propget, propput] $oCirclesGridFinderParameters.minRNGEdgeSwitchDist
 ```
 
 ### CirclesGridFinderParameters.squareSize
@@ -40945,7 +44414,7 @@ AutoIt:
 ```cpp
 float cv::CirclesGridFinderParameters::squareSize
 AutoIt:
-    [propget propput] $oCirclesGridFinderParameters.squareSize
+    [propget, propput] $oCirclesGridFinderParameters.squareSize
 ```
 
 ### CirclesGridFinderParameters.maxRectifiedDistance
@@ -40953,7 +44422,7 @@ AutoIt:
 ```cpp
 float cv::CirclesGridFinderParameters::maxRectifiedDistance
 AutoIt:
-    [propget propput] $oCirclesGridFinderParameters.maxRectifiedDistance
+    [propget, propput] $oCirclesGridFinderParameters.maxRectifiedDistance
 ```
 
 ### cv::CirclesGridFinderParameters::get\_create
@@ -40962,7 +44431,6 @@ AutoIt:
 static cv::CirclesGridFinderParameters cv::CirclesGridFinderParameters::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.CirclesGridFinderParameters").create() -> <cv.CirclesGridFinderParameters object>
-    _OpenCV_ObjCreate("cv.CirclesGridFinderParameters")() -> <cv.CirclesGridFinderParameters object>
 ```
 
 ### CirclesGridFinderParameters.SYMMETRIC\_GRID\_
@@ -41132,10 +44600,16 @@ AutoIt:
 ### cv::StereoMatcher::write
 
 ```cpp
-void cv::StereoMatcher::write( const cv::Ptr<cv::FileStorage>& fs,
-                               const std::string&              name = String() ) const;
+void cv::StereoMatcher::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oStereoMatcher.write( $fs[, $name] ) -> None
+    $oStereoMatcher.write( $fs ) -> None
+```
+
+```cpp
+void cv::StereoMatcher::write( cv::FileStorage&   fs,
+                               const std::string& name ) const;
+AutoIt:
+    $oStereoMatcher.write( $fs, $name ) -> None
 ```
 
 ### StereoMatcher.DISP\_SHIFT\_
@@ -41163,7 +44637,7 @@ static cv::Ptr<cv::StereoBM> cv::StereoBM::get_create( int numDisparities = 0,
                                                        int blockSize = 21 );
 AutoIt:
     _OpenCV_ObjCreate("cv.StereoBM").create( [$numDisparities[, $blockSize]] ) -> retval
-    _OpenCV_ObjCreate("cv.StereoBM")( [$numDisparities[, $blockSize]] ) -> retval
+    $oStereoBM( [$numDisparities[, $blockSize]] ) -> retval
 ```
 
 ### cv::StereoBM::clear
@@ -41443,10 +44917,16 @@ AutoIt:
 ### cv::StereoBM::write
 
 ```cpp
-void cv::StereoBM::write( const cv::Ptr<cv::FileStorage>& fs,
-                          const std::string&              name = String() ) const;
+void cv::StereoBM::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oStereoBM.write( $fs[, $name] ) -> None
+    $oStereoBM.write( $fs ) -> None
+```
+
+```cpp
+void cv::StereoBM::write( cv::FileStorage&   fs,
+                          const std::string& name ) const;
+AutoIt:
+    $oStereoBM.write( $fs, $name ) -> None
 ```
 
 ### StereoBM.PREFILTER\_NORMALIZED\_RESPONSE\_
@@ -41483,7 +44963,7 @@ static cv::Ptr<cv::StereoSGBM> cv::StereoSGBM::get_create( int minDisparity = 0,
                                                            int mode = StereoSGBM::MODE_SGBM );
 AutoIt:
     _OpenCV_ObjCreate("cv.StereoSGBM").create( [$minDisparity[, $numDisparities[, $blockSize[, $P1[, $P2[, $disp12MaxDiff[, $preFilterCap[, $uniquenessRatio[, $speckleWindowSize[, $speckleRange[, $mode]]]]]]]]]]] ) -> retval
-    _OpenCV_ObjCreate("cv.StereoSGBM")( [$minDisparity[, $numDisparities[, $blockSize[, $P1[, $P2[, $disp12MaxDiff[, $preFilterCap[, $uniquenessRatio[, $speckleWindowSize[, $speckleRange[, $mode]]]]]]]]]]] ) -> retval
+    $oStereoSGBM( [$minDisparity[, $numDisparities[, $blockSize[, $P1[, $P2[, $disp12MaxDiff[, $preFilterCap[, $uniquenessRatio[, $speckleWindowSize[, $speckleRange[, $mode]]]]]]]]]]] ) -> retval
 ```
 
 ### cv::StereoSGBM::clear
@@ -41715,10 +45195,16 @@ AutoIt:
 ### cv::StereoSGBM::write
 
 ```cpp
-void cv::StereoSGBM::write( const cv::Ptr<cv::FileStorage>& fs,
-                            const std::string&              name = String() ) const;
+void cv::StereoSGBM::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oStereoSGBM.write( $fs[, $name] ) -> None
+    $oStereoSGBM.write( $fs ) -> None
+```
+
+```cpp
+void cv::StereoSGBM::write( cv::FileStorage&   fs,
+                            const std::string& name ) const;
+AutoIt:
+    $oStereoSGBM.write( $fs, $name ) -> None
 ```
 
 ### StereoSGBM.MODE\_SGBM\_
@@ -41829,6 +45315,25 @@ AutoIt:
 ```
 
 ### cv::fisheye::stereoCalibrate
+
+```cpp
+double cv::fisheye::stereoCalibrate( InputArrayOfArrays  objectPoints,
+                                     InputArrayOfArrays  imagePoints1,
+                                     InputArrayOfArrays  imagePoints2,
+                                     InputOutputArray    K1,
+                                     InputOutputArray    D1,
+                                     InputOutputArray    K2,
+                                     InputOutputArray    D2,
+                                     cv::Size            imageSize,
+                                     OutputArray         R,
+                                     OutputArray         T,
+                                     OutputArrayOfArrays rvecs,
+                                     OutputArrayOfArrays tvecs,
+                                     int                 flags = fisheye::CALIB_FIX_INTRINSIC,
+                                     cv::TermCriteria    criteria = TermCriteria(TermCriteria::COUNT + TermCriteria::EPS, 100, DBL_EPSILON) );
+AutoIt:
+    _OpenCV_ObjCreate("cv.fisheye").stereoCalibrate( $objectPoints, $imagePoints1, $imagePoints2, $K1, $D1, $K2, $D2, $imageSize[, $R[, $T[, $rvecs[, $tvecs[, $flags[, $criteria]]]]]] ) -> retval, $K1, $D1, $K2, $D2, $R, $T, $rvecs, $tvecs
+```
 
 ```cpp
 double cv::fisheye::stereoCalibrate( InputArrayOfArrays objectPoints,
@@ -42038,10 +45543,16 @@ AutoIt:
 ### cv::BaseCascadeClassifier::write
 
 ```cpp
-void cv::BaseCascadeClassifier::write( const cv::Ptr<cv::FileStorage>& fs,
-                                       const std::string&              name = String() ) const;
+void cv::BaseCascadeClassifier::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oBaseCascadeClassifier.write( $fs[, $name] ) -> None
+    $oBaseCascadeClassifier.write( $fs ) -> None
+```
+
+```cpp
+void cv::BaseCascadeClassifier::write( cv::FileStorage&   fs,
+                                       const std::string& name ) const;
+AutoIt:
+    $oBaseCascadeClassifier.write( $fs, $name ) -> None
 ```
 
 ## cv::CascadeClassifier
@@ -42052,14 +45563,13 @@ AutoIt:
 static cv::CascadeClassifier cv::CascadeClassifier::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.CascadeClassifier").create() -> <cv.CascadeClassifier object>
-    _OpenCV_ObjCreate("cv.CascadeClassifier")() -> <cv.CascadeClassifier object>
 ```
 
 ```cpp
 static cv::CascadeClassifier cv::CascadeClassifier::get_create( const std::string& filename );
 AutoIt:
     _OpenCV_ObjCreate("cv.CascadeClassifier").create( $filename ) -> <cv.CascadeClassifier object>
-    _OpenCV_ObjCreate("cv.CascadeClassifier")( $filename ) -> <cv.CascadeClassifier object>
+    $oCascadeClassifier( $filename ) -> <cv.CascadeClassifier object>
 ```
 
 ### cv::CascadeClassifier::convert
@@ -42277,7 +45787,6 @@ AutoIt:
 static cv::HOGDescriptor cv::HOGDescriptor::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.HOGDescriptor").create() -> <cv.HOGDescriptor object>
-    _OpenCV_ObjCreate("cv.HOGDescriptor")() -> <cv.HOGDescriptor object>
 ```
 
 ```cpp
@@ -42295,14 +45804,14 @@ static cv::HOGDescriptor cv::HOGDescriptor::get_create( cv::Size                
                                                         bool                                 _signedGradient = false );
 AutoIt:
     _OpenCV_ObjCreate("cv.HOGDescriptor").create( $_winSize, $_blockSize, $_blockStride, $_cellSize, $_nbins[, $_derivAperture[, $_winSigma[, $_histogramNormType[, $_L2HysThreshold[, $_gammaCorrection[, $_nlevels[, $_signedGradient]]]]]]] ) -> <cv.HOGDescriptor object>
-    _OpenCV_ObjCreate("cv.HOGDescriptor")( $_winSize, $_blockSize, $_blockStride, $_cellSize, $_nbins[, $_derivAperture[, $_winSigma[, $_histogramNormType[, $_L2HysThreshold[, $_gammaCorrection[, $_nlevels[, $_signedGradient]]]]]]] ) -> <cv.HOGDescriptor object>
+    $oHOGDescriptor( $_winSize, $_blockSize, $_blockStride, $_cellSize, $_nbins[, $_derivAperture[, $_winSigma[, $_histogramNormType[, $_L2HysThreshold[, $_gammaCorrection[, $_nlevels[, $_signedGradient]]]]]]] ) -> <cv.HOGDescriptor object>
 ```
 
 ```cpp
 static cv::HOGDescriptor cv::HOGDescriptor::get_create( const std::string& filename );
 AutoIt:
     _OpenCV_ObjCreate("cv.HOGDescriptor").create( $filename ) -> <cv.HOGDescriptor object>
-    _OpenCV_ObjCreate("cv.HOGDescriptor")( $filename ) -> <cv.HOGDescriptor object>
+    $oHOGDescriptor( $filename ) -> <cv.HOGDescriptor object>
 ```
 
 ### cv::HOGDescriptor::checkDetectorSize
@@ -42459,13 +45968,21 @@ AutoIt:
 
 ## cv::QRCodeEncoder
 
+### QRCodeEncoder.Params
+
+```cpp
+static cv::QRCodeEncoder::Params
+AutoIt:
+    [propget] $oQRCodeEncoder.Params
+```
+
 ### cv::QRCodeEncoder::get\_create
 
 ```cpp
 static cv::Ptr<cv::QRCodeEncoder> cv::QRCodeEncoder::get_create( const cv::QRCodeEncoder::Params& parameters = QRCodeEncoder::Params() );
 AutoIt:
     _OpenCV_ObjCreate("cv.QRCodeEncoder").create( [$parameters] ) -> retval
-    _OpenCV_ObjCreate("cv.QRCodeEncoder")( [$parameters] ) -> retval
+    $oQRCodeEncoder( [$parameters] ) -> retval
 ```
 
 ### cv::QRCodeEncoder::encode
@@ -42589,7 +46106,7 @@ AutoIt:
 ```cpp
 int cv::QRCodeEncoder::Params::version
 AutoIt:
-    [propget propput] $oParams.version
+    [propget, propput] $oParams.version
 ```
 
 ### Params.correction\_level
@@ -42597,7 +46114,7 @@ AutoIt:
 ```cpp
 cv::QRCodeEncoder::CorrectionLevel cv::QRCodeEncoder::Params::correction_level
 AutoIt:
-    [propget propput] $oParams.correction_level
+    [propget, propput] $oParams.correction_level
 ```
 
 ### Params.mode
@@ -42605,7 +46122,7 @@ AutoIt:
 ```cpp
 cv::QRCodeEncoder::EncodeMode cv::QRCodeEncoder::Params::mode
 AutoIt:
-    [propget propput] $oParams.mode
+    [propget, propput] $oParams.mode
 ```
 
 ### Params.structure\_number
@@ -42613,7 +46130,7 @@ AutoIt:
 ```cpp
 int cv::QRCodeEncoder::Params::structure_number
 AutoIt:
-    [propget propput] $oParams.structure_number
+    [propget, propput] $oParams.structure_number
 ```
 
 ### cv::QRCodeEncoder::Params::get\_create
@@ -42622,7 +46139,6 @@ AutoIt:
 static cv::QRCodeEncoder::Params cv::QRCodeEncoder::Params::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.QRCodeEncoder.Params").create() -> <cv.QRCodeEncoder.Params object>
-    _OpenCV_ObjCreate("cv.QRCodeEncoder.Params")() -> <cv.QRCodeEncoder.Params object>
 ```
 
 ## cv::QRCodeDetector
@@ -42633,7 +46149,6 @@ AutoIt:
 static cv::QRCodeDetector cv::QRCodeDetector::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.QRCodeDetector").create() -> <cv.QRCodeDetector object>
-    _OpenCV_ObjCreate("cv.QRCodeDetector")() -> <cv.QRCodeDetector object>
 ```
 
 ### cv::QRCodeDetector::decode
@@ -42732,6 +46247,1408 @@ AutoIt:
     $oQRCodeDetector.setEpsY( $epsY ) -> None
 ```
 
+### cv::QRCodeDetector::setUseAlignmentMarkers
+
+```cpp
+void cv::QRCodeDetector::setUseAlignmentMarkers( bool useAlignmentMarkers );
+AutoIt:
+    $oQRCodeDetector.setUseAlignmentMarkers( $useAlignmentMarkers ) -> None
+```
+
+## cv::aruco
+
+### aruco.Board
+
+```cpp
+static cv::aruco::Board
+AutoIt:
+    [propget] $oaruco.Board
+```
+
+### aruco.GridBoard
+
+```cpp
+static cv::aruco::GridBoard
+AutoIt:
+    [propget] $oaruco.GridBoard
+```
+
+### aruco.CharucoBoard
+
+```cpp
+static cv::aruco::CharucoBoard
+AutoIt:
+    [propget] $oaruco.CharucoBoard
+```
+
+### aruco.DetectorParameters
+
+```cpp
+static cv::aruco::DetectorParameters
+AutoIt:
+    [propget] $oaruco.DetectorParameters
+```
+
+### aruco.RefineParameters
+
+```cpp
+static cv::aruco::RefineParameters
+AutoIt:
+    [propget] $oaruco.RefineParameters
+```
+
+### aruco.ArucoDetector
+
+```cpp
+static cv::aruco::ArucoDetector
+AutoIt:
+    [propget] $oaruco.ArucoDetector
+```
+
+### aruco.Dictionary
+
+```cpp
+static cv::aruco::Dictionary
+AutoIt:
+    [propget] $oaruco.Dictionary
+```
+
+### aruco.CharucoParameters
+
+```cpp
+static cv::aruco::CharucoParameters
+AutoIt:
+    [propget] $oaruco.CharucoParameters
+```
+
+### aruco.CharucoDetector
+
+```cpp
+static cv::aruco::CharucoDetector
+AutoIt:
+    [propget] $oaruco.CharucoDetector
+```
+
+### cv::aruco::drawDetectedCornersCharuco
+
+```cpp
+void cv::aruco::drawDetectedCornersCharuco( InputOutputArray image,
+                                            InputArray       charucoCorners,
+                                            InputArray       charucoIds = noArray(),
+                                            cv::Scalar       cornerColor = Scalar(255, 0, 0) );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco").drawDetectedCornersCharuco( $image, $charucoCorners[, $charucoIds[, $cornerColor]] ) -> $image
+```
+
+### cv::aruco::drawDetectedDiamonds
+
+```cpp
+void cv::aruco::drawDetectedDiamonds( InputOutputArray   image,
+                                      InputArrayOfArrays diamondCorners,
+                                      InputArray         diamondIds = noArray(),
+                                      cv::Scalar         borderColor = Scalar(0, 0, 255) );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco").drawDetectedDiamonds( $image, $diamondCorners[, $diamondIds[, $borderColor]] ) -> $image
+```
+
+### cv::aruco::drawDetectedMarkers
+
+```cpp
+void cv::aruco::drawDetectedMarkers( InputOutputArray   image,
+                                     InputArrayOfArrays corners,
+                                     InputArray         ids = noArray(),
+                                     cv::Scalar         borderColor = Scalar(0, 255, 0) );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco").drawDetectedMarkers( $image, $corners[, $ids[, $borderColor]] ) -> $image
+```
+
+### cv::aruco::extendDictionary
+
+```cpp
+cv::aruco::Dictionary cv::aruco::extendDictionary( int                          nMarkers,
+                                                   int                          markerSize,
+                                                   const cv::aruco::Dictionary& baseDictionary = Dictionary(),
+                                                   int                          randomSeed = 0 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco").extendDictionary( $nMarkers, $markerSize[, $baseDictionary[, $randomSeed]] ) -> retval
+```
+
+### cv::aruco::generateImageMarker
+
+```cpp
+void cv::aruco::generateImageMarker( const cv::aruco::Dictionary& dictionary,
+                                     int                          id,
+                                     int                          sidePixels,
+                                     OutputArray                  img,
+                                     int                          borderBits = 1 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco").generateImageMarker( $dictionary, $id, $sidePixels[, $img[, $borderBits]] ) -> $img
+```
+
+### cv::aruco::getPredefinedDictionary
+
+```cpp
+cv::aruco::Dictionary cv::aruco::getPredefinedDictionary( int dict );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco").getPredefinedDictionary( $dict ) -> retval
+```
+
+### aruco.CORNER\_REFINE\_NONE\_
+
+```cpp
+static int cv::aruco::CORNER_REFINE_NONE
+AutoIt:
+    [propget] $oaruco.CORNER_REFINE_NONE_
+```
+
+### aruco.CORNER\_REFINE\_SUBPIX\_
+
+```cpp
+static int cv::aruco::CORNER_REFINE_SUBPIX
+AutoIt:
+    [propget] $oaruco.CORNER_REFINE_SUBPIX_
+```
+
+### aruco.CORNER\_REFINE\_CONTOUR\_
+
+```cpp
+static int cv::aruco::CORNER_REFINE_CONTOUR
+AutoIt:
+    [propget] $oaruco.CORNER_REFINE_CONTOUR_
+```
+
+### aruco.CORNER\_REFINE\_APRILTAG\_
+
+```cpp
+static int cv::aruco::CORNER_REFINE_APRILTAG
+AutoIt:
+    [propget] $oaruco.CORNER_REFINE_APRILTAG_
+```
+
+### aruco.DICT\_4X4\_50\_
+
+```cpp
+static int cv::aruco::DICT_4X4_50
+AutoIt:
+    [propget] $oaruco.DICT_4X4_50_
+```
+
+### aruco.DICT\_4X4\_100\_
+
+```cpp
+static int cv::aruco::DICT_4X4_100
+AutoIt:
+    [propget] $oaruco.DICT_4X4_100_
+```
+
+### aruco.DICT\_4X4\_250\_
+
+```cpp
+static int cv::aruco::DICT_4X4_250
+AutoIt:
+    [propget] $oaruco.DICT_4X4_250_
+```
+
+### aruco.DICT\_4X4\_1000\_
+
+```cpp
+static int cv::aruco::DICT_4X4_1000
+AutoIt:
+    [propget] $oaruco.DICT_4X4_1000_
+```
+
+### aruco.DICT\_5X5\_50\_
+
+```cpp
+static int cv::aruco::DICT_5X5_50
+AutoIt:
+    [propget] $oaruco.DICT_5X5_50_
+```
+
+### aruco.DICT\_5X5\_100\_
+
+```cpp
+static int cv::aruco::DICT_5X5_100
+AutoIt:
+    [propget] $oaruco.DICT_5X5_100_
+```
+
+### aruco.DICT\_5X5\_250\_
+
+```cpp
+static int cv::aruco::DICT_5X5_250
+AutoIt:
+    [propget] $oaruco.DICT_5X5_250_
+```
+
+### aruco.DICT\_5X5\_1000\_
+
+```cpp
+static int cv::aruco::DICT_5X5_1000
+AutoIt:
+    [propget] $oaruco.DICT_5X5_1000_
+```
+
+### aruco.DICT\_6X6\_50\_
+
+```cpp
+static int cv::aruco::DICT_6X6_50
+AutoIt:
+    [propget] $oaruco.DICT_6X6_50_
+```
+
+### aruco.DICT\_6X6\_100\_
+
+```cpp
+static int cv::aruco::DICT_6X6_100
+AutoIt:
+    [propget] $oaruco.DICT_6X6_100_
+```
+
+### aruco.DICT\_6X6\_250\_
+
+```cpp
+static int cv::aruco::DICT_6X6_250
+AutoIt:
+    [propget] $oaruco.DICT_6X6_250_
+```
+
+### aruco.DICT\_6X6\_1000\_
+
+```cpp
+static int cv::aruco::DICT_6X6_1000
+AutoIt:
+    [propget] $oaruco.DICT_6X6_1000_
+```
+
+### aruco.DICT\_7X7\_50\_
+
+```cpp
+static int cv::aruco::DICT_7X7_50
+AutoIt:
+    [propget] $oaruco.DICT_7X7_50_
+```
+
+### aruco.DICT\_7X7\_100\_
+
+```cpp
+static int cv::aruco::DICT_7X7_100
+AutoIt:
+    [propget] $oaruco.DICT_7X7_100_
+```
+
+### aruco.DICT\_7X7\_250\_
+
+```cpp
+static int cv::aruco::DICT_7X7_250
+AutoIt:
+    [propget] $oaruco.DICT_7X7_250_
+```
+
+### aruco.DICT\_7X7\_1000\_
+
+```cpp
+static int cv::aruco::DICT_7X7_1000
+AutoIt:
+    [propget] $oaruco.DICT_7X7_1000_
+```
+
+### aruco.DICT\_ARUCO\_ORIGINAL\_
+
+```cpp
+static int cv::aruco::DICT_ARUCO_ORIGINAL
+AutoIt:
+    [propget] $oaruco.DICT_ARUCO_ORIGINAL_
+```
+
+### aruco.DICT\_APRILTAG\_16h5\_
+
+```cpp
+static int cv::aruco::DICT_APRILTAG_16h5
+AutoIt:
+    [propget] $oaruco.DICT_APRILTAG_16h5_
+```
+
+### aruco.DICT\_APRILTAG\_25h9\_
+
+```cpp
+static int cv::aruco::DICT_APRILTAG_25h9
+AutoIt:
+    [propget] $oaruco.DICT_APRILTAG_25h9_
+```
+
+### aruco.DICT\_APRILTAG\_36h10\_
+
+```cpp
+static int cv::aruco::DICT_APRILTAG_36h10
+AutoIt:
+    [propget] $oaruco.DICT_APRILTAG_36h10_
+```
+
+### aruco.DICT\_APRILTAG\_36h11\_
+
+```cpp
+static int cv::aruco::DICT_APRILTAG_36h11
+AutoIt:
+    [propget] $oaruco.DICT_APRILTAG_36h11_
+```
+
+## cv::aruco::Board
+
+### cv::aruco::Board::get\_create
+
+```cpp
+static cv::aruco::Board cv::aruco::Board::get_create( InputArrayOfArrays           objPoints,
+                                                      const cv::aruco::Dictionary& dictionary,
+                                                      InputArray                   ids );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.Board").create( $objPoints, $dictionary, $ids ) -> <cv.aruco.Board object>
+    $oBoard( $objPoints, $dictionary, $ids ) -> <cv.aruco.Board object>
+```
+
+### cv::aruco::Board::generateImage
+
+```cpp
+void cv::aruco::Board::generateImage( cv::Size    outSize,
+                                      OutputArray img,
+                                      int         marginSize = 0,
+                                      int         borderBits = 1 ) const;
+AutoIt:
+    $oBoard.generateImage( $outSize[, $img[, $marginSize[, $borderBits]]] ) -> $img
+```
+
+### cv::aruco::Board::getDictionary
+
+```cpp
+cv::aruco::Dictionary cv::aruco::Board::getDictionary() const;
+AutoIt:
+    $oBoard.getDictionary() -> retval
+```
+
+### cv::aruco::Board::getIds
+
+```cpp
+std::vector<int> cv::aruco::Board::getIds() const;
+AutoIt:
+    $oBoard.getIds() -> retval
+```
+
+### cv::aruco::Board::getObjPoints
+
+```cpp
+std::vector<std::vector<cv::Point3f>> cv::aruco::Board::getObjPoints() const;
+AutoIt:
+    $oBoard.getObjPoints() -> retval
+```
+
+### cv::aruco::Board::getRightBottomCorner
+
+```cpp
+cv::Point3f cv::aruco::Board::getRightBottomCorner() const;
+AutoIt:
+    $oBoard.getRightBottomCorner() -> retval
+```
+
+### cv::aruco::Board::matchImagePoints
+
+```cpp
+void cv::aruco::Board::matchImagePoints( InputArrayOfArrays detectedCorners,
+                                         InputArray         detectedIds,
+                                         OutputArray        objPoints,
+                                         OutputArray        imgPoints ) const;
+AutoIt:
+    $oBoard.matchImagePoints( $detectedCorners, $detectedIds[, $objPoints[, $imgPoints]] ) -> $objPoints, $imgPoints
+```
+
+## cv::aruco::GridBoard
+
+### cv::aruco::GridBoard::get\_create
+
+```cpp
+static cv::aruco::GridBoard cv::aruco::GridBoard::get_create( const cv::Size&              size,
+                                                              float                        markerLength,
+                                                              float                        markerSeparation,
+                                                              const cv::aruco::Dictionary& dictionary,
+                                                              InputArray                   ids = noArray() );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.GridBoard").create( $size, $markerLength, $markerSeparation, $dictionary[, $ids] ) -> <cv.aruco.GridBoard object>
+    $oGridBoard( $size, $markerLength, $markerSeparation, $dictionary[, $ids] ) -> <cv.aruco.GridBoard object>
+```
+
+### cv::aruco::GridBoard::generateImage
+
+```cpp
+void cv::aruco::GridBoard::generateImage( cv::Size    outSize,
+                                          OutputArray img,
+                                          int         marginSize = 0,
+                                          int         borderBits = 1 ) const;
+AutoIt:
+    $oGridBoard.generateImage( $outSize[, $img[, $marginSize[, $borderBits]]] ) -> $img
+```
+
+### cv::aruco::GridBoard::getDictionary
+
+```cpp
+cv::aruco::Dictionary cv::aruco::GridBoard::getDictionary() const;
+AutoIt:
+    $oGridBoard.getDictionary() -> retval
+```
+
+### cv::aruco::GridBoard::getGridSize
+
+```cpp
+cv::Size cv::aruco::GridBoard::getGridSize() const;
+AutoIt:
+    $oGridBoard.getGridSize() -> retval
+```
+
+### cv::aruco::GridBoard::getIds
+
+```cpp
+std::vector<int> cv::aruco::GridBoard::getIds() const;
+AutoIt:
+    $oGridBoard.getIds() -> retval
+```
+
+### cv::aruco::GridBoard::getMarkerLength
+
+```cpp
+float cv::aruco::GridBoard::getMarkerLength() const;
+AutoIt:
+    $oGridBoard.getMarkerLength() -> retval
+```
+
+### cv::aruco::GridBoard::getMarkerSeparation
+
+```cpp
+float cv::aruco::GridBoard::getMarkerSeparation() const;
+AutoIt:
+    $oGridBoard.getMarkerSeparation() -> retval
+```
+
+### cv::aruco::GridBoard::getObjPoints
+
+```cpp
+std::vector<std::vector<cv::Point3f>> cv::aruco::GridBoard::getObjPoints() const;
+AutoIt:
+    $oGridBoard.getObjPoints() -> retval
+```
+
+### cv::aruco::GridBoard::getRightBottomCorner
+
+```cpp
+cv::Point3f cv::aruco::GridBoard::getRightBottomCorner() const;
+AutoIt:
+    $oGridBoard.getRightBottomCorner() -> retval
+```
+
+### cv::aruco::GridBoard::matchImagePoints
+
+```cpp
+void cv::aruco::GridBoard::matchImagePoints( InputArrayOfArrays detectedCorners,
+                                             InputArray         detectedIds,
+                                             OutputArray        objPoints,
+                                             OutputArray        imgPoints ) const;
+AutoIt:
+    $oGridBoard.matchImagePoints( $detectedCorners, $detectedIds[, $objPoints[, $imgPoints]] ) -> $objPoints, $imgPoints
+```
+
+## cv::aruco::CharucoBoard
+
+### cv::aruco::CharucoBoard::get\_create
+
+```cpp
+static cv::aruco::CharucoBoard cv::aruco::CharucoBoard::get_create( const cv::Size&              size,
+                                                                    float                        squareLength,
+                                                                    float                        markerLength,
+                                                                    const cv::aruco::Dictionary& dictionary,
+                                                                    InputArray                   ids = noArray() );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.CharucoBoard").create( $size, $squareLength, $markerLength, $dictionary[, $ids] ) -> <cv.aruco.CharucoBoard object>
+    $oCharucoBoard( $size, $squareLength, $markerLength, $dictionary[, $ids] ) -> <cv.aruco.CharucoBoard object>
+```
+
+### cv::aruco::CharucoBoard::checkCharucoCornersCollinear
+
+```cpp
+bool cv::aruco::CharucoBoard::checkCharucoCornersCollinear( InputArray charucoIds ) const;
+AutoIt:
+    $oCharucoBoard.checkCharucoCornersCollinear( $charucoIds ) -> retval
+```
+
+### cv::aruco::CharucoBoard::generateImage
+
+```cpp
+void cv::aruco::CharucoBoard::generateImage( cv::Size    outSize,
+                                             OutputArray img,
+                                             int         marginSize = 0,
+                                             int         borderBits = 1 ) const;
+AutoIt:
+    $oCharucoBoard.generateImage( $outSize[, $img[, $marginSize[, $borderBits]]] ) -> $img
+```
+
+### cv::aruco::CharucoBoard::getChessboardCorners
+
+```cpp
+std::vector<cv::Point3f> cv::aruco::CharucoBoard::getChessboardCorners() const;
+AutoIt:
+    $oCharucoBoard.getChessboardCorners() -> retval
+```
+
+### cv::aruco::CharucoBoard::getChessboardSize
+
+```cpp
+cv::Size cv::aruco::CharucoBoard::getChessboardSize() const;
+AutoIt:
+    $oCharucoBoard.getChessboardSize() -> retval
+```
+
+### cv::aruco::CharucoBoard::getDictionary
+
+```cpp
+cv::aruco::Dictionary cv::aruco::CharucoBoard::getDictionary() const;
+AutoIt:
+    $oCharucoBoard.getDictionary() -> retval
+```
+
+### cv::aruco::CharucoBoard::getIds
+
+```cpp
+std::vector<int> cv::aruco::CharucoBoard::getIds() const;
+AutoIt:
+    $oCharucoBoard.getIds() -> retval
+```
+
+### cv::aruco::CharucoBoard::getMarkerLength
+
+```cpp
+float cv::aruco::CharucoBoard::getMarkerLength() const;
+AutoIt:
+    $oCharucoBoard.getMarkerLength() -> retval
+```
+
+### cv::aruco::CharucoBoard::getObjPoints
+
+```cpp
+std::vector<std::vector<cv::Point3f>> cv::aruco::CharucoBoard::getObjPoints() const;
+AutoIt:
+    $oCharucoBoard.getObjPoints() -> retval
+```
+
+### cv::aruco::CharucoBoard::getRightBottomCorner
+
+```cpp
+cv::Point3f cv::aruco::CharucoBoard::getRightBottomCorner() const;
+AutoIt:
+    $oCharucoBoard.getRightBottomCorner() -> retval
+```
+
+### cv::aruco::CharucoBoard::getSquareLength
+
+```cpp
+float cv::aruco::CharucoBoard::getSquareLength() const;
+AutoIt:
+    $oCharucoBoard.getSquareLength() -> retval
+```
+
+### cv::aruco::CharucoBoard::matchImagePoints
+
+```cpp
+void cv::aruco::CharucoBoard::matchImagePoints( InputArrayOfArrays detectedCorners,
+                                                InputArray         detectedIds,
+                                                OutputArray        objPoints,
+                                                OutputArray        imgPoints ) const;
+AutoIt:
+    $oCharucoBoard.matchImagePoints( $detectedCorners, $detectedIds[, $objPoints[, $imgPoints]] ) -> $objPoints, $imgPoints
+```
+
+## cv::aruco::DetectorParameters
+
+### DetectorParameters.adaptiveThreshWinSizeMin
+
+```cpp
+int cv::aruco::DetectorParameters::adaptiveThreshWinSizeMin
+AutoIt:
+    [propget, propput] $oDetectorParameters.adaptiveThreshWinSizeMin
+```
+
+### DetectorParameters.adaptiveThreshWinSizeMax
+
+```cpp
+int cv::aruco::DetectorParameters::adaptiveThreshWinSizeMax
+AutoIt:
+    [propget, propput] $oDetectorParameters.adaptiveThreshWinSizeMax
+```
+
+### DetectorParameters.adaptiveThreshWinSizeStep
+
+```cpp
+int cv::aruco::DetectorParameters::adaptiveThreshWinSizeStep
+AutoIt:
+    [propget, propput] $oDetectorParameters.adaptiveThreshWinSizeStep
+```
+
+### DetectorParameters.adaptiveThreshConstant
+
+```cpp
+double cv::aruco::DetectorParameters::adaptiveThreshConstant
+AutoIt:
+    [propget, propput] $oDetectorParameters.adaptiveThreshConstant
+```
+
+### DetectorParameters.minMarkerPerimeterRate
+
+```cpp
+double cv::aruco::DetectorParameters::minMarkerPerimeterRate
+AutoIt:
+    [propget, propput] $oDetectorParameters.minMarkerPerimeterRate
+```
+
+### DetectorParameters.maxMarkerPerimeterRate
+
+```cpp
+double cv::aruco::DetectorParameters::maxMarkerPerimeterRate
+AutoIt:
+    [propget, propput] $oDetectorParameters.maxMarkerPerimeterRate
+```
+
+### DetectorParameters.polygonalApproxAccuracyRate
+
+```cpp
+double cv::aruco::DetectorParameters::polygonalApproxAccuracyRate
+AutoIt:
+    [propget, propput] $oDetectorParameters.polygonalApproxAccuracyRate
+```
+
+### DetectorParameters.minCornerDistanceRate
+
+```cpp
+double cv::aruco::DetectorParameters::minCornerDistanceRate
+AutoIt:
+    [propget, propput] $oDetectorParameters.minCornerDistanceRate
+```
+
+### DetectorParameters.minDistanceToBorder
+
+```cpp
+int cv::aruco::DetectorParameters::minDistanceToBorder
+AutoIt:
+    [propget, propput] $oDetectorParameters.minDistanceToBorder
+```
+
+### DetectorParameters.minMarkerDistanceRate
+
+```cpp
+double cv::aruco::DetectorParameters::minMarkerDistanceRate
+AutoIt:
+    [propget, propput] $oDetectorParameters.minMarkerDistanceRate
+```
+
+### DetectorParameters.cornerRefinementMethod
+
+```cpp
+cv::aruco::CornerRefineMethod cv::aruco::DetectorParameters::cornerRefinementMethod
+AutoIt:
+    [propget, propput] $oDetectorParameters.cornerRefinementMethod
+```
+
+### DetectorParameters.cornerRefinementWinSize
+
+```cpp
+int cv::aruco::DetectorParameters::cornerRefinementWinSize
+AutoIt:
+    [propget, propput] $oDetectorParameters.cornerRefinementWinSize
+```
+
+### DetectorParameters.cornerRefinementMaxIterations
+
+```cpp
+int cv::aruco::DetectorParameters::cornerRefinementMaxIterations
+AutoIt:
+    [propget, propput] $oDetectorParameters.cornerRefinementMaxIterations
+```
+
+### DetectorParameters.cornerRefinementMinAccuracy
+
+```cpp
+double cv::aruco::DetectorParameters::cornerRefinementMinAccuracy
+AutoIt:
+    [propget, propput] $oDetectorParameters.cornerRefinementMinAccuracy
+```
+
+### DetectorParameters.markerBorderBits
+
+```cpp
+int cv::aruco::DetectorParameters::markerBorderBits
+AutoIt:
+    [propget, propput] $oDetectorParameters.markerBorderBits
+```
+
+### DetectorParameters.perspectiveRemovePixelPerCell
+
+```cpp
+int cv::aruco::DetectorParameters::perspectiveRemovePixelPerCell
+AutoIt:
+    [propget, propput] $oDetectorParameters.perspectiveRemovePixelPerCell
+```
+
+### DetectorParameters.perspectiveRemoveIgnoredMarginPerCell
+
+```cpp
+double cv::aruco::DetectorParameters::perspectiveRemoveIgnoredMarginPerCell
+AutoIt:
+    [propget, propput] $oDetectorParameters.perspectiveRemoveIgnoredMarginPerCell
+```
+
+### DetectorParameters.maxErroneousBitsInBorderRate
+
+```cpp
+double cv::aruco::DetectorParameters::maxErroneousBitsInBorderRate
+AutoIt:
+    [propget, propput] $oDetectorParameters.maxErroneousBitsInBorderRate
+```
+
+### DetectorParameters.minOtsuStdDev
+
+```cpp
+double cv::aruco::DetectorParameters::minOtsuStdDev
+AutoIt:
+    [propget, propput] $oDetectorParameters.minOtsuStdDev
+```
+
+### DetectorParameters.errorCorrectionRate
+
+```cpp
+double cv::aruco::DetectorParameters::errorCorrectionRate
+AutoIt:
+    [propget, propput] $oDetectorParameters.errorCorrectionRate
+```
+
+### DetectorParameters.aprilTagQuadDecimate
+
+```cpp
+float cv::aruco::DetectorParameters::aprilTagQuadDecimate
+AutoIt:
+    [propget, propput] $oDetectorParameters.aprilTagQuadDecimate
+```
+
+### DetectorParameters.aprilTagQuadSigma
+
+```cpp
+float cv::aruco::DetectorParameters::aprilTagQuadSigma
+AutoIt:
+    [propget, propput] $oDetectorParameters.aprilTagQuadSigma
+```
+
+### DetectorParameters.aprilTagMinClusterPixels
+
+```cpp
+int cv::aruco::DetectorParameters::aprilTagMinClusterPixels
+AutoIt:
+    [propget, propput] $oDetectorParameters.aprilTagMinClusterPixels
+```
+
+### DetectorParameters.aprilTagMaxNmaxima
+
+```cpp
+int cv::aruco::DetectorParameters::aprilTagMaxNmaxima
+AutoIt:
+    [propget, propput] $oDetectorParameters.aprilTagMaxNmaxima
+```
+
+### DetectorParameters.aprilTagCriticalRad
+
+```cpp
+float cv::aruco::DetectorParameters::aprilTagCriticalRad
+AutoIt:
+    [propget, propput] $oDetectorParameters.aprilTagCriticalRad
+```
+
+### DetectorParameters.aprilTagMaxLineFitMse
+
+```cpp
+float cv::aruco::DetectorParameters::aprilTagMaxLineFitMse
+AutoIt:
+    [propget, propput] $oDetectorParameters.aprilTagMaxLineFitMse
+```
+
+### DetectorParameters.aprilTagMinWhiteBlackDiff
+
+```cpp
+int cv::aruco::DetectorParameters::aprilTagMinWhiteBlackDiff
+AutoIt:
+    [propget, propput] $oDetectorParameters.aprilTagMinWhiteBlackDiff
+```
+
+### DetectorParameters.aprilTagDeglitch
+
+```cpp
+int cv::aruco::DetectorParameters::aprilTagDeglitch
+AutoIt:
+    [propget, propput] $oDetectorParameters.aprilTagDeglitch
+```
+
+### DetectorParameters.detectInvertedMarker
+
+```cpp
+bool cv::aruco::DetectorParameters::detectInvertedMarker
+AutoIt:
+    [propget, propput] $oDetectorParameters.detectInvertedMarker
+```
+
+### DetectorParameters.useAruco3Detection
+
+```cpp
+bool cv::aruco::DetectorParameters::useAruco3Detection
+AutoIt:
+    [propget, propput] $oDetectorParameters.useAruco3Detection
+```
+
+### DetectorParameters.minSideLengthCanonicalImg
+
+```cpp
+int cv::aruco::DetectorParameters::minSideLengthCanonicalImg
+AutoIt:
+    [propget, propput] $oDetectorParameters.minSideLengthCanonicalImg
+```
+
+### DetectorParameters.minMarkerLengthRatioOriginalImg
+
+```cpp
+float cv::aruco::DetectorParameters::minMarkerLengthRatioOriginalImg
+AutoIt:
+    [propget, propput] $oDetectorParameters.minMarkerLengthRatioOriginalImg
+```
+
+### cv::aruco::DetectorParameters::get\_create
+
+```cpp
+static cv::aruco::DetectorParameters cv::aruco::DetectorParameters::get_create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.DetectorParameters").create() -> <cv.aruco.DetectorParameters object>
+```
+
+### cv::aruco::DetectorParameters::readDetectorParameters
+
+```cpp
+bool cv::aruco::DetectorParameters::readDetectorParameters( const cv::FileNode& fn );
+AutoIt:
+    $oDetectorParameters.readDetectorParameters( $fn ) -> retval
+```
+
+### cv::aruco::DetectorParameters::writeDetectorParameters
+
+```cpp
+bool cv::aruco::DetectorParameters::writeDetectorParameters( cv::FileStorage&   fs,
+                                                             const std::string& name = String() );
+AutoIt:
+    $oDetectorParameters.writeDetectorParameters( $fs[, $name] ) -> retval
+```
+
+## cv::aruco::RefineParameters
+
+### RefineParameters.minRepDistance
+
+```cpp
+float cv::aruco::RefineParameters::minRepDistance
+AutoIt:
+    [propget, propput] $oRefineParameters.minRepDistance
+```
+
+### RefineParameters.errorCorrectionRate
+
+```cpp
+float cv::aruco::RefineParameters::errorCorrectionRate
+AutoIt:
+    [propget, propput] $oRefineParameters.errorCorrectionRate
+```
+
+### RefineParameters.checkAllOrders
+
+```cpp
+bool cv::aruco::RefineParameters::checkAllOrders
+AutoIt:
+    [propget, propput] $oRefineParameters.checkAllOrders
+```
+
+### cv::aruco::RefineParameters::get\_create
+
+```cpp
+static cv::aruco::RefineParameters cv::aruco::RefineParameters::get_create( float minRepDistance = 10.f,
+                                                                            float errorCorrectionRate = 3.f,
+                                                                            bool  checkAllOrders = true );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.RefineParameters").create( [$minRepDistance[, $errorCorrectionRate[, $checkAllOrders]]] ) -> <cv.aruco.RefineParameters object>
+    $oRefineParameters( [$minRepDistance[, $errorCorrectionRate[, $checkAllOrders]]] ) -> <cv.aruco.RefineParameters object>
+```
+
+### cv::aruco::RefineParameters::readRefineParameters
+
+```cpp
+bool cv::aruco::RefineParameters::readRefineParameters( const cv::FileNode& fn );
+AutoIt:
+    $oRefineParameters.readRefineParameters( $fn ) -> retval
+```
+
+### cv::aruco::RefineParameters::writeRefineParameters
+
+```cpp
+bool cv::aruco::RefineParameters::writeRefineParameters( cv::FileStorage&   fs,
+                                                         const std::string& name = String() );
+AutoIt:
+    $oRefineParameters.writeRefineParameters( $fs[, $name] ) -> retval
+```
+
+## cv::aruco::ArucoDetector
+
+### cv::aruco::ArucoDetector::get\_create
+
+```cpp
+static cv::aruco::ArucoDetector cv::aruco::ArucoDetector::get_create( const cv::aruco::Dictionary&         dictionary = getPredefinedDictionary(cv::aruco::DICT_4X4_50),
+                                                                      const cv::aruco::DetectorParameters& detectorParams = DetectorParameters(),
+                                                                      const cv::aruco::RefineParameters&   refineParams = RefineParameters() );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.ArucoDetector").create( [$dictionary[, $detectorParams[, $refineParams]]] ) -> <cv.aruco.ArucoDetector object>
+    $oArucoDetector( [$dictionary[, $detectorParams[, $refineParams]]] ) -> <cv.aruco.ArucoDetector object>
+```
+
+### cv::aruco::ArucoDetector::clear
+
+```cpp
+void cv::aruco::ArucoDetector::clear();
+AutoIt:
+    $oArucoDetector.clear() -> None
+```
+
+### cv::aruco::ArucoDetector::detectMarkers
+
+```cpp
+void cv::aruco::ArucoDetector::detectMarkers( InputArray          image,
+                                              OutputArrayOfArrays corners,
+                                              OutputArray         ids,
+                                              OutputArrayOfArrays rejectedImgPoints = noArray() ) const;
+AutoIt:
+    $oArucoDetector.detectMarkers( $image[, $corners[, $ids[, $rejectedImgPoints]]] ) -> $corners, $ids, $rejectedImgPoints
+```
+
+### cv::aruco::ArucoDetector::empty
+
+```cpp
+bool cv::aruco::ArucoDetector::empty() const;
+AutoIt:
+    $oArucoDetector.empty() -> retval
+```
+
+### cv::aruco::ArucoDetector::getDefaultName
+
+```cpp
+std::string cv::aruco::ArucoDetector::getDefaultName() const;
+AutoIt:
+    $oArucoDetector.getDefaultName() -> retval
+```
+
+### cv::aruco::ArucoDetector::getDetectorParameters
+
+```cpp
+cv::aruco::DetectorParameters cv::aruco::ArucoDetector::getDetectorParameters() const;
+AutoIt:
+    $oArucoDetector.getDetectorParameters() -> retval
+```
+
+### cv::aruco::ArucoDetector::getDictionary
+
+```cpp
+cv::aruco::Dictionary cv::aruco::ArucoDetector::getDictionary() const;
+AutoIt:
+    $oArucoDetector.getDictionary() -> retval
+```
+
+### cv::aruco::ArucoDetector::getRefineParameters
+
+```cpp
+cv::aruco::RefineParameters cv::aruco::ArucoDetector::getRefineParameters() const;
+AutoIt:
+    $oArucoDetector.getRefineParameters() -> retval
+```
+
+### cv::aruco::ArucoDetector::read
+
+```cpp
+void cv::aruco::ArucoDetector::read( const cv::FileNode& fn );
+AutoIt:
+    $oArucoDetector.read( $fn ) -> None
+```
+
+### cv::aruco::ArucoDetector::refineDetectedMarkers
+
+```cpp
+void cv::aruco::ArucoDetector::refineDetectedMarkers( InputArray               image,
+                                                      const cv::aruco::Board&  board,
+                                                      InputOutputArrayOfArrays detectedCorners,
+                                                      InputOutputArray         detectedIds,
+                                                      InputOutputArrayOfArrays rejectedCorners,
+                                                      InputArray               cameraMatrix = noArray(),
+                                                      InputArray               distCoeffs = noArray(),
+                                                      OutputArray              recoveredIdxs = noArray() ) const;
+AutoIt:
+    $oArucoDetector.refineDetectedMarkers( $image, $board, $detectedCorners, $detectedIds, $rejectedCorners[, $cameraMatrix[, $distCoeffs[, $recoveredIdxs]]] ) -> $detectedCorners, $detectedIds, $rejectedCorners, $recoveredIdxs
+```
+
+### cv::aruco::ArucoDetector::save
+
+```cpp
+void cv::aruco::ArucoDetector::save( const std::string& filename ) const;
+AutoIt:
+    $oArucoDetector.save( $filename ) -> None
+```
+
+### cv::aruco::ArucoDetector::setDetectorParameters
+
+```cpp
+void cv::aruco::ArucoDetector::setDetectorParameters( const cv::aruco::DetectorParameters& detectorParameters );
+AutoIt:
+    $oArucoDetector.setDetectorParameters( $detectorParameters ) -> None
+```
+
+### cv::aruco::ArucoDetector::setDictionary
+
+```cpp
+void cv::aruco::ArucoDetector::setDictionary( const cv::aruco::Dictionary& dictionary );
+AutoIt:
+    $oArucoDetector.setDictionary( $dictionary ) -> None
+```
+
+### cv::aruco::ArucoDetector::setRefineParameters
+
+```cpp
+void cv::aruco::ArucoDetector::setRefineParameters( const cv::aruco::RefineParameters& refineParameters );
+AutoIt:
+    $oArucoDetector.setRefineParameters( $refineParameters ) -> None
+```
+
+### cv::aruco::ArucoDetector::write
+
+```cpp
+void cv::aruco::ArucoDetector::write( cv::FileStorage&   fs,
+                                      const std::string& name );
+AutoIt:
+    $oArucoDetector.write( $fs, $name ) -> None
+```
+
+```cpp
+void cv::aruco::ArucoDetector::write( cv::FileStorage& fs ) const;
+AutoIt:
+    $oArucoDetector.write( $fs ) -> None
+```
+
+## cv::aruco::Dictionary
+
+### Dictionary.bytesList
+
+```cpp
+cv::Mat cv::aruco::Dictionary::bytesList
+AutoIt:
+    [propget, propput] $oDictionary.bytesList
+```
+
+### Dictionary.markerSize
+
+```cpp
+int cv::aruco::Dictionary::markerSize
+AutoIt:
+    [propget, propput] $oDictionary.markerSize
+```
+
+### Dictionary.maxCorrectionBits
+
+```cpp
+int cv::aruco::Dictionary::maxCorrectionBits
+AutoIt:
+    [propget, propput] $oDictionary.maxCorrectionBits
+```
+
+### cv::aruco::Dictionary::get\_create
+
+```cpp
+static cv::aruco::Dictionary cv::aruco::Dictionary::get_create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.Dictionary").create() -> <cv.aruco.Dictionary object>
+```
+
+```cpp
+static cv::aruco::Dictionary cv::aruco::Dictionary::get_create( const cv::Mat& bytesList,
+                                                                int            _markerSize,
+                                                                int            maxcorr = 0 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.Dictionary").create( $bytesList, $_markerSize[, $maxcorr] ) -> <cv.aruco.Dictionary object>
+    $oDictionary( $bytesList, $_markerSize[, $maxcorr] ) -> <cv.aruco.Dictionary object>
+```
+
+### cv::aruco::Dictionary::generateImageMarker
+
+```cpp
+void cv::aruco::Dictionary::generateImageMarker( int         id,
+                                                 int         sidePixels,
+                                                 OutputArray _img,
+                                                 int         borderBits = 1 ) const;
+AutoIt:
+    $oDictionary.generateImageMarker( $id, $sidePixels[, $_img[, $borderBits]] ) -> $_img
+```
+
+### cv::aruco::Dictionary::getBitsFromByteList
+
+```cpp
+static cv::Mat cv::aruco::Dictionary::getBitsFromByteList( const cv::Mat& byteList,
+                                                           int            markerSize );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.Dictionary").getBitsFromByteList( $byteList, $markerSize ) -> retval
+```
+
+### cv::aruco::Dictionary::getByteListFromBits
+
+```cpp
+static cv::Mat cv::aruco::Dictionary::getByteListFromBits( const cv::Mat& bits );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.Dictionary").getByteListFromBits( $bits ) -> retval
+```
+
+### cv::aruco::Dictionary::getDistanceToId
+
+```cpp
+int cv::aruco::Dictionary::getDistanceToId( InputArray bits,
+                                            int        id,
+                                            bool       allRotations = true ) const;
+AutoIt:
+    $oDictionary.getDistanceToId( $bits, $id[, $allRotations] ) -> retval
+```
+
+### cv::aruco::Dictionary::identify
+
+```cpp
+bool cv::aruco::Dictionary::identify( const cv::Mat& onlyBits,
+                                      int&           idx,
+                                      int&           rotation,
+                                      double         maxCorrectionRate ) const;
+AutoIt:
+    $oDictionary.identify( $onlyBits, $maxCorrectionRate[, $idx[, $rotation]] ) -> retval, $idx, $rotation
+```
+
+### cv::aruco::Dictionary::readDictionary
+
+```cpp
+bool cv::aruco::Dictionary::readDictionary( const cv::FileNode& fn );
+AutoIt:
+    $oDictionary.readDictionary( $fn ) -> retval
+```
+
+### cv::aruco::Dictionary::writeDictionary
+
+```cpp
+void cv::aruco::Dictionary::writeDictionary( cv::FileStorage&   fs,
+                                             const std::string& name = String() );
+AutoIt:
+    $oDictionary.writeDictionary( $fs[, $name] ) -> None
+```
+
+## cv::aruco::CharucoParameters
+
+### CharucoParameters.cameraMatrix
+
+```cpp
+cv::Mat cv::aruco::CharucoParameters::cameraMatrix
+AutoIt:
+    [propget, propput] $oCharucoParameters.cameraMatrix
+```
+
+### CharucoParameters.distCoeffs
+
+```cpp
+cv::Mat cv::aruco::CharucoParameters::distCoeffs
+AutoIt:
+    [propget, propput] $oCharucoParameters.distCoeffs
+```
+
+### CharucoParameters.minMarkers
+
+```cpp
+int cv::aruco::CharucoParameters::minMarkers
+AutoIt:
+    [propget, propput] $oCharucoParameters.minMarkers
+```
+
+### CharucoParameters.tryRefineMarkers
+
+```cpp
+bool cv::aruco::CharucoParameters::tryRefineMarkers
+AutoIt:
+    [propget, propput] $oCharucoParameters.tryRefineMarkers
+```
+
+### cv::aruco::CharucoParameters::get\_create
+
+```cpp
+static cv::aruco::CharucoParameters cv::aruco::CharucoParameters::get_create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.CharucoParameters").create() -> <cv.aruco.CharucoParameters object>
+```
+
+## cv::aruco::CharucoDetector
+
+### cv::aruco::CharucoDetector::get\_create
+
+```cpp
+static cv::aruco::CharucoDetector cv::aruco::CharucoDetector::get_create( const cv::aruco::CharucoBoard&       board,
+                                                                          const cv::aruco::CharucoParameters&  charucoParams = CharucoParameters(),
+                                                                          const cv::aruco::DetectorParameters& detectorParams = DetectorParameters(),
+                                                                          const cv::aruco::RefineParameters&   refineParams = RefineParameters() );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.CharucoDetector").create( $board[, $charucoParams[, $detectorParams[, $refineParams]]] ) -> <cv.aruco.CharucoDetector object>
+    $oCharucoDetector( $board[, $charucoParams[, $detectorParams[, $refineParams]]] ) -> <cv.aruco.CharucoDetector object>
+```
+
+### cv::aruco::CharucoDetector::clear
+
+```cpp
+void cv::aruco::CharucoDetector::clear();
+AutoIt:
+    $oCharucoDetector.clear() -> None
+```
+
+### cv::aruco::CharucoDetector::detectBoard
+
+```cpp
+void cv::aruco::CharucoDetector::detectBoard( InputArray               image,
+                                              OutputArray              charucoCorners,
+                                              OutputArray              charucoIds,
+                                              InputOutputArrayOfArrays markerCorners = noArray(),
+                                              InputOutputArray         markerIds = noArray() ) const;
+AutoIt:
+    $oCharucoDetector.detectBoard( $image[, $charucoCorners[, $charucoIds[, $markerCorners[, $markerIds]]]] ) -> $charucoCorners, $charucoIds, $markerCorners, $markerIds
+```
+
+### cv::aruco::CharucoDetector::detectDiamonds
+
+```cpp
+void cv::aruco::CharucoDetector::detectDiamonds( InputArray               image,
+                                                 OutputArrayOfArrays      diamondCorners,
+                                                 OutputArray              diamondIds,
+                                                 InputOutputArrayOfArrays markerCorners = noArray(),
+                                                 InputOutputArrayOfArrays markerIds = noArray() ) const;
+AutoIt:
+    $oCharucoDetector.detectDiamonds( $image[, $diamondCorners[, $diamondIds[, $markerCorners[, $markerIds]]]] ) -> $diamondCorners, $diamondIds, $markerCorners, $markerIds
+```
+
+### cv::aruco::CharucoDetector::empty
+
+```cpp
+bool cv::aruco::CharucoDetector::empty() const;
+AutoIt:
+    $oCharucoDetector.empty() -> retval
+```
+
+### cv::aruco::CharucoDetector::getBoard
+
+```cpp
+cv::aruco::CharucoBoard cv::aruco::CharucoDetector::getBoard() const;
+AutoIt:
+    $oCharucoDetector.getBoard() -> retval
+```
+
+### cv::aruco::CharucoDetector::getCharucoParameters
+
+```cpp
+cv::aruco::CharucoParameters cv::aruco::CharucoDetector::getCharucoParameters() const;
+AutoIt:
+    $oCharucoDetector.getCharucoParameters() -> retval
+```
+
+### cv::aruco::CharucoDetector::getDefaultName
+
+```cpp
+std::string cv::aruco::CharucoDetector::getDefaultName() const;
+AutoIt:
+    $oCharucoDetector.getDefaultName() -> retval
+```
+
+### cv::aruco::CharucoDetector::getDetectorParameters
+
+```cpp
+cv::aruco::DetectorParameters cv::aruco::CharucoDetector::getDetectorParameters() const;
+AutoIt:
+    $oCharucoDetector.getDetectorParameters() -> retval
+```
+
+### cv::aruco::CharucoDetector::getRefineParameters
+
+```cpp
+cv::aruco::RefineParameters cv::aruco::CharucoDetector::getRefineParameters() const;
+AutoIt:
+    $oCharucoDetector.getRefineParameters() -> retval
+```
+
+### cv::aruco::CharucoDetector::read
+
+```cpp
+void cv::aruco::CharucoDetector::read( const cv::FileNode& fn );
+AutoIt:
+    $oCharucoDetector.read( $fn ) -> None
+```
+
+### cv::aruco::CharucoDetector::save
+
+```cpp
+void cv::aruco::CharucoDetector::save( const std::string& filename ) const;
+AutoIt:
+    $oCharucoDetector.save( $filename ) -> None
+```
+
+### cv::aruco::CharucoDetector::setBoard
+
+```cpp
+void cv::aruco::CharucoDetector::setBoard( const cv::aruco::CharucoBoard& board );
+AutoIt:
+    $oCharucoDetector.setBoard( $board ) -> None
+```
+
+### cv::aruco::CharucoDetector::setCharucoParameters
+
+```cpp
+void cv::aruco::CharucoDetector::setCharucoParameters( cv::aruco::CharucoParameters& charucoParameters );
+AutoIt:
+    $oCharucoDetector.setCharucoParameters( $charucoParameters ) -> None
+```
+
+### cv::aruco::CharucoDetector::setDetectorParameters
+
+```cpp
+void cv::aruco::CharucoDetector::setDetectorParameters( const cv::aruco::DetectorParameters& detectorParameters );
+AutoIt:
+    $oCharucoDetector.setDetectorParameters( $detectorParameters ) -> None
+```
+
+### cv::aruco::CharucoDetector::setRefineParameters
+
+```cpp
+void cv::aruco::CharucoDetector::setRefineParameters( const cv::aruco::RefineParameters& refineParameters );
+AutoIt:
+    $oCharucoDetector.setRefineParameters( $refineParameters ) -> None
+```
+
+### cv::aruco::CharucoDetector::write
+
+```cpp
+void cv::aruco::CharucoDetector::write( cv::FileStorage& fs ) const;
+AutoIt:
+    $oCharucoDetector.write( $fs ) -> None
+```
+
+```cpp
+void cv::aruco::CharucoDetector::write( cv::FileStorage&   fs,
+                                        const std::string& name ) const;
+AutoIt:
+    $oCharucoDetector.write( $fs, $name ) -> None
+```
+
 ## cv::FaceDetectorYN
 
 ### cv::FaceDetectorYN::get\_create
@@ -42747,7 +47664,7 @@ static cv::Ptr<cv::FaceDetectorYN> cv::FaceDetectorYN::get_create( const std::st
                                                                    int                target_id = 0 );
 AutoIt:
     _OpenCV_ObjCreate("cv.FaceDetectorYN").create( $model, $config, $input_size[, $score_threshold[, $nms_threshold[, $top_k[, $backend_id[, $target_id]]]]] ) -> retval
-    _OpenCV_ObjCreate("cv.FaceDetectorYN")( $model, $config, $input_size[, $score_threshold[, $nms_threshold[, $top_k[, $backend_id[, $target_id]]]]] ) -> retval
+    $oFaceDetectorYN( $model, $config, $input_size[, $score_threshold[, $nms_threshold[, $top_k[, $backend_id[, $target_id]]]]] ) -> retval
 ```
 
 ### cv::FaceDetectorYN::detect
@@ -42834,7 +47751,7 @@ static cv::Ptr<cv::FaceRecognizerSF> cv::FaceRecognizerSF::get_create( const std
                                                                        int                target_id = 0 );
 AutoIt:
     _OpenCV_ObjCreate("cv.FaceRecognizerSF").create( $model, $config[, $backend_id[, $target_id]] ) -> retval
-    _OpenCV_ObjCreate("cv.FaceRecognizerSF")( $model, $config[, $backend_id[, $target_id]] ) -> retval
+    $oFaceRecognizerSF( $model, $config[, $backend_id[, $target_id]] ) -> retval
 ```
 
 ### cv::FaceRecognizerSF::alignCrop
@@ -42890,7 +47807,7 @@ AutoIt:
 static cv::Ptr<cv::Stitcher> cv::Stitcher::get_create( cv::Stitcher::Mode mode = Stitcher::PANORAMA );
 AutoIt:
     _OpenCV_ObjCreate("cv.Stitcher").create( [$mode] ) -> retval
-    _OpenCV_ObjCreate("cv.Stitcher")( [$mode] ) -> retval
+    $oStitcher( [$mode] ) -> retval
 ```
 
 ### cv::Stitcher::composePanorama
@@ -43095,14 +48012,13 @@ static cv::PyRotationWarper cv::PyRotationWarper::get_create( std::string type,
                                                               float       scale );
 AutoIt:
     _OpenCV_ObjCreate("cv.PyRotationWarper").create( $type, $scale ) -> <cv.PyRotationWarper object>
-    _OpenCV_ObjCreate("cv.PyRotationWarper")( $type, $scale ) -> <cv.PyRotationWarper object>
+    $oPyRotationWarper( $type, $scale ) -> <cv.PyRotationWarper object>
 ```
 
 ```cpp
 static cv::PyRotationWarper cv::PyRotationWarper::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.PyRotationWarper").create() -> <cv.PyRotationWarper object>
-    _OpenCV_ObjCreate("cv.PyRotationWarper")() -> <cv.PyRotationWarper object>
 ```
 
 ### cv::PyRotationWarper::buildMaps
@@ -43275,7 +48191,7 @@ AutoIt:
 static cv::detail::FeatherBlender cv::detail::FeatherBlender::get_create( float sharpness = 0.02f );
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.FeatherBlender").create( [$sharpness] ) -> <cv.detail.FeatherBlender object>
-    _OpenCV_ObjCreate("cv.detail.FeatherBlender")( [$sharpness] ) -> <cv.detail.FeatherBlender object>
+    $oFeatherBlender( [$sharpness] ) -> <cv.detail.FeatherBlender object>
 ```
 
 ### cv::detail::FeatherBlender::blend
@@ -43357,7 +48273,7 @@ static cv::detail::MultiBandBlender cv::detail::MultiBandBlender::get_create( in
                                                                               int weight_type = CV_32F );
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.MultiBandBlender").create( [$try_gpu[, $num_bands[, $weight_type]]] ) -> <cv.detail.MultiBandBlender object>
-    _OpenCV_ObjCreate("cv.detail.MultiBandBlender")( [$try_gpu[, $num_bands[, $weight_type]]] ) -> <cv.detail.MultiBandBlender object>
+    $oMultiBandBlender( [$try_gpu[, $num_bands[, $weight_type]]] ) -> <cv.detail.MultiBandBlender object>
 ```
 
 ### cv::detail::MultiBandBlender::blend
@@ -43426,7 +48342,7 @@ AutoIt:
 ```cpp
 double cv::detail::CameraParams::focal
 AutoIt:
-    [propget propput] $oCameraParams.focal
+    [propget, propput] $oCameraParams.focal
 ```
 
 ### CameraParams.aspect
@@ -43434,7 +48350,7 @@ AutoIt:
 ```cpp
 double cv::detail::CameraParams::aspect
 AutoIt:
-    [propget propput] $oCameraParams.aspect
+    [propget, propput] $oCameraParams.aspect
 ```
 
 ### CameraParams.ppx
@@ -43442,7 +48358,7 @@ AutoIt:
 ```cpp
 double cv::detail::CameraParams::ppx
 AutoIt:
-    [propget propput] $oCameraParams.ppx
+    [propget, propput] $oCameraParams.ppx
 ```
 
 ### CameraParams.ppy
@@ -43450,7 +48366,7 @@ AutoIt:
 ```cpp
 double cv::detail::CameraParams::ppy
 AutoIt:
-    [propget propput] $oCameraParams.ppy
+    [propget, propput] $oCameraParams.ppy
 ```
 
 ### CameraParams.R
@@ -43458,7 +48374,7 @@ AutoIt:
 ```cpp
 cv::Mat cv::detail::CameraParams::R
 AutoIt:
-    [propget propput] $oCameraParams.R
+    [propget, propput] $oCameraParams.R
 ```
 
 ### CameraParams.t
@@ -43466,7 +48382,7 @@ AutoIt:
 ```cpp
 cv::Mat cv::detail::CameraParams::t
 AutoIt:
-    [propget propput] $oCameraParams.t
+    [propget, propput] $oCameraParams.t
 ```
 
 ### cv::detail::CameraParams::get\_create
@@ -43475,7 +48391,6 @@ AutoIt:
 static cv::detail::CameraParams cv::detail::CameraParams::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.CameraParams").create() -> <cv.detail.CameraParams object>
-    _OpenCV_ObjCreate("cv.detail.CameraParams")() -> <cv.detail.CameraParams object>
 ```
 
 ### cv::detail::CameraParams::K
@@ -43660,14 +48575,13 @@ AutoIt:
 static cv::detail::GainCompensator cv::detail::GainCompensator::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.GainCompensator").create() -> <cv.detail.GainCompensator object>
-    _OpenCV_ObjCreate("cv.detail.GainCompensator")() -> <cv.detail.GainCompensator object>
 ```
 
 ```cpp
 static cv::detail::GainCompensator cv::detail::GainCompensator::get_create( int nr_feeds );
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.GainCompensator").create( $nr_feeds ) -> <cv.detail.GainCompensator object>
-    _OpenCV_ObjCreate("cv.detail.GainCompensator")( $nr_feeds ) -> <cv.detail.GainCompensator object>
+    $oGainCompensator( $nr_feeds ) -> <cv.detail.GainCompensator object>
 ```
 
 ### cv::detail::GainCompensator::apply
@@ -43771,7 +48685,7 @@ AutoIt:
 static cv::detail::ChannelsCompensator cv::detail::ChannelsCompensator::get_create( int nr_feeds = 1 );
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.ChannelsCompensator").create( [$nr_feeds] ) -> <cv.detail.ChannelsCompensator object>
-    _OpenCV_ObjCreate("cv.detail.ChannelsCompensator")( [$nr_feeds] ) -> <cv.detail.ChannelsCompensator object>
+    $oChannelsCompensator( [$nr_feeds] ) -> <cv.detail.ChannelsCompensator object>
 ```
 
 ### cv::detail::ChannelsCompensator::apply
@@ -44010,7 +48924,7 @@ static cv::detail::BlocksGainCompensator cv::detail::BlocksGainCompensator::get_
                                                                                         int bl_height = 32 );
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.BlocksGainCompensator").create( [$bl_width[, $bl_height]] ) -> <cv.detail.BlocksGainCompensator object>
-    _OpenCV_ObjCreate("cv.detail.BlocksGainCompensator")( [$bl_width[, $bl_height]] ) -> <cv.detail.BlocksGainCompensator object>
+    $oBlocksGainCompensator( [$bl_width[, $bl_height]] ) -> <cv.detail.BlocksGainCompensator object>
 ```
 
 ```cpp
@@ -44019,7 +48933,7 @@ static cv::detail::BlocksGainCompensator cv::detail::BlocksGainCompensator::get_
                                                                                         int nr_feeds );
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.BlocksGainCompensator").create( $bl_width, $bl_height, $nr_feeds ) -> <cv.detail.BlocksGainCompensator object>
-    _OpenCV_ObjCreate("cv.detail.BlocksGainCompensator")( $bl_width, $bl_height, $nr_feeds ) -> <cv.detail.BlocksGainCompensator object>
+    $oBlocksGainCompensator( $bl_width, $bl_height, $nr_feeds ) -> <cv.detail.BlocksGainCompensator object>
 ```
 
 ### cv::detail::BlocksGainCompensator::apply
@@ -44164,7 +49078,7 @@ static cv::detail::BlocksChannelsCompensator cv::detail::BlocksChannelsCompensat
                                                                                                 int nr_feeds = 1 );
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.BlocksChannelsCompensator").create( [$bl_width[, $bl_height[, $nr_feeds]]] ) -> <cv.detail.BlocksChannelsCompensator object>
-    _OpenCV_ObjCreate("cv.detail.BlocksChannelsCompensator")( [$bl_width[, $bl_height[, $nr_feeds]]] ) -> <cv.detail.BlocksChannelsCompensator object>
+    $oBlocksChannelsCompensator( [$bl_width[, $bl_height[, $nr_feeds]]] ) -> <cv.detail.BlocksChannelsCompensator object>
 ```
 
 ### cv::detail::BlocksChannelsCompensator::apply
@@ -44306,7 +49220,7 @@ AutoIt:
 ```cpp
 int cv::detail::ImageFeatures::img_idx
 AutoIt:
-    [propget propput] $oImageFeatures.img_idx
+    [propget, propput] $oImageFeatures.img_idx
 ```
 
 ### ImageFeatures.img\_size
@@ -44314,7 +49228,7 @@ AutoIt:
 ```cpp
 cv::Size cv::detail::ImageFeatures::img_size
 AutoIt:
-    [propget propput] $oImageFeatures.img_size
+    [propget, propput] $oImageFeatures.img_size
 ```
 
 ### ImageFeatures.keypoints
@@ -44322,7 +49236,7 @@ AutoIt:
 ```cpp
 std::vector<cv::KeyPoint> cv::detail::ImageFeatures::keypoints
 AutoIt:
-    [propget propput] $oImageFeatures.keypoints
+    [propget, propput] $oImageFeatures.keypoints
 ```
 
 ### ImageFeatures.descriptors
@@ -44330,7 +49244,7 @@ AutoIt:
 ```cpp
 cv::UMat cv::detail::ImageFeatures::descriptors
 AutoIt:
-    [propget propput] $oImageFeatures.descriptors
+    [propget, propput] $oImageFeatures.descriptors
 ```
 
 ### cv::detail::ImageFeatures::get\_create
@@ -44339,7 +49253,6 @@ AutoIt:
 static cv::detail::ImageFeatures cv::detail::ImageFeatures::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.ImageFeatures").create() -> <cv.detail.ImageFeatures object>
-    _OpenCV_ObjCreate("cv.detail.ImageFeatures")() -> <cv.detail.ImageFeatures object>
 ```
 
 ### cv::detail::ImageFeatures::getKeypoints
@@ -44357,7 +49270,7 @@ AutoIt:
 ```cpp
 int cv::detail::MatchesInfo::src_img_idx
 AutoIt:
-    [propget propput] $oMatchesInfo.src_img_idx
+    [propget, propput] $oMatchesInfo.src_img_idx
 ```
 
 ### MatchesInfo.dst\_img\_idx
@@ -44365,7 +49278,7 @@ AutoIt:
 ```cpp
 int cv::detail::MatchesInfo::dst_img_idx
 AutoIt:
-    [propget propput] $oMatchesInfo.dst_img_idx
+    [propget, propput] $oMatchesInfo.dst_img_idx
 ```
 
 ### MatchesInfo.matches
@@ -44373,7 +49286,7 @@ AutoIt:
 ```cpp
 std::vector<cv::DMatch> cv::detail::MatchesInfo::matches
 AutoIt:
-    [propget propput] $oMatchesInfo.matches
+    [propget, propput] $oMatchesInfo.matches
 ```
 
 ### MatchesInfo.inliers\_mask
@@ -44381,7 +49294,7 @@ AutoIt:
 ```cpp
 std::vector<uchar> cv::detail::MatchesInfo::inliers_mask
 AutoIt:
-    [propget propput] $oMatchesInfo.inliers_mask
+    [propget, propput] $oMatchesInfo.inliers_mask
 ```
 
 ### MatchesInfo.num\_inliers
@@ -44389,7 +49302,7 @@ AutoIt:
 ```cpp
 int cv::detail::MatchesInfo::num_inliers
 AutoIt:
-    [propget propput] $oMatchesInfo.num_inliers
+    [propget, propput] $oMatchesInfo.num_inliers
 ```
 
 ### MatchesInfo.H
@@ -44397,7 +49310,7 @@ AutoIt:
 ```cpp
 cv::Mat cv::detail::MatchesInfo::H
 AutoIt:
-    [propget propput] $oMatchesInfo.H
+    [propget, propput] $oMatchesInfo.H
 ```
 
 ### MatchesInfo.confidence
@@ -44405,7 +49318,7 @@ AutoIt:
 ```cpp
 double cv::detail::MatchesInfo::confidence
 AutoIt:
-    [propget propput] $oMatchesInfo.confidence
+    [propget, propput] $oMatchesInfo.confidence
 ```
 
 ### cv::detail::MatchesInfo::get\_create
@@ -44414,7 +49327,6 @@ AutoIt:
 static cv::detail::MatchesInfo cv::detail::MatchesInfo::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.MatchesInfo").create() -> <cv.detail.MatchesInfo object>
-    _OpenCV_ObjCreate("cv.detail.MatchesInfo")() -> <cv.detail.MatchesInfo object>
 ```
 
 ### cv::detail::MatchesInfo::getInliers
@@ -44476,23 +49388,25 @@ AutoIt:
 ### cv::detail::BestOf2NearestMatcher::get\_create
 
 ```cpp
-static cv::detail::BestOf2NearestMatcher cv::detail::BestOf2NearestMatcher::get_create( bool  try_use_gpu = false,
-                                                                                        float match_conf = 0.3f,
-                                                                                        int   num_matches_thresh1 = 6,
-                                                                                        int   num_matches_thresh2 = 6 );
+static cv::detail::BestOf2NearestMatcher cv::detail::BestOf2NearestMatcher::get_create( bool   try_use_gpu = false,
+                                                                                        float  match_conf = 0.3f,
+                                                                                        int    num_matches_thresh1 = 6,
+                                                                                        int    num_matches_thresh2 = 6,
+                                                                                        double matches_confindece_thresh = 3. );
 AutoIt:
-    _OpenCV_ObjCreate("cv.detail.BestOf2NearestMatcher").create( [$try_use_gpu[, $match_conf[, $num_matches_thresh1[, $num_matches_thresh2]]]] ) -> <cv.detail.BestOf2NearestMatcher object>
-    _OpenCV_ObjCreate("cv.detail.BestOf2NearestMatcher")( [$try_use_gpu[, $match_conf[, $num_matches_thresh1[, $num_matches_thresh2]]]] ) -> <cv.detail.BestOf2NearestMatcher object>
+    _OpenCV_ObjCreate("cv.detail.BestOf2NearestMatcher").create( [$try_use_gpu[, $match_conf[, $num_matches_thresh1[, $num_matches_thresh2[, $matches_confindece_thresh]]]]] ) -> <cv.detail.BestOf2NearestMatcher object>
+    $oBestOf2NearestMatcher( [$try_use_gpu[, $match_conf[, $num_matches_thresh1[, $num_matches_thresh2[, $matches_confindece_thresh]]]]] ) -> <cv.detail.BestOf2NearestMatcher object>
 ```
 
 ```cpp
-static cv::Ptr<cv::detail::BestOf2NearestMatcher> cv::detail::BestOf2NearestMatcher::get_create( bool  try_use_gpu = false,
-                                                                                                 float match_conf = 0.3f,
-                                                                                                 int   num_matches_thresh1 = 6,
-                                                                                                 int   num_matches_thresh2 = 6 );
+static cv::Ptr<cv::detail::BestOf2NearestMatcher> cv::detail::BestOf2NearestMatcher::get_create( bool   try_use_gpu = false,
+                                                                                                 float  match_conf = 0.3f,
+                                                                                                 int    num_matches_thresh1 = 6,
+                                                                                                 int    num_matches_thresh2 = 6,
+                                                                                                 double matches_confindece_thresh = 3. );
 AutoIt:
-    _OpenCV_ObjCreate("cv.detail.BestOf2NearestMatcher").create( [$try_use_gpu[, $match_conf[, $num_matches_thresh1[, $num_matches_thresh2]]]] ) -> retval
-    _OpenCV_ObjCreate("cv.detail.BestOf2NearestMatcher")( [$try_use_gpu[, $match_conf[, $num_matches_thresh1[, $num_matches_thresh2]]]] ) -> retval
+    _OpenCV_ObjCreate("cv.detail.BestOf2NearestMatcher").create( [$try_use_gpu[, $match_conf[, $num_matches_thresh1[, $num_matches_thresh2[, $matches_confindece_thresh]]]]] ) -> retval
+    $oBestOf2NearestMatcher( [$try_use_gpu[, $match_conf[, $num_matches_thresh1[, $num_matches_thresh2[, $matches_confindece_thresh]]]]] ) -> retval
 ```
 
 ### cv::detail::BestOf2NearestMatcher::apply
@@ -44543,7 +49457,7 @@ static cv::detail::BestOf2NearestRangeMatcher cv::detail::BestOf2NearestRangeMat
                                                                                                   int   num_matches_thresh2 = 6 );
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.BestOf2NearestRangeMatcher").create( [$range_width[, $try_use_gpu[, $match_conf[, $num_matches_thresh1[, $num_matches_thresh2]]]]] ) -> <cv.detail.BestOf2NearestRangeMatcher object>
-    _OpenCV_ObjCreate("cv.detail.BestOf2NearestRangeMatcher")( [$range_width[, $try_use_gpu[, $match_conf[, $num_matches_thresh1[, $num_matches_thresh2]]]]] ) -> <cv.detail.BestOf2NearestRangeMatcher object>
+    $oBestOf2NearestRangeMatcher( [$range_width[, $try_use_gpu[, $match_conf[, $num_matches_thresh1[, $num_matches_thresh2]]]]] ) -> <cv.detail.BestOf2NearestRangeMatcher object>
 ```
 
 ### cv::detail::BestOf2NearestRangeMatcher::apply
@@ -44593,7 +49507,7 @@ static cv::detail::AffineBestOf2NearestMatcher cv::detail::AffineBestOf2NearestM
                                                                                                     int   num_matches_thresh1 = 6 );
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.AffineBestOf2NearestMatcher").create( [$full_affine[, $try_use_gpu[, $match_conf[, $num_matches_thresh1]]]] ) -> <cv.detail.AffineBestOf2NearestMatcher object>
-    _OpenCV_ObjCreate("cv.detail.AffineBestOf2NearestMatcher")( [$full_affine[, $try_use_gpu[, $match_conf[, $num_matches_thresh1]]]] ) -> <cv.detail.AffineBestOf2NearestMatcher object>
+    $oAffineBestOf2NearestMatcher( [$full_affine[, $try_use_gpu[, $match_conf[, $num_matches_thresh1]]]] ) -> <cv.detail.AffineBestOf2NearestMatcher object>
 ```
 
 ### cv::detail::AffineBestOf2NearestMatcher::apply
@@ -44652,7 +49566,7 @@ AutoIt:
 static cv::detail::HomographyBasedEstimator cv::detail::HomographyBasedEstimator::get_create( bool is_focals_estimated = false );
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.HomographyBasedEstimator").create( [$is_focals_estimated] ) -> <cv.detail.HomographyBasedEstimator object>
-    _OpenCV_ObjCreate("cv.detail.HomographyBasedEstimator")( [$is_focals_estimated] ) -> <cv.detail.HomographyBasedEstimator object>
+    $oHomographyBasedEstimator( [$is_focals_estimated] ) -> <cv.detail.HomographyBasedEstimator object>
 ```
 
 ### cv::detail::HomographyBasedEstimator::apply
@@ -44673,7 +49587,6 @@ AutoIt:
 static cv::detail::AffineBasedEstimator cv::detail::AffineBasedEstimator::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.AffineBasedEstimator").create() -> <cv.detail.AffineBasedEstimator object>
-    _OpenCV_ObjCreate("cv.detail.AffineBasedEstimator")() -> <cv.detail.AffineBasedEstimator object>
 ```
 
 ### cv::detail::AffineBasedEstimator::apply
@@ -44754,7 +49667,6 @@ AutoIt:
 static cv::detail::NoBundleAdjuster cv::detail::NoBundleAdjuster::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.NoBundleAdjuster").create() -> <cv.detail.NoBundleAdjuster object>
-    _OpenCV_ObjCreate("cv.detail.NoBundleAdjuster")() -> <cv.detail.NoBundleAdjuster object>
 ```
 
 ### cv::detail::NoBundleAdjuster::apply
@@ -44823,7 +49735,6 @@ AutoIt:
 static cv::detail::BundleAdjusterReproj cv::detail::BundleAdjusterReproj::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.BundleAdjusterReproj").create() -> <cv.detail.BundleAdjusterReproj object>
-    _OpenCV_ObjCreate("cv.detail.BundleAdjusterReproj")() -> <cv.detail.BundleAdjusterReproj object>
 ```
 
 ### cv::detail::BundleAdjusterReproj::apply
@@ -44892,7 +49803,6 @@ AutoIt:
 static cv::detail::BundleAdjusterRay cv::detail::BundleAdjusterRay::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.BundleAdjusterRay").create() -> <cv.detail.BundleAdjusterRay object>
-    _OpenCV_ObjCreate("cv.detail.BundleAdjusterRay")() -> <cv.detail.BundleAdjusterRay object>
 ```
 
 ### cv::detail::BundleAdjusterRay::apply
@@ -44961,7 +49871,6 @@ AutoIt:
 static cv::detail::BundleAdjusterAffine cv::detail::BundleAdjusterAffine::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.BundleAdjusterAffine").create() -> <cv.detail.BundleAdjusterAffine object>
-    _OpenCV_ObjCreate("cv.detail.BundleAdjusterAffine")() -> <cv.detail.BundleAdjusterAffine object>
 ```
 
 ### cv::detail::BundleAdjusterAffine::apply
@@ -45030,7 +49939,6 @@ AutoIt:
 static cv::detail::BundleAdjusterAffinePartial cv::detail::BundleAdjusterAffinePartial::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.BundleAdjusterAffinePartial").create() -> <cv.detail.BundleAdjusterAffinePartial object>
-    _OpenCV_ObjCreate("cv.detail.BundleAdjusterAffinePartial")() -> <cv.detail.BundleAdjusterAffinePartial object>
 ```
 
 ### cv::detail::BundleAdjusterAffinePartial::apply
@@ -45203,7 +50111,7 @@ AutoIt:
 static cv::detail::DpSeamFinder cv::detail::DpSeamFinder::get_create( std::string costFunc );
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.DpSeamFinder").create( $costFunc ) -> <cv.detail.DpSeamFinder object>
-    _OpenCV_ObjCreate("cv.detail.DpSeamFinder")( $costFunc ) -> <cv.detail.DpSeamFinder object>
+    $oDpSeamFinder( $costFunc ) -> <cv.detail.DpSeamFinder object>
 ```
 
 ### cv::detail::DpSeamFinder::createDefault
@@ -45276,7 +50184,7 @@ static cv::detail::GraphCutSeamFinder cv::detail::GraphCutSeamFinder::get_create
                                                                                   float       bad_region_penalty = 1000.f );
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.GraphCutSeamFinder").create( $cost_type[, $terminal_cost[, $bad_region_penalty]] ) -> <cv.detail.GraphCutSeamFinder object>
-    _OpenCV_ObjCreate("cv.detail.GraphCutSeamFinder")( $cost_type[, $terminal_cost[, $bad_region_penalty]] ) -> <cv.detail.GraphCutSeamFinder object>
+    $oGraphCutSeamFinder( $cost_type[, $terminal_cost[, $bad_region_penalty]] ) -> <cv.detail.GraphCutSeamFinder object>
 ```
 
 ### cv::detail::GraphCutSeamFinder::createDefault
@@ -45294,7 +50202,7 @@ void cv::detail::GraphCutSeamFinder::find( const std::vector<cv::UMat>&  src,
                                            const std::vector<cv::Point>& corners,
                                            std::vector<cv::UMat>&        masks );
 AutoIt:
-    $oGraphCutSeamFinder.find( $src, $corners, $masks ) -> None
+    $oGraphCutSeamFinder.find( $src, $corners, $masks ) -> $masks
 ```
 
 ## cv::detail::Timelapser
@@ -45395,7 +50303,6 @@ AutoIt:
 static cv::detail::ProjectorBase cv::detail::ProjectorBase::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.ProjectorBase").create() -> <cv.detail.ProjectorBase object>
-    _OpenCV_ObjCreate("cv.detail.ProjectorBase")() -> <cv.detail.ProjectorBase object>
 ```
 
 ## cv::detail::SphericalProjector
@@ -45406,7 +50313,6 @@ AutoIt:
 static cv::detail::SphericalProjector cv::detail::SphericalProjector::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.SphericalProjector").create() -> <cv.detail.SphericalProjector object>
-    _OpenCV_ObjCreate("cv.detail.SphericalProjector")() -> <cv.detail.SphericalProjector object>
 ```
 
 ### cv::detail::SphericalProjector::mapBackward
@@ -45494,10 +50400,16 @@ AutoIt:
 ### cv::BackgroundSubtractor::write
 
 ```cpp
-void cv::BackgroundSubtractor::write( const cv::Ptr<cv::FileStorage>& fs,
-                                      const std::string&              name = String() ) const;
+void cv::BackgroundSubtractor::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oBackgroundSubtractor.write( $fs[, $name] ) -> None
+    $oBackgroundSubtractor.write( $fs ) -> None
+```
+
+```cpp
+void cv::BackgroundSubtractor::write( cv::FileStorage&   fs,
+                                      const std::string& name ) const;
+AutoIt:
+    $oBackgroundSubtractor.write( $fs, $name ) -> None
 ```
 
 ## cv::BackgroundSubtractorMOG2
@@ -45755,10 +50667,16 @@ AutoIt:
 ### cv::BackgroundSubtractorMOG2::write
 
 ```cpp
-void cv::BackgroundSubtractorMOG2::write( const cv::Ptr<cv::FileStorage>& fs,
-                                          const std::string&              name = String() ) const;
+void cv::BackgroundSubtractorMOG2::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oBackgroundSubtractorMOG2.write( $fs[, $name] ) -> None
+    $oBackgroundSubtractorMOG2.write( $fs ) -> None
+```
+
+```cpp
+void cv::BackgroundSubtractorMOG2::write( cv::FileStorage&   fs,
+                                          const std::string& name ) const;
+AutoIt:
+    $oBackgroundSubtractorMOG2.write( $fs, $name ) -> None
 ```
 
 ## cv::BackgroundSubtractorKNN
@@ -45936,10 +50854,16 @@ AutoIt:
 ### cv::BackgroundSubtractorKNN::write
 
 ```cpp
-void cv::BackgroundSubtractorKNN::write( const cv::Ptr<cv::FileStorage>& fs,
-                                         const std::string&              name = String() ) const;
+void cv::BackgroundSubtractorKNN::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oBackgroundSubtractorKNN.write( $fs[, $name] ) -> None
+    $oBackgroundSubtractorKNN.write( $fs ) -> None
+```
+
+```cpp
+void cv::BackgroundSubtractorKNN::write( cv::FileStorage&   fs,
+                                         const std::string& name ) const;
+AutoIt:
+    $oBackgroundSubtractorKNN.write( $fs, $name ) -> None
 ```
 
 ## cv::KalmanFilter
@@ -45949,7 +50873,7 @@ AutoIt:
 ```cpp
 cv::Mat cv::KalmanFilter::statePre
 AutoIt:
-    [propget propput] $oKalmanFilter.statePre
+    [propget, propput] $oKalmanFilter.statePre
 ```
 
 ### KalmanFilter.statePost
@@ -45957,7 +50881,7 @@ AutoIt:
 ```cpp
 cv::Mat cv::KalmanFilter::statePost
 AutoIt:
-    [propget propput] $oKalmanFilter.statePost
+    [propget, propput] $oKalmanFilter.statePost
 ```
 
 ### KalmanFilter.transitionMatrix
@@ -45965,7 +50889,7 @@ AutoIt:
 ```cpp
 cv::Mat cv::KalmanFilter::transitionMatrix
 AutoIt:
-    [propget propput] $oKalmanFilter.transitionMatrix
+    [propget, propput] $oKalmanFilter.transitionMatrix
 ```
 
 ### KalmanFilter.controlMatrix
@@ -45973,7 +50897,7 @@ AutoIt:
 ```cpp
 cv::Mat cv::KalmanFilter::controlMatrix
 AutoIt:
-    [propget propput] $oKalmanFilter.controlMatrix
+    [propget, propput] $oKalmanFilter.controlMatrix
 ```
 
 ### KalmanFilter.measurementMatrix
@@ -45981,7 +50905,7 @@ AutoIt:
 ```cpp
 cv::Mat cv::KalmanFilter::measurementMatrix
 AutoIt:
-    [propget propput] $oKalmanFilter.measurementMatrix
+    [propget, propput] $oKalmanFilter.measurementMatrix
 ```
 
 ### KalmanFilter.processNoiseCov
@@ -45989,7 +50913,7 @@ AutoIt:
 ```cpp
 cv::Mat cv::KalmanFilter::processNoiseCov
 AutoIt:
-    [propget propput] $oKalmanFilter.processNoiseCov
+    [propget, propput] $oKalmanFilter.processNoiseCov
 ```
 
 ### KalmanFilter.measurementNoiseCov
@@ -45997,7 +50921,7 @@ AutoIt:
 ```cpp
 cv::Mat cv::KalmanFilter::measurementNoiseCov
 AutoIt:
-    [propget propput] $oKalmanFilter.measurementNoiseCov
+    [propget, propput] $oKalmanFilter.measurementNoiseCov
 ```
 
 ### KalmanFilter.errorCovPre
@@ -46005,7 +50929,7 @@ AutoIt:
 ```cpp
 cv::Mat cv::KalmanFilter::errorCovPre
 AutoIt:
-    [propget propput] $oKalmanFilter.errorCovPre
+    [propget, propput] $oKalmanFilter.errorCovPre
 ```
 
 ### KalmanFilter.gain
@@ -46013,7 +50937,7 @@ AutoIt:
 ```cpp
 cv::Mat cv::KalmanFilter::gain
 AutoIt:
-    [propget propput] $oKalmanFilter.gain
+    [propget, propput] $oKalmanFilter.gain
 ```
 
 ### KalmanFilter.errorCovPost
@@ -46021,7 +50945,7 @@ AutoIt:
 ```cpp
 cv::Mat cv::KalmanFilter::errorCovPost
 AutoIt:
-    [propget propput] $oKalmanFilter.errorCovPost
+    [propget, propput] $oKalmanFilter.errorCovPost
 ```
 
 ### cv::KalmanFilter::get\_create
@@ -46030,7 +50954,6 @@ AutoIt:
 static cv::KalmanFilter cv::KalmanFilter::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.KalmanFilter").create() -> <cv.KalmanFilter object>
-    _OpenCV_ObjCreate("cv.KalmanFilter")() -> <cv.KalmanFilter object>
 ```
 
 ```cpp
@@ -46040,7 +50963,7 @@ static cv::KalmanFilter cv::KalmanFilter::get_create( int dynamParams,
                                                       int type = CV_32F );
 AutoIt:
     _OpenCV_ObjCreate("cv.KalmanFilter").create( $dynamParams, $measureParams[, $controlParams[, $type]] ) -> <cv.KalmanFilter object>
-    _OpenCV_ObjCreate("cv.KalmanFilter")( $dynamParams, $measureParams[, $controlParams[, $type]] ) -> <cv.KalmanFilter object>
+    $oKalmanFilter( $dynamParams, $measureParams[, $controlParams[, $type]] ) -> <cv.KalmanFilter object>
 ```
 
 ### cv::KalmanFilter::correct
@@ -46122,10 +51045,16 @@ AutoIt:
 ### cv::DenseOpticalFlow::write
 
 ```cpp
-void cv::DenseOpticalFlow::write( const cv::Ptr<cv::FileStorage>& fs,
-                                  const std::string&              name = String() ) const;
+void cv::DenseOpticalFlow::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oDenseOpticalFlow.write( $fs[, $name] ) -> None
+    $oDenseOpticalFlow.write( $fs ) -> None
+```
+
+```cpp
+void cv::DenseOpticalFlow::write( cv::FileStorage&   fs,
+                                  const std::string& name ) const;
+AutoIt:
+    $oDenseOpticalFlow.write( $fs, $name ) -> None
 ```
 
 ## cv::SparseOpticalFlow
@@ -46186,10 +51115,16 @@ AutoIt:
 ### cv::SparseOpticalFlow::write
 
 ```cpp
-void cv::SparseOpticalFlow::write( const cv::Ptr<cv::FileStorage>& fs,
-                                   const std::string&              name = String() ) const;
+void cv::SparseOpticalFlow::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oSparseOpticalFlow.write( $fs[, $name] ) -> None
+    $oSparseOpticalFlow.write( $fs ) -> None
+```
+
+```cpp
+void cv::SparseOpticalFlow::write( cv::FileStorage&   fs,
+                                   const std::string& name ) const;
+AutoIt:
+    $oSparseOpticalFlow.write( $fs, $name ) -> None
 ```
 
 ## cv::FarnebackOpticalFlow
@@ -46207,7 +51142,7 @@ static cv::Ptr<cv::FarnebackOpticalFlow> cv::FarnebackOpticalFlow::get_create( i
                                                                                int    flags = 0 );
 AutoIt:
     _OpenCV_ObjCreate("cv.FarnebackOpticalFlow").create( [$numLevels[, $pyrScale[, $fastPyramids[, $winSize[, $numIters[, $polyN[, $polySigma[, $flags]]]]]]]] ) -> retval
-    _OpenCV_ObjCreate("cv.FarnebackOpticalFlow")( [$numLevels[, $pyrScale[, $fastPyramids[, $winSize[, $numIters[, $polyN[, $polySigma[, $flags]]]]]]]] ) -> retval
+    $oFarnebackOpticalFlow( [$numLevels[, $pyrScale[, $fastPyramids[, $winSize[, $numIters[, $polyN[, $polySigma[, $flags]]]]]]]] ) -> retval
 ```
 
 ### cv::FarnebackOpticalFlow::calc
@@ -46399,10 +51334,16 @@ AutoIt:
 ### cv::FarnebackOpticalFlow::write
 
 ```cpp
-void cv::FarnebackOpticalFlow::write( const cv::Ptr<cv::FileStorage>& fs,
-                                      const std::string&              name = String() ) const;
+void cv::FarnebackOpticalFlow::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oFarnebackOpticalFlow.write( $fs[, $name] ) -> None
+    $oFarnebackOpticalFlow.write( $fs ) -> None
+```
+
+```cpp
+void cv::FarnebackOpticalFlow::write( cv::FileStorage&   fs,
+                                      const std::string& name ) const;
+AutoIt:
+    $oFarnebackOpticalFlow.write( $fs, $name ) -> None
 ```
 
 ## cv::VariationalRefinement
@@ -46413,7 +51354,6 @@ AutoIt:
 static cv::Ptr<cv::VariationalRefinement> cv::VariationalRefinement::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.VariationalRefinement").create() -> retval
-    _OpenCV_ObjCreate("cv.VariationalRefinement")() -> retval
 ```
 
 ### cv::VariationalRefinement::calc
@@ -46584,10 +51524,16 @@ AutoIt:
 ### cv::VariationalRefinement::write
 
 ```cpp
-void cv::VariationalRefinement::write( const cv::Ptr<cv::FileStorage>& fs,
-                                       const std::string&              name = String() ) const;
+void cv::VariationalRefinement::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oVariationalRefinement.write( $fs[, $name] ) -> None
+    $oVariationalRefinement.write( $fs ) -> None
+```
+
+```cpp
+void cv::VariationalRefinement::write( cv::FileStorage&   fs,
+                                       const std::string& name ) const;
+AutoIt:
+    $oVariationalRefinement.write( $fs, $name ) -> None
 ```
 
 ## cv::DISOpticalFlow
@@ -46598,7 +51544,7 @@ AutoIt:
 static cv::Ptr<cv::DISOpticalFlow> cv::DISOpticalFlow::get_create( int preset = DISOpticalFlow::PRESET_FAST );
 AutoIt:
     _OpenCV_ObjCreate("cv.DISOpticalFlow").create( [$preset] ) -> retval
-    _OpenCV_ObjCreate("cv.DISOpticalFlow")( [$preset] ) -> retval
+    $oDISOpticalFlow( [$preset] ) -> retval
 ```
 
 ### cv::DISOpticalFlow::calc
@@ -46822,10 +51768,16 @@ AutoIt:
 ### cv::DISOpticalFlow::write
 
 ```cpp
-void cv::DISOpticalFlow::write( const cv::Ptr<cv::FileStorage>& fs,
-                                const std::string&              name = String() ) const;
+void cv::DISOpticalFlow::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oDISOpticalFlow.write( $fs[, $name] ) -> None
+    $oDISOpticalFlow.write( $fs ) -> None
+```
+
+```cpp
+void cv::DISOpticalFlow::write( cv::FileStorage&   fs,
+                                const std::string& name ) const;
+AutoIt:
+    $oDISOpticalFlow.write( $fs, $name ) -> None
 ```
 
 ### DISOpticalFlow.PRESET\_ULTRAFAST\_
@@ -46864,7 +51816,7 @@ static cv::Ptr<cv::SparsePyrLKOpticalFlow> cv::SparsePyrLKOpticalFlow::get_creat
                                                                                    double           minEigThreshold = 1e-4 );
 AutoIt:
     _OpenCV_ObjCreate("cv.SparsePyrLKOpticalFlow").create( [$winSize[, $maxLevel[, $crit[, $flags[, $minEigThreshold]]]]] ) -> retval
-    _OpenCV_ObjCreate("cv.SparsePyrLKOpticalFlow")( [$winSize[, $maxLevel[, $crit[, $flags[, $minEigThreshold]]]]] ) -> retval
+    $oSparsePyrLKOpticalFlow( [$winSize[, $maxLevel[, $crit[, $flags[, $minEigThreshold]]]]] ) -> retval
 ```
 
 ### cv::SparsePyrLKOpticalFlow::calc
@@ -47003,10 +51955,16 @@ AutoIt:
 ### cv::SparsePyrLKOpticalFlow::write
 
 ```cpp
-void cv::SparsePyrLKOpticalFlow::write( const cv::Ptr<cv::FileStorage>& fs,
-                                        const std::string&              name = String() ) const;
+void cv::SparsePyrLKOpticalFlow::write( cv::FileStorage& fs ) const;
 AutoIt:
-    $oSparsePyrLKOpticalFlow.write( $fs[, $name] ) -> None
+    $oSparsePyrLKOpticalFlow.write( $fs ) -> None
+```
+
+```cpp
+void cv::SparsePyrLKOpticalFlow::write( cv::FileStorage&   fs,
+                                        const std::string& name ) const;
+AutoIt:
+    $oSparsePyrLKOpticalFlow.write( $fs, $name ) -> None
 ```
 
 ## cv::Tracker
@@ -47031,13 +51989,21 @@ AutoIt:
 
 ## cv::TrackerMIL
 
+### TrackerMIL.Params
+
+```cpp
+static cv::TrackerMIL::Params
+AutoIt:
+    [propget] $oTrackerMIL.Params
+```
+
 ### cv::TrackerMIL::get\_create
 
 ```cpp
 static cv::Ptr<cv::TrackerMIL> cv::TrackerMIL::get_create( const cv::TrackerMIL::Params& parameters = TrackerMIL::Params() );
 AutoIt:
     _OpenCV_ObjCreate("cv.TrackerMIL").create( [$parameters] ) -> retval
-    _OpenCV_ObjCreate("cv.TrackerMIL")( [$parameters] ) -> retval
+    $oTrackerMIL( [$parameters] ) -> retval
 ```
 
 ### cv::TrackerMIL::init
@@ -47065,7 +52031,7 @@ AutoIt:
 ```cpp
 float cv::TrackerMIL::Params::samplerInitInRadius
 AutoIt:
-    [propget propput] $oParams.samplerInitInRadius
+    [propget, propput] $oParams.samplerInitInRadius
 ```
 
 ### Params.samplerInitMaxNegNum
@@ -47073,7 +52039,7 @@ AutoIt:
 ```cpp
 int cv::TrackerMIL::Params::samplerInitMaxNegNum
 AutoIt:
-    [propget propput] $oParams.samplerInitMaxNegNum
+    [propget, propput] $oParams.samplerInitMaxNegNum
 ```
 
 ### Params.samplerSearchWinSize
@@ -47081,7 +52047,7 @@ AutoIt:
 ```cpp
 float cv::TrackerMIL::Params::samplerSearchWinSize
 AutoIt:
-    [propget propput] $oParams.samplerSearchWinSize
+    [propget, propput] $oParams.samplerSearchWinSize
 ```
 
 ### Params.samplerTrackInRadius
@@ -47089,7 +52055,7 @@ AutoIt:
 ```cpp
 float cv::TrackerMIL::Params::samplerTrackInRadius
 AutoIt:
-    [propget propput] $oParams.samplerTrackInRadius
+    [propget, propput] $oParams.samplerTrackInRadius
 ```
 
 ### Params.samplerTrackMaxPosNum
@@ -47097,7 +52063,7 @@ AutoIt:
 ```cpp
 int cv::TrackerMIL::Params::samplerTrackMaxPosNum
 AutoIt:
-    [propget propput] $oParams.samplerTrackMaxPosNum
+    [propget, propput] $oParams.samplerTrackMaxPosNum
 ```
 
 ### Params.samplerTrackMaxNegNum
@@ -47105,7 +52071,7 @@ AutoIt:
 ```cpp
 int cv::TrackerMIL::Params::samplerTrackMaxNegNum
 AutoIt:
-    [propget propput] $oParams.samplerTrackMaxNegNum
+    [propget, propput] $oParams.samplerTrackMaxNegNum
 ```
 
 ### Params.featureSetNumFeatures
@@ -47113,7 +52079,7 @@ AutoIt:
 ```cpp
 int cv::TrackerMIL::Params::featureSetNumFeatures
 AutoIt:
-    [propget propput] $oParams.featureSetNumFeatures
+    [propget, propput] $oParams.featureSetNumFeatures
 ```
 
 ### cv::TrackerMIL::Params::get\_create
@@ -47122,10 +52088,17 @@ AutoIt:
 static cv::TrackerMIL::Params cv::TrackerMIL::Params::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.TrackerMIL.Params").create() -> <cv.TrackerMIL.Params object>
-    _OpenCV_ObjCreate("cv.TrackerMIL.Params")() -> <cv.TrackerMIL.Params object>
 ```
 
 ## cv::TrackerGOTURN
+
+### TrackerGOTURN.Params
+
+```cpp
+static cv::TrackerGOTURN::Params
+AutoIt:
+    [propget] $oTrackerGOTURN.Params
+```
 
 ### cv::TrackerGOTURN::get\_create
 
@@ -47133,7 +52106,7 @@ AutoIt:
 static cv::Ptr<cv::TrackerGOTURN> cv::TrackerGOTURN::get_create( const cv::TrackerGOTURN::Params& parameters = TrackerGOTURN::Params() );
 AutoIt:
     _OpenCV_ObjCreate("cv.TrackerGOTURN").create( [$parameters] ) -> retval
-    _OpenCV_ObjCreate("cv.TrackerGOTURN")( [$parameters] ) -> retval
+    $oTrackerGOTURN( [$parameters] ) -> retval
 ```
 
 ### cv::TrackerGOTURN::init
@@ -47161,7 +52134,7 @@ AutoIt:
 ```cpp
 std::string cv::TrackerGOTURN::Params::modelTxt
 AutoIt:
-    [propget propput] $oParams.modelTxt
+    [propget, propput] $oParams.modelTxt
 ```
 
 ### Params.modelBin
@@ -47169,7 +52142,7 @@ AutoIt:
 ```cpp
 std::string cv::TrackerGOTURN::Params::modelBin
 AutoIt:
-    [propget propput] $oParams.modelBin
+    [propget, propput] $oParams.modelBin
 ```
 
 ### cv::TrackerGOTURN::Params::get\_create
@@ -47178,10 +52151,17 @@ AutoIt:
 static cv::TrackerGOTURN::Params cv::TrackerGOTURN::Params::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.TrackerGOTURN.Params").create() -> <cv.TrackerGOTURN.Params object>
-    _OpenCV_ObjCreate("cv.TrackerGOTURN.Params")() -> <cv.TrackerGOTURN.Params object>
 ```
 
 ## cv::TrackerDaSiamRPN
+
+### TrackerDaSiamRPN.Params
+
+```cpp
+static cv::TrackerDaSiamRPN::Params
+AutoIt:
+    [propget] $oTrackerDaSiamRPN.Params
+```
 
 ### cv::TrackerDaSiamRPN::get\_create
 
@@ -47189,7 +52169,7 @@ AutoIt:
 static cv::Ptr<cv::TrackerDaSiamRPN> cv::TrackerDaSiamRPN::get_create( const cv::TrackerDaSiamRPN::Params& parameters = TrackerDaSiamRPN::Params() );
 AutoIt:
     _OpenCV_ObjCreate("cv.TrackerDaSiamRPN").create( [$parameters] ) -> retval
-    _OpenCV_ObjCreate("cv.TrackerDaSiamRPN")( [$parameters] ) -> retval
+    $oTrackerDaSiamRPN( [$parameters] ) -> retval
 ```
 
 ### cv::TrackerDaSiamRPN::getTrackingScore
@@ -47225,7 +52205,7 @@ AutoIt:
 ```cpp
 std::string cv::TrackerDaSiamRPN::Params::model
 AutoIt:
-    [propget propput] $oParams.model
+    [propget, propput] $oParams.model
 ```
 
 ### Params.kernel\_cls1
@@ -47233,7 +52213,7 @@ AutoIt:
 ```cpp
 std::string cv::TrackerDaSiamRPN::Params::kernel_cls1
 AutoIt:
-    [propget propput] $oParams.kernel_cls1
+    [propget, propput] $oParams.kernel_cls1
 ```
 
 ### Params.kernel\_r1
@@ -47241,7 +52221,7 @@ AutoIt:
 ```cpp
 std::string cv::TrackerDaSiamRPN::Params::kernel_r1
 AutoIt:
-    [propget propput] $oParams.kernel_r1
+    [propget, propput] $oParams.kernel_r1
 ```
 
 ### Params.backend
@@ -47249,7 +52229,7 @@ AutoIt:
 ```cpp
 int cv::TrackerDaSiamRPN::Params::backend
 AutoIt:
-    [propget propput] $oParams.backend
+    [propget, propput] $oParams.backend
 ```
 
 ### Params.target
@@ -47257,7 +52237,7 @@ AutoIt:
 ```cpp
 int cv::TrackerDaSiamRPN::Params::target
 AutoIt:
-    [propget propput] $oParams.target
+    [propget, propput] $oParams.target
 ```
 
 ### cv::TrackerDaSiamRPN::Params::get\_create
@@ -47266,7 +52246,93 @@ AutoIt:
 static cv::TrackerDaSiamRPN::Params cv::TrackerDaSiamRPN::Params::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.TrackerDaSiamRPN.Params").create() -> <cv.TrackerDaSiamRPN.Params object>
-    _OpenCV_ObjCreate("cv.TrackerDaSiamRPN.Params")() -> <cv.TrackerDaSiamRPN.Params object>
+```
+
+## cv::TrackerNano
+
+### TrackerNano.Params
+
+```cpp
+static cv::TrackerNano::Params
+AutoIt:
+    [propget] $oTrackerNano.Params
+```
+
+### cv::TrackerNano::get\_create
+
+```cpp
+static cv::Ptr<cv::TrackerNano> cv::TrackerNano::get_create( const cv::TrackerNano::Params& parameters = TrackerNano::Params() );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TrackerNano").create( [$parameters] ) -> retval
+    $oTrackerNano( [$parameters] ) -> retval
+```
+
+### cv::TrackerNano::getTrackingScore
+
+```cpp
+float cv::TrackerNano::getTrackingScore();
+AutoIt:
+    $oTrackerNano.getTrackingScore() -> retval
+```
+
+### cv::TrackerNano::init
+
+```cpp
+void cv::TrackerNano::init( InputArray      image,
+                            const cv::Rect& boundingBox );
+AutoIt:
+    $oTrackerNano.init( $image, $boundingBox ) -> None
+```
+
+### cv::TrackerNano::update
+
+```cpp
+bool cv::TrackerNano::update( InputArray image,
+                              cv::Rect&  boundingBox );
+AutoIt:
+    $oTrackerNano.update( $image[, $boundingBox] ) -> retval, $boundingBox
+```
+
+## cv::TrackerNano::Params
+
+### Params.backbone
+
+```cpp
+std::string cv::TrackerNano::Params::backbone
+AutoIt:
+    [propget, propput] $oParams.backbone
+```
+
+### Params.neckhead
+
+```cpp
+std::string cv::TrackerNano::Params::neckhead
+AutoIt:
+    [propget, propput] $oParams.neckhead
+```
+
+### Params.backend
+
+```cpp
+int cv::TrackerNano::Params::backend
+AutoIt:
+    [propget, propput] $oParams.backend
+```
+
+### Params.target
+
+```cpp
+int cv::TrackerNano::Params::target
+AutoIt:
+    [propget, propput] $oParams.target
+```
+
+### cv::TrackerNano::Params::get\_create
+
+```cpp
+static cv::TrackerNano::Params cv::TrackerNano::Params::get_create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.TrackerNano.Params").create() -> <cv.TrackerNano.Params object>
 ```
 
 ## cv::detail::TrackerSamplerCSC
@@ -47313,6 +52379,126 @@ AutoIt:
 
 ## cv::gapi
 
+### gapi.streaming
+
+```cpp
+static cv::gapi::streaming
+AutoIt:
+    [propget] $ogapi.streaming
+```
+
+### gapi.core
+
+```cpp
+static cv::gapi::core
+AutoIt:
+    [propget] $ogapi.core
+```
+
+### gapi.GNetParam
+
+```cpp
+static cv::gapi::GNetParam
+AutoIt:
+    [propget] $ogapi.GNetParam
+```
+
+### gapi.GNetPackage
+
+```cpp
+static cv::gapi::GNetPackage
+AutoIt:
+    [propget] $ogapi.GNetPackage
+```
+
+### gapi.ie
+
+```cpp
+static cv::gapi::ie
+AutoIt:
+    [propget] $ogapi.ie
+```
+
+### gapi.onnx
+
+```cpp
+static cv::gapi::onnx
+AutoIt:
+    [propget] $ogapi.onnx
+```
+
+### gapi.oak
+
+```cpp
+static cv::gapi::oak
+AutoIt:
+    [propget] $ogapi.oak
+```
+
+### gapi.own
+
+```cpp
+static cv::gapi::own
+AutoIt:
+    [propget] $ogapi.own
+```
+
+### gapi.wip
+
+```cpp
+static cv::gapi::wip
+AutoIt:
+    [propget] $ogapi.wip
+```
+
+### gapi.render
+
+```cpp
+static cv::gapi::render
+AutoIt:
+    [propget] $ogapi.render
+```
+
+### gapi.StereoOutputFormat
+
+```cpp
+static cv::gapi::StereoOutputFormat
+AutoIt:
+    [propget] $ogapi.StereoOutputFormat
+```
+
+### gapi.video
+
+```cpp
+static cv::gapi::video
+AutoIt:
+    [propget] $ogapi.video
+```
+
+### cv::gapi::BGR2Gray
+
+```cpp
+cv::GMat cv::gapi::BGR2Gray( const cv::GMat& src );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").BGR2Gray( $src ) -> retval
+```
+
+### cv::gapi::BGR2I420
+
+```cpp
+cv::GMat cv::gapi::BGR2I420( const cv::GMat& src );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").BGR2I420( $src ) -> retval
+```
+
+### cv::gapi::BGR2LUV
+
+```cpp
+cv::GMat cv::gapi::BGR2LUV( const cv::GMat& src );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").BGR2LUV( $src ) -> retval
+```
+
 ### cv::gapi::BGR2RGB
 
 ```cpp
@@ -47321,12 +52507,227 @@ AutoIt:
     _OpenCV_ObjCreate("cv.gapi").BGR2RGB( $src ) -> retval
 ```
 
+### cv::gapi::BGR2YUV
+
+```cpp
+cv::GMat cv::gapi::BGR2YUV( const cv::GMat& src );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").BGR2YUV( $src ) -> retval
+```
+
+### cv::gapi::BayerGR2RGB
+
+```cpp
+cv::GMat cv::gapi::BayerGR2RGB( const cv::GMat& src_gr );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").BayerGR2RGB( $src_gr ) -> retval
+```
+
+### cv::gapi::Canny
+
+```cpp
+cv::GMat cv::gapi::Canny( const cv::GMat& image,
+                          double          threshold1,
+                          double          threshold2,
+                          int             apertureSize = 3,
+                          bool            L2gradient = false );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").Canny( $image, $threshold1, $threshold2[, $apertureSize[, $L2gradient]] ) -> retval
+```
+
+### cv::gapi::I4202BGR
+
+```cpp
+cv::GMat cv::gapi::I4202BGR( const cv::GMat& src );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").I4202BGR( $src ) -> retval
+```
+
+### cv::gapi::I4202RGB
+
+```cpp
+cv::GMat cv::gapi::I4202RGB( const cv::GMat& src );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").I4202RGB( $src ) -> retval
+```
+
+### cv::gapi::LUT
+
+```cpp
+cv::GMat cv::gapi::LUT( const cv::GMat& src,
+                        const cv::Mat&  lut );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").LUT( $src, $lut ) -> retval
+```
+
+### cv::gapi::LUV2BGR
+
+```cpp
+cv::GMat cv::gapi::LUV2BGR( const cv::GMat& src );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").LUV2BGR( $src ) -> retval
+```
+
+### cv::gapi::Laplacian
+
+```cpp
+cv::GMat cv::gapi::Laplacian( const cv::GMat& src,
+                              int             ddepth,
+                              int             ksize = 1,
+                              double          scale = 1,
+                              double          delta = 0,
+                              int             borderType = BORDER_DEFAULT );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").Laplacian( $src, $ddepth[, $ksize[, $scale[, $delta[, $borderType]]]] ) -> retval
+```
+
+### cv::gapi::NV12toBGR
+
+```cpp
+cv::GMat cv::gapi::NV12toBGR( const cv::GMat& src_y,
+                              const cv::GMat& src_uv );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").NV12toBGR( $src_y, $src_uv ) -> retval
+```
+
+### cv::gapi::NV12toGray
+
+```cpp
+cv::GMat cv::gapi::NV12toGray( const cv::GMat& src_y,
+                               const cv::GMat& src_uv );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").NV12toGray( $src_y, $src_uv ) -> retval
+```
+
+### cv::gapi::NV12toRGB
+
+```cpp
+cv::GMat cv::gapi::NV12toRGB( const cv::GMat& src_y,
+                              const cv::GMat& src_uv );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").NV12toRGB( $src_y, $src_uv ) -> retval
+```
+
 ### cv::gapi::RGB2Gray
 
 ```cpp
 cv::GMat cv::gapi::RGB2Gray( const cv::GMat& src );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi").RGB2Gray( $src ) -> retval
+```
+
+```cpp
+cv::GMat cv::gapi::RGB2Gray( const cv::GMat& src,
+                             float           rY,
+                             float           gY,
+                             float           bY );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").RGB2Gray( $src, $rY, $gY, $bY ) -> retval
+```
+
+### cv::gapi::RGB2HSV
+
+```cpp
+cv::GMat cv::gapi::RGB2HSV( const cv::GMat& src );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").RGB2HSV( $src ) -> retval
+```
+
+### cv::gapi::RGB2I420
+
+```cpp
+cv::GMat cv::gapi::RGB2I420( const cv::GMat& src );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").RGB2I420( $src ) -> retval
+```
+
+### cv::gapi::RGB2Lab
+
+```cpp
+cv::GMat cv::gapi::RGB2Lab( const cv::GMat& src );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").RGB2Lab( $src ) -> retval
+```
+
+### cv::gapi::RGB2YUV
+
+```cpp
+cv::GMat cv::gapi::RGB2YUV( const cv::GMat& src );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").RGB2YUV( $src ) -> retval
+```
+
+### cv::gapi::RGB2YUV422
+
+```cpp
+cv::GMat cv::gapi::RGB2YUV422( const cv::GMat& src );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").RGB2YUV422( $src ) -> retval
+```
+
+### cv::gapi::Sobel
+
+```cpp
+cv::GMat cv::gapi::Sobel( const cv::GMat&   src,
+                          int               ddepth,
+                          int               dx,
+                          int               dy,
+                          int               ksize = 3,
+                          double            scale = 1,
+                          double            delta = 0,
+                          int               borderType = BORDER_DEFAULT,
+                          const cv::Scalar& borderValue = Scalar(0) );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").Sobel( $src, $ddepth, $dx, $dy[, $ksize[, $scale[, $delta[, $borderType[, $borderValue]]]]] ) -> retval
+```
+
+### cv::gapi::SobelXY
+
+```cpp
+std::tuple<cv::GMat, cv::GMat> cv::gapi::SobelXY( const cv::GMat&   src,
+                                                  int               ddepth,
+                                                  int               order,
+                                                  int               ksize = 3,
+                                                  double            scale = 1,
+                                                  double            delta = 0,
+                                                  int               borderType = BORDER_DEFAULT,
+                                                  const cv::Scalar& borderValue = Scalar(0) );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").SobelXY( $src, $ddepth, $order[, $ksize[, $scale[, $delta[, $borderType[, $borderValue]]]]] ) -> retval
+```
+
+### cv::gapi::YUV2BGR
+
+```cpp
+cv::GMat cv::gapi::YUV2BGR( const cv::GMat& src );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").YUV2BGR( $src ) -> retval
+```
+
+### cv::gapi::YUV2RGB
+
+```cpp
+cv::GMat cv::gapi::YUV2RGB( const cv::GMat& src );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").YUV2RGB( $src ) -> retval
+```
+
+### cv::gapi::absDiff
+
+```cpp
+cv::GMat cv::gapi::absDiff( const cv::GMat& src1,
+                            const cv::GMat& src2 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").absDiff( $src1, $src2 ) -> retval
+```
+
+### cv::gapi::absDiffC
+
+```cpp
+cv::GMat cv::gapi::absDiffC( const cv::GMat&    src,
+                             const cv::GScalar& c );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").absDiffC( $src, $c ) -> retval
 ```
 
 ### cv::gapi::add
@@ -47349,6 +52750,107 @@ AutoIt:
     _OpenCV_ObjCreate("cv.gapi").addC( $src1, $c[, $ddepth] ) -> retval
 ```
 
+```cpp
+cv::GMat cv::gapi::addC( const cv::GScalar& c,
+                         const cv::GMat&    src1,
+                         int                ddepth = -1 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").addC( $c, $src1[, $ddepth] ) -> retval
+```
+
+### cv::gapi::addWeighted
+
+```cpp
+cv::GMat cv::gapi::addWeighted( const cv::GMat& src1,
+                                double          alpha,
+                                const cv::GMat& src2,
+                                double          beta,
+                                double          gamma,
+                                int             ddepth = -1 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").addWeighted( $src1, $alpha, $src2, $beta, $gamma[, $ddepth] ) -> retval
+```
+
+### cv::gapi::bilateralFilter
+
+```cpp
+cv::GMat cv::gapi::bilateralFilter( const cv::GMat& src,
+                                    int             d,
+                                    double          sigmaColor,
+                                    double          sigmaSpace,
+                                    int             borderType = BORDER_DEFAULT );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").bilateralFilter( $src, $d, $sigmaColor, $sigmaSpace[, $borderType] ) -> retval
+```
+
+### cv::gapi::bitwise\_and
+
+```cpp
+cv::GMat cv::gapi::bitwise_and( const cv::GMat& src1,
+                                const cv::GMat& src2 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").bitwise_and( $src1, $src2 ) -> retval
+```
+
+```cpp
+cv::GMat cv::gapi::bitwise_and( const cv::GMat&    src1,
+                                const cv::GScalar& src2 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").bitwise_and( $src1, $src2 ) -> retval
+```
+
+### cv::gapi::bitwise\_not
+
+```cpp
+cv::GMat cv::gapi::bitwise_not( const cv::GMat& src );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").bitwise_not( $src ) -> retval
+```
+
+### cv::gapi::bitwise\_or
+
+```cpp
+cv::GMat cv::gapi::bitwise_or( const cv::GMat& src1,
+                               const cv::GMat& src2 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").bitwise_or( $src1, $src2 ) -> retval
+```
+
+```cpp
+cv::GMat cv::gapi::bitwise_or( const cv::GMat&    src1,
+                               const cv::GScalar& src2 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").bitwise_or( $src1, $src2 ) -> retval
+```
+
+### cv::gapi::bitwise\_xor
+
+```cpp
+cv::GMat cv::gapi::bitwise_xor( const cv::GMat& src1,
+                                const cv::GMat& src2 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").bitwise_xor( $src1, $src2 ) -> retval
+```
+
+```cpp
+cv::GMat cv::gapi::bitwise_xor( const cv::GMat&    src1,
+                                const cv::GScalar& src2 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").bitwise_xor( $src1, $src2 ) -> retval
+```
+
+### cv::gapi::blur
+
+```cpp
+cv::GMat cv::gapi::blur( const cv::GMat&   src,
+                         const cv::Size&   ksize,
+                         const cv::Point&  anchor = Point(-1,-1),
+                         int               borderType = BORDER_DEFAULT,
+                         const cv::Scalar& borderValue = Scalar(0) );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").blur( $src, $ksize[, $anchor[, $borderType[, $borderValue]]] ) -> retval
+```
+
 ### cv::gapi::boundingRect
 
 ```cpp
@@ -47363,12 +52865,321 @@ AutoIt:
     _OpenCV_ObjCreate("cv.gapi").boundingRect( $src ) -> retval
 ```
 
+```cpp
+cv::GOpaque<cv::Rect> cv::gapi::boundingRect( const cv::GArray<cv::Point2f>& src );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").boundingRect( $src ) -> retval
+```
+
+### cv::gapi::boxFilter
+
+```cpp
+cv::GMat cv::gapi::boxFilter( const cv::GMat&   src,
+                              int               dtype,
+                              const cv::Size&   ksize,
+                              const cv::Point&  anchor = Point(-1,-1),
+                              bool              normalize = true,
+                              int               borderType = BORDER_DEFAULT,
+                              const cv::Scalar& borderValue = Scalar(0) );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").boxFilter( $src, $dtype, $ksize[, $anchor[, $normalize[, $borderType[, $borderValue]]]] ) -> retval
+```
+
+### cv::gapi::cartToPolar
+
+```cpp
+std::tuple<cv::GMat, cv::GMat> cv::gapi::cartToPolar( const cv::GMat& x,
+                                                      const cv::GMat& y,
+                                                      bool            angleInDegrees = false );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").cartToPolar( $x, $y[, $angleInDegrees] ) -> retval
+```
+
+### cv::gapi::cmpEQ
+
+```cpp
+cv::GMat cv::gapi::cmpEQ( const cv::GMat& src1,
+                          const cv::GMat& src2 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").cmpEQ( $src1, $src2 ) -> retval
+```
+
+```cpp
+cv::GMat cv::gapi::cmpEQ( const cv::GMat&    src1,
+                          const cv::GScalar& src2 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").cmpEQ( $src1, $src2 ) -> retval
+```
+
+### cv::gapi::cmpGE
+
+```cpp
+cv::GMat cv::gapi::cmpGE( const cv::GMat& src1,
+                          const cv::GMat& src2 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").cmpGE( $src1, $src2 ) -> retval
+```
+
+```cpp
+cv::GMat cv::gapi::cmpGE( const cv::GMat&    src1,
+                          const cv::GScalar& src2 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").cmpGE( $src1, $src2 ) -> retval
+```
+
+### cv::gapi::cmpGT
+
+```cpp
+cv::GMat cv::gapi::cmpGT( const cv::GMat& src1,
+                          const cv::GMat& src2 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").cmpGT( $src1, $src2 ) -> retval
+```
+
+```cpp
+cv::GMat cv::gapi::cmpGT( const cv::GMat&    src1,
+                          const cv::GScalar& src2 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").cmpGT( $src1, $src2 ) -> retval
+```
+
+### cv::gapi::cmpLE
+
+```cpp
+cv::GMat cv::gapi::cmpLE( const cv::GMat& src1,
+                          const cv::GMat& src2 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").cmpLE( $src1, $src2 ) -> retval
+```
+
+```cpp
+cv::GMat cv::gapi::cmpLE( const cv::GMat&    src1,
+                          const cv::GScalar& src2 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").cmpLE( $src1, $src2 ) -> retval
+```
+
+### cv::gapi::cmpLT
+
+```cpp
+cv::GMat cv::gapi::cmpLT( const cv::GMat& src1,
+                          const cv::GMat& src2 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").cmpLT( $src1, $src2 ) -> retval
+```
+
+```cpp
+cv::GMat cv::gapi::cmpLT( const cv::GMat&    src1,
+                          const cv::GScalar& src2 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").cmpLT( $src1, $src2 ) -> retval
+```
+
+### cv::gapi::cmpNE
+
+```cpp
+cv::GMat cv::gapi::cmpNE( const cv::GMat& src1,
+                          const cv::GMat& src2 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").cmpNE( $src1, $src2 ) -> retval
+```
+
+```cpp
+cv::GMat cv::gapi::cmpNE( const cv::GMat&    src1,
+                          const cv::GScalar& src2 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").cmpNE( $src1, $src2 ) -> retval
+```
+
+### cv::gapi::concatHor
+
+```cpp
+cv::GMat cv::gapi::concatHor( const cv::GMat& src1,
+                              const cv::GMat& src2 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").concatHor( $src1, $src2 ) -> retval
+```
+
+```cpp
+cv::GMat cv::gapi::concatHor( const std::vector<cv::GMat>& v );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").concatHor( $v ) -> retval
+```
+
+### cv::gapi::concatVert
+
+```cpp
+cv::GMat cv::gapi::concatVert( const cv::GMat& src1,
+                               const cv::GMat& src2 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").concatVert( $src1, $src2 ) -> retval
+```
+
+```cpp
+cv::GMat cv::gapi::concatVert( const std::vector<cv::GMat>& v );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").concatVert( $v ) -> retval
+```
+
+### cv::gapi::convertTo
+
+```cpp
+cv::GMat cv::gapi::convertTo( const cv::GMat& src,
+                              int             rdepth,
+                              double          alpha = 1,
+                              double          beta = 0 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").convertTo( $src, $rdepth[, $alpha[, $beta]] ) -> retval
+```
+
 ### cv::gapi::copy
 
 ```cpp
 cv::GMat cv::gapi::copy( const cv::GMat& in );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi").copy( $in ) -> retval
+```
+
+### cv::gapi::countNonZero
+
+```cpp
+cv::GOpaque<int> cv::gapi::countNonZero( const cv::GMat& src );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").countNonZero( $src ) -> retval
+```
+
+### cv::gapi::crop
+
+```cpp
+cv::GMat cv::gapi::crop( const cv::GMat& src,
+                         const cv::Rect& rect );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").crop( $src, $rect ) -> retval
+```
+
+### cv::gapi::dilate
+
+```cpp
+cv::GMat cv::gapi::dilate( const cv::GMat&   src,
+                           const cv::Mat&    kernel,
+                           const cv::Point&  anchor = Point(-1,-1),
+                           int               iterations = 1,
+                           int               borderType = BORDER_CONSTANT,
+                           const cv::Scalar& borderValue = morphologyDefaultBorderValue() );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").dilate( $src, $kernel[, $anchor[, $iterations[, $borderType[, $borderValue]]]] ) -> retval
+```
+
+### cv::gapi::dilate3x3
+
+```cpp
+cv::GMat cv::gapi::dilate3x3( const cv::GMat&   src,
+                              int               iterations = 1,
+                              int               borderType = BORDER_CONSTANT,
+                              const cv::Scalar& borderValue = morphologyDefaultBorderValue() );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").dilate3x3( $src[, $iterations[, $borderType[, $borderValue]]] ) -> retval
+```
+
+### cv::gapi::div
+
+```cpp
+cv::GMat cv::gapi::div( const cv::GMat& src1,
+                        const cv::GMat& src2,
+                        double          scale,
+                        int             ddepth = -1 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").div( $src1, $src2, $scale[, $ddepth] ) -> retval
+```
+
+### cv::gapi::divC
+
+```cpp
+cv::GMat cv::gapi::divC( const cv::GMat&    src,
+                         const cv::GScalar& divisor,
+                         double             scale,
+                         int                ddepth = -1 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").divC( $src, $divisor, $scale[, $ddepth] ) -> retval
+```
+
+### cv::gapi::divRC
+
+```cpp
+cv::GMat cv::gapi::divRC( const cv::GScalar& divident,
+                          const cv::GMat&    src,
+                          double             scale,
+                          int                ddepth = -1 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").divRC( $divident, $src, $scale[, $ddepth] ) -> retval
+```
+
+### cv::gapi::equalizeHist
+
+```cpp
+cv::GMat cv::gapi::equalizeHist( const cv::GMat& src );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").equalizeHist( $src ) -> retval
+```
+
+### cv::gapi::erode
+
+```cpp
+cv::GMat cv::gapi::erode( const cv::GMat&   src,
+                          const cv::Mat&    kernel,
+                          const cv::Point&  anchor = Point(-1,-1),
+                          int               iterations = 1,
+                          int               borderType = BORDER_CONSTANT,
+                          const cv::Scalar& borderValue = morphologyDefaultBorderValue() );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").erode( $src, $kernel[, $anchor[, $iterations[, $borderType[, $borderValue]]]] ) -> retval
+```
+
+### cv::gapi::erode3x3
+
+```cpp
+cv::GMat cv::gapi::erode3x3( const cv::GMat&   src,
+                             int               iterations = 1,
+                             int               borderType = BORDER_CONSTANT,
+                             const cv::Scalar& borderValue = morphologyDefaultBorderValue() );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").erode3x3( $src[, $iterations[, $borderType[, $borderValue]]] ) -> retval
+```
+
+### cv::gapi::filter2D
+
+```cpp
+cv::GMat cv::gapi::filter2D( const cv::GMat&   src,
+                             int               ddepth,
+                             const cv::Mat&    kernel,
+                             const cv::Point&  anchor = Point(-1,-1),
+                             const cv::Scalar& delta = Scalar(0),
+                             int               borderType = BORDER_DEFAULT,
+                             const cv::Scalar& borderValue = Scalar(0) );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").filter2D( $src, $ddepth, $kernel[, $anchor[, $delta[, $borderType[, $borderValue]]]] ) -> retval
+```
+
+### cv::gapi::flip
+
+```cpp
+cv::GMat cv::gapi::flip( const cv::GMat& src,
+                         int             flipCode );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").flip( $src, $flipCode ) -> retval
+```
+
+### cv::gapi::gaussianBlur
+
+```cpp
+cv::GMat cv::gapi::gaussianBlur( const cv::GMat&   src,
+                                 const cv::Size&   ksize,
+                                 double            sigmaX,
+                                 double            sigmaY = 0,
+                                 int               borderType = BORDER_DEFAULT,
+                                 const cv::Scalar& borderValue = Scalar(0) );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").gaussianBlur( $src, $ksize, $sigmaX[, $sigmaY[, $borderType[, $borderValue]]] ) -> retval
 ```
 
 ### cv::gapi::goodFeaturesToTrack
@@ -47386,7 +53197,38 @@ AutoIt:
     _OpenCV_ObjCreate("cv.gapi").goodFeaturesToTrack( $image, $maxCorners, $qualityLevel, $minDistance[, $mask[, $blockSize[, $useHarrisDetector[, $k]]]] ) -> retval
 ```
 
+### cv::gapi::inRange
+
+```cpp
+cv::GMat cv::gapi::inRange( const cv::GMat&    src,
+                            const cv::GScalar& threshLow,
+                            const cv::GScalar& threshUp );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").inRange( $src, $threshLow, $threshUp ) -> retval
+```
+
+### cv::gapi::integral
+
+```cpp
+std::tuple<cv::GMat, cv::GMat> cv::gapi::integral( const cv::GMat& src,
+                                                   int             sdepth = -1,
+                                                   int             sqdepth = -1 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").integral( $src[, $sdepth[, $sqdepth]] ) -> retval
+```
+
 ### cv::gapi::kmeans
+
+```cpp
+std::tuple<cv::GOpaque<double>, cv::GMat, cv::GMat> cv::gapi::kmeans( const cv::GMat&         data,
+                                                                      const int               K,
+                                                                      const cv::GMat&         bestLabels,
+                                                                      const cv::TermCriteria& criteria,
+                                                                      const int               attempts,
+                                                                      const cv::KmeansFlags   flags );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").kmeans( $data, $K, $bestLabels, $criteria, $attempts, $flags ) -> retval
+```
 
 ```cpp
 std::tuple<cv::GOpaque<double>, cv::GMat, cv::GMat> cv::gapi::kmeans( const cv::GMat&         data,
@@ -47409,6 +53251,35 @@ AutoIt:
     _OpenCV_ObjCreate("cv.gapi").kmeans( $data, $K, $bestLabels, $criteria, $attempts, $flags ) -> retval
 ```
 
+```cpp
+std::tuple<cv::GOpaque<double>, cv::GArray<int>, cv::GArray<cv::Point3f>> cv::gapi::kmeans( const cv::GArray<cv::Point3f>& data,
+                                                                                            const int                      K,
+                                                                                            const cv::GArray<int>&         bestLabels,
+                                                                                            const cv::TermCriteria&        criteria,
+                                                                                            const int                      attempts,
+                                                                                            const cv::KmeansFlags          flags );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").kmeans( $data, $K, $bestLabels, $criteria, $attempts, $flags ) -> retval
+```
+
+### cv::gapi::mask
+
+```cpp
+cv::GMat cv::gapi::mask( const cv::GMat& src,
+                         const cv::GMat& mask );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").mask( $src, $mask ) -> retval
+```
+
+### cv::gapi::max
+
+```cpp
+cv::GMat cv::gapi::max( const cv::GMat& src1,
+                        const cv::GMat& src2 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").max( $src1, $src2 ) -> retval
+```
+
 ### cv::gapi::mean
 
 ```cpp
@@ -47424,6 +53295,123 @@ cv::GMat cv::gapi::medianBlur( const cv::GMat& src,
                                int             ksize );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi").medianBlur( $src, $ksize ) -> retval
+```
+
+### cv::gapi::merge3
+
+```cpp
+cv::GMat cv::gapi::merge3( const cv::GMat& src1,
+                           const cv::GMat& src2,
+                           const cv::GMat& src3 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").merge3( $src1, $src2, $src3 ) -> retval
+```
+
+### cv::gapi::merge4
+
+```cpp
+cv::GMat cv::gapi::merge4( const cv::GMat& src1,
+                           const cv::GMat& src2,
+                           const cv::GMat& src3,
+                           const cv::GMat& src4 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").merge4( $src1, $src2, $src3, $src4 ) -> retval
+```
+
+### cv::gapi::min
+
+```cpp
+cv::GMat cv::gapi::min( const cv::GMat& src1,
+                        const cv::GMat& src2 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").min( $src1, $src2 ) -> retval
+```
+
+### cv::gapi::morphologyEx
+
+```cpp
+cv::GMat cv::gapi::morphologyEx( const cv::GMat&       src,
+                                 const cv::MorphTypes  op,
+                                 const cv::Mat&        kernel,
+                                 const cv::Point&      anchor = Point(-1,-1),
+                                 const int             iterations = 1,
+                                 const cv::BorderTypes borderType = BORDER_CONSTANT,
+                                 const cv::Scalar&     borderValue = morphologyDefaultBorderValue() );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").morphologyEx( $src, $op, $kernel[, $anchor[, $iterations[, $borderType[, $borderValue]]]] ) -> retval
+```
+
+### cv::gapi::mul
+
+```cpp
+cv::GMat cv::gapi::mul( const cv::GMat& src1,
+                        const cv::GMat& src2,
+                        double          scale = 1.0,
+                        int             ddepth = -1 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").mul( $src1, $src2[, $scale[, $ddepth]] ) -> retval
+```
+
+### cv::gapi::mulC
+
+```cpp
+cv::GMat cv::gapi::mulC( const cv::GMat& src,
+                         double          multiplier,
+                         int             ddepth = -1 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").mulC( $src, $multiplier[, $ddepth] ) -> retval
+```
+
+```cpp
+cv::GMat cv::gapi::mulC( const cv::GMat&    src,
+                         const cv::GScalar& multiplier,
+                         int                ddepth = -1 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").mulC( $src, $multiplier[, $ddepth] ) -> retval
+```
+
+```cpp
+cv::GMat cv::gapi::mulC( const cv::GScalar& multiplier,
+                         const cv::GMat&    src,
+                         int                ddepth = -1 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").mulC( $multiplier, $src[, $ddepth] ) -> retval
+```
+
+### cv::gapi::normInf
+
+```cpp
+cv::GScalar cv::gapi::normInf( const cv::GMat& src );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").normInf( $src ) -> retval
+```
+
+### cv::gapi::normL1
+
+```cpp
+cv::GScalar cv::gapi::normL1( const cv::GMat& src );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").normL1( $src ) -> retval
+```
+
+### cv::gapi::normL2
+
+```cpp
+cv::GScalar cv::gapi::normL2( const cv::GMat& src );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").normL2( $src ) -> retval
+```
+
+### cv::gapi::normalize
+
+```cpp
+cv::GMat cv::gapi::normalize( const cv::GMat& src,
+                              double          alpha,
+                              double          beta,
+                              int             norm_type,
+                              int             ddepth = -1 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").normalize( $src, $alpha, $beta, $norm_type[, $ddepth] ) -> retval
 ```
 
 ### cv::gapi::parseSSD
@@ -47459,6 +53447,39 @@ AutoIt:
     _OpenCV_ObjCreate("cv.gapi").parseYolo( $in, $inSz[, $confidenceThreshold[, $nmsThreshold[, $anchors]]] ) -> retval
 ```
 
+### cv::gapi::phase
+
+```cpp
+cv::GMat cv::gapi::phase( const cv::GMat& x,
+                          const cv::GMat& y,
+                          bool            angleInDegrees = false );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").phase( $x, $y[, $angleInDegrees] ) -> retval
+```
+
+### cv::gapi::polarToCart
+
+```cpp
+std::tuple<cv::GMat, cv::GMat> cv::gapi::polarToCart( const cv::GMat& magnitude,
+                                                      const cv::GMat& angle,
+                                                      bool            angleInDegrees = false );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").polarToCart( $magnitude, $angle[, $angleInDegrees] ) -> retval
+```
+
+### cv::gapi::remap
+
+```cpp
+cv::GMat cv::gapi::remap( const cv::GMat&   src,
+                          const cv::Mat&    map1,
+                          const cv::Mat&    map2,
+                          int               interpolation,
+                          int               borderMode = BORDER_CONSTANT,
+                          const cv::Scalar& borderValue = Scalar() );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").remap( $src, $map1, $map2, $interpolation[, $borderMode[, $borderValue]] ) -> retval
+```
+
 ### cv::gapi::resize
 
 ```cpp
@@ -47471,6 +53492,31 @@ AutoIt:
     _OpenCV_ObjCreate("cv.gapi").resize( $src, $dsize[, $fx[, $fy[, $interpolation]]] ) -> retval
 ```
 
+### cv::gapi::select
+
+```cpp
+cv::GMat cv::gapi::select( const cv::GMat& src1,
+                           const cv::GMat& src2,
+                           const cv::GMat& mask );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").select( $src1, $src2, $mask ) -> retval
+```
+
+### cv::gapi::sepFilter
+
+```cpp
+cv::GMat cv::gapi::sepFilter( const cv::GMat&   src,
+                              int               ddepth,
+                              const cv::Mat&    kernelX,
+                              const cv::Mat&    kernelY,
+                              const cv::Point&  anchor,
+                              const cv::Scalar& delta,
+                              int               borderType = BORDER_DEFAULT,
+                              const cv::Scalar& borderValue = Scalar(0) );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").sepFilter( $src, $ddepth, $kernelX, $kernelY, $anchor, $delta[, $borderType[, $borderValue]] ) -> retval
+```
+
 ### cv::gapi::split3
 
 ```cpp
@@ -47479,7 +53525,70 @@ AutoIt:
     _OpenCV_ObjCreate("cv.gapi").split3( $src ) -> retval
 ```
 
+### cv::gapi::split4
+
+```cpp
+std::tuple<cv::GMat, cv::GMat, cv::GMat, cv::GMat> cv::gapi::split4( const cv::GMat& src );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").split4( $src ) -> retval
+```
+
+### cv::gapi::sqrt
+
+```cpp
+cv::GMat cv::gapi::sqrt( const cv::GMat& src );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").sqrt( $src ) -> retval
+```
+
+### cv::gapi::sub
+
+```cpp
+cv::GMat cv::gapi::sub( const cv::GMat& src1,
+                        const cv::GMat& src2,
+                        int             ddepth = -1 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").sub( $src1, $src2[, $ddepth] ) -> retval
+```
+
+### cv::gapi::subC
+
+```cpp
+cv::GMat cv::gapi::subC( const cv::GMat&    src,
+                         const cv::GScalar& c,
+                         int                ddepth = -1 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").subC( $src, $c[, $ddepth] ) -> retval
+```
+
+### cv::gapi::subRC
+
+```cpp
+cv::GMat cv::gapi::subRC( const cv::GScalar& c,
+                          const cv::GMat&    src,
+                          int                ddepth = -1 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").subRC( $c, $src[, $ddepth] ) -> retval
+```
+
+### cv::gapi::sum
+
+```cpp
+cv::GScalar cv::gapi::sum( const cv::GMat& src );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").sum( $src ) -> retval
+```
+
 ### cv::gapi::threshold
+
+```cpp
+cv::GMat cv::gapi::threshold( const cv::GMat&    src,
+                              const cv::GScalar& thresh,
+                              const cv::GScalar& maxval,
+                              int                type );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").threshold( $src, $thresh, $maxval, $type ) -> retval
+```
 
 ```cpp
 std::tuple<cv::GMat, cv::GScalar> cv::gapi::threshold( const cv::GMat&    src,
@@ -47489,7 +53598,57 @@ AutoIt:
     _OpenCV_ObjCreate("cv.gapi").threshold( $src, $maxval, $type ) -> retval
 ```
 
+### cv::gapi::transpose
+
+```cpp
+cv::GMat cv::gapi::transpose( const cv::GMat& src );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").transpose( $src ) -> retval
+```
+
+### cv::gapi::warpAffine
+
+```cpp
+cv::GMat cv::gapi::warpAffine( const cv::GMat&   src,
+                               const cv::Mat&    M,
+                               const cv::Size&   dsize,
+                               int               flags = cv::INTER_LINEAR,
+                               int               borderMode = cv::BORDER_CONSTANT,
+                               const cv::Scalar& borderValue = Scalar() );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").warpAffine( $src, $M, $dsize[, $flags[, $borderMode[, $borderValue]]] ) -> retval
+```
+
+### cv::gapi::warpPerspective
+
+```cpp
+cv::GMat cv::gapi::warpPerspective( const cv::GMat&   src,
+                                    const cv::Mat&    M,
+                                    const cv::Size&   dsize,
+                                    int               flags = cv::INTER_LINEAR,
+                                    int               borderMode = cv::BORDER_CONSTANT,
+                                    const cv::Scalar& borderValue = Scalar() );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").warpPerspective( $src, $M, $dsize[, $flags[, $borderMode[, $borderValue]]] ) -> retval
+```
+
 ## cv::gapi::streaming
+
+### streaming.queue\_capacity
+
+```cpp
+static cv::gapi::streaming::queue_capacity
+AutoIt:
+    [propget] $ostreaming.queue_capacity
+```
+
+### streaming.sync\_policy
+
+```cpp
+static cv::gapi::streaming::sync_policy
+AutoIt:
+    [propget] $ostreaming.sync_policy
+```
 
 ### cv::gapi::streaming::size
 
@@ -47503,6 +53662,38 @@ AutoIt:
 cv::GOpaque<cv::Size> cv::gapi::streaming::size( const cv::GOpaque<cv::Rect>& r );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.streaming").size( $r ) -> retval
+```
+
+```cpp
+cv::GOpaque<cv::Size> cv::gapi::streaming::size( const cv::GFrame& src );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.streaming").size( $src ) -> retval
+```
+
+## cv::gapi::core
+
+### core.cpu
+
+```cpp
+static cv::gapi::core::cpu
+AutoIt:
+    [propget] $ocore.cpu
+```
+
+### core.fluid
+
+```cpp
+static cv::gapi::core::fluid
+AutoIt:
+    [propget] $ocore.fluid
+```
+
+### core.ocl
+
+```cpp
+static cv::gapi::core::ocl
+AutoIt:
+    [propget] $ocore.ocl
 ```
 
 ## cv::gapi::core::cpu
@@ -47523,6 +53714,16 @@ AutoIt:
 cv::GKernelPackage cv::gapi::core::fluid::kernels();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.core.fluid").kernels() -> retval
+```
+
+## cv::GFluidKernel
+
+### GFluidKernel.Kind
+
+```cpp
+static cv::GFluidKernel::Kind
+AutoIt:
+    [propget] $oGFluidKernel.Kind
 ```
 
 ## cv::GFluidKernel::Kind
@@ -47559,7 +53760,6 @@ AutoIt:
 static cv::GArrayDesc cv::GArrayDesc::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.GArrayDesc").create() -> <cv.GArrayDesc object>
-    _OpenCV_ObjCreate("cv.GArrayDesc")() -> <cv.GArrayDesc object>
 ```
 
 ## cv::detail::OpaqueKind
@@ -47642,6 +53842,14 @@ AutoIt:
 static int cv::detail::OpaqueKind::CV_POINT2F
 AutoIt:
     [propget] $oOpaqueKind.CV_POINT2F
+```
+
+### OpaqueKind.CV\_POINT3F
+
+```cpp
+static int cv::detail::OpaqueKind::CV_POINT3F
+AutoIt:
+    [propget] $oOpaqueKind.CV_POINT3F
 ```
 
 ### OpaqueKind.CV\_SIZE
@@ -47735,7 +53943,7 @@ static cv::GComputation cv::GComputation::get_create( cv::GProtoInputArgs&&  ins
                                                       cv::GProtoOutputArgs&& outs );
 AutoIt:
     _OpenCV_ObjCreate("cv.GComputation").create( $ins, $outs ) -> <cv.GComputation object>
-    _OpenCV_ObjCreate("cv.GComputation")( $ins, $outs ) -> <cv.GComputation object>
+    $oGComputation( $ins, $outs ) -> <cv.GComputation object>
 ```
 
 ```cpp
@@ -47743,7 +53951,7 @@ static cv::GComputation cv::GComputation::get_create( cv::GMat in,
                                                       cv::GMat out );
 AutoIt:
     _OpenCV_ObjCreate("cv.GComputation").create( $in, $out ) -> <cv.GComputation object>
-    _OpenCV_ObjCreate("cv.GComputation")( $in, $out ) -> <cv.GComputation object>
+    $oGComputation( $in, $out ) -> <cv.GComputation object>
 ```
 
 ```cpp
@@ -47751,7 +53959,7 @@ static cv::GComputation cv::GComputation::get_create( cv::GMat    in,
                                                       cv::GScalar out );
 AutoIt:
     _OpenCV_ObjCreate("cv.GComputation").create( $in, $out ) -> <cv.GComputation object>
-    _OpenCV_ObjCreate("cv.GComputation")( $in, $out ) -> <cv.GComputation object>
+    $oGComputation( $in, $out ) -> <cv.GComputation object>
 ```
 
 ```cpp
@@ -47760,7 +53968,7 @@ static cv::GComputation cv::GComputation::get_create( cv::GMat in1,
                                                       cv::GMat out );
 AutoIt:
     _OpenCV_ObjCreate("cv.GComputation").create( $in1, $in2, $out ) -> <cv.GComputation object>
-    _OpenCV_ObjCreate("cv.GComputation")( $in1, $in2, $out ) -> <cv.GComputation object>
+    $oGComputation( $in1, $in2, $out ) -> <cv.GComputation object>
 ```
 
 ### cv::GComputation::apply
@@ -47802,7 +54010,6 @@ AutoIt:
 static cv::GFrame cv::GFrame::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.GFrame").create() -> <cv.GFrame object>
-    _OpenCV_ObjCreate("cv.GFrame")() -> <cv.GFrame object>
 ```
 
 ## cv::MediaFormat
@@ -47839,7 +54046,6 @@ AutoIt:
 static cv::GMat cv::GMat::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.GMat").create() -> <cv.GMat object>
-    _OpenCV_ObjCreate("cv.GMat")() -> <cv.GMat object>
 ```
 
 ## cv::GMatDesc
@@ -47893,7 +54099,7 @@ static cv::GMatDesc cv::GMatDesc::get_create( int      d,
                                               bool     p = false );
 AutoIt:
     _OpenCV_ObjCreate("cv.GMatDesc").create( $d, $c, $s[, $p] ) -> <cv.GMatDesc object>
-    _OpenCV_ObjCreate("cv.GMatDesc")( $d, $c, $s[, $p] ) -> <cv.GMatDesc object>
+    $oGMatDesc( $d, $c, $s[, $p] ) -> <cv.GMatDesc object>
 ```
 
 ```cpp
@@ -47901,7 +54107,7 @@ static cv::GMatDesc cv::GMatDesc::get_create( int                     d,
                                               const std::vector<int>& dd );
 AutoIt:
     _OpenCV_ObjCreate("cv.GMatDesc").create( $d, $dd ) -> <cv.GMatDesc object>
-    _OpenCV_ObjCreate("cv.GMatDesc")( $d, $dd ) -> <cv.GMatDesc object>
+    $oGMatDesc( $d, $dd ) -> <cv.GMatDesc object>
 ```
 
 ```cpp
@@ -47909,14 +54115,13 @@ static cv::GMatDesc cv::GMatDesc::get_create( int                d,
                                               std::vector<int>&& dd );
 AutoIt:
     _OpenCV_ObjCreate("cv.GMatDesc").create( $d, $dd ) -> <cv.GMatDesc object>
-    _OpenCV_ObjCreate("cv.GMatDesc")( $d, $dd ) -> <cv.GMatDesc object>
+    $oGMatDesc( $d, $dd ) -> <cv.GMatDesc object>
 ```
 
 ```cpp
 static cv::GMatDesc cv::GMatDesc::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.GMatDesc").create() -> <cv.GMatDesc object>
-    _OpenCV_ObjCreate("cv.GMatDesc")() -> <cv.GMatDesc object>
 ```
 
 ### cv::GMatDesc::asInterleaved
@@ -47989,7 +54194,6 @@ AutoIt:
 static cv::GOpaqueDesc cv::GOpaqueDesc::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.GOpaqueDesc").create() -> <cv.GOpaqueDesc object>
-    _OpenCV_ObjCreate("cv.GOpaqueDesc")() -> <cv.GOpaqueDesc object>
 ```
 
 ## cv::GScalar
@@ -48000,7 +54204,13 @@ AutoIt:
 static cv::GScalar cv::GScalar::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.GScalar").create() -> <cv.GScalar object>
-    _OpenCV_ObjCreate("cv.GScalar")() -> <cv.GScalar object>
+```
+
+```cpp
+static cv::GScalar cv::GScalar::get_create( const cv::Scalar& s );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GScalar").create( $s ) -> <cv.GScalar object>
+    $oGScalar( $s ) -> <cv.GScalar object>
 ```
 
 ## cv::GScalarDesc
@@ -48011,7 +54221,6 @@ AutoIt:
 static cv::GScalarDesc cv::GScalarDesc::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.GScalarDesc").create() -> <cv.GScalarDesc object>
-    _OpenCV_ObjCreate("cv.GScalarDesc")() -> <cv.GScalarDesc object>
 ```
 
 ## cv::GStreamingCompiled
@@ -48022,7 +54231,6 @@ AutoIt:
 static cv::GStreamingCompiled cv::GStreamingCompiled::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.GStreamingCompiled").create() -> <cv.GStreamingCompiled object>
-    _OpenCV_ObjCreate("cv.GStreamingCompiled")() -> <cv.GStreamingCompiled object>
 ```
 
 ### cv::GStreamingCompiled::pull
@@ -48072,7 +54280,7 @@ AutoIt:
 ```cpp
 size_t cv::gapi::streaming::queue_capacity::capacity
 AutoIt:
-    [propget propput] $oqueue_capacity.capacity
+    [propget, propput] $oqueue_capacity.capacity
 ```
 
 ### cv::gapi::streaming::queue\_capacity::get\_create
@@ -48081,7 +54289,7 @@ AutoIt:
 static cv::gapi::streaming::queue_capacity cv::gapi::streaming::queue_capacity::get_create( size_t cap = 1 );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.streaming.queue_capacity").create( [$cap] ) -> <cv.gapi.streaming.queue_capacity object>
-    _OpenCV_ObjCreate("cv.gapi.streaming.queue_capacity")( [$cap] ) -> <cv.gapi.streaming.queue_capacity object>
+    $oqueue_capacity( [$cap] ) -> <cv.gapi.streaming.queue_capacity object>
 ```
 
 ## cv::detail::ArgKind
@@ -48158,7 +54366,6 @@ AutoIt:
 static cv::gapi::GNetParam cv::gapi::GNetParam::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.GNetParam").create() -> <cv.gapi.GNetParam object>
-    _OpenCV_ObjCreate("cv.gapi.GNetParam")() -> <cv.gapi.GNetParam object>
 ```
 
 ## cv::gapi::GNetPackage
@@ -48169,17 +54376,40 @@ AutoIt:
 static cv::gapi::GNetPackage cv::gapi::GNetPackage::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.GNetPackage").create() -> <cv.gapi.GNetPackage object>
-    _OpenCV_ObjCreate("cv.gapi.GNetPackage")() -> <cv.gapi.GNetPackage object>
 ```
 
 ```cpp
 static cv::gapi::GNetPackage cv::gapi::GNetPackage::get_create( std::vector<cv::gapi::GNetParam> nets );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.GNetPackage").create( $nets ) -> <cv.gapi.GNetPackage object>
-    _OpenCV_ObjCreate("cv.gapi.GNetPackage")( $nets ) -> <cv.gapi.GNetPackage object>
+    $oGNetPackage( $nets ) -> <cv.gapi.GNetPackage object>
 ```
 
 ## cv::gapi::ie
+
+### ie.PyParams
+
+```cpp
+static cv::gapi::ie::PyParams
+AutoIt:
+    [propget] $oie.PyParams
+```
+
+### ie.TraitAs
+
+```cpp
+static cv::gapi::ie::TraitAs
+AutoIt:
+    [propget] $oie.TraitAs
+```
+
+### ie.detail
+
+```cpp
+static cv::gapi::ie::detail
+AutoIt:
+    [propget] $oie.detail
+```
 
 ### cv::gapi::ie::params
 
@@ -48200,6 +54430,22 @@ AutoIt:
     _OpenCV_ObjCreate("cv.gapi.ie").params( $tag, $model, $device ) -> retval
 ```
 
+### ie.Sync\_
+
+```cpp
+static int cv::gapi::ie::Sync
+AutoIt:
+    [propget] $oie.Sync_
+```
+
+### ie.Async\_
+
+```cpp
+static int cv::gapi::ie::Async
+AutoIt:
+    [propget] $oie.Async_
+```
+
 ## cv::gapi::ie::PyParams
 
 ### cv::gapi::ie::PyParams::get\_create
@@ -48208,7 +54454,6 @@ AutoIt:
 static cv::gapi::ie::PyParams cv::gapi::ie::PyParams::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.ie.PyParams").create() -> <cv.gapi.ie.PyParams object>
-    _OpenCV_ObjCreate("cv.gapi.ie.PyParams")() -> <cv.gapi.ie.PyParams object>
 ```
 
 ```cpp
@@ -48218,7 +54463,7 @@ static cv::gapi::ie::PyParams cv::gapi::ie::PyParams::get_create( const std::str
                                                                   const std::string& device );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.ie.PyParams").create( $tag, $model, $weights, $device ) -> <cv.gapi.ie.PyParams object>
-    _OpenCV_ObjCreate("cv.gapi.ie.PyParams")( $tag, $model, $weights, $device ) -> <cv.gapi.ie.PyParams object>
+    $oPyParams( $tag, $model, $weights, $device ) -> <cv.gapi.ie.PyParams object>
 ```
 
 ```cpp
@@ -48227,7 +54472,7 @@ static cv::gapi::ie::PyParams cv::gapi::ie::PyParams::get_create( const std::str
                                                                   const std::string& device );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.ie.PyParams").create( $tag, $model, $device ) -> <cv.gapi.ie.PyParams object>
-    _OpenCV_ObjCreate("cv.gapi.ie.PyParams")( $tag, $model, $device ) -> <cv.gapi.ie.PyParams object>
+    $oPyParams( $tag, $model, $device ) -> <cv.gapi.ie.PyParams object>
 ```
 
 ### cv::gapi::ie::PyParams::cfgBatchSize
@@ -48256,6 +54501,51 @@ AutoIt:
     $oPyParams.constInput( $layer_name, $data[, $hint] ) -> retval
 ```
 
+## cv::gapi::onnx
+
+### onnx.PyParams
+
+```cpp
+static cv::gapi::onnx::PyParams
+AutoIt:
+    [propget] $oonnx.PyParams
+```
+
+### onnx.TraitAs
+
+```cpp
+static cv::gapi::onnx::TraitAs
+AutoIt:
+    [propget] $oonnx.TraitAs
+```
+
+### cv::gapi::onnx::params
+
+```cpp
+cv::gapi::onnx::PyParams cv::gapi::onnx::params( const std::string& tag,
+                                                 const std::string& model_path );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.onnx").params( $tag, $model_path ) -> retval
+```
+
+## cv::gapi::onnx::PyParams
+
+### cv::gapi::onnx::PyParams::get\_create
+
+```cpp
+static cv::gapi::onnx::PyParams cv::gapi::onnx::PyParams::get_create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.onnx.PyParams").create() -> <cv.gapi.onnx.PyParams object>
+```
+
+```cpp
+static cv::gapi::onnx::PyParams cv::gapi::onnx::PyParams::get_create( const std::string& tag,
+                                                                      const std::string& model_path );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.onnx.PyParams").create( $tag, $model_path ) -> <cv.gapi.onnx.PyParams object>
+    $oPyParams( $tag, $model_path ) -> <cv.gapi.onnx.PyParams object>
+```
+
 ## cv::gapi::ie::TraitAs
 
 ### TraitAs.TENSOR
@@ -48272,6 +54562,26 @@ AutoIt:
 static int cv::gapi::ie::TraitAs::IMAGE
 AutoIt:
     [propget] $oTraitAs.IMAGE
+```
+
+## cv::gapi::ie::detail
+
+### detail.ParamDesc
+
+```cpp
+static cv::gapi::ie::detail::ParamDesc
+AutoIt:
+    [propget] $odetail.ParamDesc
+```
+
+## cv::gapi::ie::detail::ParamDesc
+
+### ParamDesc.Kind
+
+```cpp
+static cv::gapi::ie::detail::ParamDesc::Kind
+AutoIt:
+    [propget] $oParamDesc.Kind
 ```
 
 ## cv::gapi::ie::detail::ParamDesc::Kind
@@ -48310,6 +54620,16 @@ AutoIt:
     [propget] $oTraitAs.IMAGE
 ```
 
+## cv::MediaFrame
+
+### MediaFrame.Access
+
+```cpp
+static cv::MediaFrame::Access
+AutoIt:
+    [propget] $oMediaFrame.Access
+```
+
 ## cv::MediaFrame::Access
 
 ### Access.R
@@ -48326,6 +54646,42 @@ AutoIt:
 static int cv::MediaFrame::Access::W
 AutoIt:
     [propget] $oAccess.W
+```
+
+## cv::gapi::oak
+
+### oak.EncoderConfig
+
+```cpp
+static cv::gapi::oak::EncoderConfig
+AutoIt:
+    [propget] $ooak.EncoderConfig
+```
+
+### oak.ColorCameraParams
+
+```cpp
+static cv::gapi::oak::ColorCameraParams
+AutoIt:
+    [propget] $ooak.ColorCameraParams
+```
+
+## cv::gapi::oak::EncoderConfig
+
+### EncoderConfig.RateControlMode
+
+```cpp
+static cv::gapi::oak::EncoderConfig::RateControlMode
+AutoIt:
+    [propget] $oEncoderConfig.RateControlMode
+```
+
+### EncoderConfig.Profile
+
+```cpp
+static cv::gapi::oak::EncoderConfig::Profile
+AutoIt:
+    [propget] $oEncoderConfig.Profile
 ```
 
 ## cv::gapi::oak::EncoderConfig::RateControlMode
@@ -48388,6 +54744,24 @@ AutoIt:
     [propget] $oProfile.MJPEG
 ```
 
+## cv::gapi::oak::ColorCameraParams
+
+### ColorCameraParams.BoardSocket
+
+```cpp
+static cv::gapi::oak::ColorCameraParams::BoardSocket
+AutoIt:
+    [propget] $oColorCameraParams.BoardSocket
+```
+
+### ColorCameraParams.Resolution
+
+```cpp
+static cv::gapi::oak::ColorCameraParams::Resolution
+AutoIt:
+    [propget] $oColorCameraParams.Resolution
+```
+
 ## cv::gapi::oak::ColorCameraParams::BoardSocket
 
 ### BoardSocket.RGB
@@ -48426,6 +54800,26 @@ AutoIt:
     _OpenCV_ObjCreate("cv.gapi.core.ocl").kernels() -> retval
 ```
 
+## cv::gapi::own
+
+### own.detail
+
+```cpp
+static cv::gapi::own::detail
+AutoIt:
+    [propget] $oown.detail
+```
+
+## cv::gapi::own::detail
+
+### detail.MatHeader
+
+```cpp
+static cv::gapi::own::detail::MatHeader
+AutoIt:
+    [propget] $odetail.MatHeader
+```
+
 ## cv::gapi::own::detail::MatHeader
 
 ### MatHeader.AUTO\_STEP\_
@@ -48445,6 +54839,38 @@ AutoIt:
 ```
 
 ## cv::gapi::wip
+
+### wip.draw
+
+```cpp
+static cv::gapi::wip::draw
+AutoIt:
+    [propget] $owip.draw
+```
+
+### wip.gst
+
+```cpp
+static cv::gapi::wip::gst
+AutoIt:
+    [propget] $owip.gst
+```
+
+### wip.onevpl
+
+```cpp
+static cv::gapi::wip::onevpl
+AutoIt:
+    [propget] $owip.onevpl
+```
+
+### wip.IStreamSource
+
+```cpp
+static cv::gapi::wip::IStreamSource
+AutoIt:
+    [propget] $owip.IStreamSource
+```
 
 ### cv::gapi::wip::get\_streaming\_source
 
@@ -48480,6 +54906,70 @@ AutoIt:
 ```
 
 ## cv::gapi::wip::draw
+
+### draw.Text
+
+```cpp
+static cv::gapi::wip::draw::Text
+AutoIt:
+    [propget] $odraw.Text
+```
+
+### draw.Rect
+
+```cpp
+static cv::gapi::wip::draw::Rect
+AutoIt:
+    [propget] $odraw.Rect
+```
+
+### draw.Circle
+
+```cpp
+static cv::gapi::wip::draw::Circle
+AutoIt:
+    [propget] $odraw.Circle
+```
+
+### draw.Line
+
+```cpp
+static cv::gapi::wip::draw::Line
+AutoIt:
+    [propget] $odraw.Line
+```
+
+### draw.Mosaic
+
+```cpp
+static cv::gapi::wip::draw::Mosaic
+AutoIt:
+    [propget] $odraw.Mosaic
+```
+
+### draw.Image
+
+```cpp
+static cv::gapi::wip::draw::Image
+AutoIt:
+    [propget] $odraw.Image
+```
+
+### draw.Poly
+
+```cpp
+static cv::gapi::wip::draw::Poly
+AutoIt:
+    [propget] $odraw.Poly
+```
+
+### draw.Prim
+
+```cpp
+static cv::gapi::wip::draw::Prim
+AutoIt:
+    [propget] $odraw.Prim
+```
 
 ### cv::gapi::wip::draw::render
 
@@ -48519,6 +55009,16 @@ AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw").renderNV12( $y, $uv, $prims ) -> retval
 ```
 
+## cv::gapi::render
+
+### render.ocv
+
+```cpp
+static cv::gapi::render::ocv
+AutoIt:
+    [propget] $orender.ocv
+```
+
 ## cv::gapi::render::ocv
 
 ### cv::gapi::render::ocv::kernels
@@ -48536,7 +55036,7 @@ AutoIt:
 ```cpp
 std::string cv::gapi::wip::draw::Text::text
 AutoIt:
-    [propget propput] $oText.text
+    [propget, propput] $oText.text
 ```
 
 ### Text.org
@@ -48544,7 +55044,7 @@ AutoIt:
 ```cpp
 cv::Point cv::gapi::wip::draw::Text::org
 AutoIt:
-    [propget propput] $oText.org
+    [propget, propput] $oText.org
 ```
 
 ### Text.ff
@@ -48552,7 +55052,7 @@ AutoIt:
 ```cpp
 int cv::gapi::wip::draw::Text::ff
 AutoIt:
-    [propget propput] $oText.ff
+    [propget, propput] $oText.ff
 ```
 
 ### Text.fs
@@ -48560,7 +55060,7 @@ AutoIt:
 ```cpp
 double cv::gapi::wip::draw::Text::fs
 AutoIt:
-    [propget propput] $oText.fs
+    [propget, propput] $oText.fs
 ```
 
 ### Text.color
@@ -48568,7 +55068,7 @@ AutoIt:
 ```cpp
 cv::Scalar cv::gapi::wip::draw::Text::color
 AutoIt:
-    [propget propput] $oText.color
+    [propget, propput] $oText.color
 ```
 
 ### Text.thick
@@ -48576,7 +55076,7 @@ AutoIt:
 ```cpp
 int cv::gapi::wip::draw::Text::thick
 AutoIt:
-    [propget propput] $oText.thick
+    [propget, propput] $oText.thick
 ```
 
 ### Text.lt
@@ -48584,7 +55084,7 @@ AutoIt:
 ```cpp
 int cv::gapi::wip::draw::Text::lt
 AutoIt:
-    [propget propput] $oText.lt
+    [propget, propput] $oText.lt
 ```
 
 ### Text.bottom\_left\_origin
@@ -48592,7 +55092,7 @@ AutoIt:
 ```cpp
 bool cv::gapi::wip::draw::Text::bottom_left_origin
 AutoIt:
-    [propget propput] $oText.bottom_left_origin
+    [propget, propput] $oText.bottom_left_origin
 ```
 
 ### cv::gapi::wip::draw::Text::get\_create
@@ -48608,14 +55108,13 @@ static cv::gapi::wip::draw::Text cv::gapi::wip::draw::Text::get_create( const st
                                                                         bool               bottom_left_origin_ = false );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Text").create( $text_, $org_, $ff_, $fs_, $color_[, $thick_[, $lt_[, $bottom_left_origin_]]] ) -> <cv.gapi.wip.draw.Text object>
-    _OpenCV_ObjCreate("cv.gapi.wip.draw.Text")( $text_, $org_, $ff_, $fs_, $color_[, $thick_[, $lt_[, $bottom_left_origin_]]] ) -> <cv.gapi.wip.draw.Text object>
+    $oText( $text_, $org_, $ff_, $fs_, $color_[, $thick_[, $lt_[, $bottom_left_origin_]]] ) -> <cv.gapi.wip.draw.Text object>
 ```
 
 ```cpp
 static cv::gapi::wip::draw::Text cv::gapi::wip::draw::Text::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Text").create() -> <cv.gapi.wip.draw.Text object>
-    _OpenCV_ObjCreate("cv.gapi.wip.draw.Text")() -> <cv.gapi.wip.draw.Text object>
 ```
 
 ## cv::gapi::wip::draw::Rect
@@ -48625,7 +55124,7 @@ AutoIt:
 ```cpp
 cv::Rect cv::gapi::wip::draw::Rect::rect
 AutoIt:
-    [propget propput] $oRect.rect
+    [propget, propput] $oRect.rect
 ```
 
 ### Rect.color
@@ -48633,7 +55132,7 @@ AutoIt:
 ```cpp
 cv::Scalar cv::gapi::wip::draw::Rect::color
 AutoIt:
-    [propget propput] $oRect.color
+    [propget, propput] $oRect.color
 ```
 
 ### Rect.thick
@@ -48641,7 +55140,7 @@ AutoIt:
 ```cpp
 int cv::gapi::wip::draw::Rect::thick
 AutoIt:
-    [propget propput] $oRect.thick
+    [propget, propput] $oRect.thick
 ```
 
 ### Rect.lt
@@ -48649,7 +55148,7 @@ AutoIt:
 ```cpp
 int cv::gapi::wip::draw::Rect::lt
 AutoIt:
-    [propget propput] $oRect.lt
+    [propget, propput] $oRect.lt
 ```
 
 ### Rect.shift
@@ -48657,7 +55156,7 @@ AutoIt:
 ```cpp
 int cv::gapi::wip::draw::Rect::shift
 AutoIt:
-    [propget propput] $oRect.shift
+    [propget, propput] $oRect.shift
 ```
 
 ### cv::gapi::wip::draw::Rect::get\_create
@@ -48666,7 +55165,6 @@ AutoIt:
 static cv::gapi::wip::draw::Rect cv::gapi::wip::draw::Rect::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Rect").create() -> <cv.gapi.wip.draw.Rect object>
-    _OpenCV_ObjCreate("cv.gapi.wip.draw.Rect")() -> <cv.gapi.wip.draw.Rect object>
 ```
 
 ## cv::gapi::wip::draw::Circle
@@ -48676,7 +55174,7 @@ AutoIt:
 ```cpp
 cv::Point cv::gapi::wip::draw::Circle::center
 AutoIt:
-    [propget propput] $oCircle.center
+    [propget, propput] $oCircle.center
 ```
 
 ### Circle.radius
@@ -48684,7 +55182,7 @@ AutoIt:
 ```cpp
 int cv::gapi::wip::draw::Circle::radius
 AutoIt:
-    [propget propput] $oCircle.radius
+    [propget, propput] $oCircle.radius
 ```
 
 ### Circle.color
@@ -48692,7 +55190,7 @@ AutoIt:
 ```cpp
 cv::Scalar cv::gapi::wip::draw::Circle::color
 AutoIt:
-    [propget propput] $oCircle.color
+    [propget, propput] $oCircle.color
 ```
 
 ### Circle.thick
@@ -48700,7 +55198,7 @@ AutoIt:
 ```cpp
 int cv::gapi::wip::draw::Circle::thick
 AutoIt:
-    [propget propput] $oCircle.thick
+    [propget, propput] $oCircle.thick
 ```
 
 ### Circle.lt
@@ -48708,7 +55206,7 @@ AutoIt:
 ```cpp
 int cv::gapi::wip::draw::Circle::lt
 AutoIt:
-    [propget propput] $oCircle.lt
+    [propget, propput] $oCircle.lt
 ```
 
 ### Circle.shift
@@ -48716,7 +55214,7 @@ AutoIt:
 ```cpp
 int cv::gapi::wip::draw::Circle::shift
 AutoIt:
-    [propget propput] $oCircle.shift
+    [propget, propput] $oCircle.shift
 ```
 
 ### cv::gapi::wip::draw::Circle::get\_create
@@ -48730,14 +55228,13 @@ static cv::gapi::wip::draw::Circle cv::gapi::wip::draw::Circle::get_create( cons
                                                                             int               shift_ = 0 );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Circle").create( $center_, $radius_, $color_[, $thick_[, $lt_[, $shift_]]] ) -> <cv.gapi.wip.draw.Circle object>
-    _OpenCV_ObjCreate("cv.gapi.wip.draw.Circle")( $center_, $radius_, $color_[, $thick_[, $lt_[, $shift_]]] ) -> <cv.gapi.wip.draw.Circle object>
+    $oCircle( $center_, $radius_, $color_[, $thick_[, $lt_[, $shift_]]] ) -> <cv.gapi.wip.draw.Circle object>
 ```
 
 ```cpp
 static cv::gapi::wip::draw::Circle cv::gapi::wip::draw::Circle::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Circle").create() -> <cv.gapi.wip.draw.Circle object>
-    _OpenCV_ObjCreate("cv.gapi.wip.draw.Circle")() -> <cv.gapi.wip.draw.Circle object>
 ```
 
 ## cv::gapi::wip::draw::Line
@@ -48747,7 +55244,7 @@ AutoIt:
 ```cpp
 cv::Point cv::gapi::wip::draw::Line::pt1
 AutoIt:
-    [propget propput] $oLine.pt1
+    [propget, propput] $oLine.pt1
 ```
 
 ### Line.pt2
@@ -48755,7 +55252,7 @@ AutoIt:
 ```cpp
 cv::Point cv::gapi::wip::draw::Line::pt2
 AutoIt:
-    [propget propput] $oLine.pt2
+    [propget, propput] $oLine.pt2
 ```
 
 ### Line.color
@@ -48763,7 +55260,7 @@ AutoIt:
 ```cpp
 cv::Scalar cv::gapi::wip::draw::Line::color
 AutoIt:
-    [propget propput] $oLine.color
+    [propget, propput] $oLine.color
 ```
 
 ### Line.thick
@@ -48771,7 +55268,7 @@ AutoIt:
 ```cpp
 int cv::gapi::wip::draw::Line::thick
 AutoIt:
-    [propget propput] $oLine.thick
+    [propget, propput] $oLine.thick
 ```
 
 ### Line.lt
@@ -48779,7 +55276,7 @@ AutoIt:
 ```cpp
 int cv::gapi::wip::draw::Line::lt
 AutoIt:
-    [propget propput] $oLine.lt
+    [propget, propput] $oLine.lt
 ```
 
 ### Line.shift
@@ -48787,7 +55284,7 @@ AutoIt:
 ```cpp
 int cv::gapi::wip::draw::Line::shift
 AutoIt:
-    [propget propput] $oLine.shift
+    [propget, propput] $oLine.shift
 ```
 
 ### cv::gapi::wip::draw::Line::get\_create
@@ -48801,14 +55298,13 @@ static cv::gapi::wip::draw::Line cv::gapi::wip::draw::Line::get_create( const cv
                                                                         int               shift_ = 0 );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Line").create( $pt1_, $pt2_, $color_[, $thick_[, $lt_[, $shift_]]] ) -> <cv.gapi.wip.draw.Line object>
-    _OpenCV_ObjCreate("cv.gapi.wip.draw.Line")( $pt1_, $pt2_, $color_[, $thick_[, $lt_[, $shift_]]] ) -> <cv.gapi.wip.draw.Line object>
+    $oLine( $pt1_, $pt2_, $color_[, $thick_[, $lt_[, $shift_]]] ) -> <cv.gapi.wip.draw.Line object>
 ```
 
 ```cpp
 static cv::gapi::wip::draw::Line cv::gapi::wip::draw::Line::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Line").create() -> <cv.gapi.wip.draw.Line object>
-    _OpenCV_ObjCreate("cv.gapi.wip.draw.Line")() -> <cv.gapi.wip.draw.Line object>
 ```
 
 ## cv::gapi::wip::draw::Mosaic
@@ -48818,7 +55314,7 @@ AutoIt:
 ```cpp
 cv::Rect cv::gapi::wip::draw::Mosaic::mos
 AutoIt:
-    [propget propput] $oMosaic.mos
+    [propget, propput] $oMosaic.mos
 ```
 
 ### Mosaic.cellSz
@@ -48826,7 +55322,7 @@ AutoIt:
 ```cpp
 int cv::gapi::wip::draw::Mosaic::cellSz
 AutoIt:
-    [propget propput] $oMosaic.cellSz
+    [propget, propput] $oMosaic.cellSz
 ```
 
 ### Mosaic.decim
@@ -48834,7 +55330,7 @@ AutoIt:
 ```cpp
 int cv::gapi::wip::draw::Mosaic::decim
 AutoIt:
-    [propget propput] $oMosaic.decim
+    [propget, propput] $oMosaic.decim
 ```
 
 ### cv::gapi::wip::draw::Mosaic::get\_create
@@ -48843,7 +55339,6 @@ AutoIt:
 static cv::gapi::wip::draw::Mosaic cv::gapi::wip::draw::Mosaic::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Mosaic").create() -> <cv.gapi.wip.draw.Mosaic object>
-    _OpenCV_ObjCreate("cv.gapi.wip.draw.Mosaic")() -> <cv.gapi.wip.draw.Mosaic object>
 ```
 
 ## cv::gapi::wip::draw::Image
@@ -48853,7 +55348,7 @@ AutoIt:
 ```cpp
 cv::Point cv::gapi::wip::draw::Image::org
 AutoIt:
-    [propget propput] $oImage.org
+    [propget, propput] $oImage.org
 ```
 
 ### Image.img
@@ -48861,7 +55356,7 @@ AutoIt:
 ```cpp
 cv::Mat cv::gapi::wip::draw::Image::img
 AutoIt:
-    [propget propput] $oImage.img
+    [propget, propput] $oImage.img
 ```
 
 ### Image.alpha
@@ -48869,7 +55364,7 @@ AutoIt:
 ```cpp
 cv::Mat cv::gapi::wip::draw::Image::alpha
 AutoIt:
-    [propget propput] $oImage.alpha
+    [propget, propput] $oImage.alpha
 ```
 
 ### cv::gapi::wip::draw::Image::get\_create
@@ -48880,14 +55375,13 @@ static cv::gapi::wip::draw::Image cv::gapi::wip::draw::Image::get_create( const 
                                                                           const cv::Mat&   alpha_ );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Image").create( $org_, $img_, $alpha_ ) -> <cv.gapi.wip.draw.Image object>
-    _OpenCV_ObjCreate("cv.gapi.wip.draw.Image")( $org_, $img_, $alpha_ ) -> <cv.gapi.wip.draw.Image object>
+    $oImage( $org_, $img_, $alpha_ ) -> <cv.gapi.wip.draw.Image object>
 ```
 
 ```cpp
 static cv::gapi::wip::draw::Image cv::gapi::wip::draw::Image::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Image").create() -> <cv.gapi.wip.draw.Image object>
-    _OpenCV_ObjCreate("cv.gapi.wip.draw.Image")() -> <cv.gapi.wip.draw.Image object>
 ```
 
 ## cv::gapi::wip::draw::Poly
@@ -48897,7 +55391,7 @@ AutoIt:
 ```cpp
 std::vector<cv::Point> cv::gapi::wip::draw::Poly::points
 AutoIt:
-    [propget propput] $oPoly.points
+    [propget, propput] $oPoly.points
 ```
 
 ### Poly.color
@@ -48905,7 +55399,7 @@ AutoIt:
 ```cpp
 cv::Scalar cv::gapi::wip::draw::Poly::color
 AutoIt:
-    [propget propput] $oPoly.color
+    [propget, propput] $oPoly.color
 ```
 
 ### Poly.thick
@@ -48913,7 +55407,7 @@ AutoIt:
 ```cpp
 int cv::gapi::wip::draw::Poly::thick
 AutoIt:
-    [propget propput] $oPoly.thick
+    [propget, propput] $oPoly.thick
 ```
 
 ### Poly.lt
@@ -48921,7 +55415,7 @@ AutoIt:
 ```cpp
 int cv::gapi::wip::draw::Poly::lt
 AutoIt:
-    [propget propput] $oPoly.lt
+    [propget, propput] $oPoly.lt
 ```
 
 ### Poly.shift
@@ -48929,7 +55423,7 @@ AutoIt:
 ```cpp
 int cv::gapi::wip::draw::Poly::shift
 AutoIt:
-    [propget propput] $oPoly.shift
+    [propget, propput] $oPoly.shift
 ```
 
 ### cv::gapi::wip::draw::Poly::get\_create
@@ -48942,14 +55436,23 @@ static cv::gapi::wip::draw::Poly cv::gapi::wip::draw::Poly::get_create( const st
                                                                         int                           shift_ = 0 );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Poly").create( $points_, $color_[, $thick_[, $lt_[, $shift_]]] ) -> <cv.gapi.wip.draw.Poly object>
-    _OpenCV_ObjCreate("cv.gapi.wip.draw.Poly")( $points_, $color_[, $thick_[, $lt_[, $shift_]]] ) -> <cv.gapi.wip.draw.Poly object>
+    $oPoly( $points_, $color_[, $thick_[, $lt_[, $shift_]]] ) -> <cv.gapi.wip.draw.Poly object>
 ```
 
 ```cpp
 static cv::gapi::wip::draw::Poly cv::gapi::wip::draw::Poly::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Poly").create() -> <cv.gapi.wip.draw.Poly object>
-    _OpenCV_ObjCreate("cv.gapi.wip.draw.Poly")() -> <cv.gapi.wip.draw.Poly object>
+```
+
+## cv::RMat
+
+### RMat.Access
+
+```cpp
+static cv::RMat::Access
+AutoIt:
+    [propget] $oRMat.Access
 ```
 
 ## cv::RMat::Access
@@ -49036,6 +55539,24 @@ AutoIt:
     [propget] $oStereoOutputFormat.DISPARITY_16Q_11_4
 ```
 
+## cv::gapi::wip::gst
+
+### gst.GStreamerPipeline
+
+```cpp
+static cv::gapi::wip::gst::GStreamerPipeline
+AutoIt:
+    [propget] $ogst.GStreamerPipeline
+```
+
+### gst.GStreamerSource
+
+```cpp
+static cv::gapi::wip::gst::GStreamerSource
+AutoIt:
+    [propget] $ogst.GStreamerSource
+```
+
 ## cv::gapi::wip::gst::GStreamerPipeline
 
 ### cv::gapi::wip::gst::GStreamerPipeline::get\_create
@@ -49044,7 +55565,17 @@ AutoIt:
 static cv::gapi::wip::gst::GStreamerPipeline cv::gapi::wip::gst::GStreamerPipeline::get_create( const std::string& pipeline );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.gst.GStreamerPipeline").create( $pipeline ) -> <cv.gapi.wip.gst.GStreamerPipeline object>
-    _OpenCV_ObjCreate("cv.gapi.wip.gst.GStreamerPipeline")( $pipeline ) -> <cv.gapi.wip.gst.GStreamerPipeline object>
+    $oGStreamerPipeline( $pipeline ) -> <cv.gapi.wip.gst.GStreamerPipeline object>
+```
+
+## cv::gapi::wip::gst::GStreamerSource
+
+### GStreamerSource.OutputType
+
+```cpp
+static cv::gapi::wip::gst::GStreamerSource::OutputType
+AutoIt:
+    [propget] $oGStreamerSource.OutputType
 ```
 
 ## cv::gapi::wip::gst::GStreamerSource::OutputType
@@ -49063,6 +55594,16 @@ AutoIt:
 static int cv::gapi::wip::gst::GStreamerSource::OutputType::MAT
 AutoIt:
     [propget] $oOutputType.MAT
+```
+
+## cv::gapi::wip::onevpl
+
+### onevpl.AccelType
+
+```cpp
+static cv::gapi::wip::onevpl::AccelType
+AutoIt:
+    [propget] $oonevpl.AccelType
 ```
 
 ## cv::gapi::wip::onevpl::AccelType
@@ -49317,6 +55858,14 @@ AutoIt:
 
 ## cv::wgc
 
+### wgc.SimpleCapture
+
+```cpp
+static cv::wgc::SimpleCapture
+AutoIt:
+    [propget] $owgc.SimpleCapture
+```
+
 ### cv::wgc::BitBltCapture
 
 ```cpp
@@ -49356,7 +55905,7 @@ AutoIt:
 ```cpp
 WGCFrameCallback cv::wgc::SimpleCapture::onFrameArrived
 AutoIt:
-    [propget propput] $oSimpleCapture.onFrameArrived
+    [propget, propput] $oSimpleCapture.onFrameArrived
 ```
 
 ### cv::wgc::SimpleCapture::Pause
@@ -50334,6 +56883,582 @@ AutoIt:
     _OpenCV_ObjCreate("cv.core").cv_MAT_DEPTH( $flags ) -> retval
 ```
 
+## cv::Matx33f
+
+### Matx33f.rows
+
+```cpp
+static int cv::Matx33f::rows
+AutoIt:
+    [propget] $oMatx33f.rows
+```
+
+### Matx33f.cols
+
+```cpp
+static int cv::Matx33f::cols
+AutoIt:
+    [propget] $oMatx33f.cols
+```
+
+### Matx33f.channels
+
+```cpp
+static int cv::Matx33f::channels
+AutoIt:
+    [propget] $oMatx33f.channels
+```
+
+### Matx33f.shortdim
+
+```cpp
+static int cv::Matx33f::shortdim
+AutoIt:
+    [propget] $oMatx33f.shortdim
+```
+
+### cv::Matx33f::create
+
+```cpp
+static cv::Matx33f cv::Matx33f::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx33f").create() -> <cv.Matx33f object>
+```
+
+### cv::Matx33f::all
+
+```cpp
+static cv::Matx33f cv::Matx33f::all( float alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx33f").all( $alpha ) -> retval
+```
+
+### cv::Matx33f::ddot
+
+```cpp
+double cv::Matx33f::ddot( cv::Matx33f& v );
+AutoIt:
+    $oMatx33f.ddot( $v ) -> retval
+```
+
+### cv::Matx33f::div
+
+```cpp
+cv::Matx33f cv::Matx33f::div( cv::Matx33f& a );
+AutoIt:
+    $oMatx33f.div( $a ) -> retval
+```
+
+### cv::Matx33f::dot
+
+```cpp
+float cv::Matx33f::dot( cv::Matx33f& v );
+AutoIt:
+    $oMatx33f.dot( $v ) -> retval
+```
+
+### cv::Matx33f::eye
+
+```cpp
+static cv::Matx33f cv::Matx33f::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx33f").eye() -> retval
+```
+
+### cv::Matx33f::get\_Item
+
+```cpp
+float cv::Matx33f::get_Item( int row,
+                             int col );
+AutoIt:
+    $oMatx33f.Item( $row, $col ) -> retval
+    $oMatx33f( $row, $col ) -> retval
+```
+
+### cv::Matx33f::mul
+
+```cpp
+cv::Matx33f cv::Matx33f::mul( cv::Matx33f& a );
+AutoIt:
+    $oMatx33f.mul( $a ) -> retval
+```
+
+### cv::Matx33f::ones
+
+```cpp
+static cv::Matx33f cv::Matx33f::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx33f").ones() -> retval
+```
+
+### cv::Matx33f::put\_Item
+
+```cpp
+void cv::Matx33f::put_Item( int   row,
+                            int   col,
+                            float value );
+AutoIt:
+    $oMatx33f.Item( $row, $col ) = $value
+```
+
+### cv::Matx33f::randn
+
+```cpp
+static cv::Matx33f cv::Matx33f::randn( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx33f").randn( $a, $b ) -> retval
+```
+
+### cv::Matx33f::randu
+
+```cpp
+static cv::Matx33f cv::Matx33f::randu( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx33f").randu( $a, $b ) -> retval
+```
+
+### cv::Matx33f::zeros
+
+```cpp
+static cv::Matx33f cv::Matx33f::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx33f").zeros() -> retval
+```
+
+## cv::Matx33d
+
+### Matx33d.rows
+
+```cpp
+static int cv::Matx33d::rows
+AutoIt:
+    [propget] $oMatx33d.rows
+```
+
+### Matx33d.cols
+
+```cpp
+static int cv::Matx33d::cols
+AutoIt:
+    [propget] $oMatx33d.cols
+```
+
+### Matx33d.channels
+
+```cpp
+static int cv::Matx33d::channels
+AutoIt:
+    [propget] $oMatx33d.channels
+```
+
+### Matx33d.shortdim
+
+```cpp
+static int cv::Matx33d::shortdim
+AutoIt:
+    [propget] $oMatx33d.shortdim
+```
+
+### cv::Matx33d::create
+
+```cpp
+static cv::Matx33d cv::Matx33d::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx33d").create() -> <cv.Matx33d object>
+```
+
+### cv::Matx33d::all
+
+```cpp
+static cv::Matx33d cv::Matx33d::all( double alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx33d").all( $alpha ) -> retval
+```
+
+### cv::Matx33d::ddot
+
+```cpp
+double cv::Matx33d::ddot( cv::Matx33d& v );
+AutoIt:
+    $oMatx33d.ddot( $v ) -> retval
+```
+
+### cv::Matx33d::div
+
+```cpp
+cv::Matx33d cv::Matx33d::div( cv::Matx33d& a );
+AutoIt:
+    $oMatx33d.div( $a ) -> retval
+```
+
+### cv::Matx33d::dot
+
+```cpp
+double cv::Matx33d::dot( cv::Matx33d& v );
+AutoIt:
+    $oMatx33d.dot( $v ) -> retval
+```
+
+### cv::Matx33d::eye
+
+```cpp
+static cv::Matx33d cv::Matx33d::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx33d").eye() -> retval
+```
+
+### cv::Matx33d::get\_Item
+
+```cpp
+double cv::Matx33d::get_Item( int row,
+                              int col );
+AutoIt:
+    $oMatx33d.Item( $row, $col ) -> retval
+    $oMatx33d( $row, $col ) -> retval
+```
+
+### cv::Matx33d::mul
+
+```cpp
+cv::Matx33d cv::Matx33d::mul( cv::Matx33d& a );
+AutoIt:
+    $oMatx33d.mul( $a ) -> retval
+```
+
+### cv::Matx33d::ones
+
+```cpp
+static cv::Matx33d cv::Matx33d::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx33d").ones() -> retval
+```
+
+### cv::Matx33d::put\_Item
+
+```cpp
+void cv::Matx33d::put_Item( int    row,
+                            int    col,
+                            double value );
+AutoIt:
+    $oMatx33d.Item( $row, $col ) = $value
+```
+
+### cv::Matx33d::randn
+
+```cpp
+static cv::Matx33d cv::Matx33d::randn( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx33d").randn( $a, $b ) -> retval
+```
+
+### cv::Matx33d::randu
+
+```cpp
+static cv::Matx33d cv::Matx33d::randu( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx33d").randu( $a, $b ) -> retval
+```
+
+### cv::Matx33d::zeros
+
+```cpp
+static cv::Matx33d cv::Matx33d::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx33d").zeros() -> retval
+```
+
+## cv::Matx44f
+
+### Matx44f.rows
+
+```cpp
+static int cv::Matx44f::rows
+AutoIt:
+    [propget] $oMatx44f.rows
+```
+
+### Matx44f.cols
+
+```cpp
+static int cv::Matx44f::cols
+AutoIt:
+    [propget] $oMatx44f.cols
+```
+
+### Matx44f.channels
+
+```cpp
+static int cv::Matx44f::channels
+AutoIt:
+    [propget] $oMatx44f.channels
+```
+
+### Matx44f.shortdim
+
+```cpp
+static int cv::Matx44f::shortdim
+AutoIt:
+    [propget] $oMatx44f.shortdim
+```
+
+### cv::Matx44f::create
+
+```cpp
+static cv::Matx44f cv::Matx44f::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx44f").create() -> <cv.Matx44f object>
+```
+
+### cv::Matx44f::all
+
+```cpp
+static cv::Matx44f cv::Matx44f::all( float alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx44f").all( $alpha ) -> retval
+```
+
+### cv::Matx44f::ddot
+
+```cpp
+double cv::Matx44f::ddot( cv::Matx44f& v );
+AutoIt:
+    $oMatx44f.ddot( $v ) -> retval
+```
+
+### cv::Matx44f::div
+
+```cpp
+cv::Matx44f cv::Matx44f::div( cv::Matx44f& a );
+AutoIt:
+    $oMatx44f.div( $a ) -> retval
+```
+
+### cv::Matx44f::dot
+
+```cpp
+float cv::Matx44f::dot( cv::Matx44f& v );
+AutoIt:
+    $oMatx44f.dot( $v ) -> retval
+```
+
+### cv::Matx44f::eye
+
+```cpp
+static cv::Matx44f cv::Matx44f::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx44f").eye() -> retval
+```
+
+### cv::Matx44f::get\_Item
+
+```cpp
+float cv::Matx44f::get_Item( int row,
+                             int col );
+AutoIt:
+    $oMatx44f.Item( $row, $col ) -> retval
+    $oMatx44f( $row, $col ) -> retval
+```
+
+### cv::Matx44f::mul
+
+```cpp
+cv::Matx44f cv::Matx44f::mul( cv::Matx44f& a );
+AutoIt:
+    $oMatx44f.mul( $a ) -> retval
+```
+
+### cv::Matx44f::ones
+
+```cpp
+static cv::Matx44f cv::Matx44f::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx44f").ones() -> retval
+```
+
+### cv::Matx44f::put\_Item
+
+```cpp
+void cv::Matx44f::put_Item( int   row,
+                            int   col,
+                            float value );
+AutoIt:
+    $oMatx44f.Item( $row, $col ) = $value
+```
+
+### cv::Matx44f::randn
+
+```cpp
+static cv::Matx44f cv::Matx44f::randn( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx44f").randn( $a, $b ) -> retval
+```
+
+### cv::Matx44f::randu
+
+```cpp
+static cv::Matx44f cv::Matx44f::randu( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx44f").randu( $a, $b ) -> retval
+```
+
+### cv::Matx44f::zeros
+
+```cpp
+static cv::Matx44f cv::Matx44f::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx44f").zeros() -> retval
+```
+
+## cv::Matx44d
+
+### Matx44d.rows
+
+```cpp
+static int cv::Matx44d::rows
+AutoIt:
+    [propget] $oMatx44d.rows
+```
+
+### Matx44d.cols
+
+```cpp
+static int cv::Matx44d::cols
+AutoIt:
+    [propget] $oMatx44d.cols
+```
+
+### Matx44d.channels
+
+```cpp
+static int cv::Matx44d::channels
+AutoIt:
+    [propget] $oMatx44d.channels
+```
+
+### Matx44d.shortdim
+
+```cpp
+static int cv::Matx44d::shortdim
+AutoIt:
+    [propget] $oMatx44d.shortdim
+```
+
+### cv::Matx44d::create
+
+```cpp
+static cv::Matx44d cv::Matx44d::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx44d").create() -> <cv.Matx44d object>
+```
+
+### cv::Matx44d::all
+
+```cpp
+static cv::Matx44d cv::Matx44d::all( double alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx44d").all( $alpha ) -> retval
+```
+
+### cv::Matx44d::ddot
+
+```cpp
+double cv::Matx44d::ddot( cv::Matx44d& v );
+AutoIt:
+    $oMatx44d.ddot( $v ) -> retval
+```
+
+### cv::Matx44d::div
+
+```cpp
+cv::Matx44d cv::Matx44d::div( cv::Matx44d& a );
+AutoIt:
+    $oMatx44d.div( $a ) -> retval
+```
+
+### cv::Matx44d::dot
+
+```cpp
+double cv::Matx44d::dot( cv::Matx44d& v );
+AutoIt:
+    $oMatx44d.dot( $v ) -> retval
+```
+
+### cv::Matx44d::eye
+
+```cpp
+static cv::Matx44d cv::Matx44d::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx44d").eye() -> retval
+```
+
+### cv::Matx44d::get\_Item
+
+```cpp
+double cv::Matx44d::get_Item( int row,
+                              int col );
+AutoIt:
+    $oMatx44d.Item( $row, $col ) -> retval
+    $oMatx44d( $row, $col ) -> retval
+```
+
+### cv::Matx44d::mul
+
+```cpp
+cv::Matx44d cv::Matx44d::mul( cv::Matx44d& a );
+AutoIt:
+    $oMatx44d.mul( $a ) -> retval
+```
+
+### cv::Matx44d::ones
+
+```cpp
+static cv::Matx44d cv::Matx44d::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx44d").ones() -> retval
+```
+
+### cv::Matx44d::put\_Item
+
+```cpp
+void cv::Matx44d::put_Item( int    row,
+                            int    col,
+                            double value );
+AutoIt:
+    $oMatx44d.Item( $row, $col ) = $value
+```
+
+### cv::Matx44d::randn
+
+```cpp
+static cv::Matx44d cv::Matx44d::randn( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx44d").randn( $a, $b ) -> retval
+```
+
+### cv::Matx44d::randu
+
+```cpp
+static cv::Matx44d cv::Matx44d::randu( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx44d").randu( $a, $b ) -> retval
+```
+
+### cv::Matx44d::zeros
+
+```cpp
+static cv::Matx44d cv::Matx44d::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx44d").zeros() -> retval
+```
+
 ## cv::Range
 
 ### Range.start
@@ -50341,7 +57466,7 @@ AutoIt:
 ```cpp
 int cv::Range::start
 AutoIt:
-    [propget propput] $oRange.start
+    [propget, propput] $oRange.start
 ```
 
 ### Range.end
@@ -50349,7 +57474,7 @@ AutoIt:
 ```cpp
 int cv::Range::end
 AutoIt:
-    [propget propput] $oRange.end
+    [propget, propput] $oRange.end
 ```
 
 ### cv::Range::get\_create
@@ -50358,7 +57483,6 @@ AutoIt:
 static cv::Range cv::Range::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Range").create() -> <cv.Range object>
-    _OpenCV_ObjCreate("cv.Range")() -> <cv.Range object>
 ```
 
 ```cpp
@@ -50366,7 +57490,7 @@ static cv::Range cv::Range::get_create( int start,
                                         int end );
 AutoIt:
     _OpenCV_ObjCreate("cv.Range").create( $start, $end ) -> <cv.Range object>
-    _OpenCV_ObjCreate("cv.Range")( $start, $end ) -> <cv.Range object>
+    $oRange( $start, $end ) -> <cv.Range object>
 ```
 
 ### cv::Range::all
@@ -50400,7 +57524,7 @@ AutoIt:
 ```cpp
 cv::Point2f cv::RotatedRect::center
 AutoIt:
-    [propget propput] $oRotatedRect.center
+    [propget, propput] $oRotatedRect.center
 ```
 
 ### RotatedRect.size
@@ -50408,7 +57532,7 @@ AutoIt:
 ```cpp
 cv::Size2f cv::RotatedRect::size
 AutoIt:
-    [propget propput] $oRotatedRect.size
+    [propget, propput] $oRotatedRect.size
 ```
 
 ### RotatedRect.angle
@@ -50416,7 +57540,7 @@ AutoIt:
 ```cpp
 float cv::RotatedRect::angle
 AutoIt:
-    [propget propput] $oRotatedRect.angle
+    [propget, propput] $oRotatedRect.angle
 ```
 
 ### cv::RotatedRect::get\_create
@@ -50425,7 +57549,6 @@ AutoIt:
 static cv::RotatedRect cv::RotatedRect::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.RotatedRect").create() -> <cv.RotatedRect object>
-    _OpenCV_ObjCreate("cv.RotatedRect")() -> <cv.RotatedRect object>
 ```
 
 ```cpp
@@ -50434,7 +57557,7 @@ static cv::RotatedRect cv::RotatedRect::get_create( cv::Point2f center,
                                                     float       angle );
 AutoIt:
     _OpenCV_ObjCreate("cv.RotatedRect").create( $center, $size, $angle ) -> <cv.RotatedRect object>
-    _OpenCV_ObjCreate("cv.RotatedRect")( $center, $size, $angle ) -> <cv.RotatedRect object>
+    $oRotatedRect( $center, $size, $angle ) -> <cv.RotatedRect object>
 ```
 
 ```cpp
@@ -50443,7 +57566,7 @@ static cv::RotatedRect cv::RotatedRect::get_create( cv::Point2f point1,
                                                     cv::Point2f point3 );
 AutoIt:
     _OpenCV_ObjCreate("cv.RotatedRect").create( $point1, $point2, $point3 ) -> <cv.RotatedRect object>
-    _OpenCV_ObjCreate("cv.RotatedRect")( $point1, $point2, $point3 ) -> <cv.RotatedRect object>
+    $oRotatedRect( $point1, $point2, $point3 ) -> <cv.RotatedRect object>
 ```
 
 ### cv::RotatedRect::boundingRect
@@ -50462,7 +57585,6 @@ AutoIt:
 static cv::GCompileArg cv::GCompileArg::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.GCompileArg").create() -> <cv.GCompileArg object>
-    _OpenCV_ObjCreate("cv.GCompileArg")() -> <cv.GCompileArg object>
 ```
 
 ## cv::GRunArg
@@ -50473,7 +57595,6 @@ AutoIt:
 static cv::GRunArg cv::GRunArg::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.GRunArg").create() -> <cv.GRunArg object>
-    _OpenCV_ObjCreate("cv.GRunArg")() -> <cv.GRunArg object>
 ```
 
 ## cv::gapi::wip::draw::Prim
@@ -50484,7 +57605,6 @@ AutoIt:
 static cv::gapi::wip::draw::Prim cv::gapi::wip::draw::Prim::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Prim").create() -> <cv.gapi.wip.draw.Prim object>
-    _OpenCV_ObjCreate("cv.gapi.wip.draw.Prim")() -> <cv.gapi.wip.draw.Prim object>
 ```
 
 ## VectorOfString
@@ -60687,6 +67807,210 @@ AutoIt:
     $oVectorOfVectorOfKeyPoint.start() -> retval
 ```
 
+## VectorOfVideoCapture
+
+### VectorOfVideoCapture.Count
+
+```cpp
+size_t VectorOfVideoCapture::size()
+AutoIt:
+    [propget] $oVectorOfVideoCapture.Count
+```
+
+### VectorOfVideoCapture::create
+
+```cpp
+static VectorOfVideoCapture VectorOfVideoCapture::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVideoCapture").create() -> <VectorOfVideoCapture object>
+```
+
+```cpp
+static VectorOfVideoCapture VectorOfVideoCapture::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVideoCapture").create( $size ) -> <VectorOfVideoCapture object>
+```
+
+```cpp
+static VectorOfVideoCapture VectorOfVideoCapture::create( VectorOfVideoCapture other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVideoCapture").create( $other ) -> <VectorOfVideoCapture object>
+```
+
+### VectorOfVideoCapture::Add
+
+```cpp
+void VectorOfVideoCapture::Add( cv::VideoCapture value );
+AutoIt:
+    $oVectorOfVideoCapture.Add( $value ) -> None
+```
+
+### VectorOfVideoCapture::Items
+
+```cpp
+VectorOfVideoCapture VectorOfVideoCapture::Items();
+AutoIt:
+    $oVectorOfVideoCapture.Items() -> retval
+```
+
+### VectorOfVideoCapture::Keys
+
+```cpp
+std::vector<int> VectorOfVideoCapture::Keys();
+AutoIt:
+    $oVectorOfVideoCapture.Keys() -> retval
+```
+
+### VectorOfVideoCapture::Remove
+
+```cpp
+void VectorOfVideoCapture::Remove( size_t index );
+AutoIt:
+    $oVectorOfVideoCapture.Remove( $index ) -> None
+```
+
+### VectorOfVideoCapture::append
+
+```cpp
+void VectorOfVideoCapture::append( cv::VideoCapture value );
+AutoIt:
+    $oVectorOfVideoCapture.append( $value ) -> None
+```
+
+### VectorOfVideoCapture::at
+
+```cpp
+cv::VideoCapture VectorOfVideoCapture::at( size_t index );
+AutoIt:
+    $oVectorOfVideoCapture.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfVideoCapture::at( size_t           index,
+                               cv::VideoCapture value );
+AutoIt:
+    $oVectorOfVideoCapture.at( $index, $value ) -> None
+```
+
+### VectorOfVideoCapture::clear
+
+```cpp
+void VectorOfVideoCapture::clear();
+AutoIt:
+    $oVectorOfVideoCapture.clear() -> None
+```
+
+### VectorOfVideoCapture::empty
+
+```cpp
+bool VectorOfVideoCapture::empty();
+AutoIt:
+    $oVectorOfVideoCapture.empty() -> retval
+```
+
+### VectorOfVideoCapture::end
+
+```cpp
+void* VectorOfVideoCapture::end();
+AutoIt:
+    $oVectorOfVideoCapture.end() -> retval
+```
+
+### VectorOfVideoCapture::get\_Item
+
+```cpp
+cv::VideoCapture VectorOfVideoCapture::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVideoCapture.Item( $index ) -> retval
+    $oVectorOfVideoCapture( $index ) -> retval
+```
+
+### VectorOfVideoCapture::get\_\_NewEnum
+
+```cpp
+IUnknown* VectorOfVideoCapture::get__NewEnum();
+AutoIt:
+    $oVectorOfVideoCapture._NewEnum() -> retval
+```
+
+### VectorOfVideoCapture::push\_back
+
+```cpp
+void VectorOfVideoCapture::push_back( cv::VideoCapture value );
+AutoIt:
+    $oVectorOfVideoCapture.push_back( $value ) -> None
+```
+
+### VectorOfVideoCapture::push\_vector
+
+```cpp
+void VectorOfVideoCapture::push_vector( VectorOfVideoCapture other );
+AutoIt:
+    $oVectorOfVideoCapture.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfVideoCapture::push_vector( VectorOfVideoCapture other,
+                                        size_t               count,
+                                        size_t               start = 0 );
+AutoIt:
+    $oVectorOfVideoCapture.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfVideoCapture::put\_Item
+
+```cpp
+void VectorOfVideoCapture::put_Item( size_t           index,
+                                     cv::VideoCapture item );
+AutoIt:
+    $oVectorOfVideoCapture.Item( $index ) = $item
+```
+
+### VectorOfVideoCapture::size
+
+```cpp
+size_t VectorOfVideoCapture::size();
+AutoIt:
+    $oVectorOfVideoCapture.size() -> retval
+```
+
+### VectorOfVideoCapture::slice
+
+```cpp
+VectorOfVideoCapture VectorOfVideoCapture::slice( size_t start = 0,
+                                                  size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfVideoCapture.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfVideoCapture::sort
+
+```cpp
+void VectorOfVideoCapture::sort( void*  comparator,
+                                 size_t start = 0,
+                                 size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfVideoCapture.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfVideoCapture::sort\_variant
+
+```cpp
+void VectorOfVideoCapture::sort_variant( void*  comparator,
+                                         size_t start = 0,
+                                         size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfVideoCapture.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfVideoCapture::start
+
+```cpp
+void* VectorOfVideoCapture::start();
+AutoIt:
+    $oVectorOfVideoCapture.start() -> retval
+```
+
 ## VectorOfVideoCaptureAPIs
 
 ### VectorOfVideoCaptureAPIs.Count
@@ -60891,6 +68215,414 @@ AutoIt:
     $oVectorOfVideoCaptureAPIs.start() -> retval
 ```
 
+## VectorOfPoint3f
+
+### VectorOfPoint3f.Count
+
+```cpp
+size_t VectorOfPoint3f::size()
+AutoIt:
+    [propget] $oVectorOfPoint3f.Count
+```
+
+### VectorOfPoint3f::create
+
+```cpp
+static VectorOfPoint3f VectorOfPoint3f::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPoint3f").create() -> <VectorOfPoint3f object>
+```
+
+```cpp
+static VectorOfPoint3f VectorOfPoint3f::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPoint3f").create( $size ) -> <VectorOfPoint3f object>
+```
+
+```cpp
+static VectorOfPoint3f VectorOfPoint3f::create( VectorOfPoint3f other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPoint3f").create( $other ) -> <VectorOfPoint3f object>
+```
+
+### VectorOfPoint3f::Add
+
+```cpp
+void VectorOfPoint3f::Add( cv::Point3f value );
+AutoIt:
+    $oVectorOfPoint3f.Add( $value ) -> None
+```
+
+### VectorOfPoint3f::Items
+
+```cpp
+VectorOfPoint3f VectorOfPoint3f::Items();
+AutoIt:
+    $oVectorOfPoint3f.Items() -> retval
+```
+
+### VectorOfPoint3f::Keys
+
+```cpp
+std::vector<int> VectorOfPoint3f::Keys();
+AutoIt:
+    $oVectorOfPoint3f.Keys() -> retval
+```
+
+### VectorOfPoint3f::Remove
+
+```cpp
+void VectorOfPoint3f::Remove( size_t index );
+AutoIt:
+    $oVectorOfPoint3f.Remove( $index ) -> None
+```
+
+### VectorOfPoint3f::append
+
+```cpp
+void VectorOfPoint3f::append( cv::Point3f value );
+AutoIt:
+    $oVectorOfPoint3f.append( $value ) -> None
+```
+
+### VectorOfPoint3f::at
+
+```cpp
+cv::Point3f VectorOfPoint3f::at( size_t index );
+AutoIt:
+    $oVectorOfPoint3f.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfPoint3f::at( size_t      index,
+                          cv::Point3f value );
+AutoIt:
+    $oVectorOfPoint3f.at( $index, $value ) -> None
+```
+
+### VectorOfPoint3f::clear
+
+```cpp
+void VectorOfPoint3f::clear();
+AutoIt:
+    $oVectorOfPoint3f.clear() -> None
+```
+
+### VectorOfPoint3f::empty
+
+```cpp
+bool VectorOfPoint3f::empty();
+AutoIt:
+    $oVectorOfPoint3f.empty() -> retval
+```
+
+### VectorOfPoint3f::end
+
+```cpp
+void* VectorOfPoint3f::end();
+AutoIt:
+    $oVectorOfPoint3f.end() -> retval
+```
+
+### VectorOfPoint3f::get\_Item
+
+```cpp
+cv::Point3f VectorOfPoint3f::get_Item( size_t index );
+AutoIt:
+    $oVectorOfPoint3f.Item( $index ) -> retval
+    $oVectorOfPoint3f( $index ) -> retval
+```
+
+### VectorOfPoint3f::get\_\_NewEnum
+
+```cpp
+IUnknown* VectorOfPoint3f::get__NewEnum();
+AutoIt:
+    $oVectorOfPoint3f._NewEnum() -> retval
+```
+
+### VectorOfPoint3f::push\_back
+
+```cpp
+void VectorOfPoint3f::push_back( cv::Point3f value );
+AutoIt:
+    $oVectorOfPoint3f.push_back( $value ) -> None
+```
+
+### VectorOfPoint3f::push\_vector
+
+```cpp
+void VectorOfPoint3f::push_vector( VectorOfPoint3f other );
+AutoIt:
+    $oVectorOfPoint3f.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfPoint3f::push_vector( VectorOfPoint3f other,
+                                   size_t          count,
+                                   size_t          start = 0 );
+AutoIt:
+    $oVectorOfPoint3f.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfPoint3f::put\_Item
+
+```cpp
+void VectorOfPoint3f::put_Item( size_t      index,
+                                cv::Point3f item );
+AutoIt:
+    $oVectorOfPoint3f.Item( $index ) = $item
+```
+
+### VectorOfPoint3f::size
+
+```cpp
+size_t VectorOfPoint3f::size();
+AutoIt:
+    $oVectorOfPoint3f.size() -> retval
+```
+
+### VectorOfPoint3f::slice
+
+```cpp
+VectorOfPoint3f VectorOfPoint3f::slice( size_t start = 0,
+                                        size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfPoint3f.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfPoint3f::sort
+
+```cpp
+void VectorOfPoint3f::sort( void*  comparator,
+                            size_t start = 0,
+                            size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfPoint3f.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfPoint3f::sort\_variant
+
+```cpp
+void VectorOfPoint3f::sort_variant( void*  comparator,
+                                    size_t start = 0,
+                                    size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfPoint3f.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfPoint3f::start
+
+```cpp
+void* VectorOfPoint3f::start();
+AutoIt:
+    $oVectorOfPoint3f.start() -> retval
+```
+
+## VectorOfVectorOfPoint3f
+
+### VectorOfVectorOfPoint3f.Count
+
+```cpp
+size_t VectorOfVectorOfPoint3f::size()
+AutoIt:
+    [propget] $oVectorOfVectorOfPoint3f.Count
+```
+
+### VectorOfVectorOfPoint3f::create
+
+```cpp
+static VectorOfVectorOfPoint3f VectorOfVectorOfPoint3f::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfPoint3f").create() -> <VectorOfVectorOfPoint3f object>
+```
+
+```cpp
+static VectorOfVectorOfPoint3f VectorOfVectorOfPoint3f::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfPoint3f").create( $size ) -> <VectorOfVectorOfPoint3f object>
+```
+
+```cpp
+static VectorOfVectorOfPoint3f VectorOfVectorOfPoint3f::create( VectorOfVectorOfPoint3f other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfPoint3f").create( $other ) -> <VectorOfVectorOfPoint3f object>
+```
+
+### VectorOfVectorOfPoint3f::Add
+
+```cpp
+void VectorOfVectorOfPoint3f::Add( std::vector<cv::Point3f> value );
+AutoIt:
+    $oVectorOfVectorOfPoint3f.Add( $value ) -> None
+```
+
+### VectorOfVectorOfPoint3f::Items
+
+```cpp
+VectorOfVectorOfPoint3f VectorOfVectorOfPoint3f::Items();
+AutoIt:
+    $oVectorOfVectorOfPoint3f.Items() -> retval
+```
+
+### VectorOfVectorOfPoint3f::Keys
+
+```cpp
+std::vector<int> VectorOfVectorOfPoint3f::Keys();
+AutoIt:
+    $oVectorOfVectorOfPoint3f.Keys() -> retval
+```
+
+### VectorOfVectorOfPoint3f::Remove
+
+```cpp
+void VectorOfVectorOfPoint3f::Remove( size_t index );
+AutoIt:
+    $oVectorOfVectorOfPoint3f.Remove( $index ) -> None
+```
+
+### VectorOfVectorOfPoint3f::append
+
+```cpp
+void VectorOfVectorOfPoint3f::append( std::vector<cv::Point3f> value );
+AutoIt:
+    $oVectorOfVectorOfPoint3f.append( $value ) -> None
+```
+
+### VectorOfVectorOfPoint3f::at
+
+```cpp
+std::vector<cv::Point3f> VectorOfVectorOfPoint3f::at( size_t index );
+AutoIt:
+    $oVectorOfVectorOfPoint3f.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfVectorOfPoint3f::at( size_t                   index,
+                                  std::vector<cv::Point3f> value );
+AutoIt:
+    $oVectorOfVectorOfPoint3f.at( $index, $value ) -> None
+```
+
+### VectorOfVectorOfPoint3f::clear
+
+```cpp
+void VectorOfVectorOfPoint3f::clear();
+AutoIt:
+    $oVectorOfVectorOfPoint3f.clear() -> None
+```
+
+### VectorOfVectorOfPoint3f::empty
+
+```cpp
+bool VectorOfVectorOfPoint3f::empty();
+AutoIt:
+    $oVectorOfVectorOfPoint3f.empty() -> retval
+```
+
+### VectorOfVectorOfPoint3f::end
+
+```cpp
+void* VectorOfVectorOfPoint3f::end();
+AutoIt:
+    $oVectorOfVectorOfPoint3f.end() -> retval
+```
+
+### VectorOfVectorOfPoint3f::get\_Item
+
+```cpp
+std::vector<cv::Point3f> VectorOfVectorOfPoint3f::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVectorOfPoint3f.Item( $index ) -> retval
+    $oVectorOfVectorOfPoint3f( $index ) -> retval
+```
+
+### VectorOfVectorOfPoint3f::get\_\_NewEnum
+
+```cpp
+IUnknown* VectorOfVectorOfPoint3f::get__NewEnum();
+AutoIt:
+    $oVectorOfVectorOfPoint3f._NewEnum() -> retval
+```
+
+### VectorOfVectorOfPoint3f::push\_back
+
+```cpp
+void VectorOfVectorOfPoint3f::push_back( std::vector<cv::Point3f> value );
+AutoIt:
+    $oVectorOfVectorOfPoint3f.push_back( $value ) -> None
+```
+
+### VectorOfVectorOfPoint3f::push\_vector
+
+```cpp
+void VectorOfVectorOfPoint3f::push_vector( VectorOfVectorOfPoint3f other );
+AutoIt:
+    $oVectorOfVectorOfPoint3f.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfVectorOfPoint3f::push_vector( VectorOfVectorOfPoint3f other,
+                                           size_t                  count,
+                                           size_t                  start = 0 );
+AutoIt:
+    $oVectorOfVectorOfPoint3f.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfVectorOfPoint3f::put\_Item
+
+```cpp
+void VectorOfVectorOfPoint3f::put_Item( size_t                   index,
+                                        std::vector<cv::Point3f> item );
+AutoIt:
+    $oVectorOfVectorOfPoint3f.Item( $index ) = $item
+```
+
+### VectorOfVectorOfPoint3f::size
+
+```cpp
+size_t VectorOfVectorOfPoint3f::size();
+AutoIt:
+    $oVectorOfVectorOfPoint3f.size() -> retval
+```
+
+### VectorOfVectorOfPoint3f::slice
+
+```cpp
+VectorOfVectorOfPoint3f VectorOfVectorOfPoint3f::slice( size_t start = 0,
+                                                        size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfVectorOfPoint3f.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfVectorOfPoint3f::sort
+
+```cpp
+void VectorOfVectorOfPoint3f::sort( void*  comparator,
+                                    size_t start = 0,
+                                    size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfVectorOfPoint3f.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfVectorOfPoint3f::sort\_variant
+
+```cpp
+void VectorOfVectorOfPoint3f::sort_variant( void*  comparator,
+                                            size_t start = 0,
+                                            size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfVectorOfPoint3f.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfVectorOfPoint3f::start
+
+```cpp
+void* VectorOfVectorOfPoint3f::start();
+AutoIt:
+    $oVectorOfVectorOfPoint3f.start() -> retval
+```
+
 ## VectorOfDetail\_CameraParams
 
 ### VectorOfDetail\_CameraParams.Count
@@ -61093,6 +68825,210 @@ AutoIt:
 void* VectorOfDetail_CameraParams::start();
 AutoIt:
     $oVectorOfDetail_CameraParams.start() -> retval
+```
+
+## VectorOfGMat
+
+### VectorOfGMat.Count
+
+```cpp
+size_t VectorOfGMat::size()
+AutoIt:
+    [propget] $oVectorOfGMat.Count
+```
+
+### VectorOfGMat::create
+
+```cpp
+static VectorOfGMat VectorOfGMat::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfGMat").create() -> <VectorOfGMat object>
+```
+
+```cpp
+static VectorOfGMat VectorOfGMat::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfGMat").create( $size ) -> <VectorOfGMat object>
+```
+
+```cpp
+static VectorOfGMat VectorOfGMat::create( VectorOfGMat other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfGMat").create( $other ) -> <VectorOfGMat object>
+```
+
+### VectorOfGMat::Add
+
+```cpp
+void VectorOfGMat::Add( cv::GMat value );
+AutoIt:
+    $oVectorOfGMat.Add( $value ) -> None
+```
+
+### VectorOfGMat::Items
+
+```cpp
+VectorOfGMat VectorOfGMat::Items();
+AutoIt:
+    $oVectorOfGMat.Items() -> retval
+```
+
+### VectorOfGMat::Keys
+
+```cpp
+std::vector<int> VectorOfGMat::Keys();
+AutoIt:
+    $oVectorOfGMat.Keys() -> retval
+```
+
+### VectorOfGMat::Remove
+
+```cpp
+void VectorOfGMat::Remove( size_t index );
+AutoIt:
+    $oVectorOfGMat.Remove( $index ) -> None
+```
+
+### VectorOfGMat::append
+
+```cpp
+void VectorOfGMat::append( cv::GMat value );
+AutoIt:
+    $oVectorOfGMat.append( $value ) -> None
+```
+
+### VectorOfGMat::at
+
+```cpp
+cv::GMat VectorOfGMat::at( size_t index );
+AutoIt:
+    $oVectorOfGMat.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfGMat::at( size_t   index,
+                       cv::GMat value );
+AutoIt:
+    $oVectorOfGMat.at( $index, $value ) -> None
+```
+
+### VectorOfGMat::clear
+
+```cpp
+void VectorOfGMat::clear();
+AutoIt:
+    $oVectorOfGMat.clear() -> None
+```
+
+### VectorOfGMat::empty
+
+```cpp
+bool VectorOfGMat::empty();
+AutoIt:
+    $oVectorOfGMat.empty() -> retval
+```
+
+### VectorOfGMat::end
+
+```cpp
+void* VectorOfGMat::end();
+AutoIt:
+    $oVectorOfGMat.end() -> retval
+```
+
+### VectorOfGMat::get\_Item
+
+```cpp
+cv::GMat VectorOfGMat::get_Item( size_t index );
+AutoIt:
+    $oVectorOfGMat.Item( $index ) -> retval
+    $oVectorOfGMat( $index ) -> retval
+```
+
+### VectorOfGMat::get\_\_NewEnum
+
+```cpp
+IUnknown* VectorOfGMat::get__NewEnum();
+AutoIt:
+    $oVectorOfGMat._NewEnum() -> retval
+```
+
+### VectorOfGMat::push\_back
+
+```cpp
+void VectorOfGMat::push_back( cv::GMat value );
+AutoIt:
+    $oVectorOfGMat.push_back( $value ) -> None
+```
+
+### VectorOfGMat::push\_vector
+
+```cpp
+void VectorOfGMat::push_vector( VectorOfGMat other );
+AutoIt:
+    $oVectorOfGMat.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfGMat::push_vector( VectorOfGMat other,
+                                size_t       count,
+                                size_t       start = 0 );
+AutoIt:
+    $oVectorOfGMat.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfGMat::put\_Item
+
+```cpp
+void VectorOfGMat::put_Item( size_t   index,
+                             cv::GMat item );
+AutoIt:
+    $oVectorOfGMat.Item( $index ) = $item
+```
+
+### VectorOfGMat::size
+
+```cpp
+size_t VectorOfGMat::size();
+AutoIt:
+    $oVectorOfGMat.size() -> retval
+```
+
+### VectorOfGMat::slice
+
+```cpp
+VectorOfGMat VectorOfGMat::slice( size_t start = 0,
+                                  size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfGMat.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfGMat::sort
+
+```cpp
+void VectorOfGMat::sort( void*  comparator,
+                         size_t start = 0,
+                         size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfGMat.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfGMat::sort\_variant
+
+```cpp
+void VectorOfGMat::sort_variant( void*  comparator,
+                                 size_t start = 0,
+                                 size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfGMat.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfGMat::start
+
+```cpp
+void* VectorOfGMat::start();
+AutoIt:
+    $oVectorOfGMat.start() -> retval
 ```
 
 ## VectorOfGCompileArg

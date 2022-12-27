@@ -6,7 +6,18 @@ const {
     CLASS_PTR,
 } = require("./constants");
 
-const hasProp = Object.prototype.hasOwnProperty;
+const {hasOwnProperty: hasProp} = Object.prototype;
+
+const DISID_CONSTANTS = new Map([
+    ["DISPID_COLLECT", -8],
+    ["DISPID_CONSTRUCTOR", -6],
+    ["DISPID_DESTRUCTOR", -7],
+    ["DISPID_EVALUATE", -5],
+    ["DISPID_NEWENUM", -4],
+    ["DISPID_PROPERTYPUT", -3],
+    ["DISPID_UNKNOWN", -1],
+    ["DISPID_VALUE", 0],
+]);
 
 // Visual studio gave me 106 as the first resource id
 // I just reused it since I don't know the impact of changing
@@ -31,6 +42,13 @@ class CoClass {
             .join("_");
     }
 
+    static getDispId(idl) {
+        const start = idl.indexOf("id(") + "id(".length;
+        const end = idl.indexOf(")", start + 1);
+        const sid = idl.slice(start, end);
+        return DISID_CONSTANTS.has(sid) ? DISID_CONSTANTS.get(sid) : Number(sid);
+    }
+
     constructor(fqn) {
         const path = fqn.split("::");
 
@@ -43,6 +61,7 @@ class CoClass {
         this.parents = new Set();
         this.children = new Set();
         this.idlnames = new Map();
+        this.dispid = 0;
         this.properties = new Map();
         this.methods = new Map();
         this.enums = new Set();
@@ -110,9 +129,7 @@ class CoClass {
 
         let fname = path[path.length - 1];
 
-        const is_constructor = fname === this.name;
-
-        if (is_constructor) {
+        if (fname === this.name && (this.is_class || this.is_struct)) {
             fname = "create";
             list_of_modifiers.push("/CO", "/S");
             decl[0] = path.slice(0, -1).join("::");
@@ -151,7 +168,7 @@ class CoClass {
 
         if (!this.idlnames.has(lidlname)) {
             if (id == null) {
-                id = this.idlnames.size + 1;
+                id = ++this.dispid;
             }
 
             this.idlnames.set(lidlname, [idlname, id, fname]);

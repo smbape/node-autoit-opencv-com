@@ -7,7 +7,12 @@ CCvModule _AtlModule;
 // Point d'entrée de la DLL
 STDAPI_(BOOL) DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
 {
-	hInstance;
+	if (dwReason == DLL_PROCESS_ATTACH) {
+		ExtendedHolder::CreateActivationContext(hInstance);
+	}
+	else if (dwReason == DLL_PROCESS_DETACH) {
+		ExtendedHolder::_ActCtx.Set(INVALID_HANDLE_VALUE);
+	}
 	return _AtlModule.DllMain(dwReason, lpReserved);
 }
 
@@ -70,4 +75,28 @@ STDAPI DllInstall(BOOL bInstall, _In_opt_ LPCWSTR pszCmdLine)
 	}
 
 	return hr;
+}
+
+namespace {
+	ULONG_PTR activated = false;
+	std::vector<ULONG_PTR> cookies;
+}
+
+STDAPI_(BOOL) DLLActivateActCtx()
+{
+	ULONG_PTR cookie = 0;
+	if (ExtendedHolder::_ActCtx.Activate(cookie)) {
+		cookies.push_back(cookie);
+		return true;
+	}
+	return false;
+}
+
+STDAPI_(BOOL) DLLDeactivateActCtx()
+{
+	if (!cookies.empty() && ExtendedHolder::_ActCtx.Deactivate(cookies.back())) {
+		cookies.pop_back();
+		return true;
+	}
+	return false;
 }

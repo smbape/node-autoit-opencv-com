@@ -7,11 +7,11 @@ const {makeExpansion, useNamespaces} = require("./alias");
 
 Object.assign(exports, {
     declare: (generator, coclass, overrides, fname, idlname, iidl, ipublic, impl, is_test, options = {}) => {
-        const {shared_ptr} = options;
+        const {shared_ptr, APP_NAME} = options;
         const {fqn} = coclass;
         const cotype = coclass.getClassName();
         const has_override = overrides.length !== 1;
-        const varprefix = "pVarArg";
+        const varprefix = "pArg";
         const is_method_test = is_test && !options.notest.has(`${ fqn }::${ fname }`);
         const attrs = [];
         const has_docs = !fqn.endsWith("AndVariant");
@@ -20,7 +20,7 @@ Object.assign(exports, {
         let minout = Number.POSITIVE_INFINITY;
         let minopt = Number.POSITIVE_INFINITY;
         let idl_only = false;
-        const bodies = [];
+        const entries = [];
         const indent = " ".repeat(has_override ? 4 : 0);
 
         if (has_docs) {
@@ -45,8 +45,7 @@ Object.assign(exports, {
             const outputs = new Map();
             const retval = [];
             const cindent = indent + " ".repeat(4);
-
-            bodies.push({
+            const entry = {
                 decl,
                 declarations,
                 conditions,
@@ -55,7 +54,9 @@ Object.assign(exports, {
                 optionals,
                 outputs,
                 retval,
-            });
+            };
+
+            entries.push(entry);
 
             const in_args = new Array(argc).fill(false);
             const out_args = new Array(argc).fill(false);
@@ -111,7 +112,7 @@ Object.assign(exports, {
                 return diff === 0 ? a - b : diff;
             });
 
-            bodies[bodies.length - 1].indexes = indexes;
+            entry.indexes = indexes;
 
             let firstoptarg = argc;
 
@@ -480,6 +481,9 @@ Object.assign(exports, {
 
             id = coclass.addIDLName(idlname, fname, id);
 
+            entry.id = id;
+            entry.idlname = idlname;
+
             if (!has_docs) {
                 continue;
             }
@@ -508,17 +512,13 @@ Object.assign(exports, {
 
             const is_idl_class = !coclass.noidl && (coclass.is_class || coclass.is_struct);
             const is_static = func_modifiers.includes("/S");
-            const caller = !is_idl_class || is_static ? `_${ options.APP_NAME }_ObjCreate("${ coclass.progid }")` : `$o${ coclass.name }`;
-            let description = `${ caller }.${ idlname }( ${ argstr } )`;
+            const autoit_caller = !is_idl_class || is_static ? `_${ APP_NAME }_ObjCreate("${ coclass.progid }")` : `$o${ coclass.name }`;
+            let autoit_description = `${ autoit_caller }.${ idlname }( ${ argstr } )${ proput ? ` = ${ proput }` : ` -> ${ outstr }` }`;
 
-            if (proput) {
-                description += ` = ${ proput }`;
-            } else {
-                description += ` -> ${ outstr }`;
-            }
-
-            if (id === "DISPID_VALUE" && attrs.includes("propget")) {
-                description += `\n    ${ caller }( ${ argstr } ) -> ${ outstr }`;
+            if (id === "DISPID_VALUE" && argnamelist.length !== 0 && attrs.includes("propget")) {
+                autoit_description += `\n    $o${ coclass.name }( ${ argstr } ) -> ${ outstr }`;
+                if (!attrs.includes("proput")) {
+                }
             }
 
             let cppsignature = `${ generator.getCppType(return_value_type, coclass, options) } ${ fqn }::${ fname }`;
@@ -568,10 +568,10 @@ Object.assign(exports, {
                 cppsignature,
                 // "",
                 "AutoIt:",
-                " ".repeat(4) + description,
+                " ".repeat(4) + autoit_description,
                 "```",
                 ""
-            ].join("\n").replace(/\s*\( {2}\)/g, "()"));
+            ].join("\n").replace(/\s*\( {2}\)/g, "()").replace(/\s*\[ +\]/g, "[]"));
         }
 
         if (minopt === Number.POSITIVE_INFINITY) {
@@ -648,7 +648,7 @@ Object.assign(exports, {
             outputs,
             retval,
             indexes,
-        } of bodies) {
+        } of entries) {
             const [name, return_value_type, func_modifiers, list_of_arguments] = decl;
 
             // Add dependency to return_value_type
@@ -1059,9 +1059,11 @@ Object.assign(exports, {
         if (!idl_only) {
             ipublic.push(`STDMETHOD(${ fname })(${ implargs.join(", ") });`);
 
-            if (bodies.length !== 0) {
+            if (entries.length !== 0) {
                 impl.push(`
                     STDMETHODIMP C${ cotype }::${ fname }(${ implargs.join(", ") }) {
+                        CActCtxActivator ScopedContext(ExtendedHolder::_ActCtx);
+
                         ${ body.join("\n").replace(/argument (\d+)/g, (match, j) => `argument ${ j }`).trim().split("\n").join(`\n${ " ".repeat(24) }`) }
                         ${ maxargc !== 0 ? "fprintf(stderr, \"Overload resolution failed: in %s, file %s, line %d\\n\", AutoIt_Func, __FILE__, __LINE__); fflush(stdout); fflush(stderr);" : "" }
                         return hr;

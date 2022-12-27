@@ -11,10 +11,10 @@
 #include "..\..\..\..\autoit-opencv-com\udf\opencv_udf_utils.au3"
 
 ;~ Sources:
-;~     https://docs.opencv.org/4.6.0/d7/dff/tutorial_feature_homography.html
-;~     https://github.com/opencv/opencv/blob/4.6.0/samples/cpp/tutorial_code/features2D/feature_homography/SURF_FLANN_matching_homography_Demo.cpp
+;~     https://docs.opencv.org/4.7.0/d7/dff/tutorial_feature_homography.html
+;~     https://github.com/opencv/opencv/blob/4.7.0/samples/cpp/tutorial_code/features2D/feature_homography/SURF_FLANN_matching_homography_Demo.cpp
 
-_OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world470*"), _OpenCV_FindDLL("autoit_opencv_com470*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 
@@ -144,26 +144,26 @@ Func Detect()
 	Switch $algorithm
 		Case $ORB_DETECTOR
 			$can_compute = True
-			$detector = _OpenCV_ObjCreate("cv.ORB").create()
+			$detector = $cv.ORB.create()
 		Case $BRISK_DETECTOR
 			$can_compute = True
-			$detector = _OpenCV_ObjCreate("cv.BRISK").create()
+			$detector = $cv.BRISK.create()
 		Case $FAST_DETECTOR
-			$detector = _OpenCV_ObjCreate("cv.FastFeatureDetector").create()
+			$detector = $cv.FastFeatureDetector.create()
 		Case $MSER_DETECTOR
-			$detector = _OpenCV_ObjCreate("cv.MSER").create()
+			$detector = $cv.MSER.create()
 		Case $SIMPLE_BLOB_DETECTOR
-			$detector = _OpenCV_ObjCreate("cv.SimpleBlobDetector").create()
+			$detector = $cv.SimpleBlobDetector.create()
 		Case $GFTT_DETECTOR
-			$detector = _OpenCV_ObjCreate("cv.GFTTDetector").create()
+			$detector = $cv.GFTTDetector.create()
 		Case $KAZE_DETECTOR
 			$can_compute = $match_type <> $CV_NORM_HAMMING And $match_type <> $CV_NORM_HAMMING2
-			$detector = _OpenCV_ObjCreate("cv.KAZE").create()
+			$detector = $cv.KAZE.create()
 		Case $AKAZE_DETECTOR
 			$can_compute = True
-			$detector = _OpenCV_ObjCreate("cv.AKAZE").create()
+			$detector = $cv.AKAZE.create()
 		Case $AGAST_DETECTOR
-			$detector = _OpenCV_ObjCreate("cv.AgastFeatureDetector").create()
+			$detector = $cv.AgastFeatureDetector.create()
 	EndSwitch
 
 	Local $keypoints_object = _OpenCV_ObjCreate("VectorOfKeyPoint")
@@ -181,7 +181,7 @@ Func Detect()
 
 	;;-- Step 2: Matching descriptor vectors with a BruteForce based matcher
 	;; Since ORB is a floating-point descriptor NORM_L2 is used
-	Local $matcher = _OpenCV_ObjCreate("cv.BFMatcher").create()
+	Local $matcher = $cv.BFMatcher()
 	Local $knn_matches = _OpenCV_ObjCreate("VectorOfVectorOfDMatch")
 
 	If $can_compute Then
@@ -272,5 +272,5 @@ EndFunc   ;==>Detect
 
 Func _OnAutoItExit()
 	_GDIPlus_Shutdown()
-	_OpenCV_Unregister_And_Close()
+	_OpenCV_Close()
 EndFunc   ;==>_OnAutoItExit

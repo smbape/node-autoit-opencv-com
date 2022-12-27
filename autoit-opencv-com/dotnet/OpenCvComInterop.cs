@@ -10,20 +10,25 @@ using System.Security.Principal;
 public static class OpenCvComInterop
 {
     [DllImport("kernel32.dll", CharSet = CharSet.Ansi, SetLastError = true)]
-    private static extern IntPtr LoadLibrary(String dllToLoad);
+    public static extern IntPtr LoadLibrary(String dllToLoad);
 
     [DllImport("kernel32.dll", CharSet = CharSet.Ansi, SetLastError = true)]
-    private static extern bool FreeLibrary(IntPtr hModule);
+    public static extern bool FreeLibrary(IntPtr hModule);
 
     [DllImport("kernel32.dll", CharSet = CharSet.Ansi, SetLastError = true)]
     private static extern IntPtr GetProcAddress(IntPtr hModule, String name);
 
     private delegate long DllInstall_api(bool bInstall, [In, MarshalAs(UnmanagedType.LPWStr)] String cmdLine);
+    private delegate bool DLLActivateActCtx_api();
+    private delegate bool DLLDeactivateActCtx_api();
 
-    private static IntPtr _h_opencv_world_dll = IntPtr.Zero;
-    private static IntPtr _h_opencv_ffmpeg_dll = IntPtr.Zero;
-    private static IntPtr _h_autoit_opencv_com_dll = IntPtr.Zero;
+    private static IntPtr hOpenCvWorld = IntPtr.Zero;
+    private static IntPtr hOpenCvFfmpeg = IntPtr.Zero;
+    private static IntPtr hOpenCvCom = IntPtr.Zero;
+
     private static DllInstall_api DllInstall;
+    private static DLLActivateActCtx_api DLLActivateActCtx_t;
+    private static DLLDeactivateActCtx_api DLLDeactivateActCtx_t;
 
     public static bool IsAdministrator()
     {
@@ -34,43 +39,66 @@ public static class OpenCvComInterop
         }
     }
 
-    public static void DllOpen(String opencv_world_dll, String autoit_opencv_com_dll)
+    public static void DllOpen(String openCvWorldDll, String openCvComDll)
     {
-        _h_opencv_world_dll = LoadLibrary(opencv_world_dll);
-        if (_h_opencv_world_dll == IntPtr.Zero)
+        hOpenCvWorld = LoadLibrary(openCvWorldDll);
+        if (hOpenCvWorld == IntPtr.Zero)
         {
-            throw new Win32Exception("Failed to load opencv library '" + opencv_world_dll + "'");
+            throw new Win32Exception("Failed to load opencv library '" + openCvWorldDll + "'");
         }
 
-        var parts = opencv_world_dll.Split(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
-        parts[parts.Length - 1] = "opencv_videoio_ffmpeg460_64.dll";
-        var opencv_ffmpeg_dll = String.Join(Path.DirectorySeparatorChar.ToString(), parts);
-        _h_opencv_ffmpeg_dll = LoadLibrary(opencv_ffmpeg_dll);
-        if (_h_opencv_ffmpeg_dll == IntPtr.Zero)
+        var parts = openCvWorldDll.Split(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+        parts[parts.Length - 1] = "opencv_videoio_ffmpeg470_64.dll";
+        var openCvFfmpegDll = String.Join(Path.DirectorySeparatorChar.ToString(), parts);
+        hOpenCvFfmpeg = LoadLibrary(openCvFfmpegDll);
+        if (hOpenCvFfmpeg == IntPtr.Zero)
         {
-            throw new Win32Exception("Failed to load ffmpeg library '" + opencv_ffmpeg_dll + "'");
+            throw new Win32Exception("Failed to load ffmpeg library '" + openCvFfmpegDll + "'");
         }
 
-        _h_autoit_opencv_com_dll = LoadLibrary(autoit_opencv_com_dll);
-        if (_h_autoit_opencv_com_dll == IntPtr.Zero)
+        hOpenCvCom = LoadLibrary(openCvComDll);
+        if (hOpenCvCom == IntPtr.Zero)
         {
-            throw new Win32Exception("Failed to open autoit opencv com library '" + autoit_opencv_com_dll + "'");
+            throw new Win32Exception("Failed to open autoit opencv com library '" + openCvComDll + "'");
         }
 
-        IntPtr DllInstall_addr = GetProcAddress(_h_autoit_opencv_com_dll, "DllInstall");
+        IntPtr DllInstall_addr = GetProcAddress(hOpenCvCom, "DllInstall");
         if (DllInstall_addr == IntPtr.Zero)
         {
             throw new Win32Exception("Unable to find DllInstall method");
         }
+        DllInstall = (DllInstall_api) Marshal.GetDelegateForFunctionPointer(DllInstall_addr, typeof(DllInstall_api));
 
-        DllInstall = (DllInstall_api)Marshal.GetDelegateForFunctionPointer(DllInstall_addr, typeof(DllInstall_api));
+        IntPtr DLLActivateActCtx_addr = GetProcAddress(hOpenCvCom, "DLLActivateActCtx");
+        if (DLLActivateActCtx_addr == IntPtr.Zero)
+        {
+            throw new Win32Exception("Unable to find DLLActivateActCtx method");
+        }
+        DLLActivateActCtx_t = (DLLActivateActCtx_api) Marshal.GetDelegateForFunctionPointer(DLLActivateActCtx_addr, typeof(DLLActivateActCtx_api));
+
+        IntPtr DLLDeactivateActCtx_addr = GetProcAddress(hOpenCvCom, "DLLDeactivateActCtx");
+        if (DLLDeactivateActCtx_addr == IntPtr.Zero)
+        {
+            throw new Win32Exception("Unable to find DLLDeactivateActCtx method");
+        }
+        DLLDeactivateActCtx_t = (DLLDeactivateActCtx_api) Marshal.GetDelegateForFunctionPointer(DLLDeactivateActCtx_addr, typeof(DLLDeactivateActCtx_api));
     }
 
     public static void DllClose()
     {
-        FreeLibrary(_h_autoit_opencv_com_dll);
-        FreeLibrary(_h_opencv_world_dll);
-        FreeLibrary(_h_opencv_ffmpeg_dll);
+        FreeLibrary(hOpenCvCom);
+        FreeLibrary(hOpenCvWorld);
+        FreeLibrary(hOpenCvFfmpeg);
+    }
+
+    public static bool DLLActivateActCtx()
+    {
+        return DLLActivateActCtx_t();
+    }
+
+    public static bool DLLDeactivateActCtx()
+    {
+        return DLLDeactivateActCtx_t();
     }
 
     public static void Register(String cmdLine = "")
@@ -103,16 +131,24 @@ public static class OpenCvComInterop
 
     public static dynamic ObjCreate(String progID)
     {
-        String[] namespaces = { "", "OpenCV.", "OpenCV.cv." };
-        foreach (String itNamespace in namespaces)
-        {
-            Type ObjType = Type.GetTypeFromProgID(itNamespace + progID);
-            if (ObjType != null)
+        DLLActivateActCtx();
+
+        try {
+            String[] namespaces = { "", "OpenCV.", "OpenCV.cv." };
+            foreach (String itNamespace in namespaces)
             {
-                return Activator.CreateInstance(ObjType);
+                Type ObjType = Type.GetTypeFromProgID(itNamespace + progID);
+                if (ObjType != null)
+                {
+                    return Activator.CreateInstance(ObjType);
+                }
             }
+
+            return null;
         }
-        return null;
+        finally {
+            DLLDeactivateActCtx();
+        }
     }
 
     public static dynamic Params(ref Hashtable kwargs)
@@ -342,36 +378,25 @@ public static class OpenCvComInterop
 #if DEBUG
         buildType = "Debug";
 #else
-        buildType = "RelWithDebInfo";
+        buildType = "Release";
 #endif
         }
 
         if (buildType != "Debug")
         {
-            buildType = "RelWithDebInfo";
+            buildType = "Release";
         }
 
         String postSuffix = buildType == "Debug" ? "d" : "";
 
         var hints = new List<string>{
             ".",
-            "build_x64",
-            "build_x64\\" + buildType,
-            "build",
-            "build\\x64",
-            "build\\x64\\vc17\\bin",
-            "build\\x64\\vc15\\bin",
-            "build\\x64\\vc14\\bin",
             "autoit-opencv-com",
-            "autoit-opencv-com\\build_x64",
-            "autoit-opencv-com\\build_x64\\" + buildType
+            "autoit-opencv-com\\build_x64\\bin\\" + buildType,
+            "opencv\\build\\x64\\vc*\\bin",
+            "opencv-4.7.0-*\\build\\x64\\vc*\\bin",
+            "opencv-4.7.0-*\\opencv\\build\\x64\\vc*\\bin"
         };
-
-        if (buildType != "Debug")
-        {
-            hints.Add("build_x64\\Release");
-            hints.Add("autoit-opencv-com\\build_x64\\Release");
-        }
 
         return FindFile(path + postSuffix + ".dll", rootPath, filter, hints.ToArray());
     }

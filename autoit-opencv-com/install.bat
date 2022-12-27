@@ -24,7 +24,7 @@
 @SET install_user=0
 @SET uninstall_user=0
 @SET DEBUG_PREFIX=
-@SET INT_DIR=RelWithDebInfo
+@SET INT_DIR=Release
 
 @SET nparms=20
 :LOOP
@@ -41,10 +41,10 @@
 
 :mainmenu
 @SET DLLDIRNAME=
-@SET DLLNAME=autoit_opencv_com460%DEBUG_PREFIX%.dll
+@SET DLLNAME=autoit_opencv_com470%DEBUG_PREFIX%.dll
 
 @IF EXIST "%CD%\build_x64\%INT_DIR%\%DLLNAME%" @SET "DLLDIRNAME=%CD%\build_x64\%INT_DIR%\"
-@IF EXIST "%CD%\..\opencv-4.6.0-vc14_vc15\opencv\build\x64\vc15\bin" @SET "PATH=%CD%\..\opencv-4.6.0-vc14_vc15\opencv\build\x64\vc15\bin;%PATH%"
+@IF EXIST "%CD%\..\opencv-4.7.0-windows\opencv\build\x64\vc15\bin" @SET "PATH=%CD%\..\opencv-4.7.0-windows\opencv\build\x64\vc15\bin;%PATH%"
 
 @SET DLLNAME=%DLLDIRNAME%%DLLNAME%
 

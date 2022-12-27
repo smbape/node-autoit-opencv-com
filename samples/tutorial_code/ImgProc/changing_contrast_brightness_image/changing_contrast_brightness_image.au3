@@ -12,10 +12,10 @@
 #include "..\..\..\..\autoit-opencv-com\udf\opencv_udf_utils.au3"
 
 ;~ Sources:
-;~     https://docs.opencv.org/4.6.0/d3/dc1/tutorial_basic_linear_transform.html
-;~     https://github.com/opencv/opencv/blob/4.6.0/samples/cpp/tutorial_code/ImgProc/changing_contrast_brightness_image/changing_contrast_brightness_image.cpp
+;~     https://docs.opencv.org/4.7.0/d3/dc1/tutorial_basic_linear_transform.html
+;~     https://github.com/opencv/opencv/blob/4.7.0/samples/cpp/tutorial_code/ImgProc/changing_contrast_brightness_image/changing_contrast_brightness_image.cpp
 
-_OpenCV_Open_And_Register(_OpenCV_FindDLL("opencv_world4*", "opencv-4.*\opencv"), _OpenCV_FindDLL("autoit_opencv_com4*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world470*"), _OpenCV_FindDLL("autoit_opencv_com470*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 
@@ -161,7 +161,7 @@ Func gammaCorrection()
 	GUICtrlSetData($LabelGamma, "Gamma correction : " & StringFormat("%.2f", $gamma))
 
 	;;! [changing-contrast-brightness-gamma-correction]
-	Local $lookUpTable = _OpenCV_ObjCreate("cv.Mat").create(1, 256, $CV_8U)
+	Local $lookUpTable = $cv.Mat.create(1, 256, $CV_8U)
 	Local $p = DllStructCreate("byte value[256]", $lookUpTable.ptr())
 
 	For $i = 0 To 255
@@ -179,5 +179,5 @@ EndFunc   ;==>gammaCorrection
 
 Func _OnAutoItExit()
 	_GDIPlus_Shutdown()
-	_OpenCV_Unregister_And_Close()
+	_OpenCV_Close()
 EndFunc   ;==>_OnAutoItExit
