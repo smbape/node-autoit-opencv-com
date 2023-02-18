@@ -27,7 +27,7 @@ $OpenCvComInterop = _OpenCV_FindFile -Path "dotnet\OpenCvComInterop.cs" -SearchP
     "autoit-opencv-com"
 )
 
-$OpenCVInteropServices = _OpenCV_FindFile -Path "OpenCV.InteropServices.dll" -SearchPaths @(
+$OpenCVInteropServices = _OpenCV_FindFile -Path "dotnet\OpenCV.InteropServices.dll" -SearchPaths @(
     "."
     "autoit-opencv-com"
     "autoit-opencv-com\generated"

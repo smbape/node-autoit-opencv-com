@@ -219,8 +219,6 @@ class AutoItGenerator {
                 ipublic.push("STDMETHOD(put_self)(ULONGLONG ptr);");
                 impl.push(`
                     STDMETHODIMP C${ cotype }::get_self(VARIANT* pVal) {
-                        CActCtxActivator ScopedContext(ExtendedHolder::_ActCtx);
-
                         if (__self) {
                             V_VT(pVal) = VT_UI8;
                             V_UI8(pVal) = reinterpret_cast<ULONGLONG>(__self->get());
@@ -230,8 +228,6 @@ class AutoItGenerator {
                     }
 
                     STDMETHODIMP C${ cotype }::put_self(ULONGLONG ptr) {
-                        CActCtxActivator ScopedContext(ExtendedHolder::_ActCtx);
-
                         if (__self) {
                             *__self = ::autoit::reference_internal(reinterpret_cast<${ coclass.fqn }*>(ptr));
                             return S_OK;
@@ -488,8 +484,7 @@ class AutoItGenerator {
                             _Out_opt_ UINT* puArgErr)
                         {
                             CActCtxActivator ScopedContext(ExtendedHolder::_ActCtx);
-                            return _tih.Invoke((IDispatch*)this, dispidMember, riid, lcid,
-                            wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr);
+                            return _tih.Invoke((IDispatch*)this, dispidMember, riid, lcid, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr);
                         }
 
                     DECLARE_REGISTRY_RESOURCEID(IDR_${ cotype.toUpperCase() })

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -9,26 +10,69 @@ using System.Security.Principal;
 
 public static class OpenCvComInterop
 {
+    // https://github.com/microsoft/vstest/blob/main/src/Microsoft.TestPlatform.ObjectModel/RegistryFreeActivationContext.cs
+    // Activation Context API Functions
+    [DllImport("Kernel32.dll", SetLastError = true, EntryPoint = "CreateActCtxW")]
+    public extern static IntPtr CreateActCtx(ref ACTCTX actctx);
+
+    [DllImport("Kernel32.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    public static extern bool ActivateActCtx(IntPtr hActCtx, out IntPtr lpCookie);
+
+    [DllImport("kernel32.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    public static extern bool DeactivateActCtx(int dwFlags, IntPtr lpCookie);
+
+    [DllImport("Kernel32.dll", SetLastError = true)]
+    public static extern void ReleaseActCtx(IntPtr hActCtx);
+
+    // Activation context structure
+    [StructLayout(LayoutKind.Sequential, Pack = 4, CharSet = CharSet.Unicode)]
+    [SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Layout struct")]
+    public struct ACTCTX
+    {
+        public Int32 cbSize;
+        public UInt32 dwFlags;
+        public string lpSource;
+        public UInt16 wProcessorArchitecture;
+        public UInt16 wLangId;
+        public string lpAssemblyDirectory;
+        public string lpResourceName;
+        public string lpApplicationName;
+        public IntPtr hModule;
+    }
+
+    public static readonly IntPtr INVALID_HANDLE_VALUE = new IntPtr(-1);
+    public static readonly UInt32 ACTCTX_FLAG_PROCESSOR_ARCHITECTURE_VALID = 1 << 0;
+    public static readonly UInt32 ACTCTX_FLAG_LANGID_VALID = 1 << 1;
+    public static readonly UInt32 ACTCTX_FLAG_ASSEMBLY_DIRECTORY_VALID = 1 << 2;
+    public static readonly UInt32 ACTCTX_FLAG_RESOURCE_NAME_VALID = 1 << 3;
+    public static readonly UInt32 ACTCTX_FLAG_SET_PROCESS_DEFAULT = 1 << 4;
+    public static readonly UInt32 ACTCTX_FLAG_APPLICATION_NAME_VALID = 1 << 5;
+    public static readonly UInt32 ACTCTX_FLAG_HMODULE_VALID = 1 << 7;
+
     [DllImport("kernel32.dll", CharSet = CharSet.Ansi, SetLastError = true)]
-    public static extern IntPtr LoadLibrary(String dllToLoad);
+    public static extern IntPtr LoadLibrary(string dllToLoad);
 
     [DllImport("kernel32.dll", CharSet = CharSet.Ansi, SetLastError = true)]
     public static extern bool FreeLibrary(IntPtr hModule);
 
     [DllImport("kernel32.dll", CharSet = CharSet.Ansi, SetLastError = true)]
-    private static extern IntPtr GetProcAddress(IntPtr hModule, String name);
+    private static extern IntPtr GetProcAddress(IntPtr hModule, string name);
 
-    private delegate long DllInstall_api(bool bInstall, [In, MarshalAs(UnmanagedType.LPWStr)] String cmdLine);
-    private delegate bool DLLActivateActCtx_api();
-    private delegate bool DLLDeactivateActCtx_api();
+    private delegate long DllInstall_api(bool bInstall, [In, MarshalAs(UnmanagedType.LPWStr)] string cmdLine);
+    private delegate bool DllActivateManifest_api([In, MarshalAs(UnmanagedType.LPWStr)] string manifest);
+    private delegate bool DllActivateActCtx_api(ref ACTCTX actctx);
+    private delegate bool DllDeactivateActCtx_api();
 
     private static IntPtr hOpenCvWorld = IntPtr.Zero;
     private static IntPtr hOpenCvFfmpeg = IntPtr.Zero;
     private static IntPtr hOpenCvCom = IntPtr.Zero;
 
     private static DllInstall_api DllInstall;
-    private static DLLActivateActCtx_api DLLActivateActCtx_t;
-    private static DLLDeactivateActCtx_api DLLDeactivateActCtx_t;
+    private static DllActivateManifest_api DllActivateManifest_t;
+    private static DllActivateActCtx_api DllActivateActCtx_t;
+    private static DllDeactivateActCtx_api DllDeactivateActCtx_t;
 
     public static bool IsAdministrator()
     {
@@ -39,49 +83,56 @@ public static class OpenCvComInterop
         }
     }
 
-    public static void DllOpen(String openCvWorldDll, String openCvComDll)
+    public static void DllOpen(string openCvWorldDll, string openCvComDll)
     {
         hOpenCvWorld = LoadLibrary(openCvWorldDll);
         if (hOpenCvWorld == IntPtr.Zero)
         {
-            throw new Win32Exception("Failed to load opencv library '" + openCvWorldDll + "'");
+            throw new Win32Exception(Marshal.GetLastWin32Error(), "Failed to load opencv library '" + openCvWorldDll + "'");
         }
 
         var parts = openCvWorldDll.Split(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
         parts[parts.Length - 1] = "opencv_videoio_ffmpeg470_64.dll";
-        var openCvFfmpegDll = String.Join(Path.DirectorySeparatorChar.ToString(), parts);
+        var openCvFfmpegDll = string.Join(Path.DirectorySeparatorChar.ToString(), parts);
         hOpenCvFfmpeg = LoadLibrary(openCvFfmpegDll);
         if (hOpenCvFfmpeg == IntPtr.Zero)
         {
-            throw new Win32Exception("Failed to load ffmpeg library '" + openCvFfmpegDll + "'");
+            throw new Win32Exception(Marshal.GetLastWin32Error(), "Failed to load ffmpeg library '" + openCvFfmpegDll + "'");
         }
 
         hOpenCvCom = LoadLibrary(openCvComDll);
         if (hOpenCvCom == IntPtr.Zero)
         {
-            throw new Win32Exception("Failed to open autoit opencv com library '" + openCvComDll + "'");
+            throw new Win32Exception(Marshal.GetLastWin32Error(), "Failed to open autoit opencv com library '" + openCvComDll + "'");
         }
 
         IntPtr DllInstall_addr = GetProcAddress(hOpenCvCom, "DllInstall");
         if (DllInstall_addr == IntPtr.Zero)
         {
-            throw new Win32Exception("Unable to find DllInstall method");
+            throw new Win32Exception(Marshal.GetLastWin32Error(), "Unable to find DllInstall method");
         }
         DllInstall = (DllInstall_api) Marshal.GetDelegateForFunctionPointer(DllInstall_addr, typeof(DllInstall_api));
 
-        IntPtr DLLActivateActCtx_addr = GetProcAddress(hOpenCvCom, "DLLActivateActCtx");
-        if (DLLActivateActCtx_addr == IntPtr.Zero)
+        IntPtr DllActivateActCtx_addr = GetProcAddress(hOpenCvCom, "DllActivateActCtx");
+        if (DllActivateActCtx_addr == IntPtr.Zero)
         {
-            throw new Win32Exception("Unable to find DLLActivateActCtx method");
+            throw new Win32Exception(Marshal.GetLastWin32Error(), "Unable to find DllActivateActCtx method");
         }
-        DLLActivateActCtx_t = (DLLActivateActCtx_api) Marshal.GetDelegateForFunctionPointer(DLLActivateActCtx_addr, typeof(DLLActivateActCtx_api));
+        DllActivateActCtx_t = (DllActivateActCtx_api) Marshal.GetDelegateForFunctionPointer(DllActivateActCtx_addr, typeof(DllActivateActCtx_api));
 
-        IntPtr DLLDeactivateActCtx_addr = GetProcAddress(hOpenCvCom, "DLLDeactivateActCtx");
-        if (DLLDeactivateActCtx_addr == IntPtr.Zero)
+        IntPtr DllActivateManifest_addr = GetProcAddress(hOpenCvCom, "DllActivateManifest");
+        if (DllActivateManifest_addr == IntPtr.Zero)
         {
-            throw new Win32Exception("Unable to find DLLDeactivateActCtx method");
+            throw new Win32Exception(Marshal.GetLastWin32Error(), "Unable to find DllActivateManifest method");
         }
-        DLLDeactivateActCtx_t = (DLLDeactivateActCtx_api) Marshal.GetDelegateForFunctionPointer(DLLDeactivateActCtx_addr, typeof(DLLDeactivateActCtx_api));
+        DllActivateManifest_t = (DllActivateManifest_api) Marshal.GetDelegateForFunctionPointer(DllActivateManifest_addr, typeof(DllActivateManifest_api));
+
+        IntPtr DllDeactivateActCtx_addr = GetProcAddress(hOpenCvCom, "DllDeactivateActCtx");
+        if (DllDeactivateActCtx_addr == IntPtr.Zero)
+        {
+            throw new Win32Exception(Marshal.GetLastWin32Error(), "Unable to find DllDeactivateActCtx method");
+        }
+        DllDeactivateActCtx_t = (DllDeactivateActCtx_api) Marshal.GetDelegateForFunctionPointer(DllDeactivateActCtx_addr, typeof(DllDeactivateActCtx_api));
     }
 
     public static void DllClose()
@@ -91,19 +142,27 @@ public static class OpenCvComInterop
         FreeLibrary(hOpenCvFfmpeg);
     }
 
-    public static bool DLLActivateActCtx()
+    public static bool DllActivateManifest(string manifest = null)
     {
-        return DLLActivateActCtx_t();
+        if (string.IsNullOrWhiteSpace(manifest)) {
+            manifest = Environment.GetEnvironmentVariable("OPENCV_ACTCTX_MANIFEST");
+        }
+        return DllActivateManifest_t(manifest);
     }
 
-    public static bool DLLDeactivateActCtx()
+    public static bool DllActivateActCtx(ref ACTCTX actctx)
     {
-        return DLLDeactivateActCtx_t();
+        return DllActivateActCtx_t(ref actctx);
     }
 
-    public static void Register(String cmdLine = "")
+    public static bool DllDeactivateActCtx()
     {
-        if (String.IsNullOrWhiteSpace(cmdLine) && !IsAdministrator())
+        return DllDeactivateActCtx_t();
+    }
+
+    public static void Register(string cmdLine = "")
+    {
+        if (string.IsNullOrWhiteSpace(cmdLine) && !IsAdministrator())
         {
             cmdLine = "user";
         }
@@ -111,13 +170,13 @@ public static class OpenCvComInterop
         var hr = DllInstall(true, cmdLine);
         if (hr < 0)
         {
-            throw new Win32Exception("!>Error: DllInstall " + hr);
+            throw new Win32Exception(Marshal.GetLastWin32Error(), "!>Error: DllInstall " + hr);
         }
     }
 
-    public static void Unregister(String cmdLine = "")
+    public static void Unregister(string cmdLine = "")
     {
-        if (String.IsNullOrWhiteSpace(cmdLine) && !IsAdministrator())
+        if (string.IsNullOrWhiteSpace(cmdLine) && !IsAdministrator())
         {
             cmdLine = "user";
         }
@@ -125,17 +184,17 @@ public static class OpenCvComInterop
         var hr = DllInstall(false, cmdLine);
         if (hr < 0)
         {
-            throw new Win32Exception("!>Error: DllInstall " + hr);
+            throw new Win32Exception(Marshal.GetLastWin32Error(), "!>Error: DllInstall " + hr);
         }
     }
 
-    public static dynamic ObjCreate(String progID)
+    public static dynamic ObjCreate(string progID)
     {
-        DLLActivateActCtx();
+        DllActivateManifest();
 
         try {
-            String[] namespaces = { "", "OpenCV.", "OpenCV.cv." };
-            foreach (String itNamespace in namespaces)
+            string[] namespaces = { "", "OpenCV.", "OpenCV.cv." };
+            foreach (string itNamespace in namespaces)
             {
                 Type ObjType = Type.GetTypeFromProgID(itNamespace + progID);
                 if (ObjType != null)
@@ -147,7 +206,7 @@ public static class OpenCvComInterop
             return null;
         }
         finally {
-            DLLDeactivateActCtx();
+            DllDeactivateActCtx();
         }
     }
 
@@ -171,9 +230,9 @@ public static class OpenCvComInterop
     public const int FLTA_FOLDERS = 1 << 1;
     public const int FLTA_FILESFOLDERS = FLTA_FILES | FLTA_FOLDERS;
 
-    private static List<String> FindFiles(ref String[] parts, String rootPath, int flags, bool relative, int i = 0)
+    private static List<string> FindFiles(ref string[] parts, string rootPath, int flags, bool relative, int i = 0)
     {
-        var matches = new List<String>();
+        var matches = new List<string>();
 
         if ((flags & FLTA_FILESFOLDERS) == 0)
         {
@@ -266,14 +325,14 @@ public static class OpenCvComInterop
         return matches;
     }
 
-    public static String NormalizePath(String path)
+    public static string NormalizePath(string path)
     {
         var parts = path.Split('/', '\\');
         int end = 0;
 
         foreach (var part in parts)
         {
-            if (String.IsNullOrWhiteSpace(part) || part == ".")
+            if (string.IsNullOrWhiteSpace(part) || part == ".")
             {
                 continue;
             }
@@ -293,7 +352,7 @@ public static class OpenCvComInterop
             return "";
         }
 
-        String normalized = parts[0];
+        string normalized = parts[0];
         for (int i = 1; i < end; i++)
         {
             normalized += Path.DirectorySeparatorChar + parts[i];
@@ -302,34 +361,34 @@ public static class OpenCvComInterop
         return normalized;
     }
 
-    public static String[] FindFiles(String path, String rootPath, int flags = FLTA_FILESFOLDERS, bool relative = true)
+    public static string[] FindFiles(string path, string rootPath, int flags = FLTA_FILESFOLDERS, bool relative = true)
     {
         var parts = path.Split('/', '\\');
         var files = FindFiles(ref parts, rootPath, flags, relative);
         return files.ToArray();
     }
 
-    public static String FindFile(String path)
+    public static string FindFile(string path)
     {
-        String rootPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        string rootPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         return FindFile(path, rootPath);
     }
 
-    public static String FindFile(String path, String rootPath, String filter = null)
+    public static string FindFile(string path, string rootPath, string filter = null)
     {
         return FindFile(path, rootPath, filter, new[] { "." });
     }
 
-    public static String FindFile(String path, String rootPath, String[] hints)
+    public static string FindFile(string path, string rootPath, string[] hints)
     {
         return FindFile(path, rootPath, "", hints);
     }
 
-    public static String FindFile(String path, String rootPath, String filter, String[] hints)
+    public static string FindFile(string path, string rootPath, string filter, string[] hints)
     {
-        String found = "";
+        string found = "";
 
-        if (String.IsNullOrWhiteSpace(path))
+        if (string.IsNullOrWhiteSpace(path))
         {
             return found;
         }
@@ -338,13 +397,13 @@ public static class OpenCvComInterop
         {
             foreach (var search_path in hints)
             {
-                if (String.IsNullOrWhiteSpace(search_path))
+                if (string.IsNullOrWhiteSpace(search_path))
                 {
                     continue;
                 }
 
                 var spath = search_path;
-                if (!String.IsNullOrWhiteSpace(filter))
+                if (!string.IsNullOrWhiteSpace(filter))
                 {
                     spath = filter + Path.DirectorySeparatorChar + spath;
                 }
@@ -368,13 +427,13 @@ public static class OpenCvComInterop
         return found;
     }
 
-    public static String FindDLL(String path, String filter = null, String rootPath = null, String buildType = null)
+    public static string FindDLL(string path, string filter = null, string rootPath = null, string buildType = null)
     {
-        if (String.IsNullOrWhiteSpace(rootPath)) {
+        if (string.IsNullOrWhiteSpace(rootPath)) {
             rootPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         }
 
-        if (String.IsNullOrWhiteSpace(buildType)) {
+        if (string.IsNullOrWhiteSpace(buildType)) {
 #if DEBUG
         buildType = "Debug";
 #else
@@ -387,7 +446,7 @@ public static class OpenCvComInterop
             buildType = "Release";
         }
 
-        String postSuffix = buildType == "Debug" ? "d" : "";
+        string postSuffix = buildType == "Debug" ? "d" : "";
 
         var hints = new List<string>{
             ".",

@@ -238,8 +238,6 @@ Object.assign(exports, {
             if (is_enum) {
                 impl.push(`
                     STDMETHODIMP C${ cotype }::get_${ idlname }(${ idltype }* pVal) {
-                        CActCtxActivator ScopedContext(ExtendedHolder::_ActCtx);
-
                         *pVal = static_cast<LONG>(${ `${ fqn }::${ propname }` });
                         return S_OK;
                     }`.replace(/^ {20}/mg, "")
@@ -280,8 +278,6 @@ Object.assign(exports, {
 
                 impl.push(`
                     STDMETHODIMP C${ cotype }::get_${ idlname }(${ idltype }* pVal) {
-                        CActCtxActivator ScopedContext(ExtendedHolder::_ActCtx);
-
                         HRESULT hr = S_OK;
                         ${ is_prop_test ? "/* " : "" }${ hr.split("\n").join(`\n${ " ".repeat(24) }`) }${ is_prop_test ? " */" : "" }
                         ${ is_prop_test ? "/* " : "" }${ cvt.join(`\n${ " ".repeat(24) }`) }${ is_prop_test ? " */" : "" }
@@ -314,8 +310,6 @@ Object.assign(exports, {
 
             impl.push(`
                 STDMETHODIMP C${ cotype }::put_${ idlname }(${ idltype } newVal) {
-                    CActCtxActivator ScopedContext(ExtendedHolder::_ActCtx);
-
                     ${ is_prop_test ? "// " : "" }${ is_static ? "" : `${ options.assert }(__self->get() != NULL)` };
                     ${ is_prop_test ? "return S_OK; /* " : "" }${ cvt.join(`\n${ " ".repeat(20) }`) }${ is_prop_test ? " */" : "" }
                 }`.replace(/^ {16}/mg, "")

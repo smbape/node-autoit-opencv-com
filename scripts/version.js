@@ -113,12 +113,16 @@ waterfall([
                 updateContent(sysPath.join(__dirname, "..", "autoit-opencv-com", "src", "cvLib.rc"), oldContent => {
                     const vsversion = version.split(".").join(",").replace(/[^\d,]/g, "");
                     return oldContent
-                        .replace(/FILEVERSION \S+/, `FILEVERSION ${ vsversion }`)
-                        .replace(/PRODUCTVERSION \S+/, `PRODUCTVERSION ${ vsversion }`)
-                        .replace(/"FileVersion", "\S+"/, `"FileVersion", "${ version }"`)
-                        .replace(/"ProductVersion", "\S+"/, `"ProductVersion", "${ version }"`);
+                        .replace(/(FILE|PRODUCT)VERSION \S+/g, `$1VERSION ${ vsversion }`)
+                        .replace(/"(File|Product)Version", "\S+"/g, `"$1Version", "${ version }"`);
                 }, next);
-            }
+            },
+
+            (hasChanged, next) => {
+                updateContent(sysPath.join(__dirname, "..", "autoit-opencv-com", "dotnet", "Properties", "AssemblyInfo.cs"), oldContent => {
+                    return oldContent.replace(/(Assembly|AssemblyFile)Version\("[^"\s*]+"\)/g, `$1Version("${ version }.0")`);
+                }, next);
+            },
         ], next);
     }
 ], err => {

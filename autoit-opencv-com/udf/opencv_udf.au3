@@ -7,7 +7,7 @@ Global $h_opencv_ffmpeg_dll = -1
 Global $h_autoit_opencv_com_dll = -1
 
 Func _OpenCV_ObjCreate($sClassname)
-	_OpenCV_ActivateActCtx()
+	_OpenCV_ActivateManifest()
 
 	Local Static $namespaces[] = ["", "OpenCV.", "OpenCV.cv."]
 	Local $siClassname, $oObj
@@ -119,12 +119,13 @@ Func _OpenCV_Unregister($bUser = Default)
 	Return _OpenCV_Install(Default, Default, $bUser, False, False, False, True)
 EndFunc   ;==>_OpenCV_Unregister
 
-Func _OpenCV_ActivateActCtx()
-	Return _OpenCV_DllCall($h_autoit_opencv_com_dll, "BOOL", "DLLActivateActCtx")
-EndFunc   ;==>_OpenCV_ActivateActCtx
+Func _OpenCV_ActivateManifest($sManifest = Default)
+	If $sManifest == Default Then $sManifest = EnvGet("OPENCV_ACTCTX_MANIFEST")
+	Return _OpenCV_DllCall($h_autoit_opencv_com_dll, "BOOL", "DllActivateManifest", "wstr", $sManifest)
+EndFunc   ;==>_OpenCV_ActivateManifest
 
 Func _OpenCV_DeactivateActCtx()
-	Return _OpenCV_DllCall($h_autoit_opencv_com_dll, "BOOL", "DLLDeactivateActCtx")
+	Return _OpenCV_DllCall($h_autoit_opencv_com_dll, "BOOL", "DllDeactivateActCtx")
 EndFunc   ;==>_OpenCV_DeactivateActCtx
 
 Func _OpenCV_DebugMsg($msg)

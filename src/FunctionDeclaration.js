@@ -1062,8 +1062,6 @@ Object.assign(exports, {
             if (entries.length !== 0) {
                 impl.push(`
                     STDMETHODIMP C${ cotype }::${ fname }(${ implargs.join(", ") }) {
-                        CActCtxActivator ScopedContext(ExtendedHolder::_ActCtx);
-
                         ${ body.join("\n").replace(/argument (\d+)/g, (match, j) => `argument ${ j }`).trim().split("\n").join(`\n${ " ".repeat(24) }`) }
                         ${ maxargc !== 0 ? "fprintf(stderr, \"Overload resolution failed: in %s, file %s, line %d\\n\", AutoIt_Func, __FILE__, __LINE__); fflush(stdout); fflush(stderr);" : "" }
                         return hr;

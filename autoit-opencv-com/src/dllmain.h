@@ -11,5 +11,6 @@ public:
 
 extern class CCvModule _AtlModule;
 
-STDAPI_(BOOL) DLLActivateActCtx();
-STDAPI_(BOOL) DLLDeactivateActCtx();
+STDAPI_(BOOL) DllActivateManifest(_In_opt_ LPCWSTR pManifest);
+STDAPI_(BOOL) DllActivateActCtx(_In_opt_ PCACTCTXW pActCtx);
+STDAPI_(BOOL) DllDeactivateActCtx();

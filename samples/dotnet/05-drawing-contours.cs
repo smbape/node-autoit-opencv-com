@@ -5,7 +5,7 @@ using OpenCV.InteropServices;
 
 public static class Test
 {
-    private static void CompiletimeExample(String image)
+    private static void CompiletimeExample(string image)
     {
         ICv_Object cv = new Cv_Object();
         var img = cv.imread(image);
@@ -23,7 +23,7 @@ public static class Test
         cv.destroyAllWindows();
     }
 
-    private static void RuntimeExample(String image)
+    private static void RuntimeExample(string image)
     {
         var cv = OpenCvComInterop.ObjCreate("cv");
         var img = cv.imread(image);
@@ -41,14 +41,14 @@ public static class Test
         cv.destroyAllWindows();
     }
 
-    static void Main(String[] args)
+    static void Main(string[] args)
     {
-        String opencv_world_dll = null;
-        String opencv_com_dll = null;
+        string opencv_world_dll = null;
+        string opencv_com_dll = null;
         var register = false;
         var unregister = false;
-        String buildType = null;
-        String image = OpenCvComInterop.FindFile("samples\\data\\pic1.png");
+        string buildType = null;
+        string image = OpenCvComInterop.FindFile("samples\\data\\pic1.png");
 
         for (int i = 0; i < args.Length; i += 1)
         {
@@ -105,21 +105,21 @@ public static class Test
         }
 
         OpenCvComInterop.DllOpen(
-            String.IsNullOrWhiteSpace(opencv_world_dll) ? OpenCvComInterop.FindDLL("opencv_world470*", null, null, buildType) : opencv_world_dll,
-            String.IsNullOrWhiteSpace(opencv_com_dll) ? OpenCvComInterop.FindDLL("autoit_opencv_com470*", null, null, buildType) : opencv_com_dll
+            string.IsNullOrWhiteSpace(opencv_world_dll) ? OpenCvComInterop.FindDLL("opencv_world470*", null, null, buildType) : opencv_world_dll,
+            string.IsNullOrWhiteSpace(opencv_com_dll) ? OpenCvComInterop.FindDLL("autoit_opencv_com470*", null, null, buildType) : opencv_com_dll
         );
 
         if (register) {
             OpenCvComInterop.Register();
         }
 
-        OpenCvComInterop.DLLActivateActCtx();
+        OpenCvComInterop.DllActivateManifest();
         try {
             CompiletimeExample(image);
         }
         finally
         {
-            OpenCvComInterop.DLLDeactivateActCtx();
+            OpenCvComInterop.DllDeactivateActCtx();
         }
 
         try

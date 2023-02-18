@@ -17,7 +17,7 @@ const files = [
     [project, "udf/*.md"],
     [project, "dotnet/*.cs"],
     [sysPath.join(sources, "samples"), "dotnet/*.psm1"],
-    [sysPath.join(project, "generated"), "*.tlb", "*.dll"],
+    [sysPath.join(project, "generated"), "*.tlb", "dotnet/*.dll"],
     [sysPath.join(project, "build_x64", "bin", "Debug"), `autoit*${ OpenCV_DLLVERSION }*`, "dotnet/*", "opencv_*"],
     [sysPath.join(project, "build_x64", "bin", "Release"), `autoit*${ OpenCV_DLLVERSION }*`, "dotnet/*", "opencv_*"],
     [sysPath.join(sources, "autoit-addon", "build_x64", "bin", "Debug"), `autoit*${ OpenCV_DLLVERSION }*`],

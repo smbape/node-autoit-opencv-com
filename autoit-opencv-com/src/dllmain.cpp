@@ -1,4 +1,7 @@
 #include "dllmain.h"
+#include <filesystem>
+
+namespace fs = std::filesystem;
 
 using namespace ATL;
 
@@ -53,12 +56,9 @@ STDAPI DllInstall(BOOL bInstall, _In_opt_ LPCWSTR pszCmdLine)
 	HRESULT hr = E_FAIL;
 	static const wchar_t szUserSwitch[] = L"user";
 
-	if (pszCmdLine != nullptr)
+	if (pszCmdLine != nullptr && _wcsnicmp(pszCmdLine, szUserSwitch, _countof(szUserSwitch)) == 0)
 	{
-		if (_wcsnicmp(pszCmdLine, szUserSwitch, _countof(szUserSwitch)) == 0)
-		{
-			ATL::AtlSetPerUserRegistration(true);
-		}
+		ATL::AtlSetPerUserRegistration(true);
 	}
 
 	if (bInstall)
@@ -78,25 +78,66 @@ STDAPI DllInstall(BOOL bInstall, _In_opt_ LPCWSTR pszCmdLine)
 }
 
 namespace {
-	ULONG_PTR activated = false;
 	std::vector<ULONG_PTR> cookies;
+	std::map<int, HANDLE> handles;
 }
 
-STDAPI_(BOOL) DLLActivateActCtx()
+STDAPI_(BOOL) DllActivateManifest(_In_opt_ LPCWSTR pManifest)
 {
-	ULONG_PTR cookie = 0;
-	if (ExtendedHolder::_ActCtx.Activate(cookie)) {
-		cookies.push_back(cookie);
-		return true;
+	if (pManifest == nullptr || wcslen(pManifest) == 0) {
+		PCACTCTXW pActCtx = nullptr;
+		return DllActivateActCtx(pActCtx);
 	}
-	return false;
+
+	ACTCTXW actCtx;
+	memset((void*)&actCtx, 0, sizeof(ACTCTXW));
+	actCtx.cbSize = sizeof(ACTCTXW);
+	actCtx.lpSource = pManifest;
+	return DllActivateActCtx(&actCtx);
 }
 
-STDAPI_(BOOL) DLLDeactivateActCtx()
+STDAPI_(BOOL) DllActivateActCtx(_In_opt_ PCACTCTXW pActCtx)
 {
-	if (!cookies.empty() && ExtendedHolder::_ActCtx.Deactivate(cookies.back())) {
-		cookies.pop_back();
-		return true;
+	ULONG_PTR ulpCookie = 0;
+	BOOL activated = false;
+	HANDLE hActCtx = INVALID_HANDLE_VALUE;
+
+	if (pActCtx == nullptr) {
+		activated = ExtendedHolder::_ActCtx.Activate(ulpCookie);
 	}
-	return false;
+	else {
+		hActCtx = ::CreateActCtxW(pActCtx);
+		CV_Assert(hActCtx != INVALID_HANDLE_VALUE);
+
+		handles.insert_or_assign(cookies.size(), hActCtx);
+		activated = ::ActivateActCtx(hActCtx, &ulpCookie);
+	}
+
+	CV_Assert(activated);
+
+	cookies.push_back(ulpCookie);
+	return true;
+}
+
+STDAPI_(BOOL) DllDeactivateActCtx()
+{
+	if (cookies.empty()) {
+		return false;
+	}
+
+	auto ulpCookie = cookies.back();
+	if (!::DeactivateActCtx(0, ulpCookie)) {
+		return false;
+	}
+	cookies.pop_back();
+
+	if (handles.count(cookies.size())) {
+		const auto hActCtx = handles.at(cookies.size());
+
+		::ReleaseActCtx(hActCtx);
+
+		handles.erase(cookies.size());
+	}
+
+	return true;
 }

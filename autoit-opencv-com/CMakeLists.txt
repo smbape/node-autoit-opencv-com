@@ -235,7 +235,7 @@ endif()
 # ===============
 # C# Assembly target
 # ===============
-set(ASSEMBLY_DLL "generated/OpenCV.InteropServices.dll")
+set(ASSEMBLY_DLL "${CMAKE_CURRENT_SOURCE_DIR}/generated/dotnet/OpenCV.InteropServices.dll")
 file(TO_NATIVE_PATH "${ASSEMBLY_DLL}" ASSEMBLY_DLL_NATIVE_PATH)
 file(TO_NATIVE_PATH "generated/cvLib.tlb" TYPELIB)
 add_custom_command(OUTPUT "${ASSEMBLY_DLL}"
@@ -259,7 +259,7 @@ add_custom_target(cs_assembly DEPENDS "${ASSEMBLY_DLL}")
 include(CSharpUtilities)
 enable_language(CSharp)
 
-file(GLOB_RECURSE test_files "test/*.cs" "dotnet/*.cs")
+file(GLOB test_files "test/*.cs" "dotnet/*.cs")
 add_executable(cs_test ${test_files})
 
 get_filename_component(OPENCV_SAMPLES_DATA_PATH "../samples/data" REALPATH)
@@ -267,6 +267,8 @@ file(TO_NATIVE_PATH "${OPENCV_SAMPLES_DATA_PATH}" OPENCV_SAMPLES_DATA_PATH)
 
 set_target_properties(cs_test PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY "${EXECUTABLE_OUTPUT_PATH}"
+  DEBUG_POSTFIX "${OpenCV_DEBUG_POSTFIX}"
+  VS_GLOBAL_EnableUnmanagedDebugging "true"
   VS_DEBUGGER_ENVIRONMENT "PATH=${OpenCV_BINARY_DIR};%PATH%\nOPENCV_SAMPLES_DATA_PATH=${OPENCV_SAMPLES_DATA_PATH}"
   VS_DOTNET_REFERENCES "Microsoft.CSharp;System;System.Core"
   VS_DOTNET_REFERENCE_OpenCV "${ASSEMBLY_DLL}"
