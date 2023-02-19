@@ -2,7 +2,7 @@ include(cmake/FindPatch.cmake)
 
 set(BUILD_opencv OFF CACHE BOOL "Build opencv from sources.")
 
-set(OpenCV_URL_HASH_470 432f2beb3656777efe73e2c53acd730275fd11aebd0b1cdfcd6700dc4aa63e64)
+set(OpenCV_URL_HASH_470 7fab7be68a4ab7f1b70759b0e58d4c4ffc2b8aee72642df6f2dfcc6c161b2465)
 set(OpenCV_URL_HASH_460 3fb046e14dc5b50719a86ea0395b5b1e3299e2343111ebd2e31828aa31d6d477)
 set(OpenCV_URL_HASH_455 cac31973cd1c59bfe9dc926acbde815553d23662ea355e0414b5e50d8f8aa5a8)
 set(OpenCV_URL_HASH_454 d49f6a8ef304de4f5617baf8d9ece51b53a76b3cf5ce26377e4ed7632f0ac467)
@@ -11,7 +11,7 @@ set(OpenCV_URL_HASH_452 106b588a82b3045a44305ba426c281887416745d4ce8f3983156d9f8
 set(OpenCV_URL_HASH_451 32132dd0bf38c62f73a2f20a0b19785282364f35e19c403f0767aa0266ed410d)
 set(OpenCV_URL_HASH_450 65c6b872cfcb1f55f8bedee8b64dc9c4c549035a566ac5ace622a4627c03bcf9)
 
-set(OpenCV_DOWNLOAD_NAME_470 opencv-4.7.0-windows.zip)
+set(OpenCV_DOWNLOAD_NAME_470 opencv-4.7.0-windows.exe)
 
 set(OpenCV_VERSION 4.7.0 CACHE STRING "Choose the OpenCV version.")
 set_property(CACHE OpenCV_VERSION PROPERTY STRINGS "4.7.0" "4.6.0" "4.5.5" "4.5.4" "4.5.3" "4.5.2" "4.5.1" "4.5.0")
@@ -24,11 +24,6 @@ else()
 endif()
 
 string(REGEX REPLACE "\\.[a-zA-Z]+\$" "" OpenCV_OUTPUT_DIR "${OpenCV_DOWNLOAD_NAME}")
-
-set(OpenCV_EXTRACT_COMMAND_470
-  "${CMAKE_COMMAND}" "-DARCHIVE=<DOWNLOAD_DIR>/${OpenCV_DOWNLOAD_NAME}"
-  "-DOUTPUT=<DOWNLOAD_DIR>/${OpenCV_OUTPUT_DIR}"
-  -P "${CMAKE_CURRENT_SOURCE_DIR}/cmake/extract_opencv.cmake")
 
 if(BUILD_opencv AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../opencv")
   set(OpenCV_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../opencv/__build__")
@@ -56,12 +51,6 @@ get_filename_component(OPENCV_DOWNLOAD_DIR "${CMAKE_CURRENT_SOURCE_DIR}" DIRECTO
 set(OpenCV_URL            https://github.com/opencv/opencv/releases/download/${OpenCV_VERSION}/${OpenCV_DOWNLOAD_NAME})
 set(OpenCV_URL_HASH       SHA256=${OpenCV_URL_HASH_${OpenCV_DLLVERSION}})
 
-if (DEFINED OpenCV_DOWNLOAD_NAME_${OpenCV_DLLVERSION})
-  set(OpenCV_EXTRACT_COMMAND  ${OpenCV_EXTRACT_COMMAND_${OpenCV_DLLVERSION}})
-else()
-  set(OpenCV_EXTRACT_COMMAND "<DOWNLOAD_DIR>/${OpenCV_DOWNLOAD_NAME}" "-o<DOWNLOAD_DIR>/${OpenCV_OUTPUT_DIR}" -y)
-endif()
-
 include(FetchContent)
 FetchContent_Declare(opencv
   URL                 ${OpenCV_URL}
@@ -69,7 +58,7 @@ FetchContent_Declare(opencv
   DOWNLOAD_NO_EXTRACT TRUE
   DOWNLOAD_DIR        "${OPENCV_DOWNLOAD_DIR}"
   SOURCE_DIR          "${OPENCV_DOWNLOAD_DIR}"
-  PATCH_COMMAND       ${OpenCV_EXTRACT_COMMAND}
+  PATCH_COMMAND       "<DOWNLOAD_DIR>/${OpenCV_DOWNLOAD_NAME}" "-o<DOWNLOAD_DIR>/${OpenCV_OUTPUT_DIR}" -y
 )
 
 include(FetchContent)

@@ -42,7 +42,7 @@ In fact, the dll being a [Component Object Model (COM)](https://docs.microsoft.c
 
 ## Prerequisites
 
-  - Download and extract [opencv-4.7.0-windows.zip](https://sourceforge.net/projects/opencvlibrary/files/4.7.0/opencv-4.7.0-windows.zip/download) into a folder
+  - Download and extract [opencv-4.7.0-windows.exe](https://opencv.org/releases/) into a folder
   - Download and extract [autoit-opencv-4.7.0-com-v2.3.1.7z](https://github.com/smbape/node-autoit-opencv-com/releases/download/v2.3.1/autoit-opencv-4.7.0-com-v2.3.1.7z) into a folder
 
 ## Usage
@@ -209,13 +209,11 @@ curl -L 'https://github.com/smbape/node-autoit-opencv-com/releases/download/v2.3
 # extract the content of autoit-opencv-4.7.0-com-v2.3.1.7z into a folder named autoit-opencv-com
 7z x autoit-opencv-4.7.0-com-v2.3.1.7z -aoa -oautoit-opencv-com
 
-# download opencv-4.7.0-windows.zip
-curl -L 'https://github.com/opencv/opencv/releases/download/4.7.0/opencv-4.7.0-windows.zip' -o opencv-4.7.0-windows.zip
+# download opencv-4.7.0-windows.exe
+curl -L 'https://github.com/opencv/opencv/releases/download/4.7.0/opencv-4.7.0-windows.exe' -o opencv-4.7.0-windows.exe
 
-# extract the content of opencv-4.7.0-windows.zip into a folder named opencv-4.7.0-windows
-7z x opencv-4.7.0-windows.zip
-distrib.7z.exe -oopencv-4.7.0-windows -y
-rm distrib.7z.exe
+# extract the content of opencv-4.7.0-windows.exe into a folder named opencv-4.7.0-windows
+opencv-4.7.0-windows.exe -oopencv-4.7.0-windows -y
 
 # download autoit-opencv-4.7.0-com-v2.3.1-src.zip
 curl -L 'https://github.com/smbape/node-autoit-opencv-com/archive/refs/tags/v2.3.1.zip' -o autoit-opencv-4.7.0-com-v2.3.1-src.zip
@@ -282,18 +280,18 @@ Look into `cv_enums.au3` to find and `cv_interface.au3` to search for constants.
 ### Transform the parameter types
 
 For **cv::Point**, **cv::Range**, **cv::Rect**, **cv::Scalar** and **cv::Size** types,  
-there are `_OpenCV_`**Point**, `_OpenCV_`**Range**, `_OpenCV_`**Rect**, `_OpenCV_`**Scalar** and `_OpenCV_`**Size** functions to convert parameters.
+there are `_OpenCV_`**Point**, `_OpenCV_`**Range**, `_OpenCV_`**Rect**, `_OpenCV_`**Scalar** and `_OpenCV_`**Size** functions to convert those parameters.
 
 For **cv::ScalarAll**, there is **\_OpenCV_ScalarAll** function.
 
-Types which are **\*OfArrays** like **InputArrayOfArrays**, are harder to translate because in AutoIt they are all Arrays or `VARIANT`.  
+Types which are **\*OfArrays**, like **InputArrayOfArrays**, are harder to translate because, in AutoIt they are all Arrays or `VARIANT`.  
 It is always safe to use a `VectorOfMat` for those types.
 
-However, if you really need to, transform an Array in a typed Array with the corresponding `VectorOf` constructor.  
-For example, to transform an Array of `Int` to a `VectorOfInt`, do
+However, if you really need to, you can transform an Array into a typed Array with the corresponding `VectorOf` constructor.  
+For example, to transform an Array of `Int` into a `VectorOfInt`, do
 
 ```autoit
-Local $aInt[3] = [1, 2, 3]
+Local $aInt[] = [1, 2, 3]
 Local $oVectorOfInt = ObjCreate("OpenCV.VectorOfInt").create($aInt)
 ```
 
