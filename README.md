@@ -213,7 +213,7 @@ curl -L 'https://github.com/smbape/node-autoit-opencv-com/releases/download/v2.3
 curl -L 'https://github.com/opencv/opencv/releases/download/4.7.0/opencv-4.7.0-windows.exe' -o opencv-4.7.0-windows.exe
 
 # extract the content of opencv-4.7.0-windows.exe into a folder named opencv-4.7.0-windows
-opencv-4.7.0-windows.exe -oopencv-4.7.0-windows -y
+./opencv-4.7.0-windows.exe -oopencv-4.7.0-windows -y
 
 # download autoit-opencv-4.7.0-com-v2.3.1-src.zip
 curl -L 'https://github.com/smbape/node-autoit-opencv-com/archive/refs/tags/v2.3.1.zip' -o autoit-opencv-4.7.0-com-v2.3.1-src.zip
