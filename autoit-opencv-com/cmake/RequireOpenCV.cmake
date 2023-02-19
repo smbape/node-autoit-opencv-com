@@ -75,21 +75,20 @@ FetchContent_Declare(opencv-patch
 FetchContent_Populate(opencv)
 FetchContent_Populate(opencv-patch)
 
-get_filename_component(OpenCV_DIR "${opencv_SOURCE_DIR}/${OpenCV_OUTPUT_DIR}/opencv/build" REALPATH)
-set(opencv_SOURCE_DIR "${opencv_SOURCE_DIR}/${OpenCV_OUTPUT_DIR}/opencv/sources")
-file(GLOB OpenCV_VC_DIR "${OpenCV_DIR}/x64/vc*")
-list(LENGTH OpenCV_VC_DIR OpenCV_VC_DIR_LAST)
-math(EXPR OpenCV_VC_DIR_LAST "${OpenCV_VC_DIR_LAST} - 1" OUTPUT_FORMAT DECIMAL)
-list(GET OpenCV_VC_DIR ${OpenCV_VC_DIR_LAST} OpenCV_VC_DIR)
-get_filename_component(OpenCV_BINARY_DIR "${OpenCV_VC_DIR}/bin" REALPATH)
-file(RELATIVE_PATH OpenCV_VC_DIR "${OpenCV_DIR}" "${OpenCV_VC_DIR}")
-
-file(TO_CMAKE_PATH "${OpenCV_BINARY_DIR}" OpenCV_RELATIVE_BINARY_DIR_ESC)
-file(RELATIVE_PATH OpenCV_RELATIVE_BINARY_DIR_ESC "${OPENCV_DOWNLOAD_DIR}" "${OpenCV_RELATIVE_BINARY_DIR_ESC}")
-file(TO_NATIVE_PATH "${OpenCV_RELATIVE_BINARY_DIR_ESC}" OpenCV_RELATIVE_BINARY_DIR_ESC)
-string(REPLACE "\\" "\\\\" OpenCV_RELATIVE_BINARY_DIR_ESC "${OpenCV_RELATIVE_BINARY_DIR_ESC}")
-
+get_filename_component(OpenCV_DIR "${opencv_SOURCE_DIR}/${OpenCV_OUTPUT_DIR}/opencv/build" ABSOLUTE)
 find_package(OpenCV REQUIRED)
+
+get_filename_component(OpenCV_BIN_PATH "${OpenCV_LIB_PATH}/../bin" ABSOLUTE)
+
+get_filename_component(OpenCV_VC_PATH "${OpenCV_LIB_PATH}" DIRECTORY)
+file(RELATIVE_PATH OpenCV_VC_PATH "${OpenCV_DIR}" "${OpenCV_VC_PATH}")
+
+file(TO_NATIVE_PATH "${OpenCV_VC_PATH}" OpenCV_VC_PATH_ESC)
+string(REPLACE "\\" "\\\\" OpenCV_VC_PATH_ESC "${OpenCV_VC_PATH_ESC}")
+string(REPLACE "\\" "\\\\" OpenCV_VC_PATH_ESC_ESC "${OpenCV_VC_PATH_ESC}")
+
+set(opencv_SOURCE_DIR "${opencv_SOURCE_DIR}/${OpenCV_OUTPUT_DIR}/opencv/sources")
+file(TO_NATIVE_PATH "${OpenCV_BIN_PATH}" OpenCV_BIN_NATIVE_PATH)
 
 string(REPLACE "." ";" OpenCV_VERSION_LIST ${OpenCV_VERSION})
 list(GET OpenCV_VERSION_LIST 0 OpenCV_VERSION_MAJOR)

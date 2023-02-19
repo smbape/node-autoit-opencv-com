@@ -63,7 +63,7 @@ public static class Test
     private static void RuntimeExample(int cameraId)
     {
         var cv = OpenCvComInterop.ObjCreate("cv");
-        if (Object.ReferenceEquals(cv, null))
+        if (ReferenceEquals(cv, null))
         {
             throw new Win32Exception("Failed to create cv object");
         }

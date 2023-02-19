@@ -29,6 +29,7 @@ include(cmake/vcpkg_regex_replace_string.cmake)
 vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/install.bat" "(opencv_world|autoit_opencv_com|opencv_videoio_ffmpeg)[0-9]+" "\\1${OpenCV_DLLVERSION}")
 vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/install.bat" "opencv-[0-9]+\\.[0-9]+\\.[0-9]+-(vc14_vc15|windows)\\.(exe|zip)" "${OpenCV_DOWNLOAD_NAME}")
 vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/install.bat" "opencv-[0-9]+\\.[0-9]+\\.[0-9]+-(vc14_vc15|windows)" "${OpenCV_OUTPUT_DIR}")
+vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/install.bat" "\\\\x64\\\\vc[^\\\\]+\\\\bin" "\\\\${OpenCV_VC_PATH_ESC}\\\\bin")
 vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/install.bat" "opencv-[0-9]+\\.[0-9]+\\.[0-9]+" "opencv-${OpenCV_VERSION}")
 vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/dotnet/OpenCvComInterop.cs" "(opencv_world|autoit_opencv_com|opencv_videoio_ffmpeg)[0-9]+" "opencv_videoio_ffmpeg${OpenCV_DLLVERSION}")
 vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/src/cvLib.rc" "(opencv_world|autoit_opencv_com|opencv_videoio_ffmpeg)[0-9]+" "\\1${OpenCV_DLLVERSION}")
@@ -42,7 +43,9 @@ vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/../README.md" "(opencv_w
 vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/../README.md" "opencv-[0-9]+\\.[0-9]+\\.[0-9]+-(vc14_vc15|windows)\\.(exe|zip)" "${OpenCV_DOWNLOAD_NAME}")
 vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/../README.md" "opencv-[0-9]+\\.[0-9]+\\.[0-9]+-(vc14_vc15|windows)" "${OpenCV_OUTPUT_DIR}")
 vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/../README.md" "opencv-[0-9]+\\.[0-9]+\\.[0-9]+" "opencv-${OpenCV_VERSION}")
-vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/../README.md" "/[0-9]+\\.[0-9]+\\.[0-9]+/" "/${OpenCV_VERSION}/")
+vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/../README.md" "/opencv/releases/download/[0-9]+\\.[0-9]+\\.[0-9]+/" "/opencv/releases/download/${OpenCV_VERSION}/")
+vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/../README.md" "\\\\x64\\\\vc[^\\\\]+\\\\bin" "\\\\${OpenCV_VC_PATH_ESC}\\\\bin")
+vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/../README.md" "\\\\\\\\x64\\\\\\\\vc[^\\\\]+\\\\\\\\bin" "\\\\\\\\${OpenCV_VC_PATH_ESC_ESC}\\\\\\\\bin")
 vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/../autoit-addon/CMakeLists.txt" "OpenCV_VERSION [0-9]+\\.[0-9]+\\.[0-9]+" "OpenCV_VERSION ${OpenCV_VERSION}")
 
 file(GLOB_RECURSE files_to_change "../samples/*.au3" "../samples/*.cs" "../samples/*.ps1")
@@ -164,7 +167,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
   VS_DEBUGGER_COMMAND           "pwsh.exe"
   VS_DEBUGGER_COMMAND_ARGUMENTS "-ExecutionPolicy UnRestricted -File .\\samples\\samples.ps1"
   VS_DEBUGGER_WORKING_DIRECTORY "${VS_DEBUGGER_WORKING_DIRECTORY}"
-  VS_DEBUGGER_ENVIRONMENT       "PATH=${OpenCV_BINARY_DIR};%PATH%\nOPENCV_SAMPLES_DATA_PATH=${OPENCV_SAMPLES_DATA_PATH}\nBUILD_TYPE=Debug"
+  VS_DEBUGGER_ENVIRONMENT       "PATH=${OpenCV_BIN_NATIVE_PATH};%PATH%\nOPENCV_SAMPLES_DATA_PATH=${OPENCV_SAMPLES_DATA_PATH}\nBUILD_TYPE=Debug"
 )
 
 # ===============
@@ -180,7 +183,7 @@ target_precompile_headers(cpp_test PRIVATE
 
 target_link_libraries(cpp_test PRIVATE ${PROJECT_NAME} "windowsapp.lib" "dwmapi.lib" ${OpenCV_LIBS})
 set_target_properties(cpp_test PROPERTIES
-  VS_DEBUGGER_ENVIRONMENT "PATH=${OpenCV_BINARY_DIR};%PATH%\nOPENCV_SAMPLES_DATA_PATH=${OPENCV_SAMPLES_DATA_PATH}"
+  VS_DEBUGGER_ENVIRONMENT "PATH=${OpenCV_BIN_NATIVE_PATH};%PATH%\nOPENCV_SAMPLES_DATA_PATH=${OPENCV_SAMPLES_DATA_PATH}"
   RUNTIME_OUTPUT_DIRECTORY "${EXECUTABLE_OUTPUT_PATH}"
 )
 set_property(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}" PROPERTY VS_STARTUP_PROJECT cpp_test)
@@ -269,7 +272,7 @@ set_target_properties(cs_test PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY "${EXECUTABLE_OUTPUT_PATH}"
   DEBUG_POSTFIX "${OpenCV_DEBUG_POSTFIX}"
   VS_GLOBAL_EnableUnmanagedDebugging "true"
-  VS_DEBUGGER_ENVIRONMENT "PATH=${OpenCV_BINARY_DIR};%PATH%\nOPENCV_SAMPLES_DATA_PATH=${OPENCV_SAMPLES_DATA_PATH}"
+  VS_DEBUGGER_ENVIRONMENT "PATH=${OpenCV_BIN_NATIVE_PATH};%PATH%\nOPENCV_SAMPLES_DATA_PATH=${OPENCV_SAMPLES_DATA_PATH}"
   VS_DOTNET_REFERENCES "Microsoft.CSharp;System;System.Core"
   VS_DOTNET_REFERENCE_OpenCV "${ASSEMBLY_DLL}"
   VS_DOTNET_REFERENCEPROP_OpenCV_TAG_EmbedInteropTypes "True"

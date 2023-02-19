@@ -59,7 +59,7 @@ In fact, the dll being a [Component Object Model (COM)](https://docs.microsoft.c
 
 #include "autoit-opencv-com\udf\opencv_udf_utils.au3"
 
-_OpenCV_Open_And_Register("opencv-4.7.0-windows\opencv\build\x64\vc15\bin\opencv_world470.dll", "autoit-opencv-com\autoit_opencv_com470.dll")
+_OpenCV_Open("opencv-4.7.0-windows\opencv\build\x64\vc16\bin\opencv_world470.dll", "autoit-opencv-com\autoit_opencv_com470.dll")
 OnAutoItExitRegister("_OnAutoItExit")
 Example()
 
@@ -74,7 +74,7 @@ Func Example()
 EndFunc   ;==>Example
 
 Func _OnAutoItExit()
-  _OpenCV_Unregister_And_Close()
+  _OpenCV_Close()
 EndFunc   ;==>_OnAutoItExit
 ```
 
@@ -89,7 +89,7 @@ EndFunc   ;==>_OnAutoItExit
 #include "autoit-opencv-com\udf\opencv_udf_utils.au3"
 #include <GUIConstantsEx.au3>
 
-_OpenCV_Open_And_Register("opencv-4.7.0-windows\opencv\build\x64\vc15\bin\opencv_world470.dll", "autoit-opencv-com\autoit_opencv_com470.dll")
+_OpenCV_Open("opencv-4.7.0-windows\opencv\build\x64\vc16\bin\opencv_world470.dll", "autoit-opencv-com\autoit_opencv_com470.dll")
 OnAutoItExitRegister("_OnAutoItExit")
 Example()
 
@@ -120,11 +120,13 @@ Func Example()
 EndFunc   ;==>Example
 
 Func _OnAutoItExit()
-  _OpenCV_Unregister_And_Close()
+  _OpenCV_Close()
 EndFunc   ;==>_OnAutoItExit
 ```
 
 ### PowerShell
+
+`powershell.exe -ExecutionPolicy UnRestricted -File example.ps1`
 
 ```powershell
 #requires -version 5.0
@@ -139,26 +141,25 @@ function Example() {
     $cv.destroyAllWindows()
 }
 
-[OpenCvComInterop]::DllOpen("opencv-4.7.0-windows\opencv\build\x64\vc15\bin\opencv_world470.dll", "autoit-opencv-com\autoit_opencv_com470.dll")
-
-[OpenCvComInterop]::Register()
+[OpenCvComInterop]::DllOpen("opencv-4.7.0-windows\opencv\build\x64\vc16\bin\opencv_world470.dll", "autoit-opencv-com\autoit_opencv_com470.dll")
 
 Example
-
-[OpenCvComInterop]::Unregister()
 
 [OpenCvComInterop]::DllClose()
 ```
 
-#csharp
+### csharp
 
-`csc file.cs autoit-opencv-com\dotnet\OpenCvComInterop.cs`
+Open `x64 Native Tools Command Prompt for VS 2022`
+
+
+#### Runtime example
+
+`csc.exe example-runtime.cs autoit-opencv-com\dotnet\OpenCvComInterop.cs && example-runtime.exe`
 
 ```cs
 using System;
 using System.ComponentModel;
-using System.IO;
-using System.Reflection;
 using System.Runtime.InteropServices;
 
 public static class Test
@@ -166,7 +167,7 @@ public static class Test
     private static void Example()
     {
         var cv = OpenCvComInterop.ObjCreate("cv");
-        if (Object.ReferenceEquals(cv, null))
+        if (ReferenceEquals(cv, null))
         {
             throw new Win32Exception("Failed to create cv object");
         }
@@ -180,13 +181,53 @@ public static class Test
     static void Main(String[] args)
     {
         OpenCvComInterop.DllOpen(
-            "opencv-4.7.0-windows\\opencv\\build\\x64\\vc15\\bin\\opencv_world470.dll",
+            "opencv-4.7.0-windows\\opencv\\build\\x64\\vc16\\bin\\opencv_world470.dll",
             "autoit-opencv-com\\autoit_opencv_com470.dll"
         );
 
-        OpenCvComInterop.Register();
         Example();
-        OpenCvComInterop.Unregister();
+        OpenCvComInterop.DllClose();
+    }
+}
+```
+
+#### Compile time example
+
+`csc.exe example-compile.cs /link:autoit-opencv-com\dotnet\OpenCV.InteropServices.dll autoit-opencv-com\dotnet\OpenCvComInterop.cs && example-compile.exe`
+
+```cs
+using System;
+using System.ComponentModel;
+using System.Runtime.InteropServices;
+using OpenCV.InteropServices;
+
+public static class Test
+{
+    private static void Example()
+    {
+        ICv_Object cv = new Cv_Object();
+
+        var img = cv.imread(OpenCvComInterop.FindFile("samples\\data\\lena.jpg"));
+        cv.imshow("image", img);
+        cv.waitKey();
+        cv.destroyAllWindows();
+    }
+
+    static void Main(String[] args)
+    {
+        OpenCvComInterop.DllOpen(
+            "opencv-4.7.0-windows\\opencv\\build\\x64\\vc16\\bin\\opencv_world470.dll",
+            "autoit-opencv-com\\autoit_opencv_com470.dll"
+        );
+
+        // Enable Registration-Free COM
+        OpenCvComInterop.DllActivateManifest();
+
+        Example();
+
+        // Disable Registration-Free COM
+        OpenCvComInterop.DllDeactivateActCtx();
+
         OpenCvComInterop.DllClose();
     }
 }
@@ -194,7 +235,8 @@ public static class Test
 
 ## Running examples
 
-### Prerequisite
+### Prerequisites
+
 Install [7-zip](https://www.7-zip.org/download.html) and add the 7-zip folder to you system PATH environment variable
 
 Then, in [Git Bash](https://gitforwindows.org/), execute the following commands
@@ -240,9 +282,11 @@ powershell.exe -ExecutionPolicy UnRestricted -File <path to the .ps1 file>
 
 To run a `.cs` file in the `samples\dotnet` use the following command
 
+Open `x64 Native Tools Command Prompt for VS 2022`
+
 ```sh
 # samples\dotnet\csrun.bat <path to the .cs file> <arguments>
-samples\dotnet\csrun.bat 01-show-image.cs --register --unregister
+samples\dotnet\csrun.bat 01-show-image.cs
 ```
 
 ### \[optional\] Build the addon dll
