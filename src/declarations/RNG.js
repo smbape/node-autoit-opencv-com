@@ -1,5 +1,7 @@
 module.exports = [
-    ["class cv.RNG", "", ["/Simple", "/Ptr"], [], "", ""],
+    ["class cv.RNG", "", ["/Simple", "/Ptr"], [
+        ["uint64", "state", "", ["/RW"]],
+    ], "", ""],
     ["cv.RNG.RNG", "", [], [], "", ""],
     ["cv.RNG.RNG", "", [], [
         ["uint64", "state", "", []]
@@ -17,4 +19,9 @@ module.exports = [
         ["double", "a", "", []],
         ["double", "b", "", []],
     ], "", ""],
+    ["cv.RNG.uniform", "double", [], [
+        ["double", "a", "", []],
+        ["double", "b", "", []],
+    ], "", ""],
+    ["cv.theRNG", "cv::Ptr<RNG>", ["/S", "/Ref", "/WrapAs=::autoit::reference_internal"], [], "", ""],
 ];

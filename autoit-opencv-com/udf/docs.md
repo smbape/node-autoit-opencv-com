@@ -511,6 +511,7 @@
   - [cv::subtract](#cvsubtract)
   - [cv::sumElems](#cvsumelems)
   - [cv::textureFlattening](#cvtextureflattening)
+  - [cv::theRNG](#cvtherng)
   - [cv::threshold](#cvthreshold)
   - [cv::trace](#cvtrace)
   - [cv::transform](#cvtransform)
@@ -1616,8 +1617,10 @@
   - [SVD.NO\_UV\_](#svdno%5C_uv%5C_)
   - [SVD.FULL\_UV\_](#svdfull%5C_uv%5C_)
 - [cv::RNG](#cvrng)
+  - [RNG.state](#rngstate)
   - [cv::RNG::get\_create](#cvrngget%5C_create)
   - [cv::RNG::next](#cvrngnext)
+  - [cv::RNG::uniform](#cvrnguniform)
   - [cv::RNG::uniform\_double](#cvrnguniform%5C_double)
   - [cv::RNG::uniform\_float](#cvrnguniform%5C_float)
   - [cv::RNG::uniform\_int](#cvrnguniform%5C_int)
@@ -2080,6 +2083,8 @@
   - [Mat.width](#matwidth)
   - [Mat.height](#matheight)
   - [Mat.shape](#matshape)
+  - [Mat.sizes](#matsizes)
+  - [Mat.steps](#matsteps)
   - [cv::Mat::create](#cvmatcreate)
   - [cv::Mat::GdiplusResize](#cvmatgdiplusresize)
   - [cv::Mat::PixelChecksum](#cvmatpixelchecksum)
@@ -5415,6 +5420,7 @@
   - [NamedParameters::get\_Item](#namedparametersget%5C_item)
   - [NamedParameters::get\_\_NewEnum](#namedparametersget%5C_%5C_newenum)
   - [NamedParameters::has](#namedparametershas)
+  - [NamedParameters::isNamedParameters](#namedparametersisnamedparameters)
   - [NamedParameters::max\_size](#namedparametersmax%5C_size)
   - [NamedParameters::merge](#namedparametersmerge)
   - [NamedParameters::put\_Item](#namedparametersput%5C_item)
@@ -6061,6 +6067,28 @@
   - [VectorOfSize::sort](#vectorofsizesort)
   - [VectorOfSize::sort\_variant](#vectorofsizesort%5C_variant)
   - [VectorOfSize::start](#vectorofsizestart)
+- [VectorOfSize\_t](#vectorofsize%5C_t)
+  - [VectorOfSize\_t.Count](#vectorofsize%5C_tcount)
+  - [VectorOfSize\_t::create](#vectorofsize%5C_tcreate)
+  - [VectorOfSize\_t::Add](#vectorofsize%5C_tadd)
+  - [VectorOfSize\_t::Items](#vectorofsize%5C_titems)
+  - [VectorOfSize\_t::Keys](#vectorofsize%5C_tkeys)
+  - [VectorOfSize\_t::Remove](#vectorofsize%5C_tremove)
+  - [VectorOfSize\_t::append](#vectorofsize%5C_tappend)
+  - [VectorOfSize\_t::at](#vectorofsize%5C_tat)
+  - [VectorOfSize\_t::clear](#vectorofsize%5C_tclear)
+  - [VectorOfSize\_t::empty](#vectorofsize%5C_tempty)
+  - [VectorOfSize\_t::end](#vectorofsize%5C_tend)
+  - [VectorOfSize\_t::get\_Item](#vectorofsize%5C_tget%5C_item)
+  - [VectorOfSize\_t::get\_\_NewEnum](#vectorofsize%5C_tget%5C_%5C_newenum)
+  - [VectorOfSize\_t::push\_back](#vectorofsize%5C_tpush%5C_back)
+  - [VectorOfSize\_t::push\_vector](#vectorofsize%5C_tpush%5C_vector)
+  - [VectorOfSize\_t::put\_Item](#vectorofsize%5C_tput%5C_item)
+  - [VectorOfSize\_t::size](#vectorofsize%5C_tsize)
+  - [VectorOfSize\_t::slice](#vectorofsize%5C_tslice)
+  - [VectorOfSize\_t::sort](#vectorofsize%5C_tsort)
+  - [VectorOfSize\_t::sort\_variant](#vectorofsize%5C_tsort%5C_variant)
+  - [VectorOfSize\_t::start](#vectorofsize%5C_tstart)
 - [VectorOfVec2b](#vectorofvec2b)
   - [VectorOfVec2b.Count](#vectorofvec2bcount)
   - [VectorOfVec2b::create](#vectorofvec2bcreate)
@@ -12666,6 +12694,14 @@ void cv::textureFlattening( InputArray  src,
                             int         kernel_size = 3 );
 AutoIt:
     _OpenCV_ObjCreate("cv").textureFlattening( $src, $mask[, $dst[, $low_threshold[, $high_threshold[, $kernel_size]]]] ) -> $dst
+```
+
+### cv::theRNG
+
+```cpp
+static cv::Ptr<cv::RNG> cv::theRNG();
+AutoIt:
+    _OpenCV_ObjCreate("cv").theRNG() -> retval
 ```
 
 ### cv::threshold
@@ -21535,6 +21571,14 @@ AutoIt:
 
 ## cv::RNG
 
+### RNG.state
+
+```cpp
+uint64 cv::RNG::state
+AutoIt:
+    [propget, propput] $oRNG.state
+```
+
 ### cv::RNG::get\_create
 
 ```cpp
@@ -21556,6 +21600,15 @@ AutoIt:
 uint cv::RNG::next();
 AutoIt:
     $oRNG.next() -> retval
+```
+
+### cv::RNG::uniform
+
+```cpp
+double cv::RNG::uniform( double a,
+                         double b );
+AutoIt:
+    $oRNG.uniform( $a, $b ) -> retval
 ```
 
 ### cv::RNG::uniform\_double
@@ -25503,6 +25556,22 @@ AutoIt:
     [propget] $oMat.shape
 ```
 
+### Mat.sizes
+
+```cpp
+std::vector<int> cv::Mat::sizes
+AutoIt:
+    [propget] $oMat.sizes
+```
+
+### Mat.steps
+
+```cpp
+std::vector<size_t> cv::Mat::steps
+AutoIt:
+    [propget] $oMat.steps
+```
+
 ### cv::Mat::create
 
 ```cpp
@@ -25544,6 +25613,21 @@ AutoIt:
 ```
 
 ```cpp
+static cv::Mat cv::Mat::create( const std::vector<int>& sizes,
+                                int                     type );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Mat").create( $sizes, $type ) -> <cv.Mat object>
+```
+
+```cpp
+static cv::Mat cv::Mat::create( const std::vector<int>& sizes,
+                                int                     type,
+                                cv::Scalar              s );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Mat").create( $sizes, $type, $s ) -> <cv.Mat object>
+```
+
+```cpp
 static cv::Mat cv::Mat::create( int    rows,
                                 int    cols,
                                 int    type,
@@ -25551,6 +25635,24 @@ static cv::Mat cv::Mat::create( int    rows,
                                 size_t step = cv::Mat::AUTO_STEP );
 AutoIt:
     _OpenCV_ObjCreate("cv.Mat").create( $rows, $cols, $type, $data[, $step] ) -> <cv.Mat object>
+```
+
+```cpp
+static cv::Mat cv::Mat::create( cv::Size size,
+                                int      type,
+                                void*    data,
+                                size_t   step = cv::Mat::AUTO_STEP );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Mat").create( $size, $type, $data[, $step] ) -> <cv.Mat object>
+```
+
+```cpp
+static cv::Mat cv::Mat::create( const std::vector<int>&    sizes,
+                                int                        type,
+                                void*                      data,
+                                const std::vector<size_t>& steps = std::vector<size_t>() );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Mat").create( $sizes, $type, $data[, $steps] ) -> <cv.Mat object>
 ```
 
 ```cpp
@@ -27100,9 +27202,9 @@ AutoIt:
 
 ```cpp
 cv::Mat cv::Mat::colRange( int startcol,
-                           int endcol );
+                           int endcol = __self->get()->cols );
 AutoIt:
-    $oMat.colRange( $startcol, $endcol ) -> retval
+    $oMat.colRange( $startcol[, $endcol] ) -> retval
 ```
 
 ```cpp
@@ -27995,9 +28097,9 @@ AutoIt:
 
 ```cpp
 cv::Mat cv::Mat::rowRange( int startrow,
-                           int endrow );
+                           int endrow = __self->get()->rows );
 AutoIt:
-    $oMat.rowRange( $startrow, $endrow ) -> retval
+    $oMat.rowRange( $startrow[, $endrow] ) -> retval
 ```
 
 ```cpp
@@ -55798,6 +55900,20 @@ AutoIt:
     $oNamedParameters.has( $key ) -> retval
 ```
 
+### NamedParameters::isNamedParameters
+
+```cpp
+static bool NamedParameters::isNamedParameters( const NamedParameters& value );
+AutoIt:
+    _OpenCV_ObjCreate("NamedParameters").isNamedParameters( $value ) -> retval
+```
+
+```cpp
+static bool NamedParameters::isNamedParameters( VARIANT* value = nullptr );
+AutoIt:
+    _OpenCV_ObjCreate("NamedParameters").isNamedParameters( [$value] ) -> retval
+```
+
 ### NamedParameters::max\_size
 
 ```cpp
@@ -61481,6 +61597,210 @@ AutoIt:
 void* VectorOfSize::start();
 AutoIt:
     $oVectorOfSize.start() -> retval
+```
+
+## VectorOfSize\_t
+
+### VectorOfSize\_t.Count
+
+```cpp
+size_t VectorOfSize_t::size()
+AutoIt:
+    [propget] $oVectorOfSize_t.Count
+```
+
+### VectorOfSize\_t::create
+
+```cpp
+static VectorOfSize_t VectorOfSize_t::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfSize_t").create() -> <VectorOfSize_t object>
+```
+
+```cpp
+static VectorOfSize_t VectorOfSize_t::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfSize_t").create( $size ) -> <VectorOfSize_t object>
+```
+
+```cpp
+static VectorOfSize_t VectorOfSize_t::create( VectorOfSize_t other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfSize_t").create( $other ) -> <VectorOfSize_t object>
+```
+
+### VectorOfSize\_t::Add
+
+```cpp
+void VectorOfSize_t::Add( size_t value );
+AutoIt:
+    $oVectorOfSize_t.Add( $value ) -> None
+```
+
+### VectorOfSize\_t::Items
+
+```cpp
+VectorOfSize_t VectorOfSize_t::Items();
+AutoIt:
+    $oVectorOfSize_t.Items() -> retval
+```
+
+### VectorOfSize\_t::Keys
+
+```cpp
+std::vector<int> VectorOfSize_t::Keys();
+AutoIt:
+    $oVectorOfSize_t.Keys() -> retval
+```
+
+### VectorOfSize\_t::Remove
+
+```cpp
+void VectorOfSize_t::Remove( size_t index );
+AutoIt:
+    $oVectorOfSize_t.Remove( $index ) -> None
+```
+
+### VectorOfSize\_t::append
+
+```cpp
+void VectorOfSize_t::append( size_t value );
+AutoIt:
+    $oVectorOfSize_t.append( $value ) -> None
+```
+
+### VectorOfSize\_t::at
+
+```cpp
+size_t VectorOfSize_t::at( size_t index );
+AutoIt:
+    $oVectorOfSize_t.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfSize_t::at( size_t index,
+                         size_t value );
+AutoIt:
+    $oVectorOfSize_t.at( $index, $value ) -> None
+```
+
+### VectorOfSize\_t::clear
+
+```cpp
+void VectorOfSize_t::clear();
+AutoIt:
+    $oVectorOfSize_t.clear() -> None
+```
+
+### VectorOfSize\_t::empty
+
+```cpp
+bool VectorOfSize_t::empty();
+AutoIt:
+    $oVectorOfSize_t.empty() -> retval
+```
+
+### VectorOfSize\_t::end
+
+```cpp
+void* VectorOfSize_t::end();
+AutoIt:
+    $oVectorOfSize_t.end() -> retval
+```
+
+### VectorOfSize\_t::get\_Item
+
+```cpp
+size_t VectorOfSize_t::get_Item( size_t index );
+AutoIt:
+    $oVectorOfSize_t.Item( $index ) -> retval
+    $oVectorOfSize_t( $index ) -> retval
+```
+
+### VectorOfSize\_t::get\_\_NewEnum
+
+```cpp
+IUnknown* VectorOfSize_t::get__NewEnum();
+AutoIt:
+    $oVectorOfSize_t._NewEnum() -> retval
+```
+
+### VectorOfSize\_t::push\_back
+
+```cpp
+void VectorOfSize_t::push_back( size_t value );
+AutoIt:
+    $oVectorOfSize_t.push_back( $value ) -> None
+```
+
+### VectorOfSize\_t::push\_vector
+
+```cpp
+void VectorOfSize_t::push_vector( VectorOfSize_t other );
+AutoIt:
+    $oVectorOfSize_t.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfSize_t::push_vector( VectorOfSize_t other,
+                                  size_t         count,
+                                  size_t         start = 0 );
+AutoIt:
+    $oVectorOfSize_t.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfSize\_t::put\_Item
+
+```cpp
+void VectorOfSize_t::put_Item( size_t index,
+                               size_t item );
+AutoIt:
+    $oVectorOfSize_t.Item( $index ) = $item
+```
+
+### VectorOfSize\_t::size
+
+```cpp
+size_t VectorOfSize_t::size();
+AutoIt:
+    $oVectorOfSize_t.size() -> retval
+```
+
+### VectorOfSize\_t::slice
+
+```cpp
+VectorOfSize_t VectorOfSize_t::slice( size_t start = 0,
+                                      size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfSize_t.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfSize\_t::sort
+
+```cpp
+void VectorOfSize_t::sort( void*  comparator,
+                           size_t start = 0,
+                           size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfSize_t.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfSize\_t::sort\_variant
+
+```cpp
+void VectorOfSize_t::sort_variant( void*  comparator,
+                                   size_t start = 0,
+                                   size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfSize_t.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfSize\_t::start
+
+```cpp
+void* VectorOfSize_t::start();
+AutoIt:
+    $oVectorOfSize_t.start() -> retval
 ```
 
 ## VectorOfVec2b

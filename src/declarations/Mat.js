@@ -9,6 +9,8 @@ const declarations = [
         ["int", "width", "", ["/RW", "=cols"]],
         ["int", "height", "", ["/RW", "=rows"]],
         ["std::tuple<int, int, int>", "shape", "", ["/R", "/RExpr=std::tuple<int, int, int>(__self->get()->rows, __self->get()->cols, __self->get()->channels())"]],
+        ["std::vector<int>", "sizes", "", ["/R", "/RExpr=std::vector<int>(__self->get()->size.p, __self->get()->size.p + __self->get()->dims)"]],
+        ["std::vector<size_t>", "steps", "", ["/R", "/RExpr=std::vector<size_t>(__self->get()->step.p, __self->get()->step.p + __self->get()->dims)"]],
     ], "", ""],
 
     ["cv.Mat.Mat", "", [], [], "", ""],
@@ -38,11 +40,36 @@ const declarations = [
     ], "", ""],
 
     ["cv.Mat.Mat", "", [], [
+        ["vector_int", "sizes", "", ["/Ref", "/C"]],
+        ["int", "type", "", []],
+    ], "", ""],
+
+    ["cv.Mat.Mat", "", [], [
+        ["vector_int", "sizes", "", ["/Ref", "/C"]],
+        ["int", "type", "", []],
+        ["Scalar", "s", "", []],
+    ], "", ""],
+
+    ["cv.Mat.Mat", "", [], [
         ["int", "rows", "", []],
         ["int", "cols", "", []],
         ["int", "type", "", []],
         ["void*", "data", "", []],
         ["size_t", "step", "cv::Mat::AUTO_STEP", []]
+    ], "", ""],
+
+    ["cv.Mat.Mat", "", [], [
+        ["Size", "size", "", []],
+        ["int", "type", "", []],
+        ["void*", "data", "", []],
+        ["size_t", "step", "cv::Mat::AUTO_STEP", []]
+    ], "", ""],
+
+    ["cv.Mat.Mat", "", [], [
+        ["vector_int", "sizes", "", ["/Ref", "/C"]],
+        ["int", "type", "", []],
+        ["void*", "data", "", []],
+        ["std::vector<size_t>", "steps", "std::vector<size_t>()", ["/Ref", "/C", "/Expr=(size_t*)(steps.empty() ? 0 : steps.data())"]]
     ], "", ""],
 
     ["cv.Mat.Mat", "", [], [
@@ -75,14 +102,14 @@ const declarations = [
     ], "", ""],
     ["cv.Mat.rowRange", "cv::Mat", [], [
         ["int", "startrow", "", []],
-        ["int", "endrow", "", []],
+        ["int", "endrow", "__self->get()->rows", []],
     ], "", ""],
     ["cv.Mat.rowRange", "cv::Mat", [], [
         ["Range", "r", "", []],
     ], "", ""],
     ["cv.Mat.colRange", "cv::Mat", [], [
         ["int", "startcol", "", []],
-        ["int", "endcol", "", []],
+        ["int", "endcol", "__self->get()->cols", []],
     ], "", ""],
     ["cv.Mat.colRange", "cv::Mat", [], [
         ["Range", "r", "", []],

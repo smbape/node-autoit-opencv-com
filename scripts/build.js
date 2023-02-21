@@ -13,8 +13,7 @@ const project = sysPath.join(sources, "autoit-opencv-com");
 
 const files = [
     [project, "install.bat"],
-    [project, "udf/*.au3"],
-    [project, "udf/*.md"],
+    [project, "udf/*.au3", "udf/*.md"],
     [project, "dotnet/*.cs"],
     [sysPath.join(sources, "samples"), "dotnet/*.psm1"],
     [sysPath.join(project, "generated"), "*.tlb", "dotnet/*.dll"],

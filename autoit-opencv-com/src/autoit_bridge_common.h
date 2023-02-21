@@ -680,6 +680,7 @@ extern const HRESULT autoit_from(_Tp const& in_val, _Tp*& out_val) {
 
 #pragma push_macro("CV_EXPORTS_W_SIMPLE")
 #pragma push_macro("CV_EXPORTS_W")
+#pragma push_macro("CV_WRAP")
 #pragma push_macro("CV_OUT")
 #define MapOfStringAndVariant std::map<std::string, _variant_t>
 
@@ -693,12 +694,26 @@ extern const HRESULT autoit_from(_Tp const& in_val, _Tp*& out_val) {
 #endif
 #define CV_EXPORTS_W
 
+#ifdef CV_WRAP
+#undef CV_WRAP
+#endif
+#define CV_WRAP
+
 #ifdef CV_OUT
 #undef CV_OUT
 #endif
 #define CV_OUT
 
-class CV_EXPORTS_W_SIMPLE NamedParameters : public MapOfStringAndVariant {};
+class CV_EXPORTS_W_SIMPLE NamedParameters : public MapOfStringAndVariant {
+public:
+	CV_WRAP static bool isNamedParameters(const NamedParameters& value) {
+		return true;
+	}
+
+	CV_WRAP static bool isNamedParameters(VARIANT* value = nullptr) {
+		return false;
+	}
+};
 
 namespace autoit {
 	template <typename _Tp>
@@ -829,6 +844,7 @@ namespace autoit {
 
 #pragma pop_macro("CV_EXPORTS_W_SIMPLE")
 #pragma pop_macro("CV_EXPORTS_W")
+#pragma pop_macro("CV_WRAP")
 #pragma pop_macro("CV_OUT")
 #undef MapOfStringAndVariant
 

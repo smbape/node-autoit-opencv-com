@@ -7,31 +7,31 @@
 using namespace std;
 using namespace cv;
 
-AUTOITAPI(void) calcHist_Demo_draw(Mat &histImage, int histSize, int hist_w, int hist_h, Mat &b_hist, Mat &g_hist, Mat &r_hist) {
+AUTOITAPI(void) calcHist_Demo_draw(Mat& histImage, int histSize, int hist_w, int hist_h, Mat& b_hist, Mat& g_hist, Mat& r_hist) {
 	int bin_w = cvRound((double)hist_w / histSize);
 
 	//! [Draw for each channel]
 	for (int i = 1; i < histSize; i++)
 	{
-		line( histImage, Point( bin_w*(i-1), hist_h - cvRound(b_hist.at<float>(i-1)) ),
-			  Point( bin_w*(i), hist_h - cvRound(b_hist.at<float>(i)) ),
-			  Scalar( 255, 0, 0), 2, 8, 0  );
-		line( histImage, Point( bin_w*(i-1), hist_h - cvRound(g_hist.at<float>(i-1)) ),
-			  Point( bin_w*(i), hist_h - cvRound(g_hist.at<float>(i)) ),
-			  Scalar( 0, 255, 0), 2, 8, 0  );
-		line( histImage, Point( bin_w*(i-1), hist_h - cvRound(r_hist.at<float>(i-1)) ),
-			  Point( bin_w*(i), hist_h - cvRound(r_hist.at<float>(i)) ),
-			  Scalar( 0, 0, 255), 2, 8, 0  );
+		line(histImage, Point(bin_w * (i - 1), hist_h - cvRound(b_hist.at<float>(i - 1))),
+			Point(bin_w * (i), hist_h - cvRound(b_hist.at<float>(i))),
+			Scalar(255, 0, 0), 2, 8, 0);
+		line(histImage, Point(bin_w * (i - 1), hist_h - cvRound(g_hist.at<float>(i - 1))),
+			Point(bin_w * (i), hist_h - cvRound(g_hist.at<float>(i))),
+			Scalar(0, 255, 0), 2, 8, 0);
+		line(histImage, Point(bin_w * (i - 1), hist_h - cvRound(r_hist.at<float>(i - 1))),
+			Point(bin_w * (i), hist_h - cvRound(r_hist.at<float>(i))),
+			Scalar(0, 0, 255), 2, 8, 0);
 	}
 	//! [Draw for each channel]
 }
 
 AUTOITAPI(void) AKAZE_match_ratio_test_filtering(
-	vector<KeyPoint> &matched1,
-	vector<KeyPoint> &kpts1,
-	vector<KeyPoint> &matched2,
-	vector<KeyPoint> &kpts2,
-	vector<vector<DMatch>> &nn_matches,
+	vector<KeyPoint>& matched1,
+	vector<KeyPoint>& kpts1,
+	vector<KeyPoint>& matched2,
+	vector<KeyPoint>& kpts2,
+	vector<vector<DMatch>>& nn_matches,
 	const float nn_match_ratio
 ) {
 	//! [ratio test filtering]
@@ -49,13 +49,13 @@ AUTOITAPI(void) AKAZE_match_ratio_test_filtering(
 }
 
 AUTOITAPI(void) AKAZE_homograpy_check(
-	Mat &homography,
-	vector<KeyPoint> &matched1,
-	vector<KeyPoint> &inliers1,
-	vector<KeyPoint> &matched2,
-	vector<KeyPoint> &inliers2,
+	Mat& homography,
+	vector<KeyPoint>& matched1,
+	vector<KeyPoint>& inliers1,
+	vector<KeyPoint>& matched2,
+	vector<KeyPoint>& inliers2,
 	const float inlier_threshold,
-	vector<DMatch> &good_matches
+	vector<DMatch>& good_matches
 ) {
 	for (size_t i = 0; i < matched1.size(); i++) {
 		Mat col = Mat::ones(3, 1, CV_64F);
@@ -76,42 +76,98 @@ AUTOITAPI(void) AKAZE_homograpy_check(
 	}
 }
 
-// Remove the bounding boxes with low confidence using non-maxima suppression
+#define UNSUPPORTED_YOLO_VERSION "Unsupported yolo version. Supported versions are v3, v5, v8."
+
 AUTOITAPI(void) yolo_postprocess(
-	Mat& frame,
+	const int spatial_width,
+	const int spatial_height,
+	const size_t num_classes,
+	Mat& image,
+	const float scale,
 	const vector<Mat>& outs,
-	const float confThreshold,
-	const float nmsThreshold,
-	vector<int>& classIds,
-	vector<float>& confidences,
-	vector<Rect2d>& boxes
+	const float confidence_threshold,
+	const float score_threshold,
+	vector<int>& class_ids,
+	vector<float>& scores,
+	vector<Rect2d>& bboxes
 ) {
-	for (size_t i = 0; i < outs.size(); ++i)
+	cv::Mat classes_scores(1, 0, CV_32FC1);
+	Point maxClassLoc;
+	double maxScore;
+
+	for (auto out : outs)
 	{
+		int offset;
+		float scale_x, scale_y;
+
+		if (out.dims != 2 && out.dims != 3) {
+			CV_Error(cv::Error::StsAssert, UNSUPPORTED_YOLO_VERSION " out.dims != 2 && out.dims != 3");
+		}
+
+		if (out.dims == 2) {
+			// yolo v3
+			offset = 5;
+			scale_x = (float)image.cols;
+			scale_y = (float)image.rows;
+		}
+		else {
+			if (out.size[0] != 1) {
+				CV_Error(cv::Error::StsAssert, UNSUPPORTED_YOLO_VERSION " out.size[0] != 1");
+			}
+
+			out = out.reshape(1, out.size[1]);
+			scale_x = (float)image.cols / spatial_width;
+			scale_y = (float)image.rows / spatial_height;
+
+			// yolov5 has an output of shape (batchSize, 25200, 85) (Num classes + box[x,y,w,h] + confidence[c])
+			// yolov8 has an output of shape (batchSize, 84,  8400) (Num classes + box[x,y,w,h])
+			if (out.rows == num_classes + 4) {
+				// yolo v8
+				offset = 4;
+				cv::transpose(out, out);
+			}
+			else if (out.cols == num_classes + 5) {
+				// yolo v5
+				offset = 5;
+			}
+			else {
+				CV_Error(cv::Error::StsAssert, UNSUPPORTED_YOLO_VERSION);
+			}
+		}
+
+		classes_scores.cols = out.cols - offset;
+
 		// Scan through all the bounding boxes output from the network and keep only the
 		// ones with high confidence scores. Assign the box's class label as the class
 		// with the highest score for the box.
-		float* data = (float*)outs[i].data;
-		for (int j = 0; j < outs[i].rows; ++j, data += outs[i].cols)
-		{
-			Mat scores = outs[i].row(j).colRange(5, outs[i].cols);
-			Point classIdPoint;
-			double confidence;
-			// Get the value and location of the maximum score
-			minMaxLoc(scores, 0, &confidence, 0, &classIdPoint);
-			if (confidence > confThreshold)
-			{
-				int centerX = (int)(data[0] * frame.cols);
-				int centerY = (int)(data[1] * frame.rows);
-				int width = (int)(data[2] * frame.cols);
-				int height = (int)(data[3] * frame.rows);
-				int left = centerX - width / 2;
-				int top = centerY - height / 2;
 
-				classIds.push_back(classIdPoint.x);
-				confidences.push_back((float)confidence);
-				boxes.push_back(Rect2d(left, top, width, height));
+		float* data = (float*)out.data;
+
+		for (int i = 0; i < out.rows; ++i, data += out.cols)
+		{
+			if (offset == 5 && data[4] < confidence_threshold) {
+				continue;
+			}
+
+			classes_scores.data = reinterpret_cast<uchar*>(data + offset);
+
+			// Get the value and location of the maximum score
+			minMaxLoc(classes_scores, 0, &maxScore, 0, &maxClassLoc);
+
+			if (maxScore >= score_threshold)
+			{
+				double centerX = (double)data[0] * scale_x * scale;
+				double centerY = (double)data[1] * scale_y * scale;
+				double width = (double)data[2] * scale_x * scale;
+				double height = (double)data[3] * scale_y * scale;
+				double left = centerX - width / 2;
+				double top = centerY - height / 2;
+
+				bboxes.push_back(Rect2d(left, top, width, height));
+				scores.push_back((float)maxScore);
+				class_ids.push_back(maxClassLoc.x);
 			}
 		}
 	}
+
 }

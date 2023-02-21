@@ -237,7 +237,7 @@ public static class Test
 
 ### Prerequisites
 
-Install [7-zip](https://www.7-zip.org/download.html) and add the 7-zip folder to you system PATH environment variable
+Install [7-zip](https://www.7-zip.org/download.html) and add the 7-zip folder to your system PATH environment variable
 
 Then, in [Git Bash](https://gitforwindows.org/), execute the following commands
 

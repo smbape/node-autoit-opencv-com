@@ -3,13 +3,6 @@ import numpy as np
 import cv2 as cv
 import datetime
 
-# Get the names of the output layers
-def getOutputsNames(net):
-    # Get the names of all the layers in the network
-    layersNames = net.getLayerNames()
-    # Get the names of the output layers, i.e. the layers with unconnected outputs
-    return [layersNames[i[0] - 1] for i in net.getUnconnectedOutLayers()]
-
 # Remove the bounding boxes with low confidence using non-maxima suppression
 def postprocess(frame, outs):
     frameHeight = frame.shape[0]
@@ -40,7 +33,6 @@ def postprocess(frame, outs):
     # lower confidences.
     indices = cv.dnn.NMSBoxes(boxes, confidences, confThreshold, nmsThreshold)
     for i in indices:
-        i = i[0]
         box = boxes[i]
         left = box[0]
         top = box[1]
@@ -85,7 +77,7 @@ modelWeights = "yolov3.weights";
 timer = datetime.datetime.now()
 net = cv.dnn.readNetFromDarknet(modelConfiguration, modelWeights)
 net.setPreferableBackend(cv.dnn.DNN_BACKEND_OPENCV)
-# net.setPreferableTarget(cv.dnn.DNN_TARGET_CPU)
+net.setPreferableTarget(cv.dnn.DNN_TARGET_CPU)
 print("readNetFromDarknet " + str((datetime.datetime.now() - timer).total_seconds() * 1000))
 
 # timer = datetime.datetime.now()
@@ -102,7 +94,7 @@ net.setInput(blob)
 
 # Runs the forward pass to get output of the output layers
 timer = datetime.datetime.now()
-outs = net.forward(getOutputsNames(net))
+outs = net.forward(net.getUnconnectedOutLayersNames())
 print("forward " + str((datetime.datetime.now() - timer).total_seconds() * 1000))
 
 # Remove the bounding boxes with low confidence

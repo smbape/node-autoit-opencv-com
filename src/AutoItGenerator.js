@@ -1568,15 +1568,23 @@ class AutoItGenerator {
     }
 
     genManifest(comClasses, comInterfaceExternalProxyStubs, debugPostFix, options) {
-        const { LIB_UID, OUTPUT_NAME } = options;
+        const { LIB_UID, OUTPUT_NAME, updateAssembly } = options;
+
+        const assemblies = [`
+            <assemblyIdentity
+                type="win32"
+                name="${ OUTPUT_NAME }${ debugPostFix }.sxs"
+                version="${ version }.0" />
+        `.replace(/^ {12}/mg, "").trim()];
+
+        if (typeof updateAssembly === "function") {
+            updateAssembly(assemblies, debugPostFix, options);
+        }
 
         return `
             <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
             <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
-                <assemblyIdentity
-                    type="win32"
-                    name="${ OUTPUT_NAME }${ debugPostFix }.sxs"
-                    version="${ version }.0" />
+                ${ assemblies.join("\n").split("\n").join(`\n${ " ".repeat(16) }`) }
 
                 <file xmlns="urn:schemas-microsoft-com:asm.v1" name="${ OUTPUT_NAME }${ debugPostFix }.dll">
                     ${ comClasses.map(comClass => comClass.split("\n").join(`\n${ " ".repeat(20) }`)).join(`\n\n${ " ".repeat(20) }`) }

@@ -16,6 +16,23 @@
 ;~ Sources:
 ;~     https://www.autoitscript.com/forum/topic/202987-real-time-object-detection-using-yolov3-wrapper/
 ;~     https://learnopencv.com/deep-learning-based-object-detection-using-yolov3-with-opencv-python-c/
+;~     https://github.com/sjinzh/awesome-yolo-object-detection
+;~     https://github.com/ultralytics/yolov5
+;~     https://github.com/ultralytics/yolov5/issues/251
+;~     https://learnopencv.com/object-detection-using-yolov5-and-opencv-dnn-in-c-and-python/
+;~     https://github.com/ultralytics/ultralytics/blob/main/examples/YOLOv8-CPP-Inference/inference.cpp
+
+#cs
+git clone https://github.com/ultralytics/yolov5
+cd yolov5
+pip install -r requirements.txt
+python export.py --include onnx --opset 12 --weights yolov5s.pt
+
+pip install ultralytics
+yolo export model=yolov8s.pt imgsz=640 format=onnx opset=12
+#ce
+
+; EnvSet("OPENCV_BUILD_TYPE", "Debug")
 
 _OpenCV_Open(_OpenCV_FindDLL("opencv_world470*"), _OpenCV_FindDLL("autoit_opencv_com470*"))
 _GDIPlus_Startup()
@@ -29,22 +46,44 @@ Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
 #Region ### START Koda GUI section ### Form=
 Global $FormGUI = GUICreate("OpenCV object detection", 1273, 796, 191, 18)
 
+Global $LabelImage = GUICtrlCreateLabel("Image", 215, 8, 47, 20)
+GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
 Global $InputSource = GUICtrlCreateInput(@ScriptDir & "\scooter-5180947_1920.jpg", 264, 8, 449, 21)
 Global $BtnSource = GUICtrlCreateButton("Browse", 723, 6, 75, 25)
 
-Global $InputModelNames = GUICtrlCreateInput(@ScriptDir & "\yolov3.txt", 264, 44, 449, 21)
+Global $LabelModelNames = GUICtrlCreateLabel("Model names", 163, 44, 97, 20)
+GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
+Global $InputModelNames = GUICtrlCreateInput(@ScriptDir & "\coco.txt", 264, 44, 449, 21)
 Global $BtnModelNames = GUICtrlCreateButton("Browse", 723, 42, 75, 25)
 
-Global $InputModelConfiguration = GUICtrlCreateInput(@ScriptDir & "\yolov3.cfg", 264, 80, 449, 21)
-Global $BtnModelConfiguration = GUICtrlCreateButton("Browse", 723, 78, 75, 25)
+Global $LabelModelWeights = GUICtrlCreateLabel("Model weights", 157, 80, 103, 20)
+GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
+Global $InputModelWeights = GUICtrlCreateInput(@ScriptDir & "\yolov5s.onnx", 264, 80, 449, 21)
+Global $BtnModelWeights = GUICtrlCreateButton("Browse", 723, 78, 75, 25)
 
-Global $InputModelWeights = GUICtrlCreateInput(@ScriptDir & "\yolov3.weights", 264, 116, 449, 21)
-Global $BtnModelWeights = GUICtrlCreateButton("Browse", 723, 114, 75, 25)
+Global $LabelModelConfiguration = GUICtrlCreateLabel("Model configuration", 120, 116, 140, 20)
+GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
+Global $InputModelConfiguration = GUICtrlCreateInput("", 264, 116, 449, 21)
+Global $BtnModelConfiguration = GUICtrlCreateButton("Browse", 723, 114, 75, 25)
+
+Global $LabelModelSize = GUICtrlCreateLabel("Model size", 832, 12, 81, 20)
+GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
+Global $InputModelWidth = GUICtrlCreateInput("640", 920, 12, 25, 21)
+GUICtrlSetTip(-1, "Width of network's input image")
+Global $InputModelHeight = GUICtrlCreateInput("640", 955, 12, 25, 21)
+GUICtrlSetTip(-1, "Height of network's input image")
 
 Global $CheckboxUseGDI = GUICtrlCreateCheckbox("Use GDI+", 832, 48, 97, 17)
 GUICtrlSetState(-1, $GUI_CHECKED)
 
-Global $BtnExec = GUICtrlCreateButton("Dectect Objects", 832, 8, 91, 25)
+Global $CheckboxUseCPP = GUICtrlCreateCheckbox("Use C++", 832, 78, 97, 17)
+If $addon_dll == "" Then
+	GUICtrlSetState(-1, $GUI_DISABLE)
+Else
+	GUICtrlSetState(-1, $GUI_CHECKED)
+EndIf
+
+Global $BtnExec = GUICtrlCreateButton("Dectect Objects", 832, 114, 91, 25)
 
 Global $LabelSource = GUICtrlCreateLabel("Source Image", 271, 148, 100, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
@@ -61,16 +100,19 @@ GUICtrlCreateGroup("", -99, -99, 1, 1)
 GUISetState(@SW_SHOW)
 #EndRegion ### END Koda GUI section ###
 
+; Make the starting point unpredictable
+$cv.theRNG().state = $cv.getTickCount()
+
 ;; Initialize the parameters
-Global $confThreshold = 0.5  ; Confidence threshold
-Global $nmsThreshold = 0.4   ; Non-maximum suppression threshold
-Global $inpWidth = 416       ; Width of network's input image
-Global $inpHeight = 416      ; Height of network's input image
+Global $confidence_threshold = 0.45  ; a threshold used to filter boxes by model confidence
+Global $score_threshold      = 0.25  ; a threshold used to filter boxes by score
+Global $nms_threshold        = 0.45  ; a threshold used in non maximum suppression
 
 Global $sSource, $sModelNames, $sModelConfiguration, $sModelWeights
 Global $nMsg
 
-_DownloadWeights(ControlGetText($FormGUI, "", $InputModelWeights))
+_DownloadFile(@ScriptDir & "\yolov3.weights", "https://pjreddie.com/media/files/yolov3.weights")
+_DownloadFile(@ScriptDir & "\yolov5s.onnx", "https://github.com/doleron/yolov5-opencv-cpp-python/raw/main/config_files/yolov5s.onnx")
 Main()
 
 While 1
@@ -96,7 +138,7 @@ While 1
 			EndIf
 		Case $BtnModelConfiguration
 			$sModelConfiguration = ControlGetText($FormGUI, "", $InputModelConfiguration)
-			$sModelConfiguration = FileOpenDialog("Select a model configuration", $OPENCV_SAMPLES_DATA_PATH, "Model configuration (*.cfg)", $FD_FILEMUSTEXIST, $sModelConfiguration)
+			$sModelConfiguration = FileOpenDialog("Select a model configuration", $OPENCV_SAMPLES_DATA_PATH, "Model configuration (*.prototxt;*.pbtxt;*.cfg;*.xml)", $FD_FILEMUSTEXIST, $sModelConfiguration)
 			If @error Then
 				$sModelConfiguration = ""
 			Else
@@ -104,7 +146,7 @@ While 1
 			EndIf
 		Case $BtnModelWeights
 			$sModelWeights = ControlGetText($FormGUI, "", $InputModelWeights)
-			$sModelWeights = FileOpenDialog("Select a model weights", $OPENCV_SAMPLES_DATA_PATH, "Model weights (*.onnx;*.weights)", $FD_FILEMUSTEXIST, $sModelWeights)
+			$sModelWeights = FileOpenDialog("Select a model weights", $OPENCV_SAMPLES_DATA_PATH, "Model weights (*.caffemodel;*.pb;*.t7;*.net;*.weights;*.bin;*.onnx)", $FD_FILEMUSTEXIST, $sModelWeights)
 			If @error Then
 				$sModelWeights = ""
 			Else
@@ -116,6 +158,8 @@ While 1
 WEnd
 
 Func Main()
+	Local $hTimer
+
 	$sSource = ControlGetText($FormGUI, "", $InputSource)
 	If $sSource == "" Then Return
 
@@ -129,56 +173,73 @@ Func Main()
 	$_cv_gdi_resize = _IsChecked($CheckboxUseGDI)
 
 	;;! [Load image]
+	$hTimer = TimerInit()
 	Local $image = _OpenCV_imread_and_check($sSource)
 	If @error Then Return
-	_OpenCV_imshow_ControlPic($image, $FormGUI, $PicSource)
-	;;! [Load image]
+	ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : Load image               ' & TimerDiff($hTimer) & ' ms' & @CRLF)
 
-	Local $hTimer
+	$hTimer = TimerInit()
+	_OpenCV_imshow_ControlPic($image, $FormGUI, $PicSource)
+	ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : Show image               ' & TimerDiff($hTimer) & ' ms' & @CRLF)
+	;;! [Load image]
 
 	Local $classes = FileReadToArray($sModelNames)
 	If @error Then
 		ConsoleWriteError("!>Error: Unable to read model names " & $sModelNames & @CRLF)
+		Return
 	EndIf
-
-	; Local $net = $cv.dnn.readNetFromDarknet($sModelConfiguration, $sModelWeights)
 
 	$hTimer = TimerInit()
-	Local $net
-	If $sModelConfiguration == "" Then
-		$net = $cv.dnn.readNet($sModelWeights)
-	Else
-		$net = $cv.dnn.readNet($sModelWeights, $sModelConfiguration)
-	EndIf
-	ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : $cv.dnn.readNet    ' & TimerDiff($hTimer) & ' ms' & @CRLF)
+	Local $net = $cv.dnn.readNet($sModelWeights, $sModelConfiguration)
+	ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : $cv.dnn.readNet          ' & TimerDiff($hTimer) & ' ms' & @CRLF)
 
 	; $net.setPreferableBackend($CV_DNN_DNN_BACKEND_OPENCV)
 	; $net.setPreferableTarget($CV_DNN_DNN_TARGET_CPU)
 
+	Local Const $inpWidth = Number(ControlGetText($FormGUI, "", $InputModelWidth))
+	Local Const $inpHeight = Number(ControlGetText($FormGUI, "", $InputModelHeight))
+
 	$hTimer = TimerInit()
-	ProcessFrame($net, $classes, $image)
-	ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : ProcessFrame    ' & TimerDiff($hTimer) & ' ms' & @CRLF & @CRLF)
+	ProcessImage($net, $inpWidth, $inpHeight, $classes, $image)
+	ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : ProcessImage             ' & TimerDiff($hTimer) & ' ms' & @CRLF & @CRLF)
 EndFunc   ;==>Main
 
-Func ProcessFrame($net, $classes, $frame)
+Func ProcessImage($net, $spatial_width, $spatial_height, $classes, $image_displayed)
 	Local $hTimer
 
-	Local $aPicPos = ControlGetPos($FormGUI, "", $PicResult)
-	Local $iDstWidth = $aPicPos[2]
-	Local $iDstHeight = $aPicPos[3]
-	Local $fRatio = $frame.width / $frame.height
+	;; The model expects images of size [ $spatial_width x $spatial_height ]
+	;; Performing a high quality shrinking, instead of the provided one in blobFromImage
+	;; improves detection
+	Local $image = _OpenCV_resizeAndCenter($image_displayed, _OpenCV_Params( _
+			"width", $spatial_width, _
+			"height", $spatial_height, _
+			"center", False _
+			))
 
-	If $fRatio * $iDstHeight > $iDstWidth Then
-		$iDstHeight = $iDstWidth / $fRatio
-	ElseIf $fRatio * $iDstHeight < $iDstWidth Then
-		$iDstWidth = $iDstHeight * $fRatio
+	Local $aPicPos = ControlGetPos($FormGUI, "", $PicResult)
+	$image_displayed = _OpenCV_resizeAndCenter($image_displayed, _OpenCV_Params( _
+			"width", $aPicPos[2], _
+			"height", $aPicPos[3], _
+			"center", False _
+			))
+
+	Local $scale = $image_displayed.width / $image.width
+
+	;; Fill missing pixels with 0
+	Local $pad_width = $spatial_width - $image.width
+	Local $pad_height = $spatial_height - $image.height
+	If $pad_width > 0 Or $pad_height > 0 Then
+		Local $padded = $cv.Mat.zeros($spatial_width, $spatial_height, CV_MAKETYPE($image.depth(), $image.channels()))
+		$image.copyTo($cv.Mat.create($padded, _OpenCV_Rect(0, 0, $image.width, $image.height)))
+		$image = $padded
 	EndIf
 
-	;; Reduce frame image to improve object detection
-	$frame = _OpenCV_resizeAndCenter($frame, $iDstWidth, $iDstHeight)
-
 	;; Create a 4D blob from a frame.
-	Local $blob = $cv.dnn.blobFromImage($frame, 1 / 255, _OpenCV_Size($inpWidth, $inpHeight), _OpenCV_Scalar(0, 0, 0), True, False)
+	Local $blob = $cv.dnn.blobFromImage($image, _OpenCV_Params( _
+			"scalefactor", 1 / 255, _
+			"size", _OpenCV_Size($spatial_width, $spatial_height), _
+			"swapRB", True _ ; yolo models expects RGB images, but opencv read BGR images
+			))
 
 	;; Sets the input to the network
 	$net.setInput($blob)
@@ -186,144 +247,194 @@ Func ProcessFrame($net, $classes, $frame)
 	;; Runs the forward pass to get output of the output layers
 	$hTimer = TimerInit()
 	Local $outs = $net.forward($net.getUnconnectedOutLayersNames())
-	ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : forward         ' & TimerDiff($hTimer) & ' ms' & @CRLF)
+	ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : forward                  ' & TimerDiff($hTimer) & ' ms' & @CRLF)
 
 	;; Remove the bounding boxes with low confidence
 	$hTimer = TimerInit()
-	postprocess($frame, $outs, $classes)
-	ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : postprocess     ' & TimerDiff($hTimer) & ' ms' & @CRLF)
+	postprocess($spatial_width, $spatial_height, $classes, $image, $scale, $image_displayed, $outs)
+	ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : postprocess              ' & TimerDiff($hTimer) & ' ms' & @CRLF)
 
 	;; Put efficiency information.
 	;; The function getPerfProfile returns the overall time for inference(t)
 	;; and the timings for each of the layers(in layersTimes)
 	; Local $t = $net.getPerfProfile()
 	; Local $label = 'Inference time: ' & Round($t * 1000.0 / $cv.getTickFrequency(), 2) & ' ms'
-	; $cv.putText($frame, $label, _OpenCV_Point(0, 15), $CV_FONT_HERSHEY_SIMPLEX, 0.5, _OpenCV_Scalar(0, 0, 0xFF))
+	; $cv.putText($image, $label, _OpenCV_Point(0, 15), $CV_FONT_HERSHEY_SIMPLEX, 0.5, _OpenCV_Scalar(0, 0, 0xFF))
 
-	_OpenCV_imshow_ControlPic($frame, $FormGUI, $PicResult)
-EndFunc   ;==>ProcessFrame
+	_OpenCV_imshow_ControlPic($image_displayed, $FormGUI, $PicResult)
+EndFunc   ;==>ProcessImage
 
-;; Remove the bounding boxes with low confidence using non-maxima suppression
-Func postprocess($frame, $outs, $classes)
-	Local $frameHeight = $frame.height
-	Local $frameWidth = $frame.width
-
+Func postprocess($spatial_width, $spatial_height, $classes, $image, $scale, $image_displayed, $outs)
 	;; Scan through all the bounding boxes output from the network and keep only the
 	;; ones with high confidence scores. Assign the box's class label as the class with the highest score.
-	Local $classIds = _OpenCV_ObjCreate("VectorOfInt")
-	Local $confidences = _OpenCV_ObjCreate("VectorOfFloat")
-	Local $boxes = _OpenCV_ObjCreate("VectorOfRect2d")
+	Local $class_ids = _OpenCV_ObjCreate("VectorOfInt")
+	Local $scores = _OpenCV_ObjCreate("VectorOfFloat")
+	Local $bboxes = _OpenCV_ObjCreate("VectorOfRect2d")
 
 	Local $hTimer
 
-	Local $left, $top, $width, $height
-
-	If $addon_dll == "" Then
+	If Not _IsChecked($CheckboxUseCPP) Then
 		; Slower
 		$hTimer = TimerInit()
-
-		Local $detection = $cv.Mat.create(1, 0, $CV_32F)
-		Local $scores = $cv.Mat.create(1, 0, $CV_32F)
-
-		Local $out, $data, $step, $cols, $sizeof
-		Local $confidence, $classIdPoint
-		Local $center_x, $center_y
-
-		For $i = 0 To UBound($outs) - 1
-			$out = $outs[$i]
-			$data = Ptr($out.data)
-			$step = $out.Step
-			$cols = $out.cols
-			$sizeof = $step / $cols
-			$detection.cols = $cols
-			$scores.cols = $cols - 5
-
-			For $j = 0 To $out.rows - 1
-				; Slower
-				; Local $detection = $out.row($j)
-				; Local $scores = $detection.colRange(5, $out.cols)
-
-				; Slower
-				; $detection.data = $out.ptr($j, 0)
-				; $scores.data = $out.ptr($j, 5)
-
-				$detection.data = $data + $step * $j
-				$scores.data = Ptr($detection.data) + 5 * $sizeof
-
-				$cv.minMaxLoc($scores)
-				$confidence = $cv.extended[1]
-				$classIdPoint = $cv.extended[3]
-
-				If $confidence > $confThreshold Then
-					$center_x = $detection.at(0) * $frameWidth
-					$center_y = $detection.at(1) * $frameHeight
-					$width = $detection.at(2) * $frameWidth
-					$height = $detection.at(3) * $frameHeight
-					$left = $center_x - $width / 2
-					$top = $center_y - $height / 2
-
-					$classIds.push_back($classIdPoint[0])
-					$confidences.push_back($confidence)
-					$boxes.push_back(_OpenCV_Rect($left, $top, $width, $height))
-				EndIf
-			Next
-		Next
-
+		yolo_postprocess( _
+				$spatial_width, _
+				$spatial_height, _
+				UBound($classes), _
+				$image, _
+				$scale, _
+				$outs, _
+				$class_ids, _
+				$scores, _
+				$bboxes _
+				)
 		ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : AutoIt yolo_postprocess  ' & TimerDiff($hTimer) & ' ms' & @CRLF)
 	Else
 		;;: [doing the loop in a compiled code is 150 times faster than doing it in autoit]
 		$hTimer = TimerInit()
-		Local $vOuts = _OpenCV_ObjCreate("VectorOfMat").create($outs)
+		$outs = _OpenCV_ObjCreate("VectorOfMat").create($outs)
 		_OpenCV_DllCall($addon_dll, "none:cdecl", "yolo_postprocess", _
-				"ptr", $frame.self, _
-				"ptr", $vOuts.self, _
-				"float", $confThreshold, _
-				"float", $nmsThreshold, _
-				"ptr", $classIds.self, _
-				"ptr", $confidences.self, _
-				"ptr", $boxes.self _
+				"int", $spatial_width, _
+				"int", $spatial_height, _
+				"ulong_ptr", UBound($classes), _
+				"ptr", $image.self, _
+				"float", $scale, _
+				"ptr", $outs.self, _
+				"float", $confidence_threshold, _
+				"float", $score_threshold, _
+				"ptr", $class_ids.self, _
+				"ptr", $scores.self, _
+				"ptr", $bboxes.self _
 				)
-		ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : DllCall yolo_postprocess ' & TimerDiff($hTimer) & ' ms' & @CRLF)
+		ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : c++ yolo_postprocess     ' & TimerDiff($hTimer) & ' ms' & @CRLF)
 		;;: [doing the loop in a compiled code is way faster than doing it in autoit]
 	EndIf
 
-	;; Perform non maximum suppression to eliminate redundant overlapping boxes with
-	;; lower confidences.
-	Local $indices = $cv.dnn.NMSBoxes($boxes, $confidences, $confThreshold, $nmsThreshold)
-	Local $idx, $box
-	For $i = 0 To UBound($indices) - 1
-		$idx = $indices[$i]
-		$box = $boxes.at($idx)
-		drawPred($classIds.at($idx), $confidences.at($idx), $box, $frame, $classes)
+	Local Const $colors = $cv.Mat.zeros(1, UBound($classes), $CV_8UC3)
+	$cv.randu($colors, 0.0, 255.0)
+
+	;; Perform non maximum suppression to eliminate redundant overlapping bounding boxes with lower scores.
+	Local $indices = $cv.dnn.NMSBoxes($bboxes, $scores, $score_threshold, $nms_threshold)
+	For $idx In $indices
+		drawPred($image_displayed, $class_ids.at($idx), $scores.at($idx), $bboxes.at($idx), $classes, $colors)
 	Next
 EndFunc   ;==>postprocess
 
-Func drawPred($classId, $conf, $box, $frame, $classes)
+Func yolo_postprocess($spatial_width, $spatial_height, $num_classes, $image, $scale, $outs, $class_ids, $scores, $bboxes)
+	Local Const $UNSUPPORTED_YOLO_VERSION = "!>Error: Unsupported yolo version. Supported versions are v3, v5, v8."
+	Local $offset, $scale_x, $scale_y
+
+	Local $detection = $cv.Mat.create(1, 0, $CV_32F)
+	Local $classes_scores = $cv.Mat.create(1, 0, $CV_32F)
+
+	Local $out, $data, $steps, $step_row, $step_col
+	Local $maxScore, $maxClassLoc
+	Local $center_x, $center_y
+	Local $left, $top, $width, $height
+
+	For $out In $outs
+		If $out.dims <> 2 And $out.dims <> 3 Then
+			ConsoleWriteError($UNSUPPORTED_YOLO_VERSION & ' out.dims != 2 && out.dims != 3' & @CRLF)
+			Return
+		EndIf
+
+		If $out.dims == 2 Then
+			;; yolo v3
+			$offset = 5 ;
+			$scale_x = $image.cols
+			$scale_y = $image.rows
+		Else
+			If $out.sizes[0] <> 1 Then
+				ConsoleWriteError($UNSUPPORTED_YOLO_VERSION & ' out.size[0] != 1' & @CRLF)
+				Return
+			EndIf
+
+			$out = $out.reshape(1, $out.sizes[1])
+			$scale_x = $image.cols / $spatial_width
+			$scale_y = $image.rows / $spatial_height
+
+			;; yolov5 has an output of shape (batchSize, 25200, 85) (Num classes + box[x,y,w,h] + confidence[c])
+			;; yolov8 has an output of shape (batchSize, 84,  8400) (Num classes + box[x,y,w,h])
+			If $out.rows == $num_classes + 4 Then
+				;; yolo v8
+				$offset = 4
+				$out = $cv.transpose($out)
+			ElseIf $out.cols == $num_classes + 5 Then
+				;; yolo v5
+				$offset = 5
+			Else
+				ConsoleWriteError($UNSUPPORTED_YOLO_VERSION & @CRLF)
+				Return
+			EndIf
+		EndIf
+
+		$data = Ptr($out.data)
+		$steps = $out.steps
+		$step_row = $steps[0]
+		$step_col = $steps[1]
+
+		$detection.cols = $out.cols
+		$classes_scores.cols = $out.cols - $offset
+
+		For $j = 0 To $out.rows - 1
+			; Slower
+			; $detection = $out.row($j)
+			; $classes_scores = $detection.colRange($offset, $out.cols)
+
+			; Slower
+			; $detection.data = $out.ptr($j, 0)
+			; $classes_scores.data = $out.ptr($j, $offset)
+
+			$detection.data = $data + $j * $step_row
+			$classes_scores.data = Ptr($detection.data) + $offset * $step_col
+
+			If $offset == 5 And $detection.at(4) < $confidence_threshold Then
+				ContinueLoop
+			EndIf
+
+			$cv.minMaxLoc($classes_scores)
+			$maxScore = $cv.extended[1]
+			$maxClassLoc = $cv.extended[3]
+
+			If $maxScore >= $score_threshold Then
+				$center_x = $detection.at(0) * $scale_x * $scale
+				$center_y = $detection.at(1) * $scale_y * $scale
+				$width = $detection.at(2) * $scale_x * $scale
+				$height = $detection.at(3) * $scale_y * $scale
+				$left = $center_x - $width / 2
+				$top = $center_y - $height / 2
+
+				$class_ids.push_back($maxClassLoc[0])
+				$scores.push_back($maxScore)
+				$bboxes.push_back(_OpenCV_Rect($left, $top, $width, $height))
+			EndIf
+		Next
+	Next
+EndFunc   ;==>yolo_postprocess
+
+Func drawPred($image, $class_id, $conf, $bbox, $classes, $colors)
 	Local $thickness = 2
+	Local $color = $colors.Vec3b_at($class_id)
 
 	;; Draw a bounding box.
-	$cv.rectangle($frame, $box, _OpenCV_Scalar(0xFF, 0xB2, 0x32), $thickness)
+	$cv.rectangle($image, $bbox, $color, $thickness)
 
 	;; Get the label for the class name and its confidence
-	Local $label = StringFormat("%.4f", $conf)
-	If IsArray($classes) Then
-		$label = StringFormat("%s:%s", $classes[$classId], $label)
-	EndIf
+	Local $label = StringFormat("%s:%.3f", $classes[$class_id], $conf)
 
-	Local $left = $box[0] + $thickness
-	Local $top = $box[1] + $thickness
+	Local $left = $bbox[0] + $thickness
+	Local $top = $bbox[1] + $thickness
 	Local $fLabelBackgroundOpacity = 0x7F / 0xFF
 
 	If $_cv_gdi_resize And $__g_hGDIPDll > 0 Then
 		Local $LabelBrush = _GDIPlus_BrushCreateSolid(0xFF000000)
 		Local $hLabelBackgroundBrush = _GDIPlus_BrushCreateSolid(BitOR(0x00FFFFFF, BitShift($fLabelBackgroundOpacity * 0xFF, -24))) ;color format AARRGGBB (hex)
-		Local $hImage = $frame.convertToBitmap(False)
+		Local $hImage = $image.convertToBitmap(False)
 
 		Local $hFormat = _GDIPlus_StringFormatCreate()
 		Local $hFamily = _GDIPlus_FontFamilyCreate("Calibri")
 		Local $hFont = _GDIPlus_FontCreate($hFamily, 12)
 
-		Local $tLabelLayout = _GDIPlus_RectFCreate(0, 0, $frame.width, $frame.height)
+		Local $tLabelLayout = _GDIPlus_RectFCreate(0, 0, $image.width, $image.height)
 
 		Local $hGraphics = _GDIPlus_ImageGetGraphicsContext($hImage)
 
@@ -359,18 +470,18 @@ Func drawPred($classId, $conf, $box, $frame, $classes)
 		If $fLabelBackgroundOpacity < 1 Then
 			$left = _Max(0, $left - $thickness) + $thickness
 			$top = _Max(0, $top - $thickness) + $thickness
-			$width = _Min($left + $width, $frame.width) - $left
-			$height = _Min($top + $height, $frame.height) - $top
+			$width = _Min($left + $width, $image.width) - $left
+			$height = _Min($top + $height, $image.height) - $top
 
 			Local $aLabelBox = _OpenCV_Rect($left, $top, $width, $height)
 			Local $oLabelRect = $cv.Mat.create($height, $width, $CV_8UC3, _OpenCV_Scalar(0xFF, 0xFF, 0xFF))
-			Local $oLabelROI = $cv.Mat.create($frame, $aLabelBox)
+			Local $oLabelROI = $cv.Mat.create($image, $aLabelBox)
 
-			$oLabelRect = $cv.addWeighted($oLabelRect, $fLabelBackgroundOpacity, $cv.Mat.create($frame, $aLabelBox), 1 - $fLabelBackgroundOpacity, 0)
+			$oLabelRect = $cv.addWeighted($oLabelRect, $fLabelBackgroundOpacity, $cv.Mat.create($image, $aLabelBox), 1 - $fLabelBackgroundOpacity, 0)
 			$oLabelRect.copyTo($oLabelROI)
 		Else
 			$cv.rectangle( _
-					$frame, _
+					$image, _
 					_OpenCV_Rect($left, $top, $width, $height), _
 					_OpenCV_Scalar(0xFF, 0xFF, 0xFF), _
 					$CV_FILLED _
@@ -378,12 +489,11 @@ Func drawPred($classId, $conf, $box, $frame, $classes)
 		EndIf
 
 		;; Display the label in the label background
-		$cv.putText($frame, $label, _OpenCV_Point($left, $top + $labelSize[1]), $fontFace, $fontScale, _OpenCV_Scalar(0, 0, 0), $fontThickness)
+		$cv.putText($image, $label, _OpenCV_Point($left, $top + $labelSize[1]), $fontFace, $fontScale, _OpenCV_Scalar(0, 0, 0), $fontThickness)
 	EndIf
 EndFunc   ;==>drawPred
 
-Func _DownloadWeights($sFilePath)
-	Local $sUrl = "https://pjreddie.com/media/files/yolov3.weights"
+Func _DownloadFile($sFilePath, $sUrl)
 	Local $iActualSize = FileGetSize($sFilePath)
 	Local $iExpectedSize = InetGetSize($sUrl)
 
@@ -393,7 +503,7 @@ Func _DownloadWeights($sFilePath)
 	ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : InetGetSize ' & $iExpectedSize & @CRLF) ;### Debug Console
 	ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : Downloading ' & $sUrl & @CRLF) ;### Debug Console
 	InetGet($sUrl, $sFilePath, $INET_FORCERELOAD)
-EndFunc   ;==>_DownloadWeights
+EndFunc   ;==>_DownloadFile
 
 Func _IsChecked($idControlID)
 	Return BitAND(GUICtrlRead($idControlID), $GUI_CHECKED) = $GUI_CHECKED

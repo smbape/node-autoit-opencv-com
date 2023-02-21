@@ -374,6 +374,12 @@ public static class OpenCvComInterop
         return FindFile(path, rootPath);
     }
 
+    public static string FindFile(string path, string[] hints)
+    {
+        string rootPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        return FindFile(path, rootPath, hints);
+    }
+
     public static string FindFile(string path, string rootPath, string filter = null)
     {
         return FindFile(path, rootPath, filter, new[] { "." });
