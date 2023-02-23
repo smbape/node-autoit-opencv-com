@@ -1,6 +1,6 @@
 const genFunc = (libname, fname, args) => {
     return `
-Func _${ libname }_${fname}(${ args.map(([argname, , defval]) => `$${ argname }` + (defval == null ? "" : " = Default")).join(", ") })
+Func _${ libname }_${ fname }(${ args.map(([argname, , defval]) => `$${ argname }${ defval == null ? "" : " = Default" }`).join(", ") })
     Local Static $NamedParameters = _${ libname }_ObjCreate("NamedParameters")
 
     Local $kwargs = Default
@@ -8,7 +8,7 @@ Func _${ libname }_${fname}(${ args.map(([argname, , defval]) => `$${ argname }`
         ${ args.map(([argname], i) => `
             Case ${ i + 1 }
                 $kwargs = $NamedParameters.isNamedParameters($${ argname }) ? $${ argname } : Default
-        `.replace(/^ {4}/mg, "").trim()).join("\n" + " ".repeat(8)) }
+        `.replace(/^ {4}/mg, "").trim()).join(`\n${ " ".repeat(8) }`) }
     EndSwitch
 
     Local $has_kwarg = $kwargs <> Default
@@ -30,8 +30,8 @@ Func _${ libname }_${fname}(${ args.map(([argname, , defval]) => `$${ argname }`
                 $usedkw += 1
             EndIf
         EndIf
-        ${ defval == null || defval === 'Default' ? '' : `If $${ argname } == Default Then $${ argname } = ${ defval }` }
-    `.replace(/^ {4}/mg, "").trim()).join("\n\n" + " ".repeat(4)) }
+        ${ defval == null || defval === "Default" ? "" : `If $${ argname } == Default Then $${ argname } = ${ defval }` }
+    `.replace(/^ {4}/mg, "").trim()).join(`\n\n${ " ".repeat(4) }`) }
 
     If $usedkw <> $kwargs.size() Then
         ConsoleWriteError('@@ Debug(' & @ScriptLineNumber & ') : there are ' & ($kwargs.size() - $usedkw) & '  unknown named parameters' & @CRLF)
@@ -40,7 +40,7 @@ Func _${ libname }_${fname}(${ args.map(([argname, , defval]) => `$${ argname }`
 
     ; ... YOUR CODE HERE
 EndFunc   ;==>_${ libname }_${ fname }
-`.trim()
+`.trim();
 };
 
 const [,, libname, fname, ...args] = process.argv;

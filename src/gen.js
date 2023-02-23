@@ -31,6 +31,10 @@ const parseArguments = PROJECT_DIR => {
             "std",
         ]),
         other_namespaces: new Set(),
+        remove_namespaces: new Set([
+            "cv",
+            "std",
+        ]),
         build: new Set(),
         notest: new Set(),
         skip: new Set(),
@@ -114,7 +118,6 @@ const {
     CUSTOM_CLASSES,
 } = require("./constants");
 
-const {replaceAliases} = require("./alias");
 const {findFile} = require("./FileUtils");
 const custom_declarations = require("./custom_declarations");
 const AutoItGenerator = require("./AutoItGenerator");
@@ -214,10 +217,8 @@ waterfall([
 
             const buffer = Buffer.concat(buffers, nlen);
 
-            const json = JSON.parse(replaceAliases(buffer.toString(), options));
-            json.decls.push(...custom_declarations);
-
-            const configuration = JSON.parse(replaceAliases(JSON.stringify(json), options));
+            const configuration = JSON.parse(buffer.toString());
+            configuration.decls.push(...custom_declarations.load(options));
             configuration.generated_include = generated_include;
 
             for (const [name, modifiers] of CUSTOM_CLASSES) {
@@ -272,7 +273,7 @@ waterfall([
 
         child.stdin.write(code);
         child.stdin.end();
-    }
+    },
 ], err => {
     if (err) {
         throw err;

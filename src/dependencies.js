@@ -100,21 +100,17 @@ const disjoin = (_dependencies, _dependents, result, node) => {
  * @param  {[type]} _dependents   [description]
  * @param  {[type]} nodes         [description]
  * @param  {[type]} fqn           [description]
- * @param  {Set}    path          [description]
  * @return {[type]}               [description]
  */
-const walk = (_dependencies, _dependents, nodes, node, path = new Set()) => {
-    if (path.has(node)) {
+const walk = (_dependencies, _dependents, nodes, node) => {
+    if (nodes.has(node)) {
         return;
     }
-
     nodes.add(node);
 
-    path.add(node);
     for (const next of _dependencies.get(node)) {
-        walk(_dependencies, _dependents, nodes, next, path);
+        walk(_dependencies, _dependents, nodes, next);
     }
-    path.delete(node);
 };
 
 exports.orderDependencies = orderDependencies;

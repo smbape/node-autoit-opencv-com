@@ -39,6 +39,17 @@ exports.IDL_TYPES = new Map([
     ["InputOutputArrayOfArrays", "VARIANT"],
     ["OutputArray", "VARIANT"],
     ["OutputArrayOfArrays", "VARIANT"],
+
+    ["Point", "VARIANT"],
+    ["cv::Point", "VARIANT"],
+    ["Point2d", "VARIANT"],
+    ["cv::Point2d", "VARIANT"],
+    ["Rect", "VARIANT"],
+    ["cv::Rect", "VARIANT"],
+    ["Scalar", "VARIANT"],
+    ["cv::Scalar", "VARIANT"],
+    ["Size", "VARIANT"],
+    ["cv::Size", "VARIANT"],
 ]);
 
 exports.CPP_TYPES = new Map([
@@ -48,6 +59,12 @@ exports.CPP_TYPES = new Map([
     ["InputOutputArrayOfArrays", "cv::_InputOutputArray"],
     ["OutputArray", "cv::_OutputArray"],
     ["OutputArrayOfArrays", "cv::_OutputArray"],
+
+    ["Point", "cv::Point"],
+    ["Point2d", "cv::Point2d"],
+    ["Rect", "cv::Rect"],
+    ["Scalar", "cv::Scalar"],
+    ["Size", "cv::Size"],
 
     ["c_string", "char*"],
     ["dnn_Backend", "cv::dnn::Backend"],
@@ -128,12 +145,13 @@ exports.ALIASES = new Map([
     ["DAISY_NormalizationType", "DAISY::NormalizationType"],
     ["OCRHMMDecoder_ClassifierCallback", "OCRHMMDecoder::ClassifierCallback"],
     ["EdgeDrawing_Params", "EdgeDrawing::Params"],
-    ["cv.createChiHistogramCostExtractor", "cv.createChiHistogramCostExtractor"],
-    ["cv.createThinPlateSplineShapeTransformer", "cv.createThinPlateSplineShapeTransformer"],
-    ["cv::createChiHistogramCostExtractor", "cv::createChiHistogramCostExtractor"],
-    ["cv::createThinPlateSplineShapeTransformer", "cv::createThinPlateSplineShapeTransformer"],
-    ["createChiHistogramCostExtractor", "cv::createChiHistogramCostExtractor"],
-    ["createThinPlateSplineShapeTransformer", "cv::createThinPlateSplineShapeTransformer"],
+
+    // ["cv.createChiHistogramCostExtractor", "cv.createChiHistogramCostExtractor"],
+    // ["cv.createThinPlateSplineShapeTransformer", "cv.createThinPlateSplineShapeTransformer"],
+    // ["cv::createChiHistogramCostExtractor", "cv::createChiHistogramCostExtractor"],
+    // ["cv::createThinPlateSplineShapeTransformer", "cv::createThinPlateSplineShapeTransformer"],
+    // ["createChiHistogramCostExtractor", "cv::createChiHistogramCostExtractor"],
+    // ["createThinPlateSplineShapeTransformer", "cv::createThinPlateSplineShapeTransformer"],
 ]);
 
 exports.CLASS_PTR = new Set([
@@ -206,16 +224,3 @@ exports.ARRAYS_CLASSES = new Set([
 ]);
 
 exports.IGNORED_CLASSES = new Set([]);
-
-for (const type of exports.CPP_TYPES.keys()) {
-    const cpptype = exports.CPP_TYPES.get(type);
-    if (cpptype[0] !== "_" &&
-        !cpptype.startsWith("cv::_")
-        && !cpptype.includes("<")
-        && !type.includes("string")
-        && !type.includes("String")
-        && !exports.ALIASES.has(cpptype)
-    ) {
-        exports.ALIASES.set(type, cpptype);
-    }
-}

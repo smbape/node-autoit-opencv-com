@@ -6,6 +6,8 @@ const {
     CLASS_PTR,
 } = require("./constants");
 
+const { getAlias } = require("./alias");
+
 const {hasOwnProperty: hasProp} = Object.prototype;
 
 const DISID_CONSTANTS = new Map([
@@ -103,7 +105,7 @@ class CoClass {
         }
 
         const descriptor = {
-            type: argtype,
+            type: getAlias(argtype),
             value: defval,
             modifiers: list_of_modifiers
         };
@@ -124,10 +126,16 @@ class CoClass {
     }
 
     addMethod(decl) {
+        decl[1] = getAlias(decl[1]); // return_type
+
         const [name, , list_of_modifiers, list_of_arguments] = decl;
         const path = name.split(".");
-
         let fname = path[path.length - 1];
+
+        for (const arg_decl of list_of_arguments) {
+            const [argtype] = arg_decl;
+            arg_decl[0] = getAlias(argtype);
+        }
 
         if (fname === this.name && (this.is_class || this.is_struct)) {
             fname = "create";

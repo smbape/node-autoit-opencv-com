@@ -11,6 +11,51 @@
 
 #pragma comment(lib, "gdiplus.lib")
 
+const HRESULT autoit_from(cv::MatExpr& in_val, ICv_Mat_Object**& out_val) {
+	return autoit_from(cv::Mat(in_val), out_val);
+}
+
+const bool is_variant_scalar(VARIANT const* const& in_val) {
+	if ((V_VT(in_val) & VT_ARRAY) != VT_ARRAY || (V_VT(in_val) ^ VT_ARRAY) != VT_VARIANT) {
+		return false;
+	}
+
+	cv::Scalar out_val;
+	return SUCCEEDED(autoit_to(in_val, out_val));
+}
+
+const bool is_array_from(VARIANT const* const& in_val, bool is_optional) {
+	if (PARAMETER_NULL(in_val)) {
+		return true;
+	}
+
+	if (PARAMETER_NOT_FOUND(in_val)) {
+		return is_optional;
+	}
+
+	if (V_VT(in_val) != VT_DISPATCH) {
+		return is_variant_scalar(in_val);
+	}
+
+	return dynamic_cast<IVariantArray*>(getRealIDispatch(in_val)) != NULL;
+}
+
+const bool is_arrays_from(VARIANT const* const& in_val, bool is_optional) {
+	if (PARAMETER_NULL(in_val)) {
+		return true;
+	}
+
+	if (PARAMETER_NOT_FOUND(in_val)) {
+		return is_optional;
+	}
+
+	if (V_VT(in_val) != VT_DISPATCH) {
+		return false;
+	}
+
+	return dynamic_cast<IVariantArrays*>(getRealIDispatch(in_val)) != NULL;
+}
+
 namespace Gdiplus {
 	class BitmapLock {
 	private:
@@ -211,62 +256,6 @@ cv::Mat cv::createMatFromBitmap(void* ptr, bool copy) {
 	return copy ? mat.clone() : Mat(mat);
 }
 
-/**
- *
- * @param src
- * @param dst
- * @see https://github.com/opencv/opencv/blob/4.5.4/modules/highgui/src/precomp.hpp#L152
- */
-const cv::Mat CCv_Mat_Object::convertToShow(cv::Mat& dst, bool toRGB, HRESULT& hr) {
-	using namespace cv;
-
-	auto& src = *__self->get();
-
-	double scale = 1.0, shift = 0.0;
-	double minVal = 0, maxVal = 0;
-	cv::Point minLoc, maxLoc;
-
-	const int src_depth = src.depth();
-	CV_Assert(src_depth != CV_16F && src_depth != CV_32S);
-	Mat tmp;
-	switch (src_depth)
-	{
-	case CV_8U:
-		tmp = src;
-		break;
-	case CV_8S:
-		cv::convertScaleAbs(src, tmp, 1, 127);
-		break;
-	case CV_16S:
-		cv::convertScaleAbs(src, tmp, 1 / 255., 127);
-		break;
-	case CV_16U:
-		cv::convertScaleAbs(src, tmp, 1 / 255.);
-		break;
-	case CV_32F:
-	case CV_64F:
-		if (src.channels() == 1) {
-			cv::minMaxLoc(src, &minVal, &maxVal, &minLoc, &maxLoc);
-		}
-		else {
-			cv::minMaxLoc(src.reshape(1), &minVal, &maxVal, &minLoc, &maxLoc);
-		}
-
-		scale = (float)maxVal == (float)minVal ? 0.0 : 255.0 / (maxVal - minVal);
-		shift = scale == 0 ? minVal : -minVal * scale;
-
-		src.convertTo(tmp, CV_8U, scale, shift);
-
-		break;
-	default:
-		cv::error(cv::Error::StsAssert, "Unsupported mat type", CV_Func, __FILE__, __LINE__);
-	}
-
-	cv::cvtColor(tmp, dst, toRGB ? cv::COLOR_BGR2RGB : cv::COLOR_BGRA2BGR, dst.channels());
-
-	return dst;
-}
-
 namespace {
 	Gdiplus::ColorPalette* GenerateGrayscalePalette() {
 		using namespace Gdiplus;
@@ -403,15 +392,68 @@ namespace {
 }
 
 /**
+ * @param image [description]
+ * @param dst   [description]
+ * @param toRGB [description]
+ * @see https://github.com/opencv/opencv/blob/4.7.0/modules/highgui/src/precomp.hpp#L152
+ */
+void autoit::cvextra::convertToShow(cv::InputArray image, cv::Mat& dst, bool toRGB) {
+	cv::Mat src = image.getMat();
+
+	double scale = 1.0, shift = 0.0;
+	double minVal = 0, maxVal = 0;
+	cv::Point minLoc, maxLoc;
+
+	const int src_depth = src.depth();
+	CV_Assert(src_depth != CV_16F && src_depth != CV_32S);
+	cv::Mat tmp;
+
+	switch (src_depth)
+	{
+	case CV_8U:
+		tmp = src;
+		break;
+	case CV_8S:
+		cv::convertScaleAbs(src, tmp, 1, 127);
+		break;
+	case CV_16S:
+		cv::convertScaleAbs(src, tmp, 1 / 255., 127);
+		break;
+	case CV_16U:
+		cv::convertScaleAbs(src, tmp, 1 / 255.);
+		break;
+	case CV_32F:
+	case CV_64F:
+		if (src.channels() == 1) {
+			cv::minMaxLoc(src, &minVal, &maxVal, &minLoc, &maxLoc);
+		}
+		else {
+			cv::minMaxLoc(src.reshape(1), &minVal, &maxVal, &minLoc, &maxLoc);
+		}
+
+		scale = (float)maxVal == (float)minVal ? 0.0 : 255.0 / (maxVal - minVal);
+		shift = scale == 0 ? minVal : -minVal * scale;
+
+		src.convertTo(tmp, CV_8U, scale, shift);
+
+		break;
+	default:
+		cv::error(cv::Error::StsAssert, "Unsupported mat type", CV_Func, __FILE__, __LINE__);
+	}
+
+	cv::cvtColor(tmp, dst, toRGB ? cv::COLOR_BGR2RGB : cv::COLOR_BGRA2BGR, dst.channels());
+}
+
+/**
  * [CCv_Mat_Object::convertToBitmap description]
  * @param copy   use the same data when possible, otherwise, make a copy
  * @param hr
  * @return   a pointer to a GpBitmap with Mat data copied
  * @see https://github.com/emgucv/emgucv/blob/4.5.4/Emgu.CV.Platform/Emgu.CV.Bitmap/BitmapExtension.cs#L206
  */
-const void* CCv_Mat_Object::convertToBitmap(bool copy, HRESULT& hr) {
+const void* autoit::cvextra::convertToBitmap(cv::InputArray image, bool copy) {
 	using namespace Gdiplus;
-	auto& src = *__self->get();
+	cv::Mat src = image.getMat();
 
 	if (src.dims > 3 || src.empty()) {
 		return NULL;
@@ -447,10 +489,10 @@ const void* CCv_Mat_Object::convertToBitmap(bool copy, HRESULT& hr) {
 	return copy ? dst.CloneNativeImage() : dst.Detach();
 }
 
-const cv::Mat CCv_Mat_Object::GdiplusResize(float newWidth, float newHeight, int interpolation, HRESULT& hr) {
+void autoit::cvextra::GdiplusResize(cv::InputArray image, cv::Mat& dst, float newWidth, float newHeight, int interpolation) {
 	using namespace Gdiplus;
 
-	GpBitmap* nativeBitmap = static_cast<GpBitmap*>(const_cast<void*>(convertToBitmap(true, hr)));
+	GpBitmap* nativeBitmap = static_cast<GpBitmap*>(const_cast<void*>(convertToBitmap(image, true)));
 	CvBitmap bitmap(nativeBitmap);
 	CV_Assert(bitmap.GetLastStatus() == Gdiplus::Ok);
 
@@ -473,9 +515,7 @@ const cv::Mat CCv_Mat_Object::GdiplusResize(float newWidth, float newHeight, int
 	Gdiplus::RectF rect(0.0, 0.0, newWidth, newHeight);
 	CV_Assert(hBmpCtxt.DrawImage(&bitmap, rect, 0, 0, bitmap.GetWidth(), bitmap.GetHeight(), Gdiplus::UnitPixel, &hIA) == Gdiplus::Ok);
 
-	cv::Mat mat; createMatFromBitmap_(hBitmap, mat, true);
-
-	return mat.clone();
+	createMatFromBitmap_(hBitmap, dst, true);
 }
 
 template<typename _Tp>

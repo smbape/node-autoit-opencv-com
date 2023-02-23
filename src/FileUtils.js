@@ -135,6 +135,7 @@ const writeFiles = (files, options, cb) => {
                             return;
                         }
 
+                        debugger;
                         console.log("write file", options.output, sysPath.relative(options.output, filename));
                         fs.writeFile(filename, content, err => {
                             next(err, true);
@@ -198,3 +199,43 @@ const writeFiles = (files, options, cb) => {
 };
 
 exports.writeFiles = writeFiles;
+
+const deleteFiles = (directory, files, options, cb) => {
+    files = new Set([...files.keys()]);
+
+    for (const file of files) {
+        if (!file.endsWith(".idl")) {
+            continue;
+        }
+
+        const basename = file.slice(0, -".idl".length);
+        files.add(`${ basename }.h`);
+        files.add(`${ basename }_p.c`);
+        files.add(`${ basename }_i.c`);
+        files.add(`${ basename }.tlb`);
+
+        const dirname = sysPath.dirname(file);
+        files.add(sysPath.join(dirname, "dlldata.c"));
+    }
+
+    waterfall([
+        next => {
+            fs.readdir(directory, next);
+        },
+
+        (names, next) => {
+            eachOfLimit(names, cpus, (filename, i, next) => {
+                filename = sysPath.join(directory, filename);
+
+                if (files.has(filename) || !(filename.endsWith(".h") || filename.endsWith(".c") || filename.endsWith(".cpp"))) {
+                    next();
+                    return;
+                }
+
+                fs.unlink(filename, next);
+            }, next);
+        }
+    ], cb);
+};
+
+exports.deleteFiles = deleteFiles;

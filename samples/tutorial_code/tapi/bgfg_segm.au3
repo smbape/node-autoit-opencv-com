@@ -10,7 +10,6 @@
 #include <GUIConstantsEx.au3>
 #include <Misc.au3>
 #include "..\..\..\autoit-opencv-com\udf\opencv_udf_utils.au3"
-#include "..\..\..\autoit-addon\addon.au3"
 
 ;~ Sources:
 ;~     https://docs.opencv.org/4.7.0/de/da9/tutorial_template_matching.html
@@ -18,6 +17,7 @@
 
 _OpenCV_Open(_OpenCV_FindDLL("opencv_world470*"), _OpenCV_FindDLL("autoit_opencv_com470*"))
 _GDIPlus_Startup()
+Global $hUser32DLL = DllOpen("user32.dll")
 OnAutoItExitRegister("_OnAutoItExit")
 
 Global $cv = _OpenCV_get()
@@ -79,15 +79,12 @@ GUICtrlCreateGroup("", -99, -99, 1, 1)
 GUISetState(@SW_SHOW)
 #EndRegion ### END Koda GUI section ###
 
-Global $bHasAddon = _Addon_DLLOpen(_Addon_FindDLL())
-
 If $cv.ocl.useOpenCL() Then
 	GUICtrlSetState($RadioOpenCL, $GUI_CHECKED)
 Else
 	GUICtrlSetState($RadioCPU, $GUI_CHECKED)
 EndIf
 
-Global $tPtr = DllStructCreate("ptr value")
 Global $sCameraList = ""
 
 Global Const $M_MOG2 = 2
@@ -100,15 +97,11 @@ Global $cap = Null
 Global $running = True
 Global $bInitialized = False
 
-Global $frame = _OpenCV_ObjCreate("cv.Mat")
-Global $fgmask = _OpenCV_ObjCreate("cv.Mat")
-Global $fgimg = _OpenCV_ObjCreate("cv.Mat")
+Global $frame = $cv.UMat.create()
+Global $fgmask = $cv.UMat.create()
+Global $fgimg = $cv.UMat.create()
 
 Global $knn, $mog2
-
-Global $mode
-
-Global $hUser32DLL = DllOpen("user32.dll")
 
 Global $nMsg
 
@@ -154,24 +147,8 @@ While 1
 		ExitLoop
 	EndIf
 
-	Sleep(30) ; Sleep to reduce CPU usage
+	Sleep(10) ; Sleep to reduce CPU usage
 WEnd
-
-DllClose($hUser32DLL)
-
-If $bHasAddon Then _Addon_DLLClose()
-
-Func _handleBtnFileClick()
-	$sInputFile = ControlGetText($FormGUI, "", $InputFile)
-	$sInputFile = FileOpenDialog("Select a video", $OPENCV_SAMPLES_DATA_PATH, "Video files (*.avi;*.mp4)", $FD_FILEMUSTEXIST, $sInputFile)
-	If @error Then
-		$sInputFile = ""
-		Return
-	EndIf
-
-	ControlSetText($FormGUI, "", $InputFile, $sInputFile)
-	Main()
-EndFunc   ;==>_handleBtnFileClick
 
 Func Main()
 	UpdateState()
@@ -192,6 +169,18 @@ Func Main()
 	EndIf
 EndFunc   ;==>Main
 
+Func InitState($bForce = False)
+	If $bInitialized And Not $bForce Then Return
+
+	$knn = $cv.createBackgroundSubtractorKNN()
+	$mog2 = $cv.createBackgroundSubtractorMOG2()
+
+	$fgimg = $cv.UMat.create($frame.size(), $frame.type())
+	$fgmask = $cv.UMat.create()
+
+	$bInitialized = True
+EndFunc   ;==>InitState
+
 Func UpdateState()
 	$useCamera = _IsChecked($CheckboxUseCamera)
 
@@ -203,37 +192,15 @@ Func UpdateState()
 		GUICtrlSetState($ComboCamera, $GUI_DISABLE)
 	EndIf
 
-	If _IsChecked($RadioKNN) Then
-		$method = $M_KNN
-	Else
-		$method = $M_MOG2
-	EndIf
+	$method = _IsChecked($RadioKNN) ? $M_KNN : $M_MOG2
 
 	Local $useOpenCL = _IsChecked($RadioOpenCL)
 
 	If $cv.ocl.useOpenCL() <> $useOpenCL Then
 		$cv.ocl.setUseOpenCL($useOpenCL)
-
-		If $useOpenCL Then
-			$mode = "OpenCL enabled"
-		Else
-			$mode = "CPU"
-		EndIf
-		ConsoleWrite("Switched to " & $mode & " mode" & @CRLF)
+		ConsoleWrite("Switched to " & ($useOpenCL ? "OpenCL enabled" : "CPU") & " mode" & @CRLF)
 	EndIf
 EndFunc   ;==>UpdateState
-
-Func InitState()
-	If $bInitialized Then Return
-
-	$knn = $cv.createBackgroundSubtractorKNN()
-	$mog2 = $cv.createBackgroundSubtractorMOG2()
-
-	$fgimg = $fgimg.create($frame.size(), $frame.type())
-	$fgmask = $fgmask.create()
-
-	$bInitialized = True
-EndFunc   ;==>InitState
 
 Func UpdateFrame()
 	If $cap == Null Then Return
@@ -245,7 +212,7 @@ Func UpdateFrame()
 		Return
 	EndIf
 
-	InitState()
+	InitState($frame.width <> $fgimg.width Or $frame.height <> $fgimg.height)
 
 	Local $start = $cv.getTickCount()
 
@@ -256,6 +223,9 @@ Func UpdateFrame()
 			$mog2.apply($frame, $fgmask)
 	EndSwitch
 
+	Local $fps = $cv.getTickFrequency() / ($cv.getTickCount() - $start)
+	GUICtrlSetData($LabelFPS, "FPS : " & Round($fps))
+
 	$fgimg.setTo(_OpenCV_ScalarAll(0))
 	$frame.copyTo($fgmask, $fgimg)
 
@@ -263,35 +233,22 @@ Func UpdateFrame()
 	_OpenCV_imshow_ControlPic($fgmask, $FormGUI, $PicForegroundMask)
 	_OpenCV_imshow_ControlPic($fgimg, $FormGUI, $PicForegroundImage)
 
-	Local $fps = $cv.getTickFrequency() / ($cv.getTickCount() - $start)
-	GUICtrlSetData($LabelFPS, "FPS : " & Round($fps))
 EndFunc   ;==>UpdateFrame
 
 Func UpdateCameraList()
-	If Not $bHasAddon Then Return
-
-	Local $videoDevices = _VectorOfDeviceInfoCreate()
-	_addonEnumerateVideoDevices($videoDevices)
-
-	Local $tDevice, $tStr
 	Local $sCamera = GUICtrlRead($ComboCamera)
 	Local $sLongestString = ""
 	Local $sOldCameraList = $sCameraList
 	$sCameraList = ""
 
-	For $i = 0 To _VectorOfDeviceInfoGetSize($videoDevices) - 1
-		_VectorOfDeviceInfoGetItemPtr($videoDevices, $i, $tPtr)
-		$tDevice = DllStructCreate($tagAddonDeviceInfo, $tPtr.value)
+	Local $devices = _OpenCV_GetDevices()
+	For $device In $devices
+		$sCameraList &= "|" & $device
 
-		$tStr = DllStructCreate("wchar value[" & $tDevice.FriendlyNameLen & "]", $tDevice.FriendlyName)
-		$sCameraList &= "|" & $tStr.value
-
-		If StringLen($sLongestString) < StringLen($tStr.value) Then
-			$sLongestString = $tStr.value
+		If StringLen($sLongestString) < StringLen($device) Then
+			$sLongestString = $device
 		EndIf
 	Next
-
-	_VectorOfDeviceInfoRelease($videoDevices)
 
 	If StringLen($sCameraList) <> 0 Then
 		$sCameraList = StringRight($sCameraList, StringLen($sCameraList) - 1)
@@ -310,10 +267,6 @@ Func UpdateCameraList()
 		_GUICtrlComboBox_SetCurSel($ComboCamera, 0)
 	EndIf
 EndFunc   ;==>UpdateCameraList
-
-Func _IsChecked($idControlID)
-	Return BitAND(GUICtrlRead($idControlID), $GUI_CHECKED) = $GUI_CHECKED
-EndFunc   ;==>_IsChecked
 
 ; #FUNCTION# =======================================================================================
 ;
@@ -422,7 +375,24 @@ Func _StringSize($sText, $iSize = Default, $iWeight = Default, $iAttrib = Defaul
 	Return $avSize_Info
 EndFunc   ;==>_StringSize
 
+Func _handleBtnFileClick()
+	$sInputFile = ControlGetText($FormGUI, "", $InputFile)
+	$sInputFile = FileOpenDialog("Select a video", $OPENCV_SAMPLES_DATA_PATH, "Video files (*.avi;*.mp4)", $FD_FILEMUSTEXIST, $sInputFile)
+	If @error Then
+		$sInputFile = ""
+		Return
+	EndIf
+
+	ControlSetText($FormGUI, "", $InputFile, $sInputFile)
+	Main()
+EndFunc   ;==>_handleBtnFileClick
+
+Func _IsChecked($idControlID)
+	Return BitAND(GUICtrlRead($idControlID), $GUI_CHECKED) = $GUI_CHECKED
+EndFunc   ;==>_IsChecked
+
 Func _OnAutoItExit()
+	DllClose($hUser32DLL)
 	_GDIPlus_Shutdown()
 	_OpenCV_Close()
 EndFunc   ;==>_OnAutoItExit

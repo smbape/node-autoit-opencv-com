@@ -2074,11 +2074,11 @@
   - [UMatData.DEVICE\_MEM\_MAPPED\_](#umatdatadevice%5C_mem%5C_mapped%5C_)
   - [UMatData.ASYNC\_CLEANUP\_](#umatdataasync%5C_cleanup%5C_)
 - [cv::Mat](#cvmat)
-  - [Mat.flags](#matflags)
-  - [Mat.dims](#matdims)
-  - [Mat.rows](#matrows)
   - [Mat.cols](#matcols)
   - [Mat.data](#matdata)
+  - [Mat.dims](#matdims)
+  - [Mat.flags](#matflags)
+  - [Mat.rows](#matrows)
   - [Mat.step](#matstep)
   - [Mat.width](#matwidth)
   - [Mat.height](#matheight)
@@ -2134,7 +2134,10 @@
   - [cv::Mat::Vec6i\_set\_at](#cvmatvec6i%5C_set%5C_at)
   - [cv::Mat::Vec8i\_at](#cvmatvec8i%5C_at)
   - [cv::Mat::Vec8i\_set\_at](#cvmatvec8i%5C_set%5C_at)
+  - [cv::Mat::addref](#cvmataddref)
+  - [cv::Mat::adjustROI](#cvmatadjustroi)
   - [cv::Mat::asArray](#cvmatasarray)
+  - [cv::Mat::assignTo](#cvmatassignto)
   - [cv::Mat::at](#cvmatat)
   - [cv::Mat::channels](#cvmatchannels)
   - [cv::Mat::checkVector](#cvmatcheckvector)
@@ -2145,6 +2148,7 @@
   - [cv::Mat::convertToBitmap](#cvmatconverttobitmap)
   - [cv::Mat::convertToShow](#cvmatconverttoshow)
   - [cv::Mat::copy](#cvmatcopy)
+  - [cv::Mat::copySize](#cvmatcopysize)
   - [cv::Mat::copyTo](#cvmatcopyto)
   - [cv::Mat::createFromArray](#cvmatcreatefromarray)
   - [cv::Mat::createFromVec2b](#cvmatcreatefromvec2b)
@@ -2206,17 +2210,25 @@
   - [cv::Mat::eye](#cvmateye)
   - [cv::Mat::float\_at](#cvmatfloat%5C_at)
   - [cv::Mat::float\_set\_at](#cvmatfloat%5C_set%5C_at)
+  - [cv::Mat::getUMat](#cvmatgetumat)
   - [cv::Mat::get\_Item](#cvmatget%5C_item)
   - [cv::Mat::int\_at](#cvmatint%5C_at)
   - [cv::Mat::int\_set\_at](#cvmatint%5C_set%5C_at)
+  - [cv::Mat::inv](#cvmatinv)
   - [cv::Mat::isContinuous](#cvmatiscontinuous)
   - [cv::Mat::isSubmatrix](#cvmatissubmatrix)
+  - [cv::Mat::locateROI](#cvmatlocateroi)
+  - [cv::Mat::mul](#cvmatmul)
   - [cv::Mat::ones](#cvmatones)
   - [cv::Mat::pop\_back](#cvmatpop%5C_back)
   - [cv::Mat::ptr](#cvmatptr)
   - [cv::Mat::push\_back](#cvmatpush%5C_back)
   - [cv::Mat::put\_Item](#cvmatput%5C_item)
+  - [cv::Mat::release](#cvmatrelease)
+  - [cv::Mat::reserve](#cvmatreserve)
+  - [cv::Mat::reserveBuffer](#cvmatreservebuffer)
   - [cv::Mat::reshape](#cvmatreshape)
+  - [cv::Mat::resize](#cvmatresize)
   - [cv::Mat::row](#cvmatrow)
   - [cv::Mat::rowRange](#cvmatrowrange)
   - [cv::Mat::setTo](#cvmatsetto)
@@ -2226,6 +2238,7 @@
   - [cv::Mat::t](#cvmatt)
   - [cv::Mat::total](#cvmattotal)
   - [cv::Mat::type](#cvmattype)
+  - [cv::Mat::updateContinuityFlag](#cvmatupdatecontinuityflag)
   - [cv::Mat::zeros](#cvmatzeros)
   - [Mat.MAGIC\_VAL\_](#matmagic%5C_val%5C_)
   - [Mat.AUTO\_STEP\_](#matauto%5C_step%5C_)
@@ -2235,14 +2248,59 @@
   - [Mat.TYPE\_MASK\_](#mattype%5C_mask%5C_)
   - [Mat.DEPTH\_MASK\_](#matdepth%5C_mask%5C_)
 - [cv::UMat](#cvumat)
-  - [UMat.rows](#umatrows)
   - [UMat.cols](#umatcols)
   - [UMat.dims](#umatdims)
+  - [UMat.flags](#umatflags)
+  - [UMat.rows](#umatrows)
   - [UMat.step](#umatstep)
   - [UMat.width](#umatwidth)
   - [UMat.height](#umatheight)
+  - [UMat.shape](#umatshape)
+  - [UMat.sizes](#umatsizes)
+  - [UMat.steps](#umatsteps)
   - [cv::UMat::get\_create](#cvumatget%5C_create)
+  - [cv::UMat::GdiplusResize](#cvumatgdiplusresize)
+  - [cv::UMat::addref](#cvumataddref)
+  - [cv::UMat::adjustROI](#cvumatadjustroi)
+  - [cv::UMat::assignTo](#cvumatassignto)
+  - [cv::UMat::channels](#cvumatchannels)
+  - [cv::UMat::checkVector](#cvumatcheckvector)
+  - [cv::UMat::clone](#cvumatclone)
+  - [cv::UMat::col](#cvumatcol)
+  - [cv::UMat::colRange](#cvumatcolrange)
+  - [cv::UMat::convertTo](#cvumatconvertto)
+  - [cv::UMat::convertToBitmap](#cvumatconverttobitmap)
+  - [cv::UMat::convertToShow](#cvumatconverttoshow)
+  - [cv::UMat::copy](#cvumatcopy)
+  - [cv::UMat::copySize](#cvumatcopysize)
+  - [cv::UMat::copyTo](#cvumatcopyto)
+  - [cv::UMat::depth](#cvumatdepth)
+  - [cv::UMat::diag](#cvumatdiag)
+  - [cv::UMat::dot](#cvumatdot)
+  - [cv::UMat::elemSize](#cvumatelemsize)
+  - [cv::UMat::elemSize1](#cvumatelemsize1)
+  - [cv::UMat::empty](#cvumatempty)
+  - [cv::UMat::eye](#cvumateye)
   - [cv::UMat::getMat](#cvumatgetmat)
+  - [cv::UMat::handle](#cvumathandle)
+  - [cv::UMat::isContinuous](#cvumatiscontinuous)
+  - [cv::UMat::isSubmatrix](#cvumatissubmatrix)
+  - [cv::UMat::locateROI](#cvumatlocateroi)
+  - [cv::UMat::mul](#cvumatmul)
+  - [cv::UMat::ndoffset](#cvumatndoffset)
+  - [cv::UMat::ones](#cvumatones)
+  - [cv::UMat::release](#cvumatrelease)
+  - [cv::UMat::reshape](#cvumatreshape)
+  - [cv::UMat::row](#cvumatrow)
+  - [cv::UMat::rowRange](#cvumatrowrange)
+  - [cv::UMat::setTo](#cvumatsetto)
+  - [cv::UMat::size](#cvumatsize)
+  - [cv::UMat::step1](#cvumatstep1)
+  - [cv::UMat::t](#cvumatt)
+  - [cv::UMat::total](#cvumattotal)
+  - [cv::UMat::type](#cvumattype)
+  - [cv::UMat::updateContinuityFlag](#cvumatupdatecontinuityflag)
+  - [cv::UMat::zeros](#cvumatzeros)
   - [UMat.MAGIC\_VAL\_](#umatmagic%5C_val%5C_)
   - [UMat.AUTO\_STEP\_](#umatauto%5C_step%5C_)
   - [UMat.CONTINUOUS\_FLAG\_](#umatcontinuous%5C_flag%5C_)
@@ -6089,6 +6147,28 @@
   - [VectorOfSize\_t::sort](#vectorofsize%5C_tsort)
   - [VectorOfSize\_t::sort\_variant](#vectorofsize%5C_tsort%5C_variant)
   - [VectorOfSize\_t::start](#vectorofsize%5C_tstart)
+- [VectorOfRange](#vectorofrange)
+  - [VectorOfRange.Count](#vectorofrangecount)
+  - [VectorOfRange::create](#vectorofrangecreate)
+  - [VectorOfRange::Add](#vectorofrangeadd)
+  - [VectorOfRange::Items](#vectorofrangeitems)
+  - [VectorOfRange::Keys](#vectorofrangekeys)
+  - [VectorOfRange::Remove](#vectorofrangeremove)
+  - [VectorOfRange::append](#vectorofrangeappend)
+  - [VectorOfRange::at](#vectorofrangeat)
+  - [VectorOfRange::clear](#vectorofrangeclear)
+  - [VectorOfRange::empty](#vectorofrangeempty)
+  - [VectorOfRange::end](#vectorofrangeend)
+  - [VectorOfRange::get\_Item](#vectorofrangeget%5C_item)
+  - [VectorOfRange::get\_\_NewEnum](#vectorofrangeget%5C_%5C_newenum)
+  - [VectorOfRange::push\_back](#vectorofrangepush%5C_back)
+  - [VectorOfRange::push\_vector](#vectorofrangepush%5C_vector)
+  - [VectorOfRange::put\_Item](#vectorofrangeput%5C_item)
+  - [VectorOfRange::size](#vectorofrangesize)
+  - [VectorOfRange::slice](#vectorofrangeslice)
+  - [VectorOfRange::sort](#vectorofrangesort)
+  - [VectorOfRange::sort\_variant](#vectorofrangesort%5C_variant)
+  - [VectorOfRange::start](#vectorofrangestart)
 - [VectorOfVec2b](#vectorofvec2b)
   - [VectorOfVec2b.Count](#vectorofvec2bcount)
   - [VectorOfVec2b::create](#vectorofvec2bcreate)
@@ -25484,30 +25564,6 @@ AutoIt:
 
 ## cv::Mat
 
-### Mat.flags
-
-```cpp
-int cv::Mat::flags
-AutoIt:
-    [propget, propput] $oMat.flags
-```
-
-### Mat.dims
-
-```cpp
-int cv::Mat::dims
-AutoIt:
-    [propget, propput] $oMat.dims
-```
-
-### Mat.rows
-
-```cpp
-int cv::Mat::rows
-AutoIt:
-    [propget, propput] $oMat.rows
-```
-
 ### Mat.cols
 
 ```cpp
@@ -25522,6 +25578,30 @@ AutoIt:
 uchar* cv::Mat::data
 AutoIt:
     [propget, propput] $oMat.data
+```
+
+### Mat.dims
+
+```cpp
+int cv::Mat::dims
+AutoIt:
+    [propget, propput] $oMat.dims
+```
+
+### Mat.flags
+
+```cpp
+int cv::Mat::flags
+AutoIt:
+    [propget, propput] $oMat.flags
+```
+
+### Mat.rows
+
+```cpp
+int cv::Mat::rows
+AutoIt:
+    [propget, propput] $oMat.rows
 ```
 
 ### Mat.step
@@ -25628,11 +25708,17 @@ AutoIt:
 ```
 
 ```cpp
+static cv::Mat cv::Mat::create( const cv::Mat& m );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Mat").create( $m ) -> <cv.Mat object>
+```
+
+```cpp
 static cv::Mat cv::Mat::create( int    rows,
                                 int    cols,
                                 int    type,
                                 void*  data,
-                                size_t step = cv::Mat::AUTO_STEP );
+                                size_t step = Mat::AUTO_STEP );
 AutoIt:
     _OpenCV_ObjCreate("cv.Mat").create( $rows, $cols, $type, $data[, $step] ) -> <cv.Mat object>
 ```
@@ -25641,7 +25727,7 @@ AutoIt:
 static cv::Mat cv::Mat::create( cv::Size size,
                                 int      type,
                                 void*    data,
-                                size_t   step = cv::Mat::AUTO_STEP );
+                                size_t   step = Mat::AUTO_STEP );
 AutoIt:
     _OpenCV_ObjCreate("cv.Mat").create( $size, $type, $data[, $step] ) -> <cv.Mat object>
 ```
@@ -25656,38 +25742,54 @@ AutoIt:
 ```
 
 ```cpp
-static cv::Mat cv::Mat::create( cv::Mat m );
+static cv::Mat cv::Mat::create( const cv::Mat&   m,
+                                const cv::Range& rowRange,
+                                const cv::Range& colRange = Range::all() );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Mat").create( $m, $rowRange[, $colRange] ) -> <cv.Mat object>
+```
+
+```cpp
+static cv::Mat cv::Mat::create( const cv::Mat& m,
+                                cv::Rect       roi );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Mat").create( $m, $roi ) -> <cv.Mat object>
+```
+
+```cpp
+static cv::Mat cv::Mat::create( const cv::Mat&                m,
+                                const std::vector<cv::Range>& ranges );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Mat").create( $m, $ranges ) -> <cv.Mat object>
+```
+
+```cpp
+static cv::Mat cv::Mat::create( const std::vector<double>& vec );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Mat").create( $vec ) -> <cv.Mat object>
+```
+
+```cpp
+static cv::Mat cv::Mat::create( const std::vector<int>& vec );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Mat").create( $vec ) -> <cv.Mat object>
+```
+
+```cpp
+static cv::Mat cv::Mat::create( const cv::cuda::GpuMat& m );
 AutoIt:
     _OpenCV_ObjCreate("cv.Mat").create( $m ) -> <cv.Mat object>
-```
-
-```cpp
-static cv::Mat cv::Mat::create( cv::Mat  src,
-                                cv::Rect roi );
-AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").create( $src, $roi ) -> <cv.Mat object>
-```
-
-```cpp
-static cv::Mat cv::Mat::create( std::vector<double> vec );
-AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").create( $vec ) -> <cv.Mat object>
-```
-
-```cpp
-static cv::Mat cv::Mat::create( std::vector<int> vec );
-AutoIt:
-    _OpenCV_ObjCreate("cv.Mat").create( $vec ) -> <cv.Mat object>
 ```
 
 ### cv::Mat::GdiplusResize
 
 ```cpp
-cv::Mat cv::Mat::GdiplusResize( float newWidth,
-                                float newHeight,
-                                int   interpolation = 7 );
+void cv::Mat::GdiplusResize( cv::Mat dst,
+                             float   newWidth,
+                             float   newHeight,
+                             int     interpolation = 7 );
 AutoIt:
-    $oMat.GdiplusResize( $newWidth, $newHeight[, $interpolation] ) -> retval
+    $oMat.GdiplusResize( $newWidth, $newHeight[, $interpolation[, $dst]] ) -> $dst
 ```
 
 ### cv::Mat::PixelChecksum
@@ -25763,6 +25865,12 @@ AutoIt:
     $oMat.Point_at( $pt ) -> retval
 ```
 
+```cpp
+cv::Point2d cv::Mat::Point_at( const std::vector<int>& idx );
+AutoIt:
+    $oMat.Point_at( $idx ) -> retval
+```
+
 ### cv::Mat::Vec2b\_at
 
 ```cpp
@@ -25790,6 +25898,12 @@ AutoIt:
 cv::Vec2b cv::Mat::Vec2b_at( cv::Point pt );
 AutoIt:
     $oMat.Vec2b_at( $pt ) -> retval
+```
+
+```cpp
+cv::Vec2b cv::Mat::Vec2b_at( const std::vector<int>& idx );
+AutoIt:
+    $oMat.Vec2b_at( $idx ) -> retval
 ```
 
 ### cv::Mat::Vec2b\_set\_at
@@ -25825,6 +25939,13 @@ AutoIt:
     $oMat.Vec2b_set_at( $pt, $value ) -> None
 ```
 
+```cpp
+void cv::Mat::Vec2b_set_at( const std::vector<int>& idx,
+                            cv::Vec2b               value );
+AutoIt:
+    $oMat.Vec2b_set_at( $idx, $value ) -> None
+```
+
 ### cv::Mat::Vec2d\_at
 
 ```cpp
@@ -25852,6 +25973,12 @@ AutoIt:
 cv::Vec2d cv::Mat::Vec2d_at( cv::Point pt );
 AutoIt:
     $oMat.Vec2d_at( $pt ) -> retval
+```
+
+```cpp
+cv::Vec2d cv::Mat::Vec2d_at( const std::vector<int>& idx );
+AutoIt:
+    $oMat.Vec2d_at( $idx ) -> retval
 ```
 
 ### cv::Mat::Vec2d\_set\_at
@@ -25887,6 +26014,13 @@ AutoIt:
     $oMat.Vec2d_set_at( $pt, $value ) -> None
 ```
 
+```cpp
+void cv::Mat::Vec2d_set_at( const std::vector<int>& idx,
+                            cv::Vec2d               value );
+AutoIt:
+    $oMat.Vec2d_set_at( $idx, $value ) -> None
+```
+
 ### cv::Mat::Vec2f\_at
 
 ```cpp
@@ -25914,6 +26048,12 @@ AutoIt:
 cv::Vec2f cv::Mat::Vec2f_at( cv::Point pt );
 AutoIt:
     $oMat.Vec2f_at( $pt ) -> retval
+```
+
+```cpp
+cv::Vec2f cv::Mat::Vec2f_at( const std::vector<int>& idx );
+AutoIt:
+    $oMat.Vec2f_at( $idx ) -> retval
 ```
 
 ### cv::Mat::Vec2f\_set\_at
@@ -25949,6 +26089,13 @@ AutoIt:
     $oMat.Vec2f_set_at( $pt, $value ) -> None
 ```
 
+```cpp
+void cv::Mat::Vec2f_set_at( const std::vector<int>& idx,
+                            cv::Vec2f               value );
+AutoIt:
+    $oMat.Vec2f_set_at( $idx, $value ) -> None
+```
+
 ### cv::Mat::Vec2i\_at
 
 ```cpp
@@ -25976,6 +26123,12 @@ AutoIt:
 cv::Vec2i cv::Mat::Vec2i_at( cv::Point pt );
 AutoIt:
     $oMat.Vec2i_at( $pt ) -> retval
+```
+
+```cpp
+cv::Vec2i cv::Mat::Vec2i_at( const std::vector<int>& idx );
+AutoIt:
+    $oMat.Vec2i_at( $idx ) -> retval
 ```
 
 ### cv::Mat::Vec2i\_set\_at
@@ -26011,6 +26164,13 @@ AutoIt:
     $oMat.Vec2i_set_at( $pt, $value ) -> None
 ```
 
+```cpp
+void cv::Mat::Vec2i_set_at( const std::vector<int>& idx,
+                            cv::Vec2i               value );
+AutoIt:
+    $oMat.Vec2i_set_at( $idx, $value ) -> None
+```
+
 ### cv::Mat::Vec2s\_at
 
 ```cpp
@@ -26038,6 +26198,12 @@ AutoIt:
 cv::Vec2s cv::Mat::Vec2s_at( cv::Point pt );
 AutoIt:
     $oMat.Vec2s_at( $pt ) -> retval
+```
+
+```cpp
+cv::Vec2s cv::Mat::Vec2s_at( const std::vector<int>& idx );
+AutoIt:
+    $oMat.Vec2s_at( $idx ) -> retval
 ```
 
 ### cv::Mat::Vec2s\_set\_at
@@ -26073,6 +26239,13 @@ AutoIt:
     $oMat.Vec2s_set_at( $pt, $value ) -> None
 ```
 
+```cpp
+void cv::Mat::Vec2s_set_at( const std::vector<int>& idx,
+                            cv::Vec2s               value );
+AutoIt:
+    $oMat.Vec2s_set_at( $idx, $value ) -> None
+```
+
 ### cv::Mat::Vec2w\_at
 
 ```cpp
@@ -26100,6 +26273,12 @@ AutoIt:
 cv::Vec2w cv::Mat::Vec2w_at( cv::Point pt );
 AutoIt:
     $oMat.Vec2w_at( $pt ) -> retval
+```
+
+```cpp
+cv::Vec2w cv::Mat::Vec2w_at( const std::vector<int>& idx );
+AutoIt:
+    $oMat.Vec2w_at( $idx ) -> retval
 ```
 
 ### cv::Mat::Vec2w\_set\_at
@@ -26135,6 +26314,13 @@ AutoIt:
     $oMat.Vec2w_set_at( $pt, $value ) -> None
 ```
 
+```cpp
+void cv::Mat::Vec2w_set_at( const std::vector<int>& idx,
+                            cv::Vec2w               value );
+AutoIt:
+    $oMat.Vec2w_set_at( $idx, $value ) -> None
+```
+
 ### cv::Mat::Vec3b\_at
 
 ```cpp
@@ -26162,6 +26348,12 @@ AutoIt:
 cv::Vec3b cv::Mat::Vec3b_at( cv::Point pt );
 AutoIt:
     $oMat.Vec3b_at( $pt ) -> retval
+```
+
+```cpp
+cv::Vec3b cv::Mat::Vec3b_at( const std::vector<int>& idx );
+AutoIt:
+    $oMat.Vec3b_at( $idx ) -> retval
 ```
 
 ### cv::Mat::Vec3b\_set\_at
@@ -26197,6 +26389,13 @@ AutoIt:
     $oMat.Vec3b_set_at( $pt, $value ) -> None
 ```
 
+```cpp
+void cv::Mat::Vec3b_set_at( const std::vector<int>& idx,
+                            cv::Vec3b               value );
+AutoIt:
+    $oMat.Vec3b_set_at( $idx, $value ) -> None
+```
+
 ### cv::Mat::Vec3d\_at
 
 ```cpp
@@ -26224,6 +26423,12 @@ AutoIt:
 cv::Vec3d cv::Mat::Vec3d_at( cv::Point pt );
 AutoIt:
     $oMat.Vec3d_at( $pt ) -> retval
+```
+
+```cpp
+cv::Vec3d cv::Mat::Vec3d_at( const std::vector<int>& idx );
+AutoIt:
+    $oMat.Vec3d_at( $idx ) -> retval
 ```
 
 ### cv::Mat::Vec3d\_set\_at
@@ -26259,6 +26464,13 @@ AutoIt:
     $oMat.Vec3d_set_at( $pt, $value ) -> None
 ```
 
+```cpp
+void cv::Mat::Vec3d_set_at( const std::vector<int>& idx,
+                            cv::Vec3d               value );
+AutoIt:
+    $oMat.Vec3d_set_at( $idx, $value ) -> None
+```
+
 ### cv::Mat::Vec3f\_at
 
 ```cpp
@@ -26286,6 +26498,12 @@ AutoIt:
 cv::Vec3f cv::Mat::Vec3f_at( cv::Point pt );
 AutoIt:
     $oMat.Vec3f_at( $pt ) -> retval
+```
+
+```cpp
+cv::Vec3f cv::Mat::Vec3f_at( const std::vector<int>& idx );
+AutoIt:
+    $oMat.Vec3f_at( $idx ) -> retval
 ```
 
 ### cv::Mat::Vec3f\_set\_at
@@ -26321,6 +26539,13 @@ AutoIt:
     $oMat.Vec3f_set_at( $pt, $value ) -> None
 ```
 
+```cpp
+void cv::Mat::Vec3f_set_at( const std::vector<int>& idx,
+                            cv::Vec3f               value );
+AutoIt:
+    $oMat.Vec3f_set_at( $idx, $value ) -> None
+```
+
 ### cv::Mat::Vec3i\_at
 
 ```cpp
@@ -26348,6 +26573,12 @@ AutoIt:
 cv::Vec3i cv::Mat::Vec3i_at( cv::Point pt );
 AutoIt:
     $oMat.Vec3i_at( $pt ) -> retval
+```
+
+```cpp
+cv::Vec3i cv::Mat::Vec3i_at( const std::vector<int>& idx );
+AutoIt:
+    $oMat.Vec3i_at( $idx ) -> retval
 ```
 
 ### cv::Mat::Vec3i\_set\_at
@@ -26383,6 +26614,13 @@ AutoIt:
     $oMat.Vec3i_set_at( $pt, $value ) -> None
 ```
 
+```cpp
+void cv::Mat::Vec3i_set_at( const std::vector<int>& idx,
+                            cv::Vec3i               value );
+AutoIt:
+    $oMat.Vec3i_set_at( $idx, $value ) -> None
+```
+
 ### cv::Mat::Vec3s\_at
 
 ```cpp
@@ -26410,6 +26648,12 @@ AutoIt:
 cv::Vec3s cv::Mat::Vec3s_at( cv::Point pt );
 AutoIt:
     $oMat.Vec3s_at( $pt ) -> retval
+```
+
+```cpp
+cv::Vec3s cv::Mat::Vec3s_at( const std::vector<int>& idx );
+AutoIt:
+    $oMat.Vec3s_at( $idx ) -> retval
 ```
 
 ### cv::Mat::Vec3s\_set\_at
@@ -26445,6 +26689,13 @@ AutoIt:
     $oMat.Vec3s_set_at( $pt, $value ) -> None
 ```
 
+```cpp
+void cv::Mat::Vec3s_set_at( const std::vector<int>& idx,
+                            cv::Vec3s               value );
+AutoIt:
+    $oMat.Vec3s_set_at( $idx, $value ) -> None
+```
+
 ### cv::Mat::Vec3w\_at
 
 ```cpp
@@ -26472,6 +26723,12 @@ AutoIt:
 cv::Vec3w cv::Mat::Vec3w_at( cv::Point pt );
 AutoIt:
     $oMat.Vec3w_at( $pt ) -> retval
+```
+
+```cpp
+cv::Vec3w cv::Mat::Vec3w_at( const std::vector<int>& idx );
+AutoIt:
+    $oMat.Vec3w_at( $idx ) -> retval
 ```
 
 ### cv::Mat::Vec3w\_set\_at
@@ -26507,6 +26764,13 @@ AutoIt:
     $oMat.Vec3w_set_at( $pt, $value ) -> None
 ```
 
+```cpp
+void cv::Mat::Vec3w_set_at( const std::vector<int>& idx,
+                            cv::Vec3w               value );
+AutoIt:
+    $oMat.Vec3w_set_at( $idx, $value ) -> None
+```
+
 ### cv::Mat::Vec4b\_at
 
 ```cpp
@@ -26534,6 +26798,12 @@ AutoIt:
 cv::Vec4b cv::Mat::Vec4b_at( cv::Point pt );
 AutoIt:
     $oMat.Vec4b_at( $pt ) -> retval
+```
+
+```cpp
+cv::Vec4b cv::Mat::Vec4b_at( const std::vector<int>& idx );
+AutoIt:
+    $oMat.Vec4b_at( $idx ) -> retval
 ```
 
 ### cv::Mat::Vec4b\_set\_at
@@ -26569,6 +26839,13 @@ AutoIt:
     $oMat.Vec4b_set_at( $pt, $value ) -> None
 ```
 
+```cpp
+void cv::Mat::Vec4b_set_at( const std::vector<int>& idx,
+                            cv::Vec4b               value );
+AutoIt:
+    $oMat.Vec4b_set_at( $idx, $value ) -> None
+```
+
 ### cv::Mat::Vec4d\_at
 
 ```cpp
@@ -26596,6 +26873,12 @@ AutoIt:
 cv::Vec4d cv::Mat::Vec4d_at( cv::Point pt );
 AutoIt:
     $oMat.Vec4d_at( $pt ) -> retval
+```
+
+```cpp
+cv::Vec4d cv::Mat::Vec4d_at( const std::vector<int>& idx );
+AutoIt:
+    $oMat.Vec4d_at( $idx ) -> retval
 ```
 
 ### cv::Mat::Vec4d\_set\_at
@@ -26631,6 +26914,13 @@ AutoIt:
     $oMat.Vec4d_set_at( $pt, $value ) -> None
 ```
 
+```cpp
+void cv::Mat::Vec4d_set_at( const std::vector<int>& idx,
+                            cv::Vec4d               value );
+AutoIt:
+    $oMat.Vec4d_set_at( $idx, $value ) -> None
+```
+
 ### cv::Mat::Vec4f\_at
 
 ```cpp
@@ -26658,6 +26948,12 @@ AutoIt:
 cv::Vec4f cv::Mat::Vec4f_at( cv::Point pt );
 AutoIt:
     $oMat.Vec4f_at( $pt ) -> retval
+```
+
+```cpp
+cv::Vec4f cv::Mat::Vec4f_at( const std::vector<int>& idx );
+AutoIt:
+    $oMat.Vec4f_at( $idx ) -> retval
 ```
 
 ### cv::Mat::Vec4f\_set\_at
@@ -26693,6 +26989,13 @@ AutoIt:
     $oMat.Vec4f_set_at( $pt, $value ) -> None
 ```
 
+```cpp
+void cv::Mat::Vec4f_set_at( const std::vector<int>& idx,
+                            cv::Vec4f               value );
+AutoIt:
+    $oMat.Vec4f_set_at( $idx, $value ) -> None
+```
+
 ### cv::Mat::Vec4i\_at
 
 ```cpp
@@ -26720,6 +27023,12 @@ AutoIt:
 cv::Vec4i cv::Mat::Vec4i_at( cv::Point pt );
 AutoIt:
     $oMat.Vec4i_at( $pt ) -> retval
+```
+
+```cpp
+cv::Vec4i cv::Mat::Vec4i_at( const std::vector<int>& idx );
+AutoIt:
+    $oMat.Vec4i_at( $idx ) -> retval
 ```
 
 ### cv::Mat::Vec4i\_set\_at
@@ -26755,6 +27064,13 @@ AutoIt:
     $oMat.Vec4i_set_at( $pt, $value ) -> None
 ```
 
+```cpp
+void cv::Mat::Vec4i_set_at( const std::vector<int>& idx,
+                            cv::Vec4i               value );
+AutoIt:
+    $oMat.Vec4i_set_at( $idx, $value ) -> None
+```
+
 ### cv::Mat::Vec4s\_at
 
 ```cpp
@@ -26782,6 +27098,12 @@ AutoIt:
 cv::Vec4s cv::Mat::Vec4s_at( cv::Point pt );
 AutoIt:
     $oMat.Vec4s_at( $pt ) -> retval
+```
+
+```cpp
+cv::Vec4s cv::Mat::Vec4s_at( const std::vector<int>& idx );
+AutoIt:
+    $oMat.Vec4s_at( $idx ) -> retval
 ```
 
 ### cv::Mat::Vec4s\_set\_at
@@ -26817,6 +27139,13 @@ AutoIt:
     $oMat.Vec4s_set_at( $pt, $value ) -> None
 ```
 
+```cpp
+void cv::Mat::Vec4s_set_at( const std::vector<int>& idx,
+                            cv::Vec4s               value );
+AutoIt:
+    $oMat.Vec4s_set_at( $idx, $value ) -> None
+```
+
 ### cv::Mat::Vec4w\_at
 
 ```cpp
@@ -26844,6 +27173,12 @@ AutoIt:
 cv::Vec4w cv::Mat::Vec4w_at( cv::Point pt );
 AutoIt:
     $oMat.Vec4w_at( $pt ) -> retval
+```
+
+```cpp
+cv::Vec4w cv::Mat::Vec4w_at( const std::vector<int>& idx );
+AutoIt:
+    $oMat.Vec4w_at( $idx ) -> retval
 ```
 
 ### cv::Mat::Vec4w\_set\_at
@@ -26879,6 +27214,13 @@ AutoIt:
     $oMat.Vec4w_set_at( $pt, $value ) -> None
 ```
 
+```cpp
+void cv::Mat::Vec4w_set_at( const std::vector<int>& idx,
+                            cv::Vec4w               value );
+AutoIt:
+    $oMat.Vec4w_set_at( $idx, $value ) -> None
+```
+
 ### cv::Mat::Vec6d\_at
 
 ```cpp
@@ -26906,6 +27248,12 @@ AutoIt:
 cv::Vec6d cv::Mat::Vec6d_at( cv::Point pt );
 AutoIt:
     $oMat.Vec6d_at( $pt ) -> retval
+```
+
+```cpp
+cv::Vec6d cv::Mat::Vec6d_at( const std::vector<int>& idx );
+AutoIt:
+    $oMat.Vec6d_at( $idx ) -> retval
 ```
 
 ### cv::Mat::Vec6d\_set\_at
@@ -26941,6 +27289,13 @@ AutoIt:
     $oMat.Vec6d_set_at( $pt, $value ) -> None
 ```
 
+```cpp
+void cv::Mat::Vec6d_set_at( const std::vector<int>& idx,
+                            cv::Vec6d               value );
+AutoIt:
+    $oMat.Vec6d_set_at( $idx, $value ) -> None
+```
+
 ### cv::Mat::Vec6f\_at
 
 ```cpp
@@ -26968,6 +27323,12 @@ AutoIt:
 cv::Vec6f cv::Mat::Vec6f_at( cv::Point pt );
 AutoIt:
     $oMat.Vec6f_at( $pt ) -> retval
+```
+
+```cpp
+cv::Vec6f cv::Mat::Vec6f_at( const std::vector<int>& idx );
+AutoIt:
+    $oMat.Vec6f_at( $idx ) -> retval
 ```
 
 ### cv::Mat::Vec6f\_set\_at
@@ -27003,6 +27364,13 @@ AutoIt:
     $oMat.Vec6f_set_at( $pt, $value ) -> None
 ```
 
+```cpp
+void cv::Mat::Vec6f_set_at( const std::vector<int>& idx,
+                            cv::Vec6f               value );
+AutoIt:
+    $oMat.Vec6f_set_at( $idx, $value ) -> None
+```
+
 ### cv::Mat::Vec6i\_at
 
 ```cpp
@@ -27030,6 +27398,12 @@ AutoIt:
 cv::Vec6i cv::Mat::Vec6i_at( cv::Point pt );
 AutoIt:
     $oMat.Vec6i_at( $pt ) -> retval
+```
+
+```cpp
+cv::Vec6i cv::Mat::Vec6i_at( const std::vector<int>& idx );
+AutoIt:
+    $oMat.Vec6i_at( $idx ) -> retval
 ```
 
 ### cv::Mat::Vec6i\_set\_at
@@ -27065,6 +27439,13 @@ AutoIt:
     $oMat.Vec6i_set_at( $pt, $value ) -> None
 ```
 
+```cpp
+void cv::Mat::Vec6i_set_at( const std::vector<int>& idx,
+                            cv::Vec6i               value );
+AutoIt:
+    $oMat.Vec6i_set_at( $idx, $value ) -> None
+```
+
 ### cv::Mat::Vec8i\_at
 
 ```cpp
@@ -27092,6 +27473,12 @@ AutoIt:
 cv::Vec8i cv::Mat::Vec8i_at( cv::Point pt );
 AutoIt:
     $oMat.Vec8i_at( $pt ) -> retval
+```
+
+```cpp
+cv::Vec8i cv::Mat::Vec8i_at( const std::vector<int>& idx );
+AutoIt:
+    $oMat.Vec8i_at( $idx ) -> retval
 ```
 
 ### cv::Mat::Vec8i\_set\_at
@@ -27127,12 +27514,47 @@ AutoIt:
     $oMat.Vec8i_set_at( $pt, $value ) -> None
 ```
 
+```cpp
+void cv::Mat::Vec8i_set_at( const std::vector<int>& idx,
+                            cv::Vec8i               value );
+AutoIt:
+    $oMat.Vec8i_set_at( $idx, $value ) -> None
+```
+
+### cv::Mat::addref
+
+```cpp
+void cv::Mat::addref();
+AutoIt:
+    $oMat.addref() -> None
+```
+
+### cv::Mat::adjustROI
+
+```cpp
+cv::Ptr<cv::Mat> cv::Mat::adjustROI( int dtop,
+                                     int dbottom,
+                                     int dleft,
+                                     int dright );
+AutoIt:
+    $oMat.adjustROI( $dtop, $dbottom, $dleft, $dright ) -> retval
+```
+
 ### cv::Mat::asArray
 
 ```cpp
 _variant_t cv::Mat::asArray();
 AutoIt:
     $oMat.asArray() -> retval
+```
+
+### cv::Mat::assignTo
+
+```cpp
+void cv::Mat::assignTo( const cv::Mat& m,
+                        int            type = -1 );
+AutoIt:
+    $oMat.assignTo( $m[, $type] ) -> None
 ```
 
 ### cv::Mat::at
@@ -27162,6 +27584,12 @@ AutoIt:
 double cv::Mat::at( cv::Point pt );
 AutoIt:
     $oMat.at( $pt ) -> retval
+```
+
+```cpp
+double cv::Mat::at( const std::vector<int>& idx );
+AutoIt:
+    $oMat.at( $idx ) -> retval
 ```
 
 ### cv::Mat::channels
@@ -27208,7 +27636,7 @@ AutoIt:
 ```
 
 ```cpp
-cv::Mat cv::Mat::colRange( cv::Range r );
+cv::Mat cv::Mat::colRange( const cv::Range& r );
 AutoIt:
     $oMat.colRange( $r ) -> retval
 ```
@@ -27244,10 +27672,10 @@ AutoIt:
 ### cv::Mat::convertToShow
 
 ```cpp
-cv::Mat cv::Mat::convertToShow( cv::Mat dst = Mat::zeros(__self->get()->rows, __self->get()->cols, CV_8UC3),
-                                bool    toRGB = false );
+void cv::Mat::convertToShow( cv::Mat dst = Mat::zeros(__self->get()->rows, __self->get()->cols, CV_8UC3),
+                             bool    toRGB = false );
 AutoIt:
-    $oMat.convertToShow( [$dst[, $toRGB]] ) -> retval, $dst
+    $oMat.convertToShow( [$dst[, $toRGB]] ) -> $dst
 ```
 
 ### cv::Mat::copy
@@ -27256,6 +27684,14 @@ AutoIt:
 cv::Mat cv::Mat::copy();
 AutoIt:
     $oMat.copy() -> retval
+```
+
+### cv::Mat::copySize
+
+```cpp
+void cv::Mat::copySize( const cv::Mat& m );
+AutoIt:
+    $oMat.copySize( $m ) -> None
 ```
 
 ### cv::Mat::copyTo
@@ -27682,6 +28118,12 @@ AutoIt:
     $oMat.diag( [$d] ) -> retval
 ```
 
+```cpp
+static cv::Mat cv::Mat::diag( const cv::Mat& d );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Mat").diag( $d ) -> retval
+```
+
 ### cv::Mat::dot
 
 ```cpp
@@ -27719,6 +28161,12 @@ AutoIt:
     $oMat.double_at( $pt ) -> retval
 ```
 
+```cpp
+double cv::Mat::double_at( const std::vector<int>& idx );
+AutoIt:
+    $oMat.double_at( $idx ) -> retval
+```
+
 ### cv::Mat::double\_set\_at
 
 ```cpp
@@ -27750,6 +28198,13 @@ void cv::Mat::double_set_at( cv::Point pt,
                              double    value );
 AutoIt:
     $oMat.double_set_at( $pt, $value ) -> None
+```
+
+```cpp
+void cv::Mat::double_set_at( const std::vector<int>& idx,
+                             double                  value );
+AutoIt:
+    $oMat.double_set_at( $idx, $value ) -> None
 ```
 
 ### cv::Mat::elemSize
@@ -27800,6 +28255,13 @@ AutoIt:
     _OpenCV_ObjCreate("cv.Mat").eye( $cols, $type ) -> retval
 ```
 
+```cpp
+static cv::Mat cv::Mat::eye( cv::Size size,
+                             int      type );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Mat").eye( $size, $type ) -> retval
+```
+
 ### cv::Mat::float\_at
 
 ```cpp
@@ -27827,6 +28289,12 @@ AutoIt:
 float cv::Mat::float_at( cv::Point pt );
 AutoIt:
     $oMat.float_at( $pt ) -> retval
+```
+
+```cpp
+float cv::Mat::float_at( const std::vector<int>& idx );
+AutoIt:
+    $oMat.float_at( $idx ) -> retval
 ```
 
 ### cv::Mat::float\_set\_at
@@ -27862,6 +28330,22 @@ AutoIt:
     $oMat.float_set_at( $pt, $value ) -> None
 ```
 
+```cpp
+void cv::Mat::float_set_at( const std::vector<int>& idx,
+                            float                   value );
+AutoIt:
+    $oMat.float_set_at( $idx, $value ) -> None
+```
+
+### cv::Mat::getUMat
+
+```cpp
+cv::UMat cv::Mat::getUMat( cv::AccessFlag     accessFlags,
+                           cv::UMatUsageFlags usageFlags = USAGE_DEFAULT );
+AutoIt:
+    $oMat.getUMat( $accessFlags[, $usageFlags] ) -> retval
+```
+
 ### cv::Mat::get\_Item
 
 ```cpp
@@ -27895,6 +28379,13 @@ AutoIt:
     $oMat( $pt ) -> retval
 ```
 
+```cpp
+double cv::Mat::get_Item( const std::vector<int>& idx );
+AutoIt:
+    $oMat.Item( $idx ) -> retval
+    $oMat( $idx ) -> retval
+```
+
 ### cv::Mat::int\_at
 
 ```cpp
@@ -27922,6 +28413,12 @@ AutoIt:
 int cv::Mat::int_at( cv::Point pt );
 AutoIt:
     $oMat.int_at( $pt ) -> retval
+```
+
+```cpp
+int cv::Mat::int_at( const std::vector<int>& idx );
+AutoIt:
+    $oMat.int_at( $idx ) -> retval
 ```
 
 ### cv::Mat::int\_set\_at
@@ -27957,6 +28454,21 @@ AutoIt:
     $oMat.int_set_at( $pt, $value ) -> None
 ```
 
+```cpp
+void cv::Mat::int_set_at( const std::vector<int>& idx,
+                          int                     value );
+AutoIt:
+    $oMat.int_set_at( $idx, $value ) -> None
+```
+
+### cv::Mat::inv
+
+```cpp
+cv::Mat cv::Mat::inv( int method = DECOMP_LU );
+AutoIt:
+    $oMat.inv( [$method] ) -> retval
+```
+
 ### cv::Mat::isContinuous
 
 ```cpp
@@ -27971,6 +28483,24 @@ AutoIt:
 bool cv::Mat::isSubmatrix();
 AutoIt:
     $oMat.isSubmatrix() -> retval
+```
+
+### cv::Mat::locateROI
+
+```cpp
+void cv::Mat::locateROI( cv::Size&  wholeSize,
+                         cv::Point& ofs );
+AutoIt:
+    $oMat.locateROI( [$wholeSize[, $ofs]] ) -> $wholeSize, $ofs
+```
+
+### cv::Mat::mul
+
+```cpp
+cv::Mat cv::Mat::mul( InputArray m,
+                      double     scale = 1 );
+AutoIt:
+    $oMat.mul( $m[, $scale] ) -> retval
 ```
 
 ### cv::Mat::ones
@@ -28004,6 +28534,13 @@ AutoIt:
     _OpenCV_ObjCreate("cv.Mat").ones( $size, $type ) -> retval
 ```
 
+```cpp
+static cv::Mat cv::Mat::ones( std::vector<int> sizes,
+                              int              type );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Mat").ones( $sizes, $type ) -> retval
+```
+
 ### cv::Mat::pop\_back
 
 ```cpp
@@ -28035,12 +28572,18 @@ AutoIt:
     $oMat.ptr( $i0, $i1, $i2 ) -> retval
 ```
 
+```cpp
+uchar* cv::Mat::ptr( const std::vector<int>& idx = std::vector<int>() );
+AutoIt:
+    $oMat.ptr( [$idx] ) -> retval
+```
+
 ### cv::Mat::push\_back
 
 ```cpp
-void cv::Mat::push_back( cv::Mat value );
+void cv::Mat::push_back( const cv::Mat& m );
 AutoIt:
-    $oMat.push_back( $value ) -> None
+    $oMat.push_back( $m ) -> None
 ```
 
 ### cv::Mat::put\_Item
@@ -28076,6 +28619,37 @@ AutoIt:
     $oMat.Item( $pt ) = $value
 ```
 
+```cpp
+void cv::Mat::put_Item( const std::vector<int>& idx,
+                        double                  value );
+AutoIt:
+    $oMat.Item( $idx ) = $value
+```
+
+### cv::Mat::release
+
+```cpp
+void cv::Mat::release();
+AutoIt:
+    $oMat.release() -> None
+```
+
+### cv::Mat::reserve
+
+```cpp
+void cv::Mat::reserve( size_t sz );
+AutoIt:
+    $oMat.reserve( $sz ) -> None
+```
+
+### cv::Mat::reserveBuffer
+
+```cpp
+void cv::Mat::reserveBuffer( size_t sz );
+AutoIt:
+    $oMat.reserveBuffer( $sz ) -> None
+```
+
 ### cv::Mat::reshape
 
 ```cpp
@@ -28083,6 +28657,28 @@ cv::Mat cv::Mat::reshape( int cn,
                           int rows = 0 );
 AutoIt:
     $oMat.reshape( $cn[, $rows] ) -> retval
+```
+
+```cpp
+cv::Mat cv::Mat::reshape( int                     cn,
+                          const std::vector<int>& newshape );
+AutoIt:
+    $oMat.reshape( $cn, $newshape ) -> retval
+```
+
+### cv::Mat::resize
+
+```cpp
+void cv::Mat::resize( size_t sz );
+AutoIt:
+    $oMat.resize( $sz ) -> None
+```
+
+```cpp
+void cv::Mat::resize( size_t            sz,
+                      const cv::Scalar& s );
+AutoIt:
+    $oMat.resize( $sz, $s ) -> None
 ```
 
 ### cv::Mat::row
@@ -28150,6 +28746,13 @@ AutoIt:
     $oMat.set_at( $pt, $value ) -> None
 ```
 
+```cpp
+void cv::Mat::set_at( const std::vector<int>& idx,
+                      double                  value );
+AutoIt:
+    $oMat.set_at( $idx, $value ) -> None
+```
+
 ### cv::Mat::size
 
 ```cpp
@@ -28197,6 +28800,14 @@ AutoIt:
     $oMat.type() -> retval
 ```
 
+### cv::Mat::updateContinuityFlag
+
+```cpp
+void cv::Mat::updateContinuityFlag();
+AutoIt:
+    $oMat.updateContinuityFlag() -> None
+```
+
 ### cv::Mat::zeros
 
 ```cpp
@@ -28226,6 +28837,13 @@ static cv::Mat cv::Mat::zeros( cv::Size size,
                                int      type );
 AutoIt:
     _OpenCV_ObjCreate("cv.Mat").zeros( $size, $type ) -> retval
+```
+
+```cpp
+static cv::Mat cv::Mat::zeros( std::vector<int> sizes,
+                               int              type );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Mat").zeros( $sizes, $type ) -> retval
 ```
 
 ### Mat.MAGIC\_VAL\_
@@ -28286,14 +28904,6 @@ AutoIt:
 
 ## cv::UMat
 
-### UMat.rows
-
-```cpp
-int cv::UMat::rows
-AutoIt:
-    [propget, propput] $oUMat.rows
-```
-
 ### UMat.cols
 
 ```cpp
@@ -28308,6 +28918,22 @@ AutoIt:
 int cv::UMat::dims
 AutoIt:
     [propget, propput] $oUMat.dims
+```
+
+### UMat.flags
+
+```cpp
+int cv::UMat::flags
+AutoIt:
+    [propget, propput] $oUMat.flags
+```
+
+### UMat.rows
+
+```cpp
+int cv::UMat::rows
+AutoIt:
+    [propget, propput] $oUMat.rows
 ```
 
 ### UMat.step
@@ -28334,23 +28960,34 @@ AutoIt:
     [propget, propput] $oUMat.height
 ```
 
+### UMat.shape
+
+```cpp
+std::tuple<int, int, int> cv::UMat::shape
+AutoIt:
+    [propget] $oUMat.shape
+```
+
+### UMat.sizes
+
+```cpp
+std::vector<int> cv::UMat::sizes
+AutoIt:
+    [propget] $oUMat.sizes
+```
+
+### UMat.steps
+
+```cpp
+std::vector<size_t> cv::UMat::steps
+AutoIt:
+    [propget] $oUMat.steps
+```
+
 ### cv::UMat::get\_create
 
 ```cpp
-static cv::UMat cv::UMat::get_create();
-AutoIt:
-    _OpenCV_ObjCreate("cv.UMat").create() -> <cv.UMat object>
-```
-
-```cpp
-static cv::UMat cv::UMat::get_create( cv::UMat m );
-AutoIt:
-    _OpenCV_ObjCreate("cv.UMat").create( $m ) -> <cv.UMat object>
-    $oUMat( $m ) -> <cv.UMat object>
-```
-
-```cpp
-static cv::UMat cv::UMat::get_create( cv::UMatUsageFlags usageFlags = cv::USAGE_DEFAULT );
+static cv::UMat cv::UMat::get_create( cv::UMatUsageFlags usageFlags = USAGE_DEFAULT );
 AutoIt:
     _OpenCV_ObjCreate("cv.UMat").create( [$usageFlags] ) -> <cv.UMat object>
     $oUMat( [$usageFlags] ) -> <cv.UMat object>
@@ -28360,29 +28997,624 @@ AutoIt:
 static cv::UMat cv::UMat::get_create( int                rows,
                                       int                cols,
                                       int                type,
-                                      cv::UMatUsageFlags usageFlags = cv::USAGE_DEFAULT );
+                                      cv::UMatUsageFlags usageFlags = USAGE_DEFAULT );
 AutoIt:
     _OpenCV_ObjCreate("cv.UMat").create( $rows, $cols, $type[, $usageFlags] ) -> <cv.UMat object>
     $oUMat( $rows, $cols, $type[, $usageFlags] ) -> <cv.UMat object>
 ```
 
 ```cpp
+static cv::UMat cv::UMat::get_create( cv::Size           size,
+                                      int                type,
+                                      cv::UMatUsageFlags usageFlags = USAGE_DEFAULT );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").create( $size, $type[, $usageFlags] ) -> <cv.UMat object>
+    $oUMat( $size, $type[, $usageFlags] ) -> <cv.UMat object>
+```
+
+```cpp
 static cv::UMat cv::UMat::get_create( int                rows,
                                       int                cols,
                                       int                type,
-                                      cv::Scalar         s,
-                                      cv::UMatUsageFlags usageFlags = cv::USAGE_DEFAULT );
+                                      const cv::Scalar&  s,
+                                      cv::UMatUsageFlags usageFlags = USAGE_DEFAULT );
 AutoIt:
     _OpenCV_ObjCreate("cv.UMat").create( $rows, $cols, $type, $s[, $usageFlags] ) -> <cv.UMat object>
     $oUMat( $rows, $cols, $type, $s[, $usageFlags] ) -> <cv.UMat object>
 ```
 
+```cpp
+static cv::UMat cv::UMat::get_create( cv::Size           size,
+                                      int                type,
+                                      const cv::Scalar&  s,
+                                      cv::UMatUsageFlags usageFlags = USAGE_DEFAULT );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").create( $size, $type, $s[, $usageFlags] ) -> <cv.UMat object>
+    $oUMat( $size, $type, $s[, $usageFlags] ) -> <cv.UMat object>
+```
+
+```cpp
+static cv::UMat cv::UMat::get_create( std::vector<int>   sizes,
+                                      int                type,
+                                      cv::UMatUsageFlags usageFlags = USAGE_DEFAULT );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").create( $sizes, $type[, $usageFlags] ) -> <cv.UMat object>
+    $oUMat( $sizes, $type[, $usageFlags] ) -> <cv.UMat object>
+```
+
+```cpp
+static cv::UMat cv::UMat::get_create( std::vector<int>   sizes,
+                                      int                type,
+                                      const cv::Scalar&  s,
+                                      cv::UMatUsageFlags usageFlags = USAGE_DEFAULT );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").create( $sizes, $type, $s[, $usageFlags] ) -> <cv.UMat object>
+    $oUMat( $sizes, $type, $s[, $usageFlags] ) -> <cv.UMat object>
+```
+
+```cpp
+static cv::UMat cv::UMat::get_create( const cv::UMat& m );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").create( $m ) -> <cv.UMat object>
+    $oUMat( $m ) -> <cv.UMat object>
+```
+
+```cpp
+static cv::UMat cv::UMat::get_create( const cv::UMat&  m,
+                                      const cv::Range& rowRange,
+                                      const cv::Range& colRange = Range::all() );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").create( $m, $rowRange[, $colRange] ) -> <cv.UMat object>
+    $oUMat( $m, $rowRange[, $colRange] ) -> <cv.UMat object>
+```
+
+```cpp
+static cv::UMat cv::UMat::get_create( const cv::UMat& m,
+                                      const cv::Rect& roi );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").create( $m, $roi ) -> <cv.UMat object>
+    $oUMat( $m, $roi ) -> <cv.UMat object>
+```
+
+```cpp
+static cv::UMat cv::UMat::get_create( const cv::UMat&               m,
+                                      const std::vector<cv::Range>& ranges );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").create( $m, $ranges ) -> <cv.UMat object>
+    $oUMat( $m, $ranges ) -> <cv.UMat object>
+```
+
+```cpp
+static cv::UMat cv::UMat::get_create( const std::vector<double>& vec );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").create( $vec ) -> <cv.UMat object>
+    $oUMat( $vec ) -> <cv.UMat object>
+```
+
+```cpp
+static cv::UMat cv::UMat::get_create( const std::vector<int>& vec );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").create( $vec ) -> <cv.UMat object>
+    $oUMat( $vec ) -> <cv.UMat object>
+```
+
+### cv::UMat::GdiplusResize
+
+```cpp
+void cv::UMat::GdiplusResize( cv::Mat dst,
+                              float   newWidth,
+                              float   newHeight,
+                              int     interpolation = 7 );
+AutoIt:
+    $oUMat.GdiplusResize( $newWidth, $newHeight[, $interpolation[, $dst]] ) -> $dst
+```
+
+### cv::UMat::addref
+
+```cpp
+void cv::UMat::addref();
+AutoIt:
+    $oUMat.addref() -> None
+```
+
+### cv::UMat::adjustROI
+
+```cpp
+cv::Ptr<cv::UMat> cv::UMat::adjustROI( int dtop,
+                                       int dbottom,
+                                       int dleft,
+                                       int dright );
+AutoIt:
+    $oUMat.adjustROI( $dtop, $dbottom, $dleft, $dright ) -> retval
+```
+
+### cv::UMat::assignTo
+
+```cpp
+void cv::UMat::assignTo( const cv::UMat& m,
+                         int             type = -1 );
+AutoIt:
+    $oUMat.assignTo( $m[, $type] ) -> None
+```
+
+### cv::UMat::channels
+
+```cpp
+int cv::UMat::channels();
+AutoIt:
+    $oUMat.channels() -> retval
+```
+
+### cv::UMat::checkVector
+
+```cpp
+int cv::UMat::checkVector( int elemChannels,
+                           int depth = -1,
+                           int requireContinuous = true );
+AutoIt:
+    $oUMat.checkVector( $elemChannels[, $depth[, $requireContinuous]] ) -> retval
+```
+
+### cv::UMat::clone
+
+```cpp
+cv::UMat cv::UMat::clone();
+AutoIt:
+    $oUMat.clone() -> retval
+```
+
+### cv::UMat::col
+
+```cpp
+cv::UMat cv::UMat::col( int x );
+AutoIt:
+    $oUMat.col( $x ) -> retval
+```
+
+### cv::UMat::colRange
+
+```cpp
+cv::UMat cv::UMat::colRange( int startcol,
+                             int endcol = __self->get()->cols );
+AutoIt:
+    $oUMat.colRange( $startcol[, $endcol] ) -> retval
+```
+
+```cpp
+cv::UMat cv::UMat::colRange( const cv::Range& r );
+AutoIt:
+    $oUMat.colRange( $r ) -> retval
+```
+
+### cv::UMat::convertTo
+
+```cpp
+void cv::UMat::convertTo( OutputArray m,
+                          int         rtype,
+                          double      alpha = 1.0,
+                          double      beta = 0.0 );
+AutoIt:
+    $oUMat.convertTo( $rtype[, $m[, $alpha[, $beta]]] ) -> $m
+```
+
+```cpp
+void cv::UMat::convertTo( OutputArray m,
+                          int         rtype = -1,
+                          double      alpha = 1.0,
+                          double      beta = 0.0 );
+AutoIt:
+    $oUMat.convertTo( [$m[, $rtype[, $alpha[, $beta]]]] ) -> $m
+```
+
+### cv::UMat::convertToBitmap
+
+```cpp
+void* cv::UMat::convertToBitmap( bool copy = true );
+AutoIt:
+    $oUMat.convertToBitmap( [$copy] ) -> retval
+```
+
+### cv::UMat::convertToShow
+
+```cpp
+void cv::UMat::convertToShow( cv::Mat dst = Mat::zeros(__self->get()->rows, __self->get()->cols, CV_8UC3),
+                              bool    toRGB = false );
+AutoIt:
+    $oUMat.convertToShow( [$dst[, $toRGB]] ) -> $dst
+```
+
+### cv::UMat::copy
+
+```cpp
+cv::UMat cv::UMat::copy();
+AutoIt:
+    $oUMat.copy() -> retval
+```
+
+### cv::UMat::copySize
+
+```cpp
+void cv::UMat::copySize( const cv::UMat& m );
+AutoIt:
+    $oUMat.copySize( $m ) -> None
+```
+
+### cv::UMat::copyTo
+
+```cpp
+void cv::UMat::copyTo( OutputArray m );
+AutoIt:
+    $oUMat.copyTo( [$m] ) -> $m
+```
+
+```cpp
+void cv::UMat::copyTo( OutputArray m,
+                       InputArray  mask );
+AutoIt:
+    $oUMat.copyTo( $mask[, $m] ) -> $m
+```
+
+### cv::UMat::depth
+
+```cpp
+int cv::UMat::depth();
+AutoIt:
+    $oUMat.depth() -> retval
+```
+
+### cv::UMat::diag
+
+```cpp
+cv::UMat cv::UMat::diag( int d = 0 );
+AutoIt:
+    $oUMat.diag( [$d] ) -> retval
+```
+
+```cpp
+static cv::UMat cv::UMat::diag( const cv::UMat&    d,
+                                cv::UMatUsageFlags usageFlags );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").diag( $d, $usageFlags ) -> retval
+```
+
+```cpp
+static cv::UMat cv::UMat::diag( const cv::UMat& d );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").diag( $d ) -> retval
+```
+
+### cv::UMat::dot
+
+```cpp
+double cv::UMat::dot( InputArray m );
+AutoIt:
+    $oUMat.dot( $m ) -> retval
+```
+
+### cv::UMat::elemSize
+
+```cpp
+size_t cv::UMat::elemSize();
+AutoIt:
+    $oUMat.elemSize() -> retval
+```
+
+### cv::UMat::elemSize1
+
+```cpp
+size_t cv::UMat::elemSize1();
+AutoIt:
+    $oUMat.elemSize1() -> retval
+```
+
+### cv::UMat::empty
+
+```cpp
+bool cv::UMat::empty();
+AutoIt:
+    $oUMat.empty() -> retval
+```
+
+### cv::UMat::eye
+
+```cpp
+static cv::UMat cv::UMat::eye( int                rows,
+                               int                cols,
+                               int                type,
+                               cv::UMatUsageFlags usageFlags );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").eye( $rows, $cols, $type, $usageFlags ) -> retval
+```
+
+```cpp
+static cv::UMat cv::UMat::eye( int                rows,
+                               int                type,
+                               cv::UMatUsageFlags usageFlags );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").eye( $rows, $type, $usageFlags ) -> retval
+```
+
+```cpp
+static cv::UMat cv::UMat::eye( int                cols,
+                               int                type,
+                               cv::UMatUsageFlags usageFlags );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").eye( $cols, $type, $usageFlags ) -> retval
+```
+
+```cpp
+static cv::UMat cv::UMat::eye( cv::Size           size,
+                               int                type,
+                               cv::UMatUsageFlags usageFlags );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").eye( $size, $type, $usageFlags ) -> retval
+```
+
+```cpp
+static cv::UMat cv::UMat::eye( int rows,
+                               int cols,
+                               int type );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").eye( $rows, $cols, $type ) -> retval
+```
+
+```cpp
+static cv::UMat cv::UMat::eye( int rows,
+                               int type );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").eye( $rows, $type ) -> retval
+```
+
+```cpp
+static cv::UMat cv::UMat::eye( int cols,
+                               int type );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").eye( $cols, $type ) -> retval
+```
+
+```cpp
+static cv::UMat cv::UMat::eye( cv::Size size,
+                               int      type );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").eye( $size, $type ) -> retval
+```
+
 ### cv::UMat::getMat
 
 ```cpp
-cv::Mat cv::UMat::getMat( int access );
+cv::Mat cv::UMat::getMat( cv::AccessFlag flags );
 AutoIt:
-    $oUMat.getMat( $access ) -> retval
+    $oUMat.getMat( $flags ) -> retval
+```
+
+### cv::UMat::handle
+
+```cpp
+void* cv::UMat::handle( cv::AccessFlag acessFlag );
+AutoIt:
+    $oUMat.handle( $acessFlag ) -> retval
+```
+
+### cv::UMat::isContinuous
+
+```cpp
+bool cv::UMat::isContinuous();
+AutoIt:
+    $oUMat.isContinuous() -> retval
+```
+
+### cv::UMat::isSubmatrix
+
+```cpp
+bool cv::UMat::isSubmatrix();
+AutoIt:
+    $oUMat.isSubmatrix() -> retval
+```
+
+### cv::UMat::locateROI
+
+```cpp
+void cv::UMat::locateROI( cv::Size&  wholeSize,
+                          cv::Point& ofs );
+AutoIt:
+    $oUMat.locateROI( [$wholeSize[, $ofs]] ) -> $wholeSize, $ofs
+```
+
+### cv::UMat::mul
+
+```cpp
+cv::UMat cv::UMat::mul( InputArray m,
+                        double     scale = 1 );
+AutoIt:
+    $oUMat.mul( $m[, $scale] ) -> retval
+```
+
+### cv::UMat::ndoffset
+
+```cpp
+void cv::UMat::ndoffset( size_t* ofs );
+AutoIt:
+    $oUMat.ndoffset( [$ofs] ) -> $ofs
+```
+
+### cv::UMat::ones
+
+```cpp
+static cv::UMat cv::UMat::ones( int rows,
+                                int cols,
+                                int type );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").ones( $rows, $cols, $type ) -> retval
+```
+
+```cpp
+static cv::UMat cv::UMat::ones( int cols,
+                                int type );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").ones( $cols, $type ) -> retval
+```
+
+```cpp
+static cv::UMat cv::UMat::ones( int rows,
+                                int type );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").ones( $rows, $type ) -> retval
+```
+
+```cpp
+static cv::UMat cv::UMat::ones( cv::Size size,
+                                int      type );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").ones( $size, $type ) -> retval
+```
+
+```cpp
+static cv::UMat cv::UMat::ones( std::vector<int> sizes,
+                                int              type );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").ones( $sizes, $type ) -> retval
+```
+
+### cv::UMat::release
+
+```cpp
+void cv::UMat::release();
+AutoIt:
+    $oUMat.release() -> None
+```
+
+### cv::UMat::reshape
+
+```cpp
+cv::UMat cv::UMat::reshape( int cn,
+                            int rows = 0 );
+AutoIt:
+    $oUMat.reshape( $cn[, $rows] ) -> retval
+```
+
+```cpp
+cv::UMat cv::UMat::reshape( int                     cn,
+                            const std::vector<int>& newshape );
+AutoIt:
+    $oUMat.reshape( $cn, $newshape ) -> retval
+```
+
+### cv::UMat::row
+
+```cpp
+cv::UMat cv::UMat::row( int y );
+AutoIt:
+    $oUMat.row( $y ) -> retval
+```
+
+### cv::UMat::rowRange
+
+```cpp
+cv::UMat cv::UMat::rowRange( int startrow,
+                             int endrow = __self->get()->rows );
+AutoIt:
+    $oUMat.rowRange( $startrow[, $endrow] ) -> retval
+```
+
+```cpp
+cv::UMat cv::UMat::rowRange( cv::Range r );
+AutoIt:
+    $oUMat.rowRange( $r ) -> retval
+```
+
+### cv::UMat::setTo
+
+```cpp
+void cv::UMat::setTo( InputArray value,
+                      InputArray mask = noArray() );
+AutoIt:
+    $oUMat.setTo( $value[, $mask] ) -> None
+```
+
+### cv::UMat::size
+
+```cpp
+cv::Size cv::UMat::size();
+AutoIt:
+    $oUMat.size() -> retval
+```
+
+### cv::UMat::step1
+
+```cpp
+size_t cv::UMat::step1( int i = 0 );
+AutoIt:
+    $oUMat.step1( [$i] ) -> retval
+```
+
+### cv::UMat::t
+
+```cpp
+cv::UMat cv::UMat::t();
+AutoIt:
+    $oUMat.t() -> retval
+```
+
+### cv::UMat::total
+
+```cpp
+size_t cv::UMat::total();
+AutoIt:
+    $oUMat.total() -> retval
+```
+
+### cv::UMat::type
+
+```cpp
+int cv::UMat::type();
+AutoIt:
+    $oUMat.type() -> retval
+```
+
+### cv::UMat::updateContinuityFlag
+
+```cpp
+void cv::UMat::updateContinuityFlag();
+AutoIt:
+    $oUMat.updateContinuityFlag() -> None
+```
+
+### cv::UMat::zeros
+
+```cpp
+static cv::UMat cv::UMat::zeros( int rows,
+                                 int cols,
+                                 int type );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").zeros( $rows, $cols, $type ) -> retval
+```
+
+```cpp
+static cv::UMat cv::UMat::zeros( int cols,
+                                 int type );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").zeros( $cols, $type ) -> retval
+```
+
+```cpp
+static cv::UMat cv::UMat::zeros( int rows,
+                                 int type );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").zeros( $rows, $type ) -> retval
+```
+
+```cpp
+static cv::UMat cv::UMat::zeros( cv::Size size,
+                                 int      type );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").zeros( $size, $type ) -> retval
+```
+
+```cpp
+static cv::UMat cv::UMat::zeros( std::vector<int> sizes,
+                                 int              type );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").zeros( $sizes, $type ) -> retval
 ```
 
 ### UMat.MAGIC\_VAL\_
@@ -61801,6 +63033,210 @@ AutoIt:
 void* VectorOfSize_t::start();
 AutoIt:
     $oVectorOfSize_t.start() -> retval
+```
+
+## VectorOfRange
+
+### VectorOfRange.Count
+
+```cpp
+size_t VectorOfRange::size()
+AutoIt:
+    [propget] $oVectorOfRange.Count
+```
+
+### VectorOfRange::create
+
+```cpp
+static VectorOfRange VectorOfRange::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfRange").create() -> <VectorOfRange object>
+```
+
+```cpp
+static VectorOfRange VectorOfRange::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfRange").create( $size ) -> <VectorOfRange object>
+```
+
+```cpp
+static VectorOfRange VectorOfRange::create( VectorOfRange other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfRange").create( $other ) -> <VectorOfRange object>
+```
+
+### VectorOfRange::Add
+
+```cpp
+void VectorOfRange::Add( cv::Range value );
+AutoIt:
+    $oVectorOfRange.Add( $value ) -> None
+```
+
+### VectorOfRange::Items
+
+```cpp
+VectorOfRange VectorOfRange::Items();
+AutoIt:
+    $oVectorOfRange.Items() -> retval
+```
+
+### VectorOfRange::Keys
+
+```cpp
+std::vector<int> VectorOfRange::Keys();
+AutoIt:
+    $oVectorOfRange.Keys() -> retval
+```
+
+### VectorOfRange::Remove
+
+```cpp
+void VectorOfRange::Remove( size_t index );
+AutoIt:
+    $oVectorOfRange.Remove( $index ) -> None
+```
+
+### VectorOfRange::append
+
+```cpp
+void VectorOfRange::append( cv::Range value );
+AutoIt:
+    $oVectorOfRange.append( $value ) -> None
+```
+
+### VectorOfRange::at
+
+```cpp
+cv::Range VectorOfRange::at( size_t index );
+AutoIt:
+    $oVectorOfRange.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfRange::at( size_t    index,
+                        cv::Range value );
+AutoIt:
+    $oVectorOfRange.at( $index, $value ) -> None
+```
+
+### VectorOfRange::clear
+
+```cpp
+void VectorOfRange::clear();
+AutoIt:
+    $oVectorOfRange.clear() -> None
+```
+
+### VectorOfRange::empty
+
+```cpp
+bool VectorOfRange::empty();
+AutoIt:
+    $oVectorOfRange.empty() -> retval
+```
+
+### VectorOfRange::end
+
+```cpp
+void* VectorOfRange::end();
+AutoIt:
+    $oVectorOfRange.end() -> retval
+```
+
+### VectorOfRange::get\_Item
+
+```cpp
+cv::Range VectorOfRange::get_Item( size_t index );
+AutoIt:
+    $oVectorOfRange.Item( $index ) -> retval
+    $oVectorOfRange( $index ) -> retval
+```
+
+### VectorOfRange::get\_\_NewEnum
+
+```cpp
+IUnknown* VectorOfRange::get__NewEnum();
+AutoIt:
+    $oVectorOfRange._NewEnum() -> retval
+```
+
+### VectorOfRange::push\_back
+
+```cpp
+void VectorOfRange::push_back( cv::Range value );
+AutoIt:
+    $oVectorOfRange.push_back( $value ) -> None
+```
+
+### VectorOfRange::push\_vector
+
+```cpp
+void VectorOfRange::push_vector( VectorOfRange other );
+AutoIt:
+    $oVectorOfRange.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfRange::push_vector( VectorOfRange other,
+                                 size_t        count,
+                                 size_t        start = 0 );
+AutoIt:
+    $oVectorOfRange.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfRange::put\_Item
+
+```cpp
+void VectorOfRange::put_Item( size_t    index,
+                              cv::Range item );
+AutoIt:
+    $oVectorOfRange.Item( $index ) = $item
+```
+
+### VectorOfRange::size
+
+```cpp
+size_t VectorOfRange::size();
+AutoIt:
+    $oVectorOfRange.size() -> retval
+```
+
+### VectorOfRange::slice
+
+```cpp
+VectorOfRange VectorOfRange::slice( size_t start = 0,
+                                    size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfRange.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfRange::sort
+
+```cpp
+void VectorOfRange::sort( void*  comparator,
+                          size_t start = 0,
+                          size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfRange.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfRange::sort\_variant
+
+```cpp
+void VectorOfRange::sort_variant( void*  comparator,
+                                  size_t start = 0,
+                                  size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfRange.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfRange::start
+
+```cpp
+void* VectorOfRange::start();
+AutoIt:
+    $oVectorOfRange.start() -> retval
 ```
 
 ## VectorOfVec2b

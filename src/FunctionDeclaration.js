@@ -31,6 +31,8 @@ Object.assign(exports, {
         for (const decl of overrides) {
             const [, return_value_type, func_modifiers, list_of_arguments] = decl;
             const is_constructor = func_modifiers.includes("/CO");
+            const no_external_decl = func_modifiers.includes("/ExternalNoDecl");
+            const is_external = no_external_decl || func_modifiers.includes("/External");
 
             const argc = list_of_arguments.length;
 
@@ -191,7 +193,7 @@ Object.assign(exports, {
                 for (const modifier of arg_modifiers) {
                     if (modifier.startsWith("/Cast=")) {
                         callarg = `${ modifier.slice("/Cast=".length) }(${ callarg })`;
-                    } else if (modifier.startsWith("/Expr=")) {
+                    } else if (!is_external && modifier.startsWith("/Expr=")) {
                         callarg = makeExpansion(modifier.slice("/Expr=".length), callarg);
                     } else if (modifier.startsWith("/default=")) {
                         other_default = modifier.slice("/default=".length);
@@ -967,7 +969,7 @@ Object.assign(exports, {
                             VariantInit(p_retarr_el);
                             ${ is_entry_test ? "// " : "" }hr = ${ cvt };
                             if (FAILED(hr)) {
-                                printf("unable to write extended ${ i } of type ${ argtype }\\n");
+                                printf("unable to write extended ${ i } of type ${ generator.getCppType(argtype, coclass, options) }\\n");
                                 return hr;
                             }
                         `.replace(/^ {28}/mg, "").trim().split("\n"));

@@ -1,5 +1,3 @@
-const Point = "cv::Point";
-
 module.exports = (header = [], impl = [], options = {}) => {
     impl.push(`
         #include "Cv_Mat_Object.h"
@@ -21,11 +19,21 @@ module.exports = (header = [], impl = [], options = {}) => {
             ["int", "i2", "", []],
         ],
         [
-            [Point, "pt", "", []],
+            ["cv::Point", "pt", "", []],
+        ],
+        [
+            ["std::vector<int>", "idx", "", ["/Ref", "/C", "/Expr=idx.data()"]]
         ],
     ]) {
-        const argdecl = args.map(([argtype, argname]) => `${ argtype }${ argtype === Point ? "&" : "" } ${ argname }`).join(", ");
-        const argexpr = args.map(([, argname]) => argname).join(", ");
+        const argdecl = args.map(([argtype, argname]) => `${ argtype === "std::vector<int>" ? "const " : "" }${ argtype }${ argtype !== "int" ? "&" : "" } ${ argname }`).join(", ");
+        const argexpr = args.map(([, callarg, , arg_modifiers]) => {
+            for (const modifier of arg_modifiers) {
+                if (modifier.startsWith("/Expr=")) {
+                    callarg = modifier.slice("/Expr=".length);
+                }
+            }
+            return callarg;
+        }).join(", ");
 
         impl.push(`
             const cv::Point2d CCv_Mat_Object::Point_at(${ argdecl }, HRESULT& hr) {
@@ -107,7 +115,7 @@ module.exports = (header = [], impl = [], options = {}) => {
                 }
             }
 
-        `.trim().replace(/^ {12}/mg, ""));
+        `.trim().replace(/^ {12}/mg, ""), "");
     }
 
     return [header.join("\n"), impl.join("\n")];

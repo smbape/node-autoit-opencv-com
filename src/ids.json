@@ -1279,6 +1279,10 @@
         "iid": "7b953e8b-12bf-43a3-8497-3f285a52e2cb",
         "clsid": "252a31bf-bbc1-4060-83d6-1547fa6cdfc3"
     },
+    "VectorOfRange": {
+        "iid": "7963a1d5-123f-4eed-828e-999fd64ec5b1",
+        "clsid": "8cf42d0e-f5ad-4586-b82c-3f9854ef3eb8"
+    },
     "VectorOfVec2b": {
         "iid": "67ea9395-9dae-4259-b4eb-dec32591efe7",
         "clsid": "6fb2c146-ad1b-462f-bf33-3b46d7e634b5"

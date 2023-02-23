@@ -11,7 +11,6 @@
 #include <GuiSlider.au3>
 #include <Misc.au3>
 #include "..\..\..\autoit-opencv-com\udf\opencv_udf_utils.au3"
-#include "..\..\..\autoit-addon\addon.au3"
 
 ;~ Sources:
 ;~     https://docs.opencv.org/4.7.0/da/d97/tutorial_threshold_inRange.html
@@ -101,7 +100,6 @@ _GUICtrlSlider_SetTicFreq($SliderHighS, 1)
 _GUICtrlSlider_SetTicFreq($SliderLowV, 1)
 _GUICtrlSlider_SetTicFreq($SliderHighV, 1)
 
-Global $bHasAddon = _Addon_DLLOpen(_Addon_FindDLL())
 
 Global $tPtr = DllStructCreate("ptr value")
 Global $sCameraList = ""
@@ -178,10 +176,6 @@ While 1
 
 	Sleep(30) ; Sleep to reduce CPU usage
 WEnd
-
-DllClose($hUser32DLL)
-
-If $bHasAddon Then _Addon_DLLClose()
 
 Func on_low_H_thresh_trackbar()
 	$low_H = GUICtrlRead($SliderLowH)
@@ -278,29 +272,19 @@ Func UpdateFrame()
 EndFunc   ;==>UpdateFrame
 
 Func UpdateCameraList()
-	If Not $bHasAddon Then Return
-
-	Local $videoDevices = _VectorOfDeviceInfoCreate()
-	_addonEnumerateVideoDevices($videoDevices)
-
-	Local $tDevice, $tStr
 	Local $sCamera = GUICtrlRead($ComboCamera)
+	Local $sLongestString = ""
 	Local $sOldCameraList = $sCameraList
 	$sCameraList = ""
-	Local $longestString = ""
 
-	For $i = 0 To _VectorOfDeviceInfoGetSize($videoDevices) - 1
-		_VectorOfDeviceInfoGetItemPtr($videoDevices, $i, $tPtr)
-		$tDevice = DllStructCreate($tagAddonDeviceInfo, $tPtr.value)
+	Local $devices = _OpenCV_GetDevices()
+	For $device In $devices
+		$sCameraList &= "|" & $device
 
-		$tStr = DllStructCreate("wchar value[" & $tDevice.FriendlyNameLen & "]", $tDevice.FriendlyName)
-		$sCameraList &= "|" & $tStr.value
-
-		If StringLen($longestString) < StringLen($tStr.value) Then
-			$longestString = $tStr.value
+		If StringLen($sLongestString) < StringLen($device) Then
+			$sLongestString = $device
 		EndIf
 	Next
-
 
 	If StringLen($sCameraList) <> 0 Then
 		$sCameraList = StringRight($sCameraList, StringLen($sCameraList) - 1)
@@ -311,7 +295,7 @@ Func UpdateCameraList()
 	_GUICtrlComboBox_ResetContent($ComboCamera)
 	GUICtrlSetData($ComboCamera, $sCameraList)
 
-	Local $avSize_Info = _StringSize($longestString)
+	Local $avSize_Info = _StringSize($sLongestString)
 	Local $aPos = ControlGetPos($FormGUI, "", $ComboCamera)
 	GUICtrlSetPos($ComboCamera, $aPos[0], $aPos[1], _Max(145, $avSize_Info[2] + 20))
 
@@ -427,6 +411,7 @@ Func _StringSize($sText, $iSize = Default, $iWeight = Default, $iAttrib = Defaul
 EndFunc   ;==>_StringSize
 
 Func _OnAutoItExit()
+	DllClose($hUser32DLL)
 	_GDIPlus_Shutdown()
 	_OpenCV_Close()
 EndFunc   ;==>_OnAutoItExit

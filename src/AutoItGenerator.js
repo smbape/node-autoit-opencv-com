@@ -2,13 +2,14 @@
 const version = process.env.npm_package_version || require("../package.json").version;
 const fs = require("node:fs");
 const sysPath = require("node:path");
+const waterfall = require("async/waterfall");
 const { convertExpression } = require("node-autoit-binding-utils/src/autoit-expression-converter");
 
 const [VERSION_MAJOR, VERSION_MINOR] = version.split(".");
 
 const LF = "\n";
 
-const {removeNamespaces} = require("./alias");
+const { getAlias, removeNamespaces } = require("./alias");
 const knwon_ids = require("./ids");
 const conversion = require("./conversion");
 const custom_conversions = require("./custom_conversions");
@@ -959,13 +960,21 @@ class AutoItGenerator {
 
         files.set(sysPath.resolve(options.output, "..", "udf", "docs.md"), this.docs.join("\n"));
 
-        FileUtils.writeFiles(files, options, cb);
+        waterfall([
+            next => {
+                FileUtils.writeFiles(files, options, next);
+            },
+
+            next => {
+                FileUtils.deleteFiles(options.output, files, options, next);
+            },
+        ], cb);
     }
 
     add_class(decl, options = {}) {
         const [name, base, list_of_modifiers, properties] = decl;
         const parents = base ? base.slice(": ".length).split(", ") : [];
-        const path = name.slice(name.indexOf(" ") + 1).split(".");
+        const path = getAlias(name.slice(name.indexOf(" ") + 1)).split(".");
         const fqn = path.join("::");
 
         const coclass = this.getCoClass(fqn, options);
@@ -1131,9 +1140,12 @@ class AutoItGenerator {
     }
 
     add_func(decl, options = {}) {
+        decl[0] = getAlias(decl[0]); // name
+
         const [name, , list_of_modifiers, properties] = decl;
-        const path = name.split(".");
+        const path = getAlias(name).split(".");
         const coclass = this.getCoClass(path.slice(0, -1).join("::"), options);
+
         if (list_of_modifiers.includes("/Properties")) {
             for (const property of properties) {
                 coclass.addProperty(property);
@@ -1190,6 +1202,12 @@ class AutoItGenerator {
     }
 
     getIDLType(type, coclass, options = {}) {
+        type = getAlias(type);
+
+        if (!IDL_TYPES.has(type) && CPP_TYPES.has(type)) {
+            type = CPP_TYPES.get(type);
+        }
+
         const type_ = type;
         const shared_ptr = removeNamespaces(options.shared_ptr, options);
         type = PropertyDeclaration.restoreOriginalType(removeNamespaces(type, options), options);
@@ -1291,6 +1309,12 @@ class AutoItGenerator {
     }
 
     getCppType(type, coclass, options = {}) {
+        type = getAlias(type);
+
+        if (CPP_TYPES.has(type)) {
+            type = CPP_TYPES.get(type);
+        }
+
         const {shared_ptr} = options;
         const shared_ptr_ = removeNamespaces(shared_ptr, options);
 
