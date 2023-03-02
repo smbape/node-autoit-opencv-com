@@ -24,7 +24,7 @@ Export-ModuleMember -Function _OpenCV_DebugMsg
 .Synopsis
     Normalize path
 #>
-function _OpenCV_NormalizePath([Parameter(Mandatory, Position=0)] $Path) {
+function _OpenCV_NormalizePath([Parameter(Position=0, Mandatory)] $Path) {
     [string[]] $aParts = $Path -split {$_ -eq "/" -or $_ -eq "\"}
     $end = 0
 
@@ -61,7 +61,7 @@ Export-ModuleMember -Function _OpenCV_NormalizePath
     Find files
 #>
 function _OpenCV_FindFiles(
-    [Parameter(Mandatory, Position=0)] $Path,
+    [Parameter(Position=0, Mandatory)] $Path,
     [Parameter(Position=1)] [string] $Directory = $PSScriptRoot,
     [Parameter(Position=2)] [hashtable] $Params = @{},
     [Parameter(Position=3)] [switch] $ReturnPath
@@ -189,7 +189,7 @@ Export-ModuleMember -Function _OpenCV_FindFiles
     Find a file and returns its full path
 #>
 function _OpenCV_FindFile(
-    [Parameter(Mandatory, Position=0)] [string] $Path,
+    [Parameter(Position=0, Mandatory)] [string] $Path,
     [Parameter(Position=1)] [string] $Filter = "",
     [Parameter(Position=2)] [string] $Directory = $PSScriptRoot,
     [Parameter(Position=3)] [string[]] $SearchPaths = (,"."),
@@ -229,7 +229,7 @@ Export-ModuleMember -Function _OpenCV_FindFile
     Find an opencv dll
 #>
 function _OpenCV_FindDLL(
-    [Parameter(Mandatory, Position=0)] $Path,
+    [Parameter(Position=0, Mandatory)] $Path,
     [Parameter(Position=1)] [string] $Filter = "",
     [Parameter(Position=2)] [string] $Directory = $PSScriptRoot,
     [Parameter(Position=3)] [string] $BuildType = $Env:BUILD_TYPE

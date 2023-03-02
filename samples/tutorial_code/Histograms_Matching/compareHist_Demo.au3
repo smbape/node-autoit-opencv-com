@@ -22,17 +22,23 @@ OnAutoItExitRegister("_OnAutoItExit")
 Global $cv = _OpenCV_get()
 
 Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
+$cv.samples.addSamplesDataSearchPath($OPENCV_SAMPLES_DATA_PATH)
+$cv.samples.addSamplesDataSearchPath(_OpenCV_FindFile("samples\data", Default, Default, Default, _OpenCV_Tuple( _
+        "opencv\sources", _
+        "opencv-4.7.0-*\sources", _
+        "opencv-4.7.0-*\opencv\sources" _
+        )))
 
 #Region ### START Koda GUI section ### Form=
 Global $FormGUI = GUICreate("Histogram Comparison", 997, 668, 192, 124)
 
-Global $InputSrcBase = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\Histogram_Comparison_Source_0.jpg", 230, 16, 449, 21)
+Global $InputSrcBase = GUICtrlCreateInput(_PathFull($cv.samples.findFile("Histogram_Comparison_Source_0.jpg")), 230, 16, 449, 21)
 Global $BtnSrcBase = GUICtrlCreateButton("Input 1", 689, 14, 75, 25)
 
-Global $InputSrcTest1 = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\Histogram_Comparison_Source_1.jpg", 230, 52, 449, 21)
+Global $InputSrcTest1 = GUICtrlCreateInput(_PathFull($cv.samples.findFile("Histogram_Comparison_Source_1.jpg")), 230, 52, 449, 21)
 Global $BtnSrcTest1 = GUICtrlCreateButton("Input 2", 689, 50, 75, 25)
 
-Global $InputSrcTest2 = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\Histogram_Comparison_Source_2.jpg", 230, 88, 449, 21)
+Global $InputSrcTest2 = GUICtrlCreateInput(_PathFull($cv.samples.findFile("Histogram_Comparison_Source_2.jpg")), 230, 88, 449, 21)
 Global $BtnSrcTest2 = GUICtrlCreateButton("Input 3", 689, 86, 75, 25)
 
 Global $BtnExec = GUICtrlCreateButton("Execute", 832, 48, 75, 25)

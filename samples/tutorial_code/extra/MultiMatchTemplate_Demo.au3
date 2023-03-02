@@ -21,14 +21,20 @@ OnAutoItExitRegister("_OnAutoItExit")
 Global $cv = _OpenCV_get()
 
 Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
+$cv.samples.addSamplesDataSearchPath($OPENCV_SAMPLES_DATA_PATH)
+$cv.samples.addSamplesDataSearchPath(_OpenCV_FindFile("samples\data", Default, Default, Default, _OpenCV_Tuple( _
+        "opencv\sources", _
+        "opencv-4.7.0-*\sources", _
+        "opencv-4.7.0-*\opencv\sources" _
+        )))
 
 #Region ### START Koda GUI section ### Form=
 Global $FormGUI = GUICreate("Multi-template matching", 906, 607, 183, 120)
 
-Global $InputSource = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\mario.png", 185, 16, 449, 21)
+Global $InputSource = GUICtrlCreateInput(_PathFull($cv.samples.findFile("mario.png")), 185, 16, 449, 21)
 Global $BtnSource = GUICtrlCreateButton("Source", 644, 14, 75, 25)
 
-Global $InputTemplate = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\mario_coin.png", 185, 52, 449, 21)
+Global $InputTemplate = GUICtrlCreateInput(_PathFull($cv.samples.findFile("mario_coin.png")), 185, 52, 449, 21)
 Global $BtnTemplate = GUICtrlCreateButton("Template", 644, 50, 75, 25)
 
 Global $InputMask = GUICtrlCreateInput("", 185, 88, 449, 21)
@@ -72,9 +78,9 @@ Global $GroupMatchTemplate = GUICtrlCreateGroup("", 544, 246, 342, 342)
 Global $PicMatchTemplate = GUICtrlCreatePic("", 549, 257, 332, 326)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-; ControlSetText($FormGUI, "", $InputSource, $OPENCV_SAMPLES_DATA_PATH & "\lena_tmpl.jpg")
-; ControlSetText($FormGUI, "", $InputTemplate, $OPENCV_SAMPLES_DATA_PATH & "\tmpl.png")
-; ControlSetText($FormGUI, "", $InputMask, $OPENCV_SAMPLES_DATA_PATH & "\mask.png")
+; ControlSetText($FormGUI, "", $InputSource, _PathFull($cv.samples.findFile("lena_tmpl.jpg")))
+; ControlSetText($FormGUI, "", $InputTemplate, _PathFull($cv.samples.findFile("tmpl.png")))
+; ControlSetText($FormGUI, "", $InputMask, _PathFull($cv.samples.findFile("mask.png")))
 
 GUISetState(@SW_SHOW)
 #EndRegion ### END Koda GUI section ###

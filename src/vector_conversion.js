@@ -48,7 +48,7 @@ exports.declare = (generator, type, parent, options = {}) => {
     ], "", ""]);
 
     coclass.addMethod([`${ fqn }.erase`, "void", ["=Remove"], [
-        ["size_t", "index", "", ["/Expr=std::next(__self->get()->begin() + index)"]],
+        ["size_t", "index", "", ["/Expr=std::next(__self->get()->begin(), index)"]],
     ], "", ""]);
 
     coclass.addMethod([`${ fqn }.at`, vtype, ["/External"], [

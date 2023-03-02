@@ -21,14 +21,20 @@ OnAutoItExitRegister("_OnAutoItExit")
 Global $cv = _OpenCV_get()
 
 Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
+$cv.samples.addSamplesDataSearchPath($OPENCV_SAMPLES_DATA_PATH)
+$cv.samples.addSamplesDataSearchPath(_OpenCV_FindFile("samples\data", Default, Default, Default, _OpenCV_Tuple( _
+        "opencv\sources", _
+        "opencv-4.7.0-*\sources", _
+        "opencv-4.7.0-*\opencv\sources" _
+        )))
 
 #Region ### START Koda GUI section ### Form=
 Global $FormGUI = GUICreate("Features2D + Homography to find a known object", 1000, 707, 192, 95)
 
-Global $InputObject = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\box.png", 230, 16, 449, 21)
+Global $InputObject = GUICtrlCreateInput(_PathFull($cv.samples.findFile("box.png")), 230, 16, 449, 21)
 Global $BtnObject = GUICtrlCreateButton("Object", 689, 14, 75, 25)
 
-Global $InputScene = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\box_in_scene.png", 230, 52, 449, 21)
+Global $InputScene = GUICtrlCreateInput(_PathFull($cv.samples.findFile("box_in_scene.png")), 230, 52, 449, 21)
 Global $BtnScene = GUICtrlCreateButton("Scene", 689, 50, 75, 25)
 
 Global $LabelAlgorithm = GUICtrlCreateLabel("Algorithm", 150, 92, 69, 20)

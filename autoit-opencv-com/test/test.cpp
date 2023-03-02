@@ -18,6 +18,13 @@ inline auto ConvertUtf8ToWide(const std::string& str) {
 	return wstr;
 }
 
+inline void string_to_bstr(const std::string& in_val, _bstr_t& out_val) {
+	std::wstring ws = ConvertUtf8ToWide(in_val);
+	BSTR bstr = SysAllocStringLen(ws.data(), ws.size());
+	out_val = _bstr_t(bstr);
+	SysFreeString(bstr);
+}
+
 inline auto _OpenCV_ScalarAll(double val) {
 	CComSafeArray<VARIANT> scalar(4UL);
 	for (int i = 0; i < 4; i++) {
@@ -29,13 +36,6 @@ inline auto _OpenCV_ScalarAll(double val) {
 	V_ARRAY(&variant) = safeArray;
 
 	return variant;
-}
-
-inline void string_to_bstr(const std::string& in_val, _bstr_t& out_val) {
-	std::wstring ws = ConvertUtf8ToWide(in_val);
-	BSTR bstr = SysAllocStringLen(ws.data(), ws.size());
-	out_val = _bstr_t(bstr);
-	SysFreeString(bstr);
 }
 
 template<typename... T>

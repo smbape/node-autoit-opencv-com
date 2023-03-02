@@ -1,5 +1,9 @@
 module.exports = ({ shared_ptr }) => {
     const declarations = [
+        ["class cv._InputArray", "", [], [], "", ""],
+        ["class cv._OutputArray", "", [], [], "", ""],
+        ["class cv._InputOutputArray", "", [], [], "", ""],
+
         ["class cv.Mat", "", ["/Simple"], [
             // Public Attributes
 
@@ -112,7 +116,7 @@ module.exports = ({ shared_ptr }) => {
             ["cuda::GpuMat", "m", "", ["/Ref", "/C"]]
         ], "", ""],
 
-        ["cv.Mat.addref", "void", [], [], "", ""],
+        // ["cv.Mat.addref", "void", [], [], "", ""],
 
         ["cv.Mat.adjustROI", `${ shared_ptr }<Mat>`, ["/Ref", "/WrapAs=::autoit::reference_internal"], [
             ["int", "dtop", "", []],
@@ -239,7 +243,7 @@ module.exports = ({ shared_ptr }) => {
             ["Mat", "m", "", ["/Ref", "/C"]]
         ], "", ""],
 
-        ["cv.Mat.release", "void", [], [], "", ""],
+        // ["cv.Mat.release", "void", [], [], "", ""],
 
         ["cv.Mat.reserve", "void", [], [
             ["size_t", "sz", "", []],
@@ -382,6 +386,10 @@ module.exports = ({ shared_ptr }) => {
         ], "", ""],
 
         // Extended Functions
+
+        ["cv.Mat.makeInputArray", `${ shared_ptr }<_InputArray>`, ["/Call=this->createInputArray", `/Output=${ shared_ptr }<_InputArray>($0)`], [], "", ""],
+        ["cv.Mat.makeOutputArray", `${ shared_ptr }<_OutputArray>`, ["/Call=this->createOutputArray", `/Output=${ shared_ptr }<_OutputArray>($0)`], [], "", ""],
+        ["cv.Mat.makeInputOutputArray", `${ shared_ptr }<_InputOutputArray>`, ["/Call=this->createInputOutputArray", `/Output=${ shared_ptr }<_InputOutputArray>($0)`], [], "", ""],
 
         ["cv.Mat.convertToShow", "void", ["/Call=::autoit::cvextra::convertToShow", "/Expr=*__self->get(), $0"], [
             ["Mat", "dst", "Mat::zeros(__self->get()->rows, __self->get()->cols, CV_8UC3)", ["/IO"]],

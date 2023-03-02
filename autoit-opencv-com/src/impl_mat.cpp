@@ -277,71 +277,63 @@ namespace {
 		return palette;
 	}
 
+	/**
+	 * [RawDataToBitmap description]
+	 * @param image        [description]
+	 * @param dstColorType [description]
+	 * @param channels     [description]
+	 * @param srcDepth     [description]
+	 * @param dst          [description]
+	 * @see https://github.com/emgucv/emgucv/blob/4.6.0/Emgu.CV.Platform/Emgu.CV.Bitmap/BitmapExtension.cs#L87
+	 */
 	void RawDataToBitmap(cv::Mat& image, int dstColorType, int channels, int srcDepth, Gdiplus::CvBitmap& dst) {
 		using namespace Gdiplus;
 
 		auto scan0 = image.ptr();
 		auto step = image.step1();
 		auto size = image.size();
+		PixelFormat format = PixelFormatUndefined;
 
 		// The value passed to stride parameter must be a multiple of four.
-		if (step % 4 == 0) {
-			if (dstColorType == CV_8UC1 && srcDepth == CV_8U) {
-				CvBitmap bmpGray(
-					size.width,
-					size.height,
-					step,
-					PixelFormat8bppIndexed,
-					scan0
-				);
-
-				CV_Assert(bmpGray.GetLastStatus() == Gdiplus::Ok);
-
-				bmpGray.SetPalette(GenerateGrayscalePalette());
-
-				dst.Attach(bmpGray.Detach());
-				return;
+		if (srcDepth == CV_8U && step % 4 == 0) {
+			if (dstColorType == CV_8UC1) {
+				format = PixelFormat8bppIndexed;
 			}
-			else if (dstColorType == CV_8UC3 && srcDepth == CV_8U) {
-				CvBitmap bmp(
-					size.width,
-					size.height,
-					step,
-					PixelFormat24bppRGB,
-					scan0
-				);
-
-				CV_Assert(bmp.GetLastStatus() == Gdiplus::Ok);
-
-				dst.Attach(bmp.Detach());
-				return;
+			else if (dstColorType == CV_8UC3) {
+				format = PixelFormat24bppRGB;
 			}
-			else if (dstColorType == CV_8UC4 && srcDepth == CV_8U) {
-				CvBitmap bmp(
-					size.width,
-					size.height,
-					step,
-					PixelFormat32bppARGB,
-					scan0
-				);
-
-				CV_Assert(bmp.GetLastStatus() == Gdiplus::Ok);
-
-				dst.Attach(bmp.Detach());
-				return;
+			else if (dstColorType == CV_8UC4) {
+				format = PixelFormat32bppARGB;
 			}
 		}
 
-		PixelFormat format;
+		if (format != PixelFormatUndefined) {
+			CvBitmap bmp(
+				size.width,
+				size.height,
+				step,
+				format,
+				scan0
+			);
+
+			CV_Assert(bmp.GetLastStatus() == Gdiplus::Ok);
+
+			if (format == PixelFormat8bppIndexed) {
+				bmp.SetPalette(GenerateGrayscalePalette());
+			}
+
+			dst.Attach(bmp.Detach());
+			return;
+		}
 
 		if (dstColorType == CV_8UC1) { // if this is a gray scale image
 			format = PixelFormat8bppIndexed;
 		}
-		else if (dstColorType == CV_8UC4) { // if this is Bgra image
-			format = PixelFormat32bppARGB;
-		}
 		else if (dstColorType == CV_8UC3) { // if this is a Bgr image
 			format = PixelFormat24bppRGB;
+		}
+		else if (dstColorType == CV_8UC4) { // if this is Bgra image
+			format = PixelFormat32bppARGB;
 		}
 		else { // convert to a 3 channels matrix
 			cv::Mat m(size.height, size.width, CV_MAKETYPE(srcDepth, channels), scan0, step);
@@ -354,8 +346,8 @@ namespace {
 		CvBitmap bmp(size.width, size.height, format);
 		CV_Assert(bmp.GetLastStatus() == Gdiplus::Ok);
 
+		// Block to ensure UnlockBits before detach
 		{
-			// Block to ensure unlocks before detach
 			auto rect = Gdiplus::Rect(0, 0, size.width, size.height);
 			BitmapLock lock(bmp, &rect, ImageLockModeWrite, format);
 			BitmapData& data = lock.data;
@@ -392,6 +384,7 @@ namespace {
 }
 
 /**
+ * [convertToShow description]
  * @param image [description]
  * @param dst   [description]
  * @param toRGB [description]
@@ -445,11 +438,11 @@ void autoit::cvextra::convertToShow(cv::InputArray image, cv::Mat& dst, bool toR
 }
 
 /**
- * [CCv_Mat_Object::convertToBitmap description]
- * @param copy   use the same data when possible, otherwise, make a copy
- * @param hr
+ * [convertToBitmap description]
+ * @param image [description]
+ * @param copy  use the same data when possible, otherwise, make a copy
  * @return   a pointer to a GpBitmap with Mat data copied
- * @see https://github.com/emgucv/emgucv/blob/4.5.4/Emgu.CV.Platform/Emgu.CV.Bitmap/BitmapExtension.cs#L206
+ * @see https://github.com/emgucv/emgucv/blob/4.6.0/Emgu.CV.Platform/Emgu.CV.Bitmap/BitmapExtension.cs#L206
  */
 const void* autoit::cvextra::convertToBitmap(cv::InputArray image, bool copy) {
 	using namespace Gdiplus;

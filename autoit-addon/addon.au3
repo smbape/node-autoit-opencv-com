@@ -1,17 +1,30 @@
 #include-once
-#include "vector_DeviceInfo.au3"
 
-Func _addonEnumerateVideoDevices($videoDevices)
-	; AUTOITAPI(void) enumerateVideoDevices(std::vector<DeviceInfo> &videoDevices, std::vector<DeviceInfo> &audioDevices);
-	Return _OpenCV_DllCall($h_addon_dll, "none:cdecl", "enumerateVideoDevices", "ptr", $videoDevices)
-EndFunc   ;==>_addonEnumerateVideoDevices
+Global $h_addon_dll = -1
 
-Func _addonEnumerateAudioDevices($audioDevices)
-	; AUTOITAPI(void) enumerateAudioDevices(std::vector<DeviceInfo> &videoDevices, std::vector<DeviceInfo> &audioDevices);
-	Return _OpenCV_DllCall($h_addon_dll, "none:cdecl", "enumerateAudioDevices", "ptr", $audioDevices)
-EndFunc   ;==>_addonEnumerateAudioDevices
+Func _Addon_DLLOpen($s_addon_dll)
+	$h_addon_dll = _OpenCV_LoadDLL($s_addon_dll)
+	Return $h_addon_dll <> -1
+EndFunc   ;==>_Addon_DLLOpen
 
-Func _addonEnumerateDevices($videoDevices, $audioDevices)
-	; AUTOITAPI(void) enumerateDevices(std::vector<DeviceInfo> &videoDevices, std::vector<DeviceInfo> &audioDevices);
-	Return _OpenCV_DllCall($h_addon_dll, "none:cdecl", "enumerateDevices", "ptr", $videoDevices, "ptr", $audioDevices)
-EndFunc   ;==>_addonEnumerateDevices
+Func _Addon_DLLClose()
+	If $h_addon_dll == -1 Then Return False
+	DllClose($h_addon_dll)
+	$h_addon_dll = -1
+EndFunc   ;==>_Addon_DLLClose
+
+Func _Addon_FindDLL($sFile = Default, $sFilter = Default, $sDir = Default, $bReverse = Default)
+	If $sFile == Default Then $sFile = "autoit_addon470*"
+	Local $_cv_build_type = EnvGet("OPENCV_BUILD_TYPE")
+	Local $sBuildType = $_cv_build_type == "Debug" ? "Debug" : "Release"
+	Local $sPostfix = $_cv_build_type == "Debug" ? "d" : ""
+
+	Local $aSearchPaths[] = [ _
+			".", _
+			"autoit-addon", _
+			"autoit-opencv-com", _
+			"autoit-addon\build_x64\bin\" & $sBuildType _
+			]
+
+	Return _OpenCV_FindFile($sFile & $sPostfix & ".dll", $sFilter, $sDir, $FLTA_FILES, $aSearchPaths, $bReverse)
+EndFunc   ;==>_Addon_FindDLL

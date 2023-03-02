@@ -132,6 +132,7 @@
   - [cv.wgc](#cvwgc)
   - [cv.extended](#cvextended)
   - [cv.core](#cvcore)
+  - [cv.\_InputOutputArray](#cv%5C_inputoutputarray)
   - [cv.Matx33f](#cvmatx33f)
   - [cv.Matx33d](#cvmatx33d)
   - [cv.Matx44f](#cvmatx44f)
@@ -2134,7 +2135,6 @@
   - [cv::Mat::Vec6i\_set\_at](#cvmatvec6i%5C_set%5C_at)
   - [cv::Mat::Vec8i\_at](#cvmatvec8i%5C_at)
   - [cv::Mat::Vec8i\_set\_at](#cvmatvec8i%5C_set%5C_at)
-  - [cv::Mat::addref](#cvmataddref)
   - [cv::Mat::adjustROI](#cvmatadjustroi)
   - [cv::Mat::asArray](#cvmatasarray)
   - [cv::Mat::assignTo](#cvmatassignto)
@@ -2218,13 +2218,15 @@
   - [cv::Mat::isContinuous](#cvmatiscontinuous)
   - [cv::Mat::isSubmatrix](#cvmatissubmatrix)
   - [cv::Mat::locateROI](#cvmatlocateroi)
+  - [cv::Mat::makeInputArray](#cvmatmakeinputarray)
+  - [cv::Mat::makeInputOutputArray](#cvmatmakeinputoutputarray)
+  - [cv::Mat::makeOutputArray](#cvmatmakeoutputarray)
   - [cv::Mat::mul](#cvmatmul)
   - [cv::Mat::ones](#cvmatones)
   - [cv::Mat::pop\_back](#cvmatpop%5C_back)
   - [cv::Mat::ptr](#cvmatptr)
   - [cv::Mat::push\_back](#cvmatpush%5C_back)
   - [cv::Mat::put\_Item](#cvmatput%5C_item)
-  - [cv::Mat::release](#cvmatrelease)
   - [cv::Mat::reserve](#cvmatreserve)
   - [cv::Mat::reserveBuffer](#cvmatreservebuffer)
   - [cv::Mat::reshape](#cvmatreshape)
@@ -2260,7 +2262,6 @@
   - [UMat.steps](#umatsteps)
   - [cv::UMat::get\_create](#cvumatget%5C_create)
   - [cv::UMat::GdiplusResize](#cvumatgdiplusresize)
-  - [cv::UMat::addref](#cvumataddref)
   - [cv::UMat::adjustROI](#cvumatadjustroi)
   - [cv::UMat::assignTo](#cvumatassignto)
   - [cv::UMat::channels](#cvumatchannels)
@@ -2286,10 +2287,12 @@
   - [cv::UMat::isContinuous](#cvumatiscontinuous)
   - [cv::UMat::isSubmatrix](#cvumatissubmatrix)
   - [cv::UMat::locateROI](#cvumatlocateroi)
+  - [cv::UMat::makeeInputArray](#cvumatmakeeinputarray)
+  - [cv::UMat::makeeInputOutputArray](#cvumatmakeeinputoutputarray)
+  - [cv::UMat::makeeOutputArray](#cvumatmakeeoutputarray)
   - [cv::UMat::mul](#cvumatmul)
   - [cv::UMat::ndoffset](#cvumatndoffset)
   - [cv::UMat::ones](#cvumatones)
-  - [cv::UMat::release](#cvumatrelease)
   - [cv::UMat::reshape](#cvumatreshape)
   - [cv::UMat::row](#cvumatrow)
   - [cv::UMat::rowRange](#cvumatrowrange)
@@ -2491,6 +2494,7 @@
   - [FileStorage.INSIDE\_MAP\_](#filestorageinside%5C_map%5C_)
 - [cv::FileNode](#cvfilenode)
   - [cv::FileNode::get\_create](#cvfilenodeget%5C_create)
+  - [cv::FileNode::asVariant](#cvfilenodeasvariant)
   - [cv::FileNode::at](#cvfilenodeat)
   - [cv::FileNode::empty](#cvfilenodeempty)
   - [cv::FileNode::getNode](#cvfilenodegetnode)
@@ -8104,6 +8108,14 @@ AutoIt:
 static cv::core
 AutoIt:
     [propget] $ocv.core
+```
+
+### cv.\_InputOutputArray
+
+```cpp
+static cv::_InputOutputArray
+AutoIt:
+    [propget] $ocv._InputOutputArray
 ```
 
 ### cv.Matx33f
@@ -27521,14 +27533,6 @@ AutoIt:
     $oMat.Vec8i_set_at( $idx, $value ) -> None
 ```
 
-### cv::Mat::addref
-
-```cpp
-void cv::Mat::addref();
-AutoIt:
-    $oMat.addref() -> None
-```
-
 ### cv::Mat::adjustROI
 
 ```cpp
@@ -28494,6 +28498,30 @@ AutoIt:
     $oMat.locateROI( [$wholeSize[, $ofs]] ) -> $wholeSize, $ofs
 ```
 
+### cv::Mat::makeInputArray
+
+```cpp
+cv::Ptr<cv::_InputArray> cv::Mat::makeInputArray();
+AutoIt:
+    $oMat.makeInputArray() -> retval
+```
+
+### cv::Mat::makeInputOutputArray
+
+```cpp
+cv::Ptr<cv::_InputOutputArray> cv::Mat::makeInputOutputArray();
+AutoIt:
+    $oMat.makeInputOutputArray() -> retval
+```
+
+### cv::Mat::makeOutputArray
+
+```cpp
+cv::Ptr<cv::_OutputArray> cv::Mat::makeOutputArray();
+AutoIt:
+    $oMat.makeOutputArray() -> retval
+```
+
 ### cv::Mat::mul
 
 ```cpp
@@ -28624,14 +28652,6 @@ void cv::Mat::put_Item( const std::vector<int>& idx,
                         double                  value );
 AutoIt:
     $oMat.Item( $idx ) = $value
-```
-
-### cv::Mat::release
-
-```cpp
-void cv::Mat::release();
-AutoIt:
-    $oMat.release() -> None
 ```
 
 ### cv::Mat::reserve
@@ -29109,14 +29129,6 @@ AutoIt:
     $oUMat.GdiplusResize( $newWidth, $newHeight[, $interpolation[, $dst]] ) -> $dst
 ```
 
-### cv::UMat::addref
-
-```cpp
-void cv::UMat::addref();
-AutoIt:
-    $oUMat.addref() -> None
-```
-
 ### cv::UMat::adjustROI
 
 ```cpp
@@ -29318,6 +29330,35 @@ AutoIt:
 ### cv::UMat::eye
 
 ```cpp
+static cv::UMat cv::UMat::eye( int rows,
+                               int cols,
+                               int type );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").eye( $rows, $cols, $type ) -> retval
+```
+
+```cpp
+static cv::UMat cv::UMat::eye( int rows,
+                               int type );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").eye( $rows, $type ) -> retval
+```
+
+```cpp
+static cv::UMat cv::UMat::eye( int cols,
+                               int type );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").eye( $cols, $type ) -> retval
+```
+
+```cpp
+static cv::UMat cv::UMat::eye( cv::Size size,
+                               int      type );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").eye( $size, $type ) -> retval
+```
+
+```cpp
 static cv::UMat cv::UMat::eye( int                rows,
                                int                cols,
                                int                type,
@@ -29348,35 +29389,6 @@ static cv::UMat cv::UMat::eye( cv::Size           size,
                                cv::UMatUsageFlags usageFlags );
 AutoIt:
     _OpenCV_ObjCreate("cv.UMat").eye( $size, $type, $usageFlags ) -> retval
-```
-
-```cpp
-static cv::UMat cv::UMat::eye( int rows,
-                               int cols,
-                               int type );
-AutoIt:
-    _OpenCV_ObjCreate("cv.UMat").eye( $rows, $cols, $type ) -> retval
-```
-
-```cpp
-static cv::UMat cv::UMat::eye( int rows,
-                               int type );
-AutoIt:
-    _OpenCV_ObjCreate("cv.UMat").eye( $rows, $type ) -> retval
-```
-
-```cpp
-static cv::UMat cv::UMat::eye( int cols,
-                               int type );
-AutoIt:
-    _OpenCV_ObjCreate("cv.UMat").eye( $cols, $type ) -> retval
-```
-
-```cpp
-static cv::UMat cv::UMat::eye( cv::Size size,
-                               int      type );
-AutoIt:
-    _OpenCV_ObjCreate("cv.UMat").eye( $size, $type ) -> retval
 ```
 
 ### cv::UMat::getMat
@@ -29418,6 +29430,30 @@ void cv::UMat::locateROI( cv::Size&  wholeSize,
                           cv::Point& ofs );
 AutoIt:
     $oUMat.locateROI( [$wholeSize[, $ofs]] ) -> $wholeSize, $ofs
+```
+
+### cv::UMat::makeeInputArray
+
+```cpp
+cv::Ptr<cv::_InputArray> cv::UMat::makeeInputArray();
+AutoIt:
+    $oUMat.makeeInputArray() -> retval
+```
+
+### cv::UMat::makeeInputOutputArray
+
+```cpp
+cv::Ptr<cv::_InputOutputArray> cv::UMat::makeeInputOutputArray();
+AutoIt:
+    $oUMat.makeeInputOutputArray() -> retval
+```
+
+### cv::UMat::makeeOutputArray
+
+```cpp
+cv::Ptr<cv::_OutputArray> cv::UMat::makeeOutputArray();
+AutoIt:
+    $oUMat.makeeOutputArray() -> retval
 ```
 
 ### cv::UMat::mul
@@ -29475,12 +29511,45 @@ AutoIt:
     _OpenCV_ObjCreate("cv.UMat").ones( $sizes, $type ) -> retval
 ```
 
-### cv::UMat::release
+```cpp
+static cv::UMat cv::UMat::ones( int                rows,
+                                int                cols,
+                                int                type,
+                                cv::UMatUsageFlags usageFlags );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").ones( $rows, $cols, $type, $usageFlags ) -> retval
+```
 
 ```cpp
-void cv::UMat::release();
+static cv::UMat cv::UMat::ones( int                cols,
+                                int                type,
+                                cv::UMatUsageFlags usageFlags );
 AutoIt:
-    $oUMat.release() -> None
+    _OpenCV_ObjCreate("cv.UMat").ones( $cols, $type, $usageFlags ) -> retval
+```
+
+```cpp
+static cv::UMat cv::UMat::ones( int                rows,
+                                int                type,
+                                cv::UMatUsageFlags usageFlags );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").ones( $rows, $type, $usageFlags ) -> retval
+```
+
+```cpp
+static cv::UMat cv::UMat::ones( cv::Size           size,
+                                int                type,
+                                cv::UMatUsageFlags usageFlags );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").ones( $size, $type, $usageFlags ) -> retval
+```
+
+```cpp
+static cv::UMat cv::UMat::ones( std::vector<int>   sizes,
+                                int                type,
+                                cv::UMatUsageFlags usageFlags );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").ones( $sizes, $type, $usageFlags ) -> retval
 ```
 
 ### cv::UMat::reshape
@@ -29615,6 +29684,47 @@ static cv::UMat cv::UMat::zeros( std::vector<int> sizes,
                                  int              type );
 AutoIt:
     _OpenCV_ObjCreate("cv.UMat").zeros( $sizes, $type ) -> retval
+```
+
+```cpp
+static cv::UMat cv::UMat::zeros( int                rows,
+                                 int                cols,
+                                 int                type,
+                                 cv::UMatUsageFlags usageFlags );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").zeros( $rows, $cols, $type, $usageFlags ) -> retval
+```
+
+```cpp
+static cv::UMat cv::UMat::zeros( int                cols,
+                                 int                type,
+                                 cv::UMatUsageFlags usageFlags );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").zeros( $cols, $type, $usageFlags ) -> retval
+```
+
+```cpp
+static cv::UMat cv::UMat::zeros( int                rows,
+                                 int                type,
+                                 cv::UMatUsageFlags usageFlags );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").zeros( $rows, $type, $usageFlags ) -> retval
+```
+
+```cpp
+static cv::UMat cv::UMat::zeros( cv::Size           size,
+                                 int                type,
+                                 cv::UMatUsageFlags usageFlags );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").zeros( $size, $type, $usageFlags ) -> retval
+```
+
+```cpp
+static cv::UMat cv::UMat::zeros( std::vector<int>   sizes,
+                                 int                type,
+                                 cv::UMatUsageFlags usageFlags );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").zeros( $sizes, $type, $usageFlags ) -> retval
 ```
 
 ### UMat.MAGIC\_VAL\_
@@ -31124,6 +31234,14 @@ AutoIt:
 static cv::FileNode cv::FileNode::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.FileNode").create() -> <cv.FileNode object>
+```
+
+### cv::FileNode::asVariant
+
+```cpp
+_variant_t cv::FileNode::asVariant();
+AutoIt:
+    $oFileNode.asVariant() -> retval
 ```
 
 ### cv::FileNode::at

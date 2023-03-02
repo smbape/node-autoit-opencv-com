@@ -22,11 +22,17 @@ OnAutoItExitRegister("_OnAutoItExit")
 Global $cv = _OpenCV_get()
 
 Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
+$cv.samples.addSamplesDataSearchPath($OPENCV_SAMPLES_DATA_PATH)
+$cv.samples.addSamplesDataSearchPath(_OpenCV_FindFile("samples\data", Default, Default, Default, _OpenCV_Tuple( _
+        "opencv\sources", _
+        "opencv-4.7.0-*\sources", _
+        "opencv-4.7.0-*\opencv\sources" _
+        )))
 
 #Region ### START Koda GUI section ### Form=
 Global $FormGUI = GUICreate("Changing the contrast and brightness of an image!", 1261, 671, 185, 122)
 
-Global $InputSource = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\lena.jpg", 366, 16, 449, 21)
+Global $InputSource = GUICtrlCreateInput(_PathFull($cv.samples.findFile("lena.jpg")), 366, 16, 449, 21)
 GUICtrlSetState(-1, $GUI_DISABLE)
 Global $BtnSource = GUICtrlCreateButton("Source", 825, 14, 75, 25)
 

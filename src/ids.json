@@ -1135,6 +1135,10 @@
         "iid": "1d1133d7-3dd6-45b3-b563-807f04337d0f",
         "clsid": "d0ebecec-38e7-423f-bc57-4e7e23ce772b"
     },
+    "cv::_InputOutputArray": {
+        "iid": "ccb20e83-3ff3-4fdc-9c55-1bff727c3479",
+        "clsid": "cca5b613-d2d8-4bce-86f0-ba24ab703016"
+    },
     "cv::Matx33f": {
         "iid": "a6203334-ab44-4225-b039-a16870b4bb3e",
         "clsid": "c5dbce5f-5704-413c-a5fc-a4439bc1423d"

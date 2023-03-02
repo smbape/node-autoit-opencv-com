@@ -23,17 +23,23 @@ Global $cv = _OpenCV_get()
 Global $addon_dll = _Addon_FindDLL()
 
 Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
+$cv.samples.addSamplesDataSearchPath($OPENCV_SAMPLES_DATA_PATH)
+$cv.samples.addSamplesDataSearchPath(_OpenCV_FindFile("samples\data", Default, Default, Default, _OpenCV_Tuple( _
+        "opencv\sources", _
+        "opencv-4.7.0-*\sources", _
+        "opencv-4.7.0-*\opencv\sources" _
+        )))
 
 #Region ### START Koda GUI section ### Form=
 Global $FormGUI = GUICreate("AKAZE local features matching", 1000, 707, 192, 95)
 
-Global $InputImg1 = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\graf1.png", 230, 16, 449, 21)
+Global $InputImg1 = GUICtrlCreateInput(_PathFull($cv.samples.findFile("graf1.png")), 230, 16, 449, 21)
 Global $BtnImg1 = GUICtrlCreateButton("Image 1", 689, 14, 75, 25)
 
-Global $InputImg2 = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\graf3.png", 230, 52, 449, 21)
+Global $InputImg2 = GUICtrlCreateInput(_PathFull($cv.samples.findFile("graf3.png")), 230, 52, 449, 21)
 Global $BtnImg2 = GUICtrlCreateButton("Image 2", 689, 50, 75, 25)
 
-Global $InputHomography = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\H1to3p.xml", 230, 92, 449, 21)
+Global $InputHomography = GUICtrlCreateInput(_PathFull($cv.samples.findFile("H1to3p.xml")), 230, 92, 449, 21)
 Global $BtnHomography = GUICtrlCreateButton("Homography matrix", 689, 90, 115, 25)
 
 Global $BtnExec = GUICtrlCreateButton("Execute", 832, 48, 75, 25)

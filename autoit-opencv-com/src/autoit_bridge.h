@@ -29,4 +29,6 @@ namespace autoit
 			return autoit_from(*pFrom, pTo);
 		}
 	};
+
+	const _variant_t fileNodeAsVariant(const cv::FileNode& node);
 }

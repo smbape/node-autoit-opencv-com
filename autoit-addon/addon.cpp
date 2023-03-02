@@ -1,13 +1,18 @@
-#include <opencv2/features2d.hpp>
-#include <opencv2/imgproc.hpp>
-#include <opencv2/highgui.hpp>
-#include <iostream>
-#include "autoitdef.h"
+#include "addon.h"
 
 using namespace std;
 using namespace cv;
+using namespace cv::dnn;
 
-AUTOITAPI(void) calcHist_Demo_draw(Mat& histImage, int histSize, int hist_w, int hist_h, Mat& b_hist, Mat& g_hist, Mat& r_hist) {
+void calcHist_Demo_draw(
+	cv::Mat& histImage,
+	int histSize,
+	int hist_w,
+	int hist_h,
+	cv::Mat& b_hist,
+	cv::Mat& g_hist,
+	cv::Mat& r_hist
+) {
 	int bin_w = cvRound((double)hist_w / histSize);
 
 	//! [Draw for each channel]
@@ -26,12 +31,12 @@ AUTOITAPI(void) calcHist_Demo_draw(Mat& histImage, int histSize, int hist_w, int
 	//! [Draw for each channel]
 }
 
-AUTOITAPI(void) AKAZE_match_ratio_test_filtering(
-	vector<KeyPoint>& matched1,
-	vector<KeyPoint>& kpts1,
-	vector<KeyPoint>& matched2,
-	vector<KeyPoint>& kpts2,
-	vector<vector<DMatch>>& nn_matches,
+void AKAZE_match_ratio_test_filtering(
+	std::vector<cv::KeyPoint>& matched1,
+	std::vector<cv::KeyPoint>& kpts1,
+	std::vector<cv::KeyPoint>& matched2,
+	std::vector<cv::KeyPoint>& kpts2,
+	std::vector<std::vector<cv::DMatch>>& nn_matches,
 	const float nn_match_ratio
 ) {
 	//! [ratio test filtering]
@@ -48,12 +53,12 @@ AUTOITAPI(void) AKAZE_match_ratio_test_filtering(
 	//! [ratio test filtering]
 }
 
-AUTOITAPI(void) AKAZE_homograpy_check(
+void AKAZE_homograpy_check(
 	Mat& homography,
-	vector<KeyPoint>& matched1,
-	vector<KeyPoint>& inliers1,
-	vector<KeyPoint>& matched2,
-	vector<KeyPoint>& inliers2,
+	vector<cv::KeyPoint>& matched1,
+	vector<cv::KeyPoint>& inliers1,
+	vector<cv::KeyPoint>& matched2,
+	vector<cv::KeyPoint>& inliers2,
 	const float inlier_threshold,
 	vector<DMatch>& good_matches
 ) {
@@ -78,20 +83,21 @@ AUTOITAPI(void) AKAZE_homograpy_check(
 
 #define UNSUPPORTED_YOLO_VERSION "Unsupported yolo version. Supported versions are v3, v5, v8."
 
-AUTOITAPI(void) yolo_postprocess(
+void yolo_postprocess(
 	const int spatial_width,
 	const int spatial_height,
 	const size_t num_classes,
-	Mat& image,
+	const int img_width,
+	const int img_height,
 	const float scale,
-	const vector<Mat>& outs,
+	const std::vector<cv::Mat>& outs,
 	const float confidence_threshold,
 	const float score_threshold,
-	vector<int>& class_ids,
-	vector<float>& scores,
-	vector<Rect2d>& bboxes
+	std::vector<int>& class_ids,
+	std::vector<float>& scores,
+	std::vector<cv::Rect2d>& bboxes
 ) {
-	cv::Mat classes_scores(1, 0, CV_32FC1);
+	Mat classes_scores(1, 0, CV_32FC1);
 	Point maxClassLoc;
 	double maxScore;
 
@@ -107,8 +113,8 @@ AUTOITAPI(void) yolo_postprocess(
 		if (out.dims == 2) {
 			// yolo v3
 			offset = 5;
-			scale_x = (float)image.cols;
-			scale_y = (float)image.rows;
+			scale_x = (float)img_width * scale;
+			scale_y = (float)img_height * scale;
 		}
 		else {
 			if (out.size[0] != 1) {
@@ -116,8 +122,8 @@ AUTOITAPI(void) yolo_postprocess(
 			}
 
 			out = out.reshape(1, out.size[1]);
-			scale_x = (float)image.cols / spatial_width;
-			scale_y = (float)image.rows / spatial_height;
+			scale_x = (float)img_width / spatial_width * scale;
+			scale_y = (float)img_height / spatial_height * scale;
 
 			// yolov5 has an output of shape (batchSize, 25200, 85) (Num classes + box[x,y,w,h] + confidence[c])
 			// yolov8 has an output of shape (batchSize, 84,  8400) (Num classes + box[x,y,w,h])
@@ -156,10 +162,10 @@ AUTOITAPI(void) yolo_postprocess(
 
 			if (maxScore >= score_threshold)
 			{
-				double centerX = (double)data[0] * scale_x * scale;
-				double centerY = (double)data[1] * scale_y * scale;
-				double width = (double)data[2] * scale_x * scale;
-				double height = (double)data[3] * scale_y * scale;
+				double centerX = (double)data[0] * scale_x;
+				double centerY = (double)data[1] * scale_y;
+				double width = (double)data[2] * scale_x;
+				double height = (double)data[3] * scale_y;
 				double left = centerX - width / 2;
 				double top = centerY - height / 2;
 
@@ -169,5 +175,205 @@ AUTOITAPI(void) yolo_postprocess(
 			}
 		}
 	}
+}
 
+void object_detection_postprocess(
+	const cv::dnn::Net& net,
+	const int inpWidth,
+	const int inpHeight,
+	const float imgScale,
+	const size_t num_classes,
+	const float confidence_threshold,
+	const float score_threshold,
+	const std::vector<cv::Mat>& outs,
+	std::vector<int>& class_ids,
+	std::vector<float>& scores,
+	std::vector<cv::Rect2d>& bboxes
+)
+{
+	auto layerNames = net.getLayerNames();
+	auto lastLayerId = net.getLayerId(layerNames.back());
+	auto lastLayer = net.getLayer(lastLayerId);
+	auto outLayerType = lastLayer->type;
+
+	Mat classes_scores(1, 0, CV_32FC1);
+	Point maxClassLoc;
+	double maxScore;
+	float scale_x, scale_y;
+
+	if (outLayerType == "DetectionOutput")
+	{
+		// Network produces output blob with a shape 1x1xNx7 where N is a number of
+		// detections and an every detection is a vector of values
+		// [batchId, classId, confidence, left, top, right, bottom]
+		CV_Assert(outs.size() > 0);
+		for (auto out : outs)
+		{
+			const auto cols = out.size[3];
+			const auto total = out.total();
+			float* data = (float*)out.data;
+
+			for (size_t i = 0; i < total; i += cols)
+			{
+				float confidence = data[i + 2];
+				if (confidence <= confidence_threshold)
+				{
+					continue;
+				}
+
+				if (data[i + 5] - data[i + 3] < 1) {
+					// relative coordinates
+					scale_x = inpWidth * imgScale;
+					scale_y = inpHeight * imgScale;
+				}
+				else {
+					// absolute coordinate
+					scale_x = imgScale;
+					scale_y = imgScale;
+				}
+
+				double left = (double)data[i + 3] * scale_x;
+				double top = (double)data[i + 4] * scale_y;
+				double width = (double)data[i + 5] * scale_x - left + 1;
+				double height = (double)data[i + 6] * scale_y - top + 1;
+
+				class_ids.push_back((int)(data[i + 1]));
+				bboxes.push_back(Rect2d(left, top, width, height));
+				scores.push_back(confidence);
+			}
+		}
+	}
+	else if (outLayerType == "Region")
+	{
+		// relative coordinates
+		scale_x = inpWidth * imgScale;
+		scale_y = inpHeight * imgScale;
+
+		// Network produces output blob with a shape NxC where N is a number of
+		// detected objects and C is a number of classes + 4 where the first 4
+		// numbers are [center_x, center_y, width, height]
+		for (auto out : outs)
+		{
+			classes_scores.cols = out.cols - 5;
+			float* data = (float*)out.data;
+
+			for (int j = 0; j < out.rows; ++j, data += out.cols)
+			{
+				if (data[4] < confidence_threshold) {
+					continue;
+				}
+
+				classes_scores.data = reinterpret_cast<uchar*>(data + 5);
+
+				// Get the value and location of the maximum score
+				minMaxLoc(classes_scores, 0, &maxScore, 0, &maxClassLoc);
+				if (maxScore <= score_threshold) {
+					continue;
+				}
+
+				double centerX = (double)data[0] * scale_x;
+				double centerY = (double)data[1] * scale_y;
+				double width = (double)data[2] * scale_x;
+				double height = (double)data[3] * scale_y;
+				double left = centerX - width / 2;
+				double top = centerY - height / 2;
+
+				bboxes.push_back(Rect2d(left, top, width, height));
+				scores.push_back((float)maxScore);
+				class_ids.push_back(maxClassLoc.x);
+			}
+		}
+	}
+	else if (outLayerType == "Identity") {
+		for (auto out : outs)
+		{
+			int offset;
+			float scale_x, scale_y;
+
+			if (out.dims != 2 && out.dims != 3) {
+				CV_Error(cv::Error::StsAssert, UNSUPPORTED_YOLO_VERSION " out.dims != 2 && out.dims != 3");
+			}
+
+			if (out.dims == 2) {
+				// yolo v3
+				offset = 5;
+
+				// relative coordinates
+				scale_x = inpWidth * imgScale;
+				scale_y = inpHeight * imgScale;
+			}
+			else {
+				if (out.size[0] != 1) {
+					CV_Error(cv::Error::StsAssert, UNSUPPORTED_YOLO_VERSION " out.size[0] != 1");
+				}
+
+				out = out.reshape(1, out.size[1]);
+
+				// absolute coordinate
+				scale_x = imgScale;
+				scale_y = imgScale;
+
+				// yolov5 has an output of shape (batchSize, 25200, 85) (Num classes + box[x,y,w,h] + confidence[c])
+				// yolov8 has an output of shape (batchSize, 84,  8400) (Num classes + box[x,y,w,h])
+				if (out.rows == num_classes + 4) {
+					// yolo v8
+					offset = 4;
+					cv::transpose(out, out);
+				}
+				else if (out.cols == num_classes + 5) {
+					// yolo v5
+					offset = 5;
+				}
+				else {
+					CV_Error(cv::Error::StsAssert, UNSUPPORTED_YOLO_VERSION);
+				}
+			}
+
+			classes_scores.cols = out.cols - offset;
+
+			// Scan through all the bounding boxes output from the network and keep only the
+			// ones with high confidence scores. Assign the box's class label as the class
+			// with the highest score for the box.
+
+			float* data = (float*)out.data;
+
+			for (int i = 0; i < out.rows; ++i, data += out.cols)
+			{
+				if (offset == 5 && data[4] < confidence_threshold) {
+					continue;
+				}
+
+				classes_scores.data = reinterpret_cast<uchar*>(data + offset);
+
+				// Get the value and location of the maximum score
+				minMaxLoc(classes_scores, 0, &maxScore, 0, &maxClassLoc);
+
+				if (maxScore >= score_threshold)
+				{
+					double centerX = (double)data[0] * scale_x;
+					double centerY = (double)data[1] * scale_y;
+					double width = (double)data[2] * scale_x;
+					double height = (double)data[3] * scale_y;
+					double left = centerX - width / 2;
+					double top = centerY - height / 2;
+
+					bboxes.push_back(Rect2d(left, top, width, height));
+					scores.push_back((float)maxScore);
+					class_ids.push_back(maxClassLoc.x);
+				}
+			}
+		}
+	}
+	else {
+		CV_Error(Error::StsNotImplemented, "Unknown output layer type: " + outLayerType);
+	}
+}
+
+void DllTestUMat()
+{
+	// This nerver terminates in autoit
+	cv::UMat mask(100, 100, CV_8UC1, cv::Scalar::all(0));
+	cv::imshow("mask", mask);
+	cv::waitKey();
+	cv::destroyAllWindows();
 }

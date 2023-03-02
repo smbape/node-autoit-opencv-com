@@ -12,7 +12,6 @@
 #include "..\..\..\autoit-opencv-com\udf\opencv_udf_utils.au3"
 
 ;~ Sources:
-;~     https://docs.opencv.org/4.7.0/de/da9/tutorial_template_matching.html
 ;~     https://github.com/opencv/opencv/blob/4.7.0/samples/tapi/bgfg_segm.cpp
 
 _OpenCV_Open(_OpenCV_FindDLL("opencv_world470*"), _OpenCV_FindDLL("autoit_opencv_com470*"))
@@ -23,14 +22,20 @@ OnAutoItExitRegister("_OnAutoItExit")
 Global $cv = _OpenCV_get()
 
 Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
+$cv.samples.addSamplesDataSearchPath($OPENCV_SAMPLES_DATA_PATH)
+$cv.samples.addSamplesDataSearchPath(_OpenCV_FindFile("samples\data", Default, Default, Default, _OpenCV_Tuple( _
+		"opencv\sources", _
+		"opencv-4.7.0-*\sources", _
+		"opencv-4.7.0-*\opencv\sources" _
+		)))
 
 #Region ### START Koda GUI section ### Form=
-Global $FormGUI = GUICreate("Changing the contrast and brightness of an image!", 1262, 672, 185, 122)
+Global $FormGUI = GUICreate("Background/foreground segmantation", 1262, 672, 185, 122)
 
 Global $LabelFPS = GUICtrlCreateLabel("FPS : ", 16, 16, 105, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
 
-Global $InputFile = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\vtest.avi", 366, 16, 449, 21)
+Global $InputFile = GUICtrlCreateInput(_PathFull($cv.samples.findFile("vtest.avi")), 366, 16, 449, 21)
 GUICtrlSetState(-1, $GUI_DISABLE)
 Global $BtnFile = GUICtrlCreateButton("Video File", 825, 14, 75, 25)
 
@@ -197,6 +202,8 @@ Func UpdateState()
 	Local $useOpenCL = _IsChecked($RadioOpenCL)
 
 	If $cv.ocl.useOpenCL() <> $useOpenCL Then
+		$bInitialized = False
+		$frame = $cv.UMat.create()
 		$cv.ocl.setUseOpenCL($useOpenCL)
 		ConsoleWrite("Switched to " & ($useOpenCL ? "OpenCL enabled" : "CPU") & " mode" & @CRLF)
 	EndIf
@@ -232,7 +239,6 @@ Func UpdateFrame()
 	_OpenCV_imshow_ControlPic($frame, $FormGUI, $PicImage)
 	_OpenCV_imshow_ControlPic($fgmask, $FormGUI, $PicForegroundMask)
 	_OpenCV_imshow_ControlPic($fgimg, $FormGUI, $PicForegroundImage)
-
 EndFunc   ;==>UpdateFrame
 
 Func UpdateCameraList()

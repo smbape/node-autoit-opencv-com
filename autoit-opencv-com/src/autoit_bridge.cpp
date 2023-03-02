@@ -8,6 +8,101 @@
 
 PTR_BRIDGE_IMPL(cv::wgc::WGCFrameCallback)
 
+#if defined __i386__ || defined(_M_IX86) || defined __x86_64__ || defined(_M_X64)
+#define CV_UNALIGNED_LITTLE_ENDIAN_MEM_ACCESS 1
+#else
+#define CV_UNALIGNED_LITTLE_ENDIAN_MEM_ACCESS 0
+#endif
+
+static inline int readInt(const uchar* p)
+{
+#if CV_UNALIGNED_LITTLE_ENDIAN_MEM_ACCESS
+	return *(const int*)p;
+#else
+	int val = (int)(p[0] | (p[1] << 8) | (p[2] << 16) | (p[3] << 24));
+	return val;
+#endif
+}
+
+/**
+ * @param  str std::string
+ * @return     std::wstring
+ * @see https://stackoverflow.com/a/59617138
+ */
+inline auto ConvertUtf8ToWide(const std::string& str) {
+	int count = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), str.length(), NULL, 0);
+	std::wstring wstr(count, 0);
+	MultiByteToWideChar(CP_UTF8, 0, str.c_str(), str.length(), &wstr[0], count);
+	return wstr;
+}
+
+inline void string_to_bstr(const std::string& in_val, _bstr_t& out_val) {
+	std::wstring ws = ConvertUtf8ToWide(in_val);
+	BSTR bstr = SysAllocStringLen(ws.data(), ws.size());
+	out_val = _bstr_t(bstr);
+	SysFreeString(bstr);
+}
+
+const _variant_t autoit::fileNodeAsVariant(const cv::FileNode& node) {
+	using namespace cv;
+
+	_variant_t res;
+	V_VT(&res) = VT_ERROR;
+	V_ERROR(&res) = DISP_E_PARAMNOTFOUND;
+	VARIANT* out_val = &res;
+
+	if (node.empty()) {
+		return res;
+	}
+
+	if (node.isInt()) {
+		return _variant_t((int)node);
+	}
+
+	if (node.isReal()) {
+		return _variant_t((double)node);
+	}
+
+	if (node.isString()) {
+		_bstr_t value;
+		string_to_bstr((std::string)node, value);
+		return _variant_t(value);
+	}
+
+	if (node.isNone()) {
+		V_VT(&res) = VT_NULL;
+	}
+	else if (node.isMap()) {
+		std::map<std::string, _variant_t> obj;
+		for (const auto& key : node.keys()) {
+			FileNode v = node[key];
+			obj[key] = fileNodeAsVariant(v);
+		}
+
+		VariantInit(out_val);
+		HRESULT hr = autoit_from(obj, out_val);
+		if (FAILED(hr)) {
+			CV_Error(Error::StsNotImplemented, "Unexpected value");
+		}
+	}
+	else if (node.isSeq()) {
+		std::vector<_variant_t> values;
+		for (size_t i = 0; i < node.size(); ++i)
+		{
+			FileNode v = node[(int)i];
+			values.push_back(fileNodeAsVariant(v));
+		}
+
+		VariantInit(out_val);
+		HRESULT hr = autoit_from(values, out_val);
+		if (FAILED(hr)) {
+			CV_Error(Error::StsNotImplemented, "Unexpected value");
+		}
+	}
+
+	return res;
+}
+
 const bool is_assignable_from(cv::GMetaArg& out_val, VARIANT const* const& in_val, bool is_optional) {
 	cv::GMatDesc value_GMatDesc;
 	cv::GScalarDesc value_GScalarDesc;

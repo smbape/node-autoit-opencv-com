@@ -248,33 +248,33 @@ Func _OpenCV_GetDevices($iDeviceCategory = Default)
 	;===============================================================================
 	#interface "IMoniker"
 	Local Static $sIID_IMoniker = '{0000000F-0000-0000-C000-000000000046}'
-	Local Static $tagIMoniker = "GetClassID hresult( clsid )" & _
+	Local Static $tagIMoniker = "GetClassID hresult( clsid );" & _
 			"IsDirty hresult(  );" & _
 			"Load hresult( ptr );" & _
-			"Save hresult( ptr, bool );" & _
+			"Save hresult( ptr; bool );" & _
 			"GetSizeMax hresult( uint64 );" & _
-			"BindToObject hresult( ptr;ptr;clsid;ptr*);" & _
-			"BindToStorage hresult( ptr;ptr;clsid;ptr*);" & _
-			"Reduce hresult( ptr;dword;ptr*;ptr*);" & _
-			"ComposeWith hresult( ptr;bool;ptr*);" & _
-			"Enum hresult( bool;ptr*);" & _
-			"IsEqual hresult( ptr);" & _
-			"Hash hresult( dword);" & _
-			"IsRunning hresult( ptr;ptr;ptr);" & _
-			"GetTimeOfLastChange hresult( ptr;ptr;uint64);" & _
-			"Inverse hresult( ptr*);" & _
-			"CommonPrefixWith hresult( ptr;ptr*);" & _
-			"RelativePathTo hresult( ptr;ptr*);" & _
-			"GetDisplayName hresult( ptr;ptr;ushort);" & _
-			"ParseDisplayName hresult( ptr;ptr;ushort;ulong;ptr*);" & _
-			"IsSystemMoniker hresult( dword);"
+			"BindToObject hresult( ptr; ptr; clsid; ptr* );" & _
+			"BindToStorage hresult( ptr; ptr; clsid; ptr* );" & _
+			"Reduce hresult( ptr; dword; ptr*; ptr* );" & _
+			"ComposeWith hresult( ptr; bool; ptr* );" & _
+			"Enum hresult( bool; ptr* );" & _
+			"IsEqual hresult( ptr );" & _
+			"Hash hresult( dword );" & _
+			"IsRunning hresult( ptr; ptr; ptr );" & _
+			"GetTimeOfLastChange hresult( ptr; ptr; uint64 );" & _
+			"Inverse hresult( ptr* );" & _
+			"CommonPrefixWith hresult( ptr; ptr* );" & _
+			"RelativePathTo hresult( ptr; ptr* );" & _
+			"GetDisplayName hresult( ptr; ptr; ushort );" & _
+			"ParseDisplayName hresult( ptr; ptr; ushort; ulong; ptr* );" & _
+			"IsSystemMoniker hresult( dword );"
 	;===============================END=============================================
 
 	;===============================================================================
 	#interface "IPropertyBag"
 	Local Static $sIID_IPropertyBag = '{55272A00-42CB-11CE-8135-00AA004BB851}'
-	Local Static $tagIPropertyBag = "Read hresult( wstr;variant*;ptr* );" & _
-			"Write hresult( wstr;variant );"
+	Local Static $tagIPropertyBag = "Read hresult( wstr; variant*; ptr* );" & _
+			"Write hresult( wstr; variant );"
 	;===============================END=============================================
 
 	Local Static $S_FALSE = 1
@@ -328,7 +328,7 @@ Func _OpenCV_GetDevices($iDeviceCategory = Default)
 			ContinueLoop
 		EndIf
 
-		$oPropBag = ObjCreateInterface($pPropBag, $sIID_IPropertyBag, $tagIPropertyBag)
+		$oPropBag = ObjCreateInterface(Ptr($pPropBag), $sIID_IPropertyBag, $tagIPropertyBag)
 		If Not IsObj($oPropBag) Then
 			ConsoleWriteError('@@ Debug(' & @ScriptLineNumber & ') : Failed to get device properties' & @CRLF)
 			ContinueLoop
@@ -564,12 +564,13 @@ Func _OpenCV_resizeAndCenter($src, $iDstWidth = Default, $iDstHeight = Default, 
 
 	If $iDstWidth == Default Then $iDstWidth = $iWidth
 	If $iDstHeight == Default Then $iDstHeight = $iHeight
+
 	Local $bHighQuality = $iDstWidth > $src.width Or $iDstHeight > $src.height ? $interpolation == $CV_INTER_CUBIC : $interpolation == $CV_INTER_AREA
 
 	Local Const $cv = _OpenCV_get()
 	; Local $hTimer
 
-	If $bResize Then
+	If $bResize And ($src.width <> $iWidth Or $src.height <> $iHeight) Then
 		If $_cv_gdi_resize And $__g_hGDIPDll > 0 Then
 			Switch $interpolation
 				Case $CV_INTER_NEAREST
@@ -605,9 +606,8 @@ Func _OpenCV_resizeAndCenter($src, $iDstWidth = Default, $iDstHeight = Default, 
 	EndIf
 
 	If $bCenter And ($iPadWidth > 0 Or $iPadHeight > 0) Then
-		Local $Mat = _OpenCV_ObjCreate("cv.Mat")
-		Local $padded = $Mat.create($iDstHeight, $iDstWidth, CV_MAKETYPE($src.depth(), $src.channels()), $aBackgroundColor)
-		$src.copyTo($Mat.create($padded, _OpenCV_Rect($iPadWidth, $iPadHeight, $src.width, $src.height)))
+		Local $padded = $src.create($iDstHeight, $iDstWidth, CV_MAKETYPE($src.depth(), $src.channels()), $aBackgroundColor)
+		$src.copyTo($src.create($padded, _OpenCV_Rect($iPadWidth, $iPadHeight, $src.width, $src.height)))
 		$src = $padded
 	EndIf
 
@@ -881,7 +881,7 @@ EndFunc   ;==>_OpenCV_CompareMatHist
 ; Author ........: Stéphane MBAPE
 ; Modified ......:
 ; Sources .......: https://stackoverflow.com/a/28647930
-;                  https://docs.opencv.org/4.5.1/d8/ded/samples_2cpp_2tutorial_code_2Histograms_Matching_2MatchTemplate_Demo_8cpp-example.html#a16
+;                  https://github.com/opencv/opencv/blob/4.7.0/samples/cpp/tutorial_code/Histograms_Matching/MatchTemplate_Demo.cpp#L82
 ;                  https://vovkos.github.io/doxyrest-showcase/opencv/sphinx_rtd_theme/page_tutorial_histogram_calculation.html
 ; ===============================================================================================================================
 Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = Default, $iMatchMethod = Default, $matTemplMask = Default, $iLimit = Default, $iCode = Default, $fOverlapping = Default, $aChannels = Default, $aHistSize = Default, $aRanges = Default, $iCompareMethod = Default, $iDstCn = Default, $bAccumulate = False)
@@ -944,9 +944,9 @@ Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = Default, $iMatchMeth
 		Return $aResult
 	EndIf
 
-	Local $Mat = _OpenCV_ObjCreate("cv.Mat")
-	Local $matResult ; = $Mat.create($rh, $rw, $CV_32FC1)
+	Local $Mat = $matImg.create()
 
+	Local $matResult = $Mat.create()
 	Local $bMethodAcceptsMask = $iMatchMethod == $CV_TM_EXACT Or $CV_TM_SQDIFF == $iMatchMethod Or $iMatchMethod == $CV_TM_CCORR_NORMED
 	Local $bIsNormed = $iMatchMethod == $CV_TM_EXACT Or $iMatchMethod == $CV_TM_SQDIFF_NORMED Or $iMatchMethod == $CV_TM_CCORR_NORMED Or $iMatchMethod == $CV_TM_CCOEFF_NORMED
 
@@ -956,26 +956,18 @@ Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = Default, $iMatchMeth
 
 	; $hTimer = TimerInit()
 	If $iMatchMethod == $CV_TM_EXACT Then
-		$matResult = $cv.searchTemplate($matImg, $matTempl, Default, $matTemplMask, $aChannels, $aRanges)
+		$cv.searchTemplate($matImg, $matTempl, $matResult, $matTemplMask, $aChannels, $aRanges)
 	ElseIf $matImg.width * $matImg.height > 500 * 500 Then
-		$matResult = $cv.matchTemplateParallel($matImg, $matTempl, $iMatchMethod, Default, $matTemplMask)
+		$cv.matchTemplateParallel($matImg, $matTempl, $iMatchMethod, $matResult, $matTemplMask)
 	Else
-		$matResult = $cv.matchTemplate($matImg, $matTempl, $iMatchMethod, Default, $matTemplMask)
+		$cv.matchTemplate($matImg, $matTempl, $iMatchMethod, $matResult, $matTemplMask)
 	EndIf
 	; ConsoleWrite("matchTemplate took " & TimerDiff($hTimer) & "ms" & @CRLF)
 
 	Local $aMatchLoc
 	Local $fHistScore = 1
 	Local $fScore = 0
-	Local $fVisited
 	Local $iFound = 0
-
-	; For SQDIFF and SQDIFF_NORMED, the best matches are lower values. For all the other methods, the higher the better
-	If ($iMatchMethod == $CV_TM_SQDIFF Or $iMatchMethod == $CV_TM_SQDIFF_NORMED) Then
-		$fVisited = 1.0
-	Else
-		$fVisited = 0.0
-	EndIf
 
 	If Not $bIsNormed Then
 		$cv.normalize($matResult, $matResult, 0, 1, $CV_NORM_MINMAX)
@@ -1027,12 +1019,8 @@ Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = Default, $iMatchMeth
 		$aResult[$iFound][2] = $fScore
 		$iFound = $iFound + 1
 
-		; Mark as visited
-		$matResult.float_set_at($aMinLoc, $fVisited)
-		$matResult.float_set_at($aMaxLoc, $fVisited)
-
-		Local $tw = Ceiling($fOverlapping * $w)
-		Local $th = Ceiling($fOverlapping * $h)
+		Local $tw = _Max(1, Ceiling($fOverlapping * $w))
+		Local $th = _Max(1, Ceiling($fOverlapping * $h))
 		Local $x = _Max(0, $aMatchLoc[0] - $tw / 2)
 		Local $y = _Max(0, $aMatchLoc[1] - $th / 2)
 

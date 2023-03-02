@@ -22,11 +22,17 @@ OnAutoItExitRegister("_OnAutoItExit")
 Global $cv = _OpenCV_get()
 
 Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
+$cv.samples.addSamplesDataSearchPath($OPENCV_SAMPLES_DATA_PATH)
+$cv.samples.addSamplesDataSearchPath(_OpenCV_FindFile("samples\data", Default, Default, Default, _OpenCV_Tuple( _
+		"opencv\sources", _
+		"opencv-4.7.0-*\sources", _
+		"opencv-4.7.0-*\opencv\sources" _
+		)))
 
 #Region ### START Koda GUI section ### Form=
 Global $FormGUI = GUICreate("Contour Features", 1061, 601, 200, 90)
 
-Global $InputSource = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\pic1.png", 120, 16, 450, 21)
+Global $InputSource = GUICtrlCreateInput(_PathFull($cv.samples.findFile("pic1.png")), 120, 16, 450, 21)
 Global $BtnSource = GUICtrlCreateButton("Source", 580, 14, 75, 25)
 
 Global $BtnSaveImg = GUICtrlCreateButton("Save image", 680, 14, 100, 25)

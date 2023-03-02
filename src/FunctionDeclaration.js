@@ -1011,6 +1011,8 @@ Object.assign(exports, {
                         }
                     `.replace(/^ {24}/mg, "").trim();
                 }).join("\n\n").split("\n").join(`\n${ cindent }`));
+
+                body.push("");
             }
 
             if (maxargc !== 0) {

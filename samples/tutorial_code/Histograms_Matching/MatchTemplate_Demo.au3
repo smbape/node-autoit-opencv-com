@@ -21,17 +21,23 @@ OnAutoItExitRegister("_OnAutoItExit")
 Global $cv = _OpenCV_get()
 
 Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
+$cv.samples.addSamplesDataSearchPath($OPENCV_SAMPLES_DATA_PATH)
+$cv.samples.addSamplesDataSearchPath(_OpenCV_FindFile("samples\data", Default, Default, Default, _OpenCV_Tuple( _
+        "opencv\sources", _
+        "opencv-4.7.0-*\sources", _
+        "opencv-4.7.0-*\opencv\sources" _
+        )))
 
 #Region ### START Koda GUI section ### Form=
 Global $FormGUI = GUICreate("Template Matching", 1267, 556, 185, 122)
 
-Global $InputSource = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\lena_tmpl.jpg", 366, 16, 449, 21)
+Global $InputSource = GUICtrlCreateInput(_PathFull($cv.samples.findFile("lena_tmpl.jpg")), 366, 16, 449, 21)
 Global $BtnSource = GUICtrlCreateButton("Source", 825, 14, 75, 25)
 
-Global $InputTemplate = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\tmpl.png", 366, 52, 449, 21)
+Global $InputTemplate = GUICtrlCreateInput(_PathFull($cv.samples.findFile("tmpl.png")), 366, 52, 449, 21)
 Global $BtnTemplate = GUICtrlCreateButton("Template", 825, 50, 75, 25)
 
-Global $InputMask = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\mask.png", 366, 88, 449, 21)
+Global $InputMask = GUICtrlCreateInput(_PathFull($cv.samples.findFile("mask.png")), 366, 88, 449, 21)
 Global $BtnMask = GUICtrlCreateButton("Mask", 825, 86, 75, 25)
 
 Global $LabelMethod = GUICtrlCreateLabel("Method:", 604, 128, 59, 20)

@@ -241,14 +241,15 @@ namespace {
 
 void cv::matchTemplateParallel(InputArray _img, InputArray _templ, OutputArray _result, int method, InputArray _mask)
 {
-	// in case of OCL possibility, ignore parallel run
-	if (_img.dims() <= 2 && _result.isUMat()) {
-		cv::matchTemplate(_img, _templ, _result, method, _mask);
+	// parallel run only for Mat.
+	// GpuMat and UMat will use the native matchTemplate func
+	if (!_img.isMat() || !_templ.empty() && !_templ.isMat() || !_mask.empty() && !_mask.isMat()) {
+		matchTemplate(_img, _templ, _result, method, _mask);
 		return;
 	}
 
 	int type = _img.type(), depth = CV_MAT_DEPTH(type);
-	CV_Assert(cv::TemplateMatchModes::TM_SQDIFF <= method && method <= cv::TemplateMatchModes::TM_CCOEFF_NORMED);
+	CV_Assert(TemplateMatchModes::TM_SQDIFF <= method && method <= TemplateMatchModes::TM_CCOEFF_NORMED);
 	CV_Assert((depth == CV_8U || depth == CV_32F) && type == _templ.type() && _img.dims() <= 2);
 
 	bool needswap = !_mask.empty() && (_img.size().height < _templ.size().height || _img.size().width < _templ.size().width);

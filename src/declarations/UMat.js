@@ -92,7 +92,7 @@ module.exports = ({ shared_ptr }) => [
         ["std::vector<int>", "vec", "", ["/Ref", "/C"]],
     ], "", ""],
 
-    ["cv.UMat.addref", "void", [], [], "", ""],
+    // ["cv.UMat.addref", "void", [], [], "", ""],
 
     ["cv.UMat.adjustROI", `${ shared_ptr }<UMat>`, ["/Ref", "/WrapAs=::autoit::reference_internal"], [
         ["int", "dtop", "", []],
@@ -194,7 +194,7 @@ module.exports = ({ shared_ptr }) => [
         ["size_t*", "ofs", "", ["/O"]],
     ], "", ""],
 
-    ["cv.UMat.release", "void", [], [], "", ""],
+    // ["cv.UMat.release", "void", [], [], "", ""],
 
     ["cv.UMat.reshape", "UMat", [], [
         ["int", "cn", "", []],
@@ -248,46 +248,46 @@ module.exports = ({ shared_ptr }) => [
         ["int", "rows", "", []],
         ["int", "cols", "", []],
         ["int", "type", "", []],
-        ["UMatUsageFlags", "usageFlags", "", []],
     ], "", ""],
 
     ["cv.UMat.eye", "UMat", ["/S"], [
         ["int", "rows", "", ["/Expr=rows, rows"]],
         ["int", "type", "", []],
-        ["UMatUsageFlags", "usageFlags", "", []],
     ], "", ""],
 
     ["cv.UMat.eye", "UMat", ["/S"], [
         ["int", "cols", "", ["/Expr=cols, cols"]],
         ["int", "type", "", []],
-        ["UMatUsageFlags", "usageFlags", "", []],
     ], "", ""],
 
     ["cv.UMat.eye", "UMat", ["/S"], [
         ["Size", "size", "", []],
         ["int", "type", "", []],
-        ["UMatUsageFlags", "usageFlags", "", []],
     ], "", ""],
 
     ["cv.UMat.eye", "UMat", ["/S"], [
         ["int", "rows", "", []],
         ["int", "cols", "", []],
         ["int", "type", "", []],
+        ["UMatUsageFlags", "usageFlags", "", []],
     ], "", ""],
 
     ["cv.UMat.eye", "UMat", ["/S"], [
         ["int", "rows", "", ["/Expr=rows, rows"]],
         ["int", "type", "", []],
+        ["UMatUsageFlags", "usageFlags", "", []],
     ], "", ""],
 
     ["cv.UMat.eye", "UMat", ["/S"], [
         ["int", "cols", "", ["/Expr=cols, cols"]],
         ["int", "type", "", []],
+        ["UMatUsageFlags", "usageFlags", "", []],
     ], "", ""],
 
     ["cv.UMat.eye", "UMat", ["/S"], [
         ["Size", "size", "", []],
         ["int", "type", "", []],
+        ["UMatUsageFlags", "usageFlags", "", []],
     ], "", ""],
 
     ["cv.UMat.ones", "UMat", ["/S"], [
@@ -316,6 +316,37 @@ module.exports = ({ shared_ptr }) => [
         ["int", "type", "", []],
     ], "", ""],
 
+    ["cv.UMat.ones", "UMat", ["/S"], [
+        ["int", "rows", "", []],
+        ["int", "cols", "", []],
+        ["int", "type", "", []],
+        ["UMatUsageFlags", "usageFlags", "", []],
+    ], "", ""],
+
+    ["cv.UMat.ones", "UMat", ["/S"], [
+        ["int", "cols", "", ["/Expr=1, cols"]],
+        ["int", "type", "", []],
+        ["UMatUsageFlags", "usageFlags", "", []],
+    ], "", ""],
+
+    ["cv.UMat.ones", "UMat", ["/S"], [
+        ["int", "rows", "", ["/Expr=rows, 1"]],
+        ["int", "type", "", []],
+        ["UMatUsageFlags", "usageFlags", "", []],
+    ], "", ""],
+
+    ["cv.UMat.ones", "UMat", ["/S"], [
+        ["Size", "size", "", []],
+        ["int", "type", "", []],
+        ["UMatUsageFlags", "usageFlags", "", []],
+    ], "", ""],
+
+    ["cv.UMat.ones", "UMat", ["/S"], [
+        ["std::vector<int>", "sizes", "", ["/Expr=sizes.size(), sizes.data()"]],
+        ["int", "type", "", []],
+        ["UMatUsageFlags", "usageFlags", "", []],
+    ], "", ""],
+
     ["cv.UMat.zeros", "UMat", ["/S"], [
         ["int", "rows", "", []],
         ["int", "cols", "", []],
@@ -340,9 +371,44 @@ module.exports = ({ shared_ptr }) => [
     ["cv.UMat.zeros", "UMat", ["/S"], [
         ["std::vector<int>", "sizes", "", ["/Expr=sizes.size(), sizes.data()"]],
         ["int", "type", "", []],
+    ], "", ""],
+
+    ["cv.UMat.zeros", "UMat", ["/S"], [
+        ["int", "rows", "", []],
+        ["int", "cols", "", []],
+        ["int", "type", "", []],
+        ["UMatUsageFlags", "usageFlags", "", []],
+    ], "", ""],
+
+    ["cv.UMat.zeros", "UMat", ["/S"], [
+        ["int", "cols", "", ["/Expr=1, cols"]],
+        ["int", "type", "", []],
+        ["UMatUsageFlags", "usageFlags", "", []],
+    ], "", ""],
+
+    ["cv.UMat.zeros", "UMat", ["/S"], [
+        ["int", "rows", "", ["/Expr=rows, 1"]],
+        ["int", "type", "", []],
+        ["UMatUsageFlags", "usageFlags", "", []],
+    ], "", ""],
+
+    ["cv.UMat.zeros", "UMat", ["/S"], [
+        ["Size", "size", "", []],
+        ["int", "type", "", []],
+        ["UMatUsageFlags", "usageFlags", "", []],
+    ], "", ""],
+
+    ["cv.UMat.zeros", "UMat", ["/S"], [
+        ["std::vector<int>", "sizes", "", ["/Expr=sizes.size(), sizes.data()"]],
+        ["int", "type", "", []],
+        ["UMatUsageFlags", "usageFlags", "", []],
     ], "", ""],
 
     // Extended Functions
+
+    ["cv.UMat.makeeInputArray", `${ shared_ptr }<_InputArray>`, ["/Call=this->createInputArray", `/Output=${ shared_ptr }<_InputArray>($0)`], [], "", ""],
+    ["cv.UMat.makeeOutputArray", `${ shared_ptr }<_OutputArray>`, ["/Call=this->createOutputArray", `/Output=${ shared_ptr }<_OutputArray>($0)`], [], "", ""],
+    ["cv.UMat.makeeInputOutputArray", `${ shared_ptr }<_InputOutputArray>`, ["/Call=this->createInputOutputArray", `/Output=${ shared_ptr }<_InputOutputArray>($0)`], [], "", ""],
 
     ["cv.UMat.convertToShow", "void", ["/Call=::autoit::cvextra::convertToShow", "/Expr=*__self->get(), $0"], [
         ["Mat", "dst", "Mat::zeros(__self->get()->rows, __self->get()->cols, CV_8UC3)", ["/IO"]],

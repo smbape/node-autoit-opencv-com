@@ -24,14 +24,20 @@ OnAutoItExitRegister("_OnAutoItExit")
 Global $cv = _OpenCV_get()
 
 Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
+$cv.samples.addSamplesDataSearchPath($OPENCV_SAMPLES_DATA_PATH)
+$cv.samples.addSamplesDataSearchPath(_OpenCV_FindFile("samples\data", Default, Default, Default, _OpenCV_Tuple( _
+        "opencv\sources", _
+        "opencv-4.7.0-*\sources", _
+        "opencv-4.7.0-*\opencv\sources" _
+        )))
 
 #Region ### START Koda GUI section ### Form=
 Global $FormGUI = GUICreate("Adding (blending) two images using OpenCV", 999, 500, 192, 124)
 
-Global $InputSrc1 = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\LinuxLogo.jpg", 230, 16, 449, 21)
+Global $InputSrc1 = GUICtrlCreateInput(_PathFull($cv.samples.findFile("LinuxLogo.jpg")), 230, 16, 449, 21)
 Global $BtnSrc1 = GUICtrlCreateButton("Input 1", 689, 14, 75, 25)
 
-Global $InputSrc2 = GUICtrlCreateInput($OPENCV_SAMPLES_DATA_PATH & "\WindowsLogo.jpg", 230, 52, 449, 21)
+Global $InputSrc2 = GUICtrlCreateInput(_PathFull($cv.samples.findFile("WindowsLogo.jpg")), 230, 52, 449, 21)
 Global $BtnSrc2 = GUICtrlCreateButton("Input 2", 689, 50, 75, 25)
 
 Global $LabelAlpha = GUICtrlCreateLabel("Alpha: 0.5", 230, 84, 104, 20)

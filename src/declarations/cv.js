@@ -50,6 +50,8 @@ module.exports = [
         ["DMatch", "default_value", "", []],
     ], "", ""],
 
+    ["cv.FileNode.asVariant", "_variant_t", ["/Call=::autoit::fileNodeAsVariant", "/Expr=*__self->get()"], [], "", ""],
+
     ["cv.format", "string", ["/External"], [
         ["InputArray", "mtx", "", []],
         ["Formatter::FormatType", "fmt", "Formatter::FMT_NUMPY", []],

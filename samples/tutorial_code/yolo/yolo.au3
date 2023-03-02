@@ -21,6 +21,7 @@
 ;~     https://github.com/ultralytics/yolov5/issues/251
 ;~     https://learnopencv.com/object-detection-using-yolov5-and-opencv-dnn-in-c-and-python/
 ;~     https://github.com/ultralytics/ultralytics/blob/main/examples/YOLOv8-CPP-Inference/inference.cpp
+;~     https://docs.opencv.org/4.x/d4/d2f/tf_det_tutorial_dnn_conversion.html
 
 #cs
 git clone https://github.com/ultralytics/yolov5
@@ -32,8 +33,6 @@ pip install ultralytics
 yolo export model=yolov8s.pt imgsz=640 format=onnx opset=12
 #ce
 
-; EnvSet("OPENCV_BUILD_TYPE", "Debug")
-
 _OpenCV_Open(_OpenCV_FindDLL("opencv_world470*"), _OpenCV_FindDLL("autoit_opencv_com470*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
@@ -42,23 +41,29 @@ Global $cv = _OpenCV_get()
 Global $addon_dll = _Addon_FindDLL()
 
 Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
+$cv.samples.addSamplesDataSearchPath($OPENCV_SAMPLES_DATA_PATH)
+$cv.samples.addSamplesDataSearchPath(_OpenCV_FindFile("samples\data", Default, Default, Default, _OpenCV_Tuple( _
+		"opencv\sources", _
+		"opencv-4.7.0-*\sources", _
+		"opencv-4.7.0-*\opencv\sources" _
+		)))
 
 #Region ### START Koda GUI section ### Form=
 Global $FormGUI = GUICreate("OpenCV object detection", 1273, 796, 191, 18)
 
 Global $LabelImage = GUICtrlCreateLabel("Image", 215, 8, 47, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Global $InputSource = GUICtrlCreateInput(@ScriptDir & "\scooter-5180947_1920.jpg", 264, 8, 449, 21)
+Global $InputSource = GUICtrlCreateInput(_PathFull($cv.samples.findFile("scooter-5180947_1920.jpg")), 264, 8, 449, 21)
 Global $BtnSource = GUICtrlCreateButton("Browse", 723, 6, 75, 25)
 
 Global $LabelModelNames = GUICtrlCreateLabel("Model names", 163, 44, 97, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Global $InputModelNames = GUICtrlCreateInput(@ScriptDir & "\coco.txt", 264, 44, 449, 21)
+Global $InputModelNames = GUICtrlCreateInput(_PathFull($cv.samples.findFile("coco.txt")), 264, 44, 449, 21)
 Global $BtnModelNames = GUICtrlCreateButton("Browse", 723, 42, 75, 25)
 
 Global $LabelModelWeights = GUICtrlCreateLabel("Model weights", 157, 80, 103, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Global $InputModelWeights = GUICtrlCreateInput(@ScriptDir & "\yolov5s.onnx", 264, 80, 449, 21)
+Global $InputModelWeights = GUICtrlCreateInput(_PathFull($cv.samples.findFile("yolov5s.onnx")), 264, 80, 449, 21)
 Global $BtnModelWeights = GUICtrlCreateButton("Browse", 723, 78, 75, 25)
 
 Global $LabelModelConfiguration = GUICtrlCreateLabel("Model configuration", 120, 116, 140, 20)
@@ -196,6 +201,11 @@ Func Main()
 	; $net.setPreferableBackend($CV_DNN_DNN_BACKEND_OPENCV)
 	; $net.setPreferableTarget($CV_DNN_DNN_TARGET_CPU)
 
+    Local $layerNames = $net.getLayerNames()
+    Local $lastLayerId = $net.getLayerId($layerNames[UBound($layerNames) - 1])
+    Local $lastLayer = $net.getLayer($lastLayerId)
+	ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : $lastLayer.type          ' & $lastLayer.type & @CRLF) ;### Debug Console
+
 	Local Const $inpWidth = Number(ControlGetText($FormGUI, "", $InputModelWidth))
 	Local Const $inpHeight = Number(ControlGetText($FormGUI, "", $InputModelHeight))
 
@@ -280,7 +290,8 @@ Func postprocess($spatial_width, $spatial_height, $classes, $image, $scale, $ima
 				$spatial_width, _
 				$spatial_height, _
 				UBound($classes), _
-				$image, _
+				$image.width, _
+				$image.height, _
 				$scale, _
 				$outs, _
 				$class_ids, _
@@ -296,7 +307,8 @@ Func postprocess($spatial_width, $spatial_height, $classes, $image, $scale, $ima
 				"int", $spatial_width, _
 				"int", $spatial_height, _
 				"ulong_ptr", UBound($classes), _
-				"ptr", $image.self, _
+				"int", $image.width, _
+				"int", $image.height, _
 				"float", $scale, _
 				"ptr", $outs.self, _
 				"float", $confidence_threshold, _
@@ -319,7 +331,7 @@ Func postprocess($spatial_width, $spatial_height, $classes, $image, $scale, $ima
 	Next
 EndFunc   ;==>postprocess
 
-Func yolo_postprocess($spatial_width, $spatial_height, $num_classes, $image, $scale, $outs, $class_ids, $scores, $bboxes)
+Func yolo_postprocess($spatial_width, $spatial_height, $num_classes, $img_width, $img_height, $scale, $outs, $class_ids, $scores, $bboxes)
 	Local Const $UNSUPPORTED_YOLO_VERSION = "!>Error: Unsupported yolo version. Supported versions are v3, v5, v8."
 	Local $offset, $scale_x, $scale_y
 
@@ -340,8 +352,8 @@ Func yolo_postprocess($spatial_width, $spatial_height, $num_classes, $image, $sc
 		If $out.dims == 2 Then
 			;; yolo v3
 			$offset = 5 ;
-			$scale_x = $image.cols
-			$scale_y = $image.rows
+			$scale_x = $scale * $img_width
+			$scale_y = $scale * $img_height
 		Else
 			If $out.sizes[0] <> 1 Then
 				ConsoleWriteError($UNSUPPORTED_YOLO_VERSION & ' out.size[0] != 1' & @CRLF)
@@ -349,8 +361,8 @@ Func yolo_postprocess($spatial_width, $spatial_height, $num_classes, $image, $sc
 			EndIf
 
 			$out = $out.reshape(1, $out.sizes[1])
-			$scale_x = $image.cols / $spatial_width
-			$scale_y = $image.rows / $spatial_height
+			$scale_x = $scale * $img_width / $spatial_width
+			$scale_y = $scale * $img_height / $spatial_height
 
 			;; yolov5 has an output of shape (batchSize, 25200, 85) (Num classes + box[x,y,w,h] + confidence[c])
 			;; yolov8 has an output of shape (batchSize, 84,  8400) (Num classes + box[x,y,w,h])
@@ -396,10 +408,10 @@ Func yolo_postprocess($spatial_width, $spatial_height, $num_classes, $image, $sc
 			$maxClassLoc = $cv.extended[3]
 
 			If $maxScore >= $score_threshold Then
-				$center_x = $detection.at(0) * $scale_x * $scale
-				$center_y = $detection.at(1) * $scale_y * $scale
-				$width = $detection.at(2) * $scale_x * $scale
-				$height = $detection.at(3) * $scale_y * $scale
+				$center_x = $detection.at(0) * $scale_x
+				$center_y = $detection.at(1) * $scale_y
+				$width = $detection.at(2) * $scale_x
+				$height = $detection.at(3) * $scale_y
 				$left = $center_x - $width / 2
 				$top = $center_y - $height / 2
 
