@@ -1119,6 +1119,18 @@
         "iid": "1437048f-aff9-44b7-8750-a590647ef03b",
         "clsid": "a98c001f-3bbe-4ab8-94a3-80b2ba2ddc69"
     },
+    "com": {
+        "iid": "e2ecb319-b99b-41de-b972-acdcdcab93b6",
+        "clsid": "d754eb41-9aee-4a0c-83ba-e2f1478329e6"
+    },
+    "com::Thread": {
+        "iid": "39b9f6a3-a12a-4a10-92ad-a452521d8e89",
+        "clsid": "36747695-aa0f-484e-b3d7-72c7a9aa3b78"
+    },
+    "com::ThreadSafeQueue": {
+        "iid": "82ffce5d-ca7d-4344-a267-4f9e17a15851",
+        "clsid": "e083f18a-2fd5-45e1-9d76-a800419f8888"
+    },
     "cv::wgc": {
         "iid": "e1c74eb4-de4d-4d5d-943d-7cea6daeb990",
         "clsid": "a63a65b7-9c48-49ab-b4ab-31a63c45e6c4"
@@ -1154,6 +1166,18 @@
     "cv::Matx44d": {
         "iid": "c8fe53d0-2839-4677-9090-e5936e71a9d0",
         "clsid": "cf60d47b-9830-4f76-8271-f7622857fba6"
+    },
+    "std": {
+        "iid": "93100044-3381-452e-adb9-cad0088559a6",
+        "clsid": "8f4d73b2-d87e-4d02-a829-774262a1658b"
+    },
+    "std::mutex": {
+        "iid": "38bb6eda-7578-4324-84db-8ee146bf5ef2",
+        "clsid": "9e4efc61-afe4-48aa-852b-931dc87de6f2"
+    },
+    "std::timed_mutex": {
+        "iid": "b44faf70-e0d0-43a6-9171-64831d7c4a17",
+        "clsid": "46848da1-12fb-4188-bf96-4396f821cdf4"
     },
     "cv::Range": {
         "iid": "ee4fec59-415b-407b-a1eb-c53272bacd49",

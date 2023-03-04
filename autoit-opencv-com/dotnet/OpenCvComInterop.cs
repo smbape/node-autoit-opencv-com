@@ -193,7 +193,7 @@ public static class OpenCvComInterop
         DllActivateManifest();
 
         try {
-            string[] namespaces = { "", "OpenCV.", "OpenCV.cv." };
+            string[] namespaces = { "", "OpenCV.", "OpenCV.cv.", "OpenCV.com.", "OpenCV.std." };
             foreach (string itNamespace in namespaces)
             {
                 Type ObjType = Type.GetTypeFromProgID(itNamespace + progID);

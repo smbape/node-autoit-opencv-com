@@ -9,7 +9,7 @@ Global $h_autoit_opencv_com_dll = -1
 Func _OpenCV_ObjCreate($sClassname)
 	_OpenCV_ActivateManifest()
 
-	Local Static $namespaces[] = ["", "OpenCV.", "OpenCV.cv."]
+	Local Static $namespaces[] = ["", "OpenCV.", "OpenCV.cv.", "OpenCV.com.", "OpenCV.std."]
 	Local $siClassname, $oObj
 
 	For $i = 0 To UBound($namespaces) - 1

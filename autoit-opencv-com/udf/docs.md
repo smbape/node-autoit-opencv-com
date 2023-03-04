@@ -5490,6 +5490,18 @@
 - [autoit](#autoit)
   - [autoit::findFile](#autoitfindfile)
   - [autoit::findFiles](#autoitfindfiles)
+- [com](#com)
+  - [com.Thread](#comthread)
+  - [com.ThreadSafeQueue](#comthreadsafequeue)
+- [com::Thread](#comthread)
+  - [com::Thread::get\_create](#comthreadget%5C_create)
+  - [com::Thread::join](#comthreadjoin)
+  - [com::Thread::start](#comthreadstart)
+- [com::ThreadSafeQueue](#comthreadsafequeue)
+  - [com::ThreadSafeQueue::get\_create](#comthreadsafequeueget%5C_create)
+  - [com::ThreadSafeQueue::clear](#comthreadsafequeueclear)
+  - [com::ThreadSafeQueue::get](#comthreadsafequeueget)
+  - [com::ThreadSafeQueue::push](#comthreadsafequeuepush)
 - [cv::wgc](#cvwgc)
   - [wgc.SimpleCapture](#wgcsimplecapture)
   - [cv::wgc::BitBltCapture](#cvwgcbitbltcapture)
@@ -5692,6 +5704,20 @@
   - [cv::Matx44d::randn](#cvmatx44drandn)
   - [cv::Matx44d::randu](#cvmatx44drandu)
   - [cv::Matx44d::zeros](#cvmatx44dzeros)
+- [std](#std)
+  - [std.mutex](#stdmutex)
+  - [std.timed\_mutex](#stdtimed%5C_mutex)
+- [std::mutex](#stdmutex)
+  - [std::mutex::get\_create](#stdmutexget%5C_create)
+  - [std::mutex::lock](#stdmutexlock)
+  - [std::mutex::try\_lock](#stdmutextry%5C_lock)
+  - [std::mutex::unlock](#stdmutexunlock)
+- [std::timed\_mutex](#stdtimed%5C_mutex)
+  - [std::timed\_mutex::get\_create](#stdtimed%5C_mutexget%5C_create)
+  - [std::timed\_mutex::lock](#stdtimed%5C_mutexlock)
+  - [std::timed\_mutex::try\_lock](#stdtimed%5C_mutextry%5C_lock)
+  - [std::timed\_mutex::try\_lock\_for](#stdtimed%5C_mutextry%5C_lock%5C_for)
+  - [std::timed\_mutex::unlock](#stdtimed%5C_mutexunlock)
 - [cv::Range](#cvrange)
   - [Range.start](#rangestart)
   - [Range.end](#rangeend)
@@ -57322,6 +57348,85 @@ AutoIt:
     _OpenCV_ObjCreate("autoit").findFiles( $path, $directory[, $flags[, $relative[, $matches]]] ) -> $matches
 ```
 
+## com
+
+### com.Thread
+
+```cpp
+static com::Thread
+AutoIt:
+    [propget] $ocom.Thread
+```
+
+### com.ThreadSafeQueue
+
+```cpp
+static com::ThreadSafeQueue
+AutoIt:
+    [propget] $ocom.ThreadSafeQueue
+```
+
+## com::Thread
+
+### com::Thread::get\_create
+
+```cpp
+static com::Thread com::Thread::get_create( void* func );
+AutoIt:
+    _OpenCV_ObjCreate("com.Thread").create( $func ) -> <com.Thread object>
+    $oThread( $func ) -> <com.Thread object>
+```
+
+### com::Thread::join
+
+```cpp
+void com::Thread::join();
+AutoIt:
+    $oThread.join() -> None
+```
+
+### com::Thread::start
+
+```cpp
+void com::Thread::start();
+AutoIt:
+    $oThread.start() -> None
+```
+
+## com::ThreadSafeQueue
+
+### com::ThreadSafeQueue::get\_create
+
+```cpp
+static com::ThreadSafeQueue com::ThreadSafeQueue::get_create();
+AutoIt:
+    _OpenCV_ObjCreate("com.ThreadSafeQueue").create() -> <com.ThreadSafeQueue object>
+```
+
+### com::ThreadSafeQueue::clear
+
+```cpp
+void com::ThreadSafeQueue::clear();
+AutoIt:
+    $oThreadSafeQueue.clear() -> None
+```
+
+### com::ThreadSafeQueue::get
+
+```cpp
+VARIANT* com::ThreadSafeQueue::get();
+AutoIt:
+    $oThreadSafeQueue.get() -> retval
+```
+
+### com::ThreadSafeQueue::push
+
+```cpp
+void com::ThreadSafeQueue::push( VARIANT* entry );
+AutoIt:
+    $oThreadSafeQueue.push( $entry ) -> None
+```
+
 ## cv::wgc
 
 ### wgc.SimpleCapture
@@ -58923,6 +59028,100 @@ AutoIt:
 static cv::Matx44d cv::Matx44d::zeros();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx44d").zeros() -> retval
+```
+
+## std
+
+### std.mutex
+
+```cpp
+static std::mutex
+AutoIt:
+    [propget] $ostd.mutex
+```
+
+### std.timed\_mutex
+
+```cpp
+static std::timed_mutex
+AutoIt:
+    [propget] $ostd.timed_mutex
+```
+
+## std::mutex
+
+### std::mutex::get\_create
+
+```cpp
+static std::mutex std::mutex::get_create();
+AutoIt:
+    _OpenCV_ObjCreate("std.mutex").create() -> <std.mutex object>
+```
+
+### std::mutex::lock
+
+```cpp
+void std::mutex::lock();
+AutoIt:
+    $omutex.lock() -> None
+```
+
+### std::mutex::try\_lock
+
+```cpp
+bool std::mutex::try_lock();
+AutoIt:
+    $omutex.try_lock() -> retval
+```
+
+### std::mutex::unlock
+
+```cpp
+void std::mutex::unlock();
+AutoIt:
+    $omutex.unlock() -> None
+```
+
+## std::timed\_mutex
+
+### std::timed\_mutex::get\_create
+
+```cpp
+static std::timed_mutex std::timed_mutex::get_create();
+AutoIt:
+    _OpenCV_ObjCreate("std.timed_mutex").create() -> <std.timed_mutex object>
+```
+
+### std::timed\_mutex::lock
+
+```cpp
+void std::timed_mutex::lock();
+AutoIt:
+    $otimed_mutex.lock() -> None
+```
+
+### std::timed\_mutex::try\_lock
+
+```cpp
+bool std::timed_mutex::try_lock();
+AutoIt:
+    $otimed_mutex.try_lock() -> retval
+```
+
+### std::timed\_mutex::try\_lock\_for
+
+```cpp
+bool std::timed_mutex::try_lock_for( int duration );
+AutoIt:
+    $otimed_mutex.try_lock_for( $duration ) -> retval
+```
+
+### std::timed\_mutex::unlock
+
+```cpp
+void std::timed_mutex::unlock();
+AutoIt:
+    $otimed_mutex.unlock() -> None
 ```
 
 ## cv::Range

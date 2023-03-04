@@ -135,7 +135,7 @@ ssd_tf:
   width: 300
   height: 300
   rgb: true
-  classes: "object_detection_classes_coco.txt"
+  classes: "ssd_object_detection_classes_coco.txt"
   sample: "object_detection"
 
 # TensorFlow implementation of Faster-RCNN model from https://github.com/tensorflow/models/tree/master/research/object_detection

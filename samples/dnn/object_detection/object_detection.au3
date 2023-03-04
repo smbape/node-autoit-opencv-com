@@ -1,7 +1,7 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_UseX64=y
 #AutoIt3Wrapper_Change2CUI=y
-#AutoIt3Wrapper_Au3Check_Parameters=-d -w 1 -w 2 -w 3 -w 4 -w 5 -w 6
+#AutoIt3Wrapper_Au3Check_Parameters=-d -w 1 ; -w 2 -w 3 -w 4 -w 5 -w 6
 #AutoIt3Wrapper_AU3Check_Stop_OnWarning=y
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
 
@@ -42,7 +42,7 @@ $cv.samples.addSamplesDataSearchPath(_OpenCV_FindFile("samples\data", Default, D
 		"opencv-4.7.0-*\sources", _
 		"opencv-4.7.0-*\opencv\sources" _
 		)))
-$cv.samples.addSamplesDataSearchPath(_OpenCV_FindFile("yolo"))
+$cv.samples.addSamplesDataSearchPath(_OpenCV_FindFile("tutorial_code\yolo"))
 
 Global $sModelList = "none"
 For $model In $models.Keys()
@@ -105,7 +105,7 @@ Global $InputModelHeight = GUICtrlCreateInput("640", 730, 6, 25, 21)
 GUICtrlSetTip(-1, "Height of network's input image")
 
 Global $CheckboxUseGDI = GUICtrlCreateCheckbox("Use GDI+", 607, 42, 97, 17)
-GUICtrlSetState(-1, $GUI_CHECKED)
+; GUICtrlSetState(-1, $GUI_CHECKED)
 
 Global $CheckboxUseCPP = GUICtrlCreateCheckbox("Use C++", 607, 78, 97, 17)
 If $addon_dll == "" Then
@@ -230,7 +230,6 @@ Global $cap = Null
 Global $net = Null
 Global $outNames[] = []
 Global $running = True
-Global $inputFPS = 60
 Global $frameCounter = 0
 Global $classes, $colors
 
@@ -341,7 +340,7 @@ Func postprocess($frame, $inpWidth, $inpHeight, $imgScale, $outs)
 				$scores, _
 				$bboxes _
 				)
-		_ConsoleTime('@@ Debug(' & @ScriptLineNumber & ') : AutoIt object_detection_postprocess')
+		_ConsoleTime('AutoIt object_detection_postprocess')
 	Else
 		;;: [doing the loop in a compiled code is 150 times faster than doing it in autoit]
 		_ConsoleTime()
@@ -359,7 +358,7 @@ Func postprocess($frame, $inpWidth, $inpHeight, $imgScale, $outs)
 				"ptr", $scores.self, _
 				"ptr", $bboxes.self _
 				)
-		_ConsoleTime('@@ Debug(' & @ScriptLineNumber & ') : c++ object_detection_postprocess   ')
+		_ConsoleTime('c++ object_detection_postprocess   ')
 		;;: [doing the loop in a compiled code is way faster than doing it in autoit]
 	EndIf
 
@@ -369,6 +368,7 @@ Func postprocess($frame, $inpWidth, $inpHeight, $imgScale, $outs)
 		drawPred($frame, $class_ids.at($idx), $scores.at($idx), $bboxes.at($idx))
 	Next
 
+	; $cv.imshow("processed", $frame)
 	_OpenCV_imshow_ControlPic($frame, $FormGUI, $PicResult)
 EndFunc   ;==>postprocess
 
@@ -503,8 +503,13 @@ Func object_detection_postprocess($inpWidth, $inpHeight, $imgScale, $num_classes
 			EndIf
 
 			If $out.dims == 2 Then
-				;; yolo v3
-				$offset = 5
+				If $out.cols == $num_classes + 5 Then
+					;; yolo v3
+					$offset = 5
+				Else
+					ConsoleWriteError($UNSUPPORTED_YOLO_VERSION & @CRLF)
+					Return
+				EndIf
 
 				; relative coordinates
 				$scale_x = $inpWidth * $imgScale
@@ -709,12 +714,6 @@ Func UpdateCapture()
 		$cap = Null
 	EndIf
 
-	$inputFPS = $cap.get($CV_CAP_PROP_FPS)
-	If $inputFPS == 0 Then
-		$inputFPS = 30
-		$cap.set($CV_CAP_PROP_FPS, $inputFPS)
-	EndIf
-
 	$frameCounter = 0
 EndFunc   ;==>UpdateCapture
 
@@ -738,7 +737,7 @@ Func UpdateNet()
 	; Load a network
 	_ConsoleTime()
 	$net = $cv.dnn.readNet($sModelClassification, $sModelConfiguration, $sFramework == "auto" ? "" : $sFramework)
-	_ConsoleTime('@@ Debug(' & @ScriptLineNumber & ') : $cv.dnn.readNet                    ')
+	_ConsoleTime('$cv.dnn.readNet                    ')
 
 	$net.setPreferableBackend($backends[_GUICtrlComboBox_GetCurSel($ComboBackend)])
 	$net.setPreferableTarget($targets[_GUICtrlComboBox_GetCurSel($ComboTarget)])
@@ -747,6 +746,7 @@ EndFunc   ;==>UpdateNet
 
 Func UpdateFrame()
 	Local Static $tickInit = 0
+	Local Static $inputFPS
 	Local Static $futureOutputs = _OpenCV_ObjCreate("VectorOfVariant")
 
 	If $cap == Null Then
@@ -767,8 +767,16 @@ Func UpdateFrame()
 	If $useCamera Then $cv.flip($frame, 1, $frame)
 
 	Local $elapsed = 0
+
 	If $frameCounter == 0 Then
 		$futureOutputs.clear()
+
+		$inputFPS = $cap.get($CV_CAP_PROP_FPS)
+		If $inputFPS == 0 Then
+			$inputFPS = 30
+			$cap.set($CV_CAP_PROP_FPS, $inputFPS)
+		EndIf
+
 		$tickInit = $cv.getTickCount()
 	Else
 		$elapsed = ($cv.getTickCount() - $tickInit) / $cv.getTickFrequency()
@@ -776,18 +784,18 @@ Func UpdateFrame()
 		Local $expected = $inputFPS * $elapsed
 		If $expected < $frameCounter Then
 			Sleep(1000 * ($frameCounter - $expected) / $inputFPS)
-			$elapsed = ($cv.getTickCount() - $tickInit) / $cv.getTickFrequency()
 		EndIf
 	EndIf
 
 	Local $img_displayed = $frame.clone()
+	Local Const $aPicPos = ControlGetPos($FormGUI, "", $PicSource)
+	Local $scale = $img_displayed.width > $img_displayed.height ? $img_displayed.width / $aPicPos[2] : $img_displayed.height / $aPicPos[3]
+	If $scale < 1 Then $scale = 1
 
 	If $frameCounter <> 0 Then
+		$elapsed = ($cv.getTickCount() - $tickInit) / $cv.getTickFrequency()
 		Local Const $decimals = 2
 		Local Const $fps = Round($frameCounter / $elapsed, $decimals)
-		Local Const $aPicPos = ControlGetPos($FormGUI, "", $PicSource)
-		Local $scale = $img_displayed.width > $img_displayed.height ? $img_displayed.width / $aPicPos[2] : $img_displayed.height / $aPicPos[3]
-		If $scale < 1 Then $scale = 1
 
 		Local $text = StringFormat("FPS : %." & $decimals & "f / %." & $decimals & "f", $fps, $inputFPS)
 		Local $org = _OpenCV_Point(10 * $scale, 30 * $scale)
@@ -797,6 +805,12 @@ Func UpdateFrame()
 		$cv.putText($img_displayed, $text, $org, $CV_FONT_HERSHEY_PLAIN, $fontScale, $color, $thickness)
 	EndIf
 
+	; $img_displayed = _OpenCV_resizeAndCenter($img_displayed, _OpenCV_Params( _
+	; 		"width", $aPicPos[2], _
+	; 		"height", $aPicPos[3], _
+	; 		"center", False _
+	; 		))
+	; $cv.imshow("image", $img_displayed)
 	_OpenCV_imshow_ControlPic($img_displayed, $FormGUI, $PicSource)
 
 	ProcessFrame($futureOutputs, $frame)
@@ -820,6 +834,7 @@ Func ProcessFrame($futureOutputs, $frame)
 	Local $image = _OpenCV_resizeAndCenter($frame, _OpenCV_Params( _
 			"width", $inpWidth, _
 			"height", $inpHeight, _
+			"enlarge", True, _
 			"center", False _
 			))
 
@@ -867,7 +882,7 @@ Func ProcessFrame($futureOutputs, $frame)
 	Else
 		_ConsoleTime()
 		$outs = $net.forward($outNames)
-		_ConsoleTime('@@ Debug(' & @ScriptLineNumber & ') : forward                            ')
+		_ConsoleTime('forward                            ')
 		postprocess($frame, $inpWidth, $inpHeight, $imgScale, $outs)
 	EndIf
 
@@ -1090,16 +1105,17 @@ Func _IsChecked($idControlID)
 	Return BitAND(GUICtrlRead($idControlID), $GUI_CHECKED) = $GUI_CHECKED
 EndFunc   ;==>_IsChecked
 
-Func _ConsoleTime($sMessage = Default)
+Func _ConsoleTime($sMessage = Default, $iLine = @ScriptLineNumber)
 	Local Static $hTimer
 	If $sMessage == Default Then
 		$hTimer = TimerInit()
-	ElseIf $frameCounter <= 1 Then
-		ConsoleWrite($sMessage & ' ' & TimerDiff($hTimer) & ' ms' & @CRLF)
+	ElseIf $frameCounter == 0 Then
+		ConsoleWrite('@@ Debug(' & $iLine & ') : ' & $sMessage & ' ' & TimerDiff($hTimer) & ' ms' & @CRLF)
 	EndIf
-EndFunc
+EndFunc   ;==>_ConsoleTime
 
 Func _OnAutoItExit()
 	_GDIPlus_Shutdown()
 	_OpenCV_Close()
 EndFunc   ;==>_OnAutoItExit
+

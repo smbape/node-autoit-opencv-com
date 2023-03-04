@@ -86,7 +86,7 @@ public static class Test
         var register = false;
         var unregister = false;
         string buildType = null;
-        string video = OpenCvComInterop.FindFile("samples\\data\\vtest.avi");
+        string video = OpenCvComInterop.FindFile("samples\\data\\vtest.avi", new string[] { "opencv-4.7.0-*\\opencv\\sources" });
 
         for (int i = 0; i < args.Length; i += 1)
         {

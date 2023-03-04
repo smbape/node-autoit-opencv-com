@@ -10,7 +10,6 @@
 /opencv/opencv
 /opencv/opencv_contrib
 /opencv-*
-/samples/tutorial_code/yolo/yolov3.weights
 /samples/dotnet/*.exe
 /*.sublime-workspace
 BackUp
@@ -19,4 +18,6 @@ generated
 Windows.UI.Composition-Win32-Samples-*
 /autoit-addon/cmake
 /autoit-addon/patches
-/samples/tutorial_code/object_detection/models
+/samples/dnn/object_detection/models
+*.onnx
+*.weights

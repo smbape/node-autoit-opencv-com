@@ -111,8 +111,15 @@ void yolo_postprocess(
 		}
 
 		if (out.dims == 2) {
-			// yolo v3
-			offset = 5;
+			if (out.cols == num_classes + 5) {
+				// yolo v3
+				offset = 5;
+			}
+			else {
+				CV_Error(cv::Error::StsAssert, UNSUPPORTED_YOLO_VERSION);
+			}
+
+			// relative coordinates
 			scale_x = (float)img_width * scale;
 			scale_y = (float)img_height * scale;
 		}

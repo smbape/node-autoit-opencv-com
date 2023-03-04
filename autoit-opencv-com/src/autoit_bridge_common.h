@@ -7,11 +7,14 @@
 #include <atlctl.h>
 #include <atlsafe.h>
 #include <comutil.h>
+#include <chrono>
 #include <iostream>
 #include <map>
 #include <memory>
+#include <mutex>
 #include <numeric>
 #include <OleAuto.h>
+#include <queue>
 #include <sstream>
 #include <string>
 #include <tuple>
@@ -840,6 +843,31 @@ namespace autoit {
 		const std::string& filter = "",
 		const std::vector<std::string>& hints = std::vector<std::string>(1, ".")
 	);
+}
+
+namespace com {
+	class CV_EXPORTS_W Thread {
+	public:
+		using Function = void (*)();
+
+		CV_WRAP Thread(void* func) : m_func(reinterpret_cast<Function>(func)) {}
+		CV_WRAP void start();
+		CV_WRAP void join();
+	private:
+		Function m_func = nullptr;
+		std::unique_ptr<std::thread> m_thread;
+	};
+
+	class CV_EXPORTS_W ThreadSafeQueue : public std::queue<VARIANT*>
+	{
+	public:
+		CV_WRAP ThreadSafeQueue() {}
+		CV_WRAP void push(VARIANT* entry);
+		CV_WRAP VARIANT* get();
+		CV_WRAP void clear();
+	private:
+		std::mutex m_mutex;
+	};
 }
 
 #pragma pop_macro("CV_EXPORTS_W_SIMPLE")

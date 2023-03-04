@@ -57,7 +57,6 @@ function DownloadYOLOv8() {
 }
 
 $DNN_ROOT_PATH = _OpenCV_FindFile -Path "samples/dnn" -SearchPaths @(
-    "."
     "opencv\sources"
     "opencv-4.7.0-*\opencv\sources"
 )

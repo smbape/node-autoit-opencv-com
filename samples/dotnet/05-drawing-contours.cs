@@ -48,7 +48,7 @@ public static class Test
         var register = false;
         var unregister = false;
         string buildType = null;
-        string image = OpenCvComInterop.FindFile("samples\\data\\pic1.png");
+        string image = OpenCvComInterop.FindFile("samples\\data\\pic1.png", new string[] { "opencv-4.7.0-*\\opencv\\sources" });
 
         for (int i = 0; i < args.Length; i += 1)
         {

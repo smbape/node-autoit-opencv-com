@@ -22,7 +22,7 @@ $BuildType = if ($BuildType -eq "Debug") { "Debug" } else { "Release" }
 
 $OpenCVWorldDll = if ([string]::IsNullOrEmpty($OpenCVWorldDll)) { _OpenCV_FindDLL -Path "opencv_world470*" -BuildType $BuildType } else { $OpenCVWorldDll }
 $OpenCVComDll = if ([string]::IsNullOrEmpty($OpenCVComDll)) { _OpenCV_FindDLL -Path "autoit_opencv_com470*" -BuildType $BuildType } else { $OpenCVComDll }
-$Image = if ([string]::IsNullOrEmpty($Image)) { _OpenCV_FindFile -Path "samples\data\lena.jpg" } else { $Image }
+$Image = if ([string]::IsNullOrEmpty($Image)) { _OpenCV_FindFile -Path "samples\data\lena.jpg" -SearchPaths @("opencv-4.7.0-*\opencv\sources") } else { $Image }
 
 function Example() {
     $cv = [OpenCvComInterop]::ObjCreate("cv")
