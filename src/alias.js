@@ -1,6 +1,7 @@
 const {ALIASES} = require("./constants");
 
 exports.getAlias = str => {
+    str = str.trim();
     return ALIASES.has(str) ? ALIASES.get(str) : str;
 };
 

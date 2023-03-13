@@ -424,7 +424,7 @@ module.exports = ({ shared_ptr }) => {
 
         ["cv.Mat.PixelSearch", "_variant_t", ["/External"], [
             ["Scalar", "color", "", []],
-            ["Rect", "rect", "Rect(0, 0, __self->get()->cols, __self->get()->rows)", []],
+            ["Rect", "rect", "cv::Rect(0, 0, __self->get()->cols, __self->get()->rows)", []],
             ["uchar", "shade_variation", "0", []],
             ["int", "step", "1", []],
         ], "", ""],
@@ -439,7 +439,7 @@ module.exports = ({ shared_ptr }) => {
         ], "", ""],
 
         ["cv.Mat.PixelChecksum", "size_t", ["/External"], [
-            ["Rect", "rect", "Rect(0, 0, __self->get()->cols, __self->get()->rows)", []],
+            ["Rect", "rect", "cv::Rect(0, 0, __self->get()->cols, __self->get()->rows)", []],
             ["int", "step", "1", []],
             ["int", "mode", "0", []],
         ], "", ""],

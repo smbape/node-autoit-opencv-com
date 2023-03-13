@@ -31,7 +31,10 @@ Object.assign(exports, {
     restoreOriginalType: (type, options = {}) => {
         const shared_ptr = removeNamespaces(options.shared_ptr, options);
 
+        const templates = new RegExp(`\\b(?:${ ["std::map", "std::pair", "std::tuple", "std::vector", "cv::GArray", "cv::GOpaque", options.shared_ptr].join("|") })<`, "g");
+
         type = type
+            .replace(templates, match => match.slice(match.indexOf("::") + "::".length))
             .replace(/_and_/g, ", ")
             .replace(/_end_/g, ">");
 

@@ -1,16 +1,46 @@
 diff --git a/modules/python/src2/hdr_parser.py b/modules/python/src2/hdr_parser.py
-index ebe13f05c7..e7a60ed58d 100755
+index ebe13f05c7..e38cf218ec 100755
 --- a/modules/python/src2/hdr_parser.py
 +++ b/modules/python/src2/hdr_parser.py
-@@ -412,11 +412,25 @@ class CppHeaderParser(object):
+@@ -70,6 +70,29 @@ class CppHeaderParser(object):
+ 
+         return arg_str[npos2+1:npos3].strip(), npos3
+ 
++    def get_var_list(self, stmt):
++        balance = 0
++        npos = -1
++        while 1:
++            t, npos = self.find_next_token(stmt, ['<', '>', ',', ' '], npos + 1)
++            if npos < 0:
++                print("Error: no matching '>' in the var_list call at %s:%d" % (self.hname, self.lineno))
++                sys.exit(-1)
++            if t == '<':
++                balance += 1
++            elif t == '>':
++                balance -= 1
++            elif balance == 0:
++                break
++
++        var_list = [stmt[:npos]]
++        if t == ',':
++            return [stmt[:npos]] + stmt[npos + 1:].split(",")
++
++        var_list = stmt[npos:].split(",")
++        var_list[0] = stmt[:npos] + var_list[0]
++        return var_list
++
+     def parse_arg(self, arg_str, argno):
+         """
+         Parses <arg_type> [arg_name]
+@@ -412,11 +435,25 @@ class CppHeaderParser(object):
          npos = decl_str.find("CV_EXPORTS_AS")
          if npos >= 0:
              arg, npos3 = self.get_macro_arg(decl_str, npos)
-+            if arg.startswith("get ") or arg.startswith("put "):
++            if arg.startswith("get ") or arg.startswith("put ") or arg.startswith("get_default ") or arg.startswith("put_default "):
 +                accessor = arg[:3]
-+                arg = arg[4:]
++                arg = arg[4:] if arg.startswith("get ") or arg.startswith("put ") else arg[12:]
 +                func_modlist.append("/attr=prop" + accessor)
-+                func_modlist.append("/id=DISPID_VALUE")
++                if arg.startswith("get_default ") or arg.startswith("put_default ") : func_modlist.append("/id=DISPID_VALUE")
 +                func_modlist.append("/idlname=" + arg)
 +                arg = accessor + "_" + arg
              func_modlist.append("="+arg)
@@ -18,13 +48,22 @@ index ebe13f05c7..e7a60ed58d 100755
          npos = decl_str.find("CV_WRAP_AS")
          if npos >= 0:
              arg, npos3 = self.get_macro_arg(decl_str, npos)
-+            if arg.startswith("get ") or arg.startswith("put "):
++            if arg.startswith("get ") or arg.startswith("put ") or arg.startswith("get_default ") or arg.startswith("put_default "):
 +                accessor = arg[:3]
-+                arg = arg[4:]
++                arg = arg[4:] if arg.startswith("get ") or arg.startswith("put ") else arg[12:]
 +                func_modlist.append("/attr=prop" + accessor)
-+                func_modlist.append("/id=DISPID_VALUE")
++                if arg.startswith("get_default ") or arg.startswith("put_default ") : func_modlist.append("/id=DISPID_VALUE")
 +                func_modlist.append("/idlname=" + arg)
 +                arg = accessor + "_" + arg
              func_modlist.append("="+arg)
              decl_str = decl_str[:npos] + decl_str[npos3+1:]
          npos = decl_str.find("CV_WRAP_PHANTOM")
+@@ -771,7 +808,7 @@ class CppHeaderParser(object):
+                 if "CV_PROP_RW" in stmt:
+                     var_modlist.append("/RW")
+                 stmt = self.batch_replace(stmt, [("CV_PROP_RW", ""), ("CV_PROP", "")]).strip()
+-                var_list = stmt.split(",")
++                var_list = self.get_var_list(stmt)
+                 var_type, var_name1, modlist, argno = self.parse_arg(var_list[0], -1)
+                 var_list = [var_name1] + [i.strip() for i in var_list[1:]]
+ 

@@ -40,6 +40,10 @@ const escapeHTML = str => {
         .replaceAll("'", "&#039;");
 };
 
+const countInstances = (str, searchString) => {
+   return str.split(searchString).length - 1;
+};
+
 class AutoItGenerator {
     constructor() {
         this.classes = new Map();
@@ -1202,6 +1206,10 @@ class AutoItGenerator {
     }
 
     getIDLType(type, coclass, options = {}) {
+        if (type.includes("(") || type.includes(")") || countInstances(type, "<") !== countInstances(type, ">")) {
+            return type;
+        }
+
         type = getAlias(type);
 
         if (!IDL_TYPES.has(type) && CPP_TYPES.has(type)) {
@@ -1210,7 +1218,7 @@ class AutoItGenerator {
 
         const type_ = type;
         const shared_ptr = removeNamespaces(options.shared_ptr, options);
-        type = PropertyDeclaration.restoreOriginalType(removeNamespaces(type, options), options);
+        type = PropertyDeclaration.restoreOriginalType(type, options);
 
         if (type === "IUnknown*" || type === "IEnumVARIANT*" || type === "IDispatch*" || type === "VARIANT*" || type === "VARIANT") {
             return type;
@@ -1309,6 +1317,10 @@ class AutoItGenerator {
     }
 
     getCppType(type, coclass, options = {}) {
+        if (type.includes("(") || type.includes(")") || countInstances(type, "<") !== countInstances(type, ">")) {
+            return type;
+        }
+
         type = getAlias(type);
 
         if (CPP_TYPES.has(type)) {
@@ -1319,7 +1331,7 @@ class AutoItGenerator {
         const shared_ptr_ = removeNamespaces(shared_ptr, options);
 
         const type_ = type;
-        type = PropertyDeclaration.restoreOriginalType(removeNamespaces(type, options), options);
+        type = PropertyDeclaration.restoreOriginalType(type, options);
 
         if (
             type === "IUnknown*" ||

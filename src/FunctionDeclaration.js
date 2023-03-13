@@ -176,7 +176,7 @@ Object.assign(exports, {
 
                 if (defval === "" && SIMPLE_ARGTYPE_DEFAULTS.has(argtype)) {
                     defval = SIMPLE_ARGTYPE_DEFAULTS.get(argtype);
-                } else if (defval === `${ argtype }()`) {
+                } else if (defval.endsWith("()") && generator.getIDLType(defval.slice(0, -"()".length), coclass, options) === generator.getIDLType(argtype, coclass, options)) {
                     defval = "";
                 } else if (is_ptr && is_out) {
                     parg = "&";

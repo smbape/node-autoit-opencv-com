@@ -135,8 +135,8 @@ const writeFiles = (files, options, cb) => {
                             return;
                         }
 
-                        debugger;
                         console.log("write file", options.output, sysPath.relative(options.output, filename));
+
                         fs.writeFile(filename, content, err => {
                             next(err, true);
                         });
