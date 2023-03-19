@@ -29,12 +29,29 @@ EndFunc   ;==>_OpenCV_ObjCreate
 
 Func _OpenCV_get($vVal = Default)
 	Local Static $cv = 0
+	Local $prevVal
 	If $vVal <> Default Then
+		$prevVal = $cv
 		$cv = $vVal
-		Return $cv
+		Return $prevVal
 	EndIf
 	If IsObj($cv) Then Return $cv
 	$cv = _OpenCV_ObjCreate("cv")
+
+	Local $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
+	If FileExists($OPENCV_SAMPLES_DATA_PATH) Then
+		$cv.samples.addSamplesDataSearchPath($OPENCV_SAMPLES_DATA_PATH)
+	EndIf
+
+	$OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data", Default, Default, Default, _OpenCV_Tuple( _
+			"opencv\sources", _
+			"opencv-4.7.0-*\sources", _
+			"opencv-4.7.0-*\opencv\sources" _
+			))
+	If FileExists($OPENCV_SAMPLES_DATA_PATH) Then
+		$cv.samples.addSamplesDataSearchPath($OPENCV_SAMPLES_DATA_PATH)
+	EndIf
+
 	Return $cv
 EndFunc   ;==>_OpenCV_get
 
@@ -107,7 +124,12 @@ Func _OpenCV_Open($s_opencv_world_dll = Default, $s_autoit_opencv_com_dll = Defa
 EndFunc   ;==>_OpenCV_Open
 
 Func _OpenCV_Close()
-	_OpenCV_get(0)
+	Local Const $cv = _OpenCV_get(0)
+
+	; https://stackoverflow.com/questions/63110817/how-to-ensure-that-gpu-memory-is-actually-deallocated-after-an-opencv-t-api-func
+	; It seems that an allocation flushes the cleanup queue!
+	$cv.UMat.zeros(1, 1, $CV_8UC1)
+
 	Return _OpenCV_Install(Default, Default, Default, False)
 EndFunc   ;==>_OpenCV_Close
 

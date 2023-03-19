@@ -41,12 +41,6 @@ Global $cv = _OpenCV_get()
 Global $addon_dll = _Addon_FindDLL()
 
 Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
-$cv.samples.addSamplesDataSearchPath($OPENCV_SAMPLES_DATA_PATH)
-$cv.samples.addSamplesDataSearchPath(_OpenCV_FindFile("samples\data", Default, Default, Default, _OpenCV_Tuple( _
-		"opencv\sources", _
-		"opencv-4.7.0-*\sources", _
-		"opencv-4.7.0-*\opencv\sources" _
-		)))
 
 #Region ### START Koda GUI section ### Form=
 Global $FormGUI = GUICreate("OpenCV object detection", 1273, 796, 191, 18)

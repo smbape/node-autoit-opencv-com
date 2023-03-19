@@ -67,7 +67,7 @@ Func Example()
   Local $cv = _OpenCV_get()
   If Not IsObj($cv) Then Return
 
-  Local $img = _OpenCV_imread_and_check(_OpenCV_FindFile("samples\data\lena.jpg"))
+  Local $img = _OpenCV_imread_and_check($cv.samples.findFile("lena.jpg"))
   $cv.imshow("Image", $img)
   $cv.waitKey()
   $cv.destroyAllWindows()
@@ -103,7 +103,7 @@ Func Example()
   GUISetState(@SW_SHOW)
   #EndRegion ### END Koda GUI section ###
 
-  Local $img = _OpenCV_imread_and_check(_OpenCV_FindFile("samples\data\lena.jpg"))
+  Local $img = _OpenCV_imread_and_check($cv.samples.findFile("lena.jpg"))
 
   _OpenCV_imshow_ControlPic($img, $FormGUI, $Pic)
 

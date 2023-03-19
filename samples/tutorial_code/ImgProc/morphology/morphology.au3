@@ -21,17 +21,11 @@ OnAutoItExitRegister("_OnAutoItExit")
 Global $cv = _OpenCV_get()
 
 Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
-$cv.samples.addSamplesDataSearchPath($OPENCV_SAMPLES_DATA_PATH)
-$cv.samples.addSamplesDataSearchPath(_OpenCV_FindFile("samples\data", Default, Default, Default, _OpenCV_Tuple( _
-        "opencv\sources", _
-        "opencv-4.7.0-*\sources", _
-        "opencv-4.7.0-*\opencv\sources" _
-        )))
 
 #Region ### START Koda GUI section ### Form=
 Global $FormGUI = GUICreate("Morphological Transformations", 1300, 617, 192, 124)
 
-Global $InputSource = GUICtrlCreateInput(_PathFull($cv.samples.findFile("j.png")), 264, 24, 449, 21)
+Global $InputSource = GUICtrlCreateInput($cv.samples.findFile("j.png"), 264, 24, 449, 21)
 GUICtrlSetState(-1, $GUI_DISABLE)
 Global $BtnSource = GUICtrlCreateButton("Open", 723, 22, 75, 25)
 

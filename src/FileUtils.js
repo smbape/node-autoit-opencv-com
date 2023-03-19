@@ -227,7 +227,7 @@ const deleteFiles = (directory, files, options, cb) => {
             eachOfLimit(names, cpus, (filename, i, next) => {
                 filename = sysPath.join(directory, filename);
 
-                if (files.has(filename) || !(filename.endsWith(".h") || filename.endsWith(".c") || filename.endsWith(".cpp"))) {
+                if (files.has(filename) || ![".c", ".cc", ".cpp", ".h", ".idl", ".tlb"].some(ext => filename.endsWith(ext))) {
                     next();
                     return;
                 }

@@ -15,7 +15,7 @@ Func Example()
 	Local $cv = _OpenCV_get()
 	If Not IsObj($cv) Then Return
 
-	Local $img = _OpenCV_imread_and_check("samples\data\pic1.png")
+	Local $img = _OpenCV_imread_and_check($cv.samples.findFile("pic1.png"))
 	Local $img_grey = $cv.cvtColor($img, $CV_COLOR_BGR2GRAY)
 	$cv.threshold($img_grey, 100, 255, $CV_THRESH_BINARY)
 	Local $thresh = $cv.extended[1]

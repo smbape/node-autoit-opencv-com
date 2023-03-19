@@ -22,12 +22,6 @@ OnAutoItExitRegister("_OnAutoItExit")
 Global $cv = _OpenCV_get()
 
 Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
-$cv.samples.addSamplesDataSearchPath($OPENCV_SAMPLES_DATA_PATH)
-$cv.samples.addSamplesDataSearchPath(_OpenCV_FindFile("samples\data", Default, Default, Default, _OpenCV_Tuple( _
-		"opencv\sources", _
-		"opencv-4.7.0-*\sources", _
-		"opencv-4.7.0-*\opencv\sources" _
-		)))
 
 #Region ### START Koda GUI section ### Form=
 Global $FormGUI = GUICreate("Background/foreground segmantation", 1262, 672, 185, 122)
@@ -35,7 +29,7 @@ Global $FormGUI = GUICreate("Background/foreground segmantation", 1262, 672, 185
 Global $LabelFPS = GUICtrlCreateLabel("FPS : ", 16, 16, 105, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
 
-Global $InputFile = GUICtrlCreateInput(_PathFull($cv.samples.findFile("vtest.avi")), 366, 16, 449, 21)
+Global $InputFile = GUICtrlCreateInput($cv.samples.findFile("vtest.avi"), 366, 16, 449, 21)
 GUICtrlSetState(-1, $GUI_DISABLE)
 Global $BtnFile = GUICtrlCreateButton("Video File", 825, 14, 75, 25)
 

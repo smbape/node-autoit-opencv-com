@@ -21,6 +21,13 @@ const DISID_CONSTANTS = new Map([
     ["DISPID_VALUE", 0],
 ]);
 
+// avoid long names on windows
+// the files are no longer readable if the full path
+// exceeds 255 characters
+const getShortestName = (a, b, { maxFilenameLength }) => {
+    return maxFilenameLength > 0 && a.length > maxFilenameLength ? b : a;
+};
+
 // Visual studio gave me 106 as the first resource id
 // I just reused it since I don't know the impact of changing
 // those resource ids
@@ -224,6 +231,14 @@ class CoClass {
 
     getObjectName() {
         return this.objectName;
+    }
+
+    getIDLFileName(options) {
+        return `i${ getShortestName(this.objectName, this.clsid, options) }.idl`;
+    }
+
+    getCPPFileName(options) {
+        return `${ getShortestName(this.className, this.clsid, options) }.cpp`;
     }
 }
 

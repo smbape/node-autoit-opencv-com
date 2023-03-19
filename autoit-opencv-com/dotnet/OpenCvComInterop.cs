@@ -138,8 +138,8 @@ public static class OpenCvComInterop
     public static void DllClose()
     {
         FreeLibrary(hOpenCvCom);
-        FreeLibrary(hOpenCvWorld);
         FreeLibrary(hOpenCvFfmpeg);
+        FreeLibrary(hOpenCvWorld);
     }
 
     public static bool DllActivateManifest(string manifest = null)

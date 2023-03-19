@@ -31,12 +31,6 @@ OnAutoItExitRegister("_OnAutoItExit")
 Global $cv = _OpenCV_get()
 
 Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
-$cv.samples.addSamplesDataSearchPath($OPENCV_SAMPLES_DATA_PATH)
-$cv.samples.addSamplesDataSearchPath(_OpenCV_FindFile("samples\data", Default, Default, Default, _OpenCV_Tuple( _
-        "opencv\sources", _
-        "opencv-4.7.0-*\sources", _
-        "opencv-4.7.0-*\opencv\sources" _
-        )))
 
 Global $gray, $Gaus, $sObject = "", $img, $CurrentArea
 Global $ErosionNumber = 0, $DilationNumber = 0, $OpeningNumber = 0, $ClosingNumber = 0, $GradientNumber = 0
@@ -44,7 +38,7 @@ Global $ErosionNumber = 0, $DilationNumber = 0, $OpeningNumber = 0, $ClosingNumb
 #Region GUI
 Global $FormGUI = GUICreate("Draw contour", 1060, 600, 200, 90)
 
-Global $InputSource = GUICtrlCreateInput(_PathFull($cv.samples.findFile("pic1.png")), 120, 16, 450, 21)
+Global $InputSource = GUICtrlCreateInput($cv.samples.findFile("pic1.png"), 120, 16, 450, 21)
 Global $BtnSource = GUICtrlCreateButton("Source", 580, 14, 75, 25)
 Global $BtnExec = GUICtrlCreateButton("Execute", 750, 14, 75, 25)
 Global $LabelThreshold = GUICtrlCreateLabel("Threshold: 180", 120, 70, 110, 20)

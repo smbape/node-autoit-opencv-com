@@ -22,23 +22,15 @@ OnAutoItExitRegister("_OnAutoItExit")
 
 Global $cv = _OpenCV_get()
 
-Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
-$cv.samples.addSamplesDataSearchPath($OPENCV_SAMPLES_DATA_PATH)
-$cv.samples.addSamplesDataSearchPath(_OpenCV_FindFile("samples\data", Default, Default, Default, _OpenCV_Tuple( _
-        "opencv\sources", _
-        "opencv-4.7.0-*\sources", _
-        "opencv-4.7.0-*\opencv\sources" _
-        )))
+Global Const $max_value_H = 360 / 2
+Global Const $max_value = 255
 
-Global Const $max_value_H = 360 / 2 ;
-Global Const $max_value = 255 ;
-
-Global $low_H = 50 ;
-Global $low_S = 0 ;
-Global $low_V = 60 ;
-Global $high_H = 140 ;
-Global $high_S = $max_value ;
-Global $high_V = 150 ;
+Global $low_H = 50
+Global $low_S = 0
+Global $low_V = 60
+Global $high_H = 140
+Global $high_S = $max_value
+Global $high_V = 150
 
 #Region ### START Koda GUI section ### Form=
 Global $FormGUI = GUICreate("Thresholding Operations using inRange", 1066, 745, 192, 73)
@@ -111,6 +103,7 @@ Global $tPtr = DllStructCreate("ptr value")
 Global $sCameraList = ""
 
 Global $cap = Null
+Global $frame
 
 Global $iNewLowH, $iOldLowH, $iNewHighH, $iOldHighH
 Global $iNewLowS, $iOldLowS, $iNewSighS, $iOldHighS
@@ -247,12 +240,12 @@ Func Main()
 		$cap = Null
 		Return
 	EndIf
+
+	$frame = $cv.UMat.create()
 EndFunc   ;==>Main
 
 Func UpdateFrame()
 	If $cap == Null Then Return
-
-	Local $frame = _OpenCV_ObjCreate("cv.Mat")
 
 	If Not $cap.read($frame) Then
 		ConsoleWriteError("!>Error: cannot read the camera." & @CRLF)

@@ -324,6 +324,7 @@ PTR_BRIDGE_IMPL(unsigned char*)
 PTR_BRIDGE_IMPL(HWND)
 
 const HRESULT autoit_from(VARIANT const& in_val, VARIANT*& out_val) {
+	VariantClear(out_val);
 	VariantInit(out_val);
 	return VariantCopy(out_val, &in_val);
 }
@@ -336,6 +337,7 @@ const HRESULT autoit_out(IDispatch*& in_val, VARIANT*& out_val) {
 }
 
 const HRESULT autoit_out(VARIANT const* const& in_val, VARIANT*& out_val) {
+	VariantClear(out_val);
 	VariantInit(out_val);
 	return VariantCopy(out_val, in_val);
 }

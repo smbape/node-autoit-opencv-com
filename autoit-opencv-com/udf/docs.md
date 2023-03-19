@@ -25844,7 +25844,7 @@ AutoIt:
 ```
 
 ```cpp
-size_t cv::Mat::PixelChecksum( cv::Rect rect = Rect(0, 0, __self->get()->cols, __self->get()->rows),
+size_t cv::Mat::PixelChecksum( cv::Rect rect = cv::Rect(0, 0, __self->get()->cols, __self->get()->rows),
                                int      step = 1,
                                int      mode = 0 );
 AutoIt:
@@ -25867,7 +25867,7 @@ AutoIt:
 
 ```cpp
 _variant_t cv::Mat::PixelSearch( cv::Scalar color,
-                                 cv::Rect   rect = Rect(0, 0, __self->get()->cols, __self->get()->rows),
+                                 cv::Rect   rect = cv::Rect(0, 0, __self->get()->cols, __self->get()->rows),
                                  uchar      shade_variation = 0,
                                  int        step = 1 );
 AutoIt:

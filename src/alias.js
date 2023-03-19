@@ -15,7 +15,8 @@ exports.removeNamespaces = (str, options = {}) => {
     return str.replace(reg, "");
 };
 
-const EXPANSION_REG = [...Array(11).keys()].map(i => new RegExp(`\\$(?:${ i }\\b|\\{${ i }\\})`, "g"));
+const MAX_ARGS = 10;
+const EXPANSION_REG = [...Array(MAX_ARGS).keys()].map(i => new RegExp(`\\$(?:${ i }\\b|\\{${ i }\\})`, "g"));
 
 exports.makeExpansion = (str, ...args) => {
     str = str.replace(EXPANSION_REG[0], args.join(", "));

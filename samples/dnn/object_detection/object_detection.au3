@@ -36,12 +36,6 @@ $cv.theRNG().state = $cv.getTickCount()
 
 Global $models = $cv.FileStorage(@ScriptDir & "\models.yml", $CV_FILE_STORAGE_READ).root().asVariant()
 Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
-$cv.samples.addSamplesDataSearchPath($OPENCV_SAMPLES_DATA_PATH)
-$cv.samples.addSamplesDataSearchPath(_OpenCV_FindFile("samples\data", Default, Default, Default, _OpenCV_Tuple( _
-		"opencv\sources", _
-		"opencv-4.7.0-*\sources", _
-		"opencv-4.7.0-*\opencv\sources" _
-		)))
 $cv.samples.addSamplesDataSearchPath(_OpenCV_FindFile("tutorial_code\yolo"))
 
 Global $sModelList = "none"
@@ -56,8 +50,8 @@ Global $FormGUI = GUICreate("Deep learning object detection in OpenCV", 1273, 84
 
 Global $LabelInput = GUICtrlCreateLabel("Input", 125, 8, 37, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Global $InputSource = GUICtrlCreateInput(_PathFull($cv.samples.findFile("vtest.avi")), 164, 8, 324, 21)
-; Global $InputSource = GUICtrlCreateInput(_PathFull($cv.samples.findFile("scooter-5180947_1920.jpg")), 164, 8, 324, 21)
+Global $InputSource = GUICtrlCreateInput($cv.samples.findFile("vtest.avi"), 164, 8, 324, 21)
+; Global $InputSource = GUICtrlCreateInput($cv.samples.findFile("scooter-5180947_1920.jpg"), 164, 8, 324, 21)
 ; Global $InputSource = GUICtrlCreateInput(_PathFull($cv.samples.findFile("group.jpg")), 164, 8, 324, 21)
 Global $BtnSource = GUICtrlCreateButton("Browse", 498, 6, 75, 25)
 

@@ -16,13 +16,13 @@ Func Example()
 	Local $cv = _OpenCV_get()
 	If Not IsObj($cv) Then Return
 
-	Local $cap = $cv.VideoCapture(_OpenCV_FindFile("samples\data\vtest.avi"))
+	Local $cap = $cv.VideoCapture($cv.samples.findFile("vtest.avi"))
 	If Not $cap.isOpened() Then
 		ConsoleWriteError("!>Error: cannot open the video file." & @CRLF)
 		Exit
 	EndIf
 
-	Local $frame = _OpenCV_ObjCreate("cv.Mat")
+	Local $frame = $cv.Mat.create()
 
 	While 1
 		If _IsPressed("1B") Or _IsPressed(Hex(Asc("Q"))) Then

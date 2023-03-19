@@ -390,7 +390,7 @@ class AutoItGenerator {
             coclass.iface = {
                 cotype,
                 hdr_id,
-                filename: `i${ coclass.getObjectName() }.idl`,
+                filename: coclass.getIDLFileName(options),
                 definition: options.idl !== false && !coclass.noidl ? definition : null,
             };
 
@@ -682,7 +682,7 @@ class AutoItGenerator {
             }
 
             if (!coclass.is_external && options.impl !== false) {
-                files.set(sysPath.join(options.output, `${ className }.cpp`), [
+                files.set(sysPath.join(options.output, coclass.getCPPFileName(options)), [
                     `#include "${ className }.h"`,
                     "",
                     iface.impl,
@@ -1230,6 +1230,12 @@ class AutoItGenerator {
             return "VARIANT";
         }
 
+        if (type.startsWith("optional<")) {
+            // Add dependency
+            this.getIDLType(type.slice("optional<".length, -">".length), coclass, options);
+            return "VARIANT";
+        }
+
         if (type.startsWith("vector<")) {
             // Add dependency
             this.getIDLType(type.slice("vector<".length, -">".length), coclass, options);
@@ -1348,6 +1354,10 @@ class AutoItGenerator {
             return `${ shared_ptr }<${ this.getCppType(type.slice(`${ shared_ptr_ }<`.length, -">".length), coclass, options) }>`;
         }
 
+        if (type.startsWith("optional<")) {
+            return `std::optional<${ this.getCppType(type.slice("optional<".length, -">".length), coclass, options) }>`;
+        }
+
         if (type.startsWith("vector<")) {
             return `std::vector<${ this.getCppType(type.slice("vector<".length, -">".length), coclass, options) }>`;
         }
@@ -1405,7 +1415,9 @@ class AutoItGenerator {
     setAssignOperator(type, coclass, options) {
         const cpptype = this.getCppType(type, coclass, options);
 
-        if (cpptype.startsWith("std::vector<")) {
+        if (cpptype.startsWith("std::optional<")) {
+            this.setAssignOperator(type.slice("std::optional<".length, -">".length), coclass, options);
+        } else if (cpptype.startsWith("std::vector<")) {
             this.setAssignOperator(type.slice("std::vector<".length, -">".length), coclass, options);
         } else if (type.startsWith("std::tuple<")) {
             const types = PropertyDeclaration.getTupleTypes(type.slice("std::tuple<".length, -">".length));

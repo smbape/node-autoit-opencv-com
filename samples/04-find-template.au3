@@ -15,8 +15,8 @@ Func Example()
 	Local $cv = _OpenCV_get()
 	If Not IsObj($cv) Then Return
 
-	Local $img = _OpenCV_imread_and_check(_OpenCV_FindFile("samples\data\mario.png"))
-	Local $tmpl = _OpenCV_imread_and_check(_OpenCV_FindFile("samples\data\mario_coin.png"))
+	Local $img = _OpenCV_imread_and_check($cv.samples.findFile("mario.png"))
+	Local $tmpl = _OpenCV_imread_and_check($cv.samples.findFile("mario_coin.png"))
 
 	; The higher the value, the higher the match is exact
 	Local $threshold = 0.8

@@ -38,9 +38,9 @@ index ebe13f05c7..e38cf218ec 100755
              arg, npos3 = self.get_macro_arg(decl_str, npos)
 +            if arg.startswith("get ") or arg.startswith("put ") or arg.startswith("get_default ") or arg.startswith("put_default "):
 +                accessor = arg[:3]
-+                arg = arg[4:] if arg.startswith("get ") or arg.startswith("put ") else arg[12:]
 +                func_modlist.append("/attr=prop" + accessor)
 +                if arg.startswith("get_default ") or arg.startswith("put_default ") : func_modlist.append("/id=DISPID_VALUE")
++                arg = arg[len("get "):] if arg.startswith("get ") or arg.startswith("put ") else arg[len("get_default "):]
 +                func_modlist.append("/idlname=" + arg)
 +                arg = accessor + "_" + arg
              func_modlist.append("="+arg)
@@ -50,19 +50,25 @@ index ebe13f05c7..e38cf218ec 100755
              arg, npos3 = self.get_macro_arg(decl_str, npos)
 +            if arg.startswith("get ") or arg.startswith("put ") or arg.startswith("get_default ") or arg.startswith("put_default "):
 +                accessor = arg[:3]
-+                arg = arg[4:] if arg.startswith("get ") or arg.startswith("put ") else arg[12:]
 +                func_modlist.append("/attr=prop" + accessor)
 +                if arg.startswith("get_default ") or arg.startswith("put_default ") : func_modlist.append("/id=DISPID_VALUE")
++                arg = arg[len("get "):] if arg.startswith("get ") or arg.startswith("put ") else arg[len("get_default "):]
 +                func_modlist.append("/idlname=" + arg)
 +                arg = accessor + "_" + arg
              func_modlist.append("="+arg)
              decl_str = decl_str[:npos] + decl_str[npos3+1:]
          npos = decl_str.find("CV_WRAP_PHANTOM")
-@@ -771,7 +808,7 @@ class CppHeaderParser(object):
+@@ -770,8 +807,12 @@ class CppHeaderParser(object):
+                 var_modlist = []
                  if "CV_PROP_RW" in stmt:
                      var_modlist.append("/RW")
-                 stmt = self.batch_replace(stmt, [("CV_PROP_RW", ""), ("CV_PROP", "")]).strip()
+-                stmt = self.batch_replace(stmt, [("CV_PROP_RW", ""), ("CV_PROP", "")]).strip()
 -                var_list = stmt.split(",")
++                elif "CV_PROP_W" in stmt:
++                    var_modlist.append("/W")
++                else:
++                    var_modlist.append("/R")
++                stmt = self.batch_replace(stmt, [("CV_PROP_RW", ""), ("CV_PROP_W", ""), ("CV_PROP", "")]).strip()
 +                var_list = self.get_var_list(stmt)
                  var_type, var_name1, modlist, argno = self.parse_arg(var_list[0], -1)
                  var_list = [var_name1] + [i.strip() for i in var_list[1:]]

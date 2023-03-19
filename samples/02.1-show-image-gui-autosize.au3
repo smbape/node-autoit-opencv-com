@@ -22,7 +22,7 @@ Func Example()
 	GUISetState(@SW_SHOW)
 	#EndRegion ### END Koda GUI section ###
 
-	Local $img = _OpenCV_imread_and_check(_OpenCV_FindFile("samples\data\lena.jpg"))
+	Local $img = _OpenCV_imread_and_check($cv.samples.findFile("lena.jpg"))
 
 	; get the image size and resize the GUI and the PIC control
 	WinMove($FormGUI, "", Default, Default, $img.width, $img.height)

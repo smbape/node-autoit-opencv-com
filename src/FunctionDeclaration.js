@@ -519,8 +519,6 @@ Object.assign(exports, {
 
             if (id === "DISPID_VALUE" && argnamelist.length !== 0 && attrs.includes("propget")) {
                 autoit_description += `\n    $o${ coclass.name }( ${ argstr } ) -> ${ outstr }`;
-                if (!attrs.includes("proput")) {
-                }
             }
 
             let cppsignature = `${ generator.getCppType(return_value_type, coclass, options) } ${ fqn }::${ fname }`;

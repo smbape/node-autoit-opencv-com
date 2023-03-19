@@ -14,6 +14,7 @@
 #include <mutex>
 #include <numeric>
 #include <OleAuto.h>
+#include <optional>
 #include <queue>
 #include <sstream>
 #include <string>
@@ -25,6 +26,10 @@
 #include <vector>
 
 #include "autoit_def.h"
+
+#ifndef CV_PROP_W
+#define CV_PROP_W
+#endif
 
 // import the .TLB that's compiled in scrrun.dll
 // needed to use ScriptingDictionary
@@ -251,6 +256,53 @@ const bool is_assignable_from(std::vector<_Tp>& out_val, VARIANT const* const& i
 	vArray.Detach();
 
 	return SUCCEEDED(hr);
+}
+
+template<typename _Ty1>
+const bool is_assignable_from(std::optional<_Ty1>& out_val, VARIANT const* const& in_val, bool is_optional) {
+	_Ty1 value;
+	return is_assignable_from(value, in_val, true);
+}
+
+template<typename _Ty1>
+const HRESULT autoit_to(VARIANT const* const& in_val, std::optional<_Ty1>& out_val) {
+	if (PARAMETER_MISSING(in_val)) {
+		out_val.reset();
+		return S_OK;
+	}
+
+	_Ty1 value;
+	HRESULT hr = autoit_to(in_val, out_val);
+	out_val.emplace(std::move(value));
+	return hr;
+}
+
+template<typename _Ty1>
+const HRESULT autoit_from(std::optional<_Ty1>& in_val, VARIANT*& out_val) {
+	if (in_val.has_value()) {
+		return autoit_from(in_val.value(), out_val);
+	}
+
+	VariantClear(out_val);
+	VariantInit(out_val);
+	V_VT(out_val) = VT_ERROR;
+	V_ERROR(out_val) = DISP_E_PARAMNOTFOUND;
+
+	return S_OK;
+}
+
+template<typename _Ty1>
+const HRESULT autoit_out(std::optional<_Ty1>& in_val, VARIANT*& out_val) {
+	if (in_val.has_value()) {
+		return autoit_out(in_val.value(), out_val);
+	}
+
+	VariantClear(out_val);
+	VariantInit(out_val);
+	V_VT(out_val) = VT_ERROR;
+	V_ERROR(out_val) = DISP_E_PARAMNOTFOUND;
+
+	return S_OK;
 }
 
 template<typename _Tp>
@@ -569,6 +621,7 @@ HRESULT autoit_from(const std::pair<_Ty1, _Ty2>& in_val, VARIANT*& out_val) {
 
 	VariantClear(&value);
 
+	VariantClear(out_val);
 	VariantInit(out_val);
 	V_VT(out_val) = VT_ARRAY | VT_VARIANT;
 	V_ARRAY(out_val) = vArray.Detach();

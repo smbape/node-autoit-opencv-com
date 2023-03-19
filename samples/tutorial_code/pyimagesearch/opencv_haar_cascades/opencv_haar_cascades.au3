@@ -23,7 +23,7 @@ Global Const $cv = _OpenCV_get()
 If Not IsObj($cv) Then Exit
 
 #Region ### START Globals section ###
-Global Const $CASCADES_PATH = _OpenCV_FindFile("samples\tutorial_code\pyimagesearch\opencv_haar_cascades\cascades")
+Global Const $CASCADES_PATH = _OpenCV_FindFile("cascades")
 
 ; initialize a dictionary that maps the name of the haar cascades to
 ; their filenames
@@ -40,7 +40,9 @@ Next
 Global $tPtr = DllStructCreate("ptr value")
 Global $sCameraList = ""
 Global $cap = Null
-Global $frame = _OpenCV_ObjCreate("cv.Mat")
+Global $frame = $cv.UMat.create()
+Global $gray = $cv.UMat.create()
+
 #EndRegion ### START Globals section ###
 
 #Region ### START Koda GUI section ###
@@ -105,17 +107,17 @@ EndFunc   ;==>Main
 Func UpdateFrame()
 	If $cap == Null Then Return
 
-	Local $start = $cv.getTickCount()
-
 	If Not $cap.read($frame) Then
 		ConsoleWriteError("!>Error: cannot read camera or video file." & @CRLF)
 		Return
 	EndIf
 
 	; flip to git the mirror impression
-	$frame = $cv.flip($frame, 1)
+	$cv.flip($frame, 1, $frame)
 
-	Local $gray = $cv.cvtColor($frame, $CV_COLOR_BGR2GRAY)
+	$cv.cvtColor($frame, $CV_COLOR_BGR2GRAY, $gray)
+
+	Local $start = $cv.getTickCount()
 
 	; perform face detection using the appropriate haar cascade
 	Local $faceRects = $detectors("face").detectMultiScale($gray, _OpenCV_Params( _
@@ -130,7 +132,7 @@ Func UpdateFrame()
 	; loop over the face bounding boxes
 	For $faceRect In $faceRects
 		; extract the face ROI
-		$faceROI = $cv.Mat.create($gray, $faceRect)
+		$faceROI = $cv.UMat.create($gray, $faceRect)
 
 		; apply eyes detection to the face ROI
 		$eyeRects = $detectors("eyes").detectMultiScale($faceROI, _OpenCV_Params( _
@@ -168,10 +170,10 @@ Func UpdateFrame()
 		$cv.rectangle($frame, $faceRect, _OpenCV_Scalar(0, 255, 0), 2)
 	Next
 
-	_OpenCV_imshow_ControlPic($frame, $FormGUI, $PicImage)
-
 	Local $fps = $cv.getTickFrequency() / ($cv.getTickCount() - $start)
 	GUICtrlSetData($LabelFPS, "FPS : " & Round($fps))
+
+	_OpenCV_imshow_ControlPic($frame, $FormGUI, $PicImage)
 EndFunc   ;==>UpdateFrame
 
 Func UpdateCameraList()

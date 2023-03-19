@@ -378,9 +378,12 @@ void object_detection_postprocess(
 
 void DllTestUMat()
 {
-	// This nerver terminates in autoit
 	cv::UMat mask(100, 100, CV_8UC1, cv::Scalar::all(0));
 	cv::imshow("mask", mask);
 	cv::waitKey();
 	cv::destroyAllWindows();
+
+	// https://stackoverflow.com/questions/63110817/how-to-ensure-that-gpu-memory-is-actually-deallocated-after-an-opencv-t-api-func
+	// It seems that an allocation flushes the cleanup queue!
+	auto const cleanupQueueFlusher = cv::UMat::zeros(1, 1, CV_8UC1);
 }
