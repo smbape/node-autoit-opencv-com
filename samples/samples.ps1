@@ -1,8 +1,15 @@
+#requires -version 5.0
+
+[CmdletBinding()]
 param (
-    [string]$BuildType = $Env:BuildType
+    [string] $BuildType = $Env:BUILD_TYPE
 )
+# "powershell.exe -ExecutionPolicy UnRestricted -File $PSCommandPath"
+# "pwsh.exe -ExecutionPolicy UnRestricted -File $PSCommandPath"
 
 $ErrorActionPreference = "Stop"
+Set-StrictMode -Version 3.0
+trap { throw $Error[0] }
 
 function _OpenCV_ObjCreate($sClassname) {
     $namespaces = "", "OpenCV.", "OpenCV.cv."
@@ -19,7 +26,7 @@ function _OpenCV_ObjCreate($sClassname) {
 
 function Example1() {
     $cv = _OpenCV_ObjCreate("cv")
-    $img = $cv.imread("$PSScriptRoot\data\lena.jpg")
+    $img = $cv.imread($cv.samples.findFile("lena.jpg"))
     $cv.imshow("image", $img)
     $cv.waitKey() | Out-Null
     $cv.destroyAllWindows()
@@ -30,7 +37,7 @@ function Example2() {
     $threshold = 180
     $dCurrentArea = 1000
 
-    $src = $cv.imread("$PSScriptRoot\data\pic1.png")
+    $src = $cv.imread($cv.samples.findFile("pic1.png"))
     $src_gray = $cv.cvtColor($src, $cv.enums.COLOR_BGR2GRAY)
     $src_gray = $cv.GaussianBlur($src_gray, @(5, 5), 0)
     $cv.threshold($src_gray, $threshold, 255, $cv.enums.THRESH_BINARY, $src_gray) | Out-Null
@@ -66,7 +73,7 @@ function Example2() {
 function Example3() {
     $cv = _OpenCV_ObjCreate("cv")
 
-    $cap = (_OpenCV_ObjCreate("VideoCapture")).create("$PSScriptRoot\data\vtest.avi")
+    $cap = (_OpenCV_ObjCreate("VideoCapture")).create($cv.samples.findFile("vtest.avi"))
     if (-not $cap.isOpened()) {
         Write-Error '!>Error: cannot open the video file.'
         return
@@ -93,7 +100,7 @@ function Example3() {
 
 function Example4() {
     $cv = _OpenCV_ObjCreate("cv")
-    $img = $cv.imread("$PSScriptRoot\data\lena.jpg")
+    $img = $cv.imread($cv.samples.findFile("lena.jpg"))
 
     $blurred = $Null
     $cv.GaussianBlur($img, @(5, 5), 0, [ref] $blurred) | Out-Null
@@ -104,9 +111,14 @@ function Example4() {
 
 Add-Type -TypeDefinition @"
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Security.Principal;
 
 public static class AutoItOpenCV
 {
@@ -119,70 +131,72 @@ public static class AutoItOpenCV
     [DllImport("kernel32.dll", CharSet = CharSet.Ansi, SetLastError = true)]
     private static extern IntPtr GetProcAddress(IntPtr hModule, string name);
 
-    private delegate long DllInstall_api(bool bInstall, [In, MarshalAs(UnmanagedType.LPWStr)] string cmdLine);
+    private delegate bool DllActivateManifest_api([In, MarshalAs(UnmanagedType.LPWStr)] string manifest);
+    private delegate bool DllDeactivateActCtx_api();
 
-    private static IntPtr _h_opencv_world_dll = IntPtr.Zero;
-    private static IntPtr _h_opencv_ffmpeg_dll = IntPtr.Zero;
-    private static IntPtr _h_autoit_opencv_com_dll = IntPtr.Zero;
-    private static DllInstall_api DllInstall;
+    private static IntPtr hOpenCvWorld = IntPtr.Zero;
+    private static IntPtr hOpenCvFfmpeg = IntPtr.Zero;
+    private static IntPtr hOpenCvCom = IntPtr.Zero;
 
-    public static void DllOpen(string opencv_world_dll, string autoit_opencv_com_dll)
+    private static DllActivateManifest_api DllActivateManifest_t;
+    private static DllDeactivateActCtx_api DllDeactivateActCtx_t;
+
+    public static void DllOpen(string openCvWorldDll, string openCvComDll)
     {
-        _h_opencv_world_dll = LoadLibrary(opencv_world_dll);
-        if (_h_opencv_world_dll == IntPtr.Zero)
+        hOpenCvWorld = LoadLibrary(openCvWorldDll);
+        if (hOpenCvWorld == IntPtr.Zero)
         {
-            throw new Win32Exception("Failed to load opencv library " + opencv_world_dll);
+            throw new Win32Exception("Failed to load opencv library " + openCvWorldDll);
         }
 
-        string opencv_ffmpeg_dll = opencv_world_dll
-            .Replace("opencv_world470.dll", "opencv_videoio_ffmpeg470_64.dll")
-            .Replace("opencv_world470d.dll", "opencv_videoio_ffmpeg470_64.dll")
-            ;
-
-        _h_opencv_ffmpeg_dll = LoadLibrary(opencv_ffmpeg_dll);
-        if (_h_opencv_ffmpeg_dll == IntPtr.Zero)
+        var parts = openCvWorldDll.Split(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+        parts[parts.Length - 1] = "opencv_videoio_ffmpeg470_64.dll";
+        var openCvFfmpegDll = string.Join(Path.DirectorySeparatorChar.ToString(), parts);
+        hOpenCvFfmpeg = LoadLibrary(openCvFfmpegDll);
+        if (hOpenCvFfmpeg == IntPtr.Zero)
         {
-            throw new Win32Exception("Failed to load ffmpeg library " + opencv_ffmpeg_dll);
+            throw new Win32Exception(Marshal.GetLastWin32Error(), "Failed to load ffmpeg library '" + openCvFfmpegDll + "'");
         }
 
-        _h_autoit_opencv_com_dll = LoadLibrary(autoit_opencv_com_dll);
-        if (_h_autoit_opencv_com_dll == IntPtr.Zero)
+        hOpenCvCom = LoadLibrary(openCvComDll);
+        if (hOpenCvCom == IntPtr.Zero)
         {
-            throw new Win32Exception("Failed to open autoit com library " + autoit_opencv_com_dll);
+            throw new Win32Exception("Failed to open autoit com library " + openCvComDll);
         }
 
-        IntPtr DllInstall_addr = GetProcAddress(_h_autoit_opencv_com_dll, "DllInstall");
-        if (DllInstall_addr == IntPtr.Zero)
+        IntPtr DllActivateManifest_addr = GetProcAddress(hOpenCvCom, "DllActivateManifest");
+        if (DllActivateManifest_addr == IntPtr.Zero)
         {
-            throw new Win32Exception();
+            throw new Win32Exception(Marshal.GetLastWin32Error(), "Unable to find DllActivateManifest method");
         }
+        DllActivateManifest_t = (DllActivateManifest_api) Marshal.GetDelegateForFunctionPointer(DllActivateManifest_addr, typeof(DllActivateManifest_api));
 
-        DllInstall = (DllInstall_api)Marshal.GetDelegateForFunctionPointer(DllInstall_addr, typeof(DllInstall_api));
+        IntPtr DllDeactivateActCtx_addr = GetProcAddress(hOpenCvCom, "DllDeactivateActCtx");
+        if (DllDeactivateActCtx_addr == IntPtr.Zero)
+        {
+            throw new Win32Exception(Marshal.GetLastWin32Error(), "Unable to find DllDeactivateActCtx method");
+        }
+        DllDeactivateActCtx_t = (DllDeactivateActCtx_api) Marshal.GetDelegateForFunctionPointer(DllDeactivateActCtx_addr, typeof(DllDeactivateActCtx_api));
     }
 
     public static void DllClose()
     {
-        FreeLibrary(_h_autoit_opencv_com_dll);
-        FreeLibrary(_h_opencv_world_dll);
-        FreeLibrary(_h_opencv_ffmpeg_dll);
+        FreeLibrary(hOpenCvCom);
+        FreeLibrary(hOpenCvFfmpeg);
+        FreeLibrary(hOpenCvWorld);
     }
 
-    public static void Register(string cmdLine = "user")
+    public static bool DllActivateManifest(string manifest = null)
     {
-        var hr = DllInstall(true, cmdLine);
-        if (hr < 0)
-        {
-            throw new Win32Exception("!>Error: DllInstall " + hr);
+        if (string.IsNullOrWhiteSpace(manifest)) {
+            manifest = Environment.GetEnvironmentVariable("OPENCV_ACTCTX_MANIFEST");
         }
+        return DllActivateManifest_t(manifest);
     }
 
-    public static void Unregister(string cmdLine = "user")
+    public static bool DllDeactivateActCtx()
     {
-        var hr = DllInstall(false, cmdLine);
-        if (hr < 0)
-        {
-            throw new Win32Exception("!>Error: DllInstall " + hr);
-        }
+        return DllDeactivateActCtx_t();
     }
 }
 "@
@@ -191,16 +205,19 @@ $BuildType = If ($BuildType -eq "Debug") { $BuildType } Else { "Release" }
 $PostSuffix = If ($BuildType -eq "Debug") { "d" } Else { "" }
 
 [AutoItOpenCV]::DllOpen(
-    "$PSScriptRoot\..\opencv-4.7.0-windows\opencv\build\x64\vc15\bin\opencv_world470$($PostSuffix).dll",
-    "$PSScriptRoot\..\autoit-opencv-com\build_x64\$($BuildType)\autoit_opencv_com470$($PostSuffix).dll"
+    "$PSScriptRoot\..\opencv-4.7.0-windows\opencv\build\x64\vc16\bin\opencv_world470$($PostSuffix).dll",
+    "$PSScriptRoot\..\autoit-opencv-com\build_x64\bin\$($BuildType)\autoit_opencv_com470$($PostSuffix).dll"
 )
+[AutoItOpenCV]::DllActivateManifest() | Out-Null
 
-[AutoItOpenCV]::Register()
+$cv = _OpenCV_ObjCreate("cv")
+$cv.samples.addSamplesDataSearchPath($PSScriptRoot)
+$cv.samples.addSamplesDataSearchPath("$PSScriptRoot\..\opencv-4.7.0-windows\opencv\sources\samples\data")
 
 Example1
 Example2
 Example3
 Example4
 
-[AutoItOpenCV]::Unregister()
+[AutoItOpenCV]::DllDeactivateActCtx() | Out-Null
 [AutoItOpenCV]::DllClose()

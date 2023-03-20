@@ -1,5 +1,5 @@
-const { spawn } = require("child_process");
-const sysPath = require("path");
+const { spawn } = require("node:child_process");
+const sysPath = require("node:path");
 const eachOfLimit = require("async/eachOfLimit");
 
 const version = process.env.npm_package_version || require("../package.json").version;

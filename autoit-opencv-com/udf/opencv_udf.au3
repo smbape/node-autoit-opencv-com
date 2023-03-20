@@ -38,6 +38,8 @@ Func _OpenCV_get($vVal = Default)
 	If IsObj($cv) Then Return $cv
 	$cv = _OpenCV_ObjCreate("cv")
 
+	$cv.samples.addSamplesDataSearchPath(@ScriptDir)
+
 	Local $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
 	If FileExists($OPENCV_SAMPLES_DATA_PATH) Then
 		$cv.samples.addSamplesDataSearchPath($OPENCV_SAMPLES_DATA_PATH)

@@ -892,7 +892,7 @@ Func ProcessFrame($futureOutputs, $frame)
 EndFunc   ;==>ProcessFrame
 
 Func UpdateZooModel()
-	Local $fs = $cv.FileStorage("models.yml", $CV_FILE_STORAGE_READ)
+	Local $fs = $cv.FileStorage($cv.samples.findFile("models.yml"), $CV_FILE_STORAGE_READ)
 	Local $models = $fs.root().asVariant()
 	Local $name = GUICtrlRead($ComboZooModel)
 	If Not $models.has($name) Then Return

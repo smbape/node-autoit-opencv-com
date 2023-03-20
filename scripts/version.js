@@ -1,6 +1,6 @@
-const { spawn } = require("child_process");
-const sysPath = require("path");
-const fs = require("fs");
+const { spawn } = require("node:child_process");
+const sysPath = require("node:path");
+const fs = require("node:fs");
 const waterfall = require("async/waterfall");
 const doctoc = require("../src/doctoc");
 
