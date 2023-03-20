@@ -399,160 +399,160 @@ EndFunc   ;==>_OpenCV_computeResizeParams
 
 ; node scripts/func_kwargs.js OpenCV resizeAndCenter "['src', 'src']" "['iDstWidth', 'width', 'Default']" "['iDstHeight', 'height', 'Default']" "['aBackgroundColor', 'background', '_OpenCV_Scalar(0xF0, 0xF0, 0xF0, 0xFF)']" "['bResize', 'resize', 'True']" "['bEnlarge', 'enlarge', 'False']" "['bCenter', 'center', 'True']" "['interpolation', 'interpolation', 'Default']" | clip
 Func _OpenCV_resizeAndCenter($src, $iDstWidth = Default, $iDstHeight = Default, $aBackgroundColor = Default, $bResize = Default, $bEnlarge = Default, $bCenter = Default, $interpolation = Default)
-    Local Static $NamedParameters = _OpenCV_ObjCreate("NamedParameters")
+	Local Static $NamedParameters = _OpenCV_ObjCreate("NamedParameters")
 
-    Local $kwargs = Default
-    Switch @NumParams
-        Case 1
-            $kwargs = $NamedParameters.isNamedParameters($src) ? $src : Default
-        Case 2
-            $kwargs = $NamedParameters.isNamedParameters($iDstWidth) ? $iDstWidth : Default
-        Case 3
-            $kwargs = $NamedParameters.isNamedParameters($iDstHeight) ? $iDstHeight : Default
-        Case 4
-            $kwargs = $NamedParameters.isNamedParameters($aBackgroundColor) ? $aBackgroundColor : Default
-        Case 5
-            $kwargs = $NamedParameters.isNamedParameters($bResize) ? $bResize : Default
-        Case 6
-            $kwargs = $NamedParameters.isNamedParameters($bEnlarge) ? $bEnlarge : Default
-        Case 7
-            $kwargs = $NamedParameters.isNamedParameters($bCenter) ? $bCenter : Default
-        Case 8
-            $kwargs = $NamedParameters.isNamedParameters($interpolation) ? $interpolation : Default
-    EndSwitch
+	Local $kwargs = Default
+	Switch @NumParams
+		Case 1
+			$kwargs = $NamedParameters.isNamedParameters($src) ? $src : Default
+		Case 2
+			$kwargs = $NamedParameters.isNamedParameters($iDstWidth) ? $iDstWidth : Default
+		Case 3
+			$kwargs = $NamedParameters.isNamedParameters($iDstHeight) ? $iDstHeight : Default
+		Case 4
+			$kwargs = $NamedParameters.isNamedParameters($aBackgroundColor) ? $aBackgroundColor : Default
+		Case 5
+			$kwargs = $NamedParameters.isNamedParameters($bResize) ? $bResize : Default
+		Case 6
+			$kwargs = $NamedParameters.isNamedParameters($bEnlarge) ? $bEnlarge : Default
+		Case 7
+			$kwargs = $NamedParameters.isNamedParameters($bCenter) ? $bCenter : Default
+		Case 8
+			$kwargs = $NamedParameters.isNamedParameters($interpolation) ? $interpolation : Default
+	EndSwitch
 
-    Local $has_kwarg = $kwargs <> Default
-    If $kwargs == Default Then $kwargs = $NamedParameters
-    Local $usedkw = 0
+	Local $has_kwarg = $kwargs <> Default
+	If $kwargs == Default Then $kwargs = $NamedParameters
+	Local $usedkw = 0
 
-    ; get argument src
-    If (Not $has_kwarg) Or @NumParams > 1 Then
-        ; positional parameter should not be a named parameter
-        If $has_kwarg And $kwargs.count("src") Then
-            ConsoleWriteError('@@ Debug(' & @ScriptLineNumber & ') : src was both specified as a Positional and NamedParameter' & @CRLF)
-            Exit(1)
-        EndIf
-    Else
-        ; named parameter
-        If $kwargs.has("src") Then
-            $src = $kwargs.Item("src")
-            $usedkw += 1
-        EndIf
-    EndIf
+	; get argument src
+	If (Not $has_kwarg) Or @NumParams > 1 Then
+		; positional parameter should not be a named parameter
+		If $has_kwarg And $kwargs.count("src") Then
+			ConsoleWriteError('@@ Debug(' & @ScriptLineNumber & ') : src was both specified as a Positional and NamedParameter' & @CRLF)
+			Exit (1)
+		EndIf
+	Else
+		; named parameter
+		If $kwargs.has("src") Then
+			$src = $kwargs.Item("src")
+			$usedkw += 1
+		EndIf
+	EndIf
 
-    ; get argument width
-    If (Not $has_kwarg) Or @NumParams > 2 Then
-        ; positional parameter should not be a named parameter
-        If $has_kwarg And $kwargs.count("width") Then
-            ConsoleWriteError('@@ Debug(' & @ScriptLineNumber & ') : width was both specified as a Positional and NamedParameter' & @CRLF)
-            Exit(1)
-        EndIf
-    Else
-        ; named parameter
-        If $kwargs.has("width") Then
-            $iDstWidth = $kwargs.Item("width")
-            $usedkw += 1
-        EndIf
-    EndIf
+	; get argument width
+	If (Not $has_kwarg) Or @NumParams > 2 Then
+		; positional parameter should not be a named parameter
+		If $has_kwarg And $kwargs.count("width") Then
+			ConsoleWriteError('@@ Debug(' & @ScriptLineNumber & ') : width was both specified as a Positional and NamedParameter' & @CRLF)
+			Exit (1)
+		EndIf
+	Else
+		; named parameter
+		If $kwargs.has("width") Then
+			$iDstWidth = $kwargs.Item("width")
+			$usedkw += 1
+		EndIf
+	EndIf
 
-    ; get argument height
-    If (Not $has_kwarg) Or @NumParams > 3 Then
-        ; positional parameter should not be a named parameter
-        If $has_kwarg And $kwargs.count("height") Then
-            ConsoleWriteError('@@ Debug(' & @ScriptLineNumber & ') : height was both specified as a Positional and NamedParameter' & @CRLF)
-            Exit(1)
-        EndIf
-    Else
-        ; named parameter
-        If $kwargs.has("height") Then
-            $iDstHeight = $kwargs.Item("height")
-            $usedkw += 1
-        EndIf
-    EndIf
+	; get argument height
+	If (Not $has_kwarg) Or @NumParams > 3 Then
+		; positional parameter should not be a named parameter
+		If $has_kwarg And $kwargs.count("height") Then
+			ConsoleWriteError('@@ Debug(' & @ScriptLineNumber & ') : height was both specified as a Positional and NamedParameter' & @CRLF)
+			Exit (1)
+		EndIf
+	Else
+		; named parameter
+		If $kwargs.has("height") Then
+			$iDstHeight = $kwargs.Item("height")
+			$usedkw += 1
+		EndIf
+	EndIf
 
-    ; get argument background
-    If (Not $has_kwarg) Or @NumParams > 4 Then
-        ; positional parameter should not be a named parameter
-        If $has_kwarg And $kwargs.count("background") Then
-            ConsoleWriteError('@@ Debug(' & @ScriptLineNumber & ') : background was both specified as a Positional and NamedParameter' & @CRLF)
-            Exit(1)
-        EndIf
-    Else
-        ; named parameter
-        If $kwargs.has("background") Then
-            $aBackgroundColor = $kwargs.Item("background")
-            $usedkw += 1
-        EndIf
-    EndIf
-    If $aBackgroundColor == Default Then $aBackgroundColor = _OpenCV_Scalar(0xF0, 0xF0, 0xF0, 0xFF)
+	; get argument background
+	If (Not $has_kwarg) Or @NumParams > 4 Then
+		; positional parameter should not be a named parameter
+		If $has_kwarg And $kwargs.count("background") Then
+			ConsoleWriteError('@@ Debug(' & @ScriptLineNumber & ') : background was both specified as a Positional and NamedParameter' & @CRLF)
+			Exit (1)
+		EndIf
+	Else
+		; named parameter
+		If $kwargs.has("background") Then
+			$aBackgroundColor = $kwargs.Item("background")
+			$usedkw += 1
+		EndIf
+	EndIf
+	If $aBackgroundColor == Default Then $aBackgroundColor = _OpenCV_Scalar(0xF0, 0xF0, 0xF0, 0xFF)
 
-    ; get argument resize
-    If (Not $has_kwarg) Or @NumParams > 5 Then
-        ; positional parameter should not be a named parameter
-        If $has_kwarg And $kwargs.count("resize") Then
-            ConsoleWriteError('@@ Debug(' & @ScriptLineNumber & ') : resize was both specified as a Positional and NamedParameter' & @CRLF)
-            Exit(1)
-        EndIf
-    Else
-        ; named parameter
-        If $kwargs.has("resize") Then
-            $bResize = $kwargs.Item("resize")
-            $usedkw += 1
-        EndIf
-    EndIf
-    If $bResize == Default Then $bResize = True
+	; get argument resize
+	If (Not $has_kwarg) Or @NumParams > 5 Then
+		; positional parameter should not be a named parameter
+		If $has_kwarg And $kwargs.count("resize") Then
+			ConsoleWriteError('@@ Debug(' & @ScriptLineNumber & ') : resize was both specified as a Positional and NamedParameter' & @CRLF)
+			Exit (1)
+		EndIf
+	Else
+		; named parameter
+		If $kwargs.has("resize") Then
+			$bResize = $kwargs.Item("resize")
+			$usedkw += 1
+		EndIf
+	EndIf
+	If $bResize == Default Then $bResize = True
 
-    ; get argument enlarge
-    If (Not $has_kwarg) Or @NumParams > 6 Then
-        ; positional parameter should not be a named parameter
-        If $has_kwarg And $kwargs.count("enlarge") Then
-            ConsoleWriteError('@@ Debug(' & @ScriptLineNumber & ') : enlarge was both specified as a Positional and NamedParameter' & @CRLF)
-            Exit(1)
-        EndIf
-    Else
-        ; named parameter
-        If $kwargs.has("enlarge") Then
-            $bEnlarge = $kwargs.Item("enlarge")
-            $usedkw += 1
-        EndIf
-    EndIf
-    If $bEnlarge == Default Then $bEnlarge = False
+	; get argument enlarge
+	If (Not $has_kwarg) Or @NumParams > 6 Then
+		; positional parameter should not be a named parameter
+		If $has_kwarg And $kwargs.count("enlarge") Then
+			ConsoleWriteError('@@ Debug(' & @ScriptLineNumber & ') : enlarge was both specified as a Positional and NamedParameter' & @CRLF)
+			Exit (1)
+		EndIf
+	Else
+		; named parameter
+		If $kwargs.has("enlarge") Then
+			$bEnlarge = $kwargs.Item("enlarge")
+			$usedkw += 1
+		EndIf
+	EndIf
+	If $bEnlarge == Default Then $bEnlarge = False
 
-    ; get argument center
-    If (Not $has_kwarg) Or @NumParams > 7 Then
-        ; positional parameter should not be a named parameter
-        If $has_kwarg And $kwargs.count("center") Then
-            ConsoleWriteError('@@ Debug(' & @ScriptLineNumber & ') : center was both specified as a Positional and NamedParameter' & @CRLF)
-            Exit(1)
-        EndIf
-    Else
-        ; named parameter
-        If $kwargs.has("center") Then
-            $bCenter = $kwargs.Item("center")
-            $usedkw += 1
-        EndIf
-    EndIf
-    If $bCenter == Default Then $bCenter = True
+	; get argument center
+	If (Not $has_kwarg) Or @NumParams > 7 Then
+		; positional parameter should not be a named parameter
+		If $has_kwarg And $kwargs.count("center") Then
+			ConsoleWriteError('@@ Debug(' & @ScriptLineNumber & ') : center was both specified as a Positional and NamedParameter' & @CRLF)
+			Exit (1)
+		EndIf
+	Else
+		; named parameter
+		If $kwargs.has("center") Then
+			$bCenter = $kwargs.Item("center")
+			$usedkw += 1
+		EndIf
+	EndIf
+	If $bCenter == Default Then $bCenter = True
 
-    ; get argument interpolation
-    If (Not $has_kwarg) Or @NumParams > 8 Then
-        ; positional parameter should not be a named parameter
-        If $has_kwarg And $kwargs.count("interpolation") Then
-            ConsoleWriteError('@@ Debug(' & @ScriptLineNumber & ') : interpolation was both specified as a Positional and NamedParameter' & @CRLF)
-            Exit(1)
-        EndIf
-    Else
-        ; named parameter
-        If $kwargs.has("interpolation") Then
-            $interpolation = $kwargs.Item("interpolation")
-            $usedkw += 1
-        EndIf
-    EndIf
+	; get argument interpolation
+	If (Not $has_kwarg) Or @NumParams > 8 Then
+		; positional parameter should not be a named parameter
+		If $has_kwarg And $kwargs.count("interpolation") Then
+			ConsoleWriteError('@@ Debug(' & @ScriptLineNumber & ') : interpolation was both specified as a Positional and NamedParameter' & @CRLF)
+			Exit (1)
+		EndIf
+	Else
+		; named parameter
+		If $kwargs.has("interpolation") Then
+			$interpolation = $kwargs.Item("interpolation")
+			$usedkw += 1
+		EndIf
+	EndIf
 
-    If $usedkw <> $kwargs.size() Then
-        ConsoleWriteError('@@ Debug(' & @ScriptLineNumber & ') : there are ' & ($kwargs.size() - $usedkw) & '  unknown named parameters' & @CRLF)
-        Exit (1)
-    EndIf
+	If $usedkw <> $kwargs.size() Then
+		ConsoleWriteError('@@ Debug(' & @ScriptLineNumber & ') : there are ' & ($kwargs.size() - $usedkw) & '  unknown named parameters' & @CRLF)
+		Exit (1)
+	EndIf
 
 	If Not $bResize And Not $bCenter Then Return $src
 

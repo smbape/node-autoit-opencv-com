@@ -917,9 +917,9 @@ Func UpdateZooModel()
 	If $model == "" Or ($config == "" And $info.has("config")) Then
 		Local $sZoo = @ScriptDir & "\models.yml"
 		Local $sDestination = @ScriptDir & "\models"
-		Local $cmd = "powershell.exe -ExecutionPolicy UnRestricted -File " & '"' & @ScriptDir & '\download_model.ps1" -Model ' & $name & ' -Zoo "' & $sZoo & '" -Destination "' & $sDestination & '"'
-		ConsoleWrite($cmd & @CRLF)
-		Local $iPID = Run($cmd, "", Default, $STDIO_INHERIT_PARENT)
+		Local $cmd = "-ExecutionPolicy UnRestricted -File " & '"' & @ScriptDir & '\download_model.ps1" -Model ' & $name & ' -Zoo "' & $sZoo & '" -Destination "' & $sDestination & '"'
+		ConsoleWrite("powershell.exe " & $cmd & @CRLF)
+		Local $iPID = ShellExecute("powershell.exe", $cmd)
 		ProcessWaitClose($iPID)
 		$model = _OpenCV_FindFile($info("model"), Default, Default, $FLTA_FILES, $aSearchPaths)
 		$config = $info.has("config") ? _OpenCV_FindFile($info("config"), Default, Default, $FLTA_FILES, $aSearchPaths) : ""
@@ -1112,4 +1112,3 @@ Func _OnAutoItExit()
 	_GDIPlus_Shutdown()
 	_OpenCV_Close()
 EndFunc   ;==>_OnAutoItExit
-

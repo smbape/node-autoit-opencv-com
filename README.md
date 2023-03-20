@@ -15,13 +15,16 @@ In fact, the dll being a [Component Object Model (COM)](https://docs.microsoft.c
 - [Usage](#usage)
   - [AutoIt](#autoit)
   - [PowerShell](#powershell)
+  - [csharp](#csharp)
+    - [Runtime example](#runtime-example)
+    - [Compile time example](#compile-time-example)
 - [Running examples](#running-examples)
-  - [Prerequisite](#prerequisite)
+  - [Prerequisites](#prerequisites-1)
   - [autoit](#autoit)
   - [powershell](#powershell)
-  - [csharp](#csharp)
+  - [csharp](#csharp-1)
   - [\[optional\] Build the addon dll](#%5Coptional%5C-build-the-addon-dll)
-    - [Prerequisite](#prerequisite-1)
+    - [Prerequisite](#prerequisite)
     - [Building](#building)
 - [How to translate python/c++ code to the UDF](#how-to-translate-pythonc-code-to-the-udf)
   - [Finding the functions/constants names](#finding-the-functionsconstants-names)
@@ -32,7 +35,7 @@ In fact, the dll being a [Component Object Model (COM)](https://docs.microsoft.c
     - [Third line](#third-line)
     - [Final result](#final-result)
 - [Developpement](#developpement)
-  - [Prerequisites](#prerequisites-1)
+  - [Prerequisites](#prerequisites-2)
   - [Environment](#environment)
   - [Generate the UDF files](#generate-the-udf-files)
 - [Breaking changes from v1](#breaking-changes-from-v1)
@@ -286,7 +289,7 @@ Open `x64 Native Tools Command Prompt for VS 2022`
 
 ```sh
 # samples\dotnet\csrun.bat <path to the .cs file> <arguments>
-samples\dotnet\csrun.bat 01-show-image.cs
+samples\dotnet\csrun.bat samples\dotnet\01-show-image.cs
 ```
 
 ### \[optional\] Build the addon dll

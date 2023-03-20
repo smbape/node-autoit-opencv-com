@@ -39,7 +39,7 @@ function DownloadYOLOv5() {
         python -m pip install -r requirements.txt
     }
 
-    python "$Destination/yolov5/export.py" --include onnx --opset 12 --weights $Model.pt
+    python "$Destination/yolov5/export.py" --include onnx --opset 12 --weights "$Model.pt"
     $onnx
 }
 
@@ -73,14 +73,19 @@ foreach($exe in (where.exe "$Python")) {
 }
 
 if (!(Test-Path -Path $PYTHON_VENV_PATH)) {
-    Write-Host "Creating $PYTHON_VENV_PATH"
+    Write-Host "$($PythonCmd.Source) -m venv $PYTHON_VENV_PATH"
     & $PythonCmd.Source -m venv "$PYTHON_VENV_PATH"
     attrib +h "$PYTHON_VENV_PATH"
-    python -m pip install --upgrade pip
-}
 
-# Activate venv
-& "$PYTHON_VENV_PATH\Scripts\Activate.ps1"
+    # Activate venv
+    & "$PYTHON_VENV_PATH\Scripts\Activate.ps1"
+
+    python -m pip install --upgrade pip
+    pip install opencv-python PyYAML requests
+} else {
+    # Activate venv
+    & "$PYTHON_VENV_PATH\Scripts\Activate.ps1"
+}
 
 if (!(Test-Path -Path $Destination)) {
     mkdir $Destination
@@ -96,4 +101,3 @@ if ($Model.StartsWith("yolov5")) {
     $script = Join-Path $PSScriptRoot download_model.py
     python $script $Model --zoo $Zoo
 }
-

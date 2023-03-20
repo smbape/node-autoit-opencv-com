@@ -7,7 +7,7 @@
 # OpenCV's face detection network
 opencv_fd:
   load_info:
-    url: "https://github.com/opencv/opencv_3rdparty/b2bfc75f6aea5b1f834ff0f0b865a7c18ff1459f/dnn_samples_face_detector_20170830/res10_300x300_ssd_iter_140000.caffemodel"
+    url: "https://github.com/opencv/opencv_3rdparty/raw/dnn_samples_face_detector_20170830/res10_300x300_ssd_iter_140000.caffemodel"
     sha1: "15aa726b4d46d9f023526d85537db81cbc8dd566"
   model: "opencv_face_detector.caffemodel"
   config: "opencv_face_detector.prototxt"

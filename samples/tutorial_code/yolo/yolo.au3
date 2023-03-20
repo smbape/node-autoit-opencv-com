@@ -42,6 +42,9 @@ Global $addon_dll = _Addon_FindDLL()
 
 Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
 
+_DownloadFile(@ScriptDir & "\yolov3.weights", "https://pjreddie.com/media/files/yolov3.weights")
+_DownloadFile(@ScriptDir & "\yolov5s.onnx", "https://github.com/doleron/yolov5-opencv-cpp-python/raw/main/config_files/yolov5s.onnx")
+
 #Region ### START Koda GUI section ### Form=
 Global $FormGUI = GUICreate("OpenCV object detection", 1273, 796, 191, 18)
 
@@ -104,14 +107,12 @@ $cv.theRNG().state = $cv.getTickCount()
 
 ;; Initialize the parameters
 Global $confidence_threshold = 0.45  ; a threshold used to filter boxes by model confidence
-Global $score_threshold      = 0.25  ; a threshold used to filter boxes by score
-Global $nms_threshold        = 0.45  ; a threshold used in non maximum suppression
+Global $score_threshold = 0.25       ; a threshold used to filter boxes by score
+Global $nms_threshold = 0.45         ; a threshold used in non maximum suppression
 
 Global $sSource, $sModelNames, $sModelConfiguration, $sModelWeights
 Global $nMsg
 
-_DownloadFile(@ScriptDir & "\yolov3.weights", "https://pjreddie.com/media/files/yolov3.weights")
-_DownloadFile(@ScriptDir & "\yolov5s.onnx", "https://github.com/doleron/yolov5-opencv-cpp-python/raw/main/config_files/yolov5s.onnx")
 Main()
 
 While 1
@@ -195,9 +196,9 @@ Func Main()
 	; $net.setPreferableBackend($CV_DNN_DNN_BACKEND_OPENCV)
 	; $net.setPreferableTarget($CV_DNN_DNN_TARGET_CPU)
 
-    Local $layerNames = $net.getLayerNames()
-    Local $lastLayerId = $net.getLayerId($layerNames[UBound($layerNames) - 1])
-    Local $lastLayer = $net.getLayer($lastLayerId)
+	Local $layerNames = $net.getLayerNames()
+	Local $lastLayerId = $net.getLayerId($layerNames[UBound($layerNames) - 1])
+	Local $lastLayer = $net.getLayer($lastLayerId)
 	ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : $lastLayer.type          ' & $lastLayer.type & @CRLF) ;### Debug Console
 
 	Local Const $inpWidth = Number(ControlGetText($FormGUI, "", $InputModelWidth))
