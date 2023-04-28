@@ -44,7 +44,7 @@ exports.compile = (filename, options, cb) => {
     const {includes} = options;
 
     // https://stackoverflow.com/questions/26302927/midl-changes-the-interface-name
-    exec("midl.exe", includes.map(path => `/I${ path }`).concat([
+    const argv = includes.map(path => `/I${ path }`).concat([
         `/I${ dirname }`,
         "/W1", "/nologo",
         "/char", "signed",
@@ -56,5 +56,13 @@ exports.compile = (filename, options, cb) => {
         "/target", "NT100",
         `/out${ dirname }`,
         filename
-    ]), cb);
+    ]);
+
+    if (options.save === false) {
+        console.log("midl.exe", argv);
+        cb();
+        return;
+    }
+
+    exec("midl.exe", argv, cb);
 };

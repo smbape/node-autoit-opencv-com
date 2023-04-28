@@ -2,7 +2,6 @@
 
 #include "opencv_udf.au3"
 
-#include <File.au3>
 #include <GDIPlus.au3>
 #include <Math.au3>
 #include <StaticConstants.au3>
@@ -13,179 +12,6 @@ Global $_cv_gdi_resize = Number(EnvGet("OPENCV_GDI_RESIZE"))
 Global Const $OPENCV_UDF_SORT_ASC = 1
 Global Const $OPENCV_UDF_SORT_DESC = -1
 Global Const $CV_TM_EXACT = -1
-
-Func _OpenCV_FindFiles($aParts, $sDir = Default, $iFlag = Default, $bReturnPath = Default, $bReverse = Default)
-	If $sDir == Default Then $sDir = @ScriptDir
-	If $iFlag == Default Then $iFlag = $FLTA_FILESFOLDERS
-	If $bReturnPath == Default Then $bReturnPath = False
-	If $bReverse == Default Then $bReverse = False
-
-	If IsString($aParts) Then
-		$aParts = StringSplit($aParts, "\", $STR_NOCOUNT)
-	EndIf
-
-	Local $aMatches[0]
-	Local $bFound = False
-	Local $aNextParts[0]
-	Local $aFileList[0]
-	Local $aNextFileList[0]
-	Local $iParts = UBound($aParts)
-	Local $iLen = StringLen($sDir)
-	Local $iLastPart = $iParts - 1, $iFound = 0, $iNextFound = 0, $sPath = "", $iiFlags = 0
-
-	For $i = 0 To $iLastPart
-		$bFound = False
-
-		If ($iFlag == $FLTA_FILESFOLDERS Or $i <> $iLastPart) And StringInStr($aParts[$i], "?") == 0 And StringInStr($aParts[$i], "*") == 0 Then
-			_OpenCV_DebugMsg("Looking for " & $sDir & "\" & $aParts[$i])
-			$bFound = FileExists($sDir & "\" & $aParts[$i])
-			If Not $bFound Then
-				ExitLoop
-			EndIf
-
-			$sDir &= "\" & $aParts[$i]
-			ContinueLoop
-		EndIf
-
-		_OpenCV_DebugMsg("Listing " & $sDir & "\=" & $aParts[$i])
-		$iiFlags = $i == $iLastPart ? $iFlag : $FLTA_FILESFOLDERS
-
-		$aFileList = _FileListToArray($sDir, $aParts[$i], $iiFlags, $bReturnPath)
-		If @error Then ExitLoop
-
-		If $i == $iLastPart Then
-			ReDim $aMatches[$aFileList[0]]
-
-			For $j = 1 To $aFileList[0]
-				$sPath = $aFileList[$j]
-				If Not $bReturnPath Then
-					$sPath = $sDir & "\" & $sPath
-					$sPath = StringRight($sPath, StringLen($sPath) - $iLen - 1)
-				EndIf
-				$aMatches[$j - 1] = $sPath
-			Next
-
-			If $bReverse Then _ArrayReverse($aMatches)
-			Return $aMatches
-		EndIf
-
-		ReDim $aNextParts[$iParts - $i - 1]
-		For $j = $i + 1 To $iLastPart
-			$aNextParts[$j - $i - 1] = $aParts[$j]
-		Next
-
-		For $j = 1 To $aFileList[0]
-			$sPath = $aFileList[$j]
-			If Not $bReturnPath Then
-				$sPath = $sDir & "\" & $sPath
-			EndIf
-
-			$aNextFileList = _OpenCV_FindFiles($aNextParts, $sPath, $iFlag, $bReturnPath, $bReverse)
-			$iNextFound = UBound($aNextFileList)
-
-			If $iNextFound <> 0 Then
-				ReDim $aMatches[$iFound + $iNextFound]
-				For $k = 0 To $iNextFound - 1
-					$sPath = $aNextFileList[$k]
-					If Not $bReturnPath Then
-						$sPath = $sDir & "\" & $aFileList[$j] & "\" & $sPath
-						$sPath = StringRight($sPath, StringLen($sPath) - $iLen - 1)
-					EndIf
-					$aMatches[$iFound + $k] = $sPath
-				Next
-				$iFound += $iNextFound
-			EndIf
-		Next
-
-		If $bReverse Then _ArrayReverse($aMatches)
-		Return $aMatches
-	Next
-
-	If $bFound Then
-		ReDim $aMatches[1]
-
-		If Not $bReturnPath Then
-			$sDir = StringRight($sDir, StringLen($sDir) - $iLen - 1)
-		EndIf
-
-		_OpenCV_DebugMsg("Found " & $sDir)
-		$aMatches[0] = $sDir
-	EndIf
-
-	SetError(@error)
-
-	If $bReverse Then _ArrayReverse($aMatches)
-	Return $aMatches
-EndFunc   ;==>_OpenCV_FindFiles
-
-Func _OpenCV_FindFile($sFile, $sFilter = Default, $sDir = Default, $iFlag = Default, $aSearchPaths = Default, $bReverse = Default)
-	If $sFilter == Default Then $sFilter = ""
-	If $sDir == Default Then $sDir = @ScriptDir
-	If $aSearchPaths == Default Then $aSearchPaths = _OpenCV_Tuple(1, ".")
-
-	_OpenCV_DebugMsg("_OpenCV_FindFile('" & $sFile & "', '" & $sFilter & "', '" & $sDir & "') " & VarGetType($aSearchPaths))
-
-	Local $sFound = "", $sPath, $aFileList
-	Local $sDrive = "", $sFileName = "", $sExtension = ""
-
-	Local $iSearchStart, $iSearchEnd
-	If IsNumber($aSearchPaths[0]) Then
-		$iSearchStart = 1
-		$iSearchEnd = $aSearchPaths[0]
-	Else
-		$iSearchStart = 0
-		$iSearchEnd = UBound($aSearchPaths) - 1
-	EndIf
-
-	Local $aFilters[1]
-	If IsArray($sFilter) Then
-		$aFilters = $sFilter
-	Else
-		$aFilters[0] = $sFilter
-	EndIf
-
-	While 1
-		For $sFilter In $aFilters
-			For $i = $iSearchStart To $iSearchEnd
-				$sPath = ""
-
-				If $sFilter <> "" Then
-					$sPath = $sFilter
-				EndIf
-
-				If StringCompare($aSearchPaths[$i], ".") <> 0 Then
-					If $sPath == "" Then
-						$sPath = $aSearchPaths[$i]
-					Else
-						$sPath &= "\" & $aSearchPaths[$i]
-					EndIf
-				EndIf
-
-				If $sPath == "" Then
-					$sPath = $sFile
-				Else
-					$sPath &= "\" & $sFile
-				EndIf
-
-				$aFileList = _OpenCV_FindFiles($sPath, $sDir, $iFlag, True, $bReverse)
-				$sFound = UBound($aFileList) == 0 ? "" : $aFileList[0]
-
-				If $sFound <> "" Then
-					_OpenCV_DebugMsg("Found " & $sFound & @CRLF)
-					ExitLoop 3
-				EndIf
-			Next
-
-			_PathSplit($sDir, $sDrive, $sDir, $sFileName, $sExtension)
-			If $sDir == "" Then
-				ExitLoop 2
-			EndIf
-			$sDir = $sDrive & StringLeft($sDir, StringLen($sDir) - 1)
-		Next
-	WEnd
-
-	Return $sFound
-EndFunc   ;==>_OpenCV_FindFile
 
 Func _OpenCV_FindDLL($sFile, $sFilter = Default, $sDir = Default, $bReverse = Default)
 	Local $_cv_build_type = EnvGet("OPENCV_BUILD_TYPE")
@@ -388,13 +214,13 @@ Func _OpenCV_computeResizeParams($iWidth, $iHeight, $iHintWidth = Default, $iHin
 		$iDstHeight = $iHeight
 	EndIf
 
-	Local $iPadWidth = Floor(($iHintWidth - $iDstWidth) / 2)
-	Local $iPadHeight = Floor(($iHintHeight - $iDstHeight) / 2)
+	Local $iPadLeft = Floor(($iHintWidth - $iDstWidth) / 2)
+	Local $iPadTop = Floor(($iHintHeight - $iDstHeight) / 2)
 
-	If $iPadWidth < 0 Then $iPadWidth = 0
-	If $iPadHeight < 0 Then $iPadHeight = 0
+	If $iPadLeft < 0 Then $iPadLeft = 0
+	If $iPadTop < 0 Then $iPadTop = 0
 
-	Return _OpenCV_Tuple($iDstWidth, $iDstHeight, $iPadWidth, $iPadHeight)
+	Return _OpenCV_Tuple($iDstWidth, $iDstHeight, $iPadLeft, $iPadTop)
 EndFunc   ;==>_OpenCV_computeResizeParams
 
 ; node scripts/func_kwargs.js OpenCV resizeAndCenter "['src', 'src']" "['iDstWidth', 'width', 'Default']" "['iDstHeight', 'height', 'Default']" "['aBackgroundColor', 'background', '_OpenCV_Scalar(0xF0, 0xF0, 0xF0, 0xFF)']" "['bResize', 'resize', 'True']" "['bEnlarge', 'enlarge', 'False']" "['bCenter', 'center', 'True']" "['interpolation', 'interpolation', 'Default']" | clip
@@ -559,8 +385,8 @@ Func _OpenCV_resizeAndCenter($src, $iDstWidth = Default, $iDstHeight = Default, 
 	Local $aParams = _OpenCV_computeResizeParams($src.width, $src.height, $iDstWidth, $iDstHeight, $bEnlarge)
 	Local $iWidth = $aParams[0]
 	Local $iHeight = $aParams[1]
-	Local $iPadWidth = $aParams[2]
-	Local $iPadHeight = $aParams[3]
+	Local $iPadLeft = $aParams[2]
+	Local $iPadTop = $aParams[3]
 
 	If $iDstWidth == Default Then $iDstWidth = $iWidth
 	If $iDstHeight == Default Then $iDstHeight = $iHeight
@@ -605,9 +431,9 @@ Func _OpenCV_resizeAndCenter($src, $iDstWidth = Default, $iDstHeight = Default, 
 		EndIf
 	EndIf
 
-	If $bCenter And ($iPadWidth > 0 Or $iPadHeight > 0) Then
+	If $bCenter And ($iPadLeft > 0 Or $iPadTop > 0) Then
 		Local $padded = $src.create($iDstHeight, $iDstWidth, CV_MAKETYPE($src.depth(), $src.channels()), $aBackgroundColor)
-		$src.copyTo($src.create($padded, _OpenCV_Rect($iPadWidth, $iPadHeight, $src.width, $src.height)))
+		$src.copyTo($src.create($padded, _OpenCV_Rect($iPadLeft, $iPadTop, $src.width, $src.height)))
 		$src = $padded
 	EndIf
 

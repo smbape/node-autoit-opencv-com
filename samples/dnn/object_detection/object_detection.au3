@@ -23,6 +23,7 @@
 ;~     https://learnopencv.com/object-detection-using-yolov5-and-opencv-dnn-in-c-and-python/
 ;~     https://github.com/ultralytics/ultralytics/blob/main/examples/YOLOv8-CPP-Inference/inference.cpp
 ;~     https://docs.opencv.org/4.x/d4/d2f/tf_det_tutorial_dnn_conversion.html
+;~     https://github.com/opencv/opencv/blob/4.7.0/samples/dnn/object_detection.py
 
 _OpenCV_Open(_OpenCV_FindDLL("opencv_world470*"), _OpenCV_FindDLL("autoit_opencv_com470*"))
 _GDIPlus_Startup()

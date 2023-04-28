@@ -833,6 +833,14 @@ Object.assign(exports, {
                 }
             }
 
+            let has_body = false;
+            for (const modifier of func_modifiers) {
+                if (modifier.startsWith("/Body=")) {
+                    callee = makeExpansion(modifier.slice("/Body=".length), callee);
+                    has_body = true;
+                }
+            }
+
             if (is_external && !no_external_decl) {
                 let ext_type = generator.getCppType(return_value_type === "" ? "void" : return_value_type, coclass, options);
 
@@ -877,7 +885,7 @@ Object.assign(exports, {
                 }).concat(["HRESULT& hr"]).join(", ") });`);
             }
 
-            if (return_value_type !== "void") {
+            if (!has_body && return_value_type !== "void") {
                 if (PTR.has(generator.getCppType(return_value_type, coclass, options))) {
                     callee = `reinterpret_cast<ULONGLONG>(${ callee })`;
                 }
@@ -891,7 +899,7 @@ Object.assign(exports, {
 
                     const ebody = cindent + `
                         {
-                            const auto${ byref ? "&" : "" } tmp = ${ callee };
+                            const auto${ byref ? "&" : "" } tmp = ${ callee.trim().split("\n").join(`\n${ " ".repeat(28) }`) };
                             if (FAILED(hr)) {
                                 return hr;
                             }
@@ -900,10 +908,12 @@ Object.assign(exports, {
                     `.replace(/^ {24}/mg, "").trim().split("\n").map(line => `${ is_entry_test ? "// " : "" }${ line }`).join(`\n${ cindent }`);
                     body.push(ebody);
                 } else {
-                    body.push(`${ cindent }${ is_entry_test ? "// " : "" }hr = ${ makeExpansion(autoit_from, callee, "_retval") };`);
+                    body.push(`${ cindent }${ is_entry_test ? "// " : "" }hr = ${
+                        makeExpansion(autoit_from, callee.trim().split("\n").join(`\n${ cindent }`), "_retval")
+                    };`);
                 }
             } else {
-                body.push(`${ cindent }${ is_entry_test ? "// " : "" }${ callee };`);
+                body.push(`${ cindent }${ is_entry_test ? "// " : "" }${ callee.trim().split("\n").join(`\n${ cindent }`) };`);
             }
 
             body.push(cindent + `

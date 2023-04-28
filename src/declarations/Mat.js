@@ -475,6 +475,10 @@ module.exports = ({ shared_ptr }) => {
         ], "", ""]);
     }
 
+    declarations.push(["cv.Mat.createFromVectorOfMat", `${ shared_ptr }<Mat>`, ["/Call=::autoit::cvextra::createFromVectorOfMat", "/S"], [
+        ["vector_Mat", "vec", "", []],
+    ], "", ""]);
+
     for (const args of [
         [
             ["int", "i0", "", []],

@@ -102,15 +102,15 @@ const writeFiles = (files, options, cb) => {
         next => {
             // write files
             eachOfLimit(files.keys(), cpus, (filename, i, next) => {
-                if (options.save === false) {
-                    next();
-                    return;
-                }
-
                 const has_doc_toc = options.toc !== false && filename.endsWith(".md");
 
                 waterfall([
                     next => {
+                        if (options.save === false) {
+                            next();
+                            return;
+                        }
+
                         mkdirp(sysPath.dirname(filename)).then(performed => {
                             next();
                         }, next);
@@ -136,6 +136,10 @@ const writeFiles = (files, options, cb) => {
                         }
 
                         console.log("write file", options.output, sysPath.relative(options.output, filename));
+                        if (options.save === false) {
+                            next(null, false);
+                            return;
+                        }
 
                         fs.writeFile(filename, content, err => {
                             next(err, true);
@@ -183,15 +187,27 @@ const writeFiles = (files, options, cb) => {
         },
 
         next => {
+            if (options.save === false) {
+                next();
+                return;
+            }
+
             // generate doctoc
             doctoc.transformAndSave(doctoc_to_generate, next);
         },
 
         next => {
+            const {size} = idls_to_generate;
+
+            if (size !== 0) {
+                console.log(`midl files to compile = ${ size }`);
+            }
+
             // compile idls
             // manual compilation is necessary because
-            // vs will loop indefinetely due to circular dependencies
+            // vs will loop indefinitely due to circular dependencies
             eachOfLimit(idls_to_generate, cpus, (filename, i, next) => {
+                console.log(`compiling file ${ i + 1 } / ${ size }`);
                 MidlCompiler.compile(filename, options, next);
             }, next);
         },
@@ -228,6 +244,12 @@ const deleteFiles = (directory, files, options, cb) => {
                 filename = sysPath.join(directory, filename);
 
                 if (files.has(filename) || ![".c", ".cc", ".cpp", ".h", ".idl", ".tlb"].some(ext => filename.endsWith(ext))) {
+                    next();
+                    return;
+                }
+
+                console.log("delete file", filename);
+                if (options.save === false) {
                     next();
                     return;
                 }

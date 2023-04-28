@@ -240,6 +240,10 @@ class CoClass {
     getCPPFileName(options) {
         return `${ getShortestName(this.className, this.clsid, options) }.cpp`;
     }
+
+    empty() {
+        return !this.is_class && !this.is_struct && this.properties.size === 0 && this.methods.size === 0;
+    }
 }
 
 module.exports = CoClass;

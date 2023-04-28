@@ -11,6 +11,43 @@
 
 #pragma comment(lib, "gdiplus.lib")
 
+const bool is_variant_assignable_from_string(std::string& out_val, VARIANT const* const& in_val, bool is_optional) {
+	if (PARAMETER_MISSING(in_val)) {
+		return is_optional;
+	}
+
+	if (V_VT(in_val) == VT_BSTR) {
+		return true;
+	}
+
+	cv::Mat out_mat;
+	auto hr = autoit_to(in_val, out_mat);
+	if (SUCCEEDED(hr)) {
+		return out_mat.depth() == CV_8U && out_mat.channels() == 1 && (out_mat.rows == 1 || out_mat.cols == 1);
+	}
+
+	return false;
+}
+
+const HRESULT autoit_variant_to_string(VARIANT const* const& in_val, std::string& out_val) {
+	if (PARAMETER_MISSING(in_val)) {
+		return S_OK;
+	}
+
+	if (V_VT(in_val) == VT_BSTR) {
+		return autoit_to(V_BSTR(in_val), out_val);
+	}
+
+	cv::Mat out_mat;
+	auto hr = autoit_to(in_val, out_mat);
+	if (SUCCEEDED(hr) && out_mat.depth() == CV_8U && out_mat.channels() == 1 && (out_mat.rows == 1 || out_mat.cols == 1)) {
+		out_val.assign(reinterpret_cast<char*>(out_mat.ptr()), out_mat.total());
+		return S_OK;
+	}
+
+	return E_INVALIDARG;
+}
+
 const HRESULT autoit_from(cv::MatExpr& in_val, ICv_Mat_Object**& out_val) {
 	return autoit_from(cv::Mat(in_val), out_val);
 }
@@ -511,6 +548,48 @@ void autoit::cvextra::GdiplusResize(cv::InputArray image, cv::Mat& dst, float ne
 	createMatFromBitmap_(hBitmap, dst, true);
 }
 
+AUTOIT_PTR<cv::Mat> autoit::cvextra::createFromVectorOfMat(const std::vector<cv::Mat>& vec) {
+	using namespace cv;
+	AUTOIT_PTR<Mat> matPtr = AUTOIT_MAKE_PTR<Mat>();
+
+	if (vec.empty()) {
+		return matPtr;
+	}
+
+	std::vector<int> isizes = std::vector<int>(vec[0].size.p, vec[0].size.p + vec[0].dims);
+
+	std::vector<int> sizes{ static_cast<int>(vec.size()) };
+	sizes.insert(std::end(sizes), std::begin(isizes), std::end(isizes));
+
+	auto dims = vec[0].dims;
+	auto depth = vec[0].depth();
+	auto cn = vec[0].channels();
+	auto type = CV_MAKE_TYPE(depth, cn);
+
+	*matPtr = Mat::zeros(sizes.size(), sizes.data(), type);
+	auto& result = *matPtr;
+	uchar* data = result.ptr();
+
+	size_t i = 0;
+	for (const auto& mat : vec) {
+		AUTOIT_ASSERT_THROW(mat.depth() == depth,
+			"Mat at index " << i << " doesn't have the same depth as Mat at index 0");
+		AUTOIT_ASSERT_THROW(mat.channels() == cn,
+			"Mat at index " << i << " doesn't have the same number of channels as Mat at index 0");
+		AUTOIT_ASSERT_THROW(mat.dims == dims,
+			"Mat at index " << i << " doesn't have the same dims as Mat at index 0");
+		AUTOIT_ASSERT_THROW(std::equal(isizes.begin(), isizes.end(), mat.size.p),
+			"Mat at index " << i << " doesn't have the same size as Mat at index 0");
+
+		mat.copyTo(Mat(isizes, type, data));
+
+		data += result.step.p[0];
+		i++;
+	}
+
+	return matPtr;
+}
+
 template<typename _Tp>
 static const std::string join(_Tp* elements, size_t size, const std::string& separator = ",") {
 	std::ostringstream o;
@@ -523,24 +602,21 @@ static const std::string join(_Tp* elements, size_t size, const std::string& sep
 	return o.str();
 }
 
-static int _inferDepth(ATL::CComSafeArray<VARIANT>& vArray, HRESULT& hr) {
+static int getDepth(ATL::CComSafeArray<VARIANT>& vArray, HRESULT& hr) {
 	const UINT uDims = vArray.GetDimensions();
-	LONG* lSizes = new LONG[uDims * 3];
-	LONG size = 1;
+	std::vector<LONG> steps(uDims);
+	size_t total = 1;
 
 	for (UINT uDim = 0; uDim < uDims; uDim++) {
 		auto lLower = vArray.GetLowerBound(uDim);
 		auto lUpper = vArray.GetUpperBound(uDim);
 		auto count = lUpper - lLower + 1;
 
-		lSizes[uDim * 3] = count;
-		lSizes[uDim * 3 + 1] = lLower;
-		lSizes[uDim * 3 + 2] = size;
-
-		size *= count;
+		steps[uDim] = total;
+		total *= count;
 	}
 
-	LONG* aIndex = new LONG[uDims];
+	std::vector<LONG> aIndex(uDims);
 	LONGLONG minVal = 0;
 	ULONGLONG maxVal = 0;
 	VARIANT v;
@@ -559,20 +635,21 @@ static int _inferDepth(ATL::CComSafeArray<VARIANT>& vArray, HRESULT& hr) {
 	bool has_float = false;
 	bool has_double = false;
 
-	for (LONG i = 0; !has_double && i < size; i++) {
+	for (size_t i = 0; !has_double && i < total; i++) {
 		LONG index = i;
 
-		for (UINT uDim = 0; uDim < uDims; uDim++) {
-			auto usDim = uDims - uDim - 1;
-			auto d = lSizes[3 * usDim + 2];
-			auto r = index % d;
-			auto q = (index - r) / d;
-
-			aIndex[usDim] = q;
-			index -= q * d;
+		for (LONG uDim = uDims - 1; uDim >= 0; uDim--) {
+			aIndex[uDim] = index / steps[uDim];
+			index %= steps[uDim];
 		}
 
-		AUTOIT_ASSERT_THROW(SUCCEEDED(vArray.MultiDimGetAt(aIndex, v)), "Failed get element at [" << join(aIndex, uDims, "][") << "]");
+		hr = vArray.MultiDimGetAt(aIndex.data(), v);
+
+		// The leftmost (most significant) dimension is aIndex[0]
+		// however, we want to display the rightmost dimension as aIndex[0]
+		std::reverse(aIndex.begin(), aIndex.end());
+
+		AUTOIT_ASSERT_THROW(SUCCEEDED(hr), "Failed get element at [" << join(aIndex.data(), uDims, "][") << "]");
 
 		switch (V_VT(&v)) {
 		case VT_I1:
@@ -628,11 +705,9 @@ static int _inferDepth(ATL::CComSafeArray<VARIANT>& vArray, HRESULT& hr) {
 			break;
 		default:
 			hr = E_INVALIDARG;
-			i = size - 1;
+			i = total - 1;
 		}
 	}
-
-	delete[] aIndex;
 
 	if (has_double || has_int64 || has_uint64) {
 		return CV_64F;
@@ -660,101 +735,50 @@ static int _inferDepth(ATL::CComSafeArray<VARIANT>& vArray, HRESULT& hr) {
 template<typename _Tp>
 const void _createFromArray(ATL::CComSafeArray<VARIANT>& vArray, int depth, HRESULT& hr, cv::Mat& result) {
 	const UINT uDims = vArray.GetDimensions();
+
+	size_t total = 1;
+	std::vector<int> sizes(uDims);
+	std::vector<int> steps(uDims);
+	for (UINT uDim = 0; uDim < uDims; uDim++) {
+		auto lLower = vArray.GetLowerBound(uDim);
+		auto lUpper = vArray.GetUpperBound(uDim);
+		auto count = lUpper - lLower + 1;
+
+		sizes[uDims - 1 - uDim] = count;
+		steps[uDim] = total;
+		total *= count;
+	}
+
+	result = cv::Mat::zeros(sizes.size(), sizes.data(), depth);
+	_Tp* data = result.ptr<_Tp>();
+
 	_Tp value;
-
-	if (uDims == 3) {
-		LONG rowsLower = vArray.GetLowerBound(2);
-		LONG rowsUpper = vArray.GetUpperBound(2);
-		auto rows = rowsUpper - rowsLower + 1;
-
-		LONG colsLower = vArray.GetLowerBound(1);
-		LONG colsUpper = vArray.GetUpperBound(1);
-		auto cols = colsUpper - colsLower + 1;
-
-		LONG channelsLower = vArray.GetLowerBound(0);
-		LONG channelsUpper = vArray.GetUpperBound(0);
-		auto channels = channelsUpper - channelsLower + 1;
-
-		result = cv::Mat(rows, cols, CV_MAKETYPE(depth, channels));
-
-		LONG aIndex[3];
-		VARIANT v;
-		VariantInit(&v);
-
-		for (LONG i = 0; i < rows; i++) {
-			aIndex[2] = i + rowsLower;
-			for (LONG j = 0; j < cols; j++) {
-				aIndex[1] = j + colsLower;
-				for (LONG k = 0; k < channels; k++) {
-					aIndex[0] = k + channelsLower;
-					AUTOIT_ASSERT_THROW(SUCCEEDED(vArray.MultiDimGetAt(aIndex, v)), "Failed get element at [" << join(aIndex, uDims, "][") << "]");
-					VARIANT* pv = &v;
-
-					hr = autoit_to(pv, value);
-					if (FAILED(hr)) {
-						AUTOIT_ERROR("element at [" << i << "][" << j << "][" << k << "] is not of type " << typeid(_Tp).name());
-						return;
-					}
-
-					result.ptr<_Tp>(i, j)[k] = value;
-				}
-			}
+	std::vector<LONG> aIndex(uDims);
+	VARIANT v;
+	VariantInit(&v);
+	for (size_t i = 0; i < total; i++) {
+		size_t index = i;
+		for (LONG uDim = uDims - 1; uDim >= 0; uDim--) {
+			aIndex[uDim] = index / steps[uDim];
+			index %= steps[uDim];
 		}
-	}
-	else if (uDims == 2) {
-		LONG rowsLower = vArray.GetLowerBound(1);
-		LONG rowsUpper = vArray.GetUpperBound(1);
-		auto rows = rowsUpper - rowsLower + 1;
 
-		LONG colsLower = vArray.GetLowerBound(0);
-		LONG colsUpper = vArray.GetUpperBound(0);
-		auto cols = colsUpper - colsLower + 1;
+		hr = vArray.MultiDimGetAt(aIndex.data(), v);
 
-		result = cv::Mat(rows, cols, CV_MAKETYPE(depth, 1));
+		// The leftmost (most significant) dimension is aIndex[0]
+		// however, we want to display the rightmost dimension as aIndex[0]
+		std::reverse(aIndex.begin(), aIndex.end());
 
-		LONG aIndex[2];
-		VARIANT v;
-		VariantInit(&v);
+		AUTOIT_ASSERT_THROW(SUCCEEDED(hr), "Failed get element at [" << join(aIndex.data(), uDims, "][") << "]");
+		VARIANT* pv = &v;
 
-		for (LONG i = 0; i < rows; i++) {
-			aIndex[1] = i + rowsLower;
-			for (LONG j = 0; j < cols; j++) {
-				aIndex[0] = j + colsLower;
-				AUTOIT_ASSERT_THROW(SUCCEEDED(vArray.MultiDimGetAt(aIndex, v)), "Failed get element at [" << join(aIndex, uDims, "][") << "]");
-				VARIANT* pv = &v;
-
-				hr = autoit_to(pv, value);
-				if (FAILED(hr)) {
-					AUTOIT_ERROR("element at [" << i << "][" << j << "] is not of type " << typeid(_Tp).name() << "; type = " << V_VT(pv));
-					return;
-				}
-
-				result.at<_Tp>(i, j) = value;
-			}
+		hr = autoit_to(pv, value);
+		if (FAILED(hr)) {
+			AUTOIT_ERROR("element at [" << join(aIndex.data(), uDims, "][") << "] is not of type " << typeid(_Tp).name());
+			return;
 		}
-	}
-	else if (uDims == 1) {
-		LONG colsLower = vArray.GetLowerBound();
-		LONG colsUpper = vArray.GetUpperBound();
-		auto cols = colsUpper - colsLower + 1;
 
-		result = cv::Mat(1, cols, CV_MAKETYPE(depth, 1));
-
-		for (LONG i = 0; i < cols; i++) {
-			auto& v = vArray.GetAt(i + colsLower);
-			VARIANT* pv = &v;
-
-			hr = autoit_to(pv, value);
-			if (FAILED(hr)) {
-				AUTOIT_ERROR("element at [" << i << "] is not of type " << typeid(_Tp).name());
-				return;
-			}
-
-			result.at<_Tp>(i) = value;
-		}
-	}
-	else {
-		hr = E_INVALIDARG;
+		data[i] = value;
 	}
 }
 
@@ -770,14 +794,8 @@ const cv::Mat CCv_Mat_Object::createFromArray(_variant_t& array, int depth, HRES
 	ATL::CComSafeArray<VARIANT> vArray;
 	vArray.Attach(V_ARRAY(in_val));
 
-	if (vArray.GetDimensions() > 3) {
-		vArray.Detach();
-		hr = E_INVALIDARG;
-		return result;
-	}
-
 	if (depth == -1) {
-		depth = _inferDepth(vArray, hr);
+		depth = getDepth(vArray, hr);
 		if (FAILED(hr)) {
 			vArray.Detach();
 			return result;
@@ -819,90 +837,75 @@ const cv::Mat CCv_Mat_Object::createFromArray(_variant_t& array, int depth, HRES
 
 template<typename _Tp>
 static LPSAFEARRAY _asArray(const cv::Mat& mat) {
-	auto rows = mat.rows;
-	auto cols = mat.cols;
 	auto channels = mat.channels();
-
-	UINT uDims;
-	if (channels == 1) {
-		uDims = cols == 1 ? 1 : 2;
-	}
-	else if (cols == 1) {
-		uDims = 2;
-	}
-	else {
-		uDims = 3;
-	}
+	auto total = mat.total() * channels;
 
 	// Define the array bound structure
-	CComSafeArrayBound* bound = new CComSafeArrayBound[uDims];
+	std::vector<CComSafeArrayBound> bounds;
 
-	if (uDims == 1) {
-		bound[0].SetCount(rows * cols * channels);
-		bound[0].SetLowerBound(0);
-	}
-	else if (uDims == 2) {
-		bound[1].SetCount(rows);
-		bound[1].SetLowerBound(0);
-		bound[0].SetCount(cols * channels);
-		bound[0].SetLowerBound(0);
-	}
-	else if (uDims == 3) {
-		bound[2].SetCount(rows);
-		bound[2].SetLowerBound(0);
-		bound[1].SetCount(cols);
-		bound[1].SetLowerBound(0);
-		bound[0].SetCount(channels);
-		bound[0].SetLowerBound(0);
+	for (int i = 0; i < mat.dims; i++) {
+		if (i == 1 && mat.cols == 1) {
+			continue;
+		}
+
+		CComSafeArrayBound bound;
+		bound.SetCount(mat.size.p[i]);
+		bound.SetLowerBound(0);
+		bounds.push_back(std::move(bound));
 	}
 
-	ATL::CComSafeArray<VARIANT> vArray(bound, uDims);
-	LONG* aIndex = new LONG[uDims];
+	if (channels != 1) {
+		CComSafeArrayBound bound;
+		bound.SetCount(channels);
+		bound.SetLowerBound(0);
+		bounds.push_back(std::move(bound));
+	}
+
+	// The rightmost (least significant) dimension is bounds[0]
+	// however, we pushed dimensions from left to right
+	// reverse to make bounds as expected by CComSafeArrayBound
+	std::reverse(bounds.begin(), bounds.end());
+
+	auto uDims = bounds.size();
+	ATL::CComSafeArray<VARIANT> vArray(bounds.data(), uDims);
+	std::vector<LONG> aIndex(uDims);
 	VARIANT v;
 	VARIANT* pv = &v;
 	VariantInit(pv);
-
-	if (uDims == 3) {
-		for (LONG i = 0; i < rows; i++) {
-			aIndex[2] = i;
-			for (LONG j = 0; j < cols; j++) {
-				aIndex[1] = j;
-				for (LONG k = 0; k < channels; k++) {
-					aIndex[0] = k;
-					AUTOIT_ASSERT_THROW(SUCCEEDED(autoit_from(mat.ptr<_Tp>(i, j)[k], pv)), "Failed get element at [" << join(aIndex, uDims, "][") << "]");
-					AUTOIT_ASSERT_THROW(SUCCEEDED(vArray.MultiDimSetAt(aIndex, v)), "Failed set element at [" << join(aIndex, uDims, "][") << "]");
-					VariantClear(pv);
-				}
-			}
-		}
-	}
-	else if (uDims == 2) {
-		for (LONG i = 0; i < rows; i++) {
-			aIndex[1] = i;
-			for (LONG j = 0; j < cols; j++) {
-				for (LONG k = 0; k < channels; k++) {
-					aIndex[0] = j * channels + k;
-					AUTOIT_ASSERT_THROW(SUCCEEDED(autoit_from(mat.ptr<_Tp>(i, j)[k], pv)), "Failed get element at [" << join(aIndex, uDims, "][") << "]");
-					AUTOIT_ASSERT_THROW(SUCCEEDED(vArray.MultiDimSetAt(aIndex, v)), "Failed set element at [" << join(aIndex, uDims, "][") << "]");
-					VariantClear(pv);
-				}
-			}
-		}
-	}
-	else {
-		for (LONG i = 0; i < rows; i++) {
-			for (LONG j = 0; j < cols; j++) {
-				for (LONG k = 0; k < channels; k++) {
-					AUTOIT_ASSERT_THROW(SUCCEEDED(autoit_from(mat.ptr<_Tp>(i, j)[k], pv)), "Failed get element at [" << join(aIndex, uDims, "][") << "]");
-					AUTOIT_ASSERT_THROW(SUCCEEDED(vArray.SetAt((i * cols + j) * channels + k, v)), "Failed set element at [" << join(aIndex, uDims, "][") << "]");
-					VariantClear(pv);
-				}
-			}
-		}
+	const uchar* data = mat.ptr();
+	HRESULT hr;
+	std::vector<int> sizes(mat.cols == 1 ? mat.dims - 1 : mat.dims);
+	size_t size = channels;
+	for (int i = sizes.size() - 1; i >= 0; i--) {
+		sizes[i] = size;
+		size *= mat.size.p[i];
 	}
 
-	delete[] bound;
-	delete[] aIndex;
+	for (size_t i = 0; i < total; i++) {
+		size_t offset = 0;
+		size_t index = i;
+		LONG uDim = uDims - 1;
+
+		for (int j = 0; j < sizes.size(); j++) {
+			aIndex[uDim] = index / sizes[j];
+			index %= sizes[j];
+			offset += aIndex[uDim] * mat.step.p[j];
+			uDim--;
+		}
+
+		if (channels != 1) {
+			aIndex[uDim] = index;
+			offset += index * sizeof(_Tp);
+		}
+
+		hr = autoit_from(*reinterpret_cast<const _Tp*>(data + offset), pv);
+		AUTOIT_ASSERT_THROW(SUCCEEDED(hr), "element at [" << join(aIndex.data(), uDims, "][") << "] is not of type " << typeid(_Tp).name());
+
+		hr = vArray.MultiDimSetAt(aIndex.data(), v);
+		AUTOIT_ASSERT_THROW(SUCCEEDED(hr), "Failed set element at [" << join(aIndex.data(), uDims, "][") << "]");
+
+		VariantClear(pv);
+	}
 
 	return vArray.Detach();
 }
@@ -913,12 +916,6 @@ const _variant_t CCv_Mat_Object::asArray(HRESULT& hr) {
 	VARIANT* out_val = &res;
 
 	const auto& mat = *__self->get();
-
-	if (mat.dims > 2) {
-		AUTOIT_ERROR("mat dimension must be at most 2");
-		hr = E_INVALIDARG;
-		return res;
-	}
 
 	V_VT(out_val) = VT_ARRAY | VT_VARIANT;
 

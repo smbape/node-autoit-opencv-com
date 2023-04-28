@@ -1,4 +1,4 @@
-#include "autoit_bridge_common.h"
+#include "autoit_bridge.h"
 #include <filesystem>
 
 namespace fs = std::filesystem;
@@ -238,6 +238,10 @@ const bool is_assignable_from(std::string& out_val, BSTR const& in_val, bool is_
 }
 
 const bool is_assignable_from(std::string& out_val, VARIANT const* const& in_val, bool is_optional) {
+#ifdef IS_VARIANT_ASSIGNABLE_FROM_STRING
+	return IS_VARIANT_ASSIGNABLE_FROM_STRING(out_val, in_val, is_optional);
+#endif
+
 	if (PARAMETER_MISSING(in_val)) {
 		return is_optional;
 	}
@@ -258,6 +262,10 @@ const HRESULT autoit_to(BSTR const& in_val, std::string& out_val) {
 }
 
 const HRESULT autoit_to(VARIANT const* const& in_val, std::string& out_val) {
+#ifdef AUTOIT_VARIANT_TO_STRING
+	return AUTOIT_VARIANT_TO_STRING(in_val, out_val);
+#endif
+
 	if (PARAMETER_MISSING(in_val)) {
 		return S_OK;
 	}

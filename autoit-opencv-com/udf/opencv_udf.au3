@@ -1,4 +1,5 @@
 #include-once
+#include <File.au3>
 #include "cv_interface.au3"
 #include "cv_enums.au3"
 
@@ -29,12 +30,13 @@ EndFunc   ;==>_OpenCV_ObjCreate
 
 Func _OpenCV_get($vVal = Default)
 	Local Static $cv = 0
-	Local $prevVal
+
 	If $vVal <> Default Then
-		$prevVal = $cv
+		Local $prevVal = $cv
 		$cv = $vVal
 		Return $prevVal
 	EndIf
+
 	If IsObj($cv) Then Return $cv
 	$cv = _OpenCV_ObjCreate("cv")
 
@@ -130,7 +132,7 @@ Func _OpenCV_Close()
 
 	; https://stackoverflow.com/questions/63110817/how-to-ensure-that-gpu-memory-is-actually-deallocated-after-an-opencv-t-api-func
 	; It seems that an allocation flushes the cleanup queue!
-	$cv.UMat.zeros(1, 1, $CV_8UC1)
+	If IsObj($cv) Then $cv.UMat.zeros(1, 1, $CV_8UC1)
 
 	Return _OpenCV_Install(Default, Default, Default, False)
 EndFunc   ;==>_OpenCV_Close
@@ -151,6 +153,179 @@ EndFunc   ;==>_OpenCV_ActivateManifest
 Func _OpenCV_DeactivateActCtx()
 	Return _OpenCV_DllCall($h_autoit_opencv_com_dll, "BOOL", "DllDeactivateActCtx")
 EndFunc   ;==>_OpenCV_DeactivateActCtx
+
+Func _OpenCV_FindFiles($aParts, $sDir = Default, $iFlag = Default, $bReturnPath = Default, $bReverse = Default)
+	If $sDir == Default Then $sDir = @ScriptDir
+	If $iFlag == Default Then $iFlag = $FLTA_FILESFOLDERS
+	If $bReturnPath == Default Then $bReturnPath = False
+	If $bReverse == Default Then $bReverse = False
+
+	If IsString($aParts) Then
+		$aParts = StringSplit($aParts, "\", $STR_NOCOUNT)
+	EndIf
+
+	Local $aMatches[0]
+	Local $bFound = False
+	Local $aNextParts[0]
+	Local $aFileList[0]
+	Local $aNextFileList[0]
+	Local $iParts = UBound($aParts)
+	Local $iLen = StringLen($sDir)
+	Local $iLastPart = $iParts - 1, $iFound = 0, $iNextFound = 0, $sPath = "", $iiFlags = 0
+
+	For $i = 0 To $iLastPart
+		$bFound = False
+
+		If ($iFlag == $FLTA_FILESFOLDERS Or $i <> $iLastPart) And StringInStr($aParts[$i], "?") == 0 And StringInStr($aParts[$i], "*") == 0 Then
+			_OpenCV_DebugMsg("Looking for " & $sDir & "\" & $aParts[$i])
+			$bFound = FileExists($sDir & "\" & $aParts[$i])
+			If Not $bFound Then
+				ExitLoop
+			EndIf
+
+			$sDir &= "\" & $aParts[$i]
+			ContinueLoop
+		EndIf
+
+		_OpenCV_DebugMsg("Listing " & $sDir & "\=" & $aParts[$i])
+		$iiFlags = $i == $iLastPart ? $iFlag : $FLTA_FILESFOLDERS
+
+		$aFileList = _FileListToArray($sDir, $aParts[$i], $iiFlags, $bReturnPath)
+		If @error Then ExitLoop
+
+		If $i == $iLastPart Then
+			ReDim $aMatches[$aFileList[0]]
+
+			For $j = 1 To $aFileList[0]
+				$sPath = $aFileList[$j]
+				If Not $bReturnPath Then
+					$sPath = $sDir & "\" & $sPath
+					$sPath = StringRight($sPath, StringLen($sPath) - $iLen - 1)
+				EndIf
+				$aMatches[$j - 1] = $sPath
+			Next
+
+			If $bReverse Then _ArrayReverse($aMatches)
+			Return $aMatches
+		EndIf
+
+		ReDim $aNextParts[$iParts - $i - 1]
+		For $j = $i + 1 To $iLastPart
+			$aNextParts[$j - $i - 1] = $aParts[$j]
+		Next
+
+		For $j = 1 To $aFileList[0]
+			$sPath = $aFileList[$j]
+			If Not $bReturnPath Then
+				$sPath = $sDir & "\" & $sPath
+			EndIf
+
+			$aNextFileList = _OpenCV_FindFiles($aNextParts, $sPath, $iFlag, $bReturnPath, $bReverse)
+			$iNextFound = UBound($aNextFileList)
+
+			If $iNextFound <> 0 Then
+				ReDim $aMatches[$iFound + $iNextFound]
+				For $k = 0 To $iNextFound - 1
+					$sPath = $aNextFileList[$k]
+					If Not $bReturnPath Then
+						$sPath = $sDir & "\" & $aFileList[$j] & "\" & $sPath
+						$sPath = StringRight($sPath, StringLen($sPath) - $iLen - 1)
+					EndIf
+					$aMatches[$iFound + $k] = $sPath
+				Next
+				$iFound += $iNextFound
+			EndIf
+		Next
+
+		If $bReverse Then _ArrayReverse($aMatches)
+		Return $aMatches
+	Next
+
+	If $bFound Then
+		ReDim $aMatches[1]
+
+		If Not $bReturnPath Then
+			$sDir = StringRight($sDir, StringLen($sDir) - $iLen - 1)
+		EndIf
+
+		_OpenCV_DebugMsg("Found " & $sDir)
+		$aMatches[0] = $sDir
+	EndIf
+
+	SetError(@error)
+
+	If $bReverse Then _ArrayReverse($aMatches)
+	Return $aMatches
+EndFunc   ;==>_OpenCV_FindFiles
+
+Func _OpenCV_FindFile($sFile, $sFilter = Default, $sDir = Default, $iFlag = Default, $aSearchPaths = Default, $bReverse = Default)
+	If $sFilter == Default Then $sFilter = ""
+	If $sDir == Default Then $sDir = @ScriptDir
+	If $aSearchPaths == Default Then $aSearchPaths = _OpenCV_Tuple(1, ".")
+
+	_OpenCV_DebugMsg("_OpenCV_FindFile('" & $sFile & "', '" & $sFilter & "', '" & $sDir & "') " & VarGetType($aSearchPaths))
+
+	Local $sFound = "", $sPath, $aFileList
+	Local $sDrive = "", $sFileName = "", $sExtension = ""
+
+	Local $iSearchStart, $iSearchEnd
+	If IsNumber($aSearchPaths[0]) Then
+		$iSearchStart = 1
+		$iSearchEnd = $aSearchPaths[0]
+	Else
+		$iSearchStart = 0
+		$iSearchEnd = UBound($aSearchPaths) - 1
+	EndIf
+
+	Local $aFilters[1]
+	If IsArray($sFilter) Then
+		$aFilters = $sFilter
+	Else
+		$aFilters[0] = $sFilter
+	EndIf
+
+	While 1
+		For $sFilter In $aFilters
+			For $i = $iSearchStart To $iSearchEnd
+				$sPath = ""
+
+				If $sFilter <> "" Then
+					$sPath = $sFilter
+				EndIf
+
+				If StringCompare($aSearchPaths[$i], ".") <> 0 Then
+					If $sPath == "" Then
+						$sPath = $aSearchPaths[$i]
+					Else
+						$sPath &= "\" & $aSearchPaths[$i]
+					EndIf
+				EndIf
+
+				If $sPath == "" Then
+					$sPath = $sFile
+				Else
+					$sPath &= "\" & $sFile
+				EndIf
+
+				$aFileList = _OpenCV_FindFiles($sPath, $sDir, $iFlag, True, $bReverse)
+				$sFound = UBound($aFileList) == 0 ? "" : $aFileList[0]
+
+				If $sFound <> "" Then
+					_OpenCV_DebugMsg("Found " & $sFound & @CRLF)
+					ExitLoop 3
+				EndIf
+			Next
+
+			_PathSplit($sDir, $sDrive, $sDir, $sFileName, $sExtension)
+			If $sDir == "" Then
+				ExitLoop 2
+			EndIf
+			$sDir = $sDrive & StringLeft($sDir, StringLen($sDir) - 1)
+		Next
+	WEnd
+
+	Return $sFound
+EndFunc   ;==>_OpenCV_FindFile
 
 Func _OpenCV_DebugMsg($msg)
 	Local $_cv_debug = Number(EnvGet("OPENCV_DEBUG"))

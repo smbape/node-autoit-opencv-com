@@ -272,7 +272,7 @@ const HRESULT autoit_to(VARIANT const* const& in_val, std::optional<_Ty1>& out_v
 	}
 
 	_Ty1 value;
-	HRESULT hr = autoit_to(in_val, out_val);
+	HRESULT hr = autoit_to(in_val, value);
 	out_val.emplace(std::move(value));
 	return hr;
 }
@@ -816,7 +816,7 @@ namespace autoit {
 	template<typename destination_type, typename source_type>
 	struct _GenericCopy<destination_type, AUTOIT_PTR<source_type>> {
 		inline static HRESULT copy(destination_type* pTo, const AUTOIT_PTR<source_type>* pFrom) {
-			return autoit_from(&pFrom, pTo);
+			return autoit_from(*pFrom, pTo);
 		}
 	};
 

@@ -45,14 +45,18 @@ exports.useNamespaces = (body, method, coclass, generator) => {
 };
 
 exports.getTypeDef = (type, options) => {
-    type = type
+    let type_def = type
+        .replace(/\b(u?int(?:8|16|32|64))_t\b/g, "$1")
         .replace(/std::map/g, "MapOf")
         .replace(/std::pair/g, "PairOf")
         .replace(/std::vector/g, "VectorOf");
-    return exports.removeNamespaces(type, options)
+
+    type_def = exports.removeNamespaces(type_def, options)
         .replace(/\b_variant_t\b/g, "Variant")
         .replace(/::/g, "_")
         .replace(/\b[a-z]/g, m => m.toUpperCase())
         .replace(/, /g, "And")
         .replace(/[<>]/g, "");
+
+    return type_def;
 };

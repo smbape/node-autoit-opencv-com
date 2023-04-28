@@ -1,5 +1,5 @@
 diff --git a/modules/python/src2/hdr_parser.py b/modules/python/src2/hdr_parser.py
-index ebe13f05c7..e38cf218ec 100755
+index ebe13f05c7..29c5bd1885 100755
 --- a/modules/python/src2/hdr_parser.py
 +++ b/modules/python/src2/hdr_parser.py
 @@ -70,6 +70,29 @@ class CppHeaderParser(object):
@@ -58,7 +58,36 @@ index ebe13f05c7..e38cf218ec 100755
              func_modlist.append("="+arg)
              decl_str = decl_str[:npos] + decl_str[npos3+1:]
          npos = decl_str.find("CV_WRAP_PHANTOM")
-@@ -770,8 +807,12 @@ class CppHeaderParser(object):
+@@ -639,10 +676,13 @@ class CppHeaderParser(object):
+ 
+         the function will convert "A" to "cv.A" and "f" to "cv.A.f".
+         """
+-        if not self.block_stack:
+-            return name
+-        if name.startswith("cv."):
++        if (not self.block_stack) or name.startswith("cv."):
+             return name
++        if name.startswith("."):
++            return name[1:]
++        if name.startswith("::"):
++            return name[2:]
++
+         qualified_name = (("." in name) or ("::" in name))
+         n = ""
+         for b in self.block_stack:
+@@ -734,7 +774,10 @@ class CppHeaderParser(object):
+ 
+             if stmt.startswith("enum") or stmt.startswith("namespace"):
+                 # NB: Drop inheritance syntax for enum
+-                stmt = stmt.split(':')[0]
++                if stmt.startswith("enum"):
++                    stmt = stmt.split(':')[0]
++                else:
++                    stmt = stmt.replace("::", ".")
+                 stmt_list = stmt.rsplit(" ", 1)
+                 if len(stmt_list) < 2:
+                     stmt_list.append("<unnamed>")
+@@ -770,8 +813,18 @@ class CppHeaderParser(object):
                  var_modlist = []
                  if "CV_PROP_RW" in stmt:
                      var_modlist.append("/RW")
@@ -69,6 +98,12 @@ index ebe13f05c7..e38cf218ec 100755
 +                else:
 +                    var_modlist.append("/R")
 +                stmt = self.batch_replace(stmt, [("CV_PROP_RW", ""), ("CV_PROP_W", ""), ("CV_PROP", "")]).strip()
++                if re.search(r"\bstatic\b\s*", stmt):
++                    var_modlist.append("/S")
++                    stmt = re.sub(r"\bstatic\b\s*", "", stmt)
++                if re.search(r"\bconst\b\s*", stmt):
++                    var_modlist.append("/C")
++                    stmt = re.sub(r"\bconst\b\s*", "", stmt)
 +                var_list = self.get_var_list(stmt)
                  var_type, var_name1, modlist, argno = self.parse_arg(var_list[0], -1)
                  var_list = [var_name1] + [i.strip() for i in var_list[1:]]

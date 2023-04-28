@@ -11,7 +11,7 @@ const CS_RUN = sysPath.join("samples", "dotnet", "csrun.bat");
 const run = (file, cwd, env, next) => {
     const { BUILD_TYPE, OPENCV_BUILD_TYPE } = process.env;
     if (BUILD_TYPE && BUILD_TYPE !== env.BUILD_TYPE || OPENCV_BUILD_TYPE && OPENCV_BUILD_TYPE !== env.OPENCV_BUILD_TYPE) {
-        next(null, 0, null);
+        next(0, null);
         return;
     }
 

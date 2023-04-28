@@ -124,11 +124,26 @@ Object.assign(exports, {
             case "FLOAT":
             case "double":
             case "DOUBLE":
-            case "int64":
             case "LONGLONG":
             case "SSIZE_T":
             case "size_t":
             case "ULONGLONG":
+            case "int8":
+            case "int8_t":
+            case "int16":
+            case "int16_t":
+            case "int32":
+            case "int32_t":
+            case "int64":
+            case "int64_t":
+            case "uint8":
+            case "uint8_t":
+            case "uint16":
+            case "uint16_t":
+            case "uint32":
+            case "uint32_t":
+            case "uint64":
+            case "uint64_t":
                 return true;
             default:
                 return false;
@@ -190,18 +205,18 @@ Object.assign(exports, {
 
     convertFromIdl(in_type, in_val, out_type, obj, propname, setter, is_enum) {
         if (in_type.toLowerCase() === out_type.toLowerCase()) {
-            const assignation = setter ? `${ obj }${ setter }(${ in_val })` : `${ obj }${ propname } = ${ in_val }`;
+            const assignation = setter ? `${ setter }(${ in_val })` : `${ obj }${ propname } = ${ in_val }`;
             return `${ assignation };\nreturn S_OK;`;
         }
 
         if (is_enum || this.isNativeType(in_type) && this.isNativeType(out_type)) {
             in_val = `static_cast<${ out_type }>(${ in_val })`;
-            const assignation = setter ? `${ obj }${ setter }(${ in_val })` : `${ obj }${ propname } = ${ in_val }`;
+            const assignation = setter ? `${ setter }(${ in_val })` : `${ obj }${ propname } = ${ in_val }`;
             return `${ assignation };\nreturn S_OK;`;
         }
 
         if (setter) {
-            return `${ out_type } out_val;\nHRESULT hr = autoit_to(${ in_val }, out_val);\n${ obj }${ setter }(out_val);\nreturn hr;`;
+            return `${ out_type } out_val;\nHRESULT hr = autoit_to(${ in_val }, out_val);\n${ setter }(out_val);\nreturn hr;`;
         }
 
         return `return autoit_to(${ in_val }, ${ obj }${ propname });`;
@@ -221,13 +236,14 @@ Object.assign(exports, {
         const no_external_decl = modifiers.includes("/ExternalNoDecl");
         const is_external = no_external_decl || modifiers.includes("/External");
         const has_docs = !fqn.endsWith("AndVariant");
+        const obj = `${ is_static ? `${ fqn }::` : "__self->get()->" }`;
 
         let is_private = true;
         let propname = idlname;
         let rname, wname;
         let id = null;
-        let is_propget = false;
-        let is_propput = false;
+        let has_propget = is_static || is_enum || modifiers.includes("/R") || modifiers.includes("/RW");
+        let has_propput = modifiers.includes("/W") || modifiers.includes("/RW");
         const attrs = [];
 
         for (const modifier of modifiers) {
@@ -235,8 +251,14 @@ Object.assign(exports, {
                 propname = modifier.slice(1);
             } else if (modifier.startsWith("/R=")) {
                 rname = `${ modifier.slice("/R=".length) }()`;
+                has_propget = true;
+            } else if (modifier.startsWith("/RExpr=")) {
+                has_propget = true;
             } else if (modifier.startsWith("/W=")) {
                 wname = modifier.slice("/W=".length);
+                has_propput = true;
+            } else if (modifier.startsWith("/WExpr=")) {
+                has_propput = true;
             } else if (modifier.startsWith("/id=")) {
                 const new_id = modifier.slice("/id=".length);
                 if (id === null) {
@@ -249,10 +271,11 @@ Object.assign(exports, {
             }
         }
 
-        const obj = `${ is_static ? `${ fqn }::` : "__self->get()->" }`;
+        if (!has_propput) {
+            has_propget = true;
+        }
 
-        if (is_static || is_enum || modifiers.includes("/R") || modifiers.includes("/RW") || (!modifiers.includes("/W") && !wname) || rname) {
-            is_propget = true;
+        if (has_propget) {
             id = coclass.addIDLName(idlname, `get_${ idlname }`, id);
 
             const attributes = [`id(${ id })`, "propget"].concat(attrs);
@@ -319,16 +342,53 @@ Object.assign(exports, {
             ipublic.push(`STDMETHOD(get_${ idlname })(${ idltype }* pVal);`);
         }
 
-        if (modifiers.includes("/W") || modifiers.includes("/RW") || wname) {
-            is_propput = true;
+        if (has_propput) {
+            if (wname) {
+                wname = `${ obj }${ wname }`;
+            }
+
             id = coclass.addIDLName(idlname, `put_${ idlname }`, id);
 
             const attributes = [`id(${ id })`, "propput"].concat(attrs);
             is_private = false;
-            const idltype = propidltype === "VARIANT" ? "VARIANT*" : propidltype;
+
+            let idltype = propidltype === "VARIANT" ? "VARIANT*" : propidltype;
+            for (const modifier of modifiers) {
+                if (modifier.startsWith("/WIDL=")) {
+                    idltype = modifier.slice("/WIDL=".length);
+                }
+            }
 
             const enum_fqn = generator.getEnumType(type, coclass, options);
             const cvt = this.convertFromIdl(idltype, "newVal", enum_fqn === null ? type : enum_fqn, obj, propname, wname, enum_fqn !== null).split("\n");
+
+            let has_expr = false;
+
+            for (const modifier of modifiers) {
+                if (modifier.startsWith("/WExpr=")) {
+                    wname = makeExpansion(modifier.slice("/WExpr=".length), wname);
+                    has_expr = true;
+                }
+            }
+
+            if (has_expr) {
+                wname = wname.replaceAll(/\$(?:value\b|\{\s*value\s*\})/g, "newVal");
+                wname = wname.replaceAll(/\$(?:hr\b|\{\s*hr\s*\})/g, "hr");
+                wname = wname.replaceAll(/\$(?:cotype\b|\{\s*cotype\s*\})/g, cotype);
+                wname = wname.replaceAll(/\$(?:cpptype\b|\{\s*cpptype\s*\})/g, cpptype);
+                wname = wname.replaceAll(/\$(?:propidltype\b|\{\s*propidltype\s*\})/g, idltype);
+
+                if (idltype[0] === "I" && idltype !== "IDispatch*") {
+                    const propcotype = idltype.slice(1, idltype.endsWith("*") ? -1 : idltype.length);
+                    wname = wname.replaceAll(/\$(?:propcotype\b|\{\s*propcotype\s*\})/g, propcotype);
+                }
+
+                cvt.length = 0;
+                cvt.push("HRESULT hr = S_OK;");
+                cvt.push(...wname.trim().split("\n"));
+                cvt[cvt.length - 1] += ";";
+                cvt.push("return hr;");
+            }
 
             useNamespaces(cvt, "unshift", generator, coclass);
 
@@ -366,11 +426,11 @@ Object.assign(exports, {
 
             const attributes = [];
 
-            if (is_propget) {
+            if (has_propget) {
                 attributes.push("propget");
             }
 
-            if (is_propput) {
+            if (has_propput) {
                 attributes.push("propput");
             }
 
