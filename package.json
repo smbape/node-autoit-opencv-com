@@ -1,6 +1,6 @@
 {
   "name": "node-autoit-opencv-com",
-  "version": "2.4.1",
+  "version": "2.5.0",
   "private": true,
   "scripts": {
     "build": "node scripts/build.js",
