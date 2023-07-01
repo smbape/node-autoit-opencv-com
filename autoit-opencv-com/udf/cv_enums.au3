@@ -25,6 +25,7 @@ Global Const $CV_REDUCE_SUM = 0
 Global Const $CV_REDUCE_AVG = 1
 Global Const $CV_REDUCE_MAX = 2
 Global Const $CV_REDUCE_MIN = 3
+Global Const $CV_REDUCE_SUM2 = 4
 
 ; cv::RotateFlags
 Global Const $CV_ROTATE_90_CLOCKWISE = 0
@@ -377,6 +378,7 @@ Global Const $CV_OGL_QUAD_STRIP = 0x0008
 Global Const $CV_OGL_POLYGON = 0x0009
 
 ; cv::SolveLPResult
+Global Const $CV_SOLVELP_LOST = -3
 Global Const $CV_SOLVELP_UNBOUNDED = -2
 Global Const $CV_SOLVELP_UNFEASIBLE = -1
 Global Const $CV_SOLVELP_SINGLE = 0
@@ -1387,6 +1389,21 @@ Global Const $CV_DNN_DNN_TARGET_CUDA = 0 + 6
 Global Const $CV_DNN_DNN_TARGET_CUDA_FP16 = 0 + 7
 Global Const $CV_DNN_DNN_TARGET_HDDL = 0 + 8
 Global Const $CV_DNN_DNN_TARGET_NPU = 0 + 9
+Global Const $CV_DNN_DNN_TARGET_CPU_FP16 = 0 + 10
+
+; cv::dnn::DataLayout
+Global Const $CV_DNN_DNN_LAYOUT_UNKNOWN = 0
+Global Const $CV_DNN_DNN_LAYOUT_ND = 1
+Global Const $CV_DNN_DNN_LAYOUT_NCHW = 2
+Global Const $CV_DNN_DNN_LAYOUT_NCDHW = 3
+Global Const $CV_DNN_DNN_LAYOUT_NHWC = 4
+Global Const $CV_DNN_DNN_LAYOUT_NDHWC = 5
+Global Const $CV_DNN_DNN_LAYOUT_PLANAR = 6
+
+; cv::dnn::ImagePaddingMode
+Global Const $CV_DNN_DNN_PMODE_NULL = 0
+Global Const $CV_DNN_DNN_PMODE_CROP_CENTER = 1
+Global Const $CV_DNN_DNN_PMODE_LETTERBOX = 2
 
 ; cv::dnn::SoftNMSMethod
 Global Const $CV_DNN_SOFT_NMSMETHOD_SOFTNMS_LINEAR = 1
@@ -1480,6 +1497,9 @@ Global Const $CV_IMWRITE_TIFF_XDPI = 257
 Global Const $CV_IMWRITE_TIFF_YDPI = 258
 Global Const $CV_IMWRITE_TIFF_COMPRESSION = 259
 Global Const $CV_IMWRITE_JPEG2000_COMPRESSION_X1000 = 272
+Global Const $CV_IMWRITE_AVIF_QUALITY = 512
+Global Const $CV_IMWRITE_AVIF_DEPTH = 513
+Global Const $CV_IMWRITE_AVIF_SPEED = 514
 
 ; cv::ImwriteJPEGSamplingFactorParams
 Global Const $CV_IMWRITE_JPEG_SAMPLING_FACTOR_411 = 0x411111
@@ -1714,6 +1734,12 @@ Global Const $CV_NEIGH_FLANN_KNN = 0
 Global Const $CV_NEIGH_GRID = 1
 Global Const $CV_NEIGH_FLANN_RADIUS = 2
 
+; cv::PolishingMethod
+Global Const $CV_NONE_POLISHER = 0
+Global Const $CV_LSQ_POLISHER = 1
+Global Const $CV_MAGSAC = 2
+Global Const $CV_COV_POLISHER = 3
+
 ; cv::CirclesGridFinderParameters::GridType
 Global Const $CV_CIRCLES_GRID_FINDER_PARAMETERS_SYMMETRIC_GRID = 0
 Global Const $CV_CIRCLES_GRID_FINDER_PARAMETERS_ASYMMETRIC_GRID = 1
@@ -1865,6 +1891,7 @@ Global Const $CV_ARUCO_DICT_APRILTAG_16h5 = 0 + 17
 Global Const $CV_ARUCO_DICT_APRILTAG_25h9 = 0 + 18
 Global Const $CV_ARUCO_DICT_APRILTAG_36h10 = 0 + 19
 Global Const $CV_ARUCO_DICT_APRILTAG_36h11 = 0 + 20
+Global Const $CV_ARUCO_DICT_ARUCO_MIP_36h12 = 0 + 21
 
 ; cv::FaceRecognizerSF::DisType
 Global Const $CV_FACE_RECOGNIZER_SF_FR_COSINE = 0

@@ -13,7 +13,7 @@
 ;~ Sources:
 ;~     https://www.pyimagesearch.com/2016/10/03/bubble-sheet-multiple-choice-scanner-and-test-grader-using-omr-python-and-opencv/
 
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world470*"), _OpenCV_FindDLL("autoit_opencv_com470*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world480*"), _OpenCV_FindDLL("autoit_opencv_com480*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 

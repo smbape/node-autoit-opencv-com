@@ -14,7 +14,7 @@
 ;~ Sources:
 ;~     https://pyimagesearch.com/2021/04/12/opencv-haar-cascades/
 
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world470*"), _OpenCV_FindDLL("autoit_opencv_com470*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world480*"), _OpenCV_FindDLL("autoit_opencv_com480*"))
 _GDIPlus_Startup()
 Global $hUser32DLL = DllOpen("user32.dll")
 OnAutoItExitRegister("_OnAutoItExit")

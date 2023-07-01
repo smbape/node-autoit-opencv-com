@@ -12,10 +12,10 @@
 #include <WindowsConstants.au3>
 
 ;~ Sources:
-;~     https://docs.opencv.org/4.7.0/de/d70/samples_2cpp_2kalman_8cpp-example.html
-;~     https://github.com/opencv/opencv/blob/4.7.0/samples/cpp/kalman.cpp
+;~     https://docs.opencv.org/4.8.0/de/d70/samples_2cpp_2kalman_8cpp-example.html
+;~     https://github.com/opencv/opencv/blob/4.8.0/samples/cpp/kalman.cpp
 
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world470*"), _OpenCV_FindDLL("autoit_opencv_com470*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world480*"), _OpenCV_FindDLL("autoit_opencv_com480*"))
 OnAutoItExitRegister("OnAutoItExit")
 
 Global $g_hSubclassProc = DllCallbackRegister("_SubclassProc", "lresult", "hwnd;uint;wparam;lparam;uint_ptr;dword_ptr")

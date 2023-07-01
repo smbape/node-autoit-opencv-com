@@ -107,6 +107,10 @@ extern const bool is_arrays_from(VARIANT const* const& in_val, bool is_optional)
 
 extern const HRESULT autoit_from(cv::MatExpr& in_val, ICv_Mat_Object**& out_val);
 
+namespace cv {
+	CV_EXPORTS_W Mat createMatFromBitmap(void* ptr, bool copy = true);
+}
+
 namespace autoit
 {
 

@@ -2,6 +2,7 @@ include(cmake/FindPatch.cmake)
 
 set(BUILD_opencv OFF CACHE BOOL "Build opencv from sources.")
 
+set(OpenCV_URL_HASH_480 1c8b1b78a51c46852eb5569d762bd11d0097a45c3db1f03eb41aba6f727b8942)
 set(OpenCV_URL_HASH_470 7fab7be68a4ab7f1b70759b0e58d4c4ffc2b8aee72642df6f2dfcc6c161b2465)
 set(OpenCV_URL_HASH_460 3fb046e14dc5b50719a86ea0395b5b1e3299e2343111ebd2e31828aa31d6d477)
 set(OpenCV_URL_HASH_455 cac31973cd1c59bfe9dc926acbde815553d23662ea355e0414b5e50d8f8aa5a8)
@@ -12,9 +13,10 @@ set(OpenCV_URL_HASH_451 32132dd0bf38c62f73a2f20a0b19785282364f35e19c403f0767aa02
 set(OpenCV_URL_HASH_450 65c6b872cfcb1f55f8bedee8b64dc9c4c549035a566ac5ace622a4627c03bcf9)
 
 set(OpenCV_DOWNLOAD_NAME_470 opencv-4.7.0-windows.exe)
+set(OpenCV_DOWNLOAD_NAME_480 opencv-4.8.0-windows.exe)
 
-set(OpenCV_VERSION 4.7.0 CACHE STRING "Choose the OpenCV version.")
-set_property(CACHE OpenCV_VERSION PROPERTY STRINGS "4.7.0" "4.6.0" "4.5.5" "4.5.4" "4.5.3" "4.5.2" "4.5.1" "4.5.0")
+set(OpenCV_VERSION 4.8.0 CACHE STRING "Choose the OpenCV version.")
+set_property(CACHE OpenCV_VERSION PROPERTY STRINGS "4.8.0" "4.7.0" "4.6.0" "4.5.5" "4.5.4" "4.5.3" "4.5.2" "4.5.1" "4.5.0")
 string(REPLACE "." "" OpenCV_DLLVERSION ${OpenCV_VERSION})
 
 if (DEFINED OpenCV_DOWNLOAD_NAME_${OpenCV_DLLVERSION})

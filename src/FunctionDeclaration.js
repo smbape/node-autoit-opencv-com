@@ -178,7 +178,7 @@ Object.assign(exports, {
                     defval = SIMPLE_ARGTYPE_DEFAULTS.get(argtype);
                 } else if (defval.endsWith("()") && generator.getIDLType(defval.slice(0, -"()".length), coclass, options) === generator.getIDLType(argtype, coclass, options)) {
                     defval = "";
-                } else if (is_ptr && is_out) {
+                } else if (is_ptr && is_out && argtype !== "VARIANT*") {
                     parg = "&";
                     argtype = argtype.slice(0, -1);
                     defval = SIMPLE_ARGTYPE_DEFAULTS.has(argtype) ? SIMPLE_ARGTYPE_DEFAULTS.get(argtype) : "";
@@ -1059,8 +1059,9 @@ Object.assign(exports, {
 
         if (returns.length !== 0) {
             const [idltype, argname] = returns;
-            idlargs.push(`[out, retval] ${ idltype }* ${ argname }`);
-            implargs.push(`${ idltype }* ${ argname }`);
+            const ptr = idltype === "VARIANT*" ? "" : "*";
+            idlargs.push(`[out, retval] ${ idltype }${ ptr } ${ argname }`);
+            implargs.push(`${ idltype }${ ptr } ${ argname }`);
         }
 
         const id = coclass.getIDLNameId(idlname);

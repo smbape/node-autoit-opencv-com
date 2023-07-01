@@ -12,7 +12,7 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
 endif()
 
-set(OpenCV_VERSION 4.7.0 CACHE STRING "Choose the OpenCV version.")
+set(OpenCV_VERSION 4.8.0 CACHE STRING "Choose the OpenCV version.")
 file(CREATE_LINK "${CMAKE_CURRENT_SOURCE_DIR}/../autoit-opencv-com/cmake" "${CMAKE_CURRENT_SOURCE_DIR}/cmake" SYMBOLIC)
 file(CREATE_LINK "${CMAKE_CURRENT_SOURCE_DIR}/../autoit-opencv-com/patches" "${CMAKE_CURRENT_SOURCE_DIR}/patches" SYMBOLIC)
 include(cmake/RequireOpenCV.cmake)

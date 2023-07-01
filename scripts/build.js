@@ -4,7 +4,7 @@ const eachOfLimit = require("async/eachOfLimit");
 
 const version = process.env.npm_package_version || require("../package.json").version;
 
-const OpenCV_VERSION = "opencv-4.7.0";
+const OpenCV_VERSION = "opencv-4.8.0";
 const OpenCV_DLLVERSION = OpenCV_VERSION.slice("opencv-".length).replaceAll(".", "");
 
 const sources = sysPath.resolve(__dirname, "..");

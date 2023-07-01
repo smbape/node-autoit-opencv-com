@@ -1,5 +1,5 @@
 diff --git a/modules/python/src2/hdr_parser.py b/modules/python/src2/hdr_parser.py
-index ebe13f05c7..29c5bd1885 100755
+index ebe13f05c7..cc59e7b6ef 100755
 --- a/modules/python/src2/hdr_parser.py
 +++ b/modules/python/src2/hdr_parser.py
 @@ -70,6 +70,29 @@ class CppHeaderParser(object):
@@ -32,6 +32,15 @@ index ebe13f05c7..29c5bd1885 100755
      def parse_arg(self, arg_str, argno):
          """
          Parses <arg_type> [arg_name]
+@@ -219,7 +242,7 @@ class CppHeaderParser(object):
+         if add_star:
+             arg_type += "*"
+ 
+-        arg_type = self.batch_replace(arg_type, [("std::", ""), ("cv::", ""), ("::", "_")])
++        arg_type = self.batch_replace(arg_type, [("std::", ""), ("cv::", "")])
+ 
+         return arg_type, arg_name, modlist, argno
+ 
 @@ -412,11 +435,25 @@ class CppHeaderParser(object):
          npos = decl_str.find("CV_EXPORTS_AS")
          if npos >= 0:

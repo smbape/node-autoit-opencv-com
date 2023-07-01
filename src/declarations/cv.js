@@ -4,10 +4,6 @@ module.exports = [
         ["cv::core", "core", "", ["/R", "=this"]],
     ], "", ""],
 
-    ["cv.variant", "_variant_t", ["/External"], [
-        ["void*", "ptr", "", []],
-    ], "", ""],
-
     ["cv.read", "void", ["=readMat"], [
         ["FileNode", "node", "", []],
         ["Mat", "mat", "", ["/O"]],
@@ -51,11 +47,6 @@ module.exports = [
     ], "", ""],
 
     ["cv.FileNode.asVariant", "_variant_t", ["/Call=::autoit::fileNodeAsVariant", "/Expr=*__self->get()"], [], "", ""],
-
-    ["cv.format", "string", ["/External"], [
-        ["InputArray", "mtx", "", []],
-        ["Formatter::FormatType", "fmt", "Formatter::FMT_NUMPY", []],
-    ], "", ""],
 
     ["cv.core.", "", ["/Properties"], [
         ["int", "cv_8U", "", ["/RExpr=CV_8U"]],

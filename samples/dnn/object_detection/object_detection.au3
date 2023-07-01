@@ -1,7 +1,7 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_UseX64=y
 #AutoIt3Wrapper_Change2CUI=y
-#AutoIt3Wrapper_Au3Check_Parameters=-d -w 1 ; -w 2 -w 3 -w 4 -w 5 -w 6
+#AutoIt3Wrapper_Au3Check_Parameters=-d -w 1 -w 2 -w 3 -w 4 -w 5 -w 6
 #AutoIt3Wrapper_AU3Check_Stop_OnWarning=y
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
 
@@ -23,9 +23,9 @@
 ;~     https://learnopencv.com/object-detection-using-yolov5-and-opencv-dnn-in-c-and-python/
 ;~     https://github.com/ultralytics/ultralytics/blob/main/examples/YOLOv8-CPP-Inference/inference.cpp
 ;~     https://docs.opencv.org/4.x/d4/d2f/tf_det_tutorial_dnn_conversion.html
-;~     https://github.com/opencv/opencv/blob/4.7.0/samples/dnn/object_detection.py
+;~     https://github.com/opencv/opencv/blob/4.8.0/samples/dnn/object_detection.py
 
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world470*"), _OpenCV_FindDLL("autoit_opencv_com470*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world480*"), _OpenCV_FindDLL("autoit_opencv_com480*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 
@@ -903,10 +903,10 @@ Func UpdateZooModel()
 			"models", _
 			"opencv\sources\samples\dnn", _
 			"opencv\sources\samples\data\dnn", _
-			"opencv-4.7.0-*\sources\samples\dnn", _
-			"opencv-4.7.0-*\sources\samples\data\dnn", _
-			"opencv-4.7.0-*\opencv\sources\samples\dnn", _
-			"opencv-4.7.0-*\opencv\sources\samples\data\dnn" _
+			"opencv-4.8.0-*\sources\samples\dnn", _
+			"opencv-4.8.0-*\sources\samples\data\dnn", _
+			"opencv-4.8.0-*\opencv\sources\samples\dnn", _
+			"opencv-4.8.0-*\opencv\sources\samples\data\dnn" _
 			]
 
 	Local $info = $models($name)

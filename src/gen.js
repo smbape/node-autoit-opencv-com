@@ -9,7 +9,7 @@ const mkdirp = require("mkdirp");
 const waterfall = require("async/waterfall");
 const {explore} = require("fs-explorer");
 
-const OpenCV_VERSION = "opencv-4.7.0";
+const OpenCV_VERSION = "opencv-4.8.0";
 const OpenCV_DLLVERSION = OpenCV_VERSION.slice("opencv-".length).replaceAll(".", "");
 
 const parseArguments = PROJECT_DIR => {
@@ -26,11 +26,16 @@ const parseArguments = PROJECT_DIR => {
         assert: "AUTOIT_ASSERT",
         variantTypeReg: /^cv::(?:Point|Rect|Scalar|Size|Vec)(?:\d[bdfisw])?$/,
         implicitNamespaceType: /^(?:Point|Rect|Scalar|Size|Vec)(?:\d[bdfisw])?$/,
+
+        // used to lookup classes
         namespaces: new Set([
             "cv",
             "std",
         ]),
+
         other_namespaces: new Set(),
+
+        // used to reduce class name length
         remove_namespaces: new Set([
             "cv",
             "std",

@@ -26,33 +26,31 @@ include(cmake/RequireOpenCV.cmake)
 include(cmake/vcpkg_regex_replace_string.cmake)
 
 # update version in files
-vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/install.bat" "(opencv_world|autoit_opencv_com|opencv_videoio_ffmpeg)[0-9]+" "\\1${OpenCV_DLLVERSION}")
-vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/install.bat" "opencv-[0-9]+\\.[0-9]+\\.[0-9]+-(vc14_vc15|windows)\\.(exe|zip)" "${OpenCV_DOWNLOAD_NAME}")
-vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/install.bat" "opencv-[0-9]+\\.[0-9]+\\.[0-9]+-(vc14_vc15|windows)" "${OpenCV_OUTPUT_DIR}")
-vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/install.bat" "\\\\x64\\\\vc[^\\\\]+\\\\bin" "\\\\${OpenCV_VC_PATH_ESC}\\\\bin")
-vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/install.bat" "opencv-[0-9]+\\.[0-9]+\\.[0-9]+" "opencv-${OpenCV_VERSION}")
-vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/dotnet/OpenCvComInterop.cs" "(opencv_world|autoit_opencv_com|opencv_videoio_ffmpeg)[0-9]+" "opencv_videoio_ffmpeg${OpenCV_DLLVERSION}")
 vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/src/cvLib.rc" "(opencv_world|autoit_opencv_com|opencv_videoio_ffmpeg)[0-9]+" "\\1${OpenCV_DLLVERSION}")
-vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/test/test.cpp" "(opencv_world|autoit_opencv_com|opencv_videoio_ffmpeg)[0-9]+" "\\1${OpenCV_DLLVERSION}")
-vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/test/test.cs" "(opencv_world|autoit_opencv_com|opencv_videoio_ffmpeg)[0-9]+" "\\1${OpenCV_DLLVERSION}")
-vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/udf/opencv_udf.au3" "(opencv_world|autoit_opencv_com|opencv_videoio_ffmpeg)[0-9]+" "\\1${OpenCV_DLLVERSION}")
-vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/udf/opencv_udf_utils.au3" "opencv-[0-9]+\\.[0-9]+\\.[0-9]+" "opencv-${OpenCV_VERSION}")
 vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/../scripts/build.js" "opencv-[0-9]+\\.[0-9]+\\.[0-9]+" "opencv-${OpenCV_VERSION}")
 vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/../src/gen.js" "opencv-[0-9]+\\.[0-9]+\\.[0-9]+" "opencv-${OpenCV_VERSION}")
-vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/../README.md" "(opencv_world|autoit_opencv_com|opencv_videoio_ffmpeg)[0-9]+" "\\1${OpenCV_DLLVERSION}")
-vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/../README.md" "opencv-[0-9]+\\.[0-9]+\\.[0-9]+-(vc14_vc15|windows)\\.(exe|zip)" "${OpenCV_DOWNLOAD_NAME}")
-vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/../README.md" "opencv-[0-9]+\\.[0-9]+\\.[0-9]+-(vc14_vc15|windows)" "${OpenCV_OUTPUT_DIR}")
-vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/../README.md" "opencv-[0-9]+\\.[0-9]+\\.[0-9]+" "opencv-${OpenCV_VERSION}")
 vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/../README.md" "/opencv/releases/download/[0-9]+\\.[0-9]+\\.[0-9]+/" "/opencv/releases/download/${OpenCV_VERSION}/")
-vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/../README.md" "\\\\x64\\\\vc[^\\\\]+\\\\bin" "\\\\${OpenCV_VC_PATH_ESC}\\\\bin")
 vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/../README.md" "\\\\\\\\x64\\\\\\\\vc[^\\\\]+\\\\\\\\bin" "\\\\\\\\${OpenCV_VC_PATH_ESC_ESC}\\\\\\\\bin")
 vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/../autoit-addon/CMakeLists.txt" "OpenCV_VERSION [0-9]+\\.[0-9]+\\.[0-9]+" "OpenCV_VERSION ${OpenCV_VERSION}")
 
-file(GLOB_RECURSE files_to_change "../samples/*.au3" "../samples/*.cs" "../samples/*.ps1")
+file(GLOB_RECURSE files_to_change
+  "install.bat"
+  "udf/*.au3"
+  "dotnet/*.cs"
+  "test/*.cpp"
+  "test/*.cs"
+  "../README.md"
+  "../samples/*.au3"
+  "../samples/*.cs"
+  "../samples/*.ps1"
+  "../samples/*.psm1"
+)
+
 foreach(item ${files_to_change})
   vcpkg_regex_replace_string("${item}" "(https://docs\\.opencv\\.org/|https://github\\.com/opencv/opencv/blob/|opencv-)[0-9]+\\.[0-9]+\\.[0-9]+/" "\\1${OpenCV_VERSION}/")
   vcpkg_regex_replace_string("${item}" "opencv-[0-9]+\\.[0-9]+\\.[0-9]+-(vc14_vc15|windows)\\.(exe|zip)" "${OpenCV_DOWNLOAD_NAME}")
   vcpkg_regex_replace_string("${item}" "opencv-[0-9]+\\.[0-9]+\\.[0-9]+-(vc14_vc15|windows)" "${OpenCV_OUTPUT_DIR}")
+  vcpkg_regex_replace_string("${item}" "opencv-[0-9]+\\.[0-9]+\\.[0-9]+" "opencv-${OpenCV_VERSION}")
   vcpkg_regex_replace_string("${item}" "(opencv_world|autoit_opencv_com|opencv_videoio_ffmpeg)[0-9]+" "\\1${OpenCV_DLLVERSION}")
   vcpkg_regex_replace_string("${item}" "\\\\x64\\\\vc[^\\\\]+\\\\bin" "\\\\${OpenCV_VC_PATH_ESC}\\\\bin")
 endforeach()
@@ -60,7 +58,7 @@ endforeach()
 set(EXECUTABLE_OUTPUT_PATH "${CMAKE_BINARY_DIR}/bin" CACHE PATH "Output directory for applications")
 set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib" CACHE PATH "Output directory for libraries")
 
-get_filename_component(OPENCV_SAMPLES_DATA_PATH "../samples/data" REALPATH)
+get_filename_component(OPENCV_SAMPLES_DATA_PATH "${opencv_SOURCE_DIR}/samples/data" REALPATH)
 file(TO_NATIVE_PATH "${OPENCV_SAMPLES_DATA_PATH}" OPENCV_SAMPLES_DATA_PATH)
 
 # generate python headers

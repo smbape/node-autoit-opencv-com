@@ -305,8 +305,8 @@ static void testResize(cvLib::ICv_ObjectPtr cv) {
 	assert(SUCCEEDED(hr));
 
 	_bstr_t image_path;
-	// string_to_bstr(samples::findFile("aloeGT.png"), image_path);
-	string_to_bstr(samples::findFile("..\\tutorial_code\\yolo\\scooter-5180947_1920.jpg"), image_path);
+	string_to_bstr(samples::findFile("aloeGT.png"), image_path);
+	// string_to_bstr(samples::findFile("..\\tutorial_code\\yolo\\scooter-5180947_1920.jpg"), image_path);
 	auto mat = cv->imread(to_variant_t(image_path));
 
 	float newWidth = 600;
@@ -710,7 +710,7 @@ public:
 	typedef BOOL(*DllDeactivateActCtx_t)();
 
 	ActCtxInitializer() {
-		m_lib = LoadLibrary("bin\\" BUILD_TYPE "\\autoit_opencv_com470" DEBUG_POSTFIX ".dll");
+		m_lib = LoadLibrary("bin\\" BUILD_TYPE "\\autoit_opencv_com480" DEBUG_POSTFIX ".dll");
 		CV_Assert(m_lib != 0);
 
 		m_DllActivateManifest = (DllActivateManifest_t)GetProcAddress(m_lib, "DllActivateManifest");

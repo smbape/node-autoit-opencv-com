@@ -31,6 +31,7 @@
   - [cv.FileStorage](#cvfilestorage)
   - [cv.FileNode](#cvfilenode)
   - [cv.QuatEnum](#cvquatenum)
+  - [cv.RotatedRect](#cvrotatedrect)
   - [cv.KeyPoint](#cvkeypoint)
   - [cv.DMatch](#cvdmatch)
   - [cv.TermCriteria](#cvtermcriteria)
@@ -92,9 +93,12 @@
   - [cv.HOGDescriptor](#cvhogdescriptor)
   - [cv.QRCodeEncoder](#cvqrcodeencoder)
   - [cv.QRCodeDetector](#cvqrcodedetector)
+  - [cv.QRCodeDetectorAruco](#cvqrcodedetectoraruco)
   - [cv.aruco](#cvaruco)
+  - [cv.barcode](#cvbarcode)
   - [cv.FaceDetectorYN](#cvfacedetectoryn)
   - [cv.FaceRecognizerSF](#cvfacerecognizersf)
+  - [cv.GraphicalCodeDetector](#cvgraphicalcodedetector)
   - [cv.Stitcher](#cvstitcher)
   - [cv.PyRotationWarper](#cvpyrotationwarper)
   - [cv.WarperCreator](#cvwarpercreator)
@@ -138,7 +142,6 @@
   - [cv.Matx44f](#cvmatx44f)
   - [cv.Matx44d](#cvmatx44d)
   - [cv.Range](#cvrange)
-  - [cv.RotatedRect](#cvrotatedrect)
   - [cv.GCompileArg](#cvgcompilearg)
   - [cv.GRunArg](#cvgrunarg)
   - [cv.GProtoInputArgs](#cvgprotoinputargs)
@@ -367,6 +370,7 @@
   - [cv::goodFeaturesToTrackWithQuality](#cvgoodfeaturestotrackwithquality)
   - [cv::grabCut](#cvgrabcut)
   - [cv::groupRectangles](#cvgrouprectangles)
+  - [cv::hasNonZero](#cvhasnonzero)
   - [cv::haveImageReader](#cvhaveimagereader)
   - [cv::haveImageWriter](#cvhaveimagewriter)
   - [cv::haveOpenVX](#cvhaveopenvx)
@@ -555,6 +559,7 @@
   - [enums.REDUCE\_AVG](#enumsreduce%5C_avg)
   - [enums.REDUCE\_MAX](#enumsreduce%5C_max)
   - [enums.REDUCE\_MIN](#enumsreduce%5C_min)
+  - [enums.REDUCE\_SUM2](#enumsreduce%5C_sum2)
   - [enums.ROTATE\_90\_CLOCKWISE](#enumsrotate%5C_90%5C_clockwise)
   - [enums.ROTATE\_180](#enumsrotate%5C_180)
   - [enums.ROTATE\_90\_COUNTERCLOCKWISE](#enumsrotate%5C_90%5C_counterclockwise)
@@ -609,6 +614,7 @@
   - [enums.USAGE\_ALLOCATE\_DEVICE\_MEMORY](#enumsusage%5C_allocate%5C_device%5C_memory)
   - [enums.USAGE\_ALLOCATE\_SHARED\_MEMORY](#enumsusage%5C_allocate%5C_shared%5C_memory)
   - [enums.\_\_UMAT\_USAGE\_FLAGS\_32BIT](#enums%5C_%5C_umat%5C_usage%5C_flags%5C_32bit)
+  - [enums.SOLVELP\_LOST](#enumssolvelp%5C_lost)
   - [enums.SOLVELP\_UNBOUNDED](#enumssolvelp%5C_unbounded)
   - [enums.SOLVELP\_UNFEASIBLE](#enumssolvelp%5C_unfeasible)
   - [enums.SOLVELP\_SINGLE](#enumssolvelp%5C_single)
@@ -1052,6 +1058,9 @@
   - [enums.IMWRITE\_TIFF\_YDPI](#enumsimwrite%5C_tiff%5C_ydpi)
   - [enums.IMWRITE\_TIFF\_COMPRESSION](#enumsimwrite%5C_tiff%5C_compression)
   - [enums.IMWRITE\_JPEG2000\_COMPRESSION\_X1000](#enumsimwrite%5C_jpeg2000%5C_compression%5C_x1000)
+  - [enums.IMWRITE\_AVIF\_QUALITY](#enumsimwrite%5C_avif%5C_quality)
+  - [enums.IMWRITE\_AVIF\_DEPTH](#enumsimwrite%5C_avif%5C_depth)
+  - [enums.IMWRITE\_AVIF\_SPEED](#enumsimwrite%5C_avif%5C_speed)
   - [enums.IMWRITE\_JPEG\_SAMPLING\_FACTOR\_411](#enumsimwrite%5C_jpeg%5C_sampling%5C_factor%5C_411)
   - [enums.IMWRITE\_JPEG\_SAMPLING\_FACTOR\_420](#enumsimwrite%5C_jpeg%5C_sampling%5C_factor%5C_420)
   - [enums.IMWRITE\_JPEG\_SAMPLING\_FACTOR\_422](#enumsimwrite%5C_jpeg%5C_sampling%5C_factor%5C_422)
@@ -1551,6 +1560,10 @@
   - [enums.NEIGH\_FLANN\_KNN](#enumsneigh%5C_flann%5C_knn)
   - [enums.NEIGH\_GRID](#enumsneigh%5C_grid)
   - [enums.NEIGH\_FLANN\_RADIUS](#enumsneigh%5C_flann%5C_radius)
+  - [enums.NONE\_POLISHER](#enumsnone%5C_polisher)
+  - [enums.LSQ\_POLISHER](#enumslsq%5C_polisher)
+  - [enums.MAGSAC](#enumsmagsac)
+  - [enums.COV\_POLISHER](#enumscov%5C_polisher)
   - [enums.PROJ\_SPHERICAL\_ORTHO](#enumsproj%5C_spherical%5C_ortho)
   - [enums.PROJ\_SPHERICAL\_EQRECT](#enumsproj%5C_spherical%5C_eqrect)
   - [enums.WINDOW\_NORMAL](#enumswindow%5C_normal)
@@ -1724,8 +1737,10 @@
   - [cv::ipp::useIPP\_NotExact](#cvippuseipp%5C_notexact)
 - [cv::utils](#cvutils)
   - [utils.ClassWithKeywordProperties](#utilsclasswithkeywordproperties)
+  - [utils.FunctionParams](#utilsfunctionparams)
   - [utils.nested](#utilsnested)
   - [utils.fs](#utilsfs)
+  - [cv::utils::copyMatAndDumpNamedArguments](#cvutilscopymatanddumpnamedarguments)
   - [cv::utils::dumpBool](#cvutilsdumpbool)
   - [cv::utils::dumpCString](#cvutilsdumpcstring)
   - [cv::utils::dumpDouble](#cvutilsdumpdouble)
@@ -1761,6 +1776,10 @@
   - [ClassWithKeywordProperties.lambda](#classwithkeywordpropertieslambda)
   - [ClassWithKeywordProperties.except](#classwithkeywordpropertiesexcept)
   - [cv::utils::ClassWithKeywordProperties::get\_create](#cvutilsclasswithkeywordpropertiesget%5C_create)
+- [cv::utils::FunctionParams](#cvutilsfunctionparams)
+  - [FunctionParams.lambda](#functionparamslambda)
+  - [FunctionParams.sigma](#functionparamssigma)
+  - [cv::utils::FunctionParams::get\_create](#cvutilsfunctionparamsget%5C_create)
 - [cv::utils::nested](#cvutilsnested)
   - [nested.OriginalClassName](#nestedoriginalclassname)
   - [cv::utils::nested::testEchoBooleanFunction](#cvutilsnestedtestechobooleanfunction)
@@ -1859,6 +1878,7 @@
   - [cuda.TargetArchs](#cudatargetarchs)
   - [cuda.DeviceInfo](#cudadeviceinfo)
   - [cv::cuda::createContinuous](#cvcudacreatecontinuous)
+  - [cv::cuda::createGpuMatFromCudaMemory](#cvcudacreategpumatfromcudamemory)
   - [cv::cuda::ensureSizeIsEnough](#cvcudaensuresizeisenough)
   - [cv::cuda::fastNlMeansDenoising](#cvcudafastnlmeansdenoising)
   - [cv::cuda::fastNlMeansDenoisingColored](#cvcudafastnlmeansdenoisingcolored)
@@ -1873,6 +1893,7 @@
   - [cv::cuda::setBufferPoolUsage](#cvcudasetbufferpoolusage)
   - [cv::cuda::setDevice](#cvcudasetdevice)
   - [cv::cuda::unregisterPageLocked](#cvcudaunregisterpagelocked)
+  - [cv::cuda::wrapStream](#cvcudawrapstream)
   - [cuda.FEATURE\_SET\_COMPUTE\_10\_](#cudafeature%5C_set%5C_compute%5C_10%5C_)
   - [cuda.FEATURE\_SET\_COMPUTE\_11\_](#cudafeature%5C_set%5C_compute%5C_11%5C_)
   - [cuda.FEATURE\_SET\_COMPUTE\_12\_](#cudafeature%5C_set%5C_compute%5C_12%5C_)
@@ -2553,6 +2574,13 @@
   - [QuatEnum.EXT\_ZXZ\_](#quatenumext%5C_zxz%5C_)
   - [QuatEnum.EXT\_ZYZ\_](#quatenumext%5C_zyz%5C_)
   - [QuatEnum.EULER\_ANGLES\_MAX\_VALUE\_](#quatenumeuler%5C_angles%5C_max%5C_value%5C_)
+- [cv::RotatedRect](#cvrotatedrect)
+  - [RotatedRect.center](#rotatedrectcenter)
+  - [RotatedRect.size](#rotatedrectsize)
+  - [RotatedRect.angle](#rotatedrectangle)
+  - [cv::RotatedRect::get\_create](#cvrotatedrectget%5C_create)
+  - [cv::RotatedRect::boundingRect](#cvrotatedrectboundingrect)
+  - [cv::RotatedRect::points](#cvrotatedrectpoints)
 - [cv::KeyPoint](#cvkeypoint)
   - [KeyPoint.pt](#keypointpt)
   - [KeyPoint.size](#keypointsize)
@@ -3415,6 +3443,7 @@
   - [dnn.DictValue](#dnndictvalue)
   - [dnn.Layer](#dnnlayer)
   - [dnn.Net](#dnnnet)
+  - [dnn.Image2BlobParams](#dnnimage2blobparams)
   - [dnn.SoftNMSMethod](#dnnsoftnmsmethod)
   - [dnn.Model](#dnnmodel)
   - [dnn.ClassificationModel](#dnnclassificationmodel)
@@ -3429,7 +3458,9 @@
   - [cv::dnn::NMSBoxesBatched](#cvdnnnmsboxesbatched)
   - [cv::dnn::NMSBoxesRotated](#cvdnnnmsboxesrotated)
   - [cv::dnn::blobFromImage](#cvdnnblobfromimage)
+  - [cv::dnn::blobFromImageWithParams](#cvdnnblobfromimagewithparams)
   - [cv::dnn::blobFromImages](#cvdnnblobfromimages)
+  - [cv::dnn::blobFromImagesWithParams](#cvdnnblobfromimageswithparams)
   - [cv::dnn::getAvailableTargets](#cvdnngetavailabletargets)
   - [cv::dnn::imagesFromBlob](#cvdnnimagesfromblob)
   - [cv::dnn::readNet](#cvdnnreadnet)
@@ -3437,6 +3468,7 @@
   - [cv::dnn::readNetFromDarknet](#cvdnnreadnetfromdarknet)
   - [cv::dnn::readNetFromModelOptimizer](#cvdnnreadnetfrommodeloptimizer)
   - [cv::dnn::readNetFromONNX](#cvdnnreadnetfromonnx)
+  - [cv::dnn::readNetFromTFLite](#cvdnnreadnetfromtflite)
   - [cv::dnn::readNetFromTensorflow](#cvdnnreadnetfromtensorflow)
   - [cv::dnn::readNetFromTorch](#cvdnnreadnetfromtorch)
   - [cv::dnn::readTensorFromONNX](#cvdnnreadtensorfromonnx)
@@ -3463,6 +3495,17 @@
   - [dnn.DNN\_TARGET\_CUDA\_FP16\_](#dnndnn%5C_target%5C_cuda%5C_fp16%5C_)
   - [dnn.DNN\_TARGET\_HDDL\_](#dnndnn%5C_target%5C_hddl%5C_)
   - [dnn.DNN\_TARGET\_NPU\_](#dnndnn%5C_target%5C_npu%5C_)
+  - [dnn.DNN\_TARGET\_CPU\_FP16\_](#dnndnn%5C_target%5C_cpu%5C_fp16%5C_)
+  - [dnn.DNN\_LAYOUT\_UNKNOWN\_](#dnndnn%5C_layout%5C_unknown%5C_)
+  - [dnn.DNN\_LAYOUT\_ND\_](#dnndnn%5C_layout%5C_nd%5C_)
+  - [dnn.DNN\_LAYOUT\_NCHW\_](#dnndnn%5C_layout%5C_nchw%5C_)
+  - [dnn.DNN\_LAYOUT\_NCDHW\_](#dnndnn%5C_layout%5C_ncdhw%5C_)
+  - [dnn.DNN\_LAYOUT\_NHWC\_](#dnndnn%5C_layout%5C_nhwc%5C_)
+  - [dnn.DNN\_LAYOUT\_NDHWC\_](#dnndnn%5C_layout%5C_ndhwc%5C_)
+  - [dnn.DNN\_LAYOUT\_PLANAR\_](#dnndnn%5C_layout%5C_planar%5C_)
+  - [dnn.DNN\_PMODE\_NULL\_](#dnndnn%5C_pmode%5C_null%5C_)
+  - [dnn.DNN\_PMODE\_CROP\_CENTER\_](#dnndnn%5C_pmode%5C_crop%5C_center%5C_)
+  - [dnn.DNN\_PMODE\_LETTERBOX\_](#dnndnn%5C_pmode%5C_letterbox%5C_)
 - [cv::dnn::DictValue](#cvdnndictvalue)
   - [cv::dnn::DictValue::get\_create](#cvdnndictvalueget%5C_create)
   - [cv::dnn::DictValue::getIntValue](#cvdnndictvaluegetintvalue)
@@ -3519,6 +3562,15 @@
   - [cv::dnn::Net::setParam](#cvdnnnetsetparam)
   - [cv::dnn::Net::setPreferableBackend](#cvdnnnetsetpreferablebackend)
   - [cv::dnn::Net::setPreferableTarget](#cvdnnnetsetpreferabletarget)
+- [cv::dnn::Image2BlobParams](#cvdnnimage2blobparams)
+  - [Image2BlobParams.scalefactor](#image2blobparamsscalefactor)
+  - [Image2BlobParams.size](#image2blobparamssize)
+  - [Image2BlobParams.mean](#image2blobparamsmean)
+  - [Image2BlobParams.swapRB](#image2blobparamsswaprb)
+  - [Image2BlobParams.ddepth](#image2blobparamsddepth)
+  - [Image2BlobParams.datalayout](#image2blobparamsdatalayout)
+  - [Image2BlobParams.paddingmode](#image2blobparamspaddingmode)
+  - [cv::dnn::Image2BlobParams::get\_create](#cvdnnimage2blobparamsget%5C_create)
 - [cv::dnn::SoftNMSMethod](#cvdnnsoftnmsmethod)
   - [SoftNMSMethod.SOFTNMS\_LINEAR](#softnmsmethodsoftnms%5C_linear)
   - [SoftNMSMethod.SOFTNMS\_GAUSSIAN](#softnmsmethodsoftnms%5C_gaussian)
@@ -4102,6 +4154,8 @@
   - [UsacParams.sampler](#usacparamssampler)
   - [UsacParams.score](#usacparamsscore)
   - [UsacParams.threshold](#usacparamsthreshold)
+  - [UsacParams.final\_polisher](#usacparamsfinal%5C_polisher)
+  - [UsacParams.final\_polisher\_iterations](#usacparamsfinal%5C_polisher%5C_iterations)
   - [cv::UsacParams::get\_create](#cvusacparamsget%5C_create)
 - [cv::CirclesGridFinderParameters](#cvcirclesgridfinderparameters)
   - [CirclesGridFinderParameters.densityNeighborhoodSize](#circlesgridfinderparametersdensityneighborhoodsize)
@@ -4326,6 +4380,28 @@
   - [cv::QRCodeDetector::setEpsX](#cvqrcodedetectorsetepsx)
   - [cv::QRCodeDetector::setEpsY](#cvqrcodedetectorsetepsy)
   - [cv::QRCodeDetector::setUseAlignmentMarkers](#cvqrcodedetectorsetusealignmentmarkers)
+- [cv::QRCodeDetectorAruco](#cvqrcodedetectoraruco)
+  - [QRCodeDetectorAruco.Params](#qrcodedetectorarucoparams)
+  - [cv::QRCodeDetectorAruco::get\_create](#cvqrcodedetectorarucoget%5C_create)
+  - [cv::QRCodeDetectorAruco::decode](#cvqrcodedetectorarucodecode)
+  - [cv::QRCodeDetectorAruco::decodeMulti](#cvqrcodedetectorarucodecodemulti)
+  - [cv::QRCodeDetectorAruco::detect](#cvqrcodedetectorarucodetect)
+  - [cv::QRCodeDetectorAruco::detectAndDecode](#cvqrcodedetectorarucodetectanddecode)
+  - [cv::QRCodeDetectorAruco::detectAndDecodeMulti](#cvqrcodedetectorarucodetectanddecodemulti)
+  - [cv::QRCodeDetectorAruco::detectMulti](#cvqrcodedetectorarucodetectmulti)
+  - [cv::QRCodeDetectorAruco::getArucoParameters](#cvqrcodedetectorarucogetarucoparameters)
+  - [cv::QRCodeDetectorAruco::getDetectorParameters](#cvqrcodedetectorarucogetdetectorparameters)
+  - [cv::QRCodeDetectorAruco::setArucoParameters](#cvqrcodedetectorarucosetarucoparameters)
+  - [cv::QRCodeDetectorAruco::setDetectorParameters](#cvqrcodedetectorarucosetdetectorparameters)
+- [cv::QRCodeDetectorAruco::Params](#cvqrcodedetectorarucoparams)
+  - [Params.minModuleSizeInPyramid](#paramsminmodulesizeinpyramid)
+  - [Params.maxRotation](#paramsmaxrotation)
+  - [Params.maxModuleSizeMismatch](#paramsmaxmodulesizemismatch)
+  - [Params.maxTimingPatternMismatch](#paramsmaxtimingpatternmismatch)
+  - [Params.maxPenalties](#paramsmaxpenalties)
+  - [Params.maxColorsMismatch](#paramsmaxcolorsmismatch)
+  - [Params.scaleTimingPatternScore](#paramsscaletimingpatternscore)
+  - [cv::QRCodeDetectorAruco::Params::get\_create](#cvqrcodedetectorarucoparamsget%5C_create)
 - [cv::aruco](#cvaruco)
   - [aruco.Board](#arucoboard)
   - [aruco.GridBoard](#arucogridboard)
@@ -4367,6 +4443,7 @@
   - [aruco.DICT\_APRILTAG\_25h9\_](#arucodict%5C_apriltag%5C_25h9%5C_)
   - [aruco.DICT\_APRILTAG\_36h10\_](#arucodict%5C_apriltag%5C_36h10%5C_)
   - [aruco.DICT\_APRILTAG\_36h11\_](#arucodict%5C_apriltag%5C_36h11%5C_)
+  - [aruco.DICT\_ARUCO\_MIP\_36h12\_](#arucodict%5C_aruco%5C_mip%5C_36h12%5C_)
 - [cv::aruco::Board](#cvarucoboard)
   - [cv::aruco::Board::get\_create](#cvarucoboardget%5C_create)
   - [cv::aruco::Board::generateImage](#cvarucoboardgenerateimage)
@@ -4394,11 +4471,13 @@
   - [cv::aruco::CharucoBoard::getChessboardSize](#cvarucocharucoboardgetchessboardsize)
   - [cv::aruco::CharucoBoard::getDictionary](#cvarucocharucoboardgetdictionary)
   - [cv::aruco::CharucoBoard::getIds](#cvarucocharucoboardgetids)
+  - [cv::aruco::CharucoBoard::getLegacyPattern](#cvarucocharucoboardgetlegacypattern)
   - [cv::aruco::CharucoBoard::getMarkerLength](#cvarucocharucoboardgetmarkerlength)
   - [cv::aruco::CharucoBoard::getObjPoints](#cvarucocharucoboardgetobjpoints)
   - [cv::aruco::CharucoBoard::getRightBottomCorner](#cvarucocharucoboardgetrightbottomcorner)
   - [cv::aruco::CharucoBoard::getSquareLength](#cvarucocharucoboardgetsquarelength)
   - [cv::aruco::CharucoBoard::matchImagePoints](#cvarucocharucoboardmatchimagepoints)
+  - [cv::aruco::CharucoBoard::setLegacyPattern](#cvarucocharucoboardsetlegacypattern)
 - [cv::aruco::DetectorParameters](#cvarucodetectorparameters)
   - [DetectorParameters.adaptiveThreshWinSizeMin](#detectorparametersadaptivethreshwinsizemin)
   - [DetectorParameters.adaptiveThreshWinSizeMax](#detectorparametersadaptivethreshwinsizemax)
@@ -4470,6 +4549,18 @@
   - [cv::aruco::Dictionary::identify](#cvarucodictionaryidentify)
   - [cv::aruco::Dictionary::readDictionary](#cvarucodictionaryreaddictionary)
   - [cv::aruco::Dictionary::writeDictionary](#cvarucodictionarywritedictionary)
+- [cv::barcode](#cvbarcode)
+  - [barcode.BarcodeDetector](#barcodebarcodedetector)
+- [cv::barcode::BarcodeDetector](#cvbarcodebarcodedetector)
+  - [cv::barcode::BarcodeDetector::get\_create](#cvbarcodebarcodedetectorget%5C_create)
+  - [cv::barcode::BarcodeDetector::decode](#cvbarcodebarcodedetectordecode)
+  - [cv::barcode::BarcodeDetector::decodeMulti](#cvbarcodebarcodedetectordecodemulti)
+  - [cv::barcode::BarcodeDetector::decodeWithType](#cvbarcodebarcodedetectordecodewithtype)
+  - [cv::barcode::BarcodeDetector::detect](#cvbarcodebarcodedetectordetect)
+  - [cv::barcode::BarcodeDetector::detectAndDecode](#cvbarcodebarcodedetectordetectanddecode)
+  - [cv::barcode::BarcodeDetector::detectAndDecodeMulti](#cvbarcodebarcodedetectordetectanddecodemulti)
+  - [cv::barcode::BarcodeDetector::detectAndDecodeWithType](#cvbarcodebarcodedetectordetectanddecodewithtype)
+  - [cv::barcode::BarcodeDetector::detectMulti](#cvbarcodebarcodedetectordetectmulti)
 - [cv::aruco::CharucoParameters](#cvarucocharucoparameters)
   - [CharucoParameters.cameraMatrix](#charucoparameterscameramatrix)
   - [CharucoParameters.distCoeffs](#charucoparametersdistcoeffs)
@@ -4512,6 +4603,13 @@
   - [cv::FaceRecognizerSF::match](#cvfacerecognizersfmatch)
   - [FaceRecognizerSF.FR\_COSINE\_](#facerecognizersffr%5C_cosine%5C_)
   - [FaceRecognizerSF.FR\_NORM\_L2\_](#facerecognizersffr%5C_norm%5C_l2%5C_)
+- [cv::GraphicalCodeDetector](#cvgraphicalcodedetector)
+  - [cv::GraphicalCodeDetector::decode](#cvgraphicalcodedetectordecode)
+  - [cv::GraphicalCodeDetector::decodeMulti](#cvgraphicalcodedetectordecodemulti)
+  - [cv::GraphicalCodeDetector::detect](#cvgraphicalcodedetectordetect)
+  - [cv::GraphicalCodeDetector::detectAndDecode](#cvgraphicalcodedetectordetectanddecode)
+  - [cv::GraphicalCodeDetector::detectAndDecodeMulti](#cvgraphicalcodedetectordetectanddecodemulti)
+  - [cv::GraphicalCodeDetector::detectMulti](#cvgraphicalcodedetectordetectmulti)
 - [cv::Stitcher](#cvstitcher)
   - [cv::Stitcher::get\_create](#cvstitcherget%5C_create)
   - [cv::Stitcher::composePanorama](#cvstitchercomposepanorama)
@@ -5083,10 +5181,12 @@
 - [cv::gapi](#cvgapi)
   - [gapi.streaming](#gapistreaming)
   - [gapi.core](#gapicore)
+  - [gapi.imgproc](#gapiimgproc)
   - [gapi.GNetParam](#gapignetparam)
   - [gapi.GNetPackage](#gapignetpackage)
   - [gapi.ie](#gapiie)
   - [gapi.onnx](#gapionnx)
+  - [gapi.ov](#gapiov)
   - [gapi.oak](#gapioak)
   - [gapi.own](#gapiown)
   - [gapi.wip](#gapiwip)
@@ -5138,6 +5238,7 @@
   - [cv::gapi::cmpLE](#cvgapicmple)
   - [cv::gapi::cmpLT](#cvgapicmplt)
   - [cv::gapi::cmpNE](#cvgapicmpne)
+  - [cv::gapi::combine](#cvgapicombine)
   - [cv::gapi::concatHor](#cvgapiconcathor)
   - [cv::gapi::concatVert](#cvgapiconcatvert)
   - [cv::gapi::convertTo](#cvgapiconvertto)
@@ -5210,6 +5311,10 @@
   - [Kind.Filter](#kindfilter)
   - [Kind.Resize](#kindresize)
   - [Kind.YUV420toRGB](#kindyuv420torgb)
+- [cv::gapi::imgproc](#cvgapiimgproc)
+  - [imgproc.fluid](#imgprocfluid)
+- [cv::gapi::imgproc::fluid](#cvgapiimgprocfluid)
+  - [cv::gapi::imgproc::fluid::kernels](#cvgapiimgprocfluidkernels)
 - [cv::GArrayDesc](#cvgarraydesc)
   - [cv::GArrayDesc::get\_create](#cvgarraydescget%5C_create)
 - [cv::detail::OpaqueKind](#cvdetailopaquekind)
@@ -5245,6 +5350,8 @@
   - [MediaFormat.BGR](#mediaformatbgr)
   - [MediaFormat.NV12](#mediaformatnv12)
   - [MediaFormat.GRAY](#mediaformatgray)
+- [cv::GKernelPackage](#cvgkernelpackage)
+  - [cv::GKernelPackage::size](#cvgkernelpackagesize)
 - [cv::GMat](#cvgmat)
   - [cv::GMat::get\_create](#cvgmatget%5C_create)
 - [cv::GMatDesc](#cvgmatdesc)
@@ -5307,6 +5414,24 @@
   - [cv::gapi::onnx::params](#cvgapionnxparams)
 - [cv::gapi::onnx::PyParams](#cvgapionnxpyparams)
   - [cv::gapi::onnx::PyParams::get\_create](#cvgapionnxpyparamsget%5C_create)
+  - [cv::gapi::onnx::PyParams::cfgMeanStd](#cvgapionnxpyparamscfgmeanstd)
+  - [cv::gapi::onnx::PyParams::cfgNormalize](#cvgapionnxpyparamscfgnormalize)
+- [cv::gapi::ov](#cvgapiov)
+  - [ov.PyParams](#ovpyparams)
+  - [cv::gapi::ov::params](#cvgapiovparams)
+- [cv::gapi::ov::PyParams](#cvgapiovpyparams)
+  - [cv::gapi::ov::PyParams::get\_create](#cvgapiovpyparamsget%5C_create)
+  - [cv::gapi::ov::PyParams::cfgInputModelLayout](#cvgapiovpyparamscfginputmodellayout)
+  - [cv::gapi::ov::PyParams::cfgInputTensorLayout](#cvgapiovpyparamscfginputtensorlayout)
+  - [cv::gapi::ov::PyParams::cfgMean](#cvgapiovpyparamscfgmean)
+  - [cv::gapi::ov::PyParams::cfgNumRequests](#cvgapiovpyparamscfgnumrequests)
+  - [cv::gapi::ov::PyParams::cfgOutputModelLayout](#cvgapiovpyparamscfgoutputmodellayout)
+  - [cv::gapi::ov::PyParams::cfgOutputTensorLayout](#cvgapiovpyparamscfgoutputtensorlayout)
+  - [cv::gapi::ov::PyParams::cfgOutputTensorPrecision](#cvgapiovpyparamscfgoutputtensorprecision)
+  - [cv::gapi::ov::PyParams::cfgPluginConfig](#cvgapiovpyparamscfgpluginconfig)
+  - [cv::gapi::ov::PyParams::cfgReshape](#cvgapiovpyparamscfgreshape)
+  - [cv::gapi::ov::PyParams::cfgResize](#cvgapiovpyparamscfgresize)
+  - [cv::gapi::ov::PyParams::cfgScale](#cvgapiovpyparamscfgscale)
 - [cv::gapi::ie::TraitAs](#cvgapiietraitas)
   - [TraitAs.TENSOR](#traitastensor)
   - [TraitAs.IMAGE](#traitasimage)
@@ -5726,12 +5851,6 @@
   - [cv::Range::all](#cvrangeall)
   - [cv::Range::empty](#cvrangeempty)
   - [cv::Range::size](#cvrangesize)
-- [cv::RotatedRect](#cvrotatedrect)
-  - [RotatedRect.center](#rotatedrectcenter)
-  - [RotatedRect.size](#rotatedrectsize)
-  - [RotatedRect.angle](#rotatedrectangle)
-  - [cv::RotatedRect::get\_create](#cvrotatedrectget%5C_create)
-  - [cv::RotatedRect::boundingRect](#cvrotatedrectboundingrect)
 - [cv::GCompileArg](#cvgcompilearg)
   - [cv::GCompileArg::get\_create](#cvgcompileargget%5C_create)
 - [cv::GRunArg](#cvgrunarg)
@@ -7102,6 +7221,255 @@
   - [VectorOfGapi\_GNetParam::sort](#vectorofgapi%5C_gnetparamsort)
   - [VectorOfGapi\_GNetParam::sort\_variant](#vectorofgapi%5C_gnetparamsort%5C_variant)
   - [VectorOfGapi\_GNetParam::start](#vectorofgapi%5C_gnetparamstart)
+- [MapOfStringAndString](#mapofstringandstring)
+  - [MapOfStringAndString::create](#mapofstringandstringcreate)
+  - [MapOfStringAndString::Add](#mapofstringandstringadd)
+  - [MapOfStringAndString::Get](#mapofstringandstringget)
+  - [MapOfStringAndString::Items](#mapofstringandstringitems)
+  - [MapOfStringAndString::Keys](#mapofstringandstringkeys)
+  - [MapOfStringAndString::Remove](#mapofstringandstringremove)
+  - [MapOfStringAndString::clear](#mapofstringandstringclear)
+  - [MapOfStringAndString::contains](#mapofstringandstringcontains)
+  - [MapOfStringAndString::count](#mapofstringandstringcount)
+  - [MapOfStringAndString::empty](#mapofstringandstringempty)
+  - [MapOfStringAndString::erase](#mapofstringandstringerase)
+  - [MapOfStringAndString::get\_Item](#mapofstringandstringget%5C_item)
+  - [MapOfStringAndString::get\_\_NewEnum](#mapofstringandstringget%5C_%5C_newenum)
+  - [MapOfStringAndString::has](#mapofstringandstringhas)
+  - [MapOfStringAndString::max\_size](#mapofstringandstringmax%5C_size)
+  - [MapOfStringAndString::merge](#mapofstringandstringmerge)
+  - [MapOfStringAndString::put\_Item](#mapofstringandstringput%5C_item)
+  - [MapOfStringAndString::size](#mapofstringandstringsize)
+- [VectorOfPairOfStringAndString](#vectorofpairofstringandstring)
+  - [VectorOfPairOfStringAndString.Count](#vectorofpairofstringandstringcount)
+  - [VectorOfPairOfStringAndString::create](#vectorofpairofstringandstringcreate)
+  - [VectorOfPairOfStringAndString::Add](#vectorofpairofstringandstringadd)
+  - [VectorOfPairOfStringAndString::Items](#vectorofpairofstringandstringitems)
+  - [VectorOfPairOfStringAndString::Keys](#vectorofpairofstringandstringkeys)
+  - [VectorOfPairOfStringAndString::Remove](#vectorofpairofstringandstringremove)
+  - [VectorOfPairOfStringAndString::append](#vectorofpairofstringandstringappend)
+  - [VectorOfPairOfStringAndString::at](#vectorofpairofstringandstringat)
+  - [VectorOfPairOfStringAndString::clear](#vectorofpairofstringandstringclear)
+  - [VectorOfPairOfStringAndString::empty](#vectorofpairofstringandstringempty)
+  - [VectorOfPairOfStringAndString::end](#vectorofpairofstringandstringend)
+  - [VectorOfPairOfStringAndString::get\_Item](#vectorofpairofstringandstringget%5C_item)
+  - [VectorOfPairOfStringAndString::get\_\_NewEnum](#vectorofpairofstringandstringget%5C_%5C_newenum)
+  - [VectorOfPairOfStringAndString::push\_back](#vectorofpairofstringandstringpush%5C_back)
+  - [VectorOfPairOfStringAndString::push\_vector](#vectorofpairofstringandstringpush%5C_vector)
+  - [VectorOfPairOfStringAndString::put\_Item](#vectorofpairofstringandstringput%5C_item)
+  - [VectorOfPairOfStringAndString::size](#vectorofpairofstringandstringsize)
+  - [VectorOfPairOfStringAndString::slice](#vectorofpairofstringandstringslice)
+  - [VectorOfPairOfStringAndString::sort](#vectorofpairofstringandstringsort)
+  - [VectorOfPairOfStringAndString::sort\_variant](#vectorofpairofstringandstringsort%5C_variant)
+  - [VectorOfPairOfStringAndString::start](#vectorofpairofstringandstringstart)
+- [MapOfStringAndInt](#mapofstringandint)
+  - [MapOfStringAndInt::create](#mapofstringandintcreate)
+  - [MapOfStringAndInt::Add](#mapofstringandintadd)
+  - [MapOfStringAndInt::Get](#mapofstringandintget)
+  - [MapOfStringAndInt::Items](#mapofstringandintitems)
+  - [MapOfStringAndInt::Keys](#mapofstringandintkeys)
+  - [MapOfStringAndInt::Remove](#mapofstringandintremove)
+  - [MapOfStringAndInt::clear](#mapofstringandintclear)
+  - [MapOfStringAndInt::contains](#mapofstringandintcontains)
+  - [MapOfStringAndInt::count](#mapofstringandintcount)
+  - [MapOfStringAndInt::empty](#mapofstringandintempty)
+  - [MapOfStringAndInt::erase](#mapofstringandinterase)
+  - [MapOfStringAndInt::get\_Item](#mapofstringandintget%5C_item)
+  - [MapOfStringAndInt::get\_\_NewEnum](#mapofstringandintget%5C_%5C_newenum)
+  - [MapOfStringAndInt::has](#mapofstringandinthas)
+  - [MapOfStringAndInt::max\_size](#mapofstringandintmax%5C_size)
+  - [MapOfStringAndInt::merge](#mapofstringandintmerge)
+  - [MapOfStringAndInt::put\_Item](#mapofstringandintput%5C_item)
+  - [MapOfStringAndInt::size](#mapofstringandintsize)
+- [VectorOfPairOfStringAndInt](#vectorofpairofstringandint)
+  - [VectorOfPairOfStringAndInt.Count](#vectorofpairofstringandintcount)
+  - [VectorOfPairOfStringAndInt::create](#vectorofpairofstringandintcreate)
+  - [VectorOfPairOfStringAndInt::Add](#vectorofpairofstringandintadd)
+  - [VectorOfPairOfStringAndInt::Items](#vectorofpairofstringandintitems)
+  - [VectorOfPairOfStringAndInt::Keys](#vectorofpairofstringandintkeys)
+  - [VectorOfPairOfStringAndInt::Remove](#vectorofpairofstringandintremove)
+  - [VectorOfPairOfStringAndInt::append](#vectorofpairofstringandintappend)
+  - [VectorOfPairOfStringAndInt::at](#vectorofpairofstringandintat)
+  - [VectorOfPairOfStringAndInt::clear](#vectorofpairofstringandintclear)
+  - [VectorOfPairOfStringAndInt::empty](#vectorofpairofstringandintempty)
+  - [VectorOfPairOfStringAndInt::end](#vectorofpairofstringandintend)
+  - [VectorOfPairOfStringAndInt::get\_Item](#vectorofpairofstringandintget%5C_item)
+  - [VectorOfPairOfStringAndInt::get\_\_NewEnum](#vectorofpairofstringandintget%5C_%5C_newenum)
+  - [VectorOfPairOfStringAndInt::push\_back](#vectorofpairofstringandintpush%5C_back)
+  - [VectorOfPairOfStringAndInt::push\_vector](#vectorofpairofstringandintpush%5C_vector)
+  - [VectorOfPairOfStringAndInt::put\_Item](#vectorofpairofstringandintput%5C_item)
+  - [VectorOfPairOfStringAndInt::size](#vectorofpairofstringandintsize)
+  - [VectorOfPairOfStringAndInt::slice](#vectorofpairofstringandintslice)
+  - [VectorOfPairOfStringAndInt::sort](#vectorofpairofstringandintsort)
+  - [VectorOfPairOfStringAndInt::sort\_variant](#vectorofpairofstringandintsort%5C_variant)
+  - [VectorOfPairOfStringAndInt::start](#vectorofpairofstringandintstart)
+- [MapOfStringAndVectorOfSize\_t](#mapofstringandvectorofsize%5C_t)
+  - [MapOfStringAndVectorOfSize\_t::create](#mapofstringandvectorofsize%5C_tcreate)
+  - [MapOfStringAndVectorOfSize\_t::Add](#mapofstringandvectorofsize%5C_tadd)
+  - [MapOfStringAndVectorOfSize\_t::Get](#mapofstringandvectorofsize%5C_tget)
+  - [MapOfStringAndVectorOfSize\_t::Items](#mapofstringandvectorofsize%5C_titems)
+  - [MapOfStringAndVectorOfSize\_t::Keys](#mapofstringandvectorofsize%5C_tkeys)
+  - [MapOfStringAndVectorOfSize\_t::Remove](#mapofstringandvectorofsize%5C_tremove)
+  - [MapOfStringAndVectorOfSize\_t::clear](#mapofstringandvectorofsize%5C_tclear)
+  - [MapOfStringAndVectorOfSize\_t::contains](#mapofstringandvectorofsize%5C_tcontains)
+  - [MapOfStringAndVectorOfSize\_t::count](#mapofstringandvectorofsize%5C_tcount)
+  - [MapOfStringAndVectorOfSize\_t::empty](#mapofstringandvectorofsize%5C_tempty)
+  - [MapOfStringAndVectorOfSize\_t::erase](#mapofstringandvectorofsize%5C_terase)
+  - [MapOfStringAndVectorOfSize\_t::get\_Item](#mapofstringandvectorofsize%5C_tget%5C_item)
+  - [MapOfStringAndVectorOfSize\_t::get\_\_NewEnum](#mapofstringandvectorofsize%5C_tget%5C_%5C_newenum)
+  - [MapOfStringAndVectorOfSize\_t::has](#mapofstringandvectorofsize%5C_thas)
+  - [MapOfStringAndVectorOfSize\_t::max\_size](#mapofstringandvectorofsize%5C_tmax%5C_size)
+  - [MapOfStringAndVectorOfSize\_t::merge](#mapofstringandvectorofsize%5C_tmerge)
+  - [MapOfStringAndVectorOfSize\_t::put\_Item](#mapofstringandvectorofsize%5C_tput%5C_item)
+  - [MapOfStringAndVectorOfSize\_t::size](#mapofstringandvectorofsize%5C_tsize)
+- [VectorOfPairOfStringAndVectorOfSize\_t](#vectorofpairofstringandvectorofsize%5C_t)
+  - [VectorOfPairOfStringAndVectorOfSize\_t.Count](#vectorofpairofstringandvectorofsize%5C_tcount)
+  - [VectorOfPairOfStringAndVectorOfSize\_t::create](#vectorofpairofstringandvectorofsize%5C_tcreate)
+  - [VectorOfPairOfStringAndVectorOfSize\_t::Add](#vectorofpairofstringandvectorofsize%5C_tadd)
+  - [VectorOfPairOfStringAndVectorOfSize\_t::Items](#vectorofpairofstringandvectorofsize%5C_titems)
+  - [VectorOfPairOfStringAndVectorOfSize\_t::Keys](#vectorofpairofstringandvectorofsize%5C_tkeys)
+  - [VectorOfPairOfStringAndVectorOfSize\_t::Remove](#vectorofpairofstringandvectorofsize%5C_tremove)
+  - [VectorOfPairOfStringAndVectorOfSize\_t::append](#vectorofpairofstringandvectorofsize%5C_tappend)
+  - [VectorOfPairOfStringAndVectorOfSize\_t::at](#vectorofpairofstringandvectorofsize%5C_tat)
+  - [VectorOfPairOfStringAndVectorOfSize\_t::clear](#vectorofpairofstringandvectorofsize%5C_tclear)
+  - [VectorOfPairOfStringAndVectorOfSize\_t::empty](#vectorofpairofstringandvectorofsize%5C_tempty)
+  - [VectorOfPairOfStringAndVectorOfSize\_t::end](#vectorofpairofstringandvectorofsize%5C_tend)
+  - [VectorOfPairOfStringAndVectorOfSize\_t::get\_Item](#vectorofpairofstringandvectorofsize%5C_tget%5C_item)
+  - [VectorOfPairOfStringAndVectorOfSize\_t::get\_\_NewEnum](#vectorofpairofstringandvectorofsize%5C_tget%5C_%5C_newenum)
+  - [VectorOfPairOfStringAndVectorOfSize\_t::push\_back](#vectorofpairofstringandvectorofsize%5C_tpush%5C_back)
+  - [VectorOfPairOfStringAndVectorOfSize\_t::push\_vector](#vectorofpairofstringandvectorofsize%5C_tpush%5C_vector)
+  - [VectorOfPairOfStringAndVectorOfSize\_t::put\_Item](#vectorofpairofstringandvectorofsize%5C_tput%5C_item)
+  - [VectorOfPairOfStringAndVectorOfSize\_t::size](#vectorofpairofstringandvectorofsize%5C_tsize)
+  - [VectorOfPairOfStringAndVectorOfSize\_t::slice](#vectorofpairofstringandvectorofsize%5C_tslice)
+  - [VectorOfPairOfStringAndVectorOfSize\_t::sort](#vectorofpairofstringandvectorofsize%5C_tsort)
+  - [VectorOfPairOfStringAndVectorOfSize\_t::sort\_variant](#vectorofpairofstringandvectorofsize%5C_tsort%5C_variant)
+  - [VectorOfPairOfStringAndVectorOfSize\_t::start](#vectorofpairofstringandvectorofsize%5C_tstart)
+- [VectorOfVectorOfSize\_t](#vectorofvectorofsize%5C_t)
+  - [VectorOfVectorOfSize\_t.Count](#vectorofvectorofsize%5C_tcount)
+  - [VectorOfVectorOfSize\_t::create](#vectorofvectorofsize%5C_tcreate)
+  - [VectorOfVectorOfSize\_t::Add](#vectorofvectorofsize%5C_tadd)
+  - [VectorOfVectorOfSize\_t::Items](#vectorofvectorofsize%5C_titems)
+  - [VectorOfVectorOfSize\_t::Keys](#vectorofvectorofsize%5C_tkeys)
+  - [VectorOfVectorOfSize\_t::Remove](#vectorofvectorofsize%5C_tremove)
+  - [VectorOfVectorOfSize\_t::append](#vectorofvectorofsize%5C_tappend)
+  - [VectorOfVectorOfSize\_t::at](#vectorofvectorofsize%5C_tat)
+  - [VectorOfVectorOfSize\_t::clear](#vectorofvectorofsize%5C_tclear)
+  - [VectorOfVectorOfSize\_t::empty](#vectorofvectorofsize%5C_tempty)
+  - [VectorOfVectorOfSize\_t::end](#vectorofvectorofsize%5C_tend)
+  - [VectorOfVectorOfSize\_t::get\_Item](#vectorofvectorofsize%5C_tget%5C_item)
+  - [VectorOfVectorOfSize\_t::get\_\_NewEnum](#vectorofvectorofsize%5C_tget%5C_%5C_newenum)
+  - [VectorOfVectorOfSize\_t::push\_back](#vectorofvectorofsize%5C_tpush%5C_back)
+  - [VectorOfVectorOfSize\_t::push\_vector](#vectorofvectorofsize%5C_tpush%5C_vector)
+  - [VectorOfVectorOfSize\_t::put\_Item](#vectorofvectorofsize%5C_tput%5C_item)
+  - [VectorOfVectorOfSize\_t::size](#vectorofvectorofsize%5C_tsize)
+  - [VectorOfVectorOfSize\_t::slice](#vectorofvectorofsize%5C_tslice)
+  - [VectorOfVectorOfSize\_t::sort](#vectorofvectorofsize%5C_tsort)
+  - [VectorOfVectorOfSize\_t::sort\_variant](#vectorofvectorofsize%5C_tsort%5C_variant)
+  - [VectorOfVectorOfSize\_t::start](#vectorofvectorofsize%5C_tstart)
+- [MapOfStringAndVectorOfFloat](#mapofstringandvectoroffloat)
+  - [MapOfStringAndVectorOfFloat::create](#mapofstringandvectoroffloatcreate)
+  - [MapOfStringAndVectorOfFloat::Add](#mapofstringandvectoroffloatadd)
+  - [MapOfStringAndVectorOfFloat::Get](#mapofstringandvectoroffloatget)
+  - [MapOfStringAndVectorOfFloat::Items](#mapofstringandvectoroffloatitems)
+  - [MapOfStringAndVectorOfFloat::Keys](#mapofstringandvectoroffloatkeys)
+  - [MapOfStringAndVectorOfFloat::Remove](#mapofstringandvectoroffloatremove)
+  - [MapOfStringAndVectorOfFloat::clear](#mapofstringandvectoroffloatclear)
+  - [MapOfStringAndVectorOfFloat::contains](#mapofstringandvectoroffloatcontains)
+  - [MapOfStringAndVectorOfFloat::count](#mapofstringandvectoroffloatcount)
+  - [MapOfStringAndVectorOfFloat::empty](#mapofstringandvectoroffloatempty)
+  - [MapOfStringAndVectorOfFloat::erase](#mapofstringandvectoroffloaterase)
+  - [MapOfStringAndVectorOfFloat::get\_Item](#mapofstringandvectoroffloatget%5C_item)
+  - [MapOfStringAndVectorOfFloat::get\_\_NewEnum](#mapofstringandvectoroffloatget%5C_%5C_newenum)
+  - [MapOfStringAndVectorOfFloat::has](#mapofstringandvectoroffloathas)
+  - [MapOfStringAndVectorOfFloat::max\_size](#mapofstringandvectoroffloatmax%5C_size)
+  - [MapOfStringAndVectorOfFloat::merge](#mapofstringandvectoroffloatmerge)
+  - [MapOfStringAndVectorOfFloat::put\_Item](#mapofstringandvectoroffloatput%5C_item)
+  - [MapOfStringAndVectorOfFloat::size](#mapofstringandvectoroffloatsize)
+- [VectorOfPairOfStringAndVectorOfFloat](#vectorofpairofstringandvectoroffloat)
+  - [VectorOfPairOfStringAndVectorOfFloat.Count](#vectorofpairofstringandvectoroffloatcount)
+  - [VectorOfPairOfStringAndVectorOfFloat::create](#vectorofpairofstringandvectoroffloatcreate)
+  - [VectorOfPairOfStringAndVectorOfFloat::Add](#vectorofpairofstringandvectoroffloatadd)
+  - [VectorOfPairOfStringAndVectorOfFloat::Items](#vectorofpairofstringandvectoroffloatitems)
+  - [VectorOfPairOfStringAndVectorOfFloat::Keys](#vectorofpairofstringandvectoroffloatkeys)
+  - [VectorOfPairOfStringAndVectorOfFloat::Remove](#vectorofpairofstringandvectoroffloatremove)
+  - [VectorOfPairOfStringAndVectorOfFloat::append](#vectorofpairofstringandvectoroffloatappend)
+  - [VectorOfPairOfStringAndVectorOfFloat::at](#vectorofpairofstringandvectoroffloatat)
+  - [VectorOfPairOfStringAndVectorOfFloat::clear](#vectorofpairofstringandvectoroffloatclear)
+  - [VectorOfPairOfStringAndVectorOfFloat::empty](#vectorofpairofstringandvectoroffloatempty)
+  - [VectorOfPairOfStringAndVectorOfFloat::end](#vectorofpairofstringandvectoroffloatend)
+  - [VectorOfPairOfStringAndVectorOfFloat::get\_Item](#vectorofpairofstringandvectoroffloatget%5C_item)
+  - [VectorOfPairOfStringAndVectorOfFloat::get\_\_NewEnum](#vectorofpairofstringandvectoroffloatget%5C_%5C_newenum)
+  - [VectorOfPairOfStringAndVectorOfFloat::push\_back](#vectorofpairofstringandvectoroffloatpush%5C_back)
+  - [VectorOfPairOfStringAndVectorOfFloat::push\_vector](#vectorofpairofstringandvectoroffloatpush%5C_vector)
+  - [VectorOfPairOfStringAndVectorOfFloat::put\_Item](#vectorofpairofstringandvectoroffloatput%5C_item)
+  - [VectorOfPairOfStringAndVectorOfFloat::size](#vectorofpairofstringandvectoroffloatsize)
+  - [VectorOfPairOfStringAndVectorOfFloat::slice](#vectorofpairofstringandvectoroffloatslice)
+  - [VectorOfPairOfStringAndVectorOfFloat::sort](#vectorofpairofstringandvectoroffloatsort)
+  - [VectorOfPairOfStringAndVectorOfFloat::sort\_variant](#vectorofpairofstringandvectoroffloatsort%5C_variant)
+  - [VectorOfPairOfStringAndVectorOfFloat::start](#vectorofpairofstringandvectoroffloatstart)
+- [VectorOfVectorOfFloat](#vectorofvectoroffloat)
+  - [VectorOfVectorOfFloat.Count](#vectorofvectoroffloatcount)
+  - [VectorOfVectorOfFloat::create](#vectorofvectoroffloatcreate)
+  - [VectorOfVectorOfFloat::Add](#vectorofvectoroffloatadd)
+  - [VectorOfVectorOfFloat::Items](#vectorofvectoroffloatitems)
+  - [VectorOfVectorOfFloat::Keys](#vectorofvectoroffloatkeys)
+  - [VectorOfVectorOfFloat::Remove](#vectorofvectoroffloatremove)
+  - [VectorOfVectorOfFloat::append](#vectorofvectoroffloatappend)
+  - [VectorOfVectorOfFloat::at](#vectorofvectoroffloatat)
+  - [VectorOfVectorOfFloat::clear](#vectorofvectoroffloatclear)
+  - [VectorOfVectorOfFloat::empty](#vectorofvectoroffloatempty)
+  - [VectorOfVectorOfFloat::end](#vectorofvectoroffloatend)
+  - [VectorOfVectorOfFloat::get\_Item](#vectorofvectoroffloatget%5C_item)
+  - [VectorOfVectorOfFloat::get\_\_NewEnum](#vectorofvectoroffloatget%5C_%5C_newenum)
+  - [VectorOfVectorOfFloat::push\_back](#vectorofvectoroffloatpush%5C_back)
+  - [VectorOfVectorOfFloat::push\_vector](#vectorofvectoroffloatpush%5C_vector)
+  - [VectorOfVectorOfFloat::put\_Item](#vectorofvectoroffloatput%5C_item)
+  - [VectorOfVectorOfFloat::size](#vectorofvectoroffloatsize)
+  - [VectorOfVectorOfFloat::slice](#vectorofvectoroffloatslice)
+  - [VectorOfVectorOfFloat::sort](#vectorofvectoroffloatsort)
+  - [VectorOfVectorOfFloat::sort\_variant](#vectorofvectoroffloatsort%5C_variant)
+  - [VectorOfVectorOfFloat::start](#vectorofvectoroffloatstart)
+- [MapOfIntAndDouble](#mapofintanddouble)
+  - [MapOfIntAndDouble::create](#mapofintanddoublecreate)
+  - [MapOfIntAndDouble::Add](#mapofintanddoubleadd)
+  - [MapOfIntAndDouble::Get](#mapofintanddoubleget)
+  - [MapOfIntAndDouble::Items](#mapofintanddoubleitems)
+  - [MapOfIntAndDouble::Keys](#mapofintanddoublekeys)
+  - [MapOfIntAndDouble::Remove](#mapofintanddoubleremove)
+  - [MapOfIntAndDouble::clear](#mapofintanddoubleclear)
+  - [MapOfIntAndDouble::contains](#mapofintanddoublecontains)
+  - [MapOfIntAndDouble::count](#mapofintanddoublecount)
+  - [MapOfIntAndDouble::empty](#mapofintanddoubleempty)
+  - [MapOfIntAndDouble::erase](#mapofintanddoubleerase)
+  - [MapOfIntAndDouble::get\_Item](#mapofintanddoubleget%5C_item)
+  - [MapOfIntAndDouble::get\_\_NewEnum](#mapofintanddoubleget%5C_%5C_newenum)
+  - [MapOfIntAndDouble::has](#mapofintanddoublehas)
+  - [MapOfIntAndDouble::max\_size](#mapofintanddoublemax%5C_size)
+  - [MapOfIntAndDouble::merge](#mapofintanddoublemerge)
+  - [MapOfIntAndDouble::put\_Item](#mapofintanddoubleput%5C_item)
+  - [MapOfIntAndDouble::size](#mapofintanddoublesize)
+- [VectorOfPairOfIntAndDouble](#vectorofpairofintanddouble)
+  - [VectorOfPairOfIntAndDouble.Count](#vectorofpairofintanddoublecount)
+  - [VectorOfPairOfIntAndDouble::create](#vectorofpairofintanddoublecreate)
+  - [VectorOfPairOfIntAndDouble::Add](#vectorofpairofintanddoubleadd)
+  - [VectorOfPairOfIntAndDouble::Items](#vectorofpairofintanddoubleitems)
+  - [VectorOfPairOfIntAndDouble::Keys](#vectorofpairofintanddoublekeys)
+  - [VectorOfPairOfIntAndDouble::Remove](#vectorofpairofintanddoubleremove)
+  - [VectorOfPairOfIntAndDouble::append](#vectorofpairofintanddoubleappend)
+  - [VectorOfPairOfIntAndDouble::at](#vectorofpairofintanddoubleat)
+  - [VectorOfPairOfIntAndDouble::clear](#vectorofpairofintanddoubleclear)
+  - [VectorOfPairOfIntAndDouble::empty](#vectorofpairofintanddoubleempty)
+  - [VectorOfPairOfIntAndDouble::end](#vectorofpairofintanddoubleend)
+  - [VectorOfPairOfIntAndDouble::get\_Item](#vectorofpairofintanddoubleget%5C_item)
+  - [VectorOfPairOfIntAndDouble::get\_\_NewEnum](#vectorofpairofintanddoubleget%5C_%5C_newenum)
+  - [VectorOfPairOfIntAndDouble::push\_back](#vectorofpairofintanddoublepush%5C_back)
+  - [VectorOfPairOfIntAndDouble::push\_vector](#vectorofpairofintanddoublepush%5C_vector)
+  - [VectorOfPairOfIntAndDouble::put\_Item](#vectorofpairofintanddoubleput%5C_item)
+  - [VectorOfPairOfIntAndDouble::size](#vectorofpairofintanddoublesize)
+  - [VectorOfPairOfIntAndDouble::slice](#vectorofpairofintanddoubleslice)
+  - [VectorOfPairOfIntAndDouble::sort](#vectorofpairofintanddoublesort)
+  - [VectorOfPairOfIntAndDouble::sort\_variant](#vectorofpairofintanddoublesort%5C_variant)
+  - [VectorOfPairOfIntAndDouble::start](#vectorofpairofintanddoublestart)
 - [VectorOfGapi\_wip\_draw\_Prim](#vectorofgapi%5C_wip%5C_draw%5C_prim)
   - [VectorOfGapi\_wip\_draw\_Prim.Count](#vectorofgapi%5C_wip%5C_draw%5C_primcount)
   - [VectorOfGapi\_wip\_draw\_Prim::create](#vectorofgapi%5C_wip%5C_draw%5C_primcreate)
@@ -7327,6 +7695,14 @@ AutoIt:
 static cv::QuatEnum
 AutoIt:
     [propget] $ocv.QuatEnum
+```
+
+### cv.RotatedRect
+
+```cpp
+static cv::RotatedRect
+AutoIt:
+    [propget] $ocv.RotatedRect
 ```
 
 ### cv.KeyPoint
@@ -7817,12 +8193,28 @@ AutoIt:
     [propget] $ocv.QRCodeDetector
 ```
 
+### cv.QRCodeDetectorAruco
+
+```cpp
+static cv::QRCodeDetectorAruco
+AutoIt:
+    [propget] $ocv.QRCodeDetectorAruco
+```
+
 ### cv.aruco
 
 ```cpp
 static cv::aruco
 AutoIt:
     [propget] $ocv.aruco
+```
+
+### cv.barcode
+
+```cpp
+static cv::barcode
+AutoIt:
+    [propget] $ocv.barcode
 ```
 
 ### cv.FaceDetectorYN
@@ -7839,6 +8231,14 @@ AutoIt:
 static cv::FaceRecognizerSF
 AutoIt:
     [propget] $ocv.FaceRecognizerSF
+```
+
+### cv.GraphicalCodeDetector
+
+```cpp
+static cv::GraphicalCodeDetector
+AutoIt:
+    [propget] $ocv.GraphicalCodeDetector
 ```
 
 ### cv.Stitcher
@@ -8183,14 +8583,6 @@ AutoIt:
 static cv::Range
 AutoIt:
     [propget] $ocv.Range
-```
-
-### cv.RotatedRect
-
-```cpp
-static cv::RotatedRect
-AutoIt:
-    [propget] $ocv.RotatedRect
 ```
 
 ### cv.GCompileArg
@@ -10661,8 +11053,8 @@ AutoIt:
 ### cv::format
 
 ```cpp
-std::string cv::format( InputArray                mtx,
-                        cv::Formatter::FormatType fmt = Formatter::FMT_NUMPY );
+std::string cv::format( const InputArray&         mtx,
+                        cv::Formatter::FormatType fmt = cv::Formatter::FMT_NUMPY );
 AutoIt:
     _OpenCV_ObjCreate("cv").format( $mtx[, $fmt] ) -> retval
 ```
@@ -11046,6 +11438,14 @@ void cv::groupRectangles( std::vector<cv::Rect>& rectList,
                           double                 eps = 0.2 );
 AutoIt:
     _OpenCV_ObjCreate("cv").groupRectangles( $rectList, $groupThreshold[, $eps[, $weights]] ) -> $rectList, $weights
+```
+
+### cv::hasNonZero
+
+```cpp
+bool cv::hasNonZero( InputArray src );
+AutoIt:
+    _OpenCV_ObjCreate("cv").hasNonZero( $src ) -> retval
 ```
 
 ### cv::haveImageReader
@@ -12300,17 +12700,19 @@ AutoIt:
 cv::Rect cv::selectROI( const std::string& windowName,
                         InputArray         img,
                         bool               showCrosshair = true,
-                        bool               fromCenter = false );
+                        bool               fromCenter = false,
+                        bool               printNotice = true );
 AutoIt:
-    _OpenCV_ObjCreate("cv").selectROI( $windowName, $img[, $showCrosshair[, $fromCenter]] ) -> retval
+    _OpenCV_ObjCreate("cv").selectROI( $windowName, $img[, $showCrosshair[, $fromCenter[, $printNotice]]] ) -> retval
 ```
 
 ```cpp
 cv::Rect cv::selectROI( InputArray img,
                         bool       showCrosshair = true,
-                        bool       fromCenter = false );
+                        bool       fromCenter = false,
+                        bool       printNotice = true );
 AutoIt:
-    _OpenCV_ObjCreate("cv").selectROI( $img[, $showCrosshair[, $fromCenter]] ) -> retval
+    _OpenCV_ObjCreate("cv").selectROI( $img[, $showCrosshair[, $fromCenter[, $printNotice]]] ) -> retval
 ```
 
 ### cv::selectROIs
@@ -12320,9 +12722,10 @@ void cv::selectROIs( const std::string&     windowName,
                      InputArray             img,
                      std::vector<cv::Rect>& boundingBoxes,
                      bool                   showCrosshair = true,
-                     bool                   fromCenter = false );
+                     bool                   fromCenter = false,
+                     bool                   printNotice = true );
 AutoIt:
-    _OpenCV_ObjCreate("cv").selectROIs( $windowName, $img[, $showCrosshair[, $fromCenter[, $boundingBoxes]]] ) -> $boundingBoxes
+    _OpenCV_ObjCreate("cv").selectROIs( $windowName, $img[, $showCrosshair[, $fromCenter[, $printNotice[, $boundingBoxes]]]] ) -> $boundingBoxes
 ```
 
 ### cv::sepFilter2D
@@ -12459,6 +12862,15 @@ AutoIt:
 ```
 
 ### cv::solveLP
+
+```cpp
+int cv::solveLP( InputArray   Func,
+                 InputArray   Constr,
+                 OutputArray  z,
+                 const double constr_eps );
+AutoIt:
+    _OpenCV_ObjCreate("cv").solveLP( $Func, $Constr, $constr_eps[, $z] ) -> retval, $z
+```
 
 ```cpp
 int cv::solveLP( InputArray  Func,
@@ -13204,6 +13616,14 @@ AutoIt:
     [propget] $oenums.REDUCE_MIN
 ```
 
+### enums.REDUCE\_SUM2
+
+```cpp
+static int cv::enums::REDUCE_SUM2
+AutoIt:
+    [propget] $oenums.REDUCE_SUM2
+```
+
 ### enums.ROTATE\_90\_CLOCKWISE
 
 ```cpp
@@ -13634,6 +14054,14 @@ AutoIt:
 static int cv::enums::__UMAT_USAGE_FLAGS_32BIT
 AutoIt:
     [propget] $oenums.__UMAT_USAGE_FLAGS_32BIT
+```
+
+### enums.SOLVELP\_LOST
+
+```cpp
+static int cv::enums::SOLVELP_LOST
+AutoIt:
+    [propget] $oenums.SOLVELP_LOST
 ```
 
 ### enums.SOLVELP\_UNBOUNDED
@@ -17178,6 +17606,30 @@ AutoIt:
 static int cv::enums::IMWRITE_JPEG2000_COMPRESSION_X1000
 AutoIt:
     [propget] $oenums.IMWRITE_JPEG2000_COMPRESSION_X1000
+```
+
+### enums.IMWRITE\_AVIF\_QUALITY
+
+```cpp
+static int cv::enums::IMWRITE_AVIF_QUALITY
+AutoIt:
+    [propget] $oenums.IMWRITE_AVIF_QUALITY
+```
+
+### enums.IMWRITE\_AVIF\_DEPTH
+
+```cpp
+static int cv::enums::IMWRITE_AVIF_DEPTH
+AutoIt:
+    [propget] $oenums.IMWRITE_AVIF_DEPTH
+```
+
+### enums.IMWRITE\_AVIF\_SPEED
+
+```cpp
+static int cv::enums::IMWRITE_AVIF_SPEED
+AutoIt:
+    [propget] $oenums.IMWRITE_AVIF_SPEED
 ```
 
 ### enums.IMWRITE\_JPEG\_SAMPLING\_FACTOR\_411
@@ -21172,6 +21624,38 @@ AutoIt:
     [propget] $oenums.NEIGH_FLANN_RADIUS
 ```
 
+### enums.NONE\_POLISHER
+
+```cpp
+static int cv::enums::NONE_POLISHER
+AutoIt:
+    [propget] $oenums.NONE_POLISHER
+```
+
+### enums.LSQ\_POLISHER
+
+```cpp
+static int cv::enums::LSQ_POLISHER
+AutoIt:
+    [propget] $oenums.LSQ_POLISHER
+```
+
+### enums.MAGSAC
+
+```cpp
+static int cv::enums::MAGSAC
+AutoIt:
+    [propget] $oenums.MAGSAC
+```
+
+### enums.COV\_POLISHER
+
+```cpp
+static int cv::enums::COV_POLISHER
+AutoIt:
+    [propget] $oenums.COV_POLISHER
+```
+
 ### enums.PROJ\_SPHERICAL\_ORTHO
 
 ```cpp
@@ -22521,6 +23005,14 @@ AutoIt:
     [propget] $outils.ClassWithKeywordProperties
 ```
 
+### utils.FunctionParams
+
+```cpp
+static cv::utils::FunctionParams
+AutoIt:
+    [propget] $outils.FunctionParams
+```
+
 ### utils.nested
 
 ```cpp
@@ -22535,6 +23027,16 @@ AutoIt:
 static cv::utils::fs
 AutoIt:
     [propget] $outils.fs
+```
+
+### cv::utils::copyMatAndDumpNamedArguments
+
+```cpp
+std::string cv::utils::copyMatAndDumpNamedArguments( InputArray                       src,
+                                                     OutputArray                      dst,
+                                                     const cv::utils::FunctionParams& params = FunctionParams() );
+AutoIt:
+    _OpenCV_ObjCreate("cv.utils").copyMatAndDumpNamedArguments( $src[, $dst[, $params]] ) -> retval, $dst
 ```
 
 ### cv::utils::dumpBool
@@ -22834,6 +23336,32 @@ static cv::utils::ClassWithKeywordProperties cv::utils::ClassWithKeywordProperti
 AutoIt:
     _OpenCV_ObjCreate("cv.utils.ClassWithKeywordProperties").create( [$lambda_arg[, $except_arg]] ) -> <cv.utils.ClassWithKeywordProperties object>
     $oClassWithKeywordProperties( [$lambda_arg[, $except_arg]] ) -> <cv.utils.ClassWithKeywordProperties object>
+```
+
+## cv::utils::FunctionParams
+
+### FunctionParams.lambda
+
+```cpp
+int cv::utils::FunctionParams::lambda
+AutoIt:
+    [propget, propput] $oFunctionParams.lambda
+```
+
+### FunctionParams.sigma
+
+```cpp
+float cv::utils::FunctionParams::sigma
+AutoIt:
+    [propget, propput] $oFunctionParams.sigma
+```
+
+### cv::utils::FunctionParams::get\_create
+
+```cpp
+static cv::utils::FunctionParams cv::utils::FunctionParams::get_create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.utils.FunctionParams").create() -> <cv.utils.FunctionParams object>
 ```
 
 ## cv::utils::nested
@@ -23359,11 +23887,11 @@ AutoIt:
 ### cv::detail::matchesGraphAsString
 
 ```cpp
-std::string cv::detail::matchesGraphAsString( std::vector<std::string>&             pathes,
+std::string cv::detail::matchesGraphAsString( std::vector<std::string>&             paths,
                                               std::vector<cv::detail::MatchesInfo>& pairwise_matches,
                                               float                                 conf_threshold );
 AutoIt:
-    _OpenCV_ObjCreate("cv.detail").matchesGraphAsString( $pathes, $pairwise_matches, $conf_threshold ) -> retval
+    _OpenCV_ObjCreate("cv.detail").matchesGraphAsString( $paths, $pairwise_matches, $conf_threshold ) -> retval
 ```
 
 ### cv::detail::normalizeUsingWeightMap
@@ -23628,6 +24156,27 @@ AutoIt:
     _OpenCV_ObjCreate("cv.cuda").createContinuous( $rows, $cols, $type[, $arr] ) -> $arr
 ```
 
+### cv::cuda::createGpuMatFromCudaMemory
+
+```cpp
+cv::cuda::GpuMat cv::cuda::createGpuMatFromCudaMemory( int    rows,
+                                                       int    cols,
+                                                       int    type,
+                                                       size_t cudaMemoryAddress,
+                                                       size_t step = Mat::AUTO_STEP );
+AutoIt:
+    _OpenCV_ObjCreate("cv.cuda").createGpuMatFromCudaMemory( $rows, $cols, $type, $cudaMemoryAddress[, $step] ) -> retval
+```
+
+```cpp
+cv::cuda::GpuMat cv::cuda::createGpuMatFromCudaMemory( cv::Size size,
+                                                       int      type,
+                                                       size_t   cudaMemoryAddress,
+                                                       size_t   step = Mat::AUTO_STEP );
+AutoIt:
+    _OpenCV_ObjCreate("cv.cuda").createGpuMatFromCudaMemory( $size, $type, $cudaMemoryAddress[, $step] ) -> retval
+```
+
 ### cv::cuda::ensureSizeIsEnough
 
 ```cpp
@@ -23760,6 +24309,14 @@ AutoIt:
 void cv::cuda::unregisterPageLocked( cv::Mat& m );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda").unregisterPageLocked( $m ) -> None
+```
+
+### cv::cuda::wrapStream
+
+```cpp
+cv::cuda::Stream cv::cuda::wrapStream( size_t cudaStreamMemoryAddress );
+AutoIt:
+    _OpenCV_ObjCreate("cv.cuda").wrapStream( $cudaStreamMemoryAddress ) -> retval
 ```
 
 ### cuda.FEATURE\_SET\_COMPUTE\_10\_
@@ -31729,6 +32286,104 @@ AutoIt:
     [propget] $oQuatEnum.EULER_ANGLES_MAX_VALUE_
 ```
 
+## cv::RotatedRect
+
+### RotatedRect.center
+
+```cpp
+cv::Point2f cv::RotatedRect::center
+AutoIt:
+    [propget, propput] $oRotatedRect.center
+```
+
+### RotatedRect.size
+
+```cpp
+cv::Size2f cv::RotatedRect::size
+AutoIt:
+    [propget, propput] $oRotatedRect.size
+```
+
+### RotatedRect.angle
+
+```cpp
+float cv::RotatedRect::angle
+AutoIt:
+    [propget, propput] $oRotatedRect.angle
+```
+
+### cv::RotatedRect::get\_create
+
+```cpp
+static cv::RotatedRect cv::RotatedRect::get_create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.RotatedRect").create() -> <cv.RotatedRect object>
+```
+
+```cpp
+static cv::RotatedRect cv::RotatedRect::get_create( const cv::Point2f& center,
+                                                    const cv::Size2f&  size,
+                                                    float              angle );
+AutoIt:
+    _OpenCV_ObjCreate("cv.RotatedRect").create( $center, $size, $angle ) -> <cv.RotatedRect object>
+    $oRotatedRect( $center, $size, $angle ) -> <cv.RotatedRect object>
+```
+
+```cpp
+static cv::RotatedRect cv::RotatedRect::get_create( const cv::Point2f& point1,
+                                                    const cv::Point2f& point2,
+                                                    const cv::Point2f& point3 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.RotatedRect").create( $point1, $point2, $point3 ) -> <cv.RotatedRect object>
+    $oRotatedRect( $point1, $point2, $point3 ) -> <cv.RotatedRect object>
+```
+
+```cpp
+static cv::RotatedRect cv::RotatedRect::get_create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.RotatedRect").create() -> <cv.RotatedRect object>
+```
+
+```cpp
+static cv::RotatedRect cv::RotatedRect::get_create( cv::Point2f center,
+                                                    cv::Size2f  size,
+                                                    float       angle );
+AutoIt:
+    _OpenCV_ObjCreate("cv.RotatedRect").create( $center, $size, $angle ) -> <cv.RotatedRect object>
+    $oRotatedRect( $center, $size, $angle ) -> <cv.RotatedRect object>
+```
+
+```cpp
+static cv::RotatedRect cv::RotatedRect::get_create( cv::Point2f point1,
+                                                    cv::Point2f point2,
+                                                    cv::Point2f point3 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.RotatedRect").create( $point1, $point2, $point3 ) -> <cv.RotatedRect object>
+    $oRotatedRect( $point1, $point2, $point3 ) -> <cv.RotatedRect object>
+```
+
+### cv::RotatedRect::boundingRect
+
+```cpp
+cv::Rect cv::RotatedRect::boundingRect() const;
+AutoIt:
+    $oRotatedRect.boundingRect() -> retval
+```
+
+```cpp
+cv::Rect cv::RotatedRect::boundingRect();
+AutoIt:
+    $oRotatedRect.boundingRect() -> retval
+```
+
+### cv::RotatedRect::points
+
+```cpp
+void cv::RotatedRect::points( std::vector<cv::Point2f>& pts ) const;
+AutoIt:
+    $oRotatedRect.points( [$pts] ) -> $pts
+```
+
 ## cv::KeyPoint
 
 ### KeyPoint.pt
@@ -39016,6 +39671,14 @@ AutoIt:
     [propget] $odnn.Net
 ```
 
+### dnn.Image2BlobParams
+
+```cpp
+static cv::dnn::Image2BlobParams
+AutoIt:
+    [propget] $odnn.Image2BlobParams
+```
+
 ### dnn.SoftNMSMethod
 
 ```cpp
@@ -39153,6 +39816,23 @@ AutoIt:
     _OpenCV_ObjCreate("cv.dnn").blobFromImage( $image[, $scalefactor[, $size[, $mean[, $swapRB[, $crop[, $ddepth]]]]]] ) -> retval
 ```
 
+### cv::dnn::blobFromImageWithParams
+
+```cpp
+cv::Mat cv::dnn::blobFromImageWithParams( InputArray                       image,
+                                          const cv::dnn::Image2BlobParams& param = Image2BlobParams() );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn").blobFromImageWithParams( $image[, $param] ) -> retval
+```
+
+```cpp
+void cv::dnn::blobFromImageWithParams( InputArray                       image,
+                                       OutputArray                      blob,
+                                       const cv::dnn::Image2BlobParams& param = Image2BlobParams() );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn").blobFromImageWithParams( $image[, $blob[, $param]] ) -> $blob
+```
+
 ### cv::dnn::blobFromImages
 
 ```cpp
@@ -39165,6 +39845,23 @@ cv::Mat cv::dnn::blobFromImages( InputArrayOfArrays images,
                                  int                ddepth = CV_32F );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn").blobFromImages( $images[, $scalefactor[, $size[, $mean[, $swapRB[, $crop[, $ddepth]]]]]] ) -> retval
+```
+
+### cv::dnn::blobFromImagesWithParams
+
+```cpp
+cv::Mat cv::dnn::blobFromImagesWithParams( InputArrayOfArrays               images,
+                                           const cv::dnn::Image2BlobParams& param = Image2BlobParams() );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn").blobFromImagesWithParams( $images[, $param] ) -> retval
+```
+
+```cpp
+void cv::dnn::blobFromImagesWithParams( InputArrayOfArrays               images,
+                                        OutputArray                      blob,
+                                        const cv::dnn::Image2BlobParams& param = Image2BlobParams() );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn").blobFromImagesWithParams( $images[, $blob[, $param]] ) -> $blob
 ```
 
 ### cv::dnn::getAvailableTargets
@@ -39262,6 +39959,20 @@ AutoIt:
 cv::dnn::Net cv::dnn::readNetFromONNX( const std::vector<uchar>& buffer );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn").readNetFromONNX( $buffer ) -> retval
+```
+
+### cv::dnn::readNetFromTFLite
+
+```cpp
+cv::dnn::Net cv::dnn::readNetFromTFLite( const std::string& model );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn").readNetFromTFLite( $model ) -> retval
+```
+
+```cpp
+cv::dnn::Net cv::dnn::readNetFromTFLite( const std::vector<uchar>& bufferModel );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn").readNetFromTFLite( $bufferModel ) -> retval
 ```
 
 ### cv::dnn::readNetFromTensorflow
@@ -39492,6 +40203,94 @@ AutoIt:
 static int cv::dnn::DNN_TARGET_NPU
 AutoIt:
     [propget] $odnn.DNN_TARGET_NPU_
+```
+
+### dnn.DNN\_TARGET\_CPU\_FP16\_
+
+```cpp
+static int cv::dnn::DNN_TARGET_CPU_FP16
+AutoIt:
+    [propget] $odnn.DNN_TARGET_CPU_FP16_
+```
+
+### dnn.DNN\_LAYOUT\_UNKNOWN\_
+
+```cpp
+static int cv::dnn::DNN_LAYOUT_UNKNOWN
+AutoIt:
+    [propget] $odnn.DNN_LAYOUT_UNKNOWN_
+```
+
+### dnn.DNN\_LAYOUT\_ND\_
+
+```cpp
+static int cv::dnn::DNN_LAYOUT_ND
+AutoIt:
+    [propget] $odnn.DNN_LAYOUT_ND_
+```
+
+### dnn.DNN\_LAYOUT\_NCHW\_
+
+```cpp
+static int cv::dnn::DNN_LAYOUT_NCHW
+AutoIt:
+    [propget] $odnn.DNN_LAYOUT_NCHW_
+```
+
+### dnn.DNN\_LAYOUT\_NCDHW\_
+
+```cpp
+static int cv::dnn::DNN_LAYOUT_NCDHW
+AutoIt:
+    [propget] $odnn.DNN_LAYOUT_NCDHW_
+```
+
+### dnn.DNN\_LAYOUT\_NHWC\_
+
+```cpp
+static int cv::dnn::DNN_LAYOUT_NHWC
+AutoIt:
+    [propget] $odnn.DNN_LAYOUT_NHWC_
+```
+
+### dnn.DNN\_LAYOUT\_NDHWC\_
+
+```cpp
+static int cv::dnn::DNN_LAYOUT_NDHWC
+AutoIt:
+    [propget] $odnn.DNN_LAYOUT_NDHWC_
+```
+
+### dnn.DNN\_LAYOUT\_PLANAR\_
+
+```cpp
+static int cv::dnn::DNN_LAYOUT_PLANAR
+AutoIt:
+    [propget] $odnn.DNN_LAYOUT_PLANAR_
+```
+
+### dnn.DNN\_PMODE\_NULL\_
+
+```cpp
+static int cv::dnn::DNN_PMODE_NULL
+AutoIt:
+    [propget] $odnn.DNN_PMODE_NULL_
+```
+
+### dnn.DNN\_PMODE\_CROP\_CENTER\_
+
+```cpp
+static int cv::dnn::DNN_PMODE_CROP_CENTER
+AutoIt:
+    [propget] $odnn.DNN_PMODE_CROP_CENTER_
+```
+
+### dnn.DNN\_PMODE\_LETTERBOX\_
+
+```cpp
+static int cv::dnn::DNN_PMODE_LETTERBOX
+AutoIt:
+    [propget] $odnn.DNN_PMODE_LETTERBOX_
 ```
 
 ## cv::dnn::DictValue
@@ -40064,6 +40863,85 @@ AutoIt:
     $oNet.setPreferableTarget( $targetId ) -> None
 ```
 
+## cv::dnn::Image2BlobParams
+
+### Image2BlobParams.scalefactor
+
+```cpp
+cv::Scalar cv::dnn::Image2BlobParams::scalefactor
+AutoIt:
+    [propget, propput] $oImage2BlobParams.scalefactor
+```
+
+### Image2BlobParams.size
+
+```cpp
+cv::Size cv::dnn::Image2BlobParams::size
+AutoIt:
+    [propget, propput] $oImage2BlobParams.size
+```
+
+### Image2BlobParams.mean
+
+```cpp
+cv::Scalar cv::dnn::Image2BlobParams::mean
+AutoIt:
+    [propget, propput] $oImage2BlobParams.mean
+```
+
+### Image2BlobParams.swapRB
+
+```cpp
+bool cv::dnn::Image2BlobParams::swapRB
+AutoIt:
+    [propget, propput] $oImage2BlobParams.swapRB
+```
+
+### Image2BlobParams.ddepth
+
+```cpp
+int cv::dnn::Image2BlobParams::ddepth
+AutoIt:
+    [propget, propput] $oImage2BlobParams.ddepth
+```
+
+### Image2BlobParams.datalayout
+
+```cpp
+cv::dnn::DataLayout cv::dnn::Image2BlobParams::datalayout
+AutoIt:
+    [propget, propput] $oImage2BlobParams.datalayout
+```
+
+### Image2BlobParams.paddingmode
+
+```cpp
+cv::dnn::ImagePaddingMode cv::dnn::Image2BlobParams::paddingmode
+AutoIt:
+    [propget, propput] $oImage2BlobParams.paddingmode
+```
+
+### cv::dnn::Image2BlobParams::get\_create
+
+```cpp
+static cv::dnn::Image2BlobParams cv::dnn::Image2BlobParams::get_create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn.Image2BlobParams").create() -> <cv.dnn.Image2BlobParams object>
+```
+
+```cpp
+static cv::dnn::Image2BlobParams cv::dnn::Image2BlobParams::get_create( const cv::Scalar&         scalefactor,
+                                                                        const cv::Size&           size = Size(),
+                                                                        const cv::Scalar&         mean = Scalar(),
+                                                                        bool                      swapRB = false,
+                                                                        int                       ddepth = CV_32F,
+                                                                        cv::dnn::DataLayout       datalayout = DNN_LAYOUT_NCHW,
+                                                                        cv::dnn::ImagePaddingMode mode = DNN_PMODE_NULL );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn.Image2BlobParams").create( $scalefactor[, $size[, $mean[, $swapRB[, $ddepth[, $datalayout[, $mode]]]]]] ) -> <cv.dnn.Image2BlobParams object>
+    $oImage2BlobParams( $scalefactor[, $size[, $mean[, $swapRB[, $ddepth[, $datalayout[, $mode]]]]]] ) -> <cv.dnn.Image2BlobParams object>
+```
+
 ## cv::dnn::SoftNMSMethod
 
 ### SoftNMSMethod.SOFTNMS\_LINEAR
@@ -40141,7 +41019,7 @@ AutoIt:
 ### cv::dnn::Model::setInputScale
 
 ```cpp
-cv::dnn::Model cv::dnn::Model::setInputScale( double scale );
+cv::dnn::Model cv::dnn::Model::setInputScale( const cv::Scalar& scale );
 AutoIt:
     $oModel.setInputScale( $scale ) -> retval
 ```
@@ -40270,7 +41148,7 @@ AutoIt:
 ### cv::dnn::ClassificationModel::setInputScale
 
 ```cpp
-cv::dnn::Model cv::dnn::ClassificationModel::setInputScale( double scale );
+cv::dnn::Model cv::dnn::ClassificationModel::setInputScale( const cv::Scalar& scale );
 AutoIt:
     $oClassificationModel.setInputScale( $scale ) -> retval
 ```
@@ -40382,7 +41260,7 @@ AutoIt:
 ### cv::dnn::KeypointsModel::setInputScale
 
 ```cpp
-cv::dnn::Model cv::dnn::KeypointsModel::setInputScale( double scale );
+cv::dnn::Model cv::dnn::KeypointsModel::setInputScale( const cv::Scalar& scale );
 AutoIt:
     $oKeypointsModel.setInputScale( $scale ) -> retval
 ```
@@ -40494,7 +41372,7 @@ AutoIt:
 ### cv::dnn::SegmentationModel::setInputScale
 
 ```cpp
-cv::dnn::Model cv::dnn::SegmentationModel::setInputScale( double scale );
+cv::dnn::Model cv::dnn::SegmentationModel::setInputScale( const cv::Scalar& scale );
 AutoIt:
     $oSegmentationModel.setInputScale( $scale ) -> retval
 ```
@@ -40618,7 +41496,7 @@ AutoIt:
 ### cv::dnn::DetectionModel::setInputScale
 
 ```cpp
-cv::dnn::Model cv::dnn::DetectionModel::setInputScale( double scale );
+cv::dnn::Model cv::dnn::DetectionModel::setInputScale( const cv::Scalar& scale );
 AutoIt:
     $oDetectionModel.setInputScale( $scale ) -> retval
 ```
@@ -40778,7 +41656,7 @@ AutoIt:
 ### cv::dnn::TextRecognitionModel::setInputScale
 
 ```cpp
-cv::dnn::Model cv::dnn::TextRecognitionModel::setInputScale( double scale );
+cv::dnn::Model cv::dnn::TextRecognitionModel::setInputScale( const cv::Scalar& scale );
 AutoIt:
     $oTextRecognitionModel.setInputScale( $scale ) -> retval
 ```
@@ -40906,7 +41784,7 @@ AutoIt:
 ### cv::dnn::TextDetectionModel::setInputScale
 
 ```cpp
-cv::dnn::Model cv::dnn::TextDetectionModel::setInputScale( double scale );
+cv::dnn::Model cv::dnn::TextDetectionModel::setInputScale( const cv::Scalar& scale );
 AutoIt:
     $oTextDetectionModel.setInputScale( $scale ) -> retval
 ```
@@ -41067,7 +41945,7 @@ AutoIt:
 ### cv::dnn::TextDetectionModel\_EAST::setInputScale
 
 ```cpp
-cv::dnn::Model cv::dnn::TextDetectionModel_EAST::setInputScale( double scale );
+cv::dnn::Model cv::dnn::TextDetectionModel_EAST::setInputScale( const cv::Scalar& scale );
 AutoIt:
     $oTextDetectionModel_EAST.setInputScale( $scale ) -> retval
 ```
@@ -41252,7 +42130,7 @@ AutoIt:
 ### cv::dnn::TextDetectionModel\_DB::setInputScale
 
 ```cpp
-cv::dnn::Model cv::dnn::TextDetectionModel_DB::setInputScale( double scale );
+cv::dnn::Model cv::dnn::TextDetectionModel_DB::setInputScale( const cv::Scalar& scale );
 AutoIt:
     $oTextDetectionModel_DB.setInputScale( $scale ) -> retval
 ```
@@ -41642,10 +42520,11 @@ static cv::Ptr<cv::SIFT> cv::SIFT::get_create( int    nfeatures = 0,
                                                int    nOctaveLayers = 3,
                                                double contrastThreshold = 0.04,
                                                double edgeThreshold = 10,
-                                               double sigma = 1.6 );
+                                               double sigma = 1.6,
+                                               bool   enable_precise_upscale = false );
 AutoIt:
-    _OpenCV_ObjCreate("cv.SIFT").create( [$nfeatures[, $nOctaveLayers[, $contrastThreshold[, $edgeThreshold[, $sigma]]]]] ) -> retval
-    $oSIFT( [$nfeatures[, $nOctaveLayers[, $contrastThreshold[, $edgeThreshold[, $sigma]]]]] ) -> retval
+    _OpenCV_ObjCreate("cv.SIFT").create( [$nfeatures[, $nOctaveLayers[, $contrastThreshold[, $edgeThreshold[, $sigma[, $enable_precise_upscale]]]]]] ) -> retval
+    $oSIFT( [$nfeatures[, $nOctaveLayers[, $contrastThreshold[, $edgeThreshold[, $sigma[, $enable_precise_upscale]]]]]] ) -> retval
 ```
 
 ```cpp
@@ -41654,10 +42533,11 @@ static cv::Ptr<cv::SIFT> cv::SIFT::get_create( int    nfeatures,
                                                double contrastThreshold,
                                                double edgeThreshold,
                                                double sigma,
-                                               int    descriptorType );
+                                               int    descriptorType,
+                                               bool   enable_precise_upscale = false );
 AutoIt:
-    _OpenCV_ObjCreate("cv.SIFT").create( $nfeatures, $nOctaveLayers, $contrastThreshold, $edgeThreshold, $sigma, $descriptorType ) -> retval
-    $oSIFT( $nfeatures, $nOctaveLayers, $contrastThreshold, $edgeThreshold, $sigma, $descriptorType ) -> retval
+    _OpenCV_ObjCreate("cv.SIFT").create( $nfeatures, $nOctaveLayers, $contrastThreshold, $edgeThreshold, $sigma, $descriptorType[, $enable_precise_upscale] ) -> retval
+    $oSIFT( $nfeatures, $nOctaveLayers, $contrastThreshold, $edgeThreshold, $sigma, $descriptorType[, $enable_precise_upscale] ) -> retval
 ```
 
 ### cv::SIFT::clear
@@ -44895,8 +45775,8 @@ AutoIt:
 ### cv::FlannBasedMatcher::get\_create
 
 ```cpp
-static cv::FlannBasedMatcher cv::FlannBasedMatcher::get_create( const cv::Ptr<cv::flann::IndexParams>&  indexParams = makePtr<flann::KDTreeIndexParams>(),
-                                                                const cv::Ptr<cv::flann::SearchParams>& searchParams = makePtr<flann::SearchParams>() );
+static cv::FlannBasedMatcher cv::FlannBasedMatcher::get_create( const cv::Ptr<flann::IndexParams>&  indexParams = makePtr<flann::KDTreeIndexParams>(),
+                                                                const cv::Ptr<flann::SearchParams>& searchParams = makePtr<flann::SearchParams>() );
 AutoIt:
     _OpenCV_ObjCreate("cv.FlannBasedMatcher").create( [$indexParams[, $searchParams]] ) -> <cv.FlannBasedMatcher object>
     $oFlannBasedMatcher( [$indexParams[, $searchParams]] ) -> <cv.FlannBasedMatcher object>
@@ -45780,6 +46660,22 @@ AutoIt:
 double cv::UsacParams::threshold
 AutoIt:
     [propget, propput] $oUsacParams.threshold
+```
+
+### UsacParams.final\_polisher
+
+```cpp
+cv::PolishingMethod cv::UsacParams::final_polisher
+AutoIt:
+    [propget, propput] $oUsacParams.final_polisher
+```
+
+### UsacParams.final\_polisher\_iterations
+
+```cpp
+int cv::UsacParams::final_polisher_iterations
+AutoIt:
+    [propget, propput] $oUsacParams.final_polisher_iterations
 ```
 
 ### cv::UsacParams::get\_create
@@ -47643,9 +48539,9 @@ AutoIt:
 ```cpp
 std::string cv::QRCodeDetector::decode( InputArray  img,
                                         InputArray  points,
-                                        OutputArray straight_qrcode = noArray() );
+                                        OutputArray straight_code = noArray() ) const;
 AutoIt:
-    $oQRCodeDetector.decode( $img, $points[, $straight_qrcode] ) -> retval, $straight_qrcode
+    $oQRCodeDetector.decode( $img, $points[, $straight_code] ) -> retval, $straight_code
 ```
 
 ### cv::QRCodeDetector::decodeCurved
@@ -47664,9 +48560,9 @@ AutoIt:
 bool cv::QRCodeDetector::decodeMulti( InputArray                img,
                                       InputArray                points,
                                       std::vector<std::string>& decoded_info,
-                                      OutputArrayOfArrays       straight_qrcode = noArray() ) const;
+                                      OutputArrayOfArrays       straight_code = noArray() ) const;
 AutoIt:
-    $oQRCodeDetector.decodeMulti( $img, $points[, $straight_qrcode[, $decoded_info]] ) -> retval, $decoded_info, $straight_qrcode
+    $oQRCodeDetector.decodeMulti( $img, $points[, $straight_code[, $decoded_info]] ) -> retval, $decoded_info, $straight_code
 ```
 
 ### cv::QRCodeDetector::detect
@@ -47683,9 +48579,9 @@ AutoIt:
 ```cpp
 std::string cv::QRCodeDetector::detectAndDecode( InputArray  img,
                                                  OutputArray points = noArray(),
-                                                 OutputArray straight_qrcode = noArray() );
+                                                 OutputArray straight_code = noArray() ) const;
 AutoIt:
-    $oQRCodeDetector.detectAndDecode( $img[, $points[, $straight_qrcode]] ) -> retval, $points, $straight_qrcode
+    $oQRCodeDetector.detectAndDecode( $img[, $points[, $straight_code]] ) -> retval, $points, $straight_code
 ```
 
 ### cv::QRCodeDetector::detectAndDecodeCurved
@@ -47704,9 +48600,9 @@ AutoIt:
 bool cv::QRCodeDetector::detectAndDecodeMulti( InputArray                img,
                                                std::vector<std::string>& decoded_info,
                                                OutputArray               points = noArray(),
-                                               OutputArrayOfArrays       straight_qrcode = noArray() ) const;
+                                               OutputArrayOfArrays       straight_code = noArray() ) const;
 AutoIt:
-    $oQRCodeDetector.detectAndDecodeMulti( $img[, $points[, $straight_qrcode[, $decoded_info]]] ) -> retval, $decoded_info, $points, $straight_qrcode
+    $oQRCodeDetector.detectAndDecodeMulti( $img[, $points[, $straight_code[, $decoded_info]]] ) -> retval, $decoded_info, $points, $straight_code
 ```
 
 ### cv::QRCodeDetector::detectMulti
@@ -47721,25 +48617,208 @@ AutoIt:
 ### cv::QRCodeDetector::setEpsX
 
 ```cpp
-void cv::QRCodeDetector::setEpsX( double epsX );
+cv::QRCodeDetector cv::QRCodeDetector::setEpsX( double epsX );
 AutoIt:
-    $oQRCodeDetector.setEpsX( $epsX ) -> None
+    $oQRCodeDetector.setEpsX( $epsX ) -> retval
 ```
 
 ### cv::QRCodeDetector::setEpsY
 
 ```cpp
-void cv::QRCodeDetector::setEpsY( double epsY );
+cv::QRCodeDetector cv::QRCodeDetector::setEpsY( double epsY );
 AutoIt:
-    $oQRCodeDetector.setEpsY( $epsY ) -> None
+    $oQRCodeDetector.setEpsY( $epsY ) -> retval
 ```
 
 ### cv::QRCodeDetector::setUseAlignmentMarkers
 
 ```cpp
-void cv::QRCodeDetector::setUseAlignmentMarkers( bool useAlignmentMarkers );
+cv::QRCodeDetector cv::QRCodeDetector::setUseAlignmentMarkers( bool useAlignmentMarkers );
 AutoIt:
-    $oQRCodeDetector.setUseAlignmentMarkers( $useAlignmentMarkers ) -> None
+    $oQRCodeDetector.setUseAlignmentMarkers( $useAlignmentMarkers ) -> retval
+```
+
+## cv::QRCodeDetectorAruco
+
+### QRCodeDetectorAruco.Params
+
+```cpp
+static cv::QRCodeDetectorAruco::Params
+AutoIt:
+    [propget] $oQRCodeDetectorAruco.Params
+```
+
+### cv::QRCodeDetectorAruco::get\_create
+
+```cpp
+static cv::QRCodeDetectorAruco cv::QRCodeDetectorAruco::get_create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.QRCodeDetectorAruco").create() -> <cv.QRCodeDetectorAruco object>
+```
+
+```cpp
+static cv::QRCodeDetectorAruco cv::QRCodeDetectorAruco::get_create( const cv::QRCodeDetectorAruco::Params& params );
+AutoIt:
+    _OpenCV_ObjCreate("cv.QRCodeDetectorAruco").create( $params ) -> <cv.QRCodeDetectorAruco object>
+    $oQRCodeDetectorAruco( $params ) -> <cv.QRCodeDetectorAruco object>
+```
+
+### cv::QRCodeDetectorAruco::decode
+
+```cpp
+std::string cv::QRCodeDetectorAruco::decode( InputArray  img,
+                                             InputArray  points,
+                                             OutputArray straight_code = noArray() ) const;
+AutoIt:
+    $oQRCodeDetectorAruco.decode( $img, $points[, $straight_code] ) -> retval, $straight_code
+```
+
+### cv::QRCodeDetectorAruco::decodeMulti
+
+```cpp
+bool cv::QRCodeDetectorAruco::decodeMulti( InputArray                img,
+                                           InputArray                points,
+                                           std::vector<std::string>& decoded_info,
+                                           OutputArrayOfArrays       straight_code = noArray() ) const;
+AutoIt:
+    $oQRCodeDetectorAruco.decodeMulti( $img, $points[, $straight_code[, $decoded_info]] ) -> retval, $decoded_info, $straight_code
+```
+
+### cv::QRCodeDetectorAruco::detect
+
+```cpp
+bool cv::QRCodeDetectorAruco::detect( InputArray  img,
+                                      OutputArray points ) const;
+AutoIt:
+    $oQRCodeDetectorAruco.detect( $img[, $points] ) -> retval, $points
+```
+
+### cv::QRCodeDetectorAruco::detectAndDecode
+
+```cpp
+std::string cv::QRCodeDetectorAruco::detectAndDecode( InputArray  img,
+                                                      OutputArray points = noArray(),
+                                                      OutputArray straight_code = noArray() ) const;
+AutoIt:
+    $oQRCodeDetectorAruco.detectAndDecode( $img[, $points[, $straight_code]] ) -> retval, $points, $straight_code
+```
+
+### cv::QRCodeDetectorAruco::detectAndDecodeMulti
+
+```cpp
+bool cv::QRCodeDetectorAruco::detectAndDecodeMulti( InputArray                img,
+                                                    std::vector<std::string>& decoded_info,
+                                                    OutputArray               points = noArray(),
+                                                    OutputArrayOfArrays       straight_code = noArray() ) const;
+AutoIt:
+    $oQRCodeDetectorAruco.detectAndDecodeMulti( $img[, $points[, $straight_code[, $decoded_info]]] ) -> retval, $decoded_info, $points, $straight_code
+```
+
+### cv::QRCodeDetectorAruco::detectMulti
+
+```cpp
+bool cv::QRCodeDetectorAruco::detectMulti( InputArray  img,
+                                           OutputArray points ) const;
+AutoIt:
+    $oQRCodeDetectorAruco.detectMulti( $img[, $points] ) -> retval, $points
+```
+
+### cv::QRCodeDetectorAruco::getArucoParameters
+
+```cpp
+cv::aruco::DetectorParameters cv::QRCodeDetectorAruco::getArucoParameters();
+AutoIt:
+    $oQRCodeDetectorAruco.getArucoParameters() -> retval
+```
+
+### cv::QRCodeDetectorAruco::getDetectorParameters
+
+```cpp
+cv::QRCodeDetectorAruco::Params cv::QRCodeDetectorAruco::getDetectorParameters() const;
+AutoIt:
+    $oQRCodeDetectorAruco.getDetectorParameters() -> retval
+```
+
+### cv::QRCodeDetectorAruco::setArucoParameters
+
+```cpp
+void cv::QRCodeDetectorAruco::setArucoParameters( const cv::aruco::DetectorParameters& params );
+AutoIt:
+    $oQRCodeDetectorAruco.setArucoParameters( $params ) -> None
+```
+
+### cv::QRCodeDetectorAruco::setDetectorParameters
+
+```cpp
+cv::QRCodeDetectorAruco cv::QRCodeDetectorAruco::setDetectorParameters( const cv::QRCodeDetectorAruco::Params& params );
+AutoIt:
+    $oQRCodeDetectorAruco.setDetectorParameters( $params ) -> retval
+```
+
+## cv::QRCodeDetectorAruco::Params
+
+### Params.minModuleSizeInPyramid
+
+```cpp
+float cv::QRCodeDetectorAruco::Params::minModuleSizeInPyramid
+AutoIt:
+    [propget, propput] $oParams.minModuleSizeInPyramid
+```
+
+### Params.maxRotation
+
+```cpp
+float cv::QRCodeDetectorAruco::Params::maxRotation
+AutoIt:
+    [propget, propput] $oParams.maxRotation
+```
+
+### Params.maxModuleSizeMismatch
+
+```cpp
+float cv::QRCodeDetectorAruco::Params::maxModuleSizeMismatch
+AutoIt:
+    [propget, propput] $oParams.maxModuleSizeMismatch
+```
+
+### Params.maxTimingPatternMismatch
+
+```cpp
+float cv::QRCodeDetectorAruco::Params::maxTimingPatternMismatch
+AutoIt:
+    [propget, propput] $oParams.maxTimingPatternMismatch
+```
+
+### Params.maxPenalties
+
+```cpp
+float cv::QRCodeDetectorAruco::Params::maxPenalties
+AutoIt:
+    [propget, propput] $oParams.maxPenalties
+```
+
+### Params.maxColorsMismatch
+
+```cpp
+float cv::QRCodeDetectorAruco::Params::maxColorsMismatch
+AutoIt:
+    [propget, propput] $oParams.maxColorsMismatch
+```
+
+### Params.scaleTimingPatternScore
+
+```cpp
+float cv::QRCodeDetectorAruco::Params::scaleTimingPatternScore
+AutoIt:
+    [propget, propput] $oParams.scaleTimingPatternScore
+```
+
+### cv::QRCodeDetectorAruco::Params::get\_create
+
+```cpp
+static cv::QRCodeDetectorAruco::Params cv::QRCodeDetectorAruco::Params::get_create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.QRCodeDetectorAruco.Params").create() -> <cv.QRCodeDetectorAruco.Params object>
 ```
 
 ## cv::aruco
@@ -48080,6 +49159,14 @@ AutoIt:
     [propget] $oaruco.DICT_APRILTAG_36h11_
 ```
 
+### aruco.DICT\_ARUCO\_MIP\_36h12\_
+
+```cpp
+static int cv::aruco::DICT_ARUCO_MIP_36h12
+AutoIt:
+    [propget] $oaruco.DICT_ARUCO_MIP_36h12_
+```
+
 ## cv::aruco::Board
 
 ### cv::aruco::Board::get\_create
@@ -48306,6 +49393,14 @@ AutoIt:
     $oCharucoBoard.getIds() -> retval
 ```
 
+### cv::aruco::CharucoBoard::getLegacyPattern
+
+```cpp
+bool cv::aruco::CharucoBoard::getLegacyPattern() const;
+AutoIt:
+    $oCharucoBoard.getLegacyPattern() -> retval
+```
+
 ### cv::aruco::CharucoBoard::getMarkerLength
 
 ```cpp
@@ -48347,6 +49442,14 @@ void cv::aruco::CharucoBoard::matchImagePoints( InputArrayOfArrays detectedCorne
                                                 OutputArray        imgPoints ) const;
 AutoIt:
     $oCharucoBoard.matchImagePoints( $detectedCorners, $detectedIds[, $objPoints[, $imgPoints]] ) -> $objPoints, $imgPoints
+```
+
+### cv::aruco::CharucoBoard::setLegacyPattern
+
+```cpp
+void cv::aruco::CharucoBoard::setLegacyPattern( bool legacyPattern );
+AutoIt:
+    $oCharucoBoard.setLegacyPattern( $legacyPattern ) -> None
 ```
 
 ## cv::aruco::DetectorParameters
@@ -48434,7 +49537,7 @@ AutoIt:
 ### DetectorParameters.cornerRefinementMethod
 
 ```cpp
-cv::aruco::CornerRefineMethod cv::aruco::DetectorParameters::cornerRefinementMethod
+int cv::aruco::DetectorParameters::cornerRefinementMethod
 AutoIt:
     [propget, propput] $oDetectorParameters.cornerRefinementMethod
 ```
@@ -48937,6 +50040,116 @@ AutoIt:
     $oDictionary.writeDictionary( $fs[, $name] ) -> None
 ```
 
+## cv::barcode
+
+### barcode.BarcodeDetector
+
+```cpp
+static cv::barcode::BarcodeDetector
+AutoIt:
+    [propget] $obarcode.BarcodeDetector
+```
+
+## cv::barcode::BarcodeDetector
+
+### cv::barcode::BarcodeDetector::get\_create
+
+```cpp
+static cv::barcode::BarcodeDetector cv::barcode::BarcodeDetector::get_create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.barcode.BarcodeDetector").create() -> <cv.barcode.BarcodeDetector object>
+```
+
+```cpp
+static cv::barcode::BarcodeDetector cv::barcode::BarcodeDetector::get_create( const std::string& prototxt_path,
+                                                                              const std::string& model_path );
+AutoIt:
+    _OpenCV_ObjCreate("cv.barcode.BarcodeDetector").create( $prototxt_path, $model_path ) -> <cv.barcode.BarcodeDetector object>
+    $oBarcodeDetector( $prototxt_path, $model_path ) -> <cv.barcode.BarcodeDetector object>
+```
+
+### cv::barcode::BarcodeDetector::decode
+
+```cpp
+std::string cv::barcode::BarcodeDetector::decode( InputArray  img,
+                                                  InputArray  points,
+                                                  OutputArray straight_code = noArray() ) const;
+AutoIt:
+    $oBarcodeDetector.decode( $img, $points[, $straight_code] ) -> retval, $straight_code
+```
+
+### cv::barcode::BarcodeDetector::decodeMulti
+
+```cpp
+bool cv::barcode::BarcodeDetector::decodeMulti( InputArray                img,
+                                                InputArray                points,
+                                                std::vector<std::string>& decoded_info,
+                                                OutputArrayOfArrays       straight_code = noArray() ) const;
+AutoIt:
+    $oBarcodeDetector.decodeMulti( $img, $points[, $straight_code[, $decoded_info]] ) -> retval, $decoded_info, $straight_code
+```
+
+### cv::barcode::BarcodeDetector::decodeWithType
+
+```cpp
+bool cv::barcode::BarcodeDetector::decodeWithType( InputArray                img,
+                                                   InputArray                points,
+                                                   std::vector<std::string>& decoded_info,
+                                                   std::vector<std::string>& decoded_type ) const;
+AutoIt:
+    $oBarcodeDetector.decodeWithType( $img, $points[, $decoded_info[, $decoded_type]] ) -> retval, $decoded_info, $decoded_type
+```
+
+### cv::barcode::BarcodeDetector::detect
+
+```cpp
+bool cv::barcode::BarcodeDetector::detect( InputArray  img,
+                                           OutputArray points ) const;
+AutoIt:
+    $oBarcodeDetector.detect( $img[, $points] ) -> retval, $points
+```
+
+### cv::barcode::BarcodeDetector::detectAndDecode
+
+```cpp
+std::string cv::barcode::BarcodeDetector::detectAndDecode( InputArray  img,
+                                                           OutputArray points = noArray(),
+                                                           OutputArray straight_code = noArray() ) const;
+AutoIt:
+    $oBarcodeDetector.detectAndDecode( $img[, $points[, $straight_code]] ) -> retval, $points, $straight_code
+```
+
+### cv::barcode::BarcodeDetector::detectAndDecodeMulti
+
+```cpp
+bool cv::barcode::BarcodeDetector::detectAndDecodeMulti( InputArray                img,
+                                                         std::vector<std::string>& decoded_info,
+                                                         OutputArray               points = noArray(),
+                                                         OutputArrayOfArrays       straight_code = noArray() ) const;
+AutoIt:
+    $oBarcodeDetector.detectAndDecodeMulti( $img[, $points[, $straight_code[, $decoded_info]]] ) -> retval, $decoded_info, $points, $straight_code
+```
+
+### cv::barcode::BarcodeDetector::detectAndDecodeWithType
+
+```cpp
+bool cv::barcode::BarcodeDetector::detectAndDecodeWithType( InputArray                img,
+                                                            std::vector<std::string>& decoded_info,
+                                                            std::vector<std::string>& decoded_type,
+                                                            OutputArray               points = noArray() ) const;
+AutoIt:
+    $oBarcodeDetector.detectAndDecodeWithType( $img[, $points[, $decoded_info[, $decoded_type]]] ) -> retval, $decoded_info, $decoded_type, $points
+```
+
+### cv::barcode::BarcodeDetector::detectMulti
+
+```cpp
+bool cv::barcode::BarcodeDetector::detectMulti( InputArray  img,
+                                                OutputArray points ) const;
+AutoIt:
+    $oBarcodeDetector.detectMulti( $img[, $points] ) -> retval, $points
+```
+
 ## cv::aruco::CharucoParameters
 
 ### CharucoParameters.cameraMatrix
@@ -49020,7 +50233,7 @@ void cv::aruco::CharucoDetector::detectDiamonds( InputArray               image,
                                                  OutputArrayOfArrays      diamondCorners,
                                                  OutputArray              diamondIds,
                                                  InputOutputArrayOfArrays markerCorners = noArray(),
-                                                 InputOutputArrayOfArrays markerIds = noArray() ) const;
+                                                 InputOutputArray         markerIds = noArray() ) const;
 AutoIt:
     $oCharucoDetector.detectDiamonds( $image[, $diamondCorners[, $diamondIds[, $markerCorners[, $markerIds]]]] ) -> $diamondCorners, $diamondIds, $markerCorners, $markerIds
 ```
@@ -49284,6 +50497,68 @@ AutoIt:
 static int cv::FaceRecognizerSF::FR_NORM_L2
 AutoIt:
     [propget] $oFaceRecognizerSF.FR_NORM_L2_
+```
+
+## cv::GraphicalCodeDetector
+
+### cv::GraphicalCodeDetector::decode
+
+```cpp
+std::string cv::GraphicalCodeDetector::decode( InputArray  img,
+                                               InputArray  points,
+                                               OutputArray straight_code = noArray() ) const;
+AutoIt:
+    $oGraphicalCodeDetector.decode( $img, $points[, $straight_code] ) -> retval, $straight_code
+```
+
+### cv::GraphicalCodeDetector::decodeMulti
+
+```cpp
+bool cv::GraphicalCodeDetector::decodeMulti( InputArray                img,
+                                             InputArray                points,
+                                             std::vector<std::string>& decoded_info,
+                                             OutputArrayOfArrays       straight_code = noArray() ) const;
+AutoIt:
+    $oGraphicalCodeDetector.decodeMulti( $img, $points[, $straight_code[, $decoded_info]] ) -> retval, $decoded_info, $straight_code
+```
+
+### cv::GraphicalCodeDetector::detect
+
+```cpp
+bool cv::GraphicalCodeDetector::detect( InputArray  img,
+                                        OutputArray points ) const;
+AutoIt:
+    $oGraphicalCodeDetector.detect( $img[, $points] ) -> retval, $points
+```
+
+### cv::GraphicalCodeDetector::detectAndDecode
+
+```cpp
+std::string cv::GraphicalCodeDetector::detectAndDecode( InputArray  img,
+                                                        OutputArray points = noArray(),
+                                                        OutputArray straight_code = noArray() ) const;
+AutoIt:
+    $oGraphicalCodeDetector.detectAndDecode( $img[, $points[, $straight_code]] ) -> retval, $points, $straight_code
+```
+
+### cv::GraphicalCodeDetector::detectAndDecodeMulti
+
+```cpp
+bool cv::GraphicalCodeDetector::detectAndDecodeMulti( InputArray                img,
+                                                      std::vector<std::string>& decoded_info,
+                                                      OutputArray               points = noArray(),
+                                                      OutputArrayOfArrays       straight_code = noArray() ) const;
+AutoIt:
+    $oGraphicalCodeDetector.detectAndDecodeMulti( $img[, $points[, $straight_code[, $decoded_info]]] ) -> retval, $decoded_info, $points, $straight_code
+```
+
+### cv::GraphicalCodeDetector::detectMulti
+
+```cpp
+bool cv::GraphicalCodeDetector::detectMulti( InputArray  img,
+                                             OutputArray points ) const;
+AutoIt:
+    $oGraphicalCodeDetector.detectMulti( $img[, $points] ) -> retval, $points
 ```
 
 ## cv::Stitcher
@@ -53882,6 +55157,14 @@ AutoIt:
     [propget] $ogapi.core
 ```
 
+### gapi.imgproc
+
+```cpp
+static cv::gapi::imgproc
+AutoIt:
+    [propget] $ogapi.imgproc
+```
+
 ### gapi.GNetParam
 
 ```cpp
@@ -53912,6 +55195,14 @@ AutoIt:
 static cv::gapi::onnx
 AutoIt:
     [propget] $ogapi.onnx
+```
+
+### gapi.ov
+
+```cpp
+static cv::gapi::ov
+AutoIt:
+    [propget] $ogapi.ov
 ```
 
 ### gapi.oak
@@ -54476,6 +55767,15 @@ cv::GMat cv::gapi::cmpNE( const cv::GMat&    src1,
                           const cv::GScalar& src2 );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi").cmpNE( $src1, $src2 ) -> retval
+```
+
+### cv::gapi::combine
+
+```cpp
+cv::GKernelPackage cv::gapi::combine( const cv::GKernelPackage& lhs,
+                                      const cv::GKernelPackage& rhs );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi").combine( $lhs, $rhs ) -> retval
 ```
 
 ### cv::gapi::concatHor
@@ -55239,6 +56539,26 @@ AutoIt:
     [propget] $oKind.YUV420toRGB
 ```
 
+## cv::gapi::imgproc
+
+### imgproc.fluid
+
+```cpp
+static cv::gapi::imgproc::fluid
+AutoIt:
+    [propget] $oimgproc.fluid
+```
+
+## cv::gapi::imgproc::fluid
+
+### cv::gapi::imgproc::fluid::kernels
+
+```cpp
+cv::GKernelPackage cv::gapi::imgproc::fluid::kernels();
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.imgproc.fluid").kernels() -> retval
+```
+
 ## cv::GArrayDesc
 
 ### cv::GArrayDesc::get\_create
@@ -55525,6 +56845,16 @@ AutoIt:
     [propget] $oMediaFormat.GRAY
 ```
 
+## cv::GKernelPackage
+
+### cv::GKernelPackage::size
+
+```cpp
+size_t cv::GKernelPackage::size() const;
+AutoIt:
+    $oGKernelPackage.size() -> retval
+```
+
 ## cv::GMat
 
 ### cv::GMat::get\_create
@@ -55723,7 +57053,7 @@ AutoIt:
 ### cv::GStreamingCompiled::pull
 
 ```cpp
-std::tuple<bool, util_variant_GRunArgs, GOptRunArgs> cv::GStreamingCompiled::pull();
+std::tuple<bool, util::variant_GRunArgs, GOptRunArgs> cv::GStreamingCompiled::pull();
 AutoIt:
     $oGStreamingCompiled.pull() -> retval
 ```
@@ -56031,6 +57361,225 @@ static cv::gapi::onnx::PyParams cv::gapi::onnx::PyParams::get_create( const std:
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.onnx.PyParams").create( $tag, $model_path ) -> <cv.gapi.onnx.PyParams object>
     $oPyParams( $tag, $model_path ) -> <cv.gapi.onnx.PyParams object>
+```
+
+### cv::gapi::onnx::PyParams::cfgMeanStd
+
+```cpp
+cv::gapi::onnx::PyParams cv::gapi::onnx::PyParams::cfgMeanStd( const std::string& layer_name,
+                                                               const cv::Scalar&  m,
+                                                               const cv::Scalar&  s );
+AutoIt:
+    $oPyParams.cfgMeanStd( $layer_name, $m, $s ) -> retval
+```
+
+### cv::gapi::onnx::PyParams::cfgNormalize
+
+```cpp
+cv::gapi::onnx::PyParams cv::gapi::onnx::PyParams::cfgNormalize( const std::string& layer_name,
+                                                                 bool               flag );
+AutoIt:
+    $oPyParams.cfgNormalize( $layer_name, $flag ) -> retval
+```
+
+## cv::gapi::ov
+
+### ov.PyParams
+
+```cpp
+static cv::gapi::ov::PyParams
+AutoIt:
+    [propget] $oov.PyParams
+```
+
+### cv::gapi::ov::params
+
+```cpp
+cv::gapi::ov::PyParams cv::gapi::ov::params( const std::string& tag,
+                                             const std::string& model_path,
+                                             const std::string& weights,
+                                             const std::string& device );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.ov").params( $tag, $model_path, $weights, $device ) -> retval
+```
+
+```cpp
+cv::gapi::ov::PyParams cv::gapi::ov::params( const std::string& tag,
+                                             const std::string& bin_path,
+                                             const std::string& device );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.ov").params( $tag, $bin_path, $device ) -> retval
+```
+
+## cv::gapi::ov::PyParams
+
+### cv::gapi::ov::PyParams::get\_create
+
+```cpp
+static cv::gapi::ov::PyParams cv::gapi::ov::PyParams::get_create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.ov.PyParams").create() -> <cv.gapi.ov.PyParams object>
+```
+
+```cpp
+static cv::gapi::ov::PyParams cv::gapi::ov::PyParams::get_create( const std::string& tag,
+                                                                  const std::string& model_path,
+                                                                  const std::string& bin_path,
+                                                                  const std::string& device );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.ov.PyParams").create( $tag, $model_path, $bin_path, $device ) -> <cv.gapi.ov.PyParams object>
+    $oPyParams( $tag, $model_path, $bin_path, $device ) -> <cv.gapi.ov.PyParams object>
+```
+
+```cpp
+static cv::gapi::ov::PyParams cv::gapi::ov::PyParams::get_create( const std::string& tag,
+                                                                  const std::string& blob_path,
+                                                                  const std::string& device );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.ov.PyParams").create( $tag, $blob_path, $device ) -> <cv.gapi.ov.PyParams object>
+    $oPyParams( $tag, $blob_path, $device ) -> <cv.gapi.ov.PyParams object>
+```
+
+### cv::gapi::ov::PyParams::cfgInputModelLayout
+
+```cpp
+cv::gapi::ov::PyParams cv::gapi::ov::PyParams::cfgInputModelLayout( std::string tensor_layout );
+AutoIt:
+    $oPyParams.cfgInputModelLayout( $tensor_layout ) -> retval
+```
+
+```cpp
+cv::gapi::ov::PyParams cv::gapi::ov::PyParams::cfgInputModelLayout( std::map<std::string, std::string> layout_map );
+AutoIt:
+    $oPyParams.cfgInputModelLayout( $layout_map ) -> retval
+```
+
+### cv::gapi::ov::PyParams::cfgInputTensorLayout
+
+```cpp
+cv::gapi::ov::PyParams cv::gapi::ov::PyParams::cfgInputTensorLayout( std::string tensor_layout );
+AutoIt:
+    $oPyParams.cfgInputTensorLayout( $tensor_layout ) -> retval
+```
+
+```cpp
+cv::gapi::ov::PyParams cv::gapi::ov::PyParams::cfgInputTensorLayout( std::map<std::string, std::string> layout_map );
+AutoIt:
+    $oPyParams.cfgInputTensorLayout( $layout_map ) -> retval
+```
+
+### cv::gapi::ov::PyParams::cfgMean
+
+```cpp
+cv::gapi::ov::PyParams cv::gapi::ov::PyParams::cfgMean( std::vector<float> mean_values );
+AutoIt:
+    $oPyParams.cfgMean( $mean_values ) -> retval
+```
+
+```cpp
+cv::gapi::ov::PyParams cv::gapi::ov::PyParams::cfgMean( std::map<std::string, std::vector<float>> mean_map );
+AutoIt:
+    $oPyParams.cfgMean( $mean_map ) -> retval
+```
+
+### cv::gapi::ov::PyParams::cfgNumRequests
+
+```cpp
+cv::gapi::ov::PyParams cv::gapi::ov::PyParams::cfgNumRequests( const size_t nireq );
+AutoIt:
+    $oPyParams.cfgNumRequests( $nireq ) -> retval
+```
+
+### cv::gapi::ov::PyParams::cfgOutputModelLayout
+
+```cpp
+cv::gapi::ov::PyParams cv::gapi::ov::PyParams::cfgOutputModelLayout( std::string tensor_layout );
+AutoIt:
+    $oPyParams.cfgOutputModelLayout( $tensor_layout ) -> retval
+```
+
+```cpp
+cv::gapi::ov::PyParams cv::gapi::ov::PyParams::cfgOutputModelLayout( std::map<std::string, std::string> layout_map );
+AutoIt:
+    $oPyParams.cfgOutputModelLayout( $layout_map ) -> retval
+```
+
+### cv::gapi::ov::PyParams::cfgOutputTensorLayout
+
+```cpp
+cv::gapi::ov::PyParams cv::gapi::ov::PyParams::cfgOutputTensorLayout( std::string tensor_layout );
+AutoIt:
+    $oPyParams.cfgOutputTensorLayout( $tensor_layout ) -> retval
+```
+
+```cpp
+cv::gapi::ov::PyParams cv::gapi::ov::PyParams::cfgOutputTensorLayout( std::map<std::string, std::string> layout_map );
+AutoIt:
+    $oPyParams.cfgOutputTensorLayout( $layout_map ) -> retval
+```
+
+### cv::gapi::ov::PyParams::cfgOutputTensorPrecision
+
+```cpp
+cv::gapi::ov::PyParams cv::gapi::ov::PyParams::cfgOutputTensorPrecision( int precision );
+AutoIt:
+    $oPyParams.cfgOutputTensorPrecision( $precision ) -> retval
+```
+
+```cpp
+cv::gapi::ov::PyParams cv::gapi::ov::PyParams::cfgOutputTensorPrecision( std::map<std::string, int> precision_map );
+AutoIt:
+    $oPyParams.cfgOutputTensorPrecision( $precision_map ) -> retval
+```
+
+### cv::gapi::ov::PyParams::cfgPluginConfig
+
+```cpp
+cv::gapi::ov::PyParams cv::gapi::ov::PyParams::cfgPluginConfig( const std::map<std::string, std::string>& config );
+AutoIt:
+    $oPyParams.cfgPluginConfig( $config ) -> retval
+```
+
+### cv::gapi::ov::PyParams::cfgReshape
+
+```cpp
+cv::gapi::ov::PyParams cv::gapi::ov::PyParams::cfgReshape( std::vector<size_t> new_shape );
+AutoIt:
+    $oPyParams.cfgReshape( $new_shape ) -> retval
+```
+
+```cpp
+cv::gapi::ov::PyParams cv::gapi::ov::PyParams::cfgReshape( std::map<std::string, std::vector<size_t>> new_shape_map );
+AutoIt:
+    $oPyParams.cfgReshape( $new_shape_map ) -> retval
+```
+
+### cv::gapi::ov::PyParams::cfgResize
+
+```cpp
+cv::gapi::ov::PyParams cv::gapi::ov::PyParams::cfgResize( int interpolation );
+AutoIt:
+    $oPyParams.cfgResize( $interpolation ) -> retval
+```
+
+```cpp
+cv::gapi::ov::PyParams cv::gapi::ov::PyParams::cfgResize( std::map<std::string, int> interpolation );
+AutoIt:
+    $oPyParams.cfgResize( $interpolation ) -> retval
+```
+
+### cv::gapi::ov::PyParams::cfgScale
+
+```cpp
+cv::gapi::ov::PyParams cv::gapi::ov::PyParams::cfgScale( std::vector<float> scale_values );
+AutoIt:
+    $oPyParams.cfgScale( $scale_values ) -> retval
+```
+
+```cpp
+cv::gapi::ov::PyParams cv::gapi::ov::PyParams::cfgScale( std::map<std::string, std::vector<float>> scale_map );
+AutoIt:
+    $oPyParams.cfgScale( $scale_map ) -> retval
 ```
 
 ## cv::gapi::ie::TraitAs
@@ -56372,15 +57921,17 @@ AutoIt:
 ### cv::gapi::wip::make\_capture\_src
 
 ```cpp
-cv::Ptr<cv::gapi::wip::IStreamSource> cv::gapi::wip::make_capture_src( const std::string& path );
+cv::Ptr<cv::gapi::wip::IStreamSource> cv::gapi::wip::make_capture_src( const std::string&           path,
+                                                                       const std::map<int, double>& properties = {} );
 AutoIt:
-    _OpenCV_ObjCreate("cv.gapi.wip").make_capture_src( $path ) -> retval
+    _OpenCV_ObjCreate("cv.gapi.wip").make_capture_src( $path[, $properties] ) -> retval
 ```
 
 ```cpp
-cv::Ptr<cv::gapi::wip::IStreamSource> cv::gapi::wip::make_capture_src( const int id );
+cv::Ptr<cv::gapi::wip::IStreamSource> cv::gapi::wip::make_capture_src( const int                    id,
+                                                                       const std::map<int, double>& properties = {} );
 AutoIt:
-    _OpenCV_ObjCreate("cv.gapi.wip").make_capture_src( $id ) -> retval
+    _OpenCV_ObjCreate("cv.gapi.wip").make_capture_src( $id[, $properties] ) -> retval
 ```
 
 ### cv::gapi::wip::make\_gst\_src
@@ -59189,66 +60740,6 @@ AutoIt:
 int cv::Range::size();
 AutoIt:
     $oRange.size() -> retval
-```
-
-## cv::RotatedRect
-
-### RotatedRect.center
-
-```cpp
-cv::Point2f cv::RotatedRect::center
-AutoIt:
-    [propget, propput] $oRotatedRect.center
-```
-
-### RotatedRect.size
-
-```cpp
-cv::Size2f cv::RotatedRect::size
-AutoIt:
-    [propget, propput] $oRotatedRect.size
-```
-
-### RotatedRect.angle
-
-```cpp
-float cv::RotatedRect::angle
-AutoIt:
-    [propget, propput] $oRotatedRect.angle
-```
-
-### cv::RotatedRect::get\_create
-
-```cpp
-static cv::RotatedRect cv::RotatedRect::get_create();
-AutoIt:
-    _OpenCV_ObjCreate("cv.RotatedRect").create() -> <cv.RotatedRect object>
-```
-
-```cpp
-static cv::RotatedRect cv::RotatedRect::get_create( cv::Point2f center,
-                                                    cv::Size2f  size,
-                                                    float       angle );
-AutoIt:
-    _OpenCV_ObjCreate("cv.RotatedRect").create( $center, $size, $angle ) -> <cv.RotatedRect object>
-    $oRotatedRect( $center, $size, $angle ) -> <cv.RotatedRect object>
-```
-
-```cpp
-static cv::RotatedRect cv::RotatedRect::get_create( cv::Point2f point1,
-                                                    cv::Point2f point2,
-                                                    cv::Point2f point3 );
-AutoIt:
-    _OpenCV_ObjCreate("cv.RotatedRect").create( $point1, $point2, $point3 ) -> <cv.RotatedRect object>
-    $oRotatedRect( $point1, $point2, $point3 ) -> <cv.RotatedRect object>
-```
-
-### cv::RotatedRect::boundingRect
-
-```cpp
-cv::Rect cv::RotatedRect::boundingRect();
-AutoIt:
-    $oRotatedRect.boundingRect() -> retval
 ```
 
 ## cv::GCompileArg
@@ -71927,6 +73418,2209 @@ AutoIt:
 void* VectorOfGapi_GNetParam::start();
 AutoIt:
     $oVectorOfGapi_GNetParam.start() -> retval
+```
+
+## MapOfStringAndString
+
+### MapOfStringAndString::create
+
+```cpp
+static MapOfStringAndString MapOfStringAndString::create();
+AutoIt:
+    _OpenCV_ObjCreate("MapOfStringAndString").create() -> <MapOfStringAndString object>
+```
+
+```cpp
+static cv::Ptr<MapOfStringAndString> MapOfStringAndString::create( std::vector<std::pair<std::string, std::string>> pairs );
+AutoIt:
+    _OpenCV_ObjCreate("MapOfStringAndString").create( $pairs ) -> retval
+```
+
+### MapOfStringAndString::Add
+
+```cpp
+void MapOfStringAndString::Add( std::string key,
+                                std::string value );
+AutoIt:
+    $oMapOfStringAndString.Add( $key, $value ) -> None
+```
+
+### MapOfStringAndString::Get
+
+```cpp
+std::string MapOfStringAndString::Get( std::string key );
+AutoIt:
+    $oMapOfStringAndString.Get( $key ) -> retval
+```
+
+### MapOfStringAndString::Items
+
+```cpp
+std::vector<std::string> MapOfStringAndString::Items();
+AutoIt:
+    $oMapOfStringAndString.Items() -> retval
+```
+
+### MapOfStringAndString::Keys
+
+```cpp
+std::vector<std::string> MapOfStringAndString::Keys();
+AutoIt:
+    $oMapOfStringAndString.Keys() -> retval
+```
+
+### MapOfStringAndString::Remove
+
+```cpp
+size_t MapOfStringAndString::Remove( std::string key );
+AutoIt:
+    $oMapOfStringAndString.Remove( $key ) -> retval
+```
+
+### MapOfStringAndString::clear
+
+```cpp
+void MapOfStringAndString::clear();
+AutoIt:
+    $oMapOfStringAndString.clear() -> None
+```
+
+### MapOfStringAndString::contains
+
+```cpp
+bool MapOfStringAndString::contains( std::string key );
+AutoIt:
+    $oMapOfStringAndString.contains( $key ) -> retval
+```
+
+### MapOfStringAndString::count
+
+```cpp
+size_t MapOfStringAndString::count( std::string key );
+AutoIt:
+    $oMapOfStringAndString.count( $key ) -> retval
+```
+
+### MapOfStringAndString::empty
+
+```cpp
+bool MapOfStringAndString::empty();
+AutoIt:
+    $oMapOfStringAndString.empty() -> retval
+```
+
+### MapOfStringAndString::erase
+
+```cpp
+size_t MapOfStringAndString::erase( std::string key );
+AutoIt:
+    $oMapOfStringAndString.erase( $key ) -> retval
+```
+
+### MapOfStringAndString::get\_Item
+
+```cpp
+std::string MapOfStringAndString::get_Item( std::string key );
+AutoIt:
+    $oMapOfStringAndString.Item( $key ) -> retval
+    $oMapOfStringAndString( $key ) -> retval
+```
+
+### MapOfStringAndString::get\_\_NewEnum
+
+```cpp
+IUnknown* MapOfStringAndString::get__NewEnum();
+AutoIt:
+    $oMapOfStringAndString._NewEnum() -> retval
+```
+
+### MapOfStringAndString::has
+
+```cpp
+bool MapOfStringAndString::has( std::string key );
+AutoIt:
+    $oMapOfStringAndString.has( $key ) -> retval
+```
+
+### MapOfStringAndString::max\_size
+
+```cpp
+size_t MapOfStringAndString::max_size();
+AutoIt:
+    $oMapOfStringAndString.max_size() -> retval
+```
+
+### MapOfStringAndString::merge
+
+```cpp
+void MapOfStringAndString::merge( MapOfStringAndString other );
+AutoIt:
+    $oMapOfStringAndString.merge( $other ) -> None
+```
+
+### MapOfStringAndString::put\_Item
+
+```cpp
+void MapOfStringAndString::put_Item( std::string key,
+                                     std::string item );
+AutoIt:
+    $oMapOfStringAndString.Item( $key ) = $item
+```
+
+### MapOfStringAndString::size
+
+```cpp
+size_t MapOfStringAndString::size();
+AutoIt:
+    $oMapOfStringAndString.size() -> retval
+```
+
+## VectorOfPairOfStringAndString
+
+### VectorOfPairOfStringAndString.Count
+
+```cpp
+size_t VectorOfPairOfStringAndString::size()
+AutoIt:
+    [propget] $oVectorOfPairOfStringAndString.Count
+```
+
+### VectorOfPairOfStringAndString::create
+
+```cpp
+static VectorOfPairOfStringAndString VectorOfPairOfStringAndString::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPairOfStringAndString").create() -> <VectorOfPairOfStringAndString object>
+```
+
+```cpp
+static VectorOfPairOfStringAndString VectorOfPairOfStringAndString::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPairOfStringAndString").create( $size ) -> <VectorOfPairOfStringAndString object>
+```
+
+```cpp
+static VectorOfPairOfStringAndString VectorOfPairOfStringAndString::create( VectorOfPairOfStringAndString other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPairOfStringAndString").create( $other ) -> <VectorOfPairOfStringAndString object>
+```
+
+### VectorOfPairOfStringAndString::Add
+
+```cpp
+void VectorOfPairOfStringAndString::Add( std::pair<std::string, std::string> value );
+AutoIt:
+    $oVectorOfPairOfStringAndString.Add( $value ) -> None
+```
+
+### VectorOfPairOfStringAndString::Items
+
+```cpp
+VectorOfPairOfStringAndString VectorOfPairOfStringAndString::Items();
+AutoIt:
+    $oVectorOfPairOfStringAndString.Items() -> retval
+```
+
+### VectorOfPairOfStringAndString::Keys
+
+```cpp
+std::vector<int> VectorOfPairOfStringAndString::Keys();
+AutoIt:
+    $oVectorOfPairOfStringAndString.Keys() -> retval
+```
+
+### VectorOfPairOfStringAndString::Remove
+
+```cpp
+void VectorOfPairOfStringAndString::Remove( size_t index );
+AutoIt:
+    $oVectorOfPairOfStringAndString.Remove( $index ) -> None
+```
+
+### VectorOfPairOfStringAndString::append
+
+```cpp
+void VectorOfPairOfStringAndString::append( std::pair<std::string, std::string> value );
+AutoIt:
+    $oVectorOfPairOfStringAndString.append( $value ) -> None
+```
+
+### VectorOfPairOfStringAndString::at
+
+```cpp
+std::pair<std::string, std::string> VectorOfPairOfStringAndString::at( size_t index );
+AutoIt:
+    $oVectorOfPairOfStringAndString.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfPairOfStringAndString::at( size_t                              index,
+                                        std::pair<std::string, std::string> value );
+AutoIt:
+    $oVectorOfPairOfStringAndString.at( $index, $value ) -> None
+```
+
+### VectorOfPairOfStringAndString::clear
+
+```cpp
+void VectorOfPairOfStringAndString::clear();
+AutoIt:
+    $oVectorOfPairOfStringAndString.clear() -> None
+```
+
+### VectorOfPairOfStringAndString::empty
+
+```cpp
+bool VectorOfPairOfStringAndString::empty();
+AutoIt:
+    $oVectorOfPairOfStringAndString.empty() -> retval
+```
+
+### VectorOfPairOfStringAndString::end
+
+```cpp
+void* VectorOfPairOfStringAndString::end();
+AutoIt:
+    $oVectorOfPairOfStringAndString.end() -> retval
+```
+
+### VectorOfPairOfStringAndString::get\_Item
+
+```cpp
+std::pair<std::string, std::string> VectorOfPairOfStringAndString::get_Item( size_t index );
+AutoIt:
+    $oVectorOfPairOfStringAndString.Item( $index ) -> retval
+    $oVectorOfPairOfStringAndString( $index ) -> retval
+```
+
+### VectorOfPairOfStringAndString::get\_\_NewEnum
+
+```cpp
+IUnknown* VectorOfPairOfStringAndString::get__NewEnum();
+AutoIt:
+    $oVectorOfPairOfStringAndString._NewEnum() -> retval
+```
+
+### VectorOfPairOfStringAndString::push\_back
+
+```cpp
+void VectorOfPairOfStringAndString::push_back( std::pair<std::string, std::string> value );
+AutoIt:
+    $oVectorOfPairOfStringAndString.push_back( $value ) -> None
+```
+
+### VectorOfPairOfStringAndString::push\_vector
+
+```cpp
+void VectorOfPairOfStringAndString::push_vector( VectorOfPairOfStringAndString other );
+AutoIt:
+    $oVectorOfPairOfStringAndString.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfPairOfStringAndString::push_vector( VectorOfPairOfStringAndString other,
+                                                 size_t                        count,
+                                                 size_t                        start = 0 );
+AutoIt:
+    $oVectorOfPairOfStringAndString.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfPairOfStringAndString::put\_Item
+
+```cpp
+void VectorOfPairOfStringAndString::put_Item( size_t                              index,
+                                              std::pair<std::string, std::string> item );
+AutoIt:
+    $oVectorOfPairOfStringAndString.Item( $index ) = $item
+```
+
+### VectorOfPairOfStringAndString::size
+
+```cpp
+size_t VectorOfPairOfStringAndString::size();
+AutoIt:
+    $oVectorOfPairOfStringAndString.size() -> retval
+```
+
+### VectorOfPairOfStringAndString::slice
+
+```cpp
+VectorOfPairOfStringAndString VectorOfPairOfStringAndString::slice( size_t start = 0,
+                                                                    size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfPairOfStringAndString.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfPairOfStringAndString::sort
+
+```cpp
+void VectorOfPairOfStringAndString::sort( void*  comparator,
+                                          size_t start = 0,
+                                          size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfPairOfStringAndString.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfPairOfStringAndString::sort\_variant
+
+```cpp
+void VectorOfPairOfStringAndString::sort_variant( void*  comparator,
+                                                  size_t start = 0,
+                                                  size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfPairOfStringAndString.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfPairOfStringAndString::start
+
+```cpp
+void* VectorOfPairOfStringAndString::start();
+AutoIt:
+    $oVectorOfPairOfStringAndString.start() -> retval
+```
+
+## MapOfStringAndInt
+
+### MapOfStringAndInt::create
+
+```cpp
+static MapOfStringAndInt MapOfStringAndInt::create();
+AutoIt:
+    _OpenCV_ObjCreate("MapOfStringAndInt").create() -> <MapOfStringAndInt object>
+```
+
+```cpp
+static cv::Ptr<MapOfStringAndInt> MapOfStringAndInt::create( std::vector<std::pair<std::string, int>> pairs );
+AutoIt:
+    _OpenCV_ObjCreate("MapOfStringAndInt").create( $pairs ) -> retval
+```
+
+### MapOfStringAndInt::Add
+
+```cpp
+void MapOfStringAndInt::Add( std::string key,
+                             int         value );
+AutoIt:
+    $oMapOfStringAndInt.Add( $key, $value ) -> None
+```
+
+### MapOfStringAndInt::Get
+
+```cpp
+int MapOfStringAndInt::Get( std::string key );
+AutoIt:
+    $oMapOfStringAndInt.Get( $key ) -> retval
+```
+
+### MapOfStringAndInt::Items
+
+```cpp
+std::vector<int> MapOfStringAndInt::Items();
+AutoIt:
+    $oMapOfStringAndInt.Items() -> retval
+```
+
+### MapOfStringAndInt::Keys
+
+```cpp
+std::vector<std::string> MapOfStringAndInt::Keys();
+AutoIt:
+    $oMapOfStringAndInt.Keys() -> retval
+```
+
+### MapOfStringAndInt::Remove
+
+```cpp
+size_t MapOfStringAndInt::Remove( std::string key );
+AutoIt:
+    $oMapOfStringAndInt.Remove( $key ) -> retval
+```
+
+### MapOfStringAndInt::clear
+
+```cpp
+void MapOfStringAndInt::clear();
+AutoIt:
+    $oMapOfStringAndInt.clear() -> None
+```
+
+### MapOfStringAndInt::contains
+
+```cpp
+bool MapOfStringAndInt::contains( std::string key );
+AutoIt:
+    $oMapOfStringAndInt.contains( $key ) -> retval
+```
+
+### MapOfStringAndInt::count
+
+```cpp
+size_t MapOfStringAndInt::count( std::string key );
+AutoIt:
+    $oMapOfStringAndInt.count( $key ) -> retval
+```
+
+### MapOfStringAndInt::empty
+
+```cpp
+bool MapOfStringAndInt::empty();
+AutoIt:
+    $oMapOfStringAndInt.empty() -> retval
+```
+
+### MapOfStringAndInt::erase
+
+```cpp
+size_t MapOfStringAndInt::erase( std::string key );
+AutoIt:
+    $oMapOfStringAndInt.erase( $key ) -> retval
+```
+
+### MapOfStringAndInt::get\_Item
+
+```cpp
+int MapOfStringAndInt::get_Item( std::string key );
+AutoIt:
+    $oMapOfStringAndInt.Item( $key ) -> retval
+    $oMapOfStringAndInt( $key ) -> retval
+```
+
+### MapOfStringAndInt::get\_\_NewEnum
+
+```cpp
+IUnknown* MapOfStringAndInt::get__NewEnum();
+AutoIt:
+    $oMapOfStringAndInt._NewEnum() -> retval
+```
+
+### MapOfStringAndInt::has
+
+```cpp
+bool MapOfStringAndInt::has( std::string key );
+AutoIt:
+    $oMapOfStringAndInt.has( $key ) -> retval
+```
+
+### MapOfStringAndInt::max\_size
+
+```cpp
+size_t MapOfStringAndInt::max_size();
+AutoIt:
+    $oMapOfStringAndInt.max_size() -> retval
+```
+
+### MapOfStringAndInt::merge
+
+```cpp
+void MapOfStringAndInt::merge( MapOfStringAndInt other );
+AutoIt:
+    $oMapOfStringAndInt.merge( $other ) -> None
+```
+
+### MapOfStringAndInt::put\_Item
+
+```cpp
+void MapOfStringAndInt::put_Item( std::string key,
+                                  int         item );
+AutoIt:
+    $oMapOfStringAndInt.Item( $key ) = $item
+```
+
+### MapOfStringAndInt::size
+
+```cpp
+size_t MapOfStringAndInt::size();
+AutoIt:
+    $oMapOfStringAndInt.size() -> retval
+```
+
+## VectorOfPairOfStringAndInt
+
+### VectorOfPairOfStringAndInt.Count
+
+```cpp
+size_t VectorOfPairOfStringAndInt::size()
+AutoIt:
+    [propget] $oVectorOfPairOfStringAndInt.Count
+```
+
+### VectorOfPairOfStringAndInt::create
+
+```cpp
+static VectorOfPairOfStringAndInt VectorOfPairOfStringAndInt::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPairOfStringAndInt").create() -> <VectorOfPairOfStringAndInt object>
+```
+
+```cpp
+static VectorOfPairOfStringAndInt VectorOfPairOfStringAndInt::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPairOfStringAndInt").create( $size ) -> <VectorOfPairOfStringAndInt object>
+```
+
+```cpp
+static VectorOfPairOfStringAndInt VectorOfPairOfStringAndInt::create( VectorOfPairOfStringAndInt other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPairOfStringAndInt").create( $other ) -> <VectorOfPairOfStringAndInt object>
+```
+
+### VectorOfPairOfStringAndInt::Add
+
+```cpp
+void VectorOfPairOfStringAndInt::Add( std::pair<std::string, int> value );
+AutoIt:
+    $oVectorOfPairOfStringAndInt.Add( $value ) -> None
+```
+
+### VectorOfPairOfStringAndInt::Items
+
+```cpp
+VectorOfPairOfStringAndInt VectorOfPairOfStringAndInt::Items();
+AutoIt:
+    $oVectorOfPairOfStringAndInt.Items() -> retval
+```
+
+### VectorOfPairOfStringAndInt::Keys
+
+```cpp
+std::vector<int> VectorOfPairOfStringAndInt::Keys();
+AutoIt:
+    $oVectorOfPairOfStringAndInt.Keys() -> retval
+```
+
+### VectorOfPairOfStringAndInt::Remove
+
+```cpp
+void VectorOfPairOfStringAndInt::Remove( size_t index );
+AutoIt:
+    $oVectorOfPairOfStringAndInt.Remove( $index ) -> None
+```
+
+### VectorOfPairOfStringAndInt::append
+
+```cpp
+void VectorOfPairOfStringAndInt::append( std::pair<std::string, int> value );
+AutoIt:
+    $oVectorOfPairOfStringAndInt.append( $value ) -> None
+```
+
+### VectorOfPairOfStringAndInt::at
+
+```cpp
+std::pair<std::string, int> VectorOfPairOfStringAndInt::at( size_t index );
+AutoIt:
+    $oVectorOfPairOfStringAndInt.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfPairOfStringAndInt::at( size_t                      index,
+                                     std::pair<std::string, int> value );
+AutoIt:
+    $oVectorOfPairOfStringAndInt.at( $index, $value ) -> None
+```
+
+### VectorOfPairOfStringAndInt::clear
+
+```cpp
+void VectorOfPairOfStringAndInt::clear();
+AutoIt:
+    $oVectorOfPairOfStringAndInt.clear() -> None
+```
+
+### VectorOfPairOfStringAndInt::empty
+
+```cpp
+bool VectorOfPairOfStringAndInt::empty();
+AutoIt:
+    $oVectorOfPairOfStringAndInt.empty() -> retval
+```
+
+### VectorOfPairOfStringAndInt::end
+
+```cpp
+void* VectorOfPairOfStringAndInt::end();
+AutoIt:
+    $oVectorOfPairOfStringAndInt.end() -> retval
+```
+
+### VectorOfPairOfStringAndInt::get\_Item
+
+```cpp
+std::pair<std::string, int> VectorOfPairOfStringAndInt::get_Item( size_t index );
+AutoIt:
+    $oVectorOfPairOfStringAndInt.Item( $index ) -> retval
+    $oVectorOfPairOfStringAndInt( $index ) -> retval
+```
+
+### VectorOfPairOfStringAndInt::get\_\_NewEnum
+
+```cpp
+IUnknown* VectorOfPairOfStringAndInt::get__NewEnum();
+AutoIt:
+    $oVectorOfPairOfStringAndInt._NewEnum() -> retval
+```
+
+### VectorOfPairOfStringAndInt::push\_back
+
+```cpp
+void VectorOfPairOfStringAndInt::push_back( std::pair<std::string, int> value );
+AutoIt:
+    $oVectorOfPairOfStringAndInt.push_back( $value ) -> None
+```
+
+### VectorOfPairOfStringAndInt::push\_vector
+
+```cpp
+void VectorOfPairOfStringAndInt::push_vector( VectorOfPairOfStringAndInt other );
+AutoIt:
+    $oVectorOfPairOfStringAndInt.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfPairOfStringAndInt::push_vector( VectorOfPairOfStringAndInt other,
+                                              size_t                     count,
+                                              size_t                     start = 0 );
+AutoIt:
+    $oVectorOfPairOfStringAndInt.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfPairOfStringAndInt::put\_Item
+
+```cpp
+void VectorOfPairOfStringAndInt::put_Item( size_t                      index,
+                                           std::pair<std::string, int> item );
+AutoIt:
+    $oVectorOfPairOfStringAndInt.Item( $index ) = $item
+```
+
+### VectorOfPairOfStringAndInt::size
+
+```cpp
+size_t VectorOfPairOfStringAndInt::size();
+AutoIt:
+    $oVectorOfPairOfStringAndInt.size() -> retval
+```
+
+### VectorOfPairOfStringAndInt::slice
+
+```cpp
+VectorOfPairOfStringAndInt VectorOfPairOfStringAndInt::slice( size_t start = 0,
+                                                              size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfPairOfStringAndInt.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfPairOfStringAndInt::sort
+
+```cpp
+void VectorOfPairOfStringAndInt::sort( void*  comparator,
+                                       size_t start = 0,
+                                       size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfPairOfStringAndInt.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfPairOfStringAndInt::sort\_variant
+
+```cpp
+void VectorOfPairOfStringAndInt::sort_variant( void*  comparator,
+                                               size_t start = 0,
+                                               size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfPairOfStringAndInt.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfPairOfStringAndInt::start
+
+```cpp
+void* VectorOfPairOfStringAndInt::start();
+AutoIt:
+    $oVectorOfPairOfStringAndInt.start() -> retval
+```
+
+## MapOfStringAndVectorOfSize\_t
+
+### MapOfStringAndVectorOfSize\_t::create
+
+```cpp
+static MapOfStringAndVectorOfSize_t MapOfStringAndVectorOfSize_t::create();
+AutoIt:
+    _OpenCV_ObjCreate("MapOfStringAndVectorOfSize_t").create() -> <MapOfStringAndVectorOfSize_t object>
+```
+
+```cpp
+static cv::Ptr<MapOfStringAndVectorOfSize_t> MapOfStringAndVectorOfSize_t::create( std::vector<std::pair<std::string, std::vector<size_t>>> pairs );
+AutoIt:
+    _OpenCV_ObjCreate("MapOfStringAndVectorOfSize_t").create( $pairs ) -> retval
+```
+
+### MapOfStringAndVectorOfSize\_t::Add
+
+```cpp
+void MapOfStringAndVectorOfSize_t::Add( std::string         key,
+                                        std::vector<size_t> value );
+AutoIt:
+    $oMapOfStringAndVectorOfSize_t.Add( $key, $value ) -> None
+```
+
+### MapOfStringAndVectorOfSize\_t::Get
+
+```cpp
+std::vector<size_t> MapOfStringAndVectorOfSize_t::Get( std::string key );
+AutoIt:
+    $oMapOfStringAndVectorOfSize_t.Get( $key ) -> retval
+```
+
+### MapOfStringAndVectorOfSize\_t::Items
+
+```cpp
+std::vector<std::vector<size_t>> MapOfStringAndVectorOfSize_t::Items();
+AutoIt:
+    $oMapOfStringAndVectorOfSize_t.Items() -> retval
+```
+
+### MapOfStringAndVectorOfSize\_t::Keys
+
+```cpp
+std::vector<std::string> MapOfStringAndVectorOfSize_t::Keys();
+AutoIt:
+    $oMapOfStringAndVectorOfSize_t.Keys() -> retval
+```
+
+### MapOfStringAndVectorOfSize\_t::Remove
+
+```cpp
+size_t MapOfStringAndVectorOfSize_t::Remove( std::string key );
+AutoIt:
+    $oMapOfStringAndVectorOfSize_t.Remove( $key ) -> retval
+```
+
+### MapOfStringAndVectorOfSize\_t::clear
+
+```cpp
+void MapOfStringAndVectorOfSize_t::clear();
+AutoIt:
+    $oMapOfStringAndVectorOfSize_t.clear() -> None
+```
+
+### MapOfStringAndVectorOfSize\_t::contains
+
+```cpp
+bool MapOfStringAndVectorOfSize_t::contains( std::string key );
+AutoIt:
+    $oMapOfStringAndVectorOfSize_t.contains( $key ) -> retval
+```
+
+### MapOfStringAndVectorOfSize\_t::count
+
+```cpp
+size_t MapOfStringAndVectorOfSize_t::count( std::string key );
+AutoIt:
+    $oMapOfStringAndVectorOfSize_t.count( $key ) -> retval
+```
+
+### MapOfStringAndVectorOfSize\_t::empty
+
+```cpp
+bool MapOfStringAndVectorOfSize_t::empty();
+AutoIt:
+    $oMapOfStringAndVectorOfSize_t.empty() -> retval
+```
+
+### MapOfStringAndVectorOfSize\_t::erase
+
+```cpp
+size_t MapOfStringAndVectorOfSize_t::erase( std::string key );
+AutoIt:
+    $oMapOfStringAndVectorOfSize_t.erase( $key ) -> retval
+```
+
+### MapOfStringAndVectorOfSize\_t::get\_Item
+
+```cpp
+std::vector<size_t> MapOfStringAndVectorOfSize_t::get_Item( std::string key );
+AutoIt:
+    $oMapOfStringAndVectorOfSize_t.Item( $key ) -> retval
+    $oMapOfStringAndVectorOfSize_t( $key ) -> retval
+```
+
+### MapOfStringAndVectorOfSize\_t::get\_\_NewEnum
+
+```cpp
+IUnknown* MapOfStringAndVectorOfSize_t::get__NewEnum();
+AutoIt:
+    $oMapOfStringAndVectorOfSize_t._NewEnum() -> retval
+```
+
+### MapOfStringAndVectorOfSize\_t::has
+
+```cpp
+bool MapOfStringAndVectorOfSize_t::has( std::string key );
+AutoIt:
+    $oMapOfStringAndVectorOfSize_t.has( $key ) -> retval
+```
+
+### MapOfStringAndVectorOfSize\_t::max\_size
+
+```cpp
+size_t MapOfStringAndVectorOfSize_t::max_size();
+AutoIt:
+    $oMapOfStringAndVectorOfSize_t.max_size() -> retval
+```
+
+### MapOfStringAndVectorOfSize\_t::merge
+
+```cpp
+void MapOfStringAndVectorOfSize_t::merge( MapOfStringAndVectorOfSize_t other );
+AutoIt:
+    $oMapOfStringAndVectorOfSize_t.merge( $other ) -> None
+```
+
+### MapOfStringAndVectorOfSize\_t::put\_Item
+
+```cpp
+void MapOfStringAndVectorOfSize_t::put_Item( std::string         key,
+                                             std::vector<size_t> item );
+AutoIt:
+    $oMapOfStringAndVectorOfSize_t.Item( $key ) = $item
+```
+
+### MapOfStringAndVectorOfSize\_t::size
+
+```cpp
+size_t MapOfStringAndVectorOfSize_t::size();
+AutoIt:
+    $oMapOfStringAndVectorOfSize_t.size() -> retval
+```
+
+## VectorOfPairOfStringAndVectorOfSize\_t
+
+### VectorOfPairOfStringAndVectorOfSize\_t.Count
+
+```cpp
+size_t VectorOfPairOfStringAndVectorOfSize_t::size()
+AutoIt:
+    [propget] $oVectorOfPairOfStringAndVectorOfSize_t.Count
+```
+
+### VectorOfPairOfStringAndVectorOfSize\_t::create
+
+```cpp
+static VectorOfPairOfStringAndVectorOfSize_t VectorOfPairOfStringAndVectorOfSize_t::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPairOfStringAndVectorOfSize_t").create() -> <VectorOfPairOfStringAndVectorOfSize_t object>
+```
+
+```cpp
+static VectorOfPairOfStringAndVectorOfSize_t VectorOfPairOfStringAndVectorOfSize_t::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPairOfStringAndVectorOfSize_t").create( $size ) -> <VectorOfPairOfStringAndVectorOfSize_t object>
+```
+
+```cpp
+static VectorOfPairOfStringAndVectorOfSize_t VectorOfPairOfStringAndVectorOfSize_t::create( VectorOfPairOfStringAndVectorOfSize_t other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPairOfStringAndVectorOfSize_t").create( $other ) -> <VectorOfPairOfStringAndVectorOfSize_t object>
+```
+
+### VectorOfPairOfStringAndVectorOfSize\_t::Add
+
+```cpp
+void VectorOfPairOfStringAndVectorOfSize_t::Add( std::pair<std::string, std::vector<size_t>> value );
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfSize_t.Add( $value ) -> None
+```
+
+### VectorOfPairOfStringAndVectorOfSize\_t::Items
+
+```cpp
+VectorOfPairOfStringAndVectorOfSize_t VectorOfPairOfStringAndVectorOfSize_t::Items();
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfSize_t.Items() -> retval
+```
+
+### VectorOfPairOfStringAndVectorOfSize\_t::Keys
+
+```cpp
+std::vector<int> VectorOfPairOfStringAndVectorOfSize_t::Keys();
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfSize_t.Keys() -> retval
+```
+
+### VectorOfPairOfStringAndVectorOfSize\_t::Remove
+
+```cpp
+void VectorOfPairOfStringAndVectorOfSize_t::Remove( size_t index );
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfSize_t.Remove( $index ) -> None
+```
+
+### VectorOfPairOfStringAndVectorOfSize\_t::append
+
+```cpp
+void VectorOfPairOfStringAndVectorOfSize_t::append( std::pair<std::string, std::vector<size_t>> value );
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfSize_t.append( $value ) -> None
+```
+
+### VectorOfPairOfStringAndVectorOfSize\_t::at
+
+```cpp
+std::pair<std::string, std::vector<size_t>> VectorOfPairOfStringAndVectorOfSize_t::at( size_t index );
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfSize_t.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfPairOfStringAndVectorOfSize_t::at( size_t                                      index,
+                                                std::pair<std::string, std::vector<size_t>> value );
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfSize_t.at( $index, $value ) -> None
+```
+
+### VectorOfPairOfStringAndVectorOfSize\_t::clear
+
+```cpp
+void VectorOfPairOfStringAndVectorOfSize_t::clear();
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfSize_t.clear() -> None
+```
+
+### VectorOfPairOfStringAndVectorOfSize\_t::empty
+
+```cpp
+bool VectorOfPairOfStringAndVectorOfSize_t::empty();
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfSize_t.empty() -> retval
+```
+
+### VectorOfPairOfStringAndVectorOfSize\_t::end
+
+```cpp
+void* VectorOfPairOfStringAndVectorOfSize_t::end();
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfSize_t.end() -> retval
+```
+
+### VectorOfPairOfStringAndVectorOfSize\_t::get\_Item
+
+```cpp
+std::pair<std::string, std::vector<size_t>> VectorOfPairOfStringAndVectorOfSize_t::get_Item( size_t index );
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfSize_t.Item( $index ) -> retval
+    $oVectorOfPairOfStringAndVectorOfSize_t( $index ) -> retval
+```
+
+### VectorOfPairOfStringAndVectorOfSize\_t::get\_\_NewEnum
+
+```cpp
+IUnknown* VectorOfPairOfStringAndVectorOfSize_t::get__NewEnum();
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfSize_t._NewEnum() -> retval
+```
+
+### VectorOfPairOfStringAndVectorOfSize\_t::push\_back
+
+```cpp
+void VectorOfPairOfStringAndVectorOfSize_t::push_back( std::pair<std::string, std::vector<size_t>> value );
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfSize_t.push_back( $value ) -> None
+```
+
+### VectorOfPairOfStringAndVectorOfSize\_t::push\_vector
+
+```cpp
+void VectorOfPairOfStringAndVectorOfSize_t::push_vector( VectorOfPairOfStringAndVectorOfSize_t other );
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfSize_t.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfPairOfStringAndVectorOfSize_t::push_vector( VectorOfPairOfStringAndVectorOfSize_t other,
+                                                         size_t                                count,
+                                                         size_t                                start = 0 );
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfSize_t.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfPairOfStringAndVectorOfSize\_t::put\_Item
+
+```cpp
+void VectorOfPairOfStringAndVectorOfSize_t::put_Item( size_t                                      index,
+                                                      std::pair<std::string, std::vector<size_t>> item );
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfSize_t.Item( $index ) = $item
+```
+
+### VectorOfPairOfStringAndVectorOfSize\_t::size
+
+```cpp
+size_t VectorOfPairOfStringAndVectorOfSize_t::size();
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfSize_t.size() -> retval
+```
+
+### VectorOfPairOfStringAndVectorOfSize\_t::slice
+
+```cpp
+VectorOfPairOfStringAndVectorOfSize_t VectorOfPairOfStringAndVectorOfSize_t::slice( size_t start = 0,
+                                                                                    size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfSize_t.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfPairOfStringAndVectorOfSize\_t::sort
+
+```cpp
+void VectorOfPairOfStringAndVectorOfSize_t::sort( void*  comparator,
+                                                  size_t start = 0,
+                                                  size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfSize_t.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfPairOfStringAndVectorOfSize\_t::sort\_variant
+
+```cpp
+void VectorOfPairOfStringAndVectorOfSize_t::sort_variant( void*  comparator,
+                                                          size_t start = 0,
+                                                          size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfSize_t.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfPairOfStringAndVectorOfSize\_t::start
+
+```cpp
+void* VectorOfPairOfStringAndVectorOfSize_t::start();
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfSize_t.start() -> retval
+```
+
+## VectorOfVectorOfSize\_t
+
+### VectorOfVectorOfSize\_t.Count
+
+```cpp
+size_t VectorOfVectorOfSize_t::size()
+AutoIt:
+    [propget] $oVectorOfVectorOfSize_t.Count
+```
+
+### VectorOfVectorOfSize\_t::create
+
+```cpp
+static VectorOfVectorOfSize_t VectorOfVectorOfSize_t::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfSize_t").create() -> <VectorOfVectorOfSize_t object>
+```
+
+```cpp
+static VectorOfVectorOfSize_t VectorOfVectorOfSize_t::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfSize_t").create( $size ) -> <VectorOfVectorOfSize_t object>
+```
+
+```cpp
+static VectorOfVectorOfSize_t VectorOfVectorOfSize_t::create( VectorOfVectorOfSize_t other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfSize_t").create( $other ) -> <VectorOfVectorOfSize_t object>
+```
+
+### VectorOfVectorOfSize\_t::Add
+
+```cpp
+void VectorOfVectorOfSize_t::Add( std::vector<size_t> value );
+AutoIt:
+    $oVectorOfVectorOfSize_t.Add( $value ) -> None
+```
+
+### VectorOfVectorOfSize\_t::Items
+
+```cpp
+VectorOfVectorOfSize_t VectorOfVectorOfSize_t::Items();
+AutoIt:
+    $oVectorOfVectorOfSize_t.Items() -> retval
+```
+
+### VectorOfVectorOfSize\_t::Keys
+
+```cpp
+std::vector<int> VectorOfVectorOfSize_t::Keys();
+AutoIt:
+    $oVectorOfVectorOfSize_t.Keys() -> retval
+```
+
+### VectorOfVectorOfSize\_t::Remove
+
+```cpp
+void VectorOfVectorOfSize_t::Remove( size_t index );
+AutoIt:
+    $oVectorOfVectorOfSize_t.Remove( $index ) -> None
+```
+
+### VectorOfVectorOfSize\_t::append
+
+```cpp
+void VectorOfVectorOfSize_t::append( std::vector<size_t> value );
+AutoIt:
+    $oVectorOfVectorOfSize_t.append( $value ) -> None
+```
+
+### VectorOfVectorOfSize\_t::at
+
+```cpp
+std::vector<size_t> VectorOfVectorOfSize_t::at( size_t index );
+AutoIt:
+    $oVectorOfVectorOfSize_t.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfVectorOfSize_t::at( size_t              index,
+                                 std::vector<size_t> value );
+AutoIt:
+    $oVectorOfVectorOfSize_t.at( $index, $value ) -> None
+```
+
+### VectorOfVectorOfSize\_t::clear
+
+```cpp
+void VectorOfVectorOfSize_t::clear();
+AutoIt:
+    $oVectorOfVectorOfSize_t.clear() -> None
+```
+
+### VectorOfVectorOfSize\_t::empty
+
+```cpp
+bool VectorOfVectorOfSize_t::empty();
+AutoIt:
+    $oVectorOfVectorOfSize_t.empty() -> retval
+```
+
+### VectorOfVectorOfSize\_t::end
+
+```cpp
+void* VectorOfVectorOfSize_t::end();
+AutoIt:
+    $oVectorOfVectorOfSize_t.end() -> retval
+```
+
+### VectorOfVectorOfSize\_t::get\_Item
+
+```cpp
+std::vector<size_t> VectorOfVectorOfSize_t::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVectorOfSize_t.Item( $index ) -> retval
+    $oVectorOfVectorOfSize_t( $index ) -> retval
+```
+
+### VectorOfVectorOfSize\_t::get\_\_NewEnum
+
+```cpp
+IUnknown* VectorOfVectorOfSize_t::get__NewEnum();
+AutoIt:
+    $oVectorOfVectorOfSize_t._NewEnum() -> retval
+```
+
+### VectorOfVectorOfSize\_t::push\_back
+
+```cpp
+void VectorOfVectorOfSize_t::push_back( std::vector<size_t> value );
+AutoIt:
+    $oVectorOfVectorOfSize_t.push_back( $value ) -> None
+```
+
+### VectorOfVectorOfSize\_t::push\_vector
+
+```cpp
+void VectorOfVectorOfSize_t::push_vector( VectorOfVectorOfSize_t other );
+AutoIt:
+    $oVectorOfVectorOfSize_t.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfVectorOfSize_t::push_vector( VectorOfVectorOfSize_t other,
+                                          size_t                 count,
+                                          size_t                 start = 0 );
+AutoIt:
+    $oVectorOfVectorOfSize_t.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfVectorOfSize\_t::put\_Item
+
+```cpp
+void VectorOfVectorOfSize_t::put_Item( size_t              index,
+                                       std::vector<size_t> item );
+AutoIt:
+    $oVectorOfVectorOfSize_t.Item( $index ) = $item
+```
+
+### VectorOfVectorOfSize\_t::size
+
+```cpp
+size_t VectorOfVectorOfSize_t::size();
+AutoIt:
+    $oVectorOfVectorOfSize_t.size() -> retval
+```
+
+### VectorOfVectorOfSize\_t::slice
+
+```cpp
+VectorOfVectorOfSize_t VectorOfVectorOfSize_t::slice( size_t start = 0,
+                                                      size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfVectorOfSize_t.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfVectorOfSize\_t::sort
+
+```cpp
+void VectorOfVectorOfSize_t::sort( void*  comparator,
+                                   size_t start = 0,
+                                   size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfVectorOfSize_t.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfVectorOfSize\_t::sort\_variant
+
+```cpp
+void VectorOfVectorOfSize_t::sort_variant( void*  comparator,
+                                           size_t start = 0,
+                                           size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfVectorOfSize_t.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfVectorOfSize\_t::start
+
+```cpp
+void* VectorOfVectorOfSize_t::start();
+AutoIt:
+    $oVectorOfVectorOfSize_t.start() -> retval
+```
+
+## MapOfStringAndVectorOfFloat
+
+### MapOfStringAndVectorOfFloat::create
+
+```cpp
+static MapOfStringAndVectorOfFloat MapOfStringAndVectorOfFloat::create();
+AutoIt:
+    _OpenCV_ObjCreate("MapOfStringAndVectorOfFloat").create() -> <MapOfStringAndVectorOfFloat object>
+```
+
+```cpp
+static cv::Ptr<MapOfStringAndVectorOfFloat> MapOfStringAndVectorOfFloat::create( std::vector<std::pair<std::string, std::vector<float>>> pairs );
+AutoIt:
+    _OpenCV_ObjCreate("MapOfStringAndVectorOfFloat").create( $pairs ) -> retval
+```
+
+### MapOfStringAndVectorOfFloat::Add
+
+```cpp
+void MapOfStringAndVectorOfFloat::Add( std::string        key,
+                                       std::vector<float> value );
+AutoIt:
+    $oMapOfStringAndVectorOfFloat.Add( $key, $value ) -> None
+```
+
+### MapOfStringAndVectorOfFloat::Get
+
+```cpp
+std::vector<float> MapOfStringAndVectorOfFloat::Get( std::string key );
+AutoIt:
+    $oMapOfStringAndVectorOfFloat.Get( $key ) -> retval
+```
+
+### MapOfStringAndVectorOfFloat::Items
+
+```cpp
+std::vector<std::vector<float>> MapOfStringAndVectorOfFloat::Items();
+AutoIt:
+    $oMapOfStringAndVectorOfFloat.Items() -> retval
+```
+
+### MapOfStringAndVectorOfFloat::Keys
+
+```cpp
+std::vector<std::string> MapOfStringAndVectorOfFloat::Keys();
+AutoIt:
+    $oMapOfStringAndVectorOfFloat.Keys() -> retval
+```
+
+### MapOfStringAndVectorOfFloat::Remove
+
+```cpp
+size_t MapOfStringAndVectorOfFloat::Remove( std::string key );
+AutoIt:
+    $oMapOfStringAndVectorOfFloat.Remove( $key ) -> retval
+```
+
+### MapOfStringAndVectorOfFloat::clear
+
+```cpp
+void MapOfStringAndVectorOfFloat::clear();
+AutoIt:
+    $oMapOfStringAndVectorOfFloat.clear() -> None
+```
+
+### MapOfStringAndVectorOfFloat::contains
+
+```cpp
+bool MapOfStringAndVectorOfFloat::contains( std::string key );
+AutoIt:
+    $oMapOfStringAndVectorOfFloat.contains( $key ) -> retval
+```
+
+### MapOfStringAndVectorOfFloat::count
+
+```cpp
+size_t MapOfStringAndVectorOfFloat::count( std::string key );
+AutoIt:
+    $oMapOfStringAndVectorOfFloat.count( $key ) -> retval
+```
+
+### MapOfStringAndVectorOfFloat::empty
+
+```cpp
+bool MapOfStringAndVectorOfFloat::empty();
+AutoIt:
+    $oMapOfStringAndVectorOfFloat.empty() -> retval
+```
+
+### MapOfStringAndVectorOfFloat::erase
+
+```cpp
+size_t MapOfStringAndVectorOfFloat::erase( std::string key );
+AutoIt:
+    $oMapOfStringAndVectorOfFloat.erase( $key ) -> retval
+```
+
+### MapOfStringAndVectorOfFloat::get\_Item
+
+```cpp
+std::vector<float> MapOfStringAndVectorOfFloat::get_Item( std::string key );
+AutoIt:
+    $oMapOfStringAndVectorOfFloat.Item( $key ) -> retval
+    $oMapOfStringAndVectorOfFloat( $key ) -> retval
+```
+
+### MapOfStringAndVectorOfFloat::get\_\_NewEnum
+
+```cpp
+IUnknown* MapOfStringAndVectorOfFloat::get__NewEnum();
+AutoIt:
+    $oMapOfStringAndVectorOfFloat._NewEnum() -> retval
+```
+
+### MapOfStringAndVectorOfFloat::has
+
+```cpp
+bool MapOfStringAndVectorOfFloat::has( std::string key );
+AutoIt:
+    $oMapOfStringAndVectorOfFloat.has( $key ) -> retval
+```
+
+### MapOfStringAndVectorOfFloat::max\_size
+
+```cpp
+size_t MapOfStringAndVectorOfFloat::max_size();
+AutoIt:
+    $oMapOfStringAndVectorOfFloat.max_size() -> retval
+```
+
+### MapOfStringAndVectorOfFloat::merge
+
+```cpp
+void MapOfStringAndVectorOfFloat::merge( MapOfStringAndVectorOfFloat other );
+AutoIt:
+    $oMapOfStringAndVectorOfFloat.merge( $other ) -> None
+```
+
+### MapOfStringAndVectorOfFloat::put\_Item
+
+```cpp
+void MapOfStringAndVectorOfFloat::put_Item( std::string        key,
+                                            std::vector<float> item );
+AutoIt:
+    $oMapOfStringAndVectorOfFloat.Item( $key ) = $item
+```
+
+### MapOfStringAndVectorOfFloat::size
+
+```cpp
+size_t MapOfStringAndVectorOfFloat::size();
+AutoIt:
+    $oMapOfStringAndVectorOfFloat.size() -> retval
+```
+
+## VectorOfPairOfStringAndVectorOfFloat
+
+### VectorOfPairOfStringAndVectorOfFloat.Count
+
+```cpp
+size_t VectorOfPairOfStringAndVectorOfFloat::size()
+AutoIt:
+    [propget] $oVectorOfPairOfStringAndVectorOfFloat.Count
+```
+
+### VectorOfPairOfStringAndVectorOfFloat::create
+
+```cpp
+static VectorOfPairOfStringAndVectorOfFloat VectorOfPairOfStringAndVectorOfFloat::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPairOfStringAndVectorOfFloat").create() -> <VectorOfPairOfStringAndVectorOfFloat object>
+```
+
+```cpp
+static VectorOfPairOfStringAndVectorOfFloat VectorOfPairOfStringAndVectorOfFloat::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPairOfStringAndVectorOfFloat").create( $size ) -> <VectorOfPairOfStringAndVectorOfFloat object>
+```
+
+```cpp
+static VectorOfPairOfStringAndVectorOfFloat VectorOfPairOfStringAndVectorOfFloat::create( VectorOfPairOfStringAndVectorOfFloat other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPairOfStringAndVectorOfFloat").create( $other ) -> <VectorOfPairOfStringAndVectorOfFloat object>
+```
+
+### VectorOfPairOfStringAndVectorOfFloat::Add
+
+```cpp
+void VectorOfPairOfStringAndVectorOfFloat::Add( std::pair<std::string, std::vector<float>> value );
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfFloat.Add( $value ) -> None
+```
+
+### VectorOfPairOfStringAndVectorOfFloat::Items
+
+```cpp
+VectorOfPairOfStringAndVectorOfFloat VectorOfPairOfStringAndVectorOfFloat::Items();
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfFloat.Items() -> retval
+```
+
+### VectorOfPairOfStringAndVectorOfFloat::Keys
+
+```cpp
+std::vector<int> VectorOfPairOfStringAndVectorOfFloat::Keys();
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfFloat.Keys() -> retval
+```
+
+### VectorOfPairOfStringAndVectorOfFloat::Remove
+
+```cpp
+void VectorOfPairOfStringAndVectorOfFloat::Remove( size_t index );
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfFloat.Remove( $index ) -> None
+```
+
+### VectorOfPairOfStringAndVectorOfFloat::append
+
+```cpp
+void VectorOfPairOfStringAndVectorOfFloat::append( std::pair<std::string, std::vector<float>> value );
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfFloat.append( $value ) -> None
+```
+
+### VectorOfPairOfStringAndVectorOfFloat::at
+
+```cpp
+std::pair<std::string, std::vector<float>> VectorOfPairOfStringAndVectorOfFloat::at( size_t index );
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfFloat.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfPairOfStringAndVectorOfFloat::at( size_t                                     index,
+                                               std::pair<std::string, std::vector<float>> value );
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfFloat.at( $index, $value ) -> None
+```
+
+### VectorOfPairOfStringAndVectorOfFloat::clear
+
+```cpp
+void VectorOfPairOfStringAndVectorOfFloat::clear();
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfFloat.clear() -> None
+```
+
+### VectorOfPairOfStringAndVectorOfFloat::empty
+
+```cpp
+bool VectorOfPairOfStringAndVectorOfFloat::empty();
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfFloat.empty() -> retval
+```
+
+### VectorOfPairOfStringAndVectorOfFloat::end
+
+```cpp
+void* VectorOfPairOfStringAndVectorOfFloat::end();
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfFloat.end() -> retval
+```
+
+### VectorOfPairOfStringAndVectorOfFloat::get\_Item
+
+```cpp
+std::pair<std::string, std::vector<float>> VectorOfPairOfStringAndVectorOfFloat::get_Item( size_t index );
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfFloat.Item( $index ) -> retval
+    $oVectorOfPairOfStringAndVectorOfFloat( $index ) -> retval
+```
+
+### VectorOfPairOfStringAndVectorOfFloat::get\_\_NewEnum
+
+```cpp
+IUnknown* VectorOfPairOfStringAndVectorOfFloat::get__NewEnum();
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfFloat._NewEnum() -> retval
+```
+
+### VectorOfPairOfStringAndVectorOfFloat::push\_back
+
+```cpp
+void VectorOfPairOfStringAndVectorOfFloat::push_back( std::pair<std::string, std::vector<float>> value );
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfFloat.push_back( $value ) -> None
+```
+
+### VectorOfPairOfStringAndVectorOfFloat::push\_vector
+
+```cpp
+void VectorOfPairOfStringAndVectorOfFloat::push_vector( VectorOfPairOfStringAndVectorOfFloat other );
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfFloat.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfPairOfStringAndVectorOfFloat::push_vector( VectorOfPairOfStringAndVectorOfFloat other,
+                                                        size_t                               count,
+                                                        size_t                               start = 0 );
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfFloat.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfPairOfStringAndVectorOfFloat::put\_Item
+
+```cpp
+void VectorOfPairOfStringAndVectorOfFloat::put_Item( size_t                                     index,
+                                                     std::pair<std::string, std::vector<float>> item );
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfFloat.Item( $index ) = $item
+```
+
+### VectorOfPairOfStringAndVectorOfFloat::size
+
+```cpp
+size_t VectorOfPairOfStringAndVectorOfFloat::size();
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfFloat.size() -> retval
+```
+
+### VectorOfPairOfStringAndVectorOfFloat::slice
+
+```cpp
+VectorOfPairOfStringAndVectorOfFloat VectorOfPairOfStringAndVectorOfFloat::slice( size_t start = 0,
+                                                                                  size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfFloat.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfPairOfStringAndVectorOfFloat::sort
+
+```cpp
+void VectorOfPairOfStringAndVectorOfFloat::sort( void*  comparator,
+                                                 size_t start = 0,
+                                                 size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfFloat.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfPairOfStringAndVectorOfFloat::sort\_variant
+
+```cpp
+void VectorOfPairOfStringAndVectorOfFloat::sort_variant( void*  comparator,
+                                                         size_t start = 0,
+                                                         size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfFloat.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfPairOfStringAndVectorOfFloat::start
+
+```cpp
+void* VectorOfPairOfStringAndVectorOfFloat::start();
+AutoIt:
+    $oVectorOfPairOfStringAndVectorOfFloat.start() -> retval
+```
+
+## VectorOfVectorOfFloat
+
+### VectorOfVectorOfFloat.Count
+
+```cpp
+size_t VectorOfVectorOfFloat::size()
+AutoIt:
+    [propget] $oVectorOfVectorOfFloat.Count
+```
+
+### VectorOfVectorOfFloat::create
+
+```cpp
+static VectorOfVectorOfFloat VectorOfVectorOfFloat::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfFloat").create() -> <VectorOfVectorOfFloat object>
+```
+
+```cpp
+static VectorOfVectorOfFloat VectorOfVectorOfFloat::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfFloat").create( $size ) -> <VectorOfVectorOfFloat object>
+```
+
+```cpp
+static VectorOfVectorOfFloat VectorOfVectorOfFloat::create( VectorOfVectorOfFloat other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfFloat").create( $other ) -> <VectorOfVectorOfFloat object>
+```
+
+### VectorOfVectorOfFloat::Add
+
+```cpp
+void VectorOfVectorOfFloat::Add( std::vector<float> value );
+AutoIt:
+    $oVectorOfVectorOfFloat.Add( $value ) -> None
+```
+
+### VectorOfVectorOfFloat::Items
+
+```cpp
+VectorOfVectorOfFloat VectorOfVectorOfFloat::Items();
+AutoIt:
+    $oVectorOfVectorOfFloat.Items() -> retval
+```
+
+### VectorOfVectorOfFloat::Keys
+
+```cpp
+std::vector<int> VectorOfVectorOfFloat::Keys();
+AutoIt:
+    $oVectorOfVectorOfFloat.Keys() -> retval
+```
+
+### VectorOfVectorOfFloat::Remove
+
+```cpp
+void VectorOfVectorOfFloat::Remove( size_t index );
+AutoIt:
+    $oVectorOfVectorOfFloat.Remove( $index ) -> None
+```
+
+### VectorOfVectorOfFloat::append
+
+```cpp
+void VectorOfVectorOfFloat::append( std::vector<float> value );
+AutoIt:
+    $oVectorOfVectorOfFloat.append( $value ) -> None
+```
+
+### VectorOfVectorOfFloat::at
+
+```cpp
+std::vector<float> VectorOfVectorOfFloat::at( size_t index );
+AutoIt:
+    $oVectorOfVectorOfFloat.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfVectorOfFloat::at( size_t             index,
+                                std::vector<float> value );
+AutoIt:
+    $oVectorOfVectorOfFloat.at( $index, $value ) -> None
+```
+
+### VectorOfVectorOfFloat::clear
+
+```cpp
+void VectorOfVectorOfFloat::clear();
+AutoIt:
+    $oVectorOfVectorOfFloat.clear() -> None
+```
+
+### VectorOfVectorOfFloat::empty
+
+```cpp
+bool VectorOfVectorOfFloat::empty();
+AutoIt:
+    $oVectorOfVectorOfFloat.empty() -> retval
+```
+
+### VectorOfVectorOfFloat::end
+
+```cpp
+void* VectorOfVectorOfFloat::end();
+AutoIt:
+    $oVectorOfVectorOfFloat.end() -> retval
+```
+
+### VectorOfVectorOfFloat::get\_Item
+
+```cpp
+std::vector<float> VectorOfVectorOfFloat::get_Item( size_t index );
+AutoIt:
+    $oVectorOfVectorOfFloat.Item( $index ) -> retval
+    $oVectorOfVectorOfFloat( $index ) -> retval
+```
+
+### VectorOfVectorOfFloat::get\_\_NewEnum
+
+```cpp
+IUnknown* VectorOfVectorOfFloat::get__NewEnum();
+AutoIt:
+    $oVectorOfVectorOfFloat._NewEnum() -> retval
+```
+
+### VectorOfVectorOfFloat::push\_back
+
+```cpp
+void VectorOfVectorOfFloat::push_back( std::vector<float> value );
+AutoIt:
+    $oVectorOfVectorOfFloat.push_back( $value ) -> None
+```
+
+### VectorOfVectorOfFloat::push\_vector
+
+```cpp
+void VectorOfVectorOfFloat::push_vector( VectorOfVectorOfFloat other );
+AutoIt:
+    $oVectorOfVectorOfFloat.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfVectorOfFloat::push_vector( VectorOfVectorOfFloat other,
+                                         size_t                count,
+                                         size_t                start = 0 );
+AutoIt:
+    $oVectorOfVectorOfFloat.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfVectorOfFloat::put\_Item
+
+```cpp
+void VectorOfVectorOfFloat::put_Item( size_t             index,
+                                      std::vector<float> item );
+AutoIt:
+    $oVectorOfVectorOfFloat.Item( $index ) = $item
+```
+
+### VectorOfVectorOfFloat::size
+
+```cpp
+size_t VectorOfVectorOfFloat::size();
+AutoIt:
+    $oVectorOfVectorOfFloat.size() -> retval
+```
+
+### VectorOfVectorOfFloat::slice
+
+```cpp
+VectorOfVectorOfFloat VectorOfVectorOfFloat::slice( size_t start = 0,
+                                                    size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfVectorOfFloat.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfVectorOfFloat::sort
+
+```cpp
+void VectorOfVectorOfFloat::sort( void*  comparator,
+                                  size_t start = 0,
+                                  size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfVectorOfFloat.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfVectorOfFloat::sort\_variant
+
+```cpp
+void VectorOfVectorOfFloat::sort_variant( void*  comparator,
+                                          size_t start = 0,
+                                          size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfVectorOfFloat.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfVectorOfFloat::start
+
+```cpp
+void* VectorOfVectorOfFloat::start();
+AutoIt:
+    $oVectorOfVectorOfFloat.start() -> retval
+```
+
+## MapOfIntAndDouble
+
+### MapOfIntAndDouble::create
+
+```cpp
+static MapOfIntAndDouble MapOfIntAndDouble::create();
+AutoIt:
+    _OpenCV_ObjCreate("MapOfIntAndDouble").create() -> <MapOfIntAndDouble object>
+```
+
+```cpp
+static cv::Ptr<MapOfIntAndDouble> MapOfIntAndDouble::create( std::vector<std::pair<int, double>> pairs );
+AutoIt:
+    _OpenCV_ObjCreate("MapOfIntAndDouble").create( $pairs ) -> retval
+```
+
+### MapOfIntAndDouble::Add
+
+```cpp
+void MapOfIntAndDouble::Add( int    key,
+                             double value );
+AutoIt:
+    $oMapOfIntAndDouble.Add( $key, $value ) -> None
+```
+
+### MapOfIntAndDouble::Get
+
+```cpp
+double MapOfIntAndDouble::Get( int key );
+AutoIt:
+    $oMapOfIntAndDouble.Get( $key ) -> retval
+```
+
+### MapOfIntAndDouble::Items
+
+```cpp
+std::vector<double> MapOfIntAndDouble::Items();
+AutoIt:
+    $oMapOfIntAndDouble.Items() -> retval
+```
+
+### MapOfIntAndDouble::Keys
+
+```cpp
+std::vector<int> MapOfIntAndDouble::Keys();
+AutoIt:
+    $oMapOfIntAndDouble.Keys() -> retval
+```
+
+### MapOfIntAndDouble::Remove
+
+```cpp
+size_t MapOfIntAndDouble::Remove( int key );
+AutoIt:
+    $oMapOfIntAndDouble.Remove( $key ) -> retval
+```
+
+### MapOfIntAndDouble::clear
+
+```cpp
+void MapOfIntAndDouble::clear();
+AutoIt:
+    $oMapOfIntAndDouble.clear() -> None
+```
+
+### MapOfIntAndDouble::contains
+
+```cpp
+bool MapOfIntAndDouble::contains( int key );
+AutoIt:
+    $oMapOfIntAndDouble.contains( $key ) -> retval
+```
+
+### MapOfIntAndDouble::count
+
+```cpp
+size_t MapOfIntAndDouble::count( int key );
+AutoIt:
+    $oMapOfIntAndDouble.count( $key ) -> retval
+```
+
+### MapOfIntAndDouble::empty
+
+```cpp
+bool MapOfIntAndDouble::empty();
+AutoIt:
+    $oMapOfIntAndDouble.empty() -> retval
+```
+
+### MapOfIntAndDouble::erase
+
+```cpp
+size_t MapOfIntAndDouble::erase( int key );
+AutoIt:
+    $oMapOfIntAndDouble.erase( $key ) -> retval
+```
+
+### MapOfIntAndDouble::get\_Item
+
+```cpp
+double MapOfIntAndDouble::get_Item( int key );
+AutoIt:
+    $oMapOfIntAndDouble.Item( $key ) -> retval
+    $oMapOfIntAndDouble( $key ) -> retval
+```
+
+### MapOfIntAndDouble::get\_\_NewEnum
+
+```cpp
+IUnknown* MapOfIntAndDouble::get__NewEnum();
+AutoIt:
+    $oMapOfIntAndDouble._NewEnum() -> retval
+```
+
+### MapOfIntAndDouble::has
+
+```cpp
+bool MapOfIntAndDouble::has( int key );
+AutoIt:
+    $oMapOfIntAndDouble.has( $key ) -> retval
+```
+
+### MapOfIntAndDouble::max\_size
+
+```cpp
+size_t MapOfIntAndDouble::max_size();
+AutoIt:
+    $oMapOfIntAndDouble.max_size() -> retval
+```
+
+### MapOfIntAndDouble::merge
+
+```cpp
+void MapOfIntAndDouble::merge( MapOfIntAndDouble other );
+AutoIt:
+    $oMapOfIntAndDouble.merge( $other ) -> None
+```
+
+### MapOfIntAndDouble::put\_Item
+
+```cpp
+void MapOfIntAndDouble::put_Item( int    key,
+                                  double item );
+AutoIt:
+    $oMapOfIntAndDouble.Item( $key ) = $item
+```
+
+### MapOfIntAndDouble::size
+
+```cpp
+size_t MapOfIntAndDouble::size();
+AutoIt:
+    $oMapOfIntAndDouble.size() -> retval
+```
+
+## VectorOfPairOfIntAndDouble
+
+### VectorOfPairOfIntAndDouble.Count
+
+```cpp
+size_t VectorOfPairOfIntAndDouble::size()
+AutoIt:
+    [propget] $oVectorOfPairOfIntAndDouble.Count
+```
+
+### VectorOfPairOfIntAndDouble::create
+
+```cpp
+static VectorOfPairOfIntAndDouble VectorOfPairOfIntAndDouble::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPairOfIntAndDouble").create() -> <VectorOfPairOfIntAndDouble object>
+```
+
+```cpp
+static VectorOfPairOfIntAndDouble VectorOfPairOfIntAndDouble::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPairOfIntAndDouble").create( $size ) -> <VectorOfPairOfIntAndDouble object>
+```
+
+```cpp
+static VectorOfPairOfIntAndDouble VectorOfPairOfIntAndDouble::create( VectorOfPairOfIntAndDouble other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPairOfIntAndDouble").create( $other ) -> <VectorOfPairOfIntAndDouble object>
+```
+
+### VectorOfPairOfIntAndDouble::Add
+
+```cpp
+void VectorOfPairOfIntAndDouble::Add( std::pair<int, double> value );
+AutoIt:
+    $oVectorOfPairOfIntAndDouble.Add( $value ) -> None
+```
+
+### VectorOfPairOfIntAndDouble::Items
+
+```cpp
+VectorOfPairOfIntAndDouble VectorOfPairOfIntAndDouble::Items();
+AutoIt:
+    $oVectorOfPairOfIntAndDouble.Items() -> retval
+```
+
+### VectorOfPairOfIntAndDouble::Keys
+
+```cpp
+std::vector<int> VectorOfPairOfIntAndDouble::Keys();
+AutoIt:
+    $oVectorOfPairOfIntAndDouble.Keys() -> retval
+```
+
+### VectorOfPairOfIntAndDouble::Remove
+
+```cpp
+void VectorOfPairOfIntAndDouble::Remove( size_t index );
+AutoIt:
+    $oVectorOfPairOfIntAndDouble.Remove( $index ) -> None
+```
+
+### VectorOfPairOfIntAndDouble::append
+
+```cpp
+void VectorOfPairOfIntAndDouble::append( std::pair<int, double> value );
+AutoIt:
+    $oVectorOfPairOfIntAndDouble.append( $value ) -> None
+```
+
+### VectorOfPairOfIntAndDouble::at
+
+```cpp
+std::pair<int, double> VectorOfPairOfIntAndDouble::at( size_t index );
+AutoIt:
+    $oVectorOfPairOfIntAndDouble.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfPairOfIntAndDouble::at( size_t                 index,
+                                     std::pair<int, double> value );
+AutoIt:
+    $oVectorOfPairOfIntAndDouble.at( $index, $value ) -> None
+```
+
+### VectorOfPairOfIntAndDouble::clear
+
+```cpp
+void VectorOfPairOfIntAndDouble::clear();
+AutoIt:
+    $oVectorOfPairOfIntAndDouble.clear() -> None
+```
+
+### VectorOfPairOfIntAndDouble::empty
+
+```cpp
+bool VectorOfPairOfIntAndDouble::empty();
+AutoIt:
+    $oVectorOfPairOfIntAndDouble.empty() -> retval
+```
+
+### VectorOfPairOfIntAndDouble::end
+
+```cpp
+void* VectorOfPairOfIntAndDouble::end();
+AutoIt:
+    $oVectorOfPairOfIntAndDouble.end() -> retval
+```
+
+### VectorOfPairOfIntAndDouble::get\_Item
+
+```cpp
+std::pair<int, double> VectorOfPairOfIntAndDouble::get_Item( size_t index );
+AutoIt:
+    $oVectorOfPairOfIntAndDouble.Item( $index ) -> retval
+    $oVectorOfPairOfIntAndDouble( $index ) -> retval
+```
+
+### VectorOfPairOfIntAndDouble::get\_\_NewEnum
+
+```cpp
+IUnknown* VectorOfPairOfIntAndDouble::get__NewEnum();
+AutoIt:
+    $oVectorOfPairOfIntAndDouble._NewEnum() -> retval
+```
+
+### VectorOfPairOfIntAndDouble::push\_back
+
+```cpp
+void VectorOfPairOfIntAndDouble::push_back( std::pair<int, double> value );
+AutoIt:
+    $oVectorOfPairOfIntAndDouble.push_back( $value ) -> None
+```
+
+### VectorOfPairOfIntAndDouble::push\_vector
+
+```cpp
+void VectorOfPairOfIntAndDouble::push_vector( VectorOfPairOfIntAndDouble other );
+AutoIt:
+    $oVectorOfPairOfIntAndDouble.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfPairOfIntAndDouble::push_vector( VectorOfPairOfIntAndDouble other,
+                                              size_t                     count,
+                                              size_t                     start = 0 );
+AutoIt:
+    $oVectorOfPairOfIntAndDouble.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfPairOfIntAndDouble::put\_Item
+
+```cpp
+void VectorOfPairOfIntAndDouble::put_Item( size_t                 index,
+                                           std::pair<int, double> item );
+AutoIt:
+    $oVectorOfPairOfIntAndDouble.Item( $index ) = $item
+```
+
+### VectorOfPairOfIntAndDouble::size
+
+```cpp
+size_t VectorOfPairOfIntAndDouble::size();
+AutoIt:
+    $oVectorOfPairOfIntAndDouble.size() -> retval
+```
+
+### VectorOfPairOfIntAndDouble::slice
+
+```cpp
+VectorOfPairOfIntAndDouble VectorOfPairOfIntAndDouble::slice( size_t start = 0,
+                                                              size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfPairOfIntAndDouble.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfPairOfIntAndDouble::sort
+
+```cpp
+void VectorOfPairOfIntAndDouble::sort( void*  comparator,
+                                       size_t start = 0,
+                                       size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfPairOfIntAndDouble.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfPairOfIntAndDouble::sort\_variant
+
+```cpp
+void VectorOfPairOfIntAndDouble::sort_variant( void*  comparator,
+                                               size_t start = 0,
+                                               size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfPairOfIntAndDouble.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfPairOfIntAndDouble::start
+
+```cpp
+void* VectorOfPairOfIntAndDouble::start();
+AutoIt:
+    $oVectorOfPairOfIntAndDouble.start() -> retval
 ```
 
 ## VectorOfGapi\_wip\_draw\_Prim

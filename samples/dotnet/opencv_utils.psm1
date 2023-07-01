@@ -241,9 +241,9 @@ function _OpenCV_FindDLL(
         "."
         "autoit-opencv-com"
         "autoit-opencv-com\build_x64\bin\$BuildType"
-        "opencv\build\x64\vc*\bin"
-        "opencv-4.7.0-*\build\x64\vc*\bin"
-        "opencv-4.7.0-*\opencv\build\x64\vc*\bin"
+        "opencv\build\x64\vc16\bin"
+        "opencv-4.8.0-*\build\x64\vc16\bin"
+        "opencv-4.8.0-*\opencv\build\x64\vc16\bin"
     )
 
     _OpenCV_FindFile -Path "$Path$PostSuffix.dll" -Filter $Filter -Directory $Directory -SearchPaths $aSearchPaths

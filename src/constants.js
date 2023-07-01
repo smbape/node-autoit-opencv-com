@@ -103,53 +103,13 @@ exports.CPP_TYPES = new Map([
     ["Size", "cv::Size"],
 
     ["c_string", "char*"],
-    ["dnn_Backend", "cv::dnn::Backend"],
-    ["dnn_Target", "cv::dnn::Target"],
-    ["flann_IndexParams", "cv::flann::IndexParams"],
-    ["flann_SearchParams", "cv::flann::SearchParams"],
     ["GInferListOutputs", "cv::detail::GInferOutputsTyped<cv::GArray<cv::GMat>>"],
     ["String", "std::string"],
     ["string", "std::string"],
-    ["gapi_ArgType", "cv::gapi::ArgType"],
-
-    ["GpuMat_Allocator", "cuda::GpuMat::Allocator"],
-    ["HostMem_AllocType", "cuda::HostMem::AllocType"],
-    ["Event_CreateFlags", "cuda::Event::CreateFlags"],
-
-    ["cvflann_flann_distance_t", "cvflann::flann_distance_t"],
-    ["cvflann_flann_algorithm_t", "cvflann::flann_algorithm_t"],
 
     ["LayerId", "dnn::DictValue"],
 
-    ["SimpleBlobDetector_Params", "SimpleBlobDetector::Params"],
-    ["AKAZE_DescriptorType", "AKAZE::DescriptorType"],
-    ["AgastFeatureDetector_DetectorType", "AgastFeatureDetector::DetectorType"],
-    ["FastFeatureDetector_DetectorType", "FastFeatureDetector::DetectorType"],
-    ["DescriptorMatcher_MatcherType", "DescriptorMatcher::MatcherType"],
-    ["KAZE_DiffusivityType", "KAZE::DiffusivityType"],
-    ["ORB_ScoreType", "ORB::ScoreType"],
-
-    ["QRCodeEncoder_Params", "QRCodeEncoder::Params"],
-    ["HOGDescriptor_HistogramNormType", "HOGDescriptor::HistogramNormType"],
-    ["HOGDescriptor_DescriptorStorageFormat", "HOGDescriptor::DescriptorStorageFormat"],
-
-    ["TrackerMIL_Params", "TrackerMIL::Params"],
-    ["TrackerGOTURN_Params", "TrackerGOTURN::Params"],
-    ["TrackerDaSiamRPN_Params", "TrackerDaSiamRPN::Params"],
-
-    // NB: Python wrapper replaces :: with _ for classes
-    ["gapi_GKernelPackage", "cv::gapi::GKernelPackage"],
-    ["gapi_GNetPackage", "cv::gapi::GNetPackage"],
-    ["gapi_ie_PyParams", "cv::gapi::ie::PyParams"],
     ["gapi_wip_IStreamSource_Ptr", "cv::Ptr<cv::gapi::wip::IStreamSource>"],
-    ["detail_ExtractArgsCallback", "cv::detail::ExtractArgsCallback"],
-    ["detail_ExtractMetaCallback", "cv::detail::ExtractMetaCallback"],
-
-    ["DeviceInfo_ComputeMode", "cv::cuda::DeviceInfo::ComputeMode"],
-
-    ["RgbdNormals_RgbdNormalsMethod", "cv::RgbdNormals::RgbdNormalsMethod"],
-    ["GStreamerSource_OutputType", "cv::gapi::wip::gst::GStreamerSource::OutputType"],
-    ["OriginalClassName_Params", "cv::utils::nested::OriginalClassName::Params"],
 
     ["GMetaArg", "cv::GMetaArg"],
 ]);
@@ -165,29 +125,6 @@ exports.ALIASES = new Map([
     ["Prims", "vector_Prim"],
     ["Pose3DPtr", "Ptr_Pose3D"],
     ["PoseCluster3DPtr", "Ptr_PoseCluster3D"],
-    ["kinfu_VolumeType", "kinfu::VolumeType"],
-    ["kinfu_Params", "kinfu::Params"],
-    ["legacy_Tracker", "legacy::Tracker"],
-    ["dnn_Net", "dnn::Net"],
-    ["HistogramPhaseUnwrapping_Params", "HistogramPhaseUnwrapping::Params"],
-    ["ml_SVM", "ml::SVM"],
-    ["SinusoidalPattern_Params", "SinusoidalPattern::Params"],
-    ["text_decoder_mode", "text::decoder_mode"],
-    ["ERFilter_Callback", "ERFilter::Callback"],
-    ["OCRBeamSearchDecoder_ClassifierCallback", "OCRBeamSearchDecoder::ClassifierCallback"],
-    ["TrackerCSRT_Params", "TrackerCSRT::Params"],
-    ["TrackerKCF_Params", "TrackerKCF::Params"],
-    ["TrackerNano_Params", "TrackerNano::Params"],
-    ["DAISY_NormalizationType", "DAISY::NormalizationType"],
-    ["OCRHMMDecoder_ClassifierCallback", "OCRHMMDecoder::ClassifierCallback"],
-    ["EdgeDrawing_Params", "EdgeDrawing::Params"],
-
-    // ["cv.createChiHistogramCostExtractor", "cv.createChiHistogramCostExtractor"],
-    // ["cv.createThinPlateSplineShapeTransformer", "cv.createThinPlateSplineShapeTransformer"],
-    // ["cv::createChiHistogramCostExtractor", "cv::createChiHistogramCostExtractor"],
-    // ["cv::createThinPlateSplineShapeTransformer", "cv::createThinPlateSplineShapeTransformer"],
-    // ["createChiHistogramCostExtractor", "cv::createChiHistogramCostExtractor"],
-    // ["createThinPlateSplineShapeTransformer", "cv::createThinPlateSplineShapeTransformer"],
 ]);
 
 exports.CLASS_PTR = new Set([

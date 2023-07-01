@@ -41,10 +41,10 @@
 
 :mainmenu
 @SET DLLDIRNAME=
-@SET DLLNAME=autoit_opencv_com470%DEBUG_PREFIX%.dll
+@SET DLLNAME=autoit_opencv_com480%DEBUG_PREFIX%.dll
 
 @IF EXIST "%CD%\build_x64\%INT_DIR%\%DLLNAME%" @SET "DLLDIRNAME=%CD%\build_x64\%INT_DIR%\"
-@IF EXIST "%CD%\..\opencv-4.7.0-windows\opencv\build\x64\vc16\bin" @SET "PATH=%CD%\..\opencv-4.7.0-windows\opencv\build\x64\vc16\bin;%PATH%"
+@IF EXIST "%CD%\..\opencv-4.8.0-windows\opencv\build\x64\vc16\bin" @SET "PATH=%CD%\..\opencv-4.8.0-windows\opencv\build\x64\vc16\bin;%PATH%"
 
 @SET DLLNAME=%DLLDIRNAME%%DLLNAME%
 

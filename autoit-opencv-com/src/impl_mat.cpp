@@ -5,8 +5,7 @@
 #include <windows.h>
 
 #include <opencv2/imgproc.hpp>
-#include "Cv_Object.h"
-#include "cvextra.h"
+#include "impl_mat.h"
 #include "autoit_bridge.h"
 
 #pragma comment(lib, "gdiplus.lib")

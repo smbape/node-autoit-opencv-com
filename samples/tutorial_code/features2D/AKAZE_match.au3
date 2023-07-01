@@ -12,10 +12,10 @@
 #include "..\..\..\autoit-addon\addon.au3"
 
 ;~ Sources:
-;~     https://docs.opencv.org/4.7.0/db/d70/tutorial_akaze_matching.html
-;~     https://github.com/opencv/opencv/blob/4.7.0/samples/cpp/tutorial_code/features2D/AKAZE_match.cpp
+;~     https://docs.opencv.org/4.8.0/db/d70/tutorial_akaze_matching.html
+;~     https://github.com/opencv/opencv/blob/4.8.0/samples/cpp/tutorial_code/features2D/AKAZE_match.cpp
 
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world470*"), _OpenCV_FindDLL("autoit_opencv_com470*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world480*"), _OpenCV_FindDLL("autoit_opencv_com480*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 

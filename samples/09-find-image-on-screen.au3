@@ -12,7 +12,7 @@ Global $tmpl, $tSize, $tSource, $tBlend, $hWnd, $hPen, $hGui, $hDC, $hBitmap, $h
 Global $aRect, $iLeft, $iTop, $iWidth, $iHeight
 Global $cv
 
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world470*"), _OpenCV_FindDLL("autoit_opencv_com470*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world480*"), _OpenCV_FindDLL("autoit_opencv_com480*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 Example()

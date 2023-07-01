@@ -124,16 +124,11 @@ class AutoItGenerator {
                 }
 
                 const enum_type = this.getEnumType(type, coclass, options);
-                if (!enum_type) {
+                if (!enum_type || this.classes.has(enum_type)) {
                     continue;
                 }
 
-                let enum_class = this.classes.get(enum_type);
-                if (enum_class) {
-                    continue;
-                }
-
-                enum_class = this.getCoClass(enum_type, options);
+                const enum_class = this.getCoClass(enum_type, options);
                 const [,,, values] = this.enums.get(enum_type);
                 for (const [value] of values) {
                     enum_class.addProperty([
@@ -145,8 +140,8 @@ class AutoItGenerator {
                 }
             }
 
-            this.inherit(coclass, options);
-            this.setDependencies(coclass, options);
+            this.addParentDefinition(coclass, options);
+            this.addDependencies(coclass, options);
         }
 
         // remove empty classes
@@ -277,7 +272,7 @@ class AutoItGenerator {
                             }
 
                             if (modifier.startsWith("/attr=")) {
-                                set_dispid_value = modifier.slice("/attr=".length) === "propget";
+                                set_dispid_value = modifier.slice("/attr=".length) !== "propput";
                             } else if (modifier.startsWith("/id=")) {
                                 set_dispid_value = modifier.slice("/id=".length) === "DISPID_VALUE";
                             } else if (modifier.startsWith("/idlname=")) {
@@ -292,12 +287,12 @@ class AutoItGenerator {
                         fname = "get_create";
 
                         for (const decl of overrides) {
-                            if (!set_dispid_value) {
-                                break;
-                            }
-
                             const [, , func_modifiers] = decl;
-                            func_modifiers.push(...["/attr=propget", "=get_create", "/idlname=create", "/id=DISPID_VALUE"]);
+                            for (const modifier of ["/attr=propget", "=get_create", "/idlname=create", "/id=DISPID_VALUE"]) {
+                                if (!func_modifiers.includes(modifier)) {
+                                    func_modifiers.push(modifier);
+                                }
+                            }
                         }
                     }
                 }
@@ -1549,7 +1544,7 @@ class AutoItGenerator {
         this.dependencies.get(dependent).add(dependency);
     }
 
-    inherit(coclass, options) {
+    addParentDefinition(coclass, options) {
         const {fqn} = coclass;
 
         // Add a default constructor
@@ -1562,10 +1557,11 @@ class AutoItGenerator {
             ]);
         }
 
+        // get overrided methods
         const signatures = this.getSignatures(coclass, options);
 
+        // get parents
         const parents = [fqn];
-
         for (const parent of parents) {
             if (!this.derives.has(parent)) {
                 continue;
@@ -1620,7 +1616,7 @@ class AutoItGenerator {
         }
     }
 
-    setDependencies(coclass, options) {
+    addDependencies(coclass, options) {
         for (const [, {type}] of coclass.properties.entries()) {
             this.getIDLType(type, coclass, options);
             this.getCppType(type, coclass, options);

@@ -240,13 +240,13 @@ const bool is_assignable_from(std::string& out_val, BSTR const& in_val, bool is_
 const bool is_assignable_from(std::string& out_val, VARIANT const* const& in_val, bool is_optional) {
 #ifdef IS_VARIANT_ASSIGNABLE_FROM_STRING
 	return IS_VARIANT_ASSIGNABLE_FROM_STRING(out_val, in_val, is_optional);
-#endif
-
+#else
 	if (PARAMETER_MISSING(in_val)) {
 		return is_optional;
 	}
 
 	return V_VT(in_val) == VT_BSTR;
+#endif
 }
 
 const HRESULT autoit_to(BSTR const& in_val, std::string& out_val) {

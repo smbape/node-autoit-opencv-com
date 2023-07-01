@@ -13,10 +13,10 @@ Opt("GUIOnEventMode", 1)
 #include "..\..\..\autoit-opencv-com\udf\opencv_udf_utils.au3"
 
 ;~ Sources:
-;~     https://docs.opencv.org/4.7.0/da/d7f/tutorial_back_projection.html
-;~     https://github.com/opencv/opencv/blob/4.7.0/samples/cpp/tutorial_code/Histograms_Matching/calcBackProject_Demo1.cpp
+;~     https://docs.opencv.org/4.8.0/da/d7f/tutorial_back_projection.html
+;~     https://github.com/opencv/opencv/blob/4.8.0/samples/cpp/tutorial_code/Histograms_Matching/calcBackProject_Demo1.cpp
 
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world470*"), _OpenCV_FindDLL("autoit_opencv_com470*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world480*"), _OpenCV_FindDLL("autoit_opencv_com480*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 
