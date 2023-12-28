@@ -1,112 +1,112 @@
 const {getTypeDef} = require("./alias");
 
-exports.declare = (generator, type, parent, options = {}) => {
-    const cpptype = generator.getCppType(type, parent, options);
+exports.declare = (processor, type, parent, options = {}) => {
+    const cpptype = processor.getCppType(type, parent, options);
 
     const fqn = getTypeDef(cpptype, options);
 
-    if (generator.classes.has(fqn)) {
+    if (processor.classes.has(fqn)) {
         return fqn;
     }
 
     const vtype = cpptype.slice("std::vector<".length, -">".length);
-    const coclass = generator.getCoClass(fqn, options);
-    generator.typedefs.set(fqn, cpptype);
+    const coclass = processor.getCoClass(fqn, options);
+    processor.typedefs.set(fqn, cpptype);
 
     coclass.include = parent;
     coclass.is_simple = true;
     coclass.is_class = true;
     coclass.is_vector = true;
     coclass.cpptype = vtype;
-    coclass.idltype = generator.getIDLType(vtype, coclass, options);
+    coclass.idltype = processor.getIDLType(vtype, coclass, options);
 
-    coclass.addProperty(["size_t", "Count", "", ["/R", "=size()"]]);
+    coclass.addProperty(["size_t", "Count", "", ["/R", "=size()"]], options);
 
-    coclass.addMethod([`${ fqn }.${ coclass.name }`, "", [], [], "", ""]);
+    coclass.addMethod([`${ fqn }.${ coclass.name }`, "", [], [], "", ""], options);
 
     coclass.addMethod([`${ fqn }.${ coclass.name }`, "", [], [
         ["size_t", "size", "", []],
-    ], "", ""]);
+    ], "", ""], options);
 
     coclass.addMethod([`${ fqn }.${ coclass.name }`, "", [], [
         [fqn, "other", "", []],
-    ], "", ""]);
+    ], "", ""], options);
 
-    coclass.addMethod([`${ fqn }.Keys`, "vector_int", ["/External"], [], "", ""]);
-    coclass.addMethod([`${ fqn }.Items`, fqn, ["/Call=", "/Expr=*__self->get()"], [], "", ""]);
+    coclass.addMethod([`${ fqn }.Keys`, "std::vector<int>", ["/External"], [], "", ""], options);
+    coclass.addMethod([`${ fqn }.Items`, fqn, ["/Call=", "/Expr=*__self->get()"], [], "", ""], options);
 
     coclass.addMethod([`${ fqn }.push_back`, "void", [], [
         [vtype, "value", "", []],
-    ], "", ""]);
+    ], "", ""], options);
 
     coclass.addMethod([`${ fqn }.push_back`, "void", ["=Add"], [
         [vtype, "value", "", []],
-    ], "", ""]);
+    ], "", ""], options);
 
     coclass.addMethod([`${ fqn }.push_back`, "void", ["=append"], [
         [vtype, "value", "", []],
-    ], "", ""]);
+    ], "", ""], options);
 
     coclass.addMethod([`${ fqn }.erase`, "void", ["=Remove"], [
         ["size_t", "index", "", ["/Expr=std::next(__self->get()->begin(), index)"]],
-    ], "", ""]);
+    ], "", ""], options);
 
     coclass.addMethod([`${ fqn }.at`, vtype, ["/External"], [
         ["size_t", "index", "", []],
-    ], "", ""]);
+    ], "", ""], options);
 
     coclass.addMethod([`${ fqn }.at`, "void", ["/External"], [
         ["size_t", "index", "", []],
         [vtype, "value", "", []],
-    ], "", ""]);
+    ], "", ""], options);
 
     coclass.addMethod([`${ fqn }.at`, vtype, ["/attr=propget", "/idlname=Item", "=get_Item", "/id=DISPID_VALUE", "/ExternalNoDecl"], [
         ["size_t", "index", "", []],
-    ], "", ""]);
+    ], "", ""], options);
 
     coclass.addMethod([`${ fqn }.at`, "void", ["/attr=propput", "/idlname=Item", "=put_Item", "/id=DISPID_VALUE", "/ExternalNoDecl"], [
         ["size_t", "index", "", []],
         [vtype, "item", "", []],
-    ], "", ""]);
+    ], "", ""], options);
 
-    coclass.addMethod([`${ fqn }.size`, "size_t", [], [], "", ""]);
-    coclass.addMethod([`${ fqn }.empty`, "bool", [], [], "", ""]);
-    coclass.addMethod([`${ fqn }.clear`, "void", [], [], "", ""]);
+    coclass.addMethod([`${ fqn }.size`, "size_t", [], [], "", ""], options);
+    coclass.addMethod([`${ fqn }.empty`, "bool", [], [], "", ""], options);
+    coclass.addMethod([`${ fqn }.clear`, "void", [], [], "", ""], options);
 
     coclass.addMethod([`${ fqn }.push_vector`, "void", ["/External"], [
         [fqn, "other", "", []],
-    ], "", ""]);
+    ], "", ""], options);
 
     coclass.addMethod([`${ fqn }.push_vector`, "void", ["/External"], [
         [fqn, "other", "", []],
         ["size_t", "count", "", []],
         ["size_t", "start", "0", []],
-    ], "", ""]);
+    ], "", ""], options);
 
     coclass.addMethod([`${ fqn }.slice`, fqn, ["/External"], [
         ["size_t", "start", "0", []],
         ["size_t", "count", "__self->get()->size()", []],
-    ], "", ""]);
+    ], "", ""], options);
 
     coclass.addMethod([`${ fqn }.sort`, "void", ["/External"], [
         ["void*", "comparator", "", []],
         ["size_t", "start", "0", []],
         ["size_t", "count", "__self->get()->size()", []],
-    ], "", ""]);
+    ], "", ""], options);
 
     coclass.addMethod([`${ fqn }.sort_variant`, "void", ["/External"], [
         ["void*", "comparator", "", []],
         ["size_t", "start", "0", []],
         ["size_t", "count", "__self->get()->size()", []],
-    ], "", ""]);
+    ], "", ""], options);
 
-    coclass.addMethod([`${ fqn }.start`, "void*", ["/External"], [], "", ""]);
-    coclass.addMethod([`${ fqn }.end`, "void*", ["/External"], [], "", ""]);
+    coclass.addMethod([`${ fqn }.start`, "void*", ["/External"], [], "", ""], options);
+    coclass.addMethod([`${ fqn }.end`, "void*", ["/External"], [], "", ""], options);
 
     // make vector to be recognized as a collection
-    generator.as_stl_enum(coclass, vtype);
+    processor.as_stl_enum(coclass, vtype, options);
 
-    generator.setAssignOperator(vtype, coclass, options);
+    processor.setAssignOperator(vtype, coclass, options);
 
     return fqn;
 };

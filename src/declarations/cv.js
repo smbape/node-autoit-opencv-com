@@ -1,8 +1,12 @@
-module.exports = [
+module.exports = ({ self }) => [
     ["cv.", "", ["/Properties"], [
         ["_variant_t", "extended", "", ["/R", "/External"]],
         ["cv::core", "core", "", ["/R", "=this"]],
     ], "", ""],
+
+    ["class cv._InputArray", "", [], [], "", ""],
+    ["class cv._OutputArray", "", [], [], "", ""],
+    ["class cv._InputOutputArray", "", [], [], "", ""],
 
     ["cv.read", "void", ["=readMat"], [
         ["FileNode", "node", "", []],
@@ -46,7 +50,7 @@ module.exports = [
         ["DMatch", "default_value", "", []],
     ], "", ""],
 
-    ["cv.FileNode.asVariant", "_variant_t", ["/Call=::autoit::fileNodeAsVariant", "/Expr=*__self->get()"], [], "", ""],
+    ["cv.FileNode.asVariant", "_variant_t", ["/Call=::autoit::fileNodeAsVariant", `/Expr=${ self }`], [], "", ""],
 
     ["cv.core.", "", ["/Properties"], [
         ["int", "cv_8U", "", ["/RExpr=CV_8U"]],

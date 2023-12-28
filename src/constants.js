@@ -163,37 +163,87 @@ if (semver.gt(global.OpenCV_VERSION.slice("opencv-".length), "4.5.0")) {
 exports.ARRAY_CLASSES = new Set([
     // Array types
     // Unique
-    "cv::GpuMat",
+    "cv::cuda::GpuMat",
     "cv::Mat",
     "cv::UMat",
     "cv::Scalar", // Array of 4 numbers
 ]);
 
-exports.ARRAYS_CLASSES = new Set([
+const { getTypeDef } = require("./alias");
+
+const types = [
     // Unique types
-    "VectorOfMat",
-    "VectorOfRotatedRect",
-    "VectorOfUMat",
+    "cv::Mat",
+    "cv::UMat",
+    // "bool",
+    "cv::RotatedRect",
+    "cv::Range",
+    "cv::Moments",
 
-    // Ambiguous because Array of numbers
-    "VectorOfChar", // Array of n numbers
-    "VectorOfDouble", // Array of n numbers
-    "VectorOfFloat", // Array of n numbers
-    "VectorOfInt", // Array of n numbers
-    "VectorOfUchar", // Array of n numbers
+    // Ambiguous because number
+    "uchar",
+    "schar",
+    "char",
+    "ushort",
+    "short",
+    "int",
+    "float",
+    "double",
+    // "float16_t",
 
-    // Ambiguous because Array of Array numbers
-    "VectorOfPoint", // Array of Array of 2 numbers
-    "VectorOfPoint2f", // Array of Array of 2 numbers
-    "VectorOfRect", // Array of Array of 4 numbers
-    "VectorOfSize", // Array of Array of 2 numbers
-    "VectorOfVec6f", // Array of Array of 6 numbers
-    "VectorOfVectorOfChar", // Array of Array of n numbers
-    "VectorOfVectorOfInt", // Array of Array of n numbers
+    // Ambiguous because array of numbers
+    "cv::Point3i",
+    "cv::Point3f",
+    "cv::Point3d",
 
-    // Ambiguous because Array of Array of Array of 2 numbers
-    "VectorOfVectorOfPoint", // Array of Array of Array of 2 numbers
-    "VectorOfVectorOfPoint2f", // Array of Array of Array of 2 numbers
-]);
+    // "cv::Point2l", // DataType<int64>::depth is not defined
+    "cv::Point2f",
+    "cv::Point2d",
+    "cv::Point",
+
+    "cv::Rect2f",
+    "cv::Rect2d",
+    "cv::Rect",
+
+    // "cv::Size2l", // DataType<int64>::depth is not defined
+    "cv::Size2f",
+    "cv::Size2d",
+    "cv::Size",
+];
+
+// Ambiguous because array of numbers
+for (const _Tp of ["b", "s", "w"]) {
+    for (const cn of [2, 3, 4]) { // eslint-disable-line no-magic-numbers
+        types.push(`cv::Vec${ cn }${ _Tp }`);
+    }
+}
+
+for (const cn of [2, 3, 4, 6, 8]) { // eslint-disable-line no-magic-numbers
+    types.push(`cv::Vec${ cn }i`);
+}
+
+for (const _Tp of ["f", "d"]) {
+    for (const cn of [2, 3, 4, 6]) { // eslint-disable-line no-magic-numbers
+        types.push(`cv::Vec${ cn }${ _Tp }`);
+    }
+}
+
+const length = types.length;
+
+// Mat and UMat does not have vector<vector>
+for (let i = 2; i < length; i++) {
+    types.push(`std::vector<${ types[i] }>`);
+}
+
+for (let i = 0; i < types.length; i++) {
+    types[i] = `std::vector<${ types[i] }>`;
+}
+
+exports.ARRAYS_CLASSES = new Set(types.map(type => getTypeDef(type, {
+    remove_namespaces: new Set([
+        "cv",
+        "std",
+    ])
+})));
 
 exports.IGNORED_CLASSES = new Set([]);

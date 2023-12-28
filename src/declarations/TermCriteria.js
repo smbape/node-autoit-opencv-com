@@ -4,4 +4,12 @@ module.exports = [
         ["int", "maxCount", "", ["/RW"]],
         ["double", "epsilon", "", ["/RW"]],
     ], "", ""],
+
+    ["cv.TermCriteria.TermCriteria", "", [], [], "", ""],
+
+    ["cv.TermCriteria.TermCriteria", "", [], [
+        ["int", "type", "", []],
+        ["int", "maxCount", "", []],
+        ["double", "epsilon", "", []],
+    ], "", ""],
 ];

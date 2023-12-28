@@ -18,6 +18,7 @@ IF %nparms% == 0 GOTO :MAIN
 IF [%1] == [-g] SET skip_build=1
 IF [%1] == [--target] (
     SET TARGET=%2
+    SET /a nparms -=1
     SHIFT
     IF %nparms% == 0 GOTO :MAIN
 )
@@ -92,13 +93,14 @@ IF [%skip_config%] == [1] GOTO BUILD
 IF NOT EXIST %BUILD_FOLDER% MKDIR %BUILD_FOLDER%
 cd %BUILD_FOLDER%
 
-%CMAKE% -G %CMAKE_GENERATOR% %EXTRA_CMAKE_OPTIONS% ..\
+%CMAKE% -G %CMAKE_GENERATOR% %EXTRA_CMAKE_OPTIONS% "%CWD%"
 SET ERROR=%ERRORLEVEL%
 IF [%ERROR%] == [0] GOTO BUILD
 GOTO END
 
 :BUILD
 IF [%skip_build%] == [1] GOTO END
+IF NOT [%CD%] == [%CWD%\%BUILD_FOLDER%] CD /D "%CWD%\%BUILD_FOLDER%"
 %CMAKE% --build . --config %CMAKE_BUILD_TYPE% --target %TARGET%
 SET ERROR=%ERRORLEVEL%
 

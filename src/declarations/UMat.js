@@ -1,4 +1,4 @@
-module.exports = ({ shared_ptr }) => [
+module.exports = ({ self, self_get, shared_ptr }) => [
     ["class cv.UMat", "", ["/Simple"], [
         // Public Attributes
 
@@ -6,15 +6,15 @@ module.exports = ({ shared_ptr }) => [
         ["int", "dims", "", ["/RW"]],
         ["int", "flags", "", ["/RW"]],
         ["int", "rows", "", ["/RW"]],
-        ["size_t", "step", "", ["/RW"]],
+        ["size_t", "step", "", ["/RW", "/Cast=static_cast<size_t>"]],
 
         // Custom Attributes
 
         ["int", "width", "", ["/RW", "=cols"]],
         ["int", "height", "", ["/RW", "=rows"]],
-        ["std::tuple<int, int, int>", "shape", "", ["/R", "/RExpr=std::tuple<int, int, int>(__self->get()->rows, __self->get()->cols, __self->get()->channels())"]],
-        ["std::vector<int>", "sizes", "", ["/R", "/RExpr=std::vector<int>(__self->get()->size.p, __self->get()->size.p + __self->get()->dims)"]],
-        ["std::vector<size_t>", "steps", "", ["/R", "/RExpr=std::vector<size_t>(__self->get()->step.p, __self->get()->step.p + __self->get()->dims)"]],
+        ["std::vector<int>", "shape", "", ["/R", `/RExpr=::cvextra::umat_shape(${ self })`]],
+        ["std::vector<int>", "sizes", "", ["/R", `/RExpr=std::vector<int>(${ self_get("size") }.p, ${ self_get("size") }.p + ${ self_get("dims") })`]],
+        ["std::vector<size_t>", "steps", "", ["/R", `/RExpr=std::vector<size_t>(${ self_get("step") }.p, ${ self_get("step") }.p + ${ self_get("dims") })`]],
     ], "", ""],
 
     // Public Member Functions
@@ -52,13 +52,13 @@ module.exports = ({ shared_ptr }) => [
     ], "", ""],
 
     ["cv.UMat.UMat", "", [], [
-        ["std::vector<int>", "sizes", "", ["/Expr=sizes.size(), sizes.data()"]],
+        ["std::vector<int>", "sizes", "", ["/Ref", "/C", "/Expr=sizes.size(), sizes.data()"]],
         ["int", "type", "", []],
         ["UMatUsageFlags", "usageFlags", "USAGE_DEFAULT", []]
     ], "", ""],
 
     ["cv.UMat.UMat", "", [], [
-        ["std::vector<int>", "sizes", "", ["/Expr=sizes.size(), sizes.data()"]],
+        ["std::vector<int>", "sizes", "", ["/Ref", "/C", "/Expr=sizes.size(), sizes.data()"]],
         ["int", "type", "", []],
         ["Scalar", "s", "", ["/Ref", "/C"]],
         ["UMatUsageFlags", "usageFlags", "USAGE_DEFAULT", []]
@@ -123,7 +123,7 @@ module.exports = ({ shared_ptr }) => [
 
     ["cv.UMat.colRange", "UMat", [], [
         ["int", "startcol", "", []],
-        ["int", "endcol", "__self->get()->cols", []],
+        ["int", "endcol", self_get("cols"), []],
     ], "", ""],
     ["cv.UMat.colRange", "UMat", [], [
         ["Range", "r", "", ["/Ref", "/C"]],
@@ -211,7 +211,7 @@ module.exports = ({ shared_ptr }) => [
     ], "", ""],
     ["cv.UMat.rowRange", "UMat", [], [
         ["int", "startrow", "", []],
-        ["int", "endrow", "__self->get()->rows", []],
+        ["int", "endrow", self_get("rows"), []],
     ], "", ""],
     ["cv.UMat.rowRange", "UMat", [], [
         ["Range", "r", "", []],
@@ -342,7 +342,7 @@ module.exports = ({ shared_ptr }) => [
     ], "", ""],
 
     ["cv.UMat.ones", "UMat", ["/S"], [
-        ["std::vector<int>", "sizes", "", ["/Expr=sizes.size(), sizes.data()"]],
+        ["std::vector<int>", "sizes", "", ["/Ref", "/C", "/Expr=sizes.size(), sizes.data()"]],
         ["int", "type", "", []],
         ["UMatUsageFlags", "usageFlags", "", []],
     ], "", ""],
@@ -369,7 +369,7 @@ module.exports = ({ shared_ptr }) => [
     ], "", ""],
 
     ["cv.UMat.zeros", "UMat", ["/S"], [
-        ["std::vector<int>", "sizes", "", ["/Expr=sizes.size(), sizes.data()"]],
+        ["std::vector<int>", "sizes", "", ["/Ref", "/C", "/Expr=sizes.size(), sizes.data()"]],
         ["int", "type", "", []],
     ], "", ""],
 
@@ -399,25 +399,27 @@ module.exports = ({ shared_ptr }) => [
     ], "", ""],
 
     ["cv.UMat.zeros", "UMat", ["/S"], [
-        ["std::vector<int>", "sizes", "", ["/Expr=sizes.size(), sizes.data()"]],
+        ["std::vector<int>", "sizes", "", ["/Ref", "/C", "/Expr=sizes.size(), sizes.data()"]],
         ["int", "type", "", []],
         ["UMatUsageFlags", "usageFlags", "", []],
     ], "", ""],
 
     // Extended Functions
 
+    ["cv.UMat.sum", "cv::Scalar", ["/Call=cv::sum", `/Expr=${ self }`], [], "", ""],
+
     ["cv.UMat.makeeInputArray", `${ shared_ptr }<_InputArray>`, ["/Call=this->createInputArray", `/Output=${ shared_ptr }<_InputArray>($0)`], [], "", ""],
     ["cv.UMat.makeeOutputArray", `${ shared_ptr }<_OutputArray>`, ["/Call=this->createOutputArray", `/Output=${ shared_ptr }<_OutputArray>($0)`], [], "", ""],
     ["cv.UMat.makeeInputOutputArray", `${ shared_ptr }<_InputOutputArray>`, ["/Call=this->createInputOutputArray", `/Output=${ shared_ptr }<_InputOutputArray>($0)`], [], "", ""],
 
-    ["cv.UMat.convertToShow", "void", ["/Call=::autoit::cvextra::convertToShow", "/Expr=*__self->get(), $0"], [
-        ["Mat", "dst", "Mat::zeros(__self->get()->rows, __self->get()->cols, CV_8UC3)", ["/IO"]],
+    ["cv.UMat.convertToShow", "void", ["/Call=::autoit::cvextra::convertToShow", `/Expr=${ self }, $0`], [
+        ["Mat", "dst", `Mat::zeros(${ self_get("rows") }, ${ self_get("cols") }, CV_8UC3)`, ["/IO"]],
         ["bool", "toRGB", "false", []],
     ], "", ""],
-    ["cv.UMat.convertToBitmap", "void*", ["/Call=::autoit::cvextra::convertToBitmap", "/Expr=*__self->get(), $0"], [
+    ["cv.UMat.convertToBitmap", "void*", ["/Call=::autoit::cvextra::convertToBitmap", `/Expr=${ self }, $0`], [
         ["bool", "copy", "true", []],
     ], "", ""],
-    ["cv.UMat.GdiplusResize", "void", ["/Call=::autoit::cvextra::GdiplusResize", "/Expr=*__self->get(), $0"], [
+    ["cv.UMat.GdiplusResize", "void", ["/Call=::autoit::cvextra::GdiplusResize", `/Expr=${ self }, $0`], [
         ["Mat", "dst", "", ["/O"]],
         ["float", "newWidth", "", []],
         ["float", "newHeight", "", []],

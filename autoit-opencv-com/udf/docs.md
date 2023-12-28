@@ -137,10 +137,38 @@
   - [cv.extended](#cvextended)
   - [cv.core](#cvcore)
   - [cv.\_InputOutputArray](#cv%5C_inputoutputarray)
+  - [cv.Matx12f](#cvmatx12f)
+  - [cv.Matx12d](#cvmatx12d)
+  - [cv.Matx13f](#cvmatx13f)
+  - [cv.Matx13d](#cvmatx13d)
+  - [cv.Matx14f](#cvmatx14f)
+  - [cv.Matx14d](#cvmatx14d)
+  - [cv.Matx16f](#cvmatx16f)
+  - [cv.Matx16d](#cvmatx16d)
+  - [cv.Matx21f](#cvmatx21f)
+  - [cv.Matx21d](#cvmatx21d)
+  - [cv.Matx31f](#cvmatx31f)
+  - [cv.Matx31d](#cvmatx31d)
+  - [cv.Matx41f](#cvmatx41f)
+  - [cv.Matx41d](#cvmatx41d)
+  - [cv.Matx61f](#cvmatx61f)
+  - [cv.Matx61d](#cvmatx61d)
+  - [cv.Matx22f](#cvmatx22f)
+  - [cv.Matx22d](#cvmatx22d)
+  - [cv.Matx23f](#cvmatx23f)
+  - [cv.Matx23d](#cvmatx23d)
+  - [cv.Matx32f](#cvmatx32f)
+  - [cv.Matx32d](#cvmatx32d)
   - [cv.Matx33f](#cvmatx33f)
   - [cv.Matx33d](#cvmatx33d)
+  - [cv.Matx34f](#cvmatx34f)
+  - [cv.Matx34d](#cvmatx34d)
+  - [cv.Matx43f](#cvmatx43f)
+  - [cv.Matx43d](#cvmatx43d)
   - [cv.Matx44f](#cvmatx44f)
   - [cv.Matx44d](#cvmatx44d)
+  - [cv.Matx66f](#cvmatx66f)
+  - [cv.Matx66d](#cvmatx66d)
   - [cv.Range](#cvrange)
   - [cv.GCompileArg](#cvgcompilearg)
   - [cv.GRunArg](#cvgrunarg)
@@ -325,6 +353,7 @@
   - [cv::findFundamentalMat](#cvfindfundamentalmat)
   - [cv::findHomography](#cvfindhomography)
   - [cv::findNonZero](#cvfindnonzero)
+  - [cv::findTemplate](#cvfindtemplate)
   - [cv::findTransformECC](#cvfindtransformecc)
   - [cv::fitEllipse](#cvfitellipse)
   - [cv::fitEllipseAMS](#cvfitellipseams)
@@ -1633,9 +1662,10 @@
 - [cv::RNG](#cvrng)
   - [RNG.state](#rngstate)
   - [cv::RNG::get\_create](#cvrngget%5C_create)
+  - [cv::RNG::fill](#cvrngfill)
+  - [cv::RNG::gaussian](#cvrnggaussian)
   - [cv::RNG::next](#cvrngnext)
   - [cv::RNG::uniform](#cvrnguniform)
-  - [cv::RNG::uniform\_double](#cvrnguniform%5C_double)
   - [cv::RNG::uniform\_float](#cvrnguniform%5C_float)
   - [cv::RNG::uniform\_int](#cvrnguniform%5C_int)
   - [RNG.UNIFORM\_](#rnguniform%5C_)
@@ -1784,7 +1814,7 @@
   - [nested.OriginalClassName](#nestedoriginalclassname)
   - [cv::utils::nested::testEchoBooleanFunction](#cvutilsnestedtestechobooleanfunction)
 - [cv::utils::nested::OriginalClassName](#cvutilsnestedoriginalclassname)
-  - [OriginalClassName.Params](#originalclassnameparams)
+  - [ExportClassName.Params](#exportclassnameparams)
   - [cv::utils::nested::OriginalClassName::get\_create](#cvutilsnestedoriginalclassnameget%5C_create)
   - [cv::utils::nested::OriginalClassName::getFloatParam](#cvutilsnestedoriginalclassnamegetfloatparam)
   - [cv::utils::nested::OriginalClassName::getIntParam](#cvutilsnestedoriginalclassnamegetintparam)
@@ -2259,6 +2289,7 @@
   - [cv::Mat::set\_at](#cvmatset%5C_at)
   - [cv::Mat::size](#cvmatsize)
   - [cv::Mat::step1](#cvmatstep1)
+  - [cv::Mat::sum](#cvmatsum)
   - [cv::Mat::t](#cvmatt)
   - [cv::Mat::total](#cvmattotal)
   - [cv::Mat::type](#cvmattype)
@@ -2321,6 +2352,7 @@
   - [cv::UMat::setTo](#cvumatsetto)
   - [cv::UMat::size](#cvumatsize)
   - [cv::UMat::step1](#cvumatstep1)
+  - [cv::UMat::sum](#cvumatsum)
   - [cv::UMat::t](#cvumatt)
   - [cv::UMat::total](#cvumattotal)
   - [cv::UMat::type](#cvumattype)
@@ -5758,6 +5790,402 @@
   - [cv::core::cv\_MAKETYPE](#cvcorecv%5C_maketype)
   - [cv::core::cv\_MAKE\_TYPE](#cvcorecv%5C_make%5C_type)
   - [cv::core::cv\_MAT\_DEPTH](#cvcorecv%5C_mat%5C_depth)
+- [cv::Matx12f](#cvmatx12f)
+  - [Matx12f.rows](#matx12frows)
+  - [Matx12f.cols](#matx12fcols)
+  - [Matx12f.channels](#matx12fchannels)
+  - [Matx12f.shortdim](#matx12fshortdim)
+  - [cv::Matx12f::create](#cvmatx12fcreate)
+  - [cv::Matx12f::all](#cvmatx12fall)
+  - [cv::Matx12f::ddot](#cvmatx12fddot)
+  - [cv::Matx12f::div](#cvmatx12fdiv)
+  - [cv::Matx12f::dot](#cvmatx12fdot)
+  - [cv::Matx12f::eye](#cvmatx12feye)
+  - [cv::Matx12f::get\_Item](#cvmatx12fget%5C_item)
+  - [cv::Matx12f::mul](#cvmatx12fmul)
+  - [cv::Matx12f::ones](#cvmatx12fones)
+  - [cv::Matx12f::put\_Item](#cvmatx12fput%5C_item)
+  - [cv::Matx12f::randn](#cvmatx12frandn)
+  - [cv::Matx12f::randu](#cvmatx12frandu)
+  - [cv::Matx12f::zeros](#cvmatx12fzeros)
+- [cv::Matx12d](#cvmatx12d)
+  - [Matx12d.rows](#matx12drows)
+  - [Matx12d.cols](#matx12dcols)
+  - [Matx12d.channels](#matx12dchannels)
+  - [Matx12d.shortdim](#matx12dshortdim)
+  - [cv::Matx12d::create](#cvmatx12dcreate)
+  - [cv::Matx12d::all](#cvmatx12dall)
+  - [cv::Matx12d::ddot](#cvmatx12dddot)
+  - [cv::Matx12d::div](#cvmatx12ddiv)
+  - [cv::Matx12d::dot](#cvmatx12ddot)
+  - [cv::Matx12d::eye](#cvmatx12deye)
+  - [cv::Matx12d::get\_Item](#cvmatx12dget%5C_item)
+  - [cv::Matx12d::mul](#cvmatx12dmul)
+  - [cv::Matx12d::ones](#cvmatx12dones)
+  - [cv::Matx12d::put\_Item](#cvmatx12dput%5C_item)
+  - [cv::Matx12d::randn](#cvmatx12drandn)
+  - [cv::Matx12d::randu](#cvmatx12drandu)
+  - [cv::Matx12d::zeros](#cvmatx12dzeros)
+- [cv::Matx13f](#cvmatx13f)
+  - [Matx13f.rows](#matx13frows)
+  - [Matx13f.cols](#matx13fcols)
+  - [Matx13f.channels](#matx13fchannels)
+  - [Matx13f.shortdim](#matx13fshortdim)
+  - [cv::Matx13f::create](#cvmatx13fcreate)
+  - [cv::Matx13f::all](#cvmatx13fall)
+  - [cv::Matx13f::ddot](#cvmatx13fddot)
+  - [cv::Matx13f::div](#cvmatx13fdiv)
+  - [cv::Matx13f::dot](#cvmatx13fdot)
+  - [cv::Matx13f::eye](#cvmatx13feye)
+  - [cv::Matx13f::get\_Item](#cvmatx13fget%5C_item)
+  - [cv::Matx13f::mul](#cvmatx13fmul)
+  - [cv::Matx13f::ones](#cvmatx13fones)
+  - [cv::Matx13f::put\_Item](#cvmatx13fput%5C_item)
+  - [cv::Matx13f::randn](#cvmatx13frandn)
+  - [cv::Matx13f::randu](#cvmatx13frandu)
+  - [cv::Matx13f::zeros](#cvmatx13fzeros)
+- [cv::Matx13d](#cvmatx13d)
+  - [Matx13d.rows](#matx13drows)
+  - [Matx13d.cols](#matx13dcols)
+  - [Matx13d.channels](#matx13dchannels)
+  - [Matx13d.shortdim](#matx13dshortdim)
+  - [cv::Matx13d::create](#cvmatx13dcreate)
+  - [cv::Matx13d::all](#cvmatx13dall)
+  - [cv::Matx13d::ddot](#cvmatx13dddot)
+  - [cv::Matx13d::div](#cvmatx13ddiv)
+  - [cv::Matx13d::dot](#cvmatx13ddot)
+  - [cv::Matx13d::eye](#cvmatx13deye)
+  - [cv::Matx13d::get\_Item](#cvmatx13dget%5C_item)
+  - [cv::Matx13d::mul](#cvmatx13dmul)
+  - [cv::Matx13d::ones](#cvmatx13dones)
+  - [cv::Matx13d::put\_Item](#cvmatx13dput%5C_item)
+  - [cv::Matx13d::randn](#cvmatx13drandn)
+  - [cv::Matx13d::randu](#cvmatx13drandu)
+  - [cv::Matx13d::zeros](#cvmatx13dzeros)
+- [cv::Matx14f](#cvmatx14f)
+  - [Matx14f.rows](#matx14frows)
+  - [Matx14f.cols](#matx14fcols)
+  - [Matx14f.channels](#matx14fchannels)
+  - [Matx14f.shortdim](#matx14fshortdim)
+  - [cv::Matx14f::create](#cvmatx14fcreate)
+  - [cv::Matx14f::all](#cvmatx14fall)
+  - [cv::Matx14f::ddot](#cvmatx14fddot)
+  - [cv::Matx14f::div](#cvmatx14fdiv)
+  - [cv::Matx14f::dot](#cvmatx14fdot)
+  - [cv::Matx14f::eye](#cvmatx14feye)
+  - [cv::Matx14f::get\_Item](#cvmatx14fget%5C_item)
+  - [cv::Matx14f::mul](#cvmatx14fmul)
+  - [cv::Matx14f::ones](#cvmatx14fones)
+  - [cv::Matx14f::put\_Item](#cvmatx14fput%5C_item)
+  - [cv::Matx14f::randn](#cvmatx14frandn)
+  - [cv::Matx14f::randu](#cvmatx14frandu)
+  - [cv::Matx14f::zeros](#cvmatx14fzeros)
+- [cv::Matx14d](#cvmatx14d)
+  - [Matx14d.rows](#matx14drows)
+  - [Matx14d.cols](#matx14dcols)
+  - [Matx14d.channels](#matx14dchannels)
+  - [Matx14d.shortdim](#matx14dshortdim)
+  - [cv::Matx14d::create](#cvmatx14dcreate)
+  - [cv::Matx14d::all](#cvmatx14dall)
+  - [cv::Matx14d::ddot](#cvmatx14dddot)
+  - [cv::Matx14d::div](#cvmatx14ddiv)
+  - [cv::Matx14d::dot](#cvmatx14ddot)
+  - [cv::Matx14d::eye](#cvmatx14deye)
+  - [cv::Matx14d::get\_Item](#cvmatx14dget%5C_item)
+  - [cv::Matx14d::mul](#cvmatx14dmul)
+  - [cv::Matx14d::ones](#cvmatx14dones)
+  - [cv::Matx14d::put\_Item](#cvmatx14dput%5C_item)
+  - [cv::Matx14d::randn](#cvmatx14drandn)
+  - [cv::Matx14d::randu](#cvmatx14drandu)
+  - [cv::Matx14d::zeros](#cvmatx14dzeros)
+- [cv::Matx16f](#cvmatx16f)
+  - [Matx16f.rows](#matx16frows)
+  - [Matx16f.cols](#matx16fcols)
+  - [Matx16f.channels](#matx16fchannels)
+  - [Matx16f.shortdim](#matx16fshortdim)
+  - [cv::Matx16f::create](#cvmatx16fcreate)
+  - [cv::Matx16f::all](#cvmatx16fall)
+  - [cv::Matx16f::ddot](#cvmatx16fddot)
+  - [cv::Matx16f::div](#cvmatx16fdiv)
+  - [cv::Matx16f::dot](#cvmatx16fdot)
+  - [cv::Matx16f::eye](#cvmatx16feye)
+  - [cv::Matx16f::get\_Item](#cvmatx16fget%5C_item)
+  - [cv::Matx16f::mul](#cvmatx16fmul)
+  - [cv::Matx16f::ones](#cvmatx16fones)
+  - [cv::Matx16f::put\_Item](#cvmatx16fput%5C_item)
+  - [cv::Matx16f::randn](#cvmatx16frandn)
+  - [cv::Matx16f::randu](#cvmatx16frandu)
+  - [cv::Matx16f::zeros](#cvmatx16fzeros)
+- [cv::Matx16d](#cvmatx16d)
+  - [Matx16d.rows](#matx16drows)
+  - [Matx16d.cols](#matx16dcols)
+  - [Matx16d.channels](#matx16dchannels)
+  - [Matx16d.shortdim](#matx16dshortdim)
+  - [cv::Matx16d::create](#cvmatx16dcreate)
+  - [cv::Matx16d::all](#cvmatx16dall)
+  - [cv::Matx16d::ddot](#cvmatx16dddot)
+  - [cv::Matx16d::div](#cvmatx16ddiv)
+  - [cv::Matx16d::dot](#cvmatx16ddot)
+  - [cv::Matx16d::eye](#cvmatx16deye)
+  - [cv::Matx16d::get\_Item](#cvmatx16dget%5C_item)
+  - [cv::Matx16d::mul](#cvmatx16dmul)
+  - [cv::Matx16d::ones](#cvmatx16dones)
+  - [cv::Matx16d::put\_Item](#cvmatx16dput%5C_item)
+  - [cv::Matx16d::randn](#cvmatx16drandn)
+  - [cv::Matx16d::randu](#cvmatx16drandu)
+  - [cv::Matx16d::zeros](#cvmatx16dzeros)
+- [cv::Matx21f](#cvmatx21f)
+  - [Matx21f.rows](#matx21frows)
+  - [Matx21f.cols](#matx21fcols)
+  - [Matx21f.channels](#matx21fchannels)
+  - [Matx21f.shortdim](#matx21fshortdim)
+  - [cv::Matx21f::create](#cvmatx21fcreate)
+  - [cv::Matx21f::all](#cvmatx21fall)
+  - [cv::Matx21f::ddot](#cvmatx21fddot)
+  - [cv::Matx21f::div](#cvmatx21fdiv)
+  - [cv::Matx21f::dot](#cvmatx21fdot)
+  - [cv::Matx21f::eye](#cvmatx21feye)
+  - [cv::Matx21f::get\_Item](#cvmatx21fget%5C_item)
+  - [cv::Matx21f::mul](#cvmatx21fmul)
+  - [cv::Matx21f::ones](#cvmatx21fones)
+  - [cv::Matx21f::put\_Item](#cvmatx21fput%5C_item)
+  - [cv::Matx21f::randn](#cvmatx21frandn)
+  - [cv::Matx21f::randu](#cvmatx21frandu)
+  - [cv::Matx21f::zeros](#cvmatx21fzeros)
+- [cv::Matx21d](#cvmatx21d)
+  - [Matx21d.rows](#matx21drows)
+  - [Matx21d.cols](#matx21dcols)
+  - [Matx21d.channels](#matx21dchannels)
+  - [Matx21d.shortdim](#matx21dshortdim)
+  - [cv::Matx21d::create](#cvmatx21dcreate)
+  - [cv::Matx21d::all](#cvmatx21dall)
+  - [cv::Matx21d::ddot](#cvmatx21dddot)
+  - [cv::Matx21d::div](#cvmatx21ddiv)
+  - [cv::Matx21d::dot](#cvmatx21ddot)
+  - [cv::Matx21d::eye](#cvmatx21deye)
+  - [cv::Matx21d::get\_Item](#cvmatx21dget%5C_item)
+  - [cv::Matx21d::mul](#cvmatx21dmul)
+  - [cv::Matx21d::ones](#cvmatx21dones)
+  - [cv::Matx21d::put\_Item](#cvmatx21dput%5C_item)
+  - [cv::Matx21d::randn](#cvmatx21drandn)
+  - [cv::Matx21d::randu](#cvmatx21drandu)
+  - [cv::Matx21d::zeros](#cvmatx21dzeros)
+- [cv::Matx31f](#cvmatx31f)
+  - [Matx31f.rows](#matx31frows)
+  - [Matx31f.cols](#matx31fcols)
+  - [Matx31f.channels](#matx31fchannels)
+  - [Matx31f.shortdim](#matx31fshortdim)
+  - [cv::Matx31f::create](#cvmatx31fcreate)
+  - [cv::Matx31f::all](#cvmatx31fall)
+  - [cv::Matx31f::ddot](#cvmatx31fddot)
+  - [cv::Matx31f::div](#cvmatx31fdiv)
+  - [cv::Matx31f::dot](#cvmatx31fdot)
+  - [cv::Matx31f::eye](#cvmatx31feye)
+  - [cv::Matx31f::get\_Item](#cvmatx31fget%5C_item)
+  - [cv::Matx31f::mul](#cvmatx31fmul)
+  - [cv::Matx31f::ones](#cvmatx31fones)
+  - [cv::Matx31f::put\_Item](#cvmatx31fput%5C_item)
+  - [cv::Matx31f::randn](#cvmatx31frandn)
+  - [cv::Matx31f::randu](#cvmatx31frandu)
+  - [cv::Matx31f::zeros](#cvmatx31fzeros)
+- [cv::Matx31d](#cvmatx31d)
+  - [Matx31d.rows](#matx31drows)
+  - [Matx31d.cols](#matx31dcols)
+  - [Matx31d.channels](#matx31dchannels)
+  - [Matx31d.shortdim](#matx31dshortdim)
+  - [cv::Matx31d::create](#cvmatx31dcreate)
+  - [cv::Matx31d::all](#cvmatx31dall)
+  - [cv::Matx31d::ddot](#cvmatx31dddot)
+  - [cv::Matx31d::div](#cvmatx31ddiv)
+  - [cv::Matx31d::dot](#cvmatx31ddot)
+  - [cv::Matx31d::eye](#cvmatx31deye)
+  - [cv::Matx31d::get\_Item](#cvmatx31dget%5C_item)
+  - [cv::Matx31d::mul](#cvmatx31dmul)
+  - [cv::Matx31d::ones](#cvmatx31dones)
+  - [cv::Matx31d::put\_Item](#cvmatx31dput%5C_item)
+  - [cv::Matx31d::randn](#cvmatx31drandn)
+  - [cv::Matx31d::randu](#cvmatx31drandu)
+  - [cv::Matx31d::zeros](#cvmatx31dzeros)
+- [cv::Matx41f](#cvmatx41f)
+  - [Matx41f.rows](#matx41frows)
+  - [Matx41f.cols](#matx41fcols)
+  - [Matx41f.channels](#matx41fchannels)
+  - [Matx41f.shortdim](#matx41fshortdim)
+  - [cv::Matx41f::create](#cvmatx41fcreate)
+  - [cv::Matx41f::all](#cvmatx41fall)
+  - [cv::Matx41f::ddot](#cvmatx41fddot)
+  - [cv::Matx41f::div](#cvmatx41fdiv)
+  - [cv::Matx41f::dot](#cvmatx41fdot)
+  - [cv::Matx41f::eye](#cvmatx41feye)
+  - [cv::Matx41f::get\_Item](#cvmatx41fget%5C_item)
+  - [cv::Matx41f::mul](#cvmatx41fmul)
+  - [cv::Matx41f::ones](#cvmatx41fones)
+  - [cv::Matx41f::put\_Item](#cvmatx41fput%5C_item)
+  - [cv::Matx41f::randn](#cvmatx41frandn)
+  - [cv::Matx41f::randu](#cvmatx41frandu)
+  - [cv::Matx41f::zeros](#cvmatx41fzeros)
+- [cv::Matx41d](#cvmatx41d)
+  - [Matx41d.rows](#matx41drows)
+  - [Matx41d.cols](#matx41dcols)
+  - [Matx41d.channels](#matx41dchannels)
+  - [Matx41d.shortdim](#matx41dshortdim)
+  - [cv::Matx41d::create](#cvmatx41dcreate)
+  - [cv::Matx41d::all](#cvmatx41dall)
+  - [cv::Matx41d::ddot](#cvmatx41dddot)
+  - [cv::Matx41d::div](#cvmatx41ddiv)
+  - [cv::Matx41d::dot](#cvmatx41ddot)
+  - [cv::Matx41d::eye](#cvmatx41deye)
+  - [cv::Matx41d::get\_Item](#cvmatx41dget%5C_item)
+  - [cv::Matx41d::mul](#cvmatx41dmul)
+  - [cv::Matx41d::ones](#cvmatx41dones)
+  - [cv::Matx41d::put\_Item](#cvmatx41dput%5C_item)
+  - [cv::Matx41d::randn](#cvmatx41drandn)
+  - [cv::Matx41d::randu](#cvmatx41drandu)
+  - [cv::Matx41d::zeros](#cvmatx41dzeros)
+- [cv::Matx61f](#cvmatx61f)
+  - [Matx61f.rows](#matx61frows)
+  - [Matx61f.cols](#matx61fcols)
+  - [Matx61f.channels](#matx61fchannels)
+  - [Matx61f.shortdim](#matx61fshortdim)
+  - [cv::Matx61f::create](#cvmatx61fcreate)
+  - [cv::Matx61f::all](#cvmatx61fall)
+  - [cv::Matx61f::ddot](#cvmatx61fddot)
+  - [cv::Matx61f::div](#cvmatx61fdiv)
+  - [cv::Matx61f::dot](#cvmatx61fdot)
+  - [cv::Matx61f::eye](#cvmatx61feye)
+  - [cv::Matx61f::get\_Item](#cvmatx61fget%5C_item)
+  - [cv::Matx61f::mul](#cvmatx61fmul)
+  - [cv::Matx61f::ones](#cvmatx61fones)
+  - [cv::Matx61f::put\_Item](#cvmatx61fput%5C_item)
+  - [cv::Matx61f::randn](#cvmatx61frandn)
+  - [cv::Matx61f::randu](#cvmatx61frandu)
+  - [cv::Matx61f::zeros](#cvmatx61fzeros)
+- [cv::Matx61d](#cvmatx61d)
+  - [Matx61d.rows](#matx61drows)
+  - [Matx61d.cols](#matx61dcols)
+  - [Matx61d.channels](#matx61dchannels)
+  - [Matx61d.shortdim](#matx61dshortdim)
+  - [cv::Matx61d::create](#cvmatx61dcreate)
+  - [cv::Matx61d::all](#cvmatx61dall)
+  - [cv::Matx61d::ddot](#cvmatx61dddot)
+  - [cv::Matx61d::div](#cvmatx61ddiv)
+  - [cv::Matx61d::dot](#cvmatx61ddot)
+  - [cv::Matx61d::eye](#cvmatx61deye)
+  - [cv::Matx61d::get\_Item](#cvmatx61dget%5C_item)
+  - [cv::Matx61d::mul](#cvmatx61dmul)
+  - [cv::Matx61d::ones](#cvmatx61dones)
+  - [cv::Matx61d::put\_Item](#cvmatx61dput%5C_item)
+  - [cv::Matx61d::randn](#cvmatx61drandn)
+  - [cv::Matx61d::randu](#cvmatx61drandu)
+  - [cv::Matx61d::zeros](#cvmatx61dzeros)
+- [cv::Matx22f](#cvmatx22f)
+  - [Matx22f.rows](#matx22frows)
+  - [Matx22f.cols](#matx22fcols)
+  - [Matx22f.channels](#matx22fchannels)
+  - [Matx22f.shortdim](#matx22fshortdim)
+  - [cv::Matx22f::create](#cvmatx22fcreate)
+  - [cv::Matx22f::all](#cvmatx22fall)
+  - [cv::Matx22f::ddot](#cvmatx22fddot)
+  - [cv::Matx22f::div](#cvmatx22fdiv)
+  - [cv::Matx22f::dot](#cvmatx22fdot)
+  - [cv::Matx22f::eye](#cvmatx22feye)
+  - [cv::Matx22f::get\_Item](#cvmatx22fget%5C_item)
+  - [cv::Matx22f::mul](#cvmatx22fmul)
+  - [cv::Matx22f::ones](#cvmatx22fones)
+  - [cv::Matx22f::put\_Item](#cvmatx22fput%5C_item)
+  - [cv::Matx22f::randn](#cvmatx22frandn)
+  - [cv::Matx22f::randu](#cvmatx22frandu)
+  - [cv::Matx22f::zeros](#cvmatx22fzeros)
+- [cv::Matx22d](#cvmatx22d)
+  - [Matx22d.rows](#matx22drows)
+  - [Matx22d.cols](#matx22dcols)
+  - [Matx22d.channels](#matx22dchannels)
+  - [Matx22d.shortdim](#matx22dshortdim)
+  - [cv::Matx22d::create](#cvmatx22dcreate)
+  - [cv::Matx22d::all](#cvmatx22dall)
+  - [cv::Matx22d::ddot](#cvmatx22dddot)
+  - [cv::Matx22d::div](#cvmatx22ddiv)
+  - [cv::Matx22d::dot](#cvmatx22ddot)
+  - [cv::Matx22d::eye](#cvmatx22deye)
+  - [cv::Matx22d::get\_Item](#cvmatx22dget%5C_item)
+  - [cv::Matx22d::mul](#cvmatx22dmul)
+  - [cv::Matx22d::ones](#cvmatx22dones)
+  - [cv::Matx22d::put\_Item](#cvmatx22dput%5C_item)
+  - [cv::Matx22d::randn](#cvmatx22drandn)
+  - [cv::Matx22d::randu](#cvmatx22drandu)
+  - [cv::Matx22d::zeros](#cvmatx22dzeros)
+- [cv::Matx23f](#cvmatx23f)
+  - [Matx23f.rows](#matx23frows)
+  - [Matx23f.cols](#matx23fcols)
+  - [Matx23f.channels](#matx23fchannels)
+  - [Matx23f.shortdim](#matx23fshortdim)
+  - [cv::Matx23f::create](#cvmatx23fcreate)
+  - [cv::Matx23f::all](#cvmatx23fall)
+  - [cv::Matx23f::ddot](#cvmatx23fddot)
+  - [cv::Matx23f::div](#cvmatx23fdiv)
+  - [cv::Matx23f::dot](#cvmatx23fdot)
+  - [cv::Matx23f::eye](#cvmatx23feye)
+  - [cv::Matx23f::get\_Item](#cvmatx23fget%5C_item)
+  - [cv::Matx23f::mul](#cvmatx23fmul)
+  - [cv::Matx23f::ones](#cvmatx23fones)
+  - [cv::Matx23f::put\_Item](#cvmatx23fput%5C_item)
+  - [cv::Matx23f::randn](#cvmatx23frandn)
+  - [cv::Matx23f::randu](#cvmatx23frandu)
+  - [cv::Matx23f::zeros](#cvmatx23fzeros)
+- [cv::Matx23d](#cvmatx23d)
+  - [Matx23d.rows](#matx23drows)
+  - [Matx23d.cols](#matx23dcols)
+  - [Matx23d.channels](#matx23dchannels)
+  - [Matx23d.shortdim](#matx23dshortdim)
+  - [cv::Matx23d::create](#cvmatx23dcreate)
+  - [cv::Matx23d::all](#cvmatx23dall)
+  - [cv::Matx23d::ddot](#cvmatx23dddot)
+  - [cv::Matx23d::div](#cvmatx23ddiv)
+  - [cv::Matx23d::dot](#cvmatx23ddot)
+  - [cv::Matx23d::eye](#cvmatx23deye)
+  - [cv::Matx23d::get\_Item](#cvmatx23dget%5C_item)
+  - [cv::Matx23d::mul](#cvmatx23dmul)
+  - [cv::Matx23d::ones](#cvmatx23dones)
+  - [cv::Matx23d::put\_Item](#cvmatx23dput%5C_item)
+  - [cv::Matx23d::randn](#cvmatx23drandn)
+  - [cv::Matx23d::randu](#cvmatx23drandu)
+  - [cv::Matx23d::zeros](#cvmatx23dzeros)
+- [cv::Matx32f](#cvmatx32f)
+  - [Matx32f.rows](#matx32frows)
+  - [Matx32f.cols](#matx32fcols)
+  - [Matx32f.channels](#matx32fchannels)
+  - [Matx32f.shortdim](#matx32fshortdim)
+  - [cv::Matx32f::create](#cvmatx32fcreate)
+  - [cv::Matx32f::all](#cvmatx32fall)
+  - [cv::Matx32f::ddot](#cvmatx32fddot)
+  - [cv::Matx32f::div](#cvmatx32fdiv)
+  - [cv::Matx32f::dot](#cvmatx32fdot)
+  - [cv::Matx32f::eye](#cvmatx32feye)
+  - [cv::Matx32f::get\_Item](#cvmatx32fget%5C_item)
+  - [cv::Matx32f::mul](#cvmatx32fmul)
+  - [cv::Matx32f::ones](#cvmatx32fones)
+  - [cv::Matx32f::put\_Item](#cvmatx32fput%5C_item)
+  - [cv::Matx32f::randn](#cvmatx32frandn)
+  - [cv::Matx32f::randu](#cvmatx32frandu)
+  - [cv::Matx32f::zeros](#cvmatx32fzeros)
+- [cv::Matx32d](#cvmatx32d)
+  - [Matx32d.rows](#matx32drows)
+  - [Matx32d.cols](#matx32dcols)
+  - [Matx32d.channels](#matx32dchannels)
+  - [Matx32d.shortdim](#matx32dshortdim)
+  - [cv::Matx32d::create](#cvmatx32dcreate)
+  - [cv::Matx32d::all](#cvmatx32dall)
+  - [cv::Matx32d::ddot](#cvmatx32dddot)
+  - [cv::Matx32d::div](#cvmatx32ddiv)
+  - [cv::Matx32d::dot](#cvmatx32ddot)
+  - [cv::Matx32d::eye](#cvmatx32deye)
+  - [cv::Matx32d::get\_Item](#cvmatx32dget%5C_item)
+  - [cv::Matx32d::mul](#cvmatx32dmul)
+  - [cv::Matx32d::ones](#cvmatx32dones)
+  - [cv::Matx32d::put\_Item](#cvmatx32dput%5C_item)
+  - [cv::Matx32d::randn](#cvmatx32drandn)
+  - [cv::Matx32d::randu](#cvmatx32drandu)
+  - [cv::Matx32d::zeros](#cvmatx32dzeros)
 - [cv::Matx33f](#cvmatx33f)
   - [Matx33f.rows](#matx33frows)
   - [Matx33f.cols](#matx33fcols)
@@ -5794,6 +6222,78 @@
   - [cv::Matx33d::randn](#cvmatx33drandn)
   - [cv::Matx33d::randu](#cvmatx33drandu)
   - [cv::Matx33d::zeros](#cvmatx33dzeros)
+- [cv::Matx34f](#cvmatx34f)
+  - [Matx34f.rows](#matx34frows)
+  - [Matx34f.cols](#matx34fcols)
+  - [Matx34f.channels](#matx34fchannels)
+  - [Matx34f.shortdim](#matx34fshortdim)
+  - [cv::Matx34f::create](#cvmatx34fcreate)
+  - [cv::Matx34f::all](#cvmatx34fall)
+  - [cv::Matx34f::ddot](#cvmatx34fddot)
+  - [cv::Matx34f::div](#cvmatx34fdiv)
+  - [cv::Matx34f::dot](#cvmatx34fdot)
+  - [cv::Matx34f::eye](#cvmatx34feye)
+  - [cv::Matx34f::get\_Item](#cvmatx34fget%5C_item)
+  - [cv::Matx34f::mul](#cvmatx34fmul)
+  - [cv::Matx34f::ones](#cvmatx34fones)
+  - [cv::Matx34f::put\_Item](#cvmatx34fput%5C_item)
+  - [cv::Matx34f::randn](#cvmatx34frandn)
+  - [cv::Matx34f::randu](#cvmatx34frandu)
+  - [cv::Matx34f::zeros](#cvmatx34fzeros)
+- [cv::Matx34d](#cvmatx34d)
+  - [Matx34d.rows](#matx34drows)
+  - [Matx34d.cols](#matx34dcols)
+  - [Matx34d.channels](#matx34dchannels)
+  - [Matx34d.shortdim](#matx34dshortdim)
+  - [cv::Matx34d::create](#cvmatx34dcreate)
+  - [cv::Matx34d::all](#cvmatx34dall)
+  - [cv::Matx34d::ddot](#cvmatx34dddot)
+  - [cv::Matx34d::div](#cvmatx34ddiv)
+  - [cv::Matx34d::dot](#cvmatx34ddot)
+  - [cv::Matx34d::eye](#cvmatx34deye)
+  - [cv::Matx34d::get\_Item](#cvmatx34dget%5C_item)
+  - [cv::Matx34d::mul](#cvmatx34dmul)
+  - [cv::Matx34d::ones](#cvmatx34dones)
+  - [cv::Matx34d::put\_Item](#cvmatx34dput%5C_item)
+  - [cv::Matx34d::randn](#cvmatx34drandn)
+  - [cv::Matx34d::randu](#cvmatx34drandu)
+  - [cv::Matx34d::zeros](#cvmatx34dzeros)
+- [cv::Matx43f](#cvmatx43f)
+  - [Matx43f.rows](#matx43frows)
+  - [Matx43f.cols](#matx43fcols)
+  - [Matx43f.channels](#matx43fchannels)
+  - [Matx43f.shortdim](#matx43fshortdim)
+  - [cv::Matx43f::create](#cvmatx43fcreate)
+  - [cv::Matx43f::all](#cvmatx43fall)
+  - [cv::Matx43f::ddot](#cvmatx43fddot)
+  - [cv::Matx43f::div](#cvmatx43fdiv)
+  - [cv::Matx43f::dot](#cvmatx43fdot)
+  - [cv::Matx43f::eye](#cvmatx43feye)
+  - [cv::Matx43f::get\_Item](#cvmatx43fget%5C_item)
+  - [cv::Matx43f::mul](#cvmatx43fmul)
+  - [cv::Matx43f::ones](#cvmatx43fones)
+  - [cv::Matx43f::put\_Item](#cvmatx43fput%5C_item)
+  - [cv::Matx43f::randn](#cvmatx43frandn)
+  - [cv::Matx43f::randu](#cvmatx43frandu)
+  - [cv::Matx43f::zeros](#cvmatx43fzeros)
+- [cv::Matx43d](#cvmatx43d)
+  - [Matx43d.rows](#matx43drows)
+  - [Matx43d.cols](#matx43dcols)
+  - [Matx43d.channels](#matx43dchannels)
+  - [Matx43d.shortdim](#matx43dshortdim)
+  - [cv::Matx43d::create](#cvmatx43dcreate)
+  - [cv::Matx43d::all](#cvmatx43dall)
+  - [cv::Matx43d::ddot](#cvmatx43dddot)
+  - [cv::Matx43d::div](#cvmatx43ddiv)
+  - [cv::Matx43d::dot](#cvmatx43ddot)
+  - [cv::Matx43d::eye](#cvmatx43deye)
+  - [cv::Matx43d::get\_Item](#cvmatx43dget%5C_item)
+  - [cv::Matx43d::mul](#cvmatx43dmul)
+  - [cv::Matx43d::ones](#cvmatx43dones)
+  - [cv::Matx43d::put\_Item](#cvmatx43dput%5C_item)
+  - [cv::Matx43d::randn](#cvmatx43drandn)
+  - [cv::Matx43d::randu](#cvmatx43drandu)
+  - [cv::Matx43d::zeros](#cvmatx43dzeros)
 - [cv::Matx44f](#cvmatx44f)
   - [Matx44f.rows](#matx44frows)
   - [Matx44f.cols](#matx44fcols)
@@ -5830,6 +6330,42 @@
   - [cv::Matx44d::randn](#cvmatx44drandn)
   - [cv::Matx44d::randu](#cvmatx44drandu)
   - [cv::Matx44d::zeros](#cvmatx44dzeros)
+- [cv::Matx66f](#cvmatx66f)
+  - [Matx66f.rows](#matx66frows)
+  - [Matx66f.cols](#matx66fcols)
+  - [Matx66f.channels](#matx66fchannels)
+  - [Matx66f.shortdim](#matx66fshortdim)
+  - [cv::Matx66f::create](#cvmatx66fcreate)
+  - [cv::Matx66f::all](#cvmatx66fall)
+  - [cv::Matx66f::ddot](#cvmatx66fddot)
+  - [cv::Matx66f::div](#cvmatx66fdiv)
+  - [cv::Matx66f::dot](#cvmatx66fdot)
+  - [cv::Matx66f::eye](#cvmatx66feye)
+  - [cv::Matx66f::get\_Item](#cvmatx66fget%5C_item)
+  - [cv::Matx66f::mul](#cvmatx66fmul)
+  - [cv::Matx66f::ones](#cvmatx66fones)
+  - [cv::Matx66f::put\_Item](#cvmatx66fput%5C_item)
+  - [cv::Matx66f::randn](#cvmatx66frandn)
+  - [cv::Matx66f::randu](#cvmatx66frandu)
+  - [cv::Matx66f::zeros](#cvmatx66fzeros)
+- [cv::Matx66d](#cvmatx66d)
+  - [Matx66d.rows](#matx66drows)
+  - [Matx66d.cols](#matx66dcols)
+  - [Matx66d.channels](#matx66dchannels)
+  - [Matx66d.shortdim](#matx66dshortdim)
+  - [cv::Matx66d::create](#cvmatx66dcreate)
+  - [cv::Matx66d::all](#cvmatx66dall)
+  - [cv::Matx66d::ddot](#cvmatx66dddot)
+  - [cv::Matx66d::div](#cvmatx66ddiv)
+  - [cv::Matx66d::dot](#cvmatx66ddot)
+  - [cv::Matx66d::eye](#cvmatx66deye)
+  - [cv::Matx66d::get\_Item](#cvmatx66dget%5C_item)
+  - [cv::Matx66d::mul](#cvmatx66dmul)
+  - [cv::Matx66d::ones](#cvmatx66dones)
+  - [cv::Matx66d::put\_Item](#cvmatx66dput%5C_item)
+  - [cv::Matx66d::randn](#cvmatx66drandn)
+  - [cv::Matx66d::randu](#cvmatx66drandu)
+  - [cv::Matx66d::zeros](#cvmatx66dzeros)
 - [std](#std)
   - [std.mutex](#stdmutex)
   - [std.timed\_mutex](#stdtimed%5C_mutex)
@@ -6143,6 +6679,28 @@
   - [VectorOfRect::sort](#vectorofrectsort)
   - [VectorOfRect::sort\_variant](#vectorofrectsort%5C_variant)
   - [VectorOfRect::start](#vectorofrectstart)
+- [VectorOfTuplePointAndDouble](#vectoroftuplepointanddouble)
+  - [VectorOfTuplePointAndDouble.Count](#vectoroftuplepointanddoublecount)
+  - [VectorOfTuplePointAndDouble::create](#vectoroftuplepointanddoublecreate)
+  - [VectorOfTuplePointAndDouble::Add](#vectoroftuplepointanddoubleadd)
+  - [VectorOfTuplePointAndDouble::Items](#vectoroftuplepointanddoubleitems)
+  - [VectorOfTuplePointAndDouble::Keys](#vectoroftuplepointanddoublekeys)
+  - [VectorOfTuplePointAndDouble::Remove](#vectoroftuplepointanddoubleremove)
+  - [VectorOfTuplePointAndDouble::append](#vectoroftuplepointanddoubleappend)
+  - [VectorOfTuplePointAndDouble::at](#vectoroftuplepointanddoubleat)
+  - [VectorOfTuplePointAndDouble::clear](#vectoroftuplepointanddoubleclear)
+  - [VectorOfTuplePointAndDouble::empty](#vectoroftuplepointanddoubleempty)
+  - [VectorOfTuplePointAndDouble::end](#vectoroftuplepointanddoubleend)
+  - [VectorOfTuplePointAndDouble::get\_Item](#vectoroftuplepointanddoubleget%5C_item)
+  - [VectorOfTuplePointAndDouble::get\_\_NewEnum](#vectoroftuplepointanddoubleget%5C_%5C_newenum)
+  - [VectorOfTuplePointAndDouble::push\_back](#vectoroftuplepointanddoublepush%5C_back)
+  - [VectorOfTuplePointAndDouble::push\_vector](#vectoroftuplepointanddoublepush%5C_vector)
+  - [VectorOfTuplePointAndDouble::put\_Item](#vectoroftuplepointanddoubleput%5C_item)
+  - [VectorOfTuplePointAndDouble::size](#vectoroftuplepointanddoublesize)
+  - [VectorOfTuplePointAndDouble::slice](#vectoroftuplepointanddoubleslice)
+  - [VectorOfTuplePointAndDouble::sort](#vectoroftuplepointanddoublesort)
+  - [VectorOfTuplePointAndDouble::sort\_variant](#vectoroftuplepointanddoublesort%5C_variant)
+  - [VectorOfTuplePointAndDouble::start](#vectoroftuplepointanddoublestart)
 - [VectorOfRotatedRect](#vectorofrotatedrect)
   - [VectorOfRotatedRect.Count](#vectorofrotatedrectcount)
   - [VectorOfRotatedRect::create](#vectorofrotatedrectcreate)
@@ -8545,6 +9103,182 @@ AutoIt:
     [propget] $ocv._InputOutputArray
 ```
 
+### cv.Matx12f
+
+```cpp
+static cv::Matx12f
+AutoIt:
+    [propget] $ocv.Matx12f
+```
+
+### cv.Matx12d
+
+```cpp
+static cv::Matx12d
+AutoIt:
+    [propget] $ocv.Matx12d
+```
+
+### cv.Matx13f
+
+```cpp
+static cv::Matx13f
+AutoIt:
+    [propget] $ocv.Matx13f
+```
+
+### cv.Matx13d
+
+```cpp
+static cv::Matx13d
+AutoIt:
+    [propget] $ocv.Matx13d
+```
+
+### cv.Matx14f
+
+```cpp
+static cv::Matx14f
+AutoIt:
+    [propget] $ocv.Matx14f
+```
+
+### cv.Matx14d
+
+```cpp
+static cv::Matx14d
+AutoIt:
+    [propget] $ocv.Matx14d
+```
+
+### cv.Matx16f
+
+```cpp
+static cv::Matx16f
+AutoIt:
+    [propget] $ocv.Matx16f
+```
+
+### cv.Matx16d
+
+```cpp
+static cv::Matx16d
+AutoIt:
+    [propget] $ocv.Matx16d
+```
+
+### cv.Matx21f
+
+```cpp
+static cv::Matx21f
+AutoIt:
+    [propget] $ocv.Matx21f
+```
+
+### cv.Matx21d
+
+```cpp
+static cv::Matx21d
+AutoIt:
+    [propget] $ocv.Matx21d
+```
+
+### cv.Matx31f
+
+```cpp
+static cv::Matx31f
+AutoIt:
+    [propget] $ocv.Matx31f
+```
+
+### cv.Matx31d
+
+```cpp
+static cv::Matx31d
+AutoIt:
+    [propget] $ocv.Matx31d
+```
+
+### cv.Matx41f
+
+```cpp
+static cv::Matx41f
+AutoIt:
+    [propget] $ocv.Matx41f
+```
+
+### cv.Matx41d
+
+```cpp
+static cv::Matx41d
+AutoIt:
+    [propget] $ocv.Matx41d
+```
+
+### cv.Matx61f
+
+```cpp
+static cv::Matx61f
+AutoIt:
+    [propget] $ocv.Matx61f
+```
+
+### cv.Matx61d
+
+```cpp
+static cv::Matx61d
+AutoIt:
+    [propget] $ocv.Matx61d
+```
+
+### cv.Matx22f
+
+```cpp
+static cv::Matx22f
+AutoIt:
+    [propget] $ocv.Matx22f
+```
+
+### cv.Matx22d
+
+```cpp
+static cv::Matx22d
+AutoIt:
+    [propget] $ocv.Matx22d
+```
+
+### cv.Matx23f
+
+```cpp
+static cv::Matx23f
+AutoIt:
+    [propget] $ocv.Matx23f
+```
+
+### cv.Matx23d
+
+```cpp
+static cv::Matx23d
+AutoIt:
+    [propget] $ocv.Matx23d
+```
+
+### cv.Matx32f
+
+```cpp
+static cv::Matx32f
+AutoIt:
+    [propget] $ocv.Matx32f
+```
+
+### cv.Matx32d
+
+```cpp
+static cv::Matx32d
+AutoIt:
+    [propget] $ocv.Matx32d
+```
+
 ### cv.Matx33f
 
 ```cpp
@@ -8561,6 +9295,38 @@ AutoIt:
     [propget] $ocv.Matx33d
 ```
 
+### cv.Matx34f
+
+```cpp
+static cv::Matx34f
+AutoIt:
+    [propget] $ocv.Matx34f
+```
+
+### cv.Matx34d
+
+```cpp
+static cv::Matx34d
+AutoIt:
+    [propget] $ocv.Matx34d
+```
+
+### cv.Matx43f
+
+```cpp
+static cv::Matx43f
+AutoIt:
+    [propget] $ocv.Matx43f
+```
+
+### cv.Matx43d
+
+```cpp
+static cv::Matx43d
+AutoIt:
+    [propget] $ocv.Matx43d
+```
+
 ### cv.Matx44f
 
 ```cpp
@@ -8575,6 +9341,22 @@ AutoIt:
 static cv::Matx44d
 AutoIt:
     [propget] $ocv.Matx44d
+```
+
+### cv.Matx66f
+
+```cpp
+static cv::Matx66f
+AutoIt:
+    [propget] $ocv.Matx66f
+```
+
+### cv.Matx66d
+
+```cpp
+static cv::Matx66d
+AutoIt:
+    [propget] $ocv.Matx66d
 ```
 
 ### cv.Range
@@ -10953,6 +11735,28 @@ AutoIt:
     _OpenCV_ObjCreate("cv").findNonZero( $src[, $idx] ) -> $idx
 ```
 
+### cv::findTemplate
+
+```cpp
+void cv::findTemplate( InputArray                                  image,
+                       InputArray                                  templ,
+                       std::vector<std::tuple<cv::Point, double>>& results,
+                       double                                      threshold = 0.95,
+                       int                                         methodMatch = cv::TM_CCOEFF_NORMED,
+                       InputArray                                  mask = noArray(),
+                       int                                         limit = 20,
+                       int                                         code = -1,
+                       float                                       overlapping = 2.0,
+                       std::vector<int>                            channels = std::vector<int>(),
+                       std::vector<int>                            histSize = std::vector<int>(),
+                       std::vector<float>                          ranges = std::vector<float>(),
+                       int                                         methodCompareHist = cv::HISTCMP_CORREL,
+                       int                                         dstCn = 0,
+                       bool                                        accumulate = false );
+AutoIt:
+    _OpenCV_ObjCreate("cv").findTemplate( $image, $templ[, $threshold[, $methodMatch[, $mask[, $limit[, $code[, $overlapping[, $channels[, $histSize[, $ranges[, $methodCompareHist[, $dstCn[, $accumulate[, $results]]]]]]]]]]]]] ) -> $results
+```
+
 ### cv::findTransformECC
 
 ```cpp
@@ -12683,13 +13487,13 @@ AutoIt:
 ### cv::searchTemplate
 
 ```cpp
-void cv::searchTemplate( InputArray              image,
-                         InputArray              templ,
-                         OutputArray             result,
-                         InputArray              mask = noArray(),
-                         const std::vector<int>& channels = std::vector<int>(),
-                         const std::vector<int>& ranges = std::vector<int>(),
-                         const bool              parallel = false );
+void cv::searchTemplate( InputArray                image,
+                         InputArray                templ,
+                         OutputArray               result,
+                         InputArray                mask = noArray(),
+                         const std::vector<int>&   channels = std::vector<int>(),
+                         const std::vector<float>& ranges = std::vector<float>(),
+                         const bool                parallel = false );
 AutoIt:
     _OpenCV_ObjCreate("cv").searchTemplate( $image, $templ[, $result[, $mask[, $channels[, $ranges[, $parallel]]]]] ) -> $result
 ```
@@ -13230,7 +14034,7 @@ AutoIt:
 ### cv::theRNG
 
 ```cpp
-static cv::Ptr<cv::RNG> cv::theRNG();
+cv::Ptr<cv::RNG> cv::theRNG();
 AutoIt:
     _OpenCV_ObjCreate("cv").theRNG() -> retval
 ```
@@ -22197,6 +23001,26 @@ AutoIt:
     $oRNG( $state ) -> <cv.RNG object>
 ```
 
+### cv::RNG::fill
+
+```cpp
+void cv::RNG::fill( InputOutputArray mat,
+                    int              distType,
+                    InputArray       a,
+                    InputArray       b,
+                    bool             saturateRange = false );
+AutoIt:
+    $oRNG.fill( $mat, $distType, $a, $b[, $saturateRange] ) -> $mat
+```
+
+### cv::RNG::gaussian
+
+```cpp
+double cv::RNG::gaussian( double sigma );
+AutoIt:
+    $oRNG.gaussian( $sigma ) -> retval
+```
+
 ### cv::RNG::next
 
 ```cpp
@@ -22212,15 +23036,6 @@ double cv::RNG::uniform( double a,
                          double b );
 AutoIt:
     $oRNG.uniform( $a, $b ) -> retval
-```
-
-### cv::RNG::uniform\_double
-
-```cpp
-double cv::RNG::uniform_double( double a,
-                                double b );
-AutoIt:
-    $oRNG.uniform_double( $a, $b ) -> retval
 ```
 
 ### cv::RNG::uniform\_float
@@ -23384,12 +24199,12 @@ AutoIt:
 
 ## cv::utils::nested::OriginalClassName
 
-### OriginalClassName.Params
+### ExportClassName.Params
 
 ```cpp
 static cv::utils::nested::OriginalClassName::Params
 AutoIt:
-    [propget] $oOriginalClassName.Params
+    [propget] $oExportClassName.Params
 ```
 
 ### cv::utils::nested::OriginalClassName::get\_create
@@ -23397,8 +24212,8 @@ AutoIt:
 ```cpp
 static cv::Ptr<cv::utils::nested::OriginalClassName> cv::utils::nested::OriginalClassName::get_create( const cv::utils::nested::OriginalClassName::Params& params = OriginalClassName::Params() );
 AutoIt:
-    _OpenCV_ObjCreate("cv.utils.nested.OriginalClassName").create( [$params] ) -> retval
-    $oOriginalClassName( [$params] ) -> retval
+    _OpenCV_ObjCreate("cv.utils.nested.ExportClassName").create( [$params] ) -> retval
+    $oExportClassName( [$params] ) -> retval
 ```
 
 ### cv::utils::nested::OriginalClassName::getFloatParam
@@ -23406,7 +24221,7 @@ AutoIt:
 ```cpp
 float cv::utils::nested::OriginalClassName::getFloatParam() const;
 AutoIt:
-    $oOriginalClassName.getFloatParam() -> retval
+    $oExportClassName.getFloatParam() -> retval
 ```
 
 ### cv::utils::nested::OriginalClassName::getIntParam
@@ -23414,7 +24229,7 @@ AutoIt:
 ```cpp
 int cv::utils::nested::OriginalClassName::getIntParam() const;
 AutoIt:
-    $oOriginalClassName.getIntParam() -> retval
+    $oExportClassName.getIntParam() -> retval
 ```
 
 ### cv::utils::nested::OriginalClassName::originalName
@@ -23422,7 +24237,7 @@ AutoIt:
 ```cpp
 static std::string cv::utils::nested::OriginalClassName::originalName();
 AutoIt:
-    _OpenCV_ObjCreate("cv.utils.nested.OriginalClassName").originalName() -> retval
+    _OpenCV_ObjCreate("cv.utils.nested.ExportClassName").originalName() -> retval
 ```
 
 ## cv::utils::nested::OriginalClassName::Params
@@ -26227,7 +27042,7 @@ AutoIt:
 ### Mat.shape
 
 ```cpp
-std::tuple<int, int, int> cv::Mat::shape
+std::vector<int> cv::Mat::shape
 AutoIt:
     [propget] $oMat.shape
 ```
@@ -26346,8 +27161,8 @@ AutoIt:
 ```
 
 ```cpp
-static cv::Mat cv::Mat::create( const cv::Mat& m,
-                                cv::Rect       roi );
+static cv::Mat cv::Mat::create( const cv::Mat&  m,
+                                const cv::Rect& roi );
 AutoIt:
     _OpenCV_ObjCreate("cv.Mat").create( $m, $roi ) -> <cv.Mat object>
 ```
@@ -29381,6 +30196,14 @@ AutoIt:
     $oMat.step1( [$i] ) -> retval
 ```
 
+### cv::Mat::sum
+
+```cpp
+cv::Scalar cv::Mat::sum();
+AutoIt:
+    $oMat.sum() -> retval
+```
+
 ### cv::Mat::t
 
 ```cpp
@@ -29575,7 +30398,7 @@ AutoIt:
 ### UMat.shape
 
 ```cpp
-std::tuple<int, int, int> cv::UMat::shape
+std::vector<int> cv::UMat::shape
 AutoIt:
     [propget] $oUMat.shape
 ```
@@ -29646,19 +30469,19 @@ AutoIt:
 ```
 
 ```cpp
-static cv::UMat cv::UMat::get_create( std::vector<int>   sizes,
-                                      int                type,
-                                      cv::UMatUsageFlags usageFlags = USAGE_DEFAULT );
+static cv::UMat cv::UMat::get_create( const std::vector<int>& sizes,
+                                      int                     type,
+                                      cv::UMatUsageFlags      usageFlags = USAGE_DEFAULT );
 AutoIt:
     _OpenCV_ObjCreate("cv.UMat").create( $sizes, $type[, $usageFlags] ) -> <cv.UMat object>
     $oUMat( $sizes, $type[, $usageFlags] ) -> <cv.UMat object>
 ```
 
 ```cpp
-static cv::UMat cv::UMat::get_create( std::vector<int>   sizes,
-                                      int                type,
-                                      const cv::Scalar&  s,
-                                      cv::UMatUsageFlags usageFlags = USAGE_DEFAULT );
+static cv::UMat cv::UMat::get_create( const std::vector<int>& sizes,
+                                      int                     type,
+                                      const cv::Scalar&       s,
+                                      cv::UMatUsageFlags      usageFlags = USAGE_DEFAULT );
 AutoIt:
     _OpenCV_ObjCreate("cv.UMat").create( $sizes, $type, $s[, $usageFlags] ) -> <cv.UMat object>
     $oUMat( $sizes, $type, $s[, $usageFlags] ) -> <cv.UMat object>
@@ -30137,9 +30960,9 @@ AutoIt:
 ```
 
 ```cpp
-static cv::UMat cv::UMat::ones( std::vector<int>   sizes,
-                                int                type,
-                                cv::UMatUsageFlags usageFlags );
+static cv::UMat cv::UMat::ones( const std::vector<int>& sizes,
+                                int                     type,
+                                cv::UMatUsageFlags      usageFlags );
 AutoIt:
     _OpenCV_ObjCreate("cv.UMat").ones( $sizes, $type, $usageFlags ) -> retval
 ```
@@ -30208,6 +31031,14 @@ AutoIt:
     $oUMat.step1( [$i] ) -> retval
 ```
 
+### cv::UMat::sum
+
+```cpp
+cv::Scalar cv::UMat::sum();
+AutoIt:
+    $oUMat.sum() -> retval
+```
+
 ### cv::UMat::t
 
 ```cpp
@@ -30272,8 +31103,8 @@ AutoIt:
 ```
 
 ```cpp
-static cv::UMat cv::UMat::zeros( std::vector<int> sizes,
-                                 int              type );
+static cv::UMat cv::UMat::zeros( const std::vector<int>& sizes,
+                                 int                     type );
 AutoIt:
     _OpenCV_ObjCreate("cv.UMat").zeros( $sizes, $type ) -> retval
 ```
@@ -30312,9 +31143,9 @@ AutoIt:
 ```
 
 ```cpp
-static cv::UMat cv::UMat::zeros( std::vector<int>   sizes,
-                                 int                type,
-                                 cv::UMatUsageFlags usageFlags );
+static cv::UMat cv::UMat::zeros( const std::vector<int>& sizes,
+                                 int                     type,
+                                 cv::UMatUsageFlags      usageFlags );
 AutoIt:
     _OpenCV_ObjCreate("cv.UMat").zeros( $sizes, $type, $usageFlags ) -> retval
 ```
@@ -32578,6 +33409,15 @@ AutoIt:
 static cv::TermCriteria cv::TermCriteria::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.TermCriteria").create() -> <cv.TermCriteria object>
+```
+
+```cpp
+static cv::TermCriteria cv::TermCriteria::get_create( int    type,
+                                                      int    maxCount,
+                                                      double epsilon );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TermCriteria").create( $type, $maxCount, $epsilon ) -> <cv.TermCriteria object>
+    $oTermCriteria( $type, $maxCount, $epsilon ) -> <cv.TermCriteria object>
 ```
 
 ### TermCriteria.COUNT\_
@@ -57053,7 +57893,7 @@ AutoIt:
 ### cv::GStreamingCompiled::pull
 
 ```cpp
-std::tuple<bool, util::variant_GRunArgs, GOptRunArgs> cv::GStreamingCompiled::pull();
+std::tuple<bool, util::variant<GRunArgs, GOptRunArgs>> cv::GStreamingCompiled::pull();
 AutoIt:
     $oGStreamingCompiled.pull() -> retval
 ```
@@ -60014,6 +60854,3398 @@ AutoIt:
     _OpenCV_ObjCreate("cv.core").cv_MAT_DEPTH( $flags ) -> retval
 ```
 
+## cv::Matx12f
+
+### Matx12f.rows
+
+```cpp
+static int cv::Matx12f::rows
+AutoIt:
+    [propget] $oMatx12f.rows
+```
+
+### Matx12f.cols
+
+```cpp
+static int cv::Matx12f::cols
+AutoIt:
+    [propget] $oMatx12f.cols
+```
+
+### Matx12f.channels
+
+```cpp
+static int cv::Matx12f::channels
+AutoIt:
+    [propget] $oMatx12f.channels
+```
+
+### Matx12f.shortdim
+
+```cpp
+static int cv::Matx12f::shortdim
+AutoIt:
+    [propget] $oMatx12f.shortdim
+```
+
+### cv::Matx12f::create
+
+```cpp
+static cv::Matx12f cv::Matx12f::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx12f").create() -> <cv.Matx12f object>
+```
+
+### cv::Matx12f::all
+
+```cpp
+static cv::Matx12f cv::Matx12f::all( float alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx12f").all( $alpha ) -> retval
+```
+
+### cv::Matx12f::ddot
+
+```cpp
+double cv::Matx12f::ddot( cv::Matx12f& v );
+AutoIt:
+    $oMatx12f.ddot( $v ) -> retval
+```
+
+### cv::Matx12f::div
+
+```cpp
+cv::Matx12f cv::Matx12f::div( cv::Matx12f& a );
+AutoIt:
+    $oMatx12f.div( $a ) -> retval
+```
+
+### cv::Matx12f::dot
+
+```cpp
+float cv::Matx12f::dot( cv::Matx12f& v );
+AutoIt:
+    $oMatx12f.dot( $v ) -> retval
+```
+
+### cv::Matx12f::eye
+
+```cpp
+static cv::Matx12f cv::Matx12f::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx12f").eye() -> retval
+```
+
+### cv::Matx12f::get\_Item
+
+```cpp
+float cv::Matx12f::get_Item( int i );
+AutoIt:
+    $oMatx12f.Item( $i ) -> retval
+    $oMatx12f( $i ) -> retval
+```
+
+```cpp
+float cv::Matx12f::get_Item( int row,
+                             int col );
+AutoIt:
+    $oMatx12f.Item( $row, $col ) -> retval
+    $oMatx12f( $row, $col ) -> retval
+```
+
+### cv::Matx12f::mul
+
+```cpp
+cv::Matx12f cv::Matx12f::mul( cv::Matx12f& a );
+AutoIt:
+    $oMatx12f.mul( $a ) -> retval
+```
+
+### cv::Matx12f::ones
+
+```cpp
+static cv::Matx12f cv::Matx12f::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx12f").ones() -> retval
+```
+
+### cv::Matx12f::put\_Item
+
+```cpp
+void cv::Matx12f::put_Item( int   i,
+                            float value );
+AutoIt:
+    $oMatx12f.Item( $i ) = $value
+```
+
+```cpp
+void cv::Matx12f::put_Item( int   row,
+                            int   col,
+                            float value );
+AutoIt:
+    $oMatx12f.Item( $row, $col ) = $value
+```
+
+### cv::Matx12f::randn
+
+```cpp
+static cv::Matx12f cv::Matx12f::randn( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx12f").randn( $a, $b ) -> retval
+```
+
+### cv::Matx12f::randu
+
+```cpp
+static cv::Matx12f cv::Matx12f::randu( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx12f").randu( $a, $b ) -> retval
+```
+
+### cv::Matx12f::zeros
+
+```cpp
+static cv::Matx12f cv::Matx12f::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx12f").zeros() -> retval
+```
+
+## cv::Matx12d
+
+### Matx12d.rows
+
+```cpp
+static int cv::Matx12d::rows
+AutoIt:
+    [propget] $oMatx12d.rows
+```
+
+### Matx12d.cols
+
+```cpp
+static int cv::Matx12d::cols
+AutoIt:
+    [propget] $oMatx12d.cols
+```
+
+### Matx12d.channels
+
+```cpp
+static int cv::Matx12d::channels
+AutoIt:
+    [propget] $oMatx12d.channels
+```
+
+### Matx12d.shortdim
+
+```cpp
+static int cv::Matx12d::shortdim
+AutoIt:
+    [propget] $oMatx12d.shortdim
+```
+
+### cv::Matx12d::create
+
+```cpp
+static cv::Matx12d cv::Matx12d::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx12d").create() -> <cv.Matx12d object>
+```
+
+### cv::Matx12d::all
+
+```cpp
+static cv::Matx12d cv::Matx12d::all( double alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx12d").all( $alpha ) -> retval
+```
+
+### cv::Matx12d::ddot
+
+```cpp
+double cv::Matx12d::ddot( cv::Matx12d& v );
+AutoIt:
+    $oMatx12d.ddot( $v ) -> retval
+```
+
+### cv::Matx12d::div
+
+```cpp
+cv::Matx12d cv::Matx12d::div( cv::Matx12d& a );
+AutoIt:
+    $oMatx12d.div( $a ) -> retval
+```
+
+### cv::Matx12d::dot
+
+```cpp
+double cv::Matx12d::dot( cv::Matx12d& v );
+AutoIt:
+    $oMatx12d.dot( $v ) -> retval
+```
+
+### cv::Matx12d::eye
+
+```cpp
+static cv::Matx12d cv::Matx12d::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx12d").eye() -> retval
+```
+
+### cv::Matx12d::get\_Item
+
+```cpp
+double cv::Matx12d::get_Item( int i );
+AutoIt:
+    $oMatx12d.Item( $i ) -> retval
+    $oMatx12d( $i ) -> retval
+```
+
+```cpp
+double cv::Matx12d::get_Item( int row,
+                              int col );
+AutoIt:
+    $oMatx12d.Item( $row, $col ) -> retval
+    $oMatx12d( $row, $col ) -> retval
+```
+
+### cv::Matx12d::mul
+
+```cpp
+cv::Matx12d cv::Matx12d::mul( cv::Matx12d& a );
+AutoIt:
+    $oMatx12d.mul( $a ) -> retval
+```
+
+### cv::Matx12d::ones
+
+```cpp
+static cv::Matx12d cv::Matx12d::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx12d").ones() -> retval
+```
+
+### cv::Matx12d::put\_Item
+
+```cpp
+void cv::Matx12d::put_Item( int    i,
+                            double value );
+AutoIt:
+    $oMatx12d.Item( $i ) = $value
+```
+
+```cpp
+void cv::Matx12d::put_Item( int    row,
+                            int    col,
+                            double value );
+AutoIt:
+    $oMatx12d.Item( $row, $col ) = $value
+```
+
+### cv::Matx12d::randn
+
+```cpp
+static cv::Matx12d cv::Matx12d::randn( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx12d").randn( $a, $b ) -> retval
+```
+
+### cv::Matx12d::randu
+
+```cpp
+static cv::Matx12d cv::Matx12d::randu( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx12d").randu( $a, $b ) -> retval
+```
+
+### cv::Matx12d::zeros
+
+```cpp
+static cv::Matx12d cv::Matx12d::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx12d").zeros() -> retval
+```
+
+## cv::Matx13f
+
+### Matx13f.rows
+
+```cpp
+static int cv::Matx13f::rows
+AutoIt:
+    [propget] $oMatx13f.rows
+```
+
+### Matx13f.cols
+
+```cpp
+static int cv::Matx13f::cols
+AutoIt:
+    [propget] $oMatx13f.cols
+```
+
+### Matx13f.channels
+
+```cpp
+static int cv::Matx13f::channels
+AutoIt:
+    [propget] $oMatx13f.channels
+```
+
+### Matx13f.shortdim
+
+```cpp
+static int cv::Matx13f::shortdim
+AutoIt:
+    [propget] $oMatx13f.shortdim
+```
+
+### cv::Matx13f::create
+
+```cpp
+static cv::Matx13f cv::Matx13f::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx13f").create() -> <cv.Matx13f object>
+```
+
+### cv::Matx13f::all
+
+```cpp
+static cv::Matx13f cv::Matx13f::all( float alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx13f").all( $alpha ) -> retval
+```
+
+### cv::Matx13f::ddot
+
+```cpp
+double cv::Matx13f::ddot( cv::Matx13f& v );
+AutoIt:
+    $oMatx13f.ddot( $v ) -> retval
+```
+
+### cv::Matx13f::div
+
+```cpp
+cv::Matx13f cv::Matx13f::div( cv::Matx13f& a );
+AutoIt:
+    $oMatx13f.div( $a ) -> retval
+```
+
+### cv::Matx13f::dot
+
+```cpp
+float cv::Matx13f::dot( cv::Matx13f& v );
+AutoIt:
+    $oMatx13f.dot( $v ) -> retval
+```
+
+### cv::Matx13f::eye
+
+```cpp
+static cv::Matx13f cv::Matx13f::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx13f").eye() -> retval
+```
+
+### cv::Matx13f::get\_Item
+
+```cpp
+float cv::Matx13f::get_Item( int i );
+AutoIt:
+    $oMatx13f.Item( $i ) -> retval
+    $oMatx13f( $i ) -> retval
+```
+
+```cpp
+float cv::Matx13f::get_Item( int row,
+                             int col );
+AutoIt:
+    $oMatx13f.Item( $row, $col ) -> retval
+    $oMatx13f( $row, $col ) -> retval
+```
+
+### cv::Matx13f::mul
+
+```cpp
+cv::Matx13f cv::Matx13f::mul( cv::Matx13f& a );
+AutoIt:
+    $oMatx13f.mul( $a ) -> retval
+```
+
+### cv::Matx13f::ones
+
+```cpp
+static cv::Matx13f cv::Matx13f::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx13f").ones() -> retval
+```
+
+### cv::Matx13f::put\_Item
+
+```cpp
+void cv::Matx13f::put_Item( int   i,
+                            float value );
+AutoIt:
+    $oMatx13f.Item( $i ) = $value
+```
+
+```cpp
+void cv::Matx13f::put_Item( int   row,
+                            int   col,
+                            float value );
+AutoIt:
+    $oMatx13f.Item( $row, $col ) = $value
+```
+
+### cv::Matx13f::randn
+
+```cpp
+static cv::Matx13f cv::Matx13f::randn( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx13f").randn( $a, $b ) -> retval
+```
+
+### cv::Matx13f::randu
+
+```cpp
+static cv::Matx13f cv::Matx13f::randu( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx13f").randu( $a, $b ) -> retval
+```
+
+### cv::Matx13f::zeros
+
+```cpp
+static cv::Matx13f cv::Matx13f::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx13f").zeros() -> retval
+```
+
+## cv::Matx13d
+
+### Matx13d.rows
+
+```cpp
+static int cv::Matx13d::rows
+AutoIt:
+    [propget] $oMatx13d.rows
+```
+
+### Matx13d.cols
+
+```cpp
+static int cv::Matx13d::cols
+AutoIt:
+    [propget] $oMatx13d.cols
+```
+
+### Matx13d.channels
+
+```cpp
+static int cv::Matx13d::channels
+AutoIt:
+    [propget] $oMatx13d.channels
+```
+
+### Matx13d.shortdim
+
+```cpp
+static int cv::Matx13d::shortdim
+AutoIt:
+    [propget] $oMatx13d.shortdim
+```
+
+### cv::Matx13d::create
+
+```cpp
+static cv::Matx13d cv::Matx13d::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx13d").create() -> <cv.Matx13d object>
+```
+
+### cv::Matx13d::all
+
+```cpp
+static cv::Matx13d cv::Matx13d::all( double alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx13d").all( $alpha ) -> retval
+```
+
+### cv::Matx13d::ddot
+
+```cpp
+double cv::Matx13d::ddot( cv::Matx13d& v );
+AutoIt:
+    $oMatx13d.ddot( $v ) -> retval
+```
+
+### cv::Matx13d::div
+
+```cpp
+cv::Matx13d cv::Matx13d::div( cv::Matx13d& a );
+AutoIt:
+    $oMatx13d.div( $a ) -> retval
+```
+
+### cv::Matx13d::dot
+
+```cpp
+double cv::Matx13d::dot( cv::Matx13d& v );
+AutoIt:
+    $oMatx13d.dot( $v ) -> retval
+```
+
+### cv::Matx13d::eye
+
+```cpp
+static cv::Matx13d cv::Matx13d::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx13d").eye() -> retval
+```
+
+### cv::Matx13d::get\_Item
+
+```cpp
+double cv::Matx13d::get_Item( int i );
+AutoIt:
+    $oMatx13d.Item( $i ) -> retval
+    $oMatx13d( $i ) -> retval
+```
+
+```cpp
+double cv::Matx13d::get_Item( int row,
+                              int col );
+AutoIt:
+    $oMatx13d.Item( $row, $col ) -> retval
+    $oMatx13d( $row, $col ) -> retval
+```
+
+### cv::Matx13d::mul
+
+```cpp
+cv::Matx13d cv::Matx13d::mul( cv::Matx13d& a );
+AutoIt:
+    $oMatx13d.mul( $a ) -> retval
+```
+
+### cv::Matx13d::ones
+
+```cpp
+static cv::Matx13d cv::Matx13d::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx13d").ones() -> retval
+```
+
+### cv::Matx13d::put\_Item
+
+```cpp
+void cv::Matx13d::put_Item( int    i,
+                            double value );
+AutoIt:
+    $oMatx13d.Item( $i ) = $value
+```
+
+```cpp
+void cv::Matx13d::put_Item( int    row,
+                            int    col,
+                            double value );
+AutoIt:
+    $oMatx13d.Item( $row, $col ) = $value
+```
+
+### cv::Matx13d::randn
+
+```cpp
+static cv::Matx13d cv::Matx13d::randn( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx13d").randn( $a, $b ) -> retval
+```
+
+### cv::Matx13d::randu
+
+```cpp
+static cv::Matx13d cv::Matx13d::randu( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx13d").randu( $a, $b ) -> retval
+```
+
+### cv::Matx13d::zeros
+
+```cpp
+static cv::Matx13d cv::Matx13d::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx13d").zeros() -> retval
+```
+
+## cv::Matx14f
+
+### Matx14f.rows
+
+```cpp
+static int cv::Matx14f::rows
+AutoIt:
+    [propget] $oMatx14f.rows
+```
+
+### Matx14f.cols
+
+```cpp
+static int cv::Matx14f::cols
+AutoIt:
+    [propget] $oMatx14f.cols
+```
+
+### Matx14f.channels
+
+```cpp
+static int cv::Matx14f::channels
+AutoIt:
+    [propget] $oMatx14f.channels
+```
+
+### Matx14f.shortdim
+
+```cpp
+static int cv::Matx14f::shortdim
+AutoIt:
+    [propget] $oMatx14f.shortdim
+```
+
+### cv::Matx14f::create
+
+```cpp
+static cv::Matx14f cv::Matx14f::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx14f").create() -> <cv.Matx14f object>
+```
+
+### cv::Matx14f::all
+
+```cpp
+static cv::Matx14f cv::Matx14f::all( float alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx14f").all( $alpha ) -> retval
+```
+
+### cv::Matx14f::ddot
+
+```cpp
+double cv::Matx14f::ddot( cv::Matx14f& v );
+AutoIt:
+    $oMatx14f.ddot( $v ) -> retval
+```
+
+### cv::Matx14f::div
+
+```cpp
+cv::Matx14f cv::Matx14f::div( cv::Matx14f& a );
+AutoIt:
+    $oMatx14f.div( $a ) -> retval
+```
+
+### cv::Matx14f::dot
+
+```cpp
+float cv::Matx14f::dot( cv::Matx14f& v );
+AutoIt:
+    $oMatx14f.dot( $v ) -> retval
+```
+
+### cv::Matx14f::eye
+
+```cpp
+static cv::Matx14f cv::Matx14f::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx14f").eye() -> retval
+```
+
+### cv::Matx14f::get\_Item
+
+```cpp
+float cv::Matx14f::get_Item( int i );
+AutoIt:
+    $oMatx14f.Item( $i ) -> retval
+    $oMatx14f( $i ) -> retval
+```
+
+```cpp
+float cv::Matx14f::get_Item( int row,
+                             int col );
+AutoIt:
+    $oMatx14f.Item( $row, $col ) -> retval
+    $oMatx14f( $row, $col ) -> retval
+```
+
+### cv::Matx14f::mul
+
+```cpp
+cv::Matx14f cv::Matx14f::mul( cv::Matx14f& a );
+AutoIt:
+    $oMatx14f.mul( $a ) -> retval
+```
+
+### cv::Matx14f::ones
+
+```cpp
+static cv::Matx14f cv::Matx14f::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx14f").ones() -> retval
+```
+
+### cv::Matx14f::put\_Item
+
+```cpp
+void cv::Matx14f::put_Item( int   i,
+                            float value );
+AutoIt:
+    $oMatx14f.Item( $i ) = $value
+```
+
+```cpp
+void cv::Matx14f::put_Item( int   row,
+                            int   col,
+                            float value );
+AutoIt:
+    $oMatx14f.Item( $row, $col ) = $value
+```
+
+### cv::Matx14f::randn
+
+```cpp
+static cv::Matx14f cv::Matx14f::randn( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx14f").randn( $a, $b ) -> retval
+```
+
+### cv::Matx14f::randu
+
+```cpp
+static cv::Matx14f cv::Matx14f::randu( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx14f").randu( $a, $b ) -> retval
+```
+
+### cv::Matx14f::zeros
+
+```cpp
+static cv::Matx14f cv::Matx14f::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx14f").zeros() -> retval
+```
+
+## cv::Matx14d
+
+### Matx14d.rows
+
+```cpp
+static int cv::Matx14d::rows
+AutoIt:
+    [propget] $oMatx14d.rows
+```
+
+### Matx14d.cols
+
+```cpp
+static int cv::Matx14d::cols
+AutoIt:
+    [propget] $oMatx14d.cols
+```
+
+### Matx14d.channels
+
+```cpp
+static int cv::Matx14d::channels
+AutoIt:
+    [propget] $oMatx14d.channels
+```
+
+### Matx14d.shortdim
+
+```cpp
+static int cv::Matx14d::shortdim
+AutoIt:
+    [propget] $oMatx14d.shortdim
+```
+
+### cv::Matx14d::create
+
+```cpp
+static cv::Matx14d cv::Matx14d::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx14d").create() -> <cv.Matx14d object>
+```
+
+### cv::Matx14d::all
+
+```cpp
+static cv::Matx14d cv::Matx14d::all( double alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx14d").all( $alpha ) -> retval
+```
+
+### cv::Matx14d::ddot
+
+```cpp
+double cv::Matx14d::ddot( cv::Matx14d& v );
+AutoIt:
+    $oMatx14d.ddot( $v ) -> retval
+```
+
+### cv::Matx14d::div
+
+```cpp
+cv::Matx14d cv::Matx14d::div( cv::Matx14d& a );
+AutoIt:
+    $oMatx14d.div( $a ) -> retval
+```
+
+### cv::Matx14d::dot
+
+```cpp
+double cv::Matx14d::dot( cv::Matx14d& v );
+AutoIt:
+    $oMatx14d.dot( $v ) -> retval
+```
+
+### cv::Matx14d::eye
+
+```cpp
+static cv::Matx14d cv::Matx14d::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx14d").eye() -> retval
+```
+
+### cv::Matx14d::get\_Item
+
+```cpp
+double cv::Matx14d::get_Item( int i );
+AutoIt:
+    $oMatx14d.Item( $i ) -> retval
+    $oMatx14d( $i ) -> retval
+```
+
+```cpp
+double cv::Matx14d::get_Item( int row,
+                              int col );
+AutoIt:
+    $oMatx14d.Item( $row, $col ) -> retval
+    $oMatx14d( $row, $col ) -> retval
+```
+
+### cv::Matx14d::mul
+
+```cpp
+cv::Matx14d cv::Matx14d::mul( cv::Matx14d& a );
+AutoIt:
+    $oMatx14d.mul( $a ) -> retval
+```
+
+### cv::Matx14d::ones
+
+```cpp
+static cv::Matx14d cv::Matx14d::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx14d").ones() -> retval
+```
+
+### cv::Matx14d::put\_Item
+
+```cpp
+void cv::Matx14d::put_Item( int    i,
+                            double value );
+AutoIt:
+    $oMatx14d.Item( $i ) = $value
+```
+
+```cpp
+void cv::Matx14d::put_Item( int    row,
+                            int    col,
+                            double value );
+AutoIt:
+    $oMatx14d.Item( $row, $col ) = $value
+```
+
+### cv::Matx14d::randn
+
+```cpp
+static cv::Matx14d cv::Matx14d::randn( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx14d").randn( $a, $b ) -> retval
+```
+
+### cv::Matx14d::randu
+
+```cpp
+static cv::Matx14d cv::Matx14d::randu( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx14d").randu( $a, $b ) -> retval
+```
+
+### cv::Matx14d::zeros
+
+```cpp
+static cv::Matx14d cv::Matx14d::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx14d").zeros() -> retval
+```
+
+## cv::Matx16f
+
+### Matx16f.rows
+
+```cpp
+static int cv::Matx16f::rows
+AutoIt:
+    [propget] $oMatx16f.rows
+```
+
+### Matx16f.cols
+
+```cpp
+static int cv::Matx16f::cols
+AutoIt:
+    [propget] $oMatx16f.cols
+```
+
+### Matx16f.channels
+
+```cpp
+static int cv::Matx16f::channels
+AutoIt:
+    [propget] $oMatx16f.channels
+```
+
+### Matx16f.shortdim
+
+```cpp
+static int cv::Matx16f::shortdim
+AutoIt:
+    [propget] $oMatx16f.shortdim
+```
+
+### cv::Matx16f::create
+
+```cpp
+static cv::Matx16f cv::Matx16f::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx16f").create() -> <cv.Matx16f object>
+```
+
+### cv::Matx16f::all
+
+```cpp
+static cv::Matx16f cv::Matx16f::all( float alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx16f").all( $alpha ) -> retval
+```
+
+### cv::Matx16f::ddot
+
+```cpp
+double cv::Matx16f::ddot( cv::Matx16f& v );
+AutoIt:
+    $oMatx16f.ddot( $v ) -> retval
+```
+
+### cv::Matx16f::div
+
+```cpp
+cv::Matx16f cv::Matx16f::div( cv::Matx16f& a );
+AutoIt:
+    $oMatx16f.div( $a ) -> retval
+```
+
+### cv::Matx16f::dot
+
+```cpp
+float cv::Matx16f::dot( cv::Matx16f& v );
+AutoIt:
+    $oMatx16f.dot( $v ) -> retval
+```
+
+### cv::Matx16f::eye
+
+```cpp
+static cv::Matx16f cv::Matx16f::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx16f").eye() -> retval
+```
+
+### cv::Matx16f::get\_Item
+
+```cpp
+float cv::Matx16f::get_Item( int i );
+AutoIt:
+    $oMatx16f.Item( $i ) -> retval
+    $oMatx16f( $i ) -> retval
+```
+
+```cpp
+float cv::Matx16f::get_Item( int row,
+                             int col );
+AutoIt:
+    $oMatx16f.Item( $row, $col ) -> retval
+    $oMatx16f( $row, $col ) -> retval
+```
+
+### cv::Matx16f::mul
+
+```cpp
+cv::Matx16f cv::Matx16f::mul( cv::Matx16f& a );
+AutoIt:
+    $oMatx16f.mul( $a ) -> retval
+```
+
+### cv::Matx16f::ones
+
+```cpp
+static cv::Matx16f cv::Matx16f::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx16f").ones() -> retval
+```
+
+### cv::Matx16f::put\_Item
+
+```cpp
+void cv::Matx16f::put_Item( int   i,
+                            float value );
+AutoIt:
+    $oMatx16f.Item( $i ) = $value
+```
+
+```cpp
+void cv::Matx16f::put_Item( int   row,
+                            int   col,
+                            float value );
+AutoIt:
+    $oMatx16f.Item( $row, $col ) = $value
+```
+
+### cv::Matx16f::randn
+
+```cpp
+static cv::Matx16f cv::Matx16f::randn( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx16f").randn( $a, $b ) -> retval
+```
+
+### cv::Matx16f::randu
+
+```cpp
+static cv::Matx16f cv::Matx16f::randu( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx16f").randu( $a, $b ) -> retval
+```
+
+### cv::Matx16f::zeros
+
+```cpp
+static cv::Matx16f cv::Matx16f::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx16f").zeros() -> retval
+```
+
+## cv::Matx16d
+
+### Matx16d.rows
+
+```cpp
+static int cv::Matx16d::rows
+AutoIt:
+    [propget] $oMatx16d.rows
+```
+
+### Matx16d.cols
+
+```cpp
+static int cv::Matx16d::cols
+AutoIt:
+    [propget] $oMatx16d.cols
+```
+
+### Matx16d.channels
+
+```cpp
+static int cv::Matx16d::channels
+AutoIt:
+    [propget] $oMatx16d.channels
+```
+
+### Matx16d.shortdim
+
+```cpp
+static int cv::Matx16d::shortdim
+AutoIt:
+    [propget] $oMatx16d.shortdim
+```
+
+### cv::Matx16d::create
+
+```cpp
+static cv::Matx16d cv::Matx16d::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx16d").create() -> <cv.Matx16d object>
+```
+
+### cv::Matx16d::all
+
+```cpp
+static cv::Matx16d cv::Matx16d::all( double alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx16d").all( $alpha ) -> retval
+```
+
+### cv::Matx16d::ddot
+
+```cpp
+double cv::Matx16d::ddot( cv::Matx16d& v );
+AutoIt:
+    $oMatx16d.ddot( $v ) -> retval
+```
+
+### cv::Matx16d::div
+
+```cpp
+cv::Matx16d cv::Matx16d::div( cv::Matx16d& a );
+AutoIt:
+    $oMatx16d.div( $a ) -> retval
+```
+
+### cv::Matx16d::dot
+
+```cpp
+double cv::Matx16d::dot( cv::Matx16d& v );
+AutoIt:
+    $oMatx16d.dot( $v ) -> retval
+```
+
+### cv::Matx16d::eye
+
+```cpp
+static cv::Matx16d cv::Matx16d::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx16d").eye() -> retval
+```
+
+### cv::Matx16d::get\_Item
+
+```cpp
+double cv::Matx16d::get_Item( int i );
+AutoIt:
+    $oMatx16d.Item( $i ) -> retval
+    $oMatx16d( $i ) -> retval
+```
+
+```cpp
+double cv::Matx16d::get_Item( int row,
+                              int col );
+AutoIt:
+    $oMatx16d.Item( $row, $col ) -> retval
+    $oMatx16d( $row, $col ) -> retval
+```
+
+### cv::Matx16d::mul
+
+```cpp
+cv::Matx16d cv::Matx16d::mul( cv::Matx16d& a );
+AutoIt:
+    $oMatx16d.mul( $a ) -> retval
+```
+
+### cv::Matx16d::ones
+
+```cpp
+static cv::Matx16d cv::Matx16d::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx16d").ones() -> retval
+```
+
+### cv::Matx16d::put\_Item
+
+```cpp
+void cv::Matx16d::put_Item( int    i,
+                            double value );
+AutoIt:
+    $oMatx16d.Item( $i ) = $value
+```
+
+```cpp
+void cv::Matx16d::put_Item( int    row,
+                            int    col,
+                            double value );
+AutoIt:
+    $oMatx16d.Item( $row, $col ) = $value
+```
+
+### cv::Matx16d::randn
+
+```cpp
+static cv::Matx16d cv::Matx16d::randn( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx16d").randn( $a, $b ) -> retval
+```
+
+### cv::Matx16d::randu
+
+```cpp
+static cv::Matx16d cv::Matx16d::randu( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx16d").randu( $a, $b ) -> retval
+```
+
+### cv::Matx16d::zeros
+
+```cpp
+static cv::Matx16d cv::Matx16d::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx16d").zeros() -> retval
+```
+
+## cv::Matx21f
+
+### Matx21f.rows
+
+```cpp
+static int cv::Matx21f::rows
+AutoIt:
+    [propget] $oMatx21f.rows
+```
+
+### Matx21f.cols
+
+```cpp
+static int cv::Matx21f::cols
+AutoIt:
+    [propget] $oMatx21f.cols
+```
+
+### Matx21f.channels
+
+```cpp
+static int cv::Matx21f::channels
+AutoIt:
+    [propget] $oMatx21f.channels
+```
+
+### Matx21f.shortdim
+
+```cpp
+static int cv::Matx21f::shortdim
+AutoIt:
+    [propget] $oMatx21f.shortdim
+```
+
+### cv::Matx21f::create
+
+```cpp
+static cv::Matx21f cv::Matx21f::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx21f").create() -> <cv.Matx21f object>
+```
+
+### cv::Matx21f::all
+
+```cpp
+static cv::Matx21f cv::Matx21f::all( float alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx21f").all( $alpha ) -> retval
+```
+
+### cv::Matx21f::ddot
+
+```cpp
+double cv::Matx21f::ddot( cv::Matx21f& v );
+AutoIt:
+    $oMatx21f.ddot( $v ) -> retval
+```
+
+### cv::Matx21f::div
+
+```cpp
+cv::Matx21f cv::Matx21f::div( cv::Matx21f& a );
+AutoIt:
+    $oMatx21f.div( $a ) -> retval
+```
+
+### cv::Matx21f::dot
+
+```cpp
+float cv::Matx21f::dot( cv::Matx21f& v );
+AutoIt:
+    $oMatx21f.dot( $v ) -> retval
+```
+
+### cv::Matx21f::eye
+
+```cpp
+static cv::Matx21f cv::Matx21f::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx21f").eye() -> retval
+```
+
+### cv::Matx21f::get\_Item
+
+```cpp
+float cv::Matx21f::get_Item( int i );
+AutoIt:
+    $oMatx21f.Item( $i ) -> retval
+    $oMatx21f( $i ) -> retval
+```
+
+```cpp
+float cv::Matx21f::get_Item( int row,
+                             int col );
+AutoIt:
+    $oMatx21f.Item( $row, $col ) -> retval
+    $oMatx21f( $row, $col ) -> retval
+```
+
+### cv::Matx21f::mul
+
+```cpp
+cv::Matx21f cv::Matx21f::mul( cv::Matx21f& a );
+AutoIt:
+    $oMatx21f.mul( $a ) -> retval
+```
+
+### cv::Matx21f::ones
+
+```cpp
+static cv::Matx21f cv::Matx21f::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx21f").ones() -> retval
+```
+
+### cv::Matx21f::put\_Item
+
+```cpp
+void cv::Matx21f::put_Item( int   i,
+                            float value );
+AutoIt:
+    $oMatx21f.Item( $i ) = $value
+```
+
+```cpp
+void cv::Matx21f::put_Item( int   row,
+                            int   col,
+                            float value );
+AutoIt:
+    $oMatx21f.Item( $row, $col ) = $value
+```
+
+### cv::Matx21f::randn
+
+```cpp
+static cv::Matx21f cv::Matx21f::randn( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx21f").randn( $a, $b ) -> retval
+```
+
+### cv::Matx21f::randu
+
+```cpp
+static cv::Matx21f cv::Matx21f::randu( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx21f").randu( $a, $b ) -> retval
+```
+
+### cv::Matx21f::zeros
+
+```cpp
+static cv::Matx21f cv::Matx21f::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx21f").zeros() -> retval
+```
+
+## cv::Matx21d
+
+### Matx21d.rows
+
+```cpp
+static int cv::Matx21d::rows
+AutoIt:
+    [propget] $oMatx21d.rows
+```
+
+### Matx21d.cols
+
+```cpp
+static int cv::Matx21d::cols
+AutoIt:
+    [propget] $oMatx21d.cols
+```
+
+### Matx21d.channels
+
+```cpp
+static int cv::Matx21d::channels
+AutoIt:
+    [propget] $oMatx21d.channels
+```
+
+### Matx21d.shortdim
+
+```cpp
+static int cv::Matx21d::shortdim
+AutoIt:
+    [propget] $oMatx21d.shortdim
+```
+
+### cv::Matx21d::create
+
+```cpp
+static cv::Matx21d cv::Matx21d::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx21d").create() -> <cv.Matx21d object>
+```
+
+### cv::Matx21d::all
+
+```cpp
+static cv::Matx21d cv::Matx21d::all( double alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx21d").all( $alpha ) -> retval
+```
+
+### cv::Matx21d::ddot
+
+```cpp
+double cv::Matx21d::ddot( cv::Matx21d& v );
+AutoIt:
+    $oMatx21d.ddot( $v ) -> retval
+```
+
+### cv::Matx21d::div
+
+```cpp
+cv::Matx21d cv::Matx21d::div( cv::Matx21d& a );
+AutoIt:
+    $oMatx21d.div( $a ) -> retval
+```
+
+### cv::Matx21d::dot
+
+```cpp
+double cv::Matx21d::dot( cv::Matx21d& v );
+AutoIt:
+    $oMatx21d.dot( $v ) -> retval
+```
+
+### cv::Matx21d::eye
+
+```cpp
+static cv::Matx21d cv::Matx21d::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx21d").eye() -> retval
+```
+
+### cv::Matx21d::get\_Item
+
+```cpp
+double cv::Matx21d::get_Item( int i );
+AutoIt:
+    $oMatx21d.Item( $i ) -> retval
+    $oMatx21d( $i ) -> retval
+```
+
+```cpp
+double cv::Matx21d::get_Item( int row,
+                              int col );
+AutoIt:
+    $oMatx21d.Item( $row, $col ) -> retval
+    $oMatx21d( $row, $col ) -> retval
+```
+
+### cv::Matx21d::mul
+
+```cpp
+cv::Matx21d cv::Matx21d::mul( cv::Matx21d& a );
+AutoIt:
+    $oMatx21d.mul( $a ) -> retval
+```
+
+### cv::Matx21d::ones
+
+```cpp
+static cv::Matx21d cv::Matx21d::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx21d").ones() -> retval
+```
+
+### cv::Matx21d::put\_Item
+
+```cpp
+void cv::Matx21d::put_Item( int    i,
+                            double value );
+AutoIt:
+    $oMatx21d.Item( $i ) = $value
+```
+
+```cpp
+void cv::Matx21d::put_Item( int    row,
+                            int    col,
+                            double value );
+AutoIt:
+    $oMatx21d.Item( $row, $col ) = $value
+```
+
+### cv::Matx21d::randn
+
+```cpp
+static cv::Matx21d cv::Matx21d::randn( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx21d").randn( $a, $b ) -> retval
+```
+
+### cv::Matx21d::randu
+
+```cpp
+static cv::Matx21d cv::Matx21d::randu( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx21d").randu( $a, $b ) -> retval
+```
+
+### cv::Matx21d::zeros
+
+```cpp
+static cv::Matx21d cv::Matx21d::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx21d").zeros() -> retval
+```
+
+## cv::Matx31f
+
+### Matx31f.rows
+
+```cpp
+static int cv::Matx31f::rows
+AutoIt:
+    [propget] $oMatx31f.rows
+```
+
+### Matx31f.cols
+
+```cpp
+static int cv::Matx31f::cols
+AutoIt:
+    [propget] $oMatx31f.cols
+```
+
+### Matx31f.channels
+
+```cpp
+static int cv::Matx31f::channels
+AutoIt:
+    [propget] $oMatx31f.channels
+```
+
+### Matx31f.shortdim
+
+```cpp
+static int cv::Matx31f::shortdim
+AutoIt:
+    [propget] $oMatx31f.shortdim
+```
+
+### cv::Matx31f::create
+
+```cpp
+static cv::Matx31f cv::Matx31f::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx31f").create() -> <cv.Matx31f object>
+```
+
+### cv::Matx31f::all
+
+```cpp
+static cv::Matx31f cv::Matx31f::all( float alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx31f").all( $alpha ) -> retval
+```
+
+### cv::Matx31f::ddot
+
+```cpp
+double cv::Matx31f::ddot( cv::Matx31f& v );
+AutoIt:
+    $oMatx31f.ddot( $v ) -> retval
+```
+
+### cv::Matx31f::div
+
+```cpp
+cv::Matx31f cv::Matx31f::div( cv::Matx31f& a );
+AutoIt:
+    $oMatx31f.div( $a ) -> retval
+```
+
+### cv::Matx31f::dot
+
+```cpp
+float cv::Matx31f::dot( cv::Matx31f& v );
+AutoIt:
+    $oMatx31f.dot( $v ) -> retval
+```
+
+### cv::Matx31f::eye
+
+```cpp
+static cv::Matx31f cv::Matx31f::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx31f").eye() -> retval
+```
+
+### cv::Matx31f::get\_Item
+
+```cpp
+float cv::Matx31f::get_Item( int i );
+AutoIt:
+    $oMatx31f.Item( $i ) -> retval
+    $oMatx31f( $i ) -> retval
+```
+
+```cpp
+float cv::Matx31f::get_Item( int row,
+                             int col );
+AutoIt:
+    $oMatx31f.Item( $row, $col ) -> retval
+    $oMatx31f( $row, $col ) -> retval
+```
+
+### cv::Matx31f::mul
+
+```cpp
+cv::Matx31f cv::Matx31f::mul( cv::Matx31f& a );
+AutoIt:
+    $oMatx31f.mul( $a ) -> retval
+```
+
+### cv::Matx31f::ones
+
+```cpp
+static cv::Matx31f cv::Matx31f::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx31f").ones() -> retval
+```
+
+### cv::Matx31f::put\_Item
+
+```cpp
+void cv::Matx31f::put_Item( int   i,
+                            float value );
+AutoIt:
+    $oMatx31f.Item( $i ) = $value
+```
+
+```cpp
+void cv::Matx31f::put_Item( int   row,
+                            int   col,
+                            float value );
+AutoIt:
+    $oMatx31f.Item( $row, $col ) = $value
+```
+
+### cv::Matx31f::randn
+
+```cpp
+static cv::Matx31f cv::Matx31f::randn( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx31f").randn( $a, $b ) -> retval
+```
+
+### cv::Matx31f::randu
+
+```cpp
+static cv::Matx31f cv::Matx31f::randu( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx31f").randu( $a, $b ) -> retval
+```
+
+### cv::Matx31f::zeros
+
+```cpp
+static cv::Matx31f cv::Matx31f::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx31f").zeros() -> retval
+```
+
+## cv::Matx31d
+
+### Matx31d.rows
+
+```cpp
+static int cv::Matx31d::rows
+AutoIt:
+    [propget] $oMatx31d.rows
+```
+
+### Matx31d.cols
+
+```cpp
+static int cv::Matx31d::cols
+AutoIt:
+    [propget] $oMatx31d.cols
+```
+
+### Matx31d.channels
+
+```cpp
+static int cv::Matx31d::channels
+AutoIt:
+    [propget] $oMatx31d.channels
+```
+
+### Matx31d.shortdim
+
+```cpp
+static int cv::Matx31d::shortdim
+AutoIt:
+    [propget] $oMatx31d.shortdim
+```
+
+### cv::Matx31d::create
+
+```cpp
+static cv::Matx31d cv::Matx31d::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx31d").create() -> <cv.Matx31d object>
+```
+
+### cv::Matx31d::all
+
+```cpp
+static cv::Matx31d cv::Matx31d::all( double alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx31d").all( $alpha ) -> retval
+```
+
+### cv::Matx31d::ddot
+
+```cpp
+double cv::Matx31d::ddot( cv::Matx31d& v );
+AutoIt:
+    $oMatx31d.ddot( $v ) -> retval
+```
+
+### cv::Matx31d::div
+
+```cpp
+cv::Matx31d cv::Matx31d::div( cv::Matx31d& a );
+AutoIt:
+    $oMatx31d.div( $a ) -> retval
+```
+
+### cv::Matx31d::dot
+
+```cpp
+double cv::Matx31d::dot( cv::Matx31d& v );
+AutoIt:
+    $oMatx31d.dot( $v ) -> retval
+```
+
+### cv::Matx31d::eye
+
+```cpp
+static cv::Matx31d cv::Matx31d::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx31d").eye() -> retval
+```
+
+### cv::Matx31d::get\_Item
+
+```cpp
+double cv::Matx31d::get_Item( int i );
+AutoIt:
+    $oMatx31d.Item( $i ) -> retval
+    $oMatx31d( $i ) -> retval
+```
+
+```cpp
+double cv::Matx31d::get_Item( int row,
+                              int col );
+AutoIt:
+    $oMatx31d.Item( $row, $col ) -> retval
+    $oMatx31d( $row, $col ) -> retval
+```
+
+### cv::Matx31d::mul
+
+```cpp
+cv::Matx31d cv::Matx31d::mul( cv::Matx31d& a );
+AutoIt:
+    $oMatx31d.mul( $a ) -> retval
+```
+
+### cv::Matx31d::ones
+
+```cpp
+static cv::Matx31d cv::Matx31d::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx31d").ones() -> retval
+```
+
+### cv::Matx31d::put\_Item
+
+```cpp
+void cv::Matx31d::put_Item( int    i,
+                            double value );
+AutoIt:
+    $oMatx31d.Item( $i ) = $value
+```
+
+```cpp
+void cv::Matx31d::put_Item( int    row,
+                            int    col,
+                            double value );
+AutoIt:
+    $oMatx31d.Item( $row, $col ) = $value
+```
+
+### cv::Matx31d::randn
+
+```cpp
+static cv::Matx31d cv::Matx31d::randn( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx31d").randn( $a, $b ) -> retval
+```
+
+### cv::Matx31d::randu
+
+```cpp
+static cv::Matx31d cv::Matx31d::randu( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx31d").randu( $a, $b ) -> retval
+```
+
+### cv::Matx31d::zeros
+
+```cpp
+static cv::Matx31d cv::Matx31d::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx31d").zeros() -> retval
+```
+
+## cv::Matx41f
+
+### Matx41f.rows
+
+```cpp
+static int cv::Matx41f::rows
+AutoIt:
+    [propget] $oMatx41f.rows
+```
+
+### Matx41f.cols
+
+```cpp
+static int cv::Matx41f::cols
+AutoIt:
+    [propget] $oMatx41f.cols
+```
+
+### Matx41f.channels
+
+```cpp
+static int cv::Matx41f::channels
+AutoIt:
+    [propget] $oMatx41f.channels
+```
+
+### Matx41f.shortdim
+
+```cpp
+static int cv::Matx41f::shortdim
+AutoIt:
+    [propget] $oMatx41f.shortdim
+```
+
+### cv::Matx41f::create
+
+```cpp
+static cv::Matx41f cv::Matx41f::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx41f").create() -> <cv.Matx41f object>
+```
+
+### cv::Matx41f::all
+
+```cpp
+static cv::Matx41f cv::Matx41f::all( float alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx41f").all( $alpha ) -> retval
+```
+
+### cv::Matx41f::ddot
+
+```cpp
+double cv::Matx41f::ddot( cv::Matx41f& v );
+AutoIt:
+    $oMatx41f.ddot( $v ) -> retval
+```
+
+### cv::Matx41f::div
+
+```cpp
+cv::Matx41f cv::Matx41f::div( cv::Matx41f& a );
+AutoIt:
+    $oMatx41f.div( $a ) -> retval
+```
+
+### cv::Matx41f::dot
+
+```cpp
+float cv::Matx41f::dot( cv::Matx41f& v );
+AutoIt:
+    $oMatx41f.dot( $v ) -> retval
+```
+
+### cv::Matx41f::eye
+
+```cpp
+static cv::Matx41f cv::Matx41f::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx41f").eye() -> retval
+```
+
+### cv::Matx41f::get\_Item
+
+```cpp
+float cv::Matx41f::get_Item( int i );
+AutoIt:
+    $oMatx41f.Item( $i ) -> retval
+    $oMatx41f( $i ) -> retval
+```
+
+```cpp
+float cv::Matx41f::get_Item( int row,
+                             int col );
+AutoIt:
+    $oMatx41f.Item( $row, $col ) -> retval
+    $oMatx41f( $row, $col ) -> retval
+```
+
+### cv::Matx41f::mul
+
+```cpp
+cv::Matx41f cv::Matx41f::mul( cv::Matx41f& a );
+AutoIt:
+    $oMatx41f.mul( $a ) -> retval
+```
+
+### cv::Matx41f::ones
+
+```cpp
+static cv::Matx41f cv::Matx41f::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx41f").ones() -> retval
+```
+
+### cv::Matx41f::put\_Item
+
+```cpp
+void cv::Matx41f::put_Item( int   i,
+                            float value );
+AutoIt:
+    $oMatx41f.Item( $i ) = $value
+```
+
+```cpp
+void cv::Matx41f::put_Item( int   row,
+                            int   col,
+                            float value );
+AutoIt:
+    $oMatx41f.Item( $row, $col ) = $value
+```
+
+### cv::Matx41f::randn
+
+```cpp
+static cv::Matx41f cv::Matx41f::randn( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx41f").randn( $a, $b ) -> retval
+```
+
+### cv::Matx41f::randu
+
+```cpp
+static cv::Matx41f cv::Matx41f::randu( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx41f").randu( $a, $b ) -> retval
+```
+
+### cv::Matx41f::zeros
+
+```cpp
+static cv::Matx41f cv::Matx41f::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx41f").zeros() -> retval
+```
+
+## cv::Matx41d
+
+### Matx41d.rows
+
+```cpp
+static int cv::Matx41d::rows
+AutoIt:
+    [propget] $oMatx41d.rows
+```
+
+### Matx41d.cols
+
+```cpp
+static int cv::Matx41d::cols
+AutoIt:
+    [propget] $oMatx41d.cols
+```
+
+### Matx41d.channels
+
+```cpp
+static int cv::Matx41d::channels
+AutoIt:
+    [propget] $oMatx41d.channels
+```
+
+### Matx41d.shortdim
+
+```cpp
+static int cv::Matx41d::shortdim
+AutoIt:
+    [propget] $oMatx41d.shortdim
+```
+
+### cv::Matx41d::create
+
+```cpp
+static cv::Matx41d cv::Matx41d::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx41d").create() -> <cv.Matx41d object>
+```
+
+### cv::Matx41d::all
+
+```cpp
+static cv::Matx41d cv::Matx41d::all( double alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx41d").all( $alpha ) -> retval
+```
+
+### cv::Matx41d::ddot
+
+```cpp
+double cv::Matx41d::ddot( cv::Matx41d& v );
+AutoIt:
+    $oMatx41d.ddot( $v ) -> retval
+```
+
+### cv::Matx41d::div
+
+```cpp
+cv::Matx41d cv::Matx41d::div( cv::Matx41d& a );
+AutoIt:
+    $oMatx41d.div( $a ) -> retval
+```
+
+### cv::Matx41d::dot
+
+```cpp
+double cv::Matx41d::dot( cv::Matx41d& v );
+AutoIt:
+    $oMatx41d.dot( $v ) -> retval
+```
+
+### cv::Matx41d::eye
+
+```cpp
+static cv::Matx41d cv::Matx41d::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx41d").eye() -> retval
+```
+
+### cv::Matx41d::get\_Item
+
+```cpp
+double cv::Matx41d::get_Item( int i );
+AutoIt:
+    $oMatx41d.Item( $i ) -> retval
+    $oMatx41d( $i ) -> retval
+```
+
+```cpp
+double cv::Matx41d::get_Item( int row,
+                              int col );
+AutoIt:
+    $oMatx41d.Item( $row, $col ) -> retval
+    $oMatx41d( $row, $col ) -> retval
+```
+
+### cv::Matx41d::mul
+
+```cpp
+cv::Matx41d cv::Matx41d::mul( cv::Matx41d& a );
+AutoIt:
+    $oMatx41d.mul( $a ) -> retval
+```
+
+### cv::Matx41d::ones
+
+```cpp
+static cv::Matx41d cv::Matx41d::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx41d").ones() -> retval
+```
+
+### cv::Matx41d::put\_Item
+
+```cpp
+void cv::Matx41d::put_Item( int    i,
+                            double value );
+AutoIt:
+    $oMatx41d.Item( $i ) = $value
+```
+
+```cpp
+void cv::Matx41d::put_Item( int    row,
+                            int    col,
+                            double value );
+AutoIt:
+    $oMatx41d.Item( $row, $col ) = $value
+```
+
+### cv::Matx41d::randn
+
+```cpp
+static cv::Matx41d cv::Matx41d::randn( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx41d").randn( $a, $b ) -> retval
+```
+
+### cv::Matx41d::randu
+
+```cpp
+static cv::Matx41d cv::Matx41d::randu( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx41d").randu( $a, $b ) -> retval
+```
+
+### cv::Matx41d::zeros
+
+```cpp
+static cv::Matx41d cv::Matx41d::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx41d").zeros() -> retval
+```
+
+## cv::Matx61f
+
+### Matx61f.rows
+
+```cpp
+static int cv::Matx61f::rows
+AutoIt:
+    [propget] $oMatx61f.rows
+```
+
+### Matx61f.cols
+
+```cpp
+static int cv::Matx61f::cols
+AutoIt:
+    [propget] $oMatx61f.cols
+```
+
+### Matx61f.channels
+
+```cpp
+static int cv::Matx61f::channels
+AutoIt:
+    [propget] $oMatx61f.channels
+```
+
+### Matx61f.shortdim
+
+```cpp
+static int cv::Matx61f::shortdim
+AutoIt:
+    [propget] $oMatx61f.shortdim
+```
+
+### cv::Matx61f::create
+
+```cpp
+static cv::Matx61f cv::Matx61f::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx61f").create() -> <cv.Matx61f object>
+```
+
+### cv::Matx61f::all
+
+```cpp
+static cv::Matx61f cv::Matx61f::all( float alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx61f").all( $alpha ) -> retval
+```
+
+### cv::Matx61f::ddot
+
+```cpp
+double cv::Matx61f::ddot( cv::Matx61f& v );
+AutoIt:
+    $oMatx61f.ddot( $v ) -> retval
+```
+
+### cv::Matx61f::div
+
+```cpp
+cv::Matx61f cv::Matx61f::div( cv::Matx61f& a );
+AutoIt:
+    $oMatx61f.div( $a ) -> retval
+```
+
+### cv::Matx61f::dot
+
+```cpp
+float cv::Matx61f::dot( cv::Matx61f& v );
+AutoIt:
+    $oMatx61f.dot( $v ) -> retval
+```
+
+### cv::Matx61f::eye
+
+```cpp
+static cv::Matx61f cv::Matx61f::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx61f").eye() -> retval
+```
+
+### cv::Matx61f::get\_Item
+
+```cpp
+float cv::Matx61f::get_Item( int i );
+AutoIt:
+    $oMatx61f.Item( $i ) -> retval
+    $oMatx61f( $i ) -> retval
+```
+
+```cpp
+float cv::Matx61f::get_Item( int row,
+                             int col );
+AutoIt:
+    $oMatx61f.Item( $row, $col ) -> retval
+    $oMatx61f( $row, $col ) -> retval
+```
+
+### cv::Matx61f::mul
+
+```cpp
+cv::Matx61f cv::Matx61f::mul( cv::Matx61f& a );
+AutoIt:
+    $oMatx61f.mul( $a ) -> retval
+```
+
+### cv::Matx61f::ones
+
+```cpp
+static cv::Matx61f cv::Matx61f::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx61f").ones() -> retval
+```
+
+### cv::Matx61f::put\_Item
+
+```cpp
+void cv::Matx61f::put_Item( int   i,
+                            float value );
+AutoIt:
+    $oMatx61f.Item( $i ) = $value
+```
+
+```cpp
+void cv::Matx61f::put_Item( int   row,
+                            int   col,
+                            float value );
+AutoIt:
+    $oMatx61f.Item( $row, $col ) = $value
+```
+
+### cv::Matx61f::randn
+
+```cpp
+static cv::Matx61f cv::Matx61f::randn( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx61f").randn( $a, $b ) -> retval
+```
+
+### cv::Matx61f::randu
+
+```cpp
+static cv::Matx61f cv::Matx61f::randu( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx61f").randu( $a, $b ) -> retval
+```
+
+### cv::Matx61f::zeros
+
+```cpp
+static cv::Matx61f cv::Matx61f::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx61f").zeros() -> retval
+```
+
+## cv::Matx61d
+
+### Matx61d.rows
+
+```cpp
+static int cv::Matx61d::rows
+AutoIt:
+    [propget] $oMatx61d.rows
+```
+
+### Matx61d.cols
+
+```cpp
+static int cv::Matx61d::cols
+AutoIt:
+    [propget] $oMatx61d.cols
+```
+
+### Matx61d.channels
+
+```cpp
+static int cv::Matx61d::channels
+AutoIt:
+    [propget] $oMatx61d.channels
+```
+
+### Matx61d.shortdim
+
+```cpp
+static int cv::Matx61d::shortdim
+AutoIt:
+    [propget] $oMatx61d.shortdim
+```
+
+### cv::Matx61d::create
+
+```cpp
+static cv::Matx61d cv::Matx61d::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx61d").create() -> <cv.Matx61d object>
+```
+
+### cv::Matx61d::all
+
+```cpp
+static cv::Matx61d cv::Matx61d::all( double alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx61d").all( $alpha ) -> retval
+```
+
+### cv::Matx61d::ddot
+
+```cpp
+double cv::Matx61d::ddot( cv::Matx61d& v );
+AutoIt:
+    $oMatx61d.ddot( $v ) -> retval
+```
+
+### cv::Matx61d::div
+
+```cpp
+cv::Matx61d cv::Matx61d::div( cv::Matx61d& a );
+AutoIt:
+    $oMatx61d.div( $a ) -> retval
+```
+
+### cv::Matx61d::dot
+
+```cpp
+double cv::Matx61d::dot( cv::Matx61d& v );
+AutoIt:
+    $oMatx61d.dot( $v ) -> retval
+```
+
+### cv::Matx61d::eye
+
+```cpp
+static cv::Matx61d cv::Matx61d::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx61d").eye() -> retval
+```
+
+### cv::Matx61d::get\_Item
+
+```cpp
+double cv::Matx61d::get_Item( int i );
+AutoIt:
+    $oMatx61d.Item( $i ) -> retval
+    $oMatx61d( $i ) -> retval
+```
+
+```cpp
+double cv::Matx61d::get_Item( int row,
+                              int col );
+AutoIt:
+    $oMatx61d.Item( $row, $col ) -> retval
+    $oMatx61d( $row, $col ) -> retval
+```
+
+### cv::Matx61d::mul
+
+```cpp
+cv::Matx61d cv::Matx61d::mul( cv::Matx61d& a );
+AutoIt:
+    $oMatx61d.mul( $a ) -> retval
+```
+
+### cv::Matx61d::ones
+
+```cpp
+static cv::Matx61d cv::Matx61d::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx61d").ones() -> retval
+```
+
+### cv::Matx61d::put\_Item
+
+```cpp
+void cv::Matx61d::put_Item( int    i,
+                            double value );
+AutoIt:
+    $oMatx61d.Item( $i ) = $value
+```
+
+```cpp
+void cv::Matx61d::put_Item( int    row,
+                            int    col,
+                            double value );
+AutoIt:
+    $oMatx61d.Item( $row, $col ) = $value
+```
+
+### cv::Matx61d::randn
+
+```cpp
+static cv::Matx61d cv::Matx61d::randn( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx61d").randn( $a, $b ) -> retval
+```
+
+### cv::Matx61d::randu
+
+```cpp
+static cv::Matx61d cv::Matx61d::randu( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx61d").randu( $a, $b ) -> retval
+```
+
+### cv::Matx61d::zeros
+
+```cpp
+static cv::Matx61d cv::Matx61d::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx61d").zeros() -> retval
+```
+
+## cv::Matx22f
+
+### Matx22f.rows
+
+```cpp
+static int cv::Matx22f::rows
+AutoIt:
+    [propget] $oMatx22f.rows
+```
+
+### Matx22f.cols
+
+```cpp
+static int cv::Matx22f::cols
+AutoIt:
+    [propget] $oMatx22f.cols
+```
+
+### Matx22f.channels
+
+```cpp
+static int cv::Matx22f::channels
+AutoIt:
+    [propget] $oMatx22f.channels
+```
+
+### Matx22f.shortdim
+
+```cpp
+static int cv::Matx22f::shortdim
+AutoIt:
+    [propget] $oMatx22f.shortdim
+```
+
+### cv::Matx22f::create
+
+```cpp
+static cv::Matx22f cv::Matx22f::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx22f").create() -> <cv.Matx22f object>
+```
+
+### cv::Matx22f::all
+
+```cpp
+static cv::Matx22f cv::Matx22f::all( float alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx22f").all( $alpha ) -> retval
+```
+
+### cv::Matx22f::ddot
+
+```cpp
+double cv::Matx22f::ddot( cv::Matx22f& v );
+AutoIt:
+    $oMatx22f.ddot( $v ) -> retval
+```
+
+### cv::Matx22f::div
+
+```cpp
+cv::Matx22f cv::Matx22f::div( cv::Matx22f& a );
+AutoIt:
+    $oMatx22f.div( $a ) -> retval
+```
+
+### cv::Matx22f::dot
+
+```cpp
+float cv::Matx22f::dot( cv::Matx22f& v );
+AutoIt:
+    $oMatx22f.dot( $v ) -> retval
+```
+
+### cv::Matx22f::eye
+
+```cpp
+static cv::Matx22f cv::Matx22f::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx22f").eye() -> retval
+```
+
+### cv::Matx22f::get\_Item
+
+```cpp
+float cv::Matx22f::get_Item( int row,
+                             int col );
+AutoIt:
+    $oMatx22f.Item( $row, $col ) -> retval
+    $oMatx22f( $row, $col ) -> retval
+```
+
+### cv::Matx22f::mul
+
+```cpp
+cv::Matx22f cv::Matx22f::mul( cv::Matx22f& a );
+AutoIt:
+    $oMatx22f.mul( $a ) -> retval
+```
+
+### cv::Matx22f::ones
+
+```cpp
+static cv::Matx22f cv::Matx22f::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx22f").ones() -> retval
+```
+
+### cv::Matx22f::put\_Item
+
+```cpp
+void cv::Matx22f::put_Item( int   row,
+                            int   col,
+                            float value );
+AutoIt:
+    $oMatx22f.Item( $row, $col ) = $value
+```
+
+### cv::Matx22f::randn
+
+```cpp
+static cv::Matx22f cv::Matx22f::randn( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx22f").randn( $a, $b ) -> retval
+```
+
+### cv::Matx22f::randu
+
+```cpp
+static cv::Matx22f cv::Matx22f::randu( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx22f").randu( $a, $b ) -> retval
+```
+
+### cv::Matx22f::zeros
+
+```cpp
+static cv::Matx22f cv::Matx22f::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx22f").zeros() -> retval
+```
+
+## cv::Matx22d
+
+### Matx22d.rows
+
+```cpp
+static int cv::Matx22d::rows
+AutoIt:
+    [propget] $oMatx22d.rows
+```
+
+### Matx22d.cols
+
+```cpp
+static int cv::Matx22d::cols
+AutoIt:
+    [propget] $oMatx22d.cols
+```
+
+### Matx22d.channels
+
+```cpp
+static int cv::Matx22d::channels
+AutoIt:
+    [propget] $oMatx22d.channels
+```
+
+### Matx22d.shortdim
+
+```cpp
+static int cv::Matx22d::shortdim
+AutoIt:
+    [propget] $oMatx22d.shortdim
+```
+
+### cv::Matx22d::create
+
+```cpp
+static cv::Matx22d cv::Matx22d::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx22d").create() -> <cv.Matx22d object>
+```
+
+### cv::Matx22d::all
+
+```cpp
+static cv::Matx22d cv::Matx22d::all( double alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx22d").all( $alpha ) -> retval
+```
+
+### cv::Matx22d::ddot
+
+```cpp
+double cv::Matx22d::ddot( cv::Matx22d& v );
+AutoIt:
+    $oMatx22d.ddot( $v ) -> retval
+```
+
+### cv::Matx22d::div
+
+```cpp
+cv::Matx22d cv::Matx22d::div( cv::Matx22d& a );
+AutoIt:
+    $oMatx22d.div( $a ) -> retval
+```
+
+### cv::Matx22d::dot
+
+```cpp
+double cv::Matx22d::dot( cv::Matx22d& v );
+AutoIt:
+    $oMatx22d.dot( $v ) -> retval
+```
+
+### cv::Matx22d::eye
+
+```cpp
+static cv::Matx22d cv::Matx22d::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx22d").eye() -> retval
+```
+
+### cv::Matx22d::get\_Item
+
+```cpp
+double cv::Matx22d::get_Item( int row,
+                              int col );
+AutoIt:
+    $oMatx22d.Item( $row, $col ) -> retval
+    $oMatx22d( $row, $col ) -> retval
+```
+
+### cv::Matx22d::mul
+
+```cpp
+cv::Matx22d cv::Matx22d::mul( cv::Matx22d& a );
+AutoIt:
+    $oMatx22d.mul( $a ) -> retval
+```
+
+### cv::Matx22d::ones
+
+```cpp
+static cv::Matx22d cv::Matx22d::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx22d").ones() -> retval
+```
+
+### cv::Matx22d::put\_Item
+
+```cpp
+void cv::Matx22d::put_Item( int    row,
+                            int    col,
+                            double value );
+AutoIt:
+    $oMatx22d.Item( $row, $col ) = $value
+```
+
+### cv::Matx22d::randn
+
+```cpp
+static cv::Matx22d cv::Matx22d::randn( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx22d").randn( $a, $b ) -> retval
+```
+
+### cv::Matx22d::randu
+
+```cpp
+static cv::Matx22d cv::Matx22d::randu( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx22d").randu( $a, $b ) -> retval
+```
+
+### cv::Matx22d::zeros
+
+```cpp
+static cv::Matx22d cv::Matx22d::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx22d").zeros() -> retval
+```
+
+## cv::Matx23f
+
+### Matx23f.rows
+
+```cpp
+static int cv::Matx23f::rows
+AutoIt:
+    [propget] $oMatx23f.rows
+```
+
+### Matx23f.cols
+
+```cpp
+static int cv::Matx23f::cols
+AutoIt:
+    [propget] $oMatx23f.cols
+```
+
+### Matx23f.channels
+
+```cpp
+static int cv::Matx23f::channels
+AutoIt:
+    [propget] $oMatx23f.channels
+```
+
+### Matx23f.shortdim
+
+```cpp
+static int cv::Matx23f::shortdim
+AutoIt:
+    [propget] $oMatx23f.shortdim
+```
+
+### cv::Matx23f::create
+
+```cpp
+static cv::Matx23f cv::Matx23f::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx23f").create() -> <cv.Matx23f object>
+```
+
+### cv::Matx23f::all
+
+```cpp
+static cv::Matx23f cv::Matx23f::all( float alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx23f").all( $alpha ) -> retval
+```
+
+### cv::Matx23f::ddot
+
+```cpp
+double cv::Matx23f::ddot( cv::Matx23f& v );
+AutoIt:
+    $oMatx23f.ddot( $v ) -> retval
+```
+
+### cv::Matx23f::div
+
+```cpp
+cv::Matx23f cv::Matx23f::div( cv::Matx23f& a );
+AutoIt:
+    $oMatx23f.div( $a ) -> retval
+```
+
+### cv::Matx23f::dot
+
+```cpp
+float cv::Matx23f::dot( cv::Matx23f& v );
+AutoIt:
+    $oMatx23f.dot( $v ) -> retval
+```
+
+### cv::Matx23f::eye
+
+```cpp
+static cv::Matx23f cv::Matx23f::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx23f").eye() -> retval
+```
+
+### cv::Matx23f::get\_Item
+
+```cpp
+float cv::Matx23f::get_Item( int row,
+                             int col );
+AutoIt:
+    $oMatx23f.Item( $row, $col ) -> retval
+    $oMatx23f( $row, $col ) -> retval
+```
+
+### cv::Matx23f::mul
+
+```cpp
+cv::Matx23f cv::Matx23f::mul( cv::Matx23f& a );
+AutoIt:
+    $oMatx23f.mul( $a ) -> retval
+```
+
+### cv::Matx23f::ones
+
+```cpp
+static cv::Matx23f cv::Matx23f::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx23f").ones() -> retval
+```
+
+### cv::Matx23f::put\_Item
+
+```cpp
+void cv::Matx23f::put_Item( int   row,
+                            int   col,
+                            float value );
+AutoIt:
+    $oMatx23f.Item( $row, $col ) = $value
+```
+
+### cv::Matx23f::randn
+
+```cpp
+static cv::Matx23f cv::Matx23f::randn( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx23f").randn( $a, $b ) -> retval
+```
+
+### cv::Matx23f::randu
+
+```cpp
+static cv::Matx23f cv::Matx23f::randu( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx23f").randu( $a, $b ) -> retval
+```
+
+### cv::Matx23f::zeros
+
+```cpp
+static cv::Matx23f cv::Matx23f::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx23f").zeros() -> retval
+```
+
+## cv::Matx23d
+
+### Matx23d.rows
+
+```cpp
+static int cv::Matx23d::rows
+AutoIt:
+    [propget] $oMatx23d.rows
+```
+
+### Matx23d.cols
+
+```cpp
+static int cv::Matx23d::cols
+AutoIt:
+    [propget] $oMatx23d.cols
+```
+
+### Matx23d.channels
+
+```cpp
+static int cv::Matx23d::channels
+AutoIt:
+    [propget] $oMatx23d.channels
+```
+
+### Matx23d.shortdim
+
+```cpp
+static int cv::Matx23d::shortdim
+AutoIt:
+    [propget] $oMatx23d.shortdim
+```
+
+### cv::Matx23d::create
+
+```cpp
+static cv::Matx23d cv::Matx23d::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx23d").create() -> <cv.Matx23d object>
+```
+
+### cv::Matx23d::all
+
+```cpp
+static cv::Matx23d cv::Matx23d::all( double alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx23d").all( $alpha ) -> retval
+```
+
+### cv::Matx23d::ddot
+
+```cpp
+double cv::Matx23d::ddot( cv::Matx23d& v );
+AutoIt:
+    $oMatx23d.ddot( $v ) -> retval
+```
+
+### cv::Matx23d::div
+
+```cpp
+cv::Matx23d cv::Matx23d::div( cv::Matx23d& a );
+AutoIt:
+    $oMatx23d.div( $a ) -> retval
+```
+
+### cv::Matx23d::dot
+
+```cpp
+double cv::Matx23d::dot( cv::Matx23d& v );
+AutoIt:
+    $oMatx23d.dot( $v ) -> retval
+```
+
+### cv::Matx23d::eye
+
+```cpp
+static cv::Matx23d cv::Matx23d::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx23d").eye() -> retval
+```
+
+### cv::Matx23d::get\_Item
+
+```cpp
+double cv::Matx23d::get_Item( int row,
+                              int col );
+AutoIt:
+    $oMatx23d.Item( $row, $col ) -> retval
+    $oMatx23d( $row, $col ) -> retval
+```
+
+### cv::Matx23d::mul
+
+```cpp
+cv::Matx23d cv::Matx23d::mul( cv::Matx23d& a );
+AutoIt:
+    $oMatx23d.mul( $a ) -> retval
+```
+
+### cv::Matx23d::ones
+
+```cpp
+static cv::Matx23d cv::Matx23d::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx23d").ones() -> retval
+```
+
+### cv::Matx23d::put\_Item
+
+```cpp
+void cv::Matx23d::put_Item( int    row,
+                            int    col,
+                            double value );
+AutoIt:
+    $oMatx23d.Item( $row, $col ) = $value
+```
+
+### cv::Matx23d::randn
+
+```cpp
+static cv::Matx23d cv::Matx23d::randn( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx23d").randn( $a, $b ) -> retval
+```
+
+### cv::Matx23d::randu
+
+```cpp
+static cv::Matx23d cv::Matx23d::randu( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx23d").randu( $a, $b ) -> retval
+```
+
+### cv::Matx23d::zeros
+
+```cpp
+static cv::Matx23d cv::Matx23d::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx23d").zeros() -> retval
+```
+
+## cv::Matx32f
+
+### Matx32f.rows
+
+```cpp
+static int cv::Matx32f::rows
+AutoIt:
+    [propget] $oMatx32f.rows
+```
+
+### Matx32f.cols
+
+```cpp
+static int cv::Matx32f::cols
+AutoIt:
+    [propget] $oMatx32f.cols
+```
+
+### Matx32f.channels
+
+```cpp
+static int cv::Matx32f::channels
+AutoIt:
+    [propget] $oMatx32f.channels
+```
+
+### Matx32f.shortdim
+
+```cpp
+static int cv::Matx32f::shortdim
+AutoIt:
+    [propget] $oMatx32f.shortdim
+```
+
+### cv::Matx32f::create
+
+```cpp
+static cv::Matx32f cv::Matx32f::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx32f").create() -> <cv.Matx32f object>
+```
+
+### cv::Matx32f::all
+
+```cpp
+static cv::Matx32f cv::Matx32f::all( float alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx32f").all( $alpha ) -> retval
+```
+
+### cv::Matx32f::ddot
+
+```cpp
+double cv::Matx32f::ddot( cv::Matx32f& v );
+AutoIt:
+    $oMatx32f.ddot( $v ) -> retval
+```
+
+### cv::Matx32f::div
+
+```cpp
+cv::Matx32f cv::Matx32f::div( cv::Matx32f& a );
+AutoIt:
+    $oMatx32f.div( $a ) -> retval
+```
+
+### cv::Matx32f::dot
+
+```cpp
+float cv::Matx32f::dot( cv::Matx32f& v );
+AutoIt:
+    $oMatx32f.dot( $v ) -> retval
+```
+
+### cv::Matx32f::eye
+
+```cpp
+static cv::Matx32f cv::Matx32f::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx32f").eye() -> retval
+```
+
+### cv::Matx32f::get\_Item
+
+```cpp
+float cv::Matx32f::get_Item( int row,
+                             int col );
+AutoIt:
+    $oMatx32f.Item( $row, $col ) -> retval
+    $oMatx32f( $row, $col ) -> retval
+```
+
+### cv::Matx32f::mul
+
+```cpp
+cv::Matx32f cv::Matx32f::mul( cv::Matx32f& a );
+AutoIt:
+    $oMatx32f.mul( $a ) -> retval
+```
+
+### cv::Matx32f::ones
+
+```cpp
+static cv::Matx32f cv::Matx32f::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx32f").ones() -> retval
+```
+
+### cv::Matx32f::put\_Item
+
+```cpp
+void cv::Matx32f::put_Item( int   row,
+                            int   col,
+                            float value );
+AutoIt:
+    $oMatx32f.Item( $row, $col ) = $value
+```
+
+### cv::Matx32f::randn
+
+```cpp
+static cv::Matx32f cv::Matx32f::randn( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx32f").randn( $a, $b ) -> retval
+```
+
+### cv::Matx32f::randu
+
+```cpp
+static cv::Matx32f cv::Matx32f::randu( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx32f").randu( $a, $b ) -> retval
+```
+
+### cv::Matx32f::zeros
+
+```cpp
+static cv::Matx32f cv::Matx32f::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx32f").zeros() -> retval
+```
+
+## cv::Matx32d
+
+### Matx32d.rows
+
+```cpp
+static int cv::Matx32d::rows
+AutoIt:
+    [propget] $oMatx32d.rows
+```
+
+### Matx32d.cols
+
+```cpp
+static int cv::Matx32d::cols
+AutoIt:
+    [propget] $oMatx32d.cols
+```
+
+### Matx32d.channels
+
+```cpp
+static int cv::Matx32d::channels
+AutoIt:
+    [propget] $oMatx32d.channels
+```
+
+### Matx32d.shortdim
+
+```cpp
+static int cv::Matx32d::shortdim
+AutoIt:
+    [propget] $oMatx32d.shortdim
+```
+
+### cv::Matx32d::create
+
+```cpp
+static cv::Matx32d cv::Matx32d::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx32d").create() -> <cv.Matx32d object>
+```
+
+### cv::Matx32d::all
+
+```cpp
+static cv::Matx32d cv::Matx32d::all( double alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx32d").all( $alpha ) -> retval
+```
+
+### cv::Matx32d::ddot
+
+```cpp
+double cv::Matx32d::ddot( cv::Matx32d& v );
+AutoIt:
+    $oMatx32d.ddot( $v ) -> retval
+```
+
+### cv::Matx32d::div
+
+```cpp
+cv::Matx32d cv::Matx32d::div( cv::Matx32d& a );
+AutoIt:
+    $oMatx32d.div( $a ) -> retval
+```
+
+### cv::Matx32d::dot
+
+```cpp
+double cv::Matx32d::dot( cv::Matx32d& v );
+AutoIt:
+    $oMatx32d.dot( $v ) -> retval
+```
+
+### cv::Matx32d::eye
+
+```cpp
+static cv::Matx32d cv::Matx32d::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx32d").eye() -> retval
+```
+
+### cv::Matx32d::get\_Item
+
+```cpp
+double cv::Matx32d::get_Item( int row,
+                              int col );
+AutoIt:
+    $oMatx32d.Item( $row, $col ) -> retval
+    $oMatx32d( $row, $col ) -> retval
+```
+
+### cv::Matx32d::mul
+
+```cpp
+cv::Matx32d cv::Matx32d::mul( cv::Matx32d& a );
+AutoIt:
+    $oMatx32d.mul( $a ) -> retval
+```
+
+### cv::Matx32d::ones
+
+```cpp
+static cv::Matx32d cv::Matx32d::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx32d").ones() -> retval
+```
+
+### cv::Matx32d::put\_Item
+
+```cpp
+void cv::Matx32d::put_Item( int    row,
+                            int    col,
+                            double value );
+AutoIt:
+    $oMatx32d.Item( $row, $col ) = $value
+```
+
+### cv::Matx32d::randn
+
+```cpp
+static cv::Matx32d cv::Matx32d::randn( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx32d").randn( $a, $b ) -> retval
+```
+
+### cv::Matx32d::randu
+
+```cpp
+static cv::Matx32d cv::Matx32d::randu( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx32d").randu( $a, $b ) -> retval
+```
+
+### cv::Matx32d::zeros
+
+```cpp
+static cv::Matx32d cv::Matx32d::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx32d").zeros() -> retval
+```
+
 ## cv::Matx33f
 
 ### Matx33f.rows
@@ -60302,6 +64534,582 @@ AutoIt:
     _OpenCV_ObjCreate("cv.Matx33d").zeros() -> retval
 ```
 
+## cv::Matx34f
+
+### Matx34f.rows
+
+```cpp
+static int cv::Matx34f::rows
+AutoIt:
+    [propget] $oMatx34f.rows
+```
+
+### Matx34f.cols
+
+```cpp
+static int cv::Matx34f::cols
+AutoIt:
+    [propget] $oMatx34f.cols
+```
+
+### Matx34f.channels
+
+```cpp
+static int cv::Matx34f::channels
+AutoIt:
+    [propget] $oMatx34f.channels
+```
+
+### Matx34f.shortdim
+
+```cpp
+static int cv::Matx34f::shortdim
+AutoIt:
+    [propget] $oMatx34f.shortdim
+```
+
+### cv::Matx34f::create
+
+```cpp
+static cv::Matx34f cv::Matx34f::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx34f").create() -> <cv.Matx34f object>
+```
+
+### cv::Matx34f::all
+
+```cpp
+static cv::Matx34f cv::Matx34f::all( float alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx34f").all( $alpha ) -> retval
+```
+
+### cv::Matx34f::ddot
+
+```cpp
+double cv::Matx34f::ddot( cv::Matx34f& v );
+AutoIt:
+    $oMatx34f.ddot( $v ) -> retval
+```
+
+### cv::Matx34f::div
+
+```cpp
+cv::Matx34f cv::Matx34f::div( cv::Matx34f& a );
+AutoIt:
+    $oMatx34f.div( $a ) -> retval
+```
+
+### cv::Matx34f::dot
+
+```cpp
+float cv::Matx34f::dot( cv::Matx34f& v );
+AutoIt:
+    $oMatx34f.dot( $v ) -> retval
+```
+
+### cv::Matx34f::eye
+
+```cpp
+static cv::Matx34f cv::Matx34f::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx34f").eye() -> retval
+```
+
+### cv::Matx34f::get\_Item
+
+```cpp
+float cv::Matx34f::get_Item( int row,
+                             int col );
+AutoIt:
+    $oMatx34f.Item( $row, $col ) -> retval
+    $oMatx34f( $row, $col ) -> retval
+```
+
+### cv::Matx34f::mul
+
+```cpp
+cv::Matx34f cv::Matx34f::mul( cv::Matx34f& a );
+AutoIt:
+    $oMatx34f.mul( $a ) -> retval
+```
+
+### cv::Matx34f::ones
+
+```cpp
+static cv::Matx34f cv::Matx34f::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx34f").ones() -> retval
+```
+
+### cv::Matx34f::put\_Item
+
+```cpp
+void cv::Matx34f::put_Item( int   row,
+                            int   col,
+                            float value );
+AutoIt:
+    $oMatx34f.Item( $row, $col ) = $value
+```
+
+### cv::Matx34f::randn
+
+```cpp
+static cv::Matx34f cv::Matx34f::randn( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx34f").randn( $a, $b ) -> retval
+```
+
+### cv::Matx34f::randu
+
+```cpp
+static cv::Matx34f cv::Matx34f::randu( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx34f").randu( $a, $b ) -> retval
+```
+
+### cv::Matx34f::zeros
+
+```cpp
+static cv::Matx34f cv::Matx34f::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx34f").zeros() -> retval
+```
+
+## cv::Matx34d
+
+### Matx34d.rows
+
+```cpp
+static int cv::Matx34d::rows
+AutoIt:
+    [propget] $oMatx34d.rows
+```
+
+### Matx34d.cols
+
+```cpp
+static int cv::Matx34d::cols
+AutoIt:
+    [propget] $oMatx34d.cols
+```
+
+### Matx34d.channels
+
+```cpp
+static int cv::Matx34d::channels
+AutoIt:
+    [propget] $oMatx34d.channels
+```
+
+### Matx34d.shortdim
+
+```cpp
+static int cv::Matx34d::shortdim
+AutoIt:
+    [propget] $oMatx34d.shortdim
+```
+
+### cv::Matx34d::create
+
+```cpp
+static cv::Matx34d cv::Matx34d::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx34d").create() -> <cv.Matx34d object>
+```
+
+### cv::Matx34d::all
+
+```cpp
+static cv::Matx34d cv::Matx34d::all( double alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx34d").all( $alpha ) -> retval
+```
+
+### cv::Matx34d::ddot
+
+```cpp
+double cv::Matx34d::ddot( cv::Matx34d& v );
+AutoIt:
+    $oMatx34d.ddot( $v ) -> retval
+```
+
+### cv::Matx34d::div
+
+```cpp
+cv::Matx34d cv::Matx34d::div( cv::Matx34d& a );
+AutoIt:
+    $oMatx34d.div( $a ) -> retval
+```
+
+### cv::Matx34d::dot
+
+```cpp
+double cv::Matx34d::dot( cv::Matx34d& v );
+AutoIt:
+    $oMatx34d.dot( $v ) -> retval
+```
+
+### cv::Matx34d::eye
+
+```cpp
+static cv::Matx34d cv::Matx34d::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx34d").eye() -> retval
+```
+
+### cv::Matx34d::get\_Item
+
+```cpp
+double cv::Matx34d::get_Item( int row,
+                              int col );
+AutoIt:
+    $oMatx34d.Item( $row, $col ) -> retval
+    $oMatx34d( $row, $col ) -> retval
+```
+
+### cv::Matx34d::mul
+
+```cpp
+cv::Matx34d cv::Matx34d::mul( cv::Matx34d& a );
+AutoIt:
+    $oMatx34d.mul( $a ) -> retval
+```
+
+### cv::Matx34d::ones
+
+```cpp
+static cv::Matx34d cv::Matx34d::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx34d").ones() -> retval
+```
+
+### cv::Matx34d::put\_Item
+
+```cpp
+void cv::Matx34d::put_Item( int    row,
+                            int    col,
+                            double value );
+AutoIt:
+    $oMatx34d.Item( $row, $col ) = $value
+```
+
+### cv::Matx34d::randn
+
+```cpp
+static cv::Matx34d cv::Matx34d::randn( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx34d").randn( $a, $b ) -> retval
+```
+
+### cv::Matx34d::randu
+
+```cpp
+static cv::Matx34d cv::Matx34d::randu( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx34d").randu( $a, $b ) -> retval
+```
+
+### cv::Matx34d::zeros
+
+```cpp
+static cv::Matx34d cv::Matx34d::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx34d").zeros() -> retval
+```
+
+## cv::Matx43f
+
+### Matx43f.rows
+
+```cpp
+static int cv::Matx43f::rows
+AutoIt:
+    [propget] $oMatx43f.rows
+```
+
+### Matx43f.cols
+
+```cpp
+static int cv::Matx43f::cols
+AutoIt:
+    [propget] $oMatx43f.cols
+```
+
+### Matx43f.channels
+
+```cpp
+static int cv::Matx43f::channels
+AutoIt:
+    [propget] $oMatx43f.channels
+```
+
+### Matx43f.shortdim
+
+```cpp
+static int cv::Matx43f::shortdim
+AutoIt:
+    [propget] $oMatx43f.shortdim
+```
+
+### cv::Matx43f::create
+
+```cpp
+static cv::Matx43f cv::Matx43f::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx43f").create() -> <cv.Matx43f object>
+```
+
+### cv::Matx43f::all
+
+```cpp
+static cv::Matx43f cv::Matx43f::all( float alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx43f").all( $alpha ) -> retval
+```
+
+### cv::Matx43f::ddot
+
+```cpp
+double cv::Matx43f::ddot( cv::Matx43f& v );
+AutoIt:
+    $oMatx43f.ddot( $v ) -> retval
+```
+
+### cv::Matx43f::div
+
+```cpp
+cv::Matx43f cv::Matx43f::div( cv::Matx43f& a );
+AutoIt:
+    $oMatx43f.div( $a ) -> retval
+```
+
+### cv::Matx43f::dot
+
+```cpp
+float cv::Matx43f::dot( cv::Matx43f& v );
+AutoIt:
+    $oMatx43f.dot( $v ) -> retval
+```
+
+### cv::Matx43f::eye
+
+```cpp
+static cv::Matx43f cv::Matx43f::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx43f").eye() -> retval
+```
+
+### cv::Matx43f::get\_Item
+
+```cpp
+float cv::Matx43f::get_Item( int row,
+                             int col );
+AutoIt:
+    $oMatx43f.Item( $row, $col ) -> retval
+    $oMatx43f( $row, $col ) -> retval
+```
+
+### cv::Matx43f::mul
+
+```cpp
+cv::Matx43f cv::Matx43f::mul( cv::Matx43f& a );
+AutoIt:
+    $oMatx43f.mul( $a ) -> retval
+```
+
+### cv::Matx43f::ones
+
+```cpp
+static cv::Matx43f cv::Matx43f::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx43f").ones() -> retval
+```
+
+### cv::Matx43f::put\_Item
+
+```cpp
+void cv::Matx43f::put_Item( int   row,
+                            int   col,
+                            float value );
+AutoIt:
+    $oMatx43f.Item( $row, $col ) = $value
+```
+
+### cv::Matx43f::randn
+
+```cpp
+static cv::Matx43f cv::Matx43f::randn( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx43f").randn( $a, $b ) -> retval
+```
+
+### cv::Matx43f::randu
+
+```cpp
+static cv::Matx43f cv::Matx43f::randu( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx43f").randu( $a, $b ) -> retval
+```
+
+### cv::Matx43f::zeros
+
+```cpp
+static cv::Matx43f cv::Matx43f::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx43f").zeros() -> retval
+```
+
+## cv::Matx43d
+
+### Matx43d.rows
+
+```cpp
+static int cv::Matx43d::rows
+AutoIt:
+    [propget] $oMatx43d.rows
+```
+
+### Matx43d.cols
+
+```cpp
+static int cv::Matx43d::cols
+AutoIt:
+    [propget] $oMatx43d.cols
+```
+
+### Matx43d.channels
+
+```cpp
+static int cv::Matx43d::channels
+AutoIt:
+    [propget] $oMatx43d.channels
+```
+
+### Matx43d.shortdim
+
+```cpp
+static int cv::Matx43d::shortdim
+AutoIt:
+    [propget] $oMatx43d.shortdim
+```
+
+### cv::Matx43d::create
+
+```cpp
+static cv::Matx43d cv::Matx43d::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx43d").create() -> <cv.Matx43d object>
+```
+
+### cv::Matx43d::all
+
+```cpp
+static cv::Matx43d cv::Matx43d::all( double alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx43d").all( $alpha ) -> retval
+```
+
+### cv::Matx43d::ddot
+
+```cpp
+double cv::Matx43d::ddot( cv::Matx43d& v );
+AutoIt:
+    $oMatx43d.ddot( $v ) -> retval
+```
+
+### cv::Matx43d::div
+
+```cpp
+cv::Matx43d cv::Matx43d::div( cv::Matx43d& a );
+AutoIt:
+    $oMatx43d.div( $a ) -> retval
+```
+
+### cv::Matx43d::dot
+
+```cpp
+double cv::Matx43d::dot( cv::Matx43d& v );
+AutoIt:
+    $oMatx43d.dot( $v ) -> retval
+```
+
+### cv::Matx43d::eye
+
+```cpp
+static cv::Matx43d cv::Matx43d::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx43d").eye() -> retval
+```
+
+### cv::Matx43d::get\_Item
+
+```cpp
+double cv::Matx43d::get_Item( int row,
+                              int col );
+AutoIt:
+    $oMatx43d.Item( $row, $col ) -> retval
+    $oMatx43d( $row, $col ) -> retval
+```
+
+### cv::Matx43d::mul
+
+```cpp
+cv::Matx43d cv::Matx43d::mul( cv::Matx43d& a );
+AutoIt:
+    $oMatx43d.mul( $a ) -> retval
+```
+
+### cv::Matx43d::ones
+
+```cpp
+static cv::Matx43d cv::Matx43d::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx43d").ones() -> retval
+```
+
+### cv::Matx43d::put\_Item
+
+```cpp
+void cv::Matx43d::put_Item( int    row,
+                            int    col,
+                            double value );
+AutoIt:
+    $oMatx43d.Item( $row, $col ) = $value
+```
+
+### cv::Matx43d::randn
+
+```cpp
+static cv::Matx43d cv::Matx43d::randn( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx43d").randn( $a, $b ) -> retval
+```
+
+### cv::Matx43d::randu
+
+```cpp
+static cv::Matx43d cv::Matx43d::randu( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx43d").randu( $a, $b ) -> retval
+```
+
+### cv::Matx43d::zeros
+
+```cpp
+static cv::Matx43d cv::Matx43d::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx43d").zeros() -> retval
+```
+
 ## cv::Matx44f
 
 ### Matx44f.rows
@@ -60588,6 +65396,294 @@ AutoIt:
 static cv::Matx44d cv::Matx44d::zeros();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx44d").zeros() -> retval
+```
+
+## cv::Matx66f
+
+### Matx66f.rows
+
+```cpp
+static int cv::Matx66f::rows
+AutoIt:
+    [propget] $oMatx66f.rows
+```
+
+### Matx66f.cols
+
+```cpp
+static int cv::Matx66f::cols
+AutoIt:
+    [propget] $oMatx66f.cols
+```
+
+### Matx66f.channels
+
+```cpp
+static int cv::Matx66f::channels
+AutoIt:
+    [propget] $oMatx66f.channels
+```
+
+### Matx66f.shortdim
+
+```cpp
+static int cv::Matx66f::shortdim
+AutoIt:
+    [propget] $oMatx66f.shortdim
+```
+
+### cv::Matx66f::create
+
+```cpp
+static cv::Matx66f cv::Matx66f::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx66f").create() -> <cv.Matx66f object>
+```
+
+### cv::Matx66f::all
+
+```cpp
+static cv::Matx66f cv::Matx66f::all( float alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx66f").all( $alpha ) -> retval
+```
+
+### cv::Matx66f::ddot
+
+```cpp
+double cv::Matx66f::ddot( cv::Matx66f& v );
+AutoIt:
+    $oMatx66f.ddot( $v ) -> retval
+```
+
+### cv::Matx66f::div
+
+```cpp
+cv::Matx66f cv::Matx66f::div( cv::Matx66f& a );
+AutoIt:
+    $oMatx66f.div( $a ) -> retval
+```
+
+### cv::Matx66f::dot
+
+```cpp
+float cv::Matx66f::dot( cv::Matx66f& v );
+AutoIt:
+    $oMatx66f.dot( $v ) -> retval
+```
+
+### cv::Matx66f::eye
+
+```cpp
+static cv::Matx66f cv::Matx66f::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx66f").eye() -> retval
+```
+
+### cv::Matx66f::get\_Item
+
+```cpp
+float cv::Matx66f::get_Item( int row,
+                             int col );
+AutoIt:
+    $oMatx66f.Item( $row, $col ) -> retval
+    $oMatx66f( $row, $col ) -> retval
+```
+
+### cv::Matx66f::mul
+
+```cpp
+cv::Matx66f cv::Matx66f::mul( cv::Matx66f& a );
+AutoIt:
+    $oMatx66f.mul( $a ) -> retval
+```
+
+### cv::Matx66f::ones
+
+```cpp
+static cv::Matx66f cv::Matx66f::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx66f").ones() -> retval
+```
+
+### cv::Matx66f::put\_Item
+
+```cpp
+void cv::Matx66f::put_Item( int   row,
+                            int   col,
+                            float value );
+AutoIt:
+    $oMatx66f.Item( $row, $col ) = $value
+```
+
+### cv::Matx66f::randn
+
+```cpp
+static cv::Matx66f cv::Matx66f::randn( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx66f").randn( $a, $b ) -> retval
+```
+
+### cv::Matx66f::randu
+
+```cpp
+static cv::Matx66f cv::Matx66f::randu( float a,
+                                       float b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx66f").randu( $a, $b ) -> retval
+```
+
+### cv::Matx66f::zeros
+
+```cpp
+static cv::Matx66f cv::Matx66f::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx66f").zeros() -> retval
+```
+
+## cv::Matx66d
+
+### Matx66d.rows
+
+```cpp
+static int cv::Matx66d::rows
+AutoIt:
+    [propget] $oMatx66d.rows
+```
+
+### Matx66d.cols
+
+```cpp
+static int cv::Matx66d::cols
+AutoIt:
+    [propget] $oMatx66d.cols
+```
+
+### Matx66d.channels
+
+```cpp
+static int cv::Matx66d::channels
+AutoIt:
+    [propget] $oMatx66d.channels
+```
+
+### Matx66d.shortdim
+
+```cpp
+static int cv::Matx66d::shortdim
+AutoIt:
+    [propget] $oMatx66d.shortdim
+```
+
+### cv::Matx66d::create
+
+```cpp
+static cv::Matx66d cv::Matx66d::create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx66d").create() -> <cv.Matx66d object>
+```
+
+### cv::Matx66d::all
+
+```cpp
+static cv::Matx66d cv::Matx66d::all( double alpha );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx66d").all( $alpha ) -> retval
+```
+
+### cv::Matx66d::ddot
+
+```cpp
+double cv::Matx66d::ddot( cv::Matx66d& v );
+AutoIt:
+    $oMatx66d.ddot( $v ) -> retval
+```
+
+### cv::Matx66d::div
+
+```cpp
+cv::Matx66d cv::Matx66d::div( cv::Matx66d& a );
+AutoIt:
+    $oMatx66d.div( $a ) -> retval
+```
+
+### cv::Matx66d::dot
+
+```cpp
+double cv::Matx66d::dot( cv::Matx66d& v );
+AutoIt:
+    $oMatx66d.dot( $v ) -> retval
+```
+
+### cv::Matx66d::eye
+
+```cpp
+static cv::Matx66d cv::Matx66d::eye();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx66d").eye() -> retval
+```
+
+### cv::Matx66d::get\_Item
+
+```cpp
+double cv::Matx66d::get_Item( int row,
+                              int col );
+AutoIt:
+    $oMatx66d.Item( $row, $col ) -> retval
+    $oMatx66d( $row, $col ) -> retval
+```
+
+### cv::Matx66d::mul
+
+```cpp
+cv::Matx66d cv::Matx66d::mul( cv::Matx66d& a );
+AutoIt:
+    $oMatx66d.mul( $a ) -> retval
+```
+
+### cv::Matx66d::ones
+
+```cpp
+static cv::Matx66d cv::Matx66d::ones();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx66d").ones() -> retval
+```
+
+### cv::Matx66d::put\_Item
+
+```cpp
+void cv::Matx66d::put_Item( int    row,
+                            int    col,
+                            double value );
+AutoIt:
+    $oMatx66d.Item( $row, $col ) = $value
+```
+
+### cv::Matx66d::randn
+
+```cpp
+static cv::Matx66d cv::Matx66d::randn( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx66d").randn( $a, $b ) -> retval
+```
+
+### cv::Matx66d::randu
+
+```cpp
+static cv::Matx66d cv::Matx66d::randu( double a,
+                                       double b );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx66d").randu( $a, $b ) -> retval
+```
+
+### cv::Matx66d::zeros
+
+```cpp
+static cv::Matx66d cv::Matx66d::zeros();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx66d").zeros() -> retval
 ```
 
 ## std
@@ -63422,6 +68518,210 @@ AutoIt:
 void* VectorOfRect::start();
 AutoIt:
     $oVectorOfRect.start() -> retval
+```
+
+## VectorOfTuplePointAndDouble
+
+### VectorOfTuplePointAndDouble.Count
+
+```cpp
+size_t VectorOfTuplePointAndDouble::size()
+AutoIt:
+    [propget] $oVectorOfTuplePointAndDouble.Count
+```
+
+### VectorOfTuplePointAndDouble::create
+
+```cpp
+static VectorOfTuplePointAndDouble VectorOfTuplePointAndDouble::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfTuplePointAndDouble").create() -> <VectorOfTuplePointAndDouble object>
+```
+
+```cpp
+static VectorOfTuplePointAndDouble VectorOfTuplePointAndDouble::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfTuplePointAndDouble").create( $size ) -> <VectorOfTuplePointAndDouble object>
+```
+
+```cpp
+static VectorOfTuplePointAndDouble VectorOfTuplePointAndDouble::create( VectorOfTuplePointAndDouble other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfTuplePointAndDouble").create( $other ) -> <VectorOfTuplePointAndDouble object>
+```
+
+### VectorOfTuplePointAndDouble::Add
+
+```cpp
+void VectorOfTuplePointAndDouble::Add( std::tuple<cv::Point, double> value );
+AutoIt:
+    $oVectorOfTuplePointAndDouble.Add( $value ) -> None
+```
+
+### VectorOfTuplePointAndDouble::Items
+
+```cpp
+VectorOfTuplePointAndDouble VectorOfTuplePointAndDouble::Items();
+AutoIt:
+    $oVectorOfTuplePointAndDouble.Items() -> retval
+```
+
+### VectorOfTuplePointAndDouble::Keys
+
+```cpp
+std::vector<int> VectorOfTuplePointAndDouble::Keys();
+AutoIt:
+    $oVectorOfTuplePointAndDouble.Keys() -> retval
+```
+
+### VectorOfTuplePointAndDouble::Remove
+
+```cpp
+void VectorOfTuplePointAndDouble::Remove( size_t index );
+AutoIt:
+    $oVectorOfTuplePointAndDouble.Remove( $index ) -> None
+```
+
+### VectorOfTuplePointAndDouble::append
+
+```cpp
+void VectorOfTuplePointAndDouble::append( std::tuple<cv::Point, double> value );
+AutoIt:
+    $oVectorOfTuplePointAndDouble.append( $value ) -> None
+```
+
+### VectorOfTuplePointAndDouble::at
+
+```cpp
+std::tuple<cv::Point, double> VectorOfTuplePointAndDouble::at( size_t index );
+AutoIt:
+    $oVectorOfTuplePointAndDouble.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfTuplePointAndDouble::at( size_t                        index,
+                                      std::tuple<cv::Point, double> value );
+AutoIt:
+    $oVectorOfTuplePointAndDouble.at( $index, $value ) -> None
+```
+
+### VectorOfTuplePointAndDouble::clear
+
+```cpp
+void VectorOfTuplePointAndDouble::clear();
+AutoIt:
+    $oVectorOfTuplePointAndDouble.clear() -> None
+```
+
+### VectorOfTuplePointAndDouble::empty
+
+```cpp
+bool VectorOfTuplePointAndDouble::empty();
+AutoIt:
+    $oVectorOfTuplePointAndDouble.empty() -> retval
+```
+
+### VectorOfTuplePointAndDouble::end
+
+```cpp
+void* VectorOfTuplePointAndDouble::end();
+AutoIt:
+    $oVectorOfTuplePointAndDouble.end() -> retval
+```
+
+### VectorOfTuplePointAndDouble::get\_Item
+
+```cpp
+std::tuple<cv::Point, double> VectorOfTuplePointAndDouble::get_Item( size_t index );
+AutoIt:
+    $oVectorOfTuplePointAndDouble.Item( $index ) -> retval
+    $oVectorOfTuplePointAndDouble( $index ) -> retval
+```
+
+### VectorOfTuplePointAndDouble::get\_\_NewEnum
+
+```cpp
+IUnknown* VectorOfTuplePointAndDouble::get__NewEnum();
+AutoIt:
+    $oVectorOfTuplePointAndDouble._NewEnum() -> retval
+```
+
+### VectorOfTuplePointAndDouble::push\_back
+
+```cpp
+void VectorOfTuplePointAndDouble::push_back( std::tuple<cv::Point, double> value );
+AutoIt:
+    $oVectorOfTuplePointAndDouble.push_back( $value ) -> None
+```
+
+### VectorOfTuplePointAndDouble::push\_vector
+
+```cpp
+void VectorOfTuplePointAndDouble::push_vector( VectorOfTuplePointAndDouble other );
+AutoIt:
+    $oVectorOfTuplePointAndDouble.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfTuplePointAndDouble::push_vector( VectorOfTuplePointAndDouble other,
+                                               size_t                      count,
+                                               size_t                      start = 0 );
+AutoIt:
+    $oVectorOfTuplePointAndDouble.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfTuplePointAndDouble::put\_Item
+
+```cpp
+void VectorOfTuplePointAndDouble::put_Item( size_t                        index,
+                                            std::tuple<cv::Point, double> item );
+AutoIt:
+    $oVectorOfTuplePointAndDouble.Item( $index ) = $item
+```
+
+### VectorOfTuplePointAndDouble::size
+
+```cpp
+size_t VectorOfTuplePointAndDouble::size();
+AutoIt:
+    $oVectorOfTuplePointAndDouble.size() -> retval
+```
+
+### VectorOfTuplePointAndDouble::slice
+
+```cpp
+VectorOfTuplePointAndDouble VectorOfTuplePointAndDouble::slice( size_t start = 0,
+                                                                size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfTuplePointAndDouble.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfTuplePointAndDouble::sort
+
+```cpp
+void VectorOfTuplePointAndDouble::sort( void*  comparator,
+                                        size_t start = 0,
+                                        size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfTuplePointAndDouble.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfTuplePointAndDouble::sort\_variant
+
+```cpp
+void VectorOfTuplePointAndDouble::sort_variant( void*  comparator,
+                                                size_t start = 0,
+                                                size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfTuplePointAndDouble.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfTuplePointAndDouble::start
+
+```cpp
+void* VectorOfTuplePointAndDouble::start();
+AutoIt:
+    $oVectorOfTuplePointAndDouble.start() -> retval
 ```
 
 ## VectorOfRotatedRect

@@ -736,7 +736,7 @@ Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = Default, $iMatchMeth
 	If $aHistSize == Default Then
 		Local $arr[$matImg.channels()]
 		For $i = 0 To $matImg.channels() - 1
-			$arr[$i] = $iMatchMethod == $CV_TM_EXACT ? $i : 32
+			$arr[$i] = $iMatchMethod == $CV_TM_EXACT ? 1 : 32
 		Next
 		$aHistSize = $arr
 	EndIf
@@ -783,21 +783,21 @@ Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = Default, $iMatchMeth
 	; $hTimer = TimerInit()
 	If $iMatchMethod == $CV_TM_EXACT Then
 		$cv.searchTemplate($matImg, $matTempl, $matResult, $matTemplMask, $aChannels, $aRanges)
-	ElseIf $matImg.width * $matImg.height > 500 * 500 Then
+	ElseIf $width * $height > 500 * 500 Then
 		$cv.matchTemplateParallel($matImg, $matTempl, $iMatchMethod, $matResult, $matTemplMask)
 	Else
 		$cv.matchTemplate($matImg, $matTempl, $iMatchMethod, $matResult, $matTemplMask)
 	EndIf
 	; ConsoleWrite("matchTemplate took " & TimerDiff($hTimer) & "ms" & @CRLF)
 
+	If Not $bIsNormed Then
+		$cv.normalize($matResult, $matResult, 0, 1, $CV_NORM_MINMAX)
+	EndIf
+
 	Local $aMatchLoc
 	Local $fHistScore = 1
 	Local $fScore = 0
 	Local $iFound = 0
-
-	If Not $bIsNormed Then
-		$cv.normalize($matResult, $matResult, 0, 1, $CV_NORM_MINMAX)
-	EndIf
 
 	; there are $rh rows and $rw cols in the result matrix
 	; create a mask with the same number of rows and cols

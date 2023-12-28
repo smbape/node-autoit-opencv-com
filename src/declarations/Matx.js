@@ -1,4 +1,5 @@
-const Matx = (fqn, type, m, n) => {
+const Matx = (type, m, n) => {
+    const fqn = `cv.Matx${ m }${ n }${ type[0] }`;
     const name = fqn.slice(fqn.lastIndexOf(".") + 1);
     const cpptype = fqn.replaceAll(".", "::");
 
@@ -73,9 +74,29 @@ const Matx = (fqn, type, m, n) => {
     return declarations;
 };
 
-module.exports = [
-    ...Matx("cv.Matx33f", "float", 3, 3),
-    ...Matx("cv.Matx33d", "double", 3, 3),
-    ...Matx("cv.Matx44f", "float", 4, 4),
-    ...Matx("cv.Matx44d", "double", 4, 4),
-];
+const declarations = [];
+
+for (const [m, n] of [
+    [1, 2],
+    [1, 3],
+    [1, 4],
+    [1, 6],
+    [2, 1],
+    [3, 1],
+    [4, 1],
+    [6, 1],
+    [2, 2],
+    [2, 3],
+    [3, 2],
+    [3, 3],
+    [3, 4],
+    [4, 3],
+    [4, 4],
+    [6, 6],
+]) {
+    for (const type of ["float", "double"]) {
+        declarations.push(...Matx(type, m, n));
+    }
+}
+
+module.exports = declarations;

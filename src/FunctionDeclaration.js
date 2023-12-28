@@ -6,7 +6,7 @@ const {
 const {makeExpansion, useNamespaces} = require("./alias");
 
 Object.assign(exports, {
-    declare: (generator, coclass, overrides, fname, idlname, iidl, ipublic, impl, is_test, options = {}) => {
+    declare: (processor, coclass, overrides, fname, idlname, iidl, ipublic, impl, is_test, options = {}) => {
         const {shared_ptr, APP_NAME} = options;
         const {fqn} = coclass;
         const cotype = coclass.getClassName();
@@ -21,11 +21,11 @@ Object.assign(exports, {
         let minopt = Number.POSITIVE_INFINITY;
         let idl_only = false;
         const entries = [];
-        const indent = " ".repeat(has_override ? 4 : 0);
+        const indent = has_override ? " ".repeat(4) : "";
 
         if (has_docs) {
             // generate docs header
-            generator.docs.push(`### ${ fqn }::${ fname }\n`.replaceAll("_", "\\_"));
+            processor.docs.push(`### ${ fqn }::${ fname }\n`.replaceAll("_", "\\_"));
         }
 
         for (const decl of overrides) {
@@ -64,28 +64,6 @@ Object.assign(exports, {
             const out_args = new Array(argc).fill(false);
             const out_array_args = new Array(argc).fill(false);
 
-            const getArgWeight = j => {
-                if (!in_args[j]) {
-                    // is OutputArray
-                    if (out_array_args[j]) {
-                        return 2;
-                    }
-
-                    // out arg which is not an output array
-                    if (out_args[j]) {
-                        return 3;
-                    }
-                }
-
-                // has a default value
-                if (list_of_arguments[j][2] !== "") {
-                    return 2;
-                }
-
-                // is non optional value
-                return 1;
-            };
-
             const outlist = [];
 
             if (return_value_type !== "" && return_value_type !== "void") {
@@ -109,6 +87,30 @@ Object.assign(exports, {
                 }
             }
 
+            // the python api expects parameters in this order:
+            // mandatory, OutputArray or optional parameter, /O parameter
+            const getArgWeight = j => {
+                if (!in_args[j]) {
+                    // is OutputArray
+                    if (out_array_args[j]) {
+                        return 2;
+                    }
+
+                    // out arg which is not an output array
+                    if (out_args[j]) {
+                        return 3;
+                    }
+                }
+
+                // has a default value
+                if (list_of_arguments[j][2] !== "") {
+                    return 2;
+                }
+
+                // is non optional value
+                return 1;
+            };
+
             const indexes = Array.from(new Array(argc).keys()).sort((a, b) => {
                 const diff = getArgWeight(a) - getArgWeight(b);
                 return diff === 0 ? a - b : diff;
@@ -120,9 +122,7 @@ Object.assign(exports, {
 
             for (let i = 0, is_first_optional = true; i < argc; i++) {
                 const j = indexes[i];
-
                 const [, argname, , arg_modifiers] = list_of_arguments[j];
-
                 let [argtype, , defval] = list_of_arguments[j];
 
                 const in_val = `${ varprefix }${ i }`;
@@ -135,7 +135,6 @@ Object.assign(exports, {
 
                 let is_array = false;
                 let arrtype = "";
-                let parg = "";
 
                 if (argtype === "InputArray") {
                     is_array = true;
@@ -174,18 +173,20 @@ Object.assign(exports, {
                         .replace("noArray", argtype);
                 }
 
-                if (defval === "" && SIMPLE_ARGTYPE_DEFAULTS.has(argtype)) {
-                    defval = SIMPLE_ARGTYPE_DEFAULTS.get(argtype);
-                } else if (defval.endsWith("()") && generator.getIDLType(defval.slice(0, -"()".length), coclass, options) === generator.getIDLType(argtype, coclass, options)) {
-                    defval = "";
-                } else if (is_ptr && is_out && argtype !== "VARIANT*") {
+                let parg = "";
+
+                if (is_ptr && is_out && argtype !== "VARIANT*") {
                     parg = "&";
                     argtype = argtype.slice(0, -1);
                     defval = SIMPLE_ARGTYPE_DEFAULTS.has(argtype) ? SIMPLE_ARGTYPE_DEFAULTS.get(argtype) : "";
+                } else if (defval === "" && SIMPLE_ARGTYPE_DEFAULTS.has(argtype)) {
+                    defval = SIMPLE_ARGTYPE_DEFAULTS.get(argtype);
+                } else if (defval.endsWith("()") && processor.getIDLType(defval.slice(0, -"()".length), coclass, options) === processor.getIDLType(argtype, coclass, options)) {
+                    defval = "";
                 }
 
-                const idltype = generator.getIDLType(argtype, coclass, options);
-                const cpptype = generator.getCppType(argtype, coclass, options);
+                const idltype = processor.getIDLType(argtype, coclass, options);
+                const cpptype = processor.getCppType(argtype, coclass, options);
 
                 let callarg = parg + argname;
                 let other_default;
@@ -206,7 +207,7 @@ Object.assign(exports, {
 
                 callargs[j] = callarg;
 
-                const is_vector = argtype.startsWith("vector_") || argtype.startsWith("vector<") || argtype.startsWith("VectorOf");
+                const is_vector = cpptype.startsWith("std::vector<") || cpptype.startsWith("VectorOf");
                 const has_ptr = is_ptr || cpptype.startsWith(`${ shared_ptr }<`);
                 const is_by_ref = idltype[0] === "I" && idltype !== "IDispatch*" && !has_ptr;
                 const placeholder_name = is_array || is_by_ref || is_vector && !has_ptr ? `${ argname }_placeholder` : argname;
@@ -287,7 +288,7 @@ Object.assign(exports, {
                                 double ${ argname_double } = 0.0;
                                 hr = get_variant_number(${ in_val }, ${ argname_double });
                                 if (FAILED(hr)) {
-                                    printf("unable to read argument ${ j } of type %hu into ${ cpptype }\\n", V_VT(${ in_val }));
+                                    printf("unable to read argument ${ j } of type %hu into double\\n", V_VT(${ in_val }));
                                     return hr;
                                 }
                                 ${ pointer }.reset(new cv::_${ arrtype }(${ argname_double }));
@@ -521,7 +522,7 @@ Object.assign(exports, {
                 autoit_description += `\n    $o${ coclass.name }( ${ argstr } ) -> ${ outstr }`;
             }
 
-            let cppsignature = `${ generator.getCppType(return_value_type, coclass, options) } ${ fqn }::${ fname }`;
+            let cppsignature = `${ processor.getCppType(return_value_type, coclass, options) } ${ fqn }::${ fname }`;
 
             if (is_static) {
                 cppsignature = `static ${ cppsignature }`;
@@ -538,7 +539,7 @@ Object.assign(exports, {
 
                 const is_in_array = /^Input(?:Output)?Array(?:OfArrays)?$/.test(argtype);
                 const is_out_array = /^(?:Input)?OutputArray(?:OfArrays)?$/.test(argtype);
-                str += is_in_array || is_out_array ? argtype : generator.getCppType(argtype, coclass, options);
+                str += is_in_array || is_out_array ? argtype : processor.getCppType(argtype, coclass, options);
 
                 if (arg_modifiers.includes("/Ref")) {
                     str += "&";
@@ -563,7 +564,7 @@ Object.assign(exports, {
 
             cppsignature += ";";
 
-            generator.docs.push([
+            processor.docs.push([
                 "```cpp",
                 cppsignature,
                 // "",
@@ -600,10 +601,10 @@ Object.assign(exports, {
             body.push("");
         }
 
-        useNamespaces(body, "push", generator, coclass);
+        useNamespaces(body, "push", processor, coclass);
 
         const hr = maxargc !== 0 ? "E_INVALIDARG" : "S_OK";
-        const enableNamedParameters = maxargc !== 0 && coclass !== generator.namedParameters && !coclass.is_vector && !coclass.is_stdmap;
+        const enableNamedParameters = maxargc !== 0 && coclass !== processor.namedParameters && !coclass.is_vector && !coclass.is_stdmap;
 
         body.push(`HRESULT hr = ${ hr };`);
 
@@ -652,7 +653,7 @@ Object.assign(exports, {
             const [name, return_value_type, func_modifiers, list_of_arguments] = decl;
 
             // Add dependency to return_value_type
-            generator.getIDLType(return_value_type, coclass, options);
+            processor.getIDLType(return_value_type, coclass, options);
 
             const is_constructor = func_modifiers.includes("/CO");
             const no_external_decl = func_modifiers.includes("/ExternalNoDecl");
@@ -842,7 +843,7 @@ Object.assign(exports, {
             }
 
             if (is_external && !no_external_decl) {
-                let ext_type = generator.getCppType(return_value_type === "" ? "void" : return_value_type, coclass, options);
+                let ext_type = processor.getCppType(return_value_type === "" ? "void" : return_value_type, coclass, options);
 
                 if (is_constructor) {
                     ext_type = `${ shared_ptr }<${ ext_type }>`;
@@ -854,9 +855,9 @@ Object.assign(exports, {
                     ext_type,
                     path[path.length - 1]
                 ].filter(text => text !== null).join(" ") }(${ list_of_arguments.map(([argtype, argname, , arg_modifiers]) => {
-                    const idltype = generator.getIDLType(argtype, coclass, options);
-                    const cpptype = generator.getCppType(argtype, coclass, options);
-                    const enumtype = generator.getEnumType(argtype, coclass, options);
+                    const idltype = processor.getIDLType(argtype, coclass, options);
+                    const cpptype = processor.getCppType(argtype, coclass, options);
+                    const enumtype = processor.getEnumType(argtype, coclass, options);
 
                     let str = "";
 
@@ -886,15 +887,15 @@ Object.assign(exports, {
             }
 
             if (!has_body && return_value_type !== "void") {
-                if (PTR.has(generator.getCppType(return_value_type, coclass, options))) {
+                if (PTR.has(processor.getCppType(return_value_type, coclass, options))) {
                     callee = `reinterpret_cast<ULONGLONG>(${ callee })`;
                 }
 
-                const autoit_from = `autoit_from(${ generator.castFromEnumIfNeeded(return_value_type, "$1", coclass, options) }, $2)`;
+                const autoit_from = `autoit_from(${ processor.castFromEnumIfNeeded(return_value_type, "$1", coclass, options) }, $2)`;
 
                 if (is_external) {
-                    const idltype = generator.getIDLType(return_value_type, coclass, options);
-                    const cpptype = generator.getCppType(return_value_type, coclass, options);
+                    const idltype = processor.getIDLType(return_value_type, coclass, options);
+                    const cpptype = processor.getCppType(return_value_type, coclass, options);
                     const byref = !PTR.has(cpptype) && (idltype === "VARIANT" || idltype[0] === "I");
 
                     const ebody = cindent + `
@@ -923,13 +924,13 @@ Object.assign(exports, {
             `.replace(/^ {16}/mg, "").trim().split("\n").join(`\n${ cindent }`));
 
             if (return_value_type !== "void") {
-                const idltype = is_constructor ? coclass.idl : generator.getIDLType(return_value_type, coclass, options);
-                generator.setReturn(returns, idltype, "_retval");
+                const idltype = is_constructor ? coclass.idl : processor.getIDLType(return_value_type, coclass, options);
+                processor.setReturn(returns, idltype, "_retval");
                 retval.unshift([returns[0], "_retval", returns[0], false]);
             } else if (retval.length !== 0) {
                 const [, argname, argtype] = retval[0];
-                const idltype = generator.getIDLType(argtype, coclass, options);
-                generator.setReturn(returns, idltype, "_retval");
+                const idltype = processor.getIDLType(argtype, coclass, options);
+                processor.setReturn(returns, idltype, "_retval");
                 outputs.get(argname).push("_retval"); // mark _retval as an output of argname
             }
 
@@ -977,7 +978,7 @@ Object.assign(exports, {
                             VariantInit(p_retarr_el);
                             ${ is_entry_test ? "// " : "" }hr = ${ cvt };
                             if (FAILED(hr)) {
-                                printf("unable to write extended ${ i } of type ${ generator.getCppType(argtype, coclass, options) }\\n");
+                                printf("unable to write extended ${ i } of type ${ processor.getCppType(argtype, coclass, options) }\\n");
                                 return hr;
                             }
                         `.replace(/^ {28}/mg, "").trim().split("\n"));

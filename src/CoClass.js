@@ -1,6 +1,7 @@
 const { v4: uuidv4 } = require("uuid");
 
 const knwon_ids = require("./ids");
+const {removeNamespaces} = require("./alias");
 
 const {
     CLASS_PTR,
@@ -58,6 +59,109 @@ class CoClass {
         return DISID_CONSTANTS.has(sid) ? DISID_CONSTANTS.get(sid) : Number(sid);
     }
 
+    static getTupleTypes(type) {
+        const separators = /[,<>]/g;
+        const types = [];
+
+        let lastIndex = 0;
+        let match;
+        let open = 0;
+
+        while (match = separators.exec(type)) { // eslint-disable-line no-cond-assign
+            if (match[0] === "<") {
+                open++;
+            } else if (match[0] === ">") {
+                open--;
+            } else if (open === 0 && match[0] === ",") {
+                types.push(type.slice(lastIndex, match.index).trim());
+                lastIndex = separators.lastIndex;
+            }
+        }
+
+        if (lastIndex !== type.length) {
+            types.push(type.slice(lastIndex).trim());
+        }
+
+        return types;
+    }
+
+    static restoreOriginalType(type, options = {}) {
+        const shared_ptr = removeNamespaces(options.shared_ptr, options);
+
+        const types = [
+            "map",
+            "optional",
+            "pair",
+            "tuple",
+            "variant",
+            "vector",
+            "GArray",
+            "GOpaque",
+            shared_ptr
+        ];
+
+        const templates = new RegExp(`\\b(?:${ [
+            "std::map",
+            "std::optional",
+            "std::pair",
+            "std::tuple",
+            "std::variant",
+            "std::vector",
+            "cv::GArray",
+            "cv::GOpaque",
+            "cv::util::variant",
+            "util::variant",
+            options.shared_ptr
+        ].join("|") })<`, "g");
+
+        type = type
+            .replace(templates, match => match.slice(match.indexOf("::") + "::".length))
+            .replace(/_and_/g, ", ")
+            .replace(/_end_/g, ">");
+
+        const replacer = new RegExp(`\\b(?:${ types.join("|") })_`, "g");
+
+        while (replacer.test(type)) {
+            replacer.lastIndex = 0;
+            type = type.replace(replacer, match => `${ match.slice(0, -1) }<`);
+            replacer.lastIndex = 0;
+        }
+
+        const tokenizer = new RegExp(`(?:[,>]|\\b(?:${ types.join("|") })<)`, "g");
+
+        let match;
+        const path = [];
+        let lastIndex = 0;
+        let str = "";
+
+        while (match = tokenizer.exec(type)) { // eslint-disable-line no-cond-assign
+            str += type.slice(lastIndex, match.index);
+
+            if (match[0] === ",") {
+                while (path.length !== 0 && !["map", "pair", "tuple", "variant"].some(tmpl => path[path.length - 1] === tmpl)) {
+                    str += ">";
+                    path.pop();
+                }
+            } else if (match[0] === ">") {
+                path.pop();
+            } else {
+                path.push(match[0].slice(0, -1));
+            }
+
+            str += match[0];
+            lastIndex = tokenizer.lastIndex;
+        }
+
+        if (lastIndex !== type.length) {
+            str += type.slice(lastIndex);
+        }
+
+        const open = str.split("<").length - 1;
+        const close = str.split(">").length - 1;
+
+        return str + ">".repeat(open - close);
+    }
+
     constructor(fqn) {
         const path = fqn.split("::");
 
@@ -100,8 +204,27 @@ class CoClass {
         this.idr = ++idr;
     }
 
+    toJSON() {
+        return {
+            name: this.name,
+            fqn: this.fqn,
+            path: this.path,
+            iid: this.iid,
+            clsid: this.clsid,
+            parents: Array.from(this.parents),
+            children: Array.from(this.children),
+            properties: Object.fromEntries(this.properties),
+            methods: Object.fromEntries(this.methods),
+            enums: this.enums,
+            is_enum_class: this.is_enum_class,
+            is_ptr: this.is_ptr,
+        };
+    }
+
     addParent(fqn) {
-        this.parents.add(fqn);
+        if (fqn !== this.fqn && !fqn.endsWith("::class")) {
+            this.parents.add(fqn);
+        }
     }
 
     addProperty([argtype, argname, defval /* or "" if none */, list_of_modifiers]) {
@@ -132,7 +255,7 @@ class CoClass {
         this.enums.add(fqn);
     }
 
-    addMethod(decl) {
+    addMethod(decl, options) {
         decl[1] = getAlias(decl[1]); // return_type
 
         const [name, , list_of_modifiers, list_of_arguments] = decl;
@@ -144,8 +267,8 @@ class CoClass {
             arg_decl[0] = getAlias(argtype);
         }
 
-        if (fname === this.name && (this.is_class || this.is_struct)) {
-            fname = "create";
+        if (fname === this.name && !this.isStatic()) {
+            fname = options.cname ? options.cname : "create";
             list_of_modifiers.push("/CO", "/S");
             decl[0] = path.slice(0, -1).join("::");
             decl[1] = this.fqn;
@@ -242,7 +365,15 @@ class CoClass {
     }
 
     empty() {
-        return !this.is_class && !this.is_struct && this.properties.size === 0 && this.methods.size === 0;
+        return this.isStatic() && this.properties.size === 0 && this.methods.size === 0;
+    }
+
+    isEnumClass() {
+        return this.enums.has(this.fqn);
+    }
+
+    isStatic() {
+        return !this.is_class && !this.is_struct;
     }
 }
 

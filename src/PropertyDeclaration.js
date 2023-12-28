@@ -2,105 +2,6 @@ const {makeExpansion, useNamespaces, removeNamespaces} = require("./alias");
 const { PTR } = require("./constants");
 
 Object.assign(exports, {
-    getTupleTypes: type => {
-        const separators = /[,<>]/g;
-        const types = [];
-
-        let lastIndex = 0;
-        let match;
-        let open = 0;
-
-        while (match = separators.exec(type)) { // eslint-disable-line no-cond-assign
-            if (match[0] === "<") {
-                open++;
-            } else if (match[0] === ">") {
-                open--;
-            } else if (open === 0 && match[0] === ",") {
-                types.push(type.slice(lastIndex, match.index).trim());
-                lastIndex = separators.lastIndex;
-            }
-        }
-
-        if (lastIndex !== type.length) {
-            types.push(type.slice(lastIndex).trim());
-        }
-
-        return types;
-    },
-
-    restoreOriginalType: (type, options = {}) => {
-        const shared_ptr = removeNamespaces(options.shared_ptr, options);
-
-        const types = [
-            "map",
-            "optional",
-            "pair",
-            "tuple",
-            "vector",
-            "GArray",
-            "GOpaque",
-            shared_ptr
-        ];
-
-        const templates = new RegExp(`\\b(?:${ [
-            "std::map",
-            "std::optional",
-            "std::pair",
-            "std::tuple",
-            "std::vector",
-            "cv::GArray",
-            "cv::GOpaque",
-            options.shared_ptr
-        ].join("|") })<`, "g");
-
-        type = type
-            .replace(templates, match => match.slice(match.indexOf("::") + "::".length))
-            .replace(/_and_/g, ", ")
-            .replace(/_end_/g, ">");
-
-        const replacer = new RegExp(`\\b(?:${ types.join("|") })_`, "g");
-
-        while (replacer.test(type)) {
-            replacer.lastIndex = 0;
-            type = type.replace(replacer, match => `${ match.slice(0, -1) }<`);
-            replacer.lastIndex = 0;
-        }
-
-        const tokenizer = new RegExp(`(?:[,>]|\\b(?:${ types.join("|") })<)`, "g");
-
-        let match;
-        const path = [];
-        let lastIndex = 0;
-        let str = "";
-
-        while (match = tokenizer.exec(type)) { // eslint-disable-line no-cond-assign
-            str += type.slice(lastIndex, match.index);
-
-            if (match[0] === ",") {
-                while (path.length !== 0 && !["map", "pair", "tuple"].some(tmpl => path[path.length - 1] === tmpl)) {
-                    str += ">";
-                    path.pop();
-                }
-            } else if (match[0] === ">") {
-                path.pop();
-            } else {
-                path.push(match[0].slice(0, -1));
-            }
-
-            str += match[0];
-            lastIndex = tokenizer.lastIndex;
-        }
-
-        if (lastIndex !== type.length) {
-            str += type.slice(lastIndex);
-        }
-
-        const open = str.split("<").length - 1;
-        const close = str.split(">").length - 1;
-
-        return str + ">".repeat(open - close);
-    },
-
     isNativeType: type => {
         switch (type) {
             case "bool":
@@ -150,7 +51,7 @@ Object.assign(exports, {
         }
     },
 
-    convertToIdl(generator, coclass, in_type, in_val, out_type, out_val, modifiers, is_by_ref, options) {
+    convertToIdl(processor, coclass, in_type, in_val, out_type, out_val, modifiers, is_by_ref, options) {
         if (in_val.endsWith("::this") && out_type.startsWith("I")) {
             const cotype = out_type.slice("I".length, -1);
             return `hr = CoCreateInstance(CLSID_${ cotype }, NULL, CLSCTX_INPROC_SERVER, IID_I${ cotype }, reinterpret_cast<void**>(${ out_val }));`;
@@ -177,7 +78,7 @@ Object.assign(exports, {
             `.replace(/^ {16}/mg, "").trim();
         }
 
-        const cpptype = generator.getCppType(in_type, coclass, options);
+        const cpptype = processor.getCppType(in_type, coclass, options);
         const is_const = modifiers.includes("/C");
 
         if (is_by_ref && !is_const) {
@@ -185,8 +86,8 @@ Object.assign(exports, {
         }
 
         if (is_by_ref && !is_const && cpptype.startsWith("std::vector<")) {
-            const fqn = generator.add_vector(in_type, coclass, options);
-            const cotype = generator.classes.get(fqn).getClassName();
+            const fqn = processor.add_vector(in_type, coclass, options);
+            const cotype = processor.classes.get(fqn).getClassName();
 
             return `
                 I${ cotype }* pdispVal = nullptr;
@@ -200,7 +101,7 @@ Object.assign(exports, {
             `.replace(/^ {16}/mg, "").trim();
         }
 
-        return `hr = autoit_from(${ generator.castFromEnumIfNeeded(in_type, in_val, coclass, options) }, ${ out_val });`;
+        return `hr = autoit_from(${ processor.castFromEnumIfNeeded(in_type, in_val, coclass, options) }, ${ out_val });`;
     },
 
     convertFromIdl(in_type, in_val, out_type, obj, propname, setter, is_enum) {
@@ -222,15 +123,15 @@ Object.assign(exports, {
         return `return autoit_to(${ in_val }, ${ obj }${ propname });`;
     },
 
-    writeProperty(generator, iidl, impl, ipublic, iprivate, fqn, idlname, is_test, options) {
-        const coclass = generator.classes.get(fqn);
+    writeProperty(processor, iidl, impl, ipublic, iprivate, fqn, idlname, is_test, options) {
+        const coclass = processor.classes.get(fqn);
         const cotype = coclass.getClassName();
 
         const is_prop_test = is_test && !options.notest.has(`${ fqn }::${ idlname }`);
 
         const {type, modifiers} = coclass.properties.get(idlname);
-        const propidltype = generator.getIDLType(type, coclass, options);
-        const cpptype = generator.getCppType(type, coclass, options);
+        const propidltype = processor.getIDLType(type, coclass, options);
+        const cpptype = processor.getCppType(type, coclass, options);
         const is_static = !coclass.is_class && !coclass.is_struct || modifiers.includes("/S");
         const is_enum = modifiers.includes("/Enum");
         const no_external_decl = modifiers.includes("/ExternalNoDecl");
@@ -295,9 +196,10 @@ Object.assign(exports, {
                 if (modifiers.includes("/W") || modifiers.includes("/RW") || rname) {
                     const shared_ptr = removeNamespaces(options.shared_ptr, options);
                     const is_ptr = type.endsWith("*");
-                    const has_ptr = cpptype.startsWith(`${ shared_ptr }<`);
+                    const is_shared_ptr = cpptype.startsWith(`${ shared_ptr }<`);
+                    const is_map = cpptype.startsWith("std::map<");
                     const is_vector = cpptype.startsWith("std::vector<");
-                    is_by_ref = !is_ptr && !has_ptr && (is_vector || idltype[0] === "I" && idltype !== "IDispatch*");
+                    is_by_ref = !is_ptr && !is_shared_ptr && (is_map || is_vector || idltype[0] === "I" && idltype !== "IDispatch*");
                 }
 
                 rname = `${ obj }${ rname ? rname : propname }`;
@@ -307,15 +209,15 @@ Object.assign(exports, {
                     }
                 }
 
-                const enum_type = generator.getEnumType(type, coclass, options);
+                const enum_type = processor.getEnumType(type, coclass, options);
                 if (rname.endsWith("::this") && enum_type) {
-                    idltype = generator.classes.get(enum_type).getIDLType();
-                    generator.addDependency(coclass.fqn, enum_type);
+                    idltype = processor.classes.get(enum_type).getIDLType();
+                    processor.addDependency(coclass.fqn, enum_type);
                 }
 
-                const cvt = this.convertToIdl(generator, coclass, type, rname, idltype, "pVal", modifiers, is_by_ref, options).split("\n");
+                const cvt = this.convertToIdl(processor, coclass, type, rname, idltype, "pVal", modifiers, is_by_ref, options).split("\n");
 
-                useNamespaces(cvt, "unshift", generator, coclass);
+                useNamespaces(cvt, "unshift", processor, coclass);
 
                 const hr = is_static ? "" : `
                     if (__self->get() == NULL) {
@@ -359,7 +261,7 @@ Object.assign(exports, {
                 }
             }
 
-            const enum_fqn = generator.getEnumType(type, coclass, options);
+            const enum_fqn = processor.getEnumType(type, coclass, options);
             const cvt = this.convertFromIdl(idltype, "newVal", enum_fqn === null ? type : enum_fqn, obj, propname, wname, enum_fqn !== null).split("\n");
 
             let has_expr = false;
@@ -381,6 +283,7 @@ Object.assign(exports, {
                 if (idltype[0] === "I" && idltype !== "IDispatch*") {
                     const propcotype = idltype.slice(1, idltype.endsWith("*") ? -1 : idltype.length);
                     wname = wname.replaceAll(/\$(?:propcotype\b|\{\s*propcotype\s*\})/g, propcotype);
+                    wname = wname.replaceAll(/\$(?:propccotype\b|\{\s*propccotype\s*\})/g, `C${ propcotype }`);
                 }
 
                 cvt.length = 0;
@@ -390,7 +293,7 @@ Object.assign(exports, {
                 cvt.push("return hr;");
             }
 
-            useNamespaces(cvt, "unshift", generator, coclass);
+            useNamespaces(cvt, "unshift", processor, coclass);
 
             impl.push(`
                 STDMETHODIMP C${ cotype }::put_${ idlname }(${ idltype } newVal) {
@@ -412,7 +315,7 @@ Object.assign(exports, {
             iprivate.push(`${ cpptype } ${ propname };`);
         } else if (has_docs) {
             // generate docs header
-            generator.docs.push(`### ${ coclass.name }.${ idlname }\n`.replaceAll("_", "\\_"));
+            processor.docs.push(`### ${ coclass.name }.${ idlname }\n`.replaceAll("_", "\\_"));
 
             const cppsignature = [];
             if (is_static) {
@@ -434,7 +337,7 @@ Object.assign(exports, {
                 attributes.push("propput");
             }
 
-            generator.docs.push([
+            processor.docs.push([
                 "```cpp",
                 cppsignature.join(" "),
                 // "",

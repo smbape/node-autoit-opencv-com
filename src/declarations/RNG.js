@@ -6,6 +6,16 @@ module.exports = [
     ["cv.RNG.RNG", "", [], [
         ["uint64", "state", "", []]
     ], "", ""],
+    ["cv.RNG.fill", "void", [], [
+        ["InputOutputArray", "mat", "", []],
+        ["int", "distType", "", []],
+        ["InputArray", "a", "", []],
+        ["InputArray", "b", "", []],
+        ["bool", "saturateRange", "false", []],
+    ], "", ""],
+    ["cv.RNG.gaussian", "double", [], [
+        ["double", "sigma", "", []],
+    ], "", ""],
     ["cv.RNG.next", "uint", [], [], "", ""],
     ["cv.RNG.uniform", "int", ["=uniform_int"], [
         ["int", "a", "", []],
@@ -15,13 +25,9 @@ module.exports = [
         ["float", "a", "", []],
         ["float", "b", "", []],
     ], "", ""],
-    ["cv.RNG.uniform", "double", ["=uniform_double"], [
-        ["double", "a", "", []],
-        ["double", "b", "", []],
-    ], "", ""],
     ["cv.RNG.uniform", "double", [], [
         ["double", "a", "", []],
         ["double", "b", "", []],
     ], "", ""],
-    ["cv.theRNG", "cv::Ptr<RNG>", ["/S", "/Ref", "/WrapAs=::autoit::reference_internal"], [], "", ""],
+    ["cv.theRNG", "cv::Ptr<RNG>", ["/Ref", "/WrapAs=::autoit::reference_internal"], [], "", ""],
 ];

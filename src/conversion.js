@@ -35,7 +35,7 @@ const numbers = new Map([
     ["UINT", "UINT"],
 ]);
 
-const _dynamicCast = (generator, coclass, const_cast, options) => {
+const _dynamicCast = (processor, coclass, const_cast, options) => {
     const {children} = coclass;
 
     if (children.size === 0) {
@@ -53,7 +53,7 @@ const _dynamicCast = (generator, coclass, const_cast, options) => {
     }`.replace(/^ {4}/mg, "");
 };
 
-const _dynamicPointerCast = (generator, coclass, options) => {
+const _dynamicPointerCast = (processor, coclass, options) => {
     return "";
 };
 
@@ -150,7 +150,7 @@ Object.assign(exports, {
         }
     },
 
-    convert: (generator, coclass, header, impl, options = {}) => {
+    convert: (processor, coclass, header, impl, options = {}) => {
         for (const ename of coclass.enums) {
             if (ename.endsWith("<unnamed>")) {
                 continue;
@@ -300,7 +300,7 @@ Object.assign(exports, {
                             return *obj->__self;
                         }
                     }
-                    ${ dynamicCast(generator, coclass, "", options).split("\n").join(`\n${ " ".repeat(20) }`) }
+                    ${ dynamicCast(processor, coclass, "", options).split("\n").join(`\n${ " ".repeat(20) }`) }
                     return ${ shared_ptr }<${ coclass.fqn }>();
                 }
 
@@ -312,7 +312,7 @@ Object.assign(exports, {
                             return *obj->__self;
                         }
                     }
-                    ${ dynamicCast(generator, coclass, "const ", options).split("\n").join(`\n${ " ".repeat(20) }`) }
+                    ${ dynamicCast(processor, coclass, "const ", options).split("\n").join(`\n${ " ".repeat(20) }`) }
                     return ${ shared_ptr }<${ coclass.fqn }>();
                 }
             }
@@ -432,7 +432,7 @@ Object.assign(exports, {
                         return S_OK;
                     }
 
-                    ${ dynamicPointerCast(generator, coclass, options).split("\n").join(`\n${ " ".repeat(20) }`) }
+                    ${ dynamicPointerCast(processor, coclass, options).split("\n").join(`\n${ " ".repeat(20) }`) }
                     I${ cotype }* pdispVal = nullptr;
                     I${ cotype }** ppdispVal = &pdispVal;
                     HRESULT hr = autoit_from(in_val, ppdispVal);
@@ -580,12 +580,12 @@ Object.assign(exports, {
             vector_conversion.convert(coclass, header, impl, options);
         }
 
-        if (coclass.is_stdmap || generator.namedParameters === coclass) {
+        if (coclass.is_stdmap || processor.namedParameters === coclass) {
             map_conversion.convert(coclass, header, impl, options);
         }
 
         if (typeof options.convert === "function") {
-            options.convert(generator, coclass, header, impl, options);
+            options.convert(processor, coclass, header, impl, options);
         }
     },
 

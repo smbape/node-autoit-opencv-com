@@ -18,7 +18,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-if(WIN32 AND MSVC)
+if(MSVC AND NOT (CMAKE_GENERATOR STREQUAL Ninja))
   add_compile_options(/MP)
 endif()
 
@@ -34,16 +34,16 @@ vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/../README.md" "\\\\\\\\x
 vcpkg_regex_replace_string("${CMAKE_CURRENT_SOURCE_DIR}/../autoit-addon/CMakeLists.txt" "OpenCV_VERSION [0-9]+\\.[0-9]+\\.[0-9]+" "OpenCV_VERSION ${OpenCV_VERSION}")
 
 file(GLOB_RECURSE files_to_change
-  "install.bat"
-  "udf/*.au3"
-  "dotnet/*.cs"
-  "test/*.cpp"
-  "test/*.cs"
-  "../README.md"
-  "../samples/*.au3"
-  "../samples/*.cs"
-  "../samples/*.ps1"
-  "../samples/*.psm1"
+  install.bat
+  udf/*.au3
+  dotnet/*.cs
+  test/*.cpp
+  test/*.cs
+  ../README.md
+  ../samples/*.au3
+  ../samples/*.cs
+  ../samples/*.ps1
+  ../samples/*.psm1
 )
 
 foreach(item ${files_to_change})
@@ -151,7 +151,7 @@ if ((MSVC) AND (MSVC_VERSION GREATER_EQUAL 1914))
   target_compile_options(${PROJECT_NAME} PRIVATE "/bigobj")
 endif()
 
-IF ((WIN32) AND CMAKE_GENERATOR STREQUAL Ninja)
+IF ((WIN32) AND (CMAKE_GENERATOR STREQUAL Ninja))
   target_compile_options(${PROJECT_NAME} PRIVATE "/Zc:__cplusplus")
   target_compile_options(${PROJECT_NAME} PRIVATE "/bigobj")
   target_compile_definitions(${PROJECT_NAME} PRIVATE WIN32)
@@ -198,7 +198,7 @@ if ((MSVC) AND (MSVC_VERSION GREATER_EQUAL 1914))
   target_compile_options(cpp_test PRIVATE "/Zc:__cplusplus")
 endif()
 
-IF ((WIN32) AND CMAKE_GENERATOR STREQUAL Ninja)
+IF ((WIN32) AND (CMAKE_GENERATOR STREQUAL Ninja))
   target_compile_definitions(cpp_test PRIVATE WIN32)
   target_compile_definitions(cpp_test PRIVATE _WINDOWS)
 ENDIF()

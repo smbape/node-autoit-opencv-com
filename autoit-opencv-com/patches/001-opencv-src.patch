@@ -1,5 +1,5 @@
 diff --git a/modules/python/src2/hdr_parser.py b/modules/python/src2/hdr_parser.py
-index ebe13f05c7..cc59e7b6ef 100755
+index 710c79217..6e0062ece 100755
 --- a/modules/python/src2/hdr_parser.py
 +++ b/modules/python/src2/hdr_parser.py
 @@ -70,6 +70,29 @@ class CppHeaderParser(object):
@@ -41,7 +41,7 @@ index ebe13f05c7..cc59e7b6ef 100755
  
          return arg_type, arg_name, modlist, argno
  
-@@ -412,11 +435,25 @@ class CppHeaderParser(object):
+@@ -416,11 +439,25 @@ class CppHeaderParser(object):
          npos = decl_str.find("CV_EXPORTS_AS")
          if npos >= 0:
              arg, npos3 = self.get_macro_arg(decl_str, npos)
@@ -67,7 +67,7 @@ index ebe13f05c7..cc59e7b6ef 100755
              func_modlist.append("="+arg)
              decl_str = decl_str[:npos] + decl_str[npos3+1:]
          npos = decl_str.find("CV_WRAP_PHANTOM")
-@@ -639,10 +676,13 @@ class CppHeaderParser(object):
+@@ -645,10 +682,13 @@ class CppHeaderParser(object):
  
          the function will convert "A" to "cv.A" and "f" to "cv.A.f".
          """
@@ -84,19 +84,19 @@ index ebe13f05c7..cc59e7b6ef 100755
          qualified_name = (("." in name) or ("::" in name))
          n = ""
          for b in self.block_stack:
-@@ -734,7 +774,10 @@ class CppHeaderParser(object):
+@@ -740,7 +780,10 @@ class CppHeaderParser(object):
  
              if stmt.startswith("enum") or stmt.startswith("namespace"):
                  # NB: Drop inheritance syntax for enum
 -                stmt = stmt.split(':')[0]
 +                if stmt.startswith("enum"):
-+                    stmt = stmt.split(':')[0]
++                    stmt = stmt.split(':')[0].rstrip()
 +                else:
 +                    stmt = stmt.replace("::", ".")
                  stmt_list = stmt.rsplit(" ", 1)
                  if len(stmt_list) < 2:
                      stmt_list.append("<unnamed>")
-@@ -770,8 +813,18 @@ class CppHeaderParser(object):
+@@ -776,8 +819,18 @@ class CppHeaderParser(object):
                  var_modlist = []
                  if "CV_PROP_RW" in stmt:
                      var_modlist.append("/RW")

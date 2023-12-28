@@ -1,10 +1,3 @@
-const {ALIASES} = require("./constants");
-
-exports.getAlias = str => {
-    str = str.trim();
-    return ALIASES.has(str) ? ALIASES.get(str) : str;
-};
-
 exports.removeNamespaces = (str, options = {}) => {
     if (!options.remove_namespaces || options.remove_namespaces.size === 0) {
         return str;
@@ -26,11 +19,11 @@ exports.makeExpansion = (str, ...args) => {
     return str;
 };
 
-exports.useNamespaces = (body, method, coclass, generator) => {
+exports.useNamespaces = (body, method, coclass, processor) => {
     const namespaces = new Set();
 
-    if (generator.namespace) {
-        namespaces.add(`using namespace ${ generator.namespace };`);
+    if (processor.namespace) {
+        namespaces.add(`using namespace ${ processor.namespace };`);
     }
 
     if (coclass.namespace) {
@@ -47,9 +40,11 @@ exports.useNamespaces = (body, method, coclass, generator) => {
 exports.getTypeDef = (type, options) => {
     let type_def = type
         .replace(/\b(u?int(?:8|16|32|64))_t\b/g, "$1")
-        .replace(/std::map/g, "MapOf")
-        .replace(/std::pair/g, "PairOf")
-        .replace(/std::vector/g, "VectorOf");
+        .replaceAll("std::map", "MapOf")
+        .replaceAll("std::pair", "PairOf")
+        .replaceAll("std::vector", "VectorOf")
+        .replaceAll("std::shared_ptr", "SharedPtrOf")
+        .replaceAll(options.shared_ptr, "SharedPtrOf");
 
     type_def = exports.removeNamespaces(type_def, options)
         .replace(/\b_variant_t\b/g, "Variant")
@@ -59,4 +54,11 @@ exports.getTypeDef = (type, options) => {
         .replace(/[<>]/g, "");
 
     return type_def;
+};
+
+const {ALIASES} = require("./constants");
+
+exports.getAlias = str => {
+    str = str.trim();
+    return ALIASES.has(str) ? ALIASES.get(str) : str;
 };

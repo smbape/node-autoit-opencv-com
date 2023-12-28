@@ -12,7 +12,7 @@ const {explore} = require("fs-explorer");
 const OpenCV_VERSION = "opencv-4.8.0";
 const OpenCV_DLLVERSION = OpenCV_VERSION.slice("opencv-".length).replaceAll(".", "");
 
-const parseArguments = PROJECT_DIR => {
+const getOptions = PROJECT_DIR => {
     const options = {
         APP_NAME: "OpenCV",
         LIB_UID: "fc210206-673e-4ec8-82d5-1a6ac561f3de",
@@ -27,6 +27,12 @@ const parseArguments = PROJECT_DIR => {
         variantTypeReg: /^cv::(?:Point|Rect|Scalar|Size|Vec)(?:\d[bdfisw])?$/,
         implicitNamespaceType: /^(?:Point|Rect|Scalar|Size|Vec)(?:\d[bdfisw])?$/,
 
+        pself: "__self->get()",
+        self: "*__self->get()",
+        self_get: name => {
+            return `__self->get()->${ name }`;
+        },
+
         // used to lookup classes
         namespaces: new Set([
             "cv",
@@ -40,15 +46,19 @@ const parseArguments = PROJECT_DIR => {
             "cv",
             "std",
         ]),
+
         build: new Set(),
         notest: new Set(),
         skip: new Set(),
+
+        // For MIDL compile
         includes: [sysPath.join(PROJECT_DIR, "src")],
+
         output: sysPath.join(PROJECT_DIR, "generated"),
         toc: true, // the limit of 1000KB is exeeded even without toc
         globals: ["$CV_MAT_DEPTH_MASK", "$CV_MAT_TYPE_MASK"],
         constReplacer: new Map([["std::numeric_limits<uint8_t>::max()", "0xFF"]]),
-        onClass: (generator, coclass, opts) => {
+        onClass: (processor, coclass, opts) => {
             const {fqn} = coclass;
 
             if (fqn === "cv::cuda::GpuData") {
@@ -59,7 +69,7 @@ const parseArguments = PROJECT_DIR => {
             }
         },
 
-        onCoClass: (generator, coclass, opts) => {
+        onCoClass: (processor, coclass, opts) => {
             const {fqn} = coclass;
 
             if (fqn === "cv::Moments") {
@@ -69,19 +79,19 @@ const parseArguments = PROJECT_DIR => {
             const parts = fqn.split("::");
 
             for (let i = 1; i < parts.length; i++) {
-                generator.add_func([`${ parts.slice(0, i).join(".") }.`, "", ["/Properties"], [
+                processor.add_func([`${ parts.slice(0, i).join(".") }.`, "", ["/Properties"], [
                     [parts.slice(0, i + 1).join("::"), parts[i], "", ["/R", "/S", "=this"]],
                 ], "", ""]);
             }
         },
 
-        addEnum: (generator, epath, opts) => {
+        addEnum: (processor, epath, opts) => {
             if (epath.length !== 2 || epath[0] !== "cv") {
                 return false;
             }
 
             const basename = epath[epath.length - 1];
-            const coclass = generator.getCoClass("cv::enums", opts);
+            const coclass = processor.getCoClass("cv::enums", opts);
             coclass.addProperty(["int", basename, "", [`/RExpr=${ epath.join("::") }`, "/S"]]);
             return true;
         },
@@ -125,7 +135,8 @@ const {
 
 const {findFile} = require("./FileUtils");
 const custom_declarations = require("./custom_declarations");
-const AutoItGenerator = require("./AutoItGenerator");
+const DeclProcessor = require("./DeclProcessor");
+const COMGenerator = require("./COMGenerator");
 
 const PROJECT_DIR = sysPath.resolve(__dirname, "../autoit-opencv-com");
 const SRC_DIR = sysPath.join(PROJECT_DIR, "src");
@@ -140,7 +151,8 @@ const hdr_parser = fs.readFileSync(sysPath.join(src2, "hdr_parser.py")).toString
 const hdr_parser_start = hdr_parser.indexOf("class CppHeaderParser");
 const hdr_parser_end = hdr_parser.indexOf("if __name__ == '__main__':");
 
-const options = parseArguments(PROJECT_DIR);
+const options = getOptions(PROJECT_DIR);
+options.proto = COMGenerator.proto;
 
 waterfall([
     next => {
@@ -204,6 +216,7 @@ waterfall([
     },
 
     (srcfiles, generated_include, next) => {
+        // exported class that are not included by python generated include file
         srcfiles.push(sysPath.resolve(opencv_SOURCE_DIR, "modules/flann/include/opencv2/flann/defines.h"));
 
         const buffers = [];
@@ -233,8 +246,10 @@ waterfall([
             configuration.namespaces.push(...options.namespaces);
             configuration.namespaces.push(...options.other_namespaces);
 
-            const generator = new AutoItGenerator();
-            generator.generate(configuration, options, next);
+            const processor = new DeclProcessor(options);
+            processor.process(configuration, options);
+
+            next(null, processor, configuration);
         });
 
         child.stderr.on("data", chunk => {
@@ -278,6 +293,11 @@ waterfall([
 
         child.stdin.write(code);
         child.stdin.end();
+    },
+
+    (processor, configuration, next) => {
+        const generator = new COMGenerator();
+        generator.generate(processor, configuration, options, next);
     },
 ], err => {
     if (err) {

@@ -1,6 +1,4 @@
 #pragma once
-#ifndef AUTOITDEF_H
-#define AUTOITDEF_H
 
 #if defined _WIN32
 #  define AUTOIT_CDECL __cdecl
@@ -32,6 +30,4 @@
 
 #ifndef AUTOITAPI
 #  define AUTOITAPI(rettype) AUTOIT_EXTERN_C AUTOIT_EXPORTS rettype AUTOIT_CDECL
-#endif
-
 #endif
