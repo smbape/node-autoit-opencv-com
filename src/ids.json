@@ -867,6 +867,14 @@
         "iid": "e9684959-589b-46be-a5e2-291da0b2b7cf",
         "clsid": "3f9cdda3-7f13-4c76-9afc-0dd239daa566"
     },
+    "cv::TrackerVit": {
+        "iid": "8462be11-a09d-45e6-98e8-3de72c2994ee",
+        "clsid": "58543029-89a8-4fad-91fe-c538e0241d13"
+    },
+    "cv::TrackerVit::Params": {
+        "iid": "671836e4-8d5e-4fe0-8b89-87a093adb6ab",
+        "clsid": "e0dee9f9-e97f-41fa-a0f6-ffe1057f17d3"
+    },
     "cv::detail::TrackerSamplerCSC": {
         "iid": "6d4ab02a-7037-4c2e-b455-27f9b240416b",
         "clsid": "fe0ce83e-cdf1-4b07-aa48-3992ab2132aa"
@@ -886,6 +894,14 @@
     "cv::gapi::core::cpu": {
         "iid": "b781eac8-06eb-470c-bb86-d5a70849a9c9",
         "clsid": "610e3046-0735-46f4-b467-fd38e77b00e4"
+    },
+    "cv::gapi::ot": {
+        "iid": "b78c5282-74fb-4d44-a6e0-66646550546f",
+        "clsid": "53e9fdfd-9942-4c33-bfce-e9c456ce2ed5"
+    },
+    "cv::gapi::ot::cpu": {
+        "iid": "71426b23-c175-4a59-a92a-d20b5eb6f856",
+        "clsid": "bf5b1fe8-5193-483f-b2c3-660a713fdc39"
     },
     "cv::gapi::core::fluid": {
         "iid": "0e0e07df-046a-400c-965a-ef4f012b0aef",
@@ -1015,6 +1031,30 @@
         "iid": "de608346-f0f6-4fb6-8dd8-ba588d3cb7ea",
         "clsid": "a76b3a5e-393c-45bb-a81f-d3d44c6ad169"
     },
+    "cv::gapi::onnx::ep": {
+        "iid": "eb95951f-5934-4352-b9a3-defd748694bb",
+        "clsid": "13a0f400-9d1c-4e8b-9b4f-319e0a0a5601"
+    },
+    "cv::gapi::onnx::ep::CoreML": {
+        "iid": "1963c1be-34f9-44cf-8ac4-5c0b70313f74",
+        "clsid": "d193ffa7-c5c4-4cbc-8f7b-35265d6ec1f3"
+    },
+    "cv::gapi::onnx::ep::CUDA": {
+        "iid": "8bfe841d-9eb7-4357-a00c-0a62483eae03",
+        "clsid": "dbc278ef-6770-4053-913b-89e95addbf8e"
+    },
+    "cv::gapi::onnx::ep::TensorRT": {
+        "iid": "ca844fce-6368-4d94-9e70-4d9e3c6d8042",
+        "clsid": "d21c7fc7-9242-46c5-ba03-3087efa5eddf"
+    },
+    "cv::gapi::onnx::ep::OpenVINO": {
+        "iid": "eb557939-6239-40ab-ad72-b1b43b9624d2",
+        "clsid": "f0d778f2-96a9-44c7-93f8-292c814dbd07"
+    },
+    "cv::gapi::onnx::ep::DirectML": {
+        "iid": "f883af9a-7100-4ff8-8e8f-851f0f5d10b7",
+        "clsid": "11a4f683-8d40-42b2-9404-a5a2a99ac406"
+    },
     "cv::gapi::onnx::TraitAs": {
         "iid": "deeb3c77-d7bd-4198-b131-cf0c811e51a3",
         "clsid": "5bd346be-aa88-481c-a756-0b774de881ee"
@@ -1058,6 +1098,10 @@
     "cv::gapi::core::ocl": {
         "iid": "465ff0f6-bd81-455b-9a00-7f5143265a15",
         "clsid": "6425b1d9-011b-47b1-9637-645b9ec02c46"
+    },
+    "cv::gapi::ot::ObjectTrackerParams": {
+        "iid": "ea8c9048-4576-4649-99ca-9693040ad14a",
+        "clsid": "c976c43e-55c3-43ab-ab94-36d37ac537f1"
     },
     "cv::gapi::own": {
         "iid": "a917c93f-1bc2-4528-bcdc-f137aa1dbbbb",
@@ -1439,13 +1483,13 @@
         "iid": "93858a0f-ce5e-4237-90bf-423b7a2fe4ed",
         "clsid": "12b75f64-51dd-4a25-bf13-eccd2fe96c50"
     },
-    "VectorOfRotatedRect": {
-        "iid": "21a9465a-62e7-4fd4-9c32-e20633990779",
-        "clsid": "fa10b804-fed4-4c24-b320-c311e6c0bc90"
-    },
     "VectorOfDouble": {
         "iid": "9db3d35a-8245-469a-9b3c-c52f631c570a",
         "clsid": "ccc074c7-e102-40aa-b44f-d59fb9fb12a5"
+    },
+    "VectorOfRotatedRect": {
+        "iid": "21a9465a-62e7-4fd4-9c32-e20633990779",
+        "clsid": "fa10b804-fed4-4c24-b320-c311e6c0bc90"
     },
     "VectorOfUMat": {
         "iid": "7e1b1102-4d5a-4adc-90ea-da6993ee6fa6",
@@ -1654,6 +1698,10 @@
     "GOpaque_Size": {
         "iid": "905a3769-9668-40e1-8858-550a9362e53f",
         "clsid": "3a27178e-7791-4301-8563-d145ce61db7f"
+    },
+    "GArray_uint64_t": {
+        "iid": "32627b00-1b54-42fc-b26a-7ce08db6fdad",
+        "clsid": "192681f9-e468-4227-81a3-44812b62c529"
     },
     "VectorOfGRunArg": {
         "iid": "ed3dab2b-b88b-45c8-abca-3d104c196e4a",

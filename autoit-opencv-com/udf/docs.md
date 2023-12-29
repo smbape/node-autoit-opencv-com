@@ -117,6 +117,7 @@
   - [cv.TrackerGOTURN](#cvtrackergoturn)
   - [cv.TrackerDaSiamRPN](#cvtrackerdasiamrpn)
   - [cv.TrackerNano](#cvtrackernano)
+  - [cv.TrackerVit](#cvtrackervit)
   - [cv.gapi](#cvgapi)
   - [cv.GFluidKernel](#cvgfluidkernel)
   - [cv.GArrayDesc](#cvgarraydesc)
@@ -223,6 +224,7 @@
   - [cv::boundingRect](#cvboundingrect)
   - [cv::boxFilter](#cvboxfilter)
   - [cv::boxPoints](#cvboxpoints)
+  - [cv::broadcast](#cvbroadcast)
   - [cv::buildOpticalFlowPyramid](#cvbuildopticalflowpyramid)
   - [cv::calcBackProject](#cvcalcbackproject)
   - [cv::calcCovarMatrix](#cvcalccovarmatrix)
@@ -992,6 +994,34 @@
   - [enums.COLOR\_BayerGB2RGBA](#enumscolor%5C_bayergb2rgba)
   - [enums.COLOR\_BayerRG2RGBA](#enumscolor%5C_bayerrg2rgba)
   - [enums.COLOR\_BayerGR2RGBA](#enumscolor%5C_bayergr2rgba)
+  - [enums.COLOR\_RGB2YUV\_UYVY](#enumscolor%5C_rgb2yuv%5C_uyvy)
+  - [enums.COLOR\_BGR2YUV\_UYVY](#enumscolor%5C_bgr2yuv%5C_uyvy)
+  - [enums.COLOR\_RGB2YUV\_Y422](#enumscolor%5C_rgb2yuv%5C_y422)
+  - [enums.COLOR\_BGR2YUV\_Y422](#enumscolor%5C_bgr2yuv%5C_y422)
+  - [enums.COLOR\_RGB2YUV\_UYNV](#enumscolor%5C_rgb2yuv%5C_uynv)
+  - [enums.COLOR\_BGR2YUV\_UYNV](#enumscolor%5C_bgr2yuv%5C_uynv)
+  - [enums.COLOR\_RGBA2YUV\_UYVY](#enumscolor%5C_rgba2yuv%5C_uyvy)
+  - [enums.COLOR\_BGRA2YUV\_UYVY](#enumscolor%5C_bgra2yuv%5C_uyvy)
+  - [enums.COLOR\_RGBA2YUV\_Y422](#enumscolor%5C_rgba2yuv%5C_y422)
+  - [enums.COLOR\_BGRA2YUV\_Y422](#enumscolor%5C_bgra2yuv%5C_y422)
+  - [enums.COLOR\_RGBA2YUV\_UYNV](#enumscolor%5C_rgba2yuv%5C_uynv)
+  - [enums.COLOR\_BGRA2YUV\_UYNV](#enumscolor%5C_bgra2yuv%5C_uynv)
+  - [enums.COLOR\_RGB2YUV\_YUY2](#enumscolor%5C_rgb2yuv%5C_yuy2)
+  - [enums.COLOR\_BGR2YUV\_YUY2](#enumscolor%5C_bgr2yuv%5C_yuy2)
+  - [enums.COLOR\_RGB2YUV\_YVYU](#enumscolor%5C_rgb2yuv%5C_yvyu)
+  - [enums.COLOR\_BGR2YUV\_YVYU](#enumscolor%5C_bgr2yuv%5C_yvyu)
+  - [enums.COLOR\_RGB2YUV\_YUYV](#enumscolor%5C_rgb2yuv%5C_yuyv)
+  - [enums.COLOR\_BGR2YUV\_YUYV](#enumscolor%5C_bgr2yuv%5C_yuyv)
+  - [enums.COLOR\_RGB2YUV\_YUNV](#enumscolor%5C_rgb2yuv%5C_yunv)
+  - [enums.COLOR\_BGR2YUV\_YUNV](#enumscolor%5C_bgr2yuv%5C_yunv)
+  - [enums.COLOR\_RGBA2YUV\_YUY2](#enumscolor%5C_rgba2yuv%5C_yuy2)
+  - [enums.COLOR\_BGRA2YUV\_YUY2](#enumscolor%5C_bgra2yuv%5C_yuy2)
+  - [enums.COLOR\_RGBA2YUV\_YVYU](#enumscolor%5C_rgba2yuv%5C_yvyu)
+  - [enums.COLOR\_BGRA2YUV\_YVYU](#enumscolor%5C_bgra2yuv%5C_yvyu)
+  - [enums.COLOR\_RGBA2YUV\_YUYV](#enumscolor%5C_rgba2yuv%5C_yuyv)
+  - [enums.COLOR\_BGRA2YUV\_YUYV](#enumscolor%5C_bgra2yuv%5C_yuyv)
+  - [enums.COLOR\_RGBA2YUV\_YUNV](#enumscolor%5C_rgba2yuv%5C_yunv)
+  - [enums.COLOR\_BGRA2YUV\_YUNV](#enumscolor%5C_bgra2yuv%5C_yunv)
   - [enums.COLOR\_COLORCVT\_MAX](#enumscolor%5C_colorcvt%5C_max)
   - [enums.INTERSECT\_NONE](#enumsintersect%5C_none)
   - [enums.INTERSECT\_PARTIAL](#enumsintersect%5C_partial)
@@ -1234,6 +1264,9 @@
   - [enums.VIDEOWRITER\_PROP\_HW\_ACCELERATION](#enumsvideowriter%5C_prop%5C_hw%5C_acceleration)
   - [enums.VIDEOWRITER\_PROP\_HW\_DEVICE](#enumsvideowriter%5C_prop%5C_hw%5C_device)
   - [enums.VIDEOWRITER\_PROP\_HW\_ACCELERATION\_USE\_OPENCL](#enumsvideowriter%5C_prop%5C_hw%5C_acceleration%5C_use%5C_opencl)
+  - [enums.VIDEOWRITER\_PROP\_RAW\_VIDEO](#enumsvideowriter%5C_prop%5C_raw%5C_video)
+  - [enums.VIDEOWRITER\_PROP\_KEY\_INTERVAL](#enumsvideowriter%5C_prop%5C_key%5C_interval)
+  - [enums.VIDEOWRITER\_PROP\_KEY\_FLAG](#enumsvideowriter%5C_prop%5C_key%5C_flag)
   - [enums.VIDEO\_ACCELERATION\_NONE](#enumsvideo%5C_acceleration%5C_none)
   - [enums.VIDEO\_ACCELERATION\_ANY](#enumsvideo%5C_acceleration%5C_any)
   - [enums.VIDEO\_ACCELERATION\_D3D11](#enumsvideo%5C_acceleration%5C_d3d11)
@@ -1535,6 +1568,7 @@
   - [enums.CALIB\_CB\_ACCURACY](#enumscalib%5C_cb%5C_accuracy)
   - [enums.CALIB\_CB\_LARGER](#enumscalib%5C_cb%5C_larger)
   - [enums.CALIB\_CB\_MARKER](#enumscalib%5C_cb%5C_marker)
+  - [enums.CALIB\_CB\_PLAIN](#enumscalib%5C_cb%5C_plain)
   - [enums.CALIB\_CB\_SYMMETRIC\_GRID](#enumscalib%5C_cb%5C_symmetric%5C_grid)
   - [enums.CALIB\_CB\_ASYMMETRIC\_GRID](#enumscalib%5C_cb%5C_asymmetric%5C_grid)
   - [enums.CALIB\_CB\_CLUSTERING](#enumscalib%5C_cb%5C_clustering)
@@ -3602,12 +3636,16 @@
   - [Image2BlobParams.ddepth](#image2blobparamsddepth)
   - [Image2BlobParams.datalayout](#image2blobparamsdatalayout)
   - [Image2BlobParams.paddingmode](#image2blobparamspaddingmode)
+  - [Image2BlobParams.borderValue](#image2blobparamsbordervalue)
   - [cv::dnn::Image2BlobParams::get\_create](#cvdnnimage2blobparamsget%5C_create)
+  - [cv::dnn::Image2BlobParams::blobRectToImageRect](#cvdnnimage2blobparamsblobrecttoimagerect)
+  - [cv::dnn::Image2BlobParams::blobRectsToImageRects](#cvdnnimage2blobparamsblobrectstoimagerects)
 - [cv::dnn::SoftNMSMethod](#cvdnnsoftnmsmethod)
   - [SoftNMSMethod.SOFTNMS\_LINEAR](#softnmsmethodsoftnms%5C_linear)
   - [SoftNMSMethod.SOFTNMS\_GAUSSIAN](#softnmsmethodsoftnms%5C_gaussian)
 - [cv::dnn::Model](#cvdnnmodel)
   - [cv::dnn::Model::get\_create](#cvdnnmodelget%5C_create)
+  - [cv::dnn::Model::enableWinograd](#cvdnnmodelenablewinograd)
   - [cv::dnn::Model::predict](#cvdnnmodelpredict)
   - [cv::dnn::Model::setInputCrop](#cvdnnmodelsetinputcrop)
   - [cv::dnn::Model::setInputMean](#cvdnnmodelsetinputmean)
@@ -3620,6 +3658,7 @@
 - [cv::dnn::ClassificationModel](#cvdnnclassificationmodel)
   - [cv::dnn::ClassificationModel::get\_create](#cvdnnclassificationmodelget%5C_create)
   - [cv::dnn::ClassificationModel::classify](#cvdnnclassificationmodelclassify)
+  - [cv::dnn::ClassificationModel::enableWinograd](#cvdnnclassificationmodelenablewinograd)
   - [cv::dnn::ClassificationModel::getEnableSoftmaxPostProcessing](#cvdnnclassificationmodelgetenablesoftmaxpostprocessing)
   - [cv::dnn::ClassificationModel::predict](#cvdnnclassificationmodelpredict)
   - [cv::dnn::ClassificationModel::setEnableSoftmaxPostProcessing](#cvdnnclassificationmodelsetenablesoftmaxpostprocessing)
@@ -3633,6 +3672,7 @@
   - [cv::dnn::ClassificationModel::setPreferableTarget](#cvdnnclassificationmodelsetpreferabletarget)
 - [cv::dnn::KeypointsModel](#cvdnnkeypointsmodel)
   - [cv::dnn::KeypointsModel::get\_create](#cvdnnkeypointsmodelget%5C_create)
+  - [cv::dnn::KeypointsModel::enableWinograd](#cvdnnkeypointsmodelenablewinograd)
   - [cv::dnn::KeypointsModel::estimate](#cvdnnkeypointsmodelestimate)
   - [cv::dnn::KeypointsModel::predict](#cvdnnkeypointsmodelpredict)
   - [cv::dnn::KeypointsModel::setInputCrop](#cvdnnkeypointsmodelsetinputcrop)
@@ -3645,6 +3685,7 @@
   - [cv::dnn::KeypointsModel::setPreferableTarget](#cvdnnkeypointsmodelsetpreferabletarget)
 - [cv::dnn::SegmentationModel](#cvdnnsegmentationmodel)
   - [cv::dnn::SegmentationModel::get\_create](#cvdnnsegmentationmodelget%5C_create)
+  - [cv::dnn::SegmentationModel::enableWinograd](#cvdnnsegmentationmodelenablewinograd)
   - [cv::dnn::SegmentationModel::predict](#cvdnnsegmentationmodelpredict)
   - [cv::dnn::SegmentationModel::segment](#cvdnnsegmentationmodelsegment)
   - [cv::dnn::SegmentationModel::setInputCrop](#cvdnnsegmentationmodelsetinputcrop)
@@ -3658,6 +3699,7 @@
 - [cv::dnn::DetectionModel](#cvdnndetectionmodel)
   - [cv::dnn::DetectionModel::get\_create](#cvdnndetectionmodelget%5C_create)
   - [cv::dnn::DetectionModel::detect](#cvdnndetectionmodeldetect)
+  - [cv::dnn::DetectionModel::enableWinograd](#cvdnndetectionmodelenablewinograd)
   - [cv::dnn::DetectionModel::getNmsAcrossClasses](#cvdnndetectionmodelgetnmsacrossclasses)
   - [cv::dnn::DetectionModel::predict](#cvdnndetectionmodelpredict)
   - [cv::dnn::DetectionModel::setInputCrop](#cvdnndetectionmodelsetinputcrop)
@@ -3671,6 +3713,7 @@
   - [cv::dnn::DetectionModel::setPreferableTarget](#cvdnndetectionmodelsetpreferabletarget)
 - [cv::dnn::TextRecognitionModel](#cvdnntextrecognitionmodel)
   - [cv::dnn::TextRecognitionModel::get\_create](#cvdnntextrecognitionmodelget%5C_create)
+  - [cv::dnn::TextRecognitionModel::enableWinograd](#cvdnntextrecognitionmodelenablewinograd)
   - [cv::dnn::TextRecognitionModel::getDecodeType](#cvdnntextrecognitionmodelgetdecodetype)
   - [cv::dnn::TextRecognitionModel::getVocabulary](#cvdnntextrecognitionmodelgetvocabulary)
   - [cv::dnn::TextRecognitionModel::predict](#cvdnntextrecognitionmodelpredict)
@@ -3689,6 +3732,7 @@
 - [cv::dnn::TextDetectionModel](#cvdnntextdetectionmodel)
   - [cv::dnn::TextDetectionModel::detect](#cvdnntextdetectionmodeldetect)
   - [cv::dnn::TextDetectionModel::detectTextRectangles](#cvdnntextdetectionmodeldetecttextrectangles)
+  - [cv::dnn::TextDetectionModel::enableWinograd](#cvdnntextdetectionmodelenablewinograd)
   - [cv::dnn::TextDetectionModel::predict](#cvdnntextdetectionmodelpredict)
   - [cv::dnn::TextDetectionModel::setInputCrop](#cvdnntextdetectionmodelsetinputcrop)
   - [cv::dnn::TextDetectionModel::setInputMean](#cvdnntextdetectionmodelsetinputmean)
@@ -3702,6 +3746,7 @@
   - [cv::dnn::TextDetectionModel\_EAST::get\_create](#cvdnntextdetectionmodel%5C_eastget%5C_create)
   - [cv::dnn::TextDetectionModel\_EAST::detect](#cvdnntextdetectionmodel%5C_eastdetect)
   - [cv::dnn::TextDetectionModel\_EAST::detectTextRectangles](#cvdnntextdetectionmodel%5C_eastdetecttextrectangles)
+  - [cv::dnn::TextDetectionModel\_EAST::enableWinograd](#cvdnntextdetectionmodel%5C_eastenablewinograd)
   - [cv::dnn::TextDetectionModel\_EAST::getConfidenceThreshold](#cvdnntextdetectionmodel%5C_eastgetconfidencethreshold)
   - [cv::dnn::TextDetectionModel\_EAST::getNMSThreshold](#cvdnntextdetectionmodel%5C_eastgetnmsthreshold)
   - [cv::dnn::TextDetectionModel\_EAST::predict](#cvdnntextdetectionmodel%5C_eastpredict)
@@ -3719,6 +3764,7 @@
   - [cv::dnn::TextDetectionModel\_DB::get\_create](#cvdnntextdetectionmodel%5C_dbget%5C_create)
   - [cv::dnn::TextDetectionModel\_DB::detect](#cvdnntextdetectionmodel%5C_dbdetect)
   - [cv::dnn::TextDetectionModel\_DB::detectTextRectangles](#cvdnntextdetectionmodel%5C_dbdetecttextrectangles)
+  - [cv::dnn::TextDetectionModel\_DB::enableWinograd](#cvdnntextdetectionmodel%5C_dbenablewinograd)
   - [cv::dnn::TextDetectionModel\_DB::getBinaryThreshold](#cvdnntextdetectionmodel%5C_dbgetbinarythreshold)
   - [cv::dnn::TextDetectionModel\_DB::getMaxCandidates](#cvdnntextdetectionmodel%5C_dbgetmaxcandidates)
   - [cv::dnn::TextDetectionModel\_DB::getPolygonThreshold](#cvdnntextdetectionmodel%5C_dbgetpolygonthreshold)
@@ -4043,6 +4089,7 @@
   - [cv::AKAZE::getDescriptorSize](#cvakazegetdescriptorsize)
   - [cv::AKAZE::getDescriptorType](#cvakazegetdescriptortype)
   - [cv::AKAZE::getDiffusivity](#cvakazegetdiffusivity)
+  - [cv::AKAZE::getMaxPoints](#cvakazegetmaxpoints)
   - [cv::AKAZE::getNOctaveLayers](#cvakazegetnoctavelayers)
   - [cv::AKAZE::getNOctaves](#cvakazegetnoctaves)
   - [cv::AKAZE::getThreshold](#cvakazegetthreshold)
@@ -4052,6 +4099,7 @@
   - [cv::AKAZE::setDescriptorSize](#cvakazesetdescriptorsize)
   - [cv::AKAZE::setDescriptorType](#cvakazesetdescriptortype)
   - [cv::AKAZE::setDiffusivity](#cvakazesetdiffusivity)
+  - [cv::AKAZE::setMaxPoints](#cvakazesetmaxpoints)
   - [cv::AKAZE::setNOctaveLayers](#cvakazesetnoctavelayers)
   - [cv::AKAZE::setNOctaves](#cvakazesetnoctaves)
   - [cv::AKAZE::setThreshold](#cvakazesetthreshold)
@@ -4521,8 +4569,10 @@
   - [DetectorParameters.minCornerDistanceRate](#detectorparametersmincornerdistancerate)
   - [DetectorParameters.minDistanceToBorder](#detectorparametersmindistancetoborder)
   - [DetectorParameters.minMarkerDistanceRate](#detectorparametersminmarkerdistancerate)
+  - [DetectorParameters.minGroupDistance](#detectorparametersmingroupdistance)
   - [DetectorParameters.cornerRefinementMethod](#detectorparameterscornerrefinementmethod)
   - [DetectorParameters.cornerRefinementWinSize](#detectorparameterscornerrefinementwinsize)
+  - [DetectorParameters.relativeCornerRefinmentWinSize](#detectorparametersrelativecornerrefinmentwinsize)
   - [DetectorParameters.cornerRefinementMaxIterations](#detectorparameterscornerrefinementmaxiterations)
   - [DetectorParameters.cornerRefinementMinAccuracy](#detectorparameterscornerrefinementminaccuracy)
   - [DetectorParameters.markerBorderBits](#detectorparametersmarkerborderbits)
@@ -5204,6 +5254,19 @@
   - [Params.backend](#paramsbackend-1)
   - [Params.target](#paramstarget-1)
   - [cv::TrackerNano::Params::get\_create](#cvtrackernanoparamsget%5C_create)
+- [cv::TrackerVit](#cvtrackervit)
+  - [TrackerVit.Params](#trackervitparams)
+  - [cv::TrackerVit::get\_create](#cvtrackervitget%5C_create)
+  - [cv::TrackerVit::getTrackingScore](#cvtrackervitgettrackingscore)
+  - [cv::TrackerVit::init](#cvtrackervitinit)
+  - [cv::TrackerVit::update](#cvtrackervitupdate)
+- [cv::TrackerVit::Params](#cvtrackervitparams)
+  - [Params.net](#paramsnet)
+  - [Params.backend](#paramsbackend-2)
+  - [Params.target](#paramstarget-2)
+  - [Params.meanvalue](#paramsmeanvalue)
+  - [Params.stdvalue](#paramsstdvalue)
+  - [cv::TrackerVit::Params::get\_create](#cvtrackervitparamsget%5C_create)
 - [cv::detail::TrackerSamplerCSC](#cvdetailtrackersamplercsc)
   - [TrackerSamplerCSC.MODE\_INIT\_POS\_](#trackersamplercscmode%5C_init%5C_pos%5C_)
   - [TrackerSamplerCSC.MODE\_INIT\_NEG\_](#trackersamplercscmode%5C_init%5C_neg%5C_)
@@ -5213,6 +5276,7 @@
 - [cv::gapi](#cvgapi)
   - [gapi.streaming](#gapistreaming)
   - [gapi.core](#gapicore)
+  - [gapi.ot](#gapiot)
   - [gapi.imgproc](#gapiimgproc)
   - [gapi.GNetParam](#gapignetparam)
   - [gapi.GNetPackage](#gapignetpackage)
@@ -5335,6 +5399,15 @@
   - [core.ocl](#coreocl)
 - [cv::gapi::core::cpu](#cvgapicorecpu)
   - [cv::gapi::core::cpu::kernels](#cvgapicorecpukernels)
+- [cv::gapi::ot](#cvgapiot)
+  - [ot.cpu](#otcpu)
+  - [ot.ObjectTrackerParams](#otobjecttrackerparams)
+  - [cv::gapi::ot::track](#cvgapiottrack)
+  - [ot.NEW\_](#otnew%5C_)
+  - [ot.TRACKED\_](#ottracked%5C_)
+  - [ot.LOST\_](#otlost%5C_)
+- [cv::gapi::ot::cpu](#cvgapiotcpu)
+  - [cv::gapi::ot::cpu::kernels](#cvgapiotcpukernels)
 - [cv::gapi::core::fluid](#cvgapicorefluid)
   - [cv::gapi::core::fluid::kernels](#cvgapicorefluidkernels)
 - [cv::GFluidKernel](#cvgfluidkernel)
@@ -5442,10 +5515,13 @@
   - [cv::gapi::ie::PyParams::constInput](#cvgapiiepyparamsconstinput)
 - [cv::gapi::onnx](#cvgapionnx)
   - [onnx.PyParams](#onnxpyparams)
+  - [onnx.ep](#onnxep)
   - [onnx.TraitAs](#onnxtraitas)
   - [cv::gapi::onnx::params](#cvgapionnxparams)
 - [cv::gapi::onnx::PyParams](#cvgapionnxpyparams)
   - [cv::gapi::onnx::PyParams::get\_create](#cvgapionnxpyparamsget%5C_create)
+  - [cv::gapi::onnx::PyParams::cfgAddExecutionProvider](#cvgapionnxpyparamscfgaddexecutionprovider)
+  - [cv::gapi::onnx::PyParams::cfgDisableMemPattern](#cvgapionnxpyparamscfgdisablemempattern)
   - [cv::gapi::onnx::PyParams::cfgMeanStd](#cvgapionnxpyparamscfgmeanstd)
   - [cv::gapi::onnx::PyParams::cfgNormalize](#cvgapionnxpyparamscfgnormalize)
 - [cv::gapi::ov](#cvgapiov)
@@ -5474,6 +5550,29 @@
 - [cv::gapi::ie::detail::ParamDesc::Kind](#cvgapiiedetailparamdesckind)
   - [Kind.Load](#kindload)
   - [Kind.Import](#kindimport)
+- [cv::gapi::onnx::ep](#cvgapionnxep)
+  - [ep.CoreML](#epcoreml)
+  - [ep.CUDA](#epcuda)
+  - [ep.TensorRT](#eptensorrt)
+  - [ep.OpenVINO](#epopenvino)
+  - [ep.DirectML](#epdirectml)
+- [cv::gapi::onnx::ep::CoreML](#cvgapionnxepcoreml)
+  - [cv::gapi::onnx::ep::CoreML::get\_create](#cvgapionnxepcoremlget%5C_create)
+  - [cv::gapi::onnx::ep::CoreML::cfgEnableOnSubgraph](#cvgapionnxepcoremlcfgenableonsubgraph)
+  - [cv::gapi::onnx::ep::CoreML::cfgEnableOnlyNeuralEngine](#cvgapionnxepcoremlcfgenableonlyneuralengine)
+  - [cv::gapi::onnx::ep::CoreML::cfgUseCPUOnly](#cvgapionnxepcoremlcfgusecpuonly)
+- [cv::gapi::onnx::ep::CUDA](#cvgapionnxepcuda)
+  - [cv::gapi::onnx::ep::CUDA::get\_create](#cvgapionnxepcudaget%5C_create)
+- [cv::gapi::onnx::ep::TensorRT](#cvgapionnxeptensorrt)
+  - [cv::gapi::onnx::ep::TensorRT::get\_create](#cvgapionnxeptensorrtget%5C_create)
+- [cv::gapi::onnx::ep::OpenVINO](#cvgapionnxepopenvino)
+  - [cv::gapi::onnx::ep::OpenVINO::get\_create](#cvgapionnxepopenvinoget%5C_create)
+  - [cv::gapi::onnx::ep::OpenVINO::cfgCacheDir](#cvgapionnxepopenvinocfgcachedir)
+  - [cv::gapi::onnx::ep::OpenVINO::cfgEnableDynamicShapes](#cvgapionnxepopenvinocfgenabledynamicshapes)
+  - [cv::gapi::onnx::ep::OpenVINO::cfgEnableOpenCLThrottling](#cvgapionnxepopenvinocfgenableopenclthrottling)
+  - [cv::gapi::onnx::ep::OpenVINO::cfgNumThreads](#cvgapionnxepopenvinocfgnumthreads)
+- [cv::gapi::onnx::ep::DirectML](#cvgapionnxepdirectml)
+  - [cv::gapi::onnx::ep::DirectML::get\_create](#cvgapionnxepdirectmlget%5C_create)
 - [cv::gapi::onnx::TraitAs](#cvgapionnxtraitas)
   - [TraitAs.TENSOR](#traitastensor-1)
   - [TraitAs.IMAGE](#traitasimage-1)
@@ -5507,6 +5606,11 @@
   - [Resolution.THE\_1080\_P](#resolutionthe%5C_1080%5C_p)
 - [cv::gapi::core::ocl](#cvgapicoreocl)
   - [cv::gapi::core::ocl::kernels](#cvgapicoreoclkernels)
+- [cv::gapi::ot::ObjectTrackerParams](#cvgapiotobjecttrackerparams)
+  - [ObjectTrackerParams.max\_num\_objects](#objecttrackerparamsmax%5C_num%5C_objects)
+  - [ObjectTrackerParams.input\_image\_format](#objecttrackerparamsinput%5C_image%5C_format)
+  - [ObjectTrackerParams.tracking\_per\_class](#objecttrackerparamstracking%5C_per%5C_class)
+  - [cv::gapi::ot::ObjectTrackerParams::get\_create](#cvgapiotobjecttrackerparamsget%5C_create)
 - [cv::gapi::own](#cvgapiown)
   - [own.detail](#owndetail)
 - [cv::gapi::own::detail](#cvgapiowndetail)
@@ -6701,28 +6805,6 @@
   - [VectorOfTuplePointAndDouble::sort](#vectoroftuplepointanddoublesort)
   - [VectorOfTuplePointAndDouble::sort\_variant](#vectoroftuplepointanddoublesort%5C_variant)
   - [VectorOfTuplePointAndDouble::start](#vectoroftuplepointanddoublestart)
-- [VectorOfRotatedRect](#vectorofrotatedrect)
-  - [VectorOfRotatedRect.Count](#vectorofrotatedrectcount)
-  - [VectorOfRotatedRect::create](#vectorofrotatedrectcreate)
-  - [VectorOfRotatedRect::Add](#vectorofrotatedrectadd)
-  - [VectorOfRotatedRect::Items](#vectorofrotatedrectitems)
-  - [VectorOfRotatedRect::Keys](#vectorofrotatedrectkeys)
-  - [VectorOfRotatedRect::Remove](#vectorofrotatedrectremove)
-  - [VectorOfRotatedRect::append](#vectorofrotatedrectappend)
-  - [VectorOfRotatedRect::at](#vectorofrotatedrectat)
-  - [VectorOfRotatedRect::clear](#vectorofrotatedrectclear)
-  - [VectorOfRotatedRect::empty](#vectorofrotatedrectempty)
-  - [VectorOfRotatedRect::end](#vectorofrotatedrectend)
-  - [VectorOfRotatedRect::get\_Item](#vectorofrotatedrectget%5C_item)
-  - [VectorOfRotatedRect::get\_\_NewEnum](#vectorofrotatedrectget%5C_%5C_newenum)
-  - [VectorOfRotatedRect::push\_back](#vectorofrotatedrectpush%5C_back)
-  - [VectorOfRotatedRect::push\_vector](#vectorofrotatedrectpush%5C_vector)
-  - [VectorOfRotatedRect::put\_Item](#vectorofrotatedrectput%5C_item)
-  - [VectorOfRotatedRect::size](#vectorofrotatedrectsize)
-  - [VectorOfRotatedRect::slice](#vectorofrotatedrectslice)
-  - [VectorOfRotatedRect::sort](#vectorofrotatedrectsort)
-  - [VectorOfRotatedRect::sort\_variant](#vectorofrotatedrectsort%5C_variant)
-  - [VectorOfRotatedRect::start](#vectorofrotatedrectstart)
 - [VectorOfDouble](#vectorofdouble)
   - [VectorOfDouble.Count](#vectorofdoublecount)
   - [VectorOfDouble::create](#vectorofdoublecreate)
@@ -6745,6 +6827,28 @@
   - [VectorOfDouble::sort](#vectorofdoublesort)
   - [VectorOfDouble::sort\_variant](#vectorofdoublesort%5C_variant)
   - [VectorOfDouble::start](#vectorofdoublestart)
+- [VectorOfRotatedRect](#vectorofrotatedrect)
+  - [VectorOfRotatedRect.Count](#vectorofrotatedrectcount)
+  - [VectorOfRotatedRect::create](#vectorofrotatedrectcreate)
+  - [VectorOfRotatedRect::Add](#vectorofrotatedrectadd)
+  - [VectorOfRotatedRect::Items](#vectorofrotatedrectitems)
+  - [VectorOfRotatedRect::Keys](#vectorofrotatedrectkeys)
+  - [VectorOfRotatedRect::Remove](#vectorofrotatedrectremove)
+  - [VectorOfRotatedRect::append](#vectorofrotatedrectappend)
+  - [VectorOfRotatedRect::at](#vectorofrotatedrectat)
+  - [VectorOfRotatedRect::clear](#vectorofrotatedrectclear)
+  - [VectorOfRotatedRect::empty](#vectorofrotatedrectempty)
+  - [VectorOfRotatedRect::end](#vectorofrotatedrectend)
+  - [VectorOfRotatedRect::get\_Item](#vectorofrotatedrectget%5C_item)
+  - [VectorOfRotatedRect::get\_\_NewEnum](#vectorofrotatedrectget%5C_%5C_newenum)
+  - [VectorOfRotatedRect::push\_back](#vectorofrotatedrectpush%5C_back)
+  - [VectorOfRotatedRect::push\_vector](#vectorofrotatedrectpush%5C_vector)
+  - [VectorOfRotatedRect::put\_Item](#vectorofrotatedrectput%5C_item)
+  - [VectorOfRotatedRect::size](#vectorofrotatedrectsize)
+  - [VectorOfRotatedRect::slice](#vectorofrotatedrectslice)
+  - [VectorOfRotatedRect::sort](#vectorofrotatedrectsort)
+  - [VectorOfRotatedRect::sort\_variant](#vectorofrotatedrectsort%5C_variant)
+  - [VectorOfRotatedRect::start](#vectorofrotatedrectstart)
 - [VectorOfUMat](#vectorofumat)
   - [VectorOfUMat.Count](#vectorofumatcount)
   - [VectorOfUMat::create](#vectorofumatcreate)
@@ -8943,6 +9047,14 @@ AutoIt:
     [propget] $ocv.TrackerNano
 ```
 
+### cv.TrackerVit
+
+```cpp
+static cv::TrackerVit
+AutoIt:
+    [propget] $ocv.TrackerVit
+```
+
 ### cv.gapi
 
 ```cpp
@@ -10030,6 +10142,16 @@ void cv::boxPoints( cv::RotatedRect box,
                     OutputArray     points );
 AutoIt:
     _OpenCV_ObjCreate("cv").boxPoints( $box[, $points] ) -> $points
+```
+
+### cv::broadcast
+
+```cpp
+void cv::broadcast( InputArray  src,
+                    InputArray  shape,
+                    OutputArray dst );
+AutoIt:
+    _OpenCV_ObjCreate("cv").broadcast( $src, $shape[, $dst] ) -> $dst
 ```
 
 ### cv::buildOpticalFlowPyramid
@@ -12341,9 +12463,10 @@ AutoIt:
 ```cpp
 bool cv::imdecodemulti( InputArray            buf,
                         int                   flags,
-                        std::vector<cv::Mat>& mats );
+                        std::vector<cv::Mat>& mats,
+                        const cv::Range&      range = Range::all() );
 AutoIt:
-    _OpenCV_ObjCreate("cv").imdecodemulti( $buf, $flags[, $mats] ) -> retval, $mats
+    _OpenCV_ObjCreate("cv").imdecodemulti( $buf, $flags[, $range[, $mats]] ) -> retval, $mats
 ```
 
 ### cv::imencode
@@ -17652,6 +17775,230 @@ AutoIt:
     [propget] $oenums.COLOR_BayerGR2RGBA
 ```
 
+### enums.COLOR\_RGB2YUV\_UYVY
+
+```cpp
+static int cv::enums::COLOR_RGB2YUV_UYVY
+AutoIt:
+    [propget] $oenums.COLOR_RGB2YUV_UYVY
+```
+
+### enums.COLOR\_BGR2YUV\_UYVY
+
+```cpp
+static int cv::enums::COLOR_BGR2YUV_UYVY
+AutoIt:
+    [propget] $oenums.COLOR_BGR2YUV_UYVY
+```
+
+### enums.COLOR\_RGB2YUV\_Y422
+
+```cpp
+static int cv::enums::COLOR_RGB2YUV_Y422
+AutoIt:
+    [propget] $oenums.COLOR_RGB2YUV_Y422
+```
+
+### enums.COLOR\_BGR2YUV\_Y422
+
+```cpp
+static int cv::enums::COLOR_BGR2YUV_Y422
+AutoIt:
+    [propget] $oenums.COLOR_BGR2YUV_Y422
+```
+
+### enums.COLOR\_RGB2YUV\_UYNV
+
+```cpp
+static int cv::enums::COLOR_RGB2YUV_UYNV
+AutoIt:
+    [propget] $oenums.COLOR_RGB2YUV_UYNV
+```
+
+### enums.COLOR\_BGR2YUV\_UYNV
+
+```cpp
+static int cv::enums::COLOR_BGR2YUV_UYNV
+AutoIt:
+    [propget] $oenums.COLOR_BGR2YUV_UYNV
+```
+
+### enums.COLOR\_RGBA2YUV\_UYVY
+
+```cpp
+static int cv::enums::COLOR_RGBA2YUV_UYVY
+AutoIt:
+    [propget] $oenums.COLOR_RGBA2YUV_UYVY
+```
+
+### enums.COLOR\_BGRA2YUV\_UYVY
+
+```cpp
+static int cv::enums::COLOR_BGRA2YUV_UYVY
+AutoIt:
+    [propget] $oenums.COLOR_BGRA2YUV_UYVY
+```
+
+### enums.COLOR\_RGBA2YUV\_Y422
+
+```cpp
+static int cv::enums::COLOR_RGBA2YUV_Y422
+AutoIt:
+    [propget] $oenums.COLOR_RGBA2YUV_Y422
+```
+
+### enums.COLOR\_BGRA2YUV\_Y422
+
+```cpp
+static int cv::enums::COLOR_BGRA2YUV_Y422
+AutoIt:
+    [propget] $oenums.COLOR_BGRA2YUV_Y422
+```
+
+### enums.COLOR\_RGBA2YUV\_UYNV
+
+```cpp
+static int cv::enums::COLOR_RGBA2YUV_UYNV
+AutoIt:
+    [propget] $oenums.COLOR_RGBA2YUV_UYNV
+```
+
+### enums.COLOR\_BGRA2YUV\_UYNV
+
+```cpp
+static int cv::enums::COLOR_BGRA2YUV_UYNV
+AutoIt:
+    [propget] $oenums.COLOR_BGRA2YUV_UYNV
+```
+
+### enums.COLOR\_RGB2YUV\_YUY2
+
+```cpp
+static int cv::enums::COLOR_RGB2YUV_YUY2
+AutoIt:
+    [propget] $oenums.COLOR_RGB2YUV_YUY2
+```
+
+### enums.COLOR\_BGR2YUV\_YUY2
+
+```cpp
+static int cv::enums::COLOR_BGR2YUV_YUY2
+AutoIt:
+    [propget] $oenums.COLOR_BGR2YUV_YUY2
+```
+
+### enums.COLOR\_RGB2YUV\_YVYU
+
+```cpp
+static int cv::enums::COLOR_RGB2YUV_YVYU
+AutoIt:
+    [propget] $oenums.COLOR_RGB2YUV_YVYU
+```
+
+### enums.COLOR\_BGR2YUV\_YVYU
+
+```cpp
+static int cv::enums::COLOR_BGR2YUV_YVYU
+AutoIt:
+    [propget] $oenums.COLOR_BGR2YUV_YVYU
+```
+
+### enums.COLOR\_RGB2YUV\_YUYV
+
+```cpp
+static int cv::enums::COLOR_RGB2YUV_YUYV
+AutoIt:
+    [propget] $oenums.COLOR_RGB2YUV_YUYV
+```
+
+### enums.COLOR\_BGR2YUV\_YUYV
+
+```cpp
+static int cv::enums::COLOR_BGR2YUV_YUYV
+AutoIt:
+    [propget] $oenums.COLOR_BGR2YUV_YUYV
+```
+
+### enums.COLOR\_RGB2YUV\_YUNV
+
+```cpp
+static int cv::enums::COLOR_RGB2YUV_YUNV
+AutoIt:
+    [propget] $oenums.COLOR_RGB2YUV_YUNV
+```
+
+### enums.COLOR\_BGR2YUV\_YUNV
+
+```cpp
+static int cv::enums::COLOR_BGR2YUV_YUNV
+AutoIt:
+    [propget] $oenums.COLOR_BGR2YUV_YUNV
+```
+
+### enums.COLOR\_RGBA2YUV\_YUY2
+
+```cpp
+static int cv::enums::COLOR_RGBA2YUV_YUY2
+AutoIt:
+    [propget] $oenums.COLOR_RGBA2YUV_YUY2
+```
+
+### enums.COLOR\_BGRA2YUV\_YUY2
+
+```cpp
+static int cv::enums::COLOR_BGRA2YUV_YUY2
+AutoIt:
+    [propget] $oenums.COLOR_BGRA2YUV_YUY2
+```
+
+### enums.COLOR\_RGBA2YUV\_YVYU
+
+```cpp
+static int cv::enums::COLOR_RGBA2YUV_YVYU
+AutoIt:
+    [propget] $oenums.COLOR_RGBA2YUV_YVYU
+```
+
+### enums.COLOR\_BGRA2YUV\_YVYU
+
+```cpp
+static int cv::enums::COLOR_BGRA2YUV_YVYU
+AutoIt:
+    [propget] $oenums.COLOR_BGRA2YUV_YVYU
+```
+
+### enums.COLOR\_RGBA2YUV\_YUYV
+
+```cpp
+static int cv::enums::COLOR_RGBA2YUV_YUYV
+AutoIt:
+    [propget] $oenums.COLOR_RGBA2YUV_YUYV
+```
+
+### enums.COLOR\_BGRA2YUV\_YUYV
+
+```cpp
+static int cv::enums::COLOR_BGRA2YUV_YUYV
+AutoIt:
+    [propget] $oenums.COLOR_BGRA2YUV_YUYV
+```
+
+### enums.COLOR\_RGBA2YUV\_YUNV
+
+```cpp
+static int cv::enums::COLOR_RGBA2YUV_YUNV
+AutoIt:
+    [propget] $oenums.COLOR_RGBA2YUV_YUNV
+```
+
+### enums.COLOR\_BGRA2YUV\_YUNV
+
+```cpp
+static int cv::enums::COLOR_BGRA2YUV_YUNV
+AutoIt:
+    [propget] $oenums.COLOR_BGRA2YUV_YUNV
+```
+
 ### enums.COLOR\_COLORCVT\_MAX
 
 ```cpp
@@ -19586,6 +19933,30 @@ AutoIt:
 static int cv::enums::VIDEOWRITER_PROP_HW_ACCELERATION_USE_OPENCL
 AutoIt:
     [propget] $oenums.VIDEOWRITER_PROP_HW_ACCELERATION_USE_OPENCL
+```
+
+### enums.VIDEOWRITER\_PROP\_RAW\_VIDEO
+
+```cpp
+static int cv::enums::VIDEOWRITER_PROP_RAW_VIDEO
+AutoIt:
+    [propget] $oenums.VIDEOWRITER_PROP_RAW_VIDEO
+```
+
+### enums.VIDEOWRITER\_PROP\_KEY\_INTERVAL
+
+```cpp
+static int cv::enums::VIDEOWRITER_PROP_KEY_INTERVAL
+AutoIt:
+    [propget] $oenums.VIDEOWRITER_PROP_KEY_INTERVAL
+```
+
+### enums.VIDEOWRITER\_PROP\_KEY\_FLAG
+
+```cpp
+static int cv::enums::VIDEOWRITER_PROP_KEY_FLAG
+AutoIt:
+    [propget] $oenums.VIDEOWRITER_PROP_KEY_FLAG
 ```
 
 ### enums.VIDEO\_ACCELERATION\_NONE
@@ -21994,6 +22365,14 @@ AutoIt:
 static int cv::enums::CALIB_CB_MARKER
 AutoIt:
     [propget] $oenums.CALIB_CB_MARKER
+```
+
+### enums.CALIB\_CB\_PLAIN
+
+```cpp
+static int cv::enums::CALIB_CB_PLAIN
+AutoIt:
+    [propget] $oenums.CALIB_CB_PLAIN
 ```
 
 ### enums.CALIB\_CB\_SYMMETRIC\_GRID
@@ -25432,14 +25811,7 @@ AutoIt:
 ### cv::cuda::GpuMat::convertTo
 
 ```cpp
-void cv::cuda::GpuMat::convertTo( OutputArray dst,
-                                  int         rtype ) const;
-AutoIt:
-    $oGpuMat.convertTo( $rtype[, $dst] ) -> $dst
-```
-
-```cpp
-void cv::cuda::GpuMat::convertTo( OutputArray       dst,
+void cv::cuda::GpuMat::convertTo( cv::cuda::GpuMat& dst,
                                   int               rtype,
                                   cv::cuda::Stream& stream ) const;
 AutoIt:
@@ -25447,25 +25819,16 @@ AutoIt:
 ```
 
 ```cpp
-void cv::cuda::GpuMat::convertTo( OutputArray dst,
-                                  int         rtype,
-                                  double      alpha,
-                                  double      beta = 0.0 ) const;
-AutoIt:
-    $oGpuMat.convertTo( $rtype, $alpha[, $dst[, $beta]] ) -> $dst
-```
-
-```cpp
-void cv::cuda::GpuMat::convertTo( OutputArray       dst,
+void cv::cuda::GpuMat::convertTo( cv::cuda::GpuMat& dst,
                                   int               rtype,
-                                  double            alpha,
-                                  cv::cuda::Stream& stream ) const;
+                                  double            alpha = 1.0,
+                                  double            beta = 0.0 ) const;
 AutoIt:
-    $oGpuMat.convertTo( $rtype, $alpha, $stream[, $dst] ) -> $dst
+    $oGpuMat.convertTo( $rtype[, $alpha[, $beta[, $dst]]] ) -> $dst
 ```
 
 ```cpp
-void cv::cuda::GpuMat::convertTo( OutputArray       dst,
+void cv::cuda::GpuMat::convertTo( cv::cuda::GpuMat& dst,
                                   int               rtype,
                                   double            alpha,
                                   double            beta,
@@ -25477,28 +25840,28 @@ AutoIt:
 ### cv::cuda::GpuMat::copyTo
 
 ```cpp
-void cv::cuda::GpuMat::copyTo( OutputArray dst ) const;
+void cv::cuda::GpuMat::copyTo( cv::cuda::GpuMat& dst ) const;
 AutoIt:
     $oGpuMat.copyTo( [$dst] ) -> $dst
 ```
 
 ```cpp
-void cv::cuda::GpuMat::copyTo( OutputArray       dst,
+void cv::cuda::GpuMat::copyTo( cv::cuda::GpuMat& dst,
                                cv::cuda::Stream& stream ) const;
 AutoIt:
     $oGpuMat.copyTo( $stream[, $dst] ) -> $dst
 ```
 
 ```cpp
-void cv::cuda::GpuMat::copyTo( OutputArray dst,
-                               InputArray  mask ) const;
+void cv::cuda::GpuMat::copyTo( cv::cuda::GpuMat& dst,
+                               cv::cuda::GpuMat& mask ) const;
 AutoIt:
     $oGpuMat.copyTo( $mask[, $dst] ) -> $dst
 ```
 
 ```cpp
-void cv::cuda::GpuMat::copyTo( OutputArray       dst,
-                               InputArray        mask,
+void cv::cuda::GpuMat::copyTo( cv::cuda::GpuMat& dst,
+                               cv::cuda::GpuMat& mask,
                                cv::cuda::Stream& stream ) const;
 AutoIt:
     $oGpuMat.copyTo( $mask, $stream[, $dst] ) -> $dst
@@ -40775,9 +41138,9 @@ AutoIt:
 
 ```cpp
 cv::dnn::Net cv::dnn::readNetFromModelOptimizer( const std::string& xml,
-                                                 const std::string& bin );
+                                                 const std::string& bin = "" );
 AutoIt:
-    _OpenCV_ObjCreate("cv.dnn").readNetFromModelOptimizer( $xml, $bin ) -> retval
+    _OpenCV_ObjCreate("cv.dnn").readNetFromModelOptimizer( $xml[, $bin] ) -> retval
 ```
 
 ```cpp
@@ -41761,6 +42124,14 @@ AutoIt:
     [propget, propput] $oImage2BlobParams.paddingmode
 ```
 
+### Image2BlobParams.borderValue
+
+```cpp
+cv::Scalar cv::dnn::Image2BlobParams::borderValue
+AutoIt:
+    [propget, propput] $oImage2BlobParams.borderValue
+```
+
 ### cv::dnn::Image2BlobParams::get\_create
 
 ```cpp
@@ -41776,10 +42147,30 @@ static cv::dnn::Image2BlobParams cv::dnn::Image2BlobParams::get_create( const cv
                                                                         bool                      swapRB = false,
                                                                         int                       ddepth = CV_32F,
                                                                         cv::dnn::DataLayout       datalayout = DNN_LAYOUT_NCHW,
-                                                                        cv::dnn::ImagePaddingMode mode = DNN_PMODE_NULL );
+                                                                        cv::dnn::ImagePaddingMode mode = DNN_PMODE_NULL,
+                                                                        cv::Scalar                borderValue = 0.0 );
 AutoIt:
-    _OpenCV_ObjCreate("cv.dnn.Image2BlobParams").create( $scalefactor[, $size[, $mean[, $swapRB[, $ddepth[, $datalayout[, $mode]]]]]] ) -> <cv.dnn.Image2BlobParams object>
-    $oImage2BlobParams( $scalefactor[, $size[, $mean[, $swapRB[, $ddepth[, $datalayout[, $mode]]]]]] ) -> <cv.dnn.Image2BlobParams object>
+    _OpenCV_ObjCreate("cv.dnn.Image2BlobParams").create( $scalefactor[, $size[, $mean[, $swapRB[, $ddepth[, $datalayout[, $mode[, $borderValue]]]]]]] ) -> <cv.dnn.Image2BlobParams object>
+    $oImage2BlobParams( $scalefactor[, $size[, $mean[, $swapRB[, $ddepth[, $datalayout[, $mode[, $borderValue]]]]]]] ) -> <cv.dnn.Image2BlobParams object>
+```
+
+### cv::dnn::Image2BlobParams::blobRectToImageRect
+
+```cpp
+cv::Rect cv::dnn::Image2BlobParams::blobRectToImageRect( const cv::Rect& rBlob,
+                                                         const cv::Size& size );
+AutoIt:
+    $oImage2BlobParams.blobRectToImageRect( $rBlob, $size ) -> retval
+```
+
+### cv::dnn::Image2BlobParams::blobRectsToImageRects
+
+```cpp
+void cv::dnn::Image2BlobParams::blobRectsToImageRects( const std::vector<cv::Rect>& rBlob,
+                                                       std::vector<cv::Rect>&       rImg,
+                                                       const cv::Size&              size );
+AutoIt:
+    $oImage2BlobParams.blobRectsToImageRects( $rBlob, $size[, $rImg] ) -> $rImg
 ```
 
 ## cv::dnn::SoftNMSMethod
@@ -41817,6 +42208,14 @@ static cv::dnn::Model cv::dnn::Model::get_create( const cv::dnn::Net& network );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.Model").create( $network ) -> <cv.dnn.Model object>
     $oModel( $network ) -> <cv.dnn.Model object>
+```
+
+### cv::dnn::Model::enableWinograd
+
+```cpp
+cv::dnn::Model cv::dnn::Model::enableWinograd( bool useWinograd );
+AutoIt:
+    $oModel.enableWinograd( $useWinograd ) -> retval
 ```
 
 ### cv::dnn::Model::predict
@@ -41930,6 +42329,14 @@ void cv::dnn::ClassificationModel::classify( InputArray frame,
                                              float&     conf );
 AutoIt:
     $oClassificationModel.classify( $frame[, $classId[, $conf]] ) -> $classId, $conf
+```
+
+### cv::dnn::ClassificationModel::enableWinograd
+
+```cpp
+cv::dnn::Model cv::dnn::ClassificationModel::enableWinograd( bool useWinograd );
+AutoIt:
+    $oClassificationModel.enableWinograd( $useWinograd ) -> retval
 ```
 
 ### cv::dnn::ClassificationModel::getEnableSoftmaxPostProcessing
@@ -42051,6 +42458,14 @@ AutoIt:
     $oKeypointsModel( $network ) -> <cv.dnn.KeypointsModel object>
 ```
 
+### cv::dnn::KeypointsModel::enableWinograd
+
+```cpp
+cv::dnn::Model cv::dnn::KeypointsModel::enableWinograd( bool useWinograd );
+AutoIt:
+    $oKeypointsModel.enableWinograd( $useWinograd ) -> retval
+```
+
 ### cv::dnn::KeypointsModel::estimate
 
 ```cpp
@@ -42161,6 +42576,14 @@ static cv::dnn::SegmentationModel cv::dnn::SegmentationModel::get_create( const 
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.SegmentationModel").create( $network ) -> <cv.dnn.SegmentationModel object>
     $oSegmentationModel( $network ) -> <cv.dnn.SegmentationModel object>
+```
+
+### cv::dnn::SegmentationModel::enableWinograd
+
+```cpp
+cv::dnn::Model cv::dnn::SegmentationModel::enableWinograd( bool useWinograd );
+AutoIt:
+    $oSegmentationModel.enableWinograd( $useWinograd ) -> retval
 ```
 
 ### cv::dnn::SegmentationModel::predict
@@ -42288,6 +42711,14 @@ AutoIt:
     $oDetectionModel.detect( $frame[, $confThreshold[, $nmsThreshold[, $classIds[, $confidences[, $boxes]]]]] ) -> $classIds, $confidences, $boxes
 ```
 
+### cv::dnn::DetectionModel::enableWinograd
+
+```cpp
+cv::dnn::Model cv::dnn::DetectionModel::enableWinograd( bool useWinograd );
+AutoIt:
+    $oDetectionModel.enableWinograd( $useWinograd ) -> retval
+```
+
 ### cv::dnn::DetectionModel::getNmsAcrossClasses
 
 ```cpp
@@ -42405,6 +42836,14 @@ static cv::dnn::TextRecognitionModel cv::dnn::TextRecognitionModel::get_create( 
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.TextRecognitionModel").create( $model[, $config] ) -> <cv.dnn.TextRecognitionModel object>
     $oTextRecognitionModel( $model[, $config] ) -> <cv.dnn.TextRecognitionModel object>
+```
+
+### cv::dnn::TextRecognitionModel::enableWinograd
+
+```cpp
+cv::dnn::Model cv::dnn::TextRecognitionModel::enableWinograd( bool useWinograd );
+AutoIt:
+    $oTextRecognitionModel.enableWinograd( $useWinograd ) -> retval
 ```
 
 ### cv::dnn::TextRecognitionModel::getDecodeType
@@ -42584,6 +43023,14 @@ AutoIt:
     $oTextDetectionModel.detectTextRectangles( $frame[, $detections] ) -> $detections
 ```
 
+### cv::dnn::TextDetectionModel::enableWinograd
+
+```cpp
+cv::dnn::Model cv::dnn::TextDetectionModel::enableWinograd( bool useWinograd );
+AutoIt:
+    $oTextDetectionModel.enableWinograd( $useWinograd ) -> retval
+```
+
 ### cv::dnn::TextDetectionModel::predict
 
 ```cpp
@@ -42719,6 +43166,14 @@ void cv::dnn::TextDetectionModel_EAST::detectTextRectangles( InputArray         
                                                              std::vector<cv::RotatedRect>& detections ) const;
 AutoIt:
     $oTextDetectionModel_EAST.detectTextRectangles( $frame[, $detections] ) -> $detections
+```
+
+### cv::dnn::TextDetectionModel\_EAST::enableWinograd
+
+```cpp
+cv::dnn::Model cv::dnn::TextDetectionModel_EAST::enableWinograd( bool useWinograd );
+AutoIt:
+    $oTextDetectionModel_EAST.enableWinograd( $useWinograd ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel\_EAST::getConfidenceThreshold
@@ -42888,6 +43343,14 @@ void cv::dnn::TextDetectionModel_DB::detectTextRectangles( InputArray           
                                                            std::vector<cv::RotatedRect>& detections ) const;
 AutoIt:
     $oTextDetectionModel_DB.detectTextRectangles( $frame[, $detections] ) -> $detections
+```
+
+### cv::dnn::TextDetectionModel\_DB::enableWinograd
+
+```cpp
+cv::dnn::Model cv::dnn::TextDetectionModel_DB::enableWinograd( bool useWinograd );
+AutoIt:
+    $oTextDetectionModel_DB.enableWinograd( $useWinograd ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel\_DB::getBinaryThreshold
@@ -45891,10 +46354,11 @@ static cv::Ptr<cv::AKAZE> cv::AKAZE::get_create( cv::AKAZE::DescriptorType descr
                                                  float                     threshold = 0.001f,
                                                  int                       nOctaves = 4,
                                                  int                       nOctaveLayers = 4,
-                                                 cv::KAZE::DiffusivityType diffusivity = KAZE::DIFF_PM_G2 );
+                                                 cv::KAZE::DiffusivityType diffusivity = KAZE::DIFF_PM_G2,
+                                                 int                       max_points = -1 );
 AutoIt:
-    _OpenCV_ObjCreate("cv.AKAZE").create( [$descriptor_type[, $descriptor_size[, $descriptor_channels[, $threshold[, $nOctaves[, $nOctaveLayers[, $diffusivity]]]]]]] ) -> retval
-    $oAKAZE( [$descriptor_type[, $descriptor_size[, $descriptor_channels[, $threshold[, $nOctaves[, $nOctaveLayers[, $diffusivity]]]]]]] ) -> retval
+    _OpenCV_ObjCreate("cv.AKAZE").create( [$descriptor_type[, $descriptor_size[, $descriptor_channels[, $threshold[, $nOctaves[, $nOctaveLayers[, $diffusivity[, $max_points]]]]]]]] ) -> retval
+    $oAKAZE( [$descriptor_type[, $descriptor_size[, $descriptor_channels[, $threshold[, $nOctaves[, $nOctaveLayers[, $diffusivity[, $max_points]]]]]]]] ) -> retval
 ```
 
 ### cv::AKAZE::clear
@@ -46025,6 +46489,14 @@ AutoIt:
     $oAKAZE.getDiffusivity() -> retval
 ```
 
+### cv::AKAZE::getMaxPoints
+
+```cpp
+int cv::AKAZE::getMaxPoints() const;
+AutoIt:
+    $oAKAZE.getMaxPoints() -> retval
+```
+
 ### cv::AKAZE::getNOctaveLayers
 
 ```cpp
@@ -46101,6 +46573,14 @@ AutoIt:
 void cv::AKAZE::setDiffusivity( cv::KAZE::DiffusivityType diff );
 AutoIt:
     $oAKAZE.setDiffusivity( $diff ) -> None
+```
+
+### cv::AKAZE::setMaxPoints
+
+```cpp
+void cv::AKAZE::setMaxPoints( int max_points );
+AutoIt:
+    $oAKAZE.setMaxPoints( $max_points ) -> None
 ```
 
 ### cv::AKAZE::setNOctaveLayers
@@ -50374,6 +50854,14 @@ AutoIt:
     [propget, propput] $oDetectorParameters.minMarkerDistanceRate
 ```
 
+### DetectorParameters.minGroupDistance
+
+```cpp
+float cv::aruco::DetectorParameters::minGroupDistance
+AutoIt:
+    [propget, propput] $oDetectorParameters.minGroupDistance
+```
+
 ### DetectorParameters.cornerRefinementMethod
 
 ```cpp
@@ -50388,6 +50876,14 @@ AutoIt:
 int cv::aruco::DetectorParameters::cornerRefinementWinSize
 AutoIt:
     [propget, propput] $oDetectorParameters.cornerRefinementWinSize
+```
+
+### DetectorParameters.relativeCornerRefinmentWinSize
+
+```cpp
+float cv::aruco::DetectorParameters::relativeCornerRefinmentWinSize
+AutoIt:
+    [propget, propput] $oDetectorParameters.relativeCornerRefinmentWinSize
 ```
 
 ### DetectorParameters.cornerRefinementMaxIterations
@@ -51205,6 +51701,21 @@ static cv::Ptr<cv::FaceDetectorYN> cv::FaceDetectorYN::get_create( const std::st
 AutoIt:
     _OpenCV_ObjCreate("cv.FaceDetectorYN").create( $model, $config, $input_size[, $score_threshold[, $nms_threshold[, $top_k[, $backend_id[, $target_id]]]]] ) -> retval
     $oFaceDetectorYN( $model, $config, $input_size[, $score_threshold[, $nms_threshold[, $top_k[, $backend_id[, $target_id]]]]] ) -> retval
+```
+
+```cpp
+static cv::Ptr<cv::FaceDetectorYN> cv::FaceDetectorYN::get_create( const std::string&        framework,
+                                                                   const std::vector<uchar>& bufferModel,
+                                                                   const std::vector<uchar>& bufferConfig,
+                                                                   const cv::Size&           input_size,
+                                                                   float                     score_threshold = 0.9f,
+                                                                   float                     nms_threshold = 0.3f,
+                                                                   int                       top_k = 5000,
+                                                                   int                       backend_id = 0,
+                                                                   int                       target_id = 0 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.FaceDetectorYN").create( $framework, $bufferModel, $bufferConfig, $input_size[, $score_threshold[, $nms_threshold[, $top_k[, $backend_id[, $target_id]]]]] ) -> retval
+    $oFaceDetectorYN( $framework, $bufferModel, $bufferConfig, $input_size[, $score_threshold[, $nms_threshold[, $top_k[, $backend_id[, $target_id]]]]] ) -> retval
 ```
 
 ### cv::FaceDetectorYN::detect
@@ -55937,6 +56448,101 @@ AutoIt:
     _OpenCV_ObjCreate("cv.TrackerNano.Params").create() -> <cv.TrackerNano.Params object>
 ```
 
+## cv::TrackerVit
+
+### TrackerVit.Params
+
+```cpp
+static cv::TrackerVit::Params
+AutoIt:
+    [propget] $oTrackerVit.Params
+```
+
+### cv::TrackerVit::get\_create
+
+```cpp
+static cv::Ptr<cv::TrackerVit> cv::TrackerVit::get_create( const cv::TrackerVit::Params& parameters = TrackerVit::Params() );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TrackerVit").create( [$parameters] ) -> retval
+    $oTrackerVit( [$parameters] ) -> retval
+```
+
+### cv::TrackerVit::getTrackingScore
+
+```cpp
+float cv::TrackerVit::getTrackingScore();
+AutoIt:
+    $oTrackerVit.getTrackingScore() -> retval
+```
+
+### cv::TrackerVit::init
+
+```cpp
+void cv::TrackerVit::init( InputArray      image,
+                           const cv::Rect& boundingBox );
+AutoIt:
+    $oTrackerVit.init( $image, $boundingBox ) -> None
+```
+
+### cv::TrackerVit::update
+
+```cpp
+bool cv::TrackerVit::update( InputArray image,
+                             cv::Rect&  boundingBox );
+AutoIt:
+    $oTrackerVit.update( $image[, $boundingBox] ) -> retval, $boundingBox
+```
+
+## cv::TrackerVit::Params
+
+### Params.net
+
+```cpp
+std::string cv::TrackerVit::Params::net
+AutoIt:
+    [propget, propput] $oParams.net
+```
+
+### Params.backend
+
+```cpp
+int cv::TrackerVit::Params::backend
+AutoIt:
+    [propget, propput] $oParams.backend
+```
+
+### Params.target
+
+```cpp
+int cv::TrackerVit::Params::target
+AutoIt:
+    [propget, propput] $oParams.target
+```
+
+### Params.meanvalue
+
+```cpp
+cv::Scalar cv::TrackerVit::Params::meanvalue
+AutoIt:
+    [propget, propput] $oParams.meanvalue
+```
+
+### Params.stdvalue
+
+```cpp
+cv::Scalar cv::TrackerVit::Params::stdvalue
+AutoIt:
+    [propget, propput] $oParams.stdvalue
+```
+
+### cv::TrackerVit::Params::get\_create
+
+```cpp
+static cv::TrackerVit::Params cv::TrackerVit::Params::get_create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.TrackerVit.Params").create() -> <cv.TrackerVit.Params object>
+```
+
 ## cv::detail::TrackerSamplerCSC
 
 ### TrackerSamplerCSC.MODE\_INIT\_POS\_
@@ -55995,6 +56601,14 @@ AutoIt:
 static cv::gapi::core
 AutoIt:
     [propget] $ogapi.core
+```
+
+### gapi.ot
+
+```cpp
+static cv::gapi::ot
+AutoIt:
+    [propget] $ogapi.ot
 ```
 
 ### gapi.imgproc
@@ -57333,6 +57947,78 @@ AutoIt:
     _OpenCV_ObjCreate("cv.gapi.core.cpu").kernels() -> retval
 ```
 
+## cv::gapi::ot
+
+### ot.cpu
+
+```cpp
+static cv::gapi::ot::cpu
+AutoIt:
+    [propget] $oot.cpu
+```
+
+### ot.ObjectTrackerParams
+
+```cpp
+static cv::gapi::ot::ObjectTrackerParams
+AutoIt:
+    [propget] $oot.ObjectTrackerParams
+```
+
+### cv::gapi::ot::track
+
+```cpp
+std::tuple<cv::GArray<cv::Rect>, cv::GArray<int>, cv::GArray<uint64_t>, cv::GArray<int>> cv::gapi::ot::track( const cv::GMat&             mat,
+                                                                                                              const cv::GArray<cv::Rect>& detected_rects,
+                                                                                                              const cv::GArray<int>&      detected_class_labels,
+                                                                                                              float                       delta );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.ot").track( $mat, $detected_rects, $detected_class_labels, $delta ) -> retval
+```
+
+```cpp
+std::tuple<cv::GArray<cv::Rect>, cv::GArray<int>, cv::GArray<uint64_t>, cv::GArray<int>> cv::gapi::ot::track( const cv::GFrame&           frame,
+                                                                                                              const cv::GArray<cv::Rect>& detected_rects,
+                                                                                                              const cv::GArray<int>&      detected_class_labels,
+                                                                                                              float                       delta );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.ot").track( $frame, $detected_rects, $detected_class_labels, $delta ) -> retval
+```
+
+### ot.NEW\_
+
+```cpp
+static int cv::gapi::ot::NEW
+AutoIt:
+    [propget] $oot.NEW_
+```
+
+### ot.TRACKED\_
+
+```cpp
+static int cv::gapi::ot::TRACKED
+AutoIt:
+    [propget] $oot.TRACKED_
+```
+
+### ot.LOST\_
+
+```cpp
+static int cv::gapi::ot::LOST
+AutoIt:
+    [propget] $oot.LOST_
+```
+
+## cv::gapi::ot::cpu
+
+### cv::gapi::ot::cpu::kernels
+
+```cpp
+cv::GKernelPackage cv::gapi::ot::cpu::kernels();
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.ot.cpu").kernels() -> retval
+```
+
 ## cv::gapi::core::fluid
 
 ### cv::gapi::core::fluid::kernels
@@ -58168,6 +58854,14 @@ AutoIt:
     [propget] $oonnx.PyParams
 ```
 
+### onnx.ep
+
+```cpp
+static cv::gapi::onnx::ep
+AutoIt:
+    [propget] $oonnx.ep
+```
+
 ### onnx.TraitAs
 
 ```cpp
@@ -58201,6 +58895,46 @@ static cv::gapi::onnx::PyParams cv::gapi::onnx::PyParams::get_create( const std:
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.onnx.PyParams").create( $tag, $model_path ) -> <cv.gapi.onnx.PyParams object>
     $oPyParams( $tag, $model_path ) -> <cv.gapi.onnx.PyParams object>
+```
+
+### cv::gapi::onnx::PyParams::cfgAddExecutionProvider
+
+```cpp
+cv::gapi::onnx::PyParams cv::gapi::onnx::PyParams::cfgAddExecutionProvider( cv::gapi::onnx::ep::OpenVINO ep );
+AutoIt:
+    $oPyParams.cfgAddExecutionProvider( $ep ) -> retval
+```
+
+```cpp
+cv::gapi::onnx::PyParams cv::gapi::onnx::PyParams::cfgAddExecutionProvider( cv::gapi::onnx::ep::DirectML ep );
+AutoIt:
+    $oPyParams.cfgAddExecutionProvider( $ep ) -> retval
+```
+
+```cpp
+cv::gapi::onnx::PyParams cv::gapi::onnx::PyParams::cfgAddExecutionProvider( cv::gapi::onnx::ep::CoreML ep );
+AutoIt:
+    $oPyParams.cfgAddExecutionProvider( $ep ) -> retval
+```
+
+```cpp
+cv::gapi::onnx::PyParams cv::gapi::onnx::PyParams::cfgAddExecutionProvider( cv::gapi::onnx::ep::CUDA ep );
+AutoIt:
+    $oPyParams.cfgAddExecutionProvider( $ep ) -> retval
+```
+
+```cpp
+cv::gapi::onnx::PyParams cv::gapi::onnx::PyParams::cfgAddExecutionProvider( cv::gapi::onnx::ep::TensorRT ep );
+AutoIt:
+    $oPyParams.cfgAddExecutionProvider( $ep ) -> retval
+```
+
+### cv::gapi::onnx::PyParams::cfgDisableMemPattern
+
+```cpp
+cv::gapi::onnx::PyParams cv::gapi::onnx::PyParams::cfgDisableMemPattern();
+AutoIt:
+    $oPyParams.cfgDisableMemPattern() -> retval
 ```
 
 ### cv::gapi::onnx::PyParams::cfgMeanStd
@@ -58478,6 +59212,189 @@ AutoIt:
     [propget] $oKind.Import
 ```
 
+## cv::gapi::onnx::ep
+
+### ep.CoreML
+
+```cpp
+static cv::gapi::onnx::ep::CoreML
+AutoIt:
+    [propget] $oep.CoreML
+```
+
+### ep.CUDA
+
+```cpp
+static cv::gapi::onnx::ep::CUDA
+AutoIt:
+    [propget] $oep.CUDA
+```
+
+### ep.TensorRT
+
+```cpp
+static cv::gapi::onnx::ep::TensorRT
+AutoIt:
+    [propget] $oep.TensorRT
+```
+
+### ep.OpenVINO
+
+```cpp
+static cv::gapi::onnx::ep::OpenVINO
+AutoIt:
+    [propget] $oep.OpenVINO
+```
+
+### ep.DirectML
+
+```cpp
+static cv::gapi::onnx::ep::DirectML
+AutoIt:
+    [propget] $oep.DirectML
+```
+
+## cv::gapi::onnx::ep::CoreML
+
+### cv::gapi::onnx::ep::CoreML::get\_create
+
+```cpp
+static cv::gapi::onnx::ep::CoreML cv::gapi::onnx::ep::CoreML::get_create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.onnx.ep.CoreML").create() -> <cv.gapi.onnx.ep.CoreML object>
+```
+
+### cv::gapi::onnx::ep::CoreML::cfgEnableOnSubgraph
+
+```cpp
+cv::gapi::onnx::ep::CoreML cv::gapi::onnx::ep::CoreML::cfgEnableOnSubgraph();
+AutoIt:
+    $oCoreML.cfgEnableOnSubgraph() -> retval
+```
+
+### cv::gapi::onnx::ep::CoreML::cfgEnableOnlyNeuralEngine
+
+```cpp
+cv::gapi::onnx::ep::CoreML cv::gapi::onnx::ep::CoreML::cfgEnableOnlyNeuralEngine();
+AutoIt:
+    $oCoreML.cfgEnableOnlyNeuralEngine() -> retval
+```
+
+### cv::gapi::onnx::ep::CoreML::cfgUseCPUOnly
+
+```cpp
+cv::gapi::onnx::ep::CoreML cv::gapi::onnx::ep::CoreML::cfgUseCPUOnly();
+AutoIt:
+    $oCoreML.cfgUseCPUOnly() -> retval
+```
+
+## cv::gapi::onnx::ep::CUDA
+
+### cv::gapi::onnx::ep::CUDA::get\_create
+
+```cpp
+static cv::gapi::onnx::ep::CUDA cv::gapi::onnx::ep::CUDA::get_create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.onnx.ep.CUDA").create() -> <cv.gapi.onnx.ep.CUDA object>
+```
+
+```cpp
+static cv::gapi::onnx::ep::CUDA cv::gapi::onnx::ep::CUDA::get_create( const int dev_id );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.onnx.ep.CUDA").create( $dev_id ) -> <cv.gapi.onnx.ep.CUDA object>
+    $oCUDA( $dev_id ) -> <cv.gapi.onnx.ep.CUDA object>
+```
+
+## cv::gapi::onnx::ep::TensorRT
+
+### cv::gapi::onnx::ep::TensorRT::get\_create
+
+```cpp
+static cv::gapi::onnx::ep::TensorRT cv::gapi::onnx::ep::TensorRT::get_create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.onnx.ep.TensorRT").create() -> <cv.gapi.onnx.ep.TensorRT object>
+```
+
+```cpp
+static cv::gapi::onnx::ep::TensorRT cv::gapi::onnx::ep::TensorRT::get_create( const int dev_id );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.onnx.ep.TensorRT").create( $dev_id ) -> <cv.gapi.onnx.ep.TensorRT object>
+    $oTensorRT( $dev_id ) -> <cv.gapi.onnx.ep.TensorRT object>
+```
+
+## cv::gapi::onnx::ep::OpenVINO
+
+### cv::gapi::onnx::ep::OpenVINO::get\_create
+
+```cpp
+static cv::gapi::onnx::ep::OpenVINO cv::gapi::onnx::ep::OpenVINO::get_create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.onnx.ep.OpenVINO").create() -> <cv.gapi.onnx.ep.OpenVINO object>
+```
+
+```cpp
+static cv::gapi::onnx::ep::OpenVINO cv::gapi::onnx::ep::OpenVINO::get_create( const std::string& dev_type );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.onnx.ep.OpenVINO").create( $dev_type ) -> <cv.gapi.onnx.ep.OpenVINO object>
+    $oOpenVINO( $dev_type ) -> <cv.gapi.onnx.ep.OpenVINO object>
+```
+
+### cv::gapi::onnx::ep::OpenVINO::cfgCacheDir
+
+```cpp
+cv::gapi::onnx::ep::OpenVINO cv::gapi::onnx::ep::OpenVINO::cfgCacheDir( const std::string& dir );
+AutoIt:
+    $oOpenVINO.cfgCacheDir( $dir ) -> retval
+```
+
+### cv::gapi::onnx::ep::OpenVINO::cfgEnableDynamicShapes
+
+```cpp
+cv::gapi::onnx::ep::OpenVINO cv::gapi::onnx::ep::OpenVINO::cfgEnableDynamicShapes();
+AutoIt:
+    $oOpenVINO.cfgEnableDynamicShapes() -> retval
+```
+
+### cv::gapi::onnx::ep::OpenVINO::cfgEnableOpenCLThrottling
+
+```cpp
+cv::gapi::onnx::ep::OpenVINO cv::gapi::onnx::ep::OpenVINO::cfgEnableOpenCLThrottling();
+AutoIt:
+    $oOpenVINO.cfgEnableOpenCLThrottling() -> retval
+```
+
+### cv::gapi::onnx::ep::OpenVINO::cfgNumThreads
+
+```cpp
+cv::gapi::onnx::ep::OpenVINO cv::gapi::onnx::ep::OpenVINO::cfgNumThreads( size_t nthreads );
+AutoIt:
+    $oOpenVINO.cfgNumThreads( $nthreads ) -> retval
+```
+
+## cv::gapi::onnx::ep::DirectML
+
+### cv::gapi::onnx::ep::DirectML::get\_create
+
+```cpp
+static cv::gapi::onnx::ep::DirectML cv::gapi::onnx::ep::DirectML::get_create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.onnx.ep.DirectML").create() -> <cv.gapi.onnx.ep.DirectML object>
+```
+
+```cpp
+static cv::gapi::onnx::ep::DirectML cv::gapi::onnx::ep::DirectML::get_create( const int device_id );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.onnx.ep.DirectML").create( $device_id ) -> <cv.gapi.onnx.ep.DirectML object>
+    $oDirectML( $device_id ) -> <cv.gapi.onnx.ep.DirectML object>
+```
+
+```cpp
+static cv::gapi::onnx::ep::DirectML cv::gapi::onnx::ep::DirectML::get_create( const std::string& adapter_name );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.onnx.ep.DirectML").create( $adapter_name ) -> <cv.gapi.onnx.ep.DirectML object>
+    $oDirectML( $adapter_name ) -> <cv.gapi.onnx.ep.DirectML object>
+```
+
 ## cv::gapi::onnx::TraitAs
 
 ### TraitAs.TENSOR
@@ -58674,6 +59591,40 @@ AutoIt:
 cv::GKernelPackage cv::gapi::core::ocl::kernels();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.core.ocl").kernels() -> retval
+```
+
+## cv::gapi::ot::ObjectTrackerParams
+
+### ObjectTrackerParams.max\_num\_objects
+
+```cpp
+int32_t cv::gapi::ot::ObjectTrackerParams::max_num_objects
+AutoIt:
+    [propget, propput] $oObjectTrackerParams.max_num_objects
+```
+
+### ObjectTrackerParams.input\_image\_format
+
+```cpp
+int32_t cv::gapi::ot::ObjectTrackerParams::input_image_format
+AutoIt:
+    [propget, propput] $oObjectTrackerParams.input_image_format
+```
+
+### ObjectTrackerParams.tracking\_per\_class
+
+```cpp
+bool cv::gapi::ot::ObjectTrackerParams::tracking_per_class
+AutoIt:
+    [propget, propput] $oObjectTrackerParams.tracking_per_class
+```
+
+### cv::gapi::ot::ObjectTrackerParams::get\_create
+
+```cpp
+static cv::gapi::ot::ObjectTrackerParams cv::gapi::ot::ObjectTrackerParams::get_create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.ot.ObjectTrackerParams").create() -> <cv.gapi.ot.ObjectTrackerParams object>
 ```
 
 ## cv::gapi::own
@@ -68724,210 +69675,6 @@ AutoIt:
     $oVectorOfTuplePointAndDouble.start() -> retval
 ```
 
-## VectorOfRotatedRect
-
-### VectorOfRotatedRect.Count
-
-```cpp
-size_t VectorOfRotatedRect::size()
-AutoIt:
-    [propget] $oVectorOfRotatedRect.Count
-```
-
-### VectorOfRotatedRect::create
-
-```cpp
-static VectorOfRotatedRect VectorOfRotatedRect::create();
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfRotatedRect").create() -> <VectorOfRotatedRect object>
-```
-
-```cpp
-static VectorOfRotatedRect VectorOfRotatedRect::create( size_t size );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfRotatedRect").create( $size ) -> <VectorOfRotatedRect object>
-```
-
-```cpp
-static VectorOfRotatedRect VectorOfRotatedRect::create( VectorOfRotatedRect other );
-AutoIt:
-    _OpenCV_ObjCreate("VectorOfRotatedRect").create( $other ) -> <VectorOfRotatedRect object>
-```
-
-### VectorOfRotatedRect::Add
-
-```cpp
-void VectorOfRotatedRect::Add( cv::RotatedRect value );
-AutoIt:
-    $oVectorOfRotatedRect.Add( $value ) -> None
-```
-
-### VectorOfRotatedRect::Items
-
-```cpp
-VectorOfRotatedRect VectorOfRotatedRect::Items();
-AutoIt:
-    $oVectorOfRotatedRect.Items() -> retval
-```
-
-### VectorOfRotatedRect::Keys
-
-```cpp
-std::vector<int> VectorOfRotatedRect::Keys();
-AutoIt:
-    $oVectorOfRotatedRect.Keys() -> retval
-```
-
-### VectorOfRotatedRect::Remove
-
-```cpp
-void VectorOfRotatedRect::Remove( size_t index );
-AutoIt:
-    $oVectorOfRotatedRect.Remove( $index ) -> None
-```
-
-### VectorOfRotatedRect::append
-
-```cpp
-void VectorOfRotatedRect::append( cv::RotatedRect value );
-AutoIt:
-    $oVectorOfRotatedRect.append( $value ) -> None
-```
-
-### VectorOfRotatedRect::at
-
-```cpp
-cv::RotatedRect VectorOfRotatedRect::at( size_t index );
-AutoIt:
-    $oVectorOfRotatedRect.at( $index ) -> retval
-```
-
-```cpp
-void VectorOfRotatedRect::at( size_t          index,
-                              cv::RotatedRect value );
-AutoIt:
-    $oVectorOfRotatedRect.at( $index, $value ) -> None
-```
-
-### VectorOfRotatedRect::clear
-
-```cpp
-void VectorOfRotatedRect::clear();
-AutoIt:
-    $oVectorOfRotatedRect.clear() -> None
-```
-
-### VectorOfRotatedRect::empty
-
-```cpp
-bool VectorOfRotatedRect::empty();
-AutoIt:
-    $oVectorOfRotatedRect.empty() -> retval
-```
-
-### VectorOfRotatedRect::end
-
-```cpp
-void* VectorOfRotatedRect::end();
-AutoIt:
-    $oVectorOfRotatedRect.end() -> retval
-```
-
-### VectorOfRotatedRect::get\_Item
-
-```cpp
-cv::RotatedRect VectorOfRotatedRect::get_Item( size_t index );
-AutoIt:
-    $oVectorOfRotatedRect.Item( $index ) -> retval
-    $oVectorOfRotatedRect( $index ) -> retval
-```
-
-### VectorOfRotatedRect::get\_\_NewEnum
-
-```cpp
-IUnknown* VectorOfRotatedRect::get__NewEnum();
-AutoIt:
-    $oVectorOfRotatedRect._NewEnum() -> retval
-```
-
-### VectorOfRotatedRect::push\_back
-
-```cpp
-void VectorOfRotatedRect::push_back( cv::RotatedRect value );
-AutoIt:
-    $oVectorOfRotatedRect.push_back( $value ) -> None
-```
-
-### VectorOfRotatedRect::push\_vector
-
-```cpp
-void VectorOfRotatedRect::push_vector( VectorOfRotatedRect other );
-AutoIt:
-    $oVectorOfRotatedRect.push_vector( $other ) -> None
-```
-
-```cpp
-void VectorOfRotatedRect::push_vector( VectorOfRotatedRect other,
-                                       size_t              count,
-                                       size_t              start = 0 );
-AutoIt:
-    $oVectorOfRotatedRect.push_vector( $other, $count[, $start] ) -> None
-```
-
-### VectorOfRotatedRect::put\_Item
-
-```cpp
-void VectorOfRotatedRect::put_Item( size_t          index,
-                                    cv::RotatedRect item );
-AutoIt:
-    $oVectorOfRotatedRect.Item( $index ) = $item
-```
-
-### VectorOfRotatedRect::size
-
-```cpp
-size_t VectorOfRotatedRect::size();
-AutoIt:
-    $oVectorOfRotatedRect.size() -> retval
-```
-
-### VectorOfRotatedRect::slice
-
-```cpp
-VectorOfRotatedRect VectorOfRotatedRect::slice( size_t start = 0,
-                                                size_t count = __self->get()->size() );
-AutoIt:
-    $oVectorOfRotatedRect.slice( [$start[, $count]] ) -> retval
-```
-
-### VectorOfRotatedRect::sort
-
-```cpp
-void VectorOfRotatedRect::sort( void*  comparator,
-                                size_t start = 0,
-                                size_t count = __self->get()->size() );
-AutoIt:
-    $oVectorOfRotatedRect.sort( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfRotatedRect::sort\_variant
-
-```cpp
-void VectorOfRotatedRect::sort_variant( void*  comparator,
-                                        size_t start = 0,
-                                        size_t count = __self->get()->size() );
-AutoIt:
-    $oVectorOfRotatedRect.sort_variant( $comparator[, $start[, $count]] ) -> None
-```
-
-### VectorOfRotatedRect::start
-
-```cpp
-void* VectorOfRotatedRect::start();
-AutoIt:
-    $oVectorOfRotatedRect.start() -> retval
-```
-
 ## VectorOfDouble
 
 ### VectorOfDouble.Count
@@ -69130,6 +69877,210 @@ AutoIt:
 void* VectorOfDouble::start();
 AutoIt:
     $oVectorOfDouble.start() -> retval
+```
+
+## VectorOfRotatedRect
+
+### VectorOfRotatedRect.Count
+
+```cpp
+size_t VectorOfRotatedRect::size()
+AutoIt:
+    [propget] $oVectorOfRotatedRect.Count
+```
+
+### VectorOfRotatedRect::create
+
+```cpp
+static VectorOfRotatedRect VectorOfRotatedRect::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfRotatedRect").create() -> <VectorOfRotatedRect object>
+```
+
+```cpp
+static VectorOfRotatedRect VectorOfRotatedRect::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfRotatedRect").create( $size ) -> <VectorOfRotatedRect object>
+```
+
+```cpp
+static VectorOfRotatedRect VectorOfRotatedRect::create( VectorOfRotatedRect other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfRotatedRect").create( $other ) -> <VectorOfRotatedRect object>
+```
+
+### VectorOfRotatedRect::Add
+
+```cpp
+void VectorOfRotatedRect::Add( cv::RotatedRect value );
+AutoIt:
+    $oVectorOfRotatedRect.Add( $value ) -> None
+```
+
+### VectorOfRotatedRect::Items
+
+```cpp
+VectorOfRotatedRect VectorOfRotatedRect::Items();
+AutoIt:
+    $oVectorOfRotatedRect.Items() -> retval
+```
+
+### VectorOfRotatedRect::Keys
+
+```cpp
+std::vector<int> VectorOfRotatedRect::Keys();
+AutoIt:
+    $oVectorOfRotatedRect.Keys() -> retval
+```
+
+### VectorOfRotatedRect::Remove
+
+```cpp
+void VectorOfRotatedRect::Remove( size_t index );
+AutoIt:
+    $oVectorOfRotatedRect.Remove( $index ) -> None
+```
+
+### VectorOfRotatedRect::append
+
+```cpp
+void VectorOfRotatedRect::append( cv::RotatedRect value );
+AutoIt:
+    $oVectorOfRotatedRect.append( $value ) -> None
+```
+
+### VectorOfRotatedRect::at
+
+```cpp
+cv::RotatedRect VectorOfRotatedRect::at( size_t index );
+AutoIt:
+    $oVectorOfRotatedRect.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfRotatedRect::at( size_t          index,
+                              cv::RotatedRect value );
+AutoIt:
+    $oVectorOfRotatedRect.at( $index, $value ) -> None
+```
+
+### VectorOfRotatedRect::clear
+
+```cpp
+void VectorOfRotatedRect::clear();
+AutoIt:
+    $oVectorOfRotatedRect.clear() -> None
+```
+
+### VectorOfRotatedRect::empty
+
+```cpp
+bool VectorOfRotatedRect::empty();
+AutoIt:
+    $oVectorOfRotatedRect.empty() -> retval
+```
+
+### VectorOfRotatedRect::end
+
+```cpp
+void* VectorOfRotatedRect::end();
+AutoIt:
+    $oVectorOfRotatedRect.end() -> retval
+```
+
+### VectorOfRotatedRect::get\_Item
+
+```cpp
+cv::RotatedRect VectorOfRotatedRect::get_Item( size_t index );
+AutoIt:
+    $oVectorOfRotatedRect.Item( $index ) -> retval
+    $oVectorOfRotatedRect( $index ) -> retval
+```
+
+### VectorOfRotatedRect::get\_\_NewEnum
+
+```cpp
+IUnknown* VectorOfRotatedRect::get__NewEnum();
+AutoIt:
+    $oVectorOfRotatedRect._NewEnum() -> retval
+```
+
+### VectorOfRotatedRect::push\_back
+
+```cpp
+void VectorOfRotatedRect::push_back( cv::RotatedRect value );
+AutoIt:
+    $oVectorOfRotatedRect.push_back( $value ) -> None
+```
+
+### VectorOfRotatedRect::push\_vector
+
+```cpp
+void VectorOfRotatedRect::push_vector( VectorOfRotatedRect other );
+AutoIt:
+    $oVectorOfRotatedRect.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfRotatedRect::push_vector( VectorOfRotatedRect other,
+                                       size_t              count,
+                                       size_t              start = 0 );
+AutoIt:
+    $oVectorOfRotatedRect.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfRotatedRect::put\_Item
+
+```cpp
+void VectorOfRotatedRect::put_Item( size_t          index,
+                                    cv::RotatedRect item );
+AutoIt:
+    $oVectorOfRotatedRect.Item( $index ) = $item
+```
+
+### VectorOfRotatedRect::size
+
+```cpp
+size_t VectorOfRotatedRect::size();
+AutoIt:
+    $oVectorOfRotatedRect.size() -> retval
+```
+
+### VectorOfRotatedRect::slice
+
+```cpp
+VectorOfRotatedRect VectorOfRotatedRect::slice( size_t start = 0,
+                                                size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfRotatedRect.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfRotatedRect::sort
+
+```cpp
+void VectorOfRotatedRect::sort( void*  comparator,
+                                size_t start = 0,
+                                size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfRotatedRect.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfRotatedRect::sort\_variant
+
+```cpp
+void VectorOfRotatedRect::sort_variant( void*  comparator,
+                                        size_t start = 0,
+                                        size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfRotatedRect.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfRotatedRect::start
+
+```cpp
+void* VectorOfRotatedRect::start();
+AutoIt:
+    $oVectorOfRotatedRect.start() -> retval
 ```
 
 ## VectorOfUMat

@@ -11,10 +11,10 @@
 #include "..\..\..\autoit-addon\addon.au3"
 
 ;~ Sources:
-;~     https://docs.opencv.org/4.8.0/d8/dbc/tutorial_histogram_calculation.html
-;~     https://github.com/opencv/opencv/blob/4.8.0/samples/cpp/tutorial_code/Histograms_Matching/calcHist_Demo.cpp
+;~     https://docs.opencv.org/4.9.0/d8/dbc/tutorial_histogram_calculation.html
+;~     https://github.com/opencv/opencv/blob/4.9.0/samples/cpp/tutorial_code/Histograms_Matching/calcHist_Demo.cpp
 
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world480*"), _OpenCV_FindDLL("autoit_opencv_com480*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world490*"), _OpenCV_FindDLL("autoit_opencv_com490*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 

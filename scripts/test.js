@@ -83,8 +83,10 @@ explore(sysPath.join(cwd, "samples"), (path, stats, next) => {
     const skip = state === "begin" && (basename[0] === "." || basename === "BackUp");
     next(null, skip);
 }, err => {
-    if (err) {
+    if (Array.isArray(err)) {
         const code = err.flat(Infinity)[0];
         process.exitCode = code;
+    } else if (err) {
+        throw err;
     }
 });

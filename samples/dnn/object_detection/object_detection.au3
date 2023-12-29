@@ -23,9 +23,9 @@
 ;~     https://learnopencv.com/object-detection-using-yolov5-and-opencv-dnn-in-c-and-python/
 ;~     https://github.com/ultralytics/ultralytics/blob/main/examples/YOLOv8-CPP-Inference/inference.cpp
 ;~     https://docs.opencv.org/4.x/d4/d2f/tf_det_tutorial_dnn_conversion.html
-;~     https://github.com/opencv/opencv/blob/4.8.0/samples/dnn/object_detection.py
+;~     https://github.com/opencv/opencv/blob/4.9.0/samples/dnn/object_detection.py
 
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world480*"), _OpenCV_FindDLL("autoit_opencv_com480*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world490*"), _OpenCV_FindDLL("autoit_opencv_com490*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 
@@ -85,7 +85,9 @@ Global $ComboZooModel = GUICtrlCreateCombo("", 689, 150, 145, 25, BitOR($GUI_SS_
 ; GUICtrlSetData(-1, $sModelList, "opencv_fd")
 ; GUICtrlSetData(-1, $sModelList, "ssd_caffe")
 GUICtrlSetData(-1, $sModelList, "ssd_tf")
-; GUICtrlSetData(-1, $sModelList, "yolo")
+; GUICtrlSetData(-1, $sModelList, "yolov3")
+; GUICtrlSetData(-1, $sModelList, "yolov4")
+; GUICtrlSetData(-1, $sModelList, "yolov4-tiny")
 ; GUICtrlSetData(-1, $sModelList, "yolov5n")
 ; GUICtrlSetData(-1, $sModelList, "yolov5s")
 ; GUICtrlSetData(-1, $sModelList, "yolov8n")
@@ -116,7 +118,7 @@ GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
 Global $LabelFramework = GUICtrlCreateLabel("Framework", 765, 6, 84, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
 Global $ComboFramework = GUICtrlCreateCombo("", 859, 6, 145, 25, BitOR($GUI_SS_DEFAULT_COMBO, $CBS_SIMPLE))
-GUICtrlSetData(-1, "auto|caffe|darknet|dldt|tensorflow|torch", "auto")
+GUICtrlSetData(-1, "auto|caffe|darknet|dldt|tensorflow|torch|onnx", "auto")
 
 Global $LabelConfidence = GUICtrlCreateLabel("Confidence", 765, 40, 78, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
@@ -124,13 +126,6 @@ Global $SliderConfidence = GUICtrlCreateSlider(859, 40, 145, 25)
 GUICtrlSetTip(-1, 'Class confidence threshold')
 GUICtrlSetLimit(-1, 100, 1)
 GUICtrlSetData(-1, 0.5 * 100)
-
-Global $LabelScore = GUICtrlCreateLabel("Score", 765, 74, 78, 20)
-GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-Global $SliderScore = GUICtrlCreateSlider(859, 74, 145, 25)
-GUICtrlSetTip(-1, 'Score threshold')
-GUICtrlSetLimit(-1, 100, 1)
-GUICtrlSetData(-1, 0.25 * 100)
 
 Global $LabelNMS = GUICtrlCreateLabel("NMS", 765, 108, 78, 20)
 GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
@@ -188,7 +183,6 @@ GUISetState(@SW_SHOW)
 #EndRegion ### END Koda GUI section ###
 
 _GUICtrlSlider_SetTicFreq($SliderConfidence, 1)
-_GUICtrlSlider_SetTicFreq($SliderScore, 1)
 _GUICtrlSlider_SetTicFreq($SliderNMS, 1)
 
 Global $backends[] = [ _
@@ -226,7 +220,7 @@ Global $net = Null
 Global $outNames[] = []
 Global $running = True
 Global $frameCounter = 0
-Global $classes, $colors
+Global $classes, $background_label_id, $colors
 
 UpdateZooModel()
 
@@ -307,11 +301,10 @@ WEnd
 
 Func postprocess($frame, $inpWidth, $inpHeight, $imgScale, $outs)
 	Local $class_ids = _OpenCV_ObjCreate("VectorOfInt")
-	Local $scores = _OpenCV_ObjCreate("VectorOfFloat")
+	Local $confidences = _OpenCV_ObjCreate("VectorOfFloat")
 	Local $bboxes = _OpenCV_ObjCreate("VectorOfRect2d")
 
 	Local $confidence_threshold = GUICtrlRead($SliderConfidence) / 100
-	Local $score_threshold = GUICtrlRead($SliderScore) / 100
 	Local $nms_threshold = GUICtrlRead($SliderNMS) / 100
 
 	Local $aPicPos = ControlGetPos($FormGUI, "", $PicResult)
@@ -330,9 +323,10 @@ Func postprocess($frame, $inpWidth, $inpHeight, $imgScale, $outs)
 				$inpHeight, _
 				$imgScale, _
 				UBound($classes), _
+				$background_label_id, _
 				$outs, _
 				$class_ids, _
-				$scores, _
+				$confidences, _
 				$bboxes _
 				)
 		_ConsoleTime('AutoIt object_detection_postprocess')
@@ -346,30 +340,29 @@ Func postprocess($frame, $inpWidth, $inpHeight, $imgScale, $outs)
 				"int", $inpHeight, _
 				"float", $imgScale, _
 				"ulong_ptr", UBound($classes), _
+				"int", $background_label_id, _
 				"float", $confidence_threshold, _
-				"float", $score_threshold, _
 				"ptr", $outs.self, _
 				"ptr", $class_ids.self, _
-				"ptr", $scores.self, _
+				"ptr", $confidences.self, _
 				"ptr", $bboxes.self _
 				)
 		_ConsoleTime('c++ object_detection_postprocess   ')
 		;;: [doing the loop in a compiled code is way faster than doing it in autoit]
 	EndIf
 
-	;; Perform non maximum suppression to eliminate redundant overlapping bounding boxes with lower scores.
-	Local $indices = $cv.dnn.NMSBoxes($bboxes, $scores, $score_threshold, $nms_threshold)
+	;; Perform non maximum suppression to eliminate redundant overlapping bounding boxes with lower confidences.
+	Local $indices = $cv.dnn.NMSBoxes($bboxes, $confidences, $confidence_threshold, $nms_threshold)
 	For $idx In $indices
-		drawPred($frame, $class_ids.at($idx), $scores.at($idx), $bboxes.at($idx))
+		drawPred($frame, $class_ids.at($idx), $confidences.at($idx), $bboxes.at($idx))
 	Next
 
 	; $cv.imshow("processed", $frame)
 	_OpenCV_imshow_ControlPic($frame, $FormGUI, $PicResult)
 EndFunc   ;==>postprocess
 
-Func object_detection_postprocess($inpWidth, $inpHeight, $imgScale, $num_classes, $outs, $class_ids, $scores, $bboxes)
+Func object_detection_postprocess($inpWidth, $inpHeight, $imgScale, $num_classes, $background_label_id, $outs, $class_ids, $confidences, $bboxes)
 	Local $confidence_threshold = GUICtrlRead($SliderConfidence) / 100
-	Local $score_threshold = GUICtrlRead($SliderScore) / 100
 
 	Local $layerNames = $net.getLayerNames()
 	Local $lastLayerId = $net.getLayerId($layerNames[UBound($layerNames) - 1])
@@ -382,7 +375,7 @@ Func object_detection_postprocess($inpWidth, $inpHeight, $imgScale, $num_classes
 	Local $classes_scores = $cv.Mat.create(1, 0, $CV_32F)
 
 	Local $out, $data, $steps, $step_row, $step_col
-	Local $confidence, $maxScore, $maxClassLoc
+	Local $confidence, $class_id, $maxClassLoc
 	Local $center_x, $center_y
 	Local $left, $top, $width, $height
 
@@ -431,8 +424,13 @@ Func object_detection_postprocess($inpWidth, $inpHeight, $imgScale, $num_classes
 				$width = $detection.at(5) * $scale_x - $left + 1
 				$height = $detection.at(6) * $scale_y - $top + 1
 
+				$class_id = $detection.at(1)
+				If $background_label_id >= 0 And $background_label_id <= $class_id Then
+					$class_id -= 1 ; Skip the background class id.
+				EndIf
+
 				$class_ids.push_back($detection.at(1))
-				$scores.push_back($confidence)
+				$confidences.push_back($confidence)
 				$bboxes.push_back(_OpenCV_Rect($left, $top, $width, $height))
 			Next
 		Next
@@ -464,17 +462,12 @@ Func object_detection_postprocess($inpWidth, $inpHeight, $imgScale, $num_classes
 
 				$detection.data = $data + $j * $step_row
 
-				$confidence = $detection.at(4)
-				If $confidence <= $confidence_threshold Then
-					ContinueLoop
-				EndIf
-
 				$classes_scores.data = Ptr($detection.data) + 5 * $step_col
 				$cv.minMaxLoc($classes_scores)
-				$maxScore = $cv.extended[1]
+				$confidence = $cv.extended[1]
 				$maxClassLoc = $cv.extended[3]
 
-				If $maxScore <= $score_threshold Then
+				If $confidence <= $confidence_threshold Then
 					ContinueLoop
 				EndIf
 
@@ -486,7 +479,7 @@ Func object_detection_postprocess($inpWidth, $inpHeight, $imgScale, $num_classes
 				$top = $center_y - $height / 2
 
 				$class_ids.push_back($maxClassLoc[0])
-				$scores.push_back($maxScore)
+				$confidences.push_back($confidence)
 				$bboxes.push_back(_OpenCV_Rect($left, $top, $width, $height))
 			Next
 		Next
@@ -561,10 +554,10 @@ Func object_detection_postprocess($inpWidth, $inpHeight, $imgScale, $num_classes
 				EndIf
 
 				$cv.minMaxLoc($classes_scores)
-				$maxScore = $cv.extended[1]
+				$confidence = $cv.extended[1]
 				$maxClassLoc = $cv.extended[3]
 
-				If $maxScore <= $score_threshold Then
+				If $confidence <= $confidence_threshold Then
 					ContinueLoop
 				EndIf
 
@@ -576,7 +569,7 @@ Func object_detection_postprocess($inpWidth, $inpHeight, $imgScale, $num_classes
 				$top = $center_y - $height / 2
 
 				$class_ids.push_back($maxClassLoc[0])
-				$scores.push_back($maxScore)
+				$confidences.push_back($confidence)
 				$bboxes.push_back(_OpenCV_Rect($left, $top, $width, $height))
 			Next
 		Next
@@ -771,6 +764,7 @@ Func UpdateFrame()
 			$inputFPS = 30
 			$cap.set($CV_CAP_PROP_FPS, $inputFPS)
 		EndIf
+		$inputFPS = 30
 
 		$tickInit = $cv.getTickCount()
 	Else
@@ -903,10 +897,10 @@ Func UpdateZooModel()
 			"models", _
 			"opencv\sources\samples\dnn", _
 			"opencv\sources\samples\data\dnn", _
-			"opencv-4.8.0-*\sources\samples\dnn", _
-			"opencv-4.8.0-*\sources\samples\data\dnn", _
-			"opencv-4.8.0-*\opencv\sources\samples\dnn", _
-			"opencv-4.8.0-*\opencv\sources\samples\data\dnn" _
+			"opencv-4.9.0-*\sources\samples\dnn", _
+			"opencv-4.9.0-*\sources\samples\data\dnn", _
+			"opencv-4.9.0-*\opencv\sources\samples\dnn", _
+			"opencv-4.9.0-*\opencv\sources\samples\data\dnn" _
 			]
 
 	Local $info = $models($name)
@@ -929,6 +923,8 @@ Func UpdateZooModel()
 	Local $swapRB = $info.has("rgb") And $info("rgb") == "true"
 	Local $framework = $info.has("framework") ? $info("framework") : ""
 	Local $mean = $info.has("mean") ? $info("mean") : _OpenCV_Scalar()
+
+	$background_label_id = $info.has("background_label_id") ? $info("background_label_id") : -1
 
 	ControlSetText($FormGUI, "", $InputModelClassification, $model)
 	ControlSetText($FormGUI, "", $InputModelNames, $names)

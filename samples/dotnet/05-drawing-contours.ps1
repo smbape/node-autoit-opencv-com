@@ -20,9 +20,9 @@ Import-Module "$PSScriptRoot\opencv_utils.psm1" -ArgumentList $BuildType
 
 $BuildType = if ($BuildType -eq "Debug") { "Debug" } else { "Release" }
 
-$OpenCVWorldDll = if ([string]::IsNullOrEmpty($OpenCVWorldDll)) { _OpenCV_FindDLL -Path "opencv_world480*" -BuildType $BuildType } else { $OpenCVWorldDll }
-$OpenCVComDll = if ([string]::IsNullOrEmpty($OpenCVComDll)) { _OpenCV_FindDLL -Path "autoit_opencv_com480*" -BuildType $BuildType } else { $OpenCVComDll }
-$Image = if ([string]::IsNullOrEmpty($Image)) { _OpenCV_FindFile -Path "samples\data\pic1.png" -SearchPaths @("opencv-4.8.0-*\opencv\sources") } else { $Image }
+$OpenCVWorldDll = if ([string]::IsNullOrEmpty($OpenCVWorldDll)) { _OpenCV_FindDLL -Path "opencv_world490*" -BuildType $BuildType } else { $OpenCVWorldDll }
+$OpenCVComDll = if ([string]::IsNullOrEmpty($OpenCVComDll)) { _OpenCV_FindDLL -Path "autoit_opencv_com490*" -BuildType $BuildType } else { $OpenCVComDll }
+$Image = if ([string]::IsNullOrEmpty($Image)) { _OpenCV_FindFile -Path "samples\data\pic1.png" -SearchPaths @("opencv-4.9.0-*\opencv\sources") } else { $Image }
 
 function Example() {
     $cv = [OpenCvComInterop]::ObjCreate("cv")

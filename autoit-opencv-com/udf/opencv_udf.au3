@@ -49,8 +49,8 @@ Func _OpenCV_get($vVal = Default)
 
 	$OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data", Default, Default, Default, _OpenCV_Tuple( _
 			"opencv\sources", _
-			"opencv-4.8.0-*\sources", _
-			"opencv-4.8.0-*\opencv\sources" _
+			"opencv-4.9.0-*\sources", _
+			"opencv-4.9.0-*\opencv\sources" _
 			))
 	If FileExists($OPENCV_SAMPLES_DATA_PATH) Then
 		$cv.samples.addSamplesDataSearchPath($OPENCV_SAMPLES_DATA_PATH)
@@ -72,8 +72,8 @@ Func _OpenCV_Unregister_And_Close($bUser = Default)
 EndFunc   ;==>_OpenCV_Unregister_And_Close
 
 Func _OpenCV_Install($s_opencv_world_dll = Default, $s_autoit_opencv_com_dll = Default, $bUser = Default, $bOpen = True, $bClose = True, $bInstall = False, $bUninstall = False)
-	If $s_opencv_world_dll == Default Then $s_opencv_world_dll = "opencv_world480.dll"
-	If $s_autoit_opencv_com_dll == Default Then $s_autoit_opencv_com_dll = "autoit_opencv_com480.dll"
+	If $s_opencv_world_dll == Default Then $s_opencv_world_dll = "opencv_world490.dll"
+	If $s_autoit_opencv_com_dll == Default Then $s_autoit_opencv_com_dll = "autoit_opencv_com490.dll"
 	If $bUser == Default Then $bUser = Not IsAdmin()
 
 	If $bClose And $h_opencv_world_dll <> -1 Then DllClose($h_opencv_world_dll)
@@ -82,11 +82,11 @@ Func _OpenCV_Install($s_opencv_world_dll = Default, $s_autoit_opencv_com_dll = D
 		If $h_opencv_world_dll == -1 Then Return SetError(@error, 0, False)
 	EndIf
 
-	; ffmpeg is looked on PATH when loaded in debug mode, not relatively to opencv_world480d.dll
-	; this is a work around to load ffmpeg relatively to opencv_world480d.dll
+	; ffmpeg is looked on PATH when loaded in debug mode, not relatively to opencv_world490d.dll
+	; this is a work around to load ffmpeg relatively to opencv_world490d.dll
 	If $bClose And $h_opencv_ffmpeg_dll <> -1 Then DllClose($h_opencv_ffmpeg_dll)
 	If $bOpen And EnvGet("OPENCV_BUILD_TYPE") == "Debug" Then
-		$h_opencv_ffmpeg_dll = _OpenCV_LoadDLL(StringReplace($s_opencv_world_dll, "opencv_world480d.dll", "opencv_videoio_ffmpeg480_64.dll"))
+		$h_opencv_ffmpeg_dll = _OpenCV_LoadDLL(StringReplace($s_opencv_world_dll, "opencv_world490d.dll", "opencv_videoio_ffmpeg490_64.dll"))
 		If $h_opencv_ffmpeg_dll == -1 Then Return SetError(@error, 0, False)
 	EndIf
 

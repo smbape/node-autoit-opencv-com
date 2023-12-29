@@ -1,7 +1,10 @@
+# PYTHONPATH="$(realpath opencv-4.9.0-*/opencv/sources/samples/dnn)" samples/.venv/Scripts/python.exe samples/dnn/object_detection/object_detection.py ssd_tf --input vtest.avi
+
 import cv2 as cv
 import argparse
 import numpy as np
 import sys
+import copy
 import time
 import math
 import subprocess
@@ -29,7 +32,7 @@ parser.add_argument('--out_tf_graph', default='graph.pbtxt',
                     help='For models from TensorFlow Object Detection API, you may '
                          'pass a .config file which was used for training through --config '
                          'argument. This way an additional .pbtxt file with TensorFlow graph will be created.')
-parser.add_argument('--framework', choices=['caffe', 'tensorflow', 'torch', 'darknet', 'dldt'],
+parser.add_argument('--framework', choices=['caffe', 'tensorflow', 'torch', 'darknet', 'dldt', 'onnx'],
                     help='Optional name of an origin framework of the model. '
                          'Detect it automatically if it does not set.')
 parser.add_argument('--thr', type=float, default=0.5, help='Confidence threshold')
@@ -64,8 +67,8 @@ parser = argparse.ArgumentParser(parents=[parser],
 args = parser.parse_args()
 
 __dirname__ = os.path.dirname(os.path.abspath(__file__))
-cv.samples.addSamplesDataSearchPath(os.path.abspath(os.path.join(__dirname__, '../../../opencv-4.7.0-windows/opencv/sources/samples/data')))
-cv.samples.addSamplesDataSearchPath(os.path.abspath(os.path.join(__dirname__, '../../../opencv-4.7.0-windows/opencv/sources/samples/data/dnn')))
+cv.samples.addSamplesDataSearchPath(os.path.abspath(os.path.join(__dirname__, '../../../opencv-4.9.0-windows/opencv/sources/samples/data')))
+cv.samples.addSamplesDataSearchPath(os.path.abspath(os.path.join(__dirname__, '../../../opencv-4.9.0-windows/opencv/sources/samples/data/dnn')))
 cv.samples.addSamplesDataSearchPath(os.path.abspath(os.path.join(__dirname__, '../../../samples/dnn/object_detection/models')))
 cv.samples.addSamplesDataSearchPath(os.path.abspath(os.path.join(__dirname__, '../../../samples/dnn/object_detection')))
 cv.samples.addSamplesDataSearchPath(os.path.abspath(os.path.join(__dirname__, '../../../samples/tutorial_code/yolo')))
@@ -109,7 +112,7 @@ if args.classes:
         classes = f.read().rstrip('\n').split('\n')
 
 # Load a network
-net = cv.dnn.readNet(cv.samples.findFile(args.model), cv.samples.findFile(args.config), args.framework)
+net = cv.dnn.readNet(args.model, args.config, args.framework)
 net.setPreferableBackend(args.backend)
 net.setPreferableTarget(args.target)
 outNames = net.getUnconnectedOutLayersNames()
@@ -173,45 +176,50 @@ def postprocess(frame, imgScale, inpWidth, inpHeight, outs):
             for detection in out[0, 0]:
                 if detection[5] - detection[3] < 1:
                     # relative coordinates
-                    scale_x = inpWidth * imgScale
-                    scale_y = inpHeight * imgScale
+                    box_scale_w = inpWidth * imgScale
+                    box_scale_h = inpHeight * imgScale
                 else:
                     # absolute coordinate
-                    scale_x = imgScale
-                    scale_y = imgScale
+                    box_scale_w = imgScale
+                    box_scale_h = imgScale
 
                 confidence = detection[2]
                 if confidence <= confThreshold:
                     continue
 
-                left = int(detection[3] * scale_x)
-                top = int(detection[4] * scale_y)
-                width = int(detection[5] * scale_x - left + 1)
-                height = int(detection[6] * scale_y - top + 1)
+                left = int(detection[3] * box_scale_w)
+                top = int(detection[4] * box_scale_h)
+                width = int(detection[5] * box_scale_w - left + 1)
+                height = int(detection[6] * box_scale_h - top + 1)
 
-                classIds.append(int(detection[1]))
+                classIds.append(int(detection[1] - 1 if args.background_label_id >= 0 and args.background_label_id <= detection[1] else detection[1]))
                 confidences.append(float(confidence))
                 boxes.append([left, top, width, height])
-    elif lastLayer.type == 'Region':
+    elif lastLayer.type == 'Region' or args.postprocessing and args.postprocessing.startswith('yolov8'):
         # relative coordinates
-        scale_x = inpWidth * imgScale
-        scale_y = inpHeight * imgScale
+        box_scale_w = inpWidth * imgScale
+        box_scale_h = inpHeight * imgScale
 
         # Network produces output blob with a shape NxC where N is a number of
         # detected objects and C is a number of classes + 4 where the first 4
         # numbers are [center_x, center_y, width, height]
         for out in outs:
+            if args.postprocessing == 'yolov8':
+                out = out[0].transpose(1, 0)
+
             for detection in out:
-                scores = detection[5:]
+                scores = detection[4:]
+                if args.background_label_id >= 0:
+                    scores = np.delete(scores, args.background_label_id)
                 classId = np.argmax(scores)
                 confidence = scores[classId]
                 if confidence <= confThreshold:
                     continue
 
-                center_x = detection[0] * scale_x
-                center_y = detection[1] * scale_y
-                width = int(detection[2] * scale_x)
-                height = int(detection[3] * scale_y)
+                center_x = detection[0] * box_scale_w
+                center_y = detection[1] * box_scale_h
+                width = int(detection[2] * box_scale_w)
+                height = int(detection[3] * box_scale_h)
                 left = int(center_x - width / 2)
                 top = int(center_y - height / 2)
 

@@ -190,11 +190,11 @@ void object_detection_postprocess(
 	const int inpHeight,
 	const float imgScale,
 	const size_t num_classes,
+	const int background_label_id,
 	const float confidence_threshold,
-	const float score_threshold,
 	const std::vector<cv::Mat>& outs,
 	std::vector<int>& class_ids,
-	std::vector<float>& scores,
+	std::vector<float>& confidences,
 	std::vector<cv::Rect2d>& bboxes
 )
 {
@@ -204,8 +204,6 @@ void object_detection_postprocess(
 	auto outLayerType = lastLayer->type;
 
 	Mat classes_scores(1, 0, CV_32FC1);
-	Point maxClassLoc;
-	double maxScore;
 	float scale_x, scale_y;
 
 	if (outLayerType == "DetectionOutput")
@@ -244,14 +242,20 @@ void object_detection_postprocess(
 				double width = (double)data[i + 5] * scale_x - left + 1;
 				double height = (double)data[i + 6] * scale_y - top + 1;
 
-				class_ids.push_back((int)(data[i + 1]));
+				int class_id = (int)(data[i + 1]);
+				if (background_label_id >= 0 && background_label_id <= class_id) {
+					class_id--; // Skip the background class id.
+				}
+				class_ids.push_back(class_id);
+				confidences.push_back(confidence);
 				bboxes.push_back(Rect2d(left, top, width, height));
-				scores.push_back(confidence);
 			}
 		}
 	}
 	else if (outLayerType == "Region")
 	{
+		// yolo v4
+
 		// relative coordinates
 		scale_x = inpWidth * imgScale;
 		scale_y = inpHeight * imgScale;
@@ -266,15 +270,13 @@ void object_detection_postprocess(
 
 			for (int j = 0; j < out.rows; ++j, data += out.cols)
 			{
-				if (data[4] < confidence_threshold) {
-					continue;
-				}
-
 				classes_scores.data = reinterpret_cast<uchar*>(data + 5);
 
 				// Get the value and location of the maximum score
-				minMaxLoc(classes_scores, 0, &maxScore, 0, &maxClassLoc);
-				if (maxScore <= score_threshold) {
+				double confidence;
+				Point maxClassLoc;
+				minMaxLoc(classes_scores, 0, &confidence, 0, &maxClassLoc);
+				if (confidence <= confidence_threshold) {
 					continue;
 				}
 
@@ -285,9 +287,9 @@ void object_detection_postprocess(
 				double left = centerX - width / 2;
 				double top = centerY - height / 2;
 
-				bboxes.push_back(Rect2d(left, top, width, height));
-				scores.push_back((float)maxScore);
 				class_ids.push_back(maxClassLoc.x);
+				confidences.push_back((float)confidence);
+				bboxes.push_back(Rect2d(left, top, width, height));
 			}
 		}
 	}
@@ -353,9 +355,11 @@ void object_detection_postprocess(
 				classes_scores.data = reinterpret_cast<uchar*>(data + offset);
 
 				// Get the value and location of the maximum score
-				minMaxLoc(classes_scores, 0, &maxScore, 0, &maxClassLoc);
+				double confidence;
+				Point maxClassLoc;
+				minMaxLoc(classes_scores, 0, &confidence, 0, &maxClassLoc);
 
-				if (maxScore >= score_threshold)
+				if (confidence >= confidence_threshold)
 				{
 					double centerX = (double)data[0] * scale_x;
 					double centerY = (double)data[1] * scale_y;
@@ -364,9 +368,9 @@ void object_detection_postprocess(
 					double left = centerX - width / 2;
 					double top = centerY - height / 2;
 
-					bboxes.push_back(Rect2d(left, top, width, height));
-					scores.push_back((float)maxScore);
 					class_ids.push_back(maxClassLoc.x);
+					confidences.push_back((float)confidence);
+					bboxes.push_back(Rect2d(left, top, width, height));
 				}
 			}
 		}

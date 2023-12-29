@@ -57,11 +57,11 @@ AUTOITAPI(void) object_detection_postprocess(
 	const int inpHeight,
 	const float imgScale,
 	const size_t num_classes,
+	const int background_label_id,
 	const float confidence_threshold,
-	const float score_threshold,
 	const std::vector<cv::Mat>& outs,
 	std::vector<int>& class_ids,
-	std::vector<float>& scores,
+	std::vector<float>& confidences,
 	std::vector<cv::Rect2d>& bboxes
 );
 
