@@ -97,6 +97,8 @@ tiny-yolo-voc:
   sample: "object_detection"
 
 yolov5n:
+  load_info:
+    sha1: "d4e2169928aa3b856dca5bf77ca473f36f5a4d13"
   model: "yolov5n.onnx"
   mean: [0, 0, 0]
   scale: 0.00392
@@ -107,6 +109,8 @@ yolov5n:
   sample: "object_detection"
 
 yolov5s:
+  load_info:
+    sha1: "cd0f1a8d91dd463625d76c6be23935e507c7cffa"
   model: "yolov5s.onnx"
   mean: [0, 0, 0]
   scale: 0.00392
@@ -116,7 +120,65 @@ yolov5s:
   classes: "object_detection_classes_yolo.txt"
   sample: "object_detection"
 
+yolov6n:
+  load_info:
+    url: "https://github.com/meituan/YOLOv6/releases/download/0.4.0/yolov6n.pt"
+    sha1: "ae4a38044498494e4df01af0ce6c1d2a7a9f0cbd"
+    download_sha: "b801d8ab7b229b6bc832f31d998281461ae67889"
+  model: "yolov6n.onnx"
+  mean: [0, 0, 0]
+  scale: 0.00392
+  width: 640
+  height: 640
+  rgb: true
+  classes: "object_detection_classes_yolo.txt"
+  sample: "object_detection"
+
+yolov6s:
+  load_info:
+    url: "https://github.com/meituan/YOLOv6/releases/download/0.4.0/yolov6s.pt"
+    sha1: "6a7fbbf4aab7076445e1dd6ad6e2f16ea3fdf472"
+    download_sha: "a3070399ae18f089b7a218fedb3348a7add8220b"
+  model: "yolov6s.onnx"
+  mean: [0, 0, 0]
+  scale: 0.00392
+  width: 640
+  height: 640
+  rgb: true
+  classes: "object_detection_classes_yolo.txt"
+  sample: "object_detection"
+
+yolov7:
+  load_info:
+    url: "https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7.pt"
+    sha1: "22db92417bd90fc105a508adbd6f5529f3f0c849"
+    download_sha: "723b07225efa90d86eb983713b66fd8be82dfb9f"
+  model: "yolov7.onnx"
+  mean: [0, 0, 0]
+  scale: 0.00392
+  width: 640
+  height: 640
+  rgb: true
+  classes: "object_detection_classes_yolo.txt"
+  sample: "object_detection"
+
+yolov7-tiny:
+  load_info:
+    url: "https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7-tiny.pt"
+    sha1: "5e7b3eff02d933193653be4223ea09bf4017dfc7"
+    download_sha: "c42311ff54e2a962725d6cac3b66d4b1e04eda2d"
+  model: "yolov7-tiny.onnx"
+  mean: [0, 0, 0]
+  scale: 0.00392
+  width: 640
+  height: 640
+  rgb: true
+  classes: "object_detection_classes_yolo.txt"
+  sample: "object_detection"
+
 yolov8n:
+  load_info:
+    sha1: "8f7985f8da3cc79161ecedd3bfaf0558315476c3"
   model: "yolov8n.onnx"
   mean: [0, 0, 0]
   scale: 0.00392
@@ -128,12 +190,15 @@ yolov8n:
   sample: "object_detection"
 
 yolov8s:
+  load_info:
+    sha1: "407fa05b9db4088595b477eabf6a260926617d6a"
   model: "yolov8s.onnx"
   mean: [0, 0, 0]
   scale: 0.00392
   width: 640
   height: 640
   rgb: true
+  postprocessing: "yolov8"
   classes: "object_detection_classes_yolo.txt"
   sample: "object_detection"
 

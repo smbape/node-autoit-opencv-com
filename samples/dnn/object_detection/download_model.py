@@ -1,6 +1,7 @@
 from typing import Optional
 
 import argparse
+import subprocess
 
 import download_models
 import hashlib
@@ -11,6 +12,23 @@ from common import *
 from tf_text_graph_common import readTextMessage
 from tf_text_graph_ssd import createSSDGraph
 from tf_text_graph_faster_rcnn import createFasterRCNNGraph
+
+
+python = sys.executable or 'python'
+
+def abspath(filepath: Optional[str]) -> Optional[str]:
+    if filepath is None:
+        return filepath
+    return os.path.abspath(filepath)
+
+
+class HashMismatchException(Exception):
+    def __init__(self, expected, actual):
+        Exception.__init__(self)
+        self.expected = expected
+        self.actual = actual
+    def __str__(self):
+        return 'Hash mismatch: expected {} vs actual of {}'.format(self.expected, self.actual)
 
 
 def getHashsumFromFile(filepath: str) -> str:
@@ -26,11 +44,178 @@ def getHashsumFromFile(filepath: str) -> str:
     return hashsum
 
 
-def abspath(filepath: Optional[str]) -> Optional[str]:
-    if filepath is None:
-        return filepath
-    return os.path.abspath(filepath)
+def checkHashsum(expected_sha, filepath, silent=True):
+    print('  expected SHA1: {}'.format(expected_sha))
+    actual_sha = getHashsumFromFile(filepath)
+    print('  actual SHA1:{}'.format(actual_sha))
+    hashes_matched = expected_sha == actual_sha
+    if not hashes_matched and not silent:
+        raise HashMismatchException(expected_sha, actual_sha)
+    return hashes_matched
 
+
+def download_file(info, dest):
+    fname = os.path.basename(dest)
+    actual_sha = getHashsumFromFile(dest)
+    expected_sha = info.get("sha1")
+    url = info.get("url")
+    download_sha = info.get("download_sha")
+    download_name = info.get("download_name")
+    archive_member = info.get("member")
+    if actual_sha != expected_sha:
+        download_instance = download_models.produceDownloadInstance(name, fname, expected_sha, url, cache_dir,
+            download_name=download_name, download_sha=download_sha, archive_member=archive_member)
+
+        print('Model: ' + name)
+        filename = download_instance.get()
+        if os.path.exists(dest):
+            os.remove(dest)
+        shutil.move(filename, os.path.dirname(dest))
+
+
+def download_yolov5(info, dest):
+    if ('url' in info) and ('.onnx' in info.get('url')):
+        download_file(info, dest)
+        return
+
+    actual_sha = getHashsumFromFile(dest)
+    expected_sha = info.get("sha1")
+    if actual_sha == expected_sha:
+        return
+
+    # convert to onnx
+    cwd = os.path.dirname(dest)
+    repo = os.path.join(cwd, 'yolov5')
+
+    if not os.path.exists(repo):
+        subprocess.run(['git', 'clone', 'https://github.com/ultralytics/yolov5.git', 'yolov5'], cwd=cwd)
+        subprocess.run([python, '-m', 'pip', 'install', '--upgrade', 'pip'], cwd=repo)
+        subprocess.run([python, '-m', 'pip', 'install', '-r', 'requirements.txt'], cwd=repo)
+
+    if os.path.exists(dest):
+        os.remove(dest)
+
+    env = os.environ.copy()
+    env["PYTHONPATH"] = repo
+    subprocess.run([python, os.path.join(repo, 'export.py'), 
+        '--include', 'onnx',
+        '--opset', '12',
+        '--simplify',
+        '--weights', os.path.basename(dest).replace(".onnx", ".pt")
+    ], cwd=cwd, env=env)
+
+    checkHashsum(expected_sha, dest, silent=False)
+    print("  Finished " + dest)
+
+
+def download_yolov6(info, dest):
+    if ('url' in info) and ('.onnx' in info.get('url')):
+        download_file(info, dest)
+        return
+
+    actual_sha = getHashsumFromFile(dest)
+    expected_sha = info.get("sha1")
+    if actual_sha == expected_sha:
+        return
+
+    # download pt
+    info["sha1"] = info.get("download_sha")
+    info.pop("download_sha", None)
+    download_file(info, dest.replace(".onnx", ".pt"))
+
+    # convert to onnx
+    cwd = os.path.dirname(dest)
+    repo = os.path.join(cwd, 'YOLOv6')
+
+    if not os.path.exists(repo):
+        subprocess.run(['git', 'clone', 'https://github.com/meituan/YOLOv6.git', 'YOLOv6'], cwd=cwd)
+        subprocess.run([python, '-m', 'pip', 'install', '--upgrade', 'pip'], cwd=repo)
+        subprocess.run([python, '-m', 'pip', 'install', '-r', 'requirements.txt'], cwd=repo)
+
+    if os.path.exists(dest):
+        os.remove(dest)
+
+    env = os.environ.copy()
+    env["PYTHONPATH"] = repo
+    subprocess.run([python, os.path.join(repo, 'deploy', 'ONNX', 'export_onnx.py'),
+        '--weights', os.path.basename(dest).replace(".onnx", ".pt"),
+        '--img', '640',
+        '--batch', '1',
+        '--simplify'
+    ], cwd=cwd, env=env)
+
+    checkHashsum(expected_sha, dest, silent=False)
+    print("  Finished " + dest)
+
+
+def download_yolov7(info, dest):
+    if ('url' in info) and ('.onnx' in info.get('url')):
+        download_file(info, dest)
+        return
+
+    actual_sha = getHashsumFromFile(dest)
+    expected_sha = info.get("sha1")
+    if actual_sha == expected_sha:
+        return
+
+    # download pt
+    info["sha1"] = info.get("download_sha")
+    info.pop("download_sha", None)
+    download_file(info, dest.replace(".onnx", ".pt"))
+
+    # convert to onnx
+    cwd = os.path.dirname(dest)
+    repo = os.path.join(cwd, 'yolov7')
+
+    if not os.path.exists(repo):
+        subprocess.run(['git', 'clone', 'https://github.com/WongKinYiu/yolov7.git', 'yolov7'], cwd=cwd)
+        subprocess.run([python, '-m', 'pip', 'install', '--upgrade', 'pip'], cwd=repo)
+        subprocess.run([python, '-m', 'pip', 'install', '-r', 'requirements.txt'], cwd=repo)
+
+    if os.path.exists(dest):
+        os.remove(dest)
+
+    env = os.environ.copy()
+    env["PYTHONPATH"] = repo
+    subprocess.run([python, os.path.join(repo, 'export.py'),
+        '--weights', os.path.basename(dest).replace(".onnx", ".pt"),
+        '--grid',
+        '--simplify',
+        '--img-size', '640', '640',
+        '--max-wh', '640'
+    ], cwd=cwd, env=env)
+
+    checkHashsum(expected_sha, dest, silent=False)
+    print("  Finished " + dest)
+
+
+def download_yolov8(info, dest):
+    if ('url' in info) and ('.onnx' in info.get('url')):
+        download_file(info, dest)
+        return
+
+    actual_sha = getHashsumFromFile(dest)
+    expected_sha = info.get("sha1")
+    if actual_sha == expected_sha:
+        return
+
+    # convert to onnx
+    cwd = os.path.dirname(dest)
+
+    if os.path.exists(dest):
+        os.remove(dest)
+
+    subprocess.run([python, '-m', 'pip', 'install', '--upgrade', 'pip'], cwd=cwd)
+    subprocess.run([python, '-m', 'pip', 'install', 'ultralytics'], cwd=cwd)
+    subprocess.run(['yolo', 'export',
+        f'model={ os.path.basename(dest).replace(".onnx", ".pt") }',
+        'imgsz=640',
+        'format=onnx',
+        'opset=12'
+    ], cwd=cwd)
+
+    checkHashsum(expected_sha, dest, silent=False)
+    print("  Finished " + dest)
 
 backends = (cv.dnn.DNN_BACKEND_DEFAULT, cv.dnn.DNN_BACKEND_HALIDE, cv.dnn.DNN_BACKEND_INFERENCE_ENGINE, cv.dnn.DNN_BACKEND_OPENCV,
             cv.dnn.DNN_BACKEND_VKCOM, cv.dnn.DNN_BACKEND_CUDA)
@@ -92,51 +277,27 @@ if args.model_name:
             if not name.startswith(args.model_name):
                 continue
 
-            model = os.path.abspath(params.get("model"))
+            model = abspath(params.get("model"))
             load_info = params.get("load_info", None)
             if load_info:
-                fname = os.path.basename(model)
-                actual_sha = getHashsumFromFile(model)
-                expected_sha = load_info.get("sha1")
-                url = load_info.get("url")
-                download_sha = load_info.get("download_sha")
-                download_name = load_info.get("download_name")
-                archive_member = load_info.get("member")
-                if actual_sha != expected_sha:
-                    download_instance = download_models.produceDownloadInstance(name, fname, expected_sha, url, cache_dir,
-                        download_name=download_name, download_sha=download_sha, archive_member=archive_member)
+                if name.startswith("yolov5"):
+                    download_yolov5(load_info, model)
+                elif name.startswith("yolov6"):
+                    download_yolov6(load_info, model)
+                elif name.startswith("yolov7"):
+                    download_yolov7(load_info, model)
+                elif name.startswith("yolov8"):
+                    download_yolov8(load_info, model)
+                else:
+                    download_file(load_info, model)
 
-                    print('Model: ' + name)
-                    filename = download_instance.get()
-                    if os.path.exists(model):
-                        os.remove(model)
-                    shutil.move(filename, os.path.dirname(model))
-
-            config = os.path.abspath(params.get("config"))
+            config = abspath(params.get("config"))
             config_info = params.get("config_info", None)
             if config_info:
                 fname = config_info.get("filename")
-                if fname is None:
-                    fname = config
-
-                fname = os.path.basename(fname)
-                actual_sha = getHashsumFromFile(fname)
-                expected_sha = config_info.get("sha1")
-                url = config_info.get("url")
-                download_sha = config_info.get("download_sha")
-                download_name = config_info.get("download_name")
-                archive_member = config_info.get("member")
-                if actual_sha != expected_sha:
-                    download_instance = download_models.produceDownloadInstance(name, fname, expected_sha, url, cache_dir,
-                        download_name=download_name, download_sha=download_sha, archive_member=archive_member)
-
-                    print('Config: ' + fname)
-                    filename = download_instance.get()
-                    if os.path.exists(fname):
-                        os.remove(fname)
-                    shutil.move(filename, os.path.dirname(config))
-
-                config = os.path.join(os.path.dirname(config), fname)
+                if not (fname is None):
+                    config = os.path.join(os.path.dirname(config), fname)
+                download_file(config_info, config)
 
             # If config is specified, try to load it as TensorFlow Object Detection API's pipeline.
             in_tf_config = config

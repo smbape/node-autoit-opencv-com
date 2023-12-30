@@ -81,7 +81,7 @@ void AKAZE_homograpy_check(
 	}
 }
 
-#define UNSUPPORTED_YOLO_VERSION "Unsupported yolo version. Supported versions are v3, v5, v8."
+#define UNSUPPORTED_YOLO_VERSION "Unsupported yolo version. Supported versions are v3, v4, v5, v6, v7, v8."
 
 void yolo_postprocess(
 	const int spatial_width,
@@ -104,7 +104,7 @@ void yolo_postprocess(
 	for (auto out : outs)
 	{
 		int offset;
-		float scale_x, scale_y;
+		float box_scale_w, box_scale_h;
 
 		if (out.dims != 2 && out.dims != 3) {
 			CV_Error(cv::Error::StsAssert, UNSUPPORTED_YOLO_VERSION " out.dims != 2 && out.dims != 3");
@@ -120,8 +120,8 @@ void yolo_postprocess(
 			}
 
 			// relative coordinates
-			scale_x = (float)img_width * scale;
-			scale_y = (float)img_height * scale;
+			box_scale_w = (float)img_width * scale;
+			box_scale_h = (float)img_height * scale;
 		}
 		else {
 			if (out.size[0] != 1) {
@@ -129,8 +129,8 @@ void yolo_postprocess(
 			}
 
 			out = out.reshape(1, out.size[1]);
-			scale_x = (float)img_width / spatial_width * scale;
-			scale_y = (float)img_height / spatial_height * scale;
+			box_scale_w = (float)img_width / spatial_width * scale;
+			box_scale_h = (float)img_height / spatial_height * scale;
 
 			// yolov5 has an output of shape (batchSize, 25200, 85) (Num classes + box[x,y,w,h] + confidence[c])
 			// yolov8 has an output of shape (batchSize, 84,  8400) (Num classes + box[x,y,w,h])
@@ -169,10 +169,10 @@ void yolo_postprocess(
 
 			if (maxScore >= score_threshold)
 			{
-				double centerX = (double)data[0] * scale_x;
-				double centerY = (double)data[1] * scale_y;
-				double width = (double)data[2] * scale_x;
-				double height = (double)data[3] * scale_y;
+				double centerX = (double)data[0] * box_scale_w;
+				double centerY = (double)data[1] * box_scale_h;
+				double width = (double)data[2] * box_scale_w;
+				double height = (double)data[3] * box_scale_h;
 				double left = centerX - width / 2;
 				double top = centerY - height / 2;
 
@@ -180,6 +180,58 @@ void yolo_postprocess(
 				scores.push_back((float)maxScore);
 				class_ids.push_back(maxClassLoc.x);
 			}
+		}
+	}
+}
+
+namespace {
+	void yolo_object_detection_postprocess(
+		const float box_scale_w,
+		const float box_scale_h,
+		const float confidence_threshold,
+		const cv::Mat& out,
+		cv::Mat& classes_scores,
+		std::vector<int>& class_ids,
+		std::vector<float>& confidences,
+		std::vector<cv::Rect2d>& bboxes,
+		const int offset,
+		const int background_label_id
+	)
+	{
+		classes_scores.cols = out.cols - offset;
+
+		// Scan through all the bounding boxes output from the network and keep only the
+		// ones with high confidence scores. Assign the box's class label as the class
+		// with the highest score for the box.
+
+		float* detection = (float*) out.data;
+
+		for (int i = 0; i < out.rows; ++i, detection += out.cols)
+		{
+			if (background_label_id < 0 && offset == 5 && detection[4] < confidence_threshold) {
+				continue;
+			}
+
+			classes_scores.data = reinterpret_cast<uchar*>(detection + offset);
+
+			// Get the value and location of the maximum score
+			double confidence;
+			Point maxClassLoc;
+			minMaxLoc(classes_scores, 0, &confidence, 0, &maxClassLoc);
+			if (confidence <= confidence_threshold) {
+				continue;
+			}
+
+			double centerX = (double)detection[0] * box_scale_w;
+			double centerY = (double)detection[1] * box_scale_h;
+			double width = (double)detection[2] * box_scale_w;
+			double height = (double)detection[3] * box_scale_h;
+			double left = centerX - width / 2;
+			double top = centerY - height / 2;
+
+			class_ids.push_back(maxClassLoc.x);
+			confidences.push_back((float)confidence);
+			bboxes.push_back(Rect2d(left, top, width, height));
 		}
 	}
 }
@@ -204,7 +256,7 @@ void object_detection_postprocess(
 	auto outLayerType = lastLayer->type;
 
 	Mat classes_scores(1, 0, CV_32FC1);
-	float scale_x, scale_y;
+	float box_scale_w, box_scale_h;
 
 	if (outLayerType == "DetectionOutput")
 	{
@@ -228,19 +280,19 @@ void object_detection_postprocess(
 
 				if (data[i + 5] - data[i + 3] < 1) {
 					// relative coordinates
-					scale_x = inpWidth * imgScale;
-					scale_y = inpHeight * imgScale;
+					box_scale_w = inpWidth * imgScale;
+					box_scale_h = inpHeight * imgScale;
 				}
 				else {
 					// absolute coordinate
-					scale_x = imgScale;
-					scale_y = imgScale;
+					box_scale_w = imgScale;
+					box_scale_h = imgScale;
 				}
 
-				double left = (double)data[i + 3] * scale_x;
-				double top = (double)data[i + 4] * scale_y;
-				double width = (double)data[i + 5] * scale_x - left + 1;
-				double height = (double)data[i + 6] * scale_y - top + 1;
+				double left = (double)data[i + 3] * box_scale_w;
+				double top = (double)data[i + 4] * box_scale_h;
+				double width = (double)data[i + 5] * box_scale_w - left + 1;
+				double height = (double)data[i + 6] * box_scale_h - top + 1;
 
 				int class_id = (int)(data[i + 1]);
 				if (background_label_id >= 0 && background_label_id <= class_id) {
@@ -254,64 +306,39 @@ void object_detection_postprocess(
 	}
 	else if (outLayerType == "Region")
 	{
-		// yolo v4
+		// yolo v3, v4
 
 		// relative coordinates
-		scale_x = inpWidth * imgScale;
-		scale_y = inpHeight * imgScale;
+		box_scale_w = inpWidth * imgScale;
+		box_scale_h = inpHeight * imgScale;
+		int offset = 5;
 
 		// Network produces output blob with a shape NxC where N is a number of
 		// detected objects and C is a number of classes + 4 where the first 4
 		// numbers are [center_x, center_y, width, height]
 		for (auto out : outs)
 		{
-			classes_scores.cols = out.cols - 5;
-			float* data = (float*)out.data;
-
-			for (int j = 0; j < out.rows; ++j, data += out.cols)
-			{
-				classes_scores.data = reinterpret_cast<uchar*>(data + 5);
-
-				// Get the value and location of the maximum score
-				double confidence;
-				Point maxClassLoc;
-				minMaxLoc(classes_scores, 0, &confidence, 0, &maxClassLoc);
-				if (confidence <= confidence_threshold) {
-					continue;
-				}
-
-				double centerX = (double)data[0] * scale_x;
-				double centerY = (double)data[1] * scale_y;
-				double width = (double)data[2] * scale_x;
-				double height = (double)data[3] * scale_y;
-				double left = centerX - width / 2;
-				double top = centerY - height / 2;
-
-				class_ids.push_back(maxClassLoc.x);
-				confidences.push_back((float)confidence);
-				bboxes.push_back(Rect2d(left, top, width, height));
-			}
+			yolo_object_detection_postprocess(
+				box_scale_w,
+				box_scale_h,
+				confidence_threshold,
+				out,
+				classes_scores,
+				class_ids,
+				confidences,
+				bboxes,
+				offset,
+				background_label_id
+			);
 		}
 	}
 	else if (outLayerType == "Identity") {
 		for (auto out : outs)
 		{
 			int offset;
-			float scale_x, scale_y;
+			float box_scale_w, box_scale_h;
 
-			if (out.dims != 2 && out.dims != 3) {
-				CV_Error(cv::Error::StsAssert, UNSUPPORTED_YOLO_VERSION " out.dims != 2 && out.dims != 3");
-			}
-
-			if (out.dims == 2) {
-				// yolo v3
-				offset = 5;
-
-				// relative coordinates
-				scale_x = inpWidth * imgScale;
-				scale_y = inpHeight * imgScale;
-			}
-			else {
+			if (out.dims == 3) {
 				if (out.size[0] != 1) {
 					CV_Error(cv::Error::StsAssert, UNSUPPORTED_YOLO_VERSION " out.size[0] != 1");
 				}
@@ -319,60 +346,37 @@ void object_detection_postprocess(
 				out = out.reshape(1, out.size[1]);
 
 				// absolute coordinate
-				scale_x = imgScale;
-				scale_y = imgScale;
+				box_scale_w = imgScale;
+				box_scale_h = imgScale;
 
-				// yolov5 has an output of shape (batchSize, 25200, 85) (Num classes + box[x,y,w,h] + confidence[c])
-				// yolov8 has an output of shape (batchSize, 84,  8400) (Num classes + box[x,y,w,h])
-				if (out.rows == num_classes + 4) {
-					// yolo v8
+				if (out.cols == num_classes + 5) {
+					// yolo v5, v6, v7 has an output of shape (batchSize, 25200, 85) (Num classes + box[x,y,w,h] + confidence[c])
+					offset = 5;
+				}
+				else if (out.rows == num_classes + 4) {
+					// yolo v8 has an output of shape (batchSize, 84,  8400) (Num classes + box[x,y,w,h])
 					offset = 4;
 					cv::transpose(out, out);
 				}
-				else if (out.cols == num_classes + 5) {
-					// yolo v5
-					offset = 5;
-				}
 				else {
-					CV_Error(cv::Error::StsAssert, UNSUPPORTED_YOLO_VERSION);
+					CV_Error(cv::Error::StsAssert, UNSUPPORTED_YOLO_VERSION " out.rows != num_classes + 4 && out.cols != num_classes + 5");
 				}
+			} else {
+				CV_Error(cv::Error::StsAssert, UNSUPPORTED_YOLO_VERSION " out.dims != 3");
 			}
 
-			classes_scores.cols = out.cols - offset;
-
-			// Scan through all the bounding boxes output from the network and keep only the
-			// ones with high confidence scores. Assign the box's class label as the class
-			// with the highest score for the box.
-
-			float* data = (float*)out.data;
-
-			for (int i = 0; i < out.rows; ++i, data += out.cols)
-			{
-				if (offset == 5 && data[4] < confidence_threshold) {
-					continue;
-				}
-
-				classes_scores.data = reinterpret_cast<uchar*>(data + offset);
-
-				// Get the value and location of the maximum score
-				double confidence;
-				Point maxClassLoc;
-				minMaxLoc(classes_scores, 0, &confidence, 0, &maxClassLoc);
-
-				if (confidence >= confidence_threshold)
-				{
-					double centerX = (double)data[0] * scale_x;
-					double centerY = (double)data[1] * scale_y;
-					double width = (double)data[2] * scale_x;
-					double height = (double)data[3] * scale_y;
-					double left = centerX - width / 2;
-					double top = centerY - height / 2;
-
-					class_ids.push_back(maxClassLoc.x);
-					confidences.push_back((float)confidence);
-					bboxes.push_back(Rect2d(left, top, width, height));
-				}
-			}
+			yolo_object_detection_postprocess(
+				box_scale_w,
+				box_scale_h,
+				confidence_threshold,
+				out,
+				classes_scores,
+				class_ids,
+				confidences,
+				bboxes,
+				offset,
+				background_label_id
+			);
 		}
 	}
 	else {

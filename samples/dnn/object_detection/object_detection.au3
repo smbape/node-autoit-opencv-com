@@ -41,7 +41,7 @@ $cv.samples.addSamplesDataSearchPath(_OpenCV_FindFile("tutorial_code\yolo"))
 
 Global $sModelList = "none"
 For $model In $models.Keys()
-	If $models($model) ("sample") == "object_detection" Then
+	If $models($model) ("sample") == "object_detection" And (Not $models($model).has("active") Or $models($model) ("active") <> 0) Then
 		$sModelList &= "|" & $model
 	EndIf
 Next
@@ -90,6 +90,10 @@ GUICtrlSetData(-1, $sModelList, "ssd_tf")
 ; GUICtrlSetData(-1, $sModelList, "yolov4-tiny")
 ; GUICtrlSetData(-1, $sModelList, "yolov5n")
 ; GUICtrlSetData(-1, $sModelList, "yolov5s")
+; GUICtrlSetData(-1, $sModelList, "yolov6n")
+; GUICtrlSetData(-1, $sModelList, "yolov6s")
+; GUICtrlSetData(-1, $sModelList, "yolov7")
+; GUICtrlSetData(-1, $sModelList, "yolov7-tiny")
 ; GUICtrlSetData(-1, $sModelList, "yolov8n")
 ; GUICtrlSetData(-1, $sModelList, "yolov8s")
 GUICtrlSetTip(-1, 'Preset parameters based on a zoo model')
@@ -361,6 +365,56 @@ Func postprocess($frame, $inpWidth, $inpHeight, $imgScale, $outs)
 	_OpenCV_imshow_ControlPic($frame, $FormGUI, $PicResult)
 EndFunc   ;==>postprocess
 
+Func yolo_object_detection_postprocess($box_scale_w, $box_scale_h, $confidence_threshold, $out, $detection, $classes_scores, $class_ids, $confidences, $bboxes, $offset, $background_label_id)
+	Local $data = Ptr($out.data)
+	Local $steps = $out.steps
+	Local $step_row = $steps[0]
+	Local $step_col = $steps[1]
+
+	Local $confidence, $maxClassLoc
+	Local $center_x, $center_y
+	Local $left, $top, $width, $height
+
+	$detection.cols = $out.cols
+	$classes_scores.cols = $out.cols - $offset
+
+	For $j = 0 To $out.rows - 1
+		; Slower
+		; $detection = $out.row($j)
+		; $classes_scores = $detection.colRange($offset, $out.cols)
+
+		; Slower
+		; $detection.data = $out.ptr($j, 0)
+		; $classes_scores.data = $out.ptr($j, $offset)
+
+		$detection.data = $data + $j * $step_row
+		$classes_scores.data = Ptr($detection.data) + $offset * $step_col
+
+		If $offset == 5 And $detection.at(4) < $confidence_threshold And Not ($background_label_id >= 0) Then
+			ContinueLoop
+		EndIf
+
+		$cv.minMaxLoc($classes_scores)
+		$confidence = $cv.extended[1]
+		$maxClassLoc = $cv.extended[3]
+
+		If $confidence <= $confidence_threshold Then
+			ContinueLoop
+		EndIf
+
+		$center_x = $detection.at(0) * $box_scale_w
+		$center_y = $detection.at(1) * $box_scale_h
+		$width = $detection.at(2) * $box_scale_w
+		$height = $detection.at(3) * $box_scale_h
+		$left = $center_x - $width / 2
+		$top = $center_y - $height / 2
+
+		$class_ids.push_back($maxClassLoc[0])
+		$confidences.push_back($confidence)
+		$bboxes.push_back(_OpenCV_Rect($left, $top, $width, $height))
+	Next
+EndFunc   ;==>yolo_object_detection_postprocess
+
 Func object_detection_postprocess($inpWidth, $inpHeight, $imgScale, $num_classes, $background_label_id, $outs, $class_ids, $confidences, $bboxes)
 	Local $confidence_threshold = GUICtrlRead($SliderConfidence) / 100
 
@@ -368,15 +422,15 @@ Func object_detection_postprocess($inpWidth, $inpHeight, $imgScale, $num_classes
 	Local $lastLayerId = $net.getLayerId($layerNames[UBound($layerNames) - 1])
 	Local $lastLayer = $net.getLayer($lastLayerId)
 
-	Local Const $UNSUPPORTED_YOLO_VERSION = "!>Error: Unsupported yolo version. Supported versions are v3, v5, v8."
-	Local $offset, $scale_x, $scale_y
+	Local Const $UNSUPPORTED_YOLO_VERSION = "!>Error: Unsupported yolo version. Supported versions are v3, v4, v5, v6, v7, v8."
+	Local $offset, $box_scale_w, $box_scale_h
 
 	Local $detection = $cv.Mat.create(1, 0, $CV_32F)
 	Local $classes_scores = $cv.Mat.create(1, 0, $CV_32F)
 
-	Local $out, $data, $steps, $step_row, $step_col
-	Local $confidence, $class_id, $maxClassLoc
-	Local $center_x, $center_y
+	Local $out, $data, $steps, $step_row
+	Local $confidence, $class_id
+
 	Local $left, $top, $width, $height
 
 	; ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : type                                ' & $lastLayer.type & @CRLF)
@@ -391,7 +445,6 @@ Func object_detection_postprocess($inpWidth, $inpHeight, $imgScale, $num_classes
 			$data = Ptr($out.data)
 			$steps = $out.steps
 			$step_row = $steps[0]
-			$step_col = $steps[1]
 
 			$detection.cols = $out.cols
 
@@ -411,18 +464,18 @@ Func object_detection_postprocess($inpWidth, $inpHeight, $imgScale, $num_classes
 
 				If $detection.at(5) - $detection.at(3) < 1 Then
 					; relative coordinates
-					$scale_x = $inpWidth * $imgScale
-					$scale_y = $inpHeight * $imgScale
+					$box_scale_w = $inpWidth * $imgScale
+					$box_scale_h = $inpHeight * $imgScale
 				Else
 					; absolute coordinate
-					$scale_x = $imgScale
-					$scale_y = $imgScale
+					$box_scale_w = $imgScale
+					$box_scale_h = $imgScale
 				EndIf
 
-				$left = $detection.at(3) * $scale_x
-				$top = $detection.at(4) * $scale_y
-				$width = $detection.at(5) * $scale_x - $left + 1
-				$height = $detection.at(6) * $scale_y - $top + 1
+				$left = $detection.at(3) * $box_scale_w
+				$top = $detection.at(4) * $box_scale_h
+				$width = $detection.at(5) * $box_scale_w - $left + 1
+				$height = $detection.at(6) * $box_scale_h - $top + 1
 
 				$class_id = $detection.at(1)
 				If $background_label_id >= 0 And $background_label_id <= $class_id Then
@@ -436,73 +489,32 @@ Func object_detection_postprocess($inpWidth, $inpHeight, $imgScale, $num_classes
 		Next
 	ElseIf $lastLayer.type == "Region" Then
 		; relative coordinates
-		$scale_x = $inpWidth * $imgScale
-		$scale_y = $inpHeight * $imgScale
+		$box_scale_w = $inpWidth * $imgScale
+		$box_scale_h = $inpHeight * $imgScale
+
+		$offset = 5
 
 		; Network produces output blob with a shape NxC where N is a number of
 		; detected objects and C is a number of classes + 4 where the first 4
 		; numbers are [center_x, center_y, width, height]
 		For $out In $outs
-			$data = Ptr($out.data)
-			$steps = $out.steps
-			$step_row = $steps[0]
-			$step_col = $steps[1]
-
-			$detection.cols = $out.cols
-			$classes_scores.cols = $out.cols - 5
-
-			For $j = 0 To $out.rows - 1
-				; Slower
-				; $detection = $out.row($j)
-				; $classes_scores = $detection.colRange(5, $out.cols)
-
-				; Slower
-				; $detection.data = $out.ptr($j, 0)
-				; $classes_scores.data = $out.ptr($j, 5)
-
-				$detection.data = $data + $j * $step_row
-
-				$classes_scores.data = Ptr($detection.data) + 5 * $step_col
-				$cv.minMaxLoc($classes_scores)
-				$confidence = $cv.extended[1]
-				$maxClassLoc = $cv.extended[3]
-
-				If $confidence <= $confidence_threshold Then
-					ContinueLoop
-				EndIf
-
-				$center_x = $detection.at(0) * $scale_x
-				$center_y = $detection.at(1) * $scale_y
-				$width = $detection.at(2) * $scale_x
-				$height = $detection.at(3) * $scale_y
-				$left = $center_x - $width / 2
-				$top = $center_y - $height / 2
-
-				$class_ids.push_back($maxClassLoc[0])
-				$confidences.push_back($confidence)
-				$bboxes.push_back(_OpenCV_Rect($left, $top, $width, $height))
-			Next
+			yolo_object_detection_postprocess( _
+					$box_scale_w, _
+					$box_scale_h, _
+					$confidence_threshold, _
+					$out, _
+					$detection, _
+					$classes_scores, _
+					$class_ids, _
+					$confidences, _
+					$bboxes, _
+					$offset, _
+					$background_label_id _
+					)
 		Next
 	ElseIf $lastLayer.type == "Identity" Then
 		For $out In $outs
-			If $out.dims <> 2 And $out.dims <> 3 Then
-				ConsoleWriteError($UNSUPPORTED_YOLO_VERSION & ' out.dims != 2 && out.dims != 3' & @CRLF)
-				Return
-			EndIf
-
-			If $out.dims == 2 Then
-				If $out.cols == $num_classes + 5 Then
-					;; yolo v3
-					$offset = 5
-				Else
-					ConsoleWriteError($UNSUPPORTED_YOLO_VERSION & @CRLF)
-					Return
-				EndIf
-
-				; relative coordinates
-				$scale_x = $inpWidth * $imgScale
-				$scale_y = $inpHeight * $imgScale
-			Else
+			If $out.dims == 3 Then
 				If $out.sizes[0] <> 1 Then
 					ConsoleWriteError($UNSUPPORTED_YOLO_VERSION & ' out.size[0] != 1' & @CRLF)
 					Return
@@ -511,67 +523,39 @@ Func object_detection_postprocess($inpWidth, $inpHeight, $imgScale, $num_classes
 				$out = $out.reshape(1, $out.sizes[1])
 
 				; absolute coordinate
-				$scale_x = $imgScale
-				$scale_y = $imgScale
+				$box_scale_w = $imgScale
+				$box_scale_h = $imgScale
 
-				;; yolov5 has an output of shape (batchSize, 25200, 85) (Num classes + box[x,y,w,h] + confidence[c])
-				;; yolov8 has an output of shape (batchSize, 84,  8400) (Num classes + box[x,y,w,h])
-				If $out.rows == $num_classes + 4 Then
-					;; yolo v8
+				If $out.cols == $num_classes + 5 Then
+					;; yolo v5, v6, v7 has an output of shape (batchSize, 25200, 85) (Num classes + box[x,y,w,h] + confidence[c])
+					$offset = 5
+				ElseIf $out.rows == $num_classes + 4 Then
+					;; yolo v8 has an output of shape (batchSize, 84,  8400) (Num classes + box[x,y,w,h])
 					$offset = 4
 					$out = $cv.transpose($out)
-				ElseIf $out.cols == $num_classes + 5 Then
-					;; yolo v5
-					$offset = 5
 				Else
 					ConsoleWriteError($UNSUPPORTED_YOLO_VERSION & @CRLF)
 					Return
 				EndIf
+			Else
+				ConsoleWriteError($UNSUPPORTED_YOLO_VERSION & ' out.dims != 3' & @CRLF)
+				Return
 			EndIf
 
-			$data = Ptr($out.data)
-			$steps = $out.steps
-			$step_row = $steps[0]
-			$step_col = $steps[1]
 
-			$detection.cols = $out.cols
-			$classes_scores.cols = $out.cols - $offset
-
-			For $j = 0 To $out.rows - 1
-				; Slower
-				; $detection = $out.row($j)
-				; $classes_scores = $detection.colRange($offset, $out.cols)
-
-				; Slower
-				; $detection.data = $out.ptr($j, 0)
-				; $classes_scores.data = $out.ptr($j, $offset)
-
-				$detection.data = $data + $j * $step_row
-				$classes_scores.data = Ptr($detection.data) + $offset * $step_col
-
-				If $offset == 5 And $detection.at(4) < $confidence_threshold Then
-					ContinueLoop
-				EndIf
-
-				$cv.minMaxLoc($classes_scores)
-				$confidence = $cv.extended[1]
-				$maxClassLoc = $cv.extended[3]
-
-				If $confidence <= $confidence_threshold Then
-					ContinueLoop
-				EndIf
-
-				$center_x = $detection.at(0) * $scale_x
-				$center_y = $detection.at(1) * $scale_y
-				$width = $detection.at(2) * $scale_x
-				$height = $detection.at(3) * $scale_y
-				$left = $center_x - $width / 2
-				$top = $center_y - $height / 2
-
-				$class_ids.push_back($maxClassLoc[0])
-				$confidences.push_back($confidence)
-				$bboxes.push_back(_OpenCV_Rect($left, $top, $width, $height))
-			Next
+			yolo_object_detection_postprocess( _
+					$box_scale_w, _
+					$box_scale_h, _
+					$confidence_threshold, _
+					$out, _
+					$detection, _
+					$classes_scores, _
+					$class_ids, _
+					$confidences, _
+					$bboxes, _
+					$offset, _
+					$background_label_id _
+					)
 		Next
 	Else
 		ConsoleWriteError('!>Error: Unknown output layer type ' & $lastLayer.type & @CRLF)
@@ -764,7 +748,6 @@ Func UpdateFrame()
 			$inputFPS = 30
 			$cap.set($CV_CAP_PROP_FPS, $inputFPS)
 		EndIf
-		$inputFPS = 30
 
 		$tickInit = $cv.getTickCount()
 	Else

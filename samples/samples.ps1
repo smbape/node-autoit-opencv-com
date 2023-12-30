@@ -204,9 +204,15 @@ public static class AutoItOpenCV
 $BuildType = If ($BuildType -eq "Debug") { $BuildType } Else { "Release" }
 $PostSuffix = If ($BuildType -eq "Debug") { "d" } Else { "" }
 
+$sDllCom = "$PSScriptRoot\..\autoit-opencv-com\build_x64\bin\$($BuildType)\autoit_opencv_com490$($PostSuffix).dll"
+$bFound = Test-Path -Path $sDllCom
+if (!$bFound) {
+    $sDllCom = "$PSScriptRoot\..\autoit-opencv-com\autoit_opencv_com490$($PostSuffix).dll"
+}
+
 [AutoItOpenCV]::DllOpen(
     "$PSScriptRoot\..\opencv-4.9.0-windows\opencv\build\x64\vc16\bin\opencv_world490$($PostSuffix).dll",
-    "$PSScriptRoot\..\autoit-opencv-com\build_x64\bin\$($BuildType)\autoit_opencv_com490$($PostSuffix).dll"
+    $sDllCom
 )
 [AutoItOpenCV]::DllActivateManifest() | Out-Null
 

@@ -1,4 +1,4 @@
-# PYTHONPATH="$(realpath opencv-4.9.0-*/opencv/sources/samples/dnn)" samples/.venv/Scripts/python.exe samples/dnn/object_detection/object_detection.py ssd_tf --input vtest.avi
+# PYTHONPATH="$(realpath opencv-4.9.0-windows/opencv/sources/samples/dnn)" samples/.venv/Scripts/python.exe samples/dnn/object_detection/object_detection.py ssd_tf --input vtest.avi
 
 import cv2 as cv
 import argparse
@@ -67,25 +67,22 @@ parser = argparse.ArgumentParser(parents=[parser],
 args = parser.parse_args()
 
 __dirname__ = os.path.dirname(os.path.abspath(__file__))
+models = os.path.join(__dirname__, 'models')
 cv.samples.addSamplesDataSearchPath(os.path.abspath(os.path.join(__dirname__, '../../../opencv-4.9.0-windows/opencv/sources/samples/data')))
 cv.samples.addSamplesDataSearchPath(os.path.abspath(os.path.join(__dirname__, '../../../opencv-4.9.0-windows/opencv/sources/samples/data/dnn')))
-cv.samples.addSamplesDataSearchPath(os.path.abspath(os.path.join(__dirname__, '../../../samples/dnn/object_detection/models')))
-cv.samples.addSamplesDataSearchPath(os.path.abspath(os.path.join(__dirname__, '../../../samples/dnn/object_detection')))
-cv.samples.addSamplesDataSearchPath(os.path.abspath(os.path.join(__dirname__, '../../../samples/tutorial_code/yolo')))
+cv.samples.addSamplesDataSearchPath(models)
+cv.samples.addSamplesDataSearchPath(__dirname__)
 
-if (
-    not os.path.exists(cv.samples.findFileOrKeep(args.model, silentMode=True))
-) or (
-    args.config and not os.path.exists(cv.samples.findFileOrKeep(args.config, silentMode=True))
-) :
-    subprocess.run([
-        'powershell',
-        '-ExecutionPolicy', 'UnRestricted',
-        '-File', os.path.join(__dirname__, 'download_model.ps1'),
-        '-Model', sys.argv[1],
-        '-Zoo', args.zoo,
-        '-Destination', os.path.join(__dirname__, 'models')
-    ])
+if not os.path.exists(models):
+    os.mkdir(models)
+
+subprocess.run([
+    sys.executable or 'python',
+    os.path.join(__dirname__, 'download_model.py'),
+    sys.argv[1],
+    '--zoo',
+    args.zoo
+], cwd=models)
 
 args.model = findFile(args.model)
 args.config = findFile(args.config)
@@ -119,6 +116,8 @@ outNames = net.getUnconnectedOutLayersNames()
 
 confThreshold = args.thr
 nmsThreshold = args.nms
+
+UNSUPPORTED_YOLO_VERSION = 'Unsupported yolo version. Supported versions are v3, v4, v5, v6, v7, v8.'
 
 DESIRED_HEIGHT = 640
 DESIRED_WIDTH = 640
@@ -155,6 +154,29 @@ def drawPred(frame, imgScale, classId, conf, left, top, right, bottom):
     cv.rectangle(frame, (left, top - labelSize[1]), (left + labelSize[0], top + baseLine), (255, 255, 255), cv.FILLED)
     cv.putText(frame, label, (left, top), cv.FONT_HERSHEY_SIMPLEX, fontScale, (0, 0, 0), thickness)
 
+
+def yolo_object_detection_postprocess(box_scale_w, box_scale_h, out, classIds, confidences, boxes, offset):
+    for detection in out:
+        if offset == 5 and detection[4] <= confThreshold and not (args.background_label_id >= 0):
+            continue
+
+        scores = detection[offset:]
+        classId = np.argmax(scores)
+        confidence = scores[classId]
+        if confidence <= confThreshold:
+            continue
+
+        center_x = detection[0] * box_scale_w
+        center_y = detection[1] * box_scale_h
+        width = int(detection[2] * box_scale_w)
+        height = int(detection[3] * box_scale_h)
+        left = int(center_x - width / 2)
+        top = int(center_y - height / 2)
+
+        classIds.append(classId)
+        confidences.append(float(confidence))
+        boxes.append([left, top, width, height])
+
 def postprocess(frame, imgScale, inpWidth, inpHeight, outs):
     frameHeight = frame.shape[0]
     frameWidth = frame.shape[1]
@@ -168,6 +190,7 @@ def postprocess(frame, imgScale, inpWidth, inpHeight, outs):
     classIds = []
     confidences = []
     boxes = []
+
     if lastLayer.type == 'DetectionOutput':
         # Network produces output blob with a shape 1x1xNx7 where N is a number of
         # detections and an every detection is a vector of values
@@ -195,7 +218,9 @@ def postprocess(frame, imgScale, inpWidth, inpHeight, outs):
                 classIds.append(int(detection[1] - 1 if args.background_label_id >= 0 and args.background_label_id <= detection[1] else detection[1]))
                 confidences.append(float(confidence))
                 boxes.append([left, top, width, height])
-    elif lastLayer.type == 'Region' or args.postprocessing and args.postprocessing.startswith('yolov8'):
+    elif lastLayer.type == 'Region':
+        # yolo v3, v4
+
         # relative coordinates
         box_scale_w = inpWidth * imgScale
         box_scale_h = inpHeight * imgScale
@@ -204,35 +229,42 @@ def postprocess(frame, imgScale, inpWidth, inpHeight, outs):
         # detected objects and C is a number of classes + 4 where the first 4
         # numbers are [center_x, center_y, width, height]
         for out in outs:
-            if args.postprocessing == 'yolov8':
-                out = out[0].transpose(1, 0)
+            yolo_object_detection_postprocess(box_scale_w, box_scale_h, out, classIds, confidences, boxes, offset=5)
+    elif lastLayer.type == "Identity":
+        for out in outs:
+            if len(out.shape) != 3:
+                print(UNSUPPORTED_YOLO_VERSION + " len(out.shape) != 3")
+                exit(1)
 
-            for detection in out:
-                scores = detection[4:]
-                if args.background_label_id >= 0:
-                    scores = np.delete(scores, args.background_label_id)
-                classId = np.argmax(scores)
-                confidence = scores[classId]
-                if confidence <= confThreshold:
-                    continue
+            if out.shape[0] != 1:
+                print(UNSUPPORTED_YOLO_VERSION + " out.shape[0] != 1")
+                exit(1)
 
-                center_x = detection[0] * box_scale_w
-                center_y = detection[1] * box_scale_h
-                width = int(detection[2] * box_scale_w)
-                height = int(detection[3] * box_scale_h)
-                left = int(center_x - width / 2)
-                top = int(center_y - height / 2)
+            out = out[0]
 
-                classIds.append(classId)
-                confidences.append(float(confidence))
-                boxes.append([left, top, width, height])
+            # absolute coordinate
+            box_scale_w = imgScale
+            box_scale_h = imgScale
+
+            if (out.shape[1] == len(classes) + 5):
+                # yolo v5, v6, v7 has an output of shape (batchSize, 25200, 85) (Num classes + box[x,y,w,h] + confidence[c])
+                offset = 5
+            elif out.shape[0] == len(classes) + 4:
+                # yolo v8 has an output of shape (batchSize, 84,  8400) (Num classes + box[x,y,w,h])
+                offset = 4
+                out = out.transpose(1, 0)
+            else:
+                print(UNSUPPORTED_YOLO_VERSION + " out.shape[0] != len(classes) + 4 && out.shape[1] != len(classes) + 5")
+
+            yolo_object_detection_postprocess(box_scale_w, box_scale_h, out, classIds, confidences, boxes, offset=offset)
     else:
         print('Unknown output layer type: ' + lastLayer.type)
-        exit()
+        exit(1)
 
     if predictionsQueue.counter == 1:
         print(f'postprocess : {time.time() - startTime} s')
 
+    # Perform non maximum suppression to eliminate redundant overlapping bounding boxes with lower confidences.
     indices = cv.dnn.NMSBoxes(boxes, confidences, confThreshold, nmsThreshold)
 
     for i in indices:
