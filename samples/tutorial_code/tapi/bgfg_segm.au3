@@ -12,9 +12,9 @@
 #include "..\..\..\autoit-opencv-com\udf\opencv_udf_utils.au3"
 
 ;~ Sources:
-;~     https://github.com/opencv/opencv/blob/4.9.0/samples/tapi/bgfg_segm.cpp
+;~     https://github.com/opencv/opencv/blob/4.10.0/samples/tapi/bgfg_segm.cpp
 
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world490*"), _OpenCV_FindDLL("autoit_opencv_com490*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world4100*"), _OpenCV_FindDLL("autoit_opencv_com4100*"))
 _GDIPlus_Startup()
 Global $hUser32DLL = DllOpen("user32.dll")
 OnAutoItExitRegister("_OnAutoItExit")

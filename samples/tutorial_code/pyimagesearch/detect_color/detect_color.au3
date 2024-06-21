@@ -13,7 +13,7 @@
 ;~ Sources:
 ;~     https://www.pyimagesearch.com/2016/02/15/determining-object-color-with-opencv/
 
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world490*"), _OpenCV_FindDLL("autoit_opencv_com490*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world4100*"), _OpenCV_FindDLL("autoit_opencv_com4100*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 
@@ -108,7 +108,7 @@ Func Main()
 
 		;; multiply the contour (x, y)-coordinates by the resize ratio,
 		;; then draw the contours and the name of the shape on the image
-		$tmp[0] = $c.convertTo(_OpenCV_Params("alpha", $ratio))
+		$tmp[0] = $c.convertTo(-1, _OpenCV_Params("alpha", $ratio))
 		$cv.drawContours($image, $tmp, -1, _OpenCV_Scalar(0, 255, 0), 2)
 		$cv.putText($image, $color & " " & $shape, _OpenCV_Point($cX, $cY), $CV_FONT_HERSHEY_SIMPLEX, 0.5, _OpenCV_Scalar(255, 255, 255), 2)
 	Next

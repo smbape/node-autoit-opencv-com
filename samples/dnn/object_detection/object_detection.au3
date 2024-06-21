@@ -23,9 +23,9 @@
 ;~     https://learnopencv.com/object-detection-using-yolov5-and-opencv-dnn-in-c-and-python/
 ;~     https://github.com/ultralytics/ultralytics/blob/main/examples/YOLOv8-CPP-Inference/inference.cpp
 ;~     https://docs.opencv.org/4.x/d4/d2f/tf_det_tutorial_dnn_conversion.html
-;~     https://github.com/opencv/opencv/blob/4.9.0/samples/dnn/object_detection.py
+;~     https://github.com/opencv/opencv/blob/4.10.0/samples/dnn/object_detection.py
 
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world490*"), _OpenCV_FindDLL("autoit_opencv_com490*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world4100*"), _OpenCV_FindDLL("autoit_opencv_com4100*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 
@@ -303,7 +303,7 @@ While 1
 	; Sleep(10) ; Sleep to reduce CPU usage
 WEnd
 
-Func postprocess($frame, $inpWidth, $inpHeight, $imgScale, $outs)
+Func postprocess($frame, $imgScale, $inpWidth, $inpHeight, $outs)
 	Local $class_ids = _OpenCV_ObjCreate("VectorOfInt")
 	Local $confidences = _OpenCV_ObjCreate("VectorOfFloat")
 	Local $bboxes = _OpenCV_ObjCreate("VectorOfRect2d")
@@ -534,7 +534,7 @@ Func object_detection_postprocess($inpWidth, $inpHeight, $imgScale, $num_classes
 					$offset = 4
 					$out = $cv.transpose($out)
 				Else
-					ConsoleWriteError($UNSUPPORTED_YOLO_VERSION & @CRLF)
+					ConsoleWriteError($UNSUPPORTED_YOLO_VERSION & ' $out.rows != $num_classes + 4 and $out.cols != $num_classes + 5' & @CRLF)
 					Return
 				EndIf
 			Else
@@ -702,6 +702,34 @@ Func UpdateNet()
 		Return
 	EndIf
 
+	Local $backend = $backends[_GUICtrlComboBox_GetCurSel($ComboBackend)]
+	If $backend == $CV_DNN_DNN_BACKEND_DEFAULT Then $backend = $CV_DNN_DNN_BACKEND_OPENCV
+	Local $target = $targets[_GUICtrlComboBox_GetCurSel($ComboTarget)]
+
+	; cv::dnn::dnn4_v20231225::Net::Impl::validateBackendAndTarget
+	Switch $backend
+		Case $CV_DNN_DNN_BACKEND_OPENCV
+			If $target <> $CV_DNN_DNN_TARGET_CPU And $target <> $CV_DNN_DNN_TARGET_OPENCL And $target <> $CV_DNN_DNN_TARGET_OPENCL_FP16 Then
+				ConsoleWriteError("!>Error: (Automatic|OpenCV) backends can only be used with (CPU|OpenCL|OpenCL fp16) targets" & @CRLF)
+				Return
+			EndIf
+		Case $CV_DNN_DNN_BACKEND_HALIDE
+			If $target <> $CV_DNN_DNN_TARGET_CPU And $target <> $CV_DNN_DNN_TARGET_OPENCL Then
+				ConsoleWriteError("!>Error: (Halide language) backend can only be used with (CPU|OpenCL) targets" & @CRLF)
+				Return
+			EndIf
+		Case $CV_DNN_DNN_BACKEND_VKCOM
+			If $target <> $CV_DNN_DNN_TARGET_VULKAN Then
+				ConsoleWriteError("!>Error: (VKCOM) backend can only be used with (Vulkan) target" & @CRLF)
+				Return
+			EndIf
+		Case $CV_DNN_DNN_BACKEND_CUDA
+			If $target <> $CV_DNN_DNN_TARGET_CUDA And $target <> $CV_DNN_DNN_TARGET_CUDA_FP16 Then
+				ConsoleWriteError("!>Error: (CUDA) backend can only be used with (CUDA|CUDA fp16) targets" & @CRLF)
+				Return
+			EndIf
+	EndSwitch
+
 	; Generate colors
 	$colors = $cv.Mat.zeros(1, UBound($classes), $CV_8UC3)
 	If UBound($classes) <> 0 Then $cv.randu($colors, 0.0, 255.0)
@@ -711,8 +739,8 @@ Func UpdateNet()
 	$net = $cv.dnn.readNet($sModelClassification, $sModelConfiguration, $sFramework == "auto" ? "" : $sFramework)
 	_ConsoleTime('$cv.dnn.readNet                    ')
 
-	$net.setPreferableBackend($backends[_GUICtrlComboBox_GetCurSel($ComboBackend)])
-	$net.setPreferableTarget($targets[_GUICtrlComboBox_GetCurSel($ComboTarget)])
+	$net.setPreferableBackend($backend)
+	$net.setPreferableTarget($target)
 	$outNames = $net.getUnconnectedOutLayersNames()
 EndFunc   ;==>UpdateNet
 
@@ -850,12 +878,12 @@ Func ProcessFrame($futureOutputs, $frame)
 	Local $outs
 
 	If $iThreads > 0 And $backends[_GUICtrlComboBox_GetCurSel($ComboBackend)] == $CV_DNN_DNN_BACKEND_INFERENCE_ENGINE Then
-		$futureOutputs.append(_OpenCV_Tuple($net.forwardAsync(), $frame, $inpWidth, $inpHeight, $imgScale))
+		$futureOutputs.append(_OpenCV_Tuple($net.forwardAsync(), $frame, $imgScale, $inpWidth, $inpHeight))
 	Else
 		_ConsoleTime()
 		$outs = $net.forward($outNames)
 		_ConsoleTime('forward                            ')
-		postprocess($frame, $inpWidth, $inpHeight, $imgScale, $outs)
+		postprocess($frame, $imgScale, $inpWidth, $inpHeight, $outs)
 	EndIf
 
 	Local $futureArgs
@@ -880,10 +908,10 @@ Func UpdateZooModel()
 			"models", _
 			"opencv\sources\samples\dnn", _
 			"opencv\sources\samples\data\dnn", _
-			"opencv-4.9.0-*\sources\samples\dnn", _
-			"opencv-4.9.0-*\sources\samples\data\dnn", _
-			"opencv-4.9.0-*\opencv\sources\samples\dnn", _
-			"opencv-4.9.0-*\opencv\sources\samples\data\dnn" _
+			"opencv-4.10.0-*\sources\samples\dnn", _
+			"opencv-4.10.0-*\sources\samples\data\dnn", _
+			"opencv-4.10.0-*\opencv\sources\samples\dnn", _
+			"opencv-4.10.0-*\opencv\sources\samples\data\dnn" _
 			]
 
 	Local $info = $models($name)

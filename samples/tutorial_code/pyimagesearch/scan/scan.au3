@@ -15,7 +15,7 @@
 ;~     https://www.pyimagesearch.com/2014/08/25/4-point-opencv-getperspective-transform-example/#comment-431230
 ;~     https://www.pyimagesearch.com/2016/03/21/ordering-coordinates-clockwise-with-python-and-opencv/
 
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world490*"), _OpenCV_FindDLL("autoit_opencv_com490*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world4100*"), _OpenCV_FindDLL("autoit_opencv_com4100*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 
@@ -118,7 +118,7 @@ Func Main()
 
 	;; apply the four point transform to obtain a top-down
 	;; view of the original image
-	Local $warped = _OpenCV_FourPointTransform($orig, $screenCnt.convertTo(_OpenCV_Params("alpha", $ratio)))
+	Local $warped = _OpenCV_FourPointTransform($orig, $screenCnt.convertTo(-1, _OpenCV_Params("alpha", $ratio)))
 
 	;; convert the warped image to grayscale, then threshold it
 	;; to give it that 'black and white' paper effect

@@ -44,7 +44,8 @@ exports.getTypeDef = (type, options) => {
         .replaceAll("std::pair", "PairOf")
         .replaceAll("std::vector", "VectorOf")
         .replaceAll("std::shared_ptr", "SharedPtrOf")
-        .replaceAll(options.shared_ptr, "SharedPtrOf");
+        .replaceAll(options.shared_ptr, "SharedPtrOf")
+        .replaceAll("std::variant", "VariantOf");
 
     type_def = exports.removeNamespaces(type_def, options)
         .replace(/\b_variant_t\b/g, "Variant")

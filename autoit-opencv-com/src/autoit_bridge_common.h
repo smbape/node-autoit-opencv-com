@@ -23,6 +23,7 @@
 #include <typeindex>
 #include <typeinfo>
 #include <utility>
+#include <variant>
 #include <vector>
 
 #include "autoit_def.h"
@@ -599,7 +600,7 @@ HRESULT autoit_to(VARIANT const* const& in_val, std::pair<_Ty1, _Ty2>& out_val) 
 }
 
 template<typename _Ty1, typename _Ty2>
-HRESULT autoit_from(const std::pair<_Ty1, _Ty2>& in_val, VARIANT*& out_val) {
+const HRESULT autoit_from(const std::pair<_Ty1, _Ty2>& in_val, VARIANT*& out_val) {
 	typename ATL::template CComSafeArray<VARIANT> vArray(2);
 
 	HRESULT hr;
@@ -732,6 +733,30 @@ template<typename _Tp>
 extern const HRESULT autoit_from(_Tp const& in_val, _Tp*& out_val) {
 	*out_val = in_val;
 	return S_OK;
+}
+
+template<std::size_t I = 0, typename... _Ts>
+const HRESULT _autoit_from(const std::variant<_Ts...>& in_val, VARIANT*& out_val) {
+	using _Tuple = typename std::tuple<_Ts...>;
+	using T = typename std::tuple_element<I, _Tuple>::type;
+
+	if constexpr (!std::is_same_v<std::monostate, T>) {
+		if (std::holds_alternative<T>(in_val)) {
+			return autoit_from(std::get<T>(in_val), out_val);
+		}
+	}
+
+	if constexpr (I == sizeof...(_Ts) - 1) {
+		return E_INVALIDARG;
+	}
+	else {
+		return _autoit_from<I + 1, _Ts...>(in_val, out_val);
+	}
+}
+
+template<typename... _Ts>
+const HRESULT autoit_from(const std::variant<_Ts...>& in_val, VARIANT*& out_val) {
+	return _autoit_from(in_val, out_val);
 }
 
 #pragma push_macro("CV_EXPORTS_W_SIMPLE")

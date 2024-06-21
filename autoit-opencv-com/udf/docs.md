@@ -211,9 +211,11 @@
   - [cv::applyColorMap](#cvapplycolormap)
   - [cv::approxPolyDP](#cvapproxpolydp)
   - [cv::arcLength](#cvarclength)
+  - [cv::argmax](#cvargmax)
   - [cv::arrowedLine](#cvarrowedline)
   - [cv::batchDistance](#cvbatchdistance)
   - [cv::bilateralFilter](#cvbilateralfilter)
+  - [cv::bincount](#cvbincount)
   - [cv::bitwise\_and](#cvbitwise%5C_and)
   - [cv::bitwise\_not](#cvbitwise%5C_not)
   - [cv::bitwise\_or](#cvbitwise%5C_or)
@@ -290,6 +292,7 @@
   - [cv::createTonemapMantiuk](#cvcreatetonemapmantiuk)
   - [cv::createTonemapReinhard](#cvcreatetonemapreinhard)
   - [cv::cubeRoot](#cvcuberoot)
+  - [cv::currentUIFramework](#cvcurrentuiframework)
   - [cv::cvtColor](#cvcvtcolor)
   - [cv::cvtColorTwoPlane](#cvcvtcolortwoplane)
   - [cv::dct](#cvdct)
@@ -311,6 +314,7 @@
   - [cv::distanceTransformWithLabels](#cvdistancetransformwithlabels)
   - [cv::divSpectrums](#cvdivspectrums)
   - [cv::divide](#cvdivide)
+  - [cv::dot](#cvdot)
   - [cv::drawChessboardCorners](#cvdrawchessboardcorners)
   - [cv::drawContours](#cvdrawcontours)
   - [cv::drawFrameAxes](#cvdrawframeaxes)
@@ -351,6 +355,7 @@
   - [cv::findChessboardCornersSBWithMeta](#cvfindchessboardcornerssbwithmeta)
   - [cv::findCirclesGrid](#cvfindcirclesgrid)
   - [cv::findContours](#cvfindcontours)
+  - [cv::findContoursLinkRuns](#cvfindcontourslinkruns)
   - [cv::findEssentialMat](#cvfindessentialmat)
   - [cv::findFundamentalMat](#cvfindfundamentalmat)
   - [cv::findHomography](#cvfindhomography)
@@ -481,6 +486,7 @@
   - [cv::randShuffle](#cvrandshuffle)
   - [cv::randn](#cvrandn)
   - [cv::randu](#cvrandu)
+  - [cv::ravel](#cvravel)
   - [cv::readDMatch](#cvreaddmatch)
   - [cv::readDouble](#cvreaddouble)
   - [cv::readFloat](#cvreadfloat)
@@ -674,6 +680,7 @@
   - [enums.INTER\_MAX](#enumsinter%5C_max)
   - [enums.WARP\_FILL\_OUTLIERS](#enumswarp%5C_fill%5C_outliers)
   - [enums.WARP\_INVERSE\_MAP](#enumswarp%5C_inverse%5C_map)
+  - [enums.WARP\_RELATIVE\_MAP](#enumswarp%5C_relative%5C_map)
   - [enums.WARP\_POLAR\_LINEAR](#enumswarp%5C_polar%5C_linear)
   - [enums.WARP\_POLAR\_LOG](#enumswarp%5C_polar%5C_log)
   - [enums.INTER\_BITS](#enumsinter%5C_bits)
@@ -1116,6 +1123,8 @@
   - [enums.IMWRITE\_TIFF\_XDPI](#enumsimwrite%5C_tiff%5C_xdpi)
   - [enums.IMWRITE\_TIFF\_YDPI](#enumsimwrite%5C_tiff%5C_ydpi)
   - [enums.IMWRITE\_TIFF\_COMPRESSION](#enumsimwrite%5C_tiff%5C_compression)
+  - [enums.IMWRITE\_TIFF\_ROWSPERSTRIP](#enumsimwrite%5C_tiff%5C_rowsperstrip)
+  - [enums.IMWRITE\_TIFF\_PREDICTOR](#enumsimwrite%5C_tiff%5C_predictor)
   - [enums.IMWRITE\_JPEG2000\_COMPRESSION\_X1000](#enumsimwrite%5C_jpeg2000%5C_compression%5C_x1000)
   - [enums.IMWRITE\_AVIF\_QUALITY](#enumsimwrite%5C_avif%5C_quality)
   - [enums.IMWRITE\_AVIF\_DEPTH](#enumsimwrite%5C_avif%5C_depth)
@@ -1125,6 +1134,42 @@
   - [enums.IMWRITE\_JPEG\_SAMPLING\_FACTOR\_422](#enumsimwrite%5C_jpeg%5C_sampling%5C_factor%5C_422)
   - [enums.IMWRITE\_JPEG\_SAMPLING\_FACTOR\_440](#enumsimwrite%5C_jpeg%5C_sampling%5C_factor%5C_440)
   - [enums.IMWRITE\_JPEG\_SAMPLING\_FACTOR\_444](#enumsimwrite%5C_jpeg%5C_sampling%5C_factor%5C_444)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_NONE](#enumsimwrite%5C_tiff%5C_compression%5C_none)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_CCITTRLE](#enumsimwrite%5C_tiff%5C_compression%5C_ccittrle)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_CCITTFAX3](#enumsimwrite%5C_tiff%5C_compression%5C_ccittfax3)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_CCITT\_T4](#enumsimwrite%5C_tiff%5C_compression%5C_ccitt%5C_t4)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_CCITTFAX4](#enumsimwrite%5C_tiff%5C_compression%5C_ccittfax4)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_CCITT\_T6](#enumsimwrite%5C_tiff%5C_compression%5C_ccitt%5C_t6)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_LZW](#enumsimwrite%5C_tiff%5C_compression%5C_lzw)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_OJPEG](#enumsimwrite%5C_tiff%5C_compression%5C_ojpeg)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_JPEG](#enumsimwrite%5C_tiff%5C_compression%5C_jpeg)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_T85](#enumsimwrite%5C_tiff%5C_compression%5C_t85)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_T43](#enumsimwrite%5C_tiff%5C_compression%5C_t43)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_NEXT](#enumsimwrite%5C_tiff%5C_compression%5C_next)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_CCITTRLEW](#enumsimwrite%5C_tiff%5C_compression%5C_ccittrlew)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_PACKBITS](#enumsimwrite%5C_tiff%5C_compression%5C_packbits)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_THUNDERSCAN](#enumsimwrite%5C_tiff%5C_compression%5C_thunderscan)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_IT8CTPAD](#enumsimwrite%5C_tiff%5C_compression%5C_it8ctpad)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_IT8LW](#enumsimwrite%5C_tiff%5C_compression%5C_it8lw)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_IT8MP](#enumsimwrite%5C_tiff%5C_compression%5C_it8mp)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_IT8BL](#enumsimwrite%5C_tiff%5C_compression%5C_it8bl)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_PIXARFILM](#enumsimwrite%5C_tiff%5C_compression%5C_pixarfilm)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_PIXARLOG](#enumsimwrite%5C_tiff%5C_compression%5C_pixarlog)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_DEFLATE](#enumsimwrite%5C_tiff%5C_compression%5C_deflate)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_ADOBE\_DEFLATE](#enumsimwrite%5C_tiff%5C_compression%5C_adobe%5C_deflate)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_DCS](#enumsimwrite%5C_tiff%5C_compression%5C_dcs)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_JBIG](#enumsimwrite%5C_tiff%5C_compression%5C_jbig)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_SGILOG](#enumsimwrite%5C_tiff%5C_compression%5C_sgilog)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_SGILOG24](#enumsimwrite%5C_tiff%5C_compression%5C_sgilog24)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_JP2000](#enumsimwrite%5C_tiff%5C_compression%5C_jp2000)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_LERC](#enumsimwrite%5C_tiff%5C_compression%5C_lerc)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_LZMA](#enumsimwrite%5C_tiff%5C_compression%5C_lzma)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_ZSTD](#enumsimwrite%5C_tiff%5C_compression%5C_zstd)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_WEBP](#enumsimwrite%5C_tiff%5C_compression%5C_webp)
+  - [enums.IMWRITE\_TIFF\_COMPRESSION\_JXL](#enumsimwrite%5C_tiff%5C_compression%5C_jxl)
+  - [enums.IMWRITE\_TIFF\_PREDICTOR\_NONE](#enumsimwrite%5C_tiff%5C_predictor%5C_none)
+  - [enums.IMWRITE\_TIFF\_PREDICTOR\_HORIZONTAL](#enumsimwrite%5C_tiff%5C_predictor%5C_horizontal)
+  - [enums.IMWRITE\_TIFF\_PREDICTOR\_FLOATINGPOINT](#enumsimwrite%5C_tiff%5C_predictor%5C_floatingpoint)
   - [enums.IMWRITE\_EXR\_TYPE\_HALF](#enumsimwrite%5C_exr%5C_type%5C_half)
   - [enums.IMWRITE\_EXR\_TYPE\_FLOAT](#enumsimwrite%5C_exr%5C_type%5C_float)
   - [enums.IMWRITE\_EXR\_COMPRESSION\_NO](#enumsimwrite%5C_exr%5C_compression%5C_no)
@@ -2326,6 +2371,7 @@
   - [cv::Mat::sum](#cvmatsum)
   - [cv::Mat::t](#cvmatt)
   - [cv::Mat::total](#cvmattotal)
+  - [cv::Mat::transpose](#cvmattranspose)
   - [cv::Mat::type](#cvmattype)
   - [cv::Mat::updateContinuityFlag](#cvmatupdatecontinuityflag)
   - [cv::Mat::zeros](#cvmatzeros)
@@ -2438,6 +2484,8 @@
   - [cv::ocl::Device::globalMemCacheType](#cvocldeviceglobalmemcachetype)
   - [cv::ocl::Device::globalMemSize](#cvocldeviceglobalmemsize)
   - [cv::ocl::Device::halfFPConfig](#cvocldevicehalffpconfig)
+  - [cv::ocl::Device::hasFP16](#cvocldevicehasfp16)
+  - [cv::ocl::Device::hasFP64](#cvocldevicehasfp64)
   - [cv::ocl::Device::hostUnifiedMemory](#cvocldevicehostunifiedmemory)
   - [cv::ocl::Device::image2DMaxHeight](#cvocldeviceimage2dmaxheight)
   - [cv::ocl::Device::image2DMaxWidth](#cvocldeviceimage2dmaxwidth)
@@ -2646,6 +2694,7 @@
   - [RotatedRect.angle](#rotatedrectangle)
   - [cv::RotatedRect::get\_create](#cvrotatedrectget%5C_create)
   - [cv::RotatedRect::boundingRect](#cvrotatedrectboundingrect)
+  - [cv::RotatedRect::boundingRect2f](#cvrotatedrectboundingrect2f)
   - [cv::RotatedRect::points](#cvrotatedrectpoints)
 - [cv::KeyPoint](#cvkeypoint)
   - [KeyPoint.pt](#keypointpt)
@@ -3599,6 +3648,7 @@
   - [cv::dnn::Net::connect](#cvdnnnetconnect)
   - [cv::dnn::Net::dump](#cvdnnnetdump)
   - [cv::dnn::Net::dumpToFile](#cvdnnnetdumptofile)
+  - [cv::dnn::Net::dumpToPbtxt](#cvdnnnetdumptopbtxt)
   - [cv::dnn::Net::empty](#cvdnnnetempty)
   - [cv::dnn::Net::enableFusion](#cvdnnnetenablefusion)
   - [cv::dnn::Net::enableWinograd](#cvdnnnetenablewinograd)
@@ -3653,6 +3703,7 @@
   - [cv::dnn::Model::setInputScale](#cvdnnmodelsetinputscale)
   - [cv::dnn::Model::setInputSize](#cvdnnmodelsetinputsize)
   - [cv::dnn::Model::setInputSwapRB](#cvdnnmodelsetinputswaprb)
+  - [cv::dnn::Model::setOutputNames](#cvdnnmodelsetoutputnames)
   - [cv::dnn::Model::setPreferableBackend](#cvdnnmodelsetpreferablebackend)
   - [cv::dnn::Model::setPreferableTarget](#cvdnnmodelsetpreferabletarget)
 - [cv::dnn::ClassificationModel](#cvdnnclassificationmodel)
@@ -3668,6 +3719,7 @@
   - [cv::dnn::ClassificationModel::setInputScale](#cvdnnclassificationmodelsetinputscale)
   - [cv::dnn::ClassificationModel::setInputSize](#cvdnnclassificationmodelsetinputsize)
   - [cv::dnn::ClassificationModel::setInputSwapRB](#cvdnnclassificationmodelsetinputswaprb)
+  - [cv::dnn::ClassificationModel::setOutputNames](#cvdnnclassificationmodelsetoutputnames)
   - [cv::dnn::ClassificationModel::setPreferableBackend](#cvdnnclassificationmodelsetpreferablebackend)
   - [cv::dnn::ClassificationModel::setPreferableTarget](#cvdnnclassificationmodelsetpreferabletarget)
 - [cv::dnn::KeypointsModel](#cvdnnkeypointsmodel)
@@ -3681,6 +3733,7 @@
   - [cv::dnn::KeypointsModel::setInputScale](#cvdnnkeypointsmodelsetinputscale)
   - [cv::dnn::KeypointsModel::setInputSize](#cvdnnkeypointsmodelsetinputsize)
   - [cv::dnn::KeypointsModel::setInputSwapRB](#cvdnnkeypointsmodelsetinputswaprb)
+  - [cv::dnn::KeypointsModel::setOutputNames](#cvdnnkeypointsmodelsetoutputnames)
   - [cv::dnn::KeypointsModel::setPreferableBackend](#cvdnnkeypointsmodelsetpreferablebackend)
   - [cv::dnn::KeypointsModel::setPreferableTarget](#cvdnnkeypointsmodelsetpreferabletarget)
 - [cv::dnn::SegmentationModel](#cvdnnsegmentationmodel)
@@ -3694,6 +3747,7 @@
   - [cv::dnn::SegmentationModel::setInputScale](#cvdnnsegmentationmodelsetinputscale)
   - [cv::dnn::SegmentationModel::setInputSize](#cvdnnsegmentationmodelsetinputsize)
   - [cv::dnn::SegmentationModel::setInputSwapRB](#cvdnnsegmentationmodelsetinputswaprb)
+  - [cv::dnn::SegmentationModel::setOutputNames](#cvdnnsegmentationmodelsetoutputnames)
   - [cv::dnn::SegmentationModel::setPreferableBackend](#cvdnnsegmentationmodelsetpreferablebackend)
   - [cv::dnn::SegmentationModel::setPreferableTarget](#cvdnnsegmentationmodelsetpreferabletarget)
 - [cv::dnn::DetectionModel](#cvdnndetectionmodel)
@@ -3709,6 +3763,7 @@
   - [cv::dnn::DetectionModel::setInputSize](#cvdnndetectionmodelsetinputsize)
   - [cv::dnn::DetectionModel::setInputSwapRB](#cvdnndetectionmodelsetinputswaprb)
   - [cv::dnn::DetectionModel::setNmsAcrossClasses](#cvdnndetectionmodelsetnmsacrossclasses)
+  - [cv::dnn::DetectionModel::setOutputNames](#cvdnndetectionmodelsetoutputnames)
   - [cv::dnn::DetectionModel::setPreferableBackend](#cvdnndetectionmodelsetpreferablebackend)
   - [cv::dnn::DetectionModel::setPreferableTarget](#cvdnndetectionmodelsetpreferabletarget)
 - [cv::dnn::TextRecognitionModel](#cvdnntextrecognitionmodel)
@@ -3726,6 +3781,7 @@
   - [cv::dnn::TextRecognitionModel::setInputScale](#cvdnntextrecognitionmodelsetinputscale)
   - [cv::dnn::TextRecognitionModel::setInputSize](#cvdnntextrecognitionmodelsetinputsize)
   - [cv::dnn::TextRecognitionModel::setInputSwapRB](#cvdnntextrecognitionmodelsetinputswaprb)
+  - [cv::dnn::TextRecognitionModel::setOutputNames](#cvdnntextrecognitionmodelsetoutputnames)
   - [cv::dnn::TextRecognitionModel::setPreferableBackend](#cvdnntextrecognitionmodelsetpreferablebackend)
   - [cv::dnn::TextRecognitionModel::setPreferableTarget](#cvdnntextrecognitionmodelsetpreferabletarget)
   - [cv::dnn::TextRecognitionModel::setVocabulary](#cvdnntextrecognitionmodelsetvocabulary)
@@ -3740,6 +3796,7 @@
   - [cv::dnn::TextDetectionModel::setInputScale](#cvdnntextdetectionmodelsetinputscale)
   - [cv::dnn::TextDetectionModel::setInputSize](#cvdnntextdetectionmodelsetinputsize)
   - [cv::dnn::TextDetectionModel::setInputSwapRB](#cvdnntextdetectionmodelsetinputswaprb)
+  - [cv::dnn::TextDetectionModel::setOutputNames](#cvdnntextdetectionmodelsetoutputnames)
   - [cv::dnn::TextDetectionModel::setPreferableBackend](#cvdnntextdetectionmodelsetpreferablebackend)
   - [cv::dnn::TextDetectionModel::setPreferableTarget](#cvdnntextdetectionmodelsetpreferabletarget)
 - [cv::dnn::TextDetectionModel\_EAST](#cvdnntextdetectionmodel%5C_east)
@@ -3758,6 +3815,7 @@
   - [cv::dnn::TextDetectionModel\_EAST::setInputSize](#cvdnntextdetectionmodel%5C_eastsetinputsize)
   - [cv::dnn::TextDetectionModel\_EAST::setInputSwapRB](#cvdnntextdetectionmodel%5C_eastsetinputswaprb)
   - [cv::dnn::TextDetectionModel\_EAST::setNMSThreshold](#cvdnntextdetectionmodel%5C_eastsetnmsthreshold)
+  - [cv::dnn::TextDetectionModel\_EAST::setOutputNames](#cvdnntextdetectionmodel%5C_eastsetoutputnames)
   - [cv::dnn::TextDetectionModel\_EAST::setPreferableBackend](#cvdnntextdetectionmodel%5C_eastsetpreferablebackend)
   - [cv::dnn::TextDetectionModel\_EAST::setPreferableTarget](#cvdnntextdetectionmodel%5C_eastsetpreferabletarget)
 - [cv::dnn::TextDetectionModel\_DB](#cvdnntextdetectionmodel%5C_db)
@@ -3778,6 +3836,7 @@
   - [cv::dnn::TextDetectionModel\_DB::setInputSize](#cvdnntextdetectionmodel%5C_dbsetinputsize)
   - [cv::dnn::TextDetectionModel\_DB::setInputSwapRB](#cvdnntextdetectionmodel%5C_dbsetinputswaprb)
   - [cv::dnn::TextDetectionModel\_DB::setMaxCandidates](#cvdnntextdetectionmodel%5C_dbsetmaxcandidates)
+  - [cv::dnn::TextDetectionModel\_DB::setOutputNames](#cvdnntextdetectionmodel%5C_dbsetoutputnames)
   - [cv::dnn::TextDetectionModel\_DB::setPolygonThreshold](#cvdnntextdetectionmodel%5C_dbsetpolygonthreshold)
   - [cv::dnn::TextDetectionModel\_DB::setPreferableBackend](#cvdnntextdetectionmodel%5C_dbsetpreferablebackend)
   - [cv::dnn::TextDetectionModel\_DB::setPreferableTarget](#cvdnntextdetectionmodel%5C_dbsetpreferabletarget)
@@ -4358,6 +4417,7 @@
   - [cv::fisheye::estimateNewCameraMatrixForUndistortRectify](#cvfisheyeestimatenewcameramatrixforundistortrectify)
   - [cv::fisheye::initUndistortRectifyMap](#cvfisheyeinitundistortrectifymap)
   - [cv::fisheye::projectPoints](#cvfisheyeprojectpoints)
+  - [cv::fisheye::solvePnP](#cvfisheyesolvepnp)
   - [cv::fisheye::stereoCalibrate](#cvfisheyestereocalibrate)
   - [cv::fisheye::stereoRectify](#cvfisheyestereorectify)
   - [cv::fisheye::undistortImage](#cvfisheyeundistortimage)
@@ -4643,6 +4703,12 @@
   - [cv::barcode::BarcodeDetector::detectAndDecodeMulti](#cvbarcodebarcodedetectordetectanddecodemulti)
   - [cv::barcode::BarcodeDetector::detectAndDecodeWithType](#cvbarcodebarcodedetectordetectanddecodewithtype)
   - [cv::barcode::BarcodeDetector::detectMulti](#cvbarcodebarcodedetectordetectmulti)
+  - [cv::barcode::BarcodeDetector::getDetectorScales](#cvbarcodebarcodedetectorgetdetectorscales)
+  - [cv::barcode::BarcodeDetector::getDownsamplingThreshold](#cvbarcodebarcodedetectorgetdownsamplingthreshold)
+  - [cv::barcode::BarcodeDetector::getGradientThreshold](#cvbarcodebarcodedetectorgetgradientthreshold)
+  - [cv::barcode::BarcodeDetector::setDetectorScales](#cvbarcodebarcodedetectorsetdetectorscales)
+  - [cv::barcode::BarcodeDetector::setDownsamplingThreshold](#cvbarcodebarcodedetectorsetdownsamplingthreshold)
+  - [cv::barcode::BarcodeDetector::setGradientThreshold](#cvbarcodebarcodedetectorsetgradientthreshold)
 - [cv::aruco::CharucoParameters](#cvarucocharucoparameters)
   - [CharucoParameters.cameraMatrix](#charucoparameterscameramatrix)
   - [CharucoParameters.distCoeffs](#charucoparametersdistcoeffs)
@@ -5138,6 +5204,7 @@
   - [cv::VariationalRefinement::getAlpha](#cvvariationalrefinementgetalpha)
   - [cv::VariationalRefinement::getDefaultName](#cvvariationalrefinementgetdefaultname)
   - [cv::VariationalRefinement::getDelta](#cvvariationalrefinementgetdelta)
+  - [cv::VariationalRefinement::getEpsilon](#cvvariationalrefinementgetepsilon)
   - [cv::VariationalRefinement::getFixedPointIterations](#cvvariationalrefinementgetfixedpointiterations)
   - [cv::VariationalRefinement::getGamma](#cvvariationalrefinementgetgamma)
   - [cv::VariationalRefinement::getOmega](#cvvariationalrefinementgetomega)
@@ -5146,6 +5213,7 @@
   - [cv::VariationalRefinement::save](#cvvariationalrefinementsave)
   - [cv::VariationalRefinement::setAlpha](#cvvariationalrefinementsetalpha)
   - [cv::VariationalRefinement::setDelta](#cvvariationalrefinementsetdelta)
+  - [cv::VariationalRefinement::setEpsilon](#cvvariationalrefinementsetepsilon)
   - [cv::VariationalRefinement::setFixedPointIterations](#cvvariationalrefinementsetfixedpointiterations)
   - [cv::VariationalRefinement::setGamma](#cvvariationalrefinementsetgamma)
   - [cv::VariationalRefinement::setOmega](#cvvariationalrefinementsetomega)
@@ -5166,6 +5234,7 @@
   - [cv::DISOpticalFlow::getUseSpatialPropagation](#cvdisopticalflowgetusespatialpropagation)
   - [cv::DISOpticalFlow::getVariationalRefinementAlpha](#cvdisopticalflowgetvariationalrefinementalpha)
   - [cv::DISOpticalFlow::getVariationalRefinementDelta](#cvdisopticalflowgetvariationalrefinementdelta)
+  - [cv::DISOpticalFlow::getVariationalRefinementEpsilon](#cvdisopticalflowgetvariationalrefinementepsilon)
   - [cv::DISOpticalFlow::getVariationalRefinementGamma](#cvdisopticalflowgetvariationalrefinementgamma)
   - [cv::DISOpticalFlow::getVariationalRefinementIterations](#cvdisopticalflowgetvariationalrefinementiterations)
   - [cv::DISOpticalFlow::read](#cvdisopticalflowread)
@@ -5178,6 +5247,7 @@
   - [cv::DISOpticalFlow::setUseSpatialPropagation](#cvdisopticalflowsetusespatialpropagation)
   - [cv::DISOpticalFlow::setVariationalRefinementAlpha](#cvdisopticalflowsetvariationalrefinementalpha)
   - [cv::DISOpticalFlow::setVariationalRefinementDelta](#cvdisopticalflowsetvariationalrefinementdelta)
+  - [cv::DISOpticalFlow::setVariationalRefinementEpsilon](#cvdisopticalflowsetvariationalrefinementepsilon)
   - [cv::DISOpticalFlow::setVariationalRefinementGamma](#cvdisopticalflowsetvariationalrefinementgamma)
   - [cv::DISOpticalFlow::setVariationalRefinementIterations](#cvdisopticalflowsetvariationalrefinementiterations)
   - [cv::DISOpticalFlow::write](#cvdisopticalflowwrite)
@@ -9991,6 +10061,23 @@ AutoIt:
     _OpenCV_ObjCreate("cv").arcLength( $curve, $closed ) -> retval
 ```
 
+### cv::argmax
+
+```cpp
+int cv::argmax( InputArray src,
+                bool       lastIndex = false );
+AutoIt:
+    _OpenCV_ObjCreate("cv").argmax( $src[, $lastIndex] ) -> retval
+```
+
+```cpp
+std::variant<std::shared_ptr<cv::Mat>, int> cv::argmax( InputArray src,
+                                                        int        axis,
+                                                        bool       lastIndex = false );
+AutoIt:
+    _OpenCV_ObjCreate("cv").argmax( $src, $axis[, $lastIndex] ) -> retval
+```
+
 ### cv::arrowedLine
 
 ```cpp
@@ -10034,6 +10121,17 @@ void cv::bilateralFilter( InputArray  src,
                           int         borderType = BORDER_DEFAULT );
 AutoIt:
     _OpenCV_ObjCreate("cv").bilateralFilter( $src, $d, $sigmaColor, $sigmaSpace[, $dst[, $borderType]] ) -> $dst
+```
+
+### cv::bincount
+
+```cpp
+void cv::bincount( InputArray  x,
+                   OutputArray out,
+                   InputArray  weights = noArray(),
+                   int         minlength = 0 );
+AutoIt:
+    _OpenCV_ObjCreate("cv").bincount( $x[, $out[, $weights[, $minlength]]] ) -> $out
 ```
 
 ### cv::bitwise\_and
@@ -10920,6 +11018,14 @@ AutoIt:
     _OpenCV_ObjCreate("cv").cubeRoot( $val ) -> retval
 ```
 
+### cv::currentUIFramework
+
+```cpp
+std::string cv::currentUIFramework();
+AutoIt:
+    _OpenCV_ObjCreate("cv").currentUIFramework() -> retval
+```
+
 ### cv::cvtColor
 
 ```cpp
@@ -11158,6 +11264,16 @@ void cv::divide( double      scale,
                  int         dtype = -1 );
 AutoIt:
     _OpenCV_ObjCreate("cv").divide( $scale, $src2[, $dst[, $dtype]] ) -> $dst
+```
+
+### cv::dot
+
+```cpp
+void cv::dot( InputArray  src1,
+              InputArray  src2,
+              OutputArray dst );
+AutoIt:
+    _OpenCV_ObjCreate("cv").dot( $src1, $src2[, $dst] ) -> $dst
 ```
 
 ### cv::drawChessboardCorners
@@ -11732,6 +11848,23 @@ void cv::findContours( InputArray          image,
                        cv::Point           offset = Point() );
 AutoIt:
     _OpenCV_ObjCreate("cv").findContours( $image, $mode, $method[, $contours[, $hierarchy[, $offset]]] ) -> $contours, $hierarchy
+```
+
+### cv::findContoursLinkRuns
+
+```cpp
+void cv::findContoursLinkRuns( InputArray          image,
+                               OutputArrayOfArrays contours,
+                               OutputArray         hierarchy );
+AutoIt:
+    _OpenCV_ObjCreate("cv").findContoursLinkRuns( $image[, $contours[, $hierarchy]] ) -> $contours, $hierarchy
+```
+
+```cpp
+void cv::findContoursLinkRuns( InputArray          image,
+                               OutputArrayOfArrays contours );
+AutoIt:
+    _OpenCV_ObjCreate("cv").findContoursLinkRuns( $image[, $contours] ) -> $contours
 ```
 
 ### cv::findEssentialMat
@@ -12489,6 +12622,14 @@ AutoIt:
     _OpenCV_ObjCreate("cv").imread( $filename[, $flags] ) -> retval
 ```
 
+```cpp
+void cv::imread( const std::string& filename,
+                 OutputArray        dst,
+                 int                flags = IMREAD_COLOR );
+AutoIt:
+    _OpenCV_ObjCreate("cv").imread( $filename[, $dst[, $flags]] ) -> $dst
+```
+
 ### cv::imreadmulti
 
 ```cpp
@@ -13239,6 +13380,37 @@ AutoIt:
     _OpenCV_ObjCreate("cv").randn( $dst, $mean, $stddev ) -> $dst
 ```
 
+```cpp
+double cv::randn();
+AutoIt:
+    _OpenCV_ObjCreate("cv").randn() -> retval
+```
+
+```cpp
+void cv::randn( int              rows,
+                int              cols,
+                InputOutputArray dst = Mat(),
+                int              type = CV_32F );
+AutoIt:
+    _OpenCV_ObjCreate("cv").randn( $rows, $cols[, $dst[, $type]] ) -> $dst
+```
+
+```cpp
+void cv::randn( cv::Size         size,
+                InputOutputArray dst = Mat(),
+                int              type = CV_32F );
+AutoIt:
+    _OpenCV_ObjCreate("cv").randn( $size[, $dst[, $type]] ) -> $dst
+```
+
+```cpp
+void cv::randn( const std::vector<int>& sizes,
+                InputOutputArray        dst = Mat(),
+                int                     type = CV_32F );
+AutoIt:
+    _OpenCV_ObjCreate("cv").randn( $sizes[, $dst[, $type]] ) -> $dst
+```
+
 ### cv::randu
 
 ```cpp
@@ -13247,6 +13419,46 @@ void cv::randu( InputOutputArray dst,
                 InputArray       high );
 AutoIt:
     _OpenCV_ObjCreate("cv").randu( $dst, $low, $high ) -> $dst
+```
+
+```cpp
+double cv::randu();
+AutoIt:
+    _OpenCV_ObjCreate("cv").randu() -> retval
+```
+
+```cpp
+void cv::randu( int              rows,
+                int              cols,
+                InputOutputArray dst = Mat(),
+                int              type = CV_32F );
+AutoIt:
+    _OpenCV_ObjCreate("cv").randu( $rows, $cols[, $dst[, $type]] ) -> $dst
+```
+
+```cpp
+void cv::randu( cv::Size         size,
+                InputOutputArray dst = Mat(),
+                int              type = CV_32F );
+AutoIt:
+    _OpenCV_ObjCreate("cv").randu( $size[, $dst[, $type]] ) -> $dst
+```
+
+```cpp
+void cv::randu( const std::vector<int>& sizes,
+                InputOutputArray        dst = Mat(),
+                int                     type = CV_32F );
+AutoIt:
+    _OpenCV_ObjCreate("cv").randu( $sizes[, $dst[, $type]] ) -> $dst
+```
+
+### cv::ravel
+
+```cpp
+void cv::ravel( const cv::Mat& src,
+                cv::Mat&       out );
+AutoIt:
+    _OpenCV_ObjCreate("cv").ravel( $src[, $out] ) -> $out
 ```
 
 ### cv::readDMatch
@@ -15213,6 +15425,14 @@ AutoIt:
 static int cv::enums::WARP_INVERSE_MAP
 AutoIt:
     [propget] $oenums.WARP_INVERSE_MAP
+```
+
+### enums.WARP\_RELATIVE\_MAP
+
+```cpp
+static int cv::enums::WARP_RELATIVE_MAP
+AutoIt:
+    [propget] $oenums.WARP_RELATIVE_MAP
 ```
 
 ### enums.WARP\_POLAR\_LINEAR
@@ -18751,6 +18971,22 @@ AutoIt:
     [propget] $oenums.IMWRITE_TIFF_COMPRESSION
 ```
 
+### enums.IMWRITE\_TIFF\_ROWSPERSTRIP
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_ROWSPERSTRIP
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_ROWSPERSTRIP
+```
+
+### enums.IMWRITE\_TIFF\_PREDICTOR
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_PREDICTOR
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_PREDICTOR
+```
+
 ### enums.IMWRITE\_JPEG2000\_COMPRESSION\_X1000
 
 ```cpp
@@ -18821,6 +19057,294 @@ AutoIt:
 static int cv::enums::IMWRITE_JPEG_SAMPLING_FACTOR_444
 AutoIt:
     [propget] $oenums.IMWRITE_JPEG_SAMPLING_FACTOR_444
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_NONE
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_NONE
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_NONE
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_CCITTRLE
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_CCITTRLE
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_CCITTRLE
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_CCITTFAX3
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_CCITTFAX3
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_CCITTFAX3
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_CCITT\_T4
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_CCITT_T4
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_CCITT_T4
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_CCITTFAX4
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_CCITTFAX4
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_CCITTFAX4
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_CCITT\_T6
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_CCITT_T6
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_CCITT_T6
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_LZW
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_LZW
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_LZW
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_OJPEG
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_OJPEG
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_OJPEG
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_JPEG
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_JPEG
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_JPEG
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_T85
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_T85
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_T85
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_T43
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_T43
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_T43
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_NEXT
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_NEXT
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_NEXT
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_CCITTRLEW
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_CCITTRLEW
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_CCITTRLEW
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_PACKBITS
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_PACKBITS
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_PACKBITS
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_THUNDERSCAN
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_THUNDERSCAN
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_THUNDERSCAN
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_IT8CTPAD
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_IT8CTPAD
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_IT8CTPAD
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_IT8LW
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_IT8LW
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_IT8LW
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_IT8MP
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_IT8MP
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_IT8MP
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_IT8BL
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_IT8BL
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_IT8BL
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_PIXARFILM
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_PIXARFILM
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_PIXARFILM
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_PIXARLOG
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_PIXARLOG
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_PIXARLOG
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_DEFLATE
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_DEFLATE
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_DEFLATE
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_ADOBE\_DEFLATE
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_ADOBE_DEFLATE
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_ADOBE_DEFLATE
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_DCS
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_DCS
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_DCS
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_JBIG
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_JBIG
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_JBIG
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_SGILOG
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_SGILOG
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_SGILOG
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_SGILOG24
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_SGILOG24
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_SGILOG24
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_JP2000
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_JP2000
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_JP2000
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_LERC
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_LERC
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_LERC
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_LZMA
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_LZMA
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_LZMA
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_ZSTD
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_ZSTD
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_ZSTD
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_WEBP
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_WEBP
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_WEBP
+```
+
+### enums.IMWRITE\_TIFF\_COMPRESSION\_JXL
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_COMPRESSION_JXL
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_COMPRESSION_JXL
+```
+
+### enums.IMWRITE\_TIFF\_PREDICTOR\_NONE
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_PREDICTOR_NONE
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_PREDICTOR_NONE
+```
+
+### enums.IMWRITE\_TIFF\_PREDICTOR\_HORIZONTAL
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_PREDICTOR_HORIZONTAL
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_PREDICTOR_HORIZONTAL
+```
+
+### enums.IMWRITE\_TIFF\_PREDICTOR\_FLOATINGPOINT
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_PREDICTOR_FLOATINGPOINT
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_PREDICTOR_FLOATINGPOINT
 ```
 
 ### enums.IMWRITE\_EXR\_TYPE\_HALF
@@ -29317,8 +29841,8 @@ AutoIt:
 ### cv::Mat::assignTo
 
 ```cpp
-void cv::Mat::assignTo( const cv::Mat& m,
-                        int            type = -1 );
+void cv::Mat::assignTo( cv::Mat& m,
+                        int      type = -1 );
 AutoIt:
     $oMat.assignTo( $m[, $type] ) -> None
 ```
@@ -29410,21 +29934,12 @@ AutoIt:
 ### cv::Mat::convertTo
 
 ```cpp
-void cv::Mat::convertTo( OutputArray m,
+void cv::Mat::convertTo( OutputArray dst,
                          int         rtype,
                          double      alpha = 1.0,
                          double      beta = 0.0 );
 AutoIt:
-    $oMat.convertTo( $rtype[, $m[, $alpha[, $beta]]] ) -> $m
-```
-
-```cpp
-void cv::Mat::convertTo( OutputArray m,
-                         int         rtype = -1,
-                         double      alpha = 1.0,
-                         double      beta = 0.0 );
-AutoIt:
-    $oMat.convertTo( [$m[, $rtype[, $alpha[, $beta]]]] ) -> $m
+    $oMat.convertTo( $rtype[, $dst[, $alpha[, $beta]]] ) -> $dst
 ```
 
 ### cv::Mat::convertToBitmap
@@ -29463,16 +29978,16 @@ AutoIt:
 ### cv::Mat::copyTo
 
 ```cpp
-void cv::Mat::copyTo( OutputArray m );
+void cv::Mat::copyTo( OutputArray dst );
 AutoIt:
-    $oMat.copyTo( [$m] ) -> $m
+    $oMat.copyTo( [$dst] ) -> $dst
 ```
 
 ```cpp
-void cv::Mat::copyTo( OutputArray m,
+void cv::Mat::copyTo( OutputArray dst,
                       InputArray  mask );
 AutoIt:
-    $oMat.copyTo( $mask[, $m] ) -> $m
+    $oMat.copyTo( $mask[, $dst] ) -> $dst
 ```
 
 ### cv::Mat::createFromArray
@@ -30590,6 +31105,14 @@ AutoIt:
     $oMat.total( $startDim[, $endDim] ) -> retval
 ```
 
+### cv::Mat::transpose
+
+```cpp
+cv::Mat cv::Mat::transpose();
+AutoIt:
+    $oMat.transpose() -> retval
+```
+
 ### cv::Mat::type
 
 ```cpp
@@ -30921,8 +31444,8 @@ AutoIt:
 ### cv::UMat::assignTo
 
 ```cpp
-void cv::UMat::assignTo( const cv::UMat& m,
-                         int             type = -1 );
+void cv::UMat::assignTo( cv::UMat& m,
+                         int       type = -1 );
 AutoIt:
     $oUMat.assignTo( $m[, $type] ) -> None
 ```
@@ -30979,21 +31502,21 @@ AutoIt:
 ### cv::UMat::convertTo
 
 ```cpp
-void cv::UMat::convertTo( OutputArray m,
+void cv::UMat::convertTo( OutputArray dst,
                           int         rtype,
                           double      alpha = 1.0,
                           double      beta = 0.0 );
 AutoIt:
-    $oUMat.convertTo( $rtype[, $m[, $alpha[, $beta]]] ) -> $m
+    $oUMat.convertTo( $rtype[, $dst[, $alpha[, $beta]]] ) -> $dst
 ```
 
 ```cpp
-void cv::UMat::convertTo( OutputArray m,
+void cv::UMat::convertTo( OutputArray dst,
                           int         rtype = -1,
                           double      alpha = 1.0,
                           double      beta = 0.0 );
 AutoIt:
-    $oUMat.convertTo( [$m[, $rtype[, $alpha[, $beta]]]] ) -> $m
+    $oUMat.convertTo( [$dst[, $rtype[, $alpha[, $beta]]]] ) -> $dst
 ```
 
 ### cv::UMat::convertToBitmap
@@ -31032,16 +31555,16 @@ AutoIt:
 ### cv::UMat::copyTo
 
 ```cpp
-void cv::UMat::copyTo( OutputArray m );
+void cv::UMat::copyTo( OutputArray dst );
 AutoIt:
-    $oUMat.copyTo( [$m] ) -> $m
+    $oUMat.copyTo( [$dst] ) -> $dst
 ```
 
 ```cpp
-void cv::UMat::copyTo( OutputArray m,
+void cv::UMat::copyTo( OutputArray dst,
                        InputArray  mask );
 AutoIt:
-    $oUMat.copyTo( $mask[, $m] ) -> $m
+    $oUMat.copyTo( $mask[, $dst] ) -> $dst
 ```
 
 ### cv::UMat::depth
@@ -31861,6 +32384,22 @@ AutoIt:
 int cv::ocl::Device::halfFPConfig() const;
 AutoIt:
     $oDevice.halfFPConfig() -> retval
+```
+
+### cv::ocl::Device::hasFP16
+
+```cpp
+bool cv::ocl::Device::hasFP16() const;
+AutoIt:
+    $oDevice.hasFP16() -> retval
+```
+
+### cv::ocl::Device::hasFP64
+
+```cpp
+bool cv::ocl::Device::hasFP64() const;
+AutoIt:
+    $oDevice.hasFP64() -> retval
 ```
 
 ### cv::ocl::Device::hostUnifiedMemory
@@ -33568,6 +34107,14 @@ AutoIt:
 cv::Rect cv::RotatedRect::boundingRect();
 AutoIt:
     $oRotatedRect.boundingRect() -> retval
+```
+
+### cv::RotatedRect::boundingRect2f
+
+```cpp
+cv::Rect2f cv::RotatedRect::boundingRect2f() const;
+AutoIt:
+    $oRotatedRect.boundingRect2f() -> retval
 ```
 
 ### cv::RotatedRect::points
@@ -41720,6 +42267,14 @@ AutoIt:
     $oNet.dumpToFile( $path ) -> None
 ```
 
+### cv::dnn::Net::dumpToPbtxt
+
+```cpp
+void cv::dnn::Net::dumpToPbtxt( const std::string& path );
+AutoIt:
+    $oNet.dumpToPbtxt( $path ) -> None
+```
+
 ### cv::dnn::Net::empty
 
 ```cpp
@@ -42286,6 +42841,14 @@ AutoIt:
     $oModel.setInputSwapRB( $swapRB ) -> retval
 ```
 
+### cv::dnn::Model::setOutputNames
+
+```cpp
+cv::dnn::Model cv::dnn::Model::setOutputNames( const std::vector<std::string>& outNames );
+AutoIt:
+    $oModel.setOutputNames( $outNames ) -> retval
+```
+
 ### cv::dnn::Model::setPreferableBackend
 
 ```cpp
@@ -42423,6 +42986,14 @@ AutoIt:
     $oClassificationModel.setInputSwapRB( $swapRB ) -> retval
 ```
 
+### cv::dnn::ClassificationModel::setOutputNames
+
+```cpp
+cv::dnn::Model cv::dnn::ClassificationModel::setOutputNames( const std::vector<std::string>& outNames );
+AutoIt:
+    $oClassificationModel.setOutputNames( $outNames ) -> retval
+```
+
 ### cv::dnn::ClassificationModel::setPreferableBackend
 
 ```cpp
@@ -42543,6 +43114,14 @@ AutoIt:
     $oKeypointsModel.setInputSwapRB( $swapRB ) -> retval
 ```
 
+### cv::dnn::KeypointsModel::setOutputNames
+
+```cpp
+cv::dnn::Model cv::dnn::KeypointsModel::setOutputNames( const std::vector<std::string>& outNames );
+AutoIt:
+    $oKeypointsModel.setOutputNames( $outNames ) -> retval
+```
+
 ### cv::dnn::KeypointsModel::setPreferableBackend
 
 ```cpp
@@ -42661,6 +43240,14 @@ AutoIt:
 cv::dnn::Model cv::dnn::SegmentationModel::setInputSwapRB( bool swapRB );
 AutoIt:
     $oSegmentationModel.setInputSwapRB( $swapRB ) -> retval
+```
+
+### cv::dnn::SegmentationModel::setOutputNames
+
+```cpp
+cv::dnn::Model cv::dnn::SegmentationModel::setOutputNames( const std::vector<std::string>& outNames );
+AutoIt:
+    $oSegmentationModel.setOutputNames( $outNames ) -> retval
 ```
 
 ### cv::dnn::SegmentationModel::setPreferableBackend
@@ -42801,6 +43388,14 @@ AutoIt:
 cv::dnn::DetectionModel cv::dnn::DetectionModel::setNmsAcrossClasses( bool value );
 AutoIt:
     $oDetectionModel.setNmsAcrossClasses( $value ) -> retval
+```
+
+### cv::dnn::DetectionModel::setOutputNames
+
+```cpp
+cv::dnn::Model cv::dnn::DetectionModel::setOutputNames( const std::vector<std::string>& outNames );
+AutoIt:
+    $oDetectionModel.setOutputNames( $outNames ) -> retval
 ```
 
 ### cv::dnn::DetectionModel::setPreferableBackend
@@ -42963,6 +43558,14 @@ AutoIt:
     $oTextRecognitionModel.setInputSwapRB( $swapRB ) -> retval
 ```
 
+### cv::dnn::TextRecognitionModel::setOutputNames
+
+```cpp
+cv::dnn::Model cv::dnn::TextRecognitionModel::setOutputNames( const std::vector<std::string>& outNames );
+AutoIt:
+    $oTextRecognitionModel.setOutputNames( $outNames ) -> retval
+```
+
 ### cv::dnn::TextRecognitionModel::setPreferableBackend
 
 ```cpp
@@ -43097,6 +43700,14 @@ AutoIt:
 cv::dnn::Model cv::dnn::TextDetectionModel::setInputSwapRB( bool swapRB );
 AutoIt:
     $oTextDetectionModel.setInputSwapRB( $swapRB ) -> retval
+```
+
+### cv::dnn::TextDetectionModel::setOutputNames
+
+```cpp
+cv::dnn::Model cv::dnn::TextDetectionModel::setOutputNames( const std::vector<std::string>& outNames );
+AutoIt:
+    $oTextDetectionModel.setOutputNames( $outNames ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel::setPreferableBackend
@@ -43274,6 +43885,14 @@ AutoIt:
 cv::dnn::TextDetectionModel_EAST cv::dnn::TextDetectionModel_EAST::setNMSThreshold( float nmsThreshold );
 AutoIt:
     $oTextDetectionModel_EAST.setNMSThreshold( $nmsThreshold ) -> retval
+```
+
+### cv::dnn::TextDetectionModel\_EAST::setOutputNames
+
+```cpp
+cv::dnn::Model cv::dnn::TextDetectionModel_EAST::setOutputNames( const std::vector<std::string>& outNames );
+AutoIt:
+    $oTextDetectionModel_EAST.setOutputNames( $outNames ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel\_EAST::setPreferableBackend
@@ -43467,6 +44086,14 @@ AutoIt:
 cv::dnn::TextDetectionModel_DB cv::dnn::TextDetectionModel_DB::setMaxCandidates( int maxCandidates );
 AutoIt:
     $oTextDetectionModel_DB.setMaxCandidates( $maxCandidates ) -> retval
+```
+
+### cv::dnn::TextDetectionModel\_DB::setOutputNames
+
+```cpp
+cv::dnn::Model cv::dnn::TextDetectionModel_DB::setOutputNames( const std::vector<std::string>& outNames );
+AutoIt:
+    $oTextDetectionModel_DB.setOutputNames( $outNames ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel\_DB::setPolygonThreshold
@@ -47539,7 +48166,7 @@ AutoIt:
 ### cv::VideoCapture::getExceptionMode
 
 ```cpp
-bool cv::VideoCapture::getExceptionMode();
+bool cv::VideoCapture::getExceptionMode() const;
 AutoIt:
     $oVideoCapture.getExceptionMode() -> retval
 ```
@@ -49017,6 +49644,22 @@ AutoIt:
     _OpenCV_ObjCreate("cv.fisheye").projectPoints( $objectPoints, $rvec, $tvec, $K, $D[, $imagePoints[, $alpha[, $jacobian]]] ) -> $imagePoints, $jacobian
 ```
 
+### cv::fisheye::solvePnP
+
+```cpp
+bool cv::fisheye::solvePnP( InputArray       objectPoints,
+                            InputArray       imagePoints,
+                            InputArray       cameraMatrix,
+                            InputArray       distCoeffs,
+                            OutputArray      rvec,
+                            OutputArray      tvec,
+                            bool             useExtrinsicGuess = false,
+                            int              flags = SOLVEPNP_ITERATIVE,
+                            cv::TermCriteria criteria = TermCriteria(TermCriteria::MAX_ITER + TermCriteria::EPS, 10, 1e-8) );
+AutoIt:
+    _OpenCV_ObjCreate("cv.fisheye").solvePnP( $objectPoints, $imagePoints, $cameraMatrix, $distCoeffs[, $rvec[, $tvec[, $useExtrinsicGuess[, $flags[, $criteria]]]]] ) -> retval, $rvec, $tvec
+```
+
 ### cv::fisheye::stereoCalibrate
 
 ```cpp
@@ -50046,7 +50689,7 @@ AutoIt:
 ### cv::QRCodeDetectorAruco::getArucoParameters
 
 ```cpp
-cv::aruco::DetectorParameters cv::QRCodeDetectorAruco::getArucoParameters();
+cv::aruco::DetectorParameters cv::QRCodeDetectorAruco::getArucoParameters() const;
 AutoIt:
     $oQRCodeDetectorAruco.getArucoParameters() -> retval
 ```
@@ -51484,6 +52127,54 @@ bool cv::barcode::BarcodeDetector::detectMulti( InputArray  img,
                                                 OutputArray points ) const;
 AutoIt:
     $oBarcodeDetector.detectMulti( $img[, $points] ) -> retval, $points
+```
+
+### cv::barcode::BarcodeDetector::getDetectorScales
+
+```cpp
+void cv::barcode::BarcodeDetector::getDetectorScales( std::vector<float>& sizes ) const;
+AutoIt:
+    $oBarcodeDetector.getDetectorScales( [$sizes] ) -> $sizes
+```
+
+### cv::barcode::BarcodeDetector::getDownsamplingThreshold
+
+```cpp
+double cv::barcode::BarcodeDetector::getDownsamplingThreshold() const;
+AutoIt:
+    $oBarcodeDetector.getDownsamplingThreshold() -> retval
+```
+
+### cv::barcode::BarcodeDetector::getGradientThreshold
+
+```cpp
+double cv::barcode::BarcodeDetector::getGradientThreshold() const;
+AutoIt:
+    $oBarcodeDetector.getGradientThreshold() -> retval
+```
+
+### cv::barcode::BarcodeDetector::setDetectorScales
+
+```cpp
+cv::barcode::BarcodeDetector cv::barcode::BarcodeDetector::setDetectorScales( const std::vector<float>& sizes );
+AutoIt:
+    $oBarcodeDetector.setDetectorScales( $sizes ) -> retval
+```
+
+### cv::barcode::BarcodeDetector::setDownsamplingThreshold
+
+```cpp
+cv::barcode::BarcodeDetector cv::barcode::BarcodeDetector::setDownsamplingThreshold( double thresh );
+AutoIt:
+    $oBarcodeDetector.setDownsamplingThreshold( $thresh ) -> retval
+```
+
+### cv::barcode::BarcodeDetector::setGradientThreshold
+
+```cpp
+cv::barcode::BarcodeDetector cv::barcode::BarcodeDetector::setGradientThreshold( double thresh );
+AutoIt:
+    $oBarcodeDetector.setGradientThreshold( $thresh ) -> retval
 ```
 
 ## cv::aruco::CharucoParameters
@@ -55538,6 +56229,14 @@ AutoIt:
     $oVariationalRefinement.getDelta() -> retval
 ```
 
+### cv::VariationalRefinement::getEpsilon
+
+```cpp
+float cv::VariationalRefinement::getEpsilon() const;
+AutoIt:
+    $oVariationalRefinement.getEpsilon() -> retval
+```
+
 ### cv::VariationalRefinement::getFixedPointIterations
 
 ```cpp
@@ -55600,6 +56299,14 @@ AutoIt:
 void cv::VariationalRefinement::setDelta( float val );
 AutoIt:
     $oVariationalRefinement.setDelta( $val ) -> None
+```
+
+### cv::VariationalRefinement::setEpsilon
+
+```cpp
+void cv::VariationalRefinement::setEpsilon( float val );
+AutoIt:
+    $oVariationalRefinement.setEpsilon( $val ) -> None
 ```
 
 ### cv::VariationalRefinement::setFixedPointIterations
@@ -55766,6 +56473,14 @@ AutoIt:
     $oDISOpticalFlow.getVariationalRefinementDelta() -> retval
 ```
 
+### cv::DISOpticalFlow::getVariationalRefinementEpsilon
+
+```cpp
+float cv::DISOpticalFlow::getVariationalRefinementEpsilon() const;
+AutoIt:
+    $oDISOpticalFlow.getVariationalRefinementEpsilon() -> retval
+```
+
 ### cv::DISOpticalFlow::getVariationalRefinementGamma
 
 ```cpp
@@ -55860,6 +56575,14 @@ AutoIt:
 void cv::DISOpticalFlow::setVariationalRefinementDelta( float val );
 AutoIt:
     $oDISOpticalFlow.setVariationalRefinementDelta( $val ) -> None
+```
+
+### cv::DISOpticalFlow::setVariationalRefinementEpsilon
+
+```cpp
+void cv::DISOpticalFlow::setVariationalRefinementEpsilon( float val );
+AutoIt:
+    $oDISOpticalFlow.setVariationalRefinementEpsilon( $val ) -> None
 ```
 
 ### cv::DISOpticalFlow::setVariationalRefinementGamma
@@ -58391,6 +59114,13 @@ AutoIt:
     _OpenCV_ObjCreate("cv.GMat").create() -> <cv.GMat object>
 ```
 
+```cpp
+static cv::GMat cv::GMat::get_create( cv::Mat m );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GMat").create( $m ) -> <cv.GMat object>
+    $oGMat( $m ) -> <cv.GMat object>
+```
+
 ## cv::GMatDesc
 
 ### GMatDesc.depth
@@ -59337,6 +60067,13 @@ static cv::gapi::onnx::ep::OpenVINO cv::gapi::onnx::ep::OpenVINO::get_create( co
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.onnx.ep.OpenVINO").create( $dev_type ) -> <cv.gapi.onnx.ep.OpenVINO object>
     $oOpenVINO( $dev_type ) -> <cv.gapi.onnx.ep.OpenVINO object>
+```
+
+```cpp
+static cv::gapi::onnx::ep::OpenVINO cv::gapi::onnx::ep::OpenVINO::get_create( const std::map<std::string, std::string>& params );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.onnx.ep.OpenVINO").create( $params ) -> <cv.gapi.onnx.ep.OpenVINO object>
+    $oOpenVINO( $params ) -> <cv.gapi.onnx.ep.OpenVINO object>
 ```
 
 ### cv::gapi::onnx::ep::OpenVINO::cfgCacheDir

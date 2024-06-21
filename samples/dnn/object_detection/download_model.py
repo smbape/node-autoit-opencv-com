@@ -13,8 +13,8 @@ from tf_text_graph_common import readTextMessage
 from tf_text_graph_ssd import createSSDGraph
 from tf_text_graph_faster_rcnn import createFasterRCNNGraph
 
-
 python = sys.executable or 'python'
+
 
 def abspath(filepath: Optional[str]) -> Optional[str]:
     if filepath is None:
@@ -22,11 +22,25 @@ def abspath(filepath: Optional[str]) -> Optional[str]:
     return os.path.abspath(filepath)
 
 
+def replace_string(filepath: str, match: str, replace: str) -> None:
+    # Read in the file
+    with open(filepath, 'r') as file:
+        filedata = file.read()
+
+    # Replace the target string
+    filedata = filedata.replace(match, replace)
+
+    # Write the file out again
+    with open(filepath, 'w') as file:
+        file.write(filedata)
+
+
 class HashMismatchException(Exception):
     def __init__(self, expected, actual):
         Exception.__init__(self)
         self.expected = expected
         self.actual = actual
+
     def __str__(self):
         return 'Hash mismatch: expected {} vs actual of {}'.format(self.expected, self.actual)
 
@@ -36,7 +50,7 @@ def getHashsumFromFile(filepath: str) -> str:
     if os.path.exists(filepath):
         with open(filepath, 'rb') as f:
             while True:
-                buf = f.read(10*1024*1024)
+                buf = f.read(10 * 1024 * 1024)
                 if not buf:
                     break
                 sha.update(buf)
@@ -96,13 +110,13 @@ def download_yolov5(info, dest):
         os.remove(dest)
 
     env = os.environ.copy()
-    env["PYTHONPATH"] = repo
+    env['PYTHONPATH'] = repo
     subprocess.run([python, os.path.join(repo, 'export.py'), 
-        '--include', 'onnx',
-        '--opset', '12',
-        '--simplify',
-        '--weights', os.path.basename(dest).replace(".onnx", ".pt")
-    ], cwd=cwd, env=env)
+                    '--include', 'onnx',
+                    '--opset', '12',
+                    '--simplify',
+                    '--weights', os.path.basename(dest).replace(".onnx", ".pt")
+                    ], cwd=cwd, env=env)
 
     checkHashsum(expected_sha, dest, silent=False)
     print("  Finished " + dest)
@@ -136,13 +150,13 @@ def download_yolov6(info, dest):
         os.remove(dest)
 
     env = os.environ.copy()
-    env["PYTHONPATH"] = repo
+    env['PYTHONPATH'] = repo
     subprocess.run([python, os.path.join(repo, 'deploy', 'ONNX', 'export_onnx.py'),
-        '--weights', os.path.basename(dest).replace(".onnx", ".pt"),
-        '--img', '640',
-        '--batch', '1',
-        '--simplify'
-    ], cwd=cwd, env=env)
+                    '--weights', os.path.basename(dest).replace(".onnx", ".pt"),
+                    '--img', '640',
+                    '--batch', '1',
+                    '--simplify'
+                    ], cwd=cwd, env=env)
 
     checkHashsum(expected_sha, dest, silent=False)
     print("  Finished " + dest)
@@ -176,14 +190,14 @@ def download_yolov7(info, dest):
         os.remove(dest)
 
     env = os.environ.copy()
-    env["PYTHONPATH"] = repo
+    env['PYTHONPATH'] = repo
     subprocess.run([python, os.path.join(repo, 'export.py'),
-        '--weights', os.path.basename(dest).replace(".onnx", ".pt"),
-        '--grid',
-        '--simplify',
-        '--img-size', '640', '640',
-        '--max-wh', '640'
-    ], cwd=cwd, env=env)
+                    '--weights', os.path.basename(dest).replace(".onnx", ".pt"),
+                    '--grid',
+                    '--simplify',
+                    '--img-size', '640', '640',
+                    '--max-wh', '640'
+                    ], cwd=cwd, env=env)
 
     checkHashsum(expected_sha, dest, silent=False)
     print("  Finished " + dest)
@@ -208,14 +222,15 @@ def download_yolov8(info, dest):
     subprocess.run([python, '-m', 'pip', 'install', '--upgrade', 'pip'], cwd=cwd)
     subprocess.run([python, '-m', 'pip', 'install', 'ultralytics'], cwd=cwd)
     subprocess.run(['yolo', 'export',
-        f'model={ os.path.basename(dest).replace(".onnx", ".pt") }',
-        'imgsz=640',
-        'format=onnx',
-        'opset=12'
-    ], cwd=cwd)
+                    f'model={ os.path.basename(dest).replace(".onnx", ".pt") }',
+                    'imgsz=640',
+                    'format=onnx',
+                    'opset=12'
+                    ], cwd=cwd)
 
     checkHashsum(expected_sha, dest, silent=False)
     print("  Finished " + dest)
+
 
 backends = (cv.dnn.DNN_BACKEND_DEFAULT, cv.dnn.DNN_BACKEND_HALIDE, cv.dnn.DNN_BACKEND_INFERENCE_ENGINE, cv.dnn.DNN_BACKEND_OPENCV,
             cv.dnn.DNN_BACKEND_VKCOM, cv.dnn.DNN_BACKEND_CUDA)
@@ -274,7 +289,7 @@ if args.model_name:
     with open(args.zoo, 'r') as stream:
         data_loaded = yaml.safe_load(stream)
         for name, params in data_loaded.items():
-            if not name.startswith(args.model_name):
+            if name != args.model_name:
                 continue
 
             model = abspath(params.get("model"))
@@ -294,9 +309,9 @@ if args.model_name:
             config = abspath(params.get("config"))
             config_info = params.get("config_info", None)
             if config_info:
-                fname = config_info.get("filename")
-                if not (fname is None):
-                    config = os.path.join(os.path.dirname(config), fname)
+                config_filename = config_info.get("filename")
+                if not (config_filename is None):
+                    config = os.path.join(os.path.dirname(config), config_filename)
                 download_file(config_info, config)
 
             # If config is specified, try to load it as TensorFlow Object Detection API's pipeline.

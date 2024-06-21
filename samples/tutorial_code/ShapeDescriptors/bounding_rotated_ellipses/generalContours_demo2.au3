@@ -12,10 +12,10 @@
 #include "..\..\..\..\autoit-opencv-com\udf\opencv_udf_utils.au3"
 
 ;~ Sources:
-;~     https://docs.opencv.org/4.9.0/dd/d49/tutorial_py_contour_features.html
-;~     https://github.com/opencv/opencv/blob/4.9.0/samples/python/tutorial_code/ShapeDescriptors/bounding_rotated_ellipses/generalContours_demo2.py
+;~     https://docs.opencv.org/4.10.0/dd/d49/tutorial_py_contour_features.html
+;~     https://github.com/opencv/opencv/blob/4.10.0/samples/python/tutorial_code/ShapeDescriptors/bounding_rotated_ellipses/generalContours_demo2.py
 
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world490*"), _OpenCV_FindDLL("autoit_opencv_com490*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world4100*"), _OpenCV_FindDLL("autoit_opencv_com4100*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 

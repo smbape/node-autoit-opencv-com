@@ -34,7 +34,7 @@ yolov4:
     url: "https://github.com/AlexeyAB/darknet/raw/c0d6b81a78e204c04c9bf4277974e0dadad0c4e2/cfg/yolov4.cfg"
     sha1: "ed0aeace88527af7524c3baf66ca44fbf049b878"
   mean: [0, 0, 0]
-  scale: 0.00392
+  scale: 0.00392156862745098
   width: 416
   height: 416
   rgb: true
@@ -52,7 +52,7 @@ yolov4-tiny:
     url: "https://github.com/AlexeyAB/darknet/raw/a298f94255a20a3198d80ea512755d9e5dddbf02/cfg/yolov4-tiny.cfg"
     sha1: "b161c2b0984b0c3b466c04b0d6cb3e52f06d93dd"
   mean: [0, 0, 0]
-  scale: 0.00392
+  scale: 0.00392156862745098
   width: 416
   height: 416
   rgb: true
@@ -70,7 +70,7 @@ yolov3:
     url: "https://github.com/AlexeyAB/darknet/raw/efcbdb5425f60d80d9633930f007dfe3caae5220/cfg/yolov3.cfg"
     sha1: "82fb8f6be0382a30b6bdbfe0d6a71b4ac6fd7803"
   mean: [0, 0, 0]
-  scale: 0.00392
+  scale: 0.00392156862745098
   width: 416
   height: 416
   rgb: true
@@ -88,7 +88,7 @@ tiny-yolo-voc:
     url: "https://github.com/AlexeyAB/darknet/raw/e5ab66d7a770c3861cb93e3fca0079d34b5a26d4/cfg/tiny-yolo-voc.cfg"
     sha1: "d26e2408ce4e20136278411760ba904d744fe5b5"
   mean: [0, 0, 0]
-  scale: 0.00392
+  scale: 0.00392156862745098
   width: 416
   height: 416
   rgb: true
@@ -98,10 +98,10 @@ tiny-yolo-voc:
 
 yolov5n:
   load_info:
-    sha1: "d4e2169928aa3b856dca5bf77ca473f36f5a4d13"
+    sha1: "c4d4e0bbf94629860d3906c7d1956d89a968028a"
   model: "yolov5n.onnx"
   mean: [0, 0, 0]
-  scale: 0.00392
+  scale: 0.00392156862745098
   width: 640
   height: 640
   rgb: true
@@ -110,10 +110,10 @@ yolov5n:
 
 yolov5s:
   load_info:
-    sha1: "cd0f1a8d91dd463625d76c6be23935e507c7cffa"
+    sha1: "f8e5a67668f5242985e7d5d5b2ea9b3eb1789e78"
   model: "yolov5s.onnx"
   mean: [0, 0, 0]
-  scale: 0.00392
+  scale: 0.00392156862745098
   width: 640
   height: 640
   rgb: true
@@ -123,11 +123,11 @@ yolov5s:
 yolov6n:
   load_info:
     url: "https://github.com/meituan/YOLOv6/releases/download/0.4.0/yolov6n.pt"
-    sha1: "ae4a38044498494e4df01af0ce6c1d2a7a9f0cbd"
+    sha1: "4f1ab60f0e1cddff63877640b46a58f9eee0b671"
     download_sha: "b801d8ab7b229b6bc832f31d998281461ae67889"
   model: "yolov6n.onnx"
   mean: [0, 0, 0]
-  scale: 0.00392
+  scale: 0.00392156862745098
   width: 640
   height: 640
   rgb: true
@@ -137,11 +137,11 @@ yolov6n:
 yolov6s:
   load_info:
     url: "https://github.com/meituan/YOLOv6/releases/download/0.4.0/yolov6s.pt"
-    sha1: "6a7fbbf4aab7076445e1dd6ad6e2f16ea3fdf472"
+    sha1: "a1b21d2b693e8385f0e12914f99d044961561ca0"
     download_sha: "a3070399ae18f089b7a218fedb3348a7add8220b"
   model: "yolov6s.onnx"
   mean: [0, 0, 0]
-  scale: 0.00392
+  scale: 0.00392156862745098
   width: 640
   height: 640
   rgb: true
@@ -151,11 +151,11 @@ yolov6s:
 yolov7:
   load_info:
     url: "https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7.pt"
-    sha1: "22db92417bd90fc105a508adbd6f5529f3f0c849"
+    sha1: "785792acb6cff09d63bcfa02e5ad1298da841d69"
     download_sha: "723b07225efa90d86eb983713b66fd8be82dfb9f"
   model: "yolov7.onnx"
   mean: [0, 0, 0]
-  scale: 0.00392
+  scale: 0.00392156862745098
   width: 640
   height: 640
   rgb: true
@@ -165,11 +165,11 @@ yolov7:
 yolov7-tiny:
   load_info:
     url: "https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7-tiny.pt"
-    sha1: "5e7b3eff02d933193653be4223ea09bf4017dfc7"
+    sha1: "f59e94cadae785d7a16c79339512ba2603b8ed16"
     download_sha: "c42311ff54e2a962725d6cac3b66d4b1e04eda2d"
   model: "yolov7-tiny.onnx"
   mean: [0, 0, 0]
-  scale: 0.00392
+  scale: 0.00392156862745098
   width: 640
   height: 640
   rgb: true
@@ -178,10 +178,10 @@ yolov7-tiny:
 
 yolov8n:
   load_info:
-    sha1: "8f7985f8da3cc79161ecedd3bfaf0558315476c3"
+    sha1: "2daace95860c754be076b800a9d2b3b7f75caaec"
   model: "yolov8n.onnx"
   mean: [0, 0, 0]
-  scale: 0.00392
+  scale: 0.00392156862745098
   width: 640
   height: 640
   rgb: true
@@ -191,10 +191,10 @@ yolov8n:
 
 yolov8s:
   load_info:
-    sha1: "407fa05b9db4088595b477eabf6a260926617d6a"
+    sha1: "6efc1ac15f82053d7a2d602fe89831685a8c949e"
   model: "yolov8s.onnx"
   mean: [0, 0, 0]
-  scale: 0.00392
+  scale: 0.00392156862745098
   width: 640
   height: 640
   rgb: true
@@ -213,7 +213,7 @@ ssd_caffe:
     url: "https://github.com/amolikvivian/Caffe-SSD-Object-Detection/raw/8c0bad9a9f5b7dd75e0fa75e42cc9d17157fa0b7/Object%20Detection%20Caffe/Caffe/SSD_MobileNet_prototxt.txt"
     sha1: "d77c9cf09619470d49b82a9dd18704813a2043cd"
   mean: [127.5, 127.5, 127.5]
-  scale: 0.007843
+  scale: 0.00784313725490196
   width: 300
   height: 300
   rgb: false
@@ -312,7 +312,7 @@ enet:
     sha1: "b4123a73bf464b9ebe9cfc4ab9c2d5c72b161315"
   model: "Enet-model-best.net"
   mean: [0, 0, 0]
-  scale: 0.00392
+  scale: 0.00392156862745098
   width: 512
   height: 256
   rgb: true

@@ -7,7 +7,7 @@
 
 #include "..\autoit-opencv-com\udf\opencv_udf_utils.au3"
 
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world490*"), _OpenCV_FindDLL("autoit_opencv_com490*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world4100*"), _OpenCV_FindDLL("autoit_opencv_com4100*"))
 OnAutoItExitRegister("_OnAutoItExit")
 Example()
 

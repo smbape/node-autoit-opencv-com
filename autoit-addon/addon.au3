@@ -14,7 +14,7 @@ Func _Addon_DLLClose()
 EndFunc   ;==>_Addon_DLLClose
 
 Func _Addon_FindDLL($sFile = Default, $sFilter = Default, $sDir = Default, $bReverse = Default)
-	If $sFile == Default Then $sFile = "autoit_addon490*"
+	If $sFile == Default Then $sFile = "autoit_addon4100*"
 	Local $_cv_build_type = EnvGet("OPENCV_BUILD_TYPE")
 	Local $sBuildType = $_cv_build_type == "Debug" ? "Debug" : "Release"
 	Local $sPostfix = $_cv_build_type == "Debug" ? "d" : ""

@@ -4,6 +4,7 @@ const { getAlias, removeNamespaces } = require("./alias");
 const {
     CPP_TYPES,
     IGNORED_CLASSES,
+    TEMPLATED_TYPES,
 } = require("./constants");
 
 const CoClass = require("./CoClass");
@@ -428,6 +429,10 @@ class DeclProcessor {
             return `${ shared_ptr }<${ this.getCppType(type.slice(`${ shared_ptr_ }<`.length, -">".length), coclass, options) }>`;
         }
 
+        if (type.startsWith("shared_ptr<")) {
+            return `std::shared_ptr<${ this.getCppType(type.slice("shared_ptr<".length, -">".length), coclass, options) }>`;
+        }
+
         if (type.startsWith("optional<")) {
             return `std::optional<${ this.getCppType(type.slice("optional<".length, -">".length), coclass, options) }>`;
         }
@@ -451,9 +456,19 @@ class DeclProcessor {
             return `std::pair<${ types.map(itype => this.getCppType(itype, coclass, options)).join(", ") }>`;
         }
 
-        if (type.startsWith("GArray<") || type.startsWith("GOpaque<")) {
+        if (type.startsWith("variant<")) {
+            const types = CoClass.getTupleTypes(type.slice("variant<".length, -">".length));
+            return `std::variant<${ types.map(itype => this.getCppType(itype, coclass, options)).join(", ") }>`;
+        }
+
+        if (type.includes("<") && type.endsWith(">")) {
             const pos = type.indexOf("<");
-            return `cv::${ type.slice(0, pos) }<${ this.getCppType(type.slice(pos + 1, -">".length), coclass, options) }>`;
+            const tpl = type.slice(0, pos);
+            if (TEMPLATED_TYPES.has(tpl)) {
+                const custom_type = this.add_custom_type(type, coclass, options);
+                this.addDependency(coclass.fqn, custom_type.fqn);
+            }
+            return `${ this.getCppType(tpl, coclass, options) }<${ this.getCppType(type.slice(pos + 1, -">".length), coclass, options) }>`;
         }
 
         if (type.endsWith("*")) {
@@ -499,6 +514,11 @@ class DeclProcessor {
             this.setAssignOperator(type.slice("std::vector<".length, -">".length), coclass, options);
         } else if (type.startsWith("std::tuple<")) {
             const types = CoClass.getTupleTypes(type.slice("std::tuple<".length, -">".length));
+            for (const ttype of types) {
+                this.setAssignOperator(ttype, coclass, options);
+            }
+        } else if (type.startsWith("std::variant<")) {
+            const types = CoClass.getTupleTypes(type.slice("std::variant<".length, -">".length));
             for (const ttype of types) {
                 this.setAssignOperator(ttype, coclass, options);
             }
@@ -628,26 +648,27 @@ class DeclProcessor {
             return;
         }
 
-        // get overrided methods
-        const signatures = this.getSignatures(coclass, options);
+        const parents = [...coclass.parents];
 
-        // get parents
-        const parents = [fqn];
+        // denormalize parents
         for (const parent of parents) {
-            if (!this.derives.has(parent)) {
-                continue;
+            if (this.classes.has(parent)) {
+                this.classes.get(parent).children.add(coclass);
             }
-            for (const child of this.derives.get(parent)) {
-                if (this.classes.has(child)) {
-                    coclass.children.add(this.classes.get(child));
-                    this.addDependency(parent, child);
+
+            if (this.bases.has(parent)) {
+                this.addDependency(fqn, parent);
+                for (const base of this.bases.get(parent)) {
+                    parents.push(base);
                 }
-                parents.push(child);
             }
         }
 
+        // get overrided methods
+        const signatures = this.getSignatures(coclass, options);
+
         // inherit methods
-        for (const pfqn of coclass.parents) {
+        for (const pfqn of parents) {
             if (!this.classes.has(pfqn)) {
                 continue;
             }

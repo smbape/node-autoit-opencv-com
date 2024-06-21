@@ -1,14 +1,15 @@
-# PYTHONPATH="$(realpath opencv-4.9.0-windows/opencv/sources/samples/dnn)" samples/.venv/Scripts/python.exe samples/dnn/object_detection/object_detection.py ssd_tf --input vtest.avi
+# PYTHONPATH="$(realpath opencv-4.10.0-windows/opencv/sources/samples/dnn)" samples/.venv/Scripts/python.exe samples/dnn/object_detection/object_detection.py ssd_tf --input vtest.avi
 
-import cv2 as cv
 import argparse
-import numpy as np
+import math
+import subprocess
 import sys
 import copy
 import time
-import math
-import subprocess
 from threading import Thread
+
+import numpy as np
+
 if sys.version_info[0] == 2:
     import Queue as queue
 else:
@@ -59,30 +60,48 @@ parser.add_argument('--async', type=int, default=0,
                     dest='asyncN',
                     help='Number of asynchronous forwards at the same time. '
                          'Choose 0 for synchronous mode')
+parser.add_argument('--fps', type=int, default=0, help='Input frames per second')
+parser.add_argument('-H', '--dheight', type=int, default=0, help='Displayed height')
+parser.add_argument('-W', '--dwidth', type=int, default=0, help='Displayed width')
 args, _ = parser.parse_known_args()
+
+# add hack to force argument add when the command line is empty
+remove_alias = False
+if len(sys.argv) <= 1:
+    remove_alias = True
+    sys.argv.append("--invalid")
+
 add_preproc_args(args.zoo, parser, 'object_detection')
+
+# remove hack to force argument add when the command line is empty
+if remove_alias:
+    sys.argv.pop()
+
 parser = argparse.ArgumentParser(parents=[parser],
                                  description='Use this script to run object detection deep learning networks using OpenCV.',
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+
 args = parser.parse_args()
 
 __dirname__ = os.path.dirname(os.path.abspath(__file__))
-models = os.path.join(__dirname__, 'models')
-cv.samples.addSamplesDataSearchPath(os.path.abspath(os.path.join(__dirname__, '../../../opencv-4.9.0-windows/opencv/sources/samples/data')))
-cv.samples.addSamplesDataSearchPath(os.path.abspath(os.path.join(__dirname__, '../../../opencv-4.9.0-windows/opencv/sources/samples/data/dnn')))
-cv.samples.addSamplesDataSearchPath(models)
+MODELS_PATH = os.getenv('MODELS_PATH') or os.path.join(__dirname__, 'models')
+
+if not os.path.exists(MODELS_PATH):
+    os.mkdir(MODELS_PATH)
+
+if len(sys.argv) > 1:
+    subprocess.run([
+        sys.executable or 'python',
+        os.path.join(__dirname__, 'download_model.py'),
+        sys.argv[1],
+        '--zoo',
+        args.zoo
+    ], cwd=MODELS_PATH)
+
+cv.samples.addSamplesDataSearchPath(os.path.abspath(os.path.join(__dirname__, '../../../opencv-4.10.0-windows/opencv/sources/samples/data')))
+cv.samples.addSamplesDataSearchPath(os.path.abspath(os.path.join(__dirname__, '../../../opencv-4.10.0-windows/opencv/sources/samples/data/dnn')))
+cv.samples.addSamplesDataSearchPath(MODELS_PATH)
 cv.samples.addSamplesDataSearchPath(__dirname__)
-
-if not os.path.exists(models):
-    os.mkdir(models)
-
-subprocess.run([
-    sys.executable or 'python',
-    os.path.join(__dirname__, 'download_model.py'),
-    sys.argv[1],
-    '--zoo',
-    args.zoo
-], cwd=models)
 
 args.model = findFile(args.model)
 args.config = findFile(args.config)
@@ -119,21 +138,26 @@ nmsThreshold = args.nms
 
 UNSUPPORTED_YOLO_VERSION = 'Unsupported yolo version. Supported versions are v3, v4, v5, v6, v7, v8.'
 
-DESIRED_HEIGHT = 640
-DESIRED_WIDTH = 640
+DESIRED_HEIGHT = args.dheight
+DESIRED_WIDTH = args.dwidth
+
+
 def resize_and_show(title, image):
-  h, w = image.shape[:2]
-  if h < w:
-    h = math.floor(h / (w / DESIRED_WIDTH))
-    w = DESIRED_WIDTH
-  else:
-    w = math.floor(w / (h / DESIRED_HEIGHT))
-    h = DESIRED_HEIGHT
-  width, height = image.shape[:2]
-  interpolation = cv.INTER_CUBIC if DESIRED_WIDTH > width or DESIRED_HEIGHT > height else cv.INTER_AREA
-  img = cv.resize(image.astype(np.uint8), (w, h), interpolation=interpolation)
-  cv.imshow(title, img)
-  return img.shape[0] / image.shape[0]
+    h, w = image.shape[:2]
+
+    if h < w:
+        h = math.floor(h / (w / DESIRED_WIDTH))
+        w = DESIRED_WIDTH
+    else:
+        w = math.floor(w / (h / DESIRED_HEIGHT))
+        h = DESIRED_HEIGHT
+
+    height, width = image.shape[:2]
+    interpolation = cv.INTER_CUBIC if DESIRED_WIDTH > width or DESIRED_HEIGHT > height else cv.INTER_AREA
+    img = cv.resize(image.astype(np.uint8), (w, h), interpolation=interpolation)
+    cv.imshow(title, img)
+    return img.shape[0] / image.shape[0]
+
 
 def drawPred(frame, imgScale, classId, conf, left, top, right, bottom):
     fontScale = 0.3 * imgScale
@@ -178,9 +202,6 @@ def yolo_object_detection_postprocess(box_scale_w, box_scale_h, out, classIds, c
         boxes.append([left, top, width, height])
 
 def postprocess(frame, imgScale, inpWidth, inpHeight, outs):
-    frameHeight = frame.shape[0]
-    frameWidth = frame.shape[1]
-
     layerNames = net.getLayerNames()
     lastLayerId = net.getLayerId(layerNames[-1])
     lastLayer = net.getLayer(lastLayerId)
@@ -215,7 +236,7 @@ def postprocess(frame, imgScale, inpWidth, inpHeight, outs):
                 width = int(detection[5] * box_scale_w - left + 1)
                 height = int(detection[6] * box_scale_h - top + 1)
 
-                classIds.append(int(detection[1] - 1 if args.background_label_id >= 0 and args.background_label_id <= detection[1] else detection[1]))
+                classIds.append(int(detection[1] - 1 if 0 <= args.background_label_id <= detection[1] else detection[1]))
                 confidences.append(float(confidence))
                 boxes.append([left, top, width, height])
     elif lastLayer.type == 'Region':
@@ -255,6 +276,7 @@ def postprocess(frame, imgScale, inpWidth, inpHeight, outs):
                 out = out.transpose(1, 0)
             else:
                 print(UNSUPPORTED_YOLO_VERSION + " out.shape[0] != len(classes) + 4 && out.shape[1] != len(classes) + 5")
+                exit(1)
 
             yolo_object_detection_postprocess(box_scale_w, box_scale_h, out, classIds, confidences, boxes, offset=offset)
     else:
@@ -309,8 +331,9 @@ process = True
 # Frames capturing thread
 #
 framesQueue = QueueFPS()
+inputFPS = args.fps
 def framesThreadBody():
-    global framesQueue, process
+    global framesQueue, process, inputFPS, DESIRED_HEIGHT, DESIRED_WIDTH
 
     while process:
         hasFrame, frame = cap.read()
@@ -318,10 +341,21 @@ def framesThreadBody():
             break
 
         if framesQueue.counter == 0:
-            inputFPS = cap.get(cv.CAP_PROP_FPS)
             if inputFPS == 0:
-                inputFPS = 30
-                cap.set(cv.CAP_PROP_FPS, inputFPS)
+                inputFPS = cap.get(cv.CAP_PROP_FPS)
+                if inputFPS == 0:
+                    inputFPS = 30
+                    cap.set(cv.CAP_PROP_FPS, inputFPS)
+
+            if DESIRED_HEIGHT == 0:
+                DESIRED_HEIGHT = int(cap.get(cv.CAP_PROP_FRAME_HEIGHT))
+                if DESIRED_HEIGHT == 0:
+                    DESIRED_HEIGHT = 640
+
+            if DESIRED_WIDTH == 0:
+                DESIRED_WIDTH = int(cap.get(cv.CAP_PROP_FRAME_WIDTH))
+                if DESIRED_WIDTH == 0:
+                    DESIRED_WIDTH = 640
 
             tickInit = cv.getTickCount()
         else:
@@ -367,10 +401,7 @@ def processingThreadBody():
             inpWidth = args.width if args.width else frameWidth
             inpHeight = args.height if args.height else frameHeight
 
-            if frameWidth > frameHeight:
-                imgScale = frameWidth / inpWidth
-            else:
-                imgScale = frameHeight / inpHeight
+            imgScale = frameWidth / inpWidth if frameWidth > frameHeight else frameHeight / inpHeight
 
             # The model expects images of size [ inpWidth x inpHeight ]
             # Performing a high quality shrinking, instead of the provided one in blobFromImage
@@ -391,15 +422,15 @@ def processingThreadBody():
             if net.getLayer(0).outputNameToIndex('im_info') != -1:  # Faster-RCNN or R-FCN
                 net.setInput(np.array([[inpHeight, inpWidth, 1.6]], dtype=np.float32), 'im_info')
 
-            if args.asyncN:
+            if args.asyncN and args.backend == cv.dnn.DNN_BACKEND_INFERENCE_ENGINE:
                 futureOutputs.append(net.forwardAsync())
             else:
                 outs = net.forward(outNames)
-                predictionsQueue.put(outs)
+                predictionsQueue.put(copy.deepcopy(outs))
 
         while futureOutputs and futureOutputs[0].wait_for(0):
             out = futureOutputs[0].get()
-            predictionsQueue.put([out])
+            predictionsQueue.put(copy.deepcopy([out]))
 
             del futureOutputs[0]
 

@@ -25,19 +25,26 @@ static inline int readInt(const uchar* p)
 }
 
 /**
- * @param  str std::string
- * @return     std::wstring
- * @see https://stackoverflow.com/a/59617138
+ * [ConvertUtf8ToWide description]
+ * @param  str  Pointer to the character string to convert.
+ * @param  wstr Pointer to a buffer that receives the converted string.
+ * @return      The number of characters written to the buffer pointed to by wstr.
+ * @see             https://stackoverflow.com/questions/6693010/how-do-i-use-multibytetowidechar/59617138#59617138
+ *                  https://learn.microsoft.com/en-us/windows/win32/api/stringapiset/nf-stringapiset-multibytetowidechar
  */
-inline auto ConvertUtf8ToWide(const std::string& str) {
-	int count = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), str.length(), NULL, 0);
-	std::wstring wstr(count, 0);
-	MultiByteToWideChar(CP_UTF8, 0, str.c_str(), str.length(), &wstr[0], count);
-	return wstr;
+inline auto ConvertUtf8ToWide(const std::string& str, std::wstring& wstr) {
+	int size = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), str.length(), NULL, 0);
+	wstr.assign(size, 0);
+	return MultiByteToWideChar(CP_UTF8, 0, str.c_str(), str.length(), &wstr[0], size + 1);
 }
 
+/**
+ * @param in_val  std::string
+ * @param out_val _bstr_t
+ * @see https://stackoverflow.com/questions/6284524/bstr-to-stdstring-stdwstring-and-vice-versa/6284978#6284978
+ */
 inline void string_to_bstr(const std::string& in_val, _bstr_t& out_val) {
-	std::wstring ws = ConvertUtf8ToWide(in_val);
+	std::wstring ws; ConvertUtf8ToWide(in_val, ws);
 	BSTR bstr = SysAllocStringLen(ws.data(), ws.size());
 	out_val = _bstr_t(bstr);
 	SysFreeString(bstr);

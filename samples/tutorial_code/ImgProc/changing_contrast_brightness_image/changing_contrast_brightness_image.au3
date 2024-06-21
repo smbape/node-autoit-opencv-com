@@ -12,10 +12,10 @@
 #include "..\..\..\..\autoit-opencv-com\udf\opencv_udf_utils.au3"
 
 ;~ Sources:
-;~     https://docs.opencv.org/4.9.0/d3/dc1/tutorial_basic_linear_transform.html
-;~     https://github.com/opencv/opencv/blob/4.9.0/samples/cpp/tutorial_code/ImgProc/changing_contrast_brightness_image/changing_contrast_brightness_image.cpp
+;~     https://docs.opencv.org/4.10.0/d3/dc1/tutorial_basic_linear_transform.html
+;~     https://github.com/opencv/opencv/blob/4.10.0/samples/cpp/tutorial_code/ImgProc/changing_contrast_brightness_image/changing_contrast_brightness_image.cpp
 
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world490*"), _OpenCV_FindDLL("autoit_opencv_com490*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world4100*"), _OpenCV_FindDLL("autoit_opencv_com4100*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 
@@ -149,7 +149,7 @@ Func basicLinearTransform()
 	Local $beta = GUICtrlRead($SliderBeta) - 100
 	GUICtrlSetData($LabelBeta, "Beta bias (brightness) : " & $beta)
 
-	Local $res = $img.convertTo(_OpenCV_Params("alpha", $alpha, "beta", $beta))
+	Local $res = $cv.convertScaleAbs($img, _OpenCV_Params("alpha", $alpha, "beta", $beta))
 
 	_OpenCV_imshow_ControlPic($res, $FormGUI, $PicLinearTransform)
 EndFunc   ;==>basicLinearTransform

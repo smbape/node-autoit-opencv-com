@@ -1663,10 +1663,6 @@
         "iid": "812a2ec6-286c-47b4-b67e-806c6c5dbeb8",
         "clsid": "3136fd10-c5f0-4bf0-9e81-f4714b2444ef"
     },
-    "VectorOfGMat": {
-        "iid": "6d87c39a-bb3a-4633-9382-8489c0b488c7",
-        "clsid": "ee9978dd-fd51-47d6-907a-ad2a92adc92b"
-    },
     "GOpaque_double": {
         "iid": "69d19862-d64d-4c40-b15b-60c2083d3a66",
         "clsid": "060f741b-5cd3-4229-9de1-f1194772161f"
@@ -1687,17 +1683,21 @@
         "iid": "10562eb9-34c7-4910-97ff-031f4d507b63",
         "clsid": "1e4af5ef-0a8a-441d-bf28-dd9fca960882"
     },
-    "GArray_Point2i": {
-        "iid": "045f4549-2cea-41cd-829c-29924ce603d5",
-        "clsid": "849f2a28-80cb-4086-8ad3-cf0eda0b00db"
-    },
     "GArray_Rect": {
         "iid": "3b12ed47-ab1b-448a-9ebe-c91607a205af",
         "clsid": "941114a4-62a5-469f-8bd6-743b60a4c2dc"
     },
+    "GArray_Point2i": {
+        "iid": "045f4549-2cea-41cd-829c-29924ce603d5",
+        "clsid": "849f2a28-80cb-4086-8ad3-cf0eda0b00db"
+    },
     "GOpaque_Size": {
         "iid": "905a3769-9668-40e1-8858-550a9362e53f",
         "clsid": "3a27178e-7791-4301-8563-d145ce61db7f"
+    },
+    "VectorOfGMat": {
+        "iid": "6d87c39a-bb3a-4633-9382-8489c0b488c7",
+        "clsid": "ee9978dd-fd51-47d6-907a-ad2a92adc92b"
     },
     "GArray_uint64_t": {
         "iid": "32627b00-1b54-42fc-b26a-7ce08db6fdad",
@@ -1767,12 +1767,12 @@
         "iid": "fc9ac6ae-4f18-431b-a6df-27635f05587c",
         "clsid": "3099a352-6b1f-4299-b075-9707e455b391"
     },
-    "VectorOfGapi_wip_draw_Prim": {
-        "iid": "fe4a13e6-6f67-4799-aae8-dad5cc09fa10",
-        "clsid": "2fad52cd-73b0-4346-b26d-1d4b855834e5"
-    },
     "GArray_Prim": {
         "iid": "d18565ad-1df8-47bd-ae0e-e88452439fae",
         "clsid": "3e0e6512-b21e-4a26-aeb5-4635afc2c6fd"
+    },
+    "VectorOfGapi_wip_draw_Prim": {
+        "iid": "fe4a13e6-6f67-4799-aae8-dad5cc09fa10",
+        "clsid": "2fad52cd-73b0-4346-b26d-1d4b855834e5"
     }
 }

@@ -44,6 +44,7 @@ file(GLOB_RECURSE files_to_change
   ../samples/*.psm1
   ../samples/*.py
   ../scripts/build.js
+  ../scripts/manual.sh
   ../src/gen.js
 )
 
@@ -234,9 +235,11 @@ foreach( BUILD_TYPE ${CMAKE_CONFIGURATION_TYPES} )
   set_target_properties(interop_opencv PROPERTIES RUNTIME_OUTPUT_DIRECTORY_${BUILD_TYPE_UPPER} "${EXECUTABLE_OUTPUT_PATH}/${BUILD_TYPE}/dotnet")
 endforeach()
 
+set(target_name interop_opencv)
 # Always generate debug files
-if(MSVC AND NOT "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-  target_compile_options(interop_opencv PRIVATE "-debug:pdbonly")
+if(MSVC)
+  target_compile_options(${target_name} PRIVATE $<$<NOT:$<CONFIG:Debug>>:-debug:pdbonly>)
+  target_compile_options(${target_name} PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:/unsafe>)
 endif()
 
 # ===============
@@ -284,9 +287,11 @@ set_target_properties(cs_test PROPERTIES
 
 add_dependencies(cs_test cs_assembly)
 
+set(target_name cs_test)
 # Always generate debug files
-if(MSVC AND NOT "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-  target_compile_options(cs_test PRIVATE "-debug:pdbonly")
+if(MSVC)
+  target_compile_options(${target_name} PRIVATE $<$<NOT:$<CONFIG:Debug>>:-debug:pdbonly>)
+  target_compile_options(${target_name} PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:/unsafe>)
 endif()
 
 endif()

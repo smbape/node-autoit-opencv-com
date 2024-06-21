@@ -5,7 +5,7 @@ namespace cvextra {
 		const auto dims = self.size.dims();
 		std::vector<int> shape(self.size.p, self.size.p + dims);
 		const auto channels = self.channels();
-		if (dims != 2 || channels != 1) {
+		if (channels != 1) {
 			shape.push_back(channels);
 		}
 		return shape;
@@ -15,7 +15,7 @@ namespace cvextra {
 		const auto dims = self.size.dims();
 		std::vector<int> shape(self.size.p, self.size.p + dims);
 		const auto channels = self.channels();
-		if (dims != 2 || channels != 1) {
+		if (channels != 1) {
 			shape.push_back(channels);
 		}
 		return shape;

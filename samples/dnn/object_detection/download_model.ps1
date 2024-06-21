@@ -27,7 +27,7 @@ if ([string]::IsNullOrEmpty($Zoo)) {
 
 $DNN_ROOT_PATH = _OpenCV_FindFile -Path "samples/dnn" -SearchPaths @(
     "opencv\sources"
-    "opencv-4.9.0-*\opencv\sources"
+    "opencv-4.10.0-*\opencv\sources"
 )
 
 $SAMPLES_PATH = _OpenCV_FindFile -Path "samples"

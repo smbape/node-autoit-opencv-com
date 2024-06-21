@@ -1,3 +1,5 @@
+find_package(Git)
+
 execute_process(
     COMMAND "${GIT_EXECUTABLE}" apply --check -R "${PATCH_FILE}"
     WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"

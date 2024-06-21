@@ -1,5 +1,89 @@
+diff --git a/modules/dnn/src/caffe/caffe_importer.cpp b/modules/dnn/src/caffe/caffe_importer.cpp
+index 6606fc301..a2e3cb2d6 100644
+--- a/modules/dnn/src/caffe/caffe_importer.cpp
++++ b/modules/dnn/src/caffe/caffe_importer.cpp
+@@ -51,6 +51,7 @@
+ #include <google/protobuf/io/zero_copy_stream_impl.h>
+ #include <google/protobuf/reflection.h>
+ #include "caffe_io.hpp"
++#include <google/protobuf/port_def.inc>
+ #endif
+ 
+ #include <opencv2/core/utils/fp_control_utils.hpp>
+@@ -595,6 +596,7 @@ Net readNetFromCaffe(const std::vector<uchar>& bufferProto, const std::vector<uc
+                             bufferModelPtr, bufferModel.size());
+ }
+ 
++#include <google/protobuf/port_undef.inc>
+ #else  // HAVE_PROTOBUF
+ 
+ #define DNN_PROTOBUF_UNSUPPORTED() CV_Error(Error::StsError, "DNN/Caffe: Build OpenCV with Protobuf to import Caffe models")
+diff --git a/modules/gapi/include/opencv2/gapi/util/variant.hpp b/modules/gapi/include/opencv2/gapi/util/variant.hpp
+index 48b55646c..9b20a12b3 100644
+--- a/modules/gapi/include/opencv2/gapi/util/variant.hpp
++++ b/modules/gapi/include/opencv2/gapi/util/variant.hpp
+@@ -132,7 +132,7 @@ namespace util
+             static bool help(const Memory lhs, const Memory rhs) {
+                 const T& t_lhs = *reinterpret_cast<const T*>(lhs);
+                 const T& t_rhs = *reinterpret_cast<const T*>(rhs);
+-                return t_lhs == t_rhs;
++                return static_cast<bool>(t_lhs == t_rhs);
+             }
+         };
+ 
+diff --git a/modules/gapi/src/backends/fluid/gfluidcore.cpp b/modules/gapi/src/backends/fluid/gfluidcore.cpp
+index 50615b265..c19a19b46 100644
+--- a/modules/gapi/src/backends/fluid/gfluidcore.cpp
++++ b/modules/gapi/src/backends/fluid/gfluidcore.cpp
+@@ -32,6 +32,15 @@
+ #include <cassert>
+ #include <cstdlib>
+ 
++// Windows declares several inconvenient macro names.  We #undef them and then
++// restore them after
++#ifdef _MSC_VER
++#pragma push_macro("MM_MIN")
++#undef MM_MIN
++#pragma push_macro("MM_MAX")
++#undef MM_MAX
++#endif  // _MSC_VER
++
+ namespace cv {
+ namespace gapi {
+ namespace fluid {
+@@ -2582,6 +2591,12 @@ GAPI_FLUID_KERNEL(GFluidSqrt, cv::gapi::core::GSqrt, false)
+ } // namespace gapi
+ } // namespace cv
+ 
++// Restore macro that may have been #undef'd.
++#ifdef _MSC_VER
++#pragma pop_macro("MM_MIN")
++#pragma pop_macro("MM_MAX")
++#endif
++
+ cv::GKernelPackage cv::gapi::core::fluid::kernels()
+ {
+     using namespace cv::gapi::fluid;
+diff --git a/modules/highgui/src/window_w32.cpp b/modules/highgui/src/window_w32.cpp
+index a3a71a6cc..07e455337 100644
+--- a/modules/highgui/src/window_w32.cpp
++++ b/modules/highgui/src/window_w32.cpp
+@@ -654,11 +654,11 @@ double cvGetPropTopmost_W32(const char* name)
+ 
+ static double getPropTopmost_(CvWindow& window)
+ {
+-    LONG style = GetWindowLongA(window.frame, GWL_EXSTYLE); // -20
++    LONG style = GetWindowLong(window.frame, GWL_EXSTYLE); // -20
+     if (!style)
+     {
+         std::ostringstream errorMsg;
+-        errorMsg << "window(" << window.name << "): failed to retrieve extended window style using GetWindowLongA(); error code: " << GetLastError();
++        errorMsg << "window(" << window.name << "): failed to retrieve extended window style using GetWindowLong(); error code: " << GetLastError();
+         CV_Error(Error::StsError, errorMsg.str());
+     }
+ 
 diff --git a/modules/python/src2/hdr_parser.py b/modules/python/src2/hdr_parser.py
-index 710c79217..6e0062ece 100755
+index 0dc5dd148..132dbcecb 100755
 --- a/modules/python/src2/hdr_parser.py
 +++ b/modules/python/src2/hdr_parser.py
 @@ -70,6 +70,29 @@ class CppHeaderParser(object):
@@ -67,7 +151,7 @@ index 710c79217..6e0062ece 100755
              func_modlist.append("="+arg)
              decl_str = decl_str[:npos] + decl_str[npos3+1:]
          npos = decl_str.find("CV_WRAP_PHANTOM")
-@@ -645,10 +682,13 @@ class CppHeaderParser(object):
+@@ -654,10 +691,13 @@ class CppHeaderParser(object):
  
          the function will convert "A" to "cv.A" and "f" to "cv.A.f".
          """
@@ -84,7 +168,7 @@ index 710c79217..6e0062ece 100755
          qualified_name = (("." in name) or ("::" in name))
          n = ""
          for b in self.block_stack:
-@@ -740,7 +780,10 @@ class CppHeaderParser(object):
+@@ -749,7 +789,10 @@ class CppHeaderParser(object):
  
              if stmt.startswith("enum") or stmt.startswith("namespace"):
                  # NB: Drop inheritance syntax for enum
@@ -96,7 +180,7 @@ index 710c79217..6e0062ece 100755
                  stmt_list = stmt.rsplit(" ", 1)
                  if len(stmt_list) < 2:
                      stmt_list.append("<unnamed>")
-@@ -776,8 +819,18 @@ class CppHeaderParser(object):
+@@ -785,8 +828,18 @@ class CppHeaderParser(object):
                  var_modlist = []
                  if "CV_PROP_RW" in stmt:
                      var_modlist.append("/RW")

@@ -284,12 +284,12 @@ const HRESULT autoit_from(std::string& in_val, BSTR& out_val) {
 
 const HRESULT autoit_from(const std::string& in_val, BSTR*& out_val) {
 	// assuming strings are utf8 encoded
-	// https://stackoverflow.com/a/59617138
-	int count = MultiByteToWideChar(CP_UTF8, 0, in_val.c_str(), in_val.length(), NULL, 0);
-	std::wstring ws(count, 0);
-	MultiByteToWideChar(CP_UTF8, 0, in_val.c_str(), in_val.length(), &ws[0], count);
+	// https://stackoverflow.com/questions/6693010/how-do-i-use-multibytetowidechar/59617138#59617138
+	int size = MultiByteToWideChar(CP_UTF8, 0, in_val.c_str(), in_val.length(), NULL, 0);
+	std::wstring ws(size, 0);
+	MultiByteToWideChar(CP_UTF8, 0, in_val.c_str(), in_val.length(), &ws[0], size + 1);
 
-	// https://stackoverflow.com/a/6284978
+	// https://stackoverflow.com/questions/6284524/bstr-to-stdstring-stdwstring-and-vice-versa/6284978#6284978
 	*out_val = SysAllocStringLen(ws.data(), ws.size());
 	return S_OK;
 }

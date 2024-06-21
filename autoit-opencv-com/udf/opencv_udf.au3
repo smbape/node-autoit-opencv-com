@@ -40,6 +40,10 @@ Func _OpenCV_get($vVal = Default)
 	If IsObj($cv) Then Return $cv
 	$cv = _OpenCV_ObjCreate("cv")
 
+	; https://stackoverflow.com/questions/63110817/how-to-ensure-that-gpu-memory-is-actually-deallocated-after-an-opencv-t-api-func
+	; It seems that an allocation flushes the cleanup queue!
+	If IsObj($cv) Then $cv.UMat.zeros(1, 1, $CV_8UC1)
+
 	$cv.samples.addSamplesDataSearchPath(@ScriptDir)
 
 	Local $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
@@ -49,8 +53,8 @@ Func _OpenCV_get($vVal = Default)
 
 	$OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data", Default, Default, Default, _OpenCV_Tuple( _
 			"opencv\sources", _
-			"opencv-4.9.0-*\sources", _
-			"opencv-4.9.0-*\opencv\sources" _
+			"opencv-4.10.0-*\sources", _
+			"opencv-4.10.0-*\opencv\sources" _
 			))
 	If FileExists($OPENCV_SAMPLES_DATA_PATH) Then
 		$cv.samples.addSamplesDataSearchPath($OPENCV_SAMPLES_DATA_PATH)
@@ -72,8 +76,8 @@ Func _OpenCV_Unregister_And_Close($bUser = Default)
 EndFunc   ;==>_OpenCV_Unregister_And_Close
 
 Func _OpenCV_Install($s_opencv_world_dll = Default, $s_autoit_opencv_com_dll = Default, $bUser = Default, $bOpen = True, $bClose = True, $bInstall = False, $bUninstall = False)
-	If $s_opencv_world_dll == Default Then $s_opencv_world_dll = "opencv_world490.dll"
-	If $s_autoit_opencv_com_dll == Default Then $s_autoit_opencv_com_dll = "autoit_opencv_com490.dll"
+	If $s_opencv_world_dll == Default Then $s_opencv_world_dll = "opencv_world4100.dll"
+	If $s_autoit_opencv_com_dll == Default Then $s_autoit_opencv_com_dll = "autoit_opencv_com4100.dll"
 	If $bUser == Default Then $bUser = Not IsAdmin()
 
 	If $bClose And $h_opencv_world_dll <> -1 Then DllClose($h_opencv_world_dll)
@@ -82,11 +86,11 @@ Func _OpenCV_Install($s_opencv_world_dll = Default, $s_autoit_opencv_com_dll = D
 		If $h_opencv_world_dll == -1 Then Return SetError(@error, 0, False)
 	EndIf
 
-	; ffmpeg is looked on PATH when loaded in debug mode, not relatively to opencv_world490d.dll
-	; this is a work around to load ffmpeg relatively to opencv_world490d.dll
+	; ffmpeg is looked on PATH when loaded in debug mode, not relatively to opencv_world4100d.dll
+	; this is a work around to load ffmpeg relatively to opencv_world4100d.dll
 	If $bClose And $h_opencv_ffmpeg_dll <> -1 Then DllClose($h_opencv_ffmpeg_dll)
 	If $bOpen And EnvGet("OPENCV_BUILD_TYPE") == "Debug" Then
-		$h_opencv_ffmpeg_dll = _OpenCV_LoadDLL(StringReplace($s_opencv_world_dll, "opencv_world490d.dll", "opencv_videoio_ffmpeg490_64.dll"))
+		$h_opencv_ffmpeg_dll = _OpenCV_LoadDLL(StringReplace($s_opencv_world_dll, "opencv_world4100d.dll", "opencv_videoio_ffmpeg4100_64.dll"))
 		If $h_opencv_ffmpeg_dll == -1 Then Return SetError(@error, 0, False)
 	EndIf
 
@@ -128,12 +132,7 @@ Func _OpenCV_Open($s_opencv_world_dll = Default, $s_autoit_opencv_com_dll = Defa
 EndFunc   ;==>_OpenCV_Open
 
 Func _OpenCV_Close()
-	Local Const $cv = _OpenCV_get(0)
-
-	; https://stackoverflow.com/questions/63110817/how-to-ensure-that-gpu-memory-is-actually-deallocated-after-an-opencv-t-api-func
-	; It seems that an allocation flushes the cleanup queue!
-	If IsObj($cv) Then $cv.UMat.zeros(1, 1, $CV_8UC1)
-
+	_OpenCV_get(0)
 	Return _OpenCV_Install(Default, Default, Default, False)
 EndFunc   ;==>_OpenCV_Close
 

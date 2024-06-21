@@ -102,7 +102,7 @@ module.exports = ({ self, self_get, shared_ptr }) => [
     ], "", ""],
 
     ["cv.UMat.assignTo", "void", [], [
-        ["UMat", "m", "", ["/Ref", "/C"]],
+        ["UMat", "m", "", ["/Ref"]],
         ["int", "type", "-1", []],
     ], "", ""],
 
@@ -130,13 +130,13 @@ module.exports = ({ self, self_get, shared_ptr }) => [
     ], "", ""],
 
     ["cv.UMat.convertTo", "void", [], [
-        ["OutputArray", "m", "", []],
+        ["OutputArray", "dst", "", []],
         ["int", "rtype", "", []],
         ["double", "alpha", "1.0", []],
         ["double", "beta", "0.0", []],
     ], "", ""],
     ["cv.UMat.convertTo", "void", [], [
-        ["OutputArray", "m", "", []],
+        ["OutputArray", "dst", "", []],
         ["int", "rtype", "-1", []],
         ["double", "alpha", "1.0", []],
         ["double", "beta", "0.0", []],
@@ -147,11 +147,11 @@ module.exports = ({ self, self_get, shared_ptr }) => [
     ], "", ""],
 
     ["cv.UMat.copyTo", "void", [], [
-        ["OutputArray", "m", "", []],
+        ["OutputArray", "dst", "", []],
     ], "", ""],
 
     ["cv.UMat.copyTo", "void", [], [
-        ["OutputArray", "m", "", []],
+        ["OutputArray", "dst", "", []],
         ["InputArray", "mask", "", []],
     ], "", ""],
 

@@ -50,6 +50,12 @@ module.exports = ({ self }) => [
         ["DMatch", "default_value", "", []],
     ], "", ""],
 
+    ["cv.gemm", "void", ["=dot", "/Expr=src1, src2, 1.0, cv::noArray(), 0.0, dst"], [
+        ["InputArray", "src1", "", []],
+        ["InputArray", "src2", "", []],
+        ["OutputArray", "dst", "", []],
+    ], "", ""],
+
     ["cv.FileNode.asVariant", "_variant_t", ["/Call=::autoit::fileNodeAsVariant", `/Expr=${ self }`], [], "", ""],
 
     ["cv.core.", "", ["/Properties"], [

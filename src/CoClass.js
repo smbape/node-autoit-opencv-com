@@ -5,6 +5,7 @@ const {removeNamespaces} = require("./alias");
 
 const {
     CLASS_PTR,
+    TEMPLATED_TYPES,
 } = require("./constants");
 
 const { getAlias } = require("./alias");
@@ -95,9 +96,8 @@ class CoClass {
             "tuple",
             "variant",
             "vector",
-            "GArray",
-            "GOpaque",
-            shared_ptr
+            ...new Set(["shared_ptr", shared_ptr]),
+            ...TEMPLATED_TYPES,
         ];
 
         const templates = new RegExp(`\\b(?:${ [
@@ -107,11 +107,7 @@ class CoClass {
             "std::tuple",
             "std::variant",
             "std::vector",
-            "cv::GArray",
-            "cv::GOpaque",
-            "cv::util::variant",
-            "util::variant",
-            options.shared_ptr
+            ...new Set(["std::shared_ptr", options.shared_ptr]),
         ].join("|") })<`, "g");
 
         type = type

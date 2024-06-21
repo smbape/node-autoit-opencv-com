@@ -7,19 +7,26 @@ inline auto to_variant_t(const T& in_val) {
 }
 
 /**
- * @param  str std::string
- * @return     std::wstring
- * @see https://stackoverflow.com/a/59617138
+ * [ConvertUtf8ToWide description]
+ * @param  str  Pointer to the character string to convert.
+ * @param  wstr Pointer to a buffer that receives the converted string.
+ * @return      The number of characters written to the buffer pointed to by wstr.
+ * @see             https://stackoverflow.com/questions/6693010/how-do-i-use-multibytetowidechar/59617138#59617138
+ *                  https://learn.microsoft.com/en-us/windows/win32/api/stringapiset/nf-stringapiset-multibytetowidechar
  */
-inline auto ConvertUtf8ToWide(const std::string& str) {
-	int count = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), str.length(), NULL, 0);
-	std::wstring wstr(count, 0);
-	MultiByteToWideChar(CP_UTF8, 0, str.c_str(), str.length(), &wstr[0], count);
-	return wstr;
+inline auto ConvertUtf8ToWide(const std::string& str, std::wstring& wstr) {
+	int size = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), str.length(), NULL, 0);
+	wstr.assign(size, 0);
+	return MultiByteToWideChar(CP_UTF8, 0, str.c_str(), str.length(), &wstr[0], size + 1);
 }
 
+/**
+ * @param in_val  std::string
+ * @param out_val _bstr_t
+ * @see https://stackoverflow.com/questions/6284524/bstr-to-stdstring-stdwstring-and-vice-versa/6284978#6284978
+ */
 inline void string_to_bstr(const std::string& in_val, _bstr_t& out_val) {
-	std::wstring ws = ConvertUtf8ToWide(in_val);
+	std::wstring ws; ConvertUtf8ToWide(in_val, ws);
 	BSTR bstr = SysAllocStringLen(ws.data(), ws.size());
 	out_val = _bstr_t(bstr);
 	SysFreeString(bstr);
@@ -131,8 +138,19 @@ void DisplayDeviceInformation(IEnumMoniker* pEnum)
 using namespace std;
 using namespace cv;
 
-static _variant_t vtDefault;
-static _variant_t vtEmpty;
+static _variant_t _vtDefault;
+static _variant_t& vtDefault() {
+	VariantClear(&_vtDefault);
+	V_VT(&_vtDefault) = VT_ERROR;
+	V_ERROR(&_vtDefault) = DISP_E_PARAMNOTFOUND;
+	return _vtDefault;
+}
+
+static _variant_t _vtEmpty;
+static _variant_t& vtEmpty() {
+	VariantClear(&_vtEmpty);
+	return _vtEmpty;
+}
 
 static void assertMat(cvLib::ICv_Mat_ObjectPtr mat, int channels) {
 	assert(!mat->empty());
@@ -181,7 +199,9 @@ static void assertSplit(_variant_t splitted) {
 
 static cvLib::ICv_Mat_ObjectPtr testRead(cvLib::ICv_ObjectPtr cv, BSTR filename) {
 	// test retval
-	auto mat = cv->imread(to_variant_t(filename));
+	auto _mat = cv->imread(to_variant_t(filename), &vtDefault(), &vtDefault());
+	assert(V_VT(&_mat) == VT_DISPATCH);
+	auto mat = reinterpret_cast<cvLib::ICv_Mat_Object*>(V_DISPATCH(&_mat));
 
 	// test extended val
 	CComSafeArray<VARIANT> extended;
@@ -212,7 +232,7 @@ static void testSpit(cvLib::ICv_ObjectPtr cv, cvLib::ICv_Mat_ObjectPtr mat) {
 	_variant_t splitted;
 	CComSafeArray<VARIANT> extended;
 
-	_variant_t vtMissingVar = vtEmpty;
+	_variant_t vtMissingVar = vtEmpty();
 	splitted = cv->split(to_variant_t(mat.GetInterfacePtr()), &vtMissingVar);
 
 	// it should modify out parameter if it is not an array nor & vector
@@ -227,7 +247,7 @@ static void testSpit(cvLib::ICv_ObjectPtr cv, cvLib::ICv_Mat_ObjectPtr mat) {
 
 	assertSplit(splitted);
 
-	_variant_t vtDefaultVar = vtDefault;
+	_variant_t vtDefaultVar = vtDefault();
 	splitted = cv->split(to_variant_t(mat.GetInterfacePtr()), &vtDefaultVar);
 
 	// it should modify out parameter if it is not an array nor & vector
@@ -293,8 +313,7 @@ static void testAdd(cvLib::ICv_ObjectPtr cv, cvLib::ICv_Mat_ObjectPtr mat) {
 
 	auto scalarMat = MatPtr->create(to_variant_t(1), to_variant_t(1), to_variant_t(CV_64F), &sclarArray);
 
-	cv->add(to_variant_t(mat->clone().GetInterfacePtr()), to_variant_t(scalarMat.GetInterfacePtr()), &vtDefault, &vtDefault, &vtDefault);
-	VariantClear(&vtDefault);
+	cv->add(to_variant_t(mat->clone().GetInterfacePtr()), to_variant_t(scalarMat.GetInterfacePtr()), &vtDefault(), &vtDefault(), &vtDefault());
 
 	VariantClear(&sclarArray);
 }
@@ -307,7 +326,9 @@ static void testResize(cvLib::ICv_ObjectPtr cv) {
 	_bstr_t image_path;
 	string_to_bstr(samples::findFile("aloeGT.png"), image_path);
 	// string_to_bstr(samples::findFile("..\\tutorial_code\\yolo\\scooter-5180947_1920.jpg"), image_path);
-	auto mat = cv->imread(to_variant_t(image_path));
+	auto _mat = cv->imread(to_variant_t(image_path), &vtDefault(), &vtDefault());
+	assert(V_VT(&_mat) == VT_DISPATCH);
+	auto mat = reinterpret_cast<cvLib::ICv_Mat_Object*>(V_DISPATCH(&_mat));
 
 	float newWidth = 600;
 	float newHeight = 399.6875;
@@ -319,8 +340,7 @@ static void testResize(cvLib::ICv_ObjectPtr cv) {
 	VARIANT variant = { VT_ARRAY | VT_VARIANT };
 	V_ARRAY(&variant) = dsize.Detach();
 
-	cv->resize(to_variant_t(mat->clone().GetInterfacePtr()), &variant, &vtDefault, &vtDefault, &vtDefault, &vtDefault);
-	VariantClear(&vtDefault);
+	cv->resize(to_variant_t(mat->clone().GetInterfacePtr()), &variant, &vtDefault(), &vtDefault(), &vtDefault(), &vtDefault());
 
 	dsize.Attach(V_ARRAY(&variant));
 	V_ARRAY(&variant) = NULL;
@@ -371,17 +391,20 @@ static void testAKAZE(cvLib::ICv_ObjectPtr cv) {
 	_bstr_t image_path;
 
 	string_to_bstr(samples::findFile("graf1.png"), image_path);
-	auto img1 = cv->imread(to_variant_t(image_path), to_variant_t(IMREAD_GRAYSCALE));
+	auto _img1 = cv->imread(to_variant_t(image_path), to_variant_t(IMREAD_GRAYSCALE), &vtDefault());
+	assert(V_VT(&_img1) == VT_DISPATCH);
+	auto img1 = reinterpret_cast<cvLib::ICv_Mat_Object*>(V_DISPATCH(&_img1));
 
 	string_to_bstr(samples::findFile("graf3.png"), image_path);
-	auto img2 = cv->imread(to_variant_t(image_path), to_variant_t(IMREAD_GRAYSCALE));
+	auto _img2 = cv->imread(to_variant_t(image_path), to_variant_t(IMREAD_GRAYSCALE), &vtDefault());
+	assert(V_VT(&_img2) == VT_DISPATCH);
+	auto img2 = reinterpret_cast<cvLib::ICv_Mat_Object*>(V_DISPATCH(&_img2));
 
 	assert(V_VT(&variant) == VT_DISPATCH);
 	cvLib::ICv_AKAZE_ObjectPtr akaze;
 	akaze.Attach(static_cast<cvLib::ICv_AKAZE_Object*>(V_DISPATCH(to_variant_t(variant.Detach()))));
 
-	akaze->detectAndCompute(to_variant_t(img1.GetInterfacePtr()), to_variant_t(MatPtr->create().GetInterfacePtr()), &vtDefault, &vtDefault, &vtDefault);
-	VariantClear(&vtDefault);
+	akaze->detectAndCompute(to_variant_t(img1), to_variant_t(MatPtr->create().GetInterfacePtr()), &vtDefault(), &vtDefault(), &vtDefault());
 
 	CComSafeArray<VARIANT> extended;
 	extended.Attach(V_ARRAY(to_variant_t(cv->extended)));
@@ -444,21 +467,41 @@ static void testEnumerateDevices() {
 static void testContours(cvLib::ICv_ObjectPtr cv) {
 	_bstr_t image_path;
 	string_to_bstr(samples::findFile("pic1.png"), image_path);
-	auto img = cv->imread(to_variant_t(image_path));
+	auto _img = cv->imread(to_variant_t(image_path), &vtDefault(), &vtDefault());
+	assert(V_VT(&_img) == VT_DISPATCH);
+	auto img = reinterpret_cast<cvLib::ICv_Mat_Object*>(V_DISPATCH(&_img));
 
-	auto gray = cv->cvtColor(to_variant_t(img.GetInterfacePtr()), to_variant_t(COLOR_BGR2GRAY), &vtDefault, &vtDefault);
-	VariantClear(&vtDefault);
+	auto img_grey = cv->cvtColor(to_variant_t(img), to_variant_t(COLOR_BGR2GRAY), &vtDefault(), &vtDefault());
+	cv->threshold(&img_grey, to_variant_t(100), to_variant_t(255), to_variant_t(THRESH_BINARY), &vtDefault());
 
-	auto contours = cv->findContours(&gray, to_variant_t(RETR_EXTERNAL), to_variant_t(CHAIN_APPROX_SIMPLE), &vtDefault, &vtDefault, &vtDefault);
-	VariantClear(&vtDefault);
+	CComSafeArray<VARIANT> extended;
+	extended.Attach(V_ARRAY(to_variant_t(cv->extended)));
+	_variant_t thresh = extended.GetAt(1);
+	extended.Detach();
+	auto contours = cv->findContours(&thresh, to_variant_t(RETR_TREE), to_variant_t(CHAIN_APPROX_SIMPLE), &vtDefault(), &vtDefault(), &vtDefault());
 
-	// cv->contourArea(&contours->at(to_variant_t(0)));
+	CComSafeArray<VARIANT> color(3UL);
+	color[0] = _variant_t(0);
+	color[1] = _variant_t(0);
+	color[2] = _variant_t(255);
+
+	VARIANT color_variant = { VT_ARRAY | VT_VARIANT };
+	V_ARRAY(&color_variant) = color.Detach();
+
+	cv->drawContours(to_variant_t(img), &contours, to_variant_t(-1), &color_variant, to_variant_t(2), &vtDefault(), &vtDefault(), &vtDefault(), &vtDefault());
+
+	color.Attach(V_ARRAY(&color_variant));
+	V_ARRAY(&color_variant) = NULL;
+
+	cv->imshow(to_variant_t("testContours"), to_variant_t(img));
 }
 
 static void testConvertToShow(cvLib::ICv_ObjectPtr cv) {
 	_bstr_t image_path;
 	string_to_bstr(samples::findFile("pic1.png"), image_path);
-	auto img = cv->imread(to_variant_t(image_path));
+	auto _img = cv->imread(to_variant_t(image_path), &vtDefault(), &vtDefault());
+	assert(V_VT(&_img) == VT_DISPATCH);
+	auto img = reinterpret_cast<cvLib::ICv_Mat_Object*>(V_DISPATCH(&_img));
 
 	cvLib::ICv_Mat_ObjectPtr MatPtr;
 	auto hr = MatPtr.CreateInstance(__uuidof(cvLib::Cv_Mat_Object));
@@ -471,12 +514,11 @@ static void testConvertToShow(cvLib::ICv_ObjectPtr cv) {
 	cout << "height: " << dst->height << endl;
 	cout << "channels: " << dst->channels() << endl;
 
-	auto ret = img->convertToShow(to_variant_t(dst.GetInterfacePtr()), &vtDefault);
-	VariantClear(&vtDefault);
+	auto ret = img->convertToShow(to_variant_t(dst.GetInterfacePtr()), &vtDefault());
 
 	assert(img->rows == dst->rows);
 	assert(img->cols == dst->cols);
-	cv->imshow(to_variant_t("img"), to_variant_t(img.GetInterfacePtr()));
+	cv->imshow(to_variant_t("img"), to_variant_t(img));
 	cv->imshow(to_variant_t("dst"), to_variant_t(dst.GetInterfacePtr()));
 	cv->imshow(to_variant_t("ret"), to_variant_t(ret.GetInterfacePtr()));
 }
@@ -501,8 +543,7 @@ static void testKalman(cvLib::ICv_ObjectPtr cv) {
 
 	_variant_t scalar;
 
-	cv->setIdentity(to_variant_t(KF->measurementMatrix.GetInterfacePtr()), &vtDefault);
-	VariantClear(&vtDefault);
+	cv->setIdentity(to_variant_t(KF->measurementMatrix.GetInterfacePtr()), &vtDefault());
 
 	scalar = _OpenCV_ScalarAll(1e-5);
 	cv->setIdentity(to_variant_t(KF->processNoiseCov.GetInterfacePtr()), &scalar);
@@ -524,22 +565,25 @@ static void testSearchTemplate(cvLib::ICv_ObjectPtr cv) {
 	_bstr_t image_path;
 
 	string_to_bstr(samples::findFile("lena_tmpl.jpg"), image_path);
-	auto img = cv->imread(to_variant_t(image_path), to_variant_t(IMREAD_COLOR));
+	auto _img = cv->imread(to_variant_t(image_path), &vtDefault(), &vtDefault());
+	assert(V_VT(&_img) == VT_DISPATCH);
+	auto img = reinterpret_cast<cvLib::ICv_Mat_Object*>(V_DISPATCH(&_img));
 
 	string_to_bstr(samples::findFile("tmpl.png"), image_path);
-	auto templ = cv->imread(to_variant_t(image_path), to_variant_t(IMREAD_COLOR));
+	auto _templ = cv->imread(to_variant_t(image_path), &vtDefault(), &vtDefault());
+	assert(V_VT(&_templ) == VT_DISPATCH);
+	auto templ = reinterpret_cast<cvLib::ICv_Mat_Object*>(V_DISPATCH(&_templ));
 
 	string_to_bstr(samples::findFile("mask.png"), image_path);
-	auto mask = cv->imread(to_variant_t(image_path), to_variant_t(IMREAD_COLOR));
+	auto _mask = cv->imread(to_variant_t(image_path), &vtDefault(), &vtDefault());
+	assert(V_VT(&_mask) == VT_DISPATCH);
+	auto mask = reinterpret_cast<cvLib::ICv_Mat_Object*>(V_DISPATCH(&_mask));
 	// auto mask = MatPtr->create();
 
 	_variant_t channels = _OpenCV_Tuple(0, 1, 2);
 	_variant_t ranges = _OpenCV_Tuple(-200, 200, -200, 200, -200, 200);
 
-	auto _result = cv->searchTemplate(to_variant_t(img.GetInterfacePtr()), to_variant_t(templ.GetInterfacePtr()), &vtDefault, to_variant_t(mask.GetInterfacePtr()), &channels, &ranges, &vtDefault);
-	VariantClear(&vtDefault);
-	V_VT(&vtDefault) = VT_ERROR;
-	V_ERROR(&vtDefault) = DISP_E_PARAMNOTFOUND;
+	auto _result = cv->searchTemplate(to_variant_t(img), to_variant_t(templ), &vtDefault(), to_variant_t(mask), &channels, &ranges, &vtDefault());
 
 	assert(V_VT(&_result) == VT_DISPATCH);
 	auto result = static_cast<cvLib::ICv_Mat_Object*>(V_DISPATCH(&_result));
@@ -549,11 +593,6 @@ static void testSearchTemplate(cvLib::ICv_ObjectPtr cv) {
 
 static int perform() {
 	testEnumerateDevices();
-
-	V_VT(&vtDefault) = VT_ERROR;
-	V_ERROR(&vtDefault) = DISP_E_PARAMNOTFOUND;
-
-	VariantInit(&vtEmpty);
 
 	cvLib::ICv_ObjectPtr cv;
 	HRESULT hr = cv.CreateInstance(__uuidof(cvLib::Cv_Object));
@@ -654,8 +693,8 @@ static int perform() {
 			to_variant_t(2),
 			&color,
 			to_variant_t(3),
-			&vtDefault,
-			&vtDefault
+			&vtDefault(),
+			&vtDefault()
 		);
 		cv->imshow(to_variant_t(L"capture camera"), &vflipped);
 	}
@@ -710,7 +749,7 @@ public:
 	typedef BOOL(*DllDeactivateActCtx_t)();
 
 	ActCtxInitializer() {
-		m_lib = LoadLibrary("bin\\" BUILD_TYPE "\\autoit_opencv_com490" DEBUG_POSTFIX ".dll");
+		m_lib = LoadLibrary("bin\\" BUILD_TYPE "\\autoit_opencv_com4100" DEBUG_POSTFIX ".dll");
 		CV_Assert(m_lib != 0);
 
 		m_DllActivateManifest = (DllActivateManifest_t)GetProcAddress(m_lib, "DllActivateManifest");

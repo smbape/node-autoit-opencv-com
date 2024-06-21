@@ -112,6 +112,9 @@ exports.CPP_TYPES = new Map([
     ["gapi_wip_IStreamSource_Ptr", "cv::Ptr<cv::gapi::wip::IStreamSource>"],
 
     ["GMetaArg", "cv::GMetaArg"],
+    ["GArray", "cv::GArray"],
+    ["GOpaque", "cv::GOpaque"],
+    ["Prim", "cv::gapi::wip::draw::Prim"],
 ]);
 
 exports.ALIASES = new Map([
@@ -125,6 +128,16 @@ exports.ALIASES = new Map([
     ["Prims", "vector_Prim"],
     ["Pose3DPtr", "Ptr_Pose3D"],
     ["PoseCluster3DPtr", "Ptr_PoseCluster3D"],
+
+    // wrong namespace
+    ["cv::cuda::cuda::StereoBeliefPropagation", "cv::cuda::StereoBeliefPropagation"],
+
+    // contrib not speficiying namespace
+    ["cv::bgsegm::BackgroundSubtractor", "cv::BackgroundSubtractor"],
+    ["cv::xfeatures2d::Feature2D", "cv::Feature2D"],
+    ["cv::optflow::DenseOpticalFlow", "cv::DenseOpticalFlow"],
+    ["cv::optflow::SparseOpticalFlow", "cv::SparseOpticalFlow"],
+    ["cv::xphoto::Tonemap", "cv::Tonemap"],
 ]);
 
 exports.CLASS_PTR = new Set([
@@ -159,6 +172,11 @@ if (semver.gt(global.OpenCV_VERSION.slice("opencv-".length), "4.5.0")) {
         ["cv.GOpaqueDesc", ["/Simple"]],
     ]);
 }
+
+exports.TEMPLATED_TYPES = new Set([
+    "GArray",
+    "GOpaque",
+]);
 
 exports.ARRAY_CLASSES = new Set([
     // Array types

@@ -81,7 +81,7 @@ module.exports = ({ self, self_get, shared_ptr }) => {
             ["std::vector<int>", "sizes", "", ["/Ref", "/C"]],
             ["int", "type", "", []],
             ["void*", "data", "", []],
-            ["std::vector<size_t>", "steps", "std::vector<size_t>()", ["/Ref", "/C", "/Expr=static_cast<size_t*>(steps.empty() ? 0 : steps.data())"]]
+            ["std::vector<size_t>", "steps", "std::vector<size_t>()", ["/Ref", "/C", "/Expr=steps.empty() ? static_cast<size_t*>(nullptr) : steps.data()"]]
         ], "", ""],
 
         ["cv.Mat.Mat", "", [], [
@@ -122,7 +122,7 @@ module.exports = ({ self, self_get, shared_ptr }) => {
         ], "", ""],
 
         ["cv.Mat.assignTo", "void", [], [
-            ["Mat", "m", "", ["/Ref", "/C"]],
+            ["Mat", "m", "", ["/Ref"]],
             ["int", "type", "-1", []],
         ], "", ""],
 
@@ -150,14 +150,8 @@ module.exports = ({ self, self_get, shared_ptr }) => {
         ], "", ""],
 
         ["cv.Mat.convertTo", "void", [], [
-            ["OutputArray", "m", "", []],
+            ["OutputArray", "dst", "", []],
             ["int", "rtype", "", []],
-            ["double", "alpha", "1.0", []],
-            ["double", "beta", "0.0", []],
-        ], "", ""],
-        ["cv.Mat.convertTo", "void", [], [
-            ["OutputArray", "m", "", []],
-            ["int", "rtype", "-1", []],
             ["double", "alpha", "1.0", []],
             ["double", "beta", "0.0", []],
         ], "", ""],
@@ -167,11 +161,11 @@ module.exports = ({ self, self_get, shared_ptr }) => {
         ], "", ""],
 
         ["cv.Mat.copyTo", "void", [], [
-            ["OutputArray", "m", "", []],
+            ["OutputArray", "dst", "", []],
         ], "", ""],
 
         ["cv.Mat.copyTo", "void", [], [
-            ["OutputArray", "m", "", []],
+            ["OutputArray", "dst", "", []],
             ["InputArray", "mask", "", []],
         ], "", ""],
 
@@ -198,7 +192,7 @@ module.exports = ({ self, self_get, shared_ptr }) => {
             ["UMatUsageFlags", "usageFlags", "USAGE_DEFAULT", []],
         ], "", ""],
 
-        ["cv.Mat.inv", "Mat", [""], [
+        ["cv.Mat.inv", "Mat", ["/WrapAs=static_cast<cv::Mat>"], [
             ["int", "method", "DECOMP_LU", []],
         ], "", ""],
 
@@ -210,7 +204,7 @@ module.exports = ({ self, self_get, shared_ptr }) => {
             ["Point", "ofs", "", ["/O", "/Ref"]],
         ], "", ""],
 
-        ["cv.Mat.mul", "Mat", [], [
+        ["cv.Mat.mul", "Mat", ["/WrapAs=static_cast<cv::Mat>"], [
             ["InputArray", "m", "", []],
             ["double", "scale", "1", []],
         ], "", ""],
@@ -290,7 +284,8 @@ module.exports = ({ self, self_get, shared_ptr }) => {
             ["int", "i", "0", []]
         ], "", ""],
 
-        ["cv.Mat.t", "Mat", [], [], "", ""],
+        ["cv.Mat.t", "Mat", ["/WrapAs=static_cast<cv::Mat>"], [], "", ""],
+        ["cv.Mat.t", "Mat", ["/WrapAs=static_cast<cv::Mat>", "=transpose"], [], "", ""],
 
         ["cv.Mat.total", "size_t", [], [], "", ""],
         ["cv.Mat.total", "size_t", [], [
@@ -308,75 +303,75 @@ module.exports = ({ self, self_get, shared_ptr }) => {
             ["Mat", "d", "", ["/Ref", "/C"]],
         ], "", ""],
 
-        ["cv.Mat.eye", "Mat", ["/S"], [
+        ["cv.Mat.eye", "Mat", ["/S", "/WrapAs=static_cast<cv::Mat>"], [
             ["int", "rows", "", []],
             ["int", "cols", "", []],
             ["int", "type", "", []],
         ], "", ""],
 
-        ["cv.Mat.eye", "Mat", ["/S"], [
+        ["cv.Mat.eye", "Mat", ["/S", "/WrapAs=static_cast<cv::Mat>"], [
             ["int", "rows", "", ["/Expr=rows, rows"]],
             ["int", "type", "", []],
         ], "", ""],
 
-        ["cv.Mat.eye", "Mat", ["/S"], [
+        ["cv.Mat.eye", "Mat", ["/S", "/WrapAs=static_cast<cv::Mat>"], [
             ["int", "cols", "", ["/Expr=cols, cols"]],
             ["int", "type", "", []],
         ], "", ""],
 
-        ["cv.Mat.eye", "Mat", ["/S"], [
+        ["cv.Mat.eye", "Mat", ["/S", "/WrapAs=static_cast<cv::Mat>"], [
             ["Size", "size", "", []],
             ["int", "type", "", []],
         ], "", ""],
 
-        ["cv.Mat.ones", "Mat", ["/S"], [
+        ["cv.Mat.ones", "Mat", ["/S", "/WrapAs=static_cast<cv::Mat>"], [
             ["int", "rows", "", []],
             ["int", "cols", "", []],
             ["int", "type", "", []],
         ], "", ""],
 
-        ["cv.Mat.ones", "Mat", ["/S"], [
+        ["cv.Mat.ones", "Mat", ["/S", "/WrapAs=static_cast<cv::Mat>"], [
             ["int", "cols", "", ["/Expr=1, cols"]],
             ["int", "type", "", []],
         ], "", ""],
 
-        ["cv.Mat.ones", "Mat", ["/S"], [
+        ["cv.Mat.ones", "Mat", ["/S", "/WrapAs=static_cast<cv::Mat>"], [
             ["int", "rows", "", ["/Expr=rows, 1"]],
             ["int", "type", "", []],
         ], "", ""],
 
-        ["cv.Mat.ones", "Mat", ["/S"], [
+        ["cv.Mat.ones", "Mat", ["/S", "/WrapAs=static_cast<cv::Mat>"], [
             ["Size", "size", "", []],
             ["int", "type", "", []],
         ], "", ""],
 
-        ["cv.Mat.ones", "Mat", ["/S"], [
+        ["cv.Mat.ones", "Mat", ["/S", "/WrapAs=static_cast<cv::Mat>"], [
             ["std::vector<int>", "sizes", "", ["/Expr=sizes.size(), sizes.data()"]],
             ["int", "type", "", []],
         ], "", ""],
 
-        ["cv.Mat.zeros", "Mat", ["/S"], [
+        ["cv.Mat.zeros", "Mat", ["/S", "/WrapAs=static_cast<cv::Mat>"], [
             ["int", "rows", "", []],
             ["int", "cols", "", []],
             ["int", "type", "", []],
         ], "", ""],
 
-        ["cv.Mat.zeros", "Mat", ["/S"], [
+        ["cv.Mat.zeros", "Mat", ["/S", "/WrapAs=static_cast<cv::Mat>"], [
             ["int", "cols", "", ["/Expr=1, cols"]],
             ["int", "type", "", []],
         ], "", ""],
 
-        ["cv.Mat.zeros", "Mat", ["/S"], [
+        ["cv.Mat.zeros", "Mat", ["/S", "/WrapAs=static_cast<cv::Mat>"], [
             ["int", "rows", "", ["/Expr=rows, 1"]],
             ["int", "type", "", []],
         ], "", ""],
 
-        ["cv.Mat.zeros", "Mat", ["/S"], [
+        ["cv.Mat.zeros", "Mat", ["/S", "/WrapAs=static_cast<cv::Mat>"], [
             ["Size", "size", "", []],
             ["int", "type", "", []],
         ], "", ""],
 
-        ["cv.Mat.zeros", "Mat", ["/S"], [
+        ["cv.Mat.zeros", "Mat", ["/S", "/WrapAs=static_cast<cv::Mat>"], [
             ["std::vector<int>", "sizes", "", ["/Expr=sizes.size(), sizes.data()"]],
             ["int", "type", "", []],
         ], "", ""],
