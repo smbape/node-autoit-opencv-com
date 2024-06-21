@@ -45,7 +45,7 @@ In fact, the dll being a [Component Object Model (COM)](https://docs.microsoft.c
 ## Prerequisites
 
   - Download and extract [opencv-4.10.0-windows.exe](https://github.com/opencv/opencv/releases/) into a folder
-  - Download and extract [autoit-opencv-4.10.0-com-v2.6.0.7z](https://github.com/smbape/node-autoit-opencv-com/releases/download/v2.6.0/autoit-opencv-4.10.0-com-v2.6.0.7z) into a folder
+  - Download and extract [autoit-opencv-4.10.0-com-v2.6.1.7z](https://github.com/smbape/node-autoit-opencv-com/releases/download/v2.6.1/autoit-opencv-4.10.0-com-v2.6.1.7z) into a folder
 
 ## Usage
 
@@ -247,11 +247,11 @@ Then, in [Git Bash](https://gitforwindows.org/), execute the following commands
 # go to the folder of your choice
 # cd ...
 
-# download autoit-opencv-4.10.0-com-v2.6.0.7z
-curl -L 'https://github.com/smbape/node-autoit-opencv-com/releases/download/v2.6.0/autoit-opencv-4.10.0-com-v2.6.0.7z' -o autoit-opencv-4.10.0-com-v2.6.0.7z
+# download autoit-opencv-4.10.0-com-v2.6.1.7z
+curl -L 'https://github.com/smbape/node-autoit-opencv-com/releases/download/v2.6.1/autoit-opencv-4.10.0-com-v2.6.1.7z' -o autoit-opencv-4.10.0-com-v2.6.1.7z
 
-# extract the content of autoit-opencv-4.10.0-com-v2.6.0.7z into a folder named autoit-opencv-com
-7z x autoit-opencv-4.10.0-com-v2.6.0.7z -aoa -oautoit-opencv-com
+# extract the content of autoit-opencv-4.10.0-com-v2.6.1.7z into a folder named autoit-opencv-com
+7z x autoit-opencv-4.10.0-com-v2.6.1.7z -aoa -oautoit-opencv-com
 
 # download opencv-4.10.0-windows.exe
 curl -L 'https://github.com/opencv/opencv/releases/download/4.10.0/opencv-4.10.0-windows.exe' -o opencv-4.10.0-windows.exe
@@ -259,13 +259,13 @@ curl -L 'https://github.com/opencv/opencv/releases/download/4.10.0/opencv-4.10.0
 # extract the content of opencv-4.10.0-windows.exe into a folder named opencv-4.10.0-windows
 ./opencv-4.10.0-windows.exe -oopencv-4.10.0-windows -y
 
-# download autoit-opencv-4.10.0-com-v2.6.0-src.zip
-curl -L 'https://github.com/smbape/node-autoit-opencv-com/archive/refs/tags/v2.6.0.zip' -o autoit-opencv-4.10.0-com-v2.6.0-src.zip
+# download autoit-opencv-4.10.0-com-v2.6.1-src.zip
+curl -L 'https://github.com/smbape/node-autoit-opencv-com/archive/refs/tags/v2.6.1.zip' -o autoit-opencv-4.10.0-com-v2.6.1-src.zip
 
-# extract the autoit-addon and samples folders of autoit-opencv-4.10.0-com-v2.6.0-src.zip
-7z x autoit-opencv-4.10.0-com-v2.6.0-src.zip -aoa 'node-autoit-opencv-com-2.6.0\autoit-addon\*' 'node-autoit-opencv-com-2.6.0\samples\*'
-cp -rf node-autoit-opencv-com-2.6.0/* ./
-rm -rf node-autoit-opencv-com-2.6.0
+# extract the autoit-addon and samples folders of autoit-opencv-4.10.0-com-v2.6.1-src.zip
+7z x autoit-opencv-4.10.0-com-v2.6.1-src.zip -aoa 'node-autoit-opencv-com-2.6.1\autoit-addon\*' 'node-autoit-opencv-com-2.6.1\samples\*'
+cp -rf node-autoit-opencv-com-2.6.1/* ./
+rm -rf node-autoit-opencv-com-2.6.1
 ```
 
 ### autoit
