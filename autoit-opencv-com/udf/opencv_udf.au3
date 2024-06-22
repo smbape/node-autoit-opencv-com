@@ -132,7 +132,12 @@ Func _OpenCV_Open($s_opencv_world_dll = Default, $s_autoit_opencv_com_dll = Defa
 EndFunc   ;==>_OpenCV_Open
 
 Func _OpenCV_Close()
-	_OpenCV_get(0)
+	Local Const $cv = _OpenCV_get(0)
+
+	; https://stackoverflow.com/questions/63110817/how-to-ensure-that-gpu-memory-is-actually-deallocated-after-an-opencv-t-api-func
+	; It seems that an allocation flushes the cleanup queue!
+	If IsObj($cv) Then $cv.UMat.zeros(1, 1, $CV_8UC1)
+
 	Return _OpenCV_Install(Default, Default, Default, False)
 EndFunc   ;==>_OpenCV_Close
 

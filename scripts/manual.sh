@@ -73,4 +73,4 @@ cp -f autoit-opencv-*.7z /d/development/git/node-autoit-dlib-com/ && \
 # ================================
 rm -rf /d/development/git/node-autoit-mediapipe-com/autoit-opencv-com && \
 cp -f autoit-opencv-*.7z /d/development/git/node-autoit-mediapipe-com/ && \
-7z x autoit-opencv-*.7z -aoa -o/d/development/git/node-autoit-mediapipe-com/autoit-opencv-com && \
+7z x autoit-opencv-*.7z -aoa -o/d/development/git/node-autoit-mediapipe-com/autoit-opencv-com

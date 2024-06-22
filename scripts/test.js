@@ -11,7 +11,7 @@ const CS_RUN = sysPath.join("samples", "dotnet", "csrun.bat");
 const run = (file, cwd, env, next) => {
     const { BUILD_TYPE, OPENCV_BUILD_TYPE } = process.env;
     if (BUILD_TYPE && BUILD_TYPE !== env.BUILD_TYPE || OPENCV_BUILD_TYPE && OPENCV_BUILD_TYPE !== env.OPENCV_BUILD_TYPE) {
-        next(0, null);
+        next(null, 0, null);
         return;
     }
 
@@ -56,7 +56,7 @@ explore(sysPath.join(cwd, "samples"), (path, stats, next) => {
     const basename = sysPath.basename(file);
     const extname = sysPath.extname(file);
 
-    if (basename.endsWith("test.au3") || !INCLUDED_EXT.includes(extname) || EXCLUDED_FILES.includes(basename) || INCLUDED_FILES.length !== 0 && !INCLUDED_FILES.some(include => basename.startsWith(include))) {
+    if ( basename.endsWith("test.au3") || !INCLUDED_EXT.includes(extname) || EXCLUDED_FILES.includes(basename) || INCLUDED_FILES.length !== 0 && !INCLUDED_FILES.some(include => basename.startsWith(include))) {
         next();
         return;
     }
