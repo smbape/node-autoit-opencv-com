@@ -464,12 +464,12 @@ module.exports = ({ self, self_get, shared_ptr }) => {
         }
 
         declarations.push(["cv.Mat.Mat", "", [`=createFromVectorOf${ type[0].toUpperCase() }${ type.slice(1) }`, "/Expr=$0, true"], [
-            [`vector_${ type }`, "vec", "", []],
+            [`std::vector<${ type }>`, "vec", "", []],
         ], "", ""]);
     }
 
     declarations.push(["cv.Mat.createFromVectorOfMat", `${ shared_ptr }<Mat>`, ["/Call=::autoit::cvextra::createFromVectorOfMat", "/S"], [
-        ["vector_Mat", "vec", "", []],
+        ["std::vector<Mat>", "vec", "", []],
     ], "", ""]);
 
     for (const args of [

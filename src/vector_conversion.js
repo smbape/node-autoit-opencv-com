@@ -2,6 +2,9 @@ const {getTypeDef} = require("./alias");
 
 exports.declare = (processor, type, parent, options = {}) => {
     const cpptype = processor.getCppType(type, parent, options);
+    if (!cpptype.startsWith("std::vector<")) {
+        throw new Error(`Invalid std::vector type ${ type }`);
+    }
 
     const fqn = getTypeDef(cpptype, options);
 

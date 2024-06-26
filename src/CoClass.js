@@ -86,7 +86,7 @@ class CoClass {
         return types;
     }
 
-    static restoreOriginalType(type, options = {}) {
+    static restoreOriginalTypeLegacy(type, options = {}) {
         const shared_ptr = removeNamespaces(options.shared_ptr, options);
 
         const types = [
@@ -156,6 +156,51 @@ class CoClass {
         const close = str.split(">").length - 1;
 
         return str + ">".repeat(open - close);
+    }
+
+    static restoreOriginalType(type, options = {}) {
+        if (typeof type !== "string") {
+            throw new Error(`Expected a string be recieved ${ typeof type }`);
+        }
+
+        if (type.endsWith("*")) {
+            return `${ this.restoreOriginalType(type.slice(0, -1), options) }*`;
+        }
+
+        type = this.restoreOriginalTypeLegacy(type, options);
+
+        const pos = type.indexOf("<");
+        if (pos === -1) {
+            return type;
+        }
+
+        const shared_ptr = removeNamespaces(options.shared_ptr, options);
+        const tpl = type.slice(0, pos);
+        const tuples = this.getTupleTypes(type.slice(pos + 1, -">".length));
+
+        const original = [];
+
+        if ([
+            "map",
+            "optional",
+            "pair",
+            "shared_ptr",
+            "tuple",
+            "variant",
+            "vector",
+        ].includes(tpl)) {
+            original.push(`std::${ tpl }<`);
+        } else if (tpl === shared_ptr) {
+            original.push(`${ options.shared_ptr }<`);
+        } else {
+            original.push(`${ tpl }<`);
+        }
+
+        original.push(tuples.map(tp => this.restoreOriginalType(tp, options) ).join(", "));
+
+        original.push(">");
+
+        return original.join("");
     }
 
     constructor(fqn) {

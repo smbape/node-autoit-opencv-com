@@ -16,7 +16,7 @@ const FunctionDeclaration = require("./FunctionDeclaration");
 const PropertyDeclaration = require("./PropertyDeclaration");
 const FileUtils = require("./FileUtils");
 const CoClass = require("./CoClass");
-const { getAlias, removeNamespaces } = require("./alias");
+const { getAlias } = require("./alias");
 const map_conversion = require("./map_conversion");
 const vector_conversion = require("./vector_conversion");
 
@@ -26,6 +26,7 @@ const {
     PTR,
     ARRAY_CLASSES,
     ARRAYS_CLASSES,
+    TEMPLATED_TYPES,
 } = require("./constants");
 
 const countInstances = (str, searchString) => {
@@ -43,7 +44,8 @@ const escapeHTML = str => {
 
 const proto = {
     getIDLType(type, coclass, options = {}) {
-        if (type.includes("(") || type.includes(")") || countInstances(type, "<") !== countInstances(type, ">")) {
+        if (type.includes("(") || type.includes(")") || type.includes("<") && !type.endsWith(">") || countInstances(type, "<") !== countInstances(type, ">")) {
+            // invalid type, most likely comming from defval
             return type;
         }
 
@@ -54,34 +56,33 @@ const proto = {
         }
 
         const type_ = type;
-        const shared_ptr = removeNamespaces(options.shared_ptr, options);
         type = CoClass.restoreOriginalType(type, options);
 
         if (type === "IUnknown*" || type === "IEnumVARIANT*" || type === "IDispatch*" || type === "VARIANT*" || type === "VARIANT") {
             return type;
         }
 
-        if (type.startsWith(`${ shared_ptr }<`) && type.endsWith(">")) {
+        if (type.startsWith(`${ options.shared_ptr }<`)) {
             // Add dependency
-            this.getIDLType(type.slice(`${ shared_ptr }<`.length, -">".length), coclass, options);
+            this.getIDLType(type.slice(`${ options.shared_ptr }<`.length, -">".length), coclass, options);
             return "VARIANT";
         }
 
-        if (type.startsWith("optional<")) {
+        if (type.startsWith("std::optional<")) {
             // Add dependency
-            this.getIDLType(type.slice("optional<".length, -">".length), coclass, options);
+            this.getIDLType(type.slice("std::optional<".length, -">".length), coclass, options);
             return "VARIANT";
         }
 
-        if (type.startsWith("vector<")) {
+        if (type.startsWith("std::vector<")) {
             // Add dependency
-            this.getIDLType(type.slice("vector<".length, -">".length), coclass, options);
+            this.getIDLType(type.slice("std::vector<".length, -">".length), coclass, options);
             this.addDependency(coclass.fqn, this.add_vector(type, coclass, options));
             return "VARIANT";
         }
 
-        if (type.startsWith("tuple<")) {
-            const types = CoClass.getTupleTypes(type.slice("tuple<".length, -">".length));
+        if (type.startsWith("std::tuple<")) {
+            const types = CoClass.getTupleTypes(type.slice("std::tuple<".length, -">".length));
             // Add dependency
             for (const itype of types) {
                 this.getIDLType(itype, coclass, options);
@@ -89,8 +90,8 @@ const proto = {
             return "VARIANT";
         }
 
-        if (type.startsWith("map<")) {
-            const types = CoClass.getTupleTypes(type.slice("map<".length, -">".length));
+        if (type.startsWith("std::map<")) {
+            const types = CoClass.getTupleTypes(type.slice("std::map<".length, -">".length));
 
             // Add dependency
             for (const itype of types) {
@@ -101,8 +102,8 @@ const proto = {
             return "VARIANT";
         }
 
-        if (type.startsWith("pair<")) {
-            const types = CoClass.getTupleTypes(type.slice("pair<".length, -">".length));
+        if (type.startsWith("std::pair<")) {
+            const types = CoClass.getTupleTypes(type.slice("std::pair<".length, -">".length));
             // Add dependency
             for (const itype of types) {
                 this.getIDLType(itype, coclass, options);
@@ -114,14 +115,22 @@ const proto = {
             return "VARIANT";
         }
 
-        if (type.startsWith("GArray<") || type.startsWith("GOpaque<")) {
-            const custom_type = this.add_custom_type(type, coclass, options);
-            this.addDependency(coclass.fqn, custom_type.fqn);
+        if (type.includes("<") && type.endsWith(">")) {
             const pos = type.indexOf("<");
+            const tpl = this.getCppType(type.slice(0, pos), coclass, options);
+            const types = CoClass.getTupleTypes(type.slice(pos + 1, -">".length)).map(itype => this.getCppType(itype, coclass, options));
 
-            // Add dependency
-            this.getIDLType(type.slice(pos + 1, -">".length), coclass, options);
-            return custom_type.getIDLType();
+            if (TEMPLATED_TYPES.has(tpl)) {
+                const custom_type = this.add_custom_type(`${ tpl }<${ types.join(", ") }>`, coclass, options);
+                this.addDependency(coclass.fqn, custom_type.fqn);
+
+                // Add dependency
+                for (const itype of types) {
+                    this.getIDLType(itype, coclass, options);
+                }
+
+                return custom_type.getIDLType();
+            }
         }
 
         let include = coclass;
@@ -163,12 +172,22 @@ const proto = {
     },
 
     makeDependent(type, coclass, options) {
+        let pos = type.length;
+
+        while (pos >= 0 && type[pos - 1] === "*") {
+            pos--;
+        }
+
+        if (pos !== -1 && pos !== type.length) {
+            type = type.slice(0, pos);
+        }
+
         this.getIDLType(type, coclass, options);
         this.getCppType(type, coclass, options);
     },
 
     preprocess(config, options) {
-        const {key_type, value_type} = this.classes.get(this.add_map("map<string, _variant_t>", {}, options));
+        const {key_type, value_type} = this.classes.get(this.add_map("std::map<string, _variant_t>", {}, options));
         const coclass = this.classes.get("NamedParameters");
         const {fqn} = coclass;
 
@@ -260,7 +279,11 @@ class COMGenerator {
 
                     STDMETHODIMP C${ cotype }::put_self(ULONGLONG ptr) {
                         if (__self) {
-                            *__self = ::autoit::reference_internal(reinterpret_cast<${ coclass.fqn }*>(ptr));
+                            if (ptr > 0) {
+                                *__self = ::autoit::reference_internal(reinterpret_cast<${ coclass.fqn }*>(ptr));
+                            } else {
+                                __self->reset();
+                            }
                             return S_OK;
                         }
                         return E_FAIL;

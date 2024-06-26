@@ -1,13 +1,14 @@
 const {
-    SIMPLE_ARGTYPE_DEFAULTS,
+    BROKEN_MAKE_SHARED,
     PTR,
+    SIMPLE_ARGTYPE_DEFAULTS,
 } = require("./constants");
 
 const {makeExpansion, useNamespaces} = require("./alias");
 
 Object.assign(exports, {
     declare: (processor, coclass, overrides, fname, idlname, iidl, ipublic, impl, is_test, options = {}) => {
-        const {shared_ptr, APP_NAME} = options;
+        const {shared_ptr, make_shared, APP_NAME} = options;
         const {fqn} = coclass;
         const cotype = coclass.getClassName();
         const has_override = overrides.length !== 1;
@@ -127,8 +128,8 @@ Object.assign(exports, {
 
                 const in_val = `${ varprefix }${ i }`;
                 const is_ptr = argtype.endsWith("*");
-                const is_out = out_args[j];
-                const is_optional = defval !== "" || is_out && !in_args[j];
+                const is_out_arg = out_args[j];
+                const is_optional = defval !== "" || is_out_arg && !in_args[j];
                 const is_input_array = argtype === "InputArray";
 
                 optionals[j] = is_optional;
@@ -151,15 +152,15 @@ Object.assign(exports, {
                 } else if (argtype === "InputArrayOfArrays") {
                     is_array = true;
                     arrtype = "InputArray";
-                    argtype = "vector_Mat";
+                    argtype = "std::vector<Mat>";
                 } else if (argtype === "InputOutputArrayOfArrays") {
                     is_array = true;
                     arrtype = "InputOutputArray";
-                    argtype = "vector_Mat";
+                    argtype = "std::vector<Mat>";
                 } else if (argtype === "OutputArrayOfArrays") {
                     is_array = true;
                     arrtype = "OutputArray";
-                    argtype = "vector_Mat";
+                    argtype = "std::vector<Mat>";
                 }
 
                 if (is_array) {
@@ -171,24 +172,42 @@ Object.assign(exports, {
                         .replace("InputOutputArray", "Mat")
                         .replace("OutputArray", "Mat")
                         .replace("noArray", argtype);
+                } else {
+                    defval = processor.fqnIndentifier(defval, coclass, options);
                 }
 
-                let parg = "";
+                let callarg = argname;
+                let cpptype = processor.getCppType(argtype, coclass, options);
 
-                if (is_ptr && is_out && argtype !== "VARIANT*") {
-                    parg = "&";
+                if (is_out_arg && is_ptr && !PTR.has(argtype) && argtype !== "VARIANT*") {
+                    callarg = `&${ callarg }`;
                     argtype = argtype.slice(0, -1);
+                    defval = SIMPLE_ARGTYPE_DEFAULTS.has(argtype) ? SIMPLE_ARGTYPE_DEFAULTS.get(argtype) : "";
+                } else if (is_out_arg && cpptype.startsWith(`${ shared_ptr }<`)) {
+                    callarg = `::autoit::reference_internal(${ callarg })`;
+                    argtype = cpptype.slice(`${ shared_ptr }<`.length, -">".length);
                     defval = SIMPLE_ARGTYPE_DEFAULTS.has(argtype) ? SIMPLE_ARGTYPE_DEFAULTS.get(argtype) : "";
                 } else if (defval === "" && SIMPLE_ARGTYPE_DEFAULTS.has(argtype)) {
                     defval = SIMPLE_ARGTYPE_DEFAULTS.get(argtype);
-                } else if (defval.endsWith("()") && processor.getIDLType(defval.slice(0, -"()".length), coclass, options) === processor.getIDLType(argtype, coclass, options)) {
+                } else if (defval.endsWith("()") && processor.getCppType(defval.slice(0, -"()".length), coclass, options) === cpptype) {
                     defval = "";
                 }
 
-                const idltype = processor.getIDLType(argtype, coclass, options);
-                const cpptype = processor.getCppType(argtype, coclass, options);
+                cpptype = processor.getCppType(argtype, coclass, options);
 
-                let callarg = parg + argname;
+                if (cpptype === "char*") {
+                    if (arg_modifiers.includes("/C")) {
+                        cpptype = "std::string";
+                        callarg = `${ callarg }.c_str()`;
+                    } else {
+                        console.log(`Warning: ${ name } - 'char* ${ argname }' will be treatead as a 'void* ${ argname }' pointer`);
+                        cpptype = "void*";
+                        callarg = `static_cast<char*>(${ callarg })`;
+                    }
+                }
+
+                const nsType = processor.getNonAmbiguousType(cpptype);
+                const idltype = processor.getIDLType(argtype, coclass, options);
                 let other_default;
 
                 for (const modifier of arg_modifiers) {
@@ -319,7 +338,7 @@ Object.assign(exports, {
                     cvt.push(...cvt_body.trim().split("\n"));
                 } else if (is_vector && !has_ptr) {
                     const dispatchConditions = [`V_VT(${ in_val }) == VT_DISPATCH`];
-                    const dynamicCast = `dynamic_cast<TypeToImplType<${ cpptype }>::type*>(getRealIDispatch(${ in_val }))`;
+                    const dynamicCast = `dynamic_cast<TypeToImplType<${ nsType }>::type*>(getRealIDispatch(${ in_val }))`;
 
                     if (is_optional) {
                         dispatchConditions.push(`${ dynamicCast } != NULL`);
@@ -352,7 +371,7 @@ Object.assign(exports, {
                 } else if (is_by_ref) {
                     if (is_optional) {
                         cvt.push(...`
-                            ${ shared_ptr }<${ cpptype }> ${ pointer };
+                            ${ shared_ptr }<${ nsType }> ${ pointer };
                             hr = autoit_to(${ in_val }, ${ pointer });
                             if (FAILED(hr) && !PARAMETER_MISSING(${ in_val })) {
                                 printf("unable to read argument ${ j } of type %hu into ${ cpptype }\\n", V_VT(${ in_val }));
@@ -366,10 +385,10 @@ Object.assign(exports, {
                         is_shared_ptr = true;
 
                         cvt.push(...`
-                            ${ shared_ptr }<${ cpptype }> ${ pointer };
+                            ${ shared_ptr }<${ nsType }> ${ pointer };
 
                             if (V_VT(${ in_val }) == VT_DISPATCH) {
-                                ${ pointer } = ::autoit::cast<${ cpptype }>(getRealIDispatch(${ in_val }));
+                                ${ pointer } = ::autoit::cast<${ nsType }>(getRealIDispatch(${ in_val }));
                                 if (!${ pointer }) {
                                     printf("unable to read argument ${ j } of type %hu into ${ cpptype }\\n", V_VT(${ in_val }));
                                     return E_INVALIDARG;
@@ -378,7 +397,7 @@ Object.assign(exports, {
                                 ${ set_from_pointer } = true;
                             } else if (V_VT(${ in_val }) == VT_UI8) {
                                 const auto& ptr = V_UI8(${ in_val });
-                                ${ pointer } = ::autoit::reference_internal(reinterpret_cast<${ cpptype }*>(ptr));
+                                ${ pointer } = ::autoit::reference_internal(reinterpret_cast<${ nsType }*>(ptr));
                                 ${ set_from_pointer } = true;
                             } else {
                                 hr = autoit_to(${ in_val }, ${ placeholder_name });
@@ -425,9 +444,9 @@ Object.assign(exports, {
                 }
 
                 if (is_shared_ptr) {
-                    declarations[j] = `${ indent }${ shared_ptr }<${ cpptype }> ${ placeholder_name };`;
+                    declarations[j] = `${ indent }${ shared_ptr }<${ nsType }> ${ placeholder_name };`;
                 } else {
-                    declarations[j] = `${ indent }${ cpptype } ${ placeholder_name }`;
+                    declarations[j] = `${ indent }${ nsType } ${ placeholder_name }`;
                     if (defval !== "") {
                         declarations[j] += ` = ${ defval }`;
                     }
@@ -440,7 +459,7 @@ Object.assign(exports, {
                     conversions[j] = `\n${ cindent }${ is_method_test ? "// " : "" }${ placeholder_name } = ${ other_default };${ conversions[j] }`;
                 }
 
-                if (is_out) {
+                if (is_out_arg) {
                     retval.push([idltype, argname, is_array ? arrtype + (is_vector ? "OfArrays" : "") : argtype, in_val, j]);
 
                     if (!outputs.has(argname)) {
@@ -820,6 +839,11 @@ Object.assign(exports, {
 
             if (is_constructor && !is_external) {
                 callee = `${ shared_ptr }<${ fqn }>(new ${ callee })`;
+
+                const start = `${ shared_ptr }<${ fqn }>(new ::${ fqn }(`;
+                if (callee.startsWith(start) && callee.endsWith("))") && (!BROKEN_MAKE_SHARED || !BROKEN_MAKE_SHARED.has(fqn))) {
+                    callee = `${ make_shared }<::${ fqn }>(${ callee.slice(start.length, -"))".length) })`;
+                }
             }
 
             for (const modifier of func_modifiers) {
@@ -886,6 +910,8 @@ Object.assign(exports, {
                 }).concat(["HRESULT& hr"]).join(", ") });`);
             }
 
+            const exception = typeof options.exception === "string" ? options.exception : "std::exception";
+
             if (!has_body && return_value_type !== "void") {
                 if (PTR.has(processor.getCppType(return_value_type, coclass, options))) {
                     callee = `reinterpret_cast<ULONGLONG>(${ callee })`;
@@ -898,23 +924,37 @@ Object.assign(exports, {
                     const cpptype = processor.getCppType(return_value_type, coclass, options);
                     const byref = !PTR.has(cpptype) && (idltype === "VARIANT" || idltype[0] === "I");
 
-                    const ebody = cindent + `
-                        {
+                    body.push(cindent + `
+                        try {
                             const auto${ byref ? "&" : "" } tmp = ${ callee.trim().split("\n").join(`\n${ " ".repeat(28) }`) };
                             if (FAILED(hr)) {
                                 return hr;
                             }
-                            hr = ${ makeExpansion(autoit_from, "tmp", "_retval") };
+                            hr = ${ makeExpansion(autoit_from, "tmp", "_retval").split("\n").join(`\n${ " ".repeat(28) }`) };
+                        } catch( ${ exception }& e ) {
+                            fprintf(stderr, "%s: in %s, file %s, line %d\\n", e.what(), AutoIt_Func, __FILE__, __LINE__); fflush(stdout); fflush(stderr);
+                            hr = E_FAIL;
                         }
-                    `.replace(/^ {24}/mg, "").trim().split("\n").map(line => `${ is_entry_test ? "// " : "" }${ line }`).join(`\n${ cindent }`);
-                    body.push(ebody);
+                    `.replace(/^ {24}/mg, "").trim().split("\n").map(line => `${ is_entry_test ? "// " : "" }${ line }`).join(`\n${ cindent }`));
                 } else {
-                    body.push(`${ cindent }${ is_entry_test ? "// " : "" }hr = ${
-                        makeExpansion(autoit_from, callee.trim().split("\n").join(`\n${ cindent }`), "_retval")
-                    };`);
+                    body.push(cindent + `
+                        try {
+                            hr = ${ makeExpansion(autoit_from, callee.trim(), "_retval").split("\n").join(`\n${ " ".repeat(28) }`) };
+                        } catch( ${ exception }& e ) {
+                            fprintf(stderr, "%s: in %s, file %s, line %d\\n", e.what(), AutoIt_Func, __FILE__, __LINE__); fflush(stdout); fflush(stderr);
+                            hr = E_FAIL;
+                        }
+                    `.replace(/^ {24}/mg, "").trim().split("\n").map(line => `${ is_entry_test ? "// " : "" }${ line }`).join(`\n${ cindent }`));
                 }
             } else {
-                body.push(`${ cindent }${ is_entry_test ? "// " : "" }${ callee.trim().split("\n").join(`\n${ cindent }`) };`);
+                body.push(cindent + `
+                    try {
+                        ${ callee.trim().split("\n").join(`\n${ " ".repeat(24) }`) };
+                    } catch( ${ exception }& e ) {
+                        fprintf(stderr, "%s: in %s, file %s, line %d\\n", e.what(), AutoIt_Func, __FILE__, __LINE__); fflush(stdout); fflush(stderr);
+                        hr = E_FAIL;
+                    }
+                `.replace(/^ {20}/mg, "").trim().split("\n").map(line => `${ is_entry_test ? "// " : "" }${ line }`).join(`\n${ cindent }`));
             }
 
             body.push(cindent + `
@@ -944,9 +984,11 @@ Object.assign(exports, {
                     b = b[4] === undefined ? -1 : b[4];
                     return a - b;
                 }).map(([idltype, argname, argtype, in_val], i) => {
+                    const cpptype = processor.getCppType(argtype, coclass, options);
+
                     const lines = [];
                     const is_array = argtype.endsWith("Array") || argtype.endsWith("ArrayOfArrays");
-                    const is_vector = argtype.startsWith("vector_") || argtype.startsWith("vector<") || argtype.endsWith("OfArrays");
+                    const is_vector = cpptype.startsWith("std::vector<") || argtype.endsWith("OfArrays");
                     const placeholder_name = `${ argname }_placeholder`;
                     const pointer = `p_${ placeholder_name }`;
                     const scalar_pointer = `${ pointer }_s`;
@@ -955,7 +997,7 @@ Object.assign(exports, {
 
                     let out_val;
 
-                    if (argtype === "VARIANT") {
+                    if (cpptype === "VARIANT") {
                         out_val = argname;
                     } else {
                         let cvt;
@@ -978,7 +1020,7 @@ Object.assign(exports, {
                             VariantInit(p_retarr_el);
                             ${ is_entry_test ? "// " : "" }hr = ${ cvt };
                             if (FAILED(hr)) {
-                                printf("unable to write extended ${ i } of type ${ processor.getCppType(argtype, coclass, options) }\\n");
+                                printf("unable to write extended ${ i } of type ${ cpptype }\\n");
                                 return hr;
                             }
                         `.replace(/^ {28}/mg, "").trim().split("\n"));

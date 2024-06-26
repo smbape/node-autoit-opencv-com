@@ -1,4 +1,5 @@
 #include "imgproc_extra.h"
+#include <opencv2/core/cuda.hpp>
 
 using namespace cv;
 

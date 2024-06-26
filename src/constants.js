@@ -3,6 +3,7 @@ const semver = require("semver");
 exports.SIMPLE_ARGTYPE_DEFAULTS = new Map([
     ["bool", "0"],
     ["size_t", "0"],
+    ["std::size_t", "0"],
     ["SSIZE_T", "0"],
     ["int", "0"],
     ["float", "0.f"],
@@ -39,6 +40,7 @@ exports.IDL_TYPES = new Map([
     ["ulong", "ULONG"],
     ["SSIZE_T", "LONGLONG"],
     ["size_t", "ULONGLONG"],
+    ["std::size_t", "ULONGLONG"],
     ["String", "BSTR"],
     ["string", "BSTR"],
     ["uchar", "BYTE"],
@@ -118,16 +120,23 @@ exports.CPP_TYPES = new Map([
 ]);
 
 exports.ALIASES = new Map([
+    ["cv::InputArray", "InputArray"],
+    ["cv::InputArrayOfArrays", "InputArrayOfArrays"],
+    ["cv::InputOutputArray", "InputOutputArray"],
+    ["cv::InputOutputArrayOfArrays", "InputOutputArrayOfArrays"],
+    ["cv::OutputArray", "OutputArray"],
+    ["cv::OutputArrayOfArrays", "OutputArrayOfArrays"],
+
     ["DescriptorExtractor", "Feature2D"],
     ["FeatureDetector", "Feature2D"],
-    ["GCompileArgs", "vector_GCompileArg"],
-    ["GMetaArgs", "vector_GMetaArg"],
-    ["GMat2", "tuple_GMat_and_GMat"],
-    ["GRunArgs", "vector_GRunArg"],
-    ["MatShape", "vector_int"],
-    ["Prims", "vector_Prim"],
-    ["Pose3DPtr", "Ptr_Pose3D"],
-    ["PoseCluster3DPtr", "Ptr_PoseCluster3D"],
+    ["GCompileArgs", "std::vector<GCompileArg>"],
+    ["GMetaArgs", "std::vector<GMetaArg>"],
+    ["GMat2", "std::tuple<GMat_and_GMat>"],
+    ["GRunArgs", "std::vector<GRunArg>"],
+    ["MatShape", "std::vector<int>"],
+    ["Prims", "std::vector<Prim>"],
+    ["Pose3DPtr", "cv::Ptr<Pose3D>"],
+    ["PoseCluster3DPtr", "cv::Ptr<PoseCluster3D>"],
 
     // wrong namespace
     ["cv::cuda::cuda::StereoBeliefPropagation", "cv::cuda::StereoBeliefPropagation"],
@@ -152,6 +161,11 @@ exports.PTR = new Set([
     "cv::wgc::WGCFrameCallback",
 ]);
 
+exports.BROKEN_MAKE_SHARED = new Set([
+    "cv::cuda::BufferPool",
+    "cv::GComputation",
+]);
+
 exports.CUSTOM_CLASSES = [
     ["cv.gapi.wip.draw.Prim", ["/Simple", "/DC"]],
     ["cv.gapi.wip.IStreamSource", []],
@@ -174,8 +188,8 @@ if (semver.gt(global.OpenCV_VERSION.slice("opencv-".length), "4.5.0")) {
 }
 
 exports.TEMPLATED_TYPES = new Set([
-    "GArray",
-    "GOpaque",
+    "cv::GArray",
+    "cv::GOpaque",
 ]);
 
 exports.ARRAY_CLASSES = new Set([

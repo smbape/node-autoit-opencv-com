@@ -797,6 +797,133 @@ public:
 };
 
 namespace autoit {
+	/**
+	 * https://github.com/ThePhD/sol2/blob/v3.3.0/include/sol/stack_core.hpp#L1338
+	 */
+	template<typename T>
+	std::string member_default_to_string(const T& obj) {
+		return obj.to_string();
+	}
+
+	/**
+	 * https://github.com/ThePhD/sol2/blob/v3.3.0/include/sol/stack_core.hpp#L1352
+	 */
+	template <typename T>
+	std::string adl_default_to_string(const T& obj) {
+		return std::to_string(obj);
+	}
+
+	/**
+	 * https://github.com/ThePhD/sol2/blob/v3.3.0/include/sol/stack_core.hpp#L1364
+	 */
+	template<typename T>
+	std::string oss_default_to_string(const T& obj) {
+		std::ostringstream oss;
+		oss << obj;
+		return oss.str();
+	}
+
+	template<typename T>
+	std::string __str__(const T& obj, const std::string& type) {
+		// ================================================================
+		// https://github.com/ThePhD/sol2/blob/v3.3.0/include/sol/types.hpp#L907
+		// ================================================================
+
+		// meta::supports_op_left_shift<std::ostream, meta::unqualified_t<T>>
+		// https://github.com/ThePhD/sol2/blob/v3.3.0/include/sol/traits.hpp#L519
+		// decltype(std::declval<T&>() << std::declval<U&>())
+		if constexpr (requires(std::ostream & oss, const T & t) { oss << t; }) {
+			return oss_default_to_string(obj);
+		}
+
+		// meta::supports_to_string_member<meta::unqualified_t<T>>
+		// https://github.com/ThePhD/sol2/blob/v3.3.0/include/sol/traits.hpp#L551
+		// class supports_to_string_member : public meta::boolean<meta_detail::has_to_string_test<meta_detail::non_void_t<T>>::value> { };
+		// https://github.com/ThePhD/sol2/blob/v3.3.0/include/sol/traits.hpp#L465
+		// https://github.com/ThePhD/sol2/blob/v3.3.0/include/sol/traits.hpp#L469
+		// static sfinae_yes_t test(decltype(std::declval<C>().to_string())*);
+		else if constexpr (requires(const T & t) { t.to_string(); }) {
+			return member_default_to_string<T>(obj);
+		}
+
+		// meta::supports_adl_to_string<meta::unqualified_t<T>>
+		// https://github.com/ThePhD/sol2/blob/v3.3.0/include/sol/traits.hpp#L547
+		// class supports_adl_to_string : public meta_detail::supports_adl_to_string_test<T> { };
+		// https://github.com/ThePhD/sol2/blob/v3.3.0/include/sol/traits.hpp#L523
+		// class supports_adl_to_string_test<T, void_t<decltype(to_string(std::declval<const T&>()))>> : public std::true_type { };
+		else if constexpr (requires(const T & t) { std::to_string(t); }) {
+			return adl_default_to_string<T>(obj);
+		}
+
+		else {
+			std::ostringstream oss;
+			oss << "<" << type << " 0x" << std::setw(16) << std::setfill('0') << std::hex << static_cast<const void*>(&obj) << ">";
+			return oss.str();
+		}
+	}
+
+	template<typename T>
+	bool __eq__(const T& o1, const T& o2);
+
+	template<typename T>
+	bool __eq__(const std::shared_ptr<T>& p1, const std::shared_ptr<T>& p2);
+
+	template<typename K, typename V>
+	bool __eq__(const std::map<K, V>& m1, const std::map<K, V>& m2);
+
+	template<typename T1, typename T2>
+	bool __eq__(const std::pair<T1, T2>& p1, const std::pair<T1, T2>& p2);
+
+	template<typename T>
+	bool __eq__(const std::vector<T>& v1, const std::vector<T>& v2);
+
+	template<typename T>
+	bool __eq__(const T& o1, const T& o2) {
+		if constexpr (requires(const T & a, const T & b) { static_cast<bool>(a == b); }) {
+			return static_cast<bool>(o1 == o2);
+		}
+		else {
+			return &o1 == &o2;
+		}
+	}
+
+	template<typename T>
+	bool __eq__(const std::shared_ptr<T>& p1, const std::shared_ptr<T>& p2) {
+		if (static_cast<bool>(p1) && static_cast<bool>(p2)) {
+			return __eq__(*p1, *p2);
+		}
+		return !static_cast<bool>(p1) && !static_cast<bool>(p2);
+	}
+
+	template<typename K, typename V>
+	bool __eq__(const std::map<K, V>& m1, const std::map<K, V>& m2) {
+		if (m1.size() != m2.size()) {
+			return false;
+		}
+
+		for (const auto& [key, value] : m1) {
+			if (!m2.count(key) || !__eq__(value, m2.at(key))) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	template<typename T1, typename T2>
+	bool __eq__(const std::pair<T1, T2>& p1, const std::pair<T1, T2>& p2) {
+		return __eq__(p1.first, p2.first) && __eq__(p1.second, p2.second);
+	}
+
+	template<typename T>
+	bool __eq__(const std::vector<T>& v1, const std::vector<T>& v2) {
+		if (v1.size() != v2.size()) {
+			return false;
+		}
+		const auto mismatched = std::mismatch(v1.begin(), v1.end(), v2.begin(), static_cast<bool(*)(const T&, const T&)>(__eq__));
+		return mismatched.first == v1.end();
+	}
+
 	template <typename _Tp>
 	AUTOIT_PTR<typename _Tp> cast(IDispatch* element);
 
@@ -921,6 +1048,12 @@ namespace autoit {
 		const std::string& filter = "",
 		const std::vector<std::string>& hints = std::vector<std::string>(1, ".")
 	);
+
+	class CV_EXPORTS_W_SIMPLE Buffer : public std::string {
+	public:
+		Buffer() : std::string() {}
+		CV_WRAP Buffer(const void* data, size_t size) : std::string((char*)data, size) {}
+	};
 }
 
 namespace com {

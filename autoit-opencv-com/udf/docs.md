@@ -5820,8 +5820,11 @@
   - [NamedParameters::put\_Item](#namedparametersput%5C_item)
   - [NamedParameters::size](#namedparameterssize)
 - [autoit](#autoit)
+  - [autoit.Buffer](#autoitbuffer)
   - [autoit::findFile](#autoitfindfile)
   - [autoit::findFiles](#autoitfindfiles)
+- [autoit::Buffer](#autoitbuffer)
+  - [autoit::Buffer::get\_create](#autoitbufferget%5C_create)
 - [com](#com)
   - [com.Thread](#comthread)
   - [com.ThreadSafeQueue](#comthreadsafequeue)
@@ -23889,6 +23892,14 @@ AutoIt:
     [propget, propput] $oRNG.state
 ```
 
+### RNG.FullyQualifiedName
+
+```cpp
+static std::string cv::RNG::FullyQualifiedName
+AutoIt:
+    [propget] $oRNG.FullyQualifiedName
+```
+
 ### cv::RNG::get\_create
 
 ```cpp
@@ -23902,6 +23913,20 @@ static cv::RNG cv::RNG::get_create( uint64 state );
 AutoIt:
     _OpenCV_ObjCreate("cv.RNG").create( $state ) -> <cv.RNG object>
     $oRNG( $state ) -> <cv.RNG object>
+```
+
+### cv::RNG::IsInstance
+
+```cpp
+static bool cv::RNG::IsInstance( const cv::RNG& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.RNG").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::RNG::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.RNG").IsInstance( $obj ) -> retval
 ```
 
 ### cv::RNG::fill
@@ -24026,6 +24051,28 @@ AutoIt:
 ```
 
 ## cv::Algorithm
+
+### Algorithm.FullyQualifiedName
+
+```cpp
+static std::string cv::Algorithm::FullyQualifiedName
+AutoIt:
+    [propget] $oAlgorithm.FullyQualifiedName
+```
+
+### cv::Algorithm::IsInstance
+
+```cpp
+static bool cv::Algorithm::IsInstance( const cv::Algorithm& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Algorithm").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Algorithm::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Algorithm").IsInstance( $obj ) -> retval
+```
 
 ### cv::Algorithm::clear
 
@@ -24182,12 +24229,34 @@ AutoIt:
 
 ## cv::AsyncArray
 
+### AsyncArray.FullyQualifiedName
+
+```cpp
+static std::string cv::AsyncArray::FullyQualifiedName
+AutoIt:
+    [propget] $oAsyncArray.FullyQualifiedName
+```
+
 ### cv::AsyncArray::get\_create
 
 ```cpp
 static cv::AsyncArray cv::AsyncArray::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.AsyncArray").create() -> <cv.AsyncArray object>
+```
+
+### cv::AsyncArray::IsInstance
+
+```cpp
+static bool cv::AsyncArray::IsInstance( const cv::AsyncArray& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.AsyncArray").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::AsyncArray::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.AsyncArray").IsInstance( $obj ) -> retval
 ```
 
 ### cv::AsyncArray::get
@@ -25046,6 +25115,14 @@ AutoIt:
     [propget] $oClassWithKeywordProperties.except
 ```
 
+### ClassWithKeywordProperties.FullyQualifiedName
+
+```cpp
+static std::string cv::utils::ClassWithKeywordProperties::FullyQualifiedName
+AutoIt:
+    [propget] $oClassWithKeywordProperties.FullyQualifiedName
+```
+
 ### cv::utils::ClassWithKeywordProperties::get\_create
 
 ```cpp
@@ -25054,6 +25131,20 @@ static cv::utils::ClassWithKeywordProperties cv::utils::ClassWithKeywordProperti
 AutoIt:
     _OpenCV_ObjCreate("cv.utils.ClassWithKeywordProperties").create( [$lambda_arg[, $except_arg]] ) -> <cv.utils.ClassWithKeywordProperties object>
     $oClassWithKeywordProperties( [$lambda_arg[, $except_arg]] ) -> <cv.utils.ClassWithKeywordProperties object>
+```
+
+### cv::utils::ClassWithKeywordProperties::IsInstance
+
+```cpp
+static bool cv::utils::ClassWithKeywordProperties::IsInstance( const cv::utils::ClassWithKeywordProperties& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.utils.ClassWithKeywordProperties").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::utils::ClassWithKeywordProperties::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.utils.ClassWithKeywordProperties").IsInstance( $obj ) -> retval
 ```
 
 ## cv::utils::FunctionParams
@@ -25074,12 +25165,34 @@ AutoIt:
     [propget, propput] $oFunctionParams.sigma
 ```
 
+### FunctionParams.FullyQualifiedName
+
+```cpp
+static std::string cv::utils::FunctionParams::FullyQualifiedName
+AutoIt:
+    [propget] $oFunctionParams.FullyQualifiedName
+```
+
 ### cv::utils::FunctionParams::get\_create
 
 ```cpp
 static cv::utils::FunctionParams cv::utils::FunctionParams::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.utils.FunctionParams").create() -> <cv.utils.FunctionParams object>
+```
+
+### cv::utils::FunctionParams::IsInstance
+
+```cpp
+static bool cv::utils::FunctionParams::IsInstance( const cv::utils::FunctionParams& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.utils.FunctionParams").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::utils::FunctionParams::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.utils.FunctionParams").IsInstance( $obj ) -> retval
 ```
 
 ## cv::utils::nested
@@ -25110,6 +25223,14 @@ AutoIt:
     [propget] $oExportClassName.Params
 ```
 
+### ExportClassName.FullyQualifiedName
+
+```cpp
+static std::string cv::utils::nested::OriginalClassName::FullyQualifiedName
+AutoIt:
+    [propget] $oExportClassName.FullyQualifiedName
+```
+
 ### cv::utils::nested::OriginalClassName::get\_create
 
 ```cpp
@@ -25117,6 +25238,20 @@ static cv::Ptr<cv::utils::nested::OriginalClassName> cv::utils::nested::Original
 AutoIt:
     _OpenCV_ObjCreate("cv.utils.nested.ExportClassName").create( [$params] ) -> retval
     $oExportClassName( [$params] ) -> retval
+```
+
+### cv::utils::nested::OriginalClassName::IsInstance
+
+```cpp
+static bool cv::utils::nested::OriginalClassName::IsInstance( const cv::utils::nested::OriginalClassName& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.utils.nested.ExportClassName").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::utils::nested::OriginalClassName::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.utils.nested.ExportClassName").IsInstance( $obj ) -> retval
 ```
 
 ### cv::utils::nested::OriginalClassName::getFloatParam
@@ -25161,6 +25296,14 @@ AutoIt:
     [propget, propput] $oParams.float_value
 ```
 
+### Params.FullyQualifiedName
+
+```cpp
+static std::string cv::utils::nested::OriginalClassName::Params::FullyQualifiedName
+AutoIt:
+    [propget] $oParams.FullyQualifiedName
+```
+
 ### cv::utils::nested::OriginalClassName::Params::get\_create
 
 ```cpp
@@ -25171,12 +25314,26 @@ AutoIt:
     $oParams( [$int_param[, $float_param]] ) -> <cv.utils.nested.OriginalClassName.Params object>
 ```
 
+### cv::utils::nested::OriginalClassName::Params::IsInstance
+
+```cpp
+static bool cv::utils::nested::OriginalClassName::Params::IsInstance( const cv::utils::nested::OriginalClassName::Params& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.utils.nested.OriginalClassName.Params").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::utils::nested::OriginalClassName::Params::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.utils.nested.OriginalClassName.Params").IsInstance( $obj ) -> retval
+```
+
 ## cv::utils::fs
 
 ### cv::utils::fs::getCacheDirectoryForDownloads
 
 ```cpp
-std::string cv::utils::fs::getCacheDirectoryForDownloads();
+cv::String cv::utils::fs::getCacheDirectoryForDownloads();
 AutoIt:
     _OpenCV_ObjCreate("cv.utils.fs").getCacheDirectoryForDownloads() -> retval
 ```
@@ -26175,6 +26332,14 @@ AutoIt:
     [propget] $oGpuMat.Allocator
 ```
 
+### GpuMat.FullyQualifiedName
+
+```cpp
+static std::string cv::cuda::GpuMat::FullyQualifiedName
+AutoIt:
+    [propget] $oGpuMat.FullyQualifiedName
+```
+
 ### cv::cuda::GpuMat::get\_create
 
 ```cpp
@@ -26271,6 +26436,20 @@ void cv::cuda::GpuMat::get_create( cv::Size size,
 AutoIt:
     $oGpuMat.create( $size, $type ) -> None
     $oGpuMat( $size, $type ) -> None
+```
+
+### cv::cuda::GpuMat::IsInstance
+
+```cpp
+static bool cv::cuda::GpuMat::IsInstance( const cv::cuda::GpuMat& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.cuda.GpuMat").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::cuda::GpuMat::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.cuda.GpuMat").IsInstance( $obj ) -> retval
 ```
 
 ### cv::cuda::GpuMat::adjustROI
@@ -26604,7 +26783,87 @@ AutoIt:
     $oGpuMat.upload( $arr, $stream ) -> None
 ```
 
+## cv::cuda::GpuMat::Allocator
+
+### Allocator.FullyQualifiedName
+
+```cpp
+static std::string cv::cuda::GpuMat::Allocator::FullyQualifiedName
+AutoIt:
+    [propget] $oAllocator.FullyQualifiedName
+```
+
+### cv::cuda::GpuMat::Allocator::IsInstance
+
+```cpp
+static bool cv::cuda::GpuMat::Allocator::IsInstance( const cv::cuda::GpuMat::Allocator& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.cuda.GpuMat.Allocator").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::cuda::GpuMat::Allocator::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.cuda.GpuMat.Allocator").IsInstance( $obj ) -> retval
+```
+
+## cv::cuda::GpuData
+
+### GpuData.FullyQualifiedName
+
+```cpp
+static std::string cv::cuda::GpuData::FullyQualifiedName
+AutoIt:
+    [propget] $oGpuData.FullyQualifiedName
+```
+
+### cv::cuda::GpuData::IsInstance
+
+```cpp
+static bool cv::cuda::GpuData::IsInstance( const cv::cuda::GpuData& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.cuda.GpuData").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::cuda::GpuData::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.cuda.GpuData").IsInstance( $obj ) -> retval
+```
+
+## cv::cuda::GpuMatND
+
+### GpuMatND.FullyQualifiedName
+
+```cpp
+static std::string cv::cuda::GpuMatND::FullyQualifiedName
+AutoIt:
+    [propget] $oGpuMatND.FullyQualifiedName
+```
+
+### cv::cuda::GpuMatND::IsInstance
+
+```cpp
+static bool cv::cuda::GpuMatND::IsInstance( const cv::cuda::GpuMatND& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.cuda.GpuMatND").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::cuda::GpuMatND::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.cuda.GpuMatND").IsInstance( $obj ) -> retval
+```
+
 ## cv::cuda::BufferPool
+
+### BufferPool.FullyQualifiedName
+
+```cpp
+static std::string cv::cuda::BufferPool::FullyQualifiedName
+AutoIt:
+    [propget] $oBufferPool.FullyQualifiedName
+```
 
 ### cv::cuda::BufferPool::get\_create
 
@@ -26613,6 +26872,20 @@ static cv::cuda::BufferPool cv::cuda::BufferPool::get_create( cv::cuda::Stream& 
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.BufferPool").create( $stream ) -> <cv.cuda.BufferPool object>
     $oBufferPool( $stream ) -> <cv.cuda.BufferPool object>
+```
+
+### cv::cuda::BufferPool::IsInstance
+
+```cpp
+static bool cv::cuda::BufferPool::IsInstance( const cv::cuda::BufferPool& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.cuda.BufferPool").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::cuda::BufferPool::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.cuda.BufferPool").IsInstance( $obj ) -> retval
 ```
 
 ### cv::cuda::BufferPool::getAllocator
@@ -26648,6 +26921,14 @@ AutoIt:
 size_t cv::cuda::HostMem::step
 AutoIt:
     [propget] $oHostMem.step
+```
+
+### HostMem.FullyQualifiedName
+
+```cpp
+static std::string cv::cuda::HostMem::FullyQualifiedName
+AutoIt:
+    [propget] $oHostMem.FullyQualifiedName
 ```
 
 ### cv::cuda::HostMem::get\_create
@@ -26700,6 +26981,20 @@ static cv::cuda::HostMem cv::cuda::HostMem::get_create( cv::cuda::HostMem m );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.HostMem").create( $m ) -> <cv.cuda.HostMem object>
     $oHostMem( $m ) -> <cv.cuda.HostMem object>
+```
+
+### cv::cuda::HostMem::IsInstance
+
+```cpp
+static bool cv::cuda::HostMem::IsInstance( const cv::cuda::HostMem& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.cuda.HostMem").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::cuda::HostMem::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.cuda.HostMem").IsInstance( $obj ) -> retval
 ```
 
 ### cv::cuda::HostMem::channels
@@ -26833,6 +27128,14 @@ AutoIt:
 
 ## cv::cuda::Stream
 
+### Stream.FullyQualifiedName
+
+```cpp
+static std::string cv::cuda::Stream::FullyQualifiedName
+AutoIt:
+    [propget] $oStream.FullyQualifiedName
+```
+
 ### cv::cuda::Stream::get\_create
 
 ```cpp
@@ -26853,6 +27156,20 @@ static cv::cuda::Stream cv::cuda::Stream::get_create( const size_t cudaFlags );
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.Stream").create( $cudaFlags ) -> <cv.cuda.Stream object>
     $oStream( $cudaFlags ) -> <cv.cuda.Stream object>
+```
+
+### cv::cuda::Stream::IsInstance
+
+```cpp
+static bool cv::cuda::Stream::IsInstance( const cv::cuda::Stream& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.cuda.Stream").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::cuda::Stream::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.cuda.Stream").IsInstance( $obj ) -> retval
 ```
 
 ### cv::cuda::Stream::Null
@@ -26897,6 +27214,14 @@ AutoIt:
 
 ## cv::cuda::Event
 
+### Event.FullyQualifiedName
+
+```cpp
+static std::string cv::cuda::Event::FullyQualifiedName
+AutoIt:
+    [propget] $oEvent.FullyQualifiedName
+```
+
 ### cv::cuda::Event::get\_create
 
 ```cpp
@@ -26904,6 +27229,20 @@ static cv::cuda::Event cv::cuda::Event::get_create( const cv::cuda::Event::Creat
 AutoIt:
     _OpenCV_ObjCreate("cv.cuda.Event").create( [$flags] ) -> <cv.cuda.Event object>
     $oEvent( [$flags] ) -> <cv.cuda.Event object>
+```
+
+### cv::cuda::Event::IsInstance
+
+```cpp
+static bool cv::cuda::Event::IsInstance( const cv::cuda::Event& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.cuda.Event").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::cuda::Event::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.cuda.Event").IsInstance( $obj ) -> retval
 ```
 
 ### cv::cuda::Event::elapsedTime
@@ -26973,6 +27312,28 @@ AutoIt:
 
 ## cv::cuda::TargetArchs
 
+### TargetArchs.FullyQualifiedName
+
+```cpp
+static std::string cv::cuda::TargetArchs::FullyQualifiedName
+AutoIt:
+    [propget] $oTargetArchs.FullyQualifiedName
+```
+
+### cv::cuda::TargetArchs::IsInstance
+
+```cpp
+static bool cv::cuda::TargetArchs::IsInstance( const cv::cuda::TargetArchs& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.cuda.TargetArchs").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::cuda::TargetArchs::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.cuda.TargetArchs").IsInstance( $obj ) -> retval
+```
+
 ### cv::cuda::TargetArchs::has
 
 ```cpp
@@ -27038,6 +27399,14 @@ AutoIt:
 
 ## cv::cuda::DeviceInfo
 
+### DeviceInfo.FullyQualifiedName
+
+```cpp
+static std::string cv::cuda::DeviceInfo::FullyQualifiedName
+AutoIt:
+    [propget] $oDeviceInfo.FullyQualifiedName
+```
+
 ### cv::cuda::DeviceInfo::get\_create
 
 ```cpp
@@ -27059,6 +27428,20 @@ AutoIt:
 bool cv::cuda::DeviceInfo::ECCEnabled() const;
 AutoIt:
     $oDeviceInfo.ECCEnabled() -> retval
+```
+
+### cv::cuda::DeviceInfo::IsInstance
+
+```cpp
+static bool cv::cuda::DeviceInfo::IsInstance( const cv::cuda::DeviceInfo& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.cuda.DeviceInfo").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::cuda::DeviceInfo::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.cuda.DeviceInfo").IsInstance( $obj ) -> retval
 ```
 
 ### cv::cuda::DeviceInfo::asyncEngineCount
@@ -27536,6 +27919,28 @@ AutoIt:
 
 ## cv::\_InputArray
 
+### \_InputArray.FullyQualifiedName
+
+```cpp
+static std::string cv::_InputArray::FullyQualifiedName
+AutoIt:
+    [propget] $o_InputArray.FullyQualifiedName
+```
+
+### cv::\_InputArray::IsInstance
+
+```cpp
+static bool cv::_InputArray::IsInstance( const cv::_InputArray& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv._InputArray").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::_InputArray::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv._InputArray").IsInstance( $obj ) -> retval
+```
+
 ### \_InputArray.KIND\_SHIFT\_
 
 ```cpp
@@ -27697,6 +28102,28 @@ AutoIt:
 ```
 
 ## cv::\_OutputArray
+
+### \_OutputArray.FullyQualifiedName
+
+```cpp
+static std::string cv::_OutputArray::FullyQualifiedName
+AutoIt:
+    [propget] $o_OutputArray.FullyQualifiedName
+```
+
+### cv::\_OutputArray::IsInstance
+
+```cpp
+static bool cv::_OutputArray::IsInstance( const cv::_OutputArray& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv._OutputArray").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::_OutputArray::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv._OutputArray").IsInstance( $obj ) -> retval
+```
 
 ### \_OutputArray.DEPTH\_MASK\_8U\_
 
@@ -27950,6 +28377,14 @@ AutoIt:
     [propget] $oMat.steps
 ```
 
+### Mat.FullyQualifiedName
+
+```cpp
+static std::string cv::Mat::FullyQualifiedName
+AutoIt:
+    [propget] $oMat.FullyQualifiedName
+```
+
 ### cv::Mat::create
 
 ```cpp
@@ -28088,6 +28523,20 @@ void cv::Mat::GdiplusResize( cv::Mat dst,
                              int     interpolation = 7 );
 AutoIt:
     $oMat.GdiplusResize( $newWidth, $newHeight[, $interpolation[, $dst]] ) -> $dst
+```
+
+### cv::Mat::IsInstance
+
+```cpp
+static bool cv::Mat::IsInstance( const cv::Mat& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Mat").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Mat::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Mat").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Mat::PixelChecksum
@@ -31305,6 +31754,14 @@ AutoIt:
     [propget] $oUMat.steps
 ```
 
+### UMat.FullyQualifiedName
+
+```cpp
+static std::string cv::UMat::FullyQualifiedName
+AutoIt:
+    [propget] $oUMat.FullyQualifiedName
+```
+
 ### cv::UMat::get\_create
 
 ```cpp
@@ -31428,6 +31885,20 @@ void cv::UMat::GdiplusResize( cv::Mat dst,
                               int     interpolation = 7 );
 AutoIt:
     $oUMat.GdiplusResize( $newWidth, $newHeight[, $interpolation[, $dst]] ) -> $dst
+```
+
+### cv::UMat::IsInstance
+
+```cpp
+static bool cv::UMat::IsInstance( const cv::UMat& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::UMat::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UMat").IsInstance( $obj ) -> retval
 ```
 
 ### cv::UMat::adjustROI
@@ -32226,12 +32697,34 @@ AutoIt:
 
 ## cv::ocl::Device
 
+### Device.FullyQualifiedName
+
+```cpp
+static std::string cv::ocl::Device::FullyQualifiedName
+AutoIt:
+    [propget] $oDevice.FullyQualifiedName
+```
+
 ### cv::ocl::Device::get\_create
 
 ```cpp
 static cv::ocl::Device cv::ocl::Device::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ocl.Device").create() -> <cv.ocl.Device object>
+```
+
+### cv::ocl::Device::IsInstance
+
+```cpp
+static bool cv::ocl::Device::IsInstance( const cv::ocl::Device& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ocl.Device").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::ocl::Device::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ocl.Device").IsInstance( $obj ) -> retval
 ```
 
 ### cv::ocl::Device::OpenCLVersion
@@ -33092,6 +33585,30 @@ AutoIt:
     [propget] $oKernelArg.NO_SIZE_
 ```
 
+## cv::ocl::OpenCLExecutionContext
+
+### OpenCLExecutionContext.FullyQualifiedName
+
+```cpp
+static std::string cv::ocl::OpenCLExecutionContext::FullyQualifiedName
+AutoIt:
+    [propget] $oOpenCLExecutionContext.FullyQualifiedName
+```
+
+### cv::ocl::OpenCLExecutionContext::IsInstance
+
+```cpp
+static bool cv::ocl::OpenCLExecutionContext::IsInstance( const cv::ocl::OpenCLExecutionContext& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ocl.OpenCLExecutionContext").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::ocl::OpenCLExecutionContext::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ocl.OpenCLExecutionContext").IsInstance( $obj ) -> retval
+```
+
 ## cv::ogl
 
 ### ogl.Buffer
@@ -33284,6 +33801,14 @@ AutoIt:
 
 ## cv::FileStorage
 
+### FileStorage.FullyQualifiedName
+
+```cpp
+static std::string cv::FileStorage::FullyQualifiedName
+AutoIt:
+    [propget] $oFileStorage.FullyQualifiedName
+```
+
 ### cv::FileStorage::get\_create
 
 ```cpp
@@ -33299,6 +33824,20 @@ static cv::FileStorage cv::FileStorage::get_create( const std::string& filename,
 AutoIt:
     _OpenCV_ObjCreate("cv.FileStorage").create( $filename, $flags[, $encoding] ) -> <cv.FileStorage object>
     $oFileStorage( $filename, $flags[, $encoding] ) -> <cv.FileStorage object>
+```
+
+### cv::FileStorage::IsInstance
+
+```cpp
+static bool cv::FileStorage::IsInstance( const cv::FileStorage& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.FileStorage").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::FileStorage::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.FileStorage").IsInstance( $obj ) -> retval
 ```
 
 ### cv::FileStorage::endWriteStruct
@@ -33553,12 +34092,34 @@ AutoIt:
 
 ## cv::FileNode
 
+### FileNode.FullyQualifiedName
+
+```cpp
+static std::string cv::FileNode::FullyQualifiedName
+AutoIt:
+    [propget] $oFileNode.FullyQualifiedName
+```
+
 ### cv::FileNode::get\_create
 
 ```cpp
 static cv::FileNode cv::FileNode::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.FileNode").create() -> <cv.FileNode object>
+```
+
+### cv::FileNode::IsInstance
+
+```cpp
+static bool cv::FileNode::IsInstance( const cv::FileNode& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.FileNode").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::FileNode::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.FileNode").IsInstance( $obj ) -> retval
 ```
 
 ### cv::FileNode::asVariant
@@ -34045,6 +34606,14 @@ AutoIt:
     [propget, propput] $oRotatedRect.angle
 ```
 
+### RotatedRect.FullyQualifiedName
+
+```cpp
+static std::string cv::RotatedRect::FullyQualifiedName
+AutoIt:
+    [propget] $oRotatedRect.FullyQualifiedName
+```
+
 ### cv::RotatedRect::get\_create
 
 ```cpp
@@ -34093,6 +34662,20 @@ static cv::RotatedRect cv::RotatedRect::get_create( cv::Point2f point1,
 AutoIt:
     _OpenCV_ObjCreate("cv.RotatedRect").create( $point1, $point2, $point3 ) -> <cv.RotatedRect object>
     $oRotatedRect( $point1, $point2, $point3 ) -> <cv.RotatedRect object>
+```
+
+### cv::RotatedRect::IsInstance
+
+```cpp
+static bool cv::RotatedRect::IsInstance( const cv::RotatedRect& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.RotatedRect").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::RotatedRect::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.RotatedRect").IsInstance( $obj ) -> retval
 ```
 
 ### cv::RotatedRect::boundingRect
@@ -34175,6 +34758,14 @@ AutoIt:
     [propget, propput] $oKeyPoint.class_id
 ```
 
+### KeyPoint.FullyQualifiedName
+
+```cpp
+static std::string cv::KeyPoint::FullyQualifiedName
+AutoIt:
+    [propget] $oKeyPoint.FullyQualifiedName
+```
+
 ### cv::KeyPoint::get\_create
 
 ```cpp
@@ -34194,6 +34785,20 @@ static cv::KeyPoint cv::KeyPoint::get_create( float x,
 AutoIt:
     _OpenCV_ObjCreate("cv.KeyPoint").create( $x, $y, $size[, $angle[, $response[, $octave[, $class_id]]]] ) -> <cv.KeyPoint object>
     $oKeyPoint( $x, $y, $size[, $angle[, $response[, $octave[, $class_id]]]] ) -> <cv.KeyPoint object>
+```
+
+### cv::KeyPoint::IsInstance
+
+```cpp
+static bool cv::KeyPoint::IsInstance( const cv::KeyPoint& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.KeyPoint").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::KeyPoint::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.KeyPoint").IsInstance( $obj ) -> retval
 ```
 
 ### cv::KeyPoint::convert
@@ -34260,6 +34865,14 @@ AutoIt:
     [propget, propput] $oDMatch.distance
 ```
 
+### DMatch.FullyQualifiedName
+
+```cpp
+static std::string cv::DMatch::FullyQualifiedName
+AutoIt:
+    [propget] $oDMatch.FullyQualifiedName
+```
+
 ### cv::DMatch::get\_create
 
 ```cpp
@@ -34285,6 +34898,20 @@ static cv::DMatch cv::DMatch::get_create( int   _queryIdx,
 AutoIt:
     _OpenCV_ObjCreate("cv.DMatch").create( $_queryIdx, $_trainIdx, $_imgIdx, $_distance ) -> <cv.DMatch object>
     $oDMatch( $_queryIdx, $_trainIdx, $_imgIdx, $_distance ) -> <cv.DMatch object>
+```
+
+### cv::DMatch::IsInstance
+
+```cpp
+static bool cv::DMatch::IsInstance( const cv::DMatch& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.DMatch").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::DMatch::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.DMatch").IsInstance( $obj ) -> retval
 ```
 
 ## cv::TermCriteria
@@ -34313,6 +34940,14 @@ AutoIt:
     [propget, propput] $oTermCriteria.epsilon
 ```
 
+### TermCriteria.FullyQualifiedName
+
+```cpp
+static std::string cv::TermCriteria::FullyQualifiedName
+AutoIt:
+    [propget] $oTermCriteria.FullyQualifiedName
+```
+
 ### cv::TermCriteria::get\_create
 
 ```cpp
@@ -34328,6 +34963,20 @@ static cv::TermCriteria cv::TermCriteria::get_create( int    type,
 AutoIt:
     _OpenCV_ObjCreate("cv.TermCriteria").create( $type, $maxCount, $epsilon ) -> <cv.TermCriteria object>
     $oTermCriteria( $type, $maxCount, $epsilon ) -> <cv.TermCriteria object>
+```
+
+### cv::TermCriteria::IsInstance
+
+```cpp
+static bool cv::TermCriteria::IsInstance( const cv::TermCriteria& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TermCriteria").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::TermCriteria::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TermCriteria").IsInstance( $obj ) -> retval
 ```
 
 ### TermCriteria.COUNT\_
@@ -34548,6 +35197,14 @@ AutoIt:
     [propget, propput] $oMoments.nu03
 ```
 
+### Moments.FullyQualifiedName
+
+```cpp
+static std::string cv::Moments::FullyQualifiedName
+AutoIt:
+    [propget] $oMoments.FullyQualifiedName
+```
+
 ### cv::Moments::get\_create
 
 ```cpp
@@ -34556,7 +35213,29 @@ AutoIt:
     _OpenCV_ObjCreate("cv.Moments").create() -> <cv.Moments object>
 ```
 
+### cv::Moments::IsInstance
+
+```cpp
+static bool cv::Moments::IsInstance( const cv::Moments& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Moments").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Moments::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Moments").IsInstance( $obj ) -> retval
+```
+
 ## cv::TickMeter
+
+### TickMeter.FullyQualifiedName
+
+```cpp
+static std::string cv::TickMeter::FullyQualifiedName
+AutoIt:
+    [propget] $oTickMeter.FullyQualifiedName
+```
 
 ### cv::TickMeter::get\_create
 
@@ -34564,6 +35243,20 @@ AutoIt:
 static cv::TickMeter cv::TickMeter::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.TickMeter").create() -> <cv.TickMeter object>
+```
+
+### cv::TickMeter::IsInstance
+
+```cpp
+static bool cv::TickMeter::IsInstance( const cv::TickMeter& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TickMeter").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::TickMeter::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TickMeter").IsInstance( $obj ) -> retval
 ```
 
 ### cv::TickMeter::getAvgTimeMilli
@@ -34659,7 +35352,7 @@ AutoIt:
 ### cv::samples::addSamplesDataSearchPath
 
 ```cpp
-void cv::samples::addSamplesDataSearchPath( const std::string& path );
+void cv::samples::addSamplesDataSearchPath( const cv::String& path );
 AutoIt:
     _OpenCV_ObjCreate("cv.samples").addSamplesDataSearchPath( $path ) -> None
 ```
@@ -34667,7 +35360,7 @@ AutoIt:
 ### cv::samples::addSamplesDataSearchSubDirectory
 
 ```cpp
-void cv::samples::addSamplesDataSearchSubDirectory( const std::string& subdir );
+void cv::samples::addSamplesDataSearchSubDirectory( const cv::String& subdir );
 AutoIt:
     _OpenCV_ObjCreate("cv.samples").addSamplesDataSearchSubDirectory( $subdir ) -> None
 ```
@@ -34675,9 +35368,9 @@ AutoIt:
 ### cv::samples::findFile
 
 ```cpp
-std::string cv::samples::findFile( const std::string& relative_path,
-                                   bool               required = true,
-                                   bool               silentMode = false );
+cv::String cv::samples::findFile( const cv::String& relative_path,
+                                  bool              required = true,
+                                  bool              silentMode = false );
 AutoIt:
     _OpenCV_ObjCreate("cv.samples").findFile( $relative_path[, $required[, $silentMode]] ) -> retval
 ```
@@ -34685,8 +35378,8 @@ AutoIt:
 ### cv::samples::findFileOrKeep
 
 ```cpp
-std::string cv::samples::findFileOrKeep( const std::string& relative_path,
-                                         bool               silentMode = false );
+cv::String cv::samples::findFileOrKeep( const cv::String& relative_path,
+                                        bool              silentMode = false );
 AutoIt:
     _OpenCV_ObjCreate("cv.samples").findFileOrKeep( $relative_path[, $silentMode] ) -> retval
 ```
@@ -34791,6 +35484,14 @@ AutoIt:
 
 ## cv::flann::Index
 
+### Index.FullyQualifiedName
+
+```cpp
+static std::string cv::flann::Index::FullyQualifiedName
+AutoIt:
+    [propget] $oIndex.FullyQualifiedName
+```
+
 ### cv::flann::Index::get\_create
 
 ```cpp
@@ -34806,6 +35507,20 @@ static cv::flann::Index cv::flann::Index::get_create( InputArray                
 AutoIt:
     _OpenCV_ObjCreate("cv.flann.Index").create( $features, $params[, $distType] ) -> <cv.flann.Index object>
     $oIndex( $features, $params[, $distType] ) -> <cv.flann.Index object>
+```
+
+### cv::flann::Index::IsInstance
+
+```cpp
+static bool cv::flann::Index::IsInstance( const cv::flann::Index& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.flann.Index").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::flann::Index::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.flann.Index").IsInstance( $obj ) -> retval
 ```
 
 ### cv::flann::Index::build
@@ -34885,6 +35600,28 @@ AutoIt:
 ```
 
 ## cv::GeneralizedHough
+
+### GeneralizedHough.FullyQualifiedName
+
+```cpp
+static std::string cv::GeneralizedHough::FullyQualifiedName
+AutoIt:
+    [propget] $oGeneralizedHough.FullyQualifiedName
+```
+
+### cv::GeneralizedHough::IsInstance
+
+```cpp
+static bool cv::GeneralizedHough::IsInstance( const cv::GeneralizedHough& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GeneralizedHough").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::GeneralizedHough::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GeneralizedHough").IsInstance( $obj ) -> retval
+```
 
 ### cv::GeneralizedHough::clear
 
@@ -35060,6 +35797,28 @@ AutoIt:
 ```
 
 ## cv::GeneralizedHoughBallard
+
+### GeneralizedHoughBallard.FullyQualifiedName
+
+```cpp
+static std::string cv::GeneralizedHoughBallard::FullyQualifiedName
+AutoIt:
+    [propget] $oGeneralizedHoughBallard.FullyQualifiedName
+```
+
+### cv::GeneralizedHoughBallard::IsInstance
+
+```cpp
+static bool cv::GeneralizedHoughBallard::IsInstance( const cv::GeneralizedHoughBallard& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GeneralizedHoughBallard").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::GeneralizedHoughBallard::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GeneralizedHoughBallard").IsInstance( $obj ) -> retval
+```
 
 ### cv::GeneralizedHoughBallard::clear
 
@@ -35267,6 +36026,28 @@ AutoIt:
 ```
 
 ## cv::GeneralizedHoughGuil
+
+### GeneralizedHoughGuil.FullyQualifiedName
+
+```cpp
+static std::string cv::GeneralizedHoughGuil::FullyQualifiedName
+AutoIt:
+    [propget] $oGeneralizedHoughGuil.FullyQualifiedName
+```
+
+### cv::GeneralizedHoughGuil::IsInstance
+
+```cpp
+static bool cv::GeneralizedHoughGuil::IsInstance( const cv::GeneralizedHoughGuil& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GeneralizedHoughGuil").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::GeneralizedHoughGuil::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GeneralizedHoughGuil").IsInstance( $obj ) -> retval
+```
 
 ### cv::GeneralizedHoughGuil::clear
 
@@ -35635,6 +36416,28 @@ AutoIt:
 
 ## cv::CLAHE
 
+### CLAHE.FullyQualifiedName
+
+```cpp
+static std::string cv::CLAHE::FullyQualifiedName
+AutoIt:
+    [propget] $oCLAHE.FullyQualifiedName
+```
+
+### cv::CLAHE::IsInstance
+
+```cpp
+static bool cv::CLAHE::IsInstance( const cv::CLAHE& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.CLAHE").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::CLAHE::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.CLAHE").IsInstance( $obj ) -> retval
+```
+
 ### cv::CLAHE::apply
 
 ```cpp
@@ -35741,6 +36544,14 @@ AutoIt:
 
 ## cv::Subdiv2D
 
+### Subdiv2D.FullyQualifiedName
+
+```cpp
+static std::string cv::Subdiv2D::FullyQualifiedName
+AutoIt:
+    [propget] $oSubdiv2D.FullyQualifiedName
+```
+
 ### cv::Subdiv2D::get\_create
 
 ```cpp
@@ -35754,6 +36565,20 @@ static cv::Subdiv2D cv::Subdiv2D::get_create( cv::Rect rect );
 AutoIt:
     _OpenCV_ObjCreate("cv.Subdiv2D").create( $rect ) -> <cv.Subdiv2D object>
     $oSubdiv2D( $rect ) -> <cv.Subdiv2D object>
+```
+
+### cv::Subdiv2D::IsInstance
+
+```cpp
+static bool cv::Subdiv2D::IsInstance( const cv::Subdiv2D& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Subdiv2D").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Subdiv2D::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Subdiv2D").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Subdiv2D::edgeDst
@@ -35998,6 +36823,28 @@ AutoIt:
 
 ## cv::LineSegmentDetector
 
+### LineSegmentDetector.FullyQualifiedName
+
+```cpp
+static std::string cv::LineSegmentDetector::FullyQualifiedName
+AutoIt:
+    [propget] $oLineSegmentDetector.FullyQualifiedName
+```
+
+### cv::LineSegmentDetector::IsInstance
+
+```cpp
+static bool cv::LineSegmentDetector::IsInstance( const cv::LineSegmentDetector& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.LineSegmentDetector").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::LineSegmentDetector::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.LineSegmentDetector").IsInstance( $obj ) -> retval
+```
+
 ### cv::LineSegmentDetector::clear
 
 ```cpp
@@ -36097,12 +36944,34 @@ AutoIt:
 
 ## cv::segmentation::IntelligentScissorsMB
 
+### IntelligentScissorsMB.FullyQualifiedName
+
+```cpp
+static std::string cv::segmentation::IntelligentScissorsMB::FullyQualifiedName
+AutoIt:
+    [propget] $oIntelligentScissorsMB.FullyQualifiedName
+```
+
 ### cv::segmentation::IntelligentScissorsMB::get\_create
 
 ```cpp
 static cv::segmentation::IntelligentScissorsMB cv::segmentation::IntelligentScissorsMB::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.segmentation.IntelligentScissorsMB").create() -> <cv.segmentation.IntelligentScissorsMB object>
+```
+
+### cv::segmentation::IntelligentScissorsMB::IsInstance
+
+```cpp
+static bool cv::segmentation::IntelligentScissorsMB::IsInstance( const cv::segmentation::IntelligentScissorsMB& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.segmentation.IntelligentScissorsMB").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::segmentation::IntelligentScissorsMB::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.segmentation.IntelligentScissorsMB").IsInstance( $obj ) -> retval
 ```
 
 ### cv::segmentation::IntelligentScissorsMB::applyImage
@@ -36367,6 +37236,14 @@ AutoIt:
     [propget, propput] $oParamGrid.logStep
 ```
 
+### ParamGrid.FullyQualifiedName
+
+```cpp
+static std::string cv::ml::ParamGrid::FullyQualifiedName
+AutoIt:
+    [propget] $oParamGrid.FullyQualifiedName
+```
+
 ### cv::ml::ParamGrid::get\_create
 
 ```cpp
@@ -36378,7 +37255,29 @@ AutoIt:
     $oParamGrid( [$minVal[, $maxVal[, $logstep]]] ) -> retval
 ```
 
+### cv::ml::ParamGrid::IsInstance
+
+```cpp
+static bool cv::ml::ParamGrid::IsInstance( const cv::ml::ParamGrid& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ml.ParamGrid").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::ml::ParamGrid::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ml.ParamGrid").IsInstance( $obj ) -> retval
+```
+
 ## cv::ml::TrainData
+
+### TrainData.FullyQualifiedName
+
+```cpp
+static std::string cv::ml::TrainData::FullyQualifiedName
+AutoIt:
+    [propget] $oTrainData.FullyQualifiedName
+```
 
 ### cv::ml::TrainData::get\_create
 
@@ -36393,6 +37292,20 @@ static cv::Ptr<cv::ml::TrainData> cv::ml::TrainData::get_create( InputArray samp
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.TrainData").create( $samples, $layout, $responses[, $varIdx[, $sampleIdx[, $sampleWeights[, $varType]]]] ) -> retval
     $oTrainData( $samples, $layout, $responses[, $varIdx[, $sampleIdx[, $sampleWeights[, $varType]]]] ) -> retval
+```
+
+### cv::ml::TrainData::IsInstance
+
+```cpp
+static bool cv::ml::TrainData::IsInstance( const cv::ml::TrainData& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ml.TrainData").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::ml::TrainData::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ml.TrainData").IsInstance( $obj ) -> retval
 ```
 
 ### cv::ml::TrainData::getCatCount
@@ -36712,6 +37625,28 @@ AutoIt:
 
 ## cv::ml::StatModel
 
+### StatModel.FullyQualifiedName
+
+```cpp
+static std::string cv::ml::StatModel::FullyQualifiedName
+AutoIt:
+    [propget] $oStatModel.FullyQualifiedName
+```
+
+### cv::ml::StatModel::IsInstance
+
+```cpp
+static bool cv::ml::StatModel::IsInstance( const cv::ml::StatModel& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ml.StatModel").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::ml::StatModel::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ml.StatModel").IsInstance( $obj ) -> retval
+```
+
 ### cv::ml::StatModel::calcError
 
 ```cpp
@@ -36862,12 +37797,34 @@ AutoIt:
 
 ## cv::ml::NormalBayesClassifier
 
+### NormalBayesClassifier.FullyQualifiedName
+
+```cpp
+static std::string cv::ml::NormalBayesClassifier::FullyQualifiedName
+AutoIt:
+    [propget] $oNormalBayesClassifier.FullyQualifiedName
+```
+
 ### cv::ml::NormalBayesClassifier::get\_create
 
 ```cpp
 static cv::Ptr<cv::ml::NormalBayesClassifier> cv::ml::NormalBayesClassifier::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.NormalBayesClassifier").create() -> retval
+```
+
+### cv::ml::NormalBayesClassifier::IsInstance
+
+```cpp
+static bool cv::ml::NormalBayesClassifier::IsInstance( const cv::ml::NormalBayesClassifier& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ml.NormalBayesClassifier").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::ml::NormalBayesClassifier::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ml.NormalBayesClassifier").IsInstance( $obj ) -> retval
 ```
 
 ### cv::ml::NormalBayesClassifier::calcError
@@ -37008,12 +37965,34 @@ AutoIt:
 
 ## cv::ml::KNearest
 
+### KNearest.FullyQualifiedName
+
+```cpp
+static std::string cv::ml::KNearest::FullyQualifiedName
+AutoIt:
+    [propget] $oKNearest.FullyQualifiedName
+```
+
 ### cv::ml::KNearest::get\_create
 
 ```cpp
 static cv::Ptr<cv::ml::KNearest> cv::ml::KNearest::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.KNearest").create() -> retval
+```
+
+### cv::ml::KNearest::IsInstance
+
+```cpp
+static bool cv::ml::KNearest::IsInstance( const cv::ml::KNearest& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ml.KNearest").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::ml::KNearest::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ml.KNearest").IsInstance( $obj ) -> retval
 ```
 
 ### cv::ml::KNearest::calcError
@@ -37234,12 +38213,34 @@ AutoIt:
 
 ## cv::ml::SVM
 
+### SVM.FullyQualifiedName
+
+```cpp
+static std::string cv::ml::SVM::FullyQualifiedName
+AutoIt:
+    [propget] $oSVM.FullyQualifiedName
+```
+
 ### cv::ml::SVM::get\_create
 
 ```cpp
 static cv::Ptr<cv::ml::SVM> cv::ml::SVM::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.SVM").create() -> retval
+```
+
+### cv::ml::SVM::IsInstance
+
+```cpp
+static bool cv::ml::SVM::IsInstance( const cv::ml::SVM& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ml.SVM").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::ml::SVM::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ml.SVM").IsInstance( $obj ) -> retval
 ```
 
 ### cv::ml::SVM::calcError
@@ -37724,12 +38725,34 @@ AutoIt:
 
 ## cv::ml::EM
 
+### EM.FullyQualifiedName
+
+```cpp
+static std::string cv::ml::EM::FullyQualifiedName
+AutoIt:
+    [propget] $oEM.FullyQualifiedName
+```
+
 ### cv::ml::EM::get\_create
 
 ```cpp
 static cv::Ptr<cv::ml::EM> cv::ml::EM::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.EM").create() -> retval
+```
+
+### cv::ml::EM::IsInstance
+
+```cpp
+static bool cv::ml::EM::IsInstance( const cv::ml::EM& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ml.EM").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::ml::EM::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ml.EM").IsInstance( $obj ) -> retval
 ```
 
 ### cv::ml::EM::calcError
@@ -38049,12 +39072,34 @@ AutoIt:
 
 ## cv::ml::DTrees
 
+### DTrees.FullyQualifiedName
+
+```cpp
+static std::string cv::ml::DTrees::FullyQualifiedName
+AutoIt:
+    [propget] $oDTrees.FullyQualifiedName
+```
+
 ### cv::ml::DTrees::get\_create
 
 ```cpp
 static cv::Ptr<cv::ml::DTrees> cv::ml::DTrees::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.DTrees").create() -> retval
+```
+
+### cv::ml::DTrees::IsInstance
+
+```cpp
+static bool cv::ml::DTrees::IsInstance( const cv::ml::DTrees& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ml.DTrees").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::ml::DTrees::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ml.DTrees").IsInstance( $obj ) -> retval
 ```
 
 ### cv::ml::DTrees::calcError
@@ -38360,12 +39405,34 @@ AutoIt:
 
 ## cv::ml::RTrees
 
+### RTrees.FullyQualifiedName
+
+```cpp
+static std::string cv::ml::RTrees::FullyQualifiedName
+AutoIt:
+    [propget] $oRTrees.FullyQualifiedName
+```
+
 ### cv::ml::RTrees::get\_create
 
 ```cpp
 static cv::Ptr<cv::ml::RTrees> cv::ml::RTrees::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.RTrees").create() -> retval
+```
+
+### cv::ml::RTrees::IsInstance
+
+```cpp
+static bool cv::ml::RTrees::IsInstance( const cv::ml::RTrees& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ml.RTrees").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::ml::RTrees::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ml.RTrees").IsInstance( $obj ) -> retval
 ```
 
 ### cv::ml::RTrees::calcError
@@ -38713,12 +39780,34 @@ AutoIt:
 
 ## cv::ml::Boost
 
+### Boost.FullyQualifiedName
+
+```cpp
+static std::string cv::ml::Boost::FullyQualifiedName
+AutoIt:
+    [propget] $oBoost.FullyQualifiedName
+```
+
 ### cv::ml::Boost::get\_create
 
 ```cpp
 static cv::Ptr<cv::ml::Boost> cv::ml::Boost::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.Boost").create() -> retval
+```
+
+### cv::ml::Boost::IsInstance
+
+```cpp
+static bool cv::ml::Boost::IsInstance( const cv::ml::Boost& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ml.Boost").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::ml::Boost::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ml.Boost").IsInstance( $obj ) -> retval
 ```
 
 ### cv::ml::Boost::calcError
@@ -39072,12 +40161,34 @@ AutoIt:
 
 ## cv::ml::ANN\_MLP
 
+### ANN\_MLP.FullyQualifiedName
+
+```cpp
+static std::string cv::ml::ANN_MLP::FullyQualifiedName
+AutoIt:
+    [propget] $oANN_MLP.FullyQualifiedName
+```
+
 ### cv::ml::ANN\_MLP::get\_create
 
 ```cpp
 static cv::Ptr<cv::ml::ANN_MLP> cv::ml::ANN_MLP::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.ANN_MLP").create() -> retval
+```
+
+### cv::ml::ANN\_MLP::IsInstance
+
+```cpp
+static bool cv::ml::ANN_MLP::IsInstance( const cv::ml::ANN_MLP& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ml.ANN_MLP").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::ml::ANN_MLP::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ml.ANN_MLP").IsInstance( $obj ) -> retval
 ```
 
 ### cv::ml::ANN\_MLP::calcError
@@ -39538,12 +40649,34 @@ AutoIt:
 
 ## cv::ml::LogisticRegression
 
+### LogisticRegression.FullyQualifiedName
+
+```cpp
+static std::string cv::ml::LogisticRegression::FullyQualifiedName
+AutoIt:
+    [propget] $oLogisticRegression.FullyQualifiedName
+```
+
 ### cv::ml::LogisticRegression::get\_create
 
 ```cpp
 static cv::Ptr<cv::ml::LogisticRegression> cv::ml::LogisticRegression::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.LogisticRegression").create() -> retval
+```
+
+### cv::ml::LogisticRegression::IsInstance
+
+```cpp
+static bool cv::ml::LogisticRegression::IsInstance( const cv::ml::LogisticRegression& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ml.LogisticRegression").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::ml::LogisticRegression::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ml.LogisticRegression").IsInstance( $obj ) -> retval
 ```
 
 ### cv::ml::LogisticRegression::calcError
@@ -39817,12 +40950,34 @@ AutoIt:
 
 ## cv::ml::SVMSGD
 
+### SVMSGD.FullyQualifiedName
+
+```cpp
+static std::string cv::ml::SVMSGD::FullyQualifiedName
+AutoIt:
+    [propget] $oSVMSGD.FullyQualifiedName
+```
+
 ### cv::ml::SVMSGD::get\_create
 
 ```cpp
 static cv::Ptr<cv::ml::SVMSGD> cv::ml::SVMSGD::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.ml.SVMSGD").create() -> retval
+```
+
+### cv::ml::SVMSGD::IsInstance
+
+```cpp
+static bool cv::ml::SVMSGD::IsInstance( const cv::ml::SVMSGD& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ml.SVMSGD").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::ml::SVMSGD::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ml.SVMSGD").IsInstance( $obj ) -> retval
 ```
 
 ### cv::ml::SVMSGD::calcError
@@ -40105,6 +41260,28 @@ AutoIt:
 
 ## cv::Tonemap
 
+### Tonemap.FullyQualifiedName
+
+```cpp
+static std::string cv::Tonemap::FullyQualifiedName
+AutoIt:
+    [propget] $oTonemap.FullyQualifiedName
+```
+
+### cv::Tonemap::IsInstance
+
+```cpp
+static bool cv::Tonemap::IsInstance( const cv::Tonemap& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Tonemap").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Tonemap::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Tonemap").IsInstance( $obj ) -> retval
+```
+
 ### cv::Tonemap::clear
 
 ```cpp
@@ -40186,6 +41363,28 @@ AutoIt:
 ```
 
 ## cv::TonemapDrago
+
+### TonemapDrago.FullyQualifiedName
+
+```cpp
+static std::string cv::TonemapDrago::FullyQualifiedName
+AutoIt:
+    [propget] $oTonemapDrago.FullyQualifiedName
+```
+
+### cv::TonemapDrago::IsInstance
+
+```cpp
+static bool cv::TonemapDrago::IsInstance( const cv::TonemapDrago& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TonemapDrago").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::TonemapDrago::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TonemapDrago").IsInstance( $obj ) -> retval
+```
 
 ### cv::TonemapDrago::clear
 
@@ -40300,6 +41499,28 @@ AutoIt:
 ```
 
 ## cv::TonemapReinhard
+
+### TonemapReinhard.FullyQualifiedName
+
+```cpp
+static std::string cv::TonemapReinhard::FullyQualifiedName
+AutoIt:
+    [propget] $oTonemapReinhard.FullyQualifiedName
+```
+
+### cv::TonemapReinhard::IsInstance
+
+```cpp
+static bool cv::TonemapReinhard::IsInstance( const cv::TonemapReinhard& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TonemapReinhard").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::TonemapReinhard::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TonemapReinhard").IsInstance( $obj ) -> retval
+```
 
 ### cv::TonemapReinhard::clear
 
@@ -40431,6 +41652,28 @@ AutoIt:
 
 ## cv::TonemapMantiuk
 
+### TonemapMantiuk.FullyQualifiedName
+
+```cpp
+static std::string cv::TonemapMantiuk::FullyQualifiedName
+AutoIt:
+    [propget] $oTonemapMantiuk.FullyQualifiedName
+```
+
+### cv::TonemapMantiuk::IsInstance
+
+```cpp
+static bool cv::TonemapMantiuk::IsInstance( const cv::TonemapMantiuk& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TonemapMantiuk").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::TonemapMantiuk::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TonemapMantiuk").IsInstance( $obj ) -> retval
+```
+
 ### cv::TonemapMantiuk::clear
 
 ```cpp
@@ -40545,6 +41788,28 @@ AutoIt:
 
 ## cv::AlignExposures
 
+### AlignExposures.FullyQualifiedName
+
+```cpp
+static std::string cv::AlignExposures::FullyQualifiedName
+AutoIt:
+    [propget] $oAlignExposures.FullyQualifiedName
+```
+
+### cv::AlignExposures::IsInstance
+
+```cpp
+static bool cv::AlignExposures::IsInstance( const cv::AlignExposures& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.AlignExposures").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::AlignExposures::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.AlignExposures").IsInstance( $obj ) -> retval
+```
+
 ### cv::AlignExposures::clear
 
 ```cpp
@@ -40612,6 +41877,28 @@ AutoIt:
 ```
 
 ## cv::AlignMTB
+
+### AlignMTB.FullyQualifiedName
+
+```cpp
+static std::string cv::AlignMTB::FullyQualifiedName
+AutoIt:
+    [propget] $oAlignMTB.FullyQualifiedName
+```
+
+### cv::AlignMTB::IsInstance
+
+```cpp
+static bool cv::AlignMTB::IsInstance( const cv::AlignMTB& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.AlignMTB").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::AlignMTB::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.AlignMTB").IsInstance( $obj ) -> retval
+```
 
 ### cv::AlignMTB::calculateShift
 
@@ -40765,6 +42052,28 @@ AutoIt:
 
 ## cv::CalibrateCRF
 
+### CalibrateCRF.FullyQualifiedName
+
+```cpp
+static std::string cv::CalibrateCRF::FullyQualifiedName
+AutoIt:
+    [propget] $oCalibrateCRF.FullyQualifiedName
+```
+
+### cv::CalibrateCRF::IsInstance
+
+```cpp
+static bool cv::CalibrateCRF::IsInstance( const cv::CalibrateCRF& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.CalibrateCRF").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::CalibrateCRF::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.CalibrateCRF").IsInstance( $obj ) -> retval
+```
+
 ### cv::CalibrateCRF::clear
 
 ```cpp
@@ -40831,6 +42140,28 @@ AutoIt:
 ```
 
 ## cv::CalibrateDebevec
+
+### CalibrateDebevec.FullyQualifiedName
+
+```cpp
+static std::string cv::CalibrateDebevec::FullyQualifiedName
+AutoIt:
+    [propget] $oCalibrateDebevec.FullyQualifiedName
+```
+
+### cv::CalibrateDebevec::IsInstance
+
+```cpp
+static bool cv::CalibrateDebevec::IsInstance( const cv::CalibrateDebevec& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.CalibrateDebevec").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::CalibrateDebevec::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.CalibrateDebevec").IsInstance( $obj ) -> retval
+```
 
 ### cv::CalibrateDebevec::clear
 
@@ -40947,6 +42278,28 @@ AutoIt:
 
 ## cv::CalibrateRobertson
 
+### CalibrateRobertson.FullyQualifiedName
+
+```cpp
+static std::string cv::CalibrateRobertson::FullyQualifiedName
+AutoIt:
+    [propget] $oCalibrateRobertson.FullyQualifiedName
+```
+
+### cv::CalibrateRobertson::IsInstance
+
+```cpp
+static bool cv::CalibrateRobertson::IsInstance( const cv::CalibrateRobertson& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.CalibrateRobertson").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::CalibrateRobertson::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.CalibrateRobertson").IsInstance( $obj ) -> retval
+```
+
 ### cv::CalibrateRobertson::clear
 
 ```cpp
@@ -41054,6 +42407,28 @@ AutoIt:
 
 ## cv::MergeExposures
 
+### MergeExposures.FullyQualifiedName
+
+```cpp
+static std::string cv::MergeExposures::FullyQualifiedName
+AutoIt:
+    [propget] $oMergeExposures.FullyQualifiedName
+```
+
+### cv::MergeExposures::IsInstance
+
+```cpp
+static bool cv::MergeExposures::IsInstance( const cv::MergeExposures& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.MergeExposures").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::MergeExposures::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.MergeExposures").IsInstance( $obj ) -> retval
+```
+
 ### cv::MergeExposures::clear
 
 ```cpp
@@ -41121,6 +42496,28 @@ AutoIt:
 ```
 
 ## cv::MergeDebevec
+
+### MergeDebevec.FullyQualifiedName
+
+```cpp
+static std::string cv::MergeDebevec::FullyQualifiedName
+AutoIt:
+    [propget] $oMergeDebevec.FullyQualifiedName
+```
+
+### cv::MergeDebevec::IsInstance
+
+```cpp
+static bool cv::MergeDebevec::IsInstance( const cv::MergeDebevec& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.MergeDebevec").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::MergeDebevec::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.MergeDebevec").IsInstance( $obj ) -> retval
+```
 
 ### cv::MergeDebevec::clear
 
@@ -41197,6 +42594,28 @@ AutoIt:
 ```
 
 ## cv::MergeMertens
+
+### MergeMertens.FullyQualifiedName
+
+```cpp
+static std::string cv::MergeMertens::FullyQualifiedName
+AutoIt:
+    [propget] $oMergeMertens.FullyQualifiedName
+```
+
+### cv::MergeMertens::IsInstance
+
+```cpp
+static bool cv::MergeMertens::IsInstance( const cv::MergeMertens& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.MergeMertens").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::MergeMertens::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.MergeMertens").IsInstance( $obj ) -> retval
+```
 
 ### cv::MergeMertens::clear
 
@@ -41320,6 +42739,28 @@ AutoIt:
 ```
 
 ## cv::MergeRobertson
+
+### MergeRobertson.FullyQualifiedName
+
+```cpp
+static std::string cv::MergeRobertson::FullyQualifiedName
+AutoIt:
+    [propget] $oMergeRobertson.FullyQualifiedName
+```
+
+### cv::MergeRobertson::IsInstance
+
+```cpp
+static bool cv::MergeRobertson::IsInstance( const cv::MergeRobertson& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.MergeRobertson").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::MergeRobertson::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.MergeRobertson").IsInstance( $obj ) -> retval
+```
 
 ### cv::MergeRobertson::clear
 
@@ -42045,6 +43486,14 @@ AutoIt:
 
 ## cv::dnn::DictValue
 
+### DictValue.FullyQualifiedName
+
+```cpp
+static std::string cv::dnn::DictValue::FullyQualifiedName
+AutoIt:
+    [propget] $oDictValue.FullyQualifiedName
+```
+
 ### cv::dnn::DictValue::get\_create
 
 ```cpp
@@ -42066,6 +43515,20 @@ static cv::dnn::DictValue cv::dnn::DictValue::get_create( const std::string& s )
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.DictValue").create( $s ) -> <cv.dnn.DictValue object>
     $oDictValue( $s ) -> <cv.dnn.DictValue object>
+```
+
+### cv::dnn::DictValue::IsInstance
+
+```cpp
+static bool cv::dnn::DictValue::IsInstance( const cv::dnn::DictValue& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn.DictValue").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::dnn::DictValue::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn.DictValue").IsInstance( $obj ) -> retval
 ```
 
 ### cv::dnn::DictValue::getIntValue
@@ -42148,6 +43611,28 @@ AutoIt:
 int cv::dnn::Layer::preferableTarget
 AutoIt:
     [propget] $oLayer.preferableTarget
+```
+
+### Layer.FullyQualifiedName
+
+```cpp
+static std::string cv::dnn::Layer::FullyQualifiedName
+AutoIt:
+    [propget] $oLayer.FullyQualifiedName
+```
+
+### cv::dnn::Layer::IsInstance
+
+```cpp
+static bool cv::dnn::Layer::IsInstance( const cv::dnn::Layer& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn.Layer").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::dnn::Layer::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn.Layer").IsInstance( $obj ) -> retval
 ```
 
 ### cv::dnn::Layer::clear
@@ -42234,12 +43719,34 @@ AutoIt:
 
 ## cv::dnn::Net
 
+### Net.FullyQualifiedName
+
+```cpp
+static std::string cv::dnn::Net::FullyQualifiedName
+AutoIt:
+    [propget] $oNet.FullyQualifiedName
+```
+
 ### cv::dnn::Net::get\_create
 
 ```cpp
 static cv::dnn::Net cv::dnn::Net::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.Net").create() -> <cv.dnn.Net object>
+```
+
+### cv::dnn::Net::IsInstance
+
+```cpp
+static bool cv::dnn::Net::IsInstance( const cv::dnn::Net& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn.Net").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::dnn::Net::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn.Net").IsInstance( $obj ) -> retval
 ```
 
 ### cv::dnn::Net::connect
@@ -42687,6 +44194,14 @@ AutoIt:
     [propget, propput] $oImage2BlobParams.borderValue
 ```
 
+### Image2BlobParams.FullyQualifiedName
+
+```cpp
+static std::string cv::dnn::Image2BlobParams::FullyQualifiedName
+AutoIt:
+    [propget] $oImage2BlobParams.FullyQualifiedName
+```
+
 ### cv::dnn::Image2BlobParams::get\_create
 
 ```cpp
@@ -42707,6 +44222,20 @@ static cv::dnn::Image2BlobParams cv::dnn::Image2BlobParams::get_create( const cv
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.Image2BlobParams").create( $scalefactor[, $size[, $mean[, $swapRB[, $ddepth[, $datalayout[, $mode[, $borderValue]]]]]]] ) -> <cv.dnn.Image2BlobParams object>
     $oImage2BlobParams( $scalefactor[, $size[, $mean[, $swapRB[, $ddepth[, $datalayout[, $mode[, $borderValue]]]]]]] ) -> <cv.dnn.Image2BlobParams object>
+```
+
+### cv::dnn::Image2BlobParams::IsInstance
+
+```cpp
+static bool cv::dnn::Image2BlobParams::IsInstance( const cv::dnn::Image2BlobParams& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn.Image2BlobParams").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::dnn::Image2BlobParams::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn.Image2BlobParams").IsInstance( $obj ) -> retval
 ```
 
 ### cv::dnn::Image2BlobParams::blobRectToImageRect
@@ -42748,6 +44277,14 @@ AutoIt:
 
 ## cv::dnn::Model
 
+### Model.FullyQualifiedName
+
+```cpp
+static std::string cv::dnn::Model::FullyQualifiedName
+AutoIt:
+    [propget] $oModel.FullyQualifiedName
+```
+
 ### cv::dnn::Model::get\_create
 
 ```cpp
@@ -42763,6 +44300,20 @@ static cv::dnn::Model cv::dnn::Model::get_create( const cv::dnn::Net& network );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.Model").create( $network ) -> <cv.dnn.Model object>
     $oModel( $network ) -> <cv.dnn.Model object>
+```
+
+### cv::dnn::Model::IsInstance
+
+```cpp
+static bool cv::dnn::Model::IsInstance( const cv::dnn::Model& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn.Model").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::dnn::Model::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn.Model").IsInstance( $obj ) -> retval
 ```
 
 ### cv::dnn::Model::enableWinograd
@@ -42867,6 +44418,14 @@ AutoIt:
 
 ## cv::dnn::ClassificationModel
 
+### ClassificationModel.FullyQualifiedName
+
+```cpp
+static std::string cv::dnn::ClassificationModel::FullyQualifiedName
+AutoIt:
+    [propget] $oClassificationModel.FullyQualifiedName
+```
+
 ### cv::dnn::ClassificationModel::get\_create
 
 ```cpp
@@ -42882,6 +44441,20 @@ static cv::dnn::ClassificationModel cv::dnn::ClassificationModel::get_create( co
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.ClassificationModel").create( $network ) -> <cv.dnn.ClassificationModel object>
     $oClassificationModel( $network ) -> <cv.dnn.ClassificationModel object>
+```
+
+### cv::dnn::ClassificationModel::IsInstance
+
+```cpp
+static bool cv::dnn::ClassificationModel::IsInstance( const cv::dnn::ClassificationModel& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn.ClassificationModel").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::dnn::ClassificationModel::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn.ClassificationModel").IsInstance( $obj ) -> retval
 ```
 
 ### cv::dnn::ClassificationModel::classify
@@ -43012,6 +44585,14 @@ AutoIt:
 
 ## cv::dnn::KeypointsModel
 
+### KeypointsModel.FullyQualifiedName
+
+```cpp
+static std::string cv::dnn::KeypointsModel::FullyQualifiedName
+AutoIt:
+    [propget] $oKeypointsModel.FullyQualifiedName
+```
+
 ### cv::dnn::KeypointsModel::get\_create
 
 ```cpp
@@ -43027,6 +44608,20 @@ static cv::dnn::KeypointsModel cv::dnn::KeypointsModel::get_create( const cv::dn
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.KeypointsModel").create( $network ) -> <cv.dnn.KeypointsModel object>
     $oKeypointsModel( $network ) -> <cv.dnn.KeypointsModel object>
+```
+
+### cv::dnn::KeypointsModel::IsInstance
+
+```cpp
+static bool cv::dnn::KeypointsModel::IsInstance( const cv::dnn::KeypointsModel& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn.KeypointsModel").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::dnn::KeypointsModel::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn.KeypointsModel").IsInstance( $obj ) -> retval
 ```
 
 ### cv::dnn::KeypointsModel::enableWinograd
@@ -43140,6 +44735,14 @@ AutoIt:
 
 ## cv::dnn::SegmentationModel
 
+### SegmentationModel.FullyQualifiedName
+
+```cpp
+static std::string cv::dnn::SegmentationModel::FullyQualifiedName
+AutoIt:
+    [propget] $oSegmentationModel.FullyQualifiedName
+```
+
 ### cv::dnn::SegmentationModel::get\_create
 
 ```cpp
@@ -43155,6 +44758,20 @@ static cv::dnn::SegmentationModel cv::dnn::SegmentationModel::get_create( const 
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.SegmentationModel").create( $network ) -> <cv.dnn.SegmentationModel object>
     $oSegmentationModel( $network ) -> <cv.dnn.SegmentationModel object>
+```
+
+### cv::dnn::SegmentationModel::IsInstance
+
+```cpp
+static bool cv::dnn::SegmentationModel::IsInstance( const cv::dnn::SegmentationModel& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn.SegmentationModel").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::dnn::SegmentationModel::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn.SegmentationModel").IsInstance( $obj ) -> retval
 ```
 
 ### cv::dnn::SegmentationModel::enableWinograd
@@ -43268,6 +44885,14 @@ AutoIt:
 
 ## cv::dnn::DetectionModel
 
+### DetectionModel.FullyQualifiedName
+
+```cpp
+static std::string cv::dnn::DetectionModel::FullyQualifiedName
+AutoIt:
+    [propget] $oDetectionModel.FullyQualifiedName
+```
+
 ### cv::dnn::DetectionModel::get\_create
 
 ```cpp
@@ -43283,6 +44908,20 @@ static cv::dnn::DetectionModel cv::dnn::DetectionModel::get_create( const cv::dn
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.DetectionModel").create( $network ) -> <cv.dnn.DetectionModel object>
     $oDetectionModel( $network ) -> <cv.dnn.DetectionModel object>
+```
+
+### cv::dnn::DetectionModel::IsInstance
+
+```cpp
+static bool cv::dnn::DetectionModel::IsInstance( const cv::dnn::DetectionModel& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn.DetectionModel").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::dnn::DetectionModel::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn.DetectionModel").IsInstance( $obj ) -> retval
 ```
 
 ### cv::dnn::DetectionModel::detect
@@ -43416,6 +45055,14 @@ AutoIt:
 
 ## cv::dnn::TextRecognitionModel
 
+### TextRecognitionModel.FullyQualifiedName
+
+```cpp
+static std::string cv::dnn::TextRecognitionModel::FullyQualifiedName
+AutoIt:
+    [propget] $oTextRecognitionModel.FullyQualifiedName
+```
+
 ### cv::dnn::TextRecognitionModel::get\_create
 
 ```cpp
@@ -43431,6 +45078,20 @@ static cv::dnn::TextRecognitionModel cv::dnn::TextRecognitionModel::get_create( 
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.TextRecognitionModel").create( $model[, $config] ) -> <cv.dnn.TextRecognitionModel object>
     $oTextRecognitionModel( $model[, $config] ) -> <cv.dnn.TextRecognitionModel object>
+```
+
+### cv::dnn::TextRecognitionModel::IsInstance
+
+```cpp
+static bool cv::dnn::TextRecognitionModel::IsInstance( const cv::dnn::TextRecognitionModel& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn.TextRecognitionModel").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::dnn::TextRecognitionModel::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn.TextRecognitionModel").IsInstance( $obj ) -> retval
 ```
 
 ### cv::dnn::TextRecognitionModel::enableWinograd
@@ -43592,6 +45253,28 @@ AutoIt:
 
 ## cv::dnn::TextDetectionModel
 
+### TextDetectionModel.FullyQualifiedName
+
+```cpp
+static std::string cv::dnn::TextDetectionModel::FullyQualifiedName
+AutoIt:
+    [propget] $oTextDetectionModel.FullyQualifiedName
+```
+
+### cv::dnn::TextDetectionModel::IsInstance
+
+```cpp
+static bool cv::dnn::TextDetectionModel::IsInstance( const cv::dnn::TextDetectionModel& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn.TextDetectionModel").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::dnn::TextDetectionModel::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn.TextDetectionModel").IsInstance( $obj ) -> retval
+```
+
 ### cv::dnn::TextDetectionModel::detect
 
 ```cpp
@@ -43728,6 +45411,14 @@ AutoIt:
 
 ## cv::dnn::TextDetectionModel\_EAST
 
+### TextDetectionModel\_EAST.FullyQualifiedName
+
+```cpp
+static std::string cv::dnn::TextDetectionModel_EAST::FullyQualifiedName
+AutoIt:
+    [propget] $oTextDetectionModel_EAST.FullyQualifiedName
+```
+
 ### cv::dnn::TextDetectionModel\_EAST::get\_create
 
 ```cpp
@@ -43743,6 +45434,20 @@ static cv::dnn::TextDetectionModel_EAST cv::dnn::TextDetectionModel_EAST::get_cr
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.TextDetectionModel_EAST").create( $model[, $config] ) -> <cv.dnn.TextDetectionModel_EAST object>
     $oTextDetectionModel_EAST( $model[, $config] ) -> <cv.dnn.TextDetectionModel_EAST object>
+```
+
+### cv::dnn::TextDetectionModel\_EAST::IsInstance
+
+```cpp
+static bool cv::dnn::TextDetectionModel_EAST::IsInstance( const cv::dnn::TextDetectionModel_EAST& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn.TextDetectionModel_EAST").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::dnn::TextDetectionModel_EAST::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn.TextDetectionModel_EAST").IsInstance( $obj ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel\_EAST::detect
@@ -43913,6 +45618,14 @@ AutoIt:
 
 ## cv::dnn::TextDetectionModel\_DB
 
+### TextDetectionModel\_DB.FullyQualifiedName
+
+```cpp
+static std::string cv::dnn::TextDetectionModel_DB::FullyQualifiedName
+AutoIt:
+    [propget] $oTextDetectionModel_DB.FullyQualifiedName
+```
+
 ### cv::dnn::TextDetectionModel\_DB::get\_create
 
 ```cpp
@@ -43928,6 +45641,20 @@ static cv::dnn::TextDetectionModel_DB cv::dnn::TextDetectionModel_DB::get_create
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.TextDetectionModel_DB").create( $model[, $config] ) -> <cv.dnn.TextDetectionModel_DB object>
     $oTextDetectionModel_DB( $model[, $config] ) -> <cv.dnn.TextDetectionModel_DB object>
+```
+
+### cv::dnn::TextDetectionModel\_DB::IsInstance
+
+```cpp
+static bool cv::dnn::TextDetectionModel_DB::IsInstance( const cv::dnn::TextDetectionModel_DB& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn.TextDetectionModel_DB").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::dnn::TextDetectionModel_DB::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn.TextDetectionModel_DB").IsInstance( $obj ) -> retval
 ```
 
 ### cv::dnn::TextDetectionModel\_DB::detect
@@ -44130,6 +45857,28 @@ AutoIt:
 
 ## cv::Feature2D
 
+### Feature2D.FullyQualifiedName
+
+```cpp
+static std::string cv::Feature2D::FullyQualifiedName
+AutoIt:
+    [propget] $oFeature2D.FullyQualifiedName
+```
+
+### cv::Feature2D::IsInstance
+
+```cpp
+static bool cv::Feature2D::IsInstance( const cv::Feature2D& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Feature2D").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Feature2D::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Feature2D").IsInstance( $obj ) -> retval
+```
+
 ### cv::Feature2D::clear
 
 ```cpp
@@ -44271,6 +46020,14 @@ AutoIt:
 
 ## cv::AffineFeature
 
+### AffineFeature.FullyQualifiedName
+
+```cpp
+static std::string cv::AffineFeature::FullyQualifiedName
+AutoIt:
+    [propget] $oAffineFeature.FullyQualifiedName
+```
+
 ### cv::AffineFeature::get\_create
 
 ```cpp
@@ -44282,6 +46039,20 @@ static cv::Ptr<cv::AffineFeature> cv::AffineFeature::get_create( const cv::Ptr<c
 AutoIt:
     _OpenCV_ObjCreate("cv.AffineFeature").create( $backend[, $maxTilt[, $minTilt[, $tiltStep[, $rotateStepBase]]]] ) -> retval
     $oAffineFeature( $backend[, $maxTilt[, $minTilt[, $tiltStep[, $rotateStepBase]]]] ) -> retval
+```
+
+### cv::AffineFeature::IsInstance
+
+```cpp
+static bool cv::AffineFeature::IsInstance( const cv::AffineFeature& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.AffineFeature").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::AffineFeature::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.AffineFeature").IsInstance( $obj ) -> retval
 ```
 
 ### cv::AffineFeature::clear
@@ -44443,6 +46214,14 @@ AutoIt:
 
 ## cv::SIFT
 
+### SIFT.FullyQualifiedName
+
+```cpp
+static std::string cv::SIFT::FullyQualifiedName
+AutoIt:
+    [propget] $oSIFT.FullyQualifiedName
+```
+
 ### cv::SIFT::get\_create
 
 ```cpp
@@ -44468,6 +46247,20 @@ static cv::Ptr<cv::SIFT> cv::SIFT::get_create( int    nfeatures,
 AutoIt:
     _OpenCV_ObjCreate("cv.SIFT").create( $nfeatures, $nOctaveLayers, $contrastThreshold, $edgeThreshold, $sigma, $descriptorType[, $enable_precise_upscale] ) -> retval
     $oSIFT( $nfeatures, $nOctaveLayers, $contrastThreshold, $edgeThreshold, $sigma, $descriptorType[, $enable_precise_upscale] ) -> retval
+```
+
+### cv::SIFT::IsInstance
+
+```cpp
+static bool cv::SIFT::IsInstance( const cv::SIFT& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.SIFT").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::SIFT::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.SIFT").IsInstance( $obj ) -> retval
 ```
 
 ### cv::SIFT::clear
@@ -44691,6 +46484,14 @@ AutoIt:
 
 ## cv::BRISK
 
+### BRISK.FullyQualifiedName
+
+```cpp
+static std::string cv::BRISK::FullyQualifiedName
+AutoIt:
+    [propget] $oBRISK.FullyQualifiedName
+```
+
 ### cv::BRISK::get\_create
 
 ```cpp
@@ -44724,6 +46525,20 @@ static cv::Ptr<cv::BRISK> cv::BRISK::get_create( int                       thres
 AutoIt:
     _OpenCV_ObjCreate("cv.BRISK").create( $thresh, $octaves, $radiusList, $numberList[, $dMax[, $dMin[, $indexChange]]] ) -> retval
     $oBRISK( $thresh, $octaves, $radiusList, $numberList[, $dMax[, $dMin[, $indexChange]]] ) -> retval
+```
+
+### cv::BRISK::IsInstance
+
+```cpp
+static bool cv::BRISK::IsInstance( const cv::BRISK& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.BRISK").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::BRISK::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.BRISK").IsInstance( $obj ) -> retval
 ```
 
 ### cv::BRISK::clear
@@ -44915,6 +46730,14 @@ AutoIt:
 
 ## cv::ORB
 
+### ORB.FullyQualifiedName
+
+```cpp
+static std::string cv::ORB::FullyQualifiedName
+AutoIt:
+    [propget] $oORB.FullyQualifiedName
+```
+
 ### cv::ORB::get\_create
 
 ```cpp
@@ -44930,6 +46753,20 @@ static cv::Ptr<cv::ORB> cv::ORB::get_create( int                nfeatures = 500,
 AutoIt:
     _OpenCV_ObjCreate("cv.ORB").create( [$nfeatures[, $scaleFactor[, $nlevels[, $edgeThreshold[, $firstLevel[, $WTA_K[, $scoreType[, $patchSize[, $fastThreshold]]]]]]]]] ) -> retval
     $oORB( [$nfeatures[, $scaleFactor[, $nlevels[, $edgeThreshold[, $firstLevel[, $WTA_K[, $scoreType[, $patchSize[, $fastThreshold]]]]]]]]] ) -> retval
+```
+
+### cv::ORB::IsInstance
+
+```cpp
+static bool cv::ORB::IsInstance( const cv::ORB& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ORB").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::ORB::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ORB").IsInstance( $obj ) -> retval
 ```
 
 ### cv::ORB::clear
@@ -45233,6 +47070,14 @@ AutoIt:
 
 ## cv::MSER
 
+### MSER.FullyQualifiedName
+
+```cpp
+static std::string cv::MSER::FullyQualifiedName
+AutoIt:
+    [propget] $oMSER.FullyQualifiedName
+```
+
 ### cv::MSER::get\_create
 
 ```cpp
@@ -45248,6 +47093,20 @@ static cv::Ptr<cv::MSER> cv::MSER::get_create( int    delta = 5,
 AutoIt:
     _OpenCV_ObjCreate("cv.MSER").create( [$delta[, $min_area[, $max_area[, $max_variation[, $min_diversity[, $max_evolution[, $area_threshold[, $min_margin[, $edge_blur_size]]]]]]]]] ) -> retval
     $oMSER( [$delta[, $min_area[, $max_area[, $max_variation[, $min_diversity[, $max_evolution[, $area_threshold[, $min_margin[, $edge_blur_size]]]]]]]]] ) -> retval
+```
+
+### cv::MSER::IsInstance
+
+```cpp
+static bool cv::MSER::IsInstance( const cv::MSER& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.MSER").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::MSER::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.MSER").IsInstance( $obj ) -> retval
 ```
 
 ### cv::MSER::clear
@@ -45561,6 +47420,14 @@ AutoIt:
 
 ## cv::FastFeatureDetector
 
+### FastFeatureDetector.FullyQualifiedName
+
+```cpp
+static std::string cv::FastFeatureDetector::FullyQualifiedName
+AutoIt:
+    [propget] $oFastFeatureDetector.FullyQualifiedName
+```
+
 ### cv::FastFeatureDetector::get\_create
 
 ```cpp
@@ -45570,6 +47437,20 @@ static cv::Ptr<cv::FastFeatureDetector> cv::FastFeatureDetector::get_create( int
 AutoIt:
     _OpenCV_ObjCreate("cv.FastFeatureDetector").create( [$threshold[, $nonmaxSuppression[, $type]]] ) -> retval
     $oFastFeatureDetector( [$threshold[, $nonmaxSuppression[, $type]]] ) -> retval
+```
+
+### cv::FastFeatureDetector::IsInstance
+
+```cpp
+static bool cv::FastFeatureDetector::IsInstance( const cv::FastFeatureDetector& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.FastFeatureDetector").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::FastFeatureDetector::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.FastFeatureDetector").IsInstance( $obj ) -> retval
 ```
 
 ### cv::FastFeatureDetector::clear
@@ -45809,6 +47690,14 @@ AutoIt:
 
 ## cv::AgastFeatureDetector
 
+### AgastFeatureDetector.FullyQualifiedName
+
+```cpp
+static std::string cv::AgastFeatureDetector::FullyQualifiedName
+AutoIt:
+    [propget] $oAgastFeatureDetector.FullyQualifiedName
+```
+
 ### cv::AgastFeatureDetector::get\_create
 
 ```cpp
@@ -45818,6 +47707,20 @@ static cv::Ptr<cv::AgastFeatureDetector> cv::AgastFeatureDetector::get_create( i
 AutoIt:
     _OpenCV_ObjCreate("cv.AgastFeatureDetector").create( [$threshold[, $nonmaxSuppression[, $type]]] ) -> retval
     $oAgastFeatureDetector( [$threshold[, $nonmaxSuppression[, $type]]] ) -> retval
+```
+
+### cv::AgastFeatureDetector::IsInstance
+
+```cpp
+static bool cv::AgastFeatureDetector::IsInstance( const cv::AgastFeatureDetector& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.AgastFeatureDetector").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::AgastFeatureDetector::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.AgastFeatureDetector").IsInstance( $obj ) -> retval
 ```
 
 ### cv::AgastFeatureDetector::clear
@@ -46057,6 +47960,14 @@ AutoIt:
 
 ## cv::GFTTDetector
 
+### GFTTDetector.FullyQualifiedName
+
+```cpp
+static std::string cv::GFTTDetector::FullyQualifiedName
+AutoIt:
+    [propget] $oGFTTDetector.FullyQualifiedName
+```
+
 ### cv::GFTTDetector::get\_create
 
 ```cpp
@@ -46082,6 +47993,20 @@ static cv::Ptr<cv::GFTTDetector> cv::GFTTDetector::get_create( int    maxCorners
 AutoIt:
     _OpenCV_ObjCreate("cv.GFTTDetector").create( $maxCorners, $qualityLevel, $minDistance, $blockSize, $gradiantSize[, $useHarrisDetector[, $k]] ) -> retval
     $oGFTTDetector( $maxCorners, $qualityLevel, $minDistance, $blockSize, $gradiantSize[, $useHarrisDetector[, $k]] ) -> retval
+```
+
+### cv::GFTTDetector::IsInstance
+
+```cpp
+static bool cv::GFTTDetector::IsInstance( const cv::GFTTDetector& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GFTTDetector").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::GFTTDetector::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GFTTDetector").IsInstance( $obj ) -> retval
 ```
 
 ### cv::GFTTDetector::clear
@@ -46345,6 +48270,14 @@ AutoIt:
     [propget] $oSimpleBlobDetector.Params
 ```
 
+### SimpleBlobDetector.FullyQualifiedName
+
+```cpp
+static std::string cv::SimpleBlobDetector::FullyQualifiedName
+AutoIt:
+    [propget] $oSimpleBlobDetector.FullyQualifiedName
+```
+
 ### cv::SimpleBlobDetector::get\_create
 
 ```cpp
@@ -46352,6 +48285,20 @@ static cv::Ptr<cv::SimpleBlobDetector> cv::SimpleBlobDetector::get_create( const
 AutoIt:
     _OpenCV_ObjCreate("cv.SimpleBlobDetector").create( [$parameters] ) -> retval
     $oSimpleBlobDetector( [$parameters] ) -> retval
+```
+
+### cv::SimpleBlobDetector::IsInstance
+
+```cpp
+static bool cv::SimpleBlobDetector::IsInstance( const cv::SimpleBlobDetector& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.SimpleBlobDetector").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::SimpleBlobDetector::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.SimpleBlobDetector").IsInstance( $obj ) -> retval
 ```
 
 ### cv::SimpleBlobDetector::clear
@@ -46679,6 +48626,14 @@ AutoIt:
     [propget, propput] $oParams.collectContours
 ```
 
+### Params.FullyQualifiedName
+
+```cpp
+static std::string cv::SimpleBlobDetector::Params::FullyQualifiedName
+AutoIt:
+    [propget] $oParams.FullyQualifiedName
+```
+
 ### cv::SimpleBlobDetector::Params::get\_create
 
 ```cpp
@@ -46687,7 +48642,29 @@ AutoIt:
     _OpenCV_ObjCreate("cv.SimpleBlobDetector.Params").create() -> <cv.SimpleBlobDetector.Params object>
 ```
 
+### cv::SimpleBlobDetector::Params::IsInstance
+
+```cpp
+static bool cv::SimpleBlobDetector::Params::IsInstance( const cv::SimpleBlobDetector::Params& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.SimpleBlobDetector.Params").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::SimpleBlobDetector::Params::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.SimpleBlobDetector.Params").IsInstance( $obj ) -> retval
+```
+
 ## cv::KAZE
+
+### KAZE.FullyQualifiedName
+
+```cpp
+static std::string cv::KAZE::FullyQualifiedName
+AutoIt:
+    [propget] $oKAZE.FullyQualifiedName
+```
 
 ### cv::KAZE::get\_create
 
@@ -46701,6 +48678,20 @@ static cv::Ptr<cv::KAZE> cv::KAZE::get_create( bool                      extende
 AutoIt:
     _OpenCV_ObjCreate("cv.KAZE").create( [$extended[, $upright[, $threshold[, $nOctaves[, $nOctaveLayers[, $diffusivity]]]]]] ) -> retval
     $oKAZE( [$extended[, $upright[, $threshold[, $nOctaves[, $nOctaveLayers[, $diffusivity]]]]]] ) -> retval
+```
+
+### cv::KAZE::IsInstance
+
+```cpp
+static bool cv::KAZE::IsInstance( const cv::KAZE& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.KAZE").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::KAZE::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.KAZE").IsInstance( $obj ) -> retval
 ```
 
 ### cv::KAZE::clear
@@ -46972,6 +48963,14 @@ AutoIt:
 
 ## cv::AKAZE
 
+### AKAZE.FullyQualifiedName
+
+```cpp
+static std::string cv::AKAZE::FullyQualifiedName
+AutoIt:
+    [propget] $oAKAZE.FullyQualifiedName
+```
+
 ### cv::AKAZE::get\_create
 
 ```cpp
@@ -46986,6 +48985,20 @@ static cv::Ptr<cv::AKAZE> cv::AKAZE::get_create( cv::AKAZE::DescriptorType descr
 AutoIt:
     _OpenCV_ObjCreate("cv.AKAZE").create( [$descriptor_type[, $descriptor_size[, $descriptor_channels[, $threshold[, $nOctaves[, $nOctaveLayers[, $diffusivity[, $max_points]]]]]]]] ) -> retval
     $oAKAZE( [$descriptor_type[, $descriptor_size[, $descriptor_channels[, $threshold[, $nOctaves[, $nOctaveLayers[, $diffusivity[, $max_points]]]]]]]] ) -> retval
+```
+
+### cv::AKAZE::IsInstance
+
+```cpp
+static bool cv::AKAZE::IsInstance( const cv::AKAZE& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.AKAZE").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::AKAZE::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.AKAZE").IsInstance( $obj ) -> retval
 ```
 
 ### cv::AKAZE::clear
@@ -47289,6 +49302,14 @@ AutoIt:
 
 ## cv::DescriptorMatcher
 
+### DescriptorMatcher.FullyQualifiedName
+
+```cpp
+static std::string cv::DescriptorMatcher::FullyQualifiedName
+AutoIt:
+    [propget] $oDescriptorMatcher.FullyQualifiedName
+```
+
 ### cv::DescriptorMatcher::get\_create
 
 ```cpp
@@ -47303,6 +49324,20 @@ static cv::Ptr<cv::DescriptorMatcher> cv::DescriptorMatcher::get_create( const c
 AutoIt:
     _OpenCV_ObjCreate("cv.DescriptorMatcher").create( $matcherType ) -> retval
     $oDescriptorMatcher( $matcherType ) -> retval
+```
+
+### cv::DescriptorMatcher::IsInstance
+
+```cpp
+static bool cv::DescriptorMatcher::IsInstance( const cv::DescriptorMatcher& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.DescriptorMatcher").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::DescriptorMatcher::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.DescriptorMatcher").IsInstance( $obj ) -> retval
 ```
 
 ### cv::DescriptorMatcher::add
@@ -47527,6 +49562,14 @@ AutoIt:
 
 ## cv::BFMatcher
 
+### BFMatcher.FullyQualifiedName
+
+```cpp
+static std::string cv::BFMatcher::FullyQualifiedName
+AutoIt:
+    [propget] $oBFMatcher.FullyQualifiedName
+```
+
 ### cv::BFMatcher::get\_create
 
 ```cpp
@@ -47543,6 +49586,20 @@ static cv::Ptr<cv::BFMatcher> cv::BFMatcher::get_create( int  normType = NORM_L2
 AutoIt:
     _OpenCV_ObjCreate("cv.BFMatcher").create( [$normType[, $crossCheck]] ) -> retval
     $oBFMatcher( [$normType[, $crossCheck]] ) -> retval
+```
+
+### cv::BFMatcher::IsInstance
+
+```cpp
+static bool cv::BFMatcher::IsInstance( const cv::BFMatcher& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.BFMatcher").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::BFMatcher::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.BFMatcher").IsInstance( $obj ) -> retval
 ```
 
 ### cv::BFMatcher::add
@@ -47719,6 +49776,14 @@ AutoIt:
 
 ## cv::FlannBasedMatcher
 
+### FlannBasedMatcher.FullyQualifiedName
+
+```cpp
+static std::string cv::FlannBasedMatcher::FullyQualifiedName
+AutoIt:
+    [propget] $oFlannBasedMatcher.FullyQualifiedName
+```
+
 ### cv::FlannBasedMatcher::get\_create
 
 ```cpp
@@ -47733,6 +49798,20 @@ AutoIt:
 static cv::Ptr<cv::FlannBasedMatcher> cv::FlannBasedMatcher::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.FlannBasedMatcher").create() -> retval
+```
+
+### cv::FlannBasedMatcher::IsInstance
+
+```cpp
+static bool cv::FlannBasedMatcher::IsInstance( const cv::FlannBasedMatcher& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.FlannBasedMatcher").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::FlannBasedMatcher::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.FlannBasedMatcher").IsInstance( $obj ) -> retval
 ```
 
 ### cv::FlannBasedMatcher::add
@@ -47943,6 +50022,28 @@ AutoIt:
 
 ## cv::BOWTrainer
 
+### BOWTrainer.FullyQualifiedName
+
+```cpp
+static std::string cv::BOWTrainer::FullyQualifiedName
+AutoIt:
+    [propget] $oBOWTrainer.FullyQualifiedName
+```
+
+### cv::BOWTrainer::IsInstance
+
+```cpp
+static bool cv::BOWTrainer::IsInstance( const cv::BOWTrainer& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.BOWTrainer").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::BOWTrainer::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.BOWTrainer").IsInstance( $obj ) -> retval
+```
+
 ### cv::BOWTrainer::add
 
 ```cpp
@@ -47991,6 +50092,14 @@ AutoIt:
 
 ## cv::BOWKMeansTrainer
 
+### BOWKMeansTrainer.FullyQualifiedName
+
+```cpp
+static std::string cv::BOWKMeansTrainer::FullyQualifiedName
+AutoIt:
+    [propget] $oBOWKMeansTrainer.FullyQualifiedName
+```
+
 ### cv::BOWKMeansTrainer::get\_create
 
 ```cpp
@@ -48001,6 +50110,20 @@ static cv::BOWKMeansTrainer cv::BOWKMeansTrainer::get_create( int               
 AutoIt:
     _OpenCV_ObjCreate("cv.BOWKMeansTrainer").create( $clusterCount[, $termcrit[, $attempts[, $flags]]] ) -> <cv.BOWKMeansTrainer object>
     $oBOWKMeansTrainer( $clusterCount[, $termcrit[, $attempts[, $flags]]] ) -> <cv.BOWKMeansTrainer object>
+```
+
+### cv::BOWKMeansTrainer::IsInstance
+
+```cpp
+static bool cv::BOWKMeansTrainer::IsInstance( const cv::BOWKMeansTrainer& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.BOWKMeansTrainer").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::BOWKMeansTrainer::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.BOWKMeansTrainer").IsInstance( $obj ) -> retval
 ```
 
 ### cv::BOWKMeansTrainer::add
@@ -48051,6 +50174,14 @@ AutoIt:
 
 ## cv::BOWImgDescriptorExtractor
 
+### BOWImgDescriptorExtractor.FullyQualifiedName
+
+```cpp
+static std::string cv::BOWImgDescriptorExtractor::FullyQualifiedName
+AutoIt:
+    [propget] $oBOWImgDescriptorExtractor.FullyQualifiedName
+```
+
 ### cv::BOWImgDescriptorExtractor::get\_create
 
 ```cpp
@@ -48059,6 +50190,20 @@ static cv::BOWImgDescriptorExtractor cv::BOWImgDescriptorExtractor::get_create( 
 AutoIt:
     _OpenCV_ObjCreate("cv.BOWImgDescriptorExtractor").create( $dextractor, $dmatcher ) -> <cv.BOWImgDescriptorExtractor object>
     $oBOWImgDescriptorExtractor( $dextractor, $dmatcher ) -> <cv.BOWImgDescriptorExtractor object>
+```
+
+### cv::BOWImgDescriptorExtractor::IsInstance
+
+```cpp
+static bool cv::BOWImgDescriptorExtractor::IsInstance( const cv::BOWImgDescriptorExtractor& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.BOWImgDescriptorExtractor").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::BOWImgDescriptorExtractor::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.BOWImgDescriptorExtractor").IsInstance( $obj ) -> retval
 ```
 
 ### cv::BOWImgDescriptorExtractor::compute
@@ -48105,6 +50250,14 @@ AutoIt:
 
 ## cv::VideoCapture
 
+### VideoCapture.FullyQualifiedName
+
+```cpp
+static std::string cv::VideoCapture::FullyQualifiedName
+AutoIt:
+    [propget] $oVideoCapture.FullyQualifiedName
+```
+
 ### cv::VideoCapture::get\_create
 
 ```cpp
@@ -48145,6 +50298,20 @@ static cv::VideoCapture cv::VideoCapture::get_create( int                     in
 AutoIt:
     _OpenCV_ObjCreate("cv.VideoCapture").create( $index, $apiPreference, $params ) -> <cv.VideoCapture object>
     $oVideoCapture( $index, $apiPreference, $params ) -> <cv.VideoCapture object>
+```
+
+### cv::VideoCapture::IsInstance
+
+```cpp
+static bool cv::VideoCapture::IsInstance( const cv::VideoCapture& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.VideoCapture").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::VideoCapture::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.VideoCapture").IsInstance( $obj ) -> retval
 ```
 
 ### cv::VideoCapture::get
@@ -48273,6 +50440,14 @@ AutoIt:
 
 ## cv::VideoWriter
 
+### VideoWriter.FullyQualifiedName
+
+```cpp
+static std::string cv::VideoWriter::FullyQualifiedName
+AutoIt:
+    [propget] $oVideoWriter.FullyQualifiedName
+```
+
 ### cv::VideoWriter::get\_create
 
 ```cpp
@@ -48325,6 +50500,20 @@ static cv::VideoWriter cv::VideoWriter::get_create( const std::string&      file
 AutoIt:
     _OpenCV_ObjCreate("cv.VideoWriter").create( $filename, $apiPreference, $fourcc, $fps, $frameSize, $params ) -> <cv.VideoWriter object>
     $oVideoWriter( $filename, $apiPreference, $fourcc, $fps, $frameSize, $params ) -> <cv.VideoWriter object>
+```
+
+### cv::VideoWriter::IsInstance
+
+```cpp
+static bool cv::VideoWriter::IsInstance( const cv::VideoWriter& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.VideoWriter").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::VideoWriter::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.VideoWriter").IsInstance( $obj ) -> retval
 ```
 
 ### cv::VideoWriter::fourcc
@@ -48436,7 +50625,7 @@ AutoIt:
 ### cv::videoio\_registry::getBackendName
 
 ```cpp
-std::string cv::videoio_registry::getBackendName( cv::VideoCaptureAPIs api );
+cv::String cv::videoio_registry::getBackendName( cv::VideoCaptureAPIs api );
 AutoIt:
     _OpenCV_ObjCreate("cv.videoio_registry").getBackendName( $api ) -> retval
 ```
@@ -48625,12 +50814,34 @@ AutoIt:
     [propget, propput] $oUsacParams.final_polisher_iterations
 ```
 
+### UsacParams.FullyQualifiedName
+
+```cpp
+static std::string cv::UsacParams::FullyQualifiedName
+AutoIt:
+    [propget] $oUsacParams.FullyQualifiedName
+```
+
 ### cv::UsacParams::get\_create
 
 ```cpp
 static cv::UsacParams cv::UsacParams::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.UsacParams").create() -> <cv.UsacParams object>
+```
+
+### cv::UsacParams::IsInstance
+
+```cpp
+static bool cv::UsacParams::IsInstance( const cv::UsacParams& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UsacParams").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::UsacParams::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.UsacParams").IsInstance( $obj ) -> retval
 ```
 
 ## cv::CirclesGridFinderParameters
@@ -48755,12 +50966,34 @@ AutoIt:
     [propget, propput] $oCirclesGridFinderParameters.maxRectifiedDistance
 ```
 
+### CirclesGridFinderParameters.FullyQualifiedName
+
+```cpp
+static std::string cv::CirclesGridFinderParameters::FullyQualifiedName
+AutoIt:
+    [propget] $oCirclesGridFinderParameters.FullyQualifiedName
+```
+
 ### cv::CirclesGridFinderParameters::get\_create
 
 ```cpp
 static cv::CirclesGridFinderParameters cv::CirclesGridFinderParameters::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.CirclesGridFinderParameters").create() -> <cv.CirclesGridFinderParameters object>
+```
+
+### cv::CirclesGridFinderParameters::IsInstance
+
+```cpp
+static bool cv::CirclesGridFinderParameters::IsInstance( const cv::CirclesGridFinderParameters& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.CirclesGridFinderParameters").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::CirclesGridFinderParameters::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.CirclesGridFinderParameters").IsInstance( $obj ) -> retval
 ```
 
 ### CirclesGridFinderParameters.SYMMETRIC\_GRID\_
@@ -48780,6 +51013,28 @@ AutoIt:
 ```
 
 ## cv::StereoMatcher
+
+### StereoMatcher.FullyQualifiedName
+
+```cpp
+static std::string cv::StereoMatcher::FullyQualifiedName
+AutoIt:
+    [propget] $oStereoMatcher.FullyQualifiedName
+```
+
+### cv::StereoMatcher::IsInstance
+
+```cpp
+static bool cv::StereoMatcher::IsInstance( const cv::StereoMatcher& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.StereoMatcher").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::StereoMatcher::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.StereoMatcher").IsInstance( $obj ) -> retval
+```
 
 ### cv::StereoMatcher::clear
 
@@ -48960,6 +51215,14 @@ AutoIt:
 
 ## cv::StereoBM
 
+### StereoBM.FullyQualifiedName
+
+```cpp
+static std::string cv::StereoBM::FullyQualifiedName
+AutoIt:
+    [propget] $oStereoBM.FullyQualifiedName
+```
+
 ### cv::StereoBM::get\_create
 
 ```cpp
@@ -48968,6 +51231,20 @@ static cv::Ptr<cv::StereoBM> cv::StereoBM::get_create( int numDisparities = 0,
 AutoIt:
     _OpenCV_ObjCreate("cv.StereoBM").create( [$numDisparities[, $blockSize]] ) -> retval
     $oStereoBM( [$numDisparities[, $blockSize]] ) -> retval
+```
+
+### cv::StereoBM::IsInstance
+
+```cpp
+static bool cv::StereoBM::IsInstance( const cv::StereoBM& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.StereoBM").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::StereoBM::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.StereoBM").IsInstance( $obj ) -> retval
 ```
 
 ### cv::StereoBM::clear
@@ -49277,6 +51554,14 @@ AutoIt:
 
 ## cv::StereoSGBM
 
+### StereoSGBM.FullyQualifiedName
+
+```cpp
+static std::string cv::StereoSGBM::FullyQualifiedName
+AutoIt:
+    [propget] $oStereoSGBM.FullyQualifiedName
+```
+
 ### cv::StereoSGBM::get\_create
 
 ```cpp
@@ -49294,6 +51579,20 @@ static cv::Ptr<cv::StereoSGBM> cv::StereoSGBM::get_create( int minDisparity = 0,
 AutoIt:
     _OpenCV_ObjCreate("cv.StereoSGBM").create( [$minDisparity[, $numDisparities[, $blockSize[, $P1[, $P2[, $disp12MaxDiff[, $preFilterCap[, $uniquenessRatio[, $speckleWindowSize[, $speckleRange[, $mode]]]]]]]]]]] ) -> retval
     $oStereoSGBM( [$minDisparity[, $numDisparities[, $blockSize[, $P1[, $P2[, $disp12MaxDiff[, $preFilterCap[, $uniquenessRatio[, $speckleWindowSize[, $speckleRange[, $mode]]]]]]]]]]] ) -> retval
+```
+
+### cv::StereoSGBM::IsInstance
+
+```cpp
+static bool cv::StereoSGBM::IsInstance( const cv::StereoSGBM& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.StereoSGBM").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::StereoSGBM::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.StereoSGBM").IsInstance( $obj ) -> retval
 ```
 
 ### cv::StereoSGBM::clear
@@ -49846,6 +52145,28 @@ AutoIt:
 
 ## cv::BaseCascadeClassifier
 
+### BaseCascadeClassifier.FullyQualifiedName
+
+```cpp
+static std::string cv::BaseCascadeClassifier::FullyQualifiedName
+AutoIt:
+    [propget] $oBaseCascadeClassifier.FullyQualifiedName
+```
+
+### cv::BaseCascadeClassifier::IsInstance
+
+```cpp
+static bool cv::BaseCascadeClassifier::IsInstance( const cv::BaseCascadeClassifier& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.BaseCascadeClassifier").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::BaseCascadeClassifier::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.BaseCascadeClassifier").IsInstance( $obj ) -> retval
+```
+
 ### cv::BaseCascadeClassifier::clear
 
 ```cpp
@@ -49903,6 +52224,14 @@ AutoIt:
 
 ## cv::CascadeClassifier
 
+### CascadeClassifier.FullyQualifiedName
+
+```cpp
+static std::string cv::CascadeClassifier::FullyQualifiedName
+AutoIt:
+    [propget] $oCascadeClassifier.FullyQualifiedName
+```
+
 ### cv::CascadeClassifier::get\_create
 
 ```cpp
@@ -49916,6 +52245,20 @@ static cv::CascadeClassifier cv::CascadeClassifier::get_create( const std::strin
 AutoIt:
     _OpenCV_ObjCreate("cv.CascadeClassifier").create( $filename ) -> <cv.CascadeClassifier object>
     $oCascadeClassifier( $filename ) -> <cv.CascadeClassifier object>
+```
+
+### cv::CascadeClassifier::IsInstance
+
+```cpp
+static bool cv::CascadeClassifier::IsInstance( const cv::CascadeClassifier& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.CascadeClassifier").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::CascadeClassifier::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.CascadeClassifier").IsInstance( $obj ) -> retval
 ```
 
 ### cv::CascadeClassifier::convert
@@ -50127,6 +52470,14 @@ AutoIt:
     [propget] $oHOGDescriptor.signedGradient
 ```
 
+### HOGDescriptor.FullyQualifiedName
+
+```cpp
+static std::string cv::HOGDescriptor::FullyQualifiedName
+AutoIt:
+    [propget] $oHOGDescriptor.FullyQualifiedName
+```
+
 ### cv::HOGDescriptor::get\_create
 
 ```cpp
@@ -50158,6 +52509,20 @@ static cv::HOGDescriptor cv::HOGDescriptor::get_create( const std::string& filen
 AutoIt:
     _OpenCV_ObjCreate("cv.HOGDescriptor").create( $filename ) -> <cv.HOGDescriptor object>
     $oHOGDescriptor( $filename ) -> <cv.HOGDescriptor object>
+```
+
+### cv::HOGDescriptor::IsInstance
+
+```cpp
+static bool cv::HOGDescriptor::IsInstance( const cv::HOGDescriptor& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.HOGDescriptor").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::HOGDescriptor::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.HOGDescriptor").IsInstance( $obj ) -> retval
 ```
 
 ### cv::HOGDescriptor::checkDetectorSize
@@ -50322,6 +52687,14 @@ AutoIt:
     [propget] $oQRCodeEncoder.Params
 ```
 
+### QRCodeEncoder.FullyQualifiedName
+
+```cpp
+static std::string cv::QRCodeEncoder::FullyQualifiedName
+AutoIt:
+    [propget] $oQRCodeEncoder.FullyQualifiedName
+```
+
 ### cv::QRCodeEncoder::get\_create
 
 ```cpp
@@ -50329,6 +52702,20 @@ static cv::Ptr<cv::QRCodeEncoder> cv::QRCodeEncoder::get_create( const cv::QRCod
 AutoIt:
     _OpenCV_ObjCreate("cv.QRCodeEncoder").create( [$parameters] ) -> retval
     $oQRCodeEncoder( [$parameters] ) -> retval
+```
+
+### cv::QRCodeEncoder::IsInstance
+
+```cpp
+static bool cv::QRCodeEncoder::IsInstance( const cv::QRCodeEncoder& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.QRCodeEncoder").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::QRCodeEncoder::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.QRCodeEncoder").IsInstance( $obj ) -> retval
 ```
 
 ### cv::QRCodeEncoder::encode
@@ -50479,6 +52866,14 @@ AutoIt:
     [propget, propput] $oParams.structure_number
 ```
 
+### Params.FullyQualifiedName
+
+```cpp
+static std::string cv::QRCodeEncoder::Params::FullyQualifiedName
+AutoIt:
+    [propget] $oParams.FullyQualifiedName
+```
+
 ### cv::QRCodeEncoder::Params::get\_create
 
 ```cpp
@@ -50487,7 +52882,29 @@ AutoIt:
     _OpenCV_ObjCreate("cv.QRCodeEncoder.Params").create() -> <cv.QRCodeEncoder.Params object>
 ```
 
+### cv::QRCodeEncoder::Params::IsInstance
+
+```cpp
+static bool cv::QRCodeEncoder::Params::IsInstance( const cv::QRCodeEncoder::Params& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.QRCodeEncoder.Params").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::QRCodeEncoder::Params::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.QRCodeEncoder.Params").IsInstance( $obj ) -> retval
+```
+
 ## cv::QRCodeDetector
+
+### QRCodeDetector.FullyQualifiedName
+
+```cpp
+static std::string cv::QRCodeDetector::FullyQualifiedName
+AutoIt:
+    [propget] $oQRCodeDetector.FullyQualifiedName
+```
 
 ### cv::QRCodeDetector::get\_create
 
@@ -50495,6 +52912,20 @@ AutoIt:
 static cv::QRCodeDetector cv::QRCodeDetector::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.QRCodeDetector").create() -> <cv.QRCodeDetector object>
+```
+
+### cv::QRCodeDetector::IsInstance
+
+```cpp
+static bool cv::QRCodeDetector::IsInstance( const cv::QRCodeDetector& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.QRCodeDetector").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::QRCodeDetector::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.QRCodeDetector").IsInstance( $obj ) -> retval
 ```
 
 ### cv::QRCodeDetector::decode
@@ -50510,9 +52941,9 @@ AutoIt:
 ### cv::QRCodeDetector::decodeCurved
 
 ```cpp
-std::string cv::QRCodeDetector::decodeCurved( InputArray  img,
-                                              InputArray  points,
-                                              OutputArray straight_qrcode = noArray() );
+cv::String cv::QRCodeDetector::decodeCurved( InputArray  img,
+                                             InputArray  points,
+                                             OutputArray straight_qrcode = noArray() );
 AutoIt:
     $oQRCodeDetector.decodeCurved( $img, $points[, $straight_qrcode] ) -> retval, $straight_qrcode
 ```
@@ -50611,6 +53042,14 @@ AutoIt:
     [propget] $oQRCodeDetectorAruco.Params
 ```
 
+### QRCodeDetectorAruco.FullyQualifiedName
+
+```cpp
+static std::string cv::QRCodeDetectorAruco::FullyQualifiedName
+AutoIt:
+    [propget] $oQRCodeDetectorAruco.FullyQualifiedName
+```
+
 ### cv::QRCodeDetectorAruco::get\_create
 
 ```cpp
@@ -50624,6 +53063,20 @@ static cv::QRCodeDetectorAruco cv::QRCodeDetectorAruco::get_create( const cv::QR
 AutoIt:
     _OpenCV_ObjCreate("cv.QRCodeDetectorAruco").create( $params ) -> <cv.QRCodeDetectorAruco object>
     $oQRCodeDetectorAruco( $params ) -> <cv.QRCodeDetectorAruco object>
+```
+
+### cv::QRCodeDetectorAruco::IsInstance
+
+```cpp
+static bool cv::QRCodeDetectorAruco::IsInstance( const cv::QRCodeDetectorAruco& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.QRCodeDetectorAruco").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::QRCodeDetectorAruco::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.QRCodeDetectorAruco").IsInstance( $obj ) -> retval
 ```
 
 ### cv::QRCodeDetectorAruco::decode
@@ -50776,12 +53229,34 @@ AutoIt:
     [propget, propput] $oParams.scaleTimingPatternScore
 ```
 
+### Params.FullyQualifiedName
+
+```cpp
+static std::string cv::QRCodeDetectorAruco::Params::FullyQualifiedName
+AutoIt:
+    [propget] $oParams.FullyQualifiedName
+```
+
 ### cv::QRCodeDetectorAruco::Params::get\_create
 
 ```cpp
 static cv::QRCodeDetectorAruco::Params cv::QRCodeDetectorAruco::Params::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.QRCodeDetectorAruco.Params").create() -> <cv.QRCodeDetectorAruco.Params object>
+```
+
+### cv::QRCodeDetectorAruco::Params::IsInstance
+
+```cpp
+static bool cv::QRCodeDetectorAruco::Params::IsInstance( const cv::QRCodeDetectorAruco::Params& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.QRCodeDetectorAruco.Params").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::QRCodeDetectorAruco::Params::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.QRCodeDetectorAruco.Params").IsInstance( $obj ) -> retval
 ```
 
 ## cv::aruco
@@ -51132,6 +53607,14 @@ AutoIt:
 
 ## cv::aruco::Board
 
+### Board.FullyQualifiedName
+
+```cpp
+static std::string cv::aruco::Board::FullyQualifiedName
+AutoIt:
+    [propget] $oBoard.FullyQualifiedName
+```
+
 ### cv::aruco::Board::get\_create
 
 ```cpp
@@ -51141,6 +53624,20 @@ static cv::aruco::Board cv::aruco::Board::get_create( InputArrayOfArrays        
 AutoIt:
     _OpenCV_ObjCreate("cv.aruco.Board").create( $objPoints, $dictionary, $ids ) -> <cv.aruco.Board object>
     $oBoard( $objPoints, $dictionary, $ids ) -> <cv.aruco.Board object>
+```
+
+### cv::aruco::Board::IsInstance
+
+```cpp
+static bool cv::aruco::Board::IsInstance( const cv::aruco::Board& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.Board").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::aruco::Board::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.Board").IsInstance( $obj ) -> retval
 ```
 
 ### cv::aruco::Board::generateImage
@@ -51199,6 +53696,14 @@ AutoIt:
 
 ## cv::aruco::GridBoard
 
+### GridBoard.FullyQualifiedName
+
+```cpp
+static std::string cv::aruco::GridBoard::FullyQualifiedName
+AutoIt:
+    [propget] $oGridBoard.FullyQualifiedName
+```
+
 ### cv::aruco::GridBoard::get\_create
 
 ```cpp
@@ -51210,6 +53715,20 @@ static cv::aruco::GridBoard cv::aruco::GridBoard::get_create( const cv::Size&   
 AutoIt:
     _OpenCV_ObjCreate("cv.aruco.GridBoard").create( $size, $markerLength, $markerSeparation, $dictionary[, $ids] ) -> <cv.aruco.GridBoard object>
     $oGridBoard( $size, $markerLength, $markerSeparation, $dictionary[, $ids] ) -> <cv.aruco.GridBoard object>
+```
+
+### cv::aruco::GridBoard::IsInstance
+
+```cpp
+static bool cv::aruco::GridBoard::IsInstance( const cv::aruco::GridBoard& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.GridBoard").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::aruco::GridBoard::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.GridBoard").IsInstance( $obj ) -> retval
 ```
 
 ### cv::aruco::GridBoard::generateImage
@@ -51292,6 +53811,14 @@ AutoIt:
 
 ## cv::aruco::CharucoBoard
 
+### CharucoBoard.FullyQualifiedName
+
+```cpp
+static std::string cv::aruco::CharucoBoard::FullyQualifiedName
+AutoIt:
+    [propget] $oCharucoBoard.FullyQualifiedName
+```
+
 ### cv::aruco::CharucoBoard::get\_create
 
 ```cpp
@@ -51303,6 +53830,20 @@ static cv::aruco::CharucoBoard cv::aruco::CharucoBoard::get_create( const cv::Si
 AutoIt:
     _OpenCV_ObjCreate("cv.aruco.CharucoBoard").create( $size, $squareLength, $markerLength, $dictionary[, $ids] ) -> <cv.aruco.CharucoBoard object>
     $oCharucoBoard( $size, $squareLength, $markerLength, $dictionary[, $ids] ) -> <cv.aruco.CharucoBoard object>
+```
+
+### cv::aruco::CharucoBoard::IsInstance
+
+```cpp
+static bool cv::aruco::CharucoBoard::IsInstance( const cv::aruco::CharucoBoard& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.CharucoBoard").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::aruco::CharucoBoard::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.CharucoBoard").IsInstance( $obj ) -> retval
 ```
 
 ### cv::aruco::CharucoBoard::checkCharucoCornersCollinear
@@ -51689,12 +54230,34 @@ AutoIt:
     [propget, propput] $oDetectorParameters.minMarkerLengthRatioOriginalImg
 ```
 
+### DetectorParameters.FullyQualifiedName
+
+```cpp
+static std::string cv::aruco::DetectorParameters::FullyQualifiedName
+AutoIt:
+    [propget] $oDetectorParameters.FullyQualifiedName
+```
+
 ### cv::aruco::DetectorParameters::get\_create
 
 ```cpp
 static cv::aruco::DetectorParameters cv::aruco::DetectorParameters::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.aruco.DetectorParameters").create() -> <cv.aruco.DetectorParameters object>
+```
+
+### cv::aruco::DetectorParameters::IsInstance
+
+```cpp
+static bool cv::aruco::DetectorParameters::IsInstance( const cv::aruco::DetectorParameters& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.DetectorParameters").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::aruco::DetectorParameters::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.DetectorParameters").IsInstance( $obj ) -> retval
 ```
 
 ### cv::aruco::DetectorParameters::readDetectorParameters
@@ -51740,6 +54303,14 @@ AutoIt:
     [propget, propput] $oRefineParameters.checkAllOrders
 ```
 
+### RefineParameters.FullyQualifiedName
+
+```cpp
+static std::string cv::aruco::RefineParameters::FullyQualifiedName
+AutoIt:
+    [propget] $oRefineParameters.FullyQualifiedName
+```
+
 ### cv::aruco::RefineParameters::get\_create
 
 ```cpp
@@ -51749,6 +54320,20 @@ static cv::aruco::RefineParameters cv::aruco::RefineParameters::get_create( floa
 AutoIt:
     _OpenCV_ObjCreate("cv.aruco.RefineParameters").create( [$minRepDistance[, $errorCorrectionRate[, $checkAllOrders]]] ) -> <cv.aruco.RefineParameters object>
     $oRefineParameters( [$minRepDistance[, $errorCorrectionRate[, $checkAllOrders]]] ) -> <cv.aruco.RefineParameters object>
+```
+
+### cv::aruco::RefineParameters::IsInstance
+
+```cpp
+static bool cv::aruco::RefineParameters::IsInstance( const cv::aruco::RefineParameters& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.RefineParameters").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::aruco::RefineParameters::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.RefineParameters").IsInstance( $obj ) -> retval
 ```
 
 ### cv::aruco::RefineParameters::readRefineParameters
@@ -51770,6 +54355,14 @@ AutoIt:
 
 ## cv::aruco::ArucoDetector
 
+### ArucoDetector.FullyQualifiedName
+
+```cpp
+static std::string cv::aruco::ArucoDetector::FullyQualifiedName
+AutoIt:
+    [propget] $oArucoDetector.FullyQualifiedName
+```
+
 ### cv::aruco::ArucoDetector::get\_create
 
 ```cpp
@@ -51779,6 +54372,20 @@ static cv::aruco::ArucoDetector cv::aruco::ArucoDetector::get_create( const cv::
 AutoIt:
     _OpenCV_ObjCreate("cv.aruco.ArucoDetector").create( [$dictionary[, $detectorParams[, $refineParams]]] ) -> <cv.aruco.ArucoDetector object>
     $oArucoDetector( [$dictionary[, $detectorParams[, $refineParams]]] ) -> <cv.aruco.ArucoDetector object>
+```
+
+### cv::aruco::ArucoDetector::IsInstance
+
+```cpp
+static bool cv::aruco::ArucoDetector::IsInstance( const cv::aruco::ArucoDetector& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.ArucoDetector").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::aruco::ArucoDetector::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.ArucoDetector").IsInstance( $obj ) -> retval
 ```
 
 ### cv::aruco::ArucoDetector::clear
@@ -51936,6 +54543,14 @@ AutoIt:
     [propget, propput] $oDictionary.maxCorrectionBits
 ```
 
+### Dictionary.FullyQualifiedName
+
+```cpp
+static std::string cv::aruco::Dictionary::FullyQualifiedName
+AutoIt:
+    [propget] $oDictionary.FullyQualifiedName
+```
+
 ### cv::aruco::Dictionary::get\_create
 
 ```cpp
@@ -51951,6 +54566,20 @@ static cv::aruco::Dictionary cv::aruco::Dictionary::get_create( const cv::Mat& b
 AutoIt:
     _OpenCV_ObjCreate("cv.aruco.Dictionary").create( $bytesList, $_markerSize[, $maxcorr] ) -> <cv.aruco.Dictionary object>
     $oDictionary( $bytesList, $_markerSize[, $maxcorr] ) -> <cv.aruco.Dictionary object>
+```
+
+### cv::aruco::Dictionary::IsInstance
+
+```cpp
+static bool cv::aruco::Dictionary::IsInstance( const cv::aruco::Dictionary& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.Dictionary").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::aruco::Dictionary::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.Dictionary").IsInstance( $obj ) -> retval
 ```
 
 ### cv::aruco::Dictionary::generateImageMarker
@@ -52031,6 +54660,14 @@ AutoIt:
 
 ## cv::barcode::BarcodeDetector
 
+### BarcodeDetector.FullyQualifiedName
+
+```cpp
+static std::string cv::barcode::BarcodeDetector::FullyQualifiedName
+AutoIt:
+    [propget] $oBarcodeDetector.FullyQualifiedName
+```
+
 ### cv::barcode::BarcodeDetector::get\_create
 
 ```cpp
@@ -52045,6 +54682,20 @@ static cv::barcode::BarcodeDetector cv::barcode::BarcodeDetector::get_create( co
 AutoIt:
     _OpenCV_ObjCreate("cv.barcode.BarcodeDetector").create( $prototxt_path, $model_path ) -> <cv.barcode.BarcodeDetector object>
     $oBarcodeDetector( $prototxt_path, $model_path ) -> <cv.barcode.BarcodeDetector object>
+```
+
+### cv::barcode::BarcodeDetector::IsInstance
+
+```cpp
+static bool cv::barcode::BarcodeDetector::IsInstance( const cv::barcode::BarcodeDetector& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.barcode.BarcodeDetector").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::barcode::BarcodeDetector::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.barcode.BarcodeDetector").IsInstance( $obj ) -> retval
 ```
 
 ### cv::barcode::BarcodeDetector::decode
@@ -52211,6 +54862,14 @@ AutoIt:
     [propget, propput] $oCharucoParameters.tryRefineMarkers
 ```
 
+### CharucoParameters.FullyQualifiedName
+
+```cpp
+static std::string cv::aruco::CharucoParameters::FullyQualifiedName
+AutoIt:
+    [propget] $oCharucoParameters.FullyQualifiedName
+```
+
 ### cv::aruco::CharucoParameters::get\_create
 
 ```cpp
@@ -52219,7 +54878,29 @@ AutoIt:
     _OpenCV_ObjCreate("cv.aruco.CharucoParameters").create() -> <cv.aruco.CharucoParameters object>
 ```
 
+### cv::aruco::CharucoParameters::IsInstance
+
+```cpp
+static bool cv::aruco::CharucoParameters::IsInstance( const cv::aruco::CharucoParameters& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.CharucoParameters").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::aruco::CharucoParameters::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.CharucoParameters").IsInstance( $obj ) -> retval
+```
+
 ## cv::aruco::CharucoDetector
+
+### CharucoDetector.FullyQualifiedName
+
+```cpp
+static std::string cv::aruco::CharucoDetector::FullyQualifiedName
+AutoIt:
+    [propget] $oCharucoDetector.FullyQualifiedName
+```
 
 ### cv::aruco::CharucoDetector::get\_create
 
@@ -52231,6 +54912,20 @@ static cv::aruco::CharucoDetector cv::aruco::CharucoDetector::get_create( const 
 AutoIt:
     _OpenCV_ObjCreate("cv.aruco.CharucoDetector").create( $board[, $charucoParams[, $detectorParams[, $refineParams]]] ) -> <cv.aruco.CharucoDetector object>
     $oCharucoDetector( $board[, $charucoParams[, $detectorParams[, $refineParams]]] ) -> <cv.aruco.CharucoDetector object>
+```
+
+### cv::aruco::CharucoDetector::IsInstance
+
+```cpp
+static bool cv::aruco::CharucoDetector::IsInstance( const cv::aruco::CharucoDetector& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.CharucoDetector").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::aruco::CharucoDetector::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.CharucoDetector").IsInstance( $obj ) -> retval
 ```
 
 ### cv::aruco::CharucoDetector::clear
@@ -52378,6 +55073,14 @@ AutoIt:
 
 ## cv::FaceDetectorYN
 
+### FaceDetectorYN.FullyQualifiedName
+
+```cpp
+static std::string cv::FaceDetectorYN::FullyQualifiedName
+AutoIt:
+    [propget] $oFaceDetectorYN.FullyQualifiedName
+```
+
 ### cv::FaceDetectorYN::get\_create
 
 ```cpp
@@ -52407,6 +55110,20 @@ static cv::Ptr<cv::FaceDetectorYN> cv::FaceDetectorYN::get_create( const std::st
 AutoIt:
     _OpenCV_ObjCreate("cv.FaceDetectorYN").create( $framework, $bufferModel, $bufferConfig, $input_size[, $score_threshold[, $nms_threshold[, $top_k[, $backend_id[, $target_id]]]]] ) -> retval
     $oFaceDetectorYN( $framework, $bufferModel, $bufferConfig, $input_size[, $score_threshold[, $nms_threshold[, $top_k[, $backend_id[, $target_id]]]]] ) -> retval
+```
+
+### cv::FaceDetectorYN::IsInstance
+
+```cpp
+static bool cv::FaceDetectorYN::IsInstance( const cv::FaceDetectorYN& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.FaceDetectorYN").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::FaceDetectorYN::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.FaceDetectorYN").IsInstance( $obj ) -> retval
 ```
 
 ### cv::FaceDetectorYN::detect
@@ -52484,6 +55201,14 @@ AutoIt:
 
 ## cv::FaceRecognizerSF
 
+### FaceRecognizerSF.FullyQualifiedName
+
+```cpp
+static std::string cv::FaceRecognizerSF::FullyQualifiedName
+AutoIt:
+    [propget] $oFaceRecognizerSF.FullyQualifiedName
+```
+
 ### cv::FaceRecognizerSF::get\_create
 
 ```cpp
@@ -52494,6 +55219,20 @@ static cv::Ptr<cv::FaceRecognizerSF> cv::FaceRecognizerSF::get_create( const std
 AutoIt:
     _OpenCV_ObjCreate("cv.FaceRecognizerSF").create( $model, $config[, $backend_id[, $target_id]] ) -> retval
     $oFaceRecognizerSF( $model, $config[, $backend_id[, $target_id]] ) -> retval
+```
+
+### cv::FaceRecognizerSF::IsInstance
+
+```cpp
+static bool cv::FaceRecognizerSF::IsInstance( const cv::FaceRecognizerSF& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.FaceRecognizerSF").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::FaceRecognizerSF::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.FaceRecognizerSF").IsInstance( $obj ) -> retval
 ```
 
 ### cv::FaceRecognizerSF::alignCrop
@@ -52542,6 +55281,28 @@ AutoIt:
 ```
 
 ## cv::GraphicalCodeDetector
+
+### GraphicalCodeDetector.FullyQualifiedName
+
+```cpp
+static std::string cv::GraphicalCodeDetector::FullyQualifiedName
+AutoIt:
+    [propget] $oGraphicalCodeDetector.FullyQualifiedName
+```
+
+### cv::GraphicalCodeDetector::IsInstance
+
+```cpp
+static bool cv::GraphicalCodeDetector::IsInstance( const cv::GraphicalCodeDetector& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GraphicalCodeDetector").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::GraphicalCodeDetector::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GraphicalCodeDetector").IsInstance( $obj ) -> retval
+```
 
 ### cv::GraphicalCodeDetector::decode
 
@@ -52605,6 +55366,14 @@ AutoIt:
 
 ## cv::Stitcher
 
+### Stitcher.FullyQualifiedName
+
+```cpp
+static std::string cv::Stitcher::FullyQualifiedName
+AutoIt:
+    [propget] $oStitcher.FullyQualifiedName
+```
+
 ### cv::Stitcher::get\_create
 
 ```cpp
@@ -52612,6 +55381,20 @@ static cv::Ptr<cv::Stitcher> cv::Stitcher::get_create( cv::Stitcher::Mode mode =
 AutoIt:
     _OpenCV_ObjCreate("cv.Stitcher").create( [$mode] ) -> retval
     $oStitcher( [$mode] ) -> retval
+```
+
+### cv::Stitcher::IsInstance
+
+```cpp
+static bool cv::Stitcher::IsInstance( const cv::Stitcher& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Stitcher").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Stitcher::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Stitcher").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Stitcher::composePanorama
@@ -52809,6 +55592,14 @@ AutoIt:
 
 ## cv::PyRotationWarper
 
+### PyRotationWarper.FullyQualifiedName
+
+```cpp
+static std::string cv::PyRotationWarper::FullyQualifiedName
+AutoIt:
+    [propget] $oPyRotationWarper.FullyQualifiedName
+```
+
 ### cv::PyRotationWarper::get\_create
 
 ```cpp
@@ -52823,6 +55614,20 @@ AutoIt:
 static cv::PyRotationWarper cv::PyRotationWarper::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.PyRotationWarper").create() -> <cv.PyRotationWarper object>
+```
+
+### cv::PyRotationWarper::IsInstance
+
+```cpp
+static bool cv::PyRotationWarper::IsInstance( const cv::PyRotationWarper& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.PyRotationWarper").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::PyRotationWarper::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.PyRotationWarper").IsInstance( $obj ) -> retval
 ```
 
 ### cv::PyRotationWarper::buildMaps
@@ -52918,7 +55723,53 @@ AutoIt:
     $oPyRotationWarper.warpRoi( $src_size, $K, $R ) -> retval
 ```
 
+## cv::WarperCreator
+
+### WarperCreator.FullyQualifiedName
+
+```cpp
+static std::string cv::WarperCreator::FullyQualifiedName
+AutoIt:
+    [propget] $oWarperCreator.FullyQualifiedName
+```
+
+### cv::WarperCreator::IsInstance
+
+```cpp
+static bool cv::WarperCreator::IsInstance( const cv::WarperCreator& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.WarperCreator").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::WarperCreator::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.WarperCreator").IsInstance( $obj ) -> retval
+```
+
 ## cv::detail::Blender
+
+### Blender.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::Blender::FullyQualifiedName
+AutoIt:
+    [propget] $oBlender.FullyQualifiedName
+```
+
+### cv::detail::Blender::IsInstance
+
+```cpp
+static bool cv::detail::Blender::IsInstance( const cv::detail::Blender& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.Blender").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::Blender::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.Blender").IsInstance( $obj ) -> retval
+```
 
 ### cv::detail::Blender::blend
 
@@ -52989,6 +55840,14 @@ AutoIt:
 
 ## cv::detail::FeatherBlender
 
+### FeatherBlender.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::FeatherBlender::FullyQualifiedName
+AutoIt:
+    [propget] $oFeatherBlender.FullyQualifiedName
+```
+
 ### cv::detail::FeatherBlender::get\_create
 
 ```cpp
@@ -52996,6 +55855,20 @@ static cv::detail::FeatherBlender cv::detail::FeatherBlender::get_create( float 
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.FeatherBlender").create( [$sharpness] ) -> <cv.detail.FeatherBlender object>
     $oFeatherBlender( [$sharpness] ) -> <cv.detail.FeatherBlender object>
+```
+
+### cv::detail::FeatherBlender::IsInstance
+
+```cpp
+static bool cv::detail::FeatherBlender::IsInstance( const cv::detail::FeatherBlender& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.FeatherBlender").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::FeatherBlender::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.FeatherBlender").IsInstance( $obj ) -> retval
 ```
 
 ### cv::detail::FeatherBlender::blend
@@ -53069,6 +55942,14 @@ AutoIt:
 
 ## cv::detail::MultiBandBlender
 
+### MultiBandBlender.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::MultiBandBlender::FullyQualifiedName
+AutoIt:
+    [propget] $oMultiBandBlender.FullyQualifiedName
+```
+
 ### cv::detail::MultiBandBlender::get\_create
 
 ```cpp
@@ -53078,6 +55959,20 @@ static cv::detail::MultiBandBlender cv::detail::MultiBandBlender::get_create( in
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.MultiBandBlender").create( [$try_gpu[, $num_bands[, $weight_type]]] ) -> <cv.detail.MultiBandBlender object>
     $oMultiBandBlender( [$try_gpu[, $num_bands[, $weight_type]]] ) -> <cv.detail.MultiBandBlender object>
+```
+
+### cv::detail::MultiBandBlender::IsInstance
+
+```cpp
+static bool cv::detail::MultiBandBlender::IsInstance( const cv::detail::MultiBandBlender& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.MultiBandBlender").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::MultiBandBlender::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.MultiBandBlender").IsInstance( $obj ) -> retval
 ```
 
 ### cv::detail::MultiBandBlender::blend
@@ -53189,12 +56084,34 @@ AutoIt:
     [propget, propput] $oCameraParams.t
 ```
 
+### CameraParams.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::CameraParams::FullyQualifiedName
+AutoIt:
+    [propget] $oCameraParams.FullyQualifiedName
+```
+
 ### cv::detail::CameraParams::get\_create
 
 ```cpp
 static cv::detail::CameraParams cv::detail::CameraParams::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.CameraParams").create() -> <cv.detail.CameraParams object>
+```
+
+### cv::detail::CameraParams::IsInstance
+
+```cpp
+static bool cv::detail::CameraParams::IsInstance( const cv::detail::CameraParams& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.CameraParams").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::CameraParams::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.CameraParams").IsInstance( $obj ) -> retval
 ```
 
 ### cv::detail::CameraParams::K
@@ -53206,6 +56123,28 @@ AutoIt:
 ```
 
 ## cv::detail::ExposureCompensator
+
+### ExposureCompensator.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::ExposureCompensator::FullyQualifiedName
+AutoIt:
+    [propget] $oExposureCompensator.FullyQualifiedName
+```
+
+### cv::detail::ExposureCompensator::IsInstance
+
+```cpp
+static bool cv::detail::ExposureCompensator::IsInstance( const cv::detail::ExposureCompensator& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.ExposureCompensator").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::ExposureCompensator::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.ExposureCompensator").IsInstance( $obj ) -> retval
+```
 
 ### cv::detail::ExposureCompensator::apply
 
@@ -53310,6 +56249,28 @@ AutoIt:
 
 ## cv::detail::NoExposureCompensator
 
+### NoExposureCompensator.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::NoExposureCompensator::FullyQualifiedName
+AutoIt:
+    [propget] $oNoExposureCompensator.FullyQualifiedName
+```
+
+### cv::detail::NoExposureCompensator::IsInstance
+
+```cpp
+static bool cv::detail::NoExposureCompensator::IsInstance( const cv::detail::NoExposureCompensator& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.NoExposureCompensator").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::NoExposureCompensator::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.NoExposureCompensator").IsInstance( $obj ) -> retval
+```
+
 ### cv::detail::NoExposureCompensator::apply
 
 ```cpp
@@ -53373,6 +56334,14 @@ AutoIt:
 
 ## cv::detail::GainCompensator
 
+### GainCompensator.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::GainCompensator::FullyQualifiedName
+AutoIt:
+    [propget] $oGainCompensator.FullyQualifiedName
+```
+
 ### cv::detail::GainCompensator::get\_create
 
 ```cpp
@@ -53386,6 +56355,20 @@ static cv::detail::GainCompensator cv::detail::GainCompensator::get_create( int 
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.GainCompensator").create( $nr_feeds ) -> <cv.detail.GainCompensator object>
     $oGainCompensator( $nr_feeds ) -> <cv.detail.GainCompensator object>
+```
+
+### cv::detail::GainCompensator::IsInstance
+
+```cpp
+static bool cv::detail::GainCompensator::IsInstance( const cv::detail::GainCompensator& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.GainCompensator").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::GainCompensator::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.GainCompensator").IsInstance( $obj ) -> retval
 ```
 
 ### cv::detail::GainCompensator::apply
@@ -53483,6 +56466,14 @@ AutoIt:
 
 ## cv::detail::ChannelsCompensator
 
+### ChannelsCompensator.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::ChannelsCompensator::FullyQualifiedName
+AutoIt:
+    [propget] $oChannelsCompensator.FullyQualifiedName
+```
+
 ### cv::detail::ChannelsCompensator::get\_create
 
 ```cpp
@@ -53490,6 +56481,20 @@ static cv::detail::ChannelsCompensator cv::detail::ChannelsCompensator::get_crea
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.ChannelsCompensator").create( [$nr_feeds] ) -> <cv.detail.ChannelsCompensator object>
     $oChannelsCompensator( [$nr_feeds] ) -> <cv.detail.ChannelsCompensator object>
+```
+
+### cv::detail::ChannelsCompensator::IsInstance
+
+```cpp
+static bool cv::detail::ChannelsCompensator::IsInstance( const cv::detail::ChannelsCompensator& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.ChannelsCompensator").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::ChannelsCompensator::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.ChannelsCompensator").IsInstance( $obj ) -> retval
 ```
 
 ### cv::detail::ChannelsCompensator::apply
@@ -53586,6 +56591,28 @@ AutoIt:
 ```
 
 ## cv::detail::BlocksCompensator
+
+### BlocksCompensator.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::BlocksCompensator::FullyQualifiedName
+AutoIt:
+    [propget] $oBlocksCompensator.FullyQualifiedName
+```
+
+### cv::detail::BlocksCompensator::IsInstance
+
+```cpp
+static bool cv::detail::BlocksCompensator::IsInstance( const cv::detail::BlocksCompensator& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.BlocksCompensator").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::BlocksCompensator::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.BlocksCompensator").IsInstance( $obj ) -> retval
+```
 
 ### cv::detail::BlocksCompensator::apply
 
@@ -53721,6 +56748,14 @@ AutoIt:
 
 ## cv::detail::BlocksGainCompensator
 
+### BlocksGainCompensator.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::BlocksGainCompensator::FullyQualifiedName
+AutoIt:
+    [propget] $oBlocksGainCompensator.FullyQualifiedName
+```
+
 ### cv::detail::BlocksGainCompensator::get\_create
 
 ```cpp
@@ -53738,6 +56773,20 @@ static cv::detail::BlocksGainCompensator cv::detail::BlocksGainCompensator::get_
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.BlocksGainCompensator").create( $bl_width, $bl_height, $nr_feeds ) -> <cv.detail.BlocksGainCompensator object>
     $oBlocksGainCompensator( $bl_width, $bl_height, $nr_feeds ) -> <cv.detail.BlocksGainCompensator object>
+```
+
+### cv::detail::BlocksGainCompensator::IsInstance
+
+```cpp
+static bool cv::detail::BlocksGainCompensator::IsInstance( const cv::detail::BlocksGainCompensator& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.BlocksGainCompensator").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::BlocksGainCompensator::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.BlocksGainCompensator").IsInstance( $obj ) -> retval
 ```
 
 ### cv::detail::BlocksGainCompensator::apply
@@ -53874,6 +56923,14 @@ AutoIt:
 
 ## cv::detail::BlocksChannelsCompensator
 
+### BlocksChannelsCompensator.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::BlocksChannelsCompensator::FullyQualifiedName
+AutoIt:
+    [propget] $oBlocksChannelsCompensator.FullyQualifiedName
+```
+
 ### cv::detail::BlocksChannelsCompensator::get\_create
 
 ```cpp
@@ -53883,6 +56940,20 @@ static cv::detail::BlocksChannelsCompensator cv::detail::BlocksChannelsCompensat
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.BlocksChannelsCompensator").create( [$bl_width[, $bl_height[, $nr_feeds]]] ) -> <cv.detail.BlocksChannelsCompensator object>
     $oBlocksChannelsCompensator( [$bl_width[, $bl_height[, $nr_feeds]]] ) -> <cv.detail.BlocksChannelsCompensator object>
+```
+
+### cv::detail::BlocksChannelsCompensator::IsInstance
+
+```cpp
+static bool cv::detail::BlocksChannelsCompensator::IsInstance( const cv::detail::BlocksChannelsCompensator& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.BlocksChannelsCompensator").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::BlocksChannelsCompensator::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.BlocksChannelsCompensator").IsInstance( $obj ) -> retval
 ```
 
 ### cv::detail::BlocksChannelsCompensator::apply
@@ -54051,12 +57122,34 @@ AutoIt:
     [propget, propput] $oImageFeatures.descriptors
 ```
 
+### ImageFeatures.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::ImageFeatures::FullyQualifiedName
+AutoIt:
+    [propget] $oImageFeatures.FullyQualifiedName
+```
+
 ### cv::detail::ImageFeatures::get\_create
 
 ```cpp
 static cv::detail::ImageFeatures cv::detail::ImageFeatures::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.ImageFeatures").create() -> <cv.detail.ImageFeatures object>
+```
+
+### cv::detail::ImageFeatures::IsInstance
+
+```cpp
+static bool cv::detail::ImageFeatures::IsInstance( const cv::detail::ImageFeatures& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.ImageFeatures").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::ImageFeatures::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.ImageFeatures").IsInstance( $obj ) -> retval
 ```
 
 ### cv::detail::ImageFeatures::getKeypoints
@@ -54125,12 +57218,34 @@ AutoIt:
     [propget, propput] $oMatchesInfo.confidence
 ```
 
+### MatchesInfo.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::MatchesInfo::FullyQualifiedName
+AutoIt:
+    [propget] $oMatchesInfo.FullyQualifiedName
+```
+
 ### cv::detail::MatchesInfo::get\_create
 
 ```cpp
 static cv::detail::MatchesInfo cv::detail::MatchesInfo::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.MatchesInfo").create() -> <cv.detail.MatchesInfo object>
+```
+
+### cv::detail::MatchesInfo::IsInstance
+
+```cpp
+static bool cv::detail::MatchesInfo::IsInstance( const cv::detail::MatchesInfo& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.MatchesInfo").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::MatchesInfo::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.MatchesInfo").IsInstance( $obj ) -> retval
 ```
 
 ### cv::detail::MatchesInfo::getInliers
@@ -54150,6 +57265,28 @@ AutoIt:
 ```
 
 ## cv::detail::FeaturesMatcher
+
+### FeaturesMatcher.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::FeaturesMatcher::FullyQualifiedName
+AutoIt:
+    [propget] $oFeaturesMatcher.FullyQualifiedName
+```
+
+### cv::detail::FeaturesMatcher::IsInstance
+
+```cpp
+static bool cv::detail::FeaturesMatcher::IsInstance( const cv::detail::FeaturesMatcher& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.FeaturesMatcher").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::FeaturesMatcher::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.FeaturesMatcher").IsInstance( $obj ) -> retval
+```
 
 ### cv::detail::FeaturesMatcher::apply
 
@@ -54189,6 +57326,14 @@ AutoIt:
 
 ## cv::detail::BestOf2NearestMatcher
 
+### BestOf2NearestMatcher.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::BestOf2NearestMatcher::FullyQualifiedName
+AutoIt:
+    [propget] $oBestOf2NearestMatcher.FullyQualifiedName
+```
+
 ### cv::detail::BestOf2NearestMatcher::get\_create
 
 ```cpp
@@ -54211,6 +57356,20 @@ static cv::Ptr<cv::detail::BestOf2NearestMatcher> cv::detail::BestOf2NearestMatc
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.BestOf2NearestMatcher").create( [$try_use_gpu[, $match_conf[, $num_matches_thresh1[, $num_matches_thresh2[, $matches_confindece_thresh]]]]] ) -> retval
     $oBestOf2NearestMatcher( [$try_use_gpu[, $match_conf[, $num_matches_thresh1[, $num_matches_thresh2[, $matches_confindece_thresh]]]]] ) -> retval
+```
+
+### cv::detail::BestOf2NearestMatcher::IsInstance
+
+```cpp
+static bool cv::detail::BestOf2NearestMatcher::IsInstance( const cv::detail::BestOf2NearestMatcher& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.BestOf2NearestMatcher").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::BestOf2NearestMatcher::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.BestOf2NearestMatcher").IsInstance( $obj ) -> retval
 ```
 
 ### cv::detail::BestOf2NearestMatcher::apply
@@ -54251,6 +57410,14 @@ AutoIt:
 
 ## cv::detail::BestOf2NearestRangeMatcher
 
+### BestOf2NearestRangeMatcher.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::BestOf2NearestRangeMatcher::FullyQualifiedName
+AutoIt:
+    [propget] $oBestOf2NearestRangeMatcher.FullyQualifiedName
+```
+
 ### cv::detail::BestOf2NearestRangeMatcher::get\_create
 
 ```cpp
@@ -54262,6 +57429,20 @@ static cv::detail::BestOf2NearestRangeMatcher cv::detail::BestOf2NearestRangeMat
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.BestOf2NearestRangeMatcher").create( [$range_width[, $try_use_gpu[, $match_conf[, $num_matches_thresh1[, $num_matches_thresh2]]]]] ) -> <cv.detail.BestOf2NearestRangeMatcher object>
     $oBestOf2NearestRangeMatcher( [$range_width[, $try_use_gpu[, $match_conf[, $num_matches_thresh1[, $num_matches_thresh2]]]]] ) -> <cv.detail.BestOf2NearestRangeMatcher object>
+```
+
+### cv::detail::BestOf2NearestRangeMatcher::IsInstance
+
+```cpp
+static bool cv::detail::BestOf2NearestRangeMatcher::IsInstance( const cv::detail::BestOf2NearestRangeMatcher& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.BestOf2NearestRangeMatcher").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::BestOf2NearestRangeMatcher::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.BestOf2NearestRangeMatcher").IsInstance( $obj ) -> retval
 ```
 
 ### cv::detail::BestOf2NearestRangeMatcher::apply
@@ -54302,6 +57483,14 @@ AutoIt:
 
 ## cv::detail::AffineBestOf2NearestMatcher
 
+### AffineBestOf2NearestMatcher.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::AffineBestOf2NearestMatcher::FullyQualifiedName
+AutoIt:
+    [propget] $oAffineBestOf2NearestMatcher.FullyQualifiedName
+```
+
 ### cv::detail::AffineBestOf2NearestMatcher::get\_create
 
 ```cpp
@@ -54312,6 +57501,20 @@ static cv::detail::AffineBestOf2NearestMatcher cv::detail::AffineBestOf2NearestM
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.AffineBestOf2NearestMatcher").create( [$full_affine[, $try_use_gpu[, $match_conf[, $num_matches_thresh1]]]] ) -> <cv.detail.AffineBestOf2NearestMatcher object>
     $oAffineBestOf2NearestMatcher( [$full_affine[, $try_use_gpu[, $match_conf[, $num_matches_thresh1]]]] ) -> <cv.detail.AffineBestOf2NearestMatcher object>
+```
+
+### cv::detail::AffineBestOf2NearestMatcher::IsInstance
+
+```cpp
+static bool cv::detail::AffineBestOf2NearestMatcher::IsInstance( const cv::detail::AffineBestOf2NearestMatcher& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.AffineBestOf2NearestMatcher").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::AffineBestOf2NearestMatcher::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.AffineBestOf2NearestMatcher").IsInstance( $obj ) -> retval
 ```
 
 ### cv::detail::AffineBestOf2NearestMatcher::apply
@@ -54352,6 +57555,28 @@ AutoIt:
 
 ## cv::detail::Estimator
 
+### Estimator.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::Estimator::FullyQualifiedName
+AutoIt:
+    [propget] $oEstimator.FullyQualifiedName
+```
+
+### cv::detail::Estimator::IsInstance
+
+```cpp
+static bool cv::detail::Estimator::IsInstance( const cv::detail::Estimator& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.Estimator").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::Estimator::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.Estimator").IsInstance( $obj ) -> retval
+```
+
 ### cv::detail::Estimator::apply
 
 ```cpp
@@ -54364,6 +57589,14 @@ AutoIt:
 
 ## cv::detail::HomographyBasedEstimator
 
+### HomographyBasedEstimator.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::HomographyBasedEstimator::FullyQualifiedName
+AutoIt:
+    [propget] $oHomographyBasedEstimator.FullyQualifiedName
+```
+
 ### cv::detail::HomographyBasedEstimator::get\_create
 
 ```cpp
@@ -54371,6 +57604,20 @@ static cv::detail::HomographyBasedEstimator cv::detail::HomographyBasedEstimator
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.HomographyBasedEstimator").create( [$is_focals_estimated] ) -> <cv.detail.HomographyBasedEstimator object>
     $oHomographyBasedEstimator( [$is_focals_estimated] ) -> <cv.detail.HomographyBasedEstimator object>
+```
+
+### cv::detail::HomographyBasedEstimator::IsInstance
+
+```cpp
+static bool cv::detail::HomographyBasedEstimator::IsInstance( const cv::detail::HomographyBasedEstimator& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.HomographyBasedEstimator").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::HomographyBasedEstimator::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.HomographyBasedEstimator").IsInstance( $obj ) -> retval
 ```
 
 ### cv::detail::HomographyBasedEstimator::apply
@@ -54385,12 +57632,34 @@ AutoIt:
 
 ## cv::detail::AffineBasedEstimator
 
+### AffineBasedEstimator.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::AffineBasedEstimator::FullyQualifiedName
+AutoIt:
+    [propget] $oAffineBasedEstimator.FullyQualifiedName
+```
+
 ### cv::detail::AffineBasedEstimator::get\_create
 
 ```cpp
 static cv::detail::AffineBasedEstimator cv::detail::AffineBasedEstimator::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.AffineBasedEstimator").create() -> <cv.detail.AffineBasedEstimator object>
+```
+
+### cv::detail::AffineBasedEstimator::IsInstance
+
+```cpp
+static bool cv::detail::AffineBasedEstimator::IsInstance( const cv::detail::AffineBasedEstimator& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.AffineBasedEstimator").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::AffineBasedEstimator::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.AffineBasedEstimator").IsInstance( $obj ) -> retval
 ```
 
 ### cv::detail::AffineBasedEstimator::apply
@@ -54404,6 +57673,28 @@ AutoIt:
 ```
 
 ## cv::detail::BundleAdjusterBase
+
+### BundleAdjusterBase.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::BundleAdjusterBase::FullyQualifiedName
+AutoIt:
+    [propget] $oBundleAdjusterBase.FullyQualifiedName
+```
+
+### cv::detail::BundleAdjusterBase::IsInstance
+
+```cpp
+static bool cv::detail::BundleAdjusterBase::IsInstance( const cv::detail::BundleAdjusterBase& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.BundleAdjusterBase").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::BundleAdjusterBase::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.BundleAdjusterBase").IsInstance( $obj ) -> retval
+```
 
 ### cv::detail::BundleAdjusterBase::apply
 
@@ -54465,12 +57756,34 @@ AutoIt:
 
 ## cv::detail::NoBundleAdjuster
 
+### NoBundleAdjuster.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::NoBundleAdjuster::FullyQualifiedName
+AutoIt:
+    [propget] $oNoBundleAdjuster.FullyQualifiedName
+```
+
 ### cv::detail::NoBundleAdjuster::get\_create
 
 ```cpp
 static cv::detail::NoBundleAdjuster cv::detail::NoBundleAdjuster::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.NoBundleAdjuster").create() -> <cv.detail.NoBundleAdjuster object>
+```
+
+### cv::detail::NoBundleAdjuster::IsInstance
+
+```cpp
+static bool cv::detail::NoBundleAdjuster::IsInstance( const cv::detail::NoBundleAdjuster& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.NoBundleAdjuster").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::NoBundleAdjuster::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.NoBundleAdjuster").IsInstance( $obj ) -> retval
 ```
 
 ### cv::detail::NoBundleAdjuster::apply
@@ -54533,12 +57846,34 @@ AutoIt:
 
 ## cv::detail::BundleAdjusterReproj
 
+### BundleAdjusterReproj.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::BundleAdjusterReproj::FullyQualifiedName
+AutoIt:
+    [propget] $oBundleAdjusterReproj.FullyQualifiedName
+```
+
 ### cv::detail::BundleAdjusterReproj::get\_create
 
 ```cpp
 static cv::detail::BundleAdjusterReproj cv::detail::BundleAdjusterReproj::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.BundleAdjusterReproj").create() -> <cv.detail.BundleAdjusterReproj object>
+```
+
+### cv::detail::BundleAdjusterReproj::IsInstance
+
+```cpp
+static bool cv::detail::BundleAdjusterReproj::IsInstance( const cv::detail::BundleAdjusterReproj& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.BundleAdjusterReproj").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::BundleAdjusterReproj::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.BundleAdjusterReproj").IsInstance( $obj ) -> retval
 ```
 
 ### cv::detail::BundleAdjusterReproj::apply
@@ -54601,12 +57936,34 @@ AutoIt:
 
 ## cv::detail::BundleAdjusterRay
 
+### BundleAdjusterRay.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::BundleAdjusterRay::FullyQualifiedName
+AutoIt:
+    [propget] $oBundleAdjusterRay.FullyQualifiedName
+```
+
 ### cv::detail::BundleAdjusterRay::get\_create
 
 ```cpp
 static cv::detail::BundleAdjusterRay cv::detail::BundleAdjusterRay::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.BundleAdjusterRay").create() -> <cv.detail.BundleAdjusterRay object>
+```
+
+### cv::detail::BundleAdjusterRay::IsInstance
+
+```cpp
+static bool cv::detail::BundleAdjusterRay::IsInstance( const cv::detail::BundleAdjusterRay& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.BundleAdjusterRay").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::BundleAdjusterRay::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.BundleAdjusterRay").IsInstance( $obj ) -> retval
 ```
 
 ### cv::detail::BundleAdjusterRay::apply
@@ -54669,12 +58026,34 @@ AutoIt:
 
 ## cv::detail::BundleAdjusterAffine
 
+### BundleAdjusterAffine.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::BundleAdjusterAffine::FullyQualifiedName
+AutoIt:
+    [propget] $oBundleAdjusterAffine.FullyQualifiedName
+```
+
 ### cv::detail::BundleAdjusterAffine::get\_create
 
 ```cpp
 static cv::detail::BundleAdjusterAffine cv::detail::BundleAdjusterAffine::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.BundleAdjusterAffine").create() -> <cv.detail.BundleAdjusterAffine object>
+```
+
+### cv::detail::BundleAdjusterAffine::IsInstance
+
+```cpp
+static bool cv::detail::BundleAdjusterAffine::IsInstance( const cv::detail::BundleAdjusterAffine& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.BundleAdjusterAffine").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::BundleAdjusterAffine::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.BundleAdjusterAffine").IsInstance( $obj ) -> retval
 ```
 
 ### cv::detail::BundleAdjusterAffine::apply
@@ -54737,12 +58116,34 @@ AutoIt:
 
 ## cv::detail::BundleAdjusterAffinePartial
 
+### BundleAdjusterAffinePartial.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::BundleAdjusterAffinePartial::FullyQualifiedName
+AutoIt:
+    [propget] $oBundleAdjusterAffinePartial.FullyQualifiedName
+```
+
 ### cv::detail::BundleAdjusterAffinePartial::get\_create
 
 ```cpp
 static cv::detail::BundleAdjusterAffinePartial cv::detail::BundleAdjusterAffinePartial::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.BundleAdjusterAffinePartial").create() -> <cv.detail.BundleAdjusterAffinePartial object>
+```
+
+### cv::detail::BundleAdjusterAffinePartial::IsInstance
+
+```cpp
+static bool cv::detail::BundleAdjusterAffinePartial::IsInstance( const cv::detail::BundleAdjusterAffinePartial& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.BundleAdjusterAffinePartial").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::BundleAdjusterAffinePartial::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.BundleAdjusterAffinePartial").IsInstance( $obj ) -> retval
 ```
 
 ### cv::detail::BundleAdjusterAffinePartial::apply
@@ -54805,6 +58206,28 @@ AutoIt:
 
 ## cv::detail::SeamFinder
 
+### SeamFinder.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::SeamFinder::FullyQualifiedName
+AutoIt:
+    [propget] $oSeamFinder.FullyQualifiedName
+```
+
+### cv::detail::SeamFinder::IsInstance
+
+```cpp
+static bool cv::detail::SeamFinder::IsInstance( const cv::detail::SeamFinder& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.SeamFinder").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::SeamFinder::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.SeamFinder").IsInstance( $obj ) -> retval
+```
+
 ### cv::detail::SeamFinder::createDefault
 
 ```cpp
@@ -54849,6 +58272,28 @@ AutoIt:
 
 ## cv::detail::NoSeamFinder
 
+### NoSeamFinder.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::NoSeamFinder::FullyQualifiedName
+AutoIt:
+    [propget] $oNoSeamFinder.FullyQualifiedName
+```
+
+### cv::detail::NoSeamFinder::IsInstance
+
+```cpp
+static bool cv::detail::NoSeamFinder::IsInstance( const cv::detail::NoSeamFinder& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.NoSeamFinder").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::NoSeamFinder::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.NoSeamFinder").IsInstance( $obj ) -> retval
+```
+
 ### cv::detail::NoSeamFinder::createDefault
 
 ```cpp
@@ -54868,6 +58313,28 @@ AutoIt:
 ```
 
 ## cv::detail::PairwiseSeamFinder
+
+### PairwiseSeamFinder.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::PairwiseSeamFinder::FullyQualifiedName
+AutoIt:
+    [propget] $oPairwiseSeamFinder.FullyQualifiedName
+```
+
+### cv::detail::PairwiseSeamFinder::IsInstance
+
+```cpp
+static bool cv::detail::PairwiseSeamFinder::IsInstance( const cv::detail::PairwiseSeamFinder& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.PairwiseSeamFinder").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::PairwiseSeamFinder::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.PairwiseSeamFinder").IsInstance( $obj ) -> retval
+```
 
 ### cv::detail::PairwiseSeamFinder::createDefault
 
@@ -54889,6 +58356,28 @@ AutoIt:
 
 ## cv::detail::VoronoiSeamFinder
 
+### VoronoiSeamFinder.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::VoronoiSeamFinder::FullyQualifiedName
+AutoIt:
+    [propget] $oVoronoiSeamFinder.FullyQualifiedName
+```
+
+### cv::detail::VoronoiSeamFinder::IsInstance
+
+```cpp
+static bool cv::detail::VoronoiSeamFinder::IsInstance( const cv::detail::VoronoiSeamFinder& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.VoronoiSeamFinder").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::VoronoiSeamFinder::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.VoronoiSeamFinder").IsInstance( $obj ) -> retval
+```
+
 ### cv::detail::VoronoiSeamFinder::createDefault
 
 ```cpp
@@ -54909,6 +58398,14 @@ AutoIt:
 
 ## cv::detail::DpSeamFinder
 
+### DpSeamFinder.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::DpSeamFinder::FullyQualifiedName
+AutoIt:
+    [propget] $oDpSeamFinder.FullyQualifiedName
+```
+
 ### cv::detail::DpSeamFinder::get\_create
 
 ```cpp
@@ -54916,6 +58413,20 @@ static cv::detail::DpSeamFinder cv::detail::DpSeamFinder::get_create( std::strin
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.DpSeamFinder").create( $costFunc ) -> <cv.detail.DpSeamFinder object>
     $oDpSeamFinder( $costFunc ) -> <cv.detail.DpSeamFinder object>
+```
+
+### cv::detail::DpSeamFinder::IsInstance
+
+```cpp
+static bool cv::detail::DpSeamFinder::IsInstance( const cv::detail::DpSeamFinder& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.DpSeamFinder").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::DpSeamFinder::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.DpSeamFinder").IsInstance( $obj ) -> retval
 ```
 
 ### cv::detail::DpSeamFinder::createDefault
@@ -54980,6 +58491,14 @@ AutoIt:
 
 ## cv::detail::GraphCutSeamFinder
 
+### GraphCutSeamFinder.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::GraphCutSeamFinder::FullyQualifiedName
+AutoIt:
+    [propget] $oGraphCutSeamFinder.FullyQualifiedName
+```
+
 ### cv::detail::GraphCutSeamFinder::get\_create
 
 ```cpp
@@ -54989,6 +58508,20 @@ static cv::detail::GraphCutSeamFinder cv::detail::GraphCutSeamFinder::get_create
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.GraphCutSeamFinder").create( $cost_type[, $terminal_cost[, $bad_region_penalty]] ) -> <cv.detail.GraphCutSeamFinder object>
     $oGraphCutSeamFinder( $cost_type[, $terminal_cost[, $bad_region_penalty]] ) -> <cv.detail.GraphCutSeamFinder object>
+```
+
+### cv::detail::GraphCutSeamFinder::IsInstance
+
+```cpp
+static bool cv::detail::GraphCutSeamFinder::IsInstance( const cv::detail::GraphCutSeamFinder& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.GraphCutSeamFinder").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::GraphCutSeamFinder::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.GraphCutSeamFinder").IsInstance( $obj ) -> retval
 ```
 
 ### cv::detail::GraphCutSeamFinder::createDefault
@@ -55010,6 +58543,28 @@ AutoIt:
 ```
 
 ## cv::detail::Timelapser
+
+### Timelapser.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::Timelapser::FullyQualifiedName
+AutoIt:
+    [propget] $oTimelapser.FullyQualifiedName
+```
+
+### cv::detail::Timelapser::IsInstance
+
+```cpp
+static bool cv::detail::Timelapser::IsInstance( const cv::detail::Timelapser& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.Timelapser").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::Timelapser::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.Timelapser").IsInstance( $obj ) -> retval
+```
 
 ### cv::detail::Timelapser::createDefault
 
@@ -55064,6 +58619,28 @@ AutoIt:
 
 ## cv::detail::TimelapserCrop
 
+### TimelapserCrop.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::TimelapserCrop::FullyQualifiedName
+AutoIt:
+    [propget] $oTimelapserCrop.FullyQualifiedName
+```
+
+### cv::detail::TimelapserCrop::IsInstance
+
+```cpp
+static bool cv::detail::TimelapserCrop::IsInstance( const cv::detail::TimelapserCrop& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.TimelapserCrop").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::TimelapserCrop::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.TimelapserCrop").IsInstance( $obj ) -> retval
+```
+
 ### cv::detail::TimelapserCrop::createDefault
 
 ```cpp
@@ -55101,6 +58678,14 @@ AutoIt:
 
 ## cv::detail::ProjectorBase
 
+### ProjectorBase.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::ProjectorBase::FullyQualifiedName
+AutoIt:
+    [propget] $oProjectorBase.FullyQualifiedName
+```
+
 ### cv::detail::ProjectorBase::get\_create
 
 ```cpp
@@ -55109,7 +58694,29 @@ AutoIt:
     _OpenCV_ObjCreate("cv.detail.ProjectorBase").create() -> <cv.detail.ProjectorBase object>
 ```
 
+### cv::detail::ProjectorBase::IsInstance
+
+```cpp
+static bool cv::detail::ProjectorBase::IsInstance( const cv::detail::ProjectorBase& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.ProjectorBase").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::ProjectorBase::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.ProjectorBase").IsInstance( $obj ) -> retval
+```
+
 ## cv::detail::SphericalProjector
+
+### SphericalProjector.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::SphericalProjector::FullyQualifiedName
+AutoIt:
+    [propget] $oSphericalProjector.FullyQualifiedName
+```
 
 ### cv::detail::SphericalProjector::get\_create
 
@@ -55117,6 +58724,20 @@ AutoIt:
 static cv::detail::SphericalProjector cv::detail::SphericalProjector::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.detail.SphericalProjector").create() -> <cv.detail.SphericalProjector object>
+```
+
+### cv::detail::SphericalProjector::IsInstance
+
+```cpp
+static bool cv::detail::SphericalProjector::IsInstance( const cv::detail::SphericalProjector& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.SphericalProjector").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::SphericalProjector::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.SphericalProjector").IsInstance( $obj ) -> retval
 ```
 
 ### cv::detail::SphericalProjector::mapBackward
@@ -55142,6 +58763,28 @@ AutoIt:
 ```
 
 ## cv::BackgroundSubtractor
+
+### BackgroundSubtractor.FullyQualifiedName
+
+```cpp
+static std::string cv::BackgroundSubtractor::FullyQualifiedName
+AutoIt:
+    [propget] $oBackgroundSubtractor.FullyQualifiedName
+```
+
+### cv::BackgroundSubtractor::IsInstance
+
+```cpp
+static bool cv::BackgroundSubtractor::IsInstance( const cv::BackgroundSubtractor& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.BackgroundSubtractor").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::BackgroundSubtractor::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.BackgroundSubtractor").IsInstance( $obj ) -> retval
+```
 
 ### cv::BackgroundSubtractor::apply
 
@@ -55217,6 +58860,28 @@ AutoIt:
 ```
 
 ## cv::BackgroundSubtractorMOG2
+
+### BackgroundSubtractorMOG2.FullyQualifiedName
+
+```cpp
+static std::string cv::BackgroundSubtractorMOG2::FullyQualifiedName
+AutoIt:
+    [propget] $oBackgroundSubtractorMOG2.FullyQualifiedName
+```
+
+### cv::BackgroundSubtractorMOG2::IsInstance
+
+```cpp
+static bool cv::BackgroundSubtractorMOG2::IsInstance( const cv::BackgroundSubtractorMOG2& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.BackgroundSubtractorMOG2").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::BackgroundSubtractorMOG2::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.BackgroundSubtractorMOG2").IsInstance( $obj ) -> retval
+```
 
 ### cv::BackgroundSubtractorMOG2::apply
 
@@ -55485,6 +59150,28 @@ AutoIt:
 
 ## cv::BackgroundSubtractorKNN
 
+### BackgroundSubtractorKNN.FullyQualifiedName
+
+```cpp
+static std::string cv::BackgroundSubtractorKNN::FullyQualifiedName
+AutoIt:
+    [propget] $oBackgroundSubtractorKNN.FullyQualifiedName
+```
+
+### cv::BackgroundSubtractorKNN::IsInstance
+
+```cpp
+static bool cv::BackgroundSubtractorKNN::IsInstance( const cv::BackgroundSubtractorKNN& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.BackgroundSubtractorKNN").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::BackgroundSubtractorKNN::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.BackgroundSubtractorKNN").IsInstance( $obj ) -> retval
+```
+
 ### cv::BackgroundSubtractorKNN::apply
 
 ```cpp
@@ -55752,6 +59439,14 @@ AutoIt:
     [propget, propput] $oKalmanFilter.errorCovPost
 ```
 
+### KalmanFilter.FullyQualifiedName
+
+```cpp
+static std::string cv::KalmanFilter::FullyQualifiedName
+AutoIt:
+    [propget] $oKalmanFilter.FullyQualifiedName
+```
+
 ### cv::KalmanFilter::get\_create
 
 ```cpp
@@ -55768,6 +59463,20 @@ static cv::KalmanFilter cv::KalmanFilter::get_create( int dynamParams,
 AutoIt:
     _OpenCV_ObjCreate("cv.KalmanFilter").create( $dynamParams, $measureParams[, $controlParams[, $type]] ) -> <cv.KalmanFilter object>
     $oKalmanFilter( $dynamParams, $measureParams[, $controlParams[, $type]] ) -> <cv.KalmanFilter object>
+```
+
+### cv::KalmanFilter::IsInstance
+
+```cpp
+static bool cv::KalmanFilter::IsInstance( const cv::KalmanFilter& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.KalmanFilter").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::KalmanFilter::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.KalmanFilter").IsInstance( $obj ) -> retval
 ```
 
 ### cv::KalmanFilter::correct
@@ -55787,6 +59496,28 @@ AutoIt:
 ```
 
 ## cv::DenseOpticalFlow
+
+### DenseOpticalFlow.FullyQualifiedName
+
+```cpp
+static std::string cv::DenseOpticalFlow::FullyQualifiedName
+AutoIt:
+    [propget] $oDenseOpticalFlow.FullyQualifiedName
+```
+
+### cv::DenseOpticalFlow::IsInstance
+
+```cpp
+static bool cv::DenseOpticalFlow::IsInstance( const cv::DenseOpticalFlow& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.DenseOpticalFlow").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::DenseOpticalFlow::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.DenseOpticalFlow").IsInstance( $obj ) -> retval
+```
 
 ### cv::DenseOpticalFlow::calc
 
@@ -55863,6 +59594,28 @@ AutoIt:
 
 ## cv::SparseOpticalFlow
 
+### SparseOpticalFlow.FullyQualifiedName
+
+```cpp
+static std::string cv::SparseOpticalFlow::FullyQualifiedName
+AutoIt:
+    [propget] $oSparseOpticalFlow.FullyQualifiedName
+```
+
+### cv::SparseOpticalFlow::IsInstance
+
+```cpp
+static bool cv::SparseOpticalFlow::IsInstance( const cv::SparseOpticalFlow& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.SparseOpticalFlow").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::SparseOpticalFlow::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.SparseOpticalFlow").IsInstance( $obj ) -> retval
+```
+
 ### cv::SparseOpticalFlow::calc
 
 ```cpp
@@ -55933,6 +59686,14 @@ AutoIt:
 
 ## cv::FarnebackOpticalFlow
 
+### FarnebackOpticalFlow.FullyQualifiedName
+
+```cpp
+static std::string cv::FarnebackOpticalFlow::FullyQualifiedName
+AutoIt:
+    [propget] $oFarnebackOpticalFlow.FullyQualifiedName
+```
+
 ### cv::FarnebackOpticalFlow::get\_create
 
 ```cpp
@@ -55947,6 +59708,20 @@ static cv::Ptr<cv::FarnebackOpticalFlow> cv::FarnebackOpticalFlow::get_create( i
 AutoIt:
     _OpenCV_ObjCreate("cv.FarnebackOpticalFlow").create( [$numLevels[, $pyrScale[, $fastPyramids[, $winSize[, $numIters[, $polyN[, $polySigma[, $flags]]]]]]]] ) -> retval
     $oFarnebackOpticalFlow( [$numLevels[, $pyrScale[, $fastPyramids[, $winSize[, $numIters[, $polyN[, $polySigma[, $flags]]]]]]]] ) -> retval
+```
+
+### cv::FarnebackOpticalFlow::IsInstance
+
+```cpp
+static bool cv::FarnebackOpticalFlow::IsInstance( const cv::FarnebackOpticalFlow& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.FarnebackOpticalFlow").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::FarnebackOpticalFlow::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.FarnebackOpticalFlow").IsInstance( $obj ) -> retval
 ```
 
 ### cv::FarnebackOpticalFlow::calc
@@ -56152,12 +59927,34 @@ AutoIt:
 
 ## cv::VariationalRefinement
 
+### VariationalRefinement.FullyQualifiedName
+
+```cpp
+static std::string cv::VariationalRefinement::FullyQualifiedName
+AutoIt:
+    [propget] $oVariationalRefinement.FullyQualifiedName
+```
+
 ### cv::VariationalRefinement::get\_create
 
 ```cpp
 static cv::Ptr<cv::VariationalRefinement> cv::VariationalRefinement::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.VariationalRefinement").create() -> retval
+```
+
+### cv::VariationalRefinement::IsInstance
+
+```cpp
+static bool cv::VariationalRefinement::IsInstance( const cv::VariationalRefinement& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.VariationalRefinement").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::VariationalRefinement::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.VariationalRefinement").IsInstance( $obj ) -> retval
 ```
 
 ### cv::VariationalRefinement::calc
@@ -56358,6 +60155,14 @@ AutoIt:
 
 ## cv::DISOpticalFlow
 
+### DISOpticalFlow.FullyQualifiedName
+
+```cpp
+static std::string cv::DISOpticalFlow::FullyQualifiedName
+AutoIt:
+    [propget] $oDISOpticalFlow.FullyQualifiedName
+```
+
 ### cv::DISOpticalFlow::get\_create
 
 ```cpp
@@ -56365,6 +60170,20 @@ static cv::Ptr<cv::DISOpticalFlow> cv::DISOpticalFlow::get_create( int preset = 
 AutoIt:
     _OpenCV_ObjCreate("cv.DISOpticalFlow").create( [$preset] ) -> retval
     $oDISOpticalFlow( [$preset] ) -> retval
+```
+
+### cv::DISOpticalFlow::IsInstance
+
+```cpp
+static bool cv::DISOpticalFlow::IsInstance( const cv::DISOpticalFlow& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.DISOpticalFlow").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::DISOpticalFlow::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.DISOpticalFlow").IsInstance( $obj ) -> retval
 ```
 
 ### cv::DISOpticalFlow::calc
@@ -56642,6 +60461,14 @@ AutoIt:
 
 ## cv::SparsePyrLKOpticalFlow
 
+### SparsePyrLKOpticalFlow.FullyQualifiedName
+
+```cpp
+static std::string cv::SparsePyrLKOpticalFlow::FullyQualifiedName
+AutoIt:
+    [propget] $oSparsePyrLKOpticalFlow.FullyQualifiedName
+```
+
 ### cv::SparsePyrLKOpticalFlow::get\_create
 
 ```cpp
@@ -56653,6 +60480,20 @@ static cv::Ptr<cv::SparsePyrLKOpticalFlow> cv::SparsePyrLKOpticalFlow::get_creat
 AutoIt:
     _OpenCV_ObjCreate("cv.SparsePyrLKOpticalFlow").create( [$winSize[, $maxLevel[, $crit[, $flags[, $minEigThreshold]]]]] ) -> retval
     $oSparsePyrLKOpticalFlow( [$winSize[, $maxLevel[, $crit[, $flags[, $minEigThreshold]]]]] ) -> retval
+```
+
+### cv::SparsePyrLKOpticalFlow::IsInstance
+
+```cpp
+static bool cv::SparsePyrLKOpticalFlow::IsInstance( const cv::SparsePyrLKOpticalFlow& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.SparsePyrLKOpticalFlow").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::SparsePyrLKOpticalFlow::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.SparsePyrLKOpticalFlow").IsInstance( $obj ) -> retval
 ```
 
 ### cv::SparsePyrLKOpticalFlow::calc
@@ -56805,6 +60646,28 @@ AutoIt:
 
 ## cv::Tracker
 
+### Tracker.FullyQualifiedName
+
+```cpp
+static std::string cv::Tracker::FullyQualifiedName
+AutoIt:
+    [propget] $oTracker.FullyQualifiedName
+```
+
+### cv::Tracker::IsInstance
+
+```cpp
+static bool cv::Tracker::IsInstance( const cv::Tracker& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Tracker").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Tracker::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Tracker").IsInstance( $obj ) -> retval
+```
+
 ### cv::Tracker::init
 
 ```cpp
@@ -56833,6 +60696,14 @@ AutoIt:
     [propget] $oTrackerMIL.Params
 ```
 
+### TrackerMIL.FullyQualifiedName
+
+```cpp
+static std::string cv::TrackerMIL::FullyQualifiedName
+AutoIt:
+    [propget] $oTrackerMIL.FullyQualifiedName
+```
+
 ### cv::TrackerMIL::get\_create
 
 ```cpp
@@ -56840,6 +60711,20 @@ static cv::Ptr<cv::TrackerMIL> cv::TrackerMIL::get_create( const cv::TrackerMIL:
 AutoIt:
     _OpenCV_ObjCreate("cv.TrackerMIL").create( [$parameters] ) -> retval
     $oTrackerMIL( [$parameters] ) -> retval
+```
+
+### cv::TrackerMIL::IsInstance
+
+```cpp
+static bool cv::TrackerMIL::IsInstance( const cv::TrackerMIL& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TrackerMIL").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::TrackerMIL::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TrackerMIL").IsInstance( $obj ) -> retval
 ```
 
 ### cv::TrackerMIL::init
@@ -56918,12 +60803,34 @@ AutoIt:
     [propget, propput] $oParams.featureSetNumFeatures
 ```
 
+### Params.FullyQualifiedName
+
+```cpp
+static std::string cv::TrackerMIL::Params::FullyQualifiedName
+AutoIt:
+    [propget] $oParams.FullyQualifiedName
+```
+
 ### cv::TrackerMIL::Params::get\_create
 
 ```cpp
 static cv::TrackerMIL::Params cv::TrackerMIL::Params::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.TrackerMIL.Params").create() -> <cv.TrackerMIL.Params object>
+```
+
+### cv::TrackerMIL::Params::IsInstance
+
+```cpp
+static bool cv::TrackerMIL::Params::IsInstance( const cv::TrackerMIL::Params& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TrackerMIL.Params").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::TrackerMIL::Params::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TrackerMIL.Params").IsInstance( $obj ) -> retval
 ```
 
 ## cv::TrackerGOTURN
@@ -56936,6 +60843,14 @@ AutoIt:
     [propget] $oTrackerGOTURN.Params
 ```
 
+### TrackerGOTURN.FullyQualifiedName
+
+```cpp
+static std::string cv::TrackerGOTURN::FullyQualifiedName
+AutoIt:
+    [propget] $oTrackerGOTURN.FullyQualifiedName
+```
+
 ### cv::TrackerGOTURN::get\_create
 
 ```cpp
@@ -56943,6 +60858,20 @@ static cv::Ptr<cv::TrackerGOTURN> cv::TrackerGOTURN::get_create( const cv::Track
 AutoIt:
     _OpenCV_ObjCreate("cv.TrackerGOTURN").create( [$parameters] ) -> retval
     $oTrackerGOTURN( [$parameters] ) -> retval
+```
+
+### cv::TrackerGOTURN::IsInstance
+
+```cpp
+static bool cv::TrackerGOTURN::IsInstance( const cv::TrackerGOTURN& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TrackerGOTURN").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::TrackerGOTURN::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TrackerGOTURN").IsInstance( $obj ) -> retval
 ```
 
 ### cv::TrackerGOTURN::init
@@ -56981,12 +60910,34 @@ AutoIt:
     [propget, propput] $oParams.modelBin
 ```
 
+### Params.FullyQualifiedName
+
+```cpp
+static std::string cv::TrackerGOTURN::Params::FullyQualifiedName
+AutoIt:
+    [propget] $oParams.FullyQualifiedName
+```
+
 ### cv::TrackerGOTURN::Params::get\_create
 
 ```cpp
 static cv::TrackerGOTURN::Params cv::TrackerGOTURN::Params::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.TrackerGOTURN.Params").create() -> <cv.TrackerGOTURN.Params object>
+```
+
+### cv::TrackerGOTURN::Params::IsInstance
+
+```cpp
+static bool cv::TrackerGOTURN::Params::IsInstance( const cv::TrackerGOTURN::Params& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TrackerGOTURN.Params").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::TrackerGOTURN::Params::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TrackerGOTURN.Params").IsInstance( $obj ) -> retval
 ```
 
 ## cv::TrackerDaSiamRPN
@@ -56999,6 +60950,14 @@ AutoIt:
     [propget] $oTrackerDaSiamRPN.Params
 ```
 
+### TrackerDaSiamRPN.FullyQualifiedName
+
+```cpp
+static std::string cv::TrackerDaSiamRPN::FullyQualifiedName
+AutoIt:
+    [propget] $oTrackerDaSiamRPN.FullyQualifiedName
+```
+
 ### cv::TrackerDaSiamRPN::get\_create
 
 ```cpp
@@ -57006,6 +60965,20 @@ static cv::Ptr<cv::TrackerDaSiamRPN> cv::TrackerDaSiamRPN::get_create( const cv:
 AutoIt:
     _OpenCV_ObjCreate("cv.TrackerDaSiamRPN").create( [$parameters] ) -> retval
     $oTrackerDaSiamRPN( [$parameters] ) -> retval
+```
+
+### cv::TrackerDaSiamRPN::IsInstance
+
+```cpp
+static bool cv::TrackerDaSiamRPN::IsInstance( const cv::TrackerDaSiamRPN& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TrackerDaSiamRPN").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::TrackerDaSiamRPN::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TrackerDaSiamRPN").IsInstance( $obj ) -> retval
 ```
 
 ### cv::TrackerDaSiamRPN::getTrackingScore
@@ -57076,12 +61049,34 @@ AutoIt:
     [propget, propput] $oParams.target
 ```
 
+### Params.FullyQualifiedName
+
+```cpp
+static std::string cv::TrackerDaSiamRPN::Params::FullyQualifiedName
+AutoIt:
+    [propget] $oParams.FullyQualifiedName
+```
+
 ### cv::TrackerDaSiamRPN::Params::get\_create
 
 ```cpp
 static cv::TrackerDaSiamRPN::Params cv::TrackerDaSiamRPN::Params::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.TrackerDaSiamRPN.Params").create() -> <cv.TrackerDaSiamRPN.Params object>
+```
+
+### cv::TrackerDaSiamRPN::Params::IsInstance
+
+```cpp
+static bool cv::TrackerDaSiamRPN::Params::IsInstance( const cv::TrackerDaSiamRPN::Params& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TrackerDaSiamRPN.Params").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::TrackerDaSiamRPN::Params::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TrackerDaSiamRPN.Params").IsInstance( $obj ) -> retval
 ```
 
 ## cv::TrackerNano
@@ -57094,6 +61089,14 @@ AutoIt:
     [propget] $oTrackerNano.Params
 ```
 
+### TrackerNano.FullyQualifiedName
+
+```cpp
+static std::string cv::TrackerNano::FullyQualifiedName
+AutoIt:
+    [propget] $oTrackerNano.FullyQualifiedName
+```
+
 ### cv::TrackerNano::get\_create
 
 ```cpp
@@ -57101,6 +61104,20 @@ static cv::Ptr<cv::TrackerNano> cv::TrackerNano::get_create( const cv::TrackerNa
 AutoIt:
     _OpenCV_ObjCreate("cv.TrackerNano").create( [$parameters] ) -> retval
     $oTrackerNano( [$parameters] ) -> retval
+```
+
+### cv::TrackerNano::IsInstance
+
+```cpp
+static bool cv::TrackerNano::IsInstance( const cv::TrackerNano& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TrackerNano").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::TrackerNano::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TrackerNano").IsInstance( $obj ) -> retval
 ```
 
 ### cv::TrackerNano::getTrackingScore
@@ -57163,12 +61180,34 @@ AutoIt:
     [propget, propput] $oParams.target
 ```
 
+### Params.FullyQualifiedName
+
+```cpp
+static std::string cv::TrackerNano::Params::FullyQualifiedName
+AutoIt:
+    [propget] $oParams.FullyQualifiedName
+```
+
 ### cv::TrackerNano::Params::get\_create
 
 ```cpp
 static cv::TrackerNano::Params cv::TrackerNano::Params::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.TrackerNano.Params").create() -> <cv.TrackerNano.Params object>
+```
+
+### cv::TrackerNano::Params::IsInstance
+
+```cpp
+static bool cv::TrackerNano::Params::IsInstance( const cv::TrackerNano::Params& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TrackerNano.Params").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::TrackerNano::Params::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TrackerNano.Params").IsInstance( $obj ) -> retval
 ```
 
 ## cv::TrackerVit
@@ -57181,6 +61220,14 @@ AutoIt:
     [propget] $oTrackerVit.Params
 ```
 
+### TrackerVit.FullyQualifiedName
+
+```cpp
+static std::string cv::TrackerVit::FullyQualifiedName
+AutoIt:
+    [propget] $oTrackerVit.FullyQualifiedName
+```
+
 ### cv::TrackerVit::get\_create
 
 ```cpp
@@ -57188,6 +61235,20 @@ static cv::Ptr<cv::TrackerVit> cv::TrackerVit::get_create( const cv::TrackerVit:
 AutoIt:
     _OpenCV_ObjCreate("cv.TrackerVit").create( [$parameters] ) -> retval
     $oTrackerVit( [$parameters] ) -> retval
+```
+
+### cv::TrackerVit::IsInstance
+
+```cpp
+static bool cv::TrackerVit::IsInstance( const cv::TrackerVit& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TrackerVit").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::TrackerVit::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TrackerVit").IsInstance( $obj ) -> retval
 ```
 
 ### cv::TrackerVit::getTrackingScore
@@ -57258,12 +61319,34 @@ AutoIt:
     [propget, propput] $oParams.stdvalue
 ```
 
+### Params.FullyQualifiedName
+
+```cpp
+static std::string cv::TrackerVit::Params::FullyQualifiedName
+AutoIt:
+    [propget] $oParams.FullyQualifiedName
+```
+
 ### cv::TrackerVit::Params::get\_create
 
 ```cpp
 static cv::TrackerVit::Params cv::TrackerVit::Params::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.TrackerVit.Params").create() -> <cv.TrackerVit.Params object>
+```
+
+### cv::TrackerVit::Params::IsInstance
+
+```cpp
+static bool cv::TrackerVit::Params::IsInstance( const cv::TrackerVit::Params& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TrackerVit.Params").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::TrackerVit::Params::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TrackerVit.Params").IsInstance( $obj ) -> retval
 ```
 
 ## cv::detail::TrackerSamplerCSC
@@ -58810,12 +62893,34 @@ AutoIt:
 
 ## cv::GArrayDesc
 
+### GArrayDesc.FullyQualifiedName
+
+```cpp
+static std::string cv::GArrayDesc::FullyQualifiedName
+AutoIt:
+    [propget] $oGArrayDesc.FullyQualifiedName
+```
+
 ### cv::GArrayDesc::get\_create
 
 ```cpp
 static cv::GArrayDesc cv::GArrayDesc::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.GArrayDesc").create() -> <cv.GArrayDesc object>
+```
+
+### cv::GArrayDesc::IsInstance
+
+```cpp
+static bool cv::GArrayDesc::IsInstance( const cv::GArrayDesc& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GArrayDesc").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::GArrayDesc::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GArrayDesc").IsInstance( $obj ) -> retval
 ```
 
 ## cv::detail::OpaqueKind
@@ -58992,6 +63097,14 @@ AutoIt:
 
 ## cv::GComputation
 
+### GComputation.FullyQualifiedName
+
+```cpp
+static std::string cv::GComputation::FullyQualifiedName
+AutoIt:
+    [propget] $oGComputation.FullyQualifiedName
+```
+
 ### cv::GComputation::get\_create
 
 ```cpp
@@ -59027,6 +63140,20 @@ AutoIt:
     $oGComputation( $in1, $in2, $out ) -> <cv.GComputation object>
 ```
 
+### cv::GComputation::IsInstance
+
+```cpp
+static bool cv::GComputation::IsInstance( const cv::GComputation& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GComputation").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::GComputation::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GComputation").IsInstance( $obj ) -> retval
+```
+
 ### cv::GComputation::apply
 
 ```cpp
@@ -59060,12 +63187,34 @@ AutoIt:
 
 ## cv::GFrame
 
+### GFrame.FullyQualifiedName
+
+```cpp
+static std::string cv::GFrame::FullyQualifiedName
+AutoIt:
+    [propget] $oGFrame.FullyQualifiedName
+```
+
 ### cv::GFrame::get\_create
 
 ```cpp
 static cv::GFrame cv::GFrame::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.GFrame").create() -> <cv.GFrame object>
+```
+
+### cv::GFrame::IsInstance
+
+```cpp
+static bool cv::GFrame::IsInstance( const cv::GFrame& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GFrame").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::GFrame::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GFrame").IsInstance( $obj ) -> retval
 ```
 
 ## cv::MediaFormat
@@ -59096,15 +63245,45 @@ AutoIt:
 
 ## cv::GKernelPackage
 
+### GKernelPackage.FullyQualifiedName
+
+```cpp
+static std::string cv::GKernelPackage::FullyQualifiedName
+AutoIt:
+    [propget] $oGKernelPackage.FullyQualifiedName
+```
+
+### cv::GKernelPackage::IsInstance
+
+```cpp
+static bool cv::GKernelPackage::IsInstance( const cv::GKernelPackage& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GKernelPackage").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::GKernelPackage::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GKernelPackage").IsInstance( $obj ) -> retval
+```
+
 ### cv::GKernelPackage::size
 
 ```cpp
-size_t cv::GKernelPackage::size() const;
+std::size_t cv::GKernelPackage::size() const;
 AutoIt:
     $oGKernelPackage.size() -> retval
 ```
 
 ## cv::GMat
+
+### GMat.FullyQualifiedName
+
+```cpp
+static std::string cv::GMat::FullyQualifiedName
+AutoIt:
+    [propget] $oGMat.FullyQualifiedName
+```
 
 ### cv::GMat::get\_create
 
@@ -59119,6 +63298,20 @@ static cv::GMat cv::GMat::get_create( cv::Mat m );
 AutoIt:
     _OpenCV_ObjCreate("cv.GMat").create( $m ) -> <cv.GMat object>
     $oGMat( $m ) -> <cv.GMat object>
+```
+
+### cv::GMat::IsInstance
+
+```cpp
+static bool cv::GMat::IsInstance( const cv::GMat& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GMat").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::GMat::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GMat").IsInstance( $obj ) -> retval
 ```
 
 ## cv::GMatDesc
@@ -59163,6 +63356,14 @@ AutoIt:
     [propget] $oGMatDesc.dims
 ```
 
+### GMatDesc.FullyQualifiedName
+
+```cpp
+static std::string cv::GMatDesc::FullyQualifiedName
+AutoIt:
+    [propget] $oGMatDesc.FullyQualifiedName
+```
+
 ### cv::GMatDesc::get\_create
 
 ```cpp
@@ -59195,6 +63396,20 @@ AutoIt:
 static cv::GMatDesc cv::GMatDesc::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.GMatDesc").create() -> <cv.GMatDesc object>
+```
+
+### cv::GMatDesc::IsInstance
+
+```cpp
+static bool cv::GMatDesc::IsInstance( const cv::GMatDesc& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GMatDesc").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::GMatDesc::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GMatDesc").IsInstance( $obj ) -> retval
 ```
 
 ### cv::GMatDesc::asInterleaved
@@ -59261,6 +63476,14 @@ AutoIt:
 
 ## cv::GOpaqueDesc
 
+### GOpaqueDesc.FullyQualifiedName
+
+```cpp
+static std::string cv::GOpaqueDesc::FullyQualifiedName
+AutoIt:
+    [propget] $oGOpaqueDesc.FullyQualifiedName
+```
+
 ### cv::GOpaqueDesc::get\_create
 
 ```cpp
@@ -59269,7 +63492,29 @@ AutoIt:
     _OpenCV_ObjCreate("cv.GOpaqueDesc").create() -> <cv.GOpaqueDesc object>
 ```
 
+### cv::GOpaqueDesc::IsInstance
+
+```cpp
+static bool cv::GOpaqueDesc::IsInstance( const cv::GOpaqueDesc& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GOpaqueDesc").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::GOpaqueDesc::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GOpaqueDesc").IsInstance( $obj ) -> retval
+```
+
 ## cv::GScalar
+
+### GScalar.FullyQualifiedName
+
+```cpp
+static std::string cv::GScalar::FullyQualifiedName
+AutoIt:
+    [propget] $oGScalar.FullyQualifiedName
+```
 
 ### cv::GScalar::get\_create
 
@@ -59286,7 +63531,29 @@ AutoIt:
     $oGScalar( $s ) -> <cv.GScalar object>
 ```
 
+### cv::GScalar::IsInstance
+
+```cpp
+static bool cv::GScalar::IsInstance( const cv::GScalar& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GScalar").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::GScalar::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GScalar").IsInstance( $obj ) -> retval
+```
+
 ## cv::GScalarDesc
+
+### GScalarDesc.FullyQualifiedName
+
+```cpp
+static std::string cv::GScalarDesc::FullyQualifiedName
+AutoIt:
+    [propget] $oGScalarDesc.FullyQualifiedName
+```
 
 ### cv::GScalarDesc::get\_create
 
@@ -59296,7 +63563,29 @@ AutoIt:
     _OpenCV_ObjCreate("cv.GScalarDesc").create() -> <cv.GScalarDesc object>
 ```
 
+### cv::GScalarDesc::IsInstance
+
+```cpp
+static bool cv::GScalarDesc::IsInstance( const cv::GScalarDesc& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GScalarDesc").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::GScalarDesc::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GScalarDesc").IsInstance( $obj ) -> retval
+```
+
 ## cv::GStreamingCompiled
+
+### GStreamingCompiled.FullyQualifiedName
+
+```cpp
+static std::string cv::GStreamingCompiled::FullyQualifiedName
+AutoIt:
+    [propget] $oGStreamingCompiled.FullyQualifiedName
+```
 
 ### cv::GStreamingCompiled::get\_create
 
@@ -59306,10 +63595,24 @@ AutoIt:
     _OpenCV_ObjCreate("cv.GStreamingCompiled").create() -> <cv.GStreamingCompiled object>
 ```
 
+### cv::GStreamingCompiled::IsInstance
+
+```cpp
+static bool cv::GStreamingCompiled::IsInstance( const cv::GStreamingCompiled& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GStreamingCompiled").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::GStreamingCompiled::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GStreamingCompiled").IsInstance( $obj ) -> retval
+```
+
 ### cv::GStreamingCompiled::pull
 
 ```cpp
-std::tuple<bool, util::variant<GRunArgs, GOptRunArgs>> cv::GStreamingCompiled::pull();
+std::tuple<bool, cv::util::variant<cv::GRunArgs, cv::GOptRunArgs>> cv::GStreamingCompiled::pull();
 AutoIt:
     $oGStreamingCompiled.pull() -> retval
 ```
@@ -59356,6 +63659,14 @@ AutoIt:
     [propget, propput] $oqueue_capacity.capacity
 ```
 
+### queue\_capacity.FullyQualifiedName
+
+```cpp
+static std::string cv::gapi::streaming::queue_capacity::FullyQualifiedName
+AutoIt:
+    [propget] $oqueue_capacity.FullyQualifiedName
+```
+
 ### cv::gapi::streaming::queue\_capacity::get\_create
 
 ```cpp
@@ -59363,6 +63674,20 @@ static cv::gapi::streaming::queue_capacity cv::gapi::streaming::queue_capacity::
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.streaming.queue_capacity").create( [$cap] ) -> <cv.gapi.streaming.queue_capacity object>
     $oqueue_capacity( [$cap] ) -> <cv.gapi.streaming.queue_capacity object>
+```
+
+### cv::gapi::streaming::queue\_capacity::IsInstance
+
+```cpp
+static bool cv::gapi::streaming::queue_capacity::IsInstance( const cv::gapi::streaming::queue_capacity& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.streaming.queue_capacity").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::gapi::streaming::queue_capacity::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.streaming.queue_capacity").IsInstance( $obj ) -> retval
 ```
 
 ## cv::detail::ArgKind
@@ -59433,6 +63758,14 @@ AutoIt:
 
 ## cv::gapi::GNetParam
 
+### GNetParam.FullyQualifiedName
+
+```cpp
+static std::string cv::gapi::GNetParam::FullyQualifiedName
+AutoIt:
+    [propget] $oGNetParam.FullyQualifiedName
+```
+
 ### cv::gapi::GNetParam::get\_create
 
 ```cpp
@@ -59441,7 +63774,29 @@ AutoIt:
     _OpenCV_ObjCreate("cv.gapi.GNetParam").create() -> <cv.gapi.GNetParam object>
 ```
 
+### cv::gapi::GNetParam::IsInstance
+
+```cpp
+static bool cv::gapi::GNetParam::IsInstance( const cv::gapi::GNetParam& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.GNetParam").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::gapi::GNetParam::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.GNetParam").IsInstance( $obj ) -> retval
+```
+
 ## cv::gapi::GNetPackage
+
+### GNetPackage.FullyQualifiedName
+
+```cpp
+static std::string cv::gapi::GNetPackage::FullyQualifiedName
+AutoIt:
+    [propget] $oGNetPackage.FullyQualifiedName
+```
 
 ### cv::gapi::GNetPackage::get\_create
 
@@ -59456,6 +63811,20 @@ static cv::gapi::GNetPackage cv::gapi::GNetPackage::get_create( std::vector<cv::
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.GNetPackage").create( $nets ) -> <cv.gapi.GNetPackage object>
     $oGNetPackage( $nets ) -> <cv.gapi.GNetPackage object>
+```
+
+### cv::gapi::GNetPackage::IsInstance
+
+```cpp
+static bool cv::gapi::GNetPackage::IsInstance( const cv::gapi::GNetPackage& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.GNetPackage").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::gapi::GNetPackage::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.GNetPackage").IsInstance( $obj ) -> retval
 ```
 
 ## cv::gapi::ie
@@ -59521,6 +63890,14 @@ AutoIt:
 
 ## cv::gapi::ie::PyParams
 
+### PyParams.FullyQualifiedName
+
+```cpp
+static std::string cv::gapi::ie::PyParams::FullyQualifiedName
+AutoIt:
+    [propget] $oPyParams.FullyQualifiedName
+```
+
 ### cv::gapi::ie::PyParams::get\_create
 
 ```cpp
@@ -59546,6 +63923,20 @@ static cv::gapi::ie::PyParams cv::gapi::ie::PyParams::get_create( const std::str
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.ie.PyParams").create( $tag, $model, $device ) -> <cv.gapi.ie.PyParams object>
     $oPyParams( $tag, $model, $device ) -> <cv.gapi.ie.PyParams object>
+```
+
+### cv::gapi::ie::PyParams::IsInstance
+
+```cpp
+static bool cv::gapi::ie::PyParams::IsInstance( const cv::gapi::ie::PyParams& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.ie.PyParams").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::gapi::ie::PyParams::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.ie.PyParams").IsInstance( $obj ) -> retval
 ```
 
 ### cv::gapi::ie::PyParams::cfgBatchSize
@@ -59611,6 +64002,14 @@ AutoIt:
 
 ## cv::gapi::onnx::PyParams
 
+### PyParams.FullyQualifiedName
+
+```cpp
+static std::string cv::gapi::onnx::PyParams::FullyQualifiedName
+AutoIt:
+    [propget] $oPyParams.FullyQualifiedName
+```
+
 ### cv::gapi::onnx::PyParams::get\_create
 
 ```cpp
@@ -59625,6 +64024,20 @@ static cv::gapi::onnx::PyParams cv::gapi::onnx::PyParams::get_create( const std:
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.onnx.PyParams").create( $tag, $model_path ) -> <cv.gapi.onnx.PyParams object>
     $oPyParams( $tag, $model_path ) -> <cv.gapi.onnx.PyParams object>
+```
+
+### cv::gapi::onnx::PyParams::IsInstance
+
+```cpp
+static bool cv::gapi::onnx::PyParams::IsInstance( const cv::gapi::onnx::PyParams& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.onnx.PyParams").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::gapi::onnx::PyParams::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.onnx.PyParams").IsInstance( $obj ) -> retval
 ```
 
 ### cv::gapi::onnx::PyParams::cfgAddExecutionProvider
@@ -59717,6 +64130,14 @@ AutoIt:
 
 ## cv::gapi::ov::PyParams
 
+### PyParams.FullyQualifiedName
+
+```cpp
+static std::string cv::gapi::ov::PyParams::FullyQualifiedName
+AutoIt:
+    [propget] $oPyParams.FullyQualifiedName
+```
+
 ### cv::gapi::ov::PyParams::get\_create
 
 ```cpp
@@ -59742,6 +64163,20 @@ static cv::gapi::ov::PyParams cv::gapi::ov::PyParams::get_create( const std::str
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.ov.PyParams").create( $tag, $blob_path, $device ) -> <cv.gapi.ov.PyParams object>
     $oPyParams( $tag, $blob_path, $device ) -> <cv.gapi.ov.PyParams object>
+```
+
+### cv::gapi::ov::PyParams::IsInstance
+
+```cpp
+static bool cv::gapi::ov::PyParams::IsInstance( const cv::gapi::ov::PyParams& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.ov.PyParams").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::gapi::ov::PyParams::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.ov.PyParams").IsInstance( $obj ) -> retval
 ```
 
 ### cv::gapi::ov::PyParams::cfgInputModelLayout
@@ -59986,12 +64421,34 @@ AutoIt:
 
 ## cv::gapi::onnx::ep::CoreML
 
+### CoreML.FullyQualifiedName
+
+```cpp
+static std::string cv::gapi::onnx::ep::CoreML::FullyQualifiedName
+AutoIt:
+    [propget] $oCoreML.FullyQualifiedName
+```
+
 ### cv::gapi::onnx::ep::CoreML::get\_create
 
 ```cpp
 static cv::gapi::onnx::ep::CoreML cv::gapi::onnx::ep::CoreML::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.onnx.ep.CoreML").create() -> <cv.gapi.onnx.ep.CoreML object>
+```
+
+### cv::gapi::onnx::ep::CoreML::IsInstance
+
+```cpp
+static bool cv::gapi::onnx::ep::CoreML::IsInstance( const cv::gapi::onnx::ep::CoreML& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.onnx.ep.CoreML").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::gapi::onnx::ep::CoreML::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.onnx.ep.CoreML").IsInstance( $obj ) -> retval
 ```
 
 ### cv::gapi::onnx::ep::CoreML::cfgEnableOnSubgraph
@@ -60020,6 +64477,14 @@ AutoIt:
 
 ## cv::gapi::onnx::ep::CUDA
 
+### CUDA.FullyQualifiedName
+
+```cpp
+static std::string cv::gapi::onnx::ep::CUDA::FullyQualifiedName
+AutoIt:
+    [propget] $oCUDA.FullyQualifiedName
+```
+
 ### cv::gapi::onnx::ep::CUDA::get\_create
 
 ```cpp
@@ -60035,7 +64500,29 @@ AutoIt:
     $oCUDA( $dev_id ) -> <cv.gapi.onnx.ep.CUDA object>
 ```
 
+### cv::gapi::onnx::ep::CUDA::IsInstance
+
+```cpp
+static bool cv::gapi::onnx::ep::CUDA::IsInstance( const cv::gapi::onnx::ep::CUDA& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.onnx.ep.CUDA").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::gapi::onnx::ep::CUDA::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.onnx.ep.CUDA").IsInstance( $obj ) -> retval
+```
+
 ## cv::gapi::onnx::ep::TensorRT
+
+### TensorRT.FullyQualifiedName
+
+```cpp
+static std::string cv::gapi::onnx::ep::TensorRT::FullyQualifiedName
+AutoIt:
+    [propget] $oTensorRT.FullyQualifiedName
+```
 
 ### cv::gapi::onnx::ep::TensorRT::get\_create
 
@@ -60052,7 +64539,29 @@ AutoIt:
     $oTensorRT( $dev_id ) -> <cv.gapi.onnx.ep.TensorRT object>
 ```
 
+### cv::gapi::onnx::ep::TensorRT::IsInstance
+
+```cpp
+static bool cv::gapi::onnx::ep::TensorRT::IsInstance( const cv::gapi::onnx::ep::TensorRT& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.onnx.ep.TensorRT").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::gapi::onnx::ep::TensorRT::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.onnx.ep.TensorRT").IsInstance( $obj ) -> retval
+```
+
 ## cv::gapi::onnx::ep::OpenVINO
+
+### OpenVINO.FullyQualifiedName
+
+```cpp
+static std::string cv::gapi::onnx::ep::OpenVINO::FullyQualifiedName
+AutoIt:
+    [propget] $oOpenVINO.FullyQualifiedName
+```
 
 ### cv::gapi::onnx::ep::OpenVINO::get\_create
 
@@ -60074,6 +64583,20 @@ static cv::gapi::onnx::ep::OpenVINO cv::gapi::onnx::ep::OpenVINO::get_create( co
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.onnx.ep.OpenVINO").create( $params ) -> <cv.gapi.onnx.ep.OpenVINO object>
     $oOpenVINO( $params ) -> <cv.gapi.onnx.ep.OpenVINO object>
+```
+
+### cv::gapi::onnx::ep::OpenVINO::IsInstance
+
+```cpp
+static bool cv::gapi::onnx::ep::OpenVINO::IsInstance( const cv::gapi::onnx::ep::OpenVINO& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.onnx.ep.OpenVINO").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::gapi::onnx::ep::OpenVINO::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.onnx.ep.OpenVINO").IsInstance( $obj ) -> retval
 ```
 
 ### cv::gapi::onnx::ep::OpenVINO::cfgCacheDir
@@ -60110,6 +64633,14 @@ AutoIt:
 
 ## cv::gapi::onnx::ep::DirectML
 
+### DirectML.FullyQualifiedName
+
+```cpp
+static std::string cv::gapi::onnx::ep::DirectML::FullyQualifiedName
+AutoIt:
+    [propget] $oDirectML.FullyQualifiedName
+```
+
 ### cv::gapi::onnx::ep::DirectML::get\_create
 
 ```cpp
@@ -60130,6 +64661,20 @@ static cv::gapi::onnx::ep::DirectML cv::gapi::onnx::ep::DirectML::get_create( co
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.onnx.ep.DirectML").create( $adapter_name ) -> <cv.gapi.onnx.ep.DirectML object>
     $oDirectML( $adapter_name ) -> <cv.gapi.onnx.ep.DirectML object>
+```
+
+### cv::gapi::onnx::ep::DirectML::IsInstance
+
+```cpp
+static bool cv::gapi::onnx::ep::DirectML::IsInstance( const cv::gapi::onnx::ep::DirectML& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.onnx.ep.DirectML").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::gapi::onnx::ep::DirectML::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.onnx.ep.DirectML").IsInstance( $obj ) -> retval
 ```
 
 ## cv::gapi::onnx::TraitAs
@@ -60356,12 +64901,34 @@ AutoIt:
     [propget, propput] $oObjectTrackerParams.tracking_per_class
 ```
 
+### ObjectTrackerParams.FullyQualifiedName
+
+```cpp
+static std::string cv::gapi::ot::ObjectTrackerParams::FullyQualifiedName
+AutoIt:
+    [propget] $oObjectTrackerParams.FullyQualifiedName
+```
+
 ### cv::gapi::ot::ObjectTrackerParams::get\_create
 
 ```cpp
 static cv::gapi::ot::ObjectTrackerParams cv::gapi::ot::ObjectTrackerParams::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.ot.ObjectTrackerParams").create() -> <cv.gapi.ot.ObjectTrackerParams object>
+```
+
+### cv::gapi::ot::ObjectTrackerParams::IsInstance
+
+```cpp
+static bool cv::gapi::ot::ObjectTrackerParams::IsInstance( const cv::gapi::ot::ObjectTrackerParams& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.ot.ObjectTrackerParams").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::gapi::ot::ObjectTrackerParams::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.ot.ObjectTrackerParams").IsInstance( $obj ) -> retval
 ```
 
 ## cv::gapi::own
@@ -60542,7 +65109,7 @@ AutoIt:
 ```cpp
 void cv::gapi::wip::draw::render( cv::Mat&                                      bgr,
                                   const std::vector<cv::gapi::wip::draw::Prim>& prims,
-                                  std::vector<cv::GCompileArg>&&                args = {} );
+                                  cv::GCompileArgs&&                            args = {} );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw").render( $bgr, $prims[, $args] ) -> None
 ```
@@ -60551,7 +65118,7 @@ AutoIt:
 void cv::gapi::wip::draw::render( cv::Mat&                                      y_plane,
                                   cv::Mat&                                      uv_plane,
                                   const std::vector<cv::gapi::wip::draw::Prim>& prims,
-                                  std::vector<cv::GCompileArg>&&                args = {} );
+                                  cv::GCompileArgs&&                            args = {} );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw").render( $y_plane, $uv_plane, $prims[, $args] ) -> None
 ```
@@ -60661,6 +65228,14 @@ AutoIt:
     [propget, propput] $oText.bottom_left_origin
 ```
 
+### Text.FullyQualifiedName
+
+```cpp
+static std::string cv::gapi::wip::draw::Text::FullyQualifiedName
+AutoIt:
+    [propget] $oText.FullyQualifiedName
+```
+
 ### cv::gapi::wip::draw::Text::get\_create
 
 ```cpp
@@ -60681,6 +65256,20 @@ AutoIt:
 static cv::gapi::wip::draw::Text cv::gapi::wip::draw::Text::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Text").create() -> <cv.gapi.wip.draw.Text object>
+```
+
+### cv::gapi::wip::draw::Text::IsInstance
+
+```cpp
+static bool cv::gapi::wip::draw::Text::IsInstance( const cv::gapi::wip::draw::Text& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Text").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::gapi::wip::draw::Text::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Text").IsInstance( $obj ) -> retval
 ```
 
 ## cv::gapi::wip::draw::Rect
@@ -60725,12 +65314,34 @@ AutoIt:
     [propget, propput] $oRect.shift
 ```
 
+### Rect.FullyQualifiedName
+
+```cpp
+static std::string cv::gapi::wip::draw::Rect::FullyQualifiedName
+AutoIt:
+    [propget] $oRect.FullyQualifiedName
+```
+
 ### cv::gapi::wip::draw::Rect::get\_create
 
 ```cpp
 static cv::gapi::wip::draw::Rect cv::gapi::wip::draw::Rect::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Rect").create() -> <cv.gapi.wip.draw.Rect object>
+```
+
+### cv::gapi::wip::draw::Rect::IsInstance
+
+```cpp
+static bool cv::gapi::wip::draw::Rect::IsInstance( const cv::gapi::wip::draw::Rect& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Rect").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::gapi::wip::draw::Rect::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Rect").IsInstance( $obj ) -> retval
 ```
 
 ## cv::gapi::wip::draw::Circle
@@ -60783,6 +65394,14 @@ AutoIt:
     [propget, propput] $oCircle.shift
 ```
 
+### Circle.FullyQualifiedName
+
+```cpp
+static std::string cv::gapi::wip::draw::Circle::FullyQualifiedName
+AutoIt:
+    [propget] $oCircle.FullyQualifiedName
+```
+
 ### cv::gapi::wip::draw::Circle::get\_create
 
 ```cpp
@@ -60801,6 +65420,20 @@ AutoIt:
 static cv::gapi::wip::draw::Circle cv::gapi::wip::draw::Circle::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Circle").create() -> <cv.gapi.wip.draw.Circle object>
+```
+
+### cv::gapi::wip::draw::Circle::IsInstance
+
+```cpp
+static bool cv::gapi::wip::draw::Circle::IsInstance( const cv::gapi::wip::draw::Circle& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Circle").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::gapi::wip::draw::Circle::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Circle").IsInstance( $obj ) -> retval
 ```
 
 ## cv::gapi::wip::draw::Line
@@ -60853,6 +65486,14 @@ AutoIt:
     [propget, propput] $oLine.shift
 ```
 
+### Line.FullyQualifiedName
+
+```cpp
+static std::string cv::gapi::wip::draw::Line::FullyQualifiedName
+AutoIt:
+    [propget] $oLine.FullyQualifiedName
+```
+
 ### cv::gapi::wip::draw::Line::get\_create
 
 ```cpp
@@ -60871,6 +65512,20 @@ AutoIt:
 static cv::gapi::wip::draw::Line cv::gapi::wip::draw::Line::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Line").create() -> <cv.gapi.wip.draw.Line object>
+```
+
+### cv::gapi::wip::draw::Line::IsInstance
+
+```cpp
+static bool cv::gapi::wip::draw::Line::IsInstance( const cv::gapi::wip::draw::Line& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Line").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::gapi::wip::draw::Line::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Line").IsInstance( $obj ) -> retval
 ```
 
 ## cv::gapi::wip::draw::Mosaic
@@ -60899,12 +65554,34 @@ AutoIt:
     [propget, propput] $oMosaic.decim
 ```
 
+### Mosaic.FullyQualifiedName
+
+```cpp
+static std::string cv::gapi::wip::draw::Mosaic::FullyQualifiedName
+AutoIt:
+    [propget] $oMosaic.FullyQualifiedName
+```
+
 ### cv::gapi::wip::draw::Mosaic::get\_create
 
 ```cpp
 static cv::gapi::wip::draw::Mosaic cv::gapi::wip::draw::Mosaic::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Mosaic").create() -> <cv.gapi.wip.draw.Mosaic object>
+```
+
+### cv::gapi::wip::draw::Mosaic::IsInstance
+
+```cpp
+static bool cv::gapi::wip::draw::Mosaic::IsInstance( const cv::gapi::wip::draw::Mosaic& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Mosaic").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::gapi::wip::draw::Mosaic::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Mosaic").IsInstance( $obj ) -> retval
 ```
 
 ## cv::gapi::wip::draw::Image
@@ -60933,6 +65610,14 @@ AutoIt:
     [propget, propput] $oImage.alpha
 ```
 
+### Image.FullyQualifiedName
+
+```cpp
+static std::string cv::gapi::wip::draw::Image::FullyQualifiedName
+AutoIt:
+    [propget] $oImage.FullyQualifiedName
+```
+
 ### cv::gapi::wip::draw::Image::get\_create
 
 ```cpp
@@ -60948,6 +65633,20 @@ AutoIt:
 static cv::gapi::wip::draw::Image cv::gapi::wip::draw::Image::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Image").create() -> <cv.gapi.wip.draw.Image object>
+```
+
+### cv::gapi::wip::draw::Image::IsInstance
+
+```cpp
+static bool cv::gapi::wip::draw::Image::IsInstance( const cv::gapi::wip::draw::Image& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Image").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::gapi::wip::draw::Image::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Image").IsInstance( $obj ) -> retval
 ```
 
 ## cv::gapi::wip::draw::Poly
@@ -60992,6 +65691,14 @@ AutoIt:
     [propget, propput] $oPoly.shift
 ```
 
+### Poly.FullyQualifiedName
+
+```cpp
+static std::string cv::gapi::wip::draw::Poly::FullyQualifiedName
+AutoIt:
+    [propget] $oPoly.FullyQualifiedName
+```
+
 ### cv::gapi::wip::draw::Poly::get\_create
 
 ```cpp
@@ -61009,6 +65716,20 @@ AutoIt:
 static cv::gapi::wip::draw::Poly cv::gapi::wip::draw::Poly::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Poly").create() -> <cv.gapi.wip.draw.Poly object>
+```
+
+### cv::gapi::wip::draw::Poly::IsInstance
+
+```cpp
+static bool cv::gapi::wip::draw::Poly::IsInstance( const cv::gapi::wip::draw::Poly& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Poly").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::gapi::wip::draw::Poly::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Poly").IsInstance( $obj ) -> retval
 ```
 
 ## cv::RMat
@@ -61125,6 +65846,14 @@ AutoIt:
 
 ## cv::gapi::wip::gst::GStreamerPipeline
 
+### GStreamerPipeline.FullyQualifiedName
+
+```cpp
+static std::string cv::gapi::wip::gst::GStreamerPipeline::FullyQualifiedName
+AutoIt:
+    [propget] $oGStreamerPipeline.FullyQualifiedName
+```
+
 ### cv::gapi::wip::gst::GStreamerPipeline::get\_create
 
 ```cpp
@@ -61132,6 +65861,20 @@ static cv::gapi::wip::gst::GStreamerPipeline cv::gapi::wip::gst::GStreamerPipeli
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.gst.GStreamerPipeline").create( $pipeline ) -> <cv.gapi.wip.gst.GStreamerPipeline object>
     $oGStreamerPipeline( $pipeline ) -> <cv.gapi.wip.gst.GStreamerPipeline object>
+```
+
+### cv::gapi::wip::gst::GStreamerPipeline::IsInstance
+
+```cpp
+static bool cv::gapi::wip::gst::GStreamerPipeline::IsInstance( const cv::gapi::wip::gst::GStreamerPipeline& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.wip.gst.GStreamerPipeline").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::gapi::wip::gst::GStreamerPipeline::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.wip.gst.GStreamerPipeline").IsInstance( $obj ) -> retval
 ```
 
 ## cv::gapi::wip::gst::GStreamerSource
@@ -61244,6 +65987,14 @@ AutoIt:
 
 ## NamedParameters
 
+### NamedParameters.FullyQualifiedName
+
+```cpp
+static std::string NamedParameters::FullyQualifiedName
+AutoIt:
+    [propget] $oNamedParameters.FullyQualifiedName
+```
+
 ### NamedParameters::create
 
 ```cpp
@@ -61273,6 +66024,20 @@ AutoIt:
 _variant_t NamedParameters::Get( std::string key );
 AutoIt:
     $oNamedParameters.Get( $key ) -> retval
+```
+
+### NamedParameters::IsInstance
+
+```cpp
+static bool NamedParameters::IsInstance( const NamedParameters& obj );
+AutoIt:
+    _OpenCV_ObjCreate("NamedParameters").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool NamedParameters::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("NamedParameters").IsInstance( $obj ) -> retval
 ```
 
 ### NamedParameters::Items
@@ -61413,6 +66178,14 @@ AutoIt:
 
 ## autoit
 
+### autoit.Buffer
+
+```cpp
+static autoit::Buffer
+AutoIt:
+    [propget] $oautoit.Buffer
+```
+
 ### autoit::findFile
 
 ```cpp
@@ -61436,6 +66209,40 @@ AutoIt:
     _OpenCV_ObjCreate("autoit").findFiles( $path, $directory[, $flags[, $relative[, $matches]]] ) -> $matches
 ```
 
+## autoit::Buffer
+
+### Buffer.FullyQualifiedName
+
+```cpp
+static std::string autoit::Buffer::FullyQualifiedName
+AutoIt:
+    [propget] $oBuffer.FullyQualifiedName
+```
+
+### autoit::Buffer::get\_create
+
+```cpp
+static autoit::Buffer autoit::Buffer::get_create( const void* data,
+                                                  size_t      size );
+AutoIt:
+    _OpenCV_ObjCreate("autoit.Buffer").create( $data, $size ) -> <autoit.Buffer object>
+    $oBuffer( $data, $size ) -> <autoit.Buffer object>
+```
+
+### autoit::Buffer::IsInstance
+
+```cpp
+static bool autoit::Buffer::IsInstance( const autoit::Buffer& obj );
+AutoIt:
+    _OpenCV_ObjCreate("autoit.Buffer").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool autoit::Buffer::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("autoit.Buffer").IsInstance( $obj ) -> retval
+```
+
 ## com
 
 ### com.Thread
@@ -61456,6 +66263,14 @@ AutoIt:
 
 ## com::Thread
 
+### Thread.FullyQualifiedName
+
+```cpp
+static std::string com::Thread::FullyQualifiedName
+AutoIt:
+    [propget] $oThread.FullyQualifiedName
+```
+
 ### com::Thread::get\_create
 
 ```cpp
@@ -61463,6 +66278,20 @@ static com::Thread com::Thread::get_create( void* func );
 AutoIt:
     _OpenCV_ObjCreate("com.Thread").create( $func ) -> <com.Thread object>
     $oThread( $func ) -> <com.Thread object>
+```
+
+### com::Thread::IsInstance
+
+```cpp
+static bool com::Thread::IsInstance( const com::Thread& obj );
+AutoIt:
+    _OpenCV_ObjCreate("com.Thread").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool com::Thread::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("com.Thread").IsInstance( $obj ) -> retval
 ```
 
 ### com::Thread::join
@@ -61483,12 +66312,34 @@ AutoIt:
 
 ## com::ThreadSafeQueue
 
+### ThreadSafeQueue.FullyQualifiedName
+
+```cpp
+static std::string com::ThreadSafeQueue::FullyQualifiedName
+AutoIt:
+    [propget] $oThreadSafeQueue.FullyQualifiedName
+```
+
 ### com::ThreadSafeQueue::get\_create
 
 ```cpp
 static com::ThreadSafeQueue com::ThreadSafeQueue::get_create();
 AutoIt:
     _OpenCV_ObjCreate("com.ThreadSafeQueue").create() -> <com.ThreadSafeQueue object>
+```
+
+### com::ThreadSafeQueue::IsInstance
+
+```cpp
+static bool com::ThreadSafeQueue::IsInstance( const com::ThreadSafeQueue& obj );
+AutoIt:
+    _OpenCV_ObjCreate("com.ThreadSafeQueue").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool com::ThreadSafeQueue::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("com.ThreadSafeQueue").IsInstance( $obj ) -> retval
 ```
 
 ### com::ThreadSafeQueue::clear
@@ -61565,6 +66416,28 @@ AutoIt:
 WGCFrameCallback cv::wgc::SimpleCapture::onFrameArrived
 AutoIt:
     [propget, propput] $oSimpleCapture.onFrameArrived
+```
+
+### SimpleCapture.FullyQualifiedName
+
+```cpp
+static std::string cv::wgc::SimpleCapture::FullyQualifiedName
+AutoIt:
+    [propget] $oSimpleCapture.FullyQualifiedName
+```
+
+### cv::wgc::SimpleCapture::IsInstance
+
+```cpp
+static bool cv::wgc::SimpleCapture::IsInstance( const cv::wgc::SimpleCapture& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.wgc.SimpleCapture").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::wgc::SimpleCapture::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.wgc.SimpleCapture").IsInstance( $obj ) -> retval
 ```
 
 ### cv::wgc::SimpleCapture::Pause
@@ -62122,6 +66995,30 @@ AutoIt:
     [propget] $ocvflann.FLANN_CHECKS_AUTOTUNED_
 ```
 
+## cv::\_InputOutputArray
+
+### \_InputOutputArray.FullyQualifiedName
+
+```cpp
+static std::string cv::_InputOutputArray::FullyQualifiedName
+AutoIt:
+    [propget] $o_InputOutputArray.FullyQualifiedName
+```
+
+### cv::\_InputOutputArray::IsInstance
+
+```cpp
+static bool cv::_InputOutputArray::IsInstance( const cv::_InputOutputArray& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv._InputOutputArray").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::_InputOutputArray::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv._InputOutputArray").IsInstance( $obj ) -> retval
+```
+
 ## cv::core
 
 ### core.cv\_8U
@@ -62576,12 +67473,34 @@ AutoIt:
     [propget] $oMatx12f.shortdim
 ```
 
+### Matx12f.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx12f::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx12f.FullyQualifiedName
+```
+
 ### cv::Matx12f::create
 
 ```cpp
 static cv::Matx12f cv::Matx12f::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx12f").create() -> <cv.Matx12f object>
+```
+
+### cv::Matx12f::IsInstance
+
+```cpp
+static bool cv::Matx12f::IsInstance( const cv::Matx12f& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx12f").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx12f::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx12f").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx12f::all
@@ -62734,12 +67653,34 @@ AutoIt:
     [propget] $oMatx12d.shortdim
 ```
 
+### Matx12d.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx12d::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx12d.FullyQualifiedName
+```
+
 ### cv::Matx12d::create
 
 ```cpp
 static cv::Matx12d cv::Matx12d::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx12d").create() -> <cv.Matx12d object>
+```
+
+### cv::Matx12d::IsInstance
+
+```cpp
+static bool cv::Matx12d::IsInstance( const cv::Matx12d& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx12d").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx12d::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx12d").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx12d::all
@@ -62892,12 +67833,34 @@ AutoIt:
     [propget] $oMatx13f.shortdim
 ```
 
+### Matx13f.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx13f::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx13f.FullyQualifiedName
+```
+
 ### cv::Matx13f::create
 
 ```cpp
 static cv::Matx13f cv::Matx13f::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx13f").create() -> <cv.Matx13f object>
+```
+
+### cv::Matx13f::IsInstance
+
+```cpp
+static bool cv::Matx13f::IsInstance( const cv::Matx13f& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx13f").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx13f::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx13f").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx13f::all
@@ -63050,12 +68013,34 @@ AutoIt:
     [propget] $oMatx13d.shortdim
 ```
 
+### Matx13d.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx13d::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx13d.FullyQualifiedName
+```
+
 ### cv::Matx13d::create
 
 ```cpp
 static cv::Matx13d cv::Matx13d::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx13d").create() -> <cv.Matx13d object>
+```
+
+### cv::Matx13d::IsInstance
+
+```cpp
+static bool cv::Matx13d::IsInstance( const cv::Matx13d& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx13d").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx13d::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx13d").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx13d::all
@@ -63208,12 +68193,34 @@ AutoIt:
     [propget] $oMatx14f.shortdim
 ```
 
+### Matx14f.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx14f::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx14f.FullyQualifiedName
+```
+
 ### cv::Matx14f::create
 
 ```cpp
 static cv::Matx14f cv::Matx14f::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx14f").create() -> <cv.Matx14f object>
+```
+
+### cv::Matx14f::IsInstance
+
+```cpp
+static bool cv::Matx14f::IsInstance( const cv::Matx14f& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx14f").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx14f::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx14f").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx14f::all
@@ -63366,12 +68373,34 @@ AutoIt:
     [propget] $oMatx14d.shortdim
 ```
 
+### Matx14d.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx14d::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx14d.FullyQualifiedName
+```
+
 ### cv::Matx14d::create
 
 ```cpp
 static cv::Matx14d cv::Matx14d::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx14d").create() -> <cv.Matx14d object>
+```
+
+### cv::Matx14d::IsInstance
+
+```cpp
+static bool cv::Matx14d::IsInstance( const cv::Matx14d& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx14d").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx14d::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx14d").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx14d::all
@@ -63524,12 +68553,34 @@ AutoIt:
     [propget] $oMatx16f.shortdim
 ```
 
+### Matx16f.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx16f::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx16f.FullyQualifiedName
+```
+
 ### cv::Matx16f::create
 
 ```cpp
 static cv::Matx16f cv::Matx16f::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx16f").create() -> <cv.Matx16f object>
+```
+
+### cv::Matx16f::IsInstance
+
+```cpp
+static bool cv::Matx16f::IsInstance( const cv::Matx16f& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx16f").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx16f::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx16f").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx16f::all
@@ -63682,12 +68733,34 @@ AutoIt:
     [propget] $oMatx16d.shortdim
 ```
 
+### Matx16d.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx16d::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx16d.FullyQualifiedName
+```
+
 ### cv::Matx16d::create
 
 ```cpp
 static cv::Matx16d cv::Matx16d::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx16d").create() -> <cv.Matx16d object>
+```
+
+### cv::Matx16d::IsInstance
+
+```cpp
+static bool cv::Matx16d::IsInstance( const cv::Matx16d& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx16d").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx16d::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx16d").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx16d::all
@@ -63840,12 +68913,34 @@ AutoIt:
     [propget] $oMatx21f.shortdim
 ```
 
+### Matx21f.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx21f::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx21f.FullyQualifiedName
+```
+
 ### cv::Matx21f::create
 
 ```cpp
 static cv::Matx21f cv::Matx21f::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx21f").create() -> <cv.Matx21f object>
+```
+
+### cv::Matx21f::IsInstance
+
+```cpp
+static bool cv::Matx21f::IsInstance( const cv::Matx21f& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx21f").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx21f::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx21f").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx21f::all
@@ -63998,12 +69093,34 @@ AutoIt:
     [propget] $oMatx21d.shortdim
 ```
 
+### Matx21d.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx21d::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx21d.FullyQualifiedName
+```
+
 ### cv::Matx21d::create
 
 ```cpp
 static cv::Matx21d cv::Matx21d::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx21d").create() -> <cv.Matx21d object>
+```
+
+### cv::Matx21d::IsInstance
+
+```cpp
+static bool cv::Matx21d::IsInstance( const cv::Matx21d& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx21d").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx21d::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx21d").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx21d::all
@@ -64156,12 +69273,34 @@ AutoIt:
     [propget] $oMatx31f.shortdim
 ```
 
+### Matx31f.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx31f::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx31f.FullyQualifiedName
+```
+
 ### cv::Matx31f::create
 
 ```cpp
 static cv::Matx31f cv::Matx31f::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx31f").create() -> <cv.Matx31f object>
+```
+
+### cv::Matx31f::IsInstance
+
+```cpp
+static bool cv::Matx31f::IsInstance( const cv::Matx31f& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx31f").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx31f::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx31f").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx31f::all
@@ -64314,12 +69453,34 @@ AutoIt:
     [propget] $oMatx31d.shortdim
 ```
 
+### Matx31d.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx31d::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx31d.FullyQualifiedName
+```
+
 ### cv::Matx31d::create
 
 ```cpp
 static cv::Matx31d cv::Matx31d::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx31d").create() -> <cv.Matx31d object>
+```
+
+### cv::Matx31d::IsInstance
+
+```cpp
+static bool cv::Matx31d::IsInstance( const cv::Matx31d& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx31d").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx31d::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx31d").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx31d::all
@@ -64472,12 +69633,34 @@ AutoIt:
     [propget] $oMatx41f.shortdim
 ```
 
+### Matx41f.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx41f::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx41f.FullyQualifiedName
+```
+
 ### cv::Matx41f::create
 
 ```cpp
 static cv::Matx41f cv::Matx41f::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx41f").create() -> <cv.Matx41f object>
+```
+
+### cv::Matx41f::IsInstance
+
+```cpp
+static bool cv::Matx41f::IsInstance( const cv::Matx41f& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx41f").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx41f::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx41f").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx41f::all
@@ -64630,12 +69813,34 @@ AutoIt:
     [propget] $oMatx41d.shortdim
 ```
 
+### Matx41d.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx41d::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx41d.FullyQualifiedName
+```
+
 ### cv::Matx41d::create
 
 ```cpp
 static cv::Matx41d cv::Matx41d::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx41d").create() -> <cv.Matx41d object>
+```
+
+### cv::Matx41d::IsInstance
+
+```cpp
+static bool cv::Matx41d::IsInstance( const cv::Matx41d& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx41d").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx41d::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx41d").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx41d::all
@@ -64788,12 +69993,34 @@ AutoIt:
     [propget] $oMatx61f.shortdim
 ```
 
+### Matx61f.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx61f::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx61f.FullyQualifiedName
+```
+
 ### cv::Matx61f::create
 
 ```cpp
 static cv::Matx61f cv::Matx61f::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx61f").create() -> <cv.Matx61f object>
+```
+
+### cv::Matx61f::IsInstance
+
+```cpp
+static bool cv::Matx61f::IsInstance( const cv::Matx61f& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx61f").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx61f::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx61f").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx61f::all
@@ -64946,12 +70173,34 @@ AutoIt:
     [propget] $oMatx61d.shortdim
 ```
 
+### Matx61d.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx61d::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx61d.FullyQualifiedName
+```
+
 ### cv::Matx61d::create
 
 ```cpp
 static cv::Matx61d cv::Matx61d::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx61d").create() -> <cv.Matx61d object>
+```
+
+### cv::Matx61d::IsInstance
+
+```cpp
+static bool cv::Matx61d::IsInstance( const cv::Matx61d& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx61d").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx61d::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx61d").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx61d::all
@@ -65104,12 +70353,34 @@ AutoIt:
     [propget] $oMatx22f.shortdim
 ```
 
+### Matx22f.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx22f::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx22f.FullyQualifiedName
+```
+
 ### cv::Matx22f::create
 
 ```cpp
 static cv::Matx22f cv::Matx22f::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx22f").create() -> <cv.Matx22f object>
+```
+
+### cv::Matx22f::IsInstance
+
+```cpp
+static bool cv::Matx22f::IsInstance( const cv::Matx22f& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx22f").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx22f::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx22f").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx22f::all
@@ -65248,12 +70519,34 @@ AutoIt:
     [propget] $oMatx22d.shortdim
 ```
 
+### Matx22d.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx22d::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx22d.FullyQualifiedName
+```
+
 ### cv::Matx22d::create
 
 ```cpp
 static cv::Matx22d cv::Matx22d::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx22d").create() -> <cv.Matx22d object>
+```
+
+### cv::Matx22d::IsInstance
+
+```cpp
+static bool cv::Matx22d::IsInstance( const cv::Matx22d& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx22d").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx22d::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx22d").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx22d::all
@@ -65392,12 +70685,34 @@ AutoIt:
     [propget] $oMatx23f.shortdim
 ```
 
+### Matx23f.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx23f::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx23f.FullyQualifiedName
+```
+
 ### cv::Matx23f::create
 
 ```cpp
 static cv::Matx23f cv::Matx23f::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx23f").create() -> <cv.Matx23f object>
+```
+
+### cv::Matx23f::IsInstance
+
+```cpp
+static bool cv::Matx23f::IsInstance( const cv::Matx23f& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx23f").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx23f::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx23f").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx23f::all
@@ -65536,12 +70851,34 @@ AutoIt:
     [propget] $oMatx23d.shortdim
 ```
 
+### Matx23d.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx23d::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx23d.FullyQualifiedName
+```
+
 ### cv::Matx23d::create
 
 ```cpp
 static cv::Matx23d cv::Matx23d::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx23d").create() -> <cv.Matx23d object>
+```
+
+### cv::Matx23d::IsInstance
+
+```cpp
+static bool cv::Matx23d::IsInstance( const cv::Matx23d& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx23d").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx23d::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx23d").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx23d::all
@@ -65680,12 +71017,34 @@ AutoIt:
     [propget] $oMatx32f.shortdim
 ```
 
+### Matx32f.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx32f::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx32f.FullyQualifiedName
+```
+
 ### cv::Matx32f::create
 
 ```cpp
 static cv::Matx32f cv::Matx32f::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx32f").create() -> <cv.Matx32f object>
+```
+
+### cv::Matx32f::IsInstance
+
+```cpp
+static bool cv::Matx32f::IsInstance( const cv::Matx32f& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx32f").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx32f::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx32f").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx32f::all
@@ -65824,12 +71183,34 @@ AutoIt:
     [propget] $oMatx32d.shortdim
 ```
 
+### Matx32d.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx32d::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx32d.FullyQualifiedName
+```
+
 ### cv::Matx32d::create
 
 ```cpp
 static cv::Matx32d cv::Matx32d::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx32d").create() -> <cv.Matx32d object>
+```
+
+### cv::Matx32d::IsInstance
+
+```cpp
+static bool cv::Matx32d::IsInstance( const cv::Matx32d& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx32d").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx32d::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx32d").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx32d::all
@@ -65968,12 +71349,34 @@ AutoIt:
     [propget] $oMatx33f.shortdim
 ```
 
+### Matx33f.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx33f::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx33f.FullyQualifiedName
+```
+
 ### cv::Matx33f::create
 
 ```cpp
 static cv::Matx33f cv::Matx33f::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx33f").create() -> <cv.Matx33f object>
+```
+
+### cv::Matx33f::IsInstance
+
+```cpp
+static bool cv::Matx33f::IsInstance( const cv::Matx33f& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx33f").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx33f::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx33f").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx33f::all
@@ -66112,12 +71515,34 @@ AutoIt:
     [propget] $oMatx33d.shortdim
 ```
 
+### Matx33d.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx33d::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx33d.FullyQualifiedName
+```
+
 ### cv::Matx33d::create
 
 ```cpp
 static cv::Matx33d cv::Matx33d::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx33d").create() -> <cv.Matx33d object>
+```
+
+### cv::Matx33d::IsInstance
+
+```cpp
+static bool cv::Matx33d::IsInstance( const cv::Matx33d& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx33d").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx33d::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx33d").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx33d::all
@@ -66256,12 +71681,34 @@ AutoIt:
     [propget] $oMatx34f.shortdim
 ```
 
+### Matx34f.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx34f::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx34f.FullyQualifiedName
+```
+
 ### cv::Matx34f::create
 
 ```cpp
 static cv::Matx34f cv::Matx34f::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx34f").create() -> <cv.Matx34f object>
+```
+
+### cv::Matx34f::IsInstance
+
+```cpp
+static bool cv::Matx34f::IsInstance( const cv::Matx34f& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx34f").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx34f::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx34f").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx34f::all
@@ -66400,12 +71847,34 @@ AutoIt:
     [propget] $oMatx34d.shortdim
 ```
 
+### Matx34d.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx34d::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx34d.FullyQualifiedName
+```
+
 ### cv::Matx34d::create
 
 ```cpp
 static cv::Matx34d cv::Matx34d::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx34d").create() -> <cv.Matx34d object>
+```
+
+### cv::Matx34d::IsInstance
+
+```cpp
+static bool cv::Matx34d::IsInstance( const cv::Matx34d& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx34d").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx34d::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx34d").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx34d::all
@@ -66544,12 +72013,34 @@ AutoIt:
     [propget] $oMatx43f.shortdim
 ```
 
+### Matx43f.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx43f::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx43f.FullyQualifiedName
+```
+
 ### cv::Matx43f::create
 
 ```cpp
 static cv::Matx43f cv::Matx43f::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx43f").create() -> <cv.Matx43f object>
+```
+
+### cv::Matx43f::IsInstance
+
+```cpp
+static bool cv::Matx43f::IsInstance( const cv::Matx43f& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx43f").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx43f::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx43f").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx43f::all
@@ -66688,12 +72179,34 @@ AutoIt:
     [propget] $oMatx43d.shortdim
 ```
 
+### Matx43d.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx43d::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx43d.FullyQualifiedName
+```
+
 ### cv::Matx43d::create
 
 ```cpp
 static cv::Matx43d cv::Matx43d::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx43d").create() -> <cv.Matx43d object>
+```
+
+### cv::Matx43d::IsInstance
+
+```cpp
+static bool cv::Matx43d::IsInstance( const cv::Matx43d& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx43d").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx43d::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx43d").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx43d::all
@@ -66832,12 +72345,34 @@ AutoIt:
     [propget] $oMatx44f.shortdim
 ```
 
+### Matx44f.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx44f::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx44f.FullyQualifiedName
+```
+
 ### cv::Matx44f::create
 
 ```cpp
 static cv::Matx44f cv::Matx44f::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx44f").create() -> <cv.Matx44f object>
+```
+
+### cv::Matx44f::IsInstance
+
+```cpp
+static bool cv::Matx44f::IsInstance( const cv::Matx44f& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx44f").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx44f::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx44f").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx44f::all
@@ -66976,12 +72511,34 @@ AutoIt:
     [propget] $oMatx44d.shortdim
 ```
 
+### Matx44d.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx44d::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx44d.FullyQualifiedName
+```
+
 ### cv::Matx44d::create
 
 ```cpp
 static cv::Matx44d cv::Matx44d::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx44d").create() -> <cv.Matx44d object>
+```
+
+### cv::Matx44d::IsInstance
+
+```cpp
+static bool cv::Matx44d::IsInstance( const cv::Matx44d& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx44d").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx44d::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx44d").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx44d::all
@@ -67120,12 +72677,34 @@ AutoIt:
     [propget] $oMatx66f.shortdim
 ```
 
+### Matx66f.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx66f::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx66f.FullyQualifiedName
+```
+
 ### cv::Matx66f::create
 
 ```cpp
 static cv::Matx66f cv::Matx66f::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx66f").create() -> <cv.Matx66f object>
+```
+
+### cv::Matx66f::IsInstance
+
+```cpp
+static bool cv::Matx66f::IsInstance( const cv::Matx66f& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx66f").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx66f::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx66f").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx66f::all
@@ -67264,12 +72843,34 @@ AutoIt:
     [propget] $oMatx66d.shortdim
 ```
 
+### Matx66d.FullyQualifiedName
+
+```cpp
+static std::string cv::Matx66d::FullyQualifiedName
+AutoIt:
+    [propget] $oMatx66d.FullyQualifiedName
+```
+
 ### cv::Matx66d::create
 
 ```cpp
 static cv::Matx66d cv::Matx66d::create();
 AutoIt:
     _OpenCV_ObjCreate("cv.Matx66d").create() -> <cv.Matx66d object>
+```
+
+### cv::Matx66d::IsInstance
+
+```cpp
+static bool cv::Matx66d::IsInstance( const cv::Matx66d& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx66d").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Matx66d::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Matx66d").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Matx66d::all
@@ -67394,12 +72995,34 @@ AutoIt:
 
 ## std::mutex
 
+### mutex.FullyQualifiedName
+
+```cpp
+static std::string std::mutex::FullyQualifiedName
+AutoIt:
+    [propget] $omutex.FullyQualifiedName
+```
+
 ### std::mutex::get\_create
 
 ```cpp
 static std::mutex std::mutex::get_create();
 AutoIt:
     _OpenCV_ObjCreate("std.mutex").create() -> <std.mutex object>
+```
+
+### std::mutex::IsInstance
+
+```cpp
+static bool std::mutex::IsInstance( const std::mutex& obj );
+AutoIt:
+    _OpenCV_ObjCreate("std.mutex").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool std::mutex::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("std.mutex").IsInstance( $obj ) -> retval
 ```
 
 ### std::mutex::lock
@@ -67428,12 +73051,34 @@ AutoIt:
 
 ## std::timed\_mutex
 
+### timed\_mutex.FullyQualifiedName
+
+```cpp
+static std::string std::timed_mutex::FullyQualifiedName
+AutoIt:
+    [propget] $otimed_mutex.FullyQualifiedName
+```
+
 ### std::timed\_mutex::get\_create
 
 ```cpp
 static std::timed_mutex std::timed_mutex::get_create();
 AutoIt:
     _OpenCV_ObjCreate("std.timed_mutex").create() -> <std.timed_mutex object>
+```
+
+### std::timed\_mutex::IsInstance
+
+```cpp
+static bool std::timed_mutex::IsInstance( const std::timed_mutex& obj );
+AutoIt:
+    _OpenCV_ObjCreate("std.timed_mutex").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool std::timed_mutex::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("std.timed_mutex").IsInstance( $obj ) -> retval
 ```
 
 ### std::timed\_mutex::lock
@@ -67486,6 +73131,14 @@ AutoIt:
     [propget, propput] $oRange.end
 ```
 
+### Range.FullyQualifiedName
+
+```cpp
+static std::string cv::Range::FullyQualifiedName
+AutoIt:
+    [propget] $oRange.FullyQualifiedName
+```
+
 ### cv::Range::get\_create
 
 ```cpp
@@ -67500,6 +73153,20 @@ static cv::Range cv::Range::get_create( int start,
 AutoIt:
     _OpenCV_ObjCreate("cv.Range").create( $start, $end ) -> <cv.Range object>
     $oRange( $start, $end ) -> <cv.Range object>
+```
+
+### cv::Range::IsInstance
+
+```cpp
+static bool cv::Range::IsInstance( const cv::Range& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Range").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Range::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Range").IsInstance( $obj ) -> retval
 ```
 
 ### cv::Range::all
@@ -67528,6 +73195,14 @@ AutoIt:
 
 ## cv::GCompileArg
 
+### GCompileArg.FullyQualifiedName
+
+```cpp
+static std::string cv::GCompileArg::FullyQualifiedName
+AutoIt:
+    [propget] $oGCompileArg.FullyQualifiedName
+```
+
 ### cv::GCompileArg::get\_create
 
 ```cpp
@@ -67536,7 +73211,29 @@ AutoIt:
     _OpenCV_ObjCreate("cv.GCompileArg").create() -> <cv.GCompileArg object>
 ```
 
+### cv::GCompileArg::IsInstance
+
+```cpp
+static bool cv::GCompileArg::IsInstance( const cv::GCompileArg& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GCompileArg").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::GCompileArg::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GCompileArg").IsInstance( $obj ) -> retval
+```
+
 ## cv::GRunArg
+
+### GRunArg.FullyQualifiedName
+
+```cpp
+static std::string cv::GRunArg::FullyQualifiedName
+AutoIt:
+    [propget] $oGRunArg.FullyQualifiedName
+```
 
 ### cv::GRunArg::get\_create
 
@@ -67546,7 +73243,29 @@ AutoIt:
     _OpenCV_ObjCreate("cv.GRunArg").create() -> <cv.GRunArg object>
 ```
 
+### cv::GRunArg::IsInstance
+
+```cpp
+static bool cv::GRunArg::IsInstance( const cv::GRunArg& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GRunArg").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::GRunArg::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GRunArg").IsInstance( $obj ) -> retval
+```
+
 ## cv::gapi::wip::draw::Prim
+
+### Prim.FullyQualifiedName
+
+```cpp
+static std::string cv::gapi::wip::draw::Prim::FullyQualifiedName
+AutoIt:
+    [propget] $oPrim.FullyQualifiedName
+```
 
 ### cv::gapi::wip::draw::Prim::get\_create
 
@@ -67554,6 +73273,140 @@ AutoIt:
 static cv::gapi::wip::draw::Prim cv::gapi::wip::draw::Prim::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Prim").create() -> <cv.gapi.wip.draw.Prim object>
+```
+
+### cv::gapi::wip::draw::Prim::IsInstance
+
+```cpp
+static bool cv::gapi::wip::draw::Prim::IsInstance( const cv::gapi::wip::draw::Prim& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Prim").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::gapi::wip::draw::Prim::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Prim").IsInstance( $obj ) -> retval
+```
+
+## cv::gapi::wip::IStreamSource
+
+### IStreamSource.FullyQualifiedName
+
+```cpp
+static std::string cv::gapi::wip::IStreamSource::FullyQualifiedName
+AutoIt:
+    [propget] $oIStreamSource.FullyQualifiedName
+```
+
+### cv::gapi::wip::IStreamSource::IsInstance
+
+```cpp
+static bool cv::gapi::wip::IStreamSource::IsInstance( const cv::gapi::wip::IStreamSource& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.wip.IStreamSource").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::gapi::wip::IStreamSource::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.wip.IStreamSource").IsInstance( $obj ) -> retval
+```
+
+## cv::GProtoInputArgs
+
+### GProtoInputArgs.FullyQualifiedName
+
+```cpp
+static std::string cv::GProtoInputArgs::FullyQualifiedName
+AutoIt:
+    [propget] $oGProtoInputArgs.FullyQualifiedName
+```
+
+### cv::GProtoInputArgs::IsInstance
+
+```cpp
+static bool cv::GProtoInputArgs::IsInstance( const cv::GProtoInputArgs& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GProtoInputArgs").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::GProtoInputArgs::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GProtoInputArgs").IsInstance( $obj ) -> retval
+```
+
+## cv::GProtoOutputArgs
+
+### GProtoOutputArgs.FullyQualifiedName
+
+```cpp
+static std::string cv::GProtoOutputArgs::FullyQualifiedName
+AutoIt:
+    [propget] $oGProtoOutputArgs.FullyQualifiedName
+```
+
+### cv::GProtoOutputArgs::IsInstance
+
+```cpp
+static bool cv::GProtoOutputArgs::IsInstance( const cv::GProtoOutputArgs& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GProtoOutputArgs").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::GProtoOutputArgs::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GProtoOutputArgs").IsInstance( $obj ) -> retval
+```
+
+## cv::detail::ExtractArgsCallback
+
+### ExtractArgsCallback.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::ExtractArgsCallback::FullyQualifiedName
+AutoIt:
+    [propget] $oExtractArgsCallback.FullyQualifiedName
+```
+
+### cv::detail::ExtractArgsCallback::IsInstance
+
+```cpp
+static bool cv::detail::ExtractArgsCallback::IsInstance( const cv::detail::ExtractArgsCallback& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.ExtractArgsCallback").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::ExtractArgsCallback::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.ExtractArgsCallback").IsInstance( $obj ) -> retval
+```
+
+## cv::detail::ExtractMetaCallback
+
+### ExtractMetaCallback.FullyQualifiedName
+
+```cpp
+static std::string cv::detail::ExtractMetaCallback::FullyQualifiedName
+AutoIt:
+    [propget] $oExtractMetaCallback.FullyQualifiedName
+```
+
+### cv::detail::ExtractMetaCallback::IsInstance
+
+```cpp
+static bool cv::detail::ExtractMetaCallback::IsInstance( const cv::detail::ExtractMetaCallback& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.ExtractMetaCallback").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::detail::ExtractMetaCallback::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail.ExtractMetaCallback").IsInstance( $obj ) -> retval
 ```
 
 ## VectorOfString
@@ -67564,6 +73417,14 @@ AutoIt:
 size_t VectorOfString::size()
 AutoIt:
     [propget] $oVectorOfString.Count
+```
+
+### VectorOfString.FullyQualifiedName
+
+```cpp
+static std::string VectorOfString::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfString.FullyQualifiedName
 ```
 
 ### VectorOfString::create
@@ -67592,6 +73453,20 @@ AutoIt:
 void VectorOfString::Add( std::string value );
 AutoIt:
     $oVectorOfString.Add( $value ) -> None
+```
+
+### VectorOfString::IsInstance
+
+```cpp
+static bool VectorOfString::IsInstance( const VectorOfString& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfString").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfString::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfString").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfString::Items
@@ -67770,6 +73645,14 @@ AutoIt:
     [propget] $oVectorOfVariant.Count
 ```
 
+### VectorOfVariant.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVariant::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVariant.FullyQualifiedName
+```
+
 ### VectorOfVariant::create
 
 ```cpp
@@ -67796,6 +73679,20 @@ AutoIt:
 void VectorOfVariant::Add( _variant_t value );
 AutoIt:
     $oVectorOfVariant.Add( $value ) -> None
+```
+
+### VectorOfVariant::IsInstance
+
+```cpp
+static bool VectorOfVariant::IsInstance( const VectorOfVariant& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVariant").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVariant::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVariant").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVariant::Items
@@ -67974,6 +73871,14 @@ AutoIt:
     [propget] $oVectorOfInt.Count
 ```
 
+### VectorOfInt.FullyQualifiedName
+
+```cpp
+static std::string VectorOfInt::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfInt.FullyQualifiedName
+```
+
 ### VectorOfInt::create
 
 ```cpp
@@ -68000,6 +73905,20 @@ AutoIt:
 void VectorOfInt::Add( int value );
 AutoIt:
     $oVectorOfInt.Add( $value ) -> None
+```
+
+### VectorOfInt::IsInstance
+
+```cpp
+static bool VectorOfInt::IsInstance( const VectorOfInt& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfInt").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfInt::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfInt").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfInt::Items
@@ -68178,6 +74097,14 @@ AutoIt:
     [propget] $oVectorOfFloat.Count
 ```
 
+### VectorOfFloat.FullyQualifiedName
+
+```cpp
+static std::string VectorOfFloat::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfFloat.FullyQualifiedName
+```
+
 ### VectorOfFloat::create
 
 ```cpp
@@ -68204,6 +74131,20 @@ AutoIt:
 void VectorOfFloat::Add( float value );
 AutoIt:
     $oVectorOfFloat.Add( $value ) -> None
+```
+
+### VectorOfFloat::IsInstance
+
+```cpp
+static bool VectorOfFloat::IsInstance( const VectorOfFloat& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfFloat").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfFloat::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfFloat").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfFloat::Items
@@ -68382,6 +74323,14 @@ AutoIt:
     [propget] $oVectorOfPoint.Count
 ```
 
+### VectorOfPoint.FullyQualifiedName
+
+```cpp
+static std::string VectorOfPoint::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfPoint.FullyQualifiedName
+```
+
 ### VectorOfPoint::create
 
 ```cpp
@@ -68408,6 +74357,20 @@ AutoIt:
 void VectorOfPoint::Add( cv::Point value );
 AutoIt:
     $oVectorOfPoint.Add( $value ) -> None
+```
+
+### VectorOfPoint::IsInstance
+
+```cpp
+static bool VectorOfPoint::IsInstance( const VectorOfPoint& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPoint").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfPoint::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPoint").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfPoint::Items
@@ -68586,6 +74549,14 @@ AutoIt:
     [propget] $oVectorOfMat.Count
 ```
 
+### VectorOfMat.FullyQualifiedName
+
+```cpp
+static std::string VectorOfMat::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfMat.FullyQualifiedName
+```
+
 ### VectorOfMat::create
 
 ```cpp
@@ -68612,6 +74583,20 @@ AutoIt:
 void VectorOfMat::Add( cv::Mat value );
 AutoIt:
     $oVectorOfMat.Add( $value ) -> None
+```
+
+### VectorOfMat::IsInstance
+
+```cpp
+static bool VectorOfMat::IsInstance( const VectorOfMat& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfMat").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfMat::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfMat").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfMat::Items
@@ -68790,6 +74775,14 @@ AutoIt:
     [propget] $oVectorOfKeyPoint.Count
 ```
 
+### VectorOfKeyPoint.FullyQualifiedName
+
+```cpp
+static std::string VectorOfKeyPoint::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfKeyPoint.FullyQualifiedName
+```
+
 ### VectorOfKeyPoint::create
 
 ```cpp
@@ -68816,6 +74809,20 @@ AutoIt:
 void VectorOfKeyPoint::Add( cv::KeyPoint value );
 AutoIt:
     $oVectorOfKeyPoint.Add( $value ) -> None
+```
+
+### VectorOfKeyPoint::IsInstance
+
+```cpp
+static bool VectorOfKeyPoint::IsInstance( const VectorOfKeyPoint& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfKeyPoint").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfKeyPoint::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfKeyPoint").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfKeyPoint::Items
@@ -68994,6 +75001,14 @@ AutoIt:
     [propget] $oVectorOfDMatch.Count
 ```
 
+### VectorOfDMatch.FullyQualifiedName
+
+```cpp
+static std::string VectorOfDMatch::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfDMatch.FullyQualifiedName
+```
+
 ### VectorOfDMatch::create
 
 ```cpp
@@ -69020,6 +75035,20 @@ AutoIt:
 void VectorOfDMatch::Add( cv::DMatch value );
 AutoIt:
     $oVectorOfDMatch.Add( $value ) -> None
+```
+
+### VectorOfDMatch::IsInstance
+
+```cpp
+static bool VectorOfDMatch::IsInstance( const VectorOfDMatch& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfDMatch").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfDMatch::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfDMatch").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfDMatch::Items
@@ -69198,6 +75227,14 @@ AutoIt:
     [propget] $oVectorOfChar.Count
 ```
 
+### VectorOfChar.FullyQualifiedName
+
+```cpp
+static std::string VectorOfChar::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfChar.FullyQualifiedName
+```
+
 ### VectorOfChar::create
 
 ```cpp
@@ -69224,6 +75261,20 @@ AutoIt:
 void VectorOfChar::Add( char value );
 AutoIt:
     $oVectorOfChar.Add( $value ) -> None
+```
+
+### VectorOfChar::IsInstance
+
+```cpp
+static bool VectorOfChar::IsInstance( const VectorOfChar& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfChar").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfChar::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfChar").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfChar::Items
@@ -69402,6 +75453,14 @@ AutoIt:
     [propget] $oVectorOfVectorOfDMatch.Count
 ```
 
+### VectorOfVectorOfDMatch.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVectorOfDMatch::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVectorOfDMatch.FullyQualifiedName
+```
+
 ### VectorOfVectorOfDMatch::create
 
 ```cpp
@@ -69428,6 +75487,20 @@ AutoIt:
 void VectorOfVectorOfDMatch::Add( std::vector<cv::DMatch> value );
 AutoIt:
     $oVectorOfVectorOfDMatch.Add( $value ) -> None
+```
+
+### VectorOfVectorOfDMatch::IsInstance
+
+```cpp
+static bool VectorOfVectorOfDMatch::IsInstance( const VectorOfVectorOfDMatch& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfDMatch").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVectorOfDMatch::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfDMatch").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVectorOfDMatch::Items
@@ -69606,6 +75679,14 @@ AutoIt:
     [propget] $oVectorOfVectorOfChar.Count
 ```
 
+### VectorOfVectorOfChar.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVectorOfChar::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVectorOfChar.FullyQualifiedName
+```
+
 ### VectorOfVectorOfChar::create
 
 ```cpp
@@ -69632,6 +75713,20 @@ AutoIt:
 void VectorOfVectorOfChar::Add( std::vector<char> value );
 AutoIt:
     $oVectorOfVectorOfChar.Add( $value ) -> None
+```
+
+### VectorOfVectorOfChar::IsInstance
+
+```cpp
+static bool VectorOfVectorOfChar::IsInstance( const VectorOfVectorOfChar& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfChar").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVectorOfChar::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfChar").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVectorOfChar::Items
@@ -69810,6 +75905,14 @@ AutoIt:
     [propget] $oVectorOfUchar.Count
 ```
 
+### VectorOfUchar.FullyQualifiedName
+
+```cpp
+static std::string VectorOfUchar::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfUchar.FullyQualifiedName
+```
+
 ### VectorOfUchar::create
 
 ```cpp
@@ -69836,6 +75939,20 @@ AutoIt:
 void VectorOfUchar::Add( uchar value );
 AutoIt:
     $oVectorOfUchar.Add( $value ) -> None
+```
+
+### VectorOfUchar::IsInstance
+
+```cpp
+static bool VectorOfUchar::IsInstance( const VectorOfUchar& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfUchar").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfUchar::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfUchar").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfUchar::Items
@@ -70014,6 +76131,14 @@ AutoIt:
     [propget] $oVectorOfRect.Count
 ```
 
+### VectorOfRect.FullyQualifiedName
+
+```cpp
+static std::string VectorOfRect::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfRect.FullyQualifiedName
+```
+
 ### VectorOfRect::create
 
 ```cpp
@@ -70040,6 +76165,20 @@ AutoIt:
 void VectorOfRect::Add( cv::Rect value );
 AutoIt:
     $oVectorOfRect.Add( $value ) -> None
+```
+
+### VectorOfRect::IsInstance
+
+```cpp
+static bool VectorOfRect::IsInstance( const VectorOfRect& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfRect").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfRect::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfRect").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfRect::Items
@@ -70218,6 +76357,14 @@ AutoIt:
     [propget] $oVectorOfTuplePointAndDouble.Count
 ```
 
+### VectorOfTuplePointAndDouble.FullyQualifiedName
+
+```cpp
+static std::string VectorOfTuplePointAndDouble::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfTuplePointAndDouble.FullyQualifiedName
+```
+
 ### VectorOfTuplePointAndDouble::create
 
 ```cpp
@@ -70244,6 +76391,20 @@ AutoIt:
 void VectorOfTuplePointAndDouble::Add( std::tuple<cv::Point, double> value );
 AutoIt:
     $oVectorOfTuplePointAndDouble.Add( $value ) -> None
+```
+
+### VectorOfTuplePointAndDouble::IsInstance
+
+```cpp
+static bool VectorOfTuplePointAndDouble::IsInstance( const VectorOfTuplePointAndDouble& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfTuplePointAndDouble").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfTuplePointAndDouble::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfTuplePointAndDouble").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfTuplePointAndDouble::Items
@@ -70422,6 +76583,14 @@ AutoIt:
     [propget] $oVectorOfDouble.Count
 ```
 
+### VectorOfDouble.FullyQualifiedName
+
+```cpp
+static std::string VectorOfDouble::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfDouble.FullyQualifiedName
+```
+
 ### VectorOfDouble::create
 
 ```cpp
@@ -70448,6 +76617,20 @@ AutoIt:
 void VectorOfDouble::Add( double value );
 AutoIt:
     $oVectorOfDouble.Add( $value ) -> None
+```
+
+### VectorOfDouble::IsInstance
+
+```cpp
+static bool VectorOfDouble::IsInstance( const VectorOfDouble& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfDouble").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfDouble::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfDouble").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfDouble::Items
@@ -70626,6 +76809,14 @@ AutoIt:
     [propget] $oVectorOfRotatedRect.Count
 ```
 
+### VectorOfRotatedRect.FullyQualifiedName
+
+```cpp
+static std::string VectorOfRotatedRect::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfRotatedRect.FullyQualifiedName
+```
+
 ### VectorOfRotatedRect::create
 
 ```cpp
@@ -70652,6 +76843,20 @@ AutoIt:
 void VectorOfRotatedRect::Add( cv::RotatedRect value );
 AutoIt:
     $oVectorOfRotatedRect.Add( $value ) -> None
+```
+
+### VectorOfRotatedRect::IsInstance
+
+```cpp
+static bool VectorOfRotatedRect::IsInstance( const VectorOfRotatedRect& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfRotatedRect").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfRotatedRect::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfRotatedRect").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfRotatedRect::Items
@@ -70830,6 +77035,14 @@ AutoIt:
     [propget] $oVectorOfUMat.Count
 ```
 
+### VectorOfUMat.FullyQualifiedName
+
+```cpp
+static std::string VectorOfUMat::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfUMat.FullyQualifiedName
+```
+
 ### VectorOfUMat::create
 
 ```cpp
@@ -70856,6 +77069,20 @@ AutoIt:
 void VectorOfUMat::Add( cv::UMat value );
 AutoIt:
     $oVectorOfUMat.Add( $value ) -> None
+```
+
+### VectorOfUMat::IsInstance
+
+```cpp
+static bool VectorOfUMat::IsInstance( const VectorOfUMat& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfUMat").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfUMat::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfUMat").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfUMat::Items
@@ -71034,6 +77261,14 @@ AutoIt:
     [propget] $oVectorOfDetail_ImageFeatures.Count
 ```
 
+### VectorOfDetail\_ImageFeatures.FullyQualifiedName
+
+```cpp
+static std::string VectorOfDetail_ImageFeatures::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfDetail_ImageFeatures.FullyQualifiedName
+```
+
 ### VectorOfDetail\_ImageFeatures::create
 
 ```cpp
@@ -71060,6 +77295,20 @@ AutoIt:
 void VectorOfDetail_ImageFeatures::Add( cv::detail::ImageFeatures value );
 AutoIt:
     $oVectorOfDetail_ImageFeatures.Add( $value ) -> None
+```
+
+### VectorOfDetail\_ImageFeatures::IsInstance
+
+```cpp
+static bool VectorOfDetail_ImageFeatures::IsInstance( const VectorOfDetail_ImageFeatures& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfDetail_ImageFeatures").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfDetail_ImageFeatures::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfDetail_ImageFeatures").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfDetail\_ImageFeatures::Items
@@ -71238,6 +77487,14 @@ AutoIt:
     [propget] $oVectorOfDetail_MatchesInfo.Count
 ```
 
+### VectorOfDetail\_MatchesInfo.FullyQualifiedName
+
+```cpp
+static std::string VectorOfDetail_MatchesInfo::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfDetail_MatchesInfo.FullyQualifiedName
+```
+
 ### VectorOfDetail\_MatchesInfo::create
 
 ```cpp
@@ -71264,6 +77521,20 @@ AutoIt:
 void VectorOfDetail_MatchesInfo::Add( cv::detail::MatchesInfo value );
 AutoIt:
     $oVectorOfDetail_MatchesInfo.Add( $value ) -> None
+```
+
+### VectorOfDetail\_MatchesInfo::IsInstance
+
+```cpp
+static bool VectorOfDetail_MatchesInfo::IsInstance( const VectorOfDetail_MatchesInfo& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfDetail_MatchesInfo").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfDetail_MatchesInfo::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfDetail_MatchesInfo").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfDetail\_MatchesInfo::Items
@@ -71442,6 +77713,14 @@ AutoIt:
     [propget] $oVectorOfSize.Count
 ```
 
+### VectorOfSize.FullyQualifiedName
+
+```cpp
+static std::string VectorOfSize::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfSize.FullyQualifiedName
+```
+
 ### VectorOfSize::create
 
 ```cpp
@@ -71468,6 +77747,20 @@ AutoIt:
 void VectorOfSize::Add( cv::Size value );
 AutoIt:
     $oVectorOfSize.Add( $value ) -> None
+```
+
+### VectorOfSize::IsInstance
+
+```cpp
+static bool VectorOfSize::IsInstance( const VectorOfSize& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfSize").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfSize::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfSize").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfSize::Items
@@ -71646,6 +77939,14 @@ AutoIt:
     [propget] $oVectorOfSize_t.Count
 ```
 
+### VectorOfSize\_t.FullyQualifiedName
+
+```cpp
+static std::string VectorOfSize_t::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfSize_t.FullyQualifiedName
+```
+
 ### VectorOfSize\_t::create
 
 ```cpp
@@ -71672,6 +77973,20 @@ AutoIt:
 void VectorOfSize_t::Add( size_t value );
 AutoIt:
     $oVectorOfSize_t.Add( $value ) -> None
+```
+
+### VectorOfSize\_t::IsInstance
+
+```cpp
+static bool VectorOfSize_t::IsInstance( const VectorOfSize_t& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfSize_t").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfSize_t::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfSize_t").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfSize\_t::Items
@@ -71850,6 +78165,14 @@ AutoIt:
     [propget] $oVectorOfRange.Count
 ```
 
+### VectorOfRange.FullyQualifiedName
+
+```cpp
+static std::string VectorOfRange::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfRange.FullyQualifiedName
+```
+
 ### VectorOfRange::create
 
 ```cpp
@@ -71876,6 +78199,20 @@ AutoIt:
 void VectorOfRange::Add( cv::Range value );
 AutoIt:
     $oVectorOfRange.Add( $value ) -> None
+```
+
+### VectorOfRange::IsInstance
+
+```cpp
+static bool VectorOfRange::IsInstance( const VectorOfRange& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfRange").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfRange::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfRange").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfRange::Items
@@ -72054,6 +78391,14 @@ AutoIt:
     [propget] $oVectorOfVec2b.Count
 ```
 
+### VectorOfVec2b.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVec2b::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVec2b.FullyQualifiedName
+```
+
 ### VectorOfVec2b::create
 
 ```cpp
@@ -72080,6 +78425,20 @@ AutoIt:
 void VectorOfVec2b::Add( cv::Vec2b value );
 AutoIt:
     $oVectorOfVec2b.Add( $value ) -> None
+```
+
+### VectorOfVec2b::IsInstance
+
+```cpp
+static bool VectorOfVec2b::IsInstance( const VectorOfVec2b& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec2b").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVec2b::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec2b").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVec2b::Items
@@ -72258,6 +78617,14 @@ AutoIt:
     [propget] $oVectorOfVec3b.Count
 ```
 
+### VectorOfVec3b.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVec3b::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVec3b.FullyQualifiedName
+```
+
 ### VectorOfVec3b::create
 
 ```cpp
@@ -72284,6 +78651,20 @@ AutoIt:
 void VectorOfVec3b::Add( cv::Vec3b value );
 AutoIt:
     $oVectorOfVec3b.Add( $value ) -> None
+```
+
+### VectorOfVec3b::IsInstance
+
+```cpp
+static bool VectorOfVec3b::IsInstance( const VectorOfVec3b& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec3b").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVec3b::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec3b").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVec3b::Items
@@ -72462,6 +78843,14 @@ AutoIt:
     [propget] $oVectorOfVec4b.Count
 ```
 
+### VectorOfVec4b.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVec4b::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVec4b.FullyQualifiedName
+```
+
 ### VectorOfVec4b::create
 
 ```cpp
@@ -72488,6 +78877,20 @@ AutoIt:
 void VectorOfVec4b::Add( cv::Vec4b value );
 AutoIt:
     $oVectorOfVec4b.Add( $value ) -> None
+```
+
+### VectorOfVec4b::IsInstance
+
+```cpp
+static bool VectorOfVec4b::IsInstance( const VectorOfVec4b& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec4b").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVec4b::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec4b").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVec4b::Items
@@ -72666,6 +79069,14 @@ AutoIt:
     [propget] $oVectorOfVec2s.Count
 ```
 
+### VectorOfVec2s.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVec2s::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVec2s.FullyQualifiedName
+```
+
 ### VectorOfVec2s::create
 
 ```cpp
@@ -72692,6 +79103,20 @@ AutoIt:
 void VectorOfVec2s::Add( cv::Vec2s value );
 AutoIt:
     $oVectorOfVec2s.Add( $value ) -> None
+```
+
+### VectorOfVec2s::IsInstance
+
+```cpp
+static bool VectorOfVec2s::IsInstance( const VectorOfVec2s& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec2s").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVec2s::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec2s").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVec2s::Items
@@ -72870,6 +79295,14 @@ AutoIt:
     [propget] $oVectorOfVec3s.Count
 ```
 
+### VectorOfVec3s.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVec3s::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVec3s.FullyQualifiedName
+```
+
 ### VectorOfVec3s::create
 
 ```cpp
@@ -72896,6 +79329,20 @@ AutoIt:
 void VectorOfVec3s::Add( cv::Vec3s value );
 AutoIt:
     $oVectorOfVec3s.Add( $value ) -> None
+```
+
+### VectorOfVec3s::IsInstance
+
+```cpp
+static bool VectorOfVec3s::IsInstance( const VectorOfVec3s& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec3s").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVec3s::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec3s").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVec3s::Items
@@ -73074,6 +79521,14 @@ AutoIt:
     [propget] $oVectorOfVec4s.Count
 ```
 
+### VectorOfVec4s.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVec4s::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVec4s.FullyQualifiedName
+```
+
 ### VectorOfVec4s::create
 
 ```cpp
@@ -73100,6 +79555,20 @@ AutoIt:
 void VectorOfVec4s::Add( cv::Vec4s value );
 AutoIt:
     $oVectorOfVec4s.Add( $value ) -> None
+```
+
+### VectorOfVec4s::IsInstance
+
+```cpp
+static bool VectorOfVec4s::IsInstance( const VectorOfVec4s& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec4s").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVec4s::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec4s").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVec4s::Items
@@ -73278,6 +79747,14 @@ AutoIt:
     [propget] $oVectorOfVec2w.Count
 ```
 
+### VectorOfVec2w.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVec2w::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVec2w.FullyQualifiedName
+```
+
 ### VectorOfVec2w::create
 
 ```cpp
@@ -73304,6 +79781,20 @@ AutoIt:
 void VectorOfVec2w::Add( cv::Vec2w value );
 AutoIt:
     $oVectorOfVec2w.Add( $value ) -> None
+```
+
+### VectorOfVec2w::IsInstance
+
+```cpp
+static bool VectorOfVec2w::IsInstance( const VectorOfVec2w& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec2w").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVec2w::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec2w").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVec2w::Items
@@ -73482,6 +79973,14 @@ AutoIt:
     [propget] $oVectorOfVec3w.Count
 ```
 
+### VectorOfVec3w.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVec3w::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVec3w.FullyQualifiedName
+```
+
 ### VectorOfVec3w::create
 
 ```cpp
@@ -73508,6 +80007,20 @@ AutoIt:
 void VectorOfVec3w::Add( cv::Vec3w value );
 AutoIt:
     $oVectorOfVec3w.Add( $value ) -> None
+```
+
+### VectorOfVec3w::IsInstance
+
+```cpp
+static bool VectorOfVec3w::IsInstance( const VectorOfVec3w& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec3w").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVec3w::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec3w").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVec3w::Items
@@ -73686,6 +80199,14 @@ AutoIt:
     [propget] $oVectorOfVec4w.Count
 ```
 
+### VectorOfVec4w.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVec4w::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVec4w.FullyQualifiedName
+```
+
 ### VectorOfVec4w::create
 
 ```cpp
@@ -73712,6 +80233,20 @@ AutoIt:
 void VectorOfVec4w::Add( cv::Vec4w value );
 AutoIt:
     $oVectorOfVec4w.Add( $value ) -> None
+```
+
+### VectorOfVec4w::IsInstance
+
+```cpp
+static bool VectorOfVec4w::IsInstance( const VectorOfVec4w& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec4w").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVec4w::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec4w").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVec4w::Items
@@ -73890,6 +80425,14 @@ AutoIt:
     [propget] $oVectorOfVec2i.Count
 ```
 
+### VectorOfVec2i.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVec2i::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVec2i.FullyQualifiedName
+```
+
 ### VectorOfVec2i::create
 
 ```cpp
@@ -73916,6 +80459,20 @@ AutoIt:
 void VectorOfVec2i::Add( cv::Vec2i value );
 AutoIt:
     $oVectorOfVec2i.Add( $value ) -> None
+```
+
+### VectorOfVec2i::IsInstance
+
+```cpp
+static bool VectorOfVec2i::IsInstance( const VectorOfVec2i& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec2i").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVec2i::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec2i").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVec2i::Items
@@ -74094,6 +80651,14 @@ AutoIt:
     [propget] $oVectorOfVec3i.Count
 ```
 
+### VectorOfVec3i.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVec3i::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVec3i.FullyQualifiedName
+```
+
 ### VectorOfVec3i::create
 
 ```cpp
@@ -74120,6 +80685,20 @@ AutoIt:
 void VectorOfVec3i::Add( cv::Vec3i value );
 AutoIt:
     $oVectorOfVec3i.Add( $value ) -> None
+```
+
+### VectorOfVec3i::IsInstance
+
+```cpp
+static bool VectorOfVec3i::IsInstance( const VectorOfVec3i& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec3i").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVec3i::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec3i").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVec3i::Items
@@ -74298,6 +80877,14 @@ AutoIt:
     [propget] $oVectorOfVec4i.Count
 ```
 
+### VectorOfVec4i.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVec4i::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVec4i.FullyQualifiedName
+```
+
 ### VectorOfVec4i::create
 
 ```cpp
@@ -74324,6 +80911,20 @@ AutoIt:
 void VectorOfVec4i::Add( cv::Vec4i value );
 AutoIt:
     $oVectorOfVec4i.Add( $value ) -> None
+```
+
+### VectorOfVec4i::IsInstance
+
+```cpp
+static bool VectorOfVec4i::IsInstance( const VectorOfVec4i& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec4i").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVec4i::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec4i").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVec4i::Items
@@ -74502,6 +81103,14 @@ AutoIt:
     [propget] $oVectorOfVec6i.Count
 ```
 
+### VectorOfVec6i.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVec6i::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVec6i.FullyQualifiedName
+```
+
 ### VectorOfVec6i::create
 
 ```cpp
@@ -74528,6 +81137,20 @@ AutoIt:
 void VectorOfVec6i::Add( cv::Vec6i value );
 AutoIt:
     $oVectorOfVec6i.Add( $value ) -> None
+```
+
+### VectorOfVec6i::IsInstance
+
+```cpp
+static bool VectorOfVec6i::IsInstance( const VectorOfVec6i& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec6i").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVec6i::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec6i").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVec6i::Items
@@ -74706,6 +81329,14 @@ AutoIt:
     [propget] $oVectorOfVec8i.Count
 ```
 
+### VectorOfVec8i.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVec8i::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVec8i.FullyQualifiedName
+```
+
 ### VectorOfVec8i::create
 
 ```cpp
@@ -74732,6 +81363,20 @@ AutoIt:
 void VectorOfVec8i::Add( cv::Vec8i value );
 AutoIt:
     $oVectorOfVec8i.Add( $value ) -> None
+```
+
+### VectorOfVec8i::IsInstance
+
+```cpp
+static bool VectorOfVec8i::IsInstance( const VectorOfVec8i& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec8i").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVec8i::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec8i").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVec8i::Items
@@ -74910,6 +81555,14 @@ AutoIt:
     [propget] $oVectorOfVec2f.Count
 ```
 
+### VectorOfVec2f.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVec2f::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVec2f.FullyQualifiedName
+```
+
 ### VectorOfVec2f::create
 
 ```cpp
@@ -74936,6 +81589,20 @@ AutoIt:
 void VectorOfVec2f::Add( cv::Vec2f value );
 AutoIt:
     $oVectorOfVec2f.Add( $value ) -> None
+```
+
+### VectorOfVec2f::IsInstance
+
+```cpp
+static bool VectorOfVec2f::IsInstance( const VectorOfVec2f& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec2f").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVec2f::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec2f").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVec2f::Items
@@ -75114,6 +81781,14 @@ AutoIt:
     [propget] $oVectorOfVec3f.Count
 ```
 
+### VectorOfVec3f.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVec3f::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVec3f.FullyQualifiedName
+```
+
 ### VectorOfVec3f::create
 
 ```cpp
@@ -75140,6 +81815,20 @@ AutoIt:
 void VectorOfVec3f::Add( cv::Vec3f value );
 AutoIt:
     $oVectorOfVec3f.Add( $value ) -> None
+```
+
+### VectorOfVec3f::IsInstance
+
+```cpp
+static bool VectorOfVec3f::IsInstance( const VectorOfVec3f& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec3f").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVec3f::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec3f").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVec3f::Items
@@ -75318,6 +82007,14 @@ AutoIt:
     [propget] $oVectorOfVec4f.Count
 ```
 
+### VectorOfVec4f.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVec4f::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVec4f.FullyQualifiedName
+```
+
 ### VectorOfVec4f::create
 
 ```cpp
@@ -75344,6 +82041,20 @@ AutoIt:
 void VectorOfVec4f::Add( cv::Vec4f value );
 AutoIt:
     $oVectorOfVec4f.Add( $value ) -> None
+```
+
+### VectorOfVec4f::IsInstance
+
+```cpp
+static bool VectorOfVec4f::IsInstance( const VectorOfVec4f& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec4f").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVec4f::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec4f").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVec4f::Items
@@ -75522,6 +82233,14 @@ AutoIt:
     [propget] $oVectorOfVec6f.Count
 ```
 
+### VectorOfVec6f.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVec6f::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVec6f.FullyQualifiedName
+```
+
 ### VectorOfVec6f::create
 
 ```cpp
@@ -75548,6 +82267,20 @@ AutoIt:
 void VectorOfVec6f::Add( cv::Vec6f value );
 AutoIt:
     $oVectorOfVec6f.Add( $value ) -> None
+```
+
+### VectorOfVec6f::IsInstance
+
+```cpp
+static bool VectorOfVec6f::IsInstance( const VectorOfVec6f& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec6f").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVec6f::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec6f").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVec6f::Items
@@ -75726,6 +82459,14 @@ AutoIt:
     [propget] $oVectorOfVec2d.Count
 ```
 
+### VectorOfVec2d.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVec2d::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVec2d.FullyQualifiedName
+```
+
 ### VectorOfVec2d::create
 
 ```cpp
@@ -75752,6 +82493,20 @@ AutoIt:
 void VectorOfVec2d::Add( cv::Vec2d value );
 AutoIt:
     $oVectorOfVec2d.Add( $value ) -> None
+```
+
+### VectorOfVec2d::IsInstance
+
+```cpp
+static bool VectorOfVec2d::IsInstance( const VectorOfVec2d& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec2d").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVec2d::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec2d").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVec2d::Items
@@ -75930,6 +82685,14 @@ AutoIt:
     [propget] $oVectorOfVec3d.Count
 ```
 
+### VectorOfVec3d.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVec3d::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVec3d.FullyQualifiedName
+```
+
 ### VectorOfVec3d::create
 
 ```cpp
@@ -75956,6 +82719,20 @@ AutoIt:
 void VectorOfVec3d::Add( cv::Vec3d value );
 AutoIt:
     $oVectorOfVec3d.Add( $value ) -> None
+```
+
+### VectorOfVec3d::IsInstance
+
+```cpp
+static bool VectorOfVec3d::IsInstance( const VectorOfVec3d& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec3d").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVec3d::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec3d").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVec3d::Items
@@ -76134,6 +82911,14 @@ AutoIt:
     [propget] $oVectorOfVec4d.Count
 ```
 
+### VectorOfVec4d.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVec4d::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVec4d.FullyQualifiedName
+```
+
 ### VectorOfVec4d::create
 
 ```cpp
@@ -76160,6 +82945,20 @@ AutoIt:
 void VectorOfVec4d::Add( cv::Vec4d value );
 AutoIt:
     $oVectorOfVec4d.Add( $value ) -> None
+```
+
+### VectorOfVec4d::IsInstance
+
+```cpp
+static bool VectorOfVec4d::IsInstance( const VectorOfVec4d& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec4d").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVec4d::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec4d").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVec4d::Items
@@ -76338,6 +83137,14 @@ AutoIt:
     [propget] $oVectorOfVec6d.Count
 ```
 
+### VectorOfVec6d.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVec6d::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVec6d.FullyQualifiedName
+```
+
 ### VectorOfVec6d::create
 
 ```cpp
@@ -76364,6 +83171,20 @@ AutoIt:
 void VectorOfVec6d::Add( cv::Vec6d value );
 AutoIt:
     $oVectorOfVec6d.Add( $value ) -> None
+```
+
+### VectorOfVec6d::IsInstance
+
+```cpp
+static bool VectorOfVec6d::IsInstance( const VectorOfVec6d& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec6d").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVec6d::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVec6d").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVec6d::Items
@@ -76542,6 +83363,14 @@ AutoIt:
     [propget] $oVectorOfPoint2f.Count
 ```
 
+### VectorOfPoint2f.FullyQualifiedName
+
+```cpp
+static std::string VectorOfPoint2f::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfPoint2f.FullyQualifiedName
+```
+
 ### VectorOfPoint2f::create
 
 ```cpp
@@ -76568,6 +83397,20 @@ AutoIt:
 void VectorOfPoint2f::Add( cv::Point2f value );
 AutoIt:
     $oVectorOfPoint2f.Add( $value ) -> None
+```
+
+### VectorOfPoint2f::IsInstance
+
+```cpp
+static bool VectorOfPoint2f::IsInstance( const VectorOfPoint2f& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPoint2f").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfPoint2f::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPoint2f").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfPoint2f::Items
@@ -76746,6 +83589,14 @@ AutoIt:
     [propget] $oVectorOfVectorOfPoint2f.Count
 ```
 
+### VectorOfVectorOfPoint2f.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVectorOfPoint2f::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVectorOfPoint2f.FullyQualifiedName
+```
+
 ### VectorOfVectorOfPoint2f::create
 
 ```cpp
@@ -76772,6 +83623,20 @@ AutoIt:
 void VectorOfVectorOfPoint2f::Add( std::vector<cv::Point2f> value );
 AutoIt:
     $oVectorOfVectorOfPoint2f.Add( $value ) -> None
+```
+
+### VectorOfVectorOfPoint2f::IsInstance
+
+```cpp
+static bool VectorOfVectorOfPoint2f::IsInstance( const VectorOfVectorOfPoint2f& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfPoint2f").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVectorOfPoint2f::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfPoint2f").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVectorOfPoint2f::Items
@@ -76950,6 +83815,14 @@ AutoIt:
     [propget] $oVectorOfDnn_Target.Count
 ```
 
+### VectorOfDnn\_Target.FullyQualifiedName
+
+```cpp
+static std::string VectorOfDnn_Target::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfDnn_Target.FullyQualifiedName
+```
+
 ### VectorOfDnn\_Target::create
 
 ```cpp
@@ -76976,6 +83849,20 @@ AutoIt:
 void VectorOfDnn_Target::Add( cv::dnn::Target value );
 AutoIt:
     $oVectorOfDnn_Target.Add( $value ) -> None
+```
+
+### VectorOfDnn\_Target::IsInstance
+
+```cpp
+static bool VectorOfDnn_Target::IsInstance( const VectorOfDnn_Target& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfDnn_Target").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfDnn_Target::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfDnn_Target").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfDnn\_Target::Items
@@ -77154,6 +84041,14 @@ AutoIt:
     [propget] $oVectorOfRect2d.Count
 ```
 
+### VectorOfRect2d.FullyQualifiedName
+
+```cpp
+static std::string VectorOfRect2d::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfRect2d.FullyQualifiedName
+```
+
 ### VectorOfRect2d::create
 
 ```cpp
@@ -77180,6 +84075,20 @@ AutoIt:
 void VectorOfRect2d::Add( cv::Rect2d value );
 AutoIt:
     $oVectorOfRect2d.Add( $value ) -> None
+```
+
+### VectorOfRect2d::IsInstance
+
+```cpp
+static bool VectorOfRect2d::IsInstance( const VectorOfRect2d& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfRect2d").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfRect2d::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfRect2d").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfRect2d::Items
@@ -77358,6 +84267,14 @@ AutoIt:
     [propget] $oVectorOfVectorOfMat.Count
 ```
 
+### VectorOfVectorOfMat.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVectorOfMat::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVectorOfMat.FullyQualifiedName
+```
+
 ### VectorOfVectorOfMat::create
 
 ```cpp
@@ -77384,6 +84301,20 @@ AutoIt:
 void VectorOfVectorOfMat::Add( std::vector<cv::Mat> value );
 AutoIt:
     $oVectorOfVectorOfMat.Add( $value ) -> None
+```
+
+### VectorOfVectorOfMat::IsInstance
+
+```cpp
+static bool VectorOfVectorOfMat::IsInstance( const VectorOfVectorOfMat& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfMat").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVectorOfMat::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfMat").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVectorOfMat::Items
@@ -77562,6 +84493,14 @@ AutoIt:
     [propget] $oVectorOfVectorOfInt.Count
 ```
 
+### VectorOfVectorOfInt.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVectorOfInt::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVectorOfInt.FullyQualifiedName
+```
+
 ### VectorOfVectorOfInt::create
 
 ```cpp
@@ -77588,6 +84527,20 @@ AutoIt:
 void VectorOfVectorOfInt::Add( std::vector<int> value );
 AutoIt:
     $oVectorOfVectorOfInt.Add( $value ) -> None
+```
+
+### VectorOfVectorOfInt::IsInstance
+
+```cpp
+static bool VectorOfVectorOfInt::IsInstance( const VectorOfVectorOfInt& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfInt").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVectorOfInt::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfInt").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVectorOfInt::Items
@@ -77766,6 +84719,14 @@ AutoIt:
     [propget] $oVectorOfVectorOfVectorOfInt.Count
 ```
 
+### VectorOfVectorOfVectorOfInt.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVectorOfVectorOfInt::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVectorOfVectorOfInt.FullyQualifiedName
+```
+
 ### VectorOfVectorOfVectorOfInt::create
 
 ```cpp
@@ -77792,6 +84753,20 @@ AutoIt:
 void VectorOfVectorOfVectorOfInt::Add( std::vector<std::vector<int>> value );
 AutoIt:
     $oVectorOfVectorOfVectorOfInt.Add( $value ) -> None
+```
+
+### VectorOfVectorOfVectorOfInt::IsInstance
+
+```cpp
+static bool VectorOfVectorOfVectorOfInt::IsInstance( const VectorOfVectorOfVectorOfInt& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfVectorOfInt").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVectorOfVectorOfInt::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfVectorOfInt").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVectorOfVectorOfInt::Items
@@ -77970,6 +84945,14 @@ AutoIt:
     [propget] $oVectorOfVectorOfPoint.Count
 ```
 
+### VectorOfVectorOfPoint.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVectorOfPoint::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVectorOfPoint.FullyQualifiedName
+```
+
 ### VectorOfVectorOfPoint::create
 
 ```cpp
@@ -77996,6 +84979,20 @@ AutoIt:
 void VectorOfVectorOfPoint::Add( std::vector<cv::Point> value );
 AutoIt:
     $oVectorOfVectorOfPoint.Add( $value ) -> None
+```
+
+### VectorOfVectorOfPoint::IsInstance
+
+```cpp
+static bool VectorOfVectorOfPoint::IsInstance( const VectorOfVectorOfPoint& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfPoint").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVectorOfPoint::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfPoint").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVectorOfPoint::Items
@@ -78174,6 +85171,14 @@ AutoIt:
     [propget] $oVectorOfVectorOfKeyPoint.Count
 ```
 
+### VectorOfVectorOfKeyPoint.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVectorOfKeyPoint::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVectorOfKeyPoint.FullyQualifiedName
+```
+
 ### VectorOfVectorOfKeyPoint::create
 
 ```cpp
@@ -78200,6 +85205,20 @@ AutoIt:
 void VectorOfVectorOfKeyPoint::Add( std::vector<cv::KeyPoint> value );
 AutoIt:
     $oVectorOfVectorOfKeyPoint.Add( $value ) -> None
+```
+
+### VectorOfVectorOfKeyPoint::IsInstance
+
+```cpp
+static bool VectorOfVectorOfKeyPoint::IsInstance( const VectorOfVectorOfKeyPoint& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfKeyPoint").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVectorOfKeyPoint::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfKeyPoint").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVectorOfKeyPoint::Items
@@ -78378,6 +85397,14 @@ AutoIt:
     [propget] $oVectorOfVideoCapture.Count
 ```
 
+### VectorOfVideoCapture.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVideoCapture::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVideoCapture.FullyQualifiedName
+```
+
 ### VectorOfVideoCapture::create
 
 ```cpp
@@ -78404,6 +85431,20 @@ AutoIt:
 void VectorOfVideoCapture::Add( cv::VideoCapture value );
 AutoIt:
     $oVectorOfVideoCapture.Add( $value ) -> None
+```
+
+### VectorOfVideoCapture::IsInstance
+
+```cpp
+static bool VectorOfVideoCapture::IsInstance( const VectorOfVideoCapture& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVideoCapture").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVideoCapture::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVideoCapture").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVideoCapture::Items
@@ -78582,6 +85623,14 @@ AutoIt:
     [propget] $oVectorOfVideoCaptureAPIs.Count
 ```
 
+### VectorOfVideoCaptureAPIs.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVideoCaptureAPIs::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVideoCaptureAPIs.FullyQualifiedName
+```
+
 ### VectorOfVideoCaptureAPIs::create
 
 ```cpp
@@ -78608,6 +85657,20 @@ AutoIt:
 void VectorOfVideoCaptureAPIs::Add( cv::VideoCaptureAPIs value );
 AutoIt:
     $oVectorOfVideoCaptureAPIs.Add( $value ) -> None
+```
+
+### VectorOfVideoCaptureAPIs::IsInstance
+
+```cpp
+static bool VectorOfVideoCaptureAPIs::IsInstance( const VectorOfVideoCaptureAPIs& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVideoCaptureAPIs").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVideoCaptureAPIs::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVideoCaptureAPIs").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVideoCaptureAPIs::Items
@@ -78786,6 +85849,14 @@ AutoIt:
     [propget] $oVectorOfPoint3f.Count
 ```
 
+### VectorOfPoint3f.FullyQualifiedName
+
+```cpp
+static std::string VectorOfPoint3f::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfPoint3f.FullyQualifiedName
+```
+
 ### VectorOfPoint3f::create
 
 ```cpp
@@ -78812,6 +85883,20 @@ AutoIt:
 void VectorOfPoint3f::Add( cv::Point3f value );
 AutoIt:
     $oVectorOfPoint3f.Add( $value ) -> None
+```
+
+### VectorOfPoint3f::IsInstance
+
+```cpp
+static bool VectorOfPoint3f::IsInstance( const VectorOfPoint3f& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPoint3f").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfPoint3f::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPoint3f").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfPoint3f::Items
@@ -78990,6 +86075,14 @@ AutoIt:
     [propget] $oVectorOfVectorOfPoint3f.Count
 ```
 
+### VectorOfVectorOfPoint3f.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVectorOfPoint3f::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVectorOfPoint3f.FullyQualifiedName
+```
+
 ### VectorOfVectorOfPoint3f::create
 
 ```cpp
@@ -79016,6 +86109,20 @@ AutoIt:
 void VectorOfVectorOfPoint3f::Add( std::vector<cv::Point3f> value );
 AutoIt:
     $oVectorOfVectorOfPoint3f.Add( $value ) -> None
+```
+
+### VectorOfVectorOfPoint3f::IsInstance
+
+```cpp
+static bool VectorOfVectorOfPoint3f::IsInstance( const VectorOfVectorOfPoint3f& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfPoint3f").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVectorOfPoint3f::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfPoint3f").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVectorOfPoint3f::Items
@@ -79194,6 +86301,14 @@ AutoIt:
     [propget] $oVectorOfDetail_CameraParams.Count
 ```
 
+### VectorOfDetail\_CameraParams.FullyQualifiedName
+
+```cpp
+static std::string VectorOfDetail_CameraParams::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfDetail_CameraParams.FullyQualifiedName
+```
+
 ### VectorOfDetail\_CameraParams::create
 
 ```cpp
@@ -79220,6 +86335,20 @@ AutoIt:
 void VectorOfDetail_CameraParams::Add( cv::detail::CameraParams value );
 AutoIt:
     $oVectorOfDetail_CameraParams.Add( $value ) -> None
+```
+
+### VectorOfDetail\_CameraParams::IsInstance
+
+```cpp
+static bool VectorOfDetail_CameraParams::IsInstance( const VectorOfDetail_CameraParams& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfDetail_CameraParams").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfDetail_CameraParams::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfDetail_CameraParams").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfDetail\_CameraParams::Items
@@ -79388,6 +86517,222 @@ AutoIt:
     $oVectorOfDetail_CameraParams.start() -> retval
 ```
 
+## cv\_GOpaque\_int
+
+### cv\_GOpaque\_int.FullyQualifiedName
+
+```cpp
+static std::string cv_GOpaque_int::FullyQualifiedName
+AutoIt:
+    [propget] $ocv_GOpaque_int.FullyQualifiedName
+```
+
+### cv\_GOpaque\_int::IsInstance
+
+```cpp
+static bool cv_GOpaque_int::IsInstance( const cv_GOpaque_int& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv_GOpaque_int").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv_GOpaque_int::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv_GOpaque_int").IsInstance( $obj ) -> retval
+```
+
+## cv\_GOpaque\_double
+
+### cv\_GOpaque\_double.FullyQualifiedName
+
+```cpp
+static std::string cv_GOpaque_double::FullyQualifiedName
+AutoIt:
+    [propget] $ocv_GOpaque_double.FullyQualifiedName
+```
+
+### cv\_GOpaque\_double::IsInstance
+
+```cpp
+static bool cv_GOpaque_double::IsInstance( const cv_GOpaque_double& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv_GOpaque_double").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv_GOpaque_double::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv_GOpaque_double").IsInstance( $obj ) -> retval
+```
+
+## cv\_GArray\_int
+
+### cv\_GArray\_int.FullyQualifiedName
+
+```cpp
+static std::string cv_GArray_int::FullyQualifiedName
+AutoIt:
+    [propget] $ocv_GArray_int.FullyQualifiedName
+```
+
+### cv\_GArray\_int::IsInstance
+
+```cpp
+static bool cv_GArray_int::IsInstance( const cv_GArray_int& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv_GArray_int").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv_GArray_int::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv_GArray_int").IsInstance( $obj ) -> retval
+```
+
+## cv\_GArray\_cv\_Point2f
+
+### cv\_GArray\_cv\_Point2f.FullyQualifiedName
+
+```cpp
+static std::string cv_GArray_cv_Point2f::FullyQualifiedName
+AutoIt:
+    [propget] $ocv_GArray_cv_Point2f.FullyQualifiedName
+```
+
+### cv\_GArray\_cv\_Point2f::IsInstance
+
+```cpp
+static bool cv_GArray_cv_Point2f::IsInstance( const cv_GArray_cv_Point2f& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv_GArray_cv_Point2f").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv_GArray_cv_Point2f::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv_GArray_cv_Point2f").IsInstance( $obj ) -> retval
+```
+
+## cv\_GArray\_cv\_Point3f
+
+### cv\_GArray\_cv\_Point3f.FullyQualifiedName
+
+```cpp
+static std::string cv_GArray_cv_Point3f::FullyQualifiedName
+AutoIt:
+    [propget] $ocv_GArray_cv_Point3f.FullyQualifiedName
+```
+
+### cv\_GArray\_cv\_Point3f::IsInstance
+
+```cpp
+static bool cv_GArray_cv_Point3f::IsInstance( const cv_GArray_cv_Point3f& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv_GArray_cv_Point3f").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv_GArray_cv_Point3f::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv_GArray_cv_Point3f").IsInstance( $obj ) -> retval
+```
+
+## cv\_GOpaque\_cv\_Rect
+
+### cv\_GOpaque\_cv\_Rect.FullyQualifiedName
+
+```cpp
+static std::string cv_GOpaque_cv_Rect::FullyQualifiedName
+AutoIt:
+    [propget] $ocv_GOpaque_cv_Rect.FullyQualifiedName
+```
+
+### cv\_GOpaque\_cv\_Rect::IsInstance
+
+```cpp
+static bool cv_GOpaque_cv_Rect::IsInstance( const cv_GOpaque_cv_Rect& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv_GOpaque_cv_Rect").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv_GOpaque_cv_Rect::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv_GOpaque_cv_Rect").IsInstance( $obj ) -> retval
+```
+
+## cv\_GArray\_cv\_Rect
+
+### cv\_GArray\_cv\_Rect.FullyQualifiedName
+
+```cpp
+static std::string cv_GArray_cv_Rect::FullyQualifiedName
+AutoIt:
+    [propget] $ocv_GArray_cv_Rect.FullyQualifiedName
+```
+
+### cv\_GArray\_cv\_Rect::IsInstance
+
+```cpp
+static bool cv_GArray_cv_Rect::IsInstance( const cv_GArray_cv_Rect& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv_GArray_cv_Rect").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv_GArray_cv_Rect::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv_GArray_cv_Rect").IsInstance( $obj ) -> retval
+```
+
+## cv\_GArray\_cv\_Point2i
+
+### cv\_GArray\_cv\_Point2i.FullyQualifiedName
+
+```cpp
+static std::string cv_GArray_cv_Point2i::FullyQualifiedName
+AutoIt:
+    [propget] $ocv_GArray_cv_Point2i.FullyQualifiedName
+```
+
+### cv\_GArray\_cv\_Point2i::IsInstance
+
+```cpp
+static bool cv_GArray_cv_Point2i::IsInstance( const cv_GArray_cv_Point2i& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv_GArray_cv_Point2i").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv_GArray_cv_Point2i::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv_GArray_cv_Point2i").IsInstance( $obj ) -> retval
+```
+
+## cv\_GOpaque\_cv\_Size
+
+### cv\_GOpaque\_cv\_Size.FullyQualifiedName
+
+```cpp
+static std::string cv_GOpaque_cv_Size::FullyQualifiedName
+AutoIt:
+    [propget] $ocv_GOpaque_cv_Size.FullyQualifiedName
+```
+
+### cv\_GOpaque\_cv\_Size::IsInstance
+
+```cpp
+static bool cv_GOpaque_cv_Size::IsInstance( const cv_GOpaque_cv_Size& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv_GOpaque_cv_Size").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv_GOpaque_cv_Size::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv_GOpaque_cv_Size").IsInstance( $obj ) -> retval
+```
+
 ## VectorOfGMat
 
 ### VectorOfGMat.Count
@@ -79396,6 +86741,14 @@ AutoIt:
 size_t VectorOfGMat::size()
 AutoIt:
     [propget] $oVectorOfGMat.Count
+```
+
+### VectorOfGMat.FullyQualifiedName
+
+```cpp
+static std::string VectorOfGMat::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfGMat.FullyQualifiedName
 ```
 
 ### VectorOfGMat::create
@@ -79424,6 +86777,20 @@ AutoIt:
 void VectorOfGMat::Add( cv::GMat value );
 AutoIt:
     $oVectorOfGMat.Add( $value ) -> None
+```
+
+### VectorOfGMat::IsInstance
+
+```cpp
+static bool VectorOfGMat::IsInstance( const VectorOfGMat& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfGMat").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfGMat::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfGMat").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfGMat::Items
@@ -79592,6 +86959,30 @@ AutoIt:
     $oVectorOfGMat.start() -> retval
 ```
 
+## cv\_GArray\_uint64\_t
+
+### cv\_GArray\_uint64\_t.FullyQualifiedName
+
+```cpp
+static std::string cv_GArray_uint64_t::FullyQualifiedName
+AutoIt:
+    [propget] $ocv_GArray_uint64_t.FullyQualifiedName
+```
+
+### cv\_GArray\_uint64\_t::IsInstance
+
+```cpp
+static bool cv_GArray_uint64_t::IsInstance( const cv_GArray_uint64_t& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv_GArray_uint64_t").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv_GArray_uint64_t::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv_GArray_uint64_t").IsInstance( $obj ) -> retval
+```
+
 ## VectorOfGRunArg
 
 ### VectorOfGRunArg.Count
@@ -79600,6 +86991,14 @@ AutoIt:
 size_t VectorOfGRunArg::size()
 AutoIt:
     [propget] $oVectorOfGRunArg.Count
+```
+
+### VectorOfGRunArg.FullyQualifiedName
+
+```cpp
+static std::string VectorOfGRunArg::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfGRunArg.FullyQualifiedName
 ```
 
 ### VectorOfGRunArg::create
@@ -79628,6 +87027,20 @@ AutoIt:
 void VectorOfGRunArg::Add( cv::GRunArg value );
 AutoIt:
     $oVectorOfGRunArg.Add( $value ) -> None
+```
+
+### VectorOfGRunArg::IsInstance
+
+```cpp
+static bool VectorOfGRunArg::IsInstance( const VectorOfGRunArg& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfGRunArg").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfGRunArg::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfGRunArg").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfGRunArg::Items
@@ -79806,6 +87219,14 @@ AutoIt:
     [propget] $oVectorOfGCompileArg.Count
 ```
 
+### VectorOfGCompileArg.FullyQualifiedName
+
+```cpp
+static std::string VectorOfGCompileArg::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfGCompileArg.FullyQualifiedName
+```
+
 ### VectorOfGCompileArg::create
 
 ```cpp
@@ -79832,6 +87253,20 @@ AutoIt:
 void VectorOfGCompileArg::Add( cv::GCompileArg value );
 AutoIt:
     $oVectorOfGCompileArg.Add( $value ) -> None
+```
+
+### VectorOfGCompileArg::IsInstance
+
+```cpp
+static bool VectorOfGCompileArg::IsInstance( const VectorOfGCompileArg& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfGCompileArg").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfGCompileArg::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfGCompileArg").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfGCompileArg::Items
@@ -80010,6 +87445,14 @@ AutoIt:
     [propget] $oVectorOfGMetaArg.Count
 ```
 
+### VectorOfGMetaArg.FullyQualifiedName
+
+```cpp
+static std::string VectorOfGMetaArg::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfGMetaArg.FullyQualifiedName
+```
+
 ### VectorOfGMetaArg::create
 
 ```cpp
@@ -80036,6 +87479,20 @@ AutoIt:
 void VectorOfGMetaArg::Add( cv::GMetaArg value );
 AutoIt:
     $oVectorOfGMetaArg.Add( $value ) -> None
+```
+
+### VectorOfGMetaArg::IsInstance
+
+```cpp
+static bool VectorOfGMetaArg::IsInstance( const VectorOfGMetaArg& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfGMetaArg").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfGMetaArg::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfGMetaArg").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfGMetaArg::Items
@@ -80214,6 +87671,14 @@ AutoIt:
     [propget] $oVectorOfGapi_GNetParam.Count
 ```
 
+### VectorOfGapi\_GNetParam.FullyQualifiedName
+
+```cpp
+static std::string VectorOfGapi_GNetParam::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfGapi_GNetParam.FullyQualifiedName
+```
+
 ### VectorOfGapi\_GNetParam::create
 
 ```cpp
@@ -80240,6 +87705,20 @@ AutoIt:
 void VectorOfGapi_GNetParam::Add( cv::gapi::GNetParam value );
 AutoIt:
     $oVectorOfGapi_GNetParam.Add( $value ) -> None
+```
+
+### VectorOfGapi\_GNetParam::IsInstance
+
+```cpp
+static bool VectorOfGapi_GNetParam::IsInstance( const VectorOfGapi_GNetParam& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfGapi_GNetParam").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfGapi_GNetParam::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfGapi_GNetParam").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfGapi\_GNetParam::Items
@@ -80410,6 +87889,14 @@ AutoIt:
 
 ## MapOfStringAndString
 
+### MapOfStringAndString.FullyQualifiedName
+
+```cpp
+static std::string MapOfStringAndString::FullyQualifiedName
+AutoIt:
+    [propget] $oMapOfStringAndString.FullyQualifiedName
+```
+
 ### MapOfStringAndString::create
 
 ```cpp
@@ -80439,6 +87926,20 @@ AutoIt:
 std::string MapOfStringAndString::Get( std::string key );
 AutoIt:
     $oMapOfStringAndString.Get( $key ) -> retval
+```
+
+### MapOfStringAndString::IsInstance
+
+```cpp
+static bool MapOfStringAndString::IsInstance( const MapOfStringAndString& obj );
+AutoIt:
+    _OpenCV_ObjCreate("MapOfStringAndString").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool MapOfStringAndString::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("MapOfStringAndString").IsInstance( $obj ) -> retval
 ```
 
 ### MapOfStringAndString::Items
@@ -80573,6 +88074,14 @@ AutoIt:
     [propget] $oVectorOfPairOfStringAndString.Count
 ```
 
+### VectorOfPairOfStringAndString.FullyQualifiedName
+
+```cpp
+static std::string VectorOfPairOfStringAndString::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfPairOfStringAndString.FullyQualifiedName
+```
+
 ### VectorOfPairOfStringAndString::create
 
 ```cpp
@@ -80599,6 +88108,20 @@ AutoIt:
 void VectorOfPairOfStringAndString::Add( std::pair<std::string, std::string> value );
 AutoIt:
     $oVectorOfPairOfStringAndString.Add( $value ) -> None
+```
+
+### VectorOfPairOfStringAndString::IsInstance
+
+```cpp
+static bool VectorOfPairOfStringAndString::IsInstance( const VectorOfPairOfStringAndString& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPairOfStringAndString").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfPairOfStringAndString::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPairOfStringAndString").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfPairOfStringAndString::Items
@@ -80769,6 +88292,14 @@ AutoIt:
 
 ## MapOfStringAndInt
 
+### MapOfStringAndInt.FullyQualifiedName
+
+```cpp
+static std::string MapOfStringAndInt::FullyQualifiedName
+AutoIt:
+    [propget] $oMapOfStringAndInt.FullyQualifiedName
+```
+
 ### MapOfStringAndInt::create
 
 ```cpp
@@ -80798,6 +88329,20 @@ AutoIt:
 int MapOfStringAndInt::Get( std::string key );
 AutoIt:
     $oMapOfStringAndInt.Get( $key ) -> retval
+```
+
+### MapOfStringAndInt::IsInstance
+
+```cpp
+static bool MapOfStringAndInt::IsInstance( const MapOfStringAndInt& obj );
+AutoIt:
+    _OpenCV_ObjCreate("MapOfStringAndInt").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool MapOfStringAndInt::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("MapOfStringAndInt").IsInstance( $obj ) -> retval
 ```
 
 ### MapOfStringAndInt::Items
@@ -80932,6 +88477,14 @@ AutoIt:
     [propget] $oVectorOfPairOfStringAndInt.Count
 ```
 
+### VectorOfPairOfStringAndInt.FullyQualifiedName
+
+```cpp
+static std::string VectorOfPairOfStringAndInt::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfPairOfStringAndInt.FullyQualifiedName
+```
+
 ### VectorOfPairOfStringAndInt::create
 
 ```cpp
@@ -80958,6 +88511,20 @@ AutoIt:
 void VectorOfPairOfStringAndInt::Add( std::pair<std::string, int> value );
 AutoIt:
     $oVectorOfPairOfStringAndInt.Add( $value ) -> None
+```
+
+### VectorOfPairOfStringAndInt::IsInstance
+
+```cpp
+static bool VectorOfPairOfStringAndInt::IsInstance( const VectorOfPairOfStringAndInt& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPairOfStringAndInt").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfPairOfStringAndInt::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPairOfStringAndInt").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfPairOfStringAndInt::Items
@@ -81128,6 +88695,14 @@ AutoIt:
 
 ## MapOfStringAndVectorOfSize\_t
 
+### MapOfStringAndVectorOfSize\_t.FullyQualifiedName
+
+```cpp
+static std::string MapOfStringAndVectorOfSize_t::FullyQualifiedName
+AutoIt:
+    [propget] $oMapOfStringAndVectorOfSize_t.FullyQualifiedName
+```
+
 ### MapOfStringAndVectorOfSize\_t::create
 
 ```cpp
@@ -81157,6 +88732,20 @@ AutoIt:
 std::vector<size_t> MapOfStringAndVectorOfSize_t::Get( std::string key );
 AutoIt:
     $oMapOfStringAndVectorOfSize_t.Get( $key ) -> retval
+```
+
+### MapOfStringAndVectorOfSize\_t::IsInstance
+
+```cpp
+static bool MapOfStringAndVectorOfSize_t::IsInstance( const MapOfStringAndVectorOfSize_t& obj );
+AutoIt:
+    _OpenCV_ObjCreate("MapOfStringAndVectorOfSize_t").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool MapOfStringAndVectorOfSize_t::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("MapOfStringAndVectorOfSize_t").IsInstance( $obj ) -> retval
 ```
 
 ### MapOfStringAndVectorOfSize\_t::Items
@@ -81291,6 +88880,14 @@ AutoIt:
     [propget] $oVectorOfPairOfStringAndVectorOfSize_t.Count
 ```
 
+### VectorOfPairOfStringAndVectorOfSize\_t.FullyQualifiedName
+
+```cpp
+static std::string VectorOfPairOfStringAndVectorOfSize_t::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfPairOfStringAndVectorOfSize_t.FullyQualifiedName
+```
+
 ### VectorOfPairOfStringAndVectorOfSize\_t::create
 
 ```cpp
@@ -81317,6 +88914,20 @@ AutoIt:
 void VectorOfPairOfStringAndVectorOfSize_t::Add( std::pair<std::string, std::vector<size_t>> value );
 AutoIt:
     $oVectorOfPairOfStringAndVectorOfSize_t.Add( $value ) -> None
+```
+
+### VectorOfPairOfStringAndVectorOfSize\_t::IsInstance
+
+```cpp
+static bool VectorOfPairOfStringAndVectorOfSize_t::IsInstance( const VectorOfPairOfStringAndVectorOfSize_t& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPairOfStringAndVectorOfSize_t").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfPairOfStringAndVectorOfSize_t::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPairOfStringAndVectorOfSize_t").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfPairOfStringAndVectorOfSize\_t::Items
@@ -81495,6 +89106,14 @@ AutoIt:
     [propget] $oVectorOfVectorOfSize_t.Count
 ```
 
+### VectorOfVectorOfSize\_t.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVectorOfSize_t::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVectorOfSize_t.FullyQualifiedName
+```
+
 ### VectorOfVectorOfSize\_t::create
 
 ```cpp
@@ -81521,6 +89140,20 @@ AutoIt:
 void VectorOfVectorOfSize_t::Add( std::vector<size_t> value );
 AutoIt:
     $oVectorOfVectorOfSize_t.Add( $value ) -> None
+```
+
+### VectorOfVectorOfSize\_t::IsInstance
+
+```cpp
+static bool VectorOfVectorOfSize_t::IsInstance( const VectorOfVectorOfSize_t& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfSize_t").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVectorOfSize_t::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfSize_t").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVectorOfSize\_t::Items
@@ -81691,6 +89324,14 @@ AutoIt:
 
 ## MapOfStringAndVectorOfFloat
 
+### MapOfStringAndVectorOfFloat.FullyQualifiedName
+
+```cpp
+static std::string MapOfStringAndVectorOfFloat::FullyQualifiedName
+AutoIt:
+    [propget] $oMapOfStringAndVectorOfFloat.FullyQualifiedName
+```
+
 ### MapOfStringAndVectorOfFloat::create
 
 ```cpp
@@ -81720,6 +89361,20 @@ AutoIt:
 std::vector<float> MapOfStringAndVectorOfFloat::Get( std::string key );
 AutoIt:
     $oMapOfStringAndVectorOfFloat.Get( $key ) -> retval
+```
+
+### MapOfStringAndVectorOfFloat::IsInstance
+
+```cpp
+static bool MapOfStringAndVectorOfFloat::IsInstance( const MapOfStringAndVectorOfFloat& obj );
+AutoIt:
+    _OpenCV_ObjCreate("MapOfStringAndVectorOfFloat").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool MapOfStringAndVectorOfFloat::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("MapOfStringAndVectorOfFloat").IsInstance( $obj ) -> retval
 ```
 
 ### MapOfStringAndVectorOfFloat::Items
@@ -81854,6 +89509,14 @@ AutoIt:
     [propget] $oVectorOfPairOfStringAndVectorOfFloat.Count
 ```
 
+### VectorOfPairOfStringAndVectorOfFloat.FullyQualifiedName
+
+```cpp
+static std::string VectorOfPairOfStringAndVectorOfFloat::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfPairOfStringAndVectorOfFloat.FullyQualifiedName
+```
+
 ### VectorOfPairOfStringAndVectorOfFloat::create
 
 ```cpp
@@ -81880,6 +89543,20 @@ AutoIt:
 void VectorOfPairOfStringAndVectorOfFloat::Add( std::pair<std::string, std::vector<float>> value );
 AutoIt:
     $oVectorOfPairOfStringAndVectorOfFloat.Add( $value ) -> None
+```
+
+### VectorOfPairOfStringAndVectorOfFloat::IsInstance
+
+```cpp
+static bool VectorOfPairOfStringAndVectorOfFloat::IsInstance( const VectorOfPairOfStringAndVectorOfFloat& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPairOfStringAndVectorOfFloat").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfPairOfStringAndVectorOfFloat::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPairOfStringAndVectorOfFloat").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfPairOfStringAndVectorOfFloat::Items
@@ -82058,6 +89735,14 @@ AutoIt:
     [propget] $oVectorOfVectorOfFloat.Count
 ```
 
+### VectorOfVectorOfFloat.FullyQualifiedName
+
+```cpp
+static std::string VectorOfVectorOfFloat::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfVectorOfFloat.FullyQualifiedName
+```
+
 ### VectorOfVectorOfFloat::create
 
 ```cpp
@@ -82084,6 +89769,20 @@ AutoIt:
 void VectorOfVectorOfFloat::Add( std::vector<float> value );
 AutoIt:
     $oVectorOfVectorOfFloat.Add( $value ) -> None
+```
+
+### VectorOfVectorOfFloat::IsInstance
+
+```cpp
+static bool VectorOfVectorOfFloat::IsInstance( const VectorOfVectorOfFloat& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfFloat").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfVectorOfFloat::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfVectorOfFloat").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfVectorOfFloat::Items
@@ -82254,6 +89953,14 @@ AutoIt:
 
 ## MapOfIntAndDouble
 
+### MapOfIntAndDouble.FullyQualifiedName
+
+```cpp
+static std::string MapOfIntAndDouble::FullyQualifiedName
+AutoIt:
+    [propget] $oMapOfIntAndDouble.FullyQualifiedName
+```
+
 ### MapOfIntAndDouble::create
 
 ```cpp
@@ -82283,6 +89990,20 @@ AutoIt:
 double MapOfIntAndDouble::Get( int key );
 AutoIt:
     $oMapOfIntAndDouble.Get( $key ) -> retval
+```
+
+### MapOfIntAndDouble::IsInstance
+
+```cpp
+static bool MapOfIntAndDouble::IsInstance( const MapOfIntAndDouble& obj );
+AutoIt:
+    _OpenCV_ObjCreate("MapOfIntAndDouble").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool MapOfIntAndDouble::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("MapOfIntAndDouble").IsInstance( $obj ) -> retval
 ```
 
 ### MapOfIntAndDouble::Items
@@ -82417,6 +90138,14 @@ AutoIt:
     [propget] $oVectorOfPairOfIntAndDouble.Count
 ```
 
+### VectorOfPairOfIntAndDouble.FullyQualifiedName
+
+```cpp
+static std::string VectorOfPairOfIntAndDouble::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfPairOfIntAndDouble.FullyQualifiedName
+```
+
 ### VectorOfPairOfIntAndDouble::create
 
 ```cpp
@@ -82443,6 +90172,20 @@ AutoIt:
 void VectorOfPairOfIntAndDouble::Add( std::pair<int, double> value );
 AutoIt:
     $oVectorOfPairOfIntAndDouble.Add( $value ) -> None
+```
+
+### VectorOfPairOfIntAndDouble::IsInstance
+
+```cpp
+static bool VectorOfPairOfIntAndDouble::IsInstance( const VectorOfPairOfIntAndDouble& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPairOfIntAndDouble").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfPairOfIntAndDouble::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfPairOfIntAndDouble").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfPairOfIntAndDouble::Items
@@ -82611,6 +90354,30 @@ AutoIt:
     $oVectorOfPairOfIntAndDouble.start() -> retval
 ```
 
+## cv\_GArray\_cv\_gapi\_wip\_draw\_Prim
+
+### cv\_GArray\_cv\_gapi\_wip\_draw\_Prim.FullyQualifiedName
+
+```cpp
+static std::string cv_GArray_cv_gapi_wip_draw_Prim::FullyQualifiedName
+AutoIt:
+    [propget] $ocv_GArray_cv_gapi_wip_draw_Prim.FullyQualifiedName
+```
+
+### cv\_GArray\_cv\_gapi\_wip\_draw\_Prim::IsInstance
+
+```cpp
+static bool cv_GArray_cv_gapi_wip_draw_Prim::IsInstance( const cv_GArray_cv_gapi_wip_draw_Prim& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv_GArray_cv_gapi_wip_draw_Prim").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv_GArray_cv_gapi_wip_draw_Prim::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv_GArray_cv_gapi_wip_draw_Prim").IsInstance( $obj ) -> retval
+```
+
 ## VectorOfGapi\_wip\_draw\_Prim
 
 ### VectorOfGapi\_wip\_draw\_Prim.Count
@@ -82619,6 +90386,14 @@ AutoIt:
 size_t VectorOfGapi_wip_draw_Prim::size()
 AutoIt:
     [propget] $oVectorOfGapi_wip_draw_Prim.Count
+```
+
+### VectorOfGapi\_wip\_draw\_Prim.FullyQualifiedName
+
+```cpp
+static std::string VectorOfGapi_wip_draw_Prim::FullyQualifiedName
+AutoIt:
+    [propget] $oVectorOfGapi_wip_draw_Prim.FullyQualifiedName
 ```
 
 ### VectorOfGapi\_wip\_draw\_Prim::create
@@ -82647,6 +90422,20 @@ AutoIt:
 void VectorOfGapi_wip_draw_Prim::Add( cv::gapi::wip::draw::Prim value );
 AutoIt:
     $oVectorOfGapi_wip_draw_Prim.Add( $value ) -> None
+```
+
+### VectorOfGapi\_wip\_draw\_Prim::IsInstance
+
+```cpp
+static bool VectorOfGapi_wip_draw_Prim::IsInstance( const VectorOfGapi_wip_draw_Prim& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfGapi_wip_draw_Prim").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfGapi_wip_draw_Prim::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfGapi_wip_draw_Prim").IsInstance( $obj ) -> retval
 ```
 
 ### VectorOfGapi\_wip\_draw\_Prim::Items

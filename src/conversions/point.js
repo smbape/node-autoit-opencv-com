@@ -93,7 +93,7 @@ module.exports = (header = [], impl = [], options = {}) => {
 
         template<typename _Tp>
         const HRESULT autoit_to(VARIANT const* const& in_val, AUTOIT_PTR<cv::Point_<_Tp>>& out_val) {
-            out_val = std::make_shared<cv::Point_<_Tp>>();
+            out_val = ${ options.make_shared }<cv::Point_<_Tp>>();
             return autoit_to(in_val, *out_val.get());
         }
 

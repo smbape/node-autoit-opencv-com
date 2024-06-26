@@ -1,5 +1,5 @@
 diff --git a/modules/dnn/src/caffe/caffe_importer.cpp b/modules/dnn/src/caffe/caffe_importer.cpp
-index 6606fc301..a2e3cb2d6 100644
+index 50e1fbe93f..e6a393226f 100644
 --- a/modules/dnn/src/caffe/caffe_importer.cpp
 +++ b/modules/dnn/src/caffe/caffe_importer.cpp
 @@ -51,6 +51,7 @@
@@ -19,7 +19,7 @@ index 6606fc301..a2e3cb2d6 100644
  
  #define DNN_PROTOBUF_UNSUPPORTED() CV_Error(Error::StsError, "DNN/Caffe: Build OpenCV with Protobuf to import Caffe models")
 diff --git a/modules/gapi/include/opencv2/gapi/util/variant.hpp b/modules/gapi/include/opencv2/gapi/util/variant.hpp
-index 48b55646c..9b20a12b3 100644
+index 48b55646c5..9b20a12b3e 100644
 --- a/modules/gapi/include/opencv2/gapi/util/variant.hpp
 +++ b/modules/gapi/include/opencv2/gapi/util/variant.hpp
 @@ -132,7 +132,7 @@ namespace util
@@ -32,7 +32,7 @@ index 48b55646c..9b20a12b3 100644
          };
  
 diff --git a/modules/gapi/src/backends/fluid/gfluidcore.cpp b/modules/gapi/src/backends/fluid/gfluidcore.cpp
-index 50615b265..c19a19b46 100644
+index 50615b2652..c19a19b462 100644
 --- a/modules/gapi/src/backends/fluid/gfluidcore.cpp
 +++ b/modules/gapi/src/backends/fluid/gfluidcore.cpp
 @@ -32,6 +32,15 @@
@@ -65,7 +65,7 @@ index 50615b265..c19a19b46 100644
  {
      using namespace cv::gapi::fluid;
 diff --git a/modules/highgui/src/window_w32.cpp b/modules/highgui/src/window_w32.cpp
-index a3a71a6cc..07e455337 100644
+index 32b2392904..c5ed2dc30d 100644
 --- a/modules/highgui/src/window_w32.cpp
 +++ b/modules/highgui/src/window_w32.cpp
 @@ -654,11 +654,11 @@ double cvGetPropTopmost_W32(const char* name)
@@ -83,7 +83,7 @@ index a3a71a6cc..07e455337 100644
      }
  
 diff --git a/modules/python/src2/hdr_parser.py b/modules/python/src2/hdr_parser.py
-index 0dc5dd148..132dbcecb 100755
+index fa2d0077d9..f7fe0a8b4b 100755
 --- a/modules/python/src2/hdr_parser.py
 +++ b/modules/python/src2/hdr_parser.py
 @@ -70,6 +70,29 @@ class CppHeaderParser(object):
@@ -116,16 +116,40 @@ index 0dc5dd148..132dbcecb 100755
      def parse_arg(self, arg_str, argno):
          """
          Parses <arg_type> [arg_name]
-@@ -219,7 +242,7 @@ class CppHeaderParser(object):
+@@ -166,20 +189,17 @@ class CppHeaderParser(object):
+                     arg_type += w
+                 continue
+             elif w == "<":
+-                arg_type += "_"
++                arg_type += w
+                 angle_stack.append(0)
+             elif w == "," or w == '>':
++                arg_type += w
+                 if not angle_stack:
+                     print("Error at %s:%d: argument contains ',' or '>' not within template arguments" % (self.hname, self.lineno))
+                     sys.exit(-1)
+-                if w == ",":
+-                    arg_type += "_and_"
+-                elif w == ">":
++                if w == ">":
+                     if angle_stack[0] == 0:
+                         print("Error at %s:%d: template has no arguments" % (self.hname, self.lineno))
+                         sys.exit(-1)
+-                    if angle_stack[0] > 1:
+-                        arg_type += "_end_"
+                     angle_stack[-1:] = []
+             elif angle_stack:
+                 arg_type += w
+@@ -223,8 +243,6 @@ class CppHeaderParser(object):
          if add_star:
              arg_type += "*"
  
 -        arg_type = self.batch_replace(arg_type, [("std::", ""), ("cv::", ""), ("::", "_")])
-+        arg_type = self.batch_replace(arg_type, [("std::", ""), ("cv::", "")])
- 
+-
          return arg_type, arg_name, modlist, argno
  
-@@ -416,11 +439,25 @@ class CppHeaderParser(object):
+     def parse_enum(self, decl_str):
+@@ -420,11 +438,25 @@ class CppHeaderParser(object):
          npos = decl_str.find("CV_EXPORTS_AS")
          if npos >= 0:
              arg, npos3 = self.get_macro_arg(decl_str, npos)
@@ -151,7 +175,16 @@ index 0dc5dd148..132dbcecb 100755
              func_modlist.append("="+arg)
              decl_str = decl_str[:npos] + decl_str[npos3+1:]
          npos = decl_str.find("CV_WRAP_PHANTOM")
-@@ -654,10 +691,13 @@ class CppHeaderParser(object):
+@@ -598,7 +630,7 @@ class CppHeaderParser(object):
+                     if eqpos >= 0:
+                         a = a[:eqpos].strip()
+                     arg_type, arg_name, modlist, argno = self.parse_arg(a, argno)
+-                    if self.wrap_mode:
++                    if False:
+                         # TODO: Vectors should contain UMat, but this is not very easy to support and not very needed
+                         vector_mat = "vector_{}".format(mat)
+                         vector_mat_template = "vector<{}>".format(mat)
+@@ -659,10 +691,13 @@ class CppHeaderParser(object):
  
          the function will convert "A" to "cv.A" and "f" to "cv.A.f".
          """
@@ -168,7 +201,7 @@ index 0dc5dd148..132dbcecb 100755
          qualified_name = (("." in name) or ("::" in name))
          n = ""
          for b in self.block_stack:
-@@ -749,7 +789,10 @@ class CppHeaderParser(object):
+@@ -754,7 +789,10 @@ class CppHeaderParser(object):
  
              if stmt.startswith("enum") or stmt.startswith("namespace"):
                  # NB: Drop inheritance syntax for enum
@@ -180,7 +213,7 @@ index 0dc5dd148..132dbcecb 100755
                  stmt_list = stmt.rsplit(" ", 1)
                  if len(stmt_list) < 2:
                      stmt_list.append("<unnamed>")
-@@ -785,8 +828,18 @@ class CppHeaderParser(object):
+@@ -790,8 +828,18 @@ class CppHeaderParser(object):
                  var_modlist = []
                  if "CV_PROP_RW" in stmt:
                      var_modlist.append("/RW")

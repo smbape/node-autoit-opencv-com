@@ -1211,6 +1211,10 @@
         "iid": "1437048f-aff9-44b7-8750-a590647ef03b",
         "clsid": "a98c001f-3bbe-4ab8-94a3-80b2ba2ddc69"
     },
+    "autoit::Buffer": {
+        "iid": "f8246983-71d0-4948-8ee8-947c771f1744",
+        "clsid": "83b90009-748d-46b2-bc9a-12a6cb42f66e"
+    },
     "com": {
         "iid": "e2ecb319-b99b-41de-b972-acdcdcab93b6",
         "clsid": "d754eb41-9aee-4a0c-83ba-e2f1478329e6"
@@ -1659,49 +1663,49 @@
         "iid": "6c34462d-d8f1-49bf-8c10-4cb5f69fdff0",
         "clsid": "31aaec00-0c08-4c97-8006-8b8e4b727c0f"
     },
-    "GOpaque_int": {
-        "iid": "812a2ec6-286c-47b4-b67e-806c6c5dbeb8",
-        "clsid": "3136fd10-c5f0-4bf0-9e81-f4714b2444ef"
+    "cv_GOpaque_int": {
+        "iid": "22c8e6f4-0971-4f2f-974a-beaa315129f4",
+        "clsid": "5665ebb1-5c2f-4a56-85a8-892357b562e8"
     },
-    "GOpaque_double": {
-        "iid": "69d19862-d64d-4c40-b15b-60c2083d3a66",
-        "clsid": "060f741b-5cd3-4229-9de1-f1194772161f"
+    "cv_GOpaque_double": {
+        "iid": "2410617d-6726-4f6f-b796-68dd9aea95a9",
+        "clsid": "4a9cec5d-8a02-4455-8896-c2383b2e04c8"
     },
-    "GArray_int": {
-        "iid": "fa8fc2aa-a079-4808-b93c-d89d5d5f761e",
-        "clsid": "86c23d56-95ac-4b00-acfb-1a2c350c3459"
+    "cv_GArray_int": {
+        "iid": "f4b4359a-8c63-47b6-928f-498db55ce1e9",
+        "clsid": "2496ece1-e413-4a48-a4ec-ca859512f551"
     },
-    "GArray_Point2f": {
-        "iid": "05ede438-b22a-43c9-84d1-973fb804a60c",
-        "clsid": "a4c07867-a920-4c8e-bf99-58fc6ff8f7c5"
+    "cv_GArray_cv_Point2f": {
+        "iid": "bd95cf92-5b37-4158-8c7c-2886dba88b2c",
+        "clsid": "62be4a7a-298f-466c-bdd3-ab0b4a3ea1de"
     },
-    "GArray_Point3f": {
-        "iid": "58afc4b6-939c-471b-824a-58edd1af78f1",
-        "clsid": "d9063f6c-3b16-4aea-ad5c-ce9df84d9f89"
+    "cv_GArray_cv_Point3f": {
+        "iid": "bb44aaf6-7f46-40a2-855c-a89ec1438602",
+        "clsid": "398894a0-f06e-4617-ba52-e1bf9d4bff69"
     },
-    "GOpaque_Rect": {
-        "iid": "10562eb9-34c7-4910-97ff-031f4d507b63",
-        "clsid": "1e4af5ef-0a8a-441d-bf28-dd9fca960882"
+    "cv_GOpaque_cv_Rect": {
+        "iid": "fc7f5555-c0fd-4d67-bd1f-bf077cbec870",
+        "clsid": "9ae7b6da-444e-4326-8dd3-35298fef5346"
     },
-    "GArray_Rect": {
-        "iid": "3b12ed47-ab1b-448a-9ebe-c91607a205af",
-        "clsid": "941114a4-62a5-469f-8bd6-743b60a4c2dc"
+    "cv_GArray_cv_Rect": {
+        "iid": "61575a57-5efe-474d-9e56-096fa1c5eee2",
+        "clsid": "87644ce1-a6ac-4c55-8163-cd1e2558bfd1"
     },
-    "GArray_Point2i": {
-        "iid": "045f4549-2cea-41cd-829c-29924ce603d5",
-        "clsid": "849f2a28-80cb-4086-8ad3-cf0eda0b00db"
+    "cv_GArray_cv_Point2i": {
+        "iid": "781ee553-c148-4010-ae0f-50ebe8cbba31",
+        "clsid": "0fa18247-9e1b-41d1-b4af-b84875516b1f"
     },
-    "GOpaque_Size": {
-        "iid": "905a3769-9668-40e1-8858-550a9362e53f",
-        "clsid": "3a27178e-7791-4301-8563-d145ce61db7f"
+    "cv_GOpaque_cv_Size": {
+        "iid": "84b265bb-6ba0-4964-999e-7e0eacb7e259",
+        "clsid": "55a8dbf4-0973-418d-9b78-708545f3142e"
     },
     "VectorOfGMat": {
         "iid": "6d87c39a-bb3a-4633-9382-8489c0b488c7",
         "clsid": "ee9978dd-fd51-47d6-907a-ad2a92adc92b"
     },
-    "GArray_uint64_t": {
-        "iid": "32627b00-1b54-42fc-b26a-7ce08db6fdad",
-        "clsid": "192681f9-e468-4227-81a3-44812b62c529"
+    "cv_GArray_uint64_t": {
+        "iid": "213f7a15-ed54-4826-8977-cb76e2368cb9",
+        "clsid": "78f12b60-6544-4d75-8398-40aae2bc1ab5"
     },
     "VectorOfGRunArg": {
         "iid": "ed3dab2b-b88b-45c8-abca-3d104c196e4a",
@@ -1767,9 +1771,9 @@
         "iid": "fc9ac6ae-4f18-431b-a6df-27635f05587c",
         "clsid": "3099a352-6b1f-4299-b075-9707e455b391"
     },
-    "GArray_Prim": {
-        "iid": "d18565ad-1df8-47bd-ae0e-e88452439fae",
-        "clsid": "3e0e6512-b21e-4a26-aeb5-4635afc2c6fd"
+    "cv_GArray_cv_gapi_wip_draw_Prim": {
+        "iid": "6cc8e22b-4de9-4674-b876-c393dbe80d72",
+        "clsid": "4f679557-25c4-44a4-a1ea-1f79e9fde7b3"
     },
     "VectorOfGapi_wip_draw_Prim": {
         "iid": "fe4a13e6-6f67-4799-aae8-dad5cc09fa10",

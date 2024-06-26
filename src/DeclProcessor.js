@@ -1,5 +1,5 @@
 /* eslint-disable no-magic-numbers */
-const { getAlias, removeNamespaces } = require("./alias");
+const { getAlias } = require("./alias");
 
 const {
     CPP_TYPES,
@@ -54,7 +54,11 @@ class DeclProcessor {
         }
 
         for (const namespace of namespaces) {
-            this.namespaces.add(namespace.replaceAll(".", "::"));
+            // If a child is a namespace, then, it's ascendants are also namespaces
+            const parts = namespace.replaceAll(".", "::").split("::");
+            for (let i = 0; i < parts.length; i++) {
+                this.namespaces.add(parts.slice(0, parts.length - i).join("::"));
+            }
         }
 
         for (const decl of decls) {
@@ -129,6 +133,44 @@ class DeclProcessor {
             const coclass = this.classes.get(fqn);
             if (coclass.empty()) {
                 this.removeClass(fqn);
+            }
+        }
+
+        for (const fqn of this.classes.keys()) {
+            const coclass = this.classes.get(fqn);
+            const cpptype = this.getCppType(fqn, coclass, options);
+            const displayName = this.getTypeDisplayName(fqn, cpptype);
+
+            // add __str__ method
+            if (!coclass.isStatic() && options.meta_methods && options.meta_methods.has("__str__")) {
+                if (!Array.from(coclass.methods.entries()).some(([fname]) => fname === "__str__" )) {
+                    const __str__ = options.meta_methods.get("__str__");
+                    coclass.addMethod([`${ fqn }.__str__`, "std::string", [`/Call=${ __str__ }`, `/Expr=${ options.self }, "${ displayName }"`], [], "", ""], options);
+                }
+            }
+
+            // add __eq__ method
+            if (!coclass.isStatic() && options.meta_methods && options.meta_methods.has("__eq__")) {
+                if (!Array.from(coclass.methods.entries()).some(([fname]) => fname === "__eq__" )) {
+                    const __eq__ = options.meta_methods.get("__eq__");
+                    coclass.addMethod([`${ fqn }.__eq__`, "bool", [`/Call=${ __eq__ }`, `/Expr=${ options.self }, $0`], [
+                        [cpptype, "other", "", ["/Ref", "/C"]],
+                    ], "", ""], options);
+                    coclass.addMethod([`${ fqn }.__eq__`, "bool", ["/Output=false"], [
+                        [options.Any, "other", "", []],
+                    ], "", ""], options);
+                }
+            }
+
+            // add reflection methods and properties
+            if (!options.hasIsInstanceSupport && !coclass.isStatic()) {
+                coclass.addMethod([`${ fqn }.IsInstance`, "bool", ["/S", "/Output=true"], [
+                    [cpptype, "obj", "", ["/Ref", "/C"]],
+                ], "", ""], options);
+                coclass.addMethod([`${ fqn }.IsInstance`, "bool", ["/S", "/Output=false"], [
+                    [options.Any, "obj", "", []],
+                ], "", ""], options);
+                coclass.addProperty(["std::string", "FullyQualifiedName", "", ["/S", `/RExpr="${ displayName }"`]]);
             }
         }
     }
@@ -398,7 +440,8 @@ class DeclProcessor {
     }
 
     getCppType(type, coclass, options = {}) {
-        if (type.includes("(") || type.includes(")") || countInstances(type, "<") !== countInstances(type, ">")) {
+        if (type.includes("(") || type.includes(")") || type.includes("<") && !type.endsWith(">") || countInstances(type, "<") !== countInstances(type, ">")) {
+            // invalid type, most likely comming from defval
             return type;
         }
 
@@ -407,12 +450,6 @@ class DeclProcessor {
         if (CPP_TYPES.has(type)) {
             type = CPP_TYPES.get(type);
         }
-
-        const {shared_ptr} = options;
-        const shared_ptr_ = removeNamespaces(shared_ptr, options);
-
-        let type_ = type;
-        type = CoClass.restoreOriginalType(type, options);
 
         if (
             type === "IUnknown*" ||
@@ -425,54 +462,24 @@ class DeclProcessor {
             return type;
         }
 
-        if (type.startsWith(`${ shared_ptr_ }<`) && type.endsWith(">")) {
-            return `${ shared_ptr }<${ this.getCppType(type.slice(`${ shared_ptr_ }<`.length, -">".length), coclass, options) }>`;
+        if (type.endsWith("*")) {
+            return `${ this.getCppType(type.slice(0, -1), coclass, options) }*`;
         }
 
-        if (type.startsWith("shared_ptr<")) {
-            return `std::shared_ptr<${ this.getCppType(type.slice("shared_ptr<".length, -">".length), coclass, options) }>`;
-        }
-
-        if (type.startsWith("optional<")) {
-            return `std::optional<${ this.getCppType(type.slice("optional<".length, -">".length), coclass, options) }>`;
-        }
-
-        if (type.startsWith("vector<")) {
-            return `std::vector<${ this.getCppType(type.slice("vector<".length, -">".length), coclass, options) }>`;
-        }
-
-        if (type.startsWith("tuple<")) {
-            const types = CoClass.getTupleTypes(type.slice("tuple<".length, -">".length));
-            return `std::tuple<${ types.map(itype => this.getCppType(itype, coclass, options)).join(", ") }>`;
-        }
-
-        if (type.startsWith("map<")) {
-            const types = CoClass.getTupleTypes(type.slice("map<".length, -">".length));
-            return `std::map<${ types.map(itype => this.getCppType(itype, coclass, options)).join(", ") }>`;
-        }
-
-        if (type.startsWith("pair<")) {
-            const types = CoClass.getTupleTypes(type.slice("pair<".length, -">".length));
-            return `std::pair<${ types.map(itype => this.getCppType(itype, coclass, options)).join(", ") }>`;
-        }
-
-        if (type.startsWith("variant<")) {
-            const types = CoClass.getTupleTypes(type.slice("variant<".length, -">".length));
-            return `std::variant<${ types.map(itype => this.getCppType(itype, coclass, options)).join(", ") }>`;
-        }
+        let type_ = type;
+        type = CoClass.restoreOriginalType(type, options);
 
         if (type.includes("<") && type.endsWith(">")) {
             const pos = type.indexOf("<");
-            const tpl = type.slice(0, pos);
+            const tpl = this.getCppType(type.slice(0, pos), coclass, options);
+            const types = CoClass.getTupleTypes(type.slice(pos + 1, -">".length)).map(itype => this.getCppType(itype, coclass, options));
+
             if (TEMPLATED_TYPES.has(tpl)) {
-                const custom_type = this.add_custom_type(type, coclass, options);
+                const custom_type = this.add_custom_type(`${ tpl }<${ types.join(", ") }>`, coclass, options);
                 this.addDependency(coclass.fqn, custom_type.fqn);
             }
-            return `${ this.getCppType(tpl, coclass, options) }<${ this.getCppType(type.slice(pos + 1, -">".length), coclass, options) }>`;
-        }
 
-        if (type.endsWith("*")) {
-            return `${ this.getCppType(type.slice(0, -1), coclass, options) }*`;
+            return `${ tpl }<${ types.join(", ") }>`;
         }
 
         let include = coclass;
@@ -503,6 +510,69 @@ class DeclProcessor {
         }
 
         return type_;
+    }
+
+    getNonAmbiguousType(cpptype) {
+        return !cpptype.startsWith("::") && this.classes.has(cpptype) ? `::${ cpptype }` : cpptype;
+    }
+
+    getTypeDisplayName(fqn, cpptype) {
+        const name = this.typedefs.has(fqn) ? this.typedefs.get(fqn) : cpptype;
+        return name.startsWith("::") ? name.slice("::".length) : name;
+    }
+
+    fqnIndentifier(value, coclass, options) {
+        const identifiers = /[^\w:]/g;
+        let match = identifiers.exec(value);
+
+        if (match === null) {
+            let vfqn = this.getCppType(value, coclass, options);
+            if (this.classes.has(vfqn)) {
+                return vfqn;
+            }
+
+            const parts = value.split("::");
+            if (parts.length > 1) {
+                vfqn = this.getCppType(parts.slice(-1).join("::"), coclass, options);
+                if (this.classes.has(vfqn)) {
+                    return `${ vfqn }::${ parts[parts.length - 1] }`;
+                }
+            }
+
+            return value;
+        }
+
+        if (match[0] !== "<") {
+            return value;
+        }
+
+        const start = identifiers.lastIndex;
+        const separators = /[<>]/g;
+        separators.lastIndex = start;
+
+        let lastIndex = start;
+        let open = 0;
+
+        while (match = separators.exec(value)) { // eslint-disable-line no-cond-assign
+            if (match[0] === "<") {
+                open++;
+            } else if (match[0] === ">") {
+                open--;
+            }
+
+            if (open === 0) {
+                lastIndex = separators.lastIndex;
+                break;
+            }
+        }
+
+        if (lastIndex === start) {
+            return value;
+        }
+
+        const types = CoClass.getTupleTypes(value.slice(start, lastIndex)).map(type => this.getCppType(type, coclass, options));
+
+        return value.slice(0, start) + types.join(", ") + value.slice(lastIndex);
     }
 
     setAssignOperator(type, coclass, options) {
@@ -762,7 +832,7 @@ class DeclProcessor {
     }
 
     getMaybeTypes(type, coclass) {
-        const types = new Set([type, `${ this.namespace }::${ type }`]);
+        const types = new Set([type]);
 
         if (coclass.fqn) {
             coclass.fqn.split("::").forEach((el, i, arr) => {
@@ -780,6 +850,8 @@ class DeclProcessor {
                 types.add(itype);
             }
         }
+
+        types.add(`${ this.namespace }::${ type }`);
 
         return Array.from(types);
     }

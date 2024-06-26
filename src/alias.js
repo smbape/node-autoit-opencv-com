@@ -19,22 +19,55 @@ exports.makeExpansion = (str, ...args) => {
     return str;
 };
 
-exports.useNamespaces = (body, method, coclass, processor) => {
+const useNamspace = (namespaces, namespace) => {
+    const parts = namespace.split("::");
+    for (let i = 0; i < parts.length; i++) {
+        namespaces.add(`using namespace ${ parts.slice(0, parts.length - i).join("::") };`);
+    }
+};
+
+exports.useNamespaces = (body, method, processor, coclass) => {
     const namespaces = new Set();
+
+    if (coclass.namespace) {
+        // useNamspace(namespaces, coclass.namespace);
+        namespaces.add(`using namespace ${ coclass.namespace };`);
+    }
+
+    if (coclass.include && coclass.include.namespace) {
+        namespaces.add(`using namespace ${ coclass.include.namespace };`);
+    }
 
     if (processor.namespace) {
         namespaces.add(`using namespace ${ processor.namespace };`);
     }
 
-    if (coclass.namespace) {
-        namespaces.add(`using namespace ${ coclass.namespace };`);
+    if (namespaces.size !== 0) {
+        namespaces.add("");
     }
 
-    if (coclass.include && coclass.include.namespace && coclass.include.namespace !== coclass.namespace) {
-        namespaces.add(`using namespace ${ coclass.include.namespace };`);
-    }
+    body[method](...Array.from(namespaces).sort((a, b) => {
+        if (a.length === 0) {
+            return 1;
+        }
 
-    body[method](...namespaces);
+        if (b.length === 0) {
+            return -1;
+        }
+
+        const aLen = a.split("::").length;
+        const bLen = b.split("::").length;
+
+        if (aLen > bLen) {
+            return -1;
+        }
+
+        if (aLen < bLen) {
+            return 1;
+        }
+
+        return a < b ? -1 : a > b ? 1 : 0;
+    }));
 };
 
 exports.getTypeDef = (type, options) => {

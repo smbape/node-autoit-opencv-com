@@ -3,6 +3,9 @@ const CoClass = require("./CoClass");
 
 exports.declare = (processor, type, parent, options = {}) => {
     const cpptype = processor.getCppType(type, parent, options);
+    if (!cpptype.startsWith("std::map<")) {
+        throw new Error(`Invalid std::map type ${ type }`);
+    }
 
     const fqn = getTypeDef(cpptype, options);
 
@@ -10,7 +13,7 @@ exports.declare = (processor, type, parent, options = {}) => {
         return fqn;
     }
 
-    const [key_type, value_type] = CoClass.getTupleTypes(type.slice("map<".length, -">".length));
+    const [key_type, value_type] = CoClass.getTupleTypes(cpptype.slice("std::map<".length, -">".length));
     const coclass = processor.getCoClass(fqn, options);
 
     processor.add_vector(`std::vector<std::pair<${ key_type }, ${ value_type }>>`, parent, options);
@@ -22,8 +25,8 @@ exports.declare = (processor, type, parent, options = {}) => {
     coclass.is_class = true;
     coclass.is_stdmap = true;
     coclass.include = parent;
-    coclass.key_type = processor.getCppType(key_type, coclass, options);
-    coclass.value_type = processor.getCppType(value_type, coclass, options);
+    coclass.key_type = key_type;
+    coclass.value_type = value_type;
     coclass.idltype_key = processor.getIDLType(key_type, coclass, options);
     coclass.idltype_value = processor.getIDLType(value_type, coclass, options);
 
@@ -39,8 +42,8 @@ exports.declare = (processor, type, parent, options = {}) => {
     ], "", ""], options);
 
     // Iterators
-    coclass.addMethod([`${ fqn }.Keys`, `vector_${ key_type }`, ["/External"], [], "", ""], options);
-    coclass.addMethod([`${ fqn }.Items`, `vector_${ value_type }`, ["/External"], [], "", ""], options);
+    coclass.addMethod([`${ fqn }.Keys`, `std::vector<${ key_type }>`, ["/External"], [], "", ""], options);
+    coclass.addMethod([`${ fqn }.Items`, `std::vector<${ value_type }>`, ["/External"], [], "", ""], options);
 
     // Capacity
     coclass.addMethod([`${ fqn }.empty`, "bool", [], [], "", ""], options);

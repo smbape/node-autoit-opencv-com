@@ -17,7 +17,7 @@ find samples autoit-opencv-com/udf autoit-addon -type d -name 'BackUp' | xargs -
 # ================================
 # generate doctoc
 # ================================
-node node_modules/doctoc/doctoc.js README.md
+node node_modules/doctoc/doctoc.js README.md && dos2unix README.md
 
 
 # ================================
@@ -34,13 +34,15 @@ set -o pipefail && \
 time CMAKE_BUILD_TYPE=Release ./autoit-*-com/build.bat && time CMAKE_BUILD_TYPE=Debug ./autoit-*-com/build.bat && \
 time CMAKE_BUILD_TYPE=Release ./autoit-addon/build.bat && time CMAKE_BUILD_TYPE=Debug ./autoit-addon/build.bat && \
 find samples autoit-opencv-com/udf autoit-addon -type d -name 'BackUp' -prune -o -type f -name '*.au3' -not -name 'Table.au3' -a -not -name '*test.au3' -a -not -name 'Find-Contour-Draw-Demo.au3' -print | xargs -I '{}' 'C:\Program Files (x86)\AutoIt3\AutoIt3.exe' 'C:\Program Files (x86)\AutoIt3\SciTE\AutoIt3Wrapper\AutoIt3Wrapper.au3' //Tidy //in '{}' && \
-find samples autoit-opencv-com/udf autoit-addon -type d -name 'BackUp' | xargs -I '{}' rm -rf '{}'
+find samples autoit-opencv-com/udf autoit-addon -type d -name 'BackUp' | xargs -I '{}' rm -rf '{}' && \
+dos2unix autoit-opencv-com/udf/docs.md README.md
 
 
 # ================================
 # test local
 # ================================
-node scripts/test.js
+node scripts/test.js --bash > $(for ifile in autoit-*-com/build_x64/bin; do echo $ifile/test_all.sh; done) && \
+./autoit-*-com/build_x64/bin/test_all.sh
 
 
 # ================================
@@ -57,7 +59,8 @@ rm -rf /d/Programs/AutoIt/UDF/opencv-udf-test/autoit-* /d/Programs/AutoIt/UDF/op
 git archive --format zip --output /d/Programs/AutoIt/UDF/opencv-udf-test/autoit-opencv-com.zip main && \
 7z x autoit-opencv-*.7z -aoa -o/d/Programs/AutoIt/UDF/opencv-udf-test/autoit-opencv-com && \
 7z x /d/Programs/AutoIt/UDF/opencv-udf-test/autoit-opencv-com.zip -aoa -o/d/Programs/AutoIt/UDF/opencv-udf-test 'autoit-addon\*' 'samples\*' && \
-node scripts/test.js /d/Programs/AutoIt/UDF/opencv-udf-test
+node scripts/test.js --bash /d/Programs/AutoIt/UDF/opencv-udf-test > $(for ifile in autoit-*-com/build_x64/bin; do echo $ifile/test_all.sh; done) && \
+./autoit-*-com/build_x64/bin/test_all.sh
 
 
 # ================================

@@ -10,43 +10,6 @@
 
 #pragma comment(lib, "gdiplus.lib")
 
-const bool is_variant_assignable_from_string(std::string& out_val, VARIANT const* const& in_val, bool is_optional) {
-	if (PARAMETER_MISSING(in_val)) {
-		return is_optional;
-	}
-
-	if (V_VT(in_val) == VT_BSTR) {
-		return true;
-	}
-
-	cv::Mat out_mat;
-	auto hr = autoit_to(in_val, out_mat);
-	if (SUCCEEDED(hr)) {
-		return out_mat.depth() == CV_8U && out_mat.channels() == 1 && (out_mat.rows == 1 || out_mat.cols == 1);
-	}
-
-	return false;
-}
-
-const HRESULT autoit_variant_to_string(VARIANT const* const& in_val, std::string& out_val) {
-	if (PARAMETER_MISSING(in_val)) {
-		return S_OK;
-	}
-
-	if (V_VT(in_val) == VT_BSTR) {
-		return autoit_to(V_BSTR(in_val), out_val);
-	}
-
-	cv::Mat out_mat;
-	auto hr = autoit_to(in_val, out_mat);
-	if (SUCCEEDED(hr) && out_mat.depth() == CV_8U && out_mat.channels() == 1 && (out_mat.rows == 1 || out_mat.cols == 1)) {
-		out_val.assign(reinterpret_cast<char*>(out_mat.ptr()), out_mat.total());
-		return S_OK;
-	}
-
-	return E_INVALIDARG;
-}
-
 const HRESULT autoit_from(cv::MatExpr& in_val, ICv_Mat_Object**& out_val) {
 	return autoit_from(cv::Mat(in_val), out_val);
 }

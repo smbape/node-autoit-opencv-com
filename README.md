@@ -10,7 +10,6 @@ In fact, the dll being a [Component Object Model (COM)](https://docs.microsoft.c
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [Prerequisites](#prerequisites)
 - [Usage](#usage)
   - [AutoIt](#autoit)
@@ -299,8 +298,7 @@ Look at `samples\tutorial_code\Histograms_Matching\calcHist_Demo.au3` for an exa
 
 #### Prerequisite
 
-  - Install [CMAKE >= 3.19](https://cmake.org/download/)
-  - Install [visual studio >= 10](https://visualstudio.microsoft.com/vs/community/)
+  - Install [Visual Studio 2022 >= 17.7.2 with .NET Desktop and C++ Desktop](https://visualstudio.microsoft.com/fr/downloads/)
 
 #### Building
 
@@ -482,8 +480,7 @@ $_ = $cv.extended[1]
 
 ### Prerequisites
 
-  - Install [CMAKE >= 3.19](https://cmake.org/download/)
-  - Install [visual studio >= 2017](https://visualstudio.microsoft.com/vs/community/)
+  - Install [Visual Studio 2022 >= 17.7.2 with .NET Desktop and C++ Desktop](https://visualstudio.microsoft.com/fr/downloads/)
   - Install [Git for Windows](https://gitforwindows.org/)
   - Install [nodejs](https://nodejs.org/en/download/)
   - Install [Python >= 3.8](https://www.python.org/downloads/)

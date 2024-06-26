@@ -1,4 +1,4 @@
-const {makeExpansion, useNamespaces, removeNamespaces} = require("./alias");
+const {makeExpansion, useNamespaces} = require("./alias");
 const { PTR } = require("./constants");
 
 Object.assign(exports, {
@@ -194,7 +194,7 @@ Object.assign(exports, {
                 let is_by_ref = false;
 
                 if (modifiers.includes("/W") || modifiers.includes("/RW") || rname) {
-                    const shared_ptr = removeNamespaces(options.shared_ptr, options);
+                    const {shared_ptr} = options;
                     const is_ptr = type.endsWith("*");
                     const is_shared_ptr = cpptype.startsWith(`${ shared_ptr }<`);
                     const is_map = cpptype.startsWith("std::map<");

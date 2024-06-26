@@ -3,12 +3,6 @@
 #include "autoit_bridge_common.h"
 #include "autoit_bridge_generated.h"
 
-extern const bool is_variant_assignable_from_string(std::string& out_val, VARIANT const* const& in_val, bool is_optional);
-#define IS_VARIANT_ASSIGNABLE_FROM_STRING is_variant_assignable_from_string
-
-extern const HRESULT autoit_variant_to_string(VARIANT const* const& in_val, std::string& out_val);
-#define AUTOIT_VARIANT_TO_STRING autoit_variant_to_string
-
 class IVariantArray {
 public:
 	virtual cv::_InputArray* createInputArray() = 0;
