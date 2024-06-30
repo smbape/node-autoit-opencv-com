@@ -289,8 +289,6 @@ waterfall([
 
             ${ hdr_parser
                 .slice(hdr_parser_start, hdr_parser_end)
-                .replace(`${ " ".repeat(20) }if self.wrap_mode:`, `${ " ".repeat(20) }if False:`)
-                .replace(/\("std::", ""\), \("cv::", ""\)/g, Array.from(options.namespaces).map(namespace => `("${ namespace }::", "")`).join(", "))
                 .split("\n")
                 .join(`\n${ " ".repeat(12) }`) }
 
