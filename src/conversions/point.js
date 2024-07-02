@@ -129,11 +129,18 @@ module.exports = (header = [], impl = [], options = {}) => {
                 }
 
                 if (FAILED(hr)) {
+                    AUTOIT_ERROR("Failed to get value a index " << i);
                     VariantClear(&value);
                     break;
                 }
 
-                AUTOIT_ASSERT_THROW(SUCCEEDED(vArray.SetAt(i, value)), "Failed to set value a index " << i);
+                hr = vArray.SetAt(i, value);
+                if (FAILED(hr)) {
+                    AUTOIT_ERROR("Failed to set value a index " << i);
+                    VariantClear(&value);
+                    break;
+                }
+
                 VariantClear(&value);
             }
 

@@ -640,37 +640,6 @@ class DeclProcessor {
         return value;
     }
 
-    as_stl_enum(coclass, iterator, options) {
-        const {fqn} = coclass;
-        const cotype = coclass.getClassName();
-
-        coclass.stl_enum = true;
-
-        coclass.dispimpl = `
-            ATL::IAutoItCollectionEnumOnSTLImpl<
-                I${ cotype },
-                ${ fqn },
-                ATL::CComEnumOnSTL<
-                    IEnumVARIANT,
-                    &IID_IEnumVARIANT,
-                    VARIANT,
-                    ::autoit::GenericCopy<${ iterator }>,
-                    ${ fqn }
-                >,
-                AutoItObject<${ fqn }>
-            >
-            `.trim().replace(/^ {12}/mg, "");
-
-        coclass.addMethod([`${ fqn }.get__NewEnum`, "IUnknown*", [
-            "/attr=propget",
-            "/attr=restricted",
-            "/id=DISPID_NEWENUM",
-            "/idlname=_NewEnum",
-            "=get__NewEnum",
-            "/IDL"
-        ], [], "", ""], options);
-    }
-
     setReturn(returns, idltype, argname) {
         if (returns.length === 0) {
             returns.push(idltype, argname);

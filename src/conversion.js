@@ -46,7 +46,12 @@ const _dynamicCast = (processor, coclass, const_cast, options) => {
         ${ [...children].map((child, index) => {
             return `case ${ index + 1 }: {
                 auto derived = dynamic_cast<${ const_cast }C${ child.getClassName() }*>(in_val);
-                AUTOIT_ASSERT_THROW(derived, "object cannot be cast to a ${ child.fqn }");
+
+                if (!derived) {
+                    AUTOIT_ERROR("object cannot be cast to a ${ child.fqn }");
+                    break;
+                }
+
                 return *derived->__self;
             }`.replace(/^ {4}/mg, "");
         }).join(`\n${ " ".repeat(8) }`) }
