@@ -4,7 +4,7 @@
 namespace fs = std::filesystem;
 
 namespace {
-	template <typename char_type>
+	template<typename char_type>
 	inline bool null_or_empty(const char_type* s) {
 		return s == nullptr || *s == 0;
 	}

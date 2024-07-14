@@ -67,7 +67,7 @@ Object.assign(exports, {
 
             const outlist = [];
 
-            if (return_value_type !== "" && return_value_type !== "void") {
+            if (return_value_type !== "" && processor.getReturnCppType(return_value_type, coclass, options) !== "void") {
                 outlist.push("retval");
             } else if (is_constructor) {
                 outlist.push("self");
@@ -541,7 +541,7 @@ Object.assign(exports, {
                 autoit_description += `\n    $o${ coclass.name }( ${ argstr } ) -> ${ outstr }`;
             }
 
-            let cppsignature = `${ processor.getCppType(return_value_type, coclass, options) } ${ fqn }::${ fname }`;
+            let cppsignature = `${ processor.getReturnCppType(return_value_type, coclass, options) } ${ fqn }::${ fname }`;
 
             if (is_static) {
                 cppsignature = `static ${ cppsignature }`;
@@ -697,7 +697,11 @@ Object.assign(exports, {
             if (has_override) {
                 body.push(`${ is_static ? "" : "if (__self->get() != NULL) " }{`);
             } else if (!is_static) {
-                body.push(`${ indent }${ is_entry_test ? "// " : "" }${ options.assert }(__self->get() != NULL);`);
+                body.push(`
+                    if (__self->get() == NULL) {
+                        return E_INVALIDARG;
+                    }
+                `.replace(/^ {20}/mg, "").trim().split("\n").map(line => `${ is_entry_test ? "// " : "" }${ line }`).join("\n"));
             }
 
             body.push(...declarations);
@@ -918,9 +922,13 @@ Object.assign(exports, {
                 }
 
                 const autoit_from = `autoit_from(${ processor.castFromEnumIfNeeded(return_value_type, "$1", coclass, options) }, $2)`;
+                const idltype = processor.getIDLType(return_value_type, coclass, options);
+
+                if (idltype === "void" && retval.length === 0) {
+                    body.push(`${ cindent }VARIANT* _retval = nullptr;`);
+                }
 
                 if (is_external) {
-                    const idltype = processor.getIDLType(return_value_type, coclass, options);
                     const cpptype = processor.getCppType(return_value_type, coclass, options);
                     const byref = !PTR.has(cpptype) && (idltype === "VARIANT" || idltype[0] === "I");
 
@@ -931,7 +939,7 @@ Object.assign(exports, {
                                 return hr;
                             }
                             hr = ${ makeExpansion(autoit_from, "tmp", "_retval").split("\n").join(`\n${ " ".repeat(28) }`) };
-                        } catch( ${ exception }& e ) {
+                        } catch ( ${ exception }& e ) {
                             fprintf(stderr, "%s: in %s, file %s, line %d\\n", e.what(), AutoIt_Func, __FILE__, __LINE__); fflush(stdout); fflush(stderr);
                             hr = E_FAIL;
                         }
@@ -940,7 +948,7 @@ Object.assign(exports, {
                     body.push(cindent + `
                         try {
                             hr = ${ makeExpansion(autoit_from, callee.trim(), "_retval").split("\n").join(`\n${ " ".repeat(28) }`) };
-                        } catch( ${ exception }& e ) {
+                        } catch ( ${ exception }& e ) {
                             fprintf(stderr, "%s: in %s, file %s, line %d\\n", e.what(), AutoIt_Func, __FILE__, __LINE__); fflush(stdout); fflush(stderr);
                             hr = E_FAIL;
                         }
@@ -950,7 +958,7 @@ Object.assign(exports, {
                 body.push(cindent + `
                     try {
                         ${ callee.trim().split("\n").join(`\n${ " ".repeat(24) }`) };
-                    } catch( ${ exception }& e ) {
+                    } catch ( ${ exception }& e ) {
                         fprintf(stderr, "%s: in %s, file %s, line %d\\n", e.what(), AutoIt_Func, __FILE__, __LINE__); fflush(stdout); fflush(stderr);
                         hr = E_FAIL;
                     }
@@ -963,7 +971,7 @@ Object.assign(exports, {
                 }
             `.replace(/^ {16}/mg, "").trim().split("\n").join(`\n${ cindent }`));
 
-            if (return_value_type !== "void") {
+            if (processor.getIDLType(return_value_type, coclass, options) !== "void") {
                 const idltype = is_constructor ? coclass.idl : processor.getIDLType(return_value_type, coclass, options);
                 processor.setReturn(returns, idltype, "_retval");
                 retval.unshift([returns[0], "_retval", returns[0], false]);

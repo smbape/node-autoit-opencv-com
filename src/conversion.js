@@ -205,7 +205,7 @@ Object.assign(exports, {
             return;
         }
 
-        const {shared_ptr} = options;
+        const {shared_ptr, make_shared} = options;
         const dynamicCast = options.dynamicCast || _dynamicCast;
         const dynamicPointerCast = options.dynamicPointerCast || _dynamicPointerCast;
 
@@ -404,11 +404,10 @@ Object.assign(exports, {
             }
 
             const HRESULT autoit_from(const ${ shared_ptr }<${ coclass.fqn }>& in_val, I${ cotype }**& out_val) {
-                HRESULT hr = CoCreateInstance(CLSID_${ cotype }, NULL, CLSCTX_INPROC_SERVER, IID_I${ cotype }, reinterpret_cast<void**>(out_val));
+                HRESULT hr = *out_val != nullptr ? S_OK : CoCreateInstance(CLSID_${ cotype }, NULL, CLSCTX_INPROC_SERVER, IID_I${ cotype }, reinterpret_cast<void**>(out_val));
                 if (SUCCEEDED(hr)) {
                     auto obj = static_cast<C${ cotype }*>(*out_val);
-                    delete obj->__self;
-                    obj->__self = new ${ shared_ptr }<${ coclass.fqn }>(in_val);
+                    *obj->__self = in_val;
                 }
                 return hr;
             }
@@ -424,14 +423,21 @@ Object.assign(exports, {
                 }
 
                 ${ dynamicPointerCast(processor, coclass, options).split("\n").join(`\n${ " ".repeat(16) }`) }
-                I${ cotype }* pdispVal = nullptr;
+                I${ cotype }* pdispVal = V_VT(out_val) != VT_${ wtype } ? nullptr : dynamic_cast<I${ cotype }*>(V_${ wtype }(out_val));
                 I${ cotype }** ppdispVal = &pdispVal;
-                HRESULT hr = autoit_from(in_val, ppdispVal);
-                if (SUCCEEDED(hr)) {
-                    VariantClear(out_val);
-                    V_VT(out_val) = VT_${ wtype };
-                    V_${ wtype }(out_val) = static_cast<${ iface }*>(*ppdispVal);
+
+                HRESULT hr;
+                if (pdispVal) {
+                    hr = autoit_from(in_val, ppdispVal);
+                } else {
+                    hr = autoit_from(in_val, ppdispVal);
+                    if (SUCCEEDED(hr)) {
+                        VariantClear(out_val);
+                        V_VT(out_val) = VT_${ wtype };
+                        V_${ wtype }(out_val) = static_cast<${ iface }*>(*ppdispVal);
+                    }
                 }
+
                 return hr;
             }
 
@@ -550,10 +556,10 @@ Object.assign(exports, {
                 }
 
                 const HRESULT autoit_from(const ${ coclass.fqn }& in_val, I${ cotype }**& out_val) {
-                    HRESULT hr = CoCreateInstance(CLSID_${ cotype }, NULL, CLSCTX_INPROC_SERVER, IID_I${ cotype }, reinterpret_cast<void**>(out_val));
+                    HRESULT hr = *out_val != nullptr ? S_OK : CoCreateInstance(CLSID_${ cotype }, NULL, CLSCTX_INPROC_SERVER, IID_I${ cotype }, reinterpret_cast<void**>(out_val));
                     if (SUCCEEDED(hr)) {
                         auto obj = static_cast<C${ cotype }*>(*out_val);
-                        obj->__self->reset(new ${ coclass.fqn }(in_val));
+                        *obj->__self = ${ make_shared }<${ coclass.fqn }>(in_val);
                     }
                     return hr;
                 }
@@ -570,14 +576,21 @@ Object.assign(exports, {
                 `.replace(/^ {20}/mg, ""));
                 impl.push(`
                     const HRESULT autoit_from(const ${ coclass.fqn }& in_val, VARIANT*& out_val) {
-                        I${ cotype }* pdispVal = nullptr;
+                        I${ cotype }* pdispVal = V_VT(out_val) != VT_${ wtype } ? nullptr : dynamic_cast<I${ cotype }*>(V_${ wtype }(out_val));
                         I${ cotype }** ppdispVal = &pdispVal;
-                        HRESULT hr = autoit_from(in_val, ppdispVal);
-                        if (SUCCEEDED(hr)) {
-                            VariantClear(out_val);
-                            V_VT(out_val) = VT_${ wtype };
-                            V_${ wtype }(out_val) = static_cast<${ iface }*>(*ppdispVal);
+
+                        HRESULT hr;
+                        if (pdispVal) {
+                            hr = autoit_from(in_val, ppdispVal);
+                        } else {
+                            hr = autoit_from(in_val, ppdispVal);
+                            if (SUCCEEDED(hr)) {
+                                VariantClear(out_val);
+                                V_VT(out_val) = VT_${ wtype };
+                                V_${ wtype }(out_val) = static_cast<${ iface }*>(*ppdispVal);
+                            }
                         }
+
                         return hr;
                     }
                 `.replace(/^ {20}/mg, ""));

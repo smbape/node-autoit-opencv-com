@@ -30,7 +30,7 @@ inline auto CreateDirect3DSurface(IDXGISurface* dxgi_surface)
     return d3d_surface.as<winrt::Windows::Graphics::DirectX::Direct3D11::IDirect3DSurface>();
 }
 
-template <typename T>
+template<typename T>
 auto GetDXGIInterfaceFromObject(winrt::Windows::Foundation::IInspectable const& object)
 {
     auto access = object.as<IDirect3DDxgiInterfaceAccess>();

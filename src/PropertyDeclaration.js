@@ -217,20 +217,21 @@ Object.assign(exports, {
 
                 const cvt = this.convertToIdl(processor, coclass, type, rname, idltype, "pVal", modifiers, is_by_ref, options).split("\n");
 
+                cvt.unshift("HRESULT hr = S_OK;");
                 useNamespaces(cvt, "unshift", processor, coclass);
+                cvt.push("return hr;");
 
-                const hr = is_static ? "" : `
-                    if (__self->get() == NULL) {
-                        return E_INVALIDARG;
-                    }
-                `.replace(/^ {20}/mg, "");
+                if (!is_static) {
+                    cvt.unshift( `
+                        if (__self->get() == NULL) {
+                            return E_INVALIDARG;
+                        }
+                    `.replace(/^ {24}/mg, "").trim(), "");
+                }
 
                 impl.push(`
                     STDMETHODIMP C${ cotype }::get_${ idlname }(${ idltype }* pVal) {
-                        HRESULT hr = S_OK;
-                        ${ is_prop_test ? "/* " : "" }${ hr.split("\n").join(`\n${ " ".repeat(24) }`) }${ is_prop_test ? " */" : "" }
-                        ${ is_prop_test ? "/* " : "" }${ cvt.join(`\n${ " ".repeat(24) }`) }${ is_prop_test ? " */" : "" }
-                        return hr;
+                        ${ cvt.join("\n").split("\n").map(line => `${ is_prop_test ? "// " : "" }${ line }`).join(`\n${ " ".repeat(24) }`) }
                     }`.replace(/^ {20}/mg, "")
                 );
             }
@@ -295,10 +296,17 @@ Object.assign(exports, {
 
             useNamespaces(cvt, "unshift", processor, coclass);
 
+            if (!is_static) {
+                cvt.unshift( `
+                    if (__self->get() == NULL) {
+                        return E_INVALIDARG;
+                    }
+                `.replace(/^ {20}/mg, "").trim(), "");
+            }
+
             impl.push(`
                 STDMETHODIMP C${ cotype }::put_${ idlname }(${ idltype } newVal) {
-                    ${ is_prop_test ? "// " : "" }${ is_static ? "" : `${ options.assert }(__self->get() != NULL)` };
-                    ${ is_prop_test ? "return S_OK; /* " : "" }${ cvt.join(`\n${ " ".repeat(20) }`) }${ is_prop_test ? " */" : "" }
+                    ${ cvt.join("\n").split("\n").map(line => `${ is_prop_test ? "// " : "" }${ line }`).join(`\n${ " ".repeat(20) }`) }
                 }`.replace(/^ {16}/mg, "")
             );
 

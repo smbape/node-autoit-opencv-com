@@ -72,7 +72,7 @@
 #define AUTOIT_INFO( _message ) do { \
 	std::ostringstream _out; _out << _message;	\
 	fflush(stdout); fflush(stderr);         \
-	fprintf(stderr, AUTOIT_QUOTE_STRING(AUTOIT_LIB_NAME) "(%s) Info: %s (%s) in %s, file %s, line %d\n", AUTOIT_QUOTE_STRING(AUTOIT_LIB_VERSION), _out.str().c_str(), "", AutoIt_Func, __FILE__, __LINE__); \
+	fprintf(stderr, AUTOIT_QUOTE_STRING(AUTOIT_LIB_NAME) "(%s) Info: %s in %s, file %s, line %d\n", AUTOIT_QUOTE_STRING(AUTOIT_LIB_VERSION), _out.str().c_str(), AutoIt_Func, __FILE__, __LINE__); \
 	fflush(stdout); fflush(stderr);         \
 } while(0)
 #endif
@@ -81,7 +81,7 @@
 #define AUTOIT_WARN( _message ) do { \
 	std::ostringstream _out; _out << _message;	\
 	fflush(stdout); fflush(stderr);         \
-	fprintf(stderr, AUTOIT_QUOTE_STRING(AUTOIT_LIB_NAME) "(%s) Warning: %s (%s) in %s, file %s, line %d\n", AUTOIT_QUOTE_STRING(AUTOIT_LIB_VERSION), _out.str().c_str(), "", AutoIt_Func, __FILE__, __LINE__); \
+	fprintf(stderr, AUTOIT_QUOTE_STRING(AUTOIT_LIB_NAME) "(%s) Warning: %s in %s, file %s, line %d\n", AUTOIT_QUOTE_STRING(AUTOIT_LIB_VERSION), _out.str().c_str(), AutoIt_Func, __FILE__, __LINE__); \
 	fflush(stdout); fflush(stderr);         \
 } while(0)
 #endif
@@ -90,7 +90,7 @@
 #define AUTOIT_ERROR( _message ) do { \
 	std::ostringstream _out; _out << _message;	\
 	fflush(stdout); fflush(stderr);         \
-	fprintf(stderr, AUTOIT_QUOTE_STRING(AUTOIT_LIB_NAME) "(%s) Error: %s (%s) in %s, file %s, line %d\n", AUTOIT_QUOTE_STRING(AUTOIT_LIB_VERSION), _out.str().c_str(), "", AutoIt_Func, __FILE__, __LINE__); \
+	fprintf(stderr, AUTOIT_QUOTE_STRING(AUTOIT_LIB_NAME) "(%s) Error: %s in %s, file %s, line %d\n", AUTOIT_QUOTE_STRING(AUTOIT_LIB_VERSION), _out.str().c_str(), AutoIt_Func, __FILE__, __LINE__); \
 	fflush(stdout); fflush(stderr);         \
 } while(0)
 #endif
@@ -99,7 +99,7 @@
 #define AUTOIT_THROW( _message ) do { \
 	std::ostringstream _out; _out << _message;	\
 	fflush(stdout); fflush(stderr);         \
-	fprintf(stderr, AUTOIT_QUOTE_STRING(AUTOIT_LIB_NAME) "(%s) Error: %s (%s) in %s, file %s, line %d\n", AUTOIT_QUOTE_STRING(AUTOIT_LIB_VERSION), _out.str().c_str(), "", AutoIt_Func, __FILE__, __LINE__); \
+	fprintf(stderr, AUTOIT_QUOTE_STRING(AUTOIT_LIB_NAME) "(%s) Error: %s in %s, file %s, line %d\n", AUTOIT_QUOTE_STRING(AUTOIT_LIB_VERSION), _out.str().c_str(), AutoIt_Func, __FILE__, __LINE__); \
 	fflush(stdout); fflush(stderr);           \
 	throw std::exception(_out.str().c_str()); \
 } while(0)
@@ -117,7 +117,9 @@
 
 #ifndef AUTOIT_ASSERT_SET_HR
 #define AUTOIT_ASSERT_SET_HR( expr ) do { if(!!(expr)) { hr = S_OK; } else { \
+fflush(stdout); fflush(stderr); \
 fprintf(stderr, AUTOIT_QUOTE_STRING(AUTOIT_LIB_NAME) "(%s) Error: (%s) in %s, file %s, line %d\n", AUTOIT_QUOTE_STRING(AUTOIT_LIB_VERSION), #expr, AutoIt_Func, __FILE__, __LINE__); \
+fflush(stdout); fflush(stderr); \
 hr = E_FAIL; } \
 } while(0)
 #endif
@@ -808,8 +810,8 @@ namespace autoit {
 	/**
 	 * https://github.com/ThePhD/sol2/blob/v3.3.0/include/sol/stack_core.hpp#L1352
 	 */
-	template <typename T>
-	std::string adl_default_to_string(const T& obj) {
+	template<typename T>
+	inline std::string adl_default_to_string(const T& obj) {
 		return std::to_string(obj);
 	}
 
@@ -878,7 +880,7 @@ namespace autoit {
 	bool __eq__(const std::vector<T>& v1, const std::vector<T>& v2);
 
 	template<typename T>
-	bool __eq__(const T& o1, const T& o2) {
+	inline bool __eq__(const T& o1, const T& o2) {
 		if constexpr (requires(const T & a, const T & b) { static_cast<bool>(a == b); }) {
 			return static_cast<bool>(o1 == o2);
 		}
@@ -888,7 +890,7 @@ namespace autoit {
 	}
 
 	template<typename T>
-	bool __eq__(const std::shared_ptr<T>& p1, const std::shared_ptr<T>& p2) {
+	inline bool __eq__(const std::shared_ptr<T>& p1, const std::shared_ptr<T>& p2) {
 		if (static_cast<bool>(p1) && static_cast<bool>(p2)) {
 			return __eq__(*p1, *p2);
 		}
@@ -896,7 +898,7 @@ namespace autoit {
 	}
 
 	template<typename K, typename V>
-	bool __eq__(const std::map<K, V>& m1, const std::map<K, V>& m2) {
+	inline bool __eq__(const std::map<K, V>& m1, const std::map<K, V>& m2) {
 		if (m1.size() != m2.size()) {
 			return false;
 		}
@@ -911,12 +913,12 @@ namespace autoit {
 	}
 
 	template<typename T1, typename T2>
-	bool __eq__(const std::pair<T1, T2>& p1, const std::pair<T1, T2>& p2) {
+	inline bool __eq__(const std::pair<T1, T2>& p1, const std::pair<T1, T2>& p2) {
 		return __eq__(p1.first, p2.first) && __eq__(p1.second, p2.second);
 	}
 
 	template<typename T>
-	bool __eq__(const std::vector<T>& v1, const std::vector<T>& v2) {
+	inline bool __eq__(const std::vector<T>& v1, const std::vector<T>& v2) {
 		if (v1.size() != v2.size()) {
 			return false;
 		}
@@ -924,35 +926,35 @@ namespace autoit {
 		return mismatched.first == v1.end();
 	}
 
-	template <typename _Tp>
+	template<typename _Tp>
 	AUTOIT_PTR<typename _Tp> cast(IDispatch* element);
 
-	template <typename _Tp>
+	template<typename _Tp>
 	const AUTOIT_PTR<typename _Tp> cast(const IDispatch* element);
 
 	template<typename _Tp>
-	_Tp cast(VARIANT const* const& in_val) {
+	inline _Tp cast(VARIANT const* const& in_val) {
 		_Tp value;
 		AUTOIT_ASSERT_THROW(SUCCEEDED(autoit_to(in_val, value)), "Invalid argument");
 		return value;
 	}
 
-	template <typename _Tp>
-	const AUTOIT_PTR<typename _Tp> reference_internal(_Tp* element) {
+	template<typename _Tp>
+	inline const AUTOIT_PTR<typename _Tp> reference_internal(_Tp* element) {
 		return AUTOIT_PTR<_Tp>(AUTOIT_PTR<_Tp>{}, element);
 	}
 
-	template <typename _Tp>
-	const AUTOIT_PTR<typename _Tp> reference_internal(const _Tp* element) {
+	template<typename _Tp>
+	inline const AUTOIT_PTR<typename _Tp> reference_internal(const _Tp* element) {
 		return AUTOIT_PTR<_Tp>(AUTOIT_PTR<_Tp>{}, const_cast<_Tp*>(element));
 	}
 
-	template <typename _Tp>
+	template<typename _Tp>
 	const AUTOIT_PTR<typename _Tp> reference_internal(_Tp& element) {
 		return AUTOIT_PTR<_Tp>(AUTOIT_PTR<_Tp>{}, & element);
 	}
 
-	template <typename _Tp>
+	template<typename _Tp>
 	const AUTOIT_PTR<typename _Tp> reference_internal(const _Tp& element) {
 		return AUTOIT_PTR<_Tp>(AUTOIT_PTR<_Tp>{}, const_cast<_Tp*>(&element));
 	}
@@ -979,7 +981,7 @@ namespace autoit {
 		}
 	};
 
-	template <typename destination_type, typename _Ty1, typename _Ty2>
+	template<typename destination_type, typename _Ty1, typename _Ty2>
 	struct _GenericCopy<destination_type, std::pair<_Ty1, _Ty2>> {
 		inline static HRESULT copy(destination_type* pTo, const std::pair<_Ty1, _Ty2>* pFrom) {
 			return autoit_from(*pFrom, pTo);

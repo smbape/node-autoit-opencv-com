@@ -43,10 +43,35 @@ const escapeHTML = str => {
 };
 
 const proto = {
+    setReturn(returns, idltype, argname) {
+        if (returns.length === 0) {
+            returns.push(idltype, argname);
+            return;
+        }
+
+        if (returns[0] === idltype) {
+            return;
+        }
+
+        if (returns[0][0] === "I" && idltype[0] === "I") {
+            returns[0] = "IDispatch*";
+            return;
+        }
+
+        returns[0] = "VARIANT";
+    },
+
     getIDLType(type, coclass, options = {}) {
         if (type.includes("(") || type.includes(")") || type.includes("<") && !type.endsWith(">") || countInstances(type, "<") !== countInstances(type, ">")) {
             // invalid type, most likely comming from defval
             return type;
+        }
+
+        if (options.getIDLType) {
+            const idltype = options.getIDLType(this, type, coclass, options);
+            if (idltype) {
+                return idltype;
+            }
         }
 
         type = getAlias(type);
@@ -168,6 +193,10 @@ const proto = {
             return this.getIDLType(type.slice(0, -1), coclass, options);
         }
 
+        if (type === "void") {
+            return type;
+        }
+
         return type.toUpperCase();
     },
 
@@ -246,7 +275,7 @@ const proto = {
             "=get__NewEnum",
             "/IDL"
         ], [], "", ""], options);
-    }
+    },
 };
 
 class COMGenerator {
@@ -254,7 +283,7 @@ class COMGenerator {
 
     generate(processor, configuration, options, cb) {
         const { generated_include } = configuration;
-        const { APP_NAME, LIB_UID, LIBRARY, shared_ptr } = options;
+        const { APP_NAME, LIB_UID, LIBRARY, make_shared, shared_ptr } = options;
 
         const files = new Map();
         const libs = [];
@@ -283,7 +312,7 @@ class COMGenerator {
                 constructor.push(`__self = new ${ shared_ptr }<${ coclass.fqn }>();`);
 
                 if (coclass.has_default_constructor) {
-                    constructor.push(`__self->reset(new ${ coclass.fqn }());`);
+                    constructor.push(`*__self = ${ make_shared }<${ coclass.fqn }>();`);
                 }
 
                 destructor.push("delete __self;");
@@ -393,14 +422,52 @@ class COMGenerator {
 
                     if (set_dispid_value) {
                         fname = "get_create";
+                        const {has_default_constructor} = coclass;
+                        let has_default_create = false;
+                        let maxargc = 0;
 
                         for (const decl of overrides) {
-                            const [, , func_modifiers] = decl;
+                            const [, return_value_type, func_modifiers, list_of_arguments] = decl;
+
                             for (const modifier of ["/attr=propget", "=get_create", "/idlname=create", "/id=DISPID_VALUE"]) {
                                 if (!func_modifiers.includes(modifier)) {
                                     func_modifiers.push(modifier);
                                 }
                             }
+
+                            if (!has_default_constructor) {
+                                const has_default_arguments = list_of_arguments.length === 0 || !list_of_arguments.some(([argtype, argname, defval]) => defval === "");
+                                const is_static = func_modifiers.includes("/S");
+                                maxargc = Math.max(maxargc, list_of_arguments.length);
+
+                                if (has_default_arguments && is_static && processor.getReturnCppType(return_value_type, coclass, options) === `${ shared_ptr }<${ fqn }>`) {
+                                    has_default_create = true;
+                                }
+                            }
+                        }
+
+                        if (has_default_create) {
+                            constructor.push("");
+
+                            if (maxargc !== 0) {
+                                constructor.push(`
+                                    _variant_t _vtDefault;
+                                    VariantClear(&_vtDefault);
+                                    V_VT(&_vtDefault) = VT_ERROR;
+                                    V_ERROR(&_vtDefault) = DISP_E_PARAMNOTFOUND;
+                                `.replace(/^ {36}/mg, "").trim(), "");
+                            }
+
+                            const {interface: iface} = coclass;
+                            const wtype = iface === "IDispatch" ? "DISPATCH" : "UNKNOWN";
+
+                            constructor.push(`
+                                _variant_t _retval(this);
+                                HRESULT hr = get_create(${ Array.from(new Array(maxargc).keys()).map(_ => "&_vtDefault").concat("&_retval").join(", ") });
+                                if (FAILED(hr)) {
+                                    return hr;
+                                }
+                            `.replace(/^ {32}/mg, "").trim(), "");
                         }
                     }
                 }
@@ -608,7 +675,7 @@ class COMGenerator {
                 if (!coclass.is_cexternal) {
                     impl.unshift(`
                         HRESULT C${ cotype }::FinalConstruct() {
-                            ${ constructor.join(`\n${ " ".repeat(28) }`) }
+                            ${ constructor.join("\n").split("\n").join(`\n${ " ".repeat(28) }`) }
                         }
                     `.replace(/^ {24}/mg, ""));
                 }

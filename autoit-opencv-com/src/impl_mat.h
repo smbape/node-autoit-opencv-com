@@ -152,7 +152,7 @@ namespace autoit
 }
 
 template<typename _Tp>
-const bool is_assignable_from(cv::Point3_<_Tp>& out_val, VARIANT const* const& in_val, bool is_optional) {
+inline const bool is_assignable_from(cv::Point3_<_Tp>& out_val, VARIANT const* const& in_val, bool is_optional) {
 	static cv::Vec<_Tp, 3> tmp;
 	return is_assignable_from(tmp, in_val, is_optional);
 }
@@ -164,7 +164,7 @@ const bool is_assignable_from(AUTOIT_PTR<cv::Point3_<_Tp>>& out_val, VARIANT con
 }
 
 template<typename _Tp>
-const HRESULT autoit_to(VARIANT const* const& in_val, cv::Point3_<_Tp>& out_val) {
+inline const HRESULT autoit_to(VARIANT const* const& in_val, cv::Point3_<_Tp>& out_val) {
 	cv::Vec<_Tp, 3> tmp;
 	HRESULT hr = autoit_to(in_val, tmp);
 	if (SUCCEEDED(hr)) {
@@ -174,12 +174,12 @@ const HRESULT autoit_to(VARIANT const* const& in_val, cv::Point3_<_Tp>& out_val)
 }
 
 template<typename _Tp>
-const HRESULT autoit_to(VARIANT const* const& in_val, AUTOIT_PTR<cv::Point3_<_Tp>>& out_val) {
+inline const HRESULT autoit_to(VARIANT const* const& in_val, AUTOIT_PTR<cv::Point3_<_Tp>>& out_val) {
 	out_val = std::make_shared<cv::Point3_<_Tp>>();
 	return autoit_to(in_val, *out_val.get());
 }
 
 template<typename _Tp>
-const HRESULT autoit_from(const cv::Point3_<_Tp>& in_val, VARIANT*& out_val) {
+inline const HRESULT autoit_from(const cv::Point3_<_Tp>& in_val, VARIANT*& out_val) {
 	return autoit_from(cv::Vec<_Tp, 3>(in_val), out_val);
 }

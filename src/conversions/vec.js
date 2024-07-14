@@ -55,7 +55,7 @@ module.exports = (header = [], impl = [], options = {}) => {
         }
 
         template<typename _Tp, int cn>
-        const bool is_assignable_from(AUTOIT_PTR<cv::Vec<_Tp, cn>>& out_val, VARIANT const* const& in_val, bool is_optional) {
+        inline const bool is_assignable_from(AUTOIT_PTR<cv::Vec<_Tp, cn>>& out_val, VARIANT const* const& in_val, bool is_optional) {
             static cv::Vec<_Tp, cn> tmp;
             return is_assignable_from(tmp, in_val, is_optional);
         }
@@ -125,7 +125,7 @@ module.exports = (header = [], impl = [], options = {}) => {
         }
 
         template<typename _Tp, int cn>
-        const HRESULT autoit_to(VARIANT const* const& in_val, AUTOIT_PTR<cv::Vec<_Tp, cn>>& out_val) {
+        inline const HRESULT autoit_to(VARIANT const* const& in_val, AUTOIT_PTR<cv::Vec<_Tp, cn>>& out_val) {
             out_val = ${ options.make_shared }<cv::Vec<_Tp, cn>>();
             return autoit_to(in_val, *out_val.get());
         }

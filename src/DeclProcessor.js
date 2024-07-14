@@ -512,6 +512,13 @@ class DeclProcessor {
         return type_;
     }
 
+    getReturnCppType(type, coclass, options = {}) {
+        if (typeof options.getReturnCppType === "function") {
+            return options.getReturnCppType(this, type, coclass, options);
+        }
+        return this.getCppType(type, coclass, options);
+    }
+
     getNonAmbiguousType(cpptype) {
         return !cpptype.startsWith("::") && this.classes.has(cpptype) ? `::${ cpptype }` : cpptype;
     }
@@ -638,24 +645,6 @@ class DeclProcessor {
         }
 
         return value;
-    }
-
-    setReturn(returns, idltype, argname) {
-        if (returns.length === 0) {
-            returns.push(idltype, argname);
-            return;
-        }
-
-        if (returns[0] === idltype) {
-            return;
-        }
-
-        if (returns[0][0] === "I" && idltype[0] === "I") {
-            returns[0] = "IDispatch*";
-            return;
-        }
-
-        returns[0] = "VARIANT";
     }
 
     addDependency(dependent, dependency) {
