@@ -10,7 +10,7 @@
 
 #pragma comment(lib, "gdiplus.lib")
 
-const HRESULT autoit_from(cv::MatExpr& in_val, ICv_Mat_Object**& out_val) {
+const HRESULT autoit_from(cv::MatExpr const& in_val, ICv_Mat_Object**& out_val) {
 	return autoit_from(cv::Mat(in_val), out_val);
 }
 
@@ -283,7 +283,7 @@ namespace {
 	 * @param channels     [description]
 	 * @param srcDepth     [description]
 	 * @param dst          [description]
-	 * @see https://github.com/emgucv/emgucv/blob/4.6.0/Emgu.CV.Platform/Emgu.CV.Bitmap/BitmapExtension.cs#L87
+	 * @see https://github.com/emgucv/emgucv/blob/4.6.0/Emgu.CV.Platform/Emgu.CV.Bitmap/BitmapExtension.cs#L87-L204
 	 */
 	void RawDataToBitmap(cv::Mat& image, int dstColorType, int channels, int srcDepth, Gdiplus::CvBitmap& dst) {
 		using namespace Gdiplus;
@@ -387,14 +387,10 @@ namespace {
  * @param image [description]
  * @param dst   [description]
  * @param toRGB [description]
- * @see https://github.com/opencv/opencv/blob/4.7.0/modules/highgui/src/precomp.hpp#L152
+ * @see https://github.com/opencv/opencv/blob/4.11.0/modules/highgui/src/precomp.hpp#L154-L179
  */
 void autoit::cvextra::convertToShow(cv::InputArray image, cv::Mat& dst, bool toRGB) {
 	cv::Mat src = image.getMat();
-
-	double scale = 1.0, shift = 0.0;
-	double minVal = 0, maxVal = 0;
-	cv::Point minLoc, maxLoc;
 
 	const int src_depth = src.depth();
 	CV_Assert(src_depth != CV_16F && src_depth != CV_32S);
@@ -415,7 +411,13 @@ void autoit::cvextra::convertToShow(cv::InputArray image, cv::Mat& dst, bool toR
 		cv::convertScaleAbs(src, tmp, 1 / 255.);
 		break;
 	case CV_32F:
-	case CV_64F:
+	case CV_64F: {
+		// https://github.com/emgucv/emgucv/blob/4.10.0/Emgu.CV.Bitmap/BitmapExtension.cs#L185-L196
+
+		double scale = 1.0, shift = 0.0;
+		double minVal = 0, maxVal = 0;
+		cv::Point minLoc, maxLoc;
+
 		if (src.channels() == 1) {
 			cv::minMaxLoc(src, &minVal, &maxVal, &minLoc, &maxLoc);
 		}
@@ -429,6 +431,7 @@ void autoit::cvextra::convertToShow(cv::InputArray image, cv::Mat& dst, bool toR
 		src.convertTo(tmp, CV_8U, scale, shift);
 
 		break;
+	}
 	default:
 		cv::error(cv::Error::StsAssert, "Unsupported mat type", CV_Func, __FILE__, __LINE__);
 	}
@@ -441,18 +444,17 @@ void autoit::cvextra::convertToShow(cv::InputArray image, cv::Mat& dst, bool toR
  * @param image [description]
  * @param copy  use the same data when possible, otherwise, make a copy
  * @return   a pointer to a GpBitmap with Mat data copied
- * @see https://github.com/emgucv/emgucv/blob/4.6.0/Emgu.CV.Platform/Emgu.CV.Bitmap/BitmapExtension.cs#L206
+ * @see https://github.com/emgucv/emgucv/blob/4.6.0/Emgu.CV.Platform/Emgu.CV.Bitmap/BitmapExtension.cs#L215-L258
  */
 const void* autoit::cvextra::convertToBitmap(cv::InputArray image, bool copy) {
 	using namespace Gdiplus;
 	cv::Mat src = image.getMat();
 
 	if (src.dims > 3 || src.empty()) {
-		return NULL;
+		return nullptr;
 	}
 
 	auto channels = src.channels();
-	int colorType = CV_MAKETYPE(CV_8U, channels);
 
 	if (channels == 1) {
 		if ((src.cols | 3) != 0) { //handle the special case where width is not a multiple of 4
@@ -477,6 +479,7 @@ const void* autoit::cvextra::convertToBitmap(cv::InputArray image, bool copy) {
 	}
 
 	CvBitmap dst;
+	int colorType = CV_MAKETYPE(CV_8U, channels);
 	RawDataToBitmap(src, colorType, channels, src.depth(), dst);
 	return copy ? dst.CloneNativeImage() : dst.Detach();
 }

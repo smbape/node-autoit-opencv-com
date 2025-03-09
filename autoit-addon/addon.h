@@ -5,9 +5,9 @@
 #include <opencv2/features2d.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
-#include "autoitdef.h"
+#include "addondef.h"
 
-AUTOITAPI(void) calcHist_Demo_draw(
+ADDON_API(void) calcHist_Demo_draw(
 	cv::Mat& histImage,
 	int histSize,
 	int hist_w,
@@ -17,7 +17,7 @@ AUTOITAPI(void) calcHist_Demo_draw(
 	cv::Mat& r_hist
 );
 
-AUTOITAPI(void) AKAZE_match_ratio_test_filtering(
+ADDON_API(void) AKAZE_match_ratio_test_filtering(
 	std::vector<cv::KeyPoint>& matched1,
 	std::vector<cv::KeyPoint>& kpts1,
 	std::vector<cv::KeyPoint>& matched2,
@@ -26,7 +26,7 @@ AUTOITAPI(void) AKAZE_match_ratio_test_filtering(
 	const float nn_match_ratio
 );
 
-AUTOITAPI(void) AKAZE_homograpy_check(
+ADDON_API(void) AKAZE_homograpy_check(
 	cv::Mat& homography,
 	std::vector<cv::KeyPoint>& matched1,
 	std::vector<cv::KeyPoint>& inliers1,
@@ -36,7 +36,7 @@ AUTOITAPI(void) AKAZE_homograpy_check(
 	std::vector<cv::DMatch>& good_matches
 );
 
-AUTOITAPI(void) yolo_postprocess(
+ADDON_API(void) yolo_postprocess(
 	const int spatial_width,
 	const int spatial_height,
 	const size_t num_classes,
@@ -51,7 +51,7 @@ AUTOITAPI(void) yolo_postprocess(
 	std::vector<cv::Rect2d>& bboxes
 );
 
-AUTOITAPI(void) object_detection_postprocess(
+ADDON_API(void) object_detection_postprocess(
 	const cv::dnn::Net& net,
 	const int inpWidth,
 	const int inpHeight,
@@ -64,5 +64,3 @@ AUTOITAPI(void) object_detection_postprocess(
 	std::vector<float>& confidences,
 	std::vector<cv::Rect2d>& bboxes
 );
-
-AUTOITAPI(void) DllTestUMat();

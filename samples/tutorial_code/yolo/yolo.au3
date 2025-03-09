@@ -33,7 +33,7 @@ pip install ultralytics
 yolo export model=yolov8s.pt imgsz=640 format=onnx opset=12
 #ce
 
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world4100*"), _OpenCV_FindDLL("autoit_opencv_com4100*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world4110*"), _OpenCV_FindDLL("autoit_opencv_com4110*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 

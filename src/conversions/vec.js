@@ -131,7 +131,7 @@ module.exports = (header = [], impl = [], options = {}) => {
         }
 
         template<typename _Tp, int cn>
-        const HRESULT autoit_from(const cv::Vec<_Tp, cn>& in_val, VARIANT*& out_val) {
+        const HRESULT autoit_from(cv::Vec<_Tp, cn> const& in_val, VARIANT*& out_val) {
             if (${ optional.condition("out_val") }) {
                 V_VT(out_val) = VT_ARRAY | VT_VARIANT;
                 typename ATL::template CComSafeArray<VARIANT> vArray((ULONG) cn);

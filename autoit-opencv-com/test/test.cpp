@@ -2,7 +2,7 @@
 #include <semaphore>
 
 template<typename T>
-inline auto to_variant_t(const T& in_val) {
+inline auto to_variant_t(T const& in_val) {
 	return cv::Ptr<_variant_t>(new _variant_t(in_val));
 }
 
@@ -25,7 +25,7 @@ inline auto ConvertUtf8ToWide(const std::string& str, std::wstring& wstr) {
  * @param out_val _bstr_t
  * @see https://stackoverflow.com/questions/6284524/bstr-to-stdstring-stdwstring-and-vice-versa/6284978#6284978
  */
-inline void string_to_bstr(const std::string& in_val, _bstr_t& out_val) {
+inline void string_to_bstr(std::string const& in_val, _bstr_t& out_val) {
 	std::wstring ws; ConvertUtf8ToWide(in_val, ws);
 	BSTR bstr = SysAllocStringLen(ws.data(), ws.size());
 	out_val = _bstr_t(bstr);
@@ -471,7 +471,7 @@ static void testContours(cvLib::ICv_ObjectPtr cv) {
 	assert(V_VT(&_img) == VT_DISPATCH);
 	auto img = reinterpret_cast<cvLib::ICv_Mat_Object*>(V_DISPATCH(&_img));
 
-	auto img_grey = cv->cvtColor(to_variant_t(img), to_variant_t(COLOR_BGR2GRAY), &vtDefault(), &vtDefault());
+	auto img_grey = cv->cvtColor(to_variant_t(img), to_variant_t(COLOR_BGR2GRAY), &vtDefault(), &vtDefault(), &vtDefault());
 	cv->threshold(&img_grey, to_variant_t(100), to_variant_t(255), to_variant_t(THRESH_BINARY), &vtDefault());
 
 	CComSafeArray<VARIANT> extended;
@@ -749,7 +749,7 @@ public:
 	typedef BOOL(*DllDeactivateActCtx_t)();
 
 	ActCtxInitializer() {
-		m_lib = LoadLibrary("bin\\" BUILD_TYPE "\\autoit_opencv_com4100" DEBUG_POSTFIX ".dll");
+		m_lib = LoadLibrary("bin\\" BUILD_TYPE "\\autoit_opencv_com4110" DEBUG_POSTFIX ".dll");
 		CV_Assert(m_lib != 0);
 
 		m_DllActivateManifest = (DllActivateManifest_t)GetProcAddress(m_lib, "DllActivateManifest");

@@ -68,11 +68,36 @@
 #define AUTOIT_QUOTE_STRING(x) AUTOIT_QUOTE_STRING2(x)
 #endif
 
+#ifndef AUTOIT_QUOTE_WSTRING2
+#define AUTOIT_QUOTE_WSTRING2(x) L#x
+#endif
+#ifndef AUTOIT_QUOTE_WSTRING
+#define AUTOIT_QUOTE_WSTRING(x) AUTOIT_QUOTE_WSTRING2(x)
+#endif
+
+#define AUTOIT_WIDEN2(x) L ## x
+#define AUTOIT_WIDEN(x) AUTOIT_WIDEN2(x)
+
 #ifndef AUTOIT_INFO
 #define AUTOIT_INFO( _message ) do { \
 	std::ostringstream _out; _out << _message;	\
 	fflush(stdout); fflush(stderr);         \
-	fprintf(stderr, AUTOIT_QUOTE_STRING(AUTOIT_LIB_NAME) "(%s) Info: %s in %s, file %s, line %d\n", AUTOIT_QUOTE_STRING(AUTOIT_LIB_VERSION), _out.str().c_str(), AutoIt_Func, __FILE__, __LINE__); \
+	fprintf(stderr, \
+		AUTOIT_QUOTE_STRING(AUTOIT_LIB_NAME) \
+		"(%s) Info: %s in %s, file %s, line %d\n", \
+		AUTOIT_QUOTE_STRING(AUTOIT_LIB_VERSION), _out.str().c_str(), AutoIt_Func, __FILE__, __LINE__); \
+	fflush(stdout); fflush(stderr);         \
+} while(0)
+#endif
+
+#ifndef AUTOIT_WINFO
+#define AUTOIT_WINFO( _message ) do { \
+	std::wostringstream _out; _out << _message;	\
+	fflush(stdout); fflush(stderr);         \
+	fwprintf(stderr, \
+		AUTOIT_QUOTE_WSTRING(AUTOIT_LIB_NAME) \
+		L"(%s) Info: %s in %s, file %s, line %d\n", \
+		AUTOIT_QUOTE_WSTRING(AUTOIT_LIB_VERSION), _out.str().c_str(), AUTOIT_WIDEN(AutoIt_Func), AUTOIT_WIDEN(__FILE__), __LINE__); \
 	fflush(stdout); fflush(stderr);         \
 } while(0)
 #endif
@@ -81,7 +106,22 @@
 #define AUTOIT_WARN( _message ) do { \
 	std::ostringstream _out; _out << _message;	\
 	fflush(stdout); fflush(stderr);         \
-	fprintf(stderr, AUTOIT_QUOTE_STRING(AUTOIT_LIB_NAME) "(%s) Warning: %s in %s, file %s, line %d\n", AUTOIT_QUOTE_STRING(AUTOIT_LIB_VERSION), _out.str().c_str(), AutoIt_Func, __FILE__, __LINE__); \
+	fprintf(stderr, \
+		AUTOIT_QUOTE_STRING(AUTOIT_LIB_NAME) \
+		"(%s) Warning: %s in %s, file %s, line %d\n", \
+		AUTOIT_QUOTE_STRING(AUTOIT_LIB_VERSION), _out.str().c_str(), AutoIt_Func, __FILE__, __LINE__); \
+	fflush(stdout); fflush(stderr);         \
+} while(0)
+#endif
+
+#ifndef AUTOIT_WWARN
+#define AUTOIT_WWARN( _message ) do { \
+	std::wostringstream _out; _out << _message;	\
+	fflush(stdout); fflush(stderr);         \
+	fwprintf(stderr, \
+		AUTOIT_QUOTE_WSTRING(AUTOIT_LIB_NAME) \
+		L"(%s) Warning: %s in %s, file %s, line %d\n", \
+		AUTOIT_QUOTE_WSTRING(AUTOIT_LIB_VERSION), AUTOIT_WIDEN(AutoIt_Func), AUTOIT_WIDEN(__FILE__), __LINE__); \
 	fflush(stdout); fflush(stderr);         \
 } while(0)
 #endif
@@ -90,7 +130,22 @@
 #define AUTOIT_ERROR( _message ) do { \
 	std::ostringstream _out; _out << _message;	\
 	fflush(stdout); fflush(stderr);         \
-	fprintf(stderr, AUTOIT_QUOTE_STRING(AUTOIT_LIB_NAME) "(%s) Error: %s in %s, file %s, line %d\n", AUTOIT_QUOTE_STRING(AUTOIT_LIB_VERSION), _out.str().c_str(), AutoIt_Func, __FILE__, __LINE__); \
+	fprintf(stderr, \
+		AUTOIT_QUOTE_STRING(AUTOIT_LIB_NAME) \
+		"(%s) Error: %s in %s, file %s, line %d\n", \
+		AUTOIT_QUOTE_STRING(AUTOIT_LIB_VERSION), _out.str().c_str(), AutoIt_Func, __FILE__, __LINE__); \
+	fflush(stdout); fflush(stderr);         \
+} while(0)
+#endif
+
+#ifndef AUTOIT_WERROR
+#define AUTOIT_WERROR( _message ) do { \
+	std::wostringstream _out; _out << _message;	\
+	fflush(stdout); fflush(stderr);         \
+	fwprintf(stderr, \
+		AUTOIT_QUOTE_WSTRING(AUTOIT_LIB_NAME) \
+		L"(%s) Error: %s in %s, file %s, line %d\n", \
+		AUTOIT_QUOTE_WSTRING(AUTOIT_LIB_VERSION), _out.str().c_str(), AUTOIT_WIDEN(AutoIt_Func), AUTOIT_WIDEN(__FILE__), __LINE__); \
 	fflush(stdout); fflush(stderr);         \
 } while(0)
 #endif
@@ -99,7 +154,10 @@
 #define AUTOIT_THROW( _message ) do { \
 	std::ostringstream _out; _out << _message;	\
 	fflush(stdout); fflush(stderr);         \
-	fprintf(stderr, AUTOIT_QUOTE_STRING(AUTOIT_LIB_NAME) "(%s) Error: %s in %s, file %s, line %d\n", AUTOIT_QUOTE_STRING(AUTOIT_LIB_VERSION), _out.str().c_str(), AutoIt_Func, __FILE__, __LINE__); \
+	fprintf(stderr, \
+		AUTOIT_QUOTE_STRING(AUTOIT_LIB_NAME) \
+		"(%s) Error: %s in %s, file %s, line %d\n", \
+		AUTOIT_QUOTE_STRING(AUTOIT_LIB_VERSION), _out.str().c_str(), AutoIt_Func, __FILE__, __LINE__); \
 	fflush(stdout); fflush(stderr);           \
 	throw std::exception(_out.str().c_str()); \
 } while(0)
@@ -109,7 +167,10 @@
 #define AUTOIT_ASSERT_THROW( expr, _message ) do { if(!!(expr)) ; else { \
 	std::ostringstream _out; _out << _message;	\
 	fflush(stdout); fflush(stderr);         \
-	fprintf(stderr, AUTOIT_QUOTE_STRING(AUTOIT_LIB_NAME) "(%s) Error: %s (%s) in %s, file %s, line %d\n", AUTOIT_QUOTE_STRING(AUTOIT_LIB_VERSION), _out.str().c_str(), #expr, AutoIt_Func, __FILE__, __LINE__); \
+	fprintf(stderr, \
+		AUTOIT_QUOTE_STRING(AUTOIT_LIB_NAME) \
+		"(%s) Error: %s (%s) in %s, file %s, line %d\n", \
+		AUTOIT_QUOTE_STRING(AUTOIT_LIB_VERSION), _out.str().c_str(), #expr, AutoIt_Func, __FILE__, __LINE__); \
 	fflush(stdout); fflush(stderr);         \
 	throw std::exception(_out.str().c_str());    \
 }} while(0)
@@ -118,7 +179,10 @@
 #ifndef AUTOIT_ASSERT_SET_HR
 #define AUTOIT_ASSERT_SET_HR( expr ) do { if(!!(expr)) { hr = S_OK; } else { \
 fflush(stdout); fflush(stderr); \
-fprintf(stderr, AUTOIT_QUOTE_STRING(AUTOIT_LIB_NAME) "(%s) Error: (%s) in %s, file %s, line %d\n", AUTOIT_QUOTE_STRING(AUTOIT_LIB_VERSION), #expr, AutoIt_Func, __FILE__, __LINE__); \
+fprintf(stderr, \
+	AUTOIT_QUOTE_STRING(AUTOIT_LIB_NAME) \
+	"(%s) Error: (%s) in %s, file %s, line %d\n", \
+	AUTOIT_QUOTE_STRING(AUTOIT_LIB_VERSION), #expr, AutoIt_Func, __FILE__, __LINE__); \
 fflush(stdout); fflush(stderr); \
 hr = E_FAIL; } \
 } while(0)
@@ -127,7 +191,10 @@ hr = E_FAIL; } \
 #ifndef AUTOIT_ASSERT
 #define AUTOIT_ASSERT( expr ) do { if(!!(expr)) ; else { \
 fflush(stdout); fflush(stderr); \
-fprintf(stderr, AUTOIT_QUOTE_STRING(AUTOIT_LIB_NAME) "(%s) Error: (%s) in %s, file %s, line %d\n", AUTOIT_QUOTE_STRING(AUTOIT_LIB_VERSION), #expr, AutoIt_Func, __FILE__, __LINE__); \
+fprintf(stderr, \
+	AUTOIT_QUOTE_STRING(AUTOIT_LIB_NAME) \
+	"(%s) Error: (%s) in %s, file %s, line %d\n", \
+	AUTOIT_QUOTE_STRING(AUTOIT_LIB_VERSION), #expr, AutoIt_Func, __FILE__, __LINE__); \
 fflush(stdout); fflush(stderr); \
 return E_FAIL; } \
 } while(0)
@@ -192,17 +259,17 @@ extern const variant_t get_variant_in(VARIANT const* const& in_val);
 
 extern const bool is_assignable_from(bool& out_val, VARIANT const* const& in_val, bool is_optional);
 extern const HRESULT autoit_to(VARIANT const* const& in_val, bool& out_val);
-extern const HRESULT autoit_to(VARIANT_BOOL& in_val, bool& out_val);
-extern const HRESULT autoit_from(const bool& in_val, VARIANT_BOOL*& out_val);
-extern const HRESULT autoit_from(const bool& in_val, VARIANT*& out_val);
+extern const HRESULT autoit_to(VARIANT_BOOL const& in_val, bool& out_val);
+extern const HRESULT autoit_from(bool const& in_val, VARIANT_BOOL*& out_val);
+extern const HRESULT autoit_from(bool const& in_val, VARIANT*& out_val);
 
 extern const bool is_assignable_from(std::string& out_val, BSTR const& in_val, bool is_optional);
 extern const bool is_assignable_from(std::string& out_val, VARIANT const* const& in_val, bool is_optional);
 extern const HRESULT autoit_to(BSTR const& in_val, std::string& out_val);
 extern const HRESULT autoit_to(VARIANT const* const& in_val, std::string& out_val);
-extern const HRESULT autoit_from(std::string& in_val, BSTR& out_val);
-extern const HRESULT autoit_from(const std::string& in_val, BSTR*& out_val);
-extern const HRESULT autoit_from(const std::string& in_val, VARIANT*& out_val);
+extern const HRESULT autoit_from(std::string const& in_val, BSTR& out_val);
+extern const HRESULT autoit_from(std::string const& in_val, BSTR*& out_val);
+extern const HRESULT autoit_from(std::string const& in_val, VARIANT*& out_val);
 extern const HRESULT autoit_from(BSTR const& in_val, VARIANT*& out_val);
 
 extern const bool is_assignable_from(char*& out_val, VARIANT const* const& in_val, bool is_optional);
@@ -219,10 +286,10 @@ PTR_BRIDGE_DECL(HWND)
 
 extern const HRESULT autoit_from(VARIANT const& in_val, VARIANT*& out_val);
 
-extern const HRESULT autoit_out(IDispatch*& in_val, VARIANT*& out_val);
-extern const HRESULT autoit_out(VARIANT const* const& in_val, VARIANT*& out_val);
-extern const HRESULT autoit_out(VARIANT const* const& in_val, IDispatch**& out_val);
-extern const HRESULT autoit_out(VARIANT const* const& in_val, BSTR*& out_val);
+extern const HRESULT autoit_out(IDispatch*& out_val, VARIANT* const retval);
+extern const HRESULT autoit_out(VARIANT*& out_val, VARIANT* const retval);
+extern const HRESULT autoit_out(VARIANT*& out_val, IDispatch** const retval);
+extern const HRESULT autoit_out(VARIANT*& out_val, BSTR* const retval);
 
 template<typename _Tp>
 const bool is_assignable_from(std::vector<_Tp>& out_val, VARIANT const* const& in_val, bool is_optional) {
@@ -281,7 +348,7 @@ const HRESULT autoit_to(VARIANT const* const& in_val, std::optional<_Ty1>& out_v
 }
 
 template<typename _Ty1>
-const HRESULT autoit_from(std::optional<_Ty1>& in_val, VARIANT*& out_val) {
+const HRESULT autoit_from(std::optional<_Ty1> const& in_val, VARIANT*& out_val) {
 	if (in_val.has_value()) {
 		return autoit_from(in_val.value(), out_val);
 	}
@@ -295,15 +362,15 @@ const HRESULT autoit_from(std::optional<_Ty1>& in_val, VARIANT*& out_val) {
 }
 
 template<typename _Ty1>
-const HRESULT autoit_out(std::optional<_Ty1>& in_val, VARIANT*& out_val) {
-	if (in_val.has_value()) {
-		return autoit_out(in_val.value(), out_val);
+const HRESULT autoit_out(std::optional<_Ty1>& out_val, VARIANT* const retval) {
+	if (out_val.has_value()) {
+		return autoit_out(out_val.value(), retval);
 	}
 
-	VariantClear(out_val);
-	VariantInit(out_val);
-	V_VT(out_val) = VT_ERROR;
-	V_ERROR(out_val) = DISP_E_PARAMNOTFOUND;
+	VariantClear(retval);
+	VariantInit(retval);
+	V_VT(retval) = VT_ERROR;
+	V_ERROR(retval) = DISP_E_PARAMNOTFOUND;
 
 	return S_OK;
 }
@@ -371,12 +438,12 @@ const HRESULT autoit_to(VARIANT const* const& in_val, AUTOIT_PTR<std::vector<_Tp
 }
 
 template<typename _Tp>
-const HRESULT autoit_from(const AUTOIT_PTR<std::vector<_Tp>>& in_val, VARIANT*& out_val) {
+const HRESULT autoit_from(AUTOIT_PTR<std::vector<_Tp>> const& in_val, VARIANT*& out_val) {
 	return autoit_from(*in_val.get(), out_val);
 }
 
 template<typename _Tp>
-const HRESULT autoit_from(const std::vector<_Tp>& in_val, VARIANT*& out_val) {
+const HRESULT autoit_from(std::vector<_Tp> const& in_val, VARIANT*& out_val) {
 	if (PARAMETER_NULL(out_val) || PARAMETER_NOT_FOUND(out_val)) {
 		V_VT(out_val) = VT_ARRAY | VT_VARIANT;
 		typename ATL::template CComSafeArray<VARIANT> vArray((ULONG)0);
@@ -492,7 +559,7 @@ autoit_to(VARIANT const* const& in_val, std::tuple<_Ts...>& out_val) {
 
 template<std::size_t I = 0, typename... _Ts>
 typename std::enable_if<I == sizeof...(_Ts), const HRESULT>::type
-autoit_from(const std::tuple<_Ts...>& in_val, VARIANT*& out_val) {
+autoit_from(std::tuple<_Ts...> const& in_val, VARIANT*& out_val) {
 	V_VT(out_val) = VT_ARRAY | VT_VARIANT;
 	typename ATL::template CComSafeArray<VARIANT> vArray((ULONG)I);
 	V_ARRAY(out_val) = vArray.Detach();
@@ -501,7 +568,7 @@ autoit_from(const std::tuple<_Ts...>& in_val, VARIANT*& out_val) {
 
 template<std::size_t I = 0, typename... _Ts>
 typename std::enable_if<I != sizeof...(_Ts), const HRESULT>::type
-autoit_from(const std::tuple<_Ts...>& in_val, VARIANT*& out_val) {
+autoit_from(std::tuple<_Ts...> const& in_val, VARIANT*& out_val) {
 	HRESULT hr = autoit_from<I + 1, _Ts...>(in_val, out_val);
 	if (FAILED(hr)) {
 		return hr;
@@ -602,7 +669,7 @@ HRESULT autoit_to(VARIANT const* const& in_val, std::pair<_Ty1, _Ty2>& out_val) 
 }
 
 template<typename _Ty1, typename _Ty2>
-const HRESULT autoit_from(const std::pair<_Ty1, _Ty2>& in_val, VARIANT*& out_val) {
+const HRESULT autoit_from(std::pair<_Ty1, _Ty2> const& in_val, VARIANT*& out_val) {
 	typename ATL::template CComSafeArray<VARIANT> vArray(2);
 
 	HRESULT hr;
@@ -738,7 +805,7 @@ extern const HRESULT autoit_from(_Tp const& in_val, _Tp*& out_val) {
 }
 
 template<std::size_t I = 0, typename... _Ts>
-const HRESULT _autoit_from(const std::variant<_Ts...>& in_val, VARIANT*& out_val) {
+const HRESULT _autoit_from(std::variant<_Ts...> const& in_val, VARIANT*& out_val) {
 	using _Tuple = typename std::tuple<_Ts...>;
 	using T = typename std::tuple_element<I, _Tuple>::type;
 
@@ -757,7 +824,7 @@ const HRESULT _autoit_from(const std::variant<_Ts...>& in_val, VARIANT*& out_val
 }
 
 template<typename... _Ts>
-const HRESULT autoit_from(const std::variant<_Ts...>& in_val, VARIANT*& out_val) {
+const HRESULT autoit_from(std::variant<_Ts...> const& in_val, VARIANT*& out_val) {
 	return _autoit_from(in_val, out_val);
 }
 
@@ -927,10 +994,10 @@ namespace autoit {
 	}
 
 	template<typename _Tp>
-	AUTOIT_PTR<typename _Tp> cast(IDispatch* element);
+	AUTOIT_PTR<typename _Tp> cast(IDispatch* in_val);
 
 	template<typename _Tp>
-	const AUTOIT_PTR<typename _Tp> cast(const IDispatch* element);
+	const AUTOIT_PTR<typename _Tp> cast(IDispatch const* const& in_val);
 
 	template<typename _Tp>
 	inline _Tp cast(VARIANT const* const& in_val) {

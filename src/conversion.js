@@ -70,11 +70,11 @@ Object.assign(exports, {
                 extern const bool is_assignable_from(${ shared_ptr }<${ in_type }>& out_val, VARIANT const* const& in_val, bool is_optional);
                 extern const HRESULT autoit_to(VARIANT const* const& in_val, ${ in_type }& out_val);
                 extern const HRESULT autoit_to(VARIANT const* const& in_val, ${ shared_ptr }<${ in_type }>& out_val);
-                extern const HRESULT autoit_out(VARIANT const* const& in_val, ${ in_type }*& out_val);
-                extern const HRESULT autoit_from(const ${ in_type }& in_val, ${ out_type }*& out_val);
-                extern const HRESULT autoit_from(const ${ in_type }& in_val, VARIANT*& out_val);
-                extern const HRESULT autoit_from(const ${ shared_ptr }<${ in_type }>& in_val, ${ shared_ptr }<${ in_type }>& out_val);
-                extern const HRESULT autoit_from(const ${ shared_ptr }<${ in_type }>& in_val, VARIANT*& out_val);
+                extern const HRESULT autoit_out(VARIANT*& out_val, ${ in_type }*& retval);
+                extern const HRESULT autoit_from(${ in_type } const& in_val, ${ out_type }*& out_val);
+                extern const HRESULT autoit_from(${ in_type } const& in_val, VARIANT*& out_val);
+                extern const HRESULT autoit_from(${ shared_ptr }<${ in_type }> const& in_val, ${ shared_ptr }<${ in_type }>& out_val);
+                extern const HRESULT autoit_from(${ shared_ptr }<${ in_type }> const& in_val, VARIANT*& out_val);
             `.replace(/^ {16}/mg, "").trim();
         },
 
@@ -121,33 +121,33 @@ Object.assign(exports, {
                     }
                 }
 
-                const HRESULT autoit_out(VARIANT const* const& in_val, ${ in_type }*& out_val) {
-                    auto _out_val = *out_val;
-                    HRESULT hr = autoit_to(in_val, _out_val);
+                const HRESULT autoit_out(VARIANT*& out_val, ${ in_type }*& retval) {
+                    ${ in_type } _retval;
+                    HRESULT hr = autoit_to(out_val, _retval);
                     if (SUCCEEDED(hr)) {
-                        *out_val = _out_val;
+                        *retval = _retval;
                     }
                     return hr;
                 }
 
-                const HRESULT autoit_from(const ${ in_type }& in_val, ${ out_type }*& out_val) {
+                const HRESULT autoit_from(${ in_type } const& in_val, ${ out_type }*& out_val) {
                     *out_val = ${ in_type === out_type ? "in_val" : `static_cast<${ out_type }>(in_val)` };
                     return S_OK;
                 }
 
-                const HRESULT autoit_from(const ${ in_type }& in_val, VARIANT*& out_val) {
+                const HRESULT autoit_from(${ in_type } const& in_val, VARIANT*& out_val) {
                     V_VT(out_val) = VT_${ numbers.get(out_type.toUpperCase()) };
                     V_${ numbers.get(out_type.toUpperCase()) }(out_val) = ${ in_type === out_type ? "in_val" : `static_cast<${ out_type }>(in_val)` };
                     return S_OK;
                 }
 
-                const HRESULT autoit_from(const ${ shared_ptr }<${ in_type }>& in_val, VARIANT*& out_val) {
+                const HRESULT autoit_from(${ shared_ptr }<${ in_type }> const& in_val, VARIANT*& out_val) {
                     V_VT(out_val) = VT_UI8;
                     *reinterpret_cast<${ in_type }*>(V_UI8(out_val)) = *in_val;
                     return S_OK;
                 }
 
-                const HRESULT autoit_from(const ${ shared_ptr }<${ in_type }>& in_val, ${ shared_ptr }<${ in_type }>& out_val) {
+                const HRESULT autoit_from(${ shared_ptr }<${ in_type }> const& in_val, ${ shared_ptr }<${ in_type }>& out_val) {
                     *out_val = *in_val;
                     return S_OK;
                 }
@@ -164,7 +164,7 @@ Object.assign(exports, {
             header.push(`
                 extern const bool is_assignable_from(${ ename }& out_val, VARIANT const* const& in_val, bool is_optional);
                 extern const HRESULT autoit_to(VARIANT const* const& in_val, ${ ename }& out_val);
-                extern const HRESULT autoit_from(const ${ ename }& in_val, VARIANT*& out_val);
+                extern const HRESULT autoit_from(${ ename } const& in_val, VARIANT*& out_val);
 
                 namespace autoit {
                     template<typename destination_type>
@@ -194,7 +194,7 @@ Object.assign(exports, {
                     return hr;
                 }
 
-                const HRESULT autoit_from(const ${ ename }& in_val, VARIANT*& out_val) {
+                const HRESULT autoit_from(${ ename } const& in_val, VARIANT*& out_val) {
                     return autoit_from(static_cast<int>(in_val), out_val);
                 }
                 `.replace(/^ {16}/mg, "")
@@ -214,19 +214,18 @@ Object.assign(exports, {
         const wtype = iface === "IDispatch" ? "DISPATCH" : "UNKNOWN";
 
         header.push(`
-            extern const HRESULT autoit_out(VARIANT const* const& in_val, ${ coclass.fqn }*& out_val);
-            extern const HRESULT autoit_out(VARIANT const* const& in_val, I${ cotype }**& out_val);
+            extern const HRESULT autoit_out(VARIANT*& out_val, I${ cotype }** const retval);
 
-            extern const HRESULT autoit_from(I${ cotype }*& in_val, I${ cotype }**& out_val);
-            extern const HRESULT autoit_from(I${ cotype }*& in_val, ${ iface }**& out_val);
-            extern const HRESULT autoit_from(I${ cotype }*& in_val, VARIANT*& out_val);
+            extern const HRESULT autoit_from(I${ cotype } * const& in_val, I${ cotype }**& out_val);
+            extern const HRESULT autoit_from(I${ cotype } * const& in_val, ${ iface }**& out_val);
+            extern const HRESULT autoit_from(I${ cotype } * const& in_val, VARIANT*& out_val);
 
             namespace autoit {
                 template<>
                 extern ${ shared_ptr }<${ coclass.fqn }> cast<${ coclass.fqn }>(IDispatch* in_val);
 
                 template<>
-                extern const ${ shared_ptr }<${ coclass.fqn }> cast<${ coclass.fqn }>(const IDispatch* in_val);
+                extern ${ shared_ptr }<${ coclass.fqn }> const cast<${ coclass.fqn }>(IDispatch const* const& in_val);
             }
         `.replace(/^ {12}/mg, ""));
 
@@ -247,47 +246,34 @@ Object.assign(exports, {
         }
 
         impl.push(`
-            const HRESULT autoit_out(VARIANT const* const& in_val, ${ coclass.fqn }*& out_val) {
-                if (V_VT(in_val) == VT_NULL) {
-                    out_val = nullptr;
+            const HRESULT autoit_out(VARIANT*& out_val, I${ cotype }** const retval) {
+                if (V_VT(out_val) != VT_${ wtype }) {
+                    return E_INVALIDARG;
+                }
+
+                auto obj = dynamic_cast<I${ cotype }*>(getRealIDispatch(out_val));
+                if (obj) {
+                    *retval = obj;
+                    obj->AddRef();
                     return S_OK;
                 }
 
-                if (V_VT(in_val) != VT_${ wtype }) {
-                    return E_INVALIDARG;
-                }
-
-                out_val = ::autoit::cast<${ coclass.fqn }>(getRealIDispatch(in_val)).get();
-                return out_val ? S_OK : E_INVALIDARG;
+                return E_INVALIDARG;
             }
 
-            const HRESULT autoit_out(VARIANT const* const& in_val, I${ cotype }**& out_val) {
-                if (V_VT(in_val) != VT_${ wtype }) {
-                    return E_INVALIDARG;
-                }
-
-                auto obj = dynamic_cast<I${ cotype }*>(getRealIDispatch(in_val));
-                if (!obj) {
-                    return E_INVALIDARG;
-                }
-                *out_val = obj;
-                obj->AddRef();
-                return S_OK;
-            }
-
-            const HRESULT autoit_from(I${ cotype }*& in_val, I${ cotype }**& out_val) {
+            const HRESULT autoit_from(I${ cotype } * const& in_val, I${ cotype }**& out_val) {
                 *out_val = in_val;
                 in_val->AddRef();
                 return S_OK;
             }
 
-            const HRESULT autoit_from(I${ cotype }*& in_val, ${ iface }**& out_val) {
+            const HRESULT autoit_from(I${ cotype } * const& in_val, ${ iface }**& out_val) {
                 *out_val = static_cast<${ iface }*>(in_val);
                 in_val->AddRef();
                 return S_OK;
             }
 
-            const HRESULT autoit_from(I${ cotype }*& in_val, VARIANT*& out_val) {
+            const HRESULT autoit_from(I${ cotype }* const& in_val, VARIANT*& out_val) {
                 VariantClear(out_val);
 
                 V_VT(out_val) = VT_${ wtype };
@@ -310,9 +296,9 @@ Object.assign(exports, {
                 }
 
                 template<>
-                const ${ shared_ptr }<${ coclass.fqn }> cast<${ coclass.fqn }>(const IDispatch* in_val) {
+                ${ shared_ptr }<${ coclass.fqn }> const cast<${ coclass.fqn }>(IDispatch const* const& in_val) {
                     {
-                        auto obj = dynamic_cast<const C${ cotype }*>(in_val);
+                        auto obj = dynamic_cast<C${ cotype } const*>(in_val);
                         if (obj) {
                             return *obj->__self;
                         }
@@ -335,12 +321,12 @@ Object.assign(exports, {
         header.push(`
             extern const bool is_assignable_from(${ coclass.fqn }*& out_val, VARIANT const* const& in_val, bool is_optional);
             extern const HRESULT autoit_to(VARIANT const* const& in_val, ${ coclass.fqn }*& out_val);
-            extern const HRESULT autoit_from(const ${ shared_ptr }<${ coclass.fqn }>& in_val, I${ cotype }**& out_val);
-            extern const HRESULT autoit_from(const ${ shared_ptr }<${ coclass.fqn }>& in_val, ${ iface }**& out_val);
-            extern const HRESULT autoit_from(const ${ shared_ptr }<${ coclass.fqn }>& in_val, VARIANT*& out_val);
-            extern const HRESULT autoit_from(const ${ coclass.fqn }* in_val, I${ cotype }**& out_val);
-            extern const HRESULT autoit_from(const ${ coclass.fqn }* in_val, ${ iface }**& out_val);
-            extern const HRESULT autoit_from(const ${ coclass.fqn }* in_val, VARIANT*& out_val);
+            extern const HRESULT autoit_from(${ shared_ptr }<${ coclass.fqn }> const& in_val, I${ cotype }**& out_val);
+            extern const HRESULT autoit_from(${ shared_ptr }<${ coclass.fqn }> const& in_val, ${ iface }**& out_val);
+            extern const HRESULT autoit_from(${ shared_ptr }<${ coclass.fqn }> const& in_val, VARIANT*& out_val);
+            extern const HRESULT autoit_from(${ coclass.fqn } * const& in_val, I${ cotype }**& out_val);
+            extern const HRESULT autoit_from(${ coclass.fqn } * const& in_val, ${ iface }**& out_val);
+            extern const HRESULT autoit_from(${ coclass.fqn } * const& in_val, VARIANT*& out_val);
         `.replace(/^ {12}/mg, ""));
 
         if (!coclass.is_vector) {
@@ -403,7 +389,7 @@ Object.assign(exports, {
                 return hr;
             }
 
-            const HRESULT autoit_from(const ${ shared_ptr }<${ coclass.fqn }>& in_val, I${ cotype }**& out_val) {
+            const HRESULT autoit_from(${ shared_ptr }<${ coclass.fqn }> const& in_val, I${ cotype }**& out_val) {
                 HRESULT hr = *out_val != nullptr ? S_OK : CoCreateInstance(CLSID_${ cotype }, NULL, CLSCTX_INPROC_SERVER, IID_I${ cotype }, reinterpret_cast<void**>(out_val));
                 if (SUCCEEDED(hr)) {
                     auto obj = static_cast<C${ cotype }*>(*out_val);
@@ -412,11 +398,11 @@ Object.assign(exports, {
                 return hr;
             }
 
-            const HRESULT autoit_from(const ${ shared_ptr }<${ coclass.fqn }>& in_val, ${ iface }**& out_val) {
+            const HRESULT autoit_from(${ shared_ptr }<${ coclass.fqn }> const& in_val, ${ iface }**& out_val) {
                 return autoit_from(in_val, reinterpret_cast<I${ cotype }**&>(out_val));
             }
 
-            const HRESULT autoit_from(const ${ shared_ptr }<${ coclass.fqn }>& in_val, VARIANT*& out_val) {
+            const HRESULT autoit_from(${ shared_ptr }<${ coclass.fqn }> const& in_val, VARIANT*& out_val) {
                 if (!in_val) {
                     V_VT(out_val) = VT_NULL;
                     return S_OK;
@@ -441,15 +427,15 @@ Object.assign(exports, {
                 return hr;
             }
 
-            const HRESULT autoit_from(const ${ coclass.fqn }* in_val, I${ cotype }**& out_val) {
+            const HRESULT autoit_from(${ coclass.fqn } * const& in_val, I${ cotype }**& out_val) {
                 return autoit_from(::autoit::reference_internal(in_val), out_val);
             }
 
-            const HRESULT autoit_from(const ${ coclass.fqn }* in_val, ${ iface }**& out_val) {
+            const HRESULT autoit_from(${ coclass.fqn } * const& in_val, ${ iface }**& out_val) {
                 return autoit_from(::autoit::reference_internal(in_val), out_val);
             }
 
-            const HRESULT autoit_from(const ${ coclass.fqn }* in_val, VARIANT*& out_val) {
+            const HRESULT autoit_from(${ coclass.fqn } * const& in_val, VARIANT*& out_val) {
                 if (!in_val) {
                     V_VT(out_val) = VT_NULL;
                     return S_OK;
@@ -503,31 +489,31 @@ Object.assign(exports, {
             }
 
             header.push(`
-                extern const bool is_assignable_from(${ coclass.fqn }& out_val, I${ cotype }*& in_val, bool is_optional);
-                extern const bool is_assignable_from(${ coclass.fqn }& out_val, ${ iface }*& in_val, bool is_optional);
+                extern const bool is_assignable_from(${ coclass.fqn }& out_val, I${ cotype } * const& in_val, bool is_optional);
+                extern const bool is_assignable_from(${ coclass.fqn }& out_val, ${ iface } * const& in_val, bool is_optional);
 
-                extern const HRESULT autoit_to(I${ cotype }*& in_val, ${ coclass.fqn }& out_val);
-                extern const HRESULT autoit_to(${ iface }*& in_val, ${ coclass.fqn }& out_val);
+                extern const HRESULT autoit_to(I${ cotype } * const& in_val, ${ coclass.fqn }& out_val);
+                extern const HRESULT autoit_to(${ iface } * const& in_val, ${ coclass.fqn }& out_val);
 
-                extern const HRESULT autoit_from(const ${ coclass.fqn }& in_val, I${ cotype }**& out_val);
-                extern const HRESULT autoit_from(const ${ coclass.fqn }& in_val, ${ iface }**& out_val);
+                extern const HRESULT autoit_from(${ coclass.fqn } const& in_val, I${ cotype }**& out_val);
+                extern const HRESULT autoit_from(${ coclass.fqn } const& in_val, ${ iface }**& out_val);
             `.replace(/^ {16}/mg, "").trim());
             impl.push(`
-                const bool is_assignable_from(${ coclass.fqn }& out_val, I${ cotype }* in_val, bool is_optional) {
+                const bool is_assignable_from(${ coclass.fqn }& out_val, I${ cotype } * const& in_val, bool is_optional) {
                     return true;
                 }
 
-                const bool is_assignable_from(${ coclass.fqn }& out_val, ${ iface }*& in_val, bool is_optional) {
-                    const auto &idispatch = ${ iface === "IDispatch" ? "in_val" : "dynamic_cast<IDispatch*>(in_val)" };
+                const bool is_assignable_from(${ coclass.fqn }& out_val, ${ iface } * const& in_val, bool is_optional) {
+                    const auto &idispatch = ${ iface === "IDispatch" ? "in_val" : "dynamic_cast<IDispatch const*>(in_val)" };
                     if (${ iface === "IDispatch" } || idispatch) {
                         const auto& obj = ::autoit::cast<${ coclass.fqn }>(idispatch);
                         return obj ? S_OK : E_INVALIDARG;
                     }
 
-                    return dynamic_cast<C${ cotype }*>(in_val) != NULL;
+                    return dynamic_cast<C${ cotype } const*>(in_val) != nullptr;
                 }
 
-                const HRESULT autoit_to(I${ cotype }*& in_val, ${ coclass.fqn }& out_val) {
+                const HRESULT autoit_to(I${ cotype } * const& in_val, ${ coclass.fqn }& out_val) {
                     auto obj = dynamic_cast<C${ cotype }*>(in_val);
                     if (!obj) {
                         return E_INVALIDARG;
@@ -536,7 +522,7 @@ Object.assign(exports, {
                     return S_OK;
                 }
 
-                const HRESULT autoit_to(${ iface }*& in_val, ${ coclass.fqn }& out_val) {
+                const HRESULT autoit_to(${ iface } * const& in_val, ${ coclass.fqn }& out_val) {
                     const auto &idispatch = ${ iface === "IDispatch" ? "in_val" : "dynamic_cast<IDispatch*>(in_val)" };
                     if (${ iface === "IDispatch" } || idispatch) {
                         const auto& obj = ::autoit::cast<${ coclass.fqn }>(idispatch);
@@ -555,7 +541,7 @@ Object.assign(exports, {
                     return S_OK;
                 }
 
-                const HRESULT autoit_from(const ${ coclass.fqn }& in_val, I${ cotype }**& out_val) {
+                const HRESULT autoit_from(${ coclass.fqn } const& in_val, I${ cotype }**& out_val) {
                     HRESULT hr = *out_val != nullptr ? S_OK : CoCreateInstance(CLSID_${ cotype }, NULL, CLSCTX_INPROC_SERVER, IID_I${ cotype }, reinterpret_cast<void**>(out_val));
                     if (SUCCEEDED(hr)) {
                         auto obj = static_cast<C${ cotype }*>(*out_val);
@@ -564,7 +550,7 @@ Object.assign(exports, {
                     return hr;
                 }
 
-                const HRESULT autoit_from(const ${ coclass.fqn }& in_val, ${ iface }**& out_val) {
+                const HRESULT autoit_from(${ coclass.fqn } const& in_val, ${ iface }**& out_val) {
                     return autoit_from(in_val, reinterpret_cast<I${ cotype }**&>(out_val));
                 }
                 `.replace(/^ {16}/mg, "")
@@ -572,10 +558,10 @@ Object.assign(exports, {
 
             if (!coclass.is_vector) {
                 header.push(`
-                    extern const HRESULT autoit_from(const ${ coclass.fqn }& in_val, VARIANT*& out_val);
+                    extern const HRESULT autoit_from(${ coclass.fqn } const& in_val, VARIANT*& out_val);
                 `.replace(/^ {20}/mg, ""));
                 impl.push(`
-                    const HRESULT autoit_from(const ${ coclass.fqn }& in_val, VARIANT*& out_val) {
+                    const HRESULT autoit_from(${ coclass.fqn } const& in_val, VARIANT*& out_val) {
                         I${ cotype }* pdispVal = V_VT(out_val) != VT_${ wtype } ? nullptr : dynamic_cast<I${ cotype }*>(V_${ wtype }(out_val));
                         I${ cotype }** ppdispVal = &pdispVal;
 
@@ -612,16 +598,16 @@ Object.assign(exports, {
 
     enum: (type, header, impl) => {
         header.push(`
-            extern const bool is_assignable_from(${ type }& out_val, LONG& in_val, bool is_optional);
-            extern const HRESULT autoit_to(LONG& in_val, ${ type }& out_val);
+            extern const bool is_assignable_from(${ type }& out_val, LONG const& in_val, bool is_optional);
+            extern const HRESULT autoit_to(LONG const& in_val, ${ type }& out_val);
         `.replace(/^ {12}/mg, "").trim());
 
         impl.push(`
-            const bool is_assignable_from(${ type }& out_val, LONG& in_val, bool is_optional) {
+            const bool is_assignable_from(${ type }& out_val, LONG const& in_val, bool is_optional) {
                 return true;
             }
 
-            const HRESULT autoit_to(LONG& in_val, ${ type }& out_val) {
+            const HRESULT autoit_to(LONG const& in_val, ${ type }& out_val) {
                 out_val = static_cast<${ type }>(in_val);
                 return S_OK;
             }

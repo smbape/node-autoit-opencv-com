@@ -12,6 +12,7 @@ const LF = "\n";
 const knwon_ids = require("./ids");
 const conversion = require("./conversion");
 const custom_conversions = require("./custom_conversions");
+const { orderDependencies } = require("./dependencies");
 const FunctionDeclaration = require("./FunctionDeclaration");
 const PropertyDeclaration = require("./PropertyDeclaration");
 const FileUtils = require("./FileUtils");
@@ -276,11 +277,161 @@ const proto = {
             "/IDL"
         ], [], "", ""], options);
     },
+
+    getOrderedDependencies(dependencies = null) {
+        const _dependencies = new Map(this.dependencies);
+        const _dependents = new Map(this.dependents);
+
+        if (dependencies !== null) {
+            for (const fqn of _dependencies.keys()) {
+                if (!dependencies.has(fqn)) {
+                    _dependencies.delete(fqn);
+                    continue;
+                }
+
+                const newvalues = new Set();
+                _dependencies.set(fqn, newvalues);
+
+                for (const dep of _dependencies.get(fqn)) {
+                    if (dependencies.has(dep)) {
+                        newvalues.add(dep);
+                    }
+                }
+            }
+
+            for (const fqn of _dependents.keys()) {
+                if (!dependencies.has(fqn)) {
+                    _dependents.delete(fqn);
+                    continue;
+                }
+
+                const newvalues = new Set();
+                _dependents.set(fqn, newvalues);
+
+                for (const dep of _dependents.get(fqn)) {
+                    if (dependencies.has(dep)) {
+                        newvalues.add(dep);
+                    }
+                }
+            }
+
+            for (const fqn of dependencies) {
+                if (!_dependencies.has(fqn)) {
+                    _dependencies.set(fqn, new Set());
+                }
+            }
+        } else {
+            for (const fqn of this.classes.keys()) {
+                if (!_dependencies.has(fqn)) {
+                    _dependencies.set(fqn, new Set());
+                }
+            }
+        }
+
+        const ordered = orderDependencies(_dependencies, _dependents);
+
+        const result = [];
+
+        for (const fqn of ordered) {
+            if (!this.classes.has(fqn)) {
+                continue;
+            }
+
+            const coclass = this.classes.get(fqn);
+
+            if (dependencies !== null) {
+                result.push(coclass);
+            } else if (!coclass.noidl) {
+                result.push(coclass.iface);
+            }
+        }
+
+        return result;
+    },
 };
+
+class Trie {
+    constructor(namespace = null) {
+        this.namespace = namespace;
+        this.typedefs = new Map();
+        this.children = new Map();
+    }
+
+    add(fqn, cpptype) {
+        let parent = this;
+        let lastIndex = 0;
+        let pos;
+        while ((pos = fqn.indexOf("::", lastIndex)) !== -1) {
+            const ns = fqn.slice(lastIndex, pos);
+            if (!parent.children.has(ns)) {
+                const trie = new Trie(ns);
+                parent.children.set(ns, trie);
+            }
+            parent = parent.children.get(ns);
+            lastIndex = pos + "::".length;
+        }
+        parent.typedefs.set(fqn.slice(lastIndex), cpptype);
+    }
+
+    toString(indent = 0, namespace = null) {
+        const str = [];
+
+        const namespaces = [];
+
+        if (namespace) {
+            namespaces.push(namespace);
+        }
+
+        if (this.namespace) {
+            namespaces.push(this.namespace);
+        }
+
+        namespace = namespaces.join("::");
+
+        if (namespace) {
+            str.push(`${ " ".repeat(indent) }namespace ${ namespace } {`);
+            indent += 4;
+        }
+
+        let parent = this;
+
+        namespaces.length = 0;
+
+        while (parent.children.size === 1 && (parent === this || parent.typedefs.size === 0)) {
+            if (parent !== this) {
+                namespaces.push(parent.namespace);
+            }
+            const [[, child]] = Array.from(parent.children);
+            parent = child;
+        }
+
+        if (parent !== this) {
+            str.push(parent.toString(indent, namespaces.join("::")), "");
+        } else {
+            indent += 4;
+            for (const [, child] of this.children.entries()) {
+                str.push(child.toString(indent), "");
+            }
+            indent -= 4;
+        }
+
+        for (const [fqn, cpptype] of this.typedefs.entries()) {
+            str.push(`${ " ".repeat(indent) }using ${ fqn } = ${ cpptype };`);
+        }
+
+        if (namespace) {
+            indent -= 4;
+            str.push(`${ " ".repeat(indent) }}`);
+        }
+
+        return str.join("\n");
+    }
+}
 
 class COMGenerator {
     static proto = proto;
 
+    // eslint-disable-next-line complexity
     generate(processor, configuration, options, cb) {
         const { generated_include } = configuration;
         const { APP_NAME, LIB_UID, LIBRARY, make_shared, shared_ptr } = options;
@@ -457,9 +608,6 @@ class COMGenerator {
                                     V_ERROR(&_vtDefault) = DISP_E_PARAMNOTFOUND;
                                 `.replace(/^ {36}/mg, "").trim(), "");
                             }
-
-                            const {interface: iface} = coclass;
-                            const wtype = iface === "IDispatch" ? "DISPATCH" : "UNKNOWN";
 
                             constructor.push(`
                                 _variant_t _retval(this);
@@ -844,6 +992,11 @@ class COMGenerator {
                 `#pragma once\n\n${ generated_include.join("\n").trim().replace(/[^\S\n]+$/mg, "") }${ LF }`
             );
 
+            const typedefs = new Trie();
+            for (const [fqn, cpptype] of processor.typedefs.entries()) {
+                typedefs.add(fqn, cpptype);
+            }
+
             const bridge_header = [
                 `
                 #pragma once
@@ -874,21 +1027,7 @@ class COMGenerator {
                 #include "${ LIBRARY }.h"
                 #include "generated_include.h"
 
-                ${ Array.from(processor.typedefs).map(([fqn, cpptype]) => {
-                    const parts = fqn.split("::");
-                    const last = parts.length - 1;
-                    const begin = new Array(last);
-                    const end = new Array(last);
-                    for (let i = 0; i < last; i++) {
-                        const indent = " ".repeat(4 * i);
-                        begin[i] = `${ indent }namespace ${ parts[i] } {`;
-                        end[last - 1 - i] = `${ indent }}`;
-                    }
-
-                    const name = parts[last];
-                    const indent = " ".repeat(4 * (last));
-                    return begin.concat(`${ indent }using ${ name } = ${ cpptype };`, end).join("\n");
-                }).join("\n").split("\n").join(`\n${ " ".repeat(16) }`) }
+                ${ typedefs.toString(16).slice(16) }
 
                 `.replace(/^ {16}/mg, ""),
 

@@ -1,7 +1,7 @@
 #pragma once
 #include <opencv2/core/mat.hpp>
 
-// CV_EXPORTS_W : include this file in lua_generated_include
+// CV_EXPORTS_W : include this file in autoit_bridge_generated
 
 namespace cvextra {
     std::vector<int> mat_shape(const cv::Mat& self);

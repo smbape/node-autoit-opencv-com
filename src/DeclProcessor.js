@@ -136,29 +136,60 @@ class DeclProcessor {
             }
         }
 
-        for (const fqn of this.classes.keys()) {
+        const ordered = options.hasInheritanceSupport ? (() => {
+            const _dependencies = new Map(this.dependencies);
+            const _dependents = new Map(this.dependents);
+
+            for (const fqn of this.classes.keys()) {
+                if (!_dependencies.has(fqn)) {
+                    _dependencies.set(fqn, new Set());
+                }
+            }
+
+            return orderDependencies(_dependencies, _dependents);
+        })().reverse() : this.classes.keys();
+
+        for (const fqn of ordered) {
             const coclass = this.classes.get(fqn);
             const cpptype = this.getCppType(fqn, coclass, options);
             const displayName = this.getTypeDisplayName(fqn, cpptype);
 
             // add __str__ method
             if (!coclass.isStatic() && options.meta_methods && options.meta_methods.has("__str__")) {
-                if (!Array.from(coclass.methods.entries()).some(([fname]) => fname === "__str__" )) {
+                const is_meta_method = options.is_meta_methods && options.is_meta_methods.has("__str__") ? options.is_meta_methods.get("__str__") : ([fname]) => fname === "__str__";
+                const methods = options.hasInheritanceSupport ? this.getAllMethods(fqn) : coclass.methods;
+                if (!Array.from(methods.entries()).some(is_meta_method)) {
                     const __str__ = options.meta_methods.get("__str__");
-                    coclass.addMethod([`${ fqn }.__str__`, "std::string", [`/Call=${ __str__ }`, `/Expr=${ options.self }, "${ displayName }"`], [], "", ""], options);
+                    const name = options.meta_methods_name && options.meta_methods_name.has("__str__") ? options.meta_methods_name.get("__str__") : "__str__";
+                    coclass.addMethod([`${ fqn }.${ name }`, "std::string", [`/Call=${ __str__ }`, `/Expr=${ options.self }, ${ JSON.stringify(displayName) }`], [], "", ""], options);
                 }
             }
 
             // add __eq__ method
             if (!coclass.isStatic() && options.meta_methods && options.meta_methods.has("__eq__")) {
-                if (!Array.from(coclass.methods.entries()).some(([fname]) => fname === "__eq__" )) {
+                const is_meta_method = options.is_meta_methods && options.is_meta_methods.has("__eq__") ? options.is_meta_methods.get("__eq__") : ([fname]) => fname === "__eq__";
+                const methods = options.hasInheritanceSupport ? this.getAllMethods(fqn) : coclass.methods;
+                if (!Array.from(methods.entries()).some(is_meta_method)) {
                     const __eq__ = options.meta_methods.get("__eq__");
-                    coclass.addMethod([`${ fqn }.__eq__`, "bool", [`/Call=${ __eq__ }`, `/Expr=${ options.self }, $0`], [
+                    const name = options.meta_methods_name && options.meta_methods_name.has("__eq__") ? options.meta_methods_name.get("__eq__") : "__eq__";
+                    coclass.addMethod([`${ fqn }.${ name }`, "bool", [`/Call=${ __eq__ }`, `/Expr=${ options.self }, $0`], [
                         [cpptype, "other", "", ["/Ref", "/C"]],
                     ], "", ""], options);
-                    coclass.addMethod([`${ fqn }.__eq__`, "bool", ["/Output=false"], [
+                    coclass.addMethod([`${ fqn }.${ name }`, "bool", ["/Output=false"], [
                         [options.Any, "other", "", []],
                     ], "", ""], options);
+                }
+            }
+
+            // add __type__ method
+            if (!coclass.isStatic() && options.meta_methods && options.meta_methods.has("__type__")) {
+                const is_meta_method = options.is_meta_methods && options.is_meta_methods.has("__type__") ? options.is_meta_methods.get("__type__") : ([fname]) => fname === "__type__";
+                const methods = options.hasInheritanceSupport ? this.getAllMethods(fqn) : coclass.methods;
+                if (!Array.from(methods.entries()).some(is_meta_method)) {
+                    const __type__ = options.meta_methods.get("__type__");
+                    const modifiers = typeof __type__ === "string" ? [`/Call=${ __type__ }`] : [`/Output=${ JSON.stringify(displayName) }`];
+                    const name = options.meta_methods_name && options.meta_methods_name.has("__type__") ? options.meta_methods_name.get("__type__") : "__type__";
+                    coclass.addMethod([`${ fqn }.${ name }`, "std::string", ["/S", ...modifiers], [], "", ""], options);
                 }
             }
 
@@ -170,7 +201,6 @@ class DeclProcessor {
                 coclass.addMethod([`${ fqn }.IsInstance`, "bool", ["/S", "/Output=false"], [
                     [options.Any, "obj", "", []],
                 ], "", ""], options);
-                coclass.addProperty(["std::string", "FullyQualifiedName", "", ["/S", `/RExpr="${ displayName }"`]]);
             }
         }
     }
@@ -210,9 +240,12 @@ class DeclProcessor {
 
     add_class(decl, options = {}) {
         const [name, base, list_of_modifiers, properties] = decl;
-        const parents = base ? base.slice(": ".length).split(", ") : [];
         const path = getAlias(name.slice(name.indexOf(" ") + 1)).split(".");
         const fqn = path.join("::");
+
+        if (options.excludes && options.excludes.has(fqn)) {
+            return;
+        }
 
         const coclass = this.getCoClass(fqn, options);
 
@@ -251,6 +284,8 @@ class DeclProcessor {
         }
 
         this.bases.set(fqn, new Set());
+
+        const parents = base ? base.slice(": ".length).split(", ") : [];
 
         for (let parent of parents) {
             parent = getAlias(parent);
@@ -302,6 +337,10 @@ class DeclProcessor {
 
         const path = name.slice(start).split(".");
         const fqn = path.join("::");
+
+        if (options.excludes && options.excludes.has(fqn)) {
+            return;
+        }
 
         if (this.enums.has(fqn)) {
             this.enums.get(fqn)[3].push(...enums);
@@ -382,7 +421,13 @@ class DeclProcessor {
 
         const [name, , list_of_modifiers, properties] = decl;
         const path = getAlias(name).split(".");
-        const coclass = this.getCoClass(path.slice(0, -1).join("::"), options);
+        const fqn = path.slice(0, -1).join("::");
+
+        if (options.excludes && options.excludes.has(fqn)) {
+            return;
+        }
+
+        const coclass = this.getCoClass(fqn, options);
 
         if (list_of_modifiers.includes("/Properties")) {
             for (const property of properties) {
@@ -694,6 +739,7 @@ class DeclProcessor {
 
         // get overrided methods
         const signatures = this.getSignatures(coclass, options);
+        const cname = options.cname ? options.cname : "create";
 
         // inherit methods
         for (const pfqn of parents) {
@@ -704,7 +750,7 @@ class DeclProcessor {
             const parent = this.classes.get(pfqn);
 
             for (const fname of parent.methods.keys()) {
-                if (fname === "create") {
+                if (fname === cname) {
                     // ignore create method because it creates a base type instance
                     // and not a derived type instance
                     continue;
@@ -814,75 +860,29 @@ class DeclProcessor {
         return Array.from(types);
     }
 
-    getOrderedDependencies(dependencies = null) {
-        const _dependencies = new Map(this.dependencies);
-        const _dependents = new Map(this.dependents);
+    getAllMethods(fqn) {
+        const stack = [fqn];
 
-        if (dependencies !== null) {
-            for (const fqn of _dependencies.keys()) {
-                if (!dependencies.has(fqn)) {
-                    _dependencies.delete(fqn);
-                    continue;
-                }
+        const methods = new Map();
+        const seen = new Set();
 
-                const newvalues = new Set();
-                _dependencies.set(fqn, newvalues);
-
-                for (const dep of _dependencies.get(fqn)) {
-                    if (dependencies.has(dep)) {
-                        newvalues.add(dep);
-                    }
-                }
-            }
-
-            for (const fqn of _dependents.keys()) {
-                if (!dependencies.has(fqn)) {
-                    _dependents.delete(fqn);
-                    continue;
-                }
-
-                const newvalues = new Set();
-                _dependents.set(fqn, newvalues);
-
-                for (const dep of _dependents.get(fqn)) {
-                    if (dependencies.has(dep)) {
-                        newvalues.add(dep);
-                    }
-                }
-            }
-
-            for (const fqn of dependencies) {
-                if (!_dependencies.has(fqn)) {
-                    _dependencies.set(fqn, new Set());
-                }
-            }
-        } else {
-            for (const fqn of this.classes.keys()) {
-                if (!_dependencies.has(fqn)) {
-                    _dependencies.set(fqn, new Set());
-                }
-            }
-        }
-
-        const ordered = orderDependencies(_dependencies, _dependents);
-
-        const result = [];
-
-        for (const fqn of ordered) {
-            if (!this.classes.has(fqn)) {
+        while (stack.length !== 0) {
+            fqn = stack.pop();
+            if (seen.has(fqn) || !this.classes.has(fqn)) {
                 continue;
             }
 
+            seen.add(fqn);
             const coclass = this.classes.get(fqn);
-
-            if (dependencies !== null) {
-                result.push(coclass);
-            } else if (!coclass.noidl) {
-                result.push(coclass.iface);
+            for (const [fname, decl] of coclass.methods.entries()) {
+                if (!methods.has(fname)) {
+                    methods.set(fname, decl);
+                }
             }
+            stack.push(...Array.from(coclass.parents).reverse());
         }
 
-        return result;
+        return methods;
     }
 }
 

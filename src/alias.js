@@ -19,13 +19,6 @@ exports.makeExpansion = (str, ...args) => {
     return str;
 };
 
-const useNamspace = (namespaces, namespace) => {
-    const parts = namespace.split("::");
-    for (let i = 0; i < parts.length; i++) {
-        namespaces.add(`using namespace ${ parts.slice(0, parts.length - i).join("::") };`);
-    }
-};
-
 exports.useNamespaces = (body, method, processor, coclass) => {
     const namespaces = new Set();
 
@@ -78,7 +71,8 @@ exports.getTypeDef = (type, options) => {
         .replaceAll("std::vector", "VectorOf")
         .replaceAll("std::shared_ptr", "SharedPtrOf")
         .replaceAll(options.shared_ptr, "SharedPtrOf")
-        .replaceAll("std::variant", "VariantOf");
+        .replaceAll("std::variant", "VariantOf")
+        .replaceAll("cv::util::variant", "CvVariantOf");
 
     type_def = exports.removeNamespaces(type_def, options)
         .replace(/\b_variant_t\b/g, "Variant")
@@ -94,5 +88,12 @@ const {ALIASES} = require("./constants");
 
 exports.getAlias = str => {
     str = str.trim();
-    return ALIASES.has(str) ? ALIASES.get(str) : str;
+
+    const key = str.split(".").filter(item => Boolean(item)).join("::");
+    if (ALIASES.has(key)) {
+        return ALIASES.get(key);
+    }
+
+    const sep = str.includes("::") ? "::" : ".";
+    return str.split(sep).map(item => ALIASES.has(item) ? ALIASES.get(item) : item).join(sep);
 };

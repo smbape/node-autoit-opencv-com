@@ -23,8 +23,8 @@ Func _OpenCV_FindDLL($sFile, $sFilter = Default, $sDir = Default, $bReverse = De
 			"autoit-opencv-com", _
 			"autoit-opencv-com\build_x64\bin\" & $sBuildType, _
 			"opencv\build\x64\vc16\bin", _
-			"opencv-4.10.0-*\build\x64\vc16\bin", _
-			"opencv-4.10.0-*\opencv\build\x64\vc16\bin" _
+			"opencv-4.11.0-*\build\x64\vc16\bin", _
+			"opencv-4.11.0-*\opencv\build\x64\vc16\bin" _
 			]
 
 	Return _OpenCV_FindFile($sFile & $sPostfix & ".dll", $sFilter, $sDir, $FLTA_FILES, $aSearchPaths, $bReverse)
@@ -546,8 +546,8 @@ EndFunc   ;==>__OpenCV_HandleScreenBitsMat
 ; Return values .: The result of the callback
 ; Author ........: Stéphane MBAPE
 ; Modified ......:
-; Remarks .......: https://github.com/opencv/opencv/blob/4.10.0/modules/highgui/src/window_w32.cpp#L1407
-;                  https://github.com/opencv/opencv/blob/4.10.0/modules/highgui/src/window_w32.cpp#L122
+; Remarks .......: https://github.com/opencv/opencv/blob/4.11.0/modules/highgui/src/window_w32.cpp#L1407
+;                  https://github.com/opencv/opencv/blob/4.11.0/modules/highgui/src/window_w32.cpp#L122
 ; ===============================================================================================================================
 Func __OpenCV_GetDesktopScreenCapture(Const ByRef $aRect, Const ByRef $iChannels, Const $sCallback)
 	Local $iLeft = $aRect[0]
@@ -707,7 +707,7 @@ EndFunc   ;==>_OpenCV_CompareMatHist
 ; Author ........: Stéphane MBAPE
 ; Modified ......:
 ; Sources .......: https://stackoverflow.com/a/28647930
-;                  https://github.com/opencv/opencv/blob/4.10.0/samples/cpp/tutorial_code/Histograms_Matching/MatchTemplate_Demo.cpp#L84
+;                  https://github.com/opencv/opencv/blob/4.11.0/samples/cpp/tutorial_code/Histograms_Matching/MatchTemplate_Demo.cpp#L84
 ;                  https://vovkos.github.io/doxyrest-showcase/opencv/sphinx_rtd_theme/page_tutorial_histogram_calculation.html
 ; ===============================================================================================================================
 Func _OpenCV_FindTemplate($matImg, $matTempl, $fThreshold = Default, $iMatchMethod = Default, $matTemplMask = Default, $iLimit = Default, $iCode = Default, $fOverlapping = Default, $aChannels = Default, $aHistSize = Default, $aRanges = Default, $iCompareMethod = Default, $iDstCn = Default, $bAccumulate = False)

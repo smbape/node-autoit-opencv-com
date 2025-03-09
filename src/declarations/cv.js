@@ -1,7 +1,7 @@
 module.exports = ({ self }) => [
     ["cv.", "", ["/Properties"], [
         ["_variant_t", "extended", "", ["/R", "/External"]],
-        ["cv::core", "core", "", ["/R", "=this"]],
+        ["cv::core", "core", "", ["/R", "=this", "/S"]],
     ], "", ""],
 
     ["class cv._InputArray", "", [], [], "", ""],

@@ -99,7 +99,7 @@ extern const bool is_variant_scalar(VARIANT const* const& in_val);
 extern const bool is_array_from(VARIANT const* const& in_val, bool is_optional);
 extern const bool is_arrays_from(VARIANT const* const& in_val, bool is_optional);
 
-extern const HRESULT autoit_from(cv::MatExpr& in_val, ICv_Mat_Object**& out_val);
+extern const HRESULT autoit_from(cv::MatExpr const& in_val, ICv_Mat_Object**& out_val);
 
 namespace cv {
 	CV_EXPORTS_W Mat createMatFromBitmap(void* ptr, bool copy = true);
@@ -180,6 +180,6 @@ inline const HRESULT autoit_to(VARIANT const* const& in_val, AUTOIT_PTR<cv::Poin
 }
 
 template<typename _Tp>
-inline const HRESULT autoit_from(const cv::Point3_<_Tp>& in_val, VARIANT*& out_val) {
+inline const HRESULT autoit_from(cv::Point3_<_Tp> const& in_val, VARIANT*& out_val) {
 	return autoit_from(cv::Vec<_Tp, 3>(in_val), out_val);
 }

@@ -3,14 +3,14 @@
 Do you want to use [OpenCV](https://opencv.org/) v4+ in [AutoIt v3](https://www.autoitscript.com/) ?  
 If yes, then this udf might be for you.
 
-In fact, the dll being a [Component Object Model (COM)](https://docs.microsoft.com/en-us/windows/win32/com/the-component-object-model) dll, it can be used in any client dans can use COM components. For example [Office VBA](https://docs.microsoft.com/en-us/office/vba/api/overview/), [PowerShell](https://docs.microsoft.com/en-us/powershell/scripting/overview?view=powershell-7.2).
+In fact, the dll being a [Component Object Model (COM)](https://docs.microsoft.com/en-us/windows/win32/com/the-component-object-model) dll, it can be used in any client that can use COM components. For example [Office VBA](https://docs.microsoft.com/en-us/office/vba/api/overview/), [PowerShell](https://docs.microsoft.com/en-us/powershell/scripting/overview?view=powershell-7.2).
 
 ## Table Of Contents
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Prerequisites](#prerequisites)
+- [Installation](#installation)
 - [Usage](#usage)
   - [AutoIt](#autoit)
   - [PowerShell](#powershell)
@@ -18,7 +18,7 @@ In fact, the dll being a [Component Object Model (COM)](https://docs.microsoft.c
     - [Runtime example](#runtime-example)
     - [Compile time example](#compile-time-example)
 - [Running examples](#running-examples)
-  - [Prerequisites](#prerequisites-1)
+  - [Prerequisites](#prerequisites)
   - [autoit](#autoit)
   - [powershell](#powershell)
   - [csharp](#csharp-1)
@@ -34,17 +34,17 @@ In fact, the dll being a [Component Object Model (COM)](https://docs.microsoft.c
     - [Third line](#third-line)
     - [Final result](#final-result)
 - [Developpement](#developpement)
-  - [Prerequisites](#prerequisites-2)
+  - [Prerequisites](#prerequisites-1)
   - [Environment](#environment)
   - [Generate the UDF files](#generate-the-udf-files)
 - [History](#history)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Prerequisites
+## Installation
 
-  - Download and extract [opencv-4.10.0-windows.exe](https://github.com/opencv/opencv/releases/) into a folder
-  - Download and extract [autoit-opencv-4.10.0-com-v2.6.2.7z](https://github.com/smbape/node-autoit-opencv-com/releases/download/v2.6.2/autoit-opencv-4.10.0-com-v2.6.2.7z) into a folder
+  - Download and extract [opencv-4.11.0-windows.exe](https://github.com/opencv/opencv/releases/) into a folder
+  - Download and extract [autoit-opencv-4.11.0-com-v2.7.0.7z](https://github.com/smbape/node-autoit-opencv-com/releases/download/v2.7.0/autoit-opencv-4.11.0-com-v2.7.0.7z) into a folder
 
 ## Usage
 
@@ -60,7 +60,7 @@ In fact, the dll being a [Component Object Model (COM)](https://docs.microsoft.c
 
 #include "autoit-opencv-com\udf\opencv_udf_utils.au3"
 
-_OpenCV_Open("opencv-4.10.0-windows\opencv\build\x64\vc16\bin\opencv_world4100.dll", "autoit-opencv-com\autoit_opencv_com4100.dll")
+_OpenCV_Open("opencv-4.11.0-windows\opencv\build\x64\vc16\bin\opencv_world4110.dll", "autoit-opencv-com\autoit_opencv_com4110.dll")
 OnAutoItExitRegister("_OnAutoItExit")
 Example()
 
@@ -90,7 +90,7 @@ EndFunc   ;==>_OnAutoItExit
 #include "autoit-opencv-com\udf\opencv_udf_utils.au3"
 #include <GUIConstantsEx.au3>
 
-_OpenCV_Open("opencv-4.10.0-windows\opencv\build\x64\vc16\bin\opencv_world4100.dll", "autoit-opencv-com\autoit_opencv_com4100.dll")
+_OpenCV_Open("opencv-4.11.0-windows\opencv\build\x64\vc16\bin\opencv_world4110.dll", "autoit-opencv-com\autoit_opencv_com4110.dll")
 OnAutoItExitRegister("_OnAutoItExit")
 Example()
 
@@ -142,7 +142,7 @@ function Example() {
     $cv.destroyAllWindows()
 }
 
-[OpenCvComInterop]::DllOpen("opencv-4.10.0-windows\opencv\build\x64\vc16\bin\opencv_world4100.dll", "autoit-opencv-com\autoit_opencv_com4100.dll")
+[OpenCvComInterop]::DllOpen("opencv-4.11.0-windows\opencv\build\x64\vc16\bin\opencv_world4110.dll", "autoit-opencv-com\autoit_opencv_com4110.dll")
 
 Example
 
@@ -182,8 +182,8 @@ public static class Test
     static void Main(String[] args)
     {
         OpenCvComInterop.DllOpen(
-            "opencv-4.10.0-windows\\opencv\\build\\x64\\vc16\\bin\\opencv_world4100.dll",
-            "autoit-opencv-com\\autoit_opencv_com4100.dll"
+            "opencv-4.11.0-windows\\opencv\\build\\x64\\vc16\\bin\\opencv_world4110.dll",
+            "autoit-opencv-com\\autoit_opencv_com4110.dll"
         );
 
         Example();
@@ -217,8 +217,8 @@ public static class Test
     static void Main(String[] args)
     {
         OpenCvComInterop.DllOpen(
-            "opencv-4.10.0-windows\\opencv\\build\\x64\\vc16\\bin\\opencv_world4100.dll",
-            "autoit-opencv-com\\autoit_opencv_com4100.dll"
+            "opencv-4.11.0-windows\\opencv\\build\\x64\\vc16\\bin\\opencv_world4110.dll",
+            "autoit-opencv-com\\autoit_opencv_com4110.dll"
         );
 
         // Enable Registration-Free COM
@@ -246,25 +246,25 @@ Then, in [Git Bash](https://gitforwindows.org/), execute the following commands
 # go to the folder of your choice
 # cd ...
 
-# download autoit-opencv-4.10.0-com-v2.6.2.7z
-curl -L 'https://github.com/smbape/node-autoit-opencv-com/releases/download/v2.6.2/autoit-opencv-4.10.0-com-v2.6.2.7z' -o autoit-opencv-4.10.0-com-v2.6.2.7z
+# download autoit-opencv-4.11.0-com-v2.7.0.7z
+curl -L 'https://github.com/smbape/node-autoit-opencv-com/releases/download/v2.7.0/autoit-opencv-4.11.0-com-v2.7.0.7z' -o autoit-opencv-4.11.0-com-v2.7.0.7z
 
-# extract the content of autoit-opencv-4.10.0-com-v2.6.2.7z into a folder named autoit-opencv-com
-7z x autoit-opencv-4.10.0-com-v2.6.2.7z -aoa -oautoit-opencv-com
+# extract the content of autoit-opencv-4.11.0-com-v2.7.0.7z into a folder named autoit-opencv-com
+7z x autoit-opencv-4.11.0-com-v2.7.0.7z -aoa -oautoit-opencv-com
 
-# download opencv-4.10.0-windows.exe
-curl -L 'https://github.com/opencv/opencv/releases/download/4.10.0/opencv-4.10.0-windows.exe' -o opencv-4.10.0-windows.exe
+# download opencv-4.11.0-windows.exe
+curl -L 'https://github.com/opencv/opencv/releases/download/4.11.0/opencv-4.11.0-windows.exe' -o opencv-4.11.0-windows.exe
 
-# extract the content of opencv-4.10.0-windows.exe into a folder named opencv-4.10.0-windows
-./opencv-4.10.0-windows.exe -oopencv-4.10.0-windows -y
+# extract the content of opencv-4.11.0-windows.exe into a folder named opencv-4.11.0-windows
+./opencv-4.11.0-windows.exe -oopencv-4.11.0-windows -y
 
-# download autoit-opencv-4.10.0-com-v2.6.2-src.zip
-curl -L 'https://github.com/smbape/node-autoit-opencv-com/archive/refs/tags/v2.6.2.zip' -o autoit-opencv-4.10.0-com-v2.6.2-src.zip
+# download autoit-opencv-4.11.0-com-v2.7.0-src.zip
+curl -L 'https://github.com/smbape/node-autoit-opencv-com/archive/refs/tags/v2.7.0.zip' -o autoit-opencv-4.11.0-com-v2.7.0-src.zip
 
-# extract the autoit-addon and samples folders of autoit-opencv-4.10.0-com-v2.6.2-src.zip
-7z x autoit-opencv-4.10.0-com-v2.6.2-src.zip -aoa 'node-autoit-opencv-com-2.6.2\autoit-addon\*' 'node-autoit-opencv-com-2.6.2\samples\*'
-cp -rf node-autoit-opencv-com-2.6.2/* ./
-rm -rf node-autoit-opencv-com-2.6.2
+# extract the autoit-addon and samples folders of autoit-opencv-4.11.0-com-v2.7.0-src.zip
+7z x autoit-opencv-4.11.0-com-v2.7.0-src.zip -aoa 'node-autoit-opencv-com-2.7.0\autoit-addon\*' 'node-autoit-opencv-com-2.7.0\samples\*'
+cp -rf node-autoit-opencv-com-2.7.0/* ./
+rm -rf node-autoit-opencv-com-2.7.0
 ```
 
 ### autoit
@@ -298,7 +298,7 @@ Look at `samples\tutorial_code\Histograms_Matching\calcHist_Demo.au3` for an exa
 
 #### Prerequisite
 
-  - Install [Visual Studio 2022 >= 17.7.2 with .NET Desktop and C++ Desktop](https://visualstudio.microsoft.com/fr/downloads/)
+  - Install [Visual Studio 2022 >= 17.13.0 with .NET Desktop and C++ Desktop](https://visualstudio.microsoft.com/fr/downloads/)
 
 #### Building
 
@@ -311,7 +311,7 @@ The transformation will usually be straight from python.
 The translation usually involves 2 steps:
 
   - Finding the functions/constants names.
-  - Transform the parameter types according to the UDF parameter. This step might involve looking at the [opencv documentation](https://docs.opencv.org/4.10.0/index.html).
+  - Transform the parameter types according to the UDF parameter. This step might involve looking at the [opencv documentation](https://docs.opencv.org/4.11.0/index.html).
 
 ### Finding the functions/constants names
 
@@ -354,7 +354,7 @@ cnts, _ = cv2.findContours(thresh_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPL
 blurred = cv2.GaussianBlur(image, (3, 3), 0)
 ```
 
-The [GaussianBlur](https://docs.opencv.org/4.10.0/d4/d86/group__imgproc__filter.html#gaabe8c836e97159a9193fb0b11ac52cf1) documentation gives the following information
+The [GaussianBlur](https://docs.opencv.org/4.11.0/d4/d86/group__imgproc__filter.html#gaabe8c836e97159a9193fb0b11ac52cf1) documentation gives the following information
 ```txt
 void cv::GaussianBlur   (   InputArray    src,
     OutputArray   dst,
@@ -387,7 +387,7 @@ $blurred = $cv.GaussianBlur($image, _OpenCV_Size(3, 3), 0)
 T, thresh_img = cv2.threshold(blurred, 215, 255, cv2.THRESH_BINARY)
 ```
 
-The [threshold](https://docs.opencv.org/4.10.0/d7/d1b/group__imgproc__misc.html#gae8a4a146d1ca78c626a53577199e9c57) documentation gives the following information
+The [threshold](https://docs.opencv.org/4.11.0/d7/d1b/group__imgproc__misc.html#gae8a4a146d1ca78c626a53577199e9c57) documentation gives the following information
 ```txt
 double cv::threshold  (   InputArray    src,
     OutputArray   dst,
@@ -431,7 +431,7 @@ $thresh_img = $cv.extended[1]
 cnts, _ = cv2.findContours(thresh_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 ```
 
-The [findContours](https://docs.opencv.org/4.10.0/d3/dc0/group__imgproc__shape.html#gadf1ad6a0b82947fa1fe3c3d497f260e0) documentation gives the following information
+The [findContours](https://docs.opencv.org/4.11.0/d3/dc0/group__imgproc__shape.html#gadf1ad6a0b82947fa1fe3c3d497f260e0) documentation gives the following information
 ```txt
 void cv::findContours   (   InputArray    image,
     OutputArrayOfArrays   contours,
@@ -480,7 +480,7 @@ $_ = $cv.extended[1]
 
 ### Prerequisites
 
-  - Install [Visual Studio 2022 >= 17.7.2 with .NET Desktop and C++ Desktop](https://visualstudio.microsoft.com/fr/downloads/)
+  - Install [Visual Studio 2022 >= 17.13.0 with .NET Desktop and C++ Desktop](https://visualstudio.microsoft.com/fr/downloads/)
   - Install [Git for Windows](https://gitforwindows.org/)
   - Install [nodejs](https://nodejs.org/en/download/)
   - Install [Python >= 3.8](https://www.python.org/downloads/)

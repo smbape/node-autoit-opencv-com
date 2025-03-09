@@ -183,8 +183,8 @@ public static class Test
         }
 
         OpenCvComInterop.DllOpen(
-            string.IsNullOrWhiteSpace(opencv_world_dll) ? OpenCvComInterop.FindDLL("opencv_world4100*", null, null, buildType) : opencv_world_dll,
-            string.IsNullOrWhiteSpace(opencv_com_dll) ? OpenCvComInterop.FindDLL("autoit_opencv_com4100*", null, null, buildType) : opencv_com_dll
+            string.IsNullOrWhiteSpace(opencv_world_dll) ? OpenCvComInterop.FindDLL("opencv_world4110*", null, null, buildType) : opencv_world_dll,
+            string.IsNullOrWhiteSpace(opencv_com_dll) ? OpenCvComInterop.FindDLL("autoit_opencv_com4110*", null, null, buildType) : opencv_com_dll
         );
 
         if (register)

@@ -1,5 +1,173 @@
+diff --git a/cmake/OpenCVDetectTBB.cmake b/cmake/OpenCVDetectTBB.cmake
+index fc564e981a..7ef29416f8 100644
+--- a/cmake/OpenCVDetectTBB.cmake
++++ b/cmake/OpenCVDetectTBB.cmake
+@@ -28,7 +28,7 @@ function(ocv_tbb_cmake_guess _found)
+       get_target_property(_lib TBB::tbb IMPORTED_LOCATION_RELEASE)
+       message(STATUS "Found TBB (cmake): ${_lib}")
+       get_target_property(_inc TBB::tbb INTERFACE_INCLUDE_DIRECTORIES)
+-      add_library(tbb INTERFACE IMPORTED)
++      add_library(tbb INTERFACE IMPORTED GLOBAL)
+       set_target_properties(tbb PROPERTIES
+         INTERFACE_LINK_LIBRARIES TBB::tbb
+       )
+@@ -66,7 +66,7 @@ function(ocv_tbb_env_guess _found)
+   find_library(TBB_ENV_LIB_DEBUG NAMES "tbb_debug")
+   if (TBB_ENV_INCLUDE AND (TBB_ENV_LIB OR TBB_ENV_LIB_DEBUG))
+     ocv_tbb_env_verify()
+-    add_library(tbb UNKNOWN IMPORTED)
++    add_library(tbb UNKNOWN IMPORTED GLOBAL)
+     set_target_properties(tbb PROPERTIES
+       IMPORTED_LOCATION "${TBB_ENV_LIB}"
+       INTERFACE_INCLUDE_DIRECTORIES "${TBB_ENV_INCLUDE}"
+diff --git a/cmake/OpenCVFindIPP.cmake b/cmake/OpenCVFindIPP.cmake
+index eb26bea5a1..0117254d47 100644
+--- a/cmake/OpenCVFindIPP.cmake
++++ b/cmake/OpenCVFindIPP.cmake
+@@ -155,7 +155,7 @@ macro(ipp_detect_version)
+         # When using dynamic libraries from standalone Intel IPP it is your responsibility to install those on the target system
+         list(APPEND IPP_LIBRARIES ${IPP_LIBRARY_DIR}/${IPP_LIB_PREFIX}${IPP_PREFIX}${name}${IPP_SUFFIX}${IPP_LIB_SUFFIX})
+       else ()
+-        add_library(ipp${name} STATIC IMPORTED)
++        add_library(ipp${name} STATIC IMPORTED GLOBAL)
+         set(_filename "${IPP_LIB_PREFIX}${IPP_PREFIX}${name}${IPP_SUFFIX}${IPP_LIB_SUFFIX}")
+         set_target_properties(ipp${name} PROPERTIES
+           IMPORTED_LINK_INTERFACE_LIBRARIES ""
+diff --git a/cmake/OpenCVFindIPPIW.cmake b/cmake/OpenCVFindIPPIW.cmake
+index 1e065e10f6..b48e367daa 100644
+--- a/cmake/OpenCVFindIPPIW.cmake
++++ b/cmake/OpenCVFindIPPIW.cmake
+@@ -108,7 +108,7 @@ macro(ippiw_setup PATH BUILD)
+           message(STATUS "found Intel IPP Integration Wrappers binaries: ${IW_VERSION_MAJOR}.${IW_VERSION_MINOR}.${IW_VERSION_UPDATE}")
+           message(STATUS "at: ${IPP_IW_PATH}")
+ 
+-          add_library(ipp_iw STATIC IMPORTED)
++          add_library(ipp_iw STATIC IMPORTED GLOBAL)
+           set_target_properties(ipp_iw PROPERTIES
+             IMPORTED_LINK_INTERFACE_LIBRARIES ""
+             IMPORTED_LOCATION "${FILE}"
+diff --git a/cmake/OpenCVFindProtobuf.cmake b/cmake/OpenCVFindProtobuf.cmake
+index 5b1e17529f..9dbf65202c 100644
+--- a/cmake/OpenCVFindProtobuf.cmake
++++ b/cmake/OpenCVFindProtobuf.cmake
+@@ -60,7 +60,7 @@ else()
+     if(TARGET protobuf::libprotobuf)
+       set(Protobuf_LIBRARIES "protobuf::libprotobuf")
+     else()
+-      add_library(libprotobuf UNKNOWN IMPORTED)
++      add_library(libprotobuf UNKNOWN IMPORTED GLOBAL)
+       set_target_properties(libprotobuf PROPERTIES
+         IMPORTED_LOCATION "${Protobuf_LIBRARY}"
+         INTERFACE_INCLUDE_DIRECTORIES "${Protobuf_INCLUDE_DIR}"
+diff --git a/cmake/OpenCVGenConfig.cmake b/cmake/OpenCVGenConfig.cmake
+index df48ae0848..15966c4108 100644
+--- a/cmake/OpenCVGenConfig.cmake
++++ b/cmake/OpenCVGenConfig.cmake
+@@ -50,7 +50,9 @@ foreach(m ${OPENCV_MODULES_BUILD})
+   endif()
+ endforeach()
+ 
+-export(EXPORT OpenCVModules FILE "${CMAKE_BINARY_DIR}/OpenCVModules.cmake")
++if (NOT "${OPENCV_MODULE_TYPE}" STREQUAL "OBJECT")
++  export(EXPORT OpenCVModules FILE "${CMAKE_BINARY_DIR}/OpenCVModules.cmake")
++endif()
+ 
+ if(TARGET ippicv AND NOT BUILD_SHARED_LIBS)
+   set(USE_IPPICV TRUE)
+@@ -102,7 +104,9 @@ function(ocv_gen_config TMP_DIR NESTED_PATH ROOT_NAME)
+   configure_file("${OpenCV_SOURCE_DIR}/cmake/templates/OpenCVConfig-version.cmake.in" "${TMP_DIR}/OpenCVConfig-version.cmake" @ONLY)
+ 
+   configure_file("${OpenCV_SOURCE_DIR}/cmake/templates/OpenCVConfig.cmake.in" "${__tmp_nested}/OpenCVConfig.cmake" @ONLY)
+-  install(EXPORT OpenCVModules DESTINATION "${__install_nested}" FILE OpenCVModules.cmake COMPONENT dev)
++  if (NOT "${OPENCV_MODULE_TYPE}" STREQUAL "OBJECT")
++    install(EXPORT OpenCVModules DESTINATION "${__install_nested}" FILE OpenCVModules.cmake COMPONENT dev)
++  endif()
+   install(FILES
+       "${TMP_DIR}/OpenCVConfig-version.cmake"
+       "${__tmp_nested}/OpenCVConfig.cmake"
+diff --git a/cmake/OpenCVModule.cmake b/cmake/OpenCVModule.cmake
+index 84e8216fe0..41780ad088 100644
+--- a/cmake/OpenCVModule.cmake
++++ b/cmake/OpenCVModule.cmake
+@@ -938,7 +938,7 @@ macro(_ocv_create_module)
+   endif()
+ 
+   if(WIN32
+-      AND (BUILD_SHARED_LIBS AND NOT "x${OPENCV_MODULE_TYPE}" STREQUAL "xSTATIC")
++      AND (BUILD_SHARED_LIBS AND NOT "x${OPENCV_MODULE_TYPE}" STREQUAL "xSTATIC" AND NOT "x${OPENCV_MODULE_TYPE}" STREQUAL "xOBJECT")
+       AND NOT OPENCV_VS_VERSIONINFO_SKIP)
+     if(DEFINED OPENCV_VS_VERSIONINFO_FILE)
+       set(_VS_VERSION_FILE "${OPENCV_VS_VERSIONINFO_FILE}")
+@@ -965,7 +965,7 @@ macro(_ocv_create_module)
+           "${the_module}" STREQUAL "opencv_world" OR
+           "${the_module}" STREQUAL "opencv_cudev"
+       )
+-      AND (BUILD_SHARED_LIBS AND NOT "x${OPENCV_MODULE_TYPE}" STREQUAL "xSTATIC")
++      AND (BUILD_SHARED_LIBS AND NOT "x${OPENCV_MODULE_TYPE}" STREQUAL "xSTATIC" AND NOT "x${OPENCV_MODULE_TYPE}" STREQUAL "xOBJECT")
+       AND NOT OPENCV_SKIP_DLLMAIN_GENERATION
+   )
+       set(_DLLMAIN_FILE "${CMAKE_CURRENT_BINARY_DIR}/${the_module}_main.cpp")
+@@ -1008,6 +1008,10 @@ macro(_ocv_create_module)
+     set_target_properties(${the_module} PROPERTIES FOLDER "modules")
+   endif()
+ 
++  if(BUILD_SHARED_LIBS)
++    target_compile_definitions(${the_module} PRIVATE CVAPI_EXPORTS)
++  endif()
++
+   set_target_properties(${the_module} PROPERTIES
+     OUTPUT_NAME "${the_module}${OPENCV_DLLVERSION}"
+     DEBUG_POSTFIX "${OPENCV_DEBUG_POSTFIX}"
+@@ -1050,14 +1054,14 @@ macro(_ocv_create_module)
+ 
+   get_target_property(_target_type ${the_module} TYPE)
+   if(OPENCV_MODULE_${the_module}_CLASS STREQUAL "PUBLIC" AND
+-      ("${_target_type}" STREQUAL "SHARED_LIBRARY" OR (NOT BUILD_SHARED_LIBS OR NOT INSTALL_CREATE_DISTRIB)))
++      ("${_target_type}" STREQUAL "SHARED_LIBRARY" OR "${_target_type}" STREQUAL "OBJECT_LIBRARY" OR (NOT BUILD_SHARED_LIBS OR NOT INSTALL_CREATE_DISTRIB)))
+     ocv_install_target(${the_module} EXPORT OpenCVModules OPTIONAL
+       RUNTIME DESTINATION ${OPENCV_BIN_INSTALL_PATH} COMPONENT libs
+       LIBRARY DESTINATION ${OPENCV_LIB_INSTALL_PATH} COMPONENT libs NAMELINK_SKIP
+       ARCHIVE DESTINATION ${OPENCV_LIB_ARCHIVE_INSTALL_PATH} COMPONENT dev
+       )
+   endif()
+-  if("${_target_type}" STREQUAL "SHARED_LIBRARY")
++  if("${_target_type}" STREQUAL "SHARED_LIBRARY" OR "${_target_type}" STREQUAL "OBJECT_LIBRARY")
+     install(TARGETS ${the_module}
+       LIBRARY DESTINATION ${OPENCV_LIB_INSTALL_PATH} COMPONENT dev NAMELINK_ONLY)
+   endif()
+diff --git a/cmake/OpenCVUtils.cmake b/cmake/OpenCVUtils.cmake
+index 5886f4f3cb..b787b50082 100644
+--- a/cmake/OpenCVUtils.cmake
++++ b/cmake/OpenCVUtils.cmake
+@@ -1281,7 +1281,7 @@ function(ocv_install_target)
+     )
+       set(__location_key "ARCHIVE")  # static libs
+       get_target_property(__target_type ${__target} TYPE)
+-      if("${__target_type}" STREQUAL "SHARED_LIBRARY")
++      if("${__target_type}" STREQUAL "SHARED_LIBRARY" OR "${__target_type}" STREQUAL "OBJECT_LIBRARY")
+         set(__location_key "RUNTIME")  # shared libs (.DLL)
+       endif()
+ 
+@@ -1323,7 +1323,7 @@ function(ocv_install_target)
+           if("${__target_type}" STREQUAL "SHARED_LIBRARY" OR "${__target_type}" STREQUAL "MODULE_LIBRARY")
+             install(FILES "$<TARGET_PDB_FILE:${__target}>" DESTINATION "${__dst}"
+                 COMPONENT ${__pdb_install_component} OPTIONAL ${__pdb_exclude_from_all})
+-          else()
++          else(NOT "${__target_type}" STREQUAL "OBJECT_LIBRARY")
+             # There is no generator expression similar to TARGET_PDB_FILE and TARGET_PDB_FILE can't be used: https://gitlab.kitware.com/cmake/cmake/issues/16932
+             # However we still want .pdb files like: 'lib/Debug/opencv_core341d.pdb' or '3rdparty/lib/zlibd.pdb'
+             install(FILES "$<TARGET_PROPERTY:${__target},ARCHIVE_OUTPUT_DIRECTORY>/$<CONFIG>/$<IF:$<BOOL:$<TARGET_PROPERTY:${__target},COMPILE_PDB_NAME_DEBUG>>,$<TARGET_PROPERTY:${__target},COMPILE_PDB_NAME_DEBUG>,$<TARGET_PROPERTY:${__target},COMPILE_PDB_NAME>>.pdb"
+@@ -1624,7 +1624,7 @@ endfunction()
+ 
+ function(ocv_add_external_target name inc link def)
+   if(BUILD_SHARED_LIBS AND link)
+-    set(imp IMPORTED)
++    set(imp IMPORTED GLOBAL)
+   endif()
+   add_library(ocv.3rdparty.${name} INTERFACE ${imp})
+   if(def)
 diff --git a/modules/dnn/src/caffe/caffe_importer.cpp b/modules/dnn/src/caffe/caffe_importer.cpp
-index 50e1fbe93f..e6a393226f 100644
+index fc6cbcdd28..f8e317866d 100644
 --- a/modules/dnn/src/caffe/caffe_importer.cpp
 +++ b/modules/dnn/src/caffe/caffe_importer.cpp
 @@ -51,6 +51,7 @@
@@ -65,7 +233,7 @@ index 50615b2652..c19a19b462 100644
  {
      using namespace cv::gapi::fluid;
 diff --git a/modules/highgui/src/window_w32.cpp b/modules/highgui/src/window_w32.cpp
-index 32b2392904..c5ed2dc30d 100644
+index 2543c81c6a..c727f9d5d6 100644
 --- a/modules/highgui/src/window_w32.cpp
 +++ b/modules/highgui/src/window_w32.cpp
 @@ -654,11 +654,11 @@ double cvGetPropTopmost_W32(const char* name)
@@ -83,7 +251,7 @@ index 32b2392904..c5ed2dc30d 100644
      }
  
 diff --git a/modules/python/src2/hdr_parser.py b/modules/python/src2/hdr_parser.py
-index fa2d0077d9..1d9e5a57f8 100755
+index 27f0fe0963..bfae01a806 100755
 --- a/modules/python/src2/hdr_parser.py
 +++ b/modules/python/src2/hdr_parser.py
 @@ -70,6 +70,29 @@ class CppHeaderParser(object):
@@ -116,7 +284,7 @@ index fa2d0077d9..1d9e5a57f8 100755
      def parse_arg(self, arg_str, argno):
          """
          Parses <arg_type> [arg_name]
-@@ -166,20 +189,17 @@ class CppHeaderParser(object):
+@@ -170,25 +193,47 @@ class CppHeaderParser(object):
                      arg_type += w
                  continue
              elif w == "<":
@@ -139,8 +307,39 @@ index fa2d0077d9..1d9e5a57f8 100755
 -                        arg_type += "_end_"
                      angle_stack[-1:] = []
              elif angle_stack:
++                if angle_stack[-1] != 0:
++                    arg_type += " "
                  arg_type += w
-@@ -223,8 +243,6 @@ class CppHeaderParser(object):
+                 angle_stack[-1] += 1
+-            elif arg_type == "struct":
++            elif arg_type == "struct" or (wi + 1 < len(word_list) and (arg_type + " " + w) in [
++                # https://en.cppreference.com/w/cpp/language/types
++                "signed char",
++                "unsigned char",
++                "short int",
++                "signed short",
++                "signed short int",
++                "unsigned short",
++                "unsigned short int",
++                "signed int",
++                "unsigned int",
++                "long int",
++                "signed long",
++                "signed long int",
++                "unsigned long",
++                "unsigned long int",
++                "long long",
++                "long long int",
++                "signed long long",
++                "signed long long int",
++                "unsigned long long",
++                "unsigned long long int",
++                "long double"
++            ]):
+                 arg_type += " " + w
+             elif arg_type and arg_type != "~":
+                 arg_name = " ".join(word_list[wi:])
+@@ -227,8 +272,6 @@ class CppHeaderParser(object):
          if add_star:
              arg_type += "*"
  
@@ -149,7 +348,7 @@ index fa2d0077d9..1d9e5a57f8 100755
          return arg_type, arg_name, modlist, argno
  
      def parse_enum(self, decl_str):
-@@ -420,11 +438,25 @@ class CppHeaderParser(object):
+@@ -424,11 +467,25 @@ class CppHeaderParser(object):
          npos = decl_str.find("CV_EXPORTS_AS")
          if npos >= 0:
              arg, npos3 = self.get_macro_arg(decl_str, npos)
@@ -175,7 +374,7 @@ index fa2d0077d9..1d9e5a57f8 100755
              func_modlist.append("="+arg)
              decl_str = decl_str[:npos] + decl_str[npos3+1:]
          npos = decl_str.find("CV_WRAP_PHANTOM")
-@@ -448,6 +480,7 @@ class CppHeaderParser(object):
+@@ -452,6 +509,7 @@ class CppHeaderParser(object):
          decl_str = self.batch_replace(decl_str, [("static inline", ""),
                                                   ("inline", ""),
                                                   ("explicit ", ""),
@@ -183,16 +382,43 @@ index fa2d0077d9..1d9e5a57f8 100755
                                                   ("CV_EXPORTS_W", ""),
                                                   ("CV_EXPORTS", ""),
                                                   ("CV_CDECL", ""),
-@@ -598,7 +631,7 @@ class CppHeaderParser(object):
-                     if eqpos >= 0:
+@@ -603,35 +661,17 @@ class CppHeaderParser(object):
                          a = a[:eqpos].strip()
                      arg_type, arg_name, modlist, argno = self.parse_arg(a, argno)
--                    if self.wrap_mode:
-+                    if False:
-                         # TODO: Vectors should contain UMat, but this is not very easy to support and not very needed
-                         vector_mat = "vector_{}".format(mat)
-                         vector_mat_template = "vector<{}>".format(mat)
-@@ -659,10 +692,13 @@ class CppHeaderParser(object):
+                     if self.wrap_mode:
+-                        # TODO: Vectors should contain UMat, but this is not very easy to support and not very needed
+-                        vector_mat = "vector_{}".format(mat)
+-                        vector_mat_template = "vector<{}>".format(mat)
+-
+                         if arg_type == "InputArray":
+-                            arg_type = mat
+                             if is_arithm_op_func:
+                                 modlist.append("/AOS") # Arithm Ope Source
+                         elif arg_type == "InputOutputArray":
+-                            arg_type = mat
+                             modlist.append("/IO")
+                         elif arg_type == "OutputArray":
+-                            arg_type = mat
+                             modlist.append("/O")
+-                        elif arg_type == "InputArrayOfArrays":
+-                            arg_type = vector_mat
+                         elif arg_type == "InputOutputArrayOfArrays":
+-                            arg_type = vector_mat
+                             modlist.append("/IO")
+                         elif arg_type == "OutputArrayOfArrays":
+-                            arg_type = vector_mat
+                             modlist.append("/O")
+-                        defval = self.batch_replace(defval, [("InputArrayOfArrays", vector_mat_template),
+-                                                             ("InputOutputArrayOfArrays", vector_mat_template),
+-                                                             ("OutputArrayOfArrays", vector_mat_template),
+-                                                             ("InputArray", mat),
+-                                                             ("InputOutputArray", mat),
+-                                                             ("OutputArray", mat),
+-                                                             ("noArray", arg_type)]).strip()
+                     if '/IO' in modlist and '/O' in modlist:
+                         modlist.remove('/O')
+                     if (arg_name.lower() == 'filename' or arg_name.lower() == 'filepath') and '/PATH' not in modlist:
+@@ -663,10 +703,13 @@ class CppHeaderParser(object):
  
          the function will convert "A" to "cv.A" and "f" to "cv.A.f".
          """
@@ -209,7 +435,7 @@ index fa2d0077d9..1d9e5a57f8 100755
          qualified_name = (("." in name) or ("::" in name))
          n = ""
          for b in self.block_stack:
-@@ -754,7 +790,10 @@ class CppHeaderParser(object):
+@@ -758,7 +801,10 @@ class CppHeaderParser(object):
  
              if stmt.startswith("enum") or stmt.startswith("namespace"):
                  # NB: Drop inheritance syntax for enum
@@ -221,7 +447,7 @@ index fa2d0077d9..1d9e5a57f8 100755
                  stmt_list = stmt.rsplit(" ", 1)
                  if len(stmt_list) < 2:
                      stmt_list.append("<unnamed>")
-@@ -790,8 +829,18 @@ class CppHeaderParser(object):
+@@ -794,8 +840,18 @@ class CppHeaderParser(object):
                  var_modlist = []
                  if "CV_PROP_RW" in stmt:
                      var_modlist.append("/RW")
@@ -242,3 +468,76 @@ index fa2d0077d9..1d9e5a57f8 100755
                  var_type, var_name1, modlist, argno = self.parse_arg(var_list[0], -1)
                  var_list = [var_name1] + [i.strip() for i in var_list[1:]]
  
+diff --git a/modules/python/src2/typing_stubs_generation/predefined_types.py b/modules/python/src2/typing_stubs_generation/predefined_types.py
+index c5f49b5122..67d51a4a28 100644
+--- a/modules/python/src2/typing_stubs_generation/predefined_types.py
++++ b/modules/python/src2/typing_stubs_generation/predefined_types.py
+@@ -49,6 +49,12 @@ _PREDEFINED_TYPES = (
+                AliasRefTypeNode("NumPyArrayNumeric")),
+         export_name="MatLike"
+     ),
++    NoneTypeNode("InputArray"),
++    NoneTypeNode("InputOutputArray"),
++    NoneTypeNode("OutputArray"),
++    NoneTypeNode("InputArrayOfArrays"),
++    NoneTypeNode("InputOutputArrayOfArrays"),
++    NoneTypeNode("OutputArrayOfArrays"),
+     AliasTypeNode.sequence_("MatShape", PrimitiveTypeNode.int_()),
+     AliasTypeNode.sequence_("Size", PrimitiveTypeNode.int_(),
+                             doc="Required length is 2"),
+@@ -177,22 +183,42 @@ _PREDEFINED_TYPES = (
+                         PrimitiveTypeNode.str_("map_string_and_string::key"),
+                         PrimitiveTypeNode.str_("map_string_and_string::value"),
+                         required_modules=("flann",)),
++    AliasTypeNode.dict_("map<std_string,std_string>",
++                        PrimitiveTypeNode.str_("map<std_string,std_string>::key"),
++                        PrimitiveTypeNode.str_("map<std_string,std_string>::value"),
++                        required_modules=("flann",)),
+     AliasTypeNode.dict_("map_string_and_int",
+                         PrimitiveTypeNode.str_("map_string_and_int::key"),
+                         PrimitiveTypeNode.int_("map_string_and_int::value"),
+                         required_modules=("flann",)),
++    AliasTypeNode.dict_("map<std_string,int>",
++                        PrimitiveTypeNode.str_("map<std_string,int>::key"),
++                        PrimitiveTypeNode.int_("map<std_string,int>::value"),
++                        required_modules=("flann",)),
+     AliasTypeNode.dict_("map_string_and_vector_size_t",
+                         PrimitiveTypeNode.str_("map_string_and_vector_size_t::key"),
+                         SequenceTypeNode("map_string_and_vector_size_t::value", PrimitiveTypeNode.int_("size_t")),
+                         required_modules=("flann",)),
++    AliasTypeNode.dict_("map<std_string,std_vector<size_t>>",
++                        PrimitiveTypeNode.str_("map<std_string,std_vector<size_t>>::key"),
++                        SequenceTypeNode("map<std_string,std_vector<size_t>>::value", PrimitiveTypeNode.int_("size_t")),
++                        required_modules=("flann",)),
+     AliasTypeNode.dict_("map_string_and_vector_float",
+                         PrimitiveTypeNode.str_("map_string_and_vector_float::key"),
+                         SequenceTypeNode("map_string_and_vector_float::value", PrimitiveTypeNode.float_()),
+                         required_modules=("flann",)),
++    AliasTypeNode.dict_("map<std_string,std_vector<float>>",
++                        PrimitiveTypeNode.str_("map<std_string,std_vector<float>>::key"),
++                        SequenceTypeNode("map<std_string,std_vector<float>>::value", PrimitiveTypeNode.float_()),
++                        required_modules=("flann",)),
+     AliasTypeNode.dict_("map_int_and_double",
+                         PrimitiveTypeNode.int_("map_int_and_double::key"),
+                         PrimitiveTypeNode.float_("map_int_and_double::value"),
+                         required_modules=("flann",)),
++    AliasTypeNode.dict_("map<int,double>",
++                        PrimitiveTypeNode.int_("map<int,double>::key"),
++                        PrimitiveTypeNode.float_("map<int,double>::value"),
++                        required_modules=("flann",)),
+ 
+     # G-API, optional
+     AliasTypeNode.union_("GProtoArg",
+diff --git a/platforms/winpack_dldt/2021.4.2/cmake/InferenceEngineConfig.cmake b/platforms/winpack_dldt/2021.4.2/cmake/InferenceEngineConfig.cmake
+index d9c9a12de6..afcd697217 100644
+--- a/platforms/winpack_dldt/2021.4.2/cmake/InferenceEngineConfig.cmake
++++ b/platforms/winpack_dldt/2021.4.2/cmake/InferenceEngineConfig.cmake
+@@ -6,7 +6,7 @@ get_filename_component(_IMPORT_PREFIX "${_IMPORT_PREFIX}" PATH)
+ get_filename_component(_IMPORT_PREFIX "${_IMPORT_PREFIX}" PATH)
+ 
+ set(InferenceEngine_LIBRARIES IE::inference_engine)
+-add_library(IE::inference_engine SHARED IMPORTED)
++add_library(IE::inference_engine SHARED IMPORTED GLOBAL)
+ 
+ set_target_properties(IE::inference_engine PROPERTIES
+   INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/deployment_tools/inference_engine/include"

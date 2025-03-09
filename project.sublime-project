@@ -18,7 +18,9 @@
 				"*.swf",
 				"*.jar",
 				"*.zip",
-				"node_modules/**"
+				"node_modules/**",
+				"opencv/opencv/**",
+				"opencv/opencv_extra/**"
 			]
 		}
 	]

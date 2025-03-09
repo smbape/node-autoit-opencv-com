@@ -360,7 +360,7 @@ const bool is_assignable_from(bool& out_val, VARIANT const* const& in_val, bool 
 	return V_VT(in_val) == VT_BOOL;
 }
 
-const HRESULT autoit_to(VARIANT_BOOL& in_val, bool& out_val) {
+const HRESULT autoit_to(VARIANT_BOOL const& in_val, bool& out_val) {
 	out_val = in_val == VARIANT_TRUE;
 	return S_OK;
 }
@@ -378,12 +378,12 @@ const HRESULT autoit_to(VARIANT const* const& in_val, bool& out_val) {
 	return S_OK;
 }
 
-const HRESULT autoit_from(const bool& in_val, VARIANT_BOOL*& out_val) {
+const HRESULT autoit_from(bool const& in_val, VARIANT_BOOL*& out_val) {
 	*out_val = in_val ? VARIANT_TRUE : VARIANT_FALSE;
 	return S_OK;
 }
 
-const HRESULT autoit_from(const bool& in_val, VARIANT*& out_val) {
+const HRESULT autoit_from(bool const& in_val, VARIANT*& out_val) {
 	VariantClear(out_val);
 	V_VT(out_val) = VT_BOOL;
 	V_BOOL(out_val) = in_val ? VARIANT_TRUE : VARIANT_FALSE;
@@ -442,19 +442,19 @@ const HRESULT autoit_to(VARIANT const* const& in_val, std::string& out_val) {
 	return autoit_to(V_BSTR(in_val), out_val);
 }
 
-const HRESULT autoit_from(std::string& in_val, BSTR& out_val) {
+const HRESULT autoit_from(std::string const& in_val, BSTR& out_val) {
 	auto* pout_val = &out_val;
 	return autoit_from(in_val, pout_val);
 }
 
-const HRESULT autoit_from(const std::string& in_val, BSTR*& out_val) {
+const HRESULT autoit_from(std::string const& in_val, BSTR*& out_val) {
 	// https://stackoverflow.com/questions/6284524/bstr-to-stdstring-stdwstring-and-vice-versa/6284978#6284978
 	std::wstring ws; utf8_to_wcs(in_val, ws);
 	*out_val = SysAllocStringLen(ws.data(), ws.size());
 	return S_OK;
 }
 
-const HRESULT autoit_from(const std::string& in_val, VARIANT*& out_val) {
+const HRESULT autoit_from(std::string const& in_val, VARIANT*& out_val) {
 	V_VT(out_val) = VT_BSTR;
 	BSTR bstrVal;
 	BSTR* pbstrVal = &bstrVal;
@@ -466,7 +466,6 @@ const HRESULT autoit_from(const std::string& in_val, VARIANT*& out_val) {
 const HRESULT autoit_from(BSTR const& in_val, VARIANT*& out_val) {
 	VARIANT variant = { VT_BSTR };
 	V_BSTR(&variant) = in_val;
-	VariantInit(out_val);
 	return VariantCopy(out_val, &variant);
 }
 
@@ -494,45 +493,41 @@ PTR_BRIDGE_IMPL(unsigned char*)
 PTR_BRIDGE_IMPL(HWND)
 
 const HRESULT autoit_from(VARIANT const& in_val, VARIANT*& out_val) {
-	VariantClear(out_val);
-	VariantInit(out_val);
 	return VariantCopy(out_val, &in_val);
 }
 
-const HRESULT autoit_out(IDispatch*& in_val, VARIANT*& out_val) {
-	V_VT(out_val) = VT_DISPATCH;
-	V_DISPATCH(out_val) = in_val;
-	in_val->AddRef();
+const HRESULT autoit_out(IDispatch*& out_val, VARIANT* const retval) {
+	V_VT(retval) = VT_DISPATCH;
+	V_DISPATCH(retval) = out_val;
+	out_val->AddRef();
 	return S_OK;
 }
 
-const HRESULT autoit_out(VARIANT const* const& in_val, VARIANT*& out_val) {
-	VariantClear(out_val);
-	VariantInit(out_val);
-	return VariantCopy(out_val, in_val);
+const HRESULT autoit_out(VARIANT*& out_val, VARIANT* const retval) {
+	return VariantCopy(retval, out_val);
 }
 
-const HRESULT autoit_out(VARIANT const* const& in_val, IDispatch**& out_val) {
-	if (V_VT(in_val) != VT_DISPATCH) {
+const HRESULT autoit_out(VARIANT*& out_val, IDispatch** const retval) {
+	if (V_VT(out_val) != VT_DISPATCH) {
 		return E_INVALIDARG;
 	}
 
-	if (*out_val) {
-		(*out_val)->Release();
+	if (*retval) {
+		(*retval)->Release();
 	}
 
-	*out_val = getRealIDispatch(in_val);
-	(*out_val)->AddRef();
+	*retval = getRealIDispatch(out_val);
+	(*retval)->AddRef();
 	return S_OK;
 }
 
-const HRESULT autoit_out(VARIANT const* const& in_val, BSTR*& out_val) {
-	if (V_VT(in_val) != VT_BSTR) {
+const HRESULT autoit_out(VARIANT*& out_val, BSTR* const retval) {
+	if (V_VT(out_val) != VT_BSTR) {
 		return E_INVALIDARG;
 	}
 
-	*out_val = SysAllocString(V_BSTR(in_val));
-	return *out_val == NULL && V_BSTR(in_val) != NULL ? E_OUTOFMEMORY : S_OK;
+	*retval = SysAllocString(V_BSTR(out_val));
+	return *retval == NULL && V_BSTR(out_val) != NULL ? E_OUTOFMEMORY : S_OK;
 }
 
 const bool is_variant_number(VARIANT const* const& in_val) {

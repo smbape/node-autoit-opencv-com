@@ -44,4 +44,6 @@ EndFunc   ;==>_${ libname }_${ fname }
 };
 
 const [,, libname, fname, ...args] = process.argv;
+
+// eslint-disable-next-line no-eval
 console.log(genFunc(libname, fname, args.map(arg => eval(arg))));

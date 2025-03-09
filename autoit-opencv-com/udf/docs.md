@@ -79,6 +79,8 @@
   - [cv.BOWTrainer](#cvbowtrainer)
   - [cv.BOWKMeansTrainer](#cvbowkmeanstrainer)
   - [cv.BOWImgDescriptorExtractor](#cvbowimgdescriptorextractor)
+  - [cv.Animation](#cvanimation)
+  - [cv.IStreamReader](#cvistreamreader)
   - [cv.VideoCapture](#cvvideocapture)
   - [cv.VideoWriter](#cvvideowriter)
   - [cv.videoio\_registry](#cvvideoio%5C_registry)
@@ -172,7 +174,10 @@
   - [cv.Matx66d](#cvmatx66d)
   - [cv.Range](#cvrange)
   - [cv.GCompileArg](#cvgcompilearg)
-  - [cv.GRunArg](#cvgrunarg)
+  - [cv.GInferInputs](#cvginferinputs)
+  - [cv.GInferListInputs](#cvginferlistinputs)
+  - [cv.GInferOutputs](#cvginferoutputs)
+  - [cv.GInferListOutputs](#cvginferlistoutputs)
   - [cv.GProtoInputArgs](#cvgprotoinputargs)
   - [cv.GProtoOutputArgs](#cvgprotooutputargs)
   - [cv::CamShift](#cvcamshift)
@@ -210,6 +215,7 @@
   - [cv::addWeighted](#cvaddweighted)
   - [cv::applyColorMap](#cvapplycolormap)
   - [cv::approxPolyDP](#cvapproxpolydp)
+  - [cv::approxPolyN](#cvapproxpolyn)
   - [cv::arcLength](#cvarclength)
   - [cv::argmax](#cvargmax)
   - [cv::arrowedLine](#cvarrowedline)
@@ -375,6 +381,7 @@
   - [cv::getBuildInformation](#cvgetbuildinformation)
   - [cv::getCPUFeaturesLine](#cvgetcpufeaturesline)
   - [cv::getCPUTickCount](#cvgetcputickcount)
+  - [cv::getDefaultAlgorithmHint](#cvgetdefaultalgorithmhint)
   - [cv::getDefaultNewCameraMatrix](#cvgetdefaultnewcameramatrix)
   - [cv::getDerivKernels](#cvgetderivkernels)
   - [cv::getFontScaleFromHeight](#cvgetfontscalefromheight)
@@ -418,10 +425,13 @@
   - [cv::imdecode](#cvimdecode)
   - [cv::imdecodemulti](#cvimdecodemulti)
   - [cv::imencode](#cvimencode)
+  - [cv::imencodemulti](#cvimencodemulti)
   - [cv::imread](#cvimread)
+  - [cv::imreadanimation](#cvimreadanimation)
   - [cv::imreadmulti](#cvimreadmulti)
   - [cv::imshow](#cvimshow)
   - [cv::imwrite](#cvimwrite)
+  - [cv::imwriteanimation](#cvimwriteanimation)
   - [cv::imwritemulti](#cvimwritemulti)
   - [cv::inRange](#cvinrange)
   - [cv::initCameraMatrix2D](#cvinitcameramatrix2d)
@@ -589,9 +599,6 @@
   - [enums.COVAR\_SCALE](#enumscovar%5C_scale)
   - [enums.COVAR\_ROWS](#enumscovar%5C_rows)
   - [enums.COVAR\_COLS](#enumscovar%5C_cols)
-  - [enums.KMEANS\_RANDOM\_CENTERS](#enumskmeans%5C_random%5C_centers)
-  - [enums.KMEANS\_PP\_CENTERS](#enumskmeans%5C_pp%5C_centers)
-  - [enums.KMEANS\_USE\_INITIAL\_LABELS](#enumskmeans%5C_use%5C_initial%5C_labels)
   - [enums.REDUCE\_SUM](#enumsreduce%5C_sum)
   - [enums.REDUCE\_AVG](#enumsreduce%5C_avg)
   - [enums.REDUCE\_MAX](#enumsreduce%5C_max)
@@ -600,6 +607,9 @@
   - [enums.ROTATE\_90\_CLOCKWISE](#enumsrotate%5C_90%5C_clockwise)
   - [enums.ROTATE\_180](#enumsrotate%5C_180)
   - [enums.ROTATE\_90\_COUNTERCLOCKWISE](#enumsrotate%5C_90%5C_counterclockwise)
+  - [enums.KMEANS\_RANDOM\_CENTERS](#enumskmeans%5C_random%5C_centers)
+  - [enums.KMEANS\_PP\_CENTERS](#enumskmeans%5C_pp%5C_centers)
+  - [enums.KMEANS\_USE\_INITIAL\_LABELS](#enumskmeans%5C_use%5C_initial%5C_labels)
   - [enums.DECOMP\_LU](#enumsdecomp%5C_lu)
   - [enums.DECOMP\_SVD](#enumsdecomp%5C_svd)
   - [enums.DECOMP\_EIG](#enumsdecomp%5C_eig)
@@ -658,6 +668,9 @@
   - [enums.SOLVELP\_MULTI](#enumssolvelp%5C_multi)
   - [enums.QUAT\_ASSUME\_NOT\_UNIT](#enumsquat%5C_assume%5C_not%5C_unit)
   - [enums.QUAT\_ASSUME\_UNIT](#enumsquat%5C_assume%5C_unit)
+  - [enums.ALGO\_HINT\_DEFAULT](#enumsalgo%5C_hint%5C_default)
+  - [enums.ALGO\_HINT\_ACCURATE](#enumsalgo%5C_hint%5C_accurate)
+  - [enums.ALGO\_HINT\_APPROX](#enumsalgo%5C_hint%5C_approx)
   - [enums.FILTER\_SCHARR](#enumsfilter%5C_scharr)
   - [enums.MORPH\_ERODE](#enumsmorph%5C_erode)
   - [enums.MORPH\_DILATE](#enumsmorph%5C_dilate)
@@ -1087,10 +1100,14 @@
   - [enums.NORMAL\_CLONE](#enumsnormal%5C_clone)
   - [enums.MIXED\_CLONE](#enumsmixed%5C_clone)
   - [enums.MONOCHROME\_TRANSFER](#enumsmonochrome%5C_transfer)
+  - [enums.NORMAL\_CLONE\_WIDE](#enumsnormal%5C_clone%5C_wide)
+  - [enums.MIXED\_CLONE\_WIDE](#enumsmixed%5C_clone%5C_wide)
+  - [enums.MONOCHROME\_TRANSFER\_WIDE](#enumsmonochrome%5C_transfer%5C_wide)
   - [enums.RECURS\_FILTER](#enumsrecurs%5C_filter)
   - [enums.NORMCONV\_FILTER](#enumsnormconv%5C_filter)
   - [enums.IMREAD\_UNCHANGED](#enumsimread%5C_unchanged)
   - [enums.IMREAD\_GRAYSCALE](#enumsimread%5C_grayscale)
+  - [enums.IMREAD\_COLOR\_BGR](#enumsimread%5C_color%5C_bgr)
   - [enums.IMREAD\_COLOR](#enumsimread%5C_color)
   - [enums.IMREAD\_ANYDEPTH](#enumsimread%5C_anydepth)
   - [enums.IMREAD\_ANYCOLOR](#enumsimread%5C_anycolor)
@@ -1102,6 +1119,7 @@
   - [enums.IMREAD\_REDUCED\_GRAYSCALE\_8](#enumsimread%5C_reduced%5C_grayscale%5C_8)
   - [enums.IMREAD\_REDUCED\_COLOR\_8](#enumsimread%5C_reduced%5C_color%5C_8)
   - [enums.IMREAD\_IGNORE\_ORIENTATION](#enumsimread%5C_ignore%5C_orientation)
+  - [enums.IMREAD\_COLOR\_RGB](#enumsimread%5C_color%5C_rgb)
   - [enums.IMWRITE\_JPEG\_QUALITY](#enumsimwrite%5C_jpeg%5C_quality)
   - [enums.IMWRITE\_JPEG\_PROGRESSIVE](#enumsimwrite%5C_jpeg%5C_progressive)
   - [enums.IMWRITE\_JPEG\_OPTIMIZE](#enumsimwrite%5C_jpeg%5C_optimize)
@@ -1129,6 +1147,16 @@
   - [enums.IMWRITE\_AVIF\_QUALITY](#enumsimwrite%5C_avif%5C_quality)
   - [enums.IMWRITE\_AVIF\_DEPTH](#enumsimwrite%5C_avif%5C_depth)
   - [enums.IMWRITE\_AVIF\_SPEED](#enumsimwrite%5C_avif%5C_speed)
+  - [enums.IMWRITE\_JPEGXL\_QUALITY](#enumsimwrite%5C_jpegxl%5C_quality)
+  - [enums.IMWRITE\_JPEGXL\_EFFORT](#enumsimwrite%5C_jpegxl%5C_effort)
+  - [enums.IMWRITE\_JPEGXL\_DISTANCE](#enumsimwrite%5C_jpegxl%5C_distance)
+  - [enums.IMWRITE\_JPEGXL\_DECODING\_SPEED](#enumsimwrite%5C_jpegxl%5C_decoding%5C_speed)
+  - [enums.IMWRITE\_GIF\_LOOP](#enumsimwrite%5C_gif%5C_loop)
+  - [enums.IMWRITE\_GIF\_SPEED](#enumsimwrite%5C_gif%5C_speed)
+  - [enums.IMWRITE\_GIF\_QUALITY](#enumsimwrite%5C_gif%5C_quality)
+  - [enums.IMWRITE\_GIF\_DITHER](#enumsimwrite%5C_gif%5C_dither)
+  - [enums.IMWRITE\_GIF\_TRANSPARENCY](#enumsimwrite%5C_gif%5C_transparency)
+  - [enums.IMWRITE\_GIF\_COLORTABLE](#enumsimwrite%5C_gif%5C_colortable)
   - [enums.IMWRITE\_JPEG\_SAMPLING\_FACTOR\_411](#enumsimwrite%5C_jpeg%5C_sampling%5C_factor%5C_411)
   - [enums.IMWRITE\_JPEG\_SAMPLING\_FACTOR\_420](#enumsimwrite%5C_jpeg%5C_sampling%5C_factor%5C_420)
   - [enums.IMWRITE\_JPEG\_SAMPLING\_FACTOR\_422](#enumsimwrite%5C_jpeg%5C_sampling%5C_factor%5C_422)
@@ -1195,6 +1223,14 @@
   - [enums.IMWRITE\_PAM\_FORMAT\_RGB\_ALPHA](#enumsimwrite%5C_pam%5C_format%5C_rgb%5C_alpha)
   - [enums.IMWRITE\_HDR\_COMPRESSION\_NONE](#enumsimwrite%5C_hdr%5C_compression%5C_none)
   - [enums.IMWRITE\_HDR\_COMPRESSION\_RLE](#enumsimwrite%5C_hdr%5C_compression%5C_rle)
+  - [enums.IMWRITE\_GIF\_FAST\_NO\_DITHER](#enumsimwrite%5C_gif%5C_fast%5C_no%5C_dither)
+  - [enums.IMWRITE\_GIF\_FAST\_FLOYD\_DITHER](#enumsimwrite%5C_gif%5C_fast%5C_floyd%5C_dither)
+  - [enums.IMWRITE\_GIF\_COLORTABLE\_SIZE\_8](#enumsimwrite%5C_gif%5C_colortable%5C_size%5C_8)
+  - [enums.IMWRITE\_GIF\_COLORTABLE\_SIZE\_16](#enumsimwrite%5C_gif%5C_colortable%5C_size%5C_16)
+  - [enums.IMWRITE\_GIF\_COLORTABLE\_SIZE\_32](#enumsimwrite%5C_gif%5C_colortable%5C_size%5C_32)
+  - [enums.IMWRITE\_GIF\_COLORTABLE\_SIZE\_64](#enumsimwrite%5C_gif%5C_colortable%5C_size%5C_64)
+  - [enums.IMWRITE\_GIF\_COLORTABLE\_SIZE\_128](#enumsimwrite%5C_gif%5C_colortable%5C_size%5C_128)
+  - [enums.IMWRITE\_GIF\_COLORTABLE\_SIZE\_256](#enumsimwrite%5C_gif%5C_colortable%5C_size%5C_256)
   - [enums.CAP\_ANY](#enumscap%5C_any)
   - [enums.CAP\_VFW](#enumscap%5C_vfw)
   - [enums.CAP\_V4L](#enumscap%5C_v4l)
@@ -1301,6 +1337,8 @@
   - [enums.CAP\_PROP\_CODEC\_EXTRADATA\_INDEX](#enumscap%5C_prop%5C_codec%5C_extradata%5C_index)
   - [enums.CAP\_PROP\_FRAME\_TYPE](#enumscap%5C_prop%5C_frame%5C_type)
   - [enums.CAP\_PROP\_N\_THREADS](#enumscap%5C_prop%5C_n%5C_threads)
+  - [enums.CAP\_PROP\_PTS](#enumscap%5C_prop%5C_pts)
+  - [enums.CAP\_PROP\_DTS\_DELAY](#enumscap%5C_prop%5C_dts%5C_delay)
   - [enums.VIDEOWRITER\_PROP\_QUALITY](#enumsvideowriter%5C_prop%5C_quality)
   - [enums.VIDEOWRITER\_PROP\_FRAMEBYTES](#enumsvideowriter%5C_prop%5C_framebytes)
   - [enums.VIDEOWRITER\_PROP\_NSTRIPES](#enumsvideowriter%5C_prop%5C_nstripes)
@@ -1312,6 +1350,8 @@
   - [enums.VIDEOWRITER\_PROP\_RAW\_VIDEO](#enumsvideowriter%5C_prop%5C_raw%5C_video)
   - [enums.VIDEOWRITER\_PROP\_KEY\_INTERVAL](#enumsvideowriter%5C_prop%5C_key%5C_interval)
   - [enums.VIDEOWRITER\_PROP\_KEY\_FLAG](#enumsvideowriter%5C_prop%5C_key%5C_flag)
+  - [enums.VIDEOWRITER\_PROP\_PTS](#enumsvideowriter%5C_prop%5C_pts)
+  - [enums.VIDEOWRITER\_PROP\_DTS\_DELAY](#enumsvideowriter%5C_prop%5C_dts%5C_delay)
   - [enums.VIDEO\_ACCELERATION\_NONE](#enumsvideo%5C_acceleration%5C_none)
   - [enums.VIDEO\_ACCELERATION\_ANY](#enumsvideo%5C_acceleration%5C_any)
   - [enums.VIDEO\_ACCELERATION\_D3D11](#enumsvideo%5C_acceleration%5C_d3d11)
@@ -1536,6 +1576,7 @@
   - [enums.CAP\_PROP\_XI\_SENSOR\_FEATURE\_SELECTOR](#enumscap%5C_prop%5C_xi%5C_sensor%5C_feature%5C_selector)
   - [enums.CAP\_PROP\_XI\_SENSOR\_FEATURE\_VALUE](#enumscap%5C_prop%5C_xi%5C_sensor%5C_feature%5C_value)
   - [enums.CAP\_PROP\_ARAVIS\_AUTOTRIGGER](#enumscap%5C_prop%5C_aravis%5C_autotrigger)
+  - [enums.CAP\_PROP\_ANDROID\_DEVICE\_TORCH](#enumscap%5C_prop%5C_android%5C_device%5C_torch)
   - [enums.CAP\_PROP\_IOS\_DEVICE\_FOCUS](#enumscap%5C_prop%5C_ios%5C_device%5C_focus)
   - [enums.CAP\_PROP\_IOS\_DEVICE\_EXPOSURE](#enumscap%5C_prop%5C_ios%5C_device%5C_exposure)
   - [enums.CAP\_PROP\_IOS\_DEVICE\_FLASH](#enumscap%5C_prop%5C_ios%5C_device%5C_flash)
@@ -1741,6 +1782,7 @@
 - [cv::RNG](#cvrng)
   - [RNG.state](#rngstate)
   - [cv::RNG::get\_create](#cvrngget%5C_create)
+  - [cv::RNG::IsInstance](#cvrngisinstance)
   - [cv::RNG::fill](#cvrngfill)
   - [cv::RNG::gaussian](#cvrnggaussian)
   - [cv::RNG::next](#cvrngnext)
@@ -1757,6 +1799,7 @@
   - [Formatter.FMT\_NUMPY\_](#formatterfmt%5C_numpy%5C_)
   - [Formatter.FMT\_C\_](#formatterfmt%5C_c%5C_)
 - [cv::Algorithm](#cvalgorithm)
+  - [cv::Algorithm::IsInstance](#cvalgorithmisinstance)
   - [cv::Algorithm::clear](#cvalgorithmclear)
   - [cv::Algorithm::empty](#cvalgorithmempty)
   - [cv::Algorithm::getDefaultName](#cvalgorithmgetdefaultname)
@@ -1778,6 +1821,7 @@
   - [Param.SCALAR\_](#paramscalar%5C_)
 - [cv::AsyncArray](#cvasyncarray)
   - [cv::AsyncArray::get\_create](#cvasyncarrayget%5C_create)
+  - [cv::AsyncArray::IsInstance](#cvasyncarrayisinstance)
   - [cv::AsyncArray::get](#cvasyncarrayget)
   - [cv::AsyncArray::release](#cvasyncarrayrelease)
   - [cv::AsyncArray::valid](#cvasyncarrayvalid)
@@ -1885,16 +1929,19 @@
   - [ClassWithKeywordProperties.lambda](#classwithkeywordpropertieslambda)
   - [ClassWithKeywordProperties.except](#classwithkeywordpropertiesexcept)
   - [cv::utils::ClassWithKeywordProperties::get\_create](#cvutilsclasswithkeywordpropertiesget%5C_create)
+  - [cv::utils::ClassWithKeywordProperties::IsInstance](#cvutilsclasswithkeywordpropertiesisinstance)
 - [cv::utils::FunctionParams](#cvutilsfunctionparams)
   - [FunctionParams.lambda](#functionparamslambda)
   - [FunctionParams.sigma](#functionparamssigma)
   - [cv::utils::FunctionParams::get\_create](#cvutilsfunctionparamsget%5C_create)
+  - [cv::utils::FunctionParams::IsInstance](#cvutilsfunctionparamsisinstance)
 - [cv::utils::nested](#cvutilsnested)
   - [nested.OriginalClassName](#nestedoriginalclassname)
   - [cv::utils::nested::testEchoBooleanFunction](#cvutilsnestedtestechobooleanfunction)
 - [cv::utils::nested::OriginalClassName](#cvutilsnestedoriginalclassname)
   - [ExportClassName.Params](#exportclassnameparams)
   - [cv::utils::nested::OriginalClassName::get\_create](#cvutilsnestedoriginalclassnameget%5C_create)
+  - [cv::utils::nested::OriginalClassName::IsInstance](#cvutilsnestedoriginalclassnameisinstance)
   - [cv::utils::nested::OriginalClassName::getFloatParam](#cvutilsnestedoriginalclassnamegetfloatparam)
   - [cv::utils::nested::OriginalClassName::getIntParam](#cvutilsnestedoriginalclassnamegetintparam)
   - [cv::utils::nested::OriginalClassName::originalName](#cvutilsnestedoriginalclassnameoriginalname)
@@ -1902,6 +1949,7 @@
   - [Params.int\_value](#paramsint%5C_value)
   - [Params.float\_value](#paramsfloat%5C_value)
   - [cv::utils::nested::OriginalClassName::Params::get\_create](#cvutilsnestedoriginalclassnameparamsget%5C_create)
+  - [cv::utils::nested::OriginalClassName::Params::IsInstance](#cvutilsnestedoriginalclassnameparamsisinstance)
 - [cv::utils::fs](#cvutilsfs)
   - [cv::utils::fs::getCacheDirectoryForDownloads](#cvutilsfsgetcachedirectoryfordownloads)
 - [cv::detail](#cvdetail)
@@ -1965,6 +2013,7 @@
   - [cv::detail::resultTl](#cvdetailresulttl)
   - [cv::detail::selectRandomSubset](#cvdetailselectrandomsubset)
   - [cv::detail::stitchingLogLevel](#cvdetailstitchingloglevel)
+  - [cv::detail::strip](#cvdetailstrip)
   - [cv::detail::waveCorrect](#cvdetailwavecorrect)
   - [detail.TEST\_CUSTOM\_](#detailtest%5C_custom%5C_)
   - [detail.TEST\_EQ\_](#detailtest%5C_eq%5C_)
@@ -2022,6 +2071,7 @@
   - [GpuMat.step](#gpumatstep)
   - [GpuMat.Allocator](#gpumatallocator)
   - [cv::cuda::GpuMat::get\_create](#cvcudagpumatget%5C_create)
+  - [cv::cuda::GpuMat::IsInstance](#cvcudagpumatisinstance)
   - [cv::cuda::GpuMat::adjustROI](#cvcudagpumatadjustroi)
   - [cv::cuda::GpuMat::assignTo](#cvcudagpumatassignto)
   - [cv::cuda::GpuMat::channels](#cvcudagpumatchannels)
@@ -2037,6 +2087,7 @@
   - [cv::cuda::GpuMat::elemSize](#cvcudagpumatelemsize)
   - [cv::cuda::GpuMat::elemSize1](#cvcudagpumatelemsize1)
   - [cv::cuda::GpuMat::empty](#cvcudagpumatempty)
+  - [cv::cuda::GpuMat::getStdAllocator](#cvcudagpumatgetstdallocator)
   - [cv::cuda::GpuMat::isContinuous](#cvcudagpumatiscontinuous)
   - [cv::cuda::GpuMat::locateROI](#cvcudagpumatlocateroi)
   - [cv::cuda::GpuMat::release](#cvcudagpumatrelease)
@@ -2051,13 +2102,21 @@
   - [cv::cuda::GpuMat::type](#cvcudagpumattype)
   - [cv::cuda::GpuMat::updateContinuityFlag](#cvcudagpumatupdatecontinuityflag)
   - [cv::cuda::GpuMat::upload](#cvcudagpumatupload)
+- [cv::cuda::GpuMat::Allocator](#cvcudagpumatallocator)
+  - [cv::cuda::GpuMat::Allocator::IsInstance](#cvcudagpumatallocatorisinstance)
+- [cv::cuda::GpuData](#cvcudagpudata)
+  - [cv::cuda::GpuData::IsInstance](#cvcudagpudataisinstance)
+- [cv::cuda::GpuMatND](#cvcudagpumatnd)
+  - [cv::cuda::GpuMatND::IsInstance](#cvcudagpumatndisinstance)
 - [cv::cuda::BufferPool](#cvcudabufferpool)
   - [cv::cuda::BufferPool::get\_create](#cvcudabufferpoolget%5C_create)
+  - [cv::cuda::BufferPool::IsInstance](#cvcudabufferpoolisinstance)
   - [cv::cuda::BufferPool::getAllocator](#cvcudabufferpoolgetallocator)
   - [cv::cuda::BufferPool::getBuffer](#cvcudabufferpoolgetbuffer)
 - [cv::cuda::HostMem](#cvcudahostmem)
   - [HostMem.step](#hostmemstep)
   - [cv::cuda::HostMem::get\_create](#cvcudahostmemget%5C_create)
+  - [cv::cuda::HostMem::IsInstance](#cvcudahostmemisinstance)
   - [cv::cuda::HostMem::channels](#cvcudahostmemchannels)
   - [cv::cuda::HostMem::clone](#cvcudahostmemclone)
   - [cv::cuda::HostMem::createMatHeader](#cvcudahostmemcreatematheader)
@@ -2076,6 +2135,7 @@
   - [HostMem.WRITE\_COMBINED\_](#hostmemwrite%5C_combined%5C_)
 - [cv::cuda::Stream](#cvcudastream)
   - [cv::cuda::Stream::get\_create](#cvcudastreamget%5C_create)
+  - [cv::cuda::Stream::IsInstance](#cvcudastreamisinstance)
   - [cv::cuda::Stream::Null](#cvcudastreamnull)
   - [cv::cuda::Stream::cudaPtr](#cvcudastreamcudaptr)
   - [cv::cuda::Stream::queryIfComplete](#cvcudastreamqueryifcomplete)
@@ -2083,6 +2143,7 @@
   - [cv::cuda::Stream::waitForCompletion](#cvcudastreamwaitforcompletion)
 - [cv::cuda::Event](#cvcudaevent)
   - [cv::cuda::Event::get\_create](#cvcudaeventget%5C_create)
+  - [cv::cuda::Event::IsInstance](#cvcudaeventisinstance)
   - [cv::cuda::Event::elapsedTime](#cvcudaeventelapsedtime)
   - [cv::cuda::Event::queryIfComplete](#cvcudaeventqueryifcomplete)
   - [cv::cuda::Event::record](#cvcudaeventrecord)
@@ -2092,6 +2153,7 @@
   - [Event.DISABLE\_TIMING\_](#eventdisable%5C_timing%5C_)
   - [Event.INTERPROCESS\_](#eventinterprocess%5C_)
 - [cv::cuda::TargetArchs](#cvcudatargetarchs)
+  - [cv::cuda::TargetArchs::IsInstance](#cvcudatargetarchsisinstance)
   - [cv::cuda::TargetArchs::has](#cvcudatargetarchshas)
   - [cv::cuda::TargetArchs::hasBin](#cvcudatargetarchshasbin)
   - [cv::cuda::TargetArchs::hasEqualOrGreater](#cvcudatargetarchshasequalorgreater)
@@ -2102,6 +2164,7 @@
 - [cv::cuda::DeviceInfo](#cvcudadeviceinfo)
   - [cv::cuda::DeviceInfo::get\_create](#cvcudadeviceinfoget%5C_create)
   - [cv::cuda::DeviceInfo::ECCEnabled](#cvcudadeviceinfoeccenabled)
+  - [cv::cuda::DeviceInfo::IsInstance](#cvcudadeviceinfoisinstance)
   - [cv::cuda::DeviceInfo::asyncEngineCount](#cvcudadeviceinfoasyncenginecount)
   - [cv::cuda::DeviceInfo::canMapHostMemory](#cvcudadeviceinfocanmaphostmemory)
   - [cv::cuda::DeviceInfo::clockRate](#cvcudadeviceinfoclockrate)
@@ -2162,6 +2225,7 @@
   - [DeviceInfo.ComputeModeProhibited\_](#deviceinfocomputemodeprohibited%5C_)
   - [DeviceInfo.ComputeModeExclusiveProcess\_](#deviceinfocomputemodeexclusiveprocess%5C_)
 - [cv::\_InputArray](#cv%5C_inputarray)
+  - [cv::\_InputArray::IsInstance](#cv%5C_inputarrayisinstance)
   - [\_InputArray.KIND\_SHIFT\_](#%5C_inputarraykind%5C_shift%5C_)
   - [\_InputArray.FIXED\_TYPE\_](#%5C_inputarrayfixed%5C_type%5C_)
   - [\_InputArray.FIXED\_SIZE\_](#%5C_inputarrayfixed%5C_size%5C_)
@@ -2183,6 +2247,7 @@
   - [\_InputArray.STD\_ARRAY\_](#%5C_inputarraystd%5C_array%5C_)
   - [\_InputArray.STD\_ARRAY\_MAT\_](#%5C_inputarraystd%5C_array%5C_mat%5C_)
 - [cv::\_OutputArray](#cv%5C_outputarray)
+  - [cv::\_OutputArray::IsInstance](#cv%5C_outputarrayisinstance)
   - [\_OutputArray.DEPTH\_MASK\_8U\_](#%5C_outputarraydepth%5C_mask%5C_8u%5C_)
   - [\_OutputArray.DEPTH\_MASK\_8S\_](#%5C_outputarraydepth%5C_mask%5C_8s%5C_)
   - [\_OutputArray.DEPTH\_MASK\_16U\_](#%5C_outputarraydepth%5C_mask%5C_16u%5C_)
@@ -2218,6 +2283,7 @@
   - [Mat.steps](#matsteps)
   - [cv::Mat::create](#cvmatcreate)
   - [cv::Mat::GdiplusResize](#cvmatgdiplusresize)
+  - [cv::Mat::IsInstance](#cvmatisinstance)
   - [cv::Mat::PixelChecksum](#cvmatpixelchecksum)
   - [cv::Mat::PixelSearch](#cvmatpixelsearch)
   - [cv::Mat::Point\_at](#cvmatpoint%5C_at)
@@ -2395,6 +2461,7 @@
   - [UMat.steps](#umatsteps)
   - [cv::UMat::get\_create](#cvumatget%5C_create)
   - [cv::UMat::GdiplusResize](#cvumatgdiplusresize)
+  - [cv::UMat::IsInstance](#cvumatisinstance)
   - [cv::UMat::adjustROI](#cvumatadjustroi)
   - [cv::UMat::assignTo](#cvumatassignto)
   - [cv::UMat::channels](#cvumatchannels)
@@ -2465,6 +2532,7 @@
   - [ocl.OCL\_VECTOR\_DEFAULT\_](#oclocl%5C_vector%5C_default%5C_)
 - [cv::ocl::Device](#cvocldevice)
   - [cv::ocl::Device::get\_create](#cvocldeviceget%5C_create)
+  - [cv::ocl::Device::IsInstance](#cvocldeviceisinstance)
   - [cv::ocl::Device::OpenCLVersion](#cvocldeviceopenclversion)
   - [cv::ocl::Device::OpenCL\_C\_Version](#cvocldeviceopencl%5C_c%5C_version)
   - [cv::ocl::Device::addressBits](#cvocldeviceaddressbits)
@@ -2573,6 +2641,8 @@
   - [KernelArg.CONSTANT\_](#kernelargconstant%5C_)
   - [KernelArg.PTR\_ONLY\_](#kernelargptr%5C_only%5C_)
   - [KernelArg.NO\_SIZE\_](#kernelargno%5C_size%5C_)
+- [cv::ocl::OpenCLExecutionContext](#cvoclopenclexecutioncontext)
+  - [cv::ocl::OpenCLExecutionContext::IsInstance](#cvoclopenclexecutioncontextisinstance)
 - [cv::ogl](#cvogl)
   - [ogl.Buffer](#oglbuffer)
   - [ogl.Texture2D](#ogltexture2d)
@@ -2601,6 +2671,7 @@
   - [Texture2D.RGBA\_](#texture2drgba%5C_)
 - [cv::FileStorage](#cvfilestorage)
   - [cv::FileStorage::get\_create](#cvfilestorageget%5C_create)
+  - [cv::FileStorage::IsInstance](#cvfilestorageisinstance)
   - [cv::FileStorage::endWriteStruct](#cvfilestorageendwritestruct)
   - [cv::FileStorage::getFirstTopLevelNode](#cvfilestoragegetfirsttoplevelnode)
   - [cv::FileStorage::getFormat](#cvfilestoragegetformat)
@@ -2630,6 +2701,7 @@
   - [FileStorage.INSIDE\_MAP\_](#filestorageinside%5C_map%5C_)
 - [cv::FileNode](#cvfilenode)
   - [cv::FileNode::get\_create](#cvfilenodeget%5C_create)
+  - [cv::FileNode::IsInstance](#cvfilenodeisinstance)
   - [cv::FileNode::asVariant](#cvfilenodeasvariant)
   - [cv::FileNode::at](#cvfilenodeat)
   - [cv::FileNode::empty](#cvfilenodeempty)
@@ -2693,6 +2765,7 @@
   - [RotatedRect.size](#rotatedrectsize)
   - [RotatedRect.angle](#rotatedrectangle)
   - [cv::RotatedRect::get\_create](#cvrotatedrectget%5C_create)
+  - [cv::RotatedRect::IsInstance](#cvrotatedrectisinstance)
   - [cv::RotatedRect::boundingRect](#cvrotatedrectboundingrect)
   - [cv::RotatedRect::boundingRect2f](#cvrotatedrectboundingrect2f)
   - [cv::RotatedRect::points](#cvrotatedrectpoints)
@@ -2704,6 +2777,7 @@
   - [KeyPoint.octave](#keypointoctave)
   - [KeyPoint.class\_id](#keypointclass%5C_id)
   - [cv::KeyPoint::get\_create](#cvkeypointget%5C_create)
+  - [cv::KeyPoint::IsInstance](#cvkeypointisinstance)
   - [cv::KeyPoint::convert](#cvkeypointconvert)
   - [cv::KeyPoint::overlap](#cvkeypointoverlap)
 - [cv::DMatch](#cvdmatch)
@@ -2712,11 +2786,13 @@
   - [DMatch.imgIdx](#dmatchimgidx)
   - [DMatch.distance](#dmatchdistance)
   - [cv::DMatch::get\_create](#cvdmatchget%5C_create)
+  - [cv::DMatch::IsInstance](#cvdmatchisinstance)
 - [cv::TermCriteria](#cvtermcriteria)
   - [TermCriteria.type](#termcriteriatype)
   - [TermCriteria.maxCount](#termcriteriamaxcount)
   - [TermCriteria.epsilon](#termcriteriaepsilon)
   - [cv::TermCriteria::get\_create](#cvtermcriteriaget%5C_create)
+  - [cv::TermCriteria::IsInstance](#cvtermcriteriaisinstance)
   - [TermCriteria.COUNT\_](#termcriteriacount%5C_)
   - [TermCriteria.MAX\_ITER\_](#termcriteriamax%5C_iter%5C_)
   - [TermCriteria.EPS\_](#termcriteriaeps%5C_)
@@ -2746,12 +2822,18 @@
   - [Moments.nu12](#momentsnu12)
   - [Moments.nu03](#momentsnu03)
   - [cv::Moments::get\_create](#cvmomentsget%5C_create)
+  - [cv::Moments::IsInstance](#cvmomentsisinstance)
 - [cv::TickMeter](#cvtickmeter)
   - [cv::TickMeter::get\_create](#cvtickmeterget%5C_create)
+  - [cv::TickMeter::IsInstance](#cvtickmeterisinstance)
   - [cv::TickMeter::getAvgTimeMilli](#cvtickmetergetavgtimemilli)
   - [cv::TickMeter::getAvgTimeSec](#cvtickmetergetavgtimesec)
   - [cv::TickMeter::getCounter](#cvtickmetergetcounter)
   - [cv::TickMeter::getFPS](#cvtickmetergetfps)
+  - [cv::TickMeter::getLastTimeMicro](#cvtickmetergetlasttimemicro)
+  - [cv::TickMeter::getLastTimeMilli](#cvtickmetergetlasttimemilli)
+  - [cv::TickMeter::getLastTimeSec](#cvtickmetergetlasttimesec)
+  - [cv::TickMeter::getLastTimeTicks](#cvtickmetergetlasttimeticks)
   - [cv::TickMeter::getTimeMicro](#cvtickmetergettimemicro)
   - [cv::TickMeter::getTimeMilli](#cvtickmetergettimemilli)
   - [cv::TickMeter::getTimeSec](#cvtickmetergettimesec)
@@ -2779,6 +2861,7 @@
   - [flann.LAST\_VALUE\_FLANN\_INDEX\_TYPE\_](#flannlast%5C_value%5C_flann%5C_index%5C_type%5C_)
 - [cv::flann::Index](#cvflannindex)
   - [cv::flann::Index::get\_create](#cvflannindexget%5C_create)
+  - [cv::flann::Index::IsInstance](#cvflannindexisinstance)
   - [cv::flann::Index::build](#cvflannindexbuild)
   - [cv::flann::Index::getAlgorithm](#cvflannindexgetalgorithm)
   - [cv::flann::Index::getDistance](#cvflannindexgetdistance)
@@ -2788,6 +2871,7 @@
   - [cv::flann::Index::release](#cvflannindexrelease)
   - [cv::flann::Index::save](#cvflannindexsave)
 - [cv::GeneralizedHough](#cvgeneralizedhough)
+  - [cv::GeneralizedHough::IsInstance](#cvgeneralizedhoughisinstance)
   - [cv::GeneralizedHough::clear](#cvgeneralizedhoughclear)
   - [cv::GeneralizedHough::detect](#cvgeneralizedhoughdetect)
   - [cv::GeneralizedHough::empty](#cvgeneralizedhoughempty)
@@ -2807,6 +2891,7 @@
   - [cv::GeneralizedHough::setTemplate](#cvgeneralizedhoughsettemplate)
   - [cv::GeneralizedHough::write](#cvgeneralizedhoughwrite)
 - [cv::GeneralizedHoughBallard](#cvgeneralizedhoughballard)
+  - [cv::GeneralizedHoughBallard::IsInstance](#cvgeneralizedhoughballardisinstance)
   - [cv::GeneralizedHoughBallard::clear](#cvgeneralizedhoughballardclear)
   - [cv::GeneralizedHoughBallard::detect](#cvgeneralizedhoughballarddetect)
   - [cv::GeneralizedHoughBallard::empty](#cvgeneralizedhoughballardempty)
@@ -2830,6 +2915,7 @@
   - [cv::GeneralizedHoughBallard::setVotesThreshold](#cvgeneralizedhoughballardsetvotesthreshold)
   - [cv::GeneralizedHoughBallard::write](#cvgeneralizedhoughballardwrite)
 - [cv::GeneralizedHoughGuil](#cvgeneralizedhoughguil)
+  - [cv::GeneralizedHoughGuil::IsInstance](#cvgeneralizedhoughguilisinstance)
   - [cv::GeneralizedHoughGuil::clear](#cvgeneralizedhoughguilclear)
   - [cv::GeneralizedHoughGuil::detect](#cvgeneralizedhoughguildetect)
   - [cv::GeneralizedHoughGuil::empty](#cvgeneralizedhoughguilempty)
@@ -2873,6 +2959,7 @@
   - [cv::GeneralizedHoughGuil::setXi](#cvgeneralizedhoughguilsetxi)
   - [cv::GeneralizedHoughGuil::write](#cvgeneralizedhoughguilwrite)
 - [cv::CLAHE](#cvclahe)
+  - [cv::CLAHE::IsInstance](#cvclaheisinstance)
   - [cv::CLAHE::apply](#cvclaheapply)
   - [cv::CLAHE::clear](#cvclaheclear)
   - [cv::CLAHE::collectGarbage](#cvclahecollectgarbage)
@@ -2887,6 +2974,7 @@
   - [cv::CLAHE::write](#cvclahewrite)
 - [cv::Subdiv2D](#cvsubdiv2d)
   - [cv::Subdiv2D::get\_create](#cvsubdiv2dget%5C_create)
+  - [cv::Subdiv2D::IsInstance](#cvsubdiv2disinstance)
   - [cv::Subdiv2D::edgeDst](#cvsubdiv2dedgedst)
   - [cv::Subdiv2D::edgeOrg](#cvsubdiv2dedgeorg)
   - [cv::Subdiv2D::findNearest](#cvsubdiv2dfindnearest)
@@ -2916,6 +3004,7 @@
   - [Subdiv2D.PREV\_AROUND\_LEFT\_](#subdiv2dprev%5C_around%5C_left%5C_)
   - [Subdiv2D.PREV\_AROUND\_RIGHT\_](#subdiv2dprev%5C_around%5C_right%5C_)
 - [cv::LineSegmentDetector](#cvlinesegmentdetector)
+  - [cv::LineSegmentDetector::IsInstance](#cvlinesegmentdetectorisinstance)
   - [cv::LineSegmentDetector::clear](#cvlinesegmentdetectorclear)
   - [cv::LineSegmentDetector::compareSegments](#cvlinesegmentdetectorcomparesegments)
   - [cv::LineSegmentDetector::detect](#cvlinesegmentdetectordetect)
@@ -2929,6 +3018,7 @@
   - [segmentation.IntelligentScissorsMB](#segmentationintelligentscissorsmb)
 - [cv::segmentation::IntelligentScissorsMB](#cvsegmentationintelligentscissorsmb)
   - [cv::segmentation::IntelligentScissorsMB::get\_create](#cvsegmentationintelligentscissorsmbget%5C_create)
+  - [cv::segmentation::IntelligentScissorsMB::IsInstance](#cvsegmentationintelligentscissorsmbisinstance)
   - [cv::segmentation::IntelligentScissorsMB::applyImage](#cvsegmentationintelligentscissorsmbapplyimage)
   - [cv::segmentation::IntelligentScissorsMB::applyImageFeatures](#cvsegmentationintelligentscissorsmbapplyimagefeatures)
   - [cv::segmentation::IntelligentScissorsMB::buildMap](#cvsegmentationintelligentscissorsmbbuildmap)
@@ -2963,8 +3053,10 @@
   - [ParamGrid.maxVal](#paramgridmaxval)
   - [ParamGrid.logStep](#paramgridlogstep)
   - [cv::ml::ParamGrid::get\_create](#cvmlparamgridget%5C_create)
+  - [cv::ml::ParamGrid::IsInstance](#cvmlparamgridisinstance)
 - [cv::ml::TrainData](#cvmltraindata)
   - [cv::ml::TrainData::get\_create](#cvmltraindataget%5C_create)
+  - [cv::ml::TrainData::IsInstance](#cvmltraindataisinstance)
   - [cv::ml::TrainData::getCatCount](#cvmltraindatagetcatcount)
   - [cv::ml::TrainData::getCatMap](#cvmltraindatagetcatmap)
   - [cv::ml::TrainData::getCatOfs](#cvmltraindatagetcatofs)
@@ -3004,6 +3096,7 @@
   - [cv::ml::TrainData::setTrainTestSplitRatio](#cvmltraindatasettraintestsplitratio)
   - [cv::ml::TrainData::shuffleTrainTest](#cvmltraindatashuffletraintest)
 - [cv::ml::StatModel](#cvmlstatmodel)
+  - [cv::ml::StatModel::IsInstance](#cvmlstatmodelisinstance)
   - [cv::ml::StatModel::calcError](#cvmlstatmodelcalcerror)
   - [cv::ml::StatModel::clear](#cvmlstatmodelclear)
   - [cv::ml::StatModel::empty](#cvmlstatmodelempty)
@@ -3022,6 +3115,7 @@
   - [StatModel.PREPROCESSED\_INPUT\_](#statmodelpreprocessed%5C_input%5C_)
 - [cv::ml::NormalBayesClassifier](#cvmlnormalbayesclassifier)
   - [cv::ml::NormalBayesClassifier::get\_create](#cvmlnormalbayesclassifierget%5C_create)
+  - [cv::ml::NormalBayesClassifier::IsInstance](#cvmlnormalbayesclassifierisinstance)
   - [cv::ml::NormalBayesClassifier::calcError](#cvmlnormalbayesclassifiercalcerror)
   - [cv::ml::NormalBayesClassifier::clear](#cvmlnormalbayesclassifierclear)
   - [cv::ml::NormalBayesClassifier::empty](#cvmlnormalbayesclassifierempty)
@@ -3038,6 +3132,7 @@
   - [cv::ml::NormalBayesClassifier::write](#cvmlnormalbayesclassifierwrite)
 - [cv::ml::KNearest](#cvmlknearest)
   - [cv::ml::KNearest::get\_create](#cvmlknearestget%5C_create)
+  - [cv::ml::KNearest::IsInstance](#cvmlknearestisinstance)
   - [cv::ml::KNearest::calcError](#cvmlknearestcalcerror)
   - [cv::ml::KNearest::clear](#cvmlknearestclear)
   - [cv::ml::KNearest::empty](#cvmlknearestempty)
@@ -3064,6 +3159,7 @@
   - [KNearest.KDTREE\_](#knearestkdtree%5C_)
 - [cv::ml::SVM](#cvmlsvm)
   - [cv::ml::SVM::get\_create](#cvmlsvmget%5C_create)
+  - [cv::ml::SVM::IsInstance](#cvmlsvmisinstance)
   - [cv::ml::SVM::calcError](#cvmlsvmcalcerror)
   - [cv::ml::SVM::clear](#cvmlsvmclear)
   - [cv::ml::SVM::empty](#cvmlsvmempty)
@@ -3122,6 +3218,7 @@
   - [SVM.DEGREE\_](#svmdegree%5C_)
 - [cv::ml::EM](#cvmlem)
   - [cv::ml::EM::get\_create](#cvmlemget%5C_create)
+  - [cv::ml::EM::IsInstance](#cvmlemisinstance)
   - [cv::ml::EM::calcError](#cvmlemcalcerror)
   - [cv::ml::EM::clear](#cvmlemclear)
   - [cv::ml::EM::empty](#cvmlemempty)
@@ -3159,6 +3256,7 @@
   - [EM.START\_AUTO\_STEP\_](#emstart%5C_auto%5C_step%5C_)
 - [cv::ml::DTrees](#cvmldtrees)
   - [cv::ml::DTrees::get\_create](#cvmldtreesget%5C_create)
+  - [cv::ml::DTrees::IsInstance](#cvmldtreesisinstance)
   - [cv::ml::DTrees::calcError](#cvmldtreescalcerror)
   - [cv::ml::DTrees::clear](#cvmldtreesclear)
   - [cv::ml::DTrees::empty](#cvmldtreesempty)
@@ -3196,6 +3294,7 @@
   - [DTrees.PREDICT\_MASK\_](#dtreespredict%5C_mask%5C_)
 - [cv::ml::RTrees](#cvmlrtrees)
   - [cv::ml::RTrees::get\_create](#cvmlrtreesget%5C_create)
+  - [cv::ml::RTrees::IsInstance](#cvmlrtreesisinstance)
   - [cv::ml::RTrees::calcError](#cvmlrtreescalcerror)
   - [cv::ml::RTrees::clear](#cvmlrtreesclear)
   - [cv::ml::RTrees::empty](#cvmlrtreesempty)
@@ -3238,6 +3337,7 @@
   - [cv::ml::RTrees::write](#cvmlrtreeswrite)
 - [cv::ml::Boost](#cvmlboost)
   - [cv::ml::Boost::get\_create](#cvmlboostget%5C_create)
+  - [cv::ml::Boost::IsInstance](#cvmlboostisinstance)
   - [cv::ml::Boost::calcError](#cvmlboostcalcerror)
   - [cv::ml::Boost::clear](#cvmlboostclear)
   - [cv::ml::Boost::empty](#cvmlboostempty)
@@ -3281,6 +3381,7 @@
   - [Boost.GENTLE\_](#boostgentle%5C_)
 - [cv::ml::ANN\_MLP](#cvmlann%5C_mlp)
   - [cv::ml::ANN\_MLP::get\_create](#cvmlann%5C_mlpget%5C_create)
+  - [cv::ml::ANN\_MLP::IsInstance](#cvmlann%5C_mlpisinstance)
   - [cv::ml::ANN\_MLP::calcError](#cvmlann%5C_mlpcalcerror)
   - [cv::ml::ANN\_MLP::clear](#cvmlann%5C_mlpclear)
   - [cv::ml::ANN\_MLP::empty](#cvmlann%5C_mlpempty)
@@ -3337,6 +3438,7 @@
   - [ANN\_MLP.NO\_OUTPUT\_SCALE\_](#ann%5C_mlpno%5C_output%5C_scale%5C_)
 - [cv::ml::LogisticRegression](#cvmllogisticregression)
   - [cv::ml::LogisticRegression::get\_create](#cvmllogisticregressionget%5C_create)
+  - [cv::ml::LogisticRegression::IsInstance](#cvmllogisticregressionisinstance)
   - [cv::ml::LogisticRegression::calcError](#cvmllogisticregressioncalcerror)
   - [cv::ml::LogisticRegression::clear](#cvmllogisticregressionclear)
   - [cv::ml::LogisticRegression::empty](#cvmllogisticregressionempty)
@@ -3370,6 +3472,7 @@
   - [LogisticRegression.MINI\_BATCH\_](#logisticregressionmini%5C_batch%5C_)
 - [cv::ml::SVMSGD](#cvmlsvmsgd)
   - [cv::ml::SVMSGD::get\_create](#cvmlsvmsgdget%5C_create)
+  - [cv::ml::SVMSGD::IsInstance](#cvmlsvmsgdisinstance)
   - [cv::ml::SVMSGD::calcError](#cvmlsvmsgdcalcerror)
   - [cv::ml::SVMSGD::clear](#cvmlsvmsgdclear)
   - [cv::ml::SVMSGD::empty](#cvmlsvmsgdempty)
@@ -3403,6 +3506,7 @@
   - [SVMSGD.SOFT\_MARGIN\_](#svmsgdsoft%5C_margin%5C_)
   - [SVMSGD.HARD\_MARGIN\_](#svmsgdhard%5C_margin%5C_)
 - [cv::Tonemap](#cvtonemap)
+  - [cv::Tonemap::IsInstance](#cvtonemapisinstance)
   - [cv::Tonemap::clear](#cvtonemapclear)
   - [cv::Tonemap::empty](#cvtonemapempty)
   - [cv::Tonemap::getDefaultName](#cvtonemapgetdefaultname)
@@ -3413,6 +3517,7 @@
   - [cv::Tonemap::setGamma](#cvtonemapsetgamma)
   - [cv::Tonemap::write](#cvtonemapwrite)
 - [cv::TonemapDrago](#cvtonemapdrago)
+  - [cv::TonemapDrago::IsInstance](#cvtonemapdragoisinstance)
   - [cv::TonemapDrago::clear](#cvtonemapdragoclear)
   - [cv::TonemapDrago::empty](#cvtonemapdragoempty)
   - [cv::TonemapDrago::getBias](#cvtonemapdragogetbias)
@@ -3427,6 +3532,7 @@
   - [cv::TonemapDrago::setSaturation](#cvtonemapdragosetsaturation)
   - [cv::TonemapDrago::write](#cvtonemapdragowrite)
 - [cv::TonemapReinhard](#cvtonemapreinhard)
+  - [cv::TonemapReinhard::IsInstance](#cvtonemapreinhardisinstance)
   - [cv::TonemapReinhard::clear](#cvtonemapreinhardclear)
   - [cv::TonemapReinhard::empty](#cvtonemapreinhardempty)
   - [cv::TonemapReinhard::getColorAdaptation](#cvtonemapreinhardgetcoloradaptation)
@@ -3443,6 +3549,7 @@
   - [cv::TonemapReinhard::setLightAdaptation](#cvtonemapreinhardsetlightadaptation)
   - [cv::TonemapReinhard::write](#cvtonemapreinhardwrite)
 - [cv::TonemapMantiuk](#cvtonemapmantiuk)
+  - [cv::TonemapMantiuk::IsInstance](#cvtonemapmantiukisinstance)
   - [cv::TonemapMantiuk::clear](#cvtonemapmantiukclear)
   - [cv::TonemapMantiuk::empty](#cvtonemapmantiukempty)
   - [cv::TonemapMantiuk::getDefaultName](#cvtonemapmantiukgetdefaultname)
@@ -3457,6 +3564,7 @@
   - [cv::TonemapMantiuk::setScale](#cvtonemapmantiuksetscale)
   - [cv::TonemapMantiuk::write](#cvtonemapmantiukwrite)
 - [cv::AlignExposures](#cvalignexposures)
+  - [cv::AlignExposures::IsInstance](#cvalignexposuresisinstance)
   - [cv::AlignExposures::clear](#cvalignexposuresclear)
   - [cv::AlignExposures::empty](#cvalignexposuresempty)
   - [cv::AlignExposures::getDefaultName](#cvalignexposuresgetdefaultname)
@@ -3465,6 +3573,7 @@
   - [cv::AlignExposures::save](#cvalignexposuressave)
   - [cv::AlignExposures::write](#cvalignexposureswrite)
 - [cv::AlignMTB](#cvalignmtb)
+  - [cv::AlignMTB::IsInstance](#cvalignmtbisinstance)
   - [cv::AlignMTB::calculateShift](#cvalignmtbcalculateshift)
   - [cv::AlignMTB::clear](#cvalignmtbclear)
   - [cv::AlignMTB::computeBitmaps](#cvalignmtbcomputebitmaps)
@@ -3482,6 +3591,7 @@
   - [cv::AlignMTB::shiftMat](#cvalignmtbshiftmat)
   - [cv::AlignMTB::write](#cvalignmtbwrite)
 - [cv::CalibrateCRF](#cvcalibratecrf)
+  - [cv::CalibrateCRF::IsInstance](#cvcalibratecrfisinstance)
   - [cv::CalibrateCRF::clear](#cvcalibratecrfclear)
   - [cv::CalibrateCRF::empty](#cvcalibratecrfempty)
   - [cv::CalibrateCRF::getDefaultName](#cvcalibratecrfgetdefaultname)
@@ -3490,6 +3600,7 @@
   - [cv::CalibrateCRF::save](#cvcalibratecrfsave)
   - [cv::CalibrateCRF::write](#cvcalibratecrfwrite)
 - [cv::CalibrateDebevec](#cvcalibratedebevec)
+  - [cv::CalibrateDebevec::IsInstance](#cvcalibratedebevecisinstance)
   - [cv::CalibrateDebevec::clear](#cvcalibratedebevecclear)
   - [cv::CalibrateDebevec::empty](#cvcalibratedebevecempty)
   - [cv::CalibrateDebevec::getDefaultName](#cvcalibratedebevecgetdefaultname)
@@ -3504,6 +3615,7 @@
   - [cv::CalibrateDebevec::setSamples](#cvcalibratedebevecsetsamples)
   - [cv::CalibrateDebevec::write](#cvcalibratedebevecwrite)
 - [cv::CalibrateRobertson](#cvcalibraterobertson)
+  - [cv::CalibrateRobertson::IsInstance](#cvcalibraterobertsonisinstance)
   - [cv::CalibrateRobertson::clear](#cvcalibraterobertsonclear)
   - [cv::CalibrateRobertson::empty](#cvcalibraterobertsonempty)
   - [cv::CalibrateRobertson::getDefaultName](#cvcalibraterobertsongetdefaultname)
@@ -3517,6 +3629,7 @@
   - [cv::CalibrateRobertson::setThreshold](#cvcalibraterobertsonsetthreshold)
   - [cv::CalibrateRobertson::write](#cvcalibraterobertsonwrite)
 - [cv::MergeExposures](#cvmergeexposures)
+  - [cv::MergeExposures::IsInstance](#cvmergeexposuresisinstance)
   - [cv::MergeExposures::clear](#cvmergeexposuresclear)
   - [cv::MergeExposures::empty](#cvmergeexposuresempty)
   - [cv::MergeExposures::getDefaultName](#cvmergeexposuresgetdefaultname)
@@ -3525,6 +3638,7 @@
   - [cv::MergeExposures::save](#cvmergeexposuressave)
   - [cv::MergeExposures::write](#cvmergeexposureswrite)
 - [cv::MergeDebevec](#cvmergedebevec)
+  - [cv::MergeDebevec::IsInstance](#cvmergedebevecisinstance)
   - [cv::MergeDebevec::clear](#cvmergedebevecclear)
   - [cv::MergeDebevec::empty](#cvmergedebevecempty)
   - [cv::MergeDebevec::getDefaultName](#cvmergedebevecgetdefaultname)
@@ -3533,6 +3647,7 @@
   - [cv::MergeDebevec::save](#cvmergedebevecsave)
   - [cv::MergeDebevec::write](#cvmergedebevecwrite)
 - [cv::MergeMertens](#cvmergemertens)
+  - [cv::MergeMertens::IsInstance](#cvmergemertensisinstance)
   - [cv::MergeMertens::clear](#cvmergemertensclear)
   - [cv::MergeMertens::empty](#cvmergemertensempty)
   - [cv::MergeMertens::getContrastWeight](#cvmergemertensgetcontrastweight)
@@ -3547,6 +3662,7 @@
   - [cv::MergeMertens::setSaturationWeight](#cvmergemertenssetsaturationweight)
   - [cv::MergeMertens::write](#cvmergemertenswrite)
 - [cv::MergeRobertson](#cvmergerobertson)
+  - [cv::MergeRobertson::IsInstance](#cvmergerobertsonisinstance)
   - [cv::MergeRobertson::clear](#cvmergerobertsonclear)
   - [cv::MergeRobertson::empty](#cvmergerobertsonempty)
   - [cv::MergeRobertson::getDefaultName](#cvmergerobertsongetdefaultname)
@@ -3555,7 +3671,6 @@
   - [cv::MergeRobertson::save](#cvmergerobertsonsave)
   - [cv::MergeRobertson::write](#cvmergerobertsonwrite)
 - [cv::dnn](#cvdnn)
-  - [dnn.DictValue](#dnndictvalue)
   - [dnn.Layer](#dnnlayer)
   - [dnn.Net](#dnnnet)
   - [dnn.Image2BlobParams](#dnnimage2blobparams)
@@ -3621,19 +3736,12 @@
   - [dnn.DNN\_PMODE\_NULL\_](#dnndnn%5C_pmode%5C_null%5C_)
   - [dnn.DNN\_PMODE\_CROP\_CENTER\_](#dnndnn%5C_pmode%5C_crop%5C_center%5C_)
   - [dnn.DNN\_PMODE\_LETTERBOX\_](#dnndnn%5C_pmode%5C_letterbox%5C_)
-- [cv::dnn::DictValue](#cvdnndictvalue)
-  - [cv::dnn::DictValue::get\_create](#cvdnndictvalueget%5C_create)
-  - [cv::dnn::DictValue::getIntValue](#cvdnndictvaluegetintvalue)
-  - [cv::dnn::DictValue::getRealValue](#cvdnndictvaluegetrealvalue)
-  - [cv::dnn::DictValue::getStringValue](#cvdnndictvaluegetstringvalue)
-  - [cv::dnn::DictValue::isInt](#cvdnndictvalueisint)
-  - [cv::dnn::DictValue::isReal](#cvdnndictvalueisreal)
-  - [cv::dnn::DictValue::isString](#cvdnndictvalueisstring)
 - [cv::dnn::Layer](#cvdnnlayer)
   - [Layer.blobs](#layerblobs)
   - [Layer.name](#layername)
   - [Layer.type](#layertype)
   - [Layer.preferableTarget](#layerpreferabletarget)
+  - [cv::dnn::Layer::IsInstance](#cvdnnlayerisinstance)
   - [cv::dnn::Layer::clear](#cvdnnlayerclear)
   - [cv::dnn::Layer::empty](#cvdnnlayerempty)
   - [cv::dnn::Layer::finalize](#cvdnnlayerfinalize)
@@ -3645,6 +3753,9 @@
   - [cv::dnn::Layer::write](#cvdnnlayerwrite)
 - [cv::dnn::Net](#cvdnnnet)
   - [cv::dnn::Net::get\_create](#cvdnnnetget%5C_create)
+  - [cv::dnn::Net::IsInstance](#cvdnnnetisinstance)
+  - [cv::dnn::Net::addLayer](#cvdnnnetaddlayer)
+  - [cv::dnn::Net::addLayerToPrev](#cvdnnnetaddlayertoprev)
   - [cv::dnn::Net::connect](#cvdnnnetconnect)
   - [cv::dnn::Net::dump](#cvdnnnetdump)
   - [cv::dnn::Net::dumpToFile](#cvdnnnetdumptofile)
@@ -3688,6 +3799,7 @@
   - [Image2BlobParams.paddingmode](#image2blobparamspaddingmode)
   - [Image2BlobParams.borderValue](#image2blobparamsbordervalue)
   - [cv::dnn::Image2BlobParams::get\_create](#cvdnnimage2blobparamsget%5C_create)
+  - [cv::dnn::Image2BlobParams::IsInstance](#cvdnnimage2blobparamsisinstance)
   - [cv::dnn::Image2BlobParams::blobRectToImageRect](#cvdnnimage2blobparamsblobrecttoimagerect)
   - [cv::dnn::Image2BlobParams::blobRectsToImageRects](#cvdnnimage2blobparamsblobrectstoimagerects)
 - [cv::dnn::SoftNMSMethod](#cvdnnsoftnmsmethod)
@@ -3695,6 +3807,7 @@
   - [SoftNMSMethod.SOFTNMS\_GAUSSIAN](#softnmsmethodsoftnms%5C_gaussian)
 - [cv::dnn::Model](#cvdnnmodel)
   - [cv::dnn::Model::get\_create](#cvdnnmodelget%5C_create)
+  - [cv::dnn::Model::IsInstance](#cvdnnmodelisinstance)
   - [cv::dnn::Model::enableWinograd](#cvdnnmodelenablewinograd)
   - [cv::dnn::Model::predict](#cvdnnmodelpredict)
   - [cv::dnn::Model::setInputCrop](#cvdnnmodelsetinputcrop)
@@ -3708,6 +3821,7 @@
   - [cv::dnn::Model::setPreferableTarget](#cvdnnmodelsetpreferabletarget)
 - [cv::dnn::ClassificationModel](#cvdnnclassificationmodel)
   - [cv::dnn::ClassificationModel::get\_create](#cvdnnclassificationmodelget%5C_create)
+  - [cv::dnn::ClassificationModel::IsInstance](#cvdnnclassificationmodelisinstance)
   - [cv::dnn::ClassificationModel::classify](#cvdnnclassificationmodelclassify)
   - [cv::dnn::ClassificationModel::enableWinograd](#cvdnnclassificationmodelenablewinograd)
   - [cv::dnn::ClassificationModel::getEnableSoftmaxPostProcessing](#cvdnnclassificationmodelgetenablesoftmaxpostprocessing)
@@ -3724,6 +3838,7 @@
   - [cv::dnn::ClassificationModel::setPreferableTarget](#cvdnnclassificationmodelsetpreferabletarget)
 - [cv::dnn::KeypointsModel](#cvdnnkeypointsmodel)
   - [cv::dnn::KeypointsModel::get\_create](#cvdnnkeypointsmodelget%5C_create)
+  - [cv::dnn::KeypointsModel::IsInstance](#cvdnnkeypointsmodelisinstance)
   - [cv::dnn::KeypointsModel::enableWinograd](#cvdnnkeypointsmodelenablewinograd)
   - [cv::dnn::KeypointsModel::estimate](#cvdnnkeypointsmodelestimate)
   - [cv::dnn::KeypointsModel::predict](#cvdnnkeypointsmodelpredict)
@@ -3738,6 +3853,7 @@
   - [cv::dnn::KeypointsModel::setPreferableTarget](#cvdnnkeypointsmodelsetpreferabletarget)
 - [cv::dnn::SegmentationModel](#cvdnnsegmentationmodel)
   - [cv::dnn::SegmentationModel::get\_create](#cvdnnsegmentationmodelget%5C_create)
+  - [cv::dnn::SegmentationModel::IsInstance](#cvdnnsegmentationmodelisinstance)
   - [cv::dnn::SegmentationModel::enableWinograd](#cvdnnsegmentationmodelenablewinograd)
   - [cv::dnn::SegmentationModel::predict](#cvdnnsegmentationmodelpredict)
   - [cv::dnn::SegmentationModel::segment](#cvdnnsegmentationmodelsegment)
@@ -3752,6 +3868,7 @@
   - [cv::dnn::SegmentationModel::setPreferableTarget](#cvdnnsegmentationmodelsetpreferabletarget)
 - [cv::dnn::DetectionModel](#cvdnndetectionmodel)
   - [cv::dnn::DetectionModel::get\_create](#cvdnndetectionmodelget%5C_create)
+  - [cv::dnn::DetectionModel::IsInstance](#cvdnndetectionmodelisinstance)
   - [cv::dnn::DetectionModel::detect](#cvdnndetectionmodeldetect)
   - [cv::dnn::DetectionModel::enableWinograd](#cvdnndetectionmodelenablewinograd)
   - [cv::dnn::DetectionModel::getNmsAcrossClasses](#cvdnndetectionmodelgetnmsacrossclasses)
@@ -3768,6 +3885,7 @@
   - [cv::dnn::DetectionModel::setPreferableTarget](#cvdnndetectionmodelsetpreferabletarget)
 - [cv::dnn::TextRecognitionModel](#cvdnntextrecognitionmodel)
   - [cv::dnn::TextRecognitionModel::get\_create](#cvdnntextrecognitionmodelget%5C_create)
+  - [cv::dnn::TextRecognitionModel::IsInstance](#cvdnntextrecognitionmodelisinstance)
   - [cv::dnn::TextRecognitionModel::enableWinograd](#cvdnntextrecognitionmodelenablewinograd)
   - [cv::dnn::TextRecognitionModel::getDecodeType](#cvdnntextrecognitionmodelgetdecodetype)
   - [cv::dnn::TextRecognitionModel::getVocabulary](#cvdnntextrecognitionmodelgetvocabulary)
@@ -3786,6 +3904,7 @@
   - [cv::dnn::TextRecognitionModel::setPreferableTarget](#cvdnntextrecognitionmodelsetpreferabletarget)
   - [cv::dnn::TextRecognitionModel::setVocabulary](#cvdnntextrecognitionmodelsetvocabulary)
 - [cv::dnn::TextDetectionModel](#cvdnntextdetectionmodel)
+  - [cv::dnn::TextDetectionModel::IsInstance](#cvdnntextdetectionmodelisinstance)
   - [cv::dnn::TextDetectionModel::detect](#cvdnntextdetectionmodeldetect)
   - [cv::dnn::TextDetectionModel::detectTextRectangles](#cvdnntextdetectionmodeldetecttextrectangles)
   - [cv::dnn::TextDetectionModel::enableWinograd](#cvdnntextdetectionmodelenablewinograd)
@@ -3801,6 +3920,7 @@
   - [cv::dnn::TextDetectionModel::setPreferableTarget](#cvdnntextdetectionmodelsetpreferabletarget)
 - [cv::dnn::TextDetectionModel\_EAST](#cvdnntextdetectionmodel%5C_east)
   - [cv::dnn::TextDetectionModel\_EAST::get\_create](#cvdnntextdetectionmodel%5C_eastget%5C_create)
+  - [cv::dnn::TextDetectionModel\_EAST::IsInstance](#cvdnntextdetectionmodel%5C_eastisinstance)
   - [cv::dnn::TextDetectionModel\_EAST::detect](#cvdnntextdetectionmodel%5C_eastdetect)
   - [cv::dnn::TextDetectionModel\_EAST::detectTextRectangles](#cvdnntextdetectionmodel%5C_eastdetecttextrectangles)
   - [cv::dnn::TextDetectionModel\_EAST::enableWinograd](#cvdnntextdetectionmodel%5C_eastenablewinograd)
@@ -3820,6 +3940,7 @@
   - [cv::dnn::TextDetectionModel\_EAST::setPreferableTarget](#cvdnntextdetectionmodel%5C_eastsetpreferabletarget)
 - [cv::dnn::TextDetectionModel\_DB](#cvdnntextdetectionmodel%5C_db)
   - [cv::dnn::TextDetectionModel\_DB::get\_create](#cvdnntextdetectionmodel%5C_dbget%5C_create)
+  - [cv::dnn::TextDetectionModel\_DB::IsInstance](#cvdnntextdetectionmodel%5C_dbisinstance)
   - [cv::dnn::TextDetectionModel\_DB::detect](#cvdnntextdetectionmodel%5C_dbdetect)
   - [cv::dnn::TextDetectionModel\_DB::detectTextRectangles](#cvdnntextdetectionmodel%5C_dbdetecttextrectangles)
   - [cv::dnn::TextDetectionModel\_DB::enableWinograd](#cvdnntextdetectionmodel%5C_dbenablewinograd)
@@ -3842,6 +3963,7 @@
   - [cv::dnn::TextDetectionModel\_DB::setPreferableTarget](#cvdnntextdetectionmodel%5C_dbsetpreferabletarget)
   - [cv::dnn::TextDetectionModel\_DB::setUnclipRatio](#cvdnntextdetectionmodel%5C_dbsetunclipratio)
 - [cv::Feature2D](#cvfeature2d)
+  - [cv::Feature2D::IsInstance](#cvfeature2disinstance)
   - [cv::Feature2D::clear](#cvfeature2dclear)
   - [cv::Feature2D::compute](#cvfeature2dcompute)
   - [cv::Feature2D::defaultNorm](#cvfeature2ddefaultnorm)
@@ -3856,6 +3978,7 @@
   - [cv::Feature2D::write](#cvfeature2dwrite)
 - [cv::AffineFeature](#cvaffinefeature)
   - [cv::AffineFeature::get\_create](#cvaffinefeatureget%5C_create)
+  - [cv::AffineFeature::IsInstance](#cvaffinefeatureisinstance)
   - [cv::AffineFeature::clear](#cvaffinefeatureclear)
   - [cv::AffineFeature::compute](#cvaffinefeaturecompute)
   - [cv::AffineFeature::defaultNorm](#cvaffinefeaturedefaultnorm)
@@ -3872,6 +3995,7 @@
   - [cv::AffineFeature::write](#cvaffinefeaturewrite)
 - [cv::SIFT](#cvsift)
   - [cv::SIFT::get\_create](#cvsiftget%5C_create)
+  - [cv::SIFT::IsInstance](#cvsiftisinstance)
   - [cv::SIFT::clear](#cvsiftclear)
   - [cv::SIFT::compute](#cvsiftcompute)
   - [cv::SIFT::defaultNorm](#cvsiftdefaultnorm)
@@ -3896,6 +4020,7 @@
   - [cv::SIFT::write](#cvsiftwrite)
 - [cv::BRISK](#cvbrisk)
   - [cv::BRISK::get\_create](#cvbriskget%5C_create)
+  - [cv::BRISK::IsInstance](#cvbriskisinstance)
   - [cv::BRISK::clear](#cvbriskclear)
   - [cv::BRISK::compute](#cvbriskcompute)
   - [cv::BRISK::defaultNorm](#cvbriskdefaultnorm)
@@ -3916,6 +4041,7 @@
   - [cv::BRISK::write](#cvbriskwrite)
 - [cv::ORB](#cvorb)
   - [cv::ORB::get\_create](#cvorbget%5C_create)
+  - [cv::ORB::IsInstance](#cvorbisinstance)
   - [cv::ORB::clear](#cvorbclear)
   - [cv::ORB::compute](#cvorbcompute)
   - [cv::ORB::defaultNorm](#cvorbdefaultnorm)
@@ -3950,6 +4076,7 @@
   - [ORB.FAST\_SCORE\_](#orbfast%5C_score%5C_)
 - [cv::MSER](#cvmser)
   - [cv::MSER::get\_create](#cvmserget%5C_create)
+  - [cv::MSER::IsInstance](#cvmserisinstance)
   - [cv::MSER::clear](#cvmserclear)
   - [cv::MSER::compute](#cvmsercompute)
   - [cv::MSER::defaultNorm](#cvmserdefaultnorm)
@@ -3985,6 +4112,7 @@
   - [cv::MSER::write](#cvmserwrite)
 - [cv::FastFeatureDetector](#cvfastfeaturedetector)
   - [cv::FastFeatureDetector::get\_create](#cvfastfeaturedetectorget%5C_create)
+  - [cv::FastFeatureDetector::IsInstance](#cvfastfeaturedetectorisinstance)
   - [cv::FastFeatureDetector::clear](#cvfastfeaturedetectorclear)
   - [cv::FastFeatureDetector::compute](#cvfastfeaturedetectorcompute)
   - [cv::FastFeatureDetector::defaultNorm](#cvfastfeaturedetectordefaultnorm)
@@ -4011,6 +4139,7 @@
   - [FastFeatureDetector.FAST\_N\_](#fastfeaturedetectorfast%5C_n%5C_)
 - [cv::AgastFeatureDetector](#cvagastfeaturedetector)
   - [cv::AgastFeatureDetector::get\_create](#cvagastfeaturedetectorget%5C_create)
+  - [cv::AgastFeatureDetector::IsInstance](#cvagastfeaturedetectorisinstance)
   - [cv::AgastFeatureDetector::clear](#cvagastfeaturedetectorclear)
   - [cv::AgastFeatureDetector::compute](#cvagastfeaturedetectorcompute)
   - [cv::AgastFeatureDetector::defaultNorm](#cvagastfeaturedetectordefaultnorm)
@@ -4037,6 +4166,7 @@
   - [AgastFeatureDetector.NONMAX\_SUPPRESSION\_](#agastfeaturedetectornonmax%5C_suppression%5C_)
 - [cv::GFTTDetector](#cvgfttdetector)
   - [cv::GFTTDetector::get\_create](#cvgfttdetectorget%5C_create)
+  - [cv::GFTTDetector::IsInstance](#cvgfttdetectorisinstance)
   - [cv::GFTTDetector::clear](#cvgfttdetectorclear)
   - [cv::GFTTDetector::compute](#cvgfttdetectorcompute)
   - [cv::GFTTDetector::defaultNorm](#cvgfttdetectordefaultnorm)
@@ -4066,6 +4196,7 @@
 - [cv::SimpleBlobDetector](#cvsimpleblobdetector)
   - [SimpleBlobDetector.Params](#simpleblobdetectorparams)
   - [cv::SimpleBlobDetector::get\_create](#cvsimpleblobdetectorget%5C_create)
+  - [cv::SimpleBlobDetector::IsInstance](#cvsimpleblobdetectorisinstance)
   - [cv::SimpleBlobDetector::clear](#cvsimpleblobdetectorclear)
   - [cv::SimpleBlobDetector::compute](#cvsimpleblobdetectorcompute)
   - [cv::SimpleBlobDetector::defaultNorm](#cvsimpleblobdetectordefaultnorm)
@@ -4103,8 +4234,10 @@
   - [Params.maxConvexity](#paramsmaxconvexity)
   - [Params.collectContours](#paramscollectcontours)
   - [cv::SimpleBlobDetector::Params::get\_create](#cvsimpleblobdetectorparamsget%5C_create)
+  - [cv::SimpleBlobDetector::Params::IsInstance](#cvsimpleblobdetectorparamsisinstance)
 - [cv::KAZE](#cvkaze)
   - [cv::KAZE::get\_create](#cvkazeget%5C_create)
+  - [cv::KAZE::IsInstance](#cvkazeisinstance)
   - [cv::KAZE::clear](#cvkazeclear)
   - [cv::KAZE::compute](#cvkazecompute)
   - [cv::KAZE::defaultNorm](#cvkazedefaultnorm)
@@ -4135,6 +4268,7 @@
   - [KAZE.DIFF\_CHARBONNIER\_](#kazediff%5C_charbonnier%5C_)
 - [cv::AKAZE](#cvakaze)
   - [cv::AKAZE::get\_create](#cvakazeget%5C_create)
+  - [cv::AKAZE::IsInstance](#cvakazeisinstance)
   - [cv::AKAZE::clear](#cvakazeclear)
   - [cv::AKAZE::compute](#cvakazecompute)
   - [cv::AKAZE::defaultNorm](#cvakazedefaultnorm)
@@ -4169,6 +4303,7 @@
   - [AKAZE.DESCRIPTOR\_MLDB\_](#akazedescriptor%5C_mldb%5C_)
 - [cv::DescriptorMatcher](#cvdescriptormatcher)
   - [cv::DescriptorMatcher::get\_create](#cvdescriptormatcherget%5C_create)
+  - [cv::DescriptorMatcher::IsInstance](#cvdescriptormatcherisinstance)
   - [cv::DescriptorMatcher::add](#cvdescriptormatcheradd)
   - [cv::DescriptorMatcher::clear](#cvdescriptormatcherclear)
   - [cv::DescriptorMatcher::clone](#cvdescriptormatcherclone)
@@ -4191,6 +4326,7 @@
   - [DescriptorMatcher.BRUTEFORCE\_SL2\_](#descriptormatcherbruteforce%5C_sl2%5C_)
 - [cv::BFMatcher](#cvbfmatcher)
   - [cv::BFMatcher::get\_create](#cvbfmatcherget%5C_create)
+  - [cv::BFMatcher::IsInstance](#cvbfmatcherisinstance)
   - [cv::BFMatcher::add](#cvbfmatcheradd)
   - [cv::BFMatcher::clear](#cvbfmatcherclear)
   - [cv::BFMatcher::clone](#cvbfmatcherclone)
@@ -4207,6 +4343,7 @@
   - [cv::BFMatcher::write](#cvbfmatcherwrite)
 - [cv::FlannBasedMatcher](#cvflannbasedmatcher)
   - [cv::FlannBasedMatcher::get\_create](#cvflannbasedmatcherget%5C_create)
+  - [cv::FlannBasedMatcher::IsInstance](#cvflannbasedmatcherisinstance)
   - [cv::FlannBasedMatcher::add](#cvflannbasedmatcheradd)
   - [cv::FlannBasedMatcher::clear](#cvflannbasedmatcherclear)
   - [cv::FlannBasedMatcher::clone](#cvflannbasedmatcherclone)
@@ -4227,6 +4364,7 @@
   - [DrawMatchesFlags.NOT\_DRAW\_SINGLE\_POINTS\_](#drawmatchesflagsnot%5C_draw%5C_single%5C_points%5C_)
   - [DrawMatchesFlags.DRAW\_RICH\_KEYPOINTS\_](#drawmatchesflagsdraw%5C_rich%5C_keypoints%5C_)
 - [cv::BOWTrainer](#cvbowtrainer)
+  - [cv::BOWTrainer::IsInstance](#cvbowtrainerisinstance)
   - [cv::BOWTrainer::add](#cvbowtraineradd)
   - [cv::BOWTrainer::clear](#cvbowtrainerclear)
   - [cv::BOWTrainer::cluster](#cvbowtrainercluster)
@@ -4234,6 +4372,7 @@
   - [cv::BOWTrainer::getDescriptors](#cvbowtrainergetdescriptors)
 - [cv::BOWKMeansTrainer](#cvbowkmeanstrainer)
   - [cv::BOWKMeansTrainer::get\_create](#cvbowkmeanstrainerget%5C_create)
+  - [cv::BOWKMeansTrainer::IsInstance](#cvbowkmeanstrainerisinstance)
   - [cv::BOWKMeansTrainer::add](#cvbowkmeanstraineradd)
   - [cv::BOWKMeansTrainer::clear](#cvbowkmeanstrainerclear)
   - [cv::BOWKMeansTrainer::cluster](#cvbowkmeanstrainercluster)
@@ -4241,13 +4380,24 @@
   - [cv::BOWKMeansTrainer::getDescriptors](#cvbowkmeanstrainergetdescriptors)
 - [cv::BOWImgDescriptorExtractor](#cvbowimgdescriptorextractor)
   - [cv::BOWImgDescriptorExtractor::get\_create](#cvbowimgdescriptorextractorget%5C_create)
+  - [cv::BOWImgDescriptorExtractor::IsInstance](#cvbowimgdescriptorextractorisinstance)
   - [cv::BOWImgDescriptorExtractor::compute](#cvbowimgdescriptorextractorcompute)
   - [cv::BOWImgDescriptorExtractor::descriptorSize](#cvbowimgdescriptorextractordescriptorsize)
   - [cv::BOWImgDescriptorExtractor::descriptorType](#cvbowimgdescriptorextractordescriptortype)
   - [cv::BOWImgDescriptorExtractor::getVocabulary](#cvbowimgdescriptorextractorgetvocabulary)
   - [cv::BOWImgDescriptorExtractor::setVocabulary](#cvbowimgdescriptorextractorsetvocabulary)
+- [cv::Animation](#cvanimation)
+  - [Animation.loop\_count](#animationloop%5C_count)
+  - [Animation.bgcolor](#animationbgcolor)
+  - [Animation.durations](#animationdurations)
+  - [Animation.frames](#animationframes)
+  - [cv::Animation::get\_create](#cvanimationget%5C_create)
+  - [cv::Animation::IsInstance](#cvanimationisinstance)
+- [cv::IStreamReader](#cvistreamreader)
+  - [cv::IStreamReader::IsInstance](#cvistreamreaderisinstance)
 - [cv::VideoCapture](#cvvideocapture)
   - [cv::VideoCapture::get\_create](#cvvideocaptureget%5C_create)
+  - [cv::VideoCapture::IsInstance](#cvvideocaptureisinstance)
   - [cv::VideoCapture::get](#cvvideocaptureget)
   - [cv::VideoCapture::getBackendName](#cvvideocapturegetbackendname)
   - [cv::VideoCapture::getExceptionMode](#cvvideocapturegetexceptionmode)
@@ -4262,6 +4412,7 @@
   - [cv::VideoCapture::waitAny](#cvvideocapturewaitany)
 - [cv::VideoWriter](#cvvideowriter)
   - [cv::VideoWriter::get\_create](#cvvideowriterget%5C_create)
+  - [cv::VideoWriter::IsInstance](#cvvideowriterisinstance)
   - [cv::VideoWriter::fourcc](#cvvideowriterfourcc)
   - [cv::VideoWriter::get](#cvvideowriterget)
   - [cv::VideoWriter::getBackendName](#cvvideowritergetbackendname)
@@ -4277,6 +4428,8 @@
   - [cv::videoio\_registry::getCameraBackends](#cvvideoio%5C_registrygetcamerabackends)
   - [cv::videoio\_registry::getStreamBackendPluginVersion](#cvvideoio%5C_registrygetstreambackendpluginversion)
   - [cv::videoio\_registry::getStreamBackends](#cvvideoio%5C_registrygetstreambackends)
+  - [cv::videoio\_registry::getStreamBufferedBackendPluginVersion](#cvvideoio%5C_registrygetstreambufferedbackendpluginversion)
+  - [cv::videoio\_registry::getStreamBufferedBackends](#cvvideoio%5C_registrygetstreambufferedbackends)
   - [cv::videoio\_registry::getWriterBackendPluginVersion](#cvvideoio%5C_registrygetwriterbackendpluginversion)
   - [cv::videoio\_registry::getWriterBackends](#cvvideoio%5C_registrygetwriterbackends)
   - [cv::videoio\_registry::hasBackend](#cvvideoio%5C_registryhasbackend)
@@ -4296,6 +4449,7 @@
   - [UsacParams.final\_polisher](#usacparamsfinal%5C_polisher)
   - [UsacParams.final\_polisher\_iterations](#usacparamsfinal%5C_polisher%5C_iterations)
   - [cv::UsacParams::get\_create](#cvusacparamsget%5C_create)
+  - [cv::UsacParams::IsInstance](#cvusacparamsisinstance)
 - [cv::CirclesGridFinderParameters](#cvcirclesgridfinderparameters)
   - [CirclesGridFinderParameters.densityNeighborhoodSize](#circlesgridfinderparametersdensityneighborhoodsize)
   - [CirclesGridFinderParameters.minDensity](#circlesgridfinderparametersmindensity)
@@ -4313,9 +4467,11 @@
   - [CirclesGridFinderParameters.squareSize](#circlesgridfinderparameterssquaresize)
   - [CirclesGridFinderParameters.maxRectifiedDistance](#circlesgridfinderparametersmaxrectifieddistance)
   - [cv::CirclesGridFinderParameters::get\_create](#cvcirclesgridfinderparametersget%5C_create)
+  - [cv::CirclesGridFinderParameters::IsInstance](#cvcirclesgridfinderparametersisinstance)
   - [CirclesGridFinderParameters.SYMMETRIC\_GRID\_](#circlesgridfinderparameterssymmetric%5C_grid%5C_)
   - [CirclesGridFinderParameters.ASYMMETRIC\_GRID\_](#circlesgridfinderparametersasymmetric%5C_grid%5C_)
 - [cv::StereoMatcher](#cvstereomatcher)
+  - [cv::StereoMatcher::IsInstance](#cvstereomatcherisinstance)
   - [cv::StereoMatcher::clear](#cvstereomatcherclear)
   - [cv::StereoMatcher::compute](#cvstereomatchercompute)
   - [cv::StereoMatcher::empty](#cvstereomatcherempty)
@@ -4339,6 +4495,7 @@
   - [StereoMatcher.DISP\_SCALE\_](#stereomatcherdisp%5C_scale%5C_)
 - [cv::StereoBM](#cvstereobm)
   - [cv::StereoBM::get\_create](#cvstereobmget%5C_create)
+  - [cv::StereoBM::IsInstance](#cvstereobmisinstance)
   - [cv::StereoBM::clear](#cvstereobmclear)
   - [cv::StereoBM::compute](#cvstereobmcompute)
   - [cv::StereoBM::empty](#cvstereobmempty)
@@ -4378,6 +4535,7 @@
   - [StereoBM.PREFILTER\_XSOBEL\_](#stereobmprefilter%5C_xsobel%5C_)
 - [cv::StereoSGBM](#cvstereosgbm)
   - [cv::StereoSGBM::get\_create](#cvstereosgbmget%5C_create)
+  - [cv::StereoSGBM::IsInstance](#cvstereosgbmisinstance)
   - [cv::StereoSGBM::clear](#cvstereosgbmclear)
   - [cv::StereoSGBM::compute](#cvstereosgbmcompute)
   - [cv::StereoSGBM::empty](#cvstereosgbmempty)
@@ -4435,6 +4593,7 @@
   - [fisheye.CALIB\_ZERO\_DISPARITY\_](#fisheyecalib%5C_zero%5C_disparity%5C_)
   - [fisheye.CALIB\_FIX\_FOCAL\_LENGTH\_](#fisheyecalib%5C_fix%5C_focal%5C_length%5C_)
 - [cv::BaseCascadeClassifier](#cvbasecascadeclassifier)
+  - [cv::BaseCascadeClassifier::IsInstance](#cvbasecascadeclassifierisinstance)
   - [cv::BaseCascadeClassifier::clear](#cvbasecascadeclassifierclear)
   - [cv::BaseCascadeClassifier::empty](#cvbasecascadeclassifierempty)
   - [cv::BaseCascadeClassifier::getDefaultName](#cvbasecascadeclassifiergetdefaultname)
@@ -4443,6 +4602,7 @@
   - [cv::BaseCascadeClassifier::write](#cvbasecascadeclassifierwrite)
 - [cv::CascadeClassifier](#cvcascadeclassifier)
   - [cv::CascadeClassifier::get\_create](#cvcascadeclassifierget%5C_create)
+  - [cv::CascadeClassifier::IsInstance](#cvcascadeclassifierisinstance)
   - [cv::CascadeClassifier::convert](#cvcascadeclassifierconvert)
   - [cv::CascadeClassifier::detectMultiScale](#cvcascadeclassifierdetectmultiscale)
   - [cv::CascadeClassifier::detectMultiScale2](#cvcascadeclassifierdetectmultiscale2)
@@ -4468,6 +4628,7 @@
   - [HOGDescriptor.nlevels](#hogdescriptornlevels)
   - [HOGDescriptor.signedGradient](#hogdescriptorsignedgradient)
   - [cv::HOGDescriptor::get\_create](#cvhogdescriptorget%5C_create)
+  - [cv::HOGDescriptor::IsInstance](#cvhogdescriptorisinstance)
   - [cv::HOGDescriptor::checkDetectorSize](#cvhogdescriptorcheckdetectorsize)
   - [cv::HOGDescriptor::compute](#cvhogdescriptorcompute)
   - [cv::HOGDescriptor::computeGradient](#cvhogdescriptorcomputegradient)
@@ -4487,6 +4648,7 @@
 - [cv::QRCodeEncoder](#cvqrcodeencoder)
   - [QRCodeEncoder.Params](#qrcodeencoderparams)
   - [cv::QRCodeEncoder::get\_create](#cvqrcodeencoderget%5C_create)
+  - [cv::QRCodeEncoder::IsInstance](#cvqrcodeencoderisinstance)
   - [cv::QRCodeEncoder::encode](#cvqrcodeencoderencode)
   - [cv::QRCodeEncoder::encodeStructuredAppend](#cvqrcodeencoderencodestructuredappend)
   - [QRCodeEncoder.MODE\_AUTO\_](#qrcodeencodermode%5C_auto%5C_)
@@ -4507,8 +4669,10 @@
   - [Params.mode](#paramsmode)
   - [Params.structure\_number](#paramsstructure%5C_number)
   - [cv::QRCodeEncoder::Params::get\_create](#cvqrcodeencoderparamsget%5C_create)
+  - [cv::QRCodeEncoder::Params::IsInstance](#cvqrcodeencoderparamsisinstance)
 - [cv::QRCodeDetector](#cvqrcodedetector)
   - [cv::QRCodeDetector::get\_create](#cvqrcodedetectorget%5C_create)
+  - [cv::QRCodeDetector::IsInstance](#cvqrcodedetectorisinstance)
   - [cv::QRCodeDetector::decode](#cvqrcodedetectordecode)
   - [cv::QRCodeDetector::decodeCurved](#cvqrcodedetectordecodecurved)
   - [cv::QRCodeDetector::decodeMulti](#cvqrcodedetectordecodemulti)
@@ -4523,6 +4687,7 @@
 - [cv::QRCodeDetectorAruco](#cvqrcodedetectoraruco)
   - [QRCodeDetectorAruco.Params](#qrcodedetectorarucoparams)
   - [cv::QRCodeDetectorAruco::get\_create](#cvqrcodedetectorarucoget%5C_create)
+  - [cv::QRCodeDetectorAruco::IsInstance](#cvqrcodedetectorarucoisinstance)
   - [cv::QRCodeDetectorAruco::decode](#cvqrcodedetectorarucodecode)
   - [cv::QRCodeDetectorAruco::decodeMulti](#cvqrcodedetectorarucodecodemulti)
   - [cv::QRCodeDetectorAruco::detect](#cvqrcodedetectorarucodetect)
@@ -4542,6 +4707,7 @@
   - [Params.maxColorsMismatch](#paramsmaxcolorsmismatch)
   - [Params.scaleTimingPatternScore](#paramsscaletimingpatternscore)
   - [cv::QRCodeDetectorAruco::Params::get\_create](#cvqrcodedetectorarucoparamsget%5C_create)
+  - [cv::QRCodeDetectorAruco::Params::IsInstance](#cvqrcodedetectorarucoparamsisinstance)
 - [cv::aruco](#cvaruco)
   - [aruco.Board](#arucoboard)
   - [aruco.GridBoard](#arucogridboard)
@@ -4586,6 +4752,7 @@
   - [aruco.DICT\_ARUCO\_MIP\_36h12\_](#arucodict%5C_aruco%5C_mip%5C_36h12%5C_)
 - [cv::aruco::Board](#cvarucoboard)
   - [cv::aruco::Board::get\_create](#cvarucoboardget%5C_create)
+  - [cv::aruco::Board::IsInstance](#cvarucoboardisinstance)
   - [cv::aruco::Board::generateImage](#cvarucoboardgenerateimage)
   - [cv::aruco::Board::getDictionary](#cvarucoboardgetdictionary)
   - [cv::aruco::Board::getIds](#cvarucoboardgetids)
@@ -4594,6 +4761,7 @@
   - [cv::aruco::Board::matchImagePoints](#cvarucoboardmatchimagepoints)
 - [cv::aruco::GridBoard](#cvarucogridboard)
   - [cv::aruco::GridBoard::get\_create](#cvarucogridboardget%5C_create)
+  - [cv::aruco::GridBoard::IsInstance](#cvarucogridboardisinstance)
   - [cv::aruco::GridBoard::generateImage](#cvarucogridboardgenerateimage)
   - [cv::aruco::GridBoard::getDictionary](#cvarucogridboardgetdictionary)
   - [cv::aruco::GridBoard::getGridSize](#cvarucogridboardgetgridsize)
@@ -4605,6 +4773,7 @@
   - [cv::aruco::GridBoard::matchImagePoints](#cvarucogridboardmatchimagepoints)
 - [cv::aruco::CharucoBoard](#cvarucocharucoboard)
   - [cv::aruco::CharucoBoard::get\_create](#cvarucocharucoboardget%5C_create)
+  - [cv::aruco::CharucoBoard::IsInstance](#cvarucocharucoboardisinstance)
   - [cv::aruco::CharucoBoard::checkCharucoCornersCollinear](#cvarucocharucoboardcheckcharucocornerscollinear)
   - [cv::aruco::CharucoBoard::generateImage](#cvarucocharucoboardgenerateimage)
   - [cv::aruco::CharucoBoard::getChessboardCorners](#cvarucocharucoboardgetchessboardcorners)
@@ -4654,6 +4823,7 @@
   - [DetectorParameters.minSideLengthCanonicalImg](#detectorparametersminsidelengthcanonicalimg)
   - [DetectorParameters.minMarkerLengthRatioOriginalImg](#detectorparametersminmarkerlengthratiooriginalimg)
   - [cv::aruco::DetectorParameters::get\_create](#cvarucodetectorparametersget%5C_create)
+  - [cv::aruco::DetectorParameters::IsInstance](#cvarucodetectorparametersisinstance)
   - [cv::aruco::DetectorParameters::readDetectorParameters](#cvarucodetectorparametersreaddetectorparameters)
   - [cv::aruco::DetectorParameters::writeDetectorParameters](#cvarucodetectorparameterswritedetectorparameters)
 - [cv::aruco::RefineParameters](#cvarucorefineparameters)
@@ -4661,10 +4831,12 @@
   - [RefineParameters.errorCorrectionRate](#refineparameterserrorcorrectionrate)
   - [RefineParameters.checkAllOrders](#refineparameterscheckallorders)
   - [cv::aruco::RefineParameters::get\_create](#cvarucorefineparametersget%5C_create)
+  - [cv::aruco::RefineParameters::IsInstance](#cvarucorefineparametersisinstance)
   - [cv::aruco::RefineParameters::readRefineParameters](#cvarucorefineparametersreadrefineparameters)
   - [cv::aruco::RefineParameters::writeRefineParameters](#cvarucorefineparameterswriterefineparameters)
 - [cv::aruco::ArucoDetector](#cvarucoarucodetector)
   - [cv::aruco::ArucoDetector::get\_create](#cvarucoarucodetectorget%5C_create)
+  - [cv::aruco::ArucoDetector::IsInstance](#cvarucoarucodetectorisinstance)
   - [cv::aruco::ArucoDetector::clear](#cvarucoarucodetectorclear)
   - [cv::aruco::ArucoDetector::detectMarkers](#cvarucoarucodetectordetectmarkers)
   - [cv::aruco::ArucoDetector::empty](#cvarucoarucodetectorempty)
@@ -4684,6 +4856,7 @@
   - [Dictionary.markerSize](#dictionarymarkersize)
   - [Dictionary.maxCorrectionBits](#dictionarymaxcorrectionbits)
   - [cv::aruco::Dictionary::get\_create](#cvarucodictionaryget%5C_create)
+  - [cv::aruco::Dictionary::IsInstance](#cvarucodictionaryisinstance)
   - [cv::aruco::Dictionary::generateImageMarker](#cvarucodictionarygenerateimagemarker)
   - [cv::aruco::Dictionary::getBitsFromByteList](#cvarucodictionarygetbitsfrombytelist)
   - [cv::aruco::Dictionary::getByteListFromBits](#cvarucodictionarygetbytelistfrombits)
@@ -4695,6 +4868,7 @@
   - [barcode.BarcodeDetector](#barcodebarcodedetector)
 - [cv::barcode::BarcodeDetector](#cvbarcodebarcodedetector)
   - [cv::barcode::BarcodeDetector::get\_create](#cvbarcodebarcodedetectorget%5C_create)
+  - [cv::barcode::BarcodeDetector::IsInstance](#cvbarcodebarcodedetectorisinstance)
   - [cv::barcode::BarcodeDetector::decode](#cvbarcodebarcodedetectordecode)
   - [cv::barcode::BarcodeDetector::decodeMulti](#cvbarcodebarcodedetectordecodemulti)
   - [cv::barcode::BarcodeDetector::decodeWithType](#cvbarcodebarcodedetectordecodewithtype)
@@ -4715,8 +4889,10 @@
   - [CharucoParameters.minMarkers](#charucoparametersminmarkers)
   - [CharucoParameters.tryRefineMarkers](#charucoparameterstryrefinemarkers)
   - [cv::aruco::CharucoParameters::get\_create](#cvarucocharucoparametersget%5C_create)
+  - [cv::aruco::CharucoParameters::IsInstance](#cvarucocharucoparametersisinstance)
 - [cv::aruco::CharucoDetector](#cvarucocharucodetector)
   - [cv::aruco::CharucoDetector::get\_create](#cvarucocharucodetectorget%5C_create)
+  - [cv::aruco::CharucoDetector::IsInstance](#cvarucocharucodetectorisinstance)
   - [cv::aruco::CharucoDetector::clear](#cvarucocharucodetectorclear)
   - [cv::aruco::CharucoDetector::detectBoard](#cvarucocharucodetectordetectboard)
   - [cv::aruco::CharucoDetector::detectDiamonds](#cvarucocharucodetectordetectdiamonds)
@@ -4735,6 +4911,7 @@
   - [cv::aruco::CharucoDetector::write](#cvarucocharucodetectorwrite)
 - [cv::FaceDetectorYN](#cvfacedetectoryn)
   - [cv::FaceDetectorYN::get\_create](#cvfacedetectorynget%5C_create)
+  - [cv::FaceDetectorYN::IsInstance](#cvfacedetectorynisinstance)
   - [cv::FaceDetectorYN::detect](#cvfacedetectoryndetect)
   - [cv::FaceDetectorYN::getInputSize](#cvfacedetectoryngetinputsize)
   - [cv::FaceDetectorYN::getNMSThreshold](#cvfacedetectoryngetnmsthreshold)
@@ -4746,12 +4923,14 @@
   - [cv::FaceDetectorYN::setTopK](#cvfacedetectorynsettopk)
 - [cv::FaceRecognizerSF](#cvfacerecognizersf)
   - [cv::FaceRecognizerSF::get\_create](#cvfacerecognizersfget%5C_create)
+  - [cv::FaceRecognizerSF::IsInstance](#cvfacerecognizersfisinstance)
   - [cv::FaceRecognizerSF::alignCrop](#cvfacerecognizersfaligncrop)
   - [cv::FaceRecognizerSF::feature](#cvfacerecognizersffeature)
   - [cv::FaceRecognizerSF::match](#cvfacerecognizersfmatch)
   - [FaceRecognizerSF.FR\_COSINE\_](#facerecognizersffr%5C_cosine%5C_)
   - [FaceRecognizerSF.FR\_NORM\_L2\_](#facerecognizersffr%5C_norm%5C_l2%5C_)
 - [cv::GraphicalCodeDetector](#cvgraphicalcodedetector)
+  - [cv::GraphicalCodeDetector::IsInstance](#cvgraphicalcodedetectorisinstance)
   - [cv::GraphicalCodeDetector::decode](#cvgraphicalcodedetectordecode)
   - [cv::GraphicalCodeDetector::decodeMulti](#cvgraphicalcodedetectordecodemulti)
   - [cv::GraphicalCodeDetector::detect](#cvgraphicalcodedetectordetect)
@@ -4760,6 +4939,9 @@
   - [cv::GraphicalCodeDetector::detectMulti](#cvgraphicalcodedetectordetectmulti)
 - [cv::Stitcher](#cvstitcher)
   - [cv::Stitcher::get\_create](#cvstitcherget%5C_create)
+  - [cv::Stitcher::IsInstance](#cvstitcherisinstance)
+  - [cv::Stitcher::cameras](#cvstitchercameras)
+  - [cv::Stitcher::component](#cvstitchercomponent)
   - [cv::Stitcher::composePanorama](#cvstitchercomposepanorama)
   - [cv::Stitcher::compositingResol](#cvstitchercompositingresol)
   - [cv::Stitcher::estimateTransform](#cvstitcherestimatetransform)
@@ -4784,6 +4966,7 @@
   - [Stitcher.SCANS\_](#stitcherscans%5C_)
 - [cv::PyRotationWarper](#cvpyrotationwarper)
   - [cv::PyRotationWarper::get\_create](#cvpyrotationwarperget%5C_create)
+  - [cv::PyRotationWarper::IsInstance](#cvpyrotationwarperisinstance)
   - [cv::PyRotationWarper::buildMaps](#cvpyrotationwarperbuildmaps)
   - [cv::PyRotationWarper::getScale](#cvpyrotationwarpergetscale)
   - [cv::PyRotationWarper::setScale](#cvpyrotationwarpersetscale)
@@ -4792,7 +4975,10 @@
   - [cv::PyRotationWarper::warpPoint](#cvpyrotationwarperwarppoint)
   - [cv::PyRotationWarper::warpPointBackward](#cvpyrotationwarperwarppointbackward)
   - [cv::PyRotationWarper::warpRoi](#cvpyrotationwarperwarproi)
+- [cv::WarperCreator](#cvwarpercreator)
+  - [cv::WarperCreator::IsInstance](#cvwarpercreatorisinstance)
 - [cv::detail::Blender](#cvdetailblender)
+  - [cv::detail::Blender::IsInstance](#cvdetailblenderisinstance)
   - [cv::detail::Blender::blend](#cvdetailblenderblend)
   - [cv::detail::Blender::createDefault](#cvdetailblendercreatedefault)
   - [cv::detail::Blender::feed](#cvdetailblenderfeed)
@@ -4802,6 +4988,7 @@
   - [Blender.MULTI\_BAND\_](#blendermulti%5C_band%5C_)
 - [cv::detail::FeatherBlender](#cvdetailfeatherblender)
   - [cv::detail::FeatherBlender::get\_create](#cvdetailfeatherblenderget%5C_create)
+  - [cv::detail::FeatherBlender::IsInstance](#cvdetailfeatherblenderisinstance)
   - [cv::detail::FeatherBlender::blend](#cvdetailfeatherblenderblend)
   - [cv::detail::FeatherBlender::createDefault](#cvdetailfeatherblendercreatedefault)
   - [cv::detail::FeatherBlender::createWeightMaps](#cvdetailfeatherblendercreateweightmaps)
@@ -4811,6 +4998,7 @@
   - [cv::detail::FeatherBlender::sharpness](#cvdetailfeatherblendersharpness)
 - [cv::detail::MultiBandBlender](#cvdetailmultibandblender)
   - [cv::detail::MultiBandBlender::get\_create](#cvdetailmultibandblenderget%5C_create)
+  - [cv::detail::MultiBandBlender::IsInstance](#cvdetailmultibandblenderisinstance)
   - [cv::detail::MultiBandBlender::blend](#cvdetailmultibandblenderblend)
   - [cv::detail::MultiBandBlender::createDefault](#cvdetailmultibandblendercreatedefault)
   - [cv::detail::MultiBandBlender::feed](#cvdetailmultibandblenderfeed)
@@ -4825,8 +5013,10 @@
   - [CameraParams.R](#cameraparamsr)
   - [CameraParams.t](#cameraparamst)
   - [cv::detail::CameraParams::get\_create](#cvdetailcameraparamsget%5C_create)
+  - [cv::detail::CameraParams::IsInstance](#cvdetailcameraparamsisinstance)
   - [cv::detail::CameraParams::K](#cvdetailcameraparamsk)
 - [cv::detail::ExposureCompensator](#cvdetailexposurecompensator)
+  - [cv::detail::ExposureCompensator::IsInstance](#cvdetailexposurecompensatorisinstance)
   - [cv::detail::ExposureCompensator::apply](#cvdetailexposurecompensatorapply)
   - [cv::detail::ExposureCompensator::createDefault](#cvdetailexposurecompensatorcreatedefault)
   - [cv::detail::ExposureCompensator::feed](#cvdetailexposurecompensatorfeed)
@@ -4840,6 +5030,7 @@
   - [ExposureCompensator.CHANNELS\_](#exposurecompensatorchannels%5C_)
   - [ExposureCompensator.CHANNELS\_BLOCKS\_](#exposurecompensatorchannels%5C_blocks%5C_)
 - [cv::detail::NoExposureCompensator](#cvdetailnoexposurecompensator)
+  - [cv::detail::NoExposureCompensator::IsInstance](#cvdetailnoexposurecompensatorisinstance)
   - [cv::detail::NoExposureCompensator::apply](#cvdetailnoexposurecompensatorapply)
   - [cv::detail::NoExposureCompensator::createDefault](#cvdetailnoexposurecompensatorcreatedefault)
   - [cv::detail::NoExposureCompensator::feed](#cvdetailnoexposurecompensatorfeed)
@@ -4849,6 +5040,7 @@
   - [cv::detail::NoExposureCompensator::setUpdateGain](#cvdetailnoexposurecompensatorsetupdategain)
 - [cv::detail::GainCompensator](#cvdetailgaincompensator)
   - [cv::detail::GainCompensator::get\_create](#cvdetailgaincompensatorget%5C_create)
+  - [cv::detail::GainCompensator::IsInstance](#cvdetailgaincompensatorisinstance)
   - [cv::detail::GainCompensator::apply](#cvdetailgaincompensatorapply)
   - [cv::detail::GainCompensator::createDefault](#cvdetailgaincompensatorcreatedefault)
   - [cv::detail::GainCompensator::feed](#cvdetailgaincompensatorfeed)
@@ -4862,6 +5054,7 @@
   - [cv::detail::GainCompensator::setUpdateGain](#cvdetailgaincompensatorsetupdategain)
 - [cv::detail::ChannelsCompensator](#cvdetailchannelscompensator)
   - [cv::detail::ChannelsCompensator::get\_create](#cvdetailchannelscompensatorget%5C_create)
+  - [cv::detail::ChannelsCompensator::IsInstance](#cvdetailchannelscompensatorisinstance)
   - [cv::detail::ChannelsCompensator::apply](#cvdetailchannelscompensatorapply)
   - [cv::detail::ChannelsCompensator::createDefault](#cvdetailchannelscompensatorcreatedefault)
   - [cv::detail::ChannelsCompensator::feed](#cvdetailchannelscompensatorfeed)
@@ -4874,6 +5067,7 @@
   - [cv::detail::ChannelsCompensator::setSimilarityThreshold](#cvdetailchannelscompensatorsetsimilaritythreshold)
   - [cv::detail::ChannelsCompensator::setUpdateGain](#cvdetailchannelscompensatorsetupdategain)
 - [cv::detail::BlocksCompensator](#cvdetailblockscompensator)
+  - [cv::detail::BlocksCompensator::IsInstance](#cvdetailblockscompensatorisinstance)
   - [cv::detail::BlocksCompensator::apply](#cvdetailblockscompensatorapply)
   - [cv::detail::BlocksCompensator::createDefault](#cvdetailblockscompensatorcreatedefault)
   - [cv::detail::BlocksCompensator::feed](#cvdetailblockscompensatorfeed)
@@ -4891,6 +5085,7 @@
   - [cv::detail::BlocksCompensator::setUpdateGain](#cvdetailblockscompensatorsetupdategain)
 - [cv::detail::BlocksGainCompensator](#cvdetailblocksgaincompensator)
   - [cv::detail::BlocksGainCompensator::get\_create](#cvdetailblocksgaincompensatorget%5C_create)
+  - [cv::detail::BlocksGainCompensator::IsInstance](#cvdetailblocksgaincompensatorisinstance)
   - [cv::detail::BlocksGainCompensator::apply](#cvdetailblocksgaincompensatorapply)
   - [cv::detail::BlocksGainCompensator::createDefault](#cvdetailblocksgaincompensatorcreatedefault)
   - [cv::detail::BlocksGainCompensator::feed](#cvdetailblocksgaincompensatorfeed)
@@ -4908,6 +5103,7 @@
   - [cv::detail::BlocksGainCompensator::setUpdateGain](#cvdetailblocksgaincompensatorsetupdategain)
 - [cv::detail::BlocksChannelsCompensator](#cvdetailblockschannelscompensator)
   - [cv::detail::BlocksChannelsCompensator::get\_create](#cvdetailblockschannelscompensatorget%5C_create)
+  - [cv::detail::BlocksChannelsCompensator::IsInstance](#cvdetailblockschannelscompensatorisinstance)
   - [cv::detail::BlocksChannelsCompensator::apply](#cvdetailblockschannelscompensatorapply)
   - [cv::detail::BlocksChannelsCompensator::createDefault](#cvdetailblockschannelscompensatorcreatedefault)
   - [cv::detail::BlocksChannelsCompensator::feed](#cvdetailblockschannelscompensatorfeed)
@@ -4929,6 +5125,7 @@
   - [ImageFeatures.keypoints](#imagefeatureskeypoints)
   - [ImageFeatures.descriptors](#imagefeaturesdescriptors)
   - [cv::detail::ImageFeatures::get\_create](#cvdetailimagefeaturesget%5C_create)
+  - [cv::detail::ImageFeatures::IsInstance](#cvdetailimagefeaturesisinstance)
   - [cv::detail::ImageFeatures::getKeypoints](#cvdetailimagefeaturesgetkeypoints)
 - [cv::detail::MatchesInfo](#cvdetailmatchesinfo)
   - [MatchesInfo.src\_img\_idx](#matchesinfosrc%5C_img%5C_idx)
@@ -4939,40 +5136,49 @@
   - [MatchesInfo.H](#matchesinfoh)
   - [MatchesInfo.confidence](#matchesinfoconfidence)
   - [cv::detail::MatchesInfo::get\_create](#cvdetailmatchesinfoget%5C_create)
+  - [cv::detail::MatchesInfo::IsInstance](#cvdetailmatchesinfoisinstance)
   - [cv::detail::MatchesInfo::getInliers](#cvdetailmatchesinfogetinliers)
   - [cv::detail::MatchesInfo::getMatches](#cvdetailmatchesinfogetmatches)
 - [cv::detail::FeaturesMatcher](#cvdetailfeaturesmatcher)
+  - [cv::detail::FeaturesMatcher::IsInstance](#cvdetailfeaturesmatcherisinstance)
   - [cv::detail::FeaturesMatcher::apply](#cvdetailfeaturesmatcherapply)
   - [cv::detail::FeaturesMatcher::apply2](#cvdetailfeaturesmatcherapply2)
   - [cv::detail::FeaturesMatcher::collectGarbage](#cvdetailfeaturesmatchercollectgarbage)
   - [cv::detail::FeaturesMatcher::isThreadSafe](#cvdetailfeaturesmatcheristhreadsafe)
 - [cv::detail::BestOf2NearestMatcher](#cvdetailbestof2nearestmatcher)
   - [cv::detail::BestOf2NearestMatcher::get\_create](#cvdetailbestof2nearestmatcherget%5C_create)
+  - [cv::detail::BestOf2NearestMatcher::IsInstance](#cvdetailbestof2nearestmatcherisinstance)
   - [cv::detail::BestOf2NearestMatcher::apply](#cvdetailbestof2nearestmatcherapply)
   - [cv::detail::BestOf2NearestMatcher::apply2](#cvdetailbestof2nearestmatcherapply2)
   - [cv::detail::BestOf2NearestMatcher::collectGarbage](#cvdetailbestof2nearestmatchercollectgarbage)
   - [cv::detail::BestOf2NearestMatcher::isThreadSafe](#cvdetailbestof2nearestmatcheristhreadsafe)
 - [cv::detail::BestOf2NearestRangeMatcher](#cvdetailbestof2nearestrangematcher)
   - [cv::detail::BestOf2NearestRangeMatcher::get\_create](#cvdetailbestof2nearestrangematcherget%5C_create)
+  - [cv::detail::BestOf2NearestRangeMatcher::IsInstance](#cvdetailbestof2nearestrangematcherisinstance)
   - [cv::detail::BestOf2NearestRangeMatcher::apply](#cvdetailbestof2nearestrangematcherapply)
   - [cv::detail::BestOf2NearestRangeMatcher::apply2](#cvdetailbestof2nearestrangematcherapply2)
   - [cv::detail::BestOf2NearestRangeMatcher::collectGarbage](#cvdetailbestof2nearestrangematchercollectgarbage)
   - [cv::detail::BestOf2NearestRangeMatcher::isThreadSafe](#cvdetailbestof2nearestrangematcheristhreadsafe)
 - [cv::detail::AffineBestOf2NearestMatcher](#cvdetailaffinebestof2nearestmatcher)
   - [cv::detail::AffineBestOf2NearestMatcher::get\_create](#cvdetailaffinebestof2nearestmatcherget%5C_create)
+  - [cv::detail::AffineBestOf2NearestMatcher::IsInstance](#cvdetailaffinebestof2nearestmatcherisinstance)
   - [cv::detail::AffineBestOf2NearestMatcher::apply](#cvdetailaffinebestof2nearestmatcherapply)
   - [cv::detail::AffineBestOf2NearestMatcher::apply2](#cvdetailaffinebestof2nearestmatcherapply2)
   - [cv::detail::AffineBestOf2NearestMatcher::collectGarbage](#cvdetailaffinebestof2nearestmatchercollectgarbage)
   - [cv::detail::AffineBestOf2NearestMatcher::isThreadSafe](#cvdetailaffinebestof2nearestmatcheristhreadsafe)
 - [cv::detail::Estimator](#cvdetailestimator)
+  - [cv::detail::Estimator::IsInstance](#cvdetailestimatorisinstance)
   - [cv::detail::Estimator::apply](#cvdetailestimatorapply)
 - [cv::detail::HomographyBasedEstimator](#cvdetailhomographybasedestimator)
   - [cv::detail::HomographyBasedEstimator::get\_create](#cvdetailhomographybasedestimatorget%5C_create)
+  - [cv::detail::HomographyBasedEstimator::IsInstance](#cvdetailhomographybasedestimatorisinstance)
   - [cv::detail::HomographyBasedEstimator::apply](#cvdetailhomographybasedestimatorapply)
 - [cv::detail::AffineBasedEstimator](#cvdetailaffinebasedestimator)
   - [cv::detail::AffineBasedEstimator::get\_create](#cvdetailaffinebasedestimatorget%5C_create)
+  - [cv::detail::AffineBasedEstimator::IsInstance](#cvdetailaffinebasedestimatorisinstance)
   - [cv::detail::AffineBasedEstimator::apply](#cvdetailaffinebasedestimatorapply)
 - [cv::detail::BundleAdjusterBase](#cvdetailbundleadjusterbase)
+  - [cv::detail::BundleAdjusterBase::IsInstance](#cvdetailbundleadjusterbaseisinstance)
   - [cv::detail::BundleAdjusterBase::apply](#cvdetailbundleadjusterbaseapply)
   - [cv::detail::BundleAdjusterBase::confThresh](#cvdetailbundleadjusterbaseconfthresh)
   - [cv::detail::BundleAdjusterBase::refinementMask](#cvdetailbundleadjusterbaserefinementmask)
@@ -4982,6 +5188,7 @@
   - [cv::detail::BundleAdjusterBase::termCriteria](#cvdetailbundleadjusterbasetermcriteria)
 - [cv::detail::NoBundleAdjuster](#cvdetailnobundleadjuster)
   - [cv::detail::NoBundleAdjuster::get\_create](#cvdetailnobundleadjusterget%5C_create)
+  - [cv::detail::NoBundleAdjuster::IsInstance](#cvdetailnobundleadjusterisinstance)
   - [cv::detail::NoBundleAdjuster::apply](#cvdetailnobundleadjusterapply)
   - [cv::detail::NoBundleAdjuster::confThresh](#cvdetailnobundleadjusterconfthresh)
   - [cv::detail::NoBundleAdjuster::refinementMask](#cvdetailnobundleadjusterrefinementmask)
@@ -4991,6 +5198,7 @@
   - [cv::detail::NoBundleAdjuster::termCriteria](#cvdetailnobundleadjustertermcriteria)
 - [cv::detail::BundleAdjusterReproj](#cvdetailbundleadjusterreproj)
   - [cv::detail::BundleAdjusterReproj::get\_create](#cvdetailbundleadjusterreprojget%5C_create)
+  - [cv::detail::BundleAdjusterReproj::IsInstance](#cvdetailbundleadjusterreprojisinstance)
   - [cv::detail::BundleAdjusterReproj::apply](#cvdetailbundleadjusterreprojapply)
   - [cv::detail::BundleAdjusterReproj::confThresh](#cvdetailbundleadjusterreprojconfthresh)
   - [cv::detail::BundleAdjusterReproj::refinementMask](#cvdetailbundleadjusterreprojrefinementmask)
@@ -5000,6 +5208,7 @@
   - [cv::detail::BundleAdjusterReproj::termCriteria](#cvdetailbundleadjusterreprojtermcriteria)
 - [cv::detail::BundleAdjusterRay](#cvdetailbundleadjusterray)
   - [cv::detail::BundleAdjusterRay::get\_create](#cvdetailbundleadjusterrayget%5C_create)
+  - [cv::detail::BundleAdjusterRay::IsInstance](#cvdetailbundleadjusterrayisinstance)
   - [cv::detail::BundleAdjusterRay::apply](#cvdetailbundleadjusterrayapply)
   - [cv::detail::BundleAdjusterRay::confThresh](#cvdetailbundleadjusterrayconfthresh)
   - [cv::detail::BundleAdjusterRay::refinementMask](#cvdetailbundleadjusterrayrefinementmask)
@@ -5009,6 +5218,7 @@
   - [cv::detail::BundleAdjusterRay::termCriteria](#cvdetailbundleadjusterraytermcriteria)
 - [cv::detail::BundleAdjusterAffine](#cvdetailbundleadjusteraffine)
   - [cv::detail::BundleAdjusterAffine::get\_create](#cvdetailbundleadjusteraffineget%5C_create)
+  - [cv::detail::BundleAdjusterAffine::IsInstance](#cvdetailbundleadjusteraffineisinstance)
   - [cv::detail::BundleAdjusterAffine::apply](#cvdetailbundleadjusteraffineapply)
   - [cv::detail::BundleAdjusterAffine::confThresh](#cvdetailbundleadjusteraffineconfthresh)
   - [cv::detail::BundleAdjusterAffine::refinementMask](#cvdetailbundleadjusteraffinerefinementmask)
@@ -5018,6 +5228,7 @@
   - [cv::detail::BundleAdjusterAffine::termCriteria](#cvdetailbundleadjusteraffinetermcriteria)
 - [cv::detail::BundleAdjusterAffinePartial](#cvdetailbundleadjusteraffinepartial)
   - [cv::detail::BundleAdjusterAffinePartial::get\_create](#cvdetailbundleadjusteraffinepartialget%5C_create)
+  - [cv::detail::BundleAdjusterAffinePartial::IsInstance](#cvdetailbundleadjusteraffinepartialisinstance)
   - [cv::detail::BundleAdjusterAffinePartial::apply](#cvdetailbundleadjusteraffinepartialapply)
   - [cv::detail::BundleAdjusterAffinePartial::confThresh](#cvdetailbundleadjusteraffinepartialconfthresh)
   - [cv::detail::BundleAdjusterAffinePartial::refinementMask](#cvdetailbundleadjusteraffinepartialrefinementmask)
@@ -5026,22 +5237,27 @@
   - [cv::detail::BundleAdjusterAffinePartial::setTermCriteria](#cvdetailbundleadjusteraffinepartialsettermcriteria)
   - [cv::detail::BundleAdjusterAffinePartial::termCriteria](#cvdetailbundleadjusteraffinepartialtermcriteria)
 - [cv::detail::SeamFinder](#cvdetailseamfinder)
+  - [cv::detail::SeamFinder::IsInstance](#cvdetailseamfinderisinstance)
   - [cv::detail::SeamFinder::createDefault](#cvdetailseamfindercreatedefault)
   - [cv::detail::SeamFinder::find](#cvdetailseamfinderfind)
   - [SeamFinder.NO\_](#seamfinderno%5C_)
   - [SeamFinder.VORONOI\_SEAM\_](#seamfindervoronoi%5C_seam%5C_)
   - [SeamFinder.DP\_SEAM\_](#seamfinderdp%5C_seam%5C_)
 - [cv::detail::NoSeamFinder](#cvdetailnoseamfinder)
+  - [cv::detail::NoSeamFinder::IsInstance](#cvdetailnoseamfinderisinstance)
   - [cv::detail::NoSeamFinder::createDefault](#cvdetailnoseamfindercreatedefault)
   - [cv::detail::NoSeamFinder::find](#cvdetailnoseamfinderfind)
 - [cv::detail::PairwiseSeamFinder](#cvdetailpairwiseseamfinder)
+  - [cv::detail::PairwiseSeamFinder::IsInstance](#cvdetailpairwiseseamfinderisinstance)
   - [cv::detail::PairwiseSeamFinder::createDefault](#cvdetailpairwiseseamfindercreatedefault)
   - [cv::detail::PairwiseSeamFinder::find](#cvdetailpairwiseseamfinderfind)
 - [cv::detail::VoronoiSeamFinder](#cvdetailvoronoiseamfinder)
+  - [cv::detail::VoronoiSeamFinder::IsInstance](#cvdetailvoronoiseamfinderisinstance)
   - [cv::detail::VoronoiSeamFinder::createDefault](#cvdetailvoronoiseamfindercreatedefault)
   - [cv::detail::VoronoiSeamFinder::find](#cvdetailvoronoiseamfinderfind)
 - [cv::detail::DpSeamFinder](#cvdetaildpseamfinder)
   - [cv::detail::DpSeamFinder::get\_create](#cvdetaildpseamfinderget%5C_create)
+  - [cv::detail::DpSeamFinder::IsInstance](#cvdetaildpseamfinderisinstance)
   - [cv::detail::DpSeamFinder::createDefault](#cvdetaildpseamfindercreatedefault)
   - [cv::detail::DpSeamFinder::find](#cvdetaildpseamfinderfind)
   - [cv::detail::DpSeamFinder::setCostFunction](#cvdetaildpseamfindersetcostfunction)
@@ -5052,9 +5268,11 @@
   - [GraphCutSeamFinderBase.COST\_COLOR\_GRAD\_](#graphcutseamfinderbasecost%5C_color%5C_grad%5C_)
 - [cv::detail::GraphCutSeamFinder](#cvdetailgraphcutseamfinder)
   - [cv::detail::GraphCutSeamFinder::get\_create](#cvdetailgraphcutseamfinderget%5C_create)
+  - [cv::detail::GraphCutSeamFinder::IsInstance](#cvdetailgraphcutseamfinderisinstance)
   - [cv::detail::GraphCutSeamFinder::createDefault](#cvdetailgraphcutseamfindercreatedefault)
   - [cv::detail::GraphCutSeamFinder::find](#cvdetailgraphcutseamfinderfind)
 - [cv::detail::Timelapser](#cvdetailtimelapser)
+  - [cv::detail::Timelapser::IsInstance](#cvdetailtimelapserisinstance)
   - [cv::detail::Timelapser::createDefault](#cvdetailtimelapsercreatedefault)
   - [cv::detail::Timelapser::getDst](#cvdetailtimelapsergetdst)
   - [cv::detail::Timelapser::initialize](#cvdetailtimelapserinitialize)
@@ -5062,17 +5280,21 @@
   - [Timelapser.AS\_IS\_](#timelapseras%5C_is%5C_)
   - [Timelapser.CROP\_](#timelapsercrop%5C_)
 - [cv::detail::TimelapserCrop](#cvdetailtimelapsercrop)
+  - [cv::detail::TimelapserCrop::IsInstance](#cvdetailtimelapsercropisinstance)
   - [cv::detail::TimelapserCrop::createDefault](#cvdetailtimelapsercropcreatedefault)
   - [cv::detail::TimelapserCrop::getDst](#cvdetailtimelapsercropgetdst)
   - [cv::detail::TimelapserCrop::initialize](#cvdetailtimelapsercropinitialize)
   - [cv::detail::TimelapserCrop::process](#cvdetailtimelapsercropprocess)
 - [cv::detail::ProjectorBase](#cvdetailprojectorbase)
   - [cv::detail::ProjectorBase::get\_create](#cvdetailprojectorbaseget%5C_create)
+  - [cv::detail::ProjectorBase::IsInstance](#cvdetailprojectorbaseisinstance)
 - [cv::detail::SphericalProjector](#cvdetailsphericalprojector)
   - [cv::detail::SphericalProjector::get\_create](#cvdetailsphericalprojectorget%5C_create)
+  - [cv::detail::SphericalProjector::IsInstance](#cvdetailsphericalprojectorisinstance)
   - [cv::detail::SphericalProjector::mapBackward](#cvdetailsphericalprojectormapbackward)
   - [cv::detail::SphericalProjector::mapForward](#cvdetailsphericalprojectormapforward)
 - [cv::BackgroundSubtractor](#cvbackgroundsubtractor)
+  - [cv::BackgroundSubtractor::IsInstance](#cvbackgroundsubtractorisinstance)
   - [cv::BackgroundSubtractor::apply](#cvbackgroundsubtractorapply)
   - [cv::BackgroundSubtractor::clear](#cvbackgroundsubtractorclear)
   - [cv::BackgroundSubtractor::empty](#cvbackgroundsubtractorempty)
@@ -5082,6 +5304,7 @@
   - [cv::BackgroundSubtractor::save](#cvbackgroundsubtractorsave)
   - [cv::BackgroundSubtractor::write](#cvbackgroundsubtractorwrite)
 - [cv::BackgroundSubtractorMOG2](#cvbackgroundsubtractormog2)
+  - [cv::BackgroundSubtractorMOG2::IsInstance](#cvbackgroundsubtractormog2isinstance)
   - [cv::BackgroundSubtractorMOG2::apply](#cvbackgroundsubtractormog2apply)
   - [cv::BackgroundSubtractorMOG2::clear](#cvbackgroundsubtractormog2clear)
   - [cv::BackgroundSubtractorMOG2::empty](#cvbackgroundsubtractormog2empty)
@@ -5115,6 +5338,7 @@
   - [cv::BackgroundSubtractorMOG2::setVarThresholdGen](#cvbackgroundsubtractormog2setvarthresholdgen)
   - [cv::BackgroundSubtractorMOG2::write](#cvbackgroundsubtractormog2write)
 - [cv::BackgroundSubtractorKNN](#cvbackgroundsubtractorknn)
+  - [cv::BackgroundSubtractorKNN::IsInstance](#cvbackgroundsubtractorknnisinstance)
   - [cv::BackgroundSubtractorKNN::apply](#cvbackgroundsubtractorknnapply)
   - [cv::BackgroundSubtractorKNN::clear](#cvbackgroundsubtractorknnclear)
   - [cv::BackgroundSubtractorKNN::empty](#cvbackgroundsubtractorknnempty)
@@ -5149,9 +5373,11 @@
   - [KalmanFilter.gain](#kalmanfiltergain)
   - [KalmanFilter.errorCovPost](#kalmanfiltererrorcovpost)
   - [cv::KalmanFilter::get\_create](#cvkalmanfilterget%5C_create)
+  - [cv::KalmanFilter::IsInstance](#cvkalmanfilterisinstance)
   - [cv::KalmanFilter::correct](#cvkalmanfiltercorrect)
   - [cv::KalmanFilter::predict](#cvkalmanfilterpredict)
 - [cv::DenseOpticalFlow](#cvdenseopticalflow)
+  - [cv::DenseOpticalFlow::IsInstance](#cvdenseopticalflowisinstance)
   - [cv::DenseOpticalFlow::calc](#cvdenseopticalflowcalc)
   - [cv::DenseOpticalFlow::clear](#cvdenseopticalflowclear)
   - [cv::DenseOpticalFlow::collectGarbage](#cvdenseopticalflowcollectgarbage)
@@ -5161,6 +5387,7 @@
   - [cv::DenseOpticalFlow::save](#cvdenseopticalflowsave)
   - [cv::DenseOpticalFlow::write](#cvdenseopticalflowwrite)
 - [cv::SparseOpticalFlow](#cvsparseopticalflow)
+  - [cv::SparseOpticalFlow::IsInstance](#cvsparseopticalflowisinstance)
   - [cv::SparseOpticalFlow::calc](#cvsparseopticalflowcalc)
   - [cv::SparseOpticalFlow::clear](#cvsparseopticalflowclear)
   - [cv::SparseOpticalFlow::empty](#cvsparseopticalflowempty)
@@ -5170,6 +5397,7 @@
   - [cv::SparseOpticalFlow::write](#cvsparseopticalflowwrite)
 - [cv::FarnebackOpticalFlow](#cvfarnebackopticalflow)
   - [cv::FarnebackOpticalFlow::get\_create](#cvfarnebackopticalflowget%5C_create)
+  - [cv::FarnebackOpticalFlow::IsInstance](#cvfarnebackopticalflowisinstance)
   - [cv::FarnebackOpticalFlow::calc](#cvfarnebackopticalflowcalc)
   - [cv::FarnebackOpticalFlow::clear](#cvfarnebackopticalflowclear)
   - [cv::FarnebackOpticalFlow::collectGarbage](#cvfarnebackopticalflowcollectgarbage)
@@ -5196,6 +5424,7 @@
   - [cv::FarnebackOpticalFlow::write](#cvfarnebackopticalflowwrite)
 - [cv::VariationalRefinement](#cvvariationalrefinement)
   - [cv::VariationalRefinement::get\_create](#cvvariationalrefinementget%5C_create)
+  - [cv::VariationalRefinement::IsInstance](#cvvariationalrefinementisinstance)
   - [cv::VariationalRefinement::calc](#cvvariationalrefinementcalc)
   - [cv::VariationalRefinement::calcUV](#cvvariationalrefinementcalcuv)
   - [cv::VariationalRefinement::clear](#cvvariationalrefinementclear)
@@ -5221,6 +5450,7 @@
   - [cv::VariationalRefinement::write](#cvvariationalrefinementwrite)
 - [cv::DISOpticalFlow](#cvdisopticalflow)
   - [cv::DISOpticalFlow::get\_create](#cvdisopticalflowget%5C_create)
+  - [cv::DISOpticalFlow::IsInstance](#cvdisopticalflowisinstance)
   - [cv::DISOpticalFlow::calc](#cvdisopticalflowcalc)
   - [cv::DISOpticalFlow::clear](#cvdisopticalflowclear)
   - [cv::DISOpticalFlow::collectGarbage](#cvdisopticalflowcollectgarbage)
@@ -5256,6 +5486,7 @@
   - [DISOpticalFlow.PRESET\_MEDIUM\_](#disopticalflowpreset%5C_medium%5C_)
 - [cv::SparsePyrLKOpticalFlow](#cvsparsepyrlkopticalflow)
   - [cv::SparsePyrLKOpticalFlow::get\_create](#cvsparsepyrlkopticalflowget%5C_create)
+  - [cv::SparsePyrLKOpticalFlow::IsInstance](#cvsparsepyrlkopticalflowisinstance)
   - [cv::SparsePyrLKOpticalFlow::calc](#cvsparsepyrlkopticalflowcalc)
   - [cv::SparsePyrLKOpticalFlow::clear](#cvsparsepyrlkopticalflowclear)
   - [cv::SparsePyrLKOpticalFlow::empty](#cvsparsepyrlkopticalflowempty)
@@ -5274,11 +5505,13 @@
   - [cv::SparsePyrLKOpticalFlow::setWinSize](#cvsparsepyrlkopticalflowsetwinsize)
   - [cv::SparsePyrLKOpticalFlow::write](#cvsparsepyrlkopticalflowwrite)
 - [cv::Tracker](#cvtracker)
+  - [cv::Tracker::IsInstance](#cvtrackerisinstance)
   - [cv::Tracker::init](#cvtrackerinit)
   - [cv::Tracker::update](#cvtrackerupdate)
 - [cv::TrackerMIL](#cvtrackermil)
   - [TrackerMIL.Params](#trackermilparams)
   - [cv::TrackerMIL::get\_create](#cvtrackermilget%5C_create)
+  - [cv::TrackerMIL::IsInstance](#cvtrackermilisinstance)
   - [cv::TrackerMIL::init](#cvtrackermilinit)
   - [cv::TrackerMIL::update](#cvtrackermilupdate)
 - [cv::TrackerMIL::Params](#cvtrackermilparams)
@@ -5290,18 +5523,22 @@
   - [Params.samplerTrackMaxNegNum](#paramssamplertrackmaxnegnum)
   - [Params.featureSetNumFeatures](#paramsfeaturesetnumfeatures)
   - [cv::TrackerMIL::Params::get\_create](#cvtrackermilparamsget%5C_create)
+  - [cv::TrackerMIL::Params::IsInstance](#cvtrackermilparamsisinstance)
 - [cv::TrackerGOTURN](#cvtrackergoturn)
   - [TrackerGOTURN.Params](#trackergoturnparams)
   - [cv::TrackerGOTURN::get\_create](#cvtrackergoturnget%5C_create)
+  - [cv::TrackerGOTURN::IsInstance](#cvtrackergoturnisinstance)
   - [cv::TrackerGOTURN::init](#cvtrackergoturninit)
   - [cv::TrackerGOTURN::update](#cvtrackergoturnupdate)
 - [cv::TrackerGOTURN::Params](#cvtrackergoturnparams)
   - [Params.modelTxt](#paramsmodeltxt)
   - [Params.modelBin](#paramsmodelbin)
   - [cv::TrackerGOTURN::Params::get\_create](#cvtrackergoturnparamsget%5C_create)
+  - [cv::TrackerGOTURN::Params::IsInstance](#cvtrackergoturnparamsisinstance)
 - [cv::TrackerDaSiamRPN](#cvtrackerdasiamrpn)
   - [TrackerDaSiamRPN.Params](#trackerdasiamrpnparams)
   - [cv::TrackerDaSiamRPN::get\_create](#cvtrackerdasiamrpnget%5C_create)
+  - [cv::TrackerDaSiamRPN::IsInstance](#cvtrackerdasiamrpnisinstance)
   - [cv::TrackerDaSiamRPN::getTrackingScore](#cvtrackerdasiamrpngettrackingscore)
   - [cv::TrackerDaSiamRPN::init](#cvtrackerdasiamrpninit)
   - [cv::TrackerDaSiamRPN::update](#cvtrackerdasiamrpnupdate)
@@ -5312,9 +5549,11 @@
   - [Params.backend](#paramsbackend)
   - [Params.target](#paramstarget)
   - [cv::TrackerDaSiamRPN::Params::get\_create](#cvtrackerdasiamrpnparamsget%5C_create)
+  - [cv::TrackerDaSiamRPN::Params::IsInstance](#cvtrackerdasiamrpnparamsisinstance)
 - [cv::TrackerNano](#cvtrackernano)
   - [TrackerNano.Params](#trackernanoparams)
   - [cv::TrackerNano::get\_create](#cvtrackernanoget%5C_create)
+  - [cv::TrackerNano::IsInstance](#cvtrackernanoisinstance)
   - [cv::TrackerNano::getTrackingScore](#cvtrackernanogettrackingscore)
   - [cv::TrackerNano::init](#cvtrackernanoinit)
   - [cv::TrackerNano::update](#cvtrackernanoupdate)
@@ -5324,9 +5563,11 @@
   - [Params.backend](#paramsbackend-1)
   - [Params.target](#paramstarget-1)
   - [cv::TrackerNano::Params::get\_create](#cvtrackernanoparamsget%5C_create)
+  - [cv::TrackerNano::Params::IsInstance](#cvtrackernanoparamsisinstance)
 - [cv::TrackerVit](#cvtrackervit)
   - [TrackerVit.Params](#trackervitparams)
   - [cv::TrackerVit::get\_create](#cvtrackervitget%5C_create)
+  - [cv::TrackerVit::IsInstance](#cvtrackervitisinstance)
   - [cv::TrackerVit::getTrackingScore](#cvtrackervitgettrackingscore)
   - [cv::TrackerVit::init](#cvtrackervitinit)
   - [cv::TrackerVit::update](#cvtrackervitupdate)
@@ -5336,7 +5577,9 @@
   - [Params.target](#paramstarget-2)
   - [Params.meanvalue](#paramsmeanvalue)
   - [Params.stdvalue](#paramsstdvalue)
+  - [Params.tracking\_score\_threshold](#paramstracking%5C_score%5C_threshold)
   - [cv::TrackerVit::Params::get\_create](#cvtrackervitparamsget%5C_create)
+  - [cv::TrackerVit::Params::IsInstance](#cvtrackervitparamsisinstance)
 - [cv::detail::TrackerSamplerCSC](#cvdetailtrackersamplercsc)
   - [TrackerSamplerCSC.MODE\_INIT\_POS\_](#trackersamplercscmode%5C_init%5C_pos%5C_)
   - [TrackerSamplerCSC.MODE\_INIT\_NEG\_](#trackersamplercscmode%5C_init%5C_neg%5C_)
@@ -5462,7 +5705,11 @@
 - [cv::gapi::streaming](#cvgapistreaming)
   - [streaming.queue\_capacity](#streamingqueue%5C_capacity)
   - [streaming.sync\_policy](#streamingsync%5C_policy)
+  - [cv::gapi::streaming::desync](#cvgapistreamingdesync)
+  - [cv::gapi::streaming::seqNo](#cvgapistreamingseqno)
+  - [cv::gapi::streaming::seq\_id](#cvgapistreamingseq%5C_id)
   - [cv::gapi::streaming::size](#cvgapistreamingsize)
+  - [cv::gapi::streaming::timestamp](#cvgapistreamingtimestamp)
 - [cv::gapi::core](#cvgapicore)
   - [core.cpu](#corecpu)
   - [core.fluid](#corefluid)
@@ -5492,6 +5739,7 @@
   - [cv::gapi::imgproc::fluid::kernels](#cvgapiimgprocfluidkernels)
 - [cv::GArrayDesc](#cvgarraydesc)
   - [cv::GArrayDesc::get\_create](#cvgarraydescget%5C_create)
+  - [cv::GArrayDesc::IsInstance](#cvgarraydescisinstance)
 - [cv::detail::OpaqueKind](#cvdetailopaquekind)
   - [OpaqueKind.CV\_UNKNOWN](#opaquekindcv%5C_unknown)
   - [OpaqueKind.CV\_BOOL](#opaquekindcv%5C_bool)
@@ -5517,18 +5765,22 @@
   - [GShape.GFRAME](#gshapegframe)
 - [cv::GComputation](#cvgcomputation)
   - [cv::GComputation::get\_create](#cvgcomputationget%5C_create)
+  - [cv::GComputation::IsInstance](#cvgcomputationisinstance)
   - [cv::GComputation::apply](#cvgcomputationapply)
   - [cv::GComputation::compileStreaming](#cvgcomputationcompilestreaming)
 - [cv::GFrame](#cvgframe)
   - [cv::GFrame::get\_create](#cvgframeget%5C_create)
+  - [cv::GFrame::IsInstance](#cvgframeisinstance)
 - [cv::MediaFormat](#cvmediaformat)
   - [MediaFormat.BGR](#mediaformatbgr)
   - [MediaFormat.NV12](#mediaformatnv12)
   - [MediaFormat.GRAY](#mediaformatgray)
 - [cv::GKernelPackage](#cvgkernelpackage)
+  - [cv::GKernelPackage::IsInstance](#cvgkernelpackageisinstance)
   - [cv::GKernelPackage::size](#cvgkernelpackagesize)
 - [cv::GMat](#cvgmat)
   - [cv::GMat::get\_create](#cvgmatget%5C_create)
+  - [cv::GMat::IsInstance](#cvgmatisinstance)
 - [cv::GMatDesc](#cvgmatdesc)
   - [GMatDesc.depth](#gmatdescdepth)
   - [GMatDesc.chan](#gmatdescchan)
@@ -5536,6 +5788,7 @@
   - [GMatDesc.planar](#gmatdescplanar)
   - [GMatDesc.dims](#gmatdescdims)
   - [cv::GMatDesc::get\_create](#cvgmatdescget%5C_create)
+  - [cv::GMatDesc::IsInstance](#cvgmatdescisinstance)
   - [cv::GMatDesc::asInterleaved](#cvgmatdescasinterleaved)
   - [cv::GMatDesc::asPlanar](#cvgmatdescasplanar)
   - [cv::GMatDesc::withDepth](#cvgmatdescwithdepth)
@@ -5544,12 +5797,16 @@
   - [cv::GMatDesc::withType](#cvgmatdescwithtype)
 - [cv::GOpaqueDesc](#cvgopaquedesc)
   - [cv::GOpaqueDesc::get\_create](#cvgopaquedescget%5C_create)
+  - [cv::GOpaqueDesc::IsInstance](#cvgopaquedescisinstance)
 - [cv::GScalar](#cvgscalar)
   - [cv::GScalar::get\_create](#cvgscalarget%5C_create)
+  - [cv::GScalar::IsInstance](#cvgscalarisinstance)
 - [cv::GScalarDesc](#cvgscalardesc)
   - [cv::GScalarDesc::get\_create](#cvgscalardescget%5C_create)
+  - [cv::GScalarDesc::IsInstance](#cvgscalardescisinstance)
 - [cv::GStreamingCompiled](#cvgstreamingcompiled)
   - [cv::GStreamingCompiled::get\_create](#cvgstreamingcompiledget%5C_create)
+  - [cv::GStreamingCompiled::IsInstance](#cvgstreamingcompiledisinstance)
   - [cv::GStreamingCompiled::pull](#cvgstreamingcompiledpull)
   - [cv::GStreamingCompiled::running](#cvgstreamingcompiledrunning)
   - [cv::GStreamingCompiled::setSource](#cvgstreamingcompiledsetsource)
@@ -5558,6 +5815,7 @@
 - [cv::gapi::streaming::queue\_capacity](#cvgapistreamingqueue%5C_capacity)
   - [queue\_capacity.capacity](#queue%5C_capacitycapacity)
   - [cv::gapi::streaming::queue\_capacity::get\_create](#cvgapistreamingqueue%5C_capacityget%5C_create)
+  - [cv::gapi::streaming::queue\_capacity::IsInstance](#cvgapistreamingqueue%5C_capacityisinstance)
 - [cv::detail::ArgKind](#cvdetailargkind)
   - [ArgKind.OPAQUE\_VAL](#argkindopaque%5C_val)
   - [ArgKind.GOBJREF](#argkindgobjref)
@@ -5569,8 +5827,10 @@
   - [ArgKind.GOPAQUE](#argkindgopaque)
 - [cv::gapi::GNetParam](#cvgapignetparam)
   - [cv::gapi::GNetParam::get\_create](#cvgapignetparamget%5C_create)
+  - [cv::gapi::GNetParam::IsInstance](#cvgapignetparamisinstance)
 - [cv::gapi::GNetPackage](#cvgapignetpackage)
   - [cv::gapi::GNetPackage::get\_create](#cvgapignetpackageget%5C_create)
+  - [cv::gapi::GNetPackage::IsInstance](#cvgapignetpackageisinstance)
 - [cv::gapi::ie](#cvgapiie)
   - [ie.PyParams](#iepyparams)
   - [ie.TraitAs](#ietraitas)
@@ -5580,6 +5840,7 @@
   - [ie.Async\_](#ieasync%5C_)
 - [cv::gapi::ie::PyParams](#cvgapiiepyparams)
   - [cv::gapi::ie::PyParams::get\_create](#cvgapiiepyparamsget%5C_create)
+  - [cv::gapi::ie::PyParams::IsInstance](#cvgapiiepyparamsisinstance)
   - [cv::gapi::ie::PyParams::cfgBatchSize](#cvgapiiepyparamscfgbatchsize)
   - [cv::gapi::ie::PyParams::cfgNumRequests](#cvgapiiepyparamscfgnumrequests)
   - [cv::gapi::ie::PyParams::constInput](#cvgapiiepyparamsconstinput)
@@ -5590,15 +5851,19 @@
   - [cv::gapi::onnx::params](#cvgapionnxparams)
 - [cv::gapi::onnx::PyParams](#cvgapionnxpyparams)
   - [cv::gapi::onnx::PyParams::get\_create](#cvgapionnxpyparamsget%5C_create)
+  - [cv::gapi::onnx::PyParams::IsInstance](#cvgapionnxpyparamsisinstance)
   - [cv::gapi::onnx::PyParams::cfgAddExecutionProvider](#cvgapionnxpyparamscfgaddexecutionprovider)
   - [cv::gapi::onnx::PyParams::cfgDisableMemPattern](#cvgapionnxpyparamscfgdisablemempattern)
   - [cv::gapi::onnx::PyParams::cfgMeanStd](#cvgapionnxpyparamscfgmeanstd)
   - [cv::gapi::onnx::PyParams::cfgNormalize](#cvgapionnxpyparamscfgnormalize)
+  - [cv::gapi::onnx::PyParams::cfgOptLevel](#cvgapionnxpyparamscfgoptlevel)
+  - [cv::gapi::onnx::PyParams::cfgSessionOptions](#cvgapionnxpyparamscfgsessionoptions)
 - [cv::gapi::ov](#cvgapiov)
   - [ov.PyParams](#ovpyparams)
   - [cv::gapi::ov::params](#cvgapiovparams)
 - [cv::gapi::ov::PyParams](#cvgapiovpyparams)
   - [cv::gapi::ov::PyParams::get\_create](#cvgapiovpyparamsget%5C_create)
+  - [cv::gapi::ov::PyParams::IsInstance](#cvgapiovpyparamsisinstance)
   - [cv::gapi::ov::PyParams::cfgInputModelLayout](#cvgapiovpyparamscfginputmodellayout)
   - [cv::gapi::ov::PyParams::cfgInputTensorLayout](#cvgapiovpyparamscfginputtensorlayout)
   - [cv::gapi::ov::PyParams::cfgMean](#cvgapiovpyparamscfgmean)
@@ -5628,21 +5893,26 @@
   - [ep.DirectML](#epdirectml)
 - [cv::gapi::onnx::ep::CoreML](#cvgapionnxepcoreml)
   - [cv::gapi::onnx::ep::CoreML::get\_create](#cvgapionnxepcoremlget%5C_create)
+  - [cv::gapi::onnx::ep::CoreML::IsInstance](#cvgapionnxepcoremlisinstance)
   - [cv::gapi::onnx::ep::CoreML::cfgEnableOnSubgraph](#cvgapionnxepcoremlcfgenableonsubgraph)
   - [cv::gapi::onnx::ep::CoreML::cfgEnableOnlyNeuralEngine](#cvgapionnxepcoremlcfgenableonlyneuralengine)
   - [cv::gapi::onnx::ep::CoreML::cfgUseCPUOnly](#cvgapionnxepcoremlcfgusecpuonly)
 - [cv::gapi::onnx::ep::CUDA](#cvgapionnxepcuda)
   - [cv::gapi::onnx::ep::CUDA::get\_create](#cvgapionnxepcudaget%5C_create)
+  - [cv::gapi::onnx::ep::CUDA::IsInstance](#cvgapionnxepcudaisinstance)
 - [cv::gapi::onnx::ep::TensorRT](#cvgapionnxeptensorrt)
   - [cv::gapi::onnx::ep::TensorRT::get\_create](#cvgapionnxeptensorrtget%5C_create)
+  - [cv::gapi::onnx::ep::TensorRT::IsInstance](#cvgapionnxeptensorrtisinstance)
 - [cv::gapi::onnx::ep::OpenVINO](#cvgapionnxepopenvino)
   - [cv::gapi::onnx::ep::OpenVINO::get\_create](#cvgapionnxepopenvinoget%5C_create)
+  - [cv::gapi::onnx::ep::OpenVINO::IsInstance](#cvgapionnxepopenvinoisinstance)
   - [cv::gapi::onnx::ep::OpenVINO::cfgCacheDir](#cvgapionnxepopenvinocfgcachedir)
   - [cv::gapi::onnx::ep::OpenVINO::cfgEnableDynamicShapes](#cvgapionnxepopenvinocfgenabledynamicshapes)
   - [cv::gapi::onnx::ep::OpenVINO::cfgEnableOpenCLThrottling](#cvgapionnxepopenvinocfgenableopenclthrottling)
   - [cv::gapi::onnx::ep::OpenVINO::cfgNumThreads](#cvgapionnxepopenvinocfgnumthreads)
 - [cv::gapi::onnx::ep::DirectML](#cvgapionnxepdirectml)
   - [cv::gapi::onnx::ep::DirectML::get\_create](#cvgapionnxepdirectmlget%5C_create)
+  - [cv::gapi::onnx::ep::DirectML::IsInstance](#cvgapionnxepdirectmlisinstance)
 - [cv::gapi::onnx::TraitAs](#cvgapionnxtraitas)
   - [TraitAs.TENSOR](#traitastensor-1)
   - [TraitAs.IMAGE](#traitasimage-1)
@@ -5681,6 +5951,7 @@
   - [ObjectTrackerParams.input\_image\_format](#objecttrackerparamsinput%5C_image%5C_format)
   - [ObjectTrackerParams.tracking\_per\_class](#objecttrackerparamstracking%5C_per%5C_class)
   - [cv::gapi::ot::ObjectTrackerParams::get\_create](#cvgapiotobjecttrackerparamsget%5C_create)
+  - [cv::gapi::ot::ObjectTrackerParams::IsInstance](#cvgapiotobjecttrackerparamsisinstance)
 - [cv::gapi::own](#cvgapiown)
   - [own.detail](#owndetail)
 - [cv::gapi::own::detail](#cvgapiowndetail)
@@ -5704,7 +5975,6 @@
   - [draw.Mosaic](#drawmosaic)
   - [draw.Image](#drawimage)
   - [draw.Poly](#drawpoly)
-  - [draw.Prim](#drawprim)
   - [cv::gapi::wip::draw::render](#cvgapiwipdrawrender)
   - [cv::gapi::wip::draw::render3ch](#cvgapiwipdrawrender3ch)
   - [cv::gapi::wip::draw::renderNV12](#cvgapiwipdrawrendernv12)
@@ -5722,6 +5992,7 @@
   - [Text.lt](#textlt)
   - [Text.bottom\_left\_origin](#textbottom%5C_left%5C_origin)
   - [cv::gapi::wip::draw::Text::get\_create](#cvgapiwipdrawtextget%5C_create)
+  - [cv::gapi::wip::draw::Text::IsInstance](#cvgapiwipdrawtextisinstance)
 - [cv::gapi::wip::draw::Rect](#cvgapiwipdrawrect)
   - [Rect.rect](#rectrect)
   - [Rect.color](#rectcolor)
@@ -5729,6 +6000,7 @@
   - [Rect.lt](#rectlt)
   - [Rect.shift](#rectshift)
   - [cv::gapi::wip::draw::Rect::get\_create](#cvgapiwipdrawrectget%5C_create)
+  - [cv::gapi::wip::draw::Rect::IsInstance](#cvgapiwipdrawrectisinstance)
 - [cv::gapi::wip::draw::Circle](#cvgapiwipdrawcircle)
   - [Circle.center](#circlecenter)
   - [Circle.radius](#circleradius)
@@ -5737,6 +6009,7 @@
   - [Circle.lt](#circlelt)
   - [Circle.shift](#circleshift)
   - [cv::gapi::wip::draw::Circle::get\_create](#cvgapiwipdrawcircleget%5C_create)
+  - [cv::gapi::wip::draw::Circle::IsInstance](#cvgapiwipdrawcircleisinstance)
 - [cv::gapi::wip::draw::Line](#cvgapiwipdrawline)
   - [Line.pt1](#linept1)
   - [Line.pt2](#linept2)
@@ -5745,16 +6018,19 @@
   - [Line.lt](#linelt)
   - [Line.shift](#lineshift)
   - [cv::gapi::wip::draw::Line::get\_create](#cvgapiwipdrawlineget%5C_create)
+  - [cv::gapi::wip::draw::Line::IsInstance](#cvgapiwipdrawlineisinstance)
 - [cv::gapi::wip::draw::Mosaic](#cvgapiwipdrawmosaic)
   - [Mosaic.mos](#mosaicmos)
   - [Mosaic.cellSz](#mosaiccellsz)
   - [Mosaic.decim](#mosaicdecim)
   - [cv::gapi::wip::draw::Mosaic::get\_create](#cvgapiwipdrawmosaicget%5C_create)
+  - [cv::gapi::wip::draw::Mosaic::IsInstance](#cvgapiwipdrawmosaicisinstance)
 - [cv::gapi::wip::draw::Image](#cvgapiwipdrawimage)
   - [Image.org](#imageorg)
   - [Image.img](#imageimg)
   - [Image.alpha](#imagealpha)
   - [cv::gapi::wip::draw::Image::get\_create](#cvgapiwipdrawimageget%5C_create)
+  - [cv::gapi::wip::draw::Image::IsInstance](#cvgapiwipdrawimageisinstance)
 - [cv::gapi::wip::draw::Poly](#cvgapiwipdrawpoly)
   - [Poly.points](#polypoints)
   - [Poly.color](#polycolor)
@@ -5762,6 +6038,7 @@
   - [Poly.lt](#polylt)
   - [Poly.shift](#polyshift)
   - [cv::gapi::wip::draw::Poly::get\_create](#cvgapiwipdrawpolyget%5C_create)
+  - [cv::gapi::wip::draw::Poly::IsInstance](#cvgapiwipdrawpolyisinstance)
 - [cv::RMat](#cvrmat)
   - [RMat.Access](#rmataccess)
 - [cv::RMat::Access](#cvrmataccess)
@@ -5781,6 +6058,7 @@
   - [gst.GStreamerSource](#gstgstreamersource)
 - [cv::gapi::wip::gst::GStreamerPipeline](#cvgapiwipgstgstreamerpipeline)
   - [cv::gapi::wip::gst::GStreamerPipeline::get\_create](#cvgapiwipgstgstreamerpipelineget%5C_create)
+  - [cv::gapi::wip::gst::GStreamerPipeline::IsInstance](#cvgapiwipgstgstreamerpipelineisinstance)
 - [cv::gapi::wip::gst::GStreamerSource](#cvgapiwipgstgstreamersource)
   - [GStreamerSource.OutputType](#gstreamersourceoutputtype)
 - [cv::gapi::wip::gst::GStreamerSource::OutputType](#cvgapiwipgstgstreamersourceoutputtype)
@@ -5803,6 +6081,7 @@
   - [NamedParameters::create](#namedparameterscreate)
   - [NamedParameters::Add](#namedparametersadd)
   - [NamedParameters::Get](#namedparametersget)
+  - [NamedParameters::IsInstance](#namedparametersisinstance)
   - [NamedParameters::Items](#namedparametersitems)
   - [NamedParameters::Keys](#namedparameterskeys)
   - [NamedParameters::Remove](#namedparametersremove)
@@ -5825,15 +6104,18 @@
   - [autoit::findFiles](#autoitfindfiles)
 - [autoit::Buffer](#autoitbuffer)
   - [autoit::Buffer::get\_create](#autoitbufferget%5C_create)
+  - [autoit::Buffer::IsInstance](#autoitbufferisinstance)
 - [com](#com)
   - [com.Thread](#comthread)
   - [com.ThreadSafeQueue](#comthreadsafequeue)
 - [com::Thread](#comthread)
   - [com::Thread::get\_create](#comthreadget%5C_create)
+  - [com::Thread::IsInstance](#comthreadisinstance)
   - [com::Thread::join](#comthreadjoin)
   - [com::Thread::start](#comthreadstart)
 - [com::ThreadSafeQueue](#comthreadsafequeue)
   - [com::ThreadSafeQueue::get\_create](#comthreadsafequeueget%5C_create)
+  - [com::ThreadSafeQueue::IsInstance](#comthreadsafequeueisinstance)
   - [com::ThreadSafeQueue::clear](#comthreadsafequeueclear)
   - [com::ThreadSafeQueue::get](#comthreadsafequeueget)
   - [com::ThreadSafeQueue::push](#comthreadsafequeuepush)
@@ -5844,6 +6126,7 @@
   - [cv::wgc::isWGCSupported](#cvwgciswgcsupported)
 - [cv::wgc::SimpleCapture](#cvwgcsimplecapture)
   - [SimpleCapture.onFrameArrived](#simplecaptureonframearrived)
+  - [cv::wgc::SimpleCapture::IsInstance](#cvwgcsimplecaptureisinstance)
   - [cv::wgc::SimpleCapture::Pause](#cvwgcsimplecapturepause)
   - [cv::wgc::SimpleCapture::Paused](#cvwgcsimplecapturepaused)
   - [cv::wgc::SimpleCapture::Resume](#cvwgcsimplecaptureresume)
@@ -5914,6 +6197,8 @@
   - [cvflann.FLANN\_FLOAT64\_](#cvflannflann%5C_float64%5C_)
   - [cvflann.FLANN\_CHECKS\_UNLIMITED\_](#cvflannflann%5C_checks%5C_unlimited%5C_)
   - [cvflann.FLANN\_CHECKS\_AUTOTUNED\_](#cvflannflann%5C_checks%5C_autotuned%5C_)
+- [cv::\_InputOutputArray](#cv%5C_inputoutputarray)
+  - [cv::\_InputOutputArray::IsInstance](#cv%5C_inputoutputarrayisinstance)
 - [cv::core](#cvcore)
   - [core.cv\_8U](#corecv%5C_8u)
   - [core.cv\_8S](#corecv%5C_8s)
@@ -5973,6 +6258,7 @@
   - [Matx12f.channels](#matx12fchannels)
   - [Matx12f.shortdim](#matx12fshortdim)
   - [cv::Matx12f::create](#cvmatx12fcreate)
+  - [cv::Matx12f::IsInstance](#cvmatx12fisinstance)
   - [cv::Matx12f::all](#cvmatx12fall)
   - [cv::Matx12f::ddot](#cvmatx12fddot)
   - [cv::Matx12f::div](#cvmatx12fdiv)
@@ -5991,6 +6277,7 @@
   - [Matx12d.channels](#matx12dchannels)
   - [Matx12d.shortdim](#matx12dshortdim)
   - [cv::Matx12d::create](#cvmatx12dcreate)
+  - [cv::Matx12d::IsInstance](#cvmatx12disinstance)
   - [cv::Matx12d::all](#cvmatx12dall)
   - [cv::Matx12d::ddot](#cvmatx12dddot)
   - [cv::Matx12d::div](#cvmatx12ddiv)
@@ -6009,6 +6296,7 @@
   - [Matx13f.channels](#matx13fchannels)
   - [Matx13f.shortdim](#matx13fshortdim)
   - [cv::Matx13f::create](#cvmatx13fcreate)
+  - [cv::Matx13f::IsInstance](#cvmatx13fisinstance)
   - [cv::Matx13f::all](#cvmatx13fall)
   - [cv::Matx13f::ddot](#cvmatx13fddot)
   - [cv::Matx13f::div](#cvmatx13fdiv)
@@ -6027,6 +6315,7 @@
   - [Matx13d.channels](#matx13dchannels)
   - [Matx13d.shortdim](#matx13dshortdim)
   - [cv::Matx13d::create](#cvmatx13dcreate)
+  - [cv::Matx13d::IsInstance](#cvmatx13disinstance)
   - [cv::Matx13d::all](#cvmatx13dall)
   - [cv::Matx13d::ddot](#cvmatx13dddot)
   - [cv::Matx13d::div](#cvmatx13ddiv)
@@ -6045,6 +6334,7 @@
   - [Matx14f.channels](#matx14fchannels)
   - [Matx14f.shortdim](#matx14fshortdim)
   - [cv::Matx14f::create](#cvmatx14fcreate)
+  - [cv::Matx14f::IsInstance](#cvmatx14fisinstance)
   - [cv::Matx14f::all](#cvmatx14fall)
   - [cv::Matx14f::ddot](#cvmatx14fddot)
   - [cv::Matx14f::div](#cvmatx14fdiv)
@@ -6063,6 +6353,7 @@
   - [Matx14d.channels](#matx14dchannels)
   - [Matx14d.shortdim](#matx14dshortdim)
   - [cv::Matx14d::create](#cvmatx14dcreate)
+  - [cv::Matx14d::IsInstance](#cvmatx14disinstance)
   - [cv::Matx14d::all](#cvmatx14dall)
   - [cv::Matx14d::ddot](#cvmatx14dddot)
   - [cv::Matx14d::div](#cvmatx14ddiv)
@@ -6081,6 +6372,7 @@
   - [Matx16f.channels](#matx16fchannels)
   - [Matx16f.shortdim](#matx16fshortdim)
   - [cv::Matx16f::create](#cvmatx16fcreate)
+  - [cv::Matx16f::IsInstance](#cvmatx16fisinstance)
   - [cv::Matx16f::all](#cvmatx16fall)
   - [cv::Matx16f::ddot](#cvmatx16fddot)
   - [cv::Matx16f::div](#cvmatx16fdiv)
@@ -6099,6 +6391,7 @@
   - [Matx16d.channels](#matx16dchannels)
   - [Matx16d.shortdim](#matx16dshortdim)
   - [cv::Matx16d::create](#cvmatx16dcreate)
+  - [cv::Matx16d::IsInstance](#cvmatx16disinstance)
   - [cv::Matx16d::all](#cvmatx16dall)
   - [cv::Matx16d::ddot](#cvmatx16dddot)
   - [cv::Matx16d::div](#cvmatx16ddiv)
@@ -6117,6 +6410,7 @@
   - [Matx21f.channels](#matx21fchannels)
   - [Matx21f.shortdim](#matx21fshortdim)
   - [cv::Matx21f::create](#cvmatx21fcreate)
+  - [cv::Matx21f::IsInstance](#cvmatx21fisinstance)
   - [cv::Matx21f::all](#cvmatx21fall)
   - [cv::Matx21f::ddot](#cvmatx21fddot)
   - [cv::Matx21f::div](#cvmatx21fdiv)
@@ -6135,6 +6429,7 @@
   - [Matx21d.channels](#matx21dchannels)
   - [Matx21d.shortdim](#matx21dshortdim)
   - [cv::Matx21d::create](#cvmatx21dcreate)
+  - [cv::Matx21d::IsInstance](#cvmatx21disinstance)
   - [cv::Matx21d::all](#cvmatx21dall)
   - [cv::Matx21d::ddot](#cvmatx21dddot)
   - [cv::Matx21d::div](#cvmatx21ddiv)
@@ -6153,6 +6448,7 @@
   - [Matx31f.channels](#matx31fchannels)
   - [Matx31f.shortdim](#matx31fshortdim)
   - [cv::Matx31f::create](#cvmatx31fcreate)
+  - [cv::Matx31f::IsInstance](#cvmatx31fisinstance)
   - [cv::Matx31f::all](#cvmatx31fall)
   - [cv::Matx31f::ddot](#cvmatx31fddot)
   - [cv::Matx31f::div](#cvmatx31fdiv)
@@ -6171,6 +6467,7 @@
   - [Matx31d.channels](#matx31dchannels)
   - [Matx31d.shortdim](#matx31dshortdim)
   - [cv::Matx31d::create](#cvmatx31dcreate)
+  - [cv::Matx31d::IsInstance](#cvmatx31disinstance)
   - [cv::Matx31d::all](#cvmatx31dall)
   - [cv::Matx31d::ddot](#cvmatx31dddot)
   - [cv::Matx31d::div](#cvmatx31ddiv)
@@ -6189,6 +6486,7 @@
   - [Matx41f.channels](#matx41fchannels)
   - [Matx41f.shortdim](#matx41fshortdim)
   - [cv::Matx41f::create](#cvmatx41fcreate)
+  - [cv::Matx41f::IsInstance](#cvmatx41fisinstance)
   - [cv::Matx41f::all](#cvmatx41fall)
   - [cv::Matx41f::ddot](#cvmatx41fddot)
   - [cv::Matx41f::div](#cvmatx41fdiv)
@@ -6207,6 +6505,7 @@
   - [Matx41d.channels](#matx41dchannels)
   - [Matx41d.shortdim](#matx41dshortdim)
   - [cv::Matx41d::create](#cvmatx41dcreate)
+  - [cv::Matx41d::IsInstance](#cvmatx41disinstance)
   - [cv::Matx41d::all](#cvmatx41dall)
   - [cv::Matx41d::ddot](#cvmatx41dddot)
   - [cv::Matx41d::div](#cvmatx41ddiv)
@@ -6225,6 +6524,7 @@
   - [Matx61f.channels](#matx61fchannels)
   - [Matx61f.shortdim](#matx61fshortdim)
   - [cv::Matx61f::create](#cvmatx61fcreate)
+  - [cv::Matx61f::IsInstance](#cvmatx61fisinstance)
   - [cv::Matx61f::all](#cvmatx61fall)
   - [cv::Matx61f::ddot](#cvmatx61fddot)
   - [cv::Matx61f::div](#cvmatx61fdiv)
@@ -6243,6 +6543,7 @@
   - [Matx61d.channels](#matx61dchannels)
   - [Matx61d.shortdim](#matx61dshortdim)
   - [cv::Matx61d::create](#cvmatx61dcreate)
+  - [cv::Matx61d::IsInstance](#cvmatx61disinstance)
   - [cv::Matx61d::all](#cvmatx61dall)
   - [cv::Matx61d::ddot](#cvmatx61dddot)
   - [cv::Matx61d::div](#cvmatx61ddiv)
@@ -6261,6 +6562,7 @@
   - [Matx22f.channels](#matx22fchannels)
   - [Matx22f.shortdim](#matx22fshortdim)
   - [cv::Matx22f::create](#cvmatx22fcreate)
+  - [cv::Matx22f::IsInstance](#cvmatx22fisinstance)
   - [cv::Matx22f::all](#cvmatx22fall)
   - [cv::Matx22f::ddot](#cvmatx22fddot)
   - [cv::Matx22f::div](#cvmatx22fdiv)
@@ -6279,6 +6581,7 @@
   - [Matx22d.channels](#matx22dchannels)
   - [Matx22d.shortdim](#matx22dshortdim)
   - [cv::Matx22d::create](#cvmatx22dcreate)
+  - [cv::Matx22d::IsInstance](#cvmatx22disinstance)
   - [cv::Matx22d::all](#cvmatx22dall)
   - [cv::Matx22d::ddot](#cvmatx22dddot)
   - [cv::Matx22d::div](#cvmatx22ddiv)
@@ -6297,6 +6600,7 @@
   - [Matx23f.channels](#matx23fchannels)
   - [Matx23f.shortdim](#matx23fshortdim)
   - [cv::Matx23f::create](#cvmatx23fcreate)
+  - [cv::Matx23f::IsInstance](#cvmatx23fisinstance)
   - [cv::Matx23f::all](#cvmatx23fall)
   - [cv::Matx23f::ddot](#cvmatx23fddot)
   - [cv::Matx23f::div](#cvmatx23fdiv)
@@ -6315,6 +6619,7 @@
   - [Matx23d.channels](#matx23dchannels)
   - [Matx23d.shortdim](#matx23dshortdim)
   - [cv::Matx23d::create](#cvmatx23dcreate)
+  - [cv::Matx23d::IsInstance](#cvmatx23disinstance)
   - [cv::Matx23d::all](#cvmatx23dall)
   - [cv::Matx23d::ddot](#cvmatx23dddot)
   - [cv::Matx23d::div](#cvmatx23ddiv)
@@ -6333,6 +6638,7 @@
   - [Matx32f.channels](#matx32fchannels)
   - [Matx32f.shortdim](#matx32fshortdim)
   - [cv::Matx32f::create](#cvmatx32fcreate)
+  - [cv::Matx32f::IsInstance](#cvmatx32fisinstance)
   - [cv::Matx32f::all](#cvmatx32fall)
   - [cv::Matx32f::ddot](#cvmatx32fddot)
   - [cv::Matx32f::div](#cvmatx32fdiv)
@@ -6351,6 +6657,7 @@
   - [Matx32d.channels](#matx32dchannels)
   - [Matx32d.shortdim](#matx32dshortdim)
   - [cv::Matx32d::create](#cvmatx32dcreate)
+  - [cv::Matx32d::IsInstance](#cvmatx32disinstance)
   - [cv::Matx32d::all](#cvmatx32dall)
   - [cv::Matx32d::ddot](#cvmatx32dddot)
   - [cv::Matx32d::div](#cvmatx32ddiv)
@@ -6369,6 +6676,7 @@
   - [Matx33f.channels](#matx33fchannels)
   - [Matx33f.shortdim](#matx33fshortdim)
   - [cv::Matx33f::create](#cvmatx33fcreate)
+  - [cv::Matx33f::IsInstance](#cvmatx33fisinstance)
   - [cv::Matx33f::all](#cvmatx33fall)
   - [cv::Matx33f::ddot](#cvmatx33fddot)
   - [cv::Matx33f::div](#cvmatx33fdiv)
@@ -6387,6 +6695,7 @@
   - [Matx33d.channels](#matx33dchannels)
   - [Matx33d.shortdim](#matx33dshortdim)
   - [cv::Matx33d::create](#cvmatx33dcreate)
+  - [cv::Matx33d::IsInstance](#cvmatx33disinstance)
   - [cv::Matx33d::all](#cvmatx33dall)
   - [cv::Matx33d::ddot](#cvmatx33dddot)
   - [cv::Matx33d::div](#cvmatx33ddiv)
@@ -6405,6 +6714,7 @@
   - [Matx34f.channels](#matx34fchannels)
   - [Matx34f.shortdim](#matx34fshortdim)
   - [cv::Matx34f::create](#cvmatx34fcreate)
+  - [cv::Matx34f::IsInstance](#cvmatx34fisinstance)
   - [cv::Matx34f::all](#cvmatx34fall)
   - [cv::Matx34f::ddot](#cvmatx34fddot)
   - [cv::Matx34f::div](#cvmatx34fdiv)
@@ -6423,6 +6733,7 @@
   - [Matx34d.channels](#matx34dchannels)
   - [Matx34d.shortdim](#matx34dshortdim)
   - [cv::Matx34d::create](#cvmatx34dcreate)
+  - [cv::Matx34d::IsInstance](#cvmatx34disinstance)
   - [cv::Matx34d::all](#cvmatx34dall)
   - [cv::Matx34d::ddot](#cvmatx34dddot)
   - [cv::Matx34d::div](#cvmatx34ddiv)
@@ -6441,6 +6752,7 @@
   - [Matx43f.channels](#matx43fchannels)
   - [Matx43f.shortdim](#matx43fshortdim)
   - [cv::Matx43f::create](#cvmatx43fcreate)
+  - [cv::Matx43f::IsInstance](#cvmatx43fisinstance)
   - [cv::Matx43f::all](#cvmatx43fall)
   - [cv::Matx43f::ddot](#cvmatx43fddot)
   - [cv::Matx43f::div](#cvmatx43fdiv)
@@ -6459,6 +6771,7 @@
   - [Matx43d.channels](#matx43dchannels)
   - [Matx43d.shortdim](#matx43dshortdim)
   - [cv::Matx43d::create](#cvmatx43dcreate)
+  - [cv::Matx43d::IsInstance](#cvmatx43disinstance)
   - [cv::Matx43d::all](#cvmatx43dall)
   - [cv::Matx43d::ddot](#cvmatx43dddot)
   - [cv::Matx43d::div](#cvmatx43ddiv)
@@ -6477,6 +6790,7 @@
   - [Matx44f.channels](#matx44fchannels)
   - [Matx44f.shortdim](#matx44fshortdim)
   - [cv::Matx44f::create](#cvmatx44fcreate)
+  - [cv::Matx44f::IsInstance](#cvmatx44fisinstance)
   - [cv::Matx44f::all](#cvmatx44fall)
   - [cv::Matx44f::ddot](#cvmatx44fddot)
   - [cv::Matx44f::div](#cvmatx44fdiv)
@@ -6495,6 +6809,7 @@
   - [Matx44d.channels](#matx44dchannels)
   - [Matx44d.shortdim](#matx44dshortdim)
   - [cv::Matx44d::create](#cvmatx44dcreate)
+  - [cv::Matx44d::IsInstance](#cvmatx44disinstance)
   - [cv::Matx44d::all](#cvmatx44dall)
   - [cv::Matx44d::ddot](#cvmatx44dddot)
   - [cv::Matx44d::div](#cvmatx44ddiv)
@@ -6513,6 +6828,7 @@
   - [Matx66f.channels](#matx66fchannels)
   - [Matx66f.shortdim](#matx66fshortdim)
   - [cv::Matx66f::create](#cvmatx66fcreate)
+  - [cv::Matx66f::IsInstance](#cvmatx66fisinstance)
   - [cv::Matx66f::all](#cvmatx66fall)
   - [cv::Matx66f::ddot](#cvmatx66fddot)
   - [cv::Matx66f::div](#cvmatx66fdiv)
@@ -6531,6 +6847,7 @@
   - [Matx66d.channels](#matx66dchannels)
   - [Matx66d.shortdim](#matx66dshortdim)
   - [cv::Matx66d::create](#cvmatx66dcreate)
+  - [cv::Matx66d::IsInstance](#cvmatx66disinstance)
   - [cv::Matx66d::all](#cvmatx66dall)
   - [cv::Matx66d::ddot](#cvmatx66dddot)
   - [cv::Matx66d::div](#cvmatx66ddiv)
@@ -6548,11 +6865,13 @@
   - [std.timed\_mutex](#stdtimed%5C_mutex)
 - [std::mutex](#stdmutex)
   - [std::mutex::get\_create](#stdmutexget%5C_create)
+  - [std::mutex::IsInstance](#stdmutexisinstance)
   - [std::mutex::lock](#stdmutexlock)
   - [std::mutex::try\_lock](#stdmutextry%5C_lock)
   - [std::mutex::unlock](#stdmutexunlock)
 - [std::timed\_mutex](#stdtimed%5C_mutex)
   - [std::timed\_mutex::get\_create](#stdtimed%5C_mutexget%5C_create)
+  - [std::timed\_mutex::IsInstance](#stdtimed%5C_mutexisinstance)
   - [std::timed\_mutex::lock](#stdtimed%5C_mutexlock)
   - [std::timed\_mutex::try\_lock](#stdtimed%5C_mutextry%5C_lock)
   - [std::timed\_mutex::try\_lock\_for](#stdtimed%5C_mutextry%5C_lock%5C_for)
@@ -6561,19 +6880,44 @@
   - [Range.start](#rangestart)
   - [Range.end](#rangeend)
   - [cv::Range::get\_create](#cvrangeget%5C_create)
+  - [cv::Range::IsInstance](#cvrangeisinstance)
   - [cv::Range::all](#cvrangeall)
   - [cv::Range::empty](#cvrangeempty)
   - [cv::Range::size](#cvrangesize)
 - [cv::GCompileArg](#cvgcompilearg)
   - [cv::GCompileArg::get\_create](#cvgcompileargget%5C_create)
-- [cv::GRunArg](#cvgrunarg)
-  - [cv::GRunArg::get\_create](#cvgrunargget%5C_create)
-- [cv::gapi::wip::draw::Prim](#cvgapiwipdrawprim)
-  - [cv::gapi::wip::draw::Prim::get\_create](#cvgapiwipdrawprimget%5C_create)
+  - [cv::GCompileArg::IsInstance](#cvgcompileargisinstance)
+- [cv::GInferInputs](#cvginferinputs)
+  - [cv::GInferInputs::get\_create](#cvginferinputsget%5C_create)
+  - [cv::GInferInputs::IsInstance](#cvginferinputsisinstance)
+  - [cv::GInferInputs::setInput](#cvginferinputssetinput)
+- [cv::GInferListInputs](#cvginferlistinputs)
+  - [cv::GInferListInputs::get\_create](#cvginferlistinputsget%5C_create)
+  - [cv::GInferListInputs::IsInstance](#cvginferlistinputsisinstance)
+  - [cv::GInferListInputs::setInput](#cvginferlistinputssetinput)
+- [cv::GInferOutputs](#cvginferoutputs)
+  - [cv::GInferOutputs::get\_create](#cvginferoutputsget%5C_create)
+  - [cv::GInferOutputs::IsInstance](#cvginferoutputsisinstance)
+  - [cv::GInferOutputs::at](#cvginferoutputsat)
+- [cv::GInferListOutputs](#cvginferlistoutputs)
+  - [cv::GInferListOutputs::get\_create](#cvginferlistoutputsget%5C_create)
+  - [cv::GInferListOutputs::IsInstance](#cvginferlistoutputsisinstance)
+  - [cv::GInferListOutputs::at](#cvginferlistoutputsat)
+- [cv::gapi::wip::IStreamSource](#cvgapiwipistreamsource)
+  - [cv::gapi::wip::IStreamSource::IsInstance](#cvgapiwipistreamsourceisinstance)
+- [cv::GProtoInputArgs](#cvgprotoinputargs)
+  - [cv::GProtoInputArgs::IsInstance](#cvgprotoinputargsisinstance)
+- [cv::GProtoOutputArgs](#cvgprotooutputargs)
+  - [cv::GProtoOutputArgs::IsInstance](#cvgprotooutputargsisinstance)
+- [cv::detail::ExtractArgsCallback](#cvdetailextractargscallback)
+  - [cv::detail::ExtractArgsCallback::IsInstance](#cvdetailextractargscallbackisinstance)
+- [cv::detail::ExtractMetaCallback](#cvdetailextractmetacallback)
+  - [cv::detail::ExtractMetaCallback::IsInstance](#cvdetailextractmetacallbackisinstance)
 - [VectorOfString](#vectorofstring)
   - [VectorOfString.Count](#vectorofstringcount)
   - [VectorOfString::create](#vectorofstringcreate)
   - [VectorOfString::Add](#vectorofstringadd)
+  - [VectorOfString::IsInstance](#vectorofstringisinstance)
   - [VectorOfString::Items](#vectorofstringitems)
   - [VectorOfString::Keys](#vectorofstringkeys)
   - [VectorOfString::Remove](#vectorofstringremove)
@@ -6596,6 +6940,7 @@
   - [VectorOfVariant.Count](#vectorofvariantcount)
   - [VectorOfVariant::create](#vectorofvariantcreate)
   - [VectorOfVariant::Add](#vectorofvariantadd)
+  - [VectorOfVariant::IsInstance](#vectorofvariantisinstance)
   - [VectorOfVariant::Items](#vectorofvariantitems)
   - [VectorOfVariant::Keys](#vectorofvariantkeys)
   - [VectorOfVariant::Remove](#vectorofvariantremove)
@@ -6618,6 +6963,7 @@
   - [VectorOfInt.Count](#vectorofintcount)
   - [VectorOfInt::create](#vectorofintcreate)
   - [VectorOfInt::Add](#vectorofintadd)
+  - [VectorOfInt::IsInstance](#vectorofintisinstance)
   - [VectorOfInt::Items](#vectorofintitems)
   - [VectorOfInt::Keys](#vectorofintkeys)
   - [VectorOfInt::Remove](#vectorofintremove)
@@ -6640,6 +6986,7 @@
   - [VectorOfFloat.Count](#vectoroffloatcount)
   - [VectorOfFloat::create](#vectoroffloatcreate)
   - [VectorOfFloat::Add](#vectoroffloatadd)
+  - [VectorOfFloat::IsInstance](#vectoroffloatisinstance)
   - [VectorOfFloat::Items](#vectoroffloatitems)
   - [VectorOfFloat::Keys](#vectoroffloatkeys)
   - [VectorOfFloat::Remove](#vectoroffloatremove)
@@ -6662,6 +7009,7 @@
   - [VectorOfPoint.Count](#vectorofpointcount)
   - [VectorOfPoint::create](#vectorofpointcreate)
   - [VectorOfPoint::Add](#vectorofpointadd)
+  - [VectorOfPoint::IsInstance](#vectorofpointisinstance)
   - [VectorOfPoint::Items](#vectorofpointitems)
   - [VectorOfPoint::Keys](#vectorofpointkeys)
   - [VectorOfPoint::Remove](#vectorofpointremove)
@@ -6684,6 +7032,7 @@
   - [VectorOfMat.Count](#vectorofmatcount)
   - [VectorOfMat::create](#vectorofmatcreate)
   - [VectorOfMat::Add](#vectorofmatadd)
+  - [VectorOfMat::IsInstance](#vectorofmatisinstance)
   - [VectorOfMat::Items](#vectorofmatitems)
   - [VectorOfMat::Keys](#vectorofmatkeys)
   - [VectorOfMat::Remove](#vectorofmatremove)
@@ -6706,6 +7055,7 @@
   - [VectorOfKeyPoint.Count](#vectorofkeypointcount)
   - [VectorOfKeyPoint::create](#vectorofkeypointcreate)
   - [VectorOfKeyPoint::Add](#vectorofkeypointadd)
+  - [VectorOfKeyPoint::IsInstance](#vectorofkeypointisinstance)
   - [VectorOfKeyPoint::Items](#vectorofkeypointitems)
   - [VectorOfKeyPoint::Keys](#vectorofkeypointkeys)
   - [VectorOfKeyPoint::Remove](#vectorofkeypointremove)
@@ -6728,6 +7078,7 @@
   - [VectorOfDMatch.Count](#vectorofdmatchcount)
   - [VectorOfDMatch::create](#vectorofdmatchcreate)
   - [VectorOfDMatch::Add](#vectorofdmatchadd)
+  - [VectorOfDMatch::IsInstance](#vectorofdmatchisinstance)
   - [VectorOfDMatch::Items](#vectorofdmatchitems)
   - [VectorOfDMatch::Keys](#vectorofdmatchkeys)
   - [VectorOfDMatch::Remove](#vectorofdmatchremove)
@@ -6750,6 +7101,7 @@
   - [VectorOfChar.Count](#vectorofcharcount)
   - [VectorOfChar::create](#vectorofcharcreate)
   - [VectorOfChar::Add](#vectorofcharadd)
+  - [VectorOfChar::IsInstance](#vectorofcharisinstance)
   - [VectorOfChar::Items](#vectorofcharitems)
   - [VectorOfChar::Keys](#vectorofcharkeys)
   - [VectorOfChar::Remove](#vectorofcharremove)
@@ -6772,6 +7124,7 @@
   - [VectorOfVectorOfDMatch.Count](#vectorofvectorofdmatchcount)
   - [VectorOfVectorOfDMatch::create](#vectorofvectorofdmatchcreate)
   - [VectorOfVectorOfDMatch::Add](#vectorofvectorofdmatchadd)
+  - [VectorOfVectorOfDMatch::IsInstance](#vectorofvectorofdmatchisinstance)
   - [VectorOfVectorOfDMatch::Items](#vectorofvectorofdmatchitems)
   - [VectorOfVectorOfDMatch::Keys](#vectorofvectorofdmatchkeys)
   - [VectorOfVectorOfDMatch::Remove](#vectorofvectorofdmatchremove)
@@ -6794,6 +7147,7 @@
   - [VectorOfVectorOfChar.Count](#vectorofvectorofcharcount)
   - [VectorOfVectorOfChar::create](#vectorofvectorofcharcreate)
   - [VectorOfVectorOfChar::Add](#vectorofvectorofcharadd)
+  - [VectorOfVectorOfChar::IsInstance](#vectorofvectorofcharisinstance)
   - [VectorOfVectorOfChar::Items](#vectorofvectorofcharitems)
   - [VectorOfVectorOfChar::Keys](#vectorofvectorofcharkeys)
   - [VectorOfVectorOfChar::Remove](#vectorofvectorofcharremove)
@@ -6816,6 +7170,7 @@
   - [VectorOfUchar.Count](#vectorofucharcount)
   - [VectorOfUchar::create](#vectorofucharcreate)
   - [VectorOfUchar::Add](#vectorofucharadd)
+  - [VectorOfUchar::IsInstance](#vectorofucharisinstance)
   - [VectorOfUchar::Items](#vectorofucharitems)
   - [VectorOfUchar::Keys](#vectorofucharkeys)
   - [VectorOfUchar::Remove](#vectorofucharremove)
@@ -6838,6 +7193,7 @@
   - [VectorOfRect.Count](#vectorofrectcount)
   - [VectorOfRect::create](#vectorofrectcreate)
   - [VectorOfRect::Add](#vectorofrectadd)
+  - [VectorOfRect::IsInstance](#vectorofrectisinstance)
   - [VectorOfRect::Items](#vectorofrectitems)
   - [VectorOfRect::Keys](#vectorofrectkeys)
   - [VectorOfRect::Remove](#vectorofrectremove)
@@ -6860,6 +7216,7 @@
   - [VectorOfTuplePointAndDouble.Count](#vectoroftuplepointanddoublecount)
   - [VectorOfTuplePointAndDouble::create](#vectoroftuplepointanddoublecreate)
   - [VectorOfTuplePointAndDouble::Add](#vectoroftuplepointanddoubleadd)
+  - [VectorOfTuplePointAndDouble::IsInstance](#vectoroftuplepointanddoubleisinstance)
   - [VectorOfTuplePointAndDouble::Items](#vectoroftuplepointanddoubleitems)
   - [VectorOfTuplePointAndDouble::Keys](#vectoroftuplepointanddoublekeys)
   - [VectorOfTuplePointAndDouble::Remove](#vectoroftuplepointanddoubleremove)
@@ -6882,6 +7239,7 @@
   - [VectorOfDouble.Count](#vectorofdoublecount)
   - [VectorOfDouble::create](#vectorofdoublecreate)
   - [VectorOfDouble::Add](#vectorofdoubleadd)
+  - [VectorOfDouble::IsInstance](#vectorofdoubleisinstance)
   - [VectorOfDouble::Items](#vectorofdoubleitems)
   - [VectorOfDouble::Keys](#vectorofdoublekeys)
   - [VectorOfDouble::Remove](#vectorofdoubleremove)
@@ -6904,6 +7262,7 @@
   - [VectorOfRotatedRect.Count](#vectorofrotatedrectcount)
   - [VectorOfRotatedRect::create](#vectorofrotatedrectcreate)
   - [VectorOfRotatedRect::Add](#vectorofrotatedrectadd)
+  - [VectorOfRotatedRect::IsInstance](#vectorofrotatedrectisinstance)
   - [VectorOfRotatedRect::Items](#vectorofrotatedrectitems)
   - [VectorOfRotatedRect::Keys](#vectorofrotatedrectkeys)
   - [VectorOfRotatedRect::Remove](#vectorofrotatedrectremove)
@@ -6926,6 +7285,7 @@
   - [VectorOfUMat.Count](#vectorofumatcount)
   - [VectorOfUMat::create](#vectorofumatcreate)
   - [VectorOfUMat::Add](#vectorofumatadd)
+  - [VectorOfUMat::IsInstance](#vectorofumatisinstance)
   - [VectorOfUMat::Items](#vectorofumatitems)
   - [VectorOfUMat::Keys](#vectorofumatkeys)
   - [VectorOfUMat::Remove](#vectorofumatremove)
@@ -6948,6 +7308,7 @@
   - [VectorOfDetail\_ImageFeatures.Count](#vectorofdetail%5C_imagefeaturescount)
   - [VectorOfDetail\_ImageFeatures::create](#vectorofdetail%5C_imagefeaturescreate)
   - [VectorOfDetail\_ImageFeatures::Add](#vectorofdetail%5C_imagefeaturesadd)
+  - [VectorOfDetail\_ImageFeatures::IsInstance](#vectorofdetail%5C_imagefeaturesisinstance)
   - [VectorOfDetail\_ImageFeatures::Items](#vectorofdetail%5C_imagefeaturesitems)
   - [VectorOfDetail\_ImageFeatures::Keys](#vectorofdetail%5C_imagefeatureskeys)
   - [VectorOfDetail\_ImageFeatures::Remove](#vectorofdetail%5C_imagefeaturesremove)
@@ -6970,6 +7331,7 @@
   - [VectorOfDetail\_MatchesInfo.Count](#vectorofdetail%5C_matchesinfocount)
   - [VectorOfDetail\_MatchesInfo::create](#vectorofdetail%5C_matchesinfocreate)
   - [VectorOfDetail\_MatchesInfo::Add](#vectorofdetail%5C_matchesinfoadd)
+  - [VectorOfDetail\_MatchesInfo::IsInstance](#vectorofdetail%5C_matchesinfoisinstance)
   - [VectorOfDetail\_MatchesInfo::Items](#vectorofdetail%5C_matchesinfoitems)
   - [VectorOfDetail\_MatchesInfo::Keys](#vectorofdetail%5C_matchesinfokeys)
   - [VectorOfDetail\_MatchesInfo::Remove](#vectorofdetail%5C_matchesinforemove)
@@ -6992,6 +7354,7 @@
   - [VectorOfSize.Count](#vectorofsizecount)
   - [VectorOfSize::create](#vectorofsizecreate)
   - [VectorOfSize::Add](#vectorofsizeadd)
+  - [VectorOfSize::IsInstance](#vectorofsizeisinstance)
   - [VectorOfSize::Items](#vectorofsizeitems)
   - [VectorOfSize::Keys](#vectorofsizekeys)
   - [VectorOfSize::Remove](#vectorofsizeremove)
@@ -7014,6 +7377,7 @@
   - [VectorOfSize\_t.Count](#vectorofsize%5C_tcount)
   - [VectorOfSize\_t::create](#vectorofsize%5C_tcreate)
   - [VectorOfSize\_t::Add](#vectorofsize%5C_tadd)
+  - [VectorOfSize\_t::IsInstance](#vectorofsize%5C_tisinstance)
   - [VectorOfSize\_t::Items](#vectorofsize%5C_titems)
   - [VectorOfSize\_t::Keys](#vectorofsize%5C_tkeys)
   - [VectorOfSize\_t::Remove](#vectorofsize%5C_tremove)
@@ -7036,6 +7400,7 @@
   - [VectorOfRange.Count](#vectorofrangecount)
   - [VectorOfRange::create](#vectorofrangecreate)
   - [VectorOfRange::Add](#vectorofrangeadd)
+  - [VectorOfRange::IsInstance](#vectorofrangeisinstance)
   - [VectorOfRange::Items](#vectorofrangeitems)
   - [VectorOfRange::Keys](#vectorofrangekeys)
   - [VectorOfRange::Remove](#vectorofrangeremove)
@@ -7058,6 +7423,7 @@
   - [VectorOfVec2b.Count](#vectorofvec2bcount)
   - [VectorOfVec2b::create](#vectorofvec2bcreate)
   - [VectorOfVec2b::Add](#vectorofvec2badd)
+  - [VectorOfVec2b::IsInstance](#vectorofvec2bisinstance)
   - [VectorOfVec2b::Items](#vectorofvec2bitems)
   - [VectorOfVec2b::Keys](#vectorofvec2bkeys)
   - [VectorOfVec2b::Remove](#vectorofvec2bremove)
@@ -7080,6 +7446,7 @@
   - [VectorOfVec3b.Count](#vectorofvec3bcount)
   - [VectorOfVec3b::create](#vectorofvec3bcreate)
   - [VectorOfVec3b::Add](#vectorofvec3badd)
+  - [VectorOfVec3b::IsInstance](#vectorofvec3bisinstance)
   - [VectorOfVec3b::Items](#vectorofvec3bitems)
   - [VectorOfVec3b::Keys](#vectorofvec3bkeys)
   - [VectorOfVec3b::Remove](#vectorofvec3bremove)
@@ -7102,6 +7469,7 @@
   - [VectorOfVec4b.Count](#vectorofvec4bcount)
   - [VectorOfVec4b::create](#vectorofvec4bcreate)
   - [VectorOfVec4b::Add](#vectorofvec4badd)
+  - [VectorOfVec4b::IsInstance](#vectorofvec4bisinstance)
   - [VectorOfVec4b::Items](#vectorofvec4bitems)
   - [VectorOfVec4b::Keys](#vectorofvec4bkeys)
   - [VectorOfVec4b::Remove](#vectorofvec4bremove)
@@ -7124,6 +7492,7 @@
   - [VectorOfVec2s.Count](#vectorofvec2scount)
   - [VectorOfVec2s::create](#vectorofvec2screate)
   - [VectorOfVec2s::Add](#vectorofvec2sadd)
+  - [VectorOfVec2s::IsInstance](#vectorofvec2sisinstance)
   - [VectorOfVec2s::Items](#vectorofvec2sitems)
   - [VectorOfVec2s::Keys](#vectorofvec2skeys)
   - [VectorOfVec2s::Remove](#vectorofvec2sremove)
@@ -7146,6 +7515,7 @@
   - [VectorOfVec3s.Count](#vectorofvec3scount)
   - [VectorOfVec3s::create](#vectorofvec3screate)
   - [VectorOfVec3s::Add](#vectorofvec3sadd)
+  - [VectorOfVec3s::IsInstance](#vectorofvec3sisinstance)
   - [VectorOfVec3s::Items](#vectorofvec3sitems)
   - [VectorOfVec3s::Keys](#vectorofvec3skeys)
   - [VectorOfVec3s::Remove](#vectorofvec3sremove)
@@ -7168,6 +7538,7 @@
   - [VectorOfVec4s.Count](#vectorofvec4scount)
   - [VectorOfVec4s::create](#vectorofvec4screate)
   - [VectorOfVec4s::Add](#vectorofvec4sadd)
+  - [VectorOfVec4s::IsInstance](#vectorofvec4sisinstance)
   - [VectorOfVec4s::Items](#vectorofvec4sitems)
   - [VectorOfVec4s::Keys](#vectorofvec4skeys)
   - [VectorOfVec4s::Remove](#vectorofvec4sremove)
@@ -7190,6 +7561,7 @@
   - [VectorOfVec2w.Count](#vectorofvec2wcount)
   - [VectorOfVec2w::create](#vectorofvec2wcreate)
   - [VectorOfVec2w::Add](#vectorofvec2wadd)
+  - [VectorOfVec2w::IsInstance](#vectorofvec2wisinstance)
   - [VectorOfVec2w::Items](#vectorofvec2witems)
   - [VectorOfVec2w::Keys](#vectorofvec2wkeys)
   - [VectorOfVec2w::Remove](#vectorofvec2wremove)
@@ -7212,6 +7584,7 @@
   - [VectorOfVec3w.Count](#vectorofvec3wcount)
   - [VectorOfVec3w::create](#vectorofvec3wcreate)
   - [VectorOfVec3w::Add](#vectorofvec3wadd)
+  - [VectorOfVec3w::IsInstance](#vectorofvec3wisinstance)
   - [VectorOfVec3w::Items](#vectorofvec3witems)
   - [VectorOfVec3w::Keys](#vectorofvec3wkeys)
   - [VectorOfVec3w::Remove](#vectorofvec3wremove)
@@ -7234,6 +7607,7 @@
   - [VectorOfVec4w.Count](#vectorofvec4wcount)
   - [VectorOfVec4w::create](#vectorofvec4wcreate)
   - [VectorOfVec4w::Add](#vectorofvec4wadd)
+  - [VectorOfVec4w::IsInstance](#vectorofvec4wisinstance)
   - [VectorOfVec4w::Items](#vectorofvec4witems)
   - [VectorOfVec4w::Keys](#vectorofvec4wkeys)
   - [VectorOfVec4w::Remove](#vectorofvec4wremove)
@@ -7256,6 +7630,7 @@
   - [VectorOfVec2i.Count](#vectorofvec2icount)
   - [VectorOfVec2i::create](#vectorofvec2icreate)
   - [VectorOfVec2i::Add](#vectorofvec2iadd)
+  - [VectorOfVec2i::IsInstance](#vectorofvec2iisinstance)
   - [VectorOfVec2i::Items](#vectorofvec2iitems)
   - [VectorOfVec2i::Keys](#vectorofvec2ikeys)
   - [VectorOfVec2i::Remove](#vectorofvec2iremove)
@@ -7278,6 +7653,7 @@
   - [VectorOfVec3i.Count](#vectorofvec3icount)
   - [VectorOfVec3i::create](#vectorofvec3icreate)
   - [VectorOfVec3i::Add](#vectorofvec3iadd)
+  - [VectorOfVec3i::IsInstance](#vectorofvec3iisinstance)
   - [VectorOfVec3i::Items](#vectorofvec3iitems)
   - [VectorOfVec3i::Keys](#vectorofvec3ikeys)
   - [VectorOfVec3i::Remove](#vectorofvec3iremove)
@@ -7300,6 +7676,7 @@
   - [VectorOfVec4i.Count](#vectorofvec4icount)
   - [VectorOfVec4i::create](#vectorofvec4icreate)
   - [VectorOfVec4i::Add](#vectorofvec4iadd)
+  - [VectorOfVec4i::IsInstance](#vectorofvec4iisinstance)
   - [VectorOfVec4i::Items](#vectorofvec4iitems)
   - [VectorOfVec4i::Keys](#vectorofvec4ikeys)
   - [VectorOfVec4i::Remove](#vectorofvec4iremove)
@@ -7322,6 +7699,7 @@
   - [VectorOfVec6i.Count](#vectorofvec6icount)
   - [VectorOfVec6i::create](#vectorofvec6icreate)
   - [VectorOfVec6i::Add](#vectorofvec6iadd)
+  - [VectorOfVec6i::IsInstance](#vectorofvec6iisinstance)
   - [VectorOfVec6i::Items](#vectorofvec6iitems)
   - [VectorOfVec6i::Keys](#vectorofvec6ikeys)
   - [VectorOfVec6i::Remove](#vectorofvec6iremove)
@@ -7344,6 +7722,7 @@
   - [VectorOfVec8i.Count](#vectorofvec8icount)
   - [VectorOfVec8i::create](#vectorofvec8icreate)
   - [VectorOfVec8i::Add](#vectorofvec8iadd)
+  - [VectorOfVec8i::IsInstance](#vectorofvec8iisinstance)
   - [VectorOfVec8i::Items](#vectorofvec8iitems)
   - [VectorOfVec8i::Keys](#vectorofvec8ikeys)
   - [VectorOfVec8i::Remove](#vectorofvec8iremove)
@@ -7366,6 +7745,7 @@
   - [VectorOfVec2f.Count](#vectorofvec2fcount)
   - [VectorOfVec2f::create](#vectorofvec2fcreate)
   - [VectorOfVec2f::Add](#vectorofvec2fadd)
+  - [VectorOfVec2f::IsInstance](#vectorofvec2fisinstance)
   - [VectorOfVec2f::Items](#vectorofvec2fitems)
   - [VectorOfVec2f::Keys](#vectorofvec2fkeys)
   - [VectorOfVec2f::Remove](#vectorofvec2fremove)
@@ -7388,6 +7768,7 @@
   - [VectorOfVec3f.Count](#vectorofvec3fcount)
   - [VectorOfVec3f::create](#vectorofvec3fcreate)
   - [VectorOfVec3f::Add](#vectorofvec3fadd)
+  - [VectorOfVec3f::IsInstance](#vectorofvec3fisinstance)
   - [VectorOfVec3f::Items](#vectorofvec3fitems)
   - [VectorOfVec3f::Keys](#vectorofvec3fkeys)
   - [VectorOfVec3f::Remove](#vectorofvec3fremove)
@@ -7410,6 +7791,7 @@
   - [VectorOfVec4f.Count](#vectorofvec4fcount)
   - [VectorOfVec4f::create](#vectorofvec4fcreate)
   - [VectorOfVec4f::Add](#vectorofvec4fadd)
+  - [VectorOfVec4f::IsInstance](#vectorofvec4fisinstance)
   - [VectorOfVec4f::Items](#vectorofvec4fitems)
   - [VectorOfVec4f::Keys](#vectorofvec4fkeys)
   - [VectorOfVec4f::Remove](#vectorofvec4fremove)
@@ -7432,6 +7814,7 @@
   - [VectorOfVec6f.Count](#vectorofvec6fcount)
   - [VectorOfVec6f::create](#vectorofvec6fcreate)
   - [VectorOfVec6f::Add](#vectorofvec6fadd)
+  - [VectorOfVec6f::IsInstance](#vectorofvec6fisinstance)
   - [VectorOfVec6f::Items](#vectorofvec6fitems)
   - [VectorOfVec6f::Keys](#vectorofvec6fkeys)
   - [VectorOfVec6f::Remove](#vectorofvec6fremove)
@@ -7454,6 +7837,7 @@
   - [VectorOfVec2d.Count](#vectorofvec2dcount)
   - [VectorOfVec2d::create](#vectorofvec2dcreate)
   - [VectorOfVec2d::Add](#vectorofvec2dadd)
+  - [VectorOfVec2d::IsInstance](#vectorofvec2disinstance)
   - [VectorOfVec2d::Items](#vectorofvec2ditems)
   - [VectorOfVec2d::Keys](#vectorofvec2dkeys)
   - [VectorOfVec2d::Remove](#vectorofvec2dremove)
@@ -7476,6 +7860,7 @@
   - [VectorOfVec3d.Count](#vectorofvec3dcount)
   - [VectorOfVec3d::create](#vectorofvec3dcreate)
   - [VectorOfVec3d::Add](#vectorofvec3dadd)
+  - [VectorOfVec3d::IsInstance](#vectorofvec3disinstance)
   - [VectorOfVec3d::Items](#vectorofvec3ditems)
   - [VectorOfVec3d::Keys](#vectorofvec3dkeys)
   - [VectorOfVec3d::Remove](#vectorofvec3dremove)
@@ -7498,6 +7883,7 @@
   - [VectorOfVec4d.Count](#vectorofvec4dcount)
   - [VectorOfVec4d::create](#vectorofvec4dcreate)
   - [VectorOfVec4d::Add](#vectorofvec4dadd)
+  - [VectorOfVec4d::IsInstance](#vectorofvec4disinstance)
   - [VectorOfVec4d::Items](#vectorofvec4ditems)
   - [VectorOfVec4d::Keys](#vectorofvec4dkeys)
   - [VectorOfVec4d::Remove](#vectorofvec4dremove)
@@ -7520,6 +7906,7 @@
   - [VectorOfVec6d.Count](#vectorofvec6dcount)
   - [VectorOfVec6d::create](#vectorofvec6dcreate)
   - [VectorOfVec6d::Add](#vectorofvec6dadd)
+  - [VectorOfVec6d::IsInstance](#vectorofvec6disinstance)
   - [VectorOfVec6d::Items](#vectorofvec6ditems)
   - [VectorOfVec6d::Keys](#vectorofvec6dkeys)
   - [VectorOfVec6d::Remove](#vectorofvec6dremove)
@@ -7542,6 +7929,7 @@
   - [VectorOfPoint2f.Count](#vectorofpoint2fcount)
   - [VectorOfPoint2f::create](#vectorofpoint2fcreate)
   - [VectorOfPoint2f::Add](#vectorofpoint2fadd)
+  - [VectorOfPoint2f::IsInstance](#vectorofpoint2fisinstance)
   - [VectorOfPoint2f::Items](#vectorofpoint2fitems)
   - [VectorOfPoint2f::Keys](#vectorofpoint2fkeys)
   - [VectorOfPoint2f::Remove](#vectorofpoint2fremove)
@@ -7564,6 +7952,7 @@
   - [VectorOfVectorOfPoint2f.Count](#vectorofvectorofpoint2fcount)
   - [VectorOfVectorOfPoint2f::create](#vectorofvectorofpoint2fcreate)
   - [VectorOfVectorOfPoint2f::Add](#vectorofvectorofpoint2fadd)
+  - [VectorOfVectorOfPoint2f::IsInstance](#vectorofvectorofpoint2fisinstance)
   - [VectorOfVectorOfPoint2f::Items](#vectorofvectorofpoint2fitems)
   - [VectorOfVectorOfPoint2f::Keys](#vectorofvectorofpoint2fkeys)
   - [VectorOfVectorOfPoint2f::Remove](#vectorofvectorofpoint2fremove)
@@ -7586,6 +7975,7 @@
   - [VectorOfDnn\_Target.Count](#vectorofdnn%5C_targetcount)
   - [VectorOfDnn\_Target::create](#vectorofdnn%5C_targetcreate)
   - [VectorOfDnn\_Target::Add](#vectorofdnn%5C_targetadd)
+  - [VectorOfDnn\_Target::IsInstance](#vectorofdnn%5C_targetisinstance)
   - [VectorOfDnn\_Target::Items](#vectorofdnn%5C_targetitems)
   - [VectorOfDnn\_Target::Keys](#vectorofdnn%5C_targetkeys)
   - [VectorOfDnn\_Target::Remove](#vectorofdnn%5C_targetremove)
@@ -7608,6 +7998,7 @@
   - [VectorOfRect2d.Count](#vectorofrect2dcount)
   - [VectorOfRect2d::create](#vectorofrect2dcreate)
   - [VectorOfRect2d::Add](#vectorofrect2dadd)
+  - [VectorOfRect2d::IsInstance](#vectorofrect2disinstance)
   - [VectorOfRect2d::Items](#vectorofrect2ditems)
   - [VectorOfRect2d::Keys](#vectorofrect2dkeys)
   - [VectorOfRect2d::Remove](#vectorofrect2dremove)
@@ -7630,6 +8021,7 @@
   - [VectorOfVectorOfMat.Count](#vectorofvectorofmatcount)
   - [VectorOfVectorOfMat::create](#vectorofvectorofmatcreate)
   - [VectorOfVectorOfMat::Add](#vectorofvectorofmatadd)
+  - [VectorOfVectorOfMat::IsInstance](#vectorofvectorofmatisinstance)
   - [VectorOfVectorOfMat::Items](#vectorofvectorofmatitems)
   - [VectorOfVectorOfMat::Keys](#vectorofvectorofmatkeys)
   - [VectorOfVectorOfMat::Remove](#vectorofvectorofmatremove)
@@ -7652,6 +8044,7 @@
   - [VectorOfVectorOfInt.Count](#vectorofvectorofintcount)
   - [VectorOfVectorOfInt::create](#vectorofvectorofintcreate)
   - [VectorOfVectorOfInt::Add](#vectorofvectorofintadd)
+  - [VectorOfVectorOfInt::IsInstance](#vectorofvectorofintisinstance)
   - [VectorOfVectorOfInt::Items](#vectorofvectorofintitems)
   - [VectorOfVectorOfInt::Keys](#vectorofvectorofintkeys)
   - [VectorOfVectorOfInt::Remove](#vectorofvectorofintremove)
@@ -7674,6 +8067,7 @@
   - [VectorOfVectorOfVectorOfInt.Count](#vectorofvectorofvectorofintcount)
   - [VectorOfVectorOfVectorOfInt::create](#vectorofvectorofvectorofintcreate)
   - [VectorOfVectorOfVectorOfInt::Add](#vectorofvectorofvectorofintadd)
+  - [VectorOfVectorOfVectorOfInt::IsInstance](#vectorofvectorofvectorofintisinstance)
   - [VectorOfVectorOfVectorOfInt::Items](#vectorofvectorofvectorofintitems)
   - [VectorOfVectorOfVectorOfInt::Keys](#vectorofvectorofvectorofintkeys)
   - [VectorOfVectorOfVectorOfInt::Remove](#vectorofvectorofvectorofintremove)
@@ -7696,6 +8090,7 @@
   - [VectorOfVectorOfPoint.Count](#vectorofvectorofpointcount)
   - [VectorOfVectorOfPoint::create](#vectorofvectorofpointcreate)
   - [VectorOfVectorOfPoint::Add](#vectorofvectorofpointadd)
+  - [VectorOfVectorOfPoint::IsInstance](#vectorofvectorofpointisinstance)
   - [VectorOfVectorOfPoint::Items](#vectorofvectorofpointitems)
   - [VectorOfVectorOfPoint::Keys](#vectorofvectorofpointkeys)
   - [VectorOfVectorOfPoint::Remove](#vectorofvectorofpointremove)
@@ -7718,6 +8113,7 @@
   - [VectorOfVectorOfKeyPoint.Count](#vectorofvectorofkeypointcount)
   - [VectorOfVectorOfKeyPoint::create](#vectorofvectorofkeypointcreate)
   - [VectorOfVectorOfKeyPoint::Add](#vectorofvectorofkeypointadd)
+  - [VectorOfVectorOfKeyPoint::IsInstance](#vectorofvectorofkeypointisinstance)
   - [VectorOfVectorOfKeyPoint::Items](#vectorofvectorofkeypointitems)
   - [VectorOfVectorOfKeyPoint::Keys](#vectorofvectorofkeypointkeys)
   - [VectorOfVectorOfKeyPoint::Remove](#vectorofvectorofkeypointremove)
@@ -7740,6 +8136,7 @@
   - [VectorOfVideoCapture.Count](#vectorofvideocapturecount)
   - [VectorOfVideoCapture::create](#vectorofvideocapturecreate)
   - [VectorOfVideoCapture::Add](#vectorofvideocaptureadd)
+  - [VectorOfVideoCapture::IsInstance](#vectorofvideocaptureisinstance)
   - [VectorOfVideoCapture::Items](#vectorofvideocaptureitems)
   - [VectorOfVideoCapture::Keys](#vectorofvideocapturekeys)
   - [VectorOfVideoCapture::Remove](#vectorofvideocaptureremove)
@@ -7762,6 +8159,7 @@
   - [VectorOfVideoCaptureAPIs.Count](#vectorofvideocaptureapiscount)
   - [VectorOfVideoCaptureAPIs::create](#vectorofvideocaptureapiscreate)
   - [VectorOfVideoCaptureAPIs::Add](#vectorofvideocaptureapisadd)
+  - [VectorOfVideoCaptureAPIs::IsInstance](#vectorofvideocaptureapisisinstance)
   - [VectorOfVideoCaptureAPIs::Items](#vectorofvideocaptureapisitems)
   - [VectorOfVideoCaptureAPIs::Keys](#vectorofvideocaptureapiskeys)
   - [VectorOfVideoCaptureAPIs::Remove](#vectorofvideocaptureapisremove)
@@ -7784,6 +8182,7 @@
   - [VectorOfPoint3f.Count](#vectorofpoint3fcount)
   - [VectorOfPoint3f::create](#vectorofpoint3fcreate)
   - [VectorOfPoint3f::Add](#vectorofpoint3fadd)
+  - [VectorOfPoint3f::IsInstance](#vectorofpoint3fisinstance)
   - [VectorOfPoint3f::Items](#vectorofpoint3fitems)
   - [VectorOfPoint3f::Keys](#vectorofpoint3fkeys)
   - [VectorOfPoint3f::Remove](#vectorofpoint3fremove)
@@ -7806,6 +8205,7 @@
   - [VectorOfVectorOfPoint3f.Count](#vectorofvectorofpoint3fcount)
   - [VectorOfVectorOfPoint3f::create](#vectorofvectorofpoint3fcreate)
   - [VectorOfVectorOfPoint3f::Add](#vectorofvectorofpoint3fadd)
+  - [VectorOfVectorOfPoint3f::IsInstance](#vectorofvectorofpoint3fisinstance)
   - [VectorOfVectorOfPoint3f::Items](#vectorofvectorofpoint3fitems)
   - [VectorOfVectorOfPoint3f::Keys](#vectorofvectorofpoint3fkeys)
   - [VectorOfVectorOfPoint3f::Remove](#vectorofvectorofpoint3fremove)
@@ -7828,6 +8228,7 @@
   - [VectorOfDetail\_CameraParams.Count](#vectorofdetail%5C_cameraparamscount)
   - [VectorOfDetail\_CameraParams::create](#vectorofdetail%5C_cameraparamscreate)
   - [VectorOfDetail\_CameraParams::Add](#vectorofdetail%5C_cameraparamsadd)
+  - [VectorOfDetail\_CameraParams::IsInstance](#vectorofdetail%5C_cameraparamsisinstance)
   - [VectorOfDetail\_CameraParams::Items](#vectorofdetail%5C_cameraparamsitems)
   - [VectorOfDetail\_CameraParams::Keys](#vectorofdetail%5C_cameraparamskeys)
   - [VectorOfDetail\_CameraParams::Remove](#vectorofdetail%5C_cameraparamsremove)
@@ -7846,10 +8247,29 @@
   - [VectorOfDetail\_CameraParams::sort](#vectorofdetail%5C_cameraparamssort)
   - [VectorOfDetail\_CameraParams::sort\_variant](#vectorofdetail%5C_cameraparamssort%5C_variant)
   - [VectorOfDetail\_CameraParams::start](#vectorofdetail%5C_cameraparamsstart)
+- [cv\_GOpaque\_int](#cv%5C_gopaque%5C_int)
+  - [cv\_GOpaque\_int::IsInstance](#cv%5C_gopaque%5C_intisinstance)
+- [cv\_GOpaque\_double](#cv%5C_gopaque%5C_double)
+  - [cv\_GOpaque\_double::IsInstance](#cv%5C_gopaque%5C_doubleisinstance)
+- [cv\_GArray\_int](#cv%5C_garray%5C_int)
+  - [cv\_GArray\_int::IsInstance](#cv%5C_garray%5C_intisinstance)
+- [cv\_GArray\_cv\_Point2f](#cv%5C_garray%5C_cv%5C_point2f)
+  - [cv\_GArray\_cv\_Point2f::IsInstance](#cv%5C_garray%5C_cv%5C_point2fisinstance)
+- [cv\_GArray\_cv\_Point3f](#cv%5C_garray%5C_cv%5C_point3f)
+  - [cv\_GArray\_cv\_Point3f::IsInstance](#cv%5C_garray%5C_cv%5C_point3fisinstance)
+- [cv\_GOpaque\_cv\_Rect](#cv%5C_gopaque%5C_cv%5C_rect)
+  - [cv\_GOpaque\_cv\_Rect::IsInstance](#cv%5C_gopaque%5C_cv%5C_rectisinstance)
+- [cv\_GArray\_cv\_Rect](#cv%5C_garray%5C_cv%5C_rect)
+  - [cv\_GArray\_cv\_Rect::IsInstance](#cv%5C_garray%5C_cv%5C_rectisinstance)
+- [cv\_GArray\_cv\_Point2i](#cv%5C_garray%5C_cv%5C_point2i)
+  - [cv\_GArray\_cv\_Point2i::IsInstance](#cv%5C_garray%5C_cv%5C_point2iisinstance)
+- [cv\_GOpaque\_cv\_Size](#cv%5C_gopaque%5C_cv%5C_size)
+  - [cv\_GOpaque\_cv\_Size::IsInstance](#cv%5C_gopaque%5C_cv%5C_sizeisinstance)
 - [VectorOfGMat](#vectorofgmat)
   - [VectorOfGMat.Count](#vectorofgmatcount)
   - [VectorOfGMat::create](#vectorofgmatcreate)
   - [VectorOfGMat::Add](#vectorofgmatadd)
+  - [VectorOfGMat::IsInstance](#vectorofgmatisinstance)
   - [VectorOfGMat::Items](#vectorofgmatitems)
   - [VectorOfGMat::Keys](#vectorofgmatkeys)
   - [VectorOfGMat::Remove](#vectorofgmatremove)
@@ -7868,10 +8288,15 @@
   - [VectorOfGMat::sort](#vectorofgmatsort)
   - [VectorOfGMat::sort\_variant](#vectorofgmatsort%5C_variant)
   - [VectorOfGMat::start](#vectorofgmatstart)
+- [cv\_GOpaque\_int64\_t](#cv%5C_gopaque%5C_int64%5C_t)
+  - [cv\_GOpaque\_int64\_t::IsInstance](#cv%5C_gopaque%5C_int64%5C_tisinstance)
+- [cv\_GArray\_uint64\_t](#cv%5C_garray%5C_uint64%5C_t)
+  - [cv\_GArray\_uint64\_t::IsInstance](#cv%5C_garray%5C_uint64%5C_tisinstance)
 - [VectorOfGRunArg](#vectorofgrunarg)
   - [VectorOfGRunArg.Count](#vectorofgrunargcount)
   - [VectorOfGRunArg::create](#vectorofgrunargcreate)
   - [VectorOfGRunArg::Add](#vectorofgrunargadd)
+  - [VectorOfGRunArg::IsInstance](#vectorofgrunargisinstance)
   - [VectorOfGRunArg::Items](#vectorofgrunargitems)
   - [VectorOfGRunArg::Keys](#vectorofgrunargkeys)
   - [VectorOfGRunArg::Remove](#vectorofgrunargremove)
@@ -7894,6 +8319,7 @@
   - [VectorOfGCompileArg.Count](#vectorofgcompileargcount)
   - [VectorOfGCompileArg::create](#vectorofgcompileargcreate)
   - [VectorOfGCompileArg::Add](#vectorofgcompileargadd)
+  - [VectorOfGCompileArg::IsInstance](#vectorofgcompileargisinstance)
   - [VectorOfGCompileArg::Items](#vectorofgcompileargitems)
   - [VectorOfGCompileArg::Keys](#vectorofgcompileargkeys)
   - [VectorOfGCompileArg::Remove](#vectorofgcompileargremove)
@@ -7916,6 +8342,7 @@
   - [VectorOfGMetaArg.Count](#vectorofgmetaargcount)
   - [VectorOfGMetaArg::create](#vectorofgmetaargcreate)
   - [VectorOfGMetaArg::Add](#vectorofgmetaargadd)
+  - [VectorOfGMetaArg::IsInstance](#vectorofgmetaargisinstance)
   - [VectorOfGMetaArg::Items](#vectorofgmetaargitems)
   - [VectorOfGMetaArg::Keys](#vectorofgmetaargkeys)
   - [VectorOfGMetaArg::Remove](#vectorofgmetaargremove)
@@ -7938,6 +8365,7 @@
   - [VectorOfGapi\_GNetParam.Count](#vectorofgapi%5C_gnetparamcount)
   - [VectorOfGapi\_GNetParam::create](#vectorofgapi%5C_gnetparamcreate)
   - [VectorOfGapi\_GNetParam::Add](#vectorofgapi%5C_gnetparamadd)
+  - [VectorOfGapi\_GNetParam::IsInstance](#vectorofgapi%5C_gnetparamisinstance)
   - [VectorOfGapi\_GNetParam::Items](#vectorofgapi%5C_gnetparamitems)
   - [VectorOfGapi\_GNetParam::Keys](#vectorofgapi%5C_gnetparamkeys)
   - [VectorOfGapi\_GNetParam::Remove](#vectorofgapi%5C_gnetparamremove)
@@ -7960,6 +8388,7 @@
   - [MapOfStringAndString::create](#mapofstringandstringcreate)
   - [MapOfStringAndString::Add](#mapofstringandstringadd)
   - [MapOfStringAndString::Get](#mapofstringandstringget)
+  - [MapOfStringAndString::IsInstance](#mapofstringandstringisinstance)
   - [MapOfStringAndString::Items](#mapofstringandstringitems)
   - [MapOfStringAndString::Keys](#mapofstringandstringkeys)
   - [MapOfStringAndString::Remove](#mapofstringandstringremove)
@@ -7979,6 +8408,7 @@
   - [VectorOfPairOfStringAndString.Count](#vectorofpairofstringandstringcount)
   - [VectorOfPairOfStringAndString::create](#vectorofpairofstringandstringcreate)
   - [VectorOfPairOfStringAndString::Add](#vectorofpairofstringandstringadd)
+  - [VectorOfPairOfStringAndString::IsInstance](#vectorofpairofstringandstringisinstance)
   - [VectorOfPairOfStringAndString::Items](#vectorofpairofstringandstringitems)
   - [VectorOfPairOfStringAndString::Keys](#vectorofpairofstringandstringkeys)
   - [VectorOfPairOfStringAndString::Remove](#vectorofpairofstringandstringremove)
@@ -8001,6 +8431,7 @@
   - [MapOfStringAndInt::create](#mapofstringandintcreate)
   - [MapOfStringAndInt::Add](#mapofstringandintadd)
   - [MapOfStringAndInt::Get](#mapofstringandintget)
+  - [MapOfStringAndInt::IsInstance](#mapofstringandintisinstance)
   - [MapOfStringAndInt::Items](#mapofstringandintitems)
   - [MapOfStringAndInt::Keys](#mapofstringandintkeys)
   - [MapOfStringAndInt::Remove](#mapofstringandintremove)
@@ -8020,6 +8451,7 @@
   - [VectorOfPairOfStringAndInt.Count](#vectorofpairofstringandintcount)
   - [VectorOfPairOfStringAndInt::create](#vectorofpairofstringandintcreate)
   - [VectorOfPairOfStringAndInt::Add](#vectorofpairofstringandintadd)
+  - [VectorOfPairOfStringAndInt::IsInstance](#vectorofpairofstringandintisinstance)
   - [VectorOfPairOfStringAndInt::Items](#vectorofpairofstringandintitems)
   - [VectorOfPairOfStringAndInt::Keys](#vectorofpairofstringandintkeys)
   - [VectorOfPairOfStringAndInt::Remove](#vectorofpairofstringandintremove)
@@ -8042,6 +8474,7 @@
   - [MapOfStringAndVectorOfSize\_t::create](#mapofstringandvectorofsize%5C_tcreate)
   - [MapOfStringAndVectorOfSize\_t::Add](#mapofstringandvectorofsize%5C_tadd)
   - [MapOfStringAndVectorOfSize\_t::Get](#mapofstringandvectorofsize%5C_tget)
+  - [MapOfStringAndVectorOfSize\_t::IsInstance](#mapofstringandvectorofsize%5C_tisinstance)
   - [MapOfStringAndVectorOfSize\_t::Items](#mapofstringandvectorofsize%5C_titems)
   - [MapOfStringAndVectorOfSize\_t::Keys](#mapofstringandvectorofsize%5C_tkeys)
   - [MapOfStringAndVectorOfSize\_t::Remove](#mapofstringandvectorofsize%5C_tremove)
@@ -8061,6 +8494,7 @@
   - [VectorOfPairOfStringAndVectorOfSize\_t.Count](#vectorofpairofstringandvectorofsize%5C_tcount)
   - [VectorOfPairOfStringAndVectorOfSize\_t::create](#vectorofpairofstringandvectorofsize%5C_tcreate)
   - [VectorOfPairOfStringAndVectorOfSize\_t::Add](#vectorofpairofstringandvectorofsize%5C_tadd)
+  - [VectorOfPairOfStringAndVectorOfSize\_t::IsInstance](#vectorofpairofstringandvectorofsize%5C_tisinstance)
   - [VectorOfPairOfStringAndVectorOfSize\_t::Items](#vectorofpairofstringandvectorofsize%5C_titems)
   - [VectorOfPairOfStringAndVectorOfSize\_t::Keys](#vectorofpairofstringandvectorofsize%5C_tkeys)
   - [VectorOfPairOfStringAndVectorOfSize\_t::Remove](#vectorofpairofstringandvectorofsize%5C_tremove)
@@ -8083,6 +8517,7 @@
   - [VectorOfVectorOfSize\_t.Count](#vectorofvectorofsize%5C_tcount)
   - [VectorOfVectorOfSize\_t::create](#vectorofvectorofsize%5C_tcreate)
   - [VectorOfVectorOfSize\_t::Add](#vectorofvectorofsize%5C_tadd)
+  - [VectorOfVectorOfSize\_t::IsInstance](#vectorofvectorofsize%5C_tisinstance)
   - [VectorOfVectorOfSize\_t::Items](#vectorofvectorofsize%5C_titems)
   - [VectorOfVectorOfSize\_t::Keys](#vectorofvectorofsize%5C_tkeys)
   - [VectorOfVectorOfSize\_t::Remove](#vectorofvectorofsize%5C_tremove)
@@ -8105,6 +8540,7 @@
   - [MapOfStringAndVectorOfFloat::create](#mapofstringandvectoroffloatcreate)
   - [MapOfStringAndVectorOfFloat::Add](#mapofstringandvectoroffloatadd)
   - [MapOfStringAndVectorOfFloat::Get](#mapofstringandvectoroffloatget)
+  - [MapOfStringAndVectorOfFloat::IsInstance](#mapofstringandvectoroffloatisinstance)
   - [MapOfStringAndVectorOfFloat::Items](#mapofstringandvectoroffloatitems)
   - [MapOfStringAndVectorOfFloat::Keys](#mapofstringandvectoroffloatkeys)
   - [MapOfStringAndVectorOfFloat::Remove](#mapofstringandvectoroffloatremove)
@@ -8124,6 +8560,7 @@
   - [VectorOfPairOfStringAndVectorOfFloat.Count](#vectorofpairofstringandvectoroffloatcount)
   - [VectorOfPairOfStringAndVectorOfFloat::create](#vectorofpairofstringandvectoroffloatcreate)
   - [VectorOfPairOfStringAndVectorOfFloat::Add](#vectorofpairofstringandvectoroffloatadd)
+  - [VectorOfPairOfStringAndVectorOfFloat::IsInstance](#vectorofpairofstringandvectoroffloatisinstance)
   - [VectorOfPairOfStringAndVectorOfFloat::Items](#vectorofpairofstringandvectoroffloatitems)
   - [VectorOfPairOfStringAndVectorOfFloat::Keys](#vectorofpairofstringandvectoroffloatkeys)
   - [VectorOfPairOfStringAndVectorOfFloat::Remove](#vectorofpairofstringandvectoroffloatremove)
@@ -8146,6 +8583,7 @@
   - [VectorOfVectorOfFloat.Count](#vectorofvectoroffloatcount)
   - [VectorOfVectorOfFloat::create](#vectorofvectoroffloatcreate)
   - [VectorOfVectorOfFloat::Add](#vectorofvectoroffloatadd)
+  - [VectorOfVectorOfFloat::IsInstance](#vectorofvectoroffloatisinstance)
   - [VectorOfVectorOfFloat::Items](#vectorofvectoroffloatitems)
   - [VectorOfVectorOfFloat::Keys](#vectorofvectoroffloatkeys)
   - [VectorOfVectorOfFloat::Remove](#vectorofvectoroffloatremove)
@@ -8168,6 +8606,7 @@
   - [MapOfIntAndDouble::create](#mapofintanddoublecreate)
   - [MapOfIntAndDouble::Add](#mapofintanddoubleadd)
   - [MapOfIntAndDouble::Get](#mapofintanddoubleget)
+  - [MapOfIntAndDouble::IsInstance](#mapofintanddoubleisinstance)
   - [MapOfIntAndDouble::Items](#mapofintanddoubleitems)
   - [MapOfIntAndDouble::Keys](#mapofintanddoublekeys)
   - [MapOfIntAndDouble::Remove](#mapofintanddoubleremove)
@@ -8187,6 +8626,7 @@
   - [VectorOfPairOfIntAndDouble.Count](#vectorofpairofintanddoublecount)
   - [VectorOfPairOfIntAndDouble::create](#vectorofpairofintanddoublecreate)
   - [VectorOfPairOfIntAndDouble::Add](#vectorofpairofintanddoubleadd)
+  - [VectorOfPairOfIntAndDouble::IsInstance](#vectorofpairofintanddoubleisinstance)
   - [VectorOfPairOfIntAndDouble::Items](#vectorofpairofintanddoubleitems)
   - [VectorOfPairOfIntAndDouble::Keys](#vectorofpairofintanddoublekeys)
   - [VectorOfPairOfIntAndDouble::Remove](#vectorofpairofintanddoubleremove)
@@ -8205,10 +8645,13 @@
   - [VectorOfPairOfIntAndDouble::sort](#vectorofpairofintanddoublesort)
   - [VectorOfPairOfIntAndDouble::sort\_variant](#vectorofpairofintanddoublesort%5C_variant)
   - [VectorOfPairOfIntAndDouble::start](#vectorofpairofintanddoublestart)
+- [cv\_GArray\_cv\_gapi\_wip\_draw\_Prim](#cv%5C_garray%5C_cv%5C_gapi%5C_wip%5C_draw%5C_prim)
+  - [cv\_GArray\_cv\_gapi\_wip\_draw\_Prim::IsInstance](#cv%5C_garray%5C_cv%5C_gapi%5C_wip%5C_draw%5C_primisinstance)
 - [VectorOfGapi\_wip\_draw\_Prim](#vectorofgapi%5C_wip%5C_draw%5C_prim)
   - [VectorOfGapi\_wip\_draw\_Prim.Count](#vectorofgapi%5C_wip%5C_draw%5C_primcount)
   - [VectorOfGapi\_wip\_draw\_Prim::create](#vectorofgapi%5C_wip%5C_draw%5C_primcreate)
   - [VectorOfGapi\_wip\_draw\_Prim::Add](#vectorofgapi%5C_wip%5C_draw%5C_primadd)
+  - [VectorOfGapi\_wip\_draw\_Prim::IsInstance](#vectorofgapi%5C_wip%5C_draw%5C_primisinstance)
   - [VectorOfGapi\_wip\_draw\_Prim::Items](#vectorofgapi%5C_wip%5C_draw%5C_primitems)
   - [VectorOfGapi\_wip\_draw\_Prim::Keys](#vectorofgapi%5C_wip%5C_draw%5C_primkeys)
   - [VectorOfGapi\_wip\_draw\_Prim::Remove](#vectorofgapi%5C_wip%5C_draw%5C_primremove)
@@ -8227,6 +8670,8 @@
   - [VectorOfGapi\_wip\_draw\_Prim::sort](#vectorofgapi%5C_wip%5C_draw%5C_primsort)
   - [VectorOfGapi\_wip\_draw\_Prim::sort\_variant](#vectorofgapi%5C_wip%5C_draw%5C_primsort%5C_variant)
   - [VectorOfGapi\_wip\_draw\_Prim::start](#vectorofgapi%5C_wip%5C_draw%5C_primstart)
+- [cv\_GArray\_cv\_GMat](#cv%5C_garray%5C_cv%5C_gmat)
+  - [cv\_GArray\_cv\_GMat::IsInstance](#cv%5C_garray%5C_cv%5C_gmatisinstance)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -8814,6 +9259,22 @@ AutoIt:
 static cv::BOWImgDescriptorExtractor
 AutoIt:
     [propget] $ocv.BOWImgDescriptorExtractor
+```
+
+### cv.Animation
+
+```cpp
+static cv::Animation
+AutoIt:
+    [propget] $ocv.Animation
+```
+
+### cv.IStreamReader
+
+```cpp
+static cv::IStreamReader
+AutoIt:
+    [propget] $ocv.IStreamReader
 ```
 
 ### cv.VideoCapture
@@ -9560,12 +10021,36 @@ AutoIt:
     [propget] $ocv.GCompileArg
 ```
 
-### cv.GRunArg
+### cv.GInferInputs
 
 ```cpp
-static cv::GRunArg
+static cv::GInferInputs
 AutoIt:
-    [propget] $ocv.GRunArg
+    [propget] $ocv.GInferInputs
+```
+
+### cv.GInferListInputs
+
+```cpp
+static cv::GInferListInputs
+AutoIt:
+    [propget] $ocv.GInferListInputs
+```
+
+### cv.GInferOutputs
+
+```cpp
+static cv::GInferOutputs
+AutoIt:
+    [propget] $ocv.GInferOutputs
+```
+
+### cv.GInferListOutputs
+
+```cpp
+static cv::GInferListOutputs
+AutoIt:
+    [propget] $ocv.GInferListOutputs
 ```
 
 ### cv.GProtoInputArgs
@@ -9634,14 +10119,15 @@ AutoIt:
 ### cv::GaussianBlur
 
 ```cpp
-void cv::GaussianBlur( InputArray  src,
-                       OutputArray dst,
-                       cv::Size    ksize,
-                       double      sigmaX,
-                       double      sigmaY = 0,
-                       int         borderType = BORDER_DEFAULT );
+void cv::GaussianBlur( InputArray        src,
+                       OutputArray       dst,
+                       cv::Size          ksize,
+                       double            sigmaX,
+                       double            sigmaY = 0,
+                       int               borderType = BORDER_DEFAULT,
+                       cv::AlgorithmHint hint = cv::ALGO_HINT_DEFAULT );
 AutoIt:
-    _OpenCV_ObjCreate("cv").GaussianBlur( $src, $ksize, $sigmaX[, $dst[, $sigmaY[, $borderType]]] ) -> $dst
+    _OpenCV_ObjCreate("cv").GaussianBlur( $src, $ksize, $sigmaX[, $dst[, $sigmaY[, $borderType[, $hint]]]] ) -> $dst
 ```
 
 ### cv::HoughCircles
@@ -9671,9 +10157,10 @@ void cv::HoughLines( InputArray  image,
                      double      srn = 0,
                      double      stn = 0,
                      double      min_theta = 0,
-                     double      max_theta = CV_PI );
+                     double      max_theta = CV_PI,
+                     bool        use_edgeval = false );
 AutoIt:
-    _OpenCV_ObjCreate("cv").HoughLines( $image, $rho, $theta, $threshold[, $lines[, $srn[, $stn[, $min_theta[, $max_theta]]]]] ) -> $lines
+    _OpenCV_ObjCreate("cv").HoughLines( $image, $rho, $theta, $threshold[, $lines[, $srn[, $stn[, $min_theta[, $max_theta[, $use_edgeval]]]]]] ) -> $lines
 ```
 
 ### cv::HoughLinesP
@@ -10053,6 +10540,18 @@ void cv::approxPolyDP( InputArray  curve,
                        bool        closed );
 AutoIt:
     _OpenCV_ObjCreate("cv").approxPolyDP( $curve, $epsilon, $closed[, $approxCurve] ) -> $approxCurve
+```
+
+### cv::approxPolyN
+
+```cpp
+void cv::approxPolyN( InputArray  curve,
+                      OutputArray approxCurve,
+                      int         nsides,
+                      float       epsilon_percentage = -1.0,
+                      bool        ensure_convex = true );
+AutoIt:
+    _OpenCV_ObjCreate("cv").approxPolyN( $curve, $nsides[, $approxCurve[, $epsilon_percentage[, $ensure_convex]]] ) -> $approxCurve
 ```
 
 ### cv::arcLength
@@ -11032,23 +11531,25 @@ AutoIt:
 ### cv::cvtColor
 
 ```cpp
-void cv::cvtColor( InputArray  src,
-                   OutputArray dst,
-                   int         code,
-                   int         dstCn = 0 );
+void cv::cvtColor( InputArray        src,
+                   OutputArray       dst,
+                   int               code,
+                   int               dstCn = 0,
+                   cv::AlgorithmHint hint = cv::ALGO_HINT_DEFAULT );
 AutoIt:
-    _OpenCV_ObjCreate("cv").cvtColor( $src, $code[, $dst[, $dstCn]] ) -> $dst
+    _OpenCV_ObjCreate("cv").cvtColor( $src, $code[, $dst[, $dstCn[, $hint]]] ) -> $dst
 ```
 
 ### cv::cvtColorTwoPlane
 
 ```cpp
-void cv::cvtColorTwoPlane( InputArray  src1,
-                           InputArray  src2,
-                           OutputArray dst,
-                           int         code );
+void cv::cvtColorTwoPlane( InputArray        src1,
+                           InputArray        src2,
+                           OutputArray       dst,
+                           int               code,
+                           cv::AlgorithmHint hint = cv::ALGO_HINT_DEFAULT );
 AutoIt:
-    _OpenCV_ObjCreate("cv").cvtColorTwoPlane( $src1, $src2, $code[, $dst] ) -> $dst
+    _OpenCV_ObjCreate("cv").cvtColorTwoPlane( $src1, $src2, $code[, $dst[, $hint]] ) -> $dst
 ```
 
 ### cv::dct
@@ -12168,6 +12669,14 @@ AutoIt:
     _OpenCV_ObjCreate("cv").getCPUTickCount() -> retval
 ```
 
+### cv::getDefaultAlgorithmHint
+
+```cpp
+cv::AlgorithmHint cv::getDefaultAlgorithmHint();
+AutoIt:
+    _OpenCV_ObjCreate("cv").getDefaultAlgorithmHint() -> retval
+```
+
 ### cv::getDefaultNewCameraMatrix
 
 ```cpp
@@ -12616,11 +13125,22 @@ AutoIt:
     _OpenCV_ObjCreate("cv").imencode( $ext, $img[, $params[, $buf]] ) -> retval, $buf
 ```
 
+### cv::imencodemulti
+
+```cpp
+bool cv::imencodemulti( const std::string&      ext,
+                        InputArrayOfArrays      imgs,
+                        std::vector<uchar>&     buf,
+                        const std::vector<int>& params = std::vector<int>() );
+AutoIt:
+    _OpenCV_ObjCreate("cv").imencodemulti( $ext, $imgs[, $params[, $buf]] ) -> retval, $buf
+```
+
 ### cv::imread
 
 ```cpp
 cv::Mat cv::imread( const std::string& filename,
-                    int                flags = IMREAD_COLOR );
+                    int                flags = IMREAD_COLOR_BGR );
 AutoIt:
     _OpenCV_ObjCreate("cv").imread( $filename[, $flags] ) -> retval
 ```
@@ -12628,9 +13148,20 @@ AutoIt:
 ```cpp
 void cv::imread( const std::string& filename,
                  OutputArray        dst,
-                 int                flags = IMREAD_COLOR );
+                 int                flags = IMREAD_COLOR_BGR );
 AutoIt:
     _OpenCV_ObjCreate("cv").imread( $filename[, $dst[, $flags]] ) -> $dst
+```
+
+### cv::imreadanimation
+
+```cpp
+bool cv::imreadanimation( const std::string& filename,
+                          cv::Animation&     animation,
+                          int                start = 0,
+                          int                count = INT16_MAX );
+AutoIt:
+    _OpenCV_ObjCreate("cv").imreadanimation( $filename[, $start[, $count[, $animation]]] ) -> retval, $animation
 ```
 
 ### cv::imreadmulti
@@ -12670,6 +13201,16 @@ bool cv::imwrite( const std::string&      filename,
                   const std::vector<int>& params = std::vector<int>() );
 AutoIt:
     _OpenCV_ObjCreate("cv").imwrite( $filename, $img[, $params] ) -> retval
+```
+
+### cv::imwriteanimation
+
+```cpp
+bool cv::imwriteanimation( const std::string&      filename,
+                           const cv::Animation&    animation,
+                           const std::vector<int>& params = std::vector<int>() );
+AutoIt:
+    _OpenCV_ObjCreate("cv").imwriteanimation( $filename, $animation[, $params] ) -> retval
 ```
 
 ### cv::imwritemulti
@@ -14702,30 +15243,6 @@ AutoIt:
     [propget] $oenums.COVAR_COLS
 ```
 
-### enums.KMEANS\_RANDOM\_CENTERS
-
-```cpp
-static int cv::enums::KMEANS_RANDOM_CENTERS
-AutoIt:
-    [propget] $oenums.KMEANS_RANDOM_CENTERS
-```
-
-### enums.KMEANS\_PP\_CENTERS
-
-```cpp
-static int cv::enums::KMEANS_PP_CENTERS
-AutoIt:
-    [propget] $oenums.KMEANS_PP_CENTERS
-```
-
-### enums.KMEANS\_USE\_INITIAL\_LABELS
-
-```cpp
-static int cv::enums::KMEANS_USE_INITIAL_LABELS
-AutoIt:
-    [propget] $oenums.KMEANS_USE_INITIAL_LABELS
-```
-
 ### enums.REDUCE\_SUM
 
 ```cpp
@@ -14788,6 +15305,30 @@ AutoIt:
 static int cv::enums::ROTATE_90_COUNTERCLOCKWISE
 AutoIt:
     [propget] $oenums.ROTATE_90_COUNTERCLOCKWISE
+```
+
+### enums.KMEANS\_RANDOM\_CENTERS
+
+```cpp
+static int cv::enums::KMEANS_RANDOM_CENTERS
+AutoIt:
+    [propget] $oenums.KMEANS_RANDOM_CENTERS
+```
+
+### enums.KMEANS\_PP\_CENTERS
+
+```cpp
+static int cv::enums::KMEANS_PP_CENTERS
+AutoIt:
+    [propget] $oenums.KMEANS_PP_CENTERS
+```
+
+### enums.KMEANS\_USE\_INITIAL\_LABELS
+
+```cpp
+static int cv::enums::KMEANS_USE_INITIAL_LABELS
+AutoIt:
+    [propget] $oenums.KMEANS_USE_INITIAL_LABELS
 ```
 
 ### enums.DECOMP\_LU
@@ -15252,6 +15793,30 @@ AutoIt:
 static int cv::enums::QUAT_ASSUME_UNIT
 AutoIt:
     [propget] $oenums.QUAT_ASSUME_UNIT
+```
+
+### enums.ALGO\_HINT\_DEFAULT
+
+```cpp
+static int cv::enums::ALGO_HINT_DEFAULT
+AutoIt:
+    [propget] $oenums.ALGO_HINT_DEFAULT
+```
+
+### enums.ALGO\_HINT\_ACCURATE
+
+```cpp
+static int cv::enums::ALGO_HINT_ACCURATE
+AutoIt:
+    [propget] $oenums.ALGO_HINT_ACCURATE
+```
+
+### enums.ALGO\_HINT\_APPROX
+
+```cpp
+static int cv::enums::ALGO_HINT_APPROX
+AutoIt:
+    [propget] $oenums.ALGO_HINT_APPROX
 ```
 
 ### enums.FILTER\_SCHARR
@@ -18686,6 +19251,30 @@ AutoIt:
     [propget] $oenums.MONOCHROME_TRANSFER
 ```
 
+### enums.NORMAL\_CLONE\_WIDE
+
+```cpp
+static int cv::enums::NORMAL_CLONE_WIDE
+AutoIt:
+    [propget] $oenums.NORMAL_CLONE_WIDE
+```
+
+### enums.MIXED\_CLONE\_WIDE
+
+```cpp
+static int cv::enums::MIXED_CLONE_WIDE
+AutoIt:
+    [propget] $oenums.MIXED_CLONE_WIDE
+```
+
+### enums.MONOCHROME\_TRANSFER\_WIDE
+
+```cpp
+static int cv::enums::MONOCHROME_TRANSFER_WIDE
+AutoIt:
+    [propget] $oenums.MONOCHROME_TRANSFER_WIDE
+```
+
 ### enums.RECURS\_FILTER
 
 ```cpp
@@ -18716,6 +19305,14 @@ AutoIt:
 static int cv::enums::IMREAD_GRAYSCALE
 AutoIt:
     [propget] $oenums.IMREAD_GRAYSCALE
+```
+
+### enums.IMREAD\_COLOR\_BGR
+
+```cpp
+static int cv::enums::IMREAD_COLOR_BGR
+AutoIt:
+    [propget] $oenums.IMREAD_COLOR_BGR
 ```
 
 ### enums.IMREAD\_COLOR
@@ -18804,6 +19401,14 @@ AutoIt:
 static int cv::enums::IMREAD_IGNORE_ORIENTATION
 AutoIt:
     [propget] $oenums.IMREAD_IGNORE_ORIENTATION
+```
+
+### enums.IMREAD\_COLOR\_RGB
+
+```cpp
+static int cv::enums::IMREAD_COLOR_RGB
+AutoIt:
+    [propget] $oenums.IMREAD_COLOR_RGB
 ```
 
 ### enums.IMWRITE\_JPEG\_QUALITY
@@ -19020,6 +19625,86 @@ AutoIt:
 static int cv::enums::IMWRITE_AVIF_SPEED
 AutoIt:
     [propget] $oenums.IMWRITE_AVIF_SPEED
+```
+
+### enums.IMWRITE\_JPEGXL\_QUALITY
+
+```cpp
+static int cv::enums::IMWRITE_JPEGXL_QUALITY
+AutoIt:
+    [propget] $oenums.IMWRITE_JPEGXL_QUALITY
+```
+
+### enums.IMWRITE\_JPEGXL\_EFFORT
+
+```cpp
+static int cv::enums::IMWRITE_JPEGXL_EFFORT
+AutoIt:
+    [propget] $oenums.IMWRITE_JPEGXL_EFFORT
+```
+
+### enums.IMWRITE\_JPEGXL\_DISTANCE
+
+```cpp
+static int cv::enums::IMWRITE_JPEGXL_DISTANCE
+AutoIt:
+    [propget] $oenums.IMWRITE_JPEGXL_DISTANCE
+```
+
+### enums.IMWRITE\_JPEGXL\_DECODING\_SPEED
+
+```cpp
+static int cv::enums::IMWRITE_JPEGXL_DECODING_SPEED
+AutoIt:
+    [propget] $oenums.IMWRITE_JPEGXL_DECODING_SPEED
+```
+
+### enums.IMWRITE\_GIF\_LOOP
+
+```cpp
+static int cv::enums::IMWRITE_GIF_LOOP
+AutoIt:
+    [propget] $oenums.IMWRITE_GIF_LOOP
+```
+
+### enums.IMWRITE\_GIF\_SPEED
+
+```cpp
+static int cv::enums::IMWRITE_GIF_SPEED
+AutoIt:
+    [propget] $oenums.IMWRITE_GIF_SPEED
+```
+
+### enums.IMWRITE\_GIF\_QUALITY
+
+```cpp
+static int cv::enums::IMWRITE_GIF_QUALITY
+AutoIt:
+    [propget] $oenums.IMWRITE_GIF_QUALITY
+```
+
+### enums.IMWRITE\_GIF\_DITHER
+
+```cpp
+static int cv::enums::IMWRITE_GIF_DITHER
+AutoIt:
+    [propget] $oenums.IMWRITE_GIF_DITHER
+```
+
+### enums.IMWRITE\_GIF\_TRANSPARENCY
+
+```cpp
+static int cv::enums::IMWRITE_GIF_TRANSPARENCY
+AutoIt:
+    [propget] $oenums.IMWRITE_GIF_TRANSPARENCY
+```
+
+### enums.IMWRITE\_GIF\_COLORTABLE
+
+```cpp
+static int cv::enums::IMWRITE_GIF_COLORTABLE
+AutoIt:
+    [propget] $oenums.IMWRITE_GIF_COLORTABLE
 ```
 
 ### enums.IMWRITE\_JPEG\_SAMPLING\_FACTOR\_411
@@ -19548,6 +20233,70 @@ AutoIt:
 static int cv::enums::IMWRITE_HDR_COMPRESSION_RLE
 AutoIt:
     [propget] $oenums.IMWRITE_HDR_COMPRESSION_RLE
+```
+
+### enums.IMWRITE\_GIF\_FAST\_NO\_DITHER
+
+```cpp
+static int cv::enums::IMWRITE_GIF_FAST_NO_DITHER
+AutoIt:
+    [propget] $oenums.IMWRITE_GIF_FAST_NO_DITHER
+```
+
+### enums.IMWRITE\_GIF\_FAST\_FLOYD\_DITHER
+
+```cpp
+static int cv::enums::IMWRITE_GIF_FAST_FLOYD_DITHER
+AutoIt:
+    [propget] $oenums.IMWRITE_GIF_FAST_FLOYD_DITHER
+```
+
+### enums.IMWRITE\_GIF\_COLORTABLE\_SIZE\_8
+
+```cpp
+static int cv::enums::IMWRITE_GIF_COLORTABLE_SIZE_8
+AutoIt:
+    [propget] $oenums.IMWRITE_GIF_COLORTABLE_SIZE_8
+```
+
+### enums.IMWRITE\_GIF\_COLORTABLE\_SIZE\_16
+
+```cpp
+static int cv::enums::IMWRITE_GIF_COLORTABLE_SIZE_16
+AutoIt:
+    [propget] $oenums.IMWRITE_GIF_COLORTABLE_SIZE_16
+```
+
+### enums.IMWRITE\_GIF\_COLORTABLE\_SIZE\_32
+
+```cpp
+static int cv::enums::IMWRITE_GIF_COLORTABLE_SIZE_32
+AutoIt:
+    [propget] $oenums.IMWRITE_GIF_COLORTABLE_SIZE_32
+```
+
+### enums.IMWRITE\_GIF\_COLORTABLE\_SIZE\_64
+
+```cpp
+static int cv::enums::IMWRITE_GIF_COLORTABLE_SIZE_64
+AutoIt:
+    [propget] $oenums.IMWRITE_GIF_COLORTABLE_SIZE_64
+```
+
+### enums.IMWRITE\_GIF\_COLORTABLE\_SIZE\_128
+
+```cpp
+static int cv::enums::IMWRITE_GIF_COLORTABLE_SIZE_128
+AutoIt:
+    [propget] $oenums.IMWRITE_GIF_COLORTABLE_SIZE_128
+```
+
+### enums.IMWRITE\_GIF\_COLORTABLE\_SIZE\_256
+
+```cpp
+static int cv::enums::IMWRITE_GIF_COLORTABLE_SIZE_256
+AutoIt:
+    [propget] $oenums.IMWRITE_GIF_COLORTABLE_SIZE_256
 ```
 
 ### enums.CAP\_ANY
@@ -20398,6 +21147,22 @@ AutoIt:
     [propget] $oenums.CAP_PROP_N_THREADS
 ```
 
+### enums.CAP\_PROP\_PTS
+
+```cpp
+static int cv::enums::CAP_PROP_PTS
+AutoIt:
+    [propget] $oenums.CAP_PROP_PTS
+```
+
+### enums.CAP\_PROP\_DTS\_DELAY
+
+```cpp
+static int cv::enums::CAP_PROP_DTS_DELAY
+AutoIt:
+    [propget] $oenums.CAP_PROP_DTS_DELAY
+```
+
 ### enums.VIDEOWRITER\_PROP\_QUALITY
 
 ```cpp
@@ -20484,6 +21249,22 @@ AutoIt:
 static int cv::enums::VIDEOWRITER_PROP_KEY_FLAG
 AutoIt:
     [propget] $oenums.VIDEOWRITER_PROP_KEY_FLAG
+```
+
+### enums.VIDEOWRITER\_PROP\_PTS
+
+```cpp
+static int cv::enums::VIDEOWRITER_PROP_PTS
+AutoIt:
+    [propget] $oenums.VIDEOWRITER_PROP_PTS
+```
+
+### enums.VIDEOWRITER\_PROP\_DTS\_DELAY
+
+```cpp
+static int cv::enums::VIDEOWRITER_PROP_DTS_DELAY
+AutoIt:
+    [propget] $oenums.VIDEOWRITER_PROP_DTS_DELAY
 ```
 
 ### enums.VIDEO\_ACCELERATION\_NONE
@@ -22278,6 +23059,14 @@ AutoIt:
     [propget] $oenums.CAP_PROP_ARAVIS_AUTOTRIGGER
 ```
 
+### enums.CAP\_PROP\_ANDROID\_DEVICE\_TORCH
+
+```cpp
+static int cv::enums::CAP_PROP_ANDROID_DEVICE_TORCH
+AutoIt:
+    [propget] $oenums.CAP_PROP_ANDROID_DEVICE_TORCH
+```
+
 ### enums.CAP\_PROP\_IOS\_DEVICE\_FOCUS
 
 ```cpp
@@ -23892,14 +24681,6 @@ AutoIt:
     [propget, propput] $oRNG.state
 ```
 
-### RNG.FullyQualifiedName
-
-```cpp
-static std::string cv::RNG::FullyQualifiedName
-AutoIt:
-    [propget] $oRNG.FullyQualifiedName
-```
-
 ### cv::RNG::get\_create
 
 ```cpp
@@ -24051,14 +24832,6 @@ AutoIt:
 ```
 
 ## cv::Algorithm
-
-### Algorithm.FullyQualifiedName
-
-```cpp
-static std::string cv::Algorithm::FullyQualifiedName
-AutoIt:
-    [propget] $oAlgorithm.FullyQualifiedName
-```
 
 ### cv::Algorithm::IsInstance
 
@@ -24228,14 +25001,6 @@ AutoIt:
 ```
 
 ## cv::AsyncArray
-
-### AsyncArray.FullyQualifiedName
-
-```cpp
-static std::string cv::AsyncArray::FullyQualifiedName
-AutoIt:
-    [propget] $oAsyncArray.FullyQualifiedName
-```
 
 ### cv::AsyncArray::get\_create
 
@@ -25115,14 +25880,6 @@ AutoIt:
     [propget] $oClassWithKeywordProperties.except
 ```
 
-### ClassWithKeywordProperties.FullyQualifiedName
-
-```cpp
-static std::string cv::utils::ClassWithKeywordProperties::FullyQualifiedName
-AutoIt:
-    [propget] $oClassWithKeywordProperties.FullyQualifiedName
-```
-
 ### cv::utils::ClassWithKeywordProperties::get\_create
 
 ```cpp
@@ -25163,14 +25920,6 @@ AutoIt:
 float cv::utils::FunctionParams::sigma
 AutoIt:
     [propget, propput] $oFunctionParams.sigma
-```
-
-### FunctionParams.FullyQualifiedName
-
-```cpp
-static std::string cv::utils::FunctionParams::FullyQualifiedName
-AutoIt:
-    [propget] $oFunctionParams.FullyQualifiedName
 ```
 
 ### cv::utils::FunctionParams::get\_create
@@ -25221,14 +25970,6 @@ AutoIt:
 static cv::utils::nested::OriginalClassName::Params
 AutoIt:
     [propget] $oExportClassName.Params
-```
-
-### ExportClassName.FullyQualifiedName
-
-```cpp
-static std::string cv::utils::nested::OriginalClassName::FullyQualifiedName
-AutoIt:
-    [propget] $oExportClassName.FullyQualifiedName
 ```
 
 ### cv::utils::nested::OriginalClassName::get\_create
@@ -25294,14 +26035,6 @@ AutoIt:
 float cv::utils::nested::OriginalClassName::Params::float_value
 AutoIt:
     [propget, propput] $oParams.float_value
-```
-
-### Params.FullyQualifiedName
-
-```cpp
-static std::string cv::utils::nested::OriginalClassName::Params::FullyQualifiedName
-AutoIt:
-    [propget] $oParams.FullyQualifiedName
 ```
 
 ### cv::utils::nested::OriginalClassName::Params::get\_create
@@ -25857,6 +26590,26 @@ AutoIt:
     _OpenCV_ObjCreate("cv.detail").stitchingLogLevel() -> retval
 ```
 
+### cv::detail::strip
+
+```cpp
+cv::gapi::GNetParam cv::detail::strip( cv::gapi::ie::PyParams params );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail").strip( $params ) -> retval
+```
+
+```cpp
+cv::gapi::GNetParam cv::detail::strip( cv::gapi::onnx::PyParams params );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail").strip( $params ) -> retval
+```
+
+```cpp
+cv::gapi::GNetParam cv::detail::strip( cv::gapi::ov::PyParams params );
+AutoIt:
+    _OpenCV_ObjCreate("cv.detail").strip( $params ) -> retval
+```
+
 ### cv::detail::waveCorrect
 
 ```cpp
@@ -26332,14 +27085,6 @@ AutoIt:
     [propget] $oGpuMat.Allocator
 ```
 
-### GpuMat.FullyQualifiedName
-
-```cpp
-static std::string cv::cuda::GpuMat::FullyQualifiedName
-AutoIt:
-    [propget] $oGpuMat.FullyQualifiedName
-```
-
 ### cv::cuda::GpuMat::get\_create
 
 ```cpp
@@ -26633,6 +27378,14 @@ AutoIt:
     $oGpuMat.empty() -> retval
 ```
 
+### cv::cuda::GpuMat::getStdAllocator
+
+```cpp
+static cv::cuda::GpuMat::Allocator* cv::cuda::GpuMat::getStdAllocator();
+AutoIt:
+    _OpenCV_ObjCreate("cv.cuda.GpuMat").getStdAllocator() -> retval
+```
+
 ### cv::cuda::GpuMat::isContinuous
 
 ```cpp
@@ -26785,14 +27538,6 @@ AutoIt:
 
 ## cv::cuda::GpuMat::Allocator
 
-### Allocator.FullyQualifiedName
-
-```cpp
-static std::string cv::cuda::GpuMat::Allocator::FullyQualifiedName
-AutoIt:
-    [propget] $oAllocator.FullyQualifiedName
-```
-
 ### cv::cuda::GpuMat::Allocator::IsInstance
 
 ```cpp
@@ -26808,14 +27553,6 @@ AutoIt:
 ```
 
 ## cv::cuda::GpuData
-
-### GpuData.FullyQualifiedName
-
-```cpp
-static std::string cv::cuda::GpuData::FullyQualifiedName
-AutoIt:
-    [propget] $oGpuData.FullyQualifiedName
-```
 
 ### cv::cuda::GpuData::IsInstance
 
@@ -26833,14 +27570,6 @@ AutoIt:
 
 ## cv::cuda::GpuMatND
 
-### GpuMatND.FullyQualifiedName
-
-```cpp
-static std::string cv::cuda::GpuMatND::FullyQualifiedName
-AutoIt:
-    [propget] $oGpuMatND.FullyQualifiedName
-```
-
 ### cv::cuda::GpuMatND::IsInstance
 
 ```cpp
@@ -26856,14 +27585,6 @@ AutoIt:
 ```
 
 ## cv::cuda::BufferPool
-
-### BufferPool.FullyQualifiedName
-
-```cpp
-static std::string cv::cuda::BufferPool::FullyQualifiedName
-AutoIt:
-    [propget] $oBufferPool.FullyQualifiedName
-```
 
 ### cv::cuda::BufferPool::get\_create
 
@@ -26921,14 +27642,6 @@ AutoIt:
 size_t cv::cuda::HostMem::step
 AutoIt:
     [propget] $oHostMem.step
-```
-
-### HostMem.FullyQualifiedName
-
-```cpp
-static std::string cv::cuda::HostMem::FullyQualifiedName
-AutoIt:
-    [propget] $oHostMem.FullyQualifiedName
 ```
 
 ### cv::cuda::HostMem::get\_create
@@ -27128,14 +27841,6 @@ AutoIt:
 
 ## cv::cuda::Stream
 
-### Stream.FullyQualifiedName
-
-```cpp
-static std::string cv::cuda::Stream::FullyQualifiedName
-AutoIt:
-    [propget] $oStream.FullyQualifiedName
-```
-
 ### cv::cuda::Stream::get\_create
 
 ```cpp
@@ -27213,14 +27918,6 @@ AutoIt:
 ```
 
 ## cv::cuda::Event
-
-### Event.FullyQualifiedName
-
-```cpp
-static std::string cv::cuda::Event::FullyQualifiedName
-AutoIt:
-    [propget] $oEvent.FullyQualifiedName
-```
 
 ### cv::cuda::Event::get\_create
 
@@ -27312,14 +28009,6 @@ AutoIt:
 
 ## cv::cuda::TargetArchs
 
-### TargetArchs.FullyQualifiedName
-
-```cpp
-static std::string cv::cuda::TargetArchs::FullyQualifiedName
-AutoIt:
-    [propget] $oTargetArchs.FullyQualifiedName
-```
-
 ### cv::cuda::TargetArchs::IsInstance
 
 ```cpp
@@ -27398,14 +28087,6 @@ AutoIt:
 ```
 
 ## cv::cuda::DeviceInfo
-
-### DeviceInfo.FullyQualifiedName
-
-```cpp
-static std::string cv::cuda::DeviceInfo::FullyQualifiedName
-AutoIt:
-    [propget] $oDeviceInfo.FullyQualifiedName
-```
 
 ### cv::cuda::DeviceInfo::get\_create
 
@@ -27919,14 +28600,6 @@ AutoIt:
 
 ## cv::\_InputArray
 
-### \_InputArray.FullyQualifiedName
-
-```cpp
-static std::string cv::_InputArray::FullyQualifiedName
-AutoIt:
-    [propget] $o_InputArray.FullyQualifiedName
-```
-
 ### cv::\_InputArray::IsInstance
 
 ```cpp
@@ -28102,14 +28775,6 @@ AutoIt:
 ```
 
 ## cv::\_OutputArray
-
-### \_OutputArray.FullyQualifiedName
-
-```cpp
-static std::string cv::_OutputArray::FullyQualifiedName
-AutoIt:
-    [propget] $o_OutputArray.FullyQualifiedName
-```
 
 ### cv::\_OutputArray::IsInstance
 
@@ -28375,14 +29040,6 @@ AutoIt:
 std::vector<size_t> cv::Mat::steps
 AutoIt:
     [propget] $oMat.steps
-```
-
-### Mat.FullyQualifiedName
-
-```cpp
-static std::string cv::Mat::FullyQualifiedName
-AutoIt:
-    [propget] $oMat.FullyQualifiedName
 ```
 
 ### cv::Mat::create
@@ -31754,14 +32411,6 @@ AutoIt:
     [propget] $oUMat.steps
 ```
 
-### UMat.FullyQualifiedName
-
-```cpp
-static std::string cv::UMat::FullyQualifiedName
-AutoIt:
-    [propget] $oUMat.FullyQualifiedName
-```
-
 ### cv::UMat::get\_create
 
 ```cpp
@@ -32697,14 +33346,6 @@ AutoIt:
 
 ## cv::ocl::Device
 
-### Device.FullyQualifiedName
-
-```cpp
-static std::string cv::ocl::Device::FullyQualifiedName
-AutoIt:
-    [propget] $oDevice.FullyQualifiedName
-```
-
 ### cv::ocl::Device::get\_create
 
 ```cpp
@@ -33587,14 +34228,6 @@ AutoIt:
 
 ## cv::ocl::OpenCLExecutionContext
 
-### OpenCLExecutionContext.FullyQualifiedName
-
-```cpp
-static std::string cv::ocl::OpenCLExecutionContext::FullyQualifiedName
-AutoIt:
-    [propget] $oOpenCLExecutionContext.FullyQualifiedName
-```
-
 ### cv::ocl::OpenCLExecutionContext::IsInstance
 
 ```cpp
@@ -33801,14 +34434,6 @@ AutoIt:
 
 ## cv::FileStorage
 
-### FileStorage.FullyQualifiedName
-
-```cpp
-static std::string cv::FileStorage::FullyQualifiedName
-AutoIt:
-    [propget] $oFileStorage.FullyQualifiedName
-```
-
 ### cv::FileStorage::get\_create
 
 ```cpp
@@ -33929,6 +34554,13 @@ AutoIt:
 ```cpp
 void cv::FileStorage::write( const std::string& name,
                              int                val );
+AutoIt:
+    $oFileStorage.write( $name, $val ) -> None
+```
+
+```cpp
+void cv::FileStorage::write( const std::string& name,
+                             int64_t            val );
 AutoIt:
     $oFileStorage.write( $name, $val ) -> None
 ```
@@ -34091,14 +34723,6 @@ AutoIt:
 ```
 
 ## cv::FileNode
-
-### FileNode.FullyQualifiedName
-
-```cpp
-static std::string cv::FileNode::FullyQualifiedName
-AutoIt:
-    [propget] $oFileNode.FullyQualifiedName
-```
 
 ### cv::FileNode::get\_create
 
@@ -34606,14 +35230,6 @@ AutoIt:
     [propget, propput] $oRotatedRect.angle
 ```
 
-### RotatedRect.FullyQualifiedName
-
-```cpp
-static std::string cv::RotatedRect::FullyQualifiedName
-AutoIt:
-    [propget] $oRotatedRect.FullyQualifiedName
-```
-
 ### cv::RotatedRect::get\_create
 
 ```cpp
@@ -34758,14 +35374,6 @@ AutoIt:
     [propget, propput] $oKeyPoint.class_id
 ```
 
-### KeyPoint.FullyQualifiedName
-
-```cpp
-static std::string cv::KeyPoint::FullyQualifiedName
-AutoIt:
-    [propget] $oKeyPoint.FullyQualifiedName
-```
-
 ### cv::KeyPoint::get\_create
 
 ```cpp
@@ -34865,14 +35473,6 @@ AutoIt:
     [propget, propput] $oDMatch.distance
 ```
 
-### DMatch.FullyQualifiedName
-
-```cpp
-static std::string cv::DMatch::FullyQualifiedName
-AutoIt:
-    [propget] $oDMatch.FullyQualifiedName
-```
-
 ### cv::DMatch::get\_create
 
 ```cpp
@@ -34938,14 +35538,6 @@ AutoIt:
 double cv::TermCriteria::epsilon
 AutoIt:
     [propget, propput] $oTermCriteria.epsilon
-```
-
-### TermCriteria.FullyQualifiedName
-
-```cpp
-static std::string cv::TermCriteria::FullyQualifiedName
-AutoIt:
-    [propget] $oTermCriteria.FullyQualifiedName
 ```
 
 ### cv::TermCriteria::get\_create
@@ -35197,14 +35789,6 @@ AutoIt:
     [propget, propput] $oMoments.nu03
 ```
 
-### Moments.FullyQualifiedName
-
-```cpp
-static std::string cv::Moments::FullyQualifiedName
-AutoIt:
-    [propget] $oMoments.FullyQualifiedName
-```
-
 ### cv::Moments::get\_create
 
 ```cpp
@@ -35228,14 +35812,6 @@ AutoIt:
 ```
 
 ## cv::TickMeter
-
-### TickMeter.FullyQualifiedName
-
-```cpp
-static std::string cv::TickMeter::FullyQualifiedName
-AutoIt:
-    [propget] $oTickMeter.FullyQualifiedName
-```
 
 ### cv::TickMeter::get\_create
 
@@ -35289,6 +35865,38 @@ AutoIt:
 double cv::TickMeter::getFPS() const;
 AutoIt:
     $oTickMeter.getFPS() -> retval
+```
+
+### cv::TickMeter::getLastTimeMicro
+
+```cpp
+double cv::TickMeter::getLastTimeMicro() const;
+AutoIt:
+    $oTickMeter.getLastTimeMicro() -> retval
+```
+
+### cv::TickMeter::getLastTimeMilli
+
+```cpp
+double cv::TickMeter::getLastTimeMilli() const;
+AutoIt:
+    $oTickMeter.getLastTimeMilli() -> retval
+```
+
+### cv::TickMeter::getLastTimeSec
+
+```cpp
+double cv::TickMeter::getLastTimeSec() const;
+AutoIt:
+    $oTickMeter.getLastTimeSec() -> retval
+```
+
+### cv::TickMeter::getLastTimeTicks
+
+```cpp
+int64 cv::TickMeter::getLastTimeTicks() const;
+AutoIt:
+    $oTickMeter.getLastTimeTicks() -> retval
 ```
 
 ### cv::TickMeter::getTimeMicro
@@ -35484,14 +36092,6 @@ AutoIt:
 
 ## cv::flann::Index
 
-### Index.FullyQualifiedName
-
-```cpp
-static std::string cv::flann::Index::FullyQualifiedName
-AutoIt:
-    [propget] $oIndex.FullyQualifiedName
-```
-
 ### cv::flann::Index::get\_create
 
 ```cpp
@@ -35600,14 +36200,6 @@ AutoIt:
 ```
 
 ## cv::GeneralizedHough
-
-### GeneralizedHough.FullyQualifiedName
-
-```cpp
-static std::string cv::GeneralizedHough::FullyQualifiedName
-AutoIt:
-    [propget] $oGeneralizedHough.FullyQualifiedName
-```
 
 ### cv::GeneralizedHough::IsInstance
 
@@ -35797,14 +36389,6 @@ AutoIt:
 ```
 
 ## cv::GeneralizedHoughBallard
-
-### GeneralizedHoughBallard.FullyQualifiedName
-
-```cpp
-static std::string cv::GeneralizedHoughBallard::FullyQualifiedName
-AutoIt:
-    [propget] $oGeneralizedHoughBallard.FullyQualifiedName
-```
 
 ### cv::GeneralizedHoughBallard::IsInstance
 
@@ -36026,14 +36610,6 @@ AutoIt:
 ```
 
 ## cv::GeneralizedHoughGuil
-
-### GeneralizedHoughGuil.FullyQualifiedName
-
-```cpp
-static std::string cv::GeneralizedHoughGuil::FullyQualifiedName
-AutoIt:
-    [propget] $oGeneralizedHoughGuil.FullyQualifiedName
-```
 
 ### cv::GeneralizedHoughGuil::IsInstance
 
@@ -36416,14 +36992,6 @@ AutoIt:
 
 ## cv::CLAHE
 
-### CLAHE.FullyQualifiedName
-
-```cpp
-static std::string cv::CLAHE::FullyQualifiedName
-AutoIt:
-    [propget] $oCLAHE.FullyQualifiedName
-```
-
 ### cv::CLAHE::IsInstance
 
 ```cpp
@@ -36543,14 +37111,6 @@ AutoIt:
 ```
 
 ## cv::Subdiv2D
-
-### Subdiv2D.FullyQualifiedName
-
-```cpp
-static std::string cv::Subdiv2D::FullyQualifiedName
-AutoIt:
-    [propget] $oSubdiv2D.FullyQualifiedName
-```
 
 ### cv::Subdiv2D::get\_create
 
@@ -36823,14 +37383,6 @@ AutoIt:
 
 ## cv::LineSegmentDetector
 
-### LineSegmentDetector.FullyQualifiedName
-
-```cpp
-static std::string cv::LineSegmentDetector::FullyQualifiedName
-AutoIt:
-    [propget] $oLineSegmentDetector.FullyQualifiedName
-```
-
 ### cv::LineSegmentDetector::IsInstance
 
 ```cpp
@@ -36943,14 +37495,6 @@ AutoIt:
 ```
 
 ## cv::segmentation::IntelligentScissorsMB
-
-### IntelligentScissorsMB.FullyQualifiedName
-
-```cpp
-static std::string cv::segmentation::IntelligentScissorsMB::FullyQualifiedName
-AutoIt:
-    [propget] $oIntelligentScissorsMB.FullyQualifiedName
-```
 
 ### cv::segmentation::IntelligentScissorsMB::get\_create
 
@@ -37236,14 +37780,6 @@ AutoIt:
     [propget, propput] $oParamGrid.logStep
 ```
 
-### ParamGrid.FullyQualifiedName
-
-```cpp
-static std::string cv::ml::ParamGrid::FullyQualifiedName
-AutoIt:
-    [propget] $oParamGrid.FullyQualifiedName
-```
-
 ### cv::ml::ParamGrid::get\_create
 
 ```cpp
@@ -37270,14 +37806,6 @@ AutoIt:
 ```
 
 ## cv::ml::TrainData
-
-### TrainData.FullyQualifiedName
-
-```cpp
-static std::string cv::ml::TrainData::FullyQualifiedName
-AutoIt:
-    [propget] $oTrainData.FullyQualifiedName
-```
 
 ### cv::ml::TrainData::get\_create
 
@@ -37625,14 +38153,6 @@ AutoIt:
 
 ## cv::ml::StatModel
 
-### StatModel.FullyQualifiedName
-
-```cpp
-static std::string cv::ml::StatModel::FullyQualifiedName
-AutoIt:
-    [propget] $oStatModel.FullyQualifiedName
-```
-
 ### cv::ml::StatModel::IsInstance
 
 ```cpp
@@ -37797,14 +38317,6 @@ AutoIt:
 
 ## cv::ml::NormalBayesClassifier
 
-### NormalBayesClassifier.FullyQualifiedName
-
-```cpp
-static std::string cv::ml::NormalBayesClassifier::FullyQualifiedName
-AutoIt:
-    [propget] $oNormalBayesClassifier.FullyQualifiedName
-```
-
 ### cv::ml::NormalBayesClassifier::get\_create
 
 ```cpp
@@ -37964,14 +38476,6 @@ AutoIt:
 ```
 
 ## cv::ml::KNearest
-
-### KNearest.FullyQualifiedName
-
-```cpp
-static std::string cv::ml::KNearest::FullyQualifiedName
-AutoIt:
-    [propget] $oKNearest.FullyQualifiedName
-```
 
 ### cv::ml::KNearest::get\_create
 
@@ -38212,14 +38716,6 @@ AutoIt:
 ```
 
 ## cv::ml::SVM
-
-### SVM.FullyQualifiedName
-
-```cpp
-static std::string cv::ml::SVM::FullyQualifiedName
-AutoIt:
-    [propget] $oSVM.FullyQualifiedName
-```
 
 ### cv::ml::SVM::get\_create
 
@@ -38725,14 +39221,6 @@ AutoIt:
 
 ## cv::ml::EM
 
-### EM.FullyQualifiedName
-
-```cpp
-static std::string cv::ml::EM::FullyQualifiedName
-AutoIt:
-    [propget] $oEM.FullyQualifiedName
-```
-
 ### cv::ml::EM::get\_create
 
 ```cpp
@@ -39072,14 +39560,6 @@ AutoIt:
 
 ## cv::ml::DTrees
 
-### DTrees.FullyQualifiedName
-
-```cpp
-static std::string cv::ml::DTrees::FullyQualifiedName
-AutoIt:
-    [propget] $oDTrees.FullyQualifiedName
-```
-
 ### cv::ml::DTrees::get\_create
 
 ```cpp
@@ -39404,14 +39884,6 @@ AutoIt:
 ```
 
 ## cv::ml::RTrees
-
-### RTrees.FullyQualifiedName
-
-```cpp
-static std::string cv::ml::RTrees::FullyQualifiedName
-AutoIt:
-    [propget] $oRTrees.FullyQualifiedName
-```
 
 ### cv::ml::RTrees::get\_create
 
@@ -39779,14 +40251,6 @@ AutoIt:
 ```
 
 ## cv::ml::Boost
-
-### Boost.FullyQualifiedName
-
-```cpp
-static std::string cv::ml::Boost::FullyQualifiedName
-AutoIt:
-    [propget] $oBoost.FullyQualifiedName
-```
 
 ### cv::ml::Boost::get\_create
 
@@ -40160,14 +40624,6 @@ AutoIt:
 ```
 
 ## cv::ml::ANN\_MLP
-
-### ANN\_MLP.FullyQualifiedName
-
-```cpp
-static std::string cv::ml::ANN_MLP::FullyQualifiedName
-AutoIt:
-    [propget] $oANN_MLP.FullyQualifiedName
-```
 
 ### cv::ml::ANN\_MLP::get\_create
 
@@ -40649,14 +41105,6 @@ AutoIt:
 
 ## cv::ml::LogisticRegression
 
-### LogisticRegression.FullyQualifiedName
-
-```cpp
-static std::string cv::ml::LogisticRegression::FullyQualifiedName
-AutoIt:
-    [propget] $oLogisticRegression.FullyQualifiedName
-```
-
 ### cv::ml::LogisticRegression::get\_create
 
 ```cpp
@@ -40949,14 +41397,6 @@ AutoIt:
 ```
 
 ## cv::ml::SVMSGD
-
-### SVMSGD.FullyQualifiedName
-
-```cpp
-static std::string cv::ml::SVMSGD::FullyQualifiedName
-AutoIt:
-    [propget] $oSVMSGD.FullyQualifiedName
-```
 
 ### cv::ml::SVMSGD::get\_create
 
@@ -41260,14 +41700,6 @@ AutoIt:
 
 ## cv::Tonemap
 
-### Tonemap.FullyQualifiedName
-
-```cpp
-static std::string cv::Tonemap::FullyQualifiedName
-AutoIt:
-    [propget] $oTonemap.FullyQualifiedName
-```
-
 ### cv::Tonemap::IsInstance
 
 ```cpp
@@ -41363,14 +41795,6 @@ AutoIt:
 ```
 
 ## cv::TonemapDrago
-
-### TonemapDrago.FullyQualifiedName
-
-```cpp
-static std::string cv::TonemapDrago::FullyQualifiedName
-AutoIt:
-    [propget] $oTonemapDrago.FullyQualifiedName
-```
 
 ### cv::TonemapDrago::IsInstance
 
@@ -41499,14 +41923,6 @@ AutoIt:
 ```
 
 ## cv::TonemapReinhard
-
-### TonemapReinhard.FullyQualifiedName
-
-```cpp
-static std::string cv::TonemapReinhard::FullyQualifiedName
-AutoIt:
-    [propget] $oTonemapReinhard.FullyQualifiedName
-```
 
 ### cv::TonemapReinhard::IsInstance
 
@@ -41652,14 +42068,6 @@ AutoIt:
 
 ## cv::TonemapMantiuk
 
-### TonemapMantiuk.FullyQualifiedName
-
-```cpp
-static std::string cv::TonemapMantiuk::FullyQualifiedName
-AutoIt:
-    [propget] $oTonemapMantiuk.FullyQualifiedName
-```
-
 ### cv::TonemapMantiuk::IsInstance
 
 ```cpp
@@ -41788,14 +42196,6 @@ AutoIt:
 
 ## cv::AlignExposures
 
-### AlignExposures.FullyQualifiedName
-
-```cpp
-static std::string cv::AlignExposures::FullyQualifiedName
-AutoIt:
-    [propget] $oAlignExposures.FullyQualifiedName
-```
-
 ### cv::AlignExposures::IsInstance
 
 ```cpp
@@ -41877,14 +42277,6 @@ AutoIt:
 ```
 
 ## cv::AlignMTB
-
-### AlignMTB.FullyQualifiedName
-
-```cpp
-static std::string cv::AlignMTB::FullyQualifiedName
-AutoIt:
-    [propget] $oAlignMTB.FullyQualifiedName
-```
 
 ### cv::AlignMTB::IsInstance
 
@@ -42052,14 +42444,6 @@ AutoIt:
 
 ## cv::CalibrateCRF
 
-### CalibrateCRF.FullyQualifiedName
-
-```cpp
-static std::string cv::CalibrateCRF::FullyQualifiedName
-AutoIt:
-    [propget] $oCalibrateCRF.FullyQualifiedName
-```
-
 ### cv::CalibrateCRF::IsInstance
 
 ```cpp
@@ -42140,14 +42524,6 @@ AutoIt:
 ```
 
 ## cv::CalibrateDebevec
-
-### CalibrateDebevec.FullyQualifiedName
-
-```cpp
-static std::string cv::CalibrateDebevec::FullyQualifiedName
-AutoIt:
-    [propget] $oCalibrateDebevec.FullyQualifiedName
-```
 
 ### cv::CalibrateDebevec::IsInstance
 
@@ -42278,14 +42654,6 @@ AutoIt:
 
 ## cv::CalibrateRobertson
 
-### CalibrateRobertson.FullyQualifiedName
-
-```cpp
-static std::string cv::CalibrateRobertson::FullyQualifiedName
-AutoIt:
-    [propget] $oCalibrateRobertson.FullyQualifiedName
-```
-
 ### cv::CalibrateRobertson::IsInstance
 
 ```cpp
@@ -42407,14 +42775,6 @@ AutoIt:
 
 ## cv::MergeExposures
 
-### MergeExposures.FullyQualifiedName
-
-```cpp
-static std::string cv::MergeExposures::FullyQualifiedName
-AutoIt:
-    [propget] $oMergeExposures.FullyQualifiedName
-```
-
 ### cv::MergeExposures::IsInstance
 
 ```cpp
@@ -42496,14 +42856,6 @@ AutoIt:
 ```
 
 ## cv::MergeDebevec
-
-### MergeDebevec.FullyQualifiedName
-
-```cpp
-static std::string cv::MergeDebevec::FullyQualifiedName
-AutoIt:
-    [propget] $oMergeDebevec.FullyQualifiedName
-```
 
 ### cv::MergeDebevec::IsInstance
 
@@ -42594,14 +42946,6 @@ AutoIt:
 ```
 
 ## cv::MergeMertens
-
-### MergeMertens.FullyQualifiedName
-
-```cpp
-static std::string cv::MergeMertens::FullyQualifiedName
-AutoIt:
-    [propget] $oMergeMertens.FullyQualifiedName
-```
 
 ### cv::MergeMertens::IsInstance
 
@@ -42740,14 +43084,6 @@ AutoIt:
 
 ## cv::MergeRobertson
 
-### MergeRobertson.FullyQualifiedName
-
-```cpp
-static std::string cv::MergeRobertson::FullyQualifiedName
-AutoIt:
-    [propget] $oMergeRobertson.FullyQualifiedName
-```
-
 ### cv::MergeRobertson::IsInstance
 
 ```cpp
@@ -42837,14 +43173,6 @@ AutoIt:
 ```
 
 ## cv::dnn
-
-### dnn.DictValue
-
-```cpp
-static cv::dnn::DictValue
-AutoIt:
-    [propget] $odnn.DictValue
-```
 
 ### dnn.Layer
 
@@ -43484,101 +43812,6 @@ AutoIt:
     [propget] $odnn.DNN_PMODE_LETTERBOX_
 ```
 
-## cv::dnn::DictValue
-
-### DictValue.FullyQualifiedName
-
-```cpp
-static std::string cv::dnn::DictValue::FullyQualifiedName
-AutoIt:
-    [propget] $oDictValue.FullyQualifiedName
-```
-
-### cv::dnn::DictValue::get\_create
-
-```cpp
-static cv::dnn::DictValue cv::dnn::DictValue::get_create( int i );
-AutoIt:
-    _OpenCV_ObjCreate("cv.dnn.DictValue").create( $i ) -> <cv.dnn.DictValue object>
-    $oDictValue( $i ) -> <cv.dnn.DictValue object>
-```
-
-```cpp
-static cv::dnn::DictValue cv::dnn::DictValue::get_create( double p );
-AutoIt:
-    _OpenCV_ObjCreate("cv.dnn.DictValue").create( $p ) -> <cv.dnn.DictValue object>
-    $oDictValue( $p ) -> <cv.dnn.DictValue object>
-```
-
-```cpp
-static cv::dnn::DictValue cv::dnn::DictValue::get_create( const std::string& s );
-AutoIt:
-    _OpenCV_ObjCreate("cv.dnn.DictValue").create( $s ) -> <cv.dnn.DictValue object>
-    $oDictValue( $s ) -> <cv.dnn.DictValue object>
-```
-
-### cv::dnn::DictValue::IsInstance
-
-```cpp
-static bool cv::dnn::DictValue::IsInstance( const cv::dnn::DictValue& obj );
-AutoIt:
-    _OpenCV_ObjCreate("cv.dnn.DictValue").IsInstance( $obj ) -> retval
-```
-
-```cpp
-static bool cv::dnn::DictValue::IsInstance( VARIANT* obj );
-AutoIt:
-    _OpenCV_ObjCreate("cv.dnn.DictValue").IsInstance( $obj ) -> retval
-```
-
-### cv::dnn::DictValue::getIntValue
-
-```cpp
-int cv::dnn::DictValue::getIntValue( int idx = -1 ) const;
-AutoIt:
-    $oDictValue.getIntValue( [$idx] ) -> retval
-```
-
-### cv::dnn::DictValue::getRealValue
-
-```cpp
-double cv::dnn::DictValue::getRealValue( int idx = -1 ) const;
-AutoIt:
-    $oDictValue.getRealValue( [$idx] ) -> retval
-```
-
-### cv::dnn::DictValue::getStringValue
-
-```cpp
-std::string cv::dnn::DictValue::getStringValue( int idx = -1 ) const;
-AutoIt:
-    $oDictValue.getStringValue( [$idx] ) -> retval
-```
-
-### cv::dnn::DictValue::isInt
-
-```cpp
-bool cv::dnn::DictValue::isInt() const;
-AutoIt:
-    $oDictValue.isInt() -> retval
-```
-
-### cv::dnn::DictValue::isReal
-
-```cpp
-bool cv::dnn::DictValue::isReal() const;
-AutoIt:
-    $oDictValue.isReal() -> retval
-```
-
-### cv::dnn::DictValue::isString
-
-```cpp
-bool cv::dnn::DictValue::isString() const;
-AutoIt:
-    $oDictValue.isString() -> retval
-```
-
 ## cv::dnn::Layer
 
 ### Layer.blobs
@@ -43611,14 +43844,6 @@ AutoIt:
 int cv::dnn::Layer::preferableTarget
 AutoIt:
     [propget] $oLayer.preferableTarget
-```
-
-### Layer.FullyQualifiedName
-
-```cpp
-static std::string cv::dnn::Layer::FullyQualifiedName
-AutoIt:
-    [propget] $oLayer.FullyQualifiedName
 ```
 
 ### cv::dnn::Layer::IsInstance
@@ -43719,14 +43944,6 @@ AutoIt:
 
 ## cv::dnn::Net
 
-### Net.FullyQualifiedName
-
-```cpp
-static std::string cv::dnn::Net::FullyQualifiedName
-AutoIt:
-    [propget] $oNet.FullyQualifiedName
-```
-
 ### cv::dnn::Net::get\_create
 
 ```cpp
@@ -43747,6 +43964,28 @@ AutoIt:
 static bool cv::dnn::Net::IsInstance( VARIANT* obj );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.Net").IsInstance( $obj ) -> retval
+```
+
+### cv::dnn::Net::addLayer
+
+```cpp
+int cv::dnn::Net::addLayer( const std::string& name,
+                            const std::string& type,
+                            const int&         dtype,
+                            LayerParams&       params );
+AutoIt:
+    $oNet.addLayer( $name, $type, $dtype, $params ) -> retval
+```
+
+### cv::dnn::Net::addLayerToPrev
+
+```cpp
+int cv::dnn::Net::addLayerToPrev( const std::string& name,
+                                  const std::string& type,
+                                  const int&         dtype,
+                                  LayerParams&       params );
+AutoIt:
+    $oNet.addLayerToPrev( $name, $type, $dtype, $params ) -> retval
 ```
 
 ### cv::dnn::Net::connect
@@ -43897,7 +44136,7 @@ AutoIt:
 ```
 
 ```cpp
-cv::Ptr<cv::dnn::Layer> cv::dnn::Net::getLayer( const cv::dnn::DictValue& layerId ) const;
+cv::Ptr<cv::dnn::Layer> cv::dnn::Net::getLayer( const dnn::DictValue& layerId ) const;
 AutoIt:
     $oNet.getLayer( $layerId ) -> retval
 ```
@@ -44194,14 +44433,6 @@ AutoIt:
     [propget, propput] $oImage2BlobParams.borderValue
 ```
 
-### Image2BlobParams.FullyQualifiedName
-
-```cpp
-static std::string cv::dnn::Image2BlobParams::FullyQualifiedName
-AutoIt:
-    [propget] $oImage2BlobParams.FullyQualifiedName
-```
-
 ### cv::dnn::Image2BlobParams::get\_create
 
 ```cpp
@@ -44276,14 +44507,6 @@ AutoIt:
 ```
 
 ## cv::dnn::Model
-
-### Model.FullyQualifiedName
-
-```cpp
-static std::string cv::dnn::Model::FullyQualifiedName
-AutoIt:
-    [propget] $oModel.FullyQualifiedName
-```
 
 ### cv::dnn::Model::get\_create
 
@@ -44417,14 +44640,6 @@ AutoIt:
 ```
 
 ## cv::dnn::ClassificationModel
-
-### ClassificationModel.FullyQualifiedName
-
-```cpp
-static std::string cv::dnn::ClassificationModel::FullyQualifiedName
-AutoIt:
-    [propget] $oClassificationModel.FullyQualifiedName
-```
 
 ### cv::dnn::ClassificationModel::get\_create
 
@@ -44585,14 +44800,6 @@ AutoIt:
 
 ## cv::dnn::KeypointsModel
 
-### KeypointsModel.FullyQualifiedName
-
-```cpp
-static std::string cv::dnn::KeypointsModel::FullyQualifiedName
-AutoIt:
-    [propget] $oKeypointsModel.FullyQualifiedName
-```
-
 ### cv::dnn::KeypointsModel::get\_create
 
 ```cpp
@@ -44735,14 +44942,6 @@ AutoIt:
 
 ## cv::dnn::SegmentationModel
 
-### SegmentationModel.FullyQualifiedName
-
-```cpp
-static std::string cv::dnn::SegmentationModel::FullyQualifiedName
-AutoIt:
-    [propget] $oSegmentationModel.FullyQualifiedName
-```
-
 ### cv::dnn::SegmentationModel::get\_create
 
 ```cpp
@@ -44884,14 +45083,6 @@ AutoIt:
 ```
 
 ## cv::dnn::DetectionModel
-
-### DetectionModel.FullyQualifiedName
-
-```cpp
-static std::string cv::dnn::DetectionModel::FullyQualifiedName
-AutoIt:
-    [propget] $oDetectionModel.FullyQualifiedName
-```
 
 ### cv::dnn::DetectionModel::get\_create
 
@@ -45054,14 +45245,6 @@ AutoIt:
 ```
 
 ## cv::dnn::TextRecognitionModel
-
-### TextRecognitionModel.FullyQualifiedName
-
-```cpp
-static std::string cv::dnn::TextRecognitionModel::FullyQualifiedName
-AutoIt:
-    [propget] $oTextRecognitionModel.FullyQualifiedName
-```
 
 ### cv::dnn::TextRecognitionModel::get\_create
 
@@ -45253,14 +45436,6 @@ AutoIt:
 
 ## cv::dnn::TextDetectionModel
 
-### TextDetectionModel.FullyQualifiedName
-
-```cpp
-static std::string cv::dnn::TextDetectionModel::FullyQualifiedName
-AutoIt:
-    [propget] $oTextDetectionModel.FullyQualifiedName
-```
-
 ### cv::dnn::TextDetectionModel::IsInstance
 
 ```cpp
@@ -45410,14 +45585,6 @@ AutoIt:
 ```
 
 ## cv::dnn::TextDetectionModel\_EAST
-
-### TextDetectionModel\_EAST.FullyQualifiedName
-
-```cpp
-static std::string cv::dnn::TextDetectionModel_EAST::FullyQualifiedName
-AutoIt:
-    [propget] $oTextDetectionModel_EAST.FullyQualifiedName
-```
 
 ### cv::dnn::TextDetectionModel\_EAST::get\_create
 
@@ -45617,14 +45784,6 @@ AutoIt:
 ```
 
 ## cv::dnn::TextDetectionModel\_DB
-
-### TextDetectionModel\_DB.FullyQualifiedName
-
-```cpp
-static std::string cv::dnn::TextDetectionModel_DB::FullyQualifiedName
-AutoIt:
-    [propget] $oTextDetectionModel_DB.FullyQualifiedName
-```
 
 ### cv::dnn::TextDetectionModel\_DB::get\_create
 
@@ -45857,14 +46016,6 @@ AutoIt:
 
 ## cv::Feature2D
 
-### Feature2D.FullyQualifiedName
-
-```cpp
-static std::string cv::Feature2D::FullyQualifiedName
-AutoIt:
-    [propget] $oFeature2D.FullyQualifiedName
-```
-
 ### cv::Feature2D::IsInstance
 
 ```cpp
@@ -46019,14 +46170,6 @@ AutoIt:
 ```
 
 ## cv::AffineFeature
-
-### AffineFeature.FullyQualifiedName
-
-```cpp
-static std::string cv::AffineFeature::FullyQualifiedName
-AutoIt:
-    [propget] $oAffineFeature.FullyQualifiedName
-```
 
 ### cv::AffineFeature::get\_create
 
@@ -46213,14 +46356,6 @@ AutoIt:
 ```
 
 ## cv::SIFT
-
-### SIFT.FullyQualifiedName
-
-```cpp
-static std::string cv::SIFT::FullyQualifiedName
-AutoIt:
-    [propget] $oSIFT.FullyQualifiedName
-```
 
 ### cv::SIFT::get\_create
 
@@ -46484,14 +46619,6 @@ AutoIt:
 
 ## cv::BRISK
 
-### BRISK.FullyQualifiedName
-
-```cpp
-static std::string cv::BRISK::FullyQualifiedName
-AutoIt:
-    [propget] $oBRISK.FullyQualifiedName
-```
-
 ### cv::BRISK::get\_create
 
 ```cpp
@@ -46729,14 +46856,6 @@ AutoIt:
 ```
 
 ## cv::ORB
-
-### ORB.FullyQualifiedName
-
-```cpp
-static std::string cv::ORB::FullyQualifiedName
-AutoIt:
-    [propget] $oORB.FullyQualifiedName
-```
 
 ### cv::ORB::get\_create
 
@@ -47069,14 +47188,6 @@ AutoIt:
 ```
 
 ## cv::MSER
-
-### MSER.FullyQualifiedName
-
-```cpp
-static std::string cv::MSER::FullyQualifiedName
-AutoIt:
-    [propget] $oMSER.FullyQualifiedName
-```
 
 ### cv::MSER::get\_create
 
@@ -47420,14 +47531,6 @@ AutoIt:
 
 ## cv::FastFeatureDetector
 
-### FastFeatureDetector.FullyQualifiedName
-
-```cpp
-static std::string cv::FastFeatureDetector::FullyQualifiedName
-AutoIt:
-    [propget] $oFastFeatureDetector.FullyQualifiedName
-```
-
 ### cv::FastFeatureDetector::get\_create
 
 ```cpp
@@ -47690,14 +47793,6 @@ AutoIt:
 
 ## cv::AgastFeatureDetector
 
-### AgastFeatureDetector.FullyQualifiedName
-
-```cpp
-static std::string cv::AgastFeatureDetector::FullyQualifiedName
-AutoIt:
-    [propget] $oAgastFeatureDetector.FullyQualifiedName
-```
-
 ### cv::AgastFeatureDetector::get\_create
 
 ```cpp
@@ -47959,14 +48054,6 @@ AutoIt:
 ```
 
 ## cv::GFTTDetector
-
-### GFTTDetector.FullyQualifiedName
-
-```cpp
-static std::string cv::GFTTDetector::FullyQualifiedName
-AutoIt:
-    [propget] $oGFTTDetector.FullyQualifiedName
-```
 
 ### cv::GFTTDetector::get\_create
 
@@ -48268,14 +48355,6 @@ AutoIt:
 static cv::SimpleBlobDetector::Params
 AutoIt:
     [propget] $oSimpleBlobDetector.Params
-```
-
-### SimpleBlobDetector.FullyQualifiedName
-
-```cpp
-static std::string cv::SimpleBlobDetector::FullyQualifiedName
-AutoIt:
-    [propget] $oSimpleBlobDetector.FullyQualifiedName
 ```
 
 ### cv::SimpleBlobDetector::get\_create
@@ -48626,14 +48705,6 @@ AutoIt:
     [propget, propput] $oParams.collectContours
 ```
 
-### Params.FullyQualifiedName
-
-```cpp
-static std::string cv::SimpleBlobDetector::Params::FullyQualifiedName
-AutoIt:
-    [propget] $oParams.FullyQualifiedName
-```
-
 ### cv::SimpleBlobDetector::Params::get\_create
 
 ```cpp
@@ -48657,14 +48728,6 @@ AutoIt:
 ```
 
 ## cv::KAZE
-
-### KAZE.FullyQualifiedName
-
-```cpp
-static std::string cv::KAZE::FullyQualifiedName
-AutoIt:
-    [propget] $oKAZE.FullyQualifiedName
-```
 
 ### cv::KAZE::get\_create
 
@@ -48962,14 +49025,6 @@ AutoIt:
 ```
 
 ## cv::AKAZE
-
-### AKAZE.FullyQualifiedName
-
-```cpp
-static std::string cv::AKAZE::FullyQualifiedName
-AutoIt:
-    [propget] $oAKAZE.FullyQualifiedName
-```
 
 ### cv::AKAZE::get\_create
 
@@ -49302,14 +49357,6 @@ AutoIt:
 
 ## cv::DescriptorMatcher
 
-### DescriptorMatcher.FullyQualifiedName
-
-```cpp
-static std::string cv::DescriptorMatcher::FullyQualifiedName
-AutoIt:
-    [propget] $oDescriptorMatcher.FullyQualifiedName
-```
-
 ### cv::DescriptorMatcher::get\_create
 
 ```cpp
@@ -49562,14 +49609,6 @@ AutoIt:
 
 ## cv::BFMatcher
 
-### BFMatcher.FullyQualifiedName
-
-```cpp
-static std::string cv::BFMatcher::FullyQualifiedName
-AutoIt:
-    [propget] $oBFMatcher.FullyQualifiedName
-```
-
 ### cv::BFMatcher::get\_create
 
 ```cpp
@@ -49775,14 +49814,6 @@ AutoIt:
 ```
 
 ## cv::FlannBasedMatcher
-
-### FlannBasedMatcher.FullyQualifiedName
-
-```cpp
-static std::string cv::FlannBasedMatcher::FullyQualifiedName
-AutoIt:
-    [propget] $oFlannBasedMatcher.FullyQualifiedName
-```
 
 ### cv::FlannBasedMatcher::get\_create
 
@@ -50022,14 +50053,6 @@ AutoIt:
 
 ## cv::BOWTrainer
 
-### BOWTrainer.FullyQualifiedName
-
-```cpp
-static std::string cv::BOWTrainer::FullyQualifiedName
-AutoIt:
-    [propget] $oBOWTrainer.FullyQualifiedName
-```
-
 ### cv::BOWTrainer::IsInstance
 
 ```cpp
@@ -50091,14 +50114,6 @@ AutoIt:
 ```
 
 ## cv::BOWKMeansTrainer
-
-### BOWKMeansTrainer.FullyQualifiedName
-
-```cpp
-static std::string cv::BOWKMeansTrainer::FullyQualifiedName
-AutoIt:
-    [propget] $oBOWKMeansTrainer.FullyQualifiedName
-```
 
 ### cv::BOWKMeansTrainer::get\_create
 
@@ -50174,14 +50189,6 @@ AutoIt:
 
 ## cv::BOWImgDescriptorExtractor
 
-### BOWImgDescriptorExtractor.FullyQualifiedName
-
-```cpp
-static std::string cv::BOWImgDescriptorExtractor::FullyQualifiedName
-AutoIt:
-    [propget] $oBOWImgDescriptorExtractor.FullyQualifiedName
-```
-
 ### cv::BOWImgDescriptorExtractor::get\_create
 
 ```cpp
@@ -50248,15 +50255,79 @@ AutoIt:
     $oBOWImgDescriptorExtractor.setVocabulary( $vocabulary ) -> None
 ```
 
-## cv::VideoCapture
+## cv::Animation
 
-### VideoCapture.FullyQualifiedName
+### Animation.loop\_count
 
 ```cpp
-static std::string cv::VideoCapture::FullyQualifiedName
+int cv::Animation::loop_count
 AutoIt:
-    [propget] $oVideoCapture.FullyQualifiedName
+    [propget, propput] $oAnimation.loop_count
 ```
+
+### Animation.bgcolor
+
+```cpp
+cv::Scalar cv::Animation::bgcolor
+AutoIt:
+    [propget, propput] $oAnimation.bgcolor
+```
+
+### Animation.durations
+
+```cpp
+std::vector<int> cv::Animation::durations
+AutoIt:
+    [propget, propput] $oAnimation.durations
+```
+
+### Animation.frames
+
+```cpp
+std::vector<cv::Mat> cv::Animation::frames
+AutoIt:
+    [propget, propput] $oAnimation.frames
+```
+
+### cv::Animation::get\_create
+
+```cpp
+static cv::Animation cv::Animation::get_create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.Animation").create() -> <cv.Animation object>
+```
+
+### cv::Animation::IsInstance
+
+```cpp
+static bool cv::Animation::IsInstance( const cv::Animation& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Animation").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::Animation::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Animation").IsInstance( $obj ) -> retval
+```
+
+## cv::IStreamReader
+
+### cv::IStreamReader::IsInstance
+
+```cpp
+static bool cv::IStreamReader::IsInstance( const cv::IStreamReader& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.IStreamReader").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::IStreamReader::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.IStreamReader").IsInstance( $obj ) -> retval
+```
+
+## cv::VideoCapture
 
 ### cv::VideoCapture::get\_create
 
@@ -50298,6 +50369,15 @@ static cv::VideoCapture cv::VideoCapture::get_create( int                     in
 AutoIt:
     _OpenCV_ObjCreate("cv.VideoCapture").create( $index, $apiPreference, $params ) -> <cv.VideoCapture object>
     $oVideoCapture( $index, $apiPreference, $params ) -> <cv.VideoCapture object>
+```
+
+```cpp
+static cv::VideoCapture cv::VideoCapture::get_create( const cv::Ptr<cv::IStreamReader>& source,
+                                                      int                               apiPreference,
+                                                      const std::vector<int>&           params );
+AutoIt:
+    _OpenCV_ObjCreate("cv.VideoCapture").create( $source, $apiPreference, $params ) -> <cv.VideoCapture object>
+    $oVideoCapture( $source, $apiPreference, $params ) -> <cv.VideoCapture object>
 ```
 
 ### cv::VideoCapture::IsInstance
@@ -50386,6 +50466,14 @@ AutoIt:
     $oVideoCapture.open( $index, $apiPreference, $params ) -> retval
 ```
 
+```cpp
+bool cv::VideoCapture::open( const cv::Ptr<cv::IStreamReader>& source,
+                             int                               apiPreference,
+                             const std::vector<int>&           params );
+AutoIt:
+    $oVideoCapture.open( $source, $apiPreference, $params ) -> retval
+```
+
 ### cv::VideoCapture::read
 
 ```cpp
@@ -50439,14 +50527,6 @@ AutoIt:
 ```
 
 ## cv::VideoWriter
-
-### VideoWriter.FullyQualifiedName
-
-```cpp
-static std::string cv::VideoWriter::FullyQualifiedName
-AutoIt:
-    [propget] $oVideoWriter.FullyQualifiedName
-```
 
 ### cv::VideoWriter::get\_create
 
@@ -50674,6 +50754,24 @@ AutoIt:
     _OpenCV_ObjCreate("cv.videoio_registry").getStreamBackends() -> retval
 ```
 
+### cv::videoio\_registry::getStreamBufferedBackendPluginVersion
+
+```cpp
+std::string cv::videoio_registry::getStreamBufferedBackendPluginVersion( cv::VideoCaptureAPIs api,
+                                                                         int&                 version_ABI,
+                                                                         int&                 version_API );
+AutoIt:
+    _OpenCV_ObjCreate("cv.videoio_registry").getStreamBufferedBackendPluginVersion( $api[, $version_ABI[, $version_API]] ) -> retval, $version_ABI, $version_API
+```
+
+### cv::videoio\_registry::getStreamBufferedBackends
+
+```cpp
+std::vector<cv::VideoCaptureAPIs> cv::videoio_registry::getStreamBufferedBackends();
+AutoIt:
+    _OpenCV_ObjCreate("cv.videoio_registry").getStreamBufferedBackends() -> retval
+```
+
 ### cv::videoio\_registry::getWriterBackendPluginVersion
 
 ```cpp
@@ -50812,14 +50910,6 @@ AutoIt:
 int cv::UsacParams::final_polisher_iterations
 AutoIt:
     [propget, propput] $oUsacParams.final_polisher_iterations
-```
-
-### UsacParams.FullyQualifiedName
-
-```cpp
-static std::string cv::UsacParams::FullyQualifiedName
-AutoIt:
-    [propget] $oUsacParams.FullyQualifiedName
 ```
 
 ### cv::UsacParams::get\_create
@@ -50966,14 +51056,6 @@ AutoIt:
     [propget, propput] $oCirclesGridFinderParameters.maxRectifiedDistance
 ```
 
-### CirclesGridFinderParameters.FullyQualifiedName
-
-```cpp
-static std::string cv::CirclesGridFinderParameters::FullyQualifiedName
-AutoIt:
-    [propget] $oCirclesGridFinderParameters.FullyQualifiedName
-```
-
 ### cv::CirclesGridFinderParameters::get\_create
 
 ```cpp
@@ -51013,14 +51095,6 @@ AutoIt:
 ```
 
 ## cv::StereoMatcher
-
-### StereoMatcher.FullyQualifiedName
-
-```cpp
-static std::string cv::StereoMatcher::FullyQualifiedName
-AutoIt:
-    [propget] $oStereoMatcher.FullyQualifiedName
-```
 
 ### cv::StereoMatcher::IsInstance
 
@@ -51214,14 +51288,6 @@ AutoIt:
 ```
 
 ## cv::StereoBM
-
-### StereoBM.FullyQualifiedName
-
-```cpp
-static std::string cv::StereoBM::FullyQualifiedName
-AutoIt:
-    [propget] $oStereoBM.FullyQualifiedName
-```
 
 ### cv::StereoBM::get\_create
 
@@ -51553,14 +51619,6 @@ AutoIt:
 ```
 
 ## cv::StereoSGBM
-
-### StereoSGBM.FullyQualifiedName
-
-```cpp
-static std::string cv::StereoSGBM::FullyQualifiedName
-AutoIt:
-    [propget] $oStereoSGBM.FullyQualifiedName
-```
 
 ### cv::StereoSGBM::get\_create
 
@@ -51898,6 +51956,17 @@ AutoIt:
     _OpenCV_ObjCreate("cv.fisheye").distortPoints( $undistorted, $K, $D[, $distorted[, $alpha]] ) -> $distorted
 ```
 
+```cpp
+void cv::fisheye::distortPoints( InputArray  undistorted,
+                                 OutputArray distorted,
+                                 InputArray  Kundistorted,
+                                 InputArray  K,
+                                 InputArray  D,
+                                 double      alpha = 0 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.fisheye").distortPoints( $undistorted, $Kundistorted, $K, $D[, $distorted[, $alpha]] ) -> $distorted
+```
+
 ### cv::fisheye::estimateNewCameraMatrixForUndistortRectify
 
 ```cpp
@@ -52145,14 +52214,6 @@ AutoIt:
 
 ## cv::BaseCascadeClassifier
 
-### BaseCascadeClassifier.FullyQualifiedName
-
-```cpp
-static std::string cv::BaseCascadeClassifier::FullyQualifiedName
-AutoIt:
-    [propget] $oBaseCascadeClassifier.FullyQualifiedName
-```
-
 ### cv::BaseCascadeClassifier::IsInstance
 
 ```cpp
@@ -52223,14 +52284,6 @@ AutoIt:
 ```
 
 ## cv::CascadeClassifier
-
-### CascadeClassifier.FullyQualifiedName
-
-```cpp
-static std::string cv::CascadeClassifier::FullyQualifiedName
-AutoIt:
-    [propget] $oCascadeClassifier.FullyQualifiedName
-```
 
 ### cv::CascadeClassifier::get\_create
 
@@ -52470,14 +52523,6 @@ AutoIt:
     [propget] $oHOGDescriptor.signedGradient
 ```
 
-### HOGDescriptor.FullyQualifiedName
-
-```cpp
-static std::string cv::HOGDescriptor::FullyQualifiedName
-AutoIt:
-    [propget] $oHOGDescriptor.FullyQualifiedName
-```
-
 ### cv::HOGDescriptor::get\_create
 
 ```cpp
@@ -52687,14 +52732,6 @@ AutoIt:
     [propget] $oQRCodeEncoder.Params
 ```
 
-### QRCodeEncoder.FullyQualifiedName
-
-```cpp
-static std::string cv::QRCodeEncoder::FullyQualifiedName
-AutoIt:
-    [propget] $oQRCodeEncoder.FullyQualifiedName
-```
-
 ### cv::QRCodeEncoder::get\_create
 
 ```cpp
@@ -52866,14 +52903,6 @@ AutoIt:
     [propget, propput] $oParams.structure_number
 ```
 
-### Params.FullyQualifiedName
-
-```cpp
-static std::string cv::QRCodeEncoder::Params::FullyQualifiedName
-AutoIt:
-    [propget] $oParams.FullyQualifiedName
-```
-
 ### cv::QRCodeEncoder::Params::get\_create
 
 ```cpp
@@ -52897,14 +52926,6 @@ AutoIt:
 ```
 
 ## cv::QRCodeDetector
-
-### QRCodeDetector.FullyQualifiedName
-
-```cpp
-static std::string cv::QRCodeDetector::FullyQualifiedName
-AutoIt:
-    [propget] $oQRCodeDetector.FullyQualifiedName
-```
 
 ### cv::QRCodeDetector::get\_create
 
@@ -53040,14 +53061,6 @@ AutoIt:
 static cv::QRCodeDetectorAruco::Params
 AutoIt:
     [propget] $oQRCodeDetectorAruco.Params
-```
-
-### QRCodeDetectorAruco.FullyQualifiedName
-
-```cpp
-static std::string cv::QRCodeDetectorAruco::FullyQualifiedName
-AutoIt:
-    [propget] $oQRCodeDetectorAruco.FullyQualifiedName
 ```
 
 ### cv::QRCodeDetectorAruco::get\_create
@@ -53227,14 +53240,6 @@ AutoIt:
 float cv::QRCodeDetectorAruco::Params::scaleTimingPatternScore
 AutoIt:
     [propget, propput] $oParams.scaleTimingPatternScore
-```
-
-### Params.FullyQualifiedName
-
-```cpp
-static std::string cv::QRCodeDetectorAruco::Params::FullyQualifiedName
-AutoIt:
-    [propget] $oParams.FullyQualifiedName
 ```
 
 ### cv::QRCodeDetectorAruco::Params::get\_create
@@ -53607,14 +53612,6 @@ AutoIt:
 
 ## cv::aruco::Board
 
-### Board.FullyQualifiedName
-
-```cpp
-static std::string cv::aruco::Board::FullyQualifiedName
-AutoIt:
-    [propget] $oBoard.FullyQualifiedName
-```
-
 ### cv::aruco::Board::get\_create
 
 ```cpp
@@ -53695,14 +53692,6 @@ AutoIt:
 ```
 
 ## cv::aruco::GridBoard
-
-### GridBoard.FullyQualifiedName
-
-```cpp
-static std::string cv::aruco::GridBoard::FullyQualifiedName
-AutoIt:
-    [propget] $oGridBoard.FullyQualifiedName
-```
 
 ### cv::aruco::GridBoard::get\_create
 
@@ -53810,14 +53799,6 @@ AutoIt:
 ```
 
 ## cv::aruco::CharucoBoard
-
-### CharucoBoard.FullyQualifiedName
-
-```cpp
-static std::string cv::aruco::CharucoBoard::FullyQualifiedName
-AutoIt:
-    [propget] $oCharucoBoard.FullyQualifiedName
-```
 
 ### cv::aruco::CharucoBoard::get\_create
 
@@ -54230,14 +54211,6 @@ AutoIt:
     [propget, propput] $oDetectorParameters.minMarkerLengthRatioOriginalImg
 ```
 
-### DetectorParameters.FullyQualifiedName
-
-```cpp
-static std::string cv::aruco::DetectorParameters::FullyQualifiedName
-AutoIt:
-    [propget] $oDetectorParameters.FullyQualifiedName
-```
-
 ### cv::aruco::DetectorParameters::get\_create
 
 ```cpp
@@ -54303,14 +54276,6 @@ AutoIt:
     [propget, propput] $oRefineParameters.checkAllOrders
 ```
 
-### RefineParameters.FullyQualifiedName
-
-```cpp
-static std::string cv::aruco::RefineParameters::FullyQualifiedName
-AutoIt:
-    [propget] $oRefineParameters.FullyQualifiedName
-```
-
 ### cv::aruco::RefineParameters::get\_create
 
 ```cpp
@@ -54354,14 +54319,6 @@ AutoIt:
 ```
 
 ## cv::aruco::ArucoDetector
-
-### ArucoDetector.FullyQualifiedName
-
-```cpp
-static std::string cv::aruco::ArucoDetector::FullyQualifiedName
-AutoIt:
-    [propget] $oArucoDetector.FullyQualifiedName
-```
 
 ### cv::aruco::ArucoDetector::get\_create
 
@@ -54543,14 +54500,6 @@ AutoIt:
     [propget, propput] $oDictionary.maxCorrectionBits
 ```
 
-### Dictionary.FullyQualifiedName
-
-```cpp
-static std::string cv::aruco::Dictionary::FullyQualifiedName
-AutoIt:
-    [propget] $oDictionary.FullyQualifiedName
-```
-
 ### cv::aruco::Dictionary::get\_create
 
 ```cpp
@@ -54659,14 +54608,6 @@ AutoIt:
 ```
 
 ## cv::barcode::BarcodeDetector
-
-### BarcodeDetector.FullyQualifiedName
-
-```cpp
-static std::string cv::barcode::BarcodeDetector::FullyQualifiedName
-AutoIt:
-    [propget] $oBarcodeDetector.FullyQualifiedName
-```
 
 ### cv::barcode::BarcodeDetector::get\_create
 
@@ -54862,14 +54803,6 @@ AutoIt:
     [propget, propput] $oCharucoParameters.tryRefineMarkers
 ```
 
-### CharucoParameters.FullyQualifiedName
-
-```cpp
-static std::string cv::aruco::CharucoParameters::FullyQualifiedName
-AutoIt:
-    [propget] $oCharucoParameters.FullyQualifiedName
-```
-
 ### cv::aruco::CharucoParameters::get\_create
 
 ```cpp
@@ -54893,14 +54826,6 @@ AutoIt:
 ```
 
 ## cv::aruco::CharucoDetector
-
-### CharucoDetector.FullyQualifiedName
-
-```cpp
-static std::string cv::aruco::CharucoDetector::FullyQualifiedName
-AutoIt:
-    [propget] $oCharucoDetector.FullyQualifiedName
-```
 
 ### cv::aruco::CharucoDetector::get\_create
 
@@ -55073,14 +54998,6 @@ AutoIt:
 
 ## cv::FaceDetectorYN
 
-### FaceDetectorYN.FullyQualifiedName
-
-```cpp
-static std::string cv::FaceDetectorYN::FullyQualifiedName
-AutoIt:
-    [propget] $oFaceDetectorYN.FullyQualifiedName
-```
-
 ### cv::FaceDetectorYN::get\_create
 
 ```cpp
@@ -55201,14 +55118,6 @@ AutoIt:
 
 ## cv::FaceRecognizerSF
 
-### FaceRecognizerSF.FullyQualifiedName
-
-```cpp
-static std::string cv::FaceRecognizerSF::FullyQualifiedName
-AutoIt:
-    [propget] $oFaceRecognizerSF.FullyQualifiedName
-```
-
 ### cv::FaceRecognizerSF::get\_create
 
 ```cpp
@@ -55219,6 +55128,17 @@ static cv::Ptr<cv::FaceRecognizerSF> cv::FaceRecognizerSF::get_create( const std
 AutoIt:
     _OpenCV_ObjCreate("cv.FaceRecognizerSF").create( $model, $config[, $backend_id[, $target_id]] ) -> retval
     $oFaceRecognizerSF( $model, $config[, $backend_id[, $target_id]] ) -> retval
+```
+
+```cpp
+static cv::Ptr<cv::FaceRecognizerSF> cv::FaceRecognizerSF::get_create( const std::string&        framework,
+                                                                       const std::vector<uchar>& bufferModel,
+                                                                       const std::vector<uchar>& bufferConfig,
+                                                                       int                       backend_id = 0,
+                                                                       int                       target_id = 0 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.FaceRecognizerSF").create( $framework, $bufferModel, $bufferConfig[, $backend_id[, $target_id]] ) -> retval
+    $oFaceRecognizerSF( $framework, $bufferModel, $bufferConfig[, $backend_id[, $target_id]] ) -> retval
 ```
 
 ### cv::FaceRecognizerSF::IsInstance
@@ -55281,14 +55201,6 @@ AutoIt:
 ```
 
 ## cv::GraphicalCodeDetector
-
-### GraphicalCodeDetector.FullyQualifiedName
-
-```cpp
-static std::string cv::GraphicalCodeDetector::FullyQualifiedName
-AutoIt:
-    [propget] $oGraphicalCodeDetector.FullyQualifiedName
-```
 
 ### cv::GraphicalCodeDetector::IsInstance
 
@@ -55366,14 +55278,6 @@ AutoIt:
 
 ## cv::Stitcher
 
-### Stitcher.FullyQualifiedName
-
-```cpp
-static std::string cv::Stitcher::FullyQualifiedName
-AutoIt:
-    [propget] $oStitcher.FullyQualifiedName
-```
-
 ### cv::Stitcher::get\_create
 
 ```cpp
@@ -55395,6 +55299,22 @@ AutoIt:
 static bool cv::Stitcher::IsInstance( VARIANT* obj );
 AutoIt:
     _OpenCV_ObjCreate("cv.Stitcher").IsInstance( $obj ) -> retval
+```
+
+### cv::Stitcher::cameras
+
+```cpp
+std::vector<cv::detail::CameraParams> cv::Stitcher::cameras() const;
+AutoIt:
+    $oStitcher.cameras() -> retval
+```
+
+### cv::Stitcher::component
+
+```cpp
+std::vector<int> cv::Stitcher::component() const;
+AutoIt:
+    $oStitcher.component() -> retval
 ```
 
 ### cv::Stitcher::composePanorama
@@ -55592,14 +55512,6 @@ AutoIt:
 
 ## cv::PyRotationWarper
 
-### PyRotationWarper.FullyQualifiedName
-
-```cpp
-static std::string cv::PyRotationWarper::FullyQualifiedName
-AutoIt:
-    [propget] $oPyRotationWarper.FullyQualifiedName
-```
-
 ### cv::PyRotationWarper::get\_create
 
 ```cpp
@@ -55725,14 +55637,6 @@ AutoIt:
 
 ## cv::WarperCreator
 
-### WarperCreator.FullyQualifiedName
-
-```cpp
-static std::string cv::WarperCreator::FullyQualifiedName
-AutoIt:
-    [propget] $oWarperCreator.FullyQualifiedName
-```
-
 ### cv::WarperCreator::IsInstance
 
 ```cpp
@@ -55748,14 +55652,6 @@ AutoIt:
 ```
 
 ## cv::detail::Blender
-
-### Blender.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::Blender::FullyQualifiedName
-AutoIt:
-    [propget] $oBlender.FullyQualifiedName
-```
 
 ### cv::detail::Blender::IsInstance
 
@@ -55839,14 +55735,6 @@ AutoIt:
 ```
 
 ## cv::detail::FeatherBlender
-
-### FeatherBlender.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::FeatherBlender::FullyQualifiedName
-AutoIt:
-    [propget] $oFeatherBlender.FullyQualifiedName
-```
 
 ### cv::detail::FeatherBlender::get\_create
 
@@ -55941,14 +55829,6 @@ AutoIt:
 ```
 
 ## cv::detail::MultiBandBlender
-
-### MultiBandBlender.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::MultiBandBlender::FullyQualifiedName
-AutoIt:
-    [propget] $oMultiBandBlender.FullyQualifiedName
-```
 
 ### cv::detail::MultiBandBlender::get\_create
 
@@ -56084,14 +55964,6 @@ AutoIt:
     [propget, propput] $oCameraParams.t
 ```
 
-### CameraParams.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::CameraParams::FullyQualifiedName
-AutoIt:
-    [propget] $oCameraParams.FullyQualifiedName
-```
-
 ### cv::detail::CameraParams::get\_create
 
 ```cpp
@@ -56123,14 +55995,6 @@ AutoIt:
 ```
 
 ## cv::detail::ExposureCompensator
-
-### ExposureCompensator.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::ExposureCompensator::FullyQualifiedName
-AutoIt:
-    [propget] $oExposureCompensator.FullyQualifiedName
-```
 
 ### cv::detail::ExposureCompensator::IsInstance
 
@@ -56249,14 +56113,6 @@ AutoIt:
 
 ## cv::detail::NoExposureCompensator
 
-### NoExposureCompensator.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::NoExposureCompensator::FullyQualifiedName
-AutoIt:
-    [propget] $oNoExposureCompensator.FullyQualifiedName
-```
-
 ### cv::detail::NoExposureCompensator::IsInstance
 
 ```cpp
@@ -56333,14 +56189,6 @@ AutoIt:
 ```
 
 ## cv::detail::GainCompensator
-
-### GainCompensator.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::GainCompensator::FullyQualifiedName
-AutoIt:
-    [propget] $oGainCompensator.FullyQualifiedName
-```
 
 ### cv::detail::GainCompensator::get\_create
 
@@ -56466,14 +56314,6 @@ AutoIt:
 
 ## cv::detail::ChannelsCompensator
 
-### ChannelsCompensator.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::ChannelsCompensator::FullyQualifiedName
-AutoIt:
-    [propget] $oChannelsCompensator.FullyQualifiedName
-```
-
 ### cv::detail::ChannelsCompensator::get\_create
 
 ```cpp
@@ -56591,14 +56431,6 @@ AutoIt:
 ```
 
 ## cv::detail::BlocksCompensator
-
-### BlocksCompensator.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::BlocksCompensator::FullyQualifiedName
-AutoIt:
-    [propget] $oBlocksCompensator.FullyQualifiedName
-```
 
 ### cv::detail::BlocksCompensator::IsInstance
 
@@ -56747,14 +56579,6 @@ AutoIt:
 ```
 
 ## cv::detail::BlocksGainCompensator
-
-### BlocksGainCompensator.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::BlocksGainCompensator::FullyQualifiedName
-AutoIt:
-    [propget] $oBlocksGainCompensator.FullyQualifiedName
-```
 
 ### cv::detail::BlocksGainCompensator::get\_create
 
@@ -56922,14 +56746,6 @@ AutoIt:
 ```
 
 ## cv::detail::BlocksChannelsCompensator
-
-### BlocksChannelsCompensator.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::BlocksChannelsCompensator::FullyQualifiedName
-AutoIt:
-    [propget] $oBlocksChannelsCompensator.FullyQualifiedName
-```
 
 ### cv::detail::BlocksChannelsCompensator::get\_create
 
@@ -57122,14 +56938,6 @@ AutoIt:
     [propget, propput] $oImageFeatures.descriptors
 ```
 
-### ImageFeatures.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::ImageFeatures::FullyQualifiedName
-AutoIt:
-    [propget] $oImageFeatures.FullyQualifiedName
-```
-
 ### cv::detail::ImageFeatures::get\_create
 
 ```cpp
@@ -57218,14 +57026,6 @@ AutoIt:
     [propget, propput] $oMatchesInfo.confidence
 ```
 
-### MatchesInfo.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::MatchesInfo::FullyQualifiedName
-AutoIt:
-    [propget] $oMatchesInfo.FullyQualifiedName
-```
-
 ### cv::detail::MatchesInfo::get\_create
 
 ```cpp
@@ -57265,14 +57065,6 @@ AutoIt:
 ```
 
 ## cv::detail::FeaturesMatcher
-
-### FeaturesMatcher.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::FeaturesMatcher::FullyQualifiedName
-AutoIt:
-    [propget] $oFeaturesMatcher.FullyQualifiedName
-```
 
 ### cv::detail::FeaturesMatcher::IsInstance
 
@@ -57325,14 +57117,6 @@ AutoIt:
 ```
 
 ## cv::detail::BestOf2NearestMatcher
-
-### BestOf2NearestMatcher.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::BestOf2NearestMatcher::FullyQualifiedName
-AutoIt:
-    [propget] $oBestOf2NearestMatcher.FullyQualifiedName
-```
 
 ### cv::detail::BestOf2NearestMatcher::get\_create
 
@@ -57410,14 +57194,6 @@ AutoIt:
 
 ## cv::detail::BestOf2NearestRangeMatcher
 
-### BestOf2NearestRangeMatcher.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::BestOf2NearestRangeMatcher::FullyQualifiedName
-AutoIt:
-    [propget] $oBestOf2NearestRangeMatcher.FullyQualifiedName
-```
-
 ### cv::detail::BestOf2NearestRangeMatcher::get\_create
 
 ```cpp
@@ -57483,14 +57259,6 @@ AutoIt:
 
 ## cv::detail::AffineBestOf2NearestMatcher
 
-### AffineBestOf2NearestMatcher.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::AffineBestOf2NearestMatcher::FullyQualifiedName
-AutoIt:
-    [propget] $oAffineBestOf2NearestMatcher.FullyQualifiedName
-```
-
 ### cv::detail::AffineBestOf2NearestMatcher::get\_create
 
 ```cpp
@@ -57555,14 +57323,6 @@ AutoIt:
 
 ## cv::detail::Estimator
 
-### Estimator.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::Estimator::FullyQualifiedName
-AutoIt:
-    [propget] $oEstimator.FullyQualifiedName
-```
-
 ### cv::detail::Estimator::IsInstance
 
 ```cpp
@@ -57588,14 +57348,6 @@ AutoIt:
 ```
 
 ## cv::detail::HomographyBasedEstimator
-
-### HomographyBasedEstimator.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::HomographyBasedEstimator::FullyQualifiedName
-AutoIt:
-    [propget] $oHomographyBasedEstimator.FullyQualifiedName
-```
 
 ### cv::detail::HomographyBasedEstimator::get\_create
 
@@ -57632,14 +57384,6 @@ AutoIt:
 
 ## cv::detail::AffineBasedEstimator
 
-### AffineBasedEstimator.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::AffineBasedEstimator::FullyQualifiedName
-AutoIt:
-    [propget] $oAffineBasedEstimator.FullyQualifiedName
-```
-
 ### cv::detail::AffineBasedEstimator::get\_create
 
 ```cpp
@@ -57673,14 +57417,6 @@ AutoIt:
 ```
 
 ## cv::detail::BundleAdjusterBase
-
-### BundleAdjusterBase.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::BundleAdjusterBase::FullyQualifiedName
-AutoIt:
-    [propget] $oBundleAdjusterBase.FullyQualifiedName
-```
 
 ### cv::detail::BundleAdjusterBase::IsInstance
 
@@ -57755,14 +57491,6 @@ AutoIt:
 ```
 
 ## cv::detail::NoBundleAdjuster
-
-### NoBundleAdjuster.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::NoBundleAdjuster::FullyQualifiedName
-AutoIt:
-    [propget] $oNoBundleAdjuster.FullyQualifiedName
-```
 
 ### cv::detail::NoBundleAdjuster::get\_create
 
@@ -57846,14 +57574,6 @@ AutoIt:
 
 ## cv::detail::BundleAdjusterReproj
 
-### BundleAdjusterReproj.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::BundleAdjusterReproj::FullyQualifiedName
-AutoIt:
-    [propget] $oBundleAdjusterReproj.FullyQualifiedName
-```
-
 ### cv::detail::BundleAdjusterReproj::get\_create
 
 ```cpp
@@ -57935,14 +57655,6 @@ AutoIt:
 ```
 
 ## cv::detail::BundleAdjusterRay
-
-### BundleAdjusterRay.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::BundleAdjusterRay::FullyQualifiedName
-AutoIt:
-    [propget] $oBundleAdjusterRay.FullyQualifiedName
-```
 
 ### cv::detail::BundleAdjusterRay::get\_create
 
@@ -58026,14 +57738,6 @@ AutoIt:
 
 ## cv::detail::BundleAdjusterAffine
 
-### BundleAdjusterAffine.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::BundleAdjusterAffine::FullyQualifiedName
-AutoIt:
-    [propget] $oBundleAdjusterAffine.FullyQualifiedName
-```
-
 ### cv::detail::BundleAdjusterAffine::get\_create
 
 ```cpp
@@ -58115,14 +57819,6 @@ AutoIt:
 ```
 
 ## cv::detail::BundleAdjusterAffinePartial
-
-### BundleAdjusterAffinePartial.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::BundleAdjusterAffinePartial::FullyQualifiedName
-AutoIt:
-    [propget] $oBundleAdjusterAffinePartial.FullyQualifiedName
-```
 
 ### cv::detail::BundleAdjusterAffinePartial::get\_create
 
@@ -58206,14 +57902,6 @@ AutoIt:
 
 ## cv::detail::SeamFinder
 
-### SeamFinder.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::SeamFinder::FullyQualifiedName
-AutoIt:
-    [propget] $oSeamFinder.FullyQualifiedName
-```
-
 ### cv::detail::SeamFinder::IsInstance
 
 ```cpp
@@ -58272,14 +57960,6 @@ AutoIt:
 
 ## cv::detail::NoSeamFinder
 
-### NoSeamFinder.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::NoSeamFinder::FullyQualifiedName
-AutoIt:
-    [propget] $oNoSeamFinder.FullyQualifiedName
-```
-
 ### cv::detail::NoSeamFinder::IsInstance
 
 ```cpp
@@ -58313,14 +57993,6 @@ AutoIt:
 ```
 
 ## cv::detail::PairwiseSeamFinder
-
-### PairwiseSeamFinder.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::PairwiseSeamFinder::FullyQualifiedName
-AutoIt:
-    [propget] $oPairwiseSeamFinder.FullyQualifiedName
-```
 
 ### cv::detail::PairwiseSeamFinder::IsInstance
 
@@ -58356,14 +58028,6 @@ AutoIt:
 
 ## cv::detail::VoronoiSeamFinder
 
-### VoronoiSeamFinder.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::VoronoiSeamFinder::FullyQualifiedName
-AutoIt:
-    [propget] $oVoronoiSeamFinder.FullyQualifiedName
-```
-
 ### cv::detail::VoronoiSeamFinder::IsInstance
 
 ```cpp
@@ -58397,14 +58061,6 @@ AutoIt:
 ```
 
 ## cv::detail::DpSeamFinder
-
-### DpSeamFinder.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::DpSeamFinder::FullyQualifiedName
-AutoIt:
-    [propget] $oDpSeamFinder.FullyQualifiedName
-```
 
 ### cv::detail::DpSeamFinder::get\_create
 
@@ -58491,14 +58147,6 @@ AutoIt:
 
 ## cv::detail::GraphCutSeamFinder
 
-### GraphCutSeamFinder.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::GraphCutSeamFinder::FullyQualifiedName
-AutoIt:
-    [propget] $oGraphCutSeamFinder.FullyQualifiedName
-```
-
 ### cv::detail::GraphCutSeamFinder::get\_create
 
 ```cpp
@@ -58543,14 +58191,6 @@ AutoIt:
 ```
 
 ## cv::detail::Timelapser
-
-### Timelapser.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::Timelapser::FullyQualifiedName
-AutoIt:
-    [propget] $oTimelapser.FullyQualifiedName
-```
 
 ### cv::detail::Timelapser::IsInstance
 
@@ -58619,14 +58259,6 @@ AutoIt:
 
 ## cv::detail::TimelapserCrop
 
-### TimelapserCrop.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::TimelapserCrop::FullyQualifiedName
-AutoIt:
-    [propget] $oTimelapserCrop.FullyQualifiedName
-```
-
 ### cv::detail::TimelapserCrop::IsInstance
 
 ```cpp
@@ -58678,14 +58310,6 @@ AutoIt:
 
 ## cv::detail::ProjectorBase
 
-### ProjectorBase.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::ProjectorBase::FullyQualifiedName
-AutoIt:
-    [propget] $oProjectorBase.FullyQualifiedName
-```
-
 ### cv::detail::ProjectorBase::get\_create
 
 ```cpp
@@ -58709,14 +58333,6 @@ AutoIt:
 ```
 
 ## cv::detail::SphericalProjector
-
-### SphericalProjector.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::SphericalProjector::FullyQualifiedName
-AutoIt:
-    [propget] $oSphericalProjector.FullyQualifiedName
-```
 
 ### cv::detail::SphericalProjector::get\_create
 
@@ -58763,14 +58379,6 @@ AutoIt:
 ```
 
 ## cv::BackgroundSubtractor
-
-### BackgroundSubtractor.FullyQualifiedName
-
-```cpp
-static std::string cv::BackgroundSubtractor::FullyQualifiedName
-AutoIt:
-    [propget] $oBackgroundSubtractor.FullyQualifiedName
-```
 
 ### cv::BackgroundSubtractor::IsInstance
 
@@ -58860,14 +58468,6 @@ AutoIt:
 ```
 
 ## cv::BackgroundSubtractorMOG2
-
-### BackgroundSubtractorMOG2.FullyQualifiedName
-
-```cpp
-static std::string cv::BackgroundSubtractorMOG2::FullyQualifiedName
-AutoIt:
-    [propget] $oBackgroundSubtractorMOG2.FullyQualifiedName
-```
 
 ### cv::BackgroundSubtractorMOG2::IsInstance
 
@@ -59150,14 +58750,6 @@ AutoIt:
 
 ## cv::BackgroundSubtractorKNN
 
-### BackgroundSubtractorKNN.FullyQualifiedName
-
-```cpp
-static std::string cv::BackgroundSubtractorKNN::FullyQualifiedName
-AutoIt:
-    [propget] $oBackgroundSubtractorKNN.FullyQualifiedName
-```
-
 ### cv::BackgroundSubtractorKNN::IsInstance
 
 ```cpp
@@ -59439,14 +59031,6 @@ AutoIt:
     [propget, propput] $oKalmanFilter.errorCovPost
 ```
 
-### KalmanFilter.FullyQualifiedName
-
-```cpp
-static std::string cv::KalmanFilter::FullyQualifiedName
-AutoIt:
-    [propget] $oKalmanFilter.FullyQualifiedName
-```
-
 ### cv::KalmanFilter::get\_create
 
 ```cpp
@@ -59496,14 +59080,6 @@ AutoIt:
 ```
 
 ## cv::DenseOpticalFlow
-
-### DenseOpticalFlow.FullyQualifiedName
-
-```cpp
-static std::string cv::DenseOpticalFlow::FullyQualifiedName
-AutoIt:
-    [propget] $oDenseOpticalFlow.FullyQualifiedName
-```
 
 ### cv::DenseOpticalFlow::IsInstance
 
@@ -59594,14 +59170,6 @@ AutoIt:
 
 ## cv::SparseOpticalFlow
 
-### SparseOpticalFlow.FullyQualifiedName
-
-```cpp
-static std::string cv::SparseOpticalFlow::FullyQualifiedName
-AutoIt:
-    [propget] $oSparseOpticalFlow.FullyQualifiedName
-```
-
 ### cv::SparseOpticalFlow::IsInstance
 
 ```cpp
@@ -59685,14 +59253,6 @@ AutoIt:
 ```
 
 ## cv::FarnebackOpticalFlow
-
-### FarnebackOpticalFlow.FullyQualifiedName
-
-```cpp
-static std::string cv::FarnebackOpticalFlow::FullyQualifiedName
-AutoIt:
-    [propget] $oFarnebackOpticalFlow.FullyQualifiedName
-```
 
 ### cv::FarnebackOpticalFlow::get\_create
 
@@ -59927,14 +59487,6 @@ AutoIt:
 
 ## cv::VariationalRefinement
 
-### VariationalRefinement.FullyQualifiedName
-
-```cpp
-static std::string cv::VariationalRefinement::FullyQualifiedName
-AutoIt:
-    [propget] $oVariationalRefinement.FullyQualifiedName
-```
-
 ### cv::VariationalRefinement::get\_create
 
 ```cpp
@@ -60154,14 +59706,6 @@ AutoIt:
 ```
 
 ## cv::DISOpticalFlow
-
-### DISOpticalFlow.FullyQualifiedName
-
-```cpp
-static std::string cv::DISOpticalFlow::FullyQualifiedName
-AutoIt:
-    [propget] $oDISOpticalFlow.FullyQualifiedName
-```
 
 ### cv::DISOpticalFlow::get\_create
 
@@ -60461,14 +60005,6 @@ AutoIt:
 
 ## cv::SparsePyrLKOpticalFlow
 
-### SparsePyrLKOpticalFlow.FullyQualifiedName
-
-```cpp
-static std::string cv::SparsePyrLKOpticalFlow::FullyQualifiedName
-AutoIt:
-    [propget] $oSparsePyrLKOpticalFlow.FullyQualifiedName
-```
-
 ### cv::SparsePyrLKOpticalFlow::get\_create
 
 ```cpp
@@ -60646,14 +60182,6 @@ AutoIt:
 
 ## cv::Tracker
 
-### Tracker.FullyQualifiedName
-
-```cpp
-static std::string cv::Tracker::FullyQualifiedName
-AutoIt:
-    [propget] $oTracker.FullyQualifiedName
-```
-
 ### cv::Tracker::IsInstance
 
 ```cpp
@@ -60694,14 +60222,6 @@ AutoIt:
 static cv::TrackerMIL::Params
 AutoIt:
     [propget] $oTrackerMIL.Params
-```
-
-### TrackerMIL.FullyQualifiedName
-
-```cpp
-static std::string cv::TrackerMIL::FullyQualifiedName
-AutoIt:
-    [propget] $oTrackerMIL.FullyQualifiedName
 ```
 
 ### cv::TrackerMIL::get\_create
@@ -60803,14 +60323,6 @@ AutoIt:
     [propget, propput] $oParams.featureSetNumFeatures
 ```
 
-### Params.FullyQualifiedName
-
-```cpp
-static std::string cv::TrackerMIL::Params::FullyQualifiedName
-AutoIt:
-    [propget] $oParams.FullyQualifiedName
-```
-
 ### cv::TrackerMIL::Params::get\_create
 
 ```cpp
@@ -60841,14 +60353,6 @@ AutoIt:
 static cv::TrackerGOTURN::Params
 AutoIt:
     [propget] $oTrackerGOTURN.Params
-```
-
-### TrackerGOTURN.FullyQualifiedName
-
-```cpp
-static std::string cv::TrackerGOTURN::FullyQualifiedName
-AutoIt:
-    [propget] $oTrackerGOTURN.FullyQualifiedName
 ```
 
 ### cv::TrackerGOTURN::get\_create
@@ -60910,14 +60414,6 @@ AutoIt:
     [propget, propput] $oParams.modelBin
 ```
 
-### Params.FullyQualifiedName
-
-```cpp
-static std::string cv::TrackerGOTURN::Params::FullyQualifiedName
-AutoIt:
-    [propget] $oParams.FullyQualifiedName
-```
-
 ### cv::TrackerGOTURN::Params::get\_create
 
 ```cpp
@@ -60948,14 +60444,6 @@ AutoIt:
 static cv::TrackerDaSiamRPN::Params
 AutoIt:
     [propget] $oTrackerDaSiamRPN.Params
-```
-
-### TrackerDaSiamRPN.FullyQualifiedName
-
-```cpp
-static std::string cv::TrackerDaSiamRPN::FullyQualifiedName
-AutoIt:
-    [propget] $oTrackerDaSiamRPN.FullyQualifiedName
 ```
 
 ### cv::TrackerDaSiamRPN::get\_create
@@ -61049,14 +60537,6 @@ AutoIt:
     [propget, propput] $oParams.target
 ```
 
-### Params.FullyQualifiedName
-
-```cpp
-static std::string cv::TrackerDaSiamRPN::Params::FullyQualifiedName
-AutoIt:
-    [propget] $oParams.FullyQualifiedName
-```
-
 ### cv::TrackerDaSiamRPN::Params::get\_create
 
 ```cpp
@@ -61087,14 +60567,6 @@ AutoIt:
 static cv::TrackerNano::Params
 AutoIt:
     [propget] $oTrackerNano.Params
-```
-
-### TrackerNano.FullyQualifiedName
-
-```cpp
-static std::string cv::TrackerNano::FullyQualifiedName
-AutoIt:
-    [propget] $oTrackerNano.FullyQualifiedName
 ```
 
 ### cv::TrackerNano::get\_create
@@ -61180,14 +60652,6 @@ AutoIt:
     [propget, propput] $oParams.target
 ```
 
-### Params.FullyQualifiedName
-
-```cpp
-static std::string cv::TrackerNano::Params::FullyQualifiedName
-AutoIt:
-    [propget] $oParams.FullyQualifiedName
-```
-
 ### cv::TrackerNano::Params::get\_create
 
 ```cpp
@@ -61218,14 +60682,6 @@ AutoIt:
 static cv::TrackerVit::Params
 AutoIt:
     [propget] $oTrackerVit.Params
-```
-
-### TrackerVit.FullyQualifiedName
-
-```cpp
-static std::string cv::TrackerVit::FullyQualifiedName
-AutoIt:
-    [propget] $oTrackerVit.FullyQualifiedName
 ```
 
 ### cv::TrackerVit::get\_create
@@ -61319,12 +60775,12 @@ AutoIt:
     [propget, propput] $oParams.stdvalue
 ```
 
-### Params.FullyQualifiedName
+### Params.tracking\_score\_threshold
 
 ```cpp
-static std::string cv::TrackerVit::Params::FullyQualifiedName
+float cv::TrackerVit::Params::tracking_score_threshold
 AutoIt:
-    [propget] $oParams.FullyQualifiedName
+    [propget, propput] $oParams.tracking_score_threshold
 ```
 
 ### cv::TrackerVit::Params::get\_create
@@ -62697,6 +62153,30 @@ AutoIt:
     [propget] $ostreaming.sync_policy
 ```
 
+### cv::gapi::streaming::desync
+
+```cpp
+cv::GMat cv::gapi::streaming::desync( const cv::GMat& g );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.streaming").desync( $g ) -> retval
+```
+
+### cv::gapi::streaming::seqNo
+
+```cpp
+cv::GOpaque<int64_t> cv::gapi::streaming::seqNo( const cv::GMat& g );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.streaming").seqNo( $g ) -> retval
+```
+
+### cv::gapi::streaming::seq\_id
+
+```cpp
+cv::GOpaque<int64_t> cv::gapi::streaming::seq_id( const cv::GMat& g );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.streaming").seq_id( $g ) -> retval
+```
+
 ### cv::gapi::streaming::size
 
 ```cpp
@@ -62715,6 +62195,14 @@ AutoIt:
 cv::GOpaque<cv::Size> cv::gapi::streaming::size( const cv::GFrame& src );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.streaming").size( $src ) -> retval
+```
+
+### cv::gapi::streaming::timestamp
+
+```cpp
+cv::GOpaque<int64_t> cv::gapi::streaming::timestamp( const cv::GMat& g );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.streaming").timestamp( $g ) -> retval
 ```
 
 ## cv::gapi::core
@@ -62892,14 +62380,6 @@ AutoIt:
 ```
 
 ## cv::GArrayDesc
-
-### GArrayDesc.FullyQualifiedName
-
-```cpp
-static std::string cv::GArrayDesc::FullyQualifiedName
-AutoIt:
-    [propget] $oGArrayDesc.FullyQualifiedName
-```
 
 ### cv::GArrayDesc::get\_create
 
@@ -63097,14 +62577,6 @@ AutoIt:
 
 ## cv::GComputation
 
-### GComputation.FullyQualifiedName
-
-```cpp
-static std::string cv::GComputation::FullyQualifiedName
-AutoIt:
-    [propget] $oGComputation.FullyQualifiedName
-```
-
 ### cv::GComputation::get\_create
 
 ```cpp
@@ -63187,14 +62659,6 @@ AutoIt:
 
 ## cv::GFrame
 
-### GFrame.FullyQualifiedName
-
-```cpp
-static std::string cv::GFrame::FullyQualifiedName
-AutoIt:
-    [propget] $oGFrame.FullyQualifiedName
-```
-
 ### cv::GFrame::get\_create
 
 ```cpp
@@ -63245,14 +62709,6 @@ AutoIt:
 
 ## cv::GKernelPackage
 
-### GKernelPackage.FullyQualifiedName
-
-```cpp
-static std::string cv::GKernelPackage::FullyQualifiedName
-AutoIt:
-    [propget] $oGKernelPackage.FullyQualifiedName
-```
-
 ### cv::GKernelPackage::IsInstance
 
 ```cpp
@@ -63276,14 +62732,6 @@ AutoIt:
 ```
 
 ## cv::GMat
-
-### GMat.FullyQualifiedName
-
-```cpp
-static std::string cv::GMat::FullyQualifiedName
-AutoIt:
-    [propget] $oGMat.FullyQualifiedName
-```
 
 ### cv::GMat::get\_create
 
@@ -63354,14 +62802,6 @@ AutoIt:
 std::vector<int> cv::GMatDesc::dims
 AutoIt:
     [propget] $oGMatDesc.dims
-```
-
-### GMatDesc.FullyQualifiedName
-
-```cpp
-static std::string cv::GMatDesc::FullyQualifiedName
-AutoIt:
-    [propget] $oGMatDesc.FullyQualifiedName
 ```
 
 ### cv::GMatDesc::get\_create
@@ -63476,14 +62916,6 @@ AutoIt:
 
 ## cv::GOpaqueDesc
 
-### GOpaqueDesc.FullyQualifiedName
-
-```cpp
-static std::string cv::GOpaqueDesc::FullyQualifiedName
-AutoIt:
-    [propget] $oGOpaqueDesc.FullyQualifiedName
-```
-
 ### cv::GOpaqueDesc::get\_create
 
 ```cpp
@@ -63507,14 +62939,6 @@ AutoIt:
 ```
 
 ## cv::GScalar
-
-### GScalar.FullyQualifiedName
-
-```cpp
-static std::string cv::GScalar::FullyQualifiedName
-AutoIt:
-    [propget] $oGScalar.FullyQualifiedName
-```
 
 ### cv::GScalar::get\_create
 
@@ -63547,14 +62971,6 @@ AutoIt:
 
 ## cv::GScalarDesc
 
-### GScalarDesc.FullyQualifiedName
-
-```cpp
-static std::string cv::GScalarDesc::FullyQualifiedName
-AutoIt:
-    [propget] $oGScalarDesc.FullyQualifiedName
-```
-
 ### cv::GScalarDesc::get\_create
 
 ```cpp
@@ -63578,14 +62994,6 @@ AutoIt:
 ```
 
 ## cv::GStreamingCompiled
-
-### GStreamingCompiled.FullyQualifiedName
-
-```cpp
-static std::string cv::GStreamingCompiled::FullyQualifiedName
-AutoIt:
-    [propget] $oGStreamingCompiled.FullyQualifiedName
-```
 
 ### cv::GStreamingCompiled::get\_create
 
@@ -63612,7 +63020,7 @@ AutoIt:
 ### cv::GStreamingCompiled::pull
 
 ```cpp
-std::tuple<bool, cv::util::variant<cv::GRunArgs, cv::GOptRunArgs>> cv::GStreamingCompiled::pull();
+std::tuple<bool, cv::util::variant<cv::vector<cv::GRunArg>, cv::GOptRunArgs>> cv::GStreamingCompiled::pull();
 AutoIt:
     $oGStreamingCompiled.pull() -> retval
 ```
@@ -63657,14 +63065,6 @@ AutoIt:
 size_t cv::gapi::streaming::queue_capacity::capacity
 AutoIt:
     [propget, propput] $oqueue_capacity.capacity
-```
-
-### queue\_capacity.FullyQualifiedName
-
-```cpp
-static std::string cv::gapi::streaming::queue_capacity::FullyQualifiedName
-AutoIt:
-    [propget] $oqueue_capacity.FullyQualifiedName
 ```
 
 ### cv::gapi::streaming::queue\_capacity::get\_create
@@ -63758,14 +63158,6 @@ AutoIt:
 
 ## cv::gapi::GNetParam
 
-### GNetParam.FullyQualifiedName
-
-```cpp
-static std::string cv::gapi::GNetParam::FullyQualifiedName
-AutoIt:
-    [propget] $oGNetParam.FullyQualifiedName
-```
-
 ### cv::gapi::GNetParam::get\_create
 
 ```cpp
@@ -63789,14 +63181,6 @@ AutoIt:
 ```
 
 ## cv::gapi::GNetPackage
-
-### GNetPackage.FullyQualifiedName
-
-```cpp
-static std::string cv::gapi::GNetPackage::FullyQualifiedName
-AutoIt:
-    [propget] $oGNetPackage.FullyQualifiedName
-```
 
 ### cv::gapi::GNetPackage::get\_create
 
@@ -63889,14 +63273,6 @@ AutoIt:
 ```
 
 ## cv::gapi::ie::PyParams
-
-### PyParams.FullyQualifiedName
-
-```cpp
-static std::string cv::gapi::ie::PyParams::FullyQualifiedName
-AutoIt:
-    [propget] $oPyParams.FullyQualifiedName
-```
 
 ### cv::gapi::ie::PyParams::get\_create
 
@@ -64002,14 +63378,6 @@ AutoIt:
 
 ## cv::gapi::onnx::PyParams
 
-### PyParams.FullyQualifiedName
-
-```cpp
-static std::string cv::gapi::onnx::PyParams::FullyQualifiedName
-AutoIt:
-    [propget] $oPyParams.FullyQualifiedName
-```
-
 ### cv::gapi::onnx::PyParams::get\_create
 
 ```cpp
@@ -64099,6 +63467,22 @@ AutoIt:
     $oPyParams.cfgNormalize( $layer_name, $flag ) -> retval
 ```
 
+### cv::gapi::onnx::PyParams::cfgOptLevel
+
+```cpp
+cv::gapi::onnx::PyParams cv::gapi::onnx::PyParams::cfgOptLevel( const int opt_level );
+AutoIt:
+    $oPyParams.cfgOptLevel( $opt_level ) -> retval
+```
+
+### cv::gapi::onnx::PyParams::cfgSessionOptions
+
+```cpp
+cv::gapi::onnx::PyParams cv::gapi::onnx::PyParams::cfgSessionOptions( const std::map<std::string, std::string>& options );
+AutoIt:
+    $oPyParams.cfgSessionOptions( $options ) -> retval
+```
+
 ## cv::gapi::ov
 
 ### ov.PyParams
@@ -64129,14 +63513,6 @@ AutoIt:
 ```
 
 ## cv::gapi::ov::PyParams
-
-### PyParams.FullyQualifiedName
-
-```cpp
-static std::string cv::gapi::ov::PyParams::FullyQualifiedName
-AutoIt:
-    [propget] $oPyParams.FullyQualifiedName
-```
 
 ### cv::gapi::ov::PyParams::get\_create
 
@@ -64421,14 +63797,6 @@ AutoIt:
 
 ## cv::gapi::onnx::ep::CoreML
 
-### CoreML.FullyQualifiedName
-
-```cpp
-static std::string cv::gapi::onnx::ep::CoreML::FullyQualifiedName
-AutoIt:
-    [propget] $oCoreML.FullyQualifiedName
-```
-
 ### cv::gapi::onnx::ep::CoreML::get\_create
 
 ```cpp
@@ -64477,14 +63845,6 @@ AutoIt:
 
 ## cv::gapi::onnx::ep::CUDA
 
-### CUDA.FullyQualifiedName
-
-```cpp
-static std::string cv::gapi::onnx::ep::CUDA::FullyQualifiedName
-AutoIt:
-    [propget] $oCUDA.FullyQualifiedName
-```
-
 ### cv::gapi::onnx::ep::CUDA::get\_create
 
 ```cpp
@@ -64516,14 +63876,6 @@ AutoIt:
 
 ## cv::gapi::onnx::ep::TensorRT
 
-### TensorRT.FullyQualifiedName
-
-```cpp
-static std::string cv::gapi::onnx::ep::TensorRT::FullyQualifiedName
-AutoIt:
-    [propget] $oTensorRT.FullyQualifiedName
-```
-
 ### cv::gapi::onnx::ep::TensorRT::get\_create
 
 ```cpp
@@ -64554,14 +63906,6 @@ AutoIt:
 ```
 
 ## cv::gapi::onnx::ep::OpenVINO
-
-### OpenVINO.FullyQualifiedName
-
-```cpp
-static std::string cv::gapi::onnx::ep::OpenVINO::FullyQualifiedName
-AutoIt:
-    [propget] $oOpenVINO.FullyQualifiedName
-```
 
 ### cv::gapi::onnx::ep::OpenVINO::get\_create
 
@@ -64632,14 +63976,6 @@ AutoIt:
 ```
 
 ## cv::gapi::onnx::ep::DirectML
-
-### DirectML.FullyQualifiedName
-
-```cpp
-static std::string cv::gapi::onnx::ep::DirectML::FullyQualifiedName
-AutoIt:
-    [propget] $oDirectML.FullyQualifiedName
-```
 
 ### cv::gapi::onnx::ep::DirectML::get\_create
 
@@ -64901,14 +64237,6 @@ AutoIt:
     [propget, propput] $oObjectTrackerParams.tracking_per_class
 ```
 
-### ObjectTrackerParams.FullyQualifiedName
-
-```cpp
-static std::string cv::gapi::ot::ObjectTrackerParams::FullyQualifiedName
-AutoIt:
-    [propget] $oObjectTrackerParams.FullyQualifiedName
-```
-
 ### cv::gapi::ot::ObjectTrackerParams::get\_create
 
 ```cpp
@@ -65096,20 +64424,12 @@ AutoIt:
     [propget] $odraw.Poly
 ```
 
-### draw.Prim
-
-```cpp
-static cv::gapi::wip::draw::Prim
-AutoIt:
-    [propget] $odraw.Prim
-```
-
 ### cv::gapi::wip::draw::render
 
 ```cpp
 void cv::gapi::wip::draw::render( cv::Mat&                                      bgr,
                                   const std::vector<cv::gapi::wip::draw::Prim>& prims,
-                                  cv::GCompileArgs&&                            args = {} );
+                                  std::vector<cv::GCompileArg>&&                args = {} );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw").render( $bgr, $prims[, $args] ) -> None
 ```
@@ -65118,7 +64438,7 @@ AutoIt:
 void cv::gapi::wip::draw::render( cv::Mat&                                      y_plane,
                                   cv::Mat&                                      uv_plane,
                                   const std::vector<cv::gapi::wip::draw::Prim>& prims,
-                                  cv::GCompileArgs&&                            args = {} );
+                                  std::vector<cv::GCompileArg>&&                args = {} );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw").render( $y_plane, $uv_plane, $prims[, $args] ) -> None
 ```
@@ -65228,14 +64548,6 @@ AutoIt:
     [propget, propput] $oText.bottom_left_origin
 ```
 
-### Text.FullyQualifiedName
-
-```cpp
-static std::string cv::gapi::wip::draw::Text::FullyQualifiedName
-AutoIt:
-    [propget] $oText.FullyQualifiedName
-```
-
 ### cv::gapi::wip::draw::Text::get\_create
 
 ```cpp
@@ -65314,20 +64626,23 @@ AutoIt:
     [propget, propput] $oRect.shift
 ```
 
-### Rect.FullyQualifiedName
-
-```cpp
-static std::string cv::gapi::wip::draw::Rect::FullyQualifiedName
-AutoIt:
-    [propget] $oRect.FullyQualifiedName
-```
-
 ### cv::gapi::wip::draw::Rect::get\_create
 
 ```cpp
 static cv::gapi::wip::draw::Rect cv::gapi::wip::draw::Rect::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Rect").create() -> <cv.gapi.wip.draw.Rect object>
+```
+
+```cpp
+static cv::gapi::wip::draw::Rect cv::gapi::wip::draw::Rect::get_create( const cv::Rect2i& rect_,
+                                                                        const cv::Scalar& color_,
+                                                                        int               thick_ = 1,
+                                                                        int               lt_ = 8,
+                                                                        int               shift_ = 0 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Rect").create( $rect_, $color_[, $thick_[, $lt_[, $shift_]]] ) -> <cv.gapi.wip.draw.Rect object>
+    $oRect( $rect_, $color_[, $thick_[, $lt_[, $shift_]]] ) -> <cv.gapi.wip.draw.Rect object>
 ```
 
 ### cv::gapi::wip::draw::Rect::IsInstance
@@ -65392,14 +64707,6 @@ AutoIt:
 int cv::gapi::wip::draw::Circle::shift
 AutoIt:
     [propget, propput] $oCircle.shift
-```
-
-### Circle.FullyQualifiedName
-
-```cpp
-static std::string cv::gapi::wip::draw::Circle::FullyQualifiedName
-AutoIt:
-    [propget] $oCircle.FullyQualifiedName
 ```
 
 ### cv::gapi::wip::draw::Circle::get\_create
@@ -65486,14 +64793,6 @@ AutoIt:
     [propget, propput] $oLine.shift
 ```
 
-### Line.FullyQualifiedName
-
-```cpp
-static std::string cv::gapi::wip::draw::Line::FullyQualifiedName
-AutoIt:
-    [propget] $oLine.FullyQualifiedName
-```
-
 ### cv::gapi::wip::draw::Line::get\_create
 
 ```cpp
@@ -65554,20 +64853,21 @@ AutoIt:
     [propget, propput] $oMosaic.decim
 ```
 
-### Mosaic.FullyQualifiedName
-
-```cpp
-static std::string cv::gapi::wip::draw::Mosaic::FullyQualifiedName
-AutoIt:
-    [propget] $oMosaic.FullyQualifiedName
-```
-
 ### cv::gapi::wip::draw::Mosaic::get\_create
 
 ```cpp
 static cv::gapi::wip::draw::Mosaic cv::gapi::wip::draw::Mosaic::get_create();
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip.draw.Mosaic").create() -> <cv.gapi.wip.draw.Mosaic object>
+```
+
+```cpp
+static cv::gapi::wip::draw::Mosaic cv::gapi::wip::draw::Mosaic::get_create( const cv::Rect2i& mos_,
+                                                                            int               cellSz_,
+                                                                            int               decim_ );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.wip.draw.Mosaic").create( $mos_, $cellSz_, $decim_ ) -> <cv.gapi.wip.draw.Mosaic object>
+    $oMosaic( $mos_, $cellSz_, $decim_ ) -> <cv.gapi.wip.draw.Mosaic object>
 ```
 
 ### cv::gapi::wip::draw::Mosaic::IsInstance
@@ -65608,14 +64908,6 @@ AutoIt:
 cv::Mat cv::gapi::wip::draw::Image::alpha
 AutoIt:
     [propget, propput] $oImage.alpha
-```
-
-### Image.FullyQualifiedName
-
-```cpp
-static std::string cv::gapi::wip::draw::Image::FullyQualifiedName
-AutoIt:
-    [propget] $oImage.FullyQualifiedName
 ```
 
 ### cv::gapi::wip::draw::Image::get\_create
@@ -65689,14 +64981,6 @@ AutoIt:
 int cv::gapi::wip::draw::Poly::shift
 AutoIt:
     [propget, propput] $oPoly.shift
-```
-
-### Poly.FullyQualifiedName
-
-```cpp
-static std::string cv::gapi::wip::draw::Poly::FullyQualifiedName
-AutoIt:
-    [propget] $oPoly.FullyQualifiedName
 ```
 
 ### cv::gapi::wip::draw::Poly::get\_create
@@ -65846,14 +65130,6 @@ AutoIt:
 
 ## cv::gapi::wip::gst::GStreamerPipeline
 
-### GStreamerPipeline.FullyQualifiedName
-
-```cpp
-static std::string cv::gapi::wip::gst::GStreamerPipeline::FullyQualifiedName
-AutoIt:
-    [propget] $oGStreamerPipeline.FullyQualifiedName
-```
-
 ### cv::gapi::wip::gst::GStreamerPipeline::get\_create
 
 ```cpp
@@ -65986,14 +65262,6 @@ AutoIt:
 ```
 
 ## NamedParameters
-
-### NamedParameters.FullyQualifiedName
-
-```cpp
-static std::string NamedParameters::FullyQualifiedName
-AutoIt:
-    [propget] $oNamedParameters.FullyQualifiedName
-```
 
 ### NamedParameters::create
 
@@ -66211,14 +65479,6 @@ AutoIt:
 
 ## autoit::Buffer
 
-### Buffer.FullyQualifiedName
-
-```cpp
-static std::string autoit::Buffer::FullyQualifiedName
-AutoIt:
-    [propget] $oBuffer.FullyQualifiedName
-```
-
 ### autoit::Buffer::get\_create
 
 ```cpp
@@ -66263,14 +65523,6 @@ AutoIt:
 
 ## com::Thread
 
-### Thread.FullyQualifiedName
-
-```cpp
-static std::string com::Thread::FullyQualifiedName
-AutoIt:
-    [propget] $oThread.FullyQualifiedName
-```
-
 ### com::Thread::get\_create
 
 ```cpp
@@ -66311,14 +65563,6 @@ AutoIt:
 ```
 
 ## com::ThreadSafeQueue
-
-### ThreadSafeQueue.FullyQualifiedName
-
-```cpp
-static std::string com::ThreadSafeQueue::FullyQualifiedName
-AutoIt:
-    [propget] $oThreadSafeQueue.FullyQualifiedName
-```
 
 ### com::ThreadSafeQueue::get\_create
 
@@ -66416,14 +65660,6 @@ AutoIt:
 WGCFrameCallback cv::wgc::SimpleCapture::onFrameArrived
 AutoIt:
     [propget, propput] $oSimpleCapture.onFrameArrived
-```
-
-### SimpleCapture.FullyQualifiedName
-
-```cpp
-static std::string cv::wgc::SimpleCapture::FullyQualifiedName
-AutoIt:
-    [propget] $oSimpleCapture.FullyQualifiedName
 ```
 
 ### cv::wgc::SimpleCapture::IsInstance
@@ -66997,14 +66233,6 @@ AutoIt:
 
 ## cv::\_InputOutputArray
 
-### \_InputOutputArray.FullyQualifiedName
-
-```cpp
-static std::string cv::_InputOutputArray::FullyQualifiedName
-AutoIt:
-    [propget] $o_InputOutputArray.FullyQualifiedName
-```
-
 ### cv::\_InputOutputArray::IsInstance
 
 ```cpp
@@ -67473,14 +66701,6 @@ AutoIt:
     [propget] $oMatx12f.shortdim
 ```
 
-### Matx12f.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx12f::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx12f.FullyQualifiedName
-```
-
 ### cv::Matx12f::create
 
 ```cpp
@@ -67651,14 +66871,6 @@ AutoIt:
 static int cv::Matx12d::shortdim
 AutoIt:
     [propget] $oMatx12d.shortdim
-```
-
-### Matx12d.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx12d::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx12d.FullyQualifiedName
 ```
 
 ### cv::Matx12d::create
@@ -67833,14 +67045,6 @@ AutoIt:
     [propget] $oMatx13f.shortdim
 ```
 
-### Matx13f.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx13f::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx13f.FullyQualifiedName
-```
-
 ### cv::Matx13f::create
 
 ```cpp
@@ -68011,14 +67215,6 @@ AutoIt:
 static int cv::Matx13d::shortdim
 AutoIt:
     [propget] $oMatx13d.shortdim
-```
-
-### Matx13d.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx13d::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx13d.FullyQualifiedName
 ```
 
 ### cv::Matx13d::create
@@ -68193,14 +67389,6 @@ AutoIt:
     [propget] $oMatx14f.shortdim
 ```
 
-### Matx14f.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx14f::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx14f.FullyQualifiedName
-```
-
 ### cv::Matx14f::create
 
 ```cpp
@@ -68371,14 +67559,6 @@ AutoIt:
 static int cv::Matx14d::shortdim
 AutoIt:
     [propget] $oMatx14d.shortdim
-```
-
-### Matx14d.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx14d::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx14d.FullyQualifiedName
 ```
 
 ### cv::Matx14d::create
@@ -68553,14 +67733,6 @@ AutoIt:
     [propget] $oMatx16f.shortdim
 ```
 
-### Matx16f.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx16f::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx16f.FullyQualifiedName
-```
-
 ### cv::Matx16f::create
 
 ```cpp
@@ -68731,14 +67903,6 @@ AutoIt:
 static int cv::Matx16d::shortdim
 AutoIt:
     [propget] $oMatx16d.shortdim
-```
-
-### Matx16d.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx16d::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx16d.FullyQualifiedName
 ```
 
 ### cv::Matx16d::create
@@ -68913,14 +68077,6 @@ AutoIt:
     [propget] $oMatx21f.shortdim
 ```
 
-### Matx21f.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx21f::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx21f.FullyQualifiedName
-```
-
 ### cv::Matx21f::create
 
 ```cpp
@@ -69091,14 +68247,6 @@ AutoIt:
 static int cv::Matx21d::shortdim
 AutoIt:
     [propget] $oMatx21d.shortdim
-```
-
-### Matx21d.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx21d::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx21d.FullyQualifiedName
 ```
 
 ### cv::Matx21d::create
@@ -69273,14 +68421,6 @@ AutoIt:
     [propget] $oMatx31f.shortdim
 ```
 
-### Matx31f.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx31f::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx31f.FullyQualifiedName
-```
-
 ### cv::Matx31f::create
 
 ```cpp
@@ -69451,14 +68591,6 @@ AutoIt:
 static int cv::Matx31d::shortdim
 AutoIt:
     [propget] $oMatx31d.shortdim
-```
-
-### Matx31d.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx31d::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx31d.FullyQualifiedName
 ```
 
 ### cv::Matx31d::create
@@ -69633,14 +68765,6 @@ AutoIt:
     [propget] $oMatx41f.shortdim
 ```
 
-### Matx41f.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx41f::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx41f.FullyQualifiedName
-```
-
 ### cv::Matx41f::create
 
 ```cpp
@@ -69811,14 +68935,6 @@ AutoIt:
 static int cv::Matx41d::shortdim
 AutoIt:
     [propget] $oMatx41d.shortdim
-```
-
-### Matx41d.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx41d::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx41d.FullyQualifiedName
 ```
 
 ### cv::Matx41d::create
@@ -69993,14 +69109,6 @@ AutoIt:
     [propget] $oMatx61f.shortdim
 ```
 
-### Matx61f.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx61f::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx61f.FullyQualifiedName
-```
-
 ### cv::Matx61f::create
 
 ```cpp
@@ -70171,14 +69279,6 @@ AutoIt:
 static int cv::Matx61d::shortdim
 AutoIt:
     [propget] $oMatx61d.shortdim
-```
-
-### Matx61d.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx61d::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx61d.FullyQualifiedName
 ```
 
 ### cv::Matx61d::create
@@ -70353,14 +69453,6 @@ AutoIt:
     [propget] $oMatx22f.shortdim
 ```
 
-### Matx22f.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx22f::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx22f.FullyQualifiedName
-```
-
 ### cv::Matx22f::create
 
 ```cpp
@@ -70517,14 +69609,6 @@ AutoIt:
 static int cv::Matx22d::shortdim
 AutoIt:
     [propget] $oMatx22d.shortdim
-```
-
-### Matx22d.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx22d::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx22d.FullyQualifiedName
 ```
 
 ### cv::Matx22d::create
@@ -70685,14 +69769,6 @@ AutoIt:
     [propget] $oMatx23f.shortdim
 ```
 
-### Matx23f.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx23f::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx23f.FullyQualifiedName
-```
-
 ### cv::Matx23f::create
 
 ```cpp
@@ -70849,14 +69925,6 @@ AutoIt:
 static int cv::Matx23d::shortdim
 AutoIt:
     [propget] $oMatx23d.shortdim
-```
-
-### Matx23d.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx23d::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx23d.FullyQualifiedName
 ```
 
 ### cv::Matx23d::create
@@ -71017,14 +70085,6 @@ AutoIt:
     [propget] $oMatx32f.shortdim
 ```
 
-### Matx32f.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx32f::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx32f.FullyQualifiedName
-```
-
 ### cv::Matx32f::create
 
 ```cpp
@@ -71181,14 +70241,6 @@ AutoIt:
 static int cv::Matx32d::shortdim
 AutoIt:
     [propget] $oMatx32d.shortdim
-```
-
-### Matx32d.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx32d::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx32d.FullyQualifiedName
 ```
 
 ### cv::Matx32d::create
@@ -71349,14 +70401,6 @@ AutoIt:
     [propget] $oMatx33f.shortdim
 ```
 
-### Matx33f.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx33f::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx33f.FullyQualifiedName
-```
-
 ### cv::Matx33f::create
 
 ```cpp
@@ -71513,14 +70557,6 @@ AutoIt:
 static int cv::Matx33d::shortdim
 AutoIt:
     [propget] $oMatx33d.shortdim
-```
-
-### Matx33d.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx33d::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx33d.FullyQualifiedName
 ```
 
 ### cv::Matx33d::create
@@ -71681,14 +70717,6 @@ AutoIt:
     [propget] $oMatx34f.shortdim
 ```
 
-### Matx34f.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx34f::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx34f.FullyQualifiedName
-```
-
 ### cv::Matx34f::create
 
 ```cpp
@@ -71845,14 +70873,6 @@ AutoIt:
 static int cv::Matx34d::shortdim
 AutoIt:
     [propget] $oMatx34d.shortdim
-```
-
-### Matx34d.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx34d::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx34d.FullyQualifiedName
 ```
 
 ### cv::Matx34d::create
@@ -72013,14 +71033,6 @@ AutoIt:
     [propget] $oMatx43f.shortdim
 ```
 
-### Matx43f.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx43f::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx43f.FullyQualifiedName
-```
-
 ### cv::Matx43f::create
 
 ```cpp
@@ -72177,14 +71189,6 @@ AutoIt:
 static int cv::Matx43d::shortdim
 AutoIt:
     [propget] $oMatx43d.shortdim
-```
-
-### Matx43d.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx43d::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx43d.FullyQualifiedName
 ```
 
 ### cv::Matx43d::create
@@ -72345,14 +71349,6 @@ AutoIt:
     [propget] $oMatx44f.shortdim
 ```
 
-### Matx44f.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx44f::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx44f.FullyQualifiedName
-```
-
 ### cv::Matx44f::create
 
 ```cpp
@@ -72509,14 +71505,6 @@ AutoIt:
 static int cv::Matx44d::shortdim
 AutoIt:
     [propget] $oMatx44d.shortdim
-```
-
-### Matx44d.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx44d::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx44d.FullyQualifiedName
 ```
 
 ### cv::Matx44d::create
@@ -72677,14 +71665,6 @@ AutoIt:
     [propget] $oMatx66f.shortdim
 ```
 
-### Matx66f.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx66f::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx66f.FullyQualifiedName
-```
-
 ### cv::Matx66f::create
 
 ```cpp
@@ -72843,14 +71823,6 @@ AutoIt:
     [propget] $oMatx66d.shortdim
 ```
 
-### Matx66d.FullyQualifiedName
-
-```cpp
-static std::string cv::Matx66d::FullyQualifiedName
-AutoIt:
-    [propget] $oMatx66d.FullyQualifiedName
-```
-
 ### cv::Matx66d::create
 
 ```cpp
@@ -72995,14 +71967,6 @@ AutoIt:
 
 ## std::mutex
 
-### mutex.FullyQualifiedName
-
-```cpp
-static std::string std::mutex::FullyQualifiedName
-AutoIt:
-    [propget] $omutex.FullyQualifiedName
-```
-
 ### std::mutex::get\_create
 
 ```cpp
@@ -73050,14 +72014,6 @@ AutoIt:
 ```
 
 ## std::timed\_mutex
-
-### timed\_mutex.FullyQualifiedName
-
-```cpp
-static std::string std::timed_mutex::FullyQualifiedName
-AutoIt:
-    [propget] $otimed_mutex.FullyQualifiedName
-```
 
 ### std::timed\_mutex::get\_create
 
@@ -73131,14 +72087,6 @@ AutoIt:
     [propget, propput] $oRange.end
 ```
 
-### Range.FullyQualifiedName
-
-```cpp
-static std::string cv::Range::FullyQualifiedName
-AutoIt:
-    [propget] $oRange.FullyQualifiedName
-```
-
 ### cv::Range::get\_create
 
 ```cpp
@@ -73195,15 +72143,35 @@ AutoIt:
 
 ## cv::GCompileArg
 
-### GCompileArg.FullyQualifiedName
+### cv::GCompileArg::get\_create
 
 ```cpp
-static std::string cv::GCompileArg::FullyQualifiedName
+static cv::GCompileArg cv::GCompileArg::get_create( cv::GKernelPackage arg );
 AutoIt:
-    [propget] $oGCompileArg.FullyQualifiedName
+    _OpenCV_ObjCreate("cv.GCompileArg").create( $arg ) -> <cv.GCompileArg object>
+    $oGCompileArg( $arg ) -> <cv.GCompileArg object>
 ```
 
-### cv::GCompileArg::get\_create
+```cpp
+static cv::GCompileArg cv::GCompileArg::get_create( cv::gapi::GNetPackage arg );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GCompileArg").create( $arg ) -> <cv.GCompileArg object>
+    $oGCompileArg( $arg ) -> <cv.GCompileArg object>
+```
+
+```cpp
+static cv::GCompileArg cv::GCompileArg::get_create( cv::gapi::streaming::queue_capacity arg );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GCompileArg").create( $arg ) -> <cv.GCompileArg object>
+    $oGCompileArg( $arg ) -> <cv.GCompileArg object>
+```
+
+```cpp
+static cv::GCompileArg cv::GCompileArg::get_create( cv::gapi::ot::ObjectTrackerParams arg );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GCompileArg").create( $arg ) -> <cv.GCompileArg object>
+    $oGCompileArg( $arg ) -> <cv.GCompileArg object>
+```
 
 ```cpp
 static cv::GCompileArg cv::GCompileArg::get_create();
@@ -73225,79 +72193,151 @@ AutoIt:
     _OpenCV_ObjCreate("cv.GCompileArg").IsInstance( $obj ) -> retval
 ```
 
-## cv::GRunArg
+## cv::GInferInputs
 
-### GRunArg.FullyQualifiedName
+### cv::GInferInputs::get\_create
 
 ```cpp
-static std::string cv::GRunArg::FullyQualifiedName
+static cv::GInferInputs cv::GInferInputs::get_create();
 AutoIt:
-    [propget] $oGRunArg.FullyQualifiedName
+    _OpenCV_ObjCreate("cv.GInferInputs").create() -> <cv.GInferInputs object>
 ```
 
-### cv::GRunArg::get\_create
+### cv::GInferInputs::IsInstance
 
 ```cpp
-static cv::GRunArg cv::GRunArg::get_create();
+static bool cv::GInferInputs::IsInstance( const cv::GInferInputs& obj );
 AutoIt:
-    _OpenCV_ObjCreate("cv.GRunArg").create() -> <cv.GRunArg object>
-```
-
-### cv::GRunArg::IsInstance
-
-```cpp
-static bool cv::GRunArg::IsInstance( const cv::GRunArg& obj );
-AutoIt:
-    _OpenCV_ObjCreate("cv.GRunArg").IsInstance( $obj ) -> retval
+    _OpenCV_ObjCreate("cv.GInferInputs").IsInstance( $obj ) -> retval
 ```
 
 ```cpp
-static bool cv::GRunArg::IsInstance( VARIANT* obj );
+static bool cv::GInferInputs::IsInstance( VARIANT* obj );
 AutoIt:
-    _OpenCV_ObjCreate("cv.GRunArg").IsInstance( $obj ) -> retval
+    _OpenCV_ObjCreate("cv.GInferInputs").IsInstance( $obj ) -> retval
 ```
 
-## cv::gapi::wip::draw::Prim
-
-### Prim.FullyQualifiedName
+### cv::GInferInputs::setInput
 
 ```cpp
-static std::string cv::gapi::wip::draw::Prim::FullyQualifiedName
+cv::GInferInputs cv::GInferInputs::setInput( const std::string& name,
+                                             const cv::GMat&    value );
 AutoIt:
-    [propget] $oPrim.FullyQualifiedName
-```
-
-### cv::gapi::wip::draw::Prim::get\_create
-
-```cpp
-static cv::gapi::wip::draw::Prim cv::gapi::wip::draw::Prim::get_create();
-AutoIt:
-    _OpenCV_ObjCreate("cv.gapi.wip.draw.Prim").create() -> <cv.gapi.wip.draw.Prim object>
-```
-
-### cv::gapi::wip::draw::Prim::IsInstance
-
-```cpp
-static bool cv::gapi::wip::draw::Prim::IsInstance( const cv::gapi::wip::draw::Prim& obj );
-AutoIt:
-    _OpenCV_ObjCreate("cv.gapi.wip.draw.Prim").IsInstance( $obj ) -> retval
+    $oGInferInputs.setInput( $name, $value ) -> retval
 ```
 
 ```cpp
-static bool cv::gapi::wip::draw::Prim::IsInstance( VARIANT* obj );
+cv::GInferInputs cv::GInferInputs::setInput( const std::string& name,
+                                             const cv::GFrame&  value );
 AutoIt:
-    _OpenCV_ObjCreate("cv.gapi.wip.draw.Prim").IsInstance( $obj ) -> retval
+    $oGInferInputs.setInput( $name, $value ) -> retval
+```
+
+## cv::GInferListInputs
+
+### cv::GInferListInputs::get\_create
+
+```cpp
+static cv::GInferListInputs cv::GInferListInputs::get_create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.GInferListInputs").create() -> <cv.GInferListInputs object>
+```
+
+### cv::GInferListInputs::IsInstance
+
+```cpp
+static bool cv::GInferListInputs::IsInstance( const cv::GInferListInputs& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GInferListInputs").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::GInferListInputs::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GInferListInputs").IsInstance( $obj ) -> retval
+```
+
+### cv::GInferListInputs::setInput
+
+```cpp
+cv::GInferListInputs cv::GInferListInputs::setInput( const std::string&          name,
+                                                     const cv::GArray<cv::GMat>& value );
+AutoIt:
+    $oGInferListInputs.setInput( $name, $value ) -> retval
+```
+
+```cpp
+cv::GInferListInputs cv::GInferListInputs::setInput( const std::string&          name,
+                                                     const cv::GArray<cv::Rect>& value );
+AutoIt:
+    $oGInferListInputs.setInput( $name, $value ) -> retval
+```
+
+## cv::GInferOutputs
+
+### cv::GInferOutputs::get\_create
+
+```cpp
+static cv::GInferOutputs cv::GInferOutputs::get_create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.GInferOutputs").create() -> <cv.GInferOutputs object>
+```
+
+### cv::GInferOutputs::IsInstance
+
+```cpp
+static bool cv::GInferOutputs::IsInstance( const cv::GInferOutputs& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GInferOutputs").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::GInferOutputs::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GInferOutputs").IsInstance( $obj ) -> retval
+```
+
+### cv::GInferOutputs::at
+
+```cpp
+cv::GMat cv::GInferOutputs::at( const std::string& name );
+AutoIt:
+    $oGInferOutputs.at( $name ) -> retval
+```
+
+## cv::GInferListOutputs
+
+### cv::GInferListOutputs::get\_create
+
+```cpp
+static cv::GInferListOutputs cv::GInferListOutputs::get_create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.GInferListOutputs").create() -> <cv.GInferListOutputs object>
+```
+
+### cv::GInferListOutputs::IsInstance
+
+```cpp
+static bool cv::GInferListOutputs::IsInstance( const cv::GInferListOutputs& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GInferListOutputs").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::GInferListOutputs::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.GInferListOutputs").IsInstance( $obj ) -> retval
+```
+
+### cv::GInferListOutputs::at
+
+```cpp
+cv::GArray<cv::GMat> cv::GInferListOutputs::at( const std::string& name );
+AutoIt:
+    $oGInferListOutputs.at( $name ) -> retval
 ```
 
 ## cv::gapi::wip::IStreamSource
-
-### IStreamSource.FullyQualifiedName
-
-```cpp
-static std::string cv::gapi::wip::IStreamSource::FullyQualifiedName
-AutoIt:
-    [propget] $oIStreamSource.FullyQualifiedName
-```
 
 ### cv::gapi::wip::IStreamSource::IsInstance
 
@@ -73315,14 +72355,6 @@ AutoIt:
 
 ## cv::GProtoInputArgs
 
-### GProtoInputArgs.FullyQualifiedName
-
-```cpp
-static std::string cv::GProtoInputArgs::FullyQualifiedName
-AutoIt:
-    [propget] $oGProtoInputArgs.FullyQualifiedName
-```
-
 ### cv::GProtoInputArgs::IsInstance
 
 ```cpp
@@ -73338,14 +72370,6 @@ AutoIt:
 ```
 
 ## cv::GProtoOutputArgs
-
-### GProtoOutputArgs.FullyQualifiedName
-
-```cpp
-static std::string cv::GProtoOutputArgs::FullyQualifiedName
-AutoIt:
-    [propget] $oGProtoOutputArgs.FullyQualifiedName
-```
 
 ### cv::GProtoOutputArgs::IsInstance
 
@@ -73363,14 +72387,6 @@ AutoIt:
 
 ## cv::detail::ExtractArgsCallback
 
-### ExtractArgsCallback.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::ExtractArgsCallback::FullyQualifiedName
-AutoIt:
-    [propget] $oExtractArgsCallback.FullyQualifiedName
-```
-
 ### cv::detail::ExtractArgsCallback::IsInstance
 
 ```cpp
@@ -73386,14 +72402,6 @@ AutoIt:
 ```
 
 ## cv::detail::ExtractMetaCallback
-
-### ExtractMetaCallback.FullyQualifiedName
-
-```cpp
-static std::string cv::detail::ExtractMetaCallback::FullyQualifiedName
-AutoIt:
-    [propget] $oExtractMetaCallback.FullyQualifiedName
-```
 
 ### cv::detail::ExtractMetaCallback::IsInstance
 
@@ -73417,14 +72425,6 @@ AutoIt:
 size_t VectorOfString::size()
 AutoIt:
     [propget] $oVectorOfString.Count
-```
-
-### VectorOfString.FullyQualifiedName
-
-```cpp
-static std::string VectorOfString::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfString.FullyQualifiedName
 ```
 
 ### VectorOfString::create
@@ -73645,14 +72645,6 @@ AutoIt:
     [propget] $oVectorOfVariant.Count
 ```
 
-### VectorOfVariant.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVariant::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVariant.FullyQualifiedName
-```
-
 ### VectorOfVariant::create
 
 ```cpp
@@ -73869,14 +72861,6 @@ AutoIt:
 size_t VectorOfInt::size()
 AutoIt:
     [propget] $oVectorOfInt.Count
-```
-
-### VectorOfInt.FullyQualifiedName
-
-```cpp
-static std::string VectorOfInt::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfInt.FullyQualifiedName
 ```
 
 ### VectorOfInt::create
@@ -74097,14 +73081,6 @@ AutoIt:
     [propget] $oVectorOfFloat.Count
 ```
 
-### VectorOfFloat.FullyQualifiedName
-
-```cpp
-static std::string VectorOfFloat::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfFloat.FullyQualifiedName
-```
-
 ### VectorOfFloat::create
 
 ```cpp
@@ -74321,14 +73297,6 @@ AutoIt:
 size_t VectorOfPoint::size()
 AutoIt:
     [propget] $oVectorOfPoint.Count
-```
-
-### VectorOfPoint.FullyQualifiedName
-
-```cpp
-static std::string VectorOfPoint::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfPoint.FullyQualifiedName
 ```
 
 ### VectorOfPoint::create
@@ -74549,14 +73517,6 @@ AutoIt:
     [propget] $oVectorOfMat.Count
 ```
 
-### VectorOfMat.FullyQualifiedName
-
-```cpp
-static std::string VectorOfMat::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfMat.FullyQualifiedName
-```
-
 ### VectorOfMat::create
 
 ```cpp
@@ -74773,14 +73733,6 @@ AutoIt:
 size_t VectorOfKeyPoint::size()
 AutoIt:
     [propget] $oVectorOfKeyPoint.Count
-```
-
-### VectorOfKeyPoint.FullyQualifiedName
-
-```cpp
-static std::string VectorOfKeyPoint::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfKeyPoint.FullyQualifiedName
 ```
 
 ### VectorOfKeyPoint::create
@@ -75001,14 +73953,6 @@ AutoIt:
     [propget] $oVectorOfDMatch.Count
 ```
 
-### VectorOfDMatch.FullyQualifiedName
-
-```cpp
-static std::string VectorOfDMatch::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfDMatch.FullyQualifiedName
-```
-
 ### VectorOfDMatch::create
 
 ```cpp
@@ -75225,14 +74169,6 @@ AutoIt:
 size_t VectorOfChar::size()
 AutoIt:
     [propget] $oVectorOfChar.Count
-```
-
-### VectorOfChar.FullyQualifiedName
-
-```cpp
-static std::string VectorOfChar::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfChar.FullyQualifiedName
 ```
 
 ### VectorOfChar::create
@@ -75453,14 +74389,6 @@ AutoIt:
     [propget] $oVectorOfVectorOfDMatch.Count
 ```
 
-### VectorOfVectorOfDMatch.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVectorOfDMatch::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVectorOfDMatch.FullyQualifiedName
-```
-
 ### VectorOfVectorOfDMatch::create
 
 ```cpp
@@ -75677,14 +74605,6 @@ AutoIt:
 size_t VectorOfVectorOfChar::size()
 AutoIt:
     [propget] $oVectorOfVectorOfChar.Count
-```
-
-### VectorOfVectorOfChar.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVectorOfChar::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVectorOfChar.FullyQualifiedName
 ```
 
 ### VectorOfVectorOfChar::create
@@ -75905,14 +74825,6 @@ AutoIt:
     [propget] $oVectorOfUchar.Count
 ```
 
-### VectorOfUchar.FullyQualifiedName
-
-```cpp
-static std::string VectorOfUchar::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfUchar.FullyQualifiedName
-```
-
 ### VectorOfUchar::create
 
 ```cpp
@@ -76129,14 +75041,6 @@ AutoIt:
 size_t VectorOfRect::size()
 AutoIt:
     [propget] $oVectorOfRect.Count
-```
-
-### VectorOfRect.FullyQualifiedName
-
-```cpp
-static std::string VectorOfRect::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfRect.FullyQualifiedName
 ```
 
 ### VectorOfRect::create
@@ -76357,14 +75261,6 @@ AutoIt:
     [propget] $oVectorOfTuplePointAndDouble.Count
 ```
 
-### VectorOfTuplePointAndDouble.FullyQualifiedName
-
-```cpp
-static std::string VectorOfTuplePointAndDouble::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfTuplePointAndDouble.FullyQualifiedName
-```
-
 ### VectorOfTuplePointAndDouble::create
 
 ```cpp
@@ -76581,14 +75477,6 @@ AutoIt:
 size_t VectorOfDouble::size()
 AutoIt:
     [propget] $oVectorOfDouble.Count
-```
-
-### VectorOfDouble.FullyQualifiedName
-
-```cpp
-static std::string VectorOfDouble::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfDouble.FullyQualifiedName
 ```
 
 ### VectorOfDouble::create
@@ -76809,14 +75697,6 @@ AutoIt:
     [propget] $oVectorOfRotatedRect.Count
 ```
 
-### VectorOfRotatedRect.FullyQualifiedName
-
-```cpp
-static std::string VectorOfRotatedRect::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfRotatedRect.FullyQualifiedName
-```
-
 ### VectorOfRotatedRect::create
 
 ```cpp
@@ -77033,14 +75913,6 @@ AutoIt:
 size_t VectorOfUMat::size()
 AutoIt:
     [propget] $oVectorOfUMat.Count
-```
-
-### VectorOfUMat.FullyQualifiedName
-
-```cpp
-static std::string VectorOfUMat::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfUMat.FullyQualifiedName
 ```
 
 ### VectorOfUMat::create
@@ -77261,14 +76133,6 @@ AutoIt:
     [propget] $oVectorOfDetail_ImageFeatures.Count
 ```
 
-### VectorOfDetail\_ImageFeatures.FullyQualifiedName
-
-```cpp
-static std::string VectorOfDetail_ImageFeatures::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfDetail_ImageFeatures.FullyQualifiedName
-```
-
 ### VectorOfDetail\_ImageFeatures::create
 
 ```cpp
@@ -77485,14 +76349,6 @@ AutoIt:
 size_t VectorOfDetail_MatchesInfo::size()
 AutoIt:
     [propget] $oVectorOfDetail_MatchesInfo.Count
-```
-
-### VectorOfDetail\_MatchesInfo.FullyQualifiedName
-
-```cpp
-static std::string VectorOfDetail_MatchesInfo::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfDetail_MatchesInfo.FullyQualifiedName
 ```
 
 ### VectorOfDetail\_MatchesInfo::create
@@ -77713,14 +76569,6 @@ AutoIt:
     [propget] $oVectorOfSize.Count
 ```
 
-### VectorOfSize.FullyQualifiedName
-
-```cpp
-static std::string VectorOfSize::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfSize.FullyQualifiedName
-```
-
 ### VectorOfSize::create
 
 ```cpp
@@ -77937,14 +76785,6 @@ AutoIt:
 size_t VectorOfSize_t::size()
 AutoIt:
     [propget] $oVectorOfSize_t.Count
-```
-
-### VectorOfSize\_t.FullyQualifiedName
-
-```cpp
-static std::string VectorOfSize_t::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfSize_t.FullyQualifiedName
 ```
 
 ### VectorOfSize\_t::create
@@ -78165,14 +77005,6 @@ AutoIt:
     [propget] $oVectorOfRange.Count
 ```
 
-### VectorOfRange.FullyQualifiedName
-
-```cpp
-static std::string VectorOfRange::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfRange.FullyQualifiedName
-```
-
 ### VectorOfRange::create
 
 ```cpp
@@ -78389,14 +77221,6 @@ AutoIt:
 size_t VectorOfVec2b::size()
 AutoIt:
     [propget] $oVectorOfVec2b.Count
-```
-
-### VectorOfVec2b.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVec2b::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVec2b.FullyQualifiedName
 ```
 
 ### VectorOfVec2b::create
@@ -78617,14 +77441,6 @@ AutoIt:
     [propget] $oVectorOfVec3b.Count
 ```
 
-### VectorOfVec3b.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVec3b::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVec3b.FullyQualifiedName
-```
-
 ### VectorOfVec3b::create
 
 ```cpp
@@ -78841,14 +77657,6 @@ AutoIt:
 size_t VectorOfVec4b::size()
 AutoIt:
     [propget] $oVectorOfVec4b.Count
-```
-
-### VectorOfVec4b.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVec4b::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVec4b.FullyQualifiedName
 ```
 
 ### VectorOfVec4b::create
@@ -79069,14 +77877,6 @@ AutoIt:
     [propget] $oVectorOfVec2s.Count
 ```
 
-### VectorOfVec2s.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVec2s::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVec2s.FullyQualifiedName
-```
-
 ### VectorOfVec2s::create
 
 ```cpp
@@ -79293,14 +78093,6 @@ AutoIt:
 size_t VectorOfVec3s::size()
 AutoIt:
     [propget] $oVectorOfVec3s.Count
-```
-
-### VectorOfVec3s.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVec3s::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVec3s.FullyQualifiedName
 ```
 
 ### VectorOfVec3s::create
@@ -79521,14 +78313,6 @@ AutoIt:
     [propget] $oVectorOfVec4s.Count
 ```
 
-### VectorOfVec4s.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVec4s::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVec4s.FullyQualifiedName
-```
-
 ### VectorOfVec4s::create
 
 ```cpp
@@ -79745,14 +78529,6 @@ AutoIt:
 size_t VectorOfVec2w::size()
 AutoIt:
     [propget] $oVectorOfVec2w.Count
-```
-
-### VectorOfVec2w.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVec2w::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVec2w.FullyQualifiedName
 ```
 
 ### VectorOfVec2w::create
@@ -79973,14 +78749,6 @@ AutoIt:
     [propget] $oVectorOfVec3w.Count
 ```
 
-### VectorOfVec3w.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVec3w::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVec3w.FullyQualifiedName
-```
-
 ### VectorOfVec3w::create
 
 ```cpp
@@ -80197,14 +78965,6 @@ AutoIt:
 size_t VectorOfVec4w::size()
 AutoIt:
     [propget] $oVectorOfVec4w.Count
-```
-
-### VectorOfVec4w.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVec4w::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVec4w.FullyQualifiedName
 ```
 
 ### VectorOfVec4w::create
@@ -80425,14 +79185,6 @@ AutoIt:
     [propget] $oVectorOfVec2i.Count
 ```
 
-### VectorOfVec2i.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVec2i::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVec2i.FullyQualifiedName
-```
-
 ### VectorOfVec2i::create
 
 ```cpp
@@ -80649,14 +79401,6 @@ AutoIt:
 size_t VectorOfVec3i::size()
 AutoIt:
     [propget] $oVectorOfVec3i.Count
-```
-
-### VectorOfVec3i.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVec3i::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVec3i.FullyQualifiedName
 ```
 
 ### VectorOfVec3i::create
@@ -80877,14 +79621,6 @@ AutoIt:
     [propget] $oVectorOfVec4i.Count
 ```
 
-### VectorOfVec4i.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVec4i::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVec4i.FullyQualifiedName
-```
-
 ### VectorOfVec4i::create
 
 ```cpp
@@ -81101,14 +79837,6 @@ AutoIt:
 size_t VectorOfVec6i::size()
 AutoIt:
     [propget] $oVectorOfVec6i.Count
-```
-
-### VectorOfVec6i.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVec6i::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVec6i.FullyQualifiedName
 ```
 
 ### VectorOfVec6i::create
@@ -81329,14 +80057,6 @@ AutoIt:
     [propget] $oVectorOfVec8i.Count
 ```
 
-### VectorOfVec8i.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVec8i::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVec8i.FullyQualifiedName
-```
-
 ### VectorOfVec8i::create
 
 ```cpp
@@ -81553,14 +80273,6 @@ AutoIt:
 size_t VectorOfVec2f::size()
 AutoIt:
     [propget] $oVectorOfVec2f.Count
-```
-
-### VectorOfVec2f.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVec2f::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVec2f.FullyQualifiedName
 ```
 
 ### VectorOfVec2f::create
@@ -81781,14 +80493,6 @@ AutoIt:
     [propget] $oVectorOfVec3f.Count
 ```
 
-### VectorOfVec3f.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVec3f::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVec3f.FullyQualifiedName
-```
-
 ### VectorOfVec3f::create
 
 ```cpp
@@ -82005,14 +80709,6 @@ AutoIt:
 size_t VectorOfVec4f::size()
 AutoIt:
     [propget] $oVectorOfVec4f.Count
-```
-
-### VectorOfVec4f.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVec4f::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVec4f.FullyQualifiedName
 ```
 
 ### VectorOfVec4f::create
@@ -82233,14 +80929,6 @@ AutoIt:
     [propget] $oVectorOfVec6f.Count
 ```
 
-### VectorOfVec6f.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVec6f::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVec6f.FullyQualifiedName
-```
-
 ### VectorOfVec6f::create
 
 ```cpp
@@ -82457,14 +81145,6 @@ AutoIt:
 size_t VectorOfVec2d::size()
 AutoIt:
     [propget] $oVectorOfVec2d.Count
-```
-
-### VectorOfVec2d.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVec2d::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVec2d.FullyQualifiedName
 ```
 
 ### VectorOfVec2d::create
@@ -82685,14 +81365,6 @@ AutoIt:
     [propget] $oVectorOfVec3d.Count
 ```
 
-### VectorOfVec3d.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVec3d::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVec3d.FullyQualifiedName
-```
-
 ### VectorOfVec3d::create
 
 ```cpp
@@ -82909,14 +81581,6 @@ AutoIt:
 size_t VectorOfVec4d::size()
 AutoIt:
     [propget] $oVectorOfVec4d.Count
-```
-
-### VectorOfVec4d.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVec4d::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVec4d.FullyQualifiedName
 ```
 
 ### VectorOfVec4d::create
@@ -83137,14 +81801,6 @@ AutoIt:
     [propget] $oVectorOfVec6d.Count
 ```
 
-### VectorOfVec6d.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVec6d::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVec6d.FullyQualifiedName
-```
-
 ### VectorOfVec6d::create
 
 ```cpp
@@ -83361,14 +82017,6 @@ AutoIt:
 size_t VectorOfPoint2f::size()
 AutoIt:
     [propget] $oVectorOfPoint2f.Count
-```
-
-### VectorOfPoint2f.FullyQualifiedName
-
-```cpp
-static std::string VectorOfPoint2f::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfPoint2f.FullyQualifiedName
 ```
 
 ### VectorOfPoint2f::create
@@ -83589,14 +82237,6 @@ AutoIt:
     [propget] $oVectorOfVectorOfPoint2f.Count
 ```
 
-### VectorOfVectorOfPoint2f.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVectorOfPoint2f::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVectorOfPoint2f.FullyQualifiedName
-```
-
 ### VectorOfVectorOfPoint2f::create
 
 ```cpp
@@ -83813,14 +82453,6 @@ AutoIt:
 size_t VectorOfDnn_Target::size()
 AutoIt:
     [propget] $oVectorOfDnn_Target.Count
-```
-
-### VectorOfDnn\_Target.FullyQualifiedName
-
-```cpp
-static std::string VectorOfDnn_Target::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfDnn_Target.FullyQualifiedName
 ```
 
 ### VectorOfDnn\_Target::create
@@ -84041,14 +82673,6 @@ AutoIt:
     [propget] $oVectorOfRect2d.Count
 ```
 
-### VectorOfRect2d.FullyQualifiedName
-
-```cpp
-static std::string VectorOfRect2d::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfRect2d.FullyQualifiedName
-```
-
 ### VectorOfRect2d::create
 
 ```cpp
@@ -84265,14 +82889,6 @@ AutoIt:
 size_t VectorOfVectorOfMat::size()
 AutoIt:
     [propget] $oVectorOfVectorOfMat.Count
-```
-
-### VectorOfVectorOfMat.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVectorOfMat::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVectorOfMat.FullyQualifiedName
 ```
 
 ### VectorOfVectorOfMat::create
@@ -84493,14 +83109,6 @@ AutoIt:
     [propget] $oVectorOfVectorOfInt.Count
 ```
 
-### VectorOfVectorOfInt.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVectorOfInt::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVectorOfInt.FullyQualifiedName
-```
-
 ### VectorOfVectorOfInt::create
 
 ```cpp
@@ -84717,14 +83325,6 @@ AutoIt:
 size_t VectorOfVectorOfVectorOfInt::size()
 AutoIt:
     [propget] $oVectorOfVectorOfVectorOfInt.Count
-```
-
-### VectorOfVectorOfVectorOfInt.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVectorOfVectorOfInt::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVectorOfVectorOfInt.FullyQualifiedName
 ```
 
 ### VectorOfVectorOfVectorOfInt::create
@@ -84945,14 +83545,6 @@ AutoIt:
     [propget] $oVectorOfVectorOfPoint.Count
 ```
 
-### VectorOfVectorOfPoint.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVectorOfPoint::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVectorOfPoint.FullyQualifiedName
-```
-
 ### VectorOfVectorOfPoint::create
 
 ```cpp
@@ -85169,14 +83761,6 @@ AutoIt:
 size_t VectorOfVectorOfKeyPoint::size()
 AutoIt:
     [propget] $oVectorOfVectorOfKeyPoint.Count
-```
-
-### VectorOfVectorOfKeyPoint.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVectorOfKeyPoint::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVectorOfKeyPoint.FullyQualifiedName
 ```
 
 ### VectorOfVectorOfKeyPoint::create
@@ -85397,14 +83981,6 @@ AutoIt:
     [propget] $oVectorOfVideoCapture.Count
 ```
 
-### VectorOfVideoCapture.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVideoCapture::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVideoCapture.FullyQualifiedName
-```
-
 ### VectorOfVideoCapture::create
 
 ```cpp
@@ -85621,14 +84197,6 @@ AutoIt:
 size_t VectorOfVideoCaptureAPIs::size()
 AutoIt:
     [propget] $oVectorOfVideoCaptureAPIs.Count
-```
-
-### VectorOfVideoCaptureAPIs.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVideoCaptureAPIs::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVideoCaptureAPIs.FullyQualifiedName
 ```
 
 ### VectorOfVideoCaptureAPIs::create
@@ -85849,14 +84417,6 @@ AutoIt:
     [propget] $oVectorOfPoint3f.Count
 ```
 
-### VectorOfPoint3f.FullyQualifiedName
-
-```cpp
-static std::string VectorOfPoint3f::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfPoint3f.FullyQualifiedName
-```
-
 ### VectorOfPoint3f::create
 
 ```cpp
@@ -86073,14 +84633,6 @@ AutoIt:
 size_t VectorOfVectorOfPoint3f::size()
 AutoIt:
     [propget] $oVectorOfVectorOfPoint3f.Count
-```
-
-### VectorOfVectorOfPoint3f.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVectorOfPoint3f::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVectorOfPoint3f.FullyQualifiedName
 ```
 
 ### VectorOfVectorOfPoint3f::create
@@ -86301,14 +84853,6 @@ AutoIt:
     [propget] $oVectorOfDetail_CameraParams.Count
 ```
 
-### VectorOfDetail\_CameraParams.FullyQualifiedName
-
-```cpp
-static std::string VectorOfDetail_CameraParams::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfDetail_CameraParams.FullyQualifiedName
-```
-
 ### VectorOfDetail\_CameraParams::create
 
 ```cpp
@@ -86519,14 +85063,6 @@ AutoIt:
 
 ## cv\_GOpaque\_int
 
-### cv\_GOpaque\_int.FullyQualifiedName
-
-```cpp
-static std::string cv_GOpaque_int::FullyQualifiedName
-AutoIt:
-    [propget] $ocv_GOpaque_int.FullyQualifiedName
-```
-
 ### cv\_GOpaque\_int::IsInstance
 
 ```cpp
@@ -86542,14 +85078,6 @@ AutoIt:
 ```
 
 ## cv\_GOpaque\_double
-
-### cv\_GOpaque\_double.FullyQualifiedName
-
-```cpp
-static std::string cv_GOpaque_double::FullyQualifiedName
-AutoIt:
-    [propget] $ocv_GOpaque_double.FullyQualifiedName
-```
 
 ### cv\_GOpaque\_double::IsInstance
 
@@ -86567,14 +85095,6 @@ AutoIt:
 
 ## cv\_GArray\_int
 
-### cv\_GArray\_int.FullyQualifiedName
-
-```cpp
-static std::string cv_GArray_int::FullyQualifiedName
-AutoIt:
-    [propget] $ocv_GArray_int.FullyQualifiedName
-```
-
 ### cv\_GArray\_int::IsInstance
 
 ```cpp
@@ -86590,14 +85110,6 @@ AutoIt:
 ```
 
 ## cv\_GArray\_cv\_Point2f
-
-### cv\_GArray\_cv\_Point2f.FullyQualifiedName
-
-```cpp
-static std::string cv_GArray_cv_Point2f::FullyQualifiedName
-AutoIt:
-    [propget] $ocv_GArray_cv_Point2f.FullyQualifiedName
-```
 
 ### cv\_GArray\_cv\_Point2f::IsInstance
 
@@ -86615,14 +85127,6 @@ AutoIt:
 
 ## cv\_GArray\_cv\_Point3f
 
-### cv\_GArray\_cv\_Point3f.FullyQualifiedName
-
-```cpp
-static std::string cv_GArray_cv_Point3f::FullyQualifiedName
-AutoIt:
-    [propget] $ocv_GArray_cv_Point3f.FullyQualifiedName
-```
-
 ### cv\_GArray\_cv\_Point3f::IsInstance
 
 ```cpp
@@ -86638,14 +85142,6 @@ AutoIt:
 ```
 
 ## cv\_GOpaque\_cv\_Rect
-
-### cv\_GOpaque\_cv\_Rect.FullyQualifiedName
-
-```cpp
-static std::string cv_GOpaque_cv_Rect::FullyQualifiedName
-AutoIt:
-    [propget] $ocv_GOpaque_cv_Rect.FullyQualifiedName
-```
 
 ### cv\_GOpaque\_cv\_Rect::IsInstance
 
@@ -86663,14 +85159,6 @@ AutoIt:
 
 ## cv\_GArray\_cv\_Rect
 
-### cv\_GArray\_cv\_Rect.FullyQualifiedName
-
-```cpp
-static std::string cv_GArray_cv_Rect::FullyQualifiedName
-AutoIt:
-    [propget] $ocv_GArray_cv_Rect.FullyQualifiedName
-```
-
 ### cv\_GArray\_cv\_Rect::IsInstance
 
 ```cpp
@@ -86687,14 +85175,6 @@ AutoIt:
 
 ## cv\_GArray\_cv\_Point2i
 
-### cv\_GArray\_cv\_Point2i.FullyQualifiedName
-
-```cpp
-static std::string cv_GArray_cv_Point2i::FullyQualifiedName
-AutoIt:
-    [propget] $ocv_GArray_cv_Point2i.FullyQualifiedName
-```
-
 ### cv\_GArray\_cv\_Point2i::IsInstance
 
 ```cpp
@@ -86710,14 +85190,6 @@ AutoIt:
 ```
 
 ## cv\_GOpaque\_cv\_Size
-
-### cv\_GOpaque\_cv\_Size.FullyQualifiedName
-
-```cpp
-static std::string cv_GOpaque_cv_Size::FullyQualifiedName
-AutoIt:
-    [propget] $ocv_GOpaque_cv_Size.FullyQualifiedName
-```
 
 ### cv\_GOpaque\_cv\_Size::IsInstance
 
@@ -86741,14 +85213,6 @@ AutoIt:
 size_t VectorOfGMat::size()
 AutoIt:
     [propget] $oVectorOfGMat.Count
-```
-
-### VectorOfGMat.FullyQualifiedName
-
-```cpp
-static std::string VectorOfGMat::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfGMat.FullyQualifiedName
 ```
 
 ### VectorOfGMat::create
@@ -86959,15 +85423,23 @@ AutoIt:
     $oVectorOfGMat.start() -> retval
 ```
 
-## cv\_GArray\_uint64\_t
+## cv\_GOpaque\_int64\_t
 
-### cv\_GArray\_uint64\_t.FullyQualifiedName
+### cv\_GOpaque\_int64\_t::IsInstance
 
 ```cpp
-static std::string cv_GArray_uint64_t::FullyQualifiedName
+static bool cv_GOpaque_int64_t::IsInstance( const cv_GOpaque_int64_t& obj );
 AutoIt:
-    [propget] $ocv_GArray_uint64_t.FullyQualifiedName
+    _OpenCV_ObjCreate("cv_GOpaque_int64_t").IsInstance( $obj ) -> retval
 ```
+
+```cpp
+static bool cv_GOpaque_int64_t::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv_GOpaque_int64_t").IsInstance( $obj ) -> retval
+```
+
+## cv\_GArray\_uint64\_t
 
 ### cv\_GArray\_uint64\_t::IsInstance
 
@@ -86991,14 +85463,6 @@ AutoIt:
 size_t VectorOfGRunArg::size()
 AutoIt:
     [propget] $oVectorOfGRunArg.Count
-```
-
-### VectorOfGRunArg.FullyQualifiedName
-
-```cpp
-static std::string VectorOfGRunArg::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfGRunArg.FullyQualifiedName
 ```
 
 ### VectorOfGRunArg::create
@@ -87219,14 +85683,6 @@ AutoIt:
     [propget] $oVectorOfGCompileArg.Count
 ```
 
-### VectorOfGCompileArg.FullyQualifiedName
-
-```cpp
-static std::string VectorOfGCompileArg::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfGCompileArg.FullyQualifiedName
-```
-
 ### VectorOfGCompileArg::create
 
 ```cpp
@@ -87443,14 +85899,6 @@ AutoIt:
 size_t VectorOfGMetaArg::size()
 AutoIt:
     [propget] $oVectorOfGMetaArg.Count
-```
-
-### VectorOfGMetaArg.FullyQualifiedName
-
-```cpp
-static std::string VectorOfGMetaArg::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfGMetaArg.FullyQualifiedName
 ```
 
 ### VectorOfGMetaArg::create
@@ -87671,14 +86119,6 @@ AutoIt:
     [propget] $oVectorOfGapi_GNetParam.Count
 ```
 
-### VectorOfGapi\_GNetParam.FullyQualifiedName
-
-```cpp
-static std::string VectorOfGapi_GNetParam::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfGapi_GNetParam.FullyQualifiedName
-```
-
 ### VectorOfGapi\_GNetParam::create
 
 ```cpp
@@ -87889,14 +86329,6 @@ AutoIt:
 
 ## MapOfStringAndString
 
-### MapOfStringAndString.FullyQualifiedName
-
-```cpp
-static std::string MapOfStringAndString::FullyQualifiedName
-AutoIt:
-    [propget] $oMapOfStringAndString.FullyQualifiedName
-```
-
 ### MapOfStringAndString::create
 
 ```cpp
@@ -88072,14 +86504,6 @@ AutoIt:
 size_t VectorOfPairOfStringAndString::size()
 AutoIt:
     [propget] $oVectorOfPairOfStringAndString.Count
-```
-
-### VectorOfPairOfStringAndString.FullyQualifiedName
-
-```cpp
-static std::string VectorOfPairOfStringAndString::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfPairOfStringAndString.FullyQualifiedName
 ```
 
 ### VectorOfPairOfStringAndString::create
@@ -88292,14 +86716,6 @@ AutoIt:
 
 ## MapOfStringAndInt
 
-### MapOfStringAndInt.FullyQualifiedName
-
-```cpp
-static std::string MapOfStringAndInt::FullyQualifiedName
-AutoIt:
-    [propget] $oMapOfStringAndInt.FullyQualifiedName
-```
-
 ### MapOfStringAndInt::create
 
 ```cpp
@@ -88475,14 +86891,6 @@ AutoIt:
 size_t VectorOfPairOfStringAndInt::size()
 AutoIt:
     [propget] $oVectorOfPairOfStringAndInt.Count
-```
-
-### VectorOfPairOfStringAndInt.FullyQualifiedName
-
-```cpp
-static std::string VectorOfPairOfStringAndInt::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfPairOfStringAndInt.FullyQualifiedName
 ```
 
 ### VectorOfPairOfStringAndInt::create
@@ -88695,14 +87103,6 @@ AutoIt:
 
 ## MapOfStringAndVectorOfSize\_t
 
-### MapOfStringAndVectorOfSize\_t.FullyQualifiedName
-
-```cpp
-static std::string MapOfStringAndVectorOfSize_t::FullyQualifiedName
-AutoIt:
-    [propget] $oMapOfStringAndVectorOfSize_t.FullyQualifiedName
-```
-
 ### MapOfStringAndVectorOfSize\_t::create
 
 ```cpp
@@ -88878,14 +87278,6 @@ AutoIt:
 size_t VectorOfPairOfStringAndVectorOfSize_t::size()
 AutoIt:
     [propget] $oVectorOfPairOfStringAndVectorOfSize_t.Count
-```
-
-### VectorOfPairOfStringAndVectorOfSize\_t.FullyQualifiedName
-
-```cpp
-static std::string VectorOfPairOfStringAndVectorOfSize_t::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfPairOfStringAndVectorOfSize_t.FullyQualifiedName
 ```
 
 ### VectorOfPairOfStringAndVectorOfSize\_t::create
@@ -89106,14 +87498,6 @@ AutoIt:
     [propget] $oVectorOfVectorOfSize_t.Count
 ```
 
-### VectorOfVectorOfSize\_t.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVectorOfSize_t::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVectorOfSize_t.FullyQualifiedName
-```
-
 ### VectorOfVectorOfSize\_t::create
 
 ```cpp
@@ -89324,14 +87708,6 @@ AutoIt:
 
 ## MapOfStringAndVectorOfFloat
 
-### MapOfStringAndVectorOfFloat.FullyQualifiedName
-
-```cpp
-static std::string MapOfStringAndVectorOfFloat::FullyQualifiedName
-AutoIt:
-    [propget] $oMapOfStringAndVectorOfFloat.FullyQualifiedName
-```
-
 ### MapOfStringAndVectorOfFloat::create
 
 ```cpp
@@ -89507,14 +87883,6 @@ AutoIt:
 size_t VectorOfPairOfStringAndVectorOfFloat::size()
 AutoIt:
     [propget] $oVectorOfPairOfStringAndVectorOfFloat.Count
-```
-
-### VectorOfPairOfStringAndVectorOfFloat.FullyQualifiedName
-
-```cpp
-static std::string VectorOfPairOfStringAndVectorOfFloat::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfPairOfStringAndVectorOfFloat.FullyQualifiedName
 ```
 
 ### VectorOfPairOfStringAndVectorOfFloat::create
@@ -89735,14 +88103,6 @@ AutoIt:
     [propget] $oVectorOfVectorOfFloat.Count
 ```
 
-### VectorOfVectorOfFloat.FullyQualifiedName
-
-```cpp
-static std::string VectorOfVectorOfFloat::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfVectorOfFloat.FullyQualifiedName
-```
-
 ### VectorOfVectorOfFloat::create
 
 ```cpp
@@ -89953,14 +88313,6 @@ AutoIt:
 
 ## MapOfIntAndDouble
 
-### MapOfIntAndDouble.FullyQualifiedName
-
-```cpp
-static std::string MapOfIntAndDouble::FullyQualifiedName
-AutoIt:
-    [propget] $oMapOfIntAndDouble.FullyQualifiedName
-```
-
 ### MapOfIntAndDouble::create
 
 ```cpp
@@ -90136,14 +88488,6 @@ AutoIt:
 size_t VectorOfPairOfIntAndDouble::size()
 AutoIt:
     [propget] $oVectorOfPairOfIntAndDouble.Count
-```
-
-### VectorOfPairOfIntAndDouble.FullyQualifiedName
-
-```cpp
-static std::string VectorOfPairOfIntAndDouble::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfPairOfIntAndDouble.FullyQualifiedName
 ```
 
 ### VectorOfPairOfIntAndDouble::create
@@ -90356,14 +88700,6 @@ AutoIt:
 
 ## cv\_GArray\_cv\_gapi\_wip\_draw\_Prim
 
-### cv\_GArray\_cv\_gapi\_wip\_draw\_Prim.FullyQualifiedName
-
-```cpp
-static std::string cv_GArray_cv_gapi_wip_draw_Prim::FullyQualifiedName
-AutoIt:
-    [propget] $ocv_GArray_cv_gapi_wip_draw_Prim.FullyQualifiedName
-```
-
 ### cv\_GArray\_cv\_gapi\_wip\_draw\_Prim::IsInstance
 
 ```cpp
@@ -90386,14 +88722,6 @@ AutoIt:
 size_t VectorOfGapi_wip_draw_Prim::size()
 AutoIt:
     [propget] $oVectorOfGapi_wip_draw_Prim.Count
-```
-
-### VectorOfGapi\_wip\_draw\_Prim.FullyQualifiedName
-
-```cpp
-static std::string VectorOfGapi_wip_draw_Prim::FullyQualifiedName
-AutoIt:
-    [propget] $oVectorOfGapi_wip_draw_Prim.FullyQualifiedName
 ```
 
 ### VectorOfGapi\_wip\_draw\_Prim::create
@@ -90602,4 +88930,20 @@ AutoIt:
 void* VectorOfGapi_wip_draw_Prim::start();
 AutoIt:
     $oVectorOfGapi_wip_draw_Prim.start() -> retval
+```
+
+## cv\_GArray\_cv\_GMat
+
+### cv\_GArray\_cv\_GMat::IsInstance
+
+```cpp
+static bool cv_GArray_cv_GMat::IsInstance( const cv_GArray_cv_GMat& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv_GArray_cv_GMat").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv_GArray_cv_GMat::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv_GArray_cv_GMat").IsInstance( $obj ) -> retval
 ```

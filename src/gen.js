@@ -9,7 +9,7 @@ const mkdirp = require("mkdirp");
 const waterfall = require("async/waterfall");
 const {explore} = require("fs-explorer");
 
-const OpenCV_VERSION = "opencv-4.10.0";
+const OpenCV_VERSION = "opencv-4.11.0";
 const OpenCV_DLLVERSION = OpenCV_VERSION.slice("opencv-".length).replaceAll(".", "");
 
 const getOptions = PROJECT_DIR => {
@@ -26,7 +26,15 @@ const getOptions = PROJECT_DIR => {
         exception: "cv::Exception",
         assert: "AUTOIT_ASSERT",
         Any: "VARIANT*",
-        variantTypeReg: /^cv::(?:Point|Rect|Scalar|Size|Vec)(?:\d[bdfisw])?$/,
+        variantTypeReg: new RegExp(`^cv::(?:(?:Point|Rect|Scalar|Size|Vec)(?:\\d[bdfisw])?|${ [
+            "gapi::wip::draw::Prim",
+            "GMetaArg",
+            "GArg",
+            "detail::OpaqueRef",
+            "detail::VectorRef",
+            "GRunArg",
+            "GOptRunArg",
+        ].join("|") })$`),
         implicitNamespaceType: /^(?:Point|Rect|Scalar|Size|Vec)(?:\d[bdfisw])?$/,
 
         self: "*__self->get()",
@@ -51,7 +59,7 @@ const getOptions = PROJECT_DIR => {
 
         // For MIDL compile
         includes: [sysPath.join(PROJECT_DIR, "src")],
-
+        excludes: new Set(["cv::dnn::DictValue"]),
         output: sysPath.join(PROJECT_DIR, "generated"),
         toc: true, // the limit of 1000KB is exeeded even without toc
         globals: ["$CV_MAT_DEPTH_MASK", "$CV_MAT_TYPE_MASK"],
@@ -78,7 +86,7 @@ const getOptions = PROJECT_DIR => {
 
             for (let i = 1; i < parts.length; i++) {
                 processor.add_func([`${ parts.slice(0, i).join(".") }.`, "", ["/Properties"], [
-                    [parts.slice(0, i + 1).join("::"), parts[i], "", ["/R", "/S", "=this"]],
+                    [parts.slice(0, i + 1).join("::"), parts[i], "", ["/R", "=this", "/S"]],
                 ], "", ""]);
             }
         },

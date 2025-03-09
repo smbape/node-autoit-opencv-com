@@ -1,10 +1,9 @@
-const semver = require("semver");
-
 exports.SIMPLE_ARGTYPE_DEFAULTS = new Map([
     ["bool", "0"],
     ["size_t", "0"],
     ["std::size_t", "0"],
     ["SSIZE_T", "0"],
+    ["ssize_t", "0"],
     ["int", "0"],
     ["float", "0.f"],
     ["double", "0"],
@@ -113,9 +112,10 @@ exports.CPP_TYPES = new Map([
 
     ["gapi_wip_IStreamSource_Ptr", "cv::Ptr<cv::gapi::wip::IStreamSource>"],
 
-    ["GMetaArg", "cv::GMetaArg"],
     ["GArray", "cv::GArray"],
+    ["GMetaArg", "cv::GMetaArg"],
     ["GOpaque", "cv::GOpaque"],
+    ["GRunArg", "cv::GRunArg"],
     ["Prim", "cv::gapi::wip::draw::Prim"],
 ]);
 
@@ -130,6 +130,7 @@ exports.ALIASES = new Map([
     ["DescriptorExtractor", "Feature2D"],
     ["FeatureDetector", "Feature2D"],
     ["GCompileArgs", "std::vector<GCompileArg>"],
+    ["cv::GCompileArgs", "std::vector<GCompileArg>"],
     ["GMetaArgs", "std::vector<GMetaArg>"],
     ["GMat2", "std::tuple<GMat_and_GMat>"],
     ["GRunArgs", "std::vector<GRunArg>"],
@@ -167,25 +168,11 @@ exports.BROKEN_MAKE_SHARED = new Set([
 ]);
 
 exports.CUSTOM_CLASSES = [
-    ["cv.gapi.wip.draw.Prim", ["/Simple", "/DC"]],
-    ["cv.gapi.wip.IStreamSource", []],
-    ["cv.GProtoInputArgs", ["/Simple"]],
-    ["cv.GProtoOutputArgs", ["/Simple"]],
+    ["cv.GProtoInputArgs", ["/Simple"]], // TODO : implement
+    ["cv.GProtoOutputArgs", ["/Simple"]], // TODO : implement
+    ["cv.detail.ExtractArgsCallback", ["/Simple"]], // TODO : implement
+    ["cv.detail.ExtractMetaCallback", ["/Simple"]], // TODO : implement
 ];
-
-if (semver.gt(global.OpenCV_VERSION.slice("opencv-".length), "4.5.0")) {
-    exports.CUSTOM_CLASSES.push(...[
-        ["cv.detail.ExtractArgsCallback", ["/Simple"]],
-        ["cv.detail.ExtractMetaCallback", ["/Simple"]],
-    ]);
-} else {
-    exports.CUSTOM_CLASSES.push(...[
-        ["cv.GMatDesc", ["/Simple"]],
-        ["cv.GScalarDesc", ["/Simple"]],
-        ["cv.GArrayDesc", ["/Simple"]],
-        ["cv.GOpaqueDesc", ["/Simple"]],
-    ]);
-}
 
 exports.TEMPLATED_TYPES = new Set([
     "cv::GArray",

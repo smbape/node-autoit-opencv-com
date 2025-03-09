@@ -14,7 +14,7 @@
     "async": "^3.2.0",
     "doctoc": "^2.1.0",
     "eol": "^0.9.1",
-    "fs-explorer": "^1.4.2",
+    "fs-explorer": "git+ssh://git@github.com:smbape/node-fs-explorer.git#master",
     "mkdirp": "^1.0.4",
     "node-autoit-binding-utils": "git+ssh://git@github.com:smbape/node-autoit-binding-utils.git",
     "semver": "^7.3.8",
