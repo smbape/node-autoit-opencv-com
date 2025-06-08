@@ -11,7 +11,7 @@ endif()
 find_program(PATCH_EXECUTABLE
     NAMES patch
     HINTS ${GIT_DIR}
-    PATH_SUFFIXES usr/bin
+    PATH_SUFFIXES usr/bin Git/usr/bin
     DOC "Patch executable"
     REQUIRED
 )
