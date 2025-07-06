@@ -1,4 +1,4 @@
-# PYTHONPATH="$(realpath opencv-4.11.0-windows/opencv/sources/samples/dnn)" samples/.venv/Scripts/python.exe samples/dnn/object_detection/object_detection.py ssd_tf --input vtest.avi
+# PYTHONPATH="$(realpath opencv-4.12.0-windows/opencv/sources/samples/dnn)" samples/.venv/Scripts/python.exe samples/dnn/object_detection/object_detection.py ssd_tf --input vtest.avi
 
 import argparse
 import math
@@ -98,8 +98,8 @@ if len(sys.argv) > 1:
         args.zoo
     ], cwd=MODELS_PATH)
 
-cv.samples.addSamplesDataSearchPath(os.path.abspath(os.path.join(__dirname__, '../../../opencv-4.11.0-windows/opencv/sources/samples/data')))
-cv.samples.addSamplesDataSearchPath(os.path.abspath(os.path.join(__dirname__, '../../../opencv-4.11.0-windows/opencv/sources/samples/data/dnn')))
+cv.samples.addSamplesDataSearchPath(os.path.abspath(os.path.join(__dirname__, '../../../opencv-4.12.0-windows/opencv/sources/samples/data')))
+cv.samples.addSamplesDataSearchPath(os.path.abspath(os.path.join(__dirname__, '../../../opencv-4.12.0-windows/opencv/sources/samples/data/dnn')))
 cv.samples.addSamplesDataSearchPath(MODELS_PATH)
 cv.samples.addSamplesDataSearchPath(__dirname__)
 

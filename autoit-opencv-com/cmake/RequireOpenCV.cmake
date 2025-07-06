@@ -2,12 +2,10 @@ include(cmake/FindPatch.cmake)
 
 set(BUILD_opencv OFF CACHE BOOL "Build opencv from sources.")
 
-set(OpenCV_URL_HASH_4110 7c9d1c0b70db1b1952cc815252fced9a07f51267563cf3eaa1674d734c49b8e4)
-set(OpenCV_URL_HASH_4100 bff38466091c313dac21a0b73eea8278316a89c1d434c6f0b10697e087670168)
-set(OpenCV_URL_HASH_490 fefddff0623fbd5a6fa0cecb9bccd4b822478354e6c587ebb6e40ab09dacba51)
+set(OpenCV_URL_HASH_4120 b753b14d880b9bc8d89d6acd3b665c040baec0211078435432fcae117db707af)
 
-set(OpenCV_VERSION 4.11.0 CACHE STRING "Choose the OpenCV version.")
-set_property(CACHE OpenCV_VERSION PROPERTY STRINGS "4.11.0" "4.10.0" "4.9.0")
+set(OpenCV_VERSION 4.12.0 CACHE STRING "Choose the OpenCV version.")
+set_property(CACHE OpenCV_VERSION PROPERTY STRINGS "4.12.0")
 string(REPLACE "." "" OpenCV_DLLVERSION ${OpenCV_VERSION})
 
 set(OpenCV_DOWNLOAD_NAME opencv-${OpenCV_VERSION}-windows.exe)

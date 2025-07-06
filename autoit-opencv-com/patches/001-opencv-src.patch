@@ -1,3 +1,217 @@
+diff --git a/3rdparty/ffmpeg/ffmpeg.cmake b/3rdparty/ffmpeg/ffmpeg.cmake
+index 091197a010..875d6a7fb6 100644
+--- a/3rdparty/ffmpeg/ffmpeg.cmake
++++ b/3rdparty/ffmpeg/ffmpeg.cmake
+@@ -37,8 +37,8 @@ function(download_win_ffmpeg script_var)
+ endfunction()
+ 
+ if(OPENCV_INSTALL_FFMPEG_DOWNLOAD_SCRIPT)
+-  configure_file("${CMAKE_CURRENT_LIST_DIR}/ffmpeg-download.ps1.in" "${CMAKE_BINARY_DIR}/win-install/ffmpeg-download.ps1" @ONLY)
+-  install(FILES "${CMAKE_BINARY_DIR}/win-install/ffmpeg-download.ps1" DESTINATION "." COMPONENT libs)
++  configure_file("${CMAKE_CURRENT_LIST_DIR}/ffmpeg-download.ps1.in" "${OPENCV_BINARY_DIR}/win-install/ffmpeg-download.ps1" @ONLY)
++  install(FILES "${OPENCV_BINARY_DIR}/win-install/ffmpeg-download.ps1" DESTINATION "." COMPONENT libs)
+ endif()
+ 
+ ocv_install_3rdparty_licenses(ffmpeg license.txt readme.txt)
+diff --git a/3rdparty/libjpeg-turbo/simd/CMakeLists.txt b/3rdparty/libjpeg-turbo/simd/CMakeLists.txt
+index 61349ca9e6..f7c541c39e 100644
+--- a/3rdparty/libjpeg-turbo/simd/CMakeLists.txt
++++ b/3rdparty/libjpeg-turbo/simd/CMakeLists.txt
+@@ -119,7 +119,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "SunOS")
+   set(GREP ggrep)
+ endif()
+ add_custom_target(jsimdcfg COMMAND
+-  ${CMAKE_C_COMPILER} -E -I${CMAKE_BINARY_DIR} -I${CMAKE_CURRENT_BINARY_DIR}
++  ${CMAKE_C_COMPILER} -E -I${OPENCV_BINARY_DIR} -I${CMAKE_CURRENT_BINARY_DIR}
+     -I${CMAKE_CURRENT_SOURCE_DIR}
+     ${CMAKE_CURRENT_SOURCE_DIR}/nasm/jsimdcfg.inc.h |
+   ${GREP} -E '^[\;%]|^\ %' | sed 's%_cpp_protection_%%' |
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 150a018f8a..067924d734 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -5,8 +5,38 @@
+ #      $ cmake <PATH_TO_OPENCV_ROOT>
+ #
+ # ----------------------------------------------------------------------------
++if (NOT DEFINED OPENCV_SOURCE_DIR)
++  if (DEFINED OpenCV_SOURCE_DIR)
++    set(OPENCV_SOURCE_DIR "${OpenCV_SOURCE_DIR}")
++  elseif (DEFINED opencv_SOURCE_DIR)
++    set(OPENCV_SOURCE_DIR "${opencv_SOURCE_DIR}")
++  else()
++    set(OPENCV_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
++  endif()
++endif()
++
++# Make sure OPENCV_SOURCE_DIR is not empty
++if(" ${OPENCV_SOURCE_DIR}" STREQUAL " ")
++  message(FATAL_ERROR "FATAL: OPENCV_SOURCE_DIR variable is empty.")
++endif()
++
++if (NOT DEFINED OPENCV_BINARY_DIR)
++  if (DEFINED OpenCV_BINARY_DIR)
++    set(OPENCV_BINARY_DIR "${OpenCV_BINARY_DIR}")
++  elseif (DEFINED opencv_BINARY_DIR)
++    set(OPENCV_BINARY_DIR "${opencv_BINARY_DIR}")
++  else()
++    set(OPENCV_BINARY_DIR "${CMAKE_CURRENT_BINARY_DIR}")
++  endif()
++endif()
++
++# Make sure OPENCV_BINARY_DIR is not empty
++if(" ${OPENCV_BINARY_DIR}" STREQUAL " ")
++  message(FATAL_ERROR "FATAL: OPENCV_BINARY_DIR variable is empty.")
++endif()
++
+ # Disable in-source builds to prevent source tree corruption.
+-if(" ${CMAKE_SOURCE_DIR}" STREQUAL " ${CMAKE_BINARY_DIR}")
++if(" ${OPENCV_SOURCE_DIR}" STREQUAL " ${OPENCV_BINARY_DIR}")
+   message(FATAL_ERROR "
+ FATAL: In-source builds are not allowed.
+        You should create a separate directory for build files.
+@@ -151,13 +181,13 @@ endif()
+ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)  # https://cmake.org/cmake/help/latest/variable/CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT.html
+   if(NOT CMAKE_CROSSCOMPILING)
+     if(WIN32)
+-      set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "Installation Directory" FORCE)
++      set(CMAKE_INSTALL_PREFIX "${OPENCV_BINARY_DIR}/install" CACHE PATH "Installation Directory" FORCE)
+     else()
+       set(CMAKE_INSTALL_PREFIX "/usr/local" CACHE PATH "Installation Directory" FORCE)
+     endif()
+   else()
+     # any cross-compiling
+-    set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "Installation Directory" FORCE)
++    set(CMAKE_INSTALL_PREFIX "${OPENCV_BINARY_DIR}/install" CACHE PATH "Installation Directory" FORCE)
+   endif()
+ endif()
+ 
+@@ -581,7 +611,7 @@ if(OPENCV_TEST_DATA_PATH)
+ endif()
+ 
+ # Save libs and executables in the same place
+-set(EXECUTABLE_OUTPUT_PATH "${CMAKE_BINARY_DIR}/bin" CACHE PATH "Output directory for applications")
++set(EXECUTABLE_OUTPUT_PATH "${OPENCV_BINARY_DIR}/bin" CACHE PATH "Output directory for applications")
+ 
+ if(ANDROID)
+   set(LIBRARY_OUTPUT_PATH                "${OpenCV_BINARY_DIR}/lib/${ANDROID_NDK_ABI_NAME}")
+@@ -623,7 +653,7 @@ include(cmake/OpenCVInstallLayout.cmake)
+ # ----------------------------------------------------------------------------
+ #  Path for build/platform -specific headers
+ # ----------------------------------------------------------------------------
+-ocv_update(OPENCV_CONFIG_FILE_INCLUDE_DIR "${CMAKE_BINARY_DIR}/" CACHE PATH "Where to create the platform-dependant cvconfig.h")
++ocv_update(OPENCV_CONFIG_FILE_INCLUDE_DIR "${OPENCV_BINARY_DIR}/" CACHE PATH "Where to create the platform-dependant cvconfig.h")
+ ocv_include_directories(${OPENCV_CONFIG_FILE_INCLUDE_DIR})
+ 
+ # ----------------------------------------------------------------------------
+@@ -1144,18 +1174,18 @@ if(INSTALL_TESTS AND OPENCV_TEST_DATA_PATH)
+   if(ANDROID)
+     get_filename_component(TEST_PATH ${OPENCV_TEST_INSTALL_PATH} DIRECTORY)
+     configure_file("${CMAKE_CURRENT_SOURCE_DIR}/cmake/templates/opencv_run_all_tests_android.sh.in"
+-                   "${CMAKE_BINARY_DIR}/unix-install/opencv_run_all_tests.sh" @ONLY)
+-    install(PROGRAMS "${CMAKE_BINARY_DIR}/unix-install/opencv_run_all_tests.sh"
++                   "${OPENCV_BINARY_DIR}/unix-install/opencv_run_all_tests.sh" @ONLY)
++    install(PROGRAMS "${OPENCV_BINARY_DIR}/unix-install/opencv_run_all_tests.sh"
+             DESTINATION ./ COMPONENT tests)
+   elseif(WIN32)
+     configure_file("${CMAKE_CURRENT_SOURCE_DIR}/cmake/templates/opencv_run_all_tests_windows.cmd.in"
+-                   "${CMAKE_BINARY_DIR}/win-install/opencv_run_all_tests.cmd" @ONLY)
+-    install(PROGRAMS "${CMAKE_BINARY_DIR}/win-install/opencv_run_all_tests.cmd"
++                   "${OPENCV_BINARY_DIR}/win-install/opencv_run_all_tests.cmd" @ONLY)
++    install(PROGRAMS "${OPENCV_BINARY_DIR}/win-install/opencv_run_all_tests.cmd"
+             DESTINATION ${OPENCV_TEST_INSTALL_PATH} COMPONENT tests)
+   elseif(UNIX)
+     configure_file("${CMAKE_CURRENT_SOURCE_DIR}/cmake/templates/opencv_run_all_tests_unix.sh.in"
+-                   "${CMAKE_BINARY_DIR}/unix-install/opencv_run_all_tests.sh" @ONLY)
+-    install(PROGRAMS "${CMAKE_BINARY_DIR}/unix-install/opencv_run_all_tests.sh"
++                   "${OPENCV_BINARY_DIR}/unix-install/opencv_run_all_tests.sh" @ONLY)
++    install(PROGRAMS "${OPENCV_BINARY_DIR}/unix-install/opencv_run_all_tests.sh"
+             DESTINATION ${OPENCV_TEST_INSTALL_PATH} COMPONENT tests)
+   endif()
+ endif()
+diff --git a/cmake/FindCUDA.cmake b/cmake/FindCUDA.cmake
+index ca04bb4a4e..e438e26c35 100644
+--- a/cmake/FindCUDA.cmake
++++ b/cmake/FindCUDA.cmake
+@@ -1398,7 +1398,7 @@ macro(CUDA_WRAP_SRCS cuda_target format generated_files)
+       endif()
+ 
+       # Create up the comment string
+-      file(RELATIVE_PATH generated_file_relative_path "${CMAKE_BINARY_DIR}" "${generated_file}")
++      file(RELATIVE_PATH generated_file_relative_path "${OPENCV_BINARY_DIR}" "${generated_file}")
+       if(cuda_compile_to_external_module)
+         set(cuda_build_comment_string "Building NVCC ${cuda_compile_to_external_module_type} file ${generated_file_relative_path}")
+       else()
+@@ -1514,7 +1514,7 @@ function(CUDA_LINK_SEPARABLE_COMPILATION_OBJECTS output_file cuda_target options
+     # Add our general CUDA_NVCC_FLAGS with the configuration specifig flags
+     set(nvcc_flags ${CUDA_NVCC_FLAGS} ${config_specific_flags} ${nvcc_flags})
+ 
+-    file(RELATIVE_PATH output_file_relative_path "${CMAKE_BINARY_DIR}" "${output_file}")
++    file(RELATIVE_PATH output_file_relative_path "${OPENCV_BINARY_DIR}" "${output_file}")
+ 
+     # Some generators don't handle the multiple levels of custom command
+     # dependencies correctly (obj1 depends on file1, obj2 depends on obj1), so
+diff --git a/cmake/OpenCVCompilerOptions.cmake b/cmake/OpenCVCompilerOptions.cmake
+index 512e6d1abd..3b6a8c5ee0 100644
+--- a/cmake/OpenCVCompilerOptions.cmake
++++ b/cmake/OpenCVCompilerOptions.cmake
+@@ -8,17 +8,17 @@ if(ENABLE_CCACHE AND NOT OPENCV_COMPILER_IS_CCACHE)
+     message(STATUS "Looking for ccache - found (${CCACHE_PROGRAM})")
+     get_property(__OLD_RULE_LAUNCH_COMPILE GLOBAL PROPERTY RULE_LAUNCH_COMPILE)
+     if(CMAKE_GENERATOR MATCHES "Xcode")
+-      configure_file("${CMAKE_CURRENT_LIST_DIR}/templates/xcode-launch-c.in" "${CMAKE_BINARY_DIR}/xcode-launch-c")
+-      configure_file("${CMAKE_CURRENT_LIST_DIR}/templates/xcode-launch-cxx.in" "${CMAKE_BINARY_DIR}/xcode-launch-cxx")
++      configure_file("${CMAKE_CURRENT_LIST_DIR}/templates/xcode-launch-c.in" "${OPENCV_BINARY_DIR}/xcode-launch-c")
++      configure_file("${CMAKE_CURRENT_LIST_DIR}/templates/xcode-launch-cxx.in" "${OPENCV_BINARY_DIR}/xcode-launch-cxx")
+       execute_process(COMMAND chmod a+rx
+-          "${CMAKE_BINARY_DIR}/xcode-launch-c"
+-          "${CMAKE_BINARY_DIR}/xcode-launch-cxx"
++          "${OPENCV_BINARY_DIR}/xcode-launch-c"
++          "${OPENCV_BINARY_DIR}/xcode-launch-cxx"
+       )
+       # Xcode project attributes
+-      set(CMAKE_XCODE_ATTRIBUTE_CC         "${CMAKE_BINARY_DIR}/xcode-launch-c")
+-      set(CMAKE_XCODE_ATTRIBUTE_CXX        "${CMAKE_BINARY_DIR}/xcode-launch-cxx")
+-      set(CMAKE_XCODE_ATTRIBUTE_LD         "${CMAKE_BINARY_DIR}/xcode-launch-c")
+-      set(CMAKE_XCODE_ATTRIBUTE_LDPLUSPLUS "${CMAKE_BINARY_DIR}/xcode-launch-cxx")
++      set(CMAKE_XCODE_ATTRIBUTE_CC         "${OPENCV_BINARY_DIR}/xcode-launch-c")
++      set(CMAKE_XCODE_ATTRIBUTE_CXX        "${OPENCV_BINARY_DIR}/xcode-launch-cxx")
++      set(CMAKE_XCODE_ATTRIBUTE_LD         "${OPENCV_BINARY_DIR}/xcode-launch-c")
++      set(CMAKE_XCODE_ATTRIBUTE_LDPLUSPLUS "${OPENCV_BINARY_DIR}/xcode-launch-cxx")
+       set(OPENCV_COMPILER_IS_CCACHE 1)
+       message(STATUS "ccache: enable support through Xcode project properties")
+     elseif(__OLD_RULE_LAUNCH_COMPILE)
+diff --git a/cmake/OpenCVDetectCUDAUtils.cmake b/cmake/OpenCVDetectCUDAUtils.cmake
+index 040273d6c5..b1471e8c6c 100644
+--- a/cmake/OpenCVDetectCUDAUtils.cmake
++++ b/cmake/OpenCVDetectCUDAUtils.cmake
+@@ -166,7 +166,7 @@ macro(ocv_filter_available_architecture nvcc_executable result_list)
+       set(_cmd "${nvcc_executable}" ${OPENCV_CUDA_DETECTION_NVCC_FLAGS} ${NVCC_OPTION} "${OpenCV_SOURCE_DIR}/cmake/checks/OpenCVDetectCudaArch.cu" --compile)
+       execute_process(
+           COMMAND ${_cmd}
+-          WORKING_DIRECTORY "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/"
++          WORKING_DIRECTORY "${OPENCV_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/"
+           RESULT_VARIABLE _nvcc_res
+           OUTPUT_VARIABLE _nvcc_out
+           ERROR_VARIABLE _nvcc_err
+@@ -203,7 +203,7 @@ macro(ocv_detect_native_cuda_arch nvcc_executable status output)
+   else()
+     execute_process(
+         COMMAND ${OPENCV_CUDA_DETECT_ARCHS_COMMAND}
+-        WORKING_DIRECTORY "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/"
++        WORKING_DIRECTORY "${OPENCV_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/"
+         RESULT_VARIABLE ${status}
+         OUTPUT_VARIABLE _nvcc_out
+         ERROR_VARIABLE _nvcc_err
+@@ -407,7 +407,7 @@ macro(ocv_apply_cuda_stub_workaround cuda_driver_library_path)
+   if(" ${cuda_driver_library_path}" MATCHES "/stubs/libcuda.so" AND NOT OPENCV_SKIP_CUDA_STUB_WORKAROUND)
+     set(CUDA_STUB_ENABLED_LINK_WORKAROUND 1)
+     if(EXISTS "${cuda_driver_library_path}" AND NOT OPENCV_SKIP_CUDA_STUB_WORKAROUND_RPATH_LINK)
+-      set(CUDA_STUB_TARGET_PATH "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/")
++      set(CUDA_STUB_TARGET_PATH "${OPENCV_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/")
+       execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink "${cuda_driver_library_path}" "${CUDA_STUB_TARGET_PATH}/libcuda.so.1"
+           RESULT_VARIABLE CUDA_STUB_SYMLINK_RESULT)
+       if(NOT CUDA_STUB_SYMLINK_RESULT EQUAL 0)
 diff --git a/cmake/OpenCVDetectTBB.cmake b/cmake/OpenCVDetectTBB.cmake
 index fc564e981a..7ef29416f8 100644
 --- a/cmake/OpenCVDetectTBB.cmake
@@ -20,6 +234,70 @@ index fc564e981a..7ef29416f8 100644
      set_target_properties(tbb PROPERTIES
        IMPORTED_LOCATION "${TBB_ENV_LIB}"
        INTERFACE_INCLUDE_DIRECTORIES "${TBB_ENV_INCLUDE}"
+diff --git a/cmake/OpenCVDownload.cmake b/cmake/OpenCVDownload.cmake
+index 40e48d7465..05308411a7 100644
+--- a/cmake/OpenCVDownload.cmake
++++ b/cmake/OpenCVDownload.cmake
+@@ -49,7 +49,7 @@ function(ocv_init_download_mirror)
+       COMMAND
+         ${GIT_EXECUTABLE} remote get-url origin
+       WORKING_DIRECTORY
+-        ${CMAKE_SOURCE_DIR}
++        ${OPENCV_SOURCE_DIR}
+       RESULT_VARIABLE
+         RESULT_STATUS
+       OUTPUT_VARIABLE
+@@ -117,10 +117,10 @@ function(ocv_download)
+   ocv_cmake_hook(OPENCV_DOWNLOAD_PRE)
+ 
+   # Check CMake cache for already processed tasks
+-  string(FIND "${DL_DESTINATION_DIR}" "${CMAKE_BINARY_DIR}" DL_BINARY_PATH_POS)
++  string(FIND "${DL_DESTINATION_DIR}" "${OPENCV_BINARY_DIR}" DL_BINARY_PATH_POS)
+   if(DL_BINARY_PATH_POS EQUAL 0)
+     set(__file_id "${DL_DESTINATION_DIR}/${DL_FILENAME}")
+-    file(RELATIVE_PATH __file_id "${CMAKE_BINARY_DIR}" "${__file_id}")
++    file(RELATIVE_PATH __file_id "${OPENCV_BINARY_DIR}" "${__file_id}")
+     string(REGEX REPLACE "[^a-zA-Z0-9_]" "_" __file_id "${__file_id}")
+     if(DL_ID)
+       string(TOUPPER ${DL_ID} __id)
+@@ -136,7 +136,7 @@ function(ocv_download)
+     unset("${OCV_DOWNLOAD_HASH_NAME}" CACHE)
+   else()
+     set(OCV_DOWNLOAD_HASH_NAME "")
+-    #message(WARNING "Download destination is not in CMAKE_BINARY_DIR=${CMAKE_BINARY_DIR}: ${DL_DESTINATION_DIR}")
++    #message(WARNING "Download destination is not in OPENCV_BINARY_DIR=${OPENCV_BINARY_DIR}: ${DL_DESTINATION_DIR}")
+   endif()
+ 
+   # Select first non-empty url
+diff --git a/cmake/OpenCVExtraTargets.cmake b/cmake/OpenCVExtraTargets.cmake
+index 4b9a078423..b244696892 100644
+--- a/cmake/OpenCVExtraTargets.cmake
++++ b/cmake/OpenCVExtraTargets.cmake
+@@ -46,7 +46,7 @@ endif()
+ if(BUILD_DOCS)
+   add_custom_target(opencv_docs)
+   add_custom_target(install_docs DEPENDS opencv_docs
+-    COMMAND "${CMAKE_COMMAND}" -DCMAKE_INSTALL_COMPONENT=docs -P "${CMAKE_BINARY_DIR}/cmake_install.cmake")
++    COMMAND "${CMAKE_COMMAND}" -DCMAKE_INSTALL_COMPONENT=docs -P "${OPENCV_BINARY_DIR}/cmake_install.cmake")
+ endif()
+ 
+ # Samples
+diff --git a/cmake/OpenCVFindFrameworks.cmake b/cmake/OpenCVFindFrameworks.cmake
+index 741267d269..28fbe7b07e 100644
+--- a/cmake/OpenCVFindFrameworks.cmake
++++ b/cmake/OpenCVFindFrameworks.cmake
+@@ -18,9 +18,9 @@ endif()
+ 
+ # --- Concurrency ---
+ if(MSVC AND NOT HAVE_TBB AND NOT OPENCV_DISABLE_THREAD_SUPPORT)
+-  set(_fname "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/concurrencytest.cpp")
++  set(_fname "${OPENCV_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/concurrencytest.cpp")
+   file(WRITE "${_fname}" "#if _MSC_VER < 1600\n#error\n#endif\nint main() { return 0; }\n")
+-  try_compile(HAVE_CONCURRENCY "${CMAKE_BINARY_DIR}" "${_fname}")
++  try_compile(HAVE_CONCURRENCY "${OPENCV_BINARY_DIR}" "${_fname}")
+   file(REMOVE "${_fname}")
+ else()
+   set(HAVE_CONCURRENCY 0)
 diff --git a/cmake/OpenCVFindIPP.cmake b/cmake/OpenCVFindIPP.cmake
 index eb26bea5a1..0117254d47 100644
 --- a/cmake/OpenCVFindIPP.cmake
@@ -46,6 +324,36 @@ index 1e065e10f6..b48e367daa 100644
            set_target_properties(ipp_iw PROPERTIES
              IMPORTED_LINK_INTERFACE_LIBRARIES ""
              IMPORTED_LOCATION "${FILE}"
+diff --git a/cmake/OpenCVFindLAPACK.cmake b/cmake/OpenCVFindLAPACK.cmake
+index 2ec188916c..27fac9d230 100644
+--- a/cmake/OpenCVFindLAPACK.cmake
++++ b/cmake/OpenCVFindLAPACK.cmake
+@@ -61,7 +61,7 @@ macro(ocv_lapack_check)
+     unset(LAPACK_LIBRARIES)
+   else()
+     # adding proxy opencv_lapack.h header
+-    set(CBLAS_H_PROXY_PATH ${CMAKE_BINARY_DIR}/opencv_lapack.h)
++    set(CBLAS_H_PROXY_PATH ${OPENCV_BINARY_DIR}/opencv_lapack.h)
+ 
+     set(_lapack_add_extern_c NOT (APPLE OR OPENCV_SKIP_LAPACK_EXTERN_C) OR OPENCV_FORCE_LAPACK_EXTERN_C)
+ 
+@@ -148,14 +148,14 @@ macro(ocv_lapack_check)
+     try_compile(__VALID_LAPACK
+         "${OpenCV_BINARY_DIR}"
+         "${OpenCV_SOURCE_DIR}/cmake/checks/lapack_check.cpp"
+-        CMAKE_FLAGS "-DINCLUDE_DIRECTORIES:STRING=${LAPACK_INCLUDE_DIR}\;${CMAKE_BINARY_DIR}"
++        CMAKE_FLAGS "-DINCLUDE_DIRECTORIES:STRING=${LAPACK_INCLUDE_DIR}\;${OPENCV_BINARY_DIR}"
+                     "-DLINK_DIRECTORIES:STRING=${__link_directories}"
+         COMPILE_DEFINITIONS ${LAPACK_TRY_COMPILE_DEF}
+         LINK_LIBRARIES ${LAPACK_LIBRARIES}
+         OUTPUT_VARIABLE TRY_OUT
+     )
+     if(NOT __VALID_LAPACK)
+-      file(APPEND ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log
++      file(APPEND ${OPENCV_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log
+           "\nLAPACK(${LAPACK_IMPL}) check FAILED:\n"
+           "    LAPACK_INCLUDE_DIR: '${LAPACK_INCLUDE_DIR}'\n"
+           "    LAPACK_LIBRARIES: '${LAPACK_LIBRARIES}'\n"
 diff --git a/cmake/OpenCVFindProtobuf.cmake b/cmake/OpenCVFindProtobuf.cmake
 index 5b1e17529f..9dbf65202c 100644
 --- a/cmake/OpenCVFindProtobuf.cmake
@@ -59,22 +367,97 @@ index 5b1e17529f..9dbf65202c 100644
        set_target_properties(libprotobuf PROPERTIES
          IMPORTED_LOCATION "${Protobuf_LIBRARY}"
          INTERFACE_INCLUDE_DIRECTORIES "${Protobuf_INCLUDE_DIR}"
+diff --git a/cmake/OpenCVGenABI.cmake b/cmake/OpenCVGenABI.cmake
+index 22c25ae8eb..5f016626d3 100644
+--- a/cmake/OpenCVGenABI.cmake
++++ b/cmake/OpenCVGenABI.cmake
+@@ -5,7 +5,7 @@ endif()
+ set(OPENCV_ABI_SKIP_MODULES_LIST "" CACHE STRING "List of modules to exclude from ABI checker")
+ 
+ set(filename "opencv_abi.xml")
+-set(path1 "${CMAKE_BINARY_DIR}/${filename}")
++set(path1 "${OPENCV_BINARY_DIR}/${filename}")
+ 
+ set(modules "${OPENCV_MODULES_PUBLIC}")
+ ocv_list_filterout(modules "opencv_ts")
+diff --git a/cmake/OpenCVGenAndroidMK.cmake b/cmake/OpenCVGenAndroidMK.cmake
+index ebf25d72a6..a12d168526 100644
+--- a/cmake/OpenCVGenAndroidMK.cmake
++++ b/cmake/OpenCVGenAndroidMK.cmake
+@@ -62,8 +62,8 @@ if(ANDROID)
+   set(OPENCV_LIBS_ARCHIVE_DIR_CONFIGCMAKE "\$(OPENCV_THIS_DIR)/lib/\$(OPENCV_TARGET_ARCH_ABI)")
+   set(OPENCV_3RDPARTY_LIBS_DIR_CONFIGCMAKE "\$(OPENCV_THIS_DIR)/3rdparty/lib/\$(OPENCV_TARGET_ARCH_ABI)")
+ 
+-  configure_file("${OpenCV_SOURCE_DIR}/cmake/templates/OpenCV.mk.in" "${CMAKE_BINARY_DIR}/OpenCV.mk" @ONLY)
+-  configure_file("${OpenCV_SOURCE_DIR}/cmake/templates/OpenCV-abi.mk.in" "${CMAKE_BINARY_DIR}/OpenCV-${ANDROID_NDK_ABI_NAME}.mk" @ONLY)
++  configure_file("${OpenCV_SOURCE_DIR}/cmake/templates/OpenCV.mk.in" "${OPENCV_BINARY_DIR}/OpenCV.mk" @ONLY)
++  configure_file("${OpenCV_SOURCE_DIR}/cmake/templates/OpenCV-abi.mk.in" "${OPENCV_BINARY_DIR}/OpenCV-${ANDROID_NDK_ABI_NAME}.mk" @ONLY)
+ 
+   # -------------------------------------------------------------------------------------------
+   #  Part 2/2: ${BIN_DIR}/unix-install/OpenCV.mk -> For use with "make install"
+@@ -74,8 +74,8 @@ if(ANDROID)
+   set(OPENCV_LIBS_ARCHIVE_DIR_CONFIGCMAKE "\$(OPENCV_THIS_DIR)/../staticlibs/\$(OPENCV_TARGET_ARCH_ABI)")
+   set(OPENCV_3RDPARTY_LIBS_DIR_CONFIGCMAKE "\$(OPENCV_THIS_DIR)/../3rdparty/libs/\$(OPENCV_TARGET_ARCH_ABI)")
+ 
+-  configure_file("${OpenCV_SOURCE_DIR}/cmake/templates/OpenCV.mk.in" "${CMAKE_BINARY_DIR}/unix-install/OpenCV.mk" @ONLY)
+-  configure_file("${OpenCV_SOURCE_DIR}/cmake/templates/OpenCV-abi.mk.in" "${CMAKE_BINARY_DIR}/unix-install/OpenCV-${ANDROID_NDK_ABI_NAME}.mk" @ONLY)
+-  install(FILES ${CMAKE_BINARY_DIR}/unix-install/OpenCV.mk DESTINATION ${OPENCV_CONFIG_INSTALL_PATH} COMPONENT dev)
+-  install(FILES ${CMAKE_BINARY_DIR}/unix-install/OpenCV-${ANDROID_NDK_ABI_NAME}.mk DESTINATION ${OPENCV_CONFIG_INSTALL_PATH} COMPONENT dev)
++  configure_file("${OpenCV_SOURCE_DIR}/cmake/templates/OpenCV.mk.in" "${OPENCV_BINARY_DIR}/unix-install/OpenCV.mk" @ONLY)
++  configure_file("${OpenCV_SOURCE_DIR}/cmake/templates/OpenCV-abi.mk.in" "${OPENCV_BINARY_DIR}/unix-install/OpenCV-${ANDROID_NDK_ABI_NAME}.mk" @ONLY)
++  install(FILES ${OPENCV_BINARY_DIR}/unix-install/OpenCV.mk DESTINATION ${OPENCV_CONFIG_INSTALL_PATH} COMPONENT dev)
++  install(FILES ${OPENCV_BINARY_DIR}/unix-install/OpenCV-${ANDROID_NDK_ABI_NAME}.mk DESTINATION ${OPENCV_CONFIG_INSTALL_PATH} COMPONENT dev)
+ endif(ANDROID)
 diff --git a/cmake/OpenCVGenConfig.cmake b/cmake/OpenCVGenConfig.cmake
-index df48ae0848..15966c4108 100644
+index c5b7ab13df..9bfc701f16 100644
 --- a/cmake/OpenCVGenConfig.cmake
 +++ b/cmake/OpenCVGenConfig.cmake
-@@ -50,7 +50,9 @@ foreach(m ${OPENCV_MODULES_BUILD})
+@@ -50,11 +50,13 @@ foreach(m ${OPENCV_MODULES_BUILD})
    endif()
  endforeach()
  
 -export(EXPORT OpenCVModules FILE "${CMAKE_BINARY_DIR}/OpenCVModules.cmake")
 +if (NOT "${OPENCV_MODULE_TYPE}" STREQUAL "OBJECT")
-+  export(EXPORT OpenCVModules FILE "${CMAKE_BINARY_DIR}/OpenCVModules.cmake")
++  export(EXPORT OpenCVModules FILE "${OPENCV_BINARY_DIR}/OpenCVModules.cmake")
 +endif()
  
  if(TARGET ippicv AND NOT BUILD_SHARED_LIBS)
    set(USE_IPPICV TRUE)
-@@ -102,7 +104,9 @@ function(ocv_gen_config TMP_DIR NESTED_PATH ROOT_NAME)
+-  file(RELATIVE_PATH IPPICV_INSTALL_PATH_RELATIVE_CONFIGCMAKE "${CMAKE_BINARY_DIR}" "${IPPICV_LOCATION_PATH}")
++  file(RELATIVE_PATH IPPICV_INSTALL_PATH_RELATIVE_CONFIGCMAKE "${OPENCV_BINARY_DIR}" "${IPPICV_LOCATION_PATH}")
+   ocv_cmake_configure("${CMAKE_CURRENT_LIST_DIR}/templates/OpenCVConfig-IPPICV.cmake.in" IPPICV_CONFIGCMAKE @ONLY)
+ else()
+   set(USE_IPPICV FALSE)
+@@ -62,14 +64,14 @@ endif()
+ 
+ if(TARGET ippiw AND NOT BUILD_SHARED_LIBS AND IPPIW_INSTALL_PATH)
+   set(USE_IPPIW TRUE)
+-  file(RELATIVE_PATH IPPIW_INSTALL_PATH_RELATIVE_CONFIGCMAKE "${CMAKE_BINARY_DIR}" "${IPPIW_LOCATION_PATH}")
++  file(RELATIVE_PATH IPPIW_INSTALL_PATH_RELATIVE_CONFIGCMAKE "${OPENCV_BINARY_DIR}" "${IPPIW_LOCATION_PATH}")
+   ocv_cmake_configure("${CMAKE_CURRENT_LIST_DIR}/templates/OpenCVConfig-IPPIW.cmake.in" IPPIW_CONFIGCMAKE @ONLY)
+ else()
+   set(USE_IPPIW FALSE)
+ endif()
+ 
+ if(TARGET fastcv AND NOT BUILD_SHARED_LIBS)
+-  file(RELATIVE_PATH FASTCV_INSTALL_PATH_RELATIVE_CONFIGCMAKE "${CMAKE_BINARY_DIR}" "${FASTCV_LOCATION_PATH}")
++  file(RELATIVE_PATH FASTCV_INSTALL_PATH_RELATIVE_CONFIGCMAKE "${OPENCV_BINARY_DIR}" "${FASTCV_LOCATION_PATH}")
+   ocv_cmake_configure("${CMAKE_CURRENT_LIST_DIR}/templates/OpenCVConfig-FastCV.cmake.in" FASTCV_CONFIGCMAKE @ONLY)
+   set(USE_FASTCV TRUE)
+ else()
+@@ -77,9 +79,9 @@ else()
+ endif()
+ 
+ ocv_cmake_hook(PRE_CMAKE_CONFIG_BUILD)
+-configure_file("${OpenCV_SOURCE_DIR}/cmake/templates/OpenCVConfig.cmake.in" "${CMAKE_BINARY_DIR}/OpenCVConfig.cmake" @ONLY)
++configure_file("${OpenCV_SOURCE_DIR}/cmake/templates/OpenCVConfig.cmake.in" "${OPENCV_BINARY_DIR}/OpenCVConfig.cmake" @ONLY)
+ #support for version checking when finding opencv. find_package(OpenCV 2.3.1 EXACT) should now work.
+-configure_file("${OpenCV_SOURCE_DIR}/cmake/templates/OpenCVConfig-version.cmake.in" "${CMAKE_BINARY_DIR}/OpenCVConfig-version.cmake" @ONLY)
++configure_file("${OpenCV_SOURCE_DIR}/cmake/templates/OpenCVConfig-version.cmake.in" "${OPENCV_BINARY_DIR}/OpenCVConfig-version.cmake" @ONLY)
+ 
+ # --------------------------------------------------------------------------------------------
+ #  Part 2/3: ${BIN_DIR}/unix-install/OpenCVConfig.cmake -> For use *with* "make install"
+@@ -115,7 +117,9 @@ function(ocv_gen_config TMP_DIR NESTED_PATH ROOT_NAME)
    configure_file("${OpenCV_SOURCE_DIR}/cmake/templates/OpenCVConfig-version.cmake.in" "${TMP_DIR}/OpenCVConfig-version.cmake" @ONLY)
  
    configure_file("${OpenCV_SOURCE_DIR}/cmake/templates/OpenCVConfig.cmake.in" "${__tmp_nested}/OpenCVConfig.cmake" @ONLY)
@@ -85,6 +468,144 @@ index df48ae0848..15966c4108 100644
    install(FILES
        "${TMP_DIR}/OpenCVConfig-version.cmake"
        "${__tmp_nested}/OpenCVConfig.cmake"
+@@ -132,11 +136,11 @@ function(ocv_gen_config TMP_DIR NESTED_PATH ROOT_NAME)
+ endfunction()
+ 
+ if((CMAKE_HOST_SYSTEM_NAME MATCHES "Linux" OR UNIX) AND NOT ANDROID)
+-  ocv_gen_config("${CMAKE_BINARY_DIR}/unix-install" "" "")
++  ocv_gen_config("${OPENCV_BINARY_DIR}/unix-install" "" "")
+ endif()
+ 
+ if(ANDROID)
+-  ocv_gen_config("${CMAKE_BINARY_DIR}/unix-install" "abi-${ANDROID_NDK_ABI_NAME}" "OpenCVConfig.root-ANDROID.cmake.in")
++  ocv_gen_config("${OPENCV_BINARY_DIR}/unix-install" "abi-${ANDROID_NDK_ABI_NAME}" "OpenCVConfig.root-ANDROID.cmake.in")
+ endif()
+ 
+ # --------------------------------------------------------------------------------------------
+@@ -144,10 +148,10 @@ endif()
+ # --------------------------------------------------------------------------------------------
+ if(WIN32)
+   if(CMAKE_HOST_SYSTEM_NAME MATCHES Windows AND NOT OPENCV_SKIP_CMAKE_ROOT_CONFIG)
+-    ocv_gen_config("${CMAKE_BINARY_DIR}/win-install"
++    ocv_gen_config("${OPENCV_BINARY_DIR}/win-install"
+                    "${OPENCV_INSTALL_BINARIES_PREFIX}${OPENCV_INSTALL_BINARIES_SUFFIX}"
+                    "OpenCVConfig.root-WIN32.cmake.in")
+   else()
+-    ocv_gen_config("${CMAKE_BINARY_DIR}/win-install" "" "")
++    ocv_gen_config("${OPENCV_BINARY_DIR}/win-install" "" "")
+   endif()
+ endif()
+diff --git a/cmake/OpenCVGenInfoPlist.cmake b/cmake/OpenCVGenInfoPlist.cmake
+index f1a6926d07..051d6af3d7 100644
+--- a/cmake/OpenCVGenInfoPlist.cmake
++++ b/cmake/OpenCVGenInfoPlist.cmake
+@@ -5,23 +5,23 @@ if(IOS)
+   if(MAC_CATALYST)
+     # Copy the iOS plist over to the OSX directory if building iOS library for Catalyst
+     configure_file("${OpenCV_SOURCE_DIR}/platforms/ios/Info.plist.in"
+-                  "${CMAKE_BINARY_DIR}/osx/Info.plist")
++                  "${OPENCV_BINARY_DIR}/osx/Info.plist")
+   elseif(APPLE_FRAMEWORK AND DYNAMIC_PLIST)
+     configure_file("${OpenCV_SOURCE_DIR}/platforms/ios/Info.Dynamic.plist.in"
+-                   "${CMAKE_BINARY_DIR}/ios/Info.plist")
++                   "${OPENCV_BINARY_DIR}/ios/Info.plist")
+   else()
+     configure_file("${OpenCV_SOURCE_DIR}/platforms/ios/Info.plist.in"
+-                   "${CMAKE_BINARY_DIR}/ios/Info.plist")
++                   "${OPENCV_BINARY_DIR}/ios/Info.plist")
+   endif()
+ elseif(XROS)
+   if(APPLE_FRAMEWORK AND DYNAMIC_PLIST)
+     configure_file("${OpenCV_SOURCE_DIR}/platforms/ios/Info.Dynamic.plist.in"
+-                   "${CMAKE_BINARY_DIR}/visionos/Info.plist")
++                   "${OPENCV_BINARY_DIR}/visionos/Info.plist")
+   else()
+     configure_file("${OpenCV_SOURCE_DIR}/platforms/ios/Info.plist.in"
+-                   "${CMAKE_BINARY_DIR}/visionos/Info.plist")
++                   "${OPENCV_BINARY_DIR}/visionos/Info.plist")
+   endif()
+ elseif(APPLE)
+   configure_file("${OpenCV_SOURCE_DIR}/platforms/osx/Info.plist.in"
+-                 "${CMAKE_BINARY_DIR}/osx/Info.plist")
++                 "${OPENCV_BINARY_DIR}/osx/Info.plist")
+ endif()
+diff --git a/cmake/OpenCVGenPkgconfig.cmake b/cmake/OpenCVGenPkgconfig.cmake
+index 3532260efb..d219072f37 100644
+--- a/cmake/OpenCVGenPkgconfig.cmake
++++ b/cmake/OpenCVGenPkgconfig.cmake
+@@ -66,7 +66,7 @@ endif()
+ set(HELPER_SCRIPT "")
+ ocv_cmake_script_append_var(HELPER_SCRIPT
+     BUILD_SHARED_LIBS
+-    CMAKE_BINARY_DIR
++    OPENCV_BINARY_DIR
+     CMAKE_INSTALL_PREFIX
+     OpenCV_SOURCE_DIR
+     OPENCV_PC_FILE_NAME
+@@ -88,23 +88,23 @@ set(TARGET_LOCATION_${item} \"$<TARGET_FILE:${item}>\")
+   endif()
+ endforeach()
+ 
+-set(CMAKE_HELPER_SCRIPT "${CMAKE_BINARY_DIR}/OpenCVGenPkgConfig.info.cmake")
++set(CMAKE_HELPER_SCRIPT "${OPENCV_BINARY_DIR}/OpenCVGenPkgConfig.info.cmake")
+ file(GENERATE OUTPUT "${CMAKE_HELPER_SCRIPT}" CONTENT "${HELPER_SCRIPT}")
+ 
+ add_custom_target(developer_scripts)
+ add_custom_command(
+-  OUTPUT "${CMAKE_BINARY_DIR}/unix-install/${OPENCV_PC_FILE_NAME}"
++  OUTPUT "${OPENCV_BINARY_DIR}/unix-install/${OPENCV_PC_FILE_NAME}"
+   COMMAND ${CMAKE_COMMAND} "-DCMAKE_HELPER_SCRIPT=${CMAKE_HELPER_SCRIPT}" -P "${OpenCV_SOURCE_DIR}/cmake/OpenCVGenPkgconfig.cmake"
+-  DEPENDS "${CMAKE_BINARY_DIR}/OpenCVGenPkgConfig.info.cmake"
++  DEPENDS "${OPENCV_BINARY_DIR}/OpenCVGenPkgConfig.info.cmake"
+           "${OpenCV_SOURCE_DIR}/cmake/OpenCVGenPkgconfig.cmake"
+   COMMENT "Generate ${OPENCV_PC_FILE_NAME}"
+ )
+-add_custom_target(gen-pkgconfig ALL SOURCES "${CMAKE_BINARY_DIR}/unix-install/${OPENCV_PC_FILE_NAME}")
++add_custom_target(gen-pkgconfig ALL SOURCES "${OPENCV_BINARY_DIR}/unix-install/${OPENCV_PC_FILE_NAME}")
+ add_dependencies(developer_scripts gen-pkgconfig)
+ 
+ 
+ if((UNIX AND NOT ANDROID) OR MINGW)
+-  install(FILES ${CMAKE_BINARY_DIR}/unix-install/${OPENCV_PC_FILE_NAME} DESTINATION ${OPENCV_LIB_INSTALL_PATH}/pkgconfig COMPONENT dev)
++  install(FILES ${OPENCV_BINARY_DIR}/unix-install/${OPENCV_PC_FILE_NAME} DESTINATION ${OPENCV_LIB_INSTALL_PATH}/pkgconfig COMPONENT dev)
+ endif()
+ 
+ # =============================================================================
+@@ -146,7 +146,7 @@ set(libdir      "\${exec_prefix}/${OPENCV_LIB_INSTALL_PATH}")
+ set(includedir  "\${prefix}/${OPENCV_INCLUDE_INSTALL_PATH}")
+ 
+ configure_file("${OpenCV_SOURCE_DIR}/cmake/templates/opencv-XXX.pc.in"
+-               "${CMAKE_BINARY_DIR}/unix-install/${OPENCV_PC_FILE_NAME}"
++               "${OPENCV_BINARY_DIR}/unix-install/${OPENCV_PC_FILE_NAME}"
+                @ONLY)
+ 
+ endif() # DEFINED CMAKE_HELPER_SCRIPT
+diff --git a/cmake/OpenCVGenSetupVars.cmake b/cmake/OpenCVGenSetupVars.cmake
+index 2cf238714f..9e2c2fbb05 100644
+--- a/cmake/OpenCVGenSetupVars.cmake
++++ b/cmake/OpenCVGenSetupVars.cmake
+@@ -29,8 +29,8 @@ else()
+   file(RELATIVE_PATH OPENCV_LIB_RUNTIME_DIR_RELATIVE_CMAKECONFIG "${OpenCV_BINARY_DIR}/" "${LIBRARY_OUTPUT_PATH}/")
+ endif()
+ set(OPENCV_PYTHON_DIR_RELATIVE_CMAKECONFIG "python_loader")  # https://github.com/opencv/opencv/pull/12977
+-configure_file("${OpenCV_SOURCE_DIR}/cmake/templates/${OPENCV_SETUPVARS_TEMPLATE}" "${CMAKE_BINARY_DIR}/tmp/setup_vars${OPENCV_SCRIPT_EXTENSION}" @ONLY)
+-file(COPY "${CMAKE_BINARY_DIR}/tmp/setup_vars${OPENCV_SCRIPT_EXTENSION}" DESTINATION "${CMAKE_BINARY_DIR}"
++configure_file("${OpenCV_SOURCE_DIR}/cmake/templates/${OPENCV_SETUPVARS_TEMPLATE}" "${OPENCV_BINARY_DIR}/tmp/setup_vars${OPENCV_SCRIPT_EXTENSION}" @ONLY)
++file(COPY "${OPENCV_BINARY_DIR}/tmp/setup_vars${OPENCV_SCRIPT_EXTENSION}" DESTINATION "${OPENCV_BINARY_DIR}"
+     FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
+ 
+ ##### install directory
+@@ -62,8 +62,8 @@ else()
+     set(OPENCV_PYTHON_DIR_RELATIVE_CMAKECONFIG "python_loader_is_not_installed")
+   endif()
+ endif()
+-configure_file("${OpenCV_SOURCE_DIR}/cmake/templates/${OPENCV_SETUPVARS_TEMPLATE}" "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/install/${OPENCV_SETUPVARS_FILENAME}" @ONLY)
+-install(FILES "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/install/${OPENCV_SETUPVARS_FILENAME}"
++configure_file("${OpenCV_SOURCE_DIR}/cmake/templates/${OPENCV_SETUPVARS_TEMPLATE}" "${OPENCV_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/install/${OPENCV_SETUPVARS_FILENAME}" @ONLY)
++install(FILES "${OPENCV_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/install/${OPENCV_SETUPVARS_FILENAME}"
+     DESTINATION "${OPENCV_SETUPVARS_INSTALL_PATH}"
+     PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
+     COMPONENT scripts)
 diff --git a/cmake/OpenCVModule.cmake b/cmake/OpenCVModule.cmake
 index 84e8216fe0..41780ad088 100644
 --- a/cmake/OpenCVModule.cmake
@@ -135,11 +656,212 @@ index 84e8216fe0..41780ad088 100644
      install(TARGETS ${the_module}
        LIBRARY DESTINATION ${OPENCV_LIB_INSTALL_PATH} COMPONENT dev NAMELINK_ONLY)
    endif()
+diff --git a/cmake/OpenCVPylint.cmake b/cmake/OpenCVPylint.cmake
+index 928926d340..45df5f4776 100644
+--- a/cmake/OpenCVPylint.cmake
++++ b/cmake/OpenCVPylint.cmake
+@@ -45,7 +45,7 @@ macro(ocv_pylint_add_target)
+     else()
+       get_filename_component(__path "${__pylint_TARGET}" DIRECTORY)
+     endif()
+-    while(__path MATCHES "^${CMAKE_SOURCE_DIR}")
++    while(__path MATCHES "^${OPENCV_SOURCE_DIR}")
+       if(EXISTS "${__path}/pylintrc")
+         set(__rcfile "${__path}/pylintrc")
+         break()
+@@ -57,7 +57,7 @@ macro(ocv_pylint_add_target)
+       get_filename_component(__path "${__path}" DIRECTORY)
+     endwhile()
+     if(NOT __rcfile)
+-      set(__rcfile "${CMAKE_BINARY_DIR}/pylintrc")
++      set(__rcfile "${OPENCV_BINARY_DIR}/pylintrc")
+     endif()
+   endif()
+ 
+@@ -98,9 +98,9 @@ function(ocv_pylint_finalize)
+   endif()
+ 
+   add_custom_command(
+-      OUTPUT "${CMAKE_BINARY_DIR}/pylintrc"
+-      COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_SOURCE_DIR}/platforms/scripts/pylintrc" "${CMAKE_BINARY_DIR}/pylintrc"
+-      DEPENDS "${CMAKE_SOURCE_DIR}/platforms/scripts/pylintrc"
++      OUTPUT "${OPENCV_BINARY_DIR}/pylintrc"
++      COMMAND ${CMAKE_COMMAND} -E copy_if_different "${OPENCV_SOURCE_DIR}/platforms/scripts/pylintrc" "${OPENCV_BINARY_DIR}/pylintrc"
++      DEPENDS "${OPENCV_SOURCE_DIR}/platforms/scripts/pylintrc"
+   )
+ 
+   set(PYLINT_CONFIG_SCRIPT "")
+@@ -122,10 +122,10 @@ function(ocv_pylint_finalize)
+ 
+   list(LENGTH PYLINT_TARGET_ID __total)
+   set(PYLINT_TOTAL_TARGETS "${__total}" CACHE INTERNAL "")
+-  configure_file("${OpenCV_SOURCE_DIR}/cmake/templates/pylint.cmake.in" "${CMAKE_BINARY_DIR}/pylint.cmake" @ONLY)
++  configure_file("${OpenCV_SOURCE_DIR}/cmake/templates/pylint.cmake.in" "${OPENCV_BINARY_DIR}/pylint.cmake" @ONLY)
+ 
+   add_custom_target(check_pylint
+-      COMMAND ${CMAKE_COMMAND} -P "${CMAKE_BINARY_DIR}/pylint.cmake"
++      COMMAND ${CMAKE_COMMAND} -P "${OPENCV_BINARY_DIR}/pylint.cmake"
+       COMMENT "Running pylint"
+       DEPENDS ${__sources}
+       SOURCES ${__sources}
 diff --git a/cmake/OpenCVUtils.cmake b/cmake/OpenCVUtils.cmake
-index 5886f4f3cb..b787b50082 100644
+index 5886f4f3cb..7522687452 100644
 --- a/cmake/OpenCVUtils.cmake
 +++ b/cmake/OpenCVUtils.cmake
-@@ -1281,7 +1281,7 @@ function(ocv_install_target)
+@@ -2,6 +2,16 @@ if(COMMAND ocv_cmake_dump_vars)  # include guard
+   return()
+ endif()
+ 
++# Make sure OPENCV_SOURCE_DIR is not empty
++if(" ${OPENCV_SOURCE_DIR}" STREQUAL " ")
++  message(FATAL_ERROR "FATAL: OPENCV_SOURCE_DIR variable is empty.")
++endif()
++
++# Make sure OPENCV_BINARY_DIR is not empty
++if(" ${OPENCV_BINARY_DIR}" STREQUAL " ")
++  message(FATAL_ERROR "FATAL: OPENCV_BINARY_DIR variable is empty.")
++endif()
++
+ include(CMakeParseArguments)
+ 
+ # Debugging function
+@@ -15,7 +25,7 @@ function(ocv_cmake_dump_vars)
+   #       Use `cmake . -UCMAKE_TRACE_MODE` to remove this variable from cache
+   if(CMAKE_TRACE_MODE AND NOT DUMP_FORCE)
+     if(DUMP_TOFILE)
+-      file(WRITE ${CMAKE_BINARY_DIR}/${DUMP_TOFILE} "Skipped due to enabled CMAKE_TRACE_MODE")
++      file(WRITE ${OPENCV_BINARY_DIR}/${DUMP_TOFILE} "Skipped due to enabled CMAKE_TRACE_MODE")
+     else()
+       message(AUTHOR_WARNING "ocv_cmake_dump_vars() is skipped due to enabled CMAKE_TRACE_MODE")
+     endif()
+@@ -34,7 +44,7 @@ function(ocv_cmake_dump_vars)
+     endif()
+   endforeach()
+   if(DUMP_TOFILE)
+-    file(WRITE ${CMAKE_BINARY_DIR}/${DUMP_TOFILE} "${__VARS}")
++    file(WRITE ${OPENCV_BINARY_DIR}/${DUMP_TOFILE} "${__VARS}")
+   else()
+     message(AUTHOR_WARNING "${__VARS}")
+   endif()
+@@ -88,8 +98,8 @@ endmacro()
+ 
+ function(ocv_cmake_eval var_name)
+   if(DEFINED ${var_name})
+-    file(WRITE "${CMAKE_BINARY_DIR}/CMakeCommand-${var_name}.cmake" ${${var_name}})
+-    include("${CMAKE_BINARY_DIR}/CMakeCommand-${var_name}.cmake")
++    file(WRITE "${OPENCV_BINARY_DIR}/CMakeCommand-${var_name}.cmake" ${${var_name}})
++    include("${OPENCV_BINARY_DIR}/CMakeCommand-${var_name}.cmake")
+   endif()
+   if(";${ARGN};" MATCHES ";ONCE;")
+     unset(${var_name} CACHE)
+@@ -458,21 +468,21 @@ MACRO(ocv_check_compiler_flag LANG FLAG RESULT)
+     if(_fname)
+       # nothing
+     elseif("_${LANG}_" MATCHES "_CXX_")
+-      set(_fname "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/src.cxx")
++      set(_fname "${OPENCV_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/src.cxx")
+       if("${CMAKE_CXX_FLAGS} ${FLAG} " MATCHES "-Werror " OR "${CMAKE_CXX_FLAGS} ${FLAG} " MATCHES "-Werror=unknown-pragmas ")
+         FILE(WRITE "${_fname}" "int main() { return 0; }\n")
+       else()
+         FILE(WRITE "${_fname}" "#pragma\nint main() { return 0; }\n")
+       endif()
+     elseif("_${LANG}_" MATCHES "_C_")
+-      set(_fname "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/src.c")
++      set(_fname "${OPENCV_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/src.c")
+       if("${CMAKE_C_FLAGS} ${FLAG} " MATCHES "-Werror " OR "${CMAKE_C_FLAGS} ${FLAG} " MATCHES "-Werror=unknown-pragmas ")
+         FILE(WRITE "${_fname}" "int main(void) { return 0; }\n")
+       else()
+         FILE(WRITE "${_fname}" "#pragma\nint main(void) { return 0; }\n")
+       endif()
+     elseif("_${LANG}_" MATCHES "_OBJCXX_")
+-      set(_fname "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/src.mm")
++      set(_fname "${OPENCV_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/src.mm")
+       if("${CMAKE_CXX_FLAGS} ${FLAG} " MATCHES "-Werror " OR "${CMAKE_CXX_FLAGS} ${FLAG} " MATCHES "-Werror=unknown-pragmas ")
+         FILE(WRITE "${_fname}" "int main() { return 0; }\n")
+       else()
+@@ -483,7 +493,7 @@ MACRO(ocv_check_compiler_flag LANG FLAG RESULT)
+     endif()
+     if(_fname)
+       if(NOT "x${ARGN}" STREQUAL "x")
+-        file(RELATIVE_PATH __msg "${CMAKE_SOURCE_DIR}" "${ARGN}")
++        file(RELATIVE_PATH __msg "${OPENCV_SOURCE_DIR}" "${ARGN}")
+         set(__msg " (check file: ${__msg})")
+       else()
+         set(__msg "")
+@@ -511,7 +521,7 @@ MACRO(ocv_check_compiler_flag LANG FLAG RESULT)
+ 
+       MESSAGE(STATUS "Performing Test ${RESULT}${__msg}")
+       TRY_COMPILE(${RESULT}
+-        "${CMAKE_BINARY_DIR}"
++        "${OPENCV_BINARY_DIR}"
+         "${_fname}"
+         CMAKE_FLAGS ${__cmake_flags}
+         COMPILE_DEFINITIONS "${FLAG}"
+@@ -527,7 +537,7 @@ MACRO(ocv_check_compiler_flag LANG FLAG RESULT)
+           endif()
+           foreach(_line ${OUTPUT_LINES})
+             if("${_line}" MATCHES "${_regex}")
+-              file(APPEND ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log
++              file(APPEND ${OPENCV_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log
+                   "Build output check failed:\n"
+                   "    Regex: '${_regex}'\n"
+                   "    Output line: '${_line}'\n")
+@@ -544,7 +554,7 @@ MACRO(ocv_check_compiler_flag LANG FLAG RESULT)
+       ELSE(${RESULT})
+         MESSAGE(STATUS "Performing Test ${RESULT} - Failed")
+         SET(${RESULT} "" CACHE INTERNAL "Test ${RESULT}")
+-        file(APPEND ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log
++        file(APPEND ${OPENCV_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log
+             "Compilation failed:\n"
+             "    source file: '${_fname}'\n"
+             "    check option: '${FLAG}'\n"
+@@ -589,10 +599,10 @@ endmacro()
+ macro(ocv_check_runtime_flag flag result)
+   set(_fname "${ARGN}")
+   if(NOT DEFINED ${result})
+-    file(RELATIVE_PATH _rname "${CMAKE_SOURCE_DIR}" "${_fname}")
++    file(RELATIVE_PATH _rname "${OPENCV_SOURCE_DIR}" "${_fname}")
+     message(STATUS "Performing Runtime Test ${result} (check file: ${_rname})")
+     try_run(exec_return compile_result
+-      "${CMAKE_BINARY_DIR}"
++      "${OPENCV_BINARY_DIR}"
+       "${_fname}"
+       CMAKE_FLAGS "-DCMAKE_EXE_LINKER_FLAGS=${CMAKE_EXE_LINKER_FLAGS}" # CMP0056 do this on new CMake
+       COMPILE_DEFINITIONS "${flag}"
+@@ -612,7 +622,7 @@ macro(ocv_check_runtime_flag flag result)
+     endif()
+ 
+     if(NOT ${result})
+-      file(APPEND ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log
++      file(APPEND ${OPENCV_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log
+         "Runtime Test failed:\n"
+         "    source file: '${_fname}'\n"
+         "    check option: '${flag}'\n"
+@@ -925,12 +935,12 @@ else()
+   endmacro()
+ endif()
+ 
+-set(OPENCV_DEPHELPER "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/dephelper" CACHE INTERNAL "")
++set(OPENCV_DEPHELPER "${OPENCV_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/dephelper" CACHE INTERNAL "")
+ file(MAKE_DIRECTORY ${OPENCV_DEPHELPER})
+ 
+ if(BUILD_USE_SYMLINKS)
+   set(__file0 "${CMAKE_CURRENT_LIST_FILE}")
+-  set(__file1 "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/symlink_test")
++  set(__file1 "${OPENCV_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/symlink_test")
+   if(NOT IS_SYMLINK "${__file1}")
+     execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink "${__file0}" "${__file1}"
+         RESULT_VARIABLE SYMLINK_RESULT)
+@@ -960,7 +970,7 @@ function(ocv_output_status msg)
+ endfunction()
+ 
+ macro(ocv_finalize_status)
+-  set(OPENCV_BUILD_INFO_FILE "${CMAKE_BINARY_DIR}/version_string.tmp")
++  set(OPENCV_BUILD_INFO_FILE "${OPENCV_BINARY_DIR}/version_string.tmp")
+   if(EXISTS "${OPENCV_BUILD_INFO_FILE}")
+     file(READ "${OPENCV_BUILD_INFO_FILE}" __content)
+   else()
+@@ -1281,7 +1291,7 @@ function(ocv_install_target)
      )
        set(__location_key "ARCHIVE")  # static libs
        get_target_property(__target_type ${__target} TYPE)
@@ -148,7 +870,7 @@ index 5886f4f3cb..b787b50082 100644
          set(__location_key "RUNTIME")  # shared libs (.DLL)
        endif()
  
-@@ -1323,7 +1323,7 @@ function(ocv_install_target)
+@@ -1323,7 +1333,7 @@ function(ocv_install_target)
            if("${__target_type}" STREQUAL "SHARED_LIBRARY" OR "${__target_type}" STREQUAL "MODULE_LIBRARY")
              install(FILES "$<TARGET_PDB_FILE:${__target}>" DESTINATION "${__dst}"
                  COMPONENT ${__pdb_install_component} OPTIONAL ${__pdb_exclude_from_all})
@@ -157,7 +879,19 @@ index 5886f4f3cb..b787b50082 100644
              # There is no generator expression similar to TARGET_PDB_FILE and TARGET_PDB_FILE can't be used: https://gitlab.kitware.com/cmake/cmake/issues/16932
              # However we still want .pdb files like: 'lib/Debug/opencv_core341d.pdb' or '3rdparty/lib/zlibd.pdb'
              install(FILES "$<TARGET_PROPERTY:${__target},ARCHIVE_OUTPUT_DIRECTORY>/$<CONFIG>/$<IF:$<BOOL:$<TARGET_PROPERTY:${__target},COMPILE_PDB_NAME_DEBUG>>,$<TARGET_PROPERTY:${__target},COMPILE_PDB_NAME_DEBUG>,$<TARGET_PROPERTY:${__target},COMPILE_PDB_NAME>>.pdb"
-@@ -1624,7 +1624,7 @@ endfunction()
+@@ -1595,9 +1605,9 @@ function(ocv_add_library target)
+     set(CMAKE_SHARED_LIBRARY_RUNTIME_C_FLAG 1)
+ 
+     if((IOS OR XROS) AND NOT MAC_CATALYST)
+-      set(OPENCV_APPLE_INFO_PLIST "${CMAKE_BINARY_DIR}/ios/Info.plist")
++      set(OPENCV_APPLE_INFO_PLIST "${OPENCV_BINARY_DIR}/ios/Info.plist")
+     else()
+-      set(OPENCV_APPLE_INFO_PLIST "${CMAKE_BINARY_DIR}/osx/Info.plist")
++      set(OPENCV_APPLE_INFO_PLIST "${OPENCV_BINARY_DIR}/osx/Info.plist")
+     endif()
+ 
+     set_target_properties(${target} PROPERTIES
+@@ -1624,7 +1634,7 @@ endfunction()
  
  function(ocv_add_external_target name inc link def)
    if(BUILD_SHARED_LIBS AND link)
@@ -166,6 +900,243 @@ index 5886f4f3cb..b787b50082 100644
    endif()
    add_library(ocv.3rdparty.${name} INTERFACE ${imp})
    if(def)
+@@ -1752,7 +1762,7 @@ macro(ocv_get_all_libs _modules _extra _3rdparty)
+             else()
+               get_filename_component(_output_name "${_output}" NAME)
+             endif()
+-            string(FIND "${_output}" "${CMAKE_BINARY_DIR}" _POS)
++            string(FIND "${_output}" "${OPENCV_BINARY_DIR}" _POS)
+             if (_POS EQUAL 0)
+               ocv_get_libname(_libname "${_output_name}")
+               list(INSERT ${_3rdparty} 0 ${dep})
+@@ -1793,7 +1803,7 @@ function(ocv_add_test_from_target test_name test_kind the_target)
+     endif()
+ 
+     string(TOLOWER "${test_kind}" test_kind_lower)
+-    set(test_report_dir "${CMAKE_BINARY_DIR}/test-reports/${test_kind_lower}")
++    set(test_report_dir "${OPENCV_BINARY_DIR}/test-reports/${test_kind_lower}")
+     file(MAKE_DIRECTORY "${test_report_dir}")
+ 
+     add_test(NAME "${test_name}"
+@@ -1816,7 +1826,7 @@ macro(ocv_add_testdata basedir dest_subdir)
+   if(BUILD_TESTS)
+     if(NOT CMAKE_CROSSCOMPILING AND NOT INSTALL_TESTS)
+       file(COPY ${basedir}/
+-           DESTINATION ${CMAKE_BINARY_DIR}/${OPENCV_TEST_DATA_INSTALL_PATH}/${dest_subdir}
++           DESTINATION ${OPENCV_BINARY_DIR}/${OPENCV_TEST_DATA_INSTALL_PATH}/${dest_subdir}
+            ${ARGN}
+       )
+     endif()
+@@ -1938,7 +1948,7 @@ macro(ocv_copyfiles_add_forced_target target list_var comment_str)
+         "-DCOPYLIST_VAR:STRING=${list_var}"
+         "-DDEPHELPER=${OPENCV_DEPHELPER}/${target}"
+         -P "${OpenCV_SOURCE_DIR}/cmake/copy_files.cmake"
+-      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
++      WORKING_DIRECTORY ${OPENCV_BINARY_DIR}
+       COMMENT "${comment_str}"
+       DEPENDS "${OpenCV_SOURCE_DIR}/cmake/copy_files.cmake"
+               # ninja warn about file(WRITE): "${SRC_COPY_CONFIG_FILE}"
+@@ -1954,7 +1964,7 @@ macro(ocv_copyfiles_add_target target list_var comment_str)
+         "-DCOPYLIST_VAR:STRING=${list_var}"
+         "-DDEPHELPER=${OPENCV_DEPHELPER}/${target}"
+         -P "${OpenCV_SOURCE_DIR}/cmake/copy_files.cmake"
+-      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
++      WORKING_DIRECTORY ${OPENCV_BINARY_DIR}
+       COMMENT "${comment_str}"
+       DEPENDS "${OpenCV_SOURCE_DIR}/cmake/copy_files.cmake" ${deps}
+               # ninja warn about file(WRITE): "${SRC_COPY_CONFIG_FILE}"
+diff --git a/cmake/OpenCVVersion.cmake b/cmake/OpenCVVersion.cmake
+index 6ffaab94cf..00a7f7b3ce 100644
+--- a/cmake/OpenCVVersion.cmake
++++ b/cmake/OpenCVVersion.cmake
+@@ -17,7 +17,7 @@ ocv_update(OPENCV_LIBVERSION "${OPENCV_VERSION_MAJOR}.${OPENCV_VERSION_MINOR}.${
+ 
+ # create a dependency on the version file
+ # we never use the output of the following command but cmake will rerun automatically if the version file changes
+-configure_file("${OPENCV_VERSION_FILE}" "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/opencv_junk/version.junk" COPYONLY)
++configure_file("${OPENCV_VERSION_FILE}" "${OPENCV_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/opencv_junk/version.junk" COPYONLY)
+ 
+ ocv_update(OPENCV_VS_VER_FILEVERSION_QUAD "${OPENCV_VERSION_MAJOR},${OPENCV_VERSION_MINOR},${OPENCV_VERSION_PATCH},0")
+ ocv_update(OPENCV_VS_VER_PRODUCTVERSION_QUAD "${OPENCV_VERSION_MAJOR},${OPENCV_VERSION_MINOR},${OPENCV_VERSION_PATCH},0")
+diff --git a/cmake/android/android_gradle_projects.cmake b/cmake/android/android_gradle_projects.cmake
+index d8e65a036a..9844ad18b3 100644
+--- a/cmake/android/android_gradle_projects.cmake
++++ b/cmake/android/android_gradle_projects.cmake
+@@ -25,7 +25,7 @@ endif()
+ set(ANDROID_TARGET_SDK_VERSION "34" CACHE STRING "Android targetSdkVersion")
+ 
+ set(ANDROID_BUILD_BASE_DIR "${OpenCV_BINARY_DIR}/opencv_android" CACHE INTERNAL "")
+-set(ANDROID_TMP_INSTALL_BASE_DIR "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/install/opencv_android")
++set(ANDROID_TMP_INSTALL_BASE_DIR "${OPENCV_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/install/opencv_android")
+ 
+ set(ANDROID_INSTALL_SAMPLES_DIR "samples")
+ 
+diff --git a/cmake/copy_files.cmake b/cmake/copy_files.cmake
+index f7e13a45d4..e4493482f2 100644
+--- a/cmake/copy_files.cmake
++++ b/cmake/copy_files.cmake
+@@ -2,7 +2,7 @@ include("${CONFIG_FILE}")
+ set(prefix "COPYFILES: ")
+ 
+ set(use_symlink 0)
+-if(IS_SYMLINK "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/symlink_test")
++if(IS_SYMLINK "${OPENCV_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/symlink_test")
+   set(use_symlink 1)
+ endif()
+ 
+@@ -14,7 +14,7 @@ endif()
+ set(__state "")
+ 
+ macro(copy_file_ src dst prefix)
+-  string(REPLACE "${CMAKE_BINARY_DIR}/" "" dst_name "${dst}")
++  string(REPLACE "${OPENCV_BINARY_DIR}/" "" dst_name "${dst}")
+   set(local_update 0)
+   if(NOT EXISTS "${dst}")
+     set(local_update 1)
+diff --git a/doc/CMakeLists.txt b/doc/CMakeLists.txt
+index c9b3ea2742..78c36e4931 100644
+--- a/doc/CMakeLists.txt
++++ b/doc/CMakeLists.txt
+@@ -152,7 +152,7 @@ if(DOXYGEN_FOUND)
+   set(tutorial_py_path "${CMAKE_CURRENT_SOURCE_DIR}/py_tutorials")
+   set(CMAKE_DOXYGEN_TUTORIAL_JS_ROOT "- @ref tutorial_js_root")
+   set(tutorial_js_path "${CMAKE_CURRENT_SOURCE_DIR}/js_tutorials")
+-  set(example_path "${CMAKE_SOURCE_DIR}/samples")
++  set(example_path "${OPENCV_SOURCE_DIR}/samples")
+ 
+   set(doxygen_image_path
+       ${CMAKE_CURRENT_SOURCE_DIR}/images
+@@ -239,7 +239,7 @@ if(DOXYGEN_FOUND)
+   list(APPEND js_assets "${OpenCV_SOURCE_DIR}/samples/cpp/tutorial_code/calib3d/real_time_pose_estimation/Data/box.mp4")
+ 
+   if(BUILD_opencv_js)
+-    set(ocv_js_dir "${CMAKE_BINARY_DIR}/bin")
++    set(ocv_js_dir "${OPENCV_BINARY_DIR}/bin")
+     set(ocv_js "opencv.js")
+     list(APPEND js_assets "${ocv_js_dir}/${ocv_js}")
+   elseif(DEFINED OPENCV_JS_LOCATION)
+diff --git a/hal/carotene/hal/CMakeLists.txt b/hal/carotene/hal/CMakeLists.txt
+index 70c40180e8..9a53f0204b 100644
+--- a/hal/carotene/hal/CMakeLists.txt
++++ b/hal/carotene/hal/CMakeLists.txt
+@@ -85,7 +85,7 @@ set_property(DIRECTORY APPEND PROPERTY COMPILE_DEFINITIONS ${carotene_defs})
+ # we add dummy file to fix XCode build
+ add_library(tegra_hal STATIC $<TARGET_OBJECTS:carotene_objs> "dummy.cpp")
+ set_target_properties(tegra_hal PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${3P_LIBRARY_OUTPUT_PATH})
+-set(OPENCV_SRC_DIR "${CMAKE_SOURCE_DIR}")
++set(OPENCV_SRC_DIR "${OPENCV_SOURCE_DIR}")
+ if(NOT BUILD_SHARED_LIBS)
+   ocv_install_target(tegra_hal EXPORT OpenCVModules ARCHIVE DESTINATION ${OPENCV_3P_LIB_INSTALL_PATH} COMPONENT dev)
+ endif()
+@@ -94,9 +94,9 @@ target_include_directories(tegra_hal PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${OPENC
+ set(CAROTENE_HAL_VERSION "0.0.1" PARENT_SCOPE)
+ set(CAROTENE_HAL_LIBRARIES "tegra_hal" PARENT_SCOPE)
+ set(CAROTENE_HAL_HEADERS "carotene/tegra_hal.hpp" PARENT_SCOPE)
+-set(CAROTENE_HAL_INCLUDE_DIRS "${CMAKE_BINARY_DIR}" PARENT_SCOPE)
++set(CAROTENE_HAL_INCLUDE_DIRS "${OPENCV_BINARY_DIR}" PARENT_SCOPE)
+ 
+-configure_file("tegra_hal.hpp" "${CMAKE_BINARY_DIR}/carotene/tegra_hal.hpp" COPYONLY)
+-configure_file("${CAROTENE_DIR}/include/carotene/definitions.hpp" "${CMAKE_BINARY_DIR}/carotene/definitions.hpp" COPYONLY)
+-configure_file("${CAROTENE_DIR}/include/carotene/functions.hpp" "${CMAKE_BINARY_DIR}/carotene/functions.hpp" COPYONLY)
+-configure_file("${CAROTENE_DIR}/include/carotene/types.hpp" "${CMAKE_BINARY_DIR}/carotene/types.hpp" COPYONLY)
++configure_file("tegra_hal.hpp" "${OPENCV_BINARY_DIR}/carotene/tegra_hal.hpp" COPYONLY)
++configure_file("${CAROTENE_DIR}/include/carotene/definitions.hpp" "${OPENCV_BINARY_DIR}/carotene/definitions.hpp" COPYONLY)
++configure_file("${CAROTENE_DIR}/include/carotene/functions.hpp" "${OPENCV_BINARY_DIR}/carotene/functions.hpp" COPYONLY)
++configure_file("${CAROTENE_DIR}/include/carotene/types.hpp" "${OPENCV_BINARY_DIR}/carotene/types.hpp" COPYONLY)
+diff --git a/hal/fastcv/CMakeLists.txt b/hal/fastcv/CMakeLists.txt
+index 5556e1d436..b608111ada 100644
+--- a/hal/fastcv/CMakeLists.txt
++++ b/hal/fastcv/CMakeLists.txt
+@@ -12,8 +12,8 @@ if(HAVE_FASTCV)
+   add_library(fastcv_hal STATIC ${OPENCV_3RDPARTY_EXCLUDE_FROM_ALL} ${FASTCV_HAL_FILES})
+ 
+   target_include_directories(fastcv_hal PRIVATE
+-    ${CMAKE_SOURCE_DIR}/modules/core/include
+-    ${CMAKE_SOURCE_DIR}/modules/imgproc/include
++    ${OPENCV_SOURCE_DIR}/modules/core/include
++    ${OPENCV_SOURCE_DIR}/modules/imgproc/include
+     ${FASTCV_HAL_INCLUDE_DIRS} ${FastCV_INCLUDE_PATH})
+ 
+   target_link_libraries(fastcv_hal PUBLIC ${FASTCV_LIBRARY})
+diff --git a/hal/ipp/CMakeLists.txt b/hal/ipp/CMakeLists.txt
+index bf57db6f8e..d70381c544 100644
+--- a/hal/ipp/CMakeLists.txt
++++ b/hal/ipp/CMakeLists.txt
+@@ -33,7 +33,7 @@ ocv_warnings_disable(CMAKE_CXX_FLAGS -Wno-suggest-override)
+ 
+ target_include_directories(ipphal PRIVATE
+   "${CMAKE_CURRENT_SOURCE_DIR}/src"
+-  ${CMAKE_SOURCE_DIR}/modules/core/include
++  "${OPENCV_SOURCE_DIR}/modules/core/include"
+   ${IPP_INCLUDE_DIRS}
+ )
+ 
+diff --git a/hal/ndsrvp/CMakeLists.txt b/hal/ndsrvp/CMakeLists.txt
+index bc9a3a26dc..cb6b995d1c 100644
+--- a/hal/ndsrvp/CMakeLists.txt
++++ b/hal/ndsrvp/CMakeLists.txt
+@@ -21,9 +21,9 @@ if(NOT BUILD_SHARED_LIBS)
+ endif()
+ target_include_directories(ndsrvp_hal PRIVATE
+   ${CMAKE_CURRENT_SOURCE_DIR}
+-  ${CMAKE_SOURCE_DIR}/modules/core/include
+-  ${CMAKE_SOURCE_DIR}/modules/imgproc/include
+-  ${CMAKE_SOURCE_DIR}/modules/features2d/include)
++  ${OPENCV_SOURCE_DIR}/modules/core/include
++  ${OPENCV_SOURCE_DIR}/modules/imgproc/include
++  ${OPENCV_SOURCE_DIR}/modules/features2d/include)
+ 
+ # project info
+ 
+diff --git a/hal/openvx/hal/CMakeLists.txt b/hal/openvx/hal/CMakeLists.txt
+index 2c88c492b1..3aee015357 100644
+--- a/hal/openvx/hal/CMakeLists.txt
++++ b/hal/openvx/hal/CMakeLists.txt
+@@ -2,9 +2,9 @@ add_library(openvx_hal STATIC openvx_hal.cpp openvx_hal.hpp ${OPENCV_3P_OPENVX_D
+ target_include_directories(openvx_hal PUBLIC
+   ${CMAKE_CURRENT_SOURCE_DIR}
+   ${OPENCV_3P_OPENVX_DIR}/include
+-  ${CMAKE_SOURCE_DIR}/modules/core/include
+-  ${CMAKE_SOURCE_DIR}/modules/imgproc/include
+-  ${CMAKE_SOURCE_DIR}/modules/features2d/include
++  ${OPENCV_SOURCE_DIR}/modules/core/include
++  ${OPENCV_SOURCE_DIR}/modules/imgproc/include
++  ${OPENCV_SOURCE_DIR}/modules/features2d/include
+   ${OPENVX_INCLUDE_DIR})
+ target_link_libraries(openvx_hal PUBLIC ${OPENVX_LIBRARIES})
+ set_target_properties(openvx_hal PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${3P_LIBRARY_OUTPUT_PATH})
+diff --git a/hal/riscv-rvv/CMakeLists.txt b/hal/riscv-rvv/CMakeLists.txt
+index a0c9e628b3..1986f0b899 100644
+--- a/hal/riscv-rvv/CMakeLists.txt
++++ b/hal/riscv-rvv/CMakeLists.txt
+@@ -16,8 +16,8 @@ if(NOT BUILD_SHARED_LIBS)
+ endif()
+ target_include_directories(${HAL_LIB_NAME} PRIVATE
+   ${CMAKE_CURRENT_SOURCE_DIR}
+-  ${CMAKE_SOURCE_DIR}/modules/core/include
+-  ${CMAKE_SOURCE_DIR}/modules/imgproc/include) #   ${CMAKE_SOURCE_DIR}/modules/features2d/include
++  ${OPENCV_SOURCE_DIR}/modules/core/include
++  ${OPENCV_SOURCE_DIR}/modules/imgproc/include) #   ${OPENCV_SOURCE_DIR}/modules/features2d/include
+ 
+ set(RVV_HAL_FOUND TRUE CACHE INTERNAL "")
+ set(RVV_HAL_VERSION "0.0.1" CACHE INTERNAL "")
+diff --git a/modules/core/CMakeLists.txt b/modules/core/CMakeLists.txt
+index 62bddbb413..3daa66fa36 100644
+--- a/modules/core/CMakeLists.txt
++++ b/modules/core/CMakeLists.txt
+@@ -231,10 +231,10 @@ if(OPENCV_OTHER_INSTALL_PATH)
+ endif()
+ 
+ set(OPENCV_DATA_CONFIG_STR "${OPENCV_DATA_CONFIG_STR}
+-#define OPENCV_BUILD_DIR \"${CMAKE_BINARY_DIR}\"
++#define OPENCV_BUILD_DIR \"${OPENCV_BINARY_DIR}\"
+ ")
+ 
+-file(RELATIVE_PATH SOURCE_DIR_RELATIVE ${CMAKE_BINARY_DIR} ${CMAKE_SOURCE_DIR})
++file(RELATIVE_PATH SOURCE_DIR_RELATIVE ${OPENCV_BINARY_DIR} ${OPENCV_SOURCE_DIR})
+ set(OPENCV_DATA_CONFIG_STR "${OPENCV_DATA_CONFIG_STR}
+ #define OPENCV_DATA_BUILD_DIR_SEARCH_PATHS \\
+     \"${SOURCE_DIR_RELATIVE}/\"
 diff --git a/modules/dnn/src/caffe/caffe_importer.cpp b/modules/dnn/src/caffe/caffe_importer.cpp
 index fc6cbcdd28..f8e317866d 100644
 --- a/modules/dnn/src/caffe/caffe_importer.cpp
@@ -233,7 +1204,7 @@ index 50615b2652..c19a19b462 100644
  {
      using namespace cv::gapi::fluid;
 diff --git a/modules/highgui/src/window_w32.cpp b/modules/highgui/src/window_w32.cpp
-index 2543c81c6a..c727f9d5d6 100644
+index b1f6d0c884..0b8f24bb61 100644
 --- a/modules/highgui/src/window_w32.cpp
 +++ b/modules/highgui/src/window_w32.cpp
 @@ -654,11 +654,11 @@ double cvGetPropTopmost_W32(const char* name)
@@ -250,11 +1221,69 @@ index 2543c81c6a..c727f9d5d6 100644
          CV_Error(Error::StsError, errorMsg.str());
      }
  
+diff --git a/modules/java/test/android_test/CMakeLists.txt b/modules/java/test/android_test/CMakeLists.txt
+index c7f254e850..e205a01e5f 100644
+--- a/modules/java/test/android_test/CMakeLists.txt
++++ b/modules/java/test/android_test/CMakeLists.txt
+@@ -6,7 +6,7 @@ file(REMOVE_RECURSE "${OPENCV_ANDROID_TEST_DIR}")
+ set(ANDROID_TESTS_SRC_DIRS
+ "'${CMAKE_CURRENT_SOURCE_DIR}/src', \
+ '${OpenCV_SOURCE_DIR}/modules/java/test/common_test/src', \
+-'${CMAKE_BINARY_DIR}/modules/java_bindings_generator/gen/test'" CACHE INTERNAL "")
++'${OPENCV_BINARY_DIR}/modules/java_bindings_generator/gen/test'" CACHE INTERNAL "")
+ 
+ set(ANDROID_TESTS_RES_DIR "'${OpenCV_SOURCE_DIR}/modules/java/test/common_test/res'" CACHE INTERNAL "")
+ 
+diff --git a/modules/python/bindings/CMakeLists.txt b/modules/python/bindings/CMakeLists.txt
+index c511b9bc80..d2eb6e411a 100644
+--- a/modules/python/bindings/CMakeLists.txt
++++ b/modules/python/bindings/CMakeLists.txt
+@@ -178,5 +178,5 @@ ocv_cmake_script_append_var(PYTHON_CONFIG_SCRIPT
+     cv2_custom_hdr
+     cv2_generated_files
+ )
+-set(CMAKE_HELPER_SCRIPT "${CMAKE_BINARY_DIR}/opencv_python_config.cmake")
++set(CMAKE_HELPER_SCRIPT "${OPENCV_BINARY_DIR}/opencv_python_config.cmake")
+ file(GENERATE OUTPUT "${CMAKE_HELPER_SCRIPT}" CONTENT "${PYTHON_CONFIG_SCRIPT}")
+diff --git a/modules/python/common.cmake b/modules/python/common.cmake
+index cd6c27984a..1bee8fd83e 100644
+--- a/modules/python/common.cmake
++++ b/modules/python/common.cmake
+@@ -202,10 +202,10 @@ if(NOT OPENCV_SKIP_PYTHON_LOADER)
+   if(OpenCV_FOUND)
+     set(__loader_path "${OpenCV_BINARY_DIR}/python_loader")
+   else()
+-    set(__loader_path "${CMAKE_BINARY_DIR}/python_loader")
++    set(__loader_path "${OPENCV_BINARY_DIR}/python_loader")
+   endif()
+ 
+-  set(__python_loader_install_tmp_path "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/install/python_loader/")
++  set(__python_loader_install_tmp_path "${OPENCV_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/install/python_loader/")
+   set(OpenCV_PYTHON_LOADER_FULL_INSTALL_PATH "${CMAKE_INSTALL_PREFIX}/${OPENCV_PYTHON_INSTALL_PATH}/cv2")
+   if(IS_ABSOLUTE "${OPENCV_PYTHON_INSTALL_PATH}")
+     set(CMAKE_PYTHON_EXTENSION_INSTALL_PATH_BASE "'${OPENCV_PYTHON_INSTALL_PATH}/cv2'")
+diff --git a/modules/python/python_loader.cmake b/modules/python/python_loader.cmake
+index dc16083c2a..458ec54d7d 100644
+--- a/modules/python/python_loader.cmake
++++ b/modules/python/python_loader.cmake
+@@ -6,10 +6,10 @@ if(OpenCV_FOUND)
+   set(__loader_path "${OpenCV_BINARY_DIR}/python_loader")
+   message(STATUS "OpenCV Python: during development append to PYTHONPATH: ${__loader_path}")
+ else()
+-  set(__loader_path "${CMAKE_BINARY_DIR}/python_loader")
++  set(__loader_path "${OPENCV_BINARY_DIR}/python_loader")
+ endif()
+ 
+-set(__python_loader_install_tmp_path "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/install/python_loader/")
++set(__python_loader_install_tmp_path "${OPENCV_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/install/python_loader/")
+ if(DEFINED OPENCV_PYTHON_INSTALL_PATH)
+   if(IS_ABSOLUTE "${OPENCV_PYTHON_INSTALL_PATH}")
+     set(OpenCV_PYTHON_INSTALL_PATH_RELATIVE_CONFIGCMAKE "${CMAKE_INSTALL_PREFIX}/")
 diff --git a/modules/python/src2/hdr_parser.py b/modules/python/src2/hdr_parser.py
-index 27f0fe0963..bfae01a806 100755
+index 22532f14f5..62dfc83bc8 100755
 --- a/modules/python/src2/hdr_parser.py
 +++ b/modules/python/src2/hdr_parser.py
-@@ -70,6 +70,29 @@ class CppHeaderParser(object):
+@@ -223,6 +223,29 @@ class CppHeaderParser(object):
  
          return arg_str[npos2+1:npos3].strip(), npos3
  
@@ -284,7 +1313,7 @@ index 27f0fe0963..bfae01a806 100755
      def parse_arg(self, arg_str, argno):
          """
          Parses <arg_type> [arg_name]
-@@ -170,25 +193,47 @@ class CppHeaderParser(object):
+@@ -323,25 +346,47 @@ class CppHeaderParser(object):
                      arg_type += w
                  continue
              elif w == "<":
@@ -337,9 +1366,9 @@ index 27f0fe0963..bfae01a806 100755
 +                "long double"
 +            ]):
                  arg_type += " " + w
-             elif arg_type and arg_type != "~":
-                 arg_name = " ".join(word_list[wi:])
-@@ -227,8 +272,6 @@ class CppHeaderParser(object):
+             elif prev_w in ["signed", "unsigned", "short", "long"] and w in ["char", "short", "int", "long"]:
+                 arg_type += " " + w
+@@ -382,8 +427,6 @@ class CppHeaderParser(object):
          if add_star:
              arg_type += "*"
  
@@ -348,7 +1377,7 @@ index 27f0fe0963..bfae01a806 100755
          return arg_type, arg_name, modlist, argno
  
      def parse_enum(self, decl_str):
-@@ -424,11 +467,25 @@ class CppHeaderParser(object):
+@@ -579,11 +622,25 @@ class CppHeaderParser(object):
          npos = decl_str.find("CV_EXPORTS_AS")
          if npos >= 0:
              arg, npos3 = self.get_macro_arg(decl_str, npos)
@@ -374,7 +1403,7 @@ index 27f0fe0963..bfae01a806 100755
              func_modlist.append("="+arg)
              decl_str = decl_str[:npos] + decl_str[npos3+1:]
          npos = decl_str.find("CV_WRAP_PHANTOM")
-@@ -452,6 +509,7 @@ class CppHeaderParser(object):
+@@ -607,6 +664,7 @@ class CppHeaderParser(object):
          decl_str = self.batch_replace(decl_str, [("static inline", ""),
                                                   ("inline", ""),
                                                   ("explicit ", ""),
@@ -382,7 +1411,7 @@ index 27f0fe0963..bfae01a806 100755
                                                   ("CV_EXPORTS_W", ""),
                                                   ("CV_EXPORTS", ""),
                                                   ("CV_CDECL", ""),
-@@ -603,35 +661,17 @@ class CppHeaderParser(object):
+@@ -758,35 +816,17 @@ class CppHeaderParser(object):
                          a = a[:eqpos].strip()
                      arg_type, arg_name, modlist, argno = self.parse_arg(a, argno)
                      if self.wrap_mode:
@@ -418,7 +1447,7 @@ index 27f0fe0963..bfae01a806 100755
                      if '/IO' in modlist and '/O' in modlist:
                          modlist.remove('/O')
                      if (arg_name.lower() == 'filename' or arg_name.lower() == 'filepath') and '/PATH' not in modlist:
-@@ -663,10 +703,13 @@ class CppHeaderParser(object):
+@@ -818,10 +858,13 @@ class CppHeaderParser(object):
  
          the function will convert "A" to "cv.A" and "f" to "cv.A.f".
          """
@@ -435,7 +1464,7 @@ index 27f0fe0963..bfae01a806 100755
          qualified_name = (("." in name) or ("::" in name))
          n = ""
          for b in self.block_stack:
-@@ -758,7 +801,10 @@ class CppHeaderParser(object):
+@@ -913,7 +956,10 @@ class CppHeaderParser(object):
  
              if stmt.startswith("enum") or stmt.startswith("namespace"):
                  # NB: Drop inheritance syntax for enum
@@ -447,7 +1476,7 @@ index 27f0fe0963..bfae01a806 100755
                  stmt_list = stmt.rsplit(" ", 1)
                  if len(stmt_list) < 2:
                      stmt_list.append("<unnamed>")
-@@ -794,8 +840,18 @@ class CppHeaderParser(object):
+@@ -949,8 +995,18 @@ class CppHeaderParser(object):
                  var_modlist = []
                  if "CV_PROP_RW" in stmt:
                      var_modlist.append("/RW")
@@ -469,10 +1498,10 @@ index 27f0fe0963..bfae01a806 100755
                  var_list = [var_name1] + [i.strip() for i in var_list[1:]]
  
 diff --git a/modules/python/src2/typing_stubs_generation/predefined_types.py b/modules/python/src2/typing_stubs_generation/predefined_types.py
-index c5f49b5122..67d51a4a28 100644
+index d7ed78b231..814e105882 100644
 --- a/modules/python/src2/typing_stubs_generation/predefined_types.py
 +++ b/modules/python/src2/typing_stubs_generation/predefined_types.py
-@@ -49,6 +49,12 @@ _PREDEFINED_TYPES = (
+@@ -50,6 +50,12 @@ _PREDEFINED_TYPES = (
                 AliasRefTypeNode("NumPyArrayNumeric")),
          export_name="MatLike"
      ),
@@ -485,7 +1514,7 @@ index c5f49b5122..67d51a4a28 100644
      AliasTypeNode.sequence_("MatShape", PrimitiveTypeNode.int_()),
      AliasTypeNode.sequence_("Size", PrimitiveTypeNode.int_(),
                              doc="Required length is 2"),
-@@ -177,22 +183,42 @@ _PREDEFINED_TYPES = (
+@@ -182,22 +188,42 @@ _PREDEFINED_TYPES = (
                          PrimitiveTypeNode.str_("map_string_and_string::key"),
                          PrimitiveTypeNode.str_("map_string_and_string::value"),
                          required_modules=("flann",)),
@@ -528,6 +1557,110 @@ index c5f49b5122..67d51a4a28 100644
  
      # G-API, optional
      AliasTypeNode.union_("GProtoArg",
+diff --git a/modules/python/standalone.cmake b/modules/python/standalone.cmake
+index 1188a02eb9..1c2e6812be 100644
+--- a/modules/python/standalone.cmake
++++ b/modules/python/standalone.cmake
+@@ -54,7 +54,7 @@ endmacro()
+ 
+ set(MODULE_NAME python)
+ set(MODULE_INSTALL_SUBDIR "")
+-set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib")
++set(LIBRARY_OUTPUT_PATH "${OPENCV_BINARY_DIR}/lib")
+ set(deps ${OpenCV_LIBRARIES})
+ include("${CMAKE_CURRENT_LIST_DIR}/common.cmake")  # generate python target
+ 
+diff --git a/modules/ts/CMakeLists.txt b/modules/ts/CMakeLists.txt
+index 5f984bd908..573e24ad00 100644
+--- a/modules/ts/CMakeLists.txt
++++ b/modules/ts/CMakeLists.txt
+@@ -23,7 +23,7 @@ ocv_module_include_directories()
+ ocv_create_module()
+ 
+ # generate config file
+-set(OPENCV_TESTS_CONFIG_FILE "${CMAKE_BINARY_DIR}/opencv_tests_config.hpp")
++set(OPENCV_TESTS_CONFIG_FILE "${OPENCV_BINARY_DIR}/opencv_tests_config.hpp")
+ set(OPENCV_TESTS_CONFIG_STR "")
+ if(CMAKE_INSTALL_PREFIX)
+   set(OPENCV_TESTS_CONFIG_STR "${OPENCV_TESTS_CONFIG_STR}
+diff --git a/modules/videoio/cmake/detect_obsensor.cmake b/modules/videoio/cmake/detect_obsensor.cmake
+index c7e6164c0f..176612d0dd 100644
+--- a/modules/videoio/cmake/detect_obsensor.cmake
++++ b/modules/videoio/cmake/detect_obsensor.cmake
+@@ -13,8 +13,8 @@ if(NOT HAVE_OBSENSOR)
+         set(HAVE_OBSENSOR TRUE)
+         set(HAVE_OBSENSOR_ORBBEC_SDK TRUE)
+         ocv_add_external_target(obsensor "${OrbbecSDK_INCLUDE_DIRS}" "${OrbbecSDK_LIBRARY}" "HAVE_OBSENSOR;HAVE_OBSENSOR_ORBBEC_SDK")
+-        file(COPY ${OrbbecSDK_DLL_FILES} DESTINATION ${CMAKE_BINARY_DIR}/bin)
+-        file(COPY ${OrbbecSDK_DLL_FILES} DESTINATION ${CMAKE_BINARY_DIR}/lib)
++        file(COPY ${OrbbecSDK_DLL_FILES} DESTINATION ${OPENCV_BINARY_DIR}/bin)
++        file(COPY ${OrbbecSDK_DLL_FILES} DESTINATION ${OPENCV_BINARY_DIR}/lib)
+         install(FILES ${OrbbecSDK_DLL_FILES} DESTINATION ${OPENCV_LIB_INSTALL_PATH})
+         ocv_install_3rdparty_licenses(OrbbecSDK ${OrbbecSDK_DIR}/LICENSE.txt)
+       endif()
+diff --git a/platforms/ios/cmake/Toolchains/common-ios-toolchain.cmake b/platforms/ios/cmake/Toolchains/common-ios-toolchain.cmake
+index 7a14529c2d..70ffa13732 100644
+--- a/platforms/ios/cmake/Toolchains/common-ios-toolchain.cmake
++++ b/platforms/ios/cmake/Toolchains/common-ios-toolchain.cmake
+@@ -1,5 +1,5 @@
+ # load settings in case of "try compile"
+-set(TOOLCHAIN_CONFIG_FILE "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/toolchain.config.cmake")
++set(TOOLCHAIN_CONFIG_FILE "${OPENCV_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/toolchain.config.cmake")
+ get_property(__IN_TRY_COMPILE GLOBAL PROPERTY IN_TRY_COMPILE)
+ if(__IN_TRY_COMPILE)
+   set(TOOLCHAIN_CONFIG_FILE "${CMAKE_CURRENT_SOURCE_DIR}/../toolchain.config.cmake")
+@@ -139,10 +139,10 @@ if(NOT __IN_TRY_COMPILE)
+       message(FATAL_ERROR "OpenCV: Please upgrade CMake to 3.25.1+. Current CMake version is ${CMAKE_VERSION}. Details: https://github.com/opencv/opencv/issues/23156")
+     endif()
+   else()  # < 3.25.0, apply workaround from #13912
+-    set(_xcodebuild_wrapper "${CMAKE_BINARY_DIR}/xcodebuild_wrapper")
++    set(_xcodebuild_wrapper "${OPENCV_BINARY_DIR}/xcodebuild_wrapper")
+   endif()
+   if(_xcodebuild_wrapper AND NOT EXISTS "${_xcodebuild_wrapper}")
+-    set(_xcodebuild_wrapper_tmp "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/xcodebuild_wrapper")
++    set(_xcodebuild_wrapper_tmp "${OPENCV_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/xcodebuild_wrapper")
+     if(NOT DEFINED CMAKE_MAKE_PROGRAM)  # empty since CMake 3.10
+       find_program(XCODEBUILD_PATH "xcodebuild")
+       if(NOT XCODEBUILD_PATH)
+@@ -159,7 +159,7 @@ if(NOT __IN_TRY_COMPILE)
+       set(XCODEBUILD_EXTRA_ARGS "${XCODEBUILD_EXTRA_ARGS} ${DEPLOYMENT_TARGET_CMDLINE} CODE_SIGN_IDENTITY='' CODE_SIGNING_REQUIRED=NO ARCHS=${ARCH} -sdk ${CMAKE_OSX_SYSROOT}")
+     endif()
+     configure_file("${CMAKE_CURRENT_LIST_DIR}/xcodebuild_wrapper.in" "${_xcodebuild_wrapper_tmp}" @ONLY)
+-    file(COPY "${_xcodebuild_wrapper_tmp}" DESTINATION ${CMAKE_BINARY_DIR} FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
++    file(COPY "${_xcodebuild_wrapper_tmp}" DESTINATION ${OPENCV_BINARY_DIR} FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
+   endif()
+   if(_xcodebuild_wrapper)
+     set(CMAKE_MAKE_PROGRAM "${_xcodebuild_wrapper}" CACHE INTERNAL "" FORCE)
+diff --git a/platforms/linux/gnu.toolchain.cmake b/platforms/linux/gnu.toolchain.cmake
+index 64258e65b3..2c3a68eb85 100644
+--- a/platforms/linux/gnu.toolchain.cmake
++++ b/platforms/linux/gnu.toolchain.cmake
+@@ -1,10 +1,10 @@
+ cmake_minimum_required(VERSION 3.5)
+ 
+ # load settings in case of "try compile"
+-set(TOOLCHAIN_CONFIG_FILE "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/toolchain.config.cmake")
++set(TOOLCHAIN_CONFIG_FILE "${OPENCV_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/toolchain.config.cmake")
+ get_property(__IN_TRY_COMPILE GLOBAL PROPERTY IN_TRY_COMPILE)
+ if(__IN_TRY_COMPILE)
+-  include("${CMAKE_CURRENT_SOURCE_DIR}/../toolchain.config.cmake" OPTIONAL) # CMAKE_BINARY_DIR is different
++  include("${CMAKE_CURRENT_SOURCE_DIR}/../toolchain.config.cmake" OPTIONAL) # OPENCV_BINARY_DIR is different
+   macro(toolchain_save_config)
+     # nothing
+   endmacro()
+diff --git a/platforms/semihosting/aarch64-semihosting.toolchain.cmake b/platforms/semihosting/aarch64-semihosting.toolchain.cmake
+index 95bbda3bed..5688a19d58 100644
+--- a/platforms/semihosting/aarch64-semihosting.toolchain.cmake
++++ b/platforms/semihosting/aarch64-semihosting.toolchain.cmake
+@@ -7,7 +7,7 @@ set(CMAKE_SYSTEM_PROCESSOR          AArch64)
+ 
+ set(CMAKE_TRY_COMPILE_TARGET_TYPE   STATIC_LIBRARY)
+ 
+-set(PORT_FILE ${CMAKE_SOURCE_DIR}/platforms/semihosting/include/aarch64_semihosting_port.hpp)
++set(PORT_FILE ${OPENCV_SOURCE_DIR}/platforms/semihosting/include/aarch64_semihosting_port.hpp)
+ 
+ set(COMMON_FLAGS "--specs=rdimon.specs -DOPENCV_INCLUDE_PORT_FILE=\\\"${PORT_FILE}\\\"")
+ 
 diff --git a/platforms/winpack_dldt/2021.4.2/cmake/InferenceEngineConfig.cmake b/platforms/winpack_dldt/2021.4.2/cmake/InferenceEngineConfig.cmake
 index d9c9a12de6..afcd697217 100644
 --- a/platforms/winpack_dldt/2021.4.2/cmake/InferenceEngineConfig.cmake
@@ -541,3 +1674,37 @@ index d9c9a12de6..afcd697217 100644
  
  set_target_properties(IE::inference_engine PROPERTIES
    INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/deployment_tools/inference_engine/include"
+diff --git a/samples/CMakeLists.txt b/samples/CMakeLists.txt
+index dabe07747f..6bd2ff1476 100644
+--- a/samples/CMakeLists.txt
++++ b/samples/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-if(NOT CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_LIST_DIR)
++if(NOT OPENCV_SOURCE_DIR STREQUAL CMAKE_CURRENT_LIST_DIR)
+ #===================================================================================================
+ #
+ # Build as part of OpenCV
+diff --git a/samples/hal/c_hal/CMakeLists.txt b/samples/hal/c_hal/CMakeLists.txt
+index 72dfef01c3..2ffcb2b559 100644
+--- a/samples/hal/c_hal/CMakeLists.txt
++++ b/samples/hal/c_hal/CMakeLists.txt
+@@ -14,5 +14,5 @@ set(OpenCV_HAL_LIBRARIES ${CMAKE_CURRENT_BINARY_DIR}/lib${HAL_LIB_NAME}.a)
+ set(OpenCV_HAL_HEADERS "impl.h")
+ set(OpenCV_HAL_INCLUDE_DIRS ${CMAKE_CURRENT_LIST_DIR})
+ 
+-configure_file("impl.h" "${CMAKE_BINARY_DIR}/impl.h" COPYONLY)
+-configure_file("config.cmake" "${CMAKE_BINARY_DIR}/OpenCV_HALConfig.cmake")
++configure_file("impl.h" "${OPENCV_BINARY_DIR}/impl.h" COPYONLY)
++configure_file("config.cmake" "${OPENCV_BINARY_DIR}/OpenCV_HALConfig.cmake")
+diff --git a/samples/hal/slow_hal/CMakeLists.txt b/samples/hal/slow_hal/CMakeLists.txt
+index a20596ea2a..928db1b1b2 100644
+--- a/samples/hal/slow_hal/CMakeLists.txt
++++ b/samples/hal/slow_hal/CMakeLists.txt
+@@ -14,5 +14,5 @@ set(OpenCV_HAL_LIBRARIES ${CMAKE_CURRENT_BINARY_DIR}/lib${HAL_LIB_NAME}.a)
+ set(OpenCV_HAL_HEADERS "impl.hpp")
+ set(OpenCV_HAL_INCLUDE_DIRS ${CMAKE_CURRENT_LIST_DIR})
+ 
+-configure_file("impl.hpp" "${CMAKE_BINARY_DIR}/impl.hpp" COPYONLY)
+-configure_file("config.cmake" "${CMAKE_BINARY_DIR}/OpenCV_HALConfig.cmake")
++configure_file("impl.hpp" "${OPENCV_BINARY_DIR}/impl.hpp" COPYONLY)
++configure_file("config.cmake" "${OPENCV_BINARY_DIR}/OpenCV_HALConfig.cmake")

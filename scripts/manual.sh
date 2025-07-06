@@ -59,7 +59,7 @@ node scripts/build.js
 # ================================
 # test release
 # ================================
-test -d /d/Programs/AutoIt/UDF/opencv-udf-test/opencv-4.11.0-windows || ./opencv-4.11.0-windows.exe -o/d/Programs/AutoIt/UDF/opencv-udf-test/opencv-4.11.0-windows -y && \
+test -d /d/Programs/AutoIt/UDF/opencv-udf-test/opencv-4.12.0-windows || ./opencv-4.12.0-windows.exe -o/d/Programs/AutoIt/UDF/opencv-udf-test/opencv-4.12.0-windows -y && \
 rm -rf /d/Programs/AutoIt/UDF/opencv-udf-test/autoit-* /d/Programs/AutoIt/UDF/opencv-udf-test/samples && \
 git archive --format zip --output /d/Programs/AutoIt/UDF/opencv-udf-test/autoit-opencv-com.zip HEAD && \
 7z x autoit-opencv-*-com-v*.7z -aoa -o/d/Programs/AutoIt/UDF/opencv-udf-test/autoit-opencv-com && \

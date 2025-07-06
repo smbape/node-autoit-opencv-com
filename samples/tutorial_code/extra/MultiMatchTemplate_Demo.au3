@@ -12,9 +12,9 @@
 #include "..\..\..\autoit-opencv-com\udf\opencv_udf_utils.au3"
 
 ;~ Sources:
-;~     https://docs.opencv.org/4.11.0/d4/dc6/tutorial_py_template_matching.html
+;~     https://docs.opencv.org/4.12.0/d4/dc6/tutorial_py_template_matching.html
 
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world4110*"), _OpenCV_FindDLL("autoit_opencv_com4110*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world4120*"), _OpenCV_FindDLL("autoit_opencv_com4120*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 

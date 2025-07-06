@@ -86,7 +86,7 @@ public static class Test
         var register = false;
         var unregister = false;
         string buildType = null;
-        string video = OpenCvComInterop.FindFile("samples\\data\\vtest.avi", new string[] { "opencv-4.11.0-*\\opencv\\sources" });
+        string video = OpenCvComInterop.FindFile("samples\\data\\vtest.avi", new string[] { "opencv-4.12.0-*\\opencv\\sources" });
 
         for (int i = 0; i < args.Length; i += 1)
         {
@@ -143,8 +143,8 @@ public static class Test
         }
 
         OpenCvComInterop.DllOpen(
-            string.IsNullOrWhiteSpace(opencv_world_dll) ? OpenCvComInterop.FindDLL("opencv_world4110*", null, null, buildType) : opencv_world_dll,
-            string.IsNullOrWhiteSpace(opencv_com_dll) ? OpenCvComInterop.FindDLL("autoit_opencv_com4110*", null, null, buildType) : opencv_com_dll
+            string.IsNullOrWhiteSpace(opencv_world_dll) ? OpenCvComInterop.FindDLL("opencv_world4120*", null, null, buildType) : opencv_world_dll,
+            string.IsNullOrWhiteSpace(opencv_com_dll) ? OpenCvComInterop.FindDLL("autoit_opencv_com4120*", null, null, buildType) : opencv_com_dll
         );
 
         if (register)

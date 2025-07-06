@@ -36,6 +36,7 @@ exports.IDL_TYPES = new Map([
     ["uint", "ULONG"],
     ["unsigned", "ULONG"],
     ["long", "LONG"],
+    ["long long", "LONGLONG"],
     ["ulong", "ULONG"],
     ["SSIZE_T", "LONGLONG"],
     ["size_t", "ULONGLONG"],
@@ -107,6 +108,7 @@ exports.CPP_TYPES = new Map([
     ["GInferListOutputs", "cv::detail::GInferOutputsTyped<cv::GArray<cv::GMat>>"],
     ["String", "std::string"],
     ["string", "std::string"],
+    ["NativeByteArray", "std::string"],
 
     ["LayerId", "dnn::DictValue"],
 

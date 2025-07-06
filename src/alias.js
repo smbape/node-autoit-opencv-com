@@ -95,5 +95,5 @@ exports.getAlias = str => {
     }
 
     const sep = str.includes("::") ? "::" : ".";
-    return str.split(sep).map(item => ALIASES.has(item) ? ALIASES.get(item) : item).join(sep);
+    return str.split(sep).map(item => (ALIASES.has(item) ? ALIASES.get(item) : item)).join(sep);
 };

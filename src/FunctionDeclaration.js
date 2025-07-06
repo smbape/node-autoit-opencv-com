@@ -224,7 +224,7 @@ Object.assign(exports, {
                         cpptype = "std::string";
                         callarg = `${ callarg }.c_str()`;
                     } else {
-                        console.log(`Warning: ${ name } - 'char* ${ argname }' will be treatead as a 'void* ${ argname }' pointer`);
+                        console.log(`Warning: ${ fname } - 'char* ${ argname }' will be treatead as a 'void* ${ argname }' pointer`);
                         cpptype = "void*";
                         callarg = `static_cast<char*>(${ callarg })`;
                     }

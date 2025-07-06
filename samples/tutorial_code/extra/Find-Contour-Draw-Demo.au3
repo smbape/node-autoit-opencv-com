@@ -21,10 +21,10 @@
 
 ;~ Sources:
 ;~     https://www.autoitscript.com/forum/topic/206432-opencv-v4-udf/page/5/?tab=comments#comment-1488802
-;~     https://docs.opencv.org/4.11.0/dd/d49/tutorial_py_contour_features.html
-;~     https://docs.opencv.org/4.11.0/d9/d61/tutorial_py_morphological_ops.html
+;~     https://docs.opencv.org/4.12.0/dd/d49/tutorial_py_contour_features.html
+;~     https://docs.opencv.org/4.12.0/d9/d61/tutorial_py_morphological_ops.html
 
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world4110*"), _OpenCV_FindDLL("autoit_opencv_com4110*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world4120*"), _OpenCV_FindDLL("autoit_opencv_com4120*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 

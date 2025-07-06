@@ -150,7 +150,7 @@ public static class AutoItOpenCV
         }
 
         var parts = openCvWorldDll.Split(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
-        parts[parts.Length - 1] = "opencv_videoio_ffmpeg4110_64.dll";
+        parts[parts.Length - 1] = "opencv_videoio_ffmpeg4120_64.dll";
         var openCvFfmpegDll = string.Join(Path.DirectorySeparatorChar.ToString(), parts);
         hOpenCvFfmpeg = LoadLibrary(openCvFfmpegDll);
         if (hOpenCvFfmpeg == IntPtr.Zero)
@@ -204,21 +204,21 @@ public static class AutoItOpenCV
 $BuildType = If ($BuildType -eq "Debug") { $BuildType } Else { "Release" }
 $PostSuffix = If ($BuildType -eq "Debug") { "d" } Else { "" }
 
-$sDllCom = "$PSScriptRoot\..\autoit-opencv-com\build_x64\bin\$($BuildType)\autoit_opencv_com4110$($PostSuffix).dll"
+$sDllCom = "$PSScriptRoot\..\autoit-opencv-com\build_x64\bin\$($BuildType)\autoit_opencv_com4120$($PostSuffix).dll"
 $bFound = Test-Path -Path $sDllCom
 if (!$bFound) {
-    $sDllCom = "$PSScriptRoot\..\autoit-opencv-com\autoit_opencv_com4110$($PostSuffix).dll"
+    $sDllCom = "$PSScriptRoot\..\autoit-opencv-com\autoit_opencv_com4120$($PostSuffix).dll"
 }
 
 [AutoItOpenCV]::DllOpen(
-    "$PSScriptRoot\..\opencv-4.11.0-windows\opencv\build\x64\vc16\bin\opencv_world4110$($PostSuffix).dll",
+    "$PSScriptRoot\..\opencv-4.12.0-windows\opencv\build\x64\vc16\bin\opencv_world4120$($PostSuffix).dll",
     $sDllCom
 )
 [AutoItOpenCV]::DllActivateManifest() | Out-Null
 
 $cv = _OpenCV_ObjCreate("cv")
 $cv.samples.addSamplesDataSearchPath($PSScriptRoot)
-$cv.samples.addSamplesDataSearchPath("$PSScriptRoot\..\opencv-4.11.0-windows\opencv\sources\samples\data")
+$cv.samples.addSamplesDataSearchPath("$PSScriptRoot\..\opencv-4.12.0-windows\opencv\sources\samples\data")
 
 Example1
 Example2

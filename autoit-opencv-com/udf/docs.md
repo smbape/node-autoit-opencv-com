@@ -185,6 +185,7 @@
   - [cv::EMD](#cvemd)
   - [cv::GaussianBlur](#cvgaussianblur)
   - [cv::HoughCircles](#cvhoughcircles)
+  - [cv::HoughCirclesWithAccumulator](#cvhoughcircleswithaccumulator)
   - [cv::HoughLines](#cvhoughlines)
   - [cv::HoughLinesP](#cvhoughlinesp)
   - [cv::HoughLinesPointSet](#cvhoughlinespointset)
@@ -381,6 +382,7 @@
   - [cv::getBuildInformation](#cvgetbuildinformation)
   - [cv::getCPUFeaturesLine](#cvgetcpufeaturesline)
   - [cv::getCPUTickCount](#cvgetcputickcount)
+  - [cv::getClosestEllipsePoints](#cvgetclosestellipsepoints)
   - [cv::getDefaultAlgorithmHint](#cvgetdefaultalgorithmhint)
   - [cv::getDefaultNewCameraMatrix](#cvgetdefaultnewcameramatrix)
   - [cv::getDerivKernels](#cvgetderivkernels)
@@ -423,14 +425,20 @@
   - [cv::illuminationChange](#cvilluminationchange)
   - [cv::imcount](#cvimcount)
   - [cv::imdecode](#cvimdecode)
+  - [cv::imdecodeWithMetadata](#cvimdecodewithmetadata)
+  - [cv::imdecodeanimation](#cvimdecodeanimation)
   - [cv::imdecodemulti](#cvimdecodemulti)
   - [cv::imencode](#cvimencode)
+  - [cv::imencodeWithMetadata](#cvimencodewithmetadata)
+  - [cv::imencodeanimation](#cvimencodeanimation)
   - [cv::imencodemulti](#cvimencodemulti)
   - [cv::imread](#cvimread)
+  - [cv::imreadWithMetadata](#cvimreadwithmetadata)
   - [cv::imreadanimation](#cvimreadanimation)
   - [cv::imreadmulti](#cvimreadmulti)
   - [cv::imshow](#cvimshow)
   - [cv::imwrite](#cvimwrite)
+  - [cv::imwriteWithMetadata](#cvimwritewithmetadata)
   - [cv::imwriteanimation](#cvimwriteanimation)
   - [cv::imwritemulti](#cvimwritemulti)
   - [cv::inRange](#cvinrange)
@@ -565,6 +573,7 @@
   - [cv::textureFlattening](#cvtextureflattening)
   - [cv::theRNG](#cvtherng)
   - [cv::threshold](#cvthreshold)
+  - [cv::thresholdWithMask](#cvthresholdwithmask)
   - [cv::trace](#cvtrace)
   - [cv::transform](#cvtransform)
   - [cv::transpose](#cvtranspose)
@@ -683,6 +692,7 @@
   - [enums.MORPH\_RECT](#enumsmorph%5C_rect)
   - [enums.MORPH\_CROSS](#enumsmorph%5C_cross)
   - [enums.MORPH\_ELLIPSE](#enumsmorph%5C_ellipse)
+  - [enums.MORPH\_DIAMOND](#enumsmorph%5C_diamond)
   - [enums.INTER\_NEAREST](#enumsinter%5C_nearest)
   - [enums.INTER\_LINEAR](#enumsinter%5C_linear)
   - [enums.INTER\_CUBIC](#enumsinter%5C_cubic)
@@ -719,6 +729,7 @@
   - [enums.THRESH\_MASK](#enumsthresh%5C_mask)
   - [enums.THRESH\_OTSU](#enumsthresh%5C_otsu)
   - [enums.THRESH\_TRIANGLE](#enumsthresh%5C_triangle)
+  - [enums.THRESH\_DRYRUN](#enumsthresh%5C_dryrun)
   - [enums.ADAPTIVE\_THRESH\_MEAN\_C](#enumsadaptive%5C_thresh%5C_mean%5C_c)
   - [enums.ADAPTIVE\_THRESH\_GAUSSIAN\_C](#enumsadaptive%5C_thresh%5C_gaussian%5C_c)
   - [enums.GC\_BGD](#enumsgc%5C_bgd)
@@ -1130,6 +1141,7 @@
   - [enums.IMWRITE\_PNG\_COMPRESSION](#enumsimwrite%5C_png%5C_compression)
   - [enums.IMWRITE\_PNG\_STRATEGY](#enumsimwrite%5C_png%5C_strategy)
   - [enums.IMWRITE\_PNG\_BILEVEL](#enumsimwrite%5C_png%5C_bilevel)
+  - [enums.IMWRITE\_PNG\_FILTER](#enumsimwrite%5C_png%5C_filter)
   - [enums.IMWRITE\_PXM\_BINARY](#enumsimwrite%5C_pxm%5C_binary)
   - [enums.IMWRITE\_EXR\_TYPE](#enumsimwrite%5C_exr%5C_type)
   - [enums.IMWRITE\_EXR\_COMPRESSION](#enumsimwrite%5C_exr%5C_compression)
@@ -1215,6 +1227,13 @@
   - [enums.IMWRITE\_PNG\_STRATEGY\_HUFFMAN\_ONLY](#enumsimwrite%5C_png%5C_strategy%5C_huffman%5C_only)
   - [enums.IMWRITE\_PNG\_STRATEGY\_RLE](#enumsimwrite%5C_png%5C_strategy%5C_rle)
   - [enums.IMWRITE\_PNG\_STRATEGY\_FIXED](#enumsimwrite%5C_png%5C_strategy%5C_fixed)
+  - [enums.IMWRITE\_PNG\_FILTER\_NONE](#enumsimwrite%5C_png%5C_filter%5C_none)
+  - [enums.IMWRITE\_PNG\_FILTER\_SUB](#enumsimwrite%5C_png%5C_filter%5C_sub)
+  - [enums.IMWRITE\_PNG\_FILTER\_UP](#enumsimwrite%5C_png%5C_filter%5C_up)
+  - [enums.IMWRITE\_PNG\_FILTER\_AVG](#enumsimwrite%5C_png%5C_filter%5C_avg)
+  - [enums.IMWRITE\_PNG\_FILTER\_PAETH](#enumsimwrite%5C_png%5C_filter%5C_paeth)
+  - [enums.IMWRITE\_PNG\_FAST\_FILTERS](#enumsimwrite%5C_png%5C_fast%5C_filters)
+  - [enums.IMWRITE\_PNG\_ALL\_FILTERS](#enumsimwrite%5C_png%5C_all%5C_filters)
   - [enums.IMWRITE\_PAM\_FORMAT\_NULL](#enumsimwrite%5C_pam%5C_format%5C_null)
   - [enums.IMWRITE\_PAM\_FORMAT\_BLACKANDWHITE](#enumsimwrite%5C_pam%5C_format%5C_blackandwhite)
   - [enums.IMWRITE\_PAM\_FORMAT\_GRAYSCALE](#enumsimwrite%5C_pam%5C_format%5C_grayscale)
@@ -1231,6 +1250,11 @@
   - [enums.IMWRITE\_GIF\_COLORTABLE\_SIZE\_64](#enumsimwrite%5C_gif%5C_colortable%5C_size%5C_64)
   - [enums.IMWRITE\_GIF\_COLORTABLE\_SIZE\_128](#enumsimwrite%5C_gif%5C_colortable%5C_size%5C_128)
   - [enums.IMWRITE\_GIF\_COLORTABLE\_SIZE\_256](#enumsimwrite%5C_gif%5C_colortable%5C_size%5C_256)
+  - [enums.IMAGE\_METADATA\_UNKNOWN](#enumsimage%5C_metadata%5C_unknown)
+  - [enums.IMAGE\_METADATA\_EXIF](#enumsimage%5C_metadata%5C_exif)
+  - [enums.IMAGE\_METADATA\_XMP](#enumsimage%5C_metadata%5C_xmp)
+  - [enums.IMAGE\_METADATA\_ICCP](#enumsimage%5C_metadata%5C_iccp)
+  - [enums.IMAGE\_METADATA\_MAX](#enumsimage%5C_metadata%5C_max)
   - [enums.CAP\_ANY](#enumscap%5C_any)
   - [enums.CAP\_VFW](#enumscap%5C_vfw)
   - [enums.CAP\_V4L](#enumscap%5C_v4l)
@@ -2424,6 +2448,7 @@
   - [cv::Mat::ptr](#cvmatptr)
   - [cv::Mat::push\_back](#cvmatpush%5C_back)
   - [cv::Mat::put\_Item](#cvmatput%5C_item)
+  - [cv::Mat::reinterpret](#cvmatreinterpret)
   - [cv::Mat::reserve](#cvmatreserve)
   - [cv::Mat::reserveBuffer](#cvmatreservebuffer)
   - [cv::Mat::reshape](#cvmatreshape)
@@ -3782,6 +3807,7 @@
   - [cv::dnn::Net::getUnconnectedOutLayersNames](#cvdnnnetgetunconnectedoutlayersnames)
   - [cv::dnn::Net::quantize](#cvdnnnetquantize)
   - [cv::dnn::Net::readFromModelOptimizer](#cvdnnnetreadfrommodeloptimizer)
+  - [cv::dnn::Net::registerOutput](#cvdnnnetregisteroutput)
   - [cv::dnn::Net::setHalideScheduler](#cvdnnnetsethalidescheduler)
   - [cv::dnn::Net::setInput](#cvdnnnetsetinput)
   - [cv::dnn::Net::setInputShape](#cvdnnnetsetinputshape)
@@ -4391,10 +4417,13 @@
   - [Animation.bgcolor](#animationbgcolor)
   - [Animation.durations](#animationdurations)
   - [Animation.frames](#animationframes)
+  - [Animation.still\_image](#animationstill%5C_image)
   - [cv::Animation::get\_create](#cvanimationget%5C_create)
   - [cv::Animation::IsInstance](#cvanimationisinstance)
 - [cv::IStreamReader](#cvistreamreader)
   - [cv::IStreamReader::IsInstance](#cvistreamreaderisinstance)
+  - [cv::IStreamReader::read](#cvistreamreaderread)
+  - [cv::IStreamReader::seek](#cvistreamreaderseek)
 - [cv::VideoCapture](#cvvideocapture)
   - [cv::VideoCapture::get\_create](#cvvideocaptureget%5C_create)
   - [cv::VideoCapture::IsInstance](#cvvideocaptureisinstance)
@@ -4576,6 +4605,7 @@
   - [cv::fisheye::initUndistortRectifyMap](#cvfisheyeinitundistortrectifymap)
   - [cv::fisheye::projectPoints](#cvfisheyeprojectpoints)
   - [cv::fisheye::solvePnP](#cvfisheyesolvepnp)
+  - [cv::fisheye::solvePnPRansac](#cvfisheyesolvepnpransac)
   - [cv::fisheye::stereoCalibrate](#cvfisheyestereocalibrate)
   - [cv::fisheye::stereoRectify](#cvfisheyestereorectify)
   - [cv::fisheye::undistortImage](#cvfisheyeundistortimage)
@@ -4662,6 +4692,7 @@
   - [QRCodeEncoder.CORRECT\_LEVEL\_M\_](#qrcodeencodercorrect%5C_level%5C_m%5C_)
   - [QRCodeEncoder.CORRECT\_LEVEL\_Q\_](#qrcodeencodercorrect%5C_level%5C_q%5C_)
   - [QRCodeEncoder.CORRECT\_LEVEL\_H\_](#qrcodeencodercorrect%5C_level%5C_h%5C_)
+  - [QRCodeEncoder.ECI\_SHIFT\_JIS\_](#qrcodeencodereci%5C_shift%5C_jis%5C_)
   - [QRCodeEncoder.ECI\_UTF8\_](#qrcodeencodereci%5C_utf8%5C_)
 - [cv::QRCodeEncoder::Params](#cvqrcodeencoderparams)
   - [Params.version](#paramsversion)
@@ -4674,13 +4705,18 @@
   - [cv::QRCodeDetector::get\_create](#cvqrcodedetectorget%5C_create)
   - [cv::QRCodeDetector::IsInstance](#cvqrcodedetectorisinstance)
   - [cv::QRCodeDetector::decode](#cvqrcodedetectordecode)
+  - [cv::QRCodeDetector::decodeBytes](#cvqrcodedetectordecodebytes)
+  - [cv::QRCodeDetector::decodeBytesMulti](#cvqrcodedetectordecodebytesmulti)
   - [cv::QRCodeDetector::decodeCurved](#cvqrcodedetectordecodecurved)
   - [cv::QRCodeDetector::decodeMulti](#cvqrcodedetectordecodemulti)
   - [cv::QRCodeDetector::detect](#cvqrcodedetectordetect)
   - [cv::QRCodeDetector::detectAndDecode](#cvqrcodedetectordetectanddecode)
+  - [cv::QRCodeDetector::detectAndDecodeBytes](#cvqrcodedetectordetectanddecodebytes)
+  - [cv::QRCodeDetector::detectAndDecodeBytesMulti](#cvqrcodedetectordetectanddecodebytesmulti)
   - [cv::QRCodeDetector::detectAndDecodeCurved](#cvqrcodedetectordetectanddecodecurved)
   - [cv::QRCodeDetector::detectAndDecodeMulti](#cvqrcodedetectordetectanddecodemulti)
   - [cv::QRCodeDetector::detectMulti](#cvqrcodedetectordetectmulti)
+  - [cv::QRCodeDetector::getEncoding](#cvqrcodedetectorgetencoding)
   - [cv::QRCodeDetector::setEpsX](#cvqrcodedetectorsetepsx)
   - [cv::QRCodeDetector::setEpsY](#cvqrcodedetectorsetepsy)
   - [cv::QRCodeDetector::setUseAlignmentMarkers](#cvqrcodedetectorsetusealignmentmarkers)
@@ -4689,9 +4725,13 @@
   - [cv::QRCodeDetectorAruco::get\_create](#cvqrcodedetectorarucoget%5C_create)
   - [cv::QRCodeDetectorAruco::IsInstance](#cvqrcodedetectorarucoisinstance)
   - [cv::QRCodeDetectorAruco::decode](#cvqrcodedetectorarucodecode)
+  - [cv::QRCodeDetectorAruco::decodeBytes](#cvqrcodedetectorarucodecodebytes)
+  - [cv::QRCodeDetectorAruco::decodeBytesMulti](#cvqrcodedetectorarucodecodebytesmulti)
   - [cv::QRCodeDetectorAruco::decodeMulti](#cvqrcodedetectorarucodecodemulti)
   - [cv::QRCodeDetectorAruco::detect](#cvqrcodedetectorarucodetect)
   - [cv::QRCodeDetectorAruco::detectAndDecode](#cvqrcodedetectorarucodetectanddecode)
+  - [cv::QRCodeDetectorAruco::detectAndDecodeBytes](#cvqrcodedetectorarucodetectanddecodebytes)
+  - [cv::QRCodeDetectorAruco::detectAndDecodeBytesMulti](#cvqrcodedetectorarucodetectanddecodebytesmulti)
   - [cv::QRCodeDetectorAruco::detectAndDecodeMulti](#cvqrcodedetectorarucodetectanddecodemulti)
   - [cv::QRCodeDetectorAruco::detectMulti](#cvqrcodedetectorarucodetectmulti)
   - [cv::QRCodeDetectorAruco::getArucoParameters](#cvqrcodedetectorarucogetarucoparameters)
@@ -4839,15 +4879,18 @@
   - [cv::aruco::ArucoDetector::IsInstance](#cvarucoarucodetectorisinstance)
   - [cv::aruco::ArucoDetector::clear](#cvarucoarucodetectorclear)
   - [cv::aruco::ArucoDetector::detectMarkers](#cvarucoarucodetectordetectmarkers)
+  - [cv::aruco::ArucoDetector::detectMarkersMultiDict](#cvarucoarucodetectordetectmarkersmultidict)
   - [cv::aruco::ArucoDetector::empty](#cvarucoarucodetectorempty)
   - [cv::aruco::ArucoDetector::getDefaultName](#cvarucoarucodetectorgetdefaultname)
   - [cv::aruco::ArucoDetector::getDetectorParameters](#cvarucoarucodetectorgetdetectorparameters)
+  - [cv::aruco::ArucoDetector::getDictionaries](#cvarucoarucodetectorgetdictionaries)
   - [cv::aruco::ArucoDetector::getDictionary](#cvarucoarucodetectorgetdictionary)
   - [cv::aruco::ArucoDetector::getRefineParameters](#cvarucoarucodetectorgetrefineparameters)
   - [cv::aruco::ArucoDetector::read](#cvarucoarucodetectorread)
   - [cv::aruco::ArucoDetector::refineDetectedMarkers](#cvarucoarucodetectorrefinedetectedmarkers)
   - [cv::aruco::ArucoDetector::save](#cvarucoarucodetectorsave)
   - [cv::aruco::ArucoDetector::setDetectorParameters](#cvarucoarucodetectorsetdetectorparameters)
+  - [cv::aruco::ArucoDetector::setDictionaries](#cvarucoarucodetectorsetdictionaries)
   - [cv::aruco::ArucoDetector::setDictionary](#cvarucoarucodetectorsetdictionary)
   - [cv::aruco::ArucoDetector::setRefineParameters](#cvarucoarucodetectorsetrefineparameters)
   - [cv::aruco::ArucoDetector::write](#cvarucoarucodetectorwrite)
@@ -4870,10 +4913,14 @@
   - [cv::barcode::BarcodeDetector::get\_create](#cvbarcodebarcodedetectorget%5C_create)
   - [cv::barcode::BarcodeDetector::IsInstance](#cvbarcodebarcodedetectorisinstance)
   - [cv::barcode::BarcodeDetector::decode](#cvbarcodebarcodedetectordecode)
+  - [cv::barcode::BarcodeDetector::decodeBytes](#cvbarcodebarcodedetectordecodebytes)
+  - [cv::barcode::BarcodeDetector::decodeBytesMulti](#cvbarcodebarcodedetectordecodebytesmulti)
   - [cv::barcode::BarcodeDetector::decodeMulti](#cvbarcodebarcodedetectordecodemulti)
   - [cv::barcode::BarcodeDetector::decodeWithType](#cvbarcodebarcodedetectordecodewithtype)
   - [cv::barcode::BarcodeDetector::detect](#cvbarcodebarcodedetectordetect)
   - [cv::barcode::BarcodeDetector::detectAndDecode](#cvbarcodebarcodedetectordetectanddecode)
+  - [cv::barcode::BarcodeDetector::detectAndDecodeBytes](#cvbarcodebarcodedetectordetectanddecodebytes)
+  - [cv::barcode::BarcodeDetector::detectAndDecodeBytesMulti](#cvbarcodebarcodedetectordetectanddecodebytesmulti)
   - [cv::barcode::BarcodeDetector::detectAndDecodeMulti](#cvbarcodebarcodedetectordetectanddecodemulti)
   - [cv::barcode::BarcodeDetector::detectAndDecodeWithType](#cvbarcodebarcodedetectordetectanddecodewithtype)
   - [cv::barcode::BarcodeDetector::detectMulti](#cvbarcodebarcodedetectordetectmulti)
@@ -4888,6 +4935,7 @@
   - [CharucoParameters.distCoeffs](#charucoparametersdistcoeffs)
   - [CharucoParameters.minMarkers](#charucoparametersminmarkers)
   - [CharucoParameters.tryRefineMarkers](#charucoparameterstryrefinemarkers)
+  - [CharucoParameters.checkMarkers](#charucoparameterscheckmarkers)
   - [cv::aruco::CharucoParameters::get\_create](#cvarucocharucoparametersget%5C_create)
   - [cv::aruco::CharucoParameters::IsInstance](#cvarucocharucoparametersisinstance)
 - [cv::aruco::CharucoDetector](#cvarucocharucodetector)
@@ -4932,9 +4980,13 @@
 - [cv::GraphicalCodeDetector](#cvgraphicalcodedetector)
   - [cv::GraphicalCodeDetector::IsInstance](#cvgraphicalcodedetectorisinstance)
   - [cv::GraphicalCodeDetector::decode](#cvgraphicalcodedetectordecode)
+  - [cv::GraphicalCodeDetector::decodeBytes](#cvgraphicalcodedetectordecodebytes)
+  - [cv::GraphicalCodeDetector::decodeBytesMulti](#cvgraphicalcodedetectordecodebytesmulti)
   - [cv::GraphicalCodeDetector::decodeMulti](#cvgraphicalcodedetectordecodemulti)
   - [cv::GraphicalCodeDetector::detect](#cvgraphicalcodedetectordetect)
   - [cv::GraphicalCodeDetector::detectAndDecode](#cvgraphicalcodedetectordetectanddecode)
+  - [cv::GraphicalCodeDetector::detectAndDecodeBytes](#cvgraphicalcodedetectordetectanddecodebytes)
+  - [cv::GraphicalCodeDetector::detectAndDecodeBytesMulti](#cvgraphicalcodedetectordetectanddecodebytesmulti)
   - [cv::GraphicalCodeDetector::detectAndDecodeMulti](#cvgraphicalcodedetectordetectanddecodemulti)
   - [cv::GraphicalCodeDetector::detectMulti](#cvgraphicalcodedetectordetectmulti)
 - [cv::Stitcher](#cvstitcher)
@@ -8224,6 +8276,29 @@
   - [VectorOfVectorOfPoint3f::sort](#vectorofvectorofpoint3fsort)
   - [VectorOfVectorOfPoint3f::sort\_variant](#vectorofvectorofpoint3fsort%5C_variant)
   - [VectorOfVectorOfPoint3f::start](#vectorofvectorofpoint3fstart)
+- [VectorOfAruco\_Dictionary](#vectorofaruco%5C_dictionary)
+  - [VectorOfAruco\_Dictionary.Count](#vectorofaruco%5C_dictionarycount)
+  - [VectorOfAruco\_Dictionary::create](#vectorofaruco%5C_dictionarycreate)
+  - [VectorOfAruco\_Dictionary::Add](#vectorofaruco%5C_dictionaryadd)
+  - [VectorOfAruco\_Dictionary::IsInstance](#vectorofaruco%5C_dictionaryisinstance)
+  - [VectorOfAruco\_Dictionary::Items](#vectorofaruco%5C_dictionaryitems)
+  - [VectorOfAruco\_Dictionary::Keys](#vectorofaruco%5C_dictionarykeys)
+  - [VectorOfAruco\_Dictionary::Remove](#vectorofaruco%5C_dictionaryremove)
+  - [VectorOfAruco\_Dictionary::append](#vectorofaruco%5C_dictionaryappend)
+  - [VectorOfAruco\_Dictionary::at](#vectorofaruco%5C_dictionaryat)
+  - [VectorOfAruco\_Dictionary::clear](#vectorofaruco%5C_dictionaryclear)
+  - [VectorOfAruco\_Dictionary::empty](#vectorofaruco%5C_dictionaryempty)
+  - [VectorOfAruco\_Dictionary::end](#vectorofaruco%5C_dictionaryend)
+  - [VectorOfAruco\_Dictionary::get\_Item](#vectorofaruco%5C_dictionaryget%5C_item)
+  - [VectorOfAruco\_Dictionary::get\_\_NewEnum](#vectorofaruco%5C_dictionaryget%5C_%5C_newenum)
+  - [VectorOfAruco\_Dictionary::push\_back](#vectorofaruco%5C_dictionarypush%5C_back)
+  - [VectorOfAruco\_Dictionary::push\_vector](#vectorofaruco%5C_dictionarypush%5C_vector)
+  - [VectorOfAruco\_Dictionary::put\_Item](#vectorofaruco%5C_dictionaryput%5C_item)
+  - [VectorOfAruco\_Dictionary::size](#vectorofaruco%5C_dictionarysize)
+  - [VectorOfAruco\_Dictionary::slice](#vectorofaruco%5C_dictionaryslice)
+  - [VectorOfAruco\_Dictionary::sort](#vectorofaruco%5C_dictionarysort)
+  - [VectorOfAruco\_Dictionary::sort\_variant](#vectorofaruco%5C_dictionarysort%5C_variant)
+  - [VectorOfAruco\_Dictionary::start](#vectorofaruco%5C_dictionarystart)
 - [VectorOfDetail\_CameraParams](#vectorofdetail%5C_cameraparams)
   - [VectorOfDetail\_CameraParams.Count](#vectorofdetail%5C_cameraparamscount)
   - [VectorOfDetail\_CameraParams::create](#vectorofdetail%5C_cameraparamscreate)
@@ -10146,6 +10221,22 @@ AutoIt:
     _OpenCV_ObjCreate("cv").HoughCircles( $image, $method, $dp, $minDist[, $circles[, $param1[, $param2[, $minRadius[, $maxRadius]]]]] ) -> $circles
 ```
 
+### cv::HoughCirclesWithAccumulator
+
+```cpp
+void cv::HoughCirclesWithAccumulator( InputArray  image,
+                                      OutputArray circles,
+                                      int         method,
+                                      double      dp,
+                                      double      minDist,
+                                      double      param1 = 100,
+                                      double      param2 = 100,
+                                      int         minRadius = 0,
+                                      int         maxRadius = 0 );
+AutoIt:
+    _OpenCV_ObjCreate("cv").HoughCirclesWithAccumulator( $image, $method, $dp, $minDist[, $circles[, $param1[, $param2[, $minRadius[, $maxRadius]]]]] ) -> $circles
+```
+
 ### cv::HoughLines
 
 ```cpp
@@ -10205,9 +10296,10 @@ void cv::HoughLinesWithAccumulator( InputArray  image,
                                     double      srn = 0,
                                     double      stn = 0,
                                     double      min_theta = 0,
-                                    double      max_theta = CV_PI );
+                                    double      max_theta = CV_PI,
+                                    bool        use_edgeval = false );
 AutoIt:
-    _OpenCV_ObjCreate("cv").HoughLinesWithAccumulator( $image, $rho, $theta, $threshold[, $lines[, $srn[, $stn[, $min_theta[, $max_theta]]]]] ) -> $lines
+    _OpenCV_ObjCreate("cv").HoughLinesWithAccumulator( $image, $rho, $theta, $threshold[, $lines[, $srn[, $stn[, $min_theta[, $max_theta[, $use_edgeval]]]]]] ) -> $lines
 ```
 
 ### cv::HuMoments
@@ -12669,6 +12761,16 @@ AutoIt:
     _OpenCV_ObjCreate("cv").getCPUTickCount() -> retval
 ```
 
+### cv::getClosestEllipsePoints
+
+```cpp
+void cv::getClosestEllipsePoints( const cv::RotatedRect& ellipse_params,
+                                  InputArray             points,
+                                  OutputArray            closest_pts );
+AutoIt:
+    _OpenCV_ObjCreate("cv").getClosestEllipsePoints( $ellipse_params, $points[, $closest_pts] ) -> $closest_pts
+```
+
 ### cv::getDefaultAlgorithmHint
 
 ```cpp
@@ -13103,6 +13205,28 @@ AutoIt:
     _OpenCV_ObjCreate("cv").imdecode( $buf, $flags ) -> retval
 ```
 
+### cv::imdecodeWithMetadata
+
+```cpp
+cv::Mat cv::imdecodeWithMetadata( InputArray          buf,
+                                  std::vector<int>&   metadataTypes,
+                                  OutputArrayOfArrays metadata,
+                                  int                 flags = IMREAD_ANYCOLOR );
+AutoIt:
+    _OpenCV_ObjCreate("cv").imdecodeWithMetadata( $buf[, $metadata[, $flags[, $metadataTypes]]] ) -> retval, $metadataTypes, $metadata
+```
+
+### cv::imdecodeanimation
+
+```cpp
+bool cv::imdecodeanimation( InputArray     buf,
+                            cv::Animation& animation,
+                            int            start = 0,
+                            int            count = INT16_MAX );
+AutoIt:
+    _OpenCV_ObjCreate("cv").imdecodeanimation( $buf[, $start[, $count[, $animation]]] ) -> retval, $animation
+```
+
 ### cv::imdecodemulti
 
 ```cpp
@@ -13123,6 +13247,30 @@ bool cv::imencode( const std::string&      ext,
                    const std::vector<int>& params = std::vector<int>() );
 AutoIt:
     _OpenCV_ObjCreate("cv").imencode( $ext, $img[, $params[, $buf]] ) -> retval, $buf
+```
+
+### cv::imencodeWithMetadata
+
+```cpp
+bool cv::imencodeWithMetadata( const std::string&      ext,
+                               InputArray              img,
+                               const std::vector<int>& metadataTypes,
+                               InputArrayOfArrays      metadata,
+                               std::vector<uchar>&     buf,
+                               const std::vector<int>& params = std::vector<int>() );
+AutoIt:
+    _OpenCV_ObjCreate("cv").imencodeWithMetadata( $ext, $img, $metadataTypes, $metadata[, $params[, $buf]] ) -> retval, $buf
+```
+
+### cv::imencodeanimation
+
+```cpp
+bool cv::imencodeanimation( const std::string&      ext,
+                            const cv::Animation&    animation,
+                            std::vector<uchar>&     buf,
+                            const std::vector<int>& params = std::vector<int>() );
+AutoIt:
+    _OpenCV_ObjCreate("cv").imencodeanimation( $ext, $animation[, $params[, $buf]] ) -> retval, $buf
 ```
 
 ### cv::imencodemulti
@@ -13151,6 +13299,17 @@ void cv::imread( const std::string& filename,
                  int                flags = IMREAD_COLOR_BGR );
 AutoIt:
     _OpenCV_ObjCreate("cv").imread( $filename[, $dst[, $flags]] ) -> $dst
+```
+
+### cv::imreadWithMetadata
+
+```cpp
+cv::Mat cv::imreadWithMetadata( const std::string&  filename,
+                                std::vector<int>&   metadataTypes,
+                                OutputArrayOfArrays metadata,
+                                int                 flags = IMREAD_ANYCOLOR );
+AutoIt:
+    _OpenCV_ObjCreate("cv").imreadWithMetadata( $filename[, $metadata[, $flags[, $metadataTypes]]] ) -> retval, $metadataTypes, $metadata
 ```
 
 ### cv::imreadanimation
@@ -13201,6 +13360,18 @@ bool cv::imwrite( const std::string&      filename,
                   const std::vector<int>& params = std::vector<int>() );
 AutoIt:
     _OpenCV_ObjCreate("cv").imwrite( $filename, $img[, $params] ) -> retval
+```
+
+### cv::imwriteWithMetadata
+
+```cpp
+bool cv::imwriteWithMetadata( const std::string&      filename,
+                              InputArray              img,
+                              const std::vector<int>& metadataTypes,
+                              InputArrayOfArrays&     metadata,
+                              const std::vector<int>& params = std::vector<int>() );
+AutoIt:
+    _OpenCV_ObjCreate("cv").imwriteWithMetadata( $filename, $img, $metadataTypes, $metadata[, $params] ) -> retval
 ```
 
 ### cv::imwriteanimation
@@ -14930,6 +15101,19 @@ AutoIt:
     _OpenCV_ObjCreate("cv").threshold( $src, $thresh, $maxval, $type[, $dst] ) -> retval, $dst
 ```
 
+### cv::thresholdWithMask
+
+```cpp
+double cv::thresholdWithMask( InputArray       src,
+                              InputOutputArray dst,
+                              InputArray       mask,
+                              double           thresh,
+                              double           maxval,
+                              int              type );
+AutoIt:
+    _OpenCV_ObjCreate("cv").thresholdWithMask( $src, $dst, $mask, $thresh, $maxval, $type ) -> retval, $dst
+```
+
 ### cv::trace
 
 ```cpp
@@ -15915,6 +16099,14 @@ AutoIt:
     [propget] $oenums.MORPH_ELLIPSE
 ```
 
+### enums.MORPH\_DIAMOND
+
+```cpp
+static int cv::enums::MORPH_DIAMOND
+AutoIt:
+    [propget] $oenums.MORPH_DIAMOND
+```
+
 ### enums.INTER\_NEAREST
 
 ```cpp
@@ -16201,6 +16393,14 @@ AutoIt:
 static int cv::enums::THRESH_TRIANGLE
 AutoIt:
     [propget] $oenums.THRESH_TRIANGLE
+```
+
+### enums.THRESH\_DRYRUN
+
+```cpp
+static int cv::enums::THRESH_DRYRUN
+AutoIt:
+    [propget] $oenums.THRESH_DRYRUN
 ```
 
 ### enums.ADAPTIVE\_THRESH\_MEAN\_C
@@ -19491,6 +19691,14 @@ AutoIt:
     [propget] $oenums.IMWRITE_PNG_BILEVEL
 ```
 
+### enums.IMWRITE\_PNG\_FILTER
+
+```cpp
+static int cv::enums::IMWRITE_PNG_FILTER
+AutoIt:
+    [propget] $oenums.IMWRITE_PNG_FILTER
+```
+
 ### enums.IMWRITE\_PXM\_BINARY
 
 ```cpp
@@ -20171,6 +20379,62 @@ AutoIt:
     [propget] $oenums.IMWRITE_PNG_STRATEGY_FIXED
 ```
 
+### enums.IMWRITE\_PNG\_FILTER\_NONE
+
+```cpp
+static int cv::enums::IMWRITE_PNG_FILTER_NONE
+AutoIt:
+    [propget] $oenums.IMWRITE_PNG_FILTER_NONE
+```
+
+### enums.IMWRITE\_PNG\_FILTER\_SUB
+
+```cpp
+static int cv::enums::IMWRITE_PNG_FILTER_SUB
+AutoIt:
+    [propget] $oenums.IMWRITE_PNG_FILTER_SUB
+```
+
+### enums.IMWRITE\_PNG\_FILTER\_UP
+
+```cpp
+static int cv::enums::IMWRITE_PNG_FILTER_UP
+AutoIt:
+    [propget] $oenums.IMWRITE_PNG_FILTER_UP
+```
+
+### enums.IMWRITE\_PNG\_FILTER\_AVG
+
+```cpp
+static int cv::enums::IMWRITE_PNG_FILTER_AVG
+AutoIt:
+    [propget] $oenums.IMWRITE_PNG_FILTER_AVG
+```
+
+### enums.IMWRITE\_PNG\_FILTER\_PAETH
+
+```cpp
+static int cv::enums::IMWRITE_PNG_FILTER_PAETH
+AutoIt:
+    [propget] $oenums.IMWRITE_PNG_FILTER_PAETH
+```
+
+### enums.IMWRITE\_PNG\_FAST\_FILTERS
+
+```cpp
+static int cv::enums::IMWRITE_PNG_FAST_FILTERS
+AutoIt:
+    [propget] $oenums.IMWRITE_PNG_FAST_FILTERS
+```
+
+### enums.IMWRITE\_PNG\_ALL\_FILTERS
+
+```cpp
+static int cv::enums::IMWRITE_PNG_ALL_FILTERS
+AutoIt:
+    [propget] $oenums.IMWRITE_PNG_ALL_FILTERS
+```
+
 ### enums.IMWRITE\_PAM\_FORMAT\_NULL
 
 ```cpp
@@ -20297,6 +20561,46 @@ AutoIt:
 static int cv::enums::IMWRITE_GIF_COLORTABLE_SIZE_256
 AutoIt:
     [propget] $oenums.IMWRITE_GIF_COLORTABLE_SIZE_256
+```
+
+### enums.IMAGE\_METADATA\_UNKNOWN
+
+```cpp
+static int cv::enums::IMAGE_METADATA_UNKNOWN
+AutoIt:
+    [propget] $oenums.IMAGE_METADATA_UNKNOWN
+```
+
+### enums.IMAGE\_METADATA\_EXIF
+
+```cpp
+static int cv::enums::IMAGE_METADATA_EXIF
+AutoIt:
+    [propget] $oenums.IMAGE_METADATA_EXIF
+```
+
+### enums.IMAGE\_METADATA\_XMP
+
+```cpp
+static int cv::enums::IMAGE_METADATA_XMP
+AutoIt:
+    [propget] $oenums.IMAGE_METADATA_XMP
+```
+
+### enums.IMAGE\_METADATA\_ICCP
+
+```cpp
+static int cv::enums::IMAGE_METADATA_ICCP
+AutoIt:
+    [propget] $oenums.IMAGE_METADATA_ICCP
+```
+
+### enums.IMAGE\_METADATA\_MAX
+
+```cpp
+static int cv::enums::IMAGE_METADATA_MAX
+AutoIt:
+    [propget] $oenums.IMAGE_METADATA_MAX
 ```
 
 ### enums.CAP\_ANY
@@ -27260,6 +27564,13 @@ AutoIt:
 
 ```cpp
 void cv::cuda::GpuMat::convertTo( cv::cuda::GpuMat& dst,
+                                  int               rtype ) const;
+AutoIt:
+    $oGpuMat.convertTo( $rtype[, $dst] ) -> $dst
+```
+
+```cpp
+void cv::cuda::GpuMat::convertTo( cv::cuda::GpuMat& dst,
                                   int               rtype,
                                   cv::cuda::Stream& stream ) const;
 AutoIt:
@@ -32043,6 +32354,14 @@ void cv::Mat::put_Item( const std::vector<int>& idx,
                         double                  value );
 AutoIt:
     $oMat.Item( $idx ) = $value
+```
+
+### cv::Mat::reinterpret
+
+```cpp
+cv::Mat cv::Mat::reinterpret( int type );
+AutoIt:
+    $oMat.reinterpret( $type ) -> retval
 ```
 
 ### cv::Mat::reserve
@@ -44297,6 +44616,16 @@ AutoIt:
     _OpenCV_ObjCreate("cv.dnn.Net").readFromModelOptimizer( $bufferModelConfig, $bufferWeights ) -> retval
 ```
 
+### cv::dnn::Net::registerOutput
+
+```cpp
+int cv::dnn::Net::registerOutput( const std::string& outputName,
+                                  int                layerId,
+                                  int                outputPort );
+AutoIt:
+    $oNet.registerOutput( $outputName, $layerId, $outputPort ) -> retval
+```
+
 ### cv::dnn::Net::setHalideScheduler
 
 ```cpp
@@ -44448,7 +44777,7 @@ static cv::dnn::Image2BlobParams cv::dnn::Image2BlobParams::get_create( const cv
                                                                         bool                      swapRB = false,
                                                                         int                       ddepth = CV_32F,
                                                                         cv::dnn::DataLayout       datalayout = DNN_LAYOUT_NCHW,
-                                                                        cv::dnn::ImagePaddingMode mode = DNN_PMODE_NULL,
+                                                                        cv::dnn::ImagePaddingMode mode = dnn::DNN_PMODE_NULL,
                                                                         cv::Scalar                borderValue = 0.0 );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn.Image2BlobParams").create( $scalefactor[, $size[, $mean[, $swapRB[, $ddepth[, $datalayout[, $mode[, $borderValue]]]]]]] ) -> <cv.dnn.Image2BlobParams object>
@@ -50289,12 +50618,22 @@ AutoIt:
     [propget, propput] $oAnimation.frames
 ```
 
+### Animation.still\_image
+
+```cpp
+cv::Mat cv::Animation::still_image
+AutoIt:
+    [propget, propput] $oAnimation.still_image
+```
+
 ### cv::Animation::get\_create
 
 ```cpp
-static cv::Animation cv::Animation::get_create();
+static cv::Animation cv::Animation::get_create( int        loopCount = 0,
+                                                cv::Scalar bgColor = Scalar() );
 AutoIt:
-    _OpenCV_ObjCreate("cv.Animation").create() -> <cv.Animation object>
+    _OpenCV_ObjCreate("cv.Animation").create( [$loopCount[, $bgColor]] ) -> <cv.Animation object>
+    $oAnimation( [$loopCount[, $bgColor]] ) -> <cv.Animation object>
 ```
 
 ### cv::Animation::IsInstance
@@ -50325,6 +50664,24 @@ AutoIt:
 static bool cv::IStreamReader::IsInstance( VARIANT* obj );
 AutoIt:
     _OpenCV_ObjCreate("cv.IStreamReader").IsInstance( $obj ) -> retval
+```
+
+### cv::IStreamReader::read
+
+```cpp
+long long cv::IStreamReader::read( char*     buffer,
+                                   long long size );
+AutoIt:
+    $oIStreamReader.read( $buffer, $size ) -> retval
+```
+
+### cv::IStreamReader::seek
+
+```cpp
+long long cv::IStreamReader::seek( long long offset,
+                                   int       origin );
+AutoIt:
+    $oIStreamReader.seek( $offset, $origin ) -> retval
 ```
 
 ## cv::VideoCapture
@@ -52028,6 +52385,26 @@ AutoIt:
     _OpenCV_ObjCreate("cv.fisheye").solvePnP( $objectPoints, $imagePoints, $cameraMatrix, $distCoeffs[, $rvec[, $tvec[, $useExtrinsicGuess[, $flags[, $criteria]]]]] ) -> retval, $rvec, $tvec
 ```
 
+### cv::fisheye::solvePnPRansac
+
+```cpp
+bool cv::fisheye::solvePnPRansac( InputArray       objectPoints,
+                                  InputArray       imagePoints,
+                                  InputArray       cameraMatrix,
+                                  InputArray       distCoeffs,
+                                  OutputArray      rvec,
+                                  OutputArray      tvec,
+                                  bool             useExtrinsicGuess = false,
+                                  int              iterationsCount = 100,
+                                  float            reprojectionError = 8.0,
+                                  double           confidence = 0.99,
+                                  OutputArray      inliers = noArray(),
+                                  int              flags = SOLVEPNP_ITERATIVE,
+                                  cv::TermCriteria criteria = TermCriteria(TermCriteria::MAX_ITER + TermCriteria::EPS, 10, 1e-8) );
+AutoIt:
+    _OpenCV_ObjCreate("cv.fisheye").solvePnPRansac( $objectPoints, $imagePoints, $cameraMatrix, $distCoeffs[, $rvec[, $tvec[, $useExtrinsicGuess[, $iterationsCount[, $reprojectionError[, $confidence[, $inliers[, $flags[, $criteria]]]]]]]]] ) -> retval, $rvec, $tvec, $inliers
+```
+
 ### cv::fisheye::stereoCalibrate
 
 ```cpp
@@ -52861,6 +53238,14 @@ AutoIt:
     [propget] $oQRCodeEncoder.CORRECT_LEVEL_H_
 ```
 
+### QRCodeEncoder.ECI\_SHIFT\_JIS\_
+
+```cpp
+static int cv::QRCodeEncoder::ECI_SHIFT_JIS
+AutoIt:
+    [propget] $oQRCodeEncoder.ECI_SHIFT_JIS_
+```
+
 ### QRCodeEncoder.ECI\_UTF8\_
 
 ```cpp
@@ -52959,6 +53344,27 @@ AutoIt:
     $oQRCodeDetector.decode( $img, $points[, $straight_code] ) -> retval, $straight_code
 ```
 
+### cv::QRCodeDetector::decodeBytes
+
+```cpp
+std::string cv::QRCodeDetector::decodeBytes( InputArray  img,
+                                             InputArray  points,
+                                             OutputArray straight_code = noArray() ) const;
+AutoIt:
+    $oQRCodeDetector.decodeBytes( $img, $points[, $straight_code] ) -> retval, $straight_code
+```
+
+### cv::QRCodeDetector::decodeBytesMulti
+
+```cpp
+bool cv::QRCodeDetector::decodeBytesMulti( InputArray                img,
+                                           InputArray                points,
+                                           std::vector<std::string>& decoded_info,
+                                           OutputArrayOfArrays       straight_code = noArray() ) const;
+AutoIt:
+    $oQRCodeDetector.decodeBytesMulti( $img, $points[, $straight_code[, $decoded_info]] ) -> retval, $decoded_info, $straight_code
+```
+
 ### cv::QRCodeDetector::decodeCurved
 
 ```cpp
@@ -52999,6 +53405,27 @@ AutoIt:
     $oQRCodeDetector.detectAndDecode( $img[, $points[, $straight_code]] ) -> retval, $points, $straight_code
 ```
 
+### cv::QRCodeDetector::detectAndDecodeBytes
+
+```cpp
+std::string cv::QRCodeDetector::detectAndDecodeBytes( InputArray  img,
+                                                      OutputArray points = noArray(),
+                                                      OutputArray straight_code = noArray() ) const;
+AutoIt:
+    $oQRCodeDetector.detectAndDecodeBytes( $img[, $points[, $straight_code]] ) -> retval, $points, $straight_code
+```
+
+### cv::QRCodeDetector::detectAndDecodeBytesMulti
+
+```cpp
+bool cv::QRCodeDetector::detectAndDecodeBytesMulti( InputArray                img,
+                                                    std::vector<std::string>& decoded_info,
+                                                    OutputArray               points = noArray(),
+                                                    OutputArrayOfArrays       straight_code = noArray() ) const;
+AutoIt:
+    $oQRCodeDetector.detectAndDecodeBytesMulti( $img[, $points[, $straight_code[, $decoded_info]]] ) -> retval, $decoded_info, $points, $straight_code
+```
+
 ### cv::QRCodeDetector::detectAndDecodeCurved
 
 ```cpp
@@ -53027,6 +53454,14 @@ bool cv::QRCodeDetector::detectMulti( InputArray  img,
                                       OutputArray points ) const;
 AutoIt:
     $oQRCodeDetector.detectMulti( $img[, $points] ) -> retval, $points
+```
+
+### cv::QRCodeDetector::getEncoding
+
+```cpp
+cv::QRCodeEncoder::ECIEncodings cv::QRCodeDetector::getEncoding( int codeIdx = 0 );
+AutoIt:
+    $oQRCodeDetector.getEncoding( [$codeIdx] ) -> retval
 ```
 
 ### cv::QRCodeDetector::setEpsX
@@ -53102,6 +53537,27 @@ AutoIt:
     $oQRCodeDetectorAruco.decode( $img, $points[, $straight_code] ) -> retval, $straight_code
 ```
 
+### cv::QRCodeDetectorAruco::decodeBytes
+
+```cpp
+std::string cv::QRCodeDetectorAruco::decodeBytes( InputArray  img,
+                                                  InputArray  points,
+                                                  OutputArray straight_code = noArray() ) const;
+AutoIt:
+    $oQRCodeDetectorAruco.decodeBytes( $img, $points[, $straight_code] ) -> retval, $straight_code
+```
+
+### cv::QRCodeDetectorAruco::decodeBytesMulti
+
+```cpp
+bool cv::QRCodeDetectorAruco::decodeBytesMulti( InputArray                img,
+                                                InputArray                points,
+                                                std::vector<std::string>& decoded_info,
+                                                OutputArrayOfArrays       straight_code = noArray() ) const;
+AutoIt:
+    $oQRCodeDetectorAruco.decodeBytesMulti( $img, $points[, $straight_code[, $decoded_info]] ) -> retval, $decoded_info, $straight_code
+```
+
 ### cv::QRCodeDetectorAruco::decodeMulti
 
 ```cpp
@@ -53130,6 +53586,27 @@ std::string cv::QRCodeDetectorAruco::detectAndDecode( InputArray  img,
                                                       OutputArray straight_code = noArray() ) const;
 AutoIt:
     $oQRCodeDetectorAruco.detectAndDecode( $img[, $points[, $straight_code]] ) -> retval, $points, $straight_code
+```
+
+### cv::QRCodeDetectorAruco::detectAndDecodeBytes
+
+```cpp
+std::string cv::QRCodeDetectorAruco::detectAndDecodeBytes( InputArray  img,
+                                                           OutputArray points = noArray(),
+                                                           OutputArray straight_code = noArray() ) const;
+AutoIt:
+    $oQRCodeDetectorAruco.detectAndDecodeBytes( $img[, $points[, $straight_code]] ) -> retval, $points, $straight_code
+```
+
+### cv::QRCodeDetectorAruco::detectAndDecodeBytesMulti
+
+```cpp
+bool cv::QRCodeDetectorAruco::detectAndDecodeBytesMulti( InputArray                img,
+                                                         std::vector<std::string>& decoded_info,
+                                                         OutputArray               points = noArray(),
+                                                         OutputArrayOfArrays       straight_code = noArray() ) const;
+AutoIt:
+    $oQRCodeDetectorAruco.detectAndDecodeBytesMulti( $img[, $points[, $straight_code[, $decoded_info]]] ) -> retval, $decoded_info, $points, $straight_code
 ```
 
 ### cv::QRCodeDetectorAruco::detectAndDecodeMulti
@@ -54331,6 +54808,15 @@ AutoIt:
     $oArucoDetector( [$dictionary[, $detectorParams[, $refineParams]]] ) -> <cv.aruco.ArucoDetector object>
 ```
 
+```cpp
+static cv::aruco::ArucoDetector cv::aruco::ArucoDetector::get_create( const std::vector<cv::aruco::Dictionary>& dictionaries,
+                                                                      const cv::aruco::DetectorParameters&      detectorParams = DetectorParameters(),
+                                                                      const cv::aruco::RefineParameters&        refineParams = RefineParameters() );
+AutoIt:
+    _OpenCV_ObjCreate("cv.aruco.ArucoDetector").create( $dictionaries[, $detectorParams[, $refineParams]] ) -> <cv.aruco.ArucoDetector object>
+    $oArucoDetector( $dictionaries[, $detectorParams[, $refineParams]] ) -> <cv.aruco.ArucoDetector object>
+```
+
 ### cv::aruco::ArucoDetector::IsInstance
 
 ```cpp
@@ -54364,6 +54850,18 @@ AutoIt:
     $oArucoDetector.detectMarkers( $image[, $corners[, $ids[, $rejectedImgPoints]]] ) -> $corners, $ids, $rejectedImgPoints
 ```
 
+### cv::aruco::ArucoDetector::detectMarkersMultiDict
+
+```cpp
+void cv::aruco::ArucoDetector::detectMarkersMultiDict( InputArray          image,
+                                                       OutputArrayOfArrays corners,
+                                                       OutputArray         ids,
+                                                       OutputArrayOfArrays rejectedImgPoints = noArray(),
+                                                       OutputArray         dictIndices = noArray() ) const;
+AutoIt:
+    $oArucoDetector.detectMarkersMultiDict( $image[, $corners[, $ids[, $rejectedImgPoints[, $dictIndices]]]] ) -> $corners, $ids, $rejectedImgPoints, $dictIndices
+```
+
 ### cv::aruco::ArucoDetector::empty
 
 ```cpp
@@ -54386,6 +54884,14 @@ AutoIt:
 cv::aruco::DetectorParameters cv::aruco::ArucoDetector::getDetectorParameters() const;
 AutoIt:
     $oArucoDetector.getDetectorParameters() -> retval
+```
+
+### cv::aruco::ArucoDetector::getDictionaries
+
+```cpp
+std::vector<cv::aruco::Dictionary> cv::aruco::ArucoDetector::getDictionaries() const;
+AutoIt:
+    $oArucoDetector.getDictionaries() -> retval
 ```
 
 ### cv::aruco::ArucoDetector::getDictionary
@@ -54441,6 +54947,14 @@ AutoIt:
 void cv::aruco::ArucoDetector::setDetectorParameters( const cv::aruco::DetectorParameters& detectorParameters );
 AutoIt:
     $oArucoDetector.setDetectorParameters( $detectorParameters ) -> None
+```
+
+### cv::aruco::ArucoDetector::setDictionaries
+
+```cpp
+void cv::aruco::ArucoDetector::setDictionaries( const std::vector<cv::aruco::Dictionary>& dictionaries );
+AutoIt:
+    $oArucoDetector.setDictionaries( $dictionaries ) -> None
 ```
 
 ### cv::aruco::ArucoDetector::setDictionary
@@ -54649,6 +55163,27 @@ AutoIt:
     $oBarcodeDetector.decode( $img, $points[, $straight_code] ) -> retval, $straight_code
 ```
 
+### cv::barcode::BarcodeDetector::decodeBytes
+
+```cpp
+std::string cv::barcode::BarcodeDetector::decodeBytes( InputArray  img,
+                                                       InputArray  points,
+                                                       OutputArray straight_code = noArray() ) const;
+AutoIt:
+    $oBarcodeDetector.decodeBytes( $img, $points[, $straight_code] ) -> retval, $straight_code
+```
+
+### cv::barcode::BarcodeDetector::decodeBytesMulti
+
+```cpp
+bool cv::barcode::BarcodeDetector::decodeBytesMulti( InputArray                img,
+                                                     InputArray                points,
+                                                     std::vector<std::string>& decoded_info,
+                                                     OutputArrayOfArrays       straight_code = noArray() ) const;
+AutoIt:
+    $oBarcodeDetector.decodeBytesMulti( $img, $points[, $straight_code[, $decoded_info]] ) -> retval, $decoded_info, $straight_code
+```
+
 ### cv::barcode::BarcodeDetector::decodeMulti
 
 ```cpp
@@ -54688,6 +55223,27 @@ std::string cv::barcode::BarcodeDetector::detectAndDecode( InputArray  img,
                                                            OutputArray straight_code = noArray() ) const;
 AutoIt:
     $oBarcodeDetector.detectAndDecode( $img[, $points[, $straight_code]] ) -> retval, $points, $straight_code
+```
+
+### cv::barcode::BarcodeDetector::detectAndDecodeBytes
+
+```cpp
+std::string cv::barcode::BarcodeDetector::detectAndDecodeBytes( InputArray  img,
+                                                                OutputArray points = noArray(),
+                                                                OutputArray straight_code = noArray() ) const;
+AutoIt:
+    $oBarcodeDetector.detectAndDecodeBytes( $img[, $points[, $straight_code]] ) -> retval, $points, $straight_code
+```
+
+### cv::barcode::BarcodeDetector::detectAndDecodeBytesMulti
+
+```cpp
+bool cv::barcode::BarcodeDetector::detectAndDecodeBytesMulti( InputArray                img,
+                                                              std::vector<std::string>& decoded_info,
+                                                              OutputArray               points = noArray(),
+                                                              OutputArrayOfArrays       straight_code = noArray() ) const;
+AutoIt:
+    $oBarcodeDetector.detectAndDecodeBytesMulti( $img[, $points[, $straight_code[, $decoded_info]]] ) -> retval, $decoded_info, $points, $straight_code
 ```
 
 ### cv::barcode::BarcodeDetector::detectAndDecodeMulti
@@ -54801,6 +55357,14 @@ AutoIt:
 bool cv::aruco::CharucoParameters::tryRefineMarkers
 AutoIt:
     [propget, propput] $oCharucoParameters.tryRefineMarkers
+```
+
+### CharucoParameters.checkMarkers
+
+```cpp
+bool cv::aruco::CharucoParameters::checkMarkers
+AutoIt:
+    [propget, propput] $oCharucoParameters.checkMarkers
 ```
 
 ### cv::aruco::CharucoParameters::get\_create
@@ -55226,6 +55790,27 @@ AutoIt:
     $oGraphicalCodeDetector.decode( $img, $points[, $straight_code] ) -> retval, $straight_code
 ```
 
+### cv::GraphicalCodeDetector::decodeBytes
+
+```cpp
+std::string cv::GraphicalCodeDetector::decodeBytes( InputArray  img,
+                                                    InputArray  points,
+                                                    OutputArray straight_code = noArray() ) const;
+AutoIt:
+    $oGraphicalCodeDetector.decodeBytes( $img, $points[, $straight_code] ) -> retval, $straight_code
+```
+
+### cv::GraphicalCodeDetector::decodeBytesMulti
+
+```cpp
+bool cv::GraphicalCodeDetector::decodeBytesMulti( InputArray                img,
+                                                  InputArray                points,
+                                                  std::vector<std::string>& decoded_info,
+                                                  OutputArrayOfArrays       straight_code = noArray() ) const;
+AutoIt:
+    $oGraphicalCodeDetector.decodeBytesMulti( $img, $points[, $straight_code[, $decoded_info]] ) -> retval, $decoded_info, $straight_code
+```
+
 ### cv::GraphicalCodeDetector::decodeMulti
 
 ```cpp
@@ -55254,6 +55839,27 @@ std::string cv::GraphicalCodeDetector::detectAndDecode( InputArray  img,
                                                         OutputArray straight_code = noArray() ) const;
 AutoIt:
     $oGraphicalCodeDetector.detectAndDecode( $img[, $points[, $straight_code]] ) -> retval, $points, $straight_code
+```
+
+### cv::GraphicalCodeDetector::detectAndDecodeBytes
+
+```cpp
+std::string cv::GraphicalCodeDetector::detectAndDecodeBytes( InputArray  img,
+                                                             OutputArray points = noArray(),
+                                                             OutputArray straight_code = noArray() ) const;
+AutoIt:
+    $oGraphicalCodeDetector.detectAndDecodeBytes( $img[, $points[, $straight_code]] ) -> retval, $points, $straight_code
+```
+
+### cv::GraphicalCodeDetector::detectAndDecodeBytesMulti
+
+```cpp
+bool cv::GraphicalCodeDetector::detectAndDecodeBytesMulti( InputArray                img,
+                                                           std::vector<std::string>& decoded_info,
+                                                           OutputArray               points = noArray(),
+                                                           OutputArrayOfArrays       straight_code = noArray() ) const;
+AutoIt:
+    $oGraphicalCodeDetector.detectAndDecodeBytesMulti( $img[, $points[, $straight_code[, $decoded_info]]] ) -> retval, $decoded_info, $points, $straight_code
 ```
 
 ### cv::GraphicalCodeDetector::detectAndDecodeMulti
@@ -55608,14 +56214,6 @@ AutoIt:
 ```
 
 ### cv::PyRotationWarper::warpPointBackward
-
-```cpp
-cv::Point2f cv::PyRotationWarper::warpPointBackward( const cv::Point2f& pt,
-                                                     InputArray         K,
-                                                     InputArray         R );
-AutoIt:
-    $oPyRotationWarper.warpPointBackward( $pt, $K, $R ) -> retval
-```
 
 ```cpp
 cv::Point2f cv::PyRotationWarper::warpPointBackward( const cv::Point2f& pt,
@@ -60364,6 +60962,13 @@ AutoIt:
     $oTrackerGOTURN( [$parameters] ) -> retval
 ```
 
+```cpp
+static cv::Ptr<cv::TrackerGOTURN> cv::TrackerGOTURN::get_create( const cv::dnn::Net& model );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TrackerGOTURN").create( $model ) -> retval
+    $oTrackerGOTURN( $model ) -> retval
+```
+
 ### cv::TrackerGOTURN::IsInstance
 
 ```cpp
@@ -60453,6 +61058,15 @@ static cv::Ptr<cv::TrackerDaSiamRPN> cv::TrackerDaSiamRPN::get_create( const cv:
 AutoIt:
     _OpenCV_ObjCreate("cv.TrackerDaSiamRPN").create( [$parameters] ) -> retval
     $oTrackerDaSiamRPN( [$parameters] ) -> retval
+```
+
+```cpp
+static cv::Ptr<cv::TrackerDaSiamRPN> cv::TrackerDaSiamRPN::get_create( const cv::dnn::Net& siam_rpn,
+                                                                       const cv::dnn::Net& kernel_cls1,
+                                                                       const cv::dnn::Net& kernel_r1 );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TrackerDaSiamRPN").create( $siam_rpn, $kernel_cls1, $kernel_r1 ) -> retval
+    $oTrackerDaSiamRPN( $siam_rpn, $kernel_cls1, $kernel_r1 ) -> retval
 ```
 
 ### cv::TrackerDaSiamRPN::IsInstance
@@ -60578,6 +61192,14 @@ AutoIt:
     $oTrackerNano( [$parameters] ) -> retval
 ```
 
+```cpp
+static cv::Ptr<cv::TrackerNano> cv::TrackerNano::get_create( const cv::dnn::Net& backbone,
+                                                             const cv::dnn::Net& neckhead );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TrackerNano").create( $backbone, $neckhead ) -> retval
+    $oTrackerNano( $backbone, $neckhead ) -> retval
+```
+
 ### cv::TrackerNano::IsInstance
 
 ```cpp
@@ -60691,6 +61313,16 @@ static cv::Ptr<cv::TrackerVit> cv::TrackerVit::get_create( const cv::TrackerVit:
 AutoIt:
     _OpenCV_ObjCreate("cv.TrackerVit").create( [$parameters] ) -> retval
     $oTrackerVit( [$parameters] ) -> retval
+```
+
+```cpp
+static cv::Ptr<cv::TrackerVit> cv::TrackerVit::get_create( const cv::dnn::Net& model,
+                                                           cv::Scalar          meanvalue = Scalar(0.485, 0.456, 0.406),
+                                                           cv::Scalar          stdvalue = Scalar(0.229, 0.224, 0.225),
+                                                           float               tracking_score_threshold = 0.20f );
+AutoIt:
+    _OpenCV_ObjCreate("cv.TrackerVit").create( $model[, $meanvalue[, $stdvalue[, $tracking_score_threshold]]] ) -> retval
+    $oTrackerVit( $model[, $meanvalue[, $stdvalue[, $tracking_score_threshold]]] ) -> retval
 ```
 
 ### cv::TrackerVit::IsInstance
@@ -84841,6 +85473,224 @@ AutoIt:
 void* VectorOfVectorOfPoint3f::start();
 AutoIt:
     $oVectorOfVectorOfPoint3f.start() -> retval
+```
+
+## VectorOfAruco\_Dictionary
+
+### VectorOfAruco\_Dictionary.Count
+
+```cpp
+size_t VectorOfAruco_Dictionary::size()
+AutoIt:
+    [propget] $oVectorOfAruco_Dictionary.Count
+```
+
+### VectorOfAruco\_Dictionary::create
+
+```cpp
+static VectorOfAruco_Dictionary VectorOfAruco_Dictionary::create();
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfAruco_Dictionary").create() -> <VectorOfAruco_Dictionary object>
+```
+
+```cpp
+static VectorOfAruco_Dictionary VectorOfAruco_Dictionary::create( size_t size );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfAruco_Dictionary").create( $size ) -> <VectorOfAruco_Dictionary object>
+```
+
+```cpp
+static VectorOfAruco_Dictionary VectorOfAruco_Dictionary::create( VectorOfAruco_Dictionary other );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfAruco_Dictionary").create( $other ) -> <VectorOfAruco_Dictionary object>
+```
+
+### VectorOfAruco\_Dictionary::Add
+
+```cpp
+void VectorOfAruco_Dictionary::Add( cv::aruco::Dictionary value );
+AutoIt:
+    $oVectorOfAruco_Dictionary.Add( $value ) -> None
+```
+
+### VectorOfAruco\_Dictionary::IsInstance
+
+```cpp
+static bool VectorOfAruco_Dictionary::IsInstance( const VectorOfAruco_Dictionary& obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfAruco_Dictionary").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool VectorOfAruco_Dictionary::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("VectorOfAruco_Dictionary").IsInstance( $obj ) -> retval
+```
+
+### VectorOfAruco\_Dictionary::Items
+
+```cpp
+VectorOfAruco_Dictionary VectorOfAruco_Dictionary::Items();
+AutoIt:
+    $oVectorOfAruco_Dictionary.Items() -> retval
+```
+
+### VectorOfAruco\_Dictionary::Keys
+
+```cpp
+std::vector<int> VectorOfAruco_Dictionary::Keys();
+AutoIt:
+    $oVectorOfAruco_Dictionary.Keys() -> retval
+```
+
+### VectorOfAruco\_Dictionary::Remove
+
+```cpp
+void VectorOfAruco_Dictionary::Remove( size_t index );
+AutoIt:
+    $oVectorOfAruco_Dictionary.Remove( $index ) -> None
+```
+
+### VectorOfAruco\_Dictionary::append
+
+```cpp
+void VectorOfAruco_Dictionary::append( cv::aruco::Dictionary value );
+AutoIt:
+    $oVectorOfAruco_Dictionary.append( $value ) -> None
+```
+
+### VectorOfAruco\_Dictionary::at
+
+```cpp
+cv::aruco::Dictionary VectorOfAruco_Dictionary::at( size_t index );
+AutoIt:
+    $oVectorOfAruco_Dictionary.at( $index ) -> retval
+```
+
+```cpp
+void VectorOfAruco_Dictionary::at( size_t                index,
+                                   cv::aruco::Dictionary value );
+AutoIt:
+    $oVectorOfAruco_Dictionary.at( $index, $value ) -> None
+```
+
+### VectorOfAruco\_Dictionary::clear
+
+```cpp
+void VectorOfAruco_Dictionary::clear();
+AutoIt:
+    $oVectorOfAruco_Dictionary.clear() -> None
+```
+
+### VectorOfAruco\_Dictionary::empty
+
+```cpp
+bool VectorOfAruco_Dictionary::empty();
+AutoIt:
+    $oVectorOfAruco_Dictionary.empty() -> retval
+```
+
+### VectorOfAruco\_Dictionary::end
+
+```cpp
+void* VectorOfAruco_Dictionary::end();
+AutoIt:
+    $oVectorOfAruco_Dictionary.end() -> retval
+```
+
+### VectorOfAruco\_Dictionary::get\_Item
+
+```cpp
+cv::aruco::Dictionary VectorOfAruco_Dictionary::get_Item( size_t index );
+AutoIt:
+    $oVectorOfAruco_Dictionary.Item( $index ) -> retval
+    $oVectorOfAruco_Dictionary( $index ) -> retval
+```
+
+### VectorOfAruco\_Dictionary::get\_\_NewEnum
+
+```cpp
+IUnknown* VectorOfAruco_Dictionary::get__NewEnum();
+AutoIt:
+    $oVectorOfAruco_Dictionary._NewEnum() -> retval
+```
+
+### VectorOfAruco\_Dictionary::push\_back
+
+```cpp
+void VectorOfAruco_Dictionary::push_back( cv::aruco::Dictionary value );
+AutoIt:
+    $oVectorOfAruco_Dictionary.push_back( $value ) -> None
+```
+
+### VectorOfAruco\_Dictionary::push\_vector
+
+```cpp
+void VectorOfAruco_Dictionary::push_vector( VectorOfAruco_Dictionary other );
+AutoIt:
+    $oVectorOfAruco_Dictionary.push_vector( $other ) -> None
+```
+
+```cpp
+void VectorOfAruco_Dictionary::push_vector( VectorOfAruco_Dictionary other,
+                                            size_t                   count,
+                                            size_t                   start = 0 );
+AutoIt:
+    $oVectorOfAruco_Dictionary.push_vector( $other, $count[, $start] ) -> None
+```
+
+### VectorOfAruco\_Dictionary::put\_Item
+
+```cpp
+void VectorOfAruco_Dictionary::put_Item( size_t                index,
+                                         cv::aruco::Dictionary item );
+AutoIt:
+    $oVectorOfAruco_Dictionary.Item( $index ) = $item
+```
+
+### VectorOfAruco\_Dictionary::size
+
+```cpp
+size_t VectorOfAruco_Dictionary::size();
+AutoIt:
+    $oVectorOfAruco_Dictionary.size() -> retval
+```
+
+### VectorOfAruco\_Dictionary::slice
+
+```cpp
+VectorOfAruco_Dictionary VectorOfAruco_Dictionary::slice( size_t start = 0,
+                                                          size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfAruco_Dictionary.slice( [$start[, $count]] ) -> retval
+```
+
+### VectorOfAruco\_Dictionary::sort
+
+```cpp
+void VectorOfAruco_Dictionary::sort( void*  comparator,
+                                     size_t start = 0,
+                                     size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfAruco_Dictionary.sort( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfAruco\_Dictionary::sort\_variant
+
+```cpp
+void VectorOfAruco_Dictionary::sort_variant( void*  comparator,
+                                             size_t start = 0,
+                                             size_t count = __self->get()->size() );
+AutoIt:
+    $oVectorOfAruco_Dictionary.sort_variant( $comparator[, $start[, $count]] ) -> None
+```
+
+### VectorOfAruco\_Dictionary::start
+
+```cpp
+void* VectorOfAruco_Dictionary::start();
+AutoIt:
+    $oVectorOfAruco_Dictionary.start() -> retval
 ```
 
 ## VectorOfDetail\_CameraParams

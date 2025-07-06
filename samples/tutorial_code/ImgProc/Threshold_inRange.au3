@@ -13,10 +13,10 @@
 #include "..\..\..\autoit-opencv-com\udf\opencv_udf_utils.au3"
 
 ;~ Sources:
-;~     https://docs.opencv.org/4.11.0/da/d97/tutorial_threshold_inRange.html
-;~     https://github.com/opencv/opencv/blob/4.11.0/samples/cpp/tutorial_code/ImgProc/Threshold_inRange.cpp
+;~     https://docs.opencv.org/4.12.0/da/d97/tutorial_threshold_inRange.html
+;~     https://github.com/opencv/opencv/blob/4.12.0/samples/cpp/tutorial_code/ImgProc/Threshold_inRange.cpp
 
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world4110*"), _OpenCV_FindDLL("autoit_opencv_com4110*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world4120*"), _OpenCV_FindDLL("autoit_opencv_com4120*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 

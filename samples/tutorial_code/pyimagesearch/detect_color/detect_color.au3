@@ -13,7 +13,7 @@
 ;~ Sources:
 ;~     https://www.pyimagesearch.com/2016/02/15/determining-object-color-with-opencv/
 
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world4110*"), _OpenCV_FindDLL("autoit_opencv_com4110*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world4120*"), _OpenCV_FindDLL("autoit_opencv_com4120*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 

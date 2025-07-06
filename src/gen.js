@@ -9,7 +9,7 @@ const mkdirp = require("mkdirp");
 const waterfall = require("async/waterfall");
 const {explore} = require("fs-explorer");
 
-const OpenCV_VERSION = "opencv-4.11.0";
+const OpenCV_VERSION = "opencv-4.12.0";
 const OpenCV_DLLVERSION = OpenCV_VERSION.slice("opencv-".length).replaceAll(".", "");
 
 const getOptions = PROJECT_DIR => {
@@ -175,12 +175,12 @@ const opencv_SOURCE_DIR = findFile(`${ OpenCV_VERSION }-*/opencv/sources`, sysPa
 
 const python_bindings_generator = sysPath.join(PROJECT_DIR, `${ OpenCV_VERSION }-build_x64`, "modules", "python_bindings_generator");
 const src2 = sysPath.resolve(opencv_SOURCE_DIR, "modules/python/src2");
-const headers = sysPath.join(python_bindings_generator, "headers.txt");
+const config_json_path = sysPath.join(python_bindings_generator, "gen_python_config.json");
 const pyopencv_generated_include = sysPath.join(python_bindings_generator, "pyopencv_generated_include.h");
 
 const hdr_parser = fs.readFileSync(sysPath.join(src2, "hdr_parser.py")).toString();
-const hdr_parser_start = hdr_parser.indexOf("class CppHeaderParser");
-const hdr_parser_end = hdr_parser.indexOf("if __name__ == '__main__':");
+const hdr_parser_start = hdr_parser.indexOf("]") + 1;
+const hdr_parser_end = hdr_parser.indexOf("if __name__ == '__main__':", hdr_parser_start);
 
 const options = getOptions(PROJECT_DIR);
 options.proto = COMGenerator.proto;
@@ -197,7 +197,7 @@ waterfall([
 
         console.log("generating", pyopencv_generated_include);
 
-        const child = spawn("python", [sysPath.join(src2, "gen2.py"), python_bindings_generator, headers], {
+        const child = spawn("python", [sysPath.join(src2, "gen2.py"), "--config", config_json_path, "--output_dir", python_bindings_generator], {
             stdio: [0, "pipe", "pipe"]
         });
 
@@ -300,12 +300,32 @@ waterfall([
                 .split("\n")
                 .join(`\n${ " ".repeat(12) }`) }
 
-            with open(${ JSON.stringify(headers) }, 'r') as f:
-                srcfiles = [l.strip() for l in f.readlines()]
+            class PythonWrapperGenerator(object):
+                class Config:
+                    def __init__(self, headers, preprocessor_definitions = None):
+                        self.headers = headers
+                        if preprocessor_definitions is None:
+                            preprocessor_definitions = {}
+                        elif not isinstance(preprocessor_definitions, dict):
+                            raise TypeError(
+                                "preprocessor_definitions should rather dictionary or None. "
+                                "Got: {}".format(type(preprocessor_definitions).__name__)
+                            )
+                        self.preprocessor_definitions = preprocessor_definitions
+
+            with open(${ JSON.stringify(config_json_path) }, "r") as fh:
+                config_json = json.load(fh)
+            config = PythonWrapperGenerator.Config(**config_json)
+
+            srcfiles = config.headers
 
             ${ srcfiles.map(file => `srcfiles.append(${ JSON.stringify(file) })`).join(`\n${ " ".repeat(12) }`) }
 
-            parser = CppHeaderParser(generate_umat_decls=True, generate_gpumat_decls=True)
+            parser = CppHeaderParser(
+                generate_umat_decls=True,
+                generate_gpumat_decls=True,
+                preprocessor_definitions=config.preprocessor_definitions
+            )
             all_decls = []
             for hdr in srcfiles:
                 decls = parser.parse(hdr)

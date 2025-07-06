@@ -235,6 +235,10 @@ module.exports = ({ self, self_get, shared_ptr }) => {
 
         // ["cv.Mat.release", "void", [], [], "", ""],
 
+        ["cv.Mat.reinterpret", "Mat", [], [
+            ["int", "type", "", []],
+        ], "", ""],
+
         ["cv.Mat.reserve", "void", [], [
             ["size_t", "sz", "", []],
         ], "", ""],
