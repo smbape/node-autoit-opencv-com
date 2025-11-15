@@ -66054,7 +66054,7 @@ AutoIt:
 ### NamedParameters::merge
 
 ```cpp
-void NamedParameters::merge( MapOfStringAndVariant other );
+void NamedParameters::merge( std::map<std::string, _variant_t> other );
 AutoIt:
     $oNamedParameters.merge( $other ) -> None
 ```
@@ -73062,19 +73062,19 @@ AutoIt:
 ### VectorOfString::create
 
 ```cpp
-static VectorOfString VectorOfString::create();
+static std::vector<std::string> VectorOfString::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfString").create() -> <VectorOfString object>
 ```
 
 ```cpp
-static VectorOfString VectorOfString::create( size_t size );
+static std::vector<std::string> VectorOfString::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfString").create( $size ) -> <VectorOfString object>
 ```
 
 ```cpp
-static VectorOfString VectorOfString::create( VectorOfString other );
+static std::vector<std::string> VectorOfString::create( std::vector<std::string> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfString").create( $other ) -> <VectorOfString object>
 ```
@@ -73090,7 +73090,7 @@ AutoIt:
 ### VectorOfString::IsInstance
 
 ```cpp
-static bool VectorOfString::IsInstance( const VectorOfString& obj );
+static bool VectorOfString::IsInstance( const std::vector<std::string>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfString").IsInstance( $obj ) -> retval
 ```
@@ -73104,7 +73104,7 @@ AutoIt:
 ### VectorOfString::Items
 
 ```cpp
-VectorOfString VectorOfString::Items();
+std::vector<std::string> VectorOfString::Items();
 AutoIt:
     $oVectorOfString.Items() -> retval
 ```
@@ -73200,15 +73200,15 @@ AutoIt:
 ### VectorOfString::push\_vector
 
 ```cpp
-void VectorOfString::push_vector( VectorOfString other );
+void VectorOfString::push_vector( std::vector<std::string> other );
 AutoIt:
     $oVectorOfString.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfString::push_vector( VectorOfString other,
-                                  size_t         count,
-                                  size_t         start = 0 );
+void VectorOfString::push_vector( std::vector<std::string> other,
+                                  size_t                   count,
+                                  size_t                   start = 0 );
 AutoIt:
     $oVectorOfString.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -73233,8 +73233,8 @@ AutoIt:
 ### VectorOfString::slice
 
 ```cpp
-VectorOfString VectorOfString::slice( size_t start = 0,
-                                      size_t count = __self->get()->size() );
+std::vector<std::string> VectorOfString::slice( size_t start = 0,
+                                                size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfString.slice( [$start[, $count]] ) -> retval
 ```
@@ -73280,19 +73280,19 @@ AutoIt:
 ### VectorOfVariant::create
 
 ```cpp
-static VectorOfVariant VectorOfVariant::create();
+static std::vector<_variant_t> VectorOfVariant::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVariant").create() -> <VectorOfVariant object>
 ```
 
 ```cpp
-static VectorOfVariant VectorOfVariant::create( size_t size );
+static std::vector<_variant_t> VectorOfVariant::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVariant").create( $size ) -> <VectorOfVariant object>
 ```
 
 ```cpp
-static VectorOfVariant VectorOfVariant::create( VectorOfVariant other );
+static std::vector<_variant_t> VectorOfVariant::create( std::vector<_variant_t> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVariant").create( $other ) -> <VectorOfVariant object>
 ```
@@ -73308,7 +73308,7 @@ AutoIt:
 ### VectorOfVariant::IsInstance
 
 ```cpp
-static bool VectorOfVariant::IsInstance( const VectorOfVariant& obj );
+static bool VectorOfVariant::IsInstance( const std::vector<_variant_t>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVariant").IsInstance( $obj ) -> retval
 ```
@@ -73322,7 +73322,7 @@ AutoIt:
 ### VectorOfVariant::Items
 
 ```cpp
-VectorOfVariant VectorOfVariant::Items();
+std::vector<_variant_t> VectorOfVariant::Items();
 AutoIt:
     $oVectorOfVariant.Items() -> retval
 ```
@@ -73418,15 +73418,15 @@ AutoIt:
 ### VectorOfVariant::push\_vector
 
 ```cpp
-void VectorOfVariant::push_vector( VectorOfVariant other );
+void VectorOfVariant::push_vector( std::vector<_variant_t> other );
 AutoIt:
     $oVectorOfVariant.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVariant::push_vector( VectorOfVariant other,
-                                   size_t          count,
-                                   size_t          start = 0 );
+void VectorOfVariant::push_vector( std::vector<_variant_t> other,
+                                   size_t                  count,
+                                   size_t                  start = 0 );
 AutoIt:
     $oVectorOfVariant.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -73451,8 +73451,8 @@ AutoIt:
 ### VectorOfVariant::slice
 
 ```cpp
-VectorOfVariant VectorOfVariant::slice( size_t start = 0,
-                                        size_t count = __self->get()->size() );
+std::vector<_variant_t> VectorOfVariant::slice( size_t start = 0,
+                                                size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVariant.slice( [$start[, $count]] ) -> retval
 ```
@@ -73498,19 +73498,19 @@ AutoIt:
 ### VectorOfInt::create
 
 ```cpp
-static VectorOfInt VectorOfInt::create();
+static std::vector<int> VectorOfInt::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfInt").create() -> <VectorOfInt object>
 ```
 
 ```cpp
-static VectorOfInt VectorOfInt::create( size_t size );
+static std::vector<int> VectorOfInt::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfInt").create( $size ) -> <VectorOfInt object>
 ```
 
 ```cpp
-static VectorOfInt VectorOfInt::create( VectorOfInt other );
+static std::vector<int> VectorOfInt::create( std::vector<int> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfInt").create( $other ) -> <VectorOfInt object>
 ```
@@ -73526,7 +73526,7 @@ AutoIt:
 ### VectorOfInt::IsInstance
 
 ```cpp
-static bool VectorOfInt::IsInstance( const VectorOfInt& obj );
+static bool VectorOfInt::IsInstance( const std::vector<int>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfInt").IsInstance( $obj ) -> retval
 ```
@@ -73540,7 +73540,7 @@ AutoIt:
 ### VectorOfInt::Items
 
 ```cpp
-VectorOfInt VectorOfInt::Items();
+std::vector<int> VectorOfInt::Items();
 AutoIt:
     $oVectorOfInt.Items() -> retval
 ```
@@ -73636,15 +73636,15 @@ AutoIt:
 ### VectorOfInt::push\_vector
 
 ```cpp
-void VectorOfInt::push_vector( VectorOfInt other );
+void VectorOfInt::push_vector( std::vector<int> other );
 AutoIt:
     $oVectorOfInt.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfInt::push_vector( VectorOfInt other,
-                               size_t      count,
-                               size_t      start = 0 );
+void VectorOfInt::push_vector( std::vector<int> other,
+                               size_t           count,
+                               size_t           start = 0 );
 AutoIt:
     $oVectorOfInt.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -73669,8 +73669,8 @@ AutoIt:
 ### VectorOfInt::slice
 
 ```cpp
-VectorOfInt VectorOfInt::slice( size_t start = 0,
-                                size_t count = __self->get()->size() );
+std::vector<int> VectorOfInt::slice( size_t start = 0,
+                                     size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfInt.slice( [$start[, $count]] ) -> retval
 ```
@@ -73716,19 +73716,19 @@ AutoIt:
 ### VectorOfFloat::create
 
 ```cpp
-static VectorOfFloat VectorOfFloat::create();
+static std::vector<float> VectorOfFloat::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfFloat").create() -> <VectorOfFloat object>
 ```
 
 ```cpp
-static VectorOfFloat VectorOfFloat::create( size_t size );
+static std::vector<float> VectorOfFloat::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfFloat").create( $size ) -> <VectorOfFloat object>
 ```
 
 ```cpp
-static VectorOfFloat VectorOfFloat::create( VectorOfFloat other );
+static std::vector<float> VectorOfFloat::create( std::vector<float> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfFloat").create( $other ) -> <VectorOfFloat object>
 ```
@@ -73744,7 +73744,7 @@ AutoIt:
 ### VectorOfFloat::IsInstance
 
 ```cpp
-static bool VectorOfFloat::IsInstance( const VectorOfFloat& obj );
+static bool VectorOfFloat::IsInstance( const std::vector<float>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfFloat").IsInstance( $obj ) -> retval
 ```
@@ -73758,7 +73758,7 @@ AutoIt:
 ### VectorOfFloat::Items
 
 ```cpp
-VectorOfFloat VectorOfFloat::Items();
+std::vector<float> VectorOfFloat::Items();
 AutoIt:
     $oVectorOfFloat.Items() -> retval
 ```
@@ -73854,15 +73854,15 @@ AutoIt:
 ### VectorOfFloat::push\_vector
 
 ```cpp
-void VectorOfFloat::push_vector( VectorOfFloat other );
+void VectorOfFloat::push_vector( std::vector<float> other );
 AutoIt:
     $oVectorOfFloat.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfFloat::push_vector( VectorOfFloat other,
-                                 size_t        count,
-                                 size_t        start = 0 );
+void VectorOfFloat::push_vector( std::vector<float> other,
+                                 size_t             count,
+                                 size_t             start = 0 );
 AutoIt:
     $oVectorOfFloat.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -73887,8 +73887,8 @@ AutoIt:
 ### VectorOfFloat::slice
 
 ```cpp
-VectorOfFloat VectorOfFloat::slice( size_t start = 0,
-                                    size_t count = __self->get()->size() );
+std::vector<float> VectorOfFloat::slice( size_t start = 0,
+                                         size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfFloat.slice( [$start[, $count]] ) -> retval
 ```
@@ -73934,19 +73934,19 @@ AutoIt:
 ### VectorOfPoint::create
 
 ```cpp
-static VectorOfPoint VectorOfPoint::create();
+static std::vector<cv::Point> VectorOfPoint::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPoint").create() -> <VectorOfPoint object>
 ```
 
 ```cpp
-static VectorOfPoint VectorOfPoint::create( size_t size );
+static std::vector<cv::Point> VectorOfPoint::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPoint").create( $size ) -> <VectorOfPoint object>
 ```
 
 ```cpp
-static VectorOfPoint VectorOfPoint::create( VectorOfPoint other );
+static std::vector<cv::Point> VectorOfPoint::create( std::vector<cv::Point> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPoint").create( $other ) -> <VectorOfPoint object>
 ```
@@ -73962,7 +73962,7 @@ AutoIt:
 ### VectorOfPoint::IsInstance
 
 ```cpp
-static bool VectorOfPoint::IsInstance( const VectorOfPoint& obj );
+static bool VectorOfPoint::IsInstance( const std::vector<cv::Point>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPoint").IsInstance( $obj ) -> retval
 ```
@@ -73976,7 +73976,7 @@ AutoIt:
 ### VectorOfPoint::Items
 
 ```cpp
-VectorOfPoint VectorOfPoint::Items();
+std::vector<cv::Point> VectorOfPoint::Items();
 AutoIt:
     $oVectorOfPoint.Items() -> retval
 ```
@@ -74072,15 +74072,15 @@ AutoIt:
 ### VectorOfPoint::push\_vector
 
 ```cpp
-void VectorOfPoint::push_vector( VectorOfPoint other );
+void VectorOfPoint::push_vector( std::vector<cv::Point> other );
 AutoIt:
     $oVectorOfPoint.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfPoint::push_vector( VectorOfPoint other,
-                                 size_t        count,
-                                 size_t        start = 0 );
+void VectorOfPoint::push_vector( std::vector<cv::Point> other,
+                                 size_t                 count,
+                                 size_t                 start = 0 );
 AutoIt:
     $oVectorOfPoint.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -74105,8 +74105,8 @@ AutoIt:
 ### VectorOfPoint::slice
 
 ```cpp
-VectorOfPoint VectorOfPoint::slice( size_t start = 0,
-                                    size_t count = __self->get()->size() );
+std::vector<cv::Point> VectorOfPoint::slice( size_t start = 0,
+                                             size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfPoint.slice( [$start[, $count]] ) -> retval
 ```
@@ -74152,19 +74152,19 @@ AutoIt:
 ### VectorOfMat::create
 
 ```cpp
-static VectorOfMat VectorOfMat::create();
+static std::vector<cv::Mat> VectorOfMat::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfMat").create() -> <VectorOfMat object>
 ```
 
 ```cpp
-static VectorOfMat VectorOfMat::create( size_t size );
+static std::vector<cv::Mat> VectorOfMat::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfMat").create( $size ) -> <VectorOfMat object>
 ```
 
 ```cpp
-static VectorOfMat VectorOfMat::create( VectorOfMat other );
+static std::vector<cv::Mat> VectorOfMat::create( std::vector<cv::Mat> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfMat").create( $other ) -> <VectorOfMat object>
 ```
@@ -74180,7 +74180,7 @@ AutoIt:
 ### VectorOfMat::IsInstance
 
 ```cpp
-static bool VectorOfMat::IsInstance( const VectorOfMat& obj );
+static bool VectorOfMat::IsInstance( const std::vector<cv::Mat>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfMat").IsInstance( $obj ) -> retval
 ```
@@ -74194,7 +74194,7 @@ AutoIt:
 ### VectorOfMat::Items
 
 ```cpp
-VectorOfMat VectorOfMat::Items();
+std::vector<cv::Mat> VectorOfMat::Items();
 AutoIt:
     $oVectorOfMat.Items() -> retval
 ```
@@ -74290,15 +74290,15 @@ AutoIt:
 ### VectorOfMat::push\_vector
 
 ```cpp
-void VectorOfMat::push_vector( VectorOfMat other );
+void VectorOfMat::push_vector( std::vector<cv::Mat> other );
 AutoIt:
     $oVectorOfMat.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfMat::push_vector( VectorOfMat other,
-                               size_t      count,
-                               size_t      start = 0 );
+void VectorOfMat::push_vector( std::vector<cv::Mat> other,
+                               size_t               count,
+                               size_t               start = 0 );
 AutoIt:
     $oVectorOfMat.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -74323,8 +74323,8 @@ AutoIt:
 ### VectorOfMat::slice
 
 ```cpp
-VectorOfMat VectorOfMat::slice( size_t start = 0,
-                                size_t count = __self->get()->size() );
+std::vector<cv::Mat> VectorOfMat::slice( size_t start = 0,
+                                         size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfMat.slice( [$start[, $count]] ) -> retval
 ```
@@ -74370,19 +74370,19 @@ AutoIt:
 ### VectorOfKeyPoint::create
 
 ```cpp
-static VectorOfKeyPoint VectorOfKeyPoint::create();
+static std::vector<cv::KeyPoint> VectorOfKeyPoint::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfKeyPoint").create() -> <VectorOfKeyPoint object>
 ```
 
 ```cpp
-static VectorOfKeyPoint VectorOfKeyPoint::create( size_t size );
+static std::vector<cv::KeyPoint> VectorOfKeyPoint::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfKeyPoint").create( $size ) -> <VectorOfKeyPoint object>
 ```
 
 ```cpp
-static VectorOfKeyPoint VectorOfKeyPoint::create( VectorOfKeyPoint other );
+static std::vector<cv::KeyPoint> VectorOfKeyPoint::create( std::vector<cv::KeyPoint> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfKeyPoint").create( $other ) -> <VectorOfKeyPoint object>
 ```
@@ -74398,7 +74398,7 @@ AutoIt:
 ### VectorOfKeyPoint::IsInstance
 
 ```cpp
-static bool VectorOfKeyPoint::IsInstance( const VectorOfKeyPoint& obj );
+static bool VectorOfKeyPoint::IsInstance( const std::vector<cv::KeyPoint>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfKeyPoint").IsInstance( $obj ) -> retval
 ```
@@ -74412,7 +74412,7 @@ AutoIt:
 ### VectorOfKeyPoint::Items
 
 ```cpp
-VectorOfKeyPoint VectorOfKeyPoint::Items();
+std::vector<cv::KeyPoint> VectorOfKeyPoint::Items();
 AutoIt:
     $oVectorOfKeyPoint.Items() -> retval
 ```
@@ -74508,15 +74508,15 @@ AutoIt:
 ### VectorOfKeyPoint::push\_vector
 
 ```cpp
-void VectorOfKeyPoint::push_vector( VectorOfKeyPoint other );
+void VectorOfKeyPoint::push_vector( std::vector<cv::KeyPoint> other );
 AutoIt:
     $oVectorOfKeyPoint.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfKeyPoint::push_vector( VectorOfKeyPoint other,
-                                    size_t           count,
-                                    size_t           start = 0 );
+void VectorOfKeyPoint::push_vector( std::vector<cv::KeyPoint> other,
+                                    size_t                    count,
+                                    size_t                    start = 0 );
 AutoIt:
     $oVectorOfKeyPoint.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -74541,8 +74541,8 @@ AutoIt:
 ### VectorOfKeyPoint::slice
 
 ```cpp
-VectorOfKeyPoint VectorOfKeyPoint::slice( size_t start = 0,
-                                          size_t count = __self->get()->size() );
+std::vector<cv::KeyPoint> VectorOfKeyPoint::slice( size_t start = 0,
+                                                   size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfKeyPoint.slice( [$start[, $count]] ) -> retval
 ```
@@ -74588,19 +74588,19 @@ AutoIt:
 ### VectorOfDMatch::create
 
 ```cpp
-static VectorOfDMatch VectorOfDMatch::create();
+static std::vector<cv::DMatch> VectorOfDMatch::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfDMatch").create() -> <VectorOfDMatch object>
 ```
 
 ```cpp
-static VectorOfDMatch VectorOfDMatch::create( size_t size );
+static std::vector<cv::DMatch> VectorOfDMatch::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfDMatch").create( $size ) -> <VectorOfDMatch object>
 ```
 
 ```cpp
-static VectorOfDMatch VectorOfDMatch::create( VectorOfDMatch other );
+static std::vector<cv::DMatch> VectorOfDMatch::create( std::vector<cv::DMatch> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfDMatch").create( $other ) -> <VectorOfDMatch object>
 ```
@@ -74616,7 +74616,7 @@ AutoIt:
 ### VectorOfDMatch::IsInstance
 
 ```cpp
-static bool VectorOfDMatch::IsInstance( const VectorOfDMatch& obj );
+static bool VectorOfDMatch::IsInstance( const std::vector<cv::DMatch>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfDMatch").IsInstance( $obj ) -> retval
 ```
@@ -74630,7 +74630,7 @@ AutoIt:
 ### VectorOfDMatch::Items
 
 ```cpp
-VectorOfDMatch VectorOfDMatch::Items();
+std::vector<cv::DMatch> VectorOfDMatch::Items();
 AutoIt:
     $oVectorOfDMatch.Items() -> retval
 ```
@@ -74726,15 +74726,15 @@ AutoIt:
 ### VectorOfDMatch::push\_vector
 
 ```cpp
-void VectorOfDMatch::push_vector( VectorOfDMatch other );
+void VectorOfDMatch::push_vector( std::vector<cv::DMatch> other );
 AutoIt:
     $oVectorOfDMatch.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfDMatch::push_vector( VectorOfDMatch other,
-                                  size_t         count,
-                                  size_t         start = 0 );
+void VectorOfDMatch::push_vector( std::vector<cv::DMatch> other,
+                                  size_t                  count,
+                                  size_t                  start = 0 );
 AutoIt:
     $oVectorOfDMatch.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -74759,8 +74759,8 @@ AutoIt:
 ### VectorOfDMatch::slice
 
 ```cpp
-VectorOfDMatch VectorOfDMatch::slice( size_t start = 0,
-                                      size_t count = __self->get()->size() );
+std::vector<cv::DMatch> VectorOfDMatch::slice( size_t start = 0,
+                                               size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfDMatch.slice( [$start[, $count]] ) -> retval
 ```
@@ -74806,19 +74806,19 @@ AutoIt:
 ### VectorOfChar::create
 
 ```cpp
-static VectorOfChar VectorOfChar::create();
+static std::vector<char> VectorOfChar::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfChar").create() -> <VectorOfChar object>
 ```
 
 ```cpp
-static VectorOfChar VectorOfChar::create( size_t size );
+static std::vector<char> VectorOfChar::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfChar").create( $size ) -> <VectorOfChar object>
 ```
 
 ```cpp
-static VectorOfChar VectorOfChar::create( VectorOfChar other );
+static std::vector<char> VectorOfChar::create( std::vector<char> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfChar").create( $other ) -> <VectorOfChar object>
 ```
@@ -74834,7 +74834,7 @@ AutoIt:
 ### VectorOfChar::IsInstance
 
 ```cpp
-static bool VectorOfChar::IsInstance( const VectorOfChar& obj );
+static bool VectorOfChar::IsInstance( const std::vector<char>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfChar").IsInstance( $obj ) -> retval
 ```
@@ -74848,7 +74848,7 @@ AutoIt:
 ### VectorOfChar::Items
 
 ```cpp
-VectorOfChar VectorOfChar::Items();
+std::vector<char> VectorOfChar::Items();
 AutoIt:
     $oVectorOfChar.Items() -> retval
 ```
@@ -74944,15 +74944,15 @@ AutoIt:
 ### VectorOfChar::push\_vector
 
 ```cpp
-void VectorOfChar::push_vector( VectorOfChar other );
+void VectorOfChar::push_vector( std::vector<char> other );
 AutoIt:
     $oVectorOfChar.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfChar::push_vector( VectorOfChar other,
-                                size_t       count,
-                                size_t       start = 0 );
+void VectorOfChar::push_vector( std::vector<char> other,
+                                size_t            count,
+                                size_t            start = 0 );
 AutoIt:
     $oVectorOfChar.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -74977,8 +74977,8 @@ AutoIt:
 ### VectorOfChar::slice
 
 ```cpp
-VectorOfChar VectorOfChar::slice( size_t start = 0,
-                                  size_t count = __self->get()->size() );
+std::vector<char> VectorOfChar::slice( size_t start = 0,
+                                       size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfChar.slice( [$start[, $count]] ) -> retval
 ```
@@ -75024,19 +75024,19 @@ AutoIt:
 ### VectorOfVectorOfDMatch::create
 
 ```cpp
-static VectorOfVectorOfDMatch VectorOfVectorOfDMatch::create();
+static std::vector<std::vector<cv::DMatch>> VectorOfVectorOfDMatch::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfDMatch").create() -> <VectorOfVectorOfDMatch object>
 ```
 
 ```cpp
-static VectorOfVectorOfDMatch VectorOfVectorOfDMatch::create( size_t size );
+static std::vector<std::vector<cv::DMatch>> VectorOfVectorOfDMatch::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfDMatch").create( $size ) -> <VectorOfVectorOfDMatch object>
 ```
 
 ```cpp
-static VectorOfVectorOfDMatch VectorOfVectorOfDMatch::create( VectorOfVectorOfDMatch other );
+static std::vector<std::vector<cv::DMatch>> VectorOfVectorOfDMatch::create( std::vector<std::vector<cv::DMatch>> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfDMatch").create( $other ) -> <VectorOfVectorOfDMatch object>
 ```
@@ -75052,7 +75052,7 @@ AutoIt:
 ### VectorOfVectorOfDMatch::IsInstance
 
 ```cpp
-static bool VectorOfVectorOfDMatch::IsInstance( const VectorOfVectorOfDMatch& obj );
+static bool VectorOfVectorOfDMatch::IsInstance( const std::vector<std::vector<cv::DMatch>>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfDMatch").IsInstance( $obj ) -> retval
 ```
@@ -75066,7 +75066,7 @@ AutoIt:
 ### VectorOfVectorOfDMatch::Items
 
 ```cpp
-VectorOfVectorOfDMatch VectorOfVectorOfDMatch::Items();
+std::vector<std::vector<cv::DMatch>> VectorOfVectorOfDMatch::Items();
 AutoIt:
     $oVectorOfVectorOfDMatch.Items() -> retval
 ```
@@ -75162,15 +75162,15 @@ AutoIt:
 ### VectorOfVectorOfDMatch::push\_vector
 
 ```cpp
-void VectorOfVectorOfDMatch::push_vector( VectorOfVectorOfDMatch other );
+void VectorOfVectorOfDMatch::push_vector( std::vector<std::vector<cv::DMatch>> other );
 AutoIt:
     $oVectorOfVectorOfDMatch.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVectorOfDMatch::push_vector( VectorOfVectorOfDMatch other,
-                                          size_t                 count,
-                                          size_t                 start = 0 );
+void VectorOfVectorOfDMatch::push_vector( std::vector<std::vector<cv::DMatch>> other,
+                                          size_t                               count,
+                                          size_t                               start = 0 );
 AutoIt:
     $oVectorOfVectorOfDMatch.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -75195,8 +75195,8 @@ AutoIt:
 ### VectorOfVectorOfDMatch::slice
 
 ```cpp
-VectorOfVectorOfDMatch VectorOfVectorOfDMatch::slice( size_t start = 0,
-                                                      size_t count = __self->get()->size() );
+std::vector<std::vector<cv::DMatch>> VectorOfVectorOfDMatch::slice( size_t start = 0,
+                                                                    size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVectorOfDMatch.slice( [$start[, $count]] ) -> retval
 ```
@@ -75242,19 +75242,19 @@ AutoIt:
 ### VectorOfVectorOfChar::create
 
 ```cpp
-static VectorOfVectorOfChar VectorOfVectorOfChar::create();
+static std::vector<std::vector<char>> VectorOfVectorOfChar::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfChar").create() -> <VectorOfVectorOfChar object>
 ```
 
 ```cpp
-static VectorOfVectorOfChar VectorOfVectorOfChar::create( size_t size );
+static std::vector<std::vector<char>> VectorOfVectorOfChar::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfChar").create( $size ) -> <VectorOfVectorOfChar object>
 ```
 
 ```cpp
-static VectorOfVectorOfChar VectorOfVectorOfChar::create( VectorOfVectorOfChar other );
+static std::vector<std::vector<char>> VectorOfVectorOfChar::create( std::vector<std::vector<char>> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfChar").create( $other ) -> <VectorOfVectorOfChar object>
 ```
@@ -75270,7 +75270,7 @@ AutoIt:
 ### VectorOfVectorOfChar::IsInstance
 
 ```cpp
-static bool VectorOfVectorOfChar::IsInstance( const VectorOfVectorOfChar& obj );
+static bool VectorOfVectorOfChar::IsInstance( const std::vector<std::vector<char>>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfChar").IsInstance( $obj ) -> retval
 ```
@@ -75284,7 +75284,7 @@ AutoIt:
 ### VectorOfVectorOfChar::Items
 
 ```cpp
-VectorOfVectorOfChar VectorOfVectorOfChar::Items();
+std::vector<std::vector<char>> VectorOfVectorOfChar::Items();
 AutoIt:
     $oVectorOfVectorOfChar.Items() -> retval
 ```
@@ -75380,15 +75380,15 @@ AutoIt:
 ### VectorOfVectorOfChar::push\_vector
 
 ```cpp
-void VectorOfVectorOfChar::push_vector( VectorOfVectorOfChar other );
+void VectorOfVectorOfChar::push_vector( std::vector<std::vector<char>> other );
 AutoIt:
     $oVectorOfVectorOfChar.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVectorOfChar::push_vector( VectorOfVectorOfChar other,
-                                        size_t               count,
-                                        size_t               start = 0 );
+void VectorOfVectorOfChar::push_vector( std::vector<std::vector<char>> other,
+                                        size_t                         count,
+                                        size_t                         start = 0 );
 AutoIt:
     $oVectorOfVectorOfChar.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -75413,8 +75413,8 @@ AutoIt:
 ### VectorOfVectorOfChar::slice
 
 ```cpp
-VectorOfVectorOfChar VectorOfVectorOfChar::slice( size_t start = 0,
-                                                  size_t count = __self->get()->size() );
+std::vector<std::vector<char>> VectorOfVectorOfChar::slice( size_t start = 0,
+                                                            size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVectorOfChar.slice( [$start[, $count]] ) -> retval
 ```
@@ -75460,19 +75460,19 @@ AutoIt:
 ### VectorOfUchar::create
 
 ```cpp
-static VectorOfUchar VectorOfUchar::create();
+static std::vector<uchar> VectorOfUchar::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfUchar").create() -> <VectorOfUchar object>
 ```
 
 ```cpp
-static VectorOfUchar VectorOfUchar::create( size_t size );
+static std::vector<uchar> VectorOfUchar::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfUchar").create( $size ) -> <VectorOfUchar object>
 ```
 
 ```cpp
-static VectorOfUchar VectorOfUchar::create( VectorOfUchar other );
+static std::vector<uchar> VectorOfUchar::create( std::vector<uchar> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfUchar").create( $other ) -> <VectorOfUchar object>
 ```
@@ -75488,7 +75488,7 @@ AutoIt:
 ### VectorOfUchar::IsInstance
 
 ```cpp
-static bool VectorOfUchar::IsInstance( const VectorOfUchar& obj );
+static bool VectorOfUchar::IsInstance( const std::vector<uchar>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfUchar").IsInstance( $obj ) -> retval
 ```
@@ -75502,7 +75502,7 @@ AutoIt:
 ### VectorOfUchar::Items
 
 ```cpp
-VectorOfUchar VectorOfUchar::Items();
+std::vector<uchar> VectorOfUchar::Items();
 AutoIt:
     $oVectorOfUchar.Items() -> retval
 ```
@@ -75598,15 +75598,15 @@ AutoIt:
 ### VectorOfUchar::push\_vector
 
 ```cpp
-void VectorOfUchar::push_vector( VectorOfUchar other );
+void VectorOfUchar::push_vector( std::vector<uchar> other );
 AutoIt:
     $oVectorOfUchar.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfUchar::push_vector( VectorOfUchar other,
-                                 size_t        count,
-                                 size_t        start = 0 );
+void VectorOfUchar::push_vector( std::vector<uchar> other,
+                                 size_t             count,
+                                 size_t             start = 0 );
 AutoIt:
     $oVectorOfUchar.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -75631,8 +75631,8 @@ AutoIt:
 ### VectorOfUchar::slice
 
 ```cpp
-VectorOfUchar VectorOfUchar::slice( size_t start = 0,
-                                    size_t count = __self->get()->size() );
+std::vector<uchar> VectorOfUchar::slice( size_t start = 0,
+                                         size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfUchar.slice( [$start[, $count]] ) -> retval
 ```
@@ -75678,19 +75678,19 @@ AutoIt:
 ### VectorOfRect::create
 
 ```cpp
-static VectorOfRect VectorOfRect::create();
+static std::vector<cv::Rect> VectorOfRect::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfRect").create() -> <VectorOfRect object>
 ```
 
 ```cpp
-static VectorOfRect VectorOfRect::create( size_t size );
+static std::vector<cv::Rect> VectorOfRect::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfRect").create( $size ) -> <VectorOfRect object>
 ```
 
 ```cpp
-static VectorOfRect VectorOfRect::create( VectorOfRect other );
+static std::vector<cv::Rect> VectorOfRect::create( std::vector<cv::Rect> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfRect").create( $other ) -> <VectorOfRect object>
 ```
@@ -75706,7 +75706,7 @@ AutoIt:
 ### VectorOfRect::IsInstance
 
 ```cpp
-static bool VectorOfRect::IsInstance( const VectorOfRect& obj );
+static bool VectorOfRect::IsInstance( const std::vector<cv::Rect>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfRect").IsInstance( $obj ) -> retval
 ```
@@ -75720,7 +75720,7 @@ AutoIt:
 ### VectorOfRect::Items
 
 ```cpp
-VectorOfRect VectorOfRect::Items();
+std::vector<cv::Rect> VectorOfRect::Items();
 AutoIt:
     $oVectorOfRect.Items() -> retval
 ```
@@ -75816,15 +75816,15 @@ AutoIt:
 ### VectorOfRect::push\_vector
 
 ```cpp
-void VectorOfRect::push_vector( VectorOfRect other );
+void VectorOfRect::push_vector( std::vector<cv::Rect> other );
 AutoIt:
     $oVectorOfRect.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfRect::push_vector( VectorOfRect other,
-                                size_t       count,
-                                size_t       start = 0 );
+void VectorOfRect::push_vector( std::vector<cv::Rect> other,
+                                size_t                count,
+                                size_t                start = 0 );
 AutoIt:
     $oVectorOfRect.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -75849,8 +75849,8 @@ AutoIt:
 ### VectorOfRect::slice
 
 ```cpp
-VectorOfRect VectorOfRect::slice( size_t start = 0,
-                                  size_t count = __self->get()->size() );
+std::vector<cv::Rect> VectorOfRect::slice( size_t start = 0,
+                                           size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfRect.slice( [$start[, $count]] ) -> retval
 ```
@@ -75896,19 +75896,19 @@ AutoIt:
 ### VectorOfTuplePointAndDouble::create
 
 ```cpp
-static VectorOfTuplePointAndDouble VectorOfTuplePointAndDouble::create();
+static std::vector<std::tuple<cv::Point, double>> VectorOfTuplePointAndDouble::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfTuplePointAndDouble").create() -> <VectorOfTuplePointAndDouble object>
 ```
 
 ```cpp
-static VectorOfTuplePointAndDouble VectorOfTuplePointAndDouble::create( size_t size );
+static std::vector<std::tuple<cv::Point, double>> VectorOfTuplePointAndDouble::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfTuplePointAndDouble").create( $size ) -> <VectorOfTuplePointAndDouble object>
 ```
 
 ```cpp
-static VectorOfTuplePointAndDouble VectorOfTuplePointAndDouble::create( VectorOfTuplePointAndDouble other );
+static std::vector<std::tuple<cv::Point, double>> VectorOfTuplePointAndDouble::create( std::vector<std::tuple<cv::Point, double>> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfTuplePointAndDouble").create( $other ) -> <VectorOfTuplePointAndDouble object>
 ```
@@ -75924,7 +75924,7 @@ AutoIt:
 ### VectorOfTuplePointAndDouble::IsInstance
 
 ```cpp
-static bool VectorOfTuplePointAndDouble::IsInstance( const VectorOfTuplePointAndDouble& obj );
+static bool VectorOfTuplePointAndDouble::IsInstance( const std::vector<std::tuple<cv::Point, double>>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfTuplePointAndDouble").IsInstance( $obj ) -> retval
 ```
@@ -75938,7 +75938,7 @@ AutoIt:
 ### VectorOfTuplePointAndDouble::Items
 
 ```cpp
-VectorOfTuplePointAndDouble VectorOfTuplePointAndDouble::Items();
+std::vector<std::tuple<cv::Point, double>> VectorOfTuplePointAndDouble::Items();
 AutoIt:
     $oVectorOfTuplePointAndDouble.Items() -> retval
 ```
@@ -76034,15 +76034,15 @@ AutoIt:
 ### VectorOfTuplePointAndDouble::push\_vector
 
 ```cpp
-void VectorOfTuplePointAndDouble::push_vector( VectorOfTuplePointAndDouble other );
+void VectorOfTuplePointAndDouble::push_vector( std::vector<std::tuple<cv::Point, double>> other );
 AutoIt:
     $oVectorOfTuplePointAndDouble.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfTuplePointAndDouble::push_vector( VectorOfTuplePointAndDouble other,
-                                               size_t                      count,
-                                               size_t                      start = 0 );
+void VectorOfTuplePointAndDouble::push_vector( std::vector<std::tuple<cv::Point, double>> other,
+                                               size_t                                     count,
+                                               size_t                                     start = 0 );
 AutoIt:
     $oVectorOfTuplePointAndDouble.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -76067,8 +76067,8 @@ AutoIt:
 ### VectorOfTuplePointAndDouble::slice
 
 ```cpp
-VectorOfTuplePointAndDouble VectorOfTuplePointAndDouble::slice( size_t start = 0,
-                                                                size_t count = __self->get()->size() );
+std::vector<std::tuple<cv::Point, double>> VectorOfTuplePointAndDouble::slice( size_t start = 0,
+                                                                               size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfTuplePointAndDouble.slice( [$start[, $count]] ) -> retval
 ```
@@ -76114,19 +76114,19 @@ AutoIt:
 ### VectorOfDouble::create
 
 ```cpp
-static VectorOfDouble VectorOfDouble::create();
+static std::vector<double> VectorOfDouble::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfDouble").create() -> <VectorOfDouble object>
 ```
 
 ```cpp
-static VectorOfDouble VectorOfDouble::create( size_t size );
+static std::vector<double> VectorOfDouble::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfDouble").create( $size ) -> <VectorOfDouble object>
 ```
 
 ```cpp
-static VectorOfDouble VectorOfDouble::create( VectorOfDouble other );
+static std::vector<double> VectorOfDouble::create( std::vector<double> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfDouble").create( $other ) -> <VectorOfDouble object>
 ```
@@ -76142,7 +76142,7 @@ AutoIt:
 ### VectorOfDouble::IsInstance
 
 ```cpp
-static bool VectorOfDouble::IsInstance( const VectorOfDouble& obj );
+static bool VectorOfDouble::IsInstance( const std::vector<double>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfDouble").IsInstance( $obj ) -> retval
 ```
@@ -76156,7 +76156,7 @@ AutoIt:
 ### VectorOfDouble::Items
 
 ```cpp
-VectorOfDouble VectorOfDouble::Items();
+std::vector<double> VectorOfDouble::Items();
 AutoIt:
     $oVectorOfDouble.Items() -> retval
 ```
@@ -76252,15 +76252,15 @@ AutoIt:
 ### VectorOfDouble::push\_vector
 
 ```cpp
-void VectorOfDouble::push_vector( VectorOfDouble other );
+void VectorOfDouble::push_vector( std::vector<double> other );
 AutoIt:
     $oVectorOfDouble.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfDouble::push_vector( VectorOfDouble other,
-                                  size_t         count,
-                                  size_t         start = 0 );
+void VectorOfDouble::push_vector( std::vector<double> other,
+                                  size_t              count,
+                                  size_t              start = 0 );
 AutoIt:
     $oVectorOfDouble.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -76285,8 +76285,8 @@ AutoIt:
 ### VectorOfDouble::slice
 
 ```cpp
-VectorOfDouble VectorOfDouble::slice( size_t start = 0,
-                                      size_t count = __self->get()->size() );
+std::vector<double> VectorOfDouble::slice( size_t start = 0,
+                                           size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfDouble.slice( [$start[, $count]] ) -> retval
 ```
@@ -76332,19 +76332,19 @@ AutoIt:
 ### VectorOfRotatedRect::create
 
 ```cpp
-static VectorOfRotatedRect VectorOfRotatedRect::create();
+static std::vector<cv::RotatedRect> VectorOfRotatedRect::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfRotatedRect").create() -> <VectorOfRotatedRect object>
 ```
 
 ```cpp
-static VectorOfRotatedRect VectorOfRotatedRect::create( size_t size );
+static std::vector<cv::RotatedRect> VectorOfRotatedRect::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfRotatedRect").create( $size ) -> <VectorOfRotatedRect object>
 ```
 
 ```cpp
-static VectorOfRotatedRect VectorOfRotatedRect::create( VectorOfRotatedRect other );
+static std::vector<cv::RotatedRect> VectorOfRotatedRect::create( std::vector<cv::RotatedRect> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfRotatedRect").create( $other ) -> <VectorOfRotatedRect object>
 ```
@@ -76360,7 +76360,7 @@ AutoIt:
 ### VectorOfRotatedRect::IsInstance
 
 ```cpp
-static bool VectorOfRotatedRect::IsInstance( const VectorOfRotatedRect& obj );
+static bool VectorOfRotatedRect::IsInstance( const std::vector<cv::RotatedRect>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfRotatedRect").IsInstance( $obj ) -> retval
 ```
@@ -76374,7 +76374,7 @@ AutoIt:
 ### VectorOfRotatedRect::Items
 
 ```cpp
-VectorOfRotatedRect VectorOfRotatedRect::Items();
+std::vector<cv::RotatedRect> VectorOfRotatedRect::Items();
 AutoIt:
     $oVectorOfRotatedRect.Items() -> retval
 ```
@@ -76470,15 +76470,15 @@ AutoIt:
 ### VectorOfRotatedRect::push\_vector
 
 ```cpp
-void VectorOfRotatedRect::push_vector( VectorOfRotatedRect other );
+void VectorOfRotatedRect::push_vector( std::vector<cv::RotatedRect> other );
 AutoIt:
     $oVectorOfRotatedRect.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfRotatedRect::push_vector( VectorOfRotatedRect other,
-                                       size_t              count,
-                                       size_t              start = 0 );
+void VectorOfRotatedRect::push_vector( std::vector<cv::RotatedRect> other,
+                                       size_t                       count,
+                                       size_t                       start = 0 );
 AutoIt:
     $oVectorOfRotatedRect.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -76503,8 +76503,8 @@ AutoIt:
 ### VectorOfRotatedRect::slice
 
 ```cpp
-VectorOfRotatedRect VectorOfRotatedRect::slice( size_t start = 0,
-                                                size_t count = __self->get()->size() );
+std::vector<cv::RotatedRect> VectorOfRotatedRect::slice( size_t start = 0,
+                                                         size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfRotatedRect.slice( [$start[, $count]] ) -> retval
 ```
@@ -76550,19 +76550,19 @@ AutoIt:
 ### VectorOfUMat::create
 
 ```cpp
-static VectorOfUMat VectorOfUMat::create();
+static std::vector<cv::UMat> VectorOfUMat::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfUMat").create() -> <VectorOfUMat object>
 ```
 
 ```cpp
-static VectorOfUMat VectorOfUMat::create( size_t size );
+static std::vector<cv::UMat> VectorOfUMat::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfUMat").create( $size ) -> <VectorOfUMat object>
 ```
 
 ```cpp
-static VectorOfUMat VectorOfUMat::create( VectorOfUMat other );
+static std::vector<cv::UMat> VectorOfUMat::create( std::vector<cv::UMat> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfUMat").create( $other ) -> <VectorOfUMat object>
 ```
@@ -76578,7 +76578,7 @@ AutoIt:
 ### VectorOfUMat::IsInstance
 
 ```cpp
-static bool VectorOfUMat::IsInstance( const VectorOfUMat& obj );
+static bool VectorOfUMat::IsInstance( const std::vector<cv::UMat>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfUMat").IsInstance( $obj ) -> retval
 ```
@@ -76592,7 +76592,7 @@ AutoIt:
 ### VectorOfUMat::Items
 
 ```cpp
-VectorOfUMat VectorOfUMat::Items();
+std::vector<cv::UMat> VectorOfUMat::Items();
 AutoIt:
     $oVectorOfUMat.Items() -> retval
 ```
@@ -76688,15 +76688,15 @@ AutoIt:
 ### VectorOfUMat::push\_vector
 
 ```cpp
-void VectorOfUMat::push_vector( VectorOfUMat other );
+void VectorOfUMat::push_vector( std::vector<cv::UMat> other );
 AutoIt:
     $oVectorOfUMat.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfUMat::push_vector( VectorOfUMat other,
-                                size_t       count,
-                                size_t       start = 0 );
+void VectorOfUMat::push_vector( std::vector<cv::UMat> other,
+                                size_t                count,
+                                size_t                start = 0 );
 AutoIt:
     $oVectorOfUMat.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -76721,8 +76721,8 @@ AutoIt:
 ### VectorOfUMat::slice
 
 ```cpp
-VectorOfUMat VectorOfUMat::slice( size_t start = 0,
-                                  size_t count = __self->get()->size() );
+std::vector<cv::UMat> VectorOfUMat::slice( size_t start = 0,
+                                           size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfUMat.slice( [$start[, $count]] ) -> retval
 ```
@@ -76768,19 +76768,19 @@ AutoIt:
 ### VectorOfDetail\_ImageFeatures::create
 
 ```cpp
-static VectorOfDetail_ImageFeatures VectorOfDetail_ImageFeatures::create();
+static std::vector<cv::detail::ImageFeatures> VectorOfDetail_ImageFeatures::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfDetail_ImageFeatures").create() -> <VectorOfDetail_ImageFeatures object>
 ```
 
 ```cpp
-static VectorOfDetail_ImageFeatures VectorOfDetail_ImageFeatures::create( size_t size );
+static std::vector<cv::detail::ImageFeatures> VectorOfDetail_ImageFeatures::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfDetail_ImageFeatures").create( $size ) -> <VectorOfDetail_ImageFeatures object>
 ```
 
 ```cpp
-static VectorOfDetail_ImageFeatures VectorOfDetail_ImageFeatures::create( VectorOfDetail_ImageFeatures other );
+static std::vector<cv::detail::ImageFeatures> VectorOfDetail_ImageFeatures::create( std::vector<cv::detail::ImageFeatures> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfDetail_ImageFeatures").create( $other ) -> <VectorOfDetail_ImageFeatures object>
 ```
@@ -76796,7 +76796,7 @@ AutoIt:
 ### VectorOfDetail\_ImageFeatures::IsInstance
 
 ```cpp
-static bool VectorOfDetail_ImageFeatures::IsInstance( const VectorOfDetail_ImageFeatures& obj );
+static bool VectorOfDetail_ImageFeatures::IsInstance( const std::vector<cv::detail::ImageFeatures>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfDetail_ImageFeatures").IsInstance( $obj ) -> retval
 ```
@@ -76810,7 +76810,7 @@ AutoIt:
 ### VectorOfDetail\_ImageFeatures::Items
 
 ```cpp
-VectorOfDetail_ImageFeatures VectorOfDetail_ImageFeatures::Items();
+std::vector<cv::detail::ImageFeatures> VectorOfDetail_ImageFeatures::Items();
 AutoIt:
     $oVectorOfDetail_ImageFeatures.Items() -> retval
 ```
@@ -76906,15 +76906,15 @@ AutoIt:
 ### VectorOfDetail\_ImageFeatures::push\_vector
 
 ```cpp
-void VectorOfDetail_ImageFeatures::push_vector( VectorOfDetail_ImageFeatures other );
+void VectorOfDetail_ImageFeatures::push_vector( std::vector<cv::detail::ImageFeatures> other );
 AutoIt:
     $oVectorOfDetail_ImageFeatures.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfDetail_ImageFeatures::push_vector( VectorOfDetail_ImageFeatures other,
-                                                size_t                       count,
-                                                size_t                       start = 0 );
+void VectorOfDetail_ImageFeatures::push_vector( std::vector<cv::detail::ImageFeatures> other,
+                                                size_t                                 count,
+                                                size_t                                 start = 0 );
 AutoIt:
     $oVectorOfDetail_ImageFeatures.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -76939,8 +76939,8 @@ AutoIt:
 ### VectorOfDetail\_ImageFeatures::slice
 
 ```cpp
-VectorOfDetail_ImageFeatures VectorOfDetail_ImageFeatures::slice( size_t start = 0,
-                                                                  size_t count = __self->get()->size() );
+std::vector<cv::detail::ImageFeatures> VectorOfDetail_ImageFeatures::slice( size_t start = 0,
+                                                                            size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfDetail_ImageFeatures.slice( [$start[, $count]] ) -> retval
 ```
@@ -76986,19 +76986,19 @@ AutoIt:
 ### VectorOfDetail\_MatchesInfo::create
 
 ```cpp
-static VectorOfDetail_MatchesInfo VectorOfDetail_MatchesInfo::create();
+static std::vector<cv::detail::MatchesInfo> VectorOfDetail_MatchesInfo::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfDetail_MatchesInfo").create() -> <VectorOfDetail_MatchesInfo object>
 ```
 
 ```cpp
-static VectorOfDetail_MatchesInfo VectorOfDetail_MatchesInfo::create( size_t size );
+static std::vector<cv::detail::MatchesInfo> VectorOfDetail_MatchesInfo::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfDetail_MatchesInfo").create( $size ) -> <VectorOfDetail_MatchesInfo object>
 ```
 
 ```cpp
-static VectorOfDetail_MatchesInfo VectorOfDetail_MatchesInfo::create( VectorOfDetail_MatchesInfo other );
+static std::vector<cv::detail::MatchesInfo> VectorOfDetail_MatchesInfo::create( std::vector<cv::detail::MatchesInfo> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfDetail_MatchesInfo").create( $other ) -> <VectorOfDetail_MatchesInfo object>
 ```
@@ -77014,7 +77014,7 @@ AutoIt:
 ### VectorOfDetail\_MatchesInfo::IsInstance
 
 ```cpp
-static bool VectorOfDetail_MatchesInfo::IsInstance( const VectorOfDetail_MatchesInfo& obj );
+static bool VectorOfDetail_MatchesInfo::IsInstance( const std::vector<cv::detail::MatchesInfo>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfDetail_MatchesInfo").IsInstance( $obj ) -> retval
 ```
@@ -77028,7 +77028,7 @@ AutoIt:
 ### VectorOfDetail\_MatchesInfo::Items
 
 ```cpp
-VectorOfDetail_MatchesInfo VectorOfDetail_MatchesInfo::Items();
+std::vector<cv::detail::MatchesInfo> VectorOfDetail_MatchesInfo::Items();
 AutoIt:
     $oVectorOfDetail_MatchesInfo.Items() -> retval
 ```
@@ -77124,15 +77124,15 @@ AutoIt:
 ### VectorOfDetail\_MatchesInfo::push\_vector
 
 ```cpp
-void VectorOfDetail_MatchesInfo::push_vector( VectorOfDetail_MatchesInfo other );
+void VectorOfDetail_MatchesInfo::push_vector( std::vector<cv::detail::MatchesInfo> other );
 AutoIt:
     $oVectorOfDetail_MatchesInfo.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfDetail_MatchesInfo::push_vector( VectorOfDetail_MatchesInfo other,
-                                              size_t                     count,
-                                              size_t                     start = 0 );
+void VectorOfDetail_MatchesInfo::push_vector( std::vector<cv::detail::MatchesInfo> other,
+                                              size_t                               count,
+                                              size_t                               start = 0 );
 AutoIt:
     $oVectorOfDetail_MatchesInfo.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -77157,8 +77157,8 @@ AutoIt:
 ### VectorOfDetail\_MatchesInfo::slice
 
 ```cpp
-VectorOfDetail_MatchesInfo VectorOfDetail_MatchesInfo::slice( size_t start = 0,
-                                                              size_t count = __self->get()->size() );
+std::vector<cv::detail::MatchesInfo> VectorOfDetail_MatchesInfo::slice( size_t start = 0,
+                                                                        size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfDetail_MatchesInfo.slice( [$start[, $count]] ) -> retval
 ```
@@ -77204,19 +77204,19 @@ AutoIt:
 ### VectorOfSize::create
 
 ```cpp
-static VectorOfSize VectorOfSize::create();
+static std::vector<cv::Size> VectorOfSize::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfSize").create() -> <VectorOfSize object>
 ```
 
 ```cpp
-static VectorOfSize VectorOfSize::create( size_t size );
+static std::vector<cv::Size> VectorOfSize::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfSize").create( $size ) -> <VectorOfSize object>
 ```
 
 ```cpp
-static VectorOfSize VectorOfSize::create( VectorOfSize other );
+static std::vector<cv::Size> VectorOfSize::create( std::vector<cv::Size> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfSize").create( $other ) -> <VectorOfSize object>
 ```
@@ -77232,7 +77232,7 @@ AutoIt:
 ### VectorOfSize::IsInstance
 
 ```cpp
-static bool VectorOfSize::IsInstance( const VectorOfSize& obj );
+static bool VectorOfSize::IsInstance( const std::vector<cv::Size>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfSize").IsInstance( $obj ) -> retval
 ```
@@ -77246,7 +77246,7 @@ AutoIt:
 ### VectorOfSize::Items
 
 ```cpp
-VectorOfSize VectorOfSize::Items();
+std::vector<cv::Size> VectorOfSize::Items();
 AutoIt:
     $oVectorOfSize.Items() -> retval
 ```
@@ -77342,15 +77342,15 @@ AutoIt:
 ### VectorOfSize::push\_vector
 
 ```cpp
-void VectorOfSize::push_vector( VectorOfSize other );
+void VectorOfSize::push_vector( std::vector<cv::Size> other );
 AutoIt:
     $oVectorOfSize.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfSize::push_vector( VectorOfSize other,
-                                size_t       count,
-                                size_t       start = 0 );
+void VectorOfSize::push_vector( std::vector<cv::Size> other,
+                                size_t                count,
+                                size_t                start = 0 );
 AutoIt:
     $oVectorOfSize.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -77375,8 +77375,8 @@ AutoIt:
 ### VectorOfSize::slice
 
 ```cpp
-VectorOfSize VectorOfSize::slice( size_t start = 0,
-                                  size_t count = __self->get()->size() );
+std::vector<cv::Size> VectorOfSize::slice( size_t start = 0,
+                                           size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfSize.slice( [$start[, $count]] ) -> retval
 ```
@@ -77422,19 +77422,19 @@ AutoIt:
 ### VectorOfSize\_t::create
 
 ```cpp
-static VectorOfSize_t VectorOfSize_t::create();
+static std::vector<size_t> VectorOfSize_t::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfSize_t").create() -> <VectorOfSize_t object>
 ```
 
 ```cpp
-static VectorOfSize_t VectorOfSize_t::create( size_t size );
+static std::vector<size_t> VectorOfSize_t::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfSize_t").create( $size ) -> <VectorOfSize_t object>
 ```
 
 ```cpp
-static VectorOfSize_t VectorOfSize_t::create( VectorOfSize_t other );
+static std::vector<size_t> VectorOfSize_t::create( std::vector<size_t> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfSize_t").create( $other ) -> <VectorOfSize_t object>
 ```
@@ -77450,7 +77450,7 @@ AutoIt:
 ### VectorOfSize\_t::IsInstance
 
 ```cpp
-static bool VectorOfSize_t::IsInstance( const VectorOfSize_t& obj );
+static bool VectorOfSize_t::IsInstance( const std::vector<size_t>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfSize_t").IsInstance( $obj ) -> retval
 ```
@@ -77464,7 +77464,7 @@ AutoIt:
 ### VectorOfSize\_t::Items
 
 ```cpp
-VectorOfSize_t VectorOfSize_t::Items();
+std::vector<size_t> VectorOfSize_t::Items();
 AutoIt:
     $oVectorOfSize_t.Items() -> retval
 ```
@@ -77560,15 +77560,15 @@ AutoIt:
 ### VectorOfSize\_t::push\_vector
 
 ```cpp
-void VectorOfSize_t::push_vector( VectorOfSize_t other );
+void VectorOfSize_t::push_vector( std::vector<size_t> other );
 AutoIt:
     $oVectorOfSize_t.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfSize_t::push_vector( VectorOfSize_t other,
-                                  size_t         count,
-                                  size_t         start = 0 );
+void VectorOfSize_t::push_vector( std::vector<size_t> other,
+                                  size_t              count,
+                                  size_t              start = 0 );
 AutoIt:
     $oVectorOfSize_t.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -77593,8 +77593,8 @@ AutoIt:
 ### VectorOfSize\_t::slice
 
 ```cpp
-VectorOfSize_t VectorOfSize_t::slice( size_t start = 0,
-                                      size_t count = __self->get()->size() );
+std::vector<size_t> VectorOfSize_t::slice( size_t start = 0,
+                                           size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfSize_t.slice( [$start[, $count]] ) -> retval
 ```
@@ -77640,19 +77640,19 @@ AutoIt:
 ### VectorOfRange::create
 
 ```cpp
-static VectorOfRange VectorOfRange::create();
+static std::vector<cv::Range> VectorOfRange::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfRange").create() -> <VectorOfRange object>
 ```
 
 ```cpp
-static VectorOfRange VectorOfRange::create( size_t size );
+static std::vector<cv::Range> VectorOfRange::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfRange").create( $size ) -> <VectorOfRange object>
 ```
 
 ```cpp
-static VectorOfRange VectorOfRange::create( VectorOfRange other );
+static std::vector<cv::Range> VectorOfRange::create( std::vector<cv::Range> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfRange").create( $other ) -> <VectorOfRange object>
 ```
@@ -77668,7 +77668,7 @@ AutoIt:
 ### VectorOfRange::IsInstance
 
 ```cpp
-static bool VectorOfRange::IsInstance( const VectorOfRange& obj );
+static bool VectorOfRange::IsInstance( const std::vector<cv::Range>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfRange").IsInstance( $obj ) -> retval
 ```
@@ -77682,7 +77682,7 @@ AutoIt:
 ### VectorOfRange::Items
 
 ```cpp
-VectorOfRange VectorOfRange::Items();
+std::vector<cv::Range> VectorOfRange::Items();
 AutoIt:
     $oVectorOfRange.Items() -> retval
 ```
@@ -77778,15 +77778,15 @@ AutoIt:
 ### VectorOfRange::push\_vector
 
 ```cpp
-void VectorOfRange::push_vector( VectorOfRange other );
+void VectorOfRange::push_vector( std::vector<cv::Range> other );
 AutoIt:
     $oVectorOfRange.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfRange::push_vector( VectorOfRange other,
-                                 size_t        count,
-                                 size_t        start = 0 );
+void VectorOfRange::push_vector( std::vector<cv::Range> other,
+                                 size_t                 count,
+                                 size_t                 start = 0 );
 AutoIt:
     $oVectorOfRange.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -77811,8 +77811,8 @@ AutoIt:
 ### VectorOfRange::slice
 
 ```cpp
-VectorOfRange VectorOfRange::slice( size_t start = 0,
-                                    size_t count = __self->get()->size() );
+std::vector<cv::Range> VectorOfRange::slice( size_t start = 0,
+                                             size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfRange.slice( [$start[, $count]] ) -> retval
 ```
@@ -77858,19 +77858,19 @@ AutoIt:
 ### VectorOfVec2b::create
 
 ```cpp
-static VectorOfVec2b VectorOfVec2b::create();
+static std::vector<cv::Vec2b> VectorOfVec2b::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec2b").create() -> <VectorOfVec2b object>
 ```
 
 ```cpp
-static VectorOfVec2b VectorOfVec2b::create( size_t size );
+static std::vector<cv::Vec2b> VectorOfVec2b::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec2b").create( $size ) -> <VectorOfVec2b object>
 ```
 
 ```cpp
-static VectorOfVec2b VectorOfVec2b::create( VectorOfVec2b other );
+static std::vector<cv::Vec2b> VectorOfVec2b::create( std::vector<cv::Vec2b> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec2b").create( $other ) -> <VectorOfVec2b object>
 ```
@@ -77886,7 +77886,7 @@ AutoIt:
 ### VectorOfVec2b::IsInstance
 
 ```cpp
-static bool VectorOfVec2b::IsInstance( const VectorOfVec2b& obj );
+static bool VectorOfVec2b::IsInstance( const std::vector<cv::Vec2b>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec2b").IsInstance( $obj ) -> retval
 ```
@@ -77900,7 +77900,7 @@ AutoIt:
 ### VectorOfVec2b::Items
 
 ```cpp
-VectorOfVec2b VectorOfVec2b::Items();
+std::vector<cv::Vec2b> VectorOfVec2b::Items();
 AutoIt:
     $oVectorOfVec2b.Items() -> retval
 ```
@@ -77996,15 +77996,15 @@ AutoIt:
 ### VectorOfVec2b::push\_vector
 
 ```cpp
-void VectorOfVec2b::push_vector( VectorOfVec2b other );
+void VectorOfVec2b::push_vector( std::vector<cv::Vec2b> other );
 AutoIt:
     $oVectorOfVec2b.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVec2b::push_vector( VectorOfVec2b other,
-                                 size_t        count,
-                                 size_t        start = 0 );
+void VectorOfVec2b::push_vector( std::vector<cv::Vec2b> other,
+                                 size_t                 count,
+                                 size_t                 start = 0 );
 AutoIt:
     $oVectorOfVec2b.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -78029,8 +78029,8 @@ AutoIt:
 ### VectorOfVec2b::slice
 
 ```cpp
-VectorOfVec2b VectorOfVec2b::slice( size_t start = 0,
-                                    size_t count = __self->get()->size() );
+std::vector<cv::Vec2b> VectorOfVec2b::slice( size_t start = 0,
+                                             size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec2b.slice( [$start[, $count]] ) -> retval
 ```
@@ -78076,19 +78076,19 @@ AutoIt:
 ### VectorOfVec3b::create
 
 ```cpp
-static VectorOfVec3b VectorOfVec3b::create();
+static std::vector<cv::Vec3b> VectorOfVec3b::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec3b").create() -> <VectorOfVec3b object>
 ```
 
 ```cpp
-static VectorOfVec3b VectorOfVec3b::create( size_t size );
+static std::vector<cv::Vec3b> VectorOfVec3b::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec3b").create( $size ) -> <VectorOfVec3b object>
 ```
 
 ```cpp
-static VectorOfVec3b VectorOfVec3b::create( VectorOfVec3b other );
+static std::vector<cv::Vec3b> VectorOfVec3b::create( std::vector<cv::Vec3b> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec3b").create( $other ) -> <VectorOfVec3b object>
 ```
@@ -78104,7 +78104,7 @@ AutoIt:
 ### VectorOfVec3b::IsInstance
 
 ```cpp
-static bool VectorOfVec3b::IsInstance( const VectorOfVec3b& obj );
+static bool VectorOfVec3b::IsInstance( const std::vector<cv::Vec3b>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec3b").IsInstance( $obj ) -> retval
 ```
@@ -78118,7 +78118,7 @@ AutoIt:
 ### VectorOfVec3b::Items
 
 ```cpp
-VectorOfVec3b VectorOfVec3b::Items();
+std::vector<cv::Vec3b> VectorOfVec3b::Items();
 AutoIt:
     $oVectorOfVec3b.Items() -> retval
 ```
@@ -78214,15 +78214,15 @@ AutoIt:
 ### VectorOfVec3b::push\_vector
 
 ```cpp
-void VectorOfVec3b::push_vector( VectorOfVec3b other );
+void VectorOfVec3b::push_vector( std::vector<cv::Vec3b> other );
 AutoIt:
     $oVectorOfVec3b.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVec3b::push_vector( VectorOfVec3b other,
-                                 size_t        count,
-                                 size_t        start = 0 );
+void VectorOfVec3b::push_vector( std::vector<cv::Vec3b> other,
+                                 size_t                 count,
+                                 size_t                 start = 0 );
 AutoIt:
     $oVectorOfVec3b.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -78247,8 +78247,8 @@ AutoIt:
 ### VectorOfVec3b::slice
 
 ```cpp
-VectorOfVec3b VectorOfVec3b::slice( size_t start = 0,
-                                    size_t count = __self->get()->size() );
+std::vector<cv::Vec3b> VectorOfVec3b::slice( size_t start = 0,
+                                             size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec3b.slice( [$start[, $count]] ) -> retval
 ```
@@ -78294,19 +78294,19 @@ AutoIt:
 ### VectorOfVec4b::create
 
 ```cpp
-static VectorOfVec4b VectorOfVec4b::create();
+static std::vector<cv::Vec4b> VectorOfVec4b::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec4b").create() -> <VectorOfVec4b object>
 ```
 
 ```cpp
-static VectorOfVec4b VectorOfVec4b::create( size_t size );
+static std::vector<cv::Vec4b> VectorOfVec4b::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec4b").create( $size ) -> <VectorOfVec4b object>
 ```
 
 ```cpp
-static VectorOfVec4b VectorOfVec4b::create( VectorOfVec4b other );
+static std::vector<cv::Vec4b> VectorOfVec4b::create( std::vector<cv::Vec4b> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec4b").create( $other ) -> <VectorOfVec4b object>
 ```
@@ -78322,7 +78322,7 @@ AutoIt:
 ### VectorOfVec4b::IsInstance
 
 ```cpp
-static bool VectorOfVec4b::IsInstance( const VectorOfVec4b& obj );
+static bool VectorOfVec4b::IsInstance( const std::vector<cv::Vec4b>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec4b").IsInstance( $obj ) -> retval
 ```
@@ -78336,7 +78336,7 @@ AutoIt:
 ### VectorOfVec4b::Items
 
 ```cpp
-VectorOfVec4b VectorOfVec4b::Items();
+std::vector<cv::Vec4b> VectorOfVec4b::Items();
 AutoIt:
     $oVectorOfVec4b.Items() -> retval
 ```
@@ -78432,15 +78432,15 @@ AutoIt:
 ### VectorOfVec4b::push\_vector
 
 ```cpp
-void VectorOfVec4b::push_vector( VectorOfVec4b other );
+void VectorOfVec4b::push_vector( std::vector<cv::Vec4b> other );
 AutoIt:
     $oVectorOfVec4b.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVec4b::push_vector( VectorOfVec4b other,
-                                 size_t        count,
-                                 size_t        start = 0 );
+void VectorOfVec4b::push_vector( std::vector<cv::Vec4b> other,
+                                 size_t                 count,
+                                 size_t                 start = 0 );
 AutoIt:
     $oVectorOfVec4b.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -78465,8 +78465,8 @@ AutoIt:
 ### VectorOfVec4b::slice
 
 ```cpp
-VectorOfVec4b VectorOfVec4b::slice( size_t start = 0,
-                                    size_t count = __self->get()->size() );
+std::vector<cv::Vec4b> VectorOfVec4b::slice( size_t start = 0,
+                                             size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec4b.slice( [$start[, $count]] ) -> retval
 ```
@@ -78512,19 +78512,19 @@ AutoIt:
 ### VectorOfVec2s::create
 
 ```cpp
-static VectorOfVec2s VectorOfVec2s::create();
+static std::vector<cv::Vec2s> VectorOfVec2s::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec2s").create() -> <VectorOfVec2s object>
 ```
 
 ```cpp
-static VectorOfVec2s VectorOfVec2s::create( size_t size );
+static std::vector<cv::Vec2s> VectorOfVec2s::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec2s").create( $size ) -> <VectorOfVec2s object>
 ```
 
 ```cpp
-static VectorOfVec2s VectorOfVec2s::create( VectorOfVec2s other );
+static std::vector<cv::Vec2s> VectorOfVec2s::create( std::vector<cv::Vec2s> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec2s").create( $other ) -> <VectorOfVec2s object>
 ```
@@ -78540,7 +78540,7 @@ AutoIt:
 ### VectorOfVec2s::IsInstance
 
 ```cpp
-static bool VectorOfVec2s::IsInstance( const VectorOfVec2s& obj );
+static bool VectorOfVec2s::IsInstance( const std::vector<cv::Vec2s>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec2s").IsInstance( $obj ) -> retval
 ```
@@ -78554,7 +78554,7 @@ AutoIt:
 ### VectorOfVec2s::Items
 
 ```cpp
-VectorOfVec2s VectorOfVec2s::Items();
+std::vector<cv::Vec2s> VectorOfVec2s::Items();
 AutoIt:
     $oVectorOfVec2s.Items() -> retval
 ```
@@ -78650,15 +78650,15 @@ AutoIt:
 ### VectorOfVec2s::push\_vector
 
 ```cpp
-void VectorOfVec2s::push_vector( VectorOfVec2s other );
+void VectorOfVec2s::push_vector( std::vector<cv::Vec2s> other );
 AutoIt:
     $oVectorOfVec2s.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVec2s::push_vector( VectorOfVec2s other,
-                                 size_t        count,
-                                 size_t        start = 0 );
+void VectorOfVec2s::push_vector( std::vector<cv::Vec2s> other,
+                                 size_t                 count,
+                                 size_t                 start = 0 );
 AutoIt:
     $oVectorOfVec2s.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -78683,8 +78683,8 @@ AutoIt:
 ### VectorOfVec2s::slice
 
 ```cpp
-VectorOfVec2s VectorOfVec2s::slice( size_t start = 0,
-                                    size_t count = __self->get()->size() );
+std::vector<cv::Vec2s> VectorOfVec2s::slice( size_t start = 0,
+                                             size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec2s.slice( [$start[, $count]] ) -> retval
 ```
@@ -78730,19 +78730,19 @@ AutoIt:
 ### VectorOfVec3s::create
 
 ```cpp
-static VectorOfVec3s VectorOfVec3s::create();
+static std::vector<cv::Vec3s> VectorOfVec3s::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec3s").create() -> <VectorOfVec3s object>
 ```
 
 ```cpp
-static VectorOfVec3s VectorOfVec3s::create( size_t size );
+static std::vector<cv::Vec3s> VectorOfVec3s::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec3s").create( $size ) -> <VectorOfVec3s object>
 ```
 
 ```cpp
-static VectorOfVec3s VectorOfVec3s::create( VectorOfVec3s other );
+static std::vector<cv::Vec3s> VectorOfVec3s::create( std::vector<cv::Vec3s> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec3s").create( $other ) -> <VectorOfVec3s object>
 ```
@@ -78758,7 +78758,7 @@ AutoIt:
 ### VectorOfVec3s::IsInstance
 
 ```cpp
-static bool VectorOfVec3s::IsInstance( const VectorOfVec3s& obj );
+static bool VectorOfVec3s::IsInstance( const std::vector<cv::Vec3s>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec3s").IsInstance( $obj ) -> retval
 ```
@@ -78772,7 +78772,7 @@ AutoIt:
 ### VectorOfVec3s::Items
 
 ```cpp
-VectorOfVec3s VectorOfVec3s::Items();
+std::vector<cv::Vec3s> VectorOfVec3s::Items();
 AutoIt:
     $oVectorOfVec3s.Items() -> retval
 ```
@@ -78868,15 +78868,15 @@ AutoIt:
 ### VectorOfVec3s::push\_vector
 
 ```cpp
-void VectorOfVec3s::push_vector( VectorOfVec3s other );
+void VectorOfVec3s::push_vector( std::vector<cv::Vec3s> other );
 AutoIt:
     $oVectorOfVec3s.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVec3s::push_vector( VectorOfVec3s other,
-                                 size_t        count,
-                                 size_t        start = 0 );
+void VectorOfVec3s::push_vector( std::vector<cv::Vec3s> other,
+                                 size_t                 count,
+                                 size_t                 start = 0 );
 AutoIt:
     $oVectorOfVec3s.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -78901,8 +78901,8 @@ AutoIt:
 ### VectorOfVec3s::slice
 
 ```cpp
-VectorOfVec3s VectorOfVec3s::slice( size_t start = 0,
-                                    size_t count = __self->get()->size() );
+std::vector<cv::Vec3s> VectorOfVec3s::slice( size_t start = 0,
+                                             size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec3s.slice( [$start[, $count]] ) -> retval
 ```
@@ -78948,19 +78948,19 @@ AutoIt:
 ### VectorOfVec4s::create
 
 ```cpp
-static VectorOfVec4s VectorOfVec4s::create();
+static std::vector<cv::Vec4s> VectorOfVec4s::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec4s").create() -> <VectorOfVec4s object>
 ```
 
 ```cpp
-static VectorOfVec4s VectorOfVec4s::create( size_t size );
+static std::vector<cv::Vec4s> VectorOfVec4s::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec4s").create( $size ) -> <VectorOfVec4s object>
 ```
 
 ```cpp
-static VectorOfVec4s VectorOfVec4s::create( VectorOfVec4s other );
+static std::vector<cv::Vec4s> VectorOfVec4s::create( std::vector<cv::Vec4s> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec4s").create( $other ) -> <VectorOfVec4s object>
 ```
@@ -78976,7 +78976,7 @@ AutoIt:
 ### VectorOfVec4s::IsInstance
 
 ```cpp
-static bool VectorOfVec4s::IsInstance( const VectorOfVec4s& obj );
+static bool VectorOfVec4s::IsInstance( const std::vector<cv::Vec4s>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec4s").IsInstance( $obj ) -> retval
 ```
@@ -78990,7 +78990,7 @@ AutoIt:
 ### VectorOfVec4s::Items
 
 ```cpp
-VectorOfVec4s VectorOfVec4s::Items();
+std::vector<cv::Vec4s> VectorOfVec4s::Items();
 AutoIt:
     $oVectorOfVec4s.Items() -> retval
 ```
@@ -79086,15 +79086,15 @@ AutoIt:
 ### VectorOfVec4s::push\_vector
 
 ```cpp
-void VectorOfVec4s::push_vector( VectorOfVec4s other );
+void VectorOfVec4s::push_vector( std::vector<cv::Vec4s> other );
 AutoIt:
     $oVectorOfVec4s.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVec4s::push_vector( VectorOfVec4s other,
-                                 size_t        count,
-                                 size_t        start = 0 );
+void VectorOfVec4s::push_vector( std::vector<cv::Vec4s> other,
+                                 size_t                 count,
+                                 size_t                 start = 0 );
 AutoIt:
     $oVectorOfVec4s.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -79119,8 +79119,8 @@ AutoIt:
 ### VectorOfVec4s::slice
 
 ```cpp
-VectorOfVec4s VectorOfVec4s::slice( size_t start = 0,
-                                    size_t count = __self->get()->size() );
+std::vector<cv::Vec4s> VectorOfVec4s::slice( size_t start = 0,
+                                             size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec4s.slice( [$start[, $count]] ) -> retval
 ```
@@ -79166,19 +79166,19 @@ AutoIt:
 ### VectorOfVec2w::create
 
 ```cpp
-static VectorOfVec2w VectorOfVec2w::create();
+static std::vector<cv::Vec2w> VectorOfVec2w::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec2w").create() -> <VectorOfVec2w object>
 ```
 
 ```cpp
-static VectorOfVec2w VectorOfVec2w::create( size_t size );
+static std::vector<cv::Vec2w> VectorOfVec2w::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec2w").create( $size ) -> <VectorOfVec2w object>
 ```
 
 ```cpp
-static VectorOfVec2w VectorOfVec2w::create( VectorOfVec2w other );
+static std::vector<cv::Vec2w> VectorOfVec2w::create( std::vector<cv::Vec2w> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec2w").create( $other ) -> <VectorOfVec2w object>
 ```
@@ -79194,7 +79194,7 @@ AutoIt:
 ### VectorOfVec2w::IsInstance
 
 ```cpp
-static bool VectorOfVec2w::IsInstance( const VectorOfVec2w& obj );
+static bool VectorOfVec2w::IsInstance( const std::vector<cv::Vec2w>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec2w").IsInstance( $obj ) -> retval
 ```
@@ -79208,7 +79208,7 @@ AutoIt:
 ### VectorOfVec2w::Items
 
 ```cpp
-VectorOfVec2w VectorOfVec2w::Items();
+std::vector<cv::Vec2w> VectorOfVec2w::Items();
 AutoIt:
     $oVectorOfVec2w.Items() -> retval
 ```
@@ -79304,15 +79304,15 @@ AutoIt:
 ### VectorOfVec2w::push\_vector
 
 ```cpp
-void VectorOfVec2w::push_vector( VectorOfVec2w other );
+void VectorOfVec2w::push_vector( std::vector<cv::Vec2w> other );
 AutoIt:
     $oVectorOfVec2w.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVec2w::push_vector( VectorOfVec2w other,
-                                 size_t        count,
-                                 size_t        start = 0 );
+void VectorOfVec2w::push_vector( std::vector<cv::Vec2w> other,
+                                 size_t                 count,
+                                 size_t                 start = 0 );
 AutoIt:
     $oVectorOfVec2w.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -79337,8 +79337,8 @@ AutoIt:
 ### VectorOfVec2w::slice
 
 ```cpp
-VectorOfVec2w VectorOfVec2w::slice( size_t start = 0,
-                                    size_t count = __self->get()->size() );
+std::vector<cv::Vec2w> VectorOfVec2w::slice( size_t start = 0,
+                                             size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec2w.slice( [$start[, $count]] ) -> retval
 ```
@@ -79384,19 +79384,19 @@ AutoIt:
 ### VectorOfVec3w::create
 
 ```cpp
-static VectorOfVec3w VectorOfVec3w::create();
+static std::vector<cv::Vec3w> VectorOfVec3w::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec3w").create() -> <VectorOfVec3w object>
 ```
 
 ```cpp
-static VectorOfVec3w VectorOfVec3w::create( size_t size );
+static std::vector<cv::Vec3w> VectorOfVec3w::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec3w").create( $size ) -> <VectorOfVec3w object>
 ```
 
 ```cpp
-static VectorOfVec3w VectorOfVec3w::create( VectorOfVec3w other );
+static std::vector<cv::Vec3w> VectorOfVec3w::create( std::vector<cv::Vec3w> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec3w").create( $other ) -> <VectorOfVec3w object>
 ```
@@ -79412,7 +79412,7 @@ AutoIt:
 ### VectorOfVec3w::IsInstance
 
 ```cpp
-static bool VectorOfVec3w::IsInstance( const VectorOfVec3w& obj );
+static bool VectorOfVec3w::IsInstance( const std::vector<cv::Vec3w>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec3w").IsInstance( $obj ) -> retval
 ```
@@ -79426,7 +79426,7 @@ AutoIt:
 ### VectorOfVec3w::Items
 
 ```cpp
-VectorOfVec3w VectorOfVec3w::Items();
+std::vector<cv::Vec3w> VectorOfVec3w::Items();
 AutoIt:
     $oVectorOfVec3w.Items() -> retval
 ```
@@ -79522,15 +79522,15 @@ AutoIt:
 ### VectorOfVec3w::push\_vector
 
 ```cpp
-void VectorOfVec3w::push_vector( VectorOfVec3w other );
+void VectorOfVec3w::push_vector( std::vector<cv::Vec3w> other );
 AutoIt:
     $oVectorOfVec3w.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVec3w::push_vector( VectorOfVec3w other,
-                                 size_t        count,
-                                 size_t        start = 0 );
+void VectorOfVec3w::push_vector( std::vector<cv::Vec3w> other,
+                                 size_t                 count,
+                                 size_t                 start = 0 );
 AutoIt:
     $oVectorOfVec3w.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -79555,8 +79555,8 @@ AutoIt:
 ### VectorOfVec3w::slice
 
 ```cpp
-VectorOfVec3w VectorOfVec3w::slice( size_t start = 0,
-                                    size_t count = __self->get()->size() );
+std::vector<cv::Vec3w> VectorOfVec3w::slice( size_t start = 0,
+                                             size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec3w.slice( [$start[, $count]] ) -> retval
 ```
@@ -79602,19 +79602,19 @@ AutoIt:
 ### VectorOfVec4w::create
 
 ```cpp
-static VectorOfVec4w VectorOfVec4w::create();
+static std::vector<cv::Vec4w> VectorOfVec4w::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec4w").create() -> <VectorOfVec4w object>
 ```
 
 ```cpp
-static VectorOfVec4w VectorOfVec4w::create( size_t size );
+static std::vector<cv::Vec4w> VectorOfVec4w::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec4w").create( $size ) -> <VectorOfVec4w object>
 ```
 
 ```cpp
-static VectorOfVec4w VectorOfVec4w::create( VectorOfVec4w other );
+static std::vector<cv::Vec4w> VectorOfVec4w::create( std::vector<cv::Vec4w> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec4w").create( $other ) -> <VectorOfVec4w object>
 ```
@@ -79630,7 +79630,7 @@ AutoIt:
 ### VectorOfVec4w::IsInstance
 
 ```cpp
-static bool VectorOfVec4w::IsInstance( const VectorOfVec4w& obj );
+static bool VectorOfVec4w::IsInstance( const std::vector<cv::Vec4w>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec4w").IsInstance( $obj ) -> retval
 ```
@@ -79644,7 +79644,7 @@ AutoIt:
 ### VectorOfVec4w::Items
 
 ```cpp
-VectorOfVec4w VectorOfVec4w::Items();
+std::vector<cv::Vec4w> VectorOfVec4w::Items();
 AutoIt:
     $oVectorOfVec4w.Items() -> retval
 ```
@@ -79740,15 +79740,15 @@ AutoIt:
 ### VectorOfVec4w::push\_vector
 
 ```cpp
-void VectorOfVec4w::push_vector( VectorOfVec4w other );
+void VectorOfVec4w::push_vector( std::vector<cv::Vec4w> other );
 AutoIt:
     $oVectorOfVec4w.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVec4w::push_vector( VectorOfVec4w other,
-                                 size_t        count,
-                                 size_t        start = 0 );
+void VectorOfVec4w::push_vector( std::vector<cv::Vec4w> other,
+                                 size_t                 count,
+                                 size_t                 start = 0 );
 AutoIt:
     $oVectorOfVec4w.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -79773,8 +79773,8 @@ AutoIt:
 ### VectorOfVec4w::slice
 
 ```cpp
-VectorOfVec4w VectorOfVec4w::slice( size_t start = 0,
-                                    size_t count = __self->get()->size() );
+std::vector<cv::Vec4w> VectorOfVec4w::slice( size_t start = 0,
+                                             size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec4w.slice( [$start[, $count]] ) -> retval
 ```
@@ -79820,19 +79820,19 @@ AutoIt:
 ### VectorOfVec2i::create
 
 ```cpp
-static VectorOfVec2i VectorOfVec2i::create();
+static std::vector<cv::Vec2i> VectorOfVec2i::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec2i").create() -> <VectorOfVec2i object>
 ```
 
 ```cpp
-static VectorOfVec2i VectorOfVec2i::create( size_t size );
+static std::vector<cv::Vec2i> VectorOfVec2i::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec2i").create( $size ) -> <VectorOfVec2i object>
 ```
 
 ```cpp
-static VectorOfVec2i VectorOfVec2i::create( VectorOfVec2i other );
+static std::vector<cv::Vec2i> VectorOfVec2i::create( std::vector<cv::Vec2i> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec2i").create( $other ) -> <VectorOfVec2i object>
 ```
@@ -79848,7 +79848,7 @@ AutoIt:
 ### VectorOfVec2i::IsInstance
 
 ```cpp
-static bool VectorOfVec2i::IsInstance( const VectorOfVec2i& obj );
+static bool VectorOfVec2i::IsInstance( const std::vector<cv::Vec2i>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec2i").IsInstance( $obj ) -> retval
 ```
@@ -79862,7 +79862,7 @@ AutoIt:
 ### VectorOfVec2i::Items
 
 ```cpp
-VectorOfVec2i VectorOfVec2i::Items();
+std::vector<cv::Vec2i> VectorOfVec2i::Items();
 AutoIt:
     $oVectorOfVec2i.Items() -> retval
 ```
@@ -79958,15 +79958,15 @@ AutoIt:
 ### VectorOfVec2i::push\_vector
 
 ```cpp
-void VectorOfVec2i::push_vector( VectorOfVec2i other );
+void VectorOfVec2i::push_vector( std::vector<cv::Vec2i> other );
 AutoIt:
     $oVectorOfVec2i.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVec2i::push_vector( VectorOfVec2i other,
-                                 size_t        count,
-                                 size_t        start = 0 );
+void VectorOfVec2i::push_vector( std::vector<cv::Vec2i> other,
+                                 size_t                 count,
+                                 size_t                 start = 0 );
 AutoIt:
     $oVectorOfVec2i.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -79991,8 +79991,8 @@ AutoIt:
 ### VectorOfVec2i::slice
 
 ```cpp
-VectorOfVec2i VectorOfVec2i::slice( size_t start = 0,
-                                    size_t count = __self->get()->size() );
+std::vector<cv::Vec2i> VectorOfVec2i::slice( size_t start = 0,
+                                             size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec2i.slice( [$start[, $count]] ) -> retval
 ```
@@ -80038,19 +80038,19 @@ AutoIt:
 ### VectorOfVec3i::create
 
 ```cpp
-static VectorOfVec3i VectorOfVec3i::create();
+static std::vector<cv::Vec3i> VectorOfVec3i::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec3i").create() -> <VectorOfVec3i object>
 ```
 
 ```cpp
-static VectorOfVec3i VectorOfVec3i::create( size_t size );
+static std::vector<cv::Vec3i> VectorOfVec3i::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec3i").create( $size ) -> <VectorOfVec3i object>
 ```
 
 ```cpp
-static VectorOfVec3i VectorOfVec3i::create( VectorOfVec3i other );
+static std::vector<cv::Vec3i> VectorOfVec3i::create( std::vector<cv::Vec3i> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec3i").create( $other ) -> <VectorOfVec3i object>
 ```
@@ -80066,7 +80066,7 @@ AutoIt:
 ### VectorOfVec3i::IsInstance
 
 ```cpp
-static bool VectorOfVec3i::IsInstance( const VectorOfVec3i& obj );
+static bool VectorOfVec3i::IsInstance( const std::vector<cv::Vec3i>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec3i").IsInstance( $obj ) -> retval
 ```
@@ -80080,7 +80080,7 @@ AutoIt:
 ### VectorOfVec3i::Items
 
 ```cpp
-VectorOfVec3i VectorOfVec3i::Items();
+std::vector<cv::Vec3i> VectorOfVec3i::Items();
 AutoIt:
     $oVectorOfVec3i.Items() -> retval
 ```
@@ -80176,15 +80176,15 @@ AutoIt:
 ### VectorOfVec3i::push\_vector
 
 ```cpp
-void VectorOfVec3i::push_vector( VectorOfVec3i other );
+void VectorOfVec3i::push_vector( std::vector<cv::Vec3i> other );
 AutoIt:
     $oVectorOfVec3i.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVec3i::push_vector( VectorOfVec3i other,
-                                 size_t        count,
-                                 size_t        start = 0 );
+void VectorOfVec3i::push_vector( std::vector<cv::Vec3i> other,
+                                 size_t                 count,
+                                 size_t                 start = 0 );
 AutoIt:
     $oVectorOfVec3i.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -80209,8 +80209,8 @@ AutoIt:
 ### VectorOfVec3i::slice
 
 ```cpp
-VectorOfVec3i VectorOfVec3i::slice( size_t start = 0,
-                                    size_t count = __self->get()->size() );
+std::vector<cv::Vec3i> VectorOfVec3i::slice( size_t start = 0,
+                                             size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec3i.slice( [$start[, $count]] ) -> retval
 ```
@@ -80256,19 +80256,19 @@ AutoIt:
 ### VectorOfVec4i::create
 
 ```cpp
-static VectorOfVec4i VectorOfVec4i::create();
+static std::vector<cv::Vec4i> VectorOfVec4i::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec4i").create() -> <VectorOfVec4i object>
 ```
 
 ```cpp
-static VectorOfVec4i VectorOfVec4i::create( size_t size );
+static std::vector<cv::Vec4i> VectorOfVec4i::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec4i").create( $size ) -> <VectorOfVec4i object>
 ```
 
 ```cpp
-static VectorOfVec4i VectorOfVec4i::create( VectorOfVec4i other );
+static std::vector<cv::Vec4i> VectorOfVec4i::create( std::vector<cv::Vec4i> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec4i").create( $other ) -> <VectorOfVec4i object>
 ```
@@ -80284,7 +80284,7 @@ AutoIt:
 ### VectorOfVec4i::IsInstance
 
 ```cpp
-static bool VectorOfVec4i::IsInstance( const VectorOfVec4i& obj );
+static bool VectorOfVec4i::IsInstance( const std::vector<cv::Vec4i>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec4i").IsInstance( $obj ) -> retval
 ```
@@ -80298,7 +80298,7 @@ AutoIt:
 ### VectorOfVec4i::Items
 
 ```cpp
-VectorOfVec4i VectorOfVec4i::Items();
+std::vector<cv::Vec4i> VectorOfVec4i::Items();
 AutoIt:
     $oVectorOfVec4i.Items() -> retval
 ```
@@ -80394,15 +80394,15 @@ AutoIt:
 ### VectorOfVec4i::push\_vector
 
 ```cpp
-void VectorOfVec4i::push_vector( VectorOfVec4i other );
+void VectorOfVec4i::push_vector( std::vector<cv::Vec4i> other );
 AutoIt:
     $oVectorOfVec4i.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVec4i::push_vector( VectorOfVec4i other,
-                                 size_t        count,
-                                 size_t        start = 0 );
+void VectorOfVec4i::push_vector( std::vector<cv::Vec4i> other,
+                                 size_t                 count,
+                                 size_t                 start = 0 );
 AutoIt:
     $oVectorOfVec4i.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -80427,8 +80427,8 @@ AutoIt:
 ### VectorOfVec4i::slice
 
 ```cpp
-VectorOfVec4i VectorOfVec4i::slice( size_t start = 0,
-                                    size_t count = __self->get()->size() );
+std::vector<cv::Vec4i> VectorOfVec4i::slice( size_t start = 0,
+                                             size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec4i.slice( [$start[, $count]] ) -> retval
 ```
@@ -80474,19 +80474,19 @@ AutoIt:
 ### VectorOfVec6i::create
 
 ```cpp
-static VectorOfVec6i VectorOfVec6i::create();
+static std::vector<cv::Vec6i> VectorOfVec6i::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec6i").create() -> <VectorOfVec6i object>
 ```
 
 ```cpp
-static VectorOfVec6i VectorOfVec6i::create( size_t size );
+static std::vector<cv::Vec6i> VectorOfVec6i::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec6i").create( $size ) -> <VectorOfVec6i object>
 ```
 
 ```cpp
-static VectorOfVec6i VectorOfVec6i::create( VectorOfVec6i other );
+static std::vector<cv::Vec6i> VectorOfVec6i::create( std::vector<cv::Vec6i> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec6i").create( $other ) -> <VectorOfVec6i object>
 ```
@@ -80502,7 +80502,7 @@ AutoIt:
 ### VectorOfVec6i::IsInstance
 
 ```cpp
-static bool VectorOfVec6i::IsInstance( const VectorOfVec6i& obj );
+static bool VectorOfVec6i::IsInstance( const std::vector<cv::Vec6i>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec6i").IsInstance( $obj ) -> retval
 ```
@@ -80516,7 +80516,7 @@ AutoIt:
 ### VectorOfVec6i::Items
 
 ```cpp
-VectorOfVec6i VectorOfVec6i::Items();
+std::vector<cv::Vec6i> VectorOfVec6i::Items();
 AutoIt:
     $oVectorOfVec6i.Items() -> retval
 ```
@@ -80612,15 +80612,15 @@ AutoIt:
 ### VectorOfVec6i::push\_vector
 
 ```cpp
-void VectorOfVec6i::push_vector( VectorOfVec6i other );
+void VectorOfVec6i::push_vector( std::vector<cv::Vec6i> other );
 AutoIt:
     $oVectorOfVec6i.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVec6i::push_vector( VectorOfVec6i other,
-                                 size_t        count,
-                                 size_t        start = 0 );
+void VectorOfVec6i::push_vector( std::vector<cv::Vec6i> other,
+                                 size_t                 count,
+                                 size_t                 start = 0 );
 AutoIt:
     $oVectorOfVec6i.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -80645,8 +80645,8 @@ AutoIt:
 ### VectorOfVec6i::slice
 
 ```cpp
-VectorOfVec6i VectorOfVec6i::slice( size_t start = 0,
-                                    size_t count = __self->get()->size() );
+std::vector<cv::Vec6i> VectorOfVec6i::slice( size_t start = 0,
+                                             size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec6i.slice( [$start[, $count]] ) -> retval
 ```
@@ -80692,19 +80692,19 @@ AutoIt:
 ### VectorOfVec8i::create
 
 ```cpp
-static VectorOfVec8i VectorOfVec8i::create();
+static std::vector<cv::Vec8i> VectorOfVec8i::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec8i").create() -> <VectorOfVec8i object>
 ```
 
 ```cpp
-static VectorOfVec8i VectorOfVec8i::create( size_t size );
+static std::vector<cv::Vec8i> VectorOfVec8i::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec8i").create( $size ) -> <VectorOfVec8i object>
 ```
 
 ```cpp
-static VectorOfVec8i VectorOfVec8i::create( VectorOfVec8i other );
+static std::vector<cv::Vec8i> VectorOfVec8i::create( std::vector<cv::Vec8i> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec8i").create( $other ) -> <VectorOfVec8i object>
 ```
@@ -80720,7 +80720,7 @@ AutoIt:
 ### VectorOfVec8i::IsInstance
 
 ```cpp
-static bool VectorOfVec8i::IsInstance( const VectorOfVec8i& obj );
+static bool VectorOfVec8i::IsInstance( const std::vector<cv::Vec8i>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec8i").IsInstance( $obj ) -> retval
 ```
@@ -80734,7 +80734,7 @@ AutoIt:
 ### VectorOfVec8i::Items
 
 ```cpp
-VectorOfVec8i VectorOfVec8i::Items();
+std::vector<cv::Vec8i> VectorOfVec8i::Items();
 AutoIt:
     $oVectorOfVec8i.Items() -> retval
 ```
@@ -80830,15 +80830,15 @@ AutoIt:
 ### VectorOfVec8i::push\_vector
 
 ```cpp
-void VectorOfVec8i::push_vector( VectorOfVec8i other );
+void VectorOfVec8i::push_vector( std::vector<cv::Vec8i> other );
 AutoIt:
     $oVectorOfVec8i.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVec8i::push_vector( VectorOfVec8i other,
-                                 size_t        count,
-                                 size_t        start = 0 );
+void VectorOfVec8i::push_vector( std::vector<cv::Vec8i> other,
+                                 size_t                 count,
+                                 size_t                 start = 0 );
 AutoIt:
     $oVectorOfVec8i.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -80863,8 +80863,8 @@ AutoIt:
 ### VectorOfVec8i::slice
 
 ```cpp
-VectorOfVec8i VectorOfVec8i::slice( size_t start = 0,
-                                    size_t count = __self->get()->size() );
+std::vector<cv::Vec8i> VectorOfVec8i::slice( size_t start = 0,
+                                             size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec8i.slice( [$start[, $count]] ) -> retval
 ```
@@ -80910,19 +80910,19 @@ AutoIt:
 ### VectorOfVec2f::create
 
 ```cpp
-static VectorOfVec2f VectorOfVec2f::create();
+static std::vector<cv::Vec2f> VectorOfVec2f::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec2f").create() -> <VectorOfVec2f object>
 ```
 
 ```cpp
-static VectorOfVec2f VectorOfVec2f::create( size_t size );
+static std::vector<cv::Vec2f> VectorOfVec2f::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec2f").create( $size ) -> <VectorOfVec2f object>
 ```
 
 ```cpp
-static VectorOfVec2f VectorOfVec2f::create( VectorOfVec2f other );
+static std::vector<cv::Vec2f> VectorOfVec2f::create( std::vector<cv::Vec2f> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec2f").create( $other ) -> <VectorOfVec2f object>
 ```
@@ -80938,7 +80938,7 @@ AutoIt:
 ### VectorOfVec2f::IsInstance
 
 ```cpp
-static bool VectorOfVec2f::IsInstance( const VectorOfVec2f& obj );
+static bool VectorOfVec2f::IsInstance( const std::vector<cv::Vec2f>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec2f").IsInstance( $obj ) -> retval
 ```
@@ -80952,7 +80952,7 @@ AutoIt:
 ### VectorOfVec2f::Items
 
 ```cpp
-VectorOfVec2f VectorOfVec2f::Items();
+std::vector<cv::Vec2f> VectorOfVec2f::Items();
 AutoIt:
     $oVectorOfVec2f.Items() -> retval
 ```
@@ -81048,15 +81048,15 @@ AutoIt:
 ### VectorOfVec2f::push\_vector
 
 ```cpp
-void VectorOfVec2f::push_vector( VectorOfVec2f other );
+void VectorOfVec2f::push_vector( std::vector<cv::Vec2f> other );
 AutoIt:
     $oVectorOfVec2f.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVec2f::push_vector( VectorOfVec2f other,
-                                 size_t        count,
-                                 size_t        start = 0 );
+void VectorOfVec2f::push_vector( std::vector<cv::Vec2f> other,
+                                 size_t                 count,
+                                 size_t                 start = 0 );
 AutoIt:
     $oVectorOfVec2f.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -81081,8 +81081,8 @@ AutoIt:
 ### VectorOfVec2f::slice
 
 ```cpp
-VectorOfVec2f VectorOfVec2f::slice( size_t start = 0,
-                                    size_t count = __self->get()->size() );
+std::vector<cv::Vec2f> VectorOfVec2f::slice( size_t start = 0,
+                                             size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec2f.slice( [$start[, $count]] ) -> retval
 ```
@@ -81128,19 +81128,19 @@ AutoIt:
 ### VectorOfVec3f::create
 
 ```cpp
-static VectorOfVec3f VectorOfVec3f::create();
+static std::vector<cv::Vec3f> VectorOfVec3f::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec3f").create() -> <VectorOfVec3f object>
 ```
 
 ```cpp
-static VectorOfVec3f VectorOfVec3f::create( size_t size );
+static std::vector<cv::Vec3f> VectorOfVec3f::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec3f").create( $size ) -> <VectorOfVec3f object>
 ```
 
 ```cpp
-static VectorOfVec3f VectorOfVec3f::create( VectorOfVec3f other );
+static std::vector<cv::Vec3f> VectorOfVec3f::create( std::vector<cv::Vec3f> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec3f").create( $other ) -> <VectorOfVec3f object>
 ```
@@ -81156,7 +81156,7 @@ AutoIt:
 ### VectorOfVec3f::IsInstance
 
 ```cpp
-static bool VectorOfVec3f::IsInstance( const VectorOfVec3f& obj );
+static bool VectorOfVec3f::IsInstance( const std::vector<cv::Vec3f>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec3f").IsInstance( $obj ) -> retval
 ```
@@ -81170,7 +81170,7 @@ AutoIt:
 ### VectorOfVec3f::Items
 
 ```cpp
-VectorOfVec3f VectorOfVec3f::Items();
+std::vector<cv::Vec3f> VectorOfVec3f::Items();
 AutoIt:
     $oVectorOfVec3f.Items() -> retval
 ```
@@ -81266,15 +81266,15 @@ AutoIt:
 ### VectorOfVec3f::push\_vector
 
 ```cpp
-void VectorOfVec3f::push_vector( VectorOfVec3f other );
+void VectorOfVec3f::push_vector( std::vector<cv::Vec3f> other );
 AutoIt:
     $oVectorOfVec3f.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVec3f::push_vector( VectorOfVec3f other,
-                                 size_t        count,
-                                 size_t        start = 0 );
+void VectorOfVec3f::push_vector( std::vector<cv::Vec3f> other,
+                                 size_t                 count,
+                                 size_t                 start = 0 );
 AutoIt:
     $oVectorOfVec3f.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -81299,8 +81299,8 @@ AutoIt:
 ### VectorOfVec3f::slice
 
 ```cpp
-VectorOfVec3f VectorOfVec3f::slice( size_t start = 0,
-                                    size_t count = __self->get()->size() );
+std::vector<cv::Vec3f> VectorOfVec3f::slice( size_t start = 0,
+                                             size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec3f.slice( [$start[, $count]] ) -> retval
 ```
@@ -81346,19 +81346,19 @@ AutoIt:
 ### VectorOfVec4f::create
 
 ```cpp
-static VectorOfVec4f VectorOfVec4f::create();
+static std::vector<cv::Vec4f> VectorOfVec4f::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec4f").create() -> <VectorOfVec4f object>
 ```
 
 ```cpp
-static VectorOfVec4f VectorOfVec4f::create( size_t size );
+static std::vector<cv::Vec4f> VectorOfVec4f::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec4f").create( $size ) -> <VectorOfVec4f object>
 ```
 
 ```cpp
-static VectorOfVec4f VectorOfVec4f::create( VectorOfVec4f other );
+static std::vector<cv::Vec4f> VectorOfVec4f::create( std::vector<cv::Vec4f> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec4f").create( $other ) -> <VectorOfVec4f object>
 ```
@@ -81374,7 +81374,7 @@ AutoIt:
 ### VectorOfVec4f::IsInstance
 
 ```cpp
-static bool VectorOfVec4f::IsInstance( const VectorOfVec4f& obj );
+static bool VectorOfVec4f::IsInstance( const std::vector<cv::Vec4f>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec4f").IsInstance( $obj ) -> retval
 ```
@@ -81388,7 +81388,7 @@ AutoIt:
 ### VectorOfVec4f::Items
 
 ```cpp
-VectorOfVec4f VectorOfVec4f::Items();
+std::vector<cv::Vec4f> VectorOfVec4f::Items();
 AutoIt:
     $oVectorOfVec4f.Items() -> retval
 ```
@@ -81484,15 +81484,15 @@ AutoIt:
 ### VectorOfVec4f::push\_vector
 
 ```cpp
-void VectorOfVec4f::push_vector( VectorOfVec4f other );
+void VectorOfVec4f::push_vector( std::vector<cv::Vec4f> other );
 AutoIt:
     $oVectorOfVec4f.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVec4f::push_vector( VectorOfVec4f other,
-                                 size_t        count,
-                                 size_t        start = 0 );
+void VectorOfVec4f::push_vector( std::vector<cv::Vec4f> other,
+                                 size_t                 count,
+                                 size_t                 start = 0 );
 AutoIt:
     $oVectorOfVec4f.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -81517,8 +81517,8 @@ AutoIt:
 ### VectorOfVec4f::slice
 
 ```cpp
-VectorOfVec4f VectorOfVec4f::slice( size_t start = 0,
-                                    size_t count = __self->get()->size() );
+std::vector<cv::Vec4f> VectorOfVec4f::slice( size_t start = 0,
+                                             size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec4f.slice( [$start[, $count]] ) -> retval
 ```
@@ -81564,19 +81564,19 @@ AutoIt:
 ### VectorOfVec6f::create
 
 ```cpp
-static VectorOfVec6f VectorOfVec6f::create();
+static std::vector<cv::Vec6f> VectorOfVec6f::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec6f").create() -> <VectorOfVec6f object>
 ```
 
 ```cpp
-static VectorOfVec6f VectorOfVec6f::create( size_t size );
+static std::vector<cv::Vec6f> VectorOfVec6f::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec6f").create( $size ) -> <VectorOfVec6f object>
 ```
 
 ```cpp
-static VectorOfVec6f VectorOfVec6f::create( VectorOfVec6f other );
+static std::vector<cv::Vec6f> VectorOfVec6f::create( std::vector<cv::Vec6f> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec6f").create( $other ) -> <VectorOfVec6f object>
 ```
@@ -81592,7 +81592,7 @@ AutoIt:
 ### VectorOfVec6f::IsInstance
 
 ```cpp
-static bool VectorOfVec6f::IsInstance( const VectorOfVec6f& obj );
+static bool VectorOfVec6f::IsInstance( const std::vector<cv::Vec6f>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec6f").IsInstance( $obj ) -> retval
 ```
@@ -81606,7 +81606,7 @@ AutoIt:
 ### VectorOfVec6f::Items
 
 ```cpp
-VectorOfVec6f VectorOfVec6f::Items();
+std::vector<cv::Vec6f> VectorOfVec6f::Items();
 AutoIt:
     $oVectorOfVec6f.Items() -> retval
 ```
@@ -81702,15 +81702,15 @@ AutoIt:
 ### VectorOfVec6f::push\_vector
 
 ```cpp
-void VectorOfVec6f::push_vector( VectorOfVec6f other );
+void VectorOfVec6f::push_vector( std::vector<cv::Vec6f> other );
 AutoIt:
     $oVectorOfVec6f.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVec6f::push_vector( VectorOfVec6f other,
-                                 size_t        count,
-                                 size_t        start = 0 );
+void VectorOfVec6f::push_vector( std::vector<cv::Vec6f> other,
+                                 size_t                 count,
+                                 size_t                 start = 0 );
 AutoIt:
     $oVectorOfVec6f.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -81735,8 +81735,8 @@ AutoIt:
 ### VectorOfVec6f::slice
 
 ```cpp
-VectorOfVec6f VectorOfVec6f::slice( size_t start = 0,
-                                    size_t count = __self->get()->size() );
+std::vector<cv::Vec6f> VectorOfVec6f::slice( size_t start = 0,
+                                             size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec6f.slice( [$start[, $count]] ) -> retval
 ```
@@ -81782,19 +81782,19 @@ AutoIt:
 ### VectorOfVec2d::create
 
 ```cpp
-static VectorOfVec2d VectorOfVec2d::create();
+static std::vector<cv::Vec2d> VectorOfVec2d::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec2d").create() -> <VectorOfVec2d object>
 ```
 
 ```cpp
-static VectorOfVec2d VectorOfVec2d::create( size_t size );
+static std::vector<cv::Vec2d> VectorOfVec2d::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec2d").create( $size ) -> <VectorOfVec2d object>
 ```
 
 ```cpp
-static VectorOfVec2d VectorOfVec2d::create( VectorOfVec2d other );
+static std::vector<cv::Vec2d> VectorOfVec2d::create( std::vector<cv::Vec2d> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec2d").create( $other ) -> <VectorOfVec2d object>
 ```
@@ -81810,7 +81810,7 @@ AutoIt:
 ### VectorOfVec2d::IsInstance
 
 ```cpp
-static bool VectorOfVec2d::IsInstance( const VectorOfVec2d& obj );
+static bool VectorOfVec2d::IsInstance( const std::vector<cv::Vec2d>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec2d").IsInstance( $obj ) -> retval
 ```
@@ -81824,7 +81824,7 @@ AutoIt:
 ### VectorOfVec2d::Items
 
 ```cpp
-VectorOfVec2d VectorOfVec2d::Items();
+std::vector<cv::Vec2d> VectorOfVec2d::Items();
 AutoIt:
     $oVectorOfVec2d.Items() -> retval
 ```
@@ -81920,15 +81920,15 @@ AutoIt:
 ### VectorOfVec2d::push\_vector
 
 ```cpp
-void VectorOfVec2d::push_vector( VectorOfVec2d other );
+void VectorOfVec2d::push_vector( std::vector<cv::Vec2d> other );
 AutoIt:
     $oVectorOfVec2d.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVec2d::push_vector( VectorOfVec2d other,
-                                 size_t        count,
-                                 size_t        start = 0 );
+void VectorOfVec2d::push_vector( std::vector<cv::Vec2d> other,
+                                 size_t                 count,
+                                 size_t                 start = 0 );
 AutoIt:
     $oVectorOfVec2d.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -81953,8 +81953,8 @@ AutoIt:
 ### VectorOfVec2d::slice
 
 ```cpp
-VectorOfVec2d VectorOfVec2d::slice( size_t start = 0,
-                                    size_t count = __self->get()->size() );
+std::vector<cv::Vec2d> VectorOfVec2d::slice( size_t start = 0,
+                                             size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec2d.slice( [$start[, $count]] ) -> retval
 ```
@@ -82000,19 +82000,19 @@ AutoIt:
 ### VectorOfVec3d::create
 
 ```cpp
-static VectorOfVec3d VectorOfVec3d::create();
+static std::vector<cv::Vec3d> VectorOfVec3d::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec3d").create() -> <VectorOfVec3d object>
 ```
 
 ```cpp
-static VectorOfVec3d VectorOfVec3d::create( size_t size );
+static std::vector<cv::Vec3d> VectorOfVec3d::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec3d").create( $size ) -> <VectorOfVec3d object>
 ```
 
 ```cpp
-static VectorOfVec3d VectorOfVec3d::create( VectorOfVec3d other );
+static std::vector<cv::Vec3d> VectorOfVec3d::create( std::vector<cv::Vec3d> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec3d").create( $other ) -> <VectorOfVec3d object>
 ```
@@ -82028,7 +82028,7 @@ AutoIt:
 ### VectorOfVec3d::IsInstance
 
 ```cpp
-static bool VectorOfVec3d::IsInstance( const VectorOfVec3d& obj );
+static bool VectorOfVec3d::IsInstance( const std::vector<cv::Vec3d>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec3d").IsInstance( $obj ) -> retval
 ```
@@ -82042,7 +82042,7 @@ AutoIt:
 ### VectorOfVec3d::Items
 
 ```cpp
-VectorOfVec3d VectorOfVec3d::Items();
+std::vector<cv::Vec3d> VectorOfVec3d::Items();
 AutoIt:
     $oVectorOfVec3d.Items() -> retval
 ```
@@ -82138,15 +82138,15 @@ AutoIt:
 ### VectorOfVec3d::push\_vector
 
 ```cpp
-void VectorOfVec3d::push_vector( VectorOfVec3d other );
+void VectorOfVec3d::push_vector( std::vector<cv::Vec3d> other );
 AutoIt:
     $oVectorOfVec3d.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVec3d::push_vector( VectorOfVec3d other,
-                                 size_t        count,
-                                 size_t        start = 0 );
+void VectorOfVec3d::push_vector( std::vector<cv::Vec3d> other,
+                                 size_t                 count,
+                                 size_t                 start = 0 );
 AutoIt:
     $oVectorOfVec3d.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -82171,8 +82171,8 @@ AutoIt:
 ### VectorOfVec3d::slice
 
 ```cpp
-VectorOfVec3d VectorOfVec3d::slice( size_t start = 0,
-                                    size_t count = __self->get()->size() );
+std::vector<cv::Vec3d> VectorOfVec3d::slice( size_t start = 0,
+                                             size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec3d.slice( [$start[, $count]] ) -> retval
 ```
@@ -82218,19 +82218,19 @@ AutoIt:
 ### VectorOfVec4d::create
 
 ```cpp
-static VectorOfVec4d VectorOfVec4d::create();
+static std::vector<cv::Vec4d> VectorOfVec4d::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec4d").create() -> <VectorOfVec4d object>
 ```
 
 ```cpp
-static VectorOfVec4d VectorOfVec4d::create( size_t size );
+static std::vector<cv::Vec4d> VectorOfVec4d::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec4d").create( $size ) -> <VectorOfVec4d object>
 ```
 
 ```cpp
-static VectorOfVec4d VectorOfVec4d::create( VectorOfVec4d other );
+static std::vector<cv::Vec4d> VectorOfVec4d::create( std::vector<cv::Vec4d> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec4d").create( $other ) -> <VectorOfVec4d object>
 ```
@@ -82246,7 +82246,7 @@ AutoIt:
 ### VectorOfVec4d::IsInstance
 
 ```cpp
-static bool VectorOfVec4d::IsInstance( const VectorOfVec4d& obj );
+static bool VectorOfVec4d::IsInstance( const std::vector<cv::Vec4d>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec4d").IsInstance( $obj ) -> retval
 ```
@@ -82260,7 +82260,7 @@ AutoIt:
 ### VectorOfVec4d::Items
 
 ```cpp
-VectorOfVec4d VectorOfVec4d::Items();
+std::vector<cv::Vec4d> VectorOfVec4d::Items();
 AutoIt:
     $oVectorOfVec4d.Items() -> retval
 ```
@@ -82356,15 +82356,15 @@ AutoIt:
 ### VectorOfVec4d::push\_vector
 
 ```cpp
-void VectorOfVec4d::push_vector( VectorOfVec4d other );
+void VectorOfVec4d::push_vector( std::vector<cv::Vec4d> other );
 AutoIt:
     $oVectorOfVec4d.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVec4d::push_vector( VectorOfVec4d other,
-                                 size_t        count,
-                                 size_t        start = 0 );
+void VectorOfVec4d::push_vector( std::vector<cv::Vec4d> other,
+                                 size_t                 count,
+                                 size_t                 start = 0 );
 AutoIt:
     $oVectorOfVec4d.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -82389,8 +82389,8 @@ AutoIt:
 ### VectorOfVec4d::slice
 
 ```cpp
-VectorOfVec4d VectorOfVec4d::slice( size_t start = 0,
-                                    size_t count = __self->get()->size() );
+std::vector<cv::Vec4d> VectorOfVec4d::slice( size_t start = 0,
+                                             size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec4d.slice( [$start[, $count]] ) -> retval
 ```
@@ -82436,19 +82436,19 @@ AutoIt:
 ### VectorOfVec6d::create
 
 ```cpp
-static VectorOfVec6d VectorOfVec6d::create();
+static std::vector<cv::Vec6d> VectorOfVec6d::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec6d").create() -> <VectorOfVec6d object>
 ```
 
 ```cpp
-static VectorOfVec6d VectorOfVec6d::create( size_t size );
+static std::vector<cv::Vec6d> VectorOfVec6d::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec6d").create( $size ) -> <VectorOfVec6d object>
 ```
 
 ```cpp
-static VectorOfVec6d VectorOfVec6d::create( VectorOfVec6d other );
+static std::vector<cv::Vec6d> VectorOfVec6d::create( std::vector<cv::Vec6d> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec6d").create( $other ) -> <VectorOfVec6d object>
 ```
@@ -82464,7 +82464,7 @@ AutoIt:
 ### VectorOfVec6d::IsInstance
 
 ```cpp
-static bool VectorOfVec6d::IsInstance( const VectorOfVec6d& obj );
+static bool VectorOfVec6d::IsInstance( const std::vector<cv::Vec6d>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVec6d").IsInstance( $obj ) -> retval
 ```
@@ -82478,7 +82478,7 @@ AutoIt:
 ### VectorOfVec6d::Items
 
 ```cpp
-VectorOfVec6d VectorOfVec6d::Items();
+std::vector<cv::Vec6d> VectorOfVec6d::Items();
 AutoIt:
     $oVectorOfVec6d.Items() -> retval
 ```
@@ -82574,15 +82574,15 @@ AutoIt:
 ### VectorOfVec6d::push\_vector
 
 ```cpp
-void VectorOfVec6d::push_vector( VectorOfVec6d other );
+void VectorOfVec6d::push_vector( std::vector<cv::Vec6d> other );
 AutoIt:
     $oVectorOfVec6d.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVec6d::push_vector( VectorOfVec6d other,
-                                 size_t        count,
-                                 size_t        start = 0 );
+void VectorOfVec6d::push_vector( std::vector<cv::Vec6d> other,
+                                 size_t                 count,
+                                 size_t                 start = 0 );
 AutoIt:
     $oVectorOfVec6d.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -82607,8 +82607,8 @@ AutoIt:
 ### VectorOfVec6d::slice
 
 ```cpp
-VectorOfVec6d VectorOfVec6d::slice( size_t start = 0,
-                                    size_t count = __self->get()->size() );
+std::vector<cv::Vec6d> VectorOfVec6d::slice( size_t start = 0,
+                                             size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVec6d.slice( [$start[, $count]] ) -> retval
 ```
@@ -82654,19 +82654,19 @@ AutoIt:
 ### VectorOfPoint2f::create
 
 ```cpp
-static VectorOfPoint2f VectorOfPoint2f::create();
+static std::vector<cv::Point2f> VectorOfPoint2f::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPoint2f").create() -> <VectorOfPoint2f object>
 ```
 
 ```cpp
-static VectorOfPoint2f VectorOfPoint2f::create( size_t size );
+static std::vector<cv::Point2f> VectorOfPoint2f::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPoint2f").create( $size ) -> <VectorOfPoint2f object>
 ```
 
 ```cpp
-static VectorOfPoint2f VectorOfPoint2f::create( VectorOfPoint2f other );
+static std::vector<cv::Point2f> VectorOfPoint2f::create( std::vector<cv::Point2f> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPoint2f").create( $other ) -> <VectorOfPoint2f object>
 ```
@@ -82682,7 +82682,7 @@ AutoIt:
 ### VectorOfPoint2f::IsInstance
 
 ```cpp
-static bool VectorOfPoint2f::IsInstance( const VectorOfPoint2f& obj );
+static bool VectorOfPoint2f::IsInstance( const std::vector<cv::Point2f>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPoint2f").IsInstance( $obj ) -> retval
 ```
@@ -82696,7 +82696,7 @@ AutoIt:
 ### VectorOfPoint2f::Items
 
 ```cpp
-VectorOfPoint2f VectorOfPoint2f::Items();
+std::vector<cv::Point2f> VectorOfPoint2f::Items();
 AutoIt:
     $oVectorOfPoint2f.Items() -> retval
 ```
@@ -82792,15 +82792,15 @@ AutoIt:
 ### VectorOfPoint2f::push\_vector
 
 ```cpp
-void VectorOfPoint2f::push_vector( VectorOfPoint2f other );
+void VectorOfPoint2f::push_vector( std::vector<cv::Point2f> other );
 AutoIt:
     $oVectorOfPoint2f.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfPoint2f::push_vector( VectorOfPoint2f other,
-                                   size_t          count,
-                                   size_t          start = 0 );
+void VectorOfPoint2f::push_vector( std::vector<cv::Point2f> other,
+                                   size_t                   count,
+                                   size_t                   start = 0 );
 AutoIt:
     $oVectorOfPoint2f.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -82825,8 +82825,8 @@ AutoIt:
 ### VectorOfPoint2f::slice
 
 ```cpp
-VectorOfPoint2f VectorOfPoint2f::slice( size_t start = 0,
-                                        size_t count = __self->get()->size() );
+std::vector<cv::Point2f> VectorOfPoint2f::slice( size_t start = 0,
+                                                 size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfPoint2f.slice( [$start[, $count]] ) -> retval
 ```
@@ -82872,19 +82872,19 @@ AutoIt:
 ### VectorOfVectorOfPoint2f::create
 
 ```cpp
-static VectorOfVectorOfPoint2f VectorOfVectorOfPoint2f::create();
+static std::vector<std::vector<cv::Point2f>> VectorOfVectorOfPoint2f::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfPoint2f").create() -> <VectorOfVectorOfPoint2f object>
 ```
 
 ```cpp
-static VectorOfVectorOfPoint2f VectorOfVectorOfPoint2f::create( size_t size );
+static std::vector<std::vector<cv::Point2f>> VectorOfVectorOfPoint2f::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfPoint2f").create( $size ) -> <VectorOfVectorOfPoint2f object>
 ```
 
 ```cpp
-static VectorOfVectorOfPoint2f VectorOfVectorOfPoint2f::create( VectorOfVectorOfPoint2f other );
+static std::vector<std::vector<cv::Point2f>> VectorOfVectorOfPoint2f::create( std::vector<std::vector<cv::Point2f>> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfPoint2f").create( $other ) -> <VectorOfVectorOfPoint2f object>
 ```
@@ -82900,7 +82900,7 @@ AutoIt:
 ### VectorOfVectorOfPoint2f::IsInstance
 
 ```cpp
-static bool VectorOfVectorOfPoint2f::IsInstance( const VectorOfVectorOfPoint2f& obj );
+static bool VectorOfVectorOfPoint2f::IsInstance( const std::vector<std::vector<cv::Point2f>>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfPoint2f").IsInstance( $obj ) -> retval
 ```
@@ -82914,7 +82914,7 @@ AutoIt:
 ### VectorOfVectorOfPoint2f::Items
 
 ```cpp
-VectorOfVectorOfPoint2f VectorOfVectorOfPoint2f::Items();
+std::vector<std::vector<cv::Point2f>> VectorOfVectorOfPoint2f::Items();
 AutoIt:
     $oVectorOfVectorOfPoint2f.Items() -> retval
 ```
@@ -83010,15 +83010,15 @@ AutoIt:
 ### VectorOfVectorOfPoint2f::push\_vector
 
 ```cpp
-void VectorOfVectorOfPoint2f::push_vector( VectorOfVectorOfPoint2f other );
+void VectorOfVectorOfPoint2f::push_vector( std::vector<std::vector<cv::Point2f>> other );
 AutoIt:
     $oVectorOfVectorOfPoint2f.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVectorOfPoint2f::push_vector( VectorOfVectorOfPoint2f other,
-                                           size_t                  count,
-                                           size_t                  start = 0 );
+void VectorOfVectorOfPoint2f::push_vector( std::vector<std::vector<cv::Point2f>> other,
+                                           size_t                                count,
+                                           size_t                                start = 0 );
 AutoIt:
     $oVectorOfVectorOfPoint2f.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -83043,8 +83043,8 @@ AutoIt:
 ### VectorOfVectorOfPoint2f::slice
 
 ```cpp
-VectorOfVectorOfPoint2f VectorOfVectorOfPoint2f::slice( size_t start = 0,
-                                                        size_t count = __self->get()->size() );
+std::vector<std::vector<cv::Point2f>> VectorOfVectorOfPoint2f::slice( size_t start = 0,
+                                                                      size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVectorOfPoint2f.slice( [$start[, $count]] ) -> retval
 ```
@@ -83090,19 +83090,19 @@ AutoIt:
 ### VectorOfDnn\_Target::create
 
 ```cpp
-static VectorOfDnn_Target VectorOfDnn_Target::create();
+static std::vector<cv::dnn::Target> VectorOfDnn_Target::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfDnn_Target").create() -> <VectorOfDnn_Target object>
 ```
 
 ```cpp
-static VectorOfDnn_Target VectorOfDnn_Target::create( size_t size );
+static std::vector<cv::dnn::Target> VectorOfDnn_Target::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfDnn_Target").create( $size ) -> <VectorOfDnn_Target object>
 ```
 
 ```cpp
-static VectorOfDnn_Target VectorOfDnn_Target::create( VectorOfDnn_Target other );
+static std::vector<cv::dnn::Target> VectorOfDnn_Target::create( std::vector<cv::dnn::Target> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfDnn_Target").create( $other ) -> <VectorOfDnn_Target object>
 ```
@@ -83118,7 +83118,7 @@ AutoIt:
 ### VectorOfDnn\_Target::IsInstance
 
 ```cpp
-static bool VectorOfDnn_Target::IsInstance( const VectorOfDnn_Target& obj );
+static bool VectorOfDnn_Target::IsInstance( const std::vector<cv::dnn::Target>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfDnn_Target").IsInstance( $obj ) -> retval
 ```
@@ -83132,7 +83132,7 @@ AutoIt:
 ### VectorOfDnn\_Target::Items
 
 ```cpp
-VectorOfDnn_Target VectorOfDnn_Target::Items();
+std::vector<cv::dnn::Target> VectorOfDnn_Target::Items();
 AutoIt:
     $oVectorOfDnn_Target.Items() -> retval
 ```
@@ -83228,15 +83228,15 @@ AutoIt:
 ### VectorOfDnn\_Target::push\_vector
 
 ```cpp
-void VectorOfDnn_Target::push_vector( VectorOfDnn_Target other );
+void VectorOfDnn_Target::push_vector( std::vector<cv::dnn::Target> other );
 AutoIt:
     $oVectorOfDnn_Target.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfDnn_Target::push_vector( VectorOfDnn_Target other,
-                                      size_t             count,
-                                      size_t             start = 0 );
+void VectorOfDnn_Target::push_vector( std::vector<cv::dnn::Target> other,
+                                      size_t                       count,
+                                      size_t                       start = 0 );
 AutoIt:
     $oVectorOfDnn_Target.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -83261,8 +83261,8 @@ AutoIt:
 ### VectorOfDnn\_Target::slice
 
 ```cpp
-VectorOfDnn_Target VectorOfDnn_Target::slice( size_t start = 0,
-                                              size_t count = __self->get()->size() );
+std::vector<cv::dnn::Target> VectorOfDnn_Target::slice( size_t start = 0,
+                                                        size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfDnn_Target.slice( [$start[, $count]] ) -> retval
 ```
@@ -83308,19 +83308,19 @@ AutoIt:
 ### VectorOfRect2d::create
 
 ```cpp
-static VectorOfRect2d VectorOfRect2d::create();
+static std::vector<cv::Rect2d> VectorOfRect2d::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfRect2d").create() -> <VectorOfRect2d object>
 ```
 
 ```cpp
-static VectorOfRect2d VectorOfRect2d::create( size_t size );
+static std::vector<cv::Rect2d> VectorOfRect2d::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfRect2d").create( $size ) -> <VectorOfRect2d object>
 ```
 
 ```cpp
-static VectorOfRect2d VectorOfRect2d::create( VectorOfRect2d other );
+static std::vector<cv::Rect2d> VectorOfRect2d::create( std::vector<cv::Rect2d> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfRect2d").create( $other ) -> <VectorOfRect2d object>
 ```
@@ -83336,7 +83336,7 @@ AutoIt:
 ### VectorOfRect2d::IsInstance
 
 ```cpp
-static bool VectorOfRect2d::IsInstance( const VectorOfRect2d& obj );
+static bool VectorOfRect2d::IsInstance( const std::vector<cv::Rect2d>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfRect2d").IsInstance( $obj ) -> retval
 ```
@@ -83350,7 +83350,7 @@ AutoIt:
 ### VectorOfRect2d::Items
 
 ```cpp
-VectorOfRect2d VectorOfRect2d::Items();
+std::vector<cv::Rect2d> VectorOfRect2d::Items();
 AutoIt:
     $oVectorOfRect2d.Items() -> retval
 ```
@@ -83446,15 +83446,15 @@ AutoIt:
 ### VectorOfRect2d::push\_vector
 
 ```cpp
-void VectorOfRect2d::push_vector( VectorOfRect2d other );
+void VectorOfRect2d::push_vector( std::vector<cv::Rect2d> other );
 AutoIt:
     $oVectorOfRect2d.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfRect2d::push_vector( VectorOfRect2d other,
-                                  size_t         count,
-                                  size_t         start = 0 );
+void VectorOfRect2d::push_vector( std::vector<cv::Rect2d> other,
+                                  size_t                  count,
+                                  size_t                  start = 0 );
 AutoIt:
     $oVectorOfRect2d.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -83479,8 +83479,8 @@ AutoIt:
 ### VectorOfRect2d::slice
 
 ```cpp
-VectorOfRect2d VectorOfRect2d::slice( size_t start = 0,
-                                      size_t count = __self->get()->size() );
+std::vector<cv::Rect2d> VectorOfRect2d::slice( size_t start = 0,
+                                               size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfRect2d.slice( [$start[, $count]] ) -> retval
 ```
@@ -83526,19 +83526,19 @@ AutoIt:
 ### VectorOfVectorOfMat::create
 
 ```cpp
-static VectorOfVectorOfMat VectorOfVectorOfMat::create();
+static std::vector<std::vector<cv::Mat>> VectorOfVectorOfMat::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfMat").create() -> <VectorOfVectorOfMat object>
 ```
 
 ```cpp
-static VectorOfVectorOfMat VectorOfVectorOfMat::create( size_t size );
+static std::vector<std::vector<cv::Mat>> VectorOfVectorOfMat::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfMat").create( $size ) -> <VectorOfVectorOfMat object>
 ```
 
 ```cpp
-static VectorOfVectorOfMat VectorOfVectorOfMat::create( VectorOfVectorOfMat other );
+static std::vector<std::vector<cv::Mat>> VectorOfVectorOfMat::create( std::vector<std::vector<cv::Mat>> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfMat").create( $other ) -> <VectorOfVectorOfMat object>
 ```
@@ -83554,7 +83554,7 @@ AutoIt:
 ### VectorOfVectorOfMat::IsInstance
 
 ```cpp
-static bool VectorOfVectorOfMat::IsInstance( const VectorOfVectorOfMat& obj );
+static bool VectorOfVectorOfMat::IsInstance( const std::vector<std::vector<cv::Mat>>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfMat").IsInstance( $obj ) -> retval
 ```
@@ -83568,7 +83568,7 @@ AutoIt:
 ### VectorOfVectorOfMat::Items
 
 ```cpp
-VectorOfVectorOfMat VectorOfVectorOfMat::Items();
+std::vector<std::vector<cv::Mat>> VectorOfVectorOfMat::Items();
 AutoIt:
     $oVectorOfVectorOfMat.Items() -> retval
 ```
@@ -83664,15 +83664,15 @@ AutoIt:
 ### VectorOfVectorOfMat::push\_vector
 
 ```cpp
-void VectorOfVectorOfMat::push_vector( VectorOfVectorOfMat other );
+void VectorOfVectorOfMat::push_vector( std::vector<std::vector<cv::Mat>> other );
 AutoIt:
     $oVectorOfVectorOfMat.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVectorOfMat::push_vector( VectorOfVectorOfMat other,
-                                       size_t              count,
-                                       size_t              start = 0 );
+void VectorOfVectorOfMat::push_vector( std::vector<std::vector<cv::Mat>> other,
+                                       size_t                            count,
+                                       size_t                            start = 0 );
 AutoIt:
     $oVectorOfVectorOfMat.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -83697,8 +83697,8 @@ AutoIt:
 ### VectorOfVectorOfMat::slice
 
 ```cpp
-VectorOfVectorOfMat VectorOfVectorOfMat::slice( size_t start = 0,
-                                                size_t count = __self->get()->size() );
+std::vector<std::vector<cv::Mat>> VectorOfVectorOfMat::slice( size_t start = 0,
+                                                              size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVectorOfMat.slice( [$start[, $count]] ) -> retval
 ```
@@ -83744,19 +83744,19 @@ AutoIt:
 ### VectorOfVectorOfInt::create
 
 ```cpp
-static VectorOfVectorOfInt VectorOfVectorOfInt::create();
+static std::vector<std::vector<int>> VectorOfVectorOfInt::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfInt").create() -> <VectorOfVectorOfInt object>
 ```
 
 ```cpp
-static VectorOfVectorOfInt VectorOfVectorOfInt::create( size_t size );
+static std::vector<std::vector<int>> VectorOfVectorOfInt::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfInt").create( $size ) -> <VectorOfVectorOfInt object>
 ```
 
 ```cpp
-static VectorOfVectorOfInt VectorOfVectorOfInt::create( VectorOfVectorOfInt other );
+static std::vector<std::vector<int>> VectorOfVectorOfInt::create( std::vector<std::vector<int>> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfInt").create( $other ) -> <VectorOfVectorOfInt object>
 ```
@@ -83772,7 +83772,7 @@ AutoIt:
 ### VectorOfVectorOfInt::IsInstance
 
 ```cpp
-static bool VectorOfVectorOfInt::IsInstance( const VectorOfVectorOfInt& obj );
+static bool VectorOfVectorOfInt::IsInstance( const std::vector<std::vector<int>>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfInt").IsInstance( $obj ) -> retval
 ```
@@ -83786,7 +83786,7 @@ AutoIt:
 ### VectorOfVectorOfInt::Items
 
 ```cpp
-VectorOfVectorOfInt VectorOfVectorOfInt::Items();
+std::vector<std::vector<int>> VectorOfVectorOfInt::Items();
 AutoIt:
     $oVectorOfVectorOfInt.Items() -> retval
 ```
@@ -83882,15 +83882,15 @@ AutoIt:
 ### VectorOfVectorOfInt::push\_vector
 
 ```cpp
-void VectorOfVectorOfInt::push_vector( VectorOfVectorOfInt other );
+void VectorOfVectorOfInt::push_vector( std::vector<std::vector<int>> other );
 AutoIt:
     $oVectorOfVectorOfInt.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVectorOfInt::push_vector( VectorOfVectorOfInt other,
-                                       size_t              count,
-                                       size_t              start = 0 );
+void VectorOfVectorOfInt::push_vector( std::vector<std::vector<int>> other,
+                                       size_t                        count,
+                                       size_t                        start = 0 );
 AutoIt:
     $oVectorOfVectorOfInt.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -83915,8 +83915,8 @@ AutoIt:
 ### VectorOfVectorOfInt::slice
 
 ```cpp
-VectorOfVectorOfInt VectorOfVectorOfInt::slice( size_t start = 0,
-                                                size_t count = __self->get()->size() );
+std::vector<std::vector<int>> VectorOfVectorOfInt::slice( size_t start = 0,
+                                                          size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVectorOfInt.slice( [$start[, $count]] ) -> retval
 ```
@@ -83962,19 +83962,19 @@ AutoIt:
 ### VectorOfVectorOfVectorOfInt::create
 
 ```cpp
-static VectorOfVectorOfVectorOfInt VectorOfVectorOfVectorOfInt::create();
+static std::vector<std::vector<std::vector<int>>> VectorOfVectorOfVectorOfInt::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfVectorOfInt").create() -> <VectorOfVectorOfVectorOfInt object>
 ```
 
 ```cpp
-static VectorOfVectorOfVectorOfInt VectorOfVectorOfVectorOfInt::create( size_t size );
+static std::vector<std::vector<std::vector<int>>> VectorOfVectorOfVectorOfInt::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfVectorOfInt").create( $size ) -> <VectorOfVectorOfVectorOfInt object>
 ```
 
 ```cpp
-static VectorOfVectorOfVectorOfInt VectorOfVectorOfVectorOfInt::create( VectorOfVectorOfVectorOfInt other );
+static std::vector<std::vector<std::vector<int>>> VectorOfVectorOfVectorOfInt::create( std::vector<std::vector<std::vector<int>>> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfVectorOfInt").create( $other ) -> <VectorOfVectorOfVectorOfInt object>
 ```
@@ -83990,7 +83990,7 @@ AutoIt:
 ### VectorOfVectorOfVectorOfInt::IsInstance
 
 ```cpp
-static bool VectorOfVectorOfVectorOfInt::IsInstance( const VectorOfVectorOfVectorOfInt& obj );
+static bool VectorOfVectorOfVectorOfInt::IsInstance( const std::vector<std::vector<std::vector<int>>>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfVectorOfInt").IsInstance( $obj ) -> retval
 ```
@@ -84004,7 +84004,7 @@ AutoIt:
 ### VectorOfVectorOfVectorOfInt::Items
 
 ```cpp
-VectorOfVectorOfVectorOfInt VectorOfVectorOfVectorOfInt::Items();
+std::vector<std::vector<std::vector<int>>> VectorOfVectorOfVectorOfInt::Items();
 AutoIt:
     $oVectorOfVectorOfVectorOfInt.Items() -> retval
 ```
@@ -84100,15 +84100,15 @@ AutoIt:
 ### VectorOfVectorOfVectorOfInt::push\_vector
 
 ```cpp
-void VectorOfVectorOfVectorOfInt::push_vector( VectorOfVectorOfVectorOfInt other );
+void VectorOfVectorOfVectorOfInt::push_vector( std::vector<std::vector<std::vector<int>>> other );
 AutoIt:
     $oVectorOfVectorOfVectorOfInt.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVectorOfVectorOfInt::push_vector( VectorOfVectorOfVectorOfInt other,
-                                               size_t                      count,
-                                               size_t                      start = 0 );
+void VectorOfVectorOfVectorOfInt::push_vector( std::vector<std::vector<std::vector<int>>> other,
+                                               size_t                                     count,
+                                               size_t                                     start = 0 );
 AutoIt:
     $oVectorOfVectorOfVectorOfInt.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -84133,8 +84133,8 @@ AutoIt:
 ### VectorOfVectorOfVectorOfInt::slice
 
 ```cpp
-VectorOfVectorOfVectorOfInt VectorOfVectorOfVectorOfInt::slice( size_t start = 0,
-                                                                size_t count = __self->get()->size() );
+std::vector<std::vector<std::vector<int>>> VectorOfVectorOfVectorOfInt::slice( size_t start = 0,
+                                                                               size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVectorOfVectorOfInt.slice( [$start[, $count]] ) -> retval
 ```
@@ -84180,19 +84180,19 @@ AutoIt:
 ### VectorOfVectorOfPoint::create
 
 ```cpp
-static VectorOfVectorOfPoint VectorOfVectorOfPoint::create();
+static std::vector<std::vector<cv::Point>> VectorOfVectorOfPoint::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfPoint").create() -> <VectorOfVectorOfPoint object>
 ```
 
 ```cpp
-static VectorOfVectorOfPoint VectorOfVectorOfPoint::create( size_t size );
+static std::vector<std::vector<cv::Point>> VectorOfVectorOfPoint::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfPoint").create( $size ) -> <VectorOfVectorOfPoint object>
 ```
 
 ```cpp
-static VectorOfVectorOfPoint VectorOfVectorOfPoint::create( VectorOfVectorOfPoint other );
+static std::vector<std::vector<cv::Point>> VectorOfVectorOfPoint::create( std::vector<std::vector<cv::Point>> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfPoint").create( $other ) -> <VectorOfVectorOfPoint object>
 ```
@@ -84208,7 +84208,7 @@ AutoIt:
 ### VectorOfVectorOfPoint::IsInstance
 
 ```cpp
-static bool VectorOfVectorOfPoint::IsInstance( const VectorOfVectorOfPoint& obj );
+static bool VectorOfVectorOfPoint::IsInstance( const std::vector<std::vector<cv::Point>>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfPoint").IsInstance( $obj ) -> retval
 ```
@@ -84222,7 +84222,7 @@ AutoIt:
 ### VectorOfVectorOfPoint::Items
 
 ```cpp
-VectorOfVectorOfPoint VectorOfVectorOfPoint::Items();
+std::vector<std::vector<cv::Point>> VectorOfVectorOfPoint::Items();
 AutoIt:
     $oVectorOfVectorOfPoint.Items() -> retval
 ```
@@ -84318,15 +84318,15 @@ AutoIt:
 ### VectorOfVectorOfPoint::push\_vector
 
 ```cpp
-void VectorOfVectorOfPoint::push_vector( VectorOfVectorOfPoint other );
+void VectorOfVectorOfPoint::push_vector( std::vector<std::vector<cv::Point>> other );
 AutoIt:
     $oVectorOfVectorOfPoint.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVectorOfPoint::push_vector( VectorOfVectorOfPoint other,
-                                         size_t                count,
-                                         size_t                start = 0 );
+void VectorOfVectorOfPoint::push_vector( std::vector<std::vector<cv::Point>> other,
+                                         size_t                              count,
+                                         size_t                              start = 0 );
 AutoIt:
     $oVectorOfVectorOfPoint.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -84351,8 +84351,8 @@ AutoIt:
 ### VectorOfVectorOfPoint::slice
 
 ```cpp
-VectorOfVectorOfPoint VectorOfVectorOfPoint::slice( size_t start = 0,
-                                                    size_t count = __self->get()->size() );
+std::vector<std::vector<cv::Point>> VectorOfVectorOfPoint::slice( size_t start = 0,
+                                                                  size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVectorOfPoint.slice( [$start[, $count]] ) -> retval
 ```
@@ -84398,19 +84398,19 @@ AutoIt:
 ### VectorOfVectorOfKeyPoint::create
 
 ```cpp
-static VectorOfVectorOfKeyPoint VectorOfVectorOfKeyPoint::create();
+static std::vector<std::vector<cv::KeyPoint>> VectorOfVectorOfKeyPoint::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfKeyPoint").create() -> <VectorOfVectorOfKeyPoint object>
 ```
 
 ```cpp
-static VectorOfVectorOfKeyPoint VectorOfVectorOfKeyPoint::create( size_t size );
+static std::vector<std::vector<cv::KeyPoint>> VectorOfVectorOfKeyPoint::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfKeyPoint").create( $size ) -> <VectorOfVectorOfKeyPoint object>
 ```
 
 ```cpp
-static VectorOfVectorOfKeyPoint VectorOfVectorOfKeyPoint::create( VectorOfVectorOfKeyPoint other );
+static std::vector<std::vector<cv::KeyPoint>> VectorOfVectorOfKeyPoint::create( std::vector<std::vector<cv::KeyPoint>> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfKeyPoint").create( $other ) -> <VectorOfVectorOfKeyPoint object>
 ```
@@ -84426,7 +84426,7 @@ AutoIt:
 ### VectorOfVectorOfKeyPoint::IsInstance
 
 ```cpp
-static bool VectorOfVectorOfKeyPoint::IsInstance( const VectorOfVectorOfKeyPoint& obj );
+static bool VectorOfVectorOfKeyPoint::IsInstance( const std::vector<std::vector<cv::KeyPoint>>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfKeyPoint").IsInstance( $obj ) -> retval
 ```
@@ -84440,7 +84440,7 @@ AutoIt:
 ### VectorOfVectorOfKeyPoint::Items
 
 ```cpp
-VectorOfVectorOfKeyPoint VectorOfVectorOfKeyPoint::Items();
+std::vector<std::vector<cv::KeyPoint>> VectorOfVectorOfKeyPoint::Items();
 AutoIt:
     $oVectorOfVectorOfKeyPoint.Items() -> retval
 ```
@@ -84536,15 +84536,15 @@ AutoIt:
 ### VectorOfVectorOfKeyPoint::push\_vector
 
 ```cpp
-void VectorOfVectorOfKeyPoint::push_vector( VectorOfVectorOfKeyPoint other );
+void VectorOfVectorOfKeyPoint::push_vector( std::vector<std::vector<cv::KeyPoint>> other );
 AutoIt:
     $oVectorOfVectorOfKeyPoint.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVectorOfKeyPoint::push_vector( VectorOfVectorOfKeyPoint other,
-                                            size_t                   count,
-                                            size_t                   start = 0 );
+void VectorOfVectorOfKeyPoint::push_vector( std::vector<std::vector<cv::KeyPoint>> other,
+                                            size_t                                 count,
+                                            size_t                                 start = 0 );
 AutoIt:
     $oVectorOfVectorOfKeyPoint.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -84569,8 +84569,8 @@ AutoIt:
 ### VectorOfVectorOfKeyPoint::slice
 
 ```cpp
-VectorOfVectorOfKeyPoint VectorOfVectorOfKeyPoint::slice( size_t start = 0,
-                                                          size_t count = __self->get()->size() );
+std::vector<std::vector<cv::KeyPoint>> VectorOfVectorOfKeyPoint::slice( size_t start = 0,
+                                                                        size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVectorOfKeyPoint.slice( [$start[, $count]] ) -> retval
 ```
@@ -84616,19 +84616,19 @@ AutoIt:
 ### VectorOfVideoCapture::create
 
 ```cpp
-static VectorOfVideoCapture VectorOfVideoCapture::create();
+static std::vector<cv::VideoCapture> VectorOfVideoCapture::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVideoCapture").create() -> <VectorOfVideoCapture object>
 ```
 
 ```cpp
-static VectorOfVideoCapture VectorOfVideoCapture::create( size_t size );
+static std::vector<cv::VideoCapture> VectorOfVideoCapture::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVideoCapture").create( $size ) -> <VectorOfVideoCapture object>
 ```
 
 ```cpp
-static VectorOfVideoCapture VectorOfVideoCapture::create( VectorOfVideoCapture other );
+static std::vector<cv::VideoCapture> VectorOfVideoCapture::create( std::vector<cv::VideoCapture> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVideoCapture").create( $other ) -> <VectorOfVideoCapture object>
 ```
@@ -84644,7 +84644,7 @@ AutoIt:
 ### VectorOfVideoCapture::IsInstance
 
 ```cpp
-static bool VectorOfVideoCapture::IsInstance( const VectorOfVideoCapture& obj );
+static bool VectorOfVideoCapture::IsInstance( const std::vector<cv::VideoCapture>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVideoCapture").IsInstance( $obj ) -> retval
 ```
@@ -84658,7 +84658,7 @@ AutoIt:
 ### VectorOfVideoCapture::Items
 
 ```cpp
-VectorOfVideoCapture VectorOfVideoCapture::Items();
+std::vector<cv::VideoCapture> VectorOfVideoCapture::Items();
 AutoIt:
     $oVectorOfVideoCapture.Items() -> retval
 ```
@@ -84754,15 +84754,15 @@ AutoIt:
 ### VectorOfVideoCapture::push\_vector
 
 ```cpp
-void VectorOfVideoCapture::push_vector( VectorOfVideoCapture other );
+void VectorOfVideoCapture::push_vector( std::vector<cv::VideoCapture> other );
 AutoIt:
     $oVectorOfVideoCapture.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVideoCapture::push_vector( VectorOfVideoCapture other,
-                                        size_t               count,
-                                        size_t               start = 0 );
+void VectorOfVideoCapture::push_vector( std::vector<cv::VideoCapture> other,
+                                        size_t                        count,
+                                        size_t                        start = 0 );
 AutoIt:
     $oVectorOfVideoCapture.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -84787,8 +84787,8 @@ AutoIt:
 ### VectorOfVideoCapture::slice
 
 ```cpp
-VectorOfVideoCapture VectorOfVideoCapture::slice( size_t start = 0,
-                                                  size_t count = __self->get()->size() );
+std::vector<cv::VideoCapture> VectorOfVideoCapture::slice( size_t start = 0,
+                                                           size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVideoCapture.slice( [$start[, $count]] ) -> retval
 ```
@@ -84834,19 +84834,19 @@ AutoIt:
 ### VectorOfVideoCaptureAPIs::create
 
 ```cpp
-static VectorOfVideoCaptureAPIs VectorOfVideoCaptureAPIs::create();
+static std::vector<cv::VideoCaptureAPIs> VectorOfVideoCaptureAPIs::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVideoCaptureAPIs").create() -> <VectorOfVideoCaptureAPIs object>
 ```
 
 ```cpp
-static VectorOfVideoCaptureAPIs VectorOfVideoCaptureAPIs::create( size_t size );
+static std::vector<cv::VideoCaptureAPIs> VectorOfVideoCaptureAPIs::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVideoCaptureAPIs").create( $size ) -> <VectorOfVideoCaptureAPIs object>
 ```
 
 ```cpp
-static VectorOfVideoCaptureAPIs VectorOfVideoCaptureAPIs::create( VectorOfVideoCaptureAPIs other );
+static std::vector<cv::VideoCaptureAPIs> VectorOfVideoCaptureAPIs::create( std::vector<cv::VideoCaptureAPIs> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVideoCaptureAPIs").create( $other ) -> <VectorOfVideoCaptureAPIs object>
 ```
@@ -84862,7 +84862,7 @@ AutoIt:
 ### VectorOfVideoCaptureAPIs::IsInstance
 
 ```cpp
-static bool VectorOfVideoCaptureAPIs::IsInstance( const VectorOfVideoCaptureAPIs& obj );
+static bool VectorOfVideoCaptureAPIs::IsInstance( const std::vector<cv::VideoCaptureAPIs>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVideoCaptureAPIs").IsInstance( $obj ) -> retval
 ```
@@ -84876,7 +84876,7 @@ AutoIt:
 ### VectorOfVideoCaptureAPIs::Items
 
 ```cpp
-VectorOfVideoCaptureAPIs VectorOfVideoCaptureAPIs::Items();
+std::vector<cv::VideoCaptureAPIs> VectorOfVideoCaptureAPIs::Items();
 AutoIt:
     $oVectorOfVideoCaptureAPIs.Items() -> retval
 ```
@@ -84972,15 +84972,15 @@ AutoIt:
 ### VectorOfVideoCaptureAPIs::push\_vector
 
 ```cpp
-void VectorOfVideoCaptureAPIs::push_vector( VectorOfVideoCaptureAPIs other );
+void VectorOfVideoCaptureAPIs::push_vector( std::vector<cv::VideoCaptureAPIs> other );
 AutoIt:
     $oVectorOfVideoCaptureAPIs.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVideoCaptureAPIs::push_vector( VectorOfVideoCaptureAPIs other,
-                                            size_t                   count,
-                                            size_t                   start = 0 );
+void VectorOfVideoCaptureAPIs::push_vector( std::vector<cv::VideoCaptureAPIs> other,
+                                            size_t                            count,
+                                            size_t                            start = 0 );
 AutoIt:
     $oVectorOfVideoCaptureAPIs.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -85005,8 +85005,8 @@ AutoIt:
 ### VectorOfVideoCaptureAPIs::slice
 
 ```cpp
-VectorOfVideoCaptureAPIs VectorOfVideoCaptureAPIs::slice( size_t start = 0,
-                                                          size_t count = __self->get()->size() );
+std::vector<cv::VideoCaptureAPIs> VectorOfVideoCaptureAPIs::slice( size_t start = 0,
+                                                                   size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVideoCaptureAPIs.slice( [$start[, $count]] ) -> retval
 ```
@@ -85052,19 +85052,19 @@ AutoIt:
 ### VectorOfPoint3f::create
 
 ```cpp
-static VectorOfPoint3f VectorOfPoint3f::create();
+static std::vector<cv::Point3f> VectorOfPoint3f::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPoint3f").create() -> <VectorOfPoint3f object>
 ```
 
 ```cpp
-static VectorOfPoint3f VectorOfPoint3f::create( size_t size );
+static std::vector<cv::Point3f> VectorOfPoint3f::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPoint3f").create( $size ) -> <VectorOfPoint3f object>
 ```
 
 ```cpp
-static VectorOfPoint3f VectorOfPoint3f::create( VectorOfPoint3f other );
+static std::vector<cv::Point3f> VectorOfPoint3f::create( std::vector<cv::Point3f> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPoint3f").create( $other ) -> <VectorOfPoint3f object>
 ```
@@ -85080,7 +85080,7 @@ AutoIt:
 ### VectorOfPoint3f::IsInstance
 
 ```cpp
-static bool VectorOfPoint3f::IsInstance( const VectorOfPoint3f& obj );
+static bool VectorOfPoint3f::IsInstance( const std::vector<cv::Point3f>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPoint3f").IsInstance( $obj ) -> retval
 ```
@@ -85094,7 +85094,7 @@ AutoIt:
 ### VectorOfPoint3f::Items
 
 ```cpp
-VectorOfPoint3f VectorOfPoint3f::Items();
+std::vector<cv::Point3f> VectorOfPoint3f::Items();
 AutoIt:
     $oVectorOfPoint3f.Items() -> retval
 ```
@@ -85190,15 +85190,15 @@ AutoIt:
 ### VectorOfPoint3f::push\_vector
 
 ```cpp
-void VectorOfPoint3f::push_vector( VectorOfPoint3f other );
+void VectorOfPoint3f::push_vector( std::vector<cv::Point3f> other );
 AutoIt:
     $oVectorOfPoint3f.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfPoint3f::push_vector( VectorOfPoint3f other,
-                                   size_t          count,
-                                   size_t          start = 0 );
+void VectorOfPoint3f::push_vector( std::vector<cv::Point3f> other,
+                                   size_t                   count,
+                                   size_t                   start = 0 );
 AutoIt:
     $oVectorOfPoint3f.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -85223,8 +85223,8 @@ AutoIt:
 ### VectorOfPoint3f::slice
 
 ```cpp
-VectorOfPoint3f VectorOfPoint3f::slice( size_t start = 0,
-                                        size_t count = __self->get()->size() );
+std::vector<cv::Point3f> VectorOfPoint3f::slice( size_t start = 0,
+                                                 size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfPoint3f.slice( [$start[, $count]] ) -> retval
 ```
@@ -85270,19 +85270,19 @@ AutoIt:
 ### VectorOfVectorOfPoint3f::create
 
 ```cpp
-static VectorOfVectorOfPoint3f VectorOfVectorOfPoint3f::create();
+static std::vector<std::vector<cv::Point3f>> VectorOfVectorOfPoint3f::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfPoint3f").create() -> <VectorOfVectorOfPoint3f object>
 ```
 
 ```cpp
-static VectorOfVectorOfPoint3f VectorOfVectorOfPoint3f::create( size_t size );
+static std::vector<std::vector<cv::Point3f>> VectorOfVectorOfPoint3f::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfPoint3f").create( $size ) -> <VectorOfVectorOfPoint3f object>
 ```
 
 ```cpp
-static VectorOfVectorOfPoint3f VectorOfVectorOfPoint3f::create( VectorOfVectorOfPoint3f other );
+static std::vector<std::vector<cv::Point3f>> VectorOfVectorOfPoint3f::create( std::vector<std::vector<cv::Point3f>> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfPoint3f").create( $other ) -> <VectorOfVectorOfPoint3f object>
 ```
@@ -85298,7 +85298,7 @@ AutoIt:
 ### VectorOfVectorOfPoint3f::IsInstance
 
 ```cpp
-static bool VectorOfVectorOfPoint3f::IsInstance( const VectorOfVectorOfPoint3f& obj );
+static bool VectorOfVectorOfPoint3f::IsInstance( const std::vector<std::vector<cv::Point3f>>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfPoint3f").IsInstance( $obj ) -> retval
 ```
@@ -85312,7 +85312,7 @@ AutoIt:
 ### VectorOfVectorOfPoint3f::Items
 
 ```cpp
-VectorOfVectorOfPoint3f VectorOfVectorOfPoint3f::Items();
+std::vector<std::vector<cv::Point3f>> VectorOfVectorOfPoint3f::Items();
 AutoIt:
     $oVectorOfVectorOfPoint3f.Items() -> retval
 ```
@@ -85408,15 +85408,15 @@ AutoIt:
 ### VectorOfVectorOfPoint3f::push\_vector
 
 ```cpp
-void VectorOfVectorOfPoint3f::push_vector( VectorOfVectorOfPoint3f other );
+void VectorOfVectorOfPoint3f::push_vector( std::vector<std::vector<cv::Point3f>> other );
 AutoIt:
     $oVectorOfVectorOfPoint3f.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVectorOfPoint3f::push_vector( VectorOfVectorOfPoint3f other,
-                                           size_t                  count,
-                                           size_t                  start = 0 );
+void VectorOfVectorOfPoint3f::push_vector( std::vector<std::vector<cv::Point3f>> other,
+                                           size_t                                count,
+                                           size_t                                start = 0 );
 AutoIt:
     $oVectorOfVectorOfPoint3f.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -85441,8 +85441,8 @@ AutoIt:
 ### VectorOfVectorOfPoint3f::slice
 
 ```cpp
-VectorOfVectorOfPoint3f VectorOfVectorOfPoint3f::slice( size_t start = 0,
-                                                        size_t count = __self->get()->size() );
+std::vector<std::vector<cv::Point3f>> VectorOfVectorOfPoint3f::slice( size_t start = 0,
+                                                                      size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVectorOfPoint3f.slice( [$start[, $count]] ) -> retval
 ```
@@ -85488,19 +85488,19 @@ AutoIt:
 ### VectorOfAruco\_Dictionary::create
 
 ```cpp
-static VectorOfAruco_Dictionary VectorOfAruco_Dictionary::create();
+static std::vector<cv::aruco::Dictionary> VectorOfAruco_Dictionary::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfAruco_Dictionary").create() -> <VectorOfAruco_Dictionary object>
 ```
 
 ```cpp
-static VectorOfAruco_Dictionary VectorOfAruco_Dictionary::create( size_t size );
+static std::vector<cv::aruco::Dictionary> VectorOfAruco_Dictionary::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfAruco_Dictionary").create( $size ) -> <VectorOfAruco_Dictionary object>
 ```
 
 ```cpp
-static VectorOfAruco_Dictionary VectorOfAruco_Dictionary::create( VectorOfAruco_Dictionary other );
+static std::vector<cv::aruco::Dictionary> VectorOfAruco_Dictionary::create( std::vector<cv::aruco::Dictionary> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfAruco_Dictionary").create( $other ) -> <VectorOfAruco_Dictionary object>
 ```
@@ -85516,7 +85516,7 @@ AutoIt:
 ### VectorOfAruco\_Dictionary::IsInstance
 
 ```cpp
-static bool VectorOfAruco_Dictionary::IsInstance( const VectorOfAruco_Dictionary& obj );
+static bool VectorOfAruco_Dictionary::IsInstance( const std::vector<cv::aruco::Dictionary>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfAruco_Dictionary").IsInstance( $obj ) -> retval
 ```
@@ -85530,7 +85530,7 @@ AutoIt:
 ### VectorOfAruco\_Dictionary::Items
 
 ```cpp
-VectorOfAruco_Dictionary VectorOfAruco_Dictionary::Items();
+std::vector<cv::aruco::Dictionary> VectorOfAruco_Dictionary::Items();
 AutoIt:
     $oVectorOfAruco_Dictionary.Items() -> retval
 ```
@@ -85626,15 +85626,15 @@ AutoIt:
 ### VectorOfAruco\_Dictionary::push\_vector
 
 ```cpp
-void VectorOfAruco_Dictionary::push_vector( VectorOfAruco_Dictionary other );
+void VectorOfAruco_Dictionary::push_vector( std::vector<cv::aruco::Dictionary> other );
 AutoIt:
     $oVectorOfAruco_Dictionary.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfAruco_Dictionary::push_vector( VectorOfAruco_Dictionary other,
-                                            size_t                   count,
-                                            size_t                   start = 0 );
+void VectorOfAruco_Dictionary::push_vector( std::vector<cv::aruco::Dictionary> other,
+                                            size_t                             count,
+                                            size_t                             start = 0 );
 AutoIt:
     $oVectorOfAruco_Dictionary.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -85659,8 +85659,8 @@ AutoIt:
 ### VectorOfAruco\_Dictionary::slice
 
 ```cpp
-VectorOfAruco_Dictionary VectorOfAruco_Dictionary::slice( size_t start = 0,
-                                                          size_t count = __self->get()->size() );
+std::vector<cv::aruco::Dictionary> VectorOfAruco_Dictionary::slice( size_t start = 0,
+                                                                    size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfAruco_Dictionary.slice( [$start[, $count]] ) -> retval
 ```
@@ -85706,19 +85706,19 @@ AutoIt:
 ### VectorOfDetail\_CameraParams::create
 
 ```cpp
-static VectorOfDetail_CameraParams VectorOfDetail_CameraParams::create();
+static std::vector<cv::detail::CameraParams> VectorOfDetail_CameraParams::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfDetail_CameraParams").create() -> <VectorOfDetail_CameraParams object>
 ```
 
 ```cpp
-static VectorOfDetail_CameraParams VectorOfDetail_CameraParams::create( size_t size );
+static std::vector<cv::detail::CameraParams> VectorOfDetail_CameraParams::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfDetail_CameraParams").create( $size ) -> <VectorOfDetail_CameraParams object>
 ```
 
 ```cpp
-static VectorOfDetail_CameraParams VectorOfDetail_CameraParams::create( VectorOfDetail_CameraParams other );
+static std::vector<cv::detail::CameraParams> VectorOfDetail_CameraParams::create( std::vector<cv::detail::CameraParams> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfDetail_CameraParams").create( $other ) -> <VectorOfDetail_CameraParams object>
 ```
@@ -85734,7 +85734,7 @@ AutoIt:
 ### VectorOfDetail\_CameraParams::IsInstance
 
 ```cpp
-static bool VectorOfDetail_CameraParams::IsInstance( const VectorOfDetail_CameraParams& obj );
+static bool VectorOfDetail_CameraParams::IsInstance( const std::vector<cv::detail::CameraParams>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfDetail_CameraParams").IsInstance( $obj ) -> retval
 ```
@@ -85748,7 +85748,7 @@ AutoIt:
 ### VectorOfDetail\_CameraParams::Items
 
 ```cpp
-VectorOfDetail_CameraParams VectorOfDetail_CameraParams::Items();
+std::vector<cv::detail::CameraParams> VectorOfDetail_CameraParams::Items();
 AutoIt:
     $oVectorOfDetail_CameraParams.Items() -> retval
 ```
@@ -85844,15 +85844,15 @@ AutoIt:
 ### VectorOfDetail\_CameraParams::push\_vector
 
 ```cpp
-void VectorOfDetail_CameraParams::push_vector( VectorOfDetail_CameraParams other );
+void VectorOfDetail_CameraParams::push_vector( std::vector<cv::detail::CameraParams> other );
 AutoIt:
     $oVectorOfDetail_CameraParams.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfDetail_CameraParams::push_vector( VectorOfDetail_CameraParams other,
-                                               size_t                      count,
-                                               size_t                      start = 0 );
+void VectorOfDetail_CameraParams::push_vector( std::vector<cv::detail::CameraParams> other,
+                                               size_t                                count,
+                                               size_t                                start = 0 );
 AutoIt:
     $oVectorOfDetail_CameraParams.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -85877,8 +85877,8 @@ AutoIt:
 ### VectorOfDetail\_CameraParams::slice
 
 ```cpp
-VectorOfDetail_CameraParams VectorOfDetail_CameraParams::slice( size_t start = 0,
-                                                                size_t count = __self->get()->size() );
+std::vector<cv::detail::CameraParams> VectorOfDetail_CameraParams::slice( size_t start = 0,
+                                                                          size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfDetail_CameraParams.slice( [$start[, $count]] ) -> retval
 ```
@@ -85916,7 +85916,7 @@ AutoIt:
 ### cv\_GOpaque\_int::IsInstance
 
 ```cpp
-static bool cv_GOpaque_int::IsInstance( const cv_GOpaque_int& obj );
+static bool cv_GOpaque_int::IsInstance( const cv::GOpaque<int>& obj );
 AutoIt:
     _OpenCV_ObjCreate("cv_GOpaque_int").IsInstance( $obj ) -> retval
 ```
@@ -85932,7 +85932,7 @@ AutoIt:
 ### cv\_GOpaque\_double::IsInstance
 
 ```cpp
-static bool cv_GOpaque_double::IsInstance( const cv_GOpaque_double& obj );
+static bool cv_GOpaque_double::IsInstance( const cv::GOpaque<double>& obj );
 AutoIt:
     _OpenCV_ObjCreate("cv_GOpaque_double").IsInstance( $obj ) -> retval
 ```
@@ -85948,7 +85948,7 @@ AutoIt:
 ### cv\_GArray\_int::IsInstance
 
 ```cpp
-static bool cv_GArray_int::IsInstance( const cv_GArray_int& obj );
+static bool cv_GArray_int::IsInstance( const cv::GArray<int>& obj );
 AutoIt:
     _OpenCV_ObjCreate("cv_GArray_int").IsInstance( $obj ) -> retval
 ```
@@ -85964,7 +85964,7 @@ AutoIt:
 ### cv\_GArray\_cv\_Point2f::IsInstance
 
 ```cpp
-static bool cv_GArray_cv_Point2f::IsInstance( const cv_GArray_cv_Point2f& obj );
+static bool cv_GArray_cv_Point2f::IsInstance( const cv::GArray<cv::Point2f>& obj );
 AutoIt:
     _OpenCV_ObjCreate("cv_GArray_cv_Point2f").IsInstance( $obj ) -> retval
 ```
@@ -85980,7 +85980,7 @@ AutoIt:
 ### cv\_GArray\_cv\_Point3f::IsInstance
 
 ```cpp
-static bool cv_GArray_cv_Point3f::IsInstance( const cv_GArray_cv_Point3f& obj );
+static bool cv_GArray_cv_Point3f::IsInstance( const cv::GArray<cv::Point3f>& obj );
 AutoIt:
     _OpenCV_ObjCreate("cv_GArray_cv_Point3f").IsInstance( $obj ) -> retval
 ```
@@ -85996,7 +85996,7 @@ AutoIt:
 ### cv\_GOpaque\_cv\_Rect::IsInstance
 
 ```cpp
-static bool cv_GOpaque_cv_Rect::IsInstance( const cv_GOpaque_cv_Rect& obj );
+static bool cv_GOpaque_cv_Rect::IsInstance( const cv::GOpaque<cv::Rect>& obj );
 AutoIt:
     _OpenCV_ObjCreate("cv_GOpaque_cv_Rect").IsInstance( $obj ) -> retval
 ```
@@ -86012,7 +86012,7 @@ AutoIt:
 ### cv\_GArray\_cv\_Rect::IsInstance
 
 ```cpp
-static bool cv_GArray_cv_Rect::IsInstance( const cv_GArray_cv_Rect& obj );
+static bool cv_GArray_cv_Rect::IsInstance( const cv::GArray<cv::Rect>& obj );
 AutoIt:
     _OpenCV_ObjCreate("cv_GArray_cv_Rect").IsInstance( $obj ) -> retval
 ```
@@ -86028,7 +86028,7 @@ AutoIt:
 ### cv\_GArray\_cv\_Point2i::IsInstance
 
 ```cpp
-static bool cv_GArray_cv_Point2i::IsInstance( const cv_GArray_cv_Point2i& obj );
+static bool cv_GArray_cv_Point2i::IsInstance( const cv::GArray<cv::Point2i>& obj );
 AutoIt:
     _OpenCV_ObjCreate("cv_GArray_cv_Point2i").IsInstance( $obj ) -> retval
 ```
@@ -86044,7 +86044,7 @@ AutoIt:
 ### cv\_GOpaque\_cv\_Size::IsInstance
 
 ```cpp
-static bool cv_GOpaque_cv_Size::IsInstance( const cv_GOpaque_cv_Size& obj );
+static bool cv_GOpaque_cv_Size::IsInstance( const cv::GOpaque<cv::Size>& obj );
 AutoIt:
     _OpenCV_ObjCreate("cv_GOpaque_cv_Size").IsInstance( $obj ) -> retval
 ```
@@ -86068,19 +86068,19 @@ AutoIt:
 ### VectorOfGMat::create
 
 ```cpp
-static VectorOfGMat VectorOfGMat::create();
+static std::vector<cv::GMat> VectorOfGMat::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfGMat").create() -> <VectorOfGMat object>
 ```
 
 ```cpp
-static VectorOfGMat VectorOfGMat::create( size_t size );
+static std::vector<cv::GMat> VectorOfGMat::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfGMat").create( $size ) -> <VectorOfGMat object>
 ```
 
 ```cpp
-static VectorOfGMat VectorOfGMat::create( VectorOfGMat other );
+static std::vector<cv::GMat> VectorOfGMat::create( std::vector<cv::GMat> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfGMat").create( $other ) -> <VectorOfGMat object>
 ```
@@ -86096,7 +86096,7 @@ AutoIt:
 ### VectorOfGMat::IsInstance
 
 ```cpp
-static bool VectorOfGMat::IsInstance( const VectorOfGMat& obj );
+static bool VectorOfGMat::IsInstance( const std::vector<cv::GMat>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfGMat").IsInstance( $obj ) -> retval
 ```
@@ -86110,7 +86110,7 @@ AutoIt:
 ### VectorOfGMat::Items
 
 ```cpp
-VectorOfGMat VectorOfGMat::Items();
+std::vector<cv::GMat> VectorOfGMat::Items();
 AutoIt:
     $oVectorOfGMat.Items() -> retval
 ```
@@ -86206,15 +86206,15 @@ AutoIt:
 ### VectorOfGMat::push\_vector
 
 ```cpp
-void VectorOfGMat::push_vector( VectorOfGMat other );
+void VectorOfGMat::push_vector( std::vector<cv::GMat> other );
 AutoIt:
     $oVectorOfGMat.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfGMat::push_vector( VectorOfGMat other,
-                                size_t       count,
-                                size_t       start = 0 );
+void VectorOfGMat::push_vector( std::vector<cv::GMat> other,
+                                size_t                count,
+                                size_t                start = 0 );
 AutoIt:
     $oVectorOfGMat.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -86239,8 +86239,8 @@ AutoIt:
 ### VectorOfGMat::slice
 
 ```cpp
-VectorOfGMat VectorOfGMat::slice( size_t start = 0,
-                                  size_t count = __self->get()->size() );
+std::vector<cv::GMat> VectorOfGMat::slice( size_t start = 0,
+                                           size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfGMat.slice( [$start[, $count]] ) -> retval
 ```
@@ -86278,7 +86278,7 @@ AutoIt:
 ### cv\_GOpaque\_int64\_t::IsInstance
 
 ```cpp
-static bool cv_GOpaque_int64_t::IsInstance( const cv_GOpaque_int64_t& obj );
+static bool cv_GOpaque_int64_t::IsInstance( const cv::GOpaque<int64_t>& obj );
 AutoIt:
     _OpenCV_ObjCreate("cv_GOpaque_int64_t").IsInstance( $obj ) -> retval
 ```
@@ -86294,7 +86294,7 @@ AutoIt:
 ### cv\_GArray\_uint64\_t::IsInstance
 
 ```cpp
-static bool cv_GArray_uint64_t::IsInstance( const cv_GArray_uint64_t& obj );
+static bool cv_GArray_uint64_t::IsInstance( const cv::GArray<uint64_t>& obj );
 AutoIt:
     _OpenCV_ObjCreate("cv_GArray_uint64_t").IsInstance( $obj ) -> retval
 ```
@@ -86318,19 +86318,19 @@ AutoIt:
 ### VectorOfGRunArg::create
 
 ```cpp
-static VectorOfGRunArg VectorOfGRunArg::create();
+static std::vector<cv::GRunArg> VectorOfGRunArg::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfGRunArg").create() -> <VectorOfGRunArg object>
 ```
 
 ```cpp
-static VectorOfGRunArg VectorOfGRunArg::create( size_t size );
+static std::vector<cv::GRunArg> VectorOfGRunArg::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfGRunArg").create( $size ) -> <VectorOfGRunArg object>
 ```
 
 ```cpp
-static VectorOfGRunArg VectorOfGRunArg::create( VectorOfGRunArg other );
+static std::vector<cv::GRunArg> VectorOfGRunArg::create( std::vector<cv::GRunArg> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfGRunArg").create( $other ) -> <VectorOfGRunArg object>
 ```
@@ -86346,7 +86346,7 @@ AutoIt:
 ### VectorOfGRunArg::IsInstance
 
 ```cpp
-static bool VectorOfGRunArg::IsInstance( const VectorOfGRunArg& obj );
+static bool VectorOfGRunArg::IsInstance( const std::vector<cv::GRunArg>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfGRunArg").IsInstance( $obj ) -> retval
 ```
@@ -86360,7 +86360,7 @@ AutoIt:
 ### VectorOfGRunArg::Items
 
 ```cpp
-VectorOfGRunArg VectorOfGRunArg::Items();
+std::vector<cv::GRunArg> VectorOfGRunArg::Items();
 AutoIt:
     $oVectorOfGRunArg.Items() -> retval
 ```
@@ -86456,15 +86456,15 @@ AutoIt:
 ### VectorOfGRunArg::push\_vector
 
 ```cpp
-void VectorOfGRunArg::push_vector( VectorOfGRunArg other );
+void VectorOfGRunArg::push_vector( std::vector<cv::GRunArg> other );
 AutoIt:
     $oVectorOfGRunArg.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfGRunArg::push_vector( VectorOfGRunArg other,
-                                   size_t          count,
-                                   size_t          start = 0 );
+void VectorOfGRunArg::push_vector( std::vector<cv::GRunArg> other,
+                                   size_t                   count,
+                                   size_t                   start = 0 );
 AutoIt:
     $oVectorOfGRunArg.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -86489,8 +86489,8 @@ AutoIt:
 ### VectorOfGRunArg::slice
 
 ```cpp
-VectorOfGRunArg VectorOfGRunArg::slice( size_t start = 0,
-                                        size_t count = __self->get()->size() );
+std::vector<cv::GRunArg> VectorOfGRunArg::slice( size_t start = 0,
+                                                 size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfGRunArg.slice( [$start[, $count]] ) -> retval
 ```
@@ -86536,19 +86536,19 @@ AutoIt:
 ### VectorOfGCompileArg::create
 
 ```cpp
-static VectorOfGCompileArg VectorOfGCompileArg::create();
+static std::vector<cv::GCompileArg> VectorOfGCompileArg::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfGCompileArg").create() -> <VectorOfGCompileArg object>
 ```
 
 ```cpp
-static VectorOfGCompileArg VectorOfGCompileArg::create( size_t size );
+static std::vector<cv::GCompileArg> VectorOfGCompileArg::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfGCompileArg").create( $size ) -> <VectorOfGCompileArg object>
 ```
 
 ```cpp
-static VectorOfGCompileArg VectorOfGCompileArg::create( VectorOfGCompileArg other );
+static std::vector<cv::GCompileArg> VectorOfGCompileArg::create( std::vector<cv::GCompileArg> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfGCompileArg").create( $other ) -> <VectorOfGCompileArg object>
 ```
@@ -86564,7 +86564,7 @@ AutoIt:
 ### VectorOfGCompileArg::IsInstance
 
 ```cpp
-static bool VectorOfGCompileArg::IsInstance( const VectorOfGCompileArg& obj );
+static bool VectorOfGCompileArg::IsInstance( const std::vector<cv::GCompileArg>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfGCompileArg").IsInstance( $obj ) -> retval
 ```
@@ -86578,7 +86578,7 @@ AutoIt:
 ### VectorOfGCompileArg::Items
 
 ```cpp
-VectorOfGCompileArg VectorOfGCompileArg::Items();
+std::vector<cv::GCompileArg> VectorOfGCompileArg::Items();
 AutoIt:
     $oVectorOfGCompileArg.Items() -> retval
 ```
@@ -86674,15 +86674,15 @@ AutoIt:
 ### VectorOfGCompileArg::push\_vector
 
 ```cpp
-void VectorOfGCompileArg::push_vector( VectorOfGCompileArg other );
+void VectorOfGCompileArg::push_vector( std::vector<cv::GCompileArg> other );
 AutoIt:
     $oVectorOfGCompileArg.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfGCompileArg::push_vector( VectorOfGCompileArg other,
-                                       size_t              count,
-                                       size_t              start = 0 );
+void VectorOfGCompileArg::push_vector( std::vector<cv::GCompileArg> other,
+                                       size_t                       count,
+                                       size_t                       start = 0 );
 AutoIt:
     $oVectorOfGCompileArg.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -86707,8 +86707,8 @@ AutoIt:
 ### VectorOfGCompileArg::slice
 
 ```cpp
-VectorOfGCompileArg VectorOfGCompileArg::slice( size_t start = 0,
-                                                size_t count = __self->get()->size() );
+std::vector<cv::GCompileArg> VectorOfGCompileArg::slice( size_t start = 0,
+                                                         size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfGCompileArg.slice( [$start[, $count]] ) -> retval
 ```
@@ -86754,19 +86754,19 @@ AutoIt:
 ### VectorOfGMetaArg::create
 
 ```cpp
-static VectorOfGMetaArg VectorOfGMetaArg::create();
+static std::vector<cv::GMetaArg> VectorOfGMetaArg::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfGMetaArg").create() -> <VectorOfGMetaArg object>
 ```
 
 ```cpp
-static VectorOfGMetaArg VectorOfGMetaArg::create( size_t size );
+static std::vector<cv::GMetaArg> VectorOfGMetaArg::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfGMetaArg").create( $size ) -> <VectorOfGMetaArg object>
 ```
 
 ```cpp
-static VectorOfGMetaArg VectorOfGMetaArg::create( VectorOfGMetaArg other );
+static std::vector<cv::GMetaArg> VectorOfGMetaArg::create( std::vector<cv::GMetaArg> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfGMetaArg").create( $other ) -> <VectorOfGMetaArg object>
 ```
@@ -86782,7 +86782,7 @@ AutoIt:
 ### VectorOfGMetaArg::IsInstance
 
 ```cpp
-static bool VectorOfGMetaArg::IsInstance( const VectorOfGMetaArg& obj );
+static bool VectorOfGMetaArg::IsInstance( const std::vector<cv::GMetaArg>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfGMetaArg").IsInstance( $obj ) -> retval
 ```
@@ -86796,7 +86796,7 @@ AutoIt:
 ### VectorOfGMetaArg::Items
 
 ```cpp
-VectorOfGMetaArg VectorOfGMetaArg::Items();
+std::vector<cv::GMetaArg> VectorOfGMetaArg::Items();
 AutoIt:
     $oVectorOfGMetaArg.Items() -> retval
 ```
@@ -86892,15 +86892,15 @@ AutoIt:
 ### VectorOfGMetaArg::push\_vector
 
 ```cpp
-void VectorOfGMetaArg::push_vector( VectorOfGMetaArg other );
+void VectorOfGMetaArg::push_vector( std::vector<cv::GMetaArg> other );
 AutoIt:
     $oVectorOfGMetaArg.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfGMetaArg::push_vector( VectorOfGMetaArg other,
-                                    size_t           count,
-                                    size_t           start = 0 );
+void VectorOfGMetaArg::push_vector( std::vector<cv::GMetaArg> other,
+                                    size_t                    count,
+                                    size_t                    start = 0 );
 AutoIt:
     $oVectorOfGMetaArg.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -86925,8 +86925,8 @@ AutoIt:
 ### VectorOfGMetaArg::slice
 
 ```cpp
-VectorOfGMetaArg VectorOfGMetaArg::slice( size_t start = 0,
-                                          size_t count = __self->get()->size() );
+std::vector<cv::GMetaArg> VectorOfGMetaArg::slice( size_t start = 0,
+                                                   size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfGMetaArg.slice( [$start[, $count]] ) -> retval
 ```
@@ -86972,19 +86972,19 @@ AutoIt:
 ### VectorOfGapi\_GNetParam::create
 
 ```cpp
-static VectorOfGapi_GNetParam VectorOfGapi_GNetParam::create();
+static std::vector<cv::gapi::GNetParam> VectorOfGapi_GNetParam::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfGapi_GNetParam").create() -> <VectorOfGapi_GNetParam object>
 ```
 
 ```cpp
-static VectorOfGapi_GNetParam VectorOfGapi_GNetParam::create( size_t size );
+static std::vector<cv::gapi::GNetParam> VectorOfGapi_GNetParam::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfGapi_GNetParam").create( $size ) -> <VectorOfGapi_GNetParam object>
 ```
 
 ```cpp
-static VectorOfGapi_GNetParam VectorOfGapi_GNetParam::create( VectorOfGapi_GNetParam other );
+static std::vector<cv::gapi::GNetParam> VectorOfGapi_GNetParam::create( std::vector<cv::gapi::GNetParam> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfGapi_GNetParam").create( $other ) -> <VectorOfGapi_GNetParam object>
 ```
@@ -87000,7 +87000,7 @@ AutoIt:
 ### VectorOfGapi\_GNetParam::IsInstance
 
 ```cpp
-static bool VectorOfGapi_GNetParam::IsInstance( const VectorOfGapi_GNetParam& obj );
+static bool VectorOfGapi_GNetParam::IsInstance( const std::vector<cv::gapi::GNetParam>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfGapi_GNetParam").IsInstance( $obj ) -> retval
 ```
@@ -87014,7 +87014,7 @@ AutoIt:
 ### VectorOfGapi\_GNetParam::Items
 
 ```cpp
-VectorOfGapi_GNetParam VectorOfGapi_GNetParam::Items();
+std::vector<cv::gapi::GNetParam> VectorOfGapi_GNetParam::Items();
 AutoIt:
     $oVectorOfGapi_GNetParam.Items() -> retval
 ```
@@ -87110,15 +87110,15 @@ AutoIt:
 ### VectorOfGapi\_GNetParam::push\_vector
 
 ```cpp
-void VectorOfGapi_GNetParam::push_vector( VectorOfGapi_GNetParam other );
+void VectorOfGapi_GNetParam::push_vector( std::vector<cv::gapi::GNetParam> other );
 AutoIt:
     $oVectorOfGapi_GNetParam.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfGapi_GNetParam::push_vector( VectorOfGapi_GNetParam other,
-                                          size_t                 count,
-                                          size_t                 start = 0 );
+void VectorOfGapi_GNetParam::push_vector( std::vector<cv::gapi::GNetParam> other,
+                                          size_t                           count,
+                                          size_t                           start = 0 );
 AutoIt:
     $oVectorOfGapi_GNetParam.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -87143,8 +87143,8 @@ AutoIt:
 ### VectorOfGapi\_GNetParam::slice
 
 ```cpp
-VectorOfGapi_GNetParam VectorOfGapi_GNetParam::slice( size_t start = 0,
-                                                      size_t count = __self->get()->size() );
+std::vector<cv::gapi::GNetParam> VectorOfGapi_GNetParam::slice( size_t start = 0,
+                                                                size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfGapi_GNetParam.slice( [$start[, $count]] ) -> retval
 ```
@@ -87182,13 +87182,13 @@ AutoIt:
 ### MapOfStringAndString::create
 
 ```cpp
-static MapOfStringAndString MapOfStringAndString::create();
+static std::map<std::string, std::string> MapOfStringAndString::create();
 AutoIt:
     _OpenCV_ObjCreate("MapOfStringAndString").create() -> <MapOfStringAndString object>
 ```
 
 ```cpp
-static cv::Ptr<MapOfStringAndString> MapOfStringAndString::create( std::vector<std::pair<std::string, std::string>> pairs );
+static cv::Ptr<std::map<std::string, std::string>> MapOfStringAndString::create( std::vector<std::pair<std::string, std::string>> pairs );
 AutoIt:
     _OpenCV_ObjCreate("MapOfStringAndString").create( $pairs ) -> retval
 ```
@@ -87213,7 +87213,7 @@ AutoIt:
 ### MapOfStringAndString::IsInstance
 
 ```cpp
-static bool MapOfStringAndString::IsInstance( const MapOfStringAndString& obj );
+static bool MapOfStringAndString::IsInstance( const std::map<std::string, std::string>& obj );
 AutoIt:
     _OpenCV_ObjCreate("MapOfStringAndString").IsInstance( $obj ) -> retval
 ```
@@ -87324,7 +87324,7 @@ AutoIt:
 ### MapOfStringAndString::merge
 
 ```cpp
-void MapOfStringAndString::merge( MapOfStringAndString other );
+void MapOfStringAndString::merge( std::map<std::string, std::string> other );
 AutoIt:
     $oMapOfStringAndString.merge( $other ) -> None
 ```
@@ -87359,19 +87359,19 @@ AutoIt:
 ### VectorOfPairOfStringAndString::create
 
 ```cpp
-static VectorOfPairOfStringAndString VectorOfPairOfStringAndString::create();
+static std::vector<std::pair<std::string, std::string>> VectorOfPairOfStringAndString::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPairOfStringAndString").create() -> <VectorOfPairOfStringAndString object>
 ```
 
 ```cpp
-static VectorOfPairOfStringAndString VectorOfPairOfStringAndString::create( size_t size );
+static std::vector<std::pair<std::string, std::string>> VectorOfPairOfStringAndString::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPairOfStringAndString").create( $size ) -> <VectorOfPairOfStringAndString object>
 ```
 
 ```cpp
-static VectorOfPairOfStringAndString VectorOfPairOfStringAndString::create( VectorOfPairOfStringAndString other );
+static std::vector<std::pair<std::string, std::string>> VectorOfPairOfStringAndString::create( std::vector<std::pair<std::string, std::string>> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPairOfStringAndString").create( $other ) -> <VectorOfPairOfStringAndString object>
 ```
@@ -87387,7 +87387,7 @@ AutoIt:
 ### VectorOfPairOfStringAndString::IsInstance
 
 ```cpp
-static bool VectorOfPairOfStringAndString::IsInstance( const VectorOfPairOfStringAndString& obj );
+static bool VectorOfPairOfStringAndString::IsInstance( const std::vector<std::pair<std::string, std::string>>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPairOfStringAndString").IsInstance( $obj ) -> retval
 ```
@@ -87401,7 +87401,7 @@ AutoIt:
 ### VectorOfPairOfStringAndString::Items
 
 ```cpp
-VectorOfPairOfStringAndString VectorOfPairOfStringAndString::Items();
+std::vector<std::pair<std::string, std::string>> VectorOfPairOfStringAndString::Items();
 AutoIt:
     $oVectorOfPairOfStringAndString.Items() -> retval
 ```
@@ -87497,15 +87497,15 @@ AutoIt:
 ### VectorOfPairOfStringAndString::push\_vector
 
 ```cpp
-void VectorOfPairOfStringAndString::push_vector( VectorOfPairOfStringAndString other );
+void VectorOfPairOfStringAndString::push_vector( std::vector<std::pair<std::string, std::string>> other );
 AutoIt:
     $oVectorOfPairOfStringAndString.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfPairOfStringAndString::push_vector( VectorOfPairOfStringAndString other,
-                                                 size_t                        count,
-                                                 size_t                        start = 0 );
+void VectorOfPairOfStringAndString::push_vector( std::vector<std::pair<std::string, std::string>> other,
+                                                 size_t                                           count,
+                                                 size_t                                           start = 0 );
 AutoIt:
     $oVectorOfPairOfStringAndString.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -87530,8 +87530,8 @@ AutoIt:
 ### VectorOfPairOfStringAndString::slice
 
 ```cpp
-VectorOfPairOfStringAndString VectorOfPairOfStringAndString::slice( size_t start = 0,
-                                                                    size_t count = __self->get()->size() );
+std::vector<std::pair<std::string, std::string>> VectorOfPairOfStringAndString::slice( size_t start = 0,
+                                                                                       size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfPairOfStringAndString.slice( [$start[, $count]] ) -> retval
 ```
@@ -87569,13 +87569,13 @@ AutoIt:
 ### MapOfStringAndInt::create
 
 ```cpp
-static MapOfStringAndInt MapOfStringAndInt::create();
+static std::map<std::string, int> MapOfStringAndInt::create();
 AutoIt:
     _OpenCV_ObjCreate("MapOfStringAndInt").create() -> <MapOfStringAndInt object>
 ```
 
 ```cpp
-static cv::Ptr<MapOfStringAndInt> MapOfStringAndInt::create( std::vector<std::pair<std::string, int>> pairs );
+static cv::Ptr<std::map<std::string, int>> MapOfStringAndInt::create( std::vector<std::pair<std::string, int>> pairs );
 AutoIt:
     _OpenCV_ObjCreate("MapOfStringAndInt").create( $pairs ) -> retval
 ```
@@ -87600,7 +87600,7 @@ AutoIt:
 ### MapOfStringAndInt::IsInstance
 
 ```cpp
-static bool MapOfStringAndInt::IsInstance( const MapOfStringAndInt& obj );
+static bool MapOfStringAndInt::IsInstance( const std::map<std::string, int>& obj );
 AutoIt:
     _OpenCV_ObjCreate("MapOfStringAndInt").IsInstance( $obj ) -> retval
 ```
@@ -87711,7 +87711,7 @@ AutoIt:
 ### MapOfStringAndInt::merge
 
 ```cpp
-void MapOfStringAndInt::merge( MapOfStringAndInt other );
+void MapOfStringAndInt::merge( std::map<std::string, int> other );
 AutoIt:
     $oMapOfStringAndInt.merge( $other ) -> None
 ```
@@ -87746,19 +87746,19 @@ AutoIt:
 ### VectorOfPairOfStringAndInt::create
 
 ```cpp
-static VectorOfPairOfStringAndInt VectorOfPairOfStringAndInt::create();
+static std::vector<std::pair<std::string, int>> VectorOfPairOfStringAndInt::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPairOfStringAndInt").create() -> <VectorOfPairOfStringAndInt object>
 ```
 
 ```cpp
-static VectorOfPairOfStringAndInt VectorOfPairOfStringAndInt::create( size_t size );
+static std::vector<std::pair<std::string, int>> VectorOfPairOfStringAndInt::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPairOfStringAndInt").create( $size ) -> <VectorOfPairOfStringAndInt object>
 ```
 
 ```cpp
-static VectorOfPairOfStringAndInt VectorOfPairOfStringAndInt::create( VectorOfPairOfStringAndInt other );
+static std::vector<std::pair<std::string, int>> VectorOfPairOfStringAndInt::create( std::vector<std::pair<std::string, int>> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPairOfStringAndInt").create( $other ) -> <VectorOfPairOfStringAndInt object>
 ```
@@ -87774,7 +87774,7 @@ AutoIt:
 ### VectorOfPairOfStringAndInt::IsInstance
 
 ```cpp
-static bool VectorOfPairOfStringAndInt::IsInstance( const VectorOfPairOfStringAndInt& obj );
+static bool VectorOfPairOfStringAndInt::IsInstance( const std::vector<std::pair<std::string, int>>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPairOfStringAndInt").IsInstance( $obj ) -> retval
 ```
@@ -87788,7 +87788,7 @@ AutoIt:
 ### VectorOfPairOfStringAndInt::Items
 
 ```cpp
-VectorOfPairOfStringAndInt VectorOfPairOfStringAndInt::Items();
+std::vector<std::pair<std::string, int>> VectorOfPairOfStringAndInt::Items();
 AutoIt:
     $oVectorOfPairOfStringAndInt.Items() -> retval
 ```
@@ -87884,15 +87884,15 @@ AutoIt:
 ### VectorOfPairOfStringAndInt::push\_vector
 
 ```cpp
-void VectorOfPairOfStringAndInt::push_vector( VectorOfPairOfStringAndInt other );
+void VectorOfPairOfStringAndInt::push_vector( std::vector<std::pair<std::string, int>> other );
 AutoIt:
     $oVectorOfPairOfStringAndInt.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfPairOfStringAndInt::push_vector( VectorOfPairOfStringAndInt other,
-                                              size_t                     count,
-                                              size_t                     start = 0 );
+void VectorOfPairOfStringAndInt::push_vector( std::vector<std::pair<std::string, int>> other,
+                                              size_t                                   count,
+                                              size_t                                   start = 0 );
 AutoIt:
     $oVectorOfPairOfStringAndInt.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -87917,8 +87917,8 @@ AutoIt:
 ### VectorOfPairOfStringAndInt::slice
 
 ```cpp
-VectorOfPairOfStringAndInt VectorOfPairOfStringAndInt::slice( size_t start = 0,
-                                                              size_t count = __self->get()->size() );
+std::vector<std::pair<std::string, int>> VectorOfPairOfStringAndInt::slice( size_t start = 0,
+                                                                            size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfPairOfStringAndInt.slice( [$start[, $count]] ) -> retval
 ```
@@ -87956,13 +87956,13 @@ AutoIt:
 ### MapOfStringAndVectorOfSize\_t::create
 
 ```cpp
-static MapOfStringAndVectorOfSize_t MapOfStringAndVectorOfSize_t::create();
+static std::map<std::string, std::vector<size_t>> MapOfStringAndVectorOfSize_t::create();
 AutoIt:
     _OpenCV_ObjCreate("MapOfStringAndVectorOfSize_t").create() -> <MapOfStringAndVectorOfSize_t object>
 ```
 
 ```cpp
-static cv::Ptr<MapOfStringAndVectorOfSize_t> MapOfStringAndVectorOfSize_t::create( std::vector<std::pair<std::string, std::vector<size_t>>> pairs );
+static cv::Ptr<std::map<std::string, std::vector<size_t>>> MapOfStringAndVectorOfSize_t::create( std::vector<std::pair<std::string, std::vector<size_t>>> pairs );
 AutoIt:
     _OpenCV_ObjCreate("MapOfStringAndVectorOfSize_t").create( $pairs ) -> retval
 ```
@@ -87987,7 +87987,7 @@ AutoIt:
 ### MapOfStringAndVectorOfSize\_t::IsInstance
 
 ```cpp
-static bool MapOfStringAndVectorOfSize_t::IsInstance( const MapOfStringAndVectorOfSize_t& obj );
+static bool MapOfStringAndVectorOfSize_t::IsInstance( const std::map<std::string, std::vector<size_t>>& obj );
 AutoIt:
     _OpenCV_ObjCreate("MapOfStringAndVectorOfSize_t").IsInstance( $obj ) -> retval
 ```
@@ -88098,7 +88098,7 @@ AutoIt:
 ### MapOfStringAndVectorOfSize\_t::merge
 
 ```cpp
-void MapOfStringAndVectorOfSize_t::merge( MapOfStringAndVectorOfSize_t other );
+void MapOfStringAndVectorOfSize_t::merge( std::map<std::string, std::vector<size_t>> other );
 AutoIt:
     $oMapOfStringAndVectorOfSize_t.merge( $other ) -> None
 ```
@@ -88133,19 +88133,19 @@ AutoIt:
 ### VectorOfPairOfStringAndVectorOfSize\_t::create
 
 ```cpp
-static VectorOfPairOfStringAndVectorOfSize_t VectorOfPairOfStringAndVectorOfSize_t::create();
+static std::vector<std::pair<std::string, std::vector<size_t>>> VectorOfPairOfStringAndVectorOfSize_t::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPairOfStringAndVectorOfSize_t").create() -> <VectorOfPairOfStringAndVectorOfSize_t object>
 ```
 
 ```cpp
-static VectorOfPairOfStringAndVectorOfSize_t VectorOfPairOfStringAndVectorOfSize_t::create( size_t size );
+static std::vector<std::pair<std::string, std::vector<size_t>>> VectorOfPairOfStringAndVectorOfSize_t::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPairOfStringAndVectorOfSize_t").create( $size ) -> <VectorOfPairOfStringAndVectorOfSize_t object>
 ```
 
 ```cpp
-static VectorOfPairOfStringAndVectorOfSize_t VectorOfPairOfStringAndVectorOfSize_t::create( VectorOfPairOfStringAndVectorOfSize_t other );
+static std::vector<std::pair<std::string, std::vector<size_t>>> VectorOfPairOfStringAndVectorOfSize_t::create( std::vector<std::pair<std::string, std::vector<size_t>>> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPairOfStringAndVectorOfSize_t").create( $other ) -> <VectorOfPairOfStringAndVectorOfSize_t object>
 ```
@@ -88161,7 +88161,7 @@ AutoIt:
 ### VectorOfPairOfStringAndVectorOfSize\_t::IsInstance
 
 ```cpp
-static bool VectorOfPairOfStringAndVectorOfSize_t::IsInstance( const VectorOfPairOfStringAndVectorOfSize_t& obj );
+static bool VectorOfPairOfStringAndVectorOfSize_t::IsInstance( const std::vector<std::pair<std::string, std::vector<size_t>>>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPairOfStringAndVectorOfSize_t").IsInstance( $obj ) -> retval
 ```
@@ -88175,7 +88175,7 @@ AutoIt:
 ### VectorOfPairOfStringAndVectorOfSize\_t::Items
 
 ```cpp
-VectorOfPairOfStringAndVectorOfSize_t VectorOfPairOfStringAndVectorOfSize_t::Items();
+std::vector<std::pair<std::string, std::vector<size_t>>> VectorOfPairOfStringAndVectorOfSize_t::Items();
 AutoIt:
     $oVectorOfPairOfStringAndVectorOfSize_t.Items() -> retval
 ```
@@ -88271,15 +88271,15 @@ AutoIt:
 ### VectorOfPairOfStringAndVectorOfSize\_t::push\_vector
 
 ```cpp
-void VectorOfPairOfStringAndVectorOfSize_t::push_vector( VectorOfPairOfStringAndVectorOfSize_t other );
+void VectorOfPairOfStringAndVectorOfSize_t::push_vector( std::vector<std::pair<std::string, std::vector<size_t>>> other );
 AutoIt:
     $oVectorOfPairOfStringAndVectorOfSize_t.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfPairOfStringAndVectorOfSize_t::push_vector( VectorOfPairOfStringAndVectorOfSize_t other,
-                                                         size_t                                count,
-                                                         size_t                                start = 0 );
+void VectorOfPairOfStringAndVectorOfSize_t::push_vector( std::vector<std::pair<std::string, std::vector<size_t>>> other,
+                                                         size_t                                                   count,
+                                                         size_t                                                   start = 0 );
 AutoIt:
     $oVectorOfPairOfStringAndVectorOfSize_t.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -88304,8 +88304,8 @@ AutoIt:
 ### VectorOfPairOfStringAndVectorOfSize\_t::slice
 
 ```cpp
-VectorOfPairOfStringAndVectorOfSize_t VectorOfPairOfStringAndVectorOfSize_t::slice( size_t start = 0,
-                                                                                    size_t count = __self->get()->size() );
+std::vector<std::pair<std::string, std::vector<size_t>>> VectorOfPairOfStringAndVectorOfSize_t::slice( size_t start = 0,
+                                                                                                       size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfPairOfStringAndVectorOfSize_t.slice( [$start[, $count]] ) -> retval
 ```
@@ -88351,19 +88351,19 @@ AutoIt:
 ### VectorOfVectorOfSize\_t::create
 
 ```cpp
-static VectorOfVectorOfSize_t VectorOfVectorOfSize_t::create();
+static std::vector<std::vector<size_t>> VectorOfVectorOfSize_t::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfSize_t").create() -> <VectorOfVectorOfSize_t object>
 ```
 
 ```cpp
-static VectorOfVectorOfSize_t VectorOfVectorOfSize_t::create( size_t size );
+static std::vector<std::vector<size_t>> VectorOfVectorOfSize_t::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfSize_t").create( $size ) -> <VectorOfVectorOfSize_t object>
 ```
 
 ```cpp
-static VectorOfVectorOfSize_t VectorOfVectorOfSize_t::create( VectorOfVectorOfSize_t other );
+static std::vector<std::vector<size_t>> VectorOfVectorOfSize_t::create( std::vector<std::vector<size_t>> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfSize_t").create( $other ) -> <VectorOfVectorOfSize_t object>
 ```
@@ -88379,7 +88379,7 @@ AutoIt:
 ### VectorOfVectorOfSize\_t::IsInstance
 
 ```cpp
-static bool VectorOfVectorOfSize_t::IsInstance( const VectorOfVectorOfSize_t& obj );
+static bool VectorOfVectorOfSize_t::IsInstance( const std::vector<std::vector<size_t>>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfSize_t").IsInstance( $obj ) -> retval
 ```
@@ -88393,7 +88393,7 @@ AutoIt:
 ### VectorOfVectorOfSize\_t::Items
 
 ```cpp
-VectorOfVectorOfSize_t VectorOfVectorOfSize_t::Items();
+std::vector<std::vector<size_t>> VectorOfVectorOfSize_t::Items();
 AutoIt:
     $oVectorOfVectorOfSize_t.Items() -> retval
 ```
@@ -88489,15 +88489,15 @@ AutoIt:
 ### VectorOfVectorOfSize\_t::push\_vector
 
 ```cpp
-void VectorOfVectorOfSize_t::push_vector( VectorOfVectorOfSize_t other );
+void VectorOfVectorOfSize_t::push_vector( std::vector<std::vector<size_t>> other );
 AutoIt:
     $oVectorOfVectorOfSize_t.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVectorOfSize_t::push_vector( VectorOfVectorOfSize_t other,
-                                          size_t                 count,
-                                          size_t                 start = 0 );
+void VectorOfVectorOfSize_t::push_vector( std::vector<std::vector<size_t>> other,
+                                          size_t                           count,
+                                          size_t                           start = 0 );
 AutoIt:
     $oVectorOfVectorOfSize_t.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -88522,8 +88522,8 @@ AutoIt:
 ### VectorOfVectorOfSize\_t::slice
 
 ```cpp
-VectorOfVectorOfSize_t VectorOfVectorOfSize_t::slice( size_t start = 0,
-                                                      size_t count = __self->get()->size() );
+std::vector<std::vector<size_t>> VectorOfVectorOfSize_t::slice( size_t start = 0,
+                                                                size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVectorOfSize_t.slice( [$start[, $count]] ) -> retval
 ```
@@ -88561,13 +88561,13 @@ AutoIt:
 ### MapOfStringAndVectorOfFloat::create
 
 ```cpp
-static MapOfStringAndVectorOfFloat MapOfStringAndVectorOfFloat::create();
+static std::map<std::string, std::vector<float>> MapOfStringAndVectorOfFloat::create();
 AutoIt:
     _OpenCV_ObjCreate("MapOfStringAndVectorOfFloat").create() -> <MapOfStringAndVectorOfFloat object>
 ```
 
 ```cpp
-static cv::Ptr<MapOfStringAndVectorOfFloat> MapOfStringAndVectorOfFloat::create( std::vector<std::pair<std::string, std::vector<float>>> pairs );
+static cv::Ptr<std::map<std::string, std::vector<float>>> MapOfStringAndVectorOfFloat::create( std::vector<std::pair<std::string, std::vector<float>>> pairs );
 AutoIt:
     _OpenCV_ObjCreate("MapOfStringAndVectorOfFloat").create( $pairs ) -> retval
 ```
@@ -88592,7 +88592,7 @@ AutoIt:
 ### MapOfStringAndVectorOfFloat::IsInstance
 
 ```cpp
-static bool MapOfStringAndVectorOfFloat::IsInstance( const MapOfStringAndVectorOfFloat& obj );
+static bool MapOfStringAndVectorOfFloat::IsInstance( const std::map<std::string, std::vector<float>>& obj );
 AutoIt:
     _OpenCV_ObjCreate("MapOfStringAndVectorOfFloat").IsInstance( $obj ) -> retval
 ```
@@ -88703,7 +88703,7 @@ AutoIt:
 ### MapOfStringAndVectorOfFloat::merge
 
 ```cpp
-void MapOfStringAndVectorOfFloat::merge( MapOfStringAndVectorOfFloat other );
+void MapOfStringAndVectorOfFloat::merge( std::map<std::string, std::vector<float>> other );
 AutoIt:
     $oMapOfStringAndVectorOfFloat.merge( $other ) -> None
 ```
@@ -88738,19 +88738,19 @@ AutoIt:
 ### VectorOfPairOfStringAndVectorOfFloat::create
 
 ```cpp
-static VectorOfPairOfStringAndVectorOfFloat VectorOfPairOfStringAndVectorOfFloat::create();
+static std::vector<std::pair<std::string, std::vector<float>>> VectorOfPairOfStringAndVectorOfFloat::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPairOfStringAndVectorOfFloat").create() -> <VectorOfPairOfStringAndVectorOfFloat object>
 ```
 
 ```cpp
-static VectorOfPairOfStringAndVectorOfFloat VectorOfPairOfStringAndVectorOfFloat::create( size_t size );
+static std::vector<std::pair<std::string, std::vector<float>>> VectorOfPairOfStringAndVectorOfFloat::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPairOfStringAndVectorOfFloat").create( $size ) -> <VectorOfPairOfStringAndVectorOfFloat object>
 ```
 
 ```cpp
-static VectorOfPairOfStringAndVectorOfFloat VectorOfPairOfStringAndVectorOfFloat::create( VectorOfPairOfStringAndVectorOfFloat other );
+static std::vector<std::pair<std::string, std::vector<float>>> VectorOfPairOfStringAndVectorOfFloat::create( std::vector<std::pair<std::string, std::vector<float>>> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPairOfStringAndVectorOfFloat").create( $other ) -> <VectorOfPairOfStringAndVectorOfFloat object>
 ```
@@ -88766,7 +88766,7 @@ AutoIt:
 ### VectorOfPairOfStringAndVectorOfFloat::IsInstance
 
 ```cpp
-static bool VectorOfPairOfStringAndVectorOfFloat::IsInstance( const VectorOfPairOfStringAndVectorOfFloat& obj );
+static bool VectorOfPairOfStringAndVectorOfFloat::IsInstance( const std::vector<std::pair<std::string, std::vector<float>>>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPairOfStringAndVectorOfFloat").IsInstance( $obj ) -> retval
 ```
@@ -88780,7 +88780,7 @@ AutoIt:
 ### VectorOfPairOfStringAndVectorOfFloat::Items
 
 ```cpp
-VectorOfPairOfStringAndVectorOfFloat VectorOfPairOfStringAndVectorOfFloat::Items();
+std::vector<std::pair<std::string, std::vector<float>>> VectorOfPairOfStringAndVectorOfFloat::Items();
 AutoIt:
     $oVectorOfPairOfStringAndVectorOfFloat.Items() -> retval
 ```
@@ -88876,15 +88876,15 @@ AutoIt:
 ### VectorOfPairOfStringAndVectorOfFloat::push\_vector
 
 ```cpp
-void VectorOfPairOfStringAndVectorOfFloat::push_vector( VectorOfPairOfStringAndVectorOfFloat other );
+void VectorOfPairOfStringAndVectorOfFloat::push_vector( std::vector<std::pair<std::string, std::vector<float>>> other );
 AutoIt:
     $oVectorOfPairOfStringAndVectorOfFloat.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfPairOfStringAndVectorOfFloat::push_vector( VectorOfPairOfStringAndVectorOfFloat other,
-                                                        size_t                               count,
-                                                        size_t                               start = 0 );
+void VectorOfPairOfStringAndVectorOfFloat::push_vector( std::vector<std::pair<std::string, std::vector<float>>> other,
+                                                        size_t                                                  count,
+                                                        size_t                                                  start = 0 );
 AutoIt:
     $oVectorOfPairOfStringAndVectorOfFloat.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -88909,8 +88909,8 @@ AutoIt:
 ### VectorOfPairOfStringAndVectorOfFloat::slice
 
 ```cpp
-VectorOfPairOfStringAndVectorOfFloat VectorOfPairOfStringAndVectorOfFloat::slice( size_t start = 0,
-                                                                                  size_t count = __self->get()->size() );
+std::vector<std::pair<std::string, std::vector<float>>> VectorOfPairOfStringAndVectorOfFloat::slice( size_t start = 0,
+                                                                                                     size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfPairOfStringAndVectorOfFloat.slice( [$start[, $count]] ) -> retval
 ```
@@ -88956,19 +88956,19 @@ AutoIt:
 ### VectorOfVectorOfFloat::create
 
 ```cpp
-static VectorOfVectorOfFloat VectorOfVectorOfFloat::create();
+static std::vector<std::vector<float>> VectorOfVectorOfFloat::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfFloat").create() -> <VectorOfVectorOfFloat object>
 ```
 
 ```cpp
-static VectorOfVectorOfFloat VectorOfVectorOfFloat::create( size_t size );
+static std::vector<std::vector<float>> VectorOfVectorOfFloat::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfFloat").create( $size ) -> <VectorOfVectorOfFloat object>
 ```
 
 ```cpp
-static VectorOfVectorOfFloat VectorOfVectorOfFloat::create( VectorOfVectorOfFloat other );
+static std::vector<std::vector<float>> VectorOfVectorOfFloat::create( std::vector<std::vector<float>> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfFloat").create( $other ) -> <VectorOfVectorOfFloat object>
 ```
@@ -88984,7 +88984,7 @@ AutoIt:
 ### VectorOfVectorOfFloat::IsInstance
 
 ```cpp
-static bool VectorOfVectorOfFloat::IsInstance( const VectorOfVectorOfFloat& obj );
+static bool VectorOfVectorOfFloat::IsInstance( const std::vector<std::vector<float>>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfVectorOfFloat").IsInstance( $obj ) -> retval
 ```
@@ -88998,7 +88998,7 @@ AutoIt:
 ### VectorOfVectorOfFloat::Items
 
 ```cpp
-VectorOfVectorOfFloat VectorOfVectorOfFloat::Items();
+std::vector<std::vector<float>> VectorOfVectorOfFloat::Items();
 AutoIt:
     $oVectorOfVectorOfFloat.Items() -> retval
 ```
@@ -89094,15 +89094,15 @@ AutoIt:
 ### VectorOfVectorOfFloat::push\_vector
 
 ```cpp
-void VectorOfVectorOfFloat::push_vector( VectorOfVectorOfFloat other );
+void VectorOfVectorOfFloat::push_vector( std::vector<std::vector<float>> other );
 AutoIt:
     $oVectorOfVectorOfFloat.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfVectorOfFloat::push_vector( VectorOfVectorOfFloat other,
-                                         size_t                count,
-                                         size_t                start = 0 );
+void VectorOfVectorOfFloat::push_vector( std::vector<std::vector<float>> other,
+                                         size_t                          count,
+                                         size_t                          start = 0 );
 AutoIt:
     $oVectorOfVectorOfFloat.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -89127,8 +89127,8 @@ AutoIt:
 ### VectorOfVectorOfFloat::slice
 
 ```cpp
-VectorOfVectorOfFloat VectorOfVectorOfFloat::slice( size_t start = 0,
-                                                    size_t count = __self->get()->size() );
+std::vector<std::vector<float>> VectorOfVectorOfFloat::slice( size_t start = 0,
+                                                              size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfVectorOfFloat.slice( [$start[, $count]] ) -> retval
 ```
@@ -89166,13 +89166,13 @@ AutoIt:
 ### MapOfIntAndDouble::create
 
 ```cpp
-static MapOfIntAndDouble MapOfIntAndDouble::create();
+static std::map<int, double> MapOfIntAndDouble::create();
 AutoIt:
     _OpenCV_ObjCreate("MapOfIntAndDouble").create() -> <MapOfIntAndDouble object>
 ```
 
 ```cpp
-static cv::Ptr<MapOfIntAndDouble> MapOfIntAndDouble::create( std::vector<std::pair<int, double>> pairs );
+static cv::Ptr<std::map<int, double>> MapOfIntAndDouble::create( std::vector<std::pair<int, double>> pairs );
 AutoIt:
     _OpenCV_ObjCreate("MapOfIntAndDouble").create( $pairs ) -> retval
 ```
@@ -89197,7 +89197,7 @@ AutoIt:
 ### MapOfIntAndDouble::IsInstance
 
 ```cpp
-static bool MapOfIntAndDouble::IsInstance( const MapOfIntAndDouble& obj );
+static bool MapOfIntAndDouble::IsInstance( const std::map<int, double>& obj );
 AutoIt:
     _OpenCV_ObjCreate("MapOfIntAndDouble").IsInstance( $obj ) -> retval
 ```
@@ -89308,7 +89308,7 @@ AutoIt:
 ### MapOfIntAndDouble::merge
 
 ```cpp
-void MapOfIntAndDouble::merge( MapOfIntAndDouble other );
+void MapOfIntAndDouble::merge( std::map<int, double> other );
 AutoIt:
     $oMapOfIntAndDouble.merge( $other ) -> None
 ```
@@ -89343,19 +89343,19 @@ AutoIt:
 ### VectorOfPairOfIntAndDouble::create
 
 ```cpp
-static VectorOfPairOfIntAndDouble VectorOfPairOfIntAndDouble::create();
+static std::vector<std::pair<int, double>> VectorOfPairOfIntAndDouble::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPairOfIntAndDouble").create() -> <VectorOfPairOfIntAndDouble object>
 ```
 
 ```cpp
-static VectorOfPairOfIntAndDouble VectorOfPairOfIntAndDouble::create( size_t size );
+static std::vector<std::pair<int, double>> VectorOfPairOfIntAndDouble::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPairOfIntAndDouble").create( $size ) -> <VectorOfPairOfIntAndDouble object>
 ```
 
 ```cpp
-static VectorOfPairOfIntAndDouble VectorOfPairOfIntAndDouble::create( VectorOfPairOfIntAndDouble other );
+static std::vector<std::pair<int, double>> VectorOfPairOfIntAndDouble::create( std::vector<std::pair<int, double>> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPairOfIntAndDouble").create( $other ) -> <VectorOfPairOfIntAndDouble object>
 ```
@@ -89371,7 +89371,7 @@ AutoIt:
 ### VectorOfPairOfIntAndDouble::IsInstance
 
 ```cpp
-static bool VectorOfPairOfIntAndDouble::IsInstance( const VectorOfPairOfIntAndDouble& obj );
+static bool VectorOfPairOfIntAndDouble::IsInstance( const std::vector<std::pair<int, double>>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfPairOfIntAndDouble").IsInstance( $obj ) -> retval
 ```
@@ -89385,7 +89385,7 @@ AutoIt:
 ### VectorOfPairOfIntAndDouble::Items
 
 ```cpp
-VectorOfPairOfIntAndDouble VectorOfPairOfIntAndDouble::Items();
+std::vector<std::pair<int, double>> VectorOfPairOfIntAndDouble::Items();
 AutoIt:
     $oVectorOfPairOfIntAndDouble.Items() -> retval
 ```
@@ -89481,15 +89481,15 @@ AutoIt:
 ### VectorOfPairOfIntAndDouble::push\_vector
 
 ```cpp
-void VectorOfPairOfIntAndDouble::push_vector( VectorOfPairOfIntAndDouble other );
+void VectorOfPairOfIntAndDouble::push_vector( std::vector<std::pair<int, double>> other );
 AutoIt:
     $oVectorOfPairOfIntAndDouble.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfPairOfIntAndDouble::push_vector( VectorOfPairOfIntAndDouble other,
-                                              size_t                     count,
-                                              size_t                     start = 0 );
+void VectorOfPairOfIntAndDouble::push_vector( std::vector<std::pair<int, double>> other,
+                                              size_t                              count,
+                                              size_t                              start = 0 );
 AutoIt:
     $oVectorOfPairOfIntAndDouble.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -89514,8 +89514,8 @@ AutoIt:
 ### VectorOfPairOfIntAndDouble::slice
 
 ```cpp
-VectorOfPairOfIntAndDouble VectorOfPairOfIntAndDouble::slice( size_t start = 0,
-                                                              size_t count = __self->get()->size() );
+std::vector<std::pair<int, double>> VectorOfPairOfIntAndDouble::slice( size_t start = 0,
+                                                                       size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfPairOfIntAndDouble.slice( [$start[, $count]] ) -> retval
 ```
@@ -89553,7 +89553,7 @@ AutoIt:
 ### cv\_GArray\_cv\_gapi\_wip\_draw\_Prim::IsInstance
 
 ```cpp
-static bool cv_GArray_cv_gapi_wip_draw_Prim::IsInstance( const cv_GArray_cv_gapi_wip_draw_Prim& obj );
+static bool cv_GArray_cv_gapi_wip_draw_Prim::IsInstance( const cv::GArray<cv::gapi::wip::draw::Prim>& obj );
 AutoIt:
     _OpenCV_ObjCreate("cv_GArray_cv_gapi_wip_draw_Prim").IsInstance( $obj ) -> retval
 ```
@@ -89577,19 +89577,19 @@ AutoIt:
 ### VectorOfGapi\_wip\_draw\_Prim::create
 
 ```cpp
-static VectorOfGapi_wip_draw_Prim VectorOfGapi_wip_draw_Prim::create();
+static std::vector<cv::gapi::wip::draw::Prim> VectorOfGapi_wip_draw_Prim::create();
 AutoIt:
     _OpenCV_ObjCreate("VectorOfGapi_wip_draw_Prim").create() -> <VectorOfGapi_wip_draw_Prim object>
 ```
 
 ```cpp
-static VectorOfGapi_wip_draw_Prim VectorOfGapi_wip_draw_Prim::create( size_t size );
+static std::vector<cv::gapi::wip::draw::Prim> VectorOfGapi_wip_draw_Prim::create( size_t size );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfGapi_wip_draw_Prim").create( $size ) -> <VectorOfGapi_wip_draw_Prim object>
 ```
 
 ```cpp
-static VectorOfGapi_wip_draw_Prim VectorOfGapi_wip_draw_Prim::create( VectorOfGapi_wip_draw_Prim other );
+static std::vector<cv::gapi::wip::draw::Prim> VectorOfGapi_wip_draw_Prim::create( std::vector<cv::gapi::wip::draw::Prim> other );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfGapi_wip_draw_Prim").create( $other ) -> <VectorOfGapi_wip_draw_Prim object>
 ```
@@ -89605,7 +89605,7 @@ AutoIt:
 ### VectorOfGapi\_wip\_draw\_Prim::IsInstance
 
 ```cpp
-static bool VectorOfGapi_wip_draw_Prim::IsInstance( const VectorOfGapi_wip_draw_Prim& obj );
+static bool VectorOfGapi_wip_draw_Prim::IsInstance( const std::vector<cv::gapi::wip::draw::Prim>& obj );
 AutoIt:
     _OpenCV_ObjCreate("VectorOfGapi_wip_draw_Prim").IsInstance( $obj ) -> retval
 ```
@@ -89619,7 +89619,7 @@ AutoIt:
 ### VectorOfGapi\_wip\_draw\_Prim::Items
 
 ```cpp
-VectorOfGapi_wip_draw_Prim VectorOfGapi_wip_draw_Prim::Items();
+std::vector<cv::gapi::wip::draw::Prim> VectorOfGapi_wip_draw_Prim::Items();
 AutoIt:
     $oVectorOfGapi_wip_draw_Prim.Items() -> retval
 ```
@@ -89715,15 +89715,15 @@ AutoIt:
 ### VectorOfGapi\_wip\_draw\_Prim::push\_vector
 
 ```cpp
-void VectorOfGapi_wip_draw_Prim::push_vector( VectorOfGapi_wip_draw_Prim other );
+void VectorOfGapi_wip_draw_Prim::push_vector( std::vector<cv::gapi::wip::draw::Prim> other );
 AutoIt:
     $oVectorOfGapi_wip_draw_Prim.push_vector( $other ) -> None
 ```
 
 ```cpp
-void VectorOfGapi_wip_draw_Prim::push_vector( VectorOfGapi_wip_draw_Prim other,
-                                              size_t                     count,
-                                              size_t                     start = 0 );
+void VectorOfGapi_wip_draw_Prim::push_vector( std::vector<cv::gapi::wip::draw::Prim> other,
+                                              size_t                                 count,
+                                              size_t                                 start = 0 );
 AutoIt:
     $oVectorOfGapi_wip_draw_Prim.push_vector( $other, $count[, $start] ) -> None
 ```
@@ -89748,8 +89748,8 @@ AutoIt:
 ### VectorOfGapi\_wip\_draw\_Prim::slice
 
 ```cpp
-VectorOfGapi_wip_draw_Prim VectorOfGapi_wip_draw_Prim::slice( size_t start = 0,
-                                                              size_t count = __self->get()->size() );
+std::vector<cv::gapi::wip::draw::Prim> VectorOfGapi_wip_draw_Prim::slice( size_t start = 0,
+                                                                          size_t count = __self->get()->size() );
 AutoIt:
     $oVectorOfGapi_wip_draw_Prim.slice( [$start[, $count]] ) -> retval
 ```
@@ -89787,7 +89787,7 @@ AutoIt:
 ### cv\_GArray\_cv\_GMat::IsInstance
 
 ```cpp
-static bool cv_GArray_cv_GMat::IsInstance( const cv_GArray_cv_GMat& obj );
+static bool cv_GArray_cv_GMat::IsInstance( const cv::GArray<cv::GMat>& obj );
 AutoIt:
     _OpenCV_ObjCreate("cv_GArray_cv_GMat").IsInstance( $obj ) -> retval
 ```

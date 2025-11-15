@@ -866,11 +866,11 @@ Object.assign(exports, {
                 }
             }
 
-            let expr = `${ callargs.concat(is_external ? ["hr"] : []).join(", ") }`;
+            let expr = callargs.concat(is_external ? ["hr"] : []).join(", ");
 
             for (const modifier of func_modifiers) {
                 if (modifier.startsWith("/Expr=")) {
-                    expr = makeExpansion(modifier.slice("/Expr=".length), expr);
+                    expr = makeExpansion(modifier.slice("/Expr=".length), ...callargs.concat(is_external ? ["hr"] : []));
                 } else if (modifier.startsWith("/Call=")) {
                     callee = makeExpansion(modifier.slice("/Call=".length), callee);
                 }

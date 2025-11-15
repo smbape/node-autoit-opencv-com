@@ -1,14 +1,17 @@
 const { v4: uuidv4 } = require("uuid");
 
 const knwon_ids = require("./ids");
-const {removeNamespaces} = require("./alias");
 
 const {
     CLASS_PTR,
     TEMPLATED_TYPES,
 } = require("./constants");
 
-const { getAlias } = require("./alias");
+const {
+    getAlias,
+    getTupleTypes,
+    removeNamespaces,
+} = require("./alias");
 
 const {hasOwnProperty: hasProp} = Object.prototype;
 
@@ -67,6 +70,10 @@ class CoClass {
     }
 
     static getObjectName(fqn, upper = false) {
+        if (fqn.length === 0) {
+            return fqn;
+        }
+
         return fqn
             .replace(/>+$/g, "")
             .replace(/, /g, "_and_")
@@ -86,31 +93,7 @@ class CoClass {
         return DISID_CONSTANTS.has(sid) ? DISID_CONSTANTS.get(sid) : Number(sid);
     }
 
-    static getTupleTypes(type) {
-        const separators = /[,<>]/g;
-        const types = [];
-
-        let lastIndex = 0;
-        let match;
-        let open = 0;
-
-        while (match = separators.exec(type)) { // eslint-disable-line no-cond-assign
-            if (match[0] === "<") {
-                open++;
-            } else if (match[0] === ">") {
-                open--;
-            } else if (open === 0 && match[0] === ",") {
-                types.push(type.slice(lastIndex, match.index).trim());
-                lastIndex = separators.lastIndex;
-            }
-        }
-
-        if (lastIndex !== type.length) {
-            types.push(type.slice(lastIndex).trim());
-        }
-
-        return types;
-    }
+    static getTupleTypes = getTupleTypes;
 
     static restoreOriginalTypeLegacy(type, options = {}) {
         const shared_ptr = removeNamespaces(options.shared_ptr, options);
@@ -128,6 +111,9 @@ class CoClass {
 
         const templates = new RegExp(`\\b(?:${ [
             "std::map",
+            "std::multimap",
+            "std::unordered_map",
+            "std::unordered_multimap",
             "std::optional",
             "std::pair",
             "std::tuple",
@@ -240,13 +226,13 @@ class CoClass {
         this.idl = `I${ this.className }*`;
         this.parents = new Set();
         this.children = new Set();
-        this.idlnames = new Map();
-        this.dispid = 0;
         this.properties = new Map();
         this.methods = new Map();
         this.enums = new Set();
         this.is_ptr = CLASS_PTR.has(fqn);
         this.cpp_quotes = [];
+        this.idlnames = new Map();
+        this.dispid = 0;
         this.interface = "IDispatch";
 
         if (hasProp.call(knwon_ids, fqn)) {
@@ -273,19 +259,43 @@ class CoClass {
 
     toJSON() {
         return {
-            name: this.name,
             fqn: this.fqn,
             path: this.path,
-            iid: this.iid,
-            clsid: this.clsid,
+            name: this.name,
+            className: this.className,
+            objectName: this.objectName,
+            idl: this.idl,
             parents: Array.from(this.parents),
             children: Array.from(this.children),
             properties: Object.fromEntries(this.properties),
             methods: Object.fromEntries(this.methods),
-            enums: this.enums,
+            enums: Array.from(this.enums),
             is_enum_class: this.is_enum_class,
             is_ptr: this.is_ptr,
+            cpp_quotes: this.cpp_quotes,
+            idlnames: Object.fromEntries(this.idlnames),
+            dispid: this.dispid,
+            interface: this.interface,
+            iid: this.iid,
+            clsid: this.clsid,
         };
+    }
+
+    getAssignableTypes() {
+        const types = new Set();
+        const stack = [this];
+
+        for (let i = 0; i < stack.length; i++) {
+            const coclass = stack[i];
+            const {fqn} = coclass;
+
+            if (!types.has(fqn)) {
+                types.add(fqn);
+                stack.push(...coclass.children);
+            }
+        }
+
+        return types;
     }
 
     addParent(fqn) {

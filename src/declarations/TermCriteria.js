@@ -1,5 +1,5 @@
 module.exports = [
-    ["class cv.TermCriteria", "", ["/Simple", "/DC"], [
+    ["class cv.TermCriteria", "", ["/Simple"], [
         ["int", "type", "", ["/RW"]],
         ["int", "maxCount", "", ["/RW"]],
         ["double", "epsilon", "", ["/RW"]],

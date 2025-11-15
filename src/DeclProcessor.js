@@ -22,6 +22,7 @@ class DeclProcessor {
 
         this.classes = new Map();
         this.enums = new Map();
+        this.namespaces = new Set();
         this.typedefs = new Map();
 
         // for inheritance tree computation
@@ -41,11 +42,15 @@ class DeclProcessor {
     }
 
     process(config, options = {}) {
-        const {decls, namespaces} = config;
-
-        this.namespaces = new Set();
-
         this.namespace = options.namespace;
+
+        const {decls, namespaces, typedefs} = config;
+
+        if (typedefs) {
+            for (const [fqn, cpptype] of typedefs) {
+                this.typedefs.set(fqn, cpptype);
+            }
+        }
 
         if (options.typedefs) {
             for (const [fqn, cpptype] of options.typedefs) {
@@ -124,6 +129,7 @@ class DeclProcessor {
                 }
             }
 
+            this.addDefaultConstructor(coclass, options);
             this.addParentDefinition(coclass, options);
             this.addDependencies(coclass, options);
         }
@@ -151,7 +157,7 @@ class DeclProcessor {
 
         for (const fqn of ordered) {
             const coclass = this.classes.get(fqn);
-            const cpptype = this.getCppType(fqn, coclass, options);
+            const cpptype = this.hasTypeDef(fqn) ? fqn : this.getCppType(fqn, coclass, options);
             const displayName = this.getTypeDisplayName(fqn, cpptype);
 
             // add __str__ method
@@ -249,6 +255,7 @@ class DeclProcessor {
 
         const coclass = this.getCoClass(fqn, options);
 
+        coclass.modifiers = list_of_modifiers;
         coclass.is_class = name.startsWith("class ");
         coclass.is_struct = name.startsWith("struct ");
         coclass.is_simple = list_of_modifiers.includes("/Simple");
@@ -256,12 +263,9 @@ class DeclProcessor {
         coclass.is_external = list_of_modifiers.includes("/External");
         coclass.is_cexternal = list_of_modifiers.includes("/CExternal");
         coclass.is_rexternal = list_of_modifiers.includes("/RExternal");
+
         if (list_of_modifiers.includes("/Ptr")) {
             coclass.is_ptr = true;
-        }
-
-        if ((coclass.is_map || coclass.is_struct && coclass.is_simple || list_of_modifiers.includes("/DC")) && !coclass.has_default_constructor) {
-            coclass.has_default_constructor = 0;
         }
 
         coclass.noidl = list_of_modifiers.includes("/noidl");
@@ -484,6 +488,14 @@ class DeclProcessor {
         return coclass;
     }
 
+    hasTypeDef(fqn) {
+        if (!this.typedefs.has(fqn)) {
+            return false;
+        }
+        const alias = this.typedefs.get(fqn);
+        return alias != null && alias !== fqn && !alias.startsWith("struct ");
+    }
+
     getCppType(type, coclass, options = {}) {
         if (type.includes("(") || type.includes(")") || type.includes("<") && !type.endsWith(">") || countInstances(type, "<") !== countInstances(type, ">")) {
             // invalid type, most likely comming from defval
@@ -508,7 +520,11 @@ class DeclProcessor {
         }
 
         if (type.endsWith("*")) {
-            return `${ this.getCppType(type.slice(0, -1), coclass, options) }*`;
+            return `${ this.getCppType(type.slice(0, -1).trim(), coclass, options) }*`;
+        }
+
+        if (this.hasTypeDef(type)) {
+            return this.getCppType(this.typedefs.get(type), coclass, options);
         }
 
         let type_ = type;
@@ -569,7 +585,7 @@ class DeclProcessor {
     }
 
     getTypeDisplayName(fqn, cpptype) {
-        const name = this.typedefs.has(fqn) ? this.typedefs.get(fqn) : cpptype;
+        const name = this.hasTypeDef(fqn) ? this.typedefs.get(fqn) : cpptype;
         return name.startsWith("::") ? name.slice("::".length) : name;
     }
 
@@ -630,31 +646,32 @@ class DeclProcessor {
     setAssignOperator(type, coclass, options) {
         const cpptype = this.getCppType(type, coclass, options);
 
-        if (cpptype.startsWith("std::optional<")) {
-            this.setAssignOperator(type.slice("std::optional<".length, -">".length), coclass, options);
-        } else if (cpptype.startsWith("std::vector<")) {
-            this.setAssignOperator(type.slice("std::vector<".length, -">".length), coclass, options);
-        } else if (type.startsWith("std::tuple<")) {
-            const types = CoClass.getTupleTypes(type.slice("std::tuple<".length, -">".length));
-            for (const ttype of types) {
-                this.setAssignOperator(ttype, coclass, options);
+        if (type.includes("<") && type.endsWith(">")) {
+            const pos = type.indexOf("<");
+            const container = type.slice(0, pos);
+
+            if ([
+                "std::map",
+                "std::optional",
+                "std::tuple",
+                "std::variant",
+                "std::vector",
+            ].includes(container)) {
+                const types = CoClass.getTupleTypes(type.slice(pos + 1, -">".length));
+                const end = ["std::optional", "std::vector"].includes(container) ? 1 : container === "std::map" ? 2 : types.length;
+
+                for (let i = 0; i < end; i++) {
+                    this.setAssignOperator(types[i], coclass, options);
+                    if (["std::optional", "std::vector"].includes(container)) {
+                        break;
+                    }
+                }
+
+                return;
             }
-        } else if (type.startsWith("std::variant<")) {
-            const types = CoClass.getTupleTypes(type.slice("std::variant<".length, -">".length));
-            for (const ttype of types) {
-                this.setAssignOperator(ttype, coclass, options);
-            }
-        } else if (type.startsWith("std::map<")) {
-            const types = CoClass.getTupleTypes(type.slice("std::map<".length, -">".length));
-            for (const ttype of types) {
-                this.setAssignOperator(ttype, coclass, options);
-            }
-        } else if (type.startsWith("std::pair<")) {
-            const types = CoClass.getTupleTypes(type.slice("std::pair<".length, -">".length));
-            for (const ttype of types) {
-                this.setAssignOperator(ttype, coclass, options);
-            }
-        } else if (this.classes.has(cpptype)) {
+        }
+
+        if (this.classes.has(cpptype)) {
             this.classes.get(cpptype).has_assign_operator = true;
         }
     }
@@ -709,18 +726,71 @@ class DeclProcessor {
         this.dependencies.get(dependent).add(dependency);
     }
 
-    addParentDefinition(coclass, options) {
+    addDefaultConstructor(coclass, options) {
         const {fqn} = coclass;
+        const ctor = `${ fqn.split("::").join(".") }.${ coclass.name }`;
 
         // Add a default constructor
-        if (coclass.has_default_constructor === 0) {
-            coclass.addMethod([`${ fqn }.${ coclass.name }`, "", [], []], options);
+        if ((coclass.is_map || coclass.is_struct && coclass.is_simple) && !coclass.has_default_constructor) {
+            coclass.addMethod([ctor, "", [], []], options);
         }
 
+        // Add a copy constructor
+        if (options.hasCopyConstructorSupport && coclass.is_struct && coclass.is_simple) {
+            coclass.addMethod([ctor, "", [`/Requires=(${ fqn }& self, const ${ fqn }& other) { self = other; }`, "/Expr=", `/DC=if (other) ${ options.self } = *other;`], [
+                [`${ options.shared_ptr || "std::shared_ptr" }<${ fqn }>`, "other", "", ["/Ref", "/C"]],
+            ]], options);
+        }
+
+        if (coclass.modifiers?.includes("/DC") && coclass.properties.size !== 0) {
+            // https://en.cppreference.com/w/c/language/struct_initialization.html
+
+            const args = Array.from(coclass.properties.entries()).map(([argname, {type: argtype, value: defval, modifiers}]) => {
+                for (const modifier of modifiers) {
+                    if (modifier.startsWith("/WType=")) {
+                        argtype = modifier.slice("/WType=".length);
+                    }
+                }
+
+                return [argtype, argname, defval, modifiers];
+            });
+
+            // Initializer list with declared members
+            coclass.addMethod([ctor, "", ["/Expr=", `/DC=${ args.map(([, argname, , modifiers]) => {
+                let wexpr = `${ options.self_get(argname) } = $value`;
+                for (const modifier of modifiers) {
+                    if (modifier.startsWith("/WExpr=")) {
+                        wexpr = modifier.slice("/WExpr=".length);
+                    }
+                }
+
+                return `if (${ argname }) { ${ wexpr.replace(/\$(?:value\b|\{[^\S\n]*value[^\S\n]*\})/g, `*${ argname }`) }; }`;
+            }).join("\n") }`], args.map(([argtype, argname, defval, modifiers]) => {
+                return [`std::optional<${ argtype }>`, argname, defval ? defval : "std::nullopt", modifiers.concat(["/Ref", "/C"])];
+            })], options);
+
+            // Initializer with tuple
+            coclass.addMethod([ctor, "", ["/Expr=", `/DC=${ args.map(([, argname, , modifiers], i) => {
+                let wexpr = `${ options.self_get(argname) } = $value`;
+                for (const modifier of modifiers) {
+                    if (modifier.startsWith("/WExpr=")) {
+                        wexpr = modifier.slice("/WExpr=".length);
+                    }
+                }
+
+                return `${ wexpr.replace(/\$(?:value\b|\{[^\S\n]*value[^\S\n]*\})/g, `std::get<${ i }>(args)`) };`;
+            }).join("\n") }`], [
+                [`std::tuple<${ args.map(([argtype]) => argtype) }>`, "args", "", []],
+            ]], options);
+        }
+    }
+
+    addParentDefinition(coclass, options) {
         if (options.hasInheritanceSupport) {
             return;
         }
 
+        const {fqn} = coclass;
         const parents = [...coclass.parents];
 
         // denormalize parents
