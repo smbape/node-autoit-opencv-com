@@ -37,6 +37,7 @@
   - [cv.TermCriteria](#cvtermcriteria)
   - [cv.TickMeter](#cvtickmeter)
   - [cv.samples](#cvsamples)
+  - [cv.instr](#cvinstr)
   - [cv.flann](#cvflann)
   - [cv.GeneralizedHough](#cvgeneralizedhough)
   - [cv.GeneralizedHoughBallard](#cvgeneralizedhoughballard)
@@ -343,6 +344,7 @@
   - [cv::estimateAffine3D](#cvestimateaffine3d)
   - [cv::estimateAffinePartial2D](#cvestimateaffinepartial2d)
   - [cv::estimateChessboardSharpness](#cvestimatechessboardsharpness)
+  - [cv::estimateTranslation2D](#cvestimatetranslation2d)
   - [cv::estimateTranslation3D](#cvestimatetranslation3d)
   - [cv::exp](#cvexp)
   - [cv::extractChannel](#cvextractchannel)
@@ -369,6 +371,7 @@
   - [cv::findNonZero](#cvfindnonzero)
   - [cv::findTemplate](#cvfindtemplate)
   - [cv::findTransformECC](#cvfindtransformecc)
+  - [cv::findTransformECCWithMask](#cvfindtransformeccwithmask)
   - [cv::fitEllipse](#cvfitellipse)
   - [cv::fitEllipseAMS](#cvfitellipseams)
   - [cv::fitEllipseDirect](#cvfitellipsedirect)
@@ -390,7 +393,6 @@
   - [cv::getGaborKernel](#cvgetgaborkernel)
   - [cv::getGaussianKernel](#cvgetgaussiankernel)
   - [cv::getHardwareFeatureName](#cvgethardwarefeaturename)
-  - [cv::getLogLevel](#cvgetloglevel)
   - [cv::getNumThreads](#cvgetnumthreads)
   - [cv::getNumberOfCPUs](#cvgetnumberofcpus)
   - [cv::getOptimalDFTSize](#cvgetoptimaldftsize)
@@ -473,6 +475,7 @@
   - [cv::min](#cvmin)
   - [cv::minAreaRect](#cvminarearect)
   - [cv::minEnclosingCircle](#cvminenclosingcircle)
+  - [cv::minEnclosingConvexPolygon](#cvminenclosingconvexpolygon)
   - [cv::minEnclosingTriangle](#cvminenclosingtriangle)
   - [cv::minMaxLoc](#cvminmaxloc)
   - [cv::mixChannels](#cvmixchannels)
@@ -490,6 +493,7 @@
   - [cv::perspectiveTransform](#cvperspectivetransform)
   - [cv::phase](#cvphase)
   - [cv::phaseCorrelate](#cvphasecorrelate)
+  - [cv::phaseCorrelateIterative](#cvphasecorrelateiterative)
   - [cv::pointPolygonTest](#cvpointpolygontest)
   - [cv::polarToCart](#cvpolartocart)
   - [cv::pollKey](#cvpollkey)
@@ -535,7 +539,6 @@
   - [cv::selectROIs](#cvselectrois)
   - [cv::sepFilter2D](#cvsepfilter2d)
   - [cv::setIdentity](#cvsetidentity)
-  - [cv::setLogLevel](#cvsetloglevel)
   - [cv::setNumThreads](#cvsetnumthreads)
   - [cv::setRNGSeed](#cvsetrngseed)
   - [cv::setTrackbarMax](#cvsettrackbarmax)
@@ -1142,6 +1145,7 @@
   - [enums.IMWRITE\_PNG\_STRATEGY](#enumsimwrite%5C_png%5C_strategy)
   - [enums.IMWRITE\_PNG\_BILEVEL](#enumsimwrite%5C_png%5C_bilevel)
   - [enums.IMWRITE\_PNG\_FILTER](#enumsimwrite%5C_png%5C_filter)
+  - [enums.IMWRITE\_PNG\_ZLIBBUFFER\_SIZE](#enumsimwrite%5C_png%5C_zlibbuffer%5C_size)
   - [enums.IMWRITE\_PXM\_BINARY](#enumsimwrite%5C_pxm%5C_binary)
   - [enums.IMWRITE\_EXR\_TYPE](#enumsimwrite%5C_exr%5C_type)
   - [enums.IMWRITE\_EXR\_COMPRESSION](#enumsimwrite%5C_exr%5C_compression)
@@ -1163,6 +1167,7 @@
   - [enums.IMWRITE\_JPEGXL\_EFFORT](#enumsimwrite%5C_jpegxl%5C_effort)
   - [enums.IMWRITE\_JPEGXL\_DISTANCE](#enumsimwrite%5C_jpegxl%5C_distance)
   - [enums.IMWRITE\_JPEGXL\_DECODING\_SPEED](#enumsimwrite%5C_jpegxl%5C_decoding%5C_speed)
+  - [enums.IMWRITE\_BMP\_COMPRESSION](#enumsimwrite%5C_bmp%5C_compression)
   - [enums.IMWRITE\_GIF\_LOOP](#enumsimwrite%5C_gif%5C_loop)
   - [enums.IMWRITE\_GIF\_SPEED](#enumsimwrite%5C_gif%5C_speed)
   - [enums.IMWRITE\_GIF\_QUALITY](#enumsimwrite%5C_gif%5C_quality)
@@ -1210,6 +1215,9 @@
   - [enums.IMWRITE\_TIFF\_PREDICTOR\_NONE](#enumsimwrite%5C_tiff%5C_predictor%5C_none)
   - [enums.IMWRITE\_TIFF\_PREDICTOR\_HORIZONTAL](#enumsimwrite%5C_tiff%5C_predictor%5C_horizontal)
   - [enums.IMWRITE\_TIFF\_PREDICTOR\_FLOATINGPOINT](#enumsimwrite%5C_tiff%5C_predictor%5C_floatingpoint)
+  - [enums.IMWRITE\_TIFF\_RESOLUTION\_UNIT\_NONE](#enumsimwrite%5C_tiff%5C_resolution%5C_unit%5C_none)
+  - [enums.IMWRITE\_TIFF\_RESOLUTION\_UNIT\_INCH](#enumsimwrite%5C_tiff%5C_resolution%5C_unit%5C_inch)
+  - [enums.IMWRITE\_TIFF\_RESOLUTION\_UNIT\_CENTIMETER](#enumsimwrite%5C_tiff%5C_resolution%5C_unit%5C_centimeter)
   - [enums.IMWRITE\_EXR\_TYPE\_HALF](#enumsimwrite%5C_exr%5C_type%5C_half)
   - [enums.IMWRITE\_EXR\_TYPE\_FLOAT](#enumsimwrite%5C_exr%5C_type%5C_float)
   - [enums.IMWRITE\_EXR\_COMPRESSION\_NO](#enumsimwrite%5C_exr%5C_compression%5C_no)
@@ -1242,6 +1250,8 @@
   - [enums.IMWRITE\_PAM\_FORMAT\_RGB\_ALPHA](#enumsimwrite%5C_pam%5C_format%5C_rgb%5C_alpha)
   - [enums.IMWRITE\_HDR\_COMPRESSION\_NONE](#enumsimwrite%5C_hdr%5C_compression%5C_none)
   - [enums.IMWRITE\_HDR\_COMPRESSION\_RLE](#enumsimwrite%5C_hdr%5C_compression%5C_rle)
+  - [enums.IMWRITE\_BMP\_COMPRESSION\_RGB](#enumsimwrite%5C_bmp%5C_compression%5C_rgb)
+  - [enums.IMWRITE\_BMP\_COMPRESSION\_BITFIELDS](#enumsimwrite%5C_bmp%5C_compression%5C_bitfields)
   - [enums.IMWRITE\_GIF\_FAST\_NO\_DITHER](#enumsimwrite%5C_gif%5C_fast%5C_no%5C_dither)
   - [enums.IMWRITE\_GIF\_FAST\_FLOYD\_DITHER](#enumsimwrite%5C_gif%5C_fast%5C_floyd%5C_dither)
   - [enums.IMWRITE\_GIF\_COLORTABLE\_SIZE\_8](#enumsimwrite%5C_gif%5C_colortable%5C_size%5C_8)
@@ -1254,6 +1264,7 @@
   - [enums.IMAGE\_METADATA\_EXIF](#enumsimage%5C_metadata%5C_exif)
   - [enums.IMAGE\_METADATA\_XMP](#enumsimage%5C_metadata%5C_xmp)
   - [enums.IMAGE\_METADATA\_ICCP](#enumsimage%5C_metadata%5C_iccp)
+  - [enums.IMAGE\_METADATA\_CICP](#enumsimage%5C_metadata%5C_cicp)
   - [enums.IMAGE\_METADATA\_MAX](#enumsimage%5C_metadata%5C_max)
   - [enums.CAP\_ANY](#enumscap%5C_any)
   - [enums.CAP\_VFW](#enumscap%5C_vfw)
@@ -1381,6 +1392,7 @@
   - [enums.VIDEO\_ACCELERATION\_D3D11](#enumsvideo%5C_acceleration%5C_d3d11)
   - [enums.VIDEO\_ACCELERATION\_VAAPI](#enumsvideo%5C_acceleration%5C_vaapi)
   - [enums.VIDEO\_ACCELERATION\_MFX](#enumsvideo%5C_acceleration%5C_mfx)
+  - [enums.VIDEO\_ACCELERATION\_DRM](#enumsvideo%5C_acceleration%5C_drm)
   - [enums.CAP\_PROP\_DC1394\_OFF](#enumscap%5C_prop%5C_dc1394%5C_off)
   - [enums.CAP\_PROP\_DC1394\_MODE\_MANUAL](#enumscap%5C_prop%5C_dc1394%5C_mode%5C_manual)
   - [enums.CAP\_PROP\_DC1394\_MODE\_AUTO](#enumscap%5C_prop%5C_dc1394%5C_mode%5C_auto)
@@ -1650,6 +1662,19 @@
   - [enums.CAP\_PROP\_OBSENSOR\_INTRINSIC\_FY](#enumscap%5C_prop%5C_obsensor%5C_intrinsic%5C_fy)
   - [enums.CAP\_PROP\_OBSENSOR\_INTRINSIC\_CX](#enumscap%5C_prop%5C_obsensor%5C_intrinsic%5C_cx)
   - [enums.CAP\_PROP\_OBSENSOR\_INTRINSIC\_CY](#enumscap%5C_prop%5C_obsensor%5C_intrinsic%5C_cy)
+  - [enums.CAP\_PROP\_OBSENSOR\_RGB\_POS\_MSEC](#enumscap%5C_prop%5C_obsensor%5C_rgb%5C_pos%5C_msec)
+  - [enums.CAP\_PROP\_OBSENSOR\_DEPTH\_POS\_MSEC](#enumscap%5C_prop%5C_obsensor%5C_depth%5C_pos%5C_msec)
+  - [enums.CAP\_PROP\_OBSENSOR\_DEPTH\_WIDTH](#enumscap%5C_prop%5C_obsensor%5C_depth%5C_width)
+  - [enums.CAP\_PROP\_OBSENSOR\_DEPTH\_HEIGHT](#enumscap%5C_prop%5C_obsensor%5C_depth%5C_height)
+  - [enums.CAP\_PROP\_OBSENSOR\_DEPTH\_FPS](#enumscap%5C_prop%5C_obsensor%5C_depth%5C_fps)
+  - [enums.CAP\_PROP\_OBSENSOR\_COLOR\_DISTORTION\_K1](#enumscap%5C_prop%5C_obsensor%5C_color%5C_distortion%5C_k1)
+  - [enums.CAP\_PROP\_OBSENSOR\_COLOR\_DISTORTION\_K2](#enumscap%5C_prop%5C_obsensor%5C_color%5C_distortion%5C_k2)
+  - [enums.CAP\_PROP\_OBSENSOR\_COLOR\_DISTORTION\_K3](#enumscap%5C_prop%5C_obsensor%5C_color%5C_distortion%5C_k3)
+  - [enums.CAP\_PROP\_OBSENSOR\_COLOR\_DISTORTION\_K4](#enumscap%5C_prop%5C_obsensor%5C_color%5C_distortion%5C_k4)
+  - [enums.CAP\_PROP\_OBSENSOR\_COLOR\_DISTORTION\_K5](#enumscap%5C_prop%5C_obsensor%5C_color%5C_distortion%5C_k5)
+  - [enums.CAP\_PROP\_OBSENSOR\_COLOR\_DISTORTION\_K6](#enumscap%5C_prop%5C_obsensor%5C_color%5C_distortion%5C_k6)
+  - [enums.CAP\_PROP\_OBSENSOR\_COLOR\_DISTORTION\_P1](#enumscap%5C_prop%5C_obsensor%5C_color%5C_distortion%5C_p1)
+  - [enums.CAP\_PROP\_OBSENSOR\_COLOR\_DISTORTION\_P2](#enumscap%5C_prop%5C_obsensor%5C_color%5C_distortion%5C_p2)
   - [enums.LMEDS](#enumslmeds)
   - [enums.RANSAC](#enumsransac)
   - [enums.RHO](#enumsrho)
@@ -1831,18 +1856,18 @@
   - [cv::Algorithm::save](#cvalgorithmsave)
   - [cv::Algorithm::write](#cvalgorithmwrite)
 - [cv::Param](#cvparam)
-  - [Param.INT\_](#paramint%5C_)
-  - [Param.BOOLEAN\_](#paramboolean%5C_)
-  - [Param.REAL\_](#paramreal%5C_)
-  - [Param.STRING\_](#paramstring%5C_)
-  - [Param.MAT\_](#parammat%5C_)
-  - [Param.MAT\_VECTOR\_](#parammat%5C_vector%5C_)
-  - [Param.ALGORITHM\_](#paramalgorithm%5C_)
-  - [Param.FLOAT\_](#paramfloat%5C_)
-  - [Param.UNSIGNED\_INT\_](#paramunsigned%5C_int%5C_)
-  - [Param.UINT64\_](#paramuint64%5C_)
-  - [Param.UCHAR\_](#paramuchar%5C_)
-  - [Param.SCALAR\_](#paramscalar%5C_)
+  - [Param.INT](#paramint)
+  - [Param.BOOLEAN](#paramboolean)
+  - [Param.REAL](#paramreal)
+  - [Param.STRING](#paramstring)
+  - [Param.MAT](#parammat)
+  - [Param.MAT\_VECTOR](#parammat%5C_vector)
+  - [Param.ALGORITHM](#paramalgorithm)
+  - [Param.FLOAT](#paramfloat)
+  - [Param.UNSIGNED\_INT](#paramunsigned%5C_int)
+  - [Param.UINT64](#paramuint64)
+  - [Param.UCHAR](#paramuchar)
+  - [Param.SCALAR](#paramscalar)
 - [cv::AsyncArray](#cvasyncarray)
   - [cv::AsyncArray::get\_create](#cvasyncarrayget%5C_create)
   - [cv::AsyncArray::IsInstance](#cvasyncarrayisinstance)
@@ -1917,6 +1942,7 @@
   - [utils.FunctionParams](#utilsfunctionparams)
   - [utils.nested](#utilsnested)
   - [utils.fs](#utilsfs)
+  - [utils.logging](#utilslogging)
   - [cv::utils::copyMatAndDumpNamedArguments](#cvutilscopymatanddumpnamedarguments)
   - [cv::utils::dumpBool](#cvutilsdumpbool)
   - [cv::utils::dumpCString](#cvutilsdumpcstring)
@@ -2270,6 +2296,7 @@
   - [\_InputArray.STD\_VECTOR\_CUDA\_GPU\_MAT\_](#%5C_inputarraystd%5C_vector%5C_cuda%5C_gpu%5C_mat%5C_)
   - [\_InputArray.STD\_ARRAY\_](#%5C_inputarraystd%5C_array%5C_)
   - [\_InputArray.STD\_ARRAY\_MAT\_](#%5C_inputarraystd%5C_array%5C_mat%5C_)
+  - [\_InputArray.CUDA\_GPU\_MATND\_](#%5C_inputarraycuda%5C_gpu%5C_matnd%5C_)
 - [cv::\_OutputArray](#cv%5C_outputarray)
   - [cv::\_OutputArray::IsInstance](#cv%5C_outputarrayisinstance)
   - [\_OutputArray.DEPTH\_MASK\_8U\_](#%5C_outputarraydepth%5C_mask%5C_8u%5C_)
@@ -2871,6 +2898,28 @@
   - [cv::samples::addSamplesDataSearchSubDirectory](#cvsamplesaddsamplesdatasearchsubdirectory)
   - [cv::samples::findFile](#cvsamplesfindfile)
   - [cv::samples::findFileOrKeep](#cvsamplesfindfileorkeep)
+- [cv::instr](#cvinstr)
+  - [instr.TYPE\_GENERAL\_](#instrtype%5C_general%5C_)
+  - [instr.TYPE\_MARKER\_](#instrtype%5C_marker%5C_)
+  - [instr.TYPE\_WRAPPER\_](#instrtype%5C_wrapper%5C_)
+  - [instr.TYPE\_FUN\_](#instrtype%5C_fun%5C_)
+  - [instr.IMPL\_PLAIN\_](#instrimpl%5C_plain%5C_)
+  - [instr.IMPL\_IPP\_](#instrimpl%5C_ipp%5C_)
+  - [instr.IMPL\_OPENCL\_](#instrimpl%5C_opencl%5C_)
+  - [instr.FLAGS\_NONE\_](#instrflags%5C_none%5C_)
+  - [instr.FLAGS\_MAPPING\_](#instrflags%5C_mapping%5C_)
+  - [instr.FLAGS\_EXPAND\_SAME\_NAMES\_](#instrflags%5C_expand%5C_same%5C_names%5C_)
+- [cv::utils::logging](#cvutilslogging)
+  - [cv::utils::logging::getLogLevel](#cvutilslogginggetloglevel)
+  - [cv::utils::logging::setLogLevel](#cvutilsloggingsetloglevel)
+  - [logging.LOG\_LEVEL\_SILENT\_](#logginglog%5C_level%5C_silent%5C_)
+  - [logging.LOG\_LEVEL\_FATAL\_](#logginglog%5C_level%5C_fatal%5C_)
+  - [logging.LOG\_LEVEL\_ERROR\_](#logginglog%5C_level%5C_error%5C_)
+  - [logging.LOG\_LEVEL\_WARNING\_](#logginglog%5C_level%5C_warning%5C_)
+  - [logging.LOG\_LEVEL\_INFO\_](#logginglog%5C_level%5C_info%5C_)
+  - [logging.LOG\_LEVEL\_DEBUG\_](#logginglog%5C_level%5C_debug%5C_)
+  - [logging.LOG\_LEVEL\_VERBOSE\_](#logginglog%5C_level%5C_verbose%5C_)
+  - [logging.ENUM\_LOG\_LEVEL\_FORCE\_INT\_](#loggingenum%5C_log%5C_level%5C_force%5C_int%5C_)
 - [cv::flann](#cvflann)
   - [flann.Index](#flannindex)
   - [flann.FLANN\_INDEX\_TYPE\_8U\_](#flannflann%5C_index%5C_type%5C_8u%5C_)
@@ -2989,11 +3038,13 @@
   - [cv::CLAHE::clear](#cvclaheclear)
   - [cv::CLAHE::collectGarbage](#cvclahecollectgarbage)
   - [cv::CLAHE::empty](#cvclaheempty)
+  - [cv::CLAHE::getBitShift](#cvclahegetbitshift)
   - [cv::CLAHE::getClipLimit](#cvclahegetcliplimit)
   - [cv::CLAHE::getDefaultName](#cvclahegetdefaultname)
   - [cv::CLAHE::getTilesGridSize](#cvclahegettilesgridsize)
   - [cv::CLAHE::read](#cvclaheread)
   - [cv::CLAHE::save](#cvclahesave)
+  - [cv::CLAHE::setBitShift](#cvclahesetbitshift)
   - [cv::CLAHE::setClipLimit](#cvclahesetcliplimit)
   - [cv::CLAHE::setTilesGridSize](#cvclahesettilesgridsize)
   - [cv::CLAHE::write](#cvclahewrite)
@@ -3010,6 +3061,7 @@
   - [cv::Subdiv2D::getVertex](#cvsubdiv2dgetvertex)
   - [cv::Subdiv2D::getVoronoiFacetList](#cvsubdiv2dgetvoronoifacetlist)
   - [cv::Subdiv2D::initDelaunay](#cvsubdiv2dinitdelaunay)
+  - [cv::Subdiv2D::initDelaunay2f](#cvsubdiv2dinitdelaunay2f)
   - [cv::Subdiv2D::insert](#cvsubdiv2dinsert)
   - [cv::Subdiv2D::locate](#cvsubdiv2dlocate)
   - [cv::Subdiv2D::nextEdge](#cvsubdiv2dnextedge)
@@ -3717,6 +3769,9 @@
   - [cv::dnn::blobFromImages](#cvdnnblobfromimages)
   - [cv::dnn::blobFromImagesWithParams](#cvdnnblobfromimageswithparams)
   - [cv::dnn::getAvailableTargets](#cvdnngetavailabletargets)
+  - [cv::dnn::getInferenceEngineBackendType](#cvdnngetinferenceenginebackendtype)
+  - [cv::dnn::getInferenceEngineCPUType](#cvdnngetinferenceenginecputype)
+  - [cv::dnn::getInferenceEngineVPUType](#cvdnngetinferenceenginevputype)
   - [cv::dnn::imagesFromBlob](#cvdnnimagesfromblob)
   - [cv::dnn::readNet](#cvdnnreadnet)
   - [cv::dnn::readNetFromCaffe](#cvdnnreadnetfromcaffe)
@@ -3728,6 +3783,9 @@
   - [cv::dnn::readNetFromTorch](#cvdnnreadnetfromtorch)
   - [cv::dnn::readTensorFromONNX](#cvdnnreadtensorfromonnx)
   - [cv::dnn::readTorchBlob](#cvdnnreadtorchblob)
+  - [cv::dnn::releaseHDDLPlugin](#cvdnnreleasehddlplugin)
+  - [cv::dnn::resetMyriadDevice](#cvdnnresetmyriaddevice)
+  - [cv::dnn::setInferenceEngineBackendType](#cvdnnsetinferenceenginebackendtype)
   - [cv::dnn::shrinkCaffeModel](#cvdnnshrinkcaffemodel)
   - [cv::dnn::softNMSBoxes](#cvdnnsoftnmsboxes)
   - [cv::dnn::writeTextGraph](#cvdnnwritetextgraph)
@@ -4385,10 +4443,10 @@
   - [cv::FlannBasedMatcher::train](#cvflannbasedmatchertrain)
   - [cv::FlannBasedMatcher::write](#cvflannbasedmatcherwrite)
 - [cv::DrawMatchesFlags](#cvdrawmatchesflags)
-  - [DrawMatchesFlags.DEFAULT\_](#drawmatchesflagsdefault%5C_)
-  - [DrawMatchesFlags.DRAW\_OVER\_OUTIMG\_](#drawmatchesflagsdraw%5C_over%5C_outimg%5C_)
-  - [DrawMatchesFlags.NOT\_DRAW\_SINGLE\_POINTS\_](#drawmatchesflagsnot%5C_draw%5C_single%5C_points%5C_)
-  - [DrawMatchesFlags.DRAW\_RICH\_KEYPOINTS\_](#drawmatchesflagsdraw%5C_rich%5C_keypoints%5C_)
+  - [DrawMatchesFlags.DEFAULT](#drawmatchesflagsdefault)
+  - [DrawMatchesFlags.DRAW\_OVER\_OUTIMG](#drawmatchesflagsdraw%5C_over%5C_outimg)
+  - [DrawMatchesFlags.NOT\_DRAW\_SINGLE\_POINTS](#drawmatchesflagsnot%5C_draw%5C_single%5C_points)
+  - [DrawMatchesFlags.DRAW\_RICH\_KEYPOINTS](#drawmatchesflagsdraw%5C_rich%5C_keypoints)
 - [cv::BOWTrainer](#cvbowtrainer)
   - [cv::BOWTrainer::IsInstance](#cvbowtrainerisinstance)
   - [cv::BOWTrainer::add](#cvbowtraineradd)
@@ -4493,6 +4551,7 @@
   - [CirclesGridFinderParameters.edgePenalty](#circlesgridfinderparametersedgepenalty)
   - [CirclesGridFinderParameters.convexHullFactor](#circlesgridfinderparametersconvexhullfactor)
   - [CirclesGridFinderParameters.minRNGEdgeSwitchDist](#circlesgridfinderparametersminrngedgeswitchdist)
+  - [CirclesGridFinderParameters.gridType](#circlesgridfinderparametersgridtype)
   - [CirclesGridFinderParameters.squareSize](#circlesgridfinderparameterssquaresize)
   - [CirclesGridFinderParameters.maxRectifiedDistance](#circlesgridfinderparametersmaxrectifieddistance)
   - [cv::CirclesGridFinderParameters::get\_create](#cvcirclesgridfinderparametersget%5C_create)
@@ -4880,6 +4939,7 @@
   - [cv::aruco::ArucoDetector::clear](#cvarucoarucodetectorclear)
   - [cv::aruco::ArucoDetector::detectMarkers](#cvarucoarucodetectordetectmarkers)
   - [cv::aruco::ArucoDetector::detectMarkersMultiDict](#cvarucoarucodetectordetectmarkersmultidict)
+  - [cv::aruco::ArucoDetector::detectMarkersWithConfidence](#cvarucoarucodetectordetectmarkerswithconfidence)
   - [cv::aruco::ArucoDetector::empty](#cvarucoarucodetectorempty)
   - [cv::aruco::ArucoDetector::getDefaultName](#cvarucoarucodetectorgetdefaultname)
   - [cv::aruco::ArucoDetector::getDetectorParameters](#cvarucoarucodetectorgetdetectorparameters)
@@ -5507,6 +5567,7 @@
   - [cv::DISOpticalFlow::clear](#cvdisopticalflowclear)
   - [cv::DISOpticalFlow::collectGarbage](#cvdisopticalflowcollectgarbage)
   - [cv::DISOpticalFlow::empty](#cvdisopticalflowempty)
+  - [cv::DISOpticalFlow::getCoarsestScale](#cvdisopticalflowgetcoarsestscale)
   - [cv::DISOpticalFlow::getDefaultName](#cvdisopticalflowgetdefaultname)
   - [cv::DISOpticalFlow::getFinestScale](#cvdisopticalflowgetfinestscale)
   - [cv::DISOpticalFlow::getGradientDescentIterations](#cvdisopticalflowgetgradientdescentiterations)
@@ -5521,6 +5582,7 @@
   - [cv::DISOpticalFlow::getVariationalRefinementIterations](#cvdisopticalflowgetvariationalrefinementiterations)
   - [cv::DISOpticalFlow::read](#cvdisopticalflowread)
   - [cv::DISOpticalFlow::save](#cvdisopticalflowsave)
+  - [cv::DISOpticalFlow::setCoarsestScale](#cvdisopticalflowsetcoarsestscale)
   - [cv::DISOpticalFlow::setFinestScale](#cvdisopticalflowsetfinestscale)
   - [cv::DISOpticalFlow::setGradientDescentIterations](#cvdisopticalflowsetgradientdescentiterations)
   - [cv::DISOpticalFlow::setPatchSize](#cvdisopticalflowsetpatchsize)
@@ -6019,6 +6081,7 @@
   - [cv::gapi::wip::get\_streaming\_source](#cvgapiwipget%5C_streaming%5C_source)
   - [cv::gapi::wip::make\_capture\_src](#cvgapiwipmake%5C_capture%5C_src)
   - [cv::gapi::wip::make\_gst\_src](#cvgapiwipmake%5C_gst%5C_src)
+  - [cv::gapi::wip::make\_py\_src](#cvgapiwipmake%5C_py%5C_src)
 - [cv::gapi::wip::draw](#cvgapiwipdraw)
   - [draw.Text](#drawtext)
   - [draw.Rect](#drawrect)
@@ -9000,6 +9063,14 @@ AutoIt:
     [propget] $ocv.samples
 ```
 
+### cv.instr
+
+```cpp
+static cv::instr
+AutoIt:
+    [propget] $ocv.instr
+```
+
 ### cv.flann
 
 ```cpp
@@ -11615,7 +11686,7 @@ AutoIt:
 ### cv::currentUIFramework
 
 ```cpp
-std::string cv::currentUIFramework();
+const std::string cv::currentUIFramework();
 AutoIt:
     _OpenCV_ObjCreate("cv").currentUIFramework() -> retval
 ```
@@ -12183,6 +12254,21 @@ AutoIt:
     _OpenCV_ObjCreate("cv").estimateChessboardSharpness( $image, $patternSize, $corners[, $rise_distance[, $vertical[, $sharpness]]] ) -> retval, $sharpness
 ```
 
+### cv::estimateTranslation2D
+
+```cpp
+cv::Vec2d cv::estimateTranslation2D( InputArray  from,
+                                     InputArray  to,
+                                     OutputArray inliers = noArray(),
+                                     int         method = RANSAC,
+                                     double      ransacReprojThreshold = 3,
+                                     size_t      maxIters = 2000,
+                                     double      confidence = 0.99,
+                                     size_t      refineIters = 0 );
+AutoIt:
+    _OpenCV_ObjCreate("cv").estimateTranslation2D( $from, $to[, $inliers[, $method[, $ransacReprojThreshold[, $maxIters[, $confidence[, $refineIters]]]]]] ) -> retval, $inliers
+```
+
 ### cv::estimateTranslation3D
 
 ```cpp
@@ -12633,6 +12719,21 @@ AutoIt:
     _OpenCV_ObjCreate("cv").findTransformECC( $templateImage, $inputImage, $warpMatrix[, $motionType[, $criteria[, $inputMask]]] ) -> retval, $warpMatrix
 ```
 
+### cv::findTransformECCWithMask
+
+```cpp
+double cv::findTransformECCWithMask( InputArray       templateImage,
+                                     InputArray       inputImage,
+                                     InputArray       templateMask,
+                                     InputArray       inputMask,
+                                     InputOutputArray warpMatrix,
+                                     int              motionType = MOTION_AFFINE,
+                                     cv::TermCriteria criteria = TermCriteria(TermCriteria::COUNT + TermCriteria::EPS, 50, 1e-6),
+                                     int              gaussFiltSize = 5 );
+AutoIt:
+    _OpenCV_ObjCreate("cv").findTransformECCWithMask( $templateImage, $inputImage, $templateMask, $inputMask, $warpMatrix[, $motionType[, $criteria[, $gaussFiltSize]]] ) -> retval, $warpMatrix
+```
+
 ### cv::fitEllipse
 
 ```cpp
@@ -12708,8 +12809,8 @@ AutoIt:
 ### cv::format
 
 ```cpp
-std::string cv::format( const InputArray&         mtx,
-                        cv::Formatter::FormatType fmt = cv::Formatter::FMT_NUMPY );
+const std::string cv::format( const InputArray&         mtx,
+                              cv::Formatter::FormatType fmt = cv::Formatter::FMT_NUMPY );
 AutoIt:
     _OpenCV_ObjCreate("cv").format( $mtx[, $fmt] ) -> retval
 ```
@@ -12740,7 +12841,7 @@ AutoIt:
 ### cv::getBuildInformation
 
 ```cpp
-std::string cv::getBuildInformation();
+const String cv::getBuildInformation();
 AutoIt:
     _OpenCV_ObjCreate("cv").getBuildInformation() -> retval
 ```
@@ -12843,14 +12944,6 @@ AutoIt:
 std::string cv::getHardwareFeatureName( int feature );
 AutoIt:
     _OpenCV_ObjCreate("cv").getHardwareFeatureName( $feature ) -> retval
-```
-
-### cv::getLogLevel
-
-```cpp
-int cv::getLogLevel();
-AutoIt:
-    _OpenCV_ObjCreate("cv").getLogLevel() -> retval
 ```
 
 ### cv::getNumThreads
@@ -13745,6 +13838,16 @@ AutoIt:
     _OpenCV_ObjCreate("cv").minEnclosingCircle( $points[, $center[, $radius]] ) -> $center, $radius
 ```
 
+### cv::minEnclosingConvexPolygon
+
+```cpp
+double cv::minEnclosingConvexPolygon( InputArray  points,
+                                      OutputArray polygon,
+                                      int         k );
+AutoIt:
+    _OpenCV_ObjCreate("cv").minEnclosingConvexPolygon( $points, $k[, $polygon] ) -> retval, $polygon
+```
+
 ### cv::minEnclosingTriangle
 
 ```cpp
@@ -13942,6 +14045,17 @@ cv::Point2d cv::phaseCorrelate( InputArray src1,
                                 double*    response = 0 );
 AutoIt:
     _OpenCV_ObjCreate("cv").phaseCorrelate( $src1, $src2[, $window[, $response]] ) -> retval, $response
+```
+
+### cv::phaseCorrelateIterative
+
+```cpp
+cv::Point2d cv::phaseCorrelateIterative( InputArray src1,
+                                         InputArray src2,
+                                         int        L2size = 7,
+                                         int        maxIters = 10 );
+AutoIt:
+    _OpenCV_ObjCreate("cv").phaseCorrelateIterative( $src1, $src2[, $L2size[, $maxIters]] ) -> retval
 ```
 
 ### cv::pointPolygonTest
@@ -14606,14 +14720,6 @@ AutoIt:
     _OpenCV_ObjCreate("cv").setIdentity( $mtx[, $s] ) -> $mtx
 ```
 
-### cv::setLogLevel
-
-```cpp
-int cv::setLogLevel( int level );
-AutoIt:
-    _OpenCV_ObjCreate("cv").setLogLevel( $level ) -> retval
-```
-
 ### cv::setNumThreads
 
 ```cpp
@@ -14718,10 +14824,10 @@ AutoIt:
 ### cv::solveLP
 
 ```cpp
-int cv::solveLP( InputArray   Func,
-                 InputArray   Constr,
-                 OutputArray  z,
-                 const double constr_eps );
+int cv::solveLP( InputArray  Func,
+                 InputArray  Constr,
+                 OutputArray z,
+                 double      constr_eps );
 AutoIt:
     _OpenCV_ObjCreate("cv").solveLP( $Func, $Constr, $constr_eps[, $z] ) -> retval, $z
 ```
@@ -15182,7 +15288,7 @@ void cv::undistortImagePoints( InputArray       src,
                                OutputArray      dst,
                                InputArray       cameraMatrix,
                                InputArray       distCoeffs,
-                               cv::TermCriteria arg1 = TermCriteria(TermCriteria::MAX_ITER + TermCriteria::EPS, 5, 0.01) );
+                               cv::TermCriteria arg1 = TermCriteria(TermCriteria::MAX_ITER, 5, 0.01) );
 AutoIt:
     _OpenCV_ObjCreate("cv").undistortImagePoints( $src, $cameraMatrix, $distCoeffs[, $dst[, $arg1]] ) -> $dst
 ```
@@ -19699,6 +19805,14 @@ AutoIt:
     [propget] $oenums.IMWRITE_PNG_FILTER
 ```
 
+### enums.IMWRITE\_PNG\_ZLIBBUFFER\_SIZE
+
+```cpp
+static int cv::enums::IMWRITE_PNG_ZLIBBUFFER_SIZE
+AutoIt:
+    [propget] $oenums.IMWRITE_PNG_ZLIBBUFFER_SIZE
+```
+
 ### enums.IMWRITE\_PXM\_BINARY
 
 ```cpp
@@ -19865,6 +19979,14 @@ AutoIt:
 static int cv::enums::IMWRITE_JPEGXL_DECODING_SPEED
 AutoIt:
     [propget] $oenums.IMWRITE_JPEGXL_DECODING_SPEED
+```
+
+### enums.IMWRITE\_BMP\_COMPRESSION
+
+```cpp
+static int cv::enums::IMWRITE_BMP_COMPRESSION
+AutoIt:
+    [propget] $oenums.IMWRITE_BMP_COMPRESSION
 ```
 
 ### enums.IMWRITE\_GIF\_LOOP
@@ -20243,6 +20365,30 @@ AutoIt:
     [propget] $oenums.IMWRITE_TIFF_PREDICTOR_FLOATINGPOINT
 ```
 
+### enums.IMWRITE\_TIFF\_RESOLUTION\_UNIT\_NONE
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_RESOLUTION_UNIT_NONE
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_RESOLUTION_UNIT_NONE
+```
+
+### enums.IMWRITE\_TIFF\_RESOLUTION\_UNIT\_INCH
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_RESOLUTION_UNIT_INCH
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_RESOLUTION_UNIT_INCH
+```
+
+### enums.IMWRITE\_TIFF\_RESOLUTION\_UNIT\_CENTIMETER
+
+```cpp
+static int cv::enums::IMWRITE_TIFF_RESOLUTION_UNIT_CENTIMETER
+AutoIt:
+    [propget] $oenums.IMWRITE_TIFF_RESOLUTION_UNIT_CENTIMETER
+```
+
 ### enums.IMWRITE\_EXR\_TYPE\_HALF
 
 ```cpp
@@ -20499,6 +20645,22 @@ AutoIt:
     [propget] $oenums.IMWRITE_HDR_COMPRESSION_RLE
 ```
 
+### enums.IMWRITE\_BMP\_COMPRESSION\_RGB
+
+```cpp
+static int cv::enums::IMWRITE_BMP_COMPRESSION_RGB
+AutoIt:
+    [propget] $oenums.IMWRITE_BMP_COMPRESSION_RGB
+```
+
+### enums.IMWRITE\_BMP\_COMPRESSION\_BITFIELDS
+
+```cpp
+static int cv::enums::IMWRITE_BMP_COMPRESSION_BITFIELDS
+AutoIt:
+    [propget] $oenums.IMWRITE_BMP_COMPRESSION_BITFIELDS
+```
+
 ### enums.IMWRITE\_GIF\_FAST\_NO\_DITHER
 
 ```cpp
@@ -20593,6 +20755,14 @@ AutoIt:
 static int cv::enums::IMAGE_METADATA_ICCP
 AutoIt:
     [propget] $oenums.IMAGE_METADATA_ICCP
+```
+
+### enums.IMAGE\_METADATA\_CICP
+
+```cpp
+static int cv::enums::IMAGE_METADATA_CICP
+AutoIt:
+    [propget] $oenums.IMAGE_METADATA_CICP
 ```
 
 ### enums.IMAGE\_METADATA\_MAX
@@ -21609,6 +21779,14 @@ AutoIt:
 static int cv::enums::VIDEO_ACCELERATION_MFX
 AutoIt:
     [propget] $oenums.VIDEO_ACCELERATION_MFX
+```
+
+### enums.VIDEO\_ACCELERATION\_DRM
+
+```cpp
+static int cv::enums::VIDEO_ACCELERATION_DRM
+AutoIt:
+    [propget] $oenums.VIDEO_ACCELERATION_DRM
 ```
 
 ### enums.CAP\_PROP\_DC1394\_OFF
@@ -23763,6 +23941,110 @@ AutoIt:
     [propget] $oenums.CAP_PROP_OBSENSOR_INTRINSIC_CY
 ```
 
+### enums.CAP\_PROP\_OBSENSOR\_RGB\_POS\_MSEC
+
+```cpp
+static int cv::enums::CAP_PROP_OBSENSOR_RGB_POS_MSEC
+AutoIt:
+    [propget] $oenums.CAP_PROP_OBSENSOR_RGB_POS_MSEC
+```
+
+### enums.CAP\_PROP\_OBSENSOR\_DEPTH\_POS\_MSEC
+
+```cpp
+static int cv::enums::CAP_PROP_OBSENSOR_DEPTH_POS_MSEC
+AutoIt:
+    [propget] $oenums.CAP_PROP_OBSENSOR_DEPTH_POS_MSEC
+```
+
+### enums.CAP\_PROP\_OBSENSOR\_DEPTH\_WIDTH
+
+```cpp
+static int cv::enums::CAP_PROP_OBSENSOR_DEPTH_WIDTH
+AutoIt:
+    [propget] $oenums.CAP_PROP_OBSENSOR_DEPTH_WIDTH
+```
+
+### enums.CAP\_PROP\_OBSENSOR\_DEPTH\_HEIGHT
+
+```cpp
+static int cv::enums::CAP_PROP_OBSENSOR_DEPTH_HEIGHT
+AutoIt:
+    [propget] $oenums.CAP_PROP_OBSENSOR_DEPTH_HEIGHT
+```
+
+### enums.CAP\_PROP\_OBSENSOR\_DEPTH\_FPS
+
+```cpp
+static int cv::enums::CAP_PROP_OBSENSOR_DEPTH_FPS
+AutoIt:
+    [propget] $oenums.CAP_PROP_OBSENSOR_DEPTH_FPS
+```
+
+### enums.CAP\_PROP\_OBSENSOR\_COLOR\_DISTORTION\_K1
+
+```cpp
+static int cv::enums::CAP_PROP_OBSENSOR_COLOR_DISTORTION_K1
+AutoIt:
+    [propget] $oenums.CAP_PROP_OBSENSOR_COLOR_DISTORTION_K1
+```
+
+### enums.CAP\_PROP\_OBSENSOR\_COLOR\_DISTORTION\_K2
+
+```cpp
+static int cv::enums::CAP_PROP_OBSENSOR_COLOR_DISTORTION_K2
+AutoIt:
+    [propget] $oenums.CAP_PROP_OBSENSOR_COLOR_DISTORTION_K2
+```
+
+### enums.CAP\_PROP\_OBSENSOR\_COLOR\_DISTORTION\_K3
+
+```cpp
+static int cv::enums::CAP_PROP_OBSENSOR_COLOR_DISTORTION_K3
+AutoIt:
+    [propget] $oenums.CAP_PROP_OBSENSOR_COLOR_DISTORTION_K3
+```
+
+### enums.CAP\_PROP\_OBSENSOR\_COLOR\_DISTORTION\_K4
+
+```cpp
+static int cv::enums::CAP_PROP_OBSENSOR_COLOR_DISTORTION_K4
+AutoIt:
+    [propget] $oenums.CAP_PROP_OBSENSOR_COLOR_DISTORTION_K4
+```
+
+### enums.CAP\_PROP\_OBSENSOR\_COLOR\_DISTORTION\_K5
+
+```cpp
+static int cv::enums::CAP_PROP_OBSENSOR_COLOR_DISTORTION_K5
+AutoIt:
+    [propget] $oenums.CAP_PROP_OBSENSOR_COLOR_DISTORTION_K5
+```
+
+### enums.CAP\_PROP\_OBSENSOR\_COLOR\_DISTORTION\_K6
+
+```cpp
+static int cv::enums::CAP_PROP_OBSENSOR_COLOR_DISTORTION_K6
+AutoIt:
+    [propget] $oenums.CAP_PROP_OBSENSOR_COLOR_DISTORTION_K6
+```
+
+### enums.CAP\_PROP\_OBSENSOR\_COLOR\_DISTORTION\_P1
+
+```cpp
+static int cv::enums::CAP_PROP_OBSENSOR_COLOR_DISTORTION_P1
+AutoIt:
+    [propget] $oenums.CAP_PROP_OBSENSOR_COLOR_DISTORTION_P1
+```
+
+### enums.CAP\_PROP\_OBSENSOR\_COLOR\_DISTORTION\_P2
+
+```cpp
+static int cv::enums::CAP_PROP_OBSENSOR_COLOR_DISTORTION_P2
+AutoIt:
+    [propget] $oenums.CAP_PROP_OBSENSOR_COLOR_DISTORTION_P2
+```
+
 ### enums.LMEDS
 
 ```cpp
@@ -25208,100 +25490,100 @@ AutoIt:
 
 ## cv::Param
 
-### Param.INT\_
+### Param.INT
 
 ```cpp
 static int cv::Param::INT
 AutoIt:
-    [propget] $oParam.INT_
+    [propget] $oParam.INT
 ```
 
-### Param.BOOLEAN\_
+### Param.BOOLEAN
 
 ```cpp
 static int cv::Param::BOOLEAN
 AutoIt:
-    [propget] $oParam.BOOLEAN_
+    [propget] $oParam.BOOLEAN
 ```
 
-### Param.REAL\_
+### Param.REAL
 
 ```cpp
 static int cv::Param::REAL
 AutoIt:
-    [propget] $oParam.REAL_
+    [propget] $oParam.REAL
 ```
 
-### Param.STRING\_
+### Param.STRING
 
 ```cpp
 static int cv::Param::STRING
 AutoIt:
-    [propget] $oParam.STRING_
+    [propget] $oParam.STRING
 ```
 
-### Param.MAT\_
+### Param.MAT
 
 ```cpp
 static int cv::Param::MAT
 AutoIt:
-    [propget] $oParam.MAT_
+    [propget] $oParam.MAT
 ```
 
-### Param.MAT\_VECTOR\_
+### Param.MAT\_VECTOR
 
 ```cpp
 static int cv::Param::MAT_VECTOR
 AutoIt:
-    [propget] $oParam.MAT_VECTOR_
+    [propget] $oParam.MAT_VECTOR
 ```
 
-### Param.ALGORITHM\_
+### Param.ALGORITHM
 
 ```cpp
 static int cv::Param::ALGORITHM
 AutoIt:
-    [propget] $oParam.ALGORITHM_
+    [propget] $oParam.ALGORITHM
 ```
 
-### Param.FLOAT\_
+### Param.FLOAT
 
 ```cpp
 static int cv::Param::FLOAT
 AutoIt:
-    [propget] $oParam.FLOAT_
+    [propget] $oParam.FLOAT
 ```
 
-### Param.UNSIGNED\_INT\_
+### Param.UNSIGNED\_INT
 
 ```cpp
 static int cv::Param::UNSIGNED_INT
 AutoIt:
-    [propget] $oParam.UNSIGNED_INT_
+    [propget] $oParam.UNSIGNED_INT
 ```
 
-### Param.UINT64\_
+### Param.UINT64
 
 ```cpp
 static int cv::Param::UINT64
 AutoIt:
-    [propget] $oParam.UINT64_
+    [propget] $oParam.UINT64
 ```
 
-### Param.UCHAR\_
+### Param.UCHAR
 
 ```cpp
 static int cv::Param::UCHAR
 AutoIt:
-    [propget] $oParam.UCHAR_
+    [propget] $oParam.UCHAR
 ```
 
-### Param.SCALAR\_
+### Param.SCALAR
 
 ```cpp
 static int cv::Param::SCALAR
 AutoIt:
-    [propget] $oParam.SCALAR_
+    [propget] $oParam.SCALAR
 ```
 
 ## cv::AsyncArray
@@ -25883,6 +26165,14 @@ AutoIt:
 static cv::utils::fs
 AutoIt:
     [propget] $outils.fs
+```
+
+### utils.logging
+
+```cpp
+static cv::utils::logging
+AutoIt:
+    [propget] $outils.logging
 ```
 
 ### cv::utils::copyMatAndDumpNamedArguments
@@ -29083,6 +29373,14 @@ AutoIt:
 static int cv::_InputArray::STD_ARRAY_MAT
 AutoIt:
     [propget] $o_InputArray.STD_ARRAY_MAT_
+```
+
+### \_InputArray.CUDA\_GPU\_MATND\_
+
+```cpp
+static int cv::_InputArray::CUDA_GPU_MATND
+AutoIt:
+    [propget] $o_InputArray.CUDA_GPU_MATND_
 ```
 
 ## cv::\_OutputArray
@@ -33794,7 +34092,7 @@ AutoIt:
 ### cv::ocl::Device::getDefault
 
 ```cpp
-static cv::ocl::Device cv::ocl::Device::getDefault();
+static const Device cv::ocl::Device::getDefault();
 AutoIt:
     _OpenCV_ObjCreate("cv.ocl.Device").getDefault() -> retval
 ```
@@ -36311,6 +36609,170 @@ AutoIt:
     _OpenCV_ObjCreate("cv.samples").findFileOrKeep( $relative_path[, $silentMode] ) -> retval
 ```
 
+## cv::instr
+
+### instr.TYPE\_GENERAL\_
+
+```cpp
+static int cv::instr::TYPE_GENERAL
+AutoIt:
+    [propget] $oinstr.TYPE_GENERAL_
+```
+
+### instr.TYPE\_MARKER\_
+
+```cpp
+static int cv::instr::TYPE_MARKER
+AutoIt:
+    [propget] $oinstr.TYPE_MARKER_
+```
+
+### instr.TYPE\_WRAPPER\_
+
+```cpp
+static int cv::instr::TYPE_WRAPPER
+AutoIt:
+    [propget] $oinstr.TYPE_WRAPPER_
+```
+
+### instr.TYPE\_FUN\_
+
+```cpp
+static int cv::instr::TYPE_FUN
+AutoIt:
+    [propget] $oinstr.TYPE_FUN_
+```
+
+### instr.IMPL\_PLAIN\_
+
+```cpp
+static int cv::instr::IMPL_PLAIN
+AutoIt:
+    [propget] $oinstr.IMPL_PLAIN_
+```
+
+### instr.IMPL\_IPP\_
+
+```cpp
+static int cv::instr::IMPL_IPP
+AutoIt:
+    [propget] $oinstr.IMPL_IPP_
+```
+
+### instr.IMPL\_OPENCL\_
+
+```cpp
+static int cv::instr::IMPL_OPENCL
+AutoIt:
+    [propget] $oinstr.IMPL_OPENCL_
+```
+
+### instr.FLAGS\_NONE\_
+
+```cpp
+static int cv::instr::FLAGS_NONE
+AutoIt:
+    [propget] $oinstr.FLAGS_NONE_
+```
+
+### instr.FLAGS\_MAPPING\_
+
+```cpp
+static int cv::instr::FLAGS_MAPPING
+AutoIt:
+    [propget] $oinstr.FLAGS_MAPPING_
+```
+
+### instr.FLAGS\_EXPAND\_SAME\_NAMES\_
+
+```cpp
+static int cv::instr::FLAGS_EXPAND_SAME_NAMES
+AutoIt:
+    [propget] $oinstr.FLAGS_EXPAND_SAME_NAMES_
+```
+
+## cv::utils::logging
+
+### cv::utils::logging::getLogLevel
+
+```cpp
+cv::utils::logging::LogLevel cv::utils::logging::getLogLevel();
+AutoIt:
+    _OpenCV_ObjCreate("cv.utils.logging").getLogLevel() -> retval
+```
+
+### cv::utils::logging::setLogLevel
+
+```cpp
+cv::utils::logging::LogLevel cv::utils::logging::setLogLevel( cv::utils::logging::LogLevel logLevel );
+AutoIt:
+    _OpenCV_ObjCreate("cv.utils.logging").setLogLevel( $logLevel ) -> retval
+```
+
+### logging.LOG\_LEVEL\_SILENT\_
+
+```cpp
+static int cv::utils::logging::LOG_LEVEL_SILENT
+AutoIt:
+    [propget] $ologging.LOG_LEVEL_SILENT_
+```
+
+### logging.LOG\_LEVEL\_FATAL\_
+
+```cpp
+static int cv::utils::logging::LOG_LEVEL_FATAL
+AutoIt:
+    [propget] $ologging.LOG_LEVEL_FATAL_
+```
+
+### logging.LOG\_LEVEL\_ERROR\_
+
+```cpp
+static int cv::utils::logging::LOG_LEVEL_ERROR
+AutoIt:
+    [propget] $ologging.LOG_LEVEL_ERROR_
+```
+
+### logging.LOG\_LEVEL\_WARNING\_
+
+```cpp
+static int cv::utils::logging::LOG_LEVEL_WARNING
+AutoIt:
+    [propget] $ologging.LOG_LEVEL_WARNING_
+```
+
+### logging.LOG\_LEVEL\_INFO\_
+
+```cpp
+static int cv::utils::logging::LOG_LEVEL_INFO
+AutoIt:
+    [propget] $ologging.LOG_LEVEL_INFO_
+```
+
+### logging.LOG\_LEVEL\_DEBUG\_
+
+```cpp
+static int cv::utils::logging::LOG_LEVEL_DEBUG
+AutoIt:
+    [propget] $ologging.LOG_LEVEL_DEBUG_
+```
+
+### logging.LOG\_LEVEL\_VERBOSE\_
+
+```cpp
+static int cv::utils::logging::LOG_LEVEL_VERBOSE
+AutoIt:
+    [propget] $ologging.LOG_LEVEL_VERBOSE_
+```
+
+### logging.ENUM\_LOG\_LEVEL\_FORCE\_INT\_
+
+```cpp
+static int cv::utils::logging::ENUM_LOG_LEVEL_FORCE_INT
+AutoIt:
+    [propget] $ologging.ENUM_LOG_LEVEL_FORCE_INT_
+```
+
 ## cv::flann
 
 ### flann.Index
@@ -37358,6 +37820,14 @@ AutoIt:
     $oCLAHE.empty() -> retval
 ```
 
+### cv::CLAHE::getBitShift
+
+```cpp
+int cv::CLAHE::getBitShift() const;
+AutoIt:
+    $oCLAHE.getBitShift() -> retval
+```
+
 ### cv::CLAHE::getClipLimit
 
 ```cpp
@@ -37396,6 +37866,14 @@ AutoIt:
 void cv::CLAHE::save( const std::string& filename ) const;
 AutoIt:
     $oCLAHE.save( $filename ) -> None
+```
+
+### cv::CLAHE::setBitShift
+
+```cpp
+void cv::CLAHE::setBitShift( int bitShift );
+AutoIt:
+    $oCLAHE.setBitShift( $bitShift ) -> None
 ```
 
 ### cv::CLAHE::setClipLimit
@@ -37444,6 +37922,13 @@ static cv::Subdiv2D cv::Subdiv2D::get_create( cv::Rect rect );
 AutoIt:
     _OpenCV_ObjCreate("cv.Subdiv2D").create( $rect ) -> <cv.Subdiv2D object>
     $oSubdiv2D( $rect ) -> <cv.Subdiv2D object>
+```
+
+```cpp
+static cv::Subdiv2D cv::Subdiv2D::get_create( cv::Rect2f rect2f );
+AutoIt:
+    _OpenCV_ObjCreate("cv.Subdiv2D").create( $rect2f ) -> <cv.Subdiv2D object>
+    $oSubdiv2D( $rect2f ) -> <cv.Subdiv2D object>
 ```
 
 ### cv::Subdiv2D::IsInstance
@@ -37545,6 +38030,14 @@ AutoIt:
 void cv::Subdiv2D::initDelaunay( cv::Rect rect );
 AutoIt:
     $oSubdiv2D.initDelaunay( $rect ) -> None
+```
+
+### cv::Subdiv2D::initDelaunay2f
+
+```cpp
+void cv::Subdiv2D::initDelaunay2f( cv::Rect2f rect );
+AutoIt:
+    $oSubdiv2D.initDelaunay2f( $rect ) -> None
 ```
 
 ### cv::Subdiv2D::insert
@@ -43710,6 +44203,30 @@ AutoIt:
     _OpenCV_ObjCreate("cv.dnn").getAvailableTargets( $be ) -> retval
 ```
 
+### cv::dnn::getInferenceEngineBackendType
+
+```cpp
+cv::String cv::dnn::getInferenceEngineBackendType();
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn").getInferenceEngineBackendType() -> retval
+```
+
+### cv::dnn::getInferenceEngineCPUType
+
+```cpp
+cv::String cv::dnn::getInferenceEngineCPUType();
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn").getInferenceEngineCPUType() -> retval
+```
+
+### cv::dnn::getInferenceEngineVPUType
+
+```cpp
+cv::String cv::dnn::getInferenceEngineVPUType();
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn").getInferenceEngineVPUType() -> retval
+```
+
 ### cv::dnn::imagesFromBlob
 
 ```cpp
@@ -43854,6 +44371,30 @@ cv::Mat cv::dnn::readTorchBlob( const std::string& filename,
                                 bool               isBinary = true );
 AutoIt:
     _OpenCV_ObjCreate("cv.dnn").readTorchBlob( $filename[, $isBinary] ) -> retval
+```
+
+### cv::dnn::releaseHDDLPlugin
+
+```cpp
+void cv::dnn::releaseHDDLPlugin();
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn").releaseHDDLPlugin() -> None
+```
+
+### cv::dnn::resetMyriadDevice
+
+```cpp
+void cv::dnn::resetMyriadDevice();
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn").resetMyriadDevice() -> None
+```
+
+### cv::dnn::setInferenceEngineBackendType
+
+```cpp
+cv::String cv::dnn::setInferenceEngineBackendType( const cv::String& newBackendType );
+AutoIt:
+    _OpenCV_ObjCreate("cv.dnn").setInferenceEngineBackendType( $newBackendType ) -> retval
 ```
 
 ### cv::dnn::shrinkCaffeModel
@@ -45617,7 +46158,7 @@ AutoIt:
 ### cv::dnn::TextRecognitionModel::getDecodeType
 
 ```cpp
-std::string cv::dnn::TextRecognitionModel::getDecodeType() const;
+const std::string cv::dnn::TextRecognitionModel::getDecodeType() const;
 AutoIt:
     $oTextRecognitionModel.getDecodeType() -> retval
 ```
@@ -45625,7 +46166,7 @@ AutoIt:
 ### cv::dnn::TextRecognitionModel::getVocabulary
 
 ```cpp
-std::vector<std::string> cv::dnn::TextRecognitionModel::getVocabulary() const;
+const vector<std::string> cv::dnn::TextRecognitionModel::getVocabulary() const;
 AutoIt:
     $oTextRecognitionModel.getVocabulary() -> retval
 ```
@@ -48403,12 +48944,12 @@ static cv::Ptr<cv::GFTTDetector> cv::GFTTDetector::get_create( int    maxCorners
                                                                double qualityLevel,
                                                                double minDistance,
                                                                int    blockSize,
-                                                               int    gradiantSize,
+                                                               int    gradientSize,
                                                                bool   useHarrisDetector = false,
                                                                double k = 0.04 );
 AutoIt:
-    _OpenCV_ObjCreate("cv.GFTTDetector").create( $maxCorners, $qualityLevel, $minDistance, $blockSize, $gradiantSize[, $useHarrisDetector[, $k]] ) -> retval
-    $oGFTTDetector( $maxCorners, $qualityLevel, $minDistance, $blockSize, $gradiantSize[, $useHarrisDetector[, $k]] ) -> retval
+    _OpenCV_ObjCreate("cv.GFTTDetector").create( $maxCorners, $qualityLevel, $minDistance, $blockSize, $gradientSize[, $useHarrisDetector[, $k]] ) -> retval
+    $oGFTTDetector( $maxCorners, $qualityLevel, $minDistance, $blockSize, $gradientSize[, $useHarrisDetector[, $k]] ) -> retval
 ```
 
 ### cv::GFTTDetector::IsInstance
@@ -48800,7 +49341,7 @@ AutoIt:
 ### cv::SimpleBlobDetector::getBlobContours
 
 ```cpp
-std::vector<std::vector<cv::Point>> cv::SimpleBlobDetector::getBlobContours() const;
+const vector<std::vector<cv::Point>> cv::SimpleBlobDetector::getBlobContours() const;
 AutoIt:
     $oSimpleBlobDetector.getBlobContours() -> retval
 ```
@@ -49759,7 +50300,7 @@ AutoIt:
 ### cv::DescriptorMatcher::getTrainDescriptors
 
 ```cpp
-std::vector<cv::Mat> cv::DescriptorMatcher::getTrainDescriptors() const;
+const vector<cv::Mat> cv::DescriptorMatcher::getTrainDescriptors() const;
 AutoIt:
     $oDescriptorMatcher.getTrainDescriptors() -> retval
 ```
@@ -50013,7 +50554,7 @@ AutoIt:
 ### cv::BFMatcher::getTrainDescriptors
 
 ```cpp
-std::vector<cv::Mat> cv::BFMatcher::getTrainDescriptors() const;
+const vector<cv::Mat> cv::BFMatcher::getTrainDescriptors() const;
 AutoIt:
     $oBFMatcher.getTrainDescriptors() -> retval
 ```
@@ -50217,7 +50758,7 @@ AutoIt:
 ### cv::FlannBasedMatcher::getTrainDescriptors
 
 ```cpp
-std::vector<cv::Mat> cv::FlannBasedMatcher::getTrainDescriptors() const;
+const vector<cv::Mat> cv::FlannBasedMatcher::getTrainDescriptors() const;
 AutoIt:
     $oFlannBasedMatcher.getTrainDescriptors() -> retval
 ```
@@ -50348,36 +50889,36 @@ AutoIt:
 
 ## cv::DrawMatchesFlags
 
-### DrawMatchesFlags.DEFAULT\_
+### DrawMatchesFlags.DEFAULT
 
 ```cpp
 static int cv::DrawMatchesFlags::DEFAULT
 AutoIt:
-    [propget] $oDrawMatchesFlags.DEFAULT_
+    [propget] $oDrawMatchesFlags.DEFAULT
 ```
 
-### DrawMatchesFlags.DRAW\_OVER\_OUTIMG\_
+### DrawMatchesFlags.DRAW\_OVER\_OUTIMG
 
 ```cpp
 static int cv::DrawMatchesFlags::DRAW_OVER_OUTIMG
 AutoIt:
-    [propget] $oDrawMatchesFlags.DRAW_OVER_OUTIMG_
+    [propget] $oDrawMatchesFlags.DRAW_OVER_OUTIMG
 ```
 
-### DrawMatchesFlags.NOT\_DRAW\_SINGLE\_POINTS\_
+### DrawMatchesFlags.NOT\_DRAW\_SINGLE\_POINTS
 
 ```cpp
 static int cv::DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS
 AutoIt:
-    [propget] $oDrawMatchesFlags.NOT_DRAW_SINGLE_POINTS_
+    [propget] $oDrawMatchesFlags.NOT_DRAW_SINGLE_POINTS
 ```
 
-### DrawMatchesFlags.DRAW\_RICH\_KEYPOINTS\_
+### DrawMatchesFlags.DRAW\_RICH\_KEYPOINTS
 
 ```cpp
 static int cv::DrawMatchesFlags::DRAW_RICH_KEYPOINTS
 AutoIt:
-    [propget] $oDrawMatchesFlags.DRAW_RICH_KEYPOINTS_
+    [propget] $oDrawMatchesFlags.DRAW_RICH_KEYPOINTS
 ```
 
 ## cv::BOWTrainer
@@ -50437,7 +50978,7 @@ AutoIt:
 ### cv::BOWTrainer::getDescriptors
 
 ```cpp
-std::vector<cv::Mat> cv::BOWTrainer::getDescriptors() const;
+const vector<cv::Mat> cv::BOWTrainer::getDescriptors() const;
 AutoIt:
     $oBOWTrainer.getDescriptors() -> retval
 ```
@@ -50511,7 +51052,7 @@ AutoIt:
 ### cv::BOWKMeansTrainer::getDescriptors
 
 ```cpp
-std::vector<cv::Mat> cv::BOWKMeansTrainer::getDescriptors() const;
+const vector<cv::Mat> cv::BOWKMeansTrainer::getDescriptors() const;
 AutoIt:
     $oBOWKMeansTrainer.getDescriptors() -> retval
 ```
@@ -50571,7 +51112,7 @@ AutoIt:
 ### cv::BOWImgDescriptorExtractor::getVocabulary
 
 ```cpp
-cv::Mat cv::BOWImgDescriptorExtractor::getVocabulary() const;
+const Mat cv::BOWImgDescriptorExtractor::getVocabulary() const;
 AutoIt:
     $oBOWImgDescriptorExtractor.getVocabulary() -> retval
 ```
@@ -51395,6 +51936,14 @@ AutoIt:
 float cv::CirclesGridFinderParameters::minRNGEdgeSwitchDist
 AutoIt:
     [propget, propput] $oCirclesGridFinderParameters.minRNGEdgeSwitchDist
+```
+
+### CirclesGridFinderParameters.gridType
+
+```cpp
+cv::CirclesGridFinderParameters::GridType cv::CirclesGridFinderParameters::gridType
+AutoIt:
+    [propget, propput] $oCirclesGridFinderParameters.gridType
 ```
 
 ### CirclesGridFinderParameters.squareSize
@@ -53632,7 +54181,7 @@ AutoIt:
 ### cv::QRCodeDetectorAruco::getArucoParameters
 
 ```cpp
-cv::aruco::DetectorParameters cv::QRCodeDetectorAruco::getArucoParameters() const;
+const aruco::DetectorParameters cv::QRCodeDetectorAruco::getArucoParameters() const;
 AutoIt:
     $oQRCodeDetectorAruco.getArucoParameters() -> retval
 ```
@@ -53640,7 +54189,7 @@ AutoIt:
 ### cv::QRCodeDetectorAruco::getDetectorParameters
 
 ```cpp
-cv::QRCodeDetectorAruco::Params cv::QRCodeDetectorAruco::getDetectorParameters() const;
+const QRCodeDetectorAruco::Params cv::QRCodeDetectorAruco::getDetectorParameters() const;
 AutoIt:
     $oQRCodeDetectorAruco.getDetectorParameters() -> retval
 ```
@@ -54128,7 +54677,7 @@ AutoIt:
 ### cv::aruco::Board::getDictionary
 
 ```cpp
-cv::aruco::Dictionary cv::aruco::Board::getDictionary() const;
+const Dictionary cv::aruco::Board::getDictionary() const;
 AutoIt:
     $oBoard.getDictionary() -> retval
 ```
@@ -54136,7 +54685,7 @@ AutoIt:
 ### cv::aruco::Board::getIds
 
 ```cpp
-std::vector<int> cv::aruco::Board::getIds() const;
+const vector<int> cv::aruco::Board::getIds() const;
 AutoIt:
     $oBoard.getIds() -> retval
 ```
@@ -54144,7 +54693,7 @@ AutoIt:
 ### cv::aruco::Board::getObjPoints
 
 ```cpp
-std::vector<std::vector<cv::Point3f>> cv::aruco::Board::getObjPoints() const;
+const vector<std::vector<cv::Point3f>> cv::aruco::Board::getObjPoints() const;
 AutoIt:
     $oBoard.getObjPoints() -> retval
 ```
@@ -54152,7 +54701,7 @@ AutoIt:
 ### cv::aruco::Board::getRightBottomCorner
 
 ```cpp
-cv::Point3f cv::aruco::Board::getRightBottomCorner() const;
+const Point3f cv::aruco::Board::getRightBottomCorner() const;
 AutoIt:
     $oBoard.getRightBottomCorner() -> retval
 ```
@@ -54211,7 +54760,7 @@ AutoIt:
 ### cv::aruco::GridBoard::getDictionary
 
 ```cpp
-cv::aruco::Dictionary cv::aruco::GridBoard::getDictionary() const;
+const Dictionary cv::aruco::GridBoard::getDictionary() const;
 AutoIt:
     $oGridBoard.getDictionary() -> retval
 ```
@@ -54227,7 +54776,7 @@ AutoIt:
 ### cv::aruco::GridBoard::getIds
 
 ```cpp
-std::vector<int> cv::aruco::GridBoard::getIds() const;
+const vector<int> cv::aruco::GridBoard::getIds() const;
 AutoIt:
     $oGridBoard.getIds() -> retval
 ```
@@ -54251,7 +54800,7 @@ AutoIt:
 ### cv::aruco::GridBoard::getObjPoints
 
 ```cpp
-std::vector<std::vector<cv::Point3f>> cv::aruco::GridBoard::getObjPoints() const;
+const vector<std::vector<cv::Point3f>> cv::aruco::GridBoard::getObjPoints() const;
 AutoIt:
     $oGridBoard.getObjPoints() -> retval
 ```
@@ -54259,7 +54808,7 @@ AutoIt:
 ### cv::aruco::GridBoard::getRightBottomCorner
 
 ```cpp
-cv::Point3f cv::aruco::GridBoard::getRightBottomCorner() const;
+const Point3f cv::aruco::GridBoard::getRightBottomCorner() const;
 AutoIt:
     $oGridBoard.getRightBottomCorner() -> retval
 ```
@@ -54342,7 +54891,7 @@ AutoIt:
 ### cv::aruco::CharucoBoard::getDictionary
 
 ```cpp
-cv::aruco::Dictionary cv::aruco::CharucoBoard::getDictionary() const;
+const Dictionary cv::aruco::CharucoBoard::getDictionary() const;
 AutoIt:
     $oCharucoBoard.getDictionary() -> retval
 ```
@@ -54350,7 +54899,7 @@ AutoIt:
 ### cv::aruco::CharucoBoard::getIds
 
 ```cpp
-std::vector<int> cv::aruco::CharucoBoard::getIds() const;
+const vector<int> cv::aruco::CharucoBoard::getIds() const;
 AutoIt:
     $oCharucoBoard.getIds() -> retval
 ```
@@ -54374,7 +54923,7 @@ AutoIt:
 ### cv::aruco::CharucoBoard::getObjPoints
 
 ```cpp
-std::vector<std::vector<cv::Point3f>> cv::aruco::CharucoBoard::getObjPoints() const;
+const vector<std::vector<cv::Point3f>> cv::aruco::CharucoBoard::getObjPoints() const;
 AutoIt:
     $oCharucoBoard.getObjPoints() -> retval
 ```
@@ -54382,7 +54931,7 @@ AutoIt:
 ### cv::aruco::CharucoBoard::getRightBottomCorner
 
 ```cpp
-cv::Point3f cv::aruco::CharucoBoard::getRightBottomCorner() const;
+const Point3f cv::aruco::CharucoBoard::getRightBottomCorner() const;
 AutoIt:
     $oCharucoBoard.getRightBottomCorner() -> retval
 ```
@@ -54862,6 +55411,18 @@ AutoIt:
     $oArucoDetector.detectMarkersMultiDict( $image[, $corners[, $ids[, $rejectedImgPoints[, $dictIndices]]]] ) -> $corners, $ids, $rejectedImgPoints, $dictIndices
 ```
 
+### cv::aruco::ArucoDetector::detectMarkersWithConfidence
+
+```cpp
+void cv::aruco::ArucoDetector::detectMarkersWithConfidence( InputArray          image,
+                                                            OutputArrayOfArrays corners,
+                                                            OutputArray         ids,
+                                                            OutputArray         markersConfidence,
+                                                            OutputArrayOfArrays rejectedImgPoints = noArray() ) const;
+AutoIt:
+    $oArucoDetector.detectMarkersWithConfidence( $image[, $corners[, $ids[, $markersConfidence[, $rejectedImgPoints]]]] ) -> $corners, $ids, $markersConfidence, $rejectedImgPoints
+```
+
 ### cv::aruco::ArucoDetector::empty
 
 ```cpp
@@ -54881,7 +55442,7 @@ AutoIt:
 ### cv::aruco::ArucoDetector::getDetectorParameters
 
 ```cpp
-cv::aruco::DetectorParameters cv::aruco::ArucoDetector::getDetectorParameters() const;
+const DetectorParameters cv::aruco::ArucoDetector::getDetectorParameters() const;
 AutoIt:
     $oArucoDetector.getDetectorParameters() -> retval
 ```
@@ -54897,7 +55458,7 @@ AutoIt:
 ### cv::aruco::ArucoDetector::getDictionary
 
 ```cpp
-cv::aruco::Dictionary cv::aruco::ArucoDetector::getDictionary() const;
+const Dictionary cv::aruco::ArucoDetector::getDictionary() const;
 AutoIt:
     $oArucoDetector.getDictionary() -> retval
 ```
@@ -54905,7 +55466,7 @@ AutoIt:
 ### cv::aruco::ArucoDetector::getRefineParameters
 
 ```cpp
-cv::aruco::RefineParameters cv::aruco::ArucoDetector::getRefineParameters() const;
+const RefineParameters cv::aruco::ArucoDetector::getRefineParameters() const;
 AutoIt:
     $oArucoDetector.getRefineParameters() -> retval
 ```
@@ -55060,9 +55621,10 @@ AutoIt:
 
 ```cpp
 static cv::Mat cv::aruco::Dictionary::getBitsFromByteList( const cv::Mat& byteList,
-                                                           int            markerSize );
+                                                           int            markerSize,
+                                                           int            rotationId = 0 );
 AutoIt:
-    _OpenCV_ObjCreate("cv.aruco.Dictionary").getBitsFromByteList( $byteList, $markerSize ) -> retval
+    _OpenCV_ObjCreate("cv.aruco.Dictionary").getBitsFromByteList( $byteList, $markerSize[, $rotationId] ) -> retval
 ```
 
 ### cv::aruco::Dictionary::getByteListFromBits
@@ -55460,7 +56022,7 @@ AutoIt:
 ### cv::aruco::CharucoDetector::getBoard
 
 ```cpp
-cv::aruco::CharucoBoard cv::aruco::CharucoDetector::getBoard() const;
+const CharucoBoard cv::aruco::CharucoDetector::getBoard() const;
 AutoIt:
     $oCharucoDetector.getBoard() -> retval
 ```
@@ -55468,7 +56030,7 @@ AutoIt:
 ### cv::aruco::CharucoDetector::getCharucoParameters
 
 ```cpp
-cv::aruco::CharucoParameters cv::aruco::CharucoDetector::getCharucoParameters() const;
+const CharucoParameters cv::aruco::CharucoDetector::getCharucoParameters() const;
 AutoIt:
     $oCharucoDetector.getCharucoParameters() -> retval
 ```
@@ -55484,7 +56046,7 @@ AutoIt:
 ### cv::aruco::CharucoDetector::getDetectorParameters
 
 ```cpp
-cv::aruco::DetectorParameters cv::aruco::CharucoDetector::getDetectorParameters() const;
+const DetectorParameters cv::aruco::CharucoDetector::getDetectorParameters() const;
 AutoIt:
     $oCharucoDetector.getDetectorParameters() -> retval
 ```
@@ -55492,7 +56054,7 @@ AutoIt:
 ### cv::aruco::CharucoDetector::getRefineParameters
 
 ```cpp
-cv::aruco::RefineParameters cv::aruco::CharucoDetector::getRefineParameters() const;
+const RefineParameters cv::aruco::CharucoDetector::getRefineParameters() const;
 AutoIt:
     $oCharucoDetector.getRefineParameters() -> retval
 ```
@@ -58815,7 +59377,7 @@ AutoIt:
 ### cv::detail::Timelapser::getDst
 
 ```cpp
-cv::UMat cv::detail::Timelapser::getDst();
+const UMat cv::detail::Timelapser::getDst();
 AutoIt:
     $oTimelapser.getDst() -> retval
 ```
@@ -58882,7 +59444,7 @@ AutoIt:
 ### cv::detail::TimelapserCrop::getDst
 
 ```cpp
-cv::UMat cv::detail::TimelapserCrop::getDst();
+const UMat cv::detail::TimelapserCrop::getDst();
 AutoIt:
     $oTimelapserCrop.getDst() -> retval
 ```
@@ -59002,6 +59564,15 @@ AutoIt:
     $oBackgroundSubtractor.apply( $image[, $fgmask[, $learningRate]] ) -> $fgmask
 ```
 
+```cpp
+void cv::BackgroundSubtractor::apply( InputArray  image,
+                                      InputArray  knownForegroundMask,
+                                      OutputArray fgmask,
+                                      double      learningRate = -1 );
+AutoIt:
+    $oBackgroundSubtractor.apply( $image, $knownForegroundMask[, $fgmask[, $learningRate]] ) -> $fgmask
+```
+
 ### cv::BackgroundSubtractor::clear
 
 ```cpp
@@ -59089,6 +59660,15 @@ void cv::BackgroundSubtractorMOG2::apply( InputArray  image,
                                           double      learningRate = -1 );
 AutoIt:
     $oBackgroundSubtractorMOG2.apply( $image[, $fgmask[, $learningRate]] ) -> $fgmask
+```
+
+```cpp
+void cv::BackgroundSubtractorMOG2::apply( InputArray  image,
+                                          InputArray  knownForegroundMask,
+                                          OutputArray fgmask,
+                                          double      learningRate = -1 );
+AutoIt:
+    $oBackgroundSubtractorMOG2.apply( $image, $knownForegroundMask[, $fgmask[, $learningRate]] ) -> $fgmask
 ```
 
 ### cv::BackgroundSubtractorMOG2::clear
@@ -59370,6 +59950,15 @@ void cv::BackgroundSubtractorKNN::apply( InputArray  image,
                                          double      learningRate = -1 );
 AutoIt:
     $oBackgroundSubtractorKNN.apply( $image[, $fgmask[, $learningRate]] ) -> $fgmask
+```
+
+```cpp
+void cv::BackgroundSubtractorKNN::apply( InputArray  image,
+                                         InputArray  knownForegroundMask,
+                                         OutputArray fgmask,
+                                         double      learningRate = -1 );
+AutoIt:
+    $oBackgroundSubtractorKNN.apply( $image, $knownForegroundMask[, $fgmask[, $learningRate]] ) -> $fgmask
 ```
 
 ### cv::BackgroundSubtractorKNN::clear
@@ -59664,7 +60253,7 @@ AutoIt:
 ### cv::KalmanFilter::correct
 
 ```cpp
-cv::Mat cv::KalmanFilter::correct( const cv::Mat& measurement );
+const Mat cv::KalmanFilter::correct( const cv::Mat& measurement );
 AutoIt:
     $oKalmanFilter.correct( $measurement ) -> retval
 ```
@@ -59672,7 +60261,7 @@ AutoIt:
 ### cv::KalmanFilter::predict
 
 ```cpp
-cv::Mat cv::KalmanFilter::predict( const cv::Mat& control = Mat() );
+const Mat cv::KalmanFilter::predict( const cv::Mat& control = Mat() );
 AutoIt:
     $oKalmanFilter.predict( [$control] ) -> retval
 ```
@@ -60362,6 +60951,14 @@ AutoIt:
     $oDISOpticalFlow.empty() -> retval
 ```
 
+### cv::DISOpticalFlow::getCoarsestScale
+
+```cpp
+int cv::DISOpticalFlow::getCoarsestScale() const;
+AutoIt:
+    $oDISOpticalFlow.getCoarsestScale() -> retval
+```
+
 ### cv::DISOpticalFlow::getDefaultName
 
 ```cpp
@@ -60472,6 +61069,14 @@ AutoIt:
 void cv::DISOpticalFlow::save( const std::string& filename ) const;
 AutoIt:
     $oDISOpticalFlow.save( $filename ) -> None
+```
+
+### cv::DISOpticalFlow::setCoarsestScale
+
+```cpp
+void cv::DISOpticalFlow::setCoarsestScale( int val );
+AutoIt:
+    $oDISOpticalFlow.setCoarsestScale( $val ) -> None
 ```
 
 ### cv::DISOpticalFlow::setFinestScale
@@ -64996,6 +65601,14 @@ cv::Ptr<cv::gapi::wip::IStreamSource> cv::gapi::wip::make_gst_src( const std::st
                                                                    const cv::gapi::wip::gst::GStreamerSource::OutputType outputType = GStreamerSource::OutputType::MAT );
 AutoIt:
     _OpenCV_ObjCreate("cv.gapi.wip").make_gst_src( $pipeline[, $outputType] ) -> retval
+```
+
+### cv::gapi::wip::make\_py\_src
+
+```cpp
+cv::Ptr<cv::gapi::wip::IStreamSource> cv::gapi::wip::make_py_src( const cv::Ptr<cv::gapi::wip::IStreamSource>& src );
+AutoIt:
+    _OpenCV_ObjCreate("cv.gapi.wip").make_py_src( $src ) -> retval
 ```
 
 ## cv::gapi::wip::draw

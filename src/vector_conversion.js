@@ -12,16 +12,18 @@ exports.declare = (processor, type, parent, options = {}) => {
         return fqn;
     }
 
+    processor.typedefs.set(fqn, cpptype);
+
     const vtype = cpptype.slice("std::vector<".length, -">".length);
     const coclass = processor.getCoClass(fqn, options);
-    processor.typedefs.set(fqn, cpptype);
+    const idltype = processor.getIDLType(vtype, coclass, options);
 
     coclass.include = parent;
     coclass.is_simple = true;
     coclass.is_class = true;
     coclass.is_vector = true;
     coclass.cpptype = vtype;
-    coclass.idltype = processor.getIDLType(vtype, coclass, options);
+    coclass.idltype = idltype;
 
     coclass.addProperty(["size_t", "Count", "", ["/R", "=size()"]], options);
 
@@ -54,20 +56,20 @@ exports.declare = (processor, type, parent, options = {}) => {
         ["size_t", "index", "", ["/Expr=std::next(__self->get()->begin(), index)"]],
     ], "", ""], options);
 
-    coclass.addMethod([`${ fqn }.at`, vtype, ["/External"], [
+    coclass.addMethod([`${ fqn }.at`, vtype, ["/Call=::autoit::vector_method__index", "/Expr=*__self->get(), $0", "/Ref"], [
         ["size_t", "index", "", []],
     ], "", ""], options);
 
-    coclass.addMethod([`${ fqn }.at`, "void", ["/External"], [
+    coclass.addMethod([`${ fqn }.at`, "void", ["/Call=::autoit::vector_method__index", "/Expr=*__self->get(), $0", "/Ref"], [
         ["size_t", "index", "", []],
         [vtype, "value", "", []],
     ], "", ""], options);
 
-    coclass.addMethod([`${ fqn }.at`, vtype, ["/attr=propget", "/idlname=Item", "=get_Item", "/id=DISPID_VALUE", "/ExternalNoDecl"], [
+    coclass.addMethod([`${ fqn }.at`, vtype, ["/attr=propget", "/idlname=Item", "=get_Item", "/id=DISPID_VALUE", "/Call=::autoit::vector_method__index", "/Expr=*__self->get(), $0", "/Ref"], [
         ["size_t", "index", "", []],
     ], "", ""], options);
 
-    coclass.addMethod([`${ fqn }.at`, "void", ["/attr=propput", "/idlname=Item", "=put_Item", "/id=DISPID_VALUE", "/ExternalNoDecl"], [
+    coclass.addMethod([`${ fqn }.at`, "void", ["/attr=propput", "/idlname=Item", "=put_Item", "/id=DISPID_VALUE", "/Call=::autoit::vector_method__index", "/Expr=*__self->get(), $0", "/Ref"], [
         ["size_t", "index", "", []],
         [vtype, "item", "", []],
     ], "", ""], options);
@@ -177,8 +179,6 @@ exports.convert = (coclass, header, impl, options = {}) => {
 
     const cotype = coclass.getClassName();
     const { cpptype: vtype } = coclass;
-    const idltype = coclass.idltype === "VARIANT" || coclass.idltype[0] === "I" ? "VARIANT" : coclass.idltype;
-    const byref = vtype !== "void*" && vtype !== "uchar*" && (idltype === "VARIANT" || idltype[0] === "I");
 
     impl.push(`
         const std::vector<int> C${ cotype }::Keys(HRESULT& hr) {
@@ -186,28 +186,6 @@ exports.convert = (coclass, header, impl, options = {}) => {
             std::vector<int> keys(v.size());
             std::iota(keys.begin(), keys.end(), 0);
             return keys;
-        }
-
-        const ${ vtype } C${ cotype }::at(size_t i, HRESULT& hr) {
-            auto& v = *__self->get();
-            if (i >= v.size()) {
-                hr = E_INVALIDARG;
-                AUTOIT_ERROR("index " << i << " is out of range");
-                return ${ vtype }();
-            }
-            hr = S_OK;
-            return v.at(i);
-        }
-
-        void C${ cotype }::at(size_t i, ${ vtype }${ byref ? "&" : "" } value, HRESULT& hr) {
-            auto& v = *__self->get();
-            if (i >= v.size()) {
-                hr = E_INVALIDARG;
-                AUTOIT_ERROR("index " << i << " is out of range");
-                return;
-            }
-            hr = S_OK;
-            v[i] = value;
         }
 
         void C${ cotype }::push_vector(${ coclass.fqn }& other, HRESULT& hr) {

@@ -1,5 +1,6 @@
 const sysPath = require("node:path");
 const {spawn} = require("node:child_process");
+const os = require("node:os");
 
 const exec = (file, argv, cb) => {
     console.log(file, argv.map(arg => (arg.includes(" ") ? `"${ arg }"` : arg)).join(" "));
@@ -38,6 +39,22 @@ const exec = (file, argv, cb) => {
     child.on("close", next);
 };
 
+const unixEscape = (arg, verbatim = true) => {
+    if (verbatim && os.platform() === "win32" && arg[0] === "/" && arg[1] !== "/") {
+        arg = `/${ arg }`;
+    }
+
+    if (/[^\w/=.-]/.test(arg)) {
+        arg = `'${ arg.replaceAll("'", "'\\''") }'`;
+    }
+
+    return arg;
+};
+
+const unixCmd = argv => {
+    return argv.map(arg => unixEscape(arg)).join(" ");
+};
+
 exports.compile = (filename, options, cb) => {
     const dirname = sysPath.dirname(filename);
     const basename = sysPath.basename(filename, ".idl");
@@ -59,7 +76,7 @@ exports.compile = (filename, options, cb) => {
     ]);
 
     if (options.save === false) {
-        console.log("midl.exe", argv);
+        console.log(unixCmd(["midl.exe", ...argv]));
         cb();
         return;
     }

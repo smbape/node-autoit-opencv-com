@@ -74,7 +74,7 @@ SHIFT
 
 ::Find Visual Studio
 @FOR /F "usebackq tokens=* USEBACKQ" %%F IN (`vswhere.exe -legacy -version [10.0^,^) -property installationVersion -latest`) DO @SET VS_VERSION=%%F
-@FOR /F "usebackq tokens=* USEBACKQ" %%F IN (`vswhere.exe -legacy -version [10.0^,^) -property catalog_productLineVersion -latest`) DO @SET VS_PRODUCT_VERSION=%%F
+@FOR /F "usebackq tokens=* USEBACKQ" %%F IN (`vswhere.exe -legacy -version [10.0^,^) -property catalog_featureReleaseYear -latest`) DO @SET VS_PRODUCT_VERSION=%%F
 @FOR /F "usebackq tokens=* USEBACKQ" %%F IN (`vswhere.exe -version [16.0^,^) -property installationPath -latest`) DO (
     @IF NOT [%has_generator%] == [1] (
         @SET CMAKE_GENERATOR=-G "Visual Studio %VS_VERSION:~0,2% %VS_PRODUCT_VERSION%"

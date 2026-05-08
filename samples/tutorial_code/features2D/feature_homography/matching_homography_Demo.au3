@@ -11,10 +11,10 @@
 #include "..\..\..\..\autoit-opencv-com\udf\opencv_udf_utils.au3"
 
 ;~ Sources:
-;~     https://docs.opencv.org/4.12.0/d7/dff/tutorial_feature_homography.html
-;~     https://github.com/opencv/opencv/blob/4.12.0/samples/cpp/tutorial_code/features2D/feature_homography/SURF_FLANN_matching_homography_Demo.cpp
+;~     https://docs.opencv.org/4.13.0/d7/dff/tutorial_feature_homography.html
+;~     https://github.com/opencv/opencv/blob/4.13.0/samples/cpp/tutorial_code/features2D/feature_homography/SURF_FLANN_matching_homography_Demo.cpp
 
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world4120*"), _OpenCV_FindDLL("autoit_opencv_com4120*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world4130*"), _OpenCV_FindDLL("autoit_opencv_com4130*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 
@@ -193,8 +193,8 @@ Func Detect()
 	Local $good_matches = _OpenCV_ObjCreate("VectorOfDMatch")
 
 	For $i = 0 To $knn_matches.size() - 1
-		Local $oDMatch0 = $knn_matches.at($i)[0]
-		Local $oDMatch1 = $knn_matches.at($i)[1]
+		Local $oDMatch0 = $knn_matches($i) (0)
+		Local $oDMatch1 = $knn_matches($i) (1)
 
 		If $oDMatch0.distance < $ratio_thresh * $oDMatch1.distance Then
 			$good_matches.push_back($oDMatch0)

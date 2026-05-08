@@ -2,8 +2,6 @@
 #include <opencv2/core.hpp>
 #include <variant>
 
-// CV_EXPORTS_W : include this file in lua_generated_include
-
 namespace cv {
 	CV_EXPORTS_W double randu();
 	CV_EXPORTS_W void randu(int rows, int cols, InputOutputArray dst = Mat(), int type = CV_32F);

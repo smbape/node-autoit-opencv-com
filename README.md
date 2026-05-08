@@ -43,8 +43,8 @@ In fact, the dll being a [Component Object Model (COM)](https://docs.microsoft.c
 
 ## Installation
 
-  - Download and extract [opencv-4.12.0-windows.exe](https://github.com/opencv/opencv/releases/) into a folder
-  - Download and extract [autoit-opencv-4.12.0-com-v2.8.0.7z](https://github.com/smbape/node-autoit-opencv-com/releases/download/v2.8.0/autoit-opencv-4.12.0-com-v2.8.0.7z) into a folder
+  - Download and extract [opencv-4.13.0-windows.exe](https://github.com/opencv/opencv/releases/) into a folder
+  - Download and extract [autoit-opencv-4.13.0-com-v2.8.0.7z](https://github.com/smbape/node-autoit-opencv-com/releases/download/v2.8.0/autoit-opencv-4.13.0-com-v2.8.0.7z) into a folder
 
 ## Usage
 
@@ -60,7 +60,7 @@ In fact, the dll being a [Component Object Model (COM)](https://docs.microsoft.c
 
 #include "autoit-opencv-com\udf\opencv_udf_utils.au3"
 
-_OpenCV_Open("opencv-4.12.0-windows\opencv\build\x64\vc16\bin\opencv_world4120.dll", "autoit-opencv-com\autoit_opencv_com4120.dll")
+_OpenCV_Open("opencv-4.13.0-windows\opencv\build\x64\vc16\bin\opencv_world4130.dll", "autoit-opencv-com\autoit_opencv_com4130.dll")
 OnAutoItExitRegister("_OnAutoItExit")
 Example()
 
@@ -90,7 +90,7 @@ EndFunc   ;==>_OnAutoItExit
 #include "autoit-opencv-com\udf\opencv_udf_utils.au3"
 #include <GUIConstantsEx.au3>
 
-_OpenCV_Open("opencv-4.12.0-windows\opencv\build\x64\vc16\bin\opencv_world4120.dll", "autoit-opencv-com\autoit_opencv_com4120.dll")
+_OpenCV_Open("opencv-4.13.0-windows\opencv\build\x64\vc16\bin\opencv_world4130.dll", "autoit-opencv-com\autoit_opencv_com4130.dll")
 OnAutoItExitRegister("_OnAutoItExit")
 Example()
 
@@ -142,7 +142,7 @@ function Example() {
     $cv.destroyAllWindows()
 }
 
-[OpenCvComInterop]::DllOpen("opencv-4.12.0-windows\opencv\build\x64\vc16\bin\opencv_world4120.dll", "autoit-opencv-com\autoit_opencv_com4120.dll")
+[OpenCvComInterop]::DllOpen("opencv-4.13.0-windows\opencv\build\x64\vc16\bin\opencv_world4130.dll", "autoit-opencv-com\autoit_opencv_com4130.dll")
 
 Example
 
@@ -151,7 +151,7 @@ Example
 
 ### csharp
 
-Open `x64 Native Tools Command Prompt for VS 2022`
+Open `x64 Native Tools Command Prompt for VS`
 
 
 #### Runtime example
@@ -182,8 +182,8 @@ public static class Test
     static void Main(String[] args)
     {
         OpenCvComInterop.DllOpen(
-            "opencv-4.12.0-windows\\opencv\\build\\x64\\vc16\\bin\\opencv_world4120.dll",
-            "autoit-opencv-com\\autoit_opencv_com4120.dll"
+            "opencv-4.13.0-windows\\opencv\\build\\x64\\vc16\\bin\\opencv_world4130.dll",
+            "autoit-opencv-com\\autoit_opencv_com4130.dll"
         );
 
         Example();
@@ -217,8 +217,8 @@ public static class Test
     static void Main(String[] args)
     {
         OpenCvComInterop.DllOpen(
-            "opencv-4.12.0-windows\\opencv\\build\\x64\\vc16\\bin\\opencv_world4120.dll",
-            "autoit-opencv-com\\autoit_opencv_com4120.dll"
+            "opencv-4.13.0-windows\\opencv\\build\\x64\\vc16\\bin\\opencv_world4130.dll",
+            "autoit-opencv-com\\autoit_opencv_com4130.dll"
         );
 
         // Enable Registration-Free COM
@@ -246,23 +246,23 @@ Then, in [Git Bash](https://gitforwindows.org/), execute the following commands
 # go to the folder of your choice
 # cd ...
 
-# download autoit-opencv-4.12.0-com-v2.8.0.7z
-curl -L 'https://github.com/smbape/node-autoit-opencv-com/releases/download/v2.8.0/autoit-opencv-4.12.0-com-v2.8.0.7z' -o autoit-opencv-4.12.0-com-v2.8.0.7z
+# download autoit-opencv-4.13.0-com-v2.8.0.7z
+curl -L 'https://github.com/smbape/node-autoit-opencv-com/releases/download/v2.8.0/autoit-opencv-4.13.0-com-v2.8.0.7z' -o autoit-opencv-4.13.0-com-v2.8.0.7z
 
-# extract the content of autoit-opencv-4.12.0-com-v2.8.0.7z into a folder named autoit-opencv-com
-7z x autoit-opencv-4.12.0-com-v2.8.0.7z -aoa -oautoit-opencv-com
+# extract the content of autoit-opencv-4.13.0-com-v2.8.0.7z into a folder named autoit-opencv-com
+7z x autoit-opencv-4.13.0-com-v2.8.0.7z -aoa -oautoit-opencv-com
 
-# download opencv-4.12.0-windows.exe
-curl -L 'https://github.com/opencv/opencv/releases/download/4.12.0/opencv-4.12.0-windows.exe' -o opencv-4.12.0-windows.exe
+# download opencv-4.13.0-windows.exe
+curl -L 'https://github.com/opencv/opencv/releases/download/4.13.0/opencv-4.13.0-windows.exe' -o opencv-4.13.0-windows.exe
 
-# extract the content of opencv-4.12.0-windows.exe into a folder named opencv-4.12.0-windows
-./opencv-4.12.0-windows.exe -oopencv-4.12.0-windows -y
+# extract the content of opencv-4.13.0-windows.exe into a folder named opencv-4.13.0-windows
+./opencv-4.13.0-windows.exe -oopencv-4.13.0-windows -y
 
-# download autoit-opencv-4.12.0-com-v2.8.0-src.zip
-curl -L 'https://github.com/smbape/node-autoit-opencv-com/archive/refs/tags/v2.8.0.zip' -o autoit-opencv-4.12.0-com-v2.8.0-src.zip
+# download autoit-opencv-4.13.0-com-v2.8.0-src.zip
+curl -L 'https://github.com/smbape/node-autoit-opencv-com/archive/refs/tags/v2.8.0.zip' -o autoit-opencv-4.13.0-com-v2.8.0-src.zip
 
-# extract the autoit-addon and samples folders of autoit-opencv-4.12.0-com-v2.8.0-src.zip
-7z x autoit-opencv-4.12.0-com-v2.8.0-src.zip -aoa 'node-autoit-opencv-com-2.8.0\autoit-addon\*' 'node-autoit-opencv-com-2.8.0\samples\*'
+# extract the autoit-addon and samples folders of autoit-opencv-4.13.0-com-v2.8.0-src.zip
+7z x autoit-opencv-4.13.0-com-v2.8.0-src.zip -aoa 'node-autoit-opencv-com-2.8.0\autoit-addon\*' 'node-autoit-opencv-com-2.8.0\samples\*'
 cp -rf node-autoit-opencv-com-2.8.0/* ./
 rm -rf node-autoit-opencv-com-2.8.0
 ```
@@ -283,7 +283,7 @@ powershell.exe -ExecutionPolicy UnRestricted -File <path to the .ps1 file>
 
 To run a `.cs` file in the `samples\dotnet` use the following command
 
-Open `x64 Native Tools Command Prompt for VS 2022`
+Open `x64 Native Tools Command Prompt for VS`
 
 ```sh
 # samples\dotnet\csrun.bat <path to the .cs file> <arguments>
@@ -298,7 +298,7 @@ Look at `samples\tutorial_code\Histograms_Matching\calcHist_Demo.au3` for an exa
 
 #### Prerequisite
 
-  - Install [Visual Studio 2022 >= 17.13.0 with .NET Desktop and C++ Desktop](https://visualstudio.microsoft.com/fr/downloads/)
+  - Install [Visual Studio 2026 with .NET Desktop and C++ Desktop](https://visualstudio.microsoft.com/fr/downloads/)
 
 #### Building
 
@@ -311,7 +311,7 @@ The transformation will usually be straight from python.
 The translation usually involves 2 steps:
 
   - Finding the functions/constants names.
-  - Transform the parameter types according to the UDF parameter. This step might involve looking at the [opencv documentation](https://docs.opencv.org/4.12.0/index.html).
+  - Transform the parameter types according to the UDF parameter. This step might involve looking at the [opencv documentation](https://docs.opencv.org/4.13.0/index.html).
 
 ### Finding the functions/constants names
 
@@ -354,7 +354,7 @@ cnts, _ = cv2.findContours(thresh_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPL
 blurred = cv2.GaussianBlur(image, (3, 3), 0)
 ```
 
-The [GaussianBlur](https://docs.opencv.org/4.12.0/d4/d86/group__imgproc__filter.html#gaabe8c836e97159a9193fb0b11ac52cf1) documentation gives the following information
+The [GaussianBlur](https://docs.opencv.org/4.13.0/d4/d86/group__imgproc__filter.html#gaabe8c836e97159a9193fb0b11ac52cf1) documentation gives the following information
 ```txt
 void cv::GaussianBlur   (   InputArray    src,
     OutputArray   dst,
@@ -387,7 +387,7 @@ $blurred = $cv.GaussianBlur($image, _OpenCV_Size(3, 3), 0)
 T, thresh_img = cv2.threshold(blurred, 215, 255, cv2.THRESH_BINARY)
 ```
 
-The [threshold](https://docs.opencv.org/4.12.0/d7/d1b/group__imgproc__misc.html#gae8a4a146d1ca78c626a53577199e9c57) documentation gives the following information
+The [threshold](https://docs.opencv.org/4.13.0/d7/d1b/group__imgproc__misc.html#gae8a4a146d1ca78c626a53577199e9c57) documentation gives the following information
 ```txt
 double cv::threshold  (   InputArray    src,
     OutputArray   dst,
@@ -431,7 +431,7 @@ $thresh_img = $cv.extended[1]
 cnts, _ = cv2.findContours(thresh_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 ```
 
-The [findContours](https://docs.opencv.org/4.12.0/d3/dc0/group__imgproc__shape.html#gadf1ad6a0b82947fa1fe3c3d497f260e0) documentation gives the following information
+The [findContours](https://docs.opencv.org/4.13.0/d3/dc0/group__imgproc__shape.html#gadf1ad6a0b82947fa1fe3c3d497f260e0) documentation gives the following information
 ```txt
 void cv::findContours   (   InputArray    image,
     OutputArrayOfArrays   contours,
@@ -480,7 +480,7 @@ $_ = $cv.extended[1]
 
 ### Prerequisites
 
-  - Install [Visual Studio 2022 >= 17.13.0 with .NET Desktop and C++ Desktop](https://visualstudio.microsoft.com/fr/downloads/)
+  - Install [Visual Studio 2026 with .NET Desktop and C++ Desktop](https://visualstudio.microsoft.com/fr/downloads/)
   - Install [Git for Windows](https://gitforwindows.org/)
   - Install [nodejs](https://nodejs.org/en/download/)
   - Install [Python >= 3.8](https://www.python.org/downloads/)

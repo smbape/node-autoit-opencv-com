@@ -281,7 +281,7 @@ void ExtendedHolder::CreateActivationContext(HINSTANCE hInstance) {
 	::ReleaseActCtx(hActCtx);
 }
 
-IDispatch* getRealIDispatch(VARIANT const* const& in_val) {
+IDispatch* getRealIDispatch(VARIANT const* in_val) {
 	auto dispatch = V_DISPATCH(in_val);
 
 	MEMORY_BASIC_INFORMATION info;
@@ -295,7 +295,7 @@ IDispatch* getRealIDispatch(VARIANT const* const& in_val) {
 	return dispatch;
 }
 
-const variant_t get_variant_in(VARIANT const* const& in_val) {
+const variant_t get_variant_in(VARIANT const* in_val) {
 	if (!V_ISBYREF(in_val)) {
 		return _variant_t(in_val);
 	}
@@ -352,7 +352,7 @@ const variant_t get_variant_in(VARIANT const* const& in_val) {
 	}
 }
 
-const bool is_assignable_from(bool& out_val, VARIANT const* const& in_val, bool is_optional) {
+const bool is_assignable_from(bool& out_val, VARIANT const* in_val, bool is_optional) {
 	if (PARAMETER_MISSING(in_val)) {
 		return is_optional;
 	}
@@ -365,7 +365,7 @@ const HRESULT autoit_to(VARIANT_BOOL const& in_val, bool& out_val) {
 	return S_OK;
 }
 
-const HRESULT autoit_to(VARIANT const* const& in_val, bool& out_val) {
+const HRESULT autoit_to(VARIANT const* in_val, bool& out_val) {
 	if (PARAMETER_MISSING(in_val)) {
 		return S_OK;
 	}
@@ -394,7 +394,7 @@ const bool is_assignable_from(std::string& out_val, BSTR const& in_val, bool is_
 	return true;
 }
 
-const bool is_assignable_from(std::string& out_val, VARIANT const* const& in_val, bool is_optional) {
+const bool is_assignable_from(std::string& out_val, VARIANT const* in_val, bool is_optional) {
 #ifdef IS_VARIANT_ASSIGNABLE_FROM_STRING
 	return IS_VARIANT_ASSIGNABLE_FROM_STRING(out_val, in_val, is_optional);
 #else
@@ -419,7 +419,7 @@ const HRESULT autoit_to(BSTR const& in_val, std::string& out_val) {
 	return E_INVALIDARG;
 }
 
-const HRESULT autoit_to(VARIANT const* const& in_val, std::string& out_val) {
+const HRESULT autoit_to(VARIANT const* in_val, std::string& out_val) {
 #ifdef AUTOIT_VARIANT_TO_STRING
 	return AUTOIT_VARIANT_TO_STRING(in_val, out_val);
 #endif
@@ -469,7 +469,7 @@ const HRESULT autoit_from(BSTR const& in_val, VARIANT*& out_val) {
 	return VariantCopy(out_val, &variant);
 }
 
-const bool is_assignable_from(char*& out_val, VARIANT const* const& in_val, bool is_optional) {
+const bool is_assignable_from(char*& out_val, VARIANT const* in_val, bool is_optional) {
 	if (PARAMETER_MISSING(in_val)) {
 		return is_optional;
 	}
@@ -478,7 +478,7 @@ const bool is_assignable_from(char*& out_val, VARIANT const* const& in_val, bool
 	return is_assignable_from(str, in_val, is_optional);
 }
 
-const HRESULT autoit_to(VARIANT const* const& in_val, char*& out_val) {
+const HRESULT autoit_to(VARIANT const* in_val, char*& out_val) {
 	std::string str;
 	HRESULT hr = autoit_to(in_val, str);
 	if (SUCCEEDED(hr)) {
@@ -530,7 +530,7 @@ const HRESULT autoit_out(VARIANT*& out_val, BSTR* const retval) {
 	return *retval == NULL && V_BSTR(out_val) != NULL ? E_OUTOFMEMORY : S_OK;
 }
 
-const bool is_variant_number(VARIANT const* const& in_val) {
+const bool is_variant_number(VARIANT const* in_val) {
 	switch (V_VT(in_val)) {
 	case VT_I1:
 	case VT_I2:
@@ -572,11 +572,11 @@ const HRESULT GetInterfaceName(IUnknown* punk, VARIANT* vres) {
 	return hr;
 }
 
-const bool is_assignable_from(_variant_t& out_val, VARIANT const* const& in_val, bool is_optional) {
+const bool is_assignable_from(_variant_t& out_val, VARIANT const* in_val, bool is_optional) {
 	return true;
 }
 
-const HRESULT autoit_to(VARIANT const* const& in_val, _variant_t& out_val) {
+const HRESULT autoit_to(VARIANT const* in_val, _variant_t& out_val) {
 	out_val = *in_val;
 	return S_OK;
 }

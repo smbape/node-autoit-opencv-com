@@ -3,6 +3,7 @@
 BackUp
 generated
 build_x64
+build_Win32
 opencv-*-build_x64
 *.onnx
 *.weights

@@ -8,7 +8,7 @@
 #include "..\autoit-opencv-com\udf\opencv_udf_utils.au3"
 #include <GUIConstantsEx.au3>
 
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world4120*"), _OpenCV_FindDLL("autoit_opencv_com4120*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world4130*"), _OpenCV_FindDLL("autoit_opencv_com4130*"))
 OnAutoItExitRegister("_OnAutoItExit")
 Example()
 

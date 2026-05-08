@@ -94,7 +94,7 @@ module.exports = ({ self, self_get, shared_ptr }) => [
 
     // ["cv.UMat.addref", "void", [], [], "", ""],
 
-    ["cv.UMat.adjustROI", `${ shared_ptr }<UMat>`, ["/Ref", "/WrapAs=::autoit::reference_internal"], [
+    ["cv.UMat.adjustROI", `${ shared_ptr }<UMat>`, ["/Ref"], [
         ["int", "dtop", "", []],
         ["int", "dbottom", "", []],
         ["int", "dleft", "", []],

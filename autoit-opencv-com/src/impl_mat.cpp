@@ -14,7 +14,7 @@ const HRESULT autoit_from(cv::MatExpr const& in_val, ICv_Mat_Object**& out_val) 
 	return autoit_from(cv::Mat(in_val), out_val);
 }
 
-const bool is_variant_scalar(VARIANT const* const& in_val) {
+const bool is_variant_scalar(VARIANT const* in_val) {
 	if ((V_VT(in_val) & VT_ARRAY) != VT_ARRAY || (V_VT(in_val) ^ VT_ARRAY) != VT_VARIANT) {
 		return false;
 	}
@@ -23,7 +23,7 @@ const bool is_variant_scalar(VARIANT const* const& in_val) {
 	return SUCCEEDED(autoit_to(in_val, out_val));
 }
 
-const bool is_array_from(VARIANT const* const& in_val, bool is_optional) {
+const bool is_array_from(VARIANT const* in_val, bool is_optional) {
 	if (PARAMETER_NULL(in_val)) {
 		return true;
 	}
@@ -39,7 +39,7 @@ const bool is_array_from(VARIANT const* const& in_val, bool is_optional) {
 	return dynamic_cast<IVariantArray*>(getRealIDispatch(in_val)) != NULL;
 }
 
-const bool is_arrays_from(VARIANT const* const& in_val, bool is_optional) {
+const bool is_arrays_from(VARIANT const* in_val, bool is_optional) {
 	if (PARAMETER_NULL(in_val)) {
 		return true;
 	}

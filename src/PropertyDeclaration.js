@@ -59,7 +59,7 @@ Object.assign(exports, {
 
         for (const modifier of modifiers) {
             if (modifier.startsWith("/Cast=")) {
-                in_val = `${ modifier.slice("/Cast=".length) }(${ in_val })`;
+                in_val = `${ modifier.slice("/Cast=".length).trim() }(${ in_val })`;
             }
         }
 
@@ -78,30 +78,7 @@ Object.assign(exports, {
             `.replace(/^ {16}/mg, "").trim();
         }
 
-        const cpptype = processor.getCppType(in_type, coclass, options);
-        const is_const = modifiers.includes("/C");
-
-        if (is_by_ref && !is_const) {
-            in_val = `::autoit::reference_internal(${ in_val })`;
-        }
-
-        if (is_by_ref && !is_const && cpptype.startsWith("std::vector<")) {
-            const fqn = processor.add_vector(in_type, coclass, options);
-            const cotype = processor.classes.get(fqn).getClassName();
-
-            return `
-                I${ cotype }* pdispVal = nullptr;
-                I${ cotype }** ppdispVal = &pdispVal;
-                hr = autoit_from(${ in_val }, ppdispVal);
-                if (SUCCEEDED(hr)) {
-                    VariantClear(${ out_val });
-                    V_VT(${ out_val }) = VT_DISPATCH;
-                    V_DISPATCH(${ out_val }) = static_cast<IDispatch*>(*ppdispVal);
-                }
-            `.replace(/^ {16}/mg, "").trim();
-        }
-
-        return `hr = autoit_from(${ processor.castFromEnumIfNeeded(in_type, in_val, coclass, options) }, ${ out_val });`;
+        return `hr = autoit_from_reference(${ processor.castFromEnumIfNeeded(in_type, in_val, coclass, options) }, ${ out_val });`;
     },
 
     convertFromIdl(in_type, in_val, out_type, obj, propname, setter, is_enum) {
@@ -129,7 +106,7 @@ Object.assign(exports, {
 
         const is_prop_test = is_test && !options.notest.has(`${ fqn }::${ idlname }`);
 
-        const {type, modifiers} = coclass.properties.get(idlname);
+        const {type, value, modifiers} = coclass.properties.get(idlname);
         const propidltype = processor.getIDLType(type, coclass, options);
         const cpptype = processor.getCppType(type, coclass, options);
         const is_static = !coclass.is_class && !coclass.is_struct || modifiers.includes("/S");
@@ -151,24 +128,24 @@ Object.assign(exports, {
             if (modifier[0] === "=") {
                 propname = modifier.slice(1);
             } else if (modifier.startsWith("/R=")) {
-                rname = `${ modifier.slice("/R=".length) }()`;
+                rname = `${ modifier.slice("/R=".length).trim() }()`;
                 has_propget = true;
             } else if (modifier.startsWith("/RExpr=")) {
                 has_propget = true;
             } else if (modifier.startsWith("/W=")) {
-                wname = modifier.slice("/W=".length);
+                wname = modifier.slice("/W=".length).trim();
                 has_propput = true;
             } else if (modifier.startsWith("/WExpr=")) {
                 has_propput = true;
             } else if (modifier.startsWith("/id=")) {
-                const new_id = modifier.slice("/id=".length);
+                const new_id = modifier.slice("/id=".length).trim();
                 if (id === null) {
                     id = new_id;
                 } else if (id !== new_id) {
                     throw new Error(`different ids for property ${ idlname } : ${ id } != ${ new_id }`);
                 }
             } else if (modifier.startsWith("/attr=")) {
-                attrs.push(modifier.slice("/attr=".length));
+                attrs.push(modifier.slice("/attr=".length).trim());
             }
         }
 
@@ -186,7 +163,7 @@ Object.assign(exports, {
             if (is_enum) {
                 impl.push(`
                     STDMETHODIMP C${ cotype }::get_${ idlname }(${ idltype }* pVal) {
-                        *pVal = static_cast<LONG>(${ `${ fqn }::${ propname }` });
+                        *pVal = static_cast<LONG>(${ `${ value }` });
                         return S_OK;
                     }`.replace(/^ {20}/mg, "")
                 );
@@ -205,7 +182,7 @@ Object.assign(exports, {
                 rname = `${ obj }${ rname ? rname : propname }`;
                 for (const modifier of modifiers) {
                     if (modifier.startsWith("/RExpr=")) {
-                        rname = makeExpansion(modifier.slice("/RExpr=".length), rname);
+                        rname = makeExpansion(modifier.slice("/RExpr=".length).trim(), rname);
                     }
                 }
 
@@ -258,7 +235,7 @@ Object.assign(exports, {
             let idltype = propidltype === "VARIANT" ? "VARIANT*" : propidltype;
             for (const modifier of modifiers) {
                 if (modifier.startsWith("/WIDL=")) {
-                    idltype = modifier.slice("/WIDL=".length);
+                    idltype = modifier.slice("/WIDL=".length).trim();
                 }
             }
 
@@ -267,30 +244,36 @@ Object.assign(exports, {
 
             let has_expr = false;
 
+            if (!wname) {
+                wname = `${ obj }${ propname }`;
+            }
+
             for (const modifier of modifiers) {
                 if (modifier.startsWith("/WExpr=")) {
-                    wname = makeExpansion(modifier.slice("/WExpr=".length), wname);
+                    wname = makeExpansion(modifier.slice("/WExpr=".length).trim(), wname);
                     has_expr = true;
                 }
             }
 
             if (has_expr) {
-                wname = wname.replaceAll(/\$(?:value\b|\{\s*value\s*\})/g, "newVal");
-                wname = wname.replaceAll(/\$(?:hr\b|\{\s*hr\s*\})/g, "hr");
-                wname = wname.replaceAll(/\$(?:cotype\b|\{\s*cotype\s*\})/g, cotype);
-                wname = wname.replaceAll(/\$(?:cpptype\b|\{\s*cpptype\s*\})/g, cpptype);
-                wname = wname.replaceAll(/\$(?:propidltype\b|\{\s*propidltype\s*\})/g, idltype);
+                wname = wname.replace(/\$(?:value\b|\{\s*value\s*\})/g, "newVal");
+                wname = wname.replace(/\$(?:hr\b|\{\s*hr\s*\})/g, "hr");
+                wname = wname.replace(/\$(?:cotype\b|\{\s*cotype\s*\})/g, cotype);
+                wname = wname.replace(/\$(?:cpptype\b|\{\s*cpptype\s*\})/g, cpptype);
+                wname = wname.replace(/\$(?:propidltype\b|\{\s*propidltype\s*\})/g, idltype);
 
                 if (idltype[0] === "I" && idltype !== "IDispatch*") {
                     const propcotype = idltype.slice(1, idltype.endsWith("*") ? -1 : idltype.length);
-                    wname = wname.replaceAll(/\$(?:propcotype\b|\{\s*propcotype\s*\})/g, propcotype);
-                    wname = wname.replaceAll(/\$(?:propccotype\b|\{\s*propccotype\s*\})/g, `C${ propcotype }`);
+                    wname = wname.replace(/\$(?:propcotype\b|\{\s*propcotype\s*\})/g, propcotype);
+                    wname = wname.replace(/\$(?:propccotype\b|\{\s*propccotype\s*\})/g, `C${ propcotype }`);
                 }
 
                 cvt.length = 0;
                 cvt.push("HRESULT hr = S_OK;");
                 cvt.push(...wname.trim().split("\n"));
-                cvt[cvt.length - 1] += ";";
+                if (!cvt.at(-1).endsWith(";")) {
+                    cvt[cvt.length - 1] += ";";
+                }
                 cvt.push("return hr;");
             }
 

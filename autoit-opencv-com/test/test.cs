@@ -42,7 +42,7 @@ public static class Test
             CompiletimeExample(cameraId, cyan);
             return;
         }
-        object pArg0 = optionalColor.empty ? System.Reflection.Missing.Value : (object) optionalColor.value;
+        object pArg0 = optionalColor.empty ? System.Reflection.Missing.Value : (object)optionalColor.value;
 
         IVectorOfChar_Object VectorOfChar = new VectorOfChar_Object();
 
@@ -210,8 +210,8 @@ public static class Test
         }
 
         OpenCvComInterop.DllOpen(
-            string.IsNullOrWhiteSpace(opencv_world_dll) ? OpenCvComInterop.FindDLL("opencv_world4120*", buildType: buildType) : opencv_world_dll,
-            string.IsNullOrWhiteSpace(opencv_com_dll) ? OpenCvComInterop.FindDLL("autoit_opencv_com4120*", buildType: buildType) : opencv_com_dll
+            string.IsNullOrWhiteSpace(opencv_world_dll) ? OpenCvComInterop.FindDLL("opencv_world4130*", buildType: buildType) : opencv_world_dll,
+            string.IsNullOrWhiteSpace(opencv_com_dll) ? OpenCvComInterop.FindDLL("autoit_opencv_com4130*", buildType: buildType) : opencv_com_dll
         );
 
         if (register)
@@ -219,19 +219,24 @@ public static class Test
             OpenCvComInterop.Register();
         }
 
-        OpenCvComInterop.DllActivateManifest();
-        try {
-            CompiletimeExample(0);
-            CompiletimeExample1();
-            CompiletimeExample2();
-        }
-        finally
-        {
-            OpenCvComInterop.DllDeactivateActCtx();
-        }
-
         try
         {
+            if (!OpenCvComInterop.DllActivateManifest())
+            {
+                throw new ArgumentException("DllActivateManifest failed");
+            }
+
+            try
+            {
+                CompiletimeExample(0);
+                CompiletimeExample1();
+                CompiletimeExample2();
+            }
+            finally
+            {
+                OpenCvComInterop.DllDeactivateActCtx();
+            }
+
             RuntimeExample1();
             RuntimeExample2();
         }

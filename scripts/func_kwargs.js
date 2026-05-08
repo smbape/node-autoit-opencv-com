@@ -1,6 +1,6 @@
 const genFunc = (libname, fname, args) => {
     return `
-Func _${ libname }_${ fname }(${ args.map(([argname, , defval]) => `$${ argname }${ defval == null ? "" : " = Default" }`).join(", ") })
+Func _${ libname }_${ fname }(${ args.map(([argname, , defval]) => `$${ argname }${ defval == null || defval === "Default" ? " = Default" : ` = ${ defval }` }`).join(", ") })
     Local Static $NamedParameters = _${ libname }_ObjCreate("NamedParameters")
 
     Local $kwargs = Default
@@ -46,4 +46,4 @@ EndFunc   ;==>_${ libname }_${ fname }
 const [,, libname, fname, ...args] = process.argv;
 
 // eslint-disable-next-line no-eval
-console.log(genFunc(libname, fname, args.map(arg => eval(arg))));
+console.log(genFunc(libname, fname, args.map(arg => (/^\w+$/.test(arg) ? [arg] : eval(arg)))));

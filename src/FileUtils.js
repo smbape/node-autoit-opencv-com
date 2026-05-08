@@ -141,7 +141,7 @@ const writeFiles = (files, options, cb) => {
                     },
 
                     (buffer, next) => {
-                        const content = eol[has_doc_toc ? "lf" : "crlf"](files.get(filename));
+                        const content = eol[has_doc_toc ? "lf" : "crlf"](`${ files.get(filename).trim() }\n`);
                         const str = buffer.toString();
 
                         if (content === str) {
@@ -189,6 +189,8 @@ const writeFiles = (files, options, cb) => {
                                     idls_to_generate.add(filename);
 
                                     // tlb must be regenerated on any idl change
+                                    idls_to_generate.add(sysPath.join(options.output, `${ options.LIBRARY }.idl`));
+                                } else if (options.build.has("tlb")) {
                                     idls_to_generate.add(sysPath.join(options.output, `${ options.LIBRARY }.idl`));
                                 }
 
@@ -343,7 +345,7 @@ const deleteFiles = (directory, files, options, cb) => {
             eachOfLimit(names, cpus, (filename, i, next) => {
                 filename = sysPath.join(directory, filename);
 
-                if (files.has(filename) || ![".h", ".hpp", ".c", ".cc", ".cpp", ".cxx", ".idl", ".tlb"].some(ext => filename.endsWith(ext))) {
+                if (files.has(filename) || ![".h", ".hpp", ".c", ".cc", ".cpp", ".cxx", ".idl", ".tlb", ".rgs"].some(ext => filename.endsWith(ext))) {
                     next();
                     return;
                 }

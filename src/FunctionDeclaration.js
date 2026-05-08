@@ -236,11 +236,11 @@ Object.assign(exports, {
 
                 for (const modifier of arg_modifiers) {
                     if (modifier.startsWith("/Cast=")) {
-                        callarg = `${ modifier.slice("/Cast=".length) }(${ callarg })`;
+                        callarg = `${ modifier.slice("/Cast=".length).trim() }(${ callarg })`;
                     } else if (!is_external && modifier.startsWith("/Expr=")) {
-                        callarg = makeExpansion(modifier.slice("/Expr=".length), callarg);
+                        callarg = makeExpansion(modifier.slice("/Expr=".length).trim(), callarg);
                     } else if (modifier.startsWith("/default=")) {
-                        other_default = modifier.slice("/default=".length);
+                        other_default = modifier.slice("/default=".length).trim();
                     }
                 }
 
@@ -519,7 +519,7 @@ Object.assign(exports, {
 
             for (const modifier of func_modifiers) {
                 if (modifier.startsWith("/idlname=")) {
-                    const new_idlname = modifier.slice("/idlname=".length);
+                    const new_idlname = modifier.slice("/idlname=".length).trim();
                     if (!has_idlname_changed) {
                         idlname = new_idlname;
                         has_idlname_changed = true;
@@ -527,14 +527,14 @@ Object.assign(exports, {
                         throw new Error(`different idlnames for ${ fname } : ${ idlname } != ${ new_idlname }`);
                     }
                 } else if (modifier.startsWith("/id=")) {
-                    const new_id = modifier.slice("/id=".length);
+                    const new_id = modifier.slice("/id=".length).trim();
                     if (id === null) {
                         id = new_id;
                     } else if (id !== new_id) {
                         throw new Error(`different ids for function ${ fname } : ${ id } != ${ new_id }`);
                     }
                 } else if (modifier.startsWith("/attr=")) {
-                    attrs.push(modifier.slice("/attr=".length));
+                    attrs.push(modifier.slice("/attr=".length).trim());
                 }
             }
 
@@ -795,7 +795,7 @@ Object.assign(exports, {
                     }).join("\n\n").split("\n").join(`\n${ " ".repeat(20) }`) }
 
                     if (has_kwarg) {
-                        if (argc > ${ indexes.length }) {
+                        if (argc + kwargs.size() > ${ indexes.length }) {
                             ohr = E_INVALIDARG;
                         }
                     }${ conditions.length <= indexes.length ? "" : ` else ${ conditions.slice(indexes.length).map((condition, i) => {
@@ -809,7 +809,7 @@ Object.assign(exports, {
                     if (has_kwarg && SUCCEEDED(ohr)) {
                         // all named parameters should have been used
                         if (usedkw != kwargs.size()) {
-                            AUTOIT_ERROR("there are " << (kwargs.size() - usedkw) << " unknown named parameters");
+                            if constexpr (${ !has_override }) { AUTOIT_ERROR("there are " << (kwargs.size() - usedkw) << " unknown named parameters"); }
                             ohr = E_INVALIDARG;
                         } else {
                             ${ indexes.map(i => `${ varprefix }${ i } = _${ varprefix }${ i };`).join(`\n${ " ".repeat(28) }`) }
@@ -851,9 +851,9 @@ Object.assign(exports, {
 
                 for (const modifier of func_modifiers) {
                     if (modifier.startsWith("/Cast=")) {
-                        callee = `${ modifier.slice("/Cast=".length) }(${ callee })`;
+                        callee = `${ modifier.slice("/Cast=".length).trim() }(${ callee })`;
                     } else if (modifier.startsWith("/Prop=")) {
-                        callee = `${ callee }->${ modifier.slice("/Prop=".length) }`;
+                        callee = `${ callee }->${ modifier.slice("/Prop=".length).trim() }`;
                     }
                 }
 
@@ -870,9 +870,9 @@ Object.assign(exports, {
 
             for (const modifier of func_modifiers) {
                 if (modifier.startsWith("/Expr=")) {
-                    expr = makeExpansion(modifier.slice("/Expr=".length), ...callargs.concat(is_external ? ["hr"] : []));
+                    expr = makeExpansion(modifier.slice("/Expr=".length).trim(), ...callargs.concat(is_external ? ["hr"] : []));
                 } else if (modifier.startsWith("/Call=")) {
-                    callee = makeExpansion(modifier.slice("/Call=".length), callee);
+                    callee = makeExpansion(modifier.slice("/Call=".length).trim(), callee);
                 }
             }
 
@@ -889,20 +889,20 @@ Object.assign(exports, {
 
             for (const modifier of func_modifiers) {
                 if (modifier.startsWith("/WrapAs=")) {
-                    callee = `${ modifier.slice("/WrapAs=".length) }(${ callee })`;
+                    callee = `${ modifier.slice("/WrapAs=".length).trim() }(${ callee })`;
                 }
             }
 
             for (const modifier of func_modifiers) {
                 if (modifier.startsWith("/Output=")) {
-                    callee = makeExpansion(modifier.slice("/Output=".length), callee);
+                    callee = makeExpansion(modifier.slice("/Output=".length).trim(), callee);
                 }
             }
 
             let has_body = false;
             for (const modifier of func_modifiers) {
                 if (modifier.startsWith("/Body=")) {
-                    callee = makeExpansion(modifier.slice("/Body=".length), callee);
+                    callee = makeExpansion(modifier.slice("/Body=".length).trim(), callee);
                     has_body = true;
                 }
             }
@@ -958,11 +958,23 @@ Object.assign(exports, {
                     callee = `reinterpret_cast<ULONGLONG>(${ callee })`;
                 }
 
-                const autoit_from = `autoit_from(${ processor.castFromEnumIfNeeded(return_value_type, "$1", coclass, options) }, $2)`;
+                const reference = func_modifiers.includes("/Ref") ? "_reference" : "";
+                const autoit_from = `autoit_from${ reference }(${ processor.castFromEnumIfNeeded(return_value_type, "$1", coclass, options) }, $2)`;
                 const idltype = processor.getIDLType(return_value_type, coclass, options);
 
                 if (idltype === "void" && retval.length === 0) {
                     body.push(`${ cindent }VARIANT* _retval = nullptr;`);
+                }
+
+                const hasDC = is_constructor && coclass.modifiers?.includes("/DC");
+                const default_constructor = [];
+
+                if (is_constructor && !is_external) {
+                    for (const modifier of func_modifiers) {
+                        if (modifier.startsWith("/DC=")) {
+                            default_constructor.push(...modifier.slice("/DC=".length).trim().trim().split("\n"));
+                        }
+                    }
                 }
 
                 if (is_external) {
@@ -976,6 +988,20 @@ Object.assign(exports, {
                                 return hr;
                             }
                             hr = ${ makeExpansion(autoit_from, "tmp", "_retval").split("\n").join(`\n${ " ".repeat(28) }`) };
+                        } catch ( ${ exception }& e ) {
+                            fprintf(stderr, "%s: in %s, file %s, line %d\\n", e.what(), AutoIt_Func, __FILE__, __LINE__); fflush(stdout); fflush(stderr);
+                            hr = E_FAIL;
+                        }
+                    `.replace(/^ {24}/mg, "").trim().split("\n").map(line => `${ is_entry_test ? "// " : "" }${ line }`).join(`\n${ cindent }`));
+                } else if (default_constructor.length !== 0 || hasDC) {
+                    body.push(cindent + `
+                        try {
+                            hr = ${ makeExpansion(autoit_from, callee.trim(), "_retval").split("\n").join(`\n${ " ".repeat(28) }`) };
+                            if (FAILED(hr)) {
+                                return hr;
+                            }
+                            auto& __self = static_cast<TypeToImplType<${ fqn }>::type*>(*_retval)->__self;
+                            ${ default_constructor.join(`\n${ " ".repeat(28) }`) }
                         } catch ( ${ exception }& e ) {
                             fprintf(stderr, "%s: in %s, file %s, line %d\\n", e.what(), AutoIt_Func, __FILE__, __LINE__); fflush(stdout); fflush(stderr);
                             hr = E_FAIL;

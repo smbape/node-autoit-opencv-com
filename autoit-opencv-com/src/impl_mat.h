@@ -95,9 +95,9 @@ namespace cv {
 	};
 }
 
-extern const bool is_variant_scalar(VARIANT const* const& in_val);
-extern const bool is_array_from(VARIANT const* const& in_val, bool is_optional);
-extern const bool is_arrays_from(VARIANT const* const& in_val, bool is_optional);
+extern const bool is_variant_scalar(VARIANT const* in_val);
+extern const bool is_array_from(VARIANT const* in_val, bool is_optional);
+extern const bool is_arrays_from(VARIANT const* in_val, bool is_optional);
 
 extern const HRESULT autoit_from(cv::MatExpr const& in_val, ICv_Mat_Object**& out_val);
 
@@ -107,42 +107,6 @@ namespace cv {
 
 namespace autoit
 {
-
-	template<typename destination_type, typename _Tp>
-	struct _GenericCopy<destination_type, cv::Point_<_Tp>> {
-		inline static HRESULT copy(destination_type* pTo, const cv::Point_<_Tp>* pFrom) {
-			return autoit_from(*pFrom, pTo);
-		}
-	};
-
-	template<typename destination_type, typename _Tp>
-	struct _GenericCopy<destination_type, cv::Point3_<_Tp>> {
-		inline static HRESULT copy(destination_type* pTo, const cv::Point3_<_Tp>* pFrom) {
-			return autoit_from(static_cast<cv::Vec<_Tp, 3>>(*pFrom), pTo);
-		}
-	};
-
-	template<typename destination_type, typename _Tp>
-	struct _GenericCopy<destination_type, cv::Rect_<_Tp>> {
-		inline static HRESULT copy(destination_type* pTo, const cv::Rect_<_Tp>* pFrom) {
-			return autoit_from(*pFrom, pTo);
-		}
-	};
-
-	template<typename destination_type, typename _Tp>
-	struct _GenericCopy<destination_type, cv::Size_<_Tp>> {
-		inline static HRESULT copy(destination_type* pTo, const cv::Size_<_Tp>* pFrom) {
-			return autoit_from(*pFrom, pTo);
-		}
-	};
-
-	template<typename destination_type, typename _Tp, int cn>
-	struct _GenericCopy<destination_type, cv::Vec<_Tp, cn>> {
-		inline static HRESULT copy(destination_type* pTo, const cv::Vec<_Tp, cn>* pFrom) {
-			return autoit_from(*pFrom, pTo);
-		}
-	};
-
 	namespace cvextra {
 		void convertToShow(cv::InputArray src, cv::Mat& dst, bool toRGB = true);
 		const void* convertToBitmap(cv::InputArray src, bool copy);
@@ -152,19 +116,19 @@ namespace autoit
 }
 
 template<typename _Tp>
-inline const bool is_assignable_from(cv::Point3_<_Tp>& out_val, VARIANT const* const& in_val, bool is_optional) {
+inline const bool is_assignable_from(cv::Point3_<_Tp>& out_val, VARIANT const* in_val, bool is_optional) {
 	static cv::Vec<_Tp, 3> tmp;
 	return is_assignable_from(tmp, in_val, is_optional);
 }
 
 template<typename _Tp>
-const bool is_assignable_from(AUTOIT_PTR<cv::Point3_<_Tp>>& out_val, VARIANT const* const& in_val, bool is_optional) {
+const bool is_assignable_from(AUTOIT_PTR<cv::Point3_<_Tp>>& out_val, VARIANT const* in_val, bool is_optional) {
 	static cv::Point3_<_Tp> tmp;
 	return is_assignable_from(tmp, in_val, is_optional);
 }
 
 template<typename _Tp>
-inline const HRESULT autoit_to(VARIANT const* const& in_val, cv::Point3_<_Tp>& out_val) {
+inline const HRESULT autoit_to(VARIANT const* in_val, cv::Point3_<_Tp>& out_val) {
 	cv::Vec<_Tp, 3> tmp;
 	HRESULT hr = autoit_to(in_val, tmp);
 	if (SUCCEEDED(hr)) {
@@ -174,7 +138,7 @@ inline const HRESULT autoit_to(VARIANT const* const& in_val, cv::Point3_<_Tp>& o
 }
 
 template<typename _Tp>
-inline const HRESULT autoit_to(VARIANT const* const& in_val, AUTOIT_PTR<cv::Point3_<_Tp>>& out_val) {
+inline const HRESULT autoit_to(VARIANT const* in_val, AUTOIT_PTR<cv::Point3_<_Tp>>& out_val) {
 	out_val = std::make_shared<cv::Point3_<_Tp>>();
 	return autoit_to(in_val, *out_val.get());
 }

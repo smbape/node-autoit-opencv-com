@@ -32,8 +32,8 @@
         "clsid": "83651004-be56-48f6-b2b0-7542eb4a2fc7"
     },
     "cv::Param": {
-        "iid": "f024fefe-390b-4440-b855-40af05b73537",
-        "clsid": "4aacf1f6-9783-4709-b7d3-bf45dd9cf47d"
+        "iid": "763de78f-dac5-4b63-9f7a-4a8b55e97434",
+        "clsid": "e52201cc-264e-4bf0-92c3-30921a8f2139"
     },
     "cv::AsyncArray": {
         "iid": "b44c5324-bdfb-47fb-8597-221d725f638f",
@@ -214,6 +214,14 @@
     "cv::samples": {
         "iid": "371ef01a-887a-4b8e-ae74-2c9b481a9328",
         "clsid": "193845e5-eb46-44e0-9b67-96b1437813a7"
+    },
+    "cv::instr": {
+        "iid": "6c478cb4-f532-4773-8108-4e64670769ac",
+        "clsid": "6d7db059-0bd6-42fd-85bd-5b80c6078c9e"
+    },
+    "cv::utils::logging": {
+        "iid": "e2facf1d-d3dc-4107-937b-5c5f7863bd7b",
+        "clsid": "dc4f8f40-c722-47ab-aa91-cda45f403af5"
     },
     "cv::flann": {
         "iid": "43eaf84e-c827-4862-9bdb-8b8596f9115d",
@@ -484,8 +492,8 @@
         "clsid": "c6c28fb6-37df-478f-9ed1-377c6f78439c"
     },
     "cv::DrawMatchesFlags": {
-        "iid": "74a36105-9d73-484c-aec8-b328e8b96475",
-        "clsid": "f480795e-f3dd-4f5b-9fa0-1fca7277f2e6"
+        "iid": "4e90f63a-db4a-40bc-8364-e6f34436b3f1",
+        "clsid": "0ae6f199-af79-44af-87cb-20faaca0fa13"
     },
     "cv::BOWTrainer": {
         "iid": "242d0f86-bae9-4311-aba9-81d7c8f67bf5",
@@ -1668,8 +1676,8 @@
         "clsid": "22ae23a1-21a1-4e88-9255-bf748b759c2b"
     },
     "VectorOfVectorOfPoint3f": {
-        "iid": "4afb53bb-41cd-437c-9cd6-8f9518f8cefa",
-        "clsid": "b6d719cf-9997-4bb1-b7a1-9ec3666eecbd"
+        "iid": "ce8614d8-4e8a-4314-80d5-0bb7befc58e5",
+        "clsid": "080c459b-9385-4d1d-9b77-6c7c7c5f4e75"
     },
     "VectorOfAruco_Dictionary": {
         "iid": "b6026579-5dab-48ff-8a5b-c096187adef8",

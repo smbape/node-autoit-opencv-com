@@ -114,7 +114,7 @@ module.exports = ({ self, self_get, shared_ptr }) => {
 
         // ["cv.Mat.addref", "void", [], [], "", ""],
 
-        ["cv.Mat.adjustROI", `${ shared_ptr }<Mat>`, ["/Ref", "/WrapAs=::autoit::reference_internal"], [
+        ["cv.Mat.adjustROI", `${ shared_ptr }<Mat>`, ["/Ref"], [
             ["int", "dtop", "", []],
             ["int", "dbottom", "", []],
             ["int", "dleft", "", []],

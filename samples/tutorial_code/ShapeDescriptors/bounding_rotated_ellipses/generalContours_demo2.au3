@@ -12,10 +12,10 @@
 #include "..\..\..\..\autoit-opencv-com\udf\opencv_udf_utils.au3"
 
 ;~ Sources:
-;~     https://docs.opencv.org/4.12.0/dd/d49/tutorial_py_contour_features.html
-;~     https://github.com/opencv/opencv/blob/4.12.0/samples/python/tutorial_code/ShapeDescriptors/bounding_rotated_ellipses/generalContours_demo2.py
+;~     https://docs.opencv.org/4.13.0/dd/d49/tutorial_py_contour_features.html
+;~     https://github.com/opencv/opencv/blob/4.13.0/samples/python/tutorial_code/ShapeDescriptors/bounding_rotated_ellipses/generalContours_demo2.py
 
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world4120*"), _OpenCV_FindDLL("autoit_opencv_com4120*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world4130*"), _OpenCV_FindDLL("autoit_opencv_com4130*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 
@@ -354,7 +354,7 @@ Func _DrawContours()
 		; Draw Rotated Rectangle contour
 		If _IsChecked($CheckboxRotatedRectangle) Then
 			$tmp = $cv.minAreaRect($good_contours.at($i))
-			$tmp = $cv.boxPoints($tmp)
+			$tmp = $cv.boxPoints($tmp).reshape(2)
 			$tmp = $tmp.convertTo($CV_32S)
 			$tmpcontours[0] = $tmp
 			$cv.drawContours($src_displayed, $tmpcontours, -1, _OpenCV_RGB(255, 255, 0), 3)

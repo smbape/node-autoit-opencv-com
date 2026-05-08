@@ -1,9 +1,10 @@
 /* eslint-disable no-magic-numbers */
-const { getAlias } = require("./alias");
+const { getAlias, makeExpansion } = require("./alias");
 
 const {
     CPP_TYPES,
     IGNORED_CLASSES,
+    PTR,
     TEMPLATED_TYPES,
 } = require("./constants");
 
@@ -21,6 +22,7 @@ class DeclProcessor {
         }
 
         this.classes = new Map();
+        this.progids = new Map();
         this.enums = new Map();
         this.namespaces = new Set();
         this.typedefs = new Map();
@@ -41,6 +43,7 @@ class DeclProcessor {
         };
     }
 
+    // eslint-disable-next-line complexity
     process(config, options = {}) {
         this.namespace = options.namespace;
 
@@ -89,6 +92,8 @@ class DeclProcessor {
         for (const fqn of this.classes.keys()) {
             const coclass = this.classes.get(fqn);
 
+            this.checkProgId(coclass, options);
+
             // set assign operator for types that are assigned as default params or return type
             for (const [, overrides] of coclass.methods.entries()) {
                 for (const decl of overrides) {
@@ -117,15 +122,31 @@ class DeclProcessor {
                     continue;
                 }
 
-                const enum_class = this.getCoClass(enum_type, options);
-                const [,,, values] = this.enums.get(enum_type);
-                for (const [value] of values) {
-                    enum_class.addProperty([
-                        enum_type,
-                        value.slice(value.lastIndexOf(".") + ".".length),
-                        "",
-                        [`/RExpr=${ value.slice("const ".length).replaceAll(".", "::") }`]
-                    ]);
+                const enum_coclass = this.getCoClass(enum_type, options);
+                const [,, list_of_modifiers, values] = this.enums.get(enum_type);
+
+                enum_coclass.is_enum_class = true;
+
+                this.setProgId(enum_coclass, list_of_modifiers, options);
+                this.checkProgId(enum_coclass, options);
+
+                for (const [ename, , enum_modifiers] of values) {
+                    if (!ename.startsWith("const ")) {
+                        throw new Error(`enum ${ ename } is not supported`);
+                    }
+                    const epath = ename.slice("const ".length).split(".");
+
+                    // There is no name conflict with enum class properties
+                    const basename = epath[epath.length - 1];
+                    let propname = basename;
+
+                    for (const modifier of enum_modifiers) {
+                        if (modifier.startsWith("=")) {
+                            propname = modifier.slice("=".length);
+                        }
+                    }
+
+                    enum_coclass.addProperty(["int", propname, epath.join("::"), ["/R", "/S", "/Enum", `=${ basename }`]]);
                 }
             }
 
@@ -246,7 +267,7 @@ class DeclProcessor {
 
     add_class(decl, options = {}) {
         const [name, base, list_of_modifiers, properties] = decl;
-        const path = getAlias(name.slice(name.indexOf(" ") + 1)).split(".");
+        const path = getAlias(name.slice(name.indexOf(" ") + " ".length)).split(".");
         const fqn = path.join("::");
 
         if (options.excludes && options.excludes.has(fqn)) {
@@ -283,6 +304,8 @@ class DeclProcessor {
             }
         }
 
+        this.setProgId(coclass, list_of_modifiers, options);
+
         for (const property of properties) {
             coclass.addProperty(property);
         }
@@ -314,7 +337,7 @@ class DeclProcessor {
     }
 
     add_enum(decl, options = {}) {
-        const [name, , , enums] = decl;
+        const [name, , list_of_modifiers, enums] = decl;
 
         let is_enum_class = false;
         let start = 0;
@@ -327,6 +350,7 @@ class DeclProcessor {
 
             if (name.startsWith("struct ", start)) {
                 start += "struct ".length;
+                is_enum_class = true;
                 continue;
             }
 
@@ -352,17 +376,22 @@ class DeclProcessor {
             this.enums.set(fqn, decl);
         }
 
+        if (list_of_modifiers.some(modifier => modifier.startsWith("/progid="))) {
+            is_enum_class = true;
+        }
+
         const enum_class = is_enum_class ? fqn : path.slice(0, -1).join("::");
         const enum_coclass = this.getCoClass(enum_class, options);
         enum_coclass.addEnum(fqn);
         enum_coclass.is_enum_class = is_enum_class;
 
+        this.setProgId(enum_coclass, list_of_modifiers, options);
+
         for (const edecl of enums) {
-            const [ename] = edecl;
+            const [ename, , enum_modifiers] = edecl;
             if (!ename.startsWith("const ")) {
                 throw new Error(`enum ${ ename } is not supported`);
             }
-
             const epath = ename.slice("const ".length).split(".");
 
             // known invalid enum
@@ -389,16 +418,21 @@ class DeclProcessor {
 
             // There is no name conflict with enum class properties
             const basename = epath[epath.length - 1];
-            const propname = is_enum_class || options.isCaseSensitive ? basename : `${ basename }_`;
+            let propname = is_enum_class || options.isCaseSensitive ? basename : `${ basename }_`;
             let added = false;
 
+            for (const modifier of enum_modifiers) {
+                if (modifier.startsWith("=")) {
+                    propname = modifier.slice("=".length);
+                }
+            }
+
             if (options.addEnum) {
-                added = options.addEnum(this, epath, options);
+                added = options.addEnum(this, epath, edecl, options);
             }
 
             if (!added) {
-                const coclass = this.getCoClass(epath.slice(0, -1).join("::"), options);
-                coclass.addProperty(["int", propname, `static_cast<int>(${ epath.join("::") })`, ["/R", "/S", "/Enum", `=${ basename }`]]);
+                enum_coclass.addProperty(["int", propname, epath.join("::"), ["/R", "/S", "/Enum", `=${ basename }`]]);
             }
         }
     }
@@ -461,13 +495,6 @@ class DeclProcessor {
             coclass = new CoClass(prefix);
             this.classes.set(prefix, coclass);
 
-            if (typeof options.progid === "function") {
-                const progid = options.progid(coclass.progid);
-                if (progid) {
-                    coclass.progid = progid;
-                }
-            }
-
             for (let j = i; j >= 0; j--) {
                 const namespace = path.slice(0, j + 1).join("::");
                 if (this.namespaces.has(namespace)) {
@@ -486,6 +513,44 @@ class DeclProcessor {
         }
 
         return coclass;
+    }
+
+    setProgId(coclass, list_of_modifiers, options = {}) {
+        for (const modifier of list_of_modifiers) {
+            if (modifier.startsWith("/progid=")) {
+                coclass.progid = modifier.slice("/progid=".length);
+            }
+        }
+    }
+
+    checkProgId(coclass, options) {
+        if (typeof options.progid === "function") {
+            const progid = options.progid(coclass.progid);
+            if (progid) {
+                coclass.progid = progid;
+            }
+        }
+
+        const {progid} = coclass;
+
+        if (!this.progids.has(progid)) {
+            this.progids.set(progid, new Set([coclass]));
+            return;
+        }
+
+        const others = this.progids.get(progid);
+
+        for (const other of others) {
+            if (coclass.isStatic() !== other.isStatic() || coclass !== other && !coclass.isStatic()) {
+                throw new Error(`progid ${ progid } is defined for different classes ${ coclass.fqn } and ${ other.fqn }`);
+            }
+
+            if (coclass.fqn !== other.fqn) {
+                console.log(`progid ${ progid } is defined for different static classes ${ coclass.fqn } and ${ other.fqn }`);
+            }
+        }
+
+        others.add(coclass);
     }
 
     hasTypeDef(fqn) {
@@ -552,7 +617,7 @@ class DeclProcessor {
             type_ = `${ this.namespace }::${ type }`;
         }
 
-        for (const fqn of this.getMaybeTypes(type_, include)) {
+        for (const fqn of this.getMaybeTypes(type_, include, options)) {
             if (this.enums.has(fqn)) {
                 return fqn;
             }
@@ -682,7 +747,7 @@ class DeclProcessor {
             include = include.include;
         }
 
-        for (const fqn of this.getMaybeTypes(type, include)) {
+        for (const fqn of this.getMaybeTypes(type, include, options)) {
             if (this.enums.has(fqn)) {
                 return fqn;
             }
@@ -737,8 +802,8 @@ class DeclProcessor {
 
         // Add a copy constructor
         if (options.hasCopyConstructorSupport && coclass.is_struct && coclass.is_simple) {
-            coclass.addMethod([ctor, "", [`/Requires=(${ fqn }& self, const ${ fqn }& other) { self = other; }`, "/Expr=", `/DC=if (other) ${ options.self } = *other;`], [
-                [`${ options.shared_ptr || "std::shared_ptr" }<${ fqn }>`, "other", "", ["/Ref", "/C"]],
+            coclass.addMethod([ctor, "", [`/Requires=(${ fqn }& self, const ${ fqn }& other) { self = other; }`, "/Expr=", `/DC=${ options.self } = other;`], [
+                [fqn, "other", "", ["/Ref", "/C"]],
             ]], options);
         }
 
@@ -746,6 +811,10 @@ class DeclProcessor {
             // https://en.cppreference.com/w/c/language/struct_initialization.html
 
             const args = Array.from(coclass.properties.entries()).map(([argname, {type: argtype, value: defval, modifiers}]) => {
+                if (modifiers.includes("/NoDC") || modifiers.includes("/S")) {
+                    return null;
+                }
+
                 for (const modifier of modifiers) {
                     if (modifier.startsWith("/WType=")) {
                         argtype = modifier.slice("/WType=".length);
@@ -753,35 +822,50 @@ class DeclProcessor {
                 }
 
                 return [argtype, argname, defval, modifiers];
-            });
+            }).filter(decl => decl !== null);
 
-            // Initializer list with declared members
-            coclass.addMethod([ctor, "", ["/Expr=", `/DC=${ args.map(([, argname, , modifiers]) => {
-                let wexpr = `${ options.self_get(argname) } = $value`;
+            const getWexpr = (argname, modifiers, opts) => {
                 for (const modifier of modifiers) {
-                    if (modifier.startsWith("/WExpr=")) {
-                        wexpr = modifier.slice("/WExpr=".length);
+                    if (modifier.startsWith("=")) {
+                        argname = modifier.slice("=".length);
                     }
                 }
 
+                const wname = opts.self_get(argname);
+                let wexpr = `${ wname } = $value`;
+                for (const modifier of modifiers) {
+                    if (modifier.startsWith("/WExpr=")) {
+                        wexpr = makeExpansion(modifier.slice("/WExpr=".length), wname);
+                    }
+                }
+
+                return wexpr.replace(/\$(?:hr\b|\{\s*hr\s*\})/g, "hr");
+            };
+
+            // Initializer list with declared members
+            const cname = coclass.addMethod([ctor, "", ["/Expr=", `/DC=${ args.map(([, argname, , modifiers]) => {
+                const wexpr = getWexpr(argname, modifiers, options);
                 return `if (${ argname }) { ${ wexpr.replace(/\$(?:value\b|\{[^\S\n]*value[^\S\n]*\})/g, `*${ argname }`) }; }`;
             }).join("\n") }`], args.map(([argtype, argname, defval, modifiers]) => {
-                return [`std::optional<${ argtype }>`, argname, defval ? defval : "std::nullopt", modifiers.concat(["/Ref", "/C"])];
+                return [`std::optional<${ argtype }>`, argname, defval !== "" ? `std::optional<${ this.getCppType(argtype, coclass, options) }>(${ defval })` : "std::nullopt", modifiers.concat(["/C"])];
             })], options);
 
             // Initializer with tuple
             coclass.addMethod([ctor, "", ["/Expr=", `/DC=${ args.map(([, argname, , modifiers], i) => {
-                let wexpr = `${ options.self_get(argname) } = $value`;
-                for (const modifier of modifiers) {
-                    if (modifier.startsWith("/WExpr=")) {
-                        wexpr = modifier.slice("/WExpr=".length);
-                    }
-                }
-
+                const wexpr = getWexpr(argname, modifiers, options);
                 return `${ wexpr.replace(/\$(?:value\b|\{[^\S\n]*value[^\S\n]*\})/g, `std::get<${ i }>(args)`) };`;
             }).join("\n") }`], [
                 [`std::tuple<${ args.map(([argtype]) => argtype) }>`, "args", "", []],
             ]], options);
+
+            // Remove default constructor
+            const overrides = coclass.methods.get(cname);
+            for (let i = overrides.length - 1; i >= 0; i--) {
+                const [, , , list_of_arguments] = overrides[i];
+                if (list_of_arguments.length === 0) {
+                    overrides.splice(i, 1);
+                }
+            }
         }
     }
 
@@ -905,27 +989,37 @@ class DeclProcessor {
         return signature.join(", ");
     }
 
-    getMaybeTypes(type, coclass) {
+    getMaybeTypes(type, coclass, options = {}) {
         const types = new Set([type]);
 
-        if (coclass.fqn) {
-            coclass.fqn.split("::").forEach((el, i, arr) => {
-                types.add(`${ arr.slice(0, arr.length - i).join("::") }::${ type }`);
-            });
-        }
+        const addTypes = namespace => {
+            if (typeof namespace !== "string") {
+                return;
+            }
 
-        if (coclass.namespace) {
-            types.add(`${ coclass.namespace }::${ type }`);
-        }
+            namespace.split("::").forEach((el, i, parts) => {
+                const fqn = `${ parts.slice(0, parts.length - i).join("::") }::${ type }`;
+                if (
+                    this.classes.has(fqn)
+                    || this.enums.has(fqn)
+                    || PTR.has(fqn)
+                    || CPP_TYPES.has(fqn)
+                    || options.variantTypeReg && options.variantTypeReg.test(fqn)
+                    || options.types && options.types.has(fqn)
+                ) {
+                    types.add(fqn);
+                }
+            });
+        };
+
+        addTypes(coclass.fqn);
+        addTypes(coclass.namespace);
 
         for (const namespace of this.namespaces) {
-            const itype = `${ namespace }::${ type }`;
-            if (this.classes.has(itype)) {
-                types.add(itype);
-            }
+            addTypes(namespace);
         }
 
-        types.add(`${ this.namespace }::${ type }`);
+        addTypes(this.namespace);
 
         return Array.from(types);
     }

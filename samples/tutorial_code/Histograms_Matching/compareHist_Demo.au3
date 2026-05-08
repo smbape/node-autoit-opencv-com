@@ -11,11 +11,11 @@
 #include "..\..\Table.au3"
 
 ;~ Sources:
-;~     https://docs.opencv.org/4.12.0/d8/dc8/tutorial_histogram_comparison.html
-;~     https://github.com/opencv/opencv/blob/4.12.0/samples/cpp/tutorial_code/Histograms_Matching/compareHist_Demo.cpp
+;~     https://docs.opencv.org/4.13.0/d8/dc8/tutorial_histogram_comparison.html
+;~     https://github.com/opencv/opencv/blob/4.13.0/samples/cpp/tutorial_code/Histograms_Matching/compareHist_Demo.cpp
 ;~     https://www.autoitscript.com/forum/topic/105814-table-udf/
 
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world4120*"), _OpenCV_FindDLL("autoit_opencv_com4120*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world4130*"), _OpenCV_FindDLL("autoit_opencv_com4130*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 
@@ -23,8 +23,10 @@ Global $cv = _OpenCV_get()
 
 Global Const $OPENCV_SAMPLES_DATA_PATH = _OpenCV_FindFile("samples\data")
 
+Global Const $aMethodName[] = ["Correlation", "Chi-square", "Intersection", "Bhattacharyya", "Alternative Chi-Square", "Kullback-Leibler divergence"]
+
 #Region ### START Koda GUI section ### Form=
-Global $FormGUI = GUICreate("Histogram Comparison", 997, 668, 192, 124)
+Global $FormGUI = GUICreate("Histogram Comparison", 997, 725, 192, 124)
 
 Global $InputSrcBase = GUICtrlCreateInput($cv.samples.findFile("Histogram_Comparison_Source_0.jpg"), 230, 16, 449, 21)
 Global $BtnSrcBase = GUICtrlCreateButton("Input 1", 689, 14, 75, 25)
@@ -58,14 +60,14 @@ GUICtrlCreateGroup("", -99, -99, 1, 1)
 GUISetState(@SW_SHOW)
 
 GUISetState(@SW_LOCK)
-Global $Table = _GUICtrlTable_Create(20, 500, 191, 28, 5, 5, 0)
+Global $Table = _GUICtrlTable_Create(20, 500, 191, 28, UBound($aMethodName) + 1, 5, 0)
 _GUICtrlTable_Set_RowHeight($Table, 1, 35)
 _GUICtrlTable_Set_Justify_All($Table, 1, 1)
 _GUICtrlTable_Set_TextFont_All($Table, 8.5, 800, 0, "Tahoma")
 _GUICtrlTable_Set_CellColor_Row($Table, 1, 0x374F7F)
 _GUICtrlTable_Set_TextColor_All($Table, 0x555555)
 _GUICtrlTable_Set_TextColor_Row($Table, 1, 0xFFFFFF)
-For $row = 3 To 5 Step 2
+For $row = 3 To UBound($aMethodName) + 1 Step 2
 	_GUICtrlTable_Set_CellColor_Row($Table, $row, 0xDDDDDD)
 Next
 _GUICtrlTable_Set_Text_Row($Table, 1, "*Method*|Base - Base|Base - Half|Base - Test 1|Base - Test 2")
@@ -76,8 +78,6 @@ GUISetState(@SW_UNLOCK)
 
 Global $sSrcBase = "", $sSrcTest1 = "", $sSrcTest2 = ""
 Global $nMsg
-
-Global $aMethodName[4] = ["Correlation", "Chi-square", "Intersection", "Bhattacharyya"]
 
 Main()
 
@@ -163,24 +163,24 @@ Func Main()
 	;;! [Calculate the histograms for the HSV images]
 	Local $a_hsv_base[1] = [$hsv_base]
 	Local $hist_base = $cv.calcHist($a_hsv_base, $channels, Null, $histSize, $ranges)
-	$cv.normalize($hist_base, $hist_base, 0, 1, $CV_NORM_MINMAX, -1, Null)
+	$cv.normalize($hist_base, $hist_base, 1, 0, $CV_NORM_L1, -1, Null)
 
 	Local $a_hsv_half_down[1] = [$hsv_half_down]
 	Local $hist_half_down = $cv.calcHist($a_hsv_half_down, $channels, Null, $histSize, $ranges)
-	$cv.normalize($hist_half_down, $hist_half_down, 0, 1, $CV_NORM_MINMAX, -1, Null)
+	$cv.normalize($hist_half_down, $hist_half_down, 1, 0, $CV_NORM_L1, -1, Null)
 
 	Local $a_hsv_test1[1] = [$hsv_test1]
 	Local $hist_test1 = $cv.calcHist($a_hsv_test1, $channels, Null, $histSize, $ranges)
-	$cv.normalize($hist_test1, $hist_test1, 0, 1, $CV_NORM_MINMAX, -1, Null)
+	$cv.normalize($hist_test1, $hist_test1, 1, 0, $CV_NORM_L1, -1, Null)
 
 	Local $a_hsv_test2[1] = [$hsv_test2]
 	Local $hist_test2 = $cv.calcHist($a_hsv_test2, $channels, Null, $histSize, $ranges)
-	$cv.normalize($hist_test2, $hist_test2, 0, 1, $CV_NORM_MINMAX, -1, Null)
+	$cv.normalize($hist_test2, $hist_test2, 1, 0, $CV_NORM_L1, -1, Null)
 	;;! [Calculate the histograms for the HSV images]
 
 	;;! [Apply the histogram comparison methods]
 	GUISetState(@SW_LOCK)
-	For $compare_method = 0 To 3 Step 1
+	For $compare_method = 0 To UBound($aMethodName) - 1 Step 1
 		Local $base_base = $cv.compareHist($hist_base, $hist_base, $compare_method)
 		Local $base_half = $cv.compareHist($hist_base, $hist_half_down, $compare_method)
 		Local $base_test1 = $cv.compareHist($hist_base, $hist_test1, $compare_method)

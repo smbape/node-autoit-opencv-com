@@ -9,12 +9,16 @@ const mkdirp = require("mkdirp");
 const waterfall = require("async/waterfall");
 const {explore} = require("fs-explorer");
 
-const OpenCV_VERSION = "opencv-4.12.0";
+const OpenCV_VERSION = "opencv-4.13.0";
 const OpenCV_DLLVERSION = OpenCV_VERSION.slice("opencv-".length).replaceAll(".", "");
 
 const getOptions = PROJECT_DIR => {
+    const language = "autoit";
+
     const options = {
         APP_NAME: "OpenCV",
+        language,
+        cname: "create",
         LIB_UID: "fc210206-673e-4ec8-82d5-1a6ac561f3de",
         LIBRARY: "cvLib",
         OUTPUT_NAME: `autoit_opencv_com${ OpenCV_DLLVERSION }`,
@@ -63,7 +67,10 @@ const getOptions = PROJECT_DIR => {
         output: sysPath.join(PROJECT_DIR, "generated"),
         toc: true, // the limit of 1000KB is exeeded even without toc
         globals: ["$CV_MAT_DEPTH_MASK", "$CV_MAT_TYPE_MASK"],
-        constReplacer: new Map([["std::numeric_limits<uint8_t>::max()", "0xFF"]]),
+        constReplacer: new Map([
+            ["std::numeric_limits<uint8_t>::max()", "0xFF"],
+            ["INT_MAX", "0x7FFFFFFF"],
+        ]),
         onClass: (processor, coclass, opts) => {
             const {fqn} = coclass;
 
@@ -91,14 +98,21 @@ const getOptions = PROJECT_DIR => {
             }
         },
 
-        addEnum: (processor, epath, opts) => {
+        addEnum: (processor, epath, edecl, opts) => {
             if (epath.length !== 2 || epath[0] !== "cv") {
                 return false;
             }
 
-            const basename = epath[epath.length - 1];
+            let propname = epath[epath.length - 1];
+            const [, , enum_modifiers] = edecl;
+            for (const modifier of enum_modifiers) {
+                if (modifier.startsWith("=")) {
+                    propname = modifier.slice("=".length);
+                }
+            }
+
             const coclass = processor.getCoClass("cv::enums", opts);
-            coclass.addProperty(["int", basename, "", [`/RExpr=${ epath.join("::") }`, "/S"]]);
+            coclass.addProperty(["int", propname, "", [`/RExpr=${ epath.join("::") }`, "/S"]]);
             return true;
         },
     };
@@ -162,6 +176,7 @@ const getOptions = PROJECT_DIR => {
 global.OpenCV_VERSION = OpenCV_VERSION;
 const {
     CUSTOM_CLASSES,
+    IDL_TYPES,
 } = require("./constants");
 
 const {findFile} = require("./FileUtils");
@@ -184,6 +199,7 @@ const hdr_parser_end = hdr_parser.indexOf("if __name__ == '__main__':", hdr_pars
 
 const options = getOptions(PROJECT_DIR);
 options.proto = COMGenerator.proto;
+options.types = IDL_TYPES;
 
 waterfall([
     next => {

@@ -110,12 +110,12 @@ const _variant_t autoit::fileNodeAsVariant(const cv::FileNode& node) {
 }
 
 #ifdef HAVE_OPENCV_GAPI
-const bool is_assignable_from(AUTOIT_PTR<cv::gapi::wip::draw::Prim>& out_val, VARIANT const* const& in_val, bool is_optional) {
+const bool is_assignable_from(AUTOIT_PTR<cv::gapi::wip::draw::Prim>& out_val, VARIANT const* in_val, bool is_optional) {
 	static cv::gapi::wip::draw::Prim obj;
 	return is_assignable_from(obj, in_val, is_optional);
 }
 
-const HRESULT autoit_to(VARIANT const* const& in_val, AUTOIT_PTR<cv::gapi::wip::draw::Prim>& out_val) {
+const HRESULT autoit_to(VARIANT const* in_val, AUTOIT_PTR<cv::gapi::wip::draw::Prim>& out_val) {
 	if (PARAMETER_MISSING(in_val)) {
 		return S_OK;
 	}
@@ -132,7 +132,7 @@ const HRESULT autoit_from(AUTOIT_PTR<cv::gapi::wip::draw::Prim> const& prim, VAR
 	return autoit_from(*prim, out_val);
 }
 
-const bool is_assignable_from(cv::gapi::wip::draw::Prim& out_val, VARIANT const* const& in_val, bool is_optional) {
+const bool is_assignable_from(cv::gapi::wip::draw::Prim& out_val, VARIANT const* in_val, bool is_optional) {
 	static cv::gapi::wip::draw::Rect value_Rect;
 	static cv::gapi::wip::draw::Text value_Text;
 	static cv::gapi::wip::draw::Circle value_Circle;
@@ -151,7 +151,7 @@ const bool is_assignable_from(cv::gapi::wip::draw::Prim& out_val, VARIANT const*
 		;
 }
 
-const HRESULT autoit_to(VARIANT const* const& in_val, cv::gapi::wip::draw::Prim& out_val) {
+const HRESULT autoit_to(VARIANT const* in_val, cv::gapi::wip::draw::Prim& out_val) {
 #define TRY_EXTRACT(Prim)                                         \
 	static cv::gapi::wip::draw::##Prim value_##Prim;              \
 	if (is_assignable_from(value_##Prim, in_val, false)) {        \
@@ -202,7 +202,7 @@ const HRESULT autoit_from(cv::gapi::wip::draw::Prim const& prim, VARIANT*& out_v
 
 
 // https://github.com/opencv/opencv/tree/4.11.0/modules/gapi/misc/python/pyopencv_gapi.hpp#L208-L226
-const bool is_assignable_from(cv::GMetaArg& out_val, VARIANT const* const& in_val, bool is_optional) {
+const bool is_assignable_from(cv::GMetaArg& out_val, VARIANT const* in_val, bool is_optional) {
 	static cv::GMatDesc value_GMatDesc;
 	static cv::GScalarDesc value_GScalarDesc;
 	static cv::GArrayDesc value_GArrayDesc;
@@ -216,7 +216,7 @@ const bool is_assignable_from(cv::GMetaArg& out_val, VARIANT const* const& in_va
 }
 
 // https://github.com/opencv/opencv/tree/4.11.0/modules/gapi/misc/python/pyopencv_gapi.hpp#L208-L226
-const HRESULT autoit_to(VARIANT const* const& in_val, cv::GMetaArg& out_val) {
+const HRESULT autoit_to(VARIANT const* in_val, cv::GMetaArg& out_val) {
 #define TRY_EXTRACT(Meta)                                         \
 	static cv::##Meta value_##Meta;                               \
 	if (is_assignable_from(value_##Meta, in_val, false)) {        \
@@ -258,12 +258,12 @@ const HRESULT autoit_from(cv::GMetaArg const& in_val, VARIANT*& out_val) {
 	}
 }
 
-const bool is_assignable_from(cv::GArg& out_val, VARIANT const* const& in_val, bool is_optional) {
+const bool is_assignable_from(cv::GArg& out_val, VARIANT const* in_val, bool is_optional) {
 	AUTOIT_ERROR("Setting a cv::GArg is not yet supported");
 	return false;
 }
 
-const HRESULT autoit_to(VARIANT const* const& in_val, cv::GArg& out_val) {
+const HRESULT autoit_to(VARIANT const* in_val, cv::GArg& out_val) {
 	// out_val = cv::GArg(cv::detail::PyObjectHolder(obj)); // TODO
 	AUTOIT_ERROR("Setting a cv::GArg is not yet supported");
 	return E_INVALIDARG;
@@ -304,11 +304,11 @@ const HRESULT autoit_from(cv::GArg const& in_val, VARIANT*& out_val) {
 	return E_INVALIDARG;
 }
 
-const bool is_assignable_from(cv::detail::OpaqueRef& out_val, VARIANT const* const& in_val, bool is_optional) {
+const bool is_assignable_from(cv::detail::OpaqueRef& out_val, VARIANT const* in_val, bool is_optional) {
 	return false;
 }
 
-const HRESULT autoit_to(VARIANT const* const& in_val, cv::detail::OpaqueRef& out_val) {
+const HRESULT autoit_to(VARIANT const* in_val, cv::detail::OpaqueRef& out_val) {
 	AUTOIT_ERROR("Setting a cv::detail::OpaqueRef is not allowed");
 	return E_INVALIDARG;
 }
@@ -339,11 +339,11 @@ const HRESULT autoit_from(cv::detail::OpaqueRef const& in_val, VARIANT*& out_val
 	return E_INVALIDARG;
 }
 
-const bool is_assignable_from(cv::detail::VectorRef& out_val, VARIANT const* const& in_val, bool is_optional) {
+const bool is_assignable_from(cv::detail::VectorRef& out_val, VARIANT const* in_val, bool is_optional) {
 	return false;
 }
 
-const HRESULT autoit_to(VARIANT const* const& in_val, cv::detail::VectorRef& out_val) {
+const HRESULT autoit_to(VARIANT const* in_val, cv::detail::VectorRef& out_val) {
 	AUTOIT_ERROR("Setting a cv::detail::VectorRef is not allowed");
 	return E_INVALIDARG;
 }
@@ -374,11 +374,11 @@ const HRESULT autoit_from(cv::detail::VectorRef const& in_val, VARIANT*& out_val
 	return E_INVALIDARG;
 }
 
-const bool is_assignable_from(cv::GRunArg& out_val, VARIANT const* const& in_val, bool is_optional) {
+const bool is_assignable_from(cv::GRunArg& out_val, VARIANT const* in_val, bool is_optional) {
 	return false;
 }
 
-const HRESULT autoit_to(VARIANT const* const& in_val, cv::GRunArg& out_val) {
+const HRESULT autoit_to(VARIANT const* in_val, cv::GRunArg& out_val) {
 	AUTOIT_ERROR("Setting a cv::GRunArg is not allowed");
 	return E_INVALIDARG;
 }
@@ -454,12 +454,12 @@ const HRESULT autoit_from(cv::util::variant<cv::GRunArgs, cv::GOptRunArgs> const
 #endif
 
 #ifdef HAVE_OPENCV_FLANN
-const bool is_assignable_from(AUTOIT_PTR<cv::flann::IndexParams>& out_val, VARIANT const* const& in_val, bool is_optional) {
+const bool is_assignable_from(AUTOIT_PTR<cv::flann::IndexParams>& out_val, VARIANT const* in_val, bool is_optional) {
 	static cv::flann::IndexParams obj;
 	return is_assignable_from(obj, in_val, is_optional);
 }
 
-const HRESULT autoit_to(VARIANT const* const& in_val, AUTOIT_PTR<cv::flann::IndexParams>& out_val) {
+const HRESULT autoit_to(VARIANT const* in_val, AUTOIT_PTR<cv::flann::IndexParams>& out_val) {
 	if (PARAMETER_MISSING(in_val)) {
 		return S_OK;
 	}
@@ -473,7 +473,7 @@ const HRESULT autoit_to(VARIANT const* const& in_val, AUTOIT_PTR<cv::flann::Inde
 }
 
 // https://github.com/opencv/opencv/tree/4.11.0/modules/flann/misc/python/pyopencv_flann.hpp#L18-L103
-const bool is_assignable_from(cv::flann::IndexParams& out_val, VARIANT const* const& in_val, bool is_optional) {
+const bool is_assignable_from(cv::flann::IndexParams& out_val, VARIANT const* in_val, bool is_optional) {
 	if (PARAMETER_MISSING(in_val)) {
 		return is_optional;
 	}
@@ -494,7 +494,7 @@ const bool is_assignable_from(cv::flann::IndexParams& out_val, VARIANT const* co
 }
 
 // https://github.com/opencv/opencv/tree/4.11.0/modules/flann/misc/python/pyopencv_flann.hpp#L18-L103
-const HRESULT autoit_to(VARIANT const* const& in_val, cv::flann::IndexParams& out_val) {
+const HRESULT autoit_to(VARIANT const* in_val, cv::flann::IndexParams& out_val) {
 	if (V_VT(in_val) != VT_DISPATCH) {
 		return E_INVALIDARG;
 	}
@@ -633,29 +633,29 @@ const HRESULT autoit_to(VARIANT const* const& in_val, cv::flann::IndexParams& ou
 }
 
 // https://github.com/opencv/opencv/tree/4.11.0/modules/flann/misc/python/pyopencv_flann.hpp#L106-L109
-const bool is_assignable_from(AUTOIT_PTR<cv::flann::SearchParams>& out_val, VARIANT const* const& in_val, bool is_optional) {
+const bool is_assignable_from(AUTOIT_PTR<cv::flann::SearchParams>& out_val, VARIANT const* in_val, bool is_optional) {
 	return is_assignable_from(static_cast<cv::flann::IndexParams&>(*out_val), in_val, is_optional);
 }
 
 // https://github.com/opencv/opencv/tree/4.11.0/modules/flann/misc/python/pyopencv_flann.hpp#L106-L109
-const HRESULT autoit_to(VARIANT const* const& in_val, AUTOIT_PTR<cv::flann::SearchParams>& out_val) {
+const HRESULT autoit_to(VARIANT const* in_val, AUTOIT_PTR<cv::flann::SearchParams>& out_val) {
 	return autoit_to(in_val, static_cast<cv::flann::IndexParams&>(*out_val));
 }
 
 // https://github.com/opencv/opencv/tree/4.11.0/modules/flann/misc/python/pyopencv_flann.hpp#L106-L109
-const bool is_assignable_from(cv::flann::SearchParams& out_val, VARIANT const* const& in_val, bool is_optional) {
+const bool is_assignable_from(cv::flann::SearchParams& out_val, VARIANT const* in_val, bool is_optional) {
 	return is_assignable_from(static_cast<cv::flann::IndexParams&>(out_val), in_val, is_optional);
 }
 
 // https://github.com/opencv/opencv/tree/4.11.0/modules/flann/misc/python/pyopencv_flann.hpp#L106-L109
-const HRESULT autoit_to(VARIANT const* const& in_val, cv::flann::SearchParams& out_val) {
+const HRESULT autoit_to(VARIANT const* in_val, cv::flann::SearchParams& out_val) {
 	return autoit_to(in_val, static_cast<cv::flann::IndexParams&>(out_val));
 }
 #endif
 
 #ifdef HAVE_OPENCV_DNN
 // https://github.com/opencv/opencv/blob/4.11.0/modules/dnn/misc/python/pyopencv_dnn.hpp#L7-L37
-const bool is_assignable_from(cv::dnn::DictValue& out_val, VARIANT const* const& in_val, bool is_optional) {
+const bool is_assignable_from(cv::dnn::DictValue& out_val, VARIANT const* in_val, bool is_optional) {
 	if (PARAMETER_MISSING(in_val)) {
 		return is_optional;
 	}
@@ -670,7 +670,7 @@ const bool is_assignable_from(cv::dnn::DictValue& out_val, VARIANT const* const&
 }
 
 // https://github.com/opencv/opencv/blob/4.11.0/modules/dnn/misc/python/pyopencv_dnn.hpp#L7-L37
-const HRESULT autoit_to(VARIANT const* const& in_val, cv::dnn::DictValue& dv) {
+const HRESULT autoit_to(VARIANT const* in_val, cv::dnn::DictValue& dv) {
 	using namespace cv;
 
 	if (PARAMETER_MISSING(in_val) || PARAMETER_NULL(in_val)) {
@@ -760,7 +760,7 @@ const HRESULT autoit_from(cv::dnn::DictValue const& dv, VARIANT*& out_val) {
 }
 
 // https://github.com/opencv/opencv/blob/4.11.0/modules/dnn/misc/python/pyopencv_dnn.hpp#L75-L88
-const bool is_assignable_from(cv::dnn::LayerParams& lp, VARIANT const* const& in_val, bool is_optional) {
+const bool is_assignable_from(cv::dnn::LayerParams& lp, VARIANT const* in_val, bool is_optional) {
 	if (PARAMETER_MISSING(in_val)) {
 		return is_optional;
 	}
@@ -781,7 +781,7 @@ const bool is_assignable_from(cv::dnn::LayerParams& lp, VARIANT const* const& in
 }
 
 // https://github.com/opencv/opencv/blob/4.11.0/modules/dnn/misc/python/pyopencv_dnn.hpp#L75-L88
-const HRESULT autoit_to(VARIANT const* const& in_val, cv::dnn::LayerParams& lp) {
+const HRESULT autoit_to(VARIANT const* in_val, cv::dnn::LayerParams& lp) {
 	using namespace cv;
 
 	if (V_VT(in_val) != VT_DISPATCH) {

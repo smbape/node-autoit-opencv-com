@@ -423,6 +423,8 @@ class CoClass {
         if (!this.methods.get(fname).some(idecl => JSON.stringify(idecl) === signature)) {
             this.methods.get(fname).push(decl);
         }
+
+        return fname;
     }
 
     addIDLName(idlname, fname, id) {

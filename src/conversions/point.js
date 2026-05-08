@@ -5,7 +5,7 @@ const optional = require("../optional_conversion");
 module.exports = (header = [], impl = [], options = {}) => {
     header.push(`
         template<typename _Tp>
-        const bool is_assignable_from(cv::Point_<_Tp>& out_val, VARIANT const* const& in_val, bool is_optional) {
+        const bool is_assignable_from(cv::Point_<_Tp>& out_val, VARIANT const* in_val, bool is_optional) {
             ${ optional.check.join(`\n${ " ".repeat(12) }`) }
 
             if ((V_VT(in_val) & VT_ARRAY) != VT_ARRAY || (V_VT(in_val) ^ VT_ARRAY) != VT_VARIANT) {
@@ -41,13 +41,13 @@ module.exports = (header = [], impl = [], options = {}) => {
         }
 
         template<typename _Tp>
-        inline const bool is_assignable_from(AUTOIT_PTR<cv::Point_<_Tp>>& out_val, VARIANT const* const& in_val, bool is_optional) {
+        inline const bool is_assignable_from(AUTOIT_PTR<cv::Point_<_Tp>>& out_val, VARIANT const* in_val, bool is_optional) {
             static cv::Point_<_Tp> tmp;
             return is_assignable_from(tmp, in_val, is_optional);
         }
 
         template<typename _Tp>
-        const HRESULT autoit_to(VARIANT const* const& in_val, cv::Point_<_Tp>& out_val) {
+        const HRESULT autoit_to(VARIANT const* in_val, cv::Point_<_Tp>& out_val) {
             ${ optional.assign.join(`\n${ " ".repeat(12) }`) }
 
             if ((V_VT(in_val) & VT_ARRAY) != VT_ARRAY || (V_VT(in_val) ^ VT_ARRAY) != VT_VARIANT) {
@@ -92,7 +92,7 @@ module.exports = (header = [], impl = [], options = {}) => {
         }
 
         template<typename _Tp>
-        inline const HRESULT autoit_to(VARIANT const* const& in_val, AUTOIT_PTR<cv::Point_<_Tp>>& out_val) {
+        inline const HRESULT autoit_to(VARIANT const* in_val, AUTOIT_PTR<cv::Point_<_Tp>>& out_val) {
             out_val = ${ options.make_shared }<cv::Point_<_Tp>>();
             return autoit_to(in_val, *out_val.get());
         }

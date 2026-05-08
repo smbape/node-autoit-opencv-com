@@ -68,6 +68,10 @@ const proto = {
             return type;
         }
 
+        if (type.startsWith("const ")) {
+            type = type.slice("const ".length).trim();
+        }
+
         if (options.getIDLType) {
             const idltype = options.getIDLType(this, type, coclass, options);
             if (idltype) {
@@ -164,7 +168,7 @@ const proto = {
             include = include.include;
         }
 
-        for (const fqn of this.getMaybeTypes(type_, include)) {
+        for (const fqn of this.getMaybeTypes(type_, include, options)) {
             if (this.enums.has(fqn)) {
                 const pos = fqn.lastIndexOf("::");
 
@@ -261,7 +265,7 @@ const proto = {
                     IEnumVARIANT,
                     &IID_IEnumVARIANT,
                     VARIANT,
-                    ::autoit::GenericCopy<${ iterator }>,
+                    ::autoit::GenericCopy,
                     ${ fqn }
                 >,
                 AutoItObject<${ fqn }>
@@ -637,7 +641,11 @@ class COMGenerator {
                     template<>
                     struct TypeToImplType<${ cpptype }> {
                         using type = C${ cotype };
+                        using iface_type = I${ cotype };
                     };
+
+                    template<>
+                    struct autoit::is_usertype<${ cpptype }> : std::true_type {};
                 `.replace(/^ {20}/mg, "").trim());
 
                 iglobal.push("");
@@ -1052,7 +1060,7 @@ class COMGenerator {
                 }
             });
 
-            bridge_header.push("");
+            bridge_header.push("#include \"autoit_bridge_common.impl.h\"", "");
 
             files.set(sysPath.join(options.output, "autoit_bridge_generated.h"), bridge_header.join("\n").trim().replace(/[^\S\n]+$/mg, "") + LF);
 
@@ -1181,21 +1189,29 @@ class COMGenerator {
             const [, , , enums] = processor.enums.get(ename);
             const path = ename.split("::");
 
-            const values = new Map(enums.map(([name, value]) => [name.slice("const ".length), value]));
+            const enum_entries = new Map(enums.map(decl => [decl[0].slice("const ".length), decl]));
 
-            const expansionRe = new RegExp(`\\b(?:${ Array.from(values).map(([name, value]) => name.split(".").pop()).join("|") })\\b`, "g");
+            const expansionRe = new RegExp(`\\b(?:${ Array.from(enum_entries).map(([name]) => name.split(".").pop()).join("|") })\\b`, "g");
 
-            const getVariableName = (prefix, vname) => {
-                return values.has(`${ prefix }.${ vname }`) ? `$${ getPrefixVariableName(prefix) }_${ vname }` : vname;
+            const getVariableName = (prefix, vkey, propname) => {
+                return enum_entries.has(`${ prefix }.${ vkey }`) ? `$${ getPrefixVariableName(prefix) }_${ propname }` : vkey;
             };
 
             ename = path[path.length - 1];
 
-            return `; ${ path.slice(0, -1).join("::") }::${ ename === "<unnamed>" ? "anonymous" : ename }\n${ Array.from(values).map(([name, value]) => {
+            return `; ${ path.slice(0, -1).join("::") }::${ ename === "<unnamed>" ? "anonymous" : ename }\n${ Array.from(enum_entries).map(([name, [, value, modifiers]]) => {
                 const pos = name.lastIndexOf(".");
                 const prefix = name.slice(0, pos);
                 const vkey = name.slice(pos + 1);
-                const vname = getVariableName(prefix, vkey);
+
+                let propname = vkey;
+                for (const modifier of modifiers) {
+                    if (modifier.startsWith("=")) {
+                        propname = modifier.slice("=".length);
+                    }
+                }
+
+                const vname = getVariableName(prefix, vkey, propname);
 
                 if (globals.has(vname)) {
                     console.log("skip already defined global", vname);
@@ -1204,7 +1220,7 @@ class COMGenerator {
 
                 globals.add(vname);
 
-                value = convertExpression(value, options).replace(expansionRe, getVariableName.bind(null, prefix)).replace(/\b(?<!\$)(?=CV_)/g, "$");
+                value = convertExpression(value, options).replace(expansionRe, getVariableName.bind(null, prefix, vkey)).replace(/\b(?<!\$)(?=CV_)/g, "$");
 
                 for (const [substr, newSubstr] of constReplacer) {
                     value = value.replaceAll(substr, newSubstr);
