@@ -22,10 +22,10 @@
 @IF ["%_param%"] == [""] @GOTO :NEXT_OPT
 
 @IF ["%_param:~0,2%"] == ["-D"] (
-    echo %_param% | find "=" 1>NUL 2>NUL
+    @ECHO %_param% | findstr "=" 1>NUL 2>NUL
     @IF errorlevel 1 @SET _param=%_param%=%~2
     @IF errorlevel 1 @SET /a nparms -=1
-    @IF errorlevel 1 SHIFT
+    @IF errorlevel 1 @SHIFT
     @SET EXTRA_CMAKE_OPTIONS=%EXTRA_CMAKE_OPTIONS% "!_param!"
     @GOTO :NEXT_OPT
 )
@@ -61,7 +61,7 @@
 )
 :NEXT_OPT
 @SET /a nparms -=1
-SHIFT
+@SHIFT
 @GOTO GET_OPTS
 
 :MAIN
@@ -119,7 +119,7 @@ SHIFT
 :MAKE
 ::Find CMake
 @SET "PATH=%DevEnvDir%\CommonExtensions\Microsoft\CMake\CMake\bin;%PATH%"
-@FOR %%X IN (cmake.exe) DO (set CMAKE="%%~$PATH:X")
+@FOR %%X IN (cmake.exe) DO (@SET CMAKE="%%~$PATH:X")
 @IF NOT DEFINED CMAKE (
     @IF EXIST "%PROGRAMFILES_DIR_X86%\CMake\bin\cmake.exe" @SET CMAKE="%PROGRAMFILES_DIR_X86%\CMake\bin\cmake.exe"
     @IF EXIST "%PROGRAMFILES_DIR%\CMake\bin\cmake.exe" @SET CMAKE="%PROGRAMFILES_DIR%\CMake\bin\cmake.exe"
@@ -128,7 +128,7 @@ SHIFT
 
 ::Find Ninja
 @SET "PATH=%DevEnvDir%\CommonExtensions\Microsoft\CMake\Ninja;%PATH%"
-@FOR %%X IN (ninja.exe) DO (set "NINJA=%%~$PATH:X")
+@FOR %%X IN (ninja.exe) DO (@SET "NINJA=%%~$PATH:X")
 @IF ["%CMAKE_GENERATOR:"=%"] == ["-G Ninja"] @SET EXTRA_CMAKE_OPTIONS=%EXTRA_CMAKE_OPTIONS% "-DCMAKE_MAKE_PROGRAM=%NINJA%"
 
 @SET ERROR=0

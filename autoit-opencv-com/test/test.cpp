@@ -1,6 +1,32 @@
 #include "test.h"
 #include <semaphore>
 
+namespace {
+	std::string get_system_error_message() {
+		// Retrieve the system error message for the last-error code
+		std::string errmsg;
+
+		LPVOID lpMsgBuf;
+		DWORD dw = GetLastError();
+
+		if (FormatMessage(
+			FORMAT_MESSAGE_ALLOCATE_BUFFER |
+			FORMAT_MESSAGE_FROM_SYSTEM |
+			FORMAT_MESSAGE_IGNORE_INSERTS,
+			NULL,
+			dw,
+			MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+			(LPTSTR)&lpMsgBuf,
+			0, NULL) != 0
+			) {
+			errmsg.assign((LPCTSTR)lpMsgBuf);
+			LocalFree(lpMsgBuf);
+		}
+
+		return errmsg;
+	}
+}
+
 template<typename T>
 inline auto to_variant_t(T const& in_val) {
 	return cv::Ptr<_variant_t>(new _variant_t(in_val));
@@ -749,8 +775,13 @@ public:
 	typedef BOOL(*DllDeactivateActCtx_t)();
 
 	ActCtxInitializer() {
-		m_lib = LoadLibrary("bin\\" BUILD_TYPE "\\autoit_opencv_com4130" DEBUG_POSTFIX ".dll");
-		CV_Assert(m_lib != 0);
+		m_lib = LoadLibrary("bin\\" BUILD_TYPE "\\autoit_opencv_com4140" DEBUG_POSTFIX ".dll");
+		if (m_lib == NULL) {
+			const auto dependency = "bin\\" BUILD_TYPE "\\autoit_opencv_com4140" DEBUG_POSTFIX ".dll";
+			std::ostringstream errmsg;
+			errmsg << "\n\tfailed to load file " << dependency << " : " << get_system_error_message();
+			cv::error(cv::Error::StsAssert, errmsg.str(), CV_Func, __FILE__, __LINE__);
+		}
 
 		m_DllActivateManifest = (DllActivateManifest_t)GetProcAddress(m_lib, "DllActivateManifest");
 		m_Activated = m_DllActivateManifest();

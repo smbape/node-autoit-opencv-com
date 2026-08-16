@@ -815,6 +815,10 @@
         "iid": "e2ee2936-b218-4d97-9a10-c4b4e9ddbe6c",
         "clsid": "6997e154-e5d5-4ea2-a93a-b0644bd60c0a"
     },
+    "cv::ECCParameters": {
+        "iid": "5f05fbde-6a8a-4d7b-bc3b-d720c465c727",
+        "clsid": "2ef6e182-cc5a-4ea3-bbee-b8f157efea6c"
+    },
     "cv::KalmanFilter": {
         "iid": "4a0e396a-717a-4a74-8133-2aa951d5a493",
         "clsid": "9c012d06-9f2a-466f-8724-289bca1df84a"

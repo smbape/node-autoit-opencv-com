@@ -37,7 +37,7 @@ npm version patch
 # ================================
 # build
 # ================================
-rm -rf opencv-4.*.0-windows autoit-opencv-com/{build_x64,generated,opencv-4.*.0-build_x64} && \
+rm -rf opencv-4.*.0-windows autoit-opencv-com-*.7z autoit-opencv-com/{build_x64,generated,opencv-4.*.0-build_x64} && \
 set -o pipefail && \
 time CMAKE_BUILD_TYPE=Release ./autoit-*-com/build.bat && time CMAKE_BUILD_TYPE=Debug ./autoit-*-com/build.bat && \
 time CMAKE_BUILD_TYPE=Release ./autoit-addon/build.bat && time CMAKE_BUILD_TYPE=Debug ./autoit-addon/build.bat && \
@@ -45,9 +45,9 @@ find samples autoit-opencv-com/udf autoit-addon -type d -name 'BackUp' -prune -o
 find samples autoit-opencv-com/udf autoit-addon -type d -name 'BackUp' | xargs -I '{}' rm -rf '{}' && \
 bash -c 'source scripts/tasks.sh && update_new_version' && \
 node scripts/build.js && \
-sha256sum autoit-opencv-*-com-v*.7z && \
-cp -f autoit-opencv-*-com-v*.7z /d/development/git/node-autoit-dlib-com/ && \
-cp -f autoit-opencv-*-com-v*.7z /d/development/git/node-autoit-mediapipe-com/
+sha256sum autoit-opencv-com-*.7z && \
+cp -f autoit-opencv-com-*.7z /d/development/git/node-autoit-dlib-com/ && \
+cp -f autoit-opencv-com-*.7z /d/development/git/node-autoit-mediapipe-com/
 
 
 # ================================
@@ -67,10 +67,10 @@ node scripts/build.js
 # ================================
 # test release
 # ================================
-test -d /d/Programs/AutoIt/UDF/opencv-udf-test/opencv-4.13.0-windows || ./opencv-4.13.0-windows.exe -o/d/Programs/AutoIt/UDF/opencv-udf-test/opencv-4.13.0-windows -y && \
+test -d /d/Programs/AutoIt/UDF/opencv-udf-test/opencv-4.14.0-windows || ./opencv-4.14.0-windows.exe -o/d/Programs/AutoIt/UDF/opencv-udf-test/opencv-4.14.0-windows -y && \
 rm -rf /d/Programs/AutoIt/UDF/opencv-udf-test/autoit-* /d/Programs/AutoIt/UDF/opencv-udf-test/samples && \
 git archive --format zip --output /d/Programs/AutoIt/UDF/opencv-udf-test/autoit-opencv-com.zip HEAD && \
-7z x autoit-opencv-*-com-v*.7z -aoa -o/d/Programs/AutoIt/UDF/opencv-udf-test/autoit-opencv-com && \
+7z x autoit-opencv-com-*.7z -aoa -o/d/Programs/AutoIt/UDF/opencv-udf-test/autoit-opencv-com && \
 7z x /d/Programs/AutoIt/UDF/opencv-udf-test/autoit-opencv-com.zip -aoa -o/d/Programs/AutoIt/UDF/opencv-udf-test 'autoit-addon\*' 'samples\*' && \
 node scripts/test.js --bash /d/Programs/AutoIt/UDF/opencv-udf-test > $(for ifile in autoit-*-com/build_x64/bin; do echo $ifile/test_all.sh; done) && \
 ./autoit-*-com/build_x64/bin/test_all.sh
@@ -80,13 +80,13 @@ node scripts/test.js --bash /d/Programs/AutoIt/UDF/opencv-udf-test > $(for ifile
 # test release with dlib
 # ================================
 rm -rf /d/development/git/node-autoit-dlib-com/autoit-opencv-com && \
-cp -f autoit-opencv-*-com-v*.7z /d/development/git/node-autoit-dlib-com/ && \
-7z x autoit-opencv-*-com-v*.7z -aoa -o/d/development/git/node-autoit-dlib-com/autoit-opencv-com
+cp -f autoit-opencv-com-*.7z /d/development/git/node-autoit-dlib-com/ && \
+7z x autoit-opencv-com-*.7z -aoa -o/d/development/git/node-autoit-dlib-com/autoit-opencv-com
 
 
 # ================================
 # test release with mediapipe
 # ================================
 rm -rf /d/development/git/node-autoit-mediapipe-com/autoit-opencv-com && \
-cp -f autoit-opencv-*-com-v*.7z /d/development/git/node-autoit-mediapipe-com/ && \
-7z x autoit-opencv-*-com-v*.7z -aoa -o/d/development/git/node-autoit-mediapipe-com/autoit-opencv-com
+cp -f autoit-opencv-com-*.7z /d/development/git/node-autoit-mediapipe-com/ && \
+7z x autoit-opencv-com-*.7z -aoa -o/d/development/git/node-autoit-mediapipe-com/autoit-opencv-com

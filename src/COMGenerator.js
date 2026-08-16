@@ -1,11 +1,11 @@
 /* eslint-disable no-magic-numbers */
-const version = process.env.npm_package_version || require("../package.json").version;
 const fs = require("node:fs");
 const sysPath = require("node:path");
+const { version, versions } = require("./version");
 const waterfall = require("async/waterfall");
 const { convertExpression } = require("node-autoit-binding-utils/src/autoit-expression-converter");
 
-const [VERSION_MAJOR, VERSION_MINOR] = version.split(".");
+const [VERSION_MAJOR, VERSION_MINOR] = versions;
 
 const LF = "\n";
 
@@ -1283,7 +1283,7 @@ class COMGenerator {
             <assemblyIdentity
                 type="win32"
                 name="${ OUTPUT_NAME }${ debugPostFix }.sxs"
-                version="${ version }.0" />
+                version="${ versions.join(".") }" />
         `.replace(/^ {12}/mg, "").trim()];
 
         if (typeof updateAssembly === "function") {

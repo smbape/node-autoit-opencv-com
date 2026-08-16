@@ -11,11 +11,11 @@
 #include "..\..\Table.au3"
 
 ;~ Sources:
-;~     https://docs.opencv.org/4.13.0/d8/dc8/tutorial_histogram_comparison.html
-;~     https://github.com/opencv/opencv/blob/4.13.0/samples/cpp/tutorial_code/Histograms_Matching/compareHist_Demo.cpp
+;~     https://docs.opencv.org/4.14.0/d8/dc8/tutorial_histogram_comparison.html
+;~     https://github.com/opencv/opencv/blob/4.14.0/samples/cpp/tutorial_code/Histograms_Matching/compareHist_Demo.cpp
 ;~     https://www.autoitscript.com/forum/topic/105814-table-udf/
 
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world4130*"), _OpenCV_FindDLL("autoit_opencv_com4130*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world4140*"), _OpenCV_FindDLL("autoit_opencv_com4140*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 

@@ -1,5 +1,5 @@
 diff --git a/3rdparty/ffmpeg/ffmpeg.cmake b/3rdparty/ffmpeg/ffmpeg.cmake
-index a061e9d56f..bd2e1bf2f4 100644
+index 830d36056b..9bf4366613 100644
 --- a/3rdparty/ffmpeg/ffmpeg.cmake
 +++ b/3rdparty/ffmpeg/ffmpeg.cmake
 @@ -37,8 +37,8 @@ function(download_win_ffmpeg script_var)
@@ -27,7 +27,7 @@ index 61349ca9e6..f7c541c39e 100644
      ${CMAKE_CURRENT_SOURCE_DIR}/nasm/jsimdcfg.inc.h |
    ${GREP} -E '^[\;%]|^\ %' | sed 's%_cpp_protection_%%' |
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index fc99f04129..baece623a8 100644
+index a9321d07b2..5c55b90ecd 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -5,8 +5,38 @@
@@ -86,7 +86,7 @@ index fc99f04129..baece623a8 100644
    endif()
  endif()
  
-@@ -581,7 +611,7 @@ if(OPENCV_TEST_DATA_PATH)
+@@ -584,7 +614,7 @@ if(OPENCV_TEST_DATA_PATH)
  endif()
  
  # Save libs and executables in the same place
@@ -95,7 +95,7 @@ index fc99f04129..baece623a8 100644
  
  if(ANDROID)
    set(LIBRARY_OUTPUT_PATH                "${OpenCV_BINARY_DIR}/lib/${ANDROID_NDK_ABI_NAME}")
-@@ -623,7 +653,7 @@ include(cmake/OpenCVInstallLayout.cmake)
+@@ -626,7 +656,7 @@ include(cmake/OpenCVInstallLayout.cmake)
  # ----------------------------------------------------------------------------
  #  Path for build/platform -specific headers
  # ----------------------------------------------------------------------------
@@ -104,7 +104,7 @@ index fc99f04129..baece623a8 100644
  ocv_include_directories(${OPENCV_CONFIG_FILE_INCLUDE_DIR})
  
  # ----------------------------------------------------------------------------
-@@ -1145,18 +1175,18 @@ if(INSTALL_TESTS AND OPENCV_TEST_DATA_PATH)
+@@ -1163,18 +1193,18 @@ if(INSTALL_TESTS AND OPENCV_TEST_DATA_PATH)
    if(ANDROID)
      get_filename_component(TEST_PATH ${OPENCV_TEST_INSTALL_PATH} DIRECTORY)
      configure_file("${CMAKE_CURRENT_SOURCE_DIR}/cmake/templates/opencv_run_all_tests_android.sh.in"
@@ -165,7 +165,7 @@ index 0b61185824..73fcbff8a7 100644
                          INTERFACE_INCLUDE_DIRECTORIES ${ORT_INCLUDE}
                          IMPORTED_LOCATION ${ORT_LIB}
 diff --git a/cmake/OpenCVCompilerOptions.cmake b/cmake/OpenCVCompilerOptions.cmake
-index 512e6d1abd..3b6a8c5ee0 100644
+index 5a0cb3d1bc..6234661fa4 100644
 --- a/cmake/OpenCVCompilerOptions.cmake
 +++ b/cmake/OpenCVCompilerOptions.cmake
 @@ -8,17 +8,17 @@ if(ENABLE_CCACHE AND NOT OPENCV_COMPILER_IS_CCACHE)
@@ -195,7 +195,7 @@ index 512e6d1abd..3b6a8c5ee0 100644
        message(STATUS "ccache: enable support through Xcode project properties")
      elseif(__OLD_RULE_LAUNCH_COMPILE)
 diff --git a/cmake/OpenCVDetectCUDAUtils.cmake b/cmake/OpenCVDetectCUDAUtils.cmake
-index fdd65ef6c3..0f466858ad 100644
+index 808f6bb550..852d1adfe2 100644
 --- a/cmake/OpenCVDetectCUDAUtils.cmake
 +++ b/cmake/OpenCVDetectCUDAUtils.cmake
 @@ -166,7 +166,7 @@ macro(ocv_filter_available_architecture nvcc_executable result_list)
@@ -216,7 +216,7 @@ index fdd65ef6c3..0f466858ad 100644
          RESULT_VARIABLE ${status}
          OUTPUT_VARIABLE _nvcc_out
          ERROR_VARIABLE _nvcc_err
-@@ -414,7 +414,7 @@ macro(ocv_apply_cuda_stub_workaround cuda_driver_library_path)
+@@ -417,7 +417,7 @@ macro(ocv_apply_cuda_stub_workaround cuda_driver_library_path)
    if(" ${cuda_driver_library_path}" MATCHES "/stubs/libcuda.so" AND NOT OPENCV_SKIP_CUDA_STUB_WORKAROUND)
      set(CUDA_STUB_ENABLED_LINK_WORKAROUND 1)
      if(EXISTS "${cuda_driver_library_path}" AND NOT OPENCV_SKIP_CUDA_STUB_WORKAROUND_RPATH_LINK)
@@ -248,7 +248,7 @@ index fc564e981a..7ef29416f8 100644
        IMPORTED_LOCATION "${TBB_ENV_LIB}"
        INTERFACE_INCLUDE_DIRECTORIES "${TBB_ENV_INCLUDE}"
 diff --git a/cmake/OpenCVDownload.cmake b/cmake/OpenCVDownload.cmake
-index 40e48d7465..05308411a7 100644
+index 0f8de153d8..52b394f89f 100644
 --- a/cmake/OpenCVDownload.cmake
 +++ b/cmake/OpenCVDownload.cmake
 @@ -49,7 +49,7 @@ function(ocv_init_download_mirror)
@@ -295,6 +295,28 @@ index 4b9a078423..b244696892 100644
  endif()
  
  # Samples
+diff --git a/cmake/OpenCVFindARMPL.cmake b/cmake/OpenCVFindARMPL.cmake
+index 508f43bedf..f20aa262b0 100644
+--- a/cmake/OpenCVFindARMPL.cmake
++++ b/cmake/OpenCVFindARMPL.cmake
+@@ -137,7 +137,7 @@ endif()
+ 
+ if(NOT TARGET armpl)
+   if(WIN32)
+-    add_library(armpl SHARED IMPORTED)
++    add_library(armpl SHARED IMPORTED GLOBAL)
+     find_file(ARMPL_DLL
+       NAMES "${ARMPL_LIB_NAME}.dll"
+       HINTS "${ARMPL_ROOT_DIR}/bin"
+@@ -149,7 +149,7 @@ if(NOT TARGET armpl)
+       INTERFACE_INCLUDE_DIRECTORIES "${ARMPL_INCLUDE_DIR}"
+     )
+   else()
+-    add_library(armpl UNKNOWN IMPORTED)
++    add_library(armpl UNKNOWN IMPORTED GLOBAL)
+     set_target_properties(armpl PROPERTIES
+       IMPORTED_LOCATION             "${ARMPL_LIB_FILE}"
+       INTERFACE_INCLUDE_DIRECTORIES "${ARMPL_INCLUDE_DIR}"
 diff --git a/cmake/OpenCVFindFrameworks.cmake b/cmake/OpenCVFindFrameworks.cmake
 index 741267d269..28fbe7b07e 100644
 --- a/cmake/OpenCVFindFrameworks.cmake
@@ -325,10 +347,10 @@ index eb26bea5a1..0117254d47 100644
          set_target_properties(ipp${name} PROPERTIES
            IMPORTED_LINK_INTERFACE_LIBRARIES ""
 diff --git a/cmake/OpenCVFindIPPIW.cmake b/cmake/OpenCVFindIPPIW.cmake
-index 1e065e10f6..b48e367daa 100644
+index c17d960fb3..65630554ee 100644
 --- a/cmake/OpenCVFindIPPIW.cmake
 +++ b/cmake/OpenCVFindIPPIW.cmake
-@@ -108,7 +108,7 @@ macro(ippiw_setup PATH BUILD)
+@@ -124,7 +124,7 @@ macro(ippiw_setup PATH BUILD)
            message(STATUS "found Intel IPP Integration Wrappers binaries: ${IW_VERSION_MAJOR}.${IW_VERSION_MINOR}.${IW_VERSION_UPDATE}")
            message(STATUS "at: ${IPP_IW_PATH}")
  
@@ -338,7 +360,7 @@ index 1e065e10f6..b48e367daa 100644
              IMPORTED_LINK_INTERFACE_LIBRARIES ""
              IMPORTED_LOCATION "${FILE}"
 diff --git a/cmake/OpenCVFindLAPACK.cmake b/cmake/OpenCVFindLAPACK.cmake
-index 3b1c435bdf..b04550ee1d 100644
+index 61a149c234..2add5833c4 100644
 --- a/cmake/OpenCVFindLAPACK.cmake
 +++ b/cmake/OpenCVFindLAPACK.cmake
 @@ -61,7 +61,7 @@ macro(ocv_lapack_check)
@@ -368,10 +390,10 @@ index 3b1c435bdf..b04550ee1d 100644
            "    LAPACK_INCLUDE_DIR: '${LAPACK_INCLUDE_DIR}'\n"
            "    LAPACK_LIBRARIES: '${LAPACK_LIBRARIES}'\n"
 diff --git a/cmake/OpenCVFindLibsPerf.cmake b/cmake/OpenCVFindLibsPerf.cmake
-index 861a39c47f..9b2aa12b9f 100644
+index f3fe215c6f..b32c9dc1f9 100644
 --- a/cmake/OpenCVFindLibsPerf.cmake
 +++ b/cmake/OpenCVFindLibsPerf.cmake
-@@ -203,7 +203,7 @@ if(WITH_FASTCV)
+@@ -246,7 +246,7 @@ if(WITH_FASTCV)
        set(FastCV_INCLUDE_PATH "${FCV_ROOT_DIR}/inc" CACHE PATH "FastCV includes directory")
        set(FastCV_LIB_PATH "${FCV_ROOT_DIR}/libs" CACHE PATH "FastCV library directory")
        ocv_install_3rdparty_licenses(FastCV "${OpenCV_BINARY_DIR}/3rdparty/fastcv/LICENSE")
@@ -633,7 +655,7 @@ index 2cf238714f..9e2c2fbb05 100644
      PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
      COMPONENT scripts)
 diff --git a/cmake/OpenCVModule.cmake b/cmake/OpenCVModule.cmake
-index 84e8216fe0..41780ad088 100644
+index 3690c266d5..48671a884e 100644
 --- a/cmake/OpenCVModule.cmake
 +++ b/cmake/OpenCVModule.cmake
 @@ -938,7 +938,7 @@ macro(_ocv_create_module)
@@ -901,7 +923,7 @@ index 5ca7fab808..b51b298f16 100644
              install(FILES "$<TARGET_PDB_FILE:${__target}>" DESTINATION "${__dst}"
                  COMPONENT ${__pdb_install_component} OPTIONAL ${__pdb_exclude_from_all})
 -          else()
-+          else(NOT "${__target_type}" STREQUAL "OBJECT_LIBRARY")
++          elseif(NOT "${__target_type}" STREQUAL "OBJECT_LIBRARY")
              # There is no generator expression similar to TARGET_PDB_FILE and TARGET_PDB_FILE can't be used: https://gitlab.kitware.com/cmake/cmake/issues/16932
              # However we still want .pdb files like: 'lib/Debug/opencv_core341d.pdb' or '3rdparty/lib/zlibd.pdb'
              install(FILES "$<TARGET_PROPERTY:${__target},ARCHIVE_OUTPUT_DIRECTORY>/$<CONFIG>/$<IF:$<BOOL:$<TARGET_PROPERTY:${__target},COMPILE_PDB_NAME_DEBUG>>,$<TARGET_PROPERTY:${__target},COMPILE_PDB_NAME_DEBUG>,$<TARGET_PROPERTY:${__target},COMPILE_PDB_NAME>>.pdb"
@@ -1041,6 +1063,21 @@ index 70f9ebfa14..f48e5eb39f 100644
      set(ocv_js "opencv.js")
      list(APPEND js_assets "${ocv_js_dir}/${ocv_js}")
    elseif(DEFINED OPENCV_JS_LOCATION)
+diff --git a/hal/armpl/CMakeLists.txt b/hal/armpl/CMakeLists.txt
+index 15f59eb353..cbaec77351 100644
+--- a/hal/armpl/CMakeLists.txt
++++ b/hal/armpl/CMakeLists.txt
+@@ -8,8 +8,8 @@ if(HAVE_ARMPL)
+   file(GLOB ARMPL_HAL_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
+   add_library(armpl_hal STATIC ${OPENCV_3RDPARTY_EXCLUDE_FROM_ALL} ${ARMPL_HAL_FILES})
+   target_include_directories(armpl_hal PRIVATE
+-    ${CMAKE_SOURCE_DIR}/modules/core/include
+-    ${CMAKE_BINARY_DIR}
++    ${OPENCV_SOURCE_DIR}/modules/core/include
++    ${OPENCV_BINARY_DIR}
+     ${ARMPL_HAL_INCLUDE_DIRS}
+     ${ARMPL_INCLUDE_PATH})
+   target_link_libraries(armpl_hal PUBLIC ${ARMPL_LIBRARY})
 diff --git a/hal/carotene/hal/CMakeLists.txt b/hal/carotene/hal/CMakeLists.txt
 index 70c40180e8..9a53f0204b 100644
 --- a/hal/carotene/hal/CMakeLists.txt
@@ -1085,10 +1122,10 @@ index 5556e1d436..b608111ada 100644
  
    target_link_libraries(fastcv_hal PUBLIC ${FASTCV_LIBRARY})
 diff --git a/hal/ipp/CMakeLists.txt b/hal/ipp/CMakeLists.txt
-index 5ff630c8c0..a391c2aab6 100644
+index 4774cf55fb..dc3b20a089 100644
 --- a/hal/ipp/CMakeLists.txt
 +++ b/hal/ipp/CMakeLists.txt
-@@ -40,8 +40,8 @@ ocv_warnings_disable(CMAKE_CXX_FLAGS -Wno-suggest-override)
+@@ -51,8 +51,8 @@ ocv_warnings_disable(CMAKE_CXX_FLAGS -Wno-suggest-override)
  
  target_include_directories(ipphal PRIVATE
    "${CMAKE_CURRENT_SOURCE_DIR}/src"
@@ -1151,10 +1188,10 @@ index 522b71434e..72cfe0498c 100644
  set(RVV_HAL_FOUND TRUE CACHE INTERNAL "")
  set(RVV_HAL_VERSION "0.0.1" CACHE INTERNAL "")
 diff --git a/modules/core/CMakeLists.txt b/modules/core/CMakeLists.txt
-index a341c6a837..d1fbffa231 100644
+index aea0b6de66..043f0a3a18 100644
 --- a/modules/core/CMakeLists.txt
 +++ b/modules/core/CMakeLists.txt
-@@ -235,10 +235,10 @@ if(OPENCV_OTHER_INSTALL_PATH)
+@@ -238,10 +238,10 @@ if(OPENCV_OTHER_INSTALL_PATH)
  endif()
  
  set(OPENCV_DATA_CONFIG_STR "${OPENCV_DATA_CONFIG_STR}
@@ -1201,7 +1238,7 @@ index 48b55646c5..9b20a12b3e 100644
          };
  
 diff --git a/modules/gapi/src/backends/fluid/gfluidcore.cpp b/modules/gapi/src/backends/fluid/gfluidcore.cpp
-index 50615b2652..c19a19b462 100644
+index 1f781d518a..d1b6f4726f 100644
 --- a/modules/gapi/src/backends/fluid/gfluidcore.cpp
 +++ b/modules/gapi/src/backends/fluid/gfluidcore.cpp
 @@ -32,6 +32,15 @@
@@ -1220,7 +1257,7 @@ index 50615b2652..c19a19b462 100644
  namespace cv {
  namespace gapi {
  namespace fluid {
-@@ -2582,6 +2591,12 @@ GAPI_FLUID_KERNEL(GFluidSqrt, cv::gapi::core::GSqrt, false)
+@@ -2538,6 +2547,12 @@ GAPI_FLUID_KERNEL(GFluidSqrt, cv::gapi::core::GSqrt, false)
  } // namespace gapi
  } // namespace cv
  
@@ -1735,7 +1772,7 @@ index d9c9a12de6..afcd697217 100644
  set_target_properties(IE::inference_engine PROPERTIES
    INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/deployment_tools/inference_engine/include"
 diff --git a/samples/CMakeLists.txt b/samples/CMakeLists.txt
-index dabe07747f..6bd2ff1476 100644
+index c94ac8e62b..732feb8209 100644
 --- a/samples/CMakeLists.txt
 +++ b/samples/CMakeLists.txt
 @@ -1,4 +1,4 @@

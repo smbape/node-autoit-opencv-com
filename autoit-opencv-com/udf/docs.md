@@ -108,6 +108,7 @@
   - [cv.BackgroundSubtractor](#cvbackgroundsubtractor)
   - [cv.BackgroundSubtractorMOG2](#cvbackgroundsubtractormog2)
   - [cv.BackgroundSubtractorKNN](#cvbackgroundsubtractorknn)
+  - [cv.ECCParameters](#cveccparameters)
   - [cv.KalmanFilter](#cvkalmanfilter)
   - [cv.DenseOpticalFlow](#cvdenseopticalflow)
   - [cv.SparseOpticalFlow](#cvsparseopticalflow)
@@ -371,6 +372,7 @@
   - [cv::findNonZero](#cvfindnonzero)
   - [cv::findTemplate](#cvfindtemplate)
   - [cv::findTransformECC](#cvfindtransformecc)
+  - [cv::findTransformECCMultiScale](#cvfindtransformeccmultiscale)
   - [cv::findTransformECCWithMask](#cvfindtransformeccwithmask)
   - [cv::fitEllipse](#cvfitellipse)
   - [cv::fitEllipseAMS](#cvfitellipseams)
@@ -1151,6 +1153,7 @@
   - [enums.IMWRITE\_EXR\_COMPRESSION](#enumsimwrite%5C_exr%5C_compression)
   - [enums.IMWRITE\_EXR\_DWA\_COMPRESSION\_LEVEL](#enumsimwrite%5C_exr%5C_dwa%5C_compression%5C_level)
   - [enums.IMWRITE\_WEBP\_QUALITY](#enumsimwrite%5C_webp%5C_quality)
+  - [enums.IMWRITE\_WEBP\_LOSSLESS\_MODE](#enumsimwrite%5C_webp%5C_lossless%5C_mode)
   - [enums.IMWRITE\_HDR\_COMPRESSION](#enumsimwrite%5C_hdr%5C_compression)
   - [enums.IMWRITE\_PAM\_TUPLETYPE](#enumsimwrite%5C_pam%5C_tupletype)
   - [enums.IMWRITE\_TIFF\_RESUNIT](#enumsimwrite%5C_tiff%5C_resunit)
@@ -1248,6 +1251,9 @@
   - [enums.IMWRITE\_PAM\_FORMAT\_GRAYSCALE\_ALPHA](#enumsimwrite%5C_pam%5C_format%5C_grayscale%5C_alpha)
   - [enums.IMWRITE\_PAM\_FORMAT\_RGB](#enumsimwrite%5C_pam%5C_format%5C_rgb)
   - [enums.IMWRITE\_PAM\_FORMAT\_RGB\_ALPHA](#enumsimwrite%5C_pam%5C_format%5C_rgb%5C_alpha)
+  - [enums.IMWRITE\_WEBP\_LOSSLESS\_OFF](#enumsimwrite%5C_webp%5C_lossless%5C_off)
+  - [enums.IMWRITE\_WEBP\_LOSSLESS\_ON](#enumsimwrite%5C_webp%5C_lossless%5C_on)
+  - [enums.IMWRITE\_WEBP\_LOSSLESS\_PRESERVE\_COLOR](#enumsimwrite%5C_webp%5C_lossless%5C_preserve%5C_color)
   - [enums.IMWRITE\_HDR\_COMPRESSION\_NONE](#enumsimwrite%5C_hdr%5C_compression%5C_none)
   - [enums.IMWRITE\_HDR\_COMPRESSION\_RLE](#enumsimwrite%5C_hdr%5C_compression%5C_rle)
   - [enums.IMWRITE\_BMP\_COMPRESSION\_RGB](#enumsimwrite%5C_bmp%5C_compression%5C_rgb)
@@ -1374,6 +1380,7 @@
   - [enums.CAP\_PROP\_N\_THREADS](#enumscap%5C_prop%5C_n%5C_threads)
   - [enums.CAP\_PROP\_PTS](#enumscap%5C_prop%5C_pts)
   - [enums.CAP\_PROP\_DTS\_DELAY](#enumscap%5C_prop%5C_dts%5C_delay)
+  - [enums.CAP\_PROP\_IMAGE\_SEQ\_START](#enumscap%5C_prop%5C_image%5C_seq%5C_start)
   - [enums.VIDEOWRITER\_PROP\_QUALITY](#enumsvideowriter%5C_prop%5C_quality)
   - [enums.VIDEOWRITER\_PROP\_FRAMEBYTES](#enumsvideowriter%5C_prop%5C_framebytes)
   - [enums.VIDEOWRITER\_PROP\_NSTRIPES](#enumsvideowriter%5C_prop%5C_nstripes)
@@ -1387,6 +1394,8 @@
   - [enums.VIDEOWRITER\_PROP\_KEY\_FLAG](#enumsvideowriter%5C_prop%5C_key%5C_flag)
   - [enums.VIDEOWRITER\_PROP\_PTS](#enumsvideowriter%5C_prop%5C_pts)
   - [enums.VIDEOWRITER\_PROP\_DTS\_DELAY](#enumsvideowriter%5C_prop%5C_dts%5C_delay)
+  - [enums.VIDEOWRITER\_PROP\_COLOR\_SPACE](#enumsvideowriter%5C_prop%5C_color%5C_space)
+  - [enums.VIDEOWRITER\_PROP\_ENABLE\_ALPHA](#enumsvideowriter%5C_prop%5C_enable%5C_alpha)
   - [enums.VIDEO\_ACCELERATION\_NONE](#enumsvideo%5C_acceleration%5C_none)
   - [enums.VIDEO\_ACCELERATION\_ANY](#enumsvideo%5C_acceleration%5C_any)
   - [enums.VIDEO\_ACCELERATION\_D3D11](#enumsvideo%5C_acceleration%5C_d3d11)
@@ -1621,8 +1630,10 @@
   - [enums.CAP\_PROP\_GIGA\_FRAME\_OFFSET\_X](#enumscap%5C_prop%5C_giga%5C_frame%5C_offset%5C_x)
   - [enums.CAP\_PROP\_GIGA\_FRAME\_OFFSET\_Y](#enumscap%5C_prop%5C_giga%5C_frame%5C_offset%5C_y)
   - [enums.CAP\_PROP\_GIGA\_FRAME\_WIDTH\_MAX](#enumscap%5C_prop%5C_giga%5C_frame%5C_width%5C_max)
+  - [enums.CAP\_PROP\_GIGA\_FRAME\_HEIGHT\_MAX](#enumscap%5C_prop%5C_giga%5C_frame%5C_height%5C_max)
   - [enums.CAP\_PROP\_GIGA\_FRAME\_HEIGH\_MAX](#enumscap%5C_prop%5C_giga%5C_frame%5C_heigh%5C_max)
   - [enums.CAP\_PROP\_GIGA\_FRAME\_SENS\_WIDTH](#enumscap%5C_prop%5C_giga%5C_frame%5C_sens%5C_width)
+  - [enums.CAP\_PROP\_GIGA\_FRAME\_SENS\_HEIGHT](#enumscap%5C_prop%5C_giga%5C_frame%5C_sens%5C_height)
   - [enums.CAP\_PROP\_GIGA\_FRAME\_SENS\_HEIGH](#enumscap%5C_prop%5C_giga%5C_frame%5C_sens%5C_heigh)
   - [enums.CAP\_PROP\_INTELPERC\_PROFILE\_COUNT](#enumscap%5C_prop%5C_intelperc%5C_profile%5C_count)
   - [enums.CAP\_PROP\_INTELPERC\_PROFILE\_IDX](#enumscap%5C_prop%5C_intelperc%5C_profile%5C_idx)
@@ -1731,6 +1742,7 @@
   - [enums.CALIB\_ZERO\_DISPARITY](#enumscalib%5C_zero%5C_disparity)
   - [enums.CALIB\_USE\_LU](#enumscalib%5C_use%5C_lu)
   - [enums.CALIB\_USE\_EXTRINSIC\_GUESS](#enumscalib%5C_use%5C_extrinsic%5C_guess)
+  - [enums.CALIB\_DISABLE\_SCHUR\_COMPLEMENT](#enumscalib%5C_disable%5C_schur%5C_complement)
   - [enums.FM\_7POINT](#enumsfm%5C_7point)
   - [enums.FM\_8POINT](#enumsfm%5C_8point)
   - [enums.FM\_LMEDS](#enumsfm%5C_lmeds)
@@ -4921,6 +4933,7 @@
   - [DetectorParameters.useAruco3Detection](#detectorparametersusearuco3detection)
   - [DetectorParameters.minSideLengthCanonicalImg](#detectorparametersminsidelengthcanonicalimg)
   - [DetectorParameters.minMarkerLengthRatioOriginalImg](#detectorparametersminmarkerlengthratiooriginalimg)
+  - [DetectorParameters.validBitIdThreshold](#detectorparametersvalidbitidthreshold)
   - [cv::aruco::DetectorParameters::get\_create](#cvarucodetectorparametersget%5C_create)
   - [cv::aruco::DetectorParameters::IsInstance](#cvarucodetectorparametersisinstance)
   - [cv::aruco::DetectorParameters::readDetectorParameters](#cvarucodetectorparametersreaddetectorparameters)
@@ -4964,6 +4977,7 @@
   - [cv::aruco::Dictionary::getBitsFromByteList](#cvarucodictionarygetbitsfrombytelist)
   - [cv::aruco::Dictionary::getByteListFromBits](#cvarucodictionarygetbytelistfrombits)
   - [cv::aruco::Dictionary::getDistanceToId](#cvarucodictionarygetdistancetoid)
+  - [cv::aruco::Dictionary::getMarkerBits](#cvarucodictionarygetmarkerbits)
   - [cv::aruco::Dictionary::identify](#cvarucodictionaryidentify)
   - [cv::aruco::Dictionary::readDictionary](#cvarucodictionaryreaddictionary)
   - [cv::aruco::Dictionary::writeDictionary](#cvarucodictionarywritedictionary)
@@ -5473,6 +5487,15 @@
   - [cv::BackgroundSubtractorKNN::setShadowValue](#cvbackgroundsubtractorknnsetshadowvalue)
   - [cv::BackgroundSubtractorKNN::setkNNSamples](#cvbackgroundsubtractorknnsetknnsamples)
   - [cv::BackgroundSubtractorKNN::write](#cvbackgroundsubtractorknnwrite)
+- [cv::ECCParameters](#cveccparameters)
+  - [ECCParameters.motionType](#eccparametersmotiontype)
+  - [ECCParameters.criteria](#eccparameterscriteria)
+  - [ECCParameters.itersPerLevel](#eccparametersitersperlevel)
+  - [ECCParameters.gaussFiltSize](#eccparametersgaussfiltsize)
+  - [ECCParameters.nlevels](#eccparametersnlevels)
+  - [ECCParameters.interpolation](#eccparametersinterpolation)
+  - [cv::ECCParameters::get\_create](#cveccparametersget%5C_create)
+  - [cv::ECCParameters::IsInstance](#cveccparametersisinstance)
 - [cv::KalmanFilter](#cvkalmanfilter)
   - [KalmanFilter.statePre](#kalmanfilterstatepre)
   - [KalmanFilter.statePost](#kalmanfilterstatepost)
@@ -9631,6 +9654,14 @@ AutoIt:
     [propget] $ocv.BackgroundSubtractorKNN
 ```
 
+### cv.ECCParameters
+
+```cpp
+static cv::ECCParameters
+AutoIt:
+    [propget] $ocv.ECCParameters
+```
+
 ### cv.KalmanFilter
 
 ```cpp
@@ -12717,6 +12748,19 @@ double cv::findTransformECC( InputArray       templateImage,
                              InputArray       inputMask = noArray() );
 AutoIt:
     _OpenCV_ObjCreate("cv").findTransformECC( $templateImage, $inputImage, $warpMatrix[, $motionType[, $criteria[, $inputMask]]] ) -> retval, $warpMatrix
+```
+
+### cv::findTransformECCMultiScale
+
+```cpp
+double cv::findTransformECCMultiScale( InputArray               reference,
+                                       InputArray               sample,
+                                       InputOutputArray         warpMatrix,
+                                       const cv::ECCParameters& eccParams = ECCParameters(),
+                                       InputArray               referenceMask = noArray(),
+                                       InputArray               sampleMask = noArray() );
+AutoIt:
+    _OpenCV_ObjCreate("cv").findTransformECCMultiScale( $reference, $sample, $warpMatrix[, $eccParams[, $referenceMask[, $sampleMask]]] ) -> retval, $warpMatrix
 ```
 
 ### cv::findTransformECCWithMask
@@ -19853,6 +19897,14 @@ AutoIt:
     [propget] $oenums.IMWRITE_WEBP_QUALITY
 ```
 
+### enums.IMWRITE\_WEBP\_LOSSLESS\_MODE
+
+```cpp
+static int cv::enums::IMWRITE_WEBP_LOSSLESS_MODE
+AutoIt:
+    [propget] $oenums.IMWRITE_WEBP_LOSSLESS_MODE
+```
+
 ### enums.IMWRITE\_HDR\_COMPRESSION
 
 ```cpp
@@ -20627,6 +20679,30 @@ AutoIt:
 static int cv::enums::IMWRITE_PAM_FORMAT_RGB_ALPHA
 AutoIt:
     [propget] $oenums.IMWRITE_PAM_FORMAT_RGB_ALPHA
+```
+
+### enums.IMWRITE\_WEBP\_LOSSLESS\_OFF
+
+```cpp
+static int cv::enums::IMWRITE_WEBP_LOSSLESS_OFF
+AutoIt:
+    [propget] $oenums.IMWRITE_WEBP_LOSSLESS_OFF
+```
+
+### enums.IMWRITE\_WEBP\_LOSSLESS\_ON
+
+```cpp
+static int cv::enums::IMWRITE_WEBP_LOSSLESS_ON
+AutoIt:
+    [propget] $oenums.IMWRITE_WEBP_LOSSLESS_ON
+```
+
+### enums.IMWRITE\_WEBP\_LOSSLESS\_PRESERVE\_COLOR
+
+```cpp
+static int cv::enums::IMWRITE_WEBP_LOSSLESS_PRESERVE_COLOR
+AutoIt:
+    [propget] $oenums.IMWRITE_WEBP_LOSSLESS_PRESERVE_COLOR
 ```
 
 ### enums.IMWRITE\_HDR\_COMPRESSION\_NONE
@@ -21637,6 +21713,14 @@ AutoIt:
     [propget] $oenums.CAP_PROP_DTS_DELAY
 ```
 
+### enums.CAP\_PROP\_IMAGE\_SEQ\_START
+
+```cpp
+static int cv::enums::CAP_PROP_IMAGE_SEQ_START
+AutoIt:
+    [propget] $oenums.CAP_PROP_IMAGE_SEQ_START
+```
+
 ### enums.VIDEOWRITER\_PROP\_QUALITY
 
 ```cpp
@@ -21739,6 +21823,22 @@ AutoIt:
 static int cv::enums::VIDEOWRITER_PROP_DTS_DELAY
 AutoIt:
     [propget] $oenums.VIDEOWRITER_PROP_DTS_DELAY
+```
+
+### enums.VIDEOWRITER\_PROP\_COLOR\_SPACE
+
+```cpp
+static int cv::enums::VIDEOWRITER_PROP_COLOR_SPACE
+AutoIt:
+    [propget] $oenums.VIDEOWRITER_PROP_COLOR_SPACE
+```
+
+### enums.VIDEOWRITER\_PROP\_ENABLE\_ALPHA
+
+```cpp
+static int cv::enums::VIDEOWRITER_PROP_ENABLE_ALPHA
+AutoIt:
+    [propget] $oenums.VIDEOWRITER_PROP_ENABLE_ALPHA
 ```
 
 ### enums.VIDEO\_ACCELERATION\_NONE
@@ -23613,6 +23713,14 @@ AutoIt:
     [propget] $oenums.CAP_PROP_GIGA_FRAME_WIDTH_MAX
 ```
 
+### enums.CAP\_PROP\_GIGA\_FRAME\_HEIGHT\_MAX
+
+```cpp
+static int cv::enums::CAP_PROP_GIGA_FRAME_HEIGHT_MAX
+AutoIt:
+    [propget] $oenums.CAP_PROP_GIGA_FRAME_HEIGHT_MAX
+```
+
 ### enums.CAP\_PROP\_GIGA\_FRAME\_HEIGH\_MAX
 
 ```cpp
@@ -23627,6 +23735,14 @@ AutoIt:
 static int cv::enums::CAP_PROP_GIGA_FRAME_SENS_WIDTH
 AutoIt:
     [propget] $oenums.CAP_PROP_GIGA_FRAME_SENS_WIDTH
+```
+
+### enums.CAP\_PROP\_GIGA\_FRAME\_SENS\_HEIGHT
+
+```cpp
+static int cv::enums::CAP_PROP_GIGA_FRAME_SENS_HEIGHT
+AutoIt:
+    [propget] $oenums.CAP_PROP_GIGA_FRAME_SENS_HEIGHT
 ```
 
 ### enums.CAP\_PROP\_GIGA\_FRAME\_SENS\_HEIGH
@@ -24491,6 +24607,14 @@ AutoIt:
 static int cv::enums::CALIB_USE_EXTRINSIC_GUESS
 AutoIt:
     [propget] $oenums.CALIB_USE_EXTRINSIC_GUESS
+```
+
+### enums.CALIB\_DISABLE\_SCHUR\_COMPLEMENT
+
+```cpp
+static int cv::enums::CALIB_DISABLE_SCHUR_COMPLEMENT
+AutoIt:
+    [propget] $oenums.CALIB_DISABLE_SCHUR_COMPLEMENT
 ```
 
 ### enums.FM\_7POINT
@@ -55237,6 +55361,14 @@ AutoIt:
     [propget, propput] $oDetectorParameters.minMarkerLengthRatioOriginalImg
 ```
 
+### DetectorParameters.validBitIdThreshold
+
+```cpp
+float cv::aruco::DetectorParameters::validBitIdThreshold
+AutoIt:
+    [propget, propput] $oDetectorParameters.validBitIdThreshold
+```
+
 ### cv::aruco::DetectorParameters::get\_create
 
 ```cpp
@@ -55645,6 +55777,24 @@ AutoIt:
     $oDictionary.getDistanceToId( $bits, $id[, $allRotations] ) -> retval
 ```
 
+```cpp
+int cv::aruco::Dictionary::getDistanceToId( InputArray onlyCellPixelRatio,
+                                            int        id,
+                                            bool       allRotations,
+                                            float      validBitIdThreshold ) const;
+AutoIt:
+    $oDictionary.getDistanceToId( $onlyCellPixelRatio, $id, $allRotations, $validBitIdThreshold ) -> retval
+```
+
+### cv::aruco::Dictionary::getMarkerBits
+
+```cpp
+cv::Mat cv::aruco::Dictionary::getMarkerBits( int markerId,
+                                              int rotationId = 0 ) const;
+AutoIt:
+    $oDictionary.getMarkerBits( $markerId[, $rotationId] ) -> retval
+```
+
 ### cv::aruco::Dictionary::identify
 
 ```cpp
@@ -55654,6 +55804,16 @@ bool cv::aruco::Dictionary::identify( const cv::Mat& onlyBits,
                                       double         maxCorrectionRate ) const;
 AutoIt:
     $oDictionary.identify( $onlyBits, $maxCorrectionRate[, $idx[, $rotation]] ) -> retval, $idx, $rotation
+```
+
+```cpp
+bool cv::aruco::Dictionary::identify( const cv::Mat& onlyCellPixelRatio,
+                                      int&           idx,
+                                      int&           rotation,
+                                      double         maxCorrectionRate,
+                                      float          validBitIdThreshold ) const;
+AutoIt:
+    $oDictionary.identify( $onlyCellPixelRatio, $maxCorrectionRate, $validBitIdThreshold[, $idx[, $rotation]] ) -> retval, $idx, $rotation
 ```
 
 ### cv::aruco::Dictionary::readDictionary
@@ -60134,6 +60294,78 @@ void cv::BackgroundSubtractorKNN::write( cv::FileStorage&   fs,
                                          const std::string& name ) const;
 AutoIt:
     $oBackgroundSubtractorKNN.write( $fs, $name ) -> None
+```
+
+## cv::ECCParameters
+
+### ECCParameters.motionType
+
+```cpp
+int cv::ECCParameters::motionType
+AutoIt:
+    [propget, propput] $oECCParameters.motionType
+```
+
+### ECCParameters.criteria
+
+```cpp
+cv::TermCriteria cv::ECCParameters::criteria
+AutoIt:
+    [propget, propput] $oECCParameters.criteria
+```
+
+### ECCParameters.itersPerLevel
+
+```cpp
+std::vector<int> cv::ECCParameters::itersPerLevel
+AutoIt:
+    [propget, propput] $oECCParameters.itersPerLevel
+```
+
+### ECCParameters.gaussFiltSize
+
+```cpp
+int cv::ECCParameters::gaussFiltSize
+AutoIt:
+    [propget, propput] $oECCParameters.gaussFiltSize
+```
+
+### ECCParameters.nlevels
+
+```cpp
+int cv::ECCParameters::nlevels
+AutoIt:
+    [propget, propput] $oECCParameters.nlevels
+```
+
+### ECCParameters.interpolation
+
+```cpp
+int cv::ECCParameters::interpolation
+AutoIt:
+    [propget, propput] $oECCParameters.interpolation
+```
+
+### cv::ECCParameters::get\_create
+
+```cpp
+static cv::ECCParameters cv::ECCParameters::get_create();
+AutoIt:
+    _OpenCV_ObjCreate("cv.ECCParameters").create() -> <cv.ECCParameters object>
+```
+
+### cv::ECCParameters::IsInstance
+
+```cpp
+static bool cv::ECCParameters::IsInstance( const cv::ECCParameters& obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ECCParameters").IsInstance( $obj ) -> retval
+```
+
+```cpp
+static bool cv::ECCParameters::IsInstance( VARIANT* obj );
+AutoIt:
+    _OpenCV_ObjCreate("cv.ECCParameters").IsInstance( $obj ) -> retval
 ```
 
 ## cv::KalmanFilter

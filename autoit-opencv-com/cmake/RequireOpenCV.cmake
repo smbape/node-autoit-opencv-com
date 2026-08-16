@@ -2,11 +2,20 @@ include(cmake/FindPatch.cmake)
 
 set(BUILD_opencv OFF CACHE BOOL "Build opencv from sources.")
 
-set(OpenCV_URL_HASH_4130 f0e98c302464d6860777a7015065e11b9b271b5394e6ba92663f0cf1fc303f2c)
+set(OpenCV_URL_HASH_4140 5f266a8b73bed535962d7e861a6457e32a0dd5f463ad0a7cf8707a135469be63)
+set(OpenCV_URL_HASH_500  9c6c1fcea58acdf06edba13148b2246e00c2658143fa51e61ecd370db8c39f63)
 
-set(OpenCV_VERSION 4.13.0 CACHE STRING "Choose the OpenCV version.")
-set_property(CACHE OpenCV_VERSION PROPERTY STRINGS "4.13.0")
+set(OpenCV_VERSION 4.14.0 CACHE STRING "Choose the OpenCV version.")
+set_property(CACHE OpenCV_VERSION PROPERTY STRINGS "5.0.0" "4.14.0")
 string(REPLACE "." "" OpenCV_DLLVERSION ${OpenCV_VERSION})
+
+string(REPLACE "." ";" OpenCV_VERSION_LIST ${OpenCV_VERSION})
+list(GET OpenCV_VERSION_LIST 0 OpenCV_VERSION_MAJOR)
+list(GET OpenCV_VERSION_LIST 1 OpenCV_VERSION_MINOR)
+list(GET OpenCV_VERSION_LIST 2 OpenCV_VERSION_PATCH)
+
+set(OpenCV_DLLVERSION "${OpenCV_VERSION_MAJOR}${OpenCV_VERSION_MINOR}${OpenCV_VERSION_PATCH}")
+set(OpenCV_DEBUG_POSTFIX d)
 
 set(OpenCV_DOWNLOAD_NAME opencv-${OpenCV_VERSION}-windows.exe)
 
@@ -46,7 +55,7 @@ FetchContent_Populate(opencv
     DOWNLOAD_DIR        "${OPENCV_DOWNLOAD_DIR}"
     SOURCE_DIR          "${OPENCV_DOWNLOAD_DIR}"
     PATCH_COMMAND       "<DOWNLOAD_DIR>/${OpenCV_DOWNLOAD_NAME}" "-o<DOWNLOAD_DIR>/${OpenCV_OUTPUT_DIR}" -y
-          COMMAND       "${PATCH_EXECUTABLE}" -p1 -d "<DOWNLOAD_DIR>/${OpenCV_OUTPUT_DIR}/opencv/sources/" -i "${CMAKE_CURRENT_SOURCE_DIR}/patches/001-opencv-src.patch"
+          COMMAND       "${PATCH_EXECUTABLE}" -p1 -d "<DOWNLOAD_DIR>/${OpenCV_OUTPUT_DIR}/opencv/sources/" -i "${CMAKE_CURRENT_SOURCE_DIR}/patches/001-opencv-${OpenCV_VERSION_MAJOR}.x-src.patch"
 )
 
 get_filename_component(OpenCV_DIR "${opencv_SOURCE_DIR}/${OpenCV_OUTPUT_DIR}/opencv/build" ABSOLUTE)
@@ -63,14 +72,6 @@ string(REPLACE "\\" "\\\\" OpenCV_VC_PATH_ESC_ESC "${OpenCV_VC_PATH_ESC}")
 
 set(opencv_SOURCE_DIR "${opencv_SOURCE_DIR}/${OpenCV_OUTPUT_DIR}/opencv/sources")
 file(TO_NATIVE_PATH "${OpenCV_BIN_PATH}" OpenCV_BIN_NATIVE_PATH)
-
-string(REPLACE "." ";" OpenCV_VERSION_LIST ${OpenCV_VERSION})
-list(GET OpenCV_VERSION_LIST 0 OpenCV_VERSION_MAJOR)
-list(GET OpenCV_VERSION_LIST 1 OpenCV_VERSION_MINOR)
-list(GET OpenCV_VERSION_LIST 2 OpenCV_VERSION_PATCH)
-
-set(OpenCV_DLLVERSION "${OpenCV_VERSION_MAJOR}${OpenCV_VERSION_MINOR}${OpenCV_VERSION_PATCH}")
-set(OpenCV_DEBUG_POSTFIX d)
 
 if(DEFINED CMAKE_DEBUG_POSTFIX)
     set(OpenCV_DEBUG_POSTFIX "${CMAKE_DEBUG_POSTFIX}")

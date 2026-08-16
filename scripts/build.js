@@ -1,14 +1,13 @@
 const { spawn } = require("node:child_process");
 const sysPath = require("node:path");
 const eachOfLimit = require("async/eachOfLimit");
+const { version } = require("../src/version");
 
-const version = process.env.npm_package_version || require("../package.json").version;
-
-const OpenCV_VERSION = "opencv-4.13.0";
+const OpenCV_VERSION = "opencv-4.14.0";
 const OpenCV_DLLVERSION = OpenCV_VERSION.slice("opencv-".length).replaceAll(".", "");
 
 const sources = sysPath.resolve(__dirname, "..");
-const archive = sysPath.join(sources, `autoit-${ OpenCV_VERSION }-com-v${ version }.7z`);
+const archive = sysPath.join(sources, `autoit-opencv-com-${ version }.7z`);
 const project = sysPath.join(sources, "autoit-opencv-com");
 
 const files = [
