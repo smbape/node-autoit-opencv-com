@@ -10,9 +10,9 @@
 #include <Array.au3>
 
 ;~ Sources:
-;~     https://github.com/opencv/opencv/blob/4.14.0/samples/python/tutorial_code/imgcodecs/animations.py
+;~     https://github.com/opencv/opencv/blob/5.0.0/samples/python/tutorial_code/imgcodecs/animations.py
 EnvSet("OPENCV_BUILD_TYPE", "Debug")
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world4140*"), _OpenCV_FindDLL("autoit_opencv_com4140*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world500*"), _OpenCV_FindDLL("autoit_opencv_com500*"))
 OnAutoItExitRegister("_OnAutoItExit")
 Example()
 

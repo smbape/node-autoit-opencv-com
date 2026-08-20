@@ -458,6 +458,11 @@ class DeclProcessor {
         decl[0] = getAlias(decl[0]); // name
 
         const [name, , list_of_modifiers, properties] = decl;
+
+        if (list_of_modifiers.some(modifier => modifier.startsWith("/mappable=")) || list_of_modifiers.includes("/phantom")) {
+            return;
+        }
+
         const path = getAlias(name).split(".");
         const fqn = path.slice(0, -1).join("::");
 

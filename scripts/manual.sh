@@ -4,6 +4,7 @@
 #   - In every cmake files, replace CMAKE_SOURCE_DIR with OPENCV_SOURCE_DIR
 #   - In every cmake files, replace CMAKE_BINARY_DIR with OPENCV_BINARY_DIR
 #   - In every cmake files, replace IMPORTED with IMPORTED GLOBAL
+#   - check changes in modules/core/include/opencv2/core/hal/interface.h
 #   - check changes in modules/core/include/opencv2/core/mat.hpp
 #   - check changes in python
 
@@ -37,7 +38,7 @@ npm version patch
 # ================================
 # build
 # ================================
-rm -rf opencv-4.*.0-windows autoit-opencv-com-*.7z autoit-opencv-com/{build_x64,generated,opencv-4.*.0-build_x64} && \
+rm -rf opencv-5.*-windows autoit-opencv-com-*.7z autoit-opencv-com/{build_x64,generated,opencv-5.*-build_x64} && \
 set -o pipefail && \
 time CMAKE_BUILD_TYPE=Release ./autoit-*-com/build.bat && time CMAKE_BUILD_TYPE=Debug ./autoit-*-com/build.bat && \
 time CMAKE_BUILD_TYPE=Release ./autoit-addon/build.bat && time CMAKE_BUILD_TYPE=Debug ./autoit-addon/build.bat && \
@@ -67,7 +68,7 @@ node scripts/build.js
 # ================================
 # test release
 # ================================
-test -d /d/Programs/AutoIt/UDF/opencv-udf-test/opencv-4.14.0-windows || ./opencv-4.14.0-windows.exe -o/d/Programs/AutoIt/UDF/opencv-udf-test/opencv-4.14.0-windows -y && \
+test -d /d/Programs/AutoIt/UDF/opencv-udf-test/opencv-5.0.0-windows || ./opencv-5.0.0-windows.exe -o/d/Programs/AutoIt/UDF/opencv-udf-test/opencv-5.0.0-windows -y && \
 rm -rf /d/Programs/AutoIt/UDF/opencv-udf-test/autoit-* /d/Programs/AutoIt/UDF/opencv-udf-test/samples && \
 git archive --format zip --output /d/Programs/AutoIt/UDF/opencv-udf-test/autoit-opencv-com.zip HEAD && \
 7z x autoit-opencv-com-*.7z -aoa -o/d/Programs/AutoIt/UDF/opencv-udf-test/autoit-opencv-com && \

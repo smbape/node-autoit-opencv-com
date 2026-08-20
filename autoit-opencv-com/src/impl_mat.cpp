@@ -10,7 +10,10 @@
 
 #pragma comment(lib, "gdiplus.lib")
 
-const HRESULT autoit_from(cv::MatExpr const& in_val, ICv_Mat_Object**& out_val) {
+template< class T >
+using cv_depth_bind_t = std::conditional_t<!std::is_same_v<T, cv::hfloat> && !std::is_same_v<T, cv::bfloat>, T, float>;
+
+HRESULT autoit_from(cv::MatExpr const& in_val, ICv_Mat_Object**& out_val) {
 	return autoit_from(cv::Mat(in_val), out_val);
 }
 
@@ -717,7 +720,7 @@ const void _createFromArray(ATL::CComSafeArray<VARIANT>& vArray, int depth, HRES
 	result = cv::Mat::zeros(sizes.size(), sizes.data(), depth);
 	_Tp* data = result.ptr<_Tp>();
 
-	_Tp value;
+	cv_depth_bind_t<_Tp> value;
 	std::vector<LONG> aIndex(uDims);
 	VARIANT v;
 	VariantInit(&v);
@@ -743,7 +746,7 @@ const void _createFromArray(ATL::CComSafeArray<VARIANT>& vArray, int depth, HRES
 			return;
 		}
 
-		data[i] = value;
+		data[i] = static_cast<_Tp>(value);
 	}
 }
 
@@ -769,28 +772,43 @@ const cv::Mat CCv_Mat_Object::createFromArray(_variant_t& array, int depth, HRES
 
 	switch (depth) {
 	case CV_8U:
-		_createFromArray<byte>(vArray, depth, hr, result);
+		_createFromArray<uint8_t>(vArray, depth, hr, result);
 		break;
 	case CV_8S:
-		_createFromArray<char>(vArray, depth, hr, result);
+		_createFromArray<int8_t>(vArray, depth, hr, result);
 		break;
 	case CV_16U:
-		_createFromArray<ushort>(vArray, depth, hr, result);
+		_createFromArray<uint16_t>(vArray, depth, hr, result);
 		break;
 	case CV_16S:
-		_createFromArray<short>(vArray, depth, hr, result);
+		_createFromArray<int16_t>(vArray, depth, hr, result);
+		break;
+	case CV_16F:
+		_createFromArray<cv::hfloat>(vArray, depth, hr, result);
+		break;
+	case CV_16BF:
+		_createFromArray<cv::bfloat>(vArray, depth, hr, result);
+		break;
+	case CV_32U:
+		_createFromArray<uint32_t>(vArray, depth, hr, result);
 		break;
 	case CV_32S:
-		_createFromArray<int>(vArray, depth, hr, result);
+		_createFromArray<int32_t>(vArray, depth, hr, result);
 		break;
 	case CV_32F:
 		_createFromArray<float>(vArray, depth, hr, result);
+		break;
+	case CV_64U:
+		_createFromArray<uint64_t>(vArray, depth, hr, result);
+		break;
+	case CV_64S:
+		_createFromArray<int64_t>(vArray, depth, hr, result);
 		break;
 	case CV_64F:
 		_createFromArray<double>(vArray, depth, hr, result);
 		break;
 	default:
-		AUTOIT_ERROR("depth must be one of CV_8U CV_8S CV_16U CV_16S CV_32S CV_32F CV_64F");
+		AUTOIT_ERROR("depth must be one of CV_8U CV_8S CV_16U CV_16S CV_16F CV_16BF CV_32U CV_32S CV_32F CV_64U CV_64S CV_64F");
 		hr = E_INVALIDARG;
 		break;
 	}
@@ -863,7 +881,7 @@ static LPSAFEARRAY _asArray(const cv::Mat& mat) {
 			offset += index * sizeof(_Tp);
 		}
 
-		hr = autoit_from(*reinterpret_cast<const _Tp*>(data + offset), pv);
+		hr = autoit_from(static_cast<cv_depth_bind_t<_Tp>>(*reinterpret_cast<const _Tp*>(data + offset)), pv);
 		AUTOIT_ASSERT_THROW(SUCCEEDED(hr), "element at [" << join(aIndex.data(), uDims, "][") << "] is not of type " << typeid(_Tp).name());
 
 		hr = vArray.MultiDimSetAt(aIndex.data(), v);
@@ -886,28 +904,43 @@ const _variant_t CCv_Mat_Object::asArray(HRESULT& hr) {
 
 	switch (mat.depth()) {
 	case CV_8U:
-		V_ARRAY(out_val) = _asArray<byte>(mat);
+		V_ARRAY(out_val) = _asArray<uint8_t>(mat);
 		break;
 	case CV_8S:
-		V_ARRAY(out_val) = _asArray<char>(mat);
+		V_ARRAY(out_val) = _asArray<int8_t>(mat);
 		break;
 	case CV_16U:
-		V_ARRAY(out_val) = _asArray<ushort>(mat);
+		V_ARRAY(out_val) = _asArray<uint16_t>(mat);
 		break;
 	case CV_16S:
-		V_ARRAY(out_val) = _asArray<short>(mat);
+		V_ARRAY(out_val) = _asArray<int16_t>(mat);
+		break;
+	case CV_16F:
+		V_ARRAY(out_val) = _asArray<cv::hfloat>(mat);
+		break;
+	case CV_16BF:
+		V_ARRAY(out_val) = _asArray<cv::bfloat>(mat);
+		break;
+	case CV_32U:
+		V_ARRAY(out_val) = _asArray<uint32_t>(mat);
 		break;
 	case CV_32S:
-		V_ARRAY(out_val) = _asArray<int>(mat);
+		V_ARRAY(out_val) = _asArray<int32_t>(mat);
 		break;
 	case CV_32F:
 		V_ARRAY(out_val) = _asArray<float>(mat);
+		break;
+	case CV_64U:
+		V_ARRAY(out_val) = _asArray<uint64_t>(mat);
+		break;
+	case CV_64S:
+		V_ARRAY(out_val) = _asArray<int64_t>(mat);
 		break;
 	case CV_64F:
 		V_ARRAY(out_val) = _asArray<double>(mat);
 		break;
 	default:
-		AUTOIT_ERROR("depth must be one of CV_8U CV_8S CV_16U CV_16S CV_32S CV_32F CV_64F");
+		AUTOIT_ERROR("depth must be one of CV_8U CV_8S CV_16U CV_16S CV_16F CV_16BF CV_32U CV_32S CV_32F CV_64U CV_64S CV_64F");
 		hr = E_INVALIDARG;
 		break;
 	}

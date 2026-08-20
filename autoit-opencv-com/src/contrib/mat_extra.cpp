@@ -1,23 +1,27 @@
 #include "mat_extra.h"
 
-namespace cvextra {
-	std::vector<int> mat_shape(const cv::Mat& self) {
-		const auto dims = self.size.dims();
-		std::vector<int> shape(self.size.p, self.size.p + dims);
-		const auto channels = self.channels();
-		if (channels != 1) {
-			shape.push_back(channels);
+namespace {
+	using namespace cv;
+
+	template<typename _Tm>
+	inline std::vector<int> _shape(const _Tm& self) {
+		const auto& size = self.size;
+		const auto layout = size.layout;
+		auto shape = size.vec();
+		if (layout != DATA_LAYOUT_NCHW && layout != DATA_LAYOUT_NHWC) {
+			shape.push_back(self.channels());
 		}
 		return shape;
 	}
 
+}
+
+namespace cvextra {
+	std::vector<int> mat_shape(const cv::Mat& self) {
+		return _shape(self);
+	}
+
 	std::vector<int> umat_shape(const cv::UMat& self) {
-		const auto dims = self.size.dims();
-		std::vector<int> shape(self.size.p, self.size.p + dims);
-		const auto channels = self.channels();
-		if (channels != 1) {
-			shape.push_back(channels);
-		}
-		return shape;
+		return _shape(self);
 	}
 }

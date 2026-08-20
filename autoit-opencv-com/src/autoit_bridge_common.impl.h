@@ -11,7 +11,7 @@ inline std::enable_if_t<std::is_enum_v<T>, const bool> is_assignable_from(T& out
 }
 
 template<typename T>
-inline std::enable_if_t<std::is_enum_v<T>, const HRESULT> autoit_to(VARIANT const* in_val, T& out_val) {
+inline std::enable_if_t<std::is_enum_v<T>, HRESULT> autoit_to(VARIANT const* in_val, T& out_val) {
 	if (PARAMETER_MISSING(in_val)) {
 		return S_OK;
 	}
@@ -24,7 +24,7 @@ inline std::enable_if_t<std::is_enum_v<T>, const HRESULT> autoit_to(VARIANT cons
 }
 
 template<typename T>
-inline std::enable_if_t<std::is_enum_v<T>, const HRESULT> autoit_from(T const& in_val, VARIANT*& out_val) {
+inline std::enable_if_t<std::is_enum_v<T>, HRESULT> autoit_from(T const& in_val, VARIANT*& out_val) {
 	return autoit_from(static_cast<int>(in_val), out_val);
 }
 
@@ -45,7 +45,7 @@ const bool is_assignable_from(std::optional<T>& out_val, VARIANT const* in_val, 
 }
 
 template<typename T>
-const HRESULT autoit_to(VARIANT const* in_val, std::optional<T>& out_val) {
+HRESULT autoit_to(VARIANT const* in_val, std::optional<T>& out_val) {
 	if (V_VT(in_val) == VT_NULL) {
 		out_val.reset();
 		return S_OK;
@@ -59,7 +59,7 @@ const HRESULT autoit_to(VARIANT const* in_val, std::optional<T>& out_val) {
 }
 
 template<typename T>
-const HRESULT autoit_from(std::optional<T> const& in_val, VARIANT*& out_val) {
+HRESULT autoit_from(std::optional<T> const& in_val, VARIANT*& out_val) {
 	if (in_val.has_value()) {
 		return autoit_from(in_val.value(), out_val);
 	}
@@ -73,7 +73,7 @@ const HRESULT autoit_from(std::optional<T> const& in_val, VARIANT*& out_val) {
 }
 
 template<typename T>
-const HRESULT autoit_out(std::optional<T>& out_val, VARIANT* const retval) {
+HRESULT autoit_out(std::optional<T>& out_val, VARIANT* const retval) {
 	if (out_val.has_value()) {
 		return autoit_out(out_val.value(), retval);
 	}
@@ -170,7 +170,7 @@ HRESULT autoit_to(VARIANT const* in_val, std::pair<T1, T2>& out_val) {
 }
 
 template<typename T1, typename T2>
-const HRESULT autoit_from(std::pair<T1, T2> const& in_val, VARIANT*& out_val) {
+HRESULT autoit_from(std::pair<T1, T2> const& in_val, VARIANT*& out_val) {
 	typename ATL::template CComSafeArray<VARIANT> vArray(2);
 
 	HRESULT hr;
@@ -220,7 +220,7 @@ const bool is_assignable_from(std::tuple <Types...>& out_val, VARIANT const* in_
 }
 
 template<std::size_t I, typename... Types>
-const HRESULT _autoit_to(VARIANT const* in_val, std::tuple<Types...>& out_val) {
+HRESULT _autoit_to(VARIANT const* in_val, std::tuple<Types...>& out_val) {
 	typename ATL::template CComSafeArray<VARIANT> vArray;
 	vArray.Attach(V_ARRAY(in_val));
 	auto& v = vArray.GetAt(I);
@@ -245,7 +245,7 @@ const HRESULT _autoit_to(VARIANT const* in_val, std::tuple<Types...>& out_val) {
 }
 
 template<std::size_t I, typename... Types>
-typename std::enable_if<I == sizeof...(Types) - 1, const HRESULT>::type
+typename std::enable_if<I == sizeof...(Types) - 1, HRESULT>::type
 autoit_to(VARIANT const* in_val, std::tuple<Types...>& out_val) {
 	if (PARAMETER_MISSING(in_val)) {
 		return S_OK;
@@ -269,7 +269,7 @@ autoit_to(VARIANT const* in_val, std::tuple<Types...>& out_val) {
 }
 
 template<std::size_t I, typename... Types>
-typename std::enable_if<I != sizeof...(Types) - 1, const HRESULT>::type
+typename std::enable_if<I != sizeof...(Types) - 1, HRESULT>::type
 autoit_to(VARIANT const* in_val, std::tuple<Types...>& out_val) {
 	if (PARAMETER_MISSING(in_val)) {
 		return S_OK;
@@ -284,7 +284,7 @@ autoit_to(VARIANT const* in_val, std::tuple<Types...>& out_val) {
 }
 
 template<std::size_t I, typename... Types>
-typename std::enable_if<I == sizeof...(Types), const HRESULT>::type
+typename std::enable_if<I == sizeof...(Types), HRESULT>::type
 autoit_from(std::tuple<Types...> const& in_val, VARIANT*& out_val) {
 	V_VT(out_val) = VT_ARRAY | VT_VARIANT;
 	typename ATL::template CComSafeArray<VARIANT> vArray((ULONG)I);
@@ -293,7 +293,7 @@ autoit_from(std::tuple<Types...> const& in_val, VARIANT*& out_val) {
 }
 
 template<std::size_t I, typename... Types>
-typename std::enable_if<I != sizeof...(Types), const HRESULT>::type
+typename std::enable_if<I != sizeof...(Types), HRESULT>::type
 autoit_from(std::tuple<Types...> const& in_val, VARIANT*& out_val) {
 	HRESULT hr = autoit_from<I + 1, Types...>(in_val, out_val);
 	if (FAILED(hr)) {
@@ -349,7 +349,7 @@ const bool is_assignable_from(std::variant<Types...>& out_val, VARIANT const* in
 }
 
 template<std::size_t I = 0, typename... Types>
-const HRESULT _autoit_to(VARIANT const* in_val, std::variant<Types...>& out_val) {
+HRESULT _autoit_to(VARIANT const* in_val, std::variant<Types...>& out_val) {
 	using _Tuple = typename std::tuple<Types...>;
 	using T = typename std::tuple_element<I, _Tuple>::type;
 
@@ -371,12 +371,12 @@ const HRESULT _autoit_to(VARIANT const* in_val, std::variant<Types...>& out_val)
 }
 
 template<typename... Types>
-const HRESULT autoit_to(VARIANT const* in_val, std::variant<Types...>& out_val) {
+HRESULT autoit_to(VARIANT const* in_val, std::variant<Types...>& out_val) {
 	return _autoit_to(in_val, out_val);
 }
 
 template<std::size_t I = 0, typename... Types>
-const HRESULT _autoit_from(std::variant<Types...> const& in_val, VARIANT*& out_val) {
+HRESULT _autoit_from(std::variant<Types...> const& in_val, VARIANT*& out_val) {
 	using _Tuple = typename std::tuple<Types...>;
 	using T = typename std::tuple_element<I, _Tuple>::type;
 
@@ -395,7 +395,7 @@ const HRESULT _autoit_from(std::variant<Types...> const& in_val, VARIANT*& out_v
 }
 
 template<typename... Types>
-const HRESULT autoit_from(std::variant<Types...> const& in_val, VARIANT*& out_val) {
+HRESULT autoit_from(std::variant<Types...> const& in_val, VARIANT*& out_val) {
 	return _autoit_from(in_val, out_val);
 }
 
@@ -449,7 +449,7 @@ const bool is_assignable_from(AUTOIT_PTR<std::vector<T, Allocator>>& out_val, VA
 }
 
 template<class T, class Allocator>
-const HRESULT autoit_to(VARIANT const* in_val, std::vector<T, Allocator>& out_val) {
+HRESULT autoit_to(VARIANT const* in_val, std::vector<T, Allocator>& out_val) {
 	if (PARAMETER_MISSING(in_val)) {
 		return S_OK;
 	}
@@ -499,18 +499,18 @@ const HRESULT autoit_to(VARIANT const* in_val, std::vector<T, Allocator>& out_va
 }
 
 template<class T, class Allocator>
-const HRESULT autoit_to(VARIANT const* in_val, AUTOIT_PTR<std::vector<T, Allocator>>& out_val) {
+HRESULT autoit_to(VARIANT const* in_val, AUTOIT_PTR<std::vector<T, Allocator>>& out_val) {
 	out_val = AUTOIT_MAKE_PTR<std::vector<T, Allocator>>();
 	return autoit_to(in_val, *out_val.get());
 }
 
 template<class T, class Allocator>
-const HRESULT autoit_from(AUTOIT_PTR<std::vector<T, Allocator>> const& in_val, VARIANT*& out_val) {
+HRESULT autoit_from(AUTOIT_PTR<std::vector<T, Allocator>> const& in_val, VARIANT*& out_val) {
 	return autoit_from(*in_val.get(), out_val);
 }
 
 template<class T, class Allocator>
-const HRESULT autoit_from(std::vector<T, Allocator> const& in_val, VARIANT*& out_val) {
+HRESULT autoit_from(std::vector<T, Allocator> const& in_val, VARIANT*& out_val) {
 	if (PARAMETER_NULL(out_val) || PARAMETER_NOT_FOUND(out_val)) {
 		V_VT(out_val) = VT_ARRAY | VT_VARIANT;
 		typename ATL::template CComSafeArray<VARIANT> vArray((ULONG)0);
@@ -598,7 +598,7 @@ namespace autoit {
 	}
 
 	template<typename T>
-	std::string __str__(const T& obj, const std::string& type) {
+	std::string __str__(const T& obj, std::string_view type) {
 		// ================================================================
 		// https://github.com/ThePhD/sol2/blob/v3.3.0/include/sol/types.hpp#L907
 		// ================================================================
@@ -691,6 +691,80 @@ namespace autoit {
 
 	// ================================
 
+	// ================================
+	// _default_autoit_to
+	// ================================
+
+	template<typename T>
+	HRESULT _default_autoit_to(VARIANT const* in_val, T& out_val) {
+		if constexpr (!std::is_assignable_v<T&, const T&>) {
+			return E_INVALIDARG;
+		}
+		else {
+			if (PARAMETER_MISSING(in_val)) {
+				return S_OK;
+			}
+
+			if (V_VT(in_val) == VT_UI8) {
+				const auto& ptr = V_UI8(in_val);
+				out_val = *reinterpret_cast<T*>(ptr);
+				return S_OK;
+			}
+
+			if (V_VT(in_val) == VT_DISPATCH) {
+				const auto& obj = ::autoit::cast<T>(getRealIDispatch(in_val));
+				if (!obj) {
+					return E_INVALIDARG;
+				}
+				out_val = *obj;
+				return S_OK;
+			}
+
+			return E_INVALIDARG;
+		}
+	}
+
+	template<typename T, typename IFace, typename CoType>
+	HRESULT _default_cotype_autoit_to(IFace* in_val, T& out_val) {
+		if constexpr (!std::is_assignable_v<T&, const T&>) {
+			return E_INVALIDARG;
+		}
+		else {
+			auto obj = dynamic_cast<CoType*>(in_val);
+			if (!obj) {
+				return E_INVALIDARG;
+			}
+			out_val = *obj->__self->get();
+			return S_OK;
+		}
+	}
+
+	template<typename T, typename IFace, typename CoType>
+	HRESULT _default_iface_autoit_to(IFace* in_val, T& out_val) {
+		if constexpr (!std::is_assignable_v<T&, const T&>) {
+			return E_INVALIDARG;
+		}
+		else {
+			auto ptr = std::is_same_v<IFace, IDispatch> ? in_val : dynamic_cast<IDispatch*>(in_val);
+			if (ptr) {
+				const auto& obj = ::autoit::cast<T>(ptr);
+				if (!obj) {
+					return E_INVALIDARG;
+				}
+				out_val = *obj;
+				return S_OK;
+			}
+
+			auto obj = dynamic_cast<CoType*>(in_val);
+			if (!obj) {
+				return E_INVALIDARG;
+			}
+			out_val = *obj->__self->get();
+			return S_OK;
+		}
+	}
+
+	// ================================
 }
 
 // ================================
@@ -698,7 +772,7 @@ namespace autoit {
 // ================================
 
 template<typename T, typename V>
-std::enable_if_t<autoit::is_usertype_v<T>, const HRESULT> autoit_from_reference(T& in_val, V& out_val) {
+std::enable_if_t<autoit::is_usertype_v<T>, HRESULT> autoit_from_reference(T& in_val, V& out_val) {
 	if constexpr (std::is_same_v<V, VARIANT*>) {
 		using IFace = typename TypeToImplType<T>::iface_type;
 		IFace* pdispVal = nullptr;
@@ -717,7 +791,7 @@ std::enable_if_t<autoit::is_usertype_v<T>, const HRESULT> autoit_from_reference(
 }
 
 template<typename T, typename V>
-std::enable_if_t<!autoit::is_usertype_v<T> && autoit::is_instantiation_of_v<std::optional, T>, const HRESULT> autoit_from_reference(T& in_val, V& out_val) {
+std::enable_if_t<!autoit::is_usertype_v<T>&& autoit::is_instantiation_of_v<std::optional, T>, HRESULT> autoit_from_reference(T& in_val, V& out_val) {
 	if (in_val.has_value()) {
 		return autoit_from_reference(in_val.value(), out_val);
 	}
@@ -725,12 +799,12 @@ std::enable_if_t<!autoit::is_usertype_v<T> && autoit::is_instantiation_of_v<std:
 }
 
 template<typename T, typename V>
-std::enable_if_t<!autoit::is_usertype_v<T> && !autoit::is_instantiation_of_v<std::optional, T>, const HRESULT> autoit_from_reference(T& in_val, V& out_val) {
+std::enable_if_t<!autoit::is_usertype_v<T> && !autoit::is_instantiation_of_v<std::optional, T>, HRESULT> autoit_from_reference(T& in_val, V& out_val) {
 	return autoit_from(in_val, out_val);
 }
 
 template<typename T, typename V>
-std::enable_if_t<!std::is_reference_v<T>, const HRESULT> autoit_from_reference(const T& in_val, V& out_val) {
+std::enable_if_t<!std::is_reference_v<T>, HRESULT> autoit_from_reference(const T& in_val, V& out_val) {
 	return autoit_from(in_val, out_val);
 }
 

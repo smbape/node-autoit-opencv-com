@@ -4,21 +4,183 @@
 # Object detection models.
 ################################################################################
 
-# OpenCV's face detection network
-opencv_fd:
+# YOLOv8 object detection family from ultralytics (https://github.com/ultralytics/ultralytics)
+# Might be used for all YOLOv8n YOLOv8s YOLOv8m YOLOv8l and YOLOv8x
+yolov8x:
   load_info:
-    url: "https://github.com/opencv/opencv_3rdparty/raw/dnn_samples_face_detector_20170830/res10_300x300_ssd_iter_140000.caffemodel"
-    sha1: "15aa726b4d46d9f023526d85537db81cbc8dd566"
-  model: "opencv_face_detector.caffemodel"
-  config: "opencv_face_detector.prototxt"
-  config_info:
-    url: "https://github.com/dkurt/cvpr2019/raw/d71841dfd36de0161a08547b27df71df1390bbe5/opencv_face_detector.prototxt"
-    sha1: "006baf926232df6f6332defb9c24f94bb9f3764e"
-  mean: [104, 177, 123]
-  scale: 1.0
-  width: 300
-  height: 300
-  rgb: false
+    url: "https://huggingface.co/cabelo/yolov8/resolve/main/yolov8x.onnx?download=true"
+    sha1: "462f15d668c046d38e27d3df01fe8142dd004cb4"
+  model: "yolov8x.onnx"
+  mean: 0.0
+  scale: 0.00392
+  width: 640
+  height: 640
+  rgb: true
+  labels: "object_detection_classes_yolo.txt"
+  postprocessing: "yolov8"
+  sample: "object_detection"
+
+yolov8s:
+  load_info:
+    url: "https://github.com/CVHub520/X-AnyLabeling/releases/download/v0.1.0/yolov8s.onnx"
+    sha1: "82cd83984396fe929909ecb58212b0e86d0904b1"
+  model: "yolov8s.onnx"
+  mean: 0.0
+  scale: 0.00392
+  width: 640
+  height: 640
+  rgb: true
+  labels: "object_detection_classes_yolo.txt"
+  postprocessing: "yolov8"
+  sample: "object_detection"
+
+yolov8:
+  load_info:
+    url: "https://github.com/CVHub520/X-AnyLabeling/releases/download/v0.1.0/yolov8n.onnx"
+    sha1: "68f864475d06e2ec4037181052739f268eeac38d"
+  model: "yolov8n.onnx"
+  mean: 0.0
+  scale: 0.00392
+  width: 640
+  height: 640
+  rgb: true
+  labels: "object_detection_classes_yolo.txt"
+  postprocessing: "yolov8"
+  sample: "object_detection"
+
+yolov8m:
+  load_info:
+    url: "https://github.com/CVHub520/X-AnyLabeling/releases/download/v0.1.0/yolov8m.onnx"
+    sha1: "656ffeb4f3b067bc30df956728b5f9c61a4cb090"
+  model: "yolov8m.onnx"
+  mean: 0.0
+  scale: 0.00392
+  width: 640
+  height: 640
+  rgb: true
+  labels: "object_detection_classes_yolo.txt"
+  postprocessing: "yolov8"
+  sample: "object_detection"
+
+yolov8l:
+  load_info:
+    url: "https://github.com/CVHub520/X-AnyLabeling/releases/download/v0.1.0/yolov8l.onnx"
+    sha1: "462df53ca3a85d110bf6be7fc2e2bb1277124395"
+  model: "yolov8l.onnx"
+  mean: 0.0
+  scale: 0.00392
+  width: 640
+  height: 640
+  rgb: true
+  labels: "object_detection_classes_yolo.txt"
+  postprocessing: "yolov8"
+  sample: "object_detection"
+
+# YOLOv7 object detection family from yolov7 (https://github.com/WongKinYiu/yolov7)
+# Might be used for all YOLOv7 YOLOv7-tiny and YOLOv7x
+yolov7:
+  load_info:
+    url: "https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7.pt"
+    sha1: "e7c6786db260744046d63b4f93dfc1dfddbb7a6f"
+    download_sha: "723b07225efa90d86eb983713b66fd8be82dfb9f"
+  model: "yolov7.onnx"
+  mean: 0.0
+  scale: 0.00392
+  width: 640
+  height: 640
+  rgb: true
+  labels: "object_detection_classes_yolo.txt"
+  postprocessing: "yolov7"
+  sample: "object_detection"
+
+yolov7-tiny:
+  load_info:
+    url: "https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7-tiny.pt"
+    sha1: "b683d7d5b62ab363812e321077968f918e6115a8"
+    download_sha: "c42311ff54e2a962725d6cac3b66d4b1e04eda2d"
+  model: "yolov7-tiny.onnx"
+  mean: 0.0
+  scale: 0.00392
+  width: 640
+  height: 640
+  rgb: true
+  labels: "object_detection_classes_yolo.txt"
+  postprocessing: "yolov7"
+  sample: "object_detection"
+
+# YOLOv6 object detection family from YOLOv6 (https://github.com/meituan/YOLOv6)
+# Might be used for all YOLOv6n YOLOv6s YOLOv6m YOLOv6l and YOLOv6x
+yolov6:
+  load_info:
+    url: "https://github.com/meituan/YOLOv6/releases/download/0.4.0/yolov6n.pt"
+    sha1: "f65aacc23df7a6175266ab2105e3c8da26758bed"
+    download_sha: "b801d8ab7b229b6bc832f31d998281461ae67889"
+  model: "yolov6n.onnx"
+  mean: 0.0
+  scale: 0.00392
+  width: 640
+  height: 640
+  rgb: true
+  labels: "object_detection_classes_yolo.txt"
+  postprocessing: "yolov6"
+  sample: "object_detection"
+
+yolov6s:
+  load_info:
+    url: "https://github.com/meituan/YOLOv6/releases/download/0.4.0/yolov6s.pt"
+    sha1: "8b58f34ab87ff4f9a1334c30fec3fb38f6247b97"
+    download_sha: "a3070399ae18f089b7a218fedb3348a7add8220b"
+  model: "yolov6s.onnx"
+  mean: 0.0
+  scale: 0.00392
+  width: 640
+  height: 640
+  rgb: true
+  labels: "object_detection_classes_yolo.txt"
+  postprocessing: "yolov6"
+  sample: "object_detection"
+
+# YOLOv5 object detection family from ultralytics (https://github.com/ultralytics/ultralytics)
+# Might be used for all YOLOv5n YOLOv5s YOLOv5m YOLOv5l and YOLOv5x
+yolov5:
+  load_info:
+    url: "https://github.com/CVHub520/X-AnyLabeling/releases/download/v0.1.0/yolov5n.onnx"
+    sha1: "7b68804a4906748a9ef9bad621f7daada5ed85cb"
+  model: "yolov5n.onnx"
+  mean: 0.0
+  scale: 0.00392
+  width: 640
+  height: 640
+  rgb: true
+  labels: "object_detection_classes_yolo.txt"
+  postprocessing: "yolov5"
+  sample: "object_detection"
+
+yolov5s:
+  load_info:
+    sha1: "e9aab65fba2970b6e4644709d46d754b2a88e09e"
+  model: "yolov5s.onnx"
+  mean: 0.0
+  scale: 0.00392
+  width: 640
+  height: 640
+  rgb: true
+  labels: "object_detection_classes_yolo.txt"
+  postprocessing: "yolov5"
+  sample: "object_detection"
+
+yolov5l:
+  load_info:
+    url: "https://github.com/CVHub520/X-AnyLabeling/releases/download/v0.1.0/yolov5l.onnx"
+    sha1: "9de7e54c524b7fe7577bbd4cdbbdaed53375c8f1"
+  model: "yolov5l.onnx"
+  mean: 0.0
+  scale: 0.00392
+  width: 640
+  height: 640
+  rgb: true
+  labels: "object_detection_classes_yolo.txt"
+  postprocessing: "yolov5"
   sample: "object_detection"
 
 # YOLO4 object detection family from Darknet (https://github.com/AlexeyAB/darknet)
@@ -26,199 +188,44 @@ opencv_fd:
 # Might be used for all YOLOv2, TinyYolov2, YOLOv3, YOLOv4 and TinyYolov4
 yolov4:
   load_info:
-    url: "https://github.com/AlexeyAB/darknet/releases/download/darknet_yolo_v3_optimal/yolov4.weights"
-    sha1: "0143deb6c46fcc7f74dd35bf3c14edc3784e99ee"
-  model: "yolov4.weights"
-  config: "yolov4.cfg"
-  config_info:
-    url: "https://github.com/AlexeyAB/darknet/raw/c0d6b81a78e204c04c9bf4277974e0dadad0c4e2/cfg/yolov4.cfg"
-    sha1: "ed0aeace88527af7524c3baf66ca44fbf049b878"
+    url: "https://huggingface.co/opencv/opencv_contribution/resolve/main/yolov4/yolov4.onnx"
+    sha1: "68df7133bef095d79531ad62d79295d82614de3b"
+  model: "yolov4.onnx"
   mean: [0, 0, 0]
-  scale: 0.00392156862745098
-  width: 416
-  height: 416
+  scale: 0.00392
+  width: 608
+  height: 608
   rgb: true
-  classes: "object_detection_classes_yolo.txt"
-  background_label_id: 0
+  labels: "object_detection_classes_yolo.txt"
+  postprocessing: "yolov4"
   sample: "object_detection"
 
 yolov4-tiny:
   load_info:
-    url: "https://github.com/AlexeyAB/darknet/releases/download/darknet_yolo_v4_pre/yolov4-tiny.weights"
-    sha1: "451caaab22fb9831aa1a5ee9b5ba74a35ffa5dcb"
-  model: "yolov4-tiny.weights"
-  config: "yolov4-tiny.cfg"
-  config_info:
-    url: "https://github.com/AlexeyAB/darknet/raw/a298f94255a20a3198d80ea512755d9e5dddbf02/cfg/yolov4-tiny.cfg"
-    sha1: "b161c2b0984b0c3b466c04b0d6cb3e52f06d93dd"
+    url: "https://huggingface.co/opencv/opencv_contribution/resolve/main/yolov4/yolov4-tiny.onnx"
+    sha1: "158a74e9c6da57f5e4161c5dfc1ab592f47d958a"
+  model: "yolov4-tiny.onnx"
   mean: [0, 0, 0]
-  scale: 0.00392156862745098
+  scale: 0.00392
   width: 416
   height: 416
   rgb: true
-  classes: "object_detection_classes_yolo.txt"
-  background_label_id: 0
+  labels: "object_detection_classes_yolo.txt"
+  postprocessing: "yolov4"
   sample: "object_detection"
 
 yolov3:
   load_info:
-    url: "https://pjreddie.com/media/files/yolov3.weights"
-    sha1: "520878f12e97cf820529daea502acca380f1cb8e"
-  model: "yolov3.weights"
-  config: "yolov3.cfg"
-  config_info:
-    url: "https://github.com/AlexeyAB/darknet/raw/efcbdb5425f60d80d9633930f007dfe3caae5220/cfg/yolov3.cfg"
-    sha1: "82fb8f6be0382a30b6bdbfe0d6a71b4ac6fd7803"
+    url: "https://huggingface.co/qualcomm/Yolo-v3/resolve/226ada6de9dcb32eebad7f74bf526714e2af6136/Yolo-v3.onnx"
+    sha1: "c37641ddf05cfe133efd4b66832f269d95f523cf"
+  model: "yolov3.onnx"
   mean: [0, 0, 0]
-  scale: 0.00392156862745098
-  width: 416
-  height: 416
-  rgb: true
-  classes: "object_detection_classes_yolo.txt"
-  background_label_id: 0
-  sample: "object_detection"
-
-tiny-yolo-voc:
-  load_info:
-    url: "https://pjreddie.com/media/files/yolov2-tiny-voc.weights"
-    sha1: "24b4bd049fc4fa5f5e95f684a8967e65c625dff9"
-  model: "tiny-yolo-voc.weights"
-  config: "tiny-yolo-voc.cfg"
-  config_info:
-    url: "https://github.com/AlexeyAB/darknet/raw/e5ab66d7a770c3861cb93e3fca0079d34b5a26d4/cfg/tiny-yolo-voc.cfg"
-    sha1: "d26e2408ce4e20136278411760ba904d744fe5b5"
-  mean: [0, 0, 0]
-  scale: 0.00392156862745098
-  width: 416
-  height: 416
-  rgb: true
-  classes: "object_detection_classes_pascal_voc.txt"
-  background_label_id: 0
-  sample: "object_detection"
-
-yolov5n:
-  load_info:
-    sha1: "c4d4e0bbf94629860d3906c7d1956d89a968028a"
-  model: "yolov5n.onnx"
-  mean: [0, 0, 0]
-  scale: 0.00392156862745098
+  scale: 0.00392
   width: 640
   height: 640
   rgb: true
-  classes: "object_detection_classes_yolo.txt"
-  sample: "object_detection"
-
-yolov5s:
-  load_info:
-    sha1: "f8e5a67668f5242985e7d5d5b2ea9b3eb1789e78"
-  model: "yolov5s.onnx"
-  mean: [0, 0, 0]
-  scale: 0.00392156862745098
-  width: 640
-  height: 640
-  rgb: true
-  classes: "object_detection_classes_yolo.txt"
-  sample: "object_detection"
-
-yolov6n:
-  load_info:
-    url: "https://github.com/meituan/YOLOv6/releases/download/0.4.0/yolov6n.pt"
-    sha1: "4f1ab60f0e1cddff63877640b46a58f9eee0b671"
-    download_sha: "b801d8ab7b229b6bc832f31d998281461ae67889"
-  model: "yolov6n.onnx"
-  mean: [0, 0, 0]
-  scale: 0.00392156862745098
-  width: 640
-  height: 640
-  rgb: true
-  classes: "object_detection_classes_yolo.txt"
-  sample: "object_detection"
-
-yolov6s:
-  load_info:
-    url: "https://github.com/meituan/YOLOv6/releases/download/0.4.0/yolov6s.pt"
-    sha1: "a1b21d2b693e8385f0e12914f99d044961561ca0"
-    download_sha: "a3070399ae18f089b7a218fedb3348a7add8220b"
-  model: "yolov6s.onnx"
-  mean: [0, 0, 0]
-  scale: 0.00392156862745098
-  width: 640
-  height: 640
-  rgb: true
-  classes: "object_detection_classes_yolo.txt"
-  sample: "object_detection"
-
-yolov7:
-  load_info:
-    url: "https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7.pt"
-    sha1: "785792acb6cff09d63bcfa02e5ad1298da841d69"
-    download_sha: "723b07225efa90d86eb983713b66fd8be82dfb9f"
-  model: "yolov7.onnx"
-  mean: [0, 0, 0]
-  scale: 0.00392156862745098
-  width: 640
-  height: 640
-  rgb: true
-  classes: "object_detection_classes_yolo.txt"
-  sample: "object_detection"
-
-yolov7-tiny:
-  load_info:
-    url: "https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7-tiny.pt"
-    sha1: "f59e94cadae785d7a16c79339512ba2603b8ed16"
-    download_sha: "c42311ff54e2a962725d6cac3b66d4b1e04eda2d"
-  model: "yolov7-tiny.onnx"
-  mean: [0, 0, 0]
-  scale: 0.00392156862745098
-  width: 640
-  height: 640
-  rgb: true
-  classes: "object_detection_classes_yolo.txt"
-  sample: "object_detection"
-
-yolov8n:
-  load_info:
-    sha1: "2daace95860c754be076b800a9d2b3b7f75caaec"
-  model: "yolov8n.onnx"
-  mean: [0, 0, 0]
-  scale: 0.00392156862745098
-  width: 640
-  height: 640
-  rgb: true
-  postprocessing: "yolov8"
-  classes: "object_detection_classes_yolo.txt"
-  sample: "object_detection"
-
-yolov8s:
-  load_info:
-    sha1: "6efc1ac15f82053d7a2d602fe89831685a8c949e"
-  model: "yolov8s.onnx"
-  mean: [0, 0, 0]
-  scale: 0.00392156862745098
-  width: 640
-  height: 640
-  rgb: true
-  postprocessing: "yolov8"
-  classes: "object_detection_classes_yolo.txt"
-  sample: "object_detection"
-
-# Caffe implementation of SSD model from https://github.com/amolikvivian/Caffe-SSD-Object-Detection
-ssd_caffe:
-  load_info:
-    url: "https://github.com/amolikvivian/Caffe-SSD-Object-Detection/raw/8c0bad9a9f5b7dd75e0fa75e42cc9d17157fa0b7/Object%20Detection%20Caffe/Caffe/SSD_MobileNet.caffemodel"
-    sha1: "994d30a8afaa9e754d17d2373b2d62a7dfbaaf7a"
-  model: "SSD_MobileNet.caffemodel"
-  config: "SSD_MobileNet.prototxt"
-  config_info:
-    url: "https://github.com/amolikvivian/Caffe-SSD-Object-Detection/raw/8c0bad9a9f5b7dd75e0fa75e42cc9d17157fa0b7/Object%20Detection%20Caffe/Caffe/SSD_MobileNet_prototxt.txt"
-    sha1: "d77c9cf09619470d49b82a9dd18704813a2043cd"
-  mean: [127.5, 127.5, 127.5]
-  scale: 0.00784313725490196
-  width: 300
-  height: 300
-  rgb: false
-  classes: "object_detection_classes_pascal_voc.txt"
-  background_label_id: 0
+  labels: "object_detection_classes_yolo.txt"
+  postprocessing: "yolov3"
   sample: "object_detection"
 
 # TensorFlow implementation of SSD model from https://github.com/tensorflow/models/tree/master/research/object_detection
@@ -230,18 +237,18 @@ ssd_tf:
     download_name: "ssd_mobilenet_v1_coco_2017_11_17.tar.gz"
     member: "ssd_mobilenet_v1_coco_2017_11_17/frozen_inference_graph.pb"
   model: "ssd_mobilenet_v1_coco_2017_11_17.pb"
+  config_load_info:
+    url: "https://github.com/opencv/opencv_extra/raw/refs/heads/4.x/testdata/dnn/ssd_mobilenet_v1_coco_2017_11_17.pbtxt"
+    sha1: "c7cf985ce0a4a8953daaa4b8cacdd3c8e31437a6"
   config: "ssd_mobilenet_v1_coco_2017_11_17.pbtxt"
-  config_info:
-    url: "https://github.com/tensorflow/models/raw/7025590841588e82f371ef0fef7dd77a8a71efb8/research/object_detection/samples/configs/ssd_mobilenet_v1_coco.config"
-    sha1: "19c8c389439e80746859767ba4ee2617b6501dad"
-    filename: "ssd_mobilenet_v1_coco.config"
   mean: [0, 0, 0]
   scale: 1.0
   width: 300
   height: 300
   rgb: true
-  classes: "object_detection_classes_coco.txt"
+  labels: "object_detection_classes_coco.txt"
   background_label_id: 0
+  postprocessing: "ssd"
   sample: "object_detection"
 
 # TensorFlow implementation of Faster-RCNN model from https://github.com/tensorflow/models/tree/master/research/object_detection
@@ -253,80 +260,76 @@ faster_rcnn_tf:
     download_name: "faster_rcnn_inception_v2_coco_2018_01_28.tar.gz"
     member: "faster_rcnn_inception_v2_coco_2018_01_28/frozen_inference_graph.pb"
   model: "faster_rcnn_inception_v2_coco_2018_01_28.pb"
+  config_load_info:
+    url: "https://github.com/opencv/opencv_extra/raw/refs/heads/4.x/testdata/dnn/faster_rcnn_inception_v2_coco_2018_01_28.pbtxt"
+    sha1: "059ee437fb4d6f82a6f1d2b3c7a8dd54c107687f"
   config: "faster_rcnn_inception_v2_coco_2018_01_28.pbtxt"
-  config_info:
-    url: "https://github.com/tensorflow/models/raw/7025590841588e82f371ef0fef7dd77a8a71efb8/research/object_detection/samples/configs/faster_rcnn_inception_v2_coco.config"
-    sha1: "4d676eeab3656695c426670bfafe4e22fa7f54f9"
-    filename: "faster_rcnn_inception_v2_coco.config"
   mean: [0, 0, 0]
   scale: 1.0
   width: 800
   height: 600
   rgb: true
-  classes: "object_detection_classes_yolo.txt"
+  labels: "object_detection_classes_coco.txt"
+  postprocessing: "ssd"
   sample: "object_detection"
 
 ################################################################################
 # Image classification models.
 ################################################################################
 
-# SqueezeNet v1.1 from https://github.com/DeepScale/SqueezeNet
 squeezenet:
   load_info:
-    url: "https://raw.githubusercontent.com/DeepScale/SqueezeNet/b5c3f1a23713c8b3fd7b801d229f6b04c64374a5/SqueezeNet_v1.1/squeezenet_v1.1.caffemodel"
-    sha1: "3397f026368a45ae236403ccc81cfcbe8ebe1bd0"
-  model: "squeezenet_v1.1.caffemodel"
-  config: "squeezenet_v1.1.prototxt"
-  mean: [0, 0, 0]
-  scale: 1.0
-  width: 227
-  height: 227
-  rgb: false
-  classes: "classification_classes_ILSVRC2012.txt"
+    url: "https://github.com/onnx/models/raw/main/validated/vision/classification/squeezenet/model/squeezenet1.1-7.onnx?download="
+    sha1: "ec31942d17715941bb9b81f3a91dc59def9236be"
+  model: "squeezenet1.1-7.onnx"
+  mean: [0.485, 0.456, 0.406]
+  std: [0.229, 0.224, 0.225]
+  scale: 0.003921
+  width: 224
+  height: 224
+  rgb: true
+  labels: "classification_classes_ILSVRC2012.txt"
   sample: "classification"
 
-# Googlenet from https://github.com/BVLC/caffe/tree/master/models/bvlc_googlenet
 googlenet:
   load_info:
-    url: "http://dl.caffe.berkeleyvision.org/bvlc_googlenet.caffemodel"
-    sha1: "405fc5acd08a3bb12de8ee5e23a96bec22f08204"
-  model: "bvlc_googlenet.caffemodel"
-  config: "bvlc_googlenet.prototxt"
-  mean: [104, 117, 123]
+    url: "https://github.com/onnx/models/raw/69c5d3751dda5349fd3fc53f525395d180420c07/vision/classification/inception_and_googlenet/googlenet/model/googlenet-8.onnx"
+    sha1: "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+  model: "googlenet-8.onnx"
+  mean: [103.939, 116.779, 123.675]
+  std: [1, 1, 1]
   scale: 1.0
   width: 224
   height: 224
   rgb: false
-  classes: "classification_classes_ILSVRC2012.txt"
+  labels: "classification_classes_ILSVRC2012.txt"
+  sample: "classification"
+
+resnet:
+  load_info:
+    url: "https://github.com/onnx/models/raw/main/validated/vision/classification/resnet/model/resnet50-v2-7.onnx"
+    sha1: "33b7035809938e0f3ae53cba3e3dd177e7fb87ee"
+  model: "resnet50-v2-7.onnx"
+  mean: [123.675, 116.28, 103.53]
+  std: [58.395, 57.12, 57.375]
+  scale: 1.0
+  width: 224
+  height: 224
+  rgb: true
+  labels: "classification_classes_ILSVRC2012.txt"
   sample: "classification"
 
 ################################################################################
 # Semantic segmentation models.
 ################################################################################
 
-# ENet road scene segmentation network from https://github.com/e-lab/ENet-training
-# Works fine for different input sizes.
-enet:
+fcnresnet50:
   load_info:
-    url: "https://www.dropbox.com/s/tdde0mawbi5dugq/Enet-model-best.net?dl=1"
-    sha1: "b4123a73bf464b9ebe9cfc4ab9c2d5c72b161315"
-  model: "Enet-model-best.net"
-  mean: [0, 0, 0]
-  scale: 0.00392156862745098
-  width: 512
-  height: 256
-  rgb: true
-  classes: "enet-classes.txt"
-  sample: "segmentation"
-
-fcn8s:
-  load_info:
-    url: "http://dl.caffe.berkeleyvision.org/fcn8s-heavy-pascal.caffemodel"
-    sha1: "c449ea74dd7d83751d1357d6a8c323fcf4038962"
-  model: "fcn8s-heavy-pascal.caffemodel"
-  config: "fcn8s-heavy-pascal.prototxt"
-  mean: [0, 0, 0]
-  scale: 1.0
+    url: "https://github.com/onnx/models/raw/491ce05590abb7551d7fae43c067c060eeb575a6/validated/vision/object_detection_segmentation/fcn/model/fcn-resnet50-12.onnx"
+    sha1: "1bb0c7e0034038969aecc6251166f1612a139230"
+  model: "fcn-resnet50-12.onnx"
+  mean: [103.5, 116.2, 123.6]
+  scale: 0.019
   width: 500
   height: 500
   rgb: false
@@ -343,3 +346,248 @@ fcnresnet101:
   height: 500
   rgb: false
   sample: "segmentation"
+
+u2netp:
+  load_info:
+    url: "https://github.com/danielgatis/rembg/releases/download/v0.0.0/u2netp.onnx"
+    sha1: "0a99236f0d5c1916a99a8c401b23e5ef32038606"
+  model: "u2netp.onnx"
+  mean: [123.6, 116.2, 103.5]
+  scale: 0.019
+  width: 320
+  height: 320
+  rgb: true
+  sample: "segmentation"
+
+################################################################################
+# Text detection models.
+################################################################################
+
+DB:
+  load_info:
+    url: "https://drive.google.com/uc?export=dowload&id=17_ABp79PlFt9yPCxSaarVc_DKTmrSGGf"
+    sha1: "bef233c28947ef6ec8c663d20a2b326302421fa3"
+  model: "DB_IC15_resnet50.onnx"
+  ocr_load_info:
+    ocr_url: "https://drive.google.com/uc?export=dowload&id=159VavnbvfBQkLIPSAu2SP5Yij1Fy4azw"
+    ocr_sha1: "c4ab1fb3f13c1c8ffc04f016e72ec85311de4ebe"
+  ocr_model: "VGG_CTC.onnx"
+  mean: [122.67891434, 116.66876762, 104.00698793]
+  scale: 0.00392
+  width: 736
+  height: 736
+  rgb: false
+  sample: "text_detection"
+
+East:
+  load_info:
+    url: "https://www.dropbox.com/s/r2ingd0l3zt8hxs/frozen_east_text_detection.tar.gz?dl=1"
+    sha1: "fffabf5ac36f37bddf68e34e84b45f5c4247ed06"
+    download_name: "frozen_east_text_detection.tar.gz"
+    download_sha: "3ca8233d6edd748f7ed23246c8ca24cbf696bb94"
+  model: "frozen_east_text_detection.pb"
+  ocr_load_info:
+    ocr_url: "https://drive.google.com/uc?export=dowload&id=159VavnbvfBQkLIPSAu2SP5Yij1Fy4azw"
+    ocr_sha1: "c4ab1fb3f13c1c8ffc04f016e72ec85311de4ebe"
+  ocr_model: "VGG_CTC.onnx"
+  mean: [123.68, 116.78, 103.94]
+  scale: 1.0
+  width: 736
+  height: 736
+  rgb: false
+  sample: "text_detection"
+
+OCR:
+  load_info:
+    url: "https://drive.google.com/uc?export=dowload&id=159VavnbvfBQkLIPSAu2SP5Yij1Fy4azw"
+    sha1: "c4ab1fb3f13c1c8ffc04f016e72ec85311de4ebe"
+  model: "VGG_CTC.onnx"
+  sample: "text_recognition"
+
+# Edge Detection models.
+################################################################################
+
+dexined:
+  load_info:
+    url: "https://github.com/opencv/opencv_zoo/raw/refs/heads/main/models/edge_detection_dexined/edge_detection_dexined_2024sep.onnx?download="
+    sha1: "f86f2d32c3cf892771f76b5e6b629b16a66510e9"
+  model: "edge_detection_dexined_2024sep.onnx"
+  mean: [103.5, 116.2, 123.6]
+  scale: 1.0
+  width: 512
+  height: 512
+  rgb: false
+  sample: "edge_detection"
+
+################################################################################
+# Edge Detection models.
+################################################################################
+
+reid:
+  load_info:
+    url: "https://github.com/opencv/opencv_zoo/raw/main/models/person_reid_youtureid/person_reid_youtu_2021nov.onnx?download="
+    sha1: "d4316b100db40f8840aa82626e1cf3f519a7f1ae"
+  model: "person_reid_youtu_2021nov.onnx"
+  yolo_load_info:
+    yolo_url: "https://github.com/CVHub520/X-AnyLabeling/releases/download/v0.1.0/yolov8n.onnx"
+    yolo_sha1: "68f864475d06e2ec4037181052739f268eeac38d"
+  yolo_model: "yolov8n.onnx"
+  mean: [0.485, 0.456, 0.406]
+  std: [0.229, 0.224, 0.225]
+  scale: 0.00392
+  yolo_scale: 0.00392
+  yolo_width: 640
+  yolo_height: 640
+  width: 128
+  height: 256
+  rgb: false
+  yolo_rgb: true
+  sample: "person_reid"
+
+################################################################################
+# Tracker models.
+################################################################################
+
+vit:
+  load_info:
+    url: "https://github.com/opencv/opencv_zoo/raw/fef72f8fa7c52eaf116d3df358d24e6e959ada0e/models/object_tracking_vittrack/object_tracking_vittrack_2023sep.onnx"
+    sha1: "50008bb4f6a27b1aa940ad886b1bd1936ac4ed3e"
+  model: "object_tracking_vittrack_2023sep.onnx"
+  sample: "object_tracker"
+
+nanotrack:
+  nanotrack_head_load_info:
+    nanotrack_head_url: "https://github.com/HonglinChu/SiamTrackers/raw/refs/heads/master/NanoTrack/models/nanotrackv2/nanotrack_head_sim.onnx"
+    nanotrack_head_sha1: "39f168489671700cf739e402dfc67d41ce648aef"
+  nanotrack_head_model: "nanotrack_head_sim.onnx"
+  nanotrack_back_load_info:
+    nanotrack_back_url: "https://github.com/HonglinChu/SiamTrackers/raw/refs/heads/master/NanoTrack/models/nanotrackv2/nanotrack_backbone_sim.onnx"
+    nanotrack_back_sha1: "6e773a364457b78574f9f63a23b0659ee8646f8f"
+  nanotrack_back_model: "nanotrack_backbone_sim.onnx"
+  sample: "object_tracker"
+
+dasiamrpn:
+  dasiamrpn_load_info:
+    dasiamrpn_url: "https://github.com/opencv/opencv_zoo/raw/fef72f8fa7c52eaf116d3df358d24e6e959ada0e/models/object_tracking_dasiamrpn/object_tracking_dasiamrpn_model_2021nov.onnx?download="
+    dasiamrpn_sha1: "91b774fce7df4c0e4918469f0f482d9a27d0e2d4"
+  dasiamrpn_model: "object_tracking_dasiamrpn_model_2021nov.onnx"
+  dasiamrpn_kernel_r1_load_info:
+    dasiamrpn_kernel_r1_url: "https://github.com/opencv/opencv_zoo/raw/fef72f8fa7c52eaf116d3df358d24e6e959ada0e/models/object_tracking_dasiamrpn/object_tracking_dasiamrpn_kernel_r1_2021nov.onnx?download="
+    dasiamrpn_kernel_r1_sha1: "bb64620a54348657133eb28be2d3a2a8c76b84b3"
+  dasiamrpn_kernel_r1_model: "object_tracking_dasiamrpn_kernel_r1_2021nov.onnx"
+  dasiamrpn_kernel_cls_load_info:
+    dasiamrpn_kernel_cls_url: "https://github.com/opencv/opencv_zoo/raw/fef72f8fa7c52eaf116d3df358d24e6e959ada0e/models/object_tracking_dasiamrpn/object_tracking_dasiamrpn_kernel_cls1_2021nov.onnx?download="
+    dasiamrpn_kernel_cls_sha1: "e9ccd270ce8059bdf7ed0d1845c03ef4a951ee0f"
+  dasiamrpn_kernel_cls_model: "object_tracking_dasiamrpn_kernel_cls1_2021nov.onnx"
+  sample: "object_tracker"
+
+################################################################################
+# Inpainting models.
+################################################################################
+
+lama:
+  load_info:
+    url: "https://github.com/gursimarsingh/opencv_zoo/raw/0417e12d24bba41613ae0380bd698cca73a4fb17/models/inpainting_lama/inpainting_lama_2025jan.onnx?download="
+    sha1: "7c6cdb9362bf73de2a80cfcaf17e121e3302f24c"
+  model: "inpainting_lama_2025jan.onnx"
+  mean: [0, 0, 0]
+  scale: 0.00392
+  width: 512
+  height: 512
+  rgb: false
+  sample: "inpainting"
+
+ldm_inpainting:
+  encoder_load_info:
+    encoder_url: "https://dl.opencv.org/models/ldm_inpainting/InpaintEncoder.onnx"
+    encoder_sha1: "eb663262304473d81d6ae627d7117892dac56b5e"
+  encoder_model: "InpaintEncoder.onnx"
+  decoder_load_info:
+    decoder_url: "https://dl.opencv.org/models/ldm_inpainting/InpaintDecoder.onnx"
+    decoder_sha1: "af258c100e3a3b0970493b6375c8775beaffc9d1"
+  decoder_model: "InpaintDecoder.onnx"
+  diffusor_load_info:
+    diffusor_url: "https://dl.opencv.org/models/ldm_inpainting/LatentDiffusion.onnx"
+    diffusor_sha1: "2c6f8a505d9a93195510c854d8f023fab27ce70e"
+  diffusor_model: "LatentDiffusion.onnx"
+  mean: [0, 0, 0]
+  scale: 0.00392
+  width: 512
+  height: 512
+  rgb: true
+  sample: "ldm_inpainting"
+
+################################################################################
+# Macbeth chart detection model.
+################################################################################
+
+mcc:
+  load_info:
+    url: "https://github.com/gursimarsingh/opencv_zoo/raw/refs/heads/mcc_model/models/macbeth_chart_detector/frozen_inference_graph.pb?download="
+    sha1: "fae7dbef14c4ae1fca76f3662220fbd460ed5ed6"
+  model: "frozen_inference_graph.pb"
+  config_load_info:
+    url: "https://github.com/gursimarsingh/opencv_zoo/raw/refs/heads/mcc_model/models/macbeth_chart_detector/graph.pbtxt?download="
+    sha1: "8350cb8f078ecefa1cd566e89930ede25a192310"
+  config: "graph.pbtxt"
+  sample: "mcc"
+
+################################################################################
+# Deblurring model.
+################################################################################
+
+NAFNet:
+  load_info:
+    url: "https://drive.google.com/uc?export=dowload&id=1ZLRhkpCekNruJZggVpBgSoCx3k7bJ-5v"
+    sha1: "7dabf3d4ede0770ef326afc4511f7e67a791286d"
+  model: "deblurring_nafnet_2025may.onnx"
+  mean: [0, 0, 0]
+  scale: 0.00392
+  rgb: true
+  sample: "deblurring"
+
+################################################################################
+# Alpha Matting model.
+################################################################################
+modnet:
+  load_info:
+    url: "https://github.com/HarxSan/Modnet/raw/main/modnet.onnx"
+    sha1: "40eebf4387ea86c982bf6e363a7f84b659b145a0"
+  model: "modnet.onnx"
+  mean: [0.0, 0.0, 0.0]
+  scale: 0.00784313725
+  width: 512
+  height: 512
+  rgb: true
+  sample: "alpha_matting"
+
+################################################################################
+# Super-resolution models.
+################################################################################
+
+seemoredetails:
+  load_info:
+    url: "https://github.com/Naresh-19/opencv-superres-models/raw/main/seemore_x4v2_static512.onnx"
+    sha1: "584467bd36f5715aa12c3203bba16e4de6392034"
+  model: "seemore_x4v2_static512.onnx"
+  mean: [0.0, 0.0, 0.0]
+  scale: 0.00392
+  rgb: true
+  width: 512
+  height: 512
+  sample: "super_resolution"
+  input: true
+
+################################################################################
+# Auto white balance models.
+################################################################################
+
+fc4:
+  load_info:
+    url: "https://raw.githubusercontent.com/MykhailoTrushch/fc4-models/main/fc4_fold_0.onnx"
+    sha1: "e8a9a65ec0baaae3e4c97b34274a620eb362e905"
+  model: "fc4_fold_0.onnx"
+  sample: "auto_white_balance"
+  scale: 0.00392156862
+  rgb: true
+  mean: 0

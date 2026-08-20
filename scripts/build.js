@@ -3,7 +3,7 @@ const sysPath = require("node:path");
 const eachOfLimit = require("async/eachOfLimit");
 const { version } = require("../src/version");
 
-const OpenCV_VERSION = "opencv-4.14.0";
+const OpenCV_VERSION = "opencv-5.0.0";
 const OpenCV_DLLVERSION = OpenCV_VERSION.slice("opencv-".length).replaceAll(".", "");
 
 const sources = sysPath.resolve(__dirname, "..");

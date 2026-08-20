@@ -12,10 +12,10 @@
 #include "..\..\..\autoit-addon\addon.au3"
 
 ;~ Sources:
-;~     https://docs.opencv.org/4.14.0/db/d70/tutorial_akaze_matching.html
-;~     https://github.com/opencv/opencv/blob/4.14.0/samples/cpp/tutorial_code/features2D/AKAZE_match.cpp
+;~     https://docs.opencv.org/5.0.0/db/d70/tutorial_akaze_matching.html
+;~     https://github.com/opencv/opencv/blob/5.0.0/samples/cpp/tutorial_code/features2D/AKAZE_match.cpp
 
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world4140*"), _OpenCV_FindDLL("autoit_opencv_com4140*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world500*"), _OpenCV_FindDLL("autoit_opencv_com500*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 
@@ -149,7 +149,7 @@ Func Detect()
 
 	;;! [AKAZE]
 	$hTimer = TimerInit()
-	Local $akaze = $cv.AKAZE.create()
+	Local $akaze = $cv.xfeatures2d.AKAZE.create()
 
 	Local $kpts1 = _OpenCV_ObjCreate("VectorOfKeyPoint")
 	Local $desc1 = _OpenCV_ObjCreate("cv.Mat")

@@ -118,7 +118,7 @@ public static class Test
         var img = cv.imread(OpenCvComInterop.FindFile("samples\\data\\lena.jpg"));
         dynamic[] ksize = { 5, 5 };
         dynamic blurred = null;
-        cv.gaussianBlur(img, ksize, 0, ref blurred);
+        cv.GaussianBlur(img, ksize, 0, ref blurred);
         cv.imshow("image", blurred);
         cv.waitKey();
         cv.destroyAllWindows();
@@ -210,8 +210,8 @@ public static class Test
         }
 
         OpenCvComInterop.DllOpen(
-            string.IsNullOrWhiteSpace(opencv_world_dll) ? OpenCvComInterop.FindDLL("opencv_world4140*", buildType: buildType) : opencv_world_dll,
-            string.IsNullOrWhiteSpace(opencv_com_dll) ? OpenCvComInterop.FindDLL("autoit_opencv_com4140*", buildType: buildType) : opencv_com_dll
+            string.IsNullOrWhiteSpace(opencv_world_dll) ? OpenCvComInterop.FindDLL("opencv_world500*", buildType: buildType) : opencv_world_dll,
+            string.IsNullOrWhiteSpace(opencv_com_dll) ? OpenCvComInterop.FindDLL("autoit_opencv_com500*", buildType: buildType) : opencv_com_dll
         );
 
         if (register)

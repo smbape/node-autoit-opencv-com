@@ -100,28 +100,43 @@ namespace cv {
 			for (int i = 0; i < total; i++) {
 				switch (weights.depth()) {
 				case CV_8U:
-					bins[x.at<int>(i)] += weights.at<byte>(i);
+					bins[x.at<int>(i)] += weights.at<uint8_t>(i);
 					break;
 				case CV_8S:
-					bins[x.at<int>(i)] += weights.at<char>(i);
+					bins[x.at<int>(i)] += weights.at<int8_t>(i);
 					break;
 				case CV_16U:
-					bins[x.at<int>(i)] += weights.at<ushort>(i);
+					bins[x.at<int>(i)] += weights.at<uint16_t>(i);
 					break;
 				case CV_16S:
-					bins[x.at<int>(i)] += weights.at<short>(i);
+					bins[x.at<int>(i)] += weights.at<int16_t>(i);
+					break;
+				case CV_16F:
+					bins[x.at<int>(i)] += static_cast<float>(weights.at<cv::hfloat>(i));
+					break;
+				case CV_16BF:
+					bins[x.at<int>(i)] += static_cast<float>(weights.at<cv::bfloat>(i));
+					break;
+				case CV_32U:
+					bins[x.at<int>(i)] += weights.at<uint32_t>(i);
 					break;
 				case CV_32S:
-					bins[x.at<int>(i)] += weights.at<int>(i);
+					bins[x.at<int>(i)] += weights.at<int32_t>(i);
 					break;
 				case CV_32F:
 					bins[x.at<int>(i)] += weights.at<float>(i);
+					break;
+				case CV_64U:
+					bins[x.at<int>(i)] += weights.at<uint64_t>(i);
+					break;
+				case CV_64S:
+					bins[x.at<int>(i)] += weights.at<int64_t>(i);
 					break;
 				case CV_64F:
 					bins[x.at<int>(i)] += weights.at<double>(i);
 					break;
 				default:
-					cv::error(cv::Error::StsAssert, "depth must be one of CV_8U CV_8S CV_16U CV_16S CV_32S CV_32F CV_64F", CV_Func, __FILE__, __LINE__);
+					cv::error(cv::Error::StsAssert, "depth must be one of CV_8U CV_8S CV_16U CV_16S CV_16F CV_16BF CV_32U CV_32S CV_32F CV_64U CV_64S CV_64F", CV_Func, __FILE__, __LINE__);
 				}
 			}
 		}

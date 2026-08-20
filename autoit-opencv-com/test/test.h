@@ -27,4 +27,12 @@
 #include <gdiplus.h>
 #include "generated_include.h"
 
+#ifdef MIN
+#undef MIN
+#endif
+
+#ifdef MAX
+#undef MAX
+#endif
+
 #import "cvLib.tlb"

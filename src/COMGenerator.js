@@ -172,9 +172,14 @@ const proto = {
             if (this.enums.has(fqn)) {
                 const pos = fqn.lastIndexOf("::");
 
-                const enum_class = this.classes.has(fqn) ? this.classes.get(fqn) : this.classes.get(fqn.slice(0, pos));
-                this.addDependency(coclass.fqn, enum_class.fqn);
-                this.addDependency(include.fqn, enum_class.fqn);
+                for (const enum_fqn of [fqn, fqn.slice(0, pos)]) {
+                    if (this.classes.has(enum_fqn)) {
+                        const enum_class = this.classes.get(enum_fqn);
+                        this.addDependency(coclass.fqn, enum_class.fqn);
+                        this.addDependency(include.fqn, enum_class.fqn);
+                        break;
+                    }
+                }
 
                 return "LONG";
             }
@@ -1009,11 +1014,12 @@ class COMGenerator {
                 `
                 #pragma once
 
-                #ifndef NOMINMAX
+                #ifdef _MSC_VER
+                #pragma push_macro("NOMINMAX")
+                #pragma push_macro("STRICT")
+                #pragma push_macro("RELATIVE")
+                #pragma push_macro("ABSOLUTE")
                 #define NOMINMAX
-                #endif
-
-                #ifndef STRICT
                 #define STRICT
                 #endif
 
@@ -1035,11 +1041,19 @@ class COMGenerator {
                 #include "${ LIBRARY }.h"
                 #include "generated_include.h"
 
+                #ifdef _MSC_VER
+                #pragma pop_macro("NOMINMAX")
+                #pragma pop_macro("STRICT")
+                #pragma pop_macro("RELATIVE")
+                #pragma pop_macro("ABSOLUTE")
+                #endif
+
                 ${ typedefs.toString(16).slice(16) }
 
                 `.replace(/^ {16}/mg, ""),
 
                 conversion.number.declare("char", "CHAR", options), "",
+                conversion.number.declare("signed char", "CHAR", options), "",
                 conversion.number.declare("unsigned char", "BYTE", options), "",
                 conversion.number.declare("short", "SHORT", options), "",
                 conversion.number.declare("unsigned short", "USHORT", options), "",
@@ -1078,6 +1092,7 @@ class COMGenerator {
         const bridge_impl = [
             "#include \"autoit_bridge.h\"", "",
             conversion.number.define("char", "CHAR", options), "",
+            conversion.number.define("signed char", "CHAR", options), "",
             conversion.number.define("unsigned char", "BYTE", options), "",
             conversion.number.define("short", "SHORT", options), "",
             conversion.number.define("unsigned short", "USHORT", options), "",

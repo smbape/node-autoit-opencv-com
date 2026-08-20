@@ -339,7 +339,7 @@ static void testAdd(cvLib::ICv_ObjectPtr cv, cvLib::ICv_Mat_ObjectPtr mat) {
 
 	auto scalarMat = MatPtr->create(to_variant_t(1), to_variant_t(1), to_variant_t(CV_64F), &sclarArray);
 
-	cv->add(to_variant_t(mat->clone().GetInterfacePtr()), to_variant_t(scalarMat.GetInterfacePtr()), &vtDefault(), &vtDefault(), &vtDefault());
+	cv->ADD(to_variant_t(mat->clone().GetInterfacePtr()), to_variant_t(scalarMat.GetInterfacePtr()), &vtDefault(), &vtDefault(), &vtDefault());
 
 	VariantClear(&sclarArray);
 }
@@ -401,75 +401,6 @@ static void testSetTo(cvLib::ICv_ObjectPtr cv, cvLib::ICv_Mat_ObjectPtr mat) {
 	mat->clone()->setTo(&variant);
 
 	VariantClear(&variant);
-}
-
-static void testAKAZE(cvLib::ICv_ObjectPtr cv) {
-	cvLib::ICv_AKAZE_ObjectPtr AKAZEPtr;
-	HRESULT hr = AKAZEPtr.CreateInstance(__uuidof(cvLib::Cv_AKAZE_Object));
-	assert(SUCCEEDED(hr));
-
-	cvLib::ICv_Mat_ObjectPtr MatPtr;
-	hr = MatPtr.CreateInstance(__uuidof(cvLib::Cv_Mat_Object));
-	assert(SUCCEEDED(hr));
-
-	auto variant = AKAZEPtr->Getcreate();
-
-	_bstr_t image_path;
-
-	string_to_bstr(samples::findFile("graf1.png"), image_path);
-	auto _img1 = cv->imread(to_variant_t(image_path), to_variant_t(IMREAD_GRAYSCALE), &vtDefault());
-	assert(V_VT(&_img1) == VT_DISPATCH);
-	auto img1 = reinterpret_cast<cvLib::ICv_Mat_Object*>(V_DISPATCH(&_img1));
-
-	string_to_bstr(samples::findFile("graf3.png"), image_path);
-	auto _img2 = cv->imread(to_variant_t(image_path), to_variant_t(IMREAD_GRAYSCALE), &vtDefault());
-	assert(V_VT(&_img2) == VT_DISPATCH);
-	auto img2 = reinterpret_cast<cvLib::ICv_Mat_Object*>(V_DISPATCH(&_img2));
-
-	assert(V_VT(&variant) == VT_DISPATCH);
-	cvLib::ICv_AKAZE_ObjectPtr akaze;
-	akaze.Attach(static_cast<cvLib::ICv_AKAZE_Object*>(V_DISPATCH(to_variant_t(variant.Detach()))));
-
-	akaze->detectAndCompute(to_variant_t(img1), to_variant_t(MatPtr->create().GetInterfacePtr()), &vtDefault(), &vtDefault(), &vtDefault());
-
-	CComSafeArray<VARIANT> extended;
-	extended.Attach(V_ARRAY(to_variant_t(cv->extended)));
-	auto kpts1 = extended.GetAt(0);
-	auto desc1 = extended.GetAt(1);
-	extended.Detach();
-
-	assert((V_VT(&kpts1) & VT_ARRAY) == VT_ARRAY);
-	assert((V_VT(&kpts1) ^ VT_ARRAY) == VT_VARIANT);
-
-	CComSafeArray<VARIANT> vArray;
-	vArray.Attach(V_ARRAY(&kpts1));
-	cvLib::ICv_KeyPoint_ObjectPtr keypoint;
-	keypoint.Attach(static_cast<cvLib::ICv_KeyPoint_Object*>(V_DISPATCH(&vArray.GetAt(0))));
-	vArray.Detach();
-
-	auto pt = keypoint->Getpt();
-	printf("%hu", V_VT(&pt));
-	keypoint.Detach();
-
-	cvLib::IVectorOfKeyPoint_ObjectPtr VectorOfKeyPointPtr;
-	hr = VectorOfKeyPointPtr.CreateInstance(__uuidof(cvLib::VectorOfKeyPoint_Object));
-	assert(SUCCEEDED(hr));
-
-	cvLib::ICv_KeyPoint_ObjectPtr Cv_KeyPointPtr;
-	hr = Cv_KeyPointPtr.CreateInstance(__uuidof(cvLib::Cv_KeyPoint_Object));
-	assert(SUCCEEDED(hr));
-
-	auto vMatched1 = VectorOfKeyPointPtr->create();
-
-	// vMatched1->push_back(to_variant_t(Cv_KeyPointPtr->create().GetInterfacePtr()));
-	// assert(vMatched1->size() == 1);
-
-	variant = vMatched1->Getself();
-	assert(V_VT(&variant) == VT_UI8);
-
-	auto matched1 = reinterpret_cast<vector<KeyPoint>*>(V_UI8(&variant));
-	assert(matched1->size() == 0);
-	matched1->push_back(KeyPoint());
 }
 
 static void testEnumerateDevices() {
@@ -633,7 +564,6 @@ static int perform() {
 
 	auto mat = testRead(cv, image_path);
 	testSpit(cv, mat);
-	testAKAZE(cv);
 	testAdd(cv, mat);
 	testResize(cv);
 	testSetTo(cv, mat);
@@ -775,9 +705,9 @@ public:
 	typedef BOOL(*DllDeactivateActCtx_t)();
 
 	ActCtxInitializer() {
-		m_lib = LoadLibrary("bin\\" BUILD_TYPE "\\autoit_opencv_com4140" DEBUG_POSTFIX ".dll");
+		m_lib = LoadLibrary("bin\\" BUILD_TYPE "\\autoit_opencv_com500" DEBUG_POSTFIX ".dll");
 		if (m_lib == NULL) {
-			const auto dependency = "bin\\" BUILD_TYPE "\\autoit_opencv_com4140" DEBUG_POSTFIX ".dll";
+			const auto dependency = "bin\\" BUILD_TYPE "\\autoit_opencv_com500" DEBUG_POSTFIX ".dll";
 			std::ostringstream errmsg;
 			errmsg << "\n\tfailed to load file " << dependency << " : " << get_system_error_message();
 			cv::error(cv::Error::StsAssert, errmsg.str(), CV_Func, __FILE__, __LINE__);

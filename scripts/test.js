@@ -124,7 +124,7 @@ const main = (options, next) => {
 
     const { cwd, includes, includes_ext, excludes } = options;
 
-    excludes.push(...["Table.au3", "Find-Contour-Draw-Demo.au3", "csrun.ps1", "download_model.ps1"]);
+    excludes.push(...["Table.au3", "Find-Contour-Draw-Demo.au3", "csrun.ps1", "download_model.ps1", "AKAZE_match.au3", "opencv_haar_cascades.au3"]);
 
     if (options.bash) {
         console.log([

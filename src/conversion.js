@@ -68,13 +68,13 @@ Object.assign(exports, {
             return `
                 extern const bool is_assignable_from(${ in_type }& out_val, VARIANT const* in_val, bool is_optional);
                 extern const bool is_assignable_from(${ shared_ptr }<${ in_type }>& out_val, VARIANT const* in_val, bool is_optional);
-                extern const HRESULT autoit_to(VARIANT const* in_val, ${ in_type }& out_val);
-                extern const HRESULT autoit_to(VARIANT const* in_val, ${ shared_ptr }<${ in_type }>& out_val);
-                extern const HRESULT autoit_out(VARIANT*& out_val, ${ in_type }*& retval);
-                extern const HRESULT autoit_from(${ in_type } const& in_val, ${ out_type }*& out_val);
-                extern const HRESULT autoit_from(${ in_type } const& in_val, VARIANT*& out_val);
-                extern const HRESULT autoit_from(${ shared_ptr }<${ in_type }> const& in_val, ${ shared_ptr }<${ in_type }>& out_val);
-                extern const HRESULT autoit_from(${ shared_ptr }<${ in_type }> const& in_val, VARIANT*& out_val);
+                extern HRESULT autoit_to(VARIANT const* in_val, ${ in_type }& out_val);
+                extern HRESULT autoit_to(VARIANT const* in_val, ${ shared_ptr }<${ in_type }>& out_val);
+                extern HRESULT autoit_out(VARIANT*& out_val, ${ in_type }*& retval);
+                extern HRESULT autoit_from(${ in_type } const& in_val, ${ out_type }*& out_val);
+                extern HRESULT autoit_from(${ in_type } const& in_val, VARIANT*& out_val);
+                extern HRESULT autoit_from(${ shared_ptr }<${ in_type }> const& in_val, ${ shared_ptr }<${ in_type }>& out_val);
+                extern HRESULT autoit_from(${ shared_ptr }<${ in_type }> const& in_val, VARIANT*& out_val);
             `.replace(/^ {16}/mg, "").trim();
         },
 
@@ -96,7 +96,7 @@ Object.assign(exports, {
                     return V_VT(in_val) == VT_UI8;
                 }
 
-                const HRESULT autoit_to(VARIANT const* in_val, ${ in_type }& out_val) {
+                HRESULT autoit_to(VARIANT const* in_val, ${ in_type }& out_val) {
                     ${ optional.assign.join(`\n${ " ".repeat(20) }`) }
 
                     switch (V_VT(in_val)) {
@@ -110,7 +110,7 @@ Object.assign(exports, {
                     }
                 }
 
-                const HRESULT autoit_to(VARIANT const* in_val, ${ shared_ptr }<${ in_type }>& out_val) {
+                HRESULT autoit_to(VARIANT const* in_val, ${ shared_ptr }<${ in_type }>& out_val) {
                     ${ optional.assign.join(`\n${ " ".repeat(20) }`) }
 
                     switch (V_VT(in_val)) {
@@ -121,7 +121,7 @@ Object.assign(exports, {
                     }
                 }
 
-                const HRESULT autoit_out(VARIANT*& out_val, ${ in_type }*& retval) {
+                HRESULT autoit_out(VARIANT*& out_val, ${ in_type }*& retval) {
                     ${ in_type } _retval;
                     HRESULT hr = autoit_to(out_val, _retval);
                     if (SUCCEEDED(hr)) {
@@ -130,24 +130,24 @@ Object.assign(exports, {
                     return hr;
                 }
 
-                const HRESULT autoit_from(${ in_type } const& in_val, ${ out_type }*& out_val) {
+                HRESULT autoit_from(${ in_type } const& in_val, ${ out_type }*& out_val) {
                     *out_val = ${ in_type === out_type ? "in_val" : `static_cast<${ out_type }>(in_val)` };
                     return S_OK;
                 }
 
-                const HRESULT autoit_from(${ in_type } const& in_val, VARIANT*& out_val) {
+                HRESULT autoit_from(${ in_type } const& in_val, VARIANT*& out_val) {
                     V_VT(out_val) = VT_${ numbers.get(out_type.toUpperCase()) };
                     V_${ numbers.get(out_type.toUpperCase()) }(out_val) = ${ in_type === out_type ? "in_val" : `static_cast<${ out_type }>(in_val)` };
                     return S_OK;
                 }
 
-                const HRESULT autoit_from(${ shared_ptr }<${ in_type }> const& in_val, VARIANT*& out_val) {
+                HRESULT autoit_from(${ shared_ptr }<${ in_type }> const& in_val, VARIANT*& out_val) {
                     V_VT(out_val) = VT_UI8;
                     *reinterpret_cast<${ in_type }*>(V_UI8(out_val)) = *in_val;
                     return S_OK;
                 }
 
-                const HRESULT autoit_from(${ shared_ptr }<${ in_type }> const& in_val, ${ shared_ptr }<${ in_type }>& out_val) {
+                HRESULT autoit_from(${ shared_ptr }<${ in_type }> const& in_val, ${ shared_ptr }<${ in_type }>& out_val) {
                     *out_val = *in_val;
                     return S_OK;
                 }
@@ -171,11 +171,11 @@ Object.assign(exports, {
         const wtype = iface === "IDispatch" ? "DISPATCH" : "UNKNOWN";
 
         header.push(`
-            extern const HRESULT autoit_out(VARIANT*& out_val, I${ cotype }** const retval);
+            extern HRESULT autoit_out(VARIANT*& out_val, I${ cotype }** const retval);
 
-            extern const HRESULT autoit_from(I${ cotype }* in_val, I${ cotype }**& out_val);
-            extern const HRESULT autoit_from(I${ cotype }* in_val, ${ iface }**& out_val);
-            extern const HRESULT autoit_from(I${ cotype }* in_val, VARIANT*& out_val);
+            extern HRESULT autoit_from(I${ cotype }* in_val, I${ cotype }**& out_val);
+            extern HRESULT autoit_from(I${ cotype }* in_val, ${ iface }**& out_val);
+            extern HRESULT autoit_from(I${ cotype }* in_val, VARIANT*& out_val);
 
             namespace autoit {
                 template<>
@@ -203,7 +203,7 @@ Object.assign(exports, {
         }
 
         impls.push(`
-            const HRESULT autoit_out(VARIANT*& out_val, I${ cotype }** const retval) {
+            HRESULT autoit_out(VARIANT*& out_val, I${ cotype }** const retval) {
                 if (V_VT(out_val) != VT_${ wtype }) {
                     return E_INVALIDARG;
                 }
@@ -218,19 +218,19 @@ Object.assign(exports, {
                 return E_INVALIDARG;
             }
 
-            const HRESULT autoit_from(I${ cotype }* in_val, I${ cotype }**& out_val) {
+            HRESULT autoit_from(I${ cotype }* in_val, I${ cotype }**& out_val) {
                 *out_val = in_val;
                 in_val->AddRef();
                 return S_OK;
             }
 
-            const HRESULT autoit_from(I${ cotype }* in_val, ${ iface }**& out_val) {
+            HRESULT autoit_from(I${ cotype }* in_val, ${ iface }**& out_val) {
                 *out_val = static_cast<${ iface }*>(in_val);
                 in_val->AddRef();
                 return S_OK;
             }
 
-            const HRESULT autoit_from(I${ cotype }* in_val, VARIANT*& out_val) {
+            HRESULT autoit_from(I${ cotype }* in_val, VARIANT*& out_val) {
                 VariantClear(out_val);
 
                 V_VT(out_val) = VT_${ wtype };
@@ -271,7 +271,7 @@ Object.assign(exports, {
         if (!coclass.is_vector) {
             header.push(`
                 extern const bool is_assignable_from(${ shared_ptr }<${ coclass.fqn }>& out_val, VARIANT const* in_val, bool is_optional);
-                extern const HRESULT autoit_to(VARIANT const* in_val, ${ shared_ptr }<${ coclass.fqn }>& out_val);
+                extern HRESULT autoit_to(VARIANT const* in_val, ${ shared_ptr }<${ coclass.fqn }>& out_val);
             `.replace(/^ {16}/mg, ""));
 
             impls.push(`
@@ -289,7 +289,7 @@ Object.assign(exports, {
                     return ::autoit::cast<${ coclass.fqn }>(getRealIDispatch(in_val)) != NULL;
                 }
 
-                const HRESULT autoit_to(VARIANT const* in_val, ${ shared_ptr }<${ coclass.fqn }>& out_val) {
+                HRESULT autoit_to(VARIANT const* in_val, ${ shared_ptr }<${ coclass.fqn }>& out_val) {
                     ${ optional.assign.join(`\n${ " ".repeat(20) }`) }
 
                     if (V_VT(in_val) == VT_NULL) {
@@ -315,13 +315,13 @@ Object.assign(exports, {
 
         header.push(`
             extern const bool is_assignable_from(${ coclass.fqn }*& out_val, VARIANT const* in_val, bool is_optional);
-            extern const HRESULT autoit_to(VARIANT const* in_val, ${ coclass.fqn }*& out_val);
-            extern const HRESULT autoit_from(${ shared_ptr }<${ coclass.fqn }> const& in_val, I${ cotype }**& out_val);
-            extern const HRESULT autoit_from(${ shared_ptr }<${ coclass.fqn }> const& in_val, ${ iface }**& out_val);
-            extern const HRESULT autoit_from(${ shared_ptr }<${ coclass.fqn }> const& in_val, VARIANT*& out_val);
-            extern const HRESULT autoit_from(${ coclass.fqn }* in_val, I${ cotype }**& out_val);
-            extern const HRESULT autoit_from(${ coclass.fqn }* in_val, ${ iface }**& out_val);
-            extern const HRESULT autoit_from(${ coclass.fqn }* in_val, VARIANT*& out_val);
+            extern HRESULT autoit_to(VARIANT const* in_val, ${ coclass.fqn }*& out_val);
+            extern HRESULT autoit_from(${ shared_ptr }<${ coclass.fqn }> const& in_val, I${ cotype }**& out_val);
+            extern HRESULT autoit_from(${ shared_ptr }<${ coclass.fqn }> const& in_val, ${ iface }**& out_val);
+            extern HRESULT autoit_from(${ shared_ptr }<${ coclass.fqn }> const& in_val, VARIANT*& out_val);
+            extern HRESULT autoit_from(${ coclass.fqn }* in_val, I${ cotype }**& out_val);
+            extern HRESULT autoit_from(${ coclass.fqn }* in_val, ${ iface }**& out_val);
+            extern HRESULT autoit_from(${ coclass.fqn }* in_val, VARIANT*& out_val);
         `.replace(/^ {12}/mg, ""));
 
         impls.push(`
@@ -330,7 +330,7 @@ Object.assign(exports, {
                 return is_assignable_from(out_val_shared, in_val, is_optional);
             }
 
-            const HRESULT autoit_to(VARIANT const* in_val, ${ coclass.fqn }*& out_val) {
+            HRESULT autoit_to(VARIANT const* in_val, ${ coclass.fqn }*& out_val) {
                 if (V_VT(in_val) == VT_NULL) {
                     out_val = nullptr;
                     return S_OK;
@@ -344,7 +344,7 @@ Object.assign(exports, {
                 return hr;
             }
 
-            const HRESULT autoit_from(${ shared_ptr }<${ coclass.fqn }> const& in_val, I${ cotype }**& out_val) {
+            HRESULT autoit_from(${ shared_ptr }<${ coclass.fqn }> const& in_val, I${ cotype }**& out_val) {
                 HRESULT hr = *out_val != nullptr ? S_OK : CoCreateInstance(CLSID_${ cotype }, NULL, CLSCTX_INPROC_SERVER, IID_I${ cotype }, reinterpret_cast<void**>(out_val));
                 if (SUCCEEDED(hr)) {
                     auto obj = static_cast<C${ cotype }*>(*out_val);
@@ -353,11 +353,11 @@ Object.assign(exports, {
                 return hr;
             }
 
-            const HRESULT autoit_from(${ shared_ptr }<${ coclass.fqn }> const& in_val, ${ iface }**& out_val) {
+            HRESULT autoit_from(${ shared_ptr }<${ coclass.fqn }> const& in_val, ${ iface }**& out_val) {
                 return autoit_from(in_val, reinterpret_cast<I${ cotype }**&>(out_val));
             }
 
-            const HRESULT autoit_from(${ shared_ptr }<${ coclass.fqn }> const& in_val, VARIANT*& out_val) {
+            HRESULT autoit_from(${ shared_ptr }<${ coclass.fqn }> const& in_val, VARIANT*& out_val) {
                 if (!in_val) {
                     V_VT(out_val) = VT_NULL;
                     return S_OK;
@@ -382,15 +382,15 @@ Object.assign(exports, {
                 return hr;
             }
 
-            const HRESULT autoit_from(${ coclass.fqn }* in_val, I${ cotype }**& out_val) {
+            HRESULT autoit_from(${ coclass.fqn }* in_val, I${ cotype }**& out_val) {
                 return autoit_from(::autoit::reference_internal(in_val), out_val);
             }
 
-            const HRESULT autoit_from(${ coclass.fqn }* in_val, ${ iface }**& out_val) {
+            HRESULT autoit_from(${ coclass.fqn }* in_val, ${ iface }**& out_val) {
                 return autoit_from(::autoit::reference_internal(in_val), out_val);
             }
 
-            const HRESULT autoit_from(${ coclass.fqn }* in_val, VARIANT*& out_val) {
+            HRESULT autoit_from(${ coclass.fqn }* in_val, VARIANT*& out_val) {
                 if (!in_val) {
                     V_VT(out_val) = VT_NULL;
                     return S_OK;
@@ -410,10 +410,10 @@ Object.assign(exports, {
                     // ================================================================
 
                     template<typename T>
-                    std::enable_if_t<std::is_same_v<T, ${ coclass.fqn }> && !std::is_assignable_v<T&, T>, const bool> is_assignable_from(T& out_val, VARIANT const* in_val, bool is_optional);
+                    std::enable_if_t<std::is_same_v<T, ${ coclass.fqn }> && !std::is_assignable_v<T&, const T&>, const bool> is_assignable_from(T& out_val, VARIANT const* in_val, bool is_optional);
                     template<>
                     const bool is_assignable_from<${ coclass.fqn }>(${ coclass.fqn }& out_val, VARIANT const* in_val, bool is_optional) {
-                        if constexpr (!std::is_assignable_v<${ coclass.fqn }&, ${ coclass.fqn }>) {
+                        if constexpr (!std::is_assignable_v<${ coclass.fqn }&, const ${ coclass.fqn }&>) {
                             return false;
                         } else {
                             ${ optional.check.join(`\n${ " ".repeat(28) }`) }
@@ -434,35 +434,14 @@ Object.assign(exports, {
                     template const bool is_assignable_from<${ coclass.fqn }>(${ coclass.fqn }& out_val, VARIANT const* in_val, bool is_optional);
 
                     template<typename T>
-                    std::enable_if_t<std::is_same_v<T, ${ coclass.fqn }> && !std::is_assignable_v<T&, T>, const HRESULT> autoit_to(VARIANT const* in_val, T& out_val);
+                    std::enable_if_t<std::is_same_v<T, ${ coclass.fqn }> && !std::is_assignable_v<T&, const T&>, HRESULT> autoit_to(VARIANT const* in_val, T& out_val);
                     template<>
-                    const HRESULT autoit_to<${ coclass.fqn }>(VARIANT const* in_val, ${ coclass.fqn }& out_val) {
-                        if constexpr (!std::is_assignable_v<${ coclass.fqn }&, ${ coclass.fqn }>) {
-                            return E_INVALIDARG;
-                        } else {
-                            ${ optional.assign.join(`\n${ " ".repeat(28) }`) }
-
-                            if (V_VT(in_val) == VT_UI8) {
-                                const auto& ptr = V_UI8(in_val);
-                                out_val = *reinterpret_cast<${ coclass.fqn }*>(ptr);
-                                return S_OK;
-                            }
-
-                            if (V_VT(in_val) == VT_${ wtype }) {
-                                const auto& obj = ::autoit::cast<${ coclass.fqn }>(getRealIDispatch(in_val));
-                                if (!obj) {
-                                    return E_INVALIDARG;
-                                }
-                                out_val = *obj;
-                                return S_OK;
-                            }
-
-                            return E_INVALIDARG;
-                        }
+                    HRESULT autoit_to<${ coclass.fqn }>(VARIANT const* in_val, ${ coclass.fqn }& out_val) {
+                        return ::autoit::_default_autoit_to(in_val, out_val);
                     }
                     // force template definition in this file
                     // since template declaration is in a header
-                    template const HRESULT autoit_to<${ coclass.fqn }>(VARIANT const* in_val, ${ coclass.fqn }& out_val);
+                    template HRESULT autoit_to<${ coclass.fqn }>(VARIANT const* in_val, ${ coclass.fqn }& out_val);
 
                     // ================================================================
                 `.replace(/^ {20}/mg, "").trim());
@@ -470,19 +449,19 @@ Object.assign(exports, {
 
             header.push(`
                 template<typename T>
-                extern std::enable_if_t<std::is_same_v<T, ${ coclass.fqn }> && std::is_assignable_v<T&, T>, const bool> is_assignable_from(T& out_val, I${ cotype }* in_val, bool is_optional);
+                extern std::enable_if_t<std::is_same_v<T, ${ coclass.fqn }> && std::is_assignable_v<T&, const T&>, const bool> is_assignable_from(T& out_val, I${ cotype }* in_val, bool is_optional);
                 template<typename T>
-                extern std::enable_if_t<std::is_same_v<T, ${ coclass.fqn }> && std::is_assignable_v<T&, T>, const HRESULT> autoit_to(I${ cotype }* in_val, T& out_val);
+                extern std::enable_if_t<std::is_same_v<T, ${ coclass.fqn }> && std::is_assignable_v<T&, const T&>, HRESULT> autoit_to(I${ cotype }* in_val, T& out_val);
 
                 template<typename T>
-                extern std::enable_if_t<std::is_same_v<T, ${ coclass.fqn }> && std::is_assignable_v<T&, T>, const bool> is_assignable_from(T& out_val, ${ iface }* in_val, bool is_optional);
+                extern std::enable_if_t<std::is_same_v<T, ${ coclass.fqn }> && std::is_assignable_v<T&, const T&>, const bool> is_assignable_from(T& out_val, ${ iface }* in_val, bool is_optional);
                 template<typename T>
-                extern std::enable_if_t<std::is_same_v<T, ${ coclass.fqn }> && std::is_assignable_v<T&, T>, const HRESULT> autoit_to(${ iface }* in_val, T& out_val);
+                extern std::enable_if_t<std::is_same_v<T, ${ coclass.fqn }> && std::is_assignable_v<T&, const T&>, HRESULT> autoit_to(${ iface }* in_val, T& out_val);
 
                 template<typename T>
-                extern std::enable_if_t<std::is_same_v<T, ${ coclass.fqn }> && std::is_copy_constructible_v<T>, const HRESULT> autoit_from(T const& in_val, I${ cotype }**& out_val);
+                extern std::enable_if_t<std::is_same_v<T, ${ coclass.fqn }> && std::is_copy_constructible_v<T>, HRESULT> autoit_from(T const& in_val, I${ cotype }**& out_val);
                 template<typename T>
-                extern std::enable_if_t<std::is_same_v<T, ${ coclass.fqn }> && std::is_copy_constructible_v<T>, const HRESULT> autoit_from(T const& in_val, ${ iface }**& out_val);
+                extern std::enable_if_t<std::is_same_v<T, ${ coclass.fqn }> && std::is_copy_constructible_v<T>, HRESULT> autoit_from(T const& in_val, ${ iface }**& out_val);
             `.replace(/^ {16}/mg, "").trim());
             impls.push(`
                 // ================================================================
@@ -491,39 +470,30 @@ Object.assign(exports, {
                 // ================================================================
 
                 template<typename T>
-                std::enable_if_t<std::is_same_v<T, ${ coclass.fqn }> && !std::is_assignable_v<T&, T>, const bool> is_assignable_from(T& out_val, I${ cotype }* in_val, bool is_optional);
+                std::enable_if_t<std::is_same_v<T, ${ coclass.fqn }> && !std::is_assignable_v<T&, const T&>, const bool> is_assignable_from(T& out_val, I${ cotype }* in_val, bool is_optional);
                 template<>
                 const bool is_assignable_from<${ coclass.fqn }>(${ coclass.fqn }& out_val, I${ cotype }* in_val, bool is_optional) {
-                    return std::is_assignable_v<${ coclass.fqn }&, ${ coclass.fqn }>;
+                    return std::is_assignable_v<${ coclass.fqn }&, const ${ coclass.fqn }&>;
                 }
                 // force template definition in this file
                 // since template declaration is in a header
                 template const bool is_assignable_from<${ coclass.fqn }>(${ coclass.fqn }& out_val, I${ cotype }* in_val, bool is_optional);
 
                 template<typename T>
-                std::enable_if_t<std::is_same_v<T, ${ coclass.fqn }> && !std::is_assignable_v<T&, T>, const HRESULT> autoit_to(I${ cotype }* in_val, T& out_val);
+                std::enable_if_t<std::is_same_v<T, ${ coclass.fqn }> && !std::is_assignable_v<T&, const T&>, HRESULT> autoit_to(I${ cotype }* in_val, T& out_val);
                 template<>
-                const HRESULT autoit_to<${ coclass.fqn }>(I${ cotype }* in_val, ${ coclass.fqn }& out_val) {
-                    if constexpr (!std::is_assignable_v<${ coclass.fqn }&, ${ coclass.fqn }>) {
-                        return E_INVALIDARG;
-                    } else {
-                        auto obj = dynamic_cast<C${ cotype }*>(in_val);
-                        if (!obj) {
-                            return E_INVALIDARG;
-                        }
-                        out_val = *obj->__self->get();
-                        return S_OK;
-                    }
+                HRESULT autoit_to<${ coclass.fqn }>(I${ cotype }* in_val, ${ coclass.fqn }& out_val) {
+                    return ::autoit::_default_cotype_autoit_to<${ coclass.fqn }, I${ cotype }, C${ cotype }>(in_val, out_val);
                 }
                 // force template definition in this file
                 // since template declaration is in a header
-                template const HRESULT autoit_to<${ coclass.fqn }>(I${ cotype }* in_val, ${ coclass.fqn }& out_val);
+                template HRESULT autoit_to<${ coclass.fqn }>(I${ cotype }* in_val, ${ coclass.fqn }& out_val);
 
                 template<typename T>
-                std::enable_if_t<std::is_same_v<T, ${ coclass.fqn }> && !std::is_assignable_v<T&, T>, const bool> is_assignable_from(T& out_val, ${ iface }* in_val, bool is_optional);
+                std::enable_if_t<std::is_same_v<T, ${ coclass.fqn }> && !std::is_assignable_v<T&, const T&>, const bool> is_assignable_from(T& out_val, ${ iface }* in_val, bool is_optional);
                 template<>
                 const bool is_assignable_from<${ coclass.fqn }>(${ coclass.fqn }& out_val, ${ iface }* in_val, bool is_optional) {
-                    if constexpr (!std::is_assignable_v<${ coclass.fqn }&, ${ coclass.fqn }>) {
+                    if constexpr (!std::is_assignable_v<${ coclass.fqn }&, const ${ coclass.fqn }&>) {
                         return false;
                     } else {
                         const auto &idispatch = ${ iface === "IDispatch" ? "in_val" : "dynamic_cast<IDispatch const*>(in_val)" };
@@ -540,33 +510,14 @@ Object.assign(exports, {
                 template const bool is_assignable_from<${ coclass.fqn }>(${ coclass.fqn }& out_val, ${ iface }* in_val, bool is_optional);
 
                 template<typename T>
-                std::enable_if_t<std::is_same_v<T, ${ coclass.fqn }> && !std::is_assignable_v<T&, T>, const HRESULT> autoit_to(${ iface }* in_val, T& out_val);
+                std::enable_if_t<std::is_same_v<T, ${ coclass.fqn }> && !std::is_assignable_v<T&, const T&>, HRESULT> autoit_to(${ iface }* in_val, T& out_val);
                 template<>
-                const HRESULT autoit_to<${ coclass.fqn }>(${ iface }* in_val, ${ coclass.fqn }& out_val) {
-                    if constexpr (!std::is_assignable_v<${ coclass.fqn }&, ${ coclass.fqn }>) {
-                        return E_INVALIDARG;
-                    } else {
-                        const auto &idispatch = ${ iface === "IDispatch" ? "in_val" : "dynamic_cast<IDispatch*>(in_val)" };
-                        if (${ iface === "IDispatch" } || idispatch) {
-                            const auto& obj = ::autoit::cast<${ coclass.fqn }>(idispatch);
-                            if (!obj) {
-                                return E_INVALIDARG;
-                            }
-                            out_val = *obj;
-                            return S_OK;
-                        }
-
-                        auto obj = dynamic_cast<C${ cotype }*>(in_val);
-                        if (!obj) {
-                            return E_INVALIDARG;
-                        }
-                        out_val = *obj->__self->get();
-                        return S_OK;
-                    }
+                HRESULT autoit_to<${ coclass.fqn }>(${ iface }* in_val, ${ coclass.fqn }& out_val) {
+                    return ::autoit::_default_iface_autoit_to<${ coclass.fqn }, ${ iface }, C${ cotype }>(in_val, out_val);
                 }
                 // force template definition in this file
                 // since template declaration is in a header
-                template const HRESULT autoit_to<${ coclass.fqn }>(${ iface }* in_val, ${ coclass.fqn }& out_val);
+                template HRESULT autoit_to<${ coclass.fqn }>(${ iface }* in_val, ${ coclass.fqn }& out_val);
 
                 // ================================================================
 
@@ -576,9 +527,9 @@ Object.assign(exports, {
                 // ================================================================
 
                 template<typename T>
-                std::enable_if_t<std::is_same_v<T, ${ coclass.fqn }> && !std::is_copy_constructible_v<T>, const HRESULT> autoit_from(T const& in_val, I${ cotype }**& out_val);
+                std::enable_if_t<std::is_same_v<T, ${ coclass.fqn }> && !std::is_copy_constructible_v<T>, HRESULT> autoit_from(T const& in_val, I${ cotype }**& out_val);
                 template<>
-                const HRESULT autoit_from<${ coclass.fqn }>(${ coclass.fqn } const& in_val, I${ cotype }**& out_val) {
+                HRESULT autoit_from<${ coclass.fqn }>(${ coclass.fqn } const& in_val, I${ cotype }**& out_val) {
                     if constexpr (!std::is_copy_constructible_v<${ coclass.fqn }>) {
                         return E_INVALIDARG;
                     } else {
@@ -592,17 +543,17 @@ Object.assign(exports, {
                 }
                 // force template definition in this file
                 // since template declaration is in a header
-                template const HRESULT autoit_from<${ coclass.fqn }>(${ coclass.fqn } const& in_val, I${ cotype }**& out_val);
+                template HRESULT autoit_from<${ coclass.fqn }>(${ coclass.fqn } const& in_val, I${ cotype }**& out_val);
 
                 template<typename T>
-                std::enable_if_t<std::is_same_v<T, ${ coclass.fqn }> && !std::is_copy_constructible_v<T>, const HRESULT> autoit_from(T const& in_val, ${ iface }**& out_val);
+                std::enable_if_t<std::is_same_v<T, ${ coclass.fqn }> && !std::is_copy_constructible_v<T>, HRESULT> autoit_from(T const& in_val, ${ iface }**& out_val);
                 template<>
-                const HRESULT autoit_from<${ coclass.fqn }>(${ coclass.fqn } const& in_val, ${ iface }**& out_val) {
+                HRESULT autoit_from<${ coclass.fqn }>(${ coclass.fqn } const& in_val, ${ iface }**& out_val) {
                     return autoit_from(in_val, reinterpret_cast<I${ cotype }**&>(out_val));
                 }
                 // force template definition in this file
                 // since template declaration is in a header
-                template const HRESULT autoit_from<${ coclass.fqn }>(${ coclass.fqn } const& in_val, ${ iface }**& out_val);
+                template HRESULT autoit_from<${ coclass.fqn }>(${ coclass.fqn } const& in_val, ${ iface }**& out_val);
 
                 // ================================================================
                 `.replace(/^ {16}/mg, "")
@@ -610,10 +561,10 @@ Object.assign(exports, {
 
             if (!coclass.is_vector) {
                 header.push(`
-                    extern const HRESULT autoit_from(${ coclass.fqn } const& in_val, VARIANT*& out_val);
+                    extern HRESULT autoit_from(${ coclass.fqn } const& in_val, VARIANT*& out_val);
                 `.replace(/^ {20}/mg, ""));
                 impls.push(`
-                    const HRESULT autoit_from(${ coclass.fqn } const& in_val, VARIANT*& out_val) {
+                    HRESULT autoit_from(${ coclass.fqn } const& in_val, VARIANT*& out_val) {
                         I${ cotype }* pdispVal = V_VT(out_val) != VT_${ wtype } ? nullptr : dynamic_cast<I${ cotype }*>(V_${ wtype }(out_val));
                         I${ cotype }** ppdispVal = &pdispVal;
 
@@ -653,7 +604,7 @@ Object.assign(exports, {
     enum: (type, header, impl) => {
         header.push(`
             extern const bool is_assignable_from(${ type }& out_val, LONG const& in_val, bool is_optional);
-            extern const HRESULT autoit_to(LONG const& in_val, ${ type }& out_val);
+            extern HRESULT autoit_to(LONG const& in_val, ${ type }& out_val);
         `.replace(/^ {12}/mg, "").trim());
 
         impl.push(`
@@ -661,7 +612,7 @@ Object.assign(exports, {
                 return true;
             }
 
-            const HRESULT autoit_to(LONG const& in_val, ${ type }& out_val) {
+            HRESULT autoit_to(LONG const& in_val, ${ type }& out_val) {
                 out_val = static_cast<${ type }>(in_val);
                 return S_OK;
             }

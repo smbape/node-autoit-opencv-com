@@ -14,7 +14,7 @@
 ;~ Sources:
 ;~     https://pyimagesearch.com/2021/04/12/opencv-haar-cascades/
 
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world4140*"), _OpenCV_FindDLL("autoit_opencv_com4140*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world500*"), _OpenCV_FindDLL("autoit_opencv_com500*"))
 _GDIPlus_Startup()
 Global $hUser32DLL = DllOpen("user32.dll")
 OnAutoItExitRegister("_OnAutoItExit")
@@ -37,6 +37,7 @@ For $sKey In $detectors.Keys()
 	$detectors($sKey) = $cv.CascadeClassifier($CASCADES_PATH & "\" & $detectors($sKey))
 Next
 
+Global Const $CV_CASCADE_SCALE_IMAGE = 2
 Global $tPtr = DllStructCreate("ptr value")
 Global $sCameraList = ""
 Global $cap = Null

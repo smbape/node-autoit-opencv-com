@@ -67,7 +67,6 @@ exports.IDL_TYPES = new Map([
 
     ["GMetaArg", "VARIANT"],
     ["cv::GMetaArg", "VARIANT"],
-    ["MatShape", "VARIANT"],
     ["cv::flann::IndexParams", "IDispatch*"],
     ["cv::flann::SearchParams", "IDispatch*"],
 
@@ -136,7 +135,6 @@ exports.ALIASES = new Map([
     ["GMetaArgs", "std::vector<GMetaArg>"],
     ["GMat2", "std::tuple<GMat_and_GMat>"],
     ["GRunArgs", "std::vector<GRunArg>"],
-    ["MatShape", "std::vector<int>"],
     ["Prims", "std::vector<Prim>"],
     ["Pose3DPtr", "cv::Ptr<Pose3D>"],
     ["PoseCluster3DPtr", "cv::Ptr<PoseCluster3D>"],
@@ -169,12 +167,7 @@ exports.BROKEN_MAKE_SHARED = new Set([
     "cv::GComputation",
 ]);
 
-exports.CUSTOM_CLASSES = [
-    ["cv.GProtoInputArgs", ["/Simple"]], // TODO : implement
-    ["cv.GProtoOutputArgs", ["/Simple"]], // TODO : implement
-    ["cv.detail.ExtractArgsCallback", ["/Simple"]], // TODO : implement
-    ["cv.detail.ExtractMetaCallback", ["/Simple"]], // TODO : implement
-];
+exports.CUSTOM_CLASSES = [];
 
 exports.TEMPLATED_TYPES = new Set([
     "cv::GArray",

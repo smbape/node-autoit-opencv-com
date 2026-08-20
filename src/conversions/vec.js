@@ -47,7 +47,7 @@ module.exports = (header = [], impl = [], options = {}) => {
         }
 
         template<typename _Tp, int cn>
-        const HRESULT autoit_to(VARIANT const* in_val, cv::Vec<_Tp, cn>& out_val) {
+        HRESULT autoit_to(VARIANT const* in_val, cv::Vec<_Tp, cn>& out_val) {
             ${ optional.assign.join(`\n${ " ".repeat(12) }`) }
 
             if ((V_VT(in_val) & VT_ARRAY) != VT_ARRAY || (V_VT(in_val) ^ VT_ARRAY) != VT_VARIANT) {
@@ -84,13 +84,13 @@ module.exports = (header = [], impl = [], options = {}) => {
         }
 
         template<typename _Tp, int cn>
-        inline const HRESULT autoit_to(VARIANT const* in_val, AUTOIT_PTR<cv::Vec<_Tp, cn>>& out_val) {
+        inline HRESULT autoit_to(VARIANT const* in_val, AUTOIT_PTR<cv::Vec<_Tp, cn>>& out_val) {
             out_val = ${ options.make_shared }<cv::Vec<_Tp, cn>>();
             return autoit_to(in_val, *out_val.get());
         }
 
         template<typename _Tp, int cn>
-        const HRESULT autoit_from(cv::Vec<_Tp, cn> const& in_val, VARIANT*& out_val) {
+        HRESULT autoit_from(cv::Vec<_Tp, cn> const& in_val, VARIANT*& out_val) {
             if (${ optional.condition("out_val") }) {
                 V_VT(out_val) = VT_ARRAY | VT_VARIANT;
                 typename ATL::template CComSafeArray<VARIANT> vArray((ULONG) cn);

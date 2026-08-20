@@ -26,8 +26,8 @@ Global Const $CV_HAL_ERROR_UNKNOWN = -1
 ; - int64  - signed 8 byte integer
 ; - uint64 - unsigned 8 byte integer
 ; @{
-Global Const $CV_CN_MAX = 512
-Global Const $CV_CN_SHIFT = 3
+Global Const $CV_CN_MAX = 128
+Global Const $CV_CN_SHIFT = 5
 Global Const $CV_DEPTH_MAX = BitShift(1, -$CV_CN_SHIFT)
 
 Global Const $CV_8U = 0
@@ -38,12 +38,26 @@ Global Const $CV_32S = 4
 Global Const $CV_32F = 5
 Global Const $CV_64F = 6
 Global Const $CV_16F = 7
+Global Const $CV_16BF = 8
+Global Const $CV_Bool = 9
+Global Const $CV_64U = 10
+Global Const $CV_64S = 11
+Global Const $CV_32U = 12
+Global Const $CV_DEPTH_CURR_MAX = 13
 
 Global Const $CV_MAT_DEPTH_MASK = $CV_DEPTH_MAX - 1
 
 Func CV_MAT_DEPTH($flags)
 	Return BitAND($flags, $CV_MAT_DEPTH_MASK)
 EndFunc   ;==>CV_MAT_DEPTH
+
+Func CV_IS_INT_TYPE($flags)
+	Return BitAND(BitShift(1, -CV_MAT_DEPTH($flags)), 0x1e1f) <> 0
+EndFunc   ;==>CV_IS_INT_TYPE
+
+Func CV_IS_FLOAT_TYPE($flags)
+	Return BitAND(BitShift(1, -CV_MAT_DEPTH($flags)), 0x1e0) <> 0
+EndFunc   ;==>CV_IS_FLOAT_TYPE
 
 Func CV_MAKETYPE($depth, $cn)
 	Return CV_MAT_DEPTH($depth) + BitShift($cn - 1, -$CV_CN_SHIFT)
@@ -120,6 +134,51 @@ Global Const $CV_16FC4 = CV_MAKETYPE($CV_16F, 4)
 Func CV_16FC($n)
 	Return CV_MAKETYPE($CV_16F, $n)
 EndFunc   ;==>CV_16FC
+
+Global Const $CV_64SC1 = CV_MAKETYPE($CV_64S, 1)
+Global Const $CV_64SC2 = CV_MAKETYPE($CV_64S, 2)
+Global Const $CV_64SC3 = CV_MAKETYPE($CV_64S, 3)
+Global Const $CV_64SC4 = CV_MAKETYPE($CV_64S, 4)
+
+Func CV_64SC($n)
+	Return CV_MAKETYPE($CV_64S, $n)
+EndFunc   ;==>CV_64SC
+
+Global Const $CV_64UC1 = CV_MAKETYPE($CV_64U, 1)
+Global Const $CV_64UC2 = CV_MAKETYPE($CV_64U, 2)
+Global Const $CV_64UC3 = CV_MAKETYPE($CV_64U, 3)
+Global Const $CV_64UC4 = CV_MAKETYPE($CV_64U, 4)
+
+Func CV_64UC($n)
+	Return CV_MAKETYPE($CV_64U, $n)
+EndFunc   ;==>CV_64UC
+
+Global Const $CV_BoolC1 = CV_MAKETYPE($CV_Bool, 1)
+Global Const $CV_BoolC2 = CV_MAKETYPE($CV_Bool, 2)
+Global Const $CV_BoolC3 = CV_MAKETYPE($CV_Bool, 3)
+Global Const $CV_BoolC4 = CV_MAKETYPE($CV_Bool, 4)
+
+Func CV_BoolC($n)
+	Return CV_MAKETYPE($CV_Bool, $n)
+EndFunc   ;==>CV_BoolC
+
+Global Const $CV_32UC1 = CV_MAKETYPE($CV_32U, 1)
+Global Const $CV_32UC2 = CV_MAKETYPE($CV_32U, 2)
+Global Const $CV_32UC3 = CV_MAKETYPE($CV_32U, 3)
+Global Const $CV_32UC4 = CV_MAKETYPE($CV_32U, 4)
+
+Func CV_32UC($n)
+	Return CV_MAKETYPE($CV_32U, $n)
+EndFunc   ;==>CV_32UC
+
+Global Const $CV_16BFC1 = CV_MAKETYPE($CV_16BF, 1)
+Global Const $CV_16BFC2 = CV_MAKETYPE($CV_16BF, 2)
+Global Const $CV_16BFC3 = CV_MAKETYPE($CV_16BF, 3)
+Global Const $CV_16BFC4 = CV_MAKETYPE($CV_16BF, 4)
+
+Func CV_16BFC($n)
+	Return CV_MAKETYPE($CV_16BF, $n)
+EndFunc   ;==>CV_16BFC
 ; @}
 
 ; @name Comparison operation

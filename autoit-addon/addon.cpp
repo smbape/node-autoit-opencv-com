@@ -81,21 +81,22 @@ void AKAZE_homograpy_check(
 	}
 }
 
+#define STR_EQUAL(a, b) (strncmp(a, b, sizeof(b) - 1) == 0)
 #define UNSUPPORTED_YOLO_VERSION "Unsupported yolo version. Supported versions are v3, v4, v5, v6, v7, v8."
 
 void yolo_postprocess(
 	const int spatial_width,
 	const int spatial_height,
-	const size_t num_classes,
+	const size_t num_labels,
 	const int img_width,
 	const int img_height,
 	const float scale,
 	const std::vector<cv::Mat>& outs,
-	const float confidence_threshold,
+	const float confThreshold,
 	const float score_threshold,
-	std::vector<int>& class_ids,
+	std::vector<int>& classIds,
 	std::vector<float>& scores,
-	std::vector<cv::Rect2d>& bboxes
+	std::vector<cv::Rect2d>& boxes
 ) {
 	Mat classes_scores(1, 0, CV_32FC1);
 	Point maxClassLoc;
@@ -111,7 +112,7 @@ void yolo_postprocess(
 		}
 
 		if (out.dims == 2) {
-			if (out.cols == num_classes + 5) {
+			if (out.cols == num_labels + 5) {
 				// yolo v3
 				offset = 5;
 			}
@@ -134,12 +135,12 @@ void yolo_postprocess(
 
 			// yolov5 has an output of shape (batchSize, 25200, 85) (Num classes + box[x,y,w,h] + confidence[c])
 			// yolov8 has an output of shape (batchSize, 84,  8400) (Num classes + box[x,y,w,h])
-			if (out.rows == num_classes + 4) {
+			if (out.rows == num_labels + 4) {
 				// yolo v8
 				offset = 4;
 				cv::transpose(out, out);
 			}
-			else if (out.cols == num_classes + 5) {
+			else if (out.cols == num_labels + 5) {
 				// yolo v5
 				offset = 5;
 			}
@@ -154,63 +155,62 @@ void yolo_postprocess(
 		// ones with high confidence scores. Assign the box's class label as the class
 		// with the highest score for the box.
 
-		float* data = (float*)out.data;
+		float* detection = (float*)out.data;
 
-		for (int i = 0; i < out.rows; ++i, data += out.cols)
+		for (int i = 0; i < out.rows; ++i, detection += out.cols)
 		{
-			if (offset == 5 && data[4] < confidence_threshold) {
+			if (offset == 5 && detection[4] < confThreshold) {
 				continue;
 			}
 
-			classes_scores.data = reinterpret_cast<uchar*>(data + offset);
+			classes_scores.data = reinterpret_cast<uchar*>(detection + offset);
 
 			// Get the value and location of the maximum score
 			minMaxLoc(classes_scores, 0, &maxScore, 0, &maxClassLoc);
 
 			if (maxScore >= score_threshold)
 			{
-				double centerX = (double)data[0] * box_scale_w;
-				double centerY = (double)data[1] * box_scale_h;
-				double width = (double)data[2] * box_scale_w;
-				double height = (double)data[3] * box_scale_h;
+				double centerX = (double)detection[0] * box_scale_w;
+				double centerY = (double)detection[1] * box_scale_h;
+				double width = (double)detection[2] * box_scale_w;
+				double height = (double)detection[3] * box_scale_h;
 				double left = centerX - width / 2;
 				double top = centerY - height / 2;
 
-				bboxes.push_back(Rect2d(left, top, width, height));
+				boxes.push_back(Rect2d(left, top, width, height));
 				scores.push_back((float)maxScore);
-				class_ids.push_back(maxClassLoc.x);
+				classIds.push_back(maxClassLoc.x);
 			}
 		}
 	}
 }
 
 namespace {
-	void yolo_object_detection_postprocess(
+	void object_detection_postprocess_yolo(
 		const float box_scale_w,
 		const float box_scale_h,
-		const float confidence_threshold,
+		const float confThreshold,
 		const cv::Mat& out,
 		cv::Mat& classes_scores,
-		std::vector<int>& class_ids,
+		std::vector<int>& classIds,
 		std::vector<float>& confidences,
-		std::vector<cv::Rect2d>& bboxes,
-		const int offset,
-		const int background_label_id
+		std::vector<cv::Rect2d>& boxes,
+		const int background_label_id,
+		const char* postprocessing
 	)
 	{
+		int offset = STR_EQUAL(postprocessing, "yolov8") ? 4 : 5;
 		classes_scores.cols = out.cols - offset;
 
 		// Scan through all the bounding boxes output from the network and keep only the
 		// ones with high confidence scores. Assign the box's class label as the class
 		// with the highest score for the box.
 
-		float* detection = (float*) out.data;
+		float* detection = (float*)out.data;
 
 		for (int i = 0; i < out.rows; ++i, detection += out.cols)
 		{
-			if (background_label_id < 0 && offset == 5 && detection[4] < confidence_threshold) {
-				continue;
-			}
+			float obj_conf = STR_EQUAL(postprocessing, "yolov8") ? 1 : detection[4];
 
 			classes_scores.data = reinterpret_cast<uchar*>(detection + offset);
 
@@ -218,7 +218,7 @@ namespace {
 			double confidence;
 			Point maxClassLoc;
 			minMaxLoc(classes_scores, 0, &confidence, 0, &maxClassLoc);
-			if (confidence <= confidence_threshold) {
+			if (confidence * obj_conf <= confThreshold) {
 				continue;
 			}
 
@@ -229,9 +229,9 @@ namespace {
 			double left = centerX - width / 2;
 			double top = centerY - height / 2;
 
-			class_ids.push_back(maxClassLoc.x);
-			confidences.push_back((float)confidence);
-			bboxes.push_back(Rect2d(left, top, width, height));
+			classIds.push_back(maxClassLoc.x);
+			confidences.push_back((float)confidence * obj_conf);
+			boxes.push_back(Rect2d(left, top, width, height));
 		}
 	}
 }
@@ -241,24 +241,21 @@ void object_detection_postprocess(
 	const int inpWidth,
 	const int inpHeight,
 	const float imgScale,
-	const size_t num_classes,
+	const size_t num_labels,
 	const int background_label_id,
-	const float confidence_threshold,
+	const float confThreshold,
 	const std::vector<cv::Mat>& outs,
-	std::vector<int>& class_ids,
+	const std::vector<std::string>& outBlobNames,
+	std::vector<int>& classIds,
 	std::vector<float>& confidences,
-	std::vector<cv::Rect2d>& bboxes
+	std::vector<cv::Rect2d>& boxes,
+	const char* postprocessing
 )
 {
-	auto layerNames = net.getLayerNames();
-	auto lastLayerId = net.getLayerId(layerNames.back());
-	auto lastLayer = net.getLayer(lastLayerId);
-	auto outLayerType = lastLayer->type;
-
 	Mat classes_scores(1, 0, CV_32FC1);
 	float box_scale_w, box_scale_h;
 
-	if (outLayerType == "DetectionOutput")
+	if (STR_EQUAL(postprocessing, "ssd"))
 	{
 		// Network produces output blob with a shape 1x1xNx7 where N is a number of
 		// detections and an every detection is a vector of values
@@ -273,7 +270,7 @@ void object_detection_postprocess(
 			for (size_t i = 0; i < total; i += cols)
 			{
 				float confidence = data[i + 2];
-				if (confidence <= confidence_threshold)
+				if (confidence <= confThreshold)
 				{
 					continue;
 				}
@@ -296,46 +293,92 @@ void object_detection_postprocess(
 
 				int class_id = (int)(data[i + 1]);
 				if (background_label_id >= 0 && background_label_id <= class_id) {
-					class_id--; // Skip the background class id.
+					class_id--; // Skip background label
 				}
-				class_ids.push_back(class_id);
+				classIds.push_back(class_id);
 				confidences.push_back(confidence);
-				bboxes.push_back(Rect2d(left, top, width, height));
+				boxes.push_back(Rect2d(left, top, width, height));
 			}
 		}
 	}
-	else if (outLayerType == "Region")
+	else if (STR_EQUAL(postprocessing, "yolov4") || STR_EQUAL(postprocessing, "yolov3"))
 	{
-		// yolo v3, v4
-
 		// relative coordinates
 		box_scale_w = inpWidth * imgScale;
 		box_scale_h = inpHeight * imgScale;
-		int offset = 5;
 
-		// Network produces output blob with a shape NxC where N is a number of
-		// detected objects and C is a number of classes + 4 where the first 4
-		// numbers are [center_x, center_y, width, height]
-		for (auto out : outs)
+		// boxes[b,N,1,4]+confs[b,N,classes] (normalized) or boxes[b,N,4]+scores[b,N]+classIdx[b,N] (model-px)
+		bool isBoxConfsFormat = (outs.size() == 2 && outs[0].dims == 4 && outs[0].size[outs[0].dims - 1] == 4);
+		bool isBoxScoresIdxFormat = (outs.size() == 3 && outs[0].dims == 3 && outs[0].size[2] == 4);
+		if (isBoxScoresIdxFormat)
 		{
-			yolo_object_detection_postprocess(
-				box_scale_w,
-				box_scale_h,
-				confidence_threshold,
-				out,
-				classes_scores,
-				class_ids,
-				confidences,
-				bboxes,
-				offset,
-				background_label_id
-			);
+			size_t boxesIndex = 0;
+			size_t scoresIndex = 1;
+			size_t classIdxIndex = 2;
+			for (size_t i = 0; i < outBlobNames.size(); i++) {
+				const auto name = outBlobNames[i];
+				if (name == "boxes") {
+					boxesIndex = i;
+				}
+				else if (name == "scores") {
+					scoresIndex = i;
+				}
+				else if (name == "class_idx") {
+					classIdxIndex = i;
+				}
+				else {
+					CV_Error(Error::StsNotImplemented, "Unsupported outLayerName: " + name);
+				}
+			}
+			int N = outs[0].size[1];
+			const float* boxesPtr = outs[boxesIndex].ptr<float>(0);
+			const float* scoresPtr = outs[scoresIndex].ptr<float>(0);
+			const float* classIdxPtr = outs[classIdxIndex].ptr<float>(0);
+			for (int j = 0; j < N; ++j)
+			{
+				float score = scoresPtr[j];
+				if (score > confThreshold)
+				{
+					float x1 = boxesPtr[j * 4 + 0] * imgScale;
+					float y1 = boxesPtr[j * 4 + 1] * imgScale;
+					float x2 = boxesPtr[j * 4 + 2] * imgScale;
+					float y2 = boxesPtr[j * 4 + 3] * imgScale;
+					boxes.push_back(Rect2d(x1, y1, (x2 - x1), (y2 - y1)));
+					confidences.push_back(score);
+					classIds.push_back((int)classIdxPtr[j]);
+				}
+			}
+		}
+		else if (isBoxConfsFormat)
+		{
+			Mat boxesMat = outs[0];
+			Mat confsMat = outs[1];
+			int numBoxes = (int)(boxesMat.total() / 4);
+			boxesMat = boxesMat.reshape(1, numBoxes);
+			confsMat = confsMat.reshape(1, numBoxes);
+			for (int j = 0; j < numBoxes; ++j)
+			{
+				Point maxLoc;
+				double confidence;
+				minMaxLoc(confsMat.row(j), 0, &confidence, 0, &maxLoc);
+				if (confidence > confThreshold)
+				{
+					const float* box = boxesMat.ptr<float>(j);
+					boxes.push_back(Rect2d(box[0] * box_scale_w, box[1] * box_scale_h,
+						(box[2] - box[0]) * box_scale_w, (box[3] - box[1]) * box_scale_h));
+					confidences.push_back((float)confidence);
+					classIds.push_back(maxLoc.x);
+				}
+			}
+		}
+		else
+		{
+			CV_Error(Error::StsNotImplemented, "Unsupported YOLO ONNX output format");
 		}
 	}
-	else if (outLayerType == "Identity") {
+	else if (STR_EQUAL(postprocessing, "yolov8") || STR_EQUAL(postprocessing, "yolov7") || STR_EQUAL(postprocessing, "yolov6") || STR_EQUAL(postprocessing, "yolov5")) {
 		for (auto out : outs)
 		{
-			int offset;
 			float box_scale_w, box_scale_h;
 
 			if (out.dims == 3) {
@@ -349,38 +392,37 @@ void object_detection_postprocess(
 				box_scale_w = imgScale;
 				box_scale_h = imgScale;
 
-				if (out.cols == num_classes + 5) {
+				if (out.cols == num_labels + 5) {
 					// yolo v5, v6, v7 has an output of shape (batchSize, 25200, 85) (Num classes + box[x,y,w,h] + confidence[c])
-					offset = 5;
 				}
-				else if (out.rows == num_classes + 4) {
+				else if (out.rows == num_labels + 4) {
 					// yolo v8 has an output of shape (batchSize, 84,  8400) (Num classes + box[x,y,w,h])
-					offset = 4;
 					cv::transpose(out, out);
 				}
 				else {
-					CV_Error(cv::Error::StsAssert, UNSUPPORTED_YOLO_VERSION " out.rows != num_classes + 4 && out.cols != num_classes + 5");
+					CV_Error(cv::Error::StsAssert, UNSUPPORTED_YOLO_VERSION " out.rows != num_labels + 4 && out.cols != num_labels + 5");
 				}
-			} else {
+			}
+			else {
 				CV_Error(cv::Error::StsAssert, UNSUPPORTED_YOLO_VERSION " out.dims != 3");
 			}
 
-			yolo_object_detection_postprocess(
+			object_detection_postprocess_yolo(
 				box_scale_w,
 				box_scale_h,
-				confidence_threshold,
+				confThreshold,
 				out,
 				classes_scores,
-				class_ids,
+				classIds,
 				confidences,
-				bboxes,
-				offset,
-				background_label_id
+				boxes,
+				background_label_id,
+				postprocessing
 			);
 		}
 	}
 	else {
-		CV_Error(Error::StsNotImplemented, "Unknown output layer type: " + outLayerType);
+		CV_Error(Error::StsNotImplemented, "postprocessing method: " + std::string(postprocessing));
 	}
 }
 

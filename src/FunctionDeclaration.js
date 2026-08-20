@@ -185,6 +185,8 @@ Object.assign(exports, {
                     is_array = true;
                     arrtype = "OutputArray";
                     argtype = "std::vector<Mat>";
+                } else if (argtype === "std::string_view") {
+                    argtype = "std::string";
                 }
 
                 if (is_array) {

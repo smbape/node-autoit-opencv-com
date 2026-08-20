@@ -258,38 +258,44 @@ extern IDispatch* getRealIDispatch(VARIANT const* in_val);
 extern const variant_t get_variant_in(VARIANT const* in_val);
 
 extern const bool is_assignable_from(bool& out_val, VARIANT const* in_val, bool is_optional);
-extern const HRESULT autoit_to(VARIANT const* in_val, bool& out_val);
-extern const HRESULT autoit_to(VARIANT_BOOL const& in_val, bool& out_val);
-extern const HRESULT autoit_from(bool const& in_val, VARIANT_BOOL*& out_val);
-extern const HRESULT autoit_from(bool const& in_val, VARIANT*& out_val);
+extern HRESULT autoit_to(VARIANT const* in_val, bool& out_val);
+extern HRESULT autoit_to(VARIANT_BOOL const& in_val, bool& out_val);
+extern HRESULT autoit_from(bool const& in_val, VARIANT_BOOL*& out_val);
+extern HRESULT autoit_from(bool const& in_val, VARIANT*& out_val);
 
 extern const bool is_assignable_from(std::string& out_val, BSTR const& in_val, bool is_optional);
 extern const bool is_assignable_from(std::string& out_val, VARIANT const* in_val, bool is_optional);
-extern const HRESULT autoit_to(BSTR const& in_val, std::string& out_val);
-extern const HRESULT autoit_to(VARIANT const* in_val, std::string& out_val);
-extern const HRESULT autoit_from(std::string const& in_val, BSTR& out_val);
-extern const HRESULT autoit_from(std::string const& in_val, BSTR*& out_val);
-extern const HRESULT autoit_from(std::string const& in_val, VARIANT*& out_val);
-extern const HRESULT autoit_from(BSTR const& in_val, VARIANT*& out_val);
+extern HRESULT autoit_to(BSTR const& in_val, std::string& out_val);
+extern HRESULT autoit_to(VARIANT const* in_val, std::string& out_val);
+extern HRESULT autoit_from(char const* in_val, BSTR& out_val);
+extern HRESULT autoit_from(char const* in_val, BSTR*& out_val);
+extern HRESULT autoit_from(char const* in_val, VARIANT*& out_val);
+extern HRESULT autoit_from(std::string const& in_val, BSTR& out_val);
+extern HRESULT autoit_from(std::string const& in_val, BSTR*& out_val);
+extern HRESULT autoit_from(std::string const& in_val, VARIANT*& out_val);
+extern HRESULT autoit_from(std::string_view in_val, BSTR& out_val);
+extern HRESULT autoit_from(std::string_view in_val, BSTR*& out_val);
+extern HRESULT autoit_from(std::string_view in_val, VARIANT*& out_val);
+extern HRESULT autoit_from(BSTR const& in_val, VARIANT*& out_val);
 
 extern const bool is_assignable_from(char*& out_val, VARIANT const* in_val, bool is_optional);
-extern const HRESULT autoit_to(VARIANT const* in_val, char*& out_val);
+extern HRESULT autoit_to(VARIANT const* in_val, char*& out_val);
 
 #define PTR_BRIDGE_DECL(_Tp) \
 extern const bool is_assignable_from(_Tp& out_val, VARIANT const* in_val, bool is_optional); \
-extern const HRESULT autoit_to(VARIANT const* in_val, _Tp& out_val); \
-extern const HRESULT autoit_from(_Tp const& in_val, VARIANT*& out_val);
+extern HRESULT autoit_to(VARIANT const* in_val, _Tp& out_val); \
+extern HRESULT autoit_from(_Tp const& in_val, VARIANT*& out_val);
 
 PTR_BRIDGE_DECL(void*)
 PTR_BRIDGE_DECL(unsigned char*)
 PTR_BRIDGE_DECL(HWND)
 
-extern const HRESULT autoit_from(VARIANT const& in_val, VARIANT*& out_val);
+extern HRESULT autoit_from(VARIANT const& in_val, VARIANT*& out_val);
 
-extern const HRESULT autoit_out(IDispatch*& out_val, VARIANT* const retval);
-extern const HRESULT autoit_out(VARIANT*& out_val, VARIANT* const retval);
-extern const HRESULT autoit_out(VARIANT*& out_val, IDispatch** const retval);
-extern const HRESULT autoit_out(VARIANT*& out_val, BSTR* const retval);
+extern HRESULT autoit_out(IDispatch*& out_val, VARIANT* const retval);
+extern HRESULT autoit_out(VARIANT*& out_val, VARIANT* const retval);
+extern HRESULT autoit_out(VARIANT*& out_val, IDispatch** const retval);
+extern HRESULT autoit_out(VARIANT*& out_val, BSTR* const retval);
 
 // ================================
 // T if std::is_enum_v<T>
@@ -299,10 +305,10 @@ template<typename T>
 inline std::enable_if_t<std::is_enum_v<T>, const bool> is_assignable_from(T& out_val, VARIANT const* in_val, bool is_optional);
 
 template<typename T>
-inline std::enable_if_t<std::is_enum_v<T>, const HRESULT> autoit_to(VARIANT const* in_val, T& out_val);
+inline std::enable_if_t<std::is_enum_v<T>, HRESULT> autoit_to(VARIANT const* in_val, T& out_val);
 
 template<typename T>
-inline std::enable_if_t<std::is_enum_v<T>, const HRESULT> autoit_from(T const& in_val, VARIANT*& out_val);
+inline std::enable_if_t<std::is_enum_v<T>, HRESULT> autoit_from(T const& in_val, VARIANT*& out_val);
 
 // ================================
 
@@ -314,13 +320,13 @@ template<typename T>
 const bool is_assignable_from(std::optional<T>& out_val, VARIANT const* in_val, bool is_optional);
 
 template<typename T>
-const HRESULT autoit_to(VARIANT const* in_val, std::optional<T>& out_val);
+HRESULT autoit_to(VARIANT const* in_val, std::optional<T>& out_val);
 
 template<typename T>
-const HRESULT autoit_from(std::optional<T> const& in_val, VARIANT*& out_val);
+HRESULT autoit_from(std::optional<T> const& in_val, VARIANT*& out_val);
 
 template<typename T>
-const HRESULT autoit_out(std::optional<T>& out_val, VARIANT* const retval);
+HRESULT autoit_out(std::optional<T>& out_val, VARIANT* const retval);
 
 // ================================
 
@@ -335,7 +341,7 @@ template<typename _Ty1, typename _Ty2>
 HRESULT autoit_to(VARIANT const* in_val, std::pair<_Ty1, _Ty2>& out_val);
 
 template<typename _Ty1, typename _Ty2>
-const HRESULT autoit_from(std::pair<_Ty1, _Ty2> const& in_val, VARIANT*& out_val);
+HRESULT autoit_from(std::pair<_Ty1, _Ty2> const& in_val, VARIANT*& out_val);
 
 // ================================
 
@@ -347,19 +353,19 @@ template<typename ... Types>
 const bool is_assignable_from(std::tuple <Types...>& out_val, VARIANT const* in_val, bool is_optional);
 
 template<std::size_t I = 0, typename... Types>
-typename std::enable_if<I == sizeof...(Types) - 1, const HRESULT>::type
+typename std::enable_if<I == sizeof...(Types) - 1, HRESULT>::type
 autoit_to(VARIANT const* in_val, std::tuple<Types...>& out_val);
 
 template<std::size_t I = 0, typename... Types>
-typename std::enable_if<I != sizeof...(Types) - 1, const HRESULT>::type
+typename std::enable_if<I != sizeof...(Types) - 1, HRESULT>::type
 autoit_to(VARIANT const* in_val, std::tuple<Types...>& out_val);
 
 template<std::size_t I = 0, typename... Types>
-typename std::enable_if<I == sizeof...(Types), const HRESULT>::type
+typename std::enable_if<I == sizeof...(Types), HRESULT>::type
 autoit_from(std::tuple<Types...> const& in_val, VARIANT*& out_val);
 
 template<std::size_t I = 0, typename... Types>
-typename std::enable_if<I != sizeof...(Types), const HRESULT>::type
+typename std::enable_if<I != sizeof...(Types), HRESULT>::type
 autoit_from(std::tuple<Types...> const& in_val, VARIANT*& out_val);
 
 // ================================
@@ -375,16 +381,16 @@ template<class T, class Allocator = std::allocator<T>>
 const bool is_assignable_from(AUTOIT_PTR<std::vector<T, Allocator>>& out_val, VARIANT const* in_val, bool is_optional);
 
 template<class T, class Allocator = std::allocator<T>>
-const HRESULT autoit_to(VARIANT const* in_val, std::vector<T, Allocator>& out_val);
+HRESULT autoit_to(VARIANT const* in_val, std::vector<T, Allocator>& out_val);
 
 template<class T, class Allocator = std::allocator<T>>
-const HRESULT autoit_to(VARIANT const* in_val, AUTOIT_PTR<std::vector<T, Allocator>>& out_val);
+HRESULT autoit_to(VARIANT const* in_val, AUTOIT_PTR<std::vector<T, Allocator>>& out_val);
 
 template<class T, class Allocator = std::allocator<T>>
-const HRESULT autoit_from(AUTOIT_PTR<std::vector<T, Allocator>> const& in_val, VARIANT*& out_val);
+HRESULT autoit_from(AUTOIT_PTR<std::vector<T, Allocator>> const& in_val, VARIANT*& out_val);
 
 template<class T, class Allocator = std::allocator<T>>
-const HRESULT autoit_from(std::vector<T, Allocator> const& in_val, VARIANT*& out_val);
+HRESULT autoit_from(std::vector<T, Allocator> const& in_val, VARIANT*& out_val);
 
 // ================================
 
@@ -396,10 +402,10 @@ template<typename... Types>
 const bool is_assignable_from(std::variant<Types...>& out_val, VARIANT const* in_val, bool is_optional);
 
 template<typename... Types>
-const HRESULT autoit_to(VARIANT const* in_val, std::variant<Types...>& out_val);
+HRESULT autoit_to(VARIANT const* in_val, std::variant<Types...>& out_val);
 
 template<typename... Types>
-const HRESULT autoit_from(std::variant<Types...> const& in_val, VARIANT*& out_val);
+HRESULT autoit_from(std::variant<Types...> const& in_val, VARIANT*& out_val);
 
 // ================================
 
@@ -433,9 +439,9 @@ namespace autoit {
 }
 
 template<typename T>
-std::enable_if_t<autoit::is_usertype_v<T>&& std::is_assignable_v<T&, T>, const bool> is_assignable_from(T& out_val, VARIANT const* in_val, bool is_optional);
+std::enable_if_t<autoit::is_usertype_v<T>&& std::is_assignable_v<T&, const T&>, const bool> is_assignable_from(T& out_val, VARIANT const* in_val, bool is_optional);
 template<typename T>
-std::enable_if_t<autoit::is_usertype_v<T>&& std::is_assignable_v<T&, T>, const HRESULT> autoit_to(VARIANT const* in_val, T& out_val);
+std::enable_if_t<autoit::is_usertype_v<T>&& std::is_assignable_v<T&, const T&>, HRESULT> autoit_to(VARIANT const* in_val, T& out_val);
 
 // ================================
 
@@ -444,16 +450,16 @@ std::enable_if_t<autoit::is_usertype_v<T>&& std::is_assignable_v<T&, T>, const H
 // ================================
 
 template<typename T, typename V>
-std::enable_if_t<autoit::is_usertype_v<T>, const HRESULT> autoit_from_reference(T& in_val, V& out_val);
+std::enable_if_t<autoit::is_usertype_v<T>, HRESULT> autoit_from_reference(T& in_val, V& out_val);
 
 template<typename T, typename V>
-std::enable_if_t<!autoit::is_usertype_v<T> && autoit::is_instantiation_of_v<std::optional, T>, const HRESULT> autoit_from_reference(T& in_val, V& out_val);
+std::enable_if_t<!autoit::is_usertype_v<T>&& autoit::is_instantiation_of_v<std::optional, T>, HRESULT> autoit_from_reference(T& in_val, V& out_val);
 
 template<typename T, typename V>
-std::enable_if_t<!autoit::is_usertype_v<T> && !autoit::is_instantiation_of_v<std::optional, T>, const HRESULT> autoit_from_reference(T& in_val, V& out_val);
+std::enable_if_t<!autoit::is_usertype_v<T> && !autoit::is_instantiation_of_v<std::optional, T>, HRESULT> autoit_from_reference(T& in_val, V& out_val);
 
 template<typename T, typename V>
-std::enable_if_t<!std::is_reference_v<T>, const HRESULT> autoit_from_reference(const T& in_val, V& out_val);
+std::enable_if_t<!std::is_reference_v<T>, HRESULT> autoit_from_reference(const T& in_val, V& out_val);
 
 // ================================
 
@@ -503,10 +509,10 @@ HRESULT get_variant_number(VARIANT const* in_val, _Tp& out_val) {
 
 extern const bool is_variant_number(VARIANT const* in_val);
 
-extern const HRESULT GetInterfaceName(IUnknown* punk, VARIANT* vres);
+extern HRESULT GetInterfaceName(IUnknown* punk, VARIANT* vres);
 
 extern const bool is_assignable_from(_variant_t& out_val, VARIANT const* in_val, bool is_optional);
-extern const HRESULT autoit_to(VARIANT const* in_val, _variant_t& out_val);
+extern HRESULT autoit_to(VARIANT const* in_val, _variant_t& out_val);
 
 template<typename _Tp>
 inline const bool is_assignable_from_ptr(_Tp& out_val, VARIANT const* in_val, bool is_optional) {
@@ -514,7 +520,7 @@ inline const bool is_assignable_from_ptr(_Tp& out_val, VARIANT const* in_val, bo
 }
 
 template<typename _Tp>
-inline const HRESULT autoit_to_ptr(VARIANT const* in_val, _Tp& out_val) {
+inline HRESULT autoit_to_ptr(VARIANT const* in_val, _Tp& out_val) {
 	ULONGLONG _out_val = 0;
 	HRESULT hr = get_variant_number<ULONGLONG>(in_val, _out_val);
 	if (FAILED(hr) || PARAMETER_MISSING(in_val)) {
@@ -526,7 +532,7 @@ inline const HRESULT autoit_to_ptr(VARIANT const* in_val, _Tp& out_val) {
 }
 
 template<typename _Tp>
-inline const HRESULT autoit_from_ptr(_Tp const& in_val, VARIANT*& out_val) {
+inline HRESULT autoit_from_ptr(_Tp const& in_val, VARIANT*& out_val) {
 	V_VT(out_val) = VT_UI8;
 	V_UI8(out_val) = reinterpret_cast<ULONGLONG>(in_val);
 	return S_OK;
@@ -538,11 +544,11 @@ const bool is_assignable_from(_Tp& out_val, VARIANT const* in_val, bool is_optio
 	return is_assignable_from_ptr(out_val, in_val, is_optional); \
 } \
 \
-const HRESULT autoit_to(VARIANT const* in_val, _Tp& out_val) { \
+HRESULT autoit_to(VARIANT const* in_val, _Tp& out_val) { \
 	return autoit_to_ptr(in_val, out_val); \
 } \
 \
-const HRESULT autoit_from(_Tp const& in_val, VARIANT*& out_val) { \
+HRESULT autoit_from(_Tp const& in_val, VARIANT*& out_val) { \
 	return autoit_from_ptr(in_val, out_val); \
 }
 
@@ -552,13 +558,13 @@ extern const bool is_assignable_from(_Tp& out_val, _Tp const& in_val, bool is_op
 }
 
 template<typename _Tp>
-extern const HRESULT autoit_to(_Tp const& in_val, _Tp& out_val) {
+extern HRESULT autoit_to(_Tp const& in_val, _Tp& out_val) {
 	out_val = in_val;
 	return S_OK;
 }
 
 template<typename _Tp>
-extern const HRESULT autoit_from(_Tp const& in_val, _Tp*& out_val) {
+extern HRESULT autoit_from(_Tp const& in_val, _Tp*& out_val) {
 	*out_val = in_val;
 	return S_OK;
 }
@@ -606,7 +612,7 @@ namespace autoit {
 	// ================================
 
 	template<typename T>
-	std::string __str__(const T& obj, const std::string& type);
+	std::string __str__(const T& obj, std::string_view type);
 
 	// ================================
 
@@ -688,16 +694,16 @@ namespace autoit {
 
 	CV_EXPORTS_W void findFiles(
 		CV_OUT std::vector<std::string>& matches,
-		const std::string& path,
-		const std::string& directory,
+		std::string_view path,
+		std::string_view directory,
 		int flags = FLTA_FILESFOLDERS,
 		bool relative = true
 	);
 
 	CV_EXPORTS_W std::string findFile(
-		const std::string& path,
-		const std::string& directory,
-		const std::string& filter = "",
+		std::string_view path,
+		std::string_view directory,
+		std::string_view filter = "",
 		const std::vector<std::string>& hints = std::vector<std::string>(1, ".")
 	);
 

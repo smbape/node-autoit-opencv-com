@@ -92,7 +92,7 @@ public static class OpenCvComInterop
         }
 
         var parts = openCvWorldDll.Split(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
-        parts[parts.Length - 1] = "opencv_videoio_ffmpeg4140_64.dll";
+        parts[parts.Length - 1] = "opencv_videoio_ffmpeg500_64.dll";
         var openCvFfmpegDll = string.Join(Path.DirectorySeparatorChar.ToString(), parts);
         hOpenCvFfmpeg = LoadLibrary(openCvFfmpegDll);
         if (hOpenCvFfmpeg == IntPtr.Zero)
@@ -459,8 +459,8 @@ public static class OpenCvComInterop
             "autoit-opencv-com",
             "autoit-opencv-com\\build_x64\\bin\\" + buildType,
             "opencv\\build\\x64\\vc*\\bin",
-            "opencv-4.14.0-*\\build\\x64\\vc*\\bin",
-            "opencv-4.14.0-*\\opencv\\build\\x64\\vc*\\bin"
+            "opencv-5.0.0-*\\build\\x64\\vc*\\bin",
+            "opencv-5.0.0-*\\opencv\\build\\x64\\vc*\\bin"
         };
 
         return FindFile(path + postSuffix + ".dll", rootPath, filter, hints.ToArray());

@@ -242,12 +242,12 @@ function _OpenCV_FindDLL(
         "autoit-opencv-com"
         "autoit-opencv-com\build_x64\bin\$BuildType"
         "opencv\build\x64\vc16\bin"
-        "opencv-4.14.0-*\build\x64\vc16\bin"
-        "opencv-4.14.0-*\opencv\build\x64\vc16\bin"
+        "opencv-5.0.0-*\build\x64\vc16\bin"
+        "opencv-5.0.0-*\opencv\build\x64\vc16\bin"
     )
 
     _OpenCV_FindFile -Path "$Path$PostSuffix.dll" -Filter $Filter -Directory $Directory -SearchPaths $aSearchPaths
 }
 Export-ModuleMember -Function _OpenCV_FindDLL
 
-Add-Type -Path ( _OpenCV_FindDLL -Path "dotnet\interop.opencv-4*" -BuildType $BuildType )
+Add-Type -Path ( _OpenCV_FindDLL -Path "dotnet\interop.opencv-5*" -BuildType $BuildType )

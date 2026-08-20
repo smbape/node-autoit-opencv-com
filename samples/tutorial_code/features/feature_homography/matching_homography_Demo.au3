@@ -11,10 +11,10 @@
 #include "..\..\..\..\autoit-opencv-com\udf\opencv_udf_utils.au3"
 
 ;~ Sources:
-;~     https://docs.opencv.org/4.14.0/d7/dff/tutorial_feature_homography.html
-;~     https://github.com/opencv/opencv/blob/4.14.0/samples/cpp/tutorial_code/features2D/feature_homography/SURF_FLANN_matching_homography_Demo.cpp
+;~     https://docs.opencv.org/5.0.0/d7/dff/tutorial_feature_homography.html
+;~     https://github.com/opencv/opencv/blob/5.0.0/samples/cpp/tutorial_code/features2D/feature_homography/SURF_FLANN_matching_homography_Demo.cpp
 
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world4140*"), _OpenCV_FindDLL("autoit_opencv_com4140*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world500*"), _OpenCV_FindDLL("autoit_opencv_com500*"))
 _GDIPlus_Startup()
 OnAutoItExitRegister("_OnAutoItExit")
 

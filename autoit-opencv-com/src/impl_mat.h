@@ -50,56 +50,11 @@ public:
 	}
 };
 
-namespace cv {
-	template<int _depth>
-	struct TypeDepth;
-
-	template<>
-	struct TypeDepth<CV_8U> {
-		typedef uchar value_type;
-	};
-
-	template<>
-	struct TypeDepth<CV_8S> {
-		typedef schar value_type;
-	};
-
-	template<>
-	struct TypeDepth<CV_16U> {
-		typedef ushort value_type;
-	};
-
-	template<>
-	struct TypeDepth<CV_16S> {
-		typedef short value_type;
-	};
-
-	template<>
-	struct TypeDepth<CV_32S> {
-		typedef int value_type;
-	};
-
-	template<>
-	struct TypeDepth<CV_32F> {
-		typedef float value_type;
-	};
-
-	template<>
-	struct TypeDepth<CV_64F> {
-		typedef double value_type;
-	};
-
-	template<>
-	struct TypeDepth<CV_16F> {
-		typedef float16_t value_type;
-	};
-}
-
 extern const bool is_variant_scalar(VARIANT const* in_val);
 extern const bool is_array_from(VARIANT const* in_val, bool is_optional);
 extern const bool is_arrays_from(VARIANT const* in_val, bool is_optional);
 
-extern const HRESULT autoit_from(cv::MatExpr const& in_val, ICv_Mat_Object**& out_val);
+extern HRESULT autoit_from(cv::MatExpr const& in_val, ICv_Mat_Object**& out_val);
 
 namespace cv {
 	CV_EXPORTS_W Mat createMatFromBitmap(void* ptr, bool copy = true);
@@ -128,7 +83,7 @@ const bool is_assignable_from(AUTOIT_PTR<cv::Point3_<_Tp>>& out_val, VARIANT con
 }
 
 template<typename _Tp>
-inline const HRESULT autoit_to(VARIANT const* in_val, cv::Point3_<_Tp>& out_val) {
+inline HRESULT autoit_to(VARIANT const* in_val, cv::Point3_<_Tp>& out_val) {
 	cv::Vec<_Tp, 3> tmp;
 	HRESULT hr = autoit_to(in_val, tmp);
 	if (SUCCEEDED(hr)) {
@@ -138,12 +93,12 @@ inline const HRESULT autoit_to(VARIANT const* in_val, cv::Point3_<_Tp>& out_val)
 }
 
 template<typename _Tp>
-inline const HRESULT autoit_to(VARIANT const* in_val, AUTOIT_PTR<cv::Point3_<_Tp>>& out_val) {
+inline HRESULT autoit_to(VARIANT const* in_val, AUTOIT_PTR<cv::Point3_<_Tp>>& out_val) {
 	out_val = std::make_shared<cv::Point3_<_Tp>>();
 	return autoit_to(in_val, *out_val.get());
 }
 
 template<typename _Tp>
-inline const HRESULT autoit_from(cv::Point3_<_Tp> const& in_val, VARIANT*& out_val) {
+inline HRESULT autoit_from(cv::Point3_<_Tp> const& in_val, VARIANT*& out_val) {
 	return autoit_from(cv::Vec<_Tp, 3>(in_val), out_val);
 }

@@ -40,8 +40,8 @@ namespace {
 	 * @see             https://stackoverflow.com/questions/6693010/how-do-i-use-multibytetowidechar/59617138#59617138
 	 *                  https://learn.microsoft.com/en-us/windows/win32/api/stringapiset/nf-stringapiset-multibytetowidechar
 	 */
-	inline int mbs_to_wcs(UINT codePage, const std::string& str, std::wstring& wstr) {
-		return mbs_to_wcs(codePage, str.c_str(), str.length(), wstr);
+	inline int mbs_to_wcs(UINT codePage, std::string_view str, std::wstring& wstr) {
+		return mbs_to_wcs(codePage, str.data(), str.length(), wstr);
 	}
 
 	/**
@@ -74,8 +74,8 @@ namespace {
 	 * @return          The number of bytes written to the buffer pointed to by str.
 	 * @see             https://learn.microsoft.com/en-us/windows/win32/api/stringapiset/nf-stringapiset-widechartomultibyte
 	 */
-	inline int wcs_to_mbs(UINT codePage, const std::wstring& wstr, std::string& str) {
-		return wcs_to_mbs(codePage, wstr.c_str(), wstr.length(), str);
+	inline int wcs_to_mbs(UINT codePage, std::wstring_view wstr, std::string& str) {
+		return wcs_to_mbs(codePage, wstr.data(), wstr.length(), str);
 	}
 
 	/**
@@ -100,13 +100,13 @@ namespace {
 	 * @see             https://stackoverflow.com/questions/6693010/how-do-i-use-multibytetowidechar/59617138#59617138
 	 *                  https://learn.microsoft.com/en-us/windows/win32/api/stringapiset/nf-stringapiset-multibytetowidechar
 	 */
-	inline int utf8_to_wcs(const std::string& str, std::wstring& wstr) {
+	inline int utf8_to_wcs(std::string_view str, std::wstring& wstr) {
 		return mbs_to_wcs(CP_UTF8, str, wstr);
 	}
 
 	/**
 	 * Maps a UTF-16 (wide character) string to a new character string. The new character string is not necessarily from a multibyte character set.
-	 * 
+	 *
 	 * @param  c_wstr      Pointer to the Unicode string to convert.
 	 * @param  cchWideChar Size, in characters, of the string indicated by c_wstr parameter.
 	 * @param  str         Pointer to a buffer that receives the converted string.
@@ -119,13 +119,13 @@ namespace {
 
 	/**
 	 * Maps a UTF-16 (wide character) string to a new character string. The new character string is not necessarily from a multibyte character set.
-	 * 
+	 *
 	 * @param  wstr     Pointer to the Unicode string to convert.
 	 * @param  str      Pointer to a buffer that receives the converted string.
 	 * @return          The number of bytes written to the buffer pointed to by str.
 	 * @see             https://learn.microsoft.com/en-us/windows/win32/api/stringapiset/nf-stringapiset-widechartomultibyte
 	 */
-	inline int wcs_to_utf8(const std::wstring& wstr, std::string& str) {
+	inline int wcs_to_utf8(std::wstring_view wstr, std::string& str) {
 		return wcs_to_mbs(CP_UTF8, wstr, str);
 	}
 }
@@ -360,12 +360,12 @@ const bool is_assignable_from(bool& out_val, VARIANT const* in_val, bool is_opti
 	return V_VT(in_val) == VT_BOOL;
 }
 
-const HRESULT autoit_to(VARIANT_BOOL const& in_val, bool& out_val) {
+HRESULT autoit_to(VARIANT_BOOL const& in_val, bool& out_val) {
 	out_val = in_val == VARIANT_TRUE;
 	return S_OK;
 }
 
-const HRESULT autoit_to(VARIANT const* in_val, bool& out_val) {
+HRESULT autoit_to(VARIANT const* in_val, bool& out_val) {
 	if (PARAMETER_MISSING(in_val)) {
 		return S_OK;
 	}
@@ -378,12 +378,12 @@ const HRESULT autoit_to(VARIANT const* in_val, bool& out_val) {
 	return S_OK;
 }
 
-const HRESULT autoit_from(bool const& in_val, VARIANT_BOOL*& out_val) {
+HRESULT autoit_from(bool const& in_val, VARIANT_BOOL*& out_val) {
 	*out_val = in_val ? VARIANT_TRUE : VARIANT_FALSE;
 	return S_OK;
 }
 
-const HRESULT autoit_from(bool const& in_val, VARIANT*& out_val) {
+HRESULT autoit_from(bool const& in_val, VARIANT*& out_val) {
 	VariantClear(out_val);
 	V_VT(out_val) = VT_BOOL;
 	V_BOOL(out_val) = in_val ? VARIANT_TRUE : VARIANT_FALSE;
@@ -411,7 +411,7 @@ const bool is_assignable_from(std::string& out_val, VARIANT const* in_val, bool 
 #endif
 }
 
-const HRESULT autoit_to(BSTR const& in_val, std::string& out_val) {
+HRESULT autoit_to(BSTR const& in_val, std::string& out_val) {
 	if (in_val) {
 		wcs_to_utf8(std::wstring(in_val), out_val);
 		return S_OK;
@@ -419,7 +419,7 @@ const HRESULT autoit_to(BSTR const& in_val, std::string& out_val) {
 	return E_INVALIDARG;
 }
 
-const HRESULT autoit_to(VARIANT const* in_val, std::string& out_val) {
+HRESULT autoit_to(VARIANT const* in_val, std::string& out_val) {
 #ifdef AUTOIT_VARIANT_TO_STRING
 	return AUTOIT_VARIANT_TO_STRING(in_val, out_val);
 #endif
@@ -442,19 +442,43 @@ const HRESULT autoit_to(VARIANT const* in_val, std::string& out_val) {
 	return autoit_to(V_BSTR(in_val), out_val);
 }
 
-const HRESULT autoit_from(std::string const& in_val, BSTR& out_val) {
+HRESULT autoit_from(char const* in_val, BSTR& out_val) {
+	return autoit_from(std::string_view(in_val), out_val);
+}
+
+HRESULT autoit_from(char const* in_val, BSTR*& out_val) {
+	return autoit_from(std::string_view(in_val), out_val);
+}
+
+HRESULT autoit_from(char const* in_val, VARIANT*& out_val) {
+	return autoit_from(std::string_view(in_val), out_val);
+}
+
+HRESULT autoit_from(std::string const& in_val, BSTR& out_val) {
+	return autoit_from(std::string_view(in_val), out_val);
+}
+
+HRESULT autoit_from(std::string const& in_val, BSTR*& out_val) {
+	return autoit_from(std::string_view(in_val), out_val);
+}
+
+HRESULT autoit_from(std::string const& in_val, VARIANT*& out_val) {
+	return autoit_from(std::string_view(in_val), out_val);
+}
+
+HRESULT autoit_from(std::string_view in_val, BSTR& out_val) {
 	auto* pout_val = &out_val;
 	return autoit_from(in_val, pout_val);
 }
 
-const HRESULT autoit_from(std::string const& in_val, BSTR*& out_val) {
+HRESULT autoit_from(std::string_view in_val, BSTR*& out_val) {
 	// https://stackoverflow.com/questions/6284524/bstr-to-stdstring-stdwstring-and-vice-versa/6284978#6284978
 	std::wstring ws; utf8_to_wcs(in_val, ws);
 	*out_val = SysAllocStringLen(ws.data(), ws.size());
 	return S_OK;
 }
 
-const HRESULT autoit_from(std::string const& in_val, VARIANT*& out_val) {
+HRESULT autoit_from(std::string_view in_val, VARIANT*& out_val) {
 	V_VT(out_val) = VT_BSTR;
 	BSTR bstrVal;
 	BSTR* pbstrVal = &bstrVal;
@@ -463,7 +487,7 @@ const HRESULT autoit_from(std::string const& in_val, VARIANT*& out_val) {
 	return hr;
 }
 
-const HRESULT autoit_from(BSTR const& in_val, VARIANT*& out_val) {
+HRESULT autoit_from(BSTR const& in_val, VARIANT*& out_val) {
 	VARIANT variant = { VT_BSTR };
 	V_BSTR(&variant) = in_val;
 	return VariantCopy(out_val, &variant);
@@ -478,7 +502,7 @@ const bool is_assignable_from(char*& out_val, VARIANT const* in_val, bool is_opt
 	return is_assignable_from(str, in_val, is_optional);
 }
 
-const HRESULT autoit_to(VARIANT const* in_val, char*& out_val) {
+HRESULT autoit_to(VARIANT const* in_val, char*& out_val) {
 	std::string str;
 	HRESULT hr = autoit_to(in_val, str);
 	if (SUCCEEDED(hr)) {
@@ -492,22 +516,22 @@ PTR_BRIDGE_IMPL(void*)
 PTR_BRIDGE_IMPL(unsigned char*)
 PTR_BRIDGE_IMPL(HWND)
 
-const HRESULT autoit_from(VARIANT const& in_val, VARIANT*& out_val) {
+HRESULT autoit_from(VARIANT const& in_val, VARIANT*& out_val) {
 	return VariantCopy(out_val, &in_val);
 }
 
-const HRESULT autoit_out(IDispatch*& out_val, VARIANT* const retval) {
+HRESULT autoit_out(IDispatch*& out_val, VARIANT* const retval) {
 	V_VT(retval) = VT_DISPATCH;
 	V_DISPATCH(retval) = out_val;
 	out_val->AddRef();
 	return S_OK;
 }
 
-const HRESULT autoit_out(VARIANT*& out_val, VARIANT* const retval) {
+HRESULT autoit_out(VARIANT*& out_val, VARIANT* const retval) {
 	return VariantCopy(retval, out_val);
 }
 
-const HRESULT autoit_out(VARIANT*& out_val, IDispatch** const retval) {
+HRESULT autoit_out(VARIANT*& out_val, IDispatch** const retval) {
 	if (V_VT(out_val) != VT_DISPATCH) {
 		return E_INVALIDARG;
 	}
@@ -521,7 +545,7 @@ const HRESULT autoit_out(VARIANT*& out_val, IDispatch** const retval) {
 	return S_OK;
 }
 
-const HRESULT autoit_out(VARIANT*& out_val, BSTR* const retval) {
+HRESULT autoit_out(VARIANT*& out_val, BSTR* const retval) {
 	if (V_VT(out_val) != VT_BSTR) {
 		return E_INVALIDARG;
 	}
@@ -550,7 +574,7 @@ const bool is_variant_number(VARIANT const* in_val) {
 	}
 }
 
-const HRESULT GetInterfaceName(IUnknown* punk, VARIANT* vres) {
+HRESULT GetInterfaceName(IUnknown* punk, VARIANT* vres) {
 	IDispatch* pDisp;
 	ITypeInfo* pTI;
 	BSTR bstr = NULL;
@@ -576,44 +600,44 @@ const bool is_assignable_from(_variant_t& out_val, VARIANT const* in_val, bool i
 	return true;
 }
 
-const HRESULT autoit_to(VARIANT const* in_val, _variant_t& out_val) {
+HRESULT autoit_to(VARIANT const* in_val, _variant_t& out_val) {
 	out_val = *in_val;
 	return S_OK;
 }
 
 namespace {
-	inline std::vector<std::string> split(const std::string& s, const std::vector<std::string>& delimiters) {
+	inline std::vector<std::string> split(std::string_view s, const std::vector<std::string>& delimiters) {
 		size_t pos_start = 0;
 		size_t pos_end, pos;
-		std::string token;
+		std::string_view token;
 		std::vector<std::string> res;
 
 		std::string delimiter;
 		while (true) {
-			pos_end = std::string::npos;
+			pos_end = std::string_view::npos;
 
 			for (const auto& delim : delimiters) {
 				pos = s.find(delim, pos_start);
-				if (pos != std::string::npos && (pos_end == std::string::npos || pos < pos_end)) {
+				if (pos != std::string_view::npos && (pos_end == std::string_view::npos || pos < pos_end)) {
 					pos_end = pos;
 					delimiter = delim;
 				}
 			}
 
-			if (pos_end == std::string::npos) {
+			if (pos_end == std::string_view::npos) {
 				break;
 			}
 
 			token = s.substr(pos_start, pos_end - pos_start);
 			pos_start = pos_end + delimiter.length();;
-			res.push_back(token);
+			res.push_back(std::string(token));
 		}
 
-		res.push_back(s.substr(pos_start));
+		res.push_back(std::string(s.substr(pos_start)));
 		return res;
 	}
 
-	bool isMatch(const std::string& s, const std::string& p) {
+	bool isMatch(std::string_view s, std::string_view p) {
 		const auto slen = s.length();
 		const auto plen = p.length();
 		int scur = 0;
@@ -649,7 +673,7 @@ namespace {
 		return pcur == plen;
 	}
 
-	std::string normalize_path(const std::string& path) {
+	std::string normalize_path(std::string_view path) {
 		auto parts = split(path, { "/", "\\" });
 
 		int end = 0;
@@ -769,7 +793,7 @@ namespace {
 
 	void _findFiles(
 		std::vector<std::string>& matches,
-		const std::string& path,
+		std::string_view path,
 		const fs::path& root_path,
 		int flags,
 		bool relative
@@ -781,8 +805,8 @@ namespace {
 
 void autoit::findFiles(
 	std::vector<std::string>& matches,
-	const std::string& path,
-	const std::string& directory,
+	std::string_view path,
+	std::string_view directory,
 	int flags,
 	bool relative
 ) {
@@ -790,9 +814,9 @@ void autoit::findFiles(
 }
 
 std::string autoit::findFile(
-	const std::string& path,
-	const std::string& directory,
-	const std::string& filter,
+	std::string_view path,
+	std::string_view directory,
+	std::string_view filter,
 	const std::vector<std::string>& hints
 ) {
 	std::string found;

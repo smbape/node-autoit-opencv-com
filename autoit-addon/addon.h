@@ -39,16 +39,16 @@ ADDON_API(void) AKAZE_homograpy_check(
 ADDON_API(void) yolo_postprocess(
 	const int spatial_width,
 	const int spatial_height,
-	const size_t num_classes,
+	const size_t num_labels,
 	const int img_width,
 	const int img_height,
 	const float scale,
 	const std::vector<cv::Mat>& outs,
-	const float confidence_threshold,
+	const float confThreshold,
 	const float score_threshold,
 	std::vector<int>& class_ids,
 	std::vector<float>& scores,
-	std::vector<cv::Rect2d>& bboxes
+	std::vector<cv::Rect2d>& boxes
 );
 
 ADDON_API(void) object_detection_postprocess(
@@ -56,11 +56,13 @@ ADDON_API(void) object_detection_postprocess(
 	const int inpWidth,
 	const int inpHeight,
 	const float imgScale,
-	const size_t num_classes,
+	const size_t num_labels,
 	const int background_label_id,
-	const float confidence_threshold,
+	const float confThreshold,
 	const std::vector<cv::Mat>& outs,
+	const std::vector<std::string>& outBlobNames,
 	std::vector<int>& class_ids,
 	std::vector<float>& confidences,
-	std::vector<cv::Rect2d>& bboxes
+	std::vector<cv::Rect2d>& boxes,
+	const char* postprocessing
 );

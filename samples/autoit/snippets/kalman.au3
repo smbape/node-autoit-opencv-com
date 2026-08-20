@@ -5,17 +5,16 @@
 #AutoIt3Wrapper_AU3Check_Stop_OnWarning=y
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
 
-#include "..\..\autoit-opencv-com\udf\opencv_udf_utils.au3"
+#include "..\..\..\autoit-opencv-com\udf\opencv_udf_utils.au3"
 #include <GUIConstants.au3>
 #include <GUIConstantsEx.au3>
 #include <WinAPIvkeysConstants.au3>
 #include <WindowsConstants.au3>
 
 ;~ Sources:
-;~     https://docs.opencv.org/4.14.0/de/d70/samples_2cpp_2kalman_8cpp-example.html
-;~     https://github.com/opencv/opencv/blob/4.14.0/samples/cpp/kalman.cpp
+;~     https://github.com/opencv/opencv/blob/5.0.0/samples/cpp/snippets/kalman.cpp
 
-_OpenCV_Open(_OpenCV_FindDLL("opencv_world4140*"), _OpenCV_FindDLL("autoit_opencv_com4140*"))
+_OpenCV_Open(_OpenCV_FindDLL("opencv_world500*"), _OpenCV_FindDLL("autoit_opencv_com500*"))
 OnAutoItExitRegister("OnAutoItExit")
 
 Global $g_hSubclassProc = DllCallbackRegister("_SubclassProc", "lresult", "hwnd;uint;wparam;lparam;uint_ptr;dword_ptr")
